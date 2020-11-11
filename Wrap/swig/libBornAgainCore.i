@@ -72,7 +72,7 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/ISimulation.h"
-#include "Core/Simulation/Simulation2D.h"
+#include "Core/Simulation/ISimulation2D.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Fit/Kernel/FitOptions.h"
@@ -114,7 +114,7 @@
 %include "Core/Scan/QSpecScan.h"
 
 %include "Core/Simulation/ISimulation.h"
-%include "Core/Simulation/Simulation2D.h"
+%include "Core/Simulation/ISimulation2D.h"
 %include "Core/Simulation/GISASSimulation.h"
 %include "Core/Simulation/DepthProbeSimulation.h"
 %include "Core/Simulation/SpecularSimulation.h"

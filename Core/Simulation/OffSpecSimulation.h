@@ -16,14 +16,14 @@
 #define BORNAGAIN_CORE_SIMULATION_OFFSPECSIMULATION_H
 
 #include "Base/Pixel/SimulationElement.h"
-#include "Core/Simulation/Simulation2D.h"
+#include "Core/Simulation/ISimulation2D.h"
 
 class Histogram2D;
 
 //! Main class to run an off-specular simulation.
 //! @ingroup simulation
 
-class OffSpecSimulation : public Simulation2D
+class OffSpecSimulation : public ISimulation2D
 {
 public:
     OffSpecSimulation();

@@ -46,7 +46,7 @@ class IDetector;
 class GISASInstrumentItem;
 class Instrument2DItem;
 class InstrumentItem;
-class Simulation2D;
+class ISimulation2D;
 class OffSpecSimulation;
 class IAxis;
 
@@ -79,7 +79,7 @@ void setOffSpecBeamItem(BeamItem* beam_item, const OffSpecSimulation& simulation
 
 void setSpecularBeamItem(SpecularBeamItem* beam_item, const SpecularSimulation& simulation);
 
-void setDetector(Instrument2DItem* instrument_item, const Simulation2D& simulation);
+void setDetector(Instrument2DItem* instrument_item, const ISimulation2D& simulation);
 
 void setDetectorGeometry(Instrument2DItem* instrument_item, const IDetector& detector);
 

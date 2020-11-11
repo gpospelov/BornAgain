@@ -1017,6 +1017,89 @@ Convert user data to SimulationResult object for later drawing in various axes u
 ";
 
 
+// File: classISimulation2D.xml
+%feature("docstring") ISimulation2D "
+
+Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+
+C++ includes: ISimulation2D.h
+";
+
+%feature("docstring")  ISimulation2D::ISimulation2D "ISimulation2D::ISimulation2D()
+";
+
+%feature("docstring")  ISimulation2D::~ISimulation2D "ISimulation2D::~ISimulation2D() override
+";
+
+%feature("docstring")  ISimulation2D::clone "ISimulation2D* ISimulation2D::clone() const override=0
+";
+
+%feature("docstring")  ISimulation2D::prepareSimulation "void ISimulation2D::prepareSimulation() override
+
+Put into a clean state for running a simulation. 
+";
+
+%feature("docstring")  ISimulation2D::setDetectorParameters "void ISimulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+
+Sets spherical detector parameters using angle ranges
+
+Parameters:
+-----------
+
+n_phi: 
+number of phi-axis bins
+
+phi_min: 
+low edge of first phi-bin
+
+phi_max: 
+upper edge of last phi-bin
+
+n_alpha: 
+number of alpha-axis bins
+
+alpha_min: 
+low edge of first alpha-bin
+
+alpha_max: 
+upper edge of last alpha-bin 
+";
+
+%feature("docstring")  ISimulation2D::setDetector "void ISimulation2D::setDetector(const IDetector2D &detector)
+
+Sets the detector (axes can be overwritten later) 
+";
+
+%feature("docstring")  ISimulation2D::removeMasks "void ISimulation2D::removeMasks()
+
+removes all masks from the detector 
+";
+
+%feature("docstring")  ISimulation2D::addMask "void ISimulation2D::addMask(const IShape2D &shape, bool mask_value=true)
+
+Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
+
+Parameters:
+-----------
+
+shape: 
+The shape of mask (Rectangle, Polygon, Line, Ellipse)
+
+mask_value: 
+The value of mask 
+";
+
+%feature("docstring")  ISimulation2D::maskAll "void ISimulation2D::maskAll()
+
+Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
+";
+
+%feature("docstring")  ISimulation2D::setRegionOfInterest "void ISimulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+Sets rectangular region of interest with lower left and upper right corners defined. 
+";
+
+
 // File: classISpecularScan.xml
 %feature("docstring") ISpecularScan "
 
@@ -2080,89 +2163,6 @@ Returns a flat array of user weights cut to the ROI area.
 ";
 
 
-// File: classSimulation2D.xml
-%feature("docstring") Simulation2D "
-
-Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
-
-C++ includes: Simulation2D.h
-";
-
-%feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D()
-";
-
-%feature("docstring")  Simulation2D::~Simulation2D "Simulation2D::~Simulation2D() override
-";
-
-%feature("docstring")  Simulation2D::clone "Simulation2D* Simulation2D::clone() const override=0
-";
-
-%feature("docstring")  Simulation2D::prepareSimulation "void Simulation2D::prepareSimulation() override
-
-Put into a clean state for running a simulation. 
-";
-
-%feature("docstring")  Simulation2D::setDetectorParameters "void Simulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
-
-Sets spherical detector parameters using angle ranges
-
-Parameters:
------------
-
-n_phi: 
-number of phi-axis bins
-
-phi_min: 
-low edge of first phi-bin
-
-phi_max: 
-upper edge of last phi-bin
-
-n_alpha: 
-number of alpha-axis bins
-
-alpha_min: 
-low edge of first alpha-bin
-
-alpha_max: 
-upper edge of last alpha-bin 
-";
-
-%feature("docstring")  Simulation2D::setDetector "void Simulation2D::setDetector(const IDetector2D &detector)
-
-Sets the detector (axes can be overwritten later) 
-";
-
-%feature("docstring")  Simulation2D::removeMasks "void Simulation2D::removeMasks()
-
-removes all masks from the detector 
-";
-
-%feature("docstring")  Simulation2D::addMask "void Simulation2D::addMask(const IShape2D &shape, bool mask_value=true)
-
-Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
-
-Parameters:
------------
-
-shape: 
-The shape of mask (Rectangle, Polygon, Line, Ellipse)
-
-mask_value: 
-The value of mask 
-";
-
-%feature("docstring")  Simulation2D::maskAll "void Simulation2D::maskAll()
-
-Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
-";
-
-%feature("docstring")  Simulation2D::setRegionOfInterest "void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
-
-Sets rectangular region of interest with lower left and upper right corners defined. 
-";
-
-
 // File: classSimulationFactory.xml
 %feature("docstring") SimulationFactory "
 
@@ -3088,6 +3088,12 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: ISimulation_8h.xml
 
 
+// File: ISimulation2D_8cpp.xml
+
+
+// File: ISimulation2D_8h.xml
+
+
 // File: MPISimulation_8cpp.xml
 
 
@@ -3098,12 +3104,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: OffSpecSimulation_8h.xml
-
-
-// File: Simulation2D_8cpp.xml
-
-
-// File: Simulation2D_8h.xml
 
 
 // File: SimulationFactory_8cpp.xml

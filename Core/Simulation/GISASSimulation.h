@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_SIMULATION_GISASSIMULATION_H
 
 #include "Base/Pixel/SimulationElement.h"
-#include "Core/Simulation/Simulation2D.h"
+#include "Core/Simulation/ISimulation2D.h"
 
 class MultiLayer;
 class ISampleBuilder;
@@ -24,7 +24,7 @@ class ISampleBuilder;
 //! Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 //! @ingroup simulation
 
-class GISASSimulation : public Simulation2D
+class GISASSimulation : public ISimulation2D
 {
 public:
     GISASSimulation();

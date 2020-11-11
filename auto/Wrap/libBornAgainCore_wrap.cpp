@@ -3131,23 +3131,23 @@ namespace Swig {
 #define SWIGTYPE_p_ISample swig_types[31]
 #define SWIGTYPE_p_IShape2D swig_types[32]
 #define SWIGTYPE_p_ISimulation swig_types[33]
-#define SWIGTYPE_p_ISpecularScan swig_types[34]
-#define SWIGTYPE_p_Instrument swig_types[35]
-#define SWIGTYPE_p_IterationInfo swig_types[36]
-#define SWIGTYPE_p_MultiLayer swig_types[37]
-#define SWIGTYPE_p_OffSpecSimulation swig_types[38]
-#define SWIGTYPE_p_OutputDataT_double_t swig_types[39]
-#define SWIGTYPE_p_ParameterDistribution swig_types[40]
-#define SWIGTYPE_p_ParameterPool swig_types[41]
-#define SWIGTYPE_p_PoissonNoiseBackground swig_types[42]
-#define SWIGTYPE_p_ProgressHandler__Callback_t swig_types[43]
-#define SWIGTYPE_p_PyBuilderCallback swig_types[44]
-#define SWIGTYPE_p_PyObserverCallback swig_types[45]
-#define SWIGTYPE_p_QSpecScan swig_types[46]
-#define SWIGTYPE_p_RangedDistribution swig_types[47]
-#define SWIGTYPE_p_RealLimits swig_types[48]
-#define SWIGTYPE_p_ScanResolution swig_types[49]
-#define SWIGTYPE_p_Simulation2D swig_types[50]
+#define SWIGTYPE_p_ISimulation2D swig_types[34]
+#define SWIGTYPE_p_ISpecularScan swig_types[35]
+#define SWIGTYPE_p_Instrument swig_types[36]
+#define SWIGTYPE_p_IterationInfo swig_types[37]
+#define SWIGTYPE_p_MultiLayer swig_types[38]
+#define SWIGTYPE_p_OffSpecSimulation swig_types[39]
+#define SWIGTYPE_p_OutputDataT_double_t swig_types[40]
+#define SWIGTYPE_p_ParameterDistribution swig_types[41]
+#define SWIGTYPE_p_ParameterPool swig_types[42]
+#define SWIGTYPE_p_PoissonNoiseBackground swig_types[43]
+#define SWIGTYPE_p_ProgressHandler__Callback_t swig_types[44]
+#define SWIGTYPE_p_PyBuilderCallback swig_types[45]
+#define SWIGTYPE_p_PyObserverCallback swig_types[46]
+#define SWIGTYPE_p_QSpecScan swig_types[47]
+#define SWIGTYPE_p_RangedDistribution swig_types[48]
+#define SWIGTYPE_p_RealLimits swig_types[49]
+#define SWIGTYPE_p_ScanResolution swig_types[50]
 #define SWIGTYPE_p_SimulationFactory swig_types[51]
 #define SWIGTYPE_p_SimulationOptions swig_types[52]
 #define SWIGTYPE_p_SimulationResult swig_types[53]
@@ -6716,7 +6716,7 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/ISimulation.h"
-#include "Core/Simulation/Simulation2D.h"
+#include "Core/Simulation/ISimulation2D.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Fit/Kernel/FitOptions.h"
@@ -40455,20 +40455,20 @@ SWIGINTERN PyObject *ISimulation_swigregister(PyObject *SWIGUNUSEDPARM(self), Py
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_delete_Simulation2D(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_ISimulation2D(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Simulation2D *arg1 = (Simulation2D *) 0 ;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation2D, SWIG_POINTER_DISOWN |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Simulation2D" "', argument " "1"" of type '" "Simulation2D *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ISimulation2D" "', argument " "1"" of type '" "ISimulation2D *""'"); 
   }
-  arg1 = reinterpret_cast< Simulation2D * >(argp1);
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -40477,43 +40477,43 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation2D_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ISimulation2D_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Simulation2D *arg1 = (Simulation2D *) 0 ;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  Simulation2D *result = 0 ;
+  ISimulation2D *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation2D, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation2D_clone" "', argument " "1"" of type '" "Simulation2D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_clone" "', argument " "1"" of type '" "ISimulation2D const *""'"); 
   }
-  arg1 = reinterpret_cast< Simulation2D * >(argp1);
-  result = (Simulation2D *)((Simulation2D const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Simulation2D, 0 |  0 );
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
+  result = (ISimulation2D *)((ISimulation2D const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ISimulation2D, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation2D_prepareSimulation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ISimulation2D_prepareSimulation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Simulation2D *arg1 = (Simulation2D *) 0 ;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation2D, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation2D_prepareSimulation" "', argument " "1"" of type '" "Simulation2D *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_prepareSimulation" "', argument " "1"" of type '" "ISimulation2D *""'"); 
   }
-  arg1 = reinterpret_cast< Simulation2D * >(argp1);
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
   (arg1)->prepareSimulation();
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -40522,9 +40522,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation2D_setDetectorParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ISimulation2D_setDetectorParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Simulation2D *arg1 = (Simulation2D *) 0 ;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
   size_t arg2 ;
   double arg3 ;
   double arg4 ;
@@ -40547,40 +40547,40 @@ SWIGINTERN PyObject *_wrap_Simulation2D_setDetectorParameters(PyObject *SWIGUNUS
   int ecode7 = 0 ;
   PyObject *swig_obj[7] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "Simulation2D_setDetectorParameters", 7, 7, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation2D, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "ISimulation2D_setDetectorParameters", 7, 7, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation2D_setDetectorParameters" "', argument " "1"" of type '" "Simulation2D *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_setDetectorParameters" "', argument " "1"" of type '" "ISimulation2D *""'"); 
   }
-  arg1 = reinterpret_cast< Simulation2D * >(argp1);
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Simulation2D_setDetectorParameters" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ISimulation2D_setDetectorParameters" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
   ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Simulation2D_setDetectorParameters" "', argument " "3"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ISimulation2D_setDetectorParameters" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
   ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
   if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Simulation2D_setDetectorParameters" "', argument " "4"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "ISimulation2D_setDetectorParameters" "', argument " "4"" of type '" "double""'");
   } 
   arg4 = static_cast< double >(val4);
   ecode5 = SWIG_AsVal_size_t(swig_obj[4], &val5);
   if (!SWIG_IsOK(ecode5)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "Simulation2D_setDetectorParameters" "', argument " "5"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "ISimulation2D_setDetectorParameters" "', argument " "5"" of type '" "size_t""'");
   } 
   arg5 = static_cast< size_t >(val5);
   ecode6 = SWIG_AsVal_double(swig_obj[5], &val6);
   if (!SWIG_IsOK(ecode6)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "Simulation2D_setDetectorParameters" "', argument " "6"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "ISimulation2D_setDetectorParameters" "', argument " "6"" of type '" "double""'");
   } 
   arg6 = static_cast< double >(val6);
   ecode7 = SWIG_AsVal_double(swig_obj[6], &val7);
   if (!SWIG_IsOK(ecode7)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode7), "in method '" "Simulation2D_setDetectorParameters" "', argument " "7"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode7), "in method '" "ISimulation2D_setDetectorParameters" "', argument " "7"" of type '" "double""'");
   } 
   arg7 = static_cast< double >(val7);
   (arg1)->setDetectorParameters(arg2,arg3,arg4,arg5,arg6,arg7);
@@ -40591,9 +40591,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation2D_setDetector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ISimulation2D_setDetector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Simulation2D *arg1 = (Simulation2D *) 0 ;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
   IDetector2D *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -40601,18 +40601,18 @@ SWIGINTERN PyObject *_wrap_Simulation2D_setDetector(PyObject *SWIGUNUSEDPARM(sel
   int res2 = 0 ;
   PyObject *swig_obj[2] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "Simulation2D_setDetector", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation2D, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "ISimulation2D_setDetector", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation2D_setDetector" "', argument " "1"" of type '" "Simulation2D *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_setDetector" "', argument " "1"" of type '" "ISimulation2D *""'"); 
   }
-  arg1 = reinterpret_cast< Simulation2D * >(argp1);
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IDetector2D,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Simulation2D_setDetector" "', argument " "2"" of type '" "IDetector2D const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ISimulation2D_setDetector" "', argument " "2"" of type '" "IDetector2D const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Simulation2D_setDetector" "', argument " "2"" of type '" "IDetector2D const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ISimulation2D_setDetector" "', argument " "2"" of type '" "IDetector2D const &""'"); 
   }
   arg2 = reinterpret_cast< IDetector2D * >(argp2);
   (arg1)->setDetector((IDetector2D const &)*arg2);
@@ -40623,20 +40623,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation2D_removeMasks(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ISimulation2D_removeMasks(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Simulation2D *arg1 = (Simulation2D *) 0 ;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation2D, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation2D_removeMasks" "', argument " "1"" of type '" "Simulation2D *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_removeMasks" "', argument " "1"" of type '" "ISimulation2D *""'"); 
   }
-  arg1 = reinterpret_cast< Simulation2D * >(argp1);
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
   (arg1)->removeMasks();
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -40645,9 +40645,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation2D_addMask__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_ISimulation2D_addMask__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  Simulation2D *arg1 = (Simulation2D *) 0 ;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
   IShape2D *arg2 = 0 ;
   bool arg3 ;
   void *argp1 = 0 ;
@@ -40658,22 +40658,22 @@ SWIGINTERN PyObject *_wrap_Simulation2D_addMask__SWIG_0(PyObject *SWIGUNUSEDPARM
   int ecode3 = 0 ;
   
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation2D, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation2D_addMask" "', argument " "1"" of type '" "Simulation2D *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_addMask" "', argument " "1"" of type '" "ISimulation2D *""'"); 
   }
-  arg1 = reinterpret_cast< Simulation2D * >(argp1);
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IShape2D,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Simulation2D_addMask" "', argument " "2"" of type '" "IShape2D const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ISimulation2D_addMask" "', argument " "2"" of type '" "IShape2D const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Simulation2D_addMask" "', argument " "2"" of type '" "IShape2D const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ISimulation2D_addMask" "', argument " "2"" of type '" "IShape2D const &""'"); 
   }
   arg2 = reinterpret_cast< IShape2D * >(argp2);
   ecode3 = SWIG_AsVal_bool(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Simulation2D_addMask" "', argument " "3"" of type '" "bool""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ISimulation2D_addMask" "', argument " "3"" of type '" "bool""'");
   } 
   arg3 = static_cast< bool >(val3);
   (arg1)->addMask((IShape2D const &)*arg2,arg3);
@@ -40684,9 +40684,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation2D_addMask__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_ISimulation2D_addMask__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  Simulation2D *arg1 = (Simulation2D *) 0 ;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
   IShape2D *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -40694,17 +40694,17 @@ SWIGINTERN PyObject *_wrap_Simulation2D_addMask__SWIG_1(PyObject *SWIGUNUSEDPARM
   int res2 = 0 ;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation2D, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation2D_addMask" "', argument " "1"" of type '" "Simulation2D *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_addMask" "', argument " "1"" of type '" "ISimulation2D *""'"); 
   }
-  arg1 = reinterpret_cast< Simulation2D * >(argp1);
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IShape2D,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Simulation2D_addMask" "', argument " "2"" of type '" "IShape2D const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ISimulation2D_addMask" "', argument " "2"" of type '" "IShape2D const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Simulation2D_addMask" "', argument " "2"" of type '" "IShape2D const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ISimulation2D_addMask" "', argument " "2"" of type '" "IShape2D const &""'"); 
   }
   arg2 = reinterpret_cast< IShape2D * >(argp2);
   (arg1)->addMask((IShape2D const &)*arg2);
@@ -40715,31 +40715,31 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation2D_addMask(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_ISimulation2D_addMask(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Simulation2D_addMask", 0, 3, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ISimulation2D_addMask", 0, 3, argv))) SWIG_fail;
   --argc;
   if (argc == 2) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Simulation2D, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ISimulation2D, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IShape2D, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_Simulation2D_addMask__SWIG_1(self, argc, argv);
+        return _wrap_ISimulation2D_addMask__SWIG_1(self, argc, argv);
       }
     }
   }
   if (argc == 3) {
     int _v;
     void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Simulation2D, 0);
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ISimulation2D, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IShape2D, SWIG_POINTER_NO_NULL | 0);
@@ -40750,35 +40750,35 @@ SWIGINTERN PyObject *_wrap_Simulation2D_addMask(PyObject *self, PyObject *args) 
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_Simulation2D_addMask__SWIG_0(self, argc, argv);
+          return _wrap_ISimulation2D_addMask__SWIG_0(self, argc, argv);
         }
       }
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Simulation2D_addMask'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ISimulation2D_addMask'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Simulation2D::addMask(IShape2D const &,bool)\n"
-    "    Simulation2D::addMask(IShape2D const &)\n");
+    "    ISimulation2D::addMask(IShape2D const &,bool)\n"
+    "    ISimulation2D::addMask(IShape2D const &)\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation2D_maskAll(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ISimulation2D_maskAll(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Simulation2D *arg1 = (Simulation2D *) 0 ;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation2D, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation2D_maskAll" "', argument " "1"" of type '" "Simulation2D *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_maskAll" "', argument " "1"" of type '" "ISimulation2D *""'"); 
   }
-  arg1 = reinterpret_cast< Simulation2D * >(argp1);
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
   (arg1)->maskAll();
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -40787,9 +40787,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation2D_setRegionOfInterest(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ISimulation2D_setRegionOfInterest(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Simulation2D *arg1 = (Simulation2D *) 0 ;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
   double arg2 ;
   double arg3 ;
   double arg4 ;
@@ -40806,30 +40806,30 @@ SWIGINTERN PyObject *_wrap_Simulation2D_setRegionOfInterest(PyObject *SWIGUNUSED
   int ecode5 = 0 ;
   PyObject *swig_obj[5] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "Simulation2D_setRegionOfInterest", 5, 5, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation2D, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "ISimulation2D_setRegionOfInterest", 5, 5, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation2D_setRegionOfInterest" "', argument " "1"" of type '" "Simulation2D *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_setRegionOfInterest" "', argument " "1"" of type '" "ISimulation2D *""'"); 
   }
-  arg1 = reinterpret_cast< Simulation2D * >(argp1);
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
   ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Simulation2D_setRegionOfInterest" "', argument " "2"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ISimulation2D_setRegionOfInterest" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
   ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Simulation2D_setRegionOfInterest" "', argument " "3"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ISimulation2D_setRegionOfInterest" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
   ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
   if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Simulation2D_setRegionOfInterest" "', argument " "4"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "ISimulation2D_setRegionOfInterest" "', argument " "4"" of type '" "double""'");
   } 
   arg4 = static_cast< double >(val4);
   ecode5 = SWIG_AsVal_double(swig_obj[4], &val5);
   if (!SWIG_IsOK(ecode5)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "Simulation2D_setRegionOfInterest" "', argument " "5"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "ISimulation2D_setRegionOfInterest" "', argument " "5"" of type '" "double""'");
   } 
   arg5 = static_cast< double >(val5);
   (arg1)->setRegionOfInterest(arg2,arg3,arg4,arg5);
@@ -40840,10 +40840,10 @@ fail:
 }
 
 
-SWIGINTERN PyObject *Simulation2D_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *ISimulation2D_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_Simulation2D, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_ISimulation2D, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -44100,26 +44100,26 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "ISimulation_swigregister", ISimulation_swigregister, METH_O, NULL},
-	 { "delete_Simulation2D", _wrap_delete_Simulation2D, METH_O, "\n"
-		"delete_Simulation2D(Simulation2D self)\n"
-		"Simulation2D::~Simulation2D() override\n"
+	 { "delete_ISimulation2D", _wrap_delete_ISimulation2D, METH_O, "\n"
+		"delete_ISimulation2D(ISimulation2D self)\n"
+		"ISimulation2D::~ISimulation2D() override\n"
 		"\n"
 		""},
-	 { "Simulation2D_clone", _wrap_Simulation2D_clone, METH_O, "\n"
-		"Simulation2D_clone(Simulation2D self) -> Simulation2D\n"
-		"Simulation2D* Simulation2D::clone() const override=0\n"
+	 { "ISimulation2D_clone", _wrap_ISimulation2D_clone, METH_O, "\n"
+		"ISimulation2D_clone(ISimulation2D self) -> ISimulation2D\n"
+		"ISimulation2D* ISimulation2D::clone() const override=0\n"
 		"\n"
 		""},
-	 { "Simulation2D_prepareSimulation", _wrap_Simulation2D_prepareSimulation, METH_O, "\n"
-		"Simulation2D_prepareSimulation(Simulation2D self)\n"
-		"void Simulation2D::prepareSimulation() override\n"
+	 { "ISimulation2D_prepareSimulation", _wrap_ISimulation2D_prepareSimulation, METH_O, "\n"
+		"ISimulation2D_prepareSimulation(ISimulation2D self)\n"
+		"void ISimulation2D::prepareSimulation() override\n"
 		"\n"
 		"Put into a clean state for running a simulation. \n"
 		"\n"
 		""},
-	 { "Simulation2D_setDetectorParameters", _wrap_Simulation2D_setDetectorParameters, METH_VARARGS, "\n"
-		"Simulation2D_setDetectorParameters(Simulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)\n"
-		"void Simulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)\n"
+	 { "ISimulation2D_setDetectorParameters", _wrap_ISimulation2D_setDetectorParameters, METH_VARARGS, "\n"
+		"ISimulation2D_setDetectorParameters(ISimulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)\n"
+		"void ISimulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)\n"
 		"\n"
 		"Sets spherical detector parameters using angle ranges\n"
 		"\n"
@@ -44145,23 +44145,23 @@ static PyMethodDef SwigMethods[] = {
 		"upper edge of last alpha-bin \n"
 		"\n"
 		""},
-	 { "Simulation2D_setDetector", _wrap_Simulation2D_setDetector, METH_VARARGS, "\n"
-		"Simulation2D_setDetector(Simulation2D self, IDetector2D const & detector)\n"
-		"void Simulation2D::setDetector(const IDetector2D &detector)\n"
+	 { "ISimulation2D_setDetector", _wrap_ISimulation2D_setDetector, METH_VARARGS, "\n"
+		"ISimulation2D_setDetector(ISimulation2D self, IDetector2D const & detector)\n"
+		"void ISimulation2D::setDetector(const IDetector2D &detector)\n"
 		"\n"
 		"Sets the detector (axes can be overwritten later) \n"
 		"\n"
 		""},
-	 { "Simulation2D_removeMasks", _wrap_Simulation2D_removeMasks, METH_O, "\n"
-		"Simulation2D_removeMasks(Simulation2D self)\n"
-		"void Simulation2D::removeMasks()\n"
+	 { "ISimulation2D_removeMasks", _wrap_ISimulation2D_removeMasks, METH_O, "\n"
+		"ISimulation2D_removeMasks(ISimulation2D self)\n"
+		"void ISimulation2D::removeMasks()\n"
 		"\n"
 		"removes all masks from the detector \n"
 		"\n"
 		""},
-	 { "Simulation2D_addMask", _wrap_Simulation2D_addMask, METH_VARARGS, "\n"
-		"Simulation2D_addMask(Simulation2D self, IShape2D const & shape, bool mask_value=True)\n"
-		"void Simulation2D::addMask(const IShape2D &shape, bool mask_value=true)\n"
+	 { "ISimulation2D_addMask", _wrap_ISimulation2D_addMask, METH_VARARGS, "\n"
+		"ISimulation2D_addMask(ISimulation2D self, IShape2D const & shape, bool mask_value=True)\n"
+		"void ISimulation2D::addMask(const IShape2D &shape, bool mask_value=true)\n"
 		"\n"
 		"Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.\n"
 		"\n"
@@ -44175,21 +44175,21 @@ static PyMethodDef SwigMethods[] = {
 		"The value of mask \n"
 		"\n"
 		""},
-	 { "Simulation2D_maskAll", _wrap_Simulation2D_maskAll, METH_O, "\n"
-		"Simulation2D_maskAll(Simulation2D self)\n"
-		"void Simulation2D::maskAll()\n"
+	 { "ISimulation2D_maskAll", _wrap_ISimulation2D_maskAll, METH_O, "\n"
+		"ISimulation2D_maskAll(ISimulation2D self)\n"
+		"void ISimulation2D::maskAll()\n"
 		"\n"
 		"Put the mask for all detector channels (i.e. exclude whole detector from the analysis) \n"
 		"\n"
 		""},
-	 { "Simulation2D_setRegionOfInterest", _wrap_Simulation2D_setRegionOfInterest, METH_VARARGS, "\n"
-		"Simulation2D_setRegionOfInterest(Simulation2D self, double xlow, double ylow, double xup, double yup)\n"
-		"void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)\n"
+	 { "ISimulation2D_setRegionOfInterest", _wrap_ISimulation2D_setRegionOfInterest, METH_VARARGS, "\n"
+		"ISimulation2D_setRegionOfInterest(ISimulation2D self, double xlow, double ylow, double xup, double yup)\n"
+		"void ISimulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)\n"
 		"\n"
 		"Sets rectangular region of interest with lower left and upper right corners defined. \n"
 		"\n"
 		""},
-	 { "Simulation2D_swigregister", Simulation2D_swigregister, METH_O, NULL},
+	 { "ISimulation2D_swigregister", ISimulation2D_swigregister, METH_O, NULL},
 	 { "new_GISASSimulation", _wrap_new_GISASSimulation, METH_NOARGS, "\n"
 		"new_GISASSimulation() -> GISASSimulation\n"
 		"GISASSimulation::GISASSimulation()\n"
@@ -44541,11 +44541,11 @@ static void *_p_PoissonNoiseBackgroundTo_p_IBackground(void *x, int *SWIGUNUSEDP
 static void *_p_SimulationFactoryTo_p_IFactoryT_std__string_ISimulation_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IFactory< std::string,ISimulation > *)  ((SimulationFactory *) x));
 }
-static void *_p_Simulation2DTo_p_ISimulation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISimulation *)  ((Simulation2D *) x));
+static void *_p_ISimulation2DTo_p_ISimulation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ISimulation *)  ((ISimulation2D *) x));
 }
 static void *_p_GISASSimulationTo_p_ISimulation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISimulation *) (Simulation2D *) ((GISASSimulation *) x));
+    return (void *)((ISimulation *) (ISimulation2D *) ((GISASSimulation *) x));
 }
 static void *_p_DepthProbeSimulationTo_p_ISimulation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISimulation *)  ((DepthProbeSimulation *) x));
@@ -44554,7 +44554,7 @@ static void *_p_SpecularSimulationTo_p_ISimulation(void *x, int *SWIGUNUSEDPARM(
     return (void *)((ISimulation *)  ((SpecularSimulation *) x));
 }
 static void *_p_OffSpecSimulationTo_p_ISimulation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISimulation *) (Simulation2D *) ((OffSpecSimulation *) x));
+    return (void *)((ISimulation *) (ISimulation2D *) ((OffSpecSimulation *) x));
 }
 static void *_p_AngularSpecScanTo_p_ISpecularScan(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISpecularScan *)  ((AngularSpecScan *) x));
@@ -44565,8 +44565,8 @@ static void *_p_QSpecScanTo_p_ISpecularScan(void *x, int *SWIGUNUSEDPARM(newmemo
 static void *_p_IFormFactorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *) ((IFormFactor *) x));
 }
-static void *_p_Simulation2DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISimulation *) ((Simulation2D *) x));
+static void *_p_ISimulation2DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (ISimulation *) ((ISimulation2D *) x));
 }
 static void *_p_IFormFactorBornTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
@@ -44575,7 +44575,7 @@ static void *_p_ISimulationTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *)  ((ISimulation *) x));
 }
 static void *_p_GISASSimulationTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISimulation *)(Simulation2D *) ((GISASSimulation *) x));
+    return (void *)((INode *) (ISimulation *)(ISimulation2D *) ((GISASSimulation *) x));
 }
 static void *_p_DepthProbeSimulationTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISimulation *) ((DepthProbeSimulation *) x));
@@ -44584,7 +44584,7 @@ static void *_p_SpecularSimulationTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmem
     return (void *)((INode *) (ISimulation *) ((SpecularSimulation *) x));
 }
 static void *_p_OffSpecSimulationTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISimulation *)(Simulation2D *) ((OffSpecSimulation *) x));
+    return (void *)((INode *) (ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
 }
 static void *_p_IBackgroundTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *)  ((IBackground *) x));
@@ -44602,7 +44602,7 @@ static void *_p_IFormFactorTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newm
     return (void *)((IParameterized *) (INode *)(ISample *) ((IFormFactor *) x));
 }
 static void *_p_OffSpecSimulationTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISimulation *)(Simulation2D *) ((OffSpecSimulation *) x));
+    return (void *)((IParameterized *) (INode *)(ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
 }
 static void *_p_SpecularSimulationTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISimulation *) ((SpecularSimulation *) x));
@@ -44611,7 +44611,7 @@ static void *_p_DepthProbeSimulationTo_p_IParameterized(void *x, int *SWIGUNUSED
     return (void *)((IParameterized *) (INode *)(ISimulation *) ((DepthProbeSimulation *) x));
 }
 static void *_p_GISASSimulationTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISimulation *)(Simulation2D *) ((GISASSimulation *) x));
+    return (void *)((IParameterized *) (INode *)(ISimulation *)(ISimulation2D *) ((GISASSimulation *) x));
 }
 static void *_p_ISimulationTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *) ((ISimulation *) x));
@@ -44637,20 +44637,20 @@ static void *_p_ParameterDistributionTo_p_IParameterized(void *x, int *SWIGUNUSE
 static void *_p_IFormFactorBornTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
 }
-static void *_p_Simulation2DTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISimulation *) ((Simulation2D *) x));
+static void *_p_ISimulation2DTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *)(ISimulation *) ((ISimulation2D *) x));
 }
-static void *_p_GISASSimulationTo_p_Simulation2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Simulation2D *)  ((GISASSimulation *) x));
+static void *_p_GISASSimulationTo_p_ISimulation2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ISimulation2D *)  ((GISASSimulation *) x));
 }
-static void *_p_OffSpecSimulationTo_p_Simulation2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((Simulation2D *)  ((OffSpecSimulation *) x));
+static void *_p_OffSpecSimulationTo_p_ISimulation2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ISimulation2D *)  ((OffSpecSimulation *) x));
 }
 static void *_p_IFormFactorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *) ((IFormFactor *) x));
 }
 static void *_p_OffSpecSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISimulation *)(Simulation2D *) ((OffSpecSimulation *) x));
+    return (void *)((ICloneable *) (ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
 }
 static void *_p_SpecularSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISimulation *) ((SpecularSimulation *) x));
@@ -44659,7 +44659,7 @@ static void *_p_DepthProbeSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM
     return (void *)((ICloneable *) (ISimulation *) ((DepthProbeSimulation *) x));
 }
 static void *_p_GISASSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISimulation *)(Simulation2D *) ((GISASSimulation *) x));
+    return (void *)((ICloneable *) (ISimulation *)(ISimulation2D *) ((GISASSimulation *) x));
 }
 static void *_p_ISimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *)  ((ISimulation *) x));
@@ -44691,8 +44691,8 @@ static void *_p_AngularSpecScanTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newm
 static void *_p_IFormFactorBornTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
 }
-static void *_p_Simulation2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISimulation *) ((Simulation2D *) x));
+static void *_p_ISimulation2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (ISimulation *) ((ISimulation2D *) x));
 }
 static swig_type_info _swigt__p_AngularSpecScan = {"_p_AngularSpecScan", "AngularSpecScan *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_AxisInfo = {"_p_AxisInfo", "std::vector< AxisInfo >::value_type *|AxisInfo *", 0, 0, (void*)0, 0};
@@ -44729,6 +44729,7 @@ static swig_type_info _swigt__p_IParameterized = {"_p_IParameterized", "IParamet
 static swig_type_info _swigt__p_IResolutionFunction2D = {"_p_IResolutionFunction2D", "IResolutionFunction2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IShape2D = {"_p_IShape2D", "IShape2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ISimulation = {"_p_ISimulation", "ISimulation *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ISimulation2D = {"_p_ISimulation2D", "ISimulation2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ISpecularScan = {"_p_ISpecularScan", "ISpecularScan *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Instrument = {"_p_Instrument", "Instrument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IterationInfo = {"_p_IterationInfo", "IterationInfo *", 0, 0, (void*)0, 0};
@@ -44744,7 +44745,6 @@ static swig_type_info _swigt__p_QSpecScan = {"_p_QSpecScan", "QSpecScan *", 0, 0
 static swig_type_info _swigt__p_RangedDistribution = {"_p_RangedDistribution", "RangedDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RealLimits = {"_p_RealLimits", "RealLimits *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ScanResolution = {"_p_ScanResolution", "ScanResolution *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Simulation2D = {"_p_Simulation2D", "Simulation2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SimulationFactory = {"_p_SimulationFactory", "SimulationFactory *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SimulationOptions = {"_p_SimulationOptions", "SimulationOptions *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SimulationResult = {"_p_SimulationResult", "SimulationResult *", 0, 0, (void*)0, 0};
@@ -44840,6 +44840,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ISample,
   &_swigt__p_IShape2D,
   &_swigt__p_ISimulation,
+  &_swigt__p_ISimulation2D,
   &_swigt__p_ISpecularScan,
   &_swigt__p_Instrument,
   &_swigt__p_IterationInfo,
@@ -44856,7 +44857,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_RangedDistribution,
   &_swigt__p_RealLimits,
   &_swigt__p_ScanResolution,
-  &_swigt__p_Simulation2D,
   &_swigt__p_SimulationFactory,
   &_swigt__p_SimulationOptions,
   &_swigt__p_SimulationResult,
@@ -44940,19 +44940,20 @@ static swig_cast_info _swigc__p_IFormFactor[] = {{&_swigt__p_IFormFactor, 0, 0, 
 static swig_cast_info _swigc__p_ParameterPool[] = {{&_swigt__p_ParameterPool, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISample[] = {{&_swigt__p_ISample, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactorBorn[] = {{&_swigt__p_IFormFactorBorn, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_ISpecularScan, _p_ISpecularScanTo_p_ICloneable, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_ICloneable, 0, 0},  {&_swigt__p_AngularSpecScan, _p_AngularSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_QSpecScan, _p_QSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_Simulation2D, _p_Simulation2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_ISpecularScan, _p_ISpecularScanTo_p_ICloneable, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_ICloneable, 0, 0},  {&_swigt__p_AngularSpecScan, _p_AngularSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_QSpecScan, _p_QSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector2D[] = {  {&_swigt__p_IDetector2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDistribution1D[] = {  {&_swigt__p_IDistribution1D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFactoryT_std__string_ISimulation_t[] = {  {&_swigt__p_SimulationFactory, _p_SimulationFactoryTo_p_IFactoryT_std__string_ISimulation_t, 0, 0},  {&_swigt__p_IFactoryT_std__string_ISimulation_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFootprintFactor[] = {  {&_swigt__p_IFootprintFactor, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_INode, 0, 0},  {&_swigt__p_Simulation2D, _p_Simulation2DTo_p_INode, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_INode, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_INode, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_INode, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_INode, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_INode, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_INode, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_INode, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_INode, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_INode, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_INode, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_INode, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_INode, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_INode, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_INode, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_INode, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_INode, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_INode, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IObservable[] = {  {&_swigt__p_IObservable, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IObserver[] = {  {&_swigt__p_IObserver, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParameterized, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_Simulation2D, _p_Simulation2DTo_p_IParameterized, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParameterized, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IParameterized, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IResolutionFunction2D[] = {  {&_swigt__p_IResolutionFunction2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IShape2D[] = {  {&_swigt__p_IShape2D, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ISimulation[] = {  {&_swigt__p_Simulation2D, _p_Simulation2DTo_p_ISimulation, 0, 0},  {&_swigt__p_ISimulation, 0, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ISimulation, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ISimulation[] = {  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_ISimulation, 0, 0},  {&_swigt__p_ISimulation, 0, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ISimulation, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ISimulation2D[] = {  {&_swigt__p_ISimulation2D, 0, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ISimulation2D, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ISimulation2D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISpecularScan[] = {  {&_swigt__p_AngularSpecScan, _p_AngularSpecScanTo_p_ISpecularScan, 0, 0},  {&_swigt__p_QSpecScan, _p_QSpecScanTo_p_ISpecularScan, 0, 0},  {&_swigt__p_ISpecularScan, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Instrument[] = {  {&_swigt__p_Instrument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IterationInfo[] = {  {&_swigt__p_IterationInfo, 0, 0, 0},{0, 0, 0, 0}};
@@ -44968,7 +44969,6 @@ static swig_cast_info _swigc__p_QSpecScan[] = {  {&_swigt__p_QSpecScan, 0, 0, 0}
 static swig_cast_info _swigc__p_RangedDistribution[] = {  {&_swigt__p_RangedDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RealLimits[] = {  {&_swigt__p_RealLimits, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ScanResolution[] = {  {&_swigt__p_ScanResolution, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Simulation2D[] = {  {&_swigt__p_Simulation2D, 0, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_Simulation2D, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_Simulation2D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SimulationFactory[] = {  {&_swigt__p_SimulationFactory, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SimulationOptions[] = {  {&_swigt__p_SimulationOptions, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SimulationResult[] = {  {&_swigt__p_SimulationResult, 0, 0, 0},{0, 0, 0, 0}};
@@ -45064,6 +45064,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ISample,
   _swigc__p_IShape2D,
   _swigc__p_ISimulation,
+  _swigc__p_ISimulation2D,
   _swigc__p_ISpecularScan,
   _swigc__p_Instrument,
   _swigc__p_IterationInfo,
@@ -45080,7 +45081,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_RangedDistribution,
   _swigc__p_RealLimits,
   _swigc__p_ScanResolution,
-  _swigc__p_Simulation2D,
   _swigc__p_SimulationFactory,
   _swigc__p_SimulationOptions,
   _swigc__p_SimulationResult,

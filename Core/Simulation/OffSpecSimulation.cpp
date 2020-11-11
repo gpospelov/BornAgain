@@ -30,13 +30,13 @@ OffSpecSimulation::OffSpecSimulation()
 void OffSpecSimulation::prepareSimulation()
 {
     checkInitialization();
-    Simulation2D::prepareSimulation();
+    ISimulation2D::prepareSimulation();
 }
 
 size_t OffSpecSimulation::numberOfSimulationElements() const
 {
     checkInitialization();
-    return Simulation2D::numberOfSimulationElements() * m_alpha_i_axis->size();
+    return ISimulation2D::numberOfSimulationElements() * m_alpha_i_axis->size();
 }
 
 SimulationResult OffSpecSimulation::result() const
@@ -79,7 +79,7 @@ size_t OffSpecSimulation::intensityMapSize() const
     return m_alpha_i_axis->size() * instrument().getDetectorAxis(1).size();
 }
 
-OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other) : Simulation2D(other)
+OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other) : ISimulation2D(other)
 {
     if (other.m_alpha_i_axis)
         m_alpha_i_axis.reset(other.m_alpha_i_axis->clone());

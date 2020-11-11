@@ -3839,13 +3839,13 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 # Register ISimulation in _libBornAgainCore:
 _libBornAgainCore.ISimulation_swigregister(ISimulation)
 
-class Simulation2D(ISimulation):
+class ISimulation2D(ISimulation):
     r"""
 
 
     Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
 
-    C++ includes: Simulation2D.h
+    C++ includes: ISimulation2D.h
 
     """
 
@@ -3854,30 +3854,30 @@ class Simulation2D(ISimulation):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_Simulation2D
+    __swig_destroy__ = _libBornAgainCore.delete_ISimulation2D
 
     def clone(self):
         r"""
-        clone(Simulation2D self) -> Simulation2D
-        Simulation2D* Simulation2D::clone() const override=0
+        clone(ISimulation2D self) -> ISimulation2D
+        ISimulation2D* ISimulation2D::clone() const override=0
 
         """
-        return _libBornAgainCore.Simulation2D_clone(self)
+        return _libBornAgainCore.ISimulation2D_clone(self)
 
     def prepareSimulation(self):
         r"""
-        prepareSimulation(Simulation2D self)
-        void Simulation2D::prepareSimulation() override
+        prepareSimulation(ISimulation2D self)
+        void ISimulation2D::prepareSimulation() override
 
         Put into a clean state for running a simulation. 
 
         """
-        return _libBornAgainCore.Simulation2D_prepareSimulation(self)
+        return _libBornAgainCore.ISimulation2D_prepareSimulation(self)
 
     def setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
         r"""
-        setDetectorParameters(Simulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
-        void Simulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+        setDetectorParameters(ISimulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+        void ISimulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
 
         Sets spherical detector parameters using angle ranges
 
@@ -3903,32 +3903,32 @@ class Simulation2D(ISimulation):
         upper edge of last alpha-bin 
 
         """
-        return _libBornAgainCore.Simulation2D_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
+        return _libBornAgainCore.ISimulation2D_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
     def setDetector(self, detector):
         r"""
-        setDetector(Simulation2D self, IDetector2D const & detector)
-        void Simulation2D::setDetector(const IDetector2D &detector)
+        setDetector(ISimulation2D self, IDetector2D const & detector)
+        void ISimulation2D::setDetector(const IDetector2D &detector)
 
         Sets the detector (axes can be overwritten later) 
 
         """
-        return _libBornAgainCore.Simulation2D_setDetector(self, detector)
+        return _libBornAgainCore.ISimulation2D_setDetector(self, detector)
 
     def removeMasks(self):
         r"""
-        removeMasks(Simulation2D self)
-        void Simulation2D::removeMasks()
+        removeMasks(ISimulation2D self)
+        void ISimulation2D::removeMasks()
 
         removes all masks from the detector 
 
         """
-        return _libBornAgainCore.Simulation2D_removeMasks(self)
+        return _libBornAgainCore.ISimulation2D_removeMasks(self)
 
     def addMask(self, shape, mask_value=True):
         r"""
-        addMask(Simulation2D self, IShape2D const & shape, bool mask_value=True)
-        void Simulation2D::addMask(const IShape2D &shape, bool mask_value=true)
+        addMask(ISimulation2D self, IShape2D const & shape, bool mask_value=True)
+        void ISimulation2D::addMask(const IShape2D &shape, bool mask_value=true)
 
         Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
 
@@ -3942,32 +3942,32 @@ class Simulation2D(ISimulation):
         The value of mask 
 
         """
-        return _libBornAgainCore.Simulation2D_addMask(self, shape, mask_value)
+        return _libBornAgainCore.ISimulation2D_addMask(self, shape, mask_value)
 
     def maskAll(self):
         r"""
-        maskAll(Simulation2D self)
-        void Simulation2D::maskAll()
+        maskAll(ISimulation2D self)
+        void ISimulation2D::maskAll()
 
         Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
 
         """
-        return _libBornAgainCore.Simulation2D_maskAll(self)
+        return _libBornAgainCore.ISimulation2D_maskAll(self)
 
     def setRegionOfInterest(self, xlow, ylow, xup, yup):
         r"""
-        setRegionOfInterest(Simulation2D self, double xlow, double ylow, double xup, double yup)
-        void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+        setRegionOfInterest(ISimulation2D self, double xlow, double ylow, double xup, double yup)
+        void ISimulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 
         Sets rectangular region of interest with lower left and upper right corners defined. 
 
         """
-        return _libBornAgainCore.Simulation2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
+        return _libBornAgainCore.ISimulation2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
 
-# Register Simulation2D in _libBornAgainCore:
-_libBornAgainCore.Simulation2D_swigregister(Simulation2D)
+# Register ISimulation2D in _libBornAgainCore:
+_libBornAgainCore.ISimulation2D_swigregister(ISimulation2D)
 
-class GISASSimulation(Simulation2D):
+class GISASSimulation(ISimulation2D):
     r"""
 
 
@@ -4248,7 +4248,7 @@ class SpecularSimulation(ISimulation):
 # Register SpecularSimulation in _libBornAgainCore:
 _libBornAgainCore.SpecularSimulation_swigregister(SpecularSimulation)
 
-class OffSpecSimulation(Simulation2D):
+class OffSpecSimulation(ISimulation2D):
     r"""
 
 

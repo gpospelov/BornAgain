@@ -32,7 +32,7 @@ void GISASSimulation::prepareSimulation()
             "GISASSimulation::prepareSimulation() "
             "-> Error. The detector was not properly configured.");
     instrument().initDetector();
-    Simulation2D::prepareSimulation();
+    ISimulation2D::prepareSimulation();
 }
 
 SimulationResult GISASSimulation::result() const
@@ -58,7 +58,7 @@ size_t GISASSimulation::intensityMapSize() const
     return result;
 }
 
-GISASSimulation::GISASSimulation(const GISASSimulation& other) : Simulation2D(other)
+GISASSimulation::GISASSimulation(const GISASSimulation& other) : ISimulation2D(other)
 {
     initialize();
 }

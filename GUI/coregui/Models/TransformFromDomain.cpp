@@ -311,7 +311,7 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
 }
 
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,
-                                      const Simulation2D& simulation)
+                                      const ISimulation2D& simulation)
 {
     const IDetector* p_detector = simulation.instrument().getDetector();
     setDetectorGeometry(instrument_item, *p_detector);

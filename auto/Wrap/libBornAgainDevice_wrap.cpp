@@ -47568,7 +47568,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_IVarianceFunction", _wrap_delete_IVarianceFunction, METH_O, "\n"
 		"delete_IVarianceFunction(IVarianceFunction self)\n"
-		"IVarianceFunction::~IVarianceFunction()\n"
+		"virtual IVarianceFunction::~IVarianceFunction()=default\n"
 		"\n"
 		""},
 	 { "IVarianceFunction_clone", _wrap_IVarianceFunction_clone, METH_O, "\n"

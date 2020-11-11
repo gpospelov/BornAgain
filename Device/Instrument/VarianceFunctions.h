@@ -21,13 +21,13 @@
 class IVarianceFunction
 {
 public:
-    IVarianceFunction();
-    virtual ~IVarianceFunction();
-    virtual IVarianceFunction* clone() const = 0;
-    virtual double variance(double real_value, double simulated_value) const = 0;
-
+    IVarianceFunction() = default;
+    virtual ~IVarianceFunction() = default;
     IVarianceFunction(const IVarianceFunction&) = delete;
     IVarianceFunction& operator=(const IVarianceFunction&) = delete;
+
+    virtual IVarianceFunction* clone() const = 0;
+    virtual double variance(double real_value, double simulated_value) const = 0;
 };
 
 //! Returns 1.0 as variance value

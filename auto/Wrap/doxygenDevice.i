@@ -1756,19 +1756,19 @@ Variance function interface.
 C++ includes: VarianceFunctions.h
 ";
 
-%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction()
+%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction()=default
 ";
 
-%feature("docstring")  IVarianceFunction::~IVarianceFunction "IVarianceFunction::~IVarianceFunction()
+%feature("docstring")  IVarianceFunction::~IVarianceFunction "virtual IVarianceFunction::~IVarianceFunction()=default
+";
+
+%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction(const IVarianceFunction &)=delete
 ";
 
 %feature("docstring")  IVarianceFunction::clone "virtual IVarianceFunction* IVarianceFunction::clone() const =0
 ";
 
 %feature("docstring")  IVarianceFunction::variance "virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
-";
-
-%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction(const IVarianceFunction &)=delete
 ";
 
 

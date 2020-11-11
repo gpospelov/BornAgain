@@ -310,14 +310,13 @@ complex_t PolyhedralFace::edge_sum_ff(cvector_t q, cvector_t qpa, bool sym_Ci) c
         } else {
             vfac = -vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
         }
-        complex_t term = vfac * MathFunctions::sinc(qE) * Rfac;
+        complex_t term = vfac * Math::sinc(qE) * Rfac;
         sum += term;
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if (diagnosis.debmsg >= 2)
             std::cout << std::scientific << std::showpos << std::setprecision(16)
                       << "    sum=" << sum << " term=" << term << " vf=" << vfac << " qE=" << qE
-                      << " qR=" << qR << " sinc=" << MathFunctions::sinc(qE) << " Rfac=" << Rfac
-                      << "\n";
+                      << " qR=" << qR << " sinc=" << Math::sinc(qE) << " Rfac=" << Rfac << "\n";
 #endif
     }
     return sum;

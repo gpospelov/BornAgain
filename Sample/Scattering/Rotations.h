@@ -27,7 +27,6 @@ class IRotation : public ICloneable, public INode
 {
 public:
     static IRotation* createRotation(const Transform3D& transform);
-    static IRotation* createIdentity();
 
     IRotation(const NodeMeta& meta, const std::vector<double>& PValues);
 
@@ -51,7 +50,7 @@ IRotation* createProduct(const IRotation& left, const IRotation& right);
 
 //! The identity rotation, which leaves everything in place.
 
-class IdentityRotation : public IRotation // TODO get rid of this class
+class IdentityRotation : public IRotation // TODO RECONSIDER: merge with class IRotation
 {
 public:
     IdentityRotation();

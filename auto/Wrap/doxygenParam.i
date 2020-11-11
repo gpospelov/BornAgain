@@ -1308,30 +1308,6 @@ C++ includes: ParameterSample.h
 ";
 
 
-// File: classPostorderStrategy.xml
-%feature("docstring") PostorderStrategy "
-
-Traverse tree; visit children before their parents.
-
-C++ includes: IterationStrategy.h
-";
-
-%feature("docstring")  PostorderStrategy::PostorderStrategy "PostorderStrategy::PostorderStrategy()
-";
-
-%feature("docstring")  PostorderStrategy::clone "PostorderStrategy * PostorderStrategy::clone() const
-";
-
-%feature("docstring")  PostorderStrategy::first "IteratorMemento PostorderStrategy::first(const INode *p_root)
-";
-
-%feature("docstring")  PostorderStrategy::next "void PostorderStrategy::next(IteratorMemento &iterator_stack) const
-";
-
-%feature("docstring")  PostorderStrategy::isDone "bool PostorderStrategy::isDone(IteratorMemento &iterator_stack) const
-";
-
-
 // File: classPreorderStrategy.xml
 %feature("docstring") PreorderStrategy "
 
@@ -1723,15 +1699,9 @@ Prints RealLimits in the form of argument (in the context of  ParameterDistribut
 %feature("docstring")  VisitNodesPreorder "void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
 ";
 
-%feature("docstring")  VisitNodesPostorder "void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
-";
-
 
 // File: INodeVisitor_8h.xml
 %feature("docstring")  VisitNodesPreorder "void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
-";
-
-%feature("docstring")  VisitNodesPostorder "void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
 ";
 
 

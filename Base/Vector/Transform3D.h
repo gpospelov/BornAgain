@@ -43,9 +43,6 @@ public:
     //! Clones the transformation
     Transform3D* clone() const;
 
-    //! Creates identity transformation (default)
-    static Transform3D createIdentity();
-
     //! Creates rotation around x-axis
     static Transform3D createRotateX(double phi);
 

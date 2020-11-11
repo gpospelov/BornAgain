@@ -123,6 +123,16 @@ double IHistogram::getYaxisValue(size_t i)
     return m_data.getAxisValue(i, 1);
 }
 
+const OutputData<CumulativeValue>& IHistogram::getData() const
+{
+    return m_data;
+}
+
+OutputData<CumulativeValue>& IHistogram::getData()
+{
+    return m_data;
+}
+
 double IHistogram::getBinContent(size_t i) const
 {
     return m_data[i].getContent();

@@ -53,7 +53,7 @@ std::vector<const INode*> InterferenceFunctionFinite3DLattice::getChildren() con
 
 double InterferenceFunctionFinite3DLattice::iff_without_dw(const kvector_t q) const
 {
-    using MathFunctions::Laue;
+    using Math::Laue;
     const double qadiv2 = q.dot(m_lattice->getBasisVectorA()) / 2.0;
     const double qbdiv2 = q.dot(m_lattice->getBasisVectorB()) / 2.0;
     const double qcdiv2 = q.dot(m_lattice->getBasisVectorC()) / 2.0;

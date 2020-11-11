@@ -15,8 +15,8 @@
 #include "Sample/HardParticle/FormFactorTruncatedSphere.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
+#include "Base/Utils/Bessel.h"
 #include "Base/Utils/Integrator.h"
-#include "Base/Utils/MathFunctions.h"
 #include "Fit/Tools/RealLimits.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 #include <limits>
@@ -60,7 +60,7 @@ complex_t FormFactorTruncatedSphere::Integrand(double Z) const
     complex_t qx = m_q.x();
     complex_t qy = m_q.y();
     complex_t q_p = std::sqrt(qx * qx + qy * qy); // NOT the modulus!
-    return Rz * Rz * MathFunctions::Bessel_J1c(q_p * Rz) * exp_I(m_q.z() * Z);
+    return Rz * Rz * Math::Bessel::J1c(q_p * Rz) * exp_I(m_q.z() * Z);
 }
 
 //! Complex form factor.

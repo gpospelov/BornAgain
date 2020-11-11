@@ -1756,188 +1756,42 @@ def deg2rad(angle):
     return _libBornAgainBase.deg2rad(angle)
 
 def StandardNormal(x):
-    r"""
-    StandardNormal(double x) -> double
-    double MathFunctions::StandardNormal(double x)
-
-    """
+    r"""StandardNormal(double x) -> double"""
     return _libBornAgainBase.StandardNormal(x)
 
 def Gaussian(x, average, std_dev):
-    r"""
-    Gaussian(double x, double average, double std_dev) -> double
-    double MathFunctions::Gaussian(double x, double average, double std_dev)
-
-    """
+    r"""Gaussian(double x, double average, double std_dev) -> double"""
     return _libBornAgainBase.Gaussian(x, average, std_dev)
 
 def IntegratedGaussian(x, average, std_dev):
-    r"""
-    IntegratedGaussian(double x, double average, double std_dev) -> double
-    double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
-
-    """
+    r"""IntegratedGaussian(double x, double average, double std_dev) -> double"""
     return _libBornAgainBase.IntegratedGaussian(x, average, std_dev)
 
 def cot(x):
-    r"""
-    cot(double x) -> double
-    double MathFunctions::cot(double x)
-
-    cotangent function:  $cot(x)\\equiv1/tan(x)$
-
-    """
+    r"""cot(double x) -> double"""
     return _libBornAgainBase.cot(x)
-
-def Si(x):
-    r"""
-    Si(double x) -> double
-    double MathFunctions::Si(double x)
-
-    Sine integral function:  $Si(x)\\equiv\\int_0^x du \\sin(u)/u$. 
-
-    """
-    return _libBornAgainBase.Si(x)
 
 def sinc(*args):
     r"""
     sinc(double x) -> double
     sinc(complex_t const z) -> complex_t
-    complex_t MathFunctions::sinc(const complex_t z)
-
-    Complex sinc function:  $sinc(x)\\equiv\\sin(x)/x$. 
-
     """
     return _libBornAgainBase.sinc(*args)
 
 def tanhc(z):
-    r"""
-    tanhc(complex_t const z) -> complex_t
-    complex_t MathFunctions::tanhc(const complex_t z)
-
-    Complex tanhc function:  $tanhc(x)\\equiv\\tanh(x)/x$. 
-
-    """
+    r"""tanhc(complex_t const z) -> complex_t"""
     return _libBornAgainBase.tanhc(z)
 
 def Laue(x, N):
-    r"""
-    Laue(double const x, size_t N) -> double
-    double MathFunctions::Laue(const double x, size_t N)
-
-    Real Laue function:  $Laue(x,N)\\equiv\\sin(Nx)/sin(x)$. 
-
-    """
+    r"""Laue(double const x, size_t N) -> double"""
     return _libBornAgainBase.Laue(x, N)
 
 def erf(arg):
-    r"""
-    erf(double arg) -> double
-    double MathFunctions::erf(double arg)
-
-    Error function of real-valued argument. 
-
-    """
+    r"""erf(double arg) -> double"""
     return _libBornAgainBase.erf(arg)
 
-def Bessel_I0(x):
-    r"""
-    Bessel_I0(double x) -> double
-    double MathFunctions::Bessel_I0(double x)
-
-    Modified Bessel function of the first kind and order 0. 
-
-    """
-    return _libBornAgainBase.Bessel_I0(x)
-
-def Bessel_J0(*args):
-    r"""
-    Bessel_J0(double x) -> double
-    Bessel_J0(complex_t const z) -> complex_t
-    complex_t MathFunctions::Bessel_J0(const complex_t z)
-
-    Complex Bessel function of the first kind and order 0. 
-
-    """
-    return _libBornAgainBase.Bessel_J0(*args)
-
-def Bessel_J1(*args):
-    r"""
-    Bessel_J1(double x) -> double
-    Bessel_J1(complex_t const z) -> complex_t
-    complex_t MathFunctions::Bessel_J1(const complex_t z)
-
-    Complex Bessel function of the first kind and order 1. 
-
-    """
-    return _libBornAgainBase.Bessel_J1(*args)
-
-def Bessel_J1c(*args):
-    r"""
-    Bessel_J1c(double x) -> double
-    Bessel_J1c(complex_t const z) -> complex_t
-    complex_t MathFunctions::Bessel_J1c(const complex_t z)
-
-    Complex Bessel function Bessel_J1(x)/x. 
-
-    """
-    return _libBornAgainBase.Bessel_J1c(*args)
-FORWARD_FFT = _libBornAgainBase.FORWARD_FFT
-
-BACKWARD_FFT = _libBornAgainBase.BACKWARD_FFT
-
-
-def FastFourierTransform(*args):
-    r"""
-    FastFourierTransform(vector_complex_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t
-    FastFourierTransform(vdouble1d_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t
-    std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)
-
-    simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex 
-
-    """
-    return _libBornAgainBase.FastFourierTransform(*args)
-
-def ConvolveFFT(signal, resfunc):
-    r"""
-    ConvolveFFT(vdouble1d_t signal, vdouble1d_t resfunc) -> vector_complex_t
-    std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)
-
-    convolution of two real vectors of equal size 
-
-    """
-    return _libBornAgainBase.ConvolveFFT(signal, resfunc)
-
-def GenerateUniformRandom():
-    r"""
-    GenerateUniformRandom() -> double
-    double MathFunctions::GenerateUniformRandom()
-
-    """
-    return _libBornAgainBase.GenerateUniformRandom()
-
-def GenerateStandardNormalRandom():
-    r"""
-    GenerateStandardNormalRandom() -> double
-    double MathFunctions::GenerateStandardNormalRandom()
-
-    """
-    return _libBornAgainBase.GenerateStandardNormalRandom()
-
-def GenerateNormalRandom(average, std_dev):
-    r"""
-    GenerateNormalRandom(double average, double std_dev) -> double
-    double MathFunctions::GenerateNormalRandom(double average, double std_dev)
-
-    """
-    return _libBornAgainBase.GenerateNormalRandom(average, std_dev)
-
 def GeneratePoissonRandom(average):
-    r"""
-    GeneratePoissonRandom(double average) -> double
-    double MathFunctions::GeneratePoissonRandom(double average)
-
-    """
+    r"""GeneratePoissonRandom(double average) -> double"""
     return _libBornAgainBase.GeneratePoissonRandom(average)
 class ThreadInfo(object):
     r"""

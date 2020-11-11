@@ -45,30 +45,12 @@ ClassInitializationException::ClassInitializationException(const std::string& me
     LogExceptionMessage(message);
 }
 
-UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string& message)
-    : std::runtime_error(message)
-{
-    LogExceptionMessage(message);
-}
-
-ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string& message)
-    : std::runtime_error(message)
-{
-    LogExceptionMessage(message);
-}
-
 LogicErrorException::LogicErrorException(const std::string& message) : std::logic_error(message)
 {
     LogExceptionMessage(message);
 }
 
 RuntimeErrorException::RuntimeErrorException(const std::string& message)
-    : std::runtime_error(message)
-{
-    LogExceptionMessage(message);
-}
-
-DivisionByZeroException::DivisionByZeroException(const std::string& message)
     : std::runtime_error(message)
 {
     LogExceptionMessage(message);

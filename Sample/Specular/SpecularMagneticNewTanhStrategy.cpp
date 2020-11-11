@@ -36,8 +36,8 @@ SpecularMagneticNewTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficien
         const double factor1 = 2. * (1. + b.z());
         Q << (1. + b.z()), (I * b.y() - b.x()), (b.x() + I * b.y()), (b.z() + 1.);
 
-        complex_t l1 = std::sqrt(MathFunctions::tanhc(sigeff * coeff.m_lambda(1)));
-        complex_t l2 = std::sqrt(MathFunctions::tanhc(sigeff * coeff.m_lambda(0)));
+        complex_t l1 = std::sqrt(Math::tanhc(sigeff * coeff.m_lambda(1)));
+        complex_t l2 = std::sqrt(Math::tanhc(sigeff * coeff.m_lambda(0)));
 
         if (inverse) {
             l1 = 1. / l1;
@@ -50,7 +50,7 @@ SpecularMagneticNewTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficien
 
     } else if (b.mag() < 10 * std::numeric_limits<double>::epsilon()) {
         complex_t alpha =
-            std::sqrt(MathFunctions::tanhc(0.5 * sigeff * (coeff.m_lambda(1) + coeff.m_lambda(0))));
+            std::sqrt(Math::tanhc(0.5 * sigeff * (coeff.m_lambda(1) + coeff.m_lambda(0))));
         if (inverse)
             alpha = 1. / alpha;
         const Eigen::Matrix2cd lambda = Eigen::DiagonalMatrix<complex_t, 2>({alpha, alpha});

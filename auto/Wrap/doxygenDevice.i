@@ -1184,7 +1184,7 @@ C++ includes: IHistogram.h
 %feature("docstring")  IHistogram::IHistogram "IHistogram::IHistogram(const IHistogram &other)
 ";
 
-%feature("docstring")  IHistogram::~IHistogram "virtual IHistogram::~IHistogram()
+%feature("docstring")  IHistogram::~IHistogram "virtual IHistogram::~IHistogram()=default
 ";
 
 %feature("docstring")  IHistogram::IHistogram "IHistogram::IHistogram(const IAxis &axis_x)
@@ -1276,15 +1276,15 @@ Returns the center of bin i of the x axis.
 Returns the center of bin i of the y axis. 
 ";
 
+%feature("docstring")  IHistogram::getData "const OutputData< CumulativeValue > & IHistogram::getData() const
+";
+
+%feature("docstring")  IHistogram::getData "OutputData< CumulativeValue > & IHistogram::getData()
+";
+
 %feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t i) const
 
 Returns content (accumulated value) of bin i. 
-";
-
-%feature("docstring")  IHistogram::getData "const OutputData<CumulativeValue>& IHistogram::getData() const
-";
-
-%feature("docstring")  IHistogram::getData "OutputData<CumulativeValue>& IHistogram::getData()
 ";
 
 %feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t binx, size_t biny) const
@@ -1606,7 +1606,7 @@ Interface for reading strategy of  OutputData from file.
 C++ includes: OutputDataReadStrategy.h
 ";
 
-%feature("docstring")  IOutputDataReadStrategy::~IOutputDataReadStrategy "virtual IOutputDataReadStrategy::~IOutputDataReadStrategy()
+%feature("docstring")  IOutputDataReadStrategy::~IOutputDataReadStrategy "virtual IOutputDataReadStrategy::~IOutputDataReadStrategy()=default
 ";
 
 %feature("docstring")  IOutputDataReadStrategy::readOutputData "virtual OutputData<double>* IOutputDataReadStrategy::readOutputData(std::istream &input_stream)=0
@@ -1621,10 +1621,7 @@ Strategy interface to write OututData in file
 C++ includes: OutputDataWriteStrategy.h
 ";
 
-%feature("docstring")  IOutputDataWriteStrategy::IOutputDataWriteStrategy "IOutputDataWriteStrategy::IOutputDataWriteStrategy()
-";
-
-%feature("docstring")  IOutputDataWriteStrategy::~IOutputDataWriteStrategy "virtual IOutputDataWriteStrategy::~IOutputDataWriteStrategy()
+%feature("docstring")  IOutputDataWriteStrategy::~IOutputDataWriteStrategy "virtual IOutputDataWriteStrategy::~IOutputDataWriteStrategy()=default
 ";
 
 %feature("docstring")  IOutputDataWriteStrategy::writeOutputData "virtual void IOutputDataWriteStrategy::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)=0
@@ -2870,7 +2867,7 @@ Returns underlying unit converter.
 %feature("docstring")  SimulationResult::size "size_t SimulationResult::size() const
 ";
 
-%feature("docstring")  SimulationResult::max "double & SimulationResult::max() const
+%feature("docstring")  SimulationResult::max "double SimulationResult::max() const
 ";
 
 %feature("docstring")  SimulationResult::empty "bool SimulationResult::empty() const

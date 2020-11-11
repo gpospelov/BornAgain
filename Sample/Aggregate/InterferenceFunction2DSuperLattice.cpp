@@ -124,7 +124,7 @@ std::vector<const INode*> InterferenceFunction2DSuperLattice::getChildren() cons
 
 double InterferenceFunction2DSuperLattice::iff_without_dw(const kvector_t q) const
 {
-    using MathFunctions::Laue;
+    using Math::Laue;
 
     const double a = m_lattice->length1();
     const double b = m_lattice->length2();

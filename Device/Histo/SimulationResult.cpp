@@ -114,8 +114,8 @@ double SimulationResult::max() const
 {
     ASSERT(m_data);
     double result = 0;
-    for (size_t i=0; i<size(); ++i)
-        if ((*m_data)[i]>result)
+    for (size_t i = 0; i < size(); ++i)
+        if ((*m_data)[i] > result)
             result = (*m_data)[i];
     return result;
 }

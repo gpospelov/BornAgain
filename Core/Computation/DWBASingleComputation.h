@@ -39,7 +39,6 @@ class DWBASingleComputation
 public:
     DWBASingleComputation();
     ~DWBASingleComputation();
-    DWBASingleComputation(DWBASingleComputation&& other);
 
     void setProgressHandler(ProgressHandler* p_progress);
 
@@ -47,9 +46,6 @@ public:
     void setRoughnessComputation(RoughMultiLayerComputation* p_roughness_comp);
     void setSpecularBinComputation(GISASSpecularComputation* p_spec_comp);
     void compute(SimulationElement& elem) const;
-
-    //! Retrieves a map of regions for the calculation of averaged layers
-    const std::map<size_t, std::vector<HomogeneousRegion>>& regionMap() const;
 
 private:
     std::vector<std::unique_ptr<ParticleLayoutComputation>> m_layout_comps;

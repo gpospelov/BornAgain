@@ -97,7 +97,7 @@ FTDecayFunction1DTriangle* FTDecayFunction1DTriangle::clone() const
 
 double FTDecayFunction1DTriangle::evaluate(double q) const
 {
-    double sincqw2 = MathFunctions::sinc(q * m_decay_length / 2.0);
+    double sincqw2 = Math::sinc(q * m_decay_length / 2.0);
     return m_decay_length * sincqw2 * sincqw2;
 }
 

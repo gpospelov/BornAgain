@@ -376,24 +376,10 @@ Creates a new clipped axis.
 ";
 
 
-// File: classExceptions_1_1DivisionByZeroException.xml
-%feature("docstring") Exceptions::DivisionByZeroException "";
-
-%feature("docstring")  Exceptions::DivisionByZeroException::DivisionByZeroException "Exceptions::DivisionByZeroException::DivisionByZeroException(const std::string &message)
-";
-
-
 // File: classExceptions_1_1DomainErrorException.xml
 %feature("docstring") Exceptions::DomainErrorException "";
 
 %feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1ExistingClassRegistrationException.xml
-%feature("docstring") Exceptions::ExistingClassRegistrationException "";
-
-%feature("docstring")  Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException "Exceptions::ExistingClassRegistrationException::ExistingClassRegistrationException(const std::string &message)
 ";
 
 
@@ -1070,13 +1056,6 @@ Determine if the transformation is trivial (identity)
 ";
 
 
-// File: classExceptions_1_1UnknownClassRegistrationException.xml
-%feature("docstring") Exceptions::UnknownClassRegistrationException "";
-
-%feature("docstring")  Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException "Exceptions::UnknownClassRegistrationException::UnknownClassRegistrationException(const std::string &message)
-";
-
-
 // File: classVariableBinAxis.xml
 %feature("docstring") VariableBinAxis "
 
@@ -1151,6 +1130,9 @@ Creates a new clipped axis.
 
 %feature("docstring")  VariableBinAxis::pyString "std::string VariableBinAxis::pyString(const std::string &units, size_t offset) const final
 ";
+
+
+// File: namespace_0d30.xml
 
 
 // File: namespacealgo.xml
@@ -1242,129 +1224,84 @@ Returns true if file with given name exists on disk.
 ";
 
 
-// File: namespaceMathFunctions.xml
-%feature("docstring")  MathFunctions::Bessel_J0_PowSer "complex_t MathFunctions::Bessel_J0_PowSer(const complex_t z)
-
-Computes complex Bessel function J0(z), using power series and asymptotic expansion.
-
-Computes the complex Bessel function J0(z), using power series and asymptotic expansion.
-
-Forked from unoptimized code at http://www.crbond.com/math.htm, who refers to \"Computation of Special Functions\", Zhang and Jin, John Wiley and Sons, 1996. 
+// File: namespaceMath.xml
+%feature("docstring")  Math::Bessel::StandardNormal "double Math::StandardNormal(double x)
 ";
 
-%feature("docstring")  MathFunctions::Bessel_J1_PowSer "complex_t MathFunctions::Bessel_J1_PowSer(const complex_t z)
-
-Computes complex Bessel function J0(z), using power series and asymptotic expansion.
-
-Computes the complex Bessel function J1(z), using power series and asymptotic expansion.
-
-Forked from same source as for Bessel_J0_PowSer 
+%feature("docstring")  Math::Bessel::Gaussian "double Math::Gaussian(double x, double average, double std_dev)
 ";
 
-%feature("docstring")  MathFunctions::StandardNormal "double MathFunctions::StandardNormal(double x)
+%feature("docstring")  Math::Bessel::IntegratedGaussian "double Math::IntegratedGaussian(double x, double average, double std_dev)
 ";
 
-%feature("docstring")  MathFunctions::Gaussian "double MathFunctions::Gaussian(double x, double average, double std_dev)
-";
-
-%feature("docstring")  MathFunctions::IntegratedGaussian "double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)
-";
-
-%feature("docstring")  MathFunctions::cot "double MathFunctions::cot(double x)
+%feature("docstring")  Math::Bessel::cot "double Math::cot(double x)
 
 cotangent function:  $cot(x)\\\\equiv1/tan(x)$
 ";
 
-%feature("docstring")  MathFunctions::Si "double MathFunctions::Si(double x)
-
-Sine integral function:  $Si(x)\\\\equiv\\\\int_0^x du \\\\sin(u)/u$. 
-";
-
-%feature("docstring")  MathFunctions::sinc "double MathFunctions::sinc(double x)
+%feature("docstring")  Math::Bessel::sinc "double Math::sinc(double x)
 
 sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$
 ";
 
-%feature("docstring")  MathFunctions::sinc "complex_t MathFunctions::sinc(const complex_t z)
+%feature("docstring")  Math::Bessel::sinc "complex_t Math::sinc(const complex_t z)
 
 Complex sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$. 
 ";
 
-%feature("docstring")  MathFunctions::tanhc "complex_t MathFunctions::tanhc(const complex_t z)
+%feature("docstring")  Math::Bessel::tanhc "complex_t Math::tanhc(const complex_t z)
 
 Complex tanhc function:  $tanhc(x)\\\\equiv\\\\tanh(x)/x$. 
 ";
 
-%feature("docstring")  MathFunctions::Laue "double MathFunctions::Laue(const double x, size_t N)
+%feature("docstring")  Math::Bessel::Laue "double Math::Laue(const double x, size_t N)
 
 Real Laue function:  $Laue(x,N)\\\\equiv\\\\sin(Nx)/sin(x)$. 
 ";
 
-%feature("docstring")  MathFunctions::erf "double MathFunctions::erf(double arg)
+%feature("docstring")  Math::Bessel::erf "double Math::erf(double arg)
 
 Error function of real-valued argument. 
 ";
 
-%feature("docstring")  MathFunctions::Bessel_J0 "double MathFunctions::Bessel_J0(double x)
+%feature("docstring")  Math::Bessel::GeneratePoissonRandom "double Math::GeneratePoissonRandom(double average)
+";
+
+
+// File: namespaceMath_1_1Bessel.xml
+%feature("docstring")  Math::Bessel::J0 "double Math::Bessel::J0(double x)
 
 Bessel function of the first kind and order 0. 
 ";
 
-%feature("docstring")  MathFunctions::Bessel_J1 "double MathFunctions::Bessel_J1(double x)
+%feature("docstring")  Math::Bessel::J1 "double Math::Bessel::J1(double x)
 
 Bessel function of the first kind and order 1. 
 ";
 
-%feature("docstring")  MathFunctions::Bessel_J1c "double MathFunctions::Bessel_J1c(double x)
+%feature("docstring")  Math::Bessel::J1c "double Math::Bessel::J1c(double x)
 
-Bessel function Bessel_J1(x)/x. 
+Bessel function J1(x)/x. 
 ";
 
-%feature("docstring")  MathFunctions::Bessel_I0 "double MathFunctions::Bessel_I0(double x)
+%feature("docstring")  Math::Bessel::I0 "double Math::Bessel::I0(double x)
 
 Modified Bessel function of the first kind and order 0. 
 ";
 
-%feature("docstring")  MathFunctions::Bessel_J0 "complex_t MathFunctions::Bessel_J0(const complex_t z)
+%feature("docstring")  Math::Bessel::J0 "complex_t Math::Bessel::J0(const complex_t z)
 
 Complex Bessel function of the first kind and order 0. 
 ";
 
-%feature("docstring")  MathFunctions::Bessel_J1 "complex_t MathFunctions::Bessel_J1(const complex_t z)
+%feature("docstring")  Math::Bessel::J1 "complex_t Math::Bessel::J1(const complex_t z)
 
 Complex Bessel function of the first kind and order 1. 
 ";
 
-%feature("docstring")  MathFunctions::Bessel_J1c "complex_t MathFunctions::Bessel_J1c(const complex_t z)
+%feature("docstring")  Math::Bessel::J1c "complex_t Math::Bessel::J1c(const complex_t z)
 
-Complex Bessel function Bessel_J1(x)/x. 
-";
-
-%feature("docstring")  MathFunctions::FastFourierTransform "std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< complex_t > &data, EFFTDirection tcase)
-
-simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3) 
-";
-
-%feature("docstring")  MathFunctions::FastFourierTransform "std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)
-
-simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex 
-";
-
-%feature("docstring")  MathFunctions::ConvolveFFT "std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)
-
-convolution of two real vectors of equal size 
-";
-
-%feature("docstring")  MathFunctions::GenerateUniformRandom "double MathFunctions::GenerateUniformRandom()
-";
-
-%feature("docstring")  MathFunctions::GenerateStandardNormalRandom "double MathFunctions::GenerateStandardNormalRandom()
-";
-
-%feature("docstring")  MathFunctions::GenerateNormalRandom "double MathFunctions::GenerateNormalRandom(double average, double std_dev)
-";
-
-%feature("docstring")  MathFunctions::GeneratePoissonRandom "double MathFunctions::GeneratePoissonRandom(double average)
+Complex Bessel function J1(x)/x. 
 ";
 
 
@@ -1602,6 +1539,12 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: Assert_8h.xml
+
+
+// File: Bessel_8cpp.xml
+
+
+// File: Bessel_8h.xml
 
 
 // File: FileSystemUtils_8cpp.xml

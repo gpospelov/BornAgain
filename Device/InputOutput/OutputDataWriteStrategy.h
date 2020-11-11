@@ -25,8 +25,7 @@ template <class T> class OutputData;
 class IOutputDataWriteStrategy
 {
 public:
-    IOutputDataWriteStrategy() {}
-    virtual ~IOutputDataWriteStrategy() {}
+    virtual ~IOutputDataWriteStrategy() = default;
 
     virtual void writeOutputData(const OutputData<double>& data, std::ostream& output_stream) = 0;
 };

@@ -24350,7 +24350,7 @@ SWIGINTERN PyObject *_wrap_StandardNormal(PyObject *SWIGUNUSEDPARM(self), PyObje
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "StandardNormal" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::StandardNormal(arg1);
+  result = (double)Math::StandardNormal(arg1);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24388,7 +24388,7 @@ SWIGINTERN PyObject *_wrap_Gaussian(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Gaussian" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)MathFunctions::Gaussian(arg1,arg2,arg3);
+  result = (double)Math::Gaussian(arg1,arg2,arg3);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24426,7 +24426,7 @@ SWIGINTERN PyObject *_wrap_IntegratedGaussian(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IntegratedGaussian" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)MathFunctions::IntegratedGaussian(arg1,arg2,arg3);
+  result = (double)Math::IntegratedGaussian(arg1,arg2,arg3);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24449,30 +24449,7 @@ SWIGINTERN PyObject *_wrap_cot(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "cot" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::cot(arg1);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Si(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Si" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::Si(arg1);
+  result = (double)Math::cot(arg1);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24493,7 +24470,7 @@ SWIGINTERN PyObject *_wrap_sinc__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "sinc" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::sinc(arg1);
+  result = (double)Math::sinc(arg1);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24514,7 +24491,7 @@ SWIGINTERN PyObject *_wrap_sinc__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "sinc" "', argument " "1"" of type '" "complex_t""'");
   } 
   arg1 = static_cast< complex_t >(val1);
-  result = MathFunctions::sinc(arg1);
+  result = Math::sinc(arg1);
   resultobj = SWIG_From_std_complex_Sl_double_Sg_(static_cast< std::complex<double> >(result));
   return resultobj;
 fail:
@@ -24554,8 +24531,8 @@ SWIGINTERN PyObject *_wrap_sinc(PyObject *self, PyObject *args) {
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'sinc'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    MathFunctions::sinc(double)\n"
-    "    MathFunctions::sinc(complex_t const)\n");
+    "    Math::sinc(double)\n"
+    "    Math::sinc(complex_t const)\n");
   return 0;
 }
 
@@ -24575,7 +24552,7 @@ SWIGINTERN PyObject *_wrap_tanhc(PyObject *SWIGUNUSEDPARM(self), PyObject *args)
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "tanhc" "', argument " "1"" of type '" "complex_t""'");
   } 
   arg1 = static_cast< complex_t >(val1);
-  result = MathFunctions::tanhc(arg1);
+  result = Math::tanhc(arg1);
   resultobj = SWIG_From_std_complex_Sl_double_Sg_(static_cast< std::complex<double> >(result));
   return resultobj;
 fail:
@@ -24605,7 +24582,7 @@ SWIGINTERN PyObject *_wrap_Laue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) 
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Laue" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)MathFunctions::Laue(arg1,arg2);
+  result = (double)Math::Laue(arg1,arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -24628,488 +24605,7 @@ SWIGINTERN PyObject *_wrap_erf(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "erf" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::erf(arg1);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Bessel_J0__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double result;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Bessel_J0" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::Bessel_J0(arg1);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Bessel_J1__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double result;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Bessel_J1" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::Bessel_J1(arg1);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Bessel_J1c__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double result;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Bessel_J1c" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::Bessel_J1c(arg1);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Bessel_I0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Bessel_I0" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::Bessel_I0(arg1);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Bessel_J0__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  complex_t arg1 ;
-  std::complex< double > val1 ;
-  int ecode1 = 0 ;
-  complex_t result;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_std_complex_Sl_double_Sg_(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Bessel_J0" "', argument " "1"" of type '" "complex_t""'");
-  } 
-  arg1 = static_cast< complex_t >(val1);
-  result = MathFunctions::Bessel_J0(arg1);
-  resultobj = SWIG_From_std_complex_Sl_double_Sg_(static_cast< std::complex<double> >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Bessel_J0(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Bessel_J0", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      return _wrap_Bessel_J0__SWIG_0(self, argc, argv);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    {
-      int res = SWIG_AsVal_std_complex_Sl_double_Sg_(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      return _wrap_Bessel_J0__SWIG_1(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Bessel_J0'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    MathFunctions::Bessel_J0(double)\n"
-    "    MathFunctions::Bessel_J0(complex_t const)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_Bessel_J1__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  complex_t arg1 ;
-  std::complex< double > val1 ;
-  int ecode1 = 0 ;
-  complex_t result;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_std_complex_Sl_double_Sg_(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Bessel_J1" "', argument " "1"" of type '" "complex_t""'");
-  } 
-  arg1 = static_cast< complex_t >(val1);
-  result = MathFunctions::Bessel_J1(arg1);
-  resultobj = SWIG_From_std_complex_Sl_double_Sg_(static_cast< std::complex<double> >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Bessel_J1(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Bessel_J1", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      return _wrap_Bessel_J1__SWIG_0(self, argc, argv);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    {
-      int res = SWIG_AsVal_std_complex_Sl_double_Sg_(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      return _wrap_Bessel_J1__SWIG_1(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Bessel_J1'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    MathFunctions::Bessel_J1(double)\n"
-    "    MathFunctions::Bessel_J1(complex_t const)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_Bessel_J1c__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  complex_t arg1 ;
-  std::complex< double > val1 ;
-  int ecode1 = 0 ;
-  complex_t result;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_std_complex_Sl_double_Sg_(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Bessel_J1c" "', argument " "1"" of type '" "complex_t""'");
-  } 
-  arg1 = static_cast< complex_t >(val1);
-  result = MathFunctions::Bessel_J1c(arg1);
-  resultobj = SWIG_From_std_complex_Sl_double_Sg_(static_cast< std::complex<double> >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Bessel_J1c(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Bessel_J1c", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      return _wrap_Bessel_J1c__SWIG_0(self, argc, argv);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    {
-      int res = SWIG_AsVal_std_complex_Sl_double_Sg_(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      return _wrap_Bessel_J1c__SWIG_1(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Bessel_J1c'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    MathFunctions::Bessel_J1c(double)\n"
-    "    MathFunctions::Bessel_J1c(complex_t const)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_FastFourierTransform__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::vector< complex_t,std::allocator< complex_t > > *arg1 = 0 ;
-  MathFunctions::EFFTDirection arg2 ;
-  int res1 = SWIG_OLDOBJ ;
-  int val2 ;
-  int ecode2 = 0 ;
-  std::vector< complex_t,std::allocator< complex_t > > result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  {
-    std::vector< std::complex< double >,std::allocator< std::complex< double > > > *ptr = (std::vector< std::complex< double >,std::allocator< std::complex< double > > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FastFourierTransform" "', argument " "1"" of type '" "std::vector< complex_t,std::allocator< complex_t > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FastFourierTransform" "', argument " "1"" of type '" "std::vector< complex_t,std::allocator< complex_t > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FastFourierTransform" "', argument " "2"" of type '" "MathFunctions::EFFTDirection""'");
-  } 
-  arg2 = static_cast< MathFunctions::EFFTDirection >(val2);
-  result = MathFunctions::FastFourierTransform((std::vector< std::complex< double >,std::allocator< std::complex< double > > > const &)*arg1,arg2);
-  resultobj = swig::from(static_cast< std::vector< std::complex< double >,std::allocator< std::complex< double > > > >(result));
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FastFourierTransform__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::vector< double,std::allocator< double > > *arg1 = 0 ;
-  MathFunctions::EFFTDirection arg2 ;
-  int res1 = SWIG_OLDOBJ ;
-  int val2 ;
-  int ecode2 = 0 ;
-  std::vector< complex_t,std::allocator< complex_t > > result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  {
-    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FastFourierTransform" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FastFourierTransform" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FastFourierTransform" "', argument " "2"" of type '" "MathFunctions::EFFTDirection""'");
-  } 
-  arg2 = static_cast< MathFunctions::EFFTDirection >(val2);
-  result = MathFunctions::FastFourierTransform((std::vector< double,std::allocator< double > > const &)*arg1,arg2);
-  resultobj = swig::from(static_cast< std::vector< std::complex< double >,std::allocator< std::complex< double > > > >(result));
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FastFourierTransform(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "FastFourierTransform", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v;
-    int res = swig::asptr(argv[0], (std::vector< std::complex< double >,std::allocator< std::complex< double > > >**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_int(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        return _wrap_FastFourierTransform__SWIG_0(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_int(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        return _wrap_FastFourierTransform__SWIG_1(self, argc, argv);
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'FastFourierTransform'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    MathFunctions::FastFourierTransform(std::vector< complex_t,std::allocator< complex_t > > const &,MathFunctions::EFFTDirection)\n"
-    "    MathFunctions::FastFourierTransform(std::vector< double,std::allocator< double > > const &,MathFunctions::EFFTDirection)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_ConvolveFFT(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::vector< double,std::allocator< double > > *arg1 = 0 ;
-  std::vector< double,std::allocator< double > > *arg2 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  std::vector< complex_t,std::allocator< complex_t > > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ConvolveFFT", 2, 2, swig_obj)) SWIG_fail;
-  {
-    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConvolveFFT" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ConvolveFFT" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  {
-    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
-    res2 = swig::asptr(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ConvolveFFT" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ConvolveFFT" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  result = MathFunctions::ConvolveFFT((std::vector< double,std::allocator< double > > const &)*arg1,(std::vector< double,std::allocator< double > > const &)*arg2);
-  resultobj = swig::from(static_cast< std::vector< std::complex< double >,std::allocator< std::complex< double > > > >(result));
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_GenerateUniformRandom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "GenerateUniformRandom", 0, 0, 0)) SWIG_fail;
-  result = (double)MathFunctions::GenerateUniformRandom();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_GenerateStandardNormalRandom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "GenerateStandardNormalRandom", 0, 0, 0)) SWIG_fail;
-  result = (double)MathFunctions::GenerateStandardNormalRandom();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_GenerateNormalRandom(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "GenerateNormalRandom", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "GenerateNormalRandom" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "GenerateNormalRandom" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (double)MathFunctions::GenerateNormalRandom(arg1,arg2);
+  result = (double)Math::erf(arg1);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -25132,7 +24628,7 @@ SWIGINTERN PyObject *_wrap_GeneratePoissonRandom(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "GeneratePoissonRandom" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  result = (double)MathFunctions::GeneratePoissonRandom(arg1);
+  result = (double)Math::GeneratePoissonRandom(arg1);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -33779,130 +33275,18 @@ static PyMethodDef SwigMethods[] = {
 		"double Units::deg2rad(double angle)\n"
 		"\n"
 		""},
-	 { "StandardNormal", _wrap_StandardNormal, METH_O, "\n"
-		"StandardNormal(double x) -> double\n"
-		"double MathFunctions::StandardNormal(double x)\n"
-		"\n"
-		""},
-	 { "Gaussian", _wrap_Gaussian, METH_VARARGS, "\n"
-		"Gaussian(double x, double average, double std_dev) -> double\n"
-		"double MathFunctions::Gaussian(double x, double average, double std_dev)\n"
-		"\n"
-		""},
-	 { "IntegratedGaussian", _wrap_IntegratedGaussian, METH_VARARGS, "\n"
-		"IntegratedGaussian(double x, double average, double std_dev) -> double\n"
-		"double MathFunctions::IntegratedGaussian(double x, double average, double std_dev)\n"
-		"\n"
-		""},
-	 { "cot", _wrap_cot, METH_O, "\n"
-		"cot(double x) -> double\n"
-		"double MathFunctions::cot(double x)\n"
-		"\n"
-		"cotangent function:  $cot(x)\\\\equiv1/tan(x)$\n"
-		"\n"
-		""},
-	 { "Si", _wrap_Si, METH_O, "\n"
-		"Si(double x) -> double\n"
-		"double MathFunctions::Si(double x)\n"
-		"\n"
-		"Sine integral function:  $Si(x)\\\\equiv\\\\int_0^x du \\\\sin(u)/u$. \n"
-		"\n"
-		""},
+	 { "StandardNormal", _wrap_StandardNormal, METH_O, "StandardNormal(double x) -> double"},
+	 { "Gaussian", _wrap_Gaussian, METH_VARARGS, "Gaussian(double x, double average, double std_dev) -> double"},
+	 { "IntegratedGaussian", _wrap_IntegratedGaussian, METH_VARARGS, "IntegratedGaussian(double x, double average, double std_dev) -> double"},
+	 { "cot", _wrap_cot, METH_O, "cot(double x) -> double"},
 	 { "sinc", _wrap_sinc, METH_VARARGS, "\n"
 		"sinc(double x) -> double\n"
 		"sinc(complex_t const z) -> complex_t\n"
-		"complex_t MathFunctions::sinc(const complex_t z)\n"
-		"\n"
-		"Complex sinc function:  $sinc(x)\\\\equiv\\\\sin(x)/x$. \n"
-		"\n"
 		""},
-	 { "tanhc", _wrap_tanhc, METH_O, "\n"
-		"tanhc(complex_t const z) -> complex_t\n"
-		"complex_t MathFunctions::tanhc(const complex_t z)\n"
-		"\n"
-		"Complex tanhc function:  $tanhc(x)\\\\equiv\\\\tanh(x)/x$. \n"
-		"\n"
-		""},
-	 { "Laue", _wrap_Laue, METH_VARARGS, "\n"
-		"Laue(double const x, size_t N) -> double\n"
-		"double MathFunctions::Laue(const double x, size_t N)\n"
-		"\n"
-		"Real Laue function:  $Laue(x,N)\\\\equiv\\\\sin(Nx)/sin(x)$. \n"
-		"\n"
-		""},
-	 { "erf", _wrap_erf, METH_O, "\n"
-		"erf(double arg) -> double\n"
-		"double MathFunctions::erf(double arg)\n"
-		"\n"
-		"Error function of real-valued argument. \n"
-		"\n"
-		""},
-	 { "Bessel_I0", _wrap_Bessel_I0, METH_O, "\n"
-		"Bessel_I0(double x) -> double\n"
-		"double MathFunctions::Bessel_I0(double x)\n"
-		"\n"
-		"Modified Bessel function of the first kind and order 0. \n"
-		"\n"
-		""},
-	 { "Bessel_J0", _wrap_Bessel_J0, METH_VARARGS, "\n"
-		"Bessel_J0(double x) -> double\n"
-		"Bessel_J0(complex_t const z) -> complex_t\n"
-		"complex_t MathFunctions::Bessel_J0(const complex_t z)\n"
-		"\n"
-		"Complex Bessel function of the first kind and order 0. \n"
-		"\n"
-		""},
-	 { "Bessel_J1", _wrap_Bessel_J1, METH_VARARGS, "\n"
-		"Bessel_J1(double x) -> double\n"
-		"Bessel_J1(complex_t const z) -> complex_t\n"
-		"complex_t MathFunctions::Bessel_J1(const complex_t z)\n"
-		"\n"
-		"Complex Bessel function of the first kind and order 1. \n"
-		"\n"
-		""},
-	 { "Bessel_J1c", _wrap_Bessel_J1c, METH_VARARGS, "\n"
-		"Bessel_J1c(double x) -> double\n"
-		"Bessel_J1c(complex_t const z) -> complex_t\n"
-		"complex_t MathFunctions::Bessel_J1c(const complex_t z)\n"
-		"\n"
-		"Complex Bessel function Bessel_J1(x)/x. \n"
-		"\n"
-		""},
-	 { "FastFourierTransform", _wrap_FastFourierTransform, METH_VARARGS, "\n"
-		"FastFourierTransform(vector_complex_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t\n"
-		"FastFourierTransform(vdouble1d_t data, MathFunctions::EFFTDirection tcase) -> vector_complex_t\n"
-		"std::vector< complex_t > MathFunctions::FastFourierTransform(const std::vector< double > &data, EFFTDirection tcase)\n"
-		"\n"
-		"simple (and unoptimized) wrapper function for the discrete fast Fourier transformation library (fftw3); transforms real to complex \n"
-		"\n"
-		""},
-	 { "ConvolveFFT", _wrap_ConvolveFFT, METH_VARARGS, "\n"
-		"ConvolveFFT(vdouble1d_t signal, vdouble1d_t resfunc) -> vector_complex_t\n"
-		"std::vector< complex_t > MathFunctions::ConvolveFFT(const std::vector< double > &signal, const std::vector< double > &resfunc)\n"
-		"\n"
-		"convolution of two real vectors of equal size \n"
-		"\n"
-		""},
-	 { "GenerateUniformRandom", _wrap_GenerateUniformRandom, METH_NOARGS, "\n"
-		"GenerateUniformRandom() -> double\n"
-		"double MathFunctions::GenerateUniformRandom()\n"
-		"\n"
-		""},
-	 { "GenerateStandardNormalRandom", _wrap_GenerateStandardNormalRandom, METH_NOARGS, "\n"
-		"GenerateStandardNormalRandom() -> double\n"
-		"double MathFunctions::GenerateStandardNormalRandom()\n"
-		"\n"
-		""},
-	 { "GenerateNormalRandom", _wrap_GenerateNormalRandom, METH_VARARGS, "\n"
-		"GenerateNormalRandom(double average, double std_dev) -> double\n"
-		"double MathFunctions::GenerateNormalRandom(double average, double std_dev)\n"
-		"\n"
-		""},
-	 { "GeneratePoissonRandom", _wrap_GeneratePoissonRandom, METH_O, "\n"
-		"GeneratePoissonRandom(double average) -> double\n"
-		"double MathFunctions::GeneratePoissonRandom(double average)\n"
-		"\n"
-		""},
+	 { "tanhc", _wrap_tanhc, METH_O, "tanhc(complex_t const z) -> complex_t"},
+	 { "Laue", _wrap_Laue, METH_VARARGS, "Laue(double const x, size_t N) -> double"},
+	 { "erf", _wrap_erf, METH_O, "erf(double arg) -> double"},
+	 { "GeneratePoissonRandom", _wrap_GeneratePoissonRandom, METH_O, "GeneratePoissonRandom(double average) -> double"},
 	 { "new_ThreadInfo", _wrap_new_ThreadInfo, METH_NOARGS, "\n"
 		"new_ThreadInfo() -> ThreadInfo\n"
 		"ThreadInfo::ThreadInfo()\n"
@@ -35856,8 +35240,6 @@ SWIG_init(void) {
   SWIG_addvarlink(globals, "deg", Swig_var_deg_get, Swig_var_deg_set);
   SWIG_addvarlink(globals, "tesla", Swig_var_tesla_get, Swig_var_tesla_set);
   SWIG_addvarlink(globals, "gauss", Swig_var_gauss_get, Swig_var_gauss_set);
-  SWIG_Python_SetConstant(d, "FORWARD_FFT",SWIG_From_int(static_cast< int >(MathFunctions::FORWARD_FFT)));
-  SWIG_Python_SetConstant(d, "BACKWARD_FFT",SWIG_From_int(static_cast< int >(MathFunctions::BACKWARD_FFT)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

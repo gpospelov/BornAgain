@@ -30,7 +30,7 @@ public:
 
     IHistogram();
     IHistogram(const IHistogram& other);
-    virtual ~IHistogram() {}
+    virtual ~IHistogram() = default;
 
     IHistogram(const IAxis& axis_x);
     IHistogram(const IAxis& axis_x, const IAxis& axis_y);
@@ -86,11 +86,11 @@ public:
     //! Returns the center of bin i of the y axis.
     double getYaxisValue(size_t i);
 
+    const OutputData<CumulativeValue>& getData() const;
+    OutputData<CumulativeValue>& getData();
+
     //! Returns content (accumulated value) of bin i.
     double getBinContent(size_t i) const;
-
-    const OutputData<CumulativeValue>& getData() const { return m_data; }
-    OutputData<CumulativeValue>& getData() { return m_data; }
 
     //! Returns content (accumulated value) of the 2D histogram bin.
     double getBinContent(size_t binx, size_t biny) const;

@@ -15,11 +15,11 @@
 #ifndef BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_IREGISTRY_H
 #define BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_IREGISTRY_H
 
-#include "Base/Types/Exceptions.h"
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 //! @class IRegistry
 //! @ingroup tools_internal
@@ -32,8 +32,7 @@ public:
     {
         auto it = m_data.find(key);
         if (it == m_data.end())
-            throw Exceptions::UnknownClassRegistrationException(
-                "IRegistry::createItem() -> Error. Not existing item key '" + key + "'");
+            throw std::runtime_error("Key '" + key + "' not found in registry");
         return it->second.get();
     }
 
@@ -51,8 +50,7 @@ protected:
     void add(const std::string& key, ValueType* item)
     {
         if (m_data.find(key) != m_data.end())
-            throw Exceptions::ExistingClassRegistrationException(
-                "IRegistry::createItem() -> Error. Already existing item with key '" + key + "'");
+            throw std::runtime_error("Key '" + key + "' already in registry");
         m_data[key] = std::unique_ptr<ValueType>(item);
     }
 

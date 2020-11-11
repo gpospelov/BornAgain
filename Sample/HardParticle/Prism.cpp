@@ -60,7 +60,7 @@ complex_t Prism::evaluate_for_q(const cvector_t& q) const
         diagnosis.nExpandedFaces = 0;
 #endif
         cvector_t qxy(q.x(), q.y(), 0.);
-        return m_height * exp_I(m_height / 2 * q.z()) * MathFunctions::sinc(m_height / 2 * q.z())
+        return m_height * exp_I(m_height / 2 * q.z()) * Math::sinc(m_height / 2 * q.z())
                * m_base->ff_2D(qxy);
     } catch (std::logic_error& e) {
         throw std::logic_error(std::string("Bug in Prism: ") + e.what()

@@ -19,7 +19,7 @@
 
 complex_t ripples::factor_x_box(complex_t q, double r)
 {
-    return r * MathFunctions::sinc(q * r / 2.0);
+    return r * Math::sinc(q * r / 2.0);
 }
 
 complex_t ripples::factor_x_Gauss(complex_t q, double r)
@@ -38,8 +38,7 @@ complex_t ripples::profile_yz_bar(complex_t qy, complex_t qz, double width, doub
     const complex_t qyWdiv2 = width * qy / 2.0;
     const complex_t qzHdiv2 = height * qz / 2.0;
 
-    return height * width * exp_I(qzHdiv2) * MathFunctions::sinc(qyWdiv2)
-           * MathFunctions::sinc(qzHdiv2);
+    return height * width * exp_I(qzHdiv2) * Math::sinc(qyWdiv2) * Math::sinc(qzHdiv2);
 }
 
 //! Complex form factor of triangular ripple.
@@ -55,7 +54,7 @@ complex_t ripples::profile_yz_cosine(complex_t qy, complex_t qz, double width, d
         complex_t aaa2 = aaa * aaa;
         if (aaa2 == 1.)
             return factor * M_PI_4 * height;
-        return factor * M_PI_2 * height * MathFunctions::sinc(qy * width * 0.5) / (1.0 - aaa2);
+        return factor * M_PI_2 * height * Math::sinc(qy * width * 0.5) / (1.0 - aaa2);
     }
 
     // numerical integration otherwise
@@ -94,8 +93,7 @@ complex_t ripples::profile_yz_triangular(complex_t qy, complex_t qz, double widt
     } else {
         const complex_t gamma_p = (a + qyW2) * 0.5;
         const complex_t gamma_m = (a - qyW2) * 0.5;
-        result = exp_I(gamma_m) * MathFunctions::sinc(gamma_p)
-                 - exp_I(gamma_p) * MathFunctions::sinc(gamma_m);
+        result = exp_I(gamma_m) * Math::sinc(gamma_p) - exp_I(gamma_p) * Math::sinc(gamma_m);
         result = mul_I(exp_I(-qyd) * result / (qyW2 * 2.));
     }
     return factor * result;

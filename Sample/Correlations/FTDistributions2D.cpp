@@ -14,8 +14,8 @@
 
 #include "Sample/Correlations/FTDistributions2D.h"
 #include "Base/Types/Exceptions.h"
+#include "Base/Utils/Bessel.h"
 #include "Base/Utils/Integrator.h"
-#include "Base/Utils/MathFunctions.h"
 #include <limits>
 
 // ************************************************************************** //
@@ -119,7 +119,7 @@ FTDistribution2DGate* FTDistribution2DGate::clone() const
 double FTDistribution2DGate::evaluate(double qx, double qy) const
 {
     double scaled_q = std::sqrt(sumsq(qx, qy));
-    return MathFunctions::Bessel_J1c(scaled_q) * 2.0;
+    return Math::Bessel::J1c(scaled_q) * 2.0;
 }
 
 std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() const
@@ -153,8 +153,8 @@ double FTDistribution2DCone::evaluate(double qx, double qy) const
         return 1.0 - 3.0 * scaled_q * scaled_q / 40.0;
     // second part of the integrand: \f$u^2\cdot J_0(u)\f$
     double integral = RealIntegrator().integrate(
-        [](double x) -> double { return x * x * MathFunctions::Bessel_J0(x); }, 0.0, scaled_q);
-    return 6.0 * (MathFunctions::Bessel_J1c(scaled_q) - integral / scaled_q / scaled_q / scaled_q);
+        [](double x) -> double { return x * x * Math::Bessel::J0(x); }, 0.0, scaled_q);
+    return 6.0 * (Math::Bessel::J1c(scaled_q) - integral / scaled_q / scaled_q / scaled_q);
 }
 
 std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() const

@@ -35,9 +35,8 @@ FormFactorBox::FormFactorBox(double length, double width, double height)
 complex_t FormFactorBox::evaluate_for_q(cvector_t q) const
 {
     complex_t qzHdiv2 = m_height / 2 * q.z();
-    return m_length * m_width * m_height * MathFunctions::sinc(m_length / 2 * q.x())
-           * MathFunctions::sinc(m_width / 2 * q.y()) * MathFunctions::sinc(qzHdiv2)
-           * exp_I(qzHdiv2);
+    return m_length * m_width * m_height * Math::sinc(m_length / 2 * q.x())
+           * Math::sinc(m_width / 2 * q.y()) * Math::sinc(qzHdiv2) * exp_I(qzHdiv2);
 }
 
 IFormFactor* FormFactorBox::sliceFormFactor(ZLimits limits, const IRotation& rot,

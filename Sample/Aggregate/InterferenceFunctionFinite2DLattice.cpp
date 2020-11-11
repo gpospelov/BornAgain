@@ -21,7 +21,7 @@
 
 #include <limits>
 
-using MathFunctions::Laue;
+using Math::Laue;
 
 //! Constructor of two-dimensional finite lattice interference function.
 //! @param lattice: object specifying a 2d lattice structure

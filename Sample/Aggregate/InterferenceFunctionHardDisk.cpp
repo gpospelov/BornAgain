@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Sample/Aggregate/InterferenceFunctionHardDisk.h"
+#include "Base/Utils/Bessel.h"
 #include "Base/Utils/Integrator.h"
-#include "Base/Utils/MathFunctions.h"
 #include "Param/Base/RealParameter.h"
 #include <cmath>
 
@@ -83,7 +83,7 @@ double InterferenceFunctionHardDisk::packingRatio() const
 double InterferenceFunctionHardDisk::integrand(double x) const
 {
     double cx = m_c_zero * (1.0 + 4.0 * m_packing * (W2(x / 2.0) - 1.0) + m_s2 * x);
-    return x * cx * MathFunctions::Bessel_J0(m_q * x);
+    return x * cx * Math::Bessel::J0(m_q * x);
 }
 
 namespace

@@ -14,6 +14,7 @@
 
 #include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Base/Const/MathConstants.h"
+#include "Base/Utils/Bessel.h"
 #include "Base/Utils/MathFunctions.h"
 #include "Sample/Shapes/DoubleEllipse.h"
 
@@ -39,9 +40,9 @@ complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const
     double H = m_height;
 
     complex_t qzH_half = q.z() * H / 2.0;
-    complex_t z_part = H * MathFunctions::sinc(qzH_half) * exp_I(qzH_half);
+    complex_t z_part = H * Math::sinc(qzH_half) * exp_I(qzH_half);
     complex_t qxy = std::sqrt(q.x() * q.x() + q.y() * q.y());
-    complex_t radial_part = M_TWOPI * R * R * MathFunctions::Bessel_J1c(qxy * R);
+    complex_t radial_part = M_TWOPI * R * R * Math::Bessel::J1c(qxy * R);
     complex_t result = radial_part * z_part;
 
     return result;

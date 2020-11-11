@@ -26,15 +26,3 @@ void VisitNodesPreorder(const INode& node, INodeVisitor& visitor)
         it.next();
     }
 }
-
-void VisitNodesPostorder(const INode& node, INodeVisitor& visitor)
-{
-    NodeIterator<PostorderStrategy> it(&node);
-    it.first();
-    while (!it.isDone()) {
-        visitor.setDepth(it.depth());
-        const INode* child = it.getCurrent();
-        child->accept(&visitor);
-        it.next();
-    }
-}

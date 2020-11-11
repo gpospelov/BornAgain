@@ -3689,14 +3689,6 @@ class Simulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainCore.Simulation_setDetectorResolutionFunction(self, resolution_function)
 
-    def removeDetectorResolutionFunction(self):
-        r"""
-        removeDetectorResolutionFunction(Simulation self)
-        void Simulation::removeDetectorResolutionFunction()
-
-        """
-        return _libBornAgainCore.Simulation_removeDetectorResolutionFunction(self)
-
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         r"""
         setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency, double total_transmission)

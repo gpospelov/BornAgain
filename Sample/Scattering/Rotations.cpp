@@ -50,11 +50,6 @@ IRotation* IRotation::createRotation(const Transform3D& transform)
     ASSERT(0); // impossible case
 }
 
-IRotation* IRotation::createIdentity()
-{
-    return new RotationZ(0.0);
-}
-
 kvector_t IRotation::transformed(const kvector_t& v) const
 {
     return getTransform3D().transformed(v);
@@ -91,7 +86,7 @@ IdentityRotation::IdentityRotation()
 
 Transform3D IdentityRotation::getTransform3D() const
 {
-    return Transform3D::createIdentity();
+    return {};
 }
 
 // ************************************************************************** //

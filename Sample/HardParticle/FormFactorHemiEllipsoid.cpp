@@ -14,8 +14,8 @@
 
 #include "Sample/HardParticle/FormFactorHemiEllipsoid.h"
 #include "Base/Const/MathConstants.h"
+#include "Base/Utils/Bessel.h"
 #include "Base/Utils/Integrator.h"
-#include "Base/Utils/MathFunctions.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
@@ -55,7 +55,7 @@ complex_t FormFactorHemiEllipsoid::Integrand(double Z) const
     complex_t qyWz = m_q.y() * Wz;
 
     complex_t gamma = std::sqrt(qxRz * qxRz + qyWz * qyWz);
-    complex_t J1_gamma_div_gamma = MathFunctions::Bessel_J1c(gamma);
+    complex_t J1_gamma_div_gamma = Math::Bessel::J1c(gamma);
 
     return Rz * Wz * J1_gamma_div_gamma * exp_I(m_q.z() * Z);
 }

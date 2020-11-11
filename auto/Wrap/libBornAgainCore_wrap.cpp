@@ -39532,28 +39532,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Simulation_removeDetectorResolutionFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Simulation *arg1 = (Simulation *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Simulation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Simulation_removeDetectorResolutionFunction" "', argument " "1"" of type '" "Simulation *""'"); 
-  }
-  arg1 = reinterpret_cast< Simulation * >(argp1);
-  (arg1)->removeDetectorResolutionFunction();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Simulation_setAnalyzerProperties(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Simulation *arg1 = (Simulation *) 0 ;
@@ -44025,11 +44003,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "Simulation_setDetectorResolutionFunction", _wrap_Simulation_setDetectorResolutionFunction, METH_VARARGS, "\n"
 		"Simulation_setDetectorResolutionFunction(Simulation self, IResolutionFunction2D const & resolution_function)\n"
 		"void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)\n"
-		"\n"
-		""},
-	 { "Simulation_removeDetectorResolutionFunction", _wrap_Simulation_removeDetectorResolutionFunction, METH_O, "\n"
-		"Simulation_removeDetectorResolutionFunction(Simulation self)\n"
-		"void Simulation::removeDetectorResolutionFunction()\n"
 		"\n"
 		""},
 	 { "Simulation_setAnalyzerProperties", _wrap_Simulation_setAnalyzerProperties, METH_VARARGS, "\n"

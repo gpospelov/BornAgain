@@ -63,11 +63,10 @@ IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotati
     kvector_t rotation_offset =
         m_position_at_center ? kvector_t(0.0, 0.0, 0.0) : rot.transformed(center) - center;
     kvector_t new_translation = translation + rotation_offset;
-    std::unique_ptr<IRotation> P_identity(IRotation::createIdentity());
     double height = 2.0 * m_radius;
     auto effects = computeSlicingEffects(limits, new_translation, height);
     FormFactorTruncatedSphere slicedff(m_radius, height - effects.dz_bottom, effects.dz_top);
-    return createTransformedFormFactor(slicedff, *P_identity, effects.position);
+    return createTransformedFormFactor(slicedff, IdentityRotation(), effects.position);
 }
 
 void FormFactorFullSphere::onChange() {}

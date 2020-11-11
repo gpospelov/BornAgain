@@ -3455,14 +3455,6 @@ def VisitNodesPreorder(node, visitor):
 
     """
     return _libBornAgainParam.VisitNodesPreorder(node, visitor)
-
-def VisitNodesPostorder(node, visitor):
-    r"""
-    VisitNodesPostorder(INode node, INodeVisitor visitor)
-    void VisitNodesPostorder(const INode &node, INodeVisitor &visitor)
-
-    """
-    return _libBornAgainParam.VisitNodesPostorder(node, visitor)
 class IDistribution1D(libBornAgainBase.ICloneable, INode):
     r"""
 

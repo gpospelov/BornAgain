@@ -5430,7 +5430,7 @@ class IHistogram(object):
         r"""
         getData(IHistogram self) -> OutputData< CumulativeValue > const
         getData(IHistogram self) -> OutputData< CumulativeValue > &
-        OutputData<CumulativeValue>& IHistogram::getData()
+        OutputData< CumulativeValue > & IHistogram::getData()
 
         """
         return _libBornAgainDevice.IHistogram_getData(self, *args)
@@ -6127,7 +6127,7 @@ class SimulationResult(object):
     def max(self):
         r"""
         max(SimulationResult self) -> double
-        double & SimulationResult::max() const
+        double SimulationResult::max() const
 
         """
         return _libBornAgainDevice.SimulationResult_max(self)

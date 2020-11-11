@@ -14,8 +14,8 @@
 
 #include "Sample/Correlations/IPeakShape.h"
 #include "Base/Const/MathConstants.h"
+#include "Base/Utils/Bessel.h"
 #include "Base/Utils/Integrator.h"
-#include "Base/Utils/MathFunctions.h"
 #include <limits>
 
 namespace
@@ -56,7 +56,7 @@ double MisesPrefactor(double kappa)
     if (kappa > maxkappa2) {
         return std::sqrt(kappa / 2.0 / M_PI) / (1.0 + 1.0 / (8.0 * kappa));
     } else {
-        return std::exp(kappa) / (2.0 * M_PI * MathFunctions::Bessel_I0(kappa));
+        return std::exp(kappa) / (2.0 * M_PI * Math::Bessel::I0(kappa));
     }
 }
 

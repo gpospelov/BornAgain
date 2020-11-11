@@ -40412,19 +40412,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IRotation_createIdentity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IRotation *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IRotation_createIdentity", 0, 0, 0)) SWIG_fail;
-  result = (IRotation *)IRotation::createIdentity();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IRotation, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_IRotation_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IRotation *arg1 = (IRotation *) 0 ;
@@ -72466,7 +72453,6 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IFormFactorDecorator_swigregister", IFormFactorDecorator_swigregister, METH_O, NULL},
 	 { "IRotation_createRotation", _wrap_IRotation_createRotation, METH_O, "IRotation_createRotation(Transform3D const & transform) -> IRotation"},
-	 { "IRotation_createIdentity", _wrap_IRotation_createIdentity, METH_NOARGS, "IRotation_createIdentity() -> IRotation"},
 	 { "IRotation_clone", _wrap_IRotation_clone, METH_O, "\n"
 		"IRotation_clone(IRotation self) -> IRotation\n"
 		"virtual IRotation* IRotation::clone() const =0\n"

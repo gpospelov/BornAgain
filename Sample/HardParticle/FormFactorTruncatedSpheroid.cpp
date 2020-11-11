@@ -15,8 +15,8 @@
 #include "Sample/HardParticle/FormFactorTruncatedSpheroid.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Types/Exceptions.h"
+#include "Base/Utils/Bessel.h"
 #include "Base/Utils/Integrator.h"
-#include "Base/Utils/MathFunctions.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
@@ -64,7 +64,7 @@ complex_t FormFactorTruncatedSpheroid::Integrand(double Z) const
 
     double Rz = std::sqrt(R * R - Z * Z / (fp * fp));
     complex_t qrRz = std::sqrt(m_q.x() * m_q.x() + m_q.y() * m_q.y()) * Rz;
-    complex_t J1_qrRz_div_qrRz = MathFunctions::Bessel_J1c(qrRz);
+    complex_t J1_qrRz_div_qrRz = Math::Bessel::J1c(qrRz);
 
     return Rz * Rz * J1_qrRz_div_qrRz * exp_I(m_q.z() * Z);
 }

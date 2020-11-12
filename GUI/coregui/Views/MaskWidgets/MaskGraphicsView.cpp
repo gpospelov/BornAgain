@@ -32,7 +32,7 @@ MaskGraphicsView::MaskGraphicsView(QGraphicsScene* scene, QWidget* parent)
 {
     setObjectName("MaskGraphicsView");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setRenderHints(QPainter::HighQualityAntialiasing | QPainter::TextAntialiasing);
+    setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
     setStyleSheet("QGraphicsView { border-style: none; }");
     setMouseTracking(true);
 }
@@ -47,9 +47,9 @@ void MaskGraphicsView::wheelEvent(QWheelEvent* event)
 {
     // hold control button
     if (isControlButtonIsPressed(event)) {
-        centerOn(mapToScene(event->pos()));
+        centerOn(mapToScene(event->pos())); // TODO upon Qt5.14: pos() -> position().toPoint()
 
-        if (event->delta() > 0) {
+        if (event->angleDelta().y() > 0) {
             // Zoom in
             increazeZoomValue();
         } else {
@@ -131,8 +131,8 @@ void MaskGraphicsView::setZoomValue(double zoom_value)
 {
     if (zoom_value == m_current_zoom_value)
         return;
-    QMatrix oldMatrix = matrix();
-    resetMatrix();
+    const QTransform oldMatrix = transform();
+    resetTransform();
     translate(oldMatrix.dx(), oldMatrix.dy());
     scale(zoom_value, zoom_value);
     m_current_zoom_value = zoom_value;

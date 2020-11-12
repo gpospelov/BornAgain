@@ -28,6 +28,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+// Patched JWu 12nov20 because QPalette:Background was deprecated
+
 #include "GUI/coregui/Views/AccordionWidget/ClickableFrame.h"
 #include <QStyleOption>
 
@@ -37,7 +39,7 @@ ClickableFrame::ClickableFrame(QString header, QWidget* parent, Qt::WindowFlags 
     this->setAttribute(Qt::WA_Hover, true);
     this->clickable = true;
     this->setCursor(Qt::PointingHandCursor);
-    QColor background = this->palette().color(QPalette::ColorRole::Background);
+    QColor background = this->palette().color(QPalette::Window);
     QColor lighter = background.lighter(110);
     this->normalStylesheet = "";
     this->hoverStylesheet = "QFrame {background-color: " + lighter.name() + ";}";

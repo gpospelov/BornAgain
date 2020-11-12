@@ -245,7 +245,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent*)
 void Canvas::wheelEvent(QWheelEvent* e)
 {
     if (camera) {
-        if (e->delta() < 0) {
+        if (e->angleDelta().y() < 0) {
             // Zoom in
             camera->zoomBy(ZoomInScale());
             currentZoomLevel += 1;

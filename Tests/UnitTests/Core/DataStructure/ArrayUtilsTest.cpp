@@ -46,7 +46,7 @@ TEST_F(ArrayUtilsTest, OutputDataFromVector2D)
         {0.0, 1.0, 2.0, 3.0}, {4.0, 5.0, 6.0, 7.0}, {8.0, 9.0, 10.0, 11.0}};
     auto data = ArrayUtils::createData(vec_double);
 
-    EXPECT_EQ(data->getRank(), 2u);
+    EXPECT_EQ(data->rank(), 2u);
     EXPECT_EQ(data->getAllocatedSize(), 12u);
     EXPECT_EQ(data->axis(0).size(), 4u);
     EXPECT_EQ(data->axis(0).getMin(), 0.0);

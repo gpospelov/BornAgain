@@ -628,7 +628,7 @@ Constructor for 1D histograms from basic  OutputData object.
 Returns clone of other histogram. 
 ";
 
-%feature("docstring")  Histogram1D::getRank "size_t Histogram1D::getRank() const
+%feature("docstring")  Histogram1D::rank "size_t Histogram1D::rank() const
 
 Returns the number of histogram dimensions. 
 ";
@@ -742,7 +742,7 @@ Constructor for 2D histograms from numpy array (thanks to swig)
 Returns clone of other histogram. 
 ";
 
-%feature("docstring")  Histogram2D::getRank "size_t Histogram2D::getRank() const
+%feature("docstring")  Histogram2D::rank "size_t Histogram2D::rank() const
 
 Returns the number of histogram dimensions. 
 ";
@@ -1196,7 +1196,7 @@ C++ includes: IHistogram.h
 %feature("docstring")  IHistogram::clone "virtual IHistogram* IHistogram::clone() const =0
 ";
 
-%feature("docstring")  IHistogram::getRank "virtual size_t IHistogram::getRank() const =0
+%feature("docstring")  IHistogram::rank "virtual size_t IHistogram::rank() const =0
 
 Returns number of histogram dimensions. 
 ";
@@ -1832,7 +1832,7 @@ C++ includes: LLData.h
 %feature("docstring")  LLData::getTotalSize "size_t LLData< T >::getTotalSize() const
 ";
 
-%feature("docstring")  LLData::getRank "size_t LLData< T >::getRank() const
+%feature("docstring")  LLData::rank "size_t LLData< T >::rank() const
 ";
 
 %feature("docstring")  LLData::getDimensions "const int* LLData< T >::getDimensions() const
@@ -1914,7 +1914,7 @@ returns axis with given serial number
 returns axis with given name 
 ";
 
-%feature("docstring")  OutputData::getRank "size_t OutputData< T >::getRank() const
+%feature("docstring")  OutputData::rank "size_t OutputData< T >::rank() const
 
 Returns number of dimensions. 
 ";

@@ -2279,15 +2279,15 @@ class IntensityData(object):
         """
         return _libBornAgainDevice.IntensityData_axis(self, *args)
 
-    def getRank(self):
+    def rank(self):
         r"""
-        getRank(IntensityData self) -> size_t
-        size_t OutputData< T >::getRank() const
+        rank(IntensityData self) -> size_t
+        size_t OutputData< T >::rank() const
 
         Returns number of dimensions. 
 
         """
-        return _libBornAgainDevice.IntensityData_getRank(self)
+        return _libBornAgainDevice.IntensityData_rank(self)
 
     def getAllocatedSize(self):
         r"""
@@ -5266,15 +5266,15 @@ class IHistogram(object):
         """
         return _libBornAgainDevice.IHistogram_clone(self)
 
-    def getRank(self):
+    def rank(self):
         r"""
-        getRank(IHistogram self) -> size_t
-        virtual size_t IHistogram::getRank() const =0
+        rank(IHistogram self) -> size_t
+        virtual size_t IHistogram::rank() const =0
 
         Returns number of histogram dimensions. 
 
         """
-        return _libBornAgainDevice.IHistogram_getRank(self)
+        return _libBornAgainDevice.IHistogram_rank(self)
 
     def getTotalNumberOfBins(self):
         r"""
@@ -5724,15 +5724,15 @@ class Histogram1D(IHistogram):
         """
         return _libBornAgainDevice.Histogram1D_clone(self)
 
-    def getRank(self):
+    def rank(self):
         r"""
-        getRank(Histogram1D self) -> size_t
-        size_t Histogram1D::getRank() const
+        rank(Histogram1D self) -> size_t
+        size_t Histogram1D::rank() const
 
         Returns the number of histogram dimensions. 
 
         """
-        return _libBornAgainDevice.Histogram1D_getRank(self)
+        return _libBornAgainDevice.Histogram1D_rank(self)
 
     def fill(self, x, weight=1.0):
         r"""
@@ -5849,15 +5849,15 @@ class Histogram2D(IHistogram):
         """
         return _libBornAgainDevice.Histogram2D_clone(self)
 
-    def getRank(self):
+    def rank(self):
         r"""
-        getRank(Histogram2D self) -> size_t
-        size_t Histogram2D::getRank() const
+        rank(Histogram2D self) -> size_t
+        size_t Histogram2D::rank() const
 
         Returns the number of histogram dimensions. 
 
         """
-        return _libBornAgainDevice.Histogram2D_getRank(self)
+        return _libBornAgainDevice.Histogram2D_rank(self)
 
     def fill(self, x, y, weight=1.0):
         r"""

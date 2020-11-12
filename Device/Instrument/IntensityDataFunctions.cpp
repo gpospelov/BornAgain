@@ -101,7 +101,7 @@ IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& d
 std::unique_ptr<OutputData<double>>
 IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, int n)
 {
-    if (data.getRank() != 2)
+    if (data.rank() != 2)
         throw Exceptions::LogicErrorException("IntensityDataFunctions::rotateDataByN90Deg()"
                                               " -> Error! Works only on two-dimensional data");
     n = (4 + n % 4) % 4;
@@ -148,12 +148,12 @@ std::unique_ptr<OutputData<double>>
 IntensityDataFunctions::createClippedDataSet(const OutputData<double>& origin, double x1, double y1,
                                              double x2, double y2)
 {
-    if (origin.getRank() != 2)
+    if (origin.rank() != 2)
         throw Exceptions::LogicErrorException("IntensityDataFunctions::createClippedData()"
                                               " -> Error! Works only on two-dimensional data");
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    for (size_t i_axis = 0; i_axis < origin.getRank(); i_axis++) {
+    for (size_t i_axis = 0; i_axis < origin.rank(); i_axis++) {
         const IAxis& axis = origin.axis(i_axis);
         IAxis* new_axis;
         if (i_axis == 0)
@@ -229,7 +229,7 @@ void IntensityDataFunctions::coordinateFromBinf(double& x, double& y,
 std::vector<std::vector<double>>
 IntensityDataFunctions::create2DArrayfromOutputData(const OutputData<double>& data)
 {
-    if (data.getRank() != 2)
+    if (data.rank() != 2)
         throw Exceptions::LogicErrorException(
             "IntensityDataFunctions::create2DArrayfromOutputData() -> "
             "Error! Works only on two-dimensional data");

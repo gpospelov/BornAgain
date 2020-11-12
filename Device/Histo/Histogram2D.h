@@ -56,7 +56,7 @@ public:
     Histogram2D* clone() const;
 
     //! Returns the number of histogram dimensions
-    size_t getRank() const { return 2; }
+    size_t rank() const { return 2; }
 
     //! Increment bin with abscissa x and ordinate y with a weight.
     int fill(double x, double y, double weight = 1.0);

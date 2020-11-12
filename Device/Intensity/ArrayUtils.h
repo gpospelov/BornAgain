@@ -135,7 +135,7 @@ template <class T> std::pair<size_t, size_t> ArrayUtils::getShape(const T& data)
 
 template <class T> decltype(auto) ArrayUtils::createVector1D(const T& data)
 {
-    if (data.getRank() != 1)
+    if (data.rank() != 1)
         throw std::runtime_error("ArrayUtils::createVector1D() -> Error. Not 1D data.");
 
     using value_type = typename T::value_type;

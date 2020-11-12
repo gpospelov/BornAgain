@@ -18,9 +18,9 @@ def plot_intensity_data(file_name, intensity_max=None):
     data = ba.IntensityDataIOFactory.readIntensityData(file_name)
     if intensity_max is None:
         intensity_max = data.getMaximum()
-    if data.getRank() == 1:
+    if data.rank() == 1:
         plot_intensity_data_1d(data, intensity_max)
-    elif data.getRank() == 2:
+    elif data.rank() == 2:
         plot_intensity_data_2d(data, intensity_max)
     else:
         exit("Error in plot_intensity_data: wrong data rank")

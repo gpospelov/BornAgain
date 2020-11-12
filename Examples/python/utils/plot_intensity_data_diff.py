@@ -17,7 +17,7 @@ def plot_intensity_data_diff(filename1, filename2):
            / (np.abs(intensity_ref.array()) + np.abs(intensity_other.array()))
     if data.max() == 0:
         exit("Both data sets are equal, there is nothing to plot.")
-    rank = intensity_ref.getRank()
+    rank = intensity_ref.rank()
     if rank == 2:
         pid.plot_raw_data_2d(data,
                              [intensity_ref.getXmin() / ba.deg, intensity_ref.getXmax() / ba.deg,

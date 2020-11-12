@@ -32,7 +32,7 @@ TEST_F(Histogram2DTest, VariableHist)
 
     // basic axes check
     EXPECT_EQ(size_t(12), hist.getTotalNumberOfBins());
-    EXPECT_EQ(hist.getRank(), size_t(2));
+    EXPECT_EQ(hist.rank(), size_t(2));
     EXPECT_EQ(hist.xAxis().size(), size_t(4));
     EXPECT_EQ(hist.getXmin(), -1.0);
     EXPECT_EQ(hist.getXmax(), 2.0);
@@ -344,7 +344,7 @@ TEST_F(Histogram2DTest, CreateHistogram)
     }
 
     std::unique_ptr<IHistogram> h2(IHistogram::createHistogram(data));
-    EXPECT_EQ(size_t(2), h2->getRank());
+    EXPECT_EQ(size_t(2), h2->rank());
     EXPECT_EQ(data.getAllocatedSize(), h2->getTotalNumberOfBins());
     EXPECT_EQ(data.axis(0).getMin(), h2->getXmin());
     EXPECT_EQ(data.axis(0).getMax(), h2->getXmax());
@@ -371,7 +371,7 @@ TEST_F(Histogram2DTest, CreateOutputData)
     }
 
     std::unique_ptr<OutputData<double>> data(h2.createOutputData(IHistogram::DataType::INTEGRAL));
-    EXPECT_EQ(size_t(2), data->getRank());
+    EXPECT_EQ(size_t(2), data->rank());
     EXPECT_EQ(data->getAllocatedSize(), h2.getTotalNumberOfBins());
     EXPECT_EQ(data->axis(0).getMin(), h2.getXmin());
     EXPECT_EQ(data->axis(0).getMax(), h2.getXmax());

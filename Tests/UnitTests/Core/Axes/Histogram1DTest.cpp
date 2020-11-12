@@ -10,7 +10,7 @@ TEST_F(Histogram1DTest, FixedBinConstructor)
 {
     Histogram1D hist(5, 0.0, 5.0);
 
-    EXPECT_EQ(size_t(1), hist.getRank());
+    EXPECT_EQ(size_t(1), hist.rank());
     EXPECT_EQ(size_t(5), hist.getTotalNumberOfBins());
     EXPECT_EQ(0.0, hist.getXmin());
     EXPECT_EQ(5.0, hist.getXmax());
@@ -137,7 +137,7 @@ TEST_F(Histogram1DTest, CreateHistogram)
     }
 
     std::unique_ptr<IHistogram> hist(IHistogram::createHistogram(data));
-    EXPECT_EQ(size_t(1), hist->getRank());
+    EXPECT_EQ(size_t(1), hist->rank());
     EXPECT_EQ(data.getAllocatedSize(), hist->getNbinsX());
     EXPECT_EQ(data.axis(0).getMin(), hist->getXmin());
     EXPECT_EQ(data.axis(0).getMax(), hist->getXmax());
@@ -159,7 +159,7 @@ TEST_F(Histogram1DTest, CreateOutputData)
     }
 
     std::unique_ptr<OutputData<double>> data(hist.createOutputData(IHistogram::DataType::INTEGRAL));
-    EXPECT_EQ(size_t(1), data->getRank());
+    EXPECT_EQ(size_t(1), data->rank());
     EXPECT_EQ(data->getAllocatedSize(), hist.getNbinsX());
     EXPECT_EQ(data->axis(0).getMin(), hist.getXmin());
     EXPECT_EQ(data->axis(0).getMax(), hist.getXmax());

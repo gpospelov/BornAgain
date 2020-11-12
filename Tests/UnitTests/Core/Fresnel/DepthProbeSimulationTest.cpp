@@ -150,7 +150,7 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
 
     const std::unique_ptr<Histogram2D> depth_map(sim_result.histogram2d());
     EXPECT_EQ(10u * 12u, depth_map->getTotalNumberOfBins());
-    EXPECT_EQ(2u, depth_map->getRank());
+    EXPECT_EQ(2u, depth_map->rank());
     EXPECT_EQ(0.0, depth_map->xAxis().getMin());
     EXPECT_EQ(2.0, depth_map->xAxis().getMax());
     EXPECT_EQ(-30.0, depth_map->yAxis().getMin());
@@ -160,7 +160,7 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
 
     const auto output = sim_result.data();
     EXPECT_EQ(depth_map->getTotalNumberOfBins(), output->getAllocatedSize());
-    EXPECT_EQ(depth_map->getRank(), output->getRank());
+    EXPECT_EQ(depth_map->rank(), output->rank());
     EXPECT_EQ(depth_map->xAxis().getMin(), output->axis(0).getMin());
     EXPECT_EQ(depth_map->xAxis().getMax(), output->axis(0).getMax());
 

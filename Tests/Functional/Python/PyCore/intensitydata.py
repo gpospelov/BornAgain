@@ -13,7 +13,7 @@ class IntensityDataTest(unittest.TestCase):
     def test_empty_data(self):
         data = ba.IntensityData()
         self.assertEqual(1, data.getAllocatedSize())
-        self.assertEqual(0, data.getRank())
+        self.assertEqual(0, data.rank())
         self.assertEqual(0, data.totalSum())
 
     def test_create_1d_output_data_from_numpy(self):
@@ -38,7 +38,7 @@ class IntensityDataTest(unittest.TestCase):
         data = ba.IntensityData()
         data.addAxis(axis0)
         self.assertEqual(20, data.getAllocatedSize())
-        self.assertEqual(1, data.getRank())
+        self.assertEqual(1, data.rank())
         self.assertEqual(0, data.totalSum())
 
     def test_create_2d_object(self):
@@ -46,7 +46,7 @@ class IntensityDataTest(unittest.TestCase):
         data.addAxis("axis0", 10, 0.0, 10.0)
         data.addAxis("axis1", 20, 0.0, 20.0)
         self.assertEqual(200, data.getAllocatedSize())
-        self.assertEqual(2, data.getRank())
+        self.assertEqual(2, data.rank())
         self.assertEqual(0, data.totalSum())
         data.setAllTo(1.0)
         self.assertEqual(200.0, data.totalSum())
@@ -59,7 +59,7 @@ class IntensityDataTest(unittest.TestCase):
         simulation.setDetectorParameters(10, -1.0, 1.0, 100, 0.0, 2.0)
         data = simulation.result().histogram2d()
         self.assertEqual(1000, data.getTotalNumberOfBins())
-        self.assertEqual(2, data.getRank())
+        self.assertEqual(2, data.rank())
         self.assertEqual(0, data.integral())
         self.assertEqual(10, data.xAxis().size())
 

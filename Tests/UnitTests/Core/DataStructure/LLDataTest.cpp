@@ -48,10 +48,10 @@ TEST_F(LLDataTest, TotalSize)
 
 TEST_F(LLDataTest, GetRank)
 {
-    EXPECT_EQ(0u, int_data_0d->getRank());
-    EXPECT_EQ(1u, fl_data_1d->getRank());
-    EXPECT_EQ(3u, db_data_3d->getRank());
-    EXPECT_EQ(2u, matrix_data_2d->getRank());
+    EXPECT_EQ(0u, int_data_0d->rank());
+    EXPECT_EQ(1u, fl_data_1d->rank());
+    EXPECT_EQ(3u, db_data_3d->rank());
+    EXPECT_EQ(2u, matrix_data_2d->rank());
 }
 
 TEST_F(LLDataTest, SetAll)

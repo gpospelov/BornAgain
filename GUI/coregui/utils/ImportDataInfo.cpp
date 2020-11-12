@@ -79,7 +79,7 @@ size_t ImportDataInfo::dataRank() const
 {
     if (!m_data)
         return 0;
-    return m_data->getRank();
+    return m_data->rank();
 }
 
 QString ImportDataInfo::unitsLabel() const
@@ -92,7 +92,7 @@ QString ImportDataInfo::axisLabel(size_t axis_index) const
     if (!m_data)
         return "";
 
-    const size_t rank = m_data->getRank();
+    const size_t rank = m_data->rank();
     if (rank == 2)
         return axis_index == 0 ? "X [nbins]" : "Y [nbins]";
     else if (rank == 1) {
@@ -109,7 +109,7 @@ void ImportDataInfo::checkValidity()
 {
     if (!m_data)
         return;
-    auto iter = available_units.find(m_data->getRank());
+    auto iter = available_units.find(m_data->rank());
     if (iter == available_units.end())
         throw GUIHelpers::Error("Error in ImportDataInfo constructor: unsupported data type");
     for (auto& value : iter->second)

@@ -87,7 +87,7 @@ size_t IHistogram::getGlobalBin(size_t binx, size_t biny) const
 {
     std::vector<unsigned> axes_indices;
     axes_indices.push_back(static_cast<unsigned>(binx));
-    if (getRank() == 2)
+    if (rank() == 2)
         axes_indices.push_back(static_cast<unsigned>(biny));
     return m_data.toGlobalIndex(axes_indices);
 }
@@ -96,7 +96,7 @@ size_t IHistogram::findGlobalBin(double x, double y) const
 {
     std::vector<double> coordinates;
     coordinates.push_back(x);
-    if (getRank() == 2)
+    if (rank() == 2)
         coordinates.push_back(y);
     return m_data.findGlobalIndex(coordinates);
 }
@@ -242,14 +242,14 @@ void IHistogram::reset()
 
 IHistogram* IHistogram::createHistogram(const OutputData<double>& source)
 {
-    if (source.getRank() == 1) {
+    if (source.rank() == 1) {
         return new Histogram1D(source);
-    } else if (source.getRank() == 2) {
+    } else if (source.rank() == 2) {
         return new Histogram2D(source);
     } else {
         std::ostringstream message;
         message << "IHistogram::createHistogram(const OutputData<double>& source) -> Error. ";
-        message << "The rank of source " << source.getRank() << " ";
+        message << "The rank of source " << source.rank() << " ";
         message << "is not suitable for creation neither 1-dim nor 2-dim histograms.";
         throw Exceptions::LogicErrorException(message.str());
     }
@@ -267,31 +267,31 @@ IHistogram* IHistogram::createFrom(const std::vector<std::vector<double>>& data)
 
 void IHistogram::check_x_axis() const
 {
-    if (getRank() < 1) {
+    if (rank() < 1) {
         std::ostringstream message;
         message << "IHistogram::check_x_axis() -> Error. X-xis does not exist. ";
-        message << "Rank of histogram " << getRank() << "." << std::endl;
+        message << "Rank of histogram " << rank() << "." << std::endl;
         throw Exceptions::LogicErrorException(message.str());
     }
 }
 
 void IHistogram::check_y_axis() const
 {
-    if (getRank() < 2) {
+    if (rank() < 2) {
         std::ostringstream message;
         message << "IHistogram::check_y_axis() -> Error. Y-axis does not exist. ";
-        message << "Rank of histogram " << getRank() << "." << std::endl;
+        message << "Rank of histogram " << rank() << "." << std::endl;
         throw Exceptions::LogicErrorException(message.str());
     }
 }
 
 void IHistogram::init_from_data(const OutputData<double>& source)
 {
-    if (getRank() != source.getRank()) {
+    if (rank() != source.rank()) {
         std::ostringstream message;
         message << "IHistogram::IHistogram(const OutputData<double>& data) -> Error. ";
-        message << "The dimension of this histogram " << getRank() << " ";
-        message << "is differ from the dimension of source " << m_data.getRank() << std::endl;
+        message << "The dimension of this histogram " << rank() << " ";
+        message << "is differ from the dimension of source " << m_data.rank() << std::endl;
         throw Exceptions::LogicErrorException(message.str());
     }
 

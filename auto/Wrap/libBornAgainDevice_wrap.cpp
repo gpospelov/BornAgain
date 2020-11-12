@@ -29257,7 +29257,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IntensityData_getRank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IntensityData_rank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   OutputData< double > *arg1 = (OutputData< double > *) 0 ;
   void *argp1 = 0 ;
@@ -29269,10 +29269,10 @@ SWIGINTERN PyObject *_wrap_IntensityData_getRank(PyObject *SWIGUNUSEDPARM(self),
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_getRank" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_rank" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
   }
   arg1 = reinterpret_cast< OutputData< double > * >(argp1);
-  result = ((OutputData< double > const *)arg1)->getRank();
+  result = ((OutputData< double > const *)arg1)->rank();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -40926,7 +40926,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getRank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_rank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   void *argp1 = 0 ;
@@ -40938,10 +40938,10 @@ SWIGINTERN PyObject *_wrap_IHistogram_getRank(PyObject *SWIGUNUSEDPARM(self), Py
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getRank" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_rank" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
-  result = ((IHistogram const *)arg1)->getRank();
+  result = ((IHistogram const *)arg1)->rank();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -43051,7 +43051,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Histogram1D_getRank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Histogram1D_rank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Histogram1D *arg1 = (Histogram1D *) 0 ;
   void *argp1 = 0 ;
@@ -43063,10 +43063,10 @@ SWIGINTERN PyObject *_wrap_Histogram1D_getRank(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Histogram1D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_getRank" "', argument " "1"" of type '" "Histogram1D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_rank" "', argument " "1"" of type '" "Histogram1D const *""'"); 
   }
   arg1 = reinterpret_cast< Histogram1D * >(argp1);
-  result = ((Histogram1D const *)arg1)->getRank();
+  result = ((Histogram1D const *)arg1)->rank();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -43741,7 +43741,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Histogram2D_getRank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Histogram2D_rank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Histogram2D *arg1 = (Histogram2D *) 0 ;
   void *argp1 = 0 ;
@@ -43753,10 +43753,10 @@ SWIGINTERN PyObject *_wrap_Histogram2D_getRank(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Histogram2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram2D_getRank" "', argument " "1"" of type '" "Histogram2D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram2D_rank" "', argument " "1"" of type '" "Histogram2D const *""'"); 
   }
   arg1 = reinterpret_cast< Histogram2D * >(argp1);
-  result = ((Histogram2D const *)arg1)->getRank();
+  result = ((Histogram2D const *)arg1)->rank();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -46450,9 +46450,9 @@ static PyMethodDef SwigMethods[] = {
 		"returns axis with given name \n"
 		"\n"
 		""},
-	 { "IntensityData_getRank", _wrap_IntensityData_getRank, METH_O, "\n"
-		"IntensityData_getRank(IntensityData self) -> size_t\n"
-		"size_t OutputData< T >::getRank() const\n"
+	 { "IntensityData_rank", _wrap_IntensityData_rank, METH_O, "\n"
+		"IntensityData_rank(IntensityData self) -> size_t\n"
+		"size_t OutputData< T >::rank() const\n"
 		"\n"
 		"Returns number of dimensions. \n"
 		"\n"
@@ -48193,9 +48193,9 @@ static PyMethodDef SwigMethods[] = {
 		"virtual IHistogram* IHistogram::clone() const =0\n"
 		"\n"
 		""},
-	 { "IHistogram_getRank", _wrap_IHistogram_getRank, METH_O, "\n"
-		"IHistogram_getRank(IHistogram self) -> size_t\n"
-		"virtual size_t IHistogram::getRank() const =0\n"
+	 { "IHistogram_rank", _wrap_IHistogram_rank, METH_O, "\n"
+		"IHistogram_rank(IHistogram self) -> size_t\n"
+		"virtual size_t IHistogram::rank() const =0\n"
 		"\n"
 		"Returns number of histogram dimensions. \n"
 		"\n"
@@ -48489,9 +48489,9 @@ static PyMethodDef SwigMethods[] = {
 		"Returns clone of other histogram. \n"
 		"\n"
 		""},
-	 { "Histogram1D_getRank", _wrap_Histogram1D_getRank, METH_O, "\n"
-		"Histogram1D_getRank(Histogram1D self) -> size_t\n"
-		"size_t Histogram1D::getRank() const\n"
+	 { "Histogram1D_rank", _wrap_Histogram1D_rank, METH_O, "\n"
+		"Histogram1D_rank(Histogram1D self) -> size_t\n"
+		"size_t Histogram1D::rank() const\n"
 		"\n"
 		"Returns the number of histogram dimensions. \n"
 		"\n"
@@ -48567,9 +48567,9 @@ static PyMethodDef SwigMethods[] = {
 		"Returns clone of other histogram. \n"
 		"\n"
 		""},
-	 { "Histogram2D_getRank", _wrap_Histogram2D_getRank, METH_O, "\n"
-		"Histogram2D_getRank(Histogram2D self) -> size_t\n"
-		"size_t Histogram2D::getRank() const\n"
+	 { "Histogram2D_rank", _wrap_Histogram2D_rank, METH_O, "\n"
+		"Histogram2D_rank(Histogram2D self) -> size_t\n"
+		"size_t Histogram2D::rank() const\n"
 		"\n"
 		"Returns the number of histogram dimensions. \n"
 		"\n"

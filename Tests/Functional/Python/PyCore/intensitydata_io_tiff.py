@@ -20,9 +20,9 @@ def is_the_same_data(data1, data2):
     """
     if data1.getAllocatedSize() != data2.getAllocatedSize():
         return False
-    if data1.getRank() != data2.getRank():
+    if data1.rank() != data2.rank():
         return False
-    for i in range(0, data1.getRank()):
+    for i in range(0, data1.rank()):
         if data1.axis(i) != data2.axis(i):
             return False
     for i in range(0, data1.getAllocatedSize()):

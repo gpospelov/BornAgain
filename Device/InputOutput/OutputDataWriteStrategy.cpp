@@ -91,7 +91,7 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double>& data,
 {
     output_stream << "# BornAgain Intensity Data\n\n";
 
-    for (size_t i = 0; i < data.getRank(); ++i) {
+    for (size_t i = 0; i < data.rank(); ++i) {
         std::string axis_name = std::string("axis") + std::to_string(i);
         std::unique_ptr<IAxis> P_axis(data.axis(i).clone());
         P_axis->setName(axis_name);
@@ -99,7 +99,7 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double>& data,
         output_stream << "# axis-" << i << "\n";
         output_stream << (*P_axis) << "\n";
     }
-    size_t n_columns = data.axis(data.getRank() - 1).size();
+    size_t n_columns = data.axis(data.rank() - 1).size();
 
     output_stream << "\n# data\n";
     WriteOutputDataDoubles(data, output_stream, n_columns);
@@ -116,7 +116,7 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double>& 
     output_stream << "# BornAgain Intensity Data" << std::endl;
     output_stream << "# Simple array suitable for numpy, matlab etc." << std::endl;
 
-    const size_t dim = data.getRank();
+    const size_t dim = data.rank();
     switch (dim) {
     case 1:
         Write1DRepresentation(data, output_stream);

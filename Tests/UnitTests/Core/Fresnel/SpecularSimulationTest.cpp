@@ -172,14 +172,14 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     auto data = sim_result.data();
     EXPECT_EQ(data->getAllocatedSize(), 10u);
     EXPECT_EQ(data->totalSum(), 0.0);
-    EXPECT_EQ(data->getRank(), 1u);
+    EXPECT_EQ(data->rank(), 1u);
 
     sim->runSimulation();
     sim_result = sim->result();
 
     data = sim_result.data();
     EXPECT_EQ(data->getAllocatedSize(), 10u);
-    EXPECT_EQ(data->getRank(), 1u);
+    EXPECT_EQ(data->rank(), 1u);
 
     EXPECT_NEAR(0.1 * Units::degree, sim_result.axis(Axes::Units::RADIANS).front(),
                 Units::degree * 1e-11);

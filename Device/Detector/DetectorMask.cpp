@@ -68,7 +68,7 @@ void DetectorMask::initMaskData(const OutputData<double>& data)
     ASSERT(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
 
-    for (size_t dim = 0; dim < data.getRank(); ++dim)
+    for (size_t dim = 0; dim < data.rank(); ++dim)
         m_mask_data.addAxis(data.axis(dim));
 
     process_masks();

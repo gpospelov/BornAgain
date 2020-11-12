@@ -32,7 +32,7 @@ namespace
 
 bool detHasSameDimensions(const IDetector& detector, const OutputData<double>& data)
 {
-    if (data.getRank() != detector.dimension())
+    if (data.rank() != detector.dimension())
         return false;
 
     for (size_t i = 0; i < detector.dimension(); ++i)

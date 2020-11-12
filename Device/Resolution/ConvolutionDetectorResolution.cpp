@@ -54,7 +54,7 @@ std::vector<const INode*> ConvolutionDetectorResolution::getChildren() const
 void ConvolutionDetectorResolution::applyDetectorResolution(
     OutputData<double>* p_intensity_map) const
 {
-    if (p_intensity_map->getRank() != m_dimension) {
+    if (p_intensity_map->rank() != m_dimension) {
         throw Exceptions::RuntimeErrorException(
             "ConvolutionDetectorResolution::applyDetectorResolution() -> Error! "
             "Intensity map must have same dimension as detector resolution function.");
@@ -85,7 +85,7 @@ void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_int
         throw Exceptions::LogicErrorException(
             "ConvolutionDetectorResolution::apply1dConvolution() -> Error! "
             "No 1d resolution function present for convolution of 1d data.");
-    if (p_intensity_map->getRank() != 1)
+    if (p_intensity_map->rank() != 1)
         throw Exceptions::LogicErrorException(
             "ConvolutionDetectorResolution::apply1dConvolution() -> Error! "
             "Number of axes for intensity map does not correspond to the dimension of the map.");
@@ -121,7 +121,7 @@ void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_int
         throw Exceptions::LogicErrorException(
             "ConvolutionDetectorResolution::apply2dConvolution() -> Error! "
             "No 2d resolution function present for convolution of 2d data.");
-    if (p_intensity_map->getRank() != 2)
+    if (p_intensity_map->rank() != 2)
         throw Exceptions::LogicErrorException(
             "ConvolutionDetectorResolution::apply2dConvolution() -> Error! "
             "Number of axes for intensity map does not correspond to the dimension of the map.");

@@ -82,7 +82,7 @@ std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, Axes:
 std::unique_ptr<OutputData<double>>
 UnitConverter1D::createConvertedData(const OutputData<double>& data, Axes::Units units) const
 {
-    if (data.getRank() != 1)
+    if (data.rank() != 1)
         throw std::runtime_error("Error in UnitConverter1D::createConvertedData: unexpected "
                                  "dimensions of the input data");
 

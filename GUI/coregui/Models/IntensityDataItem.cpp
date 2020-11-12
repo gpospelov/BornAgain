@@ -85,7 +85,7 @@ IntensityDataItem::IntensityDataItem() : DataItem("IntensityData")
 void IntensityDataItem::setOutputData(OutputData<double>* data)
 {
     ASSERT(data && "Assertion failed in IntensityDataItem::setOutputData: nullptr data passed");
-    if (data->getRank() != 2)
+    if (data->rank() != 2)
         throw GUIHelpers::Error(
             "Error in IntensityDataItem::setOutputData: cannot handle non-2D data");
     DataItem::setOutputData(data);

@@ -48,7 +48,7 @@ const OutputData<double>* TiffHandler::getOutputData() const
 void TiffHandler::write(const OutputData<double>& data, std::ostream& output_stream)
 {
     m_data.reset(data.clone());
-    if (m_data->getRank() != 2)
+    if (m_data->rank() != 2)
         throw Exceptions::LogicErrorException("TiffHandler::write -> Error. "
                                               "Only 2-dim arrays supported");
     m_tiff = TIFFStreamOpen("MemTIFF", &output_stream);

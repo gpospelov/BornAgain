@@ -27,7 +27,7 @@ RegionOfInterest::RegionOfInterest(const OutputData<double>& data, double xlow, 
                                    double xup, double yup)
     : RegionOfInterest(xlow, ylow, xup, yup)
 {
-    if (data.getRank() != 2)
+    if (data.rank() != 2)
         throw Exceptions::RuntimeErrorException("RegionOfInterest::RegionOfInterest() -> Error. "
                                                 "Data is not two-dimensional.");
 

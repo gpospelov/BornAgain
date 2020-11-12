@@ -44,7 +44,7 @@ SpecularDataItem::SpecularDataItem() : DataItem("SpecularData")
 void SpecularDataItem::setOutputData(OutputData<double>* data)
 {
     ASSERT(data && "Assertion failed in SpecularDataItem::setOutputData: nullptr data passed");
-    if (data->getRank() != 1)
+    if (data->rank() != 1)
         throw GUIHelpers::Error(
             "Error in SpecularDataItem::setOutputData: cannot handle non-1D data");
     DataItem::setOutputData(data);

@@ -43,13 +43,13 @@ VariableBinAxis* VariableBinAxis::clone() const
 
 double VariableBinAxis::operator[](size_t index) const
 {
-    return getBin(index).getMidPoint();
+    return bin(index).getMidPoint();
 }
 
-Bin1D VariableBinAxis::getBin(size_t index) const
+Bin1D VariableBinAxis::bin(size_t index) const
 {
     if (index >= m_nbins)
-        throw Exceptions::OutOfBoundsException("VariableBinAxis::getBin() -> Error. Wrong index.");
+        throw Exceptions::OutOfBoundsException("VariableBinAxis::bin() -> Error. Wrong index.");
 
     Bin1D result(m_bin_boundaries[index], m_bin_boundaries[index + 1]);
     return result;
@@ -65,9 +65,9 @@ double VariableBinAxis::getMax() const
     return m_bin_boundaries.back();
 }
 
-double VariableBinAxis::getBinCenter(size_t index) const
+double VariableBinAxis::binCenter(size_t index) const
 {
-    return getBin(index).getMidPoint();
+    return bin(index).getMidPoint();
 }
 
 size_t VariableBinAxis::findClosestIndex(double value) const
@@ -90,12 +90,12 @@ size_t VariableBinAxis::findClosestIndex(double value) const
     return nbin;
 }
 
-std::vector<double> VariableBinAxis::getBinCenters() const
+std::vector<double> VariableBinAxis::binCenters() const
 {
     std::vector<double> result;
     result.resize(size(), 0.0);
     for (size_t i = 0; i < size(); ++i) {
-        result[i] = getBin(i).getMidPoint();
+        result[i] = bin(i).getMidPoint();
     }
     return result;
 }
@@ -108,9 +108,9 @@ VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) c
                                               "'left'' should be smaller than 'right'");
 
     if (left < getMin())
-        left = getBin(0).getMidPoint();
+        left = bin(0).getMidPoint();
     if (right >= getMax())
-        right = getBin(size() - 1).getMidPoint();
+        right = bin(size() - 1).getMidPoint();
 
     size_t nbin1 = findClosestIndex(left);
     size_t nbin2 = findClosestIndex(right);

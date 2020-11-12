@@ -51,18 +51,18 @@ public:
     int fill(double x, double weight = 1.0);
 
     //! returns vector of histogram bin centers
-    std::vector<double> getBinCenters() const;
+    std::vector<double> binCenters() const;
 
     //! returns vector of bin content (the value accumulated by bins)
-    std::vector<double> getBinValues() const;
+    std::vector<double> binValues() const;
 
     //! returns vector of bin errors
-    std::vector<double> getBinErrors() const;
+    std::vector<double> binErrors() const;
 
 #ifdef BORNAGAIN_PYTHON
-    PyObject* getBinCentersNumpy() const;
-    PyObject* getBinValuesNumpy() const;
-    PyObject* getBinErrorsNumpy() const;
+    PyObject* binCentersNumpy() const;
+    PyObject* binValuesNumpy() const;
+    PyObject* binErrorsNumpy() const;
 #endif
 
     //! Creates new histogram by applying crop on axis.

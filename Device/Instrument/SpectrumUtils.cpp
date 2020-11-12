@@ -36,14 +36,14 @@ std::vector<std::pair<double, double>> SpectrumUtils::FindPeaks(const Histogram2
         size_t xaxis_index = static_cast<size_t>(col_value);
         size_t yaxis_index = hist.yAxis().size() - 1 - static_cast<size_t>(row_value);
 
-        Bin1D xbin = hist.xAxis().getBin(xaxis_index);
-        Bin1D ybin = hist.yAxis().getBin(yaxis_index);
+        Bin1D xbin = hist.xAxis().bin(xaxis_index);
+        Bin1D ybin = hist.yAxis().bin(yaxis_index);
 
         double dx = col_value - static_cast<size_t>(col_value);
         double dy = -1.0 * (row_value - static_cast<size_t>(row_value));
 
-        double x = xbin.getMidPoint() + xbin.getBinSize() * dx;
-        double y = ybin.getMidPoint() + ybin.getBinSize() * dy;
+        double x = xbin.getMidPoint() + xbin.binSize() * dx;
+        double y = ybin.getMidPoint() + ybin.binSize() * dy;
 
         result.push_back(std::make_pair(x, y));
     }

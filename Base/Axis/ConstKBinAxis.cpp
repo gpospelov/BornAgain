@@ -53,16 +53,16 @@ ConstKBinAxis* ConstKBinAxis::createClippedAxis(double left, double right) const
             "ConstKBinAxis::createClippedAxis() -> Error. 'left'' should be smaller than 'right'");
 
     if (left < getMin())
-        left = getBin(0).getMidPoint();
+        left = bin(0).getMidPoint();
     if (right >= getMax())
-        right = getBin(size() - 1).getMidPoint();
+        right = bin(size() - 1).getMidPoint();
 
     size_t nbin1 = findClosestIndex(left);
     size_t nbin2 = findClosestIndex(right);
 
     size_t new_nbins = nbin2 - nbin1 + 1;
     std::vector<double> new_boundaries;
-    std::vector<double> old_boundaries = getBinBoundaries();
+    std::vector<double> old_boundaries = binBoundaries();
     for (size_t i = 0; i < new_nbins + 1; ++i) {
         new_boundaries.push_back(old_boundaries[nbin1 + i]);
     }

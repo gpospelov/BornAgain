@@ -141,7 +141,7 @@ std::vector<double> SimulationResult::axis(size_t i_axis, Axes::Units units) con
         throw std::runtime_error(
             "Error in SimulationResult::axis: no axis corresponds to passed index.");
     auto axis = m_unit_converter->createConvertedAxis(i_axis, units);
-    return axis->getBinCenters();
+    return axis->binCenters();
 }
 
 void SimulationResult::checkDimensions() const

@@ -71,7 +71,7 @@ std::unique_ptr<IAxis> PointwiseAxisItem::createAxis(double scale) const
     const auto converted_axis = converter->createConvertedAxis(0, Axes::Units::DEGREES);
 
     // applying scaling
-    std::vector<double> centers = converted_axis->getBinCenters();
+    std::vector<double> centers = converted_axis->binCenters();
     std::for_each(centers.begin(), centers.end(), [scale](double& value) { value *= scale; });
 
     return std::make_unique<PointwiseAxis>(converted_axis->getName(), std::move(centers));

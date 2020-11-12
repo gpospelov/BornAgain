@@ -189,8 +189,8 @@ IntensityDataFunctions::createClippedDataSet(const OutputData<double>& origin, d
 double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis& axis)
 {
     size_t index = axis.findClosestIndex(coordinate);
-    Bin1D bin = axis.getBin(index);
-    double f = (coordinate - bin.m_lower) / bin.getBinSize();
+    Bin1D bin = axis.bin(index);
+    double f = (coordinate - bin.m_lower) / bin.binSize();
     return static_cast<double>(index) + f;
 }
 
@@ -200,14 +200,14 @@ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axi
 
     double result(0);
     if (index < 0) {
-        Bin1D bin = axis.getBin(0);
-        result = bin.m_lower + value * bin.getBinSize();
+        Bin1D bin = axis.bin(0);
+        result = bin.m_lower + value * bin.binSize();
     } else if (index >= static_cast<int>(axis.size())) {
-        Bin1D bin = axis.getBin(axis.size() - 1);
-        result = bin.m_upper + (value - axis.size()) * bin.getBinSize();
+        Bin1D bin = axis.bin(axis.size() - 1);
+        result = bin.m_upper + (value - axis.size()) * bin.binSize();
     } else {
-        Bin1D bin = axis.getBin(static_cast<size_t>(index));
-        result = bin.m_lower + (value - static_cast<double>(index)) * bin.getBinSize();
+        Bin1D bin = axis.bin(static_cast<size_t>(index));
+        result = bin.m_lower + (value - static_cast<double>(index)) * bin.binSize();
     }
 
     return result;

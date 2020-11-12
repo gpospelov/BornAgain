@@ -34,7 +34,7 @@ std::unique_ptr<AngularSpecScan> mangledScan(const AngularSpecScan& scan, const 
 {
     const double wl = beam.getWavelength();
     const double angle_shift = beam.getAlpha();
-    std::vector<double> angles = scan.coordinateAxis()->getBinCenters();
+    std::vector<double> angles = scan.coordinateAxis()->binCenters();
     for (auto& val : angles)
         val += angle_shift;
     auto* result = new AngularSpecScan(wl, PointwiseAxis("alpha_i", std::move(angles)));

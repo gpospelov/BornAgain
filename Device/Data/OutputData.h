@@ -455,7 +455,7 @@ template <class T>
 Bin1D OutputData<T>::getAxisBin(size_t global_index, size_t i_selected_axis) const
 {
     auto axis_index = getAxisBinIndex(global_index, i_selected_axis);
-    return m_value_axes[i_selected_axis]->getBin(axis_index);
+    return m_value_axes[i_selected_axis]->bin(axis_index);
 }
 
 template <class T>

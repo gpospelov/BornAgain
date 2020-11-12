@@ -16,9 +16,9 @@
 
 bool BinContains(const Bin1D& bin, double value)
 {
-    if (bin.getBinSize() == 0.0)
+    if (bin.binSize() == 0.0)
         return false;
-    double coordinate = (value - bin.m_lower) / bin.getBinSize();
+    double coordinate = (value - bin.m_lower) / bin.binSize();
     if (coordinate < 0.0)
         return false;
     if (coordinate >= 1.0)

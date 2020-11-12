@@ -28,7 +28,7 @@ namespace
 {
 const int replot_update_interval = 10;
 
-int getBin(double x, const QCPGraph* graph);
+int bin(double x, const QCPGraph* graph);
 } // namespace
 
 Plot1D::Plot1D(QWidget* parent)
@@ -59,7 +59,7 @@ PlotEventInfo Plot1D::eventInfo(double xpos, double ypos) const
     result.setValue(ypos);
 
     result.setInAxesRange(axesRangeContains(xpos, ypos));
-    result.setNx(getBin(result.x(), m_custom_plot->graph()));
+    result.setNx(bin(result.x(), m_custom_plot->graph()));
 
     return result;
 }
@@ -301,7 +301,7 @@ void Plot1D::replot()
 
 namespace
 {
-int getBin(double x, const QCPGraph* graph)
+int bin(double x, const QCPGraph* graph)
 {
     const int key_start = graph->findBegin(x);
     const int key_end = graph->findBegin(x, false); // false = do not expand range

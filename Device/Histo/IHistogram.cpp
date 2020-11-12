@@ -133,14 +133,14 @@ OutputData<CumulativeValue>& IHistogram::getData()
     return m_data;
 }
 
-double IHistogram::getBinContent(size_t i) const
+double IHistogram::binContent(size_t i) const
 {
     return m_data[i].getContent();
 }
 
-double IHistogram::getBinContent(size_t binx, size_t biny) const
+double IHistogram::binContent(size_t binx, size_t biny) const
 {
-    return getBinContent(getGlobalBin(binx, biny));
+    return binContent(getGlobalBin(binx, biny));
 }
 
 void IHistogram::setBinContent(size_t i, double value)
@@ -153,34 +153,34 @@ void IHistogram::addBinContent(size_t i, double value)
     m_data[i].add(value);
 }
 
-double IHistogram::getBinError(size_t i) const
+double IHistogram::binError(size_t i) const
 {
     return m_data[i].getRMS();
 }
 
-double IHistogram::getBinError(size_t binx, size_t biny) const
+double IHistogram::binError(size_t binx, size_t biny) const
 {
-    return getBinError(getGlobalBin(binx, biny));
+    return binError(getGlobalBin(binx, biny));
 }
 
-double IHistogram::getBinAverage(size_t i) const
+double IHistogram::binAverage(size_t i) const
 {
     return m_data[i].getAverage();
 }
 
-double IHistogram::getBinAverage(size_t binx, size_t biny) const
+double IHistogram::binAverage(size_t binx, size_t biny) const
 {
-    return getBinAverage(getGlobalBin(binx, biny));
+    return binAverage(getGlobalBin(binx, biny));
 }
 
-int IHistogram::getBinNumberOfEntries(size_t i) const
+int IHistogram::binNumberOfEntries(size_t i) const
 {
     return m_data[i].getNumberOfEntries();
 }
 
-int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
+int IHistogram::binNumberOfEntries(size_t binx, size_t biny) const
 {
-    return getBinNumberOfEntries(getGlobalBin(binx, biny));
+    return binNumberOfEntries(getGlobalBin(binx, biny));
 }
 
 double IHistogram::getMaximum() const
@@ -302,19 +302,19 @@ void IHistogram::init_from_data(const OutputData<double>& source)
 }
 
 //! returns data of requested type for globalbin number
-double IHistogram::getBinData(size_t i, IHistogram::DataType dataType) const
+double IHistogram::binData(size_t i, IHistogram::DataType dataType) const
 {
     if (dataType == DataType::INTEGRAL) {
-        return getBinContent(i);
+        return binContent(i);
     } else if (dataType == DataType::AVERAGE) {
-        return getBinAverage(i);
+        return binAverage(i);
     } else if (dataType == DataType::STANDARD_ERROR) {
-        return getBinError(i);
+        return binError(i);
     } else if (dataType == DataType::NENTRIES) {
-        return getBinNumberOfEntries(i);
+        return binNumberOfEntries(i);
     } else
         throw Exceptions::LogicErrorException(
-            "IHistogram::getBinData() -> Error. Unknown data type.");
+            "IHistogram::binData() -> Error. Unknown data type.");
 }
 
 //! returns vector of values of requested DataType
@@ -323,7 +323,7 @@ std::vector<double> IHistogram::getDataVector(IHistogram::DataType dataType) con
     std::vector<double> result;
     result.resize(getTotalNumberOfBins(), 0.0);
     for (size_t index = 0; index < getTotalNumberOfBins(); ++index) {
-        result[index] = getBinData(index, dataType);
+        result[index] = binData(index, dataType);
     }
     return result;
 }
@@ -346,7 +346,7 @@ OutputData<double>* IHistogram::createOutputData(IHistogram::DataType dataType) 
     OutputData<double>* result = new OutputData<double>;
     result->copyShapeFrom(m_data);
     for (size_t i = 0; i < getTotalNumberOfBins(); ++i) {
-        (*result)[i] = getBinData(i, dataType);
+        (*result)[i] = binData(i, dataType);
     }
     return result;
 }
@@ -367,7 +367,7 @@ const IHistogram& IHistogram::operator+=(const IHistogram& right)
         throw Exceptions::LogicErrorException(
             "IHistogram::operator+=() -> Error. Histograms have different dimension");
     for (size_t i = 0; i < getTotalNumberOfBins(); ++i)
-        addBinContent(i, right.getBinContent(i));
+        addBinContent(i, right.binContent(i));
     return *this;
 }
 
@@ -381,7 +381,7 @@ IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram& rhs)
     result->reset();
 
     for (size_t i = 0; i < getTotalNumberOfBins(); ++i) {
-        double diff = Numeric::GetRelativeDifference(getBinContent(i), rhs.getBinContent(i));
+        double diff = Numeric::GetRelativeDifference(binContent(i), rhs.binContent(i));
         result->setBinContent(i, diff);
     }
     return result;

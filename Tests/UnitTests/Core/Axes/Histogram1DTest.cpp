@@ -27,30 +27,30 @@ TEST_F(Histogram1DTest, FixedBinDefaultContent)
 
     // bin centers
     std::vector<double> bin_centers = {0.5, 1.5, 2.5, 3.5, 4.5};
-    std::vector<double> centers = hist.getBinCenters();
+    std::vector<double> centers = hist.binCenters();
     for (size_t index = 0; index < bin_centers.size(); ++index) {
         EXPECT_EQ(centers[index], bin_centers[index]);
         EXPECT_EQ(hist.getXaxisValue(index), bin_centers[index]);
-        EXPECT_EQ(hist.xAxis().getBinCenter(index), bin_centers[index]);
+        EXPECT_EQ(hist.xAxis().binCenter(index), bin_centers[index]);
     }
 
     // default bin values
-    std::vector<double> values = hist.getBinValues();
+    std::vector<double> values = hist.binValues();
     for (size_t index = 0; index < bin_centers.size(); ++index) {
-        EXPECT_EQ(hist.getBinContent(index), 0.0);
+        EXPECT_EQ(hist.binContent(index), 0.0);
         EXPECT_EQ(values[index], 0.0);
     }
 
     // default bin errors
-    std::vector<double> errors = hist.getBinErrors();
+    std::vector<double> errors = hist.binErrors();
     for (size_t index = 0; index < bin_centers.size(); ++index) {
-        EXPECT_EQ(hist.getBinError(index), 0.0);
+        EXPECT_EQ(hist.binError(index), 0.0);
         EXPECT_EQ(errors[index], 0.0);
     }
 
     // default bin entries
     for (size_t index = 0; index < bin_centers.size(); ++index) {
-        EXPECT_EQ(hist.getBinNumberOfEntries(index), 0);
+        EXPECT_EQ(hist.binNumberOfEntries(index), 0);
     }
 }
 
@@ -62,28 +62,28 @@ TEST_F(Histogram1DTest, FixedBinFill)
 
     hist.fill(0.5, 88.0);
     hist.fill(4.5, 99.0);
-    EXPECT_EQ(hist.getBinContent(0), 88.0);
-    EXPECT_EQ(hist.getBinNumberOfEntries(0), 1);
-    EXPECT_EQ(hist.getBinError(0), 0.0);
+    EXPECT_EQ(hist.binContent(0), 88.0);
+    EXPECT_EQ(hist.binNumberOfEntries(0), 1);
+    EXPECT_EQ(hist.binError(0), 0.0);
 
-    EXPECT_EQ(hist.getBinContent(4), 99.0);
-    EXPECT_EQ(hist.getBinNumberOfEntries(4), 1);
-    EXPECT_EQ(hist.getBinError(4), 0.0);
+    EXPECT_EQ(hist.binContent(4), 99.0);
+    EXPECT_EQ(hist.binNumberOfEntries(4), 1);
+    EXPECT_EQ(hist.binError(4), 0.0);
 
     std::vector<double> values = {88.0, 0.0, 0.0, 0.0, 99.0};
     for (size_t index = 0; index < hist.getTotalNumberOfBins(); ++index) {
-        EXPECT_EQ(hist.getBinValues()[index], values[index]);
-        EXPECT_EQ(hist.getBinErrors()[index], 0.0);
+        EXPECT_EQ(hist.binValues()[index], values[index]);
+        EXPECT_EQ(hist.binErrors()[index], 0.0);
     }
 
     // resetting histograms
     hist.reset();
-    EXPECT_EQ(hist.getBinContent(0), 0.0);
-    EXPECT_EQ(hist.getBinNumberOfEntries(0), 0);
-    EXPECT_EQ(hist.getBinError(0), 0.0);
-    EXPECT_EQ(hist.getBinContent(4), 0.0);
-    EXPECT_EQ(hist.getBinNumberOfEntries(4), 0);
-    EXPECT_EQ(hist.getBinError(4), 0.0);
+    EXPECT_EQ(hist.binContent(0), 0.0);
+    EXPECT_EQ(hist.binNumberOfEntries(0), 0);
+    EXPECT_EQ(hist.binError(0), 0.0);
+    EXPECT_EQ(hist.binContent(4), 0.0);
+    EXPECT_EQ(hist.binNumberOfEntries(4), 0);
+    EXPECT_EQ(hist.binError(4), 0.0);
 
     // another fill
     const double xvalue(1.5);
@@ -91,20 +91,20 @@ TEST_F(Histogram1DTest, FixedBinFill)
 
     hist.fill(xvalue, 1.0);
     hist.fill(xvalue, 3.0);
-    EXPECT_EQ(2, hist.getBinNumberOfEntries(xbin));
-    EXPECT_EQ(4.0, hist.getBinContent(xbin));
-    EXPECT_EQ(2.0, hist.getBinAverage(xbin));
-    EXPECT_EQ(1.0, hist.getBinError(xbin));
+    EXPECT_EQ(2, hist.binNumberOfEntries(xbin));
+    EXPECT_EQ(4.0, hist.binContent(xbin));
+    EXPECT_EQ(2.0, hist.binAverage(xbin));
+    EXPECT_EQ(1.0, hist.binError(xbin));
 
     // another fill
     hist.reset();
     hist.fill(xvalue, 1.0);
     hist.fill(xvalue, 2.0);
     hist.fill(xvalue, 3.0);
-    EXPECT_EQ(3, hist.getBinNumberOfEntries(xbin));
-    EXPECT_EQ(6.0, hist.getBinContent(xbin));
-    EXPECT_EQ(2.0, hist.getBinAverage(xbin));
-    EXPECT_EQ(2.0 / 3.0, hist.getBinError(xbin) * hist.getBinError(xbin));
+    EXPECT_EQ(3, hist.binNumberOfEntries(xbin));
+    EXPECT_EQ(6.0, hist.binContent(xbin));
+    EXPECT_EQ(2.0, hist.binAverage(xbin));
+    EXPECT_EQ(2.0 / 3.0, hist.binError(xbin) * hist.binError(xbin));
 }
 
 //     -1.0  -0.5        0.5   1.0        2.0  X
@@ -124,8 +124,8 @@ TEST_F(Histogram1DTest, crop)
     EXPECT_EQ(-0.5, crop->getXmin());
     EXPECT_EQ(1.0, crop->getXmax());
 
-    EXPECT_EQ(10.0, crop->getBinContent(0));
-    EXPECT_EQ(20.0, crop->getBinContent(1));
+    EXPECT_EQ(10.0, crop->binContent(0));
+    EXPECT_EQ(20.0, crop->binContent(1));
 }
 
 TEST_F(Histogram1DTest, CreateHistogram)
@@ -142,10 +142,10 @@ TEST_F(Histogram1DTest, CreateHistogram)
     EXPECT_EQ(data.axis(0).getMin(), hist->getXmin());
     EXPECT_EQ(data.axis(0).getMax(), hist->getXmax());
     for (size_t i = 0; i < hist->getTotalNumberOfBins(); ++i) {
-        EXPECT_EQ(data[i], hist->getBinContent(i));
-        EXPECT_EQ(data[i], hist->getBinAverage(i));
-        EXPECT_EQ(1, hist->getBinNumberOfEntries(i));
-        EXPECT_EQ(0.0, hist->getBinError(i));
+        EXPECT_EQ(data[i], hist->binContent(i));
+        EXPECT_EQ(data[i], hist->binAverage(i));
+        EXPECT_EQ(1, hist->binNumberOfEntries(i));
+        EXPECT_EQ(0.0, hist->binError(i));
     }
 }
 
@@ -206,7 +206,7 @@ TEST_F(Histogram1DTest, Scale)
     }
     hist.scale(10.0);
     for (size_t i = 0; i < hist.getTotalNumberOfBins(); ++i) {
-        EXPECT_EQ(10.0, hist.getBinContent(i));
+        EXPECT_EQ(10.0, hist.binContent(i));
     }
 }
 
@@ -234,6 +234,6 @@ TEST_F(Histogram1DTest, Addition)
 
     hist1 += hist2;
     for (size_t i = 0; i < hist1.getTotalNumberOfBins(); ++i) {
-        EXPECT_EQ(3.0, hist1.getBinContent(i));
+        EXPECT_EQ(3.0, hist1.binContent(i));
     }
 }

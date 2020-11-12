@@ -74,7 +74,7 @@ void Write1DRepresentation(const OutputData<double>& data, std::ostream& output_
     output_stream.imbue(std::locale::classic());
     output_stream << std::scientific << std::setprecision(precision);
 
-    const std::vector<double> axis_values = data.axis(0).getBinCenters();
+    const std::vector<double> axis_values = data.axis(0).binCenters();
 
     // printing coordinate and associated intensity
     for (size_t i = 0, nrows = axis_values.size(); i < nrows; ++i)

@@ -57,10 +57,10 @@ TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
     std::unique_ptr<OutputData<double>> output_data =
         IntensityDataFunctions::createRearrangedDataSet(input_data, 5);
 
-    EXPECT_EQ(3.0, output_data->axis(0).getBinBoundaries().front());
-    EXPECT_EQ(4.0, output_data->axis(0).getBinBoundaries().back());
-    EXPECT_EQ(1.0, output_data->axis(1).getBinBoundaries().front());
-    EXPECT_EQ(2.0, output_data->axis(1).getBinBoundaries().back());
+    EXPECT_EQ(3.0, output_data->axis(0).binBoundaries().front());
+    EXPECT_EQ(4.0, output_data->axis(0).binBoundaries().back());
+    EXPECT_EQ(1.0, output_data->axis(1).binBoundaries().front());
+    EXPECT_EQ(2.0, output_data->axis(1).binBoundaries().back());
     EXPECT_EQ(size_t(3), output_data->axis(0).size());
     EXPECT_EQ(size_t(2), output_data->axis(1).size());
 
@@ -73,10 +73,10 @@ TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
 
     output_data = IntensityDataFunctions::createRearrangedDataSet(input_data, -6);
 
-    EXPECT_EQ(1.0, output_data->axis(0).getBinBoundaries().front());
-    EXPECT_EQ(2.0, output_data->axis(0).getBinBoundaries().back());
-    EXPECT_EQ(3.0, output_data->axis(1).getBinBoundaries().front());
-    EXPECT_EQ(4.0, output_data->axis(1).getBinBoundaries().back());
+    EXPECT_EQ(1.0, output_data->axis(0).binBoundaries().front());
+    EXPECT_EQ(2.0, output_data->axis(0).binBoundaries().back());
+    EXPECT_EQ(3.0, output_data->axis(1).binBoundaries().front());
+    EXPECT_EQ(4.0, output_data->axis(1).binBoundaries().back());
     EXPECT_EQ(size_t(2), output_data->axis(0).size());
     EXPECT_EQ(size_t(3), output_data->axis(1).size());
 
@@ -89,10 +89,10 @@ TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
 
     output_data = IntensityDataFunctions::createRearrangedDataSet(input_data, 3);
 
-    EXPECT_EQ(3.0, output_data->axis(0).getBinBoundaries().front());
-    EXPECT_EQ(4.0, output_data->axis(0).getBinBoundaries().back());
-    EXPECT_EQ(1.0, output_data->axis(1).getBinBoundaries().front());
-    EXPECT_EQ(2.0, output_data->axis(1).getBinBoundaries().back());
+    EXPECT_EQ(3.0, output_data->axis(0).binBoundaries().front());
+    EXPECT_EQ(4.0, output_data->axis(0).binBoundaries().back());
+    EXPECT_EQ(1.0, output_data->axis(1).binBoundaries().front());
+    EXPECT_EQ(2.0, output_data->axis(1).binBoundaries().back());
     EXPECT_EQ(size_t(3), output_data->axis(0).size());
     EXPECT_EQ(size_t(2), output_data->axis(1).size());
 

@@ -90,10 +90,10 @@ public:
     OutputData<CumulativeValue>& getData();
 
     //! Returns content (accumulated value) of bin i.
-    double getBinContent(size_t i) const;
+    double binContent(size_t i) const;
 
     //! Returns content (accumulated value) of the 2D histogram bin.
-    double getBinContent(size_t binx, size_t biny) const;
+    double binContent(size_t binx, size_t biny) const;
 
     //! Sets content of the bin corresponding to the globalbin number
     void setBinContent(size_t i, double value);
@@ -102,30 +102,30 @@ public:
     void addBinContent(size_t i, double value);
 
     //! Returns error of the bin with given index.
-    double getBinError(size_t i) const;
+    double binError(size_t i) const;
 
     //! Returns error of the bin with given indices (for 2D histograms).
-    double getBinError(size_t binx, size_t biny) const;
+    double binError(size_t binx, size_t biny) const;
 
     //! Returns average value in the bin with given index.
-    double getBinAverage(size_t i) const;
+    double binAverage(size_t i) const;
 
     //! Returns average value of the bin with given indices (for 2D histograms).
-    double getBinAverage(size_t binx, size_t biny) const;
+    double binAverage(size_t binx, size_t biny) const;
 
     //! Returns number of entries in the bin with given index.
-    int getBinNumberOfEntries(size_t i) const;
+    int binNumberOfEntries(size_t i) const;
 
     //! Returns number of entries in the bin with given indices (for 2D histograms).
-    int getBinNumberOfEntries(size_t binx, size_t biny) const;
+    int binNumberOfEntries(size_t binx, size_t biny) const;
 
-    //! Returns histogram maximum value (maximum of getBinContent() over all bins)
+    //! Returns histogram maximum value (maximum of binContent() over all bins)
     double getMaximum() const;
 
     //! Returns globalbin index with maximum content
     size_t getMaximumBinIndex() const;
 
-    //! Returns histogram minimum value (minimum of getBinContent() over all bins)
+    //! Returns histogram minimum value (minimum of binContent() over all bins)
     double getMinimum() const;
 
     //! Returns globalbin index with minimum content
@@ -187,7 +187,7 @@ protected:
     void check_x_axis() const;
     void check_y_axis() const;
     void init_from_data(const OutputData<double>& source);
-    double getBinData(size_t i, DataType dataType) const;
+    double binData(size_t i, DataType dataType) const;
     std::vector<double> getDataVector(DataType dataType) const;
     void copyContentFrom(const IHistogram& other);
     OutputData<CumulativeValue> m_data;

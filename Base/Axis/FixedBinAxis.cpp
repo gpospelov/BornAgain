@@ -39,10 +39,10 @@ double FixedBinAxis::operator[](size_t index) const
     return m_start + (index + 0.5) * step;
 }
 
-Bin1D FixedBinAxis::getBin(size_t index) const
+Bin1D FixedBinAxis::bin(size_t index) const
 {
     if (index >= m_nbins)
-        throw Exceptions::OutOfBoundsException("FixedBinAxis::getBin() -> Error. Wrong index.");
+        throw Exceptions::OutOfBoundsException("FixedBinAxis::bin() -> Error. Wrong index.");
 
     double step = (m_end - m_start) / m_nbins;
     Bin1D result(m_start + step * index, m_start + step * (index + 1));
@@ -61,24 +61,24 @@ size_t FixedBinAxis::findClosestIndex(double value) const
     return int((value - m_start) / step);
 }
 
-std::vector<double> FixedBinAxis::getBinCenters() const
+std::vector<double> FixedBinAxis::binCenters() const
 {
     std::vector<double> result;
     result.resize(size(), 0.0);
     for (size_t i = 0; i < size(); ++i) {
-        result[i] = getBin(i).getMidPoint();
+        result[i] = bin(i).getMidPoint();
     }
     return result;
 }
 
-std::vector<double> FixedBinAxis::getBinBoundaries() const
+std::vector<double> FixedBinAxis::binBoundaries() const
 {
     std::vector<double> result;
     result.resize(size() + 1, 0.0);
     for (size_t i = 0; i < size(); ++i) {
-        result[i] = getBin(i).m_lower;
+        result[i] = bin(i).m_lower;
     }
-    result[size()] = getBin(size() - 1).m_upper;
+    result[size()] = bin(size() - 1).m_upper;
     return result;
 }
 
@@ -89,15 +89,15 @@ FixedBinAxis* FixedBinAxis::createClippedAxis(double left, double right) const
                                               "'left' should be smaller than 'right'");
 
     if (left < getMin())
-        left = getBin(0).getMidPoint();
+        left = bin(0).getMidPoint();
     if (right >= getMax())
-        right = getBin(size() - 1).getMidPoint();
+        right = bin(size() - 1).getMidPoint();
 
     size_t nbin1 = findClosestIndex(left);
     size_t nbin2 = findClosestIndex(right);
 
-    return new FixedBinAxis(getName(), nbin2 - nbin1 + 1, getBin(nbin1).m_lower,
-                            getBin(nbin2).m_upper);
+    return new FixedBinAxis(getName(), nbin2 - nbin1 + 1, bin(nbin1).m_lower,
+                            bin(nbin2).m_upper);
 }
 
 void FixedBinAxis::print(std::ostream& ostr) const

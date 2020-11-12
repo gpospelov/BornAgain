@@ -149,7 +149,7 @@ void QSpecScan::setAbsoluteQResolution(const RangedDistribution& distr,
 
 void QSpecScan::checkInitialization()
 {
-    std::vector<double> axis_values = m_qs->getBinCenters();
+    std::vector<double> axis_values = m_qs->binCenters();
     if (!std::is_sorted(axis_values.begin(), axis_values.end()))
         throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values shall "
                                  "be sorted in ascending order.");
@@ -174,6 +174,6 @@ std::vector<double> QSpecScan::generateQzVector() const
 std::vector<std::vector<ParameterSample>> QSpecScan::applyQResolution() const
 {
     if (m_q_res_cache.empty())
-        m_q_res_cache = m_resolution->generateSamples(m_qs->getBinCenters());
+        m_q_res_cache = m_resolution->generateSamples(m_qs->binCenters());
     return m_q_res_cache;
 }

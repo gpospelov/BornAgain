@@ -23,7 +23,7 @@
 //! Other bin boundaries are computed as arithmetical mean of
 //! two adjacent coordinates.
 //! One should be aware, that bin centers reported
-//! by PointwiseAxis::getBinCenter do not coincide with the
+//! by PointwiseAxis::binCenter do not coincide with the
 //! values produced by Bin1D::getMidPoint.
 //! On-axis values are bounded by minimum/maximum
 //! values passed to the constructor.
@@ -48,10 +48,10 @@ public:
     size_t size() const override { return m_coordinates.size(); }
 
     //! indexed accessor retrieves a sample
-    double operator[](size_t index) const override { return getBinCenter(index); }
+    double operator[](size_t index) const override { return binCenter(index); }
 
     //! retrieve a 1d bin for the given index
-    Bin1D getBin(size_t index) const override;
+    Bin1D bin(size_t index) const override;
 
     //! Returns value of first on-axis point
     double getMin() const override;
@@ -61,14 +61,14 @@ public:
 
     //! Returns the coordinate corresponding to the
     //! given index.
-    double getBinCenter(size_t index) const override;
+    double binCenter(size_t index) const override;
 
     //! find index of the coordinate closest to the given value
     size_t findClosestIndex(double value) const override;
 
-    std::vector<double> getBinCenters() const override { return m_coordinates; }
+    std::vector<double> binCenters() const override { return m_coordinates; }
 
-    std::vector<double> getBinBoundaries() const override;
+    std::vector<double> binBoundaries() const override;
 
     //! Creates a new clipped axis
     PointwiseAxis* createClippedAxis(double left, double right) const override;

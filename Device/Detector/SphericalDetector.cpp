@@ -54,8 +54,8 @@ IPixel* SphericalDetector::createPixel(size_t index) const
     const size_t phi_index = axisBinIndex(index, 0);
     const size_t alpha_index = axisBinIndex(index, 1);
 
-    const Bin1D alpha_bin = alpha_axis.getBin(alpha_index);
-    const Bin1D phi_bin = phi_axis.getBin(phi_index);
+    const Bin1D alpha_bin = alpha_axis.bin(alpha_index);
+    const Bin1D phi_bin = phi_axis.bin(phi_index);
     return new SphericalPixel(alpha_bin, phi_bin);
 }
 

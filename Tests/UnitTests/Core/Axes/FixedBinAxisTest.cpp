@@ -61,34 +61,34 @@ TEST_F(FixedBinAxisTest, CheckBin)
 {
     FixedBinAxis axis("name", 20, 0, 10);
 
-    Bin1D bin0 = axis.getBin(0);
+    Bin1D bin0 = axis.bin(0);
     EXPECT_DOUBLE_EQ(0.25, bin0.getMidPoint());
     EXPECT_DOUBLE_EQ(0.0, bin0.m_lower);
     EXPECT_DOUBLE_EQ(0.5, bin0.m_upper);
-    EXPECT_DOUBLE_EQ(0.5, bin0.getBinSize());
+    EXPECT_DOUBLE_EQ(0.5, bin0.binSize());
 
-    Bin1D bin3 = axis.getBin(3);
+    Bin1D bin3 = axis.bin(3);
     EXPECT_DOUBLE_EQ(1.75, bin3.getMidPoint());
     EXPECT_DOUBLE_EQ(1.5, bin3.m_lower);
     EXPECT_DOUBLE_EQ(2.0, bin3.m_upper);
-    EXPECT_DOUBLE_EQ(0.5, bin3.getBinSize());
+    EXPECT_DOUBLE_EQ(0.5, bin3.binSize());
 
-    Bin1D bin10 = axis.getBin(10);
+    Bin1D bin10 = axis.bin(10);
     EXPECT_DOUBLE_EQ(5.25, bin10.getMidPoint());
     EXPECT_DOUBLE_EQ(5.0, bin10.m_lower);
     EXPECT_DOUBLE_EQ(5.5, bin10.m_upper);
 
-    Bin1D bin19 = axis.getBin(19);
+    Bin1D bin19 = axis.bin(19);
     EXPECT_DOUBLE_EQ(9.75, bin19.getMidPoint());
     EXPECT_DOUBLE_EQ(9.5, bin19.m_lower);
     EXPECT_DOUBLE_EQ(10.0, bin19.m_upper);
 
-    ASSERT_THROW(axis.getBin(20), Exceptions::OutOfBoundsException);
+    ASSERT_THROW(axis.bin(20), Exceptions::OutOfBoundsException);
 
     FixedBinAxis axis2("name", 3, -1, 2.0);
-    EXPECT_DOUBLE_EQ(-0.5, axis2.getBin(0).getMidPoint());
-    EXPECT_DOUBLE_EQ(0.5, axis2.getBin(1).getMidPoint());
-    EXPECT_DOUBLE_EQ(1.5, axis2.getBin(2).getMidPoint());
+    EXPECT_DOUBLE_EQ(-0.5, axis2.bin(0).getMidPoint());
+    EXPECT_DOUBLE_EQ(0.5, axis2.bin(1).getMidPoint());
+    EXPECT_DOUBLE_EQ(1.5, axis2.bin(2).getMidPoint());
 }
 
 TEST_F(FixedBinAxisTest, CheckEquality)
@@ -129,21 +129,21 @@ TEST_F(FixedBinAxisTest, IOStream)
 TEST_F(FixedBinAxisTest, BinCenters)
 {
     FixedBinAxis axis("name", 3, -1.5, 1.5);
-    std::vector<double> centers = axis.getBinCenters();
+    std::vector<double> centers = axis.binCenters();
     EXPECT_EQ(size_t(3), centers.size());
     EXPECT_DOUBLE_EQ(-1.0, centers[0]);
     EXPECT_DOUBLE_EQ(0.0, centers[1]);
     EXPECT_DOUBLE_EQ(1.0, centers[2]);
 
-    EXPECT_DOUBLE_EQ(axis.getBinCenter(0), centers[0]);
-    EXPECT_DOUBLE_EQ(axis.getBinCenter(1), centers[1]);
-    EXPECT_DOUBLE_EQ(axis.getBinCenter(2), centers[2]);
+    EXPECT_DOUBLE_EQ(axis.binCenter(0), centers[0]);
+    EXPECT_DOUBLE_EQ(axis.binCenter(1), centers[1]);
+    EXPECT_DOUBLE_EQ(axis.binCenter(2), centers[2]);
 }
 
 TEST_F(FixedBinAxisTest, BinBoundaries)
 {
     FixedBinAxis axis("name", 3, -1.5, 1.5);
-    std::vector<double> boundaries = axis.getBinBoundaries();
+    std::vector<double> boundaries = axis.binBoundaries();
     EXPECT_EQ(size_t(4), boundaries.size());
     EXPECT_DOUBLE_EQ(-1.5, boundaries[0]);
     EXPECT_DOUBLE_EQ(-0.5, boundaries[1]);

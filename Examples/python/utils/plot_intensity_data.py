@@ -46,7 +46,7 @@ def plot_raw_data_2d(values, extent_array, intensity_max):
 
 
 def plot_intensity_data_1d(histogram, intensity_max):
-    axis_values = np.asarray(histogram.xAxis().getBinCenters()) / ba.deg
+    axis_values = np.asarray(histogram.xAxis().binCenters()) / ba.deg
     array_values = histogram.array() * intensity_max / histogram.getMaximum()
     plot_raw_data_1d(axis_values, array_values)
 

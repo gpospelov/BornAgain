@@ -119,7 +119,7 @@ std::unique_ptr<IAxis> RegionOfInterest::clipAxisToRoi(size_t axis_index, const 
     size_t nbin1 = (axis_index == 0 ? m_ax1 : m_ay1);
     size_t nbin2 = (axis_index == 0 ? m_ax2 : m_ay2);
     return std::unique_ptr<IAxis>(new FixedBinAxis(
-        axis.getName(), nbin2 - nbin1 + 1, axis.getBin(nbin1).m_lower, axis.getBin(nbin2).m_upper));
+        axis.getName(), nbin2 - nbin1 + 1, axis.bin(nbin1).m_lower, axis.bin(nbin2).m_upper));
 }
 
 void RegionOfInterest::initFrom(const IAxis& x_axis, const IAxis& y_axis)

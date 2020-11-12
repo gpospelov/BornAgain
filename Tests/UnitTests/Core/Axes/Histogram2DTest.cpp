@@ -113,16 +113,16 @@ TEST_F(Histogram2DTest, VariableHistFill)
 
     // check bin content using globalbin
     for (size_t globalbin = 0; globalbin < hist.getTotalNumberOfBins(); ++globalbin) {
-        EXPECT_EQ(globalbin * 10.0, hist.getBinContent(globalbin));
-        EXPECT_EQ(1.0, hist.getBinNumberOfEntries(globalbin));
+        EXPECT_EQ(globalbin * 10.0, hist.binContent(globalbin));
+        EXPECT_EQ(1.0, hist.binNumberOfEntries(globalbin));
     }
 
     // check bin content using axes bins
     for (size_t binx = 0; binx < hist.xAxis().size(); ++binx) {
         for (size_t biny = 0; biny < hist.yAxis().size(); ++biny) {
             size_t globalbin = hist.getGlobalBin(binx, biny);
-            EXPECT_EQ(globalbin * 10.0, hist.getBinContent(binx, biny));
-            EXPECT_EQ(1.0, hist.getBinNumberOfEntries(binx, biny));
+            EXPECT_EQ(globalbin * 10.0, hist.binContent(binx, biny));
+            EXPECT_EQ(1.0, hist.binNumberOfEntries(binx, biny));
         }
     }
 }
@@ -165,9 +165,9 @@ TEST_F(Histogram2DTest, projectionX)
 
     // check content of projections
     for (size_t binx = 0; binx < h1->getNbinsX(); ++binx) {
-        EXPECT_EQ(3, h1->getBinNumberOfEntries(binx));
-        EXPECT_EQ(6.0, h1->getBinContent(binx));
-        EXPECT_DOUBLE_EQ(std::sqrt(2.0 / 3.0), h1->getBinError(binx));
+        EXPECT_EQ(3, h1->binNumberOfEntries(binx));
+        EXPECT_EQ(6.0, h1->binContent(binx));
+        EXPECT_DOUBLE_EQ(std::sqrt(2.0 / 3.0), h1->binError(binx));
     }
 
     // b) create projection along X axis at given y (slice)
@@ -182,9 +182,9 @@ TEST_F(Histogram2DTest, projectionX)
 
     // check content of projections
     for (size_t binx = 0; binx < h1->getNbinsX(); ++binx) {
-        EXPECT_EQ(1, h1->getBinNumberOfEntries(binx));
-        EXPECT_EQ(2.0, h1->getBinContent(binx));
-        EXPECT_DOUBLE_EQ(0.0, h1->getBinError(binx));
+        EXPECT_EQ(1, h1->binNumberOfEntries(binx));
+        EXPECT_EQ(2.0, h1->binContent(binx));
+        EXPECT_DOUBLE_EQ(0.0, h1->binError(binx));
     }
 
     // c) create projection along X for y between [ylow, yup]
@@ -199,9 +199,9 @@ TEST_F(Histogram2DTest, projectionX)
 
     // check content of projections
     for (size_t binx = 0; binx < h1->getNbinsX(); ++binx) {
-        EXPECT_EQ(2, h1->getBinNumberOfEntries(binx));
-        EXPECT_EQ(3.0, h1->getBinContent(binx));
-        EXPECT_DOUBLE_EQ(std::sqrt(0.25), h1->getBinError(binx));
+        EXPECT_EQ(2, h1->binNumberOfEntries(binx));
+        EXPECT_EQ(3.0, h1->binContent(binx));
+        EXPECT_DOUBLE_EQ(std::sqrt(0.25), h1->binError(binx));
     }
 }
 
@@ -244,12 +244,12 @@ TEST_F(Histogram2DTest, projectionY)
     // check content of projections
 
     for (size_t binx = 0; binx < h1->getNbinsX(); ++binx) {
-        EXPECT_EQ(4, h1->getBinNumberOfEntries(binx));
-        EXPECT_DOUBLE_EQ(0.0, h1->getBinError(binx));
+        EXPECT_EQ(4, h1->binNumberOfEntries(binx));
+        EXPECT_DOUBLE_EQ(0.0, h1->binError(binx));
     }
-    EXPECT_EQ(4.0, h1->getBinContent(0));
-    EXPECT_EQ(8.0, h1->getBinContent(1));
-    EXPECT_EQ(12.0, h1->getBinContent(2));
+    EXPECT_EQ(4.0, h1->binContent(0));
+    EXPECT_EQ(8.0, h1->binContent(1));
+    EXPECT_EQ(12.0, h1->binContent(2));
 
     // b) create projection along Y axis at given x(slice)
     h1.reset(hist.projectionY(0.0));
@@ -264,12 +264,12 @@ TEST_F(Histogram2DTest, projectionY)
     // check content of projections
 
     for (size_t binx = 0; binx < h1->getNbinsX(); ++binx) {
-        EXPECT_EQ(1, h1->getBinNumberOfEntries(binx));
-        EXPECT_DOUBLE_EQ(0.0, h1->getBinError(binx));
+        EXPECT_EQ(1, h1->binNumberOfEntries(binx));
+        EXPECT_DOUBLE_EQ(0.0, h1->binError(binx));
     }
-    EXPECT_EQ(1.0, h1->getBinContent(0));
-    EXPECT_EQ(2.0, h1->getBinContent(1));
-    EXPECT_EQ(3.0, h1->getBinContent(2));
+    EXPECT_EQ(1.0, h1->binContent(0));
+    EXPECT_EQ(2.0, h1->binContent(1));
+    EXPECT_EQ(3.0, h1->binContent(2));
 
     // c) create projection along Y axis for x's between [xlow,xup]
     h1.reset(hist.projectionY(0.0, 0.51));
@@ -284,12 +284,12 @@ TEST_F(Histogram2DTest, projectionY)
     // check content of projections
 
     for (size_t binx = 0; binx < h1->getNbinsX(); ++binx) {
-        EXPECT_EQ(2, h1->getBinNumberOfEntries(binx));
-        EXPECT_DOUBLE_EQ(0.0, h1->getBinError(binx));
+        EXPECT_EQ(2, h1->binNumberOfEntries(binx));
+        EXPECT_DOUBLE_EQ(0.0, h1->binError(binx));
     }
-    EXPECT_EQ(2.0, h1->getBinContent(0));
-    EXPECT_EQ(4.0, h1->getBinContent(1));
-    EXPECT_EQ(6.0, h1->getBinContent(2));
+    EXPECT_EQ(2.0, h1->binContent(0));
+    EXPECT_EQ(4.0, h1->binContent(1));
+    EXPECT_EQ(6.0, h1->binContent(2));
 }
 
 // y
@@ -326,12 +326,12 @@ TEST_F(Histogram2DTest, crop)
     EXPECT_EQ(2.0, crop->getYmax());
     EXPECT_EQ(size_t(2), crop->getNbinsY());
 
-    EXPECT_EQ(1.0, crop->getBinContent(0, 0));
-    EXPECT_EQ(2.0, crop->getBinContent(0, 1));
-    EXPECT_EQ(1.0, crop->getBinContent(1, 0));
-    EXPECT_EQ(2.0, crop->getBinContent(1, 1));
-    EXPECT_EQ(1.0, crop->getBinContent(2, 0));
-    EXPECT_EQ(2.0, crop->getBinContent(2, 1));
+    EXPECT_EQ(1.0, crop->binContent(0, 0));
+    EXPECT_EQ(2.0, crop->binContent(0, 1));
+    EXPECT_EQ(1.0, crop->binContent(1, 0));
+    EXPECT_EQ(2.0, crop->binContent(1, 1));
+    EXPECT_EQ(1.0, crop->binContent(2, 0));
+    EXPECT_EQ(2.0, crop->binContent(2, 1));
 }
 
 TEST_F(Histogram2DTest, CreateHistogram)
@@ -351,10 +351,10 @@ TEST_F(Histogram2DTest, CreateHistogram)
     EXPECT_EQ(data.axis(1).getMin(), h2->getYmin());
     EXPECT_EQ(data.axis(1).getMax(), h2->getYmax());
     for (size_t i = 0; i < h2->getTotalNumberOfBins(); ++i) {
-        EXPECT_EQ(data[i], h2->getBinContent(i));
-        EXPECT_EQ(data[i], h2->getBinAverage(i));
-        EXPECT_EQ(1, h2->getBinNumberOfEntries(i));
-        EXPECT_EQ(0.0, h2->getBinError(i));
+        EXPECT_EQ(data[i], h2->binContent(i));
+        EXPECT_EQ(data[i], h2->binAverage(i));
+        EXPECT_EQ(1, h2->binNumberOfEntries(i));
+        EXPECT_EQ(0.0, h2->binError(i));
     }
 }
 

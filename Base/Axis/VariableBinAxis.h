@@ -38,17 +38,17 @@ public:
 
     double operator[](size_t index) const;
 
-    Bin1D getBin(size_t index) const;
+    Bin1D bin(size_t index) const;
 
     double getMin() const;
     double getMax() const;
 
-    double getBinCenter(size_t index) const;
+    double binCenter(size_t index) const;
 
     size_t findClosestIndex(double value) const;
 
-    std::vector<double> getBinCenters() const;
-    std::vector<double> getBinBoundaries() const { return m_bin_boundaries; }
+    std::vector<double> binCenters() const;
+    std::vector<double> binBoundaries() const { return m_bin_boundaries; }
 
     virtual VariableBinAxis* createClippedAxis(double left, double right) const;
 

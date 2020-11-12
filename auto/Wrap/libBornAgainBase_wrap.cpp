@@ -25082,7 +25082,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Bin1D_getBinSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Bin1D_binSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Bin1D *arg1 = (Bin1D *) 0 ;
   void *argp1 = 0 ;
@@ -25094,10 +25094,10 @@ SWIGINTERN PyObject *_wrap_Bin1D_getBinSize(PyObject *SWIGUNUSEDPARM(self), PyOb
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Bin1D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1D_getBinSize" "', argument " "1"" of type '" "Bin1D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1D_binSize" "', argument " "1"" of type '" "Bin1D const *""'"); 
   }
   arg1 = reinterpret_cast< Bin1D * >(argp1);
-  result = (double)((Bin1D const *)arg1)->getBinSize();
+  result = (double)((Bin1D const *)arg1)->binSize();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -25965,7 +25965,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IAxis_getBin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IAxis_bin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IAxis *arg1 = (IAxis *) 0 ;
   size_t arg2 ;
@@ -25976,18 +25976,18 @@ SWIGINTERN PyObject *_wrap_IAxis_getBin(PyObject *SWIGUNUSEDPARM(self), PyObject
   PyObject *swig_obj[2] ;
   Bin1D result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IAxis_getBin", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IAxis_bin", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_getBin" "', argument " "1"" of type '" "IAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_bin" "', argument " "1"" of type '" "IAxis const *""'"); 
   }
   arg1 = reinterpret_cast< IAxis * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IAxis_getBin" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IAxis_bin" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = ((IAxis const *)arg1)->getBin(arg2);
+  result = ((IAxis const *)arg1)->bin(arg2);
   resultobj = SWIG_NewPointerObj((new Bin1D(static_cast< const Bin1D& >(result))), SWIGTYPE_p_Bin1D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -26064,7 +26064,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IAxis_getBinCenter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IAxis_binCenter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IAxis *arg1 = (IAxis *) 0 ;
   size_t arg2 ;
@@ -26075,18 +26075,18 @@ SWIGINTERN PyObject *_wrap_IAxis_getBinCenter(PyObject *SWIGUNUSEDPARM(self), Py
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IAxis_getBinCenter", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IAxis_binCenter", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_getBinCenter" "', argument " "1"" of type '" "IAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_binCenter" "', argument " "1"" of type '" "IAxis const *""'"); 
   }
   arg1 = reinterpret_cast< IAxis * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IAxis_getBinCenter" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IAxis_binCenter" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)((IAxis const *)arg1)->getBinCenter(arg2);
+  result = (double)((IAxis const *)arg1)->binCenter(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -26194,7 +26194,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IAxis_getBinCenters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IAxis_binCenters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IAxis *arg1 = (IAxis *) 0 ;
   void *argp1 = 0 ;
@@ -26206,10 +26206,10 @@ SWIGINTERN PyObject *_wrap_IAxis_getBinCenters(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_getBinCenters" "', argument " "1"" of type '" "IAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_binCenters" "', argument " "1"" of type '" "IAxis const *""'"); 
   }
   arg1 = reinterpret_cast< IAxis * >(argp1);
-  result = ((IAxis const *)arg1)->getBinCenters();
+  result = ((IAxis const *)arg1)->binCenters();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -26217,7 +26217,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IAxis_getBinBoundaries(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IAxis_binBoundaries(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IAxis *arg1 = (IAxis *) 0 ;
   void *argp1 = 0 ;
@@ -26229,10 +26229,10 @@ SWIGINTERN PyObject *_wrap_IAxis_getBinBoundaries(PyObject *SWIGUNUSEDPARM(self)
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_getBinBoundaries" "', argument " "1"" of type '" "IAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_binBoundaries" "', argument " "1"" of type '" "IAxis const *""'"); 
   }
   arg1 = reinterpret_cast< IAxis * >(argp1);
-  result = ((IAxis const *)arg1)->getBinBoundaries();
+  result = ((IAxis const *)arg1)->binBoundaries();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -26516,7 +26516,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_VariableBinAxis_getBin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_VariableBinAxis_bin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   VariableBinAxis *arg1 = (VariableBinAxis *) 0 ;
   size_t arg2 ;
@@ -26527,18 +26527,18 @@ SWIGINTERN PyObject *_wrap_VariableBinAxis_getBin(PyObject *SWIGUNUSEDPARM(self)
   PyObject *swig_obj[2] ;
   Bin1D result;
   
-  if (!SWIG_Python_UnpackTuple(args, "VariableBinAxis_getBin", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "VariableBinAxis_bin", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VariableBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_getBin" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_bin" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< VariableBinAxis * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "VariableBinAxis_getBin" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "VariableBinAxis_bin" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = ((VariableBinAxis const *)arg1)->getBin(arg2);
+  result = ((VariableBinAxis const *)arg1)->bin(arg2);
   resultobj = SWIG_NewPointerObj((new Bin1D(static_cast< const Bin1D& >(result))), SWIGTYPE_p_Bin1D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -26592,7 +26592,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_VariableBinAxis_getBinCenter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_VariableBinAxis_binCenter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   VariableBinAxis *arg1 = (VariableBinAxis *) 0 ;
   size_t arg2 ;
@@ -26603,18 +26603,18 @@ SWIGINTERN PyObject *_wrap_VariableBinAxis_getBinCenter(PyObject *SWIGUNUSEDPARM
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "VariableBinAxis_getBinCenter", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "VariableBinAxis_binCenter", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VariableBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_getBinCenter" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_binCenter" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< VariableBinAxis * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "VariableBinAxis_getBinCenter" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "VariableBinAxis_binCenter" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)((VariableBinAxis const *)arg1)->getBinCenter(arg2);
+  result = (double)((VariableBinAxis const *)arg1)->binCenter(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -26652,7 +26652,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_VariableBinAxis_getBinCenters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_VariableBinAxis_binCenters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   VariableBinAxis *arg1 = (VariableBinAxis *) 0 ;
   void *argp1 = 0 ;
@@ -26664,10 +26664,10 @@ SWIGINTERN PyObject *_wrap_VariableBinAxis_getBinCenters(PyObject *SWIGUNUSEDPAR
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VariableBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_getBinCenters" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_binCenters" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< VariableBinAxis * >(argp1);
-  result = ((VariableBinAxis const *)arg1)->getBinCenters();
+  result = ((VariableBinAxis const *)arg1)->binCenters();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -26675,7 +26675,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_VariableBinAxis_getBinBoundaries(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_VariableBinAxis_binBoundaries(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   VariableBinAxis *arg1 = (VariableBinAxis *) 0 ;
   void *argp1 = 0 ;
@@ -26687,10 +26687,10 @@ SWIGINTERN PyObject *_wrap_VariableBinAxis_getBinBoundaries(PyObject *SWIGUNUSED
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VariableBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_getBinBoundaries" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_binBoundaries" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< VariableBinAxis * >(argp1);
-  result = ((VariableBinAxis const *)arg1)->getBinBoundaries();
+  result = ((VariableBinAxis const *)arg1)->binBoundaries();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -27067,7 +27067,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_CustomBinAxis_getBin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_CustomBinAxis_bin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   CustomBinAxis *arg1 = (CustomBinAxis *) 0 ;
   size_t arg2 ;
@@ -27078,18 +27078,18 @@ SWIGINTERN PyObject *_wrap_CustomBinAxis_getBin(PyObject *SWIGUNUSEDPARM(self), 
   PyObject *swig_obj[2] ;
   Bin1D result;
   
-  if (!SWIG_Python_UnpackTuple(args, "CustomBinAxis_getBin", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "CustomBinAxis_bin", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_CustomBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CustomBinAxis_getBin" "', argument " "1"" of type '" "CustomBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CustomBinAxis_bin" "', argument " "1"" of type '" "CustomBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< CustomBinAxis * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CustomBinAxis_getBin" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CustomBinAxis_bin" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = ((CustomBinAxis const *)arg1)->getBin(arg2);
+  result = ((CustomBinAxis const *)arg1)->bin(arg2);
   resultobj = SWIG_NewPointerObj((new Bin1D(static_cast< const Bin1D& >(result))), SWIGTYPE_p_Bin1D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -27097,7 +27097,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_CustomBinAxis_getBinCenters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_CustomBinAxis_binCenters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   CustomBinAxis *arg1 = (CustomBinAxis *) 0 ;
   void *argp1 = 0 ;
@@ -27109,10 +27109,10 @@ SWIGINTERN PyObject *_wrap_CustomBinAxis_getBinCenters(PyObject *SWIGUNUSEDPARM(
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_CustomBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CustomBinAxis_getBinCenters" "', argument " "1"" of type '" "CustomBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CustomBinAxis_binCenters" "', argument " "1"" of type '" "CustomBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< CustomBinAxis * >(argp1);
-  result = ((CustomBinAxis const *)arg1)->getBinCenters();
+  result = ((CustomBinAxis const *)arg1)->binCenters();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -27290,7 +27290,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FixedBinAxis_getBin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FixedBinAxis_bin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FixedBinAxis *arg1 = (FixedBinAxis *) 0 ;
   size_t arg2 ;
@@ -27301,18 +27301,18 @@ SWIGINTERN PyObject *_wrap_FixedBinAxis_getBin(PyObject *SWIGUNUSEDPARM(self), P
   PyObject *swig_obj[2] ;
   Bin1D result;
   
-  if (!SWIG_Python_UnpackTuple(args, "FixedBinAxis_getBin", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "FixedBinAxis_bin", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FixedBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_getBin" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_bin" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< FixedBinAxis * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FixedBinAxis_getBin" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FixedBinAxis_bin" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = ((FixedBinAxis const *)arg1)->getBin(arg2);
+  result = ((FixedBinAxis const *)arg1)->bin(arg2);
   resultobj = SWIG_NewPointerObj((new Bin1D(static_cast< const Bin1D& >(result))), SWIGTYPE_p_Bin1D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -27366,7 +27366,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FixedBinAxis_getBinCenter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FixedBinAxis_binCenter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FixedBinAxis *arg1 = (FixedBinAxis *) 0 ;
   size_t arg2 ;
@@ -27377,18 +27377,18 @@ SWIGINTERN PyObject *_wrap_FixedBinAxis_getBinCenter(PyObject *SWIGUNUSEDPARM(se
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "FixedBinAxis_getBinCenter", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "FixedBinAxis_binCenter", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FixedBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_getBinCenter" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_binCenter" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< FixedBinAxis * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FixedBinAxis_getBinCenter" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FixedBinAxis_binCenter" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)((FixedBinAxis const *)arg1)->getBinCenter(arg2);
+  result = (double)((FixedBinAxis const *)arg1)->binCenter(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -27426,7 +27426,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FixedBinAxis_getBinCenters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FixedBinAxis_binCenters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FixedBinAxis *arg1 = (FixedBinAxis *) 0 ;
   void *argp1 = 0 ;
@@ -27438,10 +27438,10 @@ SWIGINTERN PyObject *_wrap_FixedBinAxis_getBinCenters(PyObject *SWIGUNUSEDPARM(s
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FixedBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_getBinCenters" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_binCenters" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< FixedBinAxis * >(argp1);
-  result = ((FixedBinAxis const *)arg1)->getBinCenters();
+  result = ((FixedBinAxis const *)arg1)->binCenters();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -27449,7 +27449,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FixedBinAxis_getBinBoundaries(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FixedBinAxis_binBoundaries(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FixedBinAxis *arg1 = (FixedBinAxis *) 0 ;
   void *argp1 = 0 ;
@@ -27461,10 +27461,10 @@ SWIGINTERN PyObject *_wrap_FixedBinAxis_getBinBoundaries(PyObject *SWIGUNUSEDPAR
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FixedBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_getBinBoundaries" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_binBoundaries" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< FixedBinAxis * >(argp1);
-  result = ((FixedBinAxis const *)arg1)->getBinBoundaries();
+  result = ((FixedBinAxis const *)arg1)->binBoundaries();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -33346,9 +33346,9 @@ static PyMethodDef SwigMethods[] = {
 		"double Bin1D::getMidPoint() const\n"
 		"\n"
 		""},
-	 { "Bin1D_getBinSize", _wrap_Bin1D_getBinSize, METH_O, "\n"
-		"Bin1D_getBinSize(Bin1D self) -> double\n"
-		"double Bin1D::getBinSize() const\n"
+	 { "Bin1D_binSize", _wrap_Bin1D_binSize, METH_O, "\n"
+		"Bin1D_binSize(Bin1D self) -> double\n"
+		"double Bin1D::binSize() const\n"
 		"\n"
 		""},
 	 { "delete_Bin1D", _wrap_delete_Bin1D, METH_O, "delete_Bin1D(Bin1D self)"},
@@ -33448,9 +33448,9 @@ static PyMethodDef SwigMethods[] = {
 		"Sets the axis label. \n"
 		"\n"
 		""},
-	 { "IAxis_getBin", _wrap_IAxis_getBin, METH_VARARGS, "\n"
-		"IAxis_getBin(IAxis self, size_t index) -> Bin1D\n"
-		"virtual Bin1D IAxis::getBin(size_t index) const =0\n"
+	 { "IAxis_bin", _wrap_IAxis_bin, METH_VARARGS, "\n"
+		"IAxis_bin(IAxis self, size_t index) -> Bin1D\n"
+		"virtual Bin1D IAxis::bin(size_t index) const =0\n"
 		"\n"
 		"retrieve a 1d bin for the given index \n"
 		"\n"
@@ -33476,9 +33476,9 @@ static PyMethodDef SwigMethods[] = {
 		"Returns distance from first to last point. \n"
 		"\n"
 		""},
-	 { "IAxis_getBinCenter", _wrap_IAxis_getBinCenter, METH_VARARGS, "\n"
-		"IAxis_getBinCenter(IAxis self, size_t index) -> double\n"
-		"virtual double IAxis::getBinCenter(size_t index) const =0\n"
+	 { "IAxis_binCenter", _wrap_IAxis_binCenter, METH_VARARGS, "\n"
+		"IAxis_binCenter(IAxis self, size_t index) -> double\n"
+		"virtual double IAxis::binCenter(size_t index) const =0\n"
 		"\n"
 		""},
 	 { "IAxis_findClosestIndex", _wrap_IAxis_findClosestIndex, METH_VARARGS, "\n"
@@ -33490,14 +33490,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IAxis___eq__", _wrap_IAxis___eq__, METH_VARARGS, "IAxis___eq__(IAxis self, IAxis right) -> bool"},
 	 { "IAxis___ne__", _wrap_IAxis___ne__, METH_VARARGS, "IAxis___ne__(IAxis self, IAxis right) -> bool"},
-	 { "IAxis_getBinCenters", _wrap_IAxis_getBinCenters, METH_O, "\n"
-		"IAxis_getBinCenters(IAxis self) -> vdouble1d_t\n"
-		"std::vector< double > IAxis::getBinCenters() const\n"
+	 { "IAxis_binCenters", _wrap_IAxis_binCenters, METH_O, "\n"
+		"IAxis_binCenters(IAxis self) -> vdouble1d_t\n"
+		"std::vector< double > IAxis::binCenters() const\n"
 		"\n"
 		""},
-	 { "IAxis_getBinBoundaries", _wrap_IAxis_getBinBoundaries, METH_O, "\n"
-		"IAxis_getBinBoundaries(IAxis self) -> vdouble1d_t\n"
-		"std::vector< double > IAxis::getBinBoundaries() const\n"
+	 { "IAxis_binBoundaries", _wrap_IAxis_binBoundaries, METH_O, "\n"
+		"IAxis_binBoundaries(IAxis self) -> vdouble1d_t\n"
+		"std::vector< double > IAxis::binBoundaries() const\n"
 		"\n"
 		""},
 	 { "IAxis_createClippedAxis", _wrap_IAxis_createClippedAxis, METH_VARARGS, "\n"
@@ -33565,9 +33565,9 @@ static PyMethodDef SwigMethods[] = {
 		"retrieve the number of bins \n"
 		"\n"
 		""},
-	 { "VariableBinAxis_getBin", _wrap_VariableBinAxis_getBin, METH_VARARGS, "\n"
-		"VariableBinAxis_getBin(VariableBinAxis self, size_t index) -> Bin1D\n"
-		"Bin1D VariableBinAxis::getBin(size_t index) const\n"
+	 { "VariableBinAxis_bin", _wrap_VariableBinAxis_bin, METH_VARARGS, "\n"
+		"VariableBinAxis_bin(VariableBinAxis self, size_t index) -> Bin1D\n"
+		"Bin1D VariableBinAxis::bin(size_t index) const\n"
 		"\n"
 		"retrieve a 1d bin for the given index \n"
 		"\n"
@@ -33586,9 +33586,9 @@ static PyMethodDef SwigMethods[] = {
 		"Returns value of last point of axis. \n"
 		"\n"
 		""},
-	 { "VariableBinAxis_getBinCenter", _wrap_VariableBinAxis_getBinCenter, METH_VARARGS, "\n"
-		"VariableBinAxis_getBinCenter(VariableBinAxis self, size_t index) -> double\n"
-		"double VariableBinAxis::getBinCenter(size_t index) const\n"
+	 { "VariableBinAxis_binCenter", _wrap_VariableBinAxis_binCenter, METH_VARARGS, "\n"
+		"VariableBinAxis_binCenter(VariableBinAxis self, size_t index) -> double\n"
+		"double VariableBinAxis::binCenter(size_t index) const\n"
 		"\n"
 		""},
 	 { "VariableBinAxis_findClosestIndex", _wrap_VariableBinAxis_findClosestIndex, METH_VARARGS, "\n"
@@ -33598,14 +33598,14 @@ static PyMethodDef SwigMethods[] = {
 		"find bin index which is best match for given value \n"
 		"\n"
 		""},
-	 { "VariableBinAxis_getBinCenters", _wrap_VariableBinAxis_getBinCenters, METH_O, "\n"
-		"VariableBinAxis_getBinCenters(VariableBinAxis self) -> vdouble1d_t\n"
-		"std::vector< double > VariableBinAxis::getBinCenters() const\n"
+	 { "VariableBinAxis_binCenters", _wrap_VariableBinAxis_binCenters, METH_O, "\n"
+		"VariableBinAxis_binCenters(VariableBinAxis self) -> vdouble1d_t\n"
+		"std::vector< double > VariableBinAxis::binCenters() const\n"
 		"\n"
 		""},
-	 { "VariableBinAxis_getBinBoundaries", _wrap_VariableBinAxis_getBinBoundaries, METH_O, "\n"
-		"VariableBinAxis_getBinBoundaries(VariableBinAxis self) -> vdouble1d_t\n"
-		"std::vector<double> VariableBinAxis::getBinBoundaries() const\n"
+	 { "VariableBinAxis_binBoundaries", _wrap_VariableBinAxis_binBoundaries, METH_O, "\n"
+		"VariableBinAxis_binBoundaries(VariableBinAxis self) -> vdouble1d_t\n"
+		"std::vector<double> VariableBinAxis::binBoundaries() const\n"
 		"\n"
 		""},
 	 { "VariableBinAxis_createClippedAxis", _wrap_VariableBinAxis_createClippedAxis, METH_VARARGS, "\n"
@@ -33700,16 +33700,16 @@ static PyMethodDef SwigMethods[] = {
 		"clone function \n"
 		"\n"
 		""},
-	 { "CustomBinAxis_getBin", _wrap_CustomBinAxis_getBin, METH_VARARGS, "\n"
-		"CustomBinAxis_getBin(CustomBinAxis self, size_t index) -> Bin1D\n"
-		"Bin1D CustomBinAxis::getBin(size_t index) const\n"
+	 { "CustomBinAxis_bin", _wrap_CustomBinAxis_bin, METH_VARARGS, "\n"
+		"CustomBinAxis_bin(CustomBinAxis self, size_t index) -> Bin1D\n"
+		"Bin1D CustomBinAxis::bin(size_t index) const\n"
 		"\n"
 		"retrieve a 1d bin for the given index \n"
 		"\n"
 		""},
-	 { "CustomBinAxis_getBinCenters", _wrap_CustomBinAxis_getBinCenters, METH_O, "\n"
-		"CustomBinAxis_getBinCenters(CustomBinAxis self) -> vdouble1d_t\n"
-		"std::vector< double > CustomBinAxis::getBinCenters() const\n"
+	 { "CustomBinAxis_binCenters", _wrap_CustomBinAxis_binCenters, METH_O, "\n"
+		"CustomBinAxis_binCenters(CustomBinAxis self) -> vdouble1d_t\n"
+		"std::vector< double > CustomBinAxis::binCenters() const\n"
 		"\n"
 		""},
 	 { "CustomBinAxis_createClippedAxis", _wrap_CustomBinAxis_createClippedAxis, METH_VARARGS, "\n"
@@ -33762,9 +33762,9 @@ static PyMethodDef SwigMethods[] = {
 		"retrieve the number of bins \n"
 		"\n"
 		""},
-	 { "FixedBinAxis_getBin", _wrap_FixedBinAxis_getBin, METH_VARARGS, "\n"
-		"FixedBinAxis_getBin(FixedBinAxis self, size_t index) -> Bin1D\n"
-		"Bin1D FixedBinAxis::getBin(size_t index) const\n"
+	 { "FixedBinAxis_bin", _wrap_FixedBinAxis_bin, METH_VARARGS, "\n"
+		"FixedBinAxis_bin(FixedBinAxis self, size_t index) -> Bin1D\n"
+		"Bin1D FixedBinAxis::bin(size_t index) const\n"
 		"\n"
 		"retrieve a 1d bin for the given index \n"
 		"\n"
@@ -33783,9 +33783,9 @@ static PyMethodDef SwigMethods[] = {
 		"Returns value of last point of axis. \n"
 		"\n"
 		""},
-	 { "FixedBinAxis_getBinCenter", _wrap_FixedBinAxis_getBinCenter, METH_VARARGS, "\n"
-		"FixedBinAxis_getBinCenter(FixedBinAxis self, size_t index) -> double\n"
-		"double FixedBinAxis::getBinCenter(size_t index) const\n"
+	 { "FixedBinAxis_binCenter", _wrap_FixedBinAxis_binCenter, METH_VARARGS, "\n"
+		"FixedBinAxis_binCenter(FixedBinAxis self, size_t index) -> double\n"
+		"double FixedBinAxis::binCenter(size_t index) const\n"
 		"\n"
 		""},
 	 { "FixedBinAxis_findClosestIndex", _wrap_FixedBinAxis_findClosestIndex, METH_VARARGS, "\n"
@@ -33795,14 +33795,14 @@ static PyMethodDef SwigMethods[] = {
 		"find bin index which is best match for given value \n"
 		"\n"
 		""},
-	 { "FixedBinAxis_getBinCenters", _wrap_FixedBinAxis_getBinCenters, METH_O, "\n"
-		"FixedBinAxis_getBinCenters(FixedBinAxis self) -> vdouble1d_t\n"
-		"std::vector< double > FixedBinAxis::getBinCenters() const\n"
+	 { "FixedBinAxis_binCenters", _wrap_FixedBinAxis_binCenters, METH_O, "\n"
+		"FixedBinAxis_binCenters(FixedBinAxis self) -> vdouble1d_t\n"
+		"std::vector< double > FixedBinAxis::binCenters() const\n"
 		"\n"
 		""},
-	 { "FixedBinAxis_getBinBoundaries", _wrap_FixedBinAxis_getBinBoundaries, METH_O, "\n"
-		"FixedBinAxis_getBinBoundaries(FixedBinAxis self) -> vdouble1d_t\n"
-		"std::vector< double > FixedBinAxis::getBinBoundaries() const\n"
+	 { "FixedBinAxis_binBoundaries", _wrap_FixedBinAxis_binBoundaries, METH_O, "\n"
+		"FixedBinAxis_binBoundaries(FixedBinAxis self) -> vdouble1d_t\n"
+		"std::vector< double > FixedBinAxis::binBoundaries() const\n"
 		"\n"
 		""},
 	 { "FixedBinAxis_createClippedAxis", _wrap_FixedBinAxis_createClippedAxis, METH_VARARGS, "\n"

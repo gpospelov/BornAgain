@@ -49,36 +49,36 @@ int Histogram1D::fill(double x, double weight)
     return (int)index;
 }
 
-std::vector<double> Histogram1D::getBinCenters() const
+std::vector<double> Histogram1D::binCenters() const
 {
-    return xAxis().getBinCenters();
+    return xAxis().binCenters();
 }
 
-std::vector<double> Histogram1D::getBinValues() const
+std::vector<double> Histogram1D::binValues() const
 {
     return IHistogram::getDataVector(IHistogram::DataType::INTEGRAL);
 }
 
-std::vector<double> Histogram1D::getBinErrors() const
+std::vector<double> Histogram1D::binErrors() const
 {
     return IHistogram::getDataVector(IHistogram::DataType::STANDARD_ERROR);
 }
 
 #ifdef BORNAGAIN_PYTHON
 
-PyObject* Histogram1D::getBinCentersNumpy() const
+PyObject* Histogram1D::binCentersNumpy() const
 {
-    return ArrayUtils::createNumpyArray(getBinCenters());
+    return ArrayUtils::createNumpyArray(binCenters());
 }
 
-PyObject* Histogram1D::getBinValuesNumpy() const
+PyObject* Histogram1D::binValuesNumpy() const
 {
-    return ArrayUtils::createNumpyArray(getBinValues());
+    return ArrayUtils::createNumpyArray(binValues());
 }
 
-PyObject* Histogram1D::getBinErrorsNumpy() const
+PyObject* Histogram1D::binErrorsNumpy() const
 {
-    return ArrayUtils::createNumpyArray(getBinErrors());
+    return ArrayUtils::createNumpyArray(binErrors());
 }
 
 #endif // BORNAGAIN_PYTHON

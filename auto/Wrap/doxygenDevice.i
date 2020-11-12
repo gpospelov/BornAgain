@@ -638,28 +638,28 @@ Returns the number of histogram dimensions.
 Increment bin with abscissa x with a weight. 
 ";
 
-%feature("docstring")  Histogram1D::getBinCenters "std::vector< double > Histogram1D::getBinCenters() const
+%feature("docstring")  Histogram1D::binCenters "std::vector< double > Histogram1D::binCenters() const
 
 returns vector of histogram bin centers 
 ";
 
-%feature("docstring")  Histogram1D::getBinValues "std::vector< double > Histogram1D::getBinValues() const
+%feature("docstring")  Histogram1D::binValues "std::vector< double > Histogram1D::binValues() const
 
 returns vector of bin content (the value accumulated by bins) 
 ";
 
-%feature("docstring")  Histogram1D::getBinErrors "std::vector< double > Histogram1D::getBinErrors() const
+%feature("docstring")  Histogram1D::binErrors "std::vector< double > Histogram1D::binErrors() const
 
 returns vector of bin errors 
 ";
 
-%feature("docstring")  Histogram1D::getBinCentersNumpy "PyObject * Histogram1D::getBinCentersNumpy() const
+%feature("docstring")  Histogram1D::binCentersNumpy "PyObject * Histogram1D::binCentersNumpy() const
 ";
 
-%feature("docstring")  Histogram1D::getBinValuesNumpy "PyObject * Histogram1D::getBinValuesNumpy() const
+%feature("docstring")  Histogram1D::binValuesNumpy "PyObject * Histogram1D::binValuesNumpy() const
 ";
 
-%feature("docstring")  Histogram1D::getBinErrorsNumpy "PyObject * Histogram1D::getBinErrorsNumpy() const
+%feature("docstring")  Histogram1D::binErrorsNumpy "PyObject * Histogram1D::binErrorsNumpy() const
 ";
 
 %feature("docstring")  Histogram1D::crop "Histogram1D * Histogram1D::crop(double xmin, double xmax)
@@ -1282,12 +1282,12 @@ Returns the center of bin i of the y axis.
 %feature("docstring")  IHistogram::getData "OutputData< CumulativeValue > & IHistogram::getData()
 ";
 
-%feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t i) const
+%feature("docstring")  IHistogram::binContent "double IHistogram::binContent(size_t i) const
 
 Returns content (accumulated value) of bin i. 
 ";
 
-%feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t binx, size_t biny) const
+%feature("docstring")  IHistogram::binContent "double IHistogram::binContent(size_t binx, size_t biny) const
 
 Returns content (accumulated value) of the 2D histogram bin. 
 ";
@@ -1302,39 +1302,39 @@ Sets content of the bin corresponding to the globalbin number.
 Add the value to the bin. 
 ";
 
-%feature("docstring")  IHistogram::getBinError "double IHistogram::getBinError(size_t i) const
+%feature("docstring")  IHistogram::binError "double IHistogram::binError(size_t i) const
 
 Returns error of the bin with given index. 
 ";
 
-%feature("docstring")  IHistogram::getBinError "double IHistogram::getBinError(size_t binx, size_t biny) const
+%feature("docstring")  IHistogram::binError "double IHistogram::binError(size_t binx, size_t biny) const
 
 Returns error of the bin with given indices (for 2D histograms). 
 ";
 
-%feature("docstring")  IHistogram::getBinAverage "double IHistogram::getBinAverage(size_t i) const
+%feature("docstring")  IHistogram::binAverage "double IHistogram::binAverage(size_t i) const
 
 Returns average value in the bin with given index. 
 ";
 
-%feature("docstring")  IHistogram::getBinAverage "double IHistogram::getBinAverage(size_t binx, size_t biny) const
+%feature("docstring")  IHistogram::binAverage "double IHistogram::binAverage(size_t binx, size_t biny) const
 
 Returns average value of the bin with given indices (for 2D histograms). 
 ";
 
-%feature("docstring")  IHistogram::getBinNumberOfEntries "int IHistogram::getBinNumberOfEntries(size_t i) const
+%feature("docstring")  IHistogram::binNumberOfEntries "int IHistogram::binNumberOfEntries(size_t i) const
 
 Returns number of entries in the bin with given index. 
 ";
 
-%feature("docstring")  IHistogram::getBinNumberOfEntries "int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
+%feature("docstring")  IHistogram::binNumberOfEntries "int IHistogram::binNumberOfEntries(size_t binx, size_t biny) const
 
 Returns number of entries in the bin with given indices (for 2D histograms). 
 ";
 
 %feature("docstring")  IHistogram::getMaximum "double IHistogram::getMaximum() const
 
-Returns histogram maximum value (maximum of  getBinContent() over all bins) 
+Returns histogram maximum value (maximum of  binContent() over all bins) 
 ";
 
 %feature("docstring")  IHistogram::getMaximumBinIndex "size_t IHistogram::getMaximumBinIndex() const
@@ -1344,7 +1344,7 @@ Returns globalbin index with maximum content.
 
 %feature("docstring")  IHistogram::getMinimum "double IHistogram::getMinimum() const
 
-Returns histogram minimum value (minimum of  getBinContent() over all bins) 
+Returns histogram minimum value (minimum of  binContent() over all bins) 
 ";
 
 %feature("docstring")  IHistogram::getMinimumBinIndex "size_t IHistogram::getMinimumBinIndex() const

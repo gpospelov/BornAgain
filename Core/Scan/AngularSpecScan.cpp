@@ -283,7 +283,7 @@ void AngularSpecScan::checkInitialization()
         throw std::runtime_error(
             "Error in AngularSpecScan::checkInitialization: wavelength shell be positive");
 
-    const std::vector<double> axis_values = m_inc_angle->getBinCenters();
+    const std::vector<double> axis_values = m_inc_angle->binCenters();
     if (!std::is_sorted(axis_values.begin(), axis_values.end()))
         throw std::runtime_error("Error in AngularSpecScan::checkInitialization: q-vector values "
                                  "shall be sorted in ascending order.");
@@ -301,6 +301,6 @@ AngularSpecScan::DistrOutput AngularSpecScan::applyWlResolution() const
 AngularSpecScan::DistrOutput AngularSpecScan::applyIncResolution() const
 {
     if (m_inc_res_cache.empty())
-        m_inc_res_cache = m_inc_resolution->generateSamples(m_inc_angle->getBinCenters());
+        m_inc_res_cache = m_inc_resolution->generateSamples(m_inc_angle->binCenters());
     return m_inc_res_cache;
 }

@@ -127,15 +127,15 @@ SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
         }
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-        auto values = hist->getBinValues();
-        auto centers = hist->getBinCenters();
+        auto values = hist->binValues();
+        auto centers = hist->binCenters();
         data.bin_values = QVector<double>(values.begin(), values.end());
         if (result.bin_centers.isEmpty())
             result.bin_centers = QVector<double>(centers.begin(), centers.end());
 #else
-        data.bin_values = QVector<double>::fromStdVector(hist->getBinValues());
+        data.bin_values = QVector<double>::fromStdVector(hist->binValues());
         if (result.bin_centers.isEmpty())
-            result.bin_centers = QVector<double>::fromStdVector(hist->getBinCenters());
+            result.bin_centers = QVector<double>::fromStdVector(hist->binCenters());
 #endif
 
         result.projections.push_back(data);

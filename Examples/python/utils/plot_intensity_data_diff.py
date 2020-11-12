@@ -24,7 +24,7 @@ def plot_intensity_data_diff(filename1, filename2):
                               intensity_ref.getYmin() / ba.deg, intensity_ref.getYmax() / ba.deg],
                              data.max())
     elif rank == 1:
-        axis_values = np.asarray(intensity_ref.xAxis().getBinCenters()) / ba.deg
+        axis_values = np.asarray(intensity_ref.xAxis().binCenters()) / ba.deg
         pid.plot_raw_data_1d(axis_values, data, log_y=False)
     else:
         exit("Error in plot_intensity_data_diff: wrong data rank")

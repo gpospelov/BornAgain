@@ -175,7 +175,7 @@ Returns result of rotation around the axis specified by another vector.
 %feature("docstring")  Bin1D::getMidPoint "double Bin1D::getMidPoint() const
 ";
 
-%feature("docstring")  Bin1D::getBinSize "double Bin1D::getBinSize() const
+%feature("docstring")  Bin1D::binSize "double Bin1D::binSize() const
 ";
 
 
@@ -362,12 +362,12 @@ center of last bin (IsGisaxs convention)
 clone function 
 ";
 
-%feature("docstring")  CustomBinAxis::getBin "Bin1D CustomBinAxis::getBin(size_t index) const
+%feature("docstring")  CustomBinAxis::bin "Bin1D CustomBinAxis::bin(size_t index) const
 
 retrieve a 1d bin for the given index 
 ";
 
-%feature("docstring")  CustomBinAxis::getBinCenters "std::vector< double > CustomBinAxis::getBinCenters() const
+%feature("docstring")  CustomBinAxis::binCenters "std::vector< double > CustomBinAxis::binCenters() const
 ";
 
 %feature("docstring")  CustomBinAxis::createClippedAxis "CustomBinAxis * CustomBinAxis::createClippedAxis(double left, double right) const
@@ -438,7 +438,7 @@ clone function
 retrieve the number of bins 
 ";
 
-%feature("docstring")  FixedBinAxis::getBin "Bin1D FixedBinAxis::getBin(size_t index) const
+%feature("docstring")  FixedBinAxis::bin "Bin1D FixedBinAxis::bin(size_t index) const
 
 retrieve a 1d bin for the given index 
 ";
@@ -453,7 +453,7 @@ Returns value of first point of axis.
 Returns value of last point of axis. 
 ";
 
-%feature("docstring")  FixedBinAxis::getBinCenter "double FixedBinAxis::getBinCenter(size_t index) const
+%feature("docstring")  FixedBinAxis::binCenter "double FixedBinAxis::binCenter(size_t index) const
 ";
 
 %feature("docstring")  FixedBinAxis::findClosestIndex "size_t FixedBinAxis::findClosestIndex(double value) const
@@ -461,10 +461,10 @@ Returns value of last point of axis.
 find bin index which is best match for given value 
 ";
 
-%feature("docstring")  FixedBinAxis::getBinCenters "std::vector< double > FixedBinAxis::getBinCenters() const
+%feature("docstring")  FixedBinAxis::binCenters "std::vector< double > FixedBinAxis::binCenters() const
 ";
 
-%feature("docstring")  FixedBinAxis::getBinBoundaries "std::vector< double > FixedBinAxis::getBinBoundaries() const
+%feature("docstring")  FixedBinAxis::binBoundaries "std::vector< double > FixedBinAxis::binBoundaries() const
 ";
 
 %feature("docstring")  FixedBinAxis::createClippedAxis "FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
@@ -521,7 +521,7 @@ retrieve the label of the axis
 Sets the axis label. 
 ";
 
-%feature("docstring")  IAxis::getBin "virtual Bin1D IAxis::getBin(size_t index) const =0
+%feature("docstring")  IAxis::bin "virtual Bin1D IAxis::bin(size_t index) const =0
 
 retrieve a 1d bin for the given index 
 ";
@@ -541,7 +541,7 @@ Returns value of last point of axis.
 Returns distance from first to last point. 
 ";
 
-%feature("docstring")  IAxis::getBinCenter "virtual double IAxis::getBinCenter(size_t index) const =0
+%feature("docstring")  IAxis::binCenter "virtual double IAxis::binCenter(size_t index) const =0
 ";
 
 %feature("docstring")  IAxis::findClosestIndex "virtual size_t IAxis::findClosestIndex(double value) const =0
@@ -549,10 +549,10 @@ Returns distance from first to last point.
 find bin index which is best match for given value 
 ";
 
-%feature("docstring")  IAxis::getBinCenters "std::vector< double > IAxis::getBinCenters() const
+%feature("docstring")  IAxis::binCenters "std::vector< double > IAxis::binCenters() const
 ";
 
-%feature("docstring")  IAxis::getBinBoundaries "std::vector< double > IAxis::getBinBoundaries() const
+%feature("docstring")  IAxis::binBoundaries "std::vector< double > IAxis::binBoundaries() const
 ";
 
 %feature("docstring")  IAxis::createClippedAxis "IAxis * IAxis::createClippedAxis(double left, double right) const
@@ -685,7 +685,7 @@ C++ includes: IPixel.h
 // File: classPointwiseAxis.xml
 %feature("docstring") PointwiseAxis "
 
-Axis containing arbitrary (non-equidistant) coordinate values. Lower boundary of the first bin and upper boundary of the last bin correspond to first and last passed coordinates. Other bin boundaries are computed as arithmetical mean of two adjacent coordinates. One should be aware, that bin centers reported by  PointwiseAxis::getBinCenter do not coincide with the values produced by Bin1D::getMidPoint. On-axis values are bounded by minimum/maximum values passed to the constructor.
+Axis containing arbitrary (non-equidistant) coordinate values. Lower boundary of the first bin and upper boundary of the last bin correspond to first and last passed coordinates. Other bin boundaries are computed as arithmetical mean of two adjacent coordinates. One should be aware, that bin centers reported by  PointwiseAxis::binCenter do not coincide with the values produced by Bin1D::getMidPoint. On-axis values are bounded by minimum/maximum values passed to the constructor.
 
 C++ includes: PointwiseAxis.h
 ";
@@ -706,7 +706,7 @@ clone function
 retrieve the number of bins 
 ";
 
-%feature("docstring")  PointwiseAxis::getBin "Bin1D PointwiseAxis::getBin(size_t index) const override
+%feature("docstring")  PointwiseAxis::bin "Bin1D PointwiseAxis::bin(size_t index) const override
 
 retrieve a 1d bin for the given index 
 ";
@@ -721,7 +721,7 @@ Returns value of first on-axis point.
 Returns value of last on-axis point. 
 ";
 
-%feature("docstring")  PointwiseAxis::getBinCenter "double PointwiseAxis::getBinCenter(size_t index) const override
+%feature("docstring")  PointwiseAxis::binCenter "double PointwiseAxis::binCenter(size_t index) const override
 
 Returns the coordinate corresponding to the given index. 
 ";
@@ -731,10 +731,10 @@ Returns the coordinate corresponding to the given index.
 find index of the coordinate closest to the given value 
 ";
 
-%feature("docstring")  PointwiseAxis::getBinCenters "std::vector<double> PointwiseAxis::getBinCenters() const override
+%feature("docstring")  PointwiseAxis::binCenters "std::vector<double> PointwiseAxis::binCenters() const override
 ";
 
-%feature("docstring")  PointwiseAxis::getBinBoundaries "std::vector< double > PointwiseAxis::getBinBoundaries() const override
+%feature("docstring")  PointwiseAxis::binBoundaries "std::vector< double > PointwiseAxis::binBoundaries() const override
 ";
 
 %feature("docstring")  PointwiseAxis::createClippedAxis "PointwiseAxis * PointwiseAxis::createClippedAxis(double left, double right) const override
@@ -1099,7 +1099,7 @@ clone function
 retrieve the number of bins 
 ";
 
-%feature("docstring")  VariableBinAxis::getBin "Bin1D VariableBinAxis::getBin(size_t index) const
+%feature("docstring")  VariableBinAxis::bin "Bin1D VariableBinAxis::bin(size_t index) const
 
 retrieve a 1d bin for the given index 
 ";
@@ -1114,7 +1114,7 @@ Returns value of first point of axis.
 Returns value of last point of axis. 
 ";
 
-%feature("docstring")  VariableBinAxis::getBinCenter "double VariableBinAxis::getBinCenter(size_t index) const
+%feature("docstring")  VariableBinAxis::binCenter "double VariableBinAxis::binCenter(size_t index) const
 ";
 
 %feature("docstring")  VariableBinAxis::findClosestIndex "size_t VariableBinAxis::findClosestIndex(double value) const
@@ -1122,10 +1122,10 @@ Returns value of last point of axis.
 find bin index which is best match for given value 
 ";
 
-%feature("docstring")  VariableBinAxis::getBinCenters "std::vector< double > VariableBinAxis::getBinCenters() const
+%feature("docstring")  VariableBinAxis::binCenters "std::vector< double > VariableBinAxis::binCenters() const
 ";
 
-%feature("docstring")  VariableBinAxis::getBinBoundaries "std::vector<double> VariableBinAxis::getBinBoundaries() const
+%feature("docstring")  VariableBinAxis::binBoundaries "std::vector<double> VariableBinAxis::binBoundaries() const
 ";
 
 %feature("docstring")  VariableBinAxis::createClippedAxis "VariableBinAxis * VariableBinAxis::createClippedAxis(double left, double right) const

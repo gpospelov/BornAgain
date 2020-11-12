@@ -46,7 +46,7 @@ public:
     virtual double operator[](size_t index) const = 0;
 
     //! retrieve a 1d bin for the given index
-    virtual Bin1D getBin(size_t index) const = 0;
+    virtual Bin1D bin(size_t index) const = 0;
 
     //! Returns value of first point of axis
     virtual double getMin() const = 0;
@@ -57,7 +57,7 @@ public:
     //! Returns distance from first to last point
     double span() const;
 
-    virtual double getBinCenter(size_t index) const = 0;
+    virtual double binCenter(size_t index) const = 0;
 
     //! find bin index which is best match for given value
     virtual size_t findClosestIndex(double value) const = 0;
@@ -72,9 +72,9 @@ public:
         return ostr;
     }
 
-    virtual std::vector<double> getBinCenters() const;
+    virtual std::vector<double> binCenters() const;
 
-    virtual std::vector<double> getBinBoundaries() const;
+    virtual std::vector<double> binBoundaries() const;
 
     //! Creates a new clipped axis
     virtual IAxis* createClippedAxis(double left, double right) const;

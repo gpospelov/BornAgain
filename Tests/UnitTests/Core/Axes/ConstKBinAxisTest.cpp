@@ -41,16 +41,16 @@ TEST_F(ConstKBinAxisTest, TypicalAxis)
     EXPECT_EQ(m_start, m_axis.getMin());
     EXPECT_EQ(m_end, m_axis.getMax());
 
-    EXPECT_DOUBLE_EQ(m_start, m_axis.getBinBoundaries().front());
-    EXPECT_DOUBLE_EQ(m_end, m_axis.getBinBoundaries().back());
+    EXPECT_DOUBLE_EQ(m_start, m_axis.binBoundaries().front());
+    EXPECT_DOUBLE_EQ(m_end, m_axis.binBoundaries().back());
 
     for (size_t i = 0; i < m_axis.size(); ++i) {
         EXPECT_DOUBLE_EQ(m_centers[i], m_axis[i]);
     }
 
     for (size_t i = 0; i < m_axis.size(); ++i) {
-        EXPECT_DOUBLE_EQ(m_boundaries[i], m_axis.getBin(i).m_lower);
-        EXPECT_DOUBLE_EQ(m_boundaries[i + 1], m_axis.getBin(i).m_upper);
+        EXPECT_DOUBLE_EQ(m_boundaries[i], m_axis.bin(i).m_lower);
+        EXPECT_DOUBLE_EQ(m_boundaries[i + 1], m_axis.bin(i).m_upper);
     }
 }
 
@@ -82,9 +82,9 @@ TEST_F(ConstKBinAxisTest, ClippedAxis)
 
     ConstKBinAxis* clip2 = m_axis.createClippedAxis(Units::deg2rad(-3.0), Units::deg2rad(3.0));
     EXPECT_EQ(clip2->size(), size_t(8));
-    std::vector<double> boundaries = clip2->getBinBoundaries();
+    std::vector<double> boundaries = clip2->binBoundaries();
     for (size_t i = 0; i < boundaries.size(); ++i) {
-        EXPECT_EQ(boundaries[i], m_axis.getBin(1 + i).m_lower);
+        EXPECT_EQ(boundaries[i], m_axis.bin(1 + i).m_lower);
     }
     delete clip2;
 }

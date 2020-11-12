@@ -34,9 +34,9 @@ public:
 
     CustomBinAxis* clone() const;
 
-    Bin1D getBin(size_t index) const;
+    Bin1D bin(size_t index) const;
 
-    std::vector<double> getBinCenters() const;
+    std::vector<double> binCenters() const;
 
     CustomBinAxis* createClippedAxis(double left, double right) const;
 

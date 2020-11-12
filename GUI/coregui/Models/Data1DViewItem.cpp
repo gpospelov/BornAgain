@@ -154,12 +154,12 @@ QPair<QVector<double>, QVector<double>> Data1DViewItem::graphData(Data1DProperti
         return {};
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    auto centers = data->axis(0).getBinCenters();
+    auto centers = data->axis(0).binCenters();
     auto values = data->getRawDataVector();
     return {QVector<double>(centers.begin(), centers.end()),
             QVector<double>(values.begin(), values.end())};
 #else
-    return {QVector<double>::fromStdVector(data->axis(0).getBinCenters()),
+    return {QVector<double>::fromStdVector(data->axis(0).binCenters()),
             QVector<double>::fromStdVector(data->getRawDataVector())};
 #endif
 }

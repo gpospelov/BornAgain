@@ -35,7 +35,7 @@ UnitConverter1DTest::UnitConverter1DTest()
 
 void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test_object)
 {
-    double expected_min = m_axis.getBinCenter(0);
+    double expected_min = m_axis.binCenter(0);
     EXPECT_NEAR(test_object.calculateMin(0, Axes::Units::DEFAULT), Units::rad2deg(expected_min),
                 Units::rad2deg(expected_min) * 1e-10);
     EXPECT_NEAR(test_object.calculateMin(0, Axes::Units::NBINS), 0.0, 1e-10);
@@ -48,7 +48,7 @@ void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test
     EXPECT_NEAR(test_object.calculateMin(0, Axes::Units::RQ4), getQ(expected_min),
                 getQ(expected_min) * 1e-10);
 
-    double expected_max = m_axis.getBinCenters().back();
+    double expected_max = m_axis.binCenters().back();
     EXPECT_NEAR(test_object.calculateMax(0, Axes::Units::DEFAULT), Units::rad2deg(expected_max),
                 Units::rad2deg(expected_max) * 1e-10);
     EXPECT_NEAR(test_object.calculateMax(0, Axes::Units::NBINS), static_cast<double>(m_axis.size()),
@@ -109,20 +109,20 @@ void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test
     EXPECT_EQ(raw_data_rq4.size(), raw_fake.size());
     EXPECT_EQ(raw_data_rq4.size(), axis_rq4->size());
     for (size_t i = 0, size = raw_data_rq4.size(); i < size; ++i) {
-        double value = raw_fake[i] * std::pow(axis_rq4->getBinCenter(i), 4);
+        double value = raw_fake[i] * std::pow(axis_rq4->binCenter(i), 4);
         EXPECT_DOUBLE_EQ(raw_data_rq4[i], value);
     }
 }
 
 void UnitConverter1DTest::checkQSpecConverter(const UnitConverter1D& test_object)
 {
-    double expected_min = m_q_axis.getBinCenter(0);
+    double expected_min = m_q_axis.binCenter(0);
     EXPECT_EQ(test_object.calculateMin(0, Axes::Units::DEFAULT), expected_min);
     EXPECT_NEAR(test_object.calculateMin(0, Axes::Units::NBINS), 0.0, 1e-10);
     EXPECT_EQ(test_object.calculateMin(0, Axes::Units::QSPACE), expected_min);
     EXPECT_EQ(test_object.calculateMin(0, Axes::Units::RQ4), expected_min);
 
-    double expected_max = m_q_axis.getBinCenters().back();
+    double expected_max = m_q_axis.binCenters().back();
     EXPECT_EQ(test_object.calculateMax(0, Axes::Units::DEFAULT), expected_max);
     EXPECT_NEAR(test_object.calculateMax(0, Axes::Units::NBINS),
                 static_cast<double>(m_q_axis.size()), 1e-10);
@@ -177,7 +177,7 @@ void UnitConverter1DTest::checkQSpecConverter(const UnitConverter1D& test_object
     EXPECT_EQ(raw_data_rq4.size(), raw_fake.size());
     EXPECT_EQ(raw_data_rq4.size(), axis_rq4->size());
     for (size_t i = 0, size = raw_data_rq4.size(); i < size; ++i) {
-        double value = raw_fake[i] * std::pow(axis_rq4->getBinCenter(i), 4);
+        double value = raw_fake[i] * std::pow(axis_rq4->binCenter(i), 4);
         EXPECT_DOUBLE_EQ(raw_data_rq4[i], value);
     }
 }
@@ -244,7 +244,7 @@ TEST_F(UnitConverter1DTest, NonDefaultUnitsInInput)
     EXPECT_DOUBLE_EQ(axis[1], (*axis_deg_output)[1]);
     EXPECT_DOUBLE_EQ(axis[2], (*axis_deg_output)[2]);
 
-    auto values = axis.getBinCenters();
+    auto values = axis.binCenters();
     std::for_each(values.begin(), values.end(), [this](double& value) { value = getQ(value); });
     PointwiseAxis q_axis("q", values);
     UnitConverterConvSpec converter2(m_beam, q_axis, Axes::Units::QSPACE);

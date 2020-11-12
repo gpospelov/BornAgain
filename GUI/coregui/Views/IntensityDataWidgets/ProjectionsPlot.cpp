@@ -279,13 +279,13 @@ void ProjectionsPlot::setGraphFromItem(QCPGraph* graph, SessionItem* item)
     }
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    auto centers = hist->getBinCenters();
-    auto values = hist->getBinValues();
+    auto centers = hist->binCenters();
+    auto values = hist->binValues();
     graph->setData(QVector<double>(centers.begin(), centers.end()),
                    QVector<double>(values.begin(), values.end()));
 #else
-    graph->setData(QVector<double>::fromStdVector(hist->getBinCenters()),
-                   QVector<double>::fromStdVector(hist->getBinValues()));
+    graph->setData(QVector<double>::fromStdVector(hist->binCenters()),
+                   QVector<double>::fromStdVector(hist->binValues()));
 #endif
 }
 

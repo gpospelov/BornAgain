@@ -25,7 +25,7 @@ PointwiseAxis* PointwiseAxis::clone() const
     return new PointwiseAxis(getName(), m_coordinates);
 }
 
-Bin1D PointwiseAxis::getBin(size_t index) const
+Bin1D PointwiseAxis::bin(size_t index) const
 {
     checkIndex(index);
     return Bin1D(lowerBoundary(index), upperBoundary(index));
@@ -41,7 +41,7 @@ double PointwiseAxis::getMax() const
     return upperBoundary(m_coordinates.size() - 1);
 }
 
-double PointwiseAxis::getBinCenter(size_t index) const
+double PointwiseAxis::binCenter(size_t index) const
 {
     checkIndex(index);
     return m_coordinates[index];
@@ -60,7 +60,7 @@ size_t PointwiseAxis::findClosestIndex(double value) const
     return value < lowerBoundary(index) ? index - 1 : index;
 }
 
-std::vector<double> PointwiseAxis::getBinBoundaries() const
+std::vector<double> PointwiseAxis::binBoundaries() const
 {
     std::vector<double> result;
     const size_t v_size = m_coordinates.size();
@@ -90,7 +90,7 @@ std::string PointwiseAxis::pyString(const std::string& units, size_t offset) con
     const std::string py_def_call = "numpy.asarray([";
     const size_t total_offset = offset + py_def_call.size();
     result << py_def_call;
-    std::vector<double> points = getBinCenters();
+    std::vector<double> points = binCenters();
     for (auto iter = points.begin(); iter != points.end() - 1; ++iter) {
         result << pyfmt::printValue(*iter, units) << ",\n";
         result << pyfmt::indent(total_offset);
@@ -114,7 +114,7 @@ bool PointwiseAxis::equals(const IAxis& other) const
     if (!IAxis::equals(other))
         return false;
     if (const PointwiseAxis* otherAxis = dynamic_cast<const PointwiseAxis*>(&other))
-        return m_coordinates == otherAxis->getBinCenters();
+        return m_coordinates == otherAxis->binCenters();
     return false;
 }
 
@@ -136,7 +136,7 @@ void PointwiseAxis::checkIndex(size_t index) const
 {
     if (m_coordinates.size() > index)
         return;
-    std::string message = "Error in PointwiseAxis::getBinCenter: passed index ";
+    std::string message = "Error in PointwiseAxis::binCenter: passed index ";
     message += std::to_string(index) + " exceeds the size ";
     message += std::to_string(m_coordinates.size()) + " of the axis";
     throw std::runtime_error(message);

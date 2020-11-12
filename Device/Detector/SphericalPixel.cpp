@@ -16,8 +16,8 @@
 #include "Base/Axis/Bin.h"
 
 SphericalPixel::SphericalPixel(const Bin1D& alpha_bin, const Bin1D& phi_bin)
-    : m_alpha(alpha_bin.m_lower), m_phi(phi_bin.m_lower), m_dalpha(alpha_bin.getBinSize()),
-      m_dphi(phi_bin.getBinSize())
+    : m_alpha(alpha_bin.m_lower), m_phi(phi_bin.m_lower), m_dalpha(alpha_bin.binSize()),
+      m_dphi(phi_bin.binSize())
 {
     auto solid_angle_value = std::abs(m_dphi * (std::sin(m_alpha + m_dalpha) - std::sin(m_alpha)));
     m_solid_angle = solid_angle_value <= 0.0 ? 1.0 : solid_angle_value;

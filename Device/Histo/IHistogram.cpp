@@ -313,8 +313,7 @@ double IHistogram::binData(size_t i, IHistogram::DataType dataType) const
     } else if (dataType == DataType::NENTRIES) {
         return binNumberOfEntries(i);
     } else
-        throw Exceptions::LogicErrorException(
-            "IHistogram::binData() -> Error. Unknown data type.");
+        throw Exceptions::LogicErrorException("IHistogram::binData() -> Error. Unknown data type.");
 }
 
 //! returns vector of values of requested DataType

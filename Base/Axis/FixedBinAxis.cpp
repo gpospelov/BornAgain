@@ -96,8 +96,7 @@ FixedBinAxis* FixedBinAxis::createClippedAxis(double left, double right) const
     size_t nbin1 = findClosestIndex(left);
     size_t nbin2 = findClosestIndex(right);
 
-    return new FixedBinAxis(getName(), nbin2 - nbin1 + 1, bin(nbin1).m_lower,
-                            bin(nbin2).m_upper);
+    return new FixedBinAxis(getName(), nbin2 - nbin1 + 1, bin(nbin1).m_lower, bin(nbin2).m_upper);
 }
 
 void FixedBinAxis::print(std::ostream& ostr) const
@@ -127,7 +126,7 @@ std::string FixedBinAxis::pyString(const std::string& units, size_t) const
 {
     std::ostringstream result;
     result << "ba.FixedBinAxis(" << pyfmt::printString(getName()) << ", " << size() << ", "
-           << pyfmt::printValue(lowerBound(), units) << ", " << pyfmt::printValue(upperBound(), units)
-           << ")";
+           << pyfmt::printValue(lowerBound(), units) << ", "
+           << pyfmt::printValue(upperBound(), units) << ")";
     return result.str();
 }

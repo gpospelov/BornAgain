@@ -42,8 +42,7 @@ size_t OffSpecSimulation::numberOfSimulationElements() const
 SimulationResult OffSpecSimulation::result() const
 {
     auto data = std::unique_ptr<OutputData<double>>(m_intensity_map.clone());
-    OffSpecularConverter converter(instrument().detector2D(), instrument().beam(),
-                                   *m_alpha_i_axis);
+    OffSpecularConverter converter(instrument().detector2D(), instrument().beam(), *m_alpha_i_axis);
     return SimulationResult(*data, converter);
 }
 

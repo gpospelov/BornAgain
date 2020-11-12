@@ -27,8 +27,7 @@ std::vector<double> IAxis::binCenters() const
 
 std::vector<double> IAxis::binBoundaries() const
 {
-    throw Exceptions::NotImplementedException(
-        "IAxis::binBoundaries() -> Error. Not implemented.");
+    throw Exceptions::NotImplementedException("IAxis::binBoundaries() -> Error. Not implemented.");
 }
 
 IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const

@@ -408,7 +408,8 @@ DepthProbeConverter::DepthProbeConverter(const Beam& beam, const IAxis& alpha_ax
     const auto& z_axis_name = axisName(1);
     addAxisData(alpha_axis_name, alpha_axis.lowerBound(), alpha_axis.upperBound(), defaultUnits(),
                 alpha_axis.size());
-    addAxisData(z_axis_name, z_axis.lowerBound(), z_axis.upperBound(), defaultUnits(), z_axis.size());
+    addAxisData(z_axis_name, z_axis.lowerBound(), z_axis.upperBound(), defaultUnits(),
+                z_axis.size());
 }
 
 DepthProbeConverter::~DepthProbeConverter() = default;

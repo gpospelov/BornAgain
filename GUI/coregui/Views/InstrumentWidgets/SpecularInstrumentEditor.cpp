@@ -22,10 +22,11 @@
 #include <QVBoxLayout>
 
 SpecularInstrumentEditor::SpecularInstrumentEditor(QWidget* parent)
-    : SessionItemWidget(parent), m_columnResizer(new ColumnResizer(this)),
-      m_beamEditor(new SpecularBeamEditor(m_columnResizer)),
-      m_environmentEditor(new EnvironmentEditor(m_columnResizer)),
-      m_polarizationAnalysisEditor(nullptr)
+    : SessionItemWidget(parent)
+    , m_columnResizer(new ColumnResizer(this))
+    , m_beamEditor(new SpecularBeamEditor(m_columnResizer))
+    , m_environmentEditor(new EnvironmentEditor(m_columnResizer))
+    , m_polarizationAnalysisEditor(nullptr)
 {
     auto mainLayout = new QVBoxLayout;
 

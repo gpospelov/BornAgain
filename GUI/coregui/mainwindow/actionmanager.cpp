@@ -29,11 +29,21 @@
 #include <QShortcut>
 
 ActionManager::ActionManager(MainWindow* parent)
-    : QObject(parent), m_mainWindow(parent), m_newAction(nullptr), m_openAction(nullptr),
-      m_saveAction(nullptr), m_saveAsAction(nullptr), m_exitAction(nullptr), m_aboutAction(nullptr),
-      m_menuBar(nullptr), m_fileMenu(nullptr), m_settingsMenu(nullptr),
-      m_recentProjectsMenu(nullptr), m_helpMenu(nullptr), m_importMenu(nullptr),
-      m_runSimulationShortcut(nullptr)
+    : QObject(parent)
+    , m_mainWindow(parent)
+    , m_newAction(nullptr)
+    , m_openAction(nullptr)
+    , m_saveAction(nullptr)
+    , m_saveAsAction(nullptr)
+    , m_exitAction(nullptr)
+    , m_aboutAction(nullptr)
+    , m_menuBar(nullptr)
+    , m_fileMenu(nullptr)
+    , m_settingsMenu(nullptr)
+    , m_recentProjectsMenu(nullptr)
+    , m_helpMenu(nullptr)
+    , m_importMenu(nullptr)
+    , m_runSimulationShortcut(nullptr)
 {
     createActions();
     createMenus();

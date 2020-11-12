@@ -27,8 +27,10 @@ IProfileRipple::IProfileRipple(const NodeMeta& meta, const std::vector<double>& 
                                      {"Width", "nm", "Width", 0, INF, 1.},
                                      {"Height", "nm", "Height", 0, INF, 1.}},
                                     meta),
-                      PValues),
-      m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2])
+                      PValues)
+    , m_length(m_P[0])
+    , m_width(m_P[1])
+    , m_height(m_P[2])
 {
 }
 
@@ -92,8 +94,8 @@ void ICosineRipple::onChange()
 ISawtoothRipple::ISawtoothRipple(const NodeMeta& meta, const std::vector<double>& PValues)
     : IProfileRipple(
         nodeMetaUnion({{"AsymmetryLength", "nm", "Asymmetry of width", -INF, INF, 0.}}, meta),
-        PValues),
-      m_asymmetry(m_P[3])
+        PValues)
+    , m_asymmetry(m_P[3])
 {
     onChange();
 }

@@ -23,9 +23,10 @@
 #include <QMenu>
 
 IntensityDataWidget::IntensityDataWidget(QWidget* parent)
-    : SessionItemWidget(parent), m_intensityCanvas(new IntensityDataCanvas),
-      m_propertyWidget(new IntensityDataPropertyWidget),
-      m_fftPresenter(new IntensityDataFFTPresenter(this))
+    : SessionItemWidget(parent)
+    , m_intensityCanvas(new IntensityDataCanvas)
+    , m_propertyWidget(new IntensityDataPropertyWidget)
+    , m_fftPresenter(new IntensityDataFFTPresenter(this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

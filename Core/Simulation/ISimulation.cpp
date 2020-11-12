@@ -124,9 +124,13 @@ ISimulation::ISimulation()
 }
 
 ISimulation::ISimulation(const ISimulation& other)
-    : ICloneable(), INode(), m_options(other.m_options), m_progress(other.m_progress),
-      m_sample_provider(other.m_sample_provider),
-      m_distribution_handler(other.m_distribution_handler), m_instrument(other.instrument())
+    : ICloneable()
+    , INode()
+    , m_options(other.m_options)
+    , m_progress(other.m_progress)
+    , m_sample_provider(other.m_sample_provider)
+    , m_distribution_handler(other.m_distribution_handler)
+    , m_instrument(other.instrument())
 {
     if (other.m_background)
         setBackground(*other.m_background);

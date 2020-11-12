@@ -28,7 +28,7 @@ NodeMeta nodeMetaUnion(const std::vector<ParaMeta>& base, const NodeMeta& other)
 
 INode::INode(const NodeMeta& meta, const std::vector<double>& PValues)
     : /*m_tooltip(meta.tooltip),*/
-      m_NP(meta.paraMeta.size())
+    m_NP(meta.paraMeta.size())
 {
     m_P.resize(m_NP);
     setName(meta.className);

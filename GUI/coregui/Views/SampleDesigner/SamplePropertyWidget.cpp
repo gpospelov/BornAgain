@@ -21,8 +21,9 @@
 #include <QVBoxLayout>
 
 SamplePropertyWidget::SamplePropertyWidget(QItemSelectionModel* selection_model, QWidget* parent)
-    : QWidget(parent), m_selection_model(nullptr),
-      m_propertyEditor(new ComponentEditor(ComponentEditor::FullTree))
+    : QWidget(parent)
+    , m_selection_model(nullptr)
+    , m_propertyEditor(new ComponentEditor(ComponentEditor::FullTree))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle(QLatin1String("Property Editor"));

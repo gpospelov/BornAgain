@@ -31,8 +31,12 @@ using namespace Fit;
 Parameter::Parameter() : m_start_value(0.0), m_value(0.0), m_step(0.0), m_error(0.0) {}
 
 Parameter::Parameter(const std::string& name, double value, const AttLimits& limits, double step)
-    : m_name(name), m_start_value(value), m_value(value), m_step(step), m_error(0.0),
-      m_limits(limits)
+    : m_name(name)
+    , m_start_value(value)
+    , m_value(value)
+    , m_step(step)
+    , m_error(0.0)
+    , m_limits(limits)
 {
     if (step <= 0.0)
         m_step = step_for_value(value);

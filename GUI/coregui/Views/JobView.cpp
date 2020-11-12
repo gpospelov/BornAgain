@@ -25,9 +25,11 @@
 #include <QMenu>
 
 JobView::JobView(MainWindow* mainWindow)
-    : m_docks(new JobViewDocks(this)), m_statusBar(new JobViewStatusBar(mainWindow)),
-      m_progressAssistant(new JobProgressAssistant(mainWindow)), m_currentItem(nullptr),
-      m_mainWindow(mainWindow)
+    : m_docks(new JobViewDocks(this))
+    , m_statusBar(new JobViewStatusBar(mainWindow))
+    , m_progressAssistant(new JobProgressAssistant(mainWindow))
+    , m_currentItem(nullptr)
+    , m_mainWindow(mainWindow)
 {
     setObjectName("JobView");
     m_docks->initViews(mainWindow->jobModel());

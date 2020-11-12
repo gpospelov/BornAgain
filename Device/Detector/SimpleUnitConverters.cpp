@@ -96,8 +96,10 @@ std::unique_ptr<IAxis> UnitConverterSimple::createConvertedAxis(size_t i_axis,
 }
 
 UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
-    : m_axis_data_table(other.m_axis_data_table), m_wavelength(other.m_wavelength),
-      m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
+    : m_axis_data_table(other.m_axis_data_table)
+    , m_wavelength(other.m_wavelength)
+    , m_alpha_i(other.m_alpha_i)
+    , m_phi_i(other.m_phi_i)
 {
 }
 

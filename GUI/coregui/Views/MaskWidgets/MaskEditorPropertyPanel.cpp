@@ -39,9 +39,13 @@ public:
 };
 
 MaskEditorPropertyPanel::MaskEditorPropertyPanel(QWidget* parent)
-    : QWidget(parent), m_listView(new QListView), m_maskPropertyEditor(new ComponentEditor),
-      m_plotPropertyEditor(new ComponentEditor(ComponentEditor::MiniTree)),
-      m_accordion(new AccordionWidget), m_maskModel(nullptr), m_intensityDataItem(nullptr)
+    : QWidget(parent)
+    , m_listView(new QListView)
+    , m_maskPropertyEditor(new ComponentEditor)
+    , m_plotPropertyEditor(new ComponentEditor(ComponentEditor::MiniTree))
+    , m_accordion(new AccordionWidget)
+    , m_maskModel(nullptr)
+    , m_intensityDataItem(nullptr)
 {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     setObjectName(QLatin1String("MaskEditorToolPanel"));

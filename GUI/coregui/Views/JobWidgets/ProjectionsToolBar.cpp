@@ -38,8 +38,9 @@ const QString vertical_mode_tooltip =
 } // namespace
 
 ProjectionsToolBar::ProjectionsToolBar(ProjectionsEditorActions* editorActions, QWidget* parent)
-    : QToolBar(parent), m_editorActions(editorActions),
-      m_activityButtonGroup(new QButtonGroup(this))
+    : QToolBar(parent)
+    , m_editorActions(editorActions)
+    , m_activityButtonGroup(new QButtonGroup(this))
 {
     setIconSize(QSize(Constants::toolbar_icon_size, Constants::toolbar_icon_size));
     setProperty("_q_custom_style_disabled", QVariant(true));

@@ -21,8 +21,8 @@
 // ************************************************************************** //
 
 IFTDecayFunction1D::IFTDecayFunction1D(const NodeMeta& meta, const std::vector<double>& PValues)
-    : INode(nodeMetaUnion({{"DecayLength", "nm", "half width", 0, INF, 1.}}, meta), PValues),
-      m_decay_length(m_P[0])
+    : INode(nodeMetaUnion({{"DecayLength", "nm", "half width", 0, INF, 1.}}, meta), PValues)
+    , m_decay_length(m_P[0])
 {
 }
 
@@ -111,8 +111,8 @@ FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(const std::vector<double> P)
          "class_tooltip",
          {{"Eta", "", "balances between Gauss (eta=0) and Cauchy (eta=1) limiting cases", -INF,
            +INF, 0}}},
-        P),
-      m_eta(m_P[0])
+        P)
+    , m_eta(m_P[0])
 {
 }
 

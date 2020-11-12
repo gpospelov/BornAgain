@@ -24,8 +24,10 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(const std::vect
                        "class_tooltip",
                        {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
                         {"ScaleParameter", "", "para_tooltip", -INF, +INF, 0}}},
-                      P),
-      m_mean(m_P[0]), m_scale_param(m_P[1]), m_n_samples(n_samples)
+                      P)
+    , m_mean(m_P[0])
+    , m_scale_param(m_P[1])
+    , m_n_samples(n_samples)
 {
 
     DistributionLogNormal distri(m_mean, m_scale_param);

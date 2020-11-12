@@ -18,8 +18,9 @@
 #include "Sample/Material/WavevectorInfo.h"
 
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form_factor)
-    : IFormFactorDecorator(form_factor), m_material(HomogeneousMaterial()),
-      m_ambient_material(HomogeneousMaterial())
+    : IFormFactorDecorator(form_factor)
+    , m_material(HomogeneousMaterial())
+    , m_ambient_material(HomogeneousMaterial())
 {
     setName("FormFactorDecoratorMaterial");
 }

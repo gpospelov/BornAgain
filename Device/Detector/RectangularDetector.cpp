@@ -22,19 +22,30 @@
 #include "Device/Resolution/IDetectorResolution.h"
 
 RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nybins, double height)
-    : m_u0(0.0), m_v0(0.0), m_direction(kvector_t(0.0, -1.0, 0.0)), m_distance(0.0),
-      m_dbeam_u0(0.0), m_dbeam_v0(0.0), m_detector_arrangement(GENERIC)
+    : m_u0(0.0)
+    , m_v0(0.0)
+    , m_direction(kvector_t(0.0, -1.0, 0.0))
+    , m_distance(0.0)
+    , m_dbeam_u0(0.0)
+    , m_dbeam_v0(0.0)
+    , m_detector_arrangement(GENERIC)
 {
     setDetectorParameters(nxbins, 0.0, width, nybins, 0.0, height);
     setName("RectangularDetector");
 }
 
 RectangularDetector::RectangularDetector(const RectangularDetector& other)
-    : IDetector2D(other), m_normal_to_detector(other.m_normal_to_detector), m_u0(other.m_u0),
-      m_v0(other.m_v0), m_direction(other.m_direction), m_distance(other.m_distance),
-      m_dbeam_u0(other.m_dbeam_u0), m_dbeam_v0(other.m_dbeam_v0),
-      m_detector_arrangement(other.m_detector_arrangement), m_u_unit(other.m_u_unit),
-      m_v_unit(other.m_v_unit)
+    : IDetector2D(other)
+    , m_normal_to_detector(other.m_normal_to_detector)
+    , m_u0(other.m_u0)
+    , m_v0(other.m_v0)
+    , m_direction(other.m_direction)
+    , m_distance(other.m_distance)
+    , m_dbeam_u0(other.m_dbeam_u0)
+    , m_dbeam_v0(other.m_dbeam_v0)
+    , m_detector_arrangement(other.m_detector_arrangement)
+    , m_u_unit(other.m_u_unit)
+    , m_v_unit(other.m_v_unit)
 {
     setName("RectangularDetector");
 }

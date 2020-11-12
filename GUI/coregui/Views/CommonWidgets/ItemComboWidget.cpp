@@ -22,8 +22,9 @@
 #include <QVBoxLayout>
 
 ItemComboWidget::ItemComboWidget(QWidget* parent)
-    : SessionItemWidget(parent), m_toolBar(new ItemComboToolBar),
-      m_stackedWidget(new QStackedWidget)
+    : SessionItemWidget(parent)
+    , m_toolBar(new ItemComboToolBar)
+    , m_stackedWidget(new QStackedWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_stackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

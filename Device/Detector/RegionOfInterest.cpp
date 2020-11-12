@@ -35,8 +35,12 @@ RegionOfInterest::RegionOfInterest(const OutputData<double>& data, double xlow, 
 }
 
 RegionOfInterest::RegionOfInterest(double xlow, double ylow, double xup, double yup)
-    : m_rectangle(new Rectangle(xlow, ylow, xup, yup)), m_ax1(0), m_ay1(0), m_ax2(0), m_ay2(0),
-      m_glob_index0(0)
+    : m_rectangle(new Rectangle(xlow, ylow, xup, yup))
+    , m_ax1(0)
+    , m_ay1(0)
+    , m_ax2(0)
+    , m_ay2(0)
+    , m_glob_index0(0)
 {
 }
 
@@ -48,9 +52,15 @@ RegionOfInterest* RegionOfInterest::clone() const
 RegionOfInterest::~RegionOfInterest() = default;
 
 RegionOfInterest::RegionOfInterest(const RegionOfInterest& other)
-    : ICloneable(), m_rectangle(other.m_rectangle->clone()), m_ax1(other.m_ax1), m_ay1(other.m_ay1),
-      m_ax2(other.m_ax2), m_ay2(other.m_ay2), m_glob_index0(other.m_glob_index0),
-      m_detector_dims(other.m_detector_dims), m_roi_dims(other.m_roi_dims)
+    : ICloneable()
+    , m_rectangle(other.m_rectangle->clone())
+    , m_ax1(other.m_ax1)
+    , m_ay1(other.m_ay1)
+    , m_ax2(other.m_ax2)
+    , m_ay2(other.m_ay2)
+    , m_glob_index0(other.m_glob_index0)
+    , m_detector_dims(other.m_detector_dims)
+    , m_roi_dims(other.m_roi_dims)
 {
 }
 

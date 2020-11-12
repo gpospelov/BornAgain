@@ -45,8 +45,8 @@ std::map<int, std::string> covmatrixStatusDescription()
 } // namespace
 
 Minuit2Minimizer::Minuit2Minimizer(const std::string& algorithmName)
-    : RootMinimizerAdapter(MinimizerInfo::buildMinuit2Info(algorithmName)),
-      m_minuit2_minimizer(new ROOT::Minuit2::Minuit2Minimizer(algorithmName.c_str()))
+    : RootMinimizerAdapter(MinimizerInfo::buildMinuit2Info(algorithmName))
+    , m_minuit2_minimizer(new ROOT::Minuit2::Minuit2Minimizer(algorithmName.c_str()))
 {
     addOption("Strategy", 1, "Minimization strategy (0-low, 1-medium, 2-high quality)");
     addOption("ErrorDef", 1.0, "Error definition factor for parameter error calculation");

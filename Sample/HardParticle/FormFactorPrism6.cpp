@@ -19,8 +19,9 @@ FormFactorPrism6::FormFactorPrism6(const std::vector<double> P)
                         "prism with regular hexagonal base",
                         {{"BaseEdge", "nm", "edge length of hexagonal base", 0, +INF, 0},
                          {"Height", "nm", "height", 0, +INF, 0}}},
-                       P),
-      m_base_edge(m_P[0]), m_height(m_P[1])
+                       P)
+    , m_base_edge(m_P[0])
+    , m_height(m_P[1])
 {
     onChange();
 }

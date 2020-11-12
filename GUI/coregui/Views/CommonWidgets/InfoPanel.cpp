@@ -26,8 +26,10 @@ const int default_height = 200;
 } // namespace
 
 InfoPanel::InfoPanel(QWidget* parent)
-    : QFrame(parent), m_toolBar(new InfoPanelToolBar), m_stackedWidget(new QStackedWidget),
-      m_cached_height(default_height)
+    : QFrame(parent)
+    , m_toolBar(new InfoPanelToolBar)
+    , m_stackedWidget(new QStackedWidget)
+    , m_cached_height(default_height)
 {
     auto mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_toolBar);

@@ -44,8 +44,8 @@ ImportDataInfo::ImportDataInfo(ImportDataInfo&& other)
 ImportDataInfo::ImportDataInfo(std::unique_ptr<OutputData<double>> data, Axes::Units units)
     : m_data(units == Axes::Units::NBINS && data
                  ? ImportDataUtils::CreateSimplifiedOutputData(*data)
-                 : std::move(data)),
-      m_units(units)
+                 : std::move(data))
+    , m_units(units)
 {
     checkValidity();
 }

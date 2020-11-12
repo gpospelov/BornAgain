@@ -23,8 +23,9 @@
 #include <QMenu>
 
 SpecularDataWidget::SpecularDataWidget(QWidget* parent)
-    : SessionItemWidget(parent), m_intensity_canvas(new SpecularDataCanvas),
-      m_property_widget(new IntensityDataPropertyWidget)
+    : SessionItemWidget(parent)
+    , m_intensity_canvas(new SpecularDataCanvas)
+    , m_property_widget(new IntensityDataPropertyWidget)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

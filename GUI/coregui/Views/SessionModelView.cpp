@@ -32,9 +32,12 @@ const bool show_test_view = false;
 }
 
 SessionModelView::SessionModelView(MainWindow* mainWindow)
-    : QWidget(mainWindow), m_mainWindow(mainWindow), m_toolBar(new QToolBar),
-      m_tabs(new QTabWidget), m_expandCollapseButton(new QToolButton),
-      m_delegate(new SessionModelDelegate(this))
+    : QWidget(mainWindow)
+    , m_mainWindow(mainWindow)
+    , m_toolBar(new QToolBar)
+    , m_tabs(new QTabWidget)
+    , m_expandCollapseButton(new QToolButton)
+    , m_delegate(new SessionModelDelegate(this))
 {
     auto layout = new QVBoxLayout;
     layout->setMargin(0);

@@ -21,8 +21,8 @@ FormFactorGaussSphere::FormFactorGaussSphere(const std::vector<double> P)
     : IFormFactorBorn({"FormFactorGaussSphere",
                        "class_tooltip",
                        {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0}}},
-                      P),
-      m_mean_radius(m_P[0])
+                      P)
+    , m_mean_radius(m_P[0])
 {
     onChange();
 }

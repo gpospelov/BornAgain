@@ -26,8 +26,12 @@
 #include <QVariant>
 
 InstrumentViewActions::InstrumentViewActions(QWidget* parent)
-    : QObject(parent), m_addInstrumentMenu(nullptr), m_removeInstrumentAction(nullptr),
-      m_cloneInstrumentAction(nullptr), m_model(nullptr), m_selectionModel(nullptr)
+    : QObject(parent)
+    , m_addInstrumentMenu(nullptr)
+    , m_removeInstrumentAction(nullptr)
+    , m_cloneInstrumentAction(nullptr)
+    , m_model(nullptr)
+    , m_selectionModel(nullptr)
 {
     initAddInstrumentMenu();
 

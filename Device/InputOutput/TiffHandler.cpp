@@ -19,8 +19,12 @@
 #include <tiffio.hxx>
 
 TiffHandler::TiffHandler()
-    : m_tiff(0), m_width(0), m_height(0), m_bitsPerSample(0), m_samplesPerPixel(0),
-      m_sampleFormat(0)
+    : m_tiff(0)
+    , m_width(0)
+    , m_height(0)
+    , m_bitsPerSample(0)
+    , m_samplesPerPixel(0)
+    , m_sampleFormat(0)
 {
 }
 

@@ -42,8 +42,10 @@ const QString S_LASTUSEDIMPORTDIR = "LastUsedImportDir";
 } // namespace
 
 ProjectManager::ProjectManager(MainWindow* parent)
-    : m_mainWindow(parent), m_project_document(nullptr), m_messageService(new MessageService),
-      m_saveService(new SaveService(this))
+    : m_mainWindow(parent)
+    , m_project_document(nullptr)
+    , m_messageService(new MessageService)
+    , m_saveService(new SaveService(this))
 
 {
     createNewProject();

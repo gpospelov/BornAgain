@@ -66,8 +66,10 @@ SpecularSimulation::SpecularSimulation() : ISimulation()
 }
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
-    : ISimulation(other), m_scan(other.m_scan ? other.m_scan->clone() : nullptr),
-      m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
+    : ISimulation(other)
+    , m_scan(other.m_scan ? other.m_scan->clone() : nullptr)
+    , m_sim_elements(other.m_sim_elements)
+    , m_cache(other.m_cache)
 {
     initialize();
 }

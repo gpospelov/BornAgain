@@ -135,8 +135,9 @@ int RoughnessTranslator::numberOfLayers() const
 
 VectorParameterTranslator::VectorParameterTranslator(QString gui_name, std::string base_name,
                                                      QStringList additional_names)
-    : m_gui_name{std::move(gui_name)}, m_base_name{std::move(base_name)},
-      m_additional_names{std::move(additional_names)}
+    : m_gui_name{std::move(gui_name)}
+    , m_base_name{std::move(base_name)}
+    , m_additional_names{std::move(additional_names)}
 {
 }
 

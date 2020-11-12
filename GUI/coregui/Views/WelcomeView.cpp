@@ -39,9 +39,13 @@ const QString centralWidgetStyle =
 } // namespace
 
 WelcomeView::WelcomeView(MainWindow* parent)
-    : m_mainWindow(parent), m_newProjectButton(nullptr), m_openProjectButton(nullptr),
-      m_newUsertButton(nullptr), m_currentProjectLabel(nullptr), m_recentProjectLayout(nullptr),
-      m_notifierWidget(new UpdateNotifierWidget(parent->updateNotifier()))
+    : m_mainWindow(parent)
+    , m_newProjectButton(nullptr)
+    , m_openProjectButton(nullptr)
+    , m_newUsertButton(nullptr)
+    , m_currentProjectLabel(nullptr)
+    , m_recentProjectLayout(nullptr)
+    , m_notifierWidget(new UpdateNotifierWidget(parent->updateNotifier()))
 {
     QPalette palette;
     palette.setColor(QPalette::Window, QColor(240, 240, 240, 255));

@@ -32,8 +32,10 @@ int bin(double x, const QCPGraph* graph);
 } // namespace
 
 Plot1D::Plot1D(QWidget* parent)
-    : ScientificPlot(parent, PLOT_TYPE::Plot1D), m_custom_plot(new QCustomPlot),
-      m_update_timer(new UpdateTimer(replot_update_interval, this)), m_block_update(false)
+    : ScientificPlot(parent, PLOT_TYPE::Plot1D)
+    , m_custom_plot(new QCustomPlot)
+    , m_update_timer(new UpdateTimer(replot_update_interval, this))
+    , m_block_update(false)
 {
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(0, 0, 0, 0);

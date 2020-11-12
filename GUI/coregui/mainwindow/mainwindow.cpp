@@ -39,12 +39,21 @@
 #include <stylehelper.h>
 
 MainWindow::MainWindow()
-    : Manhattan::FancyMainWindow(nullptr), m_tabWidget(new Manhattan::FancyTabWidget(this)),
-      m_progressBar(new Manhattan::ProgressBar(this)),
-      m_applicationModels(new ApplicationModels(this)), m_projectManager(new ProjectManager(this)),
-      m_actionManager(new ActionManager(this)), m_toolTipDataBase(new ToolTipDataBase(this)),
-      m_updateNotifier(new UpdateNotifier(this)), m_welcomeView(0), m_instrumentView(0),
-      m_sampleView(0), m_importDataView(0), m_simulationView(0), m_jobView(0), m_sessionModelView(0)
+    : Manhattan::FancyMainWindow(nullptr)
+    , m_tabWidget(new Manhattan::FancyTabWidget(this))
+    , m_progressBar(new Manhattan::ProgressBar(this))
+    , m_applicationModels(new ApplicationModels(this))
+    , m_projectManager(new ProjectManager(this))
+    , m_actionManager(new ActionManager(this))
+    , m_toolTipDataBase(new ToolTipDataBase(this))
+    , m_updateNotifier(new UpdateNotifier(this))
+    , m_welcomeView(0)
+    , m_instrumentView(0)
+    , m_sampleView(0)
+    , m_importDataView(0)
+    , m_simulationView(0)
+    , m_jobView(0)
+    , m_sessionModelView(0)
 {
     initApplication();
     readSettings();

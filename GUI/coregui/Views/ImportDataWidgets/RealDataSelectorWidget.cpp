@@ -24,11 +24,13 @@
 #include <minisplitter.h>
 
 RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
-    : QWidget(parent), m_selectorActions(new RealDataSelectorActions(this)),
-      m_toolBar(new RealDataSelectorToolBar(m_selectorActions, this)),
-      m_hamBar(new RealDataSelectorHBar(m_selectorActions, this)),
-      m_splitter(new Manhattan::MiniSplitter), m_selectorWidget(new ItemSelectorWidget),
-      m_propertiesWidget(new RealDataPropertiesWidget)
+    : QWidget(parent)
+    , m_selectorActions(new RealDataSelectorActions(this))
+    , m_toolBar(new RealDataSelectorToolBar(m_selectorActions, this))
+    , m_hamBar(new RealDataSelectorHBar(m_selectorActions, this))
+    , m_splitter(new Manhattan::MiniSplitter)
+    , m_selectorWidget(new ItemSelectorWidget)
+    , m_propertiesWidget(new RealDataPropertiesWidget)
 {
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);

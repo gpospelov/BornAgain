@@ -24,8 +24,10 @@
 #include <qcustomplot.h>
 
 ProjectionsPlot::ProjectionsPlot(const QString& projectionType, QWidget* parent)
-    : SessionItemWidget(parent), m_projectionType(projectionType), m_customPlot(new QCustomPlot),
-      m_block_plot_update(false)
+    : SessionItemWidget(parent)
+    , m_projectionType(projectionType)
+    , m_customPlot(new QCustomPlot)
+    , m_block_plot_update(false)
 {
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->setMargin(0);

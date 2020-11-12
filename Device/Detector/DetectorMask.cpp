@@ -19,8 +19,9 @@
 DetectorMask::DetectorMask() : m_number_of_masked_channels(0) {}
 
 DetectorMask::DetectorMask(const DetectorMask& other)
-    : m_shapes(other.m_shapes), m_mask_of_shape(other.m_mask_of_shape),
-      m_number_of_masked_channels(other.m_number_of_masked_channels)
+    : m_shapes(other.m_shapes)
+    , m_mask_of_shape(other.m_mask_of_shape)
+    , m_number_of_masked_channels(other.m_number_of_masked_channels)
 {
     m_mask_data.copyFrom(other.m_mask_data);
 }

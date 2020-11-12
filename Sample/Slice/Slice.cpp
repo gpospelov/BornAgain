@@ -22,14 +22,18 @@ Slice::Slice(double thickness, const Material& material)
 }
 
 Slice::Slice(double thickness, const Material& material, const LayerRoughness& top_roughness)
-    : m_thickness{thickness}, m_material{material}, m_B_field{}, m_top_roughness{
-                                                                     top_roughness.clone()}
+    : m_thickness{thickness}
+    , m_material{material}
+    , m_B_field{}
+    , m_top_roughness{top_roughness.clone()}
 {
 }
 
 Slice::Slice(const Slice& other)
-    : m_thickness{other.m_thickness}, m_material{other.m_material}, m_B_field{other.m_B_field},
-      m_top_roughness{}
+    : m_thickness{other.m_thickness}
+    , m_material{other.m_material}
+    , m_B_field{other.m_B_field}
+    , m_top_roughness{}
 {
     if (other.m_top_roughness) {
         m_top_roughness.reset(other.m_top_roughness->clone());
@@ -37,8 +41,10 @@ Slice::Slice(const Slice& other)
 }
 
 Slice::Slice(Slice&& other)
-    : m_thickness{other.m_thickness}, m_material{std::move(other.m_material)},
-      m_B_field{other.m_B_field}, m_top_roughness{std::move(other.m_top_roughness)}
+    : m_thickness{other.m_thickness}
+    , m_material{std::move(other.m_material)}
+    , m_B_field{other.m_B_field}
+    , m_top_roughness{std::move(other.m_top_roughness)}
 {
 }
 

@@ -34,8 +34,13 @@ const qreal min_distance_to_create_rect = 10;
 } // namespace
 
 MaskGraphicsScene::MaskGraphicsScene(QObject* parent)
-    : QGraphicsScene(parent), m_maskModel(0), m_selectionModel(0), m_proxy(0),
-      m_block_selection(false), m_intensityItem(0), m_currentItem(0)
+    : QGraphicsScene(parent)
+    , m_maskModel(0)
+    , m_selectionModel(0)
+    , m_proxy(0)
+    , m_block_selection(false)
+    , m_intensityItem(0)
+    , m_currentItem(0)
 {
     setSceneRect(default_scene_rect);
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));

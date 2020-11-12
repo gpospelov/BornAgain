@@ -8,8 +8,10 @@ class ConstKBinAxisTest : public ::testing::Test
 {
 protected:
     ConstKBinAxisTest()
-        : m_nbins(10), m_start(-5.0 * Units::degree), m_end(5.0 * Units::degree),
-          m_axis("name", m_nbins, m_start, m_end)
+        : m_nbins(10)
+        , m_start(-5.0 * Units::degree)
+        , m_end(5.0 * Units::degree)
+        , m_axis("name", m_nbins, m_start, m_end)
     {
         double start_sin = std::sin(m_start);
         double end_sin = std::sin(m_end);

@@ -23,8 +23,10 @@
 #include <QVBoxLayout>
 
 JobListWidget::JobListWidget(QWidget* parent)
-    : QWidget(parent), m_listViewDelegate(new JobListViewDelegate(this)),
-      m_listView(new ItemSelectorWidget(this)), m_jobModel(nullptr)
+    : QWidget(parent)
+    , m_listViewDelegate(new JobListViewDelegate(this))
+    , m_listView(new ItemSelectorWidget(this))
+    , m_jobModel(nullptr)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 

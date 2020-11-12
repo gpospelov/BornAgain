@@ -19,18 +19,28 @@ SimulationElement::SimulationElement(double wavelength, double alpha_i, double p
                                      std::unique_ptr<IPixel> pixel,
                                      const Eigen::Matrix2cd& beam_polarization,
                                      const Eigen::Matrix2cd& analyzer, bool isSpecular_)
-    : m_polarization(beam_polarization, analyzer), m_wavelength(wavelength), m_alpha_i(alpha_i),
-      m_phi_i(phi_i), m_k_i(vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i)),
-      m_mean_kf(pixel->getK(0.5, 0.5, m_wavelength)), m_pixel(std::move(pixel)),
-      m_is_specular(isSpecular_), m_intensity(0.0)
+    : m_polarization(beam_polarization, analyzer)
+    , m_wavelength(wavelength)
+    , m_alpha_i(alpha_i)
+    , m_phi_i(phi_i)
+    , m_k_i(vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, m_phi_i))
+    , m_mean_kf(pixel->getK(0.5, 0.5, m_wavelength))
+    , m_pixel(std::move(pixel))
+    , m_is_specular(isSpecular_)
+    , m_intensity(0.0)
 {
 }
 
 SimulationElement::SimulationElement(const SimulationElement& other)
-    : m_polarization(other.m_polarization), m_wavelength(other.m_wavelength),
-      m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i), m_k_i(other.m_k_i),
-      m_mean_kf(other.m_mean_kf), m_pixel(std::move(other.m_pixel->clone())),
-      m_is_specular(other.m_is_specular), m_intensity(other.m_intensity)
+    : m_polarization(other.m_polarization)
+    , m_wavelength(other.m_wavelength)
+    , m_alpha_i(other.m_alpha_i)
+    , m_phi_i(other.m_phi_i)
+    , m_k_i(other.m_k_i)
+    , m_mean_kf(other.m_mean_kf)
+    , m_pixel(std::move(other.m_pixel->clone()))
+    , m_is_specular(other.m_is_specular)
+    , m_intensity(other.m_intensity)
 {
 }
 

@@ -17,8 +17,10 @@
 
 RectangularPixel::RectangularPixel(const kvector_t& corner_pos, const kvector_t& width,
                                    const kvector_t& height)
-    : m_corner_pos(std::move(corner_pos)), m_width(std::move(width)), m_height(std::move(height)),
-      m_normal(width.cross(height))
+    : m_corner_pos(std::move(corner_pos))
+    , m_width(std::move(width))
+    , m_height(std::move(height))
+    , m_normal(width.cross(height))
 {
     // TODO URGENT: why allow solid angle <=0 ??
     auto solid_angle_value = calculateSolidAngle();

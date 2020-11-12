@@ -29,8 +29,8 @@
 #endif
 
 GSLMultiMinimizer::GSLMultiMinimizer(const std::string& algorithmName)
-    : RootMinimizerAdapter(MinimizerInfo::buildGSLMultiMinInfo(algorithmName)),
-      m_gsl_minimizer(new ROOT::Math::GSLMinimizer(algorithmName.c_str()))
+    : RootMinimizerAdapter(MinimizerInfo::buildGSLMultiMinInfo(algorithmName))
+    , m_gsl_minimizer(new ROOT::Math::GSLMinimizer(algorithmName.c_str()))
 {
     addOption("PrintLevel", 0, "Minimizer internal print level");
     addOption("MaxIterations", 0, "Maximum number of iterations");

@@ -20,8 +20,13 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
                                              const IDistribution1D& distribution,
                                              size_t nbr_samples, double sigma_factor,
                                              const RealLimits& limits)
-    : IParameterized("ParameterDistribution"), m_name(par_name), m_nbr_samples(nbr_samples),
-      m_sigma_factor(sigma_factor), m_limits(limits), m_xmin(1.0), m_xmax(-1.0)
+    : IParameterized("ParameterDistribution")
+    , m_name(par_name)
+    , m_nbr_samples(nbr_samples)
+    , m_sigma_factor(sigma_factor)
+    , m_limits(limits)
+    , m_xmin(1.0)
+    , m_xmax(-1.0)
 {
     m_distribution.reset(distribution.clone());
     if (m_sigma_factor < 0.0)
@@ -37,8 +42,12 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
 ParameterDistribution::ParameterDistribution(const std::string& par_name,
                                              const IDistribution1D& distribution,
                                              size_t nbr_samples, double xmin, double xmax)
-    : IParameterized("ParameterDistribution"), m_name(par_name), m_nbr_samples(nbr_samples),
-      m_sigma_factor(0.0), m_xmin(xmin), m_xmax(xmax)
+    : IParameterized("ParameterDistribution")
+    , m_name(par_name)
+    , m_nbr_samples(nbr_samples)
+    , m_sigma_factor(0.0)
+    , m_xmin(xmin)
+    , m_xmax(xmax)
 {
     m_distribution.reset(distribution.clone());
     if (m_sigma_factor < 0.0) {
@@ -59,10 +68,14 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
 }
 
 ParameterDistribution::ParameterDistribution(const ParameterDistribution& other)
-    : IParameterized("ParameterDistribution"), m_name(other.m_name),
-      m_nbr_samples(other.m_nbr_samples), m_sigma_factor(other.m_sigma_factor),
-      m_linked_par_names(other.m_linked_par_names), m_limits(other.m_limits), m_xmin(other.m_xmin),
-      m_xmax(other.m_xmax)
+    : IParameterized("ParameterDistribution")
+    , m_name(other.m_name)
+    , m_nbr_samples(other.m_nbr_samples)
+    , m_sigma_factor(other.m_sigma_factor)
+    , m_linked_par_names(other.m_linked_par_names)
+    , m_limits(other.m_limits)
+    , m_xmin(other.m_xmin)
+    , m_xmax(other.m_xmax)
 {
     m_distribution.reset(other.m_distribution->clone());
 }

@@ -23,8 +23,9 @@ FormFactorCylinder::FormFactorCylinder(const std::vector<double> P)
         {"Cylinder",
          "circular cylinder",
          {{"Radius", "nm", "radius of base", 0, +INF, 0}, {"Height", "nm", "height", 0, +INF, 0}}},
-        P),
-      m_radius(m_P[0]), m_height(m_P[1])
+        P)
+    , m_radius(m_P[0])
+    , m_height(m_P[1])
 {
     onChange();
 }

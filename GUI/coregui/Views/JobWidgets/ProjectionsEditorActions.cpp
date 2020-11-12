@@ -20,9 +20,14 @@
 #include <QModelIndexList>
 
 ProjectionsEditorActions::ProjectionsEditorActions(QWidget* parent)
-    : QObject(parent), m_resetViewAction(new QAction(this)), m_togglePanelAction(new QAction(this)),
-      m_deleteAction(new QAction("Remove selected", this)), m_model(nullptr),
-      m_intensityDataItem(nullptr), m_selectionModel(nullptr), m_parent(parent)
+    : QObject(parent)
+    , m_resetViewAction(new QAction(this))
+    , m_togglePanelAction(new QAction(this))
+    , m_deleteAction(new QAction("Remove selected", this))
+    , m_model(nullptr)
+    , m_intensityDataItem(nullptr)
+    , m_selectionModel(nullptr)
+    , m_parent(parent)
 {
     // Actions for top toolbar
     m_resetViewAction->setText("Center view");

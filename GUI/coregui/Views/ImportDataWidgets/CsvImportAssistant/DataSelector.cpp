@@ -34,10 +34,16 @@ const QSize default_dialog_size(300, 400);
 }
 
 DataSelector::DataSelector(csv::DataArray csvArray, QWidget* parent)
-    : QDialog(parent), m_data(csvArray), m_tableWidget(nullptr), m_separatorField(nullptr),
-      m_firstDataRowSpinBox(nullptr), m_lastDataRowSpinBox(nullptr),
-      m_coordinateUnitsComboBox(nullptr), m_importButton(nullptr), m_cancelButton(nullptr),
-      m_errorLabel(nullptr)
+    : QDialog(parent)
+    , m_data(csvArray)
+    , m_tableWidget(nullptr)
+    , m_separatorField(nullptr)
+    , m_firstDataRowSpinBox(nullptr)
+    , m_lastDataRowSpinBox(nullptr)
+    , m_coordinateUnitsComboBox(nullptr)
+    , m_importButton(nullptr)
+    , m_cancelButton(nullptr)
+    , m_errorLabel(nullptr)
 {
     setWindowTitle("Data Importer");
     setMinimumSize(default_dialog_size);

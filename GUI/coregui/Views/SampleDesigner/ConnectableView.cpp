@@ -24,8 +24,12 @@
 #include <iostream>
 
 ConnectableView::ConnectableView(QGraphicsItem* parent, QRectF rect)
-    : IView(parent), m_name("Unnamed"), m_color(Qt::gray), m_rect(rect), m_roundpar(0),
-      m_label_vspace(0)
+    : IView(parent)
+    , m_name("Unnamed")
+    , m_color(Qt::gray)
+    , m_rect(rect)
+    , m_roundpar(0)
+    , m_label_vspace(0)
 {
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);

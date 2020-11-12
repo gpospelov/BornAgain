@@ -23,10 +23,11 @@
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* p_iff, const SimulationOptions& sim_params, bool polarized)
-    : m_formfactor_wrappers(weighted_formfactors),
-      m_iff(p_iff ? p_iff->clone() : new InterferenceFunctionNone()), m_options(sim_params),
-      m_polarized(polarized),
-      m_integrator(
+    : m_formfactor_wrappers(weighted_formfactors)
+    , m_iff(p_iff ? p_iff->clone() : new InterferenceFunctionNone())
+    , m_options(sim_params)
+    , m_polarized(polarized)
+    , m_integrator(
           make_integrator_miser(this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2))
 {
     ASSERT(!m_formfactor_wrappers.empty());

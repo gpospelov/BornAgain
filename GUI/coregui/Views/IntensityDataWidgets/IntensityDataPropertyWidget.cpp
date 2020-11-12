@@ -21,8 +21,9 @@
 #include <QVBoxLayout>
 
 IntensityDataPropertyWidget::IntensityDataPropertyWidget(QWidget* parent)
-    : SessionItemWidget(parent), m_togglePanelAction(new QAction(this)),
-      m_componentEditor(new ComponentEditor)
+    : SessionItemWidget(parent)
+    , m_togglePanelAction(new QAction(this))
+    , m_componentEditor(new ComponentEditor)
 {
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     setWindowTitle(QLatin1String("Intensity Data Properties"));

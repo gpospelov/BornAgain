@@ -28,8 +28,8 @@
 #endif
 
 SimAnMinimizer::SimAnMinimizer()
-    : RootMinimizerAdapter(MinimizerInfo::buildGSLSimAnInfo()),
-      m_siman_minimizer(new ROOT::Math::GSLSimAnMinimizer())
+    : RootMinimizerAdapter(MinimizerInfo::buildGSLSimAnInfo())
+    , m_siman_minimizer(new ROOT::Math::GSLSimAnMinimizer())
 {
     addOption("PrintLevel", 0, "Minimizer internal print level");
     addOption("MaxIterations", 100, "Number of points to try for each step");

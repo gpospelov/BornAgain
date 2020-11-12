@@ -20,12 +20,16 @@
 #include <QMenu>
 
 MaskEditorActions::MaskEditorActions(QWidget* parent)
-    : QObject(parent), m_toggleMaskValueAction(new QAction("Toggle mask value", parent)),
-      m_bringToFrontAction(new QAction("Rise mask up", parent)),
-      m_sendToBackAction(new QAction("Lower mask down", parent)),
-      m_deleteMaskAction(new QAction("Remove mask", parent)), m_resetViewAction(new QAction(this)),
-      m_savePlotAction(new QAction(this)), m_togglePanelAction(new QAction(this)),
-      m_maskModel(nullptr), m_selectionModel(nullptr)
+    : QObject(parent)
+    , m_toggleMaskValueAction(new QAction("Toggle mask value", parent))
+    , m_bringToFrontAction(new QAction("Rise mask up", parent))
+    , m_sendToBackAction(new QAction("Lower mask down", parent))
+    , m_deleteMaskAction(new QAction("Remove mask", parent))
+    , m_resetViewAction(new QAction(this))
+    , m_savePlotAction(new QAction(this))
+    , m_togglePanelAction(new QAction(this))
+    , m_maskModel(nullptr)
+    , m_selectionModel(nullptr)
 
 {
     connect(m_toggleMaskValueAction, &QAction::triggered, this,

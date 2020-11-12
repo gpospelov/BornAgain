@@ -25,11 +25,13 @@
 #include <minisplitter.h>
 
 JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
-    : QWidget(parent), m_splitter(new Manhattan::MiniSplitter),
-      m_jobSelectorActions(new JobSelectorActions(jobModel, this)),
-      m_toolBar(new JobSelectorToolBar(m_jobSelectorActions, this)),
-      m_jobListWidget(new JobListWidget), m_jobProperties(new JobPropertiesWidget),
-      m_jobModel(nullptr)
+    : QWidget(parent)
+    , m_splitter(new Manhattan::MiniSplitter)
+    , m_jobSelectorActions(new JobSelectorActions(jobModel, this))
+    , m_toolBar(new JobSelectorToolBar(m_jobSelectorActions, this))
+    , m_jobListWidget(new JobListWidget)
+    , m_jobProperties(new JobPropertiesWidget)
+    , m_jobModel(nullptr)
 {
     setWindowTitle(Constants::JobSelectorWidgetName);
     setObjectName("JobSelectorWidget");

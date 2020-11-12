@@ -36,8 +36,12 @@ double optimalBarWidth(double xmin, double xmax, int nbars = 1);
 } // namespace
 
 DistributionWidget::DistributionWidget(QWidget* parent)
-    : QWidget(parent), m_plot(new QCustomPlot), m_item(0), m_label(new QLabel),
-      m_resetAction(new QAction(this)), m_warningSign(new WarningSign(this))
+    : QWidget(parent)
+    , m_plot(new QCustomPlot)
+    , m_item(0)
+    , m_label(new QLabel)
+    , m_resetAction(new QAction(this))
+    , m_warningSign(new WarningSign(this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

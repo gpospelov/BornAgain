@@ -27,10 +27,26 @@ Convolve::Convolve() : m_mode(FFTW_UNDEFINED)
 }
 
 Convolve::Workspace::Workspace()
-    : h_src(0), w_src(0), h_kernel(0), w_kernel(0), w_fftw(0), h_fftw(0), in_src(0), out_src(0),
-      in_kernel(0), out_kernel(0), dst_fft(0), h_dst(0), w_dst(0),
-      // dst(0),
-      h_offset(0), w_offset(0), p_forw_src(nullptr), p_forw_kernel(nullptr), p_back(nullptr)
+    : h_src(0)
+    , w_src(0)
+    , h_kernel(0)
+    , w_kernel(0)
+    , w_fftw(0)
+    , h_fftw(0)
+    , in_src(0)
+    , out_src(0)
+    , in_kernel(0)
+    , out_kernel(0)
+    , dst_fft(0)
+    , h_dst(0)
+    , w_dst(0)
+    ,
+    // dst(0),
+    h_offset(0)
+    , w_offset(0)
+    , p_forw_src(nullptr)
+    , p_forw_kernel(nullptr)
+    , p_back(nullptr)
 {
 }
 

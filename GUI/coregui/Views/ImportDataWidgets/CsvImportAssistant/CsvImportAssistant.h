@@ -28,8 +28,13 @@ class csvSelectionState
 {
 public:
     csvSelectionState()
-        : m_intensityColNum(-1), m_intensityMultiplier(1.), m_coordinateColNum(-1),
-          m_coordinateMultiplier(1.), m_firstRow(-1), m_lastRow(-1), m_units(Axes::Units::NBINS)
+        : m_intensityColNum(-1)
+        , m_intensityMultiplier(1.)
+        , m_coordinateColNum(-1)
+        , m_coordinateMultiplier(1.)
+        , m_firstRow(-1)
+        , m_lastRow(-1)
+        , m_units(Axes::Units::NBINS)
     {
     }
 

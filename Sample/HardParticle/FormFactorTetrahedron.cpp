@@ -31,8 +31,10 @@ FormFactorTetrahedron::FormFactorTetrahedron(const std::vector<double> P)
          {{"BaseEdge", "nm", "edge of base triangle", 0, +INF, 0},
           {"Height", "nm", "height of frustum", 0, +INF, 0},
           {"Alpha", "rad", "angle between base and a side face", 0., M_PI_2, 0}}},
-        P),
-      m_base_edge(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
+        P)
+    , m_base_edge(m_P[0])
+    , m_height(m_P[1])
+    , m_alpha(m_P[2])
 {
     onChange();
 }

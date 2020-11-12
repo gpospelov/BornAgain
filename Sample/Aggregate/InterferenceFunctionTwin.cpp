@@ -18,8 +18,10 @@
 
 InterferenceFunctionTwin::InterferenceFunctionTwin(const kvector_t& direction, double mean_distance,
                                                    double std_dev)
-    : IInterferenceFunction(0), m_direction(direction), m_distance(mean_distance),
-      m_std_dev(std_dev)
+    : IInterferenceFunction(0)
+    , m_direction(direction)
+    , m_distance(mean_distance)
+    , m_std_dev(std_dev)
 {
     setName("InterferenceTwin");
     if (m_direction.mag2() <= 0.0 || m_distance < 0.0 || m_std_dev < 0.0)

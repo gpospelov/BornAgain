@@ -24,9 +24,13 @@
 #include <QVBoxLayout>
 
 MaterialEditor::MaterialEditor(MaterialModel* materialModel, QWidget* parent)
-    : QWidget(parent), m_materialModel(materialModel),
-      m_toolBar(new MaterialEditorToolBar(materialModel, this)), m_splitter(new QSplitter),
-      m_listView(new QListView), m_componentEditor(new ComponentEditor), m_model_was_modified(false)
+    : QWidget(parent)
+    , m_materialModel(materialModel)
+    , m_toolBar(new MaterialEditorToolBar(materialModel, this))
+    , m_splitter(new QSplitter)
+    , m_listView(new QListView)
+    , m_componentEditor(new ComponentEditor)
+    , m_model_was_modified(false)
 {
     setWindowTitle("MaterialEditorWidget");
     setMinimumSize(128, 128);

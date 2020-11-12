@@ -30,13 +30,14 @@ const QString analyzer_properties_title = "Analyzer properties";
 
 PolarizationAnalysisEditor::PolarizationAnalysisEditor(ColumnResizer* columnResizer,
                                                        QWidget* parent)
-    : SessionItemWidget(parent), m_columnResizer(columnResizer),
-      m_polarizationEditor(new ComponentEditor(ComponentEditor::GroupWidget, beam_pol_title)),
-      m_analyserDirectionEditor(
-          new ComponentEditor(ComponentEditor::GroupWidget, analyzer_orientation_title)),
-      m_analyserPropertiesEditor(
-          new ComponentEditor(ComponentEditor::GroupWidget, analyzer_properties_title)),
-      m_gridLayout(new QGridLayout)
+    : SessionItemWidget(parent)
+    , m_columnResizer(columnResizer)
+    , m_polarizationEditor(new ComponentEditor(ComponentEditor::GroupWidget, beam_pol_title))
+    , m_analyserDirectionEditor(
+          new ComponentEditor(ComponentEditor::GroupWidget, analyzer_orientation_title))
+    , m_analyserPropertiesEditor(
+          new ComponentEditor(ComponentEditor::GroupWidget, analyzer_properties_title))
+    , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_polarizationEditor, 0, 0);
     m_gridLayout->addWidget(m_analyserDirectionEditor, 0, 1);

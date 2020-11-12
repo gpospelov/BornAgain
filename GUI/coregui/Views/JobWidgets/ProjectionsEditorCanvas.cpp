@@ -25,10 +25,16 @@
 #include <QVBoxLayout>
 
 ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
-    : QWidget(parent), m_scene(new MaskGraphicsScene(this)), m_view(new MaskGraphicsView(m_scene)),
-      m_colorMap(nullptr), m_statusLabel(new PlotStatusLabel(nullptr, this)),
-      m_liveProjection(nullptr), m_model(nullptr), m_intensityDataItem(nullptr),
-      m_currentActivity(MaskEditorFlags::HORIZONTAL_LINE_MODE), m_block_update(false)
+    : QWidget(parent)
+    , m_scene(new MaskGraphicsScene(this))
+    , m_view(new MaskGraphicsView(m_scene))
+    , m_colorMap(nullptr)
+    , m_statusLabel(new PlotStatusLabel(nullptr, this))
+    , m_liveProjection(nullptr)
+    , m_model(nullptr)
+    , m_intensityDataItem(nullptr)
+    , m_currentActivity(MaskEditorFlags::HORIZONTAL_LINE_MODE)
+    , m_block_update(false)
 {
     setObjectName("MaskEditorCanvas");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

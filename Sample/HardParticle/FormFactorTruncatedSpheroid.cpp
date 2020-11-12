@@ -28,8 +28,11 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(const std::vector<doubl
           {"Height", "nm", "height before removal of cap", 0, +INF, 0},
           {"HeightFlattening", "", "ratio of vertical to horizontal radius", 0, +INF, 0},
           {"DeltaHeight", "nm", "height of removed cap", 0, +INF, 0}}},
-        P),
-      m_radius(m_P[0]), m_height(m_P[1]), m_height_flattening(m_P[2]), m_dh(m_P[3])
+        P)
+    , m_radius(m_P[0])
+    , m_height(m_P[1])
+    , m_height_flattening(m_P[2])
+    , m_dh(m_P[3])
 {
     check_initialization();
     onChange();

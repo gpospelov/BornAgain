@@ -32,10 +32,16 @@
 #include <QVBoxLayout>
 
 FitParameterWidget::FitParameterWidget(QWidget* parent)
-    : SessionItemWidget(parent), m_treeView(new QTreeView), m_tuningWidget(0),
-      m_createFitParAction(0), m_removeFromFitParAction(0), m_removeFitParAction(0),
-      m_fitParameterModel(0), m_delegate(new SessionModelDelegate(this)),
-      m_keyboardFilter(new DeleteEventFilter(this)), m_infoLabel(new OverlayLabelController(this))
+    : SessionItemWidget(parent)
+    , m_treeView(new QTreeView)
+    , m_tuningWidget(0)
+    , m_createFitParAction(0)
+    , m_removeFromFitParAction(0)
+    , m_removeFitParAction(0)
+    , m_fitParameterModel(0)
+    , m_delegate(new SessionModelDelegate(this))
+    , m_keyboardFilter(new DeleteEventFilter(this))
+    , m_infoLabel(new OverlayLabelController(this))
 {
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(m_treeView);

@@ -45,8 +45,8 @@ std::map<int, std::string> covmatrixStatusDescription()
 } // namespace
 
 GSLLevenbergMarquardtMinimizer::GSLLevenbergMarquardtMinimizer()
-    : RootMinimizerAdapter(MinimizerInfo::buildGSLLMAInfo()),
-      m_gsl_minimizer(new ROOT::Math::GSLNLSMinimizer(2))
+    : RootMinimizerAdapter(MinimizerInfo::buildGSLLMAInfo())
+    , m_gsl_minimizer(new ROOT::Math::GSLNLSMinimizer(2))
 {
     addOption("Tolerance", 0.01, "Tolerance on the function value at the minimum");
     addOption("PrintLevel", 0, "Minimizer internal print level");

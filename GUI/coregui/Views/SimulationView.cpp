@@ -19,8 +19,9 @@
 #include <QVBoxLayout>
 
 SimulationView::SimulationView(MainWindow* mainWindow)
-    : QWidget(mainWindow), m_simulationSetupWidget(new SimulationSetupWidget),
-      m_toolBar(new StyledToolBar)
+    : QWidget(mainWindow)
+    , m_simulationSetupWidget(new SimulationSetupWidget)
+    , m_toolBar(new StyledToolBar)
 {
     m_toolBar->setFixedHeight(m_toolBar->minimumHeight());
     m_simulationSetupWidget->setApplicationModels(mainWindow->models());

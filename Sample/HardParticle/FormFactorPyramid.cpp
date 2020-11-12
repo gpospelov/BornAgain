@@ -33,8 +33,10 @@ FormFactorPyramid::FormFactorPyramid(const std::vector<double> P)
                              {{"BaseEdge", "nm", "base edge length", 0, +INF, 0},
                               {"Height", "nm", "height", 0, +INF, 0},
                               {"Alpha", "rad", "angle between base and a side face", 0., M_PI, 0}}},
-                            P),
-      m_base_edge(m_P[0]), m_height(m_P[1]), m_alpha(m_P[2])
+                            P)
+    , m_base_edge(m_P[0])
+    , m_height(m_P[1])
+    , m_alpha(m_P[2])
 {
     onChange();
 }

@@ -86,10 +86,14 @@ class FeNiBilayer
 {
 public:
     FeNiBilayer(Options opt = {})
-        : NBilayers(opt._NBilayers), angle(opt._angle),
-          magnetizationMagnitude(opt._magnetizationMagnitude), thicknessFe(opt._thicknessFe),
-          thicknessNi(opt._thicknessNi), sigmaRoughness(opt._sigmaRoughness),
-          effectiveSLD(opt._effectiveSLD), roughnessModel(opt._roughnessModel)
+        : NBilayers(opt._NBilayers)
+        , angle(opt._angle)
+        , magnetizationMagnitude(opt._magnetizationMagnitude)
+        , thicknessFe(opt._thicknessFe)
+        , thicknessNi(opt._thicknessNi)
+        , sigmaRoughness(opt._sigmaRoughness)
+        , effectiveSLD(opt._effectiveSLD)
+        , roughnessModel(opt._roughnessModel)
     {
         if (angle != 0. && effectiveSLD != 0.)
             throw std::runtime_error("Cannot perform scalar computation "

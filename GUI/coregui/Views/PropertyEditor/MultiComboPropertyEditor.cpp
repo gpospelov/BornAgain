@@ -44,8 +44,10 @@ void QCheckListStyledItemDelegate::paint(QPainter* painter, const QStyleOptionVi
 // ----------------------------------------------------------------------------
 
 MultiComboPropertyEditor::MultiComboPropertyEditor(QWidget* parent)
-    : CustomEditor(parent), m_box(new QComboBox), m_wheel_event_filter(new WheelEventEater(this)),
-      m_model(new QStandardItemModel(this))
+    : CustomEditor(parent)
+    , m_box(new QComboBox)
+    , m_wheel_event_filter(new WheelEventEater(this))
+    , m_model(new QStandardItemModel(this))
 {
     setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);

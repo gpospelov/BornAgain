@@ -38,8 +38,11 @@ CreateAverageMaterialSlices(const std::vector<Slice>& slices,
 } // namespace
 
 ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)
-    : m_slices{}, m_top_z{0.0}, m_polarized{false}, m_crossCorrLength{sample.crossCorrLength()},
-      m_ext_field{sample.externalField()}
+    : m_slices{}
+    , m_top_z{0.0}
+    , m_polarized{false}
+    , m_crossCorrLength{sample.crossCorrLength()}
+    , m_ext_field{sample.externalField()}
 {
     initSlices(sample, options);
     m_fresnel_map = CreateFresnelMap(sample, m_slices, options);

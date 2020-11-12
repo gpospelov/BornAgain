@@ -44,8 +44,10 @@ QString interpolation_setting_name()
 } // namespace
 
 IntensityDataCanvas::IntensityDataCanvas(QWidget* parent)
-    : SessionItemWidget(parent), m_colorMap(new ColorMapCanvas), m_resetViewAction(nullptr),
-      m_savePlotAction(nullptr)
+    : SessionItemWidget(parent)
+    , m_colorMap(new ColorMapCanvas)
+    , m_resetViewAction(nullptr)
+    , m_savePlotAction(nullptr)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

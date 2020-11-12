@@ -33,8 +33,11 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(const std::vector<double> P)
           {"Width", "nm", "side length of base in y direction", 0, +INF, 0},
           {"Height", "nm", "height", 0, +INF, 0},
           {"Alpha", "rad", "angle between base and any side face", 0., M_PI_2, 0}}},
-        P),
-      m_length(m_P[0]), m_width(m_P[1]), m_height(m_P[2]), m_alpha(m_P[3])
+        P)
+    , m_length(m_P[0])
+    , m_width(m_P[1])
+    , m_height(m_P[2])
+    , m_alpha(m_P[3])
 {
     onChange();
 }

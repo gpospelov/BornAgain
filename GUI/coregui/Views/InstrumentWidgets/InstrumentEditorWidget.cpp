@@ -23,8 +23,11 @@
 #include <QLineEdit>
 
 InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
-    : QWidget(parent), m_nameLineEdit(new QLineEdit),
-      m_instrumentPresenter(new InstrumentPresenter), m_currentItem(nullptr), m_block_signals(false)
+    : QWidget(parent)
+    , m_nameLineEdit(new QLineEdit)
+    , m_instrumentPresenter(new InstrumentPresenter)
+    , m_currentItem(nullptr)
+    , m_block_signals(false)
 {
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

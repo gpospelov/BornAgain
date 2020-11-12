@@ -29,8 +29,10 @@ IFTDistribution2D::IFTDistribution2D(const NodeMeta& meta, const std::vector<dou
                             "direct-space orientation with respect to the first lattice vector",
                             -M_PI_2, +M_PI_2, 0}},
                           meta),
-            PValues),
-      m_omega_x(m_P[0]), m_omega_y(m_P[1]), m_gamma(m_P[2])
+            PValues)
+    , m_omega_x(m_P[0])
+    , m_omega_y(m_P[1])
+    , m_gamma(m_P[2])
 {
 }
 
@@ -172,8 +174,8 @@ FTDistribution2DVoigt::FTDistribution2DVoigt(const std::vector<double> P)
          "class_tooltip",
          {{"Eta", "", "balances between Gauss (eta=0) and Cauchy (eta=1) limiting cases", -INF,
            +INF, 0}}},
-        P),
-      m_eta(m_P[3])
+        P)
+    , m_eta(m_P[3])
 {
 }
 

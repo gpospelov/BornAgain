@@ -30,12 +30,13 @@ const QString polarization_title("Polarization (Bloch vector)");
 } // namespace
 
 GISASBeamEditor::GISASBeamEditor(ColumnResizer* columnResizer, QWidget* parent)
-    : SessionItemWidget(parent), m_columnResizer(columnResizer),
-      m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget)),
-      m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title)),
-      m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title)),
-      m_azimuthalEditor(new ComponentEditor(ComponentEditor::InfoWidget, azimuthal_title)),
-      m_gridLayout(new QGridLayout)
+    : SessionItemWidget(parent)
+    , m_columnResizer(columnResizer)
+    , m_intensityEditor(new ComponentEditor(ComponentEditor::PlainWidget))
+    , m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title))
+    , m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title))
+    , m_azimuthalEditor(new ComponentEditor(ComponentEditor::InfoWidget, azimuthal_title))
+    , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_intensityEditor, 0, 0);
     m_gridLayout->addWidget(m_wavelengthEditor, 1, 0);

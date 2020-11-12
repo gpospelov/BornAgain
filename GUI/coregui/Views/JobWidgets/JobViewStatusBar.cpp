@@ -22,8 +22,11 @@
 #include <QToolButton>
 
 JobViewStatusBar::JobViewStatusBar(MainWindow* mainWindow)
-    : QWidget(mainWindow), m_toggleJobListButton(nullptr), m_activityCombo(nullptr),
-      m_dockMenuButton(nullptr), m_mainWindow(mainWindow)
+    : QWidget(mainWindow)
+    , m_toggleJobListButton(nullptr)
+    , m_activityCombo(nullptr)
+    , m_dockMenuButton(nullptr)
+    , m_mainWindow(mainWindow)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

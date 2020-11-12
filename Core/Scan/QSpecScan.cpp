@@ -21,8 +21,8 @@
 #include "Param/Distrib/RangedDistributions.h"
 
 QSpecScan::QSpecScan(std::vector<double> qs_nm)
-    : m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm))),
-      m_resolution(ScanResolution::scanEmptyResolution())
+    : m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm)))
+    , m_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
@@ -34,8 +34,8 @@ QSpecScan::QSpecScan(const IAxis& qs_nm)
 }
 
 QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
-    : m_qs(std::make_unique<FixedBinAxis>("qs", nbins, qz_min, qz_max)),
-      m_resolution(ScanResolution::scanEmptyResolution())
+    : m_qs(std::make_unique<FixedBinAxis>("qs", nbins, qz_min, qz_max))
+    , m_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }

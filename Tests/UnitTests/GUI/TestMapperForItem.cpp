@@ -12,8 +12,12 @@ class Widget
 {
 public:
     Widget()
-        : m_onPropertyChangeCount(0), m_onChildPropertyChangeCount(0), m_onParentChangeCount(0),
-          m_onChildrenChangeCount(0), m_onSiblingsChangeCount(0), m_onAboutToRemoveChild(0)
+        : m_onPropertyChangeCount(0)
+        , m_onChildPropertyChangeCount(0)
+        , m_onParentChangeCount(0)
+        , m_onChildrenChangeCount(0)
+        , m_onSiblingsChangeCount(0)
+        , m_onAboutToRemoveChild(0)
     {
     }
 

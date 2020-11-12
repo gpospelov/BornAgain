@@ -161,15 +161,18 @@ private:
 // WidgetBoxCategoryModel::WidgetBoxCategoryModel(QDesignerFormEditorInterface *core, QObject
 // *parent) :
 WidgetBoxCategoryModel::WidgetBoxCategoryModel(SampleDesignerInterface* core, QObject* parent)
-    : QAbstractListModel(parent),
+    : QAbstractListModel(parent)
+    ,
 #if QT_VERSION >= 0x050000
-      m_classNameRegExp("<widget +class *= *\"([^\"]+)\""),
+    m_classNameRegExp("<widget +class *= *\"([^\"]+)\"")
+    ,
 #else
-      m_classNameRegExp(QString("<widget +class *= *\"([^\"]+)\"")),
+    m_classNameRegExp(QString("<widget +class *= *\"([^\"]+)\""))
+    ,
 #endif
 
-      //    m_core(core),
-      m_viewMode(QListView::ListMode)
+    //    m_core(core),
+    m_viewMode(QListView::ListMode)
 {
     ASSERT(m_classNameRegExp.isValid());
     Q_UNUSED(core);
@@ -407,8 +410,9 @@ QWidget* WidgetBoxCategoryEntryDelegate::createEditor(QWidget* parent,
 // WidgetBoxCategoryListView::WidgetBoxCategoryListView(QDesignerFormEditorInterface *core, QWidget
 // *parent) :
 WidgetBoxCategoryListView::WidgetBoxCategoryListView(SampleDesignerInterface* core, QWidget* parent)
-    : QListView(parent), m_proxyModel(new QSortFilterProxyModel(this)),
-      m_model(new WidgetBoxCategoryModel(core, this))
+    : QListView(parent)
+    , m_proxyModel(new QSortFilterProxyModel(this))
+    , m_model(new WidgetBoxCategoryModel(core, this))
 {
     setFocusPolicy(Qt::NoFocus);
     setFrameShape(QFrame::NoFrame);

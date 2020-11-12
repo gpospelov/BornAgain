@@ -96,9 +96,8 @@ Transform3D IdentityRotation::getTransform3D() const
 //! Constructor of rotation around x-axis
 RotationX::RotationX(const std::vector<double> P)
     : IRotation(
-        {"XRotation", "class_tooltip", {{"Angle", "rad", "Angle around x axis", -INF, +INF, 0}}},
-        P),
-      m_angle(m_P[0])
+        {"XRotation", "class_tooltip", {{"Angle", "rad", "Angle around x axis", -INF, +INF, 0}}}, P)
+    , m_angle(m_P[0])
 {
 }
 
@@ -116,9 +115,8 @@ Transform3D RotationX::getTransform3D() const
 //! Constructor of rotation around y-axis
 RotationY::RotationY(const std::vector<double> P)
     : IRotation(
-        {"YRotation", "class_tooltip", {{"Angle", "rad", "Angle around y axis", -INF, +INF, 0}}},
-        P),
-      m_angle(m_P[0])
+        {"YRotation", "class_tooltip", {{"Angle", "rad", "Angle around y axis", -INF, +INF, 0}}}, P)
+    , m_angle(m_P[0])
 {
 }
 
@@ -138,9 +136,8 @@ Transform3D RotationY::getTransform3D() const
 //! Constructor of rotation around z-axis
 RotationZ::RotationZ(const std::vector<double> P)
     : IRotation(
-        {"ZRotation", "class_tooltip", {{"Angle", "rad", "Angle around z axis", -INF, +INF, 0}}},
-        P),
-      m_angle(m_P[0])
+        {"ZRotation", "class_tooltip", {{"Angle", "rad", "Angle around z axis", -INF, +INF, 0}}}, P)
+    , m_angle(m_P[0])
 {
 }
 
@@ -161,8 +158,10 @@ RotationEuler::RotationEuler(const std::vector<double> P)
                  {{"Alpha", "rad", "First Euler angle, rotation around z axis", -INF, +INF, 0},
                   {"Beta", "rad", "Second Euler angle, rotation around x' axis", -INF, +INF, 0},
                   {"Gamma", "rad", "Third Euler angle, rotation around z'' axis", -INF, +INF, 0}}},
-                P),
-      m_alpha(m_P[0]), m_beta(m_P[1]), m_gamma(m_P[2])
+                P)
+    , m_alpha(m_P[0])
+    , m_beta(m_P[1])
+    , m_gamma(m_P[2])
 {
 }
 

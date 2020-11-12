@@ -42,7 +42,7 @@ Histogram1D* Histogram1D::clone() const
 int Histogram1D::fill(double x, double weight)
 {
     const IAxis& axis = getXaxis();
-    if (x < axis.getMin() || x >= axis.getMax())
+    if (!axis.contains(x))
         return -1;
     size_t index = axis.findClosestIndex(x);
     m_data[index].add(weight);

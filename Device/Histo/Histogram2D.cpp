@@ -51,9 +51,9 @@ Histogram2D* Histogram2D::clone() const
 
 int Histogram2D::fill(double x, double y, double weight)
 {
-    if (x < getXaxis().getMin() || x >= getXaxis().getMax())
+    if (!getXaxis().contains(x))
         return -1;
-    if (y < getYaxis().getMin() || y >= getYaxis().getMax())
+    if (getYaxis().contains(y))
         return -1;
     size_t index = m_data.findGlobalIndex({x, y});
     m_data[index].add(weight);

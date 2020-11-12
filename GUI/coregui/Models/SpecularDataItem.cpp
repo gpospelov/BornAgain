@@ -72,13 +72,13 @@ double SpecularDataItem::getUpperX() const
 double SpecularDataItem::getXmin() const
 {
     const double defaultXmin(0.0);
-    return m_data ? m_data->axis(0).getMin() : defaultXmin;
+    return m_data ? m_data->axis(0).lowerBound() : defaultXmin;
 }
 
 double SpecularDataItem::getXmax() const
 {
     const double defaultXmax(1.0);
-    return m_data ? m_data->axis(0).getMax() : defaultXmax;
+    return m_data ? m_data->axis(0).upperBound() : defaultXmax;
 }
 
 double SpecularDataItem::getLowerY() const

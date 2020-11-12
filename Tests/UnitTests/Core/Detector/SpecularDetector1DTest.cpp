@@ -23,8 +23,8 @@ TEST_F(SpecularDetectorTest, basicBehaviour)
 
     // checking size and axis
     EXPECT_EQ(1u, detector.dimension());
-    EXPECT_EQ(axis.getMin(), detector.axis(0).getMin());
-    EXPECT_EQ(axis.getMax(), detector.axis(0).getMax());
+    EXPECT_EQ(axis.lowerBound(), detector.axis(0).lowerBound());
+    EXPECT_EQ(axis.upperBound(), detector.axis(0).upperBound());
 
     // throwing exceptions
     OutputData<double>* p_intensity_map(nullptr);
@@ -40,8 +40,8 @@ TEST_F(SpecularDetectorTest, createDetectorMap)
     // creating map in default units, which are radians and checking axes
     auto data = detector.createDetectorMap();
     EXPECT_EQ(data->axis(0).size(), 10u);
-    EXPECT_EQ(data->axis(0).getMin(), 1.0 * Units::deg);
-    EXPECT_EQ(data->axis(0).getMax(), 10.0 * Units::deg);
+    EXPECT_EQ(data->axis(0).lowerBound(), 1.0 * Units::deg);
+    EXPECT_EQ(data->axis(0).upperBound(), 10.0 * Units::deg);
 }
 
 TEST_F(SpecularDetectorTest, Clone)
@@ -52,8 +52,8 @@ TEST_F(SpecularDetectorTest, Clone)
 
     const auto data = clone->createDetectorMap();
     EXPECT_EQ(data->axis(0).size(), 5u);
-    EXPECT_EQ(data->axis(0).getMin(), 1.0 * Units::deg);
-    EXPECT_EQ(data->axis(0).getMax(), 10.0 * Units::deg);
+    EXPECT_EQ(data->axis(0).lowerBound(), 1.0 * Units::deg);
+    EXPECT_EQ(data->axis(0).upperBound(), 10.0 * Units::deg);
 
     EXPECT_EQ(nullptr, clone->detectorResolution());
     EXPECT_EQ(nullptr, clone->detectorMask());

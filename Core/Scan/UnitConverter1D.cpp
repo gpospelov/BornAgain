@@ -105,7 +105,7 @@ UnitConverterConvSpec::UnitConverterConvSpec(const Beam& beam, const IAxis& axis
     : m_wavelength(beam.getWavelength())
 {
     m_axis = createTranslatedAxis(axis, getTraslatorFrom(axis_units), axisName(0, axis_units));
-    if (m_axis->getMin() < 0 || m_axis->getMax() > M_PI_2)
+    if (m_axis->lowerBound() < 0 || m_axis->upperBound() > M_PI_2)
         throw std::runtime_error("Error in UnitConverter1D: input axis range is out of bounds");
 }
 

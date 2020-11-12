@@ -93,8 +93,8 @@ public:
 
     double probabilityDensity(double x) const final;
     double getMean() const final { return (m_min + m_max) / 2.0; }
-    double getMin() const { return m_min; }
-    double getMax() const { return m_max; }
+    double lowerBound() const { return m_min; }
+    double upperBound() const { return m_max; }
 
     //! Returns list of sample values
     virtual std::vector<double> equidistantPoints(size_t nbr_samples, double sigma_factor,

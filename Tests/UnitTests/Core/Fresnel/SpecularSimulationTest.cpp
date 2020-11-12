@@ -89,8 +89,8 @@ TEST_F(SpecularSimulationTest, SetAngularScan)
     const auto& beam = sim.instrument().beam();
 
     EXPECT_EQ(2u, sim.coordinateAxis()->size());
-    EXPECT_EQ(1.0 * Units::deg, sim.coordinateAxis()->getMin());
-    EXPECT_EQ(3.0 * Units::deg, sim.coordinateAxis()->getMax());
+    EXPECT_EQ(1.0 * Units::deg, sim.coordinateAxis()->lowerBound());
+    EXPECT_EQ(3.0 * Units::deg, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(1.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -104,8 +104,8 @@ TEST_F(SpecularSimulationTest, SetAngularScan)
     AngularSpecScan scan2(1.0, 10, 1.0 * Units::degree, 10.0 * Units::degree);
     sim.setScan(scan2);
     EXPECT_EQ(10u, sim.coordinateAxis()->size());
-    EXPECT_EQ(1.0 * Units::degree, sim.coordinateAxis()->getMin());
-    EXPECT_EQ(10.0 * Units::degree, sim.coordinateAxis()->getMax());
+    EXPECT_EQ(1.0 * Units::degree, sim.coordinateAxis()->lowerBound());
+    EXPECT_EQ(10.0 * Units::degree, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -116,8 +116,8 @@ TEST_F(SpecularSimulationTest, SetAngularScan)
     EXPECT_THROW(sim.setScan(scan3), std::runtime_error);
 
     EXPECT_EQ(10u, sim.coordinateAxis()->size());
-    EXPECT_EQ(1.0 * Units::degree, sim.coordinateAxis()->getMin());
-    EXPECT_EQ(10.0 * Units::degree, sim.coordinateAxis()->getMax());
+    EXPECT_EQ(1.0 * Units::degree, sim.coordinateAxis()->lowerBound());
+    EXPECT_EQ(10.0 * Units::degree, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -138,8 +138,8 @@ TEST_F(SpecularSimulationTest, SetQScan)
     const auto& beam = sim.instrument().beam();
 
     EXPECT_EQ(2u, sim.coordinateAxis()->size());
-    EXPECT_EQ(1.0, sim.coordinateAxis()->getMin());
-    EXPECT_EQ(3.0, sim.coordinateAxis()->getMax());
+    EXPECT_EQ(1.0, sim.coordinateAxis()->lowerBound());
+    EXPECT_EQ(3.0, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(1.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -153,8 +153,8 @@ TEST_F(SpecularSimulationTest, SetQScan)
     QSpecScan scan2(10, 1.0, 10.0);
     sim.setScan(scan2);
     EXPECT_EQ(10u, sim.coordinateAxis()->size());
-    EXPECT_EQ(1.0, sim.coordinateAxis()->getMin());
-    EXPECT_EQ(10.0, sim.coordinateAxis()->getMax());
+    EXPECT_EQ(1.0, sim.coordinateAxis()->lowerBound());
+    EXPECT_EQ(10.0, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());

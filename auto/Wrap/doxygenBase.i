@@ -443,12 +443,12 @@ retrieve the number of bins
 retrieve a 1d bin for the given index 
 ";
 
-%feature("docstring")  FixedBinAxis::getMin "double FixedBinAxis::getMin() const
+%feature("docstring")  FixedBinAxis::lowerBound "double FixedBinAxis::lowerBound() const
 
 Returns value of first point of axis. 
 ";
 
-%feature("docstring")  FixedBinAxis::getMax "double FixedBinAxis::getMax() const
+%feature("docstring")  FixedBinAxis::upperBound "double FixedBinAxis::upperBound() const
 
 Returns value of last point of axis. 
 ";
@@ -526,12 +526,12 @@ Sets the axis label.
 retrieve a 1d bin for the given index 
 ";
 
-%feature("docstring")  IAxis::getMin "virtual double IAxis::getMin() const =0
+%feature("docstring")  IAxis::lowerBound "virtual double IAxis::lowerBound() const =0
 
 Returns value of first point of axis. 
 ";
 
-%feature("docstring")  IAxis::getMax "virtual double IAxis::getMax() const =0
+%feature("docstring")  IAxis::upperBound "virtual double IAxis::upperBound() const =0
 
 Returns value of last point of axis. 
 ";
@@ -711,12 +711,12 @@ retrieve the number of bins
 retrieve a 1d bin for the given index 
 ";
 
-%feature("docstring")  PointwiseAxis::getMin "double PointwiseAxis::getMin() const override
+%feature("docstring")  PointwiseAxis::lowerBound "double PointwiseAxis::lowerBound() const override
 
 Returns value of first on-axis point. 
 ";
 
-%feature("docstring")  PointwiseAxis::getMax "double PointwiseAxis::getMax() const override
+%feature("docstring")  PointwiseAxis::upperBound "double PointwiseAxis::upperBound() const override
 
 Returns value of last on-axis point. 
 ";
@@ -1104,12 +1104,12 @@ retrieve the number of bins
 retrieve a 1d bin for the given index 
 ";
 
-%feature("docstring")  VariableBinAxis::getMin "double VariableBinAxis::getMin() const
+%feature("docstring")  VariableBinAxis::lowerBound "double VariableBinAxis::lowerBound() const
 
 Returns value of first point of axis. 
 ";
 
-%feature("docstring")  VariableBinAxis::getMax "double VariableBinAxis::getMax() const
+%feature("docstring")  VariableBinAxis::upperBound "double VariableBinAxis::upperBound() const
 
 Returns value of last point of axis. 
 ";

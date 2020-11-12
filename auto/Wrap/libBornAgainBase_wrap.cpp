@@ -25995,7 +25995,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IAxis_getMin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IAxis_lowerBound(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IAxis *arg1 = (IAxis *) 0 ;
   void *argp1 = 0 ;
@@ -26007,10 +26007,10 @@ SWIGINTERN PyObject *_wrap_IAxis_getMin(PyObject *SWIGUNUSEDPARM(self), PyObject
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_getMin" "', argument " "1"" of type '" "IAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_lowerBound" "', argument " "1"" of type '" "IAxis const *""'"); 
   }
   arg1 = reinterpret_cast< IAxis * >(argp1);
-  result = (double)((IAxis const *)arg1)->getMin();
+  result = (double)((IAxis const *)arg1)->lowerBound();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -26018,7 +26018,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IAxis_getMax(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IAxis_upperBound(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IAxis *arg1 = (IAxis *) 0 ;
   void *argp1 = 0 ;
@@ -26030,10 +26030,10 @@ SWIGINTERN PyObject *_wrap_IAxis_getMax(PyObject *SWIGUNUSEDPARM(self), PyObject
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_getMax" "', argument " "1"" of type '" "IAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_upperBound" "', argument " "1"" of type '" "IAxis const *""'"); 
   }
   arg1 = reinterpret_cast< IAxis * >(argp1);
-  result = (double)((IAxis const *)arg1)->getMax();
+  result = (double)((IAxis const *)arg1)->upperBound();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -26546,7 +26546,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_VariableBinAxis_getMin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_VariableBinAxis_lowerBound(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   VariableBinAxis *arg1 = (VariableBinAxis *) 0 ;
   void *argp1 = 0 ;
@@ -26558,10 +26558,10 @@ SWIGINTERN PyObject *_wrap_VariableBinAxis_getMin(PyObject *SWIGUNUSEDPARM(self)
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VariableBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_getMin" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_lowerBound" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< VariableBinAxis * >(argp1);
-  result = (double)((VariableBinAxis const *)arg1)->getMin();
+  result = (double)((VariableBinAxis const *)arg1)->lowerBound();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -26569,7 +26569,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_VariableBinAxis_getMax(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_VariableBinAxis_upperBound(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   VariableBinAxis *arg1 = (VariableBinAxis *) 0 ;
   void *argp1 = 0 ;
@@ -26581,10 +26581,10 @@ SWIGINTERN PyObject *_wrap_VariableBinAxis_getMax(PyObject *SWIGUNUSEDPARM(self)
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VariableBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_getMax" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VariableBinAxis_upperBound" "', argument " "1"" of type '" "VariableBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< VariableBinAxis * >(argp1);
-  result = (double)((VariableBinAxis const *)arg1)->getMax();
+  result = (double)((VariableBinAxis const *)arg1)->upperBound();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -27320,7 +27320,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FixedBinAxis_getMin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FixedBinAxis_lowerBound(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FixedBinAxis *arg1 = (FixedBinAxis *) 0 ;
   void *argp1 = 0 ;
@@ -27332,10 +27332,10 @@ SWIGINTERN PyObject *_wrap_FixedBinAxis_getMin(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FixedBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_getMin" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_lowerBound" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< FixedBinAxis * >(argp1);
-  result = (double)((FixedBinAxis const *)arg1)->getMin();
+  result = (double)((FixedBinAxis const *)arg1)->lowerBound();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -27343,7 +27343,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FixedBinAxis_getMax(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FixedBinAxis_upperBound(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FixedBinAxis *arg1 = (FixedBinAxis *) 0 ;
   void *argp1 = 0 ;
@@ -27355,10 +27355,10 @@ SWIGINTERN PyObject *_wrap_FixedBinAxis_getMax(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FixedBinAxis, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_getMax" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FixedBinAxis_upperBound" "', argument " "1"" of type '" "FixedBinAxis const *""'"); 
   }
   arg1 = reinterpret_cast< FixedBinAxis * >(argp1);
-  result = (double)((FixedBinAxis const *)arg1)->getMax();
+  result = (double)((FixedBinAxis const *)arg1)->upperBound();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -33455,16 +33455,16 @@ static PyMethodDef SwigMethods[] = {
 		"retrieve a 1d bin for the given index \n"
 		"\n"
 		""},
-	 { "IAxis_getMin", _wrap_IAxis_getMin, METH_O, "\n"
-		"IAxis_getMin(IAxis self) -> double\n"
-		"virtual double IAxis::getMin() const =0\n"
+	 { "IAxis_lowerBound", _wrap_IAxis_lowerBound, METH_O, "\n"
+		"IAxis_lowerBound(IAxis self) -> double\n"
+		"virtual double IAxis::lowerBound() const =0\n"
 		"\n"
 		"Returns value of first point of axis. \n"
 		"\n"
 		""},
-	 { "IAxis_getMax", _wrap_IAxis_getMax, METH_O, "\n"
-		"IAxis_getMax(IAxis self) -> double\n"
-		"virtual double IAxis::getMax() const =0\n"
+	 { "IAxis_upperBound", _wrap_IAxis_upperBound, METH_O, "\n"
+		"IAxis_upperBound(IAxis self) -> double\n"
+		"virtual double IAxis::upperBound() const =0\n"
 		"\n"
 		"Returns value of last point of axis. \n"
 		"\n"
@@ -33572,16 +33572,16 @@ static PyMethodDef SwigMethods[] = {
 		"retrieve a 1d bin for the given index \n"
 		"\n"
 		""},
-	 { "VariableBinAxis_getMin", _wrap_VariableBinAxis_getMin, METH_O, "\n"
-		"VariableBinAxis_getMin(VariableBinAxis self) -> double\n"
-		"double VariableBinAxis::getMin() const\n"
+	 { "VariableBinAxis_lowerBound", _wrap_VariableBinAxis_lowerBound, METH_O, "\n"
+		"VariableBinAxis_lowerBound(VariableBinAxis self) -> double\n"
+		"double VariableBinAxis::lowerBound() const\n"
 		"\n"
 		"Returns value of first point of axis. \n"
 		"\n"
 		""},
-	 { "VariableBinAxis_getMax", _wrap_VariableBinAxis_getMax, METH_O, "\n"
-		"VariableBinAxis_getMax(VariableBinAxis self) -> double\n"
-		"double VariableBinAxis::getMax() const\n"
+	 { "VariableBinAxis_upperBound", _wrap_VariableBinAxis_upperBound, METH_O, "\n"
+		"VariableBinAxis_upperBound(VariableBinAxis self) -> double\n"
+		"double VariableBinAxis::upperBound() const\n"
 		"\n"
 		"Returns value of last point of axis. \n"
 		"\n"
@@ -33769,16 +33769,16 @@ static PyMethodDef SwigMethods[] = {
 		"retrieve a 1d bin for the given index \n"
 		"\n"
 		""},
-	 { "FixedBinAxis_getMin", _wrap_FixedBinAxis_getMin, METH_O, "\n"
-		"FixedBinAxis_getMin(FixedBinAxis self) -> double\n"
-		"double FixedBinAxis::getMin() const\n"
+	 { "FixedBinAxis_lowerBound", _wrap_FixedBinAxis_lowerBound, METH_O, "\n"
+		"FixedBinAxis_lowerBound(FixedBinAxis self) -> double\n"
+		"double FixedBinAxis::lowerBound() const\n"
 		"\n"
 		"Returns value of first point of axis. \n"
 		"\n"
 		""},
-	 { "FixedBinAxis_getMax", _wrap_FixedBinAxis_getMax, METH_O, "\n"
-		"FixedBinAxis_getMax(FixedBinAxis self) -> double\n"
-		"double FixedBinAxis::getMax() const\n"
+	 { "FixedBinAxis_upperBound", _wrap_FixedBinAxis_upperBound, METH_O, "\n"
+		"FixedBinAxis_upperBound(FixedBinAxis self) -> double\n"
+		"double FixedBinAxis::upperBound() const\n"
 		"\n"
 		"Returns value of last point of axis. \n"
 		"\n"

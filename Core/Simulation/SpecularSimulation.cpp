@@ -110,7 +110,7 @@ SimulationResult SpecularSimulation::result() const
 void SpecularSimulation::setScan(const ISpecularScan& scan)
 {
     // TODO: move inside AngularSpecScan when pointwise resolution is implemented
-    if (scan.coordinateAxis()->getMin() < 0.0)
+    if (scan.coordinateAxis()->lowerBound() < 0.0)
         throw std::runtime_error(
             "Error in SpecularSimulation::setScan: minimum value on coordinate axis is negative.");
 

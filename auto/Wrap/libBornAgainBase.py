@@ -2059,25 +2059,25 @@ class IAxis(object):
         """
         return _libBornAgainBase.IAxis_bin(self, index)
 
-    def getMin(self):
+    def lowerBound(self):
         r"""
-        getMin(IAxis self) -> double
-        virtual double IAxis::getMin() const =0
+        lowerBound(IAxis self) -> double
+        virtual double IAxis::lowerBound() const =0
 
         Returns value of first point of axis. 
 
         """
-        return _libBornAgainBase.IAxis_getMin(self)
+        return _libBornAgainBase.IAxis_lowerBound(self)
 
-    def getMax(self):
+    def upperBound(self):
         r"""
-        getMax(IAxis self) -> double
-        virtual double IAxis::getMax() const =0
+        upperBound(IAxis self) -> double
+        virtual double IAxis::upperBound() const =0
 
         Returns value of last point of axis. 
 
         """
-        return _libBornAgainBase.IAxis_getMax(self)
+        return _libBornAgainBase.IAxis_upperBound(self)
 
     def span(self):
         r"""
@@ -2238,25 +2238,25 @@ class VariableBinAxis(IAxis):
         """
         return _libBornAgainBase.VariableBinAxis_bin(self, index)
 
-    def getMin(self):
+    def lowerBound(self):
         r"""
-        getMin(VariableBinAxis self) -> double
-        double VariableBinAxis::getMin() const
+        lowerBound(VariableBinAxis self) -> double
+        double VariableBinAxis::lowerBound() const
 
         Returns value of first point of axis. 
 
         """
-        return _libBornAgainBase.VariableBinAxis_getMin(self)
+        return _libBornAgainBase.VariableBinAxis_lowerBound(self)
 
-    def getMax(self):
+    def upperBound(self):
         r"""
-        getMax(VariableBinAxis self) -> double
-        double VariableBinAxis::getMax() const
+        upperBound(VariableBinAxis self) -> double
+        double VariableBinAxis::upperBound() const
 
         Returns value of last point of axis. 
 
         """
-        return _libBornAgainBase.VariableBinAxis_getMax(self)
+        return _libBornAgainBase.VariableBinAxis_upperBound(self)
 
     def binCenter(self, index):
         r"""
@@ -2528,25 +2528,25 @@ class FixedBinAxis(IAxis):
         """
         return _libBornAgainBase.FixedBinAxis_bin(self, index)
 
-    def getMin(self):
+    def lowerBound(self):
         r"""
-        getMin(FixedBinAxis self) -> double
-        double FixedBinAxis::getMin() const
+        lowerBound(FixedBinAxis self) -> double
+        double FixedBinAxis::lowerBound() const
 
         Returns value of first point of axis. 
 
         """
-        return _libBornAgainBase.FixedBinAxis_getMin(self)
+        return _libBornAgainBase.FixedBinAxis_lowerBound(self)
 
-    def getMax(self):
+    def upperBound(self):
         r"""
-        getMax(FixedBinAxis self) -> double
-        double FixedBinAxis::getMax() const
+        upperBound(FixedBinAxis self) -> double
+        double FixedBinAxis::upperBound() const
 
         Returns value of last point of axis. 
 
         """
-        return _libBornAgainBase.FixedBinAxis_getMax(self)
+        return _libBornAgainBase.FixedBinAxis_upperBound(self)
 
     def binCenter(self, index):
         r"""

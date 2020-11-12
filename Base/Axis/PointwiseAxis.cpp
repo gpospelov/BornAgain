@@ -31,12 +31,12 @@ Bin1D PointwiseAxis::bin(size_t index) const
     return Bin1D(lowerBoundary(index), upperBoundary(index));
 }
 
-double PointwiseAxis::getMin() const
+double PointwiseAxis::lowerBound() const
 {
     return lowerBoundary(0);
 }
 
-double PointwiseAxis::getMax() const
+double PointwiseAxis::upperBound() const
 {
     return upperBoundary(m_coordinates.size() - 1);
 }

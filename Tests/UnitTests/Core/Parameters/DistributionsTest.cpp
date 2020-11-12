@@ -15,8 +15,8 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
 {
     std::unique_ptr<DistributionGate> P_distr_gate{new DistributionGate()};
     EXPECT_EQ(0.5, P_distr_gate->getMean());
-    EXPECT_EQ(0.0, P_distr_gate->getMin());
-    EXPECT_EQ(1.0, P_distr_gate->getMax());
+    EXPECT_EQ(0.0, P_distr_gate->lowerBound());
+    EXPECT_EQ(1.0, P_distr_gate->upperBound());
     EXPECT_EQ(1.0, P_distr_gate->probabilityDensity(1.0));
     EXPECT_EQ(0, P_distr_gate->probabilityDensity(3.0));
 
@@ -44,8 +44,8 @@ TEST_F(DistributionsTest, DistributionGateConstructor)
     // Test distribution with m_min < m_max:
     DistributionGate distr2(1.0, 2.0);
     EXPECT_EQ(1.5, distr2.getMean());
-    EXPECT_EQ(1.0, distr2.getMin());
-    EXPECT_EQ(2.0, distr2.getMax());
+    EXPECT_EQ(1.0, distr2.lowerBound());
+    EXPECT_EQ(2.0, distr2.upperBound());
     EXPECT_EQ(1.0, distr2.probabilityDensity(1));
     EXPECT_EQ(0, distr2.probabilityDensity(3));
 
@@ -71,8 +71,8 @@ TEST_F(DistributionsTest, DistributionGateConstructor)
 TEST_F(DistributionsTest, DistributionGateParameters)
 {
     DistributionGate gate(2.0, 3.0);
-    EXPECT_EQ(gate.getMin(), gate.parameter("Min")->value());
-    EXPECT_EQ(gate.getMax(), gate.parameter("Max")->value());
+    EXPECT_EQ(gate.lowerBound(), gate.parameter("Min")->value());
+    EXPECT_EQ(gate.upperBound(), gate.parameter("Max")->value());
 
     EXPECT_EQ(gate.parameter("Min")->unit(), "");
     EXPECT_EQ(gate.parameter("Max")->unit(), "");
@@ -91,8 +91,8 @@ TEST_F(DistributionsTest, DistributionGateClone)
     DistributionGate gate(2.0, 3.0);
     DistributionGate* clone = gate.clone();
     EXPECT_EQ(gate.getMean(), clone->getMean());
-    EXPECT_EQ(gate.getMin(), clone->getMin());
-    EXPECT_EQ(gate.getMax(), clone->getMax());
+    EXPECT_EQ(gate.lowerBound(), clone->lowerBound());
+    EXPECT_EQ(gate.upperBound(), clone->upperBound());
     delete clone;
 }
 

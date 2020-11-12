@@ -39,10 +39,10 @@ IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const
 
 bool IAxis::contains(double value) const
 {
-    return value >= getMin() && value < getMax();
+    return value >= lowerBound() && value < upperBound();
 }
 
 double IAxis::span() const
 {
-    return getMax() - getMin();
+    return upperBound() - lowerBound();
 }

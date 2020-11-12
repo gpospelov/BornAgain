@@ -40,8 +40,8 @@ public:
 
     Bin1D bin(size_t index) const;
 
-    double getMin() const;
-    double getMax() const;
+    double lowerBound() const;
+    double upperBound() const;
 
     double binCenter(size_t index) const;
 

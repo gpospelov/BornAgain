@@ -167,8 +167,8 @@ RectangularPixel* RectangularDetector::regionOfInterestPixel() const
         width = p_roi->getXup() - p_roi->getXlow();
         height = p_roi->getYup() - p_roi->getYlow();
     } else {
-        u_min = u_axis.getMin();
-        v_min = v_axis.getMin();
+        u_min = u_axis.lowerBound();
+        v_min = v_axis.lowerBound();
         width = getWidth();
         height = getHeight();
     }

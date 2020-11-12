@@ -13,8 +13,8 @@ TEST_F(VariableBinAxisTest, VectorOfUnitLength)
     std::vector<double> values(arr, arr + sizeof(arr) / sizeof(arr[0]));
     VariableBinAxis axis("name", 1, values);
     EXPECT_EQ(size_t(1), axis.size());
-    EXPECT_EQ(0.0, axis.getMin());
-    EXPECT_EQ(1.0, axis.getMax());
+    EXPECT_EQ(0.0, axis.lowerBound());
+    EXPECT_EQ(1.0, axis.upperBound());
     EXPECT_EQ(0.5, axis[0]);
 }
 
@@ -49,8 +49,8 @@ TEST_F(VariableBinAxisTest, IndexedAccessor)
     VariableBinAxis a1("name", nbins, values);
 
     ASSERT_EQ(100u, a1.size());
-    EXPECT_EQ(0.0, a1.getMin());
-    EXPECT_EQ(10.0, a1.getMax());
+    EXPECT_EQ(0.0, a1.lowerBound());
+    EXPECT_EQ(10.0, a1.upperBound());
     EXPECT_DOUBLE_EQ(0.05, a1[0]);
     EXPECT_DOUBLE_EQ(0.15, a1[1]);
     EXPECT_DOUBLE_EQ(6.55, a1[65]);
@@ -215,8 +215,8 @@ TEST_F(VariableBinAxisTest, ClippedAxis)
 
     VariableBinAxis* clip2 = axis.createClippedAxis(-0.5, 1.5);
     EXPECT_EQ(clip2->size(), size_t(3));
-    EXPECT_EQ(clip2->getMin(), -0.5);
-    EXPECT_EQ(clip2->getMax(), 2.0);
+    EXPECT_EQ(clip2->lowerBound(), -0.5);
+    EXPECT_EQ(clip2->upperBound(), 2.0);
     std::vector<double> centers = clip2->binCenters();
     EXPECT_EQ(centers[0], 0.0);
     EXPECT_EQ(centers[1], 0.75);
@@ -226,8 +226,8 @@ TEST_F(VariableBinAxisTest, ClippedAxis)
 
     VariableBinAxis* clip3 = axis.createClippedAxis(-0.5, 0.99);
     EXPECT_EQ(clip3->size(), size_t(2));
-    EXPECT_EQ(clip3->getMin(), -0.5);
-    EXPECT_EQ(clip3->getMax(), 1.0);
+    EXPECT_EQ(clip3->lowerBound(), -0.5);
+    EXPECT_EQ(clip3->upperBound(), 1.0);
     std::vector<double> boundaries = clip3->binBoundaries();
     EXPECT_EQ(boundaries[0], -0.5);
     EXPECT_EQ(boundaries[1], 0.5);

@@ -25,8 +25,8 @@ TEST_F(PointwiseAxisTest, BasicProperties)
     std::vector<double> coordinates{0.0, 1.0, 4.0, 8.0};
     PointwiseAxis a1("length", coordinates);
     EXPECT_EQ(4u, a1.size());
-    EXPECT_EQ(0.0, a1.getMin());
-    EXPECT_EQ(8.0, a1.getMax());
+    EXPECT_EQ(0.0, a1.lowerBound());
+    EXPECT_EQ(8.0, a1.upperBound());
     EXPECT_EQ(0.0, a1[0]);
     EXPECT_EQ(1.0, a1[1]);
     EXPECT_EQ(4.0, a1[2]);

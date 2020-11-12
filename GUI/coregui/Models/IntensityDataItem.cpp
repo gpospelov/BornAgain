@@ -120,13 +120,13 @@ double IntensityDataItem::getUpperX() const
 double IntensityDataItem::getXmin() const
 {
     const double defaultXmin(0.0);
-    return m_data ? m_data->axis(0).getMin() : defaultXmin;
+    return m_data ? m_data->axis(0).lowerBound() : defaultXmin;
 }
 
 double IntensityDataItem::getXmax() const
 {
     const double defaultXmax(1.0);
-    return m_data ? m_data->axis(0).getMax() : defaultXmax;
+    return m_data ? m_data->axis(0).upperBound() : defaultXmax;
 }
 
 double IntensityDataItem::getLowerY() const
@@ -142,13 +142,13 @@ double IntensityDataItem::getUpperY() const
 double IntensityDataItem::getYmin() const
 {
     const double defaultYmin(0.0);
-    return m_data ? m_data->axis(1).getMin() : defaultYmin;
+    return m_data ? m_data->axis(1).lowerBound() : defaultYmin;
 }
 
 double IntensityDataItem::getYmax() const
 {
     const double defaultYmax(1.0);
-    return m_data ? m_data->axis(1).getMax() : defaultYmax;
+    return m_data ? m_data->axis(1).upperBound() : defaultYmax;
 }
 
 double IntensityDataItem::getLowerZ() const

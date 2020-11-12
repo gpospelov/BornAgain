@@ -51,9 +51,9 @@ Bin1D FixedBinAxis::bin(size_t index) const
 
 size_t FixedBinAxis::findClosestIndex(double value) const
 {
-    if (value < getMin()) {
+    if (value < lowerBound()) {
         return 0;
-    } else if (value >= getMax()) {
+    } else if (value >= upperBound()) {
         return m_nbins - 1;
     }
 
@@ -88,9 +88,9 @@ FixedBinAxis* FixedBinAxis::createClippedAxis(double left, double right) const
         throw Exceptions::LogicErrorException("FixedBinAxis::createClippedAxis() -> Error. "
                                               "'left' should be smaller than 'right'");
 
-    if (left < getMin())
+    if (left < lowerBound())
         left = bin(0).getMidPoint();
-    if (right >= getMax())
+    if (right >= upperBound())
         right = bin(size() - 1).getMidPoint();
 
     size_t nbin1 = findClosestIndex(left);
@@ -103,8 +103,8 @@ FixedBinAxis* FixedBinAxis::createClippedAxis(double left, double right) const
 void FixedBinAxis::print(std::ostream& ostr) const
 {
     ostr << "FixedBinAxis(\"" << getName() << "\", " << size() << ", "
-         << std::setprecision(std::numeric_limits<double>::digits10 + 2) << getMin() << ", "
-         << getMax() << ")";
+         << std::setprecision(std::numeric_limits<double>::digits10 + 2) << lowerBound() << ", "
+         << upperBound() << ")";
 }
 
 bool FixedBinAxis::equals(const IAxis& other) const
@@ -127,7 +127,7 @@ std::string FixedBinAxis::pyString(const std::string& units, size_t) const
 {
     std::ostringstream result;
     result << "ba.FixedBinAxis(" << pyfmt::printString(getName()) << ", " << size() << ", "
-           << pyfmt::printValue(getMin(), units) << ", " << pyfmt::printValue(getMax(), units)
+           << pyfmt::printValue(lowerBound(), units) << ", " << pyfmt::printValue(upperBound(), units)
            << ")";
     return result.str();
 }

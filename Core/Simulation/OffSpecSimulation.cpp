@@ -53,7 +53,7 @@ void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_
     if (alpha_axis.size() < 1)
         throw Exceptions::ClassInitializationException("OffSpecSimulation::prepareSimulation() "
                                                        "-> Error. Incoming alpha range size < 1.");
-    const double alpha_zero = alpha_axis.getMin();
+    const double alpha_zero = alpha_axis.lowerBound();
     instrument().setBeamParameters(wavelength, alpha_zero, phi_i);
     updateIntensityMap();
 }

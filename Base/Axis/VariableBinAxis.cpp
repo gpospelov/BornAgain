@@ -55,12 +55,12 @@ Bin1D VariableBinAxis::bin(size_t index) const
     return result;
 }
 
-double VariableBinAxis::getMin() const
+double VariableBinAxis::lowerBound() const
 {
     return m_bin_boundaries.front();
 }
 
-double VariableBinAxis::getMax() const
+double VariableBinAxis::upperBound() const
 {
     return m_bin_boundaries.back();
 }
@@ -76,9 +76,9 @@ size_t VariableBinAxis::findClosestIndex(double value) const
         throw Exceptions::ClassInitializationException(
             "VariableBinAxis::findClosestIndex() -> Error! "
             "VariableBinAxis not  correctly initialized");
-    if (value < getMin()) {
+    if (value < lowerBound()) {
         return 0;
-    } else if (value >= getMax()) {
+    } else if (value >= upperBound()) {
         return m_nbins - 1;
     }
 
@@ -107,9 +107,9 @@ VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) c
         throw Exceptions::LogicErrorException("VariableBinAxis::createClippedAxis() -> Error. "
                                               "'left'' should be smaller than 'right'");
 
-    if (left < getMin())
+    if (left < lowerBound())
         left = bin(0).getMidPoint();
-    if (right >= getMax())
+    if (right >= upperBound())
         right = bin(size() - 1).getMidPoint();
 
     size_t nbin1 = findClosestIndex(left);

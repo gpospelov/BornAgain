@@ -49,10 +49,10 @@ public:
     virtual Bin1D bin(size_t index) const = 0;
 
     //! Returns value of first point of axis
-    virtual double getMin() const = 0;
+    virtual double lowerBound() const = 0;
 
     //! Returns value of last point of axis
-    virtual double getMax() const = 0;
+    virtual double upperBound() const = 0;
 
     //! Returns distance from first to last point
     double span() const;

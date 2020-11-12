@@ -133,8 +133,8 @@ void Data1DViewItem::setAxesRangeToData()
     if (!data)
         return;
 
-    setLowerX(data->axis(0).getMin());
-    setUpperX(data->axis(0).getMax());
+    setLowerX(data->axis(0).lowerBound());
+    setUpperX(data->axis(0).upperBound());
 
     auto data_range = dataRange(data.get());
     setLowerY(data_range.first);

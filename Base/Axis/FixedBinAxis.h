@@ -39,8 +39,8 @@ public:
 
     Bin1D bin(size_t index) const;
 
-    double getMin() const { return m_start; }
-    double getMax() const { return m_end; }
+    double lowerBound() const { return m_start; }
+    double upperBound() const { return m_end; }
 
     double binCenter(size_t index) const { return (*this)[index]; }
 

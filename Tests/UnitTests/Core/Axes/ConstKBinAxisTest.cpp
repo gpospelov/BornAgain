@@ -38,8 +38,8 @@ protected:
 TEST_F(ConstKBinAxisTest, TypicalAxis)
 {
     EXPECT_EQ(m_nbins, m_axis.size());
-    EXPECT_EQ(m_start, m_axis.getMin());
-    EXPECT_EQ(m_end, m_axis.getMax());
+    EXPECT_EQ(m_start, m_axis.lowerBound());
+    EXPECT_EQ(m_end, m_axis.upperBound());
 
     EXPECT_DOUBLE_EQ(m_start, m_axis.binBoundaries().front());
     EXPECT_DOUBLE_EQ(m_end, m_axis.binBoundaries().back());

@@ -158,8 +158,8 @@ std::string SimulationToPython::defineDetector(const ISimulation* simulation) co
             if (index != 0)
                 result << ", ";
             result << det->axis(index).size() << ", "
-                   << pyfmt::printDegrees(det->axis(index).getMin()) << ", "
-                   << pyfmt::printDegrees(det->axis(index).getMax());
+                   << pyfmt::printDegrees(det->axis(index).lowerBound()) << ", "
+                   << pyfmt::printDegrees(det->axis(index).upperBound());
         }
         result << ")\n";
     } else if (const auto* const det = dynamic_cast<const RectangularDetector*>(detector)) {

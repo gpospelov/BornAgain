@@ -31,8 +31,8 @@ TEST_F(IOStrategyTest, TestINTStrategies)
 
     auto compare_axis = [this, &result](size_t index) {
         EXPECT_EQ(m_model_data.axis(index).size(), result->axis(index).size());
-        EXPECT_EQ(m_model_data.axis(index).getMin(), result->axis(index).getMin());
-        EXPECT_EQ(m_model_data.axis(index).getMax(), result->axis(index).getMax());
+        EXPECT_EQ(m_model_data.axis(index).lowerBound(), result->axis(index).lowerBound());
+        EXPECT_EQ(m_model_data.axis(index).upperBound(), result->axis(index).upperBound());
     };
 
     EXPECT_EQ(m_model_data.rank(), result->rank());

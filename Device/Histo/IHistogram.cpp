@@ -55,12 +55,12 @@ const IAxis& IHistogram::yAxis() const
 
 double IHistogram::getXmin() const
 {
-    return xAxis().getMin();
+    return xAxis().lowerBound();
 }
 
 double IHistogram::getXmax() const
 {
-    return xAxis().getMax();
+    return xAxis().upperBound();
 }
 
 size_t IHistogram::getNbinsX() const
@@ -70,12 +70,12 @@ size_t IHistogram::getNbinsX() const
 
 double IHistogram::getYmin() const
 {
-    return yAxis().getMin();
+    return yAxis().lowerBound();
 }
 
 double IHistogram::getYmax() const
 {
-    return yAxis().getMax();
+    return yAxis().upperBound();
 }
 
 size_t IHistogram::getNbinsY() const

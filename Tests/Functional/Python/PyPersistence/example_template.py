@@ -40,8 +40,8 @@ def get_simulation_DepthProbe():
     z_axis = simulation.getZAxis()
     footprint = beam.footprintFactor()
     simulation.setBeamParameters(
-        wavelength, 10, incl_axis.getMin(), incl_axis.getMax(), footprint)
-    simulation.setZSpan(10, z_axis.getMin(), z_axis.getMax())
+        wavelength, 10, incl_axis.lowerBound(), incl_axis.upperBound(), footprint)
+    simulation.setZSpan(10, z_axis.lowerBound(), z_axis.upperBound())
     return simulation
 
 
@@ -67,8 +67,8 @@ def get_simulation_GenericExample():
     # preserving axes range, making less bins
     ax = detector.axis(0)
     ay = detector.axis(1)
-    xmin, xmax = ax.getMin(), ax.getMax()
-    ymin, ymax = ay.getMin(), ay.getMax()
+    xmin, xmax = ax.lowerBound(), ax.upperBound()
+    ymin, ymax = ay.lowerBound(), ay.upperBound()
     simulation.setDetectorParameters(5, xmin, xmax, 6, ymin, ymax)
 
     return simulation

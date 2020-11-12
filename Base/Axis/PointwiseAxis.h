@@ -54,10 +54,10 @@ public:
     Bin1D bin(size_t index) const override;
 
     //! Returns value of first on-axis point
-    double getMin() const override;
+    double lowerBound() const override;
 
     //! Returns value of last on-axis point
-    double getMax() const override;
+    double upperBound() const override;
 
     //! Returns the coordinate corresponding to the
     //! given index.

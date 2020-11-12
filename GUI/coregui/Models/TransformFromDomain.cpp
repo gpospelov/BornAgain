@@ -395,15 +395,15 @@ void TransformFromDomain::setSphericalDetector(SphericalDetectorItem* detector_i
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(SphericalDetectorItem::P_PHI_AXIS));
     ASSERT(phiAxisItem);
     phiAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)phi_axis.size());
-    phiAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, Units::rad2deg(phi_axis.getMin()));
-    phiAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, Units::rad2deg(phi_axis.getMax()));
+    phiAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, Units::rad2deg(phi_axis.lowerBound()));
+    phiAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, Units::rad2deg(phi_axis.upperBound()));
 
     BasicAxisItem* alphaAxisItem =
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
     ASSERT(alphaAxisItem);
     alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.size());
-    alphaAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, Units::rad2deg(alpha_axis.getMin()));
-    alphaAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, Units::rad2deg(alpha_axis.getMax()));
+    alphaAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, Units::rad2deg(alpha_axis.lowerBound()));
+    alphaAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, Units::rad2deg(alpha_axis.upperBound()));
 }
 
 void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detector_item,
@@ -631,8 +631,8 @@ void TransformFromDomain::setAxisItem(SessionItem* item, const IAxis& axis, doub
         throw GUIHelpers::Error("TransformFromDomain::setAxisItem() -> Error. Unexpected axis");
 
     item->setItemValue(BasicAxisItem::P_NBINS, static_cast<int>(axis.size()));
-    item->setItemValue(BasicAxisItem::P_MIN_DEG, factor * axis.getMin());
-    item->setItemValue(BasicAxisItem::P_MAX_DEG, factor * axis.getMax());
+    item->setItemValue(BasicAxisItem::P_MIN_DEG, factor * axis.lowerBound());
+    item->setItemValue(BasicAxisItem::P_MAX_DEG, factor * axis.upperBound());
     item->setItemValue(BasicAxisItem::P_TITLE, QString::fromStdString(axis.getName()));
 }
 
@@ -797,8 +797,8 @@ void setDistribution(SessionItem* part_distr_item, ParameterDistribution par_dis
     SessionItem* item = 0;
     if (const DistributionGate* distr = dynamic_cast<const DistributionGate*>(p_distribution)) {
         item = part_distr_item->setGroupProperty(group_name, "DistributionGate");
-        item->setItemValue(DistributionGateItem::P_MIN, factor * distr->getMin());
-        item->setItemValue(DistributionGateItem::P_MAX, factor * distr->getMax());
+        item->setItemValue(DistributionGateItem::P_MIN, factor * distr->lowerBound());
+        item->setItemValue(DistributionGateItem::P_MAX, factor * distr->upperBound());
     } else if (const DistributionLorentz* distr =
                    dynamic_cast<const DistributionLorentz*>(p_distribution)) {
         item = part_distr_item->setGroupProperty(group_name, "DistributionLorentz");

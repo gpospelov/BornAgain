@@ -66,29 +66,29 @@ void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test
     auto axis_default = test_object.createConvertedAxis(0, Axes::Units::DEFAULT);
     EXPECT_TRUE(dynamic_cast<PointwiseAxis*>(axis_default.get()));
     EXPECT_EQ(axis_default->size(), test_object.axisSize(0));
-    EXPECT_EQ(axis_default->getMin(), test_object.calculateMin(0, Axes::Units::DEFAULT));
-    EXPECT_EQ(axis_default->getMax(), test_object.calculateMax(0, Axes::Units::DEFAULT));
+    EXPECT_EQ(axis_default->lowerBound(), test_object.calculateMin(0, Axes::Units::DEFAULT));
+    EXPECT_EQ(axis_default->upperBound(), test_object.calculateMax(0, Axes::Units::DEFAULT));
 
     // QSPACE
     auto axis_qspace = test_object.createConvertedAxis(0, Axes::Units::QSPACE);
     EXPECT_TRUE(dynamic_cast<PointwiseAxis*>(axis_qspace.get()));
     EXPECT_EQ(axis_qspace->size(), test_object.axisSize(0));
-    EXPECT_EQ(axis_qspace->getMin(), test_object.calculateMin(0, Axes::Units::QSPACE));
-    EXPECT_EQ(axis_qspace->getMax(), test_object.calculateMax(0, Axes::Units::QSPACE));
+    EXPECT_EQ(axis_qspace->lowerBound(), test_object.calculateMin(0, Axes::Units::QSPACE));
+    EXPECT_EQ(axis_qspace->upperBound(), test_object.calculateMax(0, Axes::Units::QSPACE));
 
     // NBINS
     auto axis_nbins = test_object.createConvertedAxis(0, Axes::Units::NBINS);
     EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis_nbins.get()));
     EXPECT_EQ(axis_nbins->size(), test_object.axisSize(0));
-    EXPECT_EQ(axis_nbins->getMin(), test_object.calculateMin(0, Axes::Units::NBINS));
-    EXPECT_EQ(axis_nbins->getMax(), test_object.calculateMax(0, Axes::Units::NBINS));
+    EXPECT_EQ(axis_nbins->lowerBound(), test_object.calculateMin(0, Axes::Units::NBINS));
+    EXPECT_EQ(axis_nbins->upperBound(), test_object.calculateMax(0, Axes::Units::NBINS));
 
     // RQ4
     auto axis_rq4 = test_object.createConvertedAxis(0, Axes::Units::RQ4);
     EXPECT_TRUE(dynamic_cast<PointwiseAxis*>(axis_rq4.get()));
     EXPECT_EQ(axis_rq4->size(), test_object.axisSize(0));
-    EXPECT_EQ(axis_rq4->getMin(), test_object.calculateMin(0, Axes::Units::RQ4));
-    EXPECT_EQ(axis_rq4->getMax(), test_object.calculateMax(0, Axes::Units::RQ4));
+    EXPECT_EQ(axis_rq4->lowerBound(), test_object.calculateMin(0, Axes::Units::RQ4));
+    EXPECT_EQ(axis_rq4->upperBound(), test_object.calculateMax(0, Axes::Units::RQ4));
     EXPECT_TRUE(*axis_rq4 == *axis_qspace);
 
     OutputData<double> fake_data;
@@ -133,30 +133,30 @@ void UnitConverter1DTest::checkQSpecConverter(const UnitConverter1D& test_object
     auto axis_default = test_object.createConvertedAxis(0, Axes::Units::DEFAULT);
     EXPECT_TRUE(dynamic_cast<PointwiseAxis*>(axis_default.get()));
     EXPECT_EQ(axis_default->size(), test_object.axisSize(0));
-    EXPECT_EQ(axis_default->getMin(), test_object.calculateMin(0, Axes::Units::DEFAULT));
-    EXPECT_EQ(axis_default->getMax(), test_object.calculateMax(0, Axes::Units::DEFAULT));
+    EXPECT_EQ(axis_default->lowerBound(), test_object.calculateMin(0, Axes::Units::DEFAULT));
+    EXPECT_EQ(axis_default->upperBound(), test_object.calculateMax(0, Axes::Units::DEFAULT));
 
     // QSPACE
     auto axis_qspace = test_object.createConvertedAxis(0, Axes::Units::QSPACE);
     EXPECT_TRUE(dynamic_cast<PointwiseAxis*>(axis_qspace.get()));
     EXPECT_EQ(axis_qspace->size(), test_object.axisSize(0));
-    EXPECT_EQ(axis_qspace->getMin(), test_object.calculateMin(0, Axes::Units::QSPACE));
-    EXPECT_EQ(axis_qspace->getMax(), test_object.calculateMax(0, Axes::Units::QSPACE));
+    EXPECT_EQ(axis_qspace->lowerBound(), test_object.calculateMin(0, Axes::Units::QSPACE));
+    EXPECT_EQ(axis_qspace->upperBound(), test_object.calculateMax(0, Axes::Units::QSPACE));
     EXPECT_EQ(*axis_default, *axis_qspace);
 
     // NBINS
     auto axis_nbins = test_object.createConvertedAxis(0, Axes::Units::NBINS);
     EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis_nbins.get()));
     EXPECT_EQ(axis_nbins->size(), test_object.axisSize(0));
-    EXPECT_EQ(axis_nbins->getMin(), test_object.calculateMin(0, Axes::Units::NBINS));
-    EXPECT_EQ(axis_nbins->getMax(), test_object.calculateMax(0, Axes::Units::NBINS));
+    EXPECT_EQ(axis_nbins->lowerBound(), test_object.calculateMin(0, Axes::Units::NBINS));
+    EXPECT_EQ(axis_nbins->upperBound(), test_object.calculateMax(0, Axes::Units::NBINS));
 
     // RQ4
     auto axis_rq4 = test_object.createConvertedAxis(0, Axes::Units::RQ4);
     EXPECT_TRUE(dynamic_cast<PointwiseAxis*>(axis_rq4.get()));
     EXPECT_EQ(axis_rq4->size(), test_object.axisSize(0));
-    EXPECT_EQ(axis_rq4->getMin(), test_object.calculateMin(0, Axes::Units::RQ4));
-    EXPECT_EQ(axis_rq4->getMax(), test_object.calculateMax(0, Axes::Units::RQ4));
+    EXPECT_EQ(axis_rq4->lowerBound(), test_object.calculateMin(0, Axes::Units::RQ4));
+    EXPECT_EQ(axis_rq4->upperBound(), test_object.calculateMax(0, Axes::Units::RQ4));
     EXPECT_TRUE(*axis_rq4 == *axis_qspace);
 
     OutputData<double> fake_data;

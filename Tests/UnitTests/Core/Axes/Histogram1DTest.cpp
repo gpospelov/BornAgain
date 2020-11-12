@@ -139,8 +139,8 @@ TEST_F(Histogram1DTest, CreateHistogram)
     std::unique_ptr<IHistogram> hist(IHistogram::createHistogram(data));
     EXPECT_EQ(size_t(1), hist->rank());
     EXPECT_EQ(data.getAllocatedSize(), hist->getNbinsX());
-    EXPECT_EQ(data.axis(0).getMin(), hist->getXmin());
-    EXPECT_EQ(data.axis(0).getMax(), hist->getXmax());
+    EXPECT_EQ(data.axis(0).lowerBound(), hist->getXmin());
+    EXPECT_EQ(data.axis(0).upperBound(), hist->getXmax());
     for (size_t i = 0; i < hist->getTotalNumberOfBins(); ++i) {
         EXPECT_EQ(data[i], hist->binContent(i));
         EXPECT_EQ(data[i], hist->binAverage(i));
@@ -161,8 +161,8 @@ TEST_F(Histogram1DTest, CreateOutputData)
     std::unique_ptr<OutputData<double>> data(hist.createOutputData(IHistogram::DataType::INTEGRAL));
     EXPECT_EQ(size_t(1), data->rank());
     EXPECT_EQ(data->getAllocatedSize(), hist.getNbinsX());
-    EXPECT_EQ(data->axis(0).getMin(), hist.getXmin());
-    EXPECT_EQ(data->axis(0).getMax(), hist.getXmax());
+    EXPECT_EQ(data->axis(0).lowerBound(), hist.getXmin());
+    EXPECT_EQ(data->axis(0).upperBound(), hist.getXmax());
     for (size_t i = 0; i < data->getAllocatedSize(); ++i) {
         EXPECT_EQ(4.0, (*data)[i]);
     }

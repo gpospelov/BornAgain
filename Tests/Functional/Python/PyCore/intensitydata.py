@@ -33,8 +33,8 @@ class IntensityDataTest(unittest.TestCase):
     def test_create_1d_object(self):
         axis0 = ba.FixedBinAxis("angle", 20, 0.0, 20.)
         self.assertEqual(20, axis0.size())
-        self.assertEqual(0.0, axis0.getMin())
-        self.assertEqual(20.0, axis0.getMax())
+        self.assertEqual(0.0, axis0.lowerBound())
+        self.assertEqual(20.0, axis0.upperBound())
         data = ba.IntensityData()
         data.addAxis(axis0)
         self.assertEqual(20, data.getAllocatedSize())

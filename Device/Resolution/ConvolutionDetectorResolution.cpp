@@ -89,7 +89,7 @@ void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_int
         throw Exceptions::LogicErrorException(
             "ConvolutionDetectorResolution::apply1dConvolution() -> Error! "
             "Number of axes for intensity map does not correspond to the dimension of the map.");
-    const IAxis& axis = p_intensity_map->getAxis(0);
+    const IAxis& axis = p_intensity_map->axis(0);
     // Construct source vector from original intensity map
     std::vector<double> source_vector = p_intensity_map->getRawDataVector();
     size_t data_size = source_vector.size();
@@ -125,8 +125,8 @@ void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_int
         throw Exceptions::LogicErrorException(
             "ConvolutionDetectorResolution::apply2dConvolution() -> Error! "
             "Number of axes for intensity map does not correspond to the dimension of the map.");
-    const IAxis& axis_1 = p_intensity_map->getAxis(0);
-    const IAxis& axis_2 = p_intensity_map->getAxis(1);
+    const IAxis& axis_1 = p_intensity_map->axis(0);
+    const IAxis& axis_2 = p_intensity_map->axis(1);
     size_t axis_size_1 = axis_1.size();
     size_t axis_size_2 = axis_2.size();
     if (axis_size_1 < 2 || axis_size_2 < 2)

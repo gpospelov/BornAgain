@@ -151,7 +151,7 @@ ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < data_rank; ++i) {
-        const IAxis& axis = data.getAxis(i);
+        const IAxis& axis = data.axis(i);
         const size_t axis_size = axis.size();
         const double min = 0.0;
         const double max = axis_size;

@@ -20,7 +20,7 @@ RegionOfInterest::RegionOfInterest(const IDetector2D& detector, double xlow, dou
                                    double xup, double yup)
     : RegionOfInterest(xlow, ylow, xup, yup)
 {
-    initFrom(detector.getAxis(0), detector.getAxis(1));
+    initFrom(detector.axis(0), detector.axis(1));
 }
 
 RegionOfInterest::RegionOfInterest(const OutputData<double>& data, double xlow, double ylow,
@@ -31,7 +31,7 @@ RegionOfInterest::RegionOfInterest(const OutputData<double>& data, double xlow, 
         throw Exceptions::RuntimeErrorException("RegionOfInterest::RegionOfInterest() -> Error. "
                                                 "Data is not two-dimensional.");
 
-    initFrom(data.getAxis(0), data.getAxis(1));
+    initFrom(data.axis(0), data.axis(1));
 }
 
 RegionOfInterest::RegionOfInterest(double xlow, double ylow, double xup, double yup)

@@ -36,7 +36,7 @@ bool detHasSameDimensions(const IDetector& detector, const OutputData<double>& d
         return false;
 
     for (size_t i = 0; i < detector.dimension(); ++i)
-        if (data.getAxis(i).size() != detector.getAxis(i).size())
+        if (data.axis(i).size() != detector.axis(i).size())
             return false;
 
     return true;

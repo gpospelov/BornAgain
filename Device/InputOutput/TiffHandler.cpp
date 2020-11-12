@@ -52,8 +52,8 @@ void TiffHandler::write(const OutputData<double>& data, std::ostream& output_str
         throw Exceptions::LogicErrorException("TiffHandler::write -> Error. "
                                               "Only 2-dim arrays supported");
     m_tiff = TIFFStreamOpen("MemTIFF", &output_stream);
-    m_width = m_data->getAxis(0).size();
-    m_height = m_data->getAxis(1).size(); // this does not exist for 1d data
+    m_width = m_data->axis(0).size();
+    m_height = m_data->axis(1).size(); // this does not exist for 1d data
     write_header();
     write_data();
     close();

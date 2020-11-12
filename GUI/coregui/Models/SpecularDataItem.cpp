@@ -72,13 +72,13 @@ double SpecularDataItem::getUpperX() const
 double SpecularDataItem::getXmin() const
 {
     const double defaultXmin(0.0);
-    return m_data ? m_data->getAxis(0).getMin() : defaultXmin;
+    return m_data ? m_data->axis(0).getMin() : defaultXmin;
 }
 
 double SpecularDataItem::getXmax() const
 {
     const double defaultXmax(1.0);
-    return m_data ? m_data->getAxis(0).getMax() : defaultXmax;
+    return m_data ? m_data->axis(0).getMax() : defaultXmax;
 }
 
 double SpecularDataItem::getLowerY() const
@@ -198,7 +198,7 @@ void SpecularDataItem::updateAxesZoomLevel()
         setUpperY(getYmax());
     }
 
-    const int nx = static_cast<int>(m_data->getAxis(0).size());
+    const int nx = static_cast<int>(m_data->axis(0).size());
     xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
 }
 

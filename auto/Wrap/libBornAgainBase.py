@@ -2079,6 +2079,16 @@ class IAxis(object):
         """
         return _libBornAgainBase.IAxis_getMax(self)
 
+    def span(self):
+        r"""
+        span(IAxis self) -> double
+        double IAxis::span() const
+
+        Returns distance from first to last point. 
+
+        """
+        return _libBornAgainBase.IAxis_span(self)
+
     def getBinCenter(self, index):
         r"""
         getBinCenter(IAxis self, size_t index) -> double

@@ -26041,6 +26041,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IAxis_span(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IAxis *arg1 = (IAxis *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IAxis, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_span" "', argument " "1"" of type '" "IAxis const *""'"); 
+  }
+  arg1 = reinterpret_cast< IAxis * >(argp1);
+  result = (double)((IAxis const *)arg1)->span();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IAxis_getBinCenter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IAxis *arg1 = (IAxis *) 0 ;
@@ -33444,6 +33467,13 @@ static PyMethodDef SwigMethods[] = {
 		"virtual double IAxis::getMax() const =0\n"
 		"\n"
 		"Returns value of last point of axis. \n"
+		"\n"
+		""},
+	 { "IAxis_span", _wrap_IAxis_span, METH_O, "\n"
+		"IAxis_span(IAxis self) -> double\n"
+		"double IAxis::span() const\n"
+		"\n"
+		"Returns distance from first to last point. \n"
 		"\n"
 		""},
 	 { "IAxis_getBinCenter", _wrap_IAxis_getBinCenter, METH_VARARGS, "\n"

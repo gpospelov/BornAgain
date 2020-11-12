@@ -41,3 +41,8 @@ bool IAxis::contains(double value) const
 {
     return value >= getMin() && value < getMax();
 }
+
+double IAxis::span() const
+{
+    return getMax() - getMin();
+}

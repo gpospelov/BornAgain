@@ -47,7 +47,7 @@ public:
 
     void addAxis(const IAxis& axis);
 
-    const IAxis& getAxis(size_t index) const;
+    const IAxis& axis(size_t index) const;
 
     //! Returns actual dimensionality of the detector (number of defined axes)
     size_t dimension() const;

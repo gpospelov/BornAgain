@@ -98,13 +98,13 @@ void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test
 
     // NBINS
     auto data_nbins = test_object.createConvertedData(fake_data, Axes::Units::NBINS);
-    EXPECT_EQ(data_nbins->getAxis(0), *axis_nbins);
+    EXPECT_EQ(data_nbins->axis(0), *axis_nbins);
     EXPECT_EQ(data_nbins->getAllocatedSize(), axis_nbins->size());
     EXPECT_EQ(raw_fake, data_nbins->getRawDataVector());
 
     // RQ4
     auto data_rq4 = test_object.createConvertedData(fake_data, Axes::Units::RQ4);
-    EXPECT_EQ(data_rq4->getAxis(0), *axis_rq4);
+    EXPECT_EQ(data_rq4->axis(0), *axis_rq4);
     auto raw_data_rq4 = data_rq4->getRawDataVector();
     EXPECT_EQ(raw_data_rq4.size(), raw_fake.size());
     EXPECT_EQ(raw_data_rq4.size(), axis_rq4->size());
@@ -166,13 +166,13 @@ void UnitConverter1DTest::checkQSpecConverter(const UnitConverter1D& test_object
 
     // NBINS
     auto data_nbins = test_object.createConvertedData(fake_data, Axes::Units::NBINS);
-    EXPECT_EQ(data_nbins->getAxis(0), *axis_nbins);
+    EXPECT_EQ(data_nbins->axis(0), *axis_nbins);
     EXPECT_EQ(data_nbins->getAllocatedSize(), axis_nbins->size());
     EXPECT_EQ(raw_fake, data_nbins->getRawDataVector());
 
     // RQ4
     auto data_rq4 = test_object.createConvertedData(fake_data, Axes::Units::RQ4);
-    EXPECT_EQ(data_rq4->getAxis(0), *axis_rq4);
+    EXPECT_EQ(data_rq4->axis(0), *axis_rq4);
     auto raw_data_rq4 = data_rq4->getRawDataVector();
     EXPECT_EQ(raw_data_rq4.size(), raw_fake.size());
     EXPECT_EQ(raw_data_rq4.size(), axis_rq4->size());

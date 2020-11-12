@@ -65,8 +65,8 @@ def get_simulation_GenericExample():
     detector = simulation.instrument().getDetector()
 
     # preserving axes range, making less bins
-    ax = detector.getAxis(0)
-    ay = detector.getAxis(1)
+    ax = detector.axis(0)
+    ay = detector.axis(1)
     xmin, xmax = ax.getMin(), ax.getMax()
     ymin, ymax = ay.getMin(), ay.getMax()
     simulation.setDetectorParameters(5, xmin, xmax, 6, ymin, ymax)

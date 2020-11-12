@@ -103,7 +103,7 @@ UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
 
 void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_axis)
 {
-    const auto& axis = detector.getAxis(i_axis);
+    const auto& axis = detector.axis(i_axis);
     const auto* p_roi = detector.regionOfInterest();
     const auto& axis_name = axisName(i_axis);
     if (!p_roi) {
@@ -365,7 +365,7 @@ std::vector<std::map<Axes::Units, std::string>> OffSpecularConverter::createName
 
 void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
 {
-    const auto& axis = detector.getAxis(1);
+    const auto& axis = detector.axis(1);
     const auto* p_roi = detector.regionOfInterest();
     const auto& axis_name = axisName(1);
     std::unique_ptr<IAxis> P_new_axis;

@@ -48,10 +48,10 @@ public:
     void addAxis(const std::string& name, size_t size, double start, double end);
 
     //! returns axis with given serial number
-    const IAxis& getAxis(size_t serial_number) const;
+    const IAxis& axis(size_t serial_number) const;
 
     //! returns axis with given name
-    const IAxis& getAxis(const std::string& axis_name) const;
+    const IAxis& axis(const std::string& axis_name) const;
 
     // retrieve basic info
 
@@ -273,7 +273,7 @@ template <class T> template <class U> void OutputData<T>::copyShapeFrom(const Ou
     clear();
     size_t rank = other.getRank();
     for (size_t i = 0; i < rank; ++i)
-        addAxis(other.getAxis(i));
+        addAxis(other.axis(i));
 }
 
 template <class T> OutputData<double>* OutputData<T>::meanValues() const
@@ -311,14 +311,14 @@ void OutputData<T>::addAxis(const std::string& name, size_t size, double start, 
     addAxis(new_axis);
 }
 
-template <class T> const IAxis& OutputData<T>::getAxis(size_t serial_number) const
+template <class T> const IAxis& OutputData<T>::axis(size_t serial_number) const
 {
     return *m_value_axes[serial_number];
 }
 
-template <class T> const IAxis& OutputData<T>::getAxis(const std::string& axis_name) const
+template <class T> const IAxis& OutputData<T>::axis(const std::string& axis_name) const
 {
-    return getAxis(getAxisIndex(axis_name));
+    return axis(getAxisIndex(axis_name));
 }
 
 template <class T> inline std::vector<size_t> OutputData<T>::getAllSizes() const
@@ -548,7 +548,7 @@ template <class T> void OutputData<T>::allocate()
     size_t rank = m_value_axes.size();
     int* dims = new int[rank];
     for (size_t i = 0; i < rank; ++i) {
-        dims[i] = (int)getAxis(i).size();
+        dims[i] = (int)axis(i).size();
     }
     m_ll_data = new LLData<T>(rank, dims);
     T default_value = {};
@@ -584,7 +584,7 @@ inline bool OutputData<T>::hasSameDimensions(const OutputData<U>& right) const
     if (getRank() != right.getRank())
         return false;
     for (size_t i_axis = 0; i_axis < getRank(); ++i_axis)
-        if (getAxis(i_axis).size() != right.getAxis(i_axis).size())
+        if (axis(i_axis).size() != right.axis(i_axis).size())
             return false;
     return true;
 }
@@ -598,7 +598,7 @@ bool OutputData<T>::hasSameShape(const OutputData<U>& right) const
         return false;
 
     for (size_t i = 0; i < m_value_axes.size(); ++i)
-        if (!HaveSameNameAndShape(getAxis(i), right.getAxis(i)))
+        if (!HaveSameNameAndShape(axis(i), right.axis(i)))
             return false;
     return true;
 }

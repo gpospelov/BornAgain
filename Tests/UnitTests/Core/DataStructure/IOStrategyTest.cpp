@@ -30,9 +30,9 @@ TEST_F(IOStrategyTest, TestINTStrategies)
     auto result = std::unique_ptr<OutputData<double>>(read_int_strategy.readOutputData(ss));
 
     auto compare_axis = [this, &result](size_t index) {
-        EXPECT_EQ(m_model_data.getAxis(index).size(), result->getAxis(index).size());
-        EXPECT_EQ(m_model_data.getAxis(index).getMin(), result->getAxis(index).getMin());
-        EXPECT_EQ(m_model_data.getAxis(index).getMax(), result->getAxis(index).getMax());
+        EXPECT_EQ(m_model_data.axis(index).size(), result->axis(index).size());
+        EXPECT_EQ(m_model_data.axis(index).getMin(), result->axis(index).getMin());
+        EXPECT_EQ(m_model_data.axis(index).getMax(), result->axis(index).getMax());
     };
 
     EXPECT_EQ(m_model_data.getRank(), result->getRank());

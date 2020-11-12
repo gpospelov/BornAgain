@@ -58,10 +58,10 @@ def plot_intensity_data(intensity):
     import matplotlib, pylab
     data = intensity.getArray() + 1
     # data = numpy.abs(intensity.getArray())
-    phi_min = rad2deg(intensity.getAxis(0).getMin())
-    phi_max = rad2deg(intensity.getAxis(0).getMax())
-    alpha_min = rad2deg(intensity.getAxis(1).getMin())
-    alpha_max = rad2deg(intensity.getAxis(1).getMax())
+    phi_min = rad2deg(intensity.axis(0).getMin())
+    phi_max = rad2deg(intensity.axis(0).getMax())
+    alpha_min = rad2deg(intensity.axis(1).getMin())
+    alpha_max = rad2deg(intensity.axis(1).getMax())
     im = pylab.imshow(data, norm=matplotlib.colors.LogNorm(),
                       extent=[phi_min, phi_max, alpha_min, alpha_max])
     cb = pylab.colorbar(im)

@@ -34,7 +34,7 @@ TEST_F(SphericalDetectorTest, initialState)
     EXPECT_EQ(nullptr, detector.regionOfInterest());
 
     // behavior
-    ASSERT_THROW(detector.getAxis(0), std::runtime_error);
+    ASSERT_THROW(detector.axis(0), std::runtime_error);
     OutputData<double>* p_intensity_map(nullptr);
     ASSERT_THROW(detector.applyDetectorResolution(p_intensity_map), std::runtime_error);
 }
@@ -50,22 +50,22 @@ TEST_F(SphericalDetectorTest, constructionWithAxes)
 
     // checking dimension and axes
     EXPECT_EQ(2u, detector.dimension());
-    EXPECT_EQ(axis0.getMin(), detector.getAxis(0).getMin());
-    EXPECT_EQ(axis0.getMax(), detector.getAxis(0).getMax());
-    EXPECT_EQ(axis1.getMin(), detector.getAxis(1).getMin());
-    EXPECT_EQ(axis1.getMax(), detector.getAxis(1).getMax());
+    EXPECT_EQ(axis0.getMin(), detector.axis(0).getMin());
+    EXPECT_EQ(axis0.getMax(), detector.axis(0).getMax());
+    EXPECT_EQ(axis1.getMin(), detector.axis(1).getMin());
+    EXPECT_EQ(axis1.getMax(), detector.axis(1).getMax());
 }
 
 // Construction of the detector via classical constructor.
 TEST_F(SphericalDetectorTest, constructionWithParameters)
 {
     SphericalDetector detector(10, -1.0, 1.0, 20, 0.0, 2.0);
-    EXPECT_EQ(10u, detector.getAxis(0).size());
-    EXPECT_EQ(-1.0, detector.getAxis(0).getMin());
-    EXPECT_EQ(1.0, detector.getAxis(0).getMax());
-    EXPECT_EQ(20u, detector.getAxis(1).size());
-    EXPECT_EQ(0.0, detector.getAxis(1).getMin());
-    EXPECT_EQ(2.0, detector.getAxis(1).getMax());
+    EXPECT_EQ(10u, detector.axis(0).size());
+    EXPECT_EQ(-1.0, detector.axis(0).getMin());
+    EXPECT_EQ(1.0, detector.axis(0).getMax());
+    EXPECT_EQ(20u, detector.axis(1).size());
+    EXPECT_EQ(0.0, detector.axis(1).getMin());
+    EXPECT_EQ(2.0, detector.axis(1).getMax());
 }
 
 // Creation of the detector map with axes in given units
@@ -76,12 +76,12 @@ TEST_F(SphericalDetectorTest, createDetectorMap)
 
     // creating map in default units, which are radians and checking axes
     auto data = detector.createDetectorMap();
-    EXPECT_EQ(data->getAxis(0).size(), 10u);
-    EXPECT_EQ(data->getAxis(0).getMin(), -1.0 * Units::deg);
-    EXPECT_EQ(data->getAxis(0).getMax(), 1.0 * Units::deg);
-    EXPECT_EQ(data->getAxis(1).size(), 20u);
-    EXPECT_EQ(data->getAxis(1).getMin(), 0.0 * Units::deg);
-    EXPECT_EQ(data->getAxis(1).getMax(), 2.0 * Units::deg);
+    EXPECT_EQ(data->axis(0).size(), 10u);
+    EXPECT_EQ(data->axis(0).getMin(), -1.0 * Units::deg);
+    EXPECT_EQ(data->axis(0).getMax(), 1.0 * Units::deg);
+    EXPECT_EQ(data->axis(1).size(), 20u);
+    EXPECT_EQ(data->axis(1).getMin(), 0.0 * Units::deg);
+    EXPECT_EQ(data->axis(1).getMax(), 2.0 * Units::deg);
 }
 
 // Testing region of interest.
@@ -124,12 +124,12 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
     // Creating map in default units, which are radians and checking that axes are clipped
     // to region of interest.
     auto data = detector.createDetectorMap();
-    EXPECT_EQ(data->getAxis(0).size(), 4u);
-    EXPECT_EQ(data->getAxis(0).getMin(), 0.0 * Units::deg);
-    EXPECT_EQ(data->getAxis(0).getMax(), 4.0 * Units::deg);
-    EXPECT_EQ(data->getAxis(1).size(), 2u);
-    EXPECT_EQ(data->getAxis(1).getMin(), 1.0 * Units::deg);
-    EXPECT_EQ(data->getAxis(1).getMax(), 3.0 * Units::deg);
+    EXPECT_EQ(data->axis(0).size(), 4u);
+    EXPECT_EQ(data->axis(0).getMin(), 0.0 * Units::deg);
+    EXPECT_EQ(data->axis(0).getMax(), 4.0 * Units::deg);
+    EXPECT_EQ(data->axis(1).size(), 2u);
+    EXPECT_EQ(data->axis(1).getMin(), 1.0 * Units::deg);
+    EXPECT_EQ(data->axis(1).getMax(), 3.0 * Units::deg);
 }
 
 TEST_F(SphericalDetectorTest, MaskOfDetector)
@@ -196,12 +196,12 @@ TEST_F(SphericalDetectorTest, Clone)
     std::unique_ptr<SphericalDetector> clone(detector.clone());
 
     auto data = clone->createDetectorMap();
-    EXPECT_EQ(data->getAxis(0).size(), 4u);
-    EXPECT_EQ(data->getAxis(0).getMin(), 0.0 * Units::deg);
-    EXPECT_EQ(data->getAxis(0).getMax(), 4.0 * Units::deg);
-    EXPECT_EQ(data->getAxis(1).size(), 2u);
-    EXPECT_EQ(data->getAxis(1).getMin(), 1.0 * Units::deg);
-    EXPECT_EQ(data->getAxis(1).getMax(), 3.0 * Units::deg);
+    EXPECT_EQ(data->axis(0).size(), 4u);
+    EXPECT_EQ(data->axis(0).getMin(), 0.0 * Units::deg);
+    EXPECT_EQ(data->axis(0).getMax(), 4.0 * Units::deg);
+    EXPECT_EQ(data->axis(1).size(), 2u);
+    EXPECT_EQ(data->axis(1).getMin(), 1.0 * Units::deg);
+    EXPECT_EQ(data->axis(1).getMax(), 3.0 * Units::deg);
 
     EXPECT_EQ(clone->detectorMask()->numberOfMaskedChannels(), 8);
 

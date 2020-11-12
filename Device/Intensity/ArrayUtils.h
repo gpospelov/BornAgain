@@ -148,8 +148,8 @@ template <class T> decltype(auto) ArrayUtils::createVector2D(const T& data)
     using value_type = typename T::value_type;
     std::vector<std::vector<value_type>> result;
 
-    const size_t nrows = data.getAxis(1).size();
-    const size_t ncols = data.getAxis(0).size();
+    const size_t nrows = data.axis(1).size();
+    const size_t ncols = data.axis(0).size();
 
     result.resize(nrows);
 

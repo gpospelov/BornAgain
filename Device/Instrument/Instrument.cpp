@@ -156,7 +156,7 @@ const IDetector2D& Instrument::detector2D() const
 
 const IAxis& Instrument::getDetectorAxis(size_t index) const
 {
-    return m_detector->getAxis(index);
+    return m_detector->axis(index);
 }
 
 size_t Instrument::getDetectorDimension() const

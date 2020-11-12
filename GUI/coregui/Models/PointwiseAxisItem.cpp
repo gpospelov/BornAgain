@@ -52,7 +52,7 @@ void PointwiseAxisItem::init(const IAxis& axis, const QString& units_label)
     findInstrument();
 }
 
-const IAxis* PointwiseAxisItem::getAxis() const
+const IAxis* PointwiseAxisItem::axis() const
 {
     return m_axis.get();
 }
@@ -84,7 +84,7 @@ bool PointwiseAxisItem::load(const QString& projectDir)
     if (!data)
         return false;
 
-    m_axis = std::unique_ptr<IAxis>(data->getAxis(0).clone());
+    m_axis = std::unique_ptr<IAxis>(data->axis(0).clone());
     findInstrument();
     setLastModified(QDateTime::currentDateTime());
     return true;

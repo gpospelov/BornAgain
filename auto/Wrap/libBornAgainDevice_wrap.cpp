@@ -29146,7 +29146,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IntensityData_getAxis__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IntensityData_axis__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   OutputData< double > *arg1 = (OutputData< double > *) 0 ;
   size_t arg2 ;
@@ -29159,15 +29159,15 @@ SWIGINTERN PyObject *_wrap_IntensityData_getAxis__SWIG_0(PyObject *SWIGUNUSEDPAR
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_getAxis" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_axis" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
   }
   arg1 = reinterpret_cast< OutputData< double > * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntensityData_getAxis" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntensityData_axis" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (IAxis *) &((OutputData< double > const *)arg1)->getAxis(arg2);
+  result = (IAxis *) &((OutputData< double > const *)arg1)->axis(arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   return resultobj;
 fail:
@@ -29175,7 +29175,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IntensityData_getAxis__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IntensityData_axis__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   OutputData< double > *arg1 = (OutputData< double > *) 0 ;
   std::string *arg2 = 0 ;
@@ -29187,21 +29187,21 @@ SWIGINTERN PyObject *_wrap_IntensityData_getAxis__SWIG_1(PyObject *SWIGUNUSEDPAR
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_getAxis" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_axis" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
   }
   arg1 = reinterpret_cast< OutputData< double > * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IntensityData_getAxis" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IntensityData_axis" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IntensityData_getAxis" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IntensityData_axis" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
-  result = (IAxis *) &((OutputData< double > const *)arg1)->getAxis((std::string const &)*arg2);
+  result = (IAxis *) &((OutputData< double > const *)arg1)->axis((std::string const &)*arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -29211,13 +29211,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IntensityData_getAxis(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IntensityData_axis(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IntensityData_getAxis", 0, 2, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IntensityData_axis", 0, 2, argv))) SWIG_fail;
   --argc;
   if (argc == 2) {
     int _v;
@@ -29230,7 +29230,7 @@ SWIGINTERN PyObject *_wrap_IntensityData_getAxis(PyObject *self, PyObject *args)
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        return _wrap_IntensityData_getAxis__SWIG_0(self, argc, argv);
+        return _wrap_IntensityData_axis__SWIG_0(self, argc, argv);
       }
     }
   }
@@ -29243,16 +29243,16 @@ SWIGINTERN PyObject *_wrap_IntensityData_getAxis(PyObject *self, PyObject *args)
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_IntensityData_getAxis__SWIG_1(self, argc, argv);
+        return _wrap_IntensityData_axis__SWIG_1(self, argc, argv);
       }
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IntensityData_getAxis'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IntensityData_axis'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    OutputData< double >::getAxis(size_t) const\n"
-    "    OutputData< double >::getAxis(std::string const &) const\n");
+    "    OutputData< double >::axis(size_t) const\n"
+    "    OutputData< double >::axis(std::string const &) const\n");
   return 0;
 }
 
@@ -38154,7 +38154,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IDetector_getAxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IDetector_axis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IDetector *arg1 = (IDetector *) 0 ;
   size_t arg2 ;
@@ -38165,18 +38165,18 @@ SWIGINTERN PyObject *_wrap_IDetector_getAxis(PyObject *SWIGUNUSEDPARM(self), PyO
   PyObject *swig_obj[2] ;
   IAxis *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "IDetector_getAxis", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IDetector_axis", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_getAxis" "', argument " "1"" of type '" "IDetector const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_axis" "', argument " "1"" of type '" "IDetector const *""'"); 
   }
   arg1 = reinterpret_cast< IDetector * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_getAxis" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_axis" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (IAxis *) &((IDetector const *)arg1)->getAxis(arg2);
+  result = (IAxis *) &((IDetector const *)arg1)->axis(arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   return resultobj;
 fail:
@@ -46442,10 +46442,10 @@ static PyMethodDef SwigMethods[] = {
 		"void OutputData< T >::addAxis(const std::string &name, size_t size, double start, double end)\n"
 		"\n"
 		""},
-	 { "IntensityData_getAxis", _wrap_IntensityData_getAxis, METH_VARARGS, "\n"
-		"IntensityData_getAxis(IntensityData self, size_t serial_number) -> IAxis\n"
-		"IntensityData_getAxis(IntensityData self, std::string const & axis_name) -> IAxis\n"
-		"const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const\n"
+	 { "IntensityData_axis", _wrap_IntensityData_axis, METH_VARARGS, "\n"
+		"IntensityData_axis(IntensityData self, size_t serial_number) -> IAxis\n"
+		"IntensityData_axis(IntensityData self, std::string const & axis_name) -> IAxis\n"
+		"const IAxis & OutputData< T >::axis(const std::string &axis_name) const\n"
 		"\n"
 		"returns axis with given name \n"
 		"\n"
@@ -47782,9 +47782,9 @@ static PyMethodDef SwigMethods[] = {
 		"void IDetector::addAxis(const IAxis &axis)\n"
 		"\n"
 		""},
-	 { "IDetector_getAxis", _wrap_IDetector_getAxis, METH_VARARGS, "\n"
-		"IDetector_getAxis(IDetector self, size_t index) -> IAxis\n"
-		"const IAxis & IDetector::getAxis(size_t index) const\n"
+	 { "IDetector_axis", _wrap_IDetector_axis, METH_VARARGS, "\n"
+		"IDetector_axis(IDetector self, size_t index) -> IAxis\n"
+		"const IAxis & IDetector::axis(size_t index) const\n"
 		"\n"
 		""},
 	 { "IDetector_dimension", _wrap_IDetector_dimension, METH_O, "\n"

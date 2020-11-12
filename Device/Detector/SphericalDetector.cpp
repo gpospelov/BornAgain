@@ -49,8 +49,8 @@ Axes::Units SphericalDetector::defaultAxesUnits() const
 
 IPixel* SphericalDetector::createPixel(size_t index) const
 {
-    const IAxis& phi_axis = getAxis(0);
-    const IAxis& alpha_axis = getAxis(1);
+    const IAxis& phi_axis = axis(0);
+    const IAxis& alpha_axis = axis(1);
     const size_t phi_index = axisBinIndex(index, 0);
     const size_t alpha_index = axisBinIndex(index, 1);
 
@@ -78,8 +78,8 @@ size_t SphericalDetector::indexOfSpecular(const Beam& beam) const
         return totalSize();
     double alpha = beam.getAlpha();
     double phi = beam.getPhi();
-    const IAxis& phi_axis = getAxis(0);
-    const IAxis& alpha_axis = getAxis(1);
+    const IAxis& phi_axis = axis(0);
+    const IAxis& alpha_axis = axis(1);
     if (phi_axis.contains(phi) && alpha_axis.contains(alpha))
         return getGlobalIndex(phi_axis.findClosestIndex(phi), alpha_axis.findClosestIndex(alpha));
     return totalSize();

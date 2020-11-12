@@ -2268,16 +2268,16 @@ class IntensityData(object):
         """
         return _libBornAgainDevice.IntensityData_addAxis(self, *args)
 
-    def getAxis(self, *args):
+    def axis(self, *args):
         r"""
-        getAxis(IntensityData self, size_t serial_number) -> IAxis
-        getAxis(IntensityData self, std::string const & axis_name) -> IAxis
-        const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
+        axis(IntensityData self, size_t serial_number) -> IAxis
+        axis(IntensityData self, std::string const & axis_name) -> IAxis
+        const IAxis & OutputData< T >::axis(const std::string &axis_name) const
 
         returns axis with given name 
 
         """
-        return _libBornAgainDevice.IntensityData_getAxis(self, *args)
+        return _libBornAgainDevice.IntensityData_axis(self, *args)
 
     def getRank(self):
         r"""
@@ -4589,13 +4589,13 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IDetector_addAxis(self, axis)
 
-    def getAxis(self, index):
+    def axis(self, index):
         r"""
-        getAxis(IDetector self, size_t index) -> IAxis
-        const IAxis & IDetector::getAxis(size_t index) const
+        axis(IDetector self, size_t index) -> IAxis
+        const IAxis & IDetector::axis(size_t index) const
 
         """
-        return _libBornAgainDevice.IDetector_getAxis(self, index)
+        return _libBornAgainDevice.IDetector_axis(self, index)
 
     def dimension(self):
         r"""

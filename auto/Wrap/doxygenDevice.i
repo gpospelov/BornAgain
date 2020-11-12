@@ -930,7 +930,7 @@ Inits detector with the beam settings.
 %feature("docstring")  IDetector::addAxis "void IDetector::addAxis(const IAxis &axis)
 ";
 
-%feature("docstring")  IDetector::getAxis "const IAxis & IDetector::getAxis(size_t index) const
+%feature("docstring")  IDetector::axis "const IAxis & IDetector::axis(size_t index) const
 ";
 
 %feature("docstring")  IDetector::dimension "size_t IDetector::dimension() const
@@ -1904,12 +1904,12 @@ C++ includes: OutputData.h
 %feature("docstring")  OutputData::addAxis "void OutputData< T >::addAxis(const std::string &name, size_t size, double start, double end)
 ";
 
-%feature("docstring")  OutputData::getAxis "const IAxis & OutputData< T >::getAxis(size_t serial_number) const
+%feature("docstring")  OutputData::axis "const IAxis & OutputData< T >::axis(size_t serial_number) const
 
 returns axis with given serial number 
 ";
 
-%feature("docstring")  OutputData::getAxis "const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
+%feature("docstring")  OutputData::axis "const IAxis & OutputData< T >::axis(const std::string &axis_name) const
 
 returns axis with given name 
 ";

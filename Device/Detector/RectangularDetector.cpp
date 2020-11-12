@@ -92,24 +92,22 @@ void RectangularDetector::setDirectBeamPosition(double u0, double v0)
 
 double RectangularDetector::getWidth() const
 {
-    const IAxis& axis = getAxis(0);
-    return axis.getMax() - axis.getMin();
+    return axis(0).span();
 }
 
 double RectangularDetector::getHeight() const
 {
-    const IAxis& axis = getAxis(1);
-    return axis.getMax() - axis.getMin();
+    return axis(1).span();
 }
 
 size_t RectangularDetector::getNbinsX() const
 {
-    return getAxis(0).size();
+    return axis(0).size();
 }
 
 size_t RectangularDetector::getNbinsY() const
 {
-    return getAxis(1).size();
+    return axis(1).size();
 }
 
 kvector_t RectangularDetector::getNormalVector() const
@@ -159,8 +157,8 @@ Axes::Units RectangularDetector::defaultAxesUnits() const
 
 RectangularPixel* RectangularDetector::regionOfInterestPixel() const
 {
-    const IAxis& u_axis = getAxis(0);
-    const IAxis& v_axis = getAxis(1);
+    const IAxis& u_axis = axis(0);
+    const IAxis& v_axis = axis(1);
     double u_min, v_min, width, height;
     auto p_roi = regionOfInterest();
     if (p_roi) {
@@ -183,8 +181,8 @@ RectangularPixel* RectangularDetector::regionOfInterestPixel() const
 
 IPixel* RectangularDetector::createPixel(size_t index) const
 {
-    const IAxis& u_axis = getAxis(0);
-    const IAxis& v_axis = getAxis(1);
+    const IAxis& u_axis = axis(0);
+    const IAxis& v_axis = axis(1);
     const size_t u_index = axisBinIndex(index, 0);
     const size_t v_index = axisBinIndex(index, 1);
 
@@ -225,8 +223,8 @@ size_t RectangularDetector::indexOfSpecular(const Beam& beam) const
     const kvector_t rpix = k_spec * (m_distance / kd);
     const double u = rpix.dot(m_u_unit) + m_u0;
     const double v = rpix.dot(m_v_unit) + m_v0;
-    const IAxis& u_axis = getAxis(0); // the x axis, GISAS only
-    const IAxis& v_axis = getAxis(1); // the y axis, in reflectometer plane
+    const IAxis& u_axis = axis(0); // the x axis, GISAS only
+    const IAxis& v_axis = axis(1); // the y axis, in reflectometer plane
     if (!u_axis.contains(u) || !v_axis.contains(v))
         return totalSize();
     return getGlobalIndex(u_axis.findClosestIndex(u), v_axis.findClosestIndex(v));

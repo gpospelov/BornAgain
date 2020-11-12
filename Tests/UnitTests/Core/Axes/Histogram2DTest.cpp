@@ -346,10 +346,10 @@ TEST_F(Histogram2DTest, CreateHistogram)
     std::unique_ptr<IHistogram> h2(IHistogram::createHistogram(data));
     EXPECT_EQ(size_t(2), h2->getRank());
     EXPECT_EQ(data.getAllocatedSize(), h2->getTotalNumberOfBins());
-    EXPECT_EQ(data.getAxis(0).getMin(), h2->getXmin());
-    EXPECT_EQ(data.getAxis(0).getMax(), h2->getXmax());
-    EXPECT_EQ(data.getAxis(1).getMin(), h2->getYmin());
-    EXPECT_EQ(data.getAxis(1).getMax(), h2->getYmax());
+    EXPECT_EQ(data.axis(0).getMin(), h2->getXmin());
+    EXPECT_EQ(data.axis(0).getMax(), h2->getXmax());
+    EXPECT_EQ(data.axis(1).getMin(), h2->getYmin());
+    EXPECT_EQ(data.axis(1).getMax(), h2->getYmax());
     for (size_t i = 0; i < h2->getTotalNumberOfBins(); ++i) {
         EXPECT_EQ(data[i], h2->getBinContent(i));
         EXPECT_EQ(data[i], h2->getBinAverage(i));
@@ -373,10 +373,10 @@ TEST_F(Histogram2DTest, CreateOutputData)
     std::unique_ptr<OutputData<double>> data(h2.createOutputData(IHistogram::DataType::INTEGRAL));
     EXPECT_EQ(size_t(2), data->getRank());
     EXPECT_EQ(data->getAllocatedSize(), h2.getTotalNumberOfBins());
-    EXPECT_EQ(data->getAxis(0).getMin(), h2.getXmin());
-    EXPECT_EQ(data->getAxis(0).getMax(), h2.getXmax());
-    EXPECT_EQ(data->getAxis(1).getMin(), h2.getYmin());
-    EXPECT_EQ(data->getAxis(1).getMax(), h2.getYmax());
+    EXPECT_EQ(data->axis(0).getMin(), h2.getXmin());
+    EXPECT_EQ(data->axis(0).getMax(), h2.getXmax());
+    EXPECT_EQ(data->axis(1).getMin(), h2.getYmin());
+    EXPECT_EQ(data->axis(1).getMax(), h2.getYmax());
     for (size_t i = 0; i < data->getAllocatedSize(); ++i) {
         EXPECT_EQ(double(i), (*data)[i]);
     }

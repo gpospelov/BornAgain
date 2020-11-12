@@ -128,12 +128,12 @@ void Histogram2D::addContent(const std::vector<std::vector<double>>& data)
     const size_t nrows = shape.first;
     const size_t ncols = shape.second;
 
-    if (nrows != m_data.getAxis(1).size() || ncols != m_data.getAxis(0).size()) {
+    if (nrows != m_data.axis(1).size() || ncols != m_data.axis(0).size()) {
         std::ostringstream ostr;
         ostr << "Histogram2D::addContent() -> Shape of input array [" << nrows << ", " << ncols
              << "] doesn't mach histogram axes. "
-             << "X-axis size: " << m_data.getAxis(0).size()
-             << "Y-axis size: " << m_data.getAxis(1).size();
+             << "X-axis size: " << m_data.axis(0).size()
+             << "Y-axis size: " << m_data.axis(1).size();
         throw Exceptions::LogicErrorException(ostr.str());
     }
 

@@ -133,8 +133,8 @@ void Data1DViewItem::setAxesRangeToData()
     if (!data)
         return;
 
-    setLowerX(data->getAxis(0).getMin());
-    setUpperX(data->getAxis(0).getMax());
+    setLowerX(data->axis(0).getMin());
+    setUpperX(data->axis(0).getMax());
 
     auto data_range = dataRange(data.get());
     setLowerY(data_range.first);
@@ -154,12 +154,12 @@ QPair<QVector<double>, QVector<double>> Data1DViewItem::graphData(Data1DProperti
         return {};
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    auto centers = data->getAxis(0).getBinCenters();
+    auto centers = data->axis(0).getBinCenters();
     auto values = data->getRawDataVector();
     return {QVector<double>(centers.begin(), centers.end()),
             QVector<double>(values.begin(), values.end())};
 #else
-    return {QVector<double>::fromStdVector(data->getAxis(0).getBinCenters()),
+    return {QVector<double>::fromStdVector(data->axis(0).getBinCenters()),
             QVector<double>::fromStdVector(data->getRawDataVector())};
 #endif
 }

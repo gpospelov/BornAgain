@@ -23,7 +23,7 @@ def is_the_same_data(data1, data2):
     if data1.getRank() != data2.getRank():
         return False
     for i in range(0, data1.getRank()):
-        if data1.getAxis(i) != data2.getAxis(i):
+        if data1.axis(i) != data2.axis(i):
             return False
     for i in range(0, data1.getAllocatedSize()):
         if data1[i] != data2[i]:

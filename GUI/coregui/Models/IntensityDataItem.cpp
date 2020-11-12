@@ -120,13 +120,13 @@ double IntensityDataItem::getUpperX() const
 double IntensityDataItem::getXmin() const
 {
     const double defaultXmin(0.0);
-    return m_data ? m_data->getAxis(0).getMin() : defaultXmin;
+    return m_data ? m_data->axis(0).getMin() : defaultXmin;
 }
 
 double IntensityDataItem::getXmax() const
 {
     const double defaultXmax(1.0);
-    return m_data ? m_data->getAxis(0).getMax() : defaultXmax;
+    return m_data ? m_data->axis(0).getMax() : defaultXmax;
 }
 
 double IntensityDataItem::getLowerY() const
@@ -142,13 +142,13 @@ double IntensityDataItem::getUpperY() const
 double IntensityDataItem::getYmin() const
 {
     const double defaultYmin(0.0);
-    return m_data ? m_data->getAxis(1).getMin() : defaultYmin;
+    return m_data ? m_data->axis(1).getMin() : defaultYmin;
 }
 
 double IntensityDataItem::getYmax() const
 {
     const double defaultYmax(1.0);
-    return m_data ? m_data->getAxis(1).getMax() : defaultYmax;
+    return m_data ? m_data->axis(1).getMax() : defaultYmax;
 }
 
 double IntensityDataItem::getLowerZ() const
@@ -312,9 +312,9 @@ void IntensityDataItem::updateAxesZoomLevel()
         setUpperY(getYmax());
     }
 
-    const int nx = static_cast<int>(m_data->getAxis(0).size());
+    const int nx = static_cast<int>(m_data->axis(0).size());
     xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
-    const int ny = static_cast<int>(m_data->getAxis(1).size());
+    const int ny = static_cast<int>(m_data->axis(1).size());
     yAxisItem()->setItemValue(BasicAxisItem::P_NBINS, ny);
 }
 
@@ -323,10 +323,10 @@ void IntensityDataItem::updateAxesZoomLevel()
 void IntensityDataItem::updateAxesLabels()
 {
     if (getXaxisTitle().isEmpty())
-        setXaxisTitle(QString::fromStdString(m_data->getAxis(0).getName()));
+        setXaxisTitle(QString::fromStdString(m_data->axis(0).getName()));
 
     if (getYaxisTitle().isEmpty())
-        setYaxisTitle(QString::fromStdString(m_data->getAxis(1).getName()));
+        setYaxisTitle(QString::fromStdString(m_data->axis(1).getName()));
 }
 
 //! Sets min,max values for z-axis, if axes is not locked, and ranges are not yet set.

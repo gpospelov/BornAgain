@@ -132,9 +132,9 @@ void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem, const Instrumen
     auto axis_origin = getPointwiseAxisItem(spec_from);
     const QString current_axis_type = spec_from->beamItem()->inclinationAxisGroup()->currentType();
     if (current_axis_type == "PointwiseAxis")
-        spec_to->beamItem()->updateToData(*axis_origin->getAxis(), axis_origin->getUnitsLabel());
+        spec_to->beamItem()->updateToData(*axis_origin->axis(), axis_origin->getUnitsLabel());
     else if (axis_origin->containsNonXMLData())
-        getPointwiseAxisItem(spec_to)->init(*axis_origin->getAxis(), axis_origin->getUnitsLabel());
+        getPointwiseAxisItem(spec_to)->init(*axis_origin->axis(), axis_origin->getUnitsLabel());
 }
 
 //! Setup items intended for storing results of the job.

@@ -157,9 +157,9 @@ std::string SimulationToPython::defineDetector(const ISimulation* simulation) co
         for (size_t index = 0; index < det->dimension(); ++index) {
             if (index != 0)
                 result << ", ";
-            result << det->getAxis(index).size() << ", "
-                   << pyfmt::printDegrees(det->getAxis(index).getMin()) << ", "
-                   << pyfmt::printDegrees(det->getAxis(index).getMax());
+            result << det->axis(index).size() << ", "
+                   << pyfmt::printDegrees(det->axis(index).getMin()) << ", "
+                   << pyfmt::printDegrees(det->axis(index).getMax());
         }
         result << ")\n";
     } else if (const auto* const det = dynamic_cast<const RectangularDetector*>(detector)) {

@@ -56,7 +56,7 @@ void DetectorMask::initMaskData(const IDetector2D& detector)
     m_mask_data.clear();
 
     for (size_t dim = 0; dim < detector.dimension(); ++dim) {
-        const IAxis& axis = detector.getAxis(dim);
+        const IAxis& axis = detector.axis(dim);
         m_mask_data.addAxis(axis);
     }
 
@@ -69,7 +69,7 @@ void DetectorMask::initMaskData(const OutputData<double>& data)
     m_mask_data.clear();
 
     for (size_t dim = 0; dim < data.getRank(); ++dim)
-        m_mask_data.addAxis(data.getAxis(dim));
+        m_mask_data.addAxis(data.axis(dim));
 
     process_masks();
 }

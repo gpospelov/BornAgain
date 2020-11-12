@@ -388,8 +388,8 @@ void TransformFromDomain::setSphericalDetector(SphericalDetectorItem* detector_i
                                                const SphericalDetector& detector)
 {
     // Axes
-    const IAxis& phi_axis = detector.getAxis(0);
-    const IAxis& alpha_axis = detector.getAxis(1);
+    const IAxis& phi_axis = detector.axis(0);
+    const IAxis& alpha_axis = detector.axis(1);
 
     BasicAxisItem* phiAxisItem =
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(SphericalDetectorItem::P_PHI_AXIS));

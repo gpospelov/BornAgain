@@ -161,8 +161,8 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
     const auto output = sim_result.data();
     EXPECT_EQ(depth_map->getTotalNumberOfBins(), output->getAllocatedSize());
     EXPECT_EQ(depth_map->getRank(), output->getRank());
-    EXPECT_EQ(depth_map->getXaxis().getMin(), output->getAxis(0).getMin());
-    EXPECT_EQ(depth_map->getXaxis().getMax(), output->getAxis(0).getMax());
+    EXPECT_EQ(depth_map->getXaxis().getMin(), output->axis(0).getMin());
+    EXPECT_EQ(depth_map->getXaxis().getMax(), output->axis(0).getMax());
 
     checkBeamState(*sim);
 }

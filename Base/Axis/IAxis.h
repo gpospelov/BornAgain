@@ -54,6 +54,9 @@ public:
     //! Returns value of last point of axis
     virtual double getMax() const = 0;
 
+    //! Returns distance from first to last point
+    double span() const;
+
     virtual double getBinCenter(size_t index) const = 0;
 
     //! find bin index which is best match for given value

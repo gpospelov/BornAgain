@@ -34,7 +34,7 @@ public:
 
     // setters, getters
     void init(const IAxis& axis, const QString& units_label);
-    const IAxis* getAxis() const;
+    const IAxis* axis() const;
     const QString getUnitsLabel() const;
 
     // virtual function overloads

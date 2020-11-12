@@ -536,6 +536,11 @@ Returns value of first point of axis.
 Returns value of last point of axis. 
 ";
 
+%feature("docstring")  IAxis::span "double IAxis::span() const
+
+Returns distance from first to last point. 
+";
+
 %feature("docstring")  IAxis::getBinCenter "virtual double IAxis::getBinCenter(size_t index) const =0
 ";
 

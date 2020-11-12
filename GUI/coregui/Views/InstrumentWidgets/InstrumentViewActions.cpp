@@ -141,7 +141,7 @@ void InstrumentViewActions::onCloneInstrument()
                                                      ->beamItem()
                                                      ->inclinationAxisGroup()
                                                      ->getItemOfType("PointwiseAxis"));
-            acceptor_axis->init(*donor_axis->getAxis(), donor_axis->getUnitsLabel());
+            acceptor_axis->init(*donor_axis->axis(), donor_axis->getUnitsLabel());
         }
     }
 }

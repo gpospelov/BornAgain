@@ -51,7 +51,7 @@ void IDetector::clear()
     m_axes.clear();
 }
 
-const IAxis& IDetector::getAxis(size_t index) const
+const IAxis& IDetector::axis(size_t index) const
 {
     if (index < dimension())
         return *m_axes[index];
@@ -169,9 +169,9 @@ std::unique_ptr<OutputData<double>> IDetector::createDetectorMap() const
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < dim; ++i)
         if (auto roi = regionOfInterest())
-            result->addAxis(*roi->clipAxisToRoi(i, getAxis(i)));
+            result->addAxis(*roi->clipAxisToRoi(i, axis(i)));
         else
-            result->addAxis(getAxis(i));
+            result->addAxis(axis(i));
 
     return result;
 }

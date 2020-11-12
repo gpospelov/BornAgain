@@ -95,7 +95,7 @@ void OffSpecSimulation::initSimulationElementVector()
 
     for (size_t i = 0; i < m_alpha_i_axis->size(); ++i) {
         // Incoming angle by convention defined as positive:
-        double alpha_i = m_alpha_i_axis->bin(i).getMidPoint();
+        double alpha_i = m_alpha_i_axis->bin(i).center();
         double total_alpha = alpha_i;
         beam.setCentralK(wavelength, total_alpha, phi_i);
         std::vector<SimulationElement> sim_elements_i = generateSimulationElements(beam);

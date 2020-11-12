@@ -62,33 +62,33 @@ TEST_F(FixedBinAxisTest, CheckBin)
     FixedBinAxis axis("name", 20, 0, 10);
 
     Bin1D bin0 = axis.bin(0);
-    EXPECT_DOUBLE_EQ(0.25, bin0.getMidPoint());
+    EXPECT_DOUBLE_EQ(0.25, bin0.center());
     EXPECT_DOUBLE_EQ(0.0, bin0.m_lower);
     EXPECT_DOUBLE_EQ(0.5, bin0.m_upper);
     EXPECT_DOUBLE_EQ(0.5, bin0.binSize());
 
     Bin1D bin3 = axis.bin(3);
-    EXPECT_DOUBLE_EQ(1.75, bin3.getMidPoint());
+    EXPECT_DOUBLE_EQ(1.75, bin3.center());
     EXPECT_DOUBLE_EQ(1.5, bin3.m_lower);
     EXPECT_DOUBLE_EQ(2.0, bin3.m_upper);
     EXPECT_DOUBLE_EQ(0.5, bin3.binSize());
 
     Bin1D bin10 = axis.bin(10);
-    EXPECT_DOUBLE_EQ(5.25, bin10.getMidPoint());
+    EXPECT_DOUBLE_EQ(5.25, bin10.center());
     EXPECT_DOUBLE_EQ(5.0, bin10.m_lower);
     EXPECT_DOUBLE_EQ(5.5, bin10.m_upper);
 
     Bin1D bin19 = axis.bin(19);
-    EXPECT_DOUBLE_EQ(9.75, bin19.getMidPoint());
+    EXPECT_DOUBLE_EQ(9.75, bin19.center());
     EXPECT_DOUBLE_EQ(9.5, bin19.m_lower);
     EXPECT_DOUBLE_EQ(10.0, bin19.m_upper);
 
     ASSERT_THROW(axis.bin(20), Exceptions::OutOfBoundsException);
 
     FixedBinAxis axis2("name", 3, -1, 2.0);
-    EXPECT_DOUBLE_EQ(-0.5, axis2.bin(0).getMidPoint());
-    EXPECT_DOUBLE_EQ(0.5, axis2.bin(1).getMidPoint());
-    EXPECT_DOUBLE_EQ(1.5, axis2.bin(2).getMidPoint());
+    EXPECT_DOUBLE_EQ(-0.5, axis2.bin(0).center());
+    EXPECT_DOUBLE_EQ(0.5, axis2.bin(1).center());
+    EXPECT_DOUBLE_EQ(1.5, axis2.bin(2).center());
 }
 
 TEST_F(FixedBinAxisTest, CheckEquality)

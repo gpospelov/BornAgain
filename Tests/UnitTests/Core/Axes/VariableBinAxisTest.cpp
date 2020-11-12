@@ -112,22 +112,22 @@ TEST_F(VariableBinAxisTest, CheckBin)
     std::vector<double> values3(arr3, arr3 + sizeof(arr3) / sizeof(arr3[0]));
     VariableBinAxis axis("name", 4, values3);
     EXPECT_DOUBLE_EQ(-1.0, axis.bin(0).m_lower);
-    EXPECT_DOUBLE_EQ(-0.75, axis.bin(0).getMidPoint());
+    EXPECT_DOUBLE_EQ(-0.75, axis.bin(0).center());
     EXPECT_DOUBLE_EQ(-0.5, axis.bin(0).m_upper);
     EXPECT_DOUBLE_EQ(0.5, axis.bin(0).binSize());
 
     EXPECT_DOUBLE_EQ(-0.5, axis.bin(1).m_lower);
-    EXPECT_DOUBLE_EQ(0.0, axis.bin(1).getMidPoint());
+    EXPECT_DOUBLE_EQ(0.0, axis.bin(1).center());
     EXPECT_DOUBLE_EQ(0.5, axis.bin(1).m_upper);
     EXPECT_DOUBLE_EQ(1.0, axis.bin(1).binSize());
 
     EXPECT_DOUBLE_EQ(0.5, axis.bin(2).m_lower);
-    EXPECT_DOUBLE_EQ(0.75, axis.bin(2).getMidPoint());
+    EXPECT_DOUBLE_EQ(0.75, axis.bin(2).center());
     EXPECT_DOUBLE_EQ(1.0, axis.bin(2).m_upper);
     EXPECT_DOUBLE_EQ(0.5, axis.bin(2).binSize());
 
     EXPECT_DOUBLE_EQ(1.0, axis.bin(3).m_lower);
-    EXPECT_DOUBLE_EQ(1.5, axis.bin(3).getMidPoint());
+    EXPECT_DOUBLE_EQ(1.5, axis.bin(3).center());
     EXPECT_DOUBLE_EQ(2.0, axis.bin(3).m_upper);
     EXPECT_DOUBLE_EQ(1.0, axis.bin(3).binSize());
 }

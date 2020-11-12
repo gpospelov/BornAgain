@@ -43,5 +43,5 @@ bool Ellipse::contains(double x, double y) const
 //! more precisely, if mid point of two bins satisfy this condition.
 bool Ellipse::contains(const Bin1D& binx, const Bin1D& biny) const
 {
-    return contains(binx.getMidPoint(), biny.getMidPoint());
+    return contains(binx.center(), biny.center());
 }

@@ -43,7 +43,7 @@ VariableBinAxis* VariableBinAxis::clone() const
 
 double VariableBinAxis::operator[](size_t index) const
 {
-    return bin(index).getMidPoint();
+    return bin(index).center();
 }
 
 Bin1D VariableBinAxis::bin(size_t index) const
@@ -67,7 +67,7 @@ double VariableBinAxis::upperBound() const
 
 double VariableBinAxis::binCenter(size_t index) const
 {
-    return bin(index).getMidPoint();
+    return bin(index).center();
 }
 
 size_t VariableBinAxis::findClosestIndex(double value) const
@@ -95,7 +95,7 @@ std::vector<double> VariableBinAxis::binCenters() const
     std::vector<double> result;
     result.resize(size(), 0.0);
     for (size_t i = 0; i < size(); ++i) {
-        result[i] = bin(i).getMidPoint();
+        result[i] = bin(i).center();
     }
     return result;
 }
@@ -108,9 +108,9 @@ VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) c
                                               "'left'' should be smaller than 'right'");
 
     if (left < lowerBound())
-        left = bin(0).getMidPoint();
+        left = bin(0).center();
     if (right >= upperBound())
-        right = bin(size() - 1).getMidPoint();
+        right = bin(size() - 1).center();
 
     size_t nbin1 = findClosestIndex(left);
     size_t nbin2 = findClosestIndex(right);

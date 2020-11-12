@@ -44,7 +44,7 @@ kvector_t SphericalPixel::getK(double x, double y, double wavelength) const
     return vecOfLambdaAlphaPhi(wavelength, alpha, phi);
 }
 
-double SphericalPixel::getIntegrationFactor(double /* x */, double y) const
+double SphericalPixel::integrationFactor(double /* x */, double y) const
 {
     if (m_dalpha == 0.0)
         return 1.0;
@@ -52,7 +52,7 @@ double SphericalPixel::getIntegrationFactor(double /* x */, double y) const
     return std::cos(alpha) * m_dalpha / (std::sin(m_alpha + m_dalpha) - std::sin(m_alpha));
 }
 
-double SphericalPixel::getSolidAngle() const
+double SphericalPixel::solidAngle() const
 {
     return m_solid_angle;
 }

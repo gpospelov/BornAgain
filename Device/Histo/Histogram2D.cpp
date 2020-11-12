@@ -151,10 +151,10 @@ Histogram1D* Histogram2D::create_projectionX(int ybinlow, int ybinup)
 
     for (size_t index = 0; index < getTotalNumberOfBins(); ++index) {
 
-        int ybin = static_cast<int>(getYaxisIndex(index));
+        int ybin = static_cast<int>(yAxisIndex(index));
 
         if (ybin >= ybinlow && ybin <= ybinup) {
-            result->fill(getXaxisValue(index), binContent(index));
+            result->fill(xAxisValue(index), binContent(index));
         }
     }
     return result;
@@ -166,10 +166,10 @@ Histogram1D* Histogram2D::create_projectionY(int xbinlow, int xbinup)
 
     for (size_t index = 0; index < getTotalNumberOfBins(); ++index) {
 
-        int xbin = static_cast<int>(getXaxisIndex(index));
+        int xbin = static_cast<int>(xAxisIndex(index));
 
         if (xbin >= xbinlow && xbin <= xbinup) {
-            result->fill(getYaxisValue(index), binContent(index));
+            result->fill(yAxisValue(index), binContent(index));
         }
     }
     return result;

@@ -36,7 +36,7 @@ IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() = default;
 
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
-    if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0))
+    if (m_options.isIntegrate() && (sim_element.solidAngle() > 0.0))
         return MCIntegratedEvaluate(sim_element);
     return evaluateSinglePoint(sim_element);
 }
@@ -68,5 +68,5 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double* fraction
     SimulationElement* pars = static_cast<SimulationElement*>(params);
 
     SimulationElement sim_element = pars->pointElement(par0, par1);
-    return pars->getIntegrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
+    return pars->integrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
 }

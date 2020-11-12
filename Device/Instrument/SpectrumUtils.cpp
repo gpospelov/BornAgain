@@ -42,8 +42,8 @@ std::vector<std::pair<double, double>> SpectrumUtils::FindPeaks(const Histogram2
         double dx = col_value - static_cast<size_t>(col_value);
         double dy = -1.0 * (row_value - static_cast<size_t>(row_value));
 
-        double x = xbin.getMidPoint() + xbin.binSize() * dx;
-        double y = ybin.getMidPoint() + ybin.binSize() * dy;
+        double x = xbin.center() + xbin.binSize() * dx;
+        double y = ybin.center() + ybin.binSize() * dy;
 
         result.push_back(std::make_pair(x, y));
     }

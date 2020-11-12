@@ -71,7 +71,7 @@ TEST_F(PointwiseAxisTest, CheckBin)
     EXPECT_EQ(4u, boundaries.size());
 
     Bin1D bin0 = axis.bin(0);
-    EXPECT_DOUBLE_EQ(0.5, bin0.getMidPoint());
+    EXPECT_DOUBLE_EQ(0.5, bin0.center());
     EXPECT_DOUBLE_EQ(0.0, bin0.m_lower);
     EXPECT_DOUBLE_EQ(bin0.m_lower, boundaries[0]);
     EXPECT_DOUBLE_EQ(1.0, bin0.m_upper);
@@ -79,7 +79,7 @@ TEST_F(PointwiseAxisTest, CheckBin)
     EXPECT_DOUBLE_EQ(1.0, bin0.binSize());
 
     Bin1D bin1 = axis.bin(1);
-    EXPECT_DOUBLE_EQ(3.5, bin1.getMidPoint());
+    EXPECT_DOUBLE_EQ(3.5, bin1.center());
     EXPECT_DOUBLE_EQ(1.0, bin1.m_lower);
     EXPECT_DOUBLE_EQ(bin1.m_lower, boundaries[1]);
     EXPECT_DOUBLE_EQ(6.0, bin1.m_upper);
@@ -87,7 +87,7 @@ TEST_F(PointwiseAxisTest, CheckBin)
     EXPECT_DOUBLE_EQ(5.0, bin1.binSize());
 
     Bin1D bin2 = axis.bin(2);
-    EXPECT_DOUBLE_EQ(8.0, bin2.getMidPoint());
+    EXPECT_DOUBLE_EQ(8.0, bin2.center());
     EXPECT_DOUBLE_EQ(6.0, bin2.m_lower);
     EXPECT_DOUBLE_EQ(bin2.m_lower, boundaries[2]);
     EXPECT_DOUBLE_EQ(10.0, bin2.m_upper);

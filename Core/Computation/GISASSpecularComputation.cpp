@@ -30,7 +30,7 @@ void GISASSpecularComputation::compute(SimulationElement& elem) const
     double sin_alpha_i = std::abs(std::sin(elem.getAlphaI()));
     if (sin_alpha_i == 0.0)
         sin_alpha_i = 1.0;
-    const double solid_angle = elem.getSolidAngle();
+    const double solid_angle = elem.solidAngle();
     if (solid_angle <= 0.0)
         return;
     const double intensity = std::norm(R) * sin_alpha_i / solid_angle;

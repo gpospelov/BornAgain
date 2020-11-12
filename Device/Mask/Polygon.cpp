@@ -105,7 +105,7 @@ bool Polygon::contains(double x, double y) const
 
 bool Polygon::contains(const Bin1D& binx, const Bin1D& biny) const
 {
-    return contains(binx.getMidPoint(), biny.getMidPoint());
+    return contains(binx.center(), biny.center());
 }
 
 double Polygon::getArea() const

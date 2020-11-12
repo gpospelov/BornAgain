@@ -66,8 +66,8 @@ TEST_F(SimulationElementTest, copyConstructor)
     EXPECT_EQ(orig->getKi(), element.getKi());
     EXPECT_EQ(orig->getMeanKf(), element.getMeanKf());
     EXPECT_EQ(orig->getQ(0.5, 0.5), element.getQ(0.5, 0.5));
-    EXPECT_EQ(orig->getIntegrationFactor(0.5, 0.5), element.getIntegrationFactor(0.5, 0.5));
-    EXPECT_EQ(orig->getSolidAngle(), element.getSolidAngle());
+    EXPECT_EQ(orig->integrationFactor(0.5, 0.5), element.integrationFactor(0.5, 0.5));
+    EXPECT_EQ(orig->solidAngle(), element.solidAngle());
     EXPECT_EQ(orig->getAlpha(0.5, 0.5), element.getAlpha(0.5, 0.5));
     EXPECT_EQ(orig->getPhi(0.5, 0.5), element.getPhi(0.5, 0.5));
     EXPECT_EQ(orig->isSpecular(), element.isSpecular());
@@ -88,8 +88,8 @@ TEST_F(SimulationElementTest, moveConstruction)
     EXPECT_EQ(orig.getKi(), element.getKi());
     EXPECT_EQ(orig.getMeanKf(), element.getMeanKf());
     EXPECT_EQ(orig.getQ(0.5, 0.5), element.getQ(0.5, 0.5));
-    EXPECT_EQ(orig.getIntegrationFactor(0.5, 0.5), element.getIntegrationFactor(0.5, 0.5));
-    EXPECT_EQ(orig.getSolidAngle(), element.getSolidAngle());
+    EXPECT_EQ(orig.integrationFactor(0.5, 0.5), element.integrationFactor(0.5, 0.5));
+    EXPECT_EQ(orig.solidAngle(), element.solidAngle());
     EXPECT_EQ(orig.getAlpha(0.5, 0.5), element.getAlpha(0.5, 0.5));
     EXPECT_EQ(orig.getPhi(0.5, 0.5), element.getPhi(0.5, 0.5));
     EXPECT_EQ(orig.isSpecular(), element.isSpecular());

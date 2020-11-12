@@ -41,25 +41,25 @@ TEST_F(Histogram2DTest, VariableHist)
     EXPECT_EQ(hist.getYmax(), 4.0);
 
     // globalbin -> axes indices
-    EXPECT_EQ(hist.getXaxisIndex(0), 0u);
-    EXPECT_EQ(hist.getXaxisIndex(1), 0u);
-    EXPECT_EQ(hist.getXaxisIndex(2), 0u);
-    EXPECT_EQ(hist.getXaxisIndex(3), 1u);
-    EXPECT_EQ(hist.getXaxisIndex(4), 1u);
-    EXPECT_EQ(hist.getXaxisIndex(5), 1u);
-    EXPECT_EQ(hist.getXaxisIndex(9), 3u);
-    EXPECT_EQ(hist.getXaxisIndex(10), 3u);
-    EXPECT_EQ(hist.getXaxisIndex(11), 3u);
+    EXPECT_EQ(hist.xAxisIndex(0), 0u);
+    EXPECT_EQ(hist.xAxisIndex(1), 0u);
+    EXPECT_EQ(hist.xAxisIndex(2), 0u);
+    EXPECT_EQ(hist.xAxisIndex(3), 1u);
+    EXPECT_EQ(hist.xAxisIndex(4), 1u);
+    EXPECT_EQ(hist.xAxisIndex(5), 1u);
+    EXPECT_EQ(hist.xAxisIndex(9), 3u);
+    EXPECT_EQ(hist.xAxisIndex(10), 3u);
+    EXPECT_EQ(hist.xAxisIndex(11), 3u);
 
-    EXPECT_EQ(hist.getYaxisIndex(0), 0u);
-    EXPECT_EQ(hist.getYaxisIndex(1), 1u);
-    EXPECT_EQ(hist.getYaxisIndex(2), 2u);
-    EXPECT_EQ(hist.getYaxisIndex(3), 0u);
-    EXPECT_EQ(hist.getYaxisIndex(4), 1u);
-    EXPECT_EQ(hist.getYaxisIndex(5), 2u);
-    EXPECT_EQ(hist.getYaxisIndex(9), 0u);
-    EXPECT_EQ(hist.getYaxisIndex(10), 1u);
-    EXPECT_EQ(hist.getYaxisIndex(11), 2u);
+    EXPECT_EQ(hist.yAxisIndex(0), 0u);
+    EXPECT_EQ(hist.yAxisIndex(1), 1u);
+    EXPECT_EQ(hist.yAxisIndex(2), 2u);
+    EXPECT_EQ(hist.yAxisIndex(3), 0u);
+    EXPECT_EQ(hist.yAxisIndex(4), 1u);
+    EXPECT_EQ(hist.yAxisIndex(5), 2u);
+    EXPECT_EQ(hist.yAxisIndex(9), 0u);
+    EXPECT_EQ(hist.yAxisIndex(10), 1u);
+    EXPECT_EQ(hist.yAxisIndex(11), 2u);
 
     // axes indices -> global bin
     EXPECT_EQ(hist.getGlobalBin(0, 0), size_t(0));
@@ -68,17 +68,17 @@ TEST_F(Histogram2DTest, VariableHist)
     EXPECT_EQ(hist.getGlobalBin(3, 2), size_t(11));
 
     // bin centers
-    EXPECT_EQ(hist.getXaxisValue(0), -0.75);
-    EXPECT_EQ(hist.getXaxisValue(2), -0.75);
-    EXPECT_EQ(hist.getXaxisValue(4), 0.0);
-    EXPECT_EQ(hist.getXaxisValue(10), 1.5);
-    EXPECT_EQ(hist.getXaxisValue(11), 1.5);
+    EXPECT_EQ(hist.xAxisValue(0), -0.75);
+    EXPECT_EQ(hist.xAxisValue(2), -0.75);
+    EXPECT_EQ(hist.xAxisValue(4), 0.0);
+    EXPECT_EQ(hist.xAxisValue(10), 1.5);
+    EXPECT_EQ(hist.xAxisValue(11), 1.5);
 
-    EXPECT_EQ(hist.getYaxisValue(0), 0.5);
-    EXPECT_EQ(hist.getYaxisValue(2), 3.0);
-    EXPECT_EQ(hist.getYaxisValue(4), 1.5);
-    EXPECT_EQ(hist.getYaxisValue(10), 1.5);
-    EXPECT_EQ(hist.getYaxisValue(11), 3.0);
+    EXPECT_EQ(hist.yAxisValue(0), 0.5);
+    EXPECT_EQ(hist.yAxisValue(2), 3.0);
+    EXPECT_EQ(hist.yAxisValue(4), 1.5);
+    EXPECT_EQ(hist.yAxisValue(10), 1.5);
+    EXPECT_EQ(hist.yAxisValue(11), 3.0);
 
     // coordinates to global bin
     EXPECT_EQ(hist.findGlobalBin(-0.75, 0.5), size_t(0));
@@ -158,10 +158,10 @@ TEST_F(Histogram2DTest, projectionX)
     EXPECT_EQ(hist.getXmin(), h1->getXmin());
     EXPECT_EQ(hist.getXmax(), h1->getXmax());
     EXPECT_EQ(hist.getNbinsX(), h1->getNbinsX());
-    EXPECT_EQ(hist.getXaxisValue(0), h1->getXaxisValue(0));
-    EXPECT_EQ(hist.getXaxisValue(3), h1->getXaxisValue(1));
-    EXPECT_EQ(hist.getXaxisValue(6), h1->getXaxisValue(2));
-    EXPECT_EQ(hist.getXaxisValue(9), h1->getXaxisValue(3));
+    EXPECT_EQ(hist.xAxisValue(0), h1->xAxisValue(0));
+    EXPECT_EQ(hist.xAxisValue(3), h1->xAxisValue(1));
+    EXPECT_EQ(hist.xAxisValue(6), h1->xAxisValue(2));
+    EXPECT_EQ(hist.xAxisValue(9), h1->xAxisValue(3));
 
     // check content of projections
     for (size_t binx = 0; binx < h1->getNbinsX(); ++binx) {
@@ -175,10 +175,10 @@ TEST_F(Histogram2DTest, projectionX)
     EXPECT_EQ(hist.getXmin(), h1->getXmin());
     EXPECT_EQ(hist.getXmax(), h1->getXmax());
     EXPECT_EQ(hist.getNbinsX(), h1->getNbinsX());
-    EXPECT_EQ(hist.getXaxisValue(0), h1->getXaxisValue(0));
-    EXPECT_EQ(hist.getXaxisValue(3), h1->getXaxisValue(1));
-    EXPECT_EQ(hist.getXaxisValue(6), h1->getXaxisValue(2));
-    EXPECT_EQ(hist.getXaxisValue(9), h1->getXaxisValue(3));
+    EXPECT_EQ(hist.xAxisValue(0), h1->xAxisValue(0));
+    EXPECT_EQ(hist.xAxisValue(3), h1->xAxisValue(1));
+    EXPECT_EQ(hist.xAxisValue(6), h1->xAxisValue(2));
+    EXPECT_EQ(hist.xAxisValue(9), h1->xAxisValue(3));
 
     // check content of projections
     for (size_t binx = 0; binx < h1->getNbinsX(); ++binx) {
@@ -192,10 +192,10 @@ TEST_F(Histogram2DTest, projectionX)
     EXPECT_EQ(hist.getXmin(), h1->getXmin());
     EXPECT_EQ(hist.getXmax(), h1->getXmax());
     EXPECT_EQ(hist.getNbinsX(), h1->getNbinsX());
-    EXPECT_EQ(hist.getXaxisValue(0), h1->getXaxisValue(0));
-    EXPECT_EQ(hist.getXaxisValue(3), h1->getXaxisValue(1));
-    EXPECT_EQ(hist.getXaxisValue(6), h1->getXaxisValue(2));
-    EXPECT_EQ(hist.getXaxisValue(9), h1->getXaxisValue(3));
+    EXPECT_EQ(hist.xAxisValue(0), h1->xAxisValue(0));
+    EXPECT_EQ(hist.xAxisValue(3), h1->xAxisValue(1));
+    EXPECT_EQ(hist.xAxisValue(6), h1->xAxisValue(2));
+    EXPECT_EQ(hist.xAxisValue(9), h1->xAxisValue(3));
 
     // check content of projections
     for (size_t binx = 0; binx < h1->getNbinsX(); ++binx) {
@@ -237,9 +237,9 @@ TEST_F(Histogram2DTest, projectionY)
     EXPECT_EQ(hist.getYmax(), h1->getXmax());
     EXPECT_EQ(size_t(3), h1->getNbinsX());
     EXPECT_EQ(hist.getNbinsY(), h1->getNbinsX());
-    EXPECT_EQ(hist.getYaxisValue(3), h1->getXaxisValue(0));
-    EXPECT_EQ(hist.getYaxisValue(4), h1->getXaxisValue(1));
-    EXPECT_EQ(hist.getYaxisValue(5), h1->getXaxisValue(2));
+    EXPECT_EQ(hist.yAxisValue(3), h1->xAxisValue(0));
+    EXPECT_EQ(hist.yAxisValue(4), h1->xAxisValue(1));
+    EXPECT_EQ(hist.yAxisValue(5), h1->xAxisValue(2));
 
     // check content of projections
 
@@ -257,9 +257,9 @@ TEST_F(Histogram2DTest, projectionY)
     EXPECT_EQ(hist.getYmax(), h1->getXmax());
     EXPECT_EQ(size_t(3), h1->getNbinsX());
     EXPECT_EQ(hist.getNbinsY(), h1->getNbinsX());
-    EXPECT_EQ(hist.getYaxisValue(3), h1->getXaxisValue(0));
-    EXPECT_EQ(hist.getYaxisValue(4), h1->getXaxisValue(1));
-    EXPECT_EQ(hist.getYaxisValue(5), h1->getXaxisValue(2));
+    EXPECT_EQ(hist.yAxisValue(3), h1->xAxisValue(0));
+    EXPECT_EQ(hist.yAxisValue(4), h1->xAxisValue(1));
+    EXPECT_EQ(hist.yAxisValue(5), h1->xAxisValue(2));
 
     // check content of projections
 
@@ -277,9 +277,9 @@ TEST_F(Histogram2DTest, projectionY)
     EXPECT_EQ(hist.getYmax(), h1->getXmax());
     EXPECT_EQ(size_t(3), h1->getNbinsX());
     EXPECT_EQ(hist.getNbinsY(), h1->getNbinsX());
-    EXPECT_EQ(hist.getYaxisValue(3), h1->getXaxisValue(0));
-    EXPECT_EQ(hist.getYaxisValue(4), h1->getXaxisValue(1));
-    EXPECT_EQ(hist.getYaxisValue(5), h1->getXaxisValue(2));
+    EXPECT_EQ(hist.yAxisValue(3), h1->xAxisValue(0));
+    EXPECT_EQ(hist.yAxisValue(4), h1->xAxisValue(1));
+    EXPECT_EQ(hist.yAxisValue(5), h1->xAxisValue(2));
 
     // check content of projections
 
@@ -366,7 +366,7 @@ TEST_F(Histogram2DTest, CreateOutputData)
         for (size_t ny = 0; ny < h2.getNbinsY(); ++ny) {
             double value(1.0 * ny + nx * h2.getNbinsY());
             size_t globalbin = h2.getGlobalBin(nx, ny);
-            h2.fill(h2.getXaxisValue(globalbin), h2.getYaxisValue(globalbin), value);
+            h2.fill(h2.xAxisValue(globalbin), h2.yAxisValue(globalbin), value);
         }
     }
 

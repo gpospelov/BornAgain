@@ -101,23 +101,23 @@ size_t IHistogram::findGlobalBin(double x, double y) const
     return m_data.findGlobalIndex(coordinates);
 }
 
-size_t IHistogram::getXaxisIndex(size_t i) const
+size_t IHistogram::xAxisIndex(size_t i) const
 {
     return m_data.getAxisBinIndex(i, 0);
 }
 
-size_t IHistogram::getYaxisIndex(size_t i) const
+size_t IHistogram::yAxisIndex(size_t i) const
 {
     return m_data.getAxisBinIndex(i, 1);
 }
 
-double IHistogram::getXaxisValue(size_t i)
+double IHistogram::xAxisValue(size_t i)
 {
     check_x_axis();
     return m_data.getAxisValue(i, 0);
 }
 
-double IHistogram::getYaxisValue(size_t i)
+double IHistogram::yAxisValue(size_t i)
 {
     check_y_axis();
     return m_data.getAxisValue(i, 1);

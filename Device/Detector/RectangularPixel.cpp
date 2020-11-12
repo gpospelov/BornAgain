@@ -47,7 +47,7 @@ kvector_t RectangularPixel::getPosition(double x, double y) const
     return m_corner_pos + x * m_width + y * m_height;
 }
 
-double RectangularPixel::getIntegrationFactor(double x, double y) const
+double RectangularPixel::integrationFactor(double x, double y) const
 {
     if (m_solid_angle == 0.0)
         return 1.0;
@@ -56,7 +56,7 @@ double RectangularPixel::getIntegrationFactor(double x, double y) const
     return std::abs(position.dot(m_normal)) / std::pow(length, 3) / m_solid_angle;
 }
 
-double RectangularPixel::getSolidAngle() const
+double RectangularPixel::solidAngle() const
 {
     return m_solid_angle;
 }

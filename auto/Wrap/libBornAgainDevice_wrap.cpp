@@ -41314,7 +41314,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getXaxisIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_xAxisIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41325,18 +41325,18 @@ SWIGINTERN PyObject *_wrap_IHistogram_getXaxisIndex(PyObject *SWIGUNUSEDPARM(sel
   PyObject *swig_obj[2] ;
   size_t result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IHistogram_getXaxisIndex", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IHistogram_xAxisIndex", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getXaxisIndex" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_xAxisIndex" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getXaxisIndex" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_xAxisIndex" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = ((IHistogram const *)arg1)->getXaxisIndex(arg2);
+  result = ((IHistogram const *)arg1)->xAxisIndex(arg2);
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -41344,7 +41344,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getYaxisIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_yAxisIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41355,18 +41355,18 @@ SWIGINTERN PyObject *_wrap_IHistogram_getYaxisIndex(PyObject *SWIGUNUSEDPARM(sel
   PyObject *swig_obj[2] ;
   size_t result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IHistogram_getYaxisIndex", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IHistogram_yAxisIndex", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getYaxisIndex" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_yAxisIndex" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getYaxisIndex" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_yAxisIndex" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = ((IHistogram const *)arg1)->getYaxisIndex(arg2);
+  result = ((IHistogram const *)arg1)->yAxisIndex(arg2);
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -41374,7 +41374,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getXaxisValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_xAxisValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41385,18 +41385,18 @@ SWIGINTERN PyObject *_wrap_IHistogram_getXaxisValue(PyObject *SWIGUNUSEDPARM(sel
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IHistogram_getXaxisValue", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IHistogram_xAxisValue", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getXaxisValue" "', argument " "1"" of type '" "IHistogram *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_xAxisValue" "', argument " "1"" of type '" "IHistogram *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getXaxisValue" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_xAxisValue" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)(arg1)->getXaxisValue(arg2);
+  result = (double)(arg1)->xAxisValue(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -41404,7 +41404,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getYaxisValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_yAxisValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41415,18 +41415,18 @@ SWIGINTERN PyObject *_wrap_IHistogram_getYaxisValue(PyObject *SWIGUNUSEDPARM(sel
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IHistogram_getYaxisValue", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IHistogram_yAxisValue", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getYaxisValue" "', argument " "1"" of type '" "IHistogram *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_yAxisValue" "', argument " "1"" of type '" "IHistogram *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getYaxisValue" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_yAxisValue" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)(arg1)->getYaxisValue(arg2);
+  result = (double)(arg1)->yAxisValue(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -48277,30 +48277,30 @@ static PyMethodDef SwigMethods[] = {
 		"Returns closest global bin index for given axes coordinates. \n"
 		"\n"
 		""},
-	 { "IHistogram_getXaxisIndex", _wrap_IHistogram_getXaxisIndex, METH_VARARGS, "\n"
-		"IHistogram_getXaxisIndex(IHistogram self, size_t i) -> size_t\n"
-		"size_t IHistogram::getXaxisIndex(size_t i) const\n"
+	 { "IHistogram_xAxisIndex", _wrap_IHistogram_xAxisIndex, METH_VARARGS, "\n"
+		"IHistogram_xAxisIndex(IHistogram self, size_t i) -> size_t\n"
+		"size_t IHistogram::xAxisIndex(size_t i) const\n"
 		"\n"
 		"Returns x-axis index for global bin index i. \n"
 		"\n"
 		""},
-	 { "IHistogram_getYaxisIndex", _wrap_IHistogram_getYaxisIndex, METH_VARARGS, "\n"
-		"IHistogram_getYaxisIndex(IHistogram self, size_t i) -> size_t\n"
-		"size_t IHistogram::getYaxisIndex(size_t i) const\n"
+	 { "IHistogram_yAxisIndex", _wrap_IHistogram_yAxisIndex, METH_VARARGS, "\n"
+		"IHistogram_yAxisIndex(IHistogram self, size_t i) -> size_t\n"
+		"size_t IHistogram::yAxisIndex(size_t i) const\n"
 		"\n"
 		"Returns y-axis index for global bin index i. \n"
 		"\n"
 		""},
-	 { "IHistogram_getXaxisValue", _wrap_IHistogram_getXaxisValue, METH_VARARGS, "\n"
-		"IHistogram_getXaxisValue(IHistogram self, size_t i) -> double\n"
-		"double IHistogram::getXaxisValue(size_t i)\n"
+	 { "IHistogram_xAxisValue", _wrap_IHistogram_xAxisValue, METH_VARARGS, "\n"
+		"IHistogram_xAxisValue(IHistogram self, size_t i) -> double\n"
+		"double IHistogram::xAxisValue(size_t i)\n"
 		"\n"
 		"Returns the center of bin i of the x axis. \n"
 		"\n"
 		""},
-	 { "IHistogram_getYaxisValue", _wrap_IHistogram_getYaxisValue, METH_VARARGS, "\n"
-		"IHistogram_getYaxisValue(IHistogram self, size_t i) -> double\n"
-		"double IHistogram::getYaxisValue(size_t i)\n"
+	 { "IHistogram_yAxisValue", _wrap_IHistogram_yAxisValue, METH_VARARGS, "\n"
+		"IHistogram_yAxisValue(IHistogram self, size_t i) -> double\n"
+		"double IHistogram::yAxisValue(size_t i)\n"
 		"\n"
 		"Returns the center of bin i of the y axis. \n"
 		"\n"

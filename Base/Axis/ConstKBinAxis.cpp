@@ -53,9 +53,9 @@ ConstKBinAxis* ConstKBinAxis::createClippedAxis(double left, double right) const
             "ConstKBinAxis::createClippedAxis() -> Error. 'left'' should be smaller than 'right'");
 
     if (left < lowerBound())
-        left = bin(0).getMidPoint();
+        left = bin(0).center();
     if (right >= upperBound())
-        right = bin(size() - 1).getMidPoint();
+        right = bin(size() - 1).center();
 
     size_t nbin1 = findClosestIndex(left);
     size_t nbin2 = findClosestIndex(right);

@@ -88,12 +88,12 @@ double SimulationElement::getPhi(double x, double y) const
     return getKf(x, y).phi();
 }
 
-double SimulationElement::getIntegrationFactor(double x, double y) const
+double SimulationElement::integrationFactor(double x, double y) const
 {
-    return m_pixel->getIntegrationFactor(x, y);
+    return m_pixel->integrationFactor(x, y);
 }
 
-double SimulationElement::getSolidAngle() const
+double SimulationElement::solidAngle() const
 {
-    return m_pixel->getSolidAngle();
+    return m_pixel->solidAngle();
 }

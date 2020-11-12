@@ -172,7 +172,7 @@ Returns result of rotation around the axis specified by another vector.
 %feature("docstring")  Bin1D::Bin1D "Bin1D::Bin1D(double lower, double upper)
 ";
 
-%feature("docstring")  Bin1D::getMidPoint "double Bin1D::getMidPoint() const
+%feature("docstring")  Bin1D::center "double Bin1D::center() const
 ";
 
 %feature("docstring")  Bin1D::binSize "double Bin1D::binSize() const
@@ -198,10 +198,10 @@ C++ includes: Bin.h
 creation on  Bin1DCVector from alpha and phi bins 
 ";
 
-%feature("docstring")  Bin1DCVector::getMidPoint "cvector_t Bin1DCVector::getMidPoint() const
+%feature("docstring")  Bin1DCVector::center "cvector_t Bin1DCVector::center() const
 ";
 
-%feature("docstring")  Bin1DCVector::getDelta "cvector_t Bin1DCVector::getDelta() const
+%feature("docstring")  Bin1DCVector::span "cvector_t Bin1DCVector::span() const
 ";
 
 
@@ -224,10 +224,10 @@ C++ includes: Bin.h
 creation on  Bin1DKVector from alpha and phi bins 
 ";
 
-%feature("docstring")  Bin1DKVector::getMidPoint "kvector_t Bin1DKVector::getMidPoint() const
+%feature("docstring")  Bin1DKVector::center "kvector_t Bin1DKVector::center() const
 ";
 
-%feature("docstring")  Bin1DKVector::getDelta "kvector_t Bin1DKVector::getDelta() const
+%feature("docstring")  Bin1DKVector::span "kvector_t Bin1DKVector::span() const
 ";
 
 
@@ -647,10 +647,10 @@ C++ includes: IPixel.h
 %feature("docstring")  IPixel::getK "virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0
 ";
 
-%feature("docstring")  IPixel::getIntegrationFactor "virtual double IPixel::getIntegrationFactor(double x, double y) const =0
+%feature("docstring")  IPixel::integrationFactor "virtual double IPixel::integrationFactor(double x, double y) const =0
 ";
 
-%feature("docstring")  IPixel::getSolidAngle "virtual double IPixel::getSolidAngle() const =0
+%feature("docstring")  IPixel::solidAngle "virtual double IPixel::solidAngle() const =0
 ";
 
 
@@ -945,10 +945,10 @@ Returns assigned  PolarizationHandler.
 Returns scattering vector Q, with Kf determined from in-pixel coordinates x,y. In-pixel coordinates take values from 0 to 1. 
 ";
 
-%feature("docstring")  SimulationElement::getIntegrationFactor "double SimulationElement::getIntegrationFactor(double x, double y) const
+%feature("docstring")  SimulationElement::integrationFactor "double SimulationElement::integrationFactor(double x, double y) const
 ";
 
-%feature("docstring")  SimulationElement::getSolidAngle "double SimulationElement::getSolidAngle() const
+%feature("docstring")  SimulationElement::solidAngle "double SimulationElement::solidAngle() const
 ";
 
 %feature("docstring")  SimulationElement::getAlpha "double SimulationElement::getAlpha(double x, double y) const

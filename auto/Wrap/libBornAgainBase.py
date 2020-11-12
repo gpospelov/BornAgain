@@ -1868,13 +1868,13 @@ class Bin1D(object):
     m_lower = property(_libBornAgainBase.Bin1D_m_lower_get, _libBornAgainBase.Bin1D_m_lower_set, doc=r"""m_lower : double""")
     m_upper = property(_libBornAgainBase.Bin1D_m_upper_get, _libBornAgainBase.Bin1D_m_upper_set, doc=r"""m_upper : double""")
 
-    def getMidPoint(self):
+    def center(self):
         r"""
-        getMidPoint(Bin1D self) -> double
-        double Bin1D::getMidPoint() const
+        center(Bin1D self) -> double
+        double Bin1D::center() const
 
         """
-        return _libBornAgainBase.Bin1D_getMidPoint(self)
+        return _libBornAgainBase.Bin1D_center(self)
 
     def binSize(self):
         r"""
@@ -1923,21 +1923,21 @@ class Bin1DKVector(object):
         """
         _libBornAgainBase.Bin1DKVector_swiginit(self, _libBornAgainBase.new_Bin1DKVector(*args))
 
-    def getMidPoint(self):
+    def center(self):
         r"""
-        getMidPoint(Bin1DKVector self) -> kvector_t
-        kvector_t Bin1DKVector::getMidPoint() const
+        center(Bin1DKVector self) -> kvector_t
+        kvector_t Bin1DKVector::center() const
 
         """
-        return _libBornAgainBase.Bin1DKVector_getMidPoint(self)
+        return _libBornAgainBase.Bin1DKVector_center(self)
 
-    def getDelta(self):
+    def span(self):
         r"""
-        getDelta(Bin1DKVector self) -> kvector_t
-        kvector_t Bin1DKVector::getDelta() const
+        span(Bin1DKVector self) -> kvector_t
+        kvector_t Bin1DKVector::span() const
 
         """
-        return _libBornAgainBase.Bin1DKVector_getDelta(self)
+        return _libBornAgainBase.Bin1DKVector_span(self)
     m_q_lower = property(_libBornAgainBase.Bin1DKVector_m_q_lower_get, _libBornAgainBase.Bin1DKVector_m_q_lower_set, doc=r"""m_q_lower : kvector_t""")
     m_q_upper = property(_libBornAgainBase.Bin1DKVector_m_q_upper_get, _libBornAgainBase.Bin1DKVector_m_q_upper_set, doc=r"""m_q_upper : kvector_t""")
     __swig_destroy__ = _libBornAgainBase.delete_Bin1DKVector
@@ -1970,21 +1970,21 @@ class Bin1DCVector(object):
         """
         _libBornAgainBase.Bin1DCVector_swiginit(self, _libBornAgainBase.new_Bin1DCVector(*args))
 
-    def getMidPoint(self):
+    def center(self):
         r"""
-        getMidPoint(Bin1DCVector self) -> cvector_t
-        cvector_t Bin1DCVector::getMidPoint() const
+        center(Bin1DCVector self) -> cvector_t
+        cvector_t Bin1DCVector::center() const
 
         """
-        return _libBornAgainBase.Bin1DCVector_getMidPoint(self)
+        return _libBornAgainBase.Bin1DCVector_center(self)
 
-    def getDelta(self):
+    def span(self):
         r"""
-        getDelta(Bin1DCVector self) -> cvector_t
-        cvector_t Bin1DCVector::getDelta() const
+        span(Bin1DCVector self) -> cvector_t
+        cvector_t Bin1DCVector::span() const
 
         """
-        return _libBornAgainBase.Bin1DCVector_getDelta(self)
+        return _libBornAgainBase.Bin1DCVector_span(self)
     m_q_lower = property(_libBornAgainBase.Bin1DCVector_m_q_lower_get, _libBornAgainBase.Bin1DCVector_m_q_lower_set, doc=r"""m_q_lower : cvector_t""")
     m_q_upper = property(_libBornAgainBase.Bin1DCVector_m_q_upper_get, _libBornAgainBase.Bin1DCVector_m_q_upper_set, doc=r"""m_q_upper : cvector_t""")
     __swig_destroy__ = _libBornAgainBase.delete_Bin1DCVector
@@ -2648,21 +2648,21 @@ class IPixel(object):
         """
         return _libBornAgainBase.IPixel_getK(self, x, y, wavelength)
 
-    def getIntegrationFactor(self, x, y):
+    def integrationFactor(self, x, y):
         r"""
-        getIntegrationFactor(IPixel self, double x, double y) -> double
-        virtual double IPixel::getIntegrationFactor(double x, double y) const =0
+        integrationFactor(IPixel self, double x, double y) -> double
+        virtual double IPixel::integrationFactor(double x, double y) const =0
 
         """
-        return _libBornAgainBase.IPixel_getIntegrationFactor(self, x, y)
+        return _libBornAgainBase.IPixel_integrationFactor(self, x, y)
 
-    def getSolidAngle(self):
+    def solidAngle(self):
         r"""
-        getSolidAngle(IPixel self) -> double
-        virtual double IPixel::getSolidAngle() const =0
+        solidAngle(IPixel self) -> double
+        virtual double IPixel::solidAngle() const =0
 
         """
-        return _libBornAgainBase.IPixel_getSolidAngle(self)
+        return _libBornAgainBase.IPixel_solidAngle(self)
 
 # Register IPixel in _libBornAgainBase:
 _libBornAgainBase.IPixel_swigregister(IPixel)

@@ -75,16 +75,16 @@ public:
     size_t findGlobalBin(double x, double y) const;
 
     //! Returns x-axis index for global bin index i.
-    size_t getXaxisIndex(size_t i) const;
+    size_t xAxisIndex(size_t i) const;
 
     //! Returns y-axis index for global bin index i.
-    size_t getYaxisIndex(size_t i) const;
+    size_t yAxisIndex(size_t i) const;
 
     //! Returns the center of bin i of the x axis.
-    double getXaxisValue(size_t i);
+    double xAxisValue(size_t i);
 
     //! Returns the center of bin i of the y axis.
-    double getYaxisValue(size_t i);
+    double yAxisValue(size_t i);
 
     const OutputData<CumulativeValue>& getData() const;
     OutputData<CumulativeValue>& getData();

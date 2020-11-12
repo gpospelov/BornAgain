@@ -25059,7 +25059,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Bin1D_getMidPoint(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Bin1D_center(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Bin1D *arg1 = (Bin1D *) 0 ;
   void *argp1 = 0 ;
@@ -25071,10 +25071,10 @@ SWIGINTERN PyObject *_wrap_Bin1D_getMidPoint(PyObject *SWIGUNUSEDPARM(self), PyO
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Bin1D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1D_getMidPoint" "', argument " "1"" of type '" "Bin1D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1D_center" "', argument " "1"" of type '" "Bin1D const *""'"); 
   }
   arg1 = reinterpret_cast< Bin1D * >(argp1);
-  result = (double)((Bin1D const *)arg1)->getMidPoint();
+  result = (double)((Bin1D const *)arg1)->center();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -25324,7 +25324,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Bin1DKVector_getMidPoint(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Bin1DKVector_center(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Bin1DKVector *arg1 = (Bin1DKVector *) 0 ;
   void *argp1 = 0 ;
@@ -25336,10 +25336,10 @@ SWIGINTERN PyObject *_wrap_Bin1DKVector_getMidPoint(PyObject *SWIGUNUSEDPARM(sel
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Bin1DKVector, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1DKVector_getMidPoint" "', argument " "1"" of type '" "Bin1DKVector const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1DKVector_center" "', argument " "1"" of type '" "Bin1DKVector const *""'"); 
   }
   arg1 = reinterpret_cast< Bin1DKVector * >(argp1);
-  result = ((Bin1DKVector const *)arg1)->getMidPoint();
+  result = ((Bin1DKVector const *)arg1)->center();
   resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -25347,7 +25347,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Bin1DKVector_getDelta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Bin1DKVector_span(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Bin1DKVector *arg1 = (Bin1DKVector *) 0 ;
   void *argp1 = 0 ;
@@ -25359,10 +25359,10 @@ SWIGINTERN PyObject *_wrap_Bin1DKVector_getDelta(PyObject *SWIGUNUSEDPARM(self),
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Bin1DKVector, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1DKVector_getDelta" "', argument " "1"" of type '" "Bin1DKVector const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1DKVector_span" "', argument " "1"" of type '" "Bin1DKVector const *""'"); 
   }
   arg1 = reinterpret_cast< Bin1DKVector * >(argp1);
-  result = ((Bin1DKVector const *)arg1)->getDelta();
+  result = ((Bin1DKVector const *)arg1)->span();
   resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -25660,7 +25660,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Bin1DCVector_getMidPoint(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Bin1DCVector_center(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Bin1DCVector *arg1 = (Bin1DCVector *) 0 ;
   void *argp1 = 0 ;
@@ -25672,10 +25672,10 @@ SWIGINTERN PyObject *_wrap_Bin1DCVector_getMidPoint(PyObject *SWIGUNUSEDPARM(sel
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Bin1DCVector, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1DCVector_getMidPoint" "', argument " "1"" of type '" "Bin1DCVector const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1DCVector_center" "', argument " "1"" of type '" "Bin1DCVector const *""'"); 
   }
   arg1 = reinterpret_cast< Bin1DCVector * >(argp1);
-  result = ((Bin1DCVector const *)arg1)->getMidPoint();
+  result = ((Bin1DCVector const *)arg1)->center();
   resultobj = SWIG_NewPointerObj((new cvector_t(static_cast< const cvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -25683,7 +25683,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Bin1DCVector_getDelta(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Bin1DCVector_span(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Bin1DCVector *arg1 = (Bin1DCVector *) 0 ;
   void *argp1 = 0 ;
@@ -25695,10 +25695,10 @@ SWIGINTERN PyObject *_wrap_Bin1DCVector_getDelta(PyObject *SWIGUNUSEDPARM(self),
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Bin1DCVector, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1DCVector_getDelta" "', argument " "1"" of type '" "Bin1DCVector const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Bin1DCVector_span" "', argument " "1"" of type '" "Bin1DCVector const *""'"); 
   }
   arg1 = reinterpret_cast< Bin1DCVector * >(argp1);
-  result = ((Bin1DCVector const *)arg1)->getDelta();
+  result = ((Bin1DCVector const *)arg1)->span();
   resultobj = SWIG_NewPointerObj((new cvector_t(static_cast< const cvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -27725,7 +27725,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IPixel_getIntegrationFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IPixel_integrationFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IPixel *arg1 = (IPixel *) 0 ;
   double arg2 ;
@@ -27739,23 +27739,23 @@ SWIGINTERN PyObject *_wrap_IPixel_getIntegrationFactor(PyObject *SWIGUNUSEDPARM(
   PyObject *swig_obj[3] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IPixel_getIntegrationFactor", 3, 3, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IPixel_integrationFactor", 3, 3, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IPixel, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IPixel_getIntegrationFactor" "', argument " "1"" of type '" "IPixel const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IPixel_integrationFactor" "', argument " "1"" of type '" "IPixel const *""'"); 
   }
   arg1 = reinterpret_cast< IPixel * >(argp1);
   ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IPixel_getIntegrationFactor" "', argument " "2"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IPixel_integrationFactor" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
   ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IPixel_getIntegrationFactor" "', argument " "3"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IPixel_integrationFactor" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = (double)((IPixel const *)arg1)->getIntegrationFactor(arg2,arg3);
+  result = (double)((IPixel const *)arg1)->integrationFactor(arg2,arg3);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -27763,7 +27763,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IPixel_getSolidAngle(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IPixel_solidAngle(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IPixel *arg1 = (IPixel *) 0 ;
   void *argp1 = 0 ;
@@ -27775,10 +27775,10 @@ SWIGINTERN PyObject *_wrap_IPixel_getSolidAngle(PyObject *SWIGUNUSEDPARM(self), 
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IPixel, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IPixel_getSolidAngle" "', argument " "1"" of type '" "IPixel const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IPixel_solidAngle" "', argument " "1"" of type '" "IPixel const *""'"); 
   }
   arg1 = reinterpret_cast< IPixel * >(argp1);
-  result = (double)((IPixel const *)arg1)->getSolidAngle();
+  result = (double)((IPixel const *)arg1)->solidAngle();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -33341,9 +33341,9 @@ static PyMethodDef SwigMethods[] = {
 	 { "Bin1D_m_lower_get", _wrap_Bin1D_m_lower_get, METH_O, "Bin1D_m_lower_get(Bin1D self) -> double"},
 	 { "Bin1D_m_upper_set", _wrap_Bin1D_m_upper_set, METH_VARARGS, "Bin1D_m_upper_set(Bin1D self, double m_upper)"},
 	 { "Bin1D_m_upper_get", _wrap_Bin1D_m_upper_get, METH_O, "Bin1D_m_upper_get(Bin1D self) -> double"},
-	 { "Bin1D_getMidPoint", _wrap_Bin1D_getMidPoint, METH_O, "\n"
-		"Bin1D_getMidPoint(Bin1D self) -> double\n"
-		"double Bin1D::getMidPoint() const\n"
+	 { "Bin1D_center", _wrap_Bin1D_center, METH_O, "\n"
+		"Bin1D_center(Bin1D self) -> double\n"
+		"double Bin1D::center() const\n"
 		"\n"
 		""},
 	 { "Bin1D_binSize", _wrap_Bin1D_binSize, METH_O, "\n"
@@ -33370,14 +33370,14 @@ static PyMethodDef SwigMethods[] = {
 		"creation on  Bin1DKVector from alpha and phi bins \n"
 		"\n"
 		""},
-	 { "Bin1DKVector_getMidPoint", _wrap_Bin1DKVector_getMidPoint, METH_O, "\n"
-		"Bin1DKVector_getMidPoint(Bin1DKVector self) -> kvector_t\n"
-		"kvector_t Bin1DKVector::getMidPoint() const\n"
+	 { "Bin1DKVector_center", _wrap_Bin1DKVector_center, METH_O, "\n"
+		"Bin1DKVector_center(Bin1DKVector self) -> kvector_t\n"
+		"kvector_t Bin1DKVector::center() const\n"
 		"\n"
 		""},
-	 { "Bin1DKVector_getDelta", _wrap_Bin1DKVector_getDelta, METH_O, "\n"
-		"Bin1DKVector_getDelta(Bin1DKVector self) -> kvector_t\n"
-		"kvector_t Bin1DKVector::getDelta() const\n"
+	 { "Bin1DKVector_span", _wrap_Bin1DKVector_span, METH_O, "\n"
+		"Bin1DKVector_span(Bin1DKVector self) -> kvector_t\n"
+		"kvector_t Bin1DKVector::span() const\n"
 		"\n"
 		""},
 	 { "Bin1DKVector_m_q_lower_set", _wrap_Bin1DKVector_m_q_lower_set, METH_VARARGS, "Bin1DKVector_m_q_lower_set(Bin1DKVector self, kvector_t m_q_lower)"},
@@ -33396,14 +33396,14 @@ static PyMethodDef SwigMethods[] = {
 		"creation on  Bin1DCVector from alpha and phi bins \n"
 		"\n"
 		""},
-	 { "Bin1DCVector_getMidPoint", _wrap_Bin1DCVector_getMidPoint, METH_O, "\n"
-		"Bin1DCVector_getMidPoint(Bin1DCVector self) -> cvector_t\n"
-		"cvector_t Bin1DCVector::getMidPoint() const\n"
+	 { "Bin1DCVector_center", _wrap_Bin1DCVector_center, METH_O, "\n"
+		"Bin1DCVector_center(Bin1DCVector self) -> cvector_t\n"
+		"cvector_t Bin1DCVector::center() const\n"
 		"\n"
 		""},
-	 { "Bin1DCVector_getDelta", _wrap_Bin1DCVector_getDelta, METH_O, "\n"
-		"Bin1DCVector_getDelta(Bin1DCVector self) -> cvector_t\n"
-		"cvector_t Bin1DCVector::getDelta() const\n"
+	 { "Bin1DCVector_span", _wrap_Bin1DCVector_span, METH_O, "\n"
+		"Bin1DCVector_span(Bin1DCVector self) -> cvector_t\n"
+		"cvector_t Bin1DCVector::span() const\n"
 		"\n"
 		""},
 	 { "Bin1DCVector_m_q_lower_set", _wrap_Bin1DCVector_m_q_lower_set, METH_VARARGS, "Bin1DCVector_m_q_lower_set(Bin1DCVector self, cvector_t m_q_lower)"},
@@ -33840,14 +33840,14 @@ static PyMethodDef SwigMethods[] = {
 		"virtual kvector_t IPixel::getK(double x, double y, double wavelength) const =0\n"
 		"\n"
 		""},
-	 { "IPixel_getIntegrationFactor", _wrap_IPixel_getIntegrationFactor, METH_VARARGS, "\n"
-		"IPixel_getIntegrationFactor(IPixel self, double x, double y) -> double\n"
-		"virtual double IPixel::getIntegrationFactor(double x, double y) const =0\n"
+	 { "IPixel_integrationFactor", _wrap_IPixel_integrationFactor, METH_VARARGS, "\n"
+		"IPixel_integrationFactor(IPixel self, double x, double y) -> double\n"
+		"virtual double IPixel::integrationFactor(double x, double y) const =0\n"
 		"\n"
 		""},
-	 { "IPixel_getSolidAngle", _wrap_IPixel_getSolidAngle, METH_O, "\n"
-		"IPixel_getSolidAngle(IPixel self) -> double\n"
-		"virtual double IPixel::getSolidAngle() const =0\n"
+	 { "IPixel_solidAngle", _wrap_IPixel_solidAngle, METH_O, "\n"
+		"IPixel_solidAngle(IPixel self) -> double\n"
+		"virtual double IPixel::solidAngle() const =0\n"
 		"\n"
 		""},
 	 { "IPixel_swigregister", IPixel_swigregister, METH_O, NULL},

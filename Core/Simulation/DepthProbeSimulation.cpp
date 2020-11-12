@@ -266,7 +266,7 @@ void DepthProbeSimulation::moveDataFromCache()
 
 double DepthProbeSimulation::incidentAngle(size_t index) const
 {
-    return m_alpha_axis->bin(index).getMidPoint();
+    return m_alpha_axis->bin(index).center();
 }
 
 std::unique_ptr<OutputData<double>> DepthProbeSimulation::createIntensityData() const

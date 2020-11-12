@@ -5386,45 +5386,45 @@ class IHistogram(object):
         """
         return _libBornAgainDevice.IHistogram_findGlobalBin(self, x, y)
 
-    def getXaxisIndex(self, i):
+    def xAxisIndex(self, i):
         r"""
-        getXaxisIndex(IHistogram self, size_t i) -> size_t
-        size_t IHistogram::getXaxisIndex(size_t i) const
+        xAxisIndex(IHistogram self, size_t i) -> size_t
+        size_t IHistogram::xAxisIndex(size_t i) const
 
         Returns x-axis index for global bin index i. 
 
         """
-        return _libBornAgainDevice.IHistogram_getXaxisIndex(self, i)
+        return _libBornAgainDevice.IHistogram_xAxisIndex(self, i)
 
-    def getYaxisIndex(self, i):
+    def yAxisIndex(self, i):
         r"""
-        getYaxisIndex(IHistogram self, size_t i) -> size_t
-        size_t IHistogram::getYaxisIndex(size_t i) const
+        yAxisIndex(IHistogram self, size_t i) -> size_t
+        size_t IHistogram::yAxisIndex(size_t i) const
 
         Returns y-axis index for global bin index i. 
 
         """
-        return _libBornAgainDevice.IHistogram_getYaxisIndex(self, i)
+        return _libBornAgainDevice.IHistogram_yAxisIndex(self, i)
 
-    def getXaxisValue(self, i):
+    def xAxisValue(self, i):
         r"""
-        getXaxisValue(IHistogram self, size_t i) -> double
-        double IHistogram::getXaxisValue(size_t i)
+        xAxisValue(IHistogram self, size_t i) -> double
+        double IHistogram::xAxisValue(size_t i)
 
         Returns the center of bin i of the x axis. 
 
         """
-        return _libBornAgainDevice.IHistogram_getXaxisValue(self, i)
+        return _libBornAgainDevice.IHistogram_xAxisValue(self, i)
 
-    def getYaxisValue(self, i):
+    def yAxisValue(self, i):
         r"""
-        getYaxisValue(IHistogram self, size_t i) -> double
-        double IHistogram::getYaxisValue(size_t i)
+        yAxisValue(IHistogram self, size_t i) -> double
+        double IHistogram::yAxisValue(size_t i)
 
         Returns the center of bin i of the y axis. 
 
         """
-        return _libBornAgainDevice.IHistogram_getYaxisValue(self, i)
+        return _libBornAgainDevice.IHistogram_yAxisValue(self, i)
 
     def getData(self, *args):
         r"""

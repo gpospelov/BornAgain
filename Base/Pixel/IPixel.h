@@ -29,8 +29,8 @@ public:
     virtual IPixel* clone() const = 0;
     virtual IPixel* createZeroSizePixel(double x, double y) const = 0;
     virtual kvector_t getK(double x, double y, double wavelength) const = 0;
-    virtual double getIntegrationFactor(double x, double y) const = 0;
-    virtual double getSolidAngle() const = 0;
+    virtual double integrationFactor(double x, double y) const = 0;
+    virtual double solidAngle() const = 0;
 };
 
 #endif // BORNAGAIN_BASE_PIXEL_IPIXEL_H

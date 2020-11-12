@@ -17,7 +17,7 @@ TEST_F(Histogram1DTest, FixedBinConstructor)
     EXPECT_THROW(hist.yAxis(), Exceptions::LogicErrorException);
     for (size_t index = 0; index < hist.getTotalNumberOfBins(); ++index) {
         EXPECT_EQ(index, hist.getGlobalBin(index));
-        EXPECT_EQ(index, hist.getXaxisIndex(index));
+        EXPECT_EQ(index, hist.xAxisIndex(index));
     }
 }
 
@@ -30,7 +30,7 @@ TEST_F(Histogram1DTest, FixedBinDefaultContent)
     std::vector<double> centers = hist.binCenters();
     for (size_t index = 0; index < bin_centers.size(); ++index) {
         EXPECT_EQ(centers[index], bin_centers[index]);
-        EXPECT_EQ(hist.getXaxisValue(index), bin_centers[index]);
+        EXPECT_EQ(hist.xAxisValue(index), bin_centers[index]);
         EXPECT_EQ(hist.xAxis().binCenter(index), bin_centers[index]);
     }
 
@@ -154,8 +154,8 @@ TEST_F(Histogram1DTest, CreateOutputData)
     Histogram1D hist(10, -5.0, 5.0);
 
     for (size_t i = 0; i < hist.getNbinsX(); ++i) {
-        hist.fill(hist.getXaxisValue(i), 1.0);
-        hist.fill(hist.getXaxisValue(i), 3.0);
+        hist.fill(hist.xAxisValue(i), 1.0);
+        hist.fill(hist.xAxisValue(i), 3.0);
     }
 
     std::unique_ptr<OutputData<double>> data(hist.createOutputData(IHistogram::DataType::INTEGRAL));

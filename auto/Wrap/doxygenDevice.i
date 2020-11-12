@@ -1256,22 +1256,22 @@ Returns global bin index for given axes indices. For 1D, just returns binx.
 Returns closest global bin index for given axes coordinates. 
 ";
 
-%feature("docstring")  IHistogram::getXaxisIndex "size_t IHistogram::getXaxisIndex(size_t i) const
+%feature("docstring")  IHistogram::xAxisIndex "size_t IHistogram::xAxisIndex(size_t i) const
 
 Returns x-axis index for global bin index i. 
 ";
 
-%feature("docstring")  IHistogram::getYaxisIndex "size_t IHistogram::getYaxisIndex(size_t i) const
+%feature("docstring")  IHistogram::yAxisIndex "size_t IHistogram::yAxisIndex(size_t i) const
 
 Returns y-axis index for global bin index i. 
 ";
 
-%feature("docstring")  IHistogram::getXaxisValue "double IHistogram::getXaxisValue(size_t i)
+%feature("docstring")  IHistogram::xAxisValue "double IHistogram::xAxisValue(size_t i)
 
 Returns the center of bin i of the x axis. 
 ";
 
-%feature("docstring")  IHistogram::getYaxisValue "double IHistogram::getYaxisValue(size_t i)
+%feature("docstring")  IHistogram::yAxisValue "double IHistogram::yAxisValue(size_t i)
 
 Returns the center of bin i of the y axis. 
 ";
@@ -2631,10 +2631,10 @@ C++ includes: RectangularPixel.h
 %feature("docstring")  RectangularPixel::getPosition "kvector_t RectangularPixel::getPosition(double x, double y) const
 ";
 
-%feature("docstring")  RectangularPixel::getIntegrationFactor "double RectangularPixel::getIntegrationFactor(double x, double y) const override
+%feature("docstring")  RectangularPixel::integrationFactor "double RectangularPixel::integrationFactor(double x, double y) const override
 ";
 
-%feature("docstring")  RectangularPixel::getSolidAngle "double RectangularPixel::getSolidAngle() const override
+%feature("docstring")  RectangularPixel::solidAngle "double RectangularPixel::solidAngle() const override
 ";
 
 
@@ -3046,10 +3046,10 @@ C++ includes: SphericalPixel.h
 %feature("docstring")  SphericalPixel::getK "kvector_t SphericalPixel::getK(double x, double y, double wavelength) const override
 ";
 
-%feature("docstring")  SphericalPixel::getIntegrationFactor "double SphericalPixel::getIntegrationFactor(double x, double y) const override
+%feature("docstring")  SphericalPixel::integrationFactor "double SphericalPixel::integrationFactor(double x, double y) const override
 ";
 
-%feature("docstring")  SphericalPixel::getSolidAngle "double SphericalPixel::getSolidAngle() const override
+%feature("docstring")  SphericalPixel::solidAngle "double SphericalPixel::solidAngle() const override
 ";
 
 

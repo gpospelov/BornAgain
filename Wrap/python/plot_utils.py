@@ -125,10 +125,10 @@ def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=
     """
 
     if not xlabel:
-        xlabel = translate_axis_label(hist.getXaxis().getName())
+        xlabel = translate_axis_label(hist.xAxis().getName())
 
     if not ylabel:
-        ylabel = translate_axis_label(hist.getYaxis().getName())
+        ylabel = translate_axis_label(hist.yAxis().getName())
 
     axes_limits = [hist.getXmin(), hist.getXmax(),
                    hist.getYmin(), hist.getYmax()]

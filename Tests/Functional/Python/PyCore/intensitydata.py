@@ -61,7 +61,7 @@ class IntensityDataTest(unittest.TestCase):
         self.assertEqual(1000, data.getTotalNumberOfBins())
         self.assertEqual(2, data.getRank())
         self.assertEqual(0, data.integral())
-        self.assertEqual(10, data.getXaxis().size())
+        self.assertEqual(10, data.xAxis().size())
 
     def test_numpy_array(self):
         data = ba.IntensityData()

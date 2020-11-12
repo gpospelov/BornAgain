@@ -5286,25 +5286,25 @@ class IHistogram(object):
         """
         return _libBornAgainDevice.IHistogram_getTotalNumberOfBins(self)
 
-    def getXaxis(self):
+    def xAxis(self):
         r"""
-        getXaxis(IHistogram self) -> IAxis
-        const IAxis & IHistogram::getXaxis() const
+        xAxis(IHistogram self) -> IAxis
+        const IAxis & IHistogram::xAxis() const
 
         returns x-axis 
 
         """
-        return _libBornAgainDevice.IHistogram_getXaxis(self)
+        return _libBornAgainDevice.IHistogram_xAxis(self)
 
-    def getYaxis(self):
+    def yAxis(self):
         r"""
-        getYaxis(IHistogram self) -> IAxis
-        const IAxis & IHistogram::getYaxis() const
+        yAxis(IHistogram self) -> IAxis
+        const IAxis & IHistogram::yAxis() const
 
         returns y-axis for 2D histograms 
 
         """
-        return _libBornAgainDevice.IHistogram_getYaxis(self)
+        return _libBornAgainDevice.IHistogram_yAxis(self)
 
     def getXmin(self):
         r"""

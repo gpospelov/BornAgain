@@ -34,10 +34,10 @@ std::vector<std::pair<double, double>> SpectrumUtils::FindPeaks(const Histogram2
         double col_value = p.second;
 
         size_t xaxis_index = static_cast<size_t>(col_value);
-        size_t yaxis_index = hist.getYaxis().size() - 1 - static_cast<size_t>(row_value);
+        size_t yaxis_index = hist.yAxis().size() - 1 - static_cast<size_t>(row_value);
 
-        Bin1D xbin = hist.getXaxis().getBin(xaxis_index);
-        Bin1D ybin = hist.getYaxis().getBin(yaxis_index);
+        Bin1D xbin = hist.xAxis().getBin(xaxis_index);
+        Bin1D ybin = hist.yAxis().getBin(yaxis_index);
 
         double dx = col_value - static_cast<size_t>(col_value);
         double dy = -1.0 * (row_value - static_cast<size_t>(row_value));

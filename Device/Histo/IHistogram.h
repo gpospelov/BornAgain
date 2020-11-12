@@ -45,10 +45,10 @@ public:
     size_t getTotalNumberOfBins() const;
 
     //! returns x-axis
-    const IAxis& getXaxis() const;
+    const IAxis& xAxis() const;
 
     //! returns y-axis for 2D histograms
-    const IAxis& getYaxis() const;
+    const IAxis& yAxis() const;
 
     //! Returns x-axis min (lower edge of first bin).
     double getXmin() const;

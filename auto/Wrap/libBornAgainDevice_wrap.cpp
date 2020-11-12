@@ -40972,7 +40972,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getXaxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_xAxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   void *argp1 = 0 ;
@@ -40984,10 +40984,10 @@ SWIGINTERN PyObject *_wrap_IHistogram_getXaxis(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getXaxis" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_xAxis" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
-  result = (IAxis *) &((IHistogram const *)arg1)->getXaxis();
+  result = (IAxis *) &((IHistogram const *)arg1)->xAxis();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   return resultobj;
 fail:
@@ -40995,7 +40995,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getYaxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_yAxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   void *argp1 = 0 ;
@@ -41007,10 +41007,10 @@ SWIGINTERN PyObject *_wrap_IHistogram_getYaxis(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getYaxis" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_yAxis" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
-  result = (IAxis *) &((IHistogram const *)arg1)->getYaxis();
+  result = (IAxis *) &((IHistogram const *)arg1)->yAxis();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   return resultobj;
 fail:
@@ -48207,16 +48207,16 @@ static PyMethodDef SwigMethods[] = {
 		"Returns total number of histogram bins. For 2D histograms the result will be the product of bin numbers along X and Y axes. \n"
 		"\n"
 		""},
-	 { "IHistogram_getXaxis", _wrap_IHistogram_getXaxis, METH_O, "\n"
-		"IHistogram_getXaxis(IHistogram self) -> IAxis\n"
-		"const IAxis & IHistogram::getXaxis() const\n"
+	 { "IHistogram_xAxis", _wrap_IHistogram_xAxis, METH_O, "\n"
+		"IHistogram_xAxis(IHistogram self) -> IAxis\n"
+		"const IAxis & IHistogram::xAxis() const\n"
 		"\n"
 		"returns x-axis \n"
 		"\n"
 		""},
-	 { "IHistogram_getYaxis", _wrap_IHistogram_getYaxis, METH_O, "\n"
-		"IHistogram_getYaxis(IHistogram self) -> IAxis\n"
-		"const IAxis & IHistogram::getYaxis() const\n"
+	 { "IHistogram_yAxis", _wrap_IHistogram_yAxis, METH_O, "\n"
+		"IHistogram_yAxis(IHistogram self) -> IAxis\n"
+		"const IAxis & IHistogram::yAxis() const\n"
 		"\n"
 		"returns y-axis for 2D histograms \n"
 		"\n"

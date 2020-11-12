@@ -33,10 +33,10 @@ TEST_F(Histogram2DTest, VariableHist)
     // basic axes check
     EXPECT_EQ(size_t(12), hist.getTotalNumberOfBins());
     EXPECT_EQ(hist.getRank(), size_t(2));
-    EXPECT_EQ(hist.getXaxis().size(), size_t(4));
+    EXPECT_EQ(hist.xAxis().size(), size_t(4));
     EXPECT_EQ(hist.getXmin(), -1.0);
     EXPECT_EQ(hist.getXmax(), 2.0);
-    EXPECT_EQ(hist.getYaxis().size(), size_t(3));
+    EXPECT_EQ(hist.yAxis().size(), size_t(3));
     EXPECT_EQ(hist.getYmin(), 0.0);
     EXPECT_EQ(hist.getYmax(), 4.0);
 
@@ -118,8 +118,8 @@ TEST_F(Histogram2DTest, VariableHistFill)
     }
 
     // check bin content using axes bins
-    for (size_t binx = 0; binx < hist.getXaxis().size(); ++binx) {
-        for (size_t biny = 0; biny < hist.getYaxis().size(); ++biny) {
+    for (size_t binx = 0; binx < hist.xAxis().size(); ++binx) {
+        for (size_t biny = 0; biny < hist.yAxis().size(); ++biny) {
             size_t globalbin = hist.getGlobalBin(binx, biny);
             EXPECT_EQ(globalbin * 10.0, hist.getBinContent(binx, biny));
             EXPECT_EQ(1.0, hist.getBinNumberOfEntries(binx, biny));

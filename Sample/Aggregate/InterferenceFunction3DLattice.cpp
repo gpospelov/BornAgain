@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Sample/Aggregate/InterferenceFunction3DLattice.h"
-#include "Base/Types/Exceptions.h"
+#include "Base/Utils/Assert.h"
 #include "Sample/Correlations/IPeakShape.h"
 #include <algorithm>
 
@@ -57,9 +57,7 @@ void InterferenceFunction3DLattice::onChange()
 
 double InterferenceFunction3DLattice::iff_without_dw(const kvector_t q) const
 {
-    if (!m_peak_shape)
-        throw std::runtime_error("InterferenceFunction3DLattice::evaluate: "
-                                 "no peak shape defined");
+    ASSERT(m_peak_shape);
     kvector_t center = q;
     double radius = 2.1 * m_rec_radius;
     double inner_radius = 0.0;
@@ -69,12 +67,11 @@ double InterferenceFunction3DLattice::iff_without_dw(const kvector_t q) const
         radius += q.mag();
     }
     auto rec_vectors = m_lattice.reciprocalLatticeVectorsWithinRadius(center, radius);
+
     double result = 0.0;
-    for (const auto& q_rec : rec_vectors) {
-        if (!(q_rec.mag() < inner_radius)) {
+    for (const auto& q_rec : rec_vectors)
+        if (!(q_rec.mag() < inner_radius))
             result += m_peak_shape->evaluate(q, q_rec);
-        }
-    }
     return result;
 }
 

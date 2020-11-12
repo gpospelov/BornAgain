@@ -41,8 +41,8 @@ public:
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    Beam& getBeam() { return m_beam; }
-    const Beam& getBeam() const { return m_beam; }
+    Beam& beam() { return m_beam; }
+    const Beam& beam() const { return m_beam; }
     void setBeam(const Beam& beam);
 
     //! Sets the beam wavelength and incoming angles

@@ -34,7 +34,7 @@ def get_simulation_DepthProbe():
     Returns custom simulation in the case of depth probe.
     """
     simulation = example.get_simulation()
-    beam = simulation.instrument().getBeam()
+    beam = simulation.instrument().beam()
     wavelength = beam.getWavelength()
     incl_axis = simulation.getAlphaAxis()
     z_axis = simulation.getZAxis()

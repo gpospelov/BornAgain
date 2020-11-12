@@ -269,7 +269,7 @@ SimulationToPython::defineDetectorPolarizationAnalysis(const ISimulation* simula
 std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulation) const
 {
     std::ostringstream result;
-    const Beam& beam = simulation.instrument().getBeam();
+    const Beam& beam = simulation.instrument().beam();
 
     result << pyfmt::indent() << "simulation.setBeamParameters("
            << pyfmt::printNm(beam.getWavelength()) << ", " << pyfmt::printDegrees(beam.getAlpha())
@@ -284,7 +284,7 @@ std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulatio
 std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simulation) const
 {
     std::ostringstream result;
-    const Beam& beam = simulation.instrument().getBeam();
+    const Beam& beam = simulation.instrument().beam();
 
     const std::string axis_def = pyfmt::indent() + "alpha_i_axis = ";
     result << axis_def << simulation.beamAxis()->pyString("rad", axis_def.size()) << "\n";
@@ -308,7 +308,7 @@ std::string SimulationToPython::defineSpecularScan(const SpecularSimulation& sim
     result << *scan << "\n";
 
     result << pyfmt::indent() << "simulation.setScan(scan)\n";
-    result << defineBeamIntensity(simulation.instrument().getBeam());
+    result << defineBeamIntensity(simulation.instrument().beam());
     result << "\n";
     return result.str();
 }

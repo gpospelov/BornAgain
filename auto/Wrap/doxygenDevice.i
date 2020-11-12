@@ -1474,10 +1474,10 @@ C++ includes: Instrument.h
 %feature("docstring")  Instrument::accept "void Instrument::accept(INodeVisitor *visitor) const final
 ";
 
-%feature("docstring")  Instrument::getBeam "Beam& Instrument::getBeam()
+%feature("docstring")  Instrument::beam "Beam& Instrument::beam()
 ";
 
-%feature("docstring")  Instrument::getBeam "const Beam& Instrument::getBeam() const
+%feature("docstring")  Instrument::beam "const Beam& Instrument::beam() const
 ";
 
 %feature("docstring")  Instrument::setBeam "void Instrument::setBeam(const Beam &beam)

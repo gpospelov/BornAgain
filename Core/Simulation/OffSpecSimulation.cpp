@@ -42,7 +42,7 @@ size_t OffSpecSimulation::numberOfSimulationElements() const
 SimulationResult OffSpecSimulation::result() const
 {
     auto data = std::unique_ptr<OutputData<double>>(m_intensity_map.clone());
-    OffSpecularConverter converter(instrument().detector2D(), instrument().getBeam(),
+    OffSpecularConverter converter(instrument().detector2D(), instrument().beam(),
                                    *m_alpha_i_axis);
     return SimulationResult(*data, converter);
 }
@@ -69,7 +69,7 @@ std::unique_ptr<IUnitConverter> OffSpecSimulation::createUnitConverter() const
     if (!axis)
         throw std::runtime_error("Error in OffSpecSimulation::createUnitConverter:"
                                  " missing inclination angle axis");
-    return std::make_unique<OffSpecularConverter>(instrument().detector2D(), instrument().getBeam(),
+    return std::make_unique<OffSpecularConverter>(instrument().detector2D(), instrument().beam(),
                                                   *axis);
 }
 
@@ -90,7 +90,7 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other) : ISimulati
 void OffSpecSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();
-    Beam beam = instrument().getBeam();
+    Beam beam = instrument().beam();
     const double wavelength = beam.getWavelength();
     const double phi_i = beam.getPhi();
 

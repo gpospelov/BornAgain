@@ -35242,7 +35242,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Instrument_getBeam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_Instrument_beam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Instrument *arg1 = (Instrument *) 0 ;
   void *argp1 = 0 ;
@@ -35252,10 +35252,10 @@ SWIGINTERN PyObject *_wrap_Instrument_getBeam__SWIG_0(PyObject *SWIGUNUSEDPARM(s
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getBeam" "', argument " "1"" of type '" "Instrument *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_beam" "', argument " "1"" of type '" "Instrument *""'"); 
   }
   arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (Beam *) &(arg1)->getBeam();
+  result = (Beam *) &(arg1)->beam();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Beam, 0 |  0 );
   return resultobj;
 fail:
@@ -35263,7 +35263,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Instrument_getBeam__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_Instrument_beam__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Instrument *arg1 = (Instrument *) 0 ;
   void *argp1 = 0 ;
@@ -35273,10 +35273,10 @@ SWIGINTERN PyObject *_wrap_Instrument_getBeam__SWIG_1(PyObject *SWIGUNUSEDPARM(s
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getBeam" "', argument " "1"" of type '" "Instrument const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_beam" "', argument " "1"" of type '" "Instrument const *""'"); 
   }
   arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (Beam *) &((Instrument const *)arg1)->getBeam();
+  result = (Beam *) &((Instrument const *)arg1)->beam();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Beam, 0 |  0 );
   return resultobj;
 fail:
@@ -35284,13 +35284,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Instrument_getBeam(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Instrument_beam(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[2] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Instrument_getBeam", 0, 1, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Instrument_beam", 0, 1, argv))) SWIG_fail;
   --argc;
   if (argc == 1) {
     int _v;
@@ -35298,7 +35298,7 @@ SWIGINTERN PyObject *_wrap_Instrument_getBeam(PyObject *self, PyObject *args) {
     int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Instrument, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_Instrument_getBeam__SWIG_0(self, argc, argv);
+      return _wrap_Instrument_beam__SWIG_0(self, argc, argv);
     }
   }
   if (argc == 1) {
@@ -35307,15 +35307,15 @@ SWIGINTERN PyObject *_wrap_Instrument_getBeam(PyObject *self, PyObject *args) {
     int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Instrument, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_Instrument_getBeam__SWIG_1(self, argc, argv);
+      return _wrap_Instrument_beam__SWIG_1(self, argc, argv);
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Instrument_getBeam'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Instrument_beam'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Instrument::getBeam()\n"
-    "    Instrument::getBeam() const\n");
+    "    Instrument::beam()\n"
+    "    Instrument::beam() const\n");
   return 0;
 }
 
@@ -47385,10 +47385,10 @@ static PyMethodDef SwigMethods[] = {
 		"void Instrument::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
-	 { "Instrument_getBeam", _wrap_Instrument_getBeam, METH_VARARGS, "\n"
-		"Instrument_getBeam(Instrument self) -> Beam\n"
-		"Instrument_getBeam(Instrument self) -> Beam\n"
-		"const Beam& Instrument::getBeam() const\n"
+	 { "Instrument_beam", _wrap_Instrument_beam, METH_VARARGS, "\n"
+		"Instrument_beam(Instrument self) -> Beam\n"
+		"Instrument_beam(Instrument self) -> Beam\n"
+		"const Beam& Instrument::beam() const\n"
 		"\n"
 		""},
 	 { "Instrument_setBeam", _wrap_Instrument_setBeam, METH_VARARGS, "\n"

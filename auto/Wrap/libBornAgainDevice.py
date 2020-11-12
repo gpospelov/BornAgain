@@ -3897,14 +3897,14 @@ class Instrument(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Instrument_accept(self, visitor)
 
-    def getBeam(self, *args):
+    def beam(self, *args):
         r"""
-        getBeam(Instrument self) -> Beam
-        getBeam(Instrument self) -> Beam
-        const Beam& Instrument::getBeam() const
+        beam(Instrument self) -> Beam
+        beam(Instrument self) -> Beam
+        const Beam& Instrument::beam() const
 
         """
-        return _libBornAgainDevice.Instrument_getBeam(self, *args)
+        return _libBornAgainDevice.Instrument_beam(self, *args)
 
     def setBeam(self, beam):
         r"""

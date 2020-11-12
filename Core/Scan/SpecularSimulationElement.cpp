@@ -19,7 +19,7 @@
 
 SpecularSimulationElement::SpecularSimulationElement(double kz, const Instrument& instrument,
                                                      bool computable)
-    : m_polarization(instrument.getBeam().getPolarization(),
+    : m_polarization(instrument.beam().getPolarization(),
                      instrument.detector().detectionProperties().analyzerOperator()),
       m_intensity(0.0), m_computable(computable),
       m_kz_computation([kz](const std::vector<Slice>& slices) {
@@ -30,7 +30,7 @@ SpecularSimulationElement::SpecularSimulationElement(double kz, const Instrument
 
 SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha,
                                                      const Instrument& instrument, bool computable)
-    : m_polarization(instrument.getBeam().getPolarization(),
+    : m_polarization(instrument.beam().getPolarization(),
                      instrument.detector().detectionProperties().analyzerOperator()),
       m_intensity(0.0), m_computable(computable),
       m_kz_computation(

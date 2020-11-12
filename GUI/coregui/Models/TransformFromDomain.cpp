@@ -240,7 +240,7 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness)
 void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimulation& simulation)
 {
     ASSERT(beam_item);
-    Beam beam = simulation.instrument().getBeam();
+    Beam beam = simulation.instrument().beam();
 
     beam_item->setIntensity(beam.getIntensity());
     beam_item->setWavelength(beam.getWavelength());
@@ -266,7 +266,7 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
 void TransformFromDomain::setOffSpecBeamItem(BeamItem* beam_item,
                                              const OffSpecSimulation& simulation)
 {
-    Beam beam = simulation.instrument().getBeam();
+    Beam beam = simulation.instrument().beam();
 
     beam_item->setIntensity(beam.getIntensity());
     beam_item->setWavelength(beam.getWavelength());
@@ -278,7 +278,7 @@ void TransformFromDomain::setOffSpecBeamItem(BeamItem* beam_item,
 void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
                                               const SpecularSimulation& simulation)
 {
-    const Beam& beam = simulation.instrument().getBeam();
+    const Beam& beam = simulation.instrument().beam();
 
     beam_item->setIntensity(beam.getIntensity());
     beam_item->setWavelength(beam.getWavelength());

@@ -49,7 +49,7 @@ std::vector<SpecularSimulationElement> generateSimulationElements(const Instrume
 {
     // TODO: remove if statement when pointwise resolution is implemented
     if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(&scan))
-        return mangledScan(*aScan, instrument.getBeam())->generateSimulationElements(instrument);
+        return mangledScan(*aScan, instrument.beam())->generateSimulationElements(instrument);
 
     return scan.generateSimulationElements(instrument);
 }
@@ -191,7 +191,7 @@ void SpecularSimulation::initialize()
     // allow for negative inclinations in the beam of specular simulation
     // it is required for proper averaging in the case of divergent beam
     instrument()
-        .getBeam()
+        .beam()
         .parameter("InclinationAngle")
         ->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
@@ -203,7 +203,7 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     std::vector<double> footprints;
     // TODO: use just m_scan when pointwise resolution is implemented
     if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(m_scan.get()))
-        footprints = mangledScan(*aScan, instrument().getBeam())->footprint(start_ind, n_elements);
+        footprints = mangledScan(*aScan, instrument().beam())->footprint(start_ind, n_elements);
     else
         footprints = m_scan->footprint(start_ind, n_elements);
 

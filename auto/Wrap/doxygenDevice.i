@@ -1835,7 +1835,7 @@ C++ includes: LLData.h
 %feature("docstring")  LLData::rank "size_t LLData< T >::rank() const
 ";
 
-%feature("docstring")  LLData::getDimensions "const int* LLData< T >::getDimensions() const
+%feature("docstring")  LLData::dimensions "const int* LLData< T >::dimensions() const
 ";
 
 %feature("docstring")  LLData::getTotalSum "T LLData< T >::getTotalSum() const

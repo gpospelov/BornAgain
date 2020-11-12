@@ -88,10 +88,10 @@ TEST_F(LLDataTest, TotalSum)
 
 TEST_F(LLDataTest, GetDimensions)
 {
-    EXPECT_EQ(int_data_0d->getDimensions(), (int*)0);
-    EXPECT_EQ(fl_data_1d->getDimensions()[0], 10);
-    EXPECT_EQ(db_data_3d->getDimensions()[1], 15);
-    EXPECT_EQ(matrix_data_2d->getDimensions()[1], 30);
+    EXPECT_EQ(int_data_0d->dimensions(), (int*)0);
+    EXPECT_EQ(fl_data_1d->dimensions()[0], 10);
+    EXPECT_EQ(db_data_3d->dimensions()[1], 15);
+    EXPECT_EQ(matrix_data_2d->dimensions()[1], 30);
 }
 
 TEST_F(LLDataTest, DataCopyingConstructor)

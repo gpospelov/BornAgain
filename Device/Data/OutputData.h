@@ -326,7 +326,7 @@ template <class T> inline std::vector<size_t> OutputData<T>::getAllSizes() const
     ASSERT(m_ll_data);
     std::vector<size_t> result;
     for (size_t i = 0; i < rank(); ++i) {
-        int dim = m_ll_data->getDimensions()[i];
+        int dim = m_ll_data->dimensions()[i];
         result.push_back(dim);
     }
     return result;

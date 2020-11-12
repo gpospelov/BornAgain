@@ -54,7 +54,7 @@ public:
     // retrieve basic info
     size_t getTotalSize() const;
     inline size_t rank() const { return m_rank; }
-    const int* getDimensions() const { return m_dims; }
+    const int* dimensions() const { return m_dims; }
     T getTotalSum() const;
 
 private:
@@ -91,7 +91,7 @@ inline LLData<T>::LLData(size_t rank, const int* dimensions) : m_rank(0), m_dims
 
 template <class T> LLData<T>::LLData(const LLData<T>& right) : m_rank(0), m_dims(0), m_data_array(0)
 {
-    allocate(right.rank(), right.getDimensions());
+    allocate(right.rank(), right.dimensions());
     for (size_t i = 0; i < getTotalSize(); ++i) {
         m_data_array[i] = right[i];
     }
@@ -297,8 +297,8 @@ template <class T> bool HaveSameDimensions(const LLData<T>& left, const LLData<T
 {
     if (left.rank() != right.rank())
         return false;
-    const int* ldims = left.getDimensions();
-    const int* rdims = right.getDimensions();
+    const int* ldims = left.dimensions();
+    const int* rdims = right.dimensions();
     for (size_t i = 0; i < left.rank(); ++i) {
         if (ldims[i] != rdims[i])
             return false;

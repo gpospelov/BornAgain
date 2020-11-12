@@ -44,9 +44,9 @@ SpecularInstrumentItem* createSpecularInstrumentItem(InstrumentModel* model,
 
 SessionItem* GUIObjectBuilder::populateSampleModelFromSim(SampleModel* sampleModel,
                                                           MaterialModel* materialModel,
-                                                          const Simulation& simulation)
+                                                          const ISimulation& simulation)
 {
-    std::unique_ptr<Simulation> sim(simulation.clone());
+    std::unique_ptr<ISimulation> sim(simulation.clone());
     sim->prepareSimulation();
     SessionItem* item = populateSampleModel(sampleModel, materialModel, *sim->sample());
     return item;
@@ -62,7 +62,7 @@ SessionItem* GUIObjectBuilder::populateSampleModel(SampleModel* sampleModel,
 }
 
 SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instrument_model,
-                                                       const Simulation& simulation,
+                                                       const ISimulation& simulation,
                                                        const QString& instrument_name)
 {
     ASSERT(p_instrument_model);
@@ -79,12 +79,12 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
         return createSpecularInstrumentItem(p_instrument_model, *spec_simulation, name);
     }
 
-    throw GUIHelpers::Error("GUIObjectBuilder::populateInstrumentModel() -> Error. Simulation is "
+    throw GUIHelpers::Error("GUIObjectBuilder::populateInstrumentModel() -> Error. ISimulation is "
                             "not yet supported");
 }
 
 SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* p_document_model,
-                                                     const Simulation& simulation)
+                                                     const ISimulation& simulation)
 {
     SimulationOptionsItem* p_options_item =
         dynamic_cast<SimulationOptionsItem*>(p_document_model->insertNewItem("SimulationOptions"));

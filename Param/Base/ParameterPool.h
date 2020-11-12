@@ -69,7 +69,7 @@ public:
 
     void removeParameter(const std::string& name);
 
-    RealParameter* operator[](size_t index); // used by libBornAgainParam.i
+    RealParameter* operator[](size_t index);             // used by libBornAgainParam.i
     const RealParameter* operator[](size_t index) const; // needed by the above
 
 private:

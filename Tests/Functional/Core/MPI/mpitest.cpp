@@ -17,7 +17,7 @@ int main(int argc, char** argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
 
     SimulationFactory sim_factory;
-    Simulation* p_simulation = sim_factory.createItem("BasicGISAS");
+    ISimulation* p_simulation = sim_factory.createItem("BasicGISAS");
     SampleBuilderFactory sample_factory;
     const std::unique_ptr<MultiLayer> P_sample(
         sample_factory.createSampleByName("CylindersInDWBABuilder"));

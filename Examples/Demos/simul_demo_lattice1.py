@@ -1,5 +1,5 @@
 '''
-Simulation demo: 2d lattice structure of particles
+ISimulation demo: 2d lattice structure of particles
 '''
 
 import numpy

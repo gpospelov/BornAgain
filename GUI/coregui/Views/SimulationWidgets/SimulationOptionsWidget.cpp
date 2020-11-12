@@ -21,7 +21,7 @@
 SimulationOptionsWidget::SimulationOptionsWidget(QWidget* parent)
     : QWidget(parent), m_boxEditor(new ComponentFlatView)
 {
-    auto groupBox = new QGroupBox("Simulation Parameters");
+    auto groupBox = new QGroupBox("ISimulation Parameters");
 
     auto groupLayout = new QVBoxLayout;
     groupBox->setLayout(groupLayout);

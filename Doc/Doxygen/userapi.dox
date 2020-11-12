@@ -4,7 +4,7 @@
 Here is a list of classes grouped in several categories to create the sample, describe scattering geometry, run the simulation and perform fitting.
 
 <ul>
-<li> \ref simulation "Simulation" <br>
+<li> \ref simulation "ISimulation" <br>
 List of classes to run simulations
      <ul>
      <li> \ref beam "Beam" <br>
@@ -44,7 +44,7 @@ Fitting routines
 
 Here is a list of additional classes from internal API.
 <ul>
-<li> \ref simulation_internal "Simulation and instrument internals" <br>
+<li> \ref simulation_internal "ISimulation and instrument internals" <br>
 <li> \ref samples_internal "Samples internals" <br>
 <li> \ref materials_internal "Materials internals" <br>
 <li> \ref formfactors_internal "Form factors internals" <br>

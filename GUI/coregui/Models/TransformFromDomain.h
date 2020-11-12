@@ -19,7 +19,7 @@
 
 class BeamDistributionItem;
 class BeamItem;
-class Simulation;
+class ISimulation;
 class GISASSimulation;
 class IFootprintFactor;
 class InterferenceFunction1DLattice;
@@ -46,7 +46,7 @@ class IDetector;
 class GISASInstrumentItem;
 class Instrument2DItem;
 class InstrumentItem;
-class Simulation2D;
+class ISimulation2D;
 class OffSpecSimulation;
 class IAxis;
 
@@ -79,7 +79,7 @@ void setOffSpecBeamItem(BeamItem* beam_item, const OffSpecSimulation& simulation
 
 void setSpecularBeamItem(SpecularBeamItem* beam_item, const SpecularSimulation& simulation);
 
-void setDetector(Instrument2DItem* instrument_item, const Simulation2D& simulation);
+void setDetector(Instrument2DItem* instrument_item, const ISimulation2D& simulation);
 
 void setDetectorGeometry(Instrument2DItem* instrument_item, const IDetector& detector);
 
@@ -92,14 +92,14 @@ void setSphericalDetector(SphericalDetectorItem* detector_item, const SphericalD
 void setRectangularDetector(RectangularDetectorItem* detector_item,
                             const RectangularDetector& detector);
 
-void setDetectorMasks(DetectorItem* detector_item, const Simulation& simulation);
+void setDetectorMasks(DetectorItem* detector_item, const ISimulation& simulation);
 
 void setMaskContainer(MaskContainerItem* container_item, const IDetector& detector, double scale);
 
 void setItemFromSample(BeamDistributionItem* beam_distribution_item,
                        const ParameterDistribution& parameter_distribution);
 
-void setBackground(InstrumentItem* instrument_item, const Simulation& simulation);
+void setBackground(InstrumentItem* instrument_item, const ISimulation& simulation);
 
 void setFootprintFactor(const IFootprintFactor* footprint, SpecularBeamItem* beam_item);
 

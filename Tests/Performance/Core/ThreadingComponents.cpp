@@ -73,7 +73,7 @@ std::unique_ptr<MultiLayer> createSampleSpheresDistribution(int nspheres)
 //! Creates realistic GISAS simulation (without sample).
 //! Rectangular PILATUS detector 981x1043, ROI and masks.
 
-std::unique_ptr<Simulation> CreateRealisticGISASSimulation()
+std::unique_ptr<ISimulation> CreateRealisticGISASSimulation()
 {
     auto result = std::make_unique<GISASSimulation>();
     result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree, 0.0 * Units::degree);
@@ -92,7 +92,7 @@ std::unique_ptr<Simulation> CreateRealisticGISASSimulation()
     // define ROI and masks
     result->setRegionOfInterest(45.0, 35.0, 120.0, 120.0);
     result->addMask(Rectangle(100, 60, 110, 100));
-    return std::unique_ptr<Simulation>(result.release());
+    return std::unique_ptr<ISimulation>(result.release());
 }
 
 } // namespace
@@ -101,7 +101,7 @@ std::unique_ptr<Simulation> CreateRealisticGISASSimulation()
 //! Spherical detector 100x100, cylinders in DWBA.
 //! Intended to study the performance of "real time" parameter tuning in GUI.
 
-std::unique_ptr<Simulation> TestComponents::CreateSimpleGISAS()
+std::unique_ptr<ISimulation> TestComponents::CreateSimpleGISAS()
 {
     auto result = std::make_unique<GISASSimulation>();
     result->setDetectorParameters(100, 0.0 * Units::degree, 2.0 * Units::degree, 100,
@@ -110,13 +110,13 @@ std::unique_ptr<Simulation> TestComponents::CreateSimpleGISAS()
 
     auto sample = std::unique_ptr<MultiLayer>(CylindersInDWBABuilder().buildSample());
     result->setSample(*sample);
-    return std::unique_ptr<Simulation>(result.release());
+    return std::unique_ptr<ISimulation>(result.release());
 }
 
 //! Creates simulation representing realistic GISAS.
 //! Intended to study the performance of some real life experiment.
 
-std::unique_ptr<Simulation> TestComponents::CreateRealisticGISAS()
+std::unique_ptr<ISimulation> TestComponents::CreateRealisticGISAS()
 {
     auto result = CreateRealisticGISASSimulation();
     auto sample = std::unique_ptr<MultiLayer>(CylindersInDWBABuilder().buildSample());
@@ -129,7 +129,7 @@ std::unique_ptr<Simulation> TestComponents::CreateRealisticGISAS()
 //! ROI and masks, noise, background.
 //! Intended to study the performance of some real life experiment.
 
-std::unique_ptr<Simulation> TestComponents::CreateRealisticAndHeavyGISAS()
+std::unique_ptr<ISimulation> TestComponents::CreateRealisticAndHeavyGISAS()
 {
     auto result = CreateRealisticGISASSimulation();
     auto sample = createSampleSpheresDistribution(50);
@@ -142,7 +142,7 @@ std::unique_ptr<Simulation> TestComponents::CreateRealisticAndHeavyGISAS()
 //! Intended to study the influence of SimulationElements and IPixel constructions on overall
 //! performance.
 
-std::unique_ptr<Simulation> TestComponents::CreateGiganticGISAS()
+std::unique_ptr<ISimulation> TestComponents::CreateGiganticGISAS()
 {
     const int nbins = 2048;
     auto result = std::make_unique<GISASSimulation>();
@@ -151,14 +151,14 @@ std::unique_ptr<Simulation> TestComponents::CreateGiganticGISAS()
     result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree, 0.0 * Units::degree);
     auto sample = std::unique_ptr<MultiLayer>(CylindersInBABuilder().buildSample());
     result->setSample(*sample);
-    return std::unique_ptr<Simulation>(result.release());
+    return std::unique_ptr<ISimulation>(result.release());
 }
 
 //! Creates simulation representing GISAS with huge wavelength.
 //! Tiny spherical detector 64x64, cylinders in BA, huge wavelength.
-//! Intended to study parameter distribution in Simulation::runSingleSimulation context.
+//! Intended to study parameter distribution in ISimulation::runSingleSimulation context.
 
-std::unique_ptr<Simulation> TestComponents::CreateWavelengthGISAS()
+std::unique_ptr<ISimulation> TestComponents::CreateWavelengthGISAS()
 {
     const int nbins = 64;
     auto result = std::make_unique<GISASSimulation>();
@@ -174,14 +174,14 @@ std::unique_ptr<Simulation> TestComponents::CreateWavelengthGISAS()
 
     auto sample = std::unique_ptr<MultiLayer>(CylindersInBABuilder().buildSample());
     result->setSample(*sample);
-    return std::unique_ptr<Simulation>(result.release());
+    return std::unique_ptr<ISimulation>(result.release());
 }
 
 //! Creates simulation representing simple GISAS with MonteCarlo ON.
 //! Spherical detector 100x100, cylinders in DWBA.
 //! Intended to study the performance in MonteCarlo mode.
 
-std::unique_ptr<Simulation> TestComponents::CreateMCGISAS()
+std::unique_ptr<ISimulation> TestComponents::CreateMCGISAS()
 {
     auto result = std::make_unique<GISASSimulation>();
     result->setDetectorParameters(100, 0.0 * Units::degree, 2.0 * Units::degree, 100,
@@ -191,5 +191,5 @@ std::unique_ptr<Simulation> TestComponents::CreateMCGISAS()
     auto sample = createSampleSpheresDistribution(10);
     result->setSample(*sample);
     result->getOptions().setMonteCarloIntegration(true, 50);
-    return std::unique_ptr<Simulation>(result.release());
+    return std::unique_ptr<ISimulation>(result.release());
 }

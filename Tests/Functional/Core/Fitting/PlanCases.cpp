@@ -72,7 +72,7 @@ RectDetPlan::RectDetPlan() : Plan("RectDetPlan")
 
 RectDetPlan::~RectDetPlan() = default;
 
-std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) const
+std::unique_ptr<ISimulation> RectDetPlan::createSimulation(const Parameters&) const
 {
     std::unique_ptr<GISASSimulation> result(new GISASSimulation());
 
@@ -85,7 +85,7 @@ std::unique_ptr<Simulation> RectDetPlan::createSimulation(const Parameters&) con
     result->setDetector(detector);
     result->setRegionOfInterest(5.0, 6.0, 15.0, 12.0);
     result->addMask(Rectangle(0.0, 0.0, 2.0, 2.0), true);
-    return std::unique_ptr<Simulation>(result.release());
+    return std::unique_ptr<ISimulation>(result.release());
 }
 
 // ----------------------------------------------------------------------------

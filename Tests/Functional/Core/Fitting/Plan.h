@@ -22,7 +22,7 @@ namespace Fit
 {
 class Parameters;
 }
-class Simulation;
+class ISimulation;
 class MultiLayer;
 template <class T> class OutputData;
 class FitObjective;
@@ -43,8 +43,8 @@ public:
 
 protected:
     virtual std::unique_ptr<FitObjective> createFitObjective() const;
-    virtual std::unique_ptr<Simulation> buildSimulation(const Fit::Parameters& params) const;
-    virtual std::unique_ptr<Simulation> createSimulation(const Fit::Parameters& params) const;
+    virtual std::unique_ptr<ISimulation> buildSimulation(const Fit::Parameters& params) const;
+    virtual std::unique_ptr<ISimulation> createSimulation(const Fit::Parameters& params) const;
     virtual std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;
     virtual std::unique_ptr<OutputData<double>> createOutputData() const;
 

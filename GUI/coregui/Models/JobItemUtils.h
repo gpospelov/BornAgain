@@ -22,7 +22,7 @@
 class DataItem;
 class InstrumentItem;
 class JobItem;
-class Simulation;
+class ISimulation;
 
 //! Contains set of convenience methods to set data to the IntensityDataItem from domain simulation.
 //! Used to modify OutputData's axes units as requested by IntensityDataItem.
@@ -45,7 +45,7 @@ void setIntensityItemAxesUnits(DataItem* intensityItem, const IUnitConverter& co
 void createDefaultDetectorMap(DataItem* intensityItem, const InstrumentItem* instrumentItem);
 
 //! Sets simulation results into the DataItem
-void setResults(DataItem* intensityItem, const Simulation* simulation);
+void setResults(DataItem* intensityItem, const ISimulation* simulation);
 
 ComboProperty availableUnits(const IUnitConverter& converter);
 } // namespace JobItemUtils

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/Simulation2D.cpp
-//! @brief     Implements class Simulation2D.
+//! @file      Core/Simulation/ISimulation2D.cpp
+//! @brief     Implements class ISimulation2D.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,70 +12,70 @@
 //
 // ************************************************************************** //
 
-#include "Core/Simulation/Simulation2D.h"
+#include "Core/Simulation/ISimulation2D.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
 #include "Device/Detector/DetectorContext.h"
 #include "Device/Histo/Histogram2D.h"
 
-Simulation2D::Simulation2D() = default;
+ISimulation2D::ISimulation2D() = default;
 
-Simulation2D::~Simulation2D() = default;
+ISimulation2D::~ISimulation2D() = default;
 
-void Simulation2D::prepareSimulation()
+void ISimulation2D::prepareSimulation()
 {
-    Simulation::prepareSimulation();
+    ISimulation::prepareSimulation();
     m_detector_context = instrument().detector2D().createContext();
 }
 
-void Simulation2D::removeMasks()
+void ISimulation2D::removeMasks()
 {
     instrument().detector2D().removeMasks();
 }
 
-void Simulation2D::addMask(const IShape2D& shape, bool mask_value)
+void ISimulation2D::addMask(const IShape2D& shape, bool mask_value)
 {
     instrument().detector2D().addMask(shape, mask_value);
 }
 
-void Simulation2D::maskAll()
+void ISimulation2D::maskAll()
 {
     instrument().detector2D().maskAll();
 }
 
-void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+void ISimulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
     instrument().detector2D().setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
-Simulation2D::Simulation2D(const Simulation2D& other)
-    : Simulation(other), m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
+ISimulation2D::ISimulation2D(const ISimulation2D& other)
+    : ISimulation(other), m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
 {
 }
 
-size_t Simulation2D::numberOfSimulationElements() const
+size_t ISimulation2D::numberOfSimulationElements() const
 {
     if (!m_detector_context)
         throw std::runtime_error("Error in numberOfSimulationElements(): no detector context");
     return m_detector_context->numberOfSimulationElements();
 }
 
-void Simulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
-                                         double y_min, double y_max)
+void ISimulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
+                                          double y_min, double y_max)
 {
     instrument().detector2D().setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     updateIntensityMap();
 }
 
-void Simulation2D::setDetector(const IDetector2D& detector)
+void ISimulation2D::setDetector(const IDetector2D& detector)
 {
     instrument().setDetector(detector);
     initUnitConverter();
 }
 
-std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(size_t start,
-                                                                              size_t n_elements)
+std::unique_ptr<IComputation> ISimulation2D::generateSingleThreadedComputation(size_t start,
+                                                                               size_t n_elements)
 {
     ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
@@ -83,7 +83,7 @@ std::unique_ptr<IComputation> Simulation2D::generateSingleThreadedComputation(si
                                              begin + static_cast<long>(n_elements));
 }
 
-std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Beam& beam)
+std::vector<SimulationElement> ISimulation2D::generateSimulationElements(const Beam& beam)
 {
     const double wavelength = beam.getWavelength();
     const double alpha_i = -beam.getAlpha(); // Defined to be always positive in Beam
@@ -108,7 +108,7 @@ std::vector<SimulationElement> Simulation2D::generateSimulationElements(const Be
     return result;
 }
 
-void Simulation2D::normalize(size_t start_ind, size_t n_elements)
+void ISimulation2D::normalize(size_t start_ind, size_t n_elements)
 {
     const double beam_intensity = getBeamIntensity();
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
@@ -123,7 +123,7 @@ void Simulation2D::normalize(size_t start_ind, size_t n_elements)
     }
 }
 
-void Simulation2D::addBackgroundIntensity(size_t start_ind, size_t n_elements)
+void ISimulation2D::addBackgroundIntensity(size_t start_ind, size_t n_elements)
 {
     if (!background())
         return;
@@ -133,16 +133,16 @@ void Simulation2D::addBackgroundIntensity(size_t start_ind, size_t n_elements)
     }
 }
 
-void Simulation2D::addDataToCache(double weight)
+void ISimulation2D::addDataToCache(double weight)
 {
     if (m_sim_elements.size() != m_cache.size())
-        throw std::runtime_error("Error in Simulation2D::addDataToCache(double): cache size"
+        throw std::runtime_error("Error in ISimulation2D::addDataToCache(double): cache size"
                                  " not the same as element size");
     for (unsigned i = 0; i < m_sim_elements.size(); i++)
         m_cache[i] += m_sim_elements[i].getIntensity() * weight;
 }
 
-void Simulation2D::moveDataFromCache()
+void ISimulation2D::moveDataFromCache()
 {
     ASSERT(!m_cache.empty());
     if (!m_cache.empty()) {
@@ -152,7 +152,7 @@ void Simulation2D::moveDataFromCache()
     }
 }
 
-std::vector<double> Simulation2D::rawResults() const
+std::vector<double> ISimulation2D::rawResults() const
 {
     std::vector<double> result;
     result.resize(m_sim_elements.size());
@@ -161,11 +161,11 @@ std::vector<double> Simulation2D::rawResults() const
     return result;
 }
 
-void Simulation2D::setRawResults(const std::vector<double>& raw_data)
+void ISimulation2D::setRawResults(const std::vector<double>& raw_data)
 {
     initSimulationElementVector();
     if (raw_data.size() != m_sim_elements.size())
-        throw std::runtime_error("Simulation2D::setRawResults: size of vector passed as "
+        throw std::runtime_error("ISimulation2D::setRawResults: size of vector passed as "
                                  "argument doesn't match number of elements in this simulation");
     for (unsigned i = 0; i < raw_data.size(); i++)
         m_sim_elements[i].setIntensity(raw_data[i]);

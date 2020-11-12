@@ -15,8 +15,9 @@
 #include "Device/Instrument/VarianceFunctions.h"
 #include <algorithm>
 
-IVarianceFunction::IVarianceFunction() = default;
-IVarianceFunction::~IVarianceFunction() = default;
+// ************************************************************************** //
+// class VarianceConstantFunction
+// ************************************************************************** //
 
 VarianceConstantFunction* VarianceConstantFunction::clone() const
 {
@@ -27,6 +28,10 @@ double VarianceConstantFunction::variance(double, double) const
 {
     return 1.0;
 }
+
+// ************************************************************************** //
+// class VarianceSimFunction
+// ************************************************************************** //
 
 VarianceSimFunction::VarianceSimFunction(double epsilon) : m_epsilon(epsilon) {}
 

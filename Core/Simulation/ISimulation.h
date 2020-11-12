@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/Simulation.h
-//! @brief     Defines class Simulation.
+//! @file      Core/Simulation/ISimulation.h
+//! @brief     Defines class ISimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -34,13 +34,13 @@ class MultiLayer;
 //! weighting over parameter distributions, ...
 //! @ingroup simulation
 
-class Simulation : public ICloneable, public INode
+class ISimulation : public ICloneable, public INode
 {
 public:
-    Simulation();
-    virtual ~Simulation();
+    ISimulation();
+    virtual ~ISimulation();
 
-    virtual Simulation* clone() const = 0;
+    virtual ISimulation* clone() const = 0;
 
     //! Put into a clean state for running a simulation
     virtual void prepareSimulation();
@@ -102,13 +102,13 @@ public:
     friend class MPISimulation;
 
 protected:
-    Simulation(const Simulation& other);
+    ISimulation(const ISimulation& other);
 
     //! Creates the appropriate data structure (e.g. 2D intensity map) from the calculated
     //! SimulationElement objects
     virtual void transferResultsToIntensityMap() {}
 
-    //! Initializes the vector of Simulation elements
+    //! Initializes the vector of ISimulation elements
     virtual void initSimulationElementVector() = 0;
 
     virtual void updateIntensityMap() {}

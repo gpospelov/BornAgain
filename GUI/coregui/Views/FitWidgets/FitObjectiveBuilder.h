@@ -19,7 +19,7 @@
 
 class JobItem;
 class FitObjective;
-class Simulation;
+class ISimulation;
 namespace Fit
 {
 class Parameters;
@@ -50,7 +50,7 @@ public:
 private:
     JobItem* m_jobItem;
 
-    std::unique_ptr<Simulation> buildSimulation(const Fit::Parameters& params) const;
+    std::unique_ptr<ISimulation> buildSimulation(const Fit::Parameters& params) const;
     std::unique_ptr<OutputData<double>> createOutputData() const;
 
     void update_fit_parameters(const Fit::Parameters& params) const;

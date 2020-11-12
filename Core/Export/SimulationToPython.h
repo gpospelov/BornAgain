@@ -22,7 +22,7 @@ class Beam;
 class IFootprintFactor;
 class GISASSimulation;
 class OffSpecSimulation;
-class Simulation;
+class ISimulation;
 class SpecularSimulation;
 
 //! Write a Python script that allows to run the current simulation.
@@ -35,17 +35,17 @@ public:
         SAVE_DATA       //!< main function saves intensity data
     };
 
-    std::string generateSimulationCode(const Simulation& simulation, EMainType mainType);
+    std::string generateSimulationCode(const ISimulation& simulation, EMainType mainType);
 
 private:
     std::string definePreamble() const;
-    std::string defineGetSimulation(const Simulation* simulation) const;
+    std::string defineGetSimulation(const ISimulation* simulation) const;
     std::string defineGISASSimulation(const GISASSimulation* simulation) const;
     std::string defineOffSpecSimulation(const OffSpecSimulation* simulation) const;
     std::string defineSpecularSimulation(const SpecularSimulation* simulation) const;
-    std::string defineDetector(const Simulation* simulation) const;
-    std::string defineDetectorResolutionFunction(const Simulation* simulation) const;
-    std::string defineDetectorPolarizationAnalysis(const Simulation* simulation) const;
+    std::string defineDetector(const ISimulation* simulation) const;
+    std::string defineDetectorResolutionFunction(const ISimulation* simulation) const;
+    std::string defineDetectorPolarizationAnalysis(const ISimulation* simulation) const;
 
     std::string defineGISASBeam(const GISASSimulation& simulation) const;
     std::string defineOffSpecBeam(const OffSpecSimulation& simulation) const;
@@ -54,10 +54,10 @@ private:
     std::string defineBeamPolarization(const Beam& beam) const;
     std::string defineBeamIntensity(const Beam& beam) const;
 
-    std::string defineParameterDistributions(const Simulation* simulation) const;
-    std::string defineMasks(const Simulation* simulation) const;
-    std::string defineSimulationOptions(const Simulation* simulation) const;
-    std::string defineBackground(const Simulation* simulation) const;
+    std::string defineParameterDistributions(const ISimulation* simulation) const;
+    std::string defineMasks(const ISimulation* simulation) const;
+    std::string defineSimulationOptions(const ISimulation* simulation) const;
+    std::string defineBackground(const ISimulation* simulation) const;
     std::string defineMain(EMainType mainType = RUN_SIMULATION);
 };
 

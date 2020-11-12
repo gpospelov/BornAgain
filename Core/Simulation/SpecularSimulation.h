@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
 #define BORNAGAIN_CORE_SIMULATION_SPECULARSIMULATION_H
 
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 
 class IAxis;
 class IComputation;
@@ -29,7 +29,7 @@ class SpecularSimulationElement;
 //! Main class to run a specular simulation.
 //! @ingroup simulation
 
-class SpecularSimulation : public Simulation
+class SpecularSimulation : public ISimulation
 {
 public:
     SpecularSimulation();
@@ -67,7 +67,7 @@ public:
 private:
     SpecularSimulation(const SpecularSimulation& other); // used by clone()
 
-    //! Initializes the vector of Simulation elements
+    //! Initializes the vector of ISimulation elements
     void initSimulationElementVector() override;
 
     //! Generate a single threaded computation for a given range of simulation elements

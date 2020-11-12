@@ -59,7 +59,7 @@ namespace
 {
 template <class T>
 void setParameterDistributionToSimulation(const std::string& parameter_name,
-                                          const SessionItem* item, Simulation& simulation);
+                                          const SessionItem* item, ISimulation& simulation);
 
 std::unique_ptr<ScanResolution> createScanResolution(const SessionItem* item);
 } // namespace
@@ -146,7 +146,7 @@ TransformToDomain::createParticleDistribution(const SessionItem& item)
     return P_part_distr;
 }
 
-//! adds DistributionParameters to the Simulation
+//! adds DistributionParameters to the ISimulation
 void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
                                                               GISASSimulation& simulation)
 {
@@ -181,7 +181,7 @@ void TransformToDomain::addBeamDivergencesToScan(const SessionItem& beam_item,
 
 void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
                                             const BeamDistributionItem& item,
-                                            Simulation& simulation)
+                                            ISimulation& simulation)
 {
     ParameterPattern parameter_pattern;
     parameter_pattern.beginsWith("*").add("Beam").add(parameter_name);
@@ -191,7 +191,7 @@ void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
         simulation.addParameterDistribution(*P_par_distr);
 }
 
-void TransformToDomain::setSimulationOptions(Simulation* simulation, const SessionItem& item)
+void TransformToDomain::setSimulationOptions(ISimulation* simulation, const SessionItem& item)
 {
     ASSERT(item.modelType() == "SimulationOptions");
 
@@ -238,7 +238,7 @@ namespace
 {
 template <class T>
 void setParameterDistributionToSimulation(const std::string& parameter_name,
-                                          const SessionItem* item, Simulation& simulation)
+                                          const SessionItem* item, ISimulation& simulation)
 {
     const auto parameter_item = dynamic_cast<const T*>(item);
     if (!parameter_item) {

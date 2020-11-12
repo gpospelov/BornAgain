@@ -2719,17 +2719,17 @@ class swig_dummy_type_const_inode_vector(object):
 _libBornAgainCore.swig_dummy_type_const_inode_vector_swigregister(swig_dummy_type_const_inode_vector)
 
 class SimulationFactoryTemp(object):
-    r"""Proxy of C++ IFactory< std::string,Simulation > class."""
+    r"""Proxy of C++ IFactory< std::string,ISimulation > class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def createItem(self, item_key):
-        r"""createItem(SimulationFactoryTemp self, std::string const & item_key) -> Simulation"""
+        r"""createItem(SimulationFactoryTemp self, std::string const & item_key) -> ISimulation"""
         return _libBornAgainCore.SimulationFactoryTemp_createItem(self, item_key)
 
     def registerItem(self, item_key, CreateFn):
-        r"""registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,Simulation >::CreateItemCallback CreateFn) -> bool"""
+        r"""registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,ISimulation >::CreateItemCallback CreateFn) -> bool"""
         return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, item_key, CreateFn)
 
     def contains(self, item_key):
@@ -3026,7 +3026,7 @@ class FitObjective(object):
 
         Arguments:
 
-        callback -- user-defined function returning fully-defined bornagain.Simulation object.
+        callback -- user-defined function returning fully-defined bornagain.ISimulation object.
         The function must use fit parameter dictionary as its input.
 
         data -- numpy array with experimental data.
@@ -3347,8 +3347,8 @@ class PyBuilderCallback(object):
 
     def build_simulation(self, arg0):
         r"""
-        build_simulation(PyBuilderCallback self, Fit::Parameters arg0) -> Simulation
-        Simulation * PyBuilderCallback::build_simulation(Fit::Parameters)
+        build_simulation(PyBuilderCallback self, Fit::Parameters arg0) -> ISimulation
+        ISimulation * PyBuilderCallback::build_simulation(Fit::Parameters)
 
         """
         return _libBornAgainCore.PyBuilderCallback_build_simulation(self, arg0)
@@ -3581,13 +3581,13 @@ class QSpecScan(object):
 # Register QSpecScan in _libBornAgainCore:
 _libBornAgainCore.QSpecScan_swigregister(QSpecScan)
 
-class Simulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
+class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
     Pure virtual base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
 
-    C++ includes: Simulation.h
+    C++ includes: ISimulation.h
 
     """
 
@@ -3596,256 +3596,256 @@ class Simulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_Simulation
+    __swig_destroy__ = _libBornAgainCore.delete_ISimulation
 
     def clone(self):
         r"""
-        clone(Simulation self) -> Simulation
-        virtual Simulation* Simulation::clone() const =0
+        clone(ISimulation self) -> ISimulation
+        virtual ISimulation* ISimulation::clone() const =0
 
         """
-        return _libBornAgainCore.Simulation_clone(self)
+        return _libBornAgainCore.ISimulation_clone(self)
 
     def prepareSimulation(self):
         r"""
-        prepareSimulation(Simulation self)
-        void Simulation::prepareSimulation()
+        prepareSimulation(ISimulation self)
+        void ISimulation::prepareSimulation()
 
         Put into a clean state for running a simulation. 
 
         """
-        return _libBornAgainCore.Simulation_prepareSimulation(self)
+        return _libBornAgainCore.ISimulation_prepareSimulation(self)
 
     def runSimulation(self):
         r"""
-        runSimulation(Simulation self)
-        void Simulation::runSimulation()
+        runSimulation(ISimulation self)
+        void ISimulation::runSimulation()
 
         Run a simulation, possibly averaged over parameter distributions.
 
         Run simulation with possible averaging over parameter distributions. 
 
         """
-        return _libBornAgainCore.Simulation_runSimulation(self)
+        return _libBornAgainCore.ISimulation_runSimulation(self)
 
     def runMPISimulation(self):
         r"""
-        runMPISimulation(Simulation self)
-        void Simulation::runMPISimulation()
+        runMPISimulation(ISimulation self)
+        void ISimulation::runMPISimulation()
 
         Run a simulation in a MPI environment. 
 
         """
-        return _libBornAgainCore.Simulation_runMPISimulation(self)
+        return _libBornAgainCore.ISimulation_runMPISimulation(self)
 
     def setInstrument(self, instrument_):
         r"""
-        setInstrument(Simulation self, Instrument const & instrument_)
-        void Simulation::setInstrument(const Instrument &instrument_)
+        setInstrument(ISimulation self, Instrument const & instrument_)
+        void ISimulation::setInstrument(const Instrument &instrument_)
 
         """
-        return _libBornAgainCore.Simulation_setInstrument(self, instrument_)
+        return _libBornAgainCore.ISimulation_setInstrument(self, instrument_)
 
     def instrument(self, *args):
         r"""
-        instrument(Simulation self) -> Instrument const
-        instrument(Simulation self) -> Instrument &
-        Instrument& Simulation::instrument()
+        instrument(ISimulation self) -> Instrument const
+        instrument(ISimulation self) -> Instrument &
+        Instrument& ISimulation::instrument()
 
         """
-        return _libBornAgainCore.Simulation_instrument(self, *args)
+        return _libBornAgainCore.ISimulation_instrument(self, *args)
 
     def setBeamIntensity(self, intensity):
         r"""
-        setBeamIntensity(Simulation self, double intensity)
-        void Simulation::setBeamIntensity(double intensity)
+        setBeamIntensity(ISimulation self, double intensity)
+        void ISimulation::setBeamIntensity(double intensity)
 
         """
-        return _libBornAgainCore.Simulation_setBeamIntensity(self, intensity)
+        return _libBornAgainCore.ISimulation_setBeamIntensity(self, intensity)
 
     def getBeamIntensity(self):
         r"""
-        getBeamIntensity(Simulation self) -> double
-        double Simulation::getBeamIntensity() const
+        getBeamIntensity(ISimulation self) -> double
+        double ISimulation::getBeamIntensity() const
 
         """
-        return _libBornAgainCore.Simulation_getBeamIntensity(self)
+        return _libBornAgainCore.ISimulation_getBeamIntensity(self)
 
     def setBeamPolarization(self, bloch_vector):
         r"""
-        setBeamPolarization(Simulation self, kvector_t bloch_vector)
-        void Simulation::setBeamPolarization(const kvector_t bloch_vector)
+        setBeamPolarization(ISimulation self, kvector_t bloch_vector)
+        void ISimulation::setBeamPolarization(const kvector_t bloch_vector)
 
         Sets the beam polarization according to the given Bloch vector. 
 
         """
-        return _libBornAgainCore.Simulation_setBeamPolarization(self, bloch_vector)
+        return _libBornAgainCore.ISimulation_setBeamPolarization(self, bloch_vector)
 
     def setDetectorResolutionFunction(self, resolution_function):
         r"""
-        setDetectorResolutionFunction(Simulation self, IResolutionFunction2D const & resolution_function)
-        void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
+        setDetectorResolutionFunction(ISimulation self, IResolutionFunction2D const & resolution_function)
+        void ISimulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
 
         """
-        return _libBornAgainCore.Simulation_setDetectorResolutionFunction(self, resolution_function)
+        return _libBornAgainCore.ISimulation_setDetectorResolutionFunction(self, resolution_function)
 
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         r"""
-        setAnalyzerProperties(Simulation self, kvector_t direction, double efficiency, double total_transmission)
-        void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
+        setAnalyzerProperties(ISimulation self, kvector_t direction, double efficiency, double total_transmission)
+        void ISimulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
 
         Sets the polarization analyzer characteristics of the detector. 
 
         """
-        return _libBornAgainCore.Simulation_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+        return _libBornAgainCore.ISimulation_setAnalyzerProperties(self, direction, efficiency, total_transmission)
 
     def setSample(self, sample):
         r"""
-        setSample(Simulation self, MultiLayer const & sample)
-        void Simulation::setSample(const MultiLayer &sample)
+        setSample(ISimulation self, MultiLayer const & sample)
+        void ISimulation::setSample(const MultiLayer &sample)
 
-        The MultiLayer object will not be owned by the  Simulation object. 
+        The MultiLayer object will not be owned by the  ISimulation object. 
 
         """
-        return _libBornAgainCore.Simulation_setSample(self, sample)
+        return _libBornAgainCore.ISimulation_setSample(self, sample)
 
     def sample(self):
         r"""
-        sample(Simulation self) -> MultiLayer const *
-        const MultiLayer * Simulation::sample() const
+        sample(ISimulation self) -> MultiLayer const *
+        const MultiLayer * ISimulation::sample() const
 
         """
-        return _libBornAgainCore.Simulation_sample(self)
+        return _libBornAgainCore.ISimulation_sample(self)
 
     def setSampleBuilderCpp(self, sample_builder):
         r"""
-        setSampleBuilderCpp(Simulation self, std::shared_ptr< ISampleBuilder > const & sample_builder)
-        void Simulation::setSampleBuilder(const std::shared_ptr< ISampleBuilder > &sample_builder)
+        setSampleBuilderCpp(ISimulation self, std::shared_ptr< ISampleBuilder > const & sample_builder)
+        void ISimulation::setSampleBuilder(const std::shared_ptr< ISampleBuilder > &sample_builder)
 
         """
-        return _libBornAgainCore.Simulation_setSampleBuilderCpp(self, sample_builder)
+        return _libBornAgainCore.ISimulation_setSampleBuilderCpp(self, sample_builder)
 
     def setBackground(self, bg):
         r"""
-        setBackground(Simulation self, IBackground bg)
-        void Simulation::setBackground(const IBackground &bg)
+        setBackground(ISimulation self, IBackground bg)
+        void ISimulation::setBackground(const IBackground &bg)
 
         """
-        return _libBornAgainCore.Simulation_setBackground(self, bg)
+        return _libBornAgainCore.ISimulation_setBackground(self, bg)
 
     def background(self):
         r"""
-        background(Simulation self) -> IBackground
-        const IBackground* Simulation::background() const
+        background(ISimulation self) -> IBackground
+        const IBackground* ISimulation::background() const
 
         """
-        return _libBornAgainCore.Simulation_background(self)
+        return _libBornAgainCore.ISimulation_background(self)
 
     def intensityMapSize(self):
         r"""
-        intensityMapSize(Simulation self) -> size_t
-        virtual size_t Simulation::intensityMapSize() const =0
+        intensityMapSize(ISimulation self) -> size_t
+        virtual size_t ISimulation::intensityMapSize() const =0
 
         Returns the total number of the intensity values in the simulation result. 
 
         """
-        return _libBornAgainCore.Simulation_intensityMapSize(self)
+        return _libBornAgainCore.ISimulation_intensityMapSize(self)
 
     def result(self):
         r"""
-        result(Simulation self) -> SimulationResult
-        virtual SimulationResult Simulation::result() const =0
+        result(ISimulation self) -> SimulationResult
+        virtual SimulationResult ISimulation::result() const =0
 
         Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 
         """
-        return _libBornAgainCore.Simulation_result(self)
+        return _libBornAgainCore.ISimulation_result(self)
 
     def addParameterDistribution(self, *args):
         r"""
-        addParameterDistribution(Simulation self, std::string const & param_name, IDistribution1D const & distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits const & limits=RealLimits())
-        addParameterDistribution(Simulation self, ParameterDistribution par_distr)
-        void Simulation::addParameterDistribution(const ParameterDistribution &par_distr)
+        addParameterDistribution(ISimulation self, std::string const & param_name, IDistribution1D const & distribution, size_t nbr_samples, double sigma_factor=0.0, RealLimits const & limits=RealLimits())
+        addParameterDistribution(ISimulation self, ParameterDistribution par_distr)
+        void ISimulation::addParameterDistribution(const ParameterDistribution &par_distr)
 
         """
-        return _libBornAgainCore.Simulation_addParameterDistribution(self, *args)
+        return _libBornAgainCore.ISimulation_addParameterDistribution(self, *args)
 
     def getDistributionHandler(self):
         r"""
-        getDistributionHandler(Simulation self) -> DistributionHandler const &
-        const DistributionHandler& Simulation::getDistributionHandler() const
+        getDistributionHandler(ISimulation self) -> DistributionHandler const &
+        const DistributionHandler& ISimulation::getDistributionHandler() const
 
         """
-        return _libBornAgainCore.Simulation_getDistributionHandler(self)
+        return _libBornAgainCore.ISimulation_getDistributionHandler(self)
 
     def setOptions(self, options):
         r"""
-        setOptions(Simulation self, SimulationOptions const & options)
-        void Simulation::setOptions(const SimulationOptions &options)
+        setOptions(ISimulation self, SimulationOptions const & options)
+        void ISimulation::setOptions(const SimulationOptions &options)
 
         """
-        return _libBornAgainCore.Simulation_setOptions(self, options)
+        return _libBornAgainCore.ISimulation_setOptions(self, options)
 
     def getOptions(self, *args):
         r"""
-        getOptions(Simulation self) -> SimulationOptions const
-        getOptions(Simulation self) -> SimulationOptions &
-        SimulationOptions& Simulation::getOptions()
+        getOptions(ISimulation self) -> SimulationOptions const
+        getOptions(ISimulation self) -> SimulationOptions &
+        SimulationOptions& ISimulation::getOptions()
 
         """
-        return _libBornAgainCore.Simulation_getOptions(self, *args)
+        return _libBornAgainCore.ISimulation_getOptions(self, *args)
 
     def subscribe(self, inform):
         r"""
-        subscribe(Simulation self, ProgressHandler::Callback_t inform)
-        void Simulation::subscribe(ProgressHandler::Callback_t inform)
+        subscribe(ISimulation self, ProgressHandler::Callback_t inform)
+        void ISimulation::subscribe(ProgressHandler::Callback_t inform)
 
         """
-        return _libBornAgainCore.Simulation_subscribe(self, inform)
+        return _libBornAgainCore.ISimulation_subscribe(self, inform)
 
     def setTerminalProgressMonitor(self):
         r"""
-        setTerminalProgressMonitor(Simulation self)
-        void Simulation::setTerminalProgressMonitor()
+        setTerminalProgressMonitor(ISimulation self)
+        void ISimulation::setTerminalProgressMonitor()
 
         Initializes a progress monitor that prints to stdout. 
 
         """
-        return _libBornAgainCore.Simulation_setTerminalProgressMonitor(self)
+        return _libBornAgainCore.ISimulation_setTerminalProgressMonitor(self)
 
     def getChildren(self):
         r"""
-        getChildren(Simulation self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > Simulation::getChildren() const
+        getChildren(ISimulation self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > ISimulation::getChildren() const
 
         """
-        return _libBornAgainCore.Simulation_getChildren(self)
+        return _libBornAgainCore.ISimulation_getChildren(self)
 
     def convertData(self, data, put_masked_areas_to_zero=True):
         r"""
-        convertData(Simulation self, OutputData< double > const & data, bool put_masked_areas_to_zero=True) -> SimulationResult
-        SimulationResult Simulation::convertData(const OutputData< double > &data, bool put_masked_areas_to_zero=true)
+        convertData(ISimulation self, OutputData< double > const & data, bool put_masked_areas_to_zero=True) -> SimulationResult
+        SimulationResult ISimulation::convertData(const OutputData< double > &data, bool put_masked_areas_to_zero=true)
 
         Convert user data to SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero. 
 
         """
-        return _libBornAgainCore.Simulation_convertData(self, data, put_masked_areas_to_zero)
+        return _libBornAgainCore.ISimulation_convertData(self, data, put_masked_areas_to_zero)
 
     def setSampleBuilder(self, ptr):
         self.samplebuilder = ptr
         self.setSampleBuilderCpp(ptr)
 
 
-# Register Simulation in _libBornAgainCore:
-_libBornAgainCore.Simulation_swigregister(Simulation)
+# Register ISimulation in _libBornAgainCore:
+_libBornAgainCore.ISimulation_swigregister(ISimulation)
 
-class Simulation2D(Simulation):
+class ISimulation2D(ISimulation):
     r"""
 
 
     Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
 
-    C++ includes: Simulation2D.h
+    C++ includes: ISimulation2D.h
 
     """
 
@@ -3854,30 +3854,30 @@ class Simulation2D(Simulation):
     def __init__(self, *args, **kwargs):
         raise AttributeError("No constructor defined - class is abstract")
     __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_Simulation2D
+    __swig_destroy__ = _libBornAgainCore.delete_ISimulation2D
 
     def clone(self):
         r"""
-        clone(Simulation2D self) -> Simulation2D
-        Simulation2D* Simulation2D::clone() const override=0
+        clone(ISimulation2D self) -> ISimulation2D
+        ISimulation2D* ISimulation2D::clone() const override=0
 
         """
-        return _libBornAgainCore.Simulation2D_clone(self)
+        return _libBornAgainCore.ISimulation2D_clone(self)
 
     def prepareSimulation(self):
         r"""
-        prepareSimulation(Simulation2D self)
-        void Simulation2D::prepareSimulation() override
+        prepareSimulation(ISimulation2D self)
+        void ISimulation2D::prepareSimulation() override
 
         Put into a clean state for running a simulation. 
 
         """
-        return _libBornAgainCore.Simulation2D_prepareSimulation(self)
+        return _libBornAgainCore.ISimulation2D_prepareSimulation(self)
 
     def setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max):
         r"""
-        setDetectorParameters(Simulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
-        void Simulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+        setDetectorParameters(ISimulation2D self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+        void ISimulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
 
         Sets spherical detector parameters using angle ranges
 
@@ -3903,32 +3903,32 @@ class Simulation2D(Simulation):
         upper edge of last alpha-bin 
 
         """
-        return _libBornAgainCore.Simulation2D_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
+        return _libBornAgainCore.ISimulation2D_setDetectorParameters(self, n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max)
 
     def setDetector(self, detector):
         r"""
-        setDetector(Simulation2D self, IDetector2D const & detector)
-        void Simulation2D::setDetector(const IDetector2D &detector)
+        setDetector(ISimulation2D self, IDetector2D const & detector)
+        void ISimulation2D::setDetector(const IDetector2D &detector)
 
         Sets the detector (axes can be overwritten later) 
 
         """
-        return _libBornAgainCore.Simulation2D_setDetector(self, detector)
+        return _libBornAgainCore.ISimulation2D_setDetector(self, detector)
 
     def removeMasks(self):
         r"""
-        removeMasks(Simulation2D self)
-        void Simulation2D::removeMasks()
+        removeMasks(ISimulation2D self)
+        void ISimulation2D::removeMasks()
 
         removes all masks from the detector 
 
         """
-        return _libBornAgainCore.Simulation2D_removeMasks(self)
+        return _libBornAgainCore.ISimulation2D_removeMasks(self)
 
     def addMask(self, shape, mask_value=True):
         r"""
-        addMask(Simulation2D self, IShape2D const & shape, bool mask_value=True)
-        void Simulation2D::addMask(const IShape2D &shape, bool mask_value=true)
+        addMask(ISimulation2D self, IShape2D const & shape, bool mask_value=True)
+        void ISimulation2D::addMask(const IShape2D &shape, bool mask_value=true)
 
         Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
 
@@ -3942,32 +3942,32 @@ class Simulation2D(Simulation):
         The value of mask 
 
         """
-        return _libBornAgainCore.Simulation2D_addMask(self, shape, mask_value)
+        return _libBornAgainCore.ISimulation2D_addMask(self, shape, mask_value)
 
     def maskAll(self):
         r"""
-        maskAll(Simulation2D self)
-        void Simulation2D::maskAll()
+        maskAll(ISimulation2D self)
+        void ISimulation2D::maskAll()
 
         Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
 
         """
-        return _libBornAgainCore.Simulation2D_maskAll(self)
+        return _libBornAgainCore.ISimulation2D_maskAll(self)
 
     def setRegionOfInterest(self, xlow, ylow, xup, yup):
         r"""
-        setRegionOfInterest(Simulation2D self, double xlow, double ylow, double xup, double yup)
-        void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+        setRegionOfInterest(ISimulation2D self, double xlow, double ylow, double xup, double yup)
+        void ISimulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 
         Sets rectangular region of interest with lower left and upper right corners defined. 
 
         """
-        return _libBornAgainCore.Simulation2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
+        return _libBornAgainCore.ISimulation2D_setRegionOfInterest(self, xlow, ylow, xup, yup)
 
-# Register Simulation2D in _libBornAgainCore:
-_libBornAgainCore.Simulation2D_swigregister(Simulation2D)
+# Register ISimulation2D in _libBornAgainCore:
+_libBornAgainCore.ISimulation2D_swigregister(ISimulation2D)
 
-class GISASSimulation(Simulation2D):
+class GISASSimulation(ISimulation2D):
     r"""
 
 
@@ -4048,7 +4048,7 @@ class GISASSimulation(Simulation2D):
 # Register GISASSimulation in _libBornAgainCore:
 _libBornAgainCore.GISASSimulation_swigregister(GISASSimulation)
 
-class DepthProbeSimulation(Simulation):
+class DepthProbeSimulation(ISimulation):
     r"""Proxy of C++ DepthProbeSimulation class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
@@ -4142,7 +4142,7 @@ class DepthProbeSimulation(Simulation):
 # Register DepthProbeSimulation in _libBornAgainCore:
 _libBornAgainCore.DepthProbeSimulation_swigregister(DepthProbeSimulation)
 
-class SpecularSimulation(Simulation):
+class SpecularSimulation(ISimulation):
     r"""
 
 
@@ -4248,7 +4248,7 @@ class SpecularSimulation(Simulation):
 # Register SpecularSimulation in _libBornAgainCore:
 _libBornAgainCore.SpecularSimulation_swigregister(SpecularSimulation)
 
-class OffSpecSimulation(Simulation2D):
+class OffSpecSimulation(ISimulation2D):
     r"""
 
 

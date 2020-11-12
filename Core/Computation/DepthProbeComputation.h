@@ -22,7 +22,7 @@ class MultiLayer;
 
 //! Performs a single-threaded depth probe computation with given sample.
 //!
-//! Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+//! Controlled by the multi-threading machinery in ISimulation::runSingleSimulation().
 //!
 //! @ingroup algorithms_internal
 

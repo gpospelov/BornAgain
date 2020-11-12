@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/Simulation2D.h
-//! @brief     Defines class Simulation2D.
+//! @file      Core/Simulation/ISimulation2D.h
+//! @brief     Defines class ISimulation2D.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
 #define BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
 
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 
 class DetectorContext;
 
@@ -23,13 +23,13 @@ class DetectorContext;
 //! Holds the common implementations for simulations with a 2D detector
 //! @ingroup simulation
 
-class Simulation2D : public Simulation
+class ISimulation2D : public ISimulation
 {
 public:
-    Simulation2D();
-    ~Simulation2D() override;
+    ISimulation2D();
+    ~ISimulation2D() override;
 
-    Simulation2D* clone() const override = 0;
+    ISimulation2D* clone() const override = 0;
 
     //! Put into a clean state for running a simulation
     void prepareSimulation() override;
@@ -64,7 +64,7 @@ public:
     void setRegionOfInterest(double xlow, double ylow, double xup, double yup);
 
 protected:
-    Simulation2D(const Simulation2D& other);
+    ISimulation2D(const ISimulation2D& other);
 
     virtual void initUnitConverter() {}
 

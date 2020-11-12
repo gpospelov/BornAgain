@@ -19,10 +19,10 @@
 
 namespace
 {
-std::string simulationCode(const Simulation& simulation,
+std::string simulationCode(const ISimulation& simulation,
                            SimulationToPython::EMainType mainFunctionType)
 {
-    std::unique_ptr<Simulation> sim(simulation.clone());
+    std::unique_ptr<ISimulation> sim(simulation.clone());
     sim->prepareSimulation();
 
     SimulationToPython generator;
@@ -36,12 +36,12 @@ std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer)
     return generator.generateSampleCode(multilayer);
 }
 
-std::string ExportToPython::generateSimulationCode(const Simulation& simulation)
+std::string ExportToPython::generateSimulationCode(const ISimulation& simulation)
 {
     return simulationCode(simulation, SimulationToPython::RUN_SIMULATION);
 }
 
-std::string ExportToPython::generatePyExportTest(const Simulation& simulation)
+std::string ExportToPython::generatePyExportTest(const ISimulation& simulation)
 {
     return simulationCode(simulation, SimulationToPython::SAVE_DATA);
 }

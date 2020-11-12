@@ -29,7 +29,7 @@ label_fontsize = 16
 def get_axes_limits(result, units):
     """
     Returns axes range as expected by pyplot.imshow.
-    :param result: SimulationResult object from a Simulation
+    :param result: SimulationResult object from a ISimulation
     :param units: units to use
     :return: axes ranges as a flat list
     """
@@ -73,7 +73,7 @@ def translate_axis_label(label):
 def get_axes_labels(result, units):
     """
     Returns axes range as expected by pyplot.imshow.
-    :param result: SimulationResult object from a Simulation
+    :param result: SimulationResult object from a ISimulation
     :param units: units to use
     :return: axes ranges as a flat list
     """

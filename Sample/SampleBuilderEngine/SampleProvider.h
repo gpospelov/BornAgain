@@ -20,7 +20,7 @@
 class MultiLayer;
 
 //! Holds either a Sample, or a SampleBuilderNode (which holds an ISampleBuilder).
-//! Used in Simulation, which holds a SampleProvider member.
+//! Used in ISimulation, which holds a SampleProvider member.
 
 //! @ingroup simulation_internal
 

@@ -22,7 +22,7 @@
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <iostream>
 
-bool checkSimulation(const std::string& name, const Simulation& direct_simulation,
+bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
                      const double limit)
 {
     const auto result_data = direct_simulation.result().data();

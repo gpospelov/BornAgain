@@ -639,7 +639,7 @@ DepthProbeSimulation* StandardSimulations::BasicDepthProbe()
     return result;
 }
 
-//! Simulation with fitting.
+//! ISimulation with fitting.
 //! Beam intensity set to provide reasonably large values in detector channels.
 GISASSimulation* StandardSimulations::MiniGISASFit()
 {

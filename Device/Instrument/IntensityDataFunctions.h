@@ -20,7 +20,7 @@
 
 class IHistogram;
 class SimulationResult;
-class Simulation;
+class ISimulation;
 
 //! Functions to work with intensity data.
 //! @ingroup tools

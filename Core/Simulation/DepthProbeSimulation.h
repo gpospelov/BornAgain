@@ -16,7 +16,7 @@
 #define BORNAGAIN_CORE_SIMULATION_DEPTHPROBESIMULATION_H
 
 #include "Core/Computation/DepthProbeElement.h"
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 
 #include <vector>
@@ -30,7 +30,7 @@ class MultiLayer;
 class Histogram1D;
 class IUnitConverter;
 
-class DepthProbeSimulation : public Simulation
+class DepthProbeSimulation : public ISimulation
 {
 public:
     DepthProbeSimulation();
@@ -72,7 +72,7 @@ private:
     void setBeamParameters(double lambda, const IAxis& alpha_axis,
                            const IFootprintFactor* beam_shape);
 
-    //! Initializes the vector of Simulation elements
+    //! Initializes the vector of ISimulation elements
     void initSimulationElementVector() override;
 
     //! Gets the number of elements this simulation needs to calculate

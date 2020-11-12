@@ -18,7 +18,7 @@
 #include <string>
 
 class MultiLayer;
-class Simulation;
+class ISimulation;
 
 //! Contains main methods to generate Python scripts from Core simulation objects.
 
@@ -26,8 +26,8 @@ namespace ExportToPython
 {
 
 std::string generateSampleCode(const MultiLayer& multilayer);
-std::string generateSimulationCode(const Simulation& simulation);
-std::string generatePyExportTest(const Simulation& simulation);
+std::string generateSimulationCode(const ISimulation& simulation);
+std::string generatePyExportTest(const ISimulation& simulation);
 
 } // namespace ExportToPython
 

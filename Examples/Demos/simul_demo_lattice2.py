@@ -1,5 +1,5 @@
 '''
-Simulation demo: Cylinder form factor without interference
+ISimulation demo: Cylinder form factor without interference
 '''
 
 import numpy

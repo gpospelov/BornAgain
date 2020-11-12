@@ -27,7 +27,7 @@ class MaterialItemContainer;
 class MultiLayerItem;
 class ParameterContainerItem;
 class RealDataItem;
-class Simulation;
+class ISimulation;
 class SimulationOptionsItem;
 
 class BA_CORE_API_ JobItem : public SessionItem
@@ -94,7 +94,7 @@ public:
 
     SimulationOptionsItem* simulationOptionsItem();
 
-    void setResults(const Simulation* simulation);
+    void setResults(const ISimulation* simulation);
 
     FitSuiteItem* fitSuiteItem();
     ParameterContainerItem* parameterContainerItem();

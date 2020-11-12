@@ -7,7 +7,7 @@ with the difference, that z-position of particles is adjusted to move them sligh
 down from vacuum layer and to make them cross substrate/air interface.
 
 Note:
-1) Simulation kernel automatically detects particles crossing interface and
+1) ISimulation kernel automatically detects particles crossing interface and
 adjusts calculations accordingly.
 
 2) Particle crossing interface requires more time to simulate.

@@ -53,9 +53,9 @@ double erf(double arg);
 //  Random number generators
 // ************************************************************************** //
 
-//double GenerateUniformRandom();
-//double GenerateStandardNormalRandom();
-//double GenerateNormalRandom(double average, double std_dev);
+// double GenerateUniformRandom();
+// double GenerateStandardNormalRandom();
+// double GenerateNormalRandom(double average, double std_dev);
 double GeneratePoissonRandom(double average);
 
 } // Namespace Math

@@ -262,7 +262,7 @@ Increments inner counter; at regular intervals updates progress handler.
 
 Performs a single-threaded depth probe computation with given sample.
 
-Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+Controlled by the multi-threading machinery in ISimulation::runSingleSimulation().
 
 C++ includes: DepthProbeComputation.h
 ";
@@ -392,7 +392,7 @@ Returns the total number of the intensity values in the simulation result.
 
 Performs a single-threaded DWBA computation with given sample and simulation parameters.
 
-Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+Controlled by the multi-threading machinery in ISimulation::runSingleSimulation().
 
 C++ includes: DWBAComputation.h
 ";
@@ -823,7 +823,7 @@ C++ includes: IBackground.h
 
 Interface for a single-threaded computation with given range of SimulationElements and  ProgressHandler.
 
-Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+Controlled by the multi-threading machinery in ISimulation::runSingleSimulation().
 
 C++ includes: IComputation.h
 ";
@@ -890,6 +890,213 @@ C++ includes: IObserver.h
 %feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=0
 
 method which is used by observable subject to notify change in status 
+";
+
+
+// File: classISimulation.xml
+%feature("docstring") ISimulation "
+
+Pure virtual base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
+
+C++ includes: ISimulation.h
+";
+
+%feature("docstring")  ISimulation::ISimulation "ISimulation::ISimulation()
+";
+
+%feature("docstring")  ISimulation::~ISimulation "ISimulation::~ISimulation()
+";
+
+%feature("docstring")  ISimulation::clone "virtual ISimulation* ISimulation::clone() const =0
+";
+
+%feature("docstring")  ISimulation::prepareSimulation "void ISimulation::prepareSimulation()
+
+Put into a clean state for running a simulation. 
+";
+
+%feature("docstring")  ISimulation::runSimulation "void ISimulation::runSimulation()
+
+Run a simulation, possibly averaged over parameter distributions.
+
+Run simulation with possible averaging over parameter distributions. 
+";
+
+%feature("docstring")  ISimulation::runMPISimulation "void ISimulation::runMPISimulation()
+
+Run a simulation in a MPI environment. 
+";
+
+%feature("docstring")  ISimulation::setInstrument "void ISimulation::setInstrument(const Instrument &instrument_)
+";
+
+%feature("docstring")  ISimulation::instrument "const Instrument& ISimulation::instrument() const
+";
+
+%feature("docstring")  ISimulation::instrument "Instrument& ISimulation::instrument()
+";
+
+%feature("docstring")  ISimulation::setBeamIntensity "void ISimulation::setBeamIntensity(double intensity)
+";
+
+%feature("docstring")  ISimulation::getBeamIntensity "double ISimulation::getBeamIntensity() const
+";
+
+%feature("docstring")  ISimulation::setBeamPolarization "void ISimulation::setBeamPolarization(const kvector_t bloch_vector)
+
+Sets the beam polarization according to the given Bloch vector. 
+";
+
+%feature("docstring")  ISimulation::setDetectorResolutionFunction "void ISimulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
+";
+
+%feature("docstring")  ISimulation::setAnalyzerProperties "void ISimulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
+
+Sets the polarization analyzer characteristics of the detector. 
+";
+
+%feature("docstring")  ISimulation::setSample "void ISimulation::setSample(const MultiLayer &sample)
+
+The MultiLayer object will not be owned by the  ISimulation object. 
+";
+
+%feature("docstring")  ISimulation::sample "const MultiLayer * ISimulation::sample() const
+";
+
+%feature("docstring")  ISimulation::setSampleBuilder "void ISimulation::setSampleBuilder(const std::shared_ptr< ISampleBuilder > &sample_builder)
+";
+
+%feature("docstring")  ISimulation::setBackground "void ISimulation::setBackground(const IBackground &bg)
+";
+
+%feature("docstring")  ISimulation::background "const IBackground* ISimulation::background() const
+";
+
+%feature("docstring")  ISimulation::intensityMapSize "virtual size_t ISimulation::intensityMapSize() const =0
+
+Returns the total number of the intensity values in the simulation result. 
+";
+
+%feature("docstring")  ISimulation::result "virtual SimulationResult ISimulation::result() const =0
+
+Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
+";
+
+%feature("docstring")  ISimulation::addParameterDistribution "void ISimulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
+";
+
+%feature("docstring")  ISimulation::addParameterDistribution "void ISimulation::addParameterDistribution(const ParameterDistribution &par_distr)
+";
+
+%feature("docstring")  ISimulation::getDistributionHandler "const DistributionHandler& ISimulation::getDistributionHandler() const
+";
+
+%feature("docstring")  ISimulation::setOptions "void ISimulation::setOptions(const SimulationOptions &options)
+";
+
+%feature("docstring")  ISimulation::getOptions "const SimulationOptions& ISimulation::getOptions() const
+";
+
+%feature("docstring")  ISimulation::getOptions "SimulationOptions& ISimulation::getOptions()
+";
+
+%feature("docstring")  ISimulation::subscribe "void ISimulation::subscribe(ProgressHandler::Callback_t inform)
+";
+
+%feature("docstring")  ISimulation::setTerminalProgressMonitor "void ISimulation::setTerminalProgressMonitor()
+
+Initializes a progress monitor that prints to stdout. 
+";
+
+%feature("docstring")  ISimulation::getChildren "std::vector< const INode * > ISimulation::getChildren() const
+";
+
+%feature("docstring")  ISimulation::convertData "SimulationResult ISimulation::convertData(const OutputData< double > &data, bool put_masked_areas_to_zero=true)
+
+Convert user data to SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero. 
+";
+
+
+// File: classISimulation2D.xml
+%feature("docstring") ISimulation2D "
+
+Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+
+C++ includes: ISimulation2D.h
+";
+
+%feature("docstring")  ISimulation2D::ISimulation2D "ISimulation2D::ISimulation2D()
+";
+
+%feature("docstring")  ISimulation2D::~ISimulation2D "ISimulation2D::~ISimulation2D() override
+";
+
+%feature("docstring")  ISimulation2D::clone "ISimulation2D* ISimulation2D::clone() const override=0
+";
+
+%feature("docstring")  ISimulation2D::prepareSimulation "void ISimulation2D::prepareSimulation() override
+
+Put into a clean state for running a simulation. 
+";
+
+%feature("docstring")  ISimulation2D::setDetectorParameters "void ISimulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
+
+Sets spherical detector parameters using angle ranges
+
+Parameters:
+-----------
+
+n_phi: 
+number of phi-axis bins
+
+phi_min: 
+low edge of first phi-bin
+
+phi_max: 
+upper edge of last phi-bin
+
+n_alpha: 
+number of alpha-axis bins
+
+alpha_min: 
+low edge of first alpha-bin
+
+alpha_max: 
+upper edge of last alpha-bin 
+";
+
+%feature("docstring")  ISimulation2D::setDetector "void ISimulation2D::setDetector(const IDetector2D &detector)
+
+Sets the detector (axes can be overwritten later) 
+";
+
+%feature("docstring")  ISimulation2D::removeMasks "void ISimulation2D::removeMasks()
+
+removes all masks from the detector 
+";
+
+%feature("docstring")  ISimulation2D::addMask "void ISimulation2D::addMask(const IShape2D &shape, bool mask_value=true)
+
+Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
+
+Parameters:
+-----------
+
+shape: 
+The shape of mask (Rectangle, Polygon, Line, Ellipse)
+
+mask_value: 
+The value of mask 
+";
+
+%feature("docstring")  ISimulation2D::maskAll "void ISimulation2D::maskAll()
+
+Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
+";
+
+%feature("docstring")  ISimulation2D::setRegionOfInterest "void ISimulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+
+Sets rectangular region of interest with lower left and upper right corners defined. 
 ";
 
 
@@ -1030,7 +1237,7 @@ user-defined weighting factors. Used linearly, no matter which norm is chosen.
 // File: classMPISimulation.xml
 %feature("docstring") MPISimulation "";
 
-%feature("docstring")  MPISimulation::runSimulation "void MPISimulation::runSimulation(Simulation *simulation)
+%feature("docstring")  MPISimulation::runSimulation "void MPISimulation::runSimulation(ISimulation *simulation)
 ";
 
 
@@ -1500,7 +1707,7 @@ C++ includes: PyFittingCallbacks.h
 %feature("docstring")  PyBuilderCallback::~PyBuilderCallback "PyBuilderCallback::~PyBuilderCallback()
 ";
 
-%feature("docstring")  PyBuilderCallback::build_simulation "Simulation * PyBuilderCallback::build_simulation(Fit::Parameters)
+%feature("docstring")  PyBuilderCallback::build_simulation "ISimulation * PyBuilderCallback::build_simulation(Fit::Parameters)
 ";
 
 
@@ -1956,213 +2163,6 @@ Returns a flat array of user weights cut to the ROI area.
 ";
 
 
-// File: classSimulation.xml
-%feature("docstring") Simulation "
-
-Pure virtual base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
-
-C++ includes: Simulation.h
-";
-
-%feature("docstring")  Simulation::Simulation "Simulation::Simulation()
-";
-
-%feature("docstring")  Simulation::~Simulation "Simulation::~Simulation()
-";
-
-%feature("docstring")  Simulation::clone "virtual Simulation* Simulation::clone() const =0
-";
-
-%feature("docstring")  Simulation::prepareSimulation "void Simulation::prepareSimulation()
-
-Put into a clean state for running a simulation. 
-";
-
-%feature("docstring")  Simulation::runSimulation "void Simulation::runSimulation()
-
-Run a simulation, possibly averaged over parameter distributions.
-
-Run simulation with possible averaging over parameter distributions. 
-";
-
-%feature("docstring")  Simulation::runMPISimulation "void Simulation::runMPISimulation()
-
-Run a simulation in a MPI environment. 
-";
-
-%feature("docstring")  Simulation::setInstrument "void Simulation::setInstrument(const Instrument &instrument_)
-";
-
-%feature("docstring")  Simulation::instrument "const Instrument& Simulation::instrument() const
-";
-
-%feature("docstring")  Simulation::instrument "Instrument& Simulation::instrument()
-";
-
-%feature("docstring")  Simulation::setBeamIntensity "void Simulation::setBeamIntensity(double intensity)
-";
-
-%feature("docstring")  Simulation::getBeamIntensity "double Simulation::getBeamIntensity() const
-";
-
-%feature("docstring")  Simulation::setBeamPolarization "void Simulation::setBeamPolarization(const kvector_t bloch_vector)
-
-Sets the beam polarization according to the given Bloch vector. 
-";
-
-%feature("docstring")  Simulation::setDetectorResolutionFunction "void Simulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
-";
-
-%feature("docstring")  Simulation::setAnalyzerProperties "void Simulation::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
-
-Sets the polarization analyzer characteristics of the detector. 
-";
-
-%feature("docstring")  Simulation::setSample "void Simulation::setSample(const MultiLayer &sample)
-
-The MultiLayer object will not be owned by the  Simulation object. 
-";
-
-%feature("docstring")  Simulation::sample "const MultiLayer * Simulation::sample() const
-";
-
-%feature("docstring")  Simulation::setSampleBuilder "void Simulation::setSampleBuilder(const std::shared_ptr< ISampleBuilder > &sample_builder)
-";
-
-%feature("docstring")  Simulation::setBackground "void Simulation::setBackground(const IBackground &bg)
-";
-
-%feature("docstring")  Simulation::background "const IBackground* Simulation::background() const
-";
-
-%feature("docstring")  Simulation::intensityMapSize "virtual size_t Simulation::intensityMapSize() const =0
-
-Returns the total number of the intensity values in the simulation result. 
-";
-
-%feature("docstring")  Simulation::result "virtual SimulationResult Simulation::result() const =0
-
-Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
-";
-
-%feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const std::string &param_name, const IDistribution1D &distribution, size_t nbr_samples, double sigma_factor=0.0, const RealLimits &limits=RealLimits())
-";
-
-%feature("docstring")  Simulation::addParameterDistribution "void Simulation::addParameterDistribution(const ParameterDistribution &par_distr)
-";
-
-%feature("docstring")  Simulation::getDistributionHandler "const DistributionHandler& Simulation::getDistributionHandler() const
-";
-
-%feature("docstring")  Simulation::setOptions "void Simulation::setOptions(const SimulationOptions &options)
-";
-
-%feature("docstring")  Simulation::getOptions "const SimulationOptions& Simulation::getOptions() const
-";
-
-%feature("docstring")  Simulation::getOptions "SimulationOptions& Simulation::getOptions()
-";
-
-%feature("docstring")  Simulation::subscribe "void Simulation::subscribe(ProgressHandler::Callback_t inform)
-";
-
-%feature("docstring")  Simulation::setTerminalProgressMonitor "void Simulation::setTerminalProgressMonitor()
-
-Initializes a progress monitor that prints to stdout. 
-";
-
-%feature("docstring")  Simulation::getChildren "std::vector< const INode * > Simulation::getChildren() const
-";
-
-%feature("docstring")  Simulation::convertData "SimulationResult Simulation::convertData(const OutputData< double > &data, bool put_masked_areas_to_zero=true)
-
-Convert user data to SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero. 
-";
-
-
-// File: classSimulation2D.xml
-%feature("docstring") Simulation2D "
-
-Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
-
-C++ includes: Simulation2D.h
-";
-
-%feature("docstring")  Simulation2D::Simulation2D "Simulation2D::Simulation2D()
-";
-
-%feature("docstring")  Simulation2D::~Simulation2D "Simulation2D::~Simulation2D() override
-";
-
-%feature("docstring")  Simulation2D::clone "Simulation2D* Simulation2D::clone() const override=0
-";
-
-%feature("docstring")  Simulation2D::prepareSimulation "void Simulation2D::prepareSimulation() override
-
-Put into a clean state for running a simulation. 
-";
-
-%feature("docstring")  Simulation2D::setDetectorParameters "void Simulation2D::setDetectorParameters(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
-
-Sets spherical detector parameters using angle ranges
-
-Parameters:
------------
-
-n_phi: 
-number of phi-axis bins
-
-phi_min: 
-low edge of first phi-bin
-
-phi_max: 
-upper edge of last phi-bin
-
-n_alpha: 
-number of alpha-axis bins
-
-alpha_min: 
-low edge of first alpha-bin
-
-alpha_max: 
-upper edge of last alpha-bin 
-";
-
-%feature("docstring")  Simulation2D::setDetector "void Simulation2D::setDetector(const IDetector2D &detector)
-
-Sets the detector (axes can be overwritten later) 
-";
-
-%feature("docstring")  Simulation2D::removeMasks "void Simulation2D::removeMasks()
-
-removes all masks from the detector 
-";
-
-%feature("docstring")  Simulation2D::addMask "void Simulation2D::addMask(const IShape2D &shape, bool mask_value=true)
-
-Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.
-
-Parameters:
------------
-
-shape: 
-The shape of mask (Rectangle, Polygon, Line, Ellipse)
-
-mask_value: 
-The value of mask 
-";
-
-%feature("docstring")  Simulation2D::maskAll "void Simulation2D::maskAll()
-
-Put the mask for all detector channels (i.e. exclude whole detector from the analysis) 
-";
-
-%feature("docstring")  Simulation2D::setRegionOfInterest "void Simulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
-
-Sets rectangular region of interest with lower left and upper right corners defined. 
-";
-
-
 // File: classSimulationFactory.xml
 %feature("docstring") SimulationFactory "
 
@@ -2183,7 +2183,7 @@ Write a Python script that allows to run the current simulation.
 C++ includes: SimulationToPython.h
 ";
 
-%feature("docstring")  SimulationToPython::generateSimulationCode "std::string SimulationToPython::generateSimulationCode(const Simulation &simulation, EMainType mainType)
+%feature("docstring")  SimulationToPython::generateSimulationCode "std::string SimulationToPython::generateSimulationCode(const ISimulation &simulation, EMainType mainType)
 
 Returns a Python script that sets up a simulation and runs it if invoked as main program. 
 ";
@@ -2194,7 +2194,7 @@ Returns a Python script that sets up a simulation and runs it if invoked as main
 
 Performs a single-threaded specular computation with given sample.
 
-Controlled by the multi-threading machinery in Simulation::runSingleSimulation().
+Controlled by the multi-threading machinery in ISimulation::runSingleSimulation().
 
 C++ includes: SpecularComputation.h
 ";
@@ -2517,7 +2517,7 @@ Returns default units to convert to.
 // File: namespace_0d82.xml
 
 
-// File: namespace_0d90.xml
+// File: namespace_0d86.xml
 
 
 // File: namespace_0d96.xml
@@ -2530,10 +2530,10 @@ Returns default units to convert to.
 %feature("docstring")  ExportToPython::generateSampleCode "std::string ExportToPython::generateSampleCode(const MultiLayer &multilayer)
 ";
 
-%feature("docstring")  ExportToPython::generateSimulationCode "std::string ExportToPython::generateSimulationCode(const Simulation &simulation)
+%feature("docstring")  ExportToPython::generateSimulationCode "std::string ExportToPython::generateSimulationCode(const ISimulation &simulation)
 ";
 
-%feature("docstring")  ExportToPython::generatePyExportTest "std::string ExportToPython::generatePyExportTest(const Simulation &simulation)
+%feature("docstring")  ExportToPython::generatePyExportTest "std::string ExportToPython::generatePyExportTest(const ISimulation &simulation)
 ";
 
 
@@ -2709,7 +2709,7 @@ GISAS simulation with rectangular detector, region of interest and mask.
 
 %feature("docstring")  StandardSimulations::MiniGISASFit "GISASSimulation * StandardSimulations::MiniGISASFit()
 
-Simulation with fitting. Beam intensity set to provide reasonably large values in detector channels. 
+ISimulation with fitting. Beam intensity set to provide reasonably large values in detector channels. 
 ";
 
 %feature("docstring")  StandardSimulations::ExtraLongWavelengthGISAS "GISASSimulation * StandardSimulations::ExtraLongWavelengthGISAS()
@@ -2792,7 +2792,7 @@ Returns zero-valued output data array in specified units.
 Helper factory function to use in  GISASSimulation. Depending on the type of detector, returns either RectangularConverter or SphericalConverter. 
 ";
 
-%feature("docstring")  UnitConverterUtils::createConverter "std::unique_ptr< IUnitConverter > UnitConverterUtils::createConverter(const Simulation &simulation)
+%feature("docstring")  UnitConverterUtils::createConverter "std::unique_ptr< IUnitConverter > UnitConverterUtils::createConverter(const ISimulation &simulation)
 ";
 
 
@@ -3082,6 +3082,18 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: GISASSimulation_8h.xml
 
 
+// File: ISimulation_8cpp.xml
+
+
+// File: ISimulation_8h.xml
+
+
+// File: ISimulation2D_8cpp.xml
+
+
+// File: ISimulation2D_8h.xml
+
+
 // File: MPISimulation_8cpp.xml
 
 
@@ -3092,18 +3104,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: OffSpecSimulation_8h.xml
-
-
-// File: Simulation_8cpp.xml
-
-
-// File: Simulation_8h.xml
-
-
-// File: Simulation2D_8cpp.xml
-
-
-// File: Simulation2D_8h.xml
 
 
 // File: SimulationFactory_8cpp.xml

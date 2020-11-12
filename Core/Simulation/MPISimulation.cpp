@@ -17,14 +17,14 @@
 
 #ifdef BORNAGAIN_MPI
 
-#include "Core/Simulation/Simulation.h"
+#include "Core/Simulation/ISimulation.h"
 #include <mpi.h>
 
 // -----------------------------------------------------------------------------
 // MPI support
 // -----------------------------------------------------------------------------
 
-void MPISimulation::runSimulation(Simulation* simulation)
+void MPISimulation::runSimulation(ISimulation* simulation)
 {
     MPI_Status st;
 
@@ -72,7 +72,7 @@ void MPISimulation::runSimulation(Simulation* simulation)
 // No MPI support
 // -----------------------------------------------------------------------------
 
-void MPISimulation::runSimulation(Simulation* /* simulation */)
+void MPISimulation::runSimulation(ISimulation* /* simulation */)
 {
     throw std::runtime_error(
         "MPISimulation::runSimulation() -> Error! Can't run MPI simulation. "

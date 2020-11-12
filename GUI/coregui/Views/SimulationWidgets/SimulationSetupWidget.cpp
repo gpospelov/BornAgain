@@ -103,7 +103,7 @@ QWidget* SimulationSetupWidget::createButtonWidget()
 
     QHBoxLayout* simButtonLayout = new QHBoxLayout;
     // run simulation button
-    runSimulationButton = new QPushButton("Run Simulation");
+    runSimulationButton = new QPushButton("Run ISimulation");
     runSimulationButton->setIcon(QIcon(":/images/main_simulation.png"));
     runSimulationButton->setMinimumWidth(100);
     runSimulationButton->setMinimumHeight(50);

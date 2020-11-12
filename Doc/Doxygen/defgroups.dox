@@ -1,6 +1,6 @@
 /*!
 
-\defgroup simulation Simulation description
+\defgroup simulation ISimulation description
 @brief Classes to describe beam, detector and run the simulation.
 
 \defgroup beam
@@ -43,7 +43,7 @@
 
 \defgroup paramDistribution Parameter distributions
 
-\defgroup simulation_internal Simulation and instrument internals
+\defgroup simulation_internal ISimulation and instrument internals
 @brief Internal classes concerned with simulations and instrument
 
 \defgroup samples_internal Sample internals

@@ -17,7 +17,7 @@
 #include <QDateTime>
 #include <memory>
 
-JobWorker::JobWorker(const QString& identifier, Simulation* simulation)
+JobWorker::JobWorker(const QString& identifier, ISimulation* simulation)
     : m_identifier(identifier), m_simulation(simulation), m_percentage_done(0),
       m_job_status("Idle"), m_terminate_request_flag(false), m_simulation_duration(0)
 {
@@ -58,7 +58,8 @@ void JobWorker::start()
         } catch (const std::exception& ex) {
             m_job_status = "Failed";
             m_percentage_done = 100;
-            m_failure_message = "JobRunner::start() -> Simulation failed with exception throw:\n\n";
+            m_failure_message =
+                "JobRunner::start() -> ISimulation failed with exception throw:\n\n";
 
             m_failure_message.append(QString(ex.what()));
         }
@@ -66,7 +67,7 @@ void JobWorker::start()
     } else {
         m_job_status = "Failed";
         m_percentage_done = 100;
-        m_failure_message = "JobRunner::start() -> Error. Simulation doesn't exist.";
+        m_failure_message = "JobRunner::start() -> Error. ISimulation doesn't exist.";
     }
 
     emit progressUpdate();

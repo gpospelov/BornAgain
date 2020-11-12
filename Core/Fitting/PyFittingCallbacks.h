@@ -19,7 +19,7 @@
 
 #include "Fit/Kernel/Parameters.h"
 
-class Simulation;
+class ISimulation;
 
 //! Builds simulation object using a Python callable.
 //! Base class to wrap Python callable and pass it to C++. Used in swig interface file,
@@ -31,7 +31,7 @@ public:
     PyBuilderCallback();
     virtual ~PyBuilderCallback();
 
-    virtual Simulation* build_simulation(Fit::Parameters);
+    virtual ISimulation* build_simulation(Fit::Parameters);
 };
 
 class FitObjective;

@@ -35,7 +35,7 @@
 
 namespace
 {
-void addBackgroundToSimulation(const InstrumentItem& instrument, Simulation& simulation);
+void addBackgroundToSimulation(const InstrumentItem& instrument, ISimulation& simulation);
 
 std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                                                        const GISASInstrumentItem* gisasInstrument,
@@ -58,7 +58,7 @@ createDepthProbeSimulation(std::unique_ptr<MultiLayer> P_multilayer,
 
 } // namespace
 
-std::unique_ptr<Simulation>
+std::unique_ptr<ISimulation>
 DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
                                           const InstrumentItem* instrumentItem,
                                           const SimulationOptionsItem* optionsItem)
@@ -86,7 +86,7 @@ DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
 
 namespace
 {
-void addBackgroundToSimulation(const InstrumentItem& instrument, Simulation& simulation)
+void addBackgroundToSimulation(const InstrumentItem& instrument, ISimulation& simulation)
 {
     auto P_background = instrument.backgroundItem()->createBackground();
     if (P_background)
@@ -103,7 +103,7 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
     ret->setInstrument(*P_instrument);
     TransformToDomain::addDistributionParametersToSimulation(*instrument->beamItem(), *ret);
 
-    // Simulation options
+    // ISimulation options
     if (optionsItem)
         TransformToDomain::setSimulationOptions(ret.get(), *optionsItem);
 
@@ -131,7 +131,7 @@ std::unique_ptr<OffSpecSimulation> createOffSpecSimulation(std::unique_ptr<Multi
     // TransformToDomain::addDistributionParametersToSimulation(*gisasInstrument->beamItem(),
     //                                                          gisas.get());
 
-    // Simulation options
+    // ISimulation options
     if (optionsItem)
         TransformToDomain::setSimulationOptions(ret.get(), *optionsItem);
 
@@ -160,7 +160,7 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     ret->setBeamIntensity(beam_item->getIntensity());
     ret->setScan(scan);
 
-    // Simulation options
+    // ISimulation options
     if (options_item)
         TransformToDomain::setSimulationOptions(ret.get(), *options_item);
 

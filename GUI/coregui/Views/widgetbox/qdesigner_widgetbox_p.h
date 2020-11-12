@@ -50,6 +50,8 @@
 // We mean it.
 //
 
+// Patched JWu 12nov20 because QFlags(0) was deprecated
+
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_WIDGETBOX_P_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_QDESIGNER_WIDGETBOX_P_H
 
@@ -71,7 +73,7 @@ class QDESIGNER_SHARED_EXPORT QDesignerWidgetBox : public QDesignerWidgetBoxInte
 public:
     enum LoadMode { LoadMerge, LoadReplace, LoadCustomWidgetsOnly };
 
-    explicit QDesignerWidgetBox(QWidget* parent = 0, Qt::WindowFlags flags = 0);
+    explicit QDesignerWidgetBox(QWidget* parent = 0, Qt::WindowFlags flags = {});
 
     LoadMode loadMode() const;
     void setLoadMode(LoadMode lm);

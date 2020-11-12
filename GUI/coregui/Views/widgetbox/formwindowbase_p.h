@@ -50,6 +50,8 @@
 // We mean it.
 //
 
+// Patched JWu 12nov20 because QFlags(0) was deprecated
+
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_FORMWINDOWBASE_P_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_FORMWINDOWBASE_P_H
 
@@ -85,7 +87,7 @@ public:
     enum HighlightMode { Restore, Highlight };
 
     explicit FormWindowBase(QDesignerFormEditorInterface* core, QWidget* parent = 0,
-                            Qt::WindowFlags flags = 0);
+                            Qt::WindowFlags flags = {});
     virtual ~FormWindowBase();
 
     QVariantMap formData();

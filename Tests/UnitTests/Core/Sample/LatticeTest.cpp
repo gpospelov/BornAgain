@@ -75,7 +75,7 @@ TEST_F(LatticeTest, transformTest)
 
     // use rotation by 90 degrees around z axis as a transformation
     Transform3D tr = Transform3D::createRotateZ(M_TWOPI / 4);
-    Lattice ltr = l1.createTransformedLattice(tr);
+    Lattice ltr = l1.transformed(tr);
 
     // use EXPECT_NEAR as transform (matrix multiplication) uses double value for rotation angle
     // e.g. Rotating the vector (1,0,0) by 2*PI about z would give something like (0.99999,0,0)

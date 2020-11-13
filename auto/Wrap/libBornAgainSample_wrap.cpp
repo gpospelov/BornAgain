@@ -68713,7 +68713,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_createTransformedLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice_transformed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Lattice *arg1 = (Lattice *) 0 ;
   Transform3D *arg2 = 0 ;
@@ -68724,21 +68724,21 @@ SWIGINTERN PyObject *_wrap_Lattice_createTransformedLattice(PyObject *SWIGUNUSED
   PyObject *swig_obj[2] ;
   SwigValueWrapper< Lattice > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_createTransformedLattice", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "Lattice_transformed", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_createTransformedLattice" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_transformed" "', argument " "1"" of type '" "Lattice const *""'"); 
   }
   arg1 = reinterpret_cast< Lattice * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Transform3D,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_createTransformedLattice" "', argument " "2"" of type '" "Transform3D const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_transformed" "', argument " "2"" of type '" "Transform3D const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_createTransformedLattice" "', argument " "2"" of type '" "Transform3D const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_transformed" "', argument " "2"" of type '" "Transform3D const &""'"); 
   }
   arg2 = reinterpret_cast< Transform3D * >(argp2);
-  result = ((Lattice const *)arg1)->createTransformedLattice((Transform3D const &)*arg2);
+  result = ((Lattice const *)arg1)->transformed((Transform3D const &)*arg2);
   resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -76985,9 +76985,9 @@ static PyMethodDef SwigMethods[] = {
 		"void Lattice::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
-	 { "Lattice_createTransformedLattice", _wrap_Lattice_createTransformedLattice, METH_VARARGS, "\n"
-		"Lattice_createTransformedLattice(Lattice self, Transform3D const & transform) -> Lattice\n"
-		"Lattice Lattice::createTransformedLattice(const Transform3D &transform) const\n"
+	 { "Lattice_transformed", _wrap_Lattice_transformed, METH_VARARGS, "\n"
+		"Lattice_transformed(Lattice self, Transform3D const & transform) -> Lattice\n"
+		"Lattice Lattice::transformed(const Transform3D &transform) const\n"
 		"\n"
 		"Creates transformed lattice. \n"
 		"\n"

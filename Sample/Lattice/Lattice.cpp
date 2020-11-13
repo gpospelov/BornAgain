@@ -59,7 +59,7 @@ Lattice::~Lattice()
     delete m_selection_rule;
 }
 
-Lattice Lattice::createTransformedLattice(const Transform3D& transform) const
+Lattice Lattice::transformed(const Transform3D& transform) const
 {
     kvector_t a1 = transform.transformed(m_a);
     kvector_t a2 = transform.transformed(m_b);

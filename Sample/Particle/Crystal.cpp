@@ -72,7 +72,7 @@ std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const
 Lattice Crystal::transformedLattice(const IRotation* p_rotation) const
 {
     if (p_rotation)
-        return m_lattice.createTransformedLattice(p_rotation->getTransform3D());
+        return m_lattice.transformed(p_rotation->getTransform3D());
     else
         return m_lattice;
 }

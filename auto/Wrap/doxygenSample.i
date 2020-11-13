@@ -4903,7 +4903,7 @@ C++ includes: Lattice.h
 %feature("docstring")  Lattice::accept "void Lattice::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  Lattice::createTransformedLattice "Lattice Lattice::createTransformedLattice(const Transform3D &transform) const
+%feature("docstring")  Lattice::transformed "Lattice Lattice::transformed(const Transform3D &transform) const
 
 Creates transformed lattice. 
 ";

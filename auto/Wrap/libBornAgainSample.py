@@ -11619,15 +11619,15 @@ class Lattice(libBornAgainParam.INode):
         """
         return _libBornAgainSample.Lattice_accept(self, visitor)
 
-    def createTransformedLattice(self, transform):
+    def transformed(self, transform):
         r"""
-        createTransformedLattice(Lattice self, Transform3D const & transform) -> Lattice
-        Lattice Lattice::createTransformedLattice(const Transform3D &transform) const
+        transformed(Lattice self, Transform3D const & transform) -> Lattice
+        Lattice Lattice::transformed(const Transform3D &transform) const
 
         Creates transformed lattice. 
 
         """
-        return _libBornAgainSample.Lattice_createTransformedLattice(self, transform)
+        return _libBornAgainSample.Lattice_transformed(self, transform)
 
     def initialize(self):
         r"""

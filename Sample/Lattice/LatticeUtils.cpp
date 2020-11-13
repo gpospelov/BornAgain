@@ -23,7 +23,7 @@ Lattice LatticeUtils::createFCCLattice(double lattice_constant,
     P_orientation->usePrimitiveLattice(prim_cubic);
     const Transform3D trafo = P_orientation->transformation();
     const Lattice fcc = Lattice::createFCCLattice(lattice_constant);
-    return fcc.createTransformedLattice(trafo);
+    return fcc.transformed(trafo);
 }
 
 Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation& orientation)
@@ -33,7 +33,7 @@ Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrienta
     P_orientation->usePrimitiveLattice(prim_hexagonal);
     const Transform3D trafo = P_orientation->transformation();
     const Lattice hcp = Lattice::createHCPLattice(a, c);
-    return hcp.createTransformedLattice(trafo);
+    return hcp.transformed(trafo);
 }
 
 Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation& orientation)
@@ -43,5 +43,5 @@ Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrienta
     P_orientation->usePrimitiveLattice(prim_tetragonal);
     const Transform3D trafo = P_orientation->transformation();
     const Lattice hcp = Lattice::createBCTLattice(a, c);
-    return hcp.createTransformedLattice(trafo);
+    return hcp.transformed(trafo);
 }

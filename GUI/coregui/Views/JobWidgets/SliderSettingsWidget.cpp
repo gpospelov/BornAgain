@@ -21,8 +21,12 @@
 #include <QVBoxLayout>
 
 SliderSettingsWidget::SliderSettingsWidget(QWidget* parent)
-    : QWidget(parent), m_currentSliderRange(100.0), m_radio1(0), m_radio2(0), m_radio3(0),
-      m_lockzCheckBox(0)
+    : QWidget(parent)
+    , m_currentSliderRange(100.0)
+    , m_radio1(0)
+    , m_radio2(0)
+    , m_radio3(0)
+    , m_lockzCheckBox(0)
 {
     // tuning selectors
     QString tooltip("Allows to tune sample parameters within +/- of given range \nwith the help of "

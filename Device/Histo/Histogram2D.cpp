@@ -51,9 +51,9 @@ Histogram2D* Histogram2D::clone() const
 
 int Histogram2D::fill(double x, double y, double weight)
 {
-    if (x < getXaxis().getMin() || x >= getXaxis().getMax())
+    if (!xAxis().contains(x))
         return -1;
-    if (y < getYaxis().getMin() || y >= getYaxis().getMax())
+    if (!yAxis().contains(y))
         return -1;
     size_t index = m_data.findGlobalIndex({x, y});
     m_data[index].add(weight);
@@ -62,44 +62,44 @@ int Histogram2D::fill(double x, double y, double weight)
 
 Histogram1D* Histogram2D::projectionX()
 {
-    return create_projectionX(0, static_cast<int>(getXaxis().size()) - 1);
+    return create_projectionX(0, static_cast<int>(xAxis().size()) - 1);
 }
 
 Histogram1D* Histogram2D::projectionX(double yvalue)
 {
-    int ybin_selected = static_cast<int>(getYaxis().findClosestIndex(yvalue));
+    int ybin_selected = static_cast<int>(yAxis().findClosestIndex(yvalue));
     return create_projectionX(ybin_selected, ybin_selected);
 }
 
 Histogram1D* Histogram2D::projectionX(double ylow, double yup)
 {
-    int ybinlow = static_cast<int>(getYaxis().findClosestIndex(ylow));
-    int ybinup = static_cast<int>(getYaxis().findClosestIndex(yup));
+    int ybinlow = static_cast<int>(yAxis().findClosestIndex(ylow));
+    int ybinup = static_cast<int>(yAxis().findClosestIndex(yup));
     return create_projectionX(ybinlow, ybinup);
 }
 
 Histogram1D* Histogram2D::projectionY()
 {
-    return create_projectionY(0, static_cast<int>(getXaxis().size()) - 1);
+    return create_projectionY(0, static_cast<int>(xAxis().size()) - 1);
 }
 
 Histogram1D* Histogram2D::projectionY(double xvalue)
 {
-    int xbin_selected = static_cast<int>(getXaxis().findClosestIndex(xvalue));
+    int xbin_selected = static_cast<int>(xAxis().findClosestIndex(xvalue));
     return create_projectionY(xbin_selected, xbin_selected);
 }
 
 Histogram1D* Histogram2D::projectionY(double xlow, double xup)
 {
-    int xbinlow = static_cast<int>(getXaxis().findClosestIndex(xlow));
-    int xbinup = static_cast<int>(getXaxis().findClosestIndex(xup));
+    int xbinlow = static_cast<int>(xAxis().findClosestIndex(xlow));
+    int xbinup = static_cast<int>(xAxis().findClosestIndex(xup));
     return create_projectionY(xbinlow, xbinup);
 }
 
 Histogram2D* Histogram2D::crop(double xmin, double ymin, double xmax, double ymax)
 {
-    const std::unique_ptr<IAxis> xaxis(getXaxis().createClippedAxis(xmin, xmax));
-    const std::unique_ptr<IAxis> yaxis(getYaxis().createClippedAxis(ymin, ymax));
+    const std::unique_ptr<IAxis> xaxis(xAxis().createClippedAxis(xmin, xmax));
+    const std::unique_ptr<IAxis> yaxis(yAxis().createClippedAxis(ymin, ymax));
 
     Histogram2D* result = new Histogram2D(*xaxis, *yaxis);
     OutputData<CumulativeValue>::const_iterator it_origin = m_data.begin();
@@ -107,7 +107,7 @@ Histogram2D* Histogram2D::crop(double xmin, double ymin, double xmax, double yma
     while (it_origin != m_data.end()) {
         double x = m_data.getAxisValue(it_origin.getIndex(), 0);
         double y = m_data.getAxisValue(it_origin.getIndex(), 1);
-        if (result->getXaxis().contains(x) && result->getYaxis().contains(y)) {
+        if (result->xAxis().contains(x) && result->yAxis().contains(y)) {
             *it_result = *it_origin;
             ++it_result;
         }
@@ -128,12 +128,12 @@ void Histogram2D::addContent(const std::vector<std::vector<double>>& data)
     const size_t nrows = shape.first;
     const size_t ncols = shape.second;
 
-    if (nrows != m_data.getAxis(1).size() || ncols != m_data.getAxis(0).size()) {
+    if (nrows != m_data.axis(1).size() || ncols != m_data.axis(0).size()) {
         std::ostringstream ostr;
         ostr << "Histogram2D::addContent() -> Shape of input array [" << nrows << ", " << ncols
              << "] doesn't mach histogram axes. "
-             << "X-axis size: " << m_data.getAxis(0).size()
-             << "Y-axis size: " << m_data.getAxis(1).size();
+             << "X-axis size: " << m_data.axis(0).size()
+             << "Y-axis size: " << m_data.axis(1).size();
         throw Exceptions::LogicErrorException(ostr.str());
     }
 
@@ -147,14 +147,14 @@ void Histogram2D::addContent(const std::vector<std::vector<double>>& data)
 
 Histogram1D* Histogram2D::create_projectionX(int ybinlow, int ybinup)
 {
-    Histogram1D* result = new Histogram1D(this->getXaxis());
+    Histogram1D* result = new Histogram1D(this->xAxis());
 
     for (size_t index = 0; index < getTotalNumberOfBins(); ++index) {
 
-        int ybin = static_cast<int>(getYaxisIndex(index));
+        int ybin = static_cast<int>(yAxisIndex(index));
 
         if (ybin >= ybinlow && ybin <= ybinup) {
-            result->fill(getXaxisValue(index), getBinContent(index));
+            result->fill(xAxisValue(index), binContent(index));
         }
     }
     return result;
@@ -162,14 +162,14 @@ Histogram1D* Histogram2D::create_projectionX(int ybinlow, int ybinup)
 
 Histogram1D* Histogram2D::create_projectionY(int xbinlow, int xbinup)
 {
-    Histogram1D* result = new Histogram1D(this->getYaxis());
+    Histogram1D* result = new Histogram1D(this->yAxis());
 
     for (size_t index = 0; index < getTotalNumberOfBins(); ++index) {
 
-        int xbin = static_cast<int>(getXaxisIndex(index));
+        int xbin = static_cast<int>(xAxisIndex(index));
 
         if (xbin >= xbinlow && xbin <= xbinup) {
-            result->fill(getYaxisValue(index), getBinContent(index));
+            result->fill(yAxisValue(index), binContent(index));
         }
     }
     return result;

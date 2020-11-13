@@ -23,14 +23,15 @@
 #include <QVBoxLayout>
 
 OffSpecInstrumentEditor::OffSpecInstrumentEditor(QWidget* parent)
-    : SessionItemWidget(parent), m_columnResizer(new ColumnResizer(this)),
-      m_beamEditor(new OffSpecBeamEditor(m_columnResizer)),
-      m_detectorEditor(new GISASDetectorEditor)
-      // temporary switched off to avoid memory leakage
-      //, m_environmentEditor(new EnvironmentEditor(m_columnResizer))
-      //, m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
-      ,
-      m_environmentEditor(nullptr), m_polarizationAnalysisEditor(nullptr)
+    : SessionItemWidget(parent)
+    , m_columnResizer(new ColumnResizer(this))
+    , m_beamEditor(new OffSpecBeamEditor(m_columnResizer))
+    , m_detectorEditor(new GISASDetectorEditor)
+    // temporary switched off to avoid memory leakage
+    //, m_environmentEditor(new EnvironmentEditor(m_columnResizer))
+    //, m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
+    , m_environmentEditor(nullptr)
+    , m_polarizationAnalysisEditor(nullptr)
 {
     auto mainLayout = new QVBoxLayout;
 

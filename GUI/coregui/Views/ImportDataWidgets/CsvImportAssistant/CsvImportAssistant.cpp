@@ -28,9 +28,18 @@
 #include <algorithm>
 
 CsvImportAssistant::CsvImportAssistant(const QString& file, const bool useGUI, QWidget* parent)
-    : m_fileName(file), m_csvFile(nullptr), m_csvArray(), m_separator('\0'), m_intensityColNum(-1),
-      m_intensityMultiplier(1.0), m_coordinateColNum(-1), m_coordinateMultiplier(1.0),
-      m_firstRow(-1), m_lastRow(-1), m_units(Axes::Units::NBINS), m_dataAvailable(false)
+    : m_fileName(file)
+    , m_csvFile(nullptr)
+    , m_csvArray()
+    , m_separator('\0')
+    , m_intensityColNum(-1)
+    , m_intensityMultiplier(1.0)
+    , m_coordinateColNum(-1)
+    , m_coordinateMultiplier(1.0)
+    , m_firstRow(-1)
+    , m_lastRow(-1)
+    , m_units(Axes::Units::NBINS)
+    , m_dataAvailable(false)
 {
     if (!loadCsvFile()) {
         return;

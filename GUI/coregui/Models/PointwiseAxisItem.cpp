@@ -52,7 +52,7 @@ void PointwiseAxisItem::init(const IAxis& axis, const QString& units_label)
     findInstrument();
 }
 
-const IAxis* PointwiseAxisItem::getAxis() const
+const IAxis* PointwiseAxisItem::axis() const
 {
     return m_axis.get();
 }
@@ -71,7 +71,7 @@ std::unique_ptr<IAxis> PointwiseAxisItem::createAxis(double scale) const
     const auto converted_axis = converter->createConvertedAxis(0, Axes::Units::DEGREES);
 
     // applying scaling
-    std::vector<double> centers = converted_axis->getBinCenters();
+    std::vector<double> centers = converted_axis->binCenters();
     std::for_each(centers.begin(), centers.end(), [scale](double& value) { value *= scale; });
 
     return std::make_unique<PointwiseAxis>(converted_axis->getName(), std::move(centers));
@@ -84,7 +84,7 @@ bool PointwiseAxisItem::load(const QString& projectDir)
     if (!data)
         return false;
 
-    m_axis = std::unique_ptr<IAxis>(data->getAxis(0).clone());
+    m_axis = std::unique_ptr<IAxis>(data->axis(0).clone());
     findInstrument();
     setLastModified(QDateTime::currentDateTime());
     return true;

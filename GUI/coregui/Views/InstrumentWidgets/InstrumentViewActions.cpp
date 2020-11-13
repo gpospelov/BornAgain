@@ -26,8 +26,12 @@
 #include <QVariant>
 
 InstrumentViewActions::InstrumentViewActions(QWidget* parent)
-    : QObject(parent), m_addInstrumentMenu(nullptr), m_removeInstrumentAction(nullptr),
-      m_cloneInstrumentAction(nullptr), m_model(nullptr), m_selectionModel(nullptr)
+    : QObject(parent)
+    , m_addInstrumentMenu(nullptr)
+    , m_removeInstrumentAction(nullptr)
+    , m_cloneInstrumentAction(nullptr)
+    , m_model(nullptr)
+    , m_selectionModel(nullptr)
 {
     initAddInstrumentMenu();
 
@@ -141,7 +145,7 @@ void InstrumentViewActions::onCloneInstrument()
                                                      ->beamItem()
                                                      ->inclinationAxisGroup()
                                                      ->getItemOfType("PointwiseAxis"));
-            acceptor_axis->init(*donor_axis->getAxis(), donor_axis->getUnitsLabel());
+            acceptor_axis->init(*donor_axis->axis(), donor_axis->getUnitsLabel());
         }
     }
 }

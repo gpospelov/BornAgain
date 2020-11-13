@@ -17,8 +17,10 @@
 
 GUIMessage::GUIMessage(const QString& senderName, const QString& messageType,
                        const QString& messageDescription)
-    : m_sender(nullptr), m_senderName(senderName), m_messageType(messageType),
-      m_messageDescription(messageDescription)
+    : m_sender(nullptr)
+    , m_senderName(senderName)
+    , m_messageType(messageType)
+    , m_messageDescription(messageDescription)
 {
 }
 

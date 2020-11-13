@@ -59,8 +59,8 @@ MultiLayer* RadialParaCrystalBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 
 Basic2DParaCrystalBuilder::Basic2DParaCrystalBuilder()
-    : m_pdf1(new FTDistribution2DCauchy(0.1 * Units::nanometer, 0.2 * Units::nanometer, 0)),
-      m_pdf2(new FTDistribution2DCauchy(0.3 * Units::nanometer, 0.4 * Units::nanometer, 0))
+    : m_pdf1(new FTDistribution2DCauchy(0.1 * Units::nanometer, 0.2 * Units::nanometer, 0))
+    , m_pdf2(new FTDistribution2DCauchy(0.3 * Units::nanometer, 0.4 * Units::nanometer, 0))
 {
 }
 

@@ -75,11 +75,11 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation
     auto axis = axis_item->createAxis(Units::degree);
 
     simulation->setBeamParameters(beamItem()->getWavelength(), static_cast<int>(axis->size()),
-                                  axis->getMin(), axis->getMax());
+                                  axis->lowerBound(), axis->upperBound());
 
     auto depthAxisItem = dynamic_cast<BasicAxisItem*>(getItem(P_Z_AXIS));
     auto depthAxis = depthAxisItem->createAxis(1.0);
-    simulation->setZSpan(depthAxis->size(), depthAxis->getMin(), depthAxis->getMax());
+    simulation->setZSpan(depthAxis->size(), depthAxis->lowerBound(), depthAxis->upperBound());
 
     TransformToDomain::setBeamDistribution(
         "Wavelength", beamItem()->item<BeamWavelengthItem>(SpecularBeamItem::P_WAVELENGTH),

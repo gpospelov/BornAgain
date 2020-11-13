@@ -27,13 +27,13 @@
 #include <QTreeView>
 
 SampleViewDocks::SampleViewDocks(SampleView* parent)
-    : DocksController(parent), m_sampleDesigner(new SampleDesigner(parent)),
-      m_widgetBox(new SampleWidgetBox(sampleDesigner(), parent)),
-      m_treeWidget(new SampleTreeWidget(parent, parent->models()->sampleModel())),
-      m_propertyWidget(
-          new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent)),
-      m_scriptPanel(new ScriptPanel(parent)),
-      m_realSpacePanel(new RealSpacePanel(parent->models()->sampleModel(),
+    : DocksController(parent)
+    , m_sampleDesigner(new SampleDesigner(parent))
+    , m_widgetBox(new SampleWidgetBox(sampleDesigner(), parent))
+    , m_treeWidget(new SampleTreeWidget(parent, parent->models()->sampleModel()))
+    , m_propertyWidget(new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), parent))
+    , m_scriptPanel(new ScriptPanel(parent))
+    , m_realSpacePanel(new RealSpacePanel(parent->models()->sampleModel(),
                                           m_treeWidget->treeView()->selectionModel(), parent))
 {
     addWidget(WIDGET_BOX, m_widgetBox, Qt::LeftDockWidgetArea);

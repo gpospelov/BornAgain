@@ -26,8 +26,10 @@ IFTDecayFunction2D::IFTDecayFunction2D(const NodeMeta& meta, const std::vector<d
                            {"Gamma", "rad", "orientation with respect to the first lattice vector",
                             -M_PI_2, +M_PI_2, 0}},
                           meta),
-            PValues),
-      m_decay_length_x(m_P[0]), m_decay_length_y(m_P[1]), m_gamma(m_P[2])
+            PValues)
+    , m_decay_length_x(m_P[0])
+    , m_decay_length_y(m_P[1])
+    , m_gamma(m_P[2])
 {
 }
 
@@ -117,8 +119,8 @@ FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(const std::vector<double> P)
          "class_tooltip",
          {{"Eta", "", "balances between Gauss (eta=0) and Cauchy (eta=1) limiting cases", -INF,
            +INF, 0}}},
-        P),
-      m_eta(m_P[0])
+        P)
+    , m_eta(m_P[0])
 {
 }
 

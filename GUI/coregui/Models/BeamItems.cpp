@@ -215,9 +215,9 @@ void SpecularBeamItem::updateWavelength()
     auto item = inclinationAxisGroup()->currentItem();
     auto wl_item = static_cast<SpecularBeamWavelengthItem*>(getItem(P_WAVELENGTH));
     if (auto axis_item = dynamic_cast<PointwiseAxisItem*>(item)) {
-        auto axis = axis_item->getAxis();
+        auto axis = axis_item->axis();
         if (axis && axis_item->getUnitsLabel() == "q-space")
-            wl_item->setToRange(getLimits(axis->getMax()));
+            wl_item->setToRange(getLimits(axis->upperBound()));
     } else
         wl_item->setToRange(RealLimits::positive());
 }

@@ -29,8 +29,12 @@ const bool use_fit_objective = true;
 }
 
 FitSessionController::FitSessionController(QObject* parent)
-    : QObject(parent), m_jobItem(nullptr), m_runFitManager(new FitWorkerLauncher(this)),
-      m_observer(new GUIFitObserver), m_fitlog(new FitLog), m_block_progress_update(false)
+    : QObject(parent)
+    , m_jobItem(nullptr)
+    , m_runFitManager(new FitWorkerLauncher(this))
+    , m_observer(new GUIFitObserver)
+    , m_fitlog(new FitLog)
+    , m_block_progress_update(false)
 {
     connect(m_observer.get(), &GUIFitObserver::updateReady, this,
             &FitSessionController::onObserverUpdate);

@@ -24,8 +24,11 @@
 #include "GUI/coregui/Views/MaskWidgets/MaskEditor.h"
 
 DetectorMaskDelegate::DetectorMaskDelegate(QObject* parent)
-    : QObject(parent), m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this)),
-      m_instrumentModel(nullptr), m_detectorItem(nullptr), m_intensityItem(nullptr)
+    : QObject(parent)
+    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
+    , m_instrumentModel(nullptr)
+    , m_detectorItem(nullptr)
+    , m_intensityItem(nullptr)
 {
 }
 

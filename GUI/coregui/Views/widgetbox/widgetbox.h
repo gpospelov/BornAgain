@@ -39,6 +39,8 @@
 **
 ****************************************************************************/
 
+// Patched JWu 12nov20 because QFlags(0) was deprecated
+
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOX_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_WIDGETBOX_WIDGETBOX_H
 
@@ -64,7 +66,7 @@ public:
     //    explicit WidgetBox(QDesignerFormEditorInterface *core, QWidget *parent = 0,
     //    Qt::WindowFlags flags = 0);
     explicit WidgetBox(SampleDesignerInterface* core, QWidget* parent = nullptr,
-                       Qt::WindowFlags flags = nullptr);
+                       Qt::WindowFlags flags = {});
     virtual ~WidgetBox();
 
     //    QDesignerFormEditorInterface *core() const;

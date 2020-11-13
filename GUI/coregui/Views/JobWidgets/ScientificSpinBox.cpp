@@ -27,8 +27,12 @@ bool useExponentialNotation(double val);
 } // namespace
 
 ScientificSpinBox::ScientificSpinBox(QWidget* parent)
-    : QAbstractSpinBox(parent), m_value(0.0), m_min(-max_val), m_max(max_val), m_step(1.0),
-      m_decimals(3)
+    : QAbstractSpinBox(parent)
+    , m_value(0.0)
+    , m_min(-max_val)
+    , m_max(max_val)
+    , m_step(1.0)
+    , m_decimals(3)
 {
     QLocale locale;
     locale.setNumberOptions(QLocale::RejectGroupSeparator);

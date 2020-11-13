@@ -35,7 +35,7 @@ std::string IUnitConverter::axisName(size_t i_axis, Axes::Units units_type) cons
 std::unique_ptr<OutputData<double>>
 IUnitConverter::createConvertedData(const OutputData<double>& data, Axes::Units units) const
 {
-    const size_t dim = data.getRank();
+    const size_t dim = data.rank();
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < dim; ++i)
         result->addAxis(*createConvertedAxis(i, units));

@@ -24,10 +24,14 @@
 #include <QTreeView>
 
 ComponentTreeView::ComponentTreeView(QWidget* parent)
-    : ComponentView(parent), m_tree(new QTreeView), m_delegate(new SessionModelDelegate(this)),
-      m_proxyModel(new ComponentProxyModel(this)), m_placeHolderModel(new QStandardItemModel(this)),
-      m_eventFilter(new RightMouseButtonEater), m_actions(new ComponentTreeActions(this)),
-      m_show_root_item(false)
+    : ComponentView(parent)
+    , m_tree(new QTreeView)
+    , m_delegate(new SessionModelDelegate(this))
+    , m_proxyModel(new ComponentProxyModel(this))
+    , m_placeHolderModel(new QStandardItemModel(this))
+    , m_eventFilter(new RightMouseButtonEater)
+    , m_actions(new ComponentTreeActions(this))
+    , m_show_root_item(false)
 {
     auto layout = new QVBoxLayout;
 

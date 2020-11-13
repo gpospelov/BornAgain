@@ -25,11 +25,15 @@
 #include <minisplitter.h>
 
 ProjectionsEditor::ProjectionsEditor(QWidget* parent)
-    : QMainWindow(parent), m_editorActions(new ProjectionsEditorActions(this)),
-      m_toolBar(new ProjectionsToolBar(m_editorActions)),
-      m_projectionsCanvas(new ProjectionsEditorCanvas), m_projectionsWidget(new ProjectionsWidget),
-      m_propertyPanel(new ProjectionsPropertyPanel), m_selectionModel(nullptr),
-      m_rightSplitter(new Manhattan::MiniSplitter), m_bottomSplitter(new QSplitter)
+    : QMainWindow(parent)
+    , m_editorActions(new ProjectionsEditorActions(this))
+    , m_toolBar(new ProjectionsToolBar(m_editorActions))
+    , m_projectionsCanvas(new ProjectionsEditorCanvas)
+    , m_projectionsWidget(new ProjectionsWidget)
+    , m_propertyPanel(new ProjectionsPropertyPanel)
+    , m_selectionModel(nullptr)
+    , m_rightSplitter(new Manhattan::MiniSplitter)
+    , m_bottomSplitter(new QSplitter)
 {
     addToolBar(Qt::RightToolBarArea, m_toolBar);
 

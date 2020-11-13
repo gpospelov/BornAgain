@@ -103,10 +103,10 @@ const DataItem* RealDataItem::nativeData() const
 void RealDataItem::setOutputData(OutputData<double>* data)
 {
     ASSERT(data && "Assertion failed in RealDataItem::setOutputData: passed data is nullptr");
-    ASSERT(data->getRank() < 3 && data->getRank() > 0);
+    ASSERT(data->rank() < 3 && data->rank() > 0);
 
     const QString& target_model_type =
-        data->getRank() == 2 ? "IntensityData" : data->getRank() == 1 ? "SpecularData" : "";
+        data->rank() == 2 ? "IntensityData" : data->rank() == 1 ? "SpecularData" : "";
     auto data_item = getItem(T_INTENSITY_DATA);
     if (data_item && data_item->modelType() != target_model_type)
         throw GUIHelpers::Error("Error in RealDataItem::setOutputData: trying to set data "

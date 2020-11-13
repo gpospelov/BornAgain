@@ -27,10 +27,14 @@
 #include <QVBoxLayout>
 
 ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
-    : SessionItemWidget(parent), m_toolBar(new JobRealTimeToolBar(this)), m_jobModel(nullptr),
-      m_parameterTuningModel(nullptr), m_sliderSettingsWidget(new SliderSettingsWidget(this)),
-      m_treeView(new QTreeView), m_delegate(new ParameterTuningDelegate(this)),
-      m_warningSign(new WarningSign(m_treeView))
+    : SessionItemWidget(parent)
+    , m_toolBar(new JobRealTimeToolBar(this))
+    , m_jobModel(nullptr)
+    , m_parameterTuningModel(nullptr)
+    , m_sliderSettingsWidget(new SliderSettingsWidget(this))
+    , m_treeView(new QTreeView)
+    , m_delegate(new ParameterTuningDelegate(this))
+    , m_warningSign(new WarningSign(m_treeView))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

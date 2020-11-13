@@ -31,8 +31,8 @@ double IgnoreDenormalized(double value)
 
 void Write2DRepresentation(const OutputData<double>& data, std::ostream& output_stream)
 {
-    const size_t nrows = data.getAxis(1).size();
-    const size_t ncols = data.getAxis(0).size();
+    const size_t nrows = data.axis(1).size();
+    const size_t ncols = data.axis(0).size();
 
     output_stream << "# [nrows=" << nrows << ", ncols=" << ncols << "]" << std::endl;
 
@@ -74,7 +74,7 @@ void Write1DRepresentation(const OutputData<double>& data, std::ostream& output_
     output_stream.imbue(std::locale::classic());
     output_stream << std::scientific << std::setprecision(precision);
 
-    const std::vector<double> axis_values = data.getAxis(0).getBinCenters();
+    const std::vector<double> axis_values = data.axis(0).binCenters();
 
     // printing coordinate and associated intensity
     for (size_t i = 0, nrows = axis_values.size(); i < nrows; ++i)
@@ -91,15 +91,15 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double>& data,
 {
     output_stream << "# BornAgain Intensity Data\n\n";
 
-    for (size_t i = 0; i < data.getRank(); ++i) {
+    for (size_t i = 0; i < data.rank(); ++i) {
         std::string axis_name = std::string("axis") + std::to_string(i);
-        std::unique_ptr<IAxis> P_axis(data.getAxis(i).clone());
+        std::unique_ptr<IAxis> P_axis(data.axis(i).clone());
         P_axis->setName(axis_name);
         output_stream << std::endl;
         output_stream << "# axis-" << i << "\n";
         output_stream << (*P_axis) << "\n";
     }
-    size_t n_columns = data.getAxis(data.getRank() - 1).size();
+    size_t n_columns = data.axis(data.rank() - 1).size();
 
     output_stream << "\n# data\n";
     WriteOutputDataDoubles(data, output_stream, n_columns);
@@ -116,7 +116,7 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double>& 
     output_stream << "# BornAgain Intensity Data" << std::endl;
     output_stream << "# Simple array suitable for numpy, matlab etc." << std::endl;
 
-    const size_t dim = data.getRank();
+    const size_t dim = data.rank();
     switch (dim) {
     case 1:
         Write1DRepresentation(data, output_stream);

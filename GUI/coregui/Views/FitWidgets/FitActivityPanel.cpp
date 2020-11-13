@@ -30,9 +30,11 @@ const bool reuse_widget = true;
 }
 
 FitActivityPanel::FitActivityPanel(JobModel* jobModel, QWidget* parent)
-    : QWidget(parent), m_stackedWidget(new ItemStackPresenter<FitSessionWidget>(reuse_widget)),
-      m_realTimeWidget(nullptr), m_jobMessagePanel(nullptr),
-      m_fitSessionManager(new FitSessionManager(this))
+    : QWidget(parent)
+    , m_stackedWidget(new ItemStackPresenter<FitSessionWidget>(reuse_widget))
+    , m_realTimeWidget(nullptr)
+    , m_jobMessagePanel(nullptr)
+    , m_fitSessionManager(new FitSessionManager(this))
 {
     setWindowTitle(Constants::JobFitPanelName);
     setObjectName("FitActivityPanel");

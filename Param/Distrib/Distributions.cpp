@@ -129,8 +129,9 @@ DistributionGate::DistributionGate(const std::vector<double> P)
         {"DistributionGate",
          "class_tooltip",
          {{"Min", "", "para_tooltip", -INF, +INF, 0}, {"Max", "", "para_tooltip", -INF, +INF, 0}}},
-        P),
-      m_min(m_P[0]), m_max(m_P[1])
+        P)
+    , m_min(m_P[0])
+    , m_max(m_P[1])
 {
     if (m_max < m_min)
         throw Exceptions::ClassInitializationException("DistributionGate: max<min");
@@ -175,8 +176,9 @@ DistributionLorentz::DistributionLorentz(const std::vector<double> P)
                        "class_tooltip",
                        {{"Mean", "", "para_tooltip", -INF, +INF, 0},
                         {"HWHM", "", "para_tooltip", -INF, +INF, 0}}},
-                      P),
-      m_mean(m_P[0]), m_hwhm(m_P[1])
+                      P)
+    , m_mean(m_P[0])
+    , m_hwhm(m_P[1])
 {
     if (m_hwhm < 0.0)
         throw Exceptions::ClassInitializationException("DistributionLorentz: hwhm<0");
@@ -221,8 +223,9 @@ DistributionGaussian::DistributionGaussian(const std::vector<double> P)
                        "class_tooltip",
                        {{"Mean", "", "para_tooltip", -INF, +INF, 0},
                         {"StdDev", "", "para_tooltip", -INF, +INF, 0}}},
-                      P),
-      m_mean(m_P[0]), m_std_dev(m_P[1])
+                      P)
+    , m_mean(m_P[0])
+    , m_std_dev(m_P[1])
 {
     if (m_std_dev < 0.0)
         throw Exceptions::ClassInitializationException("DistributionGaussian: std_dev < 0");
@@ -268,8 +271,9 @@ DistributionLogNormal::DistributionLogNormal(const std::vector<double> P)
                        "class_tooltip",
                        {{"Median", "", "para_tooltip", -INF, +INF, 0},
                         {"ScaleParameter", "", "para_tooltip", -INF, +INF, 0}}},
-                      P),
-      m_median(m_P[0]), m_scale_param(m_P[1])
+                      P)
+    , m_median(m_P[0])
+    , m_scale_param(m_P[1])
 {
     if (m_scale_param < 0.0)
         throw Exceptions::ClassInitializationException("DistributionLogNormal: scale_param < 0");
@@ -335,8 +339,9 @@ DistributionCosine::DistributionCosine(const std::vector<double> P)
                        "class_tooltip",
                        {{"Mean", "", "para_tooltip", -INF, +INF, 0},
                         {"Sigma", "", "para_tooltip", -INF, +INF, 0}}},
-                      P),
-      m_mean(m_P[0]), m_sigma(m_P[1])
+                      P)
+    , m_mean(m_P[0])
+    , m_sigma(m_P[1])
 {
     if (m_sigma < 0.0)
         throw Exceptions::ClassInitializationException("DistributionCosine: sigma<0");
@@ -385,8 +390,11 @@ DistributionTrapezoid::DistributionTrapezoid(const std::vector<double> P)
                         {"LeftWidth", "", "para_tooltip", -INF, +INF, 0},
                         {"MiddleWidth", "", "para_tooltip", -INF, +INF, 0},
                         {"RightWidth", "", "para_tooltip", -INF, +INF, 0}}},
-                      P),
-      m_center(m_P[0]), m_left(m_P[1]), m_middle(m_P[2]), m_right(m_P[3])
+                      P)
+    , m_center(m_P[0])
+    , m_left(m_P[1])
+    , m_middle(m_P[2])
+    , m_right(m_P[3])
 {
     if (m_left < 0.0)
         throw Exceptions::ClassInitializationException("DistributionTrapezoid: leftWidth < 0");

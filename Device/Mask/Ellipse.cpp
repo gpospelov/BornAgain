@@ -22,8 +22,12 @@
 //! @param yradius Radius along y-axis
 //! @param theta Angle of Ellipse rotation in radians
 Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta)
-    : IShape2D("Ellipse"), m_xc(xcenter), m_yc(ycenter), m_xr(xradius), m_yr(yradius),
-      m_theta(theta)
+    : IShape2D("Ellipse")
+    , m_xc(xcenter)
+    , m_yc(ycenter)
+    , m_xr(xradius)
+    , m_yr(yradius)
+    , m_theta(theta)
 {
     if (xradius <= 0.0 || yradius <= 0.0)
         throw Exceptions::LogicErrorException(
@@ -43,5 +47,5 @@ bool Ellipse::contains(double x, double y) const
 //! more precisely, if mid point of two bins satisfy this condition.
 bool Ellipse::contains(const Bin1D& binx, const Bin1D& biny) const
 {
-    return contains(binx.getMidPoint(), biny.getMidPoint());
+    return contains(binx.center(), biny.center());
 }

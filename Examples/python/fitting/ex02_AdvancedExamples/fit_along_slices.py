@@ -110,8 +110,8 @@ class PlotObserver:
         """
         plt.subplots_adjust(wspace=0.2, hspace=0.3)
         for label, slice in slices:
-            plt.semilogy(slice.getBinCenters(),
-                         slice.getBinValues(), label=label)
+            plt.semilogy(slice.binCenters(),
+                         slice.binValues(), label=label)
             plt.xlim(slice.getXmin(), slice.getXmax())
             plt.ylim(1.0, slice.getMaximum()*10.0)
         plt.legend(loc='upper right')

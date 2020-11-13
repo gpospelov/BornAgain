@@ -37,8 +37,11 @@ const QString select_realdata_tooltip = "Select real data to use during the fitt
 } // namespace
 
 SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget* parent)
-    : QWidget(parent), m_instrumentCombo(new QComboBox), m_sampleCombo(new QComboBox),
-      m_realDataCombo(new QComboBox), m_applicationModels(0)
+    : QWidget(parent)
+    , m_instrumentCombo(new QComboBox)
+    , m_sampleCombo(new QComboBox)
+    , m_realDataCombo(new QComboBox)
+    , m_applicationModels(0)
 {
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);

@@ -226,8 +226,8 @@ TEST_F(TestSavingSpecularData, test_OutputDataIOService)
     EXPECT_TRUE(ProjectUtils::exists(fname2));
 
     // Reading data from disk, checking it is the same
-    EXPECT_TRUE(isSame(fname1, pointwise_axis_item1->getAxis()));
-    EXPECT_TRUE(isSame(fname2, pointwise_axis_item2->getAxis()));
+    EXPECT_TRUE(isSame(fname1, pointwise_axis_item1->axis()));
+    EXPECT_TRUE(isSame(fname2, pointwise_axis_item2->axis()));
     ;
 
     // Modifying data and saving the project.
@@ -236,8 +236,8 @@ TEST_F(TestSavingSpecularData, test_OutputDataIOService)
     service.save(projectDir);
     QTest::qSleep(10);
 
-    EXPECT_TRUE(isSame(fname1, pointwise_axis_item1->getAxis()));
-    EXPECT_TRUE(isSame(fname2, pointwise_axis_item2->getAxis()));
+    EXPECT_TRUE(isSame(fname1, pointwise_axis_item1->axis()));
+    EXPECT_TRUE(isSame(fname2, pointwise_axis_item2->axis()));
 
     // Renaming RealData and check that file on disk changed the name
     pointwise_axis_item2->setItemValue(PointwiseAxisItem::P_FILE_NAME, "data2new.int.gz");
@@ -246,7 +246,7 @@ TEST_F(TestSavingSpecularData, test_OutputDataIOService)
 
     QString fname2new = "./" + projectDir + "/" + pointwise_axis_item2->fileName();
     EXPECT_TRUE(ProjectUtils::exists(fname2new));
-    EXPECT_TRUE(isSame(fname2new, pointwise_axis_item2->getAxis()));
+    EXPECT_TRUE(isSame(fname2new, pointwise_axis_item2->axis()));
 
     // Check that file with old name was removed.
     EXPECT_FALSE(ProjectUtils::exists(fname2));
@@ -293,6 +293,6 @@ TEST_F(TestSavingSpecularData, test_CopyInstrumentToJobItem)
     EXPECT_TRUE(ProjectUtils::exists(fname2));
 
     // Reading data from disk, checking it is the same
-    EXPECT_TRUE(isSame(fname1, pointwise_axis_item->getAxis()));
-    EXPECT_TRUE(isSame(fname2, job_axis_item->getAxis()));
+    EXPECT_TRUE(isSame(fname1, pointwise_axis_item->axis()));
+    EXPECT_TRUE(isSame(fname2, job_axis_item->axis()));
 }

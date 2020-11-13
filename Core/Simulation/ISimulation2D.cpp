@@ -118,7 +118,7 @@ void ISimulation2D::normalize(size_t start_ind, size_t n_elements)
             element.setIntensity(0);
             continue;
         }
-        const double solid_angle = element.getSolidAngle();
+        const double solid_angle = element.solidAngle();
         element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
     }
 }

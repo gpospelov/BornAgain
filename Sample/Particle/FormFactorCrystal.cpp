@@ -19,8 +19,10 @@
 
 FormFactorCrystal::FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
                                      const IFormFactor& meso_form_factor, double position_variance)
-    : m_lattice(lattice), m_basis_form_factor(basis_form_factor.clone()),
-      m_meso_form_factor(meso_form_factor.clone()), m_position_variance(position_variance)
+    : m_lattice(lattice)
+    , m_basis_form_factor(basis_form_factor.clone())
+    , m_meso_form_factor(meso_form_factor.clone())
+    , m_position_variance(position_variance)
 {
     setName("FormFactorCrystal");
     calculateLargestReciprocalDistance();

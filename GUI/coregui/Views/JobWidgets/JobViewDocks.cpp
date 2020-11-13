@@ -29,9 +29,13 @@ const JobViewFlags::Activity default_activity = JobViewFlags::JOB_VIEW_ACTIVITY;
 }
 
 JobViewDocks::JobViewDocks(JobView* parent)
-    : DocksController(parent), m_jobSelector(nullptr), m_jobOutputDataWidget(nullptr),
-      m_jobRealTimeWidget(nullptr), m_fitActivityPanel(nullptr), m_jobMessagePanel(nullptr),
-      m_jobView(parent)
+    : DocksController(parent)
+    , m_jobSelector(nullptr)
+    , m_jobOutputDataWidget(nullptr)
+    , m_jobRealTimeWidget(nullptr)
+    , m_fitActivityPanel(nullptr)
+    , m_jobMessagePanel(nullptr)
+    , m_jobView(parent)
 {
 }
 

@@ -16,8 +16,9 @@ protected:
 };
 
 OffSpecularConverterTest::OffSpecularConverterTest()
-    : m_detector(100, 0.0, 5.0 * Units::deg, 70, -2.0 * Units::deg, 1.5),
-      m_alpha_i_axis("alpha_i", 51, 0.0, 7.0 * Units::deg), m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0)
+    : m_detector(100, 0.0, 5.0 * Units::deg, 70, -2.0 * Units::deg, 1.5)
+    , m_alpha_i_axis("alpha_i", 51, 0.0, 7.0 * Units::deg)
+    , m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0)
 {
 }
 
@@ -61,14 +62,14 @@ TEST_F(OffSpecularConverterTest, OffSpecularConverter)
     auto axis = converter.createConvertedAxis(0, Axes::Units::DEFAULT);
     EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis.get()));
     EXPECT_EQ(axis->size(), converter.axisSize(0));
-    EXPECT_EQ(axis->getMin(), converter.calculateMin(0, Axes::Units::DEFAULT));
-    EXPECT_EQ(axis->getMax(), converter.calculateMax(0, Axes::Units::DEFAULT));
+    EXPECT_EQ(axis->lowerBound(), converter.calculateMin(0, Axes::Units::DEFAULT));
+    EXPECT_EQ(axis->upperBound(), converter.calculateMax(0, Axes::Units::DEFAULT));
 
     auto axis2 = converter.createConvertedAxis(1, Axes::Units::RADIANS);
     EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis2.get()));
     EXPECT_EQ(axis2->size(), converter.axisSize(1));
-    EXPECT_EQ(axis2->getMin(), converter.calculateMin(1, Axes::Units::RADIANS));
-    EXPECT_EQ(axis2->getMax(), converter.calculateMax(1, Axes::Units::RADIANS));
+    EXPECT_EQ(axis2->lowerBound(), converter.calculateMin(1, Axes::Units::RADIANS));
+    EXPECT_EQ(axis2->upperBound(), converter.calculateMax(1, Axes::Units::RADIANS));
 
     EXPECT_THROW(converter.createConvertedAxis(2, Axes::Units::DEFAULT), std::runtime_error);
     EXPECT_THROW(converter.createConvertedAxis(1, Axes::Units::QSPACE), std::runtime_error);

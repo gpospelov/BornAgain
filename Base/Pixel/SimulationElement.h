@@ -56,9 +56,9 @@ public:
     kvector_t getMeanQ() const;
     kvector_t getQ(double x, double y) const;
 
-    double getIntegrationFactor(double x, double y) const;
+    double integrationFactor(double x, double y) const;
 
-    double getSolidAngle() const;
+    double solidAngle() const;
 
     double getAlpha(double x, double y) const;
     double getPhi(double x, double y) const;

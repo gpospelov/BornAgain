@@ -22,9 +22,14 @@ const Vector3D LIGHT2 = Vector3D(1.0f, 0.0f, 1.0f) * 1000.0f;
 const Vector3D LIGHT3 = Vector3D(1.0f, 1.0f, 0.0f) * 1000.0f;
 
 Camera::Camera()
-    : pos(Vector3D::_z, Vector3D::_0, Vector3D::_x),
-      pos3DAxes(Vector3D::_z, Vector3D::_0, Vector3D::_x), zoom(1), vertAngle(60), nearPlane(1),
-      farPlane(10000), lightPos1(LIGHT1), lightPosRotated1(lightPos1)
+    : pos(Vector3D::_z, Vector3D::_0, Vector3D::_x)
+    , pos3DAxes(Vector3D::_z, Vector3D::_0, Vector3D::_x)
+    , zoom(1)
+    , vertAngle(60)
+    , nearPlane(1)
+    , farPlane(10000)
+    , lightPos1(LIGHT1)
+    , lightPosRotated1(lightPos1)
 {
     setAspectRatio(1);
 }

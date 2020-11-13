@@ -18,8 +18,10 @@
 const double phi_i_0 = 0.0;
 
 DepthProbeElement::DepthProbeElement(double wavelength, double alpha_i, const IAxis* z_positions)
-    : m_wavelength(wavelength), m_alpha_i(alpha_i), m_z_positions(z_positions),
-      m_calculation_flag(true)
+    : m_wavelength(wavelength)
+    , m_alpha_i(alpha_i)
+    , m_z_positions(z_positions)
+    , m_calculation_flag(true)
 {
     if (!z_positions)
         throw std::runtime_error(
@@ -28,16 +30,20 @@ DepthProbeElement::DepthProbeElement(double wavelength, double alpha_i, const IA
 }
 
 DepthProbeElement::DepthProbeElement(const DepthProbeElement& other)
-    : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i),
-      m_intensities(other.m_intensities), m_z_positions(other.m_z_positions),
-      m_calculation_flag(other.m_calculation_flag)
+    : m_wavelength(other.m_wavelength)
+    , m_alpha_i(other.m_alpha_i)
+    , m_intensities(other.m_intensities)
+    , m_z_positions(other.m_z_positions)
+    , m_calculation_flag(other.m_calculation_flag)
 {
 }
 
 DepthProbeElement::DepthProbeElement(DepthProbeElement&& other) noexcept
-    : m_wavelength(other.m_wavelength), m_alpha_i(other.m_alpha_i),
-      m_intensities(std::move(other.m_intensities)), m_z_positions(other.m_z_positions),
-      m_calculation_flag(other.m_calculation_flag)
+    : m_wavelength(other.m_wavelength)
+    , m_alpha_i(other.m_alpha_i)
+    , m_intensities(std::move(other.m_intensities))
+    , m_z_positions(other.m_z_positions)
+    , m_calculation_flag(other.m_calculation_flag)
 {
 }
 

@@ -27,9 +27,12 @@
 #include <QWidget>
 
 PropertyWidgetItem::PropertyWidgetItem(QWidget* parent)
-    : QObject(parent), m_label(new QLabel), m_editor(nullptr),
-      m_dataMapper(new QDataWidgetMapper(this)), m_delegate(new SessionModelDelegate(nullptr)),
-      m_item(nullptr)
+    : QObject(parent)
+    , m_label(new QLabel)
+    , m_editor(nullptr)
+    , m_dataMapper(new QDataWidgetMapper(this))
+    , m_delegate(new SessionModelDelegate(nullptr))
+    , m_item(nullptr)
 {
     m_label->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed));
 }

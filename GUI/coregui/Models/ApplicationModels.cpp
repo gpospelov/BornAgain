@@ -35,9 +35,14 @@
 #include <QtCore/QXmlStreamWriter>
 
 ApplicationModels::ApplicationModels(QObject* parent)
-    : QObject(parent), m_documentModel(nullptr), m_materialModel(nullptr),
-      m_instrumentModel(nullptr), m_sampleModel(nullptr), m_realDataModel(nullptr),
-      m_jobModel(nullptr), m_materialPropertyController(new MaterialPropertyController(this))
+    : QObject(parent)
+    , m_documentModel(nullptr)
+    , m_materialModel(nullptr)
+    , m_instrumentModel(nullptr)
+    , m_sampleModel(nullptr)
+    , m_realDataModel(nullptr)
+    , m_jobModel(nullptr)
+    , m_materialPropertyController(new MaterialPropertyController(this))
 {
     createModels();
     // createTestSample();

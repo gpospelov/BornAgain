@@ -30,11 +30,11 @@ const QString depth_axis_title("Depth axis [nm]");
 } // namespace
 
 DepthProbeInstrumentEditor::DepthProbeInstrumentEditor(QWidget* parent)
-    : SessionItemWidget(parent),
-      m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title)),
-      m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title)),
-      m_depthAxisEditor(new ComponentEditor(ComponentEditor::InfoWidget, depth_axis_title)),
-      m_gridLayout(new QGridLayout)
+    : SessionItemWidget(parent)
+    , m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title))
+    , m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title))
+    , m_depthAxisEditor(new ComponentEditor(ComponentEditor::InfoWidget, depth_axis_title))
+    , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_wavelengthEditor, 1, 0);
     m_gridLayout->addWidget(m_inclinationEditor, 1, 1);

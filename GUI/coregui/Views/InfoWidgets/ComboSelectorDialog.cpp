@@ -22,8 +22,10 @@
 #include <QVBoxLayout>
 
 ComboSelectorDialog::ComboSelectorDialog(QWidget* parent)
-    : QDialog(parent), m_topLabel(new QLabel), m_comboSelector(new QComboBox),
-      m_bottomLabel(new QLabel)
+    : QDialog(parent)
+    , m_topLabel(new QLabel)
+    , m_comboSelector(new QComboBox)
+    , m_bottomLabel(new QLabel)
 {
     QColor bgColor(240, 240, 240, 255);
     QPalette palette;

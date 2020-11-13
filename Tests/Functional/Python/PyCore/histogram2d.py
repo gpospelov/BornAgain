@@ -23,9 +23,9 @@ class Histogram2DTest(unittest.TestCase):
         self.assertEqual(hist.getYmin(), 0.0)
         self.assertEqual(hist.getYmax(), 3.0)
 
-        self.assertEqual(hist.getBinContent(0, 0), 11.0)
-        self.assertEqual(hist.getBinContent(0, 1), 6.0)
-        self.assertEqual(hist.getBinContent(4, 2), 5.0)
+        self.assertEqual(hist.binContent(0, 0), 11.0)
+        self.assertEqual(hist.binContent(0, 1), 6.0)
+        self.assertEqual(hist.binContent(4, 2), 5.0)
 
         arr_from_hist = hist.getArray()
 
@@ -49,9 +49,9 @@ class Histogram2DTest(unittest.TestCase):
         self.assertEqual(hist.getYmin(), 0.0)
         self.assertEqual(hist.getYmax(), 3.0)
 
-        self.assertEqual(hist.getBinContent(0, 0), 11.0)
-        self.assertEqual(hist.getBinContent(0, 1), 6.0)
-        self.assertEqual(hist.getBinContent(4, 2), 5.0)
+        self.assertEqual(hist.binContent(0, 0), 11.0)
+        self.assertEqual(hist.binContent(0, 1), 6.0)
+        self.assertEqual(hist.binContent(4, 2), 5.0)
 
         arr_from_hist = hist.getArray()
 

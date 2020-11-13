@@ -30,9 +30,11 @@ const double relative_diff_max_1d = 4.0;
 } // namespace
 
 FitComparison1DViewController::FitComparison1DViewController(QObject* parent)
-    : QObject(parent), m_diff_item_controller(new DiffItemController("SpecularData", this)),
-      m_diff_view_item(nullptr), m_appearanceRepeater(new PropertyRepeater(this)),
-      m_xAxisRepeater(new PropertyRepeater(this))
+    : QObject(parent)
+    , m_diff_item_controller(new DiffItemController("SpecularData", this))
+    , m_diff_view_item(nullptr)
+    , m_appearanceRepeater(new PropertyRepeater(this))
+    , m_xAxisRepeater(new PropertyRepeater(this))
 {
 }
 
@@ -110,9 +112,10 @@ void FitComparison1DViewController::deleteDiffViewItem()
 }
 
 DiffItemController::DiffItemController(const QString& data_type, QObject* parent)
-    : QObject(parent), m_current_item(nullptr),
-      m_private_model(new SessionModel("TempIntensityDataModel", this)),
-      m_diff_item(dynamic_cast<DataItem*>(m_private_model->insertNewItem(data_type)))
+    : QObject(parent)
+    , m_current_item(nullptr)
+    , m_private_model(new SessionModel("TempIntensityDataModel", this))
+    , m_diff_item(dynamic_cast<DataItem*>(m_private_model->insertNewItem(data_type)))
 {
     ASSERT(m_diff_item);
 }

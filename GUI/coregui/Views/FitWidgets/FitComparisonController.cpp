@@ -50,9 +50,12 @@ private:
 using DiffItemController = FitComparisonController2D::DiffItemController;
 
 FitComparisonController2D::FitComparisonController2D(QObject* parent)
-    : QObject(parent), m_diff_item_controller(new DiffItemController("IntensityData", this)),
-      m_appearanceRepeater(new PropertyRepeater(this)), m_xAxisRepeater(new PropertyRepeater(this)),
-      m_yAxisRepeater(new PropertyRepeater(this)), m_zAxisRepeater(new PropertyRepeater(this))
+    : QObject(parent)
+    , m_diff_item_controller(new DiffItemController("IntensityData", this))
+    , m_appearanceRepeater(new PropertyRepeater(this))
+    , m_xAxisRepeater(new PropertyRepeater(this))
+    , m_yAxisRepeater(new PropertyRepeater(this))
+    , m_zAxisRepeater(new PropertyRepeater(this))
 {
 }
 
@@ -119,9 +122,10 @@ void FitComparisonController2D::clear()
 }
 
 DiffItemController::DiffItemController(const QString& data_type, QObject* parent)
-    : QObject(parent), m_current_item(nullptr),
-      m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this)),
-      m_diff_item(dynamic_cast<DataItem*>(m_tempIntensityDataModel->insertNewItem(data_type)))
+    : QObject(parent)
+    , m_current_item(nullptr)
+    , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
+    , m_diff_item(dynamic_cast<DataItem*>(m_tempIntensityDataModel->insertNewItem(data_type)))
 {
     ASSERT(m_diff_item);
 }

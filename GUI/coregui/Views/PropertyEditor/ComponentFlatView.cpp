@@ -26,8 +26,11 @@
 #include <QVBoxLayout>
 
 ComponentFlatView::ComponentFlatView(QWidget* parent)
-    : ComponentView(parent), m_mainLayout(new QVBoxLayout), m_gridLayout(nullptr), m_model(nullptr),
-      m_show_children(true)
+    : ComponentView(parent)
+    , m_mainLayout(new QVBoxLayout)
+    , m_gridLayout(nullptr)
+    , m_model(nullptr)
+    , m_show_children(true)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

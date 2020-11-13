@@ -28,6 +28,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+// Patched JWu 12nov20 because QFlags(0) was deprecated
+
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_ACCORDIONWIDGET_CLICKABLEFRAME_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_ACCORDIONWIDGET_CLICKABLEFRAME_H
 
@@ -71,7 +73,7 @@ public:
      * @param parent Parent widget or 0
      * @param f Qt::WindowFlags
      */
-    explicit ClickableFrame(QString header, QWidget* parent = 0, Qt::WindowFlags f = 0);
+    explicit ClickableFrame(QString header, QWidget* parent = 0, Qt::WindowFlags f = {});
 
     // TODO: Expose this function to the ContentPane api
     /**

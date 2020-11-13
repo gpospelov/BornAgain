@@ -33,8 +33,10 @@
 #include <memory>
 
 PythonScriptWidget::PythonScriptWidget(QWidget* parent)
-    : QDialog(parent), m_toolBar(nullptr), m_textEdit(new QTextEdit),
-      m_warningSign(new WarningSign(m_textEdit))
+    : QDialog(parent)
+    , m_toolBar(nullptr)
+    , m_textEdit(new QTextEdit)
+    , m_warningSign(new WarningSign(m_textEdit))
 {
     setWindowTitle("Python Script View");
     setMinimumSize(128, 128);

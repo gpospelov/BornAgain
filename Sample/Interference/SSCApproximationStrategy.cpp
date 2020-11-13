@@ -20,8 +20,8 @@
 SSCApproximationStrategy::SSCApproximationStrategy(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* p_iff, SimulationOptions sim_params, bool polarized, double kappa)
-    : IInterferenceFunctionStrategy(weighted_formfactors, p_iff, sim_params, polarized),
-      m_helper(kappa)
+    : IInterferenceFunctionStrategy(weighted_formfactors, p_iff, sim_params, polarized)
+    , m_helper(kappa)
 {
     m_helper.init(m_formfactor_wrappers);
 }

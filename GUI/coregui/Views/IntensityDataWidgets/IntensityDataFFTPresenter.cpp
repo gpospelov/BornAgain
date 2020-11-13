@@ -22,8 +22,11 @@
 #include <QWidget>
 
 IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
-    : QObject(parent), m_fftAction(nullptr), m_fftModel(new SessionModel("TempFFTModel", this)),
-      m_fftItem(nullptr), m_in_fft_mode(false)
+    : QObject(parent)
+    , m_fftAction(nullptr)
+    , m_fftModel(new SessionModel("TempFFTModel", this))
+    , m_fftItem(nullptr)
+    , m_in_fft_mode(false)
 {
     m_fftItem = dynamic_cast<IntensityDataItem*>(m_fftModel->insertNewItem("IntensityData"));
 

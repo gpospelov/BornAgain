@@ -55,7 +55,7 @@ double UnitConverter1D::calculateMin(size_t i_axis, Axes::Units units_type) cons
     if (units_type == Axes::Units::NBINS)
         return 0.0;
     auto translator = getTraslatorTo(units_type);
-    return translator(coordinateAxis()->getBinCenter(0));
+    return translator(coordinateAxis()->binCenter(0));
 }
 
 double UnitConverter1D::calculateMax(size_t i_axis, Axes::Units units_type) const
@@ -66,7 +66,7 @@ double UnitConverter1D::calculateMax(size_t i_axis, Axes::Units units_type) cons
     if (units_type == Axes::Units::NBINS)
         return static_cast<double>(coordinate_axis->size());
     auto translator = getTraslatorTo(units_type);
-    return translator(coordinate_axis->getBinCenter(coordinate_axis->size() - 1));
+    return translator(coordinate_axis->binCenter(coordinate_axis->size() - 1));
 }
 
 std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, Axes::Units units) const
@@ -82,7 +82,7 @@ std::unique_ptr<IAxis> UnitConverter1D::createConvertedAxis(size_t i_axis, Axes:
 std::unique_ptr<OutputData<double>>
 UnitConverter1D::createConvertedData(const OutputData<double>& data, Axes::Units units) const
 {
-    if (data.getRank() != 1)
+    if (data.rank() != 1)
         throw std::runtime_error("Error in UnitConverter1D::createConvertedData: unexpected "
                                  "dimensions of the input data");
 
@@ -105,7 +105,7 @@ UnitConverterConvSpec::UnitConverterConvSpec(const Beam& beam, const IAxis& axis
     : m_wavelength(beam.getWavelength())
 {
     m_axis = createTranslatedAxis(axis, getTraslatorFrom(axis_units), axisName(0, axis_units));
-    if (m_axis->getMin() < 0 || m_axis->getMax() > M_PI_2)
+    if (m_axis->lowerBound() < 0 || m_axis->upperBound() > M_PI_2)
         throw std::runtime_error("Error in UnitConverter1D: input axis range is out of bounds");
 }
 
@@ -254,7 +254,7 @@ double getInvQ(double wavelength, double q)
 std::unique_ptr<PointwiseAxis>
 createTranslatedAxis(const IAxis& axis, std::function<double(double)> translator, std::string name)
 {
-    auto coordinates = axis.getBinCenters();
+    auto coordinates = axis.binCenters();
     for (size_t i = 0, size = coordinates.size(); i < size; ++i)
         coordinates[i] = translator(coordinates[i]);
     return std::make_unique<PointwiseAxis>(name, coordinates);

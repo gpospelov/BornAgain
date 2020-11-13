@@ -628,7 +628,7 @@ Constructor for 1D histograms from basic  OutputData object.
 Returns clone of other histogram. 
 ";
 
-%feature("docstring")  Histogram1D::getRank "size_t Histogram1D::getRank() const
+%feature("docstring")  Histogram1D::rank "size_t Histogram1D::rank() const
 
 Returns the number of histogram dimensions. 
 ";
@@ -638,28 +638,28 @@ Returns the number of histogram dimensions.
 Increment bin with abscissa x with a weight. 
 ";
 
-%feature("docstring")  Histogram1D::getBinCenters "std::vector< double > Histogram1D::getBinCenters() const
+%feature("docstring")  Histogram1D::binCenters "std::vector< double > Histogram1D::binCenters() const
 
 returns vector of histogram bin centers 
 ";
 
-%feature("docstring")  Histogram1D::getBinValues "std::vector< double > Histogram1D::getBinValues() const
+%feature("docstring")  Histogram1D::binValues "std::vector< double > Histogram1D::binValues() const
 
 returns vector of bin content (the value accumulated by bins) 
 ";
 
-%feature("docstring")  Histogram1D::getBinErrors "std::vector< double > Histogram1D::getBinErrors() const
+%feature("docstring")  Histogram1D::binErrors "std::vector< double > Histogram1D::binErrors() const
 
 returns vector of bin errors 
 ";
 
-%feature("docstring")  Histogram1D::getBinCentersNumpy "PyObject * Histogram1D::getBinCentersNumpy() const
+%feature("docstring")  Histogram1D::binCentersNumpy "PyObject * Histogram1D::binCentersNumpy() const
 ";
 
-%feature("docstring")  Histogram1D::getBinValuesNumpy "PyObject * Histogram1D::getBinValuesNumpy() const
+%feature("docstring")  Histogram1D::binValuesNumpy "PyObject * Histogram1D::binValuesNumpy() const
 ";
 
-%feature("docstring")  Histogram1D::getBinErrorsNumpy "PyObject * Histogram1D::getBinErrorsNumpy() const
+%feature("docstring")  Histogram1D::binErrorsNumpy "PyObject * Histogram1D::binErrorsNumpy() const
 ";
 
 %feature("docstring")  Histogram1D::crop "Histogram1D * Histogram1D::crop(double xmin, double xmax)
@@ -742,7 +742,7 @@ Constructor for 2D histograms from numpy array (thanks to swig)
 Returns clone of other histogram. 
 ";
 
-%feature("docstring")  Histogram2D::getRank "size_t Histogram2D::getRank() const
+%feature("docstring")  Histogram2D::rank "size_t Histogram2D::rank() const
 
 Returns the number of histogram dimensions. 
 ";
@@ -930,7 +930,7 @@ Inits detector with the beam settings.
 %feature("docstring")  IDetector::addAxis "void IDetector::addAxis(const IAxis &axis)
 ";
 
-%feature("docstring")  IDetector::getAxis "const IAxis & IDetector::getAxis(size_t index) const
+%feature("docstring")  IDetector::axis "const IAxis & IDetector::axis(size_t index) const
 ";
 
 %feature("docstring")  IDetector::dimension "size_t IDetector::dimension() const
@@ -1196,7 +1196,7 @@ C++ includes: IHistogram.h
 %feature("docstring")  IHistogram::clone "virtual IHistogram* IHistogram::clone() const =0
 ";
 
-%feature("docstring")  IHistogram::getRank "virtual size_t IHistogram::getRank() const =0
+%feature("docstring")  IHistogram::rank "virtual size_t IHistogram::rank() const =0
 
 Returns number of histogram dimensions. 
 ";
@@ -1206,12 +1206,12 @@ Returns number of histogram dimensions.
 Returns total number of histogram bins. For 2D histograms the result will be the product of bin numbers along X and Y axes. 
 ";
 
-%feature("docstring")  IHistogram::getXaxis "const IAxis & IHistogram::getXaxis() const
+%feature("docstring")  IHistogram::xAxis "const IAxis & IHistogram::xAxis() const
 
 returns x-axis 
 ";
 
-%feature("docstring")  IHistogram::getYaxis "const IAxis & IHistogram::getYaxis() const
+%feature("docstring")  IHistogram::yAxis "const IAxis & IHistogram::yAxis() const
 
 returns y-axis for 2D histograms 
 ";
@@ -1256,22 +1256,22 @@ Returns global bin index for given axes indices. For 1D, just returns binx.
 Returns closest global bin index for given axes coordinates. 
 ";
 
-%feature("docstring")  IHistogram::getXaxisIndex "size_t IHistogram::getXaxisIndex(size_t i) const
+%feature("docstring")  IHistogram::xAxisIndex "size_t IHistogram::xAxisIndex(size_t i) const
 
 Returns x-axis index for global bin index i. 
 ";
 
-%feature("docstring")  IHistogram::getYaxisIndex "size_t IHistogram::getYaxisIndex(size_t i) const
+%feature("docstring")  IHistogram::yAxisIndex "size_t IHistogram::yAxisIndex(size_t i) const
 
 Returns y-axis index for global bin index i. 
 ";
 
-%feature("docstring")  IHistogram::getXaxisValue "double IHistogram::getXaxisValue(size_t i)
+%feature("docstring")  IHistogram::xAxisValue "double IHistogram::xAxisValue(size_t i)
 
 Returns the center of bin i of the x axis. 
 ";
 
-%feature("docstring")  IHistogram::getYaxisValue "double IHistogram::getYaxisValue(size_t i)
+%feature("docstring")  IHistogram::yAxisValue "double IHistogram::yAxisValue(size_t i)
 
 Returns the center of bin i of the y axis. 
 ";
@@ -1282,12 +1282,12 @@ Returns the center of bin i of the y axis.
 %feature("docstring")  IHistogram::getData "OutputData< CumulativeValue > & IHistogram::getData()
 ";
 
-%feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t i) const
+%feature("docstring")  IHistogram::binContent "double IHistogram::binContent(size_t i) const
 
 Returns content (accumulated value) of bin i. 
 ";
 
-%feature("docstring")  IHistogram::getBinContent "double IHistogram::getBinContent(size_t binx, size_t biny) const
+%feature("docstring")  IHistogram::binContent "double IHistogram::binContent(size_t binx, size_t biny) const
 
 Returns content (accumulated value) of the 2D histogram bin. 
 ";
@@ -1302,39 +1302,39 @@ Sets content of the bin corresponding to the globalbin number.
 Add the value to the bin. 
 ";
 
-%feature("docstring")  IHistogram::getBinError "double IHistogram::getBinError(size_t i) const
+%feature("docstring")  IHistogram::binError "double IHistogram::binError(size_t i) const
 
 Returns error of the bin with given index. 
 ";
 
-%feature("docstring")  IHistogram::getBinError "double IHistogram::getBinError(size_t binx, size_t biny) const
+%feature("docstring")  IHistogram::binError "double IHistogram::binError(size_t binx, size_t biny) const
 
 Returns error of the bin with given indices (for 2D histograms). 
 ";
 
-%feature("docstring")  IHistogram::getBinAverage "double IHistogram::getBinAverage(size_t i) const
+%feature("docstring")  IHistogram::binAverage "double IHistogram::binAverage(size_t i) const
 
 Returns average value in the bin with given index. 
 ";
 
-%feature("docstring")  IHistogram::getBinAverage "double IHistogram::getBinAverage(size_t binx, size_t biny) const
+%feature("docstring")  IHistogram::binAverage "double IHistogram::binAverage(size_t binx, size_t biny) const
 
 Returns average value of the bin with given indices (for 2D histograms). 
 ";
 
-%feature("docstring")  IHistogram::getBinNumberOfEntries "int IHistogram::getBinNumberOfEntries(size_t i) const
+%feature("docstring")  IHistogram::binNumberOfEntries "int IHistogram::binNumberOfEntries(size_t i) const
 
 Returns number of entries in the bin with given index. 
 ";
 
-%feature("docstring")  IHistogram::getBinNumberOfEntries "int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
+%feature("docstring")  IHistogram::binNumberOfEntries "int IHistogram::binNumberOfEntries(size_t binx, size_t biny) const
 
 Returns number of entries in the bin with given indices (for 2D histograms). 
 ";
 
 %feature("docstring")  IHistogram::getMaximum "double IHistogram::getMaximum() const
 
-Returns histogram maximum value (maximum of  getBinContent() over all bins) 
+Returns histogram maximum value (maximum of  binContent() over all bins) 
 ";
 
 %feature("docstring")  IHistogram::getMaximumBinIndex "size_t IHistogram::getMaximumBinIndex() const
@@ -1344,7 +1344,7 @@ Returns globalbin index with maximum content.
 
 %feature("docstring")  IHistogram::getMinimum "double IHistogram::getMinimum() const
 
-Returns histogram minimum value (minimum of  getBinContent() over all bins) 
+Returns histogram minimum value (minimum of  binContent() over all bins) 
 ";
 
 %feature("docstring")  IHistogram::getMinimumBinIndex "size_t IHistogram::getMinimumBinIndex() const
@@ -1474,10 +1474,10 @@ C++ includes: Instrument.h
 %feature("docstring")  Instrument::accept "void Instrument::accept(INodeVisitor *visitor) const final
 ";
 
-%feature("docstring")  Instrument::getBeam "Beam& Instrument::getBeam()
+%feature("docstring")  Instrument::beam "Beam& Instrument::beam()
 ";
 
-%feature("docstring")  Instrument::getBeam "const Beam& Instrument::getBeam() const
+%feature("docstring")  Instrument::beam "const Beam& Instrument::beam() const
 ";
 
 %feature("docstring")  Instrument::setBeam "void Instrument::setBeam(const Beam &beam)
@@ -1832,10 +1832,10 @@ C++ includes: LLData.h
 %feature("docstring")  LLData::getTotalSize "size_t LLData< T >::getTotalSize() const
 ";
 
-%feature("docstring")  LLData::getRank "size_t LLData< T >::getRank() const
+%feature("docstring")  LLData::rank "size_t LLData< T >::rank() const
 ";
 
-%feature("docstring")  LLData::getDimensions "const int* LLData< T >::getDimensions() const
+%feature("docstring")  LLData::dimensions "const int* LLData< T >::dimensions() const
 ";
 
 %feature("docstring")  LLData::getTotalSum "T LLData< T >::getTotalSum() const
@@ -1904,17 +1904,17 @@ C++ includes: OutputData.h
 %feature("docstring")  OutputData::addAxis "void OutputData< T >::addAxis(const std::string &name, size_t size, double start, double end)
 ";
 
-%feature("docstring")  OutputData::getAxis "const IAxis & OutputData< T >::getAxis(size_t serial_number) const
+%feature("docstring")  OutputData::axis "const IAxis & OutputData< T >::axis(size_t serial_number) const
 
 returns axis with given serial number 
 ";
 
-%feature("docstring")  OutputData::getAxis "const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
+%feature("docstring")  OutputData::axis "const IAxis & OutputData< T >::axis(const std::string &axis_name) const
 
 returns axis with given name 
 ";
 
-%feature("docstring")  OutputData::getRank "size_t OutputData< T >::getRank() const
+%feature("docstring")  OutputData::rank "size_t OutputData< T >::rank() const
 
 Returns number of dimensions. 
 ";
@@ -2631,10 +2631,10 @@ C++ includes: RectangularPixel.h
 %feature("docstring")  RectangularPixel::getPosition "kvector_t RectangularPixel::getPosition(double x, double y) const
 ";
 
-%feature("docstring")  RectangularPixel::getIntegrationFactor "double RectangularPixel::getIntegrationFactor(double x, double y) const override
+%feature("docstring")  RectangularPixel::integrationFactor "double RectangularPixel::integrationFactor(double x, double y) const override
 ";
 
-%feature("docstring")  RectangularPixel::getSolidAngle "double RectangularPixel::getSolidAngle() const override
+%feature("docstring")  RectangularPixel::solidAngle "double RectangularPixel::solidAngle() const override
 ";
 
 
@@ -3046,10 +3046,10 @@ C++ includes: SphericalPixel.h
 %feature("docstring")  SphericalPixel::getK "kvector_t SphericalPixel::getK(double x, double y, double wavelength) const override
 ";
 
-%feature("docstring")  SphericalPixel::getIntegrationFactor "double SphericalPixel::getIntegrationFactor(double x, double y) const override
+%feature("docstring")  SphericalPixel::integrationFactor "double SphericalPixel::integrationFactor(double x, double y) const override
 ";
 
-%feature("docstring")  SphericalPixel::getSolidAngle "double SphericalPixel::getSolidAngle() const override
+%feature("docstring")  SphericalPixel::solidAngle "double SphericalPixel::solidAngle() const override
 ";
 
 

@@ -157,9 +157,9 @@ std::string SimulationToPython::defineDetector(const ISimulation* simulation) co
         for (size_t index = 0; index < det->dimension(); ++index) {
             if (index != 0)
                 result << ", ";
-            result << det->getAxis(index).size() << ", "
-                   << pyfmt::printDegrees(det->getAxis(index).getMin()) << ", "
-                   << pyfmt::printDegrees(det->getAxis(index).getMax());
+            result << det->axis(index).size() << ", "
+                   << pyfmt::printDegrees(det->axis(index).lowerBound()) << ", "
+                   << pyfmt::printDegrees(det->axis(index).upperBound());
         }
         result << ")\n";
     } else if (const auto* const det = dynamic_cast<const RectangularDetector*>(detector)) {
@@ -269,7 +269,7 @@ SimulationToPython::defineDetectorPolarizationAnalysis(const ISimulation* simula
 std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulation) const
 {
     std::ostringstream result;
-    const Beam& beam = simulation.instrument().getBeam();
+    const Beam& beam = simulation.instrument().beam();
 
     result << pyfmt::indent() << "simulation.setBeamParameters("
            << pyfmt::printNm(beam.getWavelength()) << ", " << pyfmt::printDegrees(beam.getAlpha())
@@ -284,7 +284,7 @@ std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulatio
 std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simulation) const
 {
     std::ostringstream result;
-    const Beam& beam = simulation.instrument().getBeam();
+    const Beam& beam = simulation.instrument().beam();
 
     const std::string axis_def = pyfmt::indent() + "alpha_i_axis = ";
     result << axis_def << simulation.beamAxis()->pyString("rad", axis_def.size()) << "\n";
@@ -308,7 +308,7 @@ std::string SimulationToPython::defineSpecularScan(const SpecularSimulation& sim
     result << *scan << "\n";
 
     result << pyfmt::indent() << "simulation.setScan(scan)\n";
-    result << defineBeamIntensity(simulation.instrument().getBeam());
+    result << defineBeamIntensity(simulation.instrument().beam());
     result << "\n";
     return result.str();
 }

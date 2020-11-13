@@ -65,7 +65,7 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other) : ISimulation2D(o
 
 void GISASSimulation::initSimulationElementVector()
 {
-    m_sim_elements = generateSimulationElements(instrument().getBeam());
+    m_sim_elements = generateSimulationElements(instrument().beam());
     if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);
 }

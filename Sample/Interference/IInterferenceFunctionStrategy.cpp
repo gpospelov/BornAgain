@@ -23,10 +23,11 @@
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* p_iff, const SimulationOptions& sim_params, bool polarized)
-    : m_formfactor_wrappers(weighted_formfactors),
-      m_iff(p_iff ? p_iff->clone() : new InterferenceFunctionNone()), m_options(sim_params),
-      m_polarized(polarized),
-      m_integrator(
+    : m_formfactor_wrappers(weighted_formfactors)
+    , m_iff(p_iff ? p_iff->clone() : new InterferenceFunctionNone())
+    , m_options(sim_params)
+    , m_polarized(polarized)
+    , m_integrator(
           make_integrator_miser(this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2))
 {
     ASSERT(!m_formfactor_wrappers.empty());
@@ -36,7 +37,7 @@ IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() = default;
 
 double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
 {
-    if (m_options.isIntegrate() && (sim_element.getSolidAngle() > 0.0))
+    if (m_options.isIntegrate() && (sim_element.solidAngle() > 0.0))
         return MCIntegratedEvaluate(sim_element);
     return evaluateSinglePoint(sim_element);
 }
@@ -68,5 +69,5 @@ double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double* fraction
     SimulationElement* pars = static_cast<SimulationElement*>(params);
 
     SimulationElement sim_element = pars->pointElement(par0, par1);
-    return pars->getIntegrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
+    return pars->integrationFactor(par0, par1) * evaluateSinglePoint(sim_element);
 }

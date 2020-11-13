@@ -26,9 +26,12 @@
 #include <QVBoxLayout>
 
 MaskEditorCanvas::MaskEditorCanvas(QWidget* parent)
-    : QWidget(parent), m_scene(new MaskGraphicsScene(this)), m_view(new MaskGraphicsView(m_scene)),
-      m_intensityDataItem(0), m_statusLabel(new PlotStatusLabel(0, this)),
-      m_resultsPresenter(new MaskResultsPresenter(this))
+    : QWidget(parent)
+    , m_scene(new MaskGraphicsScene(this))
+    , m_view(new MaskGraphicsView(m_scene))
+    , m_intensityDataItem(0)
+    , m_statusLabel(new PlotStatusLabel(0, this))
+    , m_resultsPresenter(new MaskResultsPresenter(this))
 {
     setObjectName("MaskEditorCanvas");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

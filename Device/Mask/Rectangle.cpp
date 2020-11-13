@@ -47,7 +47,7 @@ bool Rectangle::contains(double x, double y) const
 
 bool Rectangle::contains(const Bin1D& binx, const Bin1D& biny) const
 {
-    return contains(binx.getMidPoint(), biny.getMidPoint());
+    return contains(binx.center(), biny.center());
 }
 
 double Rectangle::getArea() const

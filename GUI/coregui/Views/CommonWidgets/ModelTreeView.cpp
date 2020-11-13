@@ -21,8 +21,10 @@
 #include <QVBoxLayout>
 
 ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
-    : QWidget(parent), m_tree(new QTreeView),
-      m_decorationProxy(new SessionDecorationModel(this, model)), m_is_expanded(false)
+    : QWidget(parent)
+    , m_tree(new QTreeView)
+    , m_decorationProxy(new SessionDecorationModel(this, model))
+    , m_is_expanded(false)
 {
     if (!model)
         throw GUIHelpers::Error("ModelTreeView::ModelTreeView() -> Error. Nullptr as model.");

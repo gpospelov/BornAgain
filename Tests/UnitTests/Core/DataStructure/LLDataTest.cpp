@@ -48,10 +48,10 @@ TEST_F(LLDataTest, TotalSize)
 
 TEST_F(LLDataTest, GetRank)
 {
-    EXPECT_EQ(0u, int_data_0d->getRank());
-    EXPECT_EQ(1u, fl_data_1d->getRank());
-    EXPECT_EQ(3u, db_data_3d->getRank());
-    EXPECT_EQ(2u, matrix_data_2d->getRank());
+    EXPECT_EQ(0u, int_data_0d->rank());
+    EXPECT_EQ(1u, fl_data_1d->rank());
+    EXPECT_EQ(3u, db_data_3d->rank());
+    EXPECT_EQ(2u, matrix_data_2d->rank());
 }
 
 TEST_F(LLDataTest, SetAll)
@@ -88,10 +88,10 @@ TEST_F(LLDataTest, TotalSum)
 
 TEST_F(LLDataTest, GetDimensions)
 {
-    EXPECT_EQ(int_data_0d->getDimensions(), (int*)0);
-    EXPECT_EQ(fl_data_1d->getDimensions()[0], 10);
-    EXPECT_EQ(db_data_3d->getDimensions()[1], 15);
-    EXPECT_EQ(matrix_data_2d->getDimensions()[1], 30);
+    EXPECT_EQ(int_data_0d->dimensions(), (int*)0);
+    EXPECT_EQ(fl_data_1d->dimensions()[0], 10);
+    EXPECT_EQ(db_data_3d->dimensions()[1], 15);
+    EXPECT_EQ(matrix_data_2d->dimensions()[1], 30);
 }
 
 TEST_F(LLDataTest, DataCopyingConstructor)

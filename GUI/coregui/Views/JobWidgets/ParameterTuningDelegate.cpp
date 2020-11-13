@@ -86,9 +86,14 @@ double ParameterTuningDelegate::TuningData::step() const
 }
 
 ParameterTuningDelegate::ParameterTuningDelegate(QObject* parent)
-    : QItemDelegate(parent), m_valueColumn(1), m_slider(nullptr), m_valueBox(nullptr),
-      m_contentWidget(nullptr), m_contentLayout(nullptr), m_currentItem(nullptr),
-      m_isReadOnly(false)
+    : QItemDelegate(parent)
+    , m_valueColumn(1)
+    , m_slider(nullptr)
+    , m_valueBox(nullptr)
+    , m_contentWidget(nullptr)
+    , m_contentLayout(nullptr)
+    , m_currentItem(nullptr)
+    , m_isReadOnly(false)
 {
 }
 

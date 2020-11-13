@@ -81,13 +81,13 @@ TEST_F(RectangularDetectorTest, PerpToSample)
     // initializing with the simulation
     GISASSimulation simulation;
     simulation.setBeamParameters(1.0, 10.0 * Units::degree, 0.0);
-    det.init(simulation.instrument().getBeam());
+    det.init(simulation.instrument().beam());
     EXPECT_TRUE(kvector_t(distance, 0, 0) == det.getNormalVector());
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
 
     // FIXME cleanup, replace with DetectorContext tests
     //    std::vector<DetectorElement> elements
-    //        = det.createDetectorElements(simulation.instrument().getBeam());
+    //        = det.createDetectorElements(simulation.instrument().beam());
     //    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
     //    double wavelength = 1.0;
@@ -135,13 +135,13 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam)
     // initializing with the simulation
     GISASSimulation simulation;
     simulation.setBeamParameters(1.0, alpha_i, 0.0);
-    det.init(simulation.instrument().getBeam());
+    det.init(simulation.instrument().beam());
     kvector_t normal(distance * cos(alpha_i), 0.0, -1.0 * distance * sin(alpha_i));
     EXPECT_TRUE(isEqual(normal, det.getNormalVector()));
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
 
     //    std::vector<DetectorElement> elements
-    //        = det.createDetectorElements(simulation.instrument().getBeam());
+    //        = det.createDetectorElements(simulation.instrument().beam());
     //    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
     //    // lower left bin
@@ -178,14 +178,14 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
     // initializing with the simulation
     GISASSimulation simulation;
     simulation.setBeamParameters(1.0, alpha_i, 0.0);
-    det.init(simulation.instrument().getBeam());
+    det.init(simulation.instrument().beam());
     kvector_t normal(distance * cos(alpha_i), 0.0, 1.0 * distance * sin(alpha_i));
     EXPECT_TRUE(isEqual(normal, det.getNormalVector()));
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
 
     //    // checking detector elements
     //    std::vector<DetectorElement> elements
-    //        = det.createDetectorElements(simulation.instrument().getBeam());
+    //        = det.createDetectorElements(simulation.instrument().beam());
     //    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
     //    double ds = v0 - dy / 2.;
@@ -233,7 +233,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
     // initializing with the simulation
     GISASSimulation simulation;
     simulation.setBeamParameters(1.0, alpha_i, 0.0);
-    det.init(simulation.instrument().getBeam());
+    det.init(simulation.instrument().beam());
 
     kvector_t normal(distance * cos(alpha_i), 0.0, 1.0 * distance * sin(alpha_i));
     EXPECT_TRUE(isEqual(normal, det.getNormalVector()));
@@ -243,7 +243,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
 
     //    // checking detector elements
     //    std::vector<DetectorElement> elements
-    //        = det.createDetectorElements(simulation.instrument().getBeam());
+    //        = det.createDetectorElements(simulation.instrument().beam());
     //    EXPECT_EQ(elements.size(), nbinsx * nbinsy);
 
     //    double ds = v0 - dy / 2.;

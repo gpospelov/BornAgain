@@ -28,8 +28,13 @@
 #include <QVBoxLayout>
 
 RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
-    : QWidget(parent), m_sampleModel(nullptr), m_view(new RealSpaceView), m_selectionModel(nullptr),
-      m_view_locked(false), m_sceneGeometry(new SceneGeometry), m_warningSign(new WarningSign(this))
+    : QWidget(parent)
+    , m_sampleModel(nullptr)
+    , m_view(new RealSpaceView)
+    , m_selectionModel(nullptr)
+    , m_view_locked(false)
+    , m_sceneGeometry(new SceneGeometry)
+    , m_warningSign(new WarningSign(this))
 {
     auto layout = new QVBoxLayout;
     layout->setMargin(0);

@@ -20,15 +20,14 @@ bool IAxis::equals(const IAxis& other) const
     return getName() == other.getName();
 }
 
-std::vector<double> IAxis::getBinCenters() const
+std::vector<double> IAxis::binCenters() const
 {
-    throw Exceptions::NotImplementedException("IAxis::getBinCenters() -> Error. Not implemented.");
+    throw Exceptions::NotImplementedException("IAxis::binCenters() -> Error. Not implemented.");
 }
 
-std::vector<double> IAxis::getBinBoundaries() const
+std::vector<double> IAxis::binBoundaries() const
 {
-    throw Exceptions::NotImplementedException(
-        "IAxis::getBinBoundaries() -> Error. Not implemented.");
+    throw Exceptions::NotImplementedException("IAxis::binBoundaries() -> Error. Not implemented.");
 }
 
 IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const
@@ -39,5 +38,10 @@ IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const
 
 bool IAxis::contains(double value) const
 {
-    return value >= getMin() && value < getMax();
+    return value >= lowerBound() && value < upperBound();
+}
+
+double IAxis::span() const
+{
+    return upperBound() - lowerBound();
 }

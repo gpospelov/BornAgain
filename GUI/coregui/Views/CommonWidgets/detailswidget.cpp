@@ -92,11 +92,18 @@ public:
 };
 
 DetailsWidgetPrivate::DetailsWidgetPrivate(QWidget* parent)
-    : q(parent), m_detailsButton(new DetailsButton), m_grid(new QGridLayout),
-      m_summaryLabelIcon(new QLabel(parent)), m_summaryLabel(new QLabel(parent)),
-      m_summaryCheckBox(new QCheckBox(parent)), m_additionalSummaryLabel(new QLabel(parent)),
-      m_toolWidget(nullptr), m_widget(nullptr), m_state(DetailsWidget::Collapsed), m_hovered(false),
-      m_useCheckBox(false)
+    : q(parent)
+    , m_detailsButton(new DetailsButton)
+    , m_grid(new QGridLayout)
+    , m_summaryLabelIcon(new QLabel(parent))
+    , m_summaryLabel(new QLabel(parent))
+    , m_summaryCheckBox(new QCheckBox(parent))
+    , m_additionalSummaryLabel(new QLabel(parent))
+    , m_toolWidget(nullptr)
+    , m_widget(nullptr)
+    , m_state(DetailsWidget::Collapsed)
+    , m_hovered(false)
+    , m_useCheckBox(false)
 {
     QHBoxLayout* summaryLayout = new QHBoxLayout;
     summaryLayout->setContentsMargins(MARGIN, MARGIN, MARGIN, MARGIN);

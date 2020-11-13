@@ -26,12 +26,12 @@ const QString polarization_title = "Analyzer orientation";
 } // namespace
 
 SphericalDetectorEditor::SphericalDetectorEditor(QWidget* parent)
-    : SessionItemWidget(parent),
-      m_phiAxisEditor(new ComponentEditor(ComponentEditor::GroupWidget, phi_axis_title)),
-      m_alphaAxisEditor(new ComponentEditor(ComponentEditor::GroupWidget, alpha_axis_title)),
-      m_resolutionFunctionEditor(
-          new ComponentEditor(ComponentEditor::GroupWidget, resolution_title)),
-      m_gridLayout(new QGridLayout)
+    : SessionItemWidget(parent)
+    , m_phiAxisEditor(new ComponentEditor(ComponentEditor::GroupWidget, phi_axis_title))
+    , m_alphaAxisEditor(new ComponentEditor(ComponentEditor::GroupWidget, alpha_axis_title))
+    , m_resolutionFunctionEditor(
+          new ComponentEditor(ComponentEditor::GroupWidget, resolution_title))
+    , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
     m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);

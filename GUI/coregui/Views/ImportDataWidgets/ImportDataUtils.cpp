@@ -34,12 +34,12 @@ const QString filter_string_ba = "Intensity File (*.int *.gz *.tif *.tiff *.txt 
 const QString filter_string_ascii = "Intensity File (*.int *.int.gz *.txt *.csv *.dat *.ascii);;"
                                     "Ascii column-wise data (*.*)";
 
-int getRank(const RealDataItem& item)
+int rank(const RealDataItem& item)
 {
     return static_cast<int>(item.shape().size());
 }
 
-int getRank(const InstrumentItem& item)
+int rank(const InstrumentItem& item)
 {
     return static_cast<int>(item.shape().size());
 }
@@ -138,20 +138,20 @@ ImportDataInfo ImportDataUtils::getFromImportAssistant(QString& fileName)
 bool ImportDataUtils::Compatible(const InstrumentItem& instrumentItem,
                                  const RealDataItem& realDataItem)
 {
-    return getRank(instrumentItem) == getRank(realDataItem);
+    return rank(instrumentItem) == rank(realDataItem);
 }
 
 std::unique_ptr<OutputData<double>>
 ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
 {
-    const size_t data_rank = data.getRank();
+    const size_t data_rank = data.rank();
     if (data_rank > 2 || data_rank < 1)
         throw std::runtime_error("Error in ImportDataUtils::CreateSimplifiedOutputData: passed "
                                  "array is neither 1D nor 2D");
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < data_rank; ++i) {
-        const IAxis& axis = data.getAxis(i);
+        const IAxis& axis = data.axis(i);
         const size_t axis_size = axis.size();
         const double min = 0.0;
         const double max = axis_size;

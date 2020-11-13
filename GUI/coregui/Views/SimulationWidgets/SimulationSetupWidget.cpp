@@ -29,9 +29,12 @@
 #include <QVBoxLayout>
 
 SimulationSetupWidget::SimulationSetupWidget(QWidget* parent)
-    : QWidget(parent), m_applicationModels(0), runSimulationButton(0), exportToPyScriptButton(0),
-      m_simDataSelectorWidget(new SimulationDataSelectorWidget(this)),
-      m_simOptionsWidget(new SimulationOptionsWidget(this))
+    : QWidget(parent)
+    , m_applicationModels(0)
+    , runSimulationButton(0)
+    , exportToPyScriptButton(0)
+    , m_simDataSelectorWidget(new SimulationDataSelectorWidget(this))
+    , m_simOptionsWidget(new SimulationOptionsWidget(this))
 {
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_simDataSelectorWidget);

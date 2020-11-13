@@ -15,8 +15,9 @@
 #include "GUI/coregui/Views/MaskWidgets/MaskDrawingContext.h"
 
 MaskDrawingContext::MaskDrawingContext()
-    : m_current_activity(MaskEditorFlags::PAN_ZOOM_MODE), m_mask_value(MaskEditorFlags::MASK_ON),
-      m_drawing_in_progress(false)
+    : m_current_activity(MaskEditorFlags::PAN_ZOOM_MODE)
+    , m_mask_value(MaskEditorFlags::MASK_ON)
+    , m_drawing_in_progress(false)
 {
 }
 

@@ -35,7 +35,7 @@ TEST_F(SpectrumTest, histogramPeaks)
     Histogram2D hist(10, 10.0, 110.0, 6, 0.0, 60.0);
     hist.setContent(data);
 
-    EXPECT_EQ(hist.getBinContent(4, 2), 10.0);
+    EXPECT_EQ(hist.binContent(4, 2), 10.0);
 
     auto peaks = SpectrumUtils::FindPeaks(hist, 3, "nomarkov", 0.1);
     EXPECT_NEAR(peaks[0].first, 55.0, 0.01);  // center of histogram x-axis bin with index=4

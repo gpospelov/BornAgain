@@ -21,16 +21,16 @@
 #include <QStyle>
 #include <QTime>
 
-SplashScreen::SplashScreen(QWidget* parent) : QSplashScreen(parent), m_percentage_done(0)
+SplashScreen::SplashScreen(QWidget*)
+    : QSplashScreen(QPixmap(":/images/splashscreen.png")), m_percentage_done(0)
 
 {
-    this->setPixmap(QPixmap(":/images/splashscreen.png"));
-    this->setCursor(Qt::BusyCursor);
+    QSplashScreen::setCursor(Qt::BusyCursor);
 
     QFont font;
     font.setPointSize(StyleUtils::SystemPointSize() * 0.9);
     font.setBold(false);
-    this->setFont(font);
+    QSplashScreen::setFont(font);
 }
 
 void SplashScreen::start(int show_during)

@@ -21,9 +21,10 @@
 #include <QVBoxLayout>
 
 ColorMapCanvas::ColorMapCanvas(QWidget* parent)
-    : SessionItemWidget(parent), m_colorMap(new ColorMap),
-      m_canvasEvent(new FontScalingEvent(m_colorMap, this)),
-      m_statusLabel(new PlotStatusLabel(m_colorMap, this))
+    : SessionItemWidget(parent)
+    , m_colorMap(new ColorMap)
+    , m_canvasEvent(new FontScalingEvent(m_colorMap, this))
+    , m_statusLabel(new PlotStatusLabel(m_colorMap, this))
 {
     this->installEventFilter(m_canvasEvent);
     QVBoxLayout* layout = new QVBoxLayout;

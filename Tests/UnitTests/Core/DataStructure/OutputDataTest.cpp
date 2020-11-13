@@ -216,14 +216,14 @@ TEST_F(OutputDataTest, GetAxisBin)
     data.addAxis("axis1", 10, 0., 10.);
     data.addAxis("axis2", 2, 0., 10.);
 
-    EXPECT_EQ(0.5, data.getAxisBin(0, "axis1").getMidPoint());
-    EXPECT_EQ(0.5, data.getAxisBin(1, "axis1").getMidPoint());
-    EXPECT_EQ(9.5, data.getAxisBin(18, "axis1").getMidPoint());
-    EXPECT_EQ(9.5, data.getAxisBin(19, "axis1").getMidPoint());
-    EXPECT_EQ(2.5, data.getAxisBin(0, "axis2").getMidPoint());
-    EXPECT_EQ(7.5, data.getAxisBin(1, "axis2").getMidPoint());
-    EXPECT_EQ(2.5, data.getAxisBin(18, "axis2").getMidPoint());
-    EXPECT_EQ(7.5, data.getAxisBin(19, "axis2").getMidPoint());
+    EXPECT_EQ(0.5, data.getAxisBin(0, "axis1").center());
+    EXPECT_EQ(0.5, data.getAxisBin(1, "axis1").center());
+    EXPECT_EQ(9.5, data.getAxisBin(18, "axis1").center());
+    EXPECT_EQ(9.5, data.getAxisBin(19, "axis1").center());
+    EXPECT_EQ(2.5, data.getAxisBin(0, "axis2").center());
+    EXPECT_EQ(7.5, data.getAxisBin(1, "axis2").center());
+    EXPECT_EQ(2.5, data.getAxisBin(18, "axis2").center());
+    EXPECT_EQ(7.5, data.getAxisBin(19, "axis2").center());
 }
 
 TEST_F(OutputDataTest, SetCleared)

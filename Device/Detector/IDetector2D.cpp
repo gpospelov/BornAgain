@@ -99,5 +99,5 @@ size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
 {
     if (dimension() != 2)
         return totalSize();
-    return x * getAxis(1).size() + y;
+    return x * axis(1).size() + y;
 }

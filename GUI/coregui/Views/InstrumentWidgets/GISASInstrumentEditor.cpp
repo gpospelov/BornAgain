@@ -23,10 +23,12 @@
 #include <QVBoxLayout>
 
 GISASInstrumentEditor::GISASInstrumentEditor(QWidget* parent)
-    : SessionItemWidget(parent), m_columnResizer(new ColumnResizer(this)),
-      m_beamEditor(new GISASBeamEditor(m_columnResizer)), m_detectorEditor(new GISASDetectorEditor),
-      m_environmentEditor(new EnvironmentEditor(m_columnResizer)),
-      m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
+    : SessionItemWidget(parent)
+    , m_columnResizer(new ColumnResizer(this))
+    , m_beamEditor(new GISASBeamEditor(m_columnResizer))
+    , m_detectorEditor(new GISASDetectorEditor)
+    , m_environmentEditor(new EnvironmentEditor(m_columnResizer))
+    , m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
 {
     auto mainLayout = new QVBoxLayout;
 

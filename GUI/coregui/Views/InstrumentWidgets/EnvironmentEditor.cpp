@@ -27,9 +27,10 @@ const QString background_title("Background");
 }
 
 EnvironmentEditor::EnvironmentEditor(ColumnResizer* columnResizer, QWidget* parent)
-    : SessionItemWidget(parent), m_columnResizer(columnResizer),
-      m_backgroundEditor(new ComponentEditor(ComponentEditor::GroupWidget, background_title)),
-      m_gridLayout(new QGridLayout)
+    : SessionItemWidget(parent)
+    , m_columnResizer(columnResizer)
+    , m_backgroundEditor(new ComponentEditor(ComponentEditor::GroupWidget, background_title))
+    , m_gridLayout(new QGridLayout)
 {
     m_gridLayout->addWidget(m_backgroundEditor, 0, 0);
     m_gridLayout->addWidget(LayoutUtils::placeHolder(), 0, 1);

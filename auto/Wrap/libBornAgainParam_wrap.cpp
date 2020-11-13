@@ -43122,7 +43122,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_DistributionGate_getMin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_DistributionGate_lowerBound(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   DistributionGate *arg1 = (DistributionGate *) 0 ;
   void *argp1 = 0 ;
@@ -43134,10 +43134,10 @@ SWIGINTERN PyObject *_wrap_DistributionGate_getMin(PyObject *SWIGUNUSEDPARM(self
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_getMin" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_lowerBound" "', argument " "1"" of type '" "DistributionGate const *""'"); 
   }
   arg1 = reinterpret_cast< DistributionGate * >(argp1);
-  result = (double)((DistributionGate const *)arg1)->getMin();
+  result = (double)((DistributionGate const *)arg1)->lowerBound();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -43145,7 +43145,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_DistributionGate_getMax(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_DistributionGate_upperBound(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   DistributionGate *arg1 = (DistributionGate *) 0 ;
   void *argp1 = 0 ;
@@ -43157,10 +43157,10 @@ SWIGINTERN PyObject *_wrap_DistributionGate_getMax(PyObject *SWIGUNUSEDPARM(self
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DistributionGate, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_getMax" "', argument " "1"" of type '" "DistributionGate const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DistributionGate_upperBound" "', argument " "1"" of type '" "DistributionGate const *""'"); 
   }
   arg1 = reinterpret_cast< DistributionGate * >(argp1);
-  result = (double)((DistributionGate const *)arg1)->getMax();
+  result = (double)((DistributionGate const *)arg1)->upperBound();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -51428,14 +51428,14 @@ static PyMethodDef SwigMethods[] = {
 		"Returns the distribution-specific mean. \n"
 		"\n"
 		""},
-	 { "DistributionGate_getMin", _wrap_DistributionGate_getMin, METH_O, "\n"
-		"DistributionGate_getMin(DistributionGate self) -> double\n"
-		"double DistributionGate::getMin() const\n"
+	 { "DistributionGate_lowerBound", _wrap_DistributionGate_lowerBound, METH_O, "\n"
+		"DistributionGate_lowerBound(DistributionGate self) -> double\n"
+		"double DistributionGate::lowerBound() const\n"
 		"\n"
 		""},
-	 { "DistributionGate_getMax", _wrap_DistributionGate_getMax, METH_O, "\n"
-		"DistributionGate_getMax(DistributionGate self) -> double\n"
-		"double DistributionGate::getMax() const\n"
+	 { "DistributionGate_upperBound", _wrap_DistributionGate_upperBound, METH_O, "\n"
+		"DistributionGate_upperBound(DistributionGate self) -> double\n"
+		"double DistributionGate::upperBound() const\n"
 		"\n"
 		""},
 	 { "DistributionGate_equidistantPoints", _wrap_DistributionGate_equidistantPoints, METH_VARARGS, "\n"

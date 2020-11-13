@@ -28,8 +28,8 @@ public:
     RectangularPixel* createZeroSizePixel(double x, double y) const override;
     kvector_t getK(double x, double y, double wavelength) const override;
     kvector_t getPosition(double x, double y) const;
-    double getIntegrationFactor(double x, double y) const override;
-    double getSolidAngle() const override;
+    double integrationFactor(double x, double y) const override;
+    double solidAngle() const override;
 
 private:
     kvector_t normalizeLength(const kvector_t direction, double length) const;

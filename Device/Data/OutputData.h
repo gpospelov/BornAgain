@@ -48,15 +48,15 @@ public:
     void addAxis(const std::string& name, size_t size, double start, double end);
 
     //! returns axis with given serial number
-    const IAxis& getAxis(size_t serial_number) const;
+    const IAxis& axis(size_t serial_number) const;
 
     //! returns axis with given name
-    const IAxis& getAxis(const std::string& axis_name) const;
+    const IAxis& axis(const std::string& axis_name) const;
 
     // retrieve basic info
 
     //! Returns number of dimensions.
-    size_t getRank() const { return m_value_axes.size(); }
+    size_t rank() const { return m_value_axes.size(); }
 
     //! Returns total size of data buffer (product of bin number in every dimension).
     size_t getAllocatedSize() const
@@ -271,9 +271,9 @@ template <class T> void OutputData<T>::copyFrom(const OutputData<T>& other)
 template <class T> template <class U> void OutputData<T>::copyShapeFrom(const OutputData<U>& other)
 {
     clear();
-    size_t rank = other.getRank();
+    size_t rank = other.rank();
     for (size_t i = 0; i < rank; ++i)
-        addAxis(other.getAxis(i));
+        addAxis(other.axis(i));
 }
 
 template <class T> OutputData<double>* OutputData<T>::meanValues() const
@@ -311,22 +311,22 @@ void OutputData<T>::addAxis(const std::string& name, size_t size, double start, 
     addAxis(new_axis);
 }
 
-template <class T> const IAxis& OutputData<T>::getAxis(size_t serial_number) const
+template <class T> const IAxis& OutputData<T>::axis(size_t serial_number) const
 {
     return *m_value_axes[serial_number];
 }
 
-template <class T> const IAxis& OutputData<T>::getAxis(const std::string& axis_name) const
+template <class T> const IAxis& OutputData<T>::axis(const std::string& axis_name) const
 {
-    return getAxis(getAxisIndex(axis_name));
+    return axis(getAxisIndex(axis_name));
 }
 
 template <class T> inline std::vector<size_t> OutputData<T>::getAllSizes() const
 {
     ASSERT(m_ll_data);
     std::vector<size_t> result;
-    for (size_t i = 0; i < getRank(); ++i) {
-        int dim = m_ll_data->getDimensions()[i];
+    for (size_t i = 0; i < rank(); ++i) {
+        int dim = m_ll_data->dimensions()[i];
         result.push_back(dim);
     }
     return result;
@@ -358,11 +358,11 @@ template <class T> std::vector<int> OutputData<T>::getAxesBinIndices(size_t glob
     ASSERT(m_ll_data);
     size_t remainder = global_index;
     std::vector<int> result;
-    result.resize(m_ll_data->getRank());
-    for (size_t i = 0; i < m_ll_data->getRank(); ++i) {
-        result[m_ll_data->getRank() - 1 - i] =
-            (int)(remainder % m_value_axes[m_ll_data->getRank() - 1 - i]->size());
-        remainder /= m_value_axes[m_ll_data->getRank() - 1 - i]->size();
+    result.resize(m_ll_data->rank());
+    for (size_t i = 0; i < m_ll_data->rank(); ++i) {
+        result[m_ll_data->rank() - 1 - i] =
+            (int)(remainder % m_value_axes[m_ll_data->rank() - 1 - i]->size());
+        remainder /= m_value_axes[m_ll_data->rank() - 1 - i]->size();
     }
     return result;
 }
@@ -372,8 +372,8 @@ size_t OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axi
 {
     ASSERT(m_ll_data);
     size_t remainder(global_index);
-    for (size_t i = 0; i < m_ll_data->getRank(); ++i) {
-        size_t i_axis = m_ll_data->getRank() - 1 - i;
+    for (size_t i = 0; i < m_ll_data->rank(); ++i) {
+        size_t i_axis = m_ll_data->rank() - 1 - i;
         size_t result = remainder % m_value_axes[i_axis]->size();
         if (i_selected_axis == i_axis)
             return result;
@@ -393,13 +393,13 @@ template <class T>
 size_t OutputData<T>::toGlobalIndex(const std::vector<unsigned>& axes_indices) const
 {
     ASSERT(m_ll_data);
-    if (axes_indices.size() != m_ll_data->getRank())
+    if (axes_indices.size() != m_ll_data->rank())
         throw Exceptions::LogicErrorException(
             "size_t OutputData<T>::toGlobalIndex() -> "
             "Error! Number of coordinates must match rank of data structure");
     size_t result = 0;
     size_t step_size = 1;
-    for (size_t i = m_ll_data->getRank(); i > 0; --i) {
+    for (size_t i = m_ll_data->rank(); i > 0; --i) {
         if (axes_indices[i - 1] >= m_value_axes[i - 1]->size()) {
             std::ostringstream message;
             message << "size_t OutputData<T>::toGlobalIndex() -> Error. Index ";
@@ -418,13 +418,13 @@ template <class T>
 size_t OutputData<T>::findGlobalIndex(const std::vector<double>& coordinates) const
 {
     ASSERT(m_ll_data);
-    if (coordinates.size() != m_ll_data->getRank())
+    if (coordinates.size() != m_ll_data->rank())
         throw Exceptions::LogicErrorException(
             "OutputData<T>::findClosestIndex() -> "
             "Error! Number of coordinates must match rank of data structure");
     std::vector<unsigned> axes_indexes;
-    axes_indexes.resize(m_ll_data->getRank());
-    for (size_t i = 0; i < m_ll_data->getRank(); ++i)
+    axes_indexes.resize(m_ll_data->rank());
+    for (size_t i = 0; i < m_ll_data->rank(); ++i)
         axes_indexes[i] = static_cast<unsigned>(m_value_axes[i]->findClosestIndex(coordinates[i]));
     return toGlobalIndex(axes_indexes);
 }
@@ -455,7 +455,7 @@ template <class T>
 Bin1D OutputData<T>::getAxisBin(size_t global_index, size_t i_selected_axis) const
 {
     auto axis_index = getAxisBinIndex(global_index, i_selected_axis);
-    return m_value_axes[i_selected_axis]->getBin(axis_index);
+    return m_value_axes[i_selected_axis]->bin(axis_index);
 }
 
 template <class T>
@@ -528,9 +528,9 @@ template <class T> bool OutputData<T>::isInitialized() const
 {
     if (!m_ll_data)
         return false;
-    if (getRank() != m_ll_data->getRank())
+    if (rank() != m_ll_data->rank())
         return false;
-    if (!getRank())
+    if (!rank())
         return false;
     return true;
 }
@@ -548,7 +548,7 @@ template <class T> void OutputData<T>::allocate()
     size_t rank = m_value_axes.size();
     int* dims = new int[rank];
     for (size_t i = 0; i < rank; ++i) {
-        dims[i] = (int)getAxis(i).size();
+        dims[i] = (int)axis(i).size();
     }
     m_ll_data = new LLData<T>(rank, dims);
     T default_value = {};
@@ -581,10 +581,10 @@ inline bool OutputData<T>::hasSameDimensions(const OutputData<U>& right) const
         return false;
     if (!right.isInitialized())
         return false;
-    if (getRank() != right.getRank())
+    if (rank() != right.rank())
         return false;
-    for (size_t i_axis = 0; i_axis < getRank(); ++i_axis)
-        if (getAxis(i_axis).size() != right.getAxis(i_axis).size())
+    for (size_t i_axis = 0; i_axis < rank(); ++i_axis)
+        if (axis(i_axis).size() != right.axis(i_axis).size())
             return false;
     return true;
 }
@@ -598,7 +598,7 @@ bool OutputData<T>::hasSameShape(const OutputData<U>& right) const
         return false;
 
     for (size_t i = 0; i < m_value_axes.size(); ++i)
-        if (!HaveSameNameAndShape(getAxis(i), right.getAxis(i)))
+        if (!HaveSameNameAndShape(axis(i), right.axis(i)))
             return false;
     return true;
 }

@@ -34,7 +34,7 @@ std::unique_ptr<AngularSpecScan> mangledScan(const AngularSpecScan& scan, const 
 {
     const double wl = beam.getWavelength();
     const double angle_shift = beam.getAlpha();
-    std::vector<double> angles = scan.coordinateAxis()->getBinCenters();
+    std::vector<double> angles = scan.coordinateAxis()->binCenters();
     for (auto& val : angles)
         val += angle_shift;
     auto* result = new AngularSpecScan(wl, PointwiseAxis("alpha_i", std::move(angles)));
@@ -49,7 +49,7 @@ std::vector<SpecularSimulationElement> generateSimulationElements(const Instrume
 {
     // TODO: remove if statement when pointwise resolution is implemented
     if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(&scan))
-        return mangledScan(*aScan, instrument.getBeam())->generateSimulationElements(instrument);
+        return mangledScan(*aScan, instrument.beam())->generateSimulationElements(instrument);
 
     return scan.generateSimulationElements(instrument);
 }
@@ -66,8 +66,10 @@ SpecularSimulation::SpecularSimulation() : ISimulation()
 }
 
 SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
-    : ISimulation(other), m_scan(other.m_scan ? other.m_scan->clone() : nullptr),
-      m_sim_elements(other.m_sim_elements), m_cache(other.m_cache)
+    : ISimulation(other)
+    , m_scan(other.m_scan ? other.m_scan->clone() : nullptr)
+    , m_sim_elements(other.m_sim_elements)
+    , m_cache(other.m_cache)
 {
     initialize();
 }
@@ -110,7 +112,7 @@ SimulationResult SpecularSimulation::result() const
 void SpecularSimulation::setScan(const ISpecularScan& scan)
 {
     // TODO: move inside AngularSpecScan when pointwise resolution is implemented
-    if (scan.coordinateAxis()->getMin() < 0.0)
+    if (scan.coordinateAxis()->lowerBound() < 0.0)
         throw std::runtime_error(
             "Error in SpecularSimulation::setScan: minimum value on coordinate axis is negative.");
 
@@ -191,7 +193,7 @@ void SpecularSimulation::initialize()
     // allow for negative inclinations in the beam of specular simulation
     // it is required for proper averaging in the case of divergent beam
     instrument()
-        .getBeam()
+        .beam()
         .parameter("InclinationAngle")
         ->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
@@ -203,7 +205,7 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     std::vector<double> footprints;
     // TODO: use just m_scan when pointwise resolution is implemented
     if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(m_scan.get()))
-        footprints = mangledScan(*aScan, instrument().getBeam())->footprint(start_ind, n_elements);
+        footprints = mangledScan(*aScan, instrument().beam())->footprint(start_ind, n_elements);
     else
         footprints = m_scan->footprint(start_ind, n_elements);
 

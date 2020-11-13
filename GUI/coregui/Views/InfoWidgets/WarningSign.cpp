@@ -27,8 +27,11 @@ const int ypos_offset = 40;
 } // namespace
 
 WarningSign::WarningSign(QWidget* parent)
-    : QObject(parent), m_warning_header("Houston, we have a problem."), m_warningWidget(0),
-      m_area(nullptr), m_clear_just_had_happened(false)
+    : QObject(parent)
+    , m_warning_header("Houston, we have a problem.")
+    , m_warningWidget(0)
+    , m_area(nullptr)
+    , m_clear_just_had_happened(false)
 {
     setArea(parent);
 }

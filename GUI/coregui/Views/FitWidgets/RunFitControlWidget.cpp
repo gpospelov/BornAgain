@@ -33,9 +33,13 @@ const QString slider_tooltip = "Updates fit progress every Nth iteration";
 } // namespace
 
 RunFitControlWidget::RunFitControlWidget(QWidget* parent)
-    : SessionItemWidget(parent), m_startButton(new QPushButton), m_stopButton(new QPushButton),
-      m_intervalSlider(new QSlider), m_updateIntervalLabel(new QLabel),
-      m_iterationsCountLabel(new QLabel), m_warningSign(new WarningSign(this))
+    : SessionItemWidget(parent)
+    , m_startButton(new QPushButton)
+    , m_stopButton(new QPushButton)
+    , m_intervalSlider(new QSlider)
+    , m_updateIntervalLabel(new QLabel)
+    , m_iterationsCountLabel(new QLabel)
+    , m_warningSign(new WarningSign(this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setFixedHeight(Constants::RUN_FIT_CONTROL_WIDGET_HEIGHT);

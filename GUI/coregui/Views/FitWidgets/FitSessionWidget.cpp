@@ -24,14 +24,14 @@
 #include <QVBoxLayout>
 
 FitSessionWidget::FitSessionWidget(QWidget* parent)
-    : QWidget(parent), m_tabWidget(new QTabWidget), m_controlWidget(new RunFitControlWidget),
-      m_fitParametersWidget(new FitParameterWidget),
-      m_minimizerSettingsWidget(new MinimizerSettingsWidget)
-      // , m_fitResultsWidget(new FitResultsWidget)
-      ,
-      m_fitResultsWidget(nullptr) // temporary replacement to fix a memory leak
-      ,
-      m_sessionController(nullptr)
+    : QWidget(parent)
+    , m_tabWidget(new QTabWidget)
+    , m_controlWidget(new RunFitControlWidget)
+    , m_fitParametersWidget(new FitParameterWidget)
+    , m_minimizerSettingsWidget(new MinimizerSettingsWidget)
+    // , m_fitResultsWidget(new FitResultsWidget)
+    , m_fitResultsWidget(nullptr) // temporary replacement to fix a memory leak
+    , m_sessionController(nullptr)
 {
     auto layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);

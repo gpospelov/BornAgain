@@ -35,14 +35,18 @@
 #include <minisplitter.h>
 
 TestComponentView::TestComponentView(MainWindow* mainWindow)
-    : m_mainWindow(mainWindow), m_sampleModel(new SampleModel(this)),
-      m_materialModel(new MaterialModel(this)), m_sourceTree(new QTreeView),
-      m_componentTree(new ComponentEditor(ComponentEditor::FullTree)),
-      m_componentFlat(new ComponentEditor(ComponentEditor::PlainWidget)),
-      m_updateButton(new QPushButton("Update models")),
-      m_addItemButton(new QPushButton("Add item")), m_expandButton(new QPushButton("Expand tree")),
-      m_splitter(new Manhattan::MiniSplitter), m_delegate(new SessionModelDelegate(this)),
-      m_isExpaned(false)
+    : m_mainWindow(mainWindow)
+    , m_sampleModel(new SampleModel(this))
+    , m_materialModel(new MaterialModel(this))
+    , m_sourceTree(new QTreeView)
+    , m_componentTree(new ComponentEditor(ComponentEditor::FullTree))
+    , m_componentFlat(new ComponentEditor(ComponentEditor::PlainWidget))
+    , m_updateButton(new QPushButton("Update models"))
+    , m_addItemButton(new QPushButton("Add item"))
+    , m_expandButton(new QPushButton("Expand tree"))
+    , m_splitter(new Manhattan::MiniSplitter)
+    , m_delegate(new SessionModelDelegate(this))
+    , m_isExpaned(false)
 {
     auto buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget(m_updateButton);

@@ -134,7 +134,7 @@ void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
                                 "of instrument is incompatible with passed data shape.");
 
     QString units = item->getItemValue(RealDataItem::P_NATIVE_DATA_UNITS).toString();
-    const auto& data = item->nativeData()->getOutputData()->getAxis(0);
+    const auto& data = item->nativeData()->getOutputData()->axis(0);
     beamItem()->updateToData(data, units);
 }
 
@@ -151,11 +151,11 @@ bool SpecularInstrumentItem::alignedWith(const RealDataItem* item) const
         if (axis_item->getUnitsLabel() != native_units)
             return false;
 
-        auto instrument_axis = axis_item->getAxis();
+        auto instrument_axis = axis_item->axis();
         if (!instrument_axis)
             return false;
 
-        const auto& native_axis = item->nativeData()->getOutputData()->getAxis(0);
+        const auto& native_axis = item->nativeData()->getOutputData()->axis(0);
         return *instrument_axis == native_axis;
         ;
     }
@@ -169,11 +169,11 @@ std::unique_ptr<IUnitConverter> SpecularInstrumentItem::createUnitConverter() co
         if (!pointwise_axis->containsNonXMLData()) // workaround for loading project
             return nullptr;
         Axes::Units native_units = JobItemUtils::axesUnitsFromName(pointwise_axis->getUnitsLabel());
-        return std::make_unique<UnitConverterConvSpec>(instrument->getBeam(),
-                                                       *pointwise_axis->getAxis(), native_units);
+        return std::make_unique<UnitConverterConvSpec>(instrument->beam(), *pointwise_axis->axis(),
+                                                       native_units);
     } else
         return std::make_unique<UnitConverterConvSpec>(
-            instrument->getBeam(), *axis_item->createAxis(1.0), Axes::Units::DEGREES);
+            instrument->beam(), *axis_item->createAxis(1.0), Axes::Units::DEGREES);
 }
 
 const QString Instrument2DItem::P_DETECTOR = "Detector";

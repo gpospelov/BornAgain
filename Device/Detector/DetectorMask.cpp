@@ -19,8 +19,9 @@
 DetectorMask::DetectorMask() : m_number_of_masked_channels(0) {}
 
 DetectorMask::DetectorMask(const DetectorMask& other)
-    : m_shapes(other.m_shapes), m_mask_of_shape(other.m_mask_of_shape),
-      m_number_of_masked_channels(other.m_number_of_masked_channels)
+    : m_shapes(other.m_shapes)
+    , m_mask_of_shape(other.m_mask_of_shape)
+    , m_number_of_masked_channels(other.m_number_of_masked_channels)
 {
     m_mask_data.copyFrom(other.m_mask_data);
 }
@@ -56,7 +57,7 @@ void DetectorMask::initMaskData(const IDetector2D& detector)
     m_mask_data.clear();
 
     for (size_t dim = 0; dim < detector.dimension(); ++dim) {
-        const IAxis& axis = detector.getAxis(dim);
+        const IAxis& axis = detector.axis(dim);
         m_mask_data.addAxis(axis);
     }
 
@@ -68,8 +69,8 @@ void DetectorMask::initMaskData(const OutputData<double>& data)
     ASSERT(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
 
-    for (size_t dim = 0; dim < data.getRank(); ++dim)
-        m_mask_data.addAxis(data.getAxis(dim));
+    for (size_t dim = 0; dim < data.rank(); ++dim)
+        m_mask_data.addAxis(data.axis(dim));
 
     process_masks();
 }

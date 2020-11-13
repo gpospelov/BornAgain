@@ -20,8 +20,11 @@
 #include <gsl/gsl_linalg.h>
 
 Lattice::Lattice()
-    : m_selection_rule(nullptr), m_a({1.0, 0.0, 0.0}), m_b({0.0, 1.0, 0.0}), m_c({0.0, 0.0, 1.0}),
-      m_cache_ok(false)
+    : m_selection_rule(nullptr)
+    , m_a({1.0, 0.0, 0.0})
+    , m_b({0.0, 1.0, 0.0})
+    , m_c({0.0, 0.0, 1.0})
+    , m_cache_ok(false)
 {
     setName("Lattice");
     initialize();
@@ -37,8 +40,12 @@ Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 }
 
 Lattice::Lattice(const Lattice& lattice)
-    : INode(), m_selection_rule(nullptr), m_a(lattice.m_a), m_b(lattice.m_b), m_c(lattice.m_c),
-      m_cache_ok(false)
+    : INode()
+    , m_selection_rule(nullptr)
+    , m_a(lattice.m_a)
+    , m_b(lattice.m_b)
+    , m_c(lattice.m_c)
+    , m_cache_ok(false)
 {
     setName("Lattice");
     initialize();

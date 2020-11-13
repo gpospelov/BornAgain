@@ -38,8 +38,8 @@ public:
     }
     ProgressHandler(const ProgressHandler& other)
         : m_inform(other.m_inform) // not clear whether we want multiple copies of this
-          ,
-          m_expected_nticks(other.m_expected_nticks), m_completed_nticks(other.m_completed_nticks)
+        , m_expected_nticks(other.m_expected_nticks)
+        , m_completed_nticks(other.m_completed_nticks)
     {
     }
     void subscribe(ProgressHandler::Callback_t callback);

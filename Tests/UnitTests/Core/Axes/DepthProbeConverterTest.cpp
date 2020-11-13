@@ -25,10 +25,8 @@ protected:
 
 DepthProbeConverterTest::DepthProbeConverterTest()
     : m_inclination_axis("Angles", m_nbins, m_alpha_start, m_alpha_end) // angles in radians
-      ,
-      m_z_axis("Positions", m_nbins, m_z_start, m_z_end) // z positions in nm
-      ,
-      m_beam(Beam::horizontalBeam())
+    , m_z_axis("Positions", m_nbins, m_z_start, m_z_end)                // z positions in nm
+    , m_beam(Beam::horizontalBeam())
 {
 }
 
@@ -75,8 +73,8 @@ void DepthProbeConverterTest::checkAlphaAxis(Axes::Units units,
     EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis.get()));
     EXPECT_EQ(axis->size(), test_object.axisSize(0));
     EXPECT_EQ(axis->size(), m_nbins);
-    EXPECT_EQ(axis->getMin(), test_object.calculateMin(0, units));
-    EXPECT_EQ(axis->getMax(), test_object.calculateMax(0, units));
+    EXPECT_EQ(axis->lowerBound(), test_object.calculateMin(0, units));
+    EXPECT_EQ(axis->upperBound(), test_object.calculateMax(0, units));
 }
 
 void DepthProbeConverterTest::checkZAxis(Axes::Units units, const DepthProbeConverter& test_object)
@@ -86,13 +84,13 @@ void DepthProbeConverterTest::checkZAxis(Axes::Units units, const DepthProbeConv
     EXPECT_EQ(axis->size(), test_object.axisSize(1));
     EXPECT_EQ(axis->size(), m_nbins);
 
-    EXPECT_EQ(axis->getMin(), test_object.calculateMin(1, units));
+    EXPECT_EQ(axis->lowerBound(), test_object.calculateMin(1, units));
     const double test_min = units == Axes::Units::NBINS ? 0 : m_z_start;
-    EXPECT_NEAR(axis->getMin(), test_min, std::abs(test_min) * 1e-10);
+    EXPECT_NEAR(axis->lowerBound(), test_min, std::abs(test_min) * 1e-10);
 
-    EXPECT_EQ(axis->getMax(), test_object.calculateMax(1, units));
+    EXPECT_EQ(axis->upperBound(), test_object.calculateMax(1, units));
     const double test_max = units == Axes::Units::NBINS ? m_nbins : m_z_end;
-    EXPECT_NEAR(axis->getMax(), test_max, std::abs(test_max) * 1e-10);
+    EXPECT_NEAR(axis->upperBound(), test_max, std::abs(test_max) * 1e-10);
 }
 
 TEST_F(DepthProbeConverterTest, DepthProbeConverter)

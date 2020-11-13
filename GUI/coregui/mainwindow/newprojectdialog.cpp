@@ -22,8 +22,15 @@
 
 NewProjectDialog::NewProjectDialog(QWidget* parent, const QString& workingDirectory,
                                    const QString& projectName)
-    : QDialog(parent), m_projectNameEdit(0), m_workDirEdit(0), m_browseButton(0), m_warningLabel(0),
-      m_cancelButton(0), m_createButton(0), m_valid_projectName(true), m_valid_projectPath(true)
+    : QDialog(parent)
+    , m_projectNameEdit(0)
+    , m_workDirEdit(0)
+    , m_browseButton(0)
+    , m_warningLabel(0)
+    , m_cancelButton(0)
+    , m_createButton(0)
+    , m_valid_projectName(true)
+    , m_valid_projectPath(true)
 
 {
     setMinimumSize(480, 280);

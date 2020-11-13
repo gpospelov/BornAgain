@@ -64,7 +64,7 @@ std::unique_ptr<OutputData<double>> SimulationResult::data(Axes::Units units) co
 
 Histogram2D* SimulationResult::histogram2d(Axes::Units units) const
 {
-    if (m_data->getRank() != 2 || m_unit_converter->dimension() != 2)
+    if (m_data->rank() != 2 || m_unit_converter->dimension() != 2)
         throw std::runtime_error("Error in SimulationResult::histogram2d: "
                                  "dimension of data is not 2. Please use axis(), array() and "
                                  "data() functions for 1D data.");
@@ -141,12 +141,12 @@ std::vector<double> SimulationResult::axis(size_t i_axis, Axes::Units units) con
         throw std::runtime_error(
             "Error in SimulationResult::axis: no axis corresponds to passed index.");
     auto axis = m_unit_converter->createConvertedAxis(i_axis, units);
-    return axis->getBinCenters();
+    return axis->binCenters();
 }
 
 void SimulationResult::checkDimensions() const
 {
-    if (m_data->getRank() != m_unit_converter->dimension())
+    if (m_data->rank() != m_unit_converter->dimension())
         throw std::runtime_error("Error in SimulationResults::checkDimensions(): "
                                  "dimensions of data and unit converter don't match");
 }

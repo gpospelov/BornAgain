@@ -47,16 +47,16 @@ CustomBinAxis* CustomBinAxis::clone() const
     return new CustomBinAxis(getName(), m_nbins, m_start, m_end);
 }
 
-Bin1D CustomBinAxis::getBin(size_t index) const
+Bin1D CustomBinAxis::bin(size_t index) const
 {
     if (index >= m_nbins)
-        throw Exceptions::OutOfBoundsException("CustomBinAxis::getBin() -> Error. Wrong index.");
+        throw Exceptions::OutOfBoundsException("CustomBinAxis::bin() -> Error. Wrong index.");
 
     Bin1D result(m_bin_centers[index], m_bin_centers[index]);
     return result;
 }
 
-std::vector<double> CustomBinAxis::getBinCenters() const
+std::vector<double> CustomBinAxis::binCenters() const
 {
     return m_bin_centers;
 }

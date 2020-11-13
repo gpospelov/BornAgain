@@ -19,8 +19,12 @@
 #include "Sample/Multilayer/MultiLayer.h"
 
 PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder(int n_layers)
-    : m_number_of_layers(n_layers), m_si{2.0704e-06, 2.3726e-11}, m_ti{-1.9493e-06, 9.6013e-10},
-      m_ni{9.4245e-06, 1.1423e-09}, m_thick_ti(3.0), m_thick_ni(7.0)
+    : m_number_of_layers(n_layers)
+    , m_si{2.0704e-06, 2.3726e-11}
+    , m_ti{-1.9493e-06, 9.6013e-10}
+    , m_ni{9.4245e-06, 1.1423e-09}
+    , m_thick_ti(3.0)
+    , m_thick_ni(7.0)
 {
     registerParameter("ti_thickness", &m_thick_ti);
 }

@@ -3614,21 +3614,21 @@ class DistributionGate(IDistribution1D):
         """
         return _libBornAgainParam.DistributionGate_getMean(self)
 
-    def getMin(self):
+    def lowerBound(self):
         r"""
-        getMin(DistributionGate self) -> double
-        double DistributionGate::getMin() const
+        lowerBound(DistributionGate self) -> double
+        double DistributionGate::lowerBound() const
 
         """
-        return _libBornAgainParam.DistributionGate_getMin(self)
+        return _libBornAgainParam.DistributionGate_lowerBound(self)
 
-    def getMax(self):
+    def upperBound(self):
         r"""
-        getMax(DistributionGate self) -> double
-        double DistributionGate::getMax() const
+        upperBound(DistributionGate self) -> double
+        double DistributionGate::upperBound() const
 
         """
-        return _libBornAgainParam.DistributionGate_getMax(self)
+        return _libBornAgainParam.DistributionGate_upperBound(self)
 
     def equidistantPoints(self, *args):
         r"""

@@ -101,7 +101,7 @@ IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& d
 std::unique_ptr<OutputData<double>>
 IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, int n)
 {
-    if (data.getRank() != 2)
+    if (data.rank() != 2)
         throw Exceptions::LogicErrorException("IntensityDataFunctions::rotateDataByN90Deg()"
                                               " -> Error! Works only on two-dimensional data");
     n = (4 + n % 4) % 4;
@@ -110,8 +110,8 @@ IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, 
     std::unique_ptr<OutputData<double>> output(new OutputData<double>());
 
     // swapping axes if necessary
-    const IAxis& x_axis = data.getAxis(0);
-    const IAxis& y_axis = data.getAxis(1);
+    const IAxis& x_axis = data.axis(0);
+    const IAxis& y_axis = data.axis(1);
     output->addAxis(n == 2 ? x_axis : y_axis);
     output->addAxis(n == 2 ? y_axis : x_axis);
 
@@ -126,7 +126,7 @@ IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, 
         };
     } else {
         const size_t rev_axis_i = n % 3;
-        const size_t end_bin = data.getAxis(rev_axis_i).size() - 1;
+        const size_t end_bin = data.axis(rev_axis_i).size() - 1;
         index_mapping = [rev_axis_i, end_bin](std::vector<int>& inds) {
             const int tm_index = inds[rev_axis_i];
             inds[rev_axis_i] = inds[rev_axis_i ^ 1];
@@ -148,13 +148,13 @@ std::unique_ptr<OutputData<double>>
 IntensityDataFunctions::createClippedDataSet(const OutputData<double>& origin, double x1, double y1,
                                              double x2, double y2)
 {
-    if (origin.getRank() != 2)
+    if (origin.rank() != 2)
         throw Exceptions::LogicErrorException("IntensityDataFunctions::createClippedData()"
                                               " -> Error! Works only on two-dimensional data");
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
-    for (size_t i_axis = 0; i_axis < origin.getRank(); i_axis++) {
-        const IAxis& axis = origin.getAxis(i_axis);
+    for (size_t i_axis = 0; i_axis < origin.rank(); i_axis++) {
+        const IAxis& axis = origin.axis(i_axis);
         IAxis* new_axis;
         if (i_axis == 0)
             new_axis = axis.createClippedAxis(x1, x2);
@@ -170,7 +170,7 @@ IntensityDataFunctions::createClippedDataSet(const OutputData<double>& origin, d
     while (it_origin != origin.end()) {
         double x = origin.getAxisValue(it_origin.getIndex(), 0);
         double y = origin.getAxisValue(it_origin.getIndex(), 1);
-        if (result->getAxis(0).contains(x) && result->getAxis(1).contains(y)) {
+        if (result->axis(0).contains(x) && result->axis(1).contains(y)) {
             *it_result = *it_origin;
             ++it_result;
         }
@@ -189,8 +189,8 @@ IntensityDataFunctions::createClippedDataSet(const OutputData<double>& origin, d
 double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis& axis)
 {
     size_t index = axis.findClosestIndex(coordinate);
-    Bin1D bin = axis.getBin(index);
-    double f = (coordinate - bin.m_lower) / bin.getBinSize();
+    Bin1D bin = axis.bin(index);
+    double f = (coordinate - bin.m_lower) / bin.binSize();
     return static_cast<double>(index) + f;
 }
 
@@ -200,14 +200,14 @@ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axi
 
     double result(0);
     if (index < 0) {
-        Bin1D bin = axis.getBin(0);
-        result = bin.m_lower + value * bin.getBinSize();
+        Bin1D bin = axis.bin(0);
+        result = bin.m_lower + value * bin.binSize();
     } else if (index >= static_cast<int>(axis.size())) {
-        Bin1D bin = axis.getBin(axis.size() - 1);
-        result = bin.m_upper + (value - axis.size()) * bin.getBinSize();
+        Bin1D bin = axis.bin(axis.size() - 1);
+        result = bin.m_upper + (value - axis.size()) * bin.binSize();
     } else {
-        Bin1D bin = axis.getBin(static_cast<size_t>(index));
-        result = bin.m_lower + (value - static_cast<double>(index)) * bin.getBinSize();
+        Bin1D bin = axis.bin(static_cast<size_t>(index));
+        result = bin.m_lower + (value - static_cast<double>(index)) * bin.binSize();
     }
 
     return result;
@@ -215,21 +215,21 @@ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axi
 
 void IntensityDataFunctions::coordinateToBinf(double& x, double& y, const OutputData<double>& data)
 {
-    x = coordinateToBinf(x, data.getAxis(0));
-    y = coordinateToBinf(y, data.getAxis(1));
+    x = coordinateToBinf(x, data.axis(0));
+    y = coordinateToBinf(y, data.axis(1));
 }
 
 void IntensityDataFunctions::coordinateFromBinf(double& x, double& y,
                                                 const OutputData<double>& data)
 {
-    x = coordinateFromBinf(x, data.getAxis(0));
-    y = coordinateFromBinf(y, data.getAxis(1));
+    x = coordinateFromBinf(x, data.axis(0));
+    y = coordinateFromBinf(y, data.axis(1));
 }
 
 std::vector<std::vector<double>>
 IntensityDataFunctions::create2DArrayfromOutputData(const OutputData<double>& data)
 {
-    if (data.getRank() != 2)
+    if (data.rank() != 2)
         throw Exceptions::LogicErrorException(
             "IntensityDataFunctions::create2DArrayfromOutputData() -> "
             "Error! Works only on two-dimensional data");
@@ -237,8 +237,8 @@ IntensityDataFunctions::create2DArrayfromOutputData(const OutputData<double>& da
     std::vector<std::vector<double>> array_2d;
     std::vector<double> row_vec; // row vector for constructing each row of 2D array
 
-    size_t nrows = data.getAxis(0).size();
-    size_t ncols = data.getAxis(1).size();
+    size_t nrows = data.axis(0).size();
+    size_t ncols = data.axis(1).size();
 
     size_t it = 0; // iterator of 'data'
     for (size_t row = 0; row < nrows; row++) {

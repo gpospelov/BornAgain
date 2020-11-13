@@ -21,9 +21,10 @@
 #include <QVBoxLayout>
 
 GISASDetectorEditor::GISASDetectorEditor(QWidget* parent)
-    : SessionItemWidget(parent), m_detectorTypeEditor(new ComponentEditor(
-                                     ComponentEditor::PlainWidget | ComponentEditor::W_NoChildren)),
-      m_detectorPresenter(new DetectorPresenter)
+    : SessionItemWidget(parent)
+    , m_detectorTypeEditor(
+          new ComponentEditor(ComponentEditor::PlainWidget | ComponentEditor::W_NoChildren))
+    , m_detectorPresenter(new DetectorPresenter)
 {
     auto mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_detectorTypeEditor);

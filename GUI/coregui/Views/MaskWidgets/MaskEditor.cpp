@@ -24,10 +24,12 @@
 #include <minisplitter.h>
 
 MaskEditor::MaskEditor(QWidget* parent)
-    : QMainWindow(parent), m_editorActions(new MaskEditorActions(this)),
-      m_toolBar(new MaskEditorToolBar(m_editorActions)),
-      m_editorPropertyPanel(new MaskEditorPropertyPanel), m_editorCanvas(new MaskEditorCanvas),
-      m_splitter(new Manhattan::MiniSplitter)
+    : QMainWindow(parent)
+    , m_editorActions(new MaskEditorActions(this))
+    , m_toolBar(new MaskEditorToolBar(m_editorActions))
+    , m_editorPropertyPanel(new MaskEditorPropertyPanel)
+    , m_editorCanvas(new MaskEditorCanvas)
+    , m_splitter(new Manhattan::MiniSplitter)
 {
     setObjectName("MaskEditor");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

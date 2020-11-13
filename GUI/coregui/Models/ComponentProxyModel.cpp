@@ -20,10 +20,10 @@
 #include <functional>
 
 ComponentProxyModel::ComponentProxyModel(QObject* parent)
-    : QAbstractProxyModel(parent), m_model(nullptr)
-      //    , m_proxyStrategy(new IndentityProxyStrategy)
-      ,
-      m_proxyStrategy(new ComponentProxyStrategy)
+    : QAbstractProxyModel(parent)
+    , m_model(nullptr)
+    //    , m_proxyStrategy(new IndentityProxyStrategy)
+    , m_proxyStrategy(new ComponentProxyStrategy)
 {
 }
 

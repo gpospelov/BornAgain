@@ -57,7 +57,7 @@ void Instrument::initDetector()
     if (!m_detector)
         throw Exceptions::RuntimeErrorException(
             "Instrument::initDetector() -> Error. Detector is not initialized.");
-    m_detector->init(getBeam());
+    m_detector->init(beam());
 }
 
 std::vector<const INode*> Instrument::getChildren() const
@@ -156,7 +156,7 @@ const IDetector2D& Instrument::detector2D() const
 
 const IAxis& Instrument::getDetectorAxis(size_t index) const
 {
-    return m_detector->getAxis(index);
+    return m_detector->axis(index);
 }
 
 size_t Instrument::getDetectorDimension() const

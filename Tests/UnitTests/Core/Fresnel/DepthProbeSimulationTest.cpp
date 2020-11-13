@@ -49,7 +49,7 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeSimulationTest::defaultSimulatio
 
 void DepthProbeSimulationTest::checkBeamState(const DepthProbeSimulation& sim)
 {
-    const auto* inclination = sim.instrument().getBeam().parameter("InclinationAngle");
+    const auto* inclination = sim.instrument().beam().parameter("InclinationAngle");
     const auto test_limits = RealLimits::limited(-M_PI_2, M_PI_2);
     EXPECT_EQ(test_limits, inclination->limits());
     EXPECT_EQ(0.0, inclination->value());
@@ -82,14 +82,14 @@ TEST_F(DepthProbeSimulationTest, CheckAxesOfDefaultSimulation)
     const auto alpha_axis = sim->getAlphaAxis();
     EXPECT_TRUE(dynamic_cast<const FixedBinAxis*>(alpha_axis));
     EXPECT_EQ(alpha_axis->size(), 10u);
-    EXPECT_EQ(alpha_axis->getMin(), 0.0 * Units::degree);
-    EXPECT_EQ(alpha_axis->getMax(), 2.0 * Units::degree);
+    EXPECT_EQ(alpha_axis->lowerBound(), 0.0 * Units::degree);
+    EXPECT_EQ(alpha_axis->upperBound(), 2.0 * Units::degree);
 
     const auto z_axis = sim->getZAxis();
     EXPECT_TRUE(dynamic_cast<const FixedBinAxis*>(z_axis));
     EXPECT_EQ(z_axis->size(), 12u);
-    EXPECT_EQ(z_axis->getMin(), -30.0 * Units::nanometer);
-    EXPECT_EQ(z_axis->getMax(), 10.0 * Units::nanometer);
+    EXPECT_EQ(z_axis->lowerBound(), -30.0 * Units::nanometer);
+    EXPECT_EQ(z_axis->upperBound(), 10.0 * Units::nanometer);
 
     const auto sim_clone = sim->clone();
     EXPECT_FALSE(alpha_axis == sim_clone->getAlphaAxis());
@@ -99,12 +99,12 @@ TEST_F(DepthProbeSimulationTest, CheckAxesOfDefaultSimulation)
 TEST_F(DepthProbeSimulationTest, SetBeamParameters)
 {
     DepthProbeSimulation sim;
-    const auto& beam = sim.instrument().getBeam();
+    const auto& beam = sim.instrument().beam();
 
     sim.setBeamParameters(1.0, 10, 1.0 * Units::degree, 10.0 * Units::degree);
     EXPECT_EQ(10u, sim.getAlphaAxis()->size());
-    EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->getMin());
-    EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->getMax());
+    EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->lowerBound());
+    EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->upperBound());
     EXPECT_EQ(1.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -121,8 +121,8 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters)
     EXPECT_THROW(sim.setBeamParameters(-1.0, 1, 1.0, 2.0), std::runtime_error);
 
     EXPECT_EQ(10u, sim.getAlphaAxis()->size());
-    EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->getMin());
-    EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->getMax());
+    EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->lowerBound());
+    EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -150,19 +150,19 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
 
     const std::unique_ptr<Histogram2D> depth_map(sim_result.histogram2d());
     EXPECT_EQ(10u * 12u, depth_map->getTotalNumberOfBins());
-    EXPECT_EQ(2u, depth_map->getRank());
-    EXPECT_EQ(0.0, depth_map->getXaxis().getMin());
-    EXPECT_EQ(2.0, depth_map->getXaxis().getMax());
-    EXPECT_EQ(-30.0, depth_map->getYaxis().getMin());
-    EXPECT_EQ(10.0, depth_map->getYaxis().getMax());
+    EXPECT_EQ(2u, depth_map->rank());
+    EXPECT_EQ(0.0, depth_map->xAxis().lowerBound());
+    EXPECT_EQ(2.0, depth_map->xAxis().upperBound());
+    EXPECT_EQ(-30.0, depth_map->yAxis().lowerBound());
+    EXPECT_EQ(10.0, depth_map->yAxis().upperBound());
 
     EXPECT_THROW(sim_result.data(Axes::Units::MM), std::runtime_error);
 
     const auto output = sim_result.data();
     EXPECT_EQ(depth_map->getTotalNumberOfBins(), output->getAllocatedSize());
-    EXPECT_EQ(depth_map->getRank(), output->getRank());
-    EXPECT_EQ(depth_map->getXaxis().getMin(), output->getAxis(0).getMin());
-    EXPECT_EQ(depth_map->getXaxis().getMax(), output->getAxis(0).getMax());
+    EXPECT_EQ(depth_map->rank(), output->rank());
+    EXPECT_EQ(depth_map->xAxis().lowerBound(), output->axis(0).lowerBound());
+    EXPECT_EQ(depth_map->xAxis().upperBound(), output->axis(0).upperBound());
 
     checkBeamState(*sim);
 }

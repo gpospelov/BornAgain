@@ -24,8 +24,11 @@
 #include <memory>
 
 JobSelectorActions::JobSelectorActions(JobModel* jobModel, QObject* parent)
-    : QObject(parent), m_runJobAction(nullptr), m_removeJobAction(nullptr),
-      m_selectionModel(nullptr), m_jobModel(jobModel)
+    : QObject(parent)
+    , m_runJobAction(nullptr)
+    , m_removeJobAction(nullptr)
+    , m_selectionModel(nullptr)
+    , m_jobModel(jobModel)
 {
     m_runJobAction = new QAction("Run", this);
     m_runJobAction->setIcon(QIcon(":/images/play.svg"));

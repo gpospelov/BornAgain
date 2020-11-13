@@ -22,8 +22,9 @@
 FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff) : m_ff(p_ff) {}
 
 FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart& other)
-    : m_ff(other.m_ff->clone()), m_fresnel_map(other.m_fresnel_map),
-      m_layer_index(other.m_layer_index)
+    : m_ff(other.m_ff->clone())
+    , m_fresnel_map(other.m_fresnel_map)
+    , m_layer_index(other.m_layer_index)
 {
 }
 

@@ -80,9 +80,13 @@ void resetSetup(IntensityDataItem& intensityItem)
 } // namespace
 
 RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
-    : QObject(parent), m_import2dDataAction(nullptr), m_import1dDataAction(nullptr),
-      m_removeDataAction(nullptr), m_rotateDataAction(new QAction(this)), m_realDataModel(nullptr),
-      m_selectionModel(nullptr)
+    : QObject(parent)
+    , m_import2dDataAction(nullptr)
+    , m_import1dDataAction(nullptr)
+    , m_removeDataAction(nullptr)
+    , m_rotateDataAction(new QAction(this))
+    , m_realDataModel(nullptr)
+    , m_selectionModel(nullptr)
 {
     m_import2dDataAction = new QAction("Import 2D data", parent);
     m_import2dDataAction->setIcon(QIcon(":/images/import.svg"));

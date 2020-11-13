@@ -51,8 +51,15 @@ namespace RealSpace
 {
 
 Canvas::Canvas()
-    : aspectRatio(1), colorBgR(1), colorBgG(1), colorBgB(1), currentZoomLevel(0), camera(nullptr),
-      program(nullptr), model(nullptr), m_isInitializedGL(false)
+    : aspectRatio(1)
+    , colorBgR(1)
+    , colorBgG(1)
+    , colorBgB(1)
+    , currentZoomLevel(0)
+    , camera(nullptr)
+    , program(nullptr)
+    , model(nullptr)
+    , m_isInitializedGL(false)
 {
     connect(&geometryStore(), &GeometryStore::deletingGeometry, this, &Canvas::releaseBuffer);
 }
@@ -245,7 +252,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent*)
 void Canvas::wheelEvent(QWheelEvent* e)
 {
     if (camera) {
-        if (e->delta() < 0) {
+        if (e->angleDelta().y() < 0) {
             // Zoom in
             camera->zoomBy(ZoomInScale());
             currentZoomLevel += 1;

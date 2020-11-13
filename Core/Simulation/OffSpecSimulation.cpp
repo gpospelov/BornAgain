@@ -42,8 +42,7 @@ size_t OffSpecSimulation::numberOfSimulationElements() const
 SimulationResult OffSpecSimulation::result() const
 {
     auto data = std::unique_ptr<OutputData<double>>(m_intensity_map.clone());
-    OffSpecularConverter converter(instrument().detector2D(), instrument().getBeam(),
-                                   *m_alpha_i_axis);
+    OffSpecularConverter converter(instrument().detector2D(), instrument().beam(), *m_alpha_i_axis);
     return SimulationResult(*data, converter);
 }
 
@@ -53,7 +52,7 @@ void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_
     if (alpha_axis.size() < 1)
         throw Exceptions::ClassInitializationException("OffSpecSimulation::prepareSimulation() "
                                                        "-> Error. Incoming alpha range size < 1.");
-    const double alpha_zero = alpha_axis.getMin();
+    const double alpha_zero = alpha_axis.lowerBound();
     instrument().setBeamParameters(wavelength, alpha_zero, phi_i);
     updateIntensityMap();
 }
@@ -69,7 +68,7 @@ std::unique_ptr<IUnitConverter> OffSpecSimulation::createUnitConverter() const
     if (!axis)
         throw std::runtime_error("Error in OffSpecSimulation::createUnitConverter:"
                                  " missing inclination angle axis");
-    return std::make_unique<OffSpecularConverter>(instrument().detector2D(), instrument().getBeam(),
+    return std::make_unique<OffSpecularConverter>(instrument().detector2D(), instrument().beam(),
                                                   *axis);
 }
 
@@ -90,13 +89,13 @@ OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other) : ISimulati
 void OffSpecSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();
-    Beam beam = instrument().getBeam();
+    Beam beam = instrument().beam();
     const double wavelength = beam.getWavelength();
     const double phi_i = beam.getPhi();
 
     for (size_t i = 0; i < m_alpha_i_axis->size(); ++i) {
         // Incoming angle by convention defined as positive:
-        double alpha_i = m_alpha_i_axis->getBin(i).getMidPoint();
+        double alpha_i = m_alpha_i_axis->bin(i).center();
         double total_alpha = alpha_i;
         beam.setCentralK(wavelength, total_alpha, phi_i);
         std::vector<SimulationElement> sim_elements_i = generateSimulationElements(beam);

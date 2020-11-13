@@ -41,53 +41,53 @@ size_t IHistogram::getTotalNumberOfBins() const
     return m_data.getAllocatedSize();
 }
 
-const IAxis& IHistogram::getXaxis() const
+const IAxis& IHistogram::xAxis() const
 {
     check_x_axis();
-    return m_data.getAxis(0);
+    return m_data.axis(0);
 }
 
-const IAxis& IHistogram::getYaxis() const
+const IAxis& IHistogram::yAxis() const
 {
     check_y_axis();
-    return m_data.getAxis(1);
+    return m_data.axis(1);
 }
 
 double IHistogram::getXmin() const
 {
-    return getXaxis().getMin();
+    return xAxis().lowerBound();
 }
 
 double IHistogram::getXmax() const
 {
-    return getXaxis().getMax();
+    return xAxis().upperBound();
 }
 
 size_t IHistogram::getNbinsX() const
 {
-    return getXaxis().size();
+    return xAxis().size();
 }
 
 double IHistogram::getYmin() const
 {
-    return getYaxis().getMin();
+    return yAxis().lowerBound();
 }
 
 double IHistogram::getYmax() const
 {
-    return getYaxis().getMax();
+    return yAxis().upperBound();
 }
 
 size_t IHistogram::getNbinsY() const
 {
-    return getYaxis().size();
+    return yAxis().size();
 }
 
 size_t IHistogram::getGlobalBin(size_t binx, size_t biny) const
 {
     std::vector<unsigned> axes_indices;
     axes_indices.push_back(static_cast<unsigned>(binx));
-    if (getRank() == 2)
+    if (rank() == 2)
         axes_indices.push_back(static_cast<unsigned>(biny));
     return m_data.toGlobalIndex(axes_indices);
 }
@@ -96,28 +96,28 @@ size_t IHistogram::findGlobalBin(double x, double y) const
 {
     std::vector<double> coordinates;
     coordinates.push_back(x);
-    if (getRank() == 2)
+    if (rank() == 2)
         coordinates.push_back(y);
     return m_data.findGlobalIndex(coordinates);
 }
 
-size_t IHistogram::getXaxisIndex(size_t i) const
+size_t IHistogram::xAxisIndex(size_t i) const
 {
     return m_data.getAxisBinIndex(i, 0);
 }
 
-size_t IHistogram::getYaxisIndex(size_t i) const
+size_t IHistogram::yAxisIndex(size_t i) const
 {
     return m_data.getAxisBinIndex(i, 1);
 }
 
-double IHistogram::getXaxisValue(size_t i)
+double IHistogram::xAxisValue(size_t i)
 {
     check_x_axis();
     return m_data.getAxisValue(i, 0);
 }
 
-double IHistogram::getYaxisValue(size_t i)
+double IHistogram::yAxisValue(size_t i)
 {
     check_y_axis();
     return m_data.getAxisValue(i, 1);
@@ -133,14 +133,14 @@ OutputData<CumulativeValue>& IHistogram::getData()
     return m_data;
 }
 
-double IHistogram::getBinContent(size_t i) const
+double IHistogram::binContent(size_t i) const
 {
     return m_data[i].getContent();
 }
 
-double IHistogram::getBinContent(size_t binx, size_t biny) const
+double IHistogram::binContent(size_t binx, size_t biny) const
 {
-    return getBinContent(getGlobalBin(binx, biny));
+    return binContent(getGlobalBin(binx, biny));
 }
 
 void IHistogram::setBinContent(size_t i, double value)
@@ -153,34 +153,34 @@ void IHistogram::addBinContent(size_t i, double value)
     m_data[i].add(value);
 }
 
-double IHistogram::getBinError(size_t i) const
+double IHistogram::binError(size_t i) const
 {
     return m_data[i].getRMS();
 }
 
-double IHistogram::getBinError(size_t binx, size_t biny) const
+double IHistogram::binError(size_t binx, size_t biny) const
 {
-    return getBinError(getGlobalBin(binx, biny));
+    return binError(getGlobalBin(binx, biny));
 }
 
-double IHistogram::getBinAverage(size_t i) const
+double IHistogram::binAverage(size_t i) const
 {
     return m_data[i].getAverage();
 }
 
-double IHistogram::getBinAverage(size_t binx, size_t biny) const
+double IHistogram::binAverage(size_t binx, size_t biny) const
 {
-    return getBinAverage(getGlobalBin(binx, biny));
+    return binAverage(getGlobalBin(binx, biny));
 }
 
-int IHistogram::getBinNumberOfEntries(size_t i) const
+int IHistogram::binNumberOfEntries(size_t i) const
 {
     return m_data[i].getNumberOfEntries();
 }
 
-int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
+int IHistogram::binNumberOfEntries(size_t binx, size_t biny) const
 {
-    return getBinNumberOfEntries(getGlobalBin(binx, biny));
+    return binNumberOfEntries(getGlobalBin(binx, biny));
 }
 
 double IHistogram::getMaximum() const
@@ -242,14 +242,14 @@ void IHistogram::reset()
 
 IHistogram* IHistogram::createHistogram(const OutputData<double>& source)
 {
-    if (source.getRank() == 1) {
+    if (source.rank() == 1) {
         return new Histogram1D(source);
-    } else if (source.getRank() == 2) {
+    } else if (source.rank() == 2) {
         return new Histogram2D(source);
     } else {
         std::ostringstream message;
         message << "IHistogram::createHistogram(const OutputData<double>& source) -> Error. ";
-        message << "The rank of source " << source.getRank() << " ";
+        message << "The rank of source " << source.rank() << " ";
         message << "is not suitable for creation neither 1-dim nor 2-dim histograms.";
         throw Exceptions::LogicErrorException(message.str());
     }
@@ -267,31 +267,31 @@ IHistogram* IHistogram::createFrom(const std::vector<std::vector<double>>& data)
 
 void IHistogram::check_x_axis() const
 {
-    if (getRank() < 1) {
+    if (rank() < 1) {
         std::ostringstream message;
         message << "IHistogram::check_x_axis() -> Error. X-xis does not exist. ";
-        message << "Rank of histogram " << getRank() << "." << std::endl;
+        message << "Rank of histogram " << rank() << "." << std::endl;
         throw Exceptions::LogicErrorException(message.str());
     }
 }
 
 void IHistogram::check_y_axis() const
 {
-    if (getRank() < 2) {
+    if (rank() < 2) {
         std::ostringstream message;
         message << "IHistogram::check_y_axis() -> Error. Y-axis does not exist. ";
-        message << "Rank of histogram " << getRank() << "." << std::endl;
+        message << "Rank of histogram " << rank() << "." << std::endl;
         throw Exceptions::LogicErrorException(message.str());
     }
 }
 
 void IHistogram::init_from_data(const OutputData<double>& source)
 {
-    if (getRank() != source.getRank()) {
+    if (rank() != source.rank()) {
         std::ostringstream message;
         message << "IHistogram::IHistogram(const OutputData<double>& data) -> Error. ";
-        message << "The dimension of this histogram " << getRank() << " ";
-        message << "is differ from the dimension of source " << m_data.getRank() << std::endl;
+        message << "The dimension of this histogram " << rank() << " ";
+        message << "is differ from the dimension of source " << m_data.rank() << std::endl;
         throw Exceptions::LogicErrorException(message.str());
     }
 
@@ -302,19 +302,18 @@ void IHistogram::init_from_data(const OutputData<double>& source)
 }
 
 //! returns data of requested type for globalbin number
-double IHistogram::getBinData(size_t i, IHistogram::DataType dataType) const
+double IHistogram::binData(size_t i, IHistogram::DataType dataType) const
 {
     if (dataType == DataType::INTEGRAL) {
-        return getBinContent(i);
+        return binContent(i);
     } else if (dataType == DataType::AVERAGE) {
-        return getBinAverage(i);
+        return binAverage(i);
     } else if (dataType == DataType::STANDARD_ERROR) {
-        return getBinError(i);
+        return binError(i);
     } else if (dataType == DataType::NENTRIES) {
-        return getBinNumberOfEntries(i);
+        return binNumberOfEntries(i);
     } else
-        throw Exceptions::LogicErrorException(
-            "IHistogram::getBinData() -> Error. Unknown data type.");
+        throw Exceptions::LogicErrorException("IHistogram::binData() -> Error. Unknown data type.");
 }
 
 //! returns vector of values of requested DataType
@@ -323,7 +322,7 @@ std::vector<double> IHistogram::getDataVector(IHistogram::DataType dataType) con
     std::vector<double> result;
     result.resize(getTotalNumberOfBins(), 0.0);
     for (size_t index = 0; index < getTotalNumberOfBins(); ++index) {
-        result[index] = getBinData(index, dataType);
+        result[index] = binData(index, dataType);
     }
     return result;
 }
@@ -346,7 +345,7 @@ OutputData<double>* IHistogram::createOutputData(IHistogram::DataType dataType) 
     OutputData<double>* result = new OutputData<double>;
     result->copyShapeFrom(m_data);
     for (size_t i = 0; i < getTotalNumberOfBins(); ++i) {
-        (*result)[i] = getBinData(i, dataType);
+        (*result)[i] = binData(i, dataType);
     }
     return result;
 }
@@ -367,7 +366,7 @@ const IHistogram& IHistogram::operator+=(const IHistogram& right)
         throw Exceptions::LogicErrorException(
             "IHistogram::operator+=() -> Error. Histograms have different dimension");
     for (size_t i = 0; i < getTotalNumberOfBins(); ++i)
-        addBinContent(i, right.getBinContent(i));
+        addBinContent(i, right.binContent(i));
     return *this;
 }
 
@@ -381,7 +380,7 @@ IHistogram* IHistogram::relativeDifferenceHistogram(const IHistogram& rhs)
     result->reset();
 
     for (size_t i = 0; i < getTotalNumberOfBins(); ++i) {
-        double diff = Numeric::GetRelativeDifference(getBinContent(i), rhs.getBinContent(i));
+        double diff = Numeric::GetRelativeDifference(binContent(i), rhs.binContent(i));
         result->setBinContent(i, diff);
     }
     return result;

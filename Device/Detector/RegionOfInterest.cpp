@@ -20,23 +20,27 @@ RegionOfInterest::RegionOfInterest(const IDetector2D& detector, double xlow, dou
                                    double xup, double yup)
     : RegionOfInterest(xlow, ylow, xup, yup)
 {
-    initFrom(detector.getAxis(0), detector.getAxis(1));
+    initFrom(detector.axis(0), detector.axis(1));
 }
 
 RegionOfInterest::RegionOfInterest(const OutputData<double>& data, double xlow, double ylow,
                                    double xup, double yup)
     : RegionOfInterest(xlow, ylow, xup, yup)
 {
-    if (data.getRank() != 2)
+    if (data.rank() != 2)
         throw Exceptions::RuntimeErrorException("RegionOfInterest::RegionOfInterest() -> Error. "
                                                 "Data is not two-dimensional.");
 
-    initFrom(data.getAxis(0), data.getAxis(1));
+    initFrom(data.axis(0), data.axis(1));
 }
 
 RegionOfInterest::RegionOfInterest(double xlow, double ylow, double xup, double yup)
-    : m_rectangle(new Rectangle(xlow, ylow, xup, yup)), m_ax1(0), m_ay1(0), m_ax2(0), m_ay2(0),
-      m_glob_index0(0)
+    : m_rectangle(new Rectangle(xlow, ylow, xup, yup))
+    , m_ax1(0)
+    , m_ay1(0)
+    , m_ax2(0)
+    , m_ay2(0)
+    , m_glob_index0(0)
 {
 }
 
@@ -48,9 +52,15 @@ RegionOfInterest* RegionOfInterest::clone() const
 RegionOfInterest::~RegionOfInterest() = default;
 
 RegionOfInterest::RegionOfInterest(const RegionOfInterest& other)
-    : ICloneable(), m_rectangle(other.m_rectangle->clone()), m_ax1(other.m_ax1), m_ay1(other.m_ay1),
-      m_ax2(other.m_ax2), m_ay2(other.m_ay2), m_glob_index0(other.m_glob_index0),
-      m_detector_dims(other.m_detector_dims), m_roi_dims(other.m_roi_dims)
+    : ICloneable()
+    , m_rectangle(other.m_rectangle->clone())
+    , m_ax1(other.m_ax1)
+    , m_ay1(other.m_ay1)
+    , m_ax2(other.m_ax2)
+    , m_ay2(other.m_ay2)
+    , m_glob_index0(other.m_glob_index0)
+    , m_detector_dims(other.m_detector_dims)
+    , m_roi_dims(other.m_roi_dims)
 {
 }
 
@@ -119,7 +129,7 @@ std::unique_ptr<IAxis> RegionOfInterest::clipAxisToRoi(size_t axis_index, const 
     size_t nbin1 = (axis_index == 0 ? m_ax1 : m_ay1);
     size_t nbin2 = (axis_index == 0 ? m_ax2 : m_ay2);
     return std::unique_ptr<IAxis>(new FixedBinAxis(
-        axis.getName(), nbin2 - nbin1 + 1, axis.getBin(nbin1).m_lower, axis.getBin(nbin2).m_upper));
+        axis.getName(), nbin2 - nbin1 + 1, axis.bin(nbin1).m_lower, axis.bin(nbin2).m_upper));
 }
 
 void RegionOfInterest::initFrom(const IAxis& x_axis, const IAxis& y_axis)

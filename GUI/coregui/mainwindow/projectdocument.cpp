@@ -29,8 +29,11 @@ const QString minimal_supported_version = "1.6.0";
 }
 
 ProjectDocument::ProjectDocument(const QString& projectFileName)
-    : m_applicationModels(nullptr), m_modified(false), m_documentStatus(ProjectFlags::STATUS_OK),
-      m_messageService(nullptr), m_dataService(new OutputDataIOService(this))
+    : m_applicationModels(nullptr)
+    , m_modified(false)
+    , m_documentStatus(ProjectFlags::STATUS_OK)
+    , m_messageService(nullptr)
+    , m_dataService(new OutputDataIOService(this))
 {
     setObjectName("ProjectDocument");
     if (!projectFileName.isEmpty())

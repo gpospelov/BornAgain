@@ -13,8 +13,8 @@ class MultilayerAveragingTest : public ::testing::Test
 {
 protected:
     MultilayerAveragingTest()
-        : vacuum(HomogeneousMaterial("vac", 0.0, 0.0)),
-          stone(HomogeneousMaterial("stone", 4e-4, 8e-7))
+        : vacuum(HomogeneousMaterial("vac", 0.0, 0.0))
+        , stone(HomogeneousMaterial("stone", 4e-4, 8e-7))
     {
     }
 

@@ -80,10 +80,10 @@ Returns the distribution-specific probability density for value x.
 Returns the distribution-specific mean. 
 ";
 
-%feature("docstring")  DistributionGate::getMin "double DistributionGate::getMin() const
+%feature("docstring")  DistributionGate::lowerBound "double DistributionGate::lowerBound() const
 ";
 
-%feature("docstring")  DistributionGate::getMax "double DistributionGate::getMax() const
+%feature("docstring")  DistributionGate::upperBound "double DistributionGate::upperBound() const
 ";
 
 %feature("docstring")  DistributionGate::equidistantPoints "std::vector< double > DistributionGate::equidistantPoints(size_t nbr_samples, double sigma_factor, const RealLimits &limits=RealLimits()) const

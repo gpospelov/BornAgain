@@ -18,8 +18,8 @@ ConstantBackground::ConstantBackground(const std::vector<double> P)
     : IBackground({"ConstantBackground",
                    "class_tooltip",
                    {{"BackgroundValue", "", "para_tooltip", 0, +INF, 0}}},
-                  P),
-      m_background_value(m_P[0])
+                  P)
+    , m_background_value(m_P[0])
 {
 }
 

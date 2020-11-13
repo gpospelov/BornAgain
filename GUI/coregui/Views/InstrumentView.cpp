@@ -23,11 +23,12 @@
 #include <QBoxLayout>
 
 InstrumentView::InstrumentView(MainWindow* mainWindow)
-    : QWidget(mainWindow), m_actions(new InstrumentViewActions(this)),
-      m_toolBar(new InstrumentViewToolBar(m_actions, this)),
-      m_instrumentSelector(new InstrumentSelectorWidget),
-      m_instrumentEditor(new ItemStackPresenter<InstrumentEditorWidget>(true)),
-      m_instrumentModel(mainWindow->instrumentModel())
+    : QWidget(mainWindow)
+    , m_actions(new InstrumentViewActions(this))
+    , m_toolBar(new InstrumentViewToolBar(m_actions, this))
+    , m_instrumentSelector(new InstrumentSelectorWidget)
+    , m_instrumentEditor(new ItemStackPresenter<InstrumentEditorWidget>(true))
+    , m_instrumentModel(mainWindow->instrumentModel())
 {
     auto horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(m_instrumentSelector);

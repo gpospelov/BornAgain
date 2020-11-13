@@ -28,8 +28,8 @@ std::map<int, std::string> statusDescription()
 } // namespace
 
 GeneticMinimizer::GeneticMinimizer()
-    : RootMinimizerAdapter(MinimizerInfo::buildGeneticInfo()),
-      m_genetic_minimizer(new ROOT::Math::GeneticMinimizer())
+    : RootMinimizerAdapter(MinimizerInfo::buildGeneticInfo())
+    , m_genetic_minimizer(new ROOT::Math::GeneticMinimizer())
 {
     addOption("Tolerance", 0.01, "Tolerance on the function value at the minimum");
     addOption("PrintLevel", 0, "Minimizer internal print level");

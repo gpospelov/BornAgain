@@ -29,10 +29,14 @@ const QString selectorTooltip = "Select instrument to link with real data";
 } // namespace
 
 RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget* parent)
-    : QWidget(parent), m_linkManager(new LinkInstrumentManager(this)),
-      m_dataNameMapper(new QDataWidgetMapper(this)), m_dataNameLabel(new QLabel("Dataset")),
-      m_dataNameEdit(new QLineEdit), m_instrumentLabel(new QLabel("Linked instrument")),
-      m_instrumentCombo(new QComboBox), m_currentDataItem(0)
+    : QWidget(parent)
+    , m_linkManager(new LinkInstrumentManager(this))
+    , m_dataNameMapper(new QDataWidgetMapper(this))
+    , m_dataNameLabel(new QLabel("Dataset"))
+    , m_dataNameEdit(new QLineEdit)
+    , m_instrumentLabel(new QLabel("Linked instrument"))
+    , m_instrumentCombo(new QComboBox)
+    , m_currentDataItem(0)
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle("RealDataPropertiesWidget");

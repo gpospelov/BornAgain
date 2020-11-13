@@ -27,10 +27,11 @@ const bool reuse_widget = true;
 }
 
 ImportDataView::ImportDataView(MainWindow* mainWindow)
-    : QWidget(mainWindow), m_splitter(new Manhattan::MiniSplitter),
-      m_selectorWidget(new RealDataSelectorWidget),
-      m_stackedWidget(new ItemStackPresenter<RealDataPresenter>(reuse_widget)),
-      m_realDataModel(mainWindow->realDataModel())
+    : QWidget(mainWindow)
+    , m_splitter(new Manhattan::MiniSplitter)
+    , m_selectorWidget(new RealDataSelectorWidget)
+    , m_stackedWidget(new ItemStackPresenter<RealDataPresenter>(reuse_widget))
+    , m_realDataModel(mainWindow->realDataModel())
 {
     auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);

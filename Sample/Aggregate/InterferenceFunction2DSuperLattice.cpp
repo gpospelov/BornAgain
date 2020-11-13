@@ -25,8 +25,11 @@
 InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(const Lattice2D& lattice,
                                                                        unsigned size_1,
                                                                        unsigned size_2)
-    : IInterferenceFunction(0), m_integrate_xi(false), m_substructure(nullptr), m_size_1(size_1),
-      m_size_2(size_2)
+    : IInterferenceFunction(0)
+    , m_integrate_xi(false)
+    , m_substructure(nullptr)
+    , m_size_1(size_1)
+    , m_size_2(size_2)
 {
     setName("Interference2DSuperLattice");
     setLattice(lattice);

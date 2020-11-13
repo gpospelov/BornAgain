@@ -28,12 +28,14 @@ namespace
 {
 const int replot_update_interval = 10;
 
-int getBin(double x, const QCPGraph* graph);
+int bin(double x, const QCPGraph* graph);
 } // namespace
 
 Plot1D::Plot1D(QWidget* parent)
-    : ScientificPlot(parent, PLOT_TYPE::Plot1D), m_custom_plot(new QCustomPlot),
-      m_update_timer(new UpdateTimer(replot_update_interval, this)), m_block_update(false)
+    : ScientificPlot(parent, PLOT_TYPE::Plot1D)
+    , m_custom_plot(new QCustomPlot)
+    , m_update_timer(new UpdateTimer(replot_update_interval, this))
+    , m_block_update(false)
 {
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(0, 0, 0, 0);
@@ -59,7 +61,7 @@ PlotEventInfo Plot1D::eventInfo(double xpos, double ypos) const
     result.setValue(ypos);
 
     result.setInAxesRange(axesRangeContains(xpos, ypos));
-    result.setNx(getBin(result.x(), m_custom_plot->graph()));
+    result.setNx(bin(result.x(), m_custom_plot->graph()));
 
     return result;
 }
@@ -301,7 +303,7 @@ void Plot1D::replot()
 
 namespace
 {
-int getBin(double x, const QCPGraph* graph)
+int bin(double x, const QCPGraph* graph)
 {
     const int key_start = graph->findBegin(x);
     const int key_end = graph->findBegin(x, false); // false = do not expand range

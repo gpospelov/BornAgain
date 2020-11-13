@@ -32,11 +32,11 @@ namespace
 
 bool detHasSameDimensions(const IDetector& detector, const OutputData<double>& data)
 {
-    if (data.getRank() != detector.dimension())
+    if (data.rank() != detector.dimension())
         return false;
 
     for (size_t i = 0; i < detector.dimension(); ++i)
-        if (data.getAxis(i).size() != detector.getAxis(i).size())
+        if (data.axis(i).size() != detector.axis(i).size())
             return false;
 
     return true;
@@ -124,9 +124,13 @@ ISimulation::ISimulation()
 }
 
 ISimulation::ISimulation(const ISimulation& other)
-    : ICloneable(), INode(), m_options(other.m_options), m_progress(other.m_progress),
-      m_sample_provider(other.m_sample_provider),
-      m_distribution_handler(other.m_distribution_handler), m_instrument(other.instrument())
+    : ICloneable()
+    , INode()
+    , m_options(other.m_options)
+    , m_progress(other.m_progress)
+    , m_sample_provider(other.m_sample_provider)
+    , m_distribution_handler(other.m_distribution_handler)
+    , m_instrument(other.instrument())
 {
     if (other.m_background)
         setBackground(*other.m_background);

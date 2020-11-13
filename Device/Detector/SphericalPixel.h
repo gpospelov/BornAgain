@@ -29,8 +29,8 @@ public:
     SphericalPixel* clone() const override;
     SphericalPixel* createZeroSizePixel(double x, double y) const override;
     kvector_t getK(double x, double y, double wavelength) const override;
-    double getIntegrationFactor(double x, double y) const override;
-    double getSolidAngle() const override;
+    double integrationFactor(double x, double y) const override;
+    double solidAngle() const override;
 
 private:
     const double m_alpha;

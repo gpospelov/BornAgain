@@ -38,8 +38,10 @@ QString update_question()
 } // namespace
 
 UpdateNotifierWidget::UpdateNotifierWidget(UpdateNotifier* updateNotifier, QWidget* parent)
-    : QWidget(parent), m_updateNotifier(updateNotifier), m_updateLabel(new QLabel),
-      m_check_for_updates(true)
+    : QWidget(parent)
+    , m_updateNotifier(updateNotifier)
+    , m_updateLabel(new QLabel)
+    , m_check_for_updates(true)
 {
     auto layout = new QHBoxLayout();
     layout->addWidget(m_updateLabel);

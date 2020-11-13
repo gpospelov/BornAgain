@@ -96,22 +96,24 @@ std::unique_ptr<IAxis> UnitConverterSimple::createConvertedAxis(size_t i_axis,
 }
 
 UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
-    : m_axis_data_table(other.m_axis_data_table), m_wavelength(other.m_wavelength),
-      m_alpha_i(other.m_alpha_i), m_phi_i(other.m_phi_i)
+    : m_axis_data_table(other.m_axis_data_table)
+    , m_wavelength(other.m_wavelength)
+    , m_alpha_i(other.m_alpha_i)
+    , m_phi_i(other.m_phi_i)
 {
 }
 
 void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_axis)
 {
-    const auto& axis = detector.getAxis(i_axis);
+    const auto& axis = detector.axis(i_axis);
     const auto* p_roi = detector.regionOfInterest();
     const auto& axis_name = axisName(i_axis);
     if (!p_roi) {
-        addAxisData(axis_name, axis.getMin(), axis.getMax(), defaultUnits(), axis.size());
+        addAxisData(axis_name, axis.lowerBound(), axis.upperBound(), defaultUnits(), axis.size());
         return;
     }
     auto P_roi_axis = p_roi->clipAxisToRoi(i_axis, axis);
-    addAxisData(axis_name, P_roi_axis->getMin(), P_roi_axis->getMax(), defaultUnits(),
+    addAxisData(axis_name, P_roi_axis->lowerBound(), P_roi_axis->upperBound(), defaultUnits(),
                 P_roi_axis->size());
 }
 
@@ -321,7 +323,7 @@ OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Be
         throw std::runtime_error("Error in OffSpecularConverter constructor: "
                                  "detector has wrong dimension: "
                                  + std::to_string(static_cast<int>(detector.dimension())));
-    addAxisData(axisName(0), alpha_axis.getMin(), alpha_axis.getMax(), defaultUnits(),
+    addAxisData(axisName(0), alpha_axis.lowerBound(), alpha_axis.upperBound(), defaultUnits(),
                 alpha_axis.size());
     addDetectorYAxis(detector);
 }
@@ -365,7 +367,7 @@ std::vector<std::map<Axes::Units, std::string>> OffSpecularConverter::createName
 
 void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
 {
-    const auto& axis = detector.getAxis(1);
+    const auto& axis = detector.axis(1);
     const auto* p_roi = detector.regionOfInterest();
     const auto& axis_name = axisName(1);
     std::unique_ptr<IAxis> P_new_axis;
@@ -385,8 +387,8 @@ void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
         const double alpha_f_max = M_PI_2 - k01.theta();
         addAxisData(axis_name, alpha_f_min, alpha_f_max, defaultUnits(), P_new_axis->size());
     } else if (dynamic_cast<const SphericalDetector*>(&detector)) {
-        const double alpha_f_min = P_new_axis->getMin();
-        const double alpha_f_max = P_new_axis->getMax();
+        const double alpha_f_min = P_new_axis->lowerBound();
+        const double alpha_f_max = P_new_axis->upperBound();
         addAxisData(axis_name, alpha_f_min, alpha_f_max, defaultUnits(), P_new_axis->size());
     } else {
         throw std::runtime_error("Error in OffSpecularConverter::addDetectorYAxis: "
@@ -406,9 +408,10 @@ DepthProbeConverter::DepthProbeConverter(const Beam& beam, const IAxis& alpha_ax
 {
     const auto& alpha_axis_name = axisName(0);
     const auto& z_axis_name = axisName(1);
-    addAxisData(alpha_axis_name, alpha_axis.getMin(), alpha_axis.getMax(), defaultUnits(),
+    addAxisData(alpha_axis_name, alpha_axis.lowerBound(), alpha_axis.upperBound(), defaultUnits(),
                 alpha_axis.size());
-    addAxisData(z_axis_name, z_axis.getMin(), z_axis.getMax(), defaultUnits(), z_axis.size());
+    addAxisData(z_axis_name, z_axis.lowerBound(), z_axis.upperBound(), defaultUnits(),
+                z_axis.size());
 }
 
 DepthProbeConverter::~DepthProbeConverter() = default;

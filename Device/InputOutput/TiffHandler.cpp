@@ -19,8 +19,12 @@
 #include <tiffio.hxx>
 
 TiffHandler::TiffHandler()
-    : m_tiff(0), m_width(0), m_height(0), m_bitsPerSample(0), m_samplesPerPixel(0),
-      m_sampleFormat(0)
+    : m_tiff(0)
+    , m_width(0)
+    , m_height(0)
+    , m_bitsPerSample(0)
+    , m_samplesPerPixel(0)
+    , m_sampleFormat(0)
 {
 }
 
@@ -48,12 +52,12 @@ const OutputData<double>* TiffHandler::getOutputData() const
 void TiffHandler::write(const OutputData<double>& data, std::ostream& output_stream)
 {
     m_data.reset(data.clone());
-    if (m_data->getRank() != 2)
+    if (m_data->rank() != 2)
         throw Exceptions::LogicErrorException("TiffHandler::write -> Error. "
                                               "Only 2-dim arrays supported");
     m_tiff = TIFFStreamOpen("MemTIFF", &output_stream);
-    m_width = m_data->getAxis(0).size();
-    m_height = m_data->getAxis(1).size(); // this does not exist for 1d data
+    m_width = m_data->axis(0).size();
+    m_height = m_data->axis(1).size(); // this does not exist for 1d data
     write_header();
     write_data();
     close();

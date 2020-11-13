@@ -23,8 +23,9 @@ FormFactorHollowSphere::FormFactorHollowSphere(const std::vector<double> P)
                        "class_tooltip",
                        {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
                         {"FullWidth", "nm", "para_tooltip", 0, +INF, 0}}},
-                      P),
-      m_mean(m_P[0]), m_full_width(m_P[1])
+                      P)
+    , m_mean(m_P[0])
+    , m_full_width(m_P[1])
 {
     if (!checkParameters())
         throw Exceptions::ClassInitializationException(

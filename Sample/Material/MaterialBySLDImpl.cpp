@@ -28,8 +28,9 @@ inline double getWlPrefactor(double wavelength)
 
 MaterialBySLDImpl::MaterialBySLDImpl(const std::string& name, double sld_real, double sld_imag,
                                      kvector_t magnetization)
-    : MagneticMaterialImpl(name, magnetization), m_sld_real(sld_real),
-      m_sld_imag(sld_imag < 0. ? throw std::runtime_error(
+    : MagneticMaterialImpl(name, magnetization)
+    , m_sld_real(sld_real)
+    , m_sld_imag(sld_imag < 0. ? throw std::runtime_error(
                      "The imaginary part of the SLD must be greater or equal zero")
                                : sld_imag)
 {

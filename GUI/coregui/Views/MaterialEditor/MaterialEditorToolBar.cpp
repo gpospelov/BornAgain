@@ -27,8 +27,12 @@ const int toolbar_icon_size = 32;
 }
 
 MaterialEditorToolBar::MaterialEditorToolBar(MaterialModel* materialModel, QWidget* parent)
-    : QToolBar(parent), m_materialModel(materialModel), m_selectionModel(nullptr),
-      m_newMaterialAction(nullptr), m_cloneMaterialAction(nullptr), m_removeMaterialAction(nullptr)
+    : QToolBar(parent)
+    , m_materialModel(materialModel)
+    , m_selectionModel(nullptr)
+    , m_newMaterialAction(nullptr)
+    , m_cloneMaterialAction(nullptr)
+    , m_removeMaterialAction(nullptr)
 {
     setIconSize(QSize(toolbar_icon_size, toolbar_icon_size));
     setToolButtonStyle(Qt::ToolButtonTextBesideIcon);

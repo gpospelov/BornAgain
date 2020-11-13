@@ -57,10 +57,10 @@ Particle3DContainer::~Particle3DContainer() noexcept
 
 // move constructor
 Particle3DContainer::Particle3DContainer(Particle3DContainer&& other) noexcept
-    : m_containerParticles(std::move(other.m_containerParticles)),
-      m_cumulativeAbundance(std::move(other.m_cumulativeAbundance)),
-      m_containerType(std::move(other.m_containerType)),
-      m_containerParticlesBlend(std::move(other.m_containerParticlesBlend))
+    : m_containerParticles(std::move(other.m_containerParticles))
+    , m_cumulativeAbundance(std::move(other.m_cumulativeAbundance))
+    , m_containerType(std::move(other.m_containerType))
+    , m_containerParticlesBlend(std::move(other.m_containerParticlesBlend))
 {
 }
 

@@ -18,12 +18,14 @@ class MultiLayerTest : public ::testing::Test
 protected:
     MultiLayerTest()
         // The following delta, beta are all unphysical. Values don't matter here.
-        : air(HomogeneousMaterial("Vacuum", 1e-6, 9e-4)),
-          iron(HomogeneousMaterial("iron", 2e-5, 8e-5)),
-          chromium(HomogeneousMaterial("chromium", 3e-7, 7e-6)),
-          stone(HomogeneousMaterial("stone", 4e-4, 8e-7)), topLayer(air, 0 * Units::nanometer),
-          layer1(iron, 20 * Units::nanometer), layer2(chromium, 40 * Units::nanometer),
-          substrate(stone, 0 * Units::nanometer)
+        : air(HomogeneousMaterial("Vacuum", 1e-6, 9e-4))
+        , iron(HomogeneousMaterial("iron", 2e-5, 8e-5))
+        , chromium(HomogeneousMaterial("chromium", 3e-7, 7e-6))
+        , stone(HomogeneousMaterial("stone", 4e-4, 8e-7))
+        , topLayer(air, 0 * Units::nanometer)
+        , layer1(iron, 20 * Units::nanometer)
+        , layer2(chromium, 40 * Units::nanometer)
+        , substrate(stone, 0 * Units::nanometer)
     {
     }
     void set_four()

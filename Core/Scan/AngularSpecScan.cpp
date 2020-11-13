@@ -44,26 +44,28 @@ extractValues(std::vector<std::vector<ParameterSample>> samples,
 } // namespace
 
 AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
-    : m_wl(wl), m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle))),
-      m_wl_resolution(ScanResolution::scanEmptyResolution()),
-      m_inc_resolution(ScanResolution::scanEmptyResolution())
+    : m_wl(wl)
+    , m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle)))
+    , m_wl_resolution(ScanResolution::scanEmptyResolution())
+    , m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
 
 AngularSpecScan::AngularSpecScan(double wl, const IAxis& inc_angle)
-    : m_wl(wl), m_inc_angle(inc_angle.clone()),
-      m_wl_resolution(ScanResolution::scanEmptyResolution()),
-      m_inc_resolution(ScanResolution::scanEmptyResolution())
+    : m_wl(wl)
+    , m_inc_angle(inc_angle.clone())
+    , m_wl_resolution(ScanResolution::scanEmptyResolution())
+    , m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
 
 AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, double alpha_i_max)
-    : m_wl(wl),
-      m_inc_angle(std::make_unique<FixedBinAxis>("inc_angles", nbins, alpha_i_min, alpha_i_max)),
-      m_wl_resolution(ScanResolution::scanEmptyResolution()),
-      m_inc_resolution(ScanResolution::scanEmptyResolution())
+    : m_wl(wl)
+    , m_inc_angle(std::make_unique<FixedBinAxis>("inc_angles", nbins, alpha_i_min, alpha_i_max))
+    , m_wl_resolution(ScanResolution::scanEmptyResolution())
+    , m_inc_resolution(ScanResolution::scanEmptyResolution())
 {
     checkInitialization();
 }
@@ -283,7 +285,7 @@ void AngularSpecScan::checkInitialization()
         throw std::runtime_error(
             "Error in AngularSpecScan::checkInitialization: wavelength shell be positive");
 
-    const std::vector<double> axis_values = m_inc_angle->getBinCenters();
+    const std::vector<double> axis_values = m_inc_angle->binCenters();
     if (!std::is_sorted(axis_values.begin(), axis_values.end()))
         throw std::runtime_error("Error in AngularSpecScan::checkInitialization: q-vector values "
                                  "shall be sorted in ascending order.");
@@ -301,6 +303,6 @@ AngularSpecScan::DistrOutput AngularSpecScan::applyWlResolution() const
 AngularSpecScan::DistrOutput AngularSpecScan::applyIncResolution() const
 {
     if (m_inc_res_cache.empty())
-        m_inc_res_cache = m_inc_resolution->generateSamples(m_inc_angle->getBinCenters());
+        m_inc_res_cache = m_inc_resolution->generateSamples(m_inc_angle->binCenters());
     return m_inc_res_cache;
 }

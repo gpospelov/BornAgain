@@ -25,8 +25,10 @@ const QString SessionItem::P_NAME = "Name";
 
 //! Constructs new item with given model type. The type must be defined.
 SessionItem::SessionItem(const QString& modelType)
-    : m_parent(nullptr), m_model(nullptr), m_properties(new SessionItemData),
-      m_tags(new SessionItemTags)
+    : m_parent(nullptr)
+    , m_model(nullptr)
+    , m_properties(new SessionItemData)
+    , m_tags(new SessionItemTags)
 {
     ASSERT(!modelType.isEmpty());
 

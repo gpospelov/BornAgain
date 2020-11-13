@@ -22,19 +22,30 @@
 #include "Device/Resolution/IDetectorResolution.h"
 
 RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nybins, double height)
-    : m_u0(0.0), m_v0(0.0), m_direction(kvector_t(0.0, -1.0, 0.0)), m_distance(0.0),
-      m_dbeam_u0(0.0), m_dbeam_v0(0.0), m_detector_arrangement(GENERIC)
+    : m_u0(0.0)
+    , m_v0(0.0)
+    , m_direction(kvector_t(0.0, -1.0, 0.0))
+    , m_distance(0.0)
+    , m_dbeam_u0(0.0)
+    , m_dbeam_v0(0.0)
+    , m_detector_arrangement(GENERIC)
 {
     setDetectorParameters(nxbins, 0.0, width, nybins, 0.0, height);
     setName("RectangularDetector");
 }
 
 RectangularDetector::RectangularDetector(const RectangularDetector& other)
-    : IDetector2D(other), m_normal_to_detector(other.m_normal_to_detector), m_u0(other.m_u0),
-      m_v0(other.m_v0), m_direction(other.m_direction), m_distance(other.m_distance),
-      m_dbeam_u0(other.m_dbeam_u0), m_dbeam_v0(other.m_dbeam_v0),
-      m_detector_arrangement(other.m_detector_arrangement), m_u_unit(other.m_u_unit),
-      m_v_unit(other.m_v_unit)
+    : IDetector2D(other)
+    , m_normal_to_detector(other.m_normal_to_detector)
+    , m_u0(other.m_u0)
+    , m_v0(other.m_v0)
+    , m_direction(other.m_direction)
+    , m_distance(other.m_distance)
+    , m_dbeam_u0(other.m_dbeam_u0)
+    , m_dbeam_v0(other.m_dbeam_v0)
+    , m_detector_arrangement(other.m_detector_arrangement)
+    , m_u_unit(other.m_u_unit)
+    , m_v_unit(other.m_v_unit)
 {
     setName("RectangularDetector");
 }
@@ -92,24 +103,22 @@ void RectangularDetector::setDirectBeamPosition(double u0, double v0)
 
 double RectangularDetector::getWidth() const
 {
-    const IAxis& axis = getAxis(0);
-    return axis.getMax() - axis.getMin();
+    return axis(0).span();
 }
 
 double RectangularDetector::getHeight() const
 {
-    const IAxis& axis = getAxis(1);
-    return axis.getMax() - axis.getMin();
+    return axis(1).span();
 }
 
 size_t RectangularDetector::getNbinsX() const
 {
-    return getAxis(0).size();
+    return axis(0).size();
 }
 
 size_t RectangularDetector::getNbinsY() const
 {
-    return getAxis(1).size();
+    return axis(1).size();
 }
 
 kvector_t RectangularDetector::getNormalVector() const
@@ -159,8 +168,8 @@ Axes::Units RectangularDetector::defaultAxesUnits() const
 
 RectangularPixel* RectangularDetector::regionOfInterestPixel() const
 {
-    const IAxis& u_axis = getAxis(0);
-    const IAxis& v_axis = getAxis(1);
+    const IAxis& u_axis = axis(0);
+    const IAxis& v_axis = axis(1);
     double u_min, v_min, width, height;
     auto p_roi = regionOfInterest();
     if (p_roi) {
@@ -169,8 +178,8 @@ RectangularPixel* RectangularDetector::regionOfInterestPixel() const
         width = p_roi->getXup() - p_roi->getXlow();
         height = p_roi->getYup() - p_roi->getYlow();
     } else {
-        u_min = u_axis.getMin();
-        v_min = v_axis.getMin();
+        u_min = u_axis.lowerBound();
+        v_min = v_axis.lowerBound();
         width = getWidth();
         height = getHeight();
     }
@@ -183,17 +192,17 @@ RectangularPixel* RectangularDetector::regionOfInterestPixel() const
 
 IPixel* RectangularDetector::createPixel(size_t index) const
 {
-    const IAxis& u_axis = getAxis(0);
-    const IAxis& v_axis = getAxis(1);
+    const IAxis& u_axis = axis(0);
+    const IAxis& v_axis = axis(1);
     const size_t u_index = axisBinIndex(index, 0);
     const size_t v_index = axisBinIndex(index, 1);
 
-    const Bin1D u_bin = u_axis.getBin(u_index);
-    const Bin1D v_bin = v_axis.getBin(v_index);
+    const Bin1D u_bin = u_axis.bin(u_index);
+    const Bin1D v_bin = v_axis.bin(v_index);
     const kvector_t corner_position(m_normal_to_detector + (u_bin.m_lower - m_u0) * m_u_unit
                                     + (v_bin.m_lower - m_v0) * m_v_unit);
-    const kvector_t width = u_bin.getBinSize() * m_u_unit;
-    const kvector_t height = v_bin.getBinSize() * m_v_unit;
+    const kvector_t width = u_bin.binSize() * m_u_unit;
+    const kvector_t height = v_bin.binSize() * m_v_unit;
     return new RectangularPixel(corner_position, width, height);
 }
 
@@ -225,8 +234,8 @@ size_t RectangularDetector::indexOfSpecular(const Beam& beam) const
     const kvector_t rpix = k_spec * (m_distance / kd);
     const double u = rpix.dot(m_u_unit) + m_u0;
     const double v = rpix.dot(m_v_unit) + m_v0;
-    const IAxis& u_axis = getAxis(0); // the x axis, GISAS only
-    const IAxis& v_axis = getAxis(1); // the y axis, in reflectometer plane
+    const IAxis& u_axis = axis(0); // the x axis, GISAS only
+    const IAxis& v_axis = axis(1); // the y axis, in reflectometer plane
     if (!u_axis.contains(u) || !v_axis.contains(v))
         return totalSize();
     return getGlobalIndex(u_axis.findClosestIndex(u), v_axis.findClosestIndex(v));

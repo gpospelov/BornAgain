@@ -1868,21 +1868,21 @@ class Bin1D(object):
     m_lower = property(_libBornAgainBase.Bin1D_m_lower_get, _libBornAgainBase.Bin1D_m_lower_set, doc=r"""m_lower : double""")
     m_upper = property(_libBornAgainBase.Bin1D_m_upper_get, _libBornAgainBase.Bin1D_m_upper_set, doc=r"""m_upper : double""")
 
-    def getMidPoint(self):
+    def center(self):
         r"""
-        getMidPoint(Bin1D self) -> double
-        double Bin1D::getMidPoint() const
+        center(Bin1D self) -> double
+        double Bin1D::center() const
 
         """
-        return _libBornAgainBase.Bin1D_getMidPoint(self)
+        return _libBornAgainBase.Bin1D_center(self)
 
-    def getBinSize(self):
+    def binSize(self):
         r"""
-        getBinSize(Bin1D self) -> double
-        double Bin1D::getBinSize() const
+        binSize(Bin1D self) -> double
+        double Bin1D::binSize() const
 
         """
-        return _libBornAgainBase.Bin1D_getBinSize(self)
+        return _libBornAgainBase.Bin1D_binSize(self)
     __swig_destroy__ = _libBornAgainBase.delete_Bin1D
 
 # Register Bin1D in _libBornAgainBase:
@@ -1923,21 +1923,21 @@ class Bin1DKVector(object):
         """
         _libBornAgainBase.Bin1DKVector_swiginit(self, _libBornAgainBase.new_Bin1DKVector(*args))
 
-    def getMidPoint(self):
+    def center(self):
         r"""
-        getMidPoint(Bin1DKVector self) -> kvector_t
-        kvector_t Bin1DKVector::getMidPoint() const
+        center(Bin1DKVector self) -> kvector_t
+        kvector_t Bin1DKVector::center() const
 
         """
-        return _libBornAgainBase.Bin1DKVector_getMidPoint(self)
+        return _libBornAgainBase.Bin1DKVector_center(self)
 
-    def getDelta(self):
+    def span(self):
         r"""
-        getDelta(Bin1DKVector self) -> kvector_t
-        kvector_t Bin1DKVector::getDelta() const
+        span(Bin1DKVector self) -> kvector_t
+        kvector_t Bin1DKVector::span() const
 
         """
-        return _libBornAgainBase.Bin1DKVector_getDelta(self)
+        return _libBornAgainBase.Bin1DKVector_span(self)
     m_q_lower = property(_libBornAgainBase.Bin1DKVector_m_q_lower_get, _libBornAgainBase.Bin1DKVector_m_q_lower_set, doc=r"""m_q_lower : kvector_t""")
     m_q_upper = property(_libBornAgainBase.Bin1DKVector_m_q_upper_get, _libBornAgainBase.Bin1DKVector_m_q_upper_set, doc=r"""m_q_upper : kvector_t""")
     __swig_destroy__ = _libBornAgainBase.delete_Bin1DKVector
@@ -1970,21 +1970,21 @@ class Bin1DCVector(object):
         """
         _libBornAgainBase.Bin1DCVector_swiginit(self, _libBornAgainBase.new_Bin1DCVector(*args))
 
-    def getMidPoint(self):
+    def center(self):
         r"""
-        getMidPoint(Bin1DCVector self) -> cvector_t
-        cvector_t Bin1DCVector::getMidPoint() const
+        center(Bin1DCVector self) -> cvector_t
+        cvector_t Bin1DCVector::center() const
 
         """
-        return _libBornAgainBase.Bin1DCVector_getMidPoint(self)
+        return _libBornAgainBase.Bin1DCVector_center(self)
 
-    def getDelta(self):
+    def span(self):
         r"""
-        getDelta(Bin1DCVector self) -> cvector_t
-        cvector_t Bin1DCVector::getDelta() const
+        span(Bin1DCVector self) -> cvector_t
+        cvector_t Bin1DCVector::span() const
 
         """
-        return _libBornAgainBase.Bin1DCVector_getDelta(self)
+        return _libBornAgainBase.Bin1DCVector_span(self)
     m_q_lower = property(_libBornAgainBase.Bin1DCVector_m_q_lower_get, _libBornAgainBase.Bin1DCVector_m_q_lower_set, doc=r"""m_q_lower : cvector_t""")
     m_q_upper = property(_libBornAgainBase.Bin1DCVector_m_q_upper_get, _libBornAgainBase.Bin1DCVector_m_q_upper_set, doc=r"""m_q_upper : cvector_t""")
     __swig_destroy__ = _libBornAgainBase.delete_Bin1DCVector
@@ -2049,43 +2049,53 @@ class IAxis(object):
         """
         return _libBornAgainBase.IAxis_setName(self, name)
 
-    def getBin(self, index):
+    def bin(self, index):
         r"""
-        getBin(IAxis self, size_t index) -> Bin1D
-        virtual Bin1D IAxis::getBin(size_t index) const =0
+        bin(IAxis self, size_t index) -> Bin1D
+        virtual Bin1D IAxis::bin(size_t index) const =0
 
         retrieve a 1d bin for the given index 
 
         """
-        return _libBornAgainBase.IAxis_getBin(self, index)
+        return _libBornAgainBase.IAxis_bin(self, index)
 
-    def getMin(self):
+    def lowerBound(self):
         r"""
-        getMin(IAxis self) -> double
-        virtual double IAxis::getMin() const =0
+        lowerBound(IAxis self) -> double
+        virtual double IAxis::lowerBound() const =0
 
         Returns value of first point of axis. 
 
         """
-        return _libBornAgainBase.IAxis_getMin(self)
+        return _libBornAgainBase.IAxis_lowerBound(self)
 
-    def getMax(self):
+    def upperBound(self):
         r"""
-        getMax(IAxis self) -> double
-        virtual double IAxis::getMax() const =0
+        upperBound(IAxis self) -> double
+        virtual double IAxis::upperBound() const =0
 
         Returns value of last point of axis. 
 
         """
-        return _libBornAgainBase.IAxis_getMax(self)
+        return _libBornAgainBase.IAxis_upperBound(self)
 
-    def getBinCenter(self, index):
+    def span(self):
         r"""
-        getBinCenter(IAxis self, size_t index) -> double
-        virtual double IAxis::getBinCenter(size_t index) const =0
+        span(IAxis self) -> double
+        double IAxis::span() const
+
+        Returns distance from first to last point. 
 
         """
-        return _libBornAgainBase.IAxis_getBinCenter(self, index)
+        return _libBornAgainBase.IAxis_span(self)
+
+    def binCenter(self, index):
+        r"""
+        binCenter(IAxis self, size_t index) -> double
+        virtual double IAxis::binCenter(size_t index) const =0
+
+        """
+        return _libBornAgainBase.IAxis_binCenter(self, index)
 
     def findClosestIndex(self, value):
         r"""
@@ -2105,21 +2115,21 @@ class IAxis(object):
         r"""__ne__(IAxis self, IAxis right) -> bool"""
         return _libBornAgainBase.IAxis___ne__(self, right)
 
-    def getBinCenters(self):
+    def binCenters(self):
         r"""
-        getBinCenters(IAxis self) -> vdouble1d_t
-        std::vector< double > IAxis::getBinCenters() const
+        binCenters(IAxis self) -> vdouble1d_t
+        std::vector< double > IAxis::binCenters() const
 
         """
-        return _libBornAgainBase.IAxis_getBinCenters(self)
+        return _libBornAgainBase.IAxis_binCenters(self)
 
-    def getBinBoundaries(self):
+    def binBoundaries(self):
         r"""
-        getBinBoundaries(IAxis self) -> vdouble1d_t
-        std::vector< double > IAxis::getBinBoundaries() const
+        binBoundaries(IAxis self) -> vdouble1d_t
+        std::vector< double > IAxis::binBoundaries() const
 
         """
-        return _libBornAgainBase.IAxis_getBinBoundaries(self)
+        return _libBornAgainBase.IAxis_binBoundaries(self)
 
     def createClippedAxis(self, left, right):
         r"""
@@ -2218,43 +2228,43 @@ class VariableBinAxis(IAxis):
         """
         return _libBornAgainBase.VariableBinAxis_size(self)
 
-    def getBin(self, index):
+    def bin(self, index):
         r"""
-        getBin(VariableBinAxis self, size_t index) -> Bin1D
-        Bin1D VariableBinAxis::getBin(size_t index) const
+        bin(VariableBinAxis self, size_t index) -> Bin1D
+        Bin1D VariableBinAxis::bin(size_t index) const
 
         retrieve a 1d bin for the given index 
 
         """
-        return _libBornAgainBase.VariableBinAxis_getBin(self, index)
+        return _libBornAgainBase.VariableBinAxis_bin(self, index)
 
-    def getMin(self):
+    def lowerBound(self):
         r"""
-        getMin(VariableBinAxis self) -> double
-        double VariableBinAxis::getMin() const
+        lowerBound(VariableBinAxis self) -> double
+        double VariableBinAxis::lowerBound() const
 
         Returns value of first point of axis. 
 
         """
-        return _libBornAgainBase.VariableBinAxis_getMin(self)
+        return _libBornAgainBase.VariableBinAxis_lowerBound(self)
 
-    def getMax(self):
+    def upperBound(self):
         r"""
-        getMax(VariableBinAxis self) -> double
-        double VariableBinAxis::getMax() const
+        upperBound(VariableBinAxis self) -> double
+        double VariableBinAxis::upperBound() const
 
         Returns value of last point of axis. 
 
         """
-        return _libBornAgainBase.VariableBinAxis_getMax(self)
+        return _libBornAgainBase.VariableBinAxis_upperBound(self)
 
-    def getBinCenter(self, index):
+    def binCenter(self, index):
         r"""
-        getBinCenter(VariableBinAxis self, size_t index) -> double
-        double VariableBinAxis::getBinCenter(size_t index) const
+        binCenter(VariableBinAxis self, size_t index) -> double
+        double VariableBinAxis::binCenter(size_t index) const
 
         """
-        return _libBornAgainBase.VariableBinAxis_getBinCenter(self, index)
+        return _libBornAgainBase.VariableBinAxis_binCenter(self, index)
 
     def findClosestIndex(self, value):
         r"""
@@ -2266,21 +2276,21 @@ class VariableBinAxis(IAxis):
         """
         return _libBornAgainBase.VariableBinAxis_findClosestIndex(self, value)
 
-    def getBinCenters(self):
+    def binCenters(self):
         r"""
-        getBinCenters(VariableBinAxis self) -> vdouble1d_t
-        std::vector< double > VariableBinAxis::getBinCenters() const
+        binCenters(VariableBinAxis self) -> vdouble1d_t
+        std::vector< double > VariableBinAxis::binCenters() const
 
         """
-        return _libBornAgainBase.VariableBinAxis_getBinCenters(self)
+        return _libBornAgainBase.VariableBinAxis_binCenters(self)
 
-    def getBinBoundaries(self):
+    def binBoundaries(self):
         r"""
-        getBinBoundaries(VariableBinAxis self) -> vdouble1d_t
-        std::vector<double> VariableBinAxis::getBinBoundaries() const
+        binBoundaries(VariableBinAxis self) -> vdouble1d_t
+        std::vector<double> VariableBinAxis::binBoundaries() const
 
         """
-        return _libBornAgainBase.VariableBinAxis_getBinBoundaries(self)
+        return _libBornAgainBase.VariableBinAxis_binBoundaries(self)
 
     def createClippedAxis(self, left, right):
         r"""
@@ -2418,23 +2428,23 @@ class CustomBinAxis(VariableBinAxis):
         """
         return _libBornAgainBase.CustomBinAxis_clone(self)
 
-    def getBin(self, index):
+    def bin(self, index):
         r"""
-        getBin(CustomBinAxis self, size_t index) -> Bin1D
-        Bin1D CustomBinAxis::getBin(size_t index) const
+        bin(CustomBinAxis self, size_t index) -> Bin1D
+        Bin1D CustomBinAxis::bin(size_t index) const
 
         retrieve a 1d bin for the given index 
 
         """
-        return _libBornAgainBase.CustomBinAxis_getBin(self, index)
+        return _libBornAgainBase.CustomBinAxis_bin(self, index)
 
-    def getBinCenters(self):
+    def binCenters(self):
         r"""
-        getBinCenters(CustomBinAxis self) -> vdouble1d_t
-        std::vector< double > CustomBinAxis::getBinCenters() const
+        binCenters(CustomBinAxis self) -> vdouble1d_t
+        std::vector< double > CustomBinAxis::binCenters() const
 
         """
-        return _libBornAgainBase.CustomBinAxis_getBinCenters(self)
+        return _libBornAgainBase.CustomBinAxis_binCenters(self)
 
     def createClippedAxis(self, left, right):
         r"""
@@ -2508,43 +2518,43 @@ class FixedBinAxis(IAxis):
         """
         return _libBornAgainBase.FixedBinAxis_size(self)
 
-    def getBin(self, index):
+    def bin(self, index):
         r"""
-        getBin(FixedBinAxis self, size_t index) -> Bin1D
-        Bin1D FixedBinAxis::getBin(size_t index) const
+        bin(FixedBinAxis self, size_t index) -> Bin1D
+        Bin1D FixedBinAxis::bin(size_t index) const
 
         retrieve a 1d bin for the given index 
 
         """
-        return _libBornAgainBase.FixedBinAxis_getBin(self, index)
+        return _libBornAgainBase.FixedBinAxis_bin(self, index)
 
-    def getMin(self):
+    def lowerBound(self):
         r"""
-        getMin(FixedBinAxis self) -> double
-        double FixedBinAxis::getMin() const
+        lowerBound(FixedBinAxis self) -> double
+        double FixedBinAxis::lowerBound() const
 
         Returns value of first point of axis. 
 
         """
-        return _libBornAgainBase.FixedBinAxis_getMin(self)
+        return _libBornAgainBase.FixedBinAxis_lowerBound(self)
 
-    def getMax(self):
+    def upperBound(self):
         r"""
-        getMax(FixedBinAxis self) -> double
-        double FixedBinAxis::getMax() const
+        upperBound(FixedBinAxis self) -> double
+        double FixedBinAxis::upperBound() const
 
         Returns value of last point of axis. 
 
         """
-        return _libBornAgainBase.FixedBinAxis_getMax(self)
+        return _libBornAgainBase.FixedBinAxis_upperBound(self)
 
-    def getBinCenter(self, index):
+    def binCenter(self, index):
         r"""
-        getBinCenter(FixedBinAxis self, size_t index) -> double
-        double FixedBinAxis::getBinCenter(size_t index) const
+        binCenter(FixedBinAxis self, size_t index) -> double
+        double FixedBinAxis::binCenter(size_t index) const
 
         """
-        return _libBornAgainBase.FixedBinAxis_getBinCenter(self, index)
+        return _libBornAgainBase.FixedBinAxis_binCenter(self, index)
 
     def findClosestIndex(self, value):
         r"""
@@ -2556,21 +2566,21 @@ class FixedBinAxis(IAxis):
         """
         return _libBornAgainBase.FixedBinAxis_findClosestIndex(self, value)
 
-    def getBinCenters(self):
+    def binCenters(self):
         r"""
-        getBinCenters(FixedBinAxis self) -> vdouble1d_t
-        std::vector< double > FixedBinAxis::getBinCenters() const
+        binCenters(FixedBinAxis self) -> vdouble1d_t
+        std::vector< double > FixedBinAxis::binCenters() const
 
         """
-        return _libBornAgainBase.FixedBinAxis_getBinCenters(self)
+        return _libBornAgainBase.FixedBinAxis_binCenters(self)
 
-    def getBinBoundaries(self):
+    def binBoundaries(self):
         r"""
-        getBinBoundaries(FixedBinAxis self) -> vdouble1d_t
-        std::vector< double > FixedBinAxis::getBinBoundaries() const
+        binBoundaries(FixedBinAxis self) -> vdouble1d_t
+        std::vector< double > FixedBinAxis::binBoundaries() const
 
         """
-        return _libBornAgainBase.FixedBinAxis_getBinBoundaries(self)
+        return _libBornAgainBase.FixedBinAxis_binBoundaries(self)
 
     def createClippedAxis(self, left, right):
         r"""
@@ -2638,21 +2648,21 @@ class IPixel(object):
         """
         return _libBornAgainBase.IPixel_getK(self, x, y, wavelength)
 
-    def getIntegrationFactor(self, x, y):
+    def integrationFactor(self, x, y):
         r"""
-        getIntegrationFactor(IPixel self, double x, double y) -> double
-        virtual double IPixel::getIntegrationFactor(double x, double y) const =0
+        integrationFactor(IPixel self, double x, double y) -> double
+        virtual double IPixel::integrationFactor(double x, double y) const =0
 
         """
-        return _libBornAgainBase.IPixel_getIntegrationFactor(self, x, y)
+        return _libBornAgainBase.IPixel_integrationFactor(self, x, y)
 
-    def getSolidAngle(self):
+    def solidAngle(self):
         r"""
-        getSolidAngle(IPixel self) -> double
-        virtual double IPixel::getSolidAngle() const =0
+        solidAngle(IPixel self) -> double
+        virtual double IPixel::solidAngle() const =0
 
         """
-        return _libBornAgainBase.IPixel_getSolidAngle(self)
+        return _libBornAgainBase.IPixel_solidAngle(self)
 
 # Register IPixel in _libBornAgainBase:
 _libBornAgainBase.IPixel_swigregister(IPixel)

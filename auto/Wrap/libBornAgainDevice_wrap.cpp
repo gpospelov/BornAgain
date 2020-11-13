@@ -29146,7 +29146,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IntensityData_getAxis__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IntensityData_axis__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   OutputData< double > *arg1 = (OutputData< double > *) 0 ;
   size_t arg2 ;
@@ -29159,15 +29159,15 @@ SWIGINTERN PyObject *_wrap_IntensityData_getAxis__SWIG_0(PyObject *SWIGUNUSEDPAR
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_getAxis" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_axis" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
   }
   arg1 = reinterpret_cast< OutputData< double > * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntensityData_getAxis" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntensityData_axis" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (IAxis *) &((OutputData< double > const *)arg1)->getAxis(arg2);
+  result = (IAxis *) &((OutputData< double > const *)arg1)->axis(arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   return resultobj;
 fail:
@@ -29175,7 +29175,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IntensityData_getAxis__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IntensityData_axis__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   OutputData< double > *arg1 = (OutputData< double > *) 0 ;
   std::string *arg2 = 0 ;
@@ -29187,21 +29187,21 @@ SWIGINTERN PyObject *_wrap_IntensityData_getAxis__SWIG_1(PyObject *SWIGUNUSEDPAR
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_getAxis" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_axis" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
   }
   arg1 = reinterpret_cast< OutputData< double > * >(argp1);
   {
     std::string *ptr = (std::string *)0;
     res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IntensityData_getAxis" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IntensityData_axis" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IntensityData_getAxis" "', argument " "2"" of type '" "std::string const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IntensityData_axis" "', argument " "2"" of type '" "std::string const &""'"); 
     }
     arg2 = ptr;
   }
-  result = (IAxis *) &((OutputData< double > const *)arg1)->getAxis((std::string const &)*arg2);
+  result = (IAxis *) &((OutputData< double > const *)arg1)->axis((std::string const &)*arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -29211,13 +29211,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IntensityData_getAxis(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IntensityData_axis(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[3] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IntensityData_getAxis", 0, 2, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IntensityData_axis", 0, 2, argv))) SWIG_fail;
   --argc;
   if (argc == 2) {
     int _v;
@@ -29230,7 +29230,7 @@ SWIGINTERN PyObject *_wrap_IntensityData_getAxis(PyObject *self, PyObject *args)
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        return _wrap_IntensityData_getAxis__SWIG_0(self, argc, argv);
+        return _wrap_IntensityData_axis__SWIG_0(self, argc, argv);
       }
     }
   }
@@ -29243,21 +29243,21 @@ SWIGINTERN PyObject *_wrap_IntensityData_getAxis(PyObject *self, PyObject *args)
       int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_IntensityData_getAxis__SWIG_1(self, argc, argv);
+        return _wrap_IntensityData_axis__SWIG_1(self, argc, argv);
       }
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IntensityData_getAxis'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IntensityData_axis'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    OutputData< double >::getAxis(size_t) const\n"
-    "    OutputData< double >::getAxis(std::string const &) const\n");
+    "    OutputData< double >::axis(size_t) const\n"
+    "    OutputData< double >::axis(std::string const &) const\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_IntensityData_getRank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IntensityData_rank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   OutputData< double > *arg1 = (OutputData< double > *) 0 ;
   void *argp1 = 0 ;
@@ -29269,10 +29269,10 @@ SWIGINTERN PyObject *_wrap_IntensityData_getRank(PyObject *SWIGUNUSEDPARM(self),
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_getRank" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_rank" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
   }
   arg1 = reinterpret_cast< OutputData< double > * >(argp1);
-  result = ((OutputData< double > const *)arg1)->getRank();
+  result = ((OutputData< double > const *)arg1)->rank();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -35242,7 +35242,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Instrument_getBeam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_Instrument_beam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Instrument *arg1 = (Instrument *) 0 ;
   void *argp1 = 0 ;
@@ -35252,10 +35252,10 @@ SWIGINTERN PyObject *_wrap_Instrument_getBeam__SWIG_0(PyObject *SWIGUNUSEDPARM(s
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getBeam" "', argument " "1"" of type '" "Instrument *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_beam" "', argument " "1"" of type '" "Instrument *""'"); 
   }
   arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (Beam *) &(arg1)->getBeam();
+  result = (Beam *) &(arg1)->beam();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Beam, 0 |  0 );
   return resultobj;
 fail:
@@ -35263,7 +35263,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Instrument_getBeam__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_Instrument_beam__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Instrument *arg1 = (Instrument *) 0 ;
   void *argp1 = 0 ;
@@ -35273,10 +35273,10 @@ SWIGINTERN PyObject *_wrap_Instrument_getBeam__SWIG_1(PyObject *SWIGUNUSEDPARM(s
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getBeam" "', argument " "1"" of type '" "Instrument const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_beam" "', argument " "1"" of type '" "Instrument const *""'"); 
   }
   arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (Beam *) &((Instrument const *)arg1)->getBeam();
+  result = (Beam *) &((Instrument const *)arg1)->beam();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Beam, 0 |  0 );
   return resultobj;
 fail:
@@ -35284,13 +35284,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Instrument_getBeam(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_Instrument_beam(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[2] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Instrument_getBeam", 0, 1, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Instrument_beam", 0, 1, argv))) SWIG_fail;
   --argc;
   if (argc == 1) {
     int _v;
@@ -35298,7 +35298,7 @@ SWIGINTERN PyObject *_wrap_Instrument_getBeam(PyObject *self, PyObject *args) {
     int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Instrument, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_Instrument_getBeam__SWIG_0(self, argc, argv);
+      return _wrap_Instrument_beam__SWIG_0(self, argc, argv);
     }
   }
   if (argc == 1) {
@@ -35307,15 +35307,15 @@ SWIGINTERN PyObject *_wrap_Instrument_getBeam(PyObject *self, PyObject *args) {
     int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Instrument, 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_Instrument_getBeam__SWIG_1(self, argc, argv);
+      return _wrap_Instrument_beam__SWIG_1(self, argc, argv);
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Instrument_getBeam'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Instrument_beam'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Instrument::getBeam()\n"
-    "    Instrument::getBeam() const\n");
+    "    Instrument::beam()\n"
+    "    Instrument::beam() const\n");
   return 0;
 }
 
@@ -38154,7 +38154,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IDetector_getAxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IDetector_axis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IDetector *arg1 = (IDetector *) 0 ;
   size_t arg2 ;
@@ -38165,18 +38165,18 @@ SWIGINTERN PyObject *_wrap_IDetector_getAxis(PyObject *SWIGUNUSEDPARM(self), PyO
   PyObject *swig_obj[2] ;
   IAxis *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "IDetector_getAxis", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IDetector_axis", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_getAxis" "', argument " "1"" of type '" "IDetector const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_axis" "', argument " "1"" of type '" "IDetector const *""'"); 
   }
   arg1 = reinterpret_cast< IDetector * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_getAxis" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_axis" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (IAxis *) &((IDetector const *)arg1)->getAxis(arg2);
+  result = (IAxis *) &((IDetector const *)arg1)->axis(arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   return resultobj;
 fail:
@@ -40926,7 +40926,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getRank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_rank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   void *argp1 = 0 ;
@@ -40938,10 +40938,10 @@ SWIGINTERN PyObject *_wrap_IHistogram_getRank(PyObject *SWIGUNUSEDPARM(self), Py
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getRank" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_rank" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
-  result = ((IHistogram const *)arg1)->getRank();
+  result = ((IHistogram const *)arg1)->rank();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -40972,7 +40972,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getXaxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_xAxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   void *argp1 = 0 ;
@@ -40984,10 +40984,10 @@ SWIGINTERN PyObject *_wrap_IHistogram_getXaxis(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getXaxis" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_xAxis" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
-  result = (IAxis *) &((IHistogram const *)arg1)->getXaxis();
+  result = (IAxis *) &((IHistogram const *)arg1)->xAxis();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   return resultobj;
 fail:
@@ -40995,7 +40995,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getYaxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_yAxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   void *argp1 = 0 ;
@@ -41007,10 +41007,10 @@ SWIGINTERN PyObject *_wrap_IHistogram_getYaxis(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getYaxis" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_yAxis" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
-  result = (IAxis *) &((IHistogram const *)arg1)->getYaxis();
+  result = (IAxis *) &((IHistogram const *)arg1)->yAxis();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   return resultobj;
 fail:
@@ -41314,7 +41314,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getXaxisIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_xAxisIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41325,18 +41325,18 @@ SWIGINTERN PyObject *_wrap_IHistogram_getXaxisIndex(PyObject *SWIGUNUSEDPARM(sel
   PyObject *swig_obj[2] ;
   size_t result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IHistogram_getXaxisIndex", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IHistogram_xAxisIndex", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getXaxisIndex" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_xAxisIndex" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getXaxisIndex" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_xAxisIndex" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = ((IHistogram const *)arg1)->getXaxisIndex(arg2);
+  result = ((IHistogram const *)arg1)->xAxisIndex(arg2);
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -41344,7 +41344,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getYaxisIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_yAxisIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41355,18 +41355,18 @@ SWIGINTERN PyObject *_wrap_IHistogram_getYaxisIndex(PyObject *SWIGUNUSEDPARM(sel
   PyObject *swig_obj[2] ;
   size_t result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IHistogram_getYaxisIndex", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IHistogram_yAxisIndex", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getYaxisIndex" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_yAxisIndex" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getYaxisIndex" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_yAxisIndex" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = ((IHistogram const *)arg1)->getYaxisIndex(arg2);
+  result = ((IHistogram const *)arg1)->yAxisIndex(arg2);
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -41374,7 +41374,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getXaxisValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_xAxisValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41385,18 +41385,18 @@ SWIGINTERN PyObject *_wrap_IHistogram_getXaxisValue(PyObject *SWIGUNUSEDPARM(sel
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IHistogram_getXaxisValue", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IHistogram_xAxisValue", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getXaxisValue" "', argument " "1"" of type '" "IHistogram *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_xAxisValue" "', argument " "1"" of type '" "IHistogram *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getXaxisValue" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_xAxisValue" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)(arg1)->getXaxisValue(arg2);
+  result = (double)(arg1)->xAxisValue(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -41404,7 +41404,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getYaxisValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_yAxisValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41415,18 +41415,18 @@ SWIGINTERN PyObject *_wrap_IHistogram_getYaxisValue(PyObject *SWIGUNUSEDPARM(sel
   PyObject *swig_obj[2] ;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IHistogram_getYaxisValue", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IHistogram_yAxisValue", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getYaxisValue" "', argument " "1"" of type '" "IHistogram *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_yAxisValue" "', argument " "1"" of type '" "IHistogram *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getYaxisValue" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_yAxisValue" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)(arg1)->getYaxisValue(arg2);
+  result = (double)(arg1)->yAxisValue(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -41512,7 +41512,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinContent__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IHistogram_binContent__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41525,15 +41525,15 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinContent__SWIG_0(PyObject *SWIGUNUSED
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getBinContent" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_binContent" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getBinContent" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_binContent" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)((IHistogram const *)arg1)->getBinContent(arg2);
+  result = (double)((IHistogram const *)arg1)->binContent(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -41541,7 +41541,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinContent__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IHistogram_binContent__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41557,20 +41557,20 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinContent__SWIG_1(PyObject *SWIGUNUSED
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getBinContent" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_binContent" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getBinContent" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_binContent" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
   ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IHistogram_getBinContent" "', argument " "3"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IHistogram_binContent" "', argument " "3"" of type '" "size_t""'");
   } 
   arg3 = static_cast< size_t >(val3);
-  result = (double)((IHistogram const *)arg1)->getBinContent(arg2,arg3);
+  result = (double)((IHistogram const *)arg1)->binContent(arg2,arg3);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -41578,13 +41578,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinContent(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_binContent(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IHistogram_getBinContent", 0, 3, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IHistogram_binContent", 0, 3, argv))) SWIG_fail;
   --argc;
   if (argc == 2) {
     int _v;
@@ -41597,7 +41597,7 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinContent(PyObject *self, PyObject *ar
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        return _wrap_IHistogram_getBinContent__SWIG_0(self, argc, argv);
+        return _wrap_IHistogram_binContent__SWIG_0(self, argc, argv);
       }
     }
   }
@@ -41617,17 +41617,17 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinContent(PyObject *self, PyObject *ar
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_IHistogram_getBinContent__SWIG_1(self, argc, argv);
+          return _wrap_IHistogram_binContent__SWIG_1(self, argc, argv);
         }
       }
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IHistogram_getBinContent'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IHistogram_binContent'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    IHistogram::getBinContent(size_t) const\n"
-    "    IHistogram::getBinContent(size_t,size_t) const\n");
+    "    IHistogram::binContent(size_t) const\n"
+    "    IHistogram::binContent(size_t,size_t) const\n");
   return 0;
 }
 
@@ -41706,7 +41706,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinError__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IHistogram_binError__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41719,15 +41719,15 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinError__SWIG_0(PyObject *SWIGUNUSEDPA
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getBinError" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_binError" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getBinError" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_binError" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)((IHistogram const *)arg1)->getBinError(arg2);
+  result = (double)((IHistogram const *)arg1)->binError(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -41735,7 +41735,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinError__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IHistogram_binError__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41751,20 +41751,20 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinError__SWIG_1(PyObject *SWIGUNUSEDPA
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getBinError" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_binError" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getBinError" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_binError" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
   ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IHistogram_getBinError" "', argument " "3"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IHistogram_binError" "', argument " "3"" of type '" "size_t""'");
   } 
   arg3 = static_cast< size_t >(val3);
-  result = (double)((IHistogram const *)arg1)->getBinError(arg2,arg3);
+  result = (double)((IHistogram const *)arg1)->binError(arg2,arg3);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -41772,13 +41772,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinError(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_binError(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IHistogram_getBinError", 0, 3, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IHistogram_binError", 0, 3, argv))) SWIG_fail;
   --argc;
   if (argc == 2) {
     int _v;
@@ -41791,7 +41791,7 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinError(PyObject *self, PyObject *args
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        return _wrap_IHistogram_getBinError__SWIG_0(self, argc, argv);
+        return _wrap_IHistogram_binError__SWIG_0(self, argc, argv);
       }
     }
   }
@@ -41811,22 +41811,22 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinError(PyObject *self, PyObject *args
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_IHistogram_getBinError__SWIG_1(self, argc, argv);
+          return _wrap_IHistogram_binError__SWIG_1(self, argc, argv);
         }
       }
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IHistogram_getBinError'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IHistogram_binError'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    IHistogram::getBinError(size_t) const\n"
-    "    IHistogram::getBinError(size_t,size_t) const\n");
+    "    IHistogram::binError(size_t) const\n"
+    "    IHistogram::binError(size_t,size_t) const\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinAverage__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IHistogram_binAverage__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41839,15 +41839,15 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinAverage__SWIG_0(PyObject *SWIGUNUSED
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getBinAverage" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_binAverage" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getBinAverage" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_binAverage" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (double)((IHistogram const *)arg1)->getBinAverage(arg2);
+  result = (double)((IHistogram const *)arg1)->binAverage(arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -41855,7 +41855,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinAverage__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IHistogram_binAverage__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41871,20 +41871,20 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinAverage__SWIG_1(PyObject *SWIGUNUSED
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getBinAverage" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_binAverage" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getBinAverage" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_binAverage" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
   ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IHistogram_getBinAverage" "', argument " "3"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IHistogram_binAverage" "', argument " "3"" of type '" "size_t""'");
   } 
   arg3 = static_cast< size_t >(val3);
-  result = (double)((IHistogram const *)arg1)->getBinAverage(arg2,arg3);
+  result = (double)((IHistogram const *)arg1)->binAverage(arg2,arg3);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -41892,13 +41892,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinAverage(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_binAverage(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IHistogram_getBinAverage", 0, 3, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IHistogram_binAverage", 0, 3, argv))) SWIG_fail;
   --argc;
   if (argc == 2) {
     int _v;
@@ -41911,7 +41911,7 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinAverage(PyObject *self, PyObject *ar
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        return _wrap_IHistogram_getBinAverage__SWIG_0(self, argc, argv);
+        return _wrap_IHistogram_binAverage__SWIG_0(self, argc, argv);
       }
     }
   }
@@ -41931,22 +41931,22 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinAverage(PyObject *self, PyObject *ar
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_IHistogram_getBinAverage__SWIG_1(self, argc, argv);
+          return _wrap_IHistogram_binAverage__SWIG_1(self, argc, argv);
         }
       }
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IHistogram_getBinAverage'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IHistogram_binAverage'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    IHistogram::getBinAverage(size_t) const\n"
-    "    IHistogram::getBinAverage(size_t,size_t) const\n");
+    "    IHistogram::binAverage(size_t) const\n"
+    "    IHistogram::binAverage(size_t,size_t) const\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinNumberOfEntries__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IHistogram_binNumberOfEntries__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41959,15 +41959,15 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinNumberOfEntries__SWIG_0(PyObject *SW
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getBinNumberOfEntries" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_binNumberOfEntries" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getBinNumberOfEntries" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_binNumberOfEntries" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
-  result = (int)((IHistogram const *)arg1)->getBinNumberOfEntries(arg2);
+  result = (int)((IHistogram const *)arg1)->binNumberOfEntries(arg2);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -41975,7 +41975,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinNumberOfEntries__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IHistogram_binNumberOfEntries__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
   size_t arg2 ;
@@ -41991,20 +41991,20 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinNumberOfEntries__SWIG_1(PyObject *SW
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IHistogram, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_getBinNumberOfEntries" "', argument " "1"" of type '" "IHistogram const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IHistogram_binNumberOfEntries" "', argument " "1"" of type '" "IHistogram const *""'"); 
   }
   arg1 = reinterpret_cast< IHistogram * >(argp1);
   ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_getBinNumberOfEntries" "', argument " "2"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IHistogram_binNumberOfEntries" "', argument " "2"" of type '" "size_t""'");
   } 
   arg2 = static_cast< size_t >(val2);
   ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IHistogram_getBinNumberOfEntries" "', argument " "3"" of type '" "size_t""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IHistogram_binNumberOfEntries" "', argument " "3"" of type '" "size_t""'");
   } 
   arg3 = static_cast< size_t >(val3);
-  result = (int)((IHistogram const *)arg1)->getBinNumberOfEntries(arg2,arg3);
+  result = (int)((IHistogram const *)arg1)->binNumberOfEntries(arg2,arg3);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
@@ -42012,13 +42012,13 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IHistogram_getBinNumberOfEntries(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_IHistogram_binNumberOfEntries(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IHistogram_getBinNumberOfEntries", 0, 3, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "IHistogram_binNumberOfEntries", 0, 3, argv))) SWIG_fail;
   --argc;
   if (argc == 2) {
     int _v;
@@ -42031,7 +42031,7 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinNumberOfEntries(PyObject *self, PyOb
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        return _wrap_IHistogram_getBinNumberOfEntries__SWIG_0(self, argc, argv);
+        return _wrap_IHistogram_binNumberOfEntries__SWIG_0(self, argc, argv);
       }
     }
   }
@@ -42051,17 +42051,17 @@ SWIGINTERN PyObject *_wrap_IHistogram_getBinNumberOfEntries(PyObject *self, PyOb
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          return _wrap_IHistogram_getBinNumberOfEntries__SWIG_1(self, argc, argv);
+          return _wrap_IHistogram_binNumberOfEntries__SWIG_1(self, argc, argv);
         }
       }
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IHistogram_getBinNumberOfEntries'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IHistogram_binNumberOfEntries'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    IHistogram::getBinNumberOfEntries(size_t) const\n"
-    "    IHistogram::getBinNumberOfEntries(size_t,size_t) const\n");
+    "    IHistogram::binNumberOfEntries(size_t) const\n"
+    "    IHistogram::binNumberOfEntries(size_t,size_t) const\n");
   return 0;
 }
 
@@ -43051,7 +43051,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Histogram1D_getRank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Histogram1D_rank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Histogram1D *arg1 = (Histogram1D *) 0 ;
   void *argp1 = 0 ;
@@ -43063,10 +43063,10 @@ SWIGINTERN PyObject *_wrap_Histogram1D_getRank(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Histogram1D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_getRank" "', argument " "1"" of type '" "Histogram1D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_rank" "', argument " "1"" of type '" "Histogram1D const *""'"); 
   }
   arg1 = reinterpret_cast< Histogram1D * >(argp1);
-  result = ((Histogram1D const *)arg1)->getRank();
+  result = ((Histogram1D const *)arg1)->rank();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -43194,7 +43194,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Histogram1D_getBinCenters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Histogram1D_binCenters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Histogram1D *arg1 = (Histogram1D *) 0 ;
   void *argp1 = 0 ;
@@ -43206,10 +43206,10 @@ SWIGINTERN PyObject *_wrap_Histogram1D_getBinCenters(PyObject *SWIGUNUSEDPARM(se
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Histogram1D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_getBinCenters" "', argument " "1"" of type '" "Histogram1D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_binCenters" "', argument " "1"" of type '" "Histogram1D const *""'"); 
   }
   arg1 = reinterpret_cast< Histogram1D * >(argp1);
-  result = ((Histogram1D const *)arg1)->getBinCenters();
+  result = ((Histogram1D const *)arg1)->binCenters();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -43217,7 +43217,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Histogram1D_getBinValues(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Histogram1D_binValues(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Histogram1D *arg1 = (Histogram1D *) 0 ;
   void *argp1 = 0 ;
@@ -43229,10 +43229,10 @@ SWIGINTERN PyObject *_wrap_Histogram1D_getBinValues(PyObject *SWIGUNUSEDPARM(sel
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Histogram1D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_getBinValues" "', argument " "1"" of type '" "Histogram1D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_binValues" "', argument " "1"" of type '" "Histogram1D const *""'"); 
   }
   arg1 = reinterpret_cast< Histogram1D * >(argp1);
-  result = ((Histogram1D const *)arg1)->getBinValues();
+  result = ((Histogram1D const *)arg1)->binValues();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -43240,7 +43240,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Histogram1D_getBinErrors(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Histogram1D_binErrors(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Histogram1D *arg1 = (Histogram1D *) 0 ;
   void *argp1 = 0 ;
@@ -43252,10 +43252,10 @@ SWIGINTERN PyObject *_wrap_Histogram1D_getBinErrors(PyObject *SWIGUNUSEDPARM(sel
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Histogram1D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_getBinErrors" "', argument " "1"" of type '" "Histogram1D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_binErrors" "', argument " "1"" of type '" "Histogram1D const *""'"); 
   }
   arg1 = reinterpret_cast< Histogram1D * >(argp1);
-  result = ((Histogram1D const *)arg1)->getBinErrors();
+  result = ((Histogram1D const *)arg1)->binErrors();
   resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
   return resultobj;
 fail:
@@ -43263,7 +43263,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Histogram1D_getBinCentersNumpy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Histogram1D_binCentersNumpy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Histogram1D *arg1 = (Histogram1D *) 0 ;
   void *argp1 = 0 ;
@@ -43275,10 +43275,10 @@ SWIGINTERN PyObject *_wrap_Histogram1D_getBinCentersNumpy(PyObject *SWIGUNUSEDPA
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Histogram1D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_getBinCentersNumpy" "', argument " "1"" of type '" "Histogram1D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_binCentersNumpy" "', argument " "1"" of type '" "Histogram1D const *""'"); 
   }
   arg1 = reinterpret_cast< Histogram1D * >(argp1);
-  result = (PyObject *)((Histogram1D const *)arg1)->getBinCentersNumpy();
+  result = (PyObject *)((Histogram1D const *)arg1)->binCentersNumpy();
   resultobj = result;
   return resultobj;
 fail:
@@ -43286,7 +43286,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Histogram1D_getBinValuesNumpy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Histogram1D_binValuesNumpy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Histogram1D *arg1 = (Histogram1D *) 0 ;
   void *argp1 = 0 ;
@@ -43298,10 +43298,10 @@ SWIGINTERN PyObject *_wrap_Histogram1D_getBinValuesNumpy(PyObject *SWIGUNUSEDPAR
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Histogram1D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_getBinValuesNumpy" "', argument " "1"" of type '" "Histogram1D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_binValuesNumpy" "', argument " "1"" of type '" "Histogram1D const *""'"); 
   }
   arg1 = reinterpret_cast< Histogram1D * >(argp1);
-  result = (PyObject *)((Histogram1D const *)arg1)->getBinValuesNumpy();
+  result = (PyObject *)((Histogram1D const *)arg1)->binValuesNumpy();
   resultobj = result;
   return resultobj;
 fail:
@@ -43309,7 +43309,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Histogram1D_getBinErrorsNumpy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Histogram1D_binErrorsNumpy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Histogram1D *arg1 = (Histogram1D *) 0 ;
   void *argp1 = 0 ;
@@ -43321,10 +43321,10 @@ SWIGINTERN PyObject *_wrap_Histogram1D_getBinErrorsNumpy(PyObject *SWIGUNUSEDPAR
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Histogram1D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_getBinErrorsNumpy" "', argument " "1"" of type '" "Histogram1D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram1D_binErrorsNumpy" "', argument " "1"" of type '" "Histogram1D const *""'"); 
   }
   arg1 = reinterpret_cast< Histogram1D * >(argp1);
-  result = (PyObject *)((Histogram1D const *)arg1)->getBinErrorsNumpy();
+  result = (PyObject *)((Histogram1D const *)arg1)->binErrorsNumpy();
   resultobj = result;
   return resultobj;
 fail:
@@ -43741,7 +43741,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Histogram2D_getRank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Histogram2D_rank(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Histogram2D *arg1 = (Histogram2D *) 0 ;
   void *argp1 = 0 ;
@@ -43753,10 +43753,10 @@ SWIGINTERN PyObject *_wrap_Histogram2D_getRank(PyObject *SWIGUNUSEDPARM(self), P
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Histogram2D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram2D_getRank" "', argument " "1"" of type '" "Histogram2D const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Histogram2D_rank" "', argument " "1"" of type '" "Histogram2D const *""'"); 
   }
   arg1 = reinterpret_cast< Histogram2D * >(argp1);
-  result = ((Histogram2D const *)arg1)->getRank();
+  result = ((Histogram2D const *)arg1)->rank();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -46442,17 +46442,17 @@ static PyMethodDef SwigMethods[] = {
 		"void OutputData< T >::addAxis(const std::string &name, size_t size, double start, double end)\n"
 		"\n"
 		""},
-	 { "IntensityData_getAxis", _wrap_IntensityData_getAxis, METH_VARARGS, "\n"
-		"IntensityData_getAxis(IntensityData self, size_t serial_number) -> IAxis\n"
-		"IntensityData_getAxis(IntensityData self, std::string const & axis_name) -> IAxis\n"
-		"const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const\n"
+	 { "IntensityData_axis", _wrap_IntensityData_axis, METH_VARARGS, "\n"
+		"IntensityData_axis(IntensityData self, size_t serial_number) -> IAxis\n"
+		"IntensityData_axis(IntensityData self, std::string const & axis_name) -> IAxis\n"
+		"const IAxis & OutputData< T >::axis(const std::string &axis_name) const\n"
 		"\n"
 		"returns axis with given name \n"
 		"\n"
 		""},
-	 { "IntensityData_getRank", _wrap_IntensityData_getRank, METH_O, "\n"
-		"IntensityData_getRank(IntensityData self) -> size_t\n"
-		"size_t OutputData< T >::getRank() const\n"
+	 { "IntensityData_rank", _wrap_IntensityData_rank, METH_O, "\n"
+		"IntensityData_rank(IntensityData self) -> size_t\n"
+		"size_t OutputData< T >::rank() const\n"
 		"\n"
 		"Returns number of dimensions. \n"
 		"\n"
@@ -47385,10 +47385,10 @@ static PyMethodDef SwigMethods[] = {
 		"void Instrument::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
-	 { "Instrument_getBeam", _wrap_Instrument_getBeam, METH_VARARGS, "\n"
-		"Instrument_getBeam(Instrument self) -> Beam\n"
-		"Instrument_getBeam(Instrument self) -> Beam\n"
-		"const Beam& Instrument::getBeam() const\n"
+	 { "Instrument_beam", _wrap_Instrument_beam, METH_VARARGS, "\n"
+		"Instrument_beam(Instrument self) -> Beam\n"
+		"Instrument_beam(Instrument self) -> Beam\n"
+		"const Beam& Instrument::beam() const\n"
 		"\n"
 		""},
 	 { "Instrument_setBeam", _wrap_Instrument_setBeam, METH_VARARGS, "\n"
@@ -47782,9 +47782,9 @@ static PyMethodDef SwigMethods[] = {
 		"void IDetector::addAxis(const IAxis &axis)\n"
 		"\n"
 		""},
-	 { "IDetector_getAxis", _wrap_IDetector_getAxis, METH_VARARGS, "\n"
-		"IDetector_getAxis(IDetector self, size_t index) -> IAxis\n"
-		"const IAxis & IDetector::getAxis(size_t index) const\n"
+	 { "IDetector_axis", _wrap_IDetector_axis, METH_VARARGS, "\n"
+		"IDetector_axis(IDetector self, size_t index) -> IAxis\n"
+		"const IAxis & IDetector::axis(size_t index) const\n"
 		"\n"
 		""},
 	 { "IDetector_dimension", _wrap_IDetector_dimension, METH_O, "\n"
@@ -48193,9 +48193,9 @@ static PyMethodDef SwigMethods[] = {
 		"virtual IHistogram* IHistogram::clone() const =0\n"
 		"\n"
 		""},
-	 { "IHistogram_getRank", _wrap_IHistogram_getRank, METH_O, "\n"
-		"IHistogram_getRank(IHistogram self) -> size_t\n"
-		"virtual size_t IHistogram::getRank() const =0\n"
+	 { "IHistogram_rank", _wrap_IHistogram_rank, METH_O, "\n"
+		"IHistogram_rank(IHistogram self) -> size_t\n"
+		"virtual size_t IHistogram::rank() const =0\n"
 		"\n"
 		"Returns number of histogram dimensions. \n"
 		"\n"
@@ -48207,16 +48207,16 @@ static PyMethodDef SwigMethods[] = {
 		"Returns total number of histogram bins. For 2D histograms the result will be the product of bin numbers along X and Y axes. \n"
 		"\n"
 		""},
-	 { "IHistogram_getXaxis", _wrap_IHistogram_getXaxis, METH_O, "\n"
-		"IHistogram_getXaxis(IHistogram self) -> IAxis\n"
-		"const IAxis & IHistogram::getXaxis() const\n"
+	 { "IHistogram_xAxis", _wrap_IHistogram_xAxis, METH_O, "\n"
+		"IHistogram_xAxis(IHistogram self) -> IAxis\n"
+		"const IAxis & IHistogram::xAxis() const\n"
 		"\n"
 		"returns x-axis \n"
 		"\n"
 		""},
-	 { "IHistogram_getYaxis", _wrap_IHistogram_getYaxis, METH_O, "\n"
-		"IHistogram_getYaxis(IHistogram self) -> IAxis\n"
-		"const IAxis & IHistogram::getYaxis() const\n"
+	 { "IHistogram_yAxis", _wrap_IHistogram_yAxis, METH_O, "\n"
+		"IHistogram_yAxis(IHistogram self) -> IAxis\n"
+		"const IAxis & IHistogram::yAxis() const\n"
 		"\n"
 		"returns y-axis for 2D histograms \n"
 		"\n"
@@ -48277,30 +48277,30 @@ static PyMethodDef SwigMethods[] = {
 		"Returns closest global bin index for given axes coordinates. \n"
 		"\n"
 		""},
-	 { "IHistogram_getXaxisIndex", _wrap_IHistogram_getXaxisIndex, METH_VARARGS, "\n"
-		"IHistogram_getXaxisIndex(IHistogram self, size_t i) -> size_t\n"
-		"size_t IHistogram::getXaxisIndex(size_t i) const\n"
+	 { "IHistogram_xAxisIndex", _wrap_IHistogram_xAxisIndex, METH_VARARGS, "\n"
+		"IHistogram_xAxisIndex(IHistogram self, size_t i) -> size_t\n"
+		"size_t IHistogram::xAxisIndex(size_t i) const\n"
 		"\n"
 		"Returns x-axis index for global bin index i. \n"
 		"\n"
 		""},
-	 { "IHistogram_getYaxisIndex", _wrap_IHistogram_getYaxisIndex, METH_VARARGS, "\n"
-		"IHistogram_getYaxisIndex(IHistogram self, size_t i) -> size_t\n"
-		"size_t IHistogram::getYaxisIndex(size_t i) const\n"
+	 { "IHistogram_yAxisIndex", _wrap_IHistogram_yAxisIndex, METH_VARARGS, "\n"
+		"IHistogram_yAxisIndex(IHistogram self, size_t i) -> size_t\n"
+		"size_t IHistogram::yAxisIndex(size_t i) const\n"
 		"\n"
 		"Returns y-axis index for global bin index i. \n"
 		"\n"
 		""},
-	 { "IHistogram_getXaxisValue", _wrap_IHistogram_getXaxisValue, METH_VARARGS, "\n"
-		"IHistogram_getXaxisValue(IHistogram self, size_t i) -> double\n"
-		"double IHistogram::getXaxisValue(size_t i)\n"
+	 { "IHistogram_xAxisValue", _wrap_IHistogram_xAxisValue, METH_VARARGS, "\n"
+		"IHistogram_xAxisValue(IHistogram self, size_t i) -> double\n"
+		"double IHistogram::xAxisValue(size_t i)\n"
 		"\n"
 		"Returns the center of bin i of the x axis. \n"
 		"\n"
 		""},
-	 { "IHistogram_getYaxisValue", _wrap_IHistogram_getYaxisValue, METH_VARARGS, "\n"
-		"IHistogram_getYaxisValue(IHistogram self, size_t i) -> double\n"
-		"double IHistogram::getYaxisValue(size_t i)\n"
+	 { "IHistogram_yAxisValue", _wrap_IHistogram_yAxisValue, METH_VARARGS, "\n"
+		"IHistogram_yAxisValue(IHistogram self, size_t i) -> double\n"
+		"double IHistogram::yAxisValue(size_t i)\n"
 		"\n"
 		"Returns the center of bin i of the y axis. \n"
 		"\n"
@@ -48311,10 +48311,10 @@ static PyMethodDef SwigMethods[] = {
 		"OutputData< CumulativeValue > & IHistogram::getData()\n"
 		"\n"
 		""},
-	 { "IHistogram_getBinContent", _wrap_IHistogram_getBinContent, METH_VARARGS, "\n"
-		"IHistogram_getBinContent(IHistogram self, size_t i) -> double\n"
-		"IHistogram_getBinContent(IHistogram self, size_t binx, size_t biny) -> double\n"
-		"double IHistogram::getBinContent(size_t binx, size_t biny) const\n"
+	 { "IHistogram_binContent", _wrap_IHistogram_binContent, METH_VARARGS, "\n"
+		"IHistogram_binContent(IHistogram self, size_t i) -> double\n"
+		"IHistogram_binContent(IHistogram self, size_t binx, size_t biny) -> double\n"
+		"double IHistogram::binContent(size_t binx, size_t biny) const\n"
 		"\n"
 		"Returns content (accumulated value) of the 2D histogram bin. \n"
 		"\n"
@@ -48333,26 +48333,26 @@ static PyMethodDef SwigMethods[] = {
 		"Add the value to the bin. \n"
 		"\n"
 		""},
-	 { "IHistogram_getBinError", _wrap_IHistogram_getBinError, METH_VARARGS, "\n"
-		"IHistogram_getBinError(IHistogram self, size_t i) -> double\n"
-		"IHistogram_getBinError(IHistogram self, size_t binx, size_t biny) -> double\n"
-		"double IHistogram::getBinError(size_t binx, size_t biny) const\n"
+	 { "IHistogram_binError", _wrap_IHistogram_binError, METH_VARARGS, "\n"
+		"IHistogram_binError(IHistogram self, size_t i) -> double\n"
+		"IHistogram_binError(IHistogram self, size_t binx, size_t biny) -> double\n"
+		"double IHistogram::binError(size_t binx, size_t biny) const\n"
 		"\n"
 		"Returns error of the bin with given indices (for 2D histograms). \n"
 		"\n"
 		""},
-	 { "IHistogram_getBinAverage", _wrap_IHistogram_getBinAverage, METH_VARARGS, "\n"
-		"IHistogram_getBinAverage(IHistogram self, size_t i) -> double\n"
-		"IHistogram_getBinAverage(IHistogram self, size_t binx, size_t biny) -> double\n"
-		"double IHistogram::getBinAverage(size_t binx, size_t biny) const\n"
+	 { "IHistogram_binAverage", _wrap_IHistogram_binAverage, METH_VARARGS, "\n"
+		"IHistogram_binAverage(IHistogram self, size_t i) -> double\n"
+		"IHistogram_binAverage(IHistogram self, size_t binx, size_t biny) -> double\n"
+		"double IHistogram::binAverage(size_t binx, size_t biny) const\n"
 		"\n"
 		"Returns average value of the bin with given indices (for 2D histograms). \n"
 		"\n"
 		""},
-	 { "IHistogram_getBinNumberOfEntries", _wrap_IHistogram_getBinNumberOfEntries, METH_VARARGS, "\n"
-		"IHistogram_getBinNumberOfEntries(IHistogram self, size_t i) -> int\n"
-		"IHistogram_getBinNumberOfEntries(IHistogram self, size_t binx, size_t biny) -> int\n"
-		"int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const\n"
+	 { "IHistogram_binNumberOfEntries", _wrap_IHistogram_binNumberOfEntries, METH_VARARGS, "\n"
+		"IHistogram_binNumberOfEntries(IHistogram self, size_t i) -> int\n"
+		"IHistogram_binNumberOfEntries(IHistogram self, size_t binx, size_t biny) -> int\n"
+		"int IHistogram::binNumberOfEntries(size_t binx, size_t biny) const\n"
 		"\n"
 		"Returns number of entries in the bin with given indices (for 2D histograms). \n"
 		"\n"
@@ -48361,7 +48361,7 @@ static PyMethodDef SwigMethods[] = {
 		"IHistogram_getMaximum(IHistogram self) -> double\n"
 		"double IHistogram::getMaximum() const\n"
 		"\n"
-		"Returns histogram maximum value (maximum of  getBinContent() over all bins) \n"
+		"Returns histogram maximum value (maximum of  binContent() over all bins) \n"
 		"\n"
 		""},
 	 { "IHistogram_getMaximumBinIndex", _wrap_IHistogram_getMaximumBinIndex, METH_O, "\n"
@@ -48375,7 +48375,7 @@ static PyMethodDef SwigMethods[] = {
 		"IHistogram_getMinimum(IHistogram self) -> double\n"
 		"double IHistogram::getMinimum() const\n"
 		"\n"
-		"Returns histogram minimum value (minimum of  getBinContent() over all bins) \n"
+		"Returns histogram minimum value (minimum of  binContent() over all bins) \n"
 		"\n"
 		""},
 	 { "IHistogram_getMinimumBinIndex", _wrap_IHistogram_getMinimumBinIndex, METH_O, "\n"
@@ -48489,9 +48489,9 @@ static PyMethodDef SwigMethods[] = {
 		"Returns clone of other histogram. \n"
 		"\n"
 		""},
-	 { "Histogram1D_getRank", _wrap_Histogram1D_getRank, METH_O, "\n"
-		"Histogram1D_getRank(Histogram1D self) -> size_t\n"
-		"size_t Histogram1D::getRank() const\n"
+	 { "Histogram1D_rank", _wrap_Histogram1D_rank, METH_O, "\n"
+		"Histogram1D_rank(Histogram1D self) -> size_t\n"
+		"size_t Histogram1D::rank() const\n"
 		"\n"
 		"Returns the number of histogram dimensions. \n"
 		"\n"
@@ -48503,40 +48503,40 @@ static PyMethodDef SwigMethods[] = {
 		"Increment bin with abscissa x with a weight. \n"
 		"\n"
 		""},
-	 { "Histogram1D_getBinCenters", _wrap_Histogram1D_getBinCenters, METH_O, "\n"
-		"Histogram1D_getBinCenters(Histogram1D self) -> vdouble1d_t\n"
-		"std::vector< double > Histogram1D::getBinCenters() const\n"
+	 { "Histogram1D_binCenters", _wrap_Histogram1D_binCenters, METH_O, "\n"
+		"Histogram1D_binCenters(Histogram1D self) -> vdouble1d_t\n"
+		"std::vector< double > Histogram1D::binCenters() const\n"
 		"\n"
 		"returns vector of histogram bin centers \n"
 		"\n"
 		""},
-	 { "Histogram1D_getBinValues", _wrap_Histogram1D_getBinValues, METH_O, "\n"
-		"Histogram1D_getBinValues(Histogram1D self) -> vdouble1d_t\n"
-		"std::vector< double > Histogram1D::getBinValues() const\n"
+	 { "Histogram1D_binValues", _wrap_Histogram1D_binValues, METH_O, "\n"
+		"Histogram1D_binValues(Histogram1D self) -> vdouble1d_t\n"
+		"std::vector< double > Histogram1D::binValues() const\n"
 		"\n"
 		"returns vector of bin content (the value accumulated by bins) \n"
 		"\n"
 		""},
-	 { "Histogram1D_getBinErrors", _wrap_Histogram1D_getBinErrors, METH_O, "\n"
-		"Histogram1D_getBinErrors(Histogram1D self) -> vdouble1d_t\n"
-		"std::vector< double > Histogram1D::getBinErrors() const\n"
+	 { "Histogram1D_binErrors", _wrap_Histogram1D_binErrors, METH_O, "\n"
+		"Histogram1D_binErrors(Histogram1D self) -> vdouble1d_t\n"
+		"std::vector< double > Histogram1D::binErrors() const\n"
 		"\n"
 		"returns vector of bin errors \n"
 		"\n"
 		""},
-	 { "Histogram1D_getBinCentersNumpy", _wrap_Histogram1D_getBinCentersNumpy, METH_O, "\n"
-		"Histogram1D_getBinCentersNumpy(Histogram1D self) -> PyObject *\n"
-		"PyObject * Histogram1D::getBinCentersNumpy() const\n"
+	 { "Histogram1D_binCentersNumpy", _wrap_Histogram1D_binCentersNumpy, METH_O, "\n"
+		"Histogram1D_binCentersNumpy(Histogram1D self) -> PyObject *\n"
+		"PyObject * Histogram1D::binCentersNumpy() const\n"
 		"\n"
 		""},
-	 { "Histogram1D_getBinValuesNumpy", _wrap_Histogram1D_getBinValuesNumpy, METH_O, "\n"
-		"Histogram1D_getBinValuesNumpy(Histogram1D self) -> PyObject *\n"
-		"PyObject * Histogram1D::getBinValuesNumpy() const\n"
+	 { "Histogram1D_binValuesNumpy", _wrap_Histogram1D_binValuesNumpy, METH_O, "\n"
+		"Histogram1D_binValuesNumpy(Histogram1D self) -> PyObject *\n"
+		"PyObject * Histogram1D::binValuesNumpy() const\n"
 		"\n"
 		""},
-	 { "Histogram1D_getBinErrorsNumpy", _wrap_Histogram1D_getBinErrorsNumpy, METH_O, "\n"
-		"Histogram1D_getBinErrorsNumpy(Histogram1D self) -> PyObject *\n"
-		"PyObject * Histogram1D::getBinErrorsNumpy() const\n"
+	 { "Histogram1D_binErrorsNumpy", _wrap_Histogram1D_binErrorsNumpy, METH_O, "\n"
+		"Histogram1D_binErrorsNumpy(Histogram1D self) -> PyObject *\n"
+		"PyObject * Histogram1D::binErrorsNumpy() const\n"
 		"\n"
 		""},
 	 { "Histogram1D_crop", _wrap_Histogram1D_crop, METH_VARARGS, "\n"
@@ -48567,9 +48567,9 @@ static PyMethodDef SwigMethods[] = {
 		"Returns clone of other histogram. \n"
 		"\n"
 		""},
-	 { "Histogram2D_getRank", _wrap_Histogram2D_getRank, METH_O, "\n"
-		"Histogram2D_getRank(Histogram2D self) -> size_t\n"
-		"size_t Histogram2D::getRank() const\n"
+	 { "Histogram2D_rank", _wrap_Histogram2D_rank, METH_O, "\n"
+		"Histogram2D_rank(Histogram2D self) -> size_t\n"
+		"size_t Histogram2D::rank() const\n"
 		"\n"
 		"Returns the number of histogram dimensions. \n"
 		"\n"

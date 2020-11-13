@@ -117,9 +117,9 @@ double MaskUnitsConverter::convert(double value, int axis_index)
     ASSERT(axis_index == 0 || axis_index == 1);
 
     if (m_direction == TO_NBINS) {
-        return IntensityDataFunctions::coordinateToBinf(value, m_data->getAxis(axis_index));
+        return IntensityDataFunctions::coordinateToBinf(value, m_data->axis(axis_index));
     } else if (m_direction == FROM_NBINS) {
-        return IntensityDataFunctions::coordinateFromBinf(value, m_data->getAxis(axis_index));
+        return IntensityDataFunctions::coordinateFromBinf(value, m_data->axis(axis_index));
     }
     throw GUIHelpers::Error("MaskUnitsConverter::convertX() -> Error. Unknown conversion");
 }

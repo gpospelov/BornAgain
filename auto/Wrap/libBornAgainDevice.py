@@ -2268,26 +2268,26 @@ class IntensityData(object):
         """
         return _libBornAgainDevice.IntensityData_addAxis(self, *args)
 
-    def getAxis(self, *args):
+    def axis(self, *args):
         r"""
-        getAxis(IntensityData self, size_t serial_number) -> IAxis
-        getAxis(IntensityData self, std::string const & axis_name) -> IAxis
-        const IAxis & OutputData< T >::getAxis(const std::string &axis_name) const
+        axis(IntensityData self, size_t serial_number) -> IAxis
+        axis(IntensityData self, std::string const & axis_name) -> IAxis
+        const IAxis & OutputData< T >::axis(const std::string &axis_name) const
 
         returns axis with given name 
 
         """
-        return _libBornAgainDevice.IntensityData_getAxis(self, *args)
+        return _libBornAgainDevice.IntensityData_axis(self, *args)
 
-    def getRank(self):
+    def rank(self):
         r"""
-        getRank(IntensityData self) -> size_t
-        size_t OutputData< T >::getRank() const
+        rank(IntensityData self) -> size_t
+        size_t OutputData< T >::rank() const
 
         Returns number of dimensions. 
 
         """
-        return _libBornAgainDevice.IntensityData_getRank(self)
+        return _libBornAgainDevice.IntensityData_rank(self)
 
     def getAllocatedSize(self):
         r"""
@@ -3897,14 +3897,14 @@ class Instrument(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Instrument_accept(self, visitor)
 
-    def getBeam(self, *args):
+    def beam(self, *args):
         r"""
-        getBeam(Instrument self) -> Beam
-        getBeam(Instrument self) -> Beam
-        const Beam& Instrument::getBeam() const
+        beam(Instrument self) -> Beam
+        beam(Instrument self) -> Beam
+        const Beam& Instrument::beam() const
 
         """
-        return _libBornAgainDevice.Instrument_getBeam(self, *args)
+        return _libBornAgainDevice.Instrument_beam(self, *args)
 
     def setBeam(self, beam):
         r"""
@@ -4589,13 +4589,13 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IDetector_addAxis(self, axis)
 
-    def getAxis(self, index):
+    def axis(self, index):
         r"""
-        getAxis(IDetector self, size_t index) -> IAxis
-        const IAxis & IDetector::getAxis(size_t index) const
+        axis(IDetector self, size_t index) -> IAxis
+        const IAxis & IDetector::axis(size_t index) const
 
         """
-        return _libBornAgainDevice.IDetector_getAxis(self, index)
+        return _libBornAgainDevice.IDetector_axis(self, index)
 
     def dimension(self):
         r"""
@@ -5266,15 +5266,15 @@ class IHistogram(object):
         """
         return _libBornAgainDevice.IHistogram_clone(self)
 
-    def getRank(self):
+    def rank(self):
         r"""
-        getRank(IHistogram self) -> size_t
-        virtual size_t IHistogram::getRank() const =0
+        rank(IHistogram self) -> size_t
+        virtual size_t IHistogram::rank() const =0
 
         Returns number of histogram dimensions. 
 
         """
-        return _libBornAgainDevice.IHistogram_getRank(self)
+        return _libBornAgainDevice.IHistogram_rank(self)
 
     def getTotalNumberOfBins(self):
         r"""
@@ -5286,25 +5286,25 @@ class IHistogram(object):
         """
         return _libBornAgainDevice.IHistogram_getTotalNumberOfBins(self)
 
-    def getXaxis(self):
+    def xAxis(self):
         r"""
-        getXaxis(IHistogram self) -> IAxis
-        const IAxis & IHistogram::getXaxis() const
+        xAxis(IHistogram self) -> IAxis
+        const IAxis & IHistogram::xAxis() const
 
         returns x-axis 
 
         """
-        return _libBornAgainDevice.IHistogram_getXaxis(self)
+        return _libBornAgainDevice.IHistogram_xAxis(self)
 
-    def getYaxis(self):
+    def yAxis(self):
         r"""
-        getYaxis(IHistogram self) -> IAxis
-        const IAxis & IHistogram::getYaxis() const
+        yAxis(IHistogram self) -> IAxis
+        const IAxis & IHistogram::yAxis() const
 
         returns y-axis for 2D histograms 
 
         """
-        return _libBornAgainDevice.IHistogram_getYaxis(self)
+        return _libBornAgainDevice.IHistogram_yAxis(self)
 
     def getXmin(self):
         r"""
@@ -5386,45 +5386,45 @@ class IHistogram(object):
         """
         return _libBornAgainDevice.IHistogram_findGlobalBin(self, x, y)
 
-    def getXaxisIndex(self, i):
+    def xAxisIndex(self, i):
         r"""
-        getXaxisIndex(IHistogram self, size_t i) -> size_t
-        size_t IHistogram::getXaxisIndex(size_t i) const
+        xAxisIndex(IHistogram self, size_t i) -> size_t
+        size_t IHistogram::xAxisIndex(size_t i) const
 
         Returns x-axis index for global bin index i. 
 
         """
-        return _libBornAgainDevice.IHistogram_getXaxisIndex(self, i)
+        return _libBornAgainDevice.IHistogram_xAxisIndex(self, i)
 
-    def getYaxisIndex(self, i):
+    def yAxisIndex(self, i):
         r"""
-        getYaxisIndex(IHistogram self, size_t i) -> size_t
-        size_t IHistogram::getYaxisIndex(size_t i) const
+        yAxisIndex(IHistogram self, size_t i) -> size_t
+        size_t IHistogram::yAxisIndex(size_t i) const
 
         Returns y-axis index for global bin index i. 
 
         """
-        return _libBornAgainDevice.IHistogram_getYaxisIndex(self, i)
+        return _libBornAgainDevice.IHistogram_yAxisIndex(self, i)
 
-    def getXaxisValue(self, i):
+    def xAxisValue(self, i):
         r"""
-        getXaxisValue(IHistogram self, size_t i) -> double
-        double IHistogram::getXaxisValue(size_t i)
+        xAxisValue(IHistogram self, size_t i) -> double
+        double IHistogram::xAxisValue(size_t i)
 
         Returns the center of bin i of the x axis. 
 
         """
-        return _libBornAgainDevice.IHistogram_getXaxisValue(self, i)
+        return _libBornAgainDevice.IHistogram_xAxisValue(self, i)
 
-    def getYaxisValue(self, i):
+    def yAxisValue(self, i):
         r"""
-        getYaxisValue(IHistogram self, size_t i) -> double
-        double IHistogram::getYaxisValue(size_t i)
+        yAxisValue(IHistogram self, size_t i) -> double
+        double IHistogram::yAxisValue(size_t i)
 
         Returns the center of bin i of the y axis. 
 
         """
-        return _libBornAgainDevice.IHistogram_getYaxisValue(self, i)
+        return _libBornAgainDevice.IHistogram_yAxisValue(self, i)
 
     def getData(self, *args):
         r"""
@@ -5435,16 +5435,16 @@ class IHistogram(object):
         """
         return _libBornAgainDevice.IHistogram_getData(self, *args)
 
-    def getBinContent(self, *args):
+    def binContent(self, *args):
         r"""
-        getBinContent(IHistogram self, size_t i) -> double
-        getBinContent(IHistogram self, size_t binx, size_t biny) -> double
-        double IHistogram::getBinContent(size_t binx, size_t biny) const
+        binContent(IHistogram self, size_t i) -> double
+        binContent(IHistogram self, size_t binx, size_t biny) -> double
+        double IHistogram::binContent(size_t binx, size_t biny) const
 
         Returns content (accumulated value) of the 2D histogram bin. 
 
         """
-        return _libBornAgainDevice.IHistogram_getBinContent(self, *args)
+        return _libBornAgainDevice.IHistogram_binContent(self, *args)
 
     def setBinContent(self, i, value):
         r"""
@@ -5466,45 +5466,45 @@ class IHistogram(object):
         """
         return _libBornAgainDevice.IHistogram_addBinContent(self, i, value)
 
-    def getBinError(self, *args):
+    def binError(self, *args):
         r"""
-        getBinError(IHistogram self, size_t i) -> double
-        getBinError(IHistogram self, size_t binx, size_t biny) -> double
-        double IHistogram::getBinError(size_t binx, size_t biny) const
+        binError(IHistogram self, size_t i) -> double
+        binError(IHistogram self, size_t binx, size_t biny) -> double
+        double IHistogram::binError(size_t binx, size_t biny) const
 
         Returns error of the bin with given indices (for 2D histograms). 
 
         """
-        return _libBornAgainDevice.IHistogram_getBinError(self, *args)
+        return _libBornAgainDevice.IHistogram_binError(self, *args)
 
-    def getBinAverage(self, *args):
+    def binAverage(self, *args):
         r"""
-        getBinAverage(IHistogram self, size_t i) -> double
-        getBinAverage(IHistogram self, size_t binx, size_t biny) -> double
-        double IHistogram::getBinAverage(size_t binx, size_t biny) const
+        binAverage(IHistogram self, size_t i) -> double
+        binAverage(IHistogram self, size_t binx, size_t biny) -> double
+        double IHistogram::binAverage(size_t binx, size_t biny) const
 
         Returns average value of the bin with given indices (for 2D histograms). 
 
         """
-        return _libBornAgainDevice.IHistogram_getBinAverage(self, *args)
+        return _libBornAgainDevice.IHistogram_binAverage(self, *args)
 
-    def getBinNumberOfEntries(self, *args):
+    def binNumberOfEntries(self, *args):
         r"""
-        getBinNumberOfEntries(IHistogram self, size_t i) -> int
-        getBinNumberOfEntries(IHistogram self, size_t binx, size_t biny) -> int
-        int IHistogram::getBinNumberOfEntries(size_t binx, size_t biny) const
+        binNumberOfEntries(IHistogram self, size_t i) -> int
+        binNumberOfEntries(IHistogram self, size_t binx, size_t biny) -> int
+        int IHistogram::binNumberOfEntries(size_t binx, size_t biny) const
 
         Returns number of entries in the bin with given indices (for 2D histograms). 
 
         """
-        return _libBornAgainDevice.IHistogram_getBinNumberOfEntries(self, *args)
+        return _libBornAgainDevice.IHistogram_binNumberOfEntries(self, *args)
 
     def getMaximum(self):
         r"""
         getMaximum(IHistogram self) -> double
         double IHistogram::getMaximum() const
 
-        Returns histogram maximum value (maximum of  getBinContent() over all bins) 
+        Returns histogram maximum value (maximum of  binContent() over all bins) 
 
         """
         return _libBornAgainDevice.IHistogram_getMaximum(self)
@@ -5524,7 +5524,7 @@ class IHistogram(object):
         getMinimum(IHistogram self) -> double
         double IHistogram::getMinimum() const
 
-        Returns histogram minimum value (minimum of  getBinContent() over all bins) 
+        Returns histogram minimum value (minimum of  binContent() over all bins) 
 
         """
         return _libBornAgainDevice.IHistogram_getMinimum(self)
@@ -5724,15 +5724,15 @@ class Histogram1D(IHistogram):
         """
         return _libBornAgainDevice.Histogram1D_clone(self)
 
-    def getRank(self):
+    def rank(self):
         r"""
-        getRank(Histogram1D self) -> size_t
-        size_t Histogram1D::getRank() const
+        rank(Histogram1D self) -> size_t
+        size_t Histogram1D::rank() const
 
         Returns the number of histogram dimensions. 
 
         """
-        return _libBornAgainDevice.Histogram1D_getRank(self)
+        return _libBornAgainDevice.Histogram1D_rank(self)
 
     def fill(self, x, weight=1.0):
         r"""
@@ -5744,59 +5744,59 @@ class Histogram1D(IHistogram):
         """
         return _libBornAgainDevice.Histogram1D_fill(self, x, weight)
 
-    def getBinCenters(self):
+    def binCenters(self):
         r"""
-        getBinCenters(Histogram1D self) -> vdouble1d_t
-        std::vector< double > Histogram1D::getBinCenters() const
+        binCenters(Histogram1D self) -> vdouble1d_t
+        std::vector< double > Histogram1D::binCenters() const
 
         returns vector of histogram bin centers 
 
         """
-        return _libBornAgainDevice.Histogram1D_getBinCenters(self)
+        return _libBornAgainDevice.Histogram1D_binCenters(self)
 
-    def getBinValues(self):
+    def binValues(self):
         r"""
-        getBinValues(Histogram1D self) -> vdouble1d_t
-        std::vector< double > Histogram1D::getBinValues() const
+        binValues(Histogram1D self) -> vdouble1d_t
+        std::vector< double > Histogram1D::binValues() const
 
         returns vector of bin content (the value accumulated by bins) 
 
         """
-        return _libBornAgainDevice.Histogram1D_getBinValues(self)
+        return _libBornAgainDevice.Histogram1D_binValues(self)
 
-    def getBinErrors(self):
+    def binErrors(self):
         r"""
-        getBinErrors(Histogram1D self) -> vdouble1d_t
-        std::vector< double > Histogram1D::getBinErrors() const
+        binErrors(Histogram1D self) -> vdouble1d_t
+        std::vector< double > Histogram1D::binErrors() const
 
         returns vector of bin errors 
 
         """
-        return _libBornAgainDevice.Histogram1D_getBinErrors(self)
+        return _libBornAgainDevice.Histogram1D_binErrors(self)
 
-    def getBinCentersNumpy(self):
+    def binCentersNumpy(self):
         r"""
-        getBinCentersNumpy(Histogram1D self) -> PyObject *
-        PyObject * Histogram1D::getBinCentersNumpy() const
+        binCentersNumpy(Histogram1D self) -> PyObject *
+        PyObject * Histogram1D::binCentersNumpy() const
 
         """
-        return _libBornAgainDevice.Histogram1D_getBinCentersNumpy(self)
+        return _libBornAgainDevice.Histogram1D_binCentersNumpy(self)
 
-    def getBinValuesNumpy(self):
+    def binValuesNumpy(self):
         r"""
-        getBinValuesNumpy(Histogram1D self) -> PyObject *
-        PyObject * Histogram1D::getBinValuesNumpy() const
+        binValuesNumpy(Histogram1D self) -> PyObject *
+        PyObject * Histogram1D::binValuesNumpy() const
 
         """
-        return _libBornAgainDevice.Histogram1D_getBinValuesNumpy(self)
+        return _libBornAgainDevice.Histogram1D_binValuesNumpy(self)
 
-    def getBinErrorsNumpy(self):
+    def binErrorsNumpy(self):
         r"""
-        getBinErrorsNumpy(Histogram1D self) -> PyObject *
-        PyObject * Histogram1D::getBinErrorsNumpy() const
+        binErrorsNumpy(Histogram1D self) -> PyObject *
+        PyObject * Histogram1D::binErrorsNumpy() const
 
         """
-        return _libBornAgainDevice.Histogram1D_getBinErrorsNumpy(self)
+        return _libBornAgainDevice.Histogram1D_binErrorsNumpy(self)
 
     def crop(self, xmin, xmax):
         r"""
@@ -5849,15 +5849,15 @@ class Histogram2D(IHistogram):
         """
         return _libBornAgainDevice.Histogram2D_clone(self)
 
-    def getRank(self):
+    def rank(self):
         r"""
-        getRank(Histogram2D self) -> size_t
-        size_t Histogram2D::getRank() const
+        rank(Histogram2D self) -> size_t
+        size_t Histogram2D::rank() const
 
         Returns the number of histogram dimensions. 
 
         """
-        return _libBornAgainDevice.Histogram2D_getRank(self)
+        return _libBornAgainDevice.Histogram2D_rank(self)
 
     def fill(self, x, y, weight=1.0):
         r"""

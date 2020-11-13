@@ -33,10 +33,13 @@ const int accumulate_updates_during_msec = 20.;
 }
 
 PySampleWidget::PySampleWidget(QWidget* parent)
-    : QWidget(parent), m_textEdit(new QTextEdit), m_sampleModel(nullptr),
-      m_instrumentModel(nullptr), m_highlighter(nullptr),
-      m_updateTimer(new UpdateTimer(accumulate_updates_during_msec, this)),
-      m_warningSign(new WarningSign(m_textEdit))
+    : QWidget(parent)
+    , m_textEdit(new QTextEdit)
+    , m_sampleModel(nullptr)
+    , m_instrumentModel(nullptr)
+    , m_highlighter(nullptr)
+    , m_updateTimer(new UpdateTimer(accumulate_updates_during_msec, this))
+    , m_warningSign(new WarningSign(m_textEdit))
 {
     m_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

@@ -426,7 +426,7 @@ SpecularSimulation* StandardSimulations::BasicSpecularQ()
         const double min_angle = 0 * Units::deg;
         const double max_angle = 5 * Units::deg;
         FixedBinAxis angle_axis("axis", number_of_bins, min_angle, max_angle);
-        auto angles = angle_axis.getBinCenters();
+        auto angles = angle_axis.binCenters();
 
         qs.resize(angle_axis.size(), 0.0);
         for (size_t i = 0, size = qs.size(); i < size; ++i)
@@ -516,7 +516,7 @@ SpecularSimulation* StandardSimulations::TOFRWithPointwiseResolution()
 
     std::vector<double> resolutions;
     resolutions.reserve(qs.size());
-    auto qs_vector = qs.getBinCenters();
+    auto qs_vector = qs.binCenters();
     std::for_each(qs_vector.begin(), qs_vector.end(),
                   [&resolutions](double q_val) { resolutions.push_back(0.03 * q_val); });
     q_scan.setAbsoluteQResolution(RangedDistributionGaussian(20, 2.0), resolutions);

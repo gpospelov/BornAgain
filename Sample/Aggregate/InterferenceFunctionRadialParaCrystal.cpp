@@ -23,8 +23,12 @@
 //! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
 InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(double peak_distance,
                                                                              double damping_length)
-    : IInterferenceFunction(0), m_peak_distance(peak_distance), m_damping_length(damping_length),
-      m_use_damping_length(true), m_kappa(0.0), m_domain_size(0.0)
+    : IInterferenceFunction(0)
+    , m_peak_distance(peak_distance)
+    , m_damping_length(damping_length)
+    , m_use_damping_length(true)
+    , m_kappa(0.0)
+    , m_domain_size(0.0)
 {
     setName("InterferenceRadialParaCrystal");
     if (m_damping_length == 0.0)

@@ -79,8 +79,9 @@ QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleLocation>
 // ----------------------------------------------------------------------------
 
 SizeHandleElement::SizeHandleElement(EHandleLocation pointType, QGraphicsObject* parent)
-    : QGraphicsObject(parent), m_handleLocation(pointType),
-      m_handleType(m_location_to_type[pointType])
+    : QGraphicsObject(parent)
+    , m_handleLocation(pointType)
+    , m_handleType(m_location_to_type[pointType])
 {
     setCursor(m_cursors[m_handleLocation]);
     setParentItem(parent);

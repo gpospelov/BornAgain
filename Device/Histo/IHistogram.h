@@ -38,17 +38,17 @@ public:
     virtual IHistogram* clone() const = 0;
 
     //! Returns number of histogram dimensions.
-    virtual size_t getRank() const = 0;
+    virtual size_t rank() const = 0;
 
     //! Returns total number of histogram bins. For 2D histograms the result will be the product
     //! of bin numbers along X and Y axes.
     size_t getTotalNumberOfBins() const;
 
     //! returns x-axis
-    const IAxis& getXaxis() const;
+    const IAxis& xAxis() const;
 
     //! returns y-axis for 2D histograms
-    const IAxis& getYaxis() const;
+    const IAxis& yAxis() const;
 
     //! Returns x-axis min (lower edge of first bin).
     double getXmin() const;
@@ -75,25 +75,25 @@ public:
     size_t findGlobalBin(double x, double y) const;
 
     //! Returns x-axis index for global bin index i.
-    size_t getXaxisIndex(size_t i) const;
+    size_t xAxisIndex(size_t i) const;
 
     //! Returns y-axis index for global bin index i.
-    size_t getYaxisIndex(size_t i) const;
+    size_t yAxisIndex(size_t i) const;
 
     //! Returns the center of bin i of the x axis.
-    double getXaxisValue(size_t i);
+    double xAxisValue(size_t i);
 
     //! Returns the center of bin i of the y axis.
-    double getYaxisValue(size_t i);
+    double yAxisValue(size_t i);
 
     const OutputData<CumulativeValue>& getData() const;
     OutputData<CumulativeValue>& getData();
 
     //! Returns content (accumulated value) of bin i.
-    double getBinContent(size_t i) const;
+    double binContent(size_t i) const;
 
     //! Returns content (accumulated value) of the 2D histogram bin.
-    double getBinContent(size_t binx, size_t biny) const;
+    double binContent(size_t binx, size_t biny) const;
 
     //! Sets content of the bin corresponding to the globalbin number
     void setBinContent(size_t i, double value);
@@ -102,30 +102,30 @@ public:
     void addBinContent(size_t i, double value);
 
     //! Returns error of the bin with given index.
-    double getBinError(size_t i) const;
+    double binError(size_t i) const;
 
     //! Returns error of the bin with given indices (for 2D histograms).
-    double getBinError(size_t binx, size_t biny) const;
+    double binError(size_t binx, size_t biny) const;
 
     //! Returns average value in the bin with given index.
-    double getBinAverage(size_t i) const;
+    double binAverage(size_t i) const;
 
     //! Returns average value of the bin with given indices (for 2D histograms).
-    double getBinAverage(size_t binx, size_t biny) const;
+    double binAverage(size_t binx, size_t biny) const;
 
     //! Returns number of entries in the bin with given index.
-    int getBinNumberOfEntries(size_t i) const;
+    int binNumberOfEntries(size_t i) const;
 
     //! Returns number of entries in the bin with given indices (for 2D histograms).
-    int getBinNumberOfEntries(size_t binx, size_t biny) const;
+    int binNumberOfEntries(size_t binx, size_t biny) const;
 
-    //! Returns histogram maximum value (maximum of getBinContent() over all bins)
+    //! Returns histogram maximum value (maximum of binContent() over all bins)
     double getMaximum() const;
 
     //! Returns globalbin index with maximum content
     size_t getMaximumBinIndex() const;
 
-    //! Returns histogram minimum value (minimum of getBinContent() over all bins)
+    //! Returns histogram minimum value (minimum of binContent() over all bins)
     double getMinimum() const;
 
     //! Returns globalbin index with minimum content
@@ -187,7 +187,7 @@ protected:
     void check_x_axis() const;
     void check_y_axis() const;
     void init_from_data(const OutputData<double>& source);
-    double getBinData(size_t i, DataType dataType) const;
+    double binData(size_t i, DataType dataType) const;
     std::vector<double> getDataVector(DataType dataType) const;
     void copyContentFrom(const IHistogram& other);
     OutputData<CumulativeValue> m_data;

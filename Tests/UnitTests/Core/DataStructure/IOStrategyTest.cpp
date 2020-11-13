@@ -30,12 +30,12 @@ TEST_F(IOStrategyTest, TestINTStrategies)
     auto result = std::unique_ptr<OutputData<double>>(read_int_strategy.readOutputData(ss));
 
     auto compare_axis = [this, &result](size_t index) {
-        EXPECT_EQ(m_model_data.getAxis(index).size(), result->getAxis(index).size());
-        EXPECT_EQ(m_model_data.getAxis(index).getMin(), result->getAxis(index).getMin());
-        EXPECT_EQ(m_model_data.getAxis(index).getMax(), result->getAxis(index).getMax());
+        EXPECT_EQ(m_model_data.axis(index).size(), result->axis(index).size());
+        EXPECT_EQ(m_model_data.axis(index).lowerBound(), result->axis(index).lowerBound());
+        EXPECT_EQ(m_model_data.axis(index).upperBound(), result->axis(index).upperBound());
     };
 
-    EXPECT_EQ(m_model_data.getRank(), result->getRank());
+    EXPECT_EQ(m_model_data.rank(), result->rank());
     EXPECT_EQ(m_model_data.getAllSizes(), result->getAllSizes());
     compare_axis(0);
     compare_axis(1);
@@ -51,7 +51,7 @@ TEST_F(IOStrategyTest, TestNumpyTXTStrategies)
 
     OutputDataReadNumpyTXTStrategy read_txt_strategy;
     auto result = std::unique_ptr<OutputData<double>>(read_txt_strategy.readOutputData(ss));
-    EXPECT_EQ(m_model_data.getRank(), result->getRank());
+    EXPECT_EQ(m_model_data.rank(), result->rank());
     EXPECT_EQ(m_model_data.getAllSizes(), result->getAllSizes());
     for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size; ++i)
         EXPECT_EQ(m_model_data[i], (*result)[i]);
@@ -67,7 +67,7 @@ TEST_F(IOStrategyTest, TestTIFFStrategies)
 
     OutputDataReadTiffStrategy read_tiff_strategy;
     auto result = std::unique_ptr<OutputData<double>>(read_tiff_strategy.readOutputData(ss));
-    EXPECT_EQ(m_model_data.getRank(), result->getRank());
+    EXPECT_EQ(m_model_data.rank(), result->rank());
     EXPECT_EQ(m_model_data.getAllSizes(), result->getAllSizes());
     for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size; ++i)
         EXPECT_EQ(m_model_data[i], (*result)[i]);

@@ -23,8 +23,10 @@ const auto eps = std::numeric_limits<double>::epsilon() * 10.;
 
 MatrixRTCoefficients_v3::MatrixRTCoefficients_v3(double kz_sign, Eigen::Vector2cd eigenvalues,
                                                  kvector_t b, double magnetic_SLD)
-    : m_kz_sign(kz_sign), m_lambda(std::move(eigenvalues)), m_b(std::move(b)),
-      m_magnetic_SLD(magnetic_SLD)
+    : m_kz_sign(kz_sign)
+    , m_lambda(std::move(eigenvalues))
+    , m_b(std::move(b))
+    , m_magnetic_SLD(magnetic_SLD)
 {
     ASSERT(std::abs(m_b.mag() - 1) < eps || (m_b.mag() < eps && magnetic_SLD < eps));
 

@@ -41,57 +41,57 @@ Histogram1D* Histogram1D::clone() const
 
 int Histogram1D::fill(double x, double weight)
 {
-    const IAxis& axis = getXaxis();
-    if (x < axis.getMin() || x >= axis.getMax())
+    const IAxis& axis = xAxis();
+    if (!axis.contains(x))
         return -1;
     size_t index = axis.findClosestIndex(x);
     m_data[index].add(weight);
     return (int)index;
 }
 
-std::vector<double> Histogram1D::getBinCenters() const
+std::vector<double> Histogram1D::binCenters() const
 {
-    return getXaxis().getBinCenters();
+    return xAxis().binCenters();
 }
 
-std::vector<double> Histogram1D::getBinValues() const
+std::vector<double> Histogram1D::binValues() const
 {
     return IHistogram::getDataVector(IHistogram::DataType::INTEGRAL);
 }
 
-std::vector<double> Histogram1D::getBinErrors() const
+std::vector<double> Histogram1D::binErrors() const
 {
     return IHistogram::getDataVector(IHistogram::DataType::STANDARD_ERROR);
 }
 
 #ifdef BORNAGAIN_PYTHON
 
-PyObject* Histogram1D::getBinCentersNumpy() const
+PyObject* Histogram1D::binCentersNumpy() const
 {
-    return ArrayUtils::createNumpyArray(getBinCenters());
+    return ArrayUtils::createNumpyArray(binCenters());
 }
 
-PyObject* Histogram1D::getBinValuesNumpy() const
+PyObject* Histogram1D::binValuesNumpy() const
 {
-    return ArrayUtils::createNumpyArray(getBinValues());
+    return ArrayUtils::createNumpyArray(binValues());
 }
 
-PyObject* Histogram1D::getBinErrorsNumpy() const
+PyObject* Histogram1D::binErrorsNumpy() const
 {
-    return ArrayUtils::createNumpyArray(getBinErrors());
+    return ArrayUtils::createNumpyArray(binErrors());
 }
 
 #endif // BORNAGAIN_PYTHON
 
 Histogram1D* Histogram1D::crop(double xmin, double xmax)
 {
-    const std::unique_ptr<IAxis> xaxis(getXaxis().createClippedAxis(xmin, xmax));
+    const std::unique_ptr<IAxis> xaxis(xAxis().createClippedAxis(xmin, xmax));
     Histogram1D* result = new Histogram1D(*xaxis);
     OutputData<CumulativeValue>::const_iterator it_origin = m_data.begin();
     OutputData<CumulativeValue>::iterator it_result = result->m_data.begin();
     while (it_origin != m_data.end()) {
         double x = m_data.getAxisValue(it_origin.getIndex(), 0);
-        if (result->getXaxis().contains(x)) {
+        if (result->xAxis().contains(x)) {
             *it_result = *it_origin;
             ++it_result;
         }

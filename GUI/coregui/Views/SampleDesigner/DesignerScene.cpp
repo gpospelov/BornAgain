@@ -35,9 +35,14 @@
 #include <QPainter>
 
 DesignerScene::DesignerScene(QObject* parent)
-    : QGraphicsScene(parent), m_sampleModel(0), m_instrumentModel(0), m_materialModel(0),
-      m_selectionModel(0), m_proxy(0), m_block_selection(false),
-      m_aligner(new SampleViewAligner(this))
+    : QGraphicsScene(parent)
+    , m_sampleModel(0)
+    , m_instrumentModel(0)
+    , m_materialModel(0)
+    , m_selectionModel(0)
+    , m_proxy(0)
+    , m_block_selection(false)
+    , m_aligner(new SampleViewAligner(this))
 {
     setSceneRect(QRectF(-1600, 0, 3200, 3200));
     setBackgroundBrush(DesignerHelper::getSceneBackground());

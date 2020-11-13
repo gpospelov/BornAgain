@@ -56,8 +56,9 @@ processedInterferenceFunction(const ProcessedLayout& layout, const SimulationOpt
 ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout& layout,
                                                      const SimulationOptions& options,
                                                      bool polarized)
-    : m_layout(layout), m_region_map(layout.regionMap()),
-      m_interference_function_strategy(processedInterferenceFunction(layout, options, polarized))
+    : m_layout(layout)
+    , m_region_map(layout.regionMap())
+    , m_interference_function_strategy(processedInterferenceFunction(layout, options, polarized))
 {
 }
 

@@ -22,8 +22,8 @@
 template <> PyObject* OutputData<double>::getArray() const
 {
     std::vector<size_t> dimensions;
-    for (size_t i = 0; i < getRank(); i++)
-        dimensions.push_back(getAxis(i).size());
+    for (size_t i = 0; i < rank(); i++)
+        dimensions.push_back(axis(i).size());
 
     // for rot90 of 2-dim arrays to conform with numpy
     if (dimensions.size() == 2)
@@ -45,7 +45,7 @@ template <> PyObject* OutputData<double>::getArray() const
     double* array_buffer = (double*)PyArray_DATA((PyArrayObject*)pyarray);
 
     // filling numpy array with output_data
-    if (getRank() == 2) {
+    if (rank() == 2) {
         for (size_t index = 0; index < getAllocatedSize(); ++index) {
             std::vector<int> axes_indices = getAxesBinIndices(index);
             size_t offset =

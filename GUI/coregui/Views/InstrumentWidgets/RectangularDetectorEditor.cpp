@@ -19,9 +19,15 @@
 #include <QGridLayout>
 
 RectangularDetectorEditor::RectangularDetectorEditor(QWidget* parent)
-    : SessionItemWidget(parent), m_xAxisEditor(nullptr), m_yAxisEditor(nullptr),
-      m_resolutionFunctionEditor(nullptr), m_alignmentEditor(nullptr), m_positionsEditor(nullptr),
-      m_normalEditor(nullptr), m_directionEditor(nullptr), m_gridLayout(new QGridLayout)
+    : SessionItemWidget(parent)
+    , m_xAxisEditor(nullptr)
+    , m_yAxisEditor(nullptr)
+    , m_resolutionFunctionEditor(nullptr)
+    , m_alignmentEditor(nullptr)
+    , m_positionsEditor(nullptr)
+    , m_normalEditor(nullptr)
+    , m_directionEditor(nullptr)
+    , m_gridLayout(new QGridLayout)
 {
     create_editors();
 

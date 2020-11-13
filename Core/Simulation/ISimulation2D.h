@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
-#define BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
+#ifndef BORNAGAIN_CORE_SIMULATION_ISIMULATION2D_H
+#define BORNAGAIN_CORE_SIMULATION_ISIMULATION2D_H
 
 #include "Core/Simulation/ISimulation.h"
 
@@ -100,4 +100,4 @@ private:
     std::unique_ptr<DetectorContext> m_detector_context;
 };
 
-#endif // BORNAGAIN_CORE_SIMULATION_SIMULATION2D_H
+#endif // BORNAGAIN_CORE_SIMULATION_ISIMULATION2D_H

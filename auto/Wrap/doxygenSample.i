@@ -3640,7 +3640,12 @@ Calculates the intensity for scalar particles/interactions.
 
 
 // File: classILatticeOrientation.xml
-%feature("docstring") ILatticeOrientation "";
+%feature("docstring") ILatticeOrientation "
+
+Pure virtual base of classes that specify a lattice orientation. Currently only inherited by  MillerIndexOrientation.
+
+C++ includes: ILatticeOrientation.h
+";
 
 %feature("docstring")  ILatticeOrientation::~ILatticeOrientation "ILatticeOrientation::~ILatticeOrientation()
 ";
@@ -3651,7 +3656,7 @@ Calculates the intensity for scalar particles/interactions.
 %feature("docstring")  ILatticeOrientation::usePrimitiveLattice "virtual void ILatticeOrientation::usePrimitiveLattice(const Lattice &lattice)=0
 ";
 
-%feature("docstring")  ILatticeOrientation::transformationMatrix "virtual Transform3D ILatticeOrientation::transformationMatrix() const =0
+%feature("docstring")  ILatticeOrientation::transformation "virtual Transform3D ILatticeOrientation::transformation() const =0
 ";
 
 
@@ -5853,7 +5858,7 @@ This constructor is best explained by an example. Arguments QX, (1,1,0), QY, (0,
 %feature("docstring")  MillerIndexOrientation::usePrimitiveLattice "void MillerIndexOrientation::usePrimitiveLattice(const Lattice &lattice) override
 ";
 
-%feature("docstring")  MillerIndexOrientation::transformationMatrix "Transform3D MillerIndexOrientation::transformationMatrix() const override
+%feature("docstring")  MillerIndexOrientation::transformation "Transform3D MillerIndexOrientation::transformation() const override
 ";
 
 

@@ -56,7 +56,7 @@ void MillerIndexOrientation::usePrimitiveLattice(const Lattice& lattice)
                               lattice.getBasisVectorC());
 }
 
-Transform3D MillerIndexOrientation::transformationMatrix() const
+Transform3D MillerIndexOrientation::transformation() const
 {
     auto dir_1 = m_prim_lattice.getMillerDirection(m_ind1.h, m_ind1.k, m_ind1.l);
     auto dir_2 = m_prim_lattice.getMillerDirection(m_ind2.h, m_ind2.k, m_ind2.l);

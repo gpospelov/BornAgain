@@ -11382,7 +11382,14 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
 _libBornAgainSample.FormFactorSphereLogNormalRadius_swigregister(FormFactorSphereLogNormalRadius)
 
 class ILatticeOrientation(object):
-    r"""Proxy of C++ ILatticeOrientation class."""
+    r"""
+
+
+    Pure virtual base of classes that specify a lattice orientation. Currently only inherited by  MillerIndexOrientation.
+
+    C++ includes: ILatticeOrientation.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -11407,13 +11414,13 @@ class ILatticeOrientation(object):
         """
         return _libBornAgainSample.ILatticeOrientation_usePrimitiveLattice(self, lattice)
 
-    def transformationMatrix(self):
+    def transformation(self):
         r"""
-        transformationMatrix(ILatticeOrientation self) -> Transform3D
-        virtual Transform3D ILatticeOrientation::transformationMatrix() const =0
+        transformation(ILatticeOrientation self) -> Transform3D
+        virtual Transform3D ILatticeOrientation::transformation() const =0
 
         """
-        return _libBornAgainSample.ILatticeOrientation_transformationMatrix(self)
+        return _libBornAgainSample.ILatticeOrientation_transformation(self)
 
 # Register ILatticeOrientation in _libBornAgainSample:
 _libBornAgainSample.ILatticeOrientation_swigregister(ILatticeOrientation)
@@ -11492,13 +11499,13 @@ class MillerIndexOrientation(ILatticeOrientation):
         """
         return _libBornAgainSample.MillerIndexOrientation_usePrimitiveLattice(self, lattice)
 
-    def transformationMatrix(self):
+    def transformation(self):
         r"""
-        transformationMatrix(MillerIndexOrientation self) -> Transform3D
-        Transform3D MillerIndexOrientation::transformationMatrix() const override
+        transformation(MillerIndexOrientation self) -> Transform3D
+        Transform3D MillerIndexOrientation::transformation() const override
 
         """
-        return _libBornAgainSample.MillerIndexOrientation_transformationMatrix(self)
+        return _libBornAgainSample.MillerIndexOrientation_transformation(self)
 
 # Register MillerIndexOrientation in _libBornAgainSample:
 _libBornAgainSample.MillerIndexOrientation_swigregister(MillerIndexOrientation)

@@ -257,7 +257,7 @@ def plot_result(sim_result, ref_result, bin_start=0, bin_end=-1):
     ylabel = "Intensity"
     plt.xlabel(xlabel, fontsize=16)
     plt.ylabel(ylabel, fontsize=16)
-    plt.legend(['Experimental data', 'ISimulation', 'Reference'],
+    plt.legend(['Experimental data', 'Simulation', 'Reference'],
                loc='upper right', fontsize=16)
 
     plt.show()

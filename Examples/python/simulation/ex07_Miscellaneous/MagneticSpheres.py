@@ -1,5 +1,5 @@
 """
-ISimulation demo: magnetic spheres in substrate
+Simulation demo: magnetic spheres in substrate
 """
 import bornagain as ba
 from bornagain import deg, angstrom, nm

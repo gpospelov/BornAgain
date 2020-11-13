@@ -1,5 +1,5 @@
 '''
-ISimulation demo: make movie
+Simulation demo: make movie
 '''
 
 import os, sys

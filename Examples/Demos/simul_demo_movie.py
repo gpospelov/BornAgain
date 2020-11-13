@@ -1,5 +1,5 @@
 '''
-ISimulation demo: movie of growing particles on substrate
+Simulation demo: movie of growing particles on substrate
 '''
 
 import os, sys

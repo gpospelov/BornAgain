@@ -1,5 +1,5 @@
 '''
-ISimulation demo: Cylinder and/or sphere on substrate
+Simulation demo: Cylinder and/or sphere on substrate
 '''
 
 import numpy

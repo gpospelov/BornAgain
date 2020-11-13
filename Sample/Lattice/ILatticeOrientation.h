@@ -18,6 +18,9 @@
 #include "Base/Vector/Transform3D.h"
 #include "Sample/Lattice/Lattice.h"
 
+//! Pure virtual base of classes that specify a lattice orientation.
+//! Currently only inherited by MillerIndexOrientation.
+
 class ILatticeOrientation
 {
 public:

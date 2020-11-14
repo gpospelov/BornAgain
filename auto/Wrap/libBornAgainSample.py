@@ -11749,36 +11749,6 @@ class Lattice(libBornAgainParam.INode):
         """
         return _libBornAgainSample.Lattice_setSelectionRule(self, p_selection_rule)
 
-    @staticmethod
-    def createCubicLattice(a):
-        r"""createCubicLattice(double a) -> Lattice"""
-        return _libBornAgainSample.Lattice_createCubicLattice(a)
-
-    @staticmethod
-    def createFCCLattice(a):
-        r"""createFCCLattice(double a) -> Lattice"""
-        return _libBornAgainSample.Lattice_createFCCLattice(a)
-
-    @staticmethod
-    def createHexagonalLattice(a, c):
-        r"""createHexagonalLattice(double a, double c) -> Lattice"""
-        return _libBornAgainSample.Lattice_createHexagonalLattice(a, c)
-
-    @staticmethod
-    def createHCPLattice(a, c):
-        r"""createHCPLattice(double a, double c) -> Lattice"""
-        return _libBornAgainSample.Lattice_createHCPLattice(a, c)
-
-    @staticmethod
-    def createTetragonalLattice(a, c):
-        r"""createTetragonalLattice(double a, double c) -> Lattice"""
-        return _libBornAgainSample.Lattice_createTetragonalLattice(a, c)
-
-    @staticmethod
-    def createBCTLattice(a, c):
-        r"""createBCTLattice(double a, double c) -> Lattice"""
-        return _libBornAgainSample.Lattice_createBCTLattice(a, c)
-
     def onChange(self):
         r"""
         onChange(Lattice self)
@@ -11789,30 +11759,6 @@ class Lattice(libBornAgainParam.INode):
 
 # Register Lattice in _libBornAgainSample:
 _libBornAgainSample.Lattice_swigregister(Lattice)
-
-def Lattice_createCubicLattice(a):
-    r"""Lattice_createCubicLattice(double a) -> Lattice"""
-    return _libBornAgainSample.Lattice_createCubicLattice(a)
-
-def Lattice_createFCCLattice(a):
-    r"""Lattice_createFCCLattice(double a) -> Lattice"""
-    return _libBornAgainSample.Lattice_createFCCLattice(a)
-
-def Lattice_createHexagonalLattice(a, c):
-    r"""Lattice_createHexagonalLattice(double a, double c) -> Lattice"""
-    return _libBornAgainSample.Lattice_createHexagonalLattice(a, c)
-
-def Lattice_createHCPLattice(a, c):
-    r"""Lattice_createHCPLattice(double a, double c) -> Lattice"""
-    return _libBornAgainSample.Lattice_createHCPLattice(a, c)
-
-def Lattice_createTetragonalLattice(a, c):
-    r"""Lattice_createTetragonalLattice(double a, double c) -> Lattice"""
-    return _libBornAgainSample.Lattice_createTetragonalLattice(a, c)
-
-def Lattice_createBCTLattice(a, c):
-    r"""Lattice_createBCTLattice(double a, double c) -> Lattice"""
-    return _libBornAgainSample.Lattice_createBCTLattice(a, c)
 
 class Lattice2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""Proxy of C++ Lattice2D class."""

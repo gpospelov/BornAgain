@@ -1,3 +1,4 @@
+#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Lattice/Lattice.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Vector/Transform3D.h"
@@ -150,7 +151,7 @@ TEST_F(LatticeTest, reciprocalLatticeVectorsWithinRadiusTest)
 TEST_F(LatticeTest, FCCLatticeTest)
 {
     // creates FCC lattice onto a new Lattice instance l1
-    Lattice l1 = Lattice::createFCCLattice(1);
+    Lattice l1 = bake::createFCCLattice(1);
 
     kvector_t fcc1(0, 0.5, 0.5), fcc2(0.5, 0, 0.5), fcc3(0.5, 0.5, 0);
 
@@ -162,7 +163,7 @@ TEST_F(LatticeTest, FCCLatticeTest)
 // tests hexagonal lattice creation
 TEST_F(LatticeTest, HexagonalLatticeTest)
 {
-    Lattice l1 = Lattice::createHexagonalLattice(1, 4);
+    Lattice l1 = bake::createHexagonalLattice(1, 4);
 
     kvector_t tri1(1, 0.0, 0.0);
     kvector_t tri2(-1 / 2.0, std::sqrt(3.0) * 1 / 2.0, 0);

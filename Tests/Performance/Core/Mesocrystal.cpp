@@ -18,6 +18,7 @@
 #include "Device/Detector/RectangularDetector.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
+#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Lattice/ISelectionRule.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
@@ -54,7 +55,7 @@ std::unique_ptr<RectangularDetector> create_detector()
 
 Lattice createLattice(double a, double c)
 {
-    Lattice result = Lattice::createHexagonalLattice(a, c);
+    Lattice result = bake::createHexagonalLattice(a, c);
     result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return result;
 }

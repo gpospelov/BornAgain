@@ -11473,7 +11473,6 @@ class Lattice(libBornAgainParam.INode):
 
     def __init__(self, *args):
         r"""
-        __init__(Lattice self) -> Lattice
         __init__(Lattice self, kvector_t a, kvector_t b, kvector_t c) -> Lattice
         __init__(Lattice self, Lattice lattice) -> Lattice
         Lattice::Lattice(const Lattice &lattice)
@@ -11545,7 +11544,9 @@ class Lattice(libBornAgainParam.INode):
         getMillerDirection(Lattice self, double h, double k, double l) -> kvector_t
         kvector_t Lattice::getMillerDirection(double h, double k, double l) const
 
-        Returns normalized direction corresponding to the given Miller indices. 
+        Returns normalized direction corresponding to the given Miller indices.
+
+        Currently unused but may be useful for checks. 
 
         """
         return _libBornAgainSample.Lattice_getMillerDirection(self, h, k, l)
@@ -11565,7 +11566,9 @@ class Lattice(libBornAgainParam.INode):
         getReciprocalLatticeBasis(Lattice self, kvector_t ra, kvector_t rb, kvector_t rc)
         void Lattice::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const
 
-        Returns the reciprocal basis vectors. 
+        Returns the reciprocal basis vectors.
+
+        Currently only used in tests. 
 
         """
         return _libBornAgainSample.Lattice_getReciprocalLatticeBasis(self, ra, rb, rc)
@@ -11583,7 +11586,7 @@ class Lattice(libBornAgainParam.INode):
     def reciprocalLatticeVectorsWithinRadius(self, q, dq):
         r"""
         reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t q, double dq) -> vector_kvector_t
-        std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
+        std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
 
         Returns a list of reciprocal lattice vectors within distance dq of a vector q. 
 

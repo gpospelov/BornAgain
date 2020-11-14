@@ -4867,7 +4867,7 @@ A Bravais lattice, characterized by three basis vectors, and optionally an  ISel
 C++ includes: Lattice.h
 ";
 
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice()
+%feature("docstring")  Lattice::Lattice "Lattice::Lattice()=delete
 ";
 
 %feature("docstring")  Lattice::Lattice "Lattice::Lattice(const kvector_t a, const kvector_t b, const kvector_t c)
@@ -4909,7 +4909,9 @@ Returns basis vector c.
 
 %feature("docstring")  Lattice::getMillerDirection "kvector_t Lattice::getMillerDirection(double h, double k, double l) const
 
-Returns normalized direction corresponding to the given Miller indices. 
+Returns normalized direction corresponding to the given Miller indices.
+
+Currently unused but may be useful for checks. 
 ";
 
 %feature("docstring")  Lattice::volume "double Lattice::volume() const
@@ -4919,7 +4921,9 @@ Returns the volume of the unit cell.
 
 %feature("docstring")  Lattice::getReciprocalLatticeBasis "void Lattice::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const
 
-Returns the reciprocal basis vectors. 
+Returns the reciprocal basis vectors.
+
+Currently only used in tests. 
 ";
 
 %feature("docstring")  Lattice::getNearestReciprocalLatticeVectorCoordinates "ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
@@ -4927,7 +4931,7 @@ Returns the reciprocal basis vectors.
 Returns the nearest reciprocal lattice point from a given vector. 
 ";
 
-%feature("docstring")  Lattice::reciprocalLatticeVectorsWithinRadius "std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
+%feature("docstring")  Lattice::reciprocalLatticeVectorsWithinRadius "std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
 
 Returns a list of reciprocal lattice vectors within distance dq of a vector q. 
 ";

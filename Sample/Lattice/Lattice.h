@@ -29,7 +29,7 @@ class Transform3D;
 class Lattice : public INode
 {
 public:
-    Lattice();
+    Lattice() = delete;
     Lattice(const kvector_t a, const kvector_t b, const kvector_t c);
     Lattice(const Lattice& lattice);
     ~Lattice() override;

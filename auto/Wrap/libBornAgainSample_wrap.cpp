@@ -68007,20 +68007,7 @@ SWIGINTERN PyObject *SimpleSelectionRule_swiginit(PyObject *SWIGUNUSEDPARM(self)
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  Lattice *result = 0 ;
-  
-  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
-  result = (Lattice *)new Lattice();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Lattice, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   kvector_t arg1 ;
   kvector_t arg2 ;
@@ -68081,7 +68068,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Lattice *arg1 = 0 ;
   void *argp1 = 0 ;
@@ -68113,15 +68100,12 @@ SWIGINTERN PyObject *_wrap_new_Lattice(PyObject *self, PyObject *args) {
   
   if (!(argc = SWIG_Python_UnpackTuple(args, "new_Lattice", 0, 3, argv))) SWIG_fail;
   --argc;
-  if (argc == 0) {
-    return _wrap_new_Lattice__SWIG_0(self, argc, argv);
-  }
   if (argc == 1) {
     int _v;
     int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Lattice, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_new_Lattice__SWIG_2(self, argc, argv);
+      return _wrap_new_Lattice__SWIG_1(self, argc, argv);
     }
   }
   if (argc == 3) {
@@ -68135,7 +68119,7 @@ SWIGINTERN PyObject *_wrap_new_Lattice(PyObject *self, PyObject *args) {
         int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_NO_NULL | 0);
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_new_Lattice__SWIG_1(self, argc, argv);
+          return _wrap_new_Lattice__SWIG_0(self, argc, argv);
         }
       }
     }
@@ -68144,7 +68128,6 @@ SWIGINTERN PyObject *_wrap_new_Lattice(PyObject *self, PyObject *args) {
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Lattice'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Lattice::Lattice()\n"
     "    Lattice::Lattice(kvector_t const,kvector_t const,kvector_t const)\n"
     "    Lattice::Lattice(Lattice const &)\n");
   return 0;
@@ -76150,7 +76133,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "SimpleSelectionRule_swigregister", SimpleSelectionRule_swigregister, METH_O, NULL},
 	 { "SimpleSelectionRule_swiginit", SimpleSelectionRule_swiginit, METH_VARARGS, NULL},
 	 { "new_Lattice", _wrap_new_Lattice, METH_VARARGS, "\n"
-		"Lattice()\n"
 		"Lattice(kvector_t a, kvector_t b, kvector_t c)\n"
 		"new_Lattice(Lattice lattice) -> Lattice\n"
 		"Lattice::Lattice(const Lattice &lattice)\n"
@@ -76205,7 +76187,9 @@ static PyMethodDef SwigMethods[] = {
 		"Lattice_getMillerDirection(Lattice self, double h, double k, double l) -> kvector_t\n"
 		"kvector_t Lattice::getMillerDirection(double h, double k, double l) const\n"
 		"\n"
-		"Returns normalized direction corresponding to the given Miller indices. \n"
+		"Returns normalized direction corresponding to the given Miller indices.\n"
+		"\n"
+		"Currently unused but may be useful for checks. \n"
 		"\n"
 		""},
 	 { "Lattice_volume", _wrap_Lattice_volume, METH_O, "\n"
@@ -76219,7 +76203,9 @@ static PyMethodDef SwigMethods[] = {
 		"Lattice_getReciprocalLatticeBasis(Lattice self, kvector_t ra, kvector_t rb, kvector_t rc)\n"
 		"void Lattice::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const\n"
 		"\n"
-		"Returns the reciprocal basis vectors. \n"
+		"Returns the reciprocal basis vectors.\n"
+		"\n"
+		"Currently only used in tests. \n"
 		"\n"
 		""},
 	 { "Lattice_getNearestReciprocalLatticeVectorCoordinates", _wrap_Lattice_getNearestReciprocalLatticeVectorCoordinates, METH_VARARGS, "\n"
@@ -76231,7 +76217,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Lattice_reciprocalLatticeVectorsWithinRadius", _wrap_Lattice_reciprocalLatticeVectorsWithinRadius, METH_VARARGS, "\n"
 		"Lattice_reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t q, double dq) -> vector_kvector_t\n"
-		"std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const\n"
+		"std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const\n"
 		"\n"
 		"Returns a list of reciprocal lattice vectors within distance dq of a vector q. \n"
 		"\n"

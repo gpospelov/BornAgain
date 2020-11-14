@@ -19,15 +19,6 @@
 #include "Sample/Lattice/ISelectionRule.h"
 #include <gsl/gsl_linalg.h>
 
-Lattice::Lattice()
-    : m_a({1.0, 0.0, 0.0})
-    , m_b({0.0, 1.0, 0.0})
-    , m_c({0.0, 0.0, 1.0})
-{
-    setName("Lattice");
-    initialize();
-}
-
 Lattice::Lattice(const kvector_t a, const kvector_t b, const kvector_t c)
     : m_a(a), m_b(b), m_c(c)
 {

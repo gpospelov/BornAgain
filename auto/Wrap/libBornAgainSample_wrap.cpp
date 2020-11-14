@@ -68326,75 +68326,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_resetBasis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
-  kvector_t arg2 ;
-  kvector_t arg3 ;
-  kvector_t arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  void *argp3 ;
-  int res3 = 0 ;
-  void *argp4 ;
-  int res4 = 0 ;
-  PyObject *swig_obj[4] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_resetBasis", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_resetBasis" "', argument " "1"" of type '" "Lattice *""'"); 
-  }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_resetBasis" "', argument " "2"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_resetBasis" "', argument " "2"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  {
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Lattice_resetBasis" "', argument " "3"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp3) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_resetBasis" "', argument " "3"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp3);
-      arg3 = *temp;
-      if (SWIG_IsNewObj(res3)) delete temp;
-    }
-  }
-  {
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "Lattice_resetBasis" "', argument " "4"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp4) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_resetBasis" "', argument " "4"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp4);
-      arg4 = *temp;
-      if (SWIG_IsNewObj(res4)) delete temp;
-    }
-  }
-  (arg1)->resetBasis(arg2,arg3,arg4);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Lattice_getMillerDirection(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Lattice *arg1 = (Lattice *) 0 ;
@@ -76330,18 +76261,13 @@ static PyMethodDef SwigMethods[] = {
 		"Returns basis vector c. \n"
 		"\n"
 		""},
-	 { "Lattice_resetBasis", _wrap_Lattice_resetBasis, METH_VARARGS, "\n"
-		"Lattice_resetBasis(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3)\n"
-		"void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)\n"
-		"\n"
-		"Resets the basis vectors. \n"
-		"\n"
-		""},
 	 { "Lattice_getMillerDirection", _wrap_Lattice_getMillerDirection, METH_VARARGS, "\n"
 		"Lattice_getMillerDirection(Lattice self, double h, double k, double l) -> kvector_t\n"
 		"kvector_t Lattice::getMillerDirection(double h, double k, double l) const\n"
 		"\n"
-		"Returns normalized direction corresponding to the given Miller indices. \n"
+		"Returns normalized direction corresponding to the given Miller indices.\n"
+		"\n"
+		"Currently unused but may be useful for checks. \n"
 		"\n"
 		""},
 	 { "Lattice_volume", _wrap_Lattice_volume, METH_O, "\n"
@@ -76355,7 +76281,9 @@ static PyMethodDef SwigMethods[] = {
 		"Lattice_getReciprocalLatticeBasis(Lattice self, kvector_t b1, kvector_t b2, kvector_t b3)\n"
 		"void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const\n"
 		"\n"
-		"Returns the reciprocal basis vectors. \n"
+		"Returns the reciprocal basis vectors.\n"
+		"\n"
+		"Currently only used in tests. \n"
 		"\n"
 		""},
 	 { "Lattice_getNearestLatticeVectorCoordinates", _wrap_Lattice_getNearestLatticeVectorCoordinates, METH_VARARGS, "\n"

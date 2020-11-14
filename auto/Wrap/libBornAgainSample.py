@@ -11540,22 +11540,14 @@ class Lattice(libBornAgainParam.INode):
         """
         return _libBornAgainSample.Lattice_getBasisVectorC(self)
 
-    def resetBasis(self, a1, a2, a3):
-        r"""
-        resetBasis(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3)
-        void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-
-        Resets the basis vectors. 
-
-        """
-        return _libBornAgainSample.Lattice_resetBasis(self, a1, a2, a3)
-
     def getMillerDirection(self, h, k, l):
         r"""
         getMillerDirection(Lattice self, double h, double k, double l) -> kvector_t
         kvector_t Lattice::getMillerDirection(double h, double k, double l) const
 
-        Returns normalized direction corresponding to the given Miller indices. 
+        Returns normalized direction corresponding to the given Miller indices.
+
+        Currently unused but may be useful for checks. 
 
         """
         return _libBornAgainSample.Lattice_getMillerDirection(self, h, k, l)
@@ -11575,7 +11567,9 @@ class Lattice(libBornAgainParam.INode):
         getReciprocalLatticeBasis(Lattice self, kvector_t b1, kvector_t b2, kvector_t b3)
         void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const
 
-        Returns the reciprocal basis vectors. 
+        Returns the reciprocal basis vectors.
+
+        Currently only used in tests. 
 
         """
         return _libBornAgainSample.Lattice_getReciprocalLatticeBasis(self, b1, b2, b3)

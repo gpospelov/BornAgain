@@ -4907,14 +4907,11 @@ Returns basis vector b.
 Returns basis vector c. 
 ";
 
-%feature("docstring")  Lattice::resetBasis "void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-
-Resets the basis vectors. 
-";
-
 %feature("docstring")  Lattice::getMillerDirection "kvector_t Lattice::getMillerDirection(double h, double k, double l) const
 
-Returns normalized direction corresponding to the given Miller indices. 
+Returns normalized direction corresponding to the given Miller indices.
+
+Currently unused but may be useful for checks. 
 ";
 
 %feature("docstring")  Lattice::volume "double Lattice::volume() const
@@ -4924,7 +4921,9 @@ Returns the volume of the unit cell.
 
 %feature("docstring")  Lattice::getReciprocalLatticeBasis "void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const
 
-Returns the reciprocal basis vectors. 
+Returns the reciprocal basis vectors.
+
+Currently only used in tests. 
 ";
 
 %feature("docstring")  Lattice::getNearestLatticeVectorCoordinates "ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const

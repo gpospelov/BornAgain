@@ -51,9 +51,6 @@ public:
     //! Returns basis vector c
     kvector_t getBasisVectorC() const { return m_c; }
 
-    //! Resets the basis vectors
-    void resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3);
-
     //! Returns normalized direction corresponding to the given Miller indices
     kvector_t getMillerDirection(double h, double k, double l) const;
 

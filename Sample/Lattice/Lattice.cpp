@@ -71,19 +71,12 @@ void Lattice::initialize() const
     m_cache_ok = true;
 }
 
-void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-{
-    m_a = a1;
-    m_b = a2;
-    m_c = a3;
-    onChange();
-}
-
+//! Currently unused but may be useful for checks
 kvector_t Lattice::getMillerDirection(double h, double k, double l) const
 {
-    kvector_t b1, b2, b3;
-    getReciprocalLatticeBasis(b1, b2, b3);
-    kvector_t direction = h * b1 + k * b2 + l * b3;
+    if (!m_cache_ok)
+        initialize();
+    kvector_t direction = h * m_ra + k * m_rb + l * m_rc;
     return direction.unit();
 }
 
@@ -92,6 +85,7 @@ double Lattice::volume() const
     return std::abs(m_a.dot(m_b.cross(m_c)));
 }
 
+//! Currently only used in tests
 void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2, kvector_t& b3) const
 {
     if (!m_cache_ok)

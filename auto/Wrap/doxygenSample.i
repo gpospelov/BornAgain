@@ -3639,27 +3639,6 @@ Calculates the intensity for scalar particles/interactions.
 ";
 
 
-// File: classILatticeOrientation.xml
-%feature("docstring") ILatticeOrientation "
-
-Pure virtual base of classes that specify a lattice orientation. Currently only inherited by  MillerIndexOrientation.
-
-C++ includes: ILatticeOrientation.h
-";
-
-%feature("docstring")  ILatticeOrientation::~ILatticeOrientation "ILatticeOrientation::~ILatticeOrientation()
-";
-
-%feature("docstring")  ILatticeOrientation::clone "virtual ILatticeOrientation* ILatticeOrientation::clone() const =0
-";
-
-%feature("docstring")  ILatticeOrientation::usePrimitiveLattice "virtual void ILatticeOrientation::usePrimitiveLattice(const Lattice &lattice)=0
-";
-
-%feature("docstring")  ILatticeOrientation::transformation "virtual Transform3D ILatticeOrientation::transformation() const =0
-";
-
-
 // File: classILayerRTCoefficients.xml
 %feature("docstring") ILayerRTCoefficients "
 
@@ -5824,44 +5803,6 @@ C++ includes: MesoCrystalBuilder.h
 ";
 
 
-// File: structMillerIndex.xml
-%feature("docstring") MillerIndex "
-
-A direction in reciprocal space, specified by double-valued indices hkl.
-
-C++ includes: ILatticeOrientation.h
-";
-
-%feature("docstring")  MillerIndex::MillerIndex "MillerIndex::MillerIndex(double h_, double k_, double l_)
-";
-
-
-// File: classMillerIndexOrientation.xml
-%feature("docstring") MillerIndexOrientation "
-
-Specifies a rotation of a lattice through the Miller indices of two coordinate axes.
-
-C++ includes: ILatticeOrientation.h
-";
-
-%feature("docstring")  MillerIndexOrientation::MillerIndexOrientation "MillerIndexOrientation::MillerIndexOrientation(QComponent q1, MillerIndex index1, QComponent q2, MillerIndex index2)
-
-This constructor is best explained by an example. Arguments QX, (1,1,0), QY, (0,2,1) mean: Rotate the lattice such that the axis [110] points into x direction, and the axis [021], projected into the yz plane, points into z direction. 
-";
-
-%feature("docstring")  MillerIndexOrientation::~MillerIndexOrientation "MillerIndexOrientation::~MillerIndexOrientation() override
-";
-
-%feature("docstring")  MillerIndexOrientation::clone "MillerIndexOrientation * MillerIndexOrientation::clone() const override
-";
-
-%feature("docstring")  MillerIndexOrientation::usePrimitiveLattice "void MillerIndexOrientation::usePrimitiveLattice(const Lattice &lattice) override
-";
-
-%feature("docstring")  MillerIndexOrientation::transformation "Transform3D MillerIndexOrientation::transformation() const override
-";
-
-
 // File: classMisesFisherGaussPeakShape.xml
 %feature("docstring") MisesFisherGaussPeakShape "
 
@@ -7766,19 +7707,19 @@ C++ includes: ZLimits.h
 // File: namespace_0d117.xml
 
 
-// File: namespace_0d135.xml
+// File: namespace_0d143.xml
 
 
-// File: namespace_0d145.xml
+// File: namespace_0d147.xml
 
 
-// File: namespace_0d149.xml
-
-
-// File: namespace_0d153.xml
+// File: namespace_0d151.xml
 
 
 // File: namespace_0d16.xml
+
+
+// File: namespace_0d161.xml
 
 
 // File: namespace_0d163.xml
@@ -7787,10 +7728,10 @@ C++ includes: ZLimits.h
 // File: namespace_0d165.xml
 
 
-// File: namespace_0d167.xml
+// File: namespace_0d175.xml
 
 
-// File: namespace_0d177.xml
+// File: namespace_0d197.xml
 
 
 // File: namespace_0d199.xml
@@ -7799,28 +7740,28 @@ C++ includes: ZLimits.h
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d201.xml
+// File: namespace_0d209.xml
 
 
-// File: namespace_0d211.xml
+// File: namespace_0d225.xml
 
 
 // File: namespace_0d227.xml
 
 
-// File: namespace_0d229.xml
-
-
-// File: namespace_0d236.xml
+// File: namespace_0d234.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d254.xml
+// File: namespace_0d252.xml
 
 
-// File: namespace_0d262.xml
+// File: namespace_0d260.xml
+
+
+// File: namespace_0d270.xml
 
 
 // File: namespace_0d272.xml
@@ -7835,7 +7776,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d278.xml
 
 
-// File: namespace_0d280.xml
+// File: namespace_0d282.xml
 
 
 // File: namespace_0d284.xml
@@ -7844,25 +7785,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d286.xml
 
 
-// File: namespace_0d288.xml
+// File: namespace_0d298.xml
 
 
-// File: namespace_0d300.xml
+// File: namespace_0d304.xml
 
 
-// File: namespace_0d306.xml
+// File: namespace_0d308.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d310.xml
+// File: namespace_0d326.xml
 
 
-// File: namespace_0d328.xml
-
-
-// File: namespace_0d347.xml
+// File: namespace_0d345.xml
 
 
 // File: namespace_0d37.xml
@@ -7903,15 +7841,6 @@ Returns a primitive tetragonal (tP) lattice with square base edge a and height c
 %feature("docstring")  bake::createBCTLattice "Lattice bake::createBCTLattice(double a, double c)
 
 Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
-";
-
-%feature("docstring")  bake::createOrientedFCCLattice "Lattice bake::createOrientedFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
-";
-
-%feature("docstring")  bake::createOrientedHCPLattice "Lattice bake::createOrientedHCPLattice(double a, double c, const ILatticeOrientation &orientation)
-";
-
-%feature("docstring")  bake::createOrientedBCTLattice "Lattice bake::createOrientedBCTLattice(double a, double c, const ILatticeOrientation &orientation)
 ";
 
 
@@ -8468,12 +8397,6 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: BakeLattice_8h.xml
-
-
-// File: ILatticeOrientation_8cpp.xml
-
-
-// File: ILatticeOrientation_8h.xml
 
 
 // File: ISelectionRule_8h.xml

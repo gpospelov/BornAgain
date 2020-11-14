@@ -85,7 +85,6 @@
 #include "Sample/HardParticle/FormFactorTruncatedSpheroid.h"
 #include "Sample/HardParticle/IFormFactorPolyhedron.h"
 #include "Sample/HardParticle/IFormFactorPrism.h"
-#include "Sample/Lattice/ILatticeOrientation.h"
 #include "Sample/Lattice/ISelectionRule.h"
 #include "Sample/Lattice/Lattice.h"
 #include "Sample/Lattice/Lattice2D.h"
@@ -237,7 +236,6 @@
 %include "Sample/SoftParticle/FormFactorSphereGaussianRadius.h"
 %include "Sample/SoftParticle/FormFactorSphereLogNormalRadius.h"
 
-%include "Sample/Lattice/ILatticeOrientation.h"
 %include "Sample/Lattice/ISelectionRule.h"
 %include "Sample/Lattice/Lattice.h"
 %include "Sample/Lattice/Lattice2D.h"

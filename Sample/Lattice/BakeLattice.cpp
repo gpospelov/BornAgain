@@ -14,7 +14,6 @@
 
 #include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Lattice/Lattice.h"
-#include "Sample/Lattice/ILatticeOrientation.h"
 
 Lattice bake::createCubicLattice(double a)
 {
@@ -63,37 +62,4 @@ Lattice bake::createBCTLattice(double a, double c)
     kvector_t a2(0.0, a, 0.0);
     kvector_t a3(a / 2.0, a / 2.0, c / 2.0);
     return Lattice(a1, a2, a3);
-}
-
-// TODO RECONSIDER: do we really need or want the LatticeOrientation machinery? If yes, simplify!
-
-Lattice bake::createOrientedFCCLattice(double lattice_constant,
-                                       const ILatticeOrientation& orientation)
-{
-    const Lattice l1 = bake::createCubicLattice(1.0);
-    std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
-    P_orientation->usePrimitiveLattice(l1);
-    const Transform3D trafo = P_orientation->transformation();
-    const Lattice fcc = bake::createFCCLattice(lattice_constant);
-    return fcc.transformed(trafo);
-}
-
-Lattice bake::createOrientedHCPLattice(double a, double c, const ILatticeOrientation& orientation)
-{
-    const Lattice l1 = bake::createHexagonalLattice(1.0, c / a);
-    std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
-    P_orientation->usePrimitiveLattice(l1);
-    const Transform3D trafo = P_orientation->transformation();
-    const Lattice hcp = bake::createHCPLattice(a, c);
-    return hcp.transformed(trafo);
-}
-
-Lattice bake::createOrientedBCTLattice(double a, double c, const ILatticeOrientation& orientation)
-{
-    const Lattice l1 = bake::createTetragonalLattice(1.0, c / a);
-    std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
-    P_orientation->usePrimitiveLattice(l1);
-    const Transform3D trafo = P_orientation->transformation();
-    const Lattice hcp = bake::createBCTLattice(a, c);
-    return hcp.transformed(trafo);
 }

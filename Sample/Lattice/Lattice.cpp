@@ -192,46 +192,6 @@ std::vector<kvector_t> Lattice::vectorsWithinRadius(const kvector_t input_vector
     return ret;
 }
 
-void Lattice::computeInverseVectors(const kvector_t v1, const kvector_t v2, const kvector_t v3,
-                                    kvector_t o1, kvector_t o2, kvector_t o3)
-{
-    gsl_matrix* p_basisMatrix = gsl_matrix_alloc(3, 3);
-    gsl_matrix* p_inverseMatrix = gsl_matrix_alloc(3, 3);
-    gsl_permutation* p_perm = gsl_permutation_alloc(3);
-    int s;
-
-    gsl_matrix_set(p_basisMatrix, 0, 0, v1.x());
-    gsl_matrix_set(p_basisMatrix, 0, 1, v2.x());
-    gsl_matrix_set(p_basisMatrix, 0, 2, v3.x());
-
-    gsl_matrix_set(p_basisMatrix, 1, 0, v1.y());
-    gsl_matrix_set(p_basisMatrix, 1, 1, v2.y());
-    gsl_matrix_set(p_basisMatrix, 1, 2, v3.y());
-
-    gsl_matrix_set(p_basisMatrix, 2, 0, v1.z());
-    gsl_matrix_set(p_basisMatrix, 2, 1, v2.z());
-    gsl_matrix_set(p_basisMatrix, 2, 2, v3.z());
-
-    gsl_linalg_LU_decomp(p_basisMatrix, p_perm, &s);
-    gsl_linalg_LU_invert(p_basisMatrix, p_perm, p_inverseMatrix);
-
-    o1.setX(gsl_matrix_get(p_inverseMatrix, 0, 0));
-    o1.setY(gsl_matrix_get(p_inverseMatrix, 1, 0));
-    o1.setZ(gsl_matrix_get(p_inverseMatrix, 2, 0));
-
-    o2.setX(gsl_matrix_get(p_inverseMatrix, 0, 1));
-    o2.setY(gsl_matrix_get(p_inverseMatrix, 1, 1));
-    o2.setZ(gsl_matrix_get(p_inverseMatrix, 2, 1));
-
-    o3.setX(gsl_matrix_get(p_inverseMatrix, 0, 2));
-    o3.setY(gsl_matrix_get(p_inverseMatrix, 1, 2));
-    o3.setZ(gsl_matrix_get(p_inverseMatrix, 2, 2));
-
-    gsl_permutation_free(p_perm);
-    gsl_matrix_free(p_basisMatrix);
-    gsl_matrix_free(p_inverseMatrix);
-}
-
 void Lattice::setSelectionRule(const ISelectionRule& p_selection_rule)
 {
     delete m_selection_rule;

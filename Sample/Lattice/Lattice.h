@@ -88,8 +88,7 @@ private:
                                                const kvector_t rec2, const kvector_t rec3) const;
 
     void computeReciprocalVectors() const;
-    static void computeInverseVectors(const kvector_t v1, const kvector_t v2, const kvector_t v3,
-                                      kvector_t o1, kvector_t o2, kvector_t o3);
+
     ISelectionRule* m_selection_rule;
     kvector_t m_a, m_b, m_c;            //!< Basis vectors in real space
     mutable kvector_t m_ra, m_rb, m_rc; //!< Cache of basis vectors in reciprocal space

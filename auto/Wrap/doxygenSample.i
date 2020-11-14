@@ -4870,7 +4870,7 @@ C++ includes: Lattice.h
 %feature("docstring")  Lattice::Lattice "Lattice::Lattice()
 ";
 
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
+%feature("docstring")  Lattice::Lattice "Lattice::Lattice(const kvector_t a, const kvector_t b, const kvector_t c)
 ";
 
 %feature("docstring")  Lattice::Lattice "Lattice::Lattice(const Lattice &lattice)
@@ -4909,9 +4909,7 @@ Returns basis vector c.
 
 %feature("docstring")  Lattice::getMillerDirection "kvector_t Lattice::getMillerDirection(double h, double k, double l) const
 
-Returns normalized direction corresponding to the given Miller indices.
-
-Currently unused but may be useful for checks. 
+Returns normalized direction corresponding to the given Miller indices. 
 ";
 
 %feature("docstring")  Lattice::volume "double Lattice::volume() const
@@ -4919,24 +4917,22 @@ Currently unused but may be useful for checks.
 Returns the volume of the unit cell. 
 ";
 
-%feature("docstring")  Lattice::getReciprocalLatticeBasis "void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const
+%feature("docstring")  Lattice::getReciprocalLatticeBasis "void Lattice::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const
 
-Returns the reciprocal basis vectors.
-
-Currently only used in tests. 
+Returns the reciprocal basis vectors. 
 ";
 
-%feature("docstring")  Lattice::getNearestReciprocalLatticeVectorCoordinates "ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
+%feature("docstring")  Lattice::getNearestReciprocalLatticeVectorCoordinates "ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
 
 Returns the nearest reciprocal lattice point from a given vector. 
 ";
 
-%feature("docstring")  Lattice::reciprocalLatticeVectorsWithinRadius "std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
+%feature("docstring")  Lattice::reciprocalLatticeVectorsWithinRadius "std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
 
-Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
+Returns a list of reciprocal lattice vectors within distance dq of a vector q. 
 ";
 
-%feature("docstring")  Lattice::setSelectionRule "void Lattice::setSelectionRule(const ISelectionRule &p_selection_rule)
+%feature("docstring")  Lattice::setSelectionRule "void Lattice::setSelectionRule(const ISelectionRule &selection_rule)
 
 Sets a selection rule for the reciprocal vectors. 
 ";

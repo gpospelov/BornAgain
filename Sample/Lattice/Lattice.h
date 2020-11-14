@@ -30,7 +30,7 @@ class Lattice : public INode
 {
 public:
     Lattice();
-    Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3);
+    Lattice(const kvector_t a, const kvector_t b, const kvector_t c);
     Lattice(const Lattice& lattice);
     ~Lattice() override;
     Lattice& operator=(const Lattice&) = delete;
@@ -59,17 +59,17 @@ public:
     double volume() const;
 
     //! Returns the reciprocal basis vectors
-    void getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2, kvector_t& b3) const;
+    void getReciprocalLatticeBasis(kvector_t& ra, kvector_t& rb, kvector_t& rc) const;
 
     //! Returns the nearest reciprocal lattice point from a given vector
-    ivector_t getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const;
+    ivector_t getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const;
 
-    //! Computes a list of reciprocal lattice vectors within a specified distance of a given vector
-    std::vector<kvector_t> reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector,
-                                                                double radius) const;
+    //! Returns a list of reciprocal lattice vectors within distance dq of a vector q
+    std::vector<kvector_t> reciprocalLatticeVectorsWithinRadius(const kvector_t q,
+                                                                double dq) const;
 
     //! Sets a selection rule for the reciprocal vectors
-    void setSelectionRule(const ISelectionRule& p_selection_rule);
+    void setSelectionRule(const ISelectionRule& selection_rule);
 
 
 private:

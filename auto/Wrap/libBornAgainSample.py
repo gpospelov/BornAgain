@@ -11474,7 +11474,7 @@ class Lattice(libBornAgainParam.INode):
     def __init__(self, *args):
         r"""
         __init__(Lattice self) -> Lattice
-        __init__(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3) -> Lattice
+        __init__(Lattice self, kvector_t a, kvector_t b, kvector_t c) -> Lattice
         __init__(Lattice self, Lattice lattice) -> Lattice
         Lattice::Lattice(const Lattice &lattice)
 
@@ -11545,9 +11545,7 @@ class Lattice(libBornAgainParam.INode):
         getMillerDirection(Lattice self, double h, double k, double l) -> kvector_t
         kvector_t Lattice::getMillerDirection(double h, double k, double l) const
 
-        Returns normalized direction corresponding to the given Miller indices.
-
-        Currently unused but may be useful for checks. 
+        Returns normalized direction corresponding to the given Miller indices. 
 
         """
         return _libBornAgainSample.Lattice_getMillerDirection(self, h, k, l)
@@ -11562,47 +11560,45 @@ class Lattice(libBornAgainParam.INode):
         """
         return _libBornAgainSample.Lattice_volume(self)
 
-    def getReciprocalLatticeBasis(self, b1, b2, b3):
+    def getReciprocalLatticeBasis(self, ra, rb, rc):
         r"""
-        getReciprocalLatticeBasis(Lattice self, kvector_t b1, kvector_t b2, kvector_t b3)
-        void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const
+        getReciprocalLatticeBasis(Lattice self, kvector_t ra, kvector_t rb, kvector_t rc)
+        void Lattice::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const
 
-        Returns the reciprocal basis vectors.
-
-        Currently only used in tests. 
+        Returns the reciprocal basis vectors. 
 
         """
-        return _libBornAgainSample.Lattice_getReciprocalLatticeBasis(self, b1, b2, b3)
+        return _libBornAgainSample.Lattice_getReciprocalLatticeBasis(self, ra, rb, rc)
 
-    def getNearestReciprocalLatticeVectorCoordinates(self, vector_in):
+    def getNearestReciprocalLatticeVectorCoordinates(self, q):
         r"""
-        getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t
-        ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
+        getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t q) -> ivector_t
+        ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
 
         Returns the nearest reciprocal lattice point from a given vector. 
 
         """
-        return _libBornAgainSample.Lattice_getNearestReciprocalLatticeVectorCoordinates(self, vector_in)
+        return _libBornAgainSample.Lattice_getNearestReciprocalLatticeVectorCoordinates(self, q)
 
-    def reciprocalLatticeVectorsWithinRadius(self, input_vector, radius):
+    def reciprocalLatticeVectorsWithinRadius(self, q, dq):
         r"""
-        reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t input_vector, double radius) -> vector_kvector_t
-        std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
+        reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t q, double dq) -> vector_kvector_t
+        std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
 
-        Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
+        Returns a list of reciprocal lattice vectors within distance dq of a vector q. 
 
         """
-        return _libBornAgainSample.Lattice_reciprocalLatticeVectorsWithinRadius(self, input_vector, radius)
+        return _libBornAgainSample.Lattice_reciprocalLatticeVectorsWithinRadius(self, q, dq)
 
-    def setSelectionRule(self, p_selection_rule):
+    def setSelectionRule(self, selection_rule):
         r"""
-        setSelectionRule(Lattice self, ISelectionRule p_selection_rule)
-        void Lattice::setSelectionRule(const ISelectionRule &p_selection_rule)
+        setSelectionRule(Lattice self, ISelectionRule selection_rule)
+        void Lattice::setSelectionRule(const ISelectionRule &selection_rule)
 
         Sets a selection rule for the reciprocal vectors. 
 
         """
-        return _libBornAgainSample.Lattice_setSelectionRule(self, p_selection_rule)
+        return _libBornAgainSample.Lattice_setSelectionRule(self, selection_rule)
 
 # Register Lattice in _libBornAgainSample:
 _libBornAgainSample.Lattice_swigregister(Lattice)

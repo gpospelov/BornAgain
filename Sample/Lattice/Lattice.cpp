@@ -28,8 +28,8 @@ Lattice::Lattice()
     initialize();
 }
 
-Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-    : m_a(a1), m_b(a2), m_c(a3)
+Lattice::Lattice(const kvector_t a, const kvector_t b, const kvector_t c)
+    : m_a(a), m_b(b), m_c(c)
 {
     setName("Lattice");
     initialize();
@@ -66,10 +66,10 @@ void Lattice::onChange()
 
 Lattice Lattice::transformed(const Transform3D& transform) const
 {
-    kvector_t a1 = transform.transformed(m_a);
-    kvector_t a2 = transform.transformed(m_b);
-    kvector_t a3 = transform.transformed(m_c);
-    Lattice result = {a1, a2, a3};
+    kvector_t q1 = transform.transformed(m_a);
+    kvector_t q2 = transform.transformed(m_b);
+    kvector_t q3 = transform.transformed(m_c);
+    Lattice result = {q1, q2, q3};
     if (m_selection_rule)
         result.setSelectionRule(*m_selection_rule);
     return result;
@@ -88,32 +88,29 @@ double Lattice::volume() const
 }
 
 //! Currently only used in tests
-void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2, kvector_t& b3) const
+void Lattice::getReciprocalLatticeBasis(kvector_t& ra, kvector_t& rb, kvector_t& rc) const
 {
-    b1 = m_ra;
-    b2 = m_rb;
-    b3 = m_rc;
+    ra = m_ra;
+    rb = m_rb;
+    rc = m_rc;
 }
 
-ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
+ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
 {
-    double b1_coord = vector_in.dot(m_a) / M_TWOPI;
-    double b2_coord = vector_in.dot(m_b) / M_TWOPI;
-    double b3_coord = vector_in.dot(m_c) / M_TWOPI;
-    int c1 = std::lround(b1_coord);
-    int c2 = std::lround(b2_coord);
-    int c3 = std::lround(b3_coord);
-    return ivector_t(c1, c2, c3);
+    return {
+        (int)std::lround(q.dot(m_a) / M_TWOPI),
+        (int)std::lround(q.dot(m_b) / M_TWOPI),
+        (int)std::lround(q.dot(m_c) / M_TWOPI)};
 }
 
-std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector,
-                                                                     double radius) const
+std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q,
+                                                                     double dq) const
 {
-    ivector_t nearest_coords = getNearestReciprocalLatticeVectorCoordinates(input_vector);
+    ivector_t nearest_coords = getNearestReciprocalLatticeVectorCoordinates(q);
 
-    int max_X = std::lround(m_a.mag() * radius / M_TWOPI);
-    int max_Y = std::lround(m_b.mag() * radius / M_TWOPI);
-    int max_Z = std::lround(m_c.mag() * radius / M_TWOPI);
+    int max_X = std::lround(m_a.mag() * dq / M_TWOPI);
+    int max_Y = std::lround(m_b.mag() * dq / M_TWOPI);
+    int max_Z = std::lround(m_c.mag() * dq / M_TWOPI);
 
     std::vector<kvector_t> ret;
     for (int index_X = -max_X; index_X <= max_X; ++index_X) {
@@ -124,7 +121,7 @@ std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvect
                 if (m_selection_rule && !m_selection_rule->coordinateSelected(coords))
                     continue;
                 kvector_t latticePoint = coords[0] * m_ra + coords[1] * m_rb + coords[2] * m_rc;
-                if ((latticePoint - input_vector).mag() <= radius)
+                if ((latticePoint - q).mag() <= dq)
                     ret.push_back(latticePoint);
             }
         }
@@ -134,12 +131,12 @@ std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvect
 
 void Lattice::computeReciprocalVectors() const
 {
-    kvector_t a23 = m_b.cross(m_c);
-    kvector_t a31 = m_c.cross(m_a);
-    kvector_t a12 = m_a.cross(m_b);
-    m_ra = M_TWOPI / m_a.dot(a23) * a23;
-    m_rb = M_TWOPI / m_b.dot(a31) * a31;
-    m_rc = M_TWOPI / m_c.dot(a12) * a12;
+    kvector_t q23 = m_b.cross(m_c);
+    kvector_t q31 = m_c.cross(m_a);
+    kvector_t q12 = m_a.cross(m_b);
+    m_ra = M_TWOPI / m_a.dot(q23) * q23;
+    m_rb = M_TWOPI / m_b.dot(q31) * q31;
+    m_rc = M_TWOPI / m_c.dot(q12) * q12;
 }
 
 void Lattice::setSelectionRule(const ISelectionRule& selection_rule)

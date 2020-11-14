@@ -68449,44 +68449,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_getNearestLatticeVectorCoordinates(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
-  kvector_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< BasicVector3D< int > > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_getNearestLatticeVectorCoordinates", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_getNearestLatticeVectorCoordinates" "', argument " "1"" of type '" "Lattice const *""'"); 
-  }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_getNearestLatticeVectorCoordinates" "', argument " "2"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_getNearestLatticeVectorCoordinates" "', argument " "2"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  result = ((Lattice const *)arg1)->getNearestLatticeVectorCoordinates(arg2);
-  resultobj = SWIG_NewPointerObj((new ivector_t(static_cast< const ivector_t& >(result))), SWIGTYPE_p_BasicVector3DT_int_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Lattice_getNearestReciprocalLatticeVectorCoordinates(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Lattice *arg1 = (Lattice *) 0 ;
@@ -76262,13 +76224,6 @@ static PyMethodDef SwigMethods[] = {
 		"Returns the reciprocal basis vectors.\n"
 		"\n"
 		"Currently only used in tests. \n"
-		"\n"
-		""},
-	 { "Lattice_getNearestLatticeVectorCoordinates", _wrap_Lattice_getNearestLatticeVectorCoordinates, METH_VARARGS, "\n"
-		"Lattice_getNearestLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t\n"
-		"ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const\n"
-		"\n"
-		"Returns the nearest lattice point from a given vector. \n"
 		"\n"
 		""},
 	 { "Lattice_getNearestReciprocalLatticeVectorCoordinates", _wrap_Lattice_getNearestReciprocalLatticeVectorCoordinates, METH_VARARGS, "\n"

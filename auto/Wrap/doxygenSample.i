@@ -4926,11 +4926,6 @@ Returns the reciprocal basis vectors.
 Currently only used in tests. 
 ";
 
-%feature("docstring")  Lattice::getNearestLatticeVectorCoordinates "ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
-
-Returns the nearest lattice point from a given vector. 
-";
-
 %feature("docstring")  Lattice::getNearestReciprocalLatticeVectorCoordinates "ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
 
 Returns the nearest reciprocal lattice point from a given vector. 

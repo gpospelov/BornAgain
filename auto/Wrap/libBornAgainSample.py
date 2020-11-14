@@ -11574,16 +11574,6 @@ class Lattice(libBornAgainParam.INode):
         """
         return _libBornAgainSample.Lattice_getReciprocalLatticeBasis(self, b1, b2, b3)
 
-    def getNearestLatticeVectorCoordinates(self, vector_in):
-        r"""
-        getNearestLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t
-        ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
-
-        Returns the nearest lattice point from a given vector. 
-
-        """
-        return _libBornAgainSample.Lattice_getNearestLatticeVectorCoordinates(self, vector_in)
-
     def getNearestReciprocalLatticeVectorCoordinates(self, vector_in):
         r"""
         getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t

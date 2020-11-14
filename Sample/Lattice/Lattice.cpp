@@ -95,17 +95,6 @@ void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2, kvector_t&
     b3 = m_rc;
 }
 
-ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
-{
-    double a1_coord = vector_in.dot(m_ra) / M_TWOPI;
-    double a2_coord = vector_in.dot(m_rb) / M_TWOPI;
-    double a3_coord = vector_in.dot(m_rc) / M_TWOPI;
-    int c1 = static_cast<int>(std::floor(a1_coord + 0.5));
-    int c2 = static_cast<int>(std::floor(a2_coord + 0.5));
-    int c3 = static_cast<int>(std::floor(a3_coord + 0.5));
-    return ivector_t(c1, c2, c3);
-}
-
 ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
 {
     double b1_coord = vector_in.dot(m_a) / M_TWOPI;

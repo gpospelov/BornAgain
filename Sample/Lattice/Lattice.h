@@ -61,9 +61,6 @@ public:
     //! Returns the reciprocal basis vectors
     void getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2, kvector_t& b3) const;
 
-    //! Returns the nearest lattice point from a given vector
-    ivector_t getNearestLatticeVectorCoordinates(const kvector_t vector_in) const;
-
     //! Returns the nearest reciprocal lattice point from a given vector
     ivector_t getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const;
 

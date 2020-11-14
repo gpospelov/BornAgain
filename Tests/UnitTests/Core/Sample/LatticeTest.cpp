@@ -89,23 +89,6 @@ TEST_F(LatticeTest, transformTest)
     EXPECT_EQ(a3, ltr.getBasisVectorC());
 }
 
-// REAL = real/physical
-// tests the nearest REAL LATTICE point to a given REAL SPACE vector
-TEST_F(LatticeTest, NearestRealLatticeVectorCoordinatesTest)
-{
-    kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
-    Lattice l1(a1, a2, a3);
-
-    // vector_in is in REAL SPACE coordinates
-    kvector_t vector_in(3.01, 1.51, 1.49);
-
-    // point_expected is in REAL LATTICE coordinates
-    ivector_t point_expected(3, 2, 1);
-
-    EXPECT_EQ(point_expected, l1.getNearestLatticeVectorCoordinates(vector_in));
-}
-
-// REC. = reciprocal
 // tests the nearest REC. LATTICE point to a given REC. SPACE vector
 TEST_F(LatticeTest, NearestReciprocalLatticeVectorCoordinatesTest)
 {

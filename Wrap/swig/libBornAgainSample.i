@@ -90,6 +90,7 @@
 #include "Sample/Lattice/Lattice.h"
 #include "Sample/Lattice/Lattice2D.h"
 #include "Sample/Lattice/LatticeUtils.h"
+#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
@@ -242,6 +243,7 @@
 %include "Sample/Lattice/Lattice.h"
 %include "Sample/Lattice/Lattice2D.h"
 %include "Sample/Lattice/LatticeUtils.h"
+%include "Sample/Lattice/BakeLattice.h"
 
 %include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 %include "Sample/StandardSamples/SampleBuilderFactory.h"

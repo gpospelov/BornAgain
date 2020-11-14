@@ -13,35 +13,38 @@
 // ************************************************************************** //
 
 #include "Sample/Lattice/LatticeUtils.h"
+#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Lattice/ILatticeOrientation.h"
 
-Lattice LatticeUtils::createFCCLattice(double lattice_constant,
-                                       const ILatticeOrientation& orientation)
+Lattice LatticeUtils::createOrientedFCCLattice(double lattice_constant,
+                                               const ILatticeOrientation& orientation)
 {
-    const Lattice prim_cubic = Lattice::createCubicLattice(1.0);
+    const Lattice prim_cubic = bake::createCubicLattice(1.0);
     std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
     P_orientation->usePrimitiveLattice(prim_cubic);
     const Transform3D trafo = P_orientation->transformation();
-    const Lattice fcc = Lattice::createFCCLattice(lattice_constant);
+    const Lattice fcc = bake::createFCCLattice(lattice_constant);
     return fcc.transformed(trafo);
 }
 
-Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation& orientation)
+Lattice LatticeUtils::createOrientedHCPLattice(double a, double c,
+                                               const ILatticeOrientation& orientation)
 {
-    const Lattice prim_hexagonal = Lattice::createHexagonalLattice(1.0, c / a);
+    const Lattice prim_hexagonal = bake::createHexagonalLattice(1.0, c / a);
     std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
     P_orientation->usePrimitiveLattice(prim_hexagonal);
     const Transform3D trafo = P_orientation->transformation();
-    const Lattice hcp = Lattice::createHCPLattice(a, c);
+    const Lattice hcp = bake::createHCPLattice(a, c);
     return hcp.transformed(trafo);
 }
 
-Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation& orientation)
+Lattice LatticeUtils::createOrientedBCTLattice(double a, double c,
+                                               const ILatticeOrientation& orientation)
 {
-    const Lattice prim_tetragonal = Lattice::createTetragonalLattice(1.0, c / a);
+    const Lattice prim_tetragonal = bake::createTetragonalLattice(1.0, c / a);
     std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
     P_orientation->usePrimitiveLattice(prim_tetragonal);
     const Transform3D trafo = P_orientation->transformation();
-    const Lattice hcp = Lattice::createBCTLattice(a, c);
+    const Lattice hcp = bake::createBCTLattice(a, c);
     return hcp.transformed(trafo);
 }

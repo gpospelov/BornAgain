@@ -21,9 +21,9 @@ class ILatticeOrientation;
 
 namespace LatticeUtils
 {
-Lattice createFCCLattice(double lattice_constant, const ILatticeOrientation& orientation);
-Lattice createHCPLattice(double a, double c, const ILatticeOrientation& orientation);
-Lattice createBCTLattice(double a, double c, const ILatticeOrientation& orientation);
+Lattice createOrientedFCCLattice(double lattice_constant, const ILatticeOrientation& orientation);
+Lattice createOrientedHCPLattice(double a, double c, const ILatticeOrientation& orientation);
+Lattice createOrientedBCTLattice(double a, double c, const ILatticeOrientation& orientation);
 } // namespace LatticeUtils
 
 #endif // BORNAGAIN_SAMPLE_LATTICE_LATTICEUTILS_H

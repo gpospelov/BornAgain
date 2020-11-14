@@ -6846,6 +6846,7 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Sample/Lattice/Lattice.h"
 #include "Sample/Lattice/Lattice2D.h"
 #include "Sample/Lattice/LatticeUtils.h"
+#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
@@ -70302,7 +70303,7 @@ SWIGINTERN PyObject *HexagonalLattice_swiginit(PyObject *SWIGUNUSEDPARM(self), P
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_createFCCLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_createOrientedFCCLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   double arg1 ;
   ILatticeOrientation *arg2 = 0 ;
@@ -70313,21 +70314,179 @@ SWIGINTERN PyObject *_wrap_createFCCLattice(PyObject *SWIGUNUSEDPARM(self), PyOb
   PyObject *swig_obj[2] ;
   SwigValueWrapper< Lattice > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "createFCCLattice", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "createOrientedFCCLattice", 2, 2, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createOrientedFCCLattice" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ILatticeOrientation,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "createOrientedFCCLattice" "', argument " "2"" of type '" "ILatticeOrientation const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createOrientedFCCLattice" "', argument " "2"" of type '" "ILatticeOrientation const &""'"); 
+  }
+  arg2 = reinterpret_cast< ILatticeOrientation * >(argp2);
+  result = LatticeUtils::createOrientedFCCLattice(arg1,(ILatticeOrientation const &)*arg2);
+  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_createOrientedHCPLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  ILatticeOrientation *arg3 = 0 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject *swig_obj[3] ;
+  SwigValueWrapper< Lattice > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "createOrientedHCPLattice", 3, 3, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createOrientedHCPLattice" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "createOrientedHCPLattice" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ILatticeOrientation,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "createOrientedHCPLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createOrientedHCPLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
+  }
+  arg3 = reinterpret_cast< ILatticeOrientation * >(argp3);
+  result = LatticeUtils::createOrientedHCPLattice(arg1,arg2,(ILatticeOrientation const &)*arg3);
+  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_createOrientedBCTLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  ILatticeOrientation *arg3 = 0 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject *swig_obj[3] ;
+  SwigValueWrapper< Lattice > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "createOrientedBCTLattice", 3, 3, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createOrientedBCTLattice" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "createOrientedBCTLattice" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ILatticeOrientation,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "createOrientedBCTLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createOrientedBCTLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
+  }
+  arg3 = reinterpret_cast< ILatticeOrientation * >(argp3);
+  result = LatticeUtils::createOrientedBCTLattice(arg1,arg2,(ILatticeOrientation const &)*arg3);
+  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_createCubicLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< Lattice > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createCubicLattice" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = bake::createCubicLattice(arg1);
+  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_createFCCLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< Lattice > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
   ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createFCCLattice" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ILatticeOrientation,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "createFCCLattice" "', argument " "2"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createFCCLattice" "', argument " "2"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  arg2 = reinterpret_cast< ILatticeOrientation * >(argp2);
-  result = LatticeUtils::createFCCLattice(arg1,(ILatticeOrientation const &)*arg2);
+  result = bake::createFCCLattice(arg1);
+  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_createHexagonalLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  SwigValueWrapper< Lattice > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "createHexagonalLattice", 2, 2, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createHexagonalLattice" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "createHexagonalLattice" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = bake::createHexagonalLattice(arg1,arg2);
   resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -70339,17 +70498,14 @@ SWIGINTERN PyObject *_wrap_createHCPLattice(PyObject *SWIGUNUSEDPARM(self), PyOb
   PyObject *resultobj = 0;
   double arg1 ;
   double arg2 ;
-  ILatticeOrientation *arg3 = 0 ;
   double val1 ;
   int ecode1 = 0 ;
   double val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject *swig_obj[3] ;
+  PyObject *swig_obj[2] ;
   SwigValueWrapper< Lattice > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "createHCPLattice", 3, 3, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "createHCPLattice", 2, 2, swig_obj)) SWIG_fail;
   ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createHCPLattice" "', argument " "1"" of type '" "double""'");
@@ -70360,15 +70516,37 @@ SWIGINTERN PyObject *_wrap_createHCPLattice(PyObject *SWIGUNUSEDPARM(self), PyOb
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "createHCPLattice" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ILatticeOrientation,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "createHCPLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createHCPLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  arg3 = reinterpret_cast< ILatticeOrientation * >(argp3);
-  result = LatticeUtils::createHCPLattice(arg1,arg2,(ILatticeOrientation const &)*arg3);
+  result = bake::createHCPLattice(arg1,arg2);
+  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_createTetragonalLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  SwigValueWrapper< Lattice > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "createTetragonalLattice", 2, 2, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createTetragonalLattice" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "createTetragonalLattice" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = bake::createTetragonalLattice(arg1,arg2);
   resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -70380,17 +70558,14 @@ SWIGINTERN PyObject *_wrap_createBCTLattice(PyObject *SWIGUNUSEDPARM(self), PyOb
   PyObject *resultobj = 0;
   double arg1 ;
   double arg2 ;
-  ILatticeOrientation *arg3 = 0 ;
   double val1 ;
   int ecode1 = 0 ;
   double val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject *swig_obj[3] ;
+  PyObject *swig_obj[2] ;
   SwigValueWrapper< Lattice > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "createBCTLattice", 3, 3, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "createBCTLattice", 2, 2, swig_obj)) SWIG_fail;
   ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createBCTLattice" "', argument " "1"" of type '" "double""'");
@@ -70401,15 +70576,7 @@ SWIGINTERN PyObject *_wrap_createBCTLattice(PyObject *SWIGUNUSEDPARM(self), PyOb
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "createBCTLattice" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ILatticeOrientation,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "createBCTLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createBCTLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  arg3 = reinterpret_cast< ILatticeOrientation * >(argp3);
-  result = LatticeUtils::createBCTLattice(arg1,arg2,(ILatticeOrientation const &)*arg3);
+  result = bake::createBCTLattice(arg1,arg2);
   resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -77245,19 +77412,61 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_HexagonalLattice", _wrap_delete_HexagonalLattice, METH_O, "delete_HexagonalLattice(HexagonalLattice self)"},
 	 { "HexagonalLattice_swigregister", HexagonalLattice_swigregister, METH_O, NULL},
 	 { "HexagonalLattice_swiginit", HexagonalLattice_swiginit, METH_VARARGS, NULL},
-	 { "createFCCLattice", _wrap_createFCCLattice, METH_VARARGS, "\n"
-		"createFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice\n"
-		"Lattice LatticeUtils::createFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)\n"
+	 { "createOrientedFCCLattice", _wrap_createOrientedFCCLattice, METH_VARARGS, "\n"
+		"createOrientedFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice\n"
+		"Lattice LatticeUtils::createOrientedFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)\n"
+		"\n"
+		""},
+	 { "createOrientedHCPLattice", _wrap_createOrientedHCPLattice, METH_VARARGS, "\n"
+		"createOrientedHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice\n"
+		"Lattice LatticeUtils::createOrientedHCPLattice(double a, double c, const ILatticeOrientation &orientation)\n"
+		"\n"
+		""},
+	 { "createOrientedBCTLattice", _wrap_createOrientedBCTLattice, METH_VARARGS, "\n"
+		"createOrientedBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice\n"
+		"Lattice LatticeUtils::createOrientedBCTLattice(double a, double c, const ILatticeOrientation &orientation)\n"
+		"\n"
+		""},
+	 { "createCubicLattice", _wrap_createCubicLattice, METH_O, "\n"
+		"createCubicLattice(double a) -> Lattice\n"
+		"Lattice bake::createCubicLattice(double a)\n"
+		"\n"
+		"Returns a primitive cubic (cP) lattice with edge length a. \n"
+		"\n"
+		""},
+	 { "createFCCLattice", _wrap_createFCCLattice, METH_O, "\n"
+		"createFCCLattice(double a) -> Lattice\n"
+		"Lattice bake::createFCCLattice(double a)\n"
+		"\n"
+		"Returns a face-centered cubic (cF) lattice with edge length a. \n"
+		"\n"
+		""},
+	 { "createHexagonalLattice", _wrap_createHexagonalLattice, METH_VARARGS, "\n"
+		"createHexagonalLattice(double a, double c) -> Lattice\n"
+		"Lattice bake::createHexagonalLattice(double a, double c)\n"
+		"\n"
+		"Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. \n"
 		"\n"
 		""},
 	 { "createHCPLattice", _wrap_createHCPLattice, METH_VARARGS, "\n"
-		"createHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice\n"
-		"Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation &orientation)\n"
+		"createHCPLattice(double a, double c) -> Lattice\n"
+		"Lattice bake::createHCPLattice(double a, double c)\n"
+		"\n"
+		"TODO: Clarify how this is meant: HCP is not a Bravais lattice. \n"
+		"\n"
+		""},
+	 { "createTetragonalLattice", _wrap_createTetragonalLattice, METH_VARARGS, "\n"
+		"createTetragonalLattice(double a, double c) -> Lattice\n"
+		"Lattice bake::createTetragonalLattice(double a, double c)\n"
+		"\n"
+		"Returns a primitive tetragonal (tP) lattice with square base edge a and height c. \n"
 		"\n"
 		""},
 	 { "createBCTLattice", _wrap_createBCTLattice, METH_VARARGS, "\n"
-		"createBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice\n"
-		"Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation &orientation)\n"
+		"createBCTLattice(double a, double c) -> Lattice\n"
+		"Lattice bake::createBCTLattice(double a, double c)\n"
+		"\n"
+		"Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c \n"
 		"\n"
 		""},
 	 { "new_ISampleBuilder", _wrap_new_ISampleBuilder, METH_O, "\n"

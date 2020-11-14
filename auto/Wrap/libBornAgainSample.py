@@ -12090,29 +12090,89 @@ class HexagonalLattice(Lattice2D):
 _libBornAgainSample.HexagonalLattice_swigregister(HexagonalLattice)
 
 
-def createFCCLattice(lattice_constant, orientation):
+def createOrientedFCCLattice(lattice_constant, orientation):
     r"""
-    createFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::createFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+    createOrientedFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::createOrientedFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
 
     """
-    return _libBornAgainSample.createFCCLattice(lattice_constant, orientation)
+    return _libBornAgainSample.createOrientedFCCLattice(lattice_constant, orientation)
 
-def createHCPLattice(a, c, orientation):
+def createOrientedHCPLattice(a, c, orientation):
     r"""
-    createHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation &orientation)
+    createOrientedHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::createOrientedHCPLattice(double a, double c, const ILatticeOrientation &orientation)
 
     """
-    return _libBornAgainSample.createHCPLattice(a, c, orientation)
+    return _libBornAgainSample.createOrientedHCPLattice(a, c, orientation)
 
-def createBCTLattice(a, c, orientation):
+def createOrientedBCTLattice(a, c, orientation):
     r"""
-    createBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+    createOrientedBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
+    Lattice LatticeUtils::createOrientedBCTLattice(double a, double c, const ILatticeOrientation &orientation)
 
     """
-    return _libBornAgainSample.createBCTLattice(a, c, orientation)
+    return _libBornAgainSample.createOrientedBCTLattice(a, c, orientation)
+
+def createCubicLattice(a):
+    r"""
+    createCubicLattice(double a) -> Lattice
+    Lattice bake::createCubicLattice(double a)
+
+    Returns a primitive cubic (cP) lattice with edge length a. 
+
+    """
+    return _libBornAgainSample.createCubicLattice(a)
+
+def createFCCLattice(a):
+    r"""
+    createFCCLattice(double a) -> Lattice
+    Lattice bake::createFCCLattice(double a)
+
+    Returns a face-centered cubic (cF) lattice with edge length a. 
+
+    """
+    return _libBornAgainSample.createFCCLattice(a)
+
+def createHexagonalLattice(a, c):
+    r"""
+    createHexagonalLattice(double a, double c) -> Lattice
+    Lattice bake::createHexagonalLattice(double a, double c)
+
+    Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. 
+
+    """
+    return _libBornAgainSample.createHexagonalLattice(a, c)
+
+def createHCPLattice(a, c):
+    r"""
+    createHCPLattice(double a, double c) -> Lattice
+    Lattice bake::createHCPLattice(double a, double c)
+
+    TODO: Clarify how this is meant: HCP is not a Bravais lattice. 
+
+    """
+    return _libBornAgainSample.createHCPLattice(a, c)
+
+def createTetragonalLattice(a, c):
+    r"""
+    createTetragonalLattice(double a, double c) -> Lattice
+    Lattice bake::createTetragonalLattice(double a, double c)
+
+    Returns a primitive tetragonal (tP) lattice with square base edge a and height c. 
+
+    """
+    return _libBornAgainSample.createTetragonalLattice(a, c)
+
+def createBCTLattice(a, c):
+    r"""
+    createBCTLattice(double a, double c) -> Lattice
+    Lattice bake::createBCTLattice(double a, double c)
+
+    Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
+
+    """
+    return _libBornAgainSample.createBCTLattice(a, c)
 class ISampleBuilder(libBornAgainParam.IParameterized):
     r"""
 

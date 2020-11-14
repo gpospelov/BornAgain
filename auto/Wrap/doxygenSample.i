@@ -7766,22 +7766,19 @@ C++ includes: ZLimits.h
 // File: namespace_0d117.xml
 
 
-// File: namespace_0d133.xml
+// File: namespace_0d135.xml
 
 
-// File: namespace_0d145.xml
+// File: namespace_0d147.xml
 
 
-// File: namespace_0d149.xml
+// File: namespace_0d151.xml
 
 
-// File: namespace_0d153.xml
+// File: namespace_0d155.xml
 
 
 // File: namespace_0d16.xml
-
-
-// File: namespace_0d163.xml
 
 
 // File: namespace_0d165.xml
@@ -7790,10 +7787,10 @@ C++ includes: ZLimits.h
 // File: namespace_0d167.xml
 
 
-// File: namespace_0d177.xml
+// File: namespace_0d169.xml
 
 
-// File: namespace_0d199.xml
+// File: namespace_0d179.xml
 
 
 // File: namespace_0d2.xml
@@ -7802,28 +7799,28 @@ C++ includes: ZLimits.h
 // File: namespace_0d201.xml
 
 
-// File: namespace_0d211.xml
+// File: namespace_0d203.xml
 
 
-// File: namespace_0d227.xml
+// File: namespace_0d213.xml
 
 
 // File: namespace_0d229.xml
 
 
-// File: namespace_0d236.xml
+// File: namespace_0d231.xml
+
+
+// File: namespace_0d238.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d254.xml
+// File: namespace_0d256.xml
 
 
-// File: namespace_0d262.xml
-
-
-// File: namespace_0d272.xml
+// File: namespace_0d264.xml
 
 
 // File: namespace_0d274.xml
@@ -7838,7 +7835,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d280.xml
 
 
-// File: namespace_0d284.xml
+// File: namespace_0d282.xml
 
 
 // File: namespace_0d286.xml
@@ -7847,22 +7844,25 @@ C++ includes: ZLimits.h
 // File: namespace_0d288.xml
 
 
-// File: namespace_0d300.xml
+// File: namespace_0d290.xml
 
 
-// File: namespace_0d306.xml
+// File: namespace_0d302.xml
+
+
+// File: namespace_0d308.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d310.xml
+// File: namespace_0d312.xml
 
 
-// File: namespace_0d328.xml
+// File: namespace_0d330.xml
 
 
-// File: namespace_0d347.xml
+// File: namespace_0d349.xml
 
 
 // File: namespace_0d37.xml
@@ -7872,6 +7872,38 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0d41.xml
+
+
+// File: namespacebake.xml
+%feature("docstring")  bake::createCubicLattice "Lattice bake::createCubicLattice(double a)
+
+Returns a primitive cubic (cP) lattice with edge length a. 
+";
+
+%feature("docstring")  bake::createFCCLattice "Lattice bake::createFCCLattice(double a)
+
+Returns a face-centered cubic (cF) lattice with edge length a. 
+";
+
+%feature("docstring")  bake::createHexagonalLattice "Lattice bake::createHexagonalLattice(double a, double c)
+
+Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. 
+";
+
+%feature("docstring")  bake::createHCPLattice "Lattice bake::createHCPLattice(double a, double c)
+
+TODO: Clarify how this is meant: HCP is not a Bravais lattice. 
+";
+
+%feature("docstring")  bake::createTetragonalLattice "Lattice bake::createTetragonalLattice(double a, double c)
+
+Returns a primitive tetragonal (tP) lattice with square base edge a and height c. 
+";
+
+%feature("docstring")  bake::createBCTLattice "Lattice bake::createBCTLattice(double a, double c)
+
+Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
+";
 
 
 // File: namespaceFormFactorPrecompute.xml
@@ -7894,13 +7926,13 @@ C++ includes: ZLimits.h
 
 
 // File: namespaceLatticeUtils.xml
-%feature("docstring")  LatticeUtils::createFCCLattice "Lattice LatticeUtils::createFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+%feature("docstring")  LatticeUtils::createOrientedFCCLattice "Lattice LatticeUtils::createOrientedFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
 ";
 
-%feature("docstring")  LatticeUtils::createHCPLattice "Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation &orientation)
+%feature("docstring")  LatticeUtils::createOrientedHCPLattice "Lattice LatticeUtils::createOrientedHCPLattice(double a, double c, const ILatticeOrientation &orientation)
 ";
 
-%feature("docstring")  LatticeUtils::createBCTLattice "Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+%feature("docstring")  LatticeUtils::createOrientedBCTLattice "Lattice LatticeUtils::createOrientedBCTLattice(double a, double c, const ILatticeOrientation &orientation)
 ";
 
 
@@ -8432,6 +8464,12 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: SSCApproximationStrategy_8h.xml
+
+
+// File: BakeLattice_8cpp.xml
+
+
+// File: BakeLattice_8h.xml
 
 
 // File: ILatticeOrientation_8cpp.xml

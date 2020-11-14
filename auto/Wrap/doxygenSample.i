@@ -4887,7 +4887,7 @@ C++ includes: Lattice.h
 Creates transformed lattice. 
 ";
 
-%feature("docstring")  Lattice::initialize "void Lattice::initialize() const
+%feature("docstring")  Lattice::initialize "void Lattice::initialize()
 
 Initializes cached data. 
 ";
@@ -4944,9 +4944,6 @@ Computes a list of reciprocal lattice vectors within a specified distance of a g
 %feature("docstring")  Lattice::setSelectionRule "void Lattice::setSelectionRule(const ISelectionRule &p_selection_rule)
 
 Sets a selection rule for the reciprocal vectors. 
-";
-
-%feature("docstring")  Lattice::onChange "void Lattice::onChange() override
 ";
 
 
@@ -8402,6 +8399,8 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: Lattice_8cpp.xml
+%feature("docstring")  onChange "void onChange()
+";
 
 
 // File: Lattice_8h.xml

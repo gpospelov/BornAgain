@@ -23,19 +23,16 @@ Lattice::Lattice()
     : m_a({1.0, 0.0, 0.0})
     , m_b({0.0, 1.0, 0.0})
     , m_c({0.0, 0.0, 1.0})
-    , m_cache_ok(false)
 {
     setName("Lattice");
     initialize();
-    registerBasisVectors();
 }
 
 Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-    : m_a(a1), m_b(a2), m_c(a3), m_cache_ok(false)
+    : m_a(a1), m_b(a2), m_c(a3)
 {
     setName("Lattice");
     initialize();
-    registerBasisVectors();
 }
 
 Lattice::Lattice(const Lattice& lattice)
@@ -43,16 +40,29 @@ Lattice::Lattice(const Lattice& lattice)
     , m_a(lattice.m_a)
     , m_b(lattice.m_b)
     , m_c(lattice.m_c)
-    , m_cache_ok(false)
 {
     setName("Lattice");
     initialize();
     if (lattice.m_selection_rule)
         setSelectionRule(*lattice.m_selection_rule);
-    registerBasisVectors();
 }
 
 Lattice::~Lattice() = default;
+
+void Lattice::initialize()
+{
+    computeReciprocalVectors();
+    if (!parameter(XComponentName("BasisA"))) {
+        registerVector("BasisA", &m_a, "nm");
+        registerVector("BasisB", &m_b, "nm");
+        registerVector("BasisC", &m_c, "nm");
+    }
+}
+
+void Lattice::onChange()
+{
+    computeReciprocalVectors();
+}
 
 Lattice Lattice::transformed(const Transform3D& transform) const
 {
@@ -65,17 +75,9 @@ Lattice Lattice::transformed(const Transform3D& transform) const
     return result;
 }
 
-void Lattice::initialize() const
-{
-    computeReciprocalVectors();
-    m_cache_ok = true;
-}
-
 //! Currently unused but may be useful for checks
 kvector_t Lattice::getMillerDirection(double h, double k, double l) const
 {
-    if (!m_cache_ok)
-        initialize();
     kvector_t direction = h * m_ra + k * m_rb + l * m_rc;
     return direction.unit();
 }
@@ -88,8 +90,6 @@ double Lattice::volume() const
 //! Currently only used in tests
 void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2, kvector_t& b3) const
 {
-    if (!m_cache_ok)
-        initialize();
     b1 = m_ra;
     b2 = m_rb;
     b3 = m_rc;
@@ -120,25 +120,9 @@ ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t 
 std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector,
                                                                      double radius) const
 {
-    if (!m_cache_ok)
-        initialize();
     ivector_t nearest_coords = getNearestReciprocalLatticeVectorCoordinates(input_vector);
     return vectorsWithinRadius(input_vector, nearest_coords, radius, m_ra, m_rb, m_rc, m_a, m_b,
                                m_c);
-}
-
-void Lattice::onChange()
-{
-    m_cache_ok = false;
-}
-
-void Lattice::registerBasisVectors()
-{
-    if (!parameter(XComponentName("BasisA"))) {
-        registerVector("BasisA", &m_a, "nm");
-        registerVector("BasisB", &m_b, "nm");
-        registerVector("BasisC", &m_c, "nm");
-    }
 }
 
 void Lattice::computeReciprocalVectors() const

@@ -11503,7 +11503,7 @@ class Lattice(libBornAgainParam.INode):
     def initialize(self):
         r"""
         initialize(Lattice self)
-        void Lattice::initialize() const
+        void Lattice::initialize()
 
         Initializes cached data. 
 
@@ -11613,14 +11613,6 @@ class Lattice(libBornAgainParam.INode):
 
         """
         return _libBornAgainSample.Lattice_setSelectionRule(self, p_selection_rule)
-
-    def onChange(self):
-        r"""
-        onChange(Lattice self)
-        void Lattice::onChange() override
-
-        """
-        return _libBornAgainSample.Lattice_onChange(self)
 
 # Register Lattice in _libBornAgainSample:
 _libBornAgainSample.Lattice_swigregister(Lattice)
@@ -12031,7 +12023,11 @@ class ISampleBuilder(libBornAgainParam.IParameterized):
         return _libBornAgainSample.ISampleBuilder_parameterPool(self)
 
     def onChange(self):
-        r"""onChange(ISampleBuilder self)"""
+        r"""
+        onChange(ISampleBuilder self)
+        void onChange()
+
+        """
         return _libBornAgainSample.ISampleBuilder_onChange(self)
     def __disown__(self):
         self.this.disown()

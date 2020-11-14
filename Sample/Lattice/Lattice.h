@@ -40,7 +40,7 @@ public:
     Lattice transformed(const Transform3D& transform) const;
 
     //! Initializes cached data
-    void initialize() const;
+    void initialize();
 
     //! Returns basis vector a
     kvector_t getBasisVectorA() const { return m_a; }
@@ -73,10 +73,9 @@ public:
     //! Sets a selection rule for the reciprocal vectors
     void setSelectionRule(const ISelectionRule& p_selection_rule);
 
-    void onChange() override;
 
 private:
-    void registerBasisVectors();
+    void onChange() override;
 
     std::vector<kvector_t> vectorsWithinRadius(const kvector_t input_vector,
                                                const ivector_t& nearest_coords, double radius,
@@ -89,8 +88,6 @@ private:
     std::unique_ptr<ISelectionRule> m_selection_rule;
     kvector_t m_a, m_b, m_c;            //!< Basis vectors in real space
     mutable kvector_t m_ra, m_rb, m_rc; //!< Cache of basis vectors in reciprocal space
-    //! Boolean indicating if the reciprocal vectors are already initialized in the cache
-    mutable bool m_cache_ok;
 };
 
 #endif // BORNAGAIN_SAMPLE_LATTICE_LATTICE_H

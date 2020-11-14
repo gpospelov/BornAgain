@@ -68246,10 +68246,10 @@ SWIGINTERN PyObject *_wrap_Lattice_initialize(PyObject *SWIGUNUSEDPARM(self), Py
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_initialize" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_initialize" "', argument " "1"" of type '" "Lattice *""'"); 
   }
   arg1 = reinterpret_cast< Lattice * >(argp1);
-  ((Lattice const *)arg1)->initialize();
+  (arg1)->initialize();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -68596,28 +68596,6 @@ SWIGINTERN PyObject *_wrap_Lattice_setSelectionRule(PyObject *SWIGUNUSEDPARM(sel
   }
   arg2 = reinterpret_cast< ISelectionRule * >(argp2);
   (arg1)->setSelectionRule((ISelectionRule const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Lattice_onChange(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_onChange" "', argument " "1"" of type '" "Lattice *""'"); 
-  }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  (arg1)->onChange();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -76235,7 +76213,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Lattice_initialize", _wrap_Lattice_initialize, METH_O, "\n"
 		"Lattice_initialize(Lattice self)\n"
-		"void Lattice::initialize() const\n"
+		"void Lattice::initialize()\n"
 		"\n"
 		"Initializes cached data. \n"
 		"\n"
@@ -76312,11 +76290,6 @@ static PyMethodDef SwigMethods[] = {
 		"void Lattice::setSelectionRule(const ISelectionRule &p_selection_rule)\n"
 		"\n"
 		"Sets a selection rule for the reciprocal vectors. \n"
-		"\n"
-		""},
-	 { "Lattice_onChange", _wrap_Lattice_onChange, METH_O, "\n"
-		"Lattice_onChange(Lattice self)\n"
-		"void Lattice::onChange() override\n"
 		"\n"
 		""},
 	 { "Lattice_swigregister", Lattice_swigregister, METH_O, NULL},
@@ -76549,7 +76522,11 @@ static PyMethodDef SwigMethods[] = {
 	 { "ISampleBuilder_parametersToString", _wrap_ISampleBuilder_parametersToString, METH_O, "ISampleBuilder_parametersToString(ISampleBuilder self) -> std::string"},
 	 { "ISampleBuilder_createParameterTree", _wrap_ISampleBuilder_createParameterTree, METH_O, "ISampleBuilder_createParameterTree(ISampleBuilder self) -> ParameterPool"},
 	 { "ISampleBuilder_parameterPool", _wrap_ISampleBuilder_parameterPool, METH_O, "ISampleBuilder_parameterPool(ISampleBuilder self) -> ParameterPool"},
-	 { "ISampleBuilder_onChange", _wrap_ISampleBuilder_onChange, METH_O, "ISampleBuilder_onChange(ISampleBuilder self)"},
+	 { "ISampleBuilder_onChange", _wrap_ISampleBuilder_onChange, METH_O, "\n"
+		"ISampleBuilder_onChange(ISampleBuilder self)\n"
+		"void onChange()\n"
+		"\n"
+		""},
 	 { "disown_ISampleBuilder", _wrap_disown_ISampleBuilder, METH_O, NULL},
 	 { "ISampleBuilder_swigregister", ISampleBuilder_swigregister, METH_O, NULL},
 	 { "ISampleBuilder_swiginit", ISampleBuilder_swiginit, METH_VARARGS, NULL},

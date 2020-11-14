@@ -16,6 +16,7 @@
 #define BORNAGAIN_SAMPLE_LATTICE_LATTICE_H
 
 #include "Param/Node/INode.h"
+#include <memory>
 #include <vector>
 
 class ISelectionRule;
@@ -31,6 +32,7 @@ public:
     Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3);
     Lattice(const Lattice& lattice);
     ~Lattice() override;
+    Lattice& operator=(const Lattice&) = delete;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
@@ -77,8 +79,6 @@ public:
     void onChange() override;
 
 private:
-    Lattice& operator=(const Lattice& lattice);
-
     void registerBasisVectors();
 
     std::vector<kvector_t> vectorsWithinRadius(const kvector_t input_vector,
@@ -89,7 +89,7 @@ private:
 
     void computeReciprocalVectors() const;
 
-    ISelectionRule* m_selection_rule;
+    std::unique_ptr<ISelectionRule> m_selection_rule;
     kvector_t m_a, m_b, m_c;            //!< Basis vectors in real space
     mutable kvector_t m_ra, m_rb, m_rc; //!< Cache of basis vectors in reciprocal space
     //! Boolean indicating if the reciprocal vectors are already initialized in the cache

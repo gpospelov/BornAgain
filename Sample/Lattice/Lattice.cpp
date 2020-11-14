@@ -20,8 +20,7 @@
 #include <gsl/gsl_linalg.h>
 
 Lattice::Lattice()
-    : m_selection_rule(nullptr)
-    , m_a({1.0, 0.0, 0.0})
+    : m_a({1.0, 0.0, 0.0})
     , m_b({0.0, 1.0, 0.0})
     , m_c({0.0, 0.0, 1.0})
     , m_cache_ok(false)
@@ -32,7 +31,7 @@ Lattice::Lattice()
 }
 
 Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-    : m_selection_rule(nullptr), m_a(a1), m_b(a2), m_c(a3), m_cache_ok(false)
+    : m_a(a1), m_b(a2), m_c(a3), m_cache_ok(false)
 {
     setName("Lattice");
     initialize();
@@ -41,7 +40,6 @@ Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
 
 Lattice::Lattice(const Lattice& lattice)
     : INode()
-    , m_selection_rule(nullptr)
     , m_a(lattice.m_a)
     , m_b(lattice.m_b)
     , m_c(lattice.m_c)
@@ -54,10 +52,7 @@ Lattice::Lattice(const Lattice& lattice)
     registerBasisVectors();
 }
 
-Lattice::~Lattice()
-{
-    delete m_selection_rule;
-}
+Lattice::~Lattice() = default;
 
 Lattice Lattice::transformed(const Transform3D& transform) const
 {
@@ -99,13 +94,11 @@ double Lattice::volume() const
 
 void Lattice::getReciprocalLatticeBasis(kvector_t& b1, kvector_t& b2, kvector_t& b3) const
 {
-    if (!m_cache_ok) {
+    if (!m_cache_ok)
         initialize();
-    }
     b1 = m_ra;
     b2 = m_rb;
     b3 = m_rc;
-    return;
 }
 
 ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
@@ -192,8 +185,7 @@ std::vector<kvector_t> Lattice::vectorsWithinRadius(const kvector_t input_vector
     return ret;
 }
 
-void Lattice::setSelectionRule(const ISelectionRule& p_selection_rule)
+void Lattice::setSelectionRule(const ISelectionRule& selection_rule)
 {
-    delete m_selection_rule;
-    m_selection_rule = p_selection_rule.clone();
+    m_selection_rule.reset(selection_rule.clone());
 }

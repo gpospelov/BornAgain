@@ -100,9 +100,9 @@ ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t 
     double b1_coord = vector_in.dot(m_a) / M_TWOPI;
     double b2_coord = vector_in.dot(m_b) / M_TWOPI;
     double b3_coord = vector_in.dot(m_c) / M_TWOPI;
-    int c1 = static_cast<int>(std::floor(b1_coord + 0.5));
-    int c2 = static_cast<int>(std::floor(b2_coord + 0.5));
-    int c3 = static_cast<int>(std::floor(b3_coord + 0.5));
+    int c1 = std::lround(b1_coord);
+    int c2 = std::lround(b2_coord);
+    int c3 = std::lround(b3_coord);
     return ivector_t(c1, c2, c3);
 }
 
@@ -111,9 +111,9 @@ std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvect
 {
     ivector_t nearest_coords = getNearestReciprocalLatticeVectorCoordinates(input_vector);
 
-    int max_X = static_cast<int>(std::floor(m_a.mag() * radius / M_TWOPI + 0.5));
-    int max_Y = static_cast<int>(std::floor(m_b.mag() * radius / M_TWOPI + 0.5));
-    int max_Z = static_cast<int>(std::floor(m_c.mag() * radius / M_TWOPI + 0.5));
+    int max_X = std::lround(m_a.mag() * radius / M_TWOPI);
+    int max_Y = std::lround(m_b.mag() * radius / M_TWOPI);
+    int max_Z = std::lround(m_c.mag() * radius / M_TWOPI);
 
     std::vector<kvector_t> ret;
     for (int index_X = -max_X; index_X <= max_X; ++index_X) {

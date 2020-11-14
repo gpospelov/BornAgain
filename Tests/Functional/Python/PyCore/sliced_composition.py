@@ -85,8 +85,8 @@ class SlicedSpheresTest(unittest.TestCase):
     def testComposition(self):
         """
         Compares two simulation intended to  provide identical results.
-        ISimulation #1: spherical particle on top of substrate
-        ISimulation #2: spherical composition on top of substrate, where top and bottom are made of same material
+        Simulation #1: spherical particle on top of substrate
+        Simulation #2: spherical composition on top of substrate, where top and bottom are made of same material
         """
 
         # spherical particle
@@ -104,8 +104,8 @@ class SlicedSpheresTest(unittest.TestCase):
     def testCompositionBuilds(self):
         """
         Compares two simulation intended to  provide identical results.
-        ISimulation #1: spherical particle composition on top of substrate
-        ISimulation #2: same, but made using rotation
+        Simulation #1: spherical particle composition on top of substrate
+        Simulation #2: same, but made using rotation
         """
 
         composition = self.get_composition(mParticle, mSubstrate)
@@ -123,8 +123,8 @@ class SlicedSpheresTest(unittest.TestCase):
     def testInvisibleComposition(self):
         """
         Compares two simulation intended to  provide identical results.
-        ISimulation #1: no particles at all
-        ISimulation #2: spherical composition on top of substrate crossing the interface
+        Simulation #1: no particles at all
+        Simulation #2: spherical composition on top of substrate crossing the interface
         Bottom part of composition is made of substrate material, top part from vacuum layer material
         """
 
@@ -145,8 +145,8 @@ class SlicedSpheresTest(unittest.TestCase):
     def testSlicedComposition(self):
         """
         Compares two simulation intended to  provide identical results.
-        ISimulation #1: spherical particle on top of substrate
-        ISimulation #2: spherical composition on top of substrate, where top and bottom are made of same material
+        Simulation #1: spherical particle on top of substrate
+        Simulation #2: spherical composition on top of substrate, where top and bottom are made of same material
         Both particles are inserted in vacuum layer with shift to go below interface
         """
 
@@ -169,8 +169,8 @@ class SlicedSpheresTest(unittest.TestCase):
     def testSphericalCupOnTopOfSubstrate(self):
         """
         Compares two simulation intended to  provide identical results.
-        ISimulation #1: truncated sphere on top of substrate.
-        ISimulation #2: spherical particle composition crossing the interface.
+        Simulation #1: truncated sphere on top of substrate.
+        Simulation #2: spherical particle composition crossing the interface.
         Bottom part of composition is made from substrate material.
         both cases should look like a truncated sphere on top of substrate.
         """

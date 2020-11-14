@@ -1,5 +1,5 @@
 """
-ISimulation of grating using very long boxes and 1D lattice.
+Simulation of grating using very long boxes and 1D lattice.
 Monte-carlo integration is used to get rid of
 large-particle form factor oscillations.
 """

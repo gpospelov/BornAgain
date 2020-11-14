@@ -18,6 +18,9 @@
 #include "Base/Vector/Transform3D.h"
 #include "Sample/Lattice/Lattice.h"
 
+//! Pure virtual base of classes that specify a lattice orientation.
+//! Currently only inherited by MillerIndexOrientation.
+
 class ILatticeOrientation
 {
 public:
@@ -27,7 +30,7 @@ public:
 
     virtual void usePrimitiveLattice(const Lattice& lattice) = 0;
 
-    virtual Transform3D transformationMatrix() const = 0;
+    virtual Transform3D transformation() const = 0;
 };
 
 //! A direction in reciprocal space, specified by double-valued indices hkl.
@@ -54,7 +57,7 @@ public:
 
     void usePrimitiveLattice(const Lattice& lattice) override;
 
-    Transform3D transformationMatrix() const override;
+    Transform3D transformation() const override;
 
 private:
     bool checkAlignment() const;

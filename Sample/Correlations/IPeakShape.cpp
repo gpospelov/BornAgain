@@ -158,16 +158,16 @@ GaussFisherPeakShape* GaussFisherPeakShape::clone() const
 
 double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
 {
-    double q_r = q.mag();
-    double q_lat_r = q_lattice_point.mag();
-    double dq2 = (q_r - q_lat_r) * (q_r - q_lat_r);
+    const double q_r = q.mag();
+    const double q_lat_r = q_lattice_point.mag();
+    const double dq2 = (q_r - q_lat_r) * (q_r - q_lat_r);
     if (q_lat_r == 0.0)
         return m_max_intensity * Gauss3D(dq2, m_radial_size);
-    double norm_factor = m_radial_size / std::sqrt(M_TWOPI);
-    double radial_part = norm_factor * std::exp(-dq2 * m_radial_size * m_radial_size / 2.0);
+    const double norm_factor = m_radial_size / std::sqrt(M_TWOPI);
+    const double radial_part = norm_factor * std::exp(-dq2 * m_radial_size * m_radial_size / 2.0);
     double angular_part = 1.0;
     if (q_r * q_lat_r > 0.0) {
-        double dot_norm = q.dot(q_lattice_point) / q_r / q_lat_r;
+        const double dot_norm = q.dot(q_lattice_point) / q_r / q_lat_r;
         angular_part = FisherDistribution(dot_norm, m_kappa) / (q_r * q_r);
     }
     return m_max_intensity * radial_part * angular_part;
@@ -192,15 +192,15 @@ LorentzFisherPeakShape* LorentzFisherPeakShape::clone() const
 
 double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
 {
-    double q_r = q.mag();
-    double q_lat_r = q_lattice_point.mag();
-    double dq2 = (q_r - q_lat_r) * (q_r - q_lat_r);
+    const double q_r = q.mag();
+    const double q_lat_r = q_lattice_point.mag();
+    const double dq2 = (q_r - q_lat_r) * (q_r - q_lat_r);
     if (q_lat_r == 0.0)
         return m_max_intensity * Cauchy3D(dq2, m_radial_size);
-    double radial_part = m_radial_size / (1.0 + dq2 * m_radial_size * m_radial_size) / M_PI;
+    const double radial_part = m_radial_size / (1.0 + dq2 * m_radial_size * m_radial_size) / M_PI;
     double angular_part = 1.0;
     if (q_r * q_lat_r > 0.0) {
-        double dot_norm = q.dot(q_lattice_point) / q_r / q_lat_r;
+        const double dot_norm = q.dot(q_lattice_point) / q_r / q_lat_r;
         angular_part = FisherDistribution(dot_norm, m_kappa) / (q_r * q_r);
     }
     return m_max_intensity * radial_part * angular_part;
@@ -232,20 +232,20 @@ MisesFisherGaussPeakShape* MisesFisherGaussPeakShape::clone() const
 double MisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
 {
     // radial part
-    double q_r = q.mag();
-    double q_lat_r = q_lattice_point.mag();
-    double dq2 = (q_r - q_lat_r) * (q_r - q_lat_r);
+    const double q_r = q.mag();
+    const double q_lat_r = q_lattice_point.mag();
+    const double dq2 = (q_r - q_lat_r) * (q_r - q_lat_r);
     if (q_lat_r == 0.0 || q_r == 0.0)
         return m_max_intensity * Gauss3D(dq2, m_radial_size);
-    double norm_factor = m_radial_size / std::sqrt(M_TWOPI);
-    double radial_part = norm_factor * std::exp(-dq2 * m_radial_size * m_radial_size / 2.0);
+    const double norm_factor = m_radial_size / std::sqrt(M_TWOPI);
+    const double radial_part = norm_factor * std::exp(-dq2 * m_radial_size * m_radial_size / 2.0);
     // angular part
     m_uy = m_zenith.cross(q_lattice_point);
     kvector_t zxq = m_zenith.cross(q);
     m_up = q_lattice_point.unit();
     if (m_uy.mag2() <= 0.0 || zxq.mag2() <= 0.0) {
-        double x = q.unit().dot(m_up);
-        double angular_part = FisherDistribution(x, m_kappa_1);
+        const double x = q.unit().dot(m_up);
+        const double angular_part = FisherDistribution(x, m_kappa_1);
         return m_max_intensity * radial_part * angular_part;
     }
     m_uy = m_uy.unit();
@@ -253,9 +253,9 @@ double MisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_
     kvector_t q_ortho = q - q.dot(m_zenith) * m_zenith;
     m_phi = std::acos(q_ortho.unit().dot(m_ux));
     m_theta = std::acos(q.unit().dot(m_zenith));
-    double pre_1 = FisherPrefactor(m_kappa_1);
-    double pre_2 = MisesPrefactor(m_kappa_2);
-    double integral = RealIntegrator().integrate(
+    const double pre_1 = FisherPrefactor(m_kappa_1);
+    const double pre_2 = MisesPrefactor(m_kappa_2);
+    const double integral = RealIntegrator().integrate(
         [&](double phi) -> double { return integrand(phi); }, 0.0, M_TWOPI);
     return m_max_intensity * radial_part * pre_1 * pre_2 * integral;
 }
@@ -264,9 +264,9 @@ double MisesFisherGaussPeakShape::integrand(double phi) const
 {
     kvector_t u_q = std::sin(m_theta) * std::cos(phi) * m_ux
                     + std::sin(m_theta) * std::sin(phi) * m_uy + std::cos(m_theta) * m_zenith;
-    double fisher = std::exp(m_kappa_1 * (u_q.dot(m_up) - 1.0));
-    double vonmises = std::exp(m_kappa_2 * (std::cos(m_phi - phi) - 1.0));
-    return fisher * vonmises;
+    const double fisher = std::exp(m_kappa_1 * (u_q.dot(m_up) - 1.0));
+    const double mises = std::exp(m_kappa_2 * (std::cos(m_phi - phi) - 1.0));
+    return fisher * mises;
 }
 
 // ************************************************************************** //
@@ -294,7 +294,7 @@ double MisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattic
     m_uy = m_zenith.cross(q_lattice_point);
     kvector_t zxq = m_zenith.cross(q);
     if (m_uy.mag2() <= 0.0 || zxq.mag2() <= 0.0) {
-        double dq2 = (q - q_lattice_point).mag2();
+        const double dq2 = (q - q_lattice_point).mag2();
         return m_max_intensity * Gauss3D(dq2, m_radial_size);
     }
     m_qr = q.mag();
@@ -304,8 +304,8 @@ double MisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattic
     kvector_t q_ortho = q - q.dot(m_zenith) * m_zenith;
     m_phi = std::acos(q_ortho.unit().dot(m_ux));
     m_theta = std::acos(q.unit().dot(m_zenith));
-    double pre = MisesPrefactor(m_kappa);
-    double integral = RealIntegrator().integrate(
+    const double pre = MisesPrefactor(m_kappa);
+    const double integral = RealIntegrator().integrate(
         [&](double phi) -> double { return integrand(phi); }, 0.0, M_TWOPI);
     return m_max_intensity * pre * integral;
 }
@@ -315,8 +315,8 @@ double MisesGaussPeakShape::integrand(double phi) const
     kvector_t q_rot = m_qr
                       * (std::sin(m_theta) * std::cos(phi) * m_ux
                          + std::sin(m_theta) * std::sin(phi) * m_uy + std::cos(m_theta) * m_zenith);
-    double dq2 = (q_rot - m_p).mag2();
-    double gauss = Gauss3D(dq2, m_radial_size);
-    double vonmises = std::exp(m_kappa * (std::cos(m_phi - phi) - 1.0));
-    return gauss * vonmises;
+    const double dq2 = (q_rot - m_p).mag2();
+    const double gauss = Gauss3D(dq2, m_radial_size);
+    const double mises = std::exp(m_kappa * (std::cos(m_phi - phi) - 1.0));
+    return gauss * mises;
 }

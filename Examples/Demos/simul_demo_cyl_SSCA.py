@@ -1,5 +1,5 @@
 '''
-ISimulation demo: Size Space Coupling Approximation
+Simulation demo: Size Space Coupling Approximation
 '''
 
 import numpy

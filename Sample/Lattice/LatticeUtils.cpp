@@ -18,30 +18,30 @@
 Lattice LatticeUtils::createFCCLattice(double lattice_constant,
                                        const ILatticeOrientation& orientation)
 {
-    Lattice prim_cubic = Lattice::createCubicLattice(1.0);
+    const Lattice prim_cubic = Lattice::createCubicLattice(1.0);
     std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
     P_orientation->usePrimitiveLattice(prim_cubic);
-    auto rotation = P_orientation->transformationMatrix();
-    Lattice fcc = Lattice::createFCCLattice(lattice_constant);
-    return fcc.createTransformedLattice(rotation);
+    const Transform3D trafo = P_orientation->transformation();
+    const Lattice fcc = Lattice::createFCCLattice(lattice_constant);
+    return fcc.transformed(trafo);
 }
 
 Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation& orientation)
 {
-    Lattice prim_hexagonal = Lattice::createHexagonalLattice(1.0, c / a);
+    const Lattice prim_hexagonal = Lattice::createHexagonalLattice(1.0, c / a);
     std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
     P_orientation->usePrimitiveLattice(prim_hexagonal);
-    auto rotation = P_orientation->transformationMatrix();
-    Lattice hcp = Lattice::createHCPLattice(a, c);
-    return hcp.createTransformedLattice(rotation);
+    const Transform3D trafo = P_orientation->transformation();
+    const Lattice hcp = Lattice::createHCPLattice(a, c);
+    return hcp.transformed(trafo);
 }
 
 Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation& orientation)
 {
-    Lattice prim_tetragonal = Lattice::createTetragonalLattice(1.0, c / a);
+    const Lattice prim_tetragonal = Lattice::createTetragonalLattice(1.0, c / a);
     std::unique_ptr<ILatticeOrientation> P_orientation(orientation.clone());
     P_orientation->usePrimitiveLattice(prim_tetragonal);
-    auto rotation = P_orientation->transformationMatrix();
-    Lattice hcp = Lattice::createBCTLattice(a, c);
-    return hcp.createTransformedLattice(rotation);
+    const Transform3D trafo = P_orientation->transformation();
+    const Lattice hcp = Lattice::createBCTLattice(a, c);
+    return hcp.transformed(trafo);
 }

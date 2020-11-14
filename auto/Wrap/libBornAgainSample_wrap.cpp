@@ -67868,7 +67868,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ILatticeOrientation_transformationMatrix(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_ILatticeOrientation_transformation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ILatticeOrientation *arg1 = (ILatticeOrientation *) 0 ;
   void *argp1 = 0 ;
@@ -67880,10 +67880,10 @@ SWIGINTERN PyObject *_wrap_ILatticeOrientation_transformationMatrix(PyObject *SW
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILatticeOrientation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILatticeOrientation_transformationMatrix" "', argument " "1"" of type '" "ILatticeOrientation const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILatticeOrientation_transformation" "', argument " "1"" of type '" "ILatticeOrientation const *""'"); 
   }
   arg1 = reinterpret_cast< ILatticeOrientation * >(argp1);
-  result = ((ILatticeOrientation const *)arg1)->transformationMatrix();
+  result = ((ILatticeOrientation const *)arg1)->transformation();
   resultobj = SWIG_NewPointerObj((new Transform3D(static_cast< const Transform3D& >(result))), SWIGTYPE_p_Transform3D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -68264,7 +68264,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MillerIndexOrientation_transformationMatrix(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_MillerIndexOrientation_transformation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   MillerIndexOrientation *arg1 = (MillerIndexOrientation *) 0 ;
   void *argp1 = 0 ;
@@ -68276,10 +68276,10 @@ SWIGINTERN PyObject *_wrap_MillerIndexOrientation_transformationMatrix(PyObject 
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndexOrientation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndexOrientation_transformationMatrix" "', argument " "1"" of type '" "MillerIndexOrientation const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndexOrientation_transformation" "', argument " "1"" of type '" "MillerIndexOrientation const *""'"); 
   }
   arg1 = reinterpret_cast< MillerIndexOrientation * >(argp1);
-  result = ((MillerIndexOrientation const *)arg1)->transformationMatrix();
+  result = ((MillerIndexOrientation const *)arg1)->transformation();
   resultobj = SWIG_NewPointerObj((new Transform3D(static_cast< const Transform3D& >(result))), SWIGTYPE_p_Transform3D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -68713,7 +68713,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_createTransformedLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice_transformed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Lattice *arg1 = (Lattice *) 0 ;
   Transform3D *arg2 = 0 ;
@@ -68724,21 +68724,21 @@ SWIGINTERN PyObject *_wrap_Lattice_createTransformedLattice(PyObject *SWIGUNUSED
   PyObject *swig_obj[2] ;
   SwigValueWrapper< Lattice > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_createTransformedLattice", 2, 2, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "Lattice_transformed", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_createTransformedLattice" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_transformed" "', argument " "1"" of type '" "Lattice const *""'"); 
   }
   arg1 = reinterpret_cast< Lattice * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Transform3D,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_createTransformedLattice" "', argument " "2"" of type '" "Transform3D const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_transformed" "', argument " "2"" of type '" "Transform3D const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_createTransformedLattice" "', argument " "2"" of type '" "Transform3D const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_transformed" "', argument " "2"" of type '" "Transform3D const &""'"); 
   }
   arg2 = reinterpret_cast< Transform3D * >(argp2);
-  result = ((Lattice const *)arg1)->createTransformedLattice((Transform3D const &)*arg2);
+  result = ((Lattice const *)arg1)->transformed((Transform3D const &)*arg2);
   resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -76881,9 +76881,9 @@ static PyMethodDef SwigMethods[] = {
 		"virtual void ILatticeOrientation::usePrimitiveLattice(const Lattice &lattice)=0\n"
 		"\n"
 		""},
-	 { "ILatticeOrientation_transformationMatrix", _wrap_ILatticeOrientation_transformationMatrix, METH_O, "\n"
-		"ILatticeOrientation_transformationMatrix(ILatticeOrientation self) -> Transform3D\n"
-		"virtual Transform3D ILatticeOrientation::transformationMatrix() const =0\n"
+	 { "ILatticeOrientation_transformation", _wrap_ILatticeOrientation_transformation, METH_O, "\n"
+		"ILatticeOrientation_transformation(ILatticeOrientation self) -> Transform3D\n"
+		"virtual Transform3D ILatticeOrientation::transformation() const =0\n"
 		"\n"
 		""},
 	 { "ILatticeOrientation_swigregister", ILatticeOrientation_swigregister, METH_O, NULL},
@@ -76923,9 +76923,9 @@ static PyMethodDef SwigMethods[] = {
 		"void MillerIndexOrientation::usePrimitiveLattice(const Lattice &lattice) override\n"
 		"\n"
 		""},
-	 { "MillerIndexOrientation_transformationMatrix", _wrap_MillerIndexOrientation_transformationMatrix, METH_O, "\n"
-		"MillerIndexOrientation_transformationMatrix(MillerIndexOrientation self) -> Transform3D\n"
-		"Transform3D MillerIndexOrientation::transformationMatrix() const override\n"
+	 { "MillerIndexOrientation_transformation", _wrap_MillerIndexOrientation_transformation, METH_O, "\n"
+		"MillerIndexOrientation_transformation(MillerIndexOrientation self) -> Transform3D\n"
+		"Transform3D MillerIndexOrientation::transformation() const override\n"
 		"\n"
 		""},
 	 { "MillerIndexOrientation_swigregister", MillerIndexOrientation_swigregister, METH_O, NULL},
@@ -76985,9 +76985,9 @@ static PyMethodDef SwigMethods[] = {
 		"void Lattice::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
-	 { "Lattice_createTransformedLattice", _wrap_Lattice_createTransformedLattice, METH_VARARGS, "\n"
-		"Lattice_createTransformedLattice(Lattice self, Transform3D const & transform) -> Lattice\n"
-		"Lattice Lattice::createTransformedLattice(const Transform3D &transform) const\n"
+	 { "Lattice_transformed", _wrap_Lattice_transformed, METH_VARARGS, "\n"
+		"Lattice_transformed(Lattice self, Transform3D const & transform) -> Lattice\n"
+		"Lattice Lattice::transformed(const Transform3D &transform) const\n"
 		"\n"
 		"Creates transformed lattice. \n"
 		"\n"

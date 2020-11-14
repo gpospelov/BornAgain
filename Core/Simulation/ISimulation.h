@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#ifndef BORNAGAIN_CORE_SIMULATION_SIMULATION_H
-#define BORNAGAIN_CORE_SIMULATION_SIMULATION_H
+#ifndef BORNAGAIN_CORE_SIMULATION_ISIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_ISIMULATION_H
 
 #include "Core/Computation/ProgressHandler.h"
 #include "Device/Detector/IDetector2D.h"
@@ -156,4 +156,4 @@ private:
     std::unique_ptr<IBackground> m_background;
 };
 
-#endif // BORNAGAIN_CORE_SIMULATION_SIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_ISIMULATION_H

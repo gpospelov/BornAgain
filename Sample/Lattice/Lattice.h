@@ -22,7 +22,8 @@
 class ISelectionRule;
 class Transform3D;
 
-//! A lattice with three basis vectors.
+//! A Bravais lattice, characterized by three basis vectors, and optionally an ISelectionRule.
+
 //! @ingroup samples
 
 class Lattice : public INode
@@ -85,8 +86,9 @@ private:
 
     void computeReciprocalVectors() const;
 
-    std::unique_ptr<ISelectionRule> m_selection_rule;
     kvector_t m_a, m_b, m_c;            //!< Basis vectors in real space
+    std::unique_ptr<ISelectionRule> m_selection_rule;
+
     mutable kvector_t m_ra, m_rb, m_rc; //!< Cache of basis vectors in reciprocal space
 };
 

@@ -78,12 +78,6 @@ public:
 private:
     void onChange() override;
 
-    std::vector<kvector_t> vectorsWithinRadius(const kvector_t input_vector,
-                                               const ivector_t& nearest_coords, double radius,
-                                               const kvector_t v1, const kvector_t v2,
-                                               const kvector_t v3, const kvector_t rec1,
-                                               const kvector_t rec2, const kvector_t rec3) const;
-
     void computeReciprocalVectors() const;
 
     kvector_t m_a, m_b, m_c;            //!< Basis vectors in real space

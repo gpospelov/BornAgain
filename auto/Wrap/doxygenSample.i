@@ -4862,7 +4862,7 @@ C++ includes: CylindersBuilder.h
 // File: classLattice.xml
 %feature("docstring") Lattice "
 
-A lattice with three basis vectors.
+A Bravais lattice, characterized by three basis vectors, and optionally an  ISelectionRule.
 
 C++ includes: Lattice.h
 ";
@@ -8399,8 +8399,6 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: Lattice_8cpp.xml
-%feature("docstring")  onChange "void onChange()
-";
 
 
 // File: Lattice_8h.xml

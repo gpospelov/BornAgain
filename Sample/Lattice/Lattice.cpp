@@ -121,8 +121,26 @@ std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvect
                                                                      double radius) const
 {
     ivector_t nearest_coords = getNearestReciprocalLatticeVectorCoordinates(input_vector);
-    return vectorsWithinRadius(input_vector, nearest_coords, radius, m_ra, m_rb, m_rc, m_a, m_b,
-                               m_c);
+
+    int max_X = static_cast<int>(std::floor(m_a.mag() * radius / M_TWOPI + 0.5));
+    int max_Y = static_cast<int>(std::floor(m_b.mag() * radius / M_TWOPI + 0.5));
+    int max_Z = static_cast<int>(std::floor(m_c.mag() * radius / M_TWOPI + 0.5));
+
+    std::vector<kvector_t> ret;
+    for (int index_X = -max_X; index_X <= max_X; ++index_X) {
+        for (int index_Y = -max_Y; index_Y <= max_Y; ++index_Y) {
+            for (int index_Z = -max_Z; index_Z <= max_Z; ++index_Z) {
+                ivector_t coords(index_X + nearest_coords[0], index_Y + nearest_coords[1],
+                                 index_Z + nearest_coords[2]);
+                if (m_selection_rule && !m_selection_rule->coordinateSelected(coords))
+                    continue;
+                kvector_t latticePoint = coords[0] * m_ra + coords[1] * m_rb + coords[2] * m_rc;
+                if ((latticePoint - input_vector).mag() <= radius)
+                    ret.push_back(latticePoint);
+            }
+        }
+    }
+    return ret;
 }
 
 void Lattice::computeReciprocalVectors() const
@@ -133,34 +151,6 @@ void Lattice::computeReciprocalVectors() const
     m_ra = M_TWOPI / m_a.dot(a23) * a23;
     m_rb = M_TWOPI / m_b.dot(a31) * a31;
     m_rc = M_TWOPI / m_c.dot(a12) * a12;
-}
-
-std::vector<kvector_t> Lattice::vectorsWithinRadius(const kvector_t input_vector,
-                                                    const ivector_t& nearest_coords, double radius,
-                                                    const kvector_t v1, const kvector_t v2,
-                                                    const kvector_t v3, const kvector_t rec1,
-                                                    const kvector_t rec2,
-                                                    const kvector_t rec3) const
-{
-    int max_X = static_cast<int>(std::floor(rec1.mag() * radius / M_TWOPI + 0.5));
-    int max_Y = static_cast<int>(std::floor(rec2.mag() * radius / M_TWOPI + 0.5));
-    int max_Z = static_cast<int>(std::floor(rec3.mag() * radius / M_TWOPI + 0.5));
-
-    std::vector<kvector_t> ret;
-    for (int index_X = -max_X; index_X <= max_X; ++index_X) {
-        for (int index_Y = -max_Y; index_Y <= max_Y; ++index_Y) {
-            for (int index_Z = -max_Z; index_Z <= max_Z; ++index_Z) {
-                ivector_t coords(index_X + nearest_coords[0], index_Y + nearest_coords[1],
-                                 index_Z + nearest_coords[2]);
-                if (m_selection_rule && !m_selection_rule->coordinateSelected(coords))
-                    continue;
-                kvector_t latticePoint = coords[0] * v1 + coords[1] * v2 + coords[2] * v3;
-                if ((latticePoint - input_vector).mag() <= radius)
-                    ret.push_back(latticePoint);
-            }
-        }
-    }
-    return ret;
 }
 
 void Lattice::setSelectionRule(const ISelectionRule& selection_rule)

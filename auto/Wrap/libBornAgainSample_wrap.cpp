@@ -76522,11 +76522,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "ISampleBuilder_parametersToString", _wrap_ISampleBuilder_parametersToString, METH_O, "ISampleBuilder_parametersToString(ISampleBuilder self) -> std::string"},
 	 { "ISampleBuilder_createParameterTree", _wrap_ISampleBuilder_createParameterTree, METH_O, "ISampleBuilder_createParameterTree(ISampleBuilder self) -> ParameterPool"},
 	 { "ISampleBuilder_parameterPool", _wrap_ISampleBuilder_parameterPool, METH_O, "ISampleBuilder_parameterPool(ISampleBuilder self) -> ParameterPool"},
-	 { "ISampleBuilder_onChange", _wrap_ISampleBuilder_onChange, METH_O, "\n"
-		"ISampleBuilder_onChange(ISampleBuilder self)\n"
-		"void onChange()\n"
-		"\n"
-		""},
+	 { "ISampleBuilder_onChange", _wrap_ISampleBuilder_onChange, METH_O, "ISampleBuilder_onChange(ISampleBuilder self)"},
 	 { "disown_ISampleBuilder", _wrap_disown_ISampleBuilder, METH_O, NULL},
 	 { "ISampleBuilder_swigregister", ISampleBuilder_swigregister, METH_O, NULL},
 	 { "ISampleBuilder_swiginit", ISampleBuilder_swiginit, METH_VARARGS, NULL},

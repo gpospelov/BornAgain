@@ -11462,7 +11462,7 @@ class Lattice(libBornAgainParam.INode):
     r"""
 
 
-    A lattice with three basis vectors.
+    A Bravais lattice, characterized by three basis vectors, and optionally an  ISelectionRule.
 
     C++ includes: Lattice.h
 
@@ -12023,11 +12023,7 @@ class ISampleBuilder(libBornAgainParam.IParameterized):
         return _libBornAgainSample.ISampleBuilder_parameterPool(self)
 
     def onChange(self):
-        r"""
-        onChange(ISampleBuilder self)
-        void onChange()
-
-        """
+        r"""onChange(ISampleBuilder self)"""
         return _libBornAgainSample.ISampleBuilder_onChange(self)
     def __disown__(self):
         self.this.disown()

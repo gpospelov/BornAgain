@@ -12090,30 +12090,6 @@ class HexagonalLattice(Lattice2D):
 _libBornAgainSample.HexagonalLattice_swigregister(HexagonalLattice)
 
 
-def createOrientedFCCLattice(lattice_constant, orientation):
-    r"""
-    createOrientedFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::createOrientedFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
-
-    """
-    return _libBornAgainSample.createOrientedFCCLattice(lattice_constant, orientation)
-
-def createOrientedHCPLattice(a, c, orientation):
-    r"""
-    createOrientedHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::createOrientedHCPLattice(double a, double c, const ILatticeOrientation &orientation)
-
-    """
-    return _libBornAgainSample.createOrientedHCPLattice(a, c, orientation)
-
-def createOrientedBCTLattice(a, c, orientation):
-    r"""
-    createOrientedBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::createOrientedBCTLattice(double a, double c, const ILatticeOrientation &orientation)
-
-    """
-    return _libBornAgainSample.createOrientedBCTLattice(a, c, orientation)
-
 def createCubicLattice(a):
     r"""
     createCubicLattice(double a) -> Lattice
@@ -12173,6 +12149,30 @@ def createBCTLattice(a, c):
 
     """
     return _libBornAgainSample.createBCTLattice(a, c)
+
+def createOrientedFCCLattice(lattice_constant, orientation):
+    r"""
+    createOrientedFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
+    Lattice bake::createOrientedFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+
+    """
+    return _libBornAgainSample.createOrientedFCCLattice(lattice_constant, orientation)
+
+def createOrientedHCPLattice(a, c, orientation):
+    r"""
+    createOrientedHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
+    Lattice bake::createOrientedHCPLattice(double a, double c, const ILatticeOrientation &orientation)
+
+    """
+    return _libBornAgainSample.createOrientedHCPLattice(a, c, orientation)
+
+def createOrientedBCTLattice(a, c, orientation):
+    r"""
+    createOrientedBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
+    Lattice bake::createOrientedBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+
+    """
+    return _libBornAgainSample.createOrientedBCTLattice(a, c, orientation)
 class ISampleBuilder(libBornAgainParam.IParameterized):
     r"""
 

@@ -7769,16 +7769,19 @@ C++ includes: ZLimits.h
 // File: namespace_0d135.xml
 
 
-// File: namespace_0d147.xml
+// File: namespace_0d145.xml
 
 
-// File: namespace_0d151.xml
+// File: namespace_0d149.xml
 
 
-// File: namespace_0d155.xml
+// File: namespace_0d153.xml
 
 
 // File: namespace_0d16.xml
+
+
+// File: namespace_0d163.xml
 
 
 // File: namespace_0d165.xml
@@ -7787,10 +7790,10 @@ C++ includes: ZLimits.h
 // File: namespace_0d167.xml
 
 
-// File: namespace_0d169.xml
+// File: namespace_0d177.xml
 
 
-// File: namespace_0d179.xml
+// File: namespace_0d199.xml
 
 
 // File: namespace_0d2.xml
@@ -7799,28 +7802,28 @@ C++ includes: ZLimits.h
 // File: namespace_0d201.xml
 
 
-// File: namespace_0d203.xml
+// File: namespace_0d211.xml
 
 
-// File: namespace_0d213.xml
+// File: namespace_0d227.xml
 
 
 // File: namespace_0d229.xml
 
 
-// File: namespace_0d231.xml
-
-
-// File: namespace_0d238.xml
+// File: namespace_0d236.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d256.xml
+// File: namespace_0d254.xml
 
 
-// File: namespace_0d264.xml
+// File: namespace_0d262.xml
+
+
+// File: namespace_0d272.xml
 
 
 // File: namespace_0d274.xml
@@ -7835,7 +7838,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d280.xml
 
 
-// File: namespace_0d282.xml
+// File: namespace_0d284.xml
 
 
 // File: namespace_0d286.xml
@@ -7844,25 +7847,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d288.xml
 
 
-// File: namespace_0d290.xml
+// File: namespace_0d300.xml
 
 
-// File: namespace_0d302.xml
-
-
-// File: namespace_0d308.xml
+// File: namespace_0d306.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d312.xml
+// File: namespace_0d310.xml
 
 
-// File: namespace_0d330.xml
+// File: namespace_0d328.xml
 
 
-// File: namespace_0d349.xml
+// File: namespace_0d347.xml
 
 
 // File: namespace_0d37.xml
@@ -7905,6 +7905,15 @@ Returns a primitive tetragonal (tP) lattice with square base edge a and height c
 Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
 ";
 
+%feature("docstring")  bake::createOrientedFCCLattice "Lattice bake::createOrientedFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+";
+
+%feature("docstring")  bake::createOrientedHCPLattice "Lattice bake::createOrientedHCPLattice(double a, double c, const ILatticeOrientation &orientation)
+";
+
+%feature("docstring")  bake::createOrientedBCTLattice "Lattice bake::createOrientedBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+";
+
 
 // File: namespaceFormFactorPrecompute.xml
 %feature("docstring")  FormFactorPrecompute::scalar "std::vector< complex_t > FormFactorPrecompute::scalar(const SimulationElement &sim_element, const std::vector< FormFactorCoherentSum > &ff_wrappers)
@@ -7922,17 +7931,6 @@ Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify mea
 ";
 
 %feature("docstring")  KzComputation::computeKzFromRefIndices "std::vector< complex_t > KzComputation::computeKzFromRefIndices(const std::vector< Slice > &slices, kvector_t k)
-";
-
-
-// File: namespaceLatticeUtils.xml
-%feature("docstring")  LatticeUtils::createOrientedFCCLattice "Lattice LatticeUtils::createOrientedFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
-";
-
-%feature("docstring")  LatticeUtils::createOrientedHCPLattice "Lattice LatticeUtils::createOrientedHCPLattice(double a, double c, const ILatticeOrientation &orientation)
-";
-
-%feature("docstring")  LatticeUtils::createOrientedBCTLattice "Lattice LatticeUtils::createOrientedBCTLattice(double a, double c, const ILatticeOrientation &orientation)
 ";
 
 
@@ -8491,12 +8489,6 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: Lattice2D_8h.xml
-
-
-// File: LatticeUtils_8cpp.xml
-
-
-// File: LatticeUtils_8h.xml
 
 
 // File: SomeFormFactors_8cpp.xml

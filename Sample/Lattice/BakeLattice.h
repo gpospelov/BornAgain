@@ -16,6 +16,7 @@
 #define BORNAGAIN_SAMPLE_LATTICE_BAKELATTICE_H
 
 class Lattice;
+class ILatticeOrientation;
 
 namespace bake
 {
@@ -38,6 +39,10 @@ Lattice createTetragonalLattice(double a, double c);
 //! Returns a body-centered cubic (cI) lattice with edge length a.
 //! TODO: Clarify meaning of c
 Lattice createBCTLattice(double a, double c);
+
+Lattice createOrientedFCCLattice(double lattice_constant, const ILatticeOrientation& orientation);
+Lattice createOrientedHCPLattice(double a, double c, const ILatticeOrientation& orientation);
+Lattice createOrientedBCTLattice(double a, double c, const ILatticeOrientation& orientation);
 
 } // namespace bake
 

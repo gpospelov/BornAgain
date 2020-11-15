@@ -109,7 +109,7 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal")
 
 std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
 {
-    const Lattice& lattice = getLattice();
+    const Lattice3D& lattice = getLattice();
     if (!(lattice.unitCellVolume() > 0.0))
         throw GUIHelpers::Error("MesoCrystalItem::createMesoCrystal(): "
                                 "Lattice volume not strictly positive");
@@ -140,12 +140,12 @@ QStringList MesoCrystalItem::translateList(const QStringList& list) const
     return result;
 }
 
-Lattice MesoCrystalItem::getLattice() const
+Lattice3D MesoCrystalItem::getLattice() const
 {
     const kvector_t a1 = GetVectorItem(*this, P_VECTOR_A);
     const kvector_t a2 = GetVectorItem(*this, P_VECTOR_B);
     const kvector_t a3 = GetVectorItem(*this, P_VECTOR_C);
-    return Lattice(a1, a2, a3);
+    return Lattice3D(a1, a2, a3);
 }
 
 std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const

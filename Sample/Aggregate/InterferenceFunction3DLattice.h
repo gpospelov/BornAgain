@@ -16,7 +16,7 @@
 #define BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTION3DLATTICE_H
 
 #include "Sample/Aggregate/IInterferenceFunction.h"
-#include "Sample/Lattice/Lattice.h"
+#include "Sample/Lattice/Lattice3D.h"
 
 class IPeakShape;
 
@@ -26,7 +26,7 @@ class IPeakShape;
 class InterferenceFunction3DLattice : public IInterferenceFunction
 {
 public:
-    InterferenceFunction3DLattice(const Lattice& lattice);
+    InterferenceFunction3DLattice(const Lattice3D& lattice);
     ~InterferenceFunction3DLattice() final;
 
     InterferenceFunction3DLattice* clone() const override final;
@@ -35,7 +35,7 @@ public:
 
     void setPeakShape(const IPeakShape& peak_shape);
 
-    const Lattice& lattice() const;
+    const Lattice3D& lattice() const;
 
     bool supportsMultilayer() const override final { return false; }
 
@@ -47,7 +47,7 @@ private:
     double iff_without_dw(const kvector_t q) const override final;
     void initRecRadius();
 
-    Lattice m_lattice; // TODO ASAP unique_ptr as in otehr InterferenceFunction%s
+    Lattice3D m_lattice; // TODO ASAP unique_ptr as in otehr InterferenceFunction%s
     std::unique_ptr<IPeakShape> m_peak_shape;
     double m_rec_radius; //!< radius in reciprocal space defining the nearest q vectors to use
 };

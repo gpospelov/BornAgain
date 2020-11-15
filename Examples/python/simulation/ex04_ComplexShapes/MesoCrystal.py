@@ -18,7 +18,7 @@ def get_sample():
     lattice_basis_1 = ba.kvector_t(5.0, 0.0, 0.0)
     lattice_basis_2 = ba.kvector_t(0.0, 5.0, 0.0)
     lattice_basis_3 = ba.kvector_t(0.0, 0.0, 5.0)
-    lattice = ba.Lattice(lattice_basis_1, lattice_basis_2, lattice_basis_3)
+    lattice = ba.Lattice3D(lattice_basis_1, lattice_basis_2, lattice_basis_3)
 
     # spherical particle that forms the base of the mesocrystal
     sphere_ff = ba.FormFactorFullSphere(2*nm)

@@ -16,7 +16,7 @@
 #define BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONFINITE3DLATTICE_H
 
 #include "Sample/Aggregate/IInterferenceFunction.h"
-#include "Sample/Lattice/Lattice.h"
+#include "Sample/Lattice/Lattice3D.h"
 
 //! Interference function of a finite 3D lattice.
 //! @ingroup interference
@@ -24,7 +24,7 @@
 class InterferenceFunctionFinite3DLattice : public IInterferenceFunction
 {
 public:
-    InterferenceFunctionFinite3DLattice(const Lattice& lattice, unsigned N_1, unsigned N_2,
+    InterferenceFunctionFinite3DLattice(const Lattice3D& lattice, unsigned N_1, unsigned N_2,
                                         unsigned N_3);
     ~InterferenceFunctionFinite3DLattice() final;
 
@@ -36,7 +36,7 @@ public:
     unsigned numberUnitCells2() const { return m_N_2; }
     unsigned numberUnitCells3() const { return m_N_3; }
 
-    const Lattice& lattice() const;
+    const Lattice3D& lattice() const;
 
     bool supportsMultilayer() const override final { return false; }
 
@@ -44,9 +44,9 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    void setLattice(const Lattice& lattice);
+    void setLattice(const Lattice3D& lattice);
 
-    std::unique_ptr<Lattice> m_lattice;
+    std::unique_ptr<Lattice3D> m_lattice;
     unsigned m_N_1, m_N_2, m_N_3; //!< Size of the finite lattice in lattice units
 };
 

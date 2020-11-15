@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Lattice/Lattice.h
+//! @file      Sample/Lattice/Lattice3D.h
 //! @brief     Defines class Lattice.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -26,19 +26,19 @@ class Transform3D;
 
 //! @ingroup samples
 
-class Lattice : public INode
+class Lattice3D : public INode
 {
 public:
-    Lattice() = delete;
-    Lattice(const kvector_t a, const kvector_t b, const kvector_t c);
-    Lattice(const Lattice& lattice);
-    ~Lattice() override;
-    Lattice& operator=(const Lattice&) = delete;
+    Lattice3D() = delete;
+    Lattice3D(const kvector_t a, const kvector_t b, const kvector_t c);
+    Lattice3D(const Lattice3D& lattice);
+    ~Lattice3D() override;
+    Lattice3D& operator=(const Lattice3D&) = delete;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Creates transformed lattice
-    Lattice transformed(const Transform3D& transform) const;
+    Lattice3D transformed(const Transform3D& transform) const;
 
     //! Initializes cached data
     void initialize();

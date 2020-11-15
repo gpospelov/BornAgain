@@ -53,7 +53,7 @@ std::string SampleLabelHandler::labelMaterial(const Material* mat)
     return m_MaterialLabel[mat];
 }
 
-std::string SampleLabelHandler::labelLattice(const Lattice* lat)
+std::string SampleLabelHandler::labelLattice(const Lattice3D* lat)
 {
     return m_LatticeLabel[lat];
 }
@@ -136,7 +136,7 @@ void SampleLabelHandler::insertMaterial(const Material* mat)
     m_MaterialLabel.insert(mat, label);
 }
 
-void SampleLabelHandler::insertLattice(const Lattice* sample)
+void SampleLabelHandler::insertLattice(const Lattice3D* sample)
 {
     std::string label = "lattice_" + std::to_string(m_LatticeLabel.size() + 1);
     m_LatticeLabel.insert(sample, label);

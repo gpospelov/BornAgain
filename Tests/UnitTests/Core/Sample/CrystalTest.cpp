@@ -9,7 +9,7 @@ class CrystalTest : public ::testing::Test
 
 TEST_F(CrystalTest, getChildren)
 {
-    Lattice lattice = bake::createHexagonalLattice(1.0, 2.0);
+    Lattice3D lattice = bake::createHexagonalLattice(1.0, 2.0);
     ParticleComposition composition;
     Crystal crystal(composition, lattice);
 

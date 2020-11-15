@@ -16,7 +16,7 @@
 #define BORNAGAIN_GUI_COREGUI_MODELS_MESOCRYSTALITEM_H
 
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
-#include "Sample/Lattice/Lattice.h"
+#include "Sample/Lattice/Lattice3D.h"
 
 class IFormFactor;
 class IParticle;
@@ -37,7 +37,7 @@ public:
 
     QStringList translateList(const QStringList& list) const override;
 
-    Lattice getLattice() const;
+    Lattice3D getLattice() const;
     std::unique_ptr<IParticle> getBasis() const;
     std::unique_ptr<IFormFactor> getOuterShape() const;
 };

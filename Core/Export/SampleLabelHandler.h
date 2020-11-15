@@ -25,7 +25,7 @@ class IInterferenceFunction;
 class ParticleLayout;
 class Material;
 class IRotation;
-class Lattice;
+class Lattice3D;
 class Layer;
 class LayerRoughness;
 class MultiLayer;
@@ -51,7 +51,7 @@ public:
     typedef LabelMap<const Layer*> layers_t;
     typedef LabelMap<const ParticleLayout*> layouts_t;
     typedef LabelMap<const Material*> materials_t;
-    typedef LabelMap<const Lattice*> lattices_t;
+    typedef LabelMap<const Lattice3D*> lattices_t;
     typedef LabelMap<const MesoCrystal*> mesocrystals_t;
     typedef LabelMap<const MultiLayer*> multilayers_t;
     typedef LabelMap<const ParticleComposition*> particlecompositions_t;
@@ -84,7 +84,7 @@ public:
     std::string labelLayer(const Layer* sample);
     std::string labelLayout(const ParticleLayout* sample);
     std::string labelMaterial(const Material* sample);
-    std::string labelLattice(const Lattice* sample);
+    std::string labelLattice(const Lattice3D* sample);
     std::string labelMultiLayer(const MultiLayer* sample);
     std::string labelParticle(const IAbstractParticle* sample);
     std::string labelRotation(const IRotation* sample);
@@ -96,7 +96,7 @@ public:
     void insertLayer(const Layer* sample);
     void insertLayout(const ParticleLayout* sample);
     void insertMaterial(const Material* sample);
-    void insertLattice(const Lattice* sample);
+    void insertLattice(const Lattice3D* sample);
     void insertMesoCrystal(const MesoCrystal* sample);
     void insertMultiLayer(const MultiLayer* sample);
     void insertParticleComposition(const ParticleComposition* sample);

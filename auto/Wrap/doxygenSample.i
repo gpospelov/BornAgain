@@ -323,7 +323,7 @@ Used in  MesoCrystal, where it is given an outer shape.
 C++ includes: Crystal.h
 ";
 
-%feature("docstring")  Crystal::Crystal "Crystal::Crystal(const IParticle &basis, const Lattice &lattice, double position_variance=0)
+%feature("docstring")  Crystal::Crystal "Crystal::Crystal(const IParticle &basis, const Lattice3D &lattice, double position_variance=0)
 ";
 
 %feature("docstring")  Crystal::~Crystal "Crystal::~Crystal()
@@ -343,7 +343,7 @@ Returns a clone of this  ISample object.
 %feature("docstring")  Crystal::homogeneousRegions "std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const
 ";
 
-%feature("docstring")  Crystal::transformedLattice "Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
+%feature("docstring")  Crystal::transformedLattice "Lattice3D Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
 ";
 
 %feature("docstring")  Crystal::getChildren "std::vector< const INode * > Crystal::getChildren() const override final
@@ -1105,7 +1105,7 @@ The form factor of a  MesoCrystal.
 C++ includes: FormFactorCrystal.h
 ";
 
-%feature("docstring")  FormFactorCrystal::FormFactorCrystal "FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
+%feature("docstring")  FormFactorCrystal::FormFactorCrystal "FormFactorCrystal::FormFactorCrystal(const Lattice3D &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
 ";
 
 %feature("docstring")  FormFactorCrystal::~FormFactorCrystal "FormFactorCrystal::~FormFactorCrystal() override final
@@ -4014,7 +4014,7 @@ Interference function of a 3D lattice.
 C++ includes: InterferenceFunction3DLattice.h
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::InterferenceFunction3DLattice "InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice &lattice)
+%feature("docstring")  InterferenceFunction3DLattice::InterferenceFunction3DLattice "InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice3D &lattice)
 ";
 
 %feature("docstring")  InterferenceFunction3DLattice::~InterferenceFunction3DLattice "InterferenceFunction3DLattice::~InterferenceFunction3DLattice() final
@@ -4031,7 +4031,7 @@ Returns a clone of this  ISample object.
 %feature("docstring")  InterferenceFunction3DLattice::setPeakShape "void InterferenceFunction3DLattice::setPeakShape(const IPeakShape &peak_shape)
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::lattice "const Lattice & InterferenceFunction3DLattice::lattice() const
+%feature("docstring")  InterferenceFunction3DLattice::lattice "const Lattice3D & InterferenceFunction3DLattice::lattice() const
 ";
 
 %feature("docstring")  InterferenceFunction3DLattice::supportsMultilayer "bool InterferenceFunction3DLattice::supportsMultilayer() const override final
@@ -4140,7 +4140,7 @@ Interference function of a finite 3D lattice.
 C++ includes: InterferenceFunctionFinite3DLattice.h
 ";
 
-%feature("docstring")  InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
+%feature("docstring")  InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice3D &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice() final
@@ -4163,7 +4163,7 @@ Returns a clone of this  ISample object.
 %feature("docstring")  InterferenceFunctionFinite3DLattice::numberUnitCells3 "unsigned InterferenceFunctionFinite3DLattice::numberUnitCells3() const
 ";
 
-%feature("docstring")  InterferenceFunctionFinite3DLattice::lattice "const Lattice & InterferenceFunctionFinite3DLattice::lattice() const
+%feature("docstring")  InterferenceFunctionFinite3DLattice::lattice "const Lattice3D & InterferenceFunctionFinite3DLattice::lattice() const
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::supportsMultilayer "bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override final
@@ -4776,89 +4776,6 @@ C++ includes: CylindersBuilder.h
 ";
 
 
-// File: classLattice.xml
-%feature("docstring") Lattice "
-
-A Bravais lattice, characterized by three basis vectors, and optionally an  ISelectionRule.
-
-C++ includes: Lattice.h
-";
-
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice()=delete
-";
-
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice(const kvector_t a, const kvector_t b, const kvector_t c)
-";
-
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice(const Lattice &lattice)
-";
-
-%feature("docstring")  Lattice::~Lattice "Lattice::~Lattice() override
-";
-
-%feature("docstring")  Lattice::accept "void Lattice::accept(INodeVisitor *visitor) const override
-";
-
-%feature("docstring")  Lattice::transformed "Lattice Lattice::transformed(const Transform3D &transform) const
-
-Creates transformed lattice. 
-";
-
-%feature("docstring")  Lattice::initialize "void Lattice::initialize()
-
-Initializes cached data. 
-";
-
-%feature("docstring")  Lattice::getBasisVectorA "kvector_t Lattice::getBasisVectorA() const
-
-Returns basis vector a. 
-";
-
-%feature("docstring")  Lattice::getBasisVectorB "kvector_t Lattice::getBasisVectorB() const
-
-Returns basis vector b. 
-";
-
-%feature("docstring")  Lattice::getBasisVectorC "kvector_t Lattice::getBasisVectorC() const
-
-Returns basis vector c. 
-";
-
-%feature("docstring")  Lattice::getMillerDirection "kvector_t Lattice::getMillerDirection(double h, double k, double l) const
-
-Returns normalized direction corresponding to the given Miller indices.
-
-Currently unused but may be useful for checks. 
-";
-
-%feature("docstring")  Lattice::unitCellVolume "double Lattice::unitCellVolume() const
-
-Returns the volume of the unit cell. 
-";
-
-%feature("docstring")  Lattice::getReciprocalLatticeBasis "void Lattice::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const
-
-Returns the reciprocal basis vectors.
-
-Currently only used in tests. 
-";
-
-%feature("docstring")  Lattice::getNearestReciprocalLatticeVectorCoordinates "ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
-
-Returns the nearest reciprocal lattice point from a given vector. 
-";
-
-%feature("docstring")  Lattice::reciprocalLatticeVectorsWithinRadius "std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
-
-Returns a list of reciprocal lattice vectors within distance dq of a vector q. 
-";
-
-%feature("docstring")  Lattice::setSelectionRule "void Lattice::setSelectionRule(const ISelectionRule &selection_rule)
-
-Sets a selection rule for the reciprocal vectors. 
-";
-
-
 // File: classLattice1DBuilder.xml
 %feature("docstring") Lattice1DBuilder "
 
@@ -4902,6 +4819,89 @@ C++ includes: LatticeBuilder.h
 ";
 
 %feature("docstring")  Lattice2D::setRotationEnabled "void Lattice2D::setRotationEnabled(bool enabled)
+";
+
+
+// File: classLattice3D.xml
+%feature("docstring") Lattice3D "
+
+A Bravais lattice, characterized by three basis vectors, and optionally an  ISelectionRule.
+
+C++ includes: Lattice3D.h
+";
+
+%feature("docstring")  Lattice3D::Lattice3D "Lattice3D::Lattice3D()=delete
+";
+
+%feature("docstring")  Lattice3D::Lattice3D "Lattice3D::Lattice3D(const kvector_t a, const kvector_t b, const kvector_t c)
+";
+
+%feature("docstring")  Lattice3D::Lattice3D "Lattice3D::Lattice3D(const Lattice3D &lattice)
+";
+
+%feature("docstring")  Lattice3D::~Lattice3D "Lattice3D::~Lattice3D() override
+";
+
+%feature("docstring")  Lattice3D::accept "void Lattice3D::accept(INodeVisitor *visitor) const override
+";
+
+%feature("docstring")  Lattice3D::transformed "Lattice3D Lattice3D::transformed(const Transform3D &transform) const
+
+Creates transformed lattice. 
+";
+
+%feature("docstring")  Lattice3D::initialize "void Lattice3D::initialize()
+
+Initializes cached data. 
+";
+
+%feature("docstring")  Lattice3D::getBasisVectorA "kvector_t Lattice3D::getBasisVectorA() const
+
+Returns basis vector a. 
+";
+
+%feature("docstring")  Lattice3D::getBasisVectorB "kvector_t Lattice3D::getBasisVectorB() const
+
+Returns basis vector b. 
+";
+
+%feature("docstring")  Lattice3D::getBasisVectorC "kvector_t Lattice3D::getBasisVectorC() const
+
+Returns basis vector c. 
+";
+
+%feature("docstring")  Lattice3D::getMillerDirection "kvector_t Lattice3D::getMillerDirection(double h, double k, double l) const
+
+Returns normalized direction corresponding to the given Miller indices.
+
+Currently unused but may be useful for checks. 
+";
+
+%feature("docstring")  Lattice3D::unitCellVolume "double Lattice3D::unitCellVolume() const
+
+Returns the volume of the unit cell. 
+";
+
+%feature("docstring")  Lattice3D::getReciprocalLatticeBasis "void Lattice3D::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const
+
+Returns the reciprocal basis vectors.
+
+Currently only used in tests. 
+";
+
+%feature("docstring")  Lattice3D::getNearestReciprocalLatticeVectorCoordinates "ivector_t Lattice3D::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
+
+Returns the nearest reciprocal lattice point from a given vector. 
+";
+
+%feature("docstring")  Lattice3D::reciprocalLatticeVectorsWithinRadius "std::vector< kvector_t > Lattice3D::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
+
+Returns a list of reciprocal lattice vectors within distance dq of a vector q. 
+";
+
+%feature("docstring")  Lattice3D::setSelectionRule "void Lattice3D::setSelectionRule(const ISelectionRule &selection_rule)
+
+Sets a selection rule for the reciprocal vectors. 
 ";
 
 
@@ -7725,32 +7725,32 @@ C++ includes: ZLimits.h
 
 
 // File: namespacebake.xml
-%feature("docstring")  bake::createCubicLattice "Lattice bake::createCubicLattice(double a)
+%feature("docstring")  bake::createCubicLattice "Lattice3D bake::createCubicLattice(double a)
 
 Returns a primitive cubic (cP) lattice with edge length a. 
 ";
 
-%feature("docstring")  bake::createFCCLattice "Lattice bake::createFCCLattice(double a)
+%feature("docstring")  bake::createFCCLattice "Lattice3D bake::createFCCLattice(double a)
 
 Returns a face-centered cubic (cF) lattice with edge length a. 
 ";
 
-%feature("docstring")  bake::createHexagonalLattice "Lattice bake::createHexagonalLattice(double a, double c)
+%feature("docstring")  bake::createHexagonalLattice "Lattice3D bake::createHexagonalLattice(double a, double c)
 
 Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. 
 ";
 
-%feature("docstring")  bake::createHCPLattice "Lattice bake::createHCPLattice(double a, double c)
+%feature("docstring")  bake::createHCPLattice "Lattice3D bake::createHCPLattice(double a, double c)
 
 TODO: Clarify how this is meant: HCP is not a Bravais lattice. 
 ";
 
-%feature("docstring")  bake::createTetragonalLattice "Lattice bake::createTetragonalLattice(double a, double c)
+%feature("docstring")  bake::createTetragonalLattice "Lattice3D bake::createTetragonalLattice(double a, double c)
 
 Returns a primitive tetragonal (tP) lattice with square base edge a and height c. 
 ";
 
-%feature("docstring")  bake::createBCTLattice "Lattice bake::createBCTLattice(double a, double c)
+%feature("docstring")  bake::createBCTLattice "Lattice3D bake::createBCTLattice(double a, double c)
 
 Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
 ";
@@ -8308,16 +8308,16 @@ Used by the hard sphere and by several soft sphere classes.
 // File: ISelectionRule_8h.xml
 
 
-// File: Lattice_8cpp.xml
-
-
-// File: Lattice_8h.xml
-
-
 // File: Lattice2D_8cpp.xml
 
 
 // File: Lattice2D_8h.xml
+
+
+// File: Lattice3D_8cpp.xml
+
+
+// File: Lattice3D_8h.xml
 
 
 // File: SomeFormFactors_8cpp.xml

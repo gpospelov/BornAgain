@@ -17,7 +17,7 @@
 #include "Base/Types/Exceptions.h"
 #include "Sample/Material/WavevectorInfo.h"
 
-FormFactorCrystal::FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
+FormFactorCrystal::FormFactorCrystal(const Lattice3D& lattice, const IFormFactor& basis_form_factor,
                                      const IFormFactor& meso_form_factor, double position_variance)
     : m_lattice(lattice)
     , m_basis_form_factor(basis_form_factor.clone())

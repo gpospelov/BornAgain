@@ -4056,8 +4056,8 @@ class FormFactorCrystal(IFormFactor):
 
     def __init__(self, lattice, basis_form_factor, meso_form_factor, position_variance=0.0):
         r"""
-        __init__(FormFactorCrystal self, Lattice lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor, double position_variance=0.0) -> FormFactorCrystal
-        FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
+        __init__(FormFactorCrystal self, Lattice3D lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor, double position_variance=0.0) -> FormFactorCrystal
+        FormFactorCrystal::FormFactorCrystal(const Lattice3D &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
 
         """
         _libBornAgainSample.FormFactorCrystal_swiginit(self, _libBornAgainSample.new_FormFactorCrystal(lattice, basis_form_factor, meso_form_factor, position_variance))
@@ -4352,8 +4352,8 @@ class Crystal(ISample):
 
     def __init__(self, basis, lattice, position_variance=0):
         r"""
-        __init__(Crystal self, IParticle basis, Lattice lattice, double position_variance=0) -> Crystal
-        Crystal::Crystal(const IParticle &basis, const Lattice &lattice, double position_variance=0)
+        __init__(Crystal self, IParticle basis, Lattice3D lattice, double position_variance=0) -> Crystal
+        Crystal::Crystal(const IParticle &basis, const Lattice3D &lattice, double position_variance=0)
 
         """
         _libBornAgainSample.Crystal_swiginit(self, _libBornAgainSample.new_Crystal(basis, lattice, position_variance))
@@ -4395,8 +4395,8 @@ class Crystal(ISample):
 
     def transformedLattice(self, p_rotation=None):
         r"""
-        transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice
-        Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
+        transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice3D
+        Lattice3D Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
 
         """
         return _libBornAgainSample.Crystal_transformedLattice(self, p_rotation)
@@ -7359,8 +7359,8 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
 
     def __init__(self, lattice):
         r"""
-        __init__(InterferenceFunction3DLattice self, Lattice lattice) -> InterferenceFunction3DLattice
-        InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice &lattice)
+        __init__(InterferenceFunction3DLattice self, Lattice3D lattice) -> InterferenceFunction3DLattice
+        InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice3D &lattice)
 
         """
         _libBornAgainSample.InterferenceFunction3DLattice_swiginit(self, _libBornAgainSample.new_InterferenceFunction3DLattice(lattice))
@@ -7394,8 +7394,8 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
 
     def lattice(self):
         r"""
-        lattice(InterferenceFunction3DLattice self) -> Lattice
-        const Lattice & InterferenceFunction3DLattice::lattice() const
+        lattice(InterferenceFunction3DLattice self) -> Lattice3D
+        const Lattice3D & InterferenceFunction3DLattice::lattice() const
 
         """
         return _libBornAgainSample.InterferenceFunction3DLattice_lattice(self)
@@ -7569,8 +7569,8 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
 
     def __init__(self, lattice, N_1, N_2, N_3):
         r"""
-        __init__(InterferenceFunctionFinite3DLattice self, Lattice lattice, unsigned int N_1, unsigned int N_2, unsigned int N_3) -> InterferenceFunctionFinite3DLattice
-        InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
+        __init__(InterferenceFunctionFinite3DLattice self, Lattice3D lattice, unsigned int N_1, unsigned int N_2, unsigned int N_3) -> InterferenceFunctionFinite3DLattice
+        InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice3D &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
 
         """
         _libBornAgainSample.InterferenceFunctionFinite3DLattice_swiginit(self, _libBornAgainSample.new_InterferenceFunctionFinite3DLattice(lattice, N_1, N_2, N_3))
@@ -7620,8 +7620,8 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
 
     def lattice(self):
         r"""
-        lattice(InterferenceFunctionFinite3DLattice self) -> Lattice
-        const Lattice & InterferenceFunctionFinite3DLattice::lattice() const
+        lattice(InterferenceFunctionFinite3DLattice self) -> Lattice3D
+        const Lattice3D & InterferenceFunctionFinite3DLattice::lattice() const
 
         """
         return _libBornAgainSample.InterferenceFunctionFinite3DLattice_lattice(self)
@@ -11236,13 +11236,13 @@ class SimpleSelectionRule(ISelectionRule):
 # Register SimpleSelectionRule in _libBornAgainSample:
 _libBornAgainSample.SimpleSelectionRule_swigregister(SimpleSelectionRule)
 
-class Lattice(libBornAgainParam.INode):
+class Lattice3D(libBornAgainParam.INode):
     r"""
 
 
     A Bravais lattice, characterized by three basis vectors, and optionally an  ISelectionRule.
 
-    C++ includes: Lattice.h
+    C++ includes: Lattice3D.h
 
     """
 
@@ -11251,138 +11251,138 @@ class Lattice(libBornAgainParam.INode):
 
     def __init__(self, *args):
         r"""
-        __init__(Lattice self, kvector_t a, kvector_t b, kvector_t c) -> Lattice
-        __init__(Lattice self, Lattice lattice) -> Lattice
-        Lattice::Lattice(const Lattice &lattice)
+        __init__(Lattice3D self, kvector_t a, kvector_t b, kvector_t c) -> Lattice3D
+        __init__(Lattice3D self, Lattice3D lattice) -> Lattice3D
+        Lattice3D::Lattice3D(const Lattice3D &lattice)
 
         """
-        _libBornAgainSample.Lattice_swiginit(self, _libBornAgainSample.new_Lattice(*args))
-    __swig_destroy__ = _libBornAgainSample.delete_Lattice
+        _libBornAgainSample.Lattice3D_swiginit(self, _libBornAgainSample.new_Lattice3D(*args))
+    __swig_destroy__ = _libBornAgainSample.delete_Lattice3D
 
     def accept(self, visitor):
         r"""
-        accept(Lattice self, INodeVisitor * visitor)
-        void Lattice::accept(INodeVisitor *visitor) const override
+        accept(Lattice3D self, INodeVisitor * visitor)
+        void Lattice3D::accept(INodeVisitor *visitor) const override
 
         """
-        return _libBornAgainSample.Lattice_accept(self, visitor)
+        return _libBornAgainSample.Lattice3D_accept(self, visitor)
 
     def transformed(self, transform):
         r"""
-        transformed(Lattice self, Transform3D const & transform) -> Lattice
-        Lattice Lattice::transformed(const Transform3D &transform) const
+        transformed(Lattice3D self, Transform3D const & transform) -> Lattice3D
+        Lattice3D Lattice3D::transformed(const Transform3D &transform) const
 
         Creates transformed lattice. 
 
         """
-        return _libBornAgainSample.Lattice_transformed(self, transform)
+        return _libBornAgainSample.Lattice3D_transformed(self, transform)
 
     def initialize(self):
         r"""
-        initialize(Lattice self)
-        void Lattice::initialize()
+        initialize(Lattice3D self)
+        void Lattice3D::initialize()
 
         Initializes cached data. 
 
         """
-        return _libBornAgainSample.Lattice_initialize(self)
+        return _libBornAgainSample.Lattice3D_initialize(self)
 
     def getBasisVectorA(self):
         r"""
-        getBasisVectorA(Lattice self) -> kvector_t
-        kvector_t Lattice::getBasisVectorA() const
+        getBasisVectorA(Lattice3D self) -> kvector_t
+        kvector_t Lattice3D::getBasisVectorA() const
 
         Returns basis vector a. 
 
         """
-        return _libBornAgainSample.Lattice_getBasisVectorA(self)
+        return _libBornAgainSample.Lattice3D_getBasisVectorA(self)
 
     def getBasisVectorB(self):
         r"""
-        getBasisVectorB(Lattice self) -> kvector_t
-        kvector_t Lattice::getBasisVectorB() const
+        getBasisVectorB(Lattice3D self) -> kvector_t
+        kvector_t Lattice3D::getBasisVectorB() const
 
         Returns basis vector b. 
 
         """
-        return _libBornAgainSample.Lattice_getBasisVectorB(self)
+        return _libBornAgainSample.Lattice3D_getBasisVectorB(self)
 
     def getBasisVectorC(self):
         r"""
-        getBasisVectorC(Lattice self) -> kvector_t
-        kvector_t Lattice::getBasisVectorC() const
+        getBasisVectorC(Lattice3D self) -> kvector_t
+        kvector_t Lattice3D::getBasisVectorC() const
 
         Returns basis vector c. 
 
         """
-        return _libBornAgainSample.Lattice_getBasisVectorC(self)
+        return _libBornAgainSample.Lattice3D_getBasisVectorC(self)
 
     def getMillerDirection(self, h, k, l):
         r"""
-        getMillerDirection(Lattice self, double h, double k, double l) -> kvector_t
-        kvector_t Lattice::getMillerDirection(double h, double k, double l) const
+        getMillerDirection(Lattice3D self, double h, double k, double l) -> kvector_t
+        kvector_t Lattice3D::getMillerDirection(double h, double k, double l) const
 
         Returns normalized direction corresponding to the given Miller indices.
 
         Currently unused but may be useful for checks. 
 
         """
-        return _libBornAgainSample.Lattice_getMillerDirection(self, h, k, l)
+        return _libBornAgainSample.Lattice3D_getMillerDirection(self, h, k, l)
 
     def unitCellVolume(self):
         r"""
-        unitCellVolume(Lattice self) -> double
-        double Lattice::unitCellVolume() const
+        unitCellVolume(Lattice3D self) -> double
+        double Lattice3D::unitCellVolume() const
 
         Returns the volume of the unit cell. 
 
         """
-        return _libBornAgainSample.Lattice_unitCellVolume(self)
+        return _libBornAgainSample.Lattice3D_unitCellVolume(self)
 
     def getReciprocalLatticeBasis(self, ra, rb, rc):
         r"""
-        getReciprocalLatticeBasis(Lattice self, kvector_t ra, kvector_t rb, kvector_t rc)
-        void Lattice::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const
+        getReciprocalLatticeBasis(Lattice3D self, kvector_t ra, kvector_t rb, kvector_t rc)
+        void Lattice3D::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const
 
         Returns the reciprocal basis vectors.
 
         Currently only used in tests. 
 
         """
-        return _libBornAgainSample.Lattice_getReciprocalLatticeBasis(self, ra, rb, rc)
+        return _libBornAgainSample.Lattice3D_getReciprocalLatticeBasis(self, ra, rb, rc)
 
     def getNearestReciprocalLatticeVectorCoordinates(self, q):
         r"""
-        getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t q) -> ivector_t
-        ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
+        getNearestReciprocalLatticeVectorCoordinates(Lattice3D self, kvector_t q) -> ivector_t
+        ivector_t Lattice3D::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
 
         Returns the nearest reciprocal lattice point from a given vector. 
 
         """
-        return _libBornAgainSample.Lattice_getNearestReciprocalLatticeVectorCoordinates(self, q)
+        return _libBornAgainSample.Lattice3D_getNearestReciprocalLatticeVectorCoordinates(self, q)
 
     def reciprocalLatticeVectorsWithinRadius(self, q, dq):
         r"""
-        reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t q, double dq) -> vector_kvector_t
-        std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
+        reciprocalLatticeVectorsWithinRadius(Lattice3D self, kvector_t q, double dq) -> vector_kvector_t
+        std::vector< kvector_t > Lattice3D::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
 
         Returns a list of reciprocal lattice vectors within distance dq of a vector q. 
 
         """
-        return _libBornAgainSample.Lattice_reciprocalLatticeVectorsWithinRadius(self, q, dq)
+        return _libBornAgainSample.Lattice3D_reciprocalLatticeVectorsWithinRadius(self, q, dq)
 
     def setSelectionRule(self, selection_rule):
         r"""
-        setSelectionRule(Lattice self, ISelectionRule selection_rule)
-        void Lattice::setSelectionRule(const ISelectionRule &selection_rule)
+        setSelectionRule(Lattice3D self, ISelectionRule selection_rule)
+        void Lattice3D::setSelectionRule(const ISelectionRule &selection_rule)
 
         Sets a selection rule for the reciprocal vectors. 
 
         """
-        return _libBornAgainSample.Lattice_setSelectionRule(self, selection_rule)
+        return _libBornAgainSample.Lattice3D_setSelectionRule(self, selection_rule)
 
-# Register Lattice in _libBornAgainSample:
-_libBornAgainSample.Lattice_swigregister(Lattice)
+# Register Lattice3D in _libBornAgainSample:
+_libBornAgainSample.Lattice3D_swigregister(Lattice3D)
 
 class Lattice2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""Proxy of C++ Lattice2D class."""
@@ -11662,8 +11662,8 @@ _libBornAgainSample.HexagonalLattice_swigregister(HexagonalLattice)
 
 def createCubicLattice(a):
     r"""
-    createCubicLattice(double a) -> Lattice
-    Lattice bake::createCubicLattice(double a)
+    createCubicLattice(double a) -> Lattice3D
+    Lattice3D bake::createCubicLattice(double a)
 
     Returns a primitive cubic (cP) lattice with edge length a. 
 
@@ -11672,8 +11672,8 @@ def createCubicLattice(a):
 
 def createFCCLattice(a):
     r"""
-    createFCCLattice(double a) -> Lattice
-    Lattice bake::createFCCLattice(double a)
+    createFCCLattice(double a) -> Lattice3D
+    Lattice3D bake::createFCCLattice(double a)
 
     Returns a face-centered cubic (cF) lattice with edge length a. 
 
@@ -11682,8 +11682,8 @@ def createFCCLattice(a):
 
 def createHexagonalLattice(a, c):
     r"""
-    createHexagonalLattice(double a, double c) -> Lattice
-    Lattice bake::createHexagonalLattice(double a, double c)
+    createHexagonalLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::createHexagonalLattice(double a, double c)
 
     Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. 
 
@@ -11692,8 +11692,8 @@ def createHexagonalLattice(a, c):
 
 def createHCPLattice(a, c):
     r"""
-    createHCPLattice(double a, double c) -> Lattice
-    Lattice bake::createHCPLattice(double a, double c)
+    createHCPLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::createHCPLattice(double a, double c)
 
     TODO: Clarify how this is meant: HCP is not a Bravais lattice. 
 
@@ -11702,8 +11702,8 @@ def createHCPLattice(a, c):
 
 def createTetragonalLattice(a, c):
     r"""
-    createTetragonalLattice(double a, double c) -> Lattice
-    Lattice bake::createTetragonalLattice(double a, double c)
+    createTetragonalLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::createTetragonalLattice(double a, double c)
 
     Returns a primitive tetragonal (tP) lattice with square base edge a and height c. 
 
@@ -11712,8 +11712,8 @@ def createTetragonalLattice(a, c):
 
 def createBCTLattice(a, c):
     r"""
-    createBCTLattice(double a, double c) -> Lattice
-    Lattice bake::createBCTLattice(double a, double c)
+    createBCTLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::createBCTLattice(double a, double c)
 
     Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
 

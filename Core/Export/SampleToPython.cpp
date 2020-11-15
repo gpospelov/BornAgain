@@ -66,7 +66,7 @@ void SampleToPython::initLabels(const MultiLayer& multilayer)
         m_label->insertParticleComposition(x);
     for (auto x : INodeUtils::AllDescendantsOfType<ParticleDistribution>(multilayer))
         m_label->insertParticleDistribution(x);
-    for (auto x : INodeUtils::AllDescendantsOfType<Lattice>(multilayer))
+    for (auto x : INodeUtils::AllDescendantsOfType<Lattice3D>(multilayer))
         m_label->insertLattice(x);
     for (auto x : INodeUtils::AllDescendantsOfType<Crystal>(multilayer))
         m_label->insertCrystal(x);
@@ -294,12 +294,12 @@ std::string SampleToPython::defineLattices() const
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining 3D lattices\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
-        const Lattice* p_lattice = it->first;
+        const Lattice3D* p_lattice = it->first;
         std::string lattice_name = it->second;
         kvector_t bas_a = p_lattice->getBasisVectorA();
         kvector_t bas_b = p_lattice->getBasisVectorB();
         kvector_t bas_c = p_lattice->getBasisVectorC();
-        result << indent() << lattice_name << " = ba.Lattice(\n";
+        result << indent() << lattice_name << " = ba.Lattice3D(\n";
         result << indent() << indent() << "ba.kvector_t(" << pyfmt::printNm(bas_a.x()) << ", "
                << pyfmt::printNm(bas_a.y()) << ", " << pyfmt::printNm(bas_a.z()) << "),\n";
         result << indent() << indent() << "ba.kvector_t(" << pyfmt::printNm(bas_b.x()) << ", "
@@ -321,7 +321,7 @@ std::string SampleToPython::defineCrystals() const
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const Crystal* p_crystal = it->first;
         std::string crystal_name = it->second;
-        auto p_lattice = INodeUtils::OnlyChildOfType<Lattice>(*p_crystal);
+        auto p_lattice = INodeUtils::OnlyChildOfType<Lattice3D>(*p_crystal);
         auto p_basis = INodeUtils::OnlyChildOfType<IParticle>(*p_crystal);
         if (!p_lattice || !p_basis)
             continue;

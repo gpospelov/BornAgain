@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Lattice/Lattice.cpp
+//! @file      Sample/Lattice/Lattice3D.cpp
 //! @brief     Implements class Lattice.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,20 +12,21 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Lattice/Lattice.h"
+#include "Sample/Lattice/Lattice3D.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Vector/Transform3D.h"
 #include "Param/Base/RealParameter.h"
 #include "Sample/Lattice/ISelectionRule.h"
 #include <gsl/gsl_linalg.h>
 
-Lattice::Lattice(const kvector_t a, const kvector_t b, const kvector_t c) : m_a(a), m_b(b), m_c(c)
+Lattice3D::Lattice3D(const kvector_t a, const kvector_t b, const kvector_t c)
+    : m_a(a), m_b(b), m_c(c)
 {
     setName("Lattice");
     initialize();
 }
 
-Lattice::Lattice(const Lattice& lattice)
+Lattice3D::Lattice3D(const Lattice3D& lattice)
     : INode(), m_a(lattice.m_a), m_b(lattice.m_b), m_c(lattice.m_c)
 {
     setName("Lattice");
@@ -34,9 +35,9 @@ Lattice::Lattice(const Lattice& lattice)
         setSelectionRule(*lattice.m_selection_rule);
 }
 
-Lattice::~Lattice() = default;
+Lattice3D::~Lattice3D() = default;
 
-void Lattice::initialize()
+void Lattice3D::initialize()
 {
     computeReciprocalVectors();
     if (!parameter(XComponentName("BasisA"))) {
@@ -46,50 +47,50 @@ void Lattice::initialize()
     }
 }
 
-void Lattice::onChange()
+void Lattice3D::onChange()
 {
     computeReciprocalVectors();
 }
 
-Lattice Lattice::transformed(const Transform3D& transform) const
+Lattice3D Lattice3D::transformed(const Transform3D& transform) const
 {
     kvector_t q1 = transform.transformed(m_a);
     kvector_t q2 = transform.transformed(m_b);
     kvector_t q3 = transform.transformed(m_c);
-    Lattice result = {q1, q2, q3};
+    Lattice3D result = {q1, q2, q3};
     if (m_selection_rule)
         result.setSelectionRule(*m_selection_rule);
     return result;
 }
 
 //! Currently unused but may be useful for checks
-kvector_t Lattice::getMillerDirection(double h, double k, double l) const
+kvector_t Lattice3D::getMillerDirection(double h, double k, double l) const
 {
     kvector_t direction = h * m_ra + k * m_rb + l * m_rc;
     return direction.unit();
 }
 
-double Lattice::unitCellVolume() const
+double Lattice3D::unitCellVolume() const
 {
     return std::abs(m_a.dot(m_b.cross(m_c)));
 }
 
 //! Currently only used in tests
-void Lattice::getReciprocalLatticeBasis(kvector_t& ra, kvector_t& rb, kvector_t& rc) const
+void Lattice3D::getReciprocalLatticeBasis(kvector_t& ra, kvector_t& rb, kvector_t& rc) const
 {
     ra = m_ra;
     rb = m_rb;
     rc = m_rc;
 }
 
-ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
+ivector_t Lattice3D::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
 {
     return {(int)std::lround(q.dot(m_a) / M_TWOPI), (int)std::lround(q.dot(m_b) / M_TWOPI),
             (int)std::lround(q.dot(m_c) / M_TWOPI)};
 }
 
-std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q,
-                                                                     double dq) const
+std::vector<kvector_t> Lattice3D::reciprocalLatticeVectorsWithinRadius(const kvector_t q,
+                                                                       double dq) const
 {
     ivector_t nearest_coords = getNearestReciprocalLatticeVectorCoordinates(q);
 
@@ -114,7 +115,7 @@ std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvect
     return ret;
 }
 
-void Lattice::computeReciprocalVectors() const
+void Lattice3D::computeReciprocalVectors() const
 {
     kvector_t q23 = m_b.cross(m_c);
     kvector_t q31 = m_c.cross(m_a);
@@ -124,7 +125,7 @@ void Lattice::computeReciprocalVectors() const
     m_rc = M_TWOPI / m_c.dot(q12) * q12;
 }
 
-void Lattice::setSelectionRule(const ISelectionRule& selection_rule)
+void Lattice3D::setSelectionRule(const ISelectionRule& selection_rule)
 {
     m_selection_rule.reset(selection_rule.clone());
 }

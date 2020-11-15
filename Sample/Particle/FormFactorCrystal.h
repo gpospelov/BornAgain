@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_FORMFACTORCRYSTAL_H
 #define BORNAGAIN_SAMPLE_PARTICLE_FORMFACTORCRYSTAL_H
 
-#include "Sample/Lattice/Lattice.h"
+#include "Sample/Lattice/Lattice3D.h"
 #include "Sample/Scattering/IFormFactorBorn.h"
 
 //! The form factor of a MesoCrystal.
@@ -24,7 +24,7 @@
 class FormFactorCrystal : public IFormFactor
 {
 public:
-    FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
+    FormFactorCrystal(const Lattice3D& lattice, const IFormFactor& basis_form_factor,
                       const IFormFactor& meso_form_factor, double position_variance = 0.0);
     ~FormFactorCrystal() override final;
 
@@ -57,7 +57,7 @@ private:
     void calculateLargestReciprocalDistance();
     complex_t debyeWallerFactor(const kvector_t& q_i) const;
 
-    Lattice m_lattice;
+    Lattice3D m_lattice;
     IFormFactor* m_basis_form_factor;
     IFormFactor* m_meso_form_factor; //!< The outer shape of this mesocrystal
     double m_position_variance;

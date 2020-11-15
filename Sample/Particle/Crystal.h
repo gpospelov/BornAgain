@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
 #define BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
 
-#include "Sample/Lattice/Lattice.h"
+#include "Sample/Lattice/Lattice3D.h"
 #include "Sample/Scattering/ISample.h"
 
 class IFormFactor;
@@ -35,7 +35,7 @@ struct HomogeneousRegion;
 class Crystal : public ISample
 {
 public:
-    Crystal(const IParticle& basis, const Lattice& lattice, double position_variance = 0);
+    Crystal(const IParticle& basis, const Lattice3D& lattice, double position_variance = 0);
     ~Crystal();
 
     Crystal* clone() const override final;
@@ -48,14 +48,14 @@ public:
 
     std::vector<HomogeneousRegion> homogeneousRegions() const;
 
-    Lattice transformedLattice(const IRotation* p_rotation = nullptr) const;
+    Lattice3D transformedLattice(const IRotation* p_rotation = nullptr) const;
 
     std::vector<const INode*> getChildren() const override final;
 
 private:
-    Crystal(IParticle* p_basis, const Lattice& lattice, double position_variance = 0);
+    Crystal(IParticle* p_basis, const Lattice3D& lattice, double position_variance = 0);
 
-    Lattice m_lattice;
+    Lattice3D m_lattice;
     std::unique_ptr<IParticle> m_basis;
     const double m_position_variance;
 };

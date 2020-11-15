@@ -17,7 +17,7 @@
 #include "Sample/Correlations/IPeakShape.h"
 #include <algorithm>
 
-InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice& lattice)
+InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice3D& lattice)
     : IInterferenceFunction(0), m_lattice(lattice), m_peak_shape(nullptr), m_rec_radius(0.0)
 {
     setName("Interference3DLattice");
@@ -40,7 +40,7 @@ void InterferenceFunction3DLattice::setPeakShape(const IPeakShape& peak_shape)
     m_peak_shape.reset(peak_shape.clone());
 }
 
-const Lattice& InterferenceFunction3DLattice::lattice() const
+const Lattice3D& InterferenceFunction3DLattice::lattice() const
 {
     return m_lattice;
 }

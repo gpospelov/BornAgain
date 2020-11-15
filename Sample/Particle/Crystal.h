@@ -57,7 +57,7 @@ private:
 
     Lattice m_lattice;
     std::unique_ptr<IParticle> m_basis;
-    double m_position_variance;
+    const double m_position_variance;
 };
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H

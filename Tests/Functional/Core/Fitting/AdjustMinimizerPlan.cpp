@@ -20,7 +20,7 @@
 
 namespace
 {
-const double nm = Units::nanometer;
+const double nm = Units::nm;
 }
 
 using namespace Fit;

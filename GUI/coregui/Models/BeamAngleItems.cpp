@@ -37,7 +37,7 @@ double BeamAzimuthalAngleItem::azimuthalAngle() const
 
 double BeamAzimuthalAngleItem::scaleFactor() const
 {
-    return Units::degree;
+    return Units::deg;
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -64,5 +64,5 @@ double BeamInclinationAngleItem::inclinationAngle() const
 
 double BeamInclinationAngleItem::scaleFactor() const
 {
-    return Units::degree;
+    return Units::deg;
 }

@@ -29,8 +29,8 @@ MultiLayer* TransformBoxBuilder::buildSample() const
     const double height(10);
 
     Particle box(refMat::Ag, FormFactorBox(length, width, height));
-    box.setRotation(RotationZ(90. * Units::degree));
-    box.rotate(RotationY(90. * Units::degree));
+    box.setRotation(RotationZ(90. * Units::deg));
+    box.rotate(RotationY(90. * Units::deg));
     box.setPosition(kvector_t(0, 0, -layer_thickness / 2.));
 
     ParticleLayout layout;

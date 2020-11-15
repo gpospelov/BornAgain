@@ -49,8 +49,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
     Particle particle3;
     Particle particle4;
 
-    RotationZ transform3(45. * Units::degree);
-    RotationZ transform4(45. * Units::degree);
+    RotationZ transform3(45. * Units::deg);
+    RotationZ transform4(45. * Units::deg);
 
     particleDecoration.addParticle(particle1);
     particleDecoration.addParticle(particle2, 2.2);
@@ -86,8 +86,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
     Particle particle3;
     Particle particle4;
 
-    RotationY transform3(45. * Units::degree);
-    RotationZ transform4(45. * Units::degree);
+    RotationY transform3(45. * Units::deg);
+    RotationZ transform4(45. * Units::deg);
 
     particleDecoration.addParticle(particle1);
     particleDecoration.addParticle(particle2, 2.0);
@@ -105,8 +105,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
     Particle particle3;
     Particle particle4;
 
-    RotationY transform3(45. * Units::degree);
-    RotationZ transform4(45. * Units::degree);
+    RotationY transform3(45. * Units::deg);
+    RotationZ transform4(45. * Units::deg);
 
     particleDecoration.addParticle(particle1);
     particleDecoration.addParticle(particle2, 2.0);

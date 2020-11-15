@@ -30,7 +30,7 @@ using namespace Fit;
 
 namespace
 {
-const double nm = Units::nanometer;
+const double nm = Units::nm;
 }
 
 CylindersInBAPlan::CylindersInBAPlan() : Plan("CylindersInBAPlan")
@@ -81,7 +81,7 @@ std::unique_ptr<ISimulation> RectDetPlan::createSimulation(const Parameters&) co
     RectangularDetector detector(20u, width, 18u, height);
     detector.setPerpendicularToSampleX(detector_distance, width / 2., 0.0);
 
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree, 0.0 * Units::degree);
+    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
     result->setDetector(detector);
     result->setRegionOfInterest(5.0, 6.0, 15.0, 12.0);
     result->addMask(Rectangle(0.0, 0.0, 2.0, 2.0), true);

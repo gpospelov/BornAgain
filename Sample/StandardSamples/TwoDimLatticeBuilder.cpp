@@ -31,16 +31,15 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DLattice iff(BasicLattice(5.0 * Units::nanometer, 10.0 * Units::nanometer,
-                                                   30.0 * Units::deg, 10.0 * Units::deg));
+    InterferenceFunction2DLattice iff(
+        BasicLattice(5.0 * Units::nm, 10.0 * Units::nm, 30.0 * Units::deg, 10.0 * Units::deg));
 
-    FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
-                                100.0 * Units::nanometer / 2.0 / M_PI, 0);
+    FTDecayFunction2DCauchy pdf(300.0 * Units::nm / 2.0 / M_PI, 100.0 * Units::nm / 2.0 / M_PI, 0);
     iff.setDecayFunction(pdf);
 
     // particles
     ParticleLayout particle_layout;
-    FormFactorCylinder ff_cyl(5.0 * Units::nanometer, 5.0 * Units::nanometer);
+    FormFactorCylinder ff_cyl(5.0 * Units::nm, 5.0 * Units::nm);
     Particle particle(refMat::Particle, ff_cyl);
     particle_layout.addParticle(particle, 1.0);
 
@@ -62,14 +61,13 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DLattice iff(SquareLattice(10.0 * Units::nanometer, 0));
-    FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
-                                100.0 * Units::nanometer / 2.0 / M_PI, 0);
+    InterferenceFunction2DLattice iff(SquareLattice(10.0 * Units::nm, 0));
+    FTDecayFunction2DCauchy pdf(300.0 * Units::nm / 2.0 / M_PI, 100.0 * Units::nm / 2.0 / M_PI, 0);
     iff.setDecayFunction(pdf);
 
     // particles
     ParticleLayout particle_layout;
-    FormFactorCylinder ff_cyl(5.0 * Units::nanometer, 5.0 * Units::nanometer);
+    FormFactorCylinder ff_cyl(5.0 * Units::nm, 5.0 * Units::nm);
     Particle particle(refMat::Particle, ff_cyl);
     particle_layout.addParticle(particle, 1.0);
 
@@ -92,16 +90,15 @@ MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
     Layer substrate_layer(refMat::Substrate);
 
     InterferenceFunction2DLattice interference_function(
-        BasicLattice(10.0 * Units::nanometer, 10.0 * Units::nanometer, M_PI / 2.0, 0));
-    FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
-                                100.0 * Units::nanometer / 2.0 / M_PI, 0);
+        BasicLattice(10.0 * Units::nm, 10.0 * Units::nm, M_PI / 2.0, 0));
+    FTDecayFunction2DCauchy pdf(300.0 * Units::nm / 2.0 / M_PI, 100.0 * Units::nm / 2.0 / M_PI, 0);
     interference_function.setDecayFunction(pdf);
 
-    FormFactorCylinder ff_cyl(5.0 * Units::nanometer, 5.0 * Units::nanometer);
+    FormFactorCylinder ff_cyl(5.0 * Units::nm, 5.0 * Units::nm);
     Particle cylinder(refMat::Particle, ff_cyl);
     std::vector<kvector_t> positions;
     kvector_t position_1(0.0, 0.0, 0.0);
-    kvector_t position_2(5.0 * Units::nanometer, -5.0 * Units::nanometer, 0.0);
+    kvector_t position_2(5.0 * Units::nm, -5.0 * Units::nm, 0.0);
     positions.push_back(position_1);
     positions.push_back(position_2);
     ParticleComposition basis;
@@ -126,14 +123,14 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DLattice iff(SquareLattice(10.0 * Units::nanometer, 30.0 * Units::degree));
-    FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
-                                100.0 * Units::nanometer / 2.0 / M_PI, 30.0 * Units::degree);
+    InterferenceFunction2DLattice iff(SquareLattice(10.0 * Units::nm, 30.0 * Units::deg));
+    FTDecayFunction2DCauchy pdf(300.0 * Units::nm / 2.0 / M_PI, 100.0 * Units::nm / 2.0 / M_PI,
+                                30.0 * Units::deg);
     iff.setDecayFunction(pdf);
 
     ParticleLayout particle_layout;
     // particle
-    FormFactorCylinder ff_cyl(5.0 * Units::nanometer, 5.0 * Units::nanometer);
+    FormFactorCylinder ff_cyl(5.0 * Units::nm, 5.0 * Units::nm);
     kvector_t position(0.0, 0.0, 0.0);
     Particle p(refMat::Particle, ff_cyl);
     p.setPosition(position);
@@ -156,12 +153,12 @@ MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunctionFinite2DLattice iff(SquareLattice(10.0 * Units::nanometer, 0.0), 40, 40);
+    InterferenceFunctionFinite2DLattice iff(SquareLattice(10.0 * Units::nm, 0.0), 40, 40);
     iff.setPositionVariance(1.0);
 
     // particles
     ParticleLayout particle_layout;
-    FormFactorCylinder ff_cyl(5.0 * Units::nanometer, 5.0 * Units::nanometer);
+    FormFactorCylinder ff_cyl(5.0 * Units::nm, 5.0 * Units::nm);
     Particle particle(refMat::Particle, ff_cyl);
     particle_layout.addParticle(particle, 1.0);
 
@@ -183,17 +180,16 @@ MultiLayer* SuperLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DSuperLattice iff(SquareLattice(200.0 * Units::nanometer, 0.0), 40, 40);
-    InterferenceFunctionFinite2DLattice substructure(SquareLattice(10.0 * Units::nanometer, 0.0),
-                                                     10, 10);
+    InterferenceFunction2DSuperLattice iff(SquareLattice(200.0 * Units::nm, 0.0), 40, 40);
+    InterferenceFunctionFinite2DLattice substructure(SquareLattice(10.0 * Units::nm, 0.0), 10, 10);
     iff.setSubstructureIFF(substructure);
     iff.setPositionVariance(1.0);
 
     // particles
     ParticleLayout particle_layout;
-    FormFactorCylinder ff_cyl(5.0 * Units::nanometer, 10.0 * Units::nanometer);
+    FormFactorCylinder ff_cyl(5.0 * Units::nm, 10.0 * Units::nm);
     Particle particle(refMat::Vacuum, ff_cyl);
-    particle_layout.addParticle(particle, 1.0, kvector_t(0.0, 0.0, -10.0 * Units::nanometer));
+    particle_layout.addParticle(particle, 1.0, kvector_t(0.0, 0.0, -10.0 * Units::nm));
 
     particle_layout.setInterferenceFunction(iff);
     particle_layout.setTotalParticleSurfaceDensity(100.0 / 4e4);

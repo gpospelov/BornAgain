@@ -22,10 +22,10 @@ protected:
         , iron(HomogeneousMaterial("iron", 2e-5, 8e-5))
         , chromium(HomogeneousMaterial("chromium", 3e-7, 7e-6))
         , stone(HomogeneousMaterial("stone", 4e-4, 8e-7))
-        , topLayer(air, 0 * Units::nanometer)
-        , layer1(iron, 20 * Units::nanometer)
-        , layer2(chromium, 40 * Units::nanometer)
-        , substrate(stone, 0 * Units::nanometer)
+        , topLayer(air, 0 * Units::nm)
+        , layer1(iron, 20 * Units::nm)
+        , layer2(chromium, 40 * Units::nm)
+        , substrate(stone, 0 * Units::nm)
     {
     }
     void set_four()
@@ -246,10 +246,10 @@ TEST_F(MultiLayerTest, MultiLayerCompositeTest)
     Material magMaterial0 = HomogeneousMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);
     Material magMaterial1 = HomogeneousMaterial("MagMat1", -5.6, 10, magnetic_field);
 
-    Layer layer1(iron, 10 * Units::nanometer);
-    Layer layer2(magMaterial0, 20 * Units::nanometer);
-    Layer layer3(magMaterial1, 30 * Units::nanometer);
-    Layer layer4(stone, 40 * Units::nanometer);
+    Layer layer1(iron, 10 * Units::nm);
+    Layer layer2(magMaterial0, 20 * Units::nm);
+    Layer layer3(magMaterial1, 30 * Units::nm);
+    Layer layer4(stone, 40 * Units::nm);
 
     mLayer.addLayer(topLayer);
     mLayer.addLayer(layer1);

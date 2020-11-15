@@ -72,7 +72,7 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation
 
     const auto axis_item = beamItem()->currentInclinationAxisItem();
 
-    auto axis = axis_item->createAxis(Units::degree);
+    auto axis = axis_item->createAxis(Units::deg);
 
     simulation->setBeamParameters(beamItem()->getWavelength(), static_cast<int>(axis->size()),
                                   axis->lowerBound(), axis->upperBound());

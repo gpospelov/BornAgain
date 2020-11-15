@@ -21,7 +21,7 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
 
-const double middle_layer_thickness(60.0 * Units::nanometer);
+const double middle_layer_thickness(60.0 * Units::nm);
 
 MultiLayer* LayersWithAbsorptionBySLDBuilder::buildSample() const
 {
@@ -30,12 +30,12 @@ MultiLayer* LayersWithAbsorptionBySLDBuilder::buildSample() const
     Material substrate_mat = MaterialBySLD("Substrate", 2.0728e-06, 2.3747e-11);
     Material particle_mat = MaterialBySLD("Ag", 3.4682e-06, 1.0309e-08);
 
-    FormFactorFullSphere ff(5.0 * Units::nanometer);
+    FormFactorFullSphere ff(5.0 * Units::nm);
 
     Particle particle(particle_mat, ff);
-    particle.setRotation(RotationZ(10.0 * Units::degree));
-    particle.rotate(RotationY(10.0 * Units::degree));
-    particle.rotate(RotationX(10.0 * Units::degree));
+    particle.setRotation(RotationZ(10.0 * Units::deg));
+    particle.rotate(RotationY(10.0 * Units::deg));
+    particle.rotate(RotationX(10.0 * Units::deg));
     particle.setPosition(kvector_t(0.0, 0.0, -middle_layer_thickness / 2.0));
 
     ParticleLayout layout;

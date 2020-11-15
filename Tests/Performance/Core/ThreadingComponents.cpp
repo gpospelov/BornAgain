@@ -76,7 +76,7 @@ std::unique_ptr<MultiLayer> createSampleSpheresDistribution(int nspheres)
 std::unique_ptr<ISimulation> CreateRealisticGISASSimulation()
 {
     auto result = std::make_unique<GISASSimulation>();
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree, 0.0 * Units::degree);
+    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
 
     // define detector
     const int pilatus_npx{981}, pilatus_npy{1043};
@@ -104,9 +104,9 @@ std::unique_ptr<ISimulation> CreateRealisticGISASSimulation()
 std::unique_ptr<ISimulation> TestComponents::CreateSimpleGISAS()
 {
     auto result = std::make_unique<GISASSimulation>();
-    result->setDetectorParameters(100, 0.0 * Units::degree, 2.0 * Units::degree, 100,
-                                  0.0 * Units::degree, 2.0 * Units::degree);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree, 0.0 * Units::degree);
+    result->setDetectorParameters(100, 0.0 * Units::deg, 2.0 * Units::deg, 100, 0.0 * Units::deg,
+                                  2.0 * Units::deg);
+    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
 
     auto sample = std::unique_ptr<MultiLayer>(CylindersInDWBABuilder().buildSample());
     result->setSample(*sample);
@@ -146,9 +146,9 @@ std::unique_ptr<ISimulation> TestComponents::CreateGiganticGISAS()
 {
     const int nbins = 2048;
     auto result = std::make_unique<GISASSimulation>();
-    result->setDetectorParameters(nbins, -2.0 * Units::degree, 2.0 * Units::degree, nbins,
-                                  0.0 * Units::degree, 2.0 * Units::degree);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree, 0.0 * Units::degree);
+    result->setDetectorParameters(nbins, -2.0 * Units::deg, 2.0 * Units::deg, nbins,
+                                  0.0 * Units::deg, 2.0 * Units::deg);
+    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
     auto sample = std::unique_ptr<MultiLayer>(CylindersInBABuilder().buildSample());
     result->setSample(*sample);
     return std::unique_ptr<ISimulation>(result.release());
@@ -162,9 +162,9 @@ std::unique_ptr<ISimulation> TestComponents::CreateWavelengthGISAS()
 {
     const int nbins = 64;
     auto result = std::make_unique<GISASSimulation>();
-    result->setDetectorParameters(nbins, -2.0 * Units::degree, 2.0 * Units::degree, nbins,
-                                  0.0 * Units::degree, 2.0 * Units::degree);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree, 0.0 * Units::degree);
+    result->setDetectorParameters(nbins, -2.0 * Units::deg, 2.0 * Units::deg, nbins,
+                                  0.0 * Units::deg, 2.0 * Units::deg);
+    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
 
     // create parameter distribution
     DistributionLogNormal wavelength_distr(1.0 * Units::angstrom, 0.1);
@@ -184,9 +184,9 @@ std::unique_ptr<ISimulation> TestComponents::CreateWavelengthGISAS()
 std::unique_ptr<ISimulation> TestComponents::CreateMCGISAS()
 {
     auto result = std::make_unique<GISASSimulation>();
-    result->setDetectorParameters(100, 0.0 * Units::degree, 2.0 * Units::degree, 100,
-                                  0.0 * Units::degree, 2.0 * Units::degree);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::degree, 0.0 * Units::degree);
+    result->setDetectorParameters(100, 0.0 * Units::deg, 2.0 * Units::deg, 100, 0.0 * Units::deg,
+                                  2.0 * Units::deg);
+    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
 
     auto sample = createSampleSpheresDistribution(10);
     result->setSample(*sample);

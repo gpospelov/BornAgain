@@ -26,10 +26,10 @@ namespace
 {
 
 const Material particleMaterial = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
-const double layer_thickness = 100.0 * Units::nanometer;
-const double length = 50.0 * Units::nanometer;
-const double width = 20.0 * Units::nanometer;
-const double height = 10.0 * Units::nanometer;
+const double layer_thickness = 100.0 * Units::nm;
+const double length = 50.0 * Units::nm;
+const double width = 20.0 * Units::nm;
+const double height = 10.0 * Units::nm;
 
 MultiLayer* finalizeMultiLayer(const ParticleComposition& composition)
 {
@@ -58,7 +58,7 @@ MultiLayer* BoxCompositionRotateXBuilder::buildSample() const
     ParticleComposition composition;
     composition.addParticle(box, kvector_t(0.0, 0.0, 0.0));
     composition.addParticle(box, kvector_t(length / 2.0, 0.0, 0.0));
-    composition.setRotation(RotationX(90.0 * Units::degree));
+    composition.setRotation(RotationX(90.0 * Units::deg));
     composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.0));
     return finalizeMultiLayer(composition);
 }
@@ -71,7 +71,7 @@ MultiLayer* BoxCompositionRotateYBuilder::buildSample() const
     ParticleComposition composition;
     composition.addParticle(box, kvector_t(0.0, 0.0, 0.0));
     composition.addParticle(box, kvector_t(length / 2.0, 0.0, 0.0));
-    composition.setRotation(RotationY(90.0 * Units::degree));
+    composition.setRotation(RotationY(90.0 * Units::deg));
     composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.0 + length / 4.0));
     return finalizeMultiLayer(composition);
 }
@@ -84,7 +84,7 @@ MultiLayer* BoxCompositionRotateZBuilder::buildSample() const
     ParticleComposition composition;
     composition.addParticle(box, kvector_t(0.0, 0.0, 0.0));
     composition.addParticle(box, kvector_t(length / 2.0, 0.0, 0.0));
-    composition.setRotation(RotationZ(90.0 * Units::degree));
+    composition.setRotation(RotationZ(90.0 * Units::deg));
     composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.0 - height / 2.0));
     return finalizeMultiLayer(composition);
 }
@@ -97,8 +97,8 @@ MultiLayer* BoxCompositionRotateZandYBuilder::buildSample() const
     ParticleComposition composition;
     composition.addParticle(box, kvector_t(0.0, 0.0, 0.0));
     composition.addParticle(box, kvector_t(length / 2.0, 0.0, 0.0));
-    composition.setRotation(RotationZ(90.0 * Units::degree));
-    composition.rotate(RotationY(90.0 * Units::degree));
+    composition.setRotation(RotationZ(90.0 * Units::deg));
+    composition.rotate(RotationY(90.0 * Units::deg));
     composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.0));
     return finalizeMultiLayer(composition);
 }
@@ -115,19 +115,19 @@ MultiLayer* BoxStackCompositionBuilder::buildSample() const
     const double box1_width = 50;
     const double box1_height = 5;
     Particle box1(particleMaterial, FormFactorBox(box1_length, box1_width, box1_height));
-    box1.setRotation(RotationZ(90. * Units::degree));
+    box1.setRotation(RotationZ(90. * Units::deg));
 
     // box2 (5,20,50), rotatedY
     const double box2_length = 5.0;
     const double box2_width = 20.0;
     const double box2_height = 50.0;
     Particle box2(particleMaterial, FormFactorBox(box2_length, box2_width, box2_height));
-    box2.setRotation(RotationY(90. * Units::degree));
+    box2.setRotation(RotationY(90. * Units::deg));
     box2.setPosition(kvector_t(-box2_height / 2.0, 0.0, box2_length / 2.0));
 
     composition.addParticle(box1, kvector_t(0.0, 0.0, 0.0));
     composition.addParticle(box2, kvector_t(0.0, 0.0, box1_height));
-    composition.setRotation(RotationY(90.0 * Units::degree));
+    composition.setRotation(RotationY(90.0 * Units::deg));
     composition.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.));
 
     return finalizeMultiLayer(composition);

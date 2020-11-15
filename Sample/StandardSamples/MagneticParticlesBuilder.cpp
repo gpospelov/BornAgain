@@ -30,8 +30,8 @@
 
 MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 {
-    const double m_cylinder_radius(5 * Units::nanometer);
-    const double m_cylinder_height(5 * Units::nanometer);
+    const double m_cylinder_radius(5 * Units::nm);
+    const double m_cylinder_height(5 * Units::nm);
 
     Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
@@ -60,8 +60,8 @@ MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 
 MultiLayer* MagneticCylindersBuilder::buildSample() const
 {
-    const double m_cylinder_radius(5 * Units::nanometer);
-    const double m_cylinder_height(5 * Units::nanometer);
+    const double m_cylinder_radius(5 * Units::nm);
+    const double m_cylinder_height(5 * Units::nm);
 
     Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 15e-6, 0.0);
@@ -90,7 +90,7 @@ MultiLayer* MagneticCylindersBuilder::buildSample() const
 
 MultiLayer* MagneticSpheresBuilder::buildSample() const
 {
-    const double m_sphere_radius(5 * Units::nanometer);
+    const double m_sphere_radius(5 * Units::nm);
 
     kvector_t magnetization(0.0, 0.0, 1e7);
     Material particle_material = HomogeneousMaterial("Particle", 2e-5, 4e-7, magnetization);

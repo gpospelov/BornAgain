@@ -37,7 +37,7 @@ std::unique_ptr<IFormFactor> AnisoPyramidItem::createFormFactor() const
 {
     return std::make_unique<FormFactorAnisoPyramid>(
         getItemValue(P_LENGTH).toDouble(), getItemValue(P_WIDTH).toDouble(),
-        getItemValue(P_HEIGHT).toDouble(), getItemValue(P_ALPHA).toDouble() * Units::degree);
+        getItemValue(P_HEIGHT).toDouble(), getItemValue(P_ALPHA).toDouble() * Units::deg);
 }
 
 /* ------------------------------------------------ */
@@ -122,7 +122,7 @@ std::unique_ptr<IFormFactor> ConeItem::createFormFactor() const
 {
     return std::make_unique<FormFactorCone>(getItemValue(P_RADIUS).toDouble(),
                                             getItemValue(P_HEIGHT).toDouble(),
-                                            getItemValue(P_ALPHA).toDouble() * Units::degree);
+                                            getItemValue(P_ALPHA).toDouble() * Units::deg);
 }
 
 /* ------------------------------------------------ */
@@ -143,7 +143,7 @@ std::unique_ptr<IFormFactor> Cone6Item::createFormFactor() const
 {
     return std::make_unique<FormFactorCone6>(getItemValue(P_BASEEDGE).toDouble(),
                                              getItemValue(P_HEIGHT).toDouble(),
-                                             getItemValue(P_ALPHA).toDouble() * Units::degree);
+                                             getItemValue(P_ALPHA).toDouble() * Units::deg);
 }
 
 /* ------------------------------------------------ */
@@ -169,7 +169,7 @@ std::unique_ptr<IFormFactor> CuboctahedronItem::createFormFactor() const
 {
     return std::make_unique<FormFactorCuboctahedron>(
         getItemValue(P_LENGTH).toDouble(), getItemValue(P_HEIGHT).toDouble(),
-        getItemValue(P_HEIGHT_RATIO).toDouble(), getItemValue(P_ALPHA).toDouble() * Units::degree);
+        getItemValue(P_HEIGHT_RATIO).toDouble(), getItemValue(P_ALPHA).toDouble() * Units::deg);
 }
 
 /* ------------------------------------------------ */
@@ -369,7 +369,7 @@ std::unique_ptr<IFormFactor> PyramidItem::createFormFactor() const
 {
     return std::make_unique<FormFactorPyramid>(getItemValue(P_BASEEDGE).toDouble(),
                                                getItemValue(P_HEIGHT).toDouble(),
-                                               getItemValue(P_ALPHA).toDouble() * Units::degree);
+                                               getItemValue(P_ALPHA).toDouble() * Units::deg);
 }
 
 /* ------------------------------------------------ */
@@ -524,9 +524,9 @@ TetrahedronItem::TetrahedronItem() : FormFactorItem("Tetrahedron")
 
 std::unique_ptr<IFormFactor> TetrahedronItem::createFormFactor() const
 {
-    return std::make_unique<FormFactorTetrahedron>(
-        getItemValue(P_BASEEDGE).toDouble(), getItemValue(P_HEIGHT).toDouble(),
-        getItemValue(P_ALPHA).toDouble() * Units::degree);
+    return std::make_unique<FormFactorTetrahedron>(getItemValue(P_BASEEDGE).toDouble(),
+                                                   getItemValue(P_HEIGHT).toDouble(),
+                                                   getItemValue(P_ALPHA).toDouble() * Units::deg);
 }
 
 /* ------------------------------------------------ */

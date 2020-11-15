@@ -85,7 +85,7 @@ std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_degenerate()
 {
     MultiLayer mLayer;
     Material air = HomogeneousMaterial("Vacuum", 0, 1.0);
-    mLayer.addLayer(Layer(air, 0 * Units::nanometer));
+    mLayer.addLayer(Layer(air, 0 * Units::nm));
     return std::make_unique<ProcessedSample>(mLayer, SimulationOptions());
 }
 

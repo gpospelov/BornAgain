@@ -30,7 +30,7 @@ TEST_F(ParticleTest, Constructors)
 {
     Material mat = HomogeneousMaterial("Vacuum", 0, 0);
     FormFactorFullSphere sphere(1.0);
-    RotationZ transform(45. * Units::degree);
+    RotationZ transform(45. * Units::deg);
 
     // construction with material
     std::unique_ptr<Particle> p1(new Particle(mat));
@@ -54,7 +54,7 @@ TEST_F(ParticleTest, setters)
 {
     Material mat = HomogeneousMaterial("Vacuum", 0, 0);
     FormFactorFullSphere sphere(2.1);
-    RotationY transform(45. * Units::degree);
+    RotationY transform(45. * Units::deg);
 
     Particle particle;
     Material vacuum = HomogeneousMaterial();

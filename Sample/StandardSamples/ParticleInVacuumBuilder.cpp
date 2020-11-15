@@ -27,8 +27,7 @@ namespace
 FormFactorComponents ff_components;
 }
 
-ParticleInVacuumBuilder::ParticleInVacuumBuilder()
-    : m_ff(new FormFactorFullSphere(5.0 * Units::nanometer))
+ParticleInVacuumBuilder::ParticleInVacuumBuilder() : m_ff(new FormFactorFullSphere(5.0 * Units::nm))
 {
 }
 

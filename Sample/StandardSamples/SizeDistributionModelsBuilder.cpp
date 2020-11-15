@@ -28,21 +28,20 @@
 MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 {
     // cylindrical particle 1
-    double radius1(5 * Units::nanometer);
+    double radius1(5 * Units::nm);
     double height1 = radius1;
     FormFactorCylinder cylinder_ff1(radius1, height1);
     Particle cylinder1(refMat::Particle, cylinder_ff1);
 
     // cylindrical particle 2
-    double radius2(8 * Units::nanometer);
+    double radius2(8 * Units::nm);
     double height2(radius2);
     FormFactorCylinder cylinder_ff2(radius2, height2);
     Particle cylinder2(refMat::Particle, cylinder_ff2);
 
     // interference function
-    InterferenceFunctionRadialParaCrystal interference(18.0 * Units::nanometer,
-                                                       1e3 * Units::nanometer);
-    FTDistribution1DGauss pdf(3 * Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference(18.0 * Units::nm, 1e3 * Units::nm);
+    FTDistribution1DGauss pdf(3 * Units::nm);
     interference.setProbabilityDistribution(pdf);
 
     // assembling the sample
@@ -66,26 +65,24 @@ MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
 {
     // cylindrical particle 1
-    double radius1(5 * Units::nanometer);
+    double radius1(5 * Units::nm);
     double height1 = radius1;
     FormFactorCylinder cylinder_ff1(radius1, height1);
     Particle cylinder1(refMat::Particle, cylinder_ff1);
 
     // cylindrical particle 2
-    double radius2(8 * Units::nanometer);
+    double radius2(8 * Units::nm);
     double height2(radius2);
     FormFactorCylinder cylinder_ff2(radius2, height2);
     Particle cylinder2(refMat::Particle, cylinder_ff2);
 
     // interference function1
-    InterferenceFunctionRadialParaCrystal interference1(16.8 * Units::nanometer,
-                                                        1e3 * Units::nanometer);
-    FTDistribution1DGauss pdf(3 * Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference1(16.8 * Units::nm, 1e3 * Units::nm);
+    FTDistribution1DGauss pdf(3 * Units::nm);
     interference1.setProbabilityDistribution(pdf);
 
     // interference function2
-    InterferenceFunctionRadialParaCrystal interference2(22.8 * Units::nanometer,
-                                                        1e3 * Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference2(22.8 * Units::nm, 1e3 * Units::nm);
     interference2.setProbabilityDistribution(pdf);
 
     // assembling the sample
@@ -113,21 +110,20 @@ MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
 MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
 {
     // cylindrical particle 1
-    double radius1(5 * Units::nanometer);
+    double radius1(5 * Units::nm);
     double height1 = radius1;
     FormFactorCylinder cylinder_ff1(radius1, height1);
     Particle cylinder1(refMat::Particle, cylinder_ff1);
 
     // cylindrical particle 2
-    double radius2(8 * Units::nanometer);
+    double radius2(8 * Units::nm);
     double height2(radius2);
     FormFactorCylinder cylinder_ff2(radius2, height2);
     Particle cylinder2(refMat::Particle, cylinder_ff2);
 
     // interference function
-    InterferenceFunctionRadialParaCrystal interference(18.0 * Units::nanometer,
-                                                       1e3 * Units::nanometer);
-    FTDistribution1DGauss pdf(3 * Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference(18.0 * Units::nm, 1e3 * Units::nm);
+    FTDistribution1DGauss pdf(3 * Units::nm);
     interference.setProbabilityDistribution(pdf);
     interference.setKappa(1.0);
 
@@ -153,17 +149,16 @@ MultiLayer* CylindersInSSCABuilder::buildSample() const
 {
     Layer vacuum_layer(refMat::Vacuum);
 
-    InterferenceFunctionRadialParaCrystal interference_function(15.0 * Units::nanometer,
-                                                                1e3 * Units::nanometer);
-    FTDistribution1DGauss pdf(5 * Units::nanometer);
+    InterferenceFunctionRadialParaCrystal interference_function(15.0 * Units::nm, 1e3 * Units::nm);
+    FTDistribution1DGauss pdf(5 * Units::nm);
     interference_function.setProbabilityDistribution(pdf);
     interference_function.setKappa(4.02698);
     ParticleLayout particle_layout;
 
-    FormFactorCylinder ff_cylinder(5.0 * Units::nanometer, 5.0 * Units::nanometer);
+    FormFactorCylinder ff_cylinder(5.0 * Units::nm, 5.0 * Units::nm);
     Particle particle_prototype(refMat::Particle, ff_cylinder);
 
-    DistributionGaussian gauss(5.0 * Units::nanometer, 1.25 * Units::nanometer);
+    DistributionGaussian gauss(5.0 * Units::nm, 1.25 * Units::nm);
     ParameterPattern pattern_radius;
     pattern_radius.add("Particle").add("Cylinder").add("Radius");
     ParameterDistribution par_distr(pattern_radius.toStdString(), gauss, 30, 3.0);

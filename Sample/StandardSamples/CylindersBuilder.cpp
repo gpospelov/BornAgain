@@ -25,8 +25,7 @@
 // -----------------------------------------------------------------------------
 // Cylinders in DWBA
 // -----------------------------------------------------------------------------
-CylindersInDWBABuilder::CylindersInDWBABuilder()
-    : m_height(5 * Units::nanometer), m_radius(5 * Units::nanometer)
+CylindersInDWBABuilder::CylindersInDWBABuilder() : m_height(5 * Units::nm), m_radius(5 * Units::nm)
 {
 }
 
@@ -51,8 +50,7 @@ MultiLayer* CylindersInDWBABuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // Cylinders in BA
 // -----------------------------------------------------------------------------
-CylindersInBABuilder::CylindersInBABuilder()
-    : m_height(5 * Units::nanometer), m_radius(5 * Units::nanometer)
+CylindersInBABuilder::CylindersInBABuilder() : m_height(5 * Units::nm), m_radius(5 * Units::nm)
 {
     registerParameter("height", &m_height);
     registerParameter("radius", &m_radius);
@@ -78,7 +76,7 @@ MultiLayer* CylindersInBABuilder::buildSample() const
 // Large cylinders in DWBA
 // -----------------------------------------------------------------------------
 LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
-    : m_height(1000 * Units::nanometer), m_radius(500 * Units::nanometer)
+    : m_height(1000 * Units::nm), m_radius(500 * Units::nm)
 {
 }
 
@@ -104,7 +102,7 @@ MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 // Rotated cylinders in DWBA
 // -----------------------------------------------------------------------------
 RotatedCylindersBuilder::RotatedCylindersBuilder()
-    : m_height(5 * Units::nanometer), m_radius(5 * Units::nanometer)
+    : m_height(5 * Units::nm), m_radius(5 * Units::nm)
 {
 }
 

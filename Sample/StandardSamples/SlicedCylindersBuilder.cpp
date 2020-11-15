@@ -24,8 +24,8 @@
 
 namespace
 {
-const double height(5 * Units::nanometer);
-const double radius(5 * Units::nanometer);
+const double height(5 * Units::nm);
+const double radius(5 * Units::nm);
 const double wavelength(0.154); // nm
 const int n_slices(3);
 

@@ -24,15 +24,15 @@
 
 MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
 {
-    const double length = 5 * Units::nanometer;
-    const double height = 10 * Units::nanometer;
+    const double length = 5 * Units::nm;
+    const double height = 10 * Units::nm;
 
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DLattice iff(SquareLattice(8 * Units::nanometer, 0));
+    InterferenceFunction2DLattice iff(SquareLattice(8 * Units::nm, 0));
 
-    FTDecayFunction2DCauchy pdf(100.0 * Units::nanometer, 100.0 * Units::nanometer, 0);
+    FTDecayFunction2DCauchy pdf(100.0 * Units::nm, 100.0 * Units::nm, 0);
     iff.setDecayFunction(pdf);
 
     // particles

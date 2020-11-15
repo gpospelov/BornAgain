@@ -27,11 +27,11 @@
 
 MultiLayer* RadialParaCrystalBuilder::buildSample() const
 {
-    const double m_corr_peak_distance(20.0 * Units::nanometer);
-    const double m_corr_width(7 * Units::nanometer);
-    const double m_corr_length(1e3 * Units::nanometer);
-    const double m_cylinder_height(5 * Units::nanometer);
-    const double m_cylinder_radius(5 * Units::nanometer);
+    const double m_corr_peak_distance(20.0 * Units::nm);
+    const double m_corr_width(7 * Units::nm);
+    const double m_corr_length(1e3 * Units::nm);
+    const double m_cylinder_height(5 * Units::nm);
+    const double m_cylinder_radius(5 * Units::nm);
 
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
@@ -58,8 +58,8 @@ MultiLayer* RadialParaCrystalBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 
 Basic2DParaCrystalBuilder::Basic2DParaCrystalBuilder()
-    : m_pdf1(new FTDistribution2DCauchy(0.1 * Units::nanometer, 0.2 * Units::nanometer, 0))
-    , m_pdf2(new FTDistribution2DCauchy(0.3 * Units::nanometer, 0.4 * Units::nanometer, 0))
+    : m_pdf1(new FTDistribution2DCauchy(0.1 * Units::nm, 0.2 * Units::nm, 0))
+    , m_pdf2(new FTDistribution2DCauchy(0.3 * Units::nm, 0.4 * Units::nm, 0))
 {
 }
 
@@ -71,13 +71,12 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     Layer substrate_layer(refMat::Substrate);
 
     InterferenceFunction2DParaCrystal iff(
-        BasicLattice(10.0 * Units::nanometer, 20.0 * Units::nanometer, 30.0 * Units::degree,
-                     45.0 * Units::degree),
-        1000.0 * Units::nanometer, 20.0 * Units::micrometer, 40.0 * Units::micrometer);
+        BasicLattice(10.0 * Units::nm, 20.0 * Units::nm, 30.0 * Units::deg, 45.0 * Units::deg),
+        1000.0 * Units::nm, 20.0 * Units::micrometer, 40.0 * Units::micrometer);
 
     iff.setProbabilityDistributions(*m_pdf1, *m_pdf2);
 
-    FormFactorCylinder ff_cylinder(5.0 * Units::nanometer, 5.0 * Units::nanometer);
+    FormFactorCylinder ff_cylinder(5.0 * Units::nm, 5.0 * Units::nm);
 
     Particle particle(refMat::Particle, ff_cylinder);
     ParticleLayout particle_layout(particle);
@@ -109,12 +108,12 @@ MultiLayer* Basic2DParaCrystalBuilder::createSampleByIndex(size_t index)
 
 MultiLayer* HexParaCrystalBuilder::buildSample() const
 {
-    const double m_peak_distance(20.0 * Units::nanometer);
+    const double m_peak_distance(20.0 * Units::nm);
     const double m_corr_length(0.0);
     const double m_domain_size_1(20.0 * Units::micrometer);
     const double m_domain_size_2(20.0 * Units::micrometer);
-    const double m_cylinder_height(5 * Units::nanometer);
-    const double m_cylinder_radius(5 * Units::nanometer);
+    const double m_cylinder_height(5 * Units::nm);
+    const double m_cylinder_radius(5 * Units::nm);
 
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
@@ -122,7 +121,7 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
     InterferenceFunction2DParaCrystal iff(HexagonalLattice(m_peak_distance, 0.0), m_corr_length,
                                           m_domain_size_1, m_domain_size_2);
     iff.setIntegrationOverXi(true);
-    FTDistribution2DCauchy pdf(1.0 * Units::nanometer, 1.0 * Units::nanometer, 0);
+    FTDistribution2DCauchy pdf(1.0 * Units::nm, 1.0 * Units::nm, 0);
     iff.setProbabilityDistributions(pdf, pdf);
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
@@ -148,14 +147,14 @@ MultiLayer* RectParaCrystalBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DParaCrystal iff(SquareLattice(10 * Units::nanometer), 0, 0, 0);
+    InterferenceFunction2DParaCrystal iff(SquareLattice(10 * Units::nm), 0, 0, 0);
     iff.setIntegrationOverXi(true);
     iff.setDomainSizes(20.0 * Units::micrometer, 20.0 * Units::micrometer);
-    FTDistribution2DCauchy pdf1(0.5 * Units::nanometer, 2.0 * Units::nanometer, 0);
-    FTDistribution2DCauchy pdf2(0.5 * Units::nanometer, 2.0 * Units::nanometer, 0);
+    FTDistribution2DCauchy pdf1(0.5 * Units::nm, 2.0 * Units::nm, 0);
+    FTDistribution2DCauchy pdf2(0.5 * Units::nm, 2.0 * Units::nm, 0);
     iff.setProbabilityDistributions(pdf1, pdf2);
 
-    FormFactorCylinder ff_cylinder(5.0 * Units::nanometer, 5.0 * Units::nanometer);
+    FormFactorCylinder ff_cylinder(5.0 * Units::nm, 5.0 * Units::nm);
 
     Particle particle(refMat::Particle, ff_cylinder);
     ParticleLayout particle_layout(particle);

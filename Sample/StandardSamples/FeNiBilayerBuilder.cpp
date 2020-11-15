@@ -185,14 +185,14 @@ MultiLayer* FeNiBilayerNCBuilder::buildSample() const
 
 MultiLayer* FeNiBilayerSpinFlipBuilder::buildSample() const
 {
-    auto sample = FeNiBilayer{Options().angle(38. * Units::degree)};
+    auto sample = FeNiBilayer{Options().angle(38. * Units::deg)};
     return sample.release();
 }
 
 MultiLayer* FeNiBilayerSpinFlipTanhBuilder::buildSample() const
 {
     auto sample = FeNiBilayer{Options()
-                                  .angle(38 * Units::degree)
+                                  .angle(38 * Units::deg)
                                   .sigmaRoughness(2. * Units::angstrom)
                                   .roughnessModel(RoughnessModel::TANH)};
     return sample.release();
@@ -201,7 +201,7 @@ MultiLayer* FeNiBilayerSpinFlipTanhBuilder::buildSample() const
 MultiLayer* FeNiBilayerSpinFlipNCBuilder::buildSample() const
 {
     auto sample = FeNiBilayer{Options()
-                                  .angle(38 * Units::degree)
+                                  .angle(38 * Units::deg)
                                   .sigmaRoughness(2. * Units::angstrom)
                                   .roughnessModel(RoughnessModel::NEVOT_CROCE)};
     return sample.release();

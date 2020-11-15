@@ -30,8 +30,8 @@
 
 MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 {
-    const double height(5 * Units::nanometer);
-    const double radius(5 * Units::nanometer);
+    const double height(5 * Units::nm);
+    const double radius(5 * Units::nm);
 
     Layer vacuum_layer(refMat::Vacuum);
 
@@ -64,10 +64,10 @@ MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
 // ----------------------------------------------------------------------------
 
 TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
-    : m_radius1(5 * Units::nanometer)
-    , m_radius2(10 * Units::nanometer)
-    , m_height1(5 * Units::nanometer)
-    , m_height2(10 * Units::nanometer)
+    : m_radius1(5 * Units::nm)
+    , m_radius2(10 * Units::nm)
+    , m_height1(5 * Units::nm)
+    , m_height2(10 * Units::nm)
     , m_sigma1_ratio(0.2)
     , m_sigma2_ratio(0.02)
 {
@@ -118,10 +118,10 @@ MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
 // ----------------------------------------------------------------------------
 
 RotatedPyramidsDistributionBuilder::RotatedPyramidsDistributionBuilder()
-    : m_length(10 * Units::nanometer)
-    , m_height(5 * Units::nanometer)
+    : m_length(10 * Units::nm)
+    , m_height(5 * Units::nm)
     , m_alpha(Units::deg2rad(54.73))
-    , m_zangle(45. * Units::degree)
+    , m_zangle(45. * Units::deg)
 {
 }
 

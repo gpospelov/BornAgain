@@ -30,7 +30,7 @@ DepthProbeSimulationTest::DepthProbeSimulationTest()
     Material mat2 = HomogeneousMaterial("substrate", 15e-6, 0.0);
 
     Layer layer0(mat0);
-    Layer layer1(mat1, 10 * Units::nanometer);
+    Layer layer1(mat1, 10 * Units::nm);
     Layer layer2(mat2);
 
     multilayer.addLayer(layer0);
@@ -41,8 +41,8 @@ DepthProbeSimulationTest::DepthProbeSimulationTest()
 std::unique_ptr<DepthProbeSimulation> DepthProbeSimulationTest::defaultSimulation()
 {
     std::unique_ptr<DepthProbeSimulation> result = std::make_unique<DepthProbeSimulation>();
-    result->setBeamParameters(1.0, 10, 0.0 * Units::degree, 2.0 * Units::degree);
-    result->setZSpan(12, -30.0 * Units::nanometer, 10.0 * Units::nanometer);
+    result->setBeamParameters(1.0, 10, 0.0 * Units::deg, 2.0 * Units::deg);
+    result->setZSpan(12, -30.0 * Units::nm, 10.0 * Units::nm);
     result->setSample(multilayer);
     return result;
 }
@@ -82,14 +82,14 @@ TEST_F(DepthProbeSimulationTest, CheckAxesOfDefaultSimulation)
     const auto alpha_axis = sim->getAlphaAxis();
     EXPECT_TRUE(dynamic_cast<const FixedBinAxis*>(alpha_axis));
     EXPECT_EQ(alpha_axis->size(), 10u);
-    EXPECT_EQ(alpha_axis->lowerBound(), 0.0 * Units::degree);
-    EXPECT_EQ(alpha_axis->upperBound(), 2.0 * Units::degree);
+    EXPECT_EQ(alpha_axis->lowerBound(), 0.0 * Units::deg);
+    EXPECT_EQ(alpha_axis->upperBound(), 2.0 * Units::deg);
 
     const auto z_axis = sim->getZAxis();
     EXPECT_TRUE(dynamic_cast<const FixedBinAxis*>(z_axis));
     EXPECT_EQ(z_axis->size(), 12u);
-    EXPECT_EQ(z_axis->lowerBound(), -30.0 * Units::nanometer);
-    EXPECT_EQ(z_axis->upperBound(), 10.0 * Units::nanometer);
+    EXPECT_EQ(z_axis->lowerBound(), -30.0 * Units::nm);
+    EXPECT_EQ(z_axis->upperBound(), 10.0 * Units::nm);
 
     const auto sim_clone = sim->clone();
     EXPECT_FALSE(alpha_axis == sim_clone->getAlphaAxis());
@@ -101,10 +101,10 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters)
     DepthProbeSimulation sim;
     const auto& beam = sim.instrument().beam();
 
-    sim.setBeamParameters(1.0, 10, 1.0 * Units::degree, 10.0 * Units::degree);
+    sim.setBeamParameters(1.0, 10, 1.0 * Units::deg, 10.0 * Units::deg);
     EXPECT_EQ(10u, sim.getAlphaAxis()->size());
-    EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->lowerBound());
-    EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->upperBound());
+    EXPECT_EQ(1.0 * Units::deg, sim.getAlphaAxis()->lowerBound());
+    EXPECT_EQ(10.0 * Units::deg, sim.getAlphaAxis()->upperBound());
     EXPECT_EQ(1.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -121,8 +121,8 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters)
     EXPECT_THROW(sim.setBeamParameters(-1.0, 1, 1.0, 2.0), std::runtime_error);
 
     EXPECT_EQ(10u, sim.getAlphaAxis()->size());
-    EXPECT_EQ(1.0 * Units::degree, sim.getAlphaAxis()->lowerBound());
-    EXPECT_EQ(10.0 * Units::degree, sim.getAlphaAxis()->upperBound());
+    EXPECT_EQ(1.0 * Units::deg, sim.getAlphaAxis()->lowerBound());
+    EXPECT_EQ(10.0 * Units::deg, sim.getAlphaAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());

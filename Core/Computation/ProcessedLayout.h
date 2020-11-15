@@ -49,7 +49,8 @@ public:
     std::map<size_t, std::vector<HomogeneousRegion>> regionMap() const;
 
 private:
-    void collectFormFactors(const ParticleLayout& layout, const std::vector<Slice>& slices, double z_ref);
+    void collectFormFactors(const ParticleLayout& layout, const std::vector<Slice>& slices,
+                            double z_ref);
     FormFactorCoherentSum processParticle(const IParticle& particle,
                                           const std::vector<Slice>& slices, double z_ref);
     void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);

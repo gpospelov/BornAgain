@@ -53,11 +53,11 @@ public:
     unsigned int numberOfSlices() const { return m_n_slices; }
 
 private:
-    Material m_material;                  //!< material
-    kvector_t m_B_field;                  //!< cached value of magnetic induction
-    double m_thickness;                   //!< layer thickness in nanometers
+    Material m_material;                         //!< material
+    kvector_t m_B_field;                         //!< cached value of magnetic induction
+    double m_thickness;                          //!< layer thickness in nanometers
     SafePointerVector<ParticleLayout> m_layouts; //!< independent layouts in this layer
-    unsigned int m_n_slices = 1;          //!< number of slices to create for graded layer approach
+    unsigned int m_n_slices = 1; //!< number of slices to create for graded layer approach
 };
 
 #endif // BORNAGAIN_SAMPLE_MULTILAYER_LAYER_H

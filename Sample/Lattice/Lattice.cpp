@@ -19,18 +19,14 @@
 #include "Sample/Lattice/ISelectionRule.h"
 #include <gsl/gsl_linalg.h>
 
-Lattice::Lattice(const kvector_t a, const kvector_t b, const kvector_t c)
-    : m_a(a), m_b(b), m_c(c)
+Lattice::Lattice(const kvector_t a, const kvector_t b, const kvector_t c) : m_a(a), m_b(b), m_c(c)
 {
     setName("Lattice");
     initialize();
 }
 
 Lattice::Lattice(const Lattice& lattice)
-    : INode()
-    , m_a(lattice.m_a)
-    , m_b(lattice.m_b)
-    , m_c(lattice.m_c)
+    : INode(), m_a(lattice.m_a), m_b(lattice.m_b), m_c(lattice.m_c)
 {
     setName("Lattice");
     initialize();
@@ -88,10 +84,8 @@ void Lattice::getReciprocalLatticeBasis(kvector_t& ra, kvector_t& rb, kvector_t&
 
 ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
 {
-    return {
-        (int)std::lround(q.dot(m_a) / M_TWOPI),
-        (int)std::lround(q.dot(m_b) / M_TWOPI),
-        (int)std::lround(q.dot(m_c) / M_TWOPI)};
+    return {(int)std::lround(q.dot(m_a) / M_TWOPI), (int)std::lround(q.dot(m_b) / M_TWOPI),
+            (int)std::lround(q.dot(m_c) / M_TWOPI)};
 }
 
 std::vector<kvector_t> Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t q,

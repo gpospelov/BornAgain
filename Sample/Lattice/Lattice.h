@@ -65,19 +65,17 @@ public:
     ivector_t getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const;
 
     //! Returns a list of reciprocal lattice vectors within distance dq of a vector q
-    std::vector<kvector_t> reciprocalLatticeVectorsWithinRadius(const kvector_t q,
-                                                                double dq) const;
+    std::vector<kvector_t> reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const;
 
     //! Sets a selection rule for the reciprocal vectors
     void setSelectionRule(const ISelectionRule& selection_rule);
-
 
 private:
     void onChange() override;
 
     void computeReciprocalVectors() const;
 
-    kvector_t m_a, m_b, m_c;            //!< Basis vectors in real space
+    kvector_t m_a, m_b, m_c; //!< Basis vectors in real space
     std::unique_ptr<ISelectionRule> m_selection_rule;
 
     mutable kvector_t m_ra, m_rb, m_rc; //!< Cache of basis vectors in reciprocal space

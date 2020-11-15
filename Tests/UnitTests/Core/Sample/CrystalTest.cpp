@@ -1,5 +1,5 @@
-#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Particle/Crystal.h"
+#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Particle/ParticleComposition.h"
 #include "Tests/GTestWrapper/google_test.h"
 

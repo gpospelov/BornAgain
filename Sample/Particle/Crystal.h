@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
 #define BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
 
-#include "Sample/Scattering/ISample.h"
 #include "Sample/Lattice/Lattice.h"
+#include "Sample/Scattering/ISample.h"
 
 class IFormFactor;
 class IRotation;

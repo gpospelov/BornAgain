@@ -40,8 +40,8 @@ private:
     MesoCrystal(Crystal* p_particle_structure, IFormFactor* p_form_factor);
     void initialize();
 
-    std::unique_ptr<Crystal> m_particle_structure; //!< Crystal  structure
-    std::unique_ptr<IFormFactor> m_meso_form_factor;           //!< Outer shape of this mesocrystal
+    std::unique_ptr<Crystal> m_particle_structure;   //!< Crystal  structure
+    std::unique_ptr<IFormFactor> m_meso_form_factor; //!< Outer shape of this mesocrystal
 };
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_MESOCRYSTAL_H

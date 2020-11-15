@@ -76,8 +76,8 @@ std::map<size_t, std::vector<HomogeneousRegion>> ProcessedLayout::regionMap() co
 
 ProcessedLayout::~ProcessedLayout() = default;
 
-void ProcessedLayout::collectFormFactors(const ParticleLayout& layout, const std::vector<Slice>& slices,
-                                         double z_ref)
+void ProcessedLayout::collectFormFactors(const ParticleLayout& layout,
+                                         const std::vector<Slice>& slices, double z_ref)
 {
     double layout_abundance = layout.getTotalAbundance();
     for (auto p_particle : layout.particles()) {

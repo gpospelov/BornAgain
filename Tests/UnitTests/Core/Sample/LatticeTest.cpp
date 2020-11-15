@@ -1,7 +1,7 @@
-#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Lattice/Lattice.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Vector/Transform3D.h"
+#include "Sample/Lattice/BakeLattice.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class LatticeTest : public ::testing::Test

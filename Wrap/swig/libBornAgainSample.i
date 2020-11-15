@@ -54,7 +54,6 @@
 #include "Sample/Correlations/FTDecay2D.h"
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Sample/Correlations/FTDistributions2D.h"
-#include "Sample/Correlations/ILayout.h"
 #include "Sample/Correlations/IPeakShape.h"
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Sample/HardParticle/FormFactorBar.h"
@@ -174,7 +173,6 @@
 %include "Sample/Correlations/FTDistributions2D.h"
 %include "Sample/Correlations/FTDecay1D.h"
 %include "Sample/Correlations/FTDecay2D.h"
-%include "Sample/Correlations/ILayout.h"
 %include "Sample/Correlations/IPeakShape.h"
 
 %include "Sample/Aggregate/IInterferenceFunction.h"

@@ -54,7 +54,7 @@ void SampleToPython::initLabels(const MultiLayer& multilayer)
         m_label->insertRoughness(x);
     for (auto x : INodeUtils::AllDescendantsOfType<IFormFactor>(multilayer))
         m_label->insertFormFactor(x);
-    for (auto x : INodeUtils::AllDescendantsOfType<ILayout>(multilayer))
+    for (auto x : INodeUtils::AllDescendantsOfType<ParticleLayout>(multilayer))
         m_label->insertLayout(x);
     for (auto x : INodeUtils::AllDescendantsOfType<IInterferenceFunction>(multilayer))
         m_label->insertInterferenceFunction(x);
@@ -488,7 +488,7 @@ std::string SampleToPython::defineParticleLayouts() const
     result << std::setprecision(12);
     result << "\n" << indent() << "# Defining Particle Layouts and adding Particles\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
-        const ILayout* iLayout = it->first;
+        const ParticleLayout* iLayout = it->first;
         if (const ParticleLayout* particleLayout = dynamic_cast<const ParticleLayout*>(iLayout)) {
             result << indent() << it->second << " = ba.ParticleLayout()\n";
             auto particles = INodeUtils::ChildNodesOfType<IAbstractParticle>(*particleLayout);

@@ -43,9 +43,9 @@ std::string SampleLabelHandler::labelLayer(const Layer* layer)
     return m_LayerLabel[layer];
 }
 
-std::string SampleLabelHandler::labelLayout(const ILayout* layout)
+std::string SampleLabelHandler::labelLayout(const ParticleLayout* layout)
 {
-    return m_ILayoutLabel[layout];
+    return m_ParticleLayoutLabel[layout];
 }
 
 std::string SampleLabelHandler::labelMaterial(const Material* mat)
@@ -113,10 +113,10 @@ void SampleLabelHandler::insertLayer(const Layer* sample)
     m_LayerLabel.insert(sample, label);
 }
 
-void SampleLabelHandler::insertLayout(const ILayout* sample)
+void SampleLabelHandler::insertLayout(const ParticleLayout* sample)
 {
-    std::string label = "layout_" + std::to_string(m_ILayoutLabel.size() + 1);
-    m_ILayoutLabel.insert(sample, label);
+    std::string label = "layout_" + std::to_string(m_ParticleLayoutLabel.size() + 1);
+    m_ParticleLayoutLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertMaterial(const Material* mat)

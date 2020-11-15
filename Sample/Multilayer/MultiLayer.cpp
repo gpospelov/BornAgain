@@ -16,7 +16,7 @@
 #include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
-#include "Sample/Correlations/ILayout.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"

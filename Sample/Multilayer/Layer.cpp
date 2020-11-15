@@ -16,7 +16,7 @@
 #include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
-#include "Sample/Correlations/ILayout.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 
 //! Constructor of a layer with thickness and material
 //! @param material: material the layer is made of
@@ -54,16 +54,16 @@ void Layer::setMaterial(Material material)
     m_material = std::move(material);
 }
 
-void Layer::addLayout(const ILayout& layout)
+void Layer::addLayout(const ParticleLayout& layout)
 {
-    ILayout* clone = layout.clone();
+    ParticleLayout* clone = layout.clone();
     m_layouts.push_back(clone);
     registerChild(clone);
 }
 
-std::vector<const ILayout*> Layer::layouts() const
+std::vector<const ParticleLayout*> Layer::layouts() const
 {
-    std::vector<const ILayout*> result;
+    std::vector<const ParticleLayout*> result;
     for (auto p_layout : m_layouts)
         result.push_back(p_layout);
     return result;

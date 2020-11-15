@@ -98,7 +98,7 @@ class IFormFactor;
 class IFormFactorBorn;
 class IFormFactorDecorator;
 class IInterferenceFunction;
-class ILayout;
+class ParticleLayout;
 class INode;
 class Instrument;
 class InterferenceFunction1DLattice;
@@ -127,7 +127,6 @@ class Particle;
 class ParticleComposition;
 class ParticleCoreShell;
 class ParticleDistribution;
-class ParticleLayout;
 class PoissonNoiseBackground;
 class RectangularDetector;
 class ResolutionFunction2DGaussian;
@@ -234,7 +233,7 @@ public:
     virtual void visit(const IFormFactorBorn*) {}
     virtual void visit(const IFormFactorDecorator*) {}
     virtual void visit(const IInterferenceFunction*) {}
-    virtual void visit(const ILayout*) {}
+    virtual void visit(const ParticleLayout*) {}
     virtual void visit(const INode*) {}
     virtual void visit(const Instrument*) {}
     virtual void visit(const InterferenceFunction1DLattice*) {}
@@ -263,7 +262,6 @@ public:
     virtual void visit(const ParticleComposition*) {}
     virtual void visit(const ParticleCoreShell*) {}
     virtual void visit(const ParticleDistribution*) {}
-    virtual void visit(const ParticleLayout*) {}
     virtual void visit(const PoissonNoiseBackground*) {}
     virtual void visit(const RectangularDetector*) {}
     virtual void visit(const ResolutionFunction2DGaussian*) {}

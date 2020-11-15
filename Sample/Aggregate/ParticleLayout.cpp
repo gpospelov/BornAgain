@@ -34,7 +34,8 @@ bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
 }
 } // namespace
 
-ParticleLayout::ParticleLayout() : m_interference_function{nullptr}, m_total_particle_density{0.01}
+ParticleLayout::ParticleLayout()
+    : m_weight(1.0), m_total_particle_density(0.01), m_interference_function(nullptr)
 {
     setName("ParticleLayout");
     registerParticleDensity();
@@ -42,7 +43,7 @@ ParticleLayout::ParticleLayout() : m_interference_function{nullptr}, m_total_par
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
-    : m_interference_function{nullptr}, m_total_particle_density{0.01}
+    : m_weight(1.0), m_total_particle_density(0.01), m_interference_function(nullptr)
 {
     setName("ParticleLayout");
     addParticle(particle, abundance);

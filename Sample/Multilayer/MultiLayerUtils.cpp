@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Sample/Multilayer/MultiLayerUtils.h"
-#include "Sample/Correlations/ILayout.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"

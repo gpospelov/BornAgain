@@ -3674,64 +3674,6 @@ Scalar value getters; these throw errors by default as they should only be used 
 ";
 
 
-// File: classILayout.xml
-%feature("docstring") ILayout "
-
-Pure virtual interface class to equip a sample layer with scattering properties. Currently only inherited by  ParticleLayout; in the future also by domain structure.
-
-C++ includes: ILayout.h
-";
-
-%feature("docstring")  ILayout::ILayout "ILayout::ILayout()
-";
-
-%feature("docstring")  ILayout::~ILayout "ILayout::~ILayout()
-";
-
-%feature("docstring")  ILayout::clone "virtual ILayout* ILayout::clone() const =0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ILayout::accept "virtual void ILayout::accept(INodeVisitor *visitor) const =0
-";
-
-%feature("docstring")  ILayout::particles "virtual SafePointerVector<IParticle> ILayout::particles() const =0
-
-Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
-";
-
-%feature("docstring")  ILayout::interferenceFunction "virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
-
-Returns the interference function. 
-";
-
-%feature("docstring")  ILayout::getTotalAbundance "virtual double ILayout::getTotalAbundance() const =0
-
-Get total abundance of all particles. 
-";
-
-%feature("docstring")  ILayout::totalParticleSurfaceDensity "virtual double ILayout::totalParticleSurfaceDensity() const =0
-
-Returns surface density of all particles. 
-";
-
-%feature("docstring")  ILayout::setTotalParticleSurfaceDensity "virtual void ILayout::setTotalParticleSurfaceDensity(double particle_density)=0
-
-Sets surface density of all particles. 
-";
-
-%feature("docstring")  ILayout::weight "double ILayout::weight() const
-
-Returns the relative weight of this layout. 
-";
-
-%feature("docstring")  ILayout::setWeight "void ILayout::setWeight(double weight)
-
-Sets the relative weight of this layout. 
-";
-
-
 // File: classIntegratorMCMiser.xml
 %feature("docstring") IntegratorMCMiser "";
 
@@ -5012,13 +4954,13 @@ Returns nullptr, unless overwritten to return a specific material.
 %feature("docstring")  Layer::setMaterial "void Layer::setMaterial(Material material)
 ";
 
-%feature("docstring")  Layer::addLayout "void Layer::addLayout(const ILayout &decoration)
+%feature("docstring")  Layer::addLayout "void Layer::addLayout(const ParticleLayout &decoration)
 ";
 
 %feature("docstring")  Layer::numberOfLayouts "size_t Layer::numberOfLayouts() const
 ";
 
-%feature("docstring")  Layer::layouts "std::vector< const ILayout * > Layer::layouts() const
+%feature("docstring")  Layer::layouts "std::vector< const ParticleLayout * > Layer::layouts() const
 ";
 
 %feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const override final
@@ -6205,12 +6147,12 @@ C++ includes: ParticleLayout.h
 %feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout() override
 ";
 
-%feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const final override
+%feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const override
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(INodeVisitor *visitor) const final override
+%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(INodeVisitor *visitor) const override
 ";
 
 %feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position={}, const IRotation &rotation=IdentityRotation())
@@ -6233,19 +6175,15 @@ rotation:
  Particle rotation 
 ";
 
-%feature("docstring")  ParticleLayout::particles "SafePointerVector< IParticle > ParticleLayout::particles() const final override
+%feature("docstring")  ParticleLayout::particles "SafePointerVector< IParticle > ParticleLayout::particles() const
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
 
-%feature("docstring")  ParticleLayout::interferenceFunction "const IInterferenceFunction * ParticleLayout::interferenceFunction() const final override
-
-Returns the interference function. 
+%feature("docstring")  ParticleLayout::interferenceFunction "const IInterferenceFunction * ParticleLayout::interferenceFunction() const
 ";
 
-%feature("docstring")  ParticleLayout::getTotalAbundance "double ParticleLayout::getTotalAbundance() const final override
-
-Get total abundance of all particles. 
+%feature("docstring")  ParticleLayout::getTotalAbundance "double ParticleLayout::getTotalAbundance() const
 ";
 
 %feature("docstring")  ParticleLayout::setInterferenceFunction "void ParticleLayout::setInterferenceFunction(const IInterferenceFunction &interference_function)
@@ -6253,12 +6191,10 @@ Get total abundance of all particles.
 Adds interference functions. 
 ";
 
-%feature("docstring")  ParticleLayout::totalParticleSurfaceDensity "double ParticleLayout::totalParticleSurfaceDensity() const final override
-
-Returns surface density of all particles. 
+%feature("docstring")  ParticleLayout::totalParticleSurfaceDensity "double ParticleLayout::totalParticleSurfaceDensity() const
 ";
 
-%feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override
+%feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
 
 Sets total particle surface density.
 
@@ -6269,7 +6205,17 @@ particle_density:
 number of particles per square nanometer 
 ";
 
-%feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const final override
+%feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const override
+";
+
+%feature("docstring")  ParticleLayout::weight "double ParticleLayout::weight() const
+
+Returns the relative weight of this layout. 
+";
+
+%feature("docstring")  ParticleLayout::setWeight "void ParticleLayout::setWeight(double weight)
+
+Sets the relative weight of this layout. 
 ";
 
 
@@ -7667,19 +7613,22 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d114.xml
+// File: namespace_0d112.xml
 
 
-// File: namespace_0d117.xml
+// File: namespace_0d115.xml
 
 
-// File: namespace_0d143.xml
+// File: namespace_0d141.xml
 
 
-// File: namespace_0d147.xml
+// File: namespace_0d145.xml
 
 
-// File: namespace_0d151.xml
+// File: namespace_0d149.xml
+
+
+// File: namespace_0d159.xml
 
 
 // File: namespace_0d16.xml
@@ -7691,40 +7640,40 @@ C++ includes: ZLimits.h
 // File: namespace_0d163.xml
 
 
-// File: namespace_0d165.xml
+// File: namespace_0d173.xml
 
 
-// File: namespace_0d175.xml
+// File: namespace_0d194.xml
 
 
 // File: namespace_0d196.xml
 
 
-// File: namespace_0d198.xml
-
-
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d208.xml
+// File: namespace_0d206.xml
+
+
+// File: namespace_0d222.xml
 
 
 // File: namespace_0d224.xml
 
 
-// File: namespace_0d226.xml
+// File: namespace_0d231.xml
 
 
-// File: namespace_0d233.xml
+// File: namespace_0d249.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d251.xml
+// File: namespace_0d257.xml
 
 
-// File: namespace_0d259.xml
+// File: namespace_0d267.xml
 
 
 // File: namespace_0d269.xml
@@ -7739,7 +7688,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d275.xml
 
 
-// File: namespace_0d277.xml
+// File: namespace_0d279.xml
 
 
 // File: namespace_0d281.xml
@@ -7748,34 +7697,31 @@ C++ includes: ZLimits.h
 // File: namespace_0d283.xml
 
 
-// File: namespace_0d285.xml
+// File: namespace_0d295.xml
 
 
-// File: namespace_0d297.xml
+// File: namespace_0d301.xml
 
 
-// File: namespace_0d303.xml
-
-
-// File: namespace_0d307.xml
+// File: namespace_0d305.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d325.xml
+// File: namespace_0d323.xml
 
 
-// File: namespace_0d344.xml
+// File: namespace_0d342.xml
 
 
 // File: namespace_0d37.xml
 
 
+// File: namespace_0d39.xml
+
+
 // File: namespace_0d4.xml
-
-
-// File: namespace_0d41.xml
 
 
 // File: namespacebake.xml
@@ -8075,12 +8021,6 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: IDistribution2DSampler_8h.xml
-
-
-// File: ILayout_8cpp.xml
-
-
-// File: ILayout_8h.xml
 
 
 // File: IPeakShape_8cpp.xml

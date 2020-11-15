@@ -6301,114 +6301,6 @@ class FTDistribution2DVoigt(IFTDistribution2D):
 # Register FTDistribution2DVoigt in _libBornAgainSample:
 _libBornAgainSample.FTDistribution2DVoigt_swigregister(FTDistribution2DVoigt)
 
-class ILayout(ISample):
-    r"""
-
-
-    Pure virtual interface class to equip a sample layer with scattering properties. Currently only inherited by  ParticleLayout; in the future also by domain structure.
-
-    C++ includes: ILayout.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainSample.delete_ILayout
-
-    def clone(self):
-        r"""
-        clone(ILayout self) -> ILayout
-        virtual ILayout* ILayout::clone() const =0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainSample.ILayout_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(ILayout self, INodeVisitor * visitor)
-        virtual void ILayout::accept(INodeVisitor *visitor) const =0
-
-        """
-        return _libBornAgainSample.ILayout_accept(self, visitor)
-
-    def particles(self):
-        r"""
-        particles(ILayout self) -> SafePointerVector< IParticle >
-        virtual SafePointerVector<IParticle> ILayout::particles() const =0
-
-        Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
-
-        """
-        return _libBornAgainSample.ILayout_particles(self)
-
-    def interferenceFunction(self):
-        r"""
-        interferenceFunction(ILayout self) -> IInterferenceFunction
-        virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
-
-        Returns the interference function. 
-
-        """
-        return _libBornAgainSample.ILayout_interferenceFunction(self)
-
-    def getTotalAbundance(self):
-        r"""
-        getTotalAbundance(ILayout self) -> double
-        virtual double ILayout::getTotalAbundance() const =0
-
-        Get total abundance of all particles. 
-
-        """
-        return _libBornAgainSample.ILayout_getTotalAbundance(self)
-
-    def totalParticleSurfaceDensity(self):
-        r"""
-        totalParticleSurfaceDensity(ILayout self) -> double
-        virtual double ILayout::totalParticleSurfaceDensity() const =0
-
-        Returns surface density of all particles. 
-
-        """
-        return _libBornAgainSample.ILayout_totalParticleSurfaceDensity(self)
-
-    def setTotalParticleSurfaceDensity(self, particle_density):
-        r"""
-        setTotalParticleSurfaceDensity(ILayout self, double particle_density)
-        virtual void ILayout::setTotalParticleSurfaceDensity(double particle_density)=0
-
-        Sets surface density of all particles. 
-
-        """
-        return _libBornAgainSample.ILayout_setTotalParticleSurfaceDensity(self, particle_density)
-
-    def weight(self):
-        r"""
-        weight(ILayout self) -> double
-        double ILayout::weight() const
-
-        Returns the relative weight of this layout. 
-
-        """
-        return _libBornAgainSample.ILayout_weight(self)
-
-    def setWeight(self, weight):
-        r"""
-        setWeight(ILayout self, double weight)
-        void ILayout::setWeight(double weight)
-
-        Sets the relative weight of this layout. 
-
-        """
-        return _libBornAgainSample.ILayout_setWeight(self, weight)
-
-# Register ILayout in _libBornAgainSample:
-_libBornAgainSample.ILayout_swigregister(ILayout)
-
 class IPeakShape(ISample):
     r"""
 
@@ -8160,7 +8052,7 @@ class InterferenceFunctionTwin(IInterferenceFunction):
 # Register InterferenceFunctionTwin in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunctionTwin_swigregister(InterferenceFunctionTwin)
 
-class ParticleLayout(ILayout):
+class ParticleLayout(ISample):
     r"""
 
 
@@ -8186,7 +8078,7 @@ class ParticleLayout(ILayout):
     def clone(self):
         r"""
         clone(ParticleLayout self) -> ParticleLayout
-        ParticleLayout * ParticleLayout::clone() const final override
+        ParticleLayout * ParticleLayout::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -8196,7 +8088,7 @@ class ParticleLayout(ILayout):
     def accept(self, visitor):
         r"""
         accept(ParticleLayout self, INodeVisitor * visitor)
-        void ParticleLayout::accept(INodeVisitor *visitor) const final override
+        void ParticleLayout::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.ParticleLayout_accept(self, visitor)
@@ -8229,7 +8121,7 @@ class ParticleLayout(ILayout):
     def particles(self):
         r"""
         particles(ParticleLayout self) -> SafePointerVector< IParticle >
-        SafePointerVector< IParticle > ParticleLayout::particles() const final override
+        SafePointerVector< IParticle > ParticleLayout::particles() const
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
@@ -8239,9 +8131,7 @@ class ParticleLayout(ILayout):
     def interferenceFunction(self):
         r"""
         interferenceFunction(ParticleLayout self) -> IInterferenceFunction
-        const IInterferenceFunction * ParticleLayout::interferenceFunction() const final override
-
-        Returns the interference function. 
+        const IInterferenceFunction * ParticleLayout::interferenceFunction() const
 
         """
         return _libBornAgainSample.ParticleLayout_interferenceFunction(self)
@@ -8249,9 +8139,7 @@ class ParticleLayout(ILayout):
     def getTotalAbundance(self):
         r"""
         getTotalAbundance(ParticleLayout self) -> double
-        double ParticleLayout::getTotalAbundance() const final override
-
-        Get total abundance of all particles. 
+        double ParticleLayout::getTotalAbundance() const
 
         """
         return _libBornAgainSample.ParticleLayout_getTotalAbundance(self)
@@ -8269,9 +8157,7 @@ class ParticleLayout(ILayout):
     def totalParticleSurfaceDensity(self):
         r"""
         totalParticleSurfaceDensity(ParticleLayout self) -> double
-        double ParticleLayout::totalParticleSurfaceDensity() const final override
-
-        Returns surface density of all particles. 
+        double ParticleLayout::totalParticleSurfaceDensity() const
 
         """
         return _libBornAgainSample.ParticleLayout_totalParticleSurfaceDensity(self)
@@ -8279,7 +8165,7 @@ class ParticleLayout(ILayout):
     def setTotalParticleSurfaceDensity(self, particle_density):
         r"""
         setTotalParticleSurfaceDensity(ParticleLayout self, double particle_density)
-        void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override
+        void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
 
         Sets total particle surface density.
 
@@ -8295,10 +8181,30 @@ class ParticleLayout(ILayout):
     def getChildren(self):
         r"""
         getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > ParticleLayout::getChildren() const final override
+        std::vector< const INode * > ParticleLayout::getChildren() const override
 
         """
         return _libBornAgainSample.ParticleLayout_getChildren(self)
+
+    def weight(self):
+        r"""
+        weight(ParticleLayout self) -> double
+        double ParticleLayout::weight() const
+
+        Returns the relative weight of this layout. 
+
+        """
+        return _libBornAgainSample.ParticleLayout_weight(self)
+
+    def setWeight(self, weight):
+        r"""
+        setWeight(ParticleLayout self, double weight)
+        void ParticleLayout::setWeight(double weight)
+
+        Sets the relative weight of this layout. 
+
+        """
+        return _libBornAgainSample.ParticleLayout_setWeight(self, weight)
 
 # Register ParticleLayout in _libBornAgainSample:
 _libBornAgainSample.ParticleLayout_swigregister(ParticleLayout)
@@ -8392,8 +8298,8 @@ class Layer(ISample):
 
     def addLayout(self, decoration):
         r"""
-        addLayout(Layer self, ILayout decoration)
-        void Layer::addLayout(const ILayout &decoration)
+        addLayout(Layer self, ParticleLayout decoration)
+        void Layer::addLayout(const ParticleLayout &decoration)
 
         """
         return _libBornAgainSample.Layer_addLayout(self, decoration)
@@ -8408,8 +8314,8 @@ class Layer(ISample):
 
     def layouts(self):
         r"""
-        layouts(Layer self) -> std::vector< ILayout const *,std::allocator< ILayout const * > >
-        std::vector< const ILayout * > Layer::layouts() const
+        layouts(Layer self) -> std::vector< ParticleLayout const *,std::allocator< ParticleLayout const * > >
+        std::vector< const ParticleLayout * > Layer::layouts() const
 
         """
         return _libBornAgainSample.Layer_layouts(self)

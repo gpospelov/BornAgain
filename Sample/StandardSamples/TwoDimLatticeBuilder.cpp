@@ -30,13 +30,12 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    std::unique_ptr<InterferenceFunction2DLattice> P_interference_function(
-        new InterferenceFunction2DLattice(5.0 * Units::nanometer, 10.0 * Units::nanometer,
-                                          30.0 * Units::deg, 10.0 * Units::deg));
+    InterferenceFunction2DLattice iff(5.0 * Units::nanometer, 10.0 * Units::nanometer,
+                                      30.0 * Units::deg, 10.0 * Units::deg);
 
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
                                 100.0 * Units::nanometer / 2.0 / M_PI, 0);
-    P_interference_function->setDecayFunction(pdf);
+    iff.setDecayFunction(pdf);
 
     // particles
     ParticleLayout particle_layout;
@@ -44,7 +43,7 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
     Particle particle(refMat::Particle, ff_cyl);
     particle_layout.addParticle(particle, 1.0);
 
-    particle_layout.setInterferenceFunction(*P_interference_function);
+    particle_layout.setInterferenceFunction(iff);
 
     vacuum_layer.addLayout(particle_layout);
 
@@ -62,11 +61,10 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
-        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer, 0)};
+    InterferenceFunction2DLattice iff(SquareLattice(10.0 * Units::nanometer, 0));
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
                                 100.0 * Units::nanometer / 2.0 / M_PI, 0);
-    P_interference_function->setDecayFunction(pdf);
+    iff.setDecayFunction(pdf);
 
     // particles
     ParticleLayout particle_layout;
@@ -74,7 +72,7 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
     Particle particle(refMat::Particle, ff_cyl);
     particle_layout.addParticle(particle, 1.0);
 
-    particle_layout.setInterferenceFunction(*P_interference_function);
+    particle_layout.setInterferenceFunction(iff);
 
     vacuum_layer.addLayout(particle_layout);
 
@@ -127,11 +125,10 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    std::unique_ptr<InterferenceFunction2DLattice> P_interference_function{
-        InterferenceFunction2DLattice::createSquare(10.0 * Units::nanometer, 30.0 * Units::degree)};
+    InterferenceFunction2DLattice iff(SquareLattice(10.0 * Units::nanometer, 30.0 * Units::degree));
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
                                 100.0 * Units::nanometer / 2.0 / M_PI, 30.0 * Units::degree);
-    P_interference_function->setDecayFunction(pdf);
+    iff.setDecayFunction(pdf);
 
     ParticleLayout particle_layout;
     // particle
@@ -140,7 +137,7 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
     Particle p(refMat::Particle, ff_cyl);
     p.setPosition(position);
     particle_layout.addParticle(p);
-    particle_layout.setInterferenceFunction(*P_interference_function);
+    particle_layout.setInterferenceFunction(iff);
 
     vacuum_layer.addLayout(particle_layout);
 
@@ -158,9 +155,8 @@ MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    std::unique_ptr<InterferenceFunctionFinite2DLattice> P_interference_function{
-        InterferenceFunctionFinite2DLattice::createSquare(10.0 * Units::nanometer, 0.0, 40, 40)};
-    P_interference_function->setPositionVariance(1.0);
+    InterferenceFunctionFinite2DLattice iff(SquareLattice(10.0 * Units::nanometer, 0.0), 40, 40);
+    iff.setPositionVariance(1.0);
 
     // particles
     ParticleLayout particle_layout;
@@ -168,7 +164,7 @@ MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
     Particle particle(refMat::Particle, ff_cyl);
     particle_layout.addParticle(particle, 1.0);
 
-    particle_layout.setInterferenceFunction(*P_interference_function);
+    particle_layout.setInterferenceFunction(iff);
 
     vacuum_layer.addLayout(particle_layout);
 
@@ -186,12 +182,11 @@ MultiLayer* SuperLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    std::unique_ptr<InterferenceFunction2DSuperLattice> P_interference_function{
-        InterferenceFunction2DSuperLattice::createSquare(200.0 * Units::nanometer, 0.0, 40, 40)};
-    std::unique_ptr<InterferenceFunctionFinite2DLattice> P_substructure{
-        InterferenceFunctionFinite2DLattice::createSquare(10.0 * Units::nanometer, 0.0, 10, 10)};
-    P_interference_function->setSubstructureIFF(*P_substructure);
-    P_interference_function->setPositionVariance(1.0);
+    InterferenceFunction2DSuperLattice iff(SquareLattice(200.0 * Units::nanometer, 0.0), 40, 40);
+    InterferenceFunctionFinite2DLattice substructure(
+        SquareLattice(10.0 * Units::nanometer, 0.0), 10, 10);
+    iff.setSubstructureIFF(substructure);
+    iff.setPositionVariance(1.0);
 
     // particles
     ParticleLayout particle_layout;
@@ -199,7 +194,7 @@ MultiLayer* SuperLatticeBuilder::buildSample() const
     Particle particle(refMat::Vacuum, ff_cyl);
     particle_layout.addParticle(particle, 1.0, kvector_t(0.0, 0.0, -10.0 * Units::nanometer));
 
-    particle_layout.setInterferenceFunction(*P_interference_function);
+    particle_layout.setInterferenceFunction(iff);
     particle_layout.setTotalParticleSurfaceDensity(100.0 / 4e4);
 
     substrate_layer.addLayout(particle_layout);

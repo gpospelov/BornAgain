@@ -73,7 +73,7 @@ kvector_t Lattice::getMillerDirection(double h, double k, double l) const
     return direction.unit();
 }
 
-double Lattice::volume() const
+double Lattice::unitCellVolume() const
 {
     return std::abs(m_a.dot(m_b.cross(m_c)));
 }

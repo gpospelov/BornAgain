@@ -56,7 +56,7 @@ public:
     kvector_t getMillerDirection(double h, double k, double l) const;
 
     //! Returns the volume of the unit cell
-    double volume() const;
+    double unitCellVolume() const;
 
     //! Returns the reciprocal basis vectors
     void getReciprocalLatticeBasis(kvector_t& ra, kvector_t& rb, kvector_t& rc) const;

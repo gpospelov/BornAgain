@@ -4914,7 +4914,7 @@ Returns normalized direction corresponding to the given Miller indices.
 Currently unused but may be useful for checks. 
 ";
 
-%feature("docstring")  Lattice::volume "double Lattice::volume() const
+%feature("docstring")  Lattice::unitCellVolume "double Lattice::unitCellVolume() const
 
 Returns the volume of the unit cell. 
 ";

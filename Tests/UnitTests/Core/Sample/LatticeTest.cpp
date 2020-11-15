@@ -42,7 +42,7 @@ TEST_F(LatticeTest, volumeTest)
     kvector_t a1(4, 0, 0), a2(0, 2.1, 0), a3(0, 0, 1);
 
     Lattice l1(a1, a2, a3);
-    EXPECT_EQ(8.4, l1.volume()); // 8.4 is the expected volume for the given lattice vectors
+    EXPECT_EQ(8.4, l1.unitCellVolume()); // 8.4 is the expected volume for the given lattice vectors
 }
 
 // tests whether reciprocal lattice basis vectors have been initialized or not

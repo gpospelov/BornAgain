@@ -54,7 +54,7 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
 std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const
 {
     std::vector<HomogeneousRegion> result;
-    double unit_cell_volume = m_lattice.volume();
+    double unit_cell_volume = m_lattice.unitCellVolume();
     if (unit_cell_volume <= 0)
         return {};
     auto particles = m_lattice_basis->decompose();

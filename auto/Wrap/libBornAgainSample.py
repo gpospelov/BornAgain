@@ -11551,15 +11551,15 @@ class Lattice(libBornAgainParam.INode):
         """
         return _libBornAgainSample.Lattice_getMillerDirection(self, h, k, l)
 
-    def volume(self):
+    def unitCellVolume(self):
         r"""
-        volume(Lattice self) -> double
-        double Lattice::volume() const
+        unitCellVolume(Lattice self) -> double
+        double Lattice::unitCellVolume() const
 
         Returns the volume of the unit cell. 
 
         """
-        return _libBornAgainSample.Lattice_volume(self)
+        return _libBornAgainSample.Lattice_unitCellVolume(self)
 
     def getReciprocalLatticeBasis(self, ra, rb, rc):
         r"""

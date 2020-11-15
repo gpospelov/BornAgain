@@ -68355,7 +68355,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_volume(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice_unitCellVolume(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Lattice *arg1 = (Lattice *) 0 ;
   void *argp1 = 0 ;
@@ -68367,10 +68367,10 @@ SWIGINTERN PyObject *_wrap_Lattice_volume(PyObject *SWIGUNUSEDPARM(self), PyObje
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_volume" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_unitCellVolume" "', argument " "1"" of type '" "Lattice const *""'"); 
   }
   arg1 = reinterpret_cast< Lattice * >(argp1);
-  result = (double)((Lattice const *)arg1)->volume();
+  result = (double)((Lattice const *)arg1)->unitCellVolume();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -76192,9 +76192,9 @@ static PyMethodDef SwigMethods[] = {
 		"Currently unused but may be useful for checks. \n"
 		"\n"
 		""},
-	 { "Lattice_volume", _wrap_Lattice_volume, METH_O, "\n"
-		"Lattice_volume(Lattice self) -> double\n"
-		"double Lattice::volume() const\n"
+	 { "Lattice_unitCellVolume", _wrap_Lattice_unitCellVolume, METH_O, "\n"
+		"Lattice_unitCellVolume(Lattice self) -> double\n"
+		"double Lattice::unitCellVolume() const\n"
 		"\n"
 		"Returns the volume of the unit cell. \n"
 		"\n"

@@ -1955,7 +1955,10 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::materialMap "materials_t* SampleLabelHandler::materialMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::latticeMap "lattices_t* SampleLabelHandler::latticeMap()
+%feature("docstring")  SampleLabelHandler::lattice2DMap "lattices2D_t* SampleLabelHandler::lattice2DMap()
+";
+
+%feature("docstring")  SampleLabelHandler::lattice3DMap "lattices3D_t* SampleLabelHandler::lattice3DMap()
 ";
 
 %feature("docstring")  SampleLabelHandler::mesocrystalMap "mesocrystals_t* SampleLabelHandler::mesocrystalMap()
@@ -2000,7 +2003,10 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::labelMaterial "std::string SampleLabelHandler::labelMaterial(const Material *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::labelLattice "std::string SampleLabelHandler::labelLattice(const Lattice3D *sample)
+%feature("docstring")  SampleLabelHandler::labelLattice2D "std::string SampleLabelHandler::labelLattice2D(const Lattice2D *sample)
+";
+
+%feature("docstring")  SampleLabelHandler::labelLattice3D "std::string SampleLabelHandler::labelLattice3D(const Lattice3D *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::labelMultiLayer "std::string SampleLabelHandler::labelMultiLayer(const MultiLayer *sample)
@@ -2033,7 +2039,10 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const Material *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertLattice "void SampleLabelHandler::insertLattice(const Lattice3D *sample)
+%feature("docstring")  SampleLabelHandler::insertLattice2D "void SampleLabelHandler::insertLattice2D(const Lattice2D *sample)
+";
+
+%feature("docstring")  SampleLabelHandler::insertLattice3D "void SampleLabelHandler::insertLattice3D(const Lattice3D *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertMesoCrystal "void SampleLabelHandler::insertMesoCrystal(const MesoCrystal *sample)

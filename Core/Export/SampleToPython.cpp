@@ -67,7 +67,7 @@ void SampleToPython::initLabels(const MultiLayer& multilayer)
     for (auto x : INodeUtils::AllDescendantsOfType<ParticleDistribution>(multilayer))
         m_label->insertParticleDistribution(x);
     for (auto x : INodeUtils::AllDescendantsOfType<Lattice3D>(multilayer))
-        m_label->insertLattice(x);
+        m_label->insertLattice3D(x);
     for (auto x : INodeUtils::AllDescendantsOfType<Crystal>(multilayer))
         m_label->insertCrystal(x);
     for (auto x : INodeUtils::AllDescendantsOfType<MesoCrystal>(multilayer))
@@ -84,7 +84,8 @@ std::string SampleToPython::defineGetSample() const
 {
     return "def " + pyfmt::getSampleFunctionName() + "():\n" + defineMaterials() + defineLayers()
            + defineFormFactors() + defineParticles() + defineCoreShellParticles()
-           + defineParticleCompositions() + defineLattices() + defineCrystals()
+           + defineParticleCompositions() + defineLattices2D() + defineLattices3D()
+           + defineCrystals()
            + defineMesoCrystals() + defineParticleDistributions() + defineInterferenceFunctions()
            + defineParticleLayouts() + defineRoughnesses() + addLayoutsToLayers()
            + defineMultiLayers() + "\n\n";
@@ -285,9 +286,29 @@ std::string SampleToPython::defineParticleCompositions() const
     return result.str();
 }
 
-std::string SampleToPython::defineLattices() const
+std::string SampleToPython::defineLattices2D() const
 {
-    const auto themap = m_label->latticeMap();
+    const auto themap = m_label->lattice2DMap();
+    if (themap->empty())
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Defining 2D lattices\n";
+    for (auto it = themap->begin(); it != themap->end(); ++it) {
+        const Lattice2D* p_lattice = it->first;
+        std::string lattice_name = it->second;
+        result << indent() << lattice_name << " = ba.BasicLattice(\n";
+        result << indent() << indent()
+               << pyfmt::printNm(p_lattice->length1()) << ", "
+               << pyfmt::printNm(p_lattice->length2()) << ", "
+               << pyfmt::printNm(p_lattice->latticeAngle()) << "),\n";
+    }
+    return result.str();
+}
+
+std::string SampleToPython::defineLattices3D() const
+{
+    const auto themap = m_label->lattice3DMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -327,7 +348,7 @@ std::string SampleToPython::defineCrystals() const
             continue;
         result << indent() << crystal_name << " = ba.Crystal(";
         result << m_label->labelParticle(p_basis) << ", ";
-        result << m_label->labelLattice(p_lattice) << ")\n";
+        result << m_label->labelLattice3D(p_lattice) << ")\n";
     }
     return result.str();
 }

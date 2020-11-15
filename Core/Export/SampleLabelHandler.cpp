@@ -53,9 +53,14 @@ std::string SampleLabelHandler::labelMaterial(const Material* mat)
     return m_MaterialLabel[mat];
 }
 
-std::string SampleLabelHandler::labelLattice(const Lattice3D* lat)
+std::string SampleLabelHandler::labelLattice2D(const Lattice2D* lat)
 {
-    return m_LatticeLabel[lat];
+    return m_Lattice2DLabel[lat];
+}
+
+std::string SampleLabelHandler::labelLattice3D(const Lattice3D* lat)
+{
+    return m_Lattice3DLabel[lat];
 }
 
 std::string SampleLabelHandler::labelMultiLayer(const MultiLayer* ml)
@@ -136,10 +141,16 @@ void SampleLabelHandler::insertMaterial(const Material* mat)
     m_MaterialLabel.insert(mat, label);
 }
 
-void SampleLabelHandler::insertLattice(const Lattice3D* sample)
+void SampleLabelHandler::insertLattice2D(const Lattice2D* sample)
 {
-    std::string label = "lattice_" + std::to_string(m_LatticeLabel.size() + 1);
-    m_LatticeLabel.insert(sample, label);
+    std::string label = "lattice2D_" + std::to_string(m_Lattice2DLabel.size() + 1);
+    m_Lattice2DLabel.insert(sample, label);
+}
+
+void SampleLabelHandler::insertLattice3D(const Lattice3D* sample)
+{
+    std::string label = "lattice3D_" + std::to_string(m_Lattice3DLabel.size() + 1);
+    m_Lattice3DLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertMesoCrystal(const MesoCrystal* sample)

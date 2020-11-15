@@ -42788,7 +42788,50 @@ SWIGINTERN PyObject *IAbstractParticle_swigregister(PyObject *SWIGUNUSEDPARM(sel
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_Crystal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_Crystal__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IParticle *arg1 = 0 ;
+  Lattice *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  Crystal *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IParticle,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Crystal" "', argument " "1"" of type '" "IParticle const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Crystal" "', argument " "1"" of type '" "IParticle const &""'"); 
+  }
+  arg1 = reinterpret_cast< IParticle * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Lattice,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_Crystal" "', argument " "2"" of type '" "Lattice const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Crystal" "', argument " "2"" of type '" "Lattice const &""'"); 
+  }
+  arg2 = reinterpret_cast< Lattice * >(argp2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_Crystal" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (Crystal *)new Crystal((IParticle const &)*arg1,(Lattice const &)*arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Crystal, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Crystal__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IParticle *arg1 = 0 ;
   Lattice *arg2 = 0 ;
@@ -42796,10 +42839,9 @@ SWIGINTERN PyObject *_wrap_new_Crystal(PyObject *SWIGUNUSEDPARM(self), PyObject 
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  PyObject *swig_obj[2] ;
   Crystal *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "new_Crystal", 2, 2, swig_obj)) SWIG_fail;
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IParticle,  0  | 0);
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Crystal" "', argument " "1"" of type '" "IParticle const &""'"); 
@@ -42821,6 +42863,54 @@ SWIGINTERN PyObject *_wrap_new_Crystal(PyObject *SWIGUNUSEDPARM(self), PyObject 
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Crystal(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_Crystal", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IParticle, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_Lattice, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_Crystal__SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IParticle, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_Lattice, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_new_Crystal__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Crystal'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Crystal::Crystal(IParticle const &,Lattice const &,double)\n"
+    "    Crystal::Crystal(IParticle const &,Lattice const &)\n");
+  return 0;
 }
 
 
@@ -43068,35 +43158,6 @@ fail:
     "    Crystal::transformedLattice(IRotation const *) const\n"
     "    Crystal::transformedLattice() const\n");
   return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_Crystal_setPositionVariance(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Crystal *arg1 = (Crystal *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Crystal_setPositionVariance", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Crystal, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Crystal_setPositionVariance" "', argument " "1"" of type '" "Crystal *""'"); 
-  }
-  arg1 = reinterpret_cast< Crystal * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Crystal_setPositionVariance" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setPositionVariance(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -71972,8 +72033,8 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IAbstractParticle_swigregister", IAbstractParticle_swigregister, METH_O, NULL},
 	 { "new_Crystal", _wrap_new_Crystal, METH_VARARGS, "\n"
-		"new_Crystal(IParticle basis, Lattice lattice) -> Crystal\n"
-		"Crystal::Crystal(const IParticle &basis, const Lattice &lattice)\n"
+		"Crystal(IParticle basis, Lattice lattice, double position_variance=0)\n"
+		"Crystal::Crystal(const IParticle &basis, const Lattice &lattice, double position_variance=0)\n"
 		"\n"
 		""},
 	 { "delete_Crystal", _wrap_delete_Crystal, METH_O, "\n"
@@ -72006,11 +72067,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "Crystal_transformedLattice", _wrap_Crystal_transformedLattice, METH_VARARGS, "\n"
 		"Crystal_transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice\n"
 		"Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const\n"
-		"\n"
-		""},
-	 { "Crystal_setPositionVariance", _wrap_Crystal_setPositionVariance, METH_VARARGS, "\n"
-		"Crystal_setPositionVariance(Crystal self, double position_variance)\n"
-		"void Crystal::setPositionVariance(double position_variance)\n"
 		"\n"
 		""},
 	 { "Crystal_getChildren", _wrap_Crystal_getChildren, METH_O, "\n"

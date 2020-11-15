@@ -108,9 +108,8 @@ class MySampleBuilder(ISampleBuilder):
         basis = ParticleComposition()
         basis.addParticles(particle, positions)
 
-        npc = Crystal(basis, p_lat)
         position_variance = self.sigma_lattice_length_a.value*self.sigma_lattice_length_a.value/3.0
-        npc.setPositionVariance(position_variance)
+        npc = Crystal(basis, p_lat, position_variance)
         meso = MesoCrystal(npc, p_meso_form_factor)
         return meso
 

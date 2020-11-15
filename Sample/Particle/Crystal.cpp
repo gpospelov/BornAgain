@@ -19,8 +19,8 @@
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/Particle/SlicedParticle.h"
 
-Crystal::Crystal(const IParticle& basis, const Lattice& lattice)
-    : m_lattice(lattice), m_position_variance(0.0)
+Crystal::Crystal(const IParticle& basis, const Lattice& lattice, double position_variance)
+    : m_lattice(lattice), m_position_variance(position_variance)
 {
     setName("Crystal");
     m_basis.reset(basis.clone());
@@ -29,13 +29,20 @@ Crystal::Crystal(const IParticle& basis, const Lattice& lattice)
     registerChild(&m_lattice);
 }
 
+Crystal::Crystal(IParticle* p_basis, const Lattice& lattice, double position_variance)
+    : m_lattice(lattice), m_position_variance(position_variance)
+{
+    setName("Crystal");
+    m_basis.reset(p_basis);
+    registerChild(m_basis.get());
+    registerChild(&m_lattice);
+}
+
 Crystal::~Crystal() = default;
 
 Crystal* Crystal::clone() const
 {
-    Crystal* p_new = new Crystal(*m_basis, m_lattice);
-    p_new->setPositionVariance(m_position_variance);
-    return p_new;
+    return new Crystal(*m_basis, m_lattice, m_position_variance);
 }
 
 IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
@@ -72,22 +79,12 @@ std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const
 
 Lattice Crystal::transformedLattice(const IRotation* p_rotation) const
 {
-    if (p_rotation)
-        return m_lattice.transformed(p_rotation->getTransform3D());
-    else
+    if (!p_rotation)
         return m_lattice;
+    return m_lattice.transformed(p_rotation->getTransform3D());
 }
 
 std::vector<const INode*> Crystal::getChildren() const
 {
     return std::vector<const INode*>() << m_basis << &m_lattice;
-}
-
-Crystal::Crystal(IParticle* p_basis, const Lattice& lattice)
-    : m_lattice(lattice), m_position_variance(0.0)
-{
-    setName("Crystal");
-    m_basis.reset(p_basis);
-    registerChild(m_basis.get());
-    registerChild(&m_lattice);
 }

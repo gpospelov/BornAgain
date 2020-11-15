@@ -4335,7 +4335,13 @@ class Crystal(ISample):
     r"""
 
 
-    A crystal structure with a  ParticleComposition as a basis. Used in  MesoCrystal, where it is given an outer shape.
+    A crystal structure, defined by a Bravais lattice, a basis, and a position variance.
+
+    The basis is either a  Particle or a  ParticleComposition.
+
+    Computations are delegated to class  FormFactorCrystal.
+
+    Used in  MesoCrystal, where it is given an outer shape.
 
     C++ includes: Crystal.h
 
@@ -4344,13 +4350,13 @@ class Crystal(ISample):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, basis, lattice):
+    def __init__(self, basis, lattice, position_variance=0):
         r"""
-        __init__(Crystal self, IParticle basis, Lattice lattice) -> Crystal
-        Crystal::Crystal(const IParticle &basis, const Lattice &lattice)
+        __init__(Crystal self, IParticle basis, Lattice lattice, double position_variance=0) -> Crystal
+        Crystal::Crystal(const IParticle &basis, const Lattice &lattice, double position_variance=0)
 
         """
-        _libBornAgainSample.Crystal_swiginit(self, _libBornAgainSample.new_Crystal(basis, lattice))
+        _libBornAgainSample.Crystal_swiginit(self, _libBornAgainSample.new_Crystal(basis, lattice, position_variance))
     __swig_destroy__ = _libBornAgainSample.delete_Crystal
 
     def clone(self):
@@ -4394,14 +4400,6 @@ class Crystal(ISample):
 
         """
         return _libBornAgainSample.Crystal_transformedLattice(self, p_rotation)
-
-    def setPositionVariance(self, position_variance):
-        r"""
-        setPositionVariance(Crystal self, double position_variance)
-        void Crystal::setPositionVariance(double position_variance)
-
-        """
-        return _libBornAgainSample.Crystal_setPositionVariance(self, position_variance)
 
     def getChildren(self):
         r"""

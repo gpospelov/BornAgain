@@ -312,12 +312,18 @@ C++ includes: RipplesBuilder.h
 // File: classCrystal.xml
 %feature("docstring") Crystal "
 
-A crystal structure with a  ParticleComposition as a basis. Used in  MesoCrystal, where it is given an outer shape.
+A crystal structure, defined by a Bravais lattice, a basis, and a position variance.
+
+The basis is either a  Particle or a  ParticleComposition.
+
+Computations are delegated to class  FormFactorCrystal.
+
+Used in  MesoCrystal, where it is given an outer shape.
 
 C++ includes: Crystal.h
 ";
 
-%feature("docstring")  Crystal::Crystal "Crystal::Crystal(const IParticle &basis, const Lattice &lattice)
+%feature("docstring")  Crystal::Crystal "Crystal::Crystal(const IParticle &basis, const Lattice &lattice, double position_variance=0)
 ";
 
 %feature("docstring")  Crystal::~Crystal "Crystal::~Crystal()
@@ -338,9 +344,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  Crystal::transformedLattice "Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
-";
-
-%feature("docstring")  Crystal::setPositionVariance "void Crystal::setPositionVariance(double position_variance)
 ";
 
 %feature("docstring")  Crystal::getChildren "std::vector< const INode * > Crystal::getChildren() const override final
@@ -3025,30 +3028,6 @@ Translates the particle with the given vector.
 %feature("docstring")  IAbstractParticle::rotate "virtual void IAbstractParticle::rotate(const IRotation &rotation)=0
 
 Applies the given rotation to the particle. 
-";
-
-
-// File: classIClusteredParticles.xml
-%feature("docstring") IClusteredParticles "
-
-An ordered assembly of particles. Currently, the only child class is  Crystal.
-
-C++ includes: IClusteredParticles.h
-";
-
-%feature("docstring")  IClusteredParticles::clone "IClusteredParticles* IClusteredParticles::clone() const override=0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
-
-Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
-";
-
-%feature("docstring")  IClusteredParticles::homogeneousRegions "virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0
-
-Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
 ";
 
 
@@ -7718,76 +7697,76 @@ C++ includes: ZLimits.h
 // File: namespace_0d175.xml
 
 
-// File: namespace_0d197.xml
+// File: namespace_0d196.xml
 
 
-// File: namespace_0d199.xml
+// File: namespace_0d198.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d209.xml
+// File: namespace_0d208.xml
 
 
-// File: namespace_0d225.xml
+// File: namespace_0d224.xml
 
 
-// File: namespace_0d227.xml
+// File: namespace_0d226.xml
 
 
-// File: namespace_0d234.xml
+// File: namespace_0d233.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d252.xml
+// File: namespace_0d251.xml
 
 
-// File: namespace_0d260.xml
+// File: namespace_0d259.xml
 
 
-// File: namespace_0d270.xml
+// File: namespace_0d269.xml
 
 
-// File: namespace_0d272.xml
+// File: namespace_0d271.xml
 
 
-// File: namespace_0d274.xml
+// File: namespace_0d273.xml
 
 
-// File: namespace_0d276.xml
+// File: namespace_0d275.xml
 
 
-// File: namespace_0d278.xml
+// File: namespace_0d277.xml
 
 
-// File: namespace_0d282.xml
+// File: namespace_0d281.xml
 
 
-// File: namespace_0d284.xml
+// File: namespace_0d283.xml
 
 
-// File: namespace_0d286.xml
+// File: namespace_0d285.xml
 
 
-// File: namespace_0d298.xml
+// File: namespace_0d297.xml
 
 
-// File: namespace_0d304.xml
+// File: namespace_0d303.xml
 
 
-// File: namespace_0d308.xml
+// File: namespace_0d307.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d326.xml
+// File: namespace_0d325.xml
 
 
-// File: namespace_0d345.xml
+// File: namespace_0d344.xml
 
 
 // File: namespace_0d37.xml
@@ -8592,9 +8571,6 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: IAbstractParticle_8h.xml
-
-
-// File: IClusteredParticles_8h.xml
 
 
 // File: IParticle_8cpp.xml

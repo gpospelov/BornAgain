@@ -35,7 +35,7 @@ struct HomogeneousRegion;
 class Crystal : public ISample
 {
 public:
-    Crystal(const IParticle& basis, const Lattice& lattice);
+    Crystal(const IParticle& basis, const Lattice& lattice, double position_variance = 0);
     ~Crystal();
 
     Crystal* clone() const override final;
@@ -50,12 +50,10 @@ public:
 
     Lattice transformedLattice(const IRotation* p_rotation = nullptr) const;
 
-    void setPositionVariance(double position_variance) { m_position_variance = position_variance; }
-
     std::vector<const INode*> getChildren() const override final;
 
 private:
-    Crystal(IParticle* p_basis, const Lattice& lattice);
+    Crystal(IParticle* p_basis, const Lattice& lattice, double position_variance = 0);
 
     Lattice m_lattice;
     std::unique_ptr<IParticle> m_basis;

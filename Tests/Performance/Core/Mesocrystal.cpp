@@ -187,9 +187,8 @@ MesoCrystalPerformanceBuilder::createMeso(Material material, const IFormFactor& 
     std::vector<kvector_t> pos_vector = {position_0, position_1, position_2};
     ParticleComposition basis;
     basis.addParticles(particle, pos_vector);
-    Crystal npc(basis, lattice);
     double position_variance = m_sigma_lattice_length_a * m_sigma_lattice_length_a / 3.0;
-    npc.setPositionVariance(position_variance);
+    Crystal npc(basis, lattice, position_variance);
 
     return std::make_unique<MesoCrystal>(npc, form_factor);
 }

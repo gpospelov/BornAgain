@@ -30,11 +30,10 @@ MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    std::unique_ptr<InterferenceFunction2DLattice> iff(
-        InterferenceFunction2DLattice::createSquare(8 * Units::nanometer, 0));
+    InterferenceFunction2DLattice iff(SquareLattice(8 * Units::nanometer, 0));
 
     FTDecayFunction2DCauchy pdf(100.0 * Units::nanometer, 100.0 * Units::nanometer, 0);
-    iff->setDecayFunction(pdf);
+    iff.setDecayFunction(pdf);
 
     // particles
     ParticleLayout particle_layout;
@@ -42,7 +41,7 @@ MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
     Particle particle(refMat::Particle, ff_box);
     particle_layout.addParticle(particle, 1.0);
 
-    particle_layout.setInterferenceFunction(*iff);
+    particle_layout.setInterferenceFunction(iff);
 
     vacuum_layer.addLayout(particle_layout);
 

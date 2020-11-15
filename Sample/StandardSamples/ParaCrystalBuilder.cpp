@@ -36,15 +36,14 @@ MultiLayer* RadialParaCrystalBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunctionRadialParaCrystal interference_function(m_corr_peak_distance,
-                                                                m_corr_length);
+    InterferenceFunctionRadialParaCrystal iff(m_corr_peak_distance, m_corr_length);
     FTDistribution1DGauss pdf(m_corr_width);
-    interference_function.setProbabilityDistribution(pdf);
+    iff.setProbabilityDistribution(pdf);
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
 
     Particle particle(refMat::Particle, ff_cylinder);
     ParticleLayout particle_layout(particle);
-    particle_layout.setInterferenceFunction(interference_function);
+    particle_layout.setInterferenceFunction(iff);
 
     vacuum_layer.addLayout(particle_layout);
 
@@ -71,19 +70,18 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DParaCrystal interference_function(
-        10.0 * Units::nanometer, 20.0 * Units::nanometer, 30.0 * Units::degree,
-        45.0 * Units::degree, 1000.0 * Units::nanometer);
+    InterferenceFunction2DParaCrystal iff(
+        BasicLattice(10.0 * Units::nanometer, 20.0 * Units::nanometer, 30.0 * Units::degree,
+                     45.0 * Units::degree),
+        1000.0 * Units::nanometer, 20.0 * Units::micrometer, 40.0 * Units::micrometer);
 
-    interference_function.setDomainSizes(20.0 * Units::micrometer, 40.0 * Units::micrometer);
-
-    interference_function.setProbabilityDistributions(*m_pdf1, *m_pdf2);
+    iff.setProbabilityDistributions(*m_pdf1, *m_pdf2);
 
     FormFactorCylinder ff_cylinder(5.0 * Units::nanometer, 5.0 * Units::nanometer);
 
     Particle particle(refMat::Particle, ff_cylinder);
     ParticleLayout particle_layout(particle);
-    particle_layout.setInterferenceFunction(interference_function);
+    particle_layout.setInterferenceFunction(iff);
 
     vacuum_layer.addLayout(particle_layout);
 
@@ -121,17 +119,17 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    std::unique_ptr<InterferenceFunction2DParaCrystal> iff{
-        InterferenceFunction2DParaCrystal::createHexagonal(m_peak_distance, m_corr_length,
-                                                           m_domain_size_1, m_domain_size_2)};
+    InterferenceFunction2DParaCrystal iff(HexagonalLattice(m_peak_distance, 0.0), m_corr_length,
+                                          m_domain_size_1, m_domain_size_2);
+    iff.setIntegrationOverXi(true);
     FTDistribution2DCauchy pdf(1.0 * Units::nanometer, 1.0 * Units::nanometer, 0);
-    iff->setProbabilityDistributions(pdf, pdf);
+    iff.setProbabilityDistributions(pdf, pdf);
 
     FormFactorCylinder ff_cylinder(m_cylinder_radius, m_cylinder_height);
     Particle cylinder(refMat::Particle, ff_cylinder);
 
     ParticleLayout particle_layout(cylinder);
-    particle_layout.setInterferenceFunction(*iff);
+    particle_layout.setInterferenceFunction(iff);
 
     vacuum_layer.addLayout(particle_layout);
 
@@ -150,20 +148,18 @@ MultiLayer* RectParaCrystalBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    std::unique_ptr<InterferenceFunction2DParaCrystal> iff{
-        InterferenceFunction2DParaCrystal::createSquare(10 * Units::nanometer, 0 * Units::nanometer,
-                                                        0, 0)};
-
-    iff->setDomainSizes(20.0 * Units::micrometer, 20.0 * Units::micrometer);
+    InterferenceFunction2DParaCrystal iff(SquareLattice(10 * Units::nanometer), 0, 0, 0);
+    iff.setIntegrationOverXi(true);
+    iff.setDomainSizes(20.0 * Units::micrometer, 20.0 * Units::micrometer);
     FTDistribution2DCauchy pdf1(0.5 * Units::nanometer, 2.0 * Units::nanometer, 0);
     FTDistribution2DCauchy pdf2(0.5 * Units::nanometer, 2.0 * Units::nanometer, 0);
-    iff->setProbabilityDistributions(pdf1, pdf2);
+    iff.setProbabilityDistributions(pdf1, pdf2);
 
     FormFactorCylinder ff_cylinder(5.0 * Units::nanometer, 5.0 * Units::nanometer);
 
     Particle particle(refMat::Particle, ff_cylinder);
     ParticleLayout particle_layout(particle);
-    particle_layout.setInterferenceFunction(*iff);
+    particle_layout.setInterferenceFunction(iff);
 
     vacuum_layer.addLayout(particle_layout);
 

@@ -19,6 +19,7 @@
 #include "Sample/Aggregate/InterferenceFunctionFinite2DLattice.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
+#include "Sample/Lattice/Lattice2D.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
@@ -30,8 +31,8 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DLattice iff(5.0 * Units::nanometer, 10.0 * Units::nanometer,
-                                      30.0 * Units::deg, 10.0 * Units::deg);
+    InterferenceFunction2DLattice iff(BasicLattice(5.0 * Units::nanometer, 10.0 * Units::nanometer,
+                                                   30.0 * Units::deg, 10.0 * Units::deg));
 
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
                                 100.0 * Units::nanometer / 2.0 / M_PI, 0);
@@ -90,8 +91,8 @@ MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DLattice interference_function(10.0 * Units::nanometer,
-                                                        10.0 * Units::nanometer, M_PI / 2.0, 0);
+    InterferenceFunction2DLattice interference_function(
+        BasicLattice(10.0 * Units::nanometer, 10.0 * Units::nanometer, M_PI / 2.0, 0));
     FTDecayFunction2DCauchy pdf(300.0 * Units::nanometer / 2.0 / M_PI,
                                 100.0 * Units::nanometer / 2.0 / M_PI, 0);
     interference_function.setDecayFunction(pdf);
@@ -183,8 +184,8 @@ MultiLayer* SuperLatticeBuilder::buildSample() const
     Layer substrate_layer(refMat::Substrate);
 
     InterferenceFunction2DSuperLattice iff(SquareLattice(200.0 * Units::nanometer, 0.0), 40, 40);
-    InterferenceFunctionFinite2DLattice substructure(
-        SquareLattice(10.0 * Units::nanometer, 0.0), 10, 10);
+    InterferenceFunctionFinite2DLattice substructure(SquareLattice(10.0 * Units::nanometer, 0.0),
+                                                     10, 10);
     iff.setSubstructureIFF(substructure);
     iff.setPositionVariance(1.0);
 

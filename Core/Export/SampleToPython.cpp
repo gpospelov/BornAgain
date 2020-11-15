@@ -102,7 +102,7 @@ std::string SampleToPython::defineMaterials() const
         return "# No Materials.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << indent() << "# Defining Materials\n";
+    result << indent() << "# Define Materials\n";
     std::set<std::string> visitedMaterials;
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         if (visitedMaterials.find(it->second) != visitedMaterials.end())
@@ -140,7 +140,7 @@ std::string SampleToPython::defineLayers() const
         return "# No Layers.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining Layers\n";
+    result << "\n" << indent() << "# Define Layers\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const Layer* layer = it->first;
         result << indent() << it->second << " = ba.Layer("
@@ -162,7 +162,7 @@ std::string SampleToPython::defineFormFactors() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining Form Factors\n";
+    result << "\n" << indent() << "# Define Form Factors\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const IFormFactor* p_ff = it->first;
         result << indent() << it->second << " = ba.FormFactor" << p_ff->getName() << "("
@@ -178,7 +178,7 @@ std::string SampleToPython::defineParticles() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining Particles\n";
+    result << "\n" << indent() << "# Define Particles\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const Particle* p_particle = it->first;
         std::string particle_name = it->second;
@@ -201,7 +201,7 @@ std::string SampleToPython::defineCoreShellParticles() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining Core Shell Particles\n";
+    result << "\n" << indent() << "# Define Core Shell Particles\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const ParticleCoreShell* p_coreshell = it->first;
         result << "\n"
@@ -223,7 +223,7 @@ std::string SampleToPython::defineParticleDistributions() const
 
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining particles with parameter following a distribution\n";
+    result << "\n" << indent() << "# Define particles with parameter following a distribution\n";
 
     int index(1);
     for (auto it = themap->begin(); it != themap->end(); ++it) {
@@ -270,7 +270,7 @@ std::string SampleToPython::defineParticleCompositions() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining composition of particles at specific positions\n";
+    result << "\n" << indent() << "# Define composition of particles at specific positions\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const ParticleComposition* p_particle_composition = it->first;
         std::string particle_composition_name = it->second;
@@ -293,7 +293,7 @@ std::string SampleToPython::defineLattices2D() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining 2D lattices\n";
+    result << "\n" << indent() << "# Define 2D lattices\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const Lattice2D* p_lattice = it->first;
         std::string lattice_name = it->second;
@@ -313,7 +313,7 @@ std::string SampleToPython::defineLattices3D() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining 3D lattices\n";
+    result << "\n" << indent() << "# Define 3D lattices\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const Lattice3D* p_lattice = it->first;
         std::string lattice_name = it->second;
@@ -338,7 +338,7 @@ std::string SampleToPython::defineCrystals() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining crystals: basis particle + lattice\n";
+    result << "\n" << indent() << "# Define crystals: basis particle + lattice\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const Crystal* p_crystal = it->first;
         std::string crystal_name = it->second;
@@ -360,7 +360,7 @@ std::string SampleToPython::defineMesoCrystals() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining mesocrystals\n";
+    result << "\n" << indent() << "# Define mesocrystals\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const MesoCrystal* p_mesocrystal = it->first;
         std::string mesocrystal_name = it->second;
@@ -384,7 +384,7 @@ std::string SampleToPython::defineInterferenceFunctions() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining Interference Functions\n";
+    result << "\n" << indent() << "# Define Interference Functions\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const IInterferenceFunction* interference = it->first;
 
@@ -507,7 +507,7 @@ std::string SampleToPython::defineParticleLayouts() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining Particle Layouts and adding Particles\n";
+    result << "\n" << indent() << "# Define Particle Layouts and adding Particles\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const ParticleLayout* iLayout = it->first;
         if (const ParticleLayout* particleLayout = dynamic_cast<const ParticleLayout*>(iLayout)) {
@@ -538,7 +538,7 @@ std::string SampleToPython::defineRoughnesses() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining Roughness Parameters\n";
+    result << "\n" << indent() << "# Define Roughness Parameters\n";
     for (auto it = themap->begin(); it != themap->end(); ++it)
         result << indent() << it->second << " = ba.LayerRoughness("
                << pyfmt2::argumentList(it->first) << ")\n";
@@ -551,7 +551,7 @@ std::string SampleToPython::addLayoutsToLayers() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Adding layouts to layers";
+    result << "\n" << indent() << "# Add layouts to layers";
     const auto layermap = m_label->layerMap();
     for (auto it = layermap->begin(); it != layermap->end(); ++it) {
         const Layer* layer = it->first;
@@ -570,7 +570,7 @@ std::string SampleToPython::defineMultiLayers() const
         return "# No MultiLayers.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Defining Multilayers\n";
+    result << "\n" << indent() << "# Define Multilayers\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         result << indent() << it->second << " = ba.MultiLayer()\n";
         double ccl = it->first->crossCorrLength();

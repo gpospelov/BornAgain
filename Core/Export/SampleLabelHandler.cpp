@@ -112,6 +112,18 @@ void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction*
     m_InterferenceFunctionLabel.insert(sample, label);
 }
 
+void SampleLabelHandler::insertLattice2D(const Lattice2D* sample)
+{
+    std::string label = "lattice2D_" + std::to_string(m_Lattice2DLabel.size() + 1);
+    m_Lattice2DLabel.insert(sample, label);
+}
+
+void SampleLabelHandler::insertLattice3D(const Lattice3D* sample)
+{
+    std::string label = "lattice3D_" + std::to_string(m_Lattice3DLabel.size() + 1);
+    m_Lattice3DLabel.insert(sample, label);
+}
+
 void SampleLabelHandler::insertLayer(const Layer* sample)
 {
     std::string label = "layer_" + std::to_string(m_LayerLabel.size() + 1);
@@ -139,18 +151,6 @@ void SampleLabelHandler::insertMaterial(const Material* mat)
 
     std::string label = "material_" + std::to_string(unique_labels.size() + 1);
     m_MaterialLabel.insert(mat, label);
-}
-
-void SampleLabelHandler::insertLattice2D(const Lattice2D* sample)
-{
-    std::string label = "lattice2D_" + std::to_string(m_Lattice2DLabel.size() + 1);
-    m_Lattice2DLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertLattice3D(const Lattice3D* sample)
-{
-    std::string label = "lattice3D_" + std::to_string(m_Lattice3DLabel.size() + 1);
-    m_Lattice3DLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertMesoCrystal(const MesoCrystal* sample)

@@ -66,6 +66,8 @@ void SampleToPython::initLabels(const MultiLayer& multilayer)
         m_label->insertParticleComposition(x);
     for (auto x : INodeUtils::AllDescendantsOfType<ParticleDistribution>(multilayer))
         m_label->insertParticleDistribution(x);
+    for (auto x : INodeUtils::AllDescendantsOfType<Lattice2D>(multilayer))
+        m_label->insertLattice2D(x);
     for (auto x : INodeUtils::AllDescendantsOfType<Lattice3D>(multilayer))
         m_label->insertLattice3D(x);
     for (auto x : INodeUtils::AllDescendantsOfType<Crystal>(multilayer))
@@ -301,7 +303,8 @@ std::string SampleToPython::defineLattices2D() const
         result << indent() << indent()
                << pyfmt::printNm(lattice->length1()) << ", "
                << pyfmt::printNm(lattice->length2()) << ", "
-               << pyfmt::printNm(lattice->latticeAngle()) << "),\n";
+               << pyfmt::printDegrees(lattice->latticeAngle()) << ", "
+               << pyfmt::printDegrees(lattice->rotationAngle()) << "),\n";
     }
     return result.str();
 }

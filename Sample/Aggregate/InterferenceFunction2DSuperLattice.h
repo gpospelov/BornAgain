@@ -37,11 +37,6 @@ public:
     void setSubstructureIFF(const IInterferenceFunction& sub_iff);
     const IInterferenceFunction& substructureIFF() const;
 
-    static InterferenceFunction2DSuperLattice* createSquare(double lattice_length, double xi,
-                                                            unsigned size_1, unsigned size_2);
-    static InterferenceFunction2DSuperLattice* createHexagonal(double lattice_length, double xi,
-                                                               unsigned size_1, unsigned size_2);
-
     double evaluate(const kvector_t q, double outer_iff = 1.0) const override final;
     unsigned domainSize1() const { return m_size_1; }
     unsigned domainSize2() const { return m_size_2; }

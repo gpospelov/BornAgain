@@ -72,28 +72,6 @@ const IInterferenceFunction& InterferenceFunction2DSuperLattice::substructureIFF
     return *m_substructure;
 }
 
-//! Creates square lattice.
-// @param lattice_length: length of first and second lattice vectors in nanometers
-// @param xi: rotation of lattice with respect to x-axis in radians
-InterferenceFunction2DSuperLattice*
-InterferenceFunction2DSuperLattice::createSquare(double lattice_length, double xi, unsigned size_1,
-                                                 unsigned size_2)
-{
-    return new InterferenceFunction2DSuperLattice(SquareLattice(lattice_length, xi), size_1,
-                                                  size_2);
-}
-
-//! Creates hexagonal lattice.
-// @param lattice_length: length of first and second lattice vectors in nanometers
-// @param xi: rotation of lattice with respect to x-axis in radians
-InterferenceFunction2DSuperLattice*
-InterferenceFunction2DSuperLattice::createHexagonal(double lattice_length, double xi,
-                                                    unsigned size_1, unsigned size_2)
-{
-    return new InterferenceFunction2DSuperLattice(HexagonalLattice(lattice_length, xi), size_1,
-                                                  size_2);
-}
-
 double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff) const
 {
     m_outer_iff = outer_iff;

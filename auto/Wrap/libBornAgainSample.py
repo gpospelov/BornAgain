@@ -7301,16 +7301,6 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         """
         return _libBornAgainSample.InterferenceFunction2DSuperLattice_substructureIFF(self)
 
-    @staticmethod
-    def createSquare(lattice_length, xi, size_1, size_2):
-        r"""createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-        return _libBornAgainSample.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
-
-    @staticmethod
-    def createHexagonal(lattice_length, xi, size_1, size_2):
-        r"""createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-        return _libBornAgainSample.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
-
     def evaluate(self, q, outer_iff=1.0):
         r"""
         evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double
@@ -7371,14 +7361,6 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
 
 # Register InterferenceFunction2DSuperLattice in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunction2DSuperLattice_swigregister(InterferenceFunction2DSuperLattice)
-
-def InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2):
-    r"""InterferenceFunction2DSuperLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-    return _libBornAgainSample.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
-
-def InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2):
-    r"""InterferenceFunction2DSuperLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-    return _libBornAgainSample.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
 
 class InterferenceFunction3DLattice(IInterferenceFunction):
     r"""

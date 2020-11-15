@@ -53451,98 +53451,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DSuperLattice_createSquare(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  unsigned int arg3 ;
-  unsigned int arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  unsigned int val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunction2DSuperLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DSuperLattice_createSquare", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DSuperLattice_createSquare" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DSuperLattice_createSquare" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunction2DSuperLattice_createSquare" "', argument " "3"" of type '" "unsigned int""'");
-  } 
-  arg3 = static_cast< unsigned int >(val3);
-  ecode4 = SWIG_AsVal_unsigned_SS_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunction2DSuperLattice_createSquare" "', argument " "4"" of type '" "unsigned int""'");
-  } 
-  arg4 = static_cast< unsigned int >(val4);
-  result = (InterferenceFunction2DSuperLattice *)InterferenceFunction2DSuperLattice::createSquare(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DSuperLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DSuperLattice_createHexagonal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  unsigned int arg3 ;
-  unsigned int arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  unsigned int val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunction2DSuperLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DSuperLattice_createHexagonal", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DSuperLattice_createHexagonal" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DSuperLattice_createHexagonal" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunction2DSuperLattice_createHexagonal" "', argument " "3"" of type '" "unsigned int""'");
-  } 
-  arg3 = static_cast< unsigned int >(val3);
-  ecode4 = SWIG_AsVal_unsigned_SS_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunction2DSuperLattice_createHexagonal" "', argument " "4"" of type '" "unsigned int""'");
-  } 
-  arg4 = static_cast< unsigned int >(val4);
-  result = (InterferenceFunction2DSuperLattice *)InterferenceFunction2DSuperLattice::createHexagonal(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DSuperLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_InterferenceFunction2DSuperLattice_evaluate__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   InterferenceFunction2DSuperLattice *arg1 = (InterferenceFunction2DSuperLattice *) 0 ;
@@ -73344,8 +73252,6 @@ static PyMethodDef SwigMethods[] = {
 		"const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const\n"
 		"\n"
 		""},
-	 { "InterferenceFunction2DSuperLattice_createSquare", _wrap_InterferenceFunction2DSuperLattice_createSquare, METH_VARARGS, "InterferenceFunction2DSuperLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"},
-	 { "InterferenceFunction2DSuperLattice_createHexagonal", _wrap_InterferenceFunction2DSuperLattice_createHexagonal, METH_VARARGS, "InterferenceFunction2DSuperLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"},
 	 { "InterferenceFunction2DSuperLattice_evaluate", _wrap_InterferenceFunction2DSuperLattice_evaluate, METH_VARARGS, "\n"
 		"InterferenceFunction2DSuperLattice_evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double\n"
 		"double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final\n"

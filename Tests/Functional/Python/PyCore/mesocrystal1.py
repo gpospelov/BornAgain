@@ -44,7 +44,7 @@ class MySampleBuilder(ISampleBuilder):
         avg_n_squared_meso = complex(0.7886*n_particle*n_particle + 0.2114)
         n_avg = complex(numpy.sqrt(self.surface_filling_ratio.value*avg_n_squared_meso + 1.0 - self.surface_filling_ratio.value))
         n_particle_adapted = complex(numpy.sqrt(n_avg*n_avg + n_particle*n_particle - 1.0))
-        ff_meso = FormFactorCylinder(self.meso_radius.value, self.meso_height.value)
+        ff = FormFactorCylinder(self.meso_radius.value, self.meso_height.value)
 
         # Create multilayer
         p_multi_layer = MultiLayer()
@@ -71,7 +71,7 @@ class MySampleBuilder(ISampleBuilder):
             for j in range(0, n_alpha_rotation_steps):
 
                 total_transform = RotationZ(phi_start + i*phi_step)
-                meso = self.createMesoCrystal(self.lattice_length_a.value, self.lattice_length_c.value, n_particle_adapted, ff_meso)
+                meso = self.createMesoCrystal(self.lattice_length_a.value, self.lattice_length_c.value, n_particle_adapted, ff)
                 meso.setPosition(0.0, 0.0, -self.meso_height.value)
                 particle_layout.addParticle(meso, 1.0, kvector_t(0,0,0), total_transform)
 
@@ -99,8 +99,8 @@ class MySampleBuilder(ISampleBuilder):
         bas_a = p_lat.getBasisVectorA()
         bas_b = p_lat.getBasisVectorB()
         bas_c = p_lat.getBasisVectorC()
-        ff_sphere = FormFactorSphereGaussianRadius(self.nanoparticle_radius.value, self.sigma_nanoparticle_radius.value)
-        particle = Particle(mParticle, ff_sphere )
+        ff = FormFactorSphereGaussianRadius(self.nanoparticle_radius.value, self.sigma_nanoparticle_radius.value)
+        particle = Particle(mParticle, ff )
         position_0 = kvector_t(0.0, 0.0, 0.0)
         position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c)
         position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c)

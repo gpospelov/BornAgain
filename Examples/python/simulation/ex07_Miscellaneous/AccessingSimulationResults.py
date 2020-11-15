@@ -125,8 +125,8 @@ def plot(hist):
     plt.title("Cropping")
 
     plt.subplot(2, 2, 3)
-    reldiff_hist = get_relative_difference(hist)
-    plot_histogram(reldiff_hist, zmin=1e-03, zmax=10)
+    reldiff = get_relative_difference(hist)
+    plot_histogram(reldiff, zmin=1e-03, zmax=10)
     plt.title("Relative difference")
 
     plt.subplot(2, 2, 4)

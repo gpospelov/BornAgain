@@ -154,9 +154,9 @@ class DrawObserver(IFitObserver):
         ax.set_xlim(0, 10)
         ax.set_ylim(0, 10)
         # # plotting difference map
-        # diff_map = (real_data - simulated_data)/numpy.sqrt(real_data + 1)
+        # diff = (real_data - simulated_data)/numpy.sqrt(real_data + 1)
         # pylab.subplot(2, 2, 3)
-        # im = pylab.imshow(diff_map, norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
+        # im = pylab.imshow(diff, norm=matplotlib.colors.LogNorm(), extent=[-1.0, 1.0, 0, 2.0], vmin = 0.001, vmax = 1.0)
         # pylab.colorbar(im)
         # pylab.title('Difference map')
         # # plotting parameters info

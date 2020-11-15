@@ -23,9 +23,9 @@ def get_sample():
     p_interference_function.setDecayFunction(pdf)
 
     particle_layout = ba.ParticleLayout()
-    ff_cyl = ba.FormFactorCylinder(3.0*nm, 3.0*nm)
+    ff = ba.FormFactorCylinder(3.0*nm, 3.0*nm)
     position = ba.kvector_t(0.0, 0.0, 0.0)
-    cylinder = ba.Particle(m_particle, ff_cyl.clone())
+    cylinder = ba.Particle(m_particle, ff.clone())
     cylinder.setPosition(position)
     particle_layout.addParticle(cylinder, 1.0)
     particle_layout.setInterferenceFunction(p_interference_function)

@@ -17,8 +17,8 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 0.0, 0.0)
 
     # collection of particles
-    ff_sphere = ba.FormFactorFullSphere(10.2*nm)
-    sphere = ba.Particle(m_particle, ff_sphere)
+    ff = ba.FormFactorFullSphere(10.2*nm)
+    sphere = ba.Particle(m_particle, ff)
     sphere.setPosition(0.0, 0.0, -25.2)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(sphere, 1.0)

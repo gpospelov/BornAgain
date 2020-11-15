@@ -32,7 +32,8 @@ InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(const Lat
     , m_size_2(size_2)
 {
     setName("Interference2DSuperLattice");
-    setLattice(lattice);
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
     setSubstructureIFF(InterferenceFunctionNone());
 }
 
@@ -115,12 +116,6 @@ double InterferenceFunction2DSuperLattice::iff_without_dw(const kvector_t q) con
     const double qbdiv2 = (q.x() * b * std::cos(xialpha) + q.y() * b * std::sin(xialpha)) / 2.0;
     const double ampl = Laue(qadiv2, m_size_1) * Laue(qbdiv2, m_size_2);
     return ampl * ampl / (m_size_1 * m_size_2);
-}
-
-void InterferenceFunction2DSuperLattice::setLattice(const Lattice2D& lattice)
-{
-    m_lattice.reset(lattice.clone());
-    registerChild(m_lattice.get());
 }
 
 double InterferenceFunction2DSuperLattice::interferenceForXi(double xi) const

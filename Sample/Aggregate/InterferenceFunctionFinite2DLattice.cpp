@@ -32,7 +32,8 @@ InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const L
     : IInterferenceFunction(0), m_integrate_xi(false), m_N_1(N_1), m_N_2(N_2)
 {
     setName("InterferenceFinite2DLattice");
-    setLattice(lattice);
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
 }
 
 //! Constructor of two-dimensional finite lattice interference function.
@@ -94,12 +95,6 @@ double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) co
     return RealIntegrator().integrate([&](double xi) -> double { return interferenceForXi(xi); },
                                       0.0, M_TWOPI)
            / M_TWOPI;
-}
-
-void InterferenceFunctionFinite2DLattice::setLattice(const Lattice2D& lattice)
-{
-    m_lattice.reset(lattice.clone());
-    registerChild(m_lattice.get());
 }
 
 double InterferenceFunctionFinite2DLattice::interferenceForXi(double xi) const

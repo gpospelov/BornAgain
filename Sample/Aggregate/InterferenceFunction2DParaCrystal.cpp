@@ -26,7 +26,8 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Latti
     : IInterferenceFunction(0), m_integrate_xi(false), m_damping_length(damping_length)
 {
     setName("Interference2DParaCrystal");
-    setLattice(lattice);
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
     setDomainSizes(domain_size_1, domain_size_2);
     registerParameter("DampingLength", &m_damping_length).setUnit("nm").setNonnegative();
     registerParameter("DomainSize1", &m_domain_sizes[0]).setUnit("nm").setNonnegative();
@@ -103,12 +104,6 @@ double InterferenceFunction2DParaCrystal::iff_without_dw(const kvector_t q) cons
     return RealIntegrator().integrate([&](double xi) -> double { return interferenceForXi(xi); },
                                       0.0, M_TWOPI)
            / M_TWOPI;
-}
-
-void InterferenceFunction2DParaCrystal::setLattice(const Lattice2D& lattice)
-{
-    m_lattice.reset(lattice.clone());
-    registerChild(m_lattice.get());
 }
 
 //! Sets the sizes of coherence domains.

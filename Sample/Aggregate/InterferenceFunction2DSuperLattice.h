@@ -50,7 +50,6 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    void setLattice(const Lattice2D& lattice);
 
     double interferenceForXi(double xi) const;
 

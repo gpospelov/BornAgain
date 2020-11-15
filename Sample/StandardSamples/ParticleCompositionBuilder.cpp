@@ -43,12 +43,11 @@ MultiLayer* ParticleCompositionBuilder::buildSample() const
     basis.addParticles(sphere, positions);
     particle_layout.addParticle(basis);
 
-    std::unique_ptr<InterferenceFunction2DLattice> P_interference{
-        InterferenceFunction2DLattice::createHexagonal(radius * 2.0, 0)};
+    InterferenceFunction2DLattice iff(HexagonalLattice(radius * 2.0, 0));
     FTDecayFunction2DCauchy pdf(10 * Units::nm, 10 * Units::nm, 0);
-    P_interference->setDecayFunction(pdf);
+    iff.setDecayFunction(pdf);
 
-    particle_layout.setInterferenceFunction(*P_interference);
+    particle_layout.setInterferenceFunction(iff);
 
     vacuum_layer.addLayout(particle_layout);
 

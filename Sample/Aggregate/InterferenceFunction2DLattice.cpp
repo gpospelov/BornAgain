@@ -56,24 +56,6 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
     return ret;
 }
 
-//! Creates square lattice.
-//! @param lattice_length: length of the first and second basis vectors in nanometers
-//! @param xi: rotation of the lattice with respect to the x-axis in radians
-InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(double lattice_length,
-                                                                           double xi)
-{
-    return new InterferenceFunction2DLattice(SquareLattice(lattice_length, xi));
-}
-
-//! Creates hexagonal lattice.
-//! @param lattice_length: length of the first and second basis vectors in nanometers
-//! @param xi: rotation of the lattice with respect to the x-axis in radians
-InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(double lattice_length,
-                                                                              double xi)
-{
-    return new InterferenceFunction2DLattice(HexagonalLattice(lattice_length, xi));
-}
-
 //! Sets two-dimensional decay function.
 //! @param decay: two-dimensional decay function in reciprocal space
 void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D& decay)

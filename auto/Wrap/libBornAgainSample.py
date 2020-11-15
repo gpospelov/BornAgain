@@ -6934,16 +6934,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         return _libBornAgainSample.InterferenceFunction2DLattice_accept(self, visitor)
 
-    @staticmethod
-    def createSquare(lattice_length, xi):
-        r"""createSquare(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
-        return _libBornAgainSample.InterferenceFunction2DLattice_createSquare(lattice_length, xi)
-
-    @staticmethod
-    def createHexagonal(lattice_length, xi):
-        r"""createHexagonal(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
-        return _libBornAgainSample.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
-
     def setDecayFunction(self, decay):
         r"""
         setDecayFunction(InterferenceFunction2DLattice self, IFTDecayFunction2D decay)
@@ -7012,14 +7002,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 
 # Register InterferenceFunction2DLattice in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunction2DLattice_swigregister(InterferenceFunction2DLattice)
-
-def InterferenceFunction2DLattice_createSquare(lattice_length, xi):
-    r"""InterferenceFunction2DLattice_createSquare(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
-    return _libBornAgainSample.InterferenceFunction2DLattice_createSquare(lattice_length, xi)
-
-def InterferenceFunction2DLattice_createHexagonal(lattice_length, xi):
-    r"""InterferenceFunction2DLattice_createHexagonal(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
-    return _libBornAgainSample.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
 
 class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     r"""

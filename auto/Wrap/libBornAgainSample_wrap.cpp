@@ -52311,66 +52311,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DLattice_createSquare(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  InterferenceFunction2DLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DLattice_createSquare", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DLattice_createSquare" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DLattice_createSquare" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (InterferenceFunction2DLattice *)InterferenceFunction2DLattice::createSquare(arg1,arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DLattice_createHexagonal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  InterferenceFunction2DLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DLattice_createHexagonal", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DLattice_createHexagonal" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DLattice_createHexagonal" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (InterferenceFunction2DLattice *)InterferenceFunction2DLattice::createHexagonal(arg1,arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_InterferenceFunction2DLattice_setDecayFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   InterferenceFunction2DLattice *arg1 = (InterferenceFunction2DLattice *) 0 ;
@@ -73002,8 +72942,6 @@ static PyMethodDef SwigMethods[] = {
 		"void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final\n"
 		"\n"
 		""},
-	 { "InterferenceFunction2DLattice_createSquare", _wrap_InterferenceFunction2DLattice_createSquare, METH_VARARGS, "InterferenceFunction2DLattice_createSquare(double lattice_length, double xi) -> InterferenceFunction2DLattice"},
-	 { "InterferenceFunction2DLattice_createHexagonal", _wrap_InterferenceFunction2DLattice_createHexagonal, METH_VARARGS, "InterferenceFunction2DLattice_createHexagonal(double lattice_length, double xi) -> InterferenceFunction2DLattice"},
 	 { "InterferenceFunction2DLattice_setDecayFunction", _wrap_InterferenceFunction2DLattice_setDecayFunction, METH_VARARGS, "\n"
 		"InterferenceFunction2DLattice_setDecayFunction(InterferenceFunction2DLattice self, IFTDecayFunction2D decay)\n"
 		"void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &decay)\n"

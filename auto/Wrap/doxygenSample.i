@@ -8942,7 +8942,7 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: LayersWithAbsorptionBySLDBuilder_8cpp.xml
-%feature("docstring")  middle_layer_thickness "const double middle_layer_thickness(60.0 *Units::nanometer)
+%feature("docstring")  middle_layer_thickness "const double middle_layer_thickness(60.0 *Units::nm)
 ";
 
 

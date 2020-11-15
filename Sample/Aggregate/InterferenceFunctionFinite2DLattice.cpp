@@ -60,30 +60,6 @@ InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::clone(
     return ret;
 }
 
-//! Creates square lattice.
-//! @param lattice_length: length of first and second lattice vectors in nanometers
-//! @param xi: rotation of lattice with respect to x-axis in radians
-//! @param N_1: number of lattice cells in the first lattice direction
-//! @param N_2: number of lattice cells in the second lattice direction
-InterferenceFunctionFinite2DLattice*
-InterferenceFunctionFinite2DLattice::createSquare(double lattice_length, double xi, unsigned N_1,
-                                                  unsigned N_2)
-{
-    return new InterferenceFunctionFinite2DLattice(SquareLattice(lattice_length, xi), N_1, N_2);
-}
-
-//! Creates hexagonal lattice.
-//! @param lattice_length: length of first and second lattice vectors in nanometers
-//! @param xi: rotation of lattice with respect to x-axis in radians
-//! @param N_1: number of lattice cells in the first lattice direction
-//! @param N_2: number of lattice cells in the second lattice direction
-InterferenceFunctionFinite2DLattice*
-InterferenceFunctionFinite2DLattice::createHexagonal(double lattice_length, double xi, unsigned N_1,
-                                                     unsigned N_2)
-{
-    return new InterferenceFunctionFinite2DLattice(HexagonalLattice(lattice_length, xi), N_1, N_2);
-}
-
 void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
 {
     m_integrate_xi = integrate_xi;

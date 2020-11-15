@@ -54409,98 +54409,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_InterferenceFunctionFinite2DLattice_createSquare(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  unsigned int arg3 ;
-  unsigned int arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  unsigned int val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunctionFinite2DLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunctionFinite2DLattice_createSquare", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunctionFinite2DLattice_createSquare" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunctionFinite2DLattice_createSquare" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunctionFinite2DLattice_createSquare" "', argument " "3"" of type '" "unsigned int""'");
-  } 
-  arg3 = static_cast< unsigned int >(val3);
-  ecode4 = SWIG_AsVal_unsigned_SS_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunctionFinite2DLattice_createSquare" "', argument " "4"" of type '" "unsigned int""'");
-  } 
-  arg4 = static_cast< unsigned int >(val4);
-  result = (InterferenceFunctionFinite2DLattice *)InterferenceFunctionFinite2DLattice::createSquare(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunctionFinite2DLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_InterferenceFunctionFinite2DLattice_createHexagonal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  unsigned int arg3 ;
-  unsigned int arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  unsigned int val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunctionFinite2DLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunctionFinite2DLattice_createHexagonal", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunctionFinite2DLattice_createHexagonal" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunctionFinite2DLattice_createHexagonal" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunctionFinite2DLattice_createHexagonal" "', argument " "3"" of type '" "unsigned int""'");
-  } 
-  arg3 = static_cast< unsigned int >(val3);
-  ecode4 = SWIG_AsVal_unsigned_SS_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunctionFinite2DLattice_createHexagonal" "', argument " "4"" of type '" "unsigned int""'");
-  } 
-  arg4 = static_cast< unsigned int >(val4);
-  result = (InterferenceFunctionFinite2DLattice *)InterferenceFunctionFinite2DLattice::createHexagonal(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunctionFinite2DLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_InterferenceFunctionFinite2DLattice_numberUnitCells1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   InterferenceFunctionFinite2DLattice *arg1 = (InterferenceFunctionFinite2DLattice *) 0 ;
@@ -73668,8 +73576,6 @@ static PyMethodDef SwigMethods[] = {
 		"void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final\n"
 		"\n"
 		""},
-	 { "InterferenceFunctionFinite2DLattice_createSquare", _wrap_InterferenceFunctionFinite2DLattice_createSquare, METH_VARARGS, "InterferenceFunctionFinite2DLattice_createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"},
-	 { "InterferenceFunctionFinite2DLattice_createHexagonal", _wrap_InterferenceFunctionFinite2DLattice_createHexagonal, METH_VARARGS, "InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"},
 	 { "InterferenceFunctionFinite2DLattice_numberUnitCells1", _wrap_InterferenceFunctionFinite2DLattice_numberUnitCells1, METH_O, "\n"
 		"InterferenceFunctionFinite2DLattice_numberUnitCells1(InterferenceFunctionFinite2DLattice self) -> unsigned int\n"
 		"unsigned InterferenceFunctionFinite2DLattice::numberUnitCells1() const\n"

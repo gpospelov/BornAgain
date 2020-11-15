@@ -7547,16 +7547,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         """
         return _libBornAgainSample.InterferenceFunctionFinite2DLattice_accept(self, visitor)
 
-    @staticmethod
-    def createSquare(lattice_length, xi, N_1, N_2):
-        r"""createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-        return _libBornAgainSample.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
-
-    @staticmethod
-    def createHexagonal(lattice_length, xi, N_1, N_2):
-        r"""createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-        return _libBornAgainSample.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
-
     def numberUnitCells1(self):
         r"""
         numberUnitCells1(InterferenceFunctionFinite2DLattice self) -> unsigned int
@@ -7617,14 +7607,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
 
 # Register InterferenceFunctionFinite2DLattice in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunctionFinite2DLattice_swigregister(InterferenceFunctionFinite2DLattice)
-
-def InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2):
-    r"""InterferenceFunctionFinite2DLattice_createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-    return _libBornAgainSample.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
-
-def InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2):
-    r"""InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-    return _libBornAgainSample.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
 
 class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
     r"""

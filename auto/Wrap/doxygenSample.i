@@ -317,7 +317,7 @@ A crystal structure with a  ParticleComposition as a basis. Used in  MesoCrystal
 C++ includes: Crystal.h
 ";
 
-%feature("docstring")  Crystal::Crystal "Crystal::Crystal(const IParticle &lattice_basis, const Lattice &lattice)
+%feature("docstring")  Crystal::Crystal "Crystal::Crystal(const IParticle &basis, const Lattice &lattice)
 ";
 
 %feature("docstring")  Crystal::~Crystal "Crystal::~Crystal()

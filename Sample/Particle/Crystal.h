@@ -25,7 +25,7 @@
 class Crystal : public IClusteredParticles
 {
 public:
-    Crystal(const IParticle& lattice_basis, const Lattice& lattice);
+    Crystal(const IParticle& basis, const Lattice& lattice);
     ~Crystal();
 
     Crystal* clone() const override final;
@@ -45,10 +45,10 @@ public:
     std::vector<const INode*> getChildren() const override final;
 
 private:
-    Crystal(IParticle* p_lattice_basis, const Lattice& lattice);
+    Crystal(IParticle* p_basis, const Lattice& lattice);
 
     Lattice m_lattice;
-    std::unique_ptr<IParticle> m_lattice_basis;
+    std::unique_ptr<IParticle> m_basis;
     double m_position_variance;
 };
 

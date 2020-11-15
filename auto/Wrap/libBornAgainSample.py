@@ -4394,13 +4394,13 @@ class Crystal(IClusteredParticles):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, lattice_basis, lattice):
+    def __init__(self, basis, lattice):
         r"""
-        __init__(Crystal self, IParticle lattice_basis, Lattice lattice) -> Crystal
-        Crystal::Crystal(const IParticle &lattice_basis, const Lattice &lattice)
+        __init__(Crystal self, IParticle basis, Lattice lattice) -> Crystal
+        Crystal::Crystal(const IParticle &basis, const Lattice &lattice)
 
         """
-        _libBornAgainSample.Crystal_swiginit(self, _libBornAgainSample.new_Crystal(lattice_basis, lattice))
+        _libBornAgainSample.Crystal_swiginit(self, _libBornAgainSample.new_Crystal(basis, lattice))
     __swig_destroy__ = _libBornAgainSample.delete_Crystal
 
     def clone(self):

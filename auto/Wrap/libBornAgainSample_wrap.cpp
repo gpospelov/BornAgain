@@ -72131,8 +72131,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_IClusteredParticles", _wrap_delete_IClusteredParticles, METH_O, "delete_IClusteredParticles(IClusteredParticles self)"},
 	 { "IClusteredParticles_swigregister", IClusteredParticles_swigregister, METH_O, NULL},
 	 { "new_Crystal", _wrap_new_Crystal, METH_VARARGS, "\n"
-		"new_Crystal(IParticle lattice_basis, Lattice lattice) -> Crystal\n"
-		"Crystal::Crystal(const IParticle &lattice_basis, const Lattice &lattice)\n"
+		"new_Crystal(IParticle basis, Lattice lattice) -> Crystal\n"
+		"Crystal::Crystal(const IParticle &basis, const Lattice &lattice)\n"
 		"\n"
 		""},
 	 { "delete_Crystal", _wrap_delete_Crystal, METH_O, "\n"

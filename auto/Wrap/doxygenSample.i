@@ -331,14 +331,10 @@ Returns a clone of this  ISample object.
 %feature("docstring")  Crystal::accept "void Crystal::accept(INodeVisitor *visitor) const override final
 ";
 
-%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const override final
-
-Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
 ";
 
-%feature("docstring")  Crystal::homogeneousRegions "std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const override final
-
-Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
+%feature("docstring")  Crystal::homogeneousRegions "std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const
 ";
 
 %feature("docstring")  Crystal::transformedLattice "Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
@@ -5759,7 +5755,7 @@ A particle with an internal structure of smaller particles.
 C++ includes: MesoCrystal.h
 ";
 
-%feature("docstring")  MesoCrystal::MesoCrystal "MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, const IFormFactor &form_factor)
+%feature("docstring")  MesoCrystal::MesoCrystal "MesoCrystal::MesoCrystal(const Crystal &particle_structure, const IFormFactor &form_factor)
 ";
 
 %feature("docstring")  MesoCrystal::~MesoCrystal "MesoCrystal::~MesoCrystal()

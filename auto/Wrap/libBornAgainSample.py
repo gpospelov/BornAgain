@@ -4331,57 +4331,7 @@ class IAbstractParticle(ISample):
 # Register IAbstractParticle in _libBornAgainSample:
 _libBornAgainSample.IAbstractParticle_swigregister(IAbstractParticle)
 
-class IClusteredParticles(ISample):
-    r"""
-
-
-    An ordered assembly of particles. Currently, the only child class is  Crystal.
-
-    C++ includes: IClusteredParticles.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(IClusteredParticles self) -> IClusteredParticles
-        IClusteredParticles* IClusteredParticles::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainSample.IClusteredParticles_clone(self)
-
-    def createTotalFormFactor(self, arg2, arg3, arg4):
-        r"""
-        createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
-        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
-
-        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
-
-        """
-        return _libBornAgainSample.IClusteredParticles_createTotalFormFactor(self, arg2, arg3, arg4)
-
-    def homogeneousRegions(self):
-        r"""
-        homogeneousRegions(IClusteredParticles self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
-        virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0
-
-        Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
-
-        """
-        return _libBornAgainSample.IClusteredParticles_homogeneousRegions(self)
-    __swig_destroy__ = _libBornAgainSample.delete_IClusteredParticles
-
-# Register IClusteredParticles in _libBornAgainSample:
-_libBornAgainSample.IClusteredParticles_swigregister(IClusteredParticles)
-
-class Crystal(IClusteredParticles):
+class Crystal(ISample):
     r"""
 
 
@@ -4424,9 +4374,7 @@ class Crystal(IClusteredParticles):
     def createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation):
         r"""
         createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
-        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const override final
-
-        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
 
         """
         return _libBornAgainSample.Crystal_createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation)
@@ -4434,9 +4382,7 @@ class Crystal(IClusteredParticles):
     def homogeneousRegions(self):
         r"""
         homogeneousRegions(Crystal self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
-        std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const override final
-
-        Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
+        std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const
 
         """
         return _libBornAgainSample.Crystal_homogeneousRegions(self)
@@ -4652,8 +4598,8 @@ class MesoCrystal(IParticle):
 
     def __init__(self, particle_structure, form_factor):
         r"""
-        __init__(MesoCrystal self, IClusteredParticles particle_structure, IFormFactor form_factor) -> MesoCrystal
-        MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, const IFormFactor &form_factor)
+        __init__(MesoCrystal self, Crystal particle_structure, IFormFactor form_factor) -> MesoCrystal
+        MesoCrystal::MesoCrystal(const Crystal &particle_structure, const IFormFactor &form_factor)
 
         """
         _libBornAgainSample.MesoCrystal_swiginit(self, _libBornAgainSample.new_MesoCrystal(particle_structure, form_factor))

@@ -13,12 +13,12 @@
 // ************************************************************************** //
 
 #include "Sample/Particle/MesoCrystal.h"
-#include "Sample/Particle/IClusteredParticles.h"
+#include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/SlicedParticle.h"
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Sample/Scattering/FormFactorDecoratorRotation.h"
 
-MesoCrystal::MesoCrystal(const IClusteredParticles& particle_structure,
+MesoCrystal::MesoCrystal(const Crystal& particle_structure,
                          const IFormFactor& form_factor)
     : m_particle_structure(particle_structure.clone()), m_meso_form_factor(form_factor.clone())
 {
@@ -70,7 +70,7 @@ std::vector<const INode*> MesoCrystal::getChildren() const
            << IParticle::getChildren() << m_particle_structure << m_meso_form_factor;
 }
 
-MesoCrystal::MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor)
+MesoCrystal::MesoCrystal(Crystal* p_particle_structure, IFormFactor* p_form_factor)
     : m_particle_structure(p_particle_structure), m_meso_form_factor(p_form_factor)
 {
     initialize();

@@ -15,14 +15,18 @@
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
 #define BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
 
+#include "Sample/Scattering/ISample.h"
 #include "Sample/Lattice/Lattice.h"
-#include "Sample/Particle/IClusteredParticles.h"
+
+class IFormFactor;
+class IRotation;
+struct HomogeneousRegion;
 
 //! A crystal structure with a ParticleComposition as a basis.
 //! Used in MesoCrystal, where it is given an outer shape.
 //! @ingroup samples
 
-class Crystal : public IClusteredParticles
+class Crystal : public ISample
 {
 public:
     Crystal(const IParticle& basis, const Lattice& lattice);
@@ -34,9 +38,9 @@ public:
 
     IFormFactor* createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
                                        const IRotation* p_rotation,
-                                       const kvector_t& translation) const override final;
+                                       const kvector_t& translation) const;
 
-    std::vector<HomogeneousRegion> homogeneousRegions() const override final;
+    std::vector<HomogeneousRegion> homogeneousRegions() const;
 
     Lattice transformedLattice(const IRotation* p_rotation = nullptr) const;
 

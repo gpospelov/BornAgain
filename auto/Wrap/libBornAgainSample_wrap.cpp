@@ -52810,98 +52810,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DParaCrystal_createSquare(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunction2DParaCrystal *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DParaCrystal_createSquare", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DParaCrystal_createSquare" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DParaCrystal_createSquare" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunction2DParaCrystal_createSquare" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunction2DParaCrystal_createSquare" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  result = (InterferenceFunction2DParaCrystal *)InterferenceFunction2DParaCrystal::createSquare(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DParaCrystal, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DParaCrystal_createHexagonal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunction2DParaCrystal *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DParaCrystal_createHexagonal", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DParaCrystal_createHexagonal" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DParaCrystal_createHexagonal" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunction2DParaCrystal_createHexagonal" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunction2DParaCrystal_createHexagonal" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  result = (InterferenceFunction2DParaCrystal *)InterferenceFunction2DParaCrystal::createHexagonal(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DParaCrystal, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_InterferenceFunction2DParaCrystal_setDomainSizes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   InterferenceFunction2DParaCrystal *arg1 = (InterferenceFunction2DParaCrystal *) 0 ;
@@ -73278,8 +73186,6 @@ static PyMethodDef SwigMethods[] = {
 		"void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final\n"
 		"\n"
 		""},
-	 { "InterferenceFunction2DParaCrystal_createSquare", _wrap_InterferenceFunction2DParaCrystal_createSquare, METH_VARARGS, "InterferenceFunction2DParaCrystal_createSquare(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"},
-	 { "InterferenceFunction2DParaCrystal_createHexagonal", _wrap_InterferenceFunction2DParaCrystal_createHexagonal, METH_VARARGS, "InterferenceFunction2DParaCrystal_createHexagonal(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"},
 	 { "InterferenceFunction2DParaCrystal_setDomainSizes", _wrap_InterferenceFunction2DParaCrystal_setDomainSizes, METH_VARARGS, "\n"
 		"InterferenceFunction2DParaCrystal_setDomainSizes(InterferenceFunction2DParaCrystal self, double size_1, double size_2)\n"
 		"void InterferenceFunction2DParaCrystal::setDomainSizes(double size_1, double size_2)\n"

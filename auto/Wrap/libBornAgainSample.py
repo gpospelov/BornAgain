@@ -7082,16 +7082,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         """
         return _libBornAgainSample.InterferenceFunction2DParaCrystal_accept(self, visitor)
 
-    @staticmethod
-    def createSquare(lattice_length, damping_length, domain_size_1, domain_size_2):
-        r"""createSquare(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
-        return _libBornAgainSample.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
-
-    @staticmethod
-    def createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2):
-        r"""createHexagonal(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
-        return _libBornAgainSample.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
-
     def setDomainSizes(self, size_1, size_2):
         r"""
         setDomainSizes(InterferenceFunction2DParaCrystal self, double size_1, double size_2)
@@ -7230,14 +7220,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
 # Register InterferenceFunction2DParaCrystal in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunction2DParaCrystal_swigregister(InterferenceFunction2DParaCrystal)
-
-def InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2):
-    r"""InterferenceFunction2DParaCrystal_createSquare(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
-    return _libBornAgainSample.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
-
-def InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2):
-    r"""InterferenceFunction2DParaCrystal_createHexagonal(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
-    return _libBornAgainSample.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
 
 class InterferenceFunction2DSuperLattice(IInterferenceFunction):
     r"""

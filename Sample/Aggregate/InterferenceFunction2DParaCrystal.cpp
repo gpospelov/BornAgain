@@ -111,38 +111,6 @@ void InterferenceFunction2DParaCrystal::setLattice(const Lattice2D& lattice)
     registerChild(m_lattice.get());
 }
 
-//! Creates square lattice.
-//! @param lattice_length: length of first and second lattice vectors in nanometers
-//! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
-//! @param domain_size_1: size of the coherent domain along the first basis vector in nanometers
-//! @param domain_size_2: size of the coherent domain along the second basis vector in nanometers
-
-InterferenceFunction2DParaCrystal*
-InterferenceFunction2DParaCrystal::createSquare(double lattice_length, double damping_length,
-                                                double domain_size_1, double domain_size_2)
-{
-    auto result = new InterferenceFunction2DParaCrystal(
-        SquareLattice(lattice_length), damping_length, domain_size_1, domain_size_2);
-    result->setIntegrationOverXi(true);
-    return result;
-}
-
-//! Creates hexagonal lattice.
-//! @param lattice_length: length of first and second lattice vectors in nanometers
-//! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
-//! @param domain_size_1: size of the coherent domain along the first basis vector in nanometers
-//! @param domain_size_2: size of the coherent domain along the second basis vector in nanometers
-
-InterferenceFunction2DParaCrystal*
-InterferenceFunction2DParaCrystal::createHexagonal(double lattice_length, double damping_length,
-                                                   double domain_size_1, double domain_size_2)
-{
-    auto result = new InterferenceFunction2DParaCrystal(
-        HexagonalLattice(lattice_length, 0.), damping_length, domain_size_1, domain_size_2);
-    result->setIntegrationOverXi(true);
-    return result;
-}
-
 //! Sets the sizes of coherence domains.
 //! @param size_1: coherence domain size along the first basis vector in nanometers
 //! @param size_2: coherence domain size along the second basis vector in nanometers

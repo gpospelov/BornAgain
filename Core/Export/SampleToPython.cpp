@@ -654,12 +654,10 @@ void SampleToPython::setPositionInformation(const IParticle* particle, std::stri
                                             std::ostringstream& result) const
 {
     kvector_t pos = particle->position();
-    bool has_position_info = (pos != kvector_t());
+    if (pos == kvector_t())
+        return;
 
-    if (has_position_info) {
-        result << indent() << name << "_position = kvector_t(" << pyfmt::printNm(pos.x()) << ", "
-               << pyfmt::printNm(pos.y()) << ", " << pyfmt::printNm(pos.z()) << ")\n";
-
-        result << indent() << name << ".setPosition(" << name << "_position)\n";
-    }
+    result << indent() << name << "_position = kvector_t(" << pyfmt::printNm(pos.x()) << ", "
+           << pyfmt::printNm(pos.y()) << ", " << pyfmt::printNm(pos.z()) << ")\n";
+    result << indent() << name << ".setPosition(" << name << "_position)\n";
 }

@@ -22,8 +22,14 @@ class IFormFactor;
 class IRotation;
 struct HomogeneousRegion;
 
-//! A crystal structure with a ParticleComposition as a basis.
+//! A crystal structure, defined by a Bravais lattice, a basis, and a position variance.
+//!
+//! The basis is either a Particle or a ParticleComposition.
+//!
+//! Computations are delegated to class FormFactorCrystal.
+//!
 //! Used in MesoCrystal, where it is given an outer shape.
+//!
 //! @ingroup samples
 
 class Crystal : public ISample

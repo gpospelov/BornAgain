@@ -50,7 +50,7 @@ public:
     double evaluate(const SimulationElement& sim_element) const;
 
 protected:
-    std::vector<FormFactorCoherentSum> m_formfactor_wrappers;
+    std::vector<FormFactorCoherentSum> m_weighted_formfactors;
     std::unique_ptr<IInterferenceFunction> m_iff;
     const SimulationOptions m_options;
 

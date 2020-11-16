@@ -35,7 +35,7 @@ DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
-    for (auto& ffw : m_formfactor_wrappers) {
+    for (auto& ffw : m_weighted_formfactors) {
         complex_t ff = ffw.evaluate(sim_element);
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
@@ -57,7 +57,7 @@ DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& s
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
     const auto& polarization_handler = sim_element.polarizationHandler();
-    for (auto& ffw : m_formfactor_wrappers) {
+    for (auto& ffw : m_weighted_formfactors) {
         Eigen::Matrix2cd ff = ffw.evaluatePol(sim_element);
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(

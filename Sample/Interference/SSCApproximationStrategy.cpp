@@ -55,7 +55,7 @@ SSCApproximationStrategy::SSCApproximationStrategy(
     , m_kappa(kappa)
 {
     m_mean_radius = 0.0;
-    for (auto& ffw : m_formfactor_wrappers)
+    for (auto& ffw : m_weighted_formfactors)
         m_mean_radius += ffw.relativeAbundance() * ffw.radialExtension();
 }
 
@@ -67,7 +67,7 @@ double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_
     double qp = sim_element.getMeanQ().magxy();
     double diffuse_intensity = 0.0;
     complex_t ff_orig = 0., ff_conj = 0.; // original and conjugated mean formfactor
-    for (auto& ffw : m_formfactor_wrappers) {
+    for (auto& ffw : m_weighted_formfactors) {
         complex_t ff = ffw.evaluate(sim_element);
         double fraction = ffw.relativeAbundance();
         diffuse_intensity += fraction * std::norm(ff);
@@ -78,7 +78,7 @@ double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_
         ff_conj += prefac * std::conj(ff);
     }
     complex_t mean_ff_norm = ff_orig * ff_conj;
-    complex_t p2kappa = getCharacteristicSizeCoupling(qp, m_formfactor_wrappers);
+    complex_t p2kappa = getCharacteristicSizeCoupling(qp, m_weighted_formfactors);
     complex_t omega = getCharacteristicDistribution(qp, m_iff.get());
     double iff = 2.0 * (mean_ff_norm * omega / (1.0 - p2kappa * omega)).real();
     double dw_factor = m_iff->DWfactor(sim_element.getMeanQ());
@@ -93,7 +93,7 @@ double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& s
     const auto& polarization_handler = sim_element.polarizationHandler();
     Eigen::Matrix2cd ff_orig = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd ff_conj = Eigen::Matrix2cd::Zero();
-    for (auto& ffw : m_formfactor_wrappers) {
+    for (auto& ffw : m_weighted_formfactors) {
         Eigen::Matrix2cd ff = ffw.evaluatePol(sim_element);
         double fraction = ffw.relativeAbundance();
         diffuse_matrix += fraction * (ff * polarization_handler.getPolarization() * ff.adjoint());
@@ -103,7 +103,7 @@ double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& s
         ff_orig += prefac * ff;
         ff_conj += prefac * ff.adjoint();
     }
-    complex_t p2kappa = getCharacteristicSizeCoupling(qp, m_formfactor_wrappers);
+    complex_t p2kappa = getCharacteristicSizeCoupling(qp, m_weighted_formfactors);
     complex_t omega = getCharacteristicDistribution(qp, m_iff.get());
     Eigen::Matrix2cd interference_matrix = (2.0 * omega / (1.0 - p2kappa * omega))
                                            * polarization_handler.getAnalyzerOperator() * ff_orig

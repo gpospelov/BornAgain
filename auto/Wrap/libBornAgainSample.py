@@ -11429,264 +11429,264 @@ class Lattice2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 # Register Lattice2D in _libBornAgainSample:
 _libBornAgainSample.Lattice2D_swigregister(Lattice2D)
 
-class BasicLattice(Lattice2D):
-    r"""Proxy of C++ BasicLattice class."""
+class BasicLattice2D(Lattice2D):
+    r"""Proxy of C++ BasicLattice2D class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, length1, length2, angle, xi):
         r"""
-        __init__(BasicLattice self, double length1, double length2, double angle, double xi) -> BasicLattice
-        BasicLattice::BasicLattice(double length1, double length2, double angle, double xi)
+        __init__(BasicLattice2D self, double length1, double length2, double angle, double xi) -> BasicLattice2D
+        BasicLattice2D::BasicLattice2D(double length1, double length2, double angle, double xi)
 
         """
-        _libBornAgainSample.BasicLattice_swiginit(self, _libBornAgainSample.new_BasicLattice(length1, length2, angle, xi))
+        _libBornAgainSample.BasicLattice2D_swiginit(self, _libBornAgainSample.new_BasicLattice2D(length1, length2, angle, xi))
 
     def clone(self):
         r"""
-        clone(BasicLattice self) -> BasicLattice
-        BasicLattice * BasicLattice::clone() const
+        clone(BasicLattice2D self) -> BasicLattice2D
+        BasicLattice2D * BasicLattice2D::clone() const
 
         """
-        return _libBornAgainSample.BasicLattice_clone(self)
+        return _libBornAgainSample.BasicLattice2D_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(BasicLattice self, INodeVisitor * visitor)
-        void BasicLattice::accept(INodeVisitor *visitor) const final
+        accept(BasicLattice2D self, INodeVisitor * visitor)
+        void BasicLattice2D::accept(INodeVisitor *visitor) const final
 
         """
-        return _libBornAgainSample.BasicLattice_accept(self, visitor)
+        return _libBornAgainSample.BasicLattice2D_accept(self, visitor)
 
     def length1(self):
         r"""
-        length1(BasicLattice self) -> double
-        virtual double BasicLattice::length1() const
+        length1(BasicLattice2D self) -> double
+        virtual double BasicLattice2D::length1() const
 
         """
-        return _libBornAgainSample.BasicLattice_length1(self)
+        return _libBornAgainSample.BasicLattice2D_length1(self)
 
     def length2(self):
         r"""
-        length2(BasicLattice self) -> double
-        virtual double BasicLattice::length2() const
+        length2(BasicLattice2D self) -> double
+        virtual double BasicLattice2D::length2() const
 
         """
-        return _libBornAgainSample.BasicLattice_length2(self)
+        return _libBornAgainSample.BasicLattice2D_length2(self)
 
     def latticeAngle(self):
         r"""
-        latticeAngle(BasicLattice self) -> double
-        virtual double BasicLattice::latticeAngle() const
+        latticeAngle(BasicLattice2D self) -> double
+        virtual double BasicLattice2D::latticeAngle() const
 
         """
-        return _libBornAgainSample.BasicLattice_latticeAngle(self)
+        return _libBornAgainSample.BasicLattice2D_latticeAngle(self)
 
     def unitCellArea(self):
         r"""
-        unitCellArea(BasicLattice self) -> double
-        double BasicLattice::unitCellArea() const
+        unitCellArea(BasicLattice2D self) -> double
+        double BasicLattice2D::unitCellArea() const
 
         """
-        return _libBornAgainSample.BasicLattice_unitCellArea(self)
-    __swig_destroy__ = _libBornAgainSample.delete_BasicLattice
+        return _libBornAgainSample.BasicLattice2D_unitCellArea(self)
+    __swig_destroy__ = _libBornAgainSample.delete_BasicLattice2D
 
-# Register BasicLattice in _libBornAgainSample:
-_libBornAgainSample.BasicLattice_swigregister(BasicLattice)
+# Register BasicLattice2D in _libBornAgainSample:
+_libBornAgainSample.BasicLattice2D_swigregister(BasicLattice2D)
 
-class SquareLattice(Lattice2D):
-    r"""Proxy of C++ SquareLattice class."""
+class SquareLattice2D(Lattice2D):
+    r"""Proxy of C++ SquareLattice2D class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, length, xi=0.0):
         r"""
-        __init__(SquareLattice self, double length, double xi=0.0) -> SquareLattice
-        SquareLattice::SquareLattice(double length, double xi=0.0)
+        __init__(SquareLattice2D self, double length, double xi=0.0) -> SquareLattice2D
+        SquareLattice2D::SquareLattice2D(double length, double xi=0.0)
 
         """
-        _libBornAgainSample.SquareLattice_swiginit(self, _libBornAgainSample.new_SquareLattice(length, xi))
+        _libBornAgainSample.SquareLattice2D_swiginit(self, _libBornAgainSample.new_SquareLattice2D(length, xi))
 
     def clone(self):
         r"""
-        clone(SquareLattice self) -> SquareLattice
-        SquareLattice * SquareLattice::clone() const
+        clone(SquareLattice2D self) -> SquareLattice2D
+        SquareLattice2D * SquareLattice2D::clone() const
 
         """
-        return _libBornAgainSample.SquareLattice_clone(self)
+        return _libBornAgainSample.SquareLattice2D_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(SquareLattice self, INodeVisitor * visitor)
-        void SquareLattice::accept(INodeVisitor *visitor) const final
+        accept(SquareLattice2D self, INodeVisitor * visitor)
+        void SquareLattice2D::accept(INodeVisitor *visitor) const final
 
         """
-        return _libBornAgainSample.SquareLattice_accept(self, visitor)
+        return _libBornAgainSample.SquareLattice2D_accept(self, visitor)
 
     def length1(self):
         r"""
-        length1(SquareLattice self) -> double
-        virtual double SquareLattice::length1() const
+        length1(SquareLattice2D self) -> double
+        virtual double SquareLattice2D::length1() const
 
         """
-        return _libBornAgainSample.SquareLattice_length1(self)
+        return _libBornAgainSample.SquareLattice2D_length1(self)
 
     def length2(self):
         r"""
-        length2(SquareLattice self) -> double
-        virtual double SquareLattice::length2() const
+        length2(SquareLattice2D self) -> double
+        virtual double SquareLattice2D::length2() const
 
         """
-        return _libBornAgainSample.SquareLattice_length2(self)
+        return _libBornAgainSample.SquareLattice2D_length2(self)
 
     def latticeAngle(self):
         r"""
-        latticeAngle(SquareLattice self) -> double
-        double SquareLattice::latticeAngle() const
+        latticeAngle(SquareLattice2D self) -> double
+        double SquareLattice2D::latticeAngle() const
 
         """
-        return _libBornAgainSample.SquareLattice_latticeAngle(self)
+        return _libBornAgainSample.SquareLattice2D_latticeAngle(self)
 
     def unitCellArea(self):
         r"""
-        unitCellArea(SquareLattice self) -> double
-        double SquareLattice::unitCellArea() const
+        unitCellArea(SquareLattice2D self) -> double
+        double SquareLattice2D::unitCellArea() const
 
         """
-        return _libBornAgainSample.SquareLattice_unitCellArea(self)
-    __swig_destroy__ = _libBornAgainSample.delete_SquareLattice
+        return _libBornAgainSample.SquareLattice2D_unitCellArea(self)
+    __swig_destroy__ = _libBornAgainSample.delete_SquareLattice2D
 
-# Register SquareLattice in _libBornAgainSample:
-_libBornAgainSample.SquareLattice_swigregister(SquareLattice)
+# Register SquareLattice2D in _libBornAgainSample:
+_libBornAgainSample.SquareLattice2D_swigregister(SquareLattice2D)
 
-class HexagonalLattice(Lattice2D):
-    r"""Proxy of C++ HexagonalLattice class."""
+class HexagonalLattice2D(Lattice2D):
+    r"""Proxy of C++ HexagonalLattice2D class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, length, xi):
         r"""
-        __init__(HexagonalLattice self, double length, double xi) -> HexagonalLattice
-        HexagonalLattice::HexagonalLattice(double length, double xi)
+        __init__(HexagonalLattice2D self, double length, double xi) -> HexagonalLattice2D
+        HexagonalLattice2D::HexagonalLattice2D(double length, double xi)
 
         """
-        _libBornAgainSample.HexagonalLattice_swiginit(self, _libBornAgainSample.new_HexagonalLattice(length, xi))
+        _libBornAgainSample.HexagonalLattice2D_swiginit(self, _libBornAgainSample.new_HexagonalLattice2D(length, xi))
 
     def clone(self):
         r"""
-        clone(HexagonalLattice self) -> HexagonalLattice
-        HexagonalLattice * HexagonalLattice::clone() const
+        clone(HexagonalLattice2D self) -> HexagonalLattice2D
+        HexagonalLattice2D * HexagonalLattice2D::clone() const
 
         """
-        return _libBornAgainSample.HexagonalLattice_clone(self)
+        return _libBornAgainSample.HexagonalLattice2D_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(HexagonalLattice self, INodeVisitor * visitor)
-        void HexagonalLattice::accept(INodeVisitor *visitor) const final
+        accept(HexagonalLattice2D self, INodeVisitor * visitor)
+        void HexagonalLattice2D::accept(INodeVisitor *visitor) const final
 
         """
-        return _libBornAgainSample.HexagonalLattice_accept(self, visitor)
+        return _libBornAgainSample.HexagonalLattice2D_accept(self, visitor)
 
     def length1(self):
         r"""
-        length1(HexagonalLattice self) -> double
-        virtual double HexagonalLattice::length1() const
+        length1(HexagonalLattice2D self) -> double
+        virtual double HexagonalLattice2D::length1() const
 
         """
-        return _libBornAgainSample.HexagonalLattice_length1(self)
+        return _libBornAgainSample.HexagonalLattice2D_length1(self)
 
     def length2(self):
         r"""
-        length2(HexagonalLattice self) -> double
-        virtual double HexagonalLattice::length2() const
+        length2(HexagonalLattice2D self) -> double
+        virtual double HexagonalLattice2D::length2() const
 
         """
-        return _libBornAgainSample.HexagonalLattice_length2(self)
+        return _libBornAgainSample.HexagonalLattice2D_length2(self)
 
     def latticeAngle(self):
         r"""
-        latticeAngle(HexagonalLattice self) -> double
-        double HexagonalLattice::latticeAngle() const
+        latticeAngle(HexagonalLattice2D self) -> double
+        double HexagonalLattice2D::latticeAngle() const
 
         """
-        return _libBornAgainSample.HexagonalLattice_latticeAngle(self)
+        return _libBornAgainSample.HexagonalLattice2D_latticeAngle(self)
 
     def unitCellArea(self):
         r"""
-        unitCellArea(HexagonalLattice self) -> double
-        double HexagonalLattice::unitCellArea() const
+        unitCellArea(HexagonalLattice2D self) -> double
+        double HexagonalLattice2D::unitCellArea() const
 
         """
-        return _libBornAgainSample.HexagonalLattice_unitCellArea(self)
-    __swig_destroy__ = _libBornAgainSample.delete_HexagonalLattice
+        return _libBornAgainSample.HexagonalLattice2D_unitCellArea(self)
+    __swig_destroy__ = _libBornAgainSample.delete_HexagonalLattice2D
 
-# Register HexagonalLattice in _libBornAgainSample:
-_libBornAgainSample.HexagonalLattice_swigregister(HexagonalLattice)
+# Register HexagonalLattice2D in _libBornAgainSample:
+_libBornAgainSample.HexagonalLattice2D_swigregister(HexagonalLattice2D)
 
 
-def createCubicLattice(a):
+def CubicLattice(a):
     r"""
-    createCubicLattice(double a) -> Lattice3D
-    Lattice3D bake::createCubicLattice(double a)
+    CubicLattice(double a) -> Lattice3D
+    Lattice3D bake::CubicLattice(double a)
 
     Returns a primitive cubic (cP) lattice with edge length a. 
 
     """
-    return _libBornAgainSample.createCubicLattice(a)
+    return _libBornAgainSample.CubicLattice(a)
 
-def createFCCLattice(a):
+def FCCLattice(a):
     r"""
-    createFCCLattice(double a) -> Lattice3D
-    Lattice3D bake::createFCCLattice(double a)
+    FCCLattice(double a) -> Lattice3D
+    Lattice3D bake::FCCLattice(double a)
 
     Returns a face-centered cubic (cF) lattice with edge length a. 
 
     """
-    return _libBornAgainSample.createFCCLattice(a)
+    return _libBornAgainSample.FCCLattice(a)
 
-def createHexagonalLattice(a, c):
+def HexagonalLattice(a, c):
     r"""
-    createHexagonalLattice(double a, double c) -> Lattice3D
-    Lattice3D bake::createHexagonalLattice(double a, double c)
+    HexagonalLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::HexagonalLattice(double a, double c)
 
     Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. 
 
     """
-    return _libBornAgainSample.createHexagonalLattice(a, c)
+    return _libBornAgainSample.HexagonalLattice(a, c)
 
-def createHCPLattice(a, c):
+def HCPLattice(a, c):
     r"""
-    createHCPLattice(double a, double c) -> Lattice3D
-    Lattice3D bake::createHCPLattice(double a, double c)
+    HCPLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::HCPLattice(double a, double c)
 
     TODO: Clarify how this is meant: HCP is not a Bravais lattice. 
 
     """
-    return _libBornAgainSample.createHCPLattice(a, c)
+    return _libBornAgainSample.HCPLattice(a, c)
 
-def createTetragonalLattice(a, c):
+def TetragonalLattice(a, c):
     r"""
-    createTetragonalLattice(double a, double c) -> Lattice3D
-    Lattice3D bake::createTetragonalLattice(double a, double c)
+    TetragonalLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::TetragonalLattice(double a, double c)
 
     Returns a primitive tetragonal (tP) lattice with square base edge a and height c. 
 
     """
-    return _libBornAgainSample.createTetragonalLattice(a, c)
+    return _libBornAgainSample.TetragonalLattice(a, c)
 
-def createBCTLattice(a, c):
+def BCTLattice(a, c):
     r"""
-    createBCTLattice(double a, double c) -> Lattice3D
-    Lattice3D bake::createBCTLattice(double a, double c)
+    BCTLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::BCTLattice(double a, double c)
 
     Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
 
     """
-    return _libBornAgainSample.createBCTLattice(a, c)
+    return _libBornAgainSample.BCTLattice(a, c)
 class ISampleBuilder(libBornAgainParam.IParameterized):
     r"""
 

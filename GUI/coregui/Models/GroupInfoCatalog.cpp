@@ -133,10 +133,10 @@ GroupInfoCatalog::GroupInfoCatalog()
     addInfo(info);
 
     info = GroupInfo("Lattice group");
-    info.add("BasicLattice", "Basic");
-    info.add("SquareLattice", "Square");
-    info.add("HexagonalLattice", "Hexagonal");
-    info.setDefaultType("HexagonalLattice");
+    info.add("BasicLattice2D", "Basic");
+    info.add("SquareLattice2D", "Square");
+    info.add("HexagonalLattice2D", "Hexagonal");
+    info.setDefaultType("HexagonalLattice2D");
     addInfo(info);
 
     info = GroupInfo("Resolution function group");

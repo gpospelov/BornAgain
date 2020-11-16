@@ -117,7 +117,7 @@ class MySampleBuilder(ISampleBuilder):
     # create lattice
     # -------------------------------------------------------------------------
     def createLattice(self, stacking_radius_a, stacking_radius_c):
-        result = createHexagonalLattice(stacking_radius_a*2.0, stacking_radius_c*2.0*2.3)
+        result = HexagonalLattice(stacking_radius_a*2.0, stacking_radius_c*2.0*2.3)
         result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3))
         return result
 

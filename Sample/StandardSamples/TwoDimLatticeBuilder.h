@@ -30,17 +30,17 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class SquareLatticeBuilder : public ISampleBuilder
+class SquareLattice2DBuilder : public ISampleBuilder
 {
 public:
-    SquareLatticeBuilder() {}
+    SquareLattice2DBuilder() {}
     MultiLayer* buildSample() const;
 };
 
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class CenteredSquareLatticeBuilder : public ISampleBuilder
+class CenteredSquareLattice2DBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
@@ -49,7 +49,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class RotatedSquareLatticeBuilder : public ISampleBuilder
+class RotatedSquareLattice2DBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;
@@ -58,7 +58,7 @@ public:
 //! Builds sample: 2D finite lattice with thermal disorder.
 //! @ingroup standard_samples
 
-class FiniteSquareLatticeBuilder : public ISampleBuilder
+class FiniteSquareLattice2DBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;

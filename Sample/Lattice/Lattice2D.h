@@ -47,12 +47,12 @@ protected:
     double m_xi;
 };
 
-class BasicLattice : public Lattice2D
+class BasicLattice2D : public Lattice2D
 {
 public:
-    BasicLattice(double length1, double length2, double angle, double xi);
+    BasicLattice2D(double length1, double length2, double angle, double xi);
 
-    BasicLattice* clone() const;
+    BasicLattice2D* clone() const;
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
@@ -66,12 +66,12 @@ private:
     double m_angle;
 };
 
-class SquareLattice : public Lattice2D
+class SquareLattice2D : public Lattice2D
 {
 public:
-    SquareLattice(double length, double xi = 0.0);
+    SquareLattice2D(double length, double xi = 0.0);
 
-    SquareLattice* clone() const;
+    SquareLattice2D* clone() const;
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
@@ -84,12 +84,12 @@ private:
     double m_length;
 };
 
-class HexagonalLattice : public Lattice2D
+class HexagonalLattice2D : public Lattice2D
 {
 public:
-    HexagonalLattice(double length, double xi);
+    HexagonalLattice2D(double length, double xi);
 
-    HexagonalLattice* clone() const;
+    HexagonalLattice2D* clone() const;
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 

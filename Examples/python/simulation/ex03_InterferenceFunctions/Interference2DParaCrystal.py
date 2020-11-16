@@ -18,7 +18,7 @@ def get_sample():
     cylinder = ba.Particle(m_particle, cylinder_ff)
 
     interference = ba.InterferenceFunction2DParaCrystal(
-        ba.SquareLattice(10.0*nm), 0.0, 20.0*micrometer, 20.0*micrometer)
+        ba.SquareLattice2D(10.0*nm), 0.0, 20.0*micrometer, 20.0*micrometer)
     interference.setIntegrationOverXi(True)
     pdf = ba.FTDistribution2DCauchy(1.0*nm, 1.0*nm, 0)
     interference.setProbabilityDistributions(pdf, pdf)

@@ -43,7 +43,7 @@ MultiLayer* ParticleCompositionBuilder::buildSample() const
     basis.addParticles(sphere, positions);
     particle_layout.addParticle(basis);
 
-    InterferenceFunction2DLattice iff(HexagonalLattice(radius * 2.0, 0));
+    InterferenceFunction2DLattice iff(HexagonalLattice2D(radius * 2.0, 0));
     FTDecayFunction2DCauchy pdf(10 * Units::nm, 10 * Units::nm, 0);
     iff.setDecayFunction(pdf);
 

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/StandardSamples/BoxesSquareLatticeBuilder.h
-//! @brief     Defines class BoxesSquareLatticeBuilder.
+//! @brief     Defines class BoxesSquareLattice2DBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -20,7 +20,7 @@
 //! Builds sample: square boxes in a square lattice
 //! @ingroup standard_samples
 
-class BoxesSquareLatticeBuilder : public ISampleBuilder
+class BoxesSquareLattice2DBuilder : public ISampleBuilder
 {
 public:
     MultiLayer* buildSample() const;

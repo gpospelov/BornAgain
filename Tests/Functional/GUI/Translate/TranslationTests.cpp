@@ -54,9 +54,9 @@ TEST_F(Translate, Roughness)
     EXPECT_TRUE(run("BasicGISAS", "MultiLayerWithRoughnessBuilder"));
 }
 
-TEST_F(Translate, SquareLattice)
+TEST_F(Translate, SquareLattice2D)
 {
-    EXPECT_TRUE(run("BasicGISAS", "SquareLatticeBuilder"));
+    EXPECT_TRUE(run("BasicGISAS", "SquareLattice2DBuilder"));
 }
 
 TEST_F(Translate, Rotation)

@@ -139,28 +139,28 @@ C++ includes: ParaCrystalBuilder.h
 ";
 
 
-// File: classBasicLattice.xml
-%feature("docstring") BasicLattice "";
+// File: classBasicLattice2D.xml
+%feature("docstring") BasicLattice2D "";
 
-%feature("docstring")  BasicLattice::BasicLattice "BasicLattice::BasicLattice(double length1, double length2, double angle, double xi)
+%feature("docstring")  BasicLattice2D::BasicLattice2D "BasicLattice2D::BasicLattice2D(double length1, double length2, double angle, double xi)
 ";
 
-%feature("docstring")  BasicLattice::clone "BasicLattice * BasicLattice::clone() const
+%feature("docstring")  BasicLattice2D::clone "BasicLattice2D * BasicLattice2D::clone() const
 ";
 
-%feature("docstring")  BasicLattice::accept "void BasicLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  BasicLattice2D::accept "void BasicLattice2D::accept(INodeVisitor *visitor) const final
 ";
 
-%feature("docstring")  BasicLattice::length1 "virtual double BasicLattice::length1() const
+%feature("docstring")  BasicLattice2D::length1 "virtual double BasicLattice2D::length1() const
 ";
 
-%feature("docstring")  BasicLattice::length2 "virtual double BasicLattice::length2() const
+%feature("docstring")  BasicLattice2D::length2 "virtual double BasicLattice2D::length2() const
 ";
 
-%feature("docstring")  BasicLattice::latticeAngle "virtual double BasicLattice::latticeAngle() const
+%feature("docstring")  BasicLattice2D::latticeAngle "virtual double BasicLattice2D::latticeAngle() const
 ";
 
-%feature("docstring")  BasicLattice::unitCellArea "double BasicLattice::unitCellArea() const
+%feature("docstring")  BasicLattice2D::unitCellArea "double BasicLattice2D::unitCellArea() const
 ";
 
 
@@ -222,15 +222,15 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: classBoxesSquareLatticeBuilder.xml
-%feature("docstring") BoxesSquareLatticeBuilder "
+// File: classBoxesSquareLattice2DBuilder.xml
+%feature("docstring") BoxesSquareLattice2DBuilder "
 
 Builds sample: square boxes in a square lattice
 
 C++ includes: BoxesSquareLatticeBuilder.h
 ";
 
-%feature("docstring")  BoxesSquareLatticeBuilder::buildSample "MultiLayer * BoxesSquareLatticeBuilder::buildSample() const
+%feature("docstring")  BoxesSquareLattice2DBuilder::buildSample "MultiLayer * BoxesSquareLattice2DBuilder::buildSample() const
 ";
 
 
@@ -246,15 +246,15 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: classCenteredSquareLatticeBuilder.xml
-%feature("docstring") CenteredSquareLatticeBuilder "
+// File: classCenteredSquareLattice2DBuilder.xml
+%feature("docstring") CenteredSquareLattice2DBuilder "
 
 Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
 
-%feature("docstring")  CenteredSquareLatticeBuilder::buildSample "MultiLayer * CenteredSquareLatticeBuilder::buildSample() const
+%feature("docstring")  CenteredSquareLattice2DBuilder::buildSample "MultiLayer * CenteredSquareLattice2DBuilder::buildSample() const
 ";
 
 
@@ -582,15 +582,15 @@ C++ includes: DecouplingApproximationStrategy.h
 ";
 
 
-// File: classFiniteSquareLatticeBuilder.xml
-%feature("docstring") FiniteSquareLatticeBuilder "
+// File: classFiniteSquareLattice2DBuilder.xml
+%feature("docstring") FiniteSquareLattice2DBuilder "
 
 Builds sample: 2D finite lattice with thermal disorder.
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
 
-%feature("docstring")  FiniteSquareLatticeBuilder::buildSample "MultiLayer * FiniteSquareLatticeBuilder::buildSample() const
+%feature("docstring")  FiniteSquareLattice2DBuilder::buildSample "MultiLayer * FiniteSquareLattice2DBuilder::buildSample() const
 ";
 
 
@@ -2921,28 +2921,28 @@ C++ includes: PercusYevickBuilder.h
 // File: classMatrixFresnelMap_1_1HashKVector.xml
 
 
-// File: classHexagonalLattice.xml
-%feature("docstring") HexagonalLattice "";
+// File: classHexagonalLattice2D.xml
+%feature("docstring") HexagonalLattice2D "";
 
-%feature("docstring")  HexagonalLattice::HexagonalLattice "HexagonalLattice::HexagonalLattice(double length, double xi)
+%feature("docstring")  HexagonalLattice2D::HexagonalLattice2D "HexagonalLattice2D::HexagonalLattice2D(double length, double xi)
 ";
 
-%feature("docstring")  HexagonalLattice::clone "HexagonalLattice * HexagonalLattice::clone() const
+%feature("docstring")  HexagonalLattice2D::clone "HexagonalLattice2D * HexagonalLattice2D::clone() const
 ";
 
-%feature("docstring")  HexagonalLattice::accept "void HexagonalLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  HexagonalLattice2D::accept "void HexagonalLattice2D::accept(INodeVisitor *visitor) const final
 ";
 
-%feature("docstring")  HexagonalLattice::length1 "virtual double HexagonalLattice::length1() const
+%feature("docstring")  HexagonalLattice2D::length1 "virtual double HexagonalLattice2D::length1() const
 ";
 
-%feature("docstring")  HexagonalLattice::length2 "virtual double HexagonalLattice::length2() const
+%feature("docstring")  HexagonalLattice2D::length2 "virtual double HexagonalLattice2D::length2() const
 ";
 
-%feature("docstring")  HexagonalLattice::latticeAngle "double HexagonalLattice::latticeAngle() const
+%feature("docstring")  HexagonalLattice2D::latticeAngle "double HexagonalLattice2D::latticeAngle() const
 ";
 
-%feature("docstring")  HexagonalLattice::unitCellArea "double HexagonalLattice::unitCellArea() const
+%feature("docstring")  HexagonalLattice2D::unitCellArea "double HexagonalLattice2D::unitCellArea() const
 ";
 
 
@@ -6501,15 +6501,15 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classRotatedSquareLatticeBuilder.xml
-%feature("docstring") RotatedSquareLatticeBuilder "
+// File: classRotatedSquareLattice2DBuilder.xml
+%feature("docstring") RotatedSquareLattice2DBuilder "
 
 Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
 
-%feature("docstring")  RotatedSquareLatticeBuilder::buildSample "MultiLayer * RotatedSquareLatticeBuilder::buildSample() const
+%feature("docstring")  RotatedSquareLattice2DBuilder::buildSample "MultiLayer * RotatedSquareLattice2DBuilder::buildSample() const
 ";
 
 
@@ -7280,43 +7280,43 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classSquareLattice.xml
-%feature("docstring") SquareLattice "";
+// File: classSquareLattice2D.xml
+%feature("docstring") SquareLattice2D "";
 
-%feature("docstring")  SquareLattice::SquareLattice "SquareLattice::SquareLattice(double length, double xi=0.0)
+%feature("docstring")  SquareLattice2D::SquareLattice2D "SquareLattice2D::SquareLattice2D(double length, double xi=0.0)
 ";
 
-%feature("docstring")  SquareLattice::clone "SquareLattice * SquareLattice::clone() const
+%feature("docstring")  SquareLattice2D::clone "SquareLattice2D * SquareLattice2D::clone() const
 ";
 
-%feature("docstring")  SquareLattice::accept "void SquareLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  SquareLattice2D::accept "void SquareLattice2D::accept(INodeVisitor *visitor) const final
 ";
 
-%feature("docstring")  SquareLattice::length1 "virtual double SquareLattice::length1() const
+%feature("docstring")  SquareLattice2D::length1 "virtual double SquareLattice2D::length1() const
 ";
 
-%feature("docstring")  SquareLattice::length2 "virtual double SquareLattice::length2() const
+%feature("docstring")  SquareLattice2D::length2 "virtual double SquareLattice2D::length2() const
 ";
 
-%feature("docstring")  SquareLattice::latticeAngle "double SquareLattice::latticeAngle() const
+%feature("docstring")  SquareLattice2D::latticeAngle "double SquareLattice2D::latticeAngle() const
 ";
 
-%feature("docstring")  SquareLattice::unitCellArea "double SquareLattice::unitCellArea() const
+%feature("docstring")  SquareLattice2D::unitCellArea "double SquareLattice2D::unitCellArea() const
 ";
 
 
-// File: classSquareLatticeBuilder.xml
-%feature("docstring") SquareLatticeBuilder "
+// File: classSquareLattice2DBuilder.xml
+%feature("docstring") SquareLattice2DBuilder "
 
 Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
 
-%feature("docstring")  SquareLatticeBuilder::SquareLatticeBuilder "SquareLatticeBuilder::SquareLatticeBuilder()
+%feature("docstring")  SquareLattice2DBuilder::SquareLattice2DBuilder "SquareLattice2DBuilder::SquareLattice2DBuilder()
 ";
 
-%feature("docstring")  SquareLatticeBuilder::buildSample "MultiLayer * SquareLatticeBuilder::buildSample() const
+%feature("docstring")  SquareLattice2DBuilder::buildSample "MultiLayer * SquareLattice2DBuilder::buildSample() const
 ";
 
 
@@ -7656,32 +7656,32 @@ C++ includes: ZLimits.h
 
 
 // File: namespacebake.xml
-%feature("docstring")  bake::createCubicLattice "Lattice3D bake::createCubicLattice(double a)
+%feature("docstring")  bake::CubicLattice "Lattice3D bake::CubicLattice(double a)
 
 Returns a primitive cubic (cP) lattice with edge length a. 
 ";
 
-%feature("docstring")  bake::createFCCLattice "Lattice3D bake::createFCCLattice(double a)
+%feature("docstring")  bake::FCCLattice "Lattice3D bake::FCCLattice(double a)
 
 Returns a face-centered cubic (cF) lattice with edge length a. 
 ";
 
-%feature("docstring")  bake::createHexagonalLattice "Lattice3D bake::createHexagonalLattice(double a, double c)
+%feature("docstring")  bake::HexagonalLattice "Lattice3D bake::HexagonalLattice(double a, double c)
 
 Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. 
 ";
 
-%feature("docstring")  bake::createHCPLattice "Lattice3D bake::createHCPLattice(double a, double c)
+%feature("docstring")  bake::HCPLattice "Lattice3D bake::HCPLattice(double a, double c)
 
 TODO: Clarify how this is meant: HCP is not a Bravais lattice. 
 ";
 
-%feature("docstring")  bake::createTetragonalLattice "Lattice3D bake::createTetragonalLattice(double a, double c)
+%feature("docstring")  bake::TetragonalLattice "Lattice3D bake::TetragonalLattice(double a, double c)
 
 Returns a primitive tetragonal (tP) lattice with square base edge a and height c. 
 ";
 
-%feature("docstring")  bake::createBCTLattice "Lattice3D bake::createBCTLattice(double a, double c)
+%feature("docstring")  bake::BCTLattice "Lattice3D bake::BCTLattice(double a, double c)
 
 Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
 ";

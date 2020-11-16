@@ -12,7 +12,7 @@ class MesoCrystalTest : public ::testing::Test
 
 TEST_F(MesoCrystalTest, getChildren)
 {
-    Lattice3D lattice = bake::createHexagonalLattice(1.0, 2.0);
+    Lattice3D lattice = bake::HexagonalLattice(1.0, 2.0);
     ParticleComposition composition;
     Crystal crystal(composition, lattice);
     MesoCrystal meso(crystal, FormFactorFullSphere(1.0));

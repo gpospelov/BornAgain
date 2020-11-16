@@ -27,7 +27,7 @@ def get_sample(params):
     particle_layout.addParticle(sphere)
 
     interference = ba.InterferenceFunction2DLattice(
-        ba.HexagonalLattice(lattice_length))
+        ba.HexagonalLattice2D(lattice_length))
     pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm, 0)
     interference.setDecayFunction(pdf)
 

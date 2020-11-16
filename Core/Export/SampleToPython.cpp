@@ -298,7 +298,7 @@ std::string SampleToPython::defineLattices2D() const
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const Lattice2D* lattice = it->first;
         std::string lattice_name = it->second;
-        result << indent() << lattice_name << " = ba.BasicLattice(\n";
+        result << indent() << lattice_name << " = ba.BasicLattice2D(\n";
         result << indent() << indent() << pyfmt::printNm(lattice->length1()) << ", "
                << pyfmt::printNm(lattice->length2()) << ", "
                << pyfmt::printDegrees(lattice->latticeAngle()) << ", "
@@ -448,8 +448,8 @@ std::string SampleToPython::defineInterferenceFunctions() const
             const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
 
             result << indent() << it->second << " = ba.InterferenceFunctionFinite2DLattice("
-                   << m_label->labelLattice2D(lattice) << ", "
-                   << iff->numberUnitCells1() << ", " << iff->numberUnitCells2() << ")\n";
+                   << m_label->labelLattice2D(lattice) << ", " << iff->numberUnitCells1() << ", "
+                   << iff->numberUnitCells2() << ")\n";
 
             if (iff->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
@@ -461,9 +461,8 @@ std::string SampleToPython::defineInterferenceFunctions() const
 
             result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
                    << m_label->labelLattice2D(lattice) << ", "
-                   << pyfmt::printNm(iff->dampingLength()) << ", "
-                   << pyfmt::printNm(domainSize[0]) << ", " << pyfmt::printNm(domainSize[1])
-                   << ")\n";
+                   << pyfmt::printNm(iff->dampingLength()) << ", " << pyfmt::printNm(domainSize[0])
+                   << ", " << pyfmt::printNm(domainSize[1]) << ")\n";
 
             if (iff->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";

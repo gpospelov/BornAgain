@@ -3295,7 +3295,7 @@ class INodeVisitor(object):
 
     def visit(self, *args):
         r"""
-        visit(INodeVisitor self, BasicLattice const * arg2)
+        visit(INodeVisitor self, BasicLattice2D const * arg2)
         visit(INodeVisitor self, Beam const * arg2)
         visit(INodeVisitor self, ConstantBackground const * arg2)
         visit(INodeVisitor self, ConvolutionDetectorResolution const * arg2)
@@ -3370,7 +3370,7 @@ class INodeVisitor(object):
         visit(INodeVisitor self, FTDistribution2DGauss const * arg2)
         visit(INodeVisitor self, FTDistribution2DVoigt const * arg2)
         visit(INodeVisitor self, GISASSimulation const * arg2)
-        visit(INodeVisitor self, HexagonalLattice const * arg2)
+        visit(INodeVisitor self, HexagonalLattice2D const * arg2)
         visit(INodeVisitor self, IAbstractParticle const * arg2)
         visit(INodeVisitor self, IClusteredParticles const * arg2)
         visit(INodeVisitor self, IdentityRotation const * arg2)
@@ -3417,8 +3417,8 @@ class INodeVisitor(object):
         visit(INodeVisitor self, SpecularDetector1D const * arg2)
         visit(INodeVisitor self, SpecularSimulation const * arg2)
         visit(INodeVisitor self, SphericalDetector const * arg2)
-        visit(INodeVisitor self, SquareLattice const * arg2)
-        virtual void INodeVisitor::visit(const SquareLattice *)
+        visit(INodeVisitor self, SquareLattice2D const * arg2)
+        virtual void INodeVisitor::visit(const SquareLattice2D *)
 
         """
         return _libBornAgainParam.INodeVisitor_visit(self, *args)

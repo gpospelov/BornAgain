@@ -31,7 +31,7 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
     Layer substrate_layer(refMat::Substrate);
 
     InterferenceFunction2DLattice iff(
-        BasicLattice(5.0 * Units::nm, 10.0 * Units::nm, 30.0 * Units::deg, 10.0 * Units::deg));
+        BasicLattice2D(5.0 * Units::nm, 10.0 * Units::nm, 30.0 * Units::deg, 10.0 * Units::deg));
 
     FTDecayFunction2DCauchy pdf(300.0 * Units::nm / 2.0 / M_PI, 100.0 * Units::nm / 2.0 / M_PI, 0);
     iff.setDecayFunction(pdf);
@@ -55,12 +55,12 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #1:
 // -----------------------------------------------------------------------------
-MultiLayer* SquareLatticeBuilder::buildSample() const
+MultiLayer* SquareLattice2DBuilder::buildSample() const
 {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DLattice iff(SquareLattice(10.0 * Units::nm, 0));
+    InterferenceFunction2DLattice iff(SquareLattice2D(10.0 * Units::nm, 0));
     FTDecayFunction2DCauchy pdf(300.0 * Units::nm / 2.0 / M_PI, 100.0 * Units::nm / 2.0 / M_PI, 0);
     iff.setDecayFunction(pdf);
 
@@ -83,13 +83,13 @@ MultiLayer* SquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #2: centered
 // -----------------------------------------------------------------------------
-MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
+MultiLayer* CenteredSquareLattice2DBuilder::buildSample() const
 {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
     InterferenceFunction2DLattice interference_function(
-        BasicLattice(10.0 * Units::nm, 10.0 * Units::nm, M_PI / 2.0, 0));
+        BasicLattice2D(10.0 * Units::nm, 10.0 * Units::nm, M_PI / 2.0, 0));
     FTDecayFunction2DCauchy pdf(300.0 * Units::nm / 2.0 / M_PI, 100.0 * Units::nm / 2.0 / M_PI, 0);
     interference_function.setDecayFunction(pdf);
 
@@ -117,12 +117,12 @@ MultiLayer* CenteredSquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #3: rotated
 // -----------------------------------------------------------------------------
-MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
+MultiLayer* RotatedSquareLattice2DBuilder::buildSample() const
 {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DLattice iff(SquareLattice(10.0 * Units::nm, 30.0 * Units::deg));
+    InterferenceFunction2DLattice iff(SquareLattice2D(10.0 * Units::nm, 30.0 * Units::deg));
     FTDecayFunction2DCauchy pdf(300.0 * Units::nm / 2.0 / M_PI, 100.0 * Units::nm / 2.0 / M_PI,
                                 30.0 * Units::deg);
     iff.setDecayFunction(pdf);
@@ -147,12 +147,12 @@ MultiLayer* RotatedSquareLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #4: finite square
 // -----------------------------------------------------------------------------
-MultiLayer* FiniteSquareLatticeBuilder::buildSample() const
+MultiLayer* FiniteSquareLattice2DBuilder::buildSample() const
 {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunctionFinite2DLattice iff(SquareLattice(10.0 * Units::nm, 0.0), 40, 40);
+    InterferenceFunctionFinite2DLattice iff(SquareLattice2D(10.0 * Units::nm, 0.0), 40, 40);
     iff.setPositionVariance(1.0);
 
     // particles
@@ -179,8 +179,9 @@ MultiLayer* SuperLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DSuperLattice iff(SquareLattice(200.0 * Units::nm, 0.0), 40, 40);
-    InterferenceFunctionFinite2DLattice substructure(SquareLattice(10.0 * Units::nm, 0.0), 10, 10);
+    InterferenceFunction2DSuperLattice iff(SquareLattice2D(200.0 * Units::nm, 0.0), 40, 40);
+    InterferenceFunctionFinite2DLattice substructure(SquareLattice2D(10.0 * Units::nm, 0.0), 10,
+                                                     10);
     iff.setSubstructureIFF(substructure);
     iff.setPositionVariance(1.0);
 

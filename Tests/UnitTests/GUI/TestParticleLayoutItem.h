@@ -68,8 +68,8 @@ TEST_F(TestParticleLayoutItem, densityValue)
 
     auto& hexItem =
         interference->groupItem<Lattice2DItem>(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
-    EXPECT_EQ(hexItem.modelType(), "HexagonalLattice");
-    double length = hexItem.getItemValue(HexagonalLatticeItem::P_LATTICE_LENGTH).toDouble();
+    EXPECT_EQ(hexItem.modelType(), "HexagonalLattice2D");
+    double length = hexItem.getItemValue(HexagonalLattice2DItem::P_LATTICE_LENGTH).toDouble();
     double expectedDensity = 1. / (length * length * std::sin(M_TWOPI / 3.0));
     EXPECT_DOUBLE_EQ(1.0 / hexItem.unitCellArea(), expectedDensity);
     EXPECT_DOUBLE_EQ(layout->getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble(),
@@ -77,18 +77,18 @@ TEST_F(TestParticleLayoutItem, densityValue)
 
     // changing hexagonal lattice length
     length = 100.0;
-    hexItem.setItemValue(HexagonalLatticeItem::P_LATTICE_LENGTH, length);
+    hexItem.setItemValue(HexagonalLattice2DItem::P_LATTICE_LENGTH, length);
     expectedDensity = 1. / (length * length * std::sin(M_TWOPI / 3.0));
     EXPECT_DOUBLE_EQ(layout->getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble(),
                      expectedDensity);
 
     // changing lattice type to square and checking new surface density
     interference->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                   "SquareLattice");
+                                   "SquareLattice2D");
     auto& squareItem =
         interference->groupItem<Lattice2DItem>(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
-    EXPECT_EQ(squareItem.modelType(), "SquareLattice");
-    length = squareItem.getItemValue(SquareLatticeItem::P_LATTICE_LENGTH).toDouble();
+    EXPECT_EQ(squareItem.modelType(), "SquareLattice2D");
+    length = squareItem.getItemValue(SquareLattice2DItem::P_LATTICE_LENGTH).toDouble();
     expectedDensity = 1. / (length * length);
     EXPECT_DOUBLE_EQ(1.0 / squareItem.unitCellArea(), expectedDensity);
     EXPECT_DOUBLE_EQ(layout->getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble(),
@@ -96,7 +96,7 @@ TEST_F(TestParticleLayoutItem, densityValue)
 
     // changing square lattice length
     length = 200.0;
-    squareItem.setItemValue(SquareLatticeItem::P_LATTICE_LENGTH, length);
+    squareItem.setItemValue(SquareLattice2DItem::P_LATTICE_LENGTH, length);
     expectedDensity = 1. / (length * length);
     EXPECT_DOUBLE_EQ(layout->getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).toDouble(),
                      expectedDensity);

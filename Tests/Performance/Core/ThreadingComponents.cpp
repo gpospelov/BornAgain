@@ -51,7 +51,7 @@ std::unique_ptr<MultiLayer> createSampleSpheresDistribution(int nspheres)
     ParticleDistribution particleDistribution_1(particle_1, par_distr_1);
 
     InterferenceFunction2DLattice interference_1(
-        BasicLattice(10.0 * Units::nm, 10.0 * Units::nm, 90.0 * Units::deg, 0.0 * Units::deg));
+        BasicLattice2D(10.0 * Units::nm, 10.0 * Units::nm, 90.0 * Units::deg, 0.0 * Units::deg));
     FTDecayFunction2DCauchy interference_1_pdf(47.7464829276 * Units::nm, 15.9154943092 * Units::nm,
                                                0.0 * Units::deg);
     interference_1.setDecayFunction(interference_1_pdf);

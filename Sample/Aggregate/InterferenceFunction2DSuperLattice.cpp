@@ -46,7 +46,7 @@ InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(const Lat
 //! @param size_2: correlation length in direction 2
 InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(
     double length_1, double length_2, double alpha, double xi, unsigned size_1, unsigned size_2)
-    : InterferenceFunction2DSuperLattice(BasicLattice(length_1, length_2, alpha, xi), size_1,
+    : InterferenceFunction2DSuperLattice(BasicLattice2D(length_1, length_2, alpha, xi), size_1,
                                          size_2)
 {
 }

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/StandardSamples/BoxesSquareLatticeBuilder.cpp
-//! @brief     Implements class BoxesSquareLatticeBuilder.
+//! @brief     Implements class BoxesSquareLattice2DBuilder.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,7 +22,7 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
+MultiLayer* BoxesSquareLattice2DBuilder::buildSample() const
 {
     const double length = 5 * Units::nm;
     const double height = 10 * Units::nm;
@@ -30,7 +30,7 @@ MultiLayer* BoxesSquareLatticeBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DLattice iff(SquareLattice(8 * Units::nm, 0));
+    InterferenceFunction2DLattice iff(SquareLattice2D(8 * Units::nm, 0));
 
     FTDecayFunction2DCauchy pdf(100.0 * Units::nm, 100.0 * Units::nm, 0);
     iff.setDecayFunction(pdf);

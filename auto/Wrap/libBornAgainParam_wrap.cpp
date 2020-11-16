@@ -3098,7 +3098,7 @@ namespace Swig {
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_Attributes swig_types[0]
-#define SWIGTYPE_p_BasicLattice swig_types[1]
+#define SWIGTYPE_p_BasicLattice2D swig_types[1]
 #define SWIGTYPE_p_BasicVector3DT_double_t swig_types[2]
 #define SWIGTYPE_p_BasicVector3DT_int_t swig_types[3]
 #define SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t swig_types[4]
@@ -3176,7 +3176,7 @@ namespace Swig {
 #define SWIGTYPE_p_FormFactorTruncatedSpheroid swig_types[76]
 #define SWIGTYPE_p_FormFactorWeighted swig_types[77]
 #define SWIGTYPE_p_GISASSimulation swig_types[78]
-#define SWIGTYPE_p_HexagonalLattice swig_types[79]
+#define SWIGTYPE_p_HexagonalLattice2D swig_types[79]
 #define SWIGTYPE_p_IAbstractParticle swig_types[80]
 #define SWIGTYPE_p_ICloneable swig_types[81]
 #define SWIGTYPE_p_IClusteredParticles swig_types[82]
@@ -3241,7 +3241,7 @@ namespace Swig {
 #define SWIGTYPE_p_SpecularDetector1D swig_types[141]
 #define SWIGTYPE_p_SpecularSimulation swig_types[142]
 #define SWIGTYPE_p_SphericalDetector swig_types[143]
-#define SWIGTYPE_p_SquareLattice swig_types[144]
+#define SWIGTYPE_p_SquareLattice2D swig_types[144]
 #define SWIGTYPE_p_allocator_type swig_types[145]
 #define SWIGTYPE_p_char swig_types[146]
 #define SWIGTYPE_p_difference_type swig_types[147]
@@ -36892,7 +36892,7 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  BasicLattice *arg2 = (BasicLattice *) 0 ;
+  BasicLattice2D *arg2 = (BasicLattice2D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -36904,12 +36904,12 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_0(PyObject *SWIGUNUSEDPARM(s
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
   }
   arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_BasicLattice, 0 |  0 );
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_BasicLattice2D, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "BasicLattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "BasicLattice2D const *""'"); 
   }
-  arg2 = reinterpret_cast< BasicLattice * >(argp2);
-  (arg1)->visit((BasicLattice const *)arg2);
+  arg2 = reinterpret_cast< BasicLattice2D * >(argp2);
+  (arg1)->visit((BasicLattice2D const *)arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -38992,7 +38992,7 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_75(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  HexagonalLattice *arg2 = (HexagonalLattice *) 0 ;
+  HexagonalLattice2D *arg2 = (HexagonalLattice2D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -39004,12 +39004,12 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_75(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
   }
   arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_HexagonalLattice, 0 |  0 );
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_HexagonalLattice2D, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "HexagonalLattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "HexagonalLattice2D const *""'"); 
   }
-  arg2 = reinterpret_cast< HexagonalLattice * >(argp2);
-  (arg1)->visit((HexagonalLattice const *)arg2);
+  arg2 = reinterpret_cast< HexagonalLattice2D * >(argp2);
+  (arg1)->visit((HexagonalLattice2D const *)arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -40308,7 +40308,7 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_122(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  SquareLattice *arg2 = (SquareLattice *) 0 ;
+  SquareLattice2D *arg2 = (SquareLattice2D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -40320,12 +40320,12 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_122(PyObject *SWIGUNUSEDPARM
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
   }
   arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_SquareLattice, 0 |  0 );
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_SquareLattice2D, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "SquareLattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "SquareLattice2D const *""'"); 
   }
-  arg2 = reinterpret_cast< SquareLattice * >(argp2);
-  (arg1)->visit((SquareLattice const *)arg2);
+  arg2 = reinterpret_cast< SquareLattice2D * >(argp2);
+  (arg1)->visit((SquareLattice2D const *)arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -40348,7 +40348,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_BasicLattice, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_BasicLattice2D, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_0(self, argc, argv);
@@ -41398,7 +41398,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_HexagonalLattice, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_HexagonalLattice2D, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_75(self, argc, argv);
@@ -42056,7 +42056,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SquareLattice, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SquareLattice2D, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_122(self, argc, argv);
@@ -42067,7 +42067,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'INodeVisitor_visit'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    INodeVisitor::visit(BasicLattice const *)\n"
+    "    INodeVisitor::visit(BasicLattice2D const *)\n"
     "    INodeVisitor::visit(Beam const *)\n"
     "    INodeVisitor::visit(ConstantBackground const *)\n"
     "    INodeVisitor::visit(ConvolutionDetectorResolution const *)\n"
@@ -42142,7 +42142,7 @@ fail:
     "    INodeVisitor::visit(FTDistribution2DGauss const *)\n"
     "    INodeVisitor::visit(FTDistribution2DVoigt const *)\n"
     "    INodeVisitor::visit(GISASSimulation const *)\n"
-    "    INodeVisitor::visit(HexagonalLattice const *)\n"
+    "    INodeVisitor::visit(HexagonalLattice2D const *)\n"
     "    INodeVisitor::visit(IAbstractParticle const *)\n"
     "    INodeVisitor::visit(IClusteredParticles const *)\n"
     "    INodeVisitor::visit(IdentityRotation const *)\n"
@@ -42189,7 +42189,7 @@ fail:
     "    INodeVisitor::visit(SpecularDetector1D const *)\n"
     "    INodeVisitor::visit(SpecularSimulation const *)\n"
     "    INodeVisitor::visit(SphericalDetector const *)\n"
-    "    INodeVisitor::visit(SquareLattice const *)\n");
+    "    INodeVisitor::visit(SquareLattice2D const *)\n");
   return 0;
 }
 
@@ -51147,7 +51147,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "INodeVisitor_visit", _wrap_INodeVisitor_visit, METH_VARARGS, "\n"
-		"INodeVisitor_visit(INodeVisitor self, BasicLattice const * arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, BasicLattice2D const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, Beam const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, ConstantBackground const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, ConvolutionDetectorResolution const * arg2)\n"
@@ -51222,7 +51222,7 @@ static PyMethodDef SwigMethods[] = {
 		"INodeVisitor_visit(INodeVisitor self, FTDistribution2DGauss const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FTDistribution2DVoigt const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, GISASSimulation const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, HexagonalLattice const * arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, HexagonalLattice2D const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IAbstractParticle const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IClusteredParticles const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IdentityRotation const * arg2)\n"
@@ -51269,8 +51269,8 @@ static PyMethodDef SwigMethods[] = {
 		"INodeVisitor_visit(INodeVisitor self, SpecularDetector1D const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, SpecularSimulation const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, SphericalDetector const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, SquareLattice const * arg2)\n"
-		"virtual void INodeVisitor::visit(const SquareLattice *)\n"
+		"INodeVisitor_visit(INodeVisitor self, SquareLattice2D const * arg2)\n"
+		"virtual void INodeVisitor::visit(const SquareLattice2D *)\n"
 		"\n"
 		""},
 	 { "INodeVisitor_depth", _wrap_INodeVisitor_depth, METH_O, "\n"
@@ -52104,7 +52104,7 @@ static void *_p_DistributionLogNormalTo_p_IDistribution1D(void *x, int *SWIGUNUS
     return (void *)((IDistribution1D *)  ((DistributionLogNormal *) x));
 }
 static swig_type_info _swigt__p_Attributes = {"_p_Attributes", "Attributes *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_BasicLattice = {"_p_BasicLattice", "BasicLattice *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_BasicLattice2D = {"_p_BasicLattice2D", "BasicLattice2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_double_t = {"_p_BasicVector3DT_double_t", "std::vector< BasicVector3D< double > >::value_type *|kvector_t *|BasicVector3D< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t", "ivector_t *|BasicVector3D< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *", 0, 0, (void*)0, 0};
@@ -52182,7 +52182,7 @@ static swig_type_info _swigt__p_FormFactorTruncatedSphere = {"_p_FormFactorTrunc
 static swig_type_info _swigt__p_FormFactorTruncatedSpheroid = {"_p_FormFactorTruncatedSpheroid", "FormFactorTruncatedSpheroid *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FormFactorWeighted = {"_p_FormFactorWeighted", "FormFactorWeighted *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_GISASSimulation = {"_p_GISASSimulation", "GISASSimulation *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_HexagonalLattice = {"_p_HexagonalLattice", "HexagonalLattice *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_HexagonalLattice2D = {"_p_HexagonalLattice2D", "HexagonalLattice2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IAbstractParticle = {"_p_IAbstractParticle", "IAbstractParticle *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICloneable = {"_p_ICloneable", "ICloneable *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IClusteredParticles = {"_p_IClusteredParticles", "IClusteredParticles *", 0, 0, (void*)0, 0};
@@ -52247,7 +52247,7 @@ static swig_type_info _swigt__p_RotationZ = {"_p_RotationZ", "RotationZ *", 0, 0
 static swig_type_info _swigt__p_SpecularDetector1D = {"_p_SpecularDetector1D", "SpecularDetector1D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SpecularSimulation = {"_p_SpecularSimulation", "SpecularSimulation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SphericalDetector = {"_p_SphericalDetector", "SphericalDetector *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_SquareLattice = {"_p_SquareLattice", "SquareLattice *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_SquareLattice2D = {"_p_SquareLattice2D", "SquareLattice2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
@@ -52306,7 +52306,7 @@ static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Attributes,
-  &_swigt__p_BasicLattice,
+  &_swigt__p_BasicLattice2D,
   &_swigt__p_BasicVector3DT_double_t,
   &_swigt__p_BasicVector3DT_int_t,
   &_swigt__p_BasicVector3DT_std__complexT_double_t_t,
@@ -52384,7 +52384,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_FormFactorTruncatedSpheroid,
   &_swigt__p_FormFactorWeighted,
   &_swigt__p_GISASSimulation,
-  &_swigt__p_HexagonalLattice,
+  &_swigt__p_HexagonalLattice2D,
   &_swigt__p_IAbstractParticle,
   &_swigt__p_ICloneable,
   &_swigt__p_IClusteredParticles,
@@ -52449,7 +52449,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_SpecularDetector1D,
   &_swigt__p_SpecularSimulation,
   &_swigt__p_SphericalDetector,
-  &_swigt__p_SquareLattice,
+  &_swigt__p_SquareLattice2D,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_difference_type,
@@ -52508,7 +52508,7 @@ static swig_type_info *swig_type_initial[] = {
 };
 
 static swig_cast_info _swigc__p_Attributes[] = {  {&_swigt__p_Attributes, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_BasicLattice[] = {  {&_swigt__p_BasicLattice, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_BasicLattice2D[] = {  {&_swigt__p_BasicLattice2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicVector3DT_double_t[] = {  {&_swigt__p_BasicVector3DT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicVector3DT_int_t[] = {  {&_swigt__p_BasicVector3DT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicVector3DT_std__complexT_double_t_t[] = {  {&_swigt__p_BasicVector3DT_std__complexT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -52586,7 +52586,7 @@ static swig_cast_info _swigc__p_FormFactorTruncatedSphere[] = {  {&_swigt__p_For
 static swig_cast_info _swigc__p_FormFactorTruncatedSpheroid[] = {  {&_swigt__p_FormFactorTruncatedSpheroid, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FormFactorWeighted[] = {  {&_swigt__p_FormFactorWeighted, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_GISASSimulation[] = {  {&_swigt__p_GISASSimulation, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_HexagonalLattice[] = {  {&_swigt__p_HexagonalLattice, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_HexagonalLattice2D[] = {  {&_swigt__p_HexagonalLattice2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IAbstractParticle[] = {  {&_swigt__p_IAbstractParticle, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_RangedDistributionGate, _p_RangedDistributionGateTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_ICloneable, 0, 0},  {&_swigt__p_IDistribution1D, _p_IDistribution1DTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_RangedDistributionGaussian, _p_RangedDistributionGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionCosine, _p_RangedDistributionCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionLorentz, _p_RangedDistributionLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionLogNormal, _p_RangedDistributionLogNormalTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistribution, _p_RangedDistributionTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IClusteredParticles[] = {  {&_swigt__p_IClusteredParticles, 0, 0, 0},{0, 0, 0, 0}};
@@ -52651,7 +52651,7 @@ static swig_cast_info _swigc__p_RotationZ[] = {  {&_swigt__p_RotationZ, 0, 0, 0}
 static swig_cast_info _swigc__p_SpecularDetector1D[] = {  {&_swigt__p_SpecularDetector1D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SpecularSimulation[] = {  {&_swigt__p_SpecularSimulation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SphericalDetector[] = {  {&_swigt__p_SphericalDetector, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_SquareLattice[] = {  {&_swigt__p_SquareLattice, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SquareLattice2D[] = {  {&_swigt__p_SquareLattice2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -52710,7 +52710,7 @@ static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Attributes,
-  _swigc__p_BasicLattice,
+  _swigc__p_BasicLattice2D,
   _swigc__p_BasicVector3DT_double_t,
   _swigc__p_BasicVector3DT_int_t,
   _swigc__p_BasicVector3DT_std__complexT_double_t_t,
@@ -52788,7 +52788,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_FormFactorTruncatedSpheroid,
   _swigc__p_FormFactorWeighted,
   _swigc__p_GISASSimulation,
-  _swigc__p_HexagonalLattice,
+  _swigc__p_HexagonalLattice2D,
   _swigc__p_IAbstractParticle,
   _swigc__p_ICloneable,
   _swigc__p_IClusteredParticles,
@@ -52853,7 +52853,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_SpecularDetector1D,
   _swigc__p_SpecularSimulation,
   _swigc__p_SphericalDetector,
-  _swigc__p_SquareLattice,
+  _swigc__p_SquareLattice2D,
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_difference_type,

@@ -163,9 +163,9 @@ ItemCatalog::ItemCatalog()
     add("FTDecayFunction2DGauss", create_new<FTDecayFunction2DGaussItem>);
     add("FTDecayFunction2DVoigt", create_new<FTDecayFunction2DVoigtItem>);
 
-    add("BasicLattice", create_new<BasicLatticeItem>);
-    add("SquareLattice", create_new<SquareLatticeItem>);
-    add("HexagonalLattice", create_new<HexagonalLatticeItem>);
+    add("BasicLattice2D", create_new<BasicLattice2DItem>);
+    add("SquareLattice2D", create_new<SquareLattice2DItem>);
+    add("HexagonalLattice2D", create_new<HexagonalLattice2DItem>);
 
     add("Material", create_new<MaterialItem>);
     add("MaterialContainer", create_new<MaterialItemContainer>);

@@ -28,8 +28,8 @@ TEST_F(MultilayerAveragingTest, AverageMultilayer)
     Particle particle(stone, cylinder_ff);
 
     // interferences
-    InterferenceFunction2DLattice interf_1(BasicLattice(10.0, 10.0, 120.0, 0.0));
-    InterferenceFunction2DLattice interf_2(BasicLattice(10.0, 10.0, 120.0, 0.0));
+    InterferenceFunction2DLattice interf_1(BasicLattice2D(10.0, 10.0, 120.0, 0.0));
+    InterferenceFunction2DLattice interf_2(BasicLattice2D(10.0, 10.0, 120.0, 0.0));
 
     // layouts
     ParticleLayout layout_1;

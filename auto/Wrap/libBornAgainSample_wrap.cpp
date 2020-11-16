@@ -53815,7 +53815,7 @@ SWIGINTERN PyObject *InterferenceFunction3DLattice_swiginit(PyObject *SWIGUNUSED
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_new_InterferenceFunctionFinite2DLattice__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_InterferenceFunctionFinite2DLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Lattice2D *arg1 = 0 ;
   unsigned int arg2 ;
@@ -53826,9 +53826,10 @@ SWIGINTERN PyObject *_wrap_new_InterferenceFunctionFinite2DLattice__SWIG_0(PyObj
   int ecode2 = 0 ;
   unsigned int val3 ;
   int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
   InterferenceFunctionFinite2DLattice *result = 0 ;
   
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "new_InterferenceFunctionFinite2DLattice", 3, 3, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice2D,  0  | 0);
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_InterferenceFunctionFinite2DLattice" "', argument " "1"" of type '" "Lattice2D const &""'"); 
@@ -53852,145 +53853,6 @@ SWIGINTERN PyObject *_wrap_new_InterferenceFunctionFinite2DLattice__SWIG_0(PyObj
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_InterferenceFunctionFinite2DLattice__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double arg3 ;
-  double arg4 ;
-  unsigned int arg5 ;
-  unsigned int arg6 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  unsigned int val5 ;
-  int ecode5 = 0 ;
-  unsigned int val6 ;
-  int ecode6 = 0 ;
-  InterferenceFunctionFinite2DLattice *result = 0 ;
-  
-  if ((nobjs < 6) || (nobjs > 6)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_InterferenceFunctionFinite2DLattice" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_InterferenceFunctionFinite2DLattice" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_InterferenceFunctionFinite2DLattice" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_InterferenceFunctionFinite2DLattice" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  ecode5 = SWIG_AsVal_unsigned_SS_int(swig_obj[4], &val5);
-  if (!SWIG_IsOK(ecode5)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "new_InterferenceFunctionFinite2DLattice" "', argument " "5"" of type '" "unsigned int""'");
-  } 
-  arg5 = static_cast< unsigned int >(val5);
-  ecode6 = SWIG_AsVal_unsigned_SS_int(swig_obj[5], &val6);
-  if (!SWIG_IsOK(ecode6)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "new_InterferenceFunctionFinite2DLattice" "', argument " "6"" of type '" "unsigned int""'");
-  } 
-  arg6 = static_cast< unsigned int >(val6);
-  result = (InterferenceFunctionFinite2DLattice *)new InterferenceFunctionFinite2DLattice(arg1,arg2,arg3,arg4,arg5,arg6);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunctionFinite2DLattice, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_InterferenceFunctionFinite2DLattice(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[7] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_InterferenceFunctionFinite2DLattice", 0, 6, argv))) SWIG_fail;
-  --argc;
-  if (argc == 3) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Lattice2D, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_unsigned_SS_int(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        {
-          int res = SWIG_AsVal_unsigned_SS_int(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          return _wrap_new_InterferenceFunctionFinite2DLattice__SWIG_0(self, argc, argv);
-        }
-      }
-    }
-  }
-  if (argc == 6) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          {
-            int res = SWIG_AsVal_double(argv[3], NULL);
-            _v = SWIG_CheckState(res);
-          }
-          if (_v) {
-            {
-              int res = SWIG_AsVal_unsigned_SS_int(argv[4], NULL);
-              _v = SWIG_CheckState(res);
-            }
-            if (_v) {
-              {
-                int res = SWIG_AsVal_unsigned_SS_int(argv[5], NULL);
-                _v = SWIG_CheckState(res);
-              }
-              if (_v) {
-                return _wrap_new_InterferenceFunctionFinite2DLattice__SWIG_1(self, argc, argv);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_InterferenceFunctionFinite2DLattice'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(Lattice2D const &,unsigned int,unsigned int)\n"
-    "    InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double,double,double,double,unsigned int,unsigned int)\n");
-  return 0;
 }
 
 
@@ -73183,26 +73045,16 @@ static PyMethodDef SwigMethods[] = {
 	 { "InterferenceFunction3DLattice_swigregister", InterferenceFunction3DLattice_swigregister, METH_O, NULL},
 	 { "InterferenceFunction3DLattice_swiginit", InterferenceFunction3DLattice_swiginit, METH_VARARGS, NULL},
 	 { "new_InterferenceFunctionFinite2DLattice", _wrap_new_InterferenceFunctionFinite2DLattice, METH_VARARGS, "\n"
-		"InterferenceFunctionFinite2DLattice(Lattice2D lattice, unsigned int N_1, unsigned int N_2)\n"
-		"new_InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice\n"
-		"InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned N_1, unsigned N_2)\n"
+		"new_InterferenceFunctionFinite2DLattice(Lattice2D lattice, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice\n"
+		"InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const Lattice2D &lattice, unsigned N_1, unsigned N_2)\n"
 		"\n"
 		"Constructor of two-dimensional finite lattice interference function.\n"
 		"\n"
 		"Parameters:\n"
 		"-----------\n"
 		"\n"
-		"length_1: \n"
-		"length of first lattice vector in nanometers\n"
-		"\n"
-		"length_2: \n"
-		"length of second lattice vector in nanometers\n"
-		"\n"
-		"alpha: \n"
-		"angle between lattice vectors in radians\n"
-		"\n"
-		"xi: \n"
-		"rotation of lattice with respect to x-axis (beam direction) in radians\n"
+		"lattice: \n"
+		"object specifying a 2d lattice structure\n"
 		"\n"
 		"N_1: \n"
 		"number of lattice cells in the first lattice direction\n"

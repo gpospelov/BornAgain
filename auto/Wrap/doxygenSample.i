@@ -4051,32 +4051,6 @@ N_2:
 number of lattice cells in the second lattice direction 
 ";
 
-%feature("docstring")  InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned N_1, unsigned N_2)
-
-Constructor of two-dimensional finite lattice interference function.
-
-Parameters:
------------
-
-length_1: 
-length of first lattice vector in nanometers
-
-length_2: 
-length of second lattice vector in nanometers
-
-alpha: 
-angle between lattice vectors in radians
-
-xi: 
-rotation of lattice with respect to x-axis (beam direction) in radians
-
-N_1: 
-number of lattice cells in the first lattice direction
-
-N_2: 
-number of lattice cells in the second lattice direction 
-";
-
 %feature("docstring")  InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice() final
 ";
 

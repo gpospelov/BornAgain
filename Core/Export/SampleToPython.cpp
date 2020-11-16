@@ -445,11 +445,10 @@ std::string SampleToPython::defineInterferenceFunctions() const
 
         } else if (const auto* iff =
                        dynamic_cast<const InterferenceFunctionFinite2DLattice*>(interference)) {
-            const Lattice2D& lattice = iff->lattice();
+            const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
+
             result << indent() << it->second << " = ba.InterferenceFunctionFinite2DLattice("
-                   << pyfmt::printNm(lattice.length1()) << ", " << pyfmt::printNm(lattice.length2())
-                   << ", " << pyfmt::printDegrees(lattice.latticeAngle()) << ", "
-                   << pyfmt::printDegrees(lattice.rotationAngle()) << ", "
+                   << m_label->labelLattice2D(lattice) << ", "
                    << iff->numberUnitCells1() << ", " << iff->numberUnitCells2() << ")\n";
 
             if (iff->integrationOverXi() == true)

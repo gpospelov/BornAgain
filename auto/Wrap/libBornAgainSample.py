@@ -7441,28 +7441,18 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, lattice, N_1, N_2):
         r"""
         __init__(InterferenceFunctionFinite2DLattice self, Lattice2D lattice, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice
-        __init__(InterferenceFunctionFinite2DLattice self, double length_1, double length_2, double alpha, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice
-        InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned N_1, unsigned N_2)
+        InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const Lattice2D &lattice, unsigned N_1, unsigned N_2)
 
         Constructor of two-dimensional finite lattice interference function.
 
         Parameters:
         -----------
 
-        length_1: 
-        length of first lattice vector in nanometers
-
-        length_2: 
-        length of second lattice vector in nanometers
-
-        alpha: 
-        angle between lattice vectors in radians
-
-        xi: 
-        rotation of lattice with respect to x-axis (beam direction) in radians
+        lattice: 
+        object specifying a 2d lattice structure
 
         N_1: 
         number of lattice cells in the first lattice direction
@@ -7471,7 +7461,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         number of lattice cells in the second lattice direction 
 
         """
-        _libBornAgainSample.InterferenceFunctionFinite2DLattice_swiginit(self, _libBornAgainSample.new_InterferenceFunctionFinite2DLattice(*args))
+        _libBornAgainSample.InterferenceFunctionFinite2DLattice_swiginit(self, _libBornAgainSample.new_InterferenceFunctionFinite2DLattice(lattice, N_1, N_2))
     __swig_destroy__ = _libBornAgainSample.delete_InterferenceFunctionFinite2DLattice
 
     def clone(self):

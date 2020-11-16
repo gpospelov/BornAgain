@@ -22,8 +22,8 @@
 
 DecouplingApproximationStrategy::DecouplingApproximationStrategy(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
-    const IInterferenceFunction* p_iff, SimulationOptions sim_params, bool polarized)
-    : IInterferenceFunctionStrategy(weighted_formfactors, p_iff, sim_params, polarized)
+    const IInterferenceFunction* iff, SimulationOptions sim_params, bool polarized)
+    : IInterferenceFunctionStrategy(weighted_formfactors, iff, sim_params, polarized)
 {
 }
 

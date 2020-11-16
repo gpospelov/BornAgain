@@ -35,8 +35,8 @@ DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
-    for (auto& ffw : m_weighted_formfactors) {
-        complex_t ff = ffw.evaluate(sim_element);
+    for (const auto& ffw : m_weighted_formfactors) {
+        const complex_t ff = ffw.evaluate(sim_element);
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::scalarCalculation() -> Error! Amplitude is NaN");
@@ -44,8 +44,8 @@ DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_
         amplitude += fraction * ff;
         intensity += fraction * std::norm(ff);
     }
-    double amplitude_norm = std::norm(amplitude);
-    double coherence_factor = m_iff->evaluate(sim_element.meanQ());
+    const double amplitude_norm = std::norm(amplitude);
+    const double coherence_factor = m_iff->evaluate(sim_element.meanQ());
     return intensity + amplitude_norm * (coherence_factor - 1.0);
 }
 
@@ -57,22 +57,23 @@ DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& s
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
     const auto& polarization_handler = sim_element.polarizationHandler();
-    for (auto& ffw : m_weighted_formfactors) {
-        Eigen::Matrix2cd ff = ffw.evaluatePol(sim_element);
+    for (const auto& ffw : m_weighted_formfactors) {
+        const Eigen::Matrix2cd ff = ffw.evaluatePol(sim_element);
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::polarizedCalculation() -> "
                 "Error! Form factor contains NaN or infinite");
-        double fraction = ffw.relativeAbundance();
+        const double fraction = ffw.relativeAbundance();
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * polarization_handler.getPolarization() * ff.adjoint());
     }
-    Eigen::Matrix2cd amplitude_matrix = polarization_handler.getAnalyzerOperator() * mean_amplitude
-                                        * polarization_handler.getPolarization()
-                                        * mean_amplitude.adjoint();
-    Eigen::Matrix2cd intensity_matrix = polarization_handler.getAnalyzerOperator() * mean_intensity;
-    double amplitude_trace = std::abs(amplitude_matrix.trace());
-    double intensity_trace = std::abs(intensity_matrix.trace());
-    double coherence_factor = m_iff->evaluate(sim_element.meanQ());
+    const Eigen::Matrix2cd amplitude_matrix =
+        polarization_handler.getAnalyzerOperator() * mean_amplitude
+        * polarization_handler.getPolarization() * mean_amplitude.adjoint();
+    const Eigen::Matrix2cd intensity_matrix =
+        polarization_handler.getAnalyzerOperator() * mean_intensity;
+    const double amplitude_trace = std::abs(amplitude_matrix.trace());
+    const double intensity_trace = std::abs(intensity_matrix.trace());
+    const double coherence_factor = m_iff->evaluate(sim_element.meanQ());
     return intensity_trace + amplitude_trace * (coherence_factor - 1.0);
 }

@@ -23,10 +23,18 @@
 #include "Sample/Slice/Slice.h"
 #include "Sample/Slice/SlicedFormFactorList.h"
 
+
 namespace
 {
-void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor);
+void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor)
+{
+    for (auto& entry : region_map) {
+        for (auto& region : entry.second) {
+            region.m_volume *= factor;
+        }
+    }
 }
+} // namespace
 
 ProcessedLayout::ProcessedLayout(const ParticleLayout& layout, const std::vector<Slice>& slices,
                                  double z_ref, const IFresnelMap* p_fresnel_map, bool polarized)
@@ -80,10 +88,10 @@ void ProcessedLayout::collectFormFactors(const ParticleLayout& layout,
                                          const std::vector<Slice>& slices, double z_ref)
 {
     double layout_abundance = layout.getTotalAbundance();
-    for (auto p_particle : layout.particles()) {
-        auto ff_coh = processParticle(*p_particle, slices, z_ref);
+    for (const auto* particle : layout.particles()) {
+        FormFactorCoherentSum ff_coh = processParticle(*particle, slices, z_ref);
         ff_coh.scaleRelativeAbundance(layout_abundance);
-        m_formfactors.push_back(std::move(ff_coh));
+        m_formfactors.emplace_back(ff_coh);
     }
     double weight = layout.weight();
     m_surface_density = weight * layout.totalParticleSurfaceDensity();
@@ -102,25 +110,25 @@ FormFactorCoherentSum ProcessedLayout::processParticle(const IParticle& particle
     mergeRegionMap(region_map);
     auto result = FormFactorCoherentSum(abundance);
     for (size_t i = 0; i < sliced_ffs.size(); ++i) {
-        auto ff_pair = sliced_ffs[i];
-        std::unique_ptr<IFormFactor> P_ff_framework;
+        const auto ff_pair = sliced_ffs[i];
+        std::unique_ptr<IFormFactor> ff_framework;
         if (slices.size() > 1) {
             if (m_polarized)
-                P_ff_framework = std::make_unique<FormFactorDWBAPol>(*ff_pair.first);
+                ff_framework = std::make_unique<FormFactorDWBAPol>(*ff_pair.first);
             else
-                P_ff_framework = std::make_unique<FormFactorDWBA>(*ff_pair.first);
+                ff_framework = std::make_unique<FormFactorDWBA>(*ff_pair.first);
         } else {
             if (m_polarized)
-                P_ff_framework = std::make_unique<FormFactorBAPol>(*ff_pair.first);
+                ff_framework = std::make_unique<FormFactorBAPol>(*ff_pair.first);
             else
-                P_ff_framework.reset(ff_pair.first->clone());
+                ff_framework.reset(ff_pair.first->clone());
         }
 
         size_t slice_index = ff_pair.second;
         const Material slice_material = slices[slice_index].material();
-        P_ff_framework->setAmbientMaterial(slice_material);
+        ff_framework->setAmbientMaterial(slice_material);
 
-        auto part = FormFactorCoherentPart(P_ff_framework.release());
+        auto part = FormFactorCoherentPart(ff_framework.release());
         part.setSpecularInfo(m_fresnel_map, slice_index);
 
         result.addCoherentPart(part);
@@ -138,15 +146,3 @@ void ProcessedLayout::mergeRegionMap(
                                          regions.end());
     }
 }
-
-namespace
-{
-void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor)
-{
-    for (auto& entry : region_map) {
-        for (auto& region : entry.second) {
-            region.m_volume *= factor;
-        }
-    }
-}
-} // namespace

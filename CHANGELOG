@@ -1,4 +1,8 @@
 BornAgain-1.18.99, ongoing development
+  > API changes:
+    1) Lattice has been renamed to Lattice3D, for clearer disambuation from Lattice2D.
+    2) Retain only those interference functions constructors that take a Lattice2D
+       or Lattice3D parameter.
   > Fixes of unreported bugs:
     * For alpha_i, set scattered intensity to 0 (incorrect, but everything else would be worse)
 

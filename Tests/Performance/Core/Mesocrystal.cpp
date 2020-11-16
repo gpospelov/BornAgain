@@ -18,6 +18,7 @@
 #include "Device/Detector/RectangularDetector.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
+#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Lattice/ISelectionRule.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
@@ -52,9 +53,9 @@ std::unique_ptr<RectangularDetector> create_detector()
     return result;
 }
 
-Lattice createLattice(double a, double c)
+Lattice3D createLattice(double a, double c)
 {
-    Lattice result = Lattice::createHexagonalLattice(a, c);
+    Lattice3D result = bake::createHexagonalLattice(a, c);
     result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return result;
 }
@@ -186,9 +187,8 @@ MesoCrystalPerformanceBuilder::createMeso(Material material, const IFormFactor& 
     std::vector<kvector_t> pos_vector = {position_0, position_1, position_2};
     ParticleComposition basis;
     basis.addParticles(particle, pos_vector);
-    Crystal npc(basis, lattice);
     double position_variance = m_sigma_lattice_length_a * m_sigma_lattice_length_a / 3.0;
-    npc.setPositionVariance(position_variance);
+    Crystal npc(basis, lattice, position_variance);
 
     return std::make_unique<MesoCrystal>(npc, form_factor);
 }

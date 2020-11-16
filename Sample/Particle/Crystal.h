@@ -15,17 +15,27 @@
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
 #define BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
 
-#include "Sample/Lattice/Lattice.h"
-#include "Sample/Particle/IClusteredParticles.h"
+#include "Sample/Lattice/Lattice3D.h"
+#include "Sample/Scattering/ISample.h"
 
-//! A crystal structure with a ParticleComposition as a basis.
+class IFormFactor;
+class IRotation;
+struct HomogeneousRegion;
+
+//! A crystal structure, defined by a Bravais lattice, a basis, and a position variance.
+//!
+//! The basis is either a Particle or a ParticleComposition.
+//!
+//! Computations are delegated to class FormFactorCrystal.
+//!
 //! Used in MesoCrystal, where it is given an outer shape.
+//!
 //! @ingroup samples
 
-class Crystal : public IClusteredParticles
+class Crystal : public ISample
 {
 public:
-    Crystal(const IParticle& lattice_basis, const Lattice& lattice);
+    Crystal(const IParticle& basis, const Lattice3D& lattice, double position_variance = 0);
     ~Crystal();
 
     Crystal* clone() const override final;
@@ -34,22 +44,20 @@ public:
 
     IFormFactor* createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
                                        const IRotation* p_rotation,
-                                       const kvector_t& translation) const override final;
+                                       const kvector_t& translation) const;
 
-    std::vector<HomogeneousRegion> homogeneousRegions() const override final;
+    std::vector<HomogeneousRegion> homogeneousRegions() const;
 
-    Lattice transformedLattice(const IRotation* p_rotation = nullptr) const;
-
-    void setPositionVariance(double position_variance) { m_position_variance = position_variance; }
+    Lattice3D transformedLattice(const IRotation* p_rotation = nullptr) const;
 
     std::vector<const INode*> getChildren() const override final;
 
 private:
-    Crystal(IParticle* p_lattice_basis, const Lattice& lattice);
+    Crystal(IParticle* p_basis, const Lattice3D& lattice, double position_variance = 0);
 
-    Lattice m_lattice;
-    std::unique_ptr<IParticle> m_lattice_basis;
-    double m_position_variance;
+    Lattice3D m_lattice;
+    std::unique_ptr<IParticle> m_basis;
+    const double m_position_variance;
 };
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H

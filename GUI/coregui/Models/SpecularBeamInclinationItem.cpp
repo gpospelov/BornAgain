@@ -39,7 +39,7 @@ SpecularBeamInclinationItem::~SpecularBeamInclinationItem() = default;
 
 double SpecularBeamInclinationItem::scaleFactor() const
 {
-    return Units::degree;
+    return Units::deg;
 }
 
 void SpecularBeamInclinationItem::updateFileName(const QString& filename)

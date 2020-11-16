@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Sample/Multilayer/MultiLayerUtils.h"
-#include "Sample/Correlations/ILayout.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
@@ -23,7 +23,20 @@
 
 namespace
 {
-std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer);
+
+std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer)
+{
+    auto n_layers = multilayer.numberOfLayers();
+    if (n_layers < 2)
+        return {};
+    std::vector<double> result(n_layers - 1);
+    result[0] = 0.0;
+    for (size_t i = 1; i < n_layers - 1; ++i) {
+        result[i] = result[i - 1] - MultiLayerUtils::LayerThickness(multilayer, i);
+    }
+    return result;
+}
+
 } // namespace
 
 double MultiLayerUtils::LayerThickness(const MultiLayer& multilayer, size_t i)
@@ -92,19 +105,3 @@ bool MultiLayerUtils::hasRoughness(const MultiLayer& sample)
     }
     return false;
 }
-
-namespace
-{
-std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer)
-{
-    auto n_layers = multilayer.numberOfLayers();
-    if (n_layers < 2)
-        return {};
-    std::vector<double> result(n_layers - 1);
-    result[0] = 0.0;
-    for (size_t i = 1; i < n_layers - 1; ++i) {
-        result[i] = result[i - 1] - MultiLayerUtils::LayerThickness(multilayer, i);
-    }
-    return result;
-}
-} // unnamed namespace

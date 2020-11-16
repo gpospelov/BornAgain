@@ -11,7 +11,7 @@ class LayerTest : public ::testing::Test
 TEST_F(LayerTest, LayerGetAndSet)
 {
     Material vacuum = HomogeneousMaterial("Vacuum", 0, 0);
-    Layer layer(vacuum, 10 * Units::nanometer);
+    Layer layer(vacuum, 10 * Units::nm);
     EXPECT_EQ(vacuum, *layer.material());
     EXPECT_EQ(0u, layer.layouts().size());
     EXPECT_EQ(10, layer.thickness());
@@ -33,7 +33,7 @@ TEST_F(LayerTest, LayerAndDecoration)
     Material vacuum = HomogeneousMaterial("Vacuum", 0, 0);
     std::unique_ptr<ParticleLayout> layout1(new ParticleLayout());
 
-    Layer layer(vacuum, 10 * Units::nanometer);
+    Layer layer(vacuum, 10 * Units::nm);
     layer.addLayout(*layout1);
     EXPECT_EQ(layer.numberOfLayouts(), 1u);
 

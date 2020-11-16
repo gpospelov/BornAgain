@@ -19,7 +19,7 @@
 #include "Sample/Material/Material.h"
 #include "Sample/Scattering/ISample.h"
 
-class ILayout;
+class ParticleLayout;
 
 //! A layer, with thickness (in nanometer) and material.
 //! @ingroup samples
@@ -41,9 +41,9 @@ public:
     const Material* material() const override final { return &m_material; }
     void setMaterial(Material material);
 
-    void addLayout(const ILayout& decoration);
+    void addLayout(const ParticleLayout& decoration);
     size_t numberOfLayouts() const { return m_layouts.size(); }
-    std::vector<const ILayout*> layouts() const;
+    std::vector<const ParticleLayout*> layouts() const;
 
     std::vector<const INode*> getChildren() const override final;
 
@@ -53,11 +53,11 @@ public:
     unsigned int numberOfSlices() const { return m_n_slices; }
 
 private:
-    Material m_material;                  //!< material
-    kvector_t m_B_field;                  //!< cached value of magnetic induction
-    double m_thickness;                   //!< layer thickness in nanometers
-    SafePointerVector<ILayout> m_layouts; //!< independent layouts in this layer
-    unsigned int m_n_slices = 1;          //!< number of slices to create for graded layer approach
+    Material m_material;                         //!< material
+    kvector_t m_B_field;                         //!< cached value of magnetic induction
+    double m_thickness;                          //!< layer thickness in nanometers
+    SafePointerVector<ParticleLayout> m_layouts; //!< independent layouts in this layer
+    unsigned int m_n_slices = 1; //!< number of slices to create for graded layer approach
 };
 
 #endif // BORNAGAIN_SAMPLE_MULTILAYER_LAYER_H

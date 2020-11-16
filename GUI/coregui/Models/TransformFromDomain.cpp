@@ -220,7 +220,7 @@ void TransformFromDomain::setParticleDistributionItem(SessionItem* item,
 
     double unit_factor(1.0);
     if (sample.mainUnits() == "rad")
-        unit_factor = 1. / Units::degree;
+        unit_factor = 1. / Units::deg;
 
     QString group_name = ParticleDistributionItem::P_DISTRIBUTION;
     setDistribution(distItem, par_distr, group_name, unit_factor);
@@ -355,7 +355,7 @@ void TransformFromDomain::setDetectorResolution(DetectorItem* detector_item,
                                                                 "ResolutionFunction2DGaussian");
             double scale(1.0);
             if (detector_item->modelType() == "SphericalDetector")
-                scale = 1. / Units::degree;
+                scale = 1. / Units::deg;
             item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_X,
                                scale * resfunc->getSigmaX());
             item->setItemValue(ResolutionFunction2DGaussianItem::P_SIGMA_Y,
@@ -481,7 +481,7 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detector_item,
 
         double scale(1.0);
         if (detector_item->modelType() == "SphericalDetector")
-            scale = 1. / Units::degree;
+            scale = 1. / Units::deg;
 
         setMaskContainer(detector_item->maskContainerItem(), *detector, scale);
     }

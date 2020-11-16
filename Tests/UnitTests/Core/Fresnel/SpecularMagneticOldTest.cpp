@@ -21,7 +21,7 @@ TEST_F(SpecularMagneticOldTest, initial)
     // matrix.execute(mLayer, v, coeff);
 
     Material air = HomogeneousMaterial("Air", 0, 1.0);
-    Layer layer0(air, 0 * Units::nanometer);
+    Layer layer0(air, 0 * Units::nm);
     mLayer.addLayer(layer0);
     SimulationOptions options;
     ProcessedSample sample(mLayer, options);

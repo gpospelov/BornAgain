@@ -17,7 +17,7 @@
 #include "Base/Types/Exceptions.h"
 #include "Sample/Material/WavevectorInfo.h"
 
-FormFactorCrystal::FormFactorCrystal(const Lattice& lattice, const IFormFactor& basis_form_factor,
+FormFactorCrystal::FormFactorCrystal(const Lattice3D& lattice, const IFormFactor& basis_form_factor,
                                      const IFormFactor& meso_form_factor, double position_variance)
     : m_lattice(lattice)
     , m_basis_form_factor(basis_form_factor.clone())
@@ -65,8 +65,7 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
     // is canceled by the convolution of Fourier transforms :
-    double volume = m_lattice.volume();
-    return result / volume;
+    return result / m_lattice.unitCellVolume();
 }
 
 Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevectors) const
@@ -90,8 +89,7 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
     }
     // the transformed delta train gets a factor of (2pi)^3/V, but the (2pi)^3
     // is canceled by the convolution of Fourier transforms :
-    double volume = m_lattice.volume();
-    return result / volume;
+    return result / m_lattice.unitCellVolume();
 }
 
 void FormFactorCrystal::calculateLargestReciprocalDistance()

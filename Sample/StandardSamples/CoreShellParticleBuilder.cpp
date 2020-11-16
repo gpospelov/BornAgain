@@ -34,10 +34,10 @@ MultiLayer* CoreShellParticleBuilder::buildSample() const
 
     Layer vacuum_layer(refMat::Vacuum);
 
-    FormFactorBox ff_box1(16 * Units::nanometer, 16 * Units::nanometer, 8 * Units::nanometer);
+    FormFactorBox ff_box1(16 * Units::nm, 16 * Units::nm, 8 * Units::nm);
     Particle shell_particle(shell_material, ff_box1);
 
-    FormFactorBox ff_box2(12 * Units::nanometer, 12 * Units::nanometer, 7 * Units::nanometer);
+    FormFactorBox ff_box2(12 * Units::nm, 12 * Units::nm, 7 * Units::nm);
     Particle core_particle(core_material, ff_box2);
 
     kvector_t core_position(0.0, 0.0, 0.0);
@@ -55,12 +55,12 @@ MultiLayer* CoreShellParticleBuilder::buildSample() const
 
 MultiLayer* CoreShellBoxRotateZandYBuilder::buildSample() const
 {
-    const double layer_thickness(100.0 * Units::nanometer);
+    const double layer_thickness(100.0 * Units::nm);
 
     // core shell particle
-    const double shell_length(50.0 * Units::nanometer);
-    const double shell_width(20.0 * Units::nanometer);
-    const double shell_height(10.0 * Units::nanometer);
+    const double shell_length(50.0 * Units::nm);
+    const double shell_width(20.0 * Units::nm);
+    const double shell_height(10.0 * Units::nm);
     double core_length = shell_length / 2.0;
     double core_width = shell_width / 2.0;
     double core_height = shell_height / 2.0;
@@ -69,8 +69,8 @@ MultiLayer* CoreShellBoxRotateZandYBuilder::buildSample() const
     Particle shell(refMat::AgO2, FormFactorBox(shell_length, shell_width, shell_height));
     ParticleCoreShell coreshell(shell, core,
                                 kvector_t(0.0, 0.0, (shell_height - core_height) / 2.0));
-    coreshell.setRotation(RotationZ(90.0 * Units::degree));
-    coreshell.rotate(RotationY(90.0 * Units::degree));
+    coreshell.setRotation(RotationZ(90.0 * Units::deg));
+    coreshell.rotate(RotationY(90.0 * Units::deg));
     coreshell.setPosition(kvector_t(0.0, 0.0, -layer_thickness / 2.0));
 
     ParticleLayout layout;

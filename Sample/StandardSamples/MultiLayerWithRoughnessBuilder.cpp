@@ -21,12 +21,12 @@
 
 MultiLayer* MultiLayerWithRoughnessBuilder::buildSample() const
 {
-    const double thicknessA(2.5 * Units::nanometer);
-    const double thicknessB(5.0 * Units::nanometer);
-    const double sigma(1.0 * Units::nanometer);
+    const double thicknessA(2.5 * Units::nm);
+    const double thicknessB(5.0 * Units::nm);
+    const double sigma(1.0 * Units::nm);
     const double hurst(0.3);
-    const double lateralCorrLength(5.0 * Units::nanometer);
-    const double crossCorrLength(10.0 * Units::nanometer);
+    const double lateralCorrLength(5.0 * Units::nm);
+    const double crossCorrLength(10.0 * Units::nm);
 
     Material vacuum_material = HomogeneousMaterial("Vacuum", 0., 0.);
     Material substrate_material = HomogeneousMaterial("Substrate", 15e-6, 0.0);

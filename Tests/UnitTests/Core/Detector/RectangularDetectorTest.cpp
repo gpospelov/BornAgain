@@ -11,8 +11,8 @@ class RectangularDetectorTest : public ::testing::Test
 protected:
     //    double phi(DetectorElement& element, double wavelength);
     //    double alpha(DetectorElement& element, double wavelength);
-    double phi(kvector_t k) { return k.phi() / Units::degree; }
-    double alpha(kvector_t k) { return 90.0 - k.theta() / Units::degree; }
+    double phi(kvector_t k) { return k.phi() / Units::deg; }
+    double alpha(kvector_t k) { return 90.0 - k.theta() / Units::deg; }
 
     bool isEqual(const kvector_t lhs, const kvector_t rhs)
     {
@@ -80,7 +80,7 @@ TEST_F(RectangularDetectorTest, PerpToSample)
 
     // initializing with the simulation
     GISASSimulation simulation;
-    simulation.setBeamParameters(1.0, 10.0 * Units::degree, 0.0);
+    simulation.setBeamParameters(1.0, 10.0 * Units::deg, 0.0);
     det.init(simulation.instrument().beam());
     EXPECT_TRUE(kvector_t(distance, 0, 0) == det.getNormalVector());
     EXPECT_TRUE(kvector_t(0.0, -1.0, 0.0) == det.getDirectionVector());
@@ -119,7 +119,7 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam)
     double distance(100.0), u0(20.0), v0(10.0);
     //    double dx = width / nbinsx;
     //    double dy = height / nbinsy;
-    double alpha_i(10.0 * Units::degree);
+    double alpha_i(10.0 * Units::deg);
 
     RectangularDetector det(nbinsx, width, nbinsy, height);
 
@@ -162,7 +162,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
     double distance(100.0), u0(20.0), v0(10.0);
     //    double dx = width / nbinsx;
     //    double dy = height / nbinsy;
-    double alpha_i(10.0 * Units::degree);
+    double alpha_i(10.0 * Units::deg);
 
     RectangularDetector det(nbinsx, width, nbinsy, height);
 
@@ -207,7 +207,7 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
     double distance(100.0), u0(20.0), v0(10.0);
     //    double dx = width / nbinsx;
     //    double dy = height / nbinsy;
-    double alpha_i(10.0 * Units::degree);
+    double alpha_i(10.0 * Units::deg);
 
     RectangularDetector det(nbinsx, width, nbinsy, height);
 
@@ -345,12 +345,12 @@ TEST_F(RectangularDetectorTest, AnalyzerProperties)
 //{
 //    auto pixel = element.pixel();
 //    auto k_f = pixel->getK(0.5, 0.5, wavelength);
-//    return k_f.phi() / Units::degree;
+//    return k_f.phi() / Units::deg;
 //}
 
 // double RectangularDetectorTest::alpha(DetectorElement& element, double wavelength)
 //{
 //    auto pixel = element.pixel();
 //    auto k_f = pixel->getK(0.5, 0.5, wavelength);
-//    return ( M_PI_2 - k_f.theta() ) / Units::degree;
+//    return ( M_PI_2 - k_f.theta() ) / Units::deg;
 //}

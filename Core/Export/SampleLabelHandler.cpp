@@ -43,9 +43,9 @@ std::string SampleLabelHandler::labelLayer(const Layer* layer)
     return m_LayerLabel[layer];
 }
 
-std::string SampleLabelHandler::labelLayout(const ILayout* layout)
+std::string SampleLabelHandler::labelLayout(const ParticleLayout* layout)
 {
-    return m_ILayoutLabel[layout];
+    return m_ParticleLayoutLabel[layout];
 }
 
 std::string SampleLabelHandler::labelMaterial(const Material* mat)
@@ -53,9 +53,14 @@ std::string SampleLabelHandler::labelMaterial(const Material* mat)
     return m_MaterialLabel[mat];
 }
 
-std::string SampleLabelHandler::labelLattice(const Lattice* lat)
+std::string SampleLabelHandler::labelLattice2D(const Lattice2D* lat)
 {
-    return m_LatticeLabel[lat];
+    return m_Lattice2DLabel[lat];
+}
+
+std::string SampleLabelHandler::labelLattice3D(const Lattice3D* lat)
+{
+    return m_Lattice3DLabel[lat];
 }
 
 std::string SampleLabelHandler::labelMultiLayer(const MultiLayer* ml)
@@ -107,16 +112,28 @@ void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction*
     m_InterferenceFunctionLabel.insert(sample, label);
 }
 
+void SampleLabelHandler::insertLattice2D(const Lattice2D* sample)
+{
+    std::string label = "lattice2D_" + std::to_string(m_Lattice2DLabel.size() + 1);
+    m_Lattice2DLabel.insert(sample, label);
+}
+
+void SampleLabelHandler::insertLattice3D(const Lattice3D* sample)
+{
+    std::string label = "lattice3D_" + std::to_string(m_Lattice3DLabel.size() + 1);
+    m_Lattice3DLabel.insert(sample, label);
+}
+
 void SampleLabelHandler::insertLayer(const Layer* sample)
 {
     std::string label = "layer_" + std::to_string(m_LayerLabel.size() + 1);
     m_LayerLabel.insert(sample, label);
 }
 
-void SampleLabelHandler::insertLayout(const ILayout* sample)
+void SampleLabelHandler::insertLayout(const ParticleLayout* sample)
 {
-    std::string label = "layout_" + std::to_string(m_ILayoutLabel.size() + 1);
-    m_ILayoutLabel.insert(sample, label);
+    std::string label = "layout_" + std::to_string(m_ParticleLayoutLabel.size() + 1);
+    m_ParticleLayoutLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertMaterial(const Material* mat)
@@ -134,12 +151,6 @@ void SampleLabelHandler::insertMaterial(const Material* mat)
 
     std::string label = "material_" + std::to_string(unique_labels.size() + 1);
     m_MaterialLabel.insert(mat, label);
-}
-
-void SampleLabelHandler::insertLattice(const Lattice* sample)
-{
-    std::string label = "lattice_" + std::to_string(m_LatticeLabel.size() + 1);
-    m_LatticeLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertMesoCrystal(const MesoCrystal* sample)

@@ -26,11 +26,11 @@
 
 MultiLayer* Lattice1DBuilder::buildSample() const
 {
-    const double length(20.0 * Units::nanometer);
+    const double length(20.0 * Units::nm);
     const double xi(10.0 * Units::deg);
-    const double corr_length(1000.0 * Units::nanometer);
-    const double cylinder_height(5 * Units::nanometer);
-    const double cylinder_radius(5 * Units::nanometer);
+    const double corr_length(1000.0 * Units::nm);
+    const double cylinder_height(5 * Units::nm);
+    const double cylinder_radius(5 * Units::nm);
 
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);

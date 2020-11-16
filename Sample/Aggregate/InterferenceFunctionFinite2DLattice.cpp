@@ -32,7 +32,8 @@ InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const L
     : IInterferenceFunction(0), m_integrate_xi(false), m_N_1(N_1), m_N_2(N_2)
 {
     setName("InterferenceFinite2DLattice");
-    setLattice(lattice);
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
 }
 
 //! Constructor of two-dimensional finite lattice interference function.
@@ -58,30 +59,6 @@ InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::clone(
     ret->setPositionVariance(m_position_var);
     ret->setIntegrationOverXi(integrationOverXi());
     return ret;
-}
-
-//! Creates square lattice.
-//! @param lattice_length: length of first and second lattice vectors in nanometers
-//! @param xi: rotation of lattice with respect to x-axis in radians
-//! @param N_1: number of lattice cells in the first lattice direction
-//! @param N_2: number of lattice cells in the second lattice direction
-InterferenceFunctionFinite2DLattice*
-InterferenceFunctionFinite2DLattice::createSquare(double lattice_length, double xi, unsigned N_1,
-                                                  unsigned N_2)
-{
-    return new InterferenceFunctionFinite2DLattice(SquareLattice(lattice_length, xi), N_1, N_2);
-}
-
-//! Creates hexagonal lattice.
-//! @param lattice_length: length of first and second lattice vectors in nanometers
-//! @param xi: rotation of lattice with respect to x-axis in radians
-//! @param N_1: number of lattice cells in the first lattice direction
-//! @param N_2: number of lattice cells in the second lattice direction
-InterferenceFunctionFinite2DLattice*
-InterferenceFunctionFinite2DLattice::createHexagonal(double lattice_length, double xi, unsigned N_1,
-                                                     unsigned N_2)
-{
-    return new InterferenceFunctionFinite2DLattice(HexagonalLattice(lattice_length, xi), N_1, N_2);
 }
 
 void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
@@ -118,12 +95,6 @@ double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) co
     return RealIntegrator().integrate([&](double xi) -> double { return interferenceForXi(xi); },
                                       0.0, M_TWOPI)
            / M_TWOPI;
-}
-
-void InterferenceFunctionFinite2DLattice::setLattice(const Lattice2D& lattice)
-{
-    m_lattice.reset(lattice.clone());
-    registerChild(m_lattice.get());
 }
 
 double InterferenceFunctionFinite2DLattice::interferenceForXi(double xi) const

@@ -20,7 +20,7 @@
 #include "Sample/Scattering/ISample.h"
 #include <functional>
 
-class ILayout;
+class ParticleLayout;
 class Layer;
 class LayerInterface;
 class LayerRoughness;

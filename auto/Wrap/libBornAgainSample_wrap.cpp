@@ -3161,146 +3161,141 @@ namespace Swig {
 #define SWIGTYPE_p_HexagonalLattice swig_types[61]
 #define SWIGTYPE_p_IAbstractParticle swig_types[62]
 #define SWIGTYPE_p_ICloneable swig_types[63]
-#define SWIGTYPE_p_IClusteredParticles swig_types[64]
-#define SWIGTYPE_p_ICosineRipple swig_types[65]
-#define SWIGTYPE_p_IFTDecayFunction1D swig_types[66]
-#define SWIGTYPE_p_IFTDecayFunction2D swig_types[67]
-#define SWIGTYPE_p_IFTDistribution1D swig_types[68]
-#define SWIGTYPE_p_IFTDistribution2D swig_types[69]
-#define SWIGTYPE_p_IFactoryT_std__string_ISampleBuilder_t swig_types[70]
-#define SWIGTYPE_p_IFormFactor swig_types[71]
-#define SWIGTYPE_p_IFormFactorBorn swig_types[72]
-#define SWIGTYPE_p_IFormFactorDecorator swig_types[73]
-#define SWIGTYPE_p_IFormFactorPolyhedron swig_types[74]
-#define SWIGTYPE_p_IFormFactorPrism swig_types[75]
-#define SWIGTYPE_p_IInterferenceFunction swig_types[76]
-#define SWIGTYPE_p_ILatticeOrientation swig_types[77]
-#define SWIGTYPE_p_ILayout swig_types[78]
-#define SWIGTYPE_p_INode swig_types[79]
-#define SWIGTYPE_p_INodeVisitor swig_types[80]
-#define SWIGTYPE_p_IParameterized swig_types[81]
-#define SWIGTYPE_p_IParticle swig_types[82]
-#define SWIGTYPE_p_IPeakShape swig_types[83]
-#define SWIGTYPE_p_IProfileRectangularRipple swig_types[84]
-#define SWIGTYPE_p_IProfileRipple swig_types[85]
-#define SWIGTYPE_p_IRotation swig_types[86]
-#define SWIGTYPE_p_ISample swig_types[87]
-#define SWIGTYPE_p_ISampleBuilder swig_types[88]
-#define SWIGTYPE_p_ISawtoothRipple swig_types[89]
-#define SWIGTYPE_p_ISelectionRule swig_types[90]
-#define SWIGTYPE_p_IdentityRotation swig_types[91]
-#define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[92]
-#define SWIGTYPE_p_InterferenceFunction2DLattice swig_types[93]
-#define SWIGTYPE_p_InterferenceFunction2DParaCrystal swig_types[94]
-#define SWIGTYPE_p_InterferenceFunction2DSuperLattice swig_types[95]
-#define SWIGTYPE_p_InterferenceFunction3DLattice swig_types[96]
-#define SWIGTYPE_p_InterferenceFunctionFinite2DLattice swig_types[97]
-#define SWIGTYPE_p_InterferenceFunctionFinite3DLattice swig_types[98]
-#define SWIGTYPE_p_InterferenceFunctionHardDisk swig_types[99]
-#define SWIGTYPE_p_InterferenceFunctionNone swig_types[100]
-#define SWIGTYPE_p_InterferenceFunctionRadialParaCrystal swig_types[101]
-#define SWIGTYPE_p_InterferenceFunctionTwin swig_types[102]
-#define SWIGTYPE_p_IsotropicGaussPeakShape swig_types[103]
-#define SWIGTYPE_p_IsotropicLorentzPeakShape swig_types[104]
-#define SWIGTYPE_p_Lattice swig_types[105]
-#define SWIGTYPE_p_Lattice2D swig_types[106]
-#define SWIGTYPE_p_Lattice2D__ReciprocalBases swig_types[107]
-#define SWIGTYPE_p_Layer swig_types[108]
-#define SWIGTYPE_p_LayerInterface swig_types[109]
-#define SWIGTYPE_p_LayerRoughness swig_types[110]
-#define SWIGTYPE_p_LorentzFisherPeakShape swig_types[111]
-#define SWIGTYPE_p_Material swig_types[112]
-#define SWIGTYPE_p_MesoCrystal swig_types[113]
-#define SWIGTYPE_p_MillerIndex swig_types[114]
-#define SWIGTYPE_p_MillerIndexOrientation swig_types[115]
-#define SWIGTYPE_p_MisesFisherGaussPeakShape swig_types[116]
-#define SWIGTYPE_p_MisesGaussPeakShape swig_types[117]
-#define SWIGTYPE_p_MultiLayer swig_types[118]
-#define SWIGTYPE_p_NodeMeta swig_types[119]
-#define SWIGTYPE_p_ParameterDistribution swig_types[120]
-#define SWIGTYPE_p_ParameterPool swig_types[121]
-#define SWIGTYPE_p_Particle swig_types[122]
-#define SWIGTYPE_p_ParticleComposition swig_types[123]
-#define SWIGTYPE_p_ParticleCoreShell swig_types[124]
-#define SWIGTYPE_p_ParticleDistribution swig_types[125]
-#define SWIGTYPE_p_ParticleLayout swig_types[126]
-#define SWIGTYPE_p_ParticleLimits swig_types[127]
-#define SWIGTYPE_p_RealParameter swig_types[128]
-#define SWIGTYPE_p_RotationEuler swig_types[129]
-#define SWIGTYPE_p_RotationX swig_types[130]
-#define SWIGTYPE_p_RotationY swig_types[131]
-#define SWIGTYPE_p_RotationZ swig_types[132]
-#define SWIGTYPE_p_RoughnessModelWrap swig_types[133]
-#define SWIGTYPE_p_RoughnessModelWrap__RoughnessModel swig_types[134]
-#define SWIGTYPE_p_SafePointerVectorT_IParticle_t swig_types[135]
-#define SWIGTYPE_p_SampleBuilderFactory swig_types[136]
-#define SWIGTYPE_p_SimpleSelectionRule swig_types[137]
-#define SWIGTYPE_p_SimulationOptions swig_types[138]
-#define SWIGTYPE_p_SlicedParticle swig_types[139]
-#define SWIGTYPE_p_SlicingEffects swig_types[140]
-#define SWIGTYPE_p_SquareLattice swig_types[141]
-#define SWIGTYPE_p_ThreadInfo swig_types[142]
-#define SWIGTYPE_p_Transform3D swig_types[143]
-#define SWIGTYPE_p_WavevectorInfo swig_types[144]
-#define SWIGTYPE_p_ZLimits swig_types[145]
-#define SWIGTYPE_p_allocator_type swig_types[146]
-#define SWIGTYPE_p_char swig_types[147]
-#define SWIGTYPE_p_difference_type swig_types[148]
-#define SWIGTYPE_p_first_type swig_types[149]
-#define SWIGTYPE_p_int swig_types[150]
-#define SWIGTYPE_p_key_type swig_types[151]
-#define SWIGTYPE_p_long_long swig_types[152]
-#define SWIGTYPE_p_mapped_type swig_types[153]
-#define SWIGTYPE_p_p_PyObject swig_types[154]
-#define SWIGTYPE_p_second_type swig_types[155]
-#define SWIGTYPE_p_short swig_types[156]
-#define SWIGTYPE_p_signed_char swig_types[157]
-#define SWIGTYPE_p_size_type swig_types[158]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[159]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[160]
-#define SWIGTYPE_p_std__allocatorT_IFormFactor_p_t swig_types[161]
-#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[162]
-#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[163]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[164]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[165]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[166]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[167]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[168]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[169]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[170]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[171]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[172]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[173]
-#define SWIGTYPE_p_std__functionT_ISampleBuilder_pfF_t swig_types[174]
-#define SWIGTYPE_p_std__invalid_argument swig_types[175]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[176]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[177]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[178]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[179]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[180]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[181]
-#define SWIGTYPE_p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t swig_types[182]
-#define SWIGTYPE_p_std__vectorT_IFormFactor_p_std__allocatorT_IFormFactor_p_t_t swig_types[183]
-#define SWIGTYPE_p_std__vectorT_ILayout_const_p_std__allocatorT_ILayout_const_p_t_t swig_types[184]
-#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[185]
-#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[186]
-#define SWIGTYPE_p_std__vectorT_Material_const_p_std__allocatorT_Material_const_p_t_t swig_types[187]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[188]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[189]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[190]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[191]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[192]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[193]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[194]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[195]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[196]
-#define SWIGTYPE_p_unsigned_char swig_types[197]
-#define SWIGTYPE_p_unsigned_int swig_types[198]
-#define SWIGTYPE_p_unsigned_long_long swig_types[199]
-#define SWIGTYPE_p_unsigned_short swig_types[200]
-#define SWIGTYPE_p_value_type swig_types[201]
-static swig_type_info *swig_types[203];
-static swig_module_info swig_module = {swig_types, 202, 0, 0, 0, 0};
+#define SWIGTYPE_p_ICosineRipple swig_types[64]
+#define SWIGTYPE_p_IFTDecayFunction1D swig_types[65]
+#define SWIGTYPE_p_IFTDecayFunction2D swig_types[66]
+#define SWIGTYPE_p_IFTDistribution1D swig_types[67]
+#define SWIGTYPE_p_IFTDistribution2D swig_types[68]
+#define SWIGTYPE_p_IFactoryT_std__string_ISampleBuilder_t swig_types[69]
+#define SWIGTYPE_p_IFormFactor swig_types[70]
+#define SWIGTYPE_p_IFormFactorBorn swig_types[71]
+#define SWIGTYPE_p_IFormFactorDecorator swig_types[72]
+#define SWIGTYPE_p_IFormFactorPolyhedron swig_types[73]
+#define SWIGTYPE_p_IFormFactorPrism swig_types[74]
+#define SWIGTYPE_p_IInterferenceFunction swig_types[75]
+#define SWIGTYPE_p_INode swig_types[76]
+#define SWIGTYPE_p_INodeVisitor swig_types[77]
+#define SWIGTYPE_p_IParameterized swig_types[78]
+#define SWIGTYPE_p_IParticle swig_types[79]
+#define SWIGTYPE_p_IPeakShape swig_types[80]
+#define SWIGTYPE_p_IProfileRectangularRipple swig_types[81]
+#define SWIGTYPE_p_IProfileRipple swig_types[82]
+#define SWIGTYPE_p_IRotation swig_types[83]
+#define SWIGTYPE_p_ISample swig_types[84]
+#define SWIGTYPE_p_ISampleBuilder swig_types[85]
+#define SWIGTYPE_p_ISawtoothRipple swig_types[86]
+#define SWIGTYPE_p_ISelectionRule swig_types[87]
+#define SWIGTYPE_p_IdentityRotation swig_types[88]
+#define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[89]
+#define SWIGTYPE_p_InterferenceFunction2DLattice swig_types[90]
+#define SWIGTYPE_p_InterferenceFunction2DParaCrystal swig_types[91]
+#define SWIGTYPE_p_InterferenceFunction2DSuperLattice swig_types[92]
+#define SWIGTYPE_p_InterferenceFunction3DLattice swig_types[93]
+#define SWIGTYPE_p_InterferenceFunctionFinite2DLattice swig_types[94]
+#define SWIGTYPE_p_InterferenceFunctionFinite3DLattice swig_types[95]
+#define SWIGTYPE_p_InterferenceFunctionHardDisk swig_types[96]
+#define SWIGTYPE_p_InterferenceFunctionNone swig_types[97]
+#define SWIGTYPE_p_InterferenceFunctionRadialParaCrystal swig_types[98]
+#define SWIGTYPE_p_InterferenceFunctionTwin swig_types[99]
+#define SWIGTYPE_p_IsotropicGaussPeakShape swig_types[100]
+#define SWIGTYPE_p_IsotropicLorentzPeakShape swig_types[101]
+#define SWIGTYPE_p_Lattice2D swig_types[102]
+#define SWIGTYPE_p_Lattice2D__ReciprocalBases swig_types[103]
+#define SWIGTYPE_p_Lattice3D swig_types[104]
+#define SWIGTYPE_p_Layer swig_types[105]
+#define SWIGTYPE_p_LayerInterface swig_types[106]
+#define SWIGTYPE_p_LayerRoughness swig_types[107]
+#define SWIGTYPE_p_LorentzFisherPeakShape swig_types[108]
+#define SWIGTYPE_p_Material swig_types[109]
+#define SWIGTYPE_p_MesoCrystal swig_types[110]
+#define SWIGTYPE_p_MisesFisherGaussPeakShape swig_types[111]
+#define SWIGTYPE_p_MisesGaussPeakShape swig_types[112]
+#define SWIGTYPE_p_MultiLayer swig_types[113]
+#define SWIGTYPE_p_NodeMeta swig_types[114]
+#define SWIGTYPE_p_ParameterDistribution swig_types[115]
+#define SWIGTYPE_p_ParameterPool swig_types[116]
+#define SWIGTYPE_p_Particle swig_types[117]
+#define SWIGTYPE_p_ParticleComposition swig_types[118]
+#define SWIGTYPE_p_ParticleCoreShell swig_types[119]
+#define SWIGTYPE_p_ParticleDistribution swig_types[120]
+#define SWIGTYPE_p_ParticleLayout swig_types[121]
+#define SWIGTYPE_p_ParticleLimits swig_types[122]
+#define SWIGTYPE_p_RealParameter swig_types[123]
+#define SWIGTYPE_p_RotationEuler swig_types[124]
+#define SWIGTYPE_p_RotationX swig_types[125]
+#define SWIGTYPE_p_RotationY swig_types[126]
+#define SWIGTYPE_p_RotationZ swig_types[127]
+#define SWIGTYPE_p_RoughnessModelWrap swig_types[128]
+#define SWIGTYPE_p_RoughnessModelWrap__RoughnessModel swig_types[129]
+#define SWIGTYPE_p_SafePointerVectorT_IParticle_t swig_types[130]
+#define SWIGTYPE_p_SampleBuilderFactory swig_types[131]
+#define SWIGTYPE_p_SimpleSelectionRule swig_types[132]
+#define SWIGTYPE_p_SimulationOptions swig_types[133]
+#define SWIGTYPE_p_SlicedParticle swig_types[134]
+#define SWIGTYPE_p_SlicingEffects swig_types[135]
+#define SWIGTYPE_p_SquareLattice swig_types[136]
+#define SWIGTYPE_p_ThreadInfo swig_types[137]
+#define SWIGTYPE_p_Transform3D swig_types[138]
+#define SWIGTYPE_p_WavevectorInfo swig_types[139]
+#define SWIGTYPE_p_ZLimits swig_types[140]
+#define SWIGTYPE_p_allocator_type swig_types[141]
+#define SWIGTYPE_p_char swig_types[142]
+#define SWIGTYPE_p_difference_type swig_types[143]
+#define SWIGTYPE_p_first_type swig_types[144]
+#define SWIGTYPE_p_int swig_types[145]
+#define SWIGTYPE_p_key_type swig_types[146]
+#define SWIGTYPE_p_long_long swig_types[147]
+#define SWIGTYPE_p_mapped_type swig_types[148]
+#define SWIGTYPE_p_p_PyObject swig_types[149]
+#define SWIGTYPE_p_second_type swig_types[150]
+#define SWIGTYPE_p_short swig_types[151]
+#define SWIGTYPE_p_signed_char swig_types[152]
+#define SWIGTYPE_p_size_type swig_types[153]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[154]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[155]
+#define SWIGTYPE_p_std__allocatorT_IFormFactor_p_t swig_types[156]
+#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[157]
+#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[158]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[159]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[160]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[161]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[162]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[163]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[164]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[165]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[166]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[167]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[168]
+#define SWIGTYPE_p_std__functionT_ISampleBuilder_pfF_t swig_types[169]
+#define SWIGTYPE_p_std__invalid_argument swig_types[170]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[171]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[172]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[173]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[174]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[175]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[176]
+#define SWIGTYPE_p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t swig_types[177]
+#define SWIGTYPE_p_std__vectorT_IFormFactor_p_std__allocatorT_IFormFactor_p_t_t swig_types[178]
+#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[179]
+#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[180]
+#define SWIGTYPE_p_std__vectorT_Material_const_p_std__allocatorT_Material_const_p_t_t swig_types[181]
+#define SWIGTYPE_p_std__vectorT_ParticleLayout_const_p_std__allocatorT_ParticleLayout_const_p_t_t swig_types[182]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[183]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[184]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[185]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[186]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[187]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[188]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[189]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[190]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[191]
+#define SWIGTYPE_p_unsigned_char swig_types[192]
+#define SWIGTYPE_p_unsigned_int swig_types[193]
+#define SWIGTYPE_p_unsigned_long_long swig_types[194]
+#define SWIGTYPE_p_unsigned_short swig_types[195]
+#define SWIGTYPE_p_value_type swig_types[196]
+static swig_type_info *swig_types[198];
+static swig_module_info swig_module = {swig_types, 197, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6810,7 +6805,6 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Sample/Correlations/FTDecay2D.h"
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Sample/Correlations/FTDistributions2D.h"
-#include "Sample/Correlations/ILayout.h"
 #include "Sample/Correlations/IPeakShape.h"
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Sample/HardParticle/FormFactorBar.h"
@@ -6841,11 +6835,10 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Sample/HardParticle/FormFactorTruncatedSpheroid.h"
 #include "Sample/HardParticle/IFormFactorPolyhedron.h"
 #include "Sample/HardParticle/IFormFactorPrism.h"
-#include "Sample/Lattice/ILatticeOrientation.h"
 #include "Sample/Lattice/ISelectionRule.h"
-#include "Sample/Lattice/Lattice.h"
+#include "Sample/Lattice/Lattice3D.h"
 #include "Sample/Lattice/Lattice2D.h"
-#include "Sample/Lattice/LatticeUtils.h"
+#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
@@ -6856,7 +6849,6 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Sample/Particle/FormFactorCrystal.h"
 #include "Sample/Particle/FormFactorWeighted.h"
 #include "Sample/Particle/IAbstractParticle.h"
-#include "Sample/Particle/IClusteredParticles.h"
 #include "Sample/Particle/IParticle.h"
 #include "Sample/Particle/MesoCrystal.h"
 #include "Sample/Particle/Particle.h"
@@ -41804,7 +41796,7 @@ SWIGINTERN PyObject *RotationEuler_swiginit(PyObject *SWIGUNUSEDPARM(self), PyOb
 
 SWIGINTERN PyObject *_wrap_new_FormFactorCrystal__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = 0 ;
+  Lattice3D *arg1 = 0 ;
   IFormFactor *arg2 = 0 ;
   IFormFactor *arg3 = 0 ;
   double arg4 ;
@@ -41819,14 +41811,14 @@ SWIGINTERN PyObject *_wrap_new_FormFactorCrystal__SWIG_0(PyObject *SWIGUNUSEDPAR
   FormFactorCrystal *result = 0 ;
   
   if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice,  0  | 0);
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice3D,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FormFactorCrystal" "', argument " "1"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FormFactorCrystal" "', argument " "1"" of type '" "Lattice3D const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FormFactorCrystal" "', argument " "1"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FormFactorCrystal" "', argument " "1"" of type '" "Lattice3D const &""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IFormFactor,  0  | 0);
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FormFactorCrystal" "', argument " "2"" of type '" "IFormFactor const &""'"); 
@@ -41848,7 +41840,7 @@ SWIGINTERN PyObject *_wrap_new_FormFactorCrystal__SWIG_0(PyObject *SWIGUNUSEDPAR
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_FormFactorCrystal" "', argument " "4"" of type '" "double""'");
   } 
   arg4 = static_cast< double >(val4);
-  result = (FormFactorCrystal *)new FormFactorCrystal((Lattice const &)*arg1,(IFormFactor const &)*arg2,(IFormFactor const &)*arg3,arg4);
+  result = (FormFactorCrystal *)new FormFactorCrystal((Lattice3D const &)*arg1,(IFormFactor const &)*arg2,(IFormFactor const &)*arg3,arg4);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FormFactorCrystal, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -41858,7 +41850,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_FormFactorCrystal__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = 0 ;
+  Lattice3D *arg1 = 0 ;
   IFormFactor *arg2 = 0 ;
   IFormFactor *arg3 = 0 ;
   void *argp1 = 0 ;
@@ -41870,14 +41862,14 @@ SWIGINTERN PyObject *_wrap_new_FormFactorCrystal__SWIG_1(PyObject *SWIGUNUSEDPAR
   FormFactorCrystal *result = 0 ;
   
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice,  0  | 0);
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice3D,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FormFactorCrystal" "', argument " "1"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_FormFactorCrystal" "', argument " "1"" of type '" "Lattice3D const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FormFactorCrystal" "', argument " "1"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FormFactorCrystal" "', argument " "1"" of type '" "Lattice3D const &""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IFormFactor,  0  | 0);
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_FormFactorCrystal" "', argument " "2"" of type '" "IFormFactor const &""'"); 
@@ -41894,7 +41886,7 @@ SWIGINTERN PyObject *_wrap_new_FormFactorCrystal__SWIG_1(PyObject *SWIGUNUSEDPAR
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_FormFactorCrystal" "', argument " "3"" of type '" "IFormFactor const &""'"); 
   }
   arg3 = reinterpret_cast< IFormFactor * >(argp3);
-  result = (FormFactorCrystal *)new FormFactorCrystal((Lattice const &)*arg1,(IFormFactor const &)*arg2,(IFormFactor const &)*arg3);
+  result = (FormFactorCrystal *)new FormFactorCrystal((Lattice3D const &)*arg1,(IFormFactor const &)*arg2,(IFormFactor const &)*arg3);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FormFactorCrystal, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -41912,7 +41904,7 @@ SWIGINTERN PyObject *_wrap_new_FormFactorCrystal(PyObject *self, PyObject *args)
   --argc;
   if (argc == 3) {
     int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Lattice, SWIG_POINTER_NO_NULL | 0);
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Lattice3D, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IFormFactor, SWIG_POINTER_NO_NULL | 0);
@@ -41928,7 +41920,7 @@ SWIGINTERN PyObject *_wrap_new_FormFactorCrystal(PyObject *self, PyObject *args)
   }
   if (argc == 4) {
     int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Lattice, SWIG_POINTER_NO_NULL | 0);
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Lattice3D, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IFormFactor, SWIG_POINTER_NO_NULL | 0);
@@ -41952,8 +41944,8 @@ SWIGINTERN PyObject *_wrap_new_FormFactorCrystal(PyObject *self, PyObject *args)
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_FormFactorCrystal'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    FormFactorCrystal::FormFactorCrystal(Lattice const &,IFormFactor const &,IFormFactor const &,double)\n"
-    "    FormFactorCrystal::FormFactorCrystal(Lattice const &,IFormFactor const &,IFormFactor const &)\n");
+    "    FormFactorCrystal::FormFactorCrystal(Lattice3D const &,IFormFactor const &,IFormFactor const &,double)\n"
+    "    FormFactorCrystal::FormFactorCrystal(Lattice3D const &,IFormFactor const &,IFormFactor const &)\n");
   return 0;
 }
 
@@ -42794,152 +42786,20 @@ SWIGINTERN PyObject *IAbstractParticle_swigregister(PyObject *SWIGUNUSEDPARM(sel
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_IClusteredParticles_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IClusteredParticles *arg1 = (IClusteredParticles *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IClusteredParticles *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IClusteredParticles, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IClusteredParticles_clone" "', argument " "1"" of type '" "IClusteredParticles const *""'"); 
-  }
-  arg1 = reinterpret_cast< IClusteredParticles * >(argp1);
-  result = (IClusteredParticles *)((IClusteredParticles const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IClusteredParticles, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IClusteredParticles_createTotalFormFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IClusteredParticles *arg1 = (IClusteredParticles *) 0 ;
-  IFormFactor *arg2 = 0 ;
-  IRotation *arg3 = (IRotation *) 0 ;
-  kvector_t *arg4 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
-  PyObject *swig_obj[4] ;
-  Swig::Director *director = 0;
-  IFormFactor *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IClusteredParticles_createTotalFormFactor", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IClusteredParticles, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IClusteredParticles_createTotalFormFactor" "', argument " "1"" of type '" "IClusteredParticles const *""'"); 
-  }
-  arg1 = reinterpret_cast< IClusteredParticles * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IFormFactor,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IClusteredParticles_createTotalFormFactor" "', argument " "2"" of type '" "IFormFactor const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IClusteredParticles_createTotalFormFactor" "', argument " "2"" of type '" "IFormFactor const &""'"); 
-  }
-  arg2 = reinterpret_cast< IFormFactor * >(argp2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3,SWIGTYPE_p_IRotation, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IClusteredParticles_createTotalFormFactor" "', argument " "3"" of type '" "IRotation const *""'"); 
-  }
-  arg3 = reinterpret_cast< IRotation * >(argp3);
-  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "IClusteredParticles_createTotalFormFactor" "', argument " "4"" of type '" "kvector_t const &""'"); 
-  }
-  if (!argp4) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IClusteredParticles_createTotalFormFactor" "', argument " "4"" of type '" "kvector_t const &""'"); 
-  }
-  arg4 = reinterpret_cast< kvector_t * >(argp4);
-  result = (IFormFactor *)((IClusteredParticles const *)arg1)->createTotalFormFactor((IFormFactor const &)*arg2,(IRotation const *)arg3,(kvector_t const &)*arg4);
-  director = SWIG_DIRECTOR_CAST(result);
-  if (director) {
-    resultobj = director->swig_get_self();
-    Py_INCREF(resultobj);
-  } else {
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFormFactor, 0 |  0 );
-  }
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IClusteredParticles_homogeneousRegions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IClusteredParticles *arg1 = (IClusteredParticles *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > > > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IClusteredParticles, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IClusteredParticles_homogeneousRegions" "', argument " "1"" of type '" "IClusteredParticles const *""'"); 
-  }
-  arg1 = reinterpret_cast< IClusteredParticles * >(argp1);
-  result = ((IClusteredParticles const *)arg1)->homogeneousRegions();
-  resultobj = SWIG_NewPointerObj((new std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >(static_cast< const std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >& >(result))), SWIGTYPE_p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_IClusteredParticles(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IClusteredParticles *arg1 = (IClusteredParticles *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IClusteredParticles, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IClusteredParticles" "', argument " "1"" of type '" "IClusteredParticles *""'"); 
-  }
-  arg1 = reinterpret_cast< IClusteredParticles * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *IClusteredParticles_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IClusteredParticles, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_new_Crystal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_Crystal__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   IParticle *arg1 = 0 ;
-  Lattice *arg2 = 0 ;
+  Lattice3D *arg2 = 0 ;
+  double arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  PyObject *swig_obj[2] ;
+  double val3 ;
+  int ecode3 = 0 ;
   Crystal *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "new_Crystal", 2, 2, swig_obj)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IParticle,  0  | 0);
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Crystal" "', argument " "1"" of type '" "IParticle const &""'"); 
@@ -42948,19 +42808,107 @@ SWIGINTERN PyObject *_wrap_new_Crystal(PyObject *SWIGUNUSEDPARM(self), PyObject 
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Crystal" "', argument " "1"" of type '" "IParticle const &""'"); 
   }
   arg1 = reinterpret_cast< IParticle * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Lattice,  0  | 0);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Lattice3D,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_Crystal" "', argument " "2"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_Crystal" "', argument " "2"" of type '" "Lattice3D const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Crystal" "', argument " "2"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Crystal" "', argument " "2"" of type '" "Lattice3D const &""'"); 
   }
-  arg2 = reinterpret_cast< Lattice * >(argp2);
-  result = (Crystal *)new Crystal((IParticle const &)*arg1,(Lattice const &)*arg2);
+  arg2 = reinterpret_cast< Lattice3D * >(argp2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_Crystal" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (Crystal *)new Crystal((IParticle const &)*arg1,(Lattice3D const &)*arg2,arg3);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Crystal, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Crystal__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  IParticle *arg1 = 0 ;
+  Lattice3D *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  Crystal *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IParticle,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Crystal" "', argument " "1"" of type '" "IParticle const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Crystal" "', argument " "1"" of type '" "IParticle const &""'"); 
+  }
+  arg1 = reinterpret_cast< IParticle * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Lattice3D,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_Crystal" "', argument " "2"" of type '" "Lattice3D const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Crystal" "', argument " "2"" of type '" "Lattice3D const &""'"); 
+  }
+  arg2 = reinterpret_cast< Lattice3D * >(argp2);
+  result = (Crystal *)new Crystal((IParticle const &)*arg1,(Lattice3D const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Crystal, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Crystal(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_Crystal", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IParticle, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_Lattice3D, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_Crystal__SWIG_1(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IParticle, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_Lattice3D, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_new_Crystal__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Crystal'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Crystal::Crystal(IParticle const &,Lattice3D const &,double)\n"
+    "    Crystal::Crystal(IParticle const &,Lattice3D const &)\n");
+  return 0;
 }
 
 
@@ -43128,7 +43076,7 @@ SWIGINTERN PyObject *_wrap_Crystal_transformedLattice__SWIG_0(PyObject *SWIGUNUS
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  SwigValueWrapper< Lattice > result;
+  SwigValueWrapper< Lattice3D > result;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Crystal, 0 |  0 );
@@ -43142,7 +43090,7 @@ SWIGINTERN PyObject *_wrap_Crystal_transformedLattice__SWIG_0(PyObject *SWIGUNUS
   }
   arg2 = reinterpret_cast< IRotation * >(argp2);
   result = ((Crystal const *)arg1)->transformedLattice((IRotation const *)arg2);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new Lattice3D(static_cast< const Lattice3D& >(result))), SWIGTYPE_p_Lattice3D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -43154,7 +43102,7 @@ SWIGINTERN PyObject *_wrap_Crystal_transformedLattice__SWIG_1(PyObject *SWIGUNUS
   Crystal *arg1 = (Crystal *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  SwigValueWrapper< Lattice > result;
+  SwigValueWrapper< Lattice3D > result;
   
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Crystal, 0 |  0 );
@@ -43163,7 +43111,7 @@ SWIGINTERN PyObject *_wrap_Crystal_transformedLattice__SWIG_1(PyObject *SWIGUNUS
   }
   arg1 = reinterpret_cast< Crystal * >(argp1);
   result = ((Crystal const *)arg1)->transformedLattice();
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new Lattice3D(static_cast< const Lattice3D& >(result))), SWIGTYPE_p_Lattice3D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -43208,35 +43156,6 @@ fail:
     "    Crystal::transformedLattice(IRotation const *) const\n"
     "    Crystal::transformedLattice() const\n");
   return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_Crystal_setPositionVariance(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Crystal *arg1 = (Crystal *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Crystal_setPositionVariance", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Crystal, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Crystal_setPositionVariance" "', argument " "1"" of type '" "Crystal *""'"); 
-  }
-  arg1 = reinterpret_cast< Crystal * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Crystal_setPositionVariance" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setPositionVariance(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
 }
 
 
@@ -43932,7 +43851,7 @@ SWIGINTERN PyObject *IParticle_swigregister(PyObject *SWIGUNUSEDPARM(self), PyOb
 
 SWIGINTERN PyObject *_wrap_new_MesoCrystal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IClusteredParticles *arg1 = 0 ;
+  Crystal *arg1 = 0 ;
   IFormFactor *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -43942,14 +43861,14 @@ SWIGINTERN PyObject *_wrap_new_MesoCrystal(PyObject *SWIGUNUSEDPARM(self), PyObj
   MesoCrystal *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "new_MesoCrystal", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IClusteredParticles,  0  | 0);
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Crystal,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_MesoCrystal" "', argument " "1"" of type '" "IClusteredParticles const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_MesoCrystal" "', argument " "1"" of type '" "Crystal const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_MesoCrystal" "', argument " "1"" of type '" "IClusteredParticles const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_MesoCrystal" "', argument " "1"" of type '" "Crystal const &""'"); 
   }
-  arg1 = reinterpret_cast< IClusteredParticles * >(argp1);
+  arg1 = reinterpret_cast< Crystal * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IFormFactor,  0  | 0);
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_MesoCrystal" "', argument " "2"" of type '" "IFormFactor const &""'"); 
@@ -43958,7 +43877,7 @@ SWIGINTERN PyObject *_wrap_new_MesoCrystal(PyObject *SWIGUNUSEDPARM(self), PyObj
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_MesoCrystal" "', argument " "2"" of type '" "IFormFactor const &""'"); 
   }
   arg2 = reinterpret_cast< IFormFactor * >(argp2);
-  result = (MesoCrystal *)new MesoCrystal((IClusteredParticles const &)*arg1,(IFormFactor const &)*arg2);
+  result = (MesoCrystal *)new MesoCrystal((Crystal const &)*arg1,(IFormFactor const &)*arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MesoCrystal, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -50352,260 +50271,6 @@ SWIGINTERN PyObject *FTDistribution2DVoigt_swiginit(PyObject *SWIGUNUSEDPARM(sel
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_delete_ILayout(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILayout *arg1 = (ILayout *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILayout, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ILayout" "', argument " "1"" of type '" "ILayout *""'"); 
-  }
-  arg1 = reinterpret_cast< ILayout * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILayout_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILayout *arg1 = (ILayout *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  ILayout *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILayout, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILayout_clone" "', argument " "1"" of type '" "ILayout const *""'"); 
-  }
-  arg1 = reinterpret_cast< ILayout * >(argp1);
-  result = (ILayout *)((ILayout const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ILayout, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILayout_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILayout *arg1 = (ILayout *) 0 ;
-  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ILayout_accept", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILayout, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILayout_accept" "', argument " "1"" of type '" "ILayout const *""'"); 
-  }
-  arg1 = reinterpret_cast< ILayout * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ILayout_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
-  }
-  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
-  ((ILayout const *)arg1)->accept(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILayout_particles(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILayout *arg1 = (ILayout *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  SwigValueWrapper< SafePointerVector< IParticle > > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILayout, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILayout_particles" "', argument " "1"" of type '" "ILayout const *""'"); 
-  }
-  arg1 = reinterpret_cast< ILayout * >(argp1);
-  result = ((ILayout const *)arg1)->particles();
-  resultobj = SWIG_NewPointerObj((new SafePointerVector< IParticle >(static_cast< const SafePointerVector< IParticle >& >(result))), SWIGTYPE_p_SafePointerVectorT_IParticle_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILayout_interferenceFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILayout *arg1 = (ILayout *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IInterferenceFunction *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILayout, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILayout_interferenceFunction" "', argument " "1"" of type '" "ILayout const *""'"); 
-  }
-  arg1 = reinterpret_cast< ILayout * >(argp1);
-  result = (IInterferenceFunction *)((ILayout const *)arg1)->interferenceFunction();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IInterferenceFunction, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILayout_getTotalAbundance(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILayout *arg1 = (ILayout *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILayout, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILayout_getTotalAbundance" "', argument " "1"" of type '" "ILayout const *""'"); 
-  }
-  arg1 = reinterpret_cast< ILayout * >(argp1);
-  result = (double)((ILayout const *)arg1)->getTotalAbundance();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILayout_totalParticleSurfaceDensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILayout *arg1 = (ILayout *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILayout, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILayout_totalParticleSurfaceDensity" "', argument " "1"" of type '" "ILayout const *""'"); 
-  }
-  arg1 = reinterpret_cast< ILayout * >(argp1);
-  result = (double)((ILayout const *)arg1)->totalParticleSurfaceDensity();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILayout_setTotalParticleSurfaceDensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILayout *arg1 = (ILayout *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ILayout_setTotalParticleSurfaceDensity", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILayout, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILayout_setTotalParticleSurfaceDensity" "', argument " "1"" of type '" "ILayout *""'"); 
-  }
-  arg1 = reinterpret_cast< ILayout * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ILayout_setTotalParticleSurfaceDensity" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setTotalParticleSurfaceDensity(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILayout_weight(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILayout *arg1 = (ILayout *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILayout, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILayout_weight" "', argument " "1"" of type '" "ILayout const *""'"); 
-  }
-  arg1 = reinterpret_cast< ILayout * >(argp1);
-  result = (double)((ILayout const *)arg1)->weight();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILayout_setWeight(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILayout *arg1 = (ILayout *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ILayout_setWeight", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILayout, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILayout_setWeight" "', argument " "1"" of type '" "ILayout *""'"); 
-  }
-  arg1 = reinterpret_cast< ILayout * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ILayout_setWeight" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setWeight(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *ILayout_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_ILayout, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
 SWIGINTERN PyObject *_wrap_delete_IPeakShape(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IPeakShape *arg1 = (IPeakShape *) 0 ;
@@ -52646,66 +52311,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DLattice_createSquare(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  InterferenceFunction2DLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DLattice_createSquare", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DLattice_createSquare" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DLattice_createSquare" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (InterferenceFunction2DLattice *)InterferenceFunction2DLattice::createSquare(arg1,arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DLattice_createHexagonal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  InterferenceFunction2DLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DLattice_createHexagonal", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DLattice_createHexagonal" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DLattice_createHexagonal" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (InterferenceFunction2DLattice *)InterferenceFunction2DLattice::createHexagonal(arg1,arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_InterferenceFunction2DLattice_setDecayFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   InterferenceFunction2DLattice *arg1 = (InterferenceFunction2DLattice *) 0 ;
@@ -53139,98 +52744,6 @@ SWIGINTERN PyObject *_wrap_InterferenceFunction2DParaCrystal_accept(PyObject *SW
   arg2 = reinterpret_cast< INodeVisitor * >(argp2);
   ((InterferenceFunction2DParaCrystal const *)arg1)->accept(arg2);
   resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DParaCrystal_createSquare(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunction2DParaCrystal *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DParaCrystal_createSquare", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DParaCrystal_createSquare" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DParaCrystal_createSquare" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunction2DParaCrystal_createSquare" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunction2DParaCrystal_createSquare" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  result = (InterferenceFunction2DParaCrystal *)InterferenceFunction2DParaCrystal::createSquare(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DParaCrystal, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DParaCrystal_createHexagonal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunction2DParaCrystal *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DParaCrystal_createHexagonal", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DParaCrystal_createHexagonal" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DParaCrystal_createHexagonal" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunction2DParaCrystal_createHexagonal" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunction2DParaCrystal_createHexagonal" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  result = (InterferenceFunction2DParaCrystal *)InterferenceFunction2DParaCrystal::createHexagonal(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DParaCrystal, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -53878,98 +53391,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DSuperLattice_createSquare(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  unsigned int arg3 ;
-  unsigned int arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  unsigned int val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunction2DSuperLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DSuperLattice_createSquare", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DSuperLattice_createSquare" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DSuperLattice_createSquare" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunction2DSuperLattice_createSquare" "', argument " "3"" of type '" "unsigned int""'");
-  } 
-  arg3 = static_cast< unsigned int >(val3);
-  ecode4 = SWIG_AsVal_unsigned_SS_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunction2DSuperLattice_createSquare" "', argument " "4"" of type '" "unsigned int""'");
-  } 
-  arg4 = static_cast< unsigned int >(val4);
-  result = (InterferenceFunction2DSuperLattice *)InterferenceFunction2DSuperLattice::createSquare(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DSuperLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_InterferenceFunction2DSuperLattice_createHexagonal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  unsigned int arg3 ;
-  unsigned int arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  unsigned int val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunction2DSuperLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunction2DSuperLattice_createHexagonal", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunction2DSuperLattice_createHexagonal" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunction2DSuperLattice_createHexagonal" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunction2DSuperLattice_createHexagonal" "', argument " "3"" of type '" "unsigned int""'");
-  } 
-  arg3 = static_cast< unsigned int >(val3);
-  ecode4 = SWIG_AsVal_unsigned_SS_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunction2DSuperLattice_createHexagonal" "', argument " "4"" of type '" "unsigned int""'");
-  } 
-  arg4 = static_cast< unsigned int >(val4);
-  result = (InterferenceFunction2DSuperLattice *)InterferenceFunction2DSuperLattice::createHexagonal(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DSuperLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_InterferenceFunction2DSuperLattice_evaluate__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   InterferenceFunction2DSuperLattice *arg1 = (InterferenceFunction2DSuperLattice *) 0 ;
@@ -54259,7 +53680,7 @@ SWIGINTERN PyObject *InterferenceFunction2DSuperLattice_swiginit(PyObject *SWIGU
 
 SWIGINTERN PyObject *_wrap_new_InterferenceFunction3DLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = 0 ;
+  Lattice3D *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
@@ -54267,15 +53688,15 @@ SWIGINTERN PyObject *_wrap_new_InterferenceFunction3DLattice(PyObject *SWIGUNUSE
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice,  0  | 0);
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice3D,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_InterferenceFunction3DLattice" "', argument " "1"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_InterferenceFunction3DLattice" "', argument " "1"" of type '" "Lattice3D const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_InterferenceFunction3DLattice" "', argument " "1"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_InterferenceFunction3DLattice" "', argument " "1"" of type '" "Lattice3D const &""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  result = (InterferenceFunction3DLattice *)new InterferenceFunction3DLattice((Lattice const &)*arg1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
+  result = (InterferenceFunction3DLattice *)new InterferenceFunction3DLattice((Lattice3D const &)*arg1);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction3DLattice, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -54395,7 +53816,7 @@ SWIGINTERN PyObject *_wrap_InterferenceFunction3DLattice_lattice(PyObject *SWIGU
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  Lattice *result = 0 ;
+  Lattice3D *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -54404,8 +53825,8 @@ SWIGINTERN PyObject *_wrap_InterferenceFunction3DLattice_lattice(PyObject *SWIGU
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "InterferenceFunction3DLattice_lattice" "', argument " "1"" of type '" "InterferenceFunction3DLattice const *""'"); 
   }
   arg1 = reinterpret_cast< InterferenceFunction3DLattice * >(argp1);
-  result = (Lattice *) &((InterferenceFunction3DLattice const *)arg1)->lattice();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Lattice, 0 |  0 );
+  result = (Lattice3D *) &((InterferenceFunction3DLattice const *)arg1)->lattice();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Lattice3D, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -54744,98 +54165,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_InterferenceFunctionFinite2DLattice_createSquare(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  unsigned int arg3 ;
-  unsigned int arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  unsigned int val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunctionFinite2DLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunctionFinite2DLattice_createSquare", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunctionFinite2DLattice_createSquare" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunctionFinite2DLattice_createSquare" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunctionFinite2DLattice_createSquare" "', argument " "3"" of type '" "unsigned int""'");
-  } 
-  arg3 = static_cast< unsigned int >(val3);
-  ecode4 = SWIG_AsVal_unsigned_SS_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunctionFinite2DLattice_createSquare" "', argument " "4"" of type '" "unsigned int""'");
-  } 
-  arg4 = static_cast< unsigned int >(val4);
-  result = (InterferenceFunctionFinite2DLattice *)InterferenceFunctionFinite2DLattice::createSquare(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunctionFinite2DLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_InterferenceFunctionFinite2DLattice_createHexagonal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  unsigned int arg3 ;
-  unsigned int arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  unsigned int val3 ;
-  int ecode3 = 0 ;
-  unsigned int val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  InterferenceFunctionFinite2DLattice *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "InterferenceFunctionFinite2DLattice_createHexagonal", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "InterferenceFunctionFinite2DLattice_createHexagonal" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "InterferenceFunctionFinite2DLattice_createHexagonal" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_unsigned_SS_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "InterferenceFunctionFinite2DLattice_createHexagonal" "', argument " "3"" of type '" "unsigned int""'");
-  } 
-  arg3 = static_cast< unsigned int >(val3);
-  ecode4 = SWIG_AsVal_unsigned_SS_int(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "InterferenceFunctionFinite2DLattice_createHexagonal" "', argument " "4"" of type '" "unsigned int""'");
-  } 
-  arg4 = static_cast< unsigned int >(val4);
-  result = (InterferenceFunctionFinite2DLattice *)InterferenceFunctionFinite2DLattice::createHexagonal(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunctionFinite2DLattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_InterferenceFunctionFinite2DLattice_numberUnitCells1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   InterferenceFunctionFinite2DLattice *arg1 = (InterferenceFunctionFinite2DLattice *) 0 ;
@@ -55016,7 +54345,7 @@ SWIGINTERN PyObject *InterferenceFunctionFinite2DLattice_swiginit(PyObject *SWIG
 
 SWIGINTERN PyObject *_wrap_new_InterferenceFunctionFinite3DLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = 0 ;
+  Lattice3D *arg1 = 0 ;
   unsigned int arg2 ;
   unsigned int arg3 ;
   unsigned int arg4 ;
@@ -55032,14 +54361,14 @@ SWIGINTERN PyObject *_wrap_new_InterferenceFunctionFinite3DLattice(PyObject *SWI
   InterferenceFunctionFinite3DLattice *result = 0 ;
   
   if (!SWIG_Python_UnpackTuple(args, "new_InterferenceFunctionFinite3DLattice", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice,  0  | 0);
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice3D,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_InterferenceFunctionFinite3DLattice" "', argument " "1"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_InterferenceFunctionFinite3DLattice" "', argument " "1"" of type '" "Lattice3D const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_InterferenceFunctionFinite3DLattice" "', argument " "1"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_InterferenceFunctionFinite3DLattice" "', argument " "1"" of type '" "Lattice3D const &""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   ecode2 = SWIG_AsVal_unsigned_SS_int(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_InterferenceFunctionFinite3DLattice" "', argument " "2"" of type '" "unsigned int""'");
@@ -55055,7 +54384,7 @@ SWIGINTERN PyObject *_wrap_new_InterferenceFunctionFinite3DLattice(PyObject *SWI
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_InterferenceFunctionFinite3DLattice" "', argument " "4"" of type '" "unsigned int""'");
   } 
   arg4 = static_cast< unsigned int >(val4);
-  result = (InterferenceFunctionFinite3DLattice *)new InterferenceFunctionFinite3DLattice((Lattice const &)*arg1,arg2,arg3,arg4);
+  result = (InterferenceFunctionFinite3DLattice *)new InterferenceFunctionFinite3DLattice((Lattice3D const &)*arg1,arg2,arg3,arg4);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunctionFinite3DLattice, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -55212,7 +54541,7 @@ SWIGINTERN PyObject *_wrap_InterferenceFunctionFinite3DLattice_lattice(PyObject 
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  Lattice *result = 0 ;
+  Lattice3D *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -55221,8 +54550,8 @@ SWIGINTERN PyObject *_wrap_InterferenceFunctionFinite3DLattice_lattice(PyObject 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "InterferenceFunctionFinite3DLattice_lattice" "', argument " "1"" of type '" "InterferenceFunctionFinite3DLattice const *""'"); 
   }
   arg1 = reinterpret_cast< InterferenceFunctionFinite3DLattice * >(argp1);
-  result = (Lattice *) &((InterferenceFunctionFinite3DLattice const *)arg1)->lattice();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Lattice, 0 |  0 );
+  result = (Lattice3D *) &((InterferenceFunctionFinite3DLattice const *)arg1)->lattice();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Lattice3D, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -56884,6 +56213,58 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_ParticleLayout_weight(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParticleLayout *arg1 = (ParticleLayout *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParticleLayout, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParticleLayout_weight" "', argument " "1"" of type '" "ParticleLayout const *""'"); 
+  }
+  arg1 = reinterpret_cast< ParticleLayout * >(argp1);
+  result = (double)((ParticleLayout const *)arg1)->weight();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParticleLayout_setWeight(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParticleLayout *arg1 = (ParticleLayout *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "ParticleLayout_setWeight", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ParticleLayout, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParticleLayout_setWeight" "', argument " "1"" of type '" "ParticleLayout *""'"); 
+  }
+  arg1 = reinterpret_cast< ParticleLayout * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParticleLayout_setWeight" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setWeight(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *ParticleLayout_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -57190,7 +56571,7 @@ fail:
 SWIGINTERN PyObject *_wrap_Layer_addLayout(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Layer *arg1 = (Layer *) 0 ;
-  ILayout *arg2 = 0 ;
+  ParticleLayout *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -57203,15 +56584,15 @@ SWIGINTERN PyObject *_wrap_Layer_addLayout(PyObject *SWIGUNUSEDPARM(self), PyObj
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Layer_addLayout" "', argument " "1"" of type '" "Layer *""'"); 
   }
   arg1 = reinterpret_cast< Layer * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ILayout,  0  | 0);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ParticleLayout,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Layer_addLayout" "', argument " "2"" of type '" "ILayout const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Layer_addLayout" "', argument " "2"" of type '" "ParticleLayout const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Layer_addLayout" "', argument " "2"" of type '" "ILayout const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Layer_addLayout" "', argument " "2"" of type '" "ParticleLayout const &""'"); 
   }
-  arg2 = reinterpret_cast< ILayout * >(argp2);
-  (arg1)->addLayout((ILayout const &)*arg2);
+  arg2 = reinterpret_cast< ParticleLayout * >(argp2);
+  (arg1)->addLayout((ParticleLayout const &)*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -57248,7 +56629,7 @@ SWIGINTERN PyObject *_wrap_Layer_layouts(PyObject *SWIGUNUSEDPARM(self), PyObjec
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::vector< ILayout const *,std::allocator< ILayout const * > > > result;
+  SwigValueWrapper< std::vector< ParticleLayout const *,std::allocator< ParticleLayout const * > > > result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -57258,7 +56639,7 @@ SWIGINTERN PyObject *_wrap_Layer_layouts(PyObject *SWIGUNUSEDPARM(self), PyObjec
   }
   arg1 = reinterpret_cast< Layer * >(argp1);
   result = ((Layer const *)arg1)->layouts();
-  resultobj = SWIG_NewPointerObj((new std::vector< ILayout const *,std::allocator< ILayout const * > >(static_cast< const std::vector< ILayout const *,std::allocator< ILayout const * > >& >(result))), SWIGTYPE_p_std__vectorT_ILayout_const_p_std__allocatorT_ILayout_const_p_t_t, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new std::vector< ParticleLayout const *,std::allocator< ParticleLayout const * > >(static_cast< const std::vector< ParticleLayout const *,std::allocator< ParticleLayout const * > >& >(result))), SWIGTYPE_p_std__vectorT_ParticleLayout_const_p_std__allocatorT_ParticleLayout_const_p_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -67791,513 +67172,6 @@ SWIGINTERN PyObject *FormFactorSphereLogNormalRadius_swiginit(PyObject *SWIGUNUS
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_delete_ILatticeOrientation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILatticeOrientation *arg1 = (ILatticeOrientation *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILatticeOrientation, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ILatticeOrientation" "', argument " "1"" of type '" "ILatticeOrientation *""'"); 
-  }
-  arg1 = reinterpret_cast< ILatticeOrientation * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILatticeOrientation_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILatticeOrientation *arg1 = (ILatticeOrientation *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  ILatticeOrientation *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILatticeOrientation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILatticeOrientation_clone" "', argument " "1"" of type '" "ILatticeOrientation const *""'"); 
-  }
-  arg1 = reinterpret_cast< ILatticeOrientation * >(argp1);
-  result = (ILatticeOrientation *)((ILatticeOrientation const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ILatticeOrientation, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILatticeOrientation_usePrimitiveLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILatticeOrientation *arg1 = (ILatticeOrientation *) 0 ;
-  Lattice *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ILatticeOrientation_usePrimitiveLattice", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILatticeOrientation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILatticeOrientation_usePrimitiveLattice" "', argument " "1"" of type '" "ILatticeOrientation *""'"); 
-  }
-  arg1 = reinterpret_cast< ILatticeOrientation * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Lattice,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ILatticeOrientation_usePrimitiveLattice" "', argument " "2"" of type '" "Lattice const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ILatticeOrientation_usePrimitiveLattice" "', argument " "2"" of type '" "Lattice const &""'"); 
-  }
-  arg2 = reinterpret_cast< Lattice * >(argp2);
-  (arg1)->usePrimitiveLattice((Lattice const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ILatticeOrientation_transformation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ILatticeOrientation *arg1 = (ILatticeOrientation *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Transform3D result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ILatticeOrientation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ILatticeOrientation_transformation" "', argument " "1"" of type '" "ILatticeOrientation const *""'"); 
-  }
-  arg1 = reinterpret_cast< ILatticeOrientation * >(argp1);
-  result = ((ILatticeOrientation const *)arg1)->transformation();
-  resultobj = SWIG_NewPointerObj((new Transform3D(static_cast< const Transform3D& >(result))), SWIGTYPE_p_Transform3D, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *ILatticeOrientation_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_ILatticeOrientation, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_new_MillerIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double arg3 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  MillerIndex *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "new_MillerIndex", 3, 3, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_MillerIndex" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_MillerIndex" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_MillerIndex" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (MillerIndex *)new MillerIndex(arg1,arg2,arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MillerIndex, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MillerIndex_h_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndex *arg1 = (MillerIndex *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MillerIndex_h_set", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndex, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndex_h_set" "', argument " "1"" of type '" "MillerIndex *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndex * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MillerIndex_h_set" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  if (arg1) (arg1)->h = arg2;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MillerIndex_h_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndex *arg1 = (MillerIndex *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndex, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndex_h_get" "', argument " "1"" of type '" "MillerIndex *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndex * >(argp1);
-  result = (double) ((arg1)->h);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MillerIndex_k_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndex *arg1 = (MillerIndex *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MillerIndex_k_set", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndex, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndex_k_set" "', argument " "1"" of type '" "MillerIndex *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndex * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MillerIndex_k_set" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  if (arg1) (arg1)->k = arg2;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MillerIndex_k_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndex *arg1 = (MillerIndex *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndex, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndex_k_get" "', argument " "1"" of type '" "MillerIndex *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndex * >(argp1);
-  result = (double) ((arg1)->k);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MillerIndex_l_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndex *arg1 = (MillerIndex *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MillerIndex_l_set", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndex, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndex_l_set" "', argument " "1"" of type '" "MillerIndex *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndex * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MillerIndex_l_set" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  if (arg1) (arg1)->l = arg2;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MillerIndex_l_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndex *arg1 = (MillerIndex *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndex, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndex_l_get" "', argument " "1"" of type '" "MillerIndex *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndex * >(argp1);
-  result = (double) ((arg1)->l);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_MillerIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndex *arg1 = (MillerIndex *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndex, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_MillerIndex" "', argument " "1"" of type '" "MillerIndex *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndex * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *MillerIndex_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_MillerIndex, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *MillerIndex_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
-SWIGINTERN PyObject *_wrap_new_MillerIndexOrientation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndexOrientation::QComponent arg1 ;
-  SwigValueWrapper< MillerIndex > arg2 ;
-  MillerIndexOrientation::QComponent arg3 ;
-  SwigValueWrapper< MillerIndex > arg4 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  int val3 ;
-  int ecode3 = 0 ;
-  void *argp4 ;
-  int res4 = 0 ;
-  PyObject *swig_obj[4] ;
-  MillerIndexOrientation *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "new_MillerIndexOrientation", 4, 4, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_MillerIndexOrientation" "', argument " "1"" of type '" "MillerIndexOrientation::QComponent""'");
-  } 
-  arg1 = static_cast< MillerIndexOrientation::QComponent >(val1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_MillerIndex,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_MillerIndexOrientation" "', argument " "2"" of type '" "MillerIndex""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_MillerIndexOrientation" "', argument " "2"" of type '" "MillerIndex""'");
-    } else {
-      MillerIndex * temp = reinterpret_cast< MillerIndex * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  ecode3 = SWIG_AsVal_int(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_MillerIndexOrientation" "', argument " "3"" of type '" "MillerIndexOrientation::QComponent""'");
-  } 
-  arg3 = static_cast< MillerIndexOrientation::QComponent >(val3);
-  {
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_MillerIndex,  0  | 0);
-    if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "new_MillerIndexOrientation" "', argument " "4"" of type '" "MillerIndex""'"); 
-    }  
-    if (!argp4) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_MillerIndexOrientation" "', argument " "4"" of type '" "MillerIndex""'");
-    } else {
-      MillerIndex * temp = reinterpret_cast< MillerIndex * >(argp4);
-      arg4 = *temp;
-      if (SWIG_IsNewObj(res4)) delete temp;
-    }
-  }
-  result = (MillerIndexOrientation *)new MillerIndexOrientation(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MillerIndexOrientation, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_MillerIndexOrientation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndexOrientation *arg1 = (MillerIndexOrientation *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndexOrientation, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_MillerIndexOrientation" "', argument " "1"" of type '" "MillerIndexOrientation *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndexOrientation * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MillerIndexOrientation_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndexOrientation *arg1 = (MillerIndexOrientation *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  MillerIndexOrientation *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndexOrientation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndexOrientation_clone" "', argument " "1"" of type '" "MillerIndexOrientation const *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndexOrientation * >(argp1);
-  result = (MillerIndexOrientation *)((MillerIndexOrientation const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MillerIndexOrientation, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MillerIndexOrientation_usePrimitiveLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndexOrientation *arg1 = (MillerIndexOrientation *) 0 ;
-  Lattice *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MillerIndexOrientation_usePrimitiveLattice", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndexOrientation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndexOrientation_usePrimitiveLattice" "', argument " "1"" of type '" "MillerIndexOrientation *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndexOrientation * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Lattice,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MillerIndexOrientation_usePrimitiveLattice" "', argument " "2"" of type '" "Lattice const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MillerIndexOrientation_usePrimitiveLattice" "', argument " "2"" of type '" "Lattice const &""'"); 
-  }
-  arg2 = reinterpret_cast< Lattice * >(argp2);
-  (arg1)->usePrimitiveLattice((Lattice const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MillerIndexOrientation_transformation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MillerIndexOrientation *arg1 = (MillerIndexOrientation *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Transform3D result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MillerIndexOrientation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MillerIndexOrientation_transformation" "', argument " "1"" of type '" "MillerIndexOrientation const *""'"); 
-  }
-  arg1 = reinterpret_cast< MillerIndexOrientation * >(argp1);
-  result = ((MillerIndexOrientation const *)arg1)->transformation();
-  resultobj = SWIG_NewPointerObj((new Transform3D(static_cast< const Transform3D& >(result))), SWIGTYPE_p_Transform3D, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *MillerIndexOrientation_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_MillerIndexOrientation, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *MillerIndexOrientation_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
 SWIGINTERN PyObject *_wrap_delete_ISelectionRule(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ISelectionRule *arg1 = (ISelectionRule *) 0 ;
@@ -68518,20 +67392,7 @@ SWIGINTERN PyObject *SimpleSelectionRule_swiginit(PyObject *SWIGUNUSEDPARM(self)
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  Lattice *result = 0 ;
-  
-  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
-  result = (Lattice *)new Lattice();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Lattice, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_Lattice3D__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   kvector_t arg1 ;
   kvector_t arg2 ;
@@ -68542,16 +67403,16 @@ SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_1(PyObject *SWIGUNUSEDPARM(self), P
   int res2 = 0 ;
   void *argp3 ;
   int res3 = 0 ;
-  Lattice *result = 0 ;
+  Lattice3D *result = 0 ;
   
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   {
     res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
     if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Lattice" "', argument " "1"" of type '" "kvector_t const""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Lattice3D" "', argument " "1"" of type '" "kvector_t const""'"); 
     }  
     if (!argp1) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Lattice" "', argument " "1"" of type '" "kvector_t const""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Lattice3D" "', argument " "1"" of type '" "kvector_t const""'");
     } else {
       kvector_t * temp = reinterpret_cast< kvector_t * >(argp1);
       arg1 = *temp;
@@ -68561,10 +67422,10 @@ SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_1(PyObject *SWIGUNUSEDPARM(self), P
   {
     res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_Lattice" "', argument " "2"" of type '" "kvector_t const""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_Lattice3D" "', argument " "2"" of type '" "kvector_t const""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Lattice" "', argument " "2"" of type '" "kvector_t const""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Lattice3D" "', argument " "2"" of type '" "kvector_t const""'");
     } else {
       kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
       arg2 = *temp;
@@ -68574,65 +67435,62 @@ SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_1(PyObject *SWIGUNUSEDPARM(self), P
   {
     res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
     if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_Lattice" "', argument " "3"" of type '" "kvector_t const""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_Lattice3D" "', argument " "3"" of type '" "kvector_t const""'"); 
     }  
     if (!argp3) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Lattice" "', argument " "3"" of type '" "kvector_t const""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Lattice3D" "', argument " "3"" of type '" "kvector_t const""'");
     } else {
       kvector_t * temp = reinterpret_cast< kvector_t * >(argp3);
       arg3 = *temp;
       if (SWIG_IsNewObj(res3)) delete temp;
     }
   }
-  result = (Lattice *)new Lattice(arg1,arg2,arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Lattice, SWIG_POINTER_NEW |  0 );
+  result = (Lattice3D *)new Lattice3D(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Lattice3D, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_new_Lattice__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_Lattice3D__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = 0 ;
+  Lattice3D *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  Lattice *result = 0 ;
+  Lattice3D *result = 0 ;
   
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice,  0  | 0);
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice3D,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Lattice" "', argument " "1"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Lattice3D" "', argument " "1"" of type '" "Lattice3D const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Lattice" "', argument " "1"" of type '" "Lattice const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Lattice3D" "', argument " "1"" of type '" "Lattice3D const &""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  result = (Lattice *)new Lattice((Lattice const &)*arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Lattice, SWIG_POINTER_NEW |  0 );
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
+  result = (Lattice3D *)new Lattice3D((Lattice3D const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Lattice3D, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_new_Lattice(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_Lattice3D(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_Lattice", 0, 3, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_Lattice3D", 0, 3, argv))) SWIG_fail;
   --argc;
-  if (argc == 0) {
-    return _wrap_new_Lattice__SWIG_0(self, argc, argv);
-  }
   if (argc == 1) {
     int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Lattice, SWIG_POINTER_NO_NULL | 0);
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Lattice3D, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_new_Lattice__SWIG_2(self, argc, argv);
+      return _wrap_new_Lattice3D__SWIG_1(self, argc, argv);
     }
   }
   if (argc == 3) {
@@ -68646,36 +67504,35 @@ SWIGINTERN PyObject *_wrap_new_Lattice(PyObject *self, PyObject *args) {
         int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_NO_NULL | 0);
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_new_Lattice__SWIG_1(self, argc, argv);
+          return _wrap_new_Lattice3D__SWIG_0(self, argc, argv);
         }
       }
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Lattice'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Lattice3D'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Lattice::Lattice()\n"
-    "    Lattice::Lattice(kvector_t const,kvector_t const,kvector_t const)\n"
-    "    Lattice::Lattice(Lattice const &)\n");
+    "    Lattice3D::Lattice3D(kvector_t const,kvector_t const,kvector_t const)\n"
+    "    Lattice3D::Lattice3D(Lattice3D const &)\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_Lattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_Lattice3D(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, SWIG_POINTER_DISOWN |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Lattice" "', argument " "1"" of type '" "Lattice *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Lattice3D" "', argument " "1"" of type '" "Lattice3D *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -68684,9 +67541,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   INodeVisitor *arg2 = (INodeVisitor *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -68694,18 +67551,18 @@ SWIGINTERN PyObject *_wrap_Lattice_accept(PyObject *SWIGUNUSEDPARM(self), PyObje
   int res2 = 0 ;
   PyObject *swig_obj[2] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_accept", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "Lattice3D_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_accept" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_accept" "', argument " "1"" of type '" "Lattice3D const *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice3D_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
   }
   arg2 = reinterpret_cast< INodeVisitor * >(argp2);
-  ((Lattice const *)arg1)->accept(arg2);
+  ((Lattice3D const *)arg1)->accept(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -68713,54 +67570,54 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_transformed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_transformed(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   Transform3D *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject *swig_obj[2] ;
-  SwigValueWrapper< Lattice > result;
+  SwigValueWrapper< Lattice3D > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_transformed", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "Lattice3D_transformed", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_transformed" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_transformed" "', argument " "1"" of type '" "Lattice3D const *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Transform3D,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_transformed" "', argument " "2"" of type '" "Transform3D const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice3D_transformed" "', argument " "2"" of type '" "Transform3D const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_transformed" "', argument " "2"" of type '" "Transform3D const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice3D_transformed" "', argument " "2"" of type '" "Transform3D const &""'"); 
   }
   arg2 = reinterpret_cast< Transform3D * >(argp2);
-  result = ((Lattice const *)arg1)->transformed((Transform3D const &)*arg2);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  result = ((Lattice3D const *)arg1)->transformed((Transform3D const &)*arg2);
+  resultobj = SWIG_NewPointerObj((new Lattice3D(static_cast< const Lattice3D& >(result))), SWIGTYPE_p_Lattice3D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_initialize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_initialize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_initialize" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_initialize" "', argument " "1"" of type '" "Lattice3D *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  ((Lattice const *)arg1)->initialize();
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
+  (arg1)->initialize();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -68768,9 +67625,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_getBasisVectorA(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_getBasisVectorA(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
@@ -68778,12 +67635,12 @@ SWIGINTERN PyObject *_wrap_Lattice_getBasisVectorA(PyObject *SWIGUNUSEDPARM(self
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_getBasisVectorA" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_getBasisVectorA" "', argument " "1"" of type '" "Lattice3D const *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  result = ((Lattice const *)arg1)->getBasisVectorA();
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
+  result = ((Lattice3D const *)arg1)->getBasisVectorA();
   resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -68791,9 +67648,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_getBasisVectorB(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_getBasisVectorB(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
@@ -68801,12 +67658,12 @@ SWIGINTERN PyObject *_wrap_Lattice_getBasisVectorB(PyObject *SWIGUNUSEDPARM(self
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_getBasisVectorB" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_getBasisVectorB" "', argument " "1"" of type '" "Lattice3D const *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  result = ((Lattice const *)arg1)->getBasisVectorB();
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
+  result = ((Lattice3D const *)arg1)->getBasisVectorB();
   resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -68814,9 +67671,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_getBasisVectorC(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_getBasisVectorC(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
@@ -68824,12 +67681,12 @@ SWIGINTERN PyObject *_wrap_Lattice_getBasisVectorC(PyObject *SWIGUNUSEDPARM(self
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_getBasisVectorC" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_getBasisVectorC" "', argument " "1"" of type '" "Lattice3D const *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  result = ((Lattice const *)arg1)->getBasisVectorC();
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
+  result = ((Lattice3D const *)arg1)->getBasisVectorC();
   resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -68837,78 +67694,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_resetBasis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_getMillerDirection(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
-  kvector_t arg2 ;
-  kvector_t arg3 ;
-  kvector_t arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  void *argp3 ;
-  int res3 = 0 ;
-  void *argp4 ;
-  int res4 = 0 ;
-  PyObject *swig_obj[4] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_resetBasis", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_resetBasis" "', argument " "1"" of type '" "Lattice *""'"); 
-  }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_resetBasis" "', argument " "2"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_resetBasis" "', argument " "2"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  {
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Lattice_resetBasis" "', argument " "3"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp3) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_resetBasis" "', argument " "3"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp3);
-      arg3 = *temp;
-      if (SWIG_IsNewObj(res3)) delete temp;
-    }
-  }
-  {
-    res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "Lattice_resetBasis" "', argument " "4"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp4) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_resetBasis" "', argument " "4"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp4);
-      arg4 = *temp;
-      if (SWIG_IsNewObj(res4)) delete temp;
-    }
-  }
-  (arg1)->resetBasis(arg2,arg3,arg4);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Lattice_getMillerDirection(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   double arg2 ;
   double arg3 ;
   double arg4 ;
@@ -68923,28 +67711,28 @@ SWIGINTERN PyObject *_wrap_Lattice_getMillerDirection(PyObject *SWIGUNUSEDPARM(s
   PyObject *swig_obj[4] ;
   kvector_t result;
   
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_getMillerDirection", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "Lattice3D_getMillerDirection", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_getMillerDirection" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_getMillerDirection" "', argument " "1"" of type '" "Lattice3D const *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Lattice_getMillerDirection" "', argument " "2"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Lattice3D_getMillerDirection" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
   ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Lattice_getMillerDirection" "', argument " "3"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Lattice3D_getMillerDirection" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
   ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
   if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Lattice_getMillerDirection" "', argument " "4"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Lattice3D_getMillerDirection" "', argument " "4"" of type '" "double""'");
   } 
   arg4 = static_cast< double >(val4);
-  result = ((Lattice const *)arg1)->getMillerDirection(arg2,arg3,arg4);
+  result = ((Lattice3D const *)arg1)->getMillerDirection(arg2,arg3,arg4);
   resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -68952,9 +67740,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_volume(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_unitCellVolume(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
@@ -68962,12 +67750,12 @@ SWIGINTERN PyObject *_wrap_Lattice_volume(PyObject *SWIGUNUSEDPARM(self), PyObje
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_volume" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_unitCellVolume" "', argument " "1"" of type '" "Lattice3D const *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  result = (double)((Lattice const *)arg1)->volume();
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
+  result = (double)((Lattice3D const *)arg1)->unitCellVolume();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -68975,9 +67763,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_getReciprocalLatticeBasis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_getReciprocalLatticeBasis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   kvector_t *arg2 = 0 ;
   kvector_t *arg3 = 0 ;
   kvector_t *arg4 = 0 ;
@@ -68991,37 +67779,37 @@ SWIGINTERN PyObject *_wrap_Lattice_getReciprocalLatticeBasis(PyObject *SWIGUNUSE
   int res4 = 0 ;
   PyObject *swig_obj[4] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_getReciprocalLatticeBasis", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "Lattice3D_getReciprocalLatticeBasis", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_getReciprocalLatticeBasis" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_getReciprocalLatticeBasis" "', argument " "1"" of type '" "Lattice3D const *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_getReciprocalLatticeBasis" "', argument " "2"" of type '" "kvector_t &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice3D_getReciprocalLatticeBasis" "', argument " "2"" of type '" "kvector_t &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_getReciprocalLatticeBasis" "', argument " "2"" of type '" "kvector_t &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice3D_getReciprocalLatticeBasis" "', argument " "2"" of type '" "kvector_t &""'"); 
   }
   arg2 = reinterpret_cast< kvector_t * >(argp2);
   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_BasicVector3DT_double_t,  0 );
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Lattice_getReciprocalLatticeBasis" "', argument " "3"" of type '" "kvector_t &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Lattice3D_getReciprocalLatticeBasis" "', argument " "3"" of type '" "kvector_t &""'"); 
   }
   if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_getReciprocalLatticeBasis" "', argument " "3"" of type '" "kvector_t &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice3D_getReciprocalLatticeBasis" "', argument " "3"" of type '" "kvector_t &""'"); 
   }
   arg3 = reinterpret_cast< kvector_t * >(argp3);
   res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_BasicVector3DT_double_t,  0 );
   if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "Lattice_getReciprocalLatticeBasis" "', argument " "4"" of type '" "kvector_t &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "Lattice3D_getReciprocalLatticeBasis" "', argument " "4"" of type '" "kvector_t &""'"); 
   }
   if (!argp4) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_getReciprocalLatticeBasis" "', argument " "4"" of type '" "kvector_t &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice3D_getReciprocalLatticeBasis" "', argument " "4"" of type '" "kvector_t &""'"); 
   }
   arg4 = reinterpret_cast< kvector_t * >(argp4);
-  ((Lattice const *)arg1)->getReciprocalLatticeBasis(*arg2,*arg3,*arg4);
+  ((Lattice3D const *)arg1)->getReciprocalLatticeBasis(*arg2,*arg3,*arg4);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -69029,9 +67817,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_getNearestLatticeVectorCoordinates(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_getNearestReciprocalLatticeVectorCoordinates(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   kvector_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -69040,26 +67828,26 @@ SWIGINTERN PyObject *_wrap_Lattice_getNearestLatticeVectorCoordinates(PyObject *
   PyObject *swig_obj[2] ;
   SwigValueWrapper< BasicVector3D< int > > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_getNearestLatticeVectorCoordinates", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "Lattice3D_getNearestReciprocalLatticeVectorCoordinates", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_getNearestLatticeVectorCoordinates" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_getNearestReciprocalLatticeVectorCoordinates" "', argument " "1"" of type '" "Lattice3D const *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   {
     res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_getNearestLatticeVectorCoordinates" "', argument " "2"" of type '" "kvector_t const""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice3D_getNearestReciprocalLatticeVectorCoordinates" "', argument " "2"" of type '" "kvector_t const""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_getNearestLatticeVectorCoordinates" "', argument " "2"" of type '" "kvector_t const""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice3D_getNearestReciprocalLatticeVectorCoordinates" "', argument " "2"" of type '" "kvector_t const""'");
     } else {
       kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
       arg2 = *temp;
       if (SWIG_IsNewObj(res2)) delete temp;
     }
   }
-  result = ((Lattice const *)arg1)->getNearestLatticeVectorCoordinates(arg2);
+  result = ((Lattice3D const *)arg1)->getNearestReciprocalLatticeVectorCoordinates(arg2);
   resultobj = SWIG_NewPointerObj((new ivector_t(static_cast< const ivector_t& >(result))), SWIGTYPE_p_BasicVector3DT_int_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -69067,47 +67855,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_getNearestReciprocalLatticeVectorCoordinates(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_reciprocalLatticeVectorsWithinRadius(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
-  kvector_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< BasicVector3D< int > > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_getNearestReciprocalLatticeVectorCoordinates", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_getNearestReciprocalLatticeVectorCoordinates" "', argument " "1"" of type '" "Lattice const *""'"); 
-  }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_getNearestReciprocalLatticeVectorCoordinates" "', argument " "2"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_getNearestReciprocalLatticeVectorCoordinates" "', argument " "2"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  result = ((Lattice const *)arg1)->getNearestReciprocalLatticeVectorCoordinates(arg2);
-  resultobj = SWIG_NewPointerObj((new ivector_t(static_cast< const ivector_t& >(result))), SWIGTYPE_p_BasicVector3DT_int_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Lattice_reciprocalLatticeVectorsWithinRadius(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   kvector_t arg2 ;
   double arg3 ;
   void *argp1 = 0 ;
@@ -69119,19 +67869,19 @@ SWIGINTERN PyObject *_wrap_Lattice_reciprocalLatticeVectorsWithinRadius(PyObject
   PyObject *swig_obj[3] ;
   std::vector< kvector_t,std::allocator< kvector_t > > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_reciprocalLatticeVectorsWithinRadius", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "Lattice3D_reciprocalLatticeVectorsWithinRadius", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_reciprocalLatticeVectorsWithinRadius" "', argument " "1"" of type '" "Lattice const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_reciprocalLatticeVectorsWithinRadius" "', argument " "1"" of type '" "Lattice3D const *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   {
     res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_reciprocalLatticeVectorsWithinRadius" "', argument " "2"" of type '" "kvector_t const""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice3D_reciprocalLatticeVectorsWithinRadius" "', argument " "2"" of type '" "kvector_t const""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_reciprocalLatticeVectorsWithinRadius" "', argument " "2"" of type '" "kvector_t const""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice3D_reciprocalLatticeVectorsWithinRadius" "', argument " "2"" of type '" "kvector_t const""'");
     } else {
       kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
       arg2 = *temp;
@@ -69140,10 +67890,10 @@ SWIGINTERN PyObject *_wrap_Lattice_reciprocalLatticeVectorsWithinRadius(PyObject
   }
   ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Lattice_reciprocalLatticeVectorsWithinRadius" "', argument " "3"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Lattice3D_reciprocalLatticeVectorsWithinRadius" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  result = ((Lattice const *)arg1)->reciprocalLatticeVectorsWithinRadius(arg2,arg3);
+  result = ((Lattice3D const *)arg1)->reciprocalLatticeVectorsWithinRadius(arg2,arg3);
   resultobj = swig::from(static_cast< std::vector< BasicVector3D< double >,std::allocator< BasicVector3D< double > > > >(result));
   return resultobj;
 fail:
@@ -69151,9 +67901,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_setSelectionRule(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Lattice3D_setSelectionRule(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
+  Lattice3D *arg1 = (Lattice3D *) 0 ;
   ISelectionRule *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -69161,18 +67911,18 @@ SWIGINTERN PyObject *_wrap_Lattice_setSelectionRule(PyObject *SWIGUNUSEDPARM(sel
   int res2 = 0 ;
   PyObject *swig_obj[2] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_setSelectionRule", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "Lattice3D_setSelectionRule", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice3D, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_setSelectionRule" "', argument " "1"" of type '" "Lattice *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice3D_setSelectionRule" "', argument " "1"" of type '" "Lattice3D *""'"); 
   }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
+  arg1 = reinterpret_cast< Lattice3D * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ISelectionRule,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice_setSelectionRule" "', argument " "2"" of type '" "ISelectionRule const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Lattice3D_setSelectionRule" "', argument " "2"" of type '" "ISelectionRule const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice_setSelectionRule" "', argument " "2"" of type '" "ISelectionRule const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Lattice3D_setSelectionRule" "', argument " "2"" of type '" "ISelectionRule const &""'"); 
   }
   arg2 = reinterpret_cast< ISelectionRule * >(argp2);
   (arg1)->setSelectionRule((ISelectionRule const &)*arg2);
@@ -69183,202 +67933,14 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Lattice_createCubicLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject *swig_obj[1] ;
-  SwigValueWrapper< Lattice > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Lattice_createCubicLattice" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = Lattice::createCubicLattice(arg1);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Lattice_createFCCLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject *swig_obj[1] ;
-  SwigValueWrapper< Lattice > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Lattice_createFCCLattice" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = Lattice::createFCCLattice(arg1);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Lattice_createHexagonalLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< Lattice > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_createHexagonalLattice", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Lattice_createHexagonalLattice" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Lattice_createHexagonalLattice" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = Lattice::createHexagonalLattice(arg1,arg2);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Lattice_createHCPLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< Lattice > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_createHCPLattice", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Lattice_createHCPLattice" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Lattice_createHCPLattice" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = Lattice::createHCPLattice(arg1,arg2);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Lattice_createTetragonalLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< Lattice > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_createTetragonalLattice", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Lattice_createTetragonalLattice" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Lattice_createTetragonalLattice" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = Lattice::createTetragonalLattice(arg1,arg2);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Lattice_createBCTLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< Lattice > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Lattice_createBCTLattice", 2, 2, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Lattice_createBCTLattice" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Lattice_createBCTLattice" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = Lattice::createBCTLattice(arg1,arg2);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Lattice_onChange(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Lattice *arg1 = (Lattice *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Lattice, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Lattice_onChange" "', argument " "1"" of type '" "Lattice *""'"); 
-  }
-  arg1 = reinterpret_cast< Lattice * >(argp1);
-  (arg1)->onChange();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *Lattice_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *Lattice3D_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_Lattice, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_Lattice3D, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *Lattice_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *Lattice3D_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
 
@@ -70302,33 +68864,76 @@ SWIGINTERN PyObject *HexagonalLattice_swiginit(PyObject *SWIGUNUSEDPARM(self), P
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_createCubicLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< Lattice3D > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createCubicLattice" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = bake::createCubicLattice(arg1);
+  resultobj = SWIG_NewPointerObj((new Lattice3D(static_cast< const Lattice3D& >(result))), SWIGTYPE_p_Lattice3D, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_createFCCLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   double arg1 ;
-  ILatticeOrientation *arg2 = 0 ;
   double val1 ;
   int ecode1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  SwigValueWrapper< Lattice > result;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< Lattice3D > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "createFCCLattice", 2, 2, swig_obj)) SWIG_fail;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
   ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createFCCLattice" "', argument " "1"" of type '" "double""'");
   } 
   arg1 = static_cast< double >(val1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ILatticeOrientation,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "createFCCLattice" "', argument " "2"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createFCCLattice" "', argument " "2"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  arg2 = reinterpret_cast< ILatticeOrientation * >(argp2);
-  result = LatticeUtils::createFCCLattice(arg1,(ILatticeOrientation const &)*arg2);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  result = bake::createFCCLattice(arg1);
+  resultobj = SWIG_NewPointerObj((new Lattice3D(static_cast< const Lattice3D& >(result))), SWIGTYPE_p_Lattice3D, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_createHexagonalLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  SwigValueWrapper< Lattice3D > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "createHexagonalLattice", 2, 2, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createHexagonalLattice" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "createHexagonalLattice" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = bake::createHexagonalLattice(arg1,arg2);
+  resultobj = SWIG_NewPointerObj((new Lattice3D(static_cast< const Lattice3D& >(result))), SWIGTYPE_p_Lattice3D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -70339,17 +68944,14 @@ SWIGINTERN PyObject *_wrap_createHCPLattice(PyObject *SWIGUNUSEDPARM(self), PyOb
   PyObject *resultobj = 0;
   double arg1 ;
   double arg2 ;
-  ILatticeOrientation *arg3 = 0 ;
   double val1 ;
   int ecode1 = 0 ;
   double val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject *swig_obj[3] ;
-  SwigValueWrapper< Lattice > result;
+  PyObject *swig_obj[2] ;
+  SwigValueWrapper< Lattice3D > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "createHCPLattice", 3, 3, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "createHCPLattice", 2, 2, swig_obj)) SWIG_fail;
   ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createHCPLattice" "', argument " "1"" of type '" "double""'");
@@ -70360,16 +68962,38 @@ SWIGINTERN PyObject *_wrap_createHCPLattice(PyObject *SWIGUNUSEDPARM(self), PyOb
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "createHCPLattice" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ILatticeOrientation,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "createHCPLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createHCPLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  arg3 = reinterpret_cast< ILatticeOrientation * >(argp3);
-  result = LatticeUtils::createHCPLattice(arg1,arg2,(ILatticeOrientation const &)*arg3);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  result = bake::createHCPLattice(arg1,arg2);
+  resultobj = SWIG_NewPointerObj((new Lattice3D(static_cast< const Lattice3D& >(result))), SWIGTYPE_p_Lattice3D, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_createTetragonalLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  SwigValueWrapper< Lattice3D > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "createTetragonalLattice", 2, 2, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createTetragonalLattice" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "createTetragonalLattice" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = bake::createTetragonalLattice(arg1,arg2);
+  resultobj = SWIG_NewPointerObj((new Lattice3D(static_cast< const Lattice3D& >(result))), SWIGTYPE_p_Lattice3D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -70380,17 +69004,14 @@ SWIGINTERN PyObject *_wrap_createBCTLattice(PyObject *SWIGUNUSEDPARM(self), PyOb
   PyObject *resultobj = 0;
   double arg1 ;
   double arg2 ;
-  ILatticeOrientation *arg3 = 0 ;
   double val1 ;
   int ecode1 = 0 ;
   double val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject *swig_obj[3] ;
-  SwigValueWrapper< Lattice > result;
+  PyObject *swig_obj[2] ;
+  SwigValueWrapper< Lattice3D > result;
   
-  if (!SWIG_Python_UnpackTuple(args, "createBCTLattice", 3, 3, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "createBCTLattice", 2, 2, swig_obj)) SWIG_fail;
   ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "createBCTLattice" "', argument " "1"" of type '" "double""'");
@@ -70401,16 +69022,8 @@ SWIGINTERN PyObject *_wrap_createBCTLattice(PyObject *SWIGUNUSEDPARM(self), PyOb
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "createBCTLattice" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_ILatticeOrientation,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "createBCTLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createBCTLattice" "', argument " "3"" of type '" "ILatticeOrientation const &""'"); 
-  }
-  arg3 = reinterpret_cast< ILatticeOrientation * >(argp3);
-  result = LatticeUtils::createBCTLattice(arg1,arg2,(ILatticeOrientation const &)*arg3);
-  resultobj = SWIG_NewPointerObj((new Lattice(static_cast< const Lattice& >(result))), SWIGTYPE_p_Lattice, SWIG_POINTER_OWN |  0 );
+  result = bake::createBCTLattice(arg1,arg2);
+  resultobj = SWIG_NewPointerObj((new Lattice3D(static_cast< const Lattice3D& >(result))), SWIGTYPE_p_Lattice3D, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -72700,8 +71313,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "RotationEuler_swigregister", RotationEuler_swigregister, METH_O, NULL},
 	 { "RotationEuler_swiginit", RotationEuler_swiginit, METH_VARARGS, NULL},
 	 { "new_FormFactorCrystal", _wrap_new_FormFactorCrystal, METH_VARARGS, "\n"
-		"FormFactorCrystal(Lattice lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor, double position_variance=0.0)\n"
-		"FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)\n"
+		"FormFactorCrystal(Lattice3D lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor, double position_variance=0.0)\n"
+		"FormFactorCrystal::FormFactorCrystal(const Lattice3D &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)\n"
 		"\n"
 		""},
 	 { "delete_FormFactorCrystal", _wrap_delete_FormFactorCrystal, METH_O, "\n"
@@ -72879,32 +71492,9 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "IAbstractParticle_swigregister", IAbstractParticle_swigregister, METH_O, NULL},
-	 { "IClusteredParticles_clone", _wrap_IClusteredParticles_clone, METH_O, "\n"
-		"IClusteredParticles_clone(IClusteredParticles self) -> IClusteredParticles\n"
-		"IClusteredParticles* IClusteredParticles::clone() const override=0\n"
-		"\n"
-		"Returns a clone of this  ISample object. \n"
-		"\n"
-		""},
-	 { "IClusteredParticles_createTotalFormFactor", _wrap_IClusteredParticles_createTotalFormFactor, METH_VARARGS, "\n"
-		"IClusteredParticles_createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor\n"
-		"virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0\n"
-		"\n"
-		"Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself \n"
-		"\n"
-		""},
-	 { "IClusteredParticles_homogeneousRegions", _wrap_IClusteredParticles_homogeneousRegions, METH_O, "\n"
-		"IClusteredParticles_homogeneousRegions(IClusteredParticles self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >\n"
-		"virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0\n"
-		"\n"
-		"Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume \n"
-		"\n"
-		""},
-	 { "delete_IClusteredParticles", _wrap_delete_IClusteredParticles, METH_O, "delete_IClusteredParticles(IClusteredParticles self)"},
-	 { "IClusteredParticles_swigregister", IClusteredParticles_swigregister, METH_O, NULL},
 	 { "new_Crystal", _wrap_new_Crystal, METH_VARARGS, "\n"
-		"new_Crystal(IParticle lattice_basis, Lattice lattice) -> Crystal\n"
-		"Crystal::Crystal(const IParticle &lattice_basis, const Lattice &lattice)\n"
+		"Crystal(IParticle basis, Lattice3D lattice, double position_variance=0)\n"
+		"Crystal::Crystal(const IParticle &basis, const Lattice3D &lattice, double position_variance=0)\n"
 		"\n"
 		""},
 	 { "delete_Crystal", _wrap_delete_Crystal, METH_O, "\n"
@@ -72926,26 +71516,17 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Crystal_createTotalFormFactor", _wrap_Crystal_createTotalFormFactor, METH_VARARGS, "\n"
 		"Crystal_createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor\n"
-		"IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const override final\n"
-		"\n"
-		"Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself \n"
+		"IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const\n"
 		"\n"
 		""},
 	 { "Crystal_homogeneousRegions", _wrap_Crystal_homogeneousRegions, METH_O, "\n"
 		"Crystal_homogeneousRegions(Crystal self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >\n"
-		"std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const override final\n"
-		"\n"
-		"Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume \n"
+		"std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const\n"
 		"\n"
 		""},
 	 { "Crystal_transformedLattice", _wrap_Crystal_transformedLattice, METH_VARARGS, "\n"
-		"Crystal_transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice\n"
-		"Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const\n"
-		"\n"
-		""},
-	 { "Crystal_setPositionVariance", _wrap_Crystal_setPositionVariance, METH_VARARGS, "\n"
-		"Crystal_setPositionVariance(Crystal self, double position_variance)\n"
-		"void Crystal::setPositionVariance(double position_variance)\n"
+		"Crystal_transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice3D\n"
+		"Lattice3D Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const\n"
 		"\n"
 		""},
 	 { "Crystal_getChildren", _wrap_Crystal_getChildren, METH_O, "\n"
@@ -73069,8 +71650,8 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IParticle_swigregister", IParticle_swigregister, METH_O, NULL},
 	 { "new_MesoCrystal", _wrap_new_MesoCrystal, METH_VARARGS, "\n"
-		"new_MesoCrystal(IClusteredParticles particle_structure, IFormFactor form_factor) -> MesoCrystal\n"
-		"MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, const IFormFactor &form_factor)\n"
+		"new_MesoCrystal(Crystal particle_structure, IFormFactor form_factor) -> MesoCrystal\n"
+		"MesoCrystal::MesoCrystal(const Crystal &particle_structure, const IFormFactor &form_factor)\n"
 		"\n"
 		""},
 	 { "delete_MesoCrystal", _wrap_delete_MesoCrystal, METH_O, "\n"
@@ -73983,73 +72564,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_FTDistribution2DVoigt", _wrap_delete_FTDistribution2DVoigt, METH_O, "delete_FTDistribution2DVoigt(FTDistribution2DVoigt self)"},
 	 { "FTDistribution2DVoigt_swigregister", FTDistribution2DVoigt_swigregister, METH_O, NULL},
 	 { "FTDistribution2DVoigt_swiginit", FTDistribution2DVoigt_swiginit, METH_VARARGS, NULL},
-	 { "delete_ILayout", _wrap_delete_ILayout, METH_O, "\n"
-		"delete_ILayout(ILayout self)\n"
-		"ILayout::~ILayout()\n"
-		"\n"
-		""},
-	 { "ILayout_clone", _wrap_ILayout_clone, METH_O, "\n"
-		"ILayout_clone(ILayout self) -> ILayout\n"
-		"virtual ILayout* ILayout::clone() const =0\n"
-		"\n"
-		"Returns a clone of this  ISample object. \n"
-		"\n"
-		""},
-	 { "ILayout_accept", _wrap_ILayout_accept, METH_VARARGS, "\n"
-		"ILayout_accept(ILayout self, INodeVisitor * visitor)\n"
-		"virtual void ILayout::accept(INodeVisitor *visitor) const =0\n"
-		"\n"
-		""},
-	 { "ILayout_particles", _wrap_ILayout_particles, METH_O, "\n"
-		"ILayout_particles(ILayout self) -> SafePointerVector< IParticle >\n"
-		"virtual SafePointerVector<IParticle> ILayout::particles() const =0\n"
-		"\n"
-		"Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection \n"
-		"\n"
-		""},
-	 { "ILayout_interferenceFunction", _wrap_ILayout_interferenceFunction, METH_O, "\n"
-		"ILayout_interferenceFunction(ILayout self) -> IInterferenceFunction\n"
-		"virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0\n"
-		"\n"
-		"Returns the interference function. \n"
-		"\n"
-		""},
-	 { "ILayout_getTotalAbundance", _wrap_ILayout_getTotalAbundance, METH_O, "\n"
-		"ILayout_getTotalAbundance(ILayout self) -> double\n"
-		"virtual double ILayout::getTotalAbundance() const =0\n"
-		"\n"
-		"Get total abundance of all particles. \n"
-		"\n"
-		""},
-	 { "ILayout_totalParticleSurfaceDensity", _wrap_ILayout_totalParticleSurfaceDensity, METH_O, "\n"
-		"ILayout_totalParticleSurfaceDensity(ILayout self) -> double\n"
-		"virtual double ILayout::totalParticleSurfaceDensity() const =0\n"
-		"\n"
-		"Returns surface density of all particles. \n"
-		"\n"
-		""},
-	 { "ILayout_setTotalParticleSurfaceDensity", _wrap_ILayout_setTotalParticleSurfaceDensity, METH_VARARGS, "\n"
-		"ILayout_setTotalParticleSurfaceDensity(ILayout self, double particle_density)\n"
-		"virtual void ILayout::setTotalParticleSurfaceDensity(double particle_density)=0\n"
-		"\n"
-		"Sets surface density of all particles. \n"
-		"\n"
-		""},
-	 { "ILayout_weight", _wrap_ILayout_weight, METH_O, "\n"
-		"ILayout_weight(ILayout self) -> double\n"
-		"double ILayout::weight() const\n"
-		"\n"
-		"Returns the relative weight of this layout. \n"
-		"\n"
-		""},
-	 { "ILayout_setWeight", _wrap_ILayout_setWeight, METH_VARARGS, "\n"
-		"ILayout_setWeight(ILayout self, double weight)\n"
-		"void ILayout::setWeight(double weight)\n"
-		"\n"
-		"Sets the relative weight of this layout. \n"
-		"\n"
-		""},
-	 { "ILayout_swigregister", ILayout_swigregister, METH_O, NULL},
 	 { "delete_IPeakShape", _wrap_delete_IPeakShape, METH_O, "\n"
 		"delete_IPeakShape(IPeakShape self)\n"
 		"IPeakShape::~IPeakShape()\n"
@@ -74428,8 +72942,6 @@ static PyMethodDef SwigMethods[] = {
 		"void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final\n"
 		"\n"
 		""},
-	 { "InterferenceFunction2DLattice_createSquare", _wrap_InterferenceFunction2DLattice_createSquare, METH_VARARGS, "InterferenceFunction2DLattice_createSquare(double lattice_length, double xi) -> InterferenceFunction2DLattice"},
-	 { "InterferenceFunction2DLattice_createHexagonal", _wrap_InterferenceFunction2DLattice_createHexagonal, METH_VARARGS, "InterferenceFunction2DLattice_createHexagonal(double lattice_length, double xi) -> InterferenceFunction2DLattice"},
 	 { "InterferenceFunction2DLattice_setDecayFunction", _wrap_InterferenceFunction2DLattice_setDecayFunction, METH_VARARGS, "\n"
 		"InterferenceFunction2DLattice_setDecayFunction(InterferenceFunction2DLattice self, IFTDecayFunction2D decay)\n"
 		"void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D &decay)\n"
@@ -74520,8 +73032,6 @@ static PyMethodDef SwigMethods[] = {
 		"void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final\n"
 		"\n"
 		""},
-	 { "InterferenceFunction2DParaCrystal_createSquare", _wrap_InterferenceFunction2DParaCrystal_createSquare, METH_VARARGS, "InterferenceFunction2DParaCrystal_createSquare(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"},
-	 { "InterferenceFunction2DParaCrystal_createHexagonal", _wrap_InterferenceFunction2DParaCrystal_createHexagonal, METH_VARARGS, "InterferenceFunction2DParaCrystal_createHexagonal(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"},
 	 { "InterferenceFunction2DParaCrystal_setDomainSizes", _wrap_InterferenceFunction2DParaCrystal_setDomainSizes, METH_VARARGS, "\n"
 		"InterferenceFunction2DParaCrystal_setDomainSizes(InterferenceFunction2DParaCrystal self, double size_1, double size_2)\n"
 		"void InterferenceFunction2DParaCrystal::setDomainSizes(double size_1, double size_2)\n"
@@ -74680,8 +73190,6 @@ static PyMethodDef SwigMethods[] = {
 		"const IInterferenceFunction & InterferenceFunction2DSuperLattice::substructureIFF() const\n"
 		"\n"
 		""},
-	 { "InterferenceFunction2DSuperLattice_createSquare", _wrap_InterferenceFunction2DSuperLattice_createSquare, METH_VARARGS, "InterferenceFunction2DSuperLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"},
-	 { "InterferenceFunction2DSuperLattice_createHexagonal", _wrap_InterferenceFunction2DSuperLattice_createHexagonal, METH_VARARGS, "InterferenceFunction2DSuperLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"},
 	 { "InterferenceFunction2DSuperLattice_evaluate", _wrap_InterferenceFunction2DSuperLattice_evaluate, METH_VARARGS, "\n"
 		"InterferenceFunction2DSuperLattice_evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double\n"
 		"double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final\n"
@@ -74722,8 +73230,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "InterferenceFunction2DSuperLattice_swigregister", InterferenceFunction2DSuperLattice_swigregister, METH_O, NULL},
 	 { "InterferenceFunction2DSuperLattice_swiginit", InterferenceFunction2DSuperLattice_swiginit, METH_VARARGS, NULL},
 	 { "new_InterferenceFunction3DLattice", _wrap_new_InterferenceFunction3DLattice, METH_O, "\n"
-		"new_InterferenceFunction3DLattice(Lattice lattice) -> InterferenceFunction3DLattice\n"
-		"InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice &lattice)\n"
+		"new_InterferenceFunction3DLattice(Lattice3D lattice) -> InterferenceFunction3DLattice\n"
+		"InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice3D &lattice)\n"
 		"\n"
 		""},
 	 { "delete_InterferenceFunction3DLattice", _wrap_delete_InterferenceFunction3DLattice, METH_O, "\n"
@@ -74749,8 +73257,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "InterferenceFunction3DLattice_lattice", _wrap_InterferenceFunction3DLattice_lattice, METH_O, "\n"
-		"InterferenceFunction3DLattice_lattice(InterferenceFunction3DLattice self) -> Lattice\n"
-		"const Lattice & InterferenceFunction3DLattice::lattice() const\n"
+		"InterferenceFunction3DLattice_lattice(InterferenceFunction3DLattice self) -> Lattice3D\n"
+		"const Lattice3D & InterferenceFunction3DLattice::lattice() const\n"
 		"\n"
 		""},
 	 { "InterferenceFunction3DLattice_supportsMultilayer", _wrap_InterferenceFunction3DLattice_supportsMultilayer, METH_O, "\n"
@@ -74818,8 +73326,6 @@ static PyMethodDef SwigMethods[] = {
 		"void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final\n"
 		"\n"
 		""},
-	 { "InterferenceFunctionFinite2DLattice_createSquare", _wrap_InterferenceFunctionFinite2DLattice_createSquare, METH_VARARGS, "InterferenceFunctionFinite2DLattice_createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"},
-	 { "InterferenceFunctionFinite2DLattice_createHexagonal", _wrap_InterferenceFunctionFinite2DLattice_createHexagonal, METH_VARARGS, "InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"},
 	 { "InterferenceFunctionFinite2DLattice_numberUnitCells1", _wrap_InterferenceFunctionFinite2DLattice_numberUnitCells1, METH_O, "\n"
 		"InterferenceFunctionFinite2DLattice_numberUnitCells1(InterferenceFunctionFinite2DLattice self) -> unsigned int\n"
 		"unsigned InterferenceFunctionFinite2DLattice::numberUnitCells1() const\n"
@@ -74860,8 +73366,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "InterferenceFunctionFinite2DLattice_swigregister", InterferenceFunctionFinite2DLattice_swigregister, METH_O, NULL},
 	 { "InterferenceFunctionFinite2DLattice_swiginit", InterferenceFunctionFinite2DLattice_swiginit, METH_VARARGS, NULL},
 	 { "new_InterferenceFunctionFinite3DLattice", _wrap_new_InterferenceFunctionFinite3DLattice, METH_VARARGS, "\n"
-		"new_InterferenceFunctionFinite3DLattice(Lattice lattice, unsigned int N_1, unsigned int N_2, unsigned int N_3) -> InterferenceFunctionFinite3DLattice\n"
-		"InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)\n"
+		"new_InterferenceFunctionFinite3DLattice(Lattice3D lattice, unsigned int N_1, unsigned int N_2, unsigned int N_3) -> InterferenceFunctionFinite3DLattice\n"
+		"InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice3D &lattice, unsigned N_1, unsigned N_2, unsigned N_3)\n"
 		"\n"
 		""},
 	 { "delete_InterferenceFunctionFinite3DLattice", _wrap_delete_InterferenceFunctionFinite3DLattice, METH_O, "\n"
@@ -74897,8 +73403,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite3DLattice_lattice", _wrap_InterferenceFunctionFinite3DLattice_lattice, METH_O, "\n"
-		"InterferenceFunctionFinite3DLattice_lattice(InterferenceFunctionFinite3DLattice self) -> Lattice\n"
-		"const Lattice & InterferenceFunctionFinite3DLattice::lattice() const\n"
+		"InterferenceFunctionFinite3DLattice_lattice(InterferenceFunctionFinite3DLattice self) -> Lattice3D\n"
+		"const Lattice3D & InterferenceFunctionFinite3DLattice::lattice() const\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite3DLattice_supportsMultilayer", _wrap_InterferenceFunctionFinite3DLattice_supportsMultilayer, METH_O, "\n"
@@ -75123,14 +73629,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleLayout_clone", _wrap_ParticleLayout_clone, METH_O, "\n"
 		"ParticleLayout_clone(ParticleLayout self) -> ParticleLayout\n"
-		"ParticleLayout * ParticleLayout::clone() const final override\n"
+		"ParticleLayout * ParticleLayout::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "ParticleLayout_accept", _wrap_ParticleLayout_accept, METH_VARARGS, "\n"
 		"ParticleLayout_accept(ParticleLayout self, INodeVisitor * visitor)\n"
-		"void ParticleLayout::accept(INodeVisitor *visitor) const final override\n"
+		"void ParticleLayout::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "ParticleLayout_addParticle", _wrap_ParticleLayout_addParticle, METH_VARARGS, "\n"
@@ -75157,23 +73663,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleLayout_particles", _wrap_ParticleLayout_particles, METH_O, "\n"
 		"ParticleLayout_particles(ParticleLayout self) -> SafePointerVector< IParticle >\n"
-		"SafePointerVector< IParticle > ParticleLayout::particles() const final override\n"
+		"SafePointerVector< IParticle > ParticleLayout::particles() const\n"
 		"\n"
 		"Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection \n"
 		"\n"
 		""},
 	 { "ParticleLayout_interferenceFunction", _wrap_ParticleLayout_interferenceFunction, METH_O, "\n"
 		"ParticleLayout_interferenceFunction(ParticleLayout self) -> IInterferenceFunction\n"
-		"const IInterferenceFunction * ParticleLayout::interferenceFunction() const final override\n"
-		"\n"
-		"Returns the interference function. \n"
+		"const IInterferenceFunction * ParticleLayout::interferenceFunction() const\n"
 		"\n"
 		""},
 	 { "ParticleLayout_getTotalAbundance", _wrap_ParticleLayout_getTotalAbundance, METH_O, "\n"
 		"ParticleLayout_getTotalAbundance(ParticleLayout self) -> double\n"
-		"double ParticleLayout::getTotalAbundance() const final override\n"
-		"\n"
-		"Get total abundance of all particles. \n"
+		"double ParticleLayout::getTotalAbundance() const\n"
 		"\n"
 		""},
 	 { "ParticleLayout_setInterferenceFunction", _wrap_ParticleLayout_setInterferenceFunction, METH_VARARGS, "\n"
@@ -75185,14 +73687,12 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleLayout_totalParticleSurfaceDensity", _wrap_ParticleLayout_totalParticleSurfaceDensity, METH_O, "\n"
 		"ParticleLayout_totalParticleSurfaceDensity(ParticleLayout self) -> double\n"
-		"double ParticleLayout::totalParticleSurfaceDensity() const final override\n"
-		"\n"
-		"Returns surface density of all particles. \n"
+		"double ParticleLayout::totalParticleSurfaceDensity() const\n"
 		"\n"
 		""},
 	 { "ParticleLayout_setTotalParticleSurfaceDensity", _wrap_ParticleLayout_setTotalParticleSurfaceDensity, METH_VARARGS, "\n"
 		"ParticleLayout_setTotalParticleSurfaceDensity(ParticleLayout self, double particle_density)\n"
-		"void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override\n"
+		"void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)\n"
 		"\n"
 		"Sets total particle surface density.\n"
 		"\n"
@@ -75205,7 +73705,21 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleLayout_getChildren", _wrap_ParticleLayout_getChildren, METH_O, "\n"
 		"ParticleLayout_getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > ParticleLayout::getChildren() const final override\n"
+		"std::vector< const INode * > ParticleLayout::getChildren() const override\n"
+		"\n"
+		""},
+	 { "ParticleLayout_weight", _wrap_ParticleLayout_weight, METH_O, "\n"
+		"ParticleLayout_weight(ParticleLayout self) -> double\n"
+		"double ParticleLayout::weight() const\n"
+		"\n"
+		"Returns the relative weight of this layout. \n"
+		"\n"
+		""},
+	 { "ParticleLayout_setWeight", _wrap_ParticleLayout_setWeight, METH_VARARGS, "\n"
+		"ParticleLayout_setWeight(ParticleLayout self, double weight)\n"
+		"void ParticleLayout::setWeight(double weight)\n"
+		"\n"
+		"Sets the relative weight of this layout. \n"
 		"\n"
 		""},
 	 { "ParticleLayout_swigregister", ParticleLayout_swigregister, METH_O, NULL},
@@ -75268,8 +73782,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "Layer_addLayout", _wrap_Layer_addLayout, METH_VARARGS, "\n"
-		"Layer_addLayout(Layer self, ILayout decoration)\n"
-		"void Layer::addLayout(const ILayout &decoration)\n"
+		"Layer_addLayout(Layer self, ParticleLayout decoration)\n"
+		"void Layer::addLayout(const ParticleLayout &decoration)\n"
 		"\n"
 		""},
 	 { "Layer_numberOfLayouts", _wrap_Layer_numberOfLayouts, METH_O, "\n"
@@ -75278,8 +73792,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "Layer_layouts", _wrap_Layer_layouts, METH_O, "\n"
-		"Layer_layouts(Layer self) -> std::vector< ILayout const *,std::allocator< ILayout const * > >\n"
-		"std::vector< const ILayout * > Layer::layouts() const\n"
+		"Layer_layouts(Layer self) -> std::vector< ParticleLayout const *,std::allocator< ParticleLayout const * > >\n"
+		"std::vector< const ParticleLayout * > Layer::layouts() const\n"
 		"\n"
 		""},
 	 { "Layer_getChildren", _wrap_Layer_getChildren, METH_O, "\n"
@@ -76866,70 +75380,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_FormFactorSphereLogNormalRadius", _wrap_delete_FormFactorSphereLogNormalRadius, METH_O, "delete_FormFactorSphereLogNormalRadius(FormFactorSphereLogNormalRadius self)"},
 	 { "FormFactorSphereLogNormalRadius_swigregister", FormFactorSphereLogNormalRadius_swigregister, METH_O, NULL},
 	 { "FormFactorSphereLogNormalRadius_swiginit", FormFactorSphereLogNormalRadius_swiginit, METH_VARARGS, NULL},
-	 { "delete_ILatticeOrientation", _wrap_delete_ILatticeOrientation, METH_O, "\n"
-		"delete_ILatticeOrientation(ILatticeOrientation self)\n"
-		"ILatticeOrientation::~ILatticeOrientation()\n"
-		"\n"
-		""},
-	 { "ILatticeOrientation_clone", _wrap_ILatticeOrientation_clone, METH_O, "\n"
-		"ILatticeOrientation_clone(ILatticeOrientation self) -> ILatticeOrientation\n"
-		"virtual ILatticeOrientation* ILatticeOrientation::clone() const =0\n"
-		"\n"
-		""},
-	 { "ILatticeOrientation_usePrimitiveLattice", _wrap_ILatticeOrientation_usePrimitiveLattice, METH_VARARGS, "\n"
-		"ILatticeOrientation_usePrimitiveLattice(ILatticeOrientation self, Lattice lattice)\n"
-		"virtual void ILatticeOrientation::usePrimitiveLattice(const Lattice &lattice)=0\n"
-		"\n"
-		""},
-	 { "ILatticeOrientation_transformation", _wrap_ILatticeOrientation_transformation, METH_O, "\n"
-		"ILatticeOrientation_transformation(ILatticeOrientation self) -> Transform3D\n"
-		"virtual Transform3D ILatticeOrientation::transformation() const =0\n"
-		"\n"
-		""},
-	 { "ILatticeOrientation_swigregister", ILatticeOrientation_swigregister, METH_O, NULL},
-	 { "new_MillerIndex", _wrap_new_MillerIndex, METH_VARARGS, "\n"
-		"new_MillerIndex(double h_, double k_, double l_) -> MillerIndex\n"
-		"MillerIndex::MillerIndex(double h_, double k_, double l_)\n"
-		"\n"
-		""},
-	 { "MillerIndex_h_set", _wrap_MillerIndex_h_set, METH_VARARGS, "MillerIndex_h_set(MillerIndex self, double h)"},
-	 { "MillerIndex_h_get", _wrap_MillerIndex_h_get, METH_O, "MillerIndex_h_get(MillerIndex self) -> double"},
-	 { "MillerIndex_k_set", _wrap_MillerIndex_k_set, METH_VARARGS, "MillerIndex_k_set(MillerIndex self, double k)"},
-	 { "MillerIndex_k_get", _wrap_MillerIndex_k_get, METH_O, "MillerIndex_k_get(MillerIndex self) -> double"},
-	 { "MillerIndex_l_set", _wrap_MillerIndex_l_set, METH_VARARGS, "MillerIndex_l_set(MillerIndex self, double l)"},
-	 { "MillerIndex_l_get", _wrap_MillerIndex_l_get, METH_O, "MillerIndex_l_get(MillerIndex self) -> double"},
-	 { "delete_MillerIndex", _wrap_delete_MillerIndex, METH_O, "delete_MillerIndex(MillerIndex self)"},
-	 { "MillerIndex_swigregister", MillerIndex_swigregister, METH_O, NULL},
-	 { "MillerIndex_swiginit", MillerIndex_swiginit, METH_VARARGS, NULL},
-	 { "new_MillerIndexOrientation", _wrap_new_MillerIndexOrientation, METH_VARARGS, "\n"
-		"new_MillerIndexOrientation(MillerIndexOrientation::QComponent q1, MillerIndex index1, MillerIndexOrientation::QComponent q2, MillerIndex index2) -> MillerIndexOrientation\n"
-		"MillerIndexOrientation::MillerIndexOrientation(QComponent q1, MillerIndex index1, QComponent q2, MillerIndex index2)\n"
-		"\n"
-		"This constructor is best explained by an example. Arguments QX, (1,1,0), QY, (0,2,1) mean: Rotate the lattice such that the axis [110] points into x direction, and the axis [021], projected into the yz plane, points into z direction. \n"
-		"\n"
-		""},
-	 { "delete_MillerIndexOrientation", _wrap_delete_MillerIndexOrientation, METH_O, "\n"
-		"delete_MillerIndexOrientation(MillerIndexOrientation self)\n"
-		"MillerIndexOrientation::~MillerIndexOrientation() override\n"
-		"\n"
-		""},
-	 { "MillerIndexOrientation_clone", _wrap_MillerIndexOrientation_clone, METH_O, "\n"
-		"MillerIndexOrientation_clone(MillerIndexOrientation self) -> MillerIndexOrientation\n"
-		"MillerIndexOrientation * MillerIndexOrientation::clone() const override\n"
-		"\n"
-		""},
-	 { "MillerIndexOrientation_usePrimitiveLattice", _wrap_MillerIndexOrientation_usePrimitiveLattice, METH_VARARGS, "\n"
-		"MillerIndexOrientation_usePrimitiveLattice(MillerIndexOrientation self, Lattice lattice)\n"
-		"void MillerIndexOrientation::usePrimitiveLattice(const Lattice &lattice) override\n"
-		"\n"
-		""},
-	 { "MillerIndexOrientation_transformation", _wrap_MillerIndexOrientation_transformation, METH_O, "\n"
-		"MillerIndexOrientation_transformation(MillerIndexOrientation self) -> Transform3D\n"
-		"Transform3D MillerIndexOrientation::transformation() const override\n"
-		"\n"
-		""},
-	 { "MillerIndexOrientation_swigregister", MillerIndexOrientation_swigregister, METH_O, NULL},
-	 { "MillerIndexOrientation_swiginit", MillerIndexOrientation_swiginit, METH_VARARGS, NULL},
 	 { "delete_ISelectionRule", _wrap_delete_ISelectionRule, METH_O, "\n"
 		"delete_ISelectionRule(ISelectionRule self)\n"
 		"virtual ISelectionRule::~ISelectionRule()\n"
@@ -76968,127 +75418,105 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "SimpleSelectionRule_swigregister", SimpleSelectionRule_swigregister, METH_O, NULL},
 	 { "SimpleSelectionRule_swiginit", SimpleSelectionRule_swiginit, METH_VARARGS, NULL},
-	 { "new_Lattice", _wrap_new_Lattice, METH_VARARGS, "\n"
-		"Lattice()\n"
-		"Lattice(kvector_t a1, kvector_t a2, kvector_t a3)\n"
-		"new_Lattice(Lattice lattice) -> Lattice\n"
-		"Lattice::Lattice(const Lattice &lattice)\n"
+	 { "new_Lattice3D", _wrap_new_Lattice3D, METH_VARARGS, "\n"
+		"Lattice3D(kvector_t a, kvector_t b, kvector_t c)\n"
+		"new_Lattice3D(Lattice3D lattice) -> Lattice3D\n"
+		"Lattice3D::Lattice3D(const Lattice3D &lattice)\n"
 		"\n"
 		""},
-	 { "delete_Lattice", _wrap_delete_Lattice, METH_O, "\n"
-		"delete_Lattice(Lattice self)\n"
-		"Lattice::~Lattice() override\n"
+	 { "delete_Lattice3D", _wrap_delete_Lattice3D, METH_O, "\n"
+		"delete_Lattice3D(Lattice3D self)\n"
+		"Lattice3D::~Lattice3D() override\n"
 		"\n"
 		""},
-	 { "Lattice_accept", _wrap_Lattice_accept, METH_VARARGS, "\n"
-		"Lattice_accept(Lattice self, INodeVisitor * visitor)\n"
-		"void Lattice::accept(INodeVisitor *visitor) const override\n"
+	 { "Lattice3D_accept", _wrap_Lattice3D_accept, METH_VARARGS, "\n"
+		"Lattice3D_accept(Lattice3D self, INodeVisitor * visitor)\n"
+		"void Lattice3D::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
-	 { "Lattice_transformed", _wrap_Lattice_transformed, METH_VARARGS, "\n"
-		"Lattice_transformed(Lattice self, Transform3D const & transform) -> Lattice\n"
-		"Lattice Lattice::transformed(const Transform3D &transform) const\n"
+	 { "Lattice3D_transformed", _wrap_Lattice3D_transformed, METH_VARARGS, "\n"
+		"Lattice3D_transformed(Lattice3D self, Transform3D const & transform) -> Lattice3D\n"
+		"Lattice3D Lattice3D::transformed(const Transform3D &transform) const\n"
 		"\n"
 		"Creates transformed lattice. \n"
 		"\n"
 		""},
-	 { "Lattice_initialize", _wrap_Lattice_initialize, METH_O, "\n"
-		"Lattice_initialize(Lattice self)\n"
-		"void Lattice::initialize() const\n"
+	 { "Lattice3D_initialize", _wrap_Lattice3D_initialize, METH_O, "\n"
+		"Lattice3D_initialize(Lattice3D self)\n"
+		"void Lattice3D::initialize()\n"
 		"\n"
 		"Initializes cached data. \n"
 		"\n"
 		""},
-	 { "Lattice_getBasisVectorA", _wrap_Lattice_getBasisVectorA, METH_O, "\n"
-		"Lattice_getBasisVectorA(Lattice self) -> kvector_t\n"
-		"kvector_t Lattice::getBasisVectorA() const\n"
+	 { "Lattice3D_getBasisVectorA", _wrap_Lattice3D_getBasisVectorA, METH_O, "\n"
+		"Lattice3D_getBasisVectorA(Lattice3D self) -> kvector_t\n"
+		"kvector_t Lattice3D::getBasisVectorA() const\n"
 		"\n"
 		"Returns basis vector a. \n"
 		"\n"
 		""},
-	 { "Lattice_getBasisVectorB", _wrap_Lattice_getBasisVectorB, METH_O, "\n"
-		"Lattice_getBasisVectorB(Lattice self) -> kvector_t\n"
-		"kvector_t Lattice::getBasisVectorB() const\n"
+	 { "Lattice3D_getBasisVectorB", _wrap_Lattice3D_getBasisVectorB, METH_O, "\n"
+		"Lattice3D_getBasisVectorB(Lattice3D self) -> kvector_t\n"
+		"kvector_t Lattice3D::getBasisVectorB() const\n"
 		"\n"
 		"Returns basis vector b. \n"
 		"\n"
 		""},
-	 { "Lattice_getBasisVectorC", _wrap_Lattice_getBasisVectorC, METH_O, "\n"
-		"Lattice_getBasisVectorC(Lattice self) -> kvector_t\n"
-		"kvector_t Lattice::getBasisVectorC() const\n"
+	 { "Lattice3D_getBasisVectorC", _wrap_Lattice3D_getBasisVectorC, METH_O, "\n"
+		"Lattice3D_getBasisVectorC(Lattice3D self) -> kvector_t\n"
+		"kvector_t Lattice3D::getBasisVectorC() const\n"
 		"\n"
 		"Returns basis vector c. \n"
 		"\n"
 		""},
-	 { "Lattice_resetBasis", _wrap_Lattice_resetBasis, METH_VARARGS, "\n"
-		"Lattice_resetBasis(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3)\n"
-		"void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)\n"
+	 { "Lattice3D_getMillerDirection", _wrap_Lattice3D_getMillerDirection, METH_VARARGS, "\n"
+		"Lattice3D_getMillerDirection(Lattice3D self, double h, double k, double l) -> kvector_t\n"
+		"kvector_t Lattice3D::getMillerDirection(double h, double k, double l) const\n"
 		"\n"
-		"Resets the basis vectors. \n"
+		"Returns normalized direction corresponding to the given Miller indices.\n"
 		"\n"
-		""},
-	 { "Lattice_getMillerDirection", _wrap_Lattice_getMillerDirection, METH_VARARGS, "\n"
-		"Lattice_getMillerDirection(Lattice self, double h, double k, double l) -> kvector_t\n"
-		"kvector_t Lattice::getMillerDirection(double h, double k, double l) const\n"
-		"\n"
-		"Returns normalized direction corresponding to the given Miller indices. \n"
+		"Currently unused but may be useful for checks. \n"
 		"\n"
 		""},
-	 { "Lattice_volume", _wrap_Lattice_volume, METH_O, "\n"
-		"Lattice_volume(Lattice self) -> double\n"
-		"double Lattice::volume() const\n"
+	 { "Lattice3D_unitCellVolume", _wrap_Lattice3D_unitCellVolume, METH_O, "\n"
+		"Lattice3D_unitCellVolume(Lattice3D self) -> double\n"
+		"double Lattice3D::unitCellVolume() const\n"
 		"\n"
 		"Returns the volume of the unit cell. \n"
 		"\n"
 		""},
-	 { "Lattice_getReciprocalLatticeBasis", _wrap_Lattice_getReciprocalLatticeBasis, METH_VARARGS, "\n"
-		"Lattice_getReciprocalLatticeBasis(Lattice self, kvector_t b1, kvector_t b2, kvector_t b3)\n"
-		"void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const\n"
+	 { "Lattice3D_getReciprocalLatticeBasis", _wrap_Lattice3D_getReciprocalLatticeBasis, METH_VARARGS, "\n"
+		"Lattice3D_getReciprocalLatticeBasis(Lattice3D self, kvector_t ra, kvector_t rb, kvector_t rc)\n"
+		"void Lattice3D::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const\n"
 		"\n"
-		"Returns the reciprocal basis vectors. \n"
+		"Returns the reciprocal basis vectors.\n"
 		"\n"
-		""},
-	 { "Lattice_getNearestLatticeVectorCoordinates", _wrap_Lattice_getNearestLatticeVectorCoordinates, METH_VARARGS, "\n"
-		"Lattice_getNearestLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t\n"
-		"ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const\n"
-		"\n"
-		"Returns the nearest lattice point from a given vector. \n"
+		"Currently only used in tests. \n"
 		"\n"
 		""},
-	 { "Lattice_getNearestReciprocalLatticeVectorCoordinates", _wrap_Lattice_getNearestReciprocalLatticeVectorCoordinates, METH_VARARGS, "\n"
-		"Lattice_getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t\n"
-		"ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const\n"
+	 { "Lattice3D_getNearestReciprocalLatticeVectorCoordinates", _wrap_Lattice3D_getNearestReciprocalLatticeVectorCoordinates, METH_VARARGS, "\n"
+		"Lattice3D_getNearestReciprocalLatticeVectorCoordinates(Lattice3D self, kvector_t q) -> ivector_t\n"
+		"ivector_t Lattice3D::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const\n"
 		"\n"
 		"Returns the nearest reciprocal lattice point from a given vector. \n"
 		"\n"
 		""},
-	 { "Lattice_reciprocalLatticeVectorsWithinRadius", _wrap_Lattice_reciprocalLatticeVectorsWithinRadius, METH_VARARGS, "\n"
-		"Lattice_reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t input_vector, double radius) -> vector_kvector_t\n"
-		"std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const\n"
+	 { "Lattice3D_reciprocalLatticeVectorsWithinRadius", _wrap_Lattice3D_reciprocalLatticeVectorsWithinRadius, METH_VARARGS, "\n"
+		"Lattice3D_reciprocalLatticeVectorsWithinRadius(Lattice3D self, kvector_t q, double dq) -> vector_kvector_t\n"
+		"std::vector< kvector_t > Lattice3D::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const\n"
 		"\n"
-		"Computes a list of reciprocal lattice vectors within a specified distance of a given vector. \n"
+		"Returns a list of reciprocal lattice vectors within distance dq of a vector q. \n"
 		"\n"
 		""},
-	 { "Lattice_setSelectionRule", _wrap_Lattice_setSelectionRule, METH_VARARGS, "\n"
-		"Lattice_setSelectionRule(Lattice self, ISelectionRule p_selection_rule)\n"
-		"void Lattice::setSelectionRule(const ISelectionRule &p_selection_rule)\n"
+	 { "Lattice3D_setSelectionRule", _wrap_Lattice3D_setSelectionRule, METH_VARARGS, "\n"
+		"Lattice3D_setSelectionRule(Lattice3D self, ISelectionRule selection_rule)\n"
+		"void Lattice3D::setSelectionRule(const ISelectionRule &selection_rule)\n"
 		"\n"
 		"Sets a selection rule for the reciprocal vectors. \n"
 		"\n"
 		""},
-	 { "Lattice_createCubicLattice", _wrap_Lattice_createCubicLattice, METH_O, "Lattice_createCubicLattice(double a) -> Lattice"},
-	 { "Lattice_createFCCLattice", _wrap_Lattice_createFCCLattice, METH_O, "Lattice_createFCCLattice(double a) -> Lattice"},
-	 { "Lattice_createHexagonalLattice", _wrap_Lattice_createHexagonalLattice, METH_VARARGS, "Lattice_createHexagonalLattice(double a, double c) -> Lattice"},
-	 { "Lattice_createHCPLattice", _wrap_Lattice_createHCPLattice, METH_VARARGS, "Lattice_createHCPLattice(double a, double c) -> Lattice"},
-	 { "Lattice_createTetragonalLattice", _wrap_Lattice_createTetragonalLattice, METH_VARARGS, "Lattice_createTetragonalLattice(double a, double c) -> Lattice"},
-	 { "Lattice_createBCTLattice", _wrap_Lattice_createBCTLattice, METH_VARARGS, "Lattice_createBCTLattice(double a, double c) -> Lattice"},
-	 { "Lattice_onChange", _wrap_Lattice_onChange, METH_O, "\n"
-		"Lattice_onChange(Lattice self)\n"
-		"void Lattice::onChange() override\n"
-		"\n"
-		""},
-	 { "Lattice_swigregister", Lattice_swigregister, METH_O, NULL},
-	 { "Lattice_swiginit", Lattice_swiginit, METH_VARARGS, NULL},
+	 { "Lattice3D_swigregister", Lattice3D_swigregister, METH_O, NULL},
+	 { "Lattice3D_swiginit", Lattice3D_swiginit, METH_VARARGS, NULL},
 	 { "Lattice2D_clone", _wrap_Lattice2D_clone, METH_O, "\n"
 		"Lattice2D_clone(Lattice2D self) -> Lattice2D\n"
 		"virtual Lattice2D* Lattice2D::clone() const =0\n"
@@ -77245,19 +75673,46 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_HexagonalLattice", _wrap_delete_HexagonalLattice, METH_O, "delete_HexagonalLattice(HexagonalLattice self)"},
 	 { "HexagonalLattice_swigregister", HexagonalLattice_swigregister, METH_O, NULL},
 	 { "HexagonalLattice_swiginit", HexagonalLattice_swiginit, METH_VARARGS, NULL},
-	 { "createFCCLattice", _wrap_createFCCLattice, METH_VARARGS, "\n"
-		"createFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice\n"
-		"Lattice LatticeUtils::createFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)\n"
+	 { "createCubicLattice", _wrap_createCubicLattice, METH_O, "\n"
+		"createCubicLattice(double a) -> Lattice3D\n"
+		"Lattice3D bake::createCubicLattice(double a)\n"
+		"\n"
+		"Returns a primitive cubic (cP) lattice with edge length a. \n"
+		"\n"
+		""},
+	 { "createFCCLattice", _wrap_createFCCLattice, METH_O, "\n"
+		"createFCCLattice(double a) -> Lattice3D\n"
+		"Lattice3D bake::createFCCLattice(double a)\n"
+		"\n"
+		"Returns a face-centered cubic (cF) lattice with edge length a. \n"
+		"\n"
+		""},
+	 { "createHexagonalLattice", _wrap_createHexagonalLattice, METH_VARARGS, "\n"
+		"createHexagonalLattice(double a, double c) -> Lattice3D\n"
+		"Lattice3D bake::createHexagonalLattice(double a, double c)\n"
+		"\n"
+		"Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. \n"
 		"\n"
 		""},
 	 { "createHCPLattice", _wrap_createHCPLattice, METH_VARARGS, "\n"
-		"createHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice\n"
-		"Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation &orientation)\n"
+		"createHCPLattice(double a, double c) -> Lattice3D\n"
+		"Lattice3D bake::createHCPLattice(double a, double c)\n"
+		"\n"
+		"TODO: Clarify how this is meant: HCP is not a Bravais lattice. \n"
+		"\n"
+		""},
+	 { "createTetragonalLattice", _wrap_createTetragonalLattice, METH_VARARGS, "\n"
+		"createTetragonalLattice(double a, double c) -> Lattice3D\n"
+		"Lattice3D bake::createTetragonalLattice(double a, double c)\n"
+		"\n"
+		"Returns a primitive tetragonal (tP) lattice with square base edge a and height c. \n"
 		"\n"
 		""},
 	 { "createBCTLattice", _wrap_createBCTLattice, METH_VARARGS, "\n"
-		"createBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice\n"
-		"Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation &orientation)\n"
+		"createBCTLattice(double a, double c) -> Lattice3D\n"
+		"Lattice3D bake::createBCTLattice(double a, double c)\n"
+		"\n"
+		"Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c \n"
 		"\n"
 		""},
 	 { "new_ISampleBuilder", _wrap_new_ISampleBuilder, METH_O, "\n"
@@ -77319,9 +75774,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static void *_p_ParticleLayoutTo_p_ILayout(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ILayout *)  ((ParticleLayout *) x));
-}
 static void *_p_RotationYTo_p_IRotation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IRotation *)  ((RotationY *) x));
 }
@@ -77529,20 +75981,17 @@ static void *_p_ParameterDistributionTo_p_IParameterized(void *x, int *SWIGUNUSE
 static void *_p_ParticleDistributionTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IAbstractParticle *) ((ParticleDistribution *) x));
 }
-static void *_p_FTDistribution1DGaussTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(IFTDistribution1D *) ((FTDistribution1DGauss *) x));
-}
 static void *_p_FTDecayFunction1DGaussTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(IFTDecayFunction1D *) ((FTDecayFunction1DGauss *) x));
+}
+static void *_p_FTDistribution1DGaussTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *)(IFTDistribution1D *) ((FTDistribution1DGauss *) x));
 }
 static void *_p_InterferenceFunctionNoneTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IInterferenceFunction *) ((InterferenceFunctionNone *) x));
 }
 static void *_p_ParticleLayoutTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(ILayout *) ((ParticleLayout *) x));
-}
-static void *_p_ILayoutTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *) ((ILayout *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *) ((ParticleLayout *) x));
 }
 static void *_p_FormFactorHemiEllipsoidTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorHemiEllipsoid *) x));
@@ -77601,11 +76050,11 @@ static void *_p_FTDistribution2DConeTo_p_IParameterized(void *x, int *SWIGUNUSED
 static void *_p_ParticleCoreShellTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IAbstractParticle *)(IParticle *) ((ParticleCoreShell *) x));
 }
-static void *_p_IProfileRectangularRippleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
-}
 static void *_p_ISawtoothRippleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((ISawtoothRipple *) x));
+}
+static void *_p_IProfileRectangularRippleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
 }
 static void *_p_FormFactorFullSphereTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorFullSphere *) x));
@@ -77669,9 +76118,6 @@ static void *_p_RotationZTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmem
 }
 static void *_p_IFormFactorBornTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
-}
-static void *_p_IClusteredParticlesTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *) ((IClusteredParticles *) x));
 }
 static void *_p_ISampleBuilderTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *)  ((ISampleBuilder *) x));
@@ -77779,7 +76225,7 @@ static void *_p_FormFactorCrystalTo_p_IParameterized(void *x, int *SWIGUNUSEDPAR
     return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *) ((FormFactorCrystal *) x));
 }
 static void *_p_CrystalTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IClusteredParticles *) ((Crystal *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *) ((Crystal *) x));
 }
 static void *_p_MesoCrystalTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IAbstractParticle *)(IParticle *) ((MesoCrystal *) x));
@@ -77789,6 +76235,9 @@ static void *_p_ICosineRippleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(ne
 }
 static void *_p_IProfileRippleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((IProfileRipple *) x));
+}
+static void *_p_Lattice3DTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *) ((Lattice3D *) x));
 }
 static void *_p_IFTDistribution2DTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *) ((IFTDistribution2D *) x));
@@ -77831,9 +76280,6 @@ static void *_p_FormFactorLongBoxLorentzTo_p_IParameterized(void *x, int *SWIGUN
 }
 static void *_p_FormFactorSawtoothRippleLorentzTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
-}
-static void *_p_LatticeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *) ((Lattice *) x));
 }
 static void *_p_BasicLatticeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(Lattice2D *) ((BasicLattice *) x));
@@ -77892,9 +76338,6 @@ static void *_p_ParticleTo_p_IAbstractParticle(void *x, int *SWIGUNUSEDPARM(newm
 static void *_p_ParticleCoreShellTo_p_IAbstractParticle(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IAbstractParticle *) (IParticle *) ((ParticleCoreShell *) x));
 }
-static void *_p_MillerIndexOrientationTo_p_ILatticeOrientation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ILatticeOrientation *)  ((MillerIndexOrientation *) x));
-}
 static void *_p_FormFactorPrism3To_p_IFormFactorPrism(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IFormFactorPrism *)  ((FormFactorPrism3 *) x));
 }
@@ -77938,10 +76381,7 @@ static void *_p_InterferenceFunctionNoneTo_p_ICloneable(void *x, int *SWIGUNUSED
     return (void *)((ICloneable *) (ISample *)(IInterferenceFunction *) ((InterferenceFunctionNone *) x));
 }
 static void *_p_ParticleLayoutTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(ILayout *) ((ParticleLayout *) x));
-}
-static void *_p_ILayoutTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *) ((ILayout *) x));
+    return (void *)((ICloneable *) (ISample *) ((ParticleLayout *) x));
 }
 static void *_p_FormFactorHemiEllipsoidTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorHemiEllipsoid *) x));
@@ -78066,9 +76506,6 @@ static void *_p_RotationZTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)
 static void *_p_IFormFactorBornTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
 }
-static void *_p_IClusteredParticlesTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *) ((IClusteredParticles *) x));
-}
 static void *_p_IAbstractParticleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *) ((IAbstractParticle *) x));
 }
@@ -78175,7 +76612,7 @@ static void *_p_FormFactorCrystalTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(ne
     return (void *)((ICloneable *) (ISample *)(IFormFactor *) ((FormFactorCrystal *) x));
 }
 static void *_p_CrystalTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IClusteredParticles *) ((Crystal *) x));
+    return (void *)((ICloneable *) (ISample *) ((Crystal *) x));
 }
 static void *_p_MesoCrystalTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IAbstractParticle *)(IParticle *) ((MesoCrystal *) x));
@@ -78282,9 +76719,6 @@ static void *_p_FormFactorCosineRippleGaussTo_p_IProfileRipple(void *x, int *SWI
 static void *_p_FormFactorSawtoothRippleGaussTo_p_IProfileRipple(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IProfileRipple *) (ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
 }
-static void *_p_CrystalTo_p_IClusteredParticles(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IClusteredParticles *)  ((Crystal *) x));
-}
 static void *_p_SimpleSelectionRuleTo_p_ISelectionRule(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISelectionRule *)  ((SimpleSelectionRule *) x));
 }
@@ -78313,10 +76747,7 @@ static void *_p_InterferenceFunctionNoneTo_p_INode(void *x, int *SWIGUNUSEDPARM(
     return (void *)((INode *) (ISample *)(IInterferenceFunction *) ((InterferenceFunctionNone *) x));
 }
 static void *_p_ParticleLayoutTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(ILayout *) ((ParticleLayout *) x));
-}
-static void *_p_ILayoutTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *) ((ILayout *) x));
+    return (void *)((INode *) (ISample *) ((ParticleLayout *) x));
 }
 static void *_p_FormFactorHemiEllipsoidTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorHemiEllipsoid *) x));
@@ -78426,11 +76857,11 @@ static void *_p_FTDistribution2DGaussTo_p_INode(void *x, int *SWIGUNUSEDPARM(new
 static void *_p_FTDecayFunction2DGaussTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IFTDecayFunction2D *) ((FTDecayFunction2DGauss *) x));
 }
-static void *_p_RotationYTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (IRotation *) ((RotationY *) x));
-}
 static void *_p_FormFactorCantellatedCubeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
+}
+static void *_p_RotationYTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IRotation *) ((RotationY *) x));
 }
 static void *_p_FormFactorTruncatedCubeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
@@ -78440,9 +76871,6 @@ static void *_p_RotationZTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
 }
 static void *_p_IFormFactorBornTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
-}
-static void *_p_IClusteredParticlesTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *) ((IClusteredParticles *) x));
 }
 static void *_p_IAbstractParticleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *) ((IAbstractParticle *) x));
@@ -78543,11 +76971,11 @@ static void *_p_InterferenceFunctionRadialParaCrystalTo_p_INode(void *x, int *SW
 static void *_p_InterferenceFunction2DParaCrystalTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IInterferenceFunction *) ((InterferenceFunction2DParaCrystal *) x));
 }
+static void *_p_CrystalTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (ISample *) ((Crystal *) x));
+}
 static void *_p_FormFactorCrystalTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *) ((FormFactorCrystal *) x));
-}
-static void *_p_CrystalTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IClusteredParticles *) ((Crystal *) x));
 }
 static void *_p_MesoCrystalTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IAbstractParticle *)(IParticle *) ((MesoCrystal *) x));
@@ -78557,6 +76985,9 @@ static void *_p_ICosineRippleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory))
 }
 static void *_p_IProfileRippleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((IProfileRipple *) x));
+}
+static void *_p_Lattice3DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *)  ((Lattice3D *) x));
 }
 static void *_p_IFTDistribution2DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *)  ((IFTDistribution2D *) x));
@@ -78600,9 +77031,6 @@ static void *_p_FormFactorLongBoxLorentzTo_p_INode(void *x, int *SWIGUNUSEDPARM(
 static void *_p_FormFactorSawtoothRippleLorentzTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
 }
-static void *_p_LatticeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *)  ((Lattice *) x));
-}
 static void *_p_BasicLatticeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (Lattice2D *) ((BasicLattice *) x));
 }
@@ -78612,11 +77040,11 @@ static void *_p_SquareLatticeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory))
 static void *_p_HexagonalLatticeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (Lattice2D *) ((HexagonalLattice *) x));
 }
-static void *_p_FTDistribution1DTriangleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (IFTDistribution1D *) ((FTDistribution1DTriangle *) x));
-}
 static void *_p_FTDecayFunction1DTriangleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IFTDecayFunction1D *) ((FTDecayFunction1DTriangle *) x));
+}
+static void *_p_FTDistribution1DTriangleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IFTDistribution1D *) ((FTDistribution1DTriangle *) x));
 }
 static void *_p_RotationEulerTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IRotation *) ((RotationEuler *) x));
@@ -78807,11 +77235,11 @@ static void *_p_SampleBuilderFactoryTo_p_IFactoryT_std__string_ISampleBuilder_t(
 static void *_p_FormFactorBoxTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorBox *) x));
 }
-static void *_p_MultiLayerTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *)  ((MultiLayer *) x));
-}
 static void *_p_FormFactorSphereGaussianRadiusTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorSphereGaussianRadius *) x));
+}
+static void *_p_MultiLayerTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ISample *)  ((MultiLayer *) x));
 }
 static void *_p_FormFactorSphereLogNormalRadiusTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorSphereLogNormalRadius *) x));
@@ -78823,10 +77251,7 @@ static void *_p_InterferenceFunctionNoneTo_p_ISample(void *x, int *SWIGUNUSEDPAR
     return (void *)((ISample *) (IInterferenceFunction *) ((InterferenceFunctionNone *) x));
 }
 static void *_p_ParticleLayoutTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (ILayout *) ((ParticleLayout *) x));
-}
-static void *_p_ILayoutTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *)  ((ILayout *) x));
+    return (void *)((ISample *)  ((ParticleLayout *) x));
 }
 static void *_p_FormFactorHemiEllipsoidTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorHemiEllipsoid *) x));
@@ -78915,9 +77340,6 @@ static void *_p_FormFactorCantellatedCubeTo_p_ISample(void *x, int *SWIGUNUSEDPA
 static void *_p_IFormFactorBornTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *) ((IFormFactorBorn *) x));
 }
-static void *_p_IClusteredParticlesTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *)  ((IClusteredParticles *) x));
-}
 static void *_p_ParticleTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IAbstractParticle *)(IParticle *) ((Particle *) x));
 }
@@ -78982,7 +77404,7 @@ static void *_p_MesoCrystalTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory))
     return (void *)((ISample *) (IAbstractParticle *)(IParticle *) ((MesoCrystal *) x));
 }
 static void *_p_CrystalTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IClusteredParticles *) ((Crystal *) x));
+    return (void *)((ISample *)  ((Crystal *) x));
 }
 static void *_p_FormFactorCrystalTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *) ((FormFactorCrystal *) x));
@@ -78999,11 +77421,11 @@ static void *_p_ICosineRippleTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory
 static void *_p_IProfileRippleTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((IProfileRipple *) x));
 }
-static void *_p_FormFactorHollowSphereTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorHollowSphere *) x));
-}
 static void *_p_FormFactorGaussSphereTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorGaussSphere *) x));
+}
+static void *_p_FormFactorHollowSphereTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorHollowSphere *) x));
 }
 static void *_p_FormFactorWeightedTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *) ((FormFactorWeighted *) x));
@@ -79123,7 +77545,6 @@ static swig_type_info _swigt__p_GaussFisherPeakShape = {"_p_GaussFisherPeakShape
 static swig_type_info _swigt__p_HexagonalLattice = {"_p_HexagonalLattice", "HexagonalLattice *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IAbstractParticle = {"_p_IAbstractParticle", "IAbstractParticle *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICloneable = {"_p_ICloneable", "ICloneable *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IClusteredParticles = {"_p_IClusteredParticles", "IClusteredParticles *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICosineRipple = {"_p_ICosineRipple", "ICosineRipple *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFTDecayFunction1D = {"_p_IFTDecayFunction1D", "IFTDecayFunction1D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFTDecayFunction2D = {"_p_IFTDecayFunction2D", "IFTDecayFunction2D *", 0, 0, (void*)0, 0};
@@ -79136,8 +77557,6 @@ static swig_type_info _swigt__p_IFormFactorDecorator = {"_p_IFormFactorDecorator
 static swig_type_info _swigt__p_IFormFactorPolyhedron = {"_p_IFormFactorPolyhedron", "IFormFactorPolyhedron *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactorPrism = {"_p_IFormFactorPrism", "IFormFactorPrism *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IInterferenceFunction = {"_p_IInterferenceFunction", "IInterferenceFunction *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ILatticeOrientation = {"_p_ILatticeOrientation", "ILatticeOrientation *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ILayout = {"_p_ILayout", "ILayout *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INode = {"_p_INode", "INode *|std::vector< INode * >::value_type|std::vector< INode const * >::value_type", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INodeVisitor = {"_p_INodeVisitor", "INodeVisitor *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IParameterized = {"_p_IParameterized", "IParameterized *", 0, 0, (void*)0, 0};
@@ -79164,17 +77583,15 @@ static swig_type_info _swigt__p_InterferenceFunctionRadialParaCrystal = {"_p_Int
 static swig_type_info _swigt__p_InterferenceFunctionTwin = {"_p_InterferenceFunctionTwin", "InterferenceFunctionTwin *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IsotropicGaussPeakShape = {"_p_IsotropicGaussPeakShape", "IsotropicGaussPeakShape *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IsotropicLorentzPeakShape = {"_p_IsotropicLorentzPeakShape", "IsotropicLorentzPeakShape *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Lattice = {"_p_Lattice", "Lattice *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Lattice2D = {"_p_Lattice2D", "Lattice2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Lattice2D__ReciprocalBases = {"_p_Lattice2D__ReciprocalBases", "Lattice2D::ReciprocalBases *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Lattice3D = {"_p_Lattice3D", "Lattice3D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Layer = {"_p_Layer", "Layer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_LayerInterface = {"_p_LayerInterface", "LayerInterface *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_LayerRoughness = {"_p_LayerRoughness", "LayerRoughness *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_LorentzFisherPeakShape = {"_p_LorentzFisherPeakShape", "LorentzFisherPeakShape *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Material = {"_p_Material", "Material *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MesoCrystal = {"_p_MesoCrystal", "MesoCrystal *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_MillerIndex = {"_p_MillerIndex", "MillerIndex *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_MillerIndexOrientation = {"_p_MillerIndexOrientation", "MillerIndexOrientation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MisesFisherGaussPeakShape = {"_p_MisesFisherGaussPeakShape", "MisesFisherGaussPeakShape *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MisesGaussPeakShape = {"_p_MisesGaussPeakShape", "MisesGaussPeakShape *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MultiLayer = {"_p_MultiLayer", "MultiLayer *", 0, 0, (void*)0, 0};
@@ -79243,10 +77660,10 @@ static swig_type_info _swigt__p_std__vectorT_BasicVector3DT_double_t_std__alloca
 static swig_type_info _swigt__p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t = {"_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t", "std::vector< BasicVector3D< std::complex< double > > > *|std::vector< BasicVector3D< std::complex< double > >,std::allocator< BasicVector3D< std::complex< double > > > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t = {"_p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t", "std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_IFormFactor_p_std__allocatorT_IFormFactor_p_t_t = {"_p_std__vectorT_IFormFactor_p_std__allocatorT_IFormFactor_p_t_t", "std::vector< IFormFactor *,std::allocator< IFormFactor * > > *|std::vector< IFormFactor * > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_ILayout_const_p_std__allocatorT_ILayout_const_p_t_t = {"_p_std__vectorT_ILayout_const_p_std__allocatorT_ILayout_const_p_t_t", "std::vector< ILayout const *,std::allocator< ILayout const * > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t = {"_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t", "std::vector< INode const *,std::allocator< INode const * > > *|std::vector< INode const * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t = {"_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t", "std::vector< INode *,std::allocator< INode * > > *|std::vector< INode * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_Material_const_p_std__allocatorT_Material_const_p_t_t = {"_p_std__vectorT_Material_const_p_std__allocatorT_Material_const_p_t_t", "std::vector< Material const *,std::allocator< Material const * > > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_ParticleLayout_const_p_std__allocatorT_ParticleLayout_const_p_t_t = {"_p_std__vectorT_ParticleLayout_const_p_std__allocatorT_ParticleLayout_const_p_t_t", "std::vector< ParticleLayout const *,std::allocator< ParticleLayout const * > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t = {"_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t", "std::vector< std::complex< double > > *|std::vector< std::complex< double >,std::allocator< std::complex< double > > > *", 0, 0, (void*)0, 0};
@@ -79327,7 +77744,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_HexagonalLattice,
   &_swigt__p_IAbstractParticle,
   &_swigt__p_ICloneable,
-  &_swigt__p_IClusteredParticles,
   &_swigt__p_ICosineRipple,
   &_swigt__p_IFTDecayFunction1D,
   &_swigt__p_IFTDecayFunction2D,
@@ -79340,8 +77756,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IFormFactorPolyhedron,
   &_swigt__p_IFormFactorPrism,
   &_swigt__p_IInterferenceFunction,
-  &_swigt__p_ILatticeOrientation,
-  &_swigt__p_ILayout,
   &_swigt__p_INode,
   &_swigt__p_INodeVisitor,
   &_swigt__p_IParameterized,
@@ -79368,17 +77782,15 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_InterferenceFunctionTwin,
   &_swigt__p_IsotropicGaussPeakShape,
   &_swigt__p_IsotropicLorentzPeakShape,
-  &_swigt__p_Lattice,
   &_swigt__p_Lattice2D,
   &_swigt__p_Lattice2D__ReciprocalBases,
+  &_swigt__p_Lattice3D,
   &_swigt__p_Layer,
   &_swigt__p_LayerInterface,
   &_swigt__p_LayerRoughness,
   &_swigt__p_LorentzFisherPeakShape,
   &_swigt__p_Material,
   &_swigt__p_MesoCrystal,
-  &_swigt__p_MillerIndex,
-  &_swigt__p_MillerIndexOrientation,
   &_swigt__p_MisesFisherGaussPeakShape,
   &_swigt__p_MisesGaussPeakShape,
   &_swigt__p_MultiLayer,
@@ -79447,10 +77859,10 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t,
   &_swigt__p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t,
   &_swigt__p_std__vectorT_IFormFactor_p_std__allocatorT_IFormFactor_p_t_t,
-  &_swigt__p_std__vectorT_ILayout_const_p_std__allocatorT_ILayout_const_p_t_t,
   &_swigt__p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t,
   &_swigt__p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t,
   &_swigt__p_std__vectorT_Material_const_p_std__allocatorT_Material_const_p_t_t,
+  &_swigt__p_std__vectorT_ParticleLayout_const_p_std__allocatorT_ParticleLayout_const_p_t_t,
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
   &_swigt__p_std__vectorT_int_std__allocatorT_int_t_t,
   &_swigt__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t,
@@ -79530,8 +77942,7 @@ static swig_cast_info _swigc__p_FormFactorWeighted[] = {  {&_swigt__p_FormFactor
 static swig_cast_info _swigc__p_GaussFisherPeakShape[] = {  {&_swigt__p_GaussFisherPeakShape, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_HexagonalLattice[] = {  {&_swigt__p_HexagonalLattice, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IAbstractParticle[] = {  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_IAbstractParticle, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_IAbstractParticle, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_IAbstractParticle, 0, 0},  {&_swigt__p_IAbstractParticle, 0, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_IAbstractParticle, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_IAbstractParticle, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_IAbstractParticle, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_ICloneable, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_ICloneable, 0, 0},  {&_swigt__p_ILayout, _p_ILayoutTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_ICloneable, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_ICloneable, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_ICloneable, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_ICloneable, 0, 0},  {&_swigt__p_IClusteredParticles, _p_IClusteredParticlesTo_p_ICloneable, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_ICloneable, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_ICloneable, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_ICloneable, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_BasicLattice, _p_BasicLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_SquareLattice, _p_SquareLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_HexagonalLattice, _p_HexagonalLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IClusteredParticles[] = {  {&_swigt__p_IClusteredParticles, 0, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_IClusteredParticles, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_ICloneable, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_ICloneable, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_ICloneable, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_ICloneable, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_ICloneable, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_ICloneable, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_ICloneable, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_ICloneable, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_BasicLattice, _p_BasicLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_SquareLattice, _p_SquareLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_HexagonalLattice, _p_HexagonalLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICosineRipple[] = {  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_ICosineRipple, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_ICosineRipple, 0, 0},  {&_swigt__p_ICosineRipple, 0, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_ICosineRipple, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFTDecayFunction1D[] = {  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_IFTDecayFunction1D, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_IFTDecayFunction1D, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_IFTDecayFunction1D, 0, 0},  {&_swigt__p_IFTDecayFunction1D, 0, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_IFTDecayFunction1D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFTDecayFunction2D[] = {  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_IFTDecayFunction2D, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_IFTDecayFunction2D, 0, 0},  {&_swigt__p_IFTDecayFunction2D, 0, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_IFTDecayFunction2D, 0, 0},{0, 0, 0, 0}};
@@ -79544,17 +77955,15 @@ static swig_cast_info _swigc__p_IFormFactorDecorator[] = {  {&_swigt__p_IFormFac
 static swig_cast_info _swigc__p_IFormFactorPolyhedron[] = {  {&_swigt__p_IFormFactorPolyhedron, 0, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_IFormFactorPolyhedron, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactorPrism[] = {  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_IFormFactorPrism, 0, 0},  {&_swigt__p_IFormFactorPrism, 0, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_IFormFactorPrism, 0, 0},  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_IFormFactorPrism, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IInterferenceFunction[] = {  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_IInterferenceFunction, 0, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_IInterferenceFunction, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ILatticeOrientation[] = {  {&_swigt__p_ILatticeOrientation, 0, 0, 0},  {&_swigt__p_MillerIndexOrientation, _p_MillerIndexOrientationTo_p_ILatticeOrientation, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ILayout[] = {  {&_swigt__p_ILayout, 0, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_ILayout, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_INode, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_INode, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_INode, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_INode, 0, 0},  {&_swigt__p_ILayout, _p_ILayoutTo_p_INode, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_INode, 0, 0},  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_INode, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_INode, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_INode, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_INode, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_INode, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_INode, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_INode, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_INode, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_INode, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_INode, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_INode, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_INode, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_INode, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_INode, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_INode, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_INode, 0, 0},  {&_swigt__p_IClusteredParticles, _p_IClusteredParticlesTo_p_INode, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_INode, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_INode, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_INode, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_INode, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_INode, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_INode, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_INode, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_INode, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_INode, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_INode, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_INode, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_INode, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_INode, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_INode, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_INode, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_INode, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_INode, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_INode, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_INode, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_INode, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_INode, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_INode, 0, 0},  {&_swigt__p_BasicLattice, _p_BasicLatticeTo_p_INode, 0, 0},  {&_swigt__p_SquareLattice, _p_SquareLatticeTo_p_INode, 0, 0},  {&_swigt__p_HexagonalLattice, _p_HexagonalLatticeTo_p_INode, 0, 0},  {&_swigt__p_Lattice, _p_LatticeTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_INode, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_INode, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_INode, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_INode, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_INode, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_INode, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_INode, 0, 0},  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_INode, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_INode, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_INode, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_INode, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_INode, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_INode, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_INode, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_INode, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_INode, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_INode, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_INode, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_INode, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_INode, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_INode, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_INode, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_INode, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_INode, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_INode, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_INode, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_INode, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_INode, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_INode, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_INode, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_INode, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_INode, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_INode, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_INode, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_INode, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_INode, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_INode, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_INode, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_INode, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_INode, 0, 0},  {&_swigt__p_Lattice3D, _p_Lattice3DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_INode, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_INode, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_INode, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_INode, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_INode, 0, 0},  {&_swigt__p_BasicLattice, _p_BasicLatticeTo_p_INode, 0, 0},  {&_swigt__p_SquareLattice, _p_SquareLatticeTo_p_INode, 0, 0},  {&_swigt__p_HexagonalLattice, _p_HexagonalLatticeTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_INode, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_IParameterized, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_IParameterized, 0, 0},  {&_swigt__p_ILayout, _p_ILayoutTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_IParameterized, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_IParameterized, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParameterized, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_IParameterized, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_IParameterized, 0, 0},  {&_swigt__p_IClusteredParticles, _p_IClusteredParticlesTo_p_IParameterized, 0, 0},  {&_swigt__p_ISampleBuilder, _p_ISampleBuilderTo_p_IParameterized, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_IParameterized, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_IParameterized, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_IParameterized, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_BasicLattice, _p_BasicLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_SquareLattice, _p_SquareLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_HexagonalLattice, _p_HexagonalLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_Lattice, _p_LatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_IParameterized, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_IParameterized, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_IParameterized, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParameterized, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_IParameterized, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_IParameterized, 0, 0},  {&_swigt__p_ISampleBuilder, _p_ISampleBuilderTo_p_IParameterized, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_IParameterized, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_IParameterized, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_IParameterized, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_Lattice3D, _p_Lattice3DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_BasicLattice, _p_BasicLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_SquareLattice, _p_SquareLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_HexagonalLattice, _p_HexagonalLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IParticle[] = {  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_IParticle, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_IParticle, 0, 0},  {&_swigt__p_IParticle, 0, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_IParticle, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_IParticle, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IPeakShape[] = {  {&_swigt__p_IPeakShape, 0, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_IPeakShape, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_IPeakShape, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_IPeakShape, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_IPeakShape, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_IPeakShape, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_IPeakShape, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IProfileRectangularRipple[] = {  {&_swigt__p_IProfileRectangularRipple, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IProfileRipple[] = {  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_IProfileRipple, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_IProfileRipple, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_IProfileRipple, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_IProfileRipple, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_IProfileRipple, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_IProfileRipple, 0, 0},  {&_swigt__p_IProfileRipple, 0, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_IProfileRipple, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_IProfileRipple, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_IProfileRipple, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRotation[] = {  {&_swigt__p_RotationY, _p_RotationYTo_p_IRotation, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_IRotation, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_IRotation, 0, 0},  {&_swigt__p_IRotation, 0, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_IRotation, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_IRotation, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ISample[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_ISample, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_ISample, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_ISample, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_ISample, 0, 0},  {&_swigt__p_ILayout, _p_ILayoutTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_ISample, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_ISample, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_ISample, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_ISample, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_ISample, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ISample, 0, 0},  {&_swigt__p_ISample, 0, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_ISample, 0, 0},  {&_swigt__p_IClusteredParticles, _p_IClusteredParticlesTo_p_ISample, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_ISample, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_ISample, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_ISample, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_ISample, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_ISample, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_ISample, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_ISample, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_ISample, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_ISample, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_ISample, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_ISample, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_ISample, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ISample[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_ISample, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_ISample, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_ISample, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_ISample, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_ISample, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_ISample, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_ISample, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_ISample, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ISample, 0, 0},  {&_swigt__p_ISample, 0, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_ISample, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_ISample, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_ISample, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_ISample, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_ISample, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_ISample, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_ISample, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_ISample, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_ISample, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_ISample, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_ISample, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_ISample, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_ISample, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISampleBuilder[] = {  {&_swigt__p_ISampleBuilder, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISawtoothRipple[] = {  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_ISawtoothRipple, 0, 0},  {&_swigt__p_ISawtoothRipple, 0, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_ISawtoothRipple, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_ISawtoothRipple, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISelectionRule[] = {  {&_swigt__p_ISelectionRule, 0, 0, 0},  {&_swigt__p_SimpleSelectionRule, _p_SimpleSelectionRuleTo_p_ISelectionRule, 0, 0},{0, 0, 0, 0}};
@@ -79572,17 +77981,15 @@ static swig_cast_info _swigc__p_InterferenceFunctionRadialParaCrystal[] = {  {&_
 static swig_cast_info _swigc__p_InterferenceFunctionTwin[] = {  {&_swigt__p_InterferenceFunctionTwin, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IsotropicGaussPeakShape[] = {  {&_swigt__p_IsotropicGaussPeakShape, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IsotropicLorentzPeakShape[] = {  {&_swigt__p_IsotropicLorentzPeakShape, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Lattice[] = {  {&_swigt__p_Lattice, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Lattice2D[] = {  {&_swigt__p_Lattice2D, 0, 0, 0},  {&_swigt__p_BasicLattice, _p_BasicLatticeTo_p_Lattice2D, 0, 0},  {&_swigt__p_SquareLattice, _p_SquareLatticeTo_p_Lattice2D, 0, 0},  {&_swigt__p_HexagonalLattice, _p_HexagonalLatticeTo_p_Lattice2D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Lattice2D__ReciprocalBases[] = {  {&_swigt__p_Lattice2D__ReciprocalBases, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Lattice3D[] = {  {&_swigt__p_Lattice3D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Layer[] = {  {&_swigt__p_Layer, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LayerInterface[] = {  {&_swigt__p_LayerInterface, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LayerRoughness[] = {  {&_swigt__p_LayerRoughness, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LorentzFisherPeakShape[] = {  {&_swigt__p_LorentzFisherPeakShape, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Material[] = {  {&_swigt__p_Material, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MesoCrystal[] = {  {&_swigt__p_MesoCrystal, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_MillerIndex[] = {  {&_swigt__p_MillerIndex, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_MillerIndexOrientation[] = {  {&_swigt__p_MillerIndexOrientation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MisesFisherGaussPeakShape[] = {  {&_swigt__p_MisesFisherGaussPeakShape, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MisesGaussPeakShape[] = {  {&_swigt__p_MisesGaussPeakShape, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MultiLayer[] = {  {&_swigt__p_MultiLayer, 0, 0, 0},{0, 0, 0, 0}};
@@ -79651,10 +78058,10 @@ static swig_cast_info _swigc__p_std__vectorT_BasicVector3DT_double_t_std__alloca
 static swig_cast_info _swigc__p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t[] = {  {&_swigt__p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t[] = {  {&_swigt__p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_IFormFactor_p_std__allocatorT_IFormFactor_p_t_t[] = {  {&_swigt__p_std__vectorT_IFormFactor_p_std__allocatorT_IFormFactor_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__vectorT_ILayout_const_p_std__allocatorT_ILayout_const_p_t_t[] = {  {&_swigt__p_std__vectorT_ILayout_const_p_std__allocatorT_ILayout_const_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t[] = {  {&_swigt__p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t[] = {  {&_swigt__p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_Material_const_p_std__allocatorT_Material_const_p_t_t[] = {  {&_swigt__p_std__vectorT_Material_const_p_std__allocatorT_Material_const_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__vectorT_ParticleLayout_const_p_std__allocatorT_ParticleLayout_const_p_t_t[] = {  {&_swigt__p_std__vectorT_ParticleLayout_const_p_std__allocatorT_ParticleLayout_const_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_int_std__allocatorT_int_t_t[] = {  {&_swigt__p_std__vectorT_int_std__allocatorT_int_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t[] = {  {&_swigt__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -79735,7 +78142,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_HexagonalLattice,
   _swigc__p_IAbstractParticle,
   _swigc__p_ICloneable,
-  _swigc__p_IClusteredParticles,
   _swigc__p_ICosineRipple,
   _swigc__p_IFTDecayFunction1D,
   _swigc__p_IFTDecayFunction2D,
@@ -79748,8 +78154,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IFormFactorPolyhedron,
   _swigc__p_IFormFactorPrism,
   _swigc__p_IInterferenceFunction,
-  _swigc__p_ILatticeOrientation,
-  _swigc__p_ILayout,
   _swigc__p_INode,
   _swigc__p_INodeVisitor,
   _swigc__p_IParameterized,
@@ -79776,17 +78180,15 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_InterferenceFunctionTwin,
   _swigc__p_IsotropicGaussPeakShape,
   _swigc__p_IsotropicLorentzPeakShape,
-  _swigc__p_Lattice,
   _swigc__p_Lattice2D,
   _swigc__p_Lattice2D__ReciprocalBases,
+  _swigc__p_Lattice3D,
   _swigc__p_Layer,
   _swigc__p_LayerInterface,
   _swigc__p_LayerRoughness,
   _swigc__p_LorentzFisherPeakShape,
   _swigc__p_Material,
   _swigc__p_MesoCrystal,
-  _swigc__p_MillerIndex,
-  _swigc__p_MillerIndexOrientation,
   _swigc__p_MisesFisherGaussPeakShape,
   _swigc__p_MisesGaussPeakShape,
   _swigc__p_MultiLayer,
@@ -79855,10 +78257,10 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t,
   _swigc__p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t,
   _swigc__p_std__vectorT_IFormFactor_p_std__allocatorT_IFormFactor_p_t_t,
-  _swigc__p_std__vectorT_ILayout_const_p_std__allocatorT_ILayout_const_p_t_t,
   _swigc__p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t,
   _swigc__p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t,
   _swigc__p_std__vectorT_Material_const_p_std__allocatorT_Material_const_p_t_t,
+  _swigc__p_std__vectorT_ParticleLayout_const_p_std__allocatorT_ParticleLayout_const_p_t_t,
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,
   _swigc__p_std__vectorT_int_std__allocatorT_int_t_t,
   _swigc__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t,
@@ -80619,9 +79021,6 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "RoughnessModel_DEFAULT",SWIG_From_int(static_cast< int >(RoughnessModelWrap::DEFAULT)));
   SWIG_Python_SetConstant(d, "RoughnessModel_TANH",SWIG_From_int(static_cast< int >(RoughnessModelWrap::TANH)));
   SWIG_Python_SetConstant(d, "RoughnessModel_NEVOT_CROCE",SWIG_From_int(static_cast< int >(RoughnessModelWrap::NEVOT_CROCE)));
-  SWIG_Python_SetConstant(d, "MillerIndexOrientation_QX",SWIG_From_int(static_cast< int >(MillerIndexOrientation::QX)));
-  SWIG_Python_SetConstant(d, "MillerIndexOrientation_QY",SWIG_From_int(static_cast< int >(MillerIndexOrientation::QY)));
-  SWIG_Python_SetConstant(d, "MillerIndexOrientation_QZ",SWIG_From_int(static_cast< int >(MillerIndexOrientation::QZ)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else

@@ -90,7 +90,7 @@ std::unique_ptr<ParticleDistribution> ParticleDistributionItem::createParticleDi
 
     std::string domain_par = domainMainParameter();
 
-    double scale = ParameterUtils::isAngleRelated(domain_par) ? Units::degree : 1.0;
+    double scale = ParameterUtils::isAngleRelated(domain_par) ? Units::deg : 1.0;
     auto P_distribution = distr_item.createDistribution(scale);
 
     RealLimits limits = RealLimits::limitless();

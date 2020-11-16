@@ -40,15 +40,11 @@ processedInterferenceFunction(const ProcessedLayout& layout, const SimulationOpt
 
     if (p_radial_para && p_radial_para->kappa() > 0.0) {
         double kappa = p_radial_para->kappa();
-        result = std::make_unique<SSCApproximationStrategy>(weighted_formfactors, p_iff, sim_params,
-                                                            polarized, kappa);
-    } else {
-        result = std::make_unique<DecouplingApproximationStrategy>(weighted_formfactors, p_iff,
-                                                                   sim_params, polarized);
+        return std::make_unique<SSCApproximationStrategy>(weighted_formfactors, p_iff, sim_params,
+                                                          polarized, kappa);
     }
-    if (!result)
-        throw Exceptions::ClassInitializationException("Could not create appropriate result");
-    return result;
+    return std::make_unique<DecouplingApproximationStrategy>(weighted_formfactors, p_iff,
+                                                             sim_params, polarized);
 }
 
 } // namespace

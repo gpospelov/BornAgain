@@ -20,7 +20,7 @@
 
 #include <limits>
 
-InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice& lattice,
+InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice3D& lattice,
                                                                          unsigned N_1, unsigned N_2,
                                                                          unsigned N_3)
     : IInterferenceFunction(0), m_N_1(N_1), m_N_2(N_2), m_N_3(N_3)
@@ -38,7 +38,7 @@ InterferenceFunctionFinite3DLattice* InterferenceFunctionFinite3DLattice::clone(
     return ret;
 }
 
-const Lattice& InterferenceFunctionFinite3DLattice::lattice() const
+const Lattice3D& InterferenceFunctionFinite3DLattice::lattice() const
 {
     if (!m_lattice)
         throw std::runtime_error("InterferenceFunctionFinite3DLattice::lattice() -> Error. "
@@ -61,8 +61,8 @@ double InterferenceFunctionFinite3DLattice::iff_without_dw(const kvector_t q) co
     return ampl * ampl / (m_N_1 * m_N_2 * m_N_3);
 }
 
-void InterferenceFunctionFinite3DLattice::setLattice(const Lattice& lattice)
+void InterferenceFunctionFinite3DLattice::setLattice(const Lattice3D& lattice)
 {
-    m_lattice = std::make_unique<Lattice>(lattice);
+    m_lattice = std::make_unique<Lattice3D>(lattice);
     registerChild(m_lattice.get());
 }

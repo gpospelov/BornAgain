@@ -124,7 +124,7 @@ std::unique_ptr<OffSpecSimulation> createOffSpecSimulation(std::unique_ptr<Multi
     auto beamItem = instrument->beamItem();
     auto axisItem =
         dynamic_cast<BasicAxisItem*>(instrument->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
-    ret->setBeamParameters(beamItem->getWavelength(), *axisItem->createAxis(Units::degree),
+    ret->setBeamParameters(beamItem->getWavelength(), *axisItem->createAxis(Units::deg),
                            beamItem->getAzimuthalAngle());
 
     // TODO Take care about distributions
@@ -152,7 +152,7 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     const auto axis_item = beam_item->currentInclinationAxisItem();
     const auto footprint = beam_item->currentFootprintItem();
 
-    AngularSpecScan scan(beam_item->getWavelength(), *axis_item->createAxis(Units::degree));
+    AngularSpecScan scan(beam_item->getWavelength(), *axis_item->createAxis(Units::deg));
     scan.setFootprintFactor(footprint->createFootprint().get());
 
     TransformToDomain::addBeamDivergencesToScan(*beam_item, scan);

@@ -33,7 +33,7 @@ SpecularSimulationTest::SpecularSimulationTest()
     Material mat2 = HomogeneousMaterial("substrate", 15e-6, 0.0);
 
     Layer layer0(mat0);
-    Layer layer1(mat1, 10 * Units::nanometer);
+    Layer layer1(mat1, 10 * Units::nm);
     Layer layer2(mat2);
 
     multilayer.addLayer(layer0);
@@ -53,7 +53,7 @@ TEST_F(SpecularSimulationTest, InitialState)
 std::unique_ptr<SpecularSimulation> SpecularSimulationTest::defaultSimulation()
 {
     auto result = std::make_unique<SpecularSimulation>();
-    AngularSpecScan scan(1.0, FixedBinAxis("axis", 10, 0.0 * Units::degree, 2.0 * Units::degree));
+    AngularSpecScan scan(1.0, FixedBinAxis("axis", 10, 0.0 * Units::deg, 2.0 * Units::deg));
     result->setScan(scan);
     result->setSample(multilayer);
     return result;
@@ -101,23 +101,23 @@ TEST_F(SpecularSimulationTest, SetAngularScan)
     sim.setBeamIntensity(2.0);
     EXPECT_EQ(2.0, beam.getIntensity());
 
-    AngularSpecScan scan2(1.0, 10, 1.0 * Units::degree, 10.0 * Units::degree);
+    AngularSpecScan scan2(1.0, 10, 1.0 * Units::deg, 10.0 * Units::deg);
     sim.setScan(scan2);
     EXPECT_EQ(10u, sim.coordinateAxis()->size());
-    EXPECT_EQ(1.0 * Units::degree, sim.coordinateAxis()->lowerBound());
-    EXPECT_EQ(10.0 * Units::degree, sim.coordinateAxis()->upperBound());
+    EXPECT_EQ(1.0 * Units::deg, sim.coordinateAxis()->lowerBound());
+    EXPECT_EQ(10.0 * Units::deg, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
     EXPECT_EQ(0.0, beam.getPhi());
     checkBeamState(sim);
 
-    AngularSpecScan scan3(1.0, 10, -1.0 * Units::degree, 2.0 * Units::degree);
+    AngularSpecScan scan3(1.0, 10, -1.0 * Units::deg, 2.0 * Units::deg);
     EXPECT_THROW(sim.setScan(scan3), std::runtime_error);
 
     EXPECT_EQ(10u, sim.coordinateAxis()->size());
-    EXPECT_EQ(1.0 * Units::degree, sim.coordinateAxis()->lowerBound());
-    EXPECT_EQ(10.0 * Units::degree, sim.coordinateAxis()->upperBound());
+    EXPECT_EQ(1.0 * Units::deg, sim.coordinateAxis()->lowerBound());
+    EXPECT_EQ(10.0 * Units::deg, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
     EXPECT_EQ(0.0, beam.getAlpha());
@@ -181,10 +181,9 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     EXPECT_EQ(data->getAllocatedSize(), 10u);
     EXPECT_EQ(data->rank(), 1u);
 
-    EXPECT_NEAR(0.1 * Units::degree, sim_result.axis(Axes::Units::RADIANS).front(),
-                Units::degree * 1e-11);
-    EXPECT_NEAR(1.9 * Units::degree, sim_result.axis(Axes::Units::RADIANS).back(),
-                Units::degree * 1e-10);
+    EXPECT_NEAR(0.1 * Units::deg, sim_result.axis(Axes::Units::RADIANS).front(),
+                Units::deg * 1e-11);
+    EXPECT_NEAR(1.9 * Units::deg, sim_result.axis(Axes::Units::RADIANS).back(), Units::deg * 1e-10);
 
     checkBeamState(*sim);
 }

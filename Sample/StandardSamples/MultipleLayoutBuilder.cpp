@@ -24,10 +24,10 @@
 
 MultiLayer* MultipleLayoutBuilder::buildSample() const
 {
-    const double cylinder_height(5 * Units::nanometer);
-    const double cylinder_radius(5 * Units::nanometer);
-    const double prisheight(5 * Units::nanometer);
-    const double prislength(10 * Units::nanometer);
+    const double cylinder_height(5 * Units::nm);
+    const double cylinder_radius(5 * Units::nm);
+    const double prisheight(5 * Units::nm);
+    const double prislength(10 * Units::nm);
     const double cylinder_weight(0.5);
 
     Layer vacuum_layer(refMat::Vacuum);

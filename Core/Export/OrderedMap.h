@@ -65,20 +65,16 @@ public:
 
     iterator find(const Key& key)
     {
-        iterator result = m_list.end();
-        if (m_map.find(key) != m_map.end()) {
-            result = m_map[key];
-        }
-        return result;
+        if (m_map.find(key) != m_map.end())
+            return m_map[key];
+        return m_list.end();
     }
 
     const_iterator find(const Key& key) const
     {
-        const_iterator result = m_list.end();
-        if (m_map.find(key) != m_map.end()) {
-            result = m_map[key];
-        }
-        return result;
+        if (m_map.find(key) != m_map.end())
+            return m_map[key];
+        return m_list.end();
     }
 
     size_t erase(const Key& key)
@@ -95,9 +91,8 @@ public:
     const Object& value(const Key& key) const
     {
         typename map_t::const_iterator mit = m_map.find(key);
-        if (mit == m_map.end()) {
+        if (mit == m_map.end())
             throw std::runtime_error("OrderedMap::value() -> No such key");
-        }
         const_iterator it = mit->second;
         return (*it).second;
     }

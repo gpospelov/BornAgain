@@ -14,7 +14,7 @@
 
 #include "Core/Computation/ProcessedLayout.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
-#include "Sample/Correlations/ILayout.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 #include "Sample/Particle/IParticle.h"
 #include "Sample/Scattering/FormFactorBAPol.h"
@@ -28,7 +28,7 @@ namespace
 void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor);
 }
 
-ProcessedLayout::ProcessedLayout(const ILayout& layout, const std::vector<Slice>& slices,
+ProcessedLayout::ProcessedLayout(const ParticleLayout& layout, const std::vector<Slice>& slices,
                                  double z_ref, const IFresnelMap* p_fresnel_map, bool polarized)
     : m_fresnel_map(p_fresnel_map), m_polarized(polarized)
 {
@@ -76,8 +76,8 @@ std::map<size_t, std::vector<HomogeneousRegion>> ProcessedLayout::regionMap() co
 
 ProcessedLayout::~ProcessedLayout() = default;
 
-void ProcessedLayout::collectFormFactors(const ILayout& layout, const std::vector<Slice>& slices,
-                                         double z_ref)
+void ProcessedLayout::collectFormFactors(const ParticleLayout& layout,
+                                         const std::vector<Slice>& slices, double z_ref)
 {
     double layout_abundance = layout.getTotalAbundance();
     for (auto p_particle : layout.particles()) {

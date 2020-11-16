@@ -4056,8 +4056,8 @@ class FormFactorCrystal(IFormFactor):
 
     def __init__(self, lattice, basis_form_factor, meso_form_factor, position_variance=0.0):
         r"""
-        __init__(FormFactorCrystal self, Lattice lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor, double position_variance=0.0) -> FormFactorCrystal
-        FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
+        __init__(FormFactorCrystal self, Lattice3D lattice, IFormFactor basis_form_factor, IFormFactor meso_form_factor, double position_variance=0.0) -> FormFactorCrystal
+        FormFactorCrystal::FormFactorCrystal(const Lattice3D &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
 
         """
         _libBornAgainSample.FormFactorCrystal_swiginit(self, _libBornAgainSample.new_FormFactorCrystal(lattice, basis_form_factor, meso_form_factor, position_variance))
@@ -4331,61 +4331,17 @@ class IAbstractParticle(ISample):
 # Register IAbstractParticle in _libBornAgainSample:
 _libBornAgainSample.IAbstractParticle_swigregister(IAbstractParticle)
 
-class IClusteredParticles(ISample):
+class Crystal(ISample):
     r"""
 
 
-    An ordered assembly of particles. Currently, the only child class is  Crystal.
+    A crystal structure, defined by a Bravais lattice, a basis, and a position variance.
 
-    C++ includes: IClusteredParticles.h
+    The basis is either a  Particle or a  ParticleComposition.
 
-    """
+    Computations are delegated to class  FormFactorCrystal.
 
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""
-        clone(IClusteredParticles self) -> IClusteredParticles
-        IClusteredParticles* IClusteredParticles::clone() const override=0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainSample.IClusteredParticles_clone(self)
-
-    def createTotalFormFactor(self, arg2, arg3, arg4):
-        r"""
-        createTotalFormFactor(IClusteredParticles self, IFormFactor arg2, IRotation arg3, kvector_t arg4) -> IFormFactor
-        virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
-
-        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
-
-        """
-        return _libBornAgainSample.IClusteredParticles_createTotalFormFactor(self, arg2, arg3, arg4)
-
-    def homogeneousRegions(self):
-        r"""
-        homogeneousRegions(IClusteredParticles self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
-        virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0
-
-        Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
-
-        """
-        return _libBornAgainSample.IClusteredParticles_homogeneousRegions(self)
-    __swig_destroy__ = _libBornAgainSample.delete_IClusteredParticles
-
-# Register IClusteredParticles in _libBornAgainSample:
-_libBornAgainSample.IClusteredParticles_swigregister(IClusteredParticles)
-
-class Crystal(IClusteredParticles):
-    r"""
-
-
-    A crystal structure with a  ParticleComposition as a basis. Used in  MesoCrystal, where it is given an outer shape.
+    Used in  MesoCrystal, where it is given an outer shape.
 
     C++ includes: Crystal.h
 
@@ -4394,13 +4350,13 @@ class Crystal(IClusteredParticles):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, lattice_basis, lattice):
+    def __init__(self, basis, lattice, position_variance=0):
         r"""
-        __init__(Crystal self, IParticle lattice_basis, Lattice lattice) -> Crystal
-        Crystal::Crystal(const IParticle &lattice_basis, const Lattice &lattice)
+        __init__(Crystal self, IParticle basis, Lattice3D lattice, double position_variance=0) -> Crystal
+        Crystal::Crystal(const IParticle &basis, const Lattice3D &lattice, double position_variance=0)
 
         """
-        _libBornAgainSample.Crystal_swiginit(self, _libBornAgainSample.new_Crystal(lattice_basis, lattice))
+        _libBornAgainSample.Crystal_swiginit(self, _libBornAgainSample.new_Crystal(basis, lattice, position_variance))
     __swig_destroy__ = _libBornAgainSample.delete_Crystal
 
     def clone(self):
@@ -4424,9 +4380,7 @@ class Crystal(IClusteredParticles):
     def createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation):
         r"""
         createTotalFormFactor(Crystal self, IFormFactor meso_crystal_form_factor, IRotation p_rotation, kvector_t translation) -> IFormFactor
-        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const override final
-
-        Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+        IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
 
         """
         return _libBornAgainSample.Crystal_createTotalFormFactor(self, meso_crystal_form_factor, p_rotation, translation)
@@ -4434,28 +4388,18 @@ class Crystal(IClusteredParticles):
     def homogeneousRegions(self):
         r"""
         homogeneousRegions(Crystal self) -> std::vector< HomogeneousRegion,std::allocator< HomogeneousRegion > >
-        std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const override final
-
-        Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
+        std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const
 
         """
         return _libBornAgainSample.Crystal_homogeneousRegions(self)
 
     def transformedLattice(self, p_rotation=None):
         r"""
-        transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice
-        Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
+        transformedLattice(Crystal self, IRotation p_rotation=None) -> Lattice3D
+        Lattice3D Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
 
         """
         return _libBornAgainSample.Crystal_transformedLattice(self, p_rotation)
-
-    def setPositionVariance(self, position_variance):
-        r"""
-        setPositionVariance(Crystal self, double position_variance)
-        void Crystal::setPositionVariance(double position_variance)
-
-        """
-        return _libBornAgainSample.Crystal_setPositionVariance(self, position_variance)
 
     def getChildren(self):
         r"""
@@ -4652,8 +4596,8 @@ class MesoCrystal(IParticle):
 
     def __init__(self, particle_structure, form_factor):
         r"""
-        __init__(MesoCrystal self, IClusteredParticles particle_structure, IFormFactor form_factor) -> MesoCrystal
-        MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, const IFormFactor &form_factor)
+        __init__(MesoCrystal self, Crystal particle_structure, IFormFactor form_factor) -> MesoCrystal
+        MesoCrystal::MesoCrystal(const Crystal &particle_structure, const IFormFactor &form_factor)
 
         """
         _libBornAgainSample.MesoCrystal_swiginit(self, _libBornAgainSample.new_MesoCrystal(particle_structure, form_factor))
@@ -6357,114 +6301,6 @@ class FTDistribution2DVoigt(IFTDistribution2D):
 # Register FTDistribution2DVoigt in _libBornAgainSample:
 _libBornAgainSample.FTDistribution2DVoigt_swigregister(FTDistribution2DVoigt)
 
-class ILayout(ISample):
-    r"""
-
-
-    Pure virtual interface class to equip a sample layer with scattering properties. Currently only inherited by  ParticleLayout; in the future also by domain structure.
-
-    C++ includes: ILayout.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainSample.delete_ILayout
-
-    def clone(self):
-        r"""
-        clone(ILayout self) -> ILayout
-        virtual ILayout* ILayout::clone() const =0
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainSample.ILayout_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(ILayout self, INodeVisitor * visitor)
-        virtual void ILayout::accept(INodeVisitor *visitor) const =0
-
-        """
-        return _libBornAgainSample.ILayout_accept(self, visitor)
-
-    def particles(self):
-        r"""
-        particles(ILayout self) -> SafePointerVector< IParticle >
-        virtual SafePointerVector<IParticle> ILayout::particles() const =0
-
-        Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
-
-        """
-        return _libBornAgainSample.ILayout_particles(self)
-
-    def interferenceFunction(self):
-        r"""
-        interferenceFunction(ILayout self) -> IInterferenceFunction
-        virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
-
-        Returns the interference function. 
-
-        """
-        return _libBornAgainSample.ILayout_interferenceFunction(self)
-
-    def getTotalAbundance(self):
-        r"""
-        getTotalAbundance(ILayout self) -> double
-        virtual double ILayout::getTotalAbundance() const =0
-
-        Get total abundance of all particles. 
-
-        """
-        return _libBornAgainSample.ILayout_getTotalAbundance(self)
-
-    def totalParticleSurfaceDensity(self):
-        r"""
-        totalParticleSurfaceDensity(ILayout self) -> double
-        virtual double ILayout::totalParticleSurfaceDensity() const =0
-
-        Returns surface density of all particles. 
-
-        """
-        return _libBornAgainSample.ILayout_totalParticleSurfaceDensity(self)
-
-    def setTotalParticleSurfaceDensity(self, particle_density):
-        r"""
-        setTotalParticleSurfaceDensity(ILayout self, double particle_density)
-        virtual void ILayout::setTotalParticleSurfaceDensity(double particle_density)=0
-
-        Sets surface density of all particles. 
-
-        """
-        return _libBornAgainSample.ILayout_setTotalParticleSurfaceDensity(self, particle_density)
-
-    def weight(self):
-        r"""
-        weight(ILayout self) -> double
-        double ILayout::weight() const
-
-        Returns the relative weight of this layout. 
-
-        """
-        return _libBornAgainSample.ILayout_weight(self)
-
-    def setWeight(self, weight):
-        r"""
-        setWeight(ILayout self, double weight)
-        void ILayout::setWeight(double weight)
-
-        Sets the relative weight of this layout. 
-
-        """
-        return _libBornAgainSample.ILayout_setWeight(self, weight)
-
-# Register ILayout in _libBornAgainSample:
-_libBornAgainSample.ILayout_swigregister(ILayout)
-
 class IPeakShape(ISample):
     r"""
 
@@ -7098,16 +6934,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         """
         return _libBornAgainSample.InterferenceFunction2DLattice_accept(self, visitor)
 
-    @staticmethod
-    def createSquare(lattice_length, xi):
-        r"""createSquare(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
-        return _libBornAgainSample.InterferenceFunction2DLattice_createSquare(lattice_length, xi)
-
-    @staticmethod
-    def createHexagonal(lattice_length, xi):
-        r"""createHexagonal(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
-        return _libBornAgainSample.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
-
     def setDecayFunction(self, decay):
         r"""
         setDecayFunction(InterferenceFunction2DLattice self, IFTDecayFunction2D decay)
@@ -7177,14 +7003,6 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
 # Register InterferenceFunction2DLattice in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunction2DLattice_swigregister(InterferenceFunction2DLattice)
 
-def InterferenceFunction2DLattice_createSquare(lattice_length, xi):
-    r"""InterferenceFunction2DLattice_createSquare(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
-    return _libBornAgainSample.InterferenceFunction2DLattice_createSquare(lattice_length, xi)
-
-def InterferenceFunction2DLattice_createHexagonal(lattice_length, xi):
-    r"""InterferenceFunction2DLattice_createHexagonal(double lattice_length, double xi) -> InterferenceFunction2DLattice"""
-    return _libBornAgainSample.InterferenceFunction2DLattice_createHexagonal(lattice_length, xi)
-
 class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     r"""
 
@@ -7245,16 +7063,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 
         """
         return _libBornAgainSample.InterferenceFunction2DParaCrystal_accept(self, visitor)
-
-    @staticmethod
-    def createSquare(lattice_length, damping_length, domain_size_1, domain_size_2):
-        r"""createSquare(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
-        return _libBornAgainSample.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
-
-    @staticmethod
-    def createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2):
-        r"""createHexagonal(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
-        return _libBornAgainSample.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
 
     def setDomainSizes(self, size_1, size_2):
         r"""
@@ -7395,14 +7203,6 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
 # Register InterferenceFunction2DParaCrystal in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunction2DParaCrystal_swigregister(InterferenceFunction2DParaCrystal)
 
-def InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2):
-    r"""InterferenceFunction2DParaCrystal_createSquare(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
-    return _libBornAgainSample.InterferenceFunction2DParaCrystal_createSquare(lattice_length, damping_length, domain_size_1, domain_size_2)
-
-def InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2):
-    r"""InterferenceFunction2DParaCrystal_createHexagonal(double lattice_length, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal"""
-    return _libBornAgainSample.InterferenceFunction2DParaCrystal_createHexagonal(lattice_length, damping_length, domain_size_1, domain_size_2)
-
 class InterferenceFunction2DSuperLattice(IInterferenceFunction):
     r"""
 
@@ -7483,16 +7283,6 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         """
         return _libBornAgainSample.InterferenceFunction2DSuperLattice_substructureIFF(self)
 
-    @staticmethod
-    def createSquare(lattice_length, xi, size_1, size_2):
-        r"""createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-        return _libBornAgainSample.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
-
-    @staticmethod
-    def createHexagonal(lattice_length, xi, size_1, size_2):
-        r"""createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-        return _libBornAgainSample.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
-
     def evaluate(self, q, outer_iff=1.0):
         r"""
         evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double
@@ -7554,14 +7344,6 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
 # Register InterferenceFunction2DSuperLattice in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunction2DSuperLattice_swigregister(InterferenceFunction2DSuperLattice)
 
-def InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2):
-    r"""InterferenceFunction2DSuperLattice_createSquare(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-    return _libBornAgainSample.InterferenceFunction2DSuperLattice_createSquare(lattice_length, xi, size_1, size_2)
-
-def InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2):
-    r"""InterferenceFunction2DSuperLattice_createHexagonal(double lattice_length, double xi, unsigned int size_1, unsigned int size_2) -> InterferenceFunction2DSuperLattice"""
-    return _libBornAgainSample.InterferenceFunction2DSuperLattice_createHexagonal(lattice_length, xi, size_1, size_2)
-
 class InterferenceFunction3DLattice(IInterferenceFunction):
     r"""
 
@@ -7577,8 +7359,8 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
 
     def __init__(self, lattice):
         r"""
-        __init__(InterferenceFunction3DLattice self, Lattice lattice) -> InterferenceFunction3DLattice
-        InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice &lattice)
+        __init__(InterferenceFunction3DLattice self, Lattice3D lattice) -> InterferenceFunction3DLattice
+        InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice3D &lattice)
 
         """
         _libBornAgainSample.InterferenceFunction3DLattice_swiginit(self, _libBornAgainSample.new_InterferenceFunction3DLattice(lattice))
@@ -7612,8 +7394,8 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
 
     def lattice(self):
         r"""
-        lattice(InterferenceFunction3DLattice self) -> Lattice
-        const Lattice & InterferenceFunction3DLattice::lattice() const
+        lattice(InterferenceFunction3DLattice self) -> Lattice3D
+        const Lattice3D & InterferenceFunction3DLattice::lattice() const
 
         """
         return _libBornAgainSample.InterferenceFunction3DLattice_lattice(self)
@@ -7711,16 +7493,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         """
         return _libBornAgainSample.InterferenceFunctionFinite2DLattice_accept(self, visitor)
 
-    @staticmethod
-    def createSquare(lattice_length, xi, N_1, N_2):
-        r"""createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-        return _libBornAgainSample.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
-
-    @staticmethod
-    def createHexagonal(lattice_length, xi, N_1, N_2):
-        r"""createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-        return _libBornAgainSample.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
-
     def numberUnitCells1(self):
         r"""
         numberUnitCells1(InterferenceFunctionFinite2DLattice self) -> unsigned int
@@ -7782,14 +7554,6 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
 # Register InterferenceFunctionFinite2DLattice in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunctionFinite2DLattice_swigregister(InterferenceFunctionFinite2DLattice)
 
-def InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2):
-    r"""InterferenceFunctionFinite2DLattice_createSquare(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-    return _libBornAgainSample.InterferenceFunctionFinite2DLattice_createSquare(lattice_length, xi, N_1, N_2)
-
-def InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2):
-    r"""InterferenceFunctionFinite2DLattice_createHexagonal(double lattice_length, double xi, unsigned int N_1, unsigned int N_2) -> InterferenceFunctionFinite2DLattice"""
-    return _libBornAgainSample.InterferenceFunctionFinite2DLattice_createHexagonal(lattice_length, xi, N_1, N_2)
-
 class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
     r"""
 
@@ -7805,8 +7569,8 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
 
     def __init__(self, lattice, N_1, N_2, N_3):
         r"""
-        __init__(InterferenceFunctionFinite3DLattice self, Lattice lattice, unsigned int N_1, unsigned int N_2, unsigned int N_3) -> InterferenceFunctionFinite3DLattice
-        InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
+        __init__(InterferenceFunctionFinite3DLattice self, Lattice3D lattice, unsigned int N_1, unsigned int N_2, unsigned int N_3) -> InterferenceFunctionFinite3DLattice
+        InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice3D &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
 
         """
         _libBornAgainSample.InterferenceFunctionFinite3DLattice_swiginit(self, _libBornAgainSample.new_InterferenceFunctionFinite3DLattice(lattice, N_1, N_2, N_3))
@@ -7856,8 +7620,8 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
 
     def lattice(self):
         r"""
-        lattice(InterferenceFunctionFinite3DLattice self) -> Lattice
-        const Lattice & InterferenceFunctionFinite3DLattice::lattice() const
+        lattice(InterferenceFunctionFinite3DLattice self) -> Lattice3D
+        const Lattice3D & InterferenceFunctionFinite3DLattice::lattice() const
 
         """
         return _libBornAgainSample.InterferenceFunctionFinite3DLattice_lattice(self)
@@ -8216,7 +7980,7 @@ class InterferenceFunctionTwin(IInterferenceFunction):
 # Register InterferenceFunctionTwin in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunctionTwin_swigregister(InterferenceFunctionTwin)
 
-class ParticleLayout(ILayout):
+class ParticleLayout(ISample):
     r"""
 
 
@@ -8242,7 +8006,7 @@ class ParticleLayout(ILayout):
     def clone(self):
         r"""
         clone(ParticleLayout self) -> ParticleLayout
-        ParticleLayout * ParticleLayout::clone() const final override
+        ParticleLayout * ParticleLayout::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -8252,7 +8016,7 @@ class ParticleLayout(ILayout):
     def accept(self, visitor):
         r"""
         accept(ParticleLayout self, INodeVisitor * visitor)
-        void ParticleLayout::accept(INodeVisitor *visitor) const final override
+        void ParticleLayout::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.ParticleLayout_accept(self, visitor)
@@ -8285,7 +8049,7 @@ class ParticleLayout(ILayout):
     def particles(self):
         r"""
         particles(ParticleLayout self) -> SafePointerVector< IParticle >
-        SafePointerVector< IParticle > ParticleLayout::particles() const final override
+        SafePointerVector< IParticle > ParticleLayout::particles() const
 
         Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 
@@ -8295,9 +8059,7 @@ class ParticleLayout(ILayout):
     def interferenceFunction(self):
         r"""
         interferenceFunction(ParticleLayout self) -> IInterferenceFunction
-        const IInterferenceFunction * ParticleLayout::interferenceFunction() const final override
-
-        Returns the interference function. 
+        const IInterferenceFunction * ParticleLayout::interferenceFunction() const
 
         """
         return _libBornAgainSample.ParticleLayout_interferenceFunction(self)
@@ -8305,9 +8067,7 @@ class ParticleLayout(ILayout):
     def getTotalAbundance(self):
         r"""
         getTotalAbundance(ParticleLayout self) -> double
-        double ParticleLayout::getTotalAbundance() const final override
-
-        Get total abundance of all particles. 
+        double ParticleLayout::getTotalAbundance() const
 
         """
         return _libBornAgainSample.ParticleLayout_getTotalAbundance(self)
@@ -8325,9 +8085,7 @@ class ParticleLayout(ILayout):
     def totalParticleSurfaceDensity(self):
         r"""
         totalParticleSurfaceDensity(ParticleLayout self) -> double
-        double ParticleLayout::totalParticleSurfaceDensity() const final override
-
-        Returns surface density of all particles. 
+        double ParticleLayout::totalParticleSurfaceDensity() const
 
         """
         return _libBornAgainSample.ParticleLayout_totalParticleSurfaceDensity(self)
@@ -8335,7 +8093,7 @@ class ParticleLayout(ILayout):
     def setTotalParticleSurfaceDensity(self, particle_density):
         r"""
         setTotalParticleSurfaceDensity(ParticleLayout self, double particle_density)
-        void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override
+        void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
 
         Sets total particle surface density.
 
@@ -8351,10 +8109,30 @@ class ParticleLayout(ILayout):
     def getChildren(self):
         r"""
         getChildren(ParticleLayout self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > ParticleLayout::getChildren() const final override
+        std::vector< const INode * > ParticleLayout::getChildren() const override
 
         """
         return _libBornAgainSample.ParticleLayout_getChildren(self)
+
+    def weight(self):
+        r"""
+        weight(ParticleLayout self) -> double
+        double ParticleLayout::weight() const
+
+        Returns the relative weight of this layout. 
+
+        """
+        return _libBornAgainSample.ParticleLayout_weight(self)
+
+    def setWeight(self, weight):
+        r"""
+        setWeight(ParticleLayout self, double weight)
+        void ParticleLayout::setWeight(double weight)
+
+        Sets the relative weight of this layout. 
+
+        """
+        return _libBornAgainSample.ParticleLayout_setWeight(self, weight)
 
 # Register ParticleLayout in _libBornAgainSample:
 _libBornAgainSample.ParticleLayout_swigregister(ParticleLayout)
@@ -8448,8 +8226,8 @@ class Layer(ISample):
 
     def addLayout(self, decoration):
         r"""
-        addLayout(Layer self, ILayout decoration)
-        void Layer::addLayout(const ILayout &decoration)
+        addLayout(Layer self, ParticleLayout decoration)
+        void Layer::addLayout(const ParticleLayout &decoration)
 
         """
         return _libBornAgainSample.Layer_addLayout(self, decoration)
@@ -8464,8 +8242,8 @@ class Layer(ISample):
 
     def layouts(self):
         r"""
-        layouts(Layer self) -> std::vector< ILayout const *,std::allocator< ILayout const * > >
-        std::vector< const ILayout * > Layer::layouts() const
+        layouts(Layer self) -> std::vector< ParticleLayout const *,std::allocator< ParticleLayout const * > >
+        std::vector< const ParticleLayout * > Layer::layouts() const
 
         """
         return _libBornAgainSample.Layer_layouts(self)
@@ -11381,135 +11159,6 @@ class FormFactorSphereLogNormalRadius(IFormFactorBorn):
 # Register FormFactorSphereLogNormalRadius in _libBornAgainSample:
 _libBornAgainSample.FormFactorSphereLogNormalRadius_swigregister(FormFactorSphereLogNormalRadius)
 
-class ILatticeOrientation(object):
-    r"""
-
-
-    Pure virtual base of classes that specify a lattice orientation. Currently only inherited by  MillerIndexOrientation.
-
-    C++ includes: ILatticeOrientation.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainSample.delete_ILatticeOrientation
-
-    def clone(self):
-        r"""
-        clone(ILatticeOrientation self) -> ILatticeOrientation
-        virtual ILatticeOrientation* ILatticeOrientation::clone() const =0
-
-        """
-        return _libBornAgainSample.ILatticeOrientation_clone(self)
-
-    def usePrimitiveLattice(self, lattice):
-        r"""
-        usePrimitiveLattice(ILatticeOrientation self, Lattice lattice)
-        virtual void ILatticeOrientation::usePrimitiveLattice(const Lattice &lattice)=0
-
-        """
-        return _libBornAgainSample.ILatticeOrientation_usePrimitiveLattice(self, lattice)
-
-    def transformation(self):
-        r"""
-        transformation(ILatticeOrientation self) -> Transform3D
-        virtual Transform3D ILatticeOrientation::transformation() const =0
-
-        """
-        return _libBornAgainSample.ILatticeOrientation_transformation(self)
-
-# Register ILatticeOrientation in _libBornAgainSample:
-_libBornAgainSample.ILatticeOrientation_swigregister(ILatticeOrientation)
-
-class MillerIndex(object):
-    r"""
-
-
-    A direction in reciprocal space, specified by double-valued indices hkl.
-
-    C++ includes: ILatticeOrientation.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, h_, k_, l_):
-        r"""
-        __init__(MillerIndex self, double h_, double k_, double l_) -> MillerIndex
-        MillerIndex::MillerIndex(double h_, double k_, double l_)
-
-        """
-        _libBornAgainSample.MillerIndex_swiginit(self, _libBornAgainSample.new_MillerIndex(h_, k_, l_))
-    h = property(_libBornAgainSample.MillerIndex_h_get, _libBornAgainSample.MillerIndex_h_set, doc=r"""h : double""")
-    k = property(_libBornAgainSample.MillerIndex_k_get, _libBornAgainSample.MillerIndex_k_set, doc=r"""k : double""")
-    l = property(_libBornAgainSample.MillerIndex_l_get, _libBornAgainSample.MillerIndex_l_set, doc=r"""l : double""")
-    __swig_destroy__ = _libBornAgainSample.delete_MillerIndex
-
-# Register MillerIndex in _libBornAgainSample:
-_libBornAgainSample.MillerIndex_swigregister(MillerIndex)
-
-class MillerIndexOrientation(ILatticeOrientation):
-    r"""
-
-
-    Specifies a rotation of a lattice through the Miller indices of two coordinate axes.
-
-    C++ includes: ILatticeOrientation.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    QX = _libBornAgainSample.MillerIndexOrientation_QX
-    
-    QY = _libBornAgainSample.MillerIndexOrientation_QY
-    
-    QZ = _libBornAgainSample.MillerIndexOrientation_QZ
-    
-
-    def __init__(self, q1, index1, q2, index2):
-        r"""
-        __init__(MillerIndexOrientation self, MillerIndexOrientation::QComponent q1, MillerIndex index1, MillerIndexOrientation::QComponent q2, MillerIndex index2) -> MillerIndexOrientation
-        MillerIndexOrientation::MillerIndexOrientation(QComponent q1, MillerIndex index1, QComponent q2, MillerIndex index2)
-
-        This constructor is best explained by an example. Arguments QX, (1,1,0), QY, (0,2,1) mean: Rotate the lattice such that the axis [110] points into x direction, and the axis [021], projected into the yz plane, points into z direction. 
-
-        """
-        _libBornAgainSample.MillerIndexOrientation_swiginit(self, _libBornAgainSample.new_MillerIndexOrientation(q1, index1, q2, index2))
-    __swig_destroy__ = _libBornAgainSample.delete_MillerIndexOrientation
-
-    def clone(self):
-        r"""
-        clone(MillerIndexOrientation self) -> MillerIndexOrientation
-        MillerIndexOrientation * MillerIndexOrientation::clone() const override
-
-        """
-        return _libBornAgainSample.MillerIndexOrientation_clone(self)
-
-    def usePrimitiveLattice(self, lattice):
-        r"""
-        usePrimitiveLattice(MillerIndexOrientation self, Lattice lattice)
-        void MillerIndexOrientation::usePrimitiveLattice(const Lattice &lattice) override
-
-        """
-        return _libBornAgainSample.MillerIndexOrientation_usePrimitiveLattice(self, lattice)
-
-    def transformation(self):
-        r"""
-        transformation(MillerIndexOrientation self) -> Transform3D
-        Transform3D MillerIndexOrientation::transformation() const override
-
-        """
-        return _libBornAgainSample.MillerIndexOrientation_transformation(self)
-
-# Register MillerIndexOrientation in _libBornAgainSample:
-_libBornAgainSample.MillerIndexOrientation_swigregister(MillerIndexOrientation)
-
 class ISelectionRule(object):
     r"""
 
@@ -11587,13 +11236,13 @@ class SimpleSelectionRule(ISelectionRule):
 # Register SimpleSelectionRule in _libBornAgainSample:
 _libBornAgainSample.SimpleSelectionRule_swigregister(SimpleSelectionRule)
 
-class Lattice(libBornAgainParam.INode):
+class Lattice3D(libBornAgainParam.INode):
     r"""
 
 
-    A lattice with three basis vectors.
+    A Bravais lattice, characterized by three basis vectors, and optionally an  ISelectionRule.
 
-    C++ includes: Lattice.h
+    C++ includes: Lattice3D.h
 
     """
 
@@ -11602,217 +11251,138 @@ class Lattice(libBornAgainParam.INode):
 
     def __init__(self, *args):
         r"""
-        __init__(Lattice self) -> Lattice
-        __init__(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3) -> Lattice
-        __init__(Lattice self, Lattice lattice) -> Lattice
-        Lattice::Lattice(const Lattice &lattice)
+        __init__(Lattice3D self, kvector_t a, kvector_t b, kvector_t c) -> Lattice3D
+        __init__(Lattice3D self, Lattice3D lattice) -> Lattice3D
+        Lattice3D::Lattice3D(const Lattice3D &lattice)
 
         """
-        _libBornAgainSample.Lattice_swiginit(self, _libBornAgainSample.new_Lattice(*args))
-    __swig_destroy__ = _libBornAgainSample.delete_Lattice
+        _libBornAgainSample.Lattice3D_swiginit(self, _libBornAgainSample.new_Lattice3D(*args))
+    __swig_destroy__ = _libBornAgainSample.delete_Lattice3D
 
     def accept(self, visitor):
         r"""
-        accept(Lattice self, INodeVisitor * visitor)
-        void Lattice::accept(INodeVisitor *visitor) const override
+        accept(Lattice3D self, INodeVisitor * visitor)
+        void Lattice3D::accept(INodeVisitor *visitor) const override
 
         """
-        return _libBornAgainSample.Lattice_accept(self, visitor)
+        return _libBornAgainSample.Lattice3D_accept(self, visitor)
 
     def transformed(self, transform):
         r"""
-        transformed(Lattice self, Transform3D const & transform) -> Lattice
-        Lattice Lattice::transformed(const Transform3D &transform) const
+        transformed(Lattice3D self, Transform3D const & transform) -> Lattice3D
+        Lattice3D Lattice3D::transformed(const Transform3D &transform) const
 
         Creates transformed lattice. 
 
         """
-        return _libBornAgainSample.Lattice_transformed(self, transform)
+        return _libBornAgainSample.Lattice3D_transformed(self, transform)
 
     def initialize(self):
         r"""
-        initialize(Lattice self)
-        void Lattice::initialize() const
+        initialize(Lattice3D self)
+        void Lattice3D::initialize()
 
         Initializes cached data. 
 
         """
-        return _libBornAgainSample.Lattice_initialize(self)
+        return _libBornAgainSample.Lattice3D_initialize(self)
 
     def getBasisVectorA(self):
         r"""
-        getBasisVectorA(Lattice self) -> kvector_t
-        kvector_t Lattice::getBasisVectorA() const
+        getBasisVectorA(Lattice3D self) -> kvector_t
+        kvector_t Lattice3D::getBasisVectorA() const
 
         Returns basis vector a. 
 
         """
-        return _libBornAgainSample.Lattice_getBasisVectorA(self)
+        return _libBornAgainSample.Lattice3D_getBasisVectorA(self)
 
     def getBasisVectorB(self):
         r"""
-        getBasisVectorB(Lattice self) -> kvector_t
-        kvector_t Lattice::getBasisVectorB() const
+        getBasisVectorB(Lattice3D self) -> kvector_t
+        kvector_t Lattice3D::getBasisVectorB() const
 
         Returns basis vector b. 
 
         """
-        return _libBornAgainSample.Lattice_getBasisVectorB(self)
+        return _libBornAgainSample.Lattice3D_getBasisVectorB(self)
 
     def getBasisVectorC(self):
         r"""
-        getBasisVectorC(Lattice self) -> kvector_t
-        kvector_t Lattice::getBasisVectorC() const
+        getBasisVectorC(Lattice3D self) -> kvector_t
+        kvector_t Lattice3D::getBasisVectorC() const
 
         Returns basis vector c. 
 
         """
-        return _libBornAgainSample.Lattice_getBasisVectorC(self)
-
-    def resetBasis(self, a1, a2, a3):
-        r"""
-        resetBasis(Lattice self, kvector_t a1, kvector_t a2, kvector_t a3)
-        void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-
-        Resets the basis vectors. 
-
-        """
-        return _libBornAgainSample.Lattice_resetBasis(self, a1, a2, a3)
+        return _libBornAgainSample.Lattice3D_getBasisVectorC(self)
 
     def getMillerDirection(self, h, k, l):
         r"""
-        getMillerDirection(Lattice self, double h, double k, double l) -> kvector_t
-        kvector_t Lattice::getMillerDirection(double h, double k, double l) const
+        getMillerDirection(Lattice3D self, double h, double k, double l) -> kvector_t
+        kvector_t Lattice3D::getMillerDirection(double h, double k, double l) const
 
-        Returns normalized direction corresponding to the given Miller indices. 
+        Returns normalized direction corresponding to the given Miller indices.
+
+        Currently unused but may be useful for checks. 
 
         """
-        return _libBornAgainSample.Lattice_getMillerDirection(self, h, k, l)
+        return _libBornAgainSample.Lattice3D_getMillerDirection(self, h, k, l)
 
-    def volume(self):
+    def unitCellVolume(self):
         r"""
-        volume(Lattice self) -> double
-        double Lattice::volume() const
+        unitCellVolume(Lattice3D self) -> double
+        double Lattice3D::unitCellVolume() const
 
         Returns the volume of the unit cell. 
 
         """
-        return _libBornAgainSample.Lattice_volume(self)
+        return _libBornAgainSample.Lattice3D_unitCellVolume(self)
 
-    def getReciprocalLatticeBasis(self, b1, b2, b3):
+    def getReciprocalLatticeBasis(self, ra, rb, rc):
         r"""
-        getReciprocalLatticeBasis(Lattice self, kvector_t b1, kvector_t b2, kvector_t b3)
-        void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const
+        getReciprocalLatticeBasis(Lattice3D self, kvector_t ra, kvector_t rb, kvector_t rc)
+        void Lattice3D::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const
 
-        Returns the reciprocal basis vectors. 
+        Returns the reciprocal basis vectors.
+
+        Currently only used in tests. 
 
         """
-        return _libBornAgainSample.Lattice_getReciprocalLatticeBasis(self, b1, b2, b3)
+        return _libBornAgainSample.Lattice3D_getReciprocalLatticeBasis(self, ra, rb, rc)
 
-    def getNearestLatticeVectorCoordinates(self, vector_in):
+    def getNearestReciprocalLatticeVectorCoordinates(self, q):
         r"""
-        getNearestLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t
-        ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
-
-        Returns the nearest lattice point from a given vector. 
-
-        """
-        return _libBornAgainSample.Lattice_getNearestLatticeVectorCoordinates(self, vector_in)
-
-    def getNearestReciprocalLatticeVectorCoordinates(self, vector_in):
-        r"""
-        getNearestReciprocalLatticeVectorCoordinates(Lattice self, kvector_t vector_in) -> ivector_t
-        ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
+        getNearestReciprocalLatticeVectorCoordinates(Lattice3D self, kvector_t q) -> ivector_t
+        ivector_t Lattice3D::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
 
         Returns the nearest reciprocal lattice point from a given vector. 
 
         """
-        return _libBornAgainSample.Lattice_getNearestReciprocalLatticeVectorCoordinates(self, vector_in)
+        return _libBornAgainSample.Lattice3D_getNearestReciprocalLatticeVectorCoordinates(self, q)
 
-    def reciprocalLatticeVectorsWithinRadius(self, input_vector, radius):
+    def reciprocalLatticeVectorsWithinRadius(self, q, dq):
         r"""
-        reciprocalLatticeVectorsWithinRadius(Lattice self, kvector_t input_vector, double radius) -> vector_kvector_t
-        std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
+        reciprocalLatticeVectorsWithinRadius(Lattice3D self, kvector_t q, double dq) -> vector_kvector_t
+        std::vector< kvector_t > Lattice3D::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
 
-        Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
+        Returns a list of reciprocal lattice vectors within distance dq of a vector q. 
 
         """
-        return _libBornAgainSample.Lattice_reciprocalLatticeVectorsWithinRadius(self, input_vector, radius)
+        return _libBornAgainSample.Lattice3D_reciprocalLatticeVectorsWithinRadius(self, q, dq)
 
-    def setSelectionRule(self, p_selection_rule):
+    def setSelectionRule(self, selection_rule):
         r"""
-        setSelectionRule(Lattice self, ISelectionRule p_selection_rule)
-        void Lattice::setSelectionRule(const ISelectionRule &p_selection_rule)
+        setSelectionRule(Lattice3D self, ISelectionRule selection_rule)
+        void Lattice3D::setSelectionRule(const ISelectionRule &selection_rule)
 
         Sets a selection rule for the reciprocal vectors. 
 
         """
-        return _libBornAgainSample.Lattice_setSelectionRule(self, p_selection_rule)
+        return _libBornAgainSample.Lattice3D_setSelectionRule(self, selection_rule)
 
-    @staticmethod
-    def createCubicLattice(a):
-        r"""createCubicLattice(double a) -> Lattice"""
-        return _libBornAgainSample.Lattice_createCubicLattice(a)
-
-    @staticmethod
-    def createFCCLattice(a):
-        r"""createFCCLattice(double a) -> Lattice"""
-        return _libBornAgainSample.Lattice_createFCCLattice(a)
-
-    @staticmethod
-    def createHexagonalLattice(a, c):
-        r"""createHexagonalLattice(double a, double c) -> Lattice"""
-        return _libBornAgainSample.Lattice_createHexagonalLattice(a, c)
-
-    @staticmethod
-    def createHCPLattice(a, c):
-        r"""createHCPLattice(double a, double c) -> Lattice"""
-        return _libBornAgainSample.Lattice_createHCPLattice(a, c)
-
-    @staticmethod
-    def createTetragonalLattice(a, c):
-        r"""createTetragonalLattice(double a, double c) -> Lattice"""
-        return _libBornAgainSample.Lattice_createTetragonalLattice(a, c)
-
-    @staticmethod
-    def createBCTLattice(a, c):
-        r"""createBCTLattice(double a, double c) -> Lattice"""
-        return _libBornAgainSample.Lattice_createBCTLattice(a, c)
-
-    def onChange(self):
-        r"""
-        onChange(Lattice self)
-        void Lattice::onChange() override
-
-        """
-        return _libBornAgainSample.Lattice_onChange(self)
-
-# Register Lattice in _libBornAgainSample:
-_libBornAgainSample.Lattice_swigregister(Lattice)
-
-def Lattice_createCubicLattice(a):
-    r"""Lattice_createCubicLattice(double a) -> Lattice"""
-    return _libBornAgainSample.Lattice_createCubicLattice(a)
-
-def Lattice_createFCCLattice(a):
-    r"""Lattice_createFCCLattice(double a) -> Lattice"""
-    return _libBornAgainSample.Lattice_createFCCLattice(a)
-
-def Lattice_createHexagonalLattice(a, c):
-    r"""Lattice_createHexagonalLattice(double a, double c) -> Lattice"""
-    return _libBornAgainSample.Lattice_createHexagonalLattice(a, c)
-
-def Lattice_createHCPLattice(a, c):
-    r"""Lattice_createHCPLattice(double a, double c) -> Lattice"""
-    return _libBornAgainSample.Lattice_createHCPLattice(a, c)
-
-def Lattice_createTetragonalLattice(a, c):
-    r"""Lattice_createTetragonalLattice(double a, double c) -> Lattice"""
-    return _libBornAgainSample.Lattice_createTetragonalLattice(a, c)
-
-def Lattice_createBCTLattice(a, c):
-    r"""Lattice_createBCTLattice(double a, double c) -> Lattice"""
-    return _libBornAgainSample.Lattice_createBCTLattice(a, c)
+# Register Lattice3D in _libBornAgainSample:
+_libBornAgainSample.Lattice3D_swigregister(Lattice3D)
 
 class Lattice2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""Proxy of C++ Lattice2D class."""
@@ -12090,29 +11660,65 @@ class HexagonalLattice(Lattice2D):
 _libBornAgainSample.HexagonalLattice_swigregister(HexagonalLattice)
 
 
-def createFCCLattice(lattice_constant, orientation):
+def createCubicLattice(a):
     r"""
-    createFCCLattice(double lattice_constant, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::createFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
+    createCubicLattice(double a) -> Lattice3D
+    Lattice3D bake::createCubicLattice(double a)
+
+    Returns a primitive cubic (cP) lattice with edge length a. 
 
     """
-    return _libBornAgainSample.createFCCLattice(lattice_constant, orientation)
+    return _libBornAgainSample.createCubicLattice(a)
 
-def createHCPLattice(a, c, orientation):
+def createFCCLattice(a):
     r"""
-    createHCPLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation &orientation)
+    createFCCLattice(double a) -> Lattice3D
+    Lattice3D bake::createFCCLattice(double a)
+
+    Returns a face-centered cubic (cF) lattice with edge length a. 
 
     """
-    return _libBornAgainSample.createHCPLattice(a, c, orientation)
+    return _libBornAgainSample.createFCCLattice(a)
 
-def createBCTLattice(a, c, orientation):
+def createHexagonalLattice(a, c):
     r"""
-    createBCTLattice(double a, double c, ILatticeOrientation orientation) -> Lattice
-    Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation &orientation)
+    createHexagonalLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::createHexagonalLattice(double a, double c)
+
+    Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. 
 
     """
-    return _libBornAgainSample.createBCTLattice(a, c, orientation)
+    return _libBornAgainSample.createHexagonalLattice(a, c)
+
+def createHCPLattice(a, c):
+    r"""
+    createHCPLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::createHCPLattice(double a, double c)
+
+    TODO: Clarify how this is meant: HCP is not a Bravais lattice. 
+
+    """
+    return _libBornAgainSample.createHCPLattice(a, c)
+
+def createTetragonalLattice(a, c):
+    r"""
+    createTetragonalLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::createTetragonalLattice(double a, double c)
+
+    Returns a primitive tetragonal (tP) lattice with square base edge a and height c. 
+
+    """
+    return _libBornAgainSample.createTetragonalLattice(a, c)
+
+def createBCTLattice(a, c):
+    r"""
+    createBCTLattice(double a, double c) -> Lattice3D
+    Lattice3D bake::createBCTLattice(double a, double c)
+
+    Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
+
+    """
+    return _libBornAgainSample.createBCTLattice(a, c)
 class ISampleBuilder(libBornAgainParam.IParameterized):
     r"""
 

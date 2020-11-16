@@ -30,7 +30,7 @@ MultiLayer* MesoCrystalBuilder::buildSample() const
     kvector_t lattice_basis_a(5.0, 0.0, 0.0);
     kvector_t lattice_basis_b(0.0, 5.0, 0.0);
     kvector_t lattice_basis_c(0.0, 0.0, 5.0);
-    Lattice lattice(lattice_basis_a, lattice_basis_b, lattice_basis_c);
+    Lattice3D lattice(lattice_basis_a, lattice_basis_b, lattice_basis_c);
 
     // spherical particle that forms the base of the mesocrystal
     FormFactorFullSphere sphere_ff(2.0);

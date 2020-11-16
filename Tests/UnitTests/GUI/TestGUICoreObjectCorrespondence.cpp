@@ -26,7 +26,7 @@ public:
 TEST_F(TestGUICoreObjectCorrespondence, test_AnisoPyramid)
 {
     AnisoPyramidItem gui_anisopyramid;
-    FormFactorAnisoPyramid core_anisopyramid(1.0, 2.0, 0.1, 45.0 * Units::degree);
+    FormFactorAnisoPyramid core_anisopyramid(1.0, 2.0, 0.1, 45.0 * Units::deg);
     GUICoreObjectCorrespondence(gui_anisopyramid, core_anisopyramid);
 }
 
@@ -40,21 +40,21 @@ TEST_F(TestGUICoreObjectCorrespondence, test_Box)
 TEST_F(TestGUICoreObjectCorrespondence, test_Cone)
 {
     ConeItem gui_cone;
-    FormFactorCone core_cone(1.0, 0.2, 45.0 * Units::degree);
+    FormFactorCone core_cone(1.0, 0.2, 45.0 * Units::deg);
     GUICoreObjectCorrespondence(gui_cone, core_cone);
 }
 
 TEST_F(TestGUICoreObjectCorrespondence, test_Cone6)
 {
     Cone6Item gui_cone6;
-    FormFactorCone6 core_cone6(1.0, 0.2, 45.0 * Units::degree);
+    FormFactorCone6 core_cone6(1.0, 0.2, 45.0 * Units::deg);
     GUICoreObjectCorrespondence(gui_cone6, core_cone6);
 }
 
 TEST_F(TestGUICoreObjectCorrespondence, test_Cuboctahedron)
 {
     CuboctahedronItem gui_cuboctahedron;
-    FormFactorCuboctahedron core_cuboctahedron(1.0, 0.4, 1.0, 45.0 * Units::degree);
+    FormFactorCuboctahedron core_cuboctahedron(1.0, 0.4, 1.0, 45.0 * Units::deg);
     GUICoreObjectCorrespondence(gui_cuboctahedron, core_cuboctahedron);
 }
 
@@ -131,7 +131,7 @@ TEST_F(TestGUICoreObjectCorrespondence, test_Prism6)
 TEST_F(TestGUICoreObjectCorrespondence, test_Pyramid)
 {
     PyramidItem gui_pyramid;
-    FormFactorPyramid core_pyramid(1.0, 0.2, 45.0 * Units::degree);
+    FormFactorPyramid core_pyramid(1.0, 0.2, 45.0 * Units::deg);
     GUICoreObjectCorrespondence(gui_pyramid, core_pyramid);
 }
 
@@ -152,7 +152,7 @@ TEST_F(TestGUICoreObjectCorrespondence, test_SawtoothRippleBox)
 TEST_F(TestGUICoreObjectCorrespondence, test_Tetrahedron)
 {
     TetrahedronItem gui_tetrahedron;
-    FormFactorTetrahedron core_tetrahedron(1.0, 0.1, 45.0 * Units::degree);
+    FormFactorTetrahedron core_tetrahedron(1.0, 0.1, 45.0 * Units::deg);
     GUICoreObjectCorrespondence(gui_tetrahedron, core_tetrahedron);
 }
 

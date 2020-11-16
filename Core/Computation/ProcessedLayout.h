@@ -23,7 +23,7 @@ class FormFactorCoherentSum;
 struct HomogeneousRegion;
 class IFresnelMap;
 class IInterferenceFunction;
-class ILayout;
+class ParticleLayout;
 class IParticle;
 class Slice;
 
@@ -37,7 +37,7 @@ class Slice;
 class ProcessedLayout
 {
 public:
-    ProcessedLayout(const ILayout& layout, const std::vector<Slice>& slices, double z_ref,
+    ProcessedLayout(const ParticleLayout& layout, const std::vector<Slice>& slices, double z_ref,
                     const IFresnelMap* p_fresnel_map, bool polarized);
     ProcessedLayout(ProcessedLayout&& other);
     ~ProcessedLayout();
@@ -49,7 +49,8 @@ public:
     std::map<size_t, std::vector<HomogeneousRegion>> regionMap() const;
 
 private:
-    void collectFormFactors(const ILayout& layout, const std::vector<Slice>& slices, double z_ref);
+    void collectFormFactors(const ParticleLayout& layout, const std::vector<Slice>& slices,
+                            double z_ref);
     FormFactorCoherentSum processParticle(const IParticle& particle,
                                           const std::vector<Slice>& slices, double z_ref);
     void mergeRegionMap(const std::map<size_t, std::vector<HomogeneousRegion>>& region_map);

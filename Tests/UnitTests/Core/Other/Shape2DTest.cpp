@@ -55,7 +55,7 @@ TEST_F(Shape2DTest, Ellipse)
     EXPECT_FALSE(ellipse.contains(4.0, -2.0));
     EXPECT_TRUE(ellipse.contains(6.0, -2.0));
 
-    Ellipse ellipse2(10.0, 1.0, 8.0, 4.0, 45.0 * Units::degree);
+    Ellipse ellipse2(10.0, 1.0, 8.0, 4.0, 45.0 * Units::deg);
     EXPECT_TRUE(ellipse2.contains(10.0, 1.0));
     EXPECT_FALSE(ellipse2.contains(15.0, 0.0));
     EXPECT_TRUE(ellipse2.contains(7.0, 3.0));

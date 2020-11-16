@@ -1,6 +1,7 @@
-#include "Sample/Lattice/Lattice.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Vector/Transform3D.h"
+#include "Sample/Lattice/BakeLattice.h"
+#include "Sample/Lattice/Lattice3D.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class LatticeTest : public ::testing::Test
@@ -12,24 +13,24 @@ TEST_F(LatticeTest, declarationTest)
 {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
 
-    Lattice l1(a1, a2, a3);
+    Lattice3D l1(a1, a2, a3);
     EXPECT_EQ(a1, l1.getBasisVectorA());
     EXPECT_EQ(a2, l1.getBasisVectorB());
     EXPECT_EQ(a3, l1.getBasisVectorC());
 
-    Lattice l2(l1);
+    Lattice3D l2(l1);
     EXPECT_EQ(a1, l2.getBasisVectorA());
     EXPECT_EQ(a2, l2.getBasisVectorB());
     EXPECT_EQ(a3, l2.getBasisVectorC());
 
     // calls and tests copy constructor
-    Lattice l3 = {l2};
+    Lattice3D l3 = {l2};
     EXPECT_EQ(a1, l3.getBasisVectorA());
     EXPECT_EQ(a2, l3.getBasisVectorB());
     EXPECT_EQ(a3, l3.getBasisVectorC());
 
     // calls and tests copy constructor
-    Lattice l4 = l3;
+    Lattice3D l4 = l3;
     EXPECT_EQ(a1, l4.getBasisVectorA());
     EXPECT_EQ(a2, l4.getBasisVectorB());
     EXPECT_EQ(a3, l4.getBasisVectorC());
@@ -40,15 +41,15 @@ TEST_F(LatticeTest, volumeTest)
 {
     kvector_t a1(4, 0, 0), a2(0, 2.1, 0), a3(0, 0, 1);
 
-    Lattice l1(a1, a2, a3);
-    EXPECT_EQ(8.4, l1.volume()); // 8.4 is the expected volume for the given lattice vectors
+    Lattice3D l1(a1, a2, a3);
+    EXPECT_EQ(8.4, l1.unitCellVolume()); // 8.4 is the expected volume for the given lattice vectors
 }
 
 // tests whether reciprocal lattice basis vectors have been initialized or not
 TEST_F(LatticeTest, reciprocalTest)
 {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
-    Lattice l1(a1, a2, a3);
+    Lattice3D l1(a1, a2, a3);
 
     kvector_t b1, b2, b3, m_ra, m_rb, m_rc;
 
@@ -71,11 +72,11 @@ TEST_F(LatticeTest, reciprocalTest)
 TEST_F(LatticeTest, transformTest)
 {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
-    Lattice l1(a1, a2, a3);
+    Lattice3D l1(a1, a2, a3);
 
     // use rotation by 90 degrees around z axis as a transformation
     Transform3D tr = Transform3D::createRotateZ(M_TWOPI / 4);
-    Lattice ltr = l1.transformed(tr);
+    Lattice3D ltr = l1.transformed(tr);
 
     // use EXPECT_NEAR as transform (matrix multiplication) uses double value for rotation angle
     // e.g. Rotating the vector (1,0,0) by 2*PI about z would give something like (0.99999,0,0)
@@ -88,28 +89,11 @@ TEST_F(LatticeTest, transformTest)
     EXPECT_EQ(a3, ltr.getBasisVectorC());
 }
 
-// REAL = real/physical
-// tests the nearest REAL LATTICE point to a given REAL SPACE vector
-TEST_F(LatticeTest, NearestRealLatticeVectorCoordinatesTest)
-{
-    kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
-    Lattice l1(a1, a2, a3);
-
-    // vector_in is in REAL SPACE coordinates
-    kvector_t vector_in(3.01, 1.51, 1.49);
-
-    // point_expected is in REAL LATTICE coordinates
-    ivector_t point_expected(3, 2, 1);
-
-    EXPECT_EQ(point_expected, l1.getNearestLatticeVectorCoordinates(vector_in));
-}
-
-// REC. = reciprocal
 // tests the nearest REC. LATTICE point to a given REC. SPACE vector
 TEST_F(LatticeTest, NearestReciprocalLatticeVectorCoordinatesTest)
 {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
-    Lattice l1(a1, a2, a3);
+    Lattice3D l1(a1, a2, a3);
 
     // vector_in is in REC. SPACE coordinates
     kvector_t vector_in(2.8 * M_TWOPI, 0, 0);
@@ -125,7 +109,7 @@ TEST_F(LatticeTest, NearestReciprocalLatticeVectorCoordinatesTest)
 TEST_F(LatticeTest, reciprocalLatticeVectorsWithinRadiusTest)
 {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
-    Lattice l1(a1, a2, a3);
+    Lattice3D l1(a1, a2, a3);
 
     kvector_t b1, b2, b3;
     l1.getReciprocalLatticeBasis(b1, b2, b3);
@@ -150,7 +134,7 @@ TEST_F(LatticeTest, reciprocalLatticeVectorsWithinRadiusTest)
 TEST_F(LatticeTest, FCCLatticeTest)
 {
     // creates FCC lattice onto a new Lattice instance l1
-    Lattice l1 = Lattice::createFCCLattice(1);
+    Lattice3D l1 = bake::createFCCLattice(1);
 
     kvector_t fcc1(0, 0.5, 0.5), fcc2(0.5, 0, 0.5), fcc3(0.5, 0.5, 0);
 
@@ -162,7 +146,7 @@ TEST_F(LatticeTest, FCCLatticeTest)
 // tests hexagonal lattice creation
 TEST_F(LatticeTest, HexagonalLatticeTest)
 {
-    Lattice l1 = Lattice::createHexagonalLattice(1, 4);
+    Lattice3D l1 = bake::createHexagonalLattice(1, 4);
 
     kvector_t tri1(1, 0.0, 0.0);
     kvector_t tri2(-1 / 2.0, std::sqrt(3.0) * 1 / 2.0, 0);
@@ -178,7 +162,7 @@ TEST_F(LatticeTest, HexagonalLatticeTest)
 TEST_F(LatticeTest, onChangeTest)
 {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
-    Lattice l1(a1, a2, a3);
+    Lattice3D l1(a1, a2, a3);
 
     kvector_t b1, b2, b3, m_ra, m_rb, m_rc;
 

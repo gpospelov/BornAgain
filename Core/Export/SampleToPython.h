@@ -43,7 +43,8 @@ private:
     std::string defineCoreShellParticles() const;
     std::string defineParticleDistributions() const;
     std::string defineParticleCompositions() const;
-    std::string defineLattices() const;
+    std::string defineLattices2D() const;
+    std::string defineLattices3D() const;
     std::string defineCrystals() const;
     std::string defineMesoCrystals() const;
     std::string defineInterferenceFunctions() const;

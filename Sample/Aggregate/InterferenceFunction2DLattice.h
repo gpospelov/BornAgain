@@ -34,9 +34,6 @@ public:
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    static InterferenceFunction2DLattice* createSquare(double lattice_length, double xi);
-    static InterferenceFunction2DLattice* createHexagonal(double lattice_length, double xi);
-
     void setDecayFunction(const IFTDecayFunction2D& decay);
 
     void setIntegrationOverXi(bool integrate_xi);
@@ -53,7 +50,6 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    void setLattice(const Lattice2D& lattice);
 
     double interferenceForXi(double xi) const;
 

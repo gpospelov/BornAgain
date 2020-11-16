@@ -26,7 +26,7 @@
 namespace
 {
 
-const double sphere_radius = 5 * Units::nanometer;
+const double sphere_radius = 5 * Units::nm;
 
 MultiLayer* parametricBuild(double sigmaRoughness, RoughnessModel roughnessModel)
 {
@@ -62,7 +62,7 @@ MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
     Material particle_material = HomogeneousMaterial("MagParticle", 6e-4, 2e-8, particle_field);
 
     ParticleLayout particle_layout;
-    kvector_t position(0.0, 0.0, -10.0 * Units::nanometer);
+    kvector_t position(0.0, 0.0, -10.0 * Units::nm);
     FormFactorFullSphere ff_sphere(sphere_radius);
     Particle particle(particle_material, ff_sphere);
     particle_layout.addParticle(particle, 1.0, position);
@@ -164,7 +164,7 @@ MultiLayer* MagneticRotationBuilder::buildSample() const
     Material particle_material = HomogeneousMaterial("MagParticle", 6e-4, 2e-8, particle_field);
 
     ParticleLayout particle_layout;
-    kvector_t position(0.0, 0.0, -10.0 * Units::nanometer);
+    kvector_t position(0.0, 0.0, -10.0 * Units::nm);
     FormFactorFullSphere ff_sphere(sphere_radius);
     Particle particle(particle_material, ff_sphere);
     RotationZ rot_z(90 * Units::deg);

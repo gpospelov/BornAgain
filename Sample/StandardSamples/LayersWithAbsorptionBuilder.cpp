@@ -31,7 +31,7 @@ static const FormFactorComponents ff_components;
 } // namespace
 
 LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
-    : m_ff(new FormFactorFullSphere(5.0 * Units::nanometer))
+    : m_ff(new FormFactorFullSphere(5.0 * Units::nm))
 {
 }
 
@@ -39,12 +39,12 @@ LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder() = default;
 
 MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
 {
-    const double middle_layer_thickness(60.0 * Units::nanometer);
+    const double middle_layer_thickness(60.0 * Units::nm);
 
     Particle particle(refMat::Ag, *m_ff);
-    particle.setRotation(RotationZ(10.0 * Units::degree));
-    particle.rotate(RotationY(10.0 * Units::degree));
-    particle.rotate(RotationX(10.0 * Units::degree));
+    particle.setRotation(RotationZ(10.0 * Units::deg));
+    particle.rotate(RotationY(10.0 * Units::deg));
+    particle.rotate(RotationX(10.0 * Units::deg));
     particle.setPosition(kvector_t(0.0, 0.0, -middle_layer_thickness / 2.0));
 
     ParticleLayout layout;

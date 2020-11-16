@@ -52,7 +52,7 @@ TEST_F(MaterialTest, MaterialTransform)
     complex_t material_data = complex_t(1.0, 0.0);
     complex_t refIndex = complex_t(1.0 - material_data.real(), material_data.imag());
     kvector_t magnetism = kvector_t(1.0, 0.0, 0.0);
-    RotationZ transform(90. * Units::degree);
+    RotationZ transform(90. * Units::deg);
     kvector_t transformed_mag = transform.transformed(magnetism);
 
     Material material = HomogeneousMaterial("Material", refIndex, magnetism);

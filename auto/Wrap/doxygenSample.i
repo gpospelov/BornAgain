@@ -312,12 +312,18 @@ C++ includes: RipplesBuilder.h
 // File: classCrystal.xml
 %feature("docstring") Crystal "
 
-A crystal structure with a  ParticleComposition as a basis. Used in  MesoCrystal, where it is given an outer shape.
+A crystal structure, defined by a Bravais lattice, a basis, and a position variance.
+
+The basis is either a  Particle or a  ParticleComposition.
+
+Computations are delegated to class  FormFactorCrystal.
+
+Used in  MesoCrystal, where it is given an outer shape.
 
 C++ includes: Crystal.h
 ";
 
-%feature("docstring")  Crystal::Crystal "Crystal::Crystal(const IParticle &lattice_basis, const Lattice &lattice)
+%feature("docstring")  Crystal::Crystal "Crystal::Crystal(const IParticle &basis, const Lattice3D &lattice, double position_variance=0)
 ";
 
 %feature("docstring")  Crystal::~Crystal "Crystal::~Crystal()
@@ -331,20 +337,13 @@ Returns a clone of this  ISample object.
 %feature("docstring")  Crystal::accept "void Crystal::accept(INodeVisitor *visitor) const override final
 ";
 
-%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const override final
-
-Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
+%feature("docstring")  Crystal::createTotalFormFactor "IFormFactor * Crystal::createTotalFormFactor(const IFormFactor &meso_crystal_form_factor, const IRotation *p_rotation, const kvector_t &translation) const
 ";
 
-%feature("docstring")  Crystal::homogeneousRegions "std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const override final
-
-Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
+%feature("docstring")  Crystal::homogeneousRegions "std::vector< HomogeneousRegion > Crystal::homogeneousRegions() const
 ";
 
-%feature("docstring")  Crystal::transformedLattice "Lattice Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
-";
-
-%feature("docstring")  Crystal::setPositionVariance "void Crystal::setPositionVariance(double position_variance)
+%feature("docstring")  Crystal::transformedLattice "Lattice3D Crystal::transformedLattice(const IRotation *p_rotation=nullptr) const
 ";
 
 %feature("docstring")  Crystal::getChildren "std::vector< const INode * > Crystal::getChildren() const override final
@@ -1106,7 +1105,7 @@ The form factor of a  MesoCrystal.
 C++ includes: FormFactorCrystal.h
 ";
 
-%feature("docstring")  FormFactorCrystal::FormFactorCrystal "FormFactorCrystal::FormFactorCrystal(const Lattice &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
+%feature("docstring")  FormFactorCrystal::FormFactorCrystal "FormFactorCrystal::FormFactorCrystal(const Lattice3D &lattice, const IFormFactor &basis_form_factor, const IFormFactor &meso_form_factor, double position_variance=0.0)
 ";
 
 %feature("docstring")  FormFactorCrystal::~FormFactorCrystal "FormFactorCrystal::~FormFactorCrystal() override final
@@ -3032,30 +3031,6 @@ Applies the given rotation to the particle.
 ";
 
 
-// File: classIClusteredParticles.xml
-%feature("docstring") IClusteredParticles "
-
-An ordered assembly of particles. Currently, the only child class is  Crystal.
-
-C++ includes: IClusteredParticles.h
-";
-
-%feature("docstring")  IClusteredParticles::clone "IClusteredParticles* IClusteredParticles::clone() const override=0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IClusteredParticles::createTotalFormFactor "virtual IFormFactor* IClusteredParticles::createTotalFormFactor(const IFormFactor &, const IRotation *, const kvector_t &) const =0
-
-Creates a total form factor for the mesocrystal with a specific shape and content The bulk content of the mesocrystal is encapsulated by the  IClusteredParticles object itself 
-";
-
-%feature("docstring")  IClusteredParticles::homogeneousRegions "virtual std::vector<HomogeneousRegion> IClusteredParticles::homogeneousRegions() const =0
-
-Creates region information with volumetric densities instead of absolute volume These densities need to be multiplied by the total mesocrystal volume 
-";
-
-
 // File: classICosineRipple.xml
 %feature("docstring") ICosineRipple "
 
@@ -3639,27 +3614,6 @@ Calculates the intensity for scalar particles/interactions.
 ";
 
 
-// File: classILatticeOrientation.xml
-%feature("docstring") ILatticeOrientation "
-
-Pure virtual base of classes that specify a lattice orientation. Currently only inherited by  MillerIndexOrientation.
-
-C++ includes: ILatticeOrientation.h
-";
-
-%feature("docstring")  ILatticeOrientation::~ILatticeOrientation "ILatticeOrientation::~ILatticeOrientation()
-";
-
-%feature("docstring")  ILatticeOrientation::clone "virtual ILatticeOrientation* ILatticeOrientation::clone() const =0
-";
-
-%feature("docstring")  ILatticeOrientation::usePrimitiveLattice "virtual void ILatticeOrientation::usePrimitiveLattice(const Lattice &lattice)=0
-";
-
-%feature("docstring")  ILatticeOrientation::transformation "virtual Transform3D ILatticeOrientation::transformation() const =0
-";
-
-
 // File: classILayerRTCoefficients.xml
 %feature("docstring") ILayerRTCoefficients "
 
@@ -3717,64 +3671,6 @@ Scalar value getters; these throw errors by default as they should only be used 
 ";
 
 %feature("docstring")  ILayerRTCoefficients::getReflectionMatrix "virtual Eigen::Matrix2cd ILayerRTCoefficients::getReflectionMatrix() const
-";
-
-
-// File: classILayout.xml
-%feature("docstring") ILayout "
-
-Pure virtual interface class to equip a sample layer with scattering properties. Currently only inherited by  ParticleLayout; in the future also by domain structure.
-
-C++ includes: ILayout.h
-";
-
-%feature("docstring")  ILayout::ILayout "ILayout::ILayout()
-";
-
-%feature("docstring")  ILayout::~ILayout "ILayout::~ILayout()
-";
-
-%feature("docstring")  ILayout::clone "virtual ILayout* ILayout::clone() const =0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ILayout::accept "virtual void ILayout::accept(INodeVisitor *visitor) const =0
-";
-
-%feature("docstring")  ILayout::particles "virtual SafePointerVector<IParticle> ILayout::particles() const =0
-
-Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
-";
-
-%feature("docstring")  ILayout::interferenceFunction "virtual const IInterferenceFunction* ILayout::interferenceFunction() const =0
-
-Returns the interference function. 
-";
-
-%feature("docstring")  ILayout::getTotalAbundance "virtual double ILayout::getTotalAbundance() const =0
-
-Get total abundance of all particles. 
-";
-
-%feature("docstring")  ILayout::totalParticleSurfaceDensity "virtual double ILayout::totalParticleSurfaceDensity() const =0
-
-Returns surface density of all particles. 
-";
-
-%feature("docstring")  ILayout::setTotalParticleSurfaceDensity "virtual void ILayout::setTotalParticleSurfaceDensity(double particle_density)=0
-
-Sets surface density of all particles. 
-";
-
-%feature("docstring")  ILayout::weight "double ILayout::weight() const
-
-Returns the relative weight of this layout. 
-";
-
-%feature("docstring")  ILayout::setWeight "void ILayout::setWeight(double weight)
-
-Sets the relative weight of this layout. 
 ";
 
 
@@ -4118,7 +4014,7 @@ Interference function of a 3D lattice.
 C++ includes: InterferenceFunction3DLattice.h
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::InterferenceFunction3DLattice "InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice &lattice)
+%feature("docstring")  InterferenceFunction3DLattice::InterferenceFunction3DLattice "InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice3D &lattice)
 ";
 
 %feature("docstring")  InterferenceFunction3DLattice::~InterferenceFunction3DLattice "InterferenceFunction3DLattice::~InterferenceFunction3DLattice() final
@@ -4135,7 +4031,7 @@ Returns a clone of this  ISample object.
 %feature("docstring")  InterferenceFunction3DLattice::setPeakShape "void InterferenceFunction3DLattice::setPeakShape(const IPeakShape &peak_shape)
 ";
 
-%feature("docstring")  InterferenceFunction3DLattice::lattice "const Lattice & InterferenceFunction3DLattice::lattice() const
+%feature("docstring")  InterferenceFunction3DLattice::lattice "const Lattice3D & InterferenceFunction3DLattice::lattice() const
 ";
 
 %feature("docstring")  InterferenceFunction3DLattice::supportsMultilayer "bool InterferenceFunction3DLattice::supportsMultilayer() const override final
@@ -4244,7 +4140,7 @@ Interference function of a finite 3D lattice.
 C++ includes: InterferenceFunctionFinite3DLattice.h
 ";
 
-%feature("docstring")  InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
+%feature("docstring")  InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::InterferenceFunctionFinite3DLattice(const Lattice3D &lattice, unsigned N_1, unsigned N_2, unsigned N_3)
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice "InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice() final
@@ -4267,7 +4163,7 @@ Returns a clone of this  ISample object.
 %feature("docstring")  InterferenceFunctionFinite3DLattice::numberUnitCells3 "unsigned InterferenceFunctionFinite3DLattice::numberUnitCells3() const
 ";
 
-%feature("docstring")  InterferenceFunctionFinite3DLattice::lattice "const Lattice & InterferenceFunctionFinite3DLattice::lattice() const
+%feature("docstring")  InterferenceFunctionFinite3DLattice::lattice "const Lattice3D & InterferenceFunctionFinite3DLattice::lattice() const
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::supportsMultilayer "bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override final
@@ -4880,98 +4776,6 @@ C++ includes: CylindersBuilder.h
 ";
 
 
-// File: classLattice.xml
-%feature("docstring") Lattice "
-
-A lattice with three basis vectors.
-
-C++ includes: Lattice.h
-";
-
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice()
-";
-
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-";
-
-%feature("docstring")  Lattice::Lattice "Lattice::Lattice(const Lattice &lattice)
-";
-
-%feature("docstring")  Lattice::~Lattice "Lattice::~Lattice() override
-";
-
-%feature("docstring")  Lattice::accept "void Lattice::accept(INodeVisitor *visitor) const override
-";
-
-%feature("docstring")  Lattice::transformed "Lattice Lattice::transformed(const Transform3D &transform) const
-
-Creates transformed lattice. 
-";
-
-%feature("docstring")  Lattice::initialize "void Lattice::initialize() const
-
-Initializes cached data. 
-";
-
-%feature("docstring")  Lattice::getBasisVectorA "kvector_t Lattice::getBasisVectorA() const
-
-Returns basis vector a. 
-";
-
-%feature("docstring")  Lattice::getBasisVectorB "kvector_t Lattice::getBasisVectorB() const
-
-Returns basis vector b. 
-";
-
-%feature("docstring")  Lattice::getBasisVectorC "kvector_t Lattice::getBasisVectorC() const
-
-Returns basis vector c. 
-";
-
-%feature("docstring")  Lattice::resetBasis "void Lattice::resetBasis(const kvector_t a1, const kvector_t a2, const kvector_t a3)
-
-Resets the basis vectors. 
-";
-
-%feature("docstring")  Lattice::getMillerDirection "kvector_t Lattice::getMillerDirection(double h, double k, double l) const
-
-Returns normalized direction corresponding to the given Miller indices. 
-";
-
-%feature("docstring")  Lattice::volume "double Lattice::volume() const
-
-Returns the volume of the unit cell. 
-";
-
-%feature("docstring")  Lattice::getReciprocalLatticeBasis "void Lattice::getReciprocalLatticeBasis(kvector_t &b1, kvector_t &b2, kvector_t &b3) const
-
-Returns the reciprocal basis vectors. 
-";
-
-%feature("docstring")  Lattice::getNearestLatticeVectorCoordinates "ivector_t Lattice::getNearestLatticeVectorCoordinates(const kvector_t vector_in) const
-
-Returns the nearest lattice point from a given vector. 
-";
-
-%feature("docstring")  Lattice::getNearestReciprocalLatticeVectorCoordinates "ivector_t Lattice::getNearestReciprocalLatticeVectorCoordinates(const kvector_t vector_in) const
-
-Returns the nearest reciprocal lattice point from a given vector. 
-";
-
-%feature("docstring")  Lattice::reciprocalLatticeVectorsWithinRadius "std::vector< kvector_t > Lattice::reciprocalLatticeVectorsWithinRadius(const kvector_t input_vector, double radius) const
-
-Computes a list of reciprocal lattice vectors within a specified distance of a given vector. 
-";
-
-%feature("docstring")  Lattice::setSelectionRule "void Lattice::setSelectionRule(const ISelectionRule &p_selection_rule)
-
-Sets a selection rule for the reciprocal vectors. 
-";
-
-%feature("docstring")  Lattice::onChange "void Lattice::onChange() override
-";
-
-
 // File: classLattice1DBuilder.xml
 %feature("docstring") Lattice1DBuilder "
 
@@ -5015,6 +4819,89 @@ C++ includes: LatticeBuilder.h
 ";
 
 %feature("docstring")  Lattice2D::setRotationEnabled "void Lattice2D::setRotationEnabled(bool enabled)
+";
+
+
+// File: classLattice3D.xml
+%feature("docstring") Lattice3D "
+
+A Bravais lattice, characterized by three basis vectors, and optionally an  ISelectionRule.
+
+C++ includes: Lattice3D.h
+";
+
+%feature("docstring")  Lattice3D::Lattice3D "Lattice3D::Lattice3D()=delete
+";
+
+%feature("docstring")  Lattice3D::Lattice3D "Lattice3D::Lattice3D(const kvector_t a, const kvector_t b, const kvector_t c)
+";
+
+%feature("docstring")  Lattice3D::Lattice3D "Lattice3D::Lattice3D(const Lattice3D &lattice)
+";
+
+%feature("docstring")  Lattice3D::~Lattice3D "Lattice3D::~Lattice3D() override
+";
+
+%feature("docstring")  Lattice3D::accept "void Lattice3D::accept(INodeVisitor *visitor) const override
+";
+
+%feature("docstring")  Lattice3D::transformed "Lattice3D Lattice3D::transformed(const Transform3D &transform) const
+
+Creates transformed lattice. 
+";
+
+%feature("docstring")  Lattice3D::initialize "void Lattice3D::initialize()
+
+Initializes cached data. 
+";
+
+%feature("docstring")  Lattice3D::getBasisVectorA "kvector_t Lattice3D::getBasisVectorA() const
+
+Returns basis vector a. 
+";
+
+%feature("docstring")  Lattice3D::getBasisVectorB "kvector_t Lattice3D::getBasisVectorB() const
+
+Returns basis vector b. 
+";
+
+%feature("docstring")  Lattice3D::getBasisVectorC "kvector_t Lattice3D::getBasisVectorC() const
+
+Returns basis vector c. 
+";
+
+%feature("docstring")  Lattice3D::getMillerDirection "kvector_t Lattice3D::getMillerDirection(double h, double k, double l) const
+
+Returns normalized direction corresponding to the given Miller indices.
+
+Currently unused but may be useful for checks. 
+";
+
+%feature("docstring")  Lattice3D::unitCellVolume "double Lattice3D::unitCellVolume() const
+
+Returns the volume of the unit cell. 
+";
+
+%feature("docstring")  Lattice3D::getReciprocalLatticeBasis "void Lattice3D::getReciprocalLatticeBasis(kvector_t &ra, kvector_t &rb, kvector_t &rc) const
+
+Returns the reciprocal basis vectors.
+
+Currently only used in tests. 
+";
+
+%feature("docstring")  Lattice3D::getNearestReciprocalLatticeVectorCoordinates "ivector_t Lattice3D::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
+
+Returns the nearest reciprocal lattice point from a given vector. 
+";
+
+%feature("docstring")  Lattice3D::reciprocalLatticeVectorsWithinRadius "std::vector< kvector_t > Lattice3D::reciprocalLatticeVectorsWithinRadius(const kvector_t q, double dq) const
+
+Returns a list of reciprocal lattice vectors within distance dq of a vector q. 
+";
+
+%feature("docstring")  Lattice3D::setSelectionRule "void Lattice3D::setSelectionRule(const ISelectionRule &selection_rule)
+
+Sets a selection rule for the reciprocal vectors. 
 ";
 
 
@@ -5067,13 +4954,13 @@ Returns nullptr, unless overwritten to return a specific material.
 %feature("docstring")  Layer::setMaterial "void Layer::setMaterial(Material material)
 ";
 
-%feature("docstring")  Layer::addLayout "void Layer::addLayout(const ILayout &decoration)
+%feature("docstring")  Layer::addLayout "void Layer::addLayout(const ParticleLayout &decoration)
 ";
 
 %feature("docstring")  Layer::numberOfLayouts "size_t Layer::numberOfLayouts() const
 ";
 
-%feature("docstring")  Layer::layouts "std::vector< const ILayout * > Layer::layouts() const
+%feature("docstring")  Layer::layouts "std::vector< const ParticleLayout * > Layer::layouts() const
 ";
 
 %feature("docstring")  Layer::getChildren "std::vector< const INode * > Layer::getChildren() const override final
@@ -5789,7 +5676,7 @@ A particle with an internal structure of smaller particles.
 C++ includes: MesoCrystal.h
 ";
 
-%feature("docstring")  MesoCrystal::MesoCrystal "MesoCrystal::MesoCrystal(const IClusteredParticles &particle_structure, const IFormFactor &form_factor)
+%feature("docstring")  MesoCrystal::MesoCrystal "MesoCrystal::MesoCrystal(const Crystal &particle_structure, const IFormFactor &form_factor)
 ";
 
 %feature("docstring")  MesoCrystal::~MesoCrystal "MesoCrystal::~MesoCrystal()
@@ -5821,44 +5708,6 @@ C++ includes: MesoCrystalBuilder.h
 ";
 
 %feature("docstring")  MesoCrystalBuilder::buildSample "MultiLayer * MesoCrystalBuilder::buildSample() const
-";
-
-
-// File: structMillerIndex.xml
-%feature("docstring") MillerIndex "
-
-A direction in reciprocal space, specified by double-valued indices hkl.
-
-C++ includes: ILatticeOrientation.h
-";
-
-%feature("docstring")  MillerIndex::MillerIndex "MillerIndex::MillerIndex(double h_, double k_, double l_)
-";
-
-
-// File: classMillerIndexOrientation.xml
-%feature("docstring") MillerIndexOrientation "
-
-Specifies a rotation of a lattice through the Miller indices of two coordinate axes.
-
-C++ includes: ILatticeOrientation.h
-";
-
-%feature("docstring")  MillerIndexOrientation::MillerIndexOrientation "MillerIndexOrientation::MillerIndexOrientation(QComponent q1, MillerIndex index1, QComponent q2, MillerIndex index2)
-
-This constructor is best explained by an example. Arguments QX, (1,1,0), QY, (0,2,1) mean: Rotate the lattice such that the axis [110] points into x direction, and the axis [021], projected into the yz plane, points into z direction. 
-";
-
-%feature("docstring")  MillerIndexOrientation::~MillerIndexOrientation "MillerIndexOrientation::~MillerIndexOrientation() override
-";
-
-%feature("docstring")  MillerIndexOrientation::clone "MillerIndexOrientation * MillerIndexOrientation::clone() const override
-";
-
-%feature("docstring")  MillerIndexOrientation::usePrimitiveLattice "void MillerIndexOrientation::usePrimitiveLattice(const Lattice &lattice) override
-";
-
-%feature("docstring")  MillerIndexOrientation::transformation "Transform3D MillerIndexOrientation::transformation() const override
 ";
 
 
@@ -6298,12 +6147,12 @@ C++ includes: ParticleLayout.h
 %feature("docstring")  ParticleLayout::~ParticleLayout "ParticleLayout::~ParticleLayout() override
 ";
 
-%feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const final override
+%feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const override
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(INodeVisitor *visitor) const final override
+%feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(INodeVisitor *visitor) const override
 ";
 
 %feature("docstring")  ParticleLayout::addParticle "void ParticleLayout::addParticle(const IAbstractParticle &particle, double abundance=-1.0, const kvector_t position={}, const IRotation &rotation=IdentityRotation())
@@ -6326,19 +6175,15 @@ rotation:
  Particle rotation 
 ";
 
-%feature("docstring")  ParticleLayout::particles "SafePointerVector< IParticle > ParticleLayout::particles() const final override
+%feature("docstring")  ParticleLayout::particles "SafePointerVector< IParticle > ParticleLayout::particles() const
 
 Returns information on all particles (type and abundance) and generates new particles if an  IAbstractParticle denotes a collection 
 ";
 
-%feature("docstring")  ParticleLayout::interferenceFunction "const IInterferenceFunction * ParticleLayout::interferenceFunction() const final override
-
-Returns the interference function. 
+%feature("docstring")  ParticleLayout::interferenceFunction "const IInterferenceFunction * ParticleLayout::interferenceFunction() const
 ";
 
-%feature("docstring")  ParticleLayout::getTotalAbundance "double ParticleLayout::getTotalAbundance() const final override
-
-Get total abundance of all particles. 
+%feature("docstring")  ParticleLayout::getTotalAbundance "double ParticleLayout::getTotalAbundance() const
 ";
 
 %feature("docstring")  ParticleLayout::setInterferenceFunction "void ParticleLayout::setInterferenceFunction(const IInterferenceFunction &interference_function)
@@ -6346,12 +6191,10 @@ Get total abundance of all particles.
 Adds interference functions. 
 ";
 
-%feature("docstring")  ParticleLayout::totalParticleSurfaceDensity "double ParticleLayout::totalParticleSurfaceDensity() const final override
-
-Returns surface density of all particles. 
+%feature("docstring")  ParticleLayout::totalParticleSurfaceDensity "double ParticleLayout::totalParticleSurfaceDensity() const
 ";
 
-%feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) final override
+%feature("docstring")  ParticleLayout::setTotalParticleSurfaceDensity "void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
 
 Sets total particle surface density.
 
@@ -6362,7 +6205,17 @@ particle_density:
 number of particles per square nanometer 
 ";
 
-%feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const final override
+%feature("docstring")  ParticleLayout::getChildren "std::vector< const INode * > ParticleLayout::getChildren() const override
+";
+
+%feature("docstring")  ParticleLayout::weight "double ParticleLayout::weight() const
+
+Returns the relative weight of this layout. 
+";
+
+%feature("docstring")  ParticleLayout::setWeight "void ParticleLayout::setWeight(double weight)
+
+Sets the relative weight of this layout. 
 ";
 
 
@@ -7760,13 +7613,13 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d114.xml
+// File: namespace_0d112.xml
 
 
-// File: namespace_0d117.xml
+// File: namespace_0d115.xml
 
 
-// File: namespace_0d133.xml
+// File: namespace_0d141.xml
 
 
 // File: namespace_0d145.xml
@@ -7775,103 +7628,132 @@ C++ includes: ZLimits.h
 // File: namespace_0d149.xml
 
 
-// File: namespace_0d153.xml
+// File: namespace_0d159.xml
 
 
 // File: namespace_0d16.xml
 
 
+// File: namespace_0d161.xml
+
+
 // File: namespace_0d163.xml
 
 
-// File: namespace_0d165.xml
+// File: namespace_0d173.xml
 
 
-// File: namespace_0d167.xml
+// File: namespace_0d194.xml
 
 
-// File: namespace_0d177.xml
-
-
-// File: namespace_0d199.xml
+// File: namespace_0d196.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d201.xml
+// File: namespace_0d206.xml
 
 
-// File: namespace_0d211.xml
+// File: namespace_0d222.xml
 
 
-// File: namespace_0d227.xml
+// File: namespace_0d224.xml
 
 
-// File: namespace_0d229.xml
+// File: namespace_0d231.xml
 
 
-// File: namespace_0d236.xml
+// File: namespace_0d249.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d254.xml
+// File: namespace_0d257.xml
 
 
-// File: namespace_0d262.xml
+// File: namespace_0d267.xml
 
 
-// File: namespace_0d272.xml
+// File: namespace_0d269.xml
 
 
-// File: namespace_0d274.xml
+// File: namespace_0d271.xml
 
 
-// File: namespace_0d276.xml
+// File: namespace_0d273.xml
 
 
-// File: namespace_0d278.xml
+// File: namespace_0d275.xml
 
 
-// File: namespace_0d280.xml
+// File: namespace_0d279.xml
 
 
-// File: namespace_0d284.xml
+// File: namespace_0d281.xml
 
 
-// File: namespace_0d286.xml
+// File: namespace_0d283.xml
 
 
-// File: namespace_0d288.xml
+// File: namespace_0d295.xml
 
 
-// File: namespace_0d300.xml
+// File: namespace_0d301.xml
 
 
-// File: namespace_0d306.xml
+// File: namespace_0d305.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d310.xml
+// File: namespace_0d323.xml
 
 
-// File: namespace_0d328.xml
-
-
-// File: namespace_0d347.xml
+// File: namespace_0d342.xml
 
 
 // File: namespace_0d37.xml
 
 
+// File: namespace_0d39.xml
+
+
 // File: namespace_0d4.xml
 
 
-// File: namespace_0d41.xml
+// File: namespacebake.xml
+%feature("docstring")  bake::createCubicLattice "Lattice3D bake::createCubicLattice(double a)
+
+Returns a primitive cubic (cP) lattice with edge length a. 
+";
+
+%feature("docstring")  bake::createFCCLattice "Lattice3D bake::createFCCLattice(double a)
+
+Returns a face-centered cubic (cF) lattice with edge length a. 
+";
+
+%feature("docstring")  bake::createHexagonalLattice "Lattice3D bake::createHexagonalLattice(double a, double c)
+
+Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. 
+";
+
+%feature("docstring")  bake::createHCPLattice "Lattice3D bake::createHCPLattice(double a, double c)
+
+TODO: Clarify how this is meant: HCP is not a Bravais lattice. 
+";
+
+%feature("docstring")  bake::createTetragonalLattice "Lattice3D bake::createTetragonalLattice(double a, double c)
+
+Returns a primitive tetragonal (tP) lattice with square base edge a and height c. 
+";
+
+%feature("docstring")  bake::createBCTLattice "Lattice3D bake::createBCTLattice(double a, double c)
+
+Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
+";
 
 
 // File: namespaceFormFactorPrecompute.xml
@@ -7890,17 +7772,6 @@ C++ includes: ZLimits.h
 ";
 
 %feature("docstring")  KzComputation::computeKzFromRefIndices "std::vector< complex_t > KzComputation::computeKzFromRefIndices(const std::vector< Slice > &slices, kvector_t k)
-";
-
-
-// File: namespaceLatticeUtils.xml
-%feature("docstring")  LatticeUtils::createFCCLattice "Lattice LatticeUtils::createFCCLattice(double lattice_constant, const ILatticeOrientation &orientation)
-";
-
-%feature("docstring")  LatticeUtils::createHCPLattice "Lattice LatticeUtils::createHCPLattice(double a, double c, const ILatticeOrientation &orientation)
-";
-
-%feature("docstring")  LatticeUtils::createBCTLattice "Lattice LatticeUtils::createBCTLattice(double a, double c, const ILatticeOrientation &orientation)
 ";
 
 
@@ -8150,12 +8021,6 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: IDistribution2DSampler_8h.xml
-
-
-// File: ILayout_8cpp.xml
-
-
-// File: ILayout_8h.xml
 
 
 // File: IPeakShape_8cpp.xml
@@ -8434,19 +8299,13 @@ Used by the hard sphere and by several soft sphere classes.
 // File: SSCApproximationStrategy_8h.xml
 
 
-// File: ILatticeOrientation_8cpp.xml
+// File: BakeLattice_8cpp.xml
 
 
-// File: ILatticeOrientation_8h.xml
+// File: BakeLattice_8h.xml
 
 
 // File: ISelectionRule_8h.xml
-
-
-// File: Lattice_8cpp.xml
-
-
-// File: Lattice_8h.xml
 
 
 // File: Lattice2D_8cpp.xml
@@ -8455,10 +8314,10 @@ Used by the hard sphere and by several soft sphere classes.
 // File: Lattice2D_8h.xml
 
 
-// File: LatticeUtils_8cpp.xml
+// File: Lattice3D_8cpp.xml
 
 
-// File: LatticeUtils_8h.xml
+// File: Lattice3D_8h.xml
 
 
 // File: SomeFormFactors_8cpp.xml
@@ -8652,9 +8511,6 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: IAbstractParticle_8h.xml
-
-
-// File: IClusteredParticles_8h.xml
 
 
 // File: IParticle_8cpp.xml
@@ -9086,7 +8942,7 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: LayersWithAbsorptionBySLDBuilder_8cpp.xml
-%feature("docstring")  middle_layer_thickness "const double middle_layer_thickness(60.0 *Units::nanometer)
+%feature("docstring")  middle_layer_thickness "const double middle_layer_thickness(60.0 *Units::nm)
 ";
 
 

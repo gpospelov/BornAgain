@@ -88,5 +88,5 @@ void SphericalDetectorItem::setYSize(int ny)
 
 double SphericalDetectorItem::axesToDomainUnitsFactor() const
 {
-    return Units::degree;
+    return Units::deg;
 }

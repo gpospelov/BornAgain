@@ -22,10 +22,11 @@ class Crystal;
 class IAbstractParticle;
 class IFormFactor;
 class IInterferenceFunction;
-class ILayout;
+class ParticleLayout;
 class Material;
 class IRotation;
-class Lattice;
+class Lattice2D;
+class Lattice3D;
 class Layer;
 class LayerRoughness;
 class MultiLayer;
@@ -49,9 +50,10 @@ public:
     typedef LabelMap<const IFormFactor*> formfactors_t;
     typedef LabelMap<const IInterferenceFunction*> interferences_t;
     typedef LabelMap<const Layer*> layers_t;
-    typedef LabelMap<const ILayout*> layouts_t;
+    typedef LabelMap<const ParticleLayout*> layouts_t;
     typedef LabelMap<const Material*> materials_t;
-    typedef LabelMap<const Lattice*> lattices_t;
+    typedef LabelMap<const Lattice2D*> lattices2D_t;
+    typedef LabelMap<const Lattice3D*> lattices3D_t;
     typedef LabelMap<const MesoCrystal*> mesocrystals_t;
     typedef LabelMap<const MultiLayer*> multilayers_t;
     typedef LabelMap<const ParticleComposition*> particlecompositions_t;
@@ -66,9 +68,10 @@ public:
     formfactors_t* formFactorMap() { return &m_FormFactorLabel; }
     interferences_t* interferenceFunctionMap() { return &m_InterferenceFunctionLabel; }
     layers_t* layerMap() { return &m_LayerLabel; }
-    layouts_t* particleLayoutMap() { return &m_ILayoutLabel; }
+    layouts_t* particleLayoutMap() { return &m_ParticleLayoutLabel; }
     materials_t* materialMap() { return &m_MaterialLabel; }
-    lattices_t* latticeMap() { return &m_LatticeLabel; }
+    lattices2D_t* lattice2DMap() { return &m_Lattice2DLabel; }
+    lattices3D_t* lattice3DMap() { return &m_Lattice3DLabel; }
     mesocrystals_t* mesocrystalMap() { return &m_MesoCrystalLabel; }
     multilayers_t* multiLayerMap() { return &m_MultiLayerLabel; }
     particlecompositions_t* particleCompositionMap() { return &m_ParticleCompositionLabel; }
@@ -82,9 +85,10 @@ public:
     std::string labelFormFactor(const IFormFactor* sample);
     std::string labelInterferenceFunction(const IInterferenceFunction* sample);
     std::string labelLayer(const Layer* sample);
-    std::string labelLayout(const ILayout* sample);
+    std::string labelLayout(const ParticleLayout* sample);
     std::string labelMaterial(const Material* sample);
-    std::string labelLattice(const Lattice* sample);
+    std::string labelLattice2D(const Lattice2D* sample);
+    std::string labelLattice3D(const Lattice3D* sample);
     std::string labelMultiLayer(const MultiLayer* sample);
     std::string labelParticle(const IAbstractParticle* sample);
     std::string labelRotation(const IRotation* sample);
@@ -94,9 +98,10 @@ public:
     void insertFormFactor(const IFormFactor* sample);
     void insertInterferenceFunction(const IInterferenceFunction* sample);
     void insertLayer(const Layer* sample);
-    void insertLayout(const ILayout* sample);
+    void insertLayout(const ParticleLayout* sample);
     void insertMaterial(const Material* sample);
-    void insertLattice(const Lattice* sample);
+    void insertLattice2D(const Lattice2D* sample);
+    void insertLattice3D(const Lattice3D* sample);
     void insertMesoCrystal(const MesoCrystal* sample);
     void insertMultiLayer(const MultiLayer* sample);
     void insertParticleComposition(const ParticleComposition* sample);
@@ -111,9 +116,10 @@ private:
     formfactors_t m_FormFactorLabel;
     interferences_t m_InterferenceFunctionLabel;
     layers_t m_LayerLabel;
-    layouts_t m_ILayoutLabel;
+    layouts_t m_ParticleLayoutLabel;
     materials_t m_MaterialLabel;
-    lattices_t m_LatticeLabel;
+    lattices2D_t m_Lattice2DLabel;
+    lattices3D_t m_Lattice3DLabel;
     mesocrystals_t m_MesoCrystalLabel;
     multilayers_t m_MultiLayerLabel;
     particlecompositions_t m_ParticleCompositionLabel;

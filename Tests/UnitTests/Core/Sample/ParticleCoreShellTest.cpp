@@ -58,7 +58,7 @@ TEST_F(ParticleCoreShellTest, ComplexCoreShellClone)
     Particle shell(mShell, FormFactorBox(shell_length, shell_width, shell_height));
     kvector_t relative_pos(0, 0, (shell_height - core_height) / 2);
     ParticleCoreShell coreshell(shell, core, relative_pos);
-    coreshell.setRotation(RotationY(90 * Units::degree));
+    coreshell.setRotation(RotationY(90 * Units::deg));
     coreshell.setPosition(kvector_t(0, 0, -10));
 
     ParticleCoreShell* clone = coreshell.clone();

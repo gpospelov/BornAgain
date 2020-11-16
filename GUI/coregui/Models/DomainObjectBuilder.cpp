@@ -149,7 +149,7 @@ DomainObjectBuilder::createUnitConverter(const InstrumentItem* instrumentItem)
             instrumentItem->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
         const auto detector2d = dynamic_cast<const IDetector2D*>(instrument->getDetector());
         return std::make_unique<OffSpecularConverter>(*detector2d, instrument->beam(),
-                                                      *axis_item->createAxis(Units::degree));
+                                                      *axis_item->createAxis(Units::deg));
     }
 
     throw GUIHelpers::Error(

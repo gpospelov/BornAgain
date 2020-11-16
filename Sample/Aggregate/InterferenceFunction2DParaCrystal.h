@@ -41,15 +41,6 @@ public:
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    static InterferenceFunction2DParaCrystal* createSquare(double lattice_length,
-                                                           double damping_length,
-                                                           double domain_size_1,
-                                                           double domain_size_2);
-    static InterferenceFunction2DParaCrystal* createHexagonal(double lattice_length,
-                                                              double damping_length,
-                                                              double domain_size_1,
-                                                              double domain_size_2);
-
     void setDomainSizes(double size_1, double size_2);
 
     void setProbabilityDistributions(const IFTDistribution2D& pdf_1,
@@ -75,7 +66,6 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    void setLattice(const Lattice2D& lattice);
 
     double interferenceForXi(double xi) const;
     double interference1D(double qx, double qy, double xi, size_t index) const;

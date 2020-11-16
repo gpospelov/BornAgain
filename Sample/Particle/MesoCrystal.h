@@ -17,7 +17,7 @@
 
 #include "Sample/Particle/IParticle.h"
 
-class IClusteredParticles;
+class Crystal;
 
 //! A particle with an internal structure of smaller particles.
 //! @ingroup samples
@@ -25,7 +25,7 @@ class IClusteredParticles;
 class MesoCrystal : public IParticle
 {
 public:
-    MesoCrystal(const IClusteredParticles& particle_structure, const IFormFactor& form_factor);
+    MesoCrystal(const Crystal& particle_structure, const IFormFactor& form_factor);
 
     ~MesoCrystal();
     MesoCrystal* clone() const override final;
@@ -37,11 +37,11 @@ public:
     std::vector<const INode*> getChildren() const override final;
 
 private:
-    MesoCrystal(IClusteredParticles* p_particle_structure, IFormFactor* p_form_factor);
+    MesoCrystal(Crystal* p_particle_structure, IFormFactor* p_form_factor);
     void initialize();
 
-    std::unique_ptr<IClusteredParticles> m_particle_structure; //!< Crystal  structure
-    std::unique_ptr<IFormFactor> m_meso_form_factor;           //!< Outer shape of this mesocrystal
+    std::unique_ptr<Crystal> m_particle_structure;   //!< Crystal  structure
+    std::unique_ptr<IFormFactor> m_meso_form_factor; //!< Outer shape of this mesocrystal
 };
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_MESOCRYSTAL_H

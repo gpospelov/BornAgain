@@ -1555,7 +1555,7 @@ If particles in the layout crossed the limits of the layer slices, these particl
 C++ includes: ProcessedLayout.h
 ";
 
-%feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(const ILayout &layout, const std::vector< Slice > &slices, double z_ref, const IFresnelMap *p_fresnel_map, bool polarized)
+%feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(const ParticleLayout &layout, const std::vector< Slice > &slices, double z_ref, const IFresnelMap *p_fresnel_map, bool polarized)
 ";
 
 %feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(ProcessedLayout &&other)
@@ -1955,7 +1955,10 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::materialMap "materials_t* SampleLabelHandler::materialMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::latticeMap "lattices_t* SampleLabelHandler::latticeMap()
+%feature("docstring")  SampleLabelHandler::lattice2DMap "lattices2D_t* SampleLabelHandler::lattice2DMap()
+";
+
+%feature("docstring")  SampleLabelHandler::lattice3DMap "lattices3D_t* SampleLabelHandler::lattice3DMap()
 ";
 
 %feature("docstring")  SampleLabelHandler::mesocrystalMap "mesocrystals_t* SampleLabelHandler::mesocrystalMap()
@@ -1994,13 +1997,16 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::labelLayer "std::string SampleLabelHandler::labelLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::labelLayout "std::string SampleLabelHandler::labelLayout(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::labelLayout "std::string SampleLabelHandler::labelLayout(const ParticleLayout *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::labelMaterial "std::string SampleLabelHandler::labelMaterial(const Material *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::labelLattice "std::string SampleLabelHandler::labelLattice(const Lattice *sample)
+%feature("docstring")  SampleLabelHandler::labelLattice2D "std::string SampleLabelHandler::labelLattice2D(const Lattice2D *sample)
+";
+
+%feature("docstring")  SampleLabelHandler::labelLattice3D "std::string SampleLabelHandler::labelLattice3D(const Lattice3D *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::labelMultiLayer "std::string SampleLabelHandler::labelMultiLayer(const MultiLayer *sample)
@@ -2027,13 +2033,16 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::insertLayer "void SampleLabelHandler::insertLayer(const Layer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertLayout "void SampleLabelHandler::insertLayout(const ILayout *sample)
+%feature("docstring")  SampleLabelHandler::insertLayout "void SampleLabelHandler::insertLayout(const ParticleLayout *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const Material *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertLattice "void SampleLabelHandler::insertLattice(const Lattice *sample)
+%feature("docstring")  SampleLabelHandler::insertLattice2D "void SampleLabelHandler::insertLattice2D(const Lattice2D *sample)
+";
+
+%feature("docstring")  SampleLabelHandler::insertLattice3D "void SampleLabelHandler::insertLattice3D(const Lattice3D *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertMesoCrystal "void SampleLabelHandler::insertMesoCrystal(const MesoCrystal *sample)

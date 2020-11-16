@@ -57,7 +57,7 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
     : InterferenceFunctionItem("Interference1DLattice")
 {
     setToolTip("Interference function of a 1D lattice");
-    addProperty(P_LENGTH, 20.0 * Units::nanometer)->setToolTip("Lattice length in nanometers");
+    addProperty(P_LENGTH, 20.0 * Units::nm)->setToolTip("Lattice length in nanometers");
     addProperty(P_ROTATION_ANGLE, 0.0)
         ->setToolTip("Rotation of lattice with respect to x-axis of reference \n"
                      "frame (beam direction) in degrees ");
@@ -306,7 +306,7 @@ InterferenceFunctionHardDiskItem::InterferenceFunctionHardDiskItem()
     : InterferenceFunctionItem("InterferenceHardDisk")
 {
     setToolTip("Interference function for hard disk Percus-Yevick");
-    addProperty(P_RADIUS, 5.0 * Units::nanometer)->setToolTip("Hard disk radius in nanometers");
+    addProperty(P_RADIUS, 5.0 * Units::nm)->setToolTip("Hard disk radius in nanometers");
     addProperty(P_DENSITY, 0.002)->setToolTip("Particle density in particles per square nanometer");
 }
 
@@ -335,9 +335,9 @@ InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystal
     : InterferenceFunctionItem("InterferenceRadialParaCrystal")
 {
     setToolTip("Interference function of a radial paracrystal");
-    addProperty(P_PEAK_DISTANCE, 20.0 * Units::nanometer)
+    addProperty(P_PEAK_DISTANCE, 20.0 * Units::nm)
         ->setToolTip("Average distance to the next neighbor in nanometers");
-    addProperty(P_DAMPING_LENGTH, 1000.0 * Units::nanometer)
+    addProperty(P_DAMPING_LENGTH, 1000.0 * Units::nm)
         ->setToolTip("The damping (coherence) length of the paracrystal "
                      "in nanometers");
     addProperty(P_DOMAIN_SIZE, 0.0)

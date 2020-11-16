@@ -33,11 +33,6 @@ public:
 
     void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
 
-    static InterferenceFunctionFinite2DLattice* createSquare(double lattice_length, double xi,
-                                                             unsigned N_1, unsigned N_2);
-    static InterferenceFunctionFinite2DLattice* createHexagonal(double lattice_length, double xi,
-                                                                unsigned N_1, unsigned N_2);
-
     unsigned numberUnitCells1() const { return m_N_1; }
     unsigned numberUnitCells2() const { return m_N_2; }
 
@@ -53,7 +48,6 @@ public:
 
 private:
     double iff_without_dw(const kvector_t q) const override final;
-    void setLattice(const Lattice2D& lattice);
 
     double interferenceForXi(double xi) const;
 

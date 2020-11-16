@@ -48,7 +48,11 @@ const QString density_tooltip =
     "Number of mesocrystals per square nanometer (particle surface density).\n "
     "Should be defined for disordered and 1d-ordered particle collections.";
 
-bool IsIParticleName(QString name);
+bool IsIParticleName(QString name)
+{
+    return (name.startsWith("Particle") || name.startsWith("ParticleComposition")
+            || name.startsWith("ParticleCoreShell") || name.startsWith("MesoCrystal"));
+}
 
 } // namespace
 
@@ -105,47 +109,43 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal")
 
 std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
 {
-    auto lattice = getLattice();
-    if (!(lattice.volume() > 0.0)) {
+    const Lattice3D& lattice = getLattice();
+    if (!(lattice.unitCellVolume() > 0.0))
         throw GUIHelpers::Error("MesoCrystalItem::createMesoCrystal(): "
                                 "Lattice volume not strictly positive");
-    }
-    auto P_basis = getBasis();
-    if (!P_basis) {
+    std::unique_ptr<IParticle> basis = getBasis();
+    if (!basis)
         throw GUIHelpers::Error("MesoCrystalItem::createMesoCrystal(): "
                                 "No basis particle defined");
-    }
-    Crystal crystal(*P_basis, lattice);
+    Crystal crystal(*basis, lattice);
 
-    auto P_ff = getOuterShape();
-    if (!P_ff) {
+    std::unique_ptr<IFormFactor> ff = getOuterShape();
+    if (!ff)
         throw GUIHelpers::Error("MesoCrystalItem::createMesoCrystal(): "
                                 "No outer shape defined");
-    }
 
-    auto P_result = std::make_unique<MesoCrystal>(crystal, *P_ff);
-    TransformToDomain::setTransformationInfo(P_result.get(), *this);
+    auto result = std::make_unique<MesoCrystal>(crystal, *ff);
+    TransformToDomain::setTransformationInfo(result.get(), *this);
 
-    return P_result;
+    return result;
 }
 
 QStringList MesoCrystalItem::translateList(const QStringList& list) const
 {
     QStringList result = list;
     // Add CrystalType to path name of basis particle
-    if (IsIParticleName(list.back())) {
+    if (IsIParticleName(list.back()))
         result << QString::fromStdString("Crystal");
-    }
     result = SessionItem::translateList(result);
     return result;
 }
 
-Lattice MesoCrystalItem::getLattice() const
+Lattice3D MesoCrystalItem::getLattice() const
 {
-    kvector_t a1 = GetVectorItem(*this, P_VECTOR_A);
-    kvector_t a2 = GetVectorItem(*this, P_VECTOR_B);
-    kvector_t a3 = GetVectorItem(*this, P_VECTOR_C);
-    return Lattice(a1, a2, a3);
+    const kvector_t a1 = GetVectorItem(*this, P_VECTOR_A);
+    const kvector_t a2 = GetVectorItem(*this, P_VECTOR_B);
+    const kvector_t a3 = GetVectorItem(*this, P_VECTOR_C);
+    return Lattice3D(a1, a2, a3);
 }
 
 std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const
@@ -174,12 +174,3 @@ std::unique_ptr<IFormFactor> MesoCrystalItem::getOuterShape() const
     auto& ff_item = groupItem<FormFactorItem>(MesoCrystalItem::P_OUTER_SHAPE);
     return ff_item.createFormFactor();
 }
-
-namespace
-{
-bool IsIParticleName(QString name)
-{
-    return (name.startsWith("Particle") || name.startsWith("ParticleComposition")
-            || name.startsWith("ParticleCoreShell") || name.startsWith("MesoCrystal"));
-}
-} // namespace

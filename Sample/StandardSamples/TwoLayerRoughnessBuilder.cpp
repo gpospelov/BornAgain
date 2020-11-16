@@ -21,9 +21,9 @@
 
 MultiLayer* TwoLayerRoughnessBuilder::buildSample() const
 {
-    const double m_sigma(1.0 * Units::nanometer);
+    const double m_sigma(1.0 * Units::nm);
     const double m_hurst(0.3);
-    const double m_lateralCorrLength(5.0 * Units::nanometer);
+    const double m_lateralCorrLength(5.0 * Units::nm);
 
     Layer vacuum_layer(refMat::Vacuum, 0);
     Layer substrate_layer(refMat::Substrate, 0);

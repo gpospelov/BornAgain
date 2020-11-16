@@ -26,7 +26,8 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Latti
     : IInterferenceFunction(0), m_integrate_xi(false), m_damping_length(damping_length)
 {
     setName("Interference2DParaCrystal");
-    setLattice(lattice);
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
     setDomainSizes(domain_size_1, domain_size_2);
     registerParameter("DampingLength", &m_damping_length).setUnit("nm").setNonnegative();
     registerParameter("DomainSize1", &m_domain_sizes[0]).setUnit("nm").setNonnegative();
@@ -103,44 +104,6 @@ double InterferenceFunction2DParaCrystal::iff_without_dw(const kvector_t q) cons
     return RealIntegrator().integrate([&](double xi) -> double { return interferenceForXi(xi); },
                                       0.0, M_TWOPI)
            / M_TWOPI;
-}
-
-void InterferenceFunction2DParaCrystal::setLattice(const Lattice2D& lattice)
-{
-    m_lattice.reset(lattice.clone());
-    registerChild(m_lattice.get());
-}
-
-//! Creates square lattice.
-//! @param lattice_length: length of first and second lattice vectors in nanometers
-//! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
-//! @param domain_size_1: size of the coherent domain along the first basis vector in nanometers
-//! @param domain_size_2: size of the coherent domain along the second basis vector in nanometers
-
-InterferenceFunction2DParaCrystal*
-InterferenceFunction2DParaCrystal::createSquare(double lattice_length, double damping_length,
-                                                double domain_size_1, double domain_size_2)
-{
-    auto result = new InterferenceFunction2DParaCrystal(
-        SquareLattice(lattice_length), damping_length, domain_size_1, domain_size_2);
-    result->setIntegrationOverXi(true);
-    return result;
-}
-
-//! Creates hexagonal lattice.
-//! @param lattice_length: length of first and second lattice vectors in nanometers
-//! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
-//! @param domain_size_1: size of the coherent domain along the first basis vector in nanometers
-//! @param domain_size_2: size of the coherent domain along the second basis vector in nanometers
-
-InterferenceFunction2DParaCrystal*
-InterferenceFunction2DParaCrystal::createHexagonal(double lattice_length, double damping_length,
-                                                   double domain_size_1, double domain_size_2)
-{
-    auto result = new InterferenceFunction2DParaCrystal(
-        HexagonalLattice(lattice_length, 0.), damping_length, domain_size_1, domain_size_2);
-    result->setIntegrationOverXi(true);
-    return result;
 }
 
 //! Sets the sizes of coherence domains.

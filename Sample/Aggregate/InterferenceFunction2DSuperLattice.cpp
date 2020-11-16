@@ -32,7 +32,8 @@ InterferenceFunction2DSuperLattice::InterferenceFunction2DSuperLattice(const Lat
     , m_size_2(size_2)
 {
     setName("Interference2DSuperLattice");
-    setLattice(lattice);
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
     setSubstructureIFF(InterferenceFunctionNone());
 }
 
@@ -70,28 +71,6 @@ void InterferenceFunction2DSuperLattice::setSubstructureIFF(const IInterferenceF
 const IInterferenceFunction& InterferenceFunction2DSuperLattice::substructureIFF() const
 {
     return *m_substructure;
-}
-
-//! Creates square lattice.
-// @param lattice_length: length of first and second lattice vectors in nanometers
-// @param xi: rotation of lattice with respect to x-axis in radians
-InterferenceFunction2DSuperLattice*
-InterferenceFunction2DSuperLattice::createSquare(double lattice_length, double xi, unsigned size_1,
-                                                 unsigned size_2)
-{
-    return new InterferenceFunction2DSuperLattice(SquareLattice(lattice_length, xi), size_1,
-                                                  size_2);
-}
-
-//! Creates hexagonal lattice.
-// @param lattice_length: length of first and second lattice vectors in nanometers
-// @param xi: rotation of lattice with respect to x-axis in radians
-InterferenceFunction2DSuperLattice*
-InterferenceFunction2DSuperLattice::createHexagonal(double lattice_length, double xi,
-                                                    unsigned size_1, unsigned size_2)
-{
-    return new InterferenceFunction2DSuperLattice(HexagonalLattice(lattice_length, xi), size_1,
-                                                  size_2);
 }
 
 double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff) const
@@ -137,12 +116,6 @@ double InterferenceFunction2DSuperLattice::iff_without_dw(const kvector_t q) con
     const double qbdiv2 = (q.x() * b * std::cos(xialpha) + q.y() * b * std::sin(xialpha)) / 2.0;
     const double ampl = Laue(qadiv2, m_size_1) * Laue(qbdiv2, m_size_2);
     return ampl * ampl / (m_size_1 * m_size_2);
-}
-
-void InterferenceFunction2DSuperLattice::setLattice(const Lattice2D& lattice)
-{
-    m_lattice.reset(lattice.clone());
-    registerChild(m_lattice.get());
 }
 
 double InterferenceFunction2DSuperLattice::interferenceForXi(double xi) const

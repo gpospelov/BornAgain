@@ -23,10 +23,10 @@
 
 MultiLayer* RotatedPyramidsBuilder::buildSample() const
 {
-    const double m_length(10 * Units::nanometer);
-    const double m_height(5 * Units::nanometer);
+    const double m_length(10 * Units::nm);
+    const double m_height(5 * Units::nm);
     const double m_alpha(Units::deg2rad(54.73));
-    const double m_zangle(45. * Units::degree);
+    const double m_zangle(45. * Units::deg);
 
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);

@@ -30,7 +30,9 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& la
     : IInterferenceFunction(0), m_integrate_xi(false)
 {
     setName("Interference2DLattice");
-    setLattice(lattice);
+    m_lattice.reset(lattice.clone());
+    registerChild(m_lattice.get());
+    initialize_rec_vectors();
 }
 
 //! Constructor of two-dimensional interference function.
@@ -54,24 +56,6 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
     if (m_decay)
         ret->setDecayFunction(*m_decay);
     return ret;
-}
-
-//! Creates square lattice.
-//! @param lattice_length: length of the first and second basis vectors in nanometers
-//! @param xi: rotation of the lattice with respect to the x-axis in radians
-InterferenceFunction2DLattice* InterferenceFunction2DLattice::createSquare(double lattice_length,
-                                                                           double xi)
-{
-    return new InterferenceFunction2DLattice(SquareLattice(lattice_length, xi));
-}
-
-//! Creates hexagonal lattice.
-//! @param lattice_length: length of the first and second basis vectors in nanometers
-//! @param xi: rotation of the lattice with respect to the x-axis in radians
-InterferenceFunction2DLattice* InterferenceFunction2DLattice::createHexagonal(double lattice_length,
-                                                                              double xi)
-{
-    return new InterferenceFunction2DLattice(HexagonalLattice(lattice_length, xi));
 }
 
 //! Sets two-dimensional decay function.
@@ -126,13 +110,6 @@ double InterferenceFunction2DLattice::iff_without_dw(const kvector_t q) const
     return RealIntegrator().integrate([&](double xi) -> double { return interferenceForXi(xi); },
                                       0.0, M_TWOPI)
            / M_TWOPI;
-}
-
-void InterferenceFunction2DLattice::setLattice(const Lattice2D& lattice)
-{
-    m_lattice.reset(lattice.clone());
-    registerChild(m_lattice.get());
-    initialize_rec_vectors();
 }
 
 double InterferenceFunction2DLattice::interferenceForXi(double xi) const

@@ -3185,121 +3185,120 @@ namespace Swig {
 #define SWIGTYPE_p_IFormFactorBorn swig_types[85]
 #define SWIGTYPE_p_IFormFactorDecorator swig_types[86]
 #define SWIGTYPE_p_IInterferenceFunction swig_types[87]
-#define SWIGTYPE_p_ILayout swig_types[88]
-#define SWIGTYPE_p_INode swig_types[89]
-#define SWIGTYPE_p_INodeVisitor swig_types[90]
-#define SWIGTYPE_p_IParameterT_double_t swig_types[91]
-#define SWIGTYPE_p_IParameterized swig_types[92]
-#define SWIGTYPE_p_IParticle swig_types[93]
-#define SWIGTYPE_p_IPeakShape swig_types[94]
-#define SWIGTYPE_p_IRotation swig_types[95]
-#define SWIGTYPE_p_ISample swig_types[96]
-#define SWIGTYPE_p_IdentityRotation swig_types[97]
-#define SWIGTYPE_p_Instrument swig_types[98]
-#define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[99]
-#define SWIGTYPE_p_InterferenceFunction2DLattice swig_types[100]
-#define SWIGTYPE_p_InterferenceFunction2DParaCrystal swig_types[101]
-#define SWIGTYPE_p_InterferenceFunction2DSuperLattice swig_types[102]
-#define SWIGTYPE_p_InterferenceFunction3DLattice swig_types[103]
-#define SWIGTYPE_p_InterferenceFunctionFinite2DLattice swig_types[104]
-#define SWIGTYPE_p_InterferenceFunctionFinite3DLattice swig_types[105]
-#define SWIGTYPE_p_InterferenceFunctionHardDisk swig_types[106]
-#define SWIGTYPE_p_InterferenceFunctionNone swig_types[107]
-#define SWIGTYPE_p_InterferenceFunctionRadialParaCrystal swig_types[108]
-#define SWIGTYPE_p_InterferenceFunctionTwin swig_types[109]
-#define SWIGTYPE_p_IsGISAXSDetector swig_types[110]
-#define SWIGTYPE_p_Layer swig_types[111]
-#define SWIGTYPE_p_LayerInterface swig_types[112]
-#define SWIGTYPE_p_LayerRoughness swig_types[113]
-#define SWIGTYPE_p_MesoCrystal swig_types[114]
-#define SWIGTYPE_p_MultiLayer swig_types[115]
-#define SWIGTYPE_p_NodeMeta swig_types[116]
-#define SWIGTYPE_p_OffSpecSimulation swig_types[117]
-#define SWIGTYPE_p_ParaMeta swig_types[118]
-#define SWIGTYPE_p_ParameterDistribution swig_types[119]
-#define SWIGTYPE_p_ParameterPool swig_types[120]
-#define SWIGTYPE_p_ParameterSample swig_types[121]
-#define SWIGTYPE_p_Particle swig_types[122]
-#define SWIGTYPE_p_ParticleComposition swig_types[123]
-#define SWIGTYPE_p_ParticleCoreShell swig_types[124]
-#define SWIGTYPE_p_ParticleDistribution swig_types[125]
-#define SWIGTYPE_p_ParticleLayout swig_types[126]
-#define SWIGTYPE_p_PoissonNoiseBackground swig_types[127]
-#define SWIGTYPE_p_RangedDistribution swig_types[128]
-#define SWIGTYPE_p_RangedDistributionCosine swig_types[129]
-#define SWIGTYPE_p_RangedDistributionGate swig_types[130]
-#define SWIGTYPE_p_RangedDistributionGaussian swig_types[131]
-#define SWIGTYPE_p_RangedDistributionLogNormal swig_types[132]
-#define SWIGTYPE_p_RangedDistributionLorentz swig_types[133]
-#define SWIGTYPE_p_RealLimits swig_types[134]
-#define SWIGTYPE_p_RealParameter swig_types[135]
-#define SWIGTYPE_p_RectangularDetector swig_types[136]
-#define SWIGTYPE_p_ResolutionFunction2DGaussian swig_types[137]
-#define SWIGTYPE_p_RotationEuler swig_types[138]
-#define SWIGTYPE_p_RotationX swig_types[139]
-#define SWIGTYPE_p_RotationY swig_types[140]
-#define SWIGTYPE_p_RotationZ swig_types[141]
-#define SWIGTYPE_p_SpecularDetector1D swig_types[142]
-#define SWIGTYPE_p_SpecularSimulation swig_types[143]
-#define SWIGTYPE_p_SphericalDetector swig_types[144]
-#define SWIGTYPE_p_SquareLattice swig_types[145]
-#define SWIGTYPE_p_allocator_type swig_types[146]
-#define SWIGTYPE_p_char swig_types[147]
-#define SWIGTYPE_p_difference_type swig_types[148]
-#define SWIGTYPE_p_double swig_types[149]
-#define SWIGTYPE_p_first_type swig_types[150]
-#define SWIGTYPE_p_int swig_types[151]
-#define SWIGTYPE_p_key_type swig_types[152]
-#define SWIGTYPE_p_long_long swig_types[153]
-#define SWIGTYPE_p_mapped_type swig_types[154]
-#define SWIGTYPE_p_p_PyObject swig_types[155]
-#define SWIGTYPE_p_second_type swig_types[156]
-#define SWIGTYPE_p_short swig_types[157]
-#define SWIGTYPE_p_signed_char swig_types[158]
-#define SWIGTYPE_p_size_type swig_types[159]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[160]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[161]
-#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[162]
-#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[163]
-#define SWIGTYPE_p_std__allocatorT_ParameterSample_t swig_types[164]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[165]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[166]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[167]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[168]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[169]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[170]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[171]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[172]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[173]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[174]
-#define SWIGTYPE_p_std__functionT_void_fF_t swig_types[175]
-#define SWIGTYPE_p_std__invalid_argument swig_types[176]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[177]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[178]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[179]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[180]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[181]
-#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[182]
-#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[183]
-#define SWIGTYPE_p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t swig_types[184]
-#define SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t swig_types[185]
-#define SWIGTYPE_p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t swig_types[186]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[187]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[188]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[189]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[190]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[191]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[192]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[193]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[194]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[195]
-#define SWIGTYPE_p_unsigned_char swig_types[196]
-#define SWIGTYPE_p_unsigned_int swig_types[197]
-#define SWIGTYPE_p_unsigned_long_long swig_types[198]
-#define SWIGTYPE_p_unsigned_short swig_types[199]
-#define SWIGTYPE_p_value_type swig_types[200]
-static swig_type_info *swig_types[202];
-static swig_module_info swig_module = {swig_types, 201, 0, 0, 0, 0};
+#define SWIGTYPE_p_INode swig_types[88]
+#define SWIGTYPE_p_INodeVisitor swig_types[89]
+#define SWIGTYPE_p_IParameterT_double_t swig_types[90]
+#define SWIGTYPE_p_IParameterized swig_types[91]
+#define SWIGTYPE_p_IParticle swig_types[92]
+#define SWIGTYPE_p_IPeakShape swig_types[93]
+#define SWIGTYPE_p_IRotation swig_types[94]
+#define SWIGTYPE_p_ISample swig_types[95]
+#define SWIGTYPE_p_IdentityRotation swig_types[96]
+#define SWIGTYPE_p_Instrument swig_types[97]
+#define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[98]
+#define SWIGTYPE_p_InterferenceFunction2DLattice swig_types[99]
+#define SWIGTYPE_p_InterferenceFunction2DParaCrystal swig_types[100]
+#define SWIGTYPE_p_InterferenceFunction2DSuperLattice swig_types[101]
+#define SWIGTYPE_p_InterferenceFunction3DLattice swig_types[102]
+#define SWIGTYPE_p_InterferenceFunctionFinite2DLattice swig_types[103]
+#define SWIGTYPE_p_InterferenceFunctionFinite3DLattice swig_types[104]
+#define SWIGTYPE_p_InterferenceFunctionHardDisk swig_types[105]
+#define SWIGTYPE_p_InterferenceFunctionNone swig_types[106]
+#define SWIGTYPE_p_InterferenceFunctionRadialParaCrystal swig_types[107]
+#define SWIGTYPE_p_InterferenceFunctionTwin swig_types[108]
+#define SWIGTYPE_p_IsGISAXSDetector swig_types[109]
+#define SWIGTYPE_p_Layer swig_types[110]
+#define SWIGTYPE_p_LayerInterface swig_types[111]
+#define SWIGTYPE_p_LayerRoughness swig_types[112]
+#define SWIGTYPE_p_MesoCrystal swig_types[113]
+#define SWIGTYPE_p_MultiLayer swig_types[114]
+#define SWIGTYPE_p_NodeMeta swig_types[115]
+#define SWIGTYPE_p_OffSpecSimulation swig_types[116]
+#define SWIGTYPE_p_ParaMeta swig_types[117]
+#define SWIGTYPE_p_ParameterDistribution swig_types[118]
+#define SWIGTYPE_p_ParameterPool swig_types[119]
+#define SWIGTYPE_p_ParameterSample swig_types[120]
+#define SWIGTYPE_p_Particle swig_types[121]
+#define SWIGTYPE_p_ParticleComposition swig_types[122]
+#define SWIGTYPE_p_ParticleCoreShell swig_types[123]
+#define SWIGTYPE_p_ParticleDistribution swig_types[124]
+#define SWIGTYPE_p_ParticleLayout swig_types[125]
+#define SWIGTYPE_p_PoissonNoiseBackground swig_types[126]
+#define SWIGTYPE_p_RangedDistribution swig_types[127]
+#define SWIGTYPE_p_RangedDistributionCosine swig_types[128]
+#define SWIGTYPE_p_RangedDistributionGate swig_types[129]
+#define SWIGTYPE_p_RangedDistributionGaussian swig_types[130]
+#define SWIGTYPE_p_RangedDistributionLogNormal swig_types[131]
+#define SWIGTYPE_p_RangedDistributionLorentz swig_types[132]
+#define SWIGTYPE_p_RealLimits swig_types[133]
+#define SWIGTYPE_p_RealParameter swig_types[134]
+#define SWIGTYPE_p_RectangularDetector swig_types[135]
+#define SWIGTYPE_p_ResolutionFunction2DGaussian swig_types[136]
+#define SWIGTYPE_p_RotationEuler swig_types[137]
+#define SWIGTYPE_p_RotationX swig_types[138]
+#define SWIGTYPE_p_RotationY swig_types[139]
+#define SWIGTYPE_p_RotationZ swig_types[140]
+#define SWIGTYPE_p_SpecularDetector1D swig_types[141]
+#define SWIGTYPE_p_SpecularSimulation swig_types[142]
+#define SWIGTYPE_p_SphericalDetector swig_types[143]
+#define SWIGTYPE_p_SquareLattice swig_types[144]
+#define SWIGTYPE_p_allocator_type swig_types[145]
+#define SWIGTYPE_p_char swig_types[146]
+#define SWIGTYPE_p_difference_type swig_types[147]
+#define SWIGTYPE_p_double swig_types[148]
+#define SWIGTYPE_p_first_type swig_types[149]
+#define SWIGTYPE_p_int swig_types[150]
+#define SWIGTYPE_p_key_type swig_types[151]
+#define SWIGTYPE_p_long_long swig_types[152]
+#define SWIGTYPE_p_mapped_type swig_types[153]
+#define SWIGTYPE_p_p_PyObject swig_types[154]
+#define SWIGTYPE_p_second_type swig_types[155]
+#define SWIGTYPE_p_short swig_types[156]
+#define SWIGTYPE_p_signed_char swig_types[157]
+#define SWIGTYPE_p_size_type swig_types[158]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[159]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[160]
+#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[161]
+#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[162]
+#define SWIGTYPE_p_std__allocatorT_ParameterSample_t swig_types[163]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[164]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[165]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[166]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[167]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[168]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[169]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[170]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[171]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[172]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[173]
+#define SWIGTYPE_p_std__functionT_void_fF_t swig_types[174]
+#define SWIGTYPE_p_std__invalid_argument swig_types[175]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[176]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[177]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[178]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[179]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[180]
+#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[181]
+#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[182]
+#define SWIGTYPE_p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t swig_types[183]
+#define SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t swig_types[184]
+#define SWIGTYPE_p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t swig_types[185]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[186]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[187]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[188]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[189]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[190]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[191]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[192]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[193]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[194]
+#define SWIGTYPE_p_unsigned_char swig_types[195]
+#define SWIGTYPE_p_unsigned_int swig_types[196]
+#define SWIGTYPE_p_unsigned_long_long swig_types[197]
+#define SWIGTYPE_p_unsigned_short swig_types[198]
+#define SWIGTYPE_p_value_type swig_types[199]
+static swig_type_info *swig_types[201];
+static swig_module_info swig_module = {swig_types, 200, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -39217,7 +39216,7 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_83(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  ILayout *arg2 = (ILayout *) 0 ;
+  ParticleLayout *arg2 = (ParticleLayout *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -39229,12 +39228,12 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_83(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
   }
   arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_ILayout, 0 |  0 );
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_ParticleLayout, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "ILayout const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "ParticleLayout const *""'"); 
   }
-  arg2 = reinterpret_cast< ILayout * >(argp2);
-  (arg1)->visit((ILayout const *)arg2);
+  arg2 = reinterpret_cast< ParticleLayout * >(argp2);
+  (arg1)->visit((ParticleLayout const *)arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -40029,34 +40028,6 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_112(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  ParticleLayout *arg2 = (ParticleLayout *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_INodeVisitor, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
-  }
-  arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_ParticleLayout, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "ParticleLayout const *""'"); 
-  }
-  arg2 = reinterpret_cast< ParticleLayout * >(argp2);
-  (arg1)->visit((ParticleLayout const *)arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_113(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   PoissonNoiseBackground *arg2 = (PoissonNoiseBackground *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -40082,7 +40053,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_114(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_113(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   RectangularDetector *arg2 = (RectangularDetector *) 0 ;
@@ -40110,7 +40081,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_115(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_114(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   ResolutionFunction2DGaussian *arg2 = (ResolutionFunction2DGaussian *) 0 ;
@@ -40138,7 +40109,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_116(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_115(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   RotationEuler *arg2 = (RotationEuler *) 0 ;
@@ -40166,7 +40137,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_117(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_116(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   RotationX *arg2 = (RotationX *) 0 ;
@@ -40194,7 +40165,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_118(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_117(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   RotationY *arg2 = (RotationY *) 0 ;
@@ -40222,7 +40193,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_119(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_118(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   RotationZ *arg2 = (RotationZ *) 0 ;
@@ -40250,7 +40221,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_120(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_119(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   SpecularDetector1D *arg2 = (SpecularDetector1D *) 0 ;
@@ -40278,7 +40249,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_121(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_120(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   SpecularSimulation *arg2 = (SpecularSimulation *) 0 ;
@@ -40306,7 +40277,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_122(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_121(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   SphericalDetector *arg2 = (SphericalDetector *) 0 ;
@@ -40334,7 +40305,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_123(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_122(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   SquareLattice *arg2 = (SquareLattice *) 0 ;
@@ -41539,7 +41510,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ILayout, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParticleLayout, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_83(self, argc, argv);
@@ -41945,7 +41916,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParticleLayout, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_PoissonNoiseBackground, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_112(self, argc, argv);
@@ -41959,7 +41930,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_PoissonNoiseBackground, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RectangularDetector, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_113(self, argc, argv);
@@ -41973,7 +41944,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RectangularDetector, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ResolutionFunction2DGaussian, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_114(self, argc, argv);
@@ -41987,7 +41958,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ResolutionFunction2DGaussian, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationEuler, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_115(self, argc, argv);
@@ -42001,7 +41972,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationEuler, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationX, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_116(self, argc, argv);
@@ -42015,7 +41986,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationX, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationY, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_117(self, argc, argv);
@@ -42029,7 +42000,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationY, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationZ, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_118(self, argc, argv);
@@ -42043,7 +42014,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationZ, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SpecularDetector1D, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_119(self, argc, argv);
@@ -42057,7 +42028,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SpecularDetector1D, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SpecularSimulation, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_120(self, argc, argv);
@@ -42071,7 +42042,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SpecularSimulation, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SphericalDetector, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_121(self, argc, argv);
@@ -42085,24 +42056,10 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SphericalDetector, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_INodeVisitor_visit__SWIG_122(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_INodeVisitor, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
       int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SquareLattice, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_INodeVisitor_visit__SWIG_123(self, argc, argv);
+        return _wrap_INodeVisitor_visit__SWIG_122(self, argc, argv);
       }
     }
   }
@@ -42193,7 +42150,7 @@ fail:
     "    INodeVisitor::visit(IFormFactorBorn const *)\n"
     "    INodeVisitor::visit(IFormFactorDecorator const *)\n"
     "    INodeVisitor::visit(IInterferenceFunction const *)\n"
-    "    INodeVisitor::visit(ILayout const *)\n"
+    "    INodeVisitor::visit(ParticleLayout const *)\n"
     "    INodeVisitor::visit(INode const *)\n"
     "    INodeVisitor::visit(Instrument const *)\n"
     "    INodeVisitor::visit(InterferenceFunction1DLattice const *)\n"
@@ -42222,7 +42179,6 @@ fail:
     "    INodeVisitor::visit(ParticleComposition const *)\n"
     "    INodeVisitor::visit(ParticleCoreShell const *)\n"
     "    INodeVisitor::visit(ParticleDistribution const *)\n"
-    "    INodeVisitor::visit(ParticleLayout const *)\n"
     "    INodeVisitor::visit(PoissonNoiseBackground const *)\n"
     "    INodeVisitor::visit(RectangularDetector const *)\n"
     "    INodeVisitor::visit(ResolutionFunction2DGaussian const *)\n"
@@ -51274,7 +51230,7 @@ static PyMethodDef SwigMethods[] = {
 		"INodeVisitor_visit(INodeVisitor self, IFormFactorBorn const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IFormFactorDecorator const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IInterferenceFunction const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, ILayout const * arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, ParticleLayout const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, INode arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, Instrument const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, InterferenceFunction1DLattice const * arg2)\n"
@@ -51303,7 +51259,6 @@ static PyMethodDef SwigMethods[] = {
 		"INodeVisitor_visit(INodeVisitor self, ParticleComposition const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, ParticleCoreShell const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, ParticleDistribution const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, ParticleLayout const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, PoissonNoiseBackground const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, RectangularDetector const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, ResolutionFunction2DGaussian const * arg2)\n"
@@ -52236,7 +52191,6 @@ static swig_type_info _swigt__p_IFormFactor = {"_p_IFormFactor", "IFormFactor *"
 static swig_type_info _swigt__p_IFormFactorBorn = {"_p_IFormFactorBorn", "IFormFactorBorn *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactorDecorator = {"_p_IFormFactorDecorator", "IFormFactorDecorator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IInterferenceFunction = {"_p_IInterferenceFunction", "IInterferenceFunction *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ILayout = {"_p_ILayout", "ILayout *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INode = {"_p_INode", "INode *|std::vector< INode * >::value_type|std::vector< INode const * >::value_type", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INodeVisitor = {"_p_INodeVisitor", "INodeVisitor *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IParameterT_double_t = {"_p_IParameterT_double_t", "IParameter< double > *", 0, 0, (void*)0, 0};
@@ -52439,7 +52393,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IFormFactorBorn,
   &_swigt__p_IFormFactorDecorator,
   &_swigt__p_IInterferenceFunction,
-  &_swigt__p_ILayout,
   &_swigt__p_INode,
   &_swigt__p_INodeVisitor,
   &_swigt__p_IParameterT_double_t,
@@ -52642,7 +52595,6 @@ static swig_cast_info _swigc__p_IFormFactor[] = {  {&_swigt__p_IFormFactor, 0, 0
 static swig_cast_info _swigc__p_IFormFactorBorn[] = {  {&_swigt__p_IFormFactorBorn, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactorDecorator[] = {  {&_swigt__p_IFormFactorDecorator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IInterferenceFunction[] = {  {&_swigt__p_IInterferenceFunction, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ILayout[] = {  {&_swigt__p_ILayout, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_INode, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_INode, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_INode, 0, 0},  {&_swigt__p_IDistribution1D, _p_IDistribution1DTo_p_INode, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_INode, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_INode, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IParameterT_double_t[] = {  {&_swigt__p_IParameterT_double_t, 0, 0, 0},  {&_swigt__p_RealParameter, _p_RealParameterTo_p_IParameterT_double_t, 0, 0},{0, 0, 0, 0}};
@@ -52845,7 +52797,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IFormFactorBorn,
   _swigc__p_IFormFactorDecorator,
   _swigc__p_IInterferenceFunction,
-  _swigc__p_ILayout,
   _swigc__p_INode,
   _swigc__p_INodeVisitor,
   _swigc__p_IParameterT_double_t,

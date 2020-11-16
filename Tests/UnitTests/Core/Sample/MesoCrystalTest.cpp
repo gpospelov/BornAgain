@@ -1,5 +1,6 @@
 #include "Sample/Particle/MesoCrystal.h"
 #include "Sample/HardParticle/FormFactorFullSphere.h"
+#include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/Scattering/Rotations.h"
@@ -11,7 +12,7 @@ class MesoCrystalTest : public ::testing::Test
 
 TEST_F(MesoCrystalTest, getChildren)
 {
-    Lattice lattice = Lattice::createHexagonalLattice(1.0, 2.0);
+    Lattice3D lattice = bake::createHexagonalLattice(1.0, 2.0);
     ParticleComposition composition;
     Crystal crystal(composition, lattice);
     MesoCrystal meso(crystal, FormFactorFullSphere(1.0));

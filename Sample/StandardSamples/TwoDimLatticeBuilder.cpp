@@ -19,7 +19,6 @@
 #include "Sample/Aggregate/InterferenceFunctionFinite2DLattice.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
-#include "Sample/Lattice/Lattice2D.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"

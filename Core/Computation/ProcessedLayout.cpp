@@ -23,7 +23,6 @@
 #include "Sample/Slice/Slice.h"
 #include "Sample/Slice/SlicedFormFactorList.h"
 
-
 namespace
 {
 void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor)

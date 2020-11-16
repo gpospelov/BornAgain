@@ -76,7 +76,7 @@ kvector_t SimulationElement::getKf(double x, double y) const
     return m_pixel->getK(x, y, m_wavelength);
 }
 
-kvector_t SimulationElement::getMeanQ() const
+kvector_t SimulationElement::meanQ() const
 {
     return getKi() - getMeanKf();
 }

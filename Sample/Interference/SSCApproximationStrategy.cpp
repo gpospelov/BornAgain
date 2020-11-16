@@ -63,7 +63,7 @@ SSCApproximationStrategy::SSCApproximationStrategy(
 //! This is the scalar version
 double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_element) const
 {
-    double qp = sim_element.getMeanQ().magxy();
+    double qp = sim_element.meanQ().magxy();
     double diffuse_intensity = 0.0;
     complex_t ff_orig = 0., ff_conj = 0.; // original and conjugated mean formfactor
     for (auto& ffw : m_weighted_formfactors) {
@@ -80,14 +80,14 @@ double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_
     complex_t p2kappa = getCharacteristicSizeCoupling(qp, m_weighted_formfactors);
     complex_t omega = getCharacteristicDistribution(qp, m_iff.get());
     double iff = 2.0 * (mean_ff_norm * omega / (1.0 - p2kappa * omega)).real();
-    double dw_factor = m_iff->DWfactor(sim_element.getMeanQ());
+    double dw_factor = m_iff->DWfactor(sim_element.meanQ());
     return diffuse_intensity + dw_factor * iff;
 }
 
 //! This is the polarized version
 double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& sim_element) const
 {
-    double qp = sim_element.getMeanQ().magxy();
+    double qp = sim_element.meanQ().magxy();
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
     const auto& polarization_handler = sim_element.polarizationHandler();
     Eigen::Matrix2cd ff_orig = Eigen::Matrix2cd::Zero();
@@ -110,6 +110,6 @@ double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& s
     Eigen::Matrix2cd diffuse_matrix2 = polarization_handler.getAnalyzerOperator() * diffuse_matrix;
     double interference_trace = std::abs(interference_matrix.trace());
     double diffuse_trace = std::abs(diffuse_matrix2.trace());
-    double dw_factor = m_iff->DWfactor(sim_element.getMeanQ());
+    double dw_factor = m_iff->DWfactor(sim_element.meanQ());
     return diffuse_trace + dw_factor * interference_trace;
 }

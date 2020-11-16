@@ -50,7 +50,7 @@ void RoughMultiLayerComputation::compute(SimulationElement& elem) const
     if (elem.getAlphaMean() < 0.0)
         return;
     auto n_slices = m_sample->numberOfSlices();
-    kvector_t q = elem.getMeanQ();
+    kvector_t q = elem.meanQ();
     double wavelength = elem.getWavelength();
     double autocorr(0.0);
     complex_t crosscorr(0.0, 0.0);

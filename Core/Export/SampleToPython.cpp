@@ -393,85 +393,87 @@ std::string SampleToPython::defineInterferenceFunctions() const
 
         if (dynamic_cast<const InterferenceFunctionNone*>(interference))
             result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
-        else if (auto lattice_1d =
+        else if (auto iff =
                      dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunction1DLattice("
-                   << pyfmt::printNm(lattice_1d->getLength()) << ", "
-                   << pyfmt::printDegrees(lattice_1d->getXi()) << ")\n";
+                   << pyfmt::printNm(iff->getLength()) << ", "
+                   << pyfmt::printDegrees(iff->getXi()) << ")\n";
 
-            auto pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction1D>(*lattice_1d);
+            auto pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction1D>(*iff);
 
             if (pdf->decayLength() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
                        << pyfmt2::argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
-        } else if (auto para_radial =
+        } else if (auto iff =
                        dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
-                   << pyfmt::printNm(para_radial->peakDistance()) << ", "
-                   << pyfmt::printNm(para_radial->dampingLength()) << ")\n";
+                   << pyfmt::printNm(iff->peakDistance()) << ", "
+                   << pyfmt::printNm(iff->dampingLength()) << ")\n";
 
-            if (para_radial->kappa() != 0.0)
+            if (iff->kappa() != 0.0)
                 result << indent() << it->second << ".setKappa("
-                       << pyfmt::printDouble(para_radial->kappa()) << ")\n";
+                       << pyfmt::printDouble(iff->kappa()) << ")\n";
 
-            if (para_radial->domainSize() != 0.0)
+            if (iff->domainSize() != 0.0)
                 result << indent() << it->second << ".setDomainSize("
-                       << pyfmt::printDouble(para_radial->domainSize()) << ")\n";
+                       << pyfmt::printDouble(iff->domainSize()) << ")\n";
 
-            auto pdf = INodeUtils::OnlyChildOfType<IFTDistribution1D>(*para_radial);
+            auto pdf = INodeUtils::OnlyChildOfType<IFTDistribution1D>(*iff);
 
             if (pdf->omega() != 0.0)
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
                        << pyfmt2::argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setProbabilityDistribution(" << it->second
                        << "_pdf)\n";
-        } else if (auto lattice_2d =
+        } else if (auto iff =
                        dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
-            const Lattice2D& lattice = lattice_2d->lattice();
+            const Lattice2D& lattice = iff->lattice();
+            //auto lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
+
             result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
                    << pyfmt::printNm(lattice.length1()) << ", " << pyfmt::printNm(lattice.length2())
                    << ", " << pyfmt::printDegrees(lattice.latticeAngle()) << ", "
                    << pyfmt::printDegrees(lattice.rotationAngle()) << ")\n";
 
-            auto pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction2D>(*lattice_2d);
+            auto pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction2D>(*iff);
 
             result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
                    << pyfmt2::argumentList(pdf) << ")\n"
                    << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
 
-            if (lattice_2d->integrationOverXi() == true)
+            if (iff->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
-        } else if (auto lattice_2d =
+        } else if (auto iff =
                        dynamic_cast<const InterferenceFunctionFinite2DLattice*>(interference)) {
-            const Lattice2D& lattice = lattice_2d->lattice();
+            const Lattice2D& lattice = iff->lattice();
             result << indent() << it->second << " = ba.InterferenceFunctionFinite2DLattice("
                    << pyfmt::printNm(lattice.length1()) << ", " << pyfmt::printNm(lattice.length2())
                    << ", " << pyfmt::printDegrees(lattice.latticeAngle()) << ", "
                    << pyfmt::printDegrees(lattice.rotationAngle()) << ", "
-                   << lattice_2d->numberUnitCells1() << ", " << lattice_2d->numberUnitCells2()
+                   << iff->numberUnitCells1() << ", " << iff->numberUnitCells2()
                    << ")\n";
 
-            if (lattice_2d->integrationOverXi() == true)
+            if (iff->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
-        } else if (auto para_2d =
+        } else if (auto iff =
                        dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
-            std::vector<double> domainSize = para_2d->domainSizes();
-            const Lattice2D& lattice = para_2d->lattice();
+            std::vector<double> domainSize = iff->domainSizes();
+            const Lattice2D& lattice = iff->lattice();
             result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
                    << pyfmt::printNm(lattice.length1()) << ", " << pyfmt::printNm(lattice.length2())
                    << ", " << pyfmt::printDegrees(lattice.latticeAngle()) << ", "
                    << pyfmt::printDegrees(lattice.rotationAngle()) << ", "
-                   << pyfmt::printNm(para_2d->dampingLength()) << ")\n";
+                   << pyfmt::printNm(iff->dampingLength()) << ")\n";
 
             if (domainSize[0] != 0.0 || domainSize[1] != 0.0)
                 result << indent() << it->second << ".setDomainSizes("
                        << pyfmt::printNm(domainSize[0]) << ", " << pyfmt::printNm(domainSize[1])
                        << ")\n";
-            if (para_2d->integrationOverXi() == true)
+            if (iff->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
 
-            auto pdf_vector = INodeUtils::ChildNodesOfType<IFTDistribution2D>(*para_2d);
+            auto pdf_vector = INodeUtils::ChildNodesOfType<IFTDistribution2D>(*iff);
             if (pdf_vector.size() != 2)
                 continue;
             const IFTDistribution2D* pdf = pdf_vector[0];

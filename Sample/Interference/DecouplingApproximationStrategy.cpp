@@ -18,12 +18,15 @@
 #include "Base/Utils/MathFunctions.h"
 #include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
+#include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 
 DecouplingApproximationStrategy::DecouplingApproximationStrategy(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
     const IInterferenceFunction* iff, SimulationOptions sim_params, bool polarized)
-    : IInterferenceFunctionStrategy(weighted_formfactors, iff, sim_params, polarized)
+    : IInterferenceFunctionStrategy(weighted_formfactors, sim_params, polarized)
+    , m_iff(iff ? iff->clone() : new InterferenceFunctionNone())
+
 {
 }
 

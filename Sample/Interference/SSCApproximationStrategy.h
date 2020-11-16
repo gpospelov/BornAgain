@@ -18,6 +18,7 @@
 #include "Sample/Interference/IInterferenceFunctionStrategy.h"
 #include <Eigen/StdVector>
 
+class InterferenceFunctionRadialParaCrystal;
 class SimulationElement;
 
 //! Strategy class to compute the total scattering from a particle layout
@@ -28,8 +29,8 @@ class SSCApproximationStrategy final : public IInterferenceFunctionStrategy
 {
 public:
     SSCApproximationStrategy(const std::vector<FormFactorCoherentSum>& weighted_formfactors,
-                             const IInterferenceFunction* p_iff, SimulationOptions sim_params,
-                             bool polarized, double kappa);
+                             const InterferenceFunctionRadialParaCrystal* iff,
+                             SimulationOptions sim_params, bool polarized, double kappa);
 
 private:
     double scalarCalculation(const SimulationElement& sim_element) const override;
@@ -40,9 +41,9 @@ private:
     complex_t
     getCharacteristicSizeCoupling(double qp,
                                   const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
-    complex_t getCharacteristicDistribution(double qp, const IInterferenceFunction* p_iff) const;
     complex_t calculatePositionOffsetPhase(double qp, double radial_extension) const;
 
+    std::unique_ptr<InterferenceFunctionRadialParaCrystal> m_iff;
     double m_kappa;
     double m_mean_radius;
 };

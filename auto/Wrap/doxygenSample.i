@@ -3797,29 +3797,6 @@ C++ includes: InterferenceFunction2DParaCrystal.h
 %feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D &lattice, double damping_length, double domain_size_1, double domain_size_2)
 ";
 
-%feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi, double damping_length)
-
-Constructor of interference function of two-dimensional paracrystal.
-
-Parameters:
------------
-
-length_1: 
-length of first lattice vector in nanometers
-
-length_2: 
-length of second lattice vector in nanometers
-
-alpha: 
-angle between lattice vectors in radians
-
-xi: 
-rotation of lattice with respect to x-axis (beam direction) in radians
-
-damping_length: 
-the damping (coherence) length of the paracrystal in nanometers 
-";
-
 %feature("docstring")  InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal() final
 ";
 

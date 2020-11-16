@@ -52400,7 +52400,7 @@ SWIGINTERN PyObject *InterferenceFunction2DLattice_swiginit(PyObject *SWIGUNUSED
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DParaCrystal__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DParaCrystal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Lattice2D *arg1 = 0 ;
   double arg2 ;
@@ -52414,9 +52414,10 @@ SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DParaCrystal__SWIG_0(PyObjec
   int ecode3 = 0 ;
   double val4 ;
   int ecode4 = 0 ;
+  PyObject *swig_obj[4] ;
   InterferenceFunction2DParaCrystal *result = 0 ;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "new_InterferenceFunction2DParaCrystal", 4, 4, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice2D,  0  | 0);
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_InterferenceFunction2DParaCrystal" "', argument " "1"" of type '" "Lattice2D const &""'"); 
@@ -52445,137 +52446,6 @@ SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DParaCrystal__SWIG_0(PyObjec
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DParaCrystal__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double arg5 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  double val5 ;
-  int ecode5 = 0 ;
-  InterferenceFunction2DParaCrystal *result = 0 ;
-  
-  if ((nobjs < 5) || (nobjs > 5)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_InterferenceFunction2DParaCrystal" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_InterferenceFunction2DParaCrystal" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_InterferenceFunction2DParaCrystal" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_InterferenceFunction2DParaCrystal" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  ecode5 = SWIG_AsVal_double(swig_obj[4], &val5);
-  if (!SWIG_IsOK(ecode5)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode5), "in method '" "new_InterferenceFunction2DParaCrystal" "', argument " "5"" of type '" "double""'");
-  } 
-  arg5 = static_cast< double >(val5);
-  result = (InterferenceFunction2DParaCrystal *)new InterferenceFunction2DParaCrystal(arg1,arg2,arg3,arg4,arg5);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DParaCrystal, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DParaCrystal(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[6] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_InterferenceFunction2DParaCrystal", 0, 5, argv))) SWIG_fail;
-  --argc;
-  if (argc == 4) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Lattice2D, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          {
-            int res = SWIG_AsVal_double(argv[3], NULL);
-            _v = SWIG_CheckState(res);
-          }
-          if (_v) {
-            return _wrap_new_InterferenceFunction2DParaCrystal__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-  }
-  if (argc == 5) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          {
-            int res = SWIG_AsVal_double(argv[3], NULL);
-            _v = SWIG_CheckState(res);
-          }
-          if (_v) {
-            {
-              int res = SWIG_AsVal_double(argv[4], NULL);
-              _v = SWIG_CheckState(res);
-            }
-            if (_v) {
-              return _wrap_new_InterferenceFunction2DParaCrystal__SWIG_1(self, argc, argv);
-            }
-          }
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_InterferenceFunction2DParaCrystal'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(Lattice2D const &,double,double,double)\n"
-    "    InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double,double,double,double,double)\n");
-  return 0;
 }
 
 
@@ -72754,29 +72624,8 @@ static PyMethodDef SwigMethods[] = {
 	 { "InterferenceFunction2DLattice_swigregister", InterferenceFunction2DLattice_swigregister, METH_O, NULL},
 	 { "InterferenceFunction2DLattice_swiginit", InterferenceFunction2DLattice_swiginit, METH_VARARGS, NULL},
 	 { "new_InterferenceFunction2DParaCrystal", _wrap_new_InterferenceFunction2DParaCrystal, METH_VARARGS, "\n"
-		"InterferenceFunction2DParaCrystal(Lattice2D lattice, double damping_length, double domain_size_1, double domain_size_2)\n"
-		"new_InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi, double damping_length) -> InterferenceFunction2DParaCrystal\n"
-		"InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi, double damping_length)\n"
-		"\n"
-		"Constructor of interference function of two-dimensional paracrystal.\n"
-		"\n"
-		"Parameters:\n"
-		"-----------\n"
-		"\n"
-		"length_1: \n"
-		"length of first lattice vector in nanometers\n"
-		"\n"
-		"length_2: \n"
-		"length of second lattice vector in nanometers\n"
-		"\n"
-		"alpha: \n"
-		"angle between lattice vectors in radians\n"
-		"\n"
-		"xi: \n"
-		"rotation of lattice with respect to x-axis (beam direction) in radians\n"
-		"\n"
-		"damping_length: \n"
-		"the damping (coherence) length of the paracrystal in nanometers \n"
+		"new_InterferenceFunction2DParaCrystal(Lattice2D lattice, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal\n"
+		"InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D &lattice, double damping_length, double domain_size_1, double domain_size_2)\n"
 		"\n"
 		""},
 	 { "delete_InterferenceFunction2DParaCrystal", _wrap_delete_InterferenceFunction2DParaCrystal, METH_O, "\n"

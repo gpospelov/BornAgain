@@ -17,9 +17,9 @@ TEST_F(TestParaCrystalItems, test_Para2D_fromToDomain)
     double length1(10.0), length2(20.0), angle(45.0), xi(90.0);
     double damping_length(1000.0), domain_size1(50.0), domain_size2(100.0);
 
-    InterferenceFunction2DParaCrystal orig(length1, length2, angle * Units::deg, xi * Units::deg,
-                                           damping_length);
-    orig.setDomainSizes(domain_size1, domain_size2);
+    InterferenceFunction2DParaCrystal orig(
+        BasicLattice(length1, length2, angle * Units::deg, xi * Units::deg),
+        damping_length, domain_size1, domain_size2);
 
     double clength_x(1.0), clength_y(2.0), gamma(3.0);
     orig.setProbabilityDistributions(

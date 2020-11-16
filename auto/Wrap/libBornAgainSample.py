@@ -7015,34 +7015,13 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, lattice, damping_length, domain_size_1, domain_size_2):
         r"""
         __init__(InterferenceFunction2DParaCrystal self, Lattice2D lattice, double damping_length, double domain_size_1, double domain_size_2) -> InterferenceFunction2DParaCrystal
-        __init__(InterferenceFunction2DParaCrystal self, double length_1, double length_2, double alpha, double xi, double damping_length) -> InterferenceFunction2DParaCrystal
-        InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi, double damping_length)
-
-        Constructor of interference function of two-dimensional paracrystal.
-
-        Parameters:
-        -----------
-
-        length_1: 
-        length of first lattice vector in nanometers
-
-        length_2: 
-        length of second lattice vector in nanometers
-
-        alpha: 
-        angle between lattice vectors in radians
-
-        xi: 
-        rotation of lattice with respect to x-axis (beam direction) in radians
-
-        damping_length: 
-        the damping (coherence) length of the paracrystal in nanometers 
+        InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D &lattice, double damping_length, double domain_size_1, double domain_size_2)
 
         """
-        _libBornAgainSample.InterferenceFunction2DParaCrystal_swiginit(self, _libBornAgainSample.new_InterferenceFunction2DParaCrystal(*args))
+        _libBornAgainSample.InterferenceFunction2DParaCrystal_swiginit(self, _libBornAgainSample.new_InterferenceFunction2DParaCrystal(lattice, damping_length, domain_size_1, domain_size_2))
     __swig_destroy__ = _libBornAgainSample.delete_InterferenceFunction2DParaCrystal
 
     def clone(self):

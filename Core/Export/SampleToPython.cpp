@@ -456,18 +456,15 @@ std::string SampleToPython::defineInterferenceFunctions() const
 
         } else if (const auto* iff =
                        dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
+            const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
             std::vector<double> domainSize = iff->domainSizes();
-            const Lattice2D& lattice = iff->lattice();
-            result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
-                   << pyfmt::printNm(lattice.length1()) << ", " << pyfmt::printNm(lattice.length2())
-                   << ", " << pyfmt::printDegrees(lattice.latticeAngle()) << ", "
-                   << pyfmt::printDegrees(lattice.rotationAngle()) << ", "
-                   << pyfmt::printNm(iff->dampingLength()) << ")\n";
 
-            if (domainSize[0] != 0.0 || domainSize[1] != 0.0)
-                result << indent() << it->second << ".setDomainSizes("
-                       << pyfmt::printNm(domainSize[0]) << ", " << pyfmt::printNm(domainSize[1])
-                       << ")\n";
+            result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
+                   << m_label->labelLattice2D(lattice) << ", "
+                   << pyfmt::printNm(iff->dampingLength()) << ", "
+                   << pyfmt::printNm(domainSize[0]) << ", " << pyfmt::printNm(domainSize[1])
+                   << ")\n";
+
             if (iff->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
 

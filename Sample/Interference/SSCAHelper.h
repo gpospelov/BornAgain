@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_SAMPLE_INTERFERENCE_SSCAHELPER_H
 #define BORNAGAIN_SAMPLE_INTERFERENCE_SSCAHELPER_H
 
-#include "Sample/Interference/FormFactorPrecompute.h"
 #include "Sample/Interference/IInterferenceFunctionStrategy.h"
 #include <Eigen/StdVector>
 
@@ -38,11 +37,6 @@ public:
                                   const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
     complex_t getCharacteristicDistribution(double qp, const IInterferenceFunction* p_iff) const;
     complex_t calculatePositionOffsetPhase(double qp, double radial_extension) const;
-    complex_t getMeanFormfactorNorm(double qp, const std::vector<complex_t>& precomputed_ff,
-                                    const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
-    void getMeanFormfactors(double qp, Eigen::Matrix2cd& ff_orig, Eigen::Matrix2cd& ff_conj,
-                            const FormFactorPrecompute::matrixFFVector_t& precomputed_ff,
-                            const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
 
 private:
     double m_kappa;

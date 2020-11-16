@@ -19,7 +19,6 @@
 #include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
-#include "Sample/Interference/FormFactorPrecompute.h"
 
 DecouplingApproximationStrategy::DecouplingApproximationStrategy(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
@@ -36,13 +35,12 @@ DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
-    auto precomputed_ff = FormFactorPrecompute::scalar(sim_element, m_formfactor_wrappers);
-    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        complex_t ff = precomputed_ff[i];
+    for (auto& ffw : m_formfactor_wrappers) {
+        complex_t ff = ffw.evaluate(sim_element);
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::scalarCalculation() -> Error! Amplitude is NaN");
-        double fraction = m_formfactor_wrappers[i].relativeAbundance();
+        double fraction = ffw.relativeAbundance();
         amplitude += fraction * ff;
         intensity += fraction * std::norm(ff);
     }
@@ -58,15 +56,14 @@ DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& s
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
-    auto precomputed_ff = FormFactorPrecompute::polarized(sim_element, m_formfactor_wrappers);
     const auto& polarization_handler = sim_element.polarizationHandler();
-    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        Eigen::Matrix2cd ff = precomputed_ff[i];
+    for (auto& ffw : m_formfactor_wrappers) {
+        Eigen::Matrix2cd ff = ffw.evaluatePol(sim_element);
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::polarizedCalculation() -> "
                 "Error! Form factor contains NaN or infinite");
-        double fraction = m_formfactor_wrappers[i].relativeAbundance();
+        double fraction = ffw.relativeAbundance();
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * polarization_handler.getPolarization() * ff.adjoint());
     }

@@ -7343,12 +7343,6 @@ C++ includes: SSCAHelper.h
 %feature("docstring")  SSCAHelper::calculatePositionOffsetPhase "complex_t SSCAHelper::calculatePositionOffsetPhase(double qp, double radial_extension) const
 ";
 
-%feature("docstring")  SSCAHelper::getMeanFormfactorNorm "complex_t SSCAHelper::getMeanFormfactorNorm(double qp, const std::vector< complex_t > &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
-";
-
-%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const FormFactorPrecompute::matrixFFVector_t &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
-";
-
 
 // File: classSSCApproximationStrategy.xml
 %feature("docstring") SSCApproximationStrategy "

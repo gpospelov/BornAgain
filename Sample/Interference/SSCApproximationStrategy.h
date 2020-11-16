@@ -15,7 +15,8 @@
 #ifndef BORNAGAIN_SAMPLE_INTERFERENCE_SSCAPPROXIMATIONSTRATEGY_H
 #define BORNAGAIN_SAMPLE_INTERFERENCE_SSCAPPROXIMATIONSTRATEGY_H
 
-#include "Sample/Interference/SSCAHelper.h"
+#include "Sample/Interference/IInterferenceFunctionStrategy.h"
+#include <Eigen/StdVector>
 
 class SimulationElement;
 
@@ -33,7 +34,17 @@ public:
 private:
     double scalarCalculation(const SimulationElement& sim_element) const override;
     double polarizedCalculation(const SimulationElement& sim_element) const override;
-    SSCAHelper m_helper;
+
+    void init(const std::vector<FormFactorCoherentSum>& ff_wrappers);
+
+    complex_t
+    getCharacteristicSizeCoupling(double qp,
+                                  const std::vector<FormFactorCoherentSum>& ff_wrappers) const;
+    complex_t getCharacteristicDistribution(double qp, const IInterferenceFunction* p_iff) const;
+    complex_t calculatePositionOffsetPhase(double qp, double radial_extension) const;
+
+    double m_kappa;
+    double m_mean_radius;
 };
 
 #endif // BORNAGAIN_SAMPLE_INTERFERENCE_SSCAPPROXIMATIONSTRATEGY_H

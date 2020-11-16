@@ -7320,30 +7320,6 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 
-// File: classSSCAHelper.xml
-%feature("docstring") SSCAHelper "
-
-Helper class for  SSCApproximationStrategy, offering some methods, shared between the scalar and polarized scattering calculations
-
-C++ includes: SSCAHelper.h
-";
-
-%feature("docstring")  SSCAHelper::SSCAHelper "SSCAHelper::SSCAHelper(double kappa)
-";
-
-%feature("docstring")  SSCAHelper::init "void SSCAHelper::init(const std::vector< FormFactorCoherentSum > &ff_wrappers)
-";
-
-%feature("docstring")  SSCAHelper::getCharacteristicSizeCoupling "complex_t SSCAHelper::getCharacteristicSizeCoupling(double qp, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
-";
-
-%feature("docstring")  SSCAHelper::getCharacteristicDistribution "complex_t SSCAHelper::getCharacteristicDistribution(double qp, const IInterferenceFunction *p_iff) const
-";
-
-%feature("docstring")  SSCAHelper::calculatePositionOffsetPhase "complex_t SSCAHelper::calculatePositionOffsetPhase(double qp, double radial_extension) const
-";
-
-
 // File: classSSCApproximationStrategy.xml
 %feature("docstring") SSCApproximationStrategy "
 
@@ -7544,13 +7520,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d115.xml
 
 
-// File: namespace_0d141.xml
+// File: namespace_0d139.xml
 
 
-// File: namespace_0d145.xml
+// File: namespace_0d143.xml
 
 
-// File: namespace_0d149.xml
+// File: namespace_0d147.xml
+
+
+// File: namespace_0d157.xml
 
 
 // File: namespace_0d159.xml
@@ -7562,40 +7541,40 @@ C++ includes: ZLimits.h
 // File: namespace_0d161.xml
 
 
-// File: namespace_0d163.xml
+// File: namespace_0d171.xml
 
 
-// File: namespace_0d173.xml
+// File: namespace_0d192.xml
 
 
 // File: namespace_0d194.xml
 
 
-// File: namespace_0d196.xml
-
-
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d206.xml
+// File: namespace_0d204.xml
+
+
+// File: namespace_0d220.xml
 
 
 // File: namespace_0d222.xml
 
 
-// File: namespace_0d224.xml
+// File: namespace_0d229.xml
 
 
-// File: namespace_0d231.xml
-
-
-// File: namespace_0d249.xml
+// File: namespace_0d247.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d257.xml
+// File: namespace_0d255.xml
+
+
+// File: namespace_0d265.xml
 
 
 // File: namespace_0d267.xml
@@ -7610,7 +7589,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d273.xml
 
 
-// File: namespace_0d275.xml
+// File: namespace_0d277.xml
 
 
 // File: namespace_0d279.xml
@@ -7619,25 +7598,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d281.xml
 
 
-// File: namespace_0d283.xml
+// File: namespace_0d293.xml
 
 
-// File: namespace_0d295.xml
+// File: namespace_0d299.xml
 
 
-// File: namespace_0d301.xml
-
-
-// File: namespace_0d305.xml
+// File: namespace_0d303.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d323.xml
+// File: namespace_0d321.xml
 
 
-// File: namespace_0d342.xml
+// File: namespace_0d340.xml
 
 
 // File: namespace_0d37.xml
@@ -8210,12 +8186,6 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: IInterferenceFunctionStrategy_8h.xml
-
-
-// File: SSCAHelper_8cpp.xml
-
-
-// File: SSCAHelper_8h.xml
 
 
 // File: SSCApproximationStrategy_8cpp.xml

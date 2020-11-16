@@ -43,8 +43,8 @@ processedInterferenceFunction(const ProcessedLayout& layout, const SimulationOpt
         return std::make_unique<SSCApproximationStrategy>(weighted_formfactors, iff, sim_params,
                                                           polarized, kappa);
     }
-    return std::make_unique<DecouplingApproximationStrategy>(weighted_formfactors, iff,
-                                                             sim_params, polarized);
+    return std::make_unique<DecouplingApproximationStrategy>(weighted_formfactors, iff, sim_params,
+                                                             polarized);
 }
 
 } // namespace

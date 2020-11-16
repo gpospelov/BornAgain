@@ -35,17 +35,6 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& la
     initialize_rec_vectors();
 }
 
-//! Constructor of two-dimensional interference function.
-//! @param length_1: length of the first basis vector in nanometers
-//! @param length_2: length of the second basis vector  in nanometers
-//! @param alpha: angle between the basis vectors in radians
-//! @param xi: rotation of the lattice with respect to the x-axis (beam direction) in radians
-InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2,
-                                                             double alpha, double xi)
-    : InterferenceFunction2DLattice(BasicLattice(length_1, length_2, alpha, xi))
-{
-}
-
 InterferenceFunction2DLattice::~InterferenceFunction2DLattice() = default;
 
 InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const

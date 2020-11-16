@@ -52114,59 +52114,16 @@ SWIGINTERN PyObject *InterferenceFunction1DLattice_swiginit(PyObject *SWIGUNUSED
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DLattice__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double arg3 ;
-  double arg4 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  InterferenceFunction2DLattice *result = 0 ;
-  
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_InterferenceFunction2DLattice" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_InterferenceFunction2DLattice" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_InterferenceFunction2DLattice" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_InterferenceFunction2DLattice" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  result = (InterferenceFunction2DLattice *)new InterferenceFunction2DLattice(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_InterferenceFunction2DLattice, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DLattice__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DLattice(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Lattice2D *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
+  PyObject *swig_obj[1] ;
   InterferenceFunction2DLattice *result = 0 ;
   
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Lattice2D,  0  | 0);
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_InterferenceFunction2DLattice" "', argument " "1"" of type '" "Lattice2D const &""'"); 
@@ -52180,60 +52137,6 @@ SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DLattice__SWIG_1(PyObject *S
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_InterferenceFunction2DLattice(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[5] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_InterferenceFunction2DLattice", 0, 4, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Lattice2D, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_new_InterferenceFunction2DLattice__SWIG_1(self, argc, argv);
-    }
-  }
-  if (argc == 4) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          {
-            int res = SWIG_AsVal_double(argv[3], NULL);
-            _v = SWIG_CheckState(res);
-          }
-          if (_v) {
-            return _wrap_new_InterferenceFunction2DLattice__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_InterferenceFunction2DLattice'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    InterferenceFunction2DLattice::InterferenceFunction2DLattice(double,double,double,double)\n"
-    "    InterferenceFunction2DLattice::InterferenceFunction2DLattice(Lattice2D const &)\n");
-  return 0;
 }
 
 
@@ -72919,8 +72822,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunction1DLattice_swigregister", InterferenceFunction1DLattice_swigregister, METH_O, NULL},
 	 { "InterferenceFunction1DLattice_swiginit", InterferenceFunction1DLattice_swiginit, METH_VARARGS, NULL},
-	 { "new_InterferenceFunction2DLattice", _wrap_new_InterferenceFunction2DLattice, METH_VARARGS, "\n"
-		"InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi)\n"
+	 { "new_InterferenceFunction2DLattice", _wrap_new_InterferenceFunction2DLattice, METH_O, "\n"
 		"new_InterferenceFunction2DLattice(Lattice2D lattice) -> InterferenceFunction2DLattice\n"
 		"InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D &lattice)\n"
 		"\n"

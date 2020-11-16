@@ -3740,26 +3740,6 @@ Interference function of a 2D lattice.
 C++ includes: InterferenceFunction2DLattice.h
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi)
-
-Constructor of two-dimensional interference function.
-
-Parameters:
------------
-
-length_1: 
-length of the first basis vector in nanometers
-
-length_2: 
-length of the second basis vector in nanometers
-
-alpha: 
-angle between the basis vectors in radians
-
-xi: 
-rotation of the lattice with respect to the x-axis (beam direction) in radians 
-";
-
 %feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D &lattice)
 ";
 

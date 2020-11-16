@@ -6906,14 +6906,13 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self, *args):
+    def __init__(self, lattice):
         r"""
-        __init__(InterferenceFunction2DLattice self, double length_1, double length_2, double alpha, double xi) -> InterferenceFunction2DLattice
         __init__(InterferenceFunction2DLattice self, Lattice2D lattice) -> InterferenceFunction2DLattice
         InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D &lattice)
 
         """
-        _libBornAgainSample.InterferenceFunction2DLattice_swiginit(self, _libBornAgainSample.new_InterferenceFunction2DLattice(*args))
+        _libBornAgainSample.InterferenceFunction2DLattice_swiginit(self, _libBornAgainSample.new_InterferenceFunction2DLattice(lattice))
     __swig_destroy__ = _libBornAgainSample.delete_InterferenceFunction2DLattice
 
     def clone(self):

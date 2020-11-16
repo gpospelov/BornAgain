@@ -302,7 +302,7 @@ std::string SampleToPython::defineLattices2D() const
         result << indent() << indent() << pyfmt::printNm(lattice->length1()) << ", "
                << pyfmt::printNm(lattice->length2()) << ", "
                << pyfmt::printDegrees(lattice->latticeAngle()) << ", "
-               << pyfmt::printDegrees(lattice->rotationAngle()) << "),\n";
+               << pyfmt::printDegrees(lattice->rotationAngle()) << ")\n";
     }
     return result.str();
 }
@@ -391,6 +391,7 @@ std::string SampleToPython::defineInterferenceFunctions() const
 
         if (dynamic_cast<const InterferenceFunctionNone*>(interference))
             result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
+
         else if (const auto* iff =
                      dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunction1DLattice("
@@ -403,6 +404,7 @@ std::string SampleToPython::defineInterferenceFunctions() const
                 result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
                        << pyfmt2::argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
+
         } else if (const auto* iff =
                        dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
@@ -424,15 +426,13 @@ std::string SampleToPython::defineInterferenceFunctions() const
                        << pyfmt2::argumentList(pdf) << ")\n"
                        << indent() << it->second << ".setProbabilityDistribution(" << it->second
                        << "_pdf)\n";
+
         } else if (const auto* iff =
                        dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
-            const Lattice2D& lattice = iff->lattice();
-            // const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
+            const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
 
             result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
-                   << pyfmt::printNm(lattice.length1()) << ", " << pyfmt::printNm(lattice.length2())
-                   << ", " << pyfmt::printDegrees(lattice.latticeAngle()) << ", "
-                   << pyfmt::printDegrees(lattice.rotationAngle()) << ")\n";
+                   << m_label->labelLattice2D(lattice) << ")\n";
 
             const auto* pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction2D>(*iff);
 
@@ -442,6 +442,7 @@ std::string SampleToPython::defineInterferenceFunctions() const
 
             if (iff->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
+
         } else if (const auto* iff =
                        dynamic_cast<const InterferenceFunctionFinite2DLattice*>(interference)) {
             const Lattice2D& lattice = iff->lattice();
@@ -453,6 +454,7 @@ std::string SampleToPython::defineInterferenceFunctions() const
 
             if (iff->integrationOverXi() == true)
                 result << indent() << it->second << ".setIntegrationOverXi(True)\n";
+
         } else if (const auto* iff =
                        dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
             std::vector<double> domainSize = iff->domainSizes();
@@ -484,16 +486,19 @@ std::string SampleToPython::defineInterferenceFunctions() const
                    << pyfmt2::argumentList(pdf) << ")\n";
             result << indent() << it->second << ".setProbabilityDistributions(" << it->second
                    << "_pdf_1, " << it->second << "_pdf_2)\n";
+
         } else if (const auto* lattice_hd =
                        dynamic_cast<const InterferenceFunctionHardDisk*>(interference)) {
             result << indent() << it->second << " = ba.InterferenceFunctionHardDisk("
                    << pyfmt::printNm(lattice_hd->radius()) << ", "
                    << pyfmt::printDouble(lattice_hd->density()) << ")\n";
+
         } else
             throw Exceptions::NotImplementedException(
                 "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
                 "IInterferenceFunction "
                 + interference->getName());
+
         if (interference->positionVariance() > 0.0) {
             result << indent() << it->second << ".setPositionVariance("
                    << pyfmt::printNm2(interference->positionVariance()) << ")\n";

@@ -12,16 +12,16 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORBA_H
-#define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORBA_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBA_H
+#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBA_H
 
-#include "Sample/Scattering/IFormFactor.h"
+#include "Sample/Scattering/IComputeFF.h"
 #include <memory>
 
 //! Evaluates the scalar Born form factor.
 //! @ingroup formfactors_internal
 
-class ComputeBA final : public IFormFactor
+class ComputeBA final : public IComputeFF
 {
 public:
     ComputeBA(const IFormFactor& ff);
@@ -49,4 +49,4 @@ private:
     std::unique_ptr<IFormFactor> m_ff;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORBA_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBA_H

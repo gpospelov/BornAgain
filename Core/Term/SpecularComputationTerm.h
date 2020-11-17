@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H
-#define BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H
+#ifndef BORNAGAIN_CORE_TERM_SPECULARCOMPUTATIONTERM_H
+#define BORNAGAIN_CORE_TERM_SPECULARCOMPUTATIONTERM_H
 
 #include "Sample/Specular/ISpecularStrategy.h"
 #include <memory>
@@ -83,4 +83,4 @@ private:
     void eval(SpecularSimulationElement& elem, const std::vector<Slice>& slices) const override;
 };
 
-#endif // BORNAGAIN_CORE_COMPUTATION_SPECULARCOMPUTATIONTERM_H
+#endif // BORNAGAIN_CORE_TERM_SPECULARCOMPUTATIONTERM_H

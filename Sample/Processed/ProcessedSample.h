@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
-#define BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
+#ifndef BORNAGAIN_SAMPLE_PROCESSED_PROCESSEDSAMPLE_H
+#define BORNAGAIN_SAMPLE_PROCESSED_PROCESSEDSAMPLE_H
 
 #include "Sample/Slice/Slice.h"
 #include <map>
@@ -78,4 +78,4 @@ private:
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
-#endif // BORNAGAIN_CORE_COMPUTATION_PROCESSEDSAMPLE_H
+#endif // BORNAGAIN_SAMPLE_PROCESSED_PROCESSEDSAMPLE_H

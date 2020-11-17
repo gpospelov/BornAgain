@@ -12,10 +12,10 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBA_H
-#define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBA_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBA_H
+#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBA_H
 
-#include "Sample/Scattering/IFormFactor.h"
+#include "Sample/Scattering/IComputeFF.h"
 #include <memory>
 
 class ILayerRTCoefficients;
@@ -23,7 +23,7 @@ class ILayerRTCoefficients;
 //! Evaluates the coherent sum of the four DWBA terms in a scalar IFormFactor.
 //! @ingroup formfactors_internal
 
-class ComputeDWBA final : public IFormFactor
+class ComputeDWBA final : public IComputeFF
 {
 public:
     ComputeDWBA(const IFormFactor& ff);
@@ -59,4 +59,4 @@ private:
     std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBA_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBA_H

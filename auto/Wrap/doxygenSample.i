@@ -3139,6 +3139,10 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 ";
 
 
+// File: classIComputeFF.xml
+%feature("docstring") IComputeFF "";
+
+
 // File: classICosineRipple.xml
 %feature("docstring") ICosineRipple "
 
@@ -3217,7 +3221,7 @@ Pure virtual base class for all form factors.
 
 The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a  IBornFF.
 
-C++ includes: IComputeFF.h
+C++ includes: IFormFactor.h
 ";
 
 %feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor()=default
@@ -3275,65 +3279,6 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 ";
 
 %feature("docstring")  IFormFactor::setSpecularInfo "void IFormFactor::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients >, std::unique_ptr< const ILayerRTCoefficients >)
-
-Sets reflection/transmission info. 
-";
-
-%feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor()=default
-";
-
-%feature("docstring")  IFormFactor::IFormFactor "IFormFactor::IFormFactor(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  IFormFactor::~IFormFactor "IFormFactor::~IFormFactor()=default
-";
-
-%feature("docstring")  IFormFactor::clone "IFormFactor* IFormFactor::clone() const override=0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IFormFactor::createSlicedFormFactor "IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
-
-Creates a (possibly sliced) form factor with the given rotation and translation. 
-";
-
-%feature("docstring")  IFormFactor::setAmbientMaterial "virtual void IFormFactor::setAmbientMaterial(const Material &)=0
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  IFormFactor::evaluate "virtual complex_t IFormFactor::evaluate(const WavevectorInfo &wavevectors) const =0
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  IFormFactor::evaluatePol "virtual Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo &wavevectors) const
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-%feature("docstring")  IFormFactor::volume "virtual double IFormFactor::volume() const
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  IFormFactor::radialExtension "virtual double IFormFactor::radialExtension() const =0
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  IFormFactor::bottomZ "virtual double IFormFactor::bottomZ(const IRotation &rotation) const =0
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactor::topZ "virtual double IFormFactor::topZ(const IRotation &rotation) const =0
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactor::setSpecularInfo "virtual void IFormFactor::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients >, std::unique_ptr< const ILayerRTCoefficients >)
 
 Sets reflection/transmission info. 
 ";
@@ -7803,9 +7748,6 @@ C++ includes: ZLimits.h
 // File: namespace_0d224.xml
 
 
-// File: namespace_0d234.xml
-
-
 // File: namespace_0d236.xml
 
 
@@ -8861,13 +8803,9 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: IComputeFF_8cpp.xml
-%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-";
 
 
 // File: IComputeFF_8h.xml
-%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-";
 
 
 // File: IFormFactor_8cpp.xml

@@ -3239,7 +3239,7 @@ class IFormFactor(ISample):
 
     The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a  IBornFF.
 
-    C++ includes: IComputeFF.h
+    C++ includes: IFormFactor.h
 
     """
 
@@ -3273,7 +3273,7 @@ class IFormFactor(ISample):
     def createSlicedFormFactor(self, limits, rot, translation):
         r"""
         createSlicedFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor
-        IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
+        IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
 
         Creates a (possibly sliced) form factor with the given rotation and translation. 
 
@@ -3303,7 +3303,7 @@ class IFormFactor(ISample):
     def volume(self):
         r"""
         volume(IFormFactor self) -> double
-        virtual double IFormFactor::volume() const
+        double IFormFactor::volume() const
 
         Returns the total volume of the particle of this form factor's shape. 
 

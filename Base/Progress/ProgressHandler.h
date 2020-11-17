@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_COMPUTATION_PROGRESSHANDLER_H
-#define BORNAGAIN_CORE_COMPUTATION_PROGRESSHANDLER_H
+#ifndef BORNAGAIN_BASE_PROGRESS_PROGRESSHANDLER_H
+#define BORNAGAIN_BASE_PROGRESS_PROGRESSHANDLER_H
 
 #include <functional>
 
@@ -60,4 +60,4 @@ private:
     bool defaultMonitorExec(int);
 };
 
-#endif // BORNAGAIN_CORE_COMPUTATION_PROGRESSHANDLER_H
+#endif // BORNAGAIN_BASE_PROGRESS_PROGRESSHANDLER_H

@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_COMPUTATION_DEPTHPROBEELEMENT_H
-#define BORNAGAIN_CORE_COMPUTATION_DEPTHPROBEELEMENT_H
+#ifndef BORNAGAIN_CORE_ELEMENT_DEPTHPROBEELEMENT_H
+#define BORNAGAIN_CORE_ELEMENT_DEPTHPROBEELEMENT_H
 
 #include <valarray>
 
@@ -64,4 +64,4 @@ private:
     bool m_calculation_flag;
 };
 
-#endif // BORNAGAIN_CORE_COMPUTATION_DEPTHPROBEELEMENT_H
+#endif // BORNAGAIN_CORE_ELEMENT_DEPTHPROBEELEMENT_H

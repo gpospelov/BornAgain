@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_COMPUTATION_PROCESSEDLAYOUT_H
-#define BORNAGAIN_CORE_COMPUTATION_PROCESSEDLAYOUT_H
+#ifndef BORNAGAIN_SAMPLE_PROCESSED_PROCESSEDLAYOUT_H
+#define BORNAGAIN_SAMPLE_PROCESSED_PROCESSEDLAYOUT_H
 
 #include <map>
 #include <memory>
@@ -63,4 +63,4 @@ private:
     std::map<size_t, std::vector<HomogeneousRegion>> m_region_map;
 };
 
-#endif // BORNAGAIN_CORE_COMPUTATION_PROCESSEDLAYOUT_H
+#endif // BORNAGAIN_SAMPLE_PROCESSED_PROCESSEDLAYOUT_H

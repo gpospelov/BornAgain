@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_COMPUTATION_SPECULARSTRATEGYBUILDER_H
-#define BORNAGAIN_CORE_COMPUTATION_SPECULARSTRATEGYBUILDER_H
+#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARSTRATEGYBUILDER_H
+#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARSTRATEGYBUILDER_H
 
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Specular/ISpecularStrategy.h"
@@ -25,4 +25,4 @@ public:
     static std::unique_ptr<ISpecularStrategy> build(const MultiLayer& sample, const bool magnetic);
 };
 
-#endif // BORNAGAIN_CORE_COMPUTATION_SPECULARSTRATEGYBUILDER_H
+#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARSTRATEGYBUILDER_H

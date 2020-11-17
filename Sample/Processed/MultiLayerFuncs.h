@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_COMPUTATION_MULTILAYERFUNCS_H
-#define BORNAGAIN_CORE_COMPUTATION_MULTILAYERFUNCS_H
+#ifndef BORNAGAIN_SAMPLE_PROCESSED_MULTILAYERFUNCS_H
+#define BORNAGAIN_SAMPLE_PROCESSED_MULTILAYERFUNCS_H
 
 #include "Base/Types/Complex.h"
 #include <utility>
@@ -33,4 +33,4 @@ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer& multila
 //! Generate z values (equidistant) for use in MaterialProfile
 std::vector<double> GenerateZValues(int n_points, double z_min, double z_max);
 
-#endif // BORNAGAIN_CORE_COMPUTATION_MULTILAYERFUNCS_H
+#endif // BORNAGAIN_SAMPLE_PROCESSED_MULTILAYERFUNCS_H

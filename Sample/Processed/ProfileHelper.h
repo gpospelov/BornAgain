@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_COMPUTATION_PROFILEHELPER_H
-#define BORNAGAIN_CORE_COMPUTATION_PROFILEHELPER_H
+#ifndef BORNAGAIN_SAMPLE_PROCESSED_PROFILEHELPER_H
+#define BORNAGAIN_SAMPLE_PROCESSED_PROFILEHELPER_H
 
 #include "Sample/Material/Material.h"
 #include <utility>
@@ -43,4 +43,4 @@ private:
     std::vector<double> m_sigmas;
 };
 
-#endif // BORNAGAIN_CORE_COMPUTATION_PROFILEHELPER_H
+#endif // BORNAGAIN_SAMPLE_PROCESSED_PROFILEHELPER_H

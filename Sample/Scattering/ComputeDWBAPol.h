@@ -12,10 +12,10 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBAPOL_H
-#define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBAPOL_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBAPOL_H
+#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBAPOL_H
 
-#include "Sample/Scattering/IFormFactor.h"
+#include "Sample/Scattering/IComputeFF.h"
 #include <memory>
 
 class ILayerRTCoefficients;
@@ -24,7 +24,7 @@ class ILayerRTCoefficients;
 
 //! @ingroup formfactors_internal
 
-class ComputeDWBAPol final : public IFormFactor
+class ComputeDWBAPol final : public IComputeFF
 {
 public:
     ComputeDWBAPol(const IFormFactor& ff);
@@ -66,4 +66,4 @@ private:
     std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBAPOL_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBAPOL_H

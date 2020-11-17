@@ -26,7 +26,7 @@ class ILayerRTCoefficients;
 class FormFactorDWBA final : public IFormFactor
 {
 public:
-    FormFactorDWBA(const IFormFactor& form_factor);
+    FormFactorDWBA(const IFormFactor& ff);
     ~FormFactorDWBA() override;
 
     FormFactorDWBA* clone() const override;
@@ -53,7 +53,7 @@ public:
 
 private:
     //! The form factor for BA
-    std::unique_ptr<IFormFactor> m_form_factor;
+    std::unique_ptr<IFormFactor> m_ff;
 
     std::unique_ptr<const ILayerRTCoefficients> m_in_coeffs;
     std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;

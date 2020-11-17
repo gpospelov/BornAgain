@@ -16,7 +16,7 @@
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 
-FormFactorDWBA::FormFactorDWBA(const IFormFactor& form_factor) : m_form_factor(form_factor.clone())
+FormFactorDWBA::FormFactorDWBA(const IFormFactor& ff) : m_ff(ff.clone())
 {
     setName("FormFactorDWBA");
 }
@@ -25,7 +25,7 @@ FormFactorDWBA::~FormFactorDWBA() = default;
 
 FormFactorDWBA* FormFactorDWBA::clone() const
 {
-    FormFactorDWBA* result = new FormFactorDWBA(*m_form_factor);
+    FormFactorDWBA* result = new FormFactorDWBA(*m_ff);
     std::unique_ptr<const ILayerRTCoefficients> p_in_coefs =
         m_in_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(m_in_coeffs->clone()) : nullptr;
     std::unique_ptr<const ILayerRTCoefficients> p_out_coefs =
@@ -63,31 +63,37 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
 
     // The four different scattering contributions; S stands for scattering
     // off the particle, R for reflection off the layer interface
-    complex_t term_S = T_in * m_form_factor->evaluate(k_TT) * T_out;
-    complex_t term_RS = R_in * m_form_factor->evaluate(k_RT) * T_out;
-    complex_t term_SR = T_in * m_form_factor->evaluate(k_TR) * R_out;
-    complex_t term_RSR = R_in * m_form_factor->evaluate(k_RR) * R_out;
+    complex_t term_S = T_in * m_ff->evaluate(k_TT) * T_out;
+    complex_t term_RS = R_in * m_ff->evaluate(k_RT) * T_out;
+    complex_t term_SR = T_in * m_ff->evaluate(k_TR) * R_out;
+    complex_t term_RSR = R_in * m_ff->evaluate(k_RR) * R_out;
 
     return term_S + term_RS + term_SR + term_RSR;
 }
 
 void FormFactorDWBA::setAmbientMaterial(const Material& material)
 {
-    m_form_factor->setAmbientMaterial(material);
+    m_ff->setAmbientMaterial(material);
 }
 
-double FormFactorDWBA::volume() const { return m_form_factor->volume(); }
+double FormFactorDWBA::volume() const
+{
+    return m_ff->volume();
+}
 
-double FormFactorDWBA::radialExtension() const { return m_form_factor->radialExtension(); }
+double FormFactorDWBA::radialExtension() const
+{
+    return m_ff->radialExtension();
+}
 
 double FormFactorDWBA::bottomZ(const IRotation& rotation) const
 {
-    return m_form_factor->bottomZ(rotation);
+    return m_ff->bottomZ(rotation);
 }
 
 double FormFactorDWBA::topZ(const IRotation& rotation) const
 {
-    return m_form_factor->topZ(rotation);
+    return m_ff->topZ(rotation);
 }
 
 void FormFactorDWBA::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,

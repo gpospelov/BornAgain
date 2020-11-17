@@ -26,7 +26,7 @@
 class FormFactorDecoratorMaterial : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorMaterial(const IFormFactor& form_factor);
+    FormFactorDecoratorMaterial(const IFormFactor& ff);
 
     ~FormFactorDecoratorMaterial() override final;
 

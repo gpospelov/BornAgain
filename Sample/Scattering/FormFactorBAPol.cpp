@@ -16,8 +16,7 @@
 #include "Sample/Material/WavevectorInfo.h"
 #include <stdexcept>
 
-FormFactorBAPol::FormFactorBAPol(const IFormFactor& form_factor)
-    : m_form_factor(form_factor.clone())
+FormFactorBAPol::FormFactorBAPol(const IFormFactor& ff) : m_ff(ff.clone())
 {
     setName("FormFactorBAPol");
 }
@@ -26,7 +25,7 @@ FormFactorBAPol::~FormFactorBAPol() = default;
 
 FormFactorBAPol* FormFactorBAPol::clone() const
 {
-    return new FormFactorBAPol(*m_form_factor);
+    return new FormFactorBAPol(*m_ff);
 }
 
 complex_t FormFactorBAPol::evaluate(const WavevectorInfo&) const
@@ -37,7 +36,7 @@ complex_t FormFactorBAPol::evaluate(const WavevectorInfo&) const
 
 Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    Eigen::Matrix2cd ff_BA = m_form_factor->evaluatePol(wavevectors);
+    Eigen::Matrix2cd ff_BA = m_ff->evaluatePol(wavevectors);
     Eigen::Matrix2cd result;
     result(0, 0) = -ff_BA(1, 0);
     result(0, 1) = ff_BA(0, 0);
@@ -48,20 +47,25 @@ Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo& wavevectors)
 
 void FormFactorBAPol::setAmbientMaterial(const Material& material)
 {
-    m_form_factor->setAmbientMaterial(material);
+    m_ff->setAmbientMaterial(material);
 }
 
-double FormFactorBAPol::volume() const { return m_form_factor->volume(); }
+double FormFactorBAPol::volume() const
+{
+    return m_ff->volume();
+}
 
-double FormFactorBAPol::radialExtension() const { return m_form_factor->radialExtension(); }
-
+double FormFactorBAPol::radialExtension() const
+{
+    return m_ff->radialExtension();
+}
 
 double FormFactorBAPol::bottomZ(const IRotation& rotation) const
 {
-    return m_form_factor->bottomZ(rotation);
+    return m_ff->bottomZ(rotation);
 }
 
 double FormFactorBAPol::topZ(const IRotation& rotation) const
 {
-    return m_form_factor->topZ(rotation);
+    return m_ff->topZ(rotation);
 }

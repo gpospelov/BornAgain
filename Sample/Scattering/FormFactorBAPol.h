@@ -25,7 +25,7 @@
 class FormFactorBAPol final : public IFormFactor
 {
 public:
-    FormFactorBAPol(const IFormFactor& form_factor);
+    FormFactorBAPol(const IFormFactor& ff);
     ~FormFactorBAPol() override;
 
     FormFactorBAPol* clone() const override;
@@ -50,7 +50,7 @@ public:
 
 private:
     //! The form factor for BA
-    std::unique_ptr<IFormFactor> m_form_factor;
+    std::unique_ptr<IFormFactor> m_ff;
 };
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORBAPOL_H

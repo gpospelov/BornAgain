@@ -27,7 +27,7 @@ class ILayerRTCoefficients;
 class FormFactorDWBAPol final : public IFormFactor
 {
 public:
-    FormFactorDWBAPol(const IFormFactor& form_factor);
+    FormFactorDWBAPol(const IFormFactor& ff);
     ~FormFactorDWBAPol() override;
 
     FormFactorDWBAPol* clone() const override;
@@ -36,7 +36,7 @@ public:
 
     void setAmbientMaterial(const Material& material) override
     {
-        m_form_factor->setAmbientMaterial(material);
+        m_ff->setAmbientMaterial(material);
     }
 
     //! Throws not-implemented exception
@@ -45,9 +45,9 @@ public:
     //! Calculates and returns a polarized form factor calculation in DWBA
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 
-    double volume() const override { return m_form_factor->volume(); }
+    double volume() const override { return m_ff->volume(); }
 
-    double radialExtension() const override { return m_form_factor->radialExtension(); }
+    double radialExtension() const override { return m_ff->radialExtension(); }
 
     double bottomZ(const IRotation& rotation) const override;
 
@@ -60,7 +60,7 @@ public:
 
 private:
     //! The form factor for BA
-    std::unique_ptr<IFormFactor> m_form_factor;
+    std::unique_ptr<IFormFactor> m_ff;
 
     std::unique_ptr<const ILayerRTCoefficients> m_in_coeffs;
     std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;

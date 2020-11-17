@@ -27,7 +27,7 @@ class FormFactorDecoratorRotation : public IFormFactorDecorator
 {
 public:
     //! Constructor, setting form factor and rotation.
-    FormFactorDecoratorRotation(const IFormFactor& form_factor, const IRotation& rotation);
+    FormFactorDecoratorRotation(const IFormFactor& ff, const IRotation& rotation);
 
     FormFactorDecoratorRotation* clone() const override final;
 
@@ -45,7 +45,7 @@ public:
 private:
     Transform3D m_transform;
     //! Private constructor for cloning.
-    FormFactorDecoratorRotation(const IFormFactor& form_factor, const Transform3D& transform);
+    FormFactorDecoratorRotation(const IFormFactor& ff, const Transform3D& transform);
 };
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDECORATORROTATION_H

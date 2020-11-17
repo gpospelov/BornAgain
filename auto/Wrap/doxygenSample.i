@@ -655,7 +655,7 @@ Evaluates the matrix BA term in a polarized  IFormFactor.
 C++ includes: FormFactorBAPol.h
 ";
 
-%feature("docstring")  FormFactorBAPol::FormFactorBAPol "FormFactorBAPol::FormFactorBAPol(const IFormFactor &form_factor)
+%feature("docstring")  FormFactorBAPol::FormFactorBAPol "FormFactorBAPol::FormFactorBAPol(const IFormFactor &ff)
 ";
 
 %feature("docstring")  FormFactorBAPol::~FormFactorBAPol "FormFactorBAPol::~FormFactorBAPol() override
@@ -1237,7 +1237,7 @@ Decorates a scalar formfactor with the correct factor for the material's refract
 C++ includes: FormFactorDecoratorMaterial.h
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor)
+%feature("docstring")  FormFactorDecoratorMaterial::FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &ff)
 ";
 
 %feature("docstring")  FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() override final
@@ -1280,7 +1280,7 @@ Decorates a form factor with a position dependent phase factor.
 C++ includes: FormFactorDecoratorPositionFactor.h
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor "FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, const kvector_t &position)
+%feature("docstring")  FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor "FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor &ff, const kvector_t &position)
 ";
 
 %feature("docstring")  FormFactorDecoratorPositionFactor::clone "FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const override final
@@ -1320,7 +1320,7 @@ Equips a form factor with a rotation.
 C++ includes: FormFactorDecoratorRotation.h
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::FormFactorDecoratorRotation "FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &rotation)
+%feature("docstring")  FormFactorDecoratorRotation::FormFactorDecoratorRotation "FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &ff, const IRotation &rotation)
 
 Constructor, setting form factor and rotation. 
 ";
@@ -1434,7 +1434,7 @@ Evaluates the coherent sum of the four DWBA terms in a scalar  IFormFactor.
 C++ includes: FormFactorDWBA.h
 ";
 
-%feature("docstring")  FormFactorDWBA::FormFactorDWBA "FormFactorDWBA::FormFactorDWBA(const IFormFactor &form_factor)
+%feature("docstring")  FormFactorDWBA::FormFactorDWBA "FormFactorDWBA::FormFactorDWBA(const IFormFactor &ff)
 ";
 
 %feature("docstring")  FormFactorDWBA::~FormFactorDWBA "FormFactorDWBA::~FormFactorDWBA() override
@@ -1492,7 +1492,7 @@ Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized  IFormFact
 C++ includes: FormFactorDWBAPol.h
 ";
 
-%feature("docstring")  FormFactorDWBAPol::FormFactorDWBAPol "FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
+%feature("docstring")  FormFactorDWBAPol::FormFactorDWBAPol "FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &ff)
 ";
 
 %feature("docstring")  FormFactorDWBAPol::~FormFactorDWBAPol "FormFactorDWBAPol::~FormFactorDWBAPol() override
@@ -3239,7 +3239,7 @@ This class is designed according to the Decorator Pattern. It inherits from  IFo
 C++ includes: IFormFactorDecorator.h
 ";
 
-%feature("docstring")  IFormFactorDecorator::IFormFactorDecorator "IFormFactorDecorator::IFormFactorDecorator(const IFormFactor &form_factor)
+%feature("docstring")  IFormFactorDecorator::IFormFactorDecorator "IFormFactorDecorator::IFormFactorDecorator(const IFormFactor &ff)
 ";
 
 %feature("docstring")  IFormFactorDecorator::~IFormFactorDecorator "IFormFactorDecorator::~IFormFactorDecorator() override

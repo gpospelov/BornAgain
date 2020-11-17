@@ -28,30 +28,27 @@
 class IFormFactorDecorator : public IFormFactor
 {
 public:
-    IFormFactorDecorator(const IFormFactor& form_factor) : m_form_factor(form_factor.clone()) {}
-    ~IFormFactorDecorator() override { delete m_form_factor; }
+    IFormFactorDecorator(const IFormFactor& ff) : m_ff(ff.clone()) {}
+    ~IFormFactorDecorator() override { delete m_ff; }
     IFormFactorDecorator* clone() const override = 0;
 
     void setAmbientMaterial(const Material& material) override
     {
-        m_form_factor->setAmbientMaterial(material);
+        m_ff->setAmbientMaterial(material);
     }
 
-    double volume() const override { return m_form_factor->volume(); }
+    double volume() const override { return m_ff->volume(); }
 
-    double radialExtension() const override { return m_form_factor->radialExtension(); }
+    double radialExtension() const override { return m_ff->radialExtension(); }
 
-    double bottomZ(const IRotation& rotation) const override
-    {
-        return m_form_factor->bottomZ(rotation);
-    }
+    double bottomZ(const IRotation& rotation) const override { return m_ff->bottomZ(rotation); }
 
-    double topZ(const IRotation& rotation) const override { return m_form_factor->topZ(rotation); }
+    double topZ(const IRotation& rotation) const override { return m_ff->topZ(rotation); }
 
-    const IFormFactor* getFormFactor() const { return m_form_factor; }
+    const IFormFactor* getFormFactor() const { return m_ff; }
 
 protected:
-    IFormFactor* m_form_factor;
+    IFormFactor* m_ff;
 };
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTORDECORATOR_H

@@ -17,7 +17,7 @@
 #include "Sample/Shapes/Box.h"
 
 FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(const std::vector<double> P)
-    : IFormFactorBorn({"FormFactorLongBoxLorentz",
+    : IBornFF({"FormFactorLongBoxLorentz",
                        "class_tooltip",
                        {{"Length", "nm", "para_tooltip", 0, +INF, 0},
                         {"Width", "nm", "para_tooltip", 0, +INF, 0},

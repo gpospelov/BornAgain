@@ -21,7 +21,7 @@
 #include <limits>
 
 FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(const std::vector<double> P)
-    : IFormFactorBorn(
+    : IBornFF(
         {"TruncatedSpheroid",
          "class_tooltip",
          {{"Radius", "nm", "horizontal radius", 0, +INF, 0},

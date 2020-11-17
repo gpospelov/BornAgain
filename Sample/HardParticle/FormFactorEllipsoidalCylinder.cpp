@@ -19,7 +19,7 @@
 #include "Sample/Shapes/DoubleEllipse.h"
 
 FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(const std::vector<double> P)
-    : IFormFactorBorn({"EllipsoidalCylinder",
+    : IBornFF({"EllipsoidalCylinder",
                        "elliptical cylinder",
                        {{"RadiusX", "nm", "radius in x direction", 0, +INF, 0},
                         {"RadiusY", "nm", "radius in y direction", 0, +INF, 0},

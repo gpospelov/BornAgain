@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/IFormFactorBorn.cpp
-//! @brief     Implements interface class IFormFactorBorn.
+//! @file      Sample/Scattering/IBornFF.cpp
+//! @brief     Implements interface class IBornFF.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,59 +12,59 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Algorithms.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Scattering/Rotations.h"
 #include "Sample/Shapes/IShape.h"
 
-IFormFactorBorn::IFormFactorBorn() = default;
+IBornFF::IBornFF() = default;
 
-IFormFactorBorn::IFormFactorBorn(const NodeMeta& meta, const std::vector<double>& PValues)
+IBornFF::IBornFF(const NodeMeta& meta, const std::vector<double>& PValues)
     : IFormFactor(meta, PValues)
 {
 }
 
-IFormFactorBorn::~IFormFactorBorn() = default;
+IBornFF::~IBornFF() = default;
 
-complex_t IFormFactorBorn::evaluate(const WavevectorInfo& wavevectors) const
+complex_t IBornFF::evaluate(const WavevectorInfo& wavevectors) const
 {
     return evaluate_for_q(wavevectors.getQ());
 }
 
-Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo& wavevectors) const
+Eigen::Matrix2cd IBornFF::evaluatePol(const WavevectorInfo& wavevectors) const
 {
     return evaluate_for_q_pol(wavevectors.getQ());
 }
 
-double IFormFactorBorn::bottomZ(const IRotation& rotation) const
+double IBornFF::bottomZ(const IRotation& rotation) const
 {
     if (!m_shape)
         return 0;
     return BottomZ(m_shape->vertices(), rotation);
 }
 
-double IFormFactorBorn::topZ(const IRotation& rotation) const
+double IBornFF::topZ(const IRotation& rotation) const
 {
     if (!m_shape)
         return 0;
     return TopZ(m_shape->vertices(), rotation);
 }
 
-bool IFormFactorBorn::canSliceAnalytically(const IRotation& rot) const
+bool IBornFF::canSliceAnalytically(const IRotation& rot) const
 {
     if (rot.zInvariant())
         return true;
     return false;
 }
 
-Eigen::Matrix2cd IFormFactorBorn::evaluate_for_q_pol(cvector_t q) const
+Eigen::Matrix2cd IBornFF::evaluate_for_q_pol(cvector_t q) const
 {
     return evaluate_for_q(q) * Eigen::Matrix2cd::Identity();
 }
 
-SlicingEffects IFormFactorBorn::computeSlicingEffects(ZLimits limits, const kvector_t& position,
+SlicingEffects IBornFF::computeSlicingEffects(ZLimits limits, const kvector_t& position,
                                                       double height) const
 {
     kvector_t new_position(position);
@@ -100,7 +100,7 @@ SlicingEffects IFormFactorBorn::computeSlicingEffects(ZLimits limits, const kvec
     return {new_position, dz_bottom, dz_top};
 }
 
-double IFormFactorBorn::BottomZ(const std::vector<kvector_t>& vertices, const IRotation& rotation)
+double IBornFF::BottomZ(const std::vector<kvector_t>& vertices, const IRotation& rotation)
 {
     ASSERT(vertices.size());
     return algo::min_value(
@@ -108,7 +108,7 @@ double IFormFactorBorn::BottomZ(const std::vector<kvector_t>& vertices, const IR
         [&](const kvector_t& vertex) -> double { return rotation.transformed(vertex).z(); });
 }
 
-double IFormFactorBorn::TopZ(const std::vector<kvector_t>& vertices, const IRotation& rotation)
+double IBornFF::TopZ(const std::vector<kvector_t>& vertices, const IRotation& rotation)
 {
     ASSERT(vertices.size());
     return algo::max_value(

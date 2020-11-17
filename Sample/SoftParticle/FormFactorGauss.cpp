@@ -18,7 +18,7 @@
 #include <limits>
 
 FormFactorGaussSphere::FormFactorGaussSphere(const std::vector<double> P)
-    : IFormFactorBorn({"FormFactorGaussSphere",
+    : IBornFF({"FormFactorGaussSphere",
                        "class_tooltip",
                        {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0}}},
                       P)

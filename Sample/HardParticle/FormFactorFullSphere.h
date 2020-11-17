@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORFULLSPHERE_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORFULLSPHERE_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! A full sphere.
 //! @ingroup hardParticle
 
-class FormFactorFullSphere : public IFormFactorBorn
+class FormFactorFullSphere : public IBornFF
 {
 public:
     FormFactorFullSphere(const std::vector<double> P, bool position_at_center = false);

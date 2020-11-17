@@ -33,8 +33,8 @@
 
 %feature("director") ISampleBuilder;     // used in mesocrystal1.py
 %feature("director") ISample;            // needed by IFormFactor
-%feature("director") IFormFactor;        // needed by IFormFactorBorn
-%feature("director") IFormFactorBorn;    // used in CustomFormFactor.py
+%feature("director") IFormFactor;        // needed by IBornFF
+%feature("director") IBornFF;    // used in CustomFormFactor.py
 
 %{
 #include "Sample/Aggregate/IInterferenceFunction.h"
@@ -151,7 +151,7 @@
 
 %include "Sample/Scattering/ISample.h"
 %include "Sample/Scattering/IFormFactor.h"
-%include "Sample/Scattering/IFormFactorBorn.h"
+%include "Sample/Scattering/IBornFF.h"
 %include "Sample/Scattering/IFormFactorDecorator.h"
 
 %include "Sample/Scattering/Rotations.h"

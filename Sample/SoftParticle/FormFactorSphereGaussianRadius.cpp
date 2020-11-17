@@ -18,7 +18,7 @@
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(const std::vector<double> P)
-    : IFormFactorBorn({"FormFactorSphereGaussianRadius",
+    : IBornFF({"FormFactorSphereGaussianRadius",
                        "class_tooltip",
                        {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
                         {"SigmaRadius", "nm", "para_tooltip", 0, +INF, 0}}},

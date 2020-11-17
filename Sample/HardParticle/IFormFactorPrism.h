@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_IFORMFACTORPRISM_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_IFORMFACTORPRISM_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 #include <memory>
 
 class Prism;
 
 //! A prism with a polygonal base, for form factor computation.
 
-class IFormFactorPrism : public IFormFactorBorn
+class IFormFactorPrism : public IBornFF
 {
 public:
     IFormFactorPrism(const NodeMeta& meta, const std::vector<double>& PValues);

@@ -29,7 +29,7 @@ class WavevectorInfo;
 //!
 //! The actual form factor is returned by the complex valued function IFormFactor::evaluate,
 //! which depends on the incoming and outgoing wave vectors ki and kf.
-//! If it only depends on the scattering vector q=ki-kf, then it is a IFormFactorBorn.
+//! If it only depends on the scattering vector q=ki-kf, then it is a IBornFF.
 
 //! @ingroup formfactors_internal
 

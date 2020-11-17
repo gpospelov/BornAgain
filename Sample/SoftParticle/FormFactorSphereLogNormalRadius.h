@@ -16,13 +16,13 @@
 #define BORNAGAIN_SAMPLE_SOFTPARTICLE_FORMFACTORSPHERELOGNORMALRADIUS_H
 
 #include "Base/Types/SafePointerVector.h"
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 #include <memory>
 
 //! A sphere with log normal radius distribution.
 //! @ingroup softParticle
 
-class FormFactorSphereLogNormalRadius : public IFormFactorBorn
+class FormFactorSphereLogNormalRadius : public IBornFF
 {
 public:
     FormFactorSphereLogNormalRadius(const std::vector<double> P, size_t n_samples = 0);

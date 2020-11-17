@@ -15,13 +15,13 @@
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORHEMIELLIPSOID_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORHEMIELLIPSOID_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! An hemi ellipsoid,
 //!   obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
 //! @ingroup hardParticle
 
-class FormFactorHemiEllipsoid : public IFormFactorBorn
+class FormFactorHemiEllipsoid : public IBornFF
 {
 public:
     FormFactorHemiEllipsoid(const std::vector<double> P);

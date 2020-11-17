@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHERE_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHERE_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! A truncated Sphere.
 //! @ingroup hardParticle
 
-class FormFactorTruncatedSphere : public IFormFactorBorn
+class FormFactorTruncatedSphere : public IBornFF
 {
 public:
     FormFactorTruncatedSphere(const std::vector<double> P);

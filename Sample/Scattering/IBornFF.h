@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/IFormFactorBorn.h
-//! @brief     Defines pure virtual interface class IFormFactorBorn.
+//! @file      Sample/Scattering/IBornFF.h
+//! @brief     Defines pure virtual interface class IBornFF.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -28,14 +28,14 @@ struct SlicingEffects; // defined below
 
 //! @ingroup formfactors_internal
 
-class IFormFactorBorn : public IFormFactor
+class IBornFF : public IFormFactor
 {
 public:
-    IFormFactorBorn();
-    IFormFactorBorn(const NodeMeta& meta, const std::vector<double>& PValues);
-    ~IFormFactorBorn();
+    IBornFF();
+    IBornFF(const NodeMeta& meta, const std::vector<double>& PValues);
+    ~IBornFF();
 
-    IFormFactorBorn* clone() const override = 0;
+    IBornFF* clone() const override = 0;
 
     void setAmbientMaterial(const Material&) override {}
 

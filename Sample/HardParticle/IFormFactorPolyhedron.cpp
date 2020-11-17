@@ -29,7 +29,7 @@ void IFormFactorPolyhedron::setLimits(double _q, int _n)
 
 IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta& meta,
                                              const std::vector<double>& PValues)
-    : IFormFactorBorn(meta, PValues)
+    : IBornFF(meta, PValues)
 {
 }
 

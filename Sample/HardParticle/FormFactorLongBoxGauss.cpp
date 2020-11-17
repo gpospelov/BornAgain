@@ -17,7 +17,7 @@
 #include "Sample/Shapes/Box.h"
 
 FormFactorLongBoxGauss::FormFactorLongBoxGauss(const std::vector<double> P)
-    : IFormFactorBorn({"FormFactorLongBoxGauss",
+    : IBornFF({"FormFactorLongBoxGauss",
                        "class_tooltip",
                        {{"Length", "nm", "para_tooltip", 0, +INF, 0},
                         {"Width", "nm", "para_tooltip", 0, +INF, 0},

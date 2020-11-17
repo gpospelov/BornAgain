@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORLONGBOXLORENTZ_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORLONGBOXLORENTZ_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! The form factor for a long rectangular box.
 //! @ingroup legacyGrating
 
-class FormFactorLongBoxLorentz : public IFormFactorBorn
+class FormFactorLongBoxLorentz : public IBornFF
 {
 public:
     FormFactorLongBoxLorentz(const std::vector<double> P);

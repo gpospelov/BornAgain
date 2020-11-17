@@ -15,11 +15,11 @@
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_IPROFILERIPPLE_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_IPROFILERIPPLE_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 
-class IProfileRipple : public IFormFactorBorn
+class IProfileRipple : public IBornFF
 {
 public:
     IProfileRipple(const NodeMeta& meta, const std::vector<double>& PValues);

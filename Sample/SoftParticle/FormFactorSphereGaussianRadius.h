@@ -15,13 +15,13 @@
 #ifndef BORNAGAIN_SAMPLE_SOFTPARTICLE_FORMFACTORSPHEREGAUSSIANRADIUS_H
 #define BORNAGAIN_SAMPLE_SOFTPARTICLE_FORMFACTORSPHEREGAUSSIANRADIUS_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 #include <memory>
 
 //! A sphere with gaussian radius distribution.
 //! @ingroup softParticle
 
-class FormFactorSphereGaussianRadius : public IFormFactorBorn
+class FormFactorSphereGaussianRadius : public IBornFF
 {
 public:
     FormFactorSphereGaussianRadius(const std::vector<double> P);

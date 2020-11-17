@@ -22,7 +22,7 @@
 #include <limits>
 
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(const std::vector<double> P)
-    : IFormFactorBorn({"TruncatedSphere",
+    : IBornFF({"TruncatedSphere",
                        "class_tooltip",
                        {{"Radius", "nm", "radius", 0, +INF, 0},
                         {"Height", "nm", "height before removal of cap", 0, +INF, 0},

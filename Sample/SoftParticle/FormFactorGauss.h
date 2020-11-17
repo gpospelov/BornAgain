@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_SAMPLE_SOFTPARTICLE_FORMFACTORGAUSS_H
 #define BORNAGAIN_SAMPLE_SOFTPARTICLE_FORMFACTORGAUSS_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! The form factor of a Gaussian sphere.
 //! @ingroup softParticle
 
-class FormFactorGaussSphere : public IFormFactorBorn
+class FormFactorGaussSphere : public IBornFF
 {
 public:
     FormFactorGaussSphere(const std::vector<double> P);

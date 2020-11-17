@@ -22,7 +22,7 @@
 #include <limits>
 
 FormFactorCone::FormFactorCone(const std::vector<double> P)
-    : IFormFactorBorn({"Cone",
+    : IBornFF({"Cone",
                        "frustum with circular base",
                        {{"Radius", "nm", "radius of base", 0, +INF, 0},
                         {"Height", "nm", "height", 0, +INF, 0},

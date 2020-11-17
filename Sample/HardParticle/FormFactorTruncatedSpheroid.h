@@ -15,13 +15,13 @@
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHEROID_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORTRUNCATEDSPHEROID_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! A truncated spheroid.
 //! An ellipsoid with two equal axis, truncated by a plane perpendicular to the third axis.
 //! @ingroup hardParticle
 
-class FormFactorTruncatedSpheroid : public IFormFactorBorn
+class FormFactorTruncatedSpheroid : public IBornFF
 {
 public:
     FormFactorTruncatedSpheroid(const std::vector<double> P);

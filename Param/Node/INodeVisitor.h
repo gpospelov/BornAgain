@@ -95,7 +95,7 @@ class IAbstractParticle;
 class IClusteredParticles;
 class IdentityRotation;
 class IFormFactor;
-class IFormFactorBorn;
+class IBornFF;
 class IFormFactorDecorator;
 class IInterferenceFunction;
 class ParticleLayout;
@@ -230,7 +230,7 @@ public:
     virtual void visit(const IClusteredParticles*) {}
     virtual void visit(const IdentityRotation*) {}
     virtual void visit(const IFormFactor*) {}
-    virtual void visit(const IFormFactorBorn*) {}
+    virtual void visit(const IBornFF*) {}
     virtual void visit(const IFormFactorDecorator*) {}
     virtual void visit(const IInterferenceFunction*) {}
     virtual void visit(const ParticleLayout*) {}

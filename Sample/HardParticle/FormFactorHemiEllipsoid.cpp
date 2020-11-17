@@ -20,7 +20,7 @@
 #include <limits>
 
 FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(const std::vector<double> P)
-    : IFormFactorBorn({"HemiEllipsoid",
+    : IBornFF({"HemiEllipsoid",
                        "actually a spheroid, truncated at central xy plane",
                        {{"RadiusX", "nm", "radius in x direction", 0, +INF, 0},
                         {"RadiusY", "nm", "radius in y direction", 0, +INF, 0},

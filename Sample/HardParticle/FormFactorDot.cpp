@@ -15,7 +15,7 @@
 #include "Sample/HardParticle/FormFactorDot.h"
 
 FormFactorDot::FormFactorDot(const std::vector<double> P)
-    : IFormFactorBorn(
+    : IBornFF(
         {"Dot",
          "dot, with scattering power of a sphere of given radius",
          {{"Radius", "nm", "radius of sphere that defines scattering power", 0, +INF, 0}}},

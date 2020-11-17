@@ -19,7 +19,7 @@
 #include "Sample/Shapes/DoubleEllipse.h"
 
 FormFactorCylinder::FormFactorCylinder(const std::vector<double> P)
-    : IFormFactorBorn(
+    : IBornFF(
         {"Cylinder",
          "circular cylinder",
          {{"Radius", "nm", "radius of base", 0, +INF, 0}, {"Height", "nm", "height", 0, +INF, 0}}},

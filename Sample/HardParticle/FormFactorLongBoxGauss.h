@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORLONGBOXGAUSS_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORLONGBOXGAUSS_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! The form factor for a long rectangular box.
 //! @ingroup legacyGrating
 
-class FormFactorLongBoxGauss : public IFormFactorBorn
+class FormFactorLongBoxGauss : public IBornFF
 {
 public:
     FormFactorLongBoxGauss(const std::vector<double> P);

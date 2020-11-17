@@ -87,7 +87,7 @@
 
 %import(module="libBornAgainSample") "Sample/Scattering/ISample.h"
 %import(module="libBornAgainSample") "Sample/Scattering/IFormFactor.h"
-%import(module="libBornAgainSample") "Sample/Scattering/IFormFactorBorn.h"
+%import(module="libBornAgainSample") "Sample/Scattering/IBornFF.h"
 
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 

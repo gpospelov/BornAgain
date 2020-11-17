@@ -23,7 +23,7 @@
 // ************************************************************************** //
 
 IProfileRipple::IProfileRipple(const NodeMeta& meta, const std::vector<double>& PValues)
-    : IFormFactorBorn(nodeMetaUnion({{"Length", "nm", "Characteristic length", 0, INF, 1.},
+    : IBornFF(nodeMetaUnion({{"Length", "nm", "Characteristic length", 0, INF, 1.},
                                      {"Width", "nm", "Width", 0, INF, 1.},
                                      {"Height", "nm", "Height", 0, INF, 1.}},
                                     meta),

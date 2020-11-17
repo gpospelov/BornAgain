@@ -16,7 +16,7 @@
 #include "Sample/HardParticle/Prism.h"
 
 IFormFactorPrism::IFormFactorPrism(const NodeMeta& meta, const std::vector<double>& PValues)
-    : IFormFactorBorn(meta, PValues)
+    : IBornFF(meta, PValues)
 {
 }
 

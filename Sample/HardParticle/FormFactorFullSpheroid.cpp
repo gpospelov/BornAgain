@@ -20,7 +20,7 @@
 #include <limits>
 
 FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector<double> P)
-    : IFormFactorBorn(
+    : IBornFF(
         {"FullSpheroid",
          "ellipsoid of revolution",
          {{"Radius", "nm", "revolution radius", 0, +INF, 0},

@@ -20,7 +20,7 @@
 //! Integrated full sphere form factor over a uniform distribution of radii.
 //! @ingroup softParticle
 
-class FormFactorHollowSphere : public IFormFactorBorn
+class FormFactorHollowSphere : public IBornFF
 {
 public:
     FormFactorHollowSphere(const std::vector<double> P);

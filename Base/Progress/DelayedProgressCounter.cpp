@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/DelayedProgressCounter.cpp
+//! @file      Base/Progress/DelayedProgressCounter.cpp
 //! @brief     Implements class DelayedProgressCounter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Core/Computation/DelayedProgressCounter.h"
-#include "Core/Computation/ProgressHandler.h"
+#include "Base/Progress/DelayedProgressCounter.h"
+#include "Base/Progress/ProgressHandler.h"
 
 DelayedProgressCounter::DelayedProgressCounter(ProgressHandler* p_progress, size_t interval)
     : m_progress(p_progress), m_interval(interval), m_count(0)

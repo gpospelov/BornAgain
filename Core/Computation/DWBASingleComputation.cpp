@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Computation/DWBASingleComputation.h"
-#include "Core/Computation/DelayedProgressCounter.h"
+#include "Base/Progress/DelayedProgressCounter.h"
 #include "Core/Computation/GISASSpecularComputation.h"
 #include "Core/Computation/ParticleLayoutComputation.h"
 #include "Core/Computation/RoughMultiLayerComputation.h"

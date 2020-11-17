@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/DelayedProgressCounter.h
+//! @file      Base/Progress/DelayedProgressCounter.h
 //! @brief     Defines class DelayedProgressCounter.
 //!
 //! @homepage  http://www.bornagainproject.org

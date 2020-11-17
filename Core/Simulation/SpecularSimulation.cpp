@@ -15,7 +15,7 @@
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Core/Computation/IBackground.h"
-#include "Core/Computation/SpecularComputation.h"
+#include "Core/XX/SpecularComputation.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/SpecularSimulationElement.h"
 #include "Core/Scan/UnitConverter1D.h"

@@ -18,7 +18,7 @@
 #include "Core/Computation/ParticleLayoutComputation.h"
 #include "Sample/Fresnel/ProcessedLayout.h"
 #include "Sample/Fresnel/ProcessedSample.h"
-#include "Core/Computation/ProgressHandler.h"
+#include "Base/Progress/ProgressHandler.h"
 #include "Core/Computation/RoughMultiLayerComputation.h"
 #include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/Multilayer/MultiLayer.h"

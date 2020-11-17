@@ -15,7 +15,7 @@
 #include "Core/Computation/IComputation.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Sample/Fresnel/ProcessedSample.h"
-#include "Core/Computation/ProgressHandler.h"
+#include "Base/Progress/ProgressHandler.h"
 #include "Sample/Multilayer/MultiLayer.h"
 
 IComputation::IComputation(const MultiLayer& sample, const SimulationOptions& options,

@@ -6349,6 +6349,99 @@ needed for topZ, bottomZ computation
 ";
 
 
+// File: classProcessedLayout.xml
+%feature("docstring") ProcessedLayout "
+
+Data structure that contains preprocessed data for a single layout.
+
+If particles in the layout crossed the limits of the layer slices, these particles will be sliced themselves.
+
+C++ includes: ProcessedLayout.h
+";
+
+%feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(const ParticleLayout &layout, const std::vector< Slice > &slices, double z_ref, const IFresnelMap *p_fresnel_map, bool polarized)
+";
+
+%feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(ProcessedLayout &&other)
+";
+
+%feature("docstring")  ProcessedLayout::~ProcessedLayout "ProcessedLayout::~ProcessedLayout()
+";
+
+%feature("docstring")  ProcessedLayout::numberOfSlices "size_t ProcessedLayout::numberOfSlices() const
+";
+
+%feature("docstring")  ProcessedLayout::surfaceDensity "double ProcessedLayout::surfaceDensity() const
+";
+
+%feature("docstring")  ProcessedLayout::formFactorList "const std::vector< FormFactorCoherentSum > & ProcessedLayout::formFactorList() const
+";
+
+%feature("docstring")  ProcessedLayout::interferenceFunction "const IInterferenceFunction * ProcessedLayout::interferenceFunction() const
+";
+
+%feature("docstring")  ProcessedLayout::regionMap "std::map< size_t, std::vector< HomogeneousRegion > > ProcessedLayout::regionMap() const
+";
+
+
+// File: classProcessedSample.xml
+%feature("docstring") ProcessedSample "
+
+Data structure that contains all the necessary data for scattering calculations.
+
+If the usage of average materials is requested, layers and particles are sliced into multiple slices and the average material is calculated for each slice.
+
+C++ includes: ProcessedSample.h
+";
+
+%feature("docstring")  ProcessedSample::ProcessedSample "ProcessedSample::ProcessedSample(const MultiLayer &sample, const SimulationOptions &options)
+";
+
+%feature("docstring")  ProcessedSample::~ProcessedSample "ProcessedSample::~ProcessedSample()
+";
+
+%feature("docstring")  ProcessedSample::numberOfSlices "size_t ProcessedSample::numberOfSlices() const
+";
+
+%feature("docstring")  ProcessedSample::slices "const std::vector< Slice > & ProcessedSample::slices() const
+";
+
+%feature("docstring")  ProcessedSample::averageSlices "const std::vector< Slice > & ProcessedSample::averageSlices() const
+";
+
+%feature("docstring")  ProcessedSample::layouts "const std::vector< ProcessedLayout > & ProcessedSample::layouts() const
+";
+
+%feature("docstring")  ProcessedSample::fresnelMap "const IFresnelMap * ProcessedSample::fresnelMap() const
+";
+
+%feature("docstring")  ProcessedSample::crossCorrelationLength "double ProcessedSample::crossCorrelationLength() const
+";
+
+%feature("docstring")  ProcessedSample::externalField "kvector_t ProcessedSample::externalField() const
+";
+
+%feature("docstring")  ProcessedSample::bottomRoughness "const LayerRoughness * ProcessedSample::bottomRoughness(size_t i) const
+";
+
+%feature("docstring")  ProcessedSample::sliceTopZ "double ProcessedSample::sliceTopZ(size_t i) const
+";
+
+%feature("docstring")  ProcessedSample::sliceBottomZ "double ProcessedSample::sliceBottomZ(size_t i) const
+";
+
+%feature("docstring")  ProcessedSample::containsMagneticMaterial "bool ProcessedSample::containsMagneticMaterial() const
+";
+
+%feature("docstring")  ProcessedSample::hasRoughness "bool ProcessedSample::hasRoughness() const
+";
+
+%feature("docstring")  ProcessedSample::crossCorrSpectralFun "double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
+
+Fourier transform of the correlation function of roughnesses between the interfaces 
+";
+
+
 // File: classRadialParaCrystalBuilder.xml
 %feature("docstring") RadialParaCrystalBuilder "
 
@@ -7265,6 +7358,10 @@ C++ includes: SpecularScalarTanhStrategy.h
 ";
 
 
+// File: classSpecularStrategyBuilder.xml
+%feature("docstring") SpecularStrategyBuilder "";
+
+
 // File: classSpheresWithLimitsDistributionBuilder.xml
 %feature("docstring") SpheresWithLimitsDistributionBuilder "
 
@@ -7514,13 +7611,10 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d112.xml
+// File: namespace_0d116.xml
 
 
-// File: namespace_0d115.xml
-
-
-// File: namespace_0d139.xml
+// File: namespace_0d119.xml
 
 
 // File: namespace_0d143.xml
@@ -7529,10 +7623,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d147.xml
 
 
-// File: namespace_0d157.xml
-
-
-// File: namespace_0d159.xml
+// File: namespace_0d151.xml
 
 
 // File: namespace_0d16.xml
@@ -7541,43 +7632,43 @@ C++ includes: ZLimits.h
 // File: namespace_0d161.xml
 
 
-// File: namespace_0d171.xml
+// File: namespace_0d163.xml
 
 
-// File: namespace_0d192.xml
+// File: namespace_0d165.xml
 
 
-// File: namespace_0d194.xml
+// File: namespace_0d175.xml
+
+
+// File: namespace_0d196.xml
+
+
+// File: namespace_0d198.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d204.xml
+// File: namespace_0d208.xml
 
 
-// File: namespace_0d220.xml
+// File: namespace_0d224.xml
 
 
-// File: namespace_0d222.xml
+// File: namespace_0d226.xml
 
 
-// File: namespace_0d229.xml
-
-
-// File: namespace_0d247.xml
+// File: namespace_0d233.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d255.xml
+// File: namespace_0d251.xml
 
 
-// File: namespace_0d265.xml
-
-
-// File: namespace_0d267.xml
+// File: namespace_0d259.xml
 
 
 // File: namespace_0d269.xml
@@ -7589,31 +7680,37 @@ C++ includes: ZLimits.h
 // File: namespace_0d273.xml
 
 
+// File: namespace_0d275.xml
+
+
 // File: namespace_0d277.xml
-
-
-// File: namespace_0d279.xml
 
 
 // File: namespace_0d281.xml
 
 
-// File: namespace_0d293.xml
+// File: namespace_0d283.xml
+
+
+// File: namespace_0d287.xml
 
 
 // File: namespace_0d299.xml
 
 
-// File: namespace_0d303.xml
+// File: namespace_0d305.xml
+
+
+// File: namespace_0d309.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d321.xml
+// File: namespace_0d327.xml
 
 
-// File: namespace_0d340.xml
+// File: namespace_0d346.xml
 
 
 // File: namespace_0d37.xml
@@ -7623,6 +7720,12 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0d4.xml
+
+
+// File: namespace_0d49.xml
+
+
+// File: namespace_0d51.xml
 
 
 // File: namespacebake.xml
@@ -7952,6 +8055,18 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: MatrixFresnelMap_8h.xml
+
+
+// File: ProcessedLayout_8cpp.xml
+
+
+// File: ProcessedLayout_8h.xml
+
+
+// File: ProcessedSample_8cpp.xml
+
+
+// File: ProcessedSample_8h.xml
 
 
 // File: ScalarFresnelMap_8cpp.xml
@@ -8774,6 +8889,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SpecularScalarTanhStrategy_8h.xml
+
+
+// File: SpecularStrategyBuilder_8cpp.xml
+
+
+// File: SpecularStrategyBuilder_8h.xml
 
 
 // File: BoxCompositionBuilder_8cpp.xml

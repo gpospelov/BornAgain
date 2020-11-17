@@ -14,7 +14,7 @@
 
 #include "Core/Computation/DepthProbeComputationTerm.h"
 #include "Base/Axis/IAxis.h"
-#include "Core/Computation/DelayedProgressCounter.h"
+#include "Base/Progress/DelayedProgressCounter.h"
 #include "Core/Computation/DepthProbeElement.h"
 #include "Sample/Fresnel/ProcessedSample.h"
 #include "Sample/Fresnel/IFresnelMap.h"

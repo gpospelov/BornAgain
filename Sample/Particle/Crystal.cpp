@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/Particle/Crystal.h"
+#include "Base/Vector/Transform3D.h"
 #include "Sample/Particle/FormFactorCrystal.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleComposition.h"

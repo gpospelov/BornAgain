@@ -7679,58 +7679,58 @@ C++ includes: ZLimits.h
 // File: namespace_0d236.xml
 
 
-// File: namespace_0d241.xml
+// File: namespace_0d242.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d259.xml
+// File: namespace_0d260.xml
 
 
-// File: namespace_0d267.xml
+// File: namespace_0d268.xml
 
 
-// File: namespace_0d277.xml
+// File: namespace_0d278.xml
 
 
-// File: namespace_0d279.xml
+// File: namespace_0d280.xml
 
 
-// File: namespace_0d281.xml
+// File: namespace_0d282.xml
 
 
-// File: namespace_0d283.xml
+// File: namespace_0d284.xml
 
 
-// File: namespace_0d285.xml
+// File: namespace_0d286.xml
 
 
-// File: namespace_0d289.xml
+// File: namespace_0d290.xml
 
 
-// File: namespace_0d291.xml
+// File: namespace_0d292.xml
 
 
-// File: namespace_0d295.xml
+// File: namespace_0d296.xml
 
 
-// File: namespace_0d307.xml
+// File: namespace_0d308.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d313.xml
+// File: namespace_0d314.xml
 
 
-// File: namespace_0d317.xml
+// File: namespace_0d318.xml
 
 
-// File: namespace_0d335.xml
+// File: namespace_0d336.xml
 
 
-// File: namespace_0d354.xml
+// File: namespace_0d355.xml
 
 
 // File: namespace_0d37.xml
@@ -8744,6 +8744,9 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: IFormFactor_8h.xml
 %feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
+
+
+// File: IFormFactorDecorator_8cpp.xml
 
 
 // File: IFormFactorDecorator_8h.xml

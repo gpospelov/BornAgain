@@ -16,8 +16,7 @@
 #define BORNAGAIN_SAMPLE_PARTICLE_PARTICLE_H
 
 #include "Sample/Particle/IParticle.h"
-#include "Sample/Scattering/FormFactorDecoratorMaterial.h"
-#include "Sample/Scattering/FormFactorDecoratorRotation.h"
+#include "Sample/Material/Material.h"
 
 //! A particle with a form factor and refractive index.
 //! @ingroup samples
@@ -26,6 +25,7 @@ class Particle : public IParticle
 {
 public:
     Particle();
+    ~Particle();
     Particle(Material material);
     Particle(Material material, const IFormFactor& form_factor);
     Particle(Material material, const IFormFactor& form_factor, const IRotation& rotation);

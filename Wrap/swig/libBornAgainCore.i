@@ -62,7 +62,7 @@
 #include "Core/Scan/QSpecScan.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
-#include "Sample/Fresnel/MultiLayerFuncs.h"
+#include "Sample/Processed/MultiLayerFuncs.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/IObserver.h"
@@ -123,7 +123,7 @@
 %include "Core/Computation/IBackground.h"
 %include "Core/Computation/ConstantBackground.h"
 %include "Core/Computation/PoissonNoiseBackground.h"
-%include "Sample/Fresnel/MultiLayerFuncs.h"
+%include "Sample/Processed/MultiLayerFuncs.h"
 
 %include "Core/Simulation/SimulationFactory.h"
 

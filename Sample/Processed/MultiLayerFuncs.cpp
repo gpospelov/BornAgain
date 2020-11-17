@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Fresnel/MultiLayerFuncs.cpp
+//! @file      Sample/Processed/MultiLayerFuncs.cpp
 //! @brief     Global functions related to MultiLayers.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,9 +12,9 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Fresnel/MultiLayerFuncs.h"
-#include "Sample/Fresnel/ProcessedSample.h"
-#include "Sample/Fresnel/ProfileHelper.h"
+#include "Sample/Processed/MultiLayerFuncs.h"
+#include "Sample/Processed/ProcessedSample.h"
+#include "Sample/Processed/ProfileHelper.h"
 #include "Sample/RT/SimulationOptions.h"
 
 std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer, int n_points, double z_min,

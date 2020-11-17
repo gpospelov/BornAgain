@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Fresnel/ProcessedLayout.h
+//! @file      Sample/Processed/ProcessedLayout.h
 //! @brief     Defines class ProcessedLayout.
 //!
 //! @homepage  http://www.bornagainproject.org

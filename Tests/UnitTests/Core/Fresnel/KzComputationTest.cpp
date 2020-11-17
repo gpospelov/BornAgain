@@ -1,6 +1,6 @@
 #include "Sample/Slice/KzComputation.h"
 #include "Base/Const/Units.h"
-#include "Sample/Fresnel/ProcessedSample.h"
+#include "Sample/Processed/ProcessedSample.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"

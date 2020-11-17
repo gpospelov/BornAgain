@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Fresnel/ProcessedSample.cpp
+//! @file      Sample/Processed/ProcessedSample.cpp
 //! @brief     Implements class ProcessedSample.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 // ************************************************************************** //
 
-#include "Sample/Fresnel/ProcessedSample.h"
-#include "Sample/Fresnel/ProcessedLayout.h"
+#include "Sample/Processed/ProcessedSample.h"
+#include "Sample/Processed/ProcessedLayout.h"
 #include "Sample/Specular/SpecularStrategyBuilder.h"
 #include "Sample/Fresnel/MatrixFresnelMap.h"
 #include "Sample/Fresnel/ScalarFresnelMap.h"

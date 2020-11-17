@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/XX/SpecularComputation.h"
-#include "Sample/Fresnel/ProcessedSample.h"
+#include "Sample/Processed/ProcessedSample.h"
 #include "Base/Progress/ProgressHandler.h"
 #include "Core/XX/SpecularComputationTerm.h"
 #include "Sample/Specular/SpecularStrategyBuilder.h"

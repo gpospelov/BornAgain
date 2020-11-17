@@ -1,4 +1,4 @@
-#include "Sample/Fresnel/ProcessedSample.h"
+#include "Sample/Processed/ProcessedSample.h"
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"

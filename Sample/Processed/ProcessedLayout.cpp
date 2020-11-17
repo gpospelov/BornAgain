@@ -35,6 +35,10 @@ void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map
 }
 } // namespace
 
+// ************************************************************************** //
+// class ProcessedLayout
+// ************************************************************************** //
+
 ProcessedLayout::ProcessedLayout(const ParticleLayout& layout, const std::vector<Slice>& slices,
                                  double z_ref, const IFresnelMap* p_fresnel_map, bool polarized)
     : m_fresnel_map(p_fresnel_map), m_polarized(polarized)

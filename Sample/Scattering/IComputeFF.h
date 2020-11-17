@@ -17,6 +17,21 @@
 
 #include "Sample/Scattering/IFormFactor.h"
 
-class IComputeFF : public IFormFactor {};
+class IComputeFF : public IFormFactor {
+
+public:
+    IComputeFF() = delete;
+    void setAmbientMaterial(const Material& material) final;
+
+    double volume() const final;
+    double radialExtension() const final;
+    double bottomZ(const IRotation& rotation) const final;
+    double topZ(const IRotation& rotation) const final;
+
+protected:
+    IComputeFF(const IFormFactor&);
+
+    std::unique_ptr<IFormFactor> m_ff;
+};
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_ICOMPUTEFF_H

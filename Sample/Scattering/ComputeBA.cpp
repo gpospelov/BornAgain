@@ -15,7 +15,7 @@
 #include "Sample/Scattering/ComputeBA.h"
 #include "Sample/Material/WavevectorInfo.h"
 
-ComputeBA::ComputeBA(const IFormFactor& ff) : m_ff(ff.clone())
+ComputeBA::ComputeBA(const IFormFactor& ff) : IComputeFF(ff)
 {
     setName("ComputeBA");
 }
@@ -30,29 +30,4 @@ ComputeBA* ComputeBA::clone() const
 complex_t ComputeBA::evaluate(const WavevectorInfo& wavevectors) const
 {
     return m_ff->evaluate(wavevectors);
-}
-
-void ComputeBA::setAmbientMaterial(const Material& material)
-{
-    m_ff->setAmbientMaterial(material);
-}
-
-double ComputeBA::volume() const
-{
-    return m_ff->volume();
-}
-
-double ComputeBA::radialExtension() const
-{
-    return m_ff->radialExtension();
-}
-
-double ComputeBA::bottomZ(const IRotation& rotation) const
-{
-    return m_ff->bottomZ(rotation);
-}
-
-double ComputeBA::topZ(const IRotation& rotation) const
-{
-    return m_ff->topZ(rotation);
 }

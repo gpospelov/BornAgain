@@ -280,34 +280,9 @@ Returns a clone of this  ISample object.
 %feature("docstring")  ComputeBA::accept "void ComputeBA::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  ComputeBA::setAmbientMaterial "void ComputeBA::setAmbientMaterial(const Material &material) override
-
-Passes the material in which this particle is embedded. 
-";
-
 %feature("docstring")  ComputeBA::evaluate "complex_t ComputeBA::evaluate(const WavevectorInfo &wavevectors) const override
 
 Calculates and returns a form factor calculation in BA. 
-";
-
-%feature("docstring")  ComputeBA::volume "double ComputeBA::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  ComputeBA::radialExtension "double ComputeBA::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  ComputeBA::bottomZ "double ComputeBA::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  ComputeBA::topZ "double ComputeBA::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 
@@ -333,11 +308,6 @@ Returns a clone of this  ISample object.
 %feature("docstring")  ComputeBAPol::accept "void ComputeBAPol::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  ComputeBAPol::setAmbientMaterial "void ComputeBAPol::setAmbientMaterial(const Material &material) override
-
-Passes the material in which this particle is embedded. 
-";
-
 %feature("docstring")  ComputeBAPol::evaluate "complex_t ComputeBAPol::evaluate(const WavevectorInfo &wavevectors) const override
 
 Throws not-implemented exception. 
@@ -346,26 +316,6 @@ Throws not-implemented exception.
 %feature("docstring")  ComputeBAPol::evaluatePol "Eigen::Matrix2cd ComputeBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
 
 Calculates and returns a polarized form factor calculation in BA. 
-";
-
-%feature("docstring")  ComputeBAPol::volume "double ComputeBAPol::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  ComputeBAPol::radialExtension "double ComputeBAPol::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  ComputeBAPol::bottomZ "double ComputeBAPol::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  ComputeBAPol::topZ "double ComputeBAPol::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 
@@ -391,34 +341,9 @@ Returns a clone of this  ISample object.
 %feature("docstring")  ComputeDWBA::accept "void ComputeDWBA::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  ComputeDWBA::setAmbientMaterial "void ComputeDWBA::setAmbientMaterial(const Material &material) override
-
-Passes the material in which this particle is embedded. 
-";
-
 %feature("docstring")  ComputeDWBA::evaluate "complex_t ComputeDWBA::evaluate(const WavevectorInfo &wavevectors) const override
 
 Calculates and returns a form factor calculation in DWBA. 
-";
-
-%feature("docstring")  ComputeDWBA::volume "double ComputeDWBA::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  ComputeDWBA::radialExtension "double ComputeDWBA::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  ComputeDWBA::bottomZ "double ComputeDWBA::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  ComputeDWBA::topZ "double ComputeDWBA::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  ComputeDWBA::setSpecularInfo "void ComputeDWBA::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
@@ -449,11 +374,6 @@ Returns a clone of this  ISample object.
 %feature("docstring")  ComputeDWBAPol::accept "void ComputeDWBAPol::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  ComputeDWBAPol::setAmbientMaterial "void ComputeDWBAPol::setAmbientMaterial(const Material &material) override
-
-Passes the material in which this particle is embedded. 
-";
-
 %feature("docstring")  ComputeDWBAPol::evaluate "complex_t ComputeDWBAPol::evaluate(const WavevectorInfo &wavevectors) const override
 
 Throws not-implemented exception. 
@@ -462,26 +382,6 @@ Throws not-implemented exception.
 %feature("docstring")  ComputeDWBAPol::evaluatePol "Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
 
 Calculates and returns a polarized form factor calculation in DWBA. 
-";
-
-%feature("docstring")  ComputeDWBAPol::volume "double ComputeDWBAPol::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  ComputeDWBAPol::radialExtension "double ComputeDWBAPol::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  ComputeDWBAPol::bottomZ "double ComputeDWBAPol::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  ComputeDWBAPol::topZ "double ComputeDWBAPol::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 %feature("docstring")  ComputeDWBAPol::setSpecularInfo "void ComputeDWBAPol::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
@@ -3141,6 +3041,34 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 
 // File: classIComputeFF.xml
 %feature("docstring") IComputeFF "";
+
+%feature("docstring")  IComputeFF::IComputeFF "IComputeFF::IComputeFF()=delete
+";
+
+%feature("docstring")  IComputeFF::setAmbientMaterial "void IComputeFF::setAmbientMaterial(const Material &material) final
+
+Passes the material in which this particle is embedded. 
+";
+
+%feature("docstring")  IComputeFF::volume "double IComputeFF::volume() const final
+
+Returns the total volume of the particle of this form factor's shape. 
+";
+
+%feature("docstring")  IComputeFF::radialExtension "double IComputeFF::radialExtension() const final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  IComputeFF::bottomZ "double IComputeFF::bottomZ(const IRotation &rotation) const final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IComputeFF::topZ "double IComputeFF::topZ(const IRotation &rotation) const final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
 
 
 // File: classICosineRipple.xml

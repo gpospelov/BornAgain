@@ -25,7 +25,8 @@ std::complex<double> VecMatVecProduct(const Eigen::Vector2cd& vec1, const Eigen:
 }
 } // namespace
 
-ComputeDWBAPol::ComputeDWBAPol(const IFormFactor& ff) : m_ff(ff.clone())
+
+ComputeDWBAPol::ComputeDWBAPol(const IFormFactor& ff) : IComputeFF(ff)
 {
     setName("ComputeDWBAPol");
 }
@@ -192,16 +193,6 @@ Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) 
 
     return M11_S + M11_RS + M11_SR + M11_RSR + M12_S + M12_RS + M12_SR + M12_RSR + M21_S + M21_RS
            + M21_SR + M21_RSR + M22_S + M22_RS + M22_SR + M22_RSR;
-}
-
-double ComputeDWBAPol::bottomZ(const IRotation& rotation) const
-{
-    return m_ff->bottomZ(rotation);
-}
-
-double ComputeDWBAPol::topZ(const IRotation& rotation) const
-{
-    return m_ff->topZ(rotation);
 }
 
 void ComputeDWBAPol::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,

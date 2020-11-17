@@ -31,22 +31,8 @@ public:
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    void setAmbientMaterial(const Material& material) override;
-
     //! Calculates and returns a form factor calculation in BA
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
-
-    double volume() const override;
-
-    double radialExtension() const override;
-
-    double bottomZ(const IRotation& rotation) const override;
-
-    double topZ(const IRotation& rotation) const override;
-
-private:
-    //! The form factor for BA
-    std::unique_ptr<IFormFactor> m_ff;
 };
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBA_H

@@ -13,3 +13,33 @@
 //  ************************************************************************************************
 
 #include "Sample/Scattering/IComputeFF.h"
+
+IComputeFF::IComputeFF(const IFormFactor& ff)
+    : m_ff(ff.clone())
+{
+}
+
+void IComputeFF::setAmbientMaterial(const Material& material)
+{
+    m_ff->setAmbientMaterial(material);
+}
+
+double IComputeFF::volume() const
+{
+    return m_ff->volume();
+}
+
+double IComputeFF::radialExtension() const
+{
+    return m_ff->radialExtension();
+}
+
+double IComputeFF::bottomZ(const IRotation& rotation) const
+{
+    return m_ff->bottomZ(rotation);
+}
+
+double IComputeFF::topZ(const IRotation& rotation) const
+{
+    return m_ff->topZ(rotation);
+}

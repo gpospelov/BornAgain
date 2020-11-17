@@ -16,7 +16,7 @@
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 
-ComputeDWBA::ComputeDWBA(const IFormFactor& ff) : m_ff(ff.clone())
+ComputeDWBA::ComputeDWBA(const IFormFactor& ff) : IComputeFF(ff)
 {
     setName("ComputeDWBA");
 }
@@ -69,31 +69,6 @@ complex_t ComputeDWBA::evaluate(const WavevectorInfo& wavevectors) const
     complex_t term_RSR = R_in * m_ff->evaluate(k_RR) * R_out;
 
     return term_S + term_RS + term_SR + term_RSR;
-}
-
-void ComputeDWBA::setAmbientMaterial(const Material& material)
-{
-    m_ff->setAmbientMaterial(material);
-}
-
-double ComputeDWBA::volume() const
-{
-    return m_ff->volume();
-}
-
-double ComputeDWBA::radialExtension() const
-{
-    return m_ff->radialExtension();
-}
-
-double ComputeDWBA::bottomZ(const IRotation& rotation) const
-{
-    return m_ff->bottomZ(rotation);
-}
-
-double ComputeDWBA::topZ(const IRotation& rotation) const
-{
-    return m_ff->topZ(rotation);
 }
 
 void ComputeDWBA::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,

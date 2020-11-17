@@ -16,7 +16,7 @@
 #include "Sample/Material/WavevectorInfo.h"
 #include <stdexcept>
 
-ComputeBAPol::ComputeBAPol(const IFormFactor& ff) : m_ff(ff.clone())
+ComputeBAPol::ComputeBAPol(const IFormFactor& ff) : IComputeFF(ff)
 {
     setName("ComputeBAPol");
 }
@@ -43,29 +43,4 @@ Eigen::Matrix2cd ComputeBAPol::evaluatePol(const WavevectorInfo& wavevectors) co
     result(1, 0) = -ff_BA(1, 1);
     result(1, 1) = ff_BA(0, 1);
     return result;
-}
-
-void ComputeBAPol::setAmbientMaterial(const Material& material)
-{
-    m_ff->setAmbientMaterial(material);
-}
-
-double ComputeBAPol::volume() const
-{
-    return m_ff->volume();
-}
-
-double ComputeBAPol::radialExtension() const
-{
-    return m_ff->radialExtension();
-}
-
-double ComputeBAPol::bottomZ(const IRotation& rotation) const
-{
-    return m_ff->bottomZ(rotation);
-}
-
-double ComputeBAPol::topZ(const IRotation& rotation) const
-{
-    return m_ff->topZ(rotation);
 }

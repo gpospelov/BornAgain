@@ -38577,6 +38577,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_ISample_isMagnetic(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ISample *arg1 = (ISample *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISample, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISample_isMagnetic" "', argument " "1"" of type '" "ISample const *""'"); 
+  }
+  arg1 = reinterpret_cast< ISample * >(argp1);
+  result = (bool)((ISample const *)arg1)->isMagnetic();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_ISample(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ISample *arg1 = (ISample *) 0 ;
@@ -70488,6 +70511,13 @@ static PyMethodDef SwigMethods[] = {
 		"std::vector< const Material * > ISample::containedMaterials() const\n"
 		"\n"
 		"Returns set of unique materials contained in this  ISample. \n"
+		"\n"
+		""},
+	 { "ISample_isMagnetic", _wrap_ISample_isMagnetic, METH_O, "\n"
+		"ISample_isMagnetic(ISample self) -> bool\n"
+		"bool ISample::isMagnetic() const\n"
+		"\n"
+		"Returns true if there is any magnetic material in this  ISample. \n"
 		"\n"
 		""},
 	 { "delete_ISample", _wrap_delete_ISample, METH_O, "delete_ISample(ISample self)"},

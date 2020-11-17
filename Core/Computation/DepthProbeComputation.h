@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_COMPUTATION_DEPTHPROBECOMPUTATION_H
 #define BORNAGAIN_CORE_COMPUTATION_DEPTHPROBECOMPUTATION_H
 
-#include "Core/Term/DepthProbeComputationTerm.h"
 #include "Core/Computation/IComputation.h"
+#include "Core/Term/DepthProbeComputationTerm.h"
 
 class MultiLayer;
 

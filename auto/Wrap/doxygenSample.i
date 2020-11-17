@@ -3107,9 +3107,7 @@ Returns true if rotation matrix is identity matrix (no rotations)
 
 Pure virtual base class for all form factors.
 
-The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
-
-Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBA,  FormFactorDWBAPol and  FormFactorCrystal.
+The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a  IFormFactorBorn.
 
 C++ includes: IFormFactor.h
 ";
@@ -4528,6 +4526,11 @@ Returns nullptr, unless overwritten to return a specific material.
 %feature("docstring")  ISample::containedMaterials "std::vector< const Material * > ISample::containedMaterials() const
 
 Returns set of unique materials contained in this  ISample. 
+";
+
+%feature("docstring")  ISample::isMagnetic "bool ISample::isMagnetic() const
+
+Returns true if there is any magnetic material in this  ISample. 
 ";
 
 
@@ -6442,6 +6445,29 @@ Fourier transform of the correlation function of roughnesses between the interfa
 ";
 
 
+// File: classProfileHelper.xml
+%feature("docstring") ProfileHelper "
+
+Object that can generate the material profile of a sample as a function of depth.
+
+The generated profile contains the complex SLD for SLD materials and the parameters delta and beta for refractive index materials
+
+C++ includes: ProfileHelper.h
+";
+
+%feature("docstring")  ProfileHelper::ProfileHelper "ProfileHelper::ProfileHelper(const ProcessedSample &sample)
+";
+
+%feature("docstring")  ProfileHelper::~ProfileHelper "ProfileHelper::~ProfileHelper()
+";
+
+%feature("docstring")  ProfileHelper::calculateProfile "std::vector< complex_t > ProfileHelper::calculateProfile(const std::vector< double > &z_values) const
+";
+
+%feature("docstring")  ProfileHelper::defaultLimits "std::pair< double, double > ProfileHelper::defaultLimits() const
+";
+
+
 // File: classRadialParaCrystalBuilder.xml
 %feature("docstring") RadialParaCrystalBuilder "
 
@@ -7611,10 +7637,13 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d116.xml
+// File: namespace_0d112.xml
 
 
-// File: namespace_0d119.xml
+// File: namespace_0d115.xml
+
+
+// File: namespace_0d139.xml
 
 
 // File: namespace_0d143.xml
@@ -7623,7 +7652,10 @@ C++ includes: ZLimits.h
 // File: namespace_0d147.xml
 
 
-// File: namespace_0d151.xml
+// File: namespace_0d157.xml
+
+
+// File: namespace_0d159.xml
 
 
 // File: namespace_0d16.xml
@@ -7632,49 +7664,46 @@ C++ includes: ZLimits.h
 // File: namespace_0d161.xml
 
 
-// File: namespace_0d163.xml
+// File: namespace_0d171.xml
 
 
-// File: namespace_0d165.xml
+// File: namespace_0d191.xml
 
 
-// File: namespace_0d175.xml
+// File: namespace_0d193.xml
 
 
-// File: namespace_0d196.xml
-
-
-// File: namespace_0d198.xml
+// File: namespace_0d195.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d208.xml
+// File: namespace_0d200.xml
 
 
-// File: namespace_0d224.xml
+// File: namespace_0d202.xml
 
 
-// File: namespace_0d226.xml
+// File: namespace_0d212.xml
 
 
-// File: namespace_0d233.xml
+// File: namespace_0d228.xml
+
+
+// File: namespace_0d230.xml
+
+
+// File: namespace_0d237.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d251.xml
+// File: namespace_0d255.xml
 
 
-// File: namespace_0d259.xml
-
-
-// File: namespace_0d269.xml
-
-
-// File: namespace_0d271.xml
+// File: namespace_0d263.xml
 
 
 // File: namespace_0d273.xml
@@ -7686,19 +7715,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d277.xml
 
 
+// File: namespace_0d279.xml
+
+
 // File: namespace_0d281.xml
 
 
-// File: namespace_0d283.xml
+// File: namespace_0d285.xml
 
 
 // File: namespace_0d287.xml
 
 
-// File: namespace_0d299.xml
+// File: namespace_0d291.xml
 
 
-// File: namespace_0d305.xml
+// File: namespace_0d303.xml
 
 
 // File: namespace_0d309.xml
@@ -7707,10 +7739,13 @@ C++ includes: ZLimits.h
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d327.xml
+// File: namespace_0d313.xml
 
 
-// File: namespace_0d346.xml
+// File: namespace_0d331.xml
+
+
+// File: namespace_0d350.xml
 
 
 // File: namespace_0d37.xml
@@ -7720,12 +7755,6 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0d4.xml
-
-
-// File: namespace_0d49.xml
-
-
-// File: namespace_0d51.xml
 
 
 // File: namespacebake.xml
@@ -8055,18 +8084,6 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: MatrixFresnelMap_8h.xml
-
-
-// File: ProcessedLayout_8cpp.xml
-
-
-// File: ProcessedLayout_8h.xml
-
-
-// File: ProcessedSample_8cpp.xml
-
-
-// File: ProcessedSample_8h.xml
 
 
 // File: ScalarFresnelMap_8cpp.xml
@@ -8563,6 +8580,58 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: TRange_8h.xml
+
+
+// File: MultiLayerFuncs_8cpp.xml
+%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+Calculate average material profile for given multilayer 
+";
+
+%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+Get default z limits for generating a material profile. 
+";
+
+%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+
+Generate z values (equidistant) for use in MaterialProfile. 
+";
+
+
+// File: MultiLayerFuncs_8h.xml
+%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+Calculate average material profile for given multilayer 
+";
+
+%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+Get default z limits for generating a material profile. 
+";
+
+%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+
+Generate z values (equidistant) for use in MaterialProfile. 
+";
+
+
+// File: ProcessedLayout_8cpp.xml
+
+
+// File: ProcessedLayout_8h.xml
+
+
+// File: ProcessedSample_8cpp.xml
+
+
+// File: ProcessedSample_8h.xml
+
+
+// File: ProfileHelper_8cpp.xml
+
+
+// File: ProfileHelper_8h.xml
 
 
 // File: ILayerRTCoefficients_8h.xml
@@ -9134,6 +9203,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_61bfb933e72dfe3586b97d80db501038.xml
+
+
+// File: dir_ccb77c5fc9fada2051f2fad6bbe3a645.xml
 
 
 // File: dir_52f00155c6a6846eb7173e2ee1c8b0ff.xml

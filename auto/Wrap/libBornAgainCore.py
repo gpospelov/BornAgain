@@ -4484,33 +4484,15 @@ _libBornAgainCore.PoissonNoiseBackground_swigregister(PoissonNoiseBackground)
 
 
 def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
-    r"""
-    MaterialProfile_cpp(MultiLayer const & multilayer, int n_points, double z_min, double z_max) -> vector_complex_t
-    std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
-
-    Calculate average material profile for given multilayer 
-
-    """
+    r"""MaterialProfile_cpp(MultiLayer const & multilayer, int n_points, double z_min, double z_max) -> vector_complex_t"""
     return _libBornAgainCore.MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
 
 def DefaultMaterialProfileLimits(multilayer):
-    r"""
-    DefaultMaterialProfileLimits(MultiLayer const & multilayer) -> pvacuum_double_t
-    std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
-
-    Get default z limits for generating a material profile. 
-
-    """
+    r"""DefaultMaterialProfileLimits(MultiLayer const & multilayer) -> pvacuum_double_t"""
     return _libBornAgainCore.DefaultMaterialProfileLimits(multilayer)
 
 def GenerateZValues(n_points, z_min, z_max):
-    r"""
-    GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t
-    std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
-
-    Generate z values (equidistant) for use in MaterialProfile. 
-
-    """
+    r"""GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t"""
     return _libBornAgainCore.GenerateZValues(n_points, z_min, z_max)
 class SimulationFactory(SimulationFactoryTemp):
     r"""

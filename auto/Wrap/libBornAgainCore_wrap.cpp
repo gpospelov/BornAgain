@@ -6706,7 +6706,7 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Core/Scan/QSpecScan.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
-#include "Core/Computation/MultiLayerFuncs.h"
+#include "Sample/Processed/MultiLayerFuncs.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/IObserver.h"
@@ -44493,27 +44493,9 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_PoissonNoiseBackground", _wrap_delete_PoissonNoiseBackground, METH_O, "delete_PoissonNoiseBackground(PoissonNoiseBackground self)"},
 	 { "PoissonNoiseBackground_swigregister", PoissonNoiseBackground_swigregister, METH_O, NULL},
 	 { "PoissonNoiseBackground_swiginit", PoissonNoiseBackground_swiginit, METH_VARARGS, NULL},
-	 { "MaterialProfile_cpp", _wrap_MaterialProfile_cpp, METH_VARARGS, "\n"
-		"MaterialProfile_cpp(MultiLayer const & multilayer, int n_points, double z_min, double z_max) -> vector_complex_t\n"
-		"std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)\n"
-		"\n"
-		"Calculate average material profile for given multilayer \n"
-		"\n"
-		""},
-	 { "DefaultMaterialProfileLimits", _wrap_DefaultMaterialProfileLimits, METH_O, "\n"
-		"DefaultMaterialProfileLimits(MultiLayer const & multilayer) -> pvacuum_double_t\n"
-		"std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)\n"
-		"\n"
-		"Get default z limits for generating a material profile. \n"
-		"\n"
-		""},
-	 { "GenerateZValues", _wrap_GenerateZValues, METH_VARARGS, "\n"
-		"GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t\n"
-		"std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)\n"
-		"\n"
-		"Generate z values (equidistant) for use in MaterialProfile. \n"
-		"\n"
-		""},
+	 { "MaterialProfile_cpp", _wrap_MaterialProfile_cpp, METH_VARARGS, "MaterialProfile_cpp(MultiLayer const & multilayer, int n_points, double z_min, double z_max) -> vector_complex_t"},
+	 { "DefaultMaterialProfileLimits", _wrap_DefaultMaterialProfileLimits, METH_O, "DefaultMaterialProfileLimits(MultiLayer const & multilayer) -> pvacuum_double_t"},
+	 { "GenerateZValues", _wrap_GenerateZValues, METH_VARARGS, "GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t"},
 	 { "new_SimulationFactory", _wrap_new_SimulationFactory, METH_NOARGS, "\n"
 		"new_SimulationFactory() -> SimulationFactory\n"
 		"SimulationFactory::SimulationFactory()\n"

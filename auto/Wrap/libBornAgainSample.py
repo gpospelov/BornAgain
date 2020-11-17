@@ -3212,6 +3212,16 @@ class ISample(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 
         """
         return _libBornAgainSample.ISample_containedMaterials(self)
+
+    def isMagnetic(self):
+        r"""
+        isMagnetic(ISample self) -> bool
+        bool ISample::isMagnetic() const
+
+        Returns true if there is any magnetic material in this  ISample. 
+
+        """
+        return _libBornAgainSample.ISample_isMagnetic(self)
     __swig_destroy__ = _libBornAgainSample.delete_ISample
     def __disown__(self):
         self.this.disown()
@@ -3227,9 +3237,7 @@ class IFormFactor(ISample):
 
     Pure virtual base class for all form factors.
 
-    The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
-
-    Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBA,  FormFactorDWBAPol and  FormFactorCrystal.
+    The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a  IFormFactorBorn.
 
     C++ includes: IFormFactor.h
 

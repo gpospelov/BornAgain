@@ -16,8 +16,8 @@
 #include "Base/Axis/IAxis.h"
 #include "Base/Progress/DelayedProgressCounter.h"
 #include "Core/Element/DepthProbeElement.h"
-#include "Sample/Processed/ProcessedSample.h"
 #include "Sample/Fresnel/IFresnelMap.h"
+#include "Sample/Processed/ProcessedSample.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 
 DepthProbeComputationTerm::DepthProbeComputationTerm(const ProcessedSample* p_sample)

@@ -13,8 +13,8 @@
 // ************************************************************************** //
 
 #include "Core/Computation/DepthProbeComputation.h"
-#include "Core/Element/DepthProbeElement.h"
 #include "Base/Progress/ProgressHandler.h"
+#include "Core/Element/DepthProbeElement.h"
 #include "Sample/Multilayer/MultiLayer.h"
 
 static_assert(std::is_copy_constructible<DepthProbeComputation>::value == false,

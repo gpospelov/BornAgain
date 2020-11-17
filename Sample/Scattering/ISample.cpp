@@ -15,6 +15,7 @@
 #include "Sample/Scattering/ISample.h"
 #include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
+#include "Sample/Material/Material.h"
 #include <algorithm>
 #include <sstream>
 
@@ -32,4 +33,11 @@ std::vector<const Material*> ISample::containedMaterials() const
         }
     }
     return result;
+}
+
+bool ISample::isMagnetic() const
+{
+    const auto materials = containedMaterials();
+    return std::any_of(materials.cbegin(), materials.cend(),
+                       [](const Material* mat) { return mat->isMagneticMaterial(); });
 }

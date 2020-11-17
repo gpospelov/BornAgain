@@ -1,4 +1,3 @@
-#include "Sample/Processed/ProcessedSample.h"
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
@@ -6,6 +5,7 @@
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
+#include "Sample/Processed/ProcessedSample.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Tests/GTestWrapper/google_test.h"
 

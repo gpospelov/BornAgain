@@ -1525,29 +1525,6 @@ C++ includes: PoissonNoiseBackground.h
 ";
 
 
-// File: classProfileHelper.xml
-%feature("docstring") ProfileHelper "
-
-Object that can generate the material profile of a sample as a function of depth.
-
-The generated profile contains the complex SLD for SLD materials and the parameters delta and beta for refractive index materials
-
-C++ includes: ProfileHelper.h
-";
-
-%feature("docstring")  ProfileHelper::ProfileHelper "ProfileHelper::ProfileHelper(const ProcessedSample &sample)
-";
-
-%feature("docstring")  ProfileHelper::~ProfileHelper "ProfileHelper::~ProfileHelper()
-";
-
-%feature("docstring")  ProfileHelper::calculateProfile "std::vector< complex_t > ProfileHelper::calculateProfile(const std::vector< double > &z_values) const
-";
-
-%feature("docstring")  ProfileHelper::defaultLimits "std::pair< double, double > ProfileHelper::defaultLimits() const
-";
-
-
 // File: classPyBuilderCallback.xml
 %feature("docstring") PyBuilderCallback "
 
@@ -2332,52 +2309,49 @@ Returns default units to convert to.
 ";
 
 
-// File: namespace_0d21.xml
+// File: namespace_0d15.xml
 
 
-// File: namespace_0d25.xml
+// File: namespace_0d19.xml
 
 
 // File: namespace_0d27.xml
 
 
-// File: namespace_0d29.xml
+// File: namespace_0d35.xml
 
 
-// File: namespace_0d37.xml
+// File: namespace_0d40.xml
 
 
-// File: namespace_0d42.xml
+// File: namespace_0d49.xml
 
 
 // File: namespace_0d51.xml
 
 
-// File: namespace_0d53.xml
+// File: namespace_0d55.xml
 
 
 // File: namespace_0d57.xml
 
 
-// File: namespace_0d59.xml
+// File: namespace_0d62.xml
 
 
-// File: namespace_0d66.xml
+// File: namespace_0d64.xml
 
 
 // File: namespace_0d68.xml
 
 
-// File: namespace_0d72.xml
+// File: namespace_0d78.xml
 
 
-// File: namespace_0d82.xml
+// File: namespace_0d80.xml
 
 
-// File: namespace_0d84.xml
-
-
-// File: namespace_0d90.xml
+// File: namespace_0d86.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2665,18 +2639,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: DepthProbeComputation_8h.xml
 
 
-// File: DepthProbeComputationTerm_8cpp.xml
-
-
-// File: DepthProbeComputationTerm_8h.xml
-
-
-// File: DepthProbeElement_8cpp.xml
-
-
-// File: DepthProbeElement_8h.xml
-
-
 // File: DWBAComputation_8cpp.xml
 
 
@@ -2707,40 +2669,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: IComputation_8h.xml
 
 
-// File: MultiLayerFuncs_8cpp.xml
-%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
-
-Calculate average material profile for given multilayer 
-";
-
-%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
-
-Get default z limits for generating a material profile. 
-";
-
-%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
-
-Generate z values (equidistant) for use in MaterialProfile. 
-";
-
-
-// File: MultiLayerFuncs_8h.xml
-%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
-
-Calculate average material profile for given multilayer 
-";
-
-%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
-
-Get default z limits for generating a material profile. 
-";
-
-%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
-
-Generate z values (equidistant) for use in MaterialProfile. 
-";
-
-
 // File: ParticleLayoutComputation_8cpp.xml
 
 
@@ -2753,16 +2681,28 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: PoissonNoiseBackground_8h.xml
 
 
-// File: ProfileHelper_8cpp.xml
-
-
-// File: ProfileHelper_8h.xml
-
-
 // File: RoughMultiLayerComputation_8cpp.xml
 
 
 // File: RoughMultiLayerComputation_8h.xml
+
+
+// File: SpecularComputation_8cpp.xml
+
+
+// File: SpecularComputation_8h.xml
+
+
+// File: DepthProbeElement_8cpp.xml
+
+
+// File: DepthProbeElement_8h.xml
+
+
+// File: SpecularSimulationElement_8cpp.xml
+
+
+// File: SpecularSimulationElement_8h.xml
 
 
 // File: ExportToPython_8cpp.xml
@@ -2870,12 +2810,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: QSpecScan_8h.xml
 
 
-// File: SpecularSimulationElement_8cpp.xml
-
-
-// File: SpecularSimulationElement_8h.xml
-
-
 // File: UnitConverter1D_8cpp.xml
 
 
@@ -2942,10 +2876,10 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: UnitConverterUtils_8h.xml
 
 
-// File: SpecularComputation_8cpp.xml
+// File: DepthProbeComputationTerm_8cpp.xml
 
 
-// File: SpecularComputation_8h.xml
+// File: DepthProbeComputationTerm_8h.xml
 
 
 // File: SpecularComputationTerm_8cpp.xml
@@ -2960,6 +2894,9 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
 
 
+// File: dir_e40015403c3f1f9058463bc2c73ff8d5.xml
+
+
 // File: dir_cca9b87b2505f372a6ce58947a507789.xml
 
 
@@ -2972,5 +2909,5 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml
 
 
-// File: dir_49930062dfb561cacffacc2dcfa9823e.xml
+// File: dir_52128420a621ebf8ad4a4626c50b78b3.xml
 

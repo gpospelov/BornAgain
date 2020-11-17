@@ -46,6 +46,16 @@ Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo& wavevectors)
     return result;
 }
 
+void FormFactorBAPol::setAmbientMaterial(const Material& material)
+{
+    m_form_factor->setAmbientMaterial(material);
+}
+
+double FormFactorBAPol::volume() const { return m_form_factor->volume(); }
+
+double FormFactorBAPol::radialExtension() const { return m_form_factor->radialExtension(); }
+
+
 double FormFactorBAPol::bottomZ(const IRotation& rotation) const
 {
     return m_form_factor->bottomZ(rotation);

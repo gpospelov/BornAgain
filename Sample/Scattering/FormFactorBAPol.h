@@ -32,10 +32,7 @@ public:
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    void setAmbientMaterial(const Material& material) override
-    {
-        m_form_factor->setAmbientMaterial(material);
-    }
+    void setAmbientMaterial(const Material& material) override;
 
     //! Throws not-implemented exception
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
@@ -43,9 +40,9 @@ public:
     //! Calculates and returns a polarized form factor calculation in BA
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 
-    double volume() const override { return m_form_factor->volume(); }
+    double volume() const override;
 
-    double radialExtension() const override { return m_form_factor->radialExtension(); }
+    double radialExtension() const override;
 
     double bottomZ(const IRotation& rotation) const override;
 

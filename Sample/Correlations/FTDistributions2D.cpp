@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Correlations/FTDistributions2D.h"
 #include "Base/Types/Exceptions.h"
@@ -18,9 +18,9 @@
 #include "Base/Utils/Integrator.h"
 #include <limits>
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // interface IFTDistribution1D
-// ************************************************************************** //
+//  ************************************************************************************************
 
 IFTDistribution2D::IFTDistribution2D(const NodeMeta& meta, const std::vector<double>& PValues)
     : INode(nodeMetaUnion({{"OmegaX", "nm", "Half-width along x axis", 0, INF, 1.},
@@ -41,9 +41,9 @@ double IFTDistribution2D::sumsq(double qx, double qy) const
     return qx * qx * m_omega_x * m_omega_x + qy * qy * m_omega_y * m_omega_y;
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FTDistribution2DCauchy
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FTDistribution2DCauchy::FTDistribution2DCauchy(const std::vector<double> P)
     : IFTDistribution2D({"FTDistribution2DCauchy", "class_tooltip", {}}, P)
@@ -70,9 +70,9 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCauchy::createSampler() 
     return std::make_unique<Distribution2DCauchySampler>(m_omega_x, m_omega_y);
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FTDistribution2DGauss
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FTDistribution2DGauss::FTDistribution2DGauss(const std::vector<double> P)
     : IFTDistribution2D({"FTDistribution2DGauss", "class_tooltip", {}}, P)
@@ -99,9 +99,9 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGauss::createSampler() c
     return std::make_unique<Distribution2DGaussSampler>(m_omega_x, m_omega_y);
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FTDistribution2DGate
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FTDistribution2DGate::FTDistribution2DGate(const std::vector<double> P)
     : IFTDistribution2D({"FTDistribution2DGate", "class_tooltip", {}}, P)
@@ -129,9 +129,9 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() co
     return std::make_unique<Distribution2DGateSampler>(m_omega_x, m_omega_y);
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FTDistribution2DCone
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FTDistribution2DCone::FTDistribution2DCone(const std::vector<double> P)
     : IFTDistribution2D({"FTDistribution2DCone", "class_tooltip", {}}, P)
@@ -164,9 +164,9 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() co
     return std::make_unique<Distribution2DConeSampler>(m_omega_x, m_omega_y);
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FTDistribution2DVoigt
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FTDistribution2DVoigt::FTDistribution2DVoigt(const std::vector<double> P)
     : IFTDistribution2D(

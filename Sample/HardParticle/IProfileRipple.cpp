@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/IProfileRipple.h"
 #include "Sample/HardParticle/Ripples.h"
@@ -18,9 +18,9 @@
 #include "Sample/Shapes/RippleCosine.h"
 #include "Sample/Shapes/RippleSawtooth.h"
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // interface IProfileRipple
-// ************************************************************************** //
+//  ************************************************************************************************
 
 IProfileRipple::IProfileRipple(const NodeMeta& meta, const std::vector<double>& PValues)
     : IBornFF(nodeMetaUnion({{"Length", "nm", "Characteristic length", 0, INF, 1.},
@@ -44,9 +44,9 @@ complex_t IProfileRipple::evaluate_for_q(cvector_t q) const
     return factor_x(q.x()) * factor_yz(q.y(), q.z());
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // interface IProfileRectangularRipple
-// ************************************************************************** //
+//  ************************************************************************************************
 
 IProfileRectangularRipple::IProfileRectangularRipple(const NodeMeta& meta,
                                                      const std::vector<double>& PValues)
@@ -66,9 +66,9 @@ void IProfileRectangularRipple::onChange()
     m_shape = std::make_unique<Box>(m_length, m_width, m_height);
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // interface ICosineRipple
-// ************************************************************************** //
+//  ************************************************************************************************
 
 ICosineRipple::ICosineRipple(const NodeMeta& meta, const std::vector<double>& PValues)
     : IProfileRipple(meta, PValues)
@@ -87,9 +87,9 @@ void ICosineRipple::onChange()
     m_shape = std::make_unique<RippleCosine>(m_length, m_width, m_height);
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // interface ISawtoothRipple
-// ************************************************************************** //
+//  ************************************************************************************************
 
 ISawtoothRipple::ISawtoothRipple(const NodeMeta& meta, const std::vector<double>& PValues)
     : IProfileRipple(

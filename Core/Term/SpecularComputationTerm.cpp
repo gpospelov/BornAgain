@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,16 +10,16 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Term/SpecularComputationTerm.h"
 #include "Base/Progress/DelayedProgressCounter.h"
 #include "Core/Element/SpecularSimulationElement.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class SpecularComputationTerm
-// ************************************************************************** //
+//  ************************************************************************************************
 
 SpecularComputationTerm::SpecularComputationTerm(std::unique_ptr<ISpecularStrategy> strategy)
     : m_Strategy(std::move(strategy)){};
@@ -48,9 +48,9 @@ void SpecularComputationTerm::computeIntensity(SpecularSimulationElement& elem,
         m_progress_counter->stepProgress();
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class SpecularScalarTerm
-// ************************************************************************** //
+//  ************************************************************************************************
 
 SpecularScalarTerm::~SpecularScalarTerm() = default;
 
@@ -61,9 +61,9 @@ void SpecularScalarTerm::eval(SpecularSimulationElement& elem,
     elem.setIntensity(std::norm(coeff.front()->getScalarR()));
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class SpecularMatrixTerm
-// ************************************************************************** //
+//  ************************************************************************************************
 
 namespace
 {

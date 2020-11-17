@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Base/Axis/PointwiseAxis.h"
@@ -56,9 +56,9 @@ std::vector<SpecularSimulationElement> generateSimulationElements(const Instrume
 
 } // namespace
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class SpecularSimulation
-// ************************************************************************** //
+//  ************************************************************************************************
 
 SpecularSimulation::SpecularSimulation() : ISimulation()
 {

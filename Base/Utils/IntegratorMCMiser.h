@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_BASE_UTILS_INTEGRATORMCMISER_H
 #define BORNAGAIN_BASE_UTILS_INTEGRATORMCMISER_H
@@ -77,9 +77,9 @@ P_integrator_miser<T> make_integrator_miser(const T* object, miser_integrand<T> 
     return P_integrator;
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // Implementation
-// ************************************************************************** //
+//  ************************************************************************************************
 
 template <class T>
 IntegratorMCMiser<T>::IntegratorMCMiser(const T* p_object, miser_integrand<T> p_member_function,

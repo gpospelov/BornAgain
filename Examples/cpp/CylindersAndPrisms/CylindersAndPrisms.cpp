@@ -1,4 +1,4 @@
-// ********************************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -11,7 +11,7 @@
 //! @authors   Scientific Computing Group at MLZ Garching
 //! @authors   J. Burle, C. Durniak, J. M. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 //
-// ********************************************************************************************** //
+//  ************************************************************************************************
 
 #include "Base/Const/Units.h"
 #include "Core/Simulation/GISASSimulation.h"

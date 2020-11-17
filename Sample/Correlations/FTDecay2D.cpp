@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,15 +10,15 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Correlations/FTDecay2D.h"
 #include "Base/Utils/MathFunctions.h"
 #include <algorithm>
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // interface IIFTDecayFunction1D
-// ************************************************************************** //
+//  ************************************************************************************************
 
 IFTDecayFunction2D::IFTDecayFunction2D(const NodeMeta& meta, const std::vector<double>& PValues)
     : INode(nodeMetaUnion({{"DecayLengthX", "nm", "Half-width along x axis", 0, INF, 1.},
@@ -55,9 +55,9 @@ std::pair<double, double> IFTDecayFunction2D::transformToRecLatticeCoordinates(d
     return {qa, qb};
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FTDecayFunction2DCauchy
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(const std::vector<double> P)
     : IFTDecayFunction2D({"FTDecayFunction2DCauchy", "class_tooltip", {}}, P)
@@ -82,9 +82,9 @@ double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const
     return M_TWOPI * m_decay_length_x * m_decay_length_y * std::pow(1.0 + sum_sq, -1.5);
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FTDecayFunction2DGauss
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FTDecayFunction2DGauss::FTDecayFunction2DGauss(const std::vector<double> P)
     : IFTDecayFunction2D({"FTDecayFunction2DGauss", "class_tooltip", {}}, P)
@@ -109,9 +109,9 @@ double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
     return M_TWOPI * m_decay_length_x * m_decay_length_y * std::exp(-sum_sq / 2.0);
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FTDecayFunction2DVoigt
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(const std::vector<double> P)
     : IFTDecayFunction2D(

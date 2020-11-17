@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,14 +10,14 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorCosineRipple.h"
 #include "Sample/HardParticle/Ripples.h"
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FormFactorCosineRippleBox
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FormFactorCosineRippleBox::FormFactorCosineRippleBox(const std::vector<double> P)
     : ICosineRipple({"CosineRippleBox", "class_tooltip", {}}, P)
@@ -44,9 +44,9 @@ complex_t FormFactorCosineRippleBox::factor_x(complex_t qx) const
     return ripples::factor_x_box(qx, m_length);
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FormFactorCosineRippleGauss
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FormFactorCosineRippleGauss::FormFactorCosineRippleGauss(const std::vector<double> P)
     : ICosineRipple({"CosineRippleGauss", "class_tooltip", {}}, P)
@@ -73,9 +73,9 @@ complex_t FormFactorCosineRippleGauss::factor_x(complex_t qx) const
     return ripples::factor_x_Gauss(qx, m_length);
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class FormFactorCosineRippleLorentz
-// ************************************************************************** //
+//  ************************************************************************************************
 
 FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz(const std::vector<double> P)
     : ICosineRipple({"CosineRippleLorentz", "class_tooltip", {}}, P)

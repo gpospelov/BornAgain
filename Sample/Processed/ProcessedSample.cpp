@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Processed/ProcessedSample.h"
 #include "Sample/Fresnel/MatrixFresnelMap.h"
@@ -74,9 +74,9 @@ createAverageMaterialSlices(const std::vector<Slice>& slices,
 }
 } // namespace
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class ProcessedSample
-// ************************************************************************** //
+//  ************************************************************************************************
 
 ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)
     : m_slices{}

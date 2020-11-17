@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Processed/ProcessedLayout.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
@@ -35,9 +35,9 @@ void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map
 }
 } // namespace
 
-// ************************************************************************** //
+//  ************************************************************************************************
 // class ProcessedLayout
-// ************************************************************************** //
+//  ************************************************************************************************
 
 ProcessedLayout::ProcessedLayout(const ParticleLayout& layout, const std::vector<Slice>& slices,
                                  double z_ref, const IFresnelMap* p_fresnel_map, bool polarized)

@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/PolyhedralComponents.h"
 #include "Base/Utils/MathFunctions.h"
@@ -24,9 +24,9 @@ const double eps = 2e-16;
 constexpr auto ReciprocalFactorialArray = Precomputed::GenerateReciprocalFactorialArray<171>();
 } // namespace
 
-//**************************************************************************************************
+//  ************************************************************************************************
 //  PolyhedralEdge implementation
-//**************************************************************************************************
+//  ************************************************************************************************
 
 PolyhedralEdge::PolyhedralEdge(kvector_t _Vlow, kvector_t _Vhig)
     : m_E((_Vhig - _Vlow) / 2), m_R((_Vhig + _Vlow) / 2)
@@ -86,9 +86,9 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
     return ret;
 }
 
-//**************************************************************************************************
+//  ************************************************************************************************
 //  PolyhedralFace implementation
-//**************************************************************************************************
+//  ************************************************************************************************
 
 double PolyhedralFace::qpa_limit_series = 3e-2;
 int PolyhedralFace::n_limit_series = 20;

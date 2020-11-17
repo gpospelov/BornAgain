@@ -16,7 +16,7 @@
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Utils/PyFmt.h"
-#include "Core/Scan/SpecularSimulationElement.h"
+#include "Core/Element/SpecularSimulationElement.h"
 #include "Device/Beam/IFootprintFactor.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"

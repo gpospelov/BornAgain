@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/DepthProbeElement.cpp
+//! @file      Core/Element/DepthProbeElement.cpp
 //! @brief     Implements class DepthProbeElement.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 // ************************************************************************** //
 
-#include "Core/Computation/DepthProbeElement.h"
+#include "Core/Element/DepthProbeElement.h"
 #include "Base/Axis/IAxis.h"
 
 const double phi_i_0 = 0.0;

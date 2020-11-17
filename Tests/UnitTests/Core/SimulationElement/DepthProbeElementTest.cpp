@@ -1,4 +1,4 @@
-#include "Core/Computation/DepthProbeElement.h"
+#include "Core/Element/DepthProbeElement.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Tests/GTestWrapper/google_test.h"
 

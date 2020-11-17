@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Computation/DepthProbeComputation.h"
-#include "Core/Computation/DepthProbeElement.h"
+#include "Core/Element/DepthProbeElement.h"
 #include "Base/Progress/ProgressHandler.h"
 #include "Sample/Multilayer/MultiLayer.h"
 

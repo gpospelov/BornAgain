@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/XX/SpecularComputation.cpp
+//! @file      Core/Computation/SpecularComputation.cpp
 //! @brief     Implements class SpecularComputation.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,12 +12,12 @@
 //
 // ************************************************************************** //
 
-#include "Core/XX/SpecularComputation.h"
+#include "Core/Computation/SpecularComputation.h"
 #include "Sample/Processed/ProcessedSample.h"
 #include "Base/Progress/ProgressHandler.h"
-#include "Core/XX/SpecularComputationTerm.h"
+#include "Core/Term/SpecularComputationTerm.h"
 #include "Sample/Specular/SpecularStrategyBuilder.h"
-#include "Core/Scan/SpecularSimulationElement.h"
+#include "Core/Element/SpecularSimulationElement.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,
               "SpecularComputation should not be copy constructible");

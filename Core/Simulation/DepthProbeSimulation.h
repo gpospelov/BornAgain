@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_DEPTHPROBESIMULATION_H
 #define BORNAGAIN_CORE_SIMULATION_DEPTHPROBESIMULATION_H
 
-#include "Core/Computation/DepthProbeElement.h"
+#include "Core/Element/DepthProbeElement.h"
 #include "Core/Simulation/ISimulation.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 

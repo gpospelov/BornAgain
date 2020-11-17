@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/DepthProbeComputationTerm.cpp
+//! @file      Core/Term/DepthProbeComputationTerm.cpp
 //! @brief     Implements functor DepthProbeComputationTerm.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 // ************************************************************************** //
 
-#include "Core/Computation/DepthProbeComputationTerm.h"
+#include "Core/Term/DepthProbeComputationTerm.h"
 #include "Base/Axis/IAxis.h"
 #include "Base/Progress/DelayedProgressCounter.h"
-#include "Core/Computation/DepthProbeElement.h"
+#include "Core/Element/DepthProbeElement.h"
 #include "Sample/Processed/ProcessedSample.h"
 #include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/RT/ILayerRTCoefficients.h"

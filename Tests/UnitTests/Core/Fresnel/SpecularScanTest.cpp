@@ -2,7 +2,7 @@
 #include "Base/Axis/PointwiseAxis.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
-#include "Core/Scan/SpecularSimulationElement.h"
+#include "Core/Element/SpecularSimulationElement.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Instrument/Instrument.h"
 #include "Device/Resolution/ScanResolution.h"

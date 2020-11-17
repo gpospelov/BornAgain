@@ -35,7 +35,7 @@ complex_t checkForUnderflow(complex_t val)
 } // namespace
 
 //  ************************************************************************************************
-// namespace KzComputatin
+//  namespace KzComputatin
 //  ************************************************************************************************
 
 std::vector<complex_t> KzComputation::computeReducedKz(const std::vector<Slice>& slices,

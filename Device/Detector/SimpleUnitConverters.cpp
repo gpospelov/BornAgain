@@ -34,7 +34,7 @@ double getQ(double wavelength, double angle)
 } // namespace
 
 //  ************************************************************************************************
-// class UnitConverterSimple
+//  class UnitConverterSimple
 //  ************************************************************************************************
 
 UnitConverterSimple::UnitConverterSimple(const Beam& beam)
@@ -118,7 +118,7 @@ void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_ax
 }
 
 //  ************************************************************************************************
-// class SphericalConverter
+//  class SphericalConverter
 //  ************************************************************************************************
 
 SphericalConverter::SphericalConverter(const SphericalDetector& detector, const Beam& beam)
@@ -202,7 +202,7 @@ std::vector<std::map<Axes::Units, std::string>> SphericalConverter::createNameMa
 }
 
 //  ************************************************************************************************
-// class RectangularConverter
+//  class RectangularConverter
 //  ************************************************************************************************
 
 RectangularConverter::RectangularConverter(const RectangularDetector& detector, const Beam& beam)
@@ -312,7 +312,7 @@ double RectangularConverter::axisAngle(size_t i_axis, kvector_t k_f) const
 }
 
 //  ************************************************************************************************
-// class OffSpecularConverter
+//  class OffSpecularConverter
 //  ************************************************************************************************
 
 OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Beam& beam,
@@ -397,7 +397,7 @@ void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
 }
 
 //  ************************************************************************************************
-// class DepthProbeConverter
+//  class DepthProbeConverter
 //  ************************************************************************************************
 
 const std::string z_axis_name = "Position [nm]";

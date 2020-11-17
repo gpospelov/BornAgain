@@ -17,7 +17,7 @@
 #include <algorithm>
 
 //  ************************************************************************************************
-// interface IIFTDecayFunction1D
+//  interface IIFTDecayFunction1D
 //  ************************************************************************************************
 
 IFTDecayFunction1D::IFTDecayFunction1D(const NodeMeta& meta, const std::vector<double>& PValues)
@@ -27,7 +27,7 @@ IFTDecayFunction1D::IFTDecayFunction1D(const NodeMeta& meta, const std::vector<d
 }
 
 //  ************************************************************************************************
-// class FTDecayFunction1DCauchy
+//  class FTDecayFunction1DCauchy
 //  ************************************************************************************************
 
 FTDecayFunction1DCauchy::FTDecayFunction1DCauchy(const std::vector<double> P)
@@ -52,7 +52,7 @@ double FTDecayFunction1DCauchy::evaluate(double q) const
 }
 
 //  ************************************************************************************************
-// class FTDecayFunction1DGauss
+//  class FTDecayFunction1DGauss
 //  ************************************************************************************************
 
 FTDecayFunction1DGauss::FTDecayFunction1DGauss(const std::vector<double> P)
@@ -77,7 +77,7 @@ double FTDecayFunction1DGauss::evaluate(double q) const
 }
 
 //  ************************************************************************************************
-// class FTDecayFunction1DTriangle
+//  class FTDecayFunction1DTriangle
 //  ************************************************************************************************
 
 FTDecayFunction1DTriangle::FTDecayFunction1DTriangle(const std::vector<double> P)
@@ -102,7 +102,7 @@ double FTDecayFunction1DTriangle::evaluate(double q) const
 }
 
 //  ************************************************************************************************
-// class FTDecayFunction1DVoigt
+//  class FTDecayFunction1DVoigt
 //  ************************************************************************************************
 
 FTDecayFunction1DVoigt::FTDecayFunction1DVoigt(const std::vector<double> P)

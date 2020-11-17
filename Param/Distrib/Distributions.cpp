@@ -29,7 +29,7 @@ bool DoubleEqual(double a, double b);
 }
 
 //  ************************************************************************************************
-// class IDistribution1D
+//  class IDistribution1D
 //  ************************************************************************************************
 
 IDistribution1D::IDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues)
@@ -121,7 +121,7 @@ IDistribution1D::generateSamplesFromValues(const std::vector<double>& sample_val
 }
 
 //  ************************************************************************************************
-// class DistributionGate
+//  class DistributionGate
 //  ************************************************************************************************
 
 DistributionGate::DistributionGate(const std::vector<double> P)
@@ -168,7 +168,7 @@ bool DistributionGate::isDelta() const
 }
 
 //  ************************************************************************************************
-// class DistributionLorentz
+//  class DistributionLorentz
 //  ************************************************************************************************
 
 DistributionLorentz::DistributionLorentz(const std::vector<double> P)
@@ -215,7 +215,7 @@ bool DistributionLorentz::isDelta() const
 }
 
 //  ************************************************************************************************
-// class DistributionGaussian
+//  class DistributionGaussian
 //  ************************************************************************************************
 
 DistributionGaussian::DistributionGaussian(const std::vector<double> P)
@@ -263,7 +263,7 @@ bool DistributionGaussian::isDelta() const
 }
 
 //  ************************************************************************************************
-// class DistributionLogNormal
+//  class DistributionLogNormal
 //  ************************************************************************************************
 
 DistributionLogNormal::DistributionLogNormal(const std::vector<double> P)
@@ -331,7 +331,7 @@ void DistributionLogNormal::setUnits(const std::string& units)
 }
 
 //  ************************************************************************************************
-// class DistributionCosine
+//  class DistributionCosine
 //  ************************************************************************************************
 
 DistributionCosine::DistributionCosine(const std::vector<double> P)
@@ -380,7 +380,7 @@ bool DistributionCosine::isDelta() const
 }
 
 //  ************************************************************************************************
-// class DistributionTrapezoidal
+//  class DistributionTrapezoidal
 //  ************************************************************************************************
 
 DistributionTrapezoid::DistributionTrapezoid(const std::vector<double> P)

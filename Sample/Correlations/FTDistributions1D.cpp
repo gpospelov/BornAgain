@@ -24,7 +24,7 @@ const double CosineDistributionFactor = 1.0 / 3.0 - 2.0 / M_PI / M_PI;
 }
 
 //  ************************************************************************************************
-// interface IFTDistribution1D
+//  interface IFTDistribution1D
 //  ************************************************************************************************
 
 IFTDistribution1D::IFTDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues)
@@ -34,7 +34,7 @@ IFTDistribution1D::IFTDistribution1D(const NodeMeta& meta, const std::vector<dou
 }
 
 //  ************************************************************************************************
-// class FTDistribution1DCauchy
+//  class FTDistribution1DCauchy
 //  ************************************************************************************************
 
 FTDistribution1DCauchy::FTDistribution1DCauchy(const std::vector<double> P)
@@ -69,7 +69,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCauchy::createSampler() 
 }
 
 //  ************************************************************************************************
-// class FTDistribution1DGauss
+//  class FTDistribution1DGauss
 //  ************************************************************************************************
 
 FTDistribution1DGauss::FTDistribution1DGauss(const std::vector<double> P)
@@ -104,7 +104,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGauss::createSampler() c
 }
 
 //  ************************************************************************************************
-// class FTDistribution1DGate
+//  class FTDistribution1DGate
 //  ************************************************************************************************
 
 FTDistribution1DGate::FTDistribution1DGate(const std::vector<double> P)
@@ -138,7 +138,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DGate::createSampler() co
 }
 
 //  ************************************************************************************************
-// class FTDistribution1DTriangle
+//  class FTDistribution1DTriangle
 //  ************************************************************************************************
 
 FTDistribution1DTriangle::FTDistribution1DTriangle(const std::vector<double> P)
@@ -173,7 +173,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DTriangle::createSampler(
 }
 
 //  ************************************************************************************************
-// class FTDistribution1DCosine
+//  class FTDistribution1DCosine
 //  ************************************************************************************************
 
 FTDistribution1DCosine::FTDistribution1DCosine(const std::vector<double> P)
@@ -210,7 +210,7 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DCosine::createSampler() 
 }
 
 //  ************************************************************************************************
-// class FTDistribution1DVoigt
+//  class FTDistribution1DVoigt
 //  ************************************************************************************************
 
 FTDistribution1DVoigt::FTDistribution1DVoigt(const std::vector<double> P)

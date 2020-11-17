@@ -19,7 +19,7 @@
 #include <cmath>
 
 //  ************************************************************************************************
-// class Lattice2D
+//  class Lattice2D
 //  ************************************************************************************************
 
 Lattice2D::Lattice2D(const NodeMeta& meta, const std::vector<double>& PValues)
@@ -62,7 +62,7 @@ void Lattice2D::setRotationEnabled(bool enabled) // TODO ASAP replace by generic
 }
 
 //  ************************************************************************************************
-// class BasicLattice2D
+//  class BasicLattice2D
 //  ************************************************************************************************
 
 BasicLattice2D::BasicLattice2D(double length1, double length2, double angle, double xi)
@@ -90,7 +90,7 @@ double BasicLattice2D::unitCellArea() const
 }
 
 //  ************************************************************************************************
-// class SquareLattice2D
+//  class SquareLattice2D
 //  ************************************************************************************************
 
 SquareLattice2D::SquareLattice2D(double length, double xi) : Lattice2D(xi), m_length(length)
@@ -120,7 +120,7 @@ double SquareLattice2D::unitCellArea() const
 }
 
 //  ************************************************************************************************
-// class HexagonalLattice2D
+//  class HexagonalLattice2D
 //  ************************************************************************************************
 
 HexagonalLattice2D::HexagonalLattice2D(double length, double xi) : Lattice2D(xi), m_length(length)

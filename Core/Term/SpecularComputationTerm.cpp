@@ -18,7 +18,7 @@
 #include "Sample/RT/ILayerRTCoefficients.h"
 
 //  ************************************************************************************************
-// class SpecularComputationTerm
+//  class SpecularComputationTerm
 //  ************************************************************************************************
 
 SpecularComputationTerm::SpecularComputationTerm(std::unique_ptr<ISpecularStrategy> strategy)
@@ -49,7 +49,7 @@ void SpecularComputationTerm::computeIntensity(SpecularSimulationElement& elem,
 }
 
 //  ************************************************************************************************
-// class SpecularScalarTerm
+//  class SpecularScalarTerm
 //  ************************************************************************************************
 
 SpecularScalarTerm::~SpecularScalarTerm() = default;
@@ -62,7 +62,7 @@ void SpecularScalarTerm::eval(SpecularSimulationElement& elem,
 }
 
 //  ************************************************************************************************
-// class SpecularMatrixTerm
+//  class SpecularMatrixTerm
 //  ************************************************************************************************
 
 namespace

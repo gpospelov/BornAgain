@@ -36,7 +36,7 @@ void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map
 } // namespace
 
 //  ************************************************************************************************
-// class ProcessedLayout
+//  class ProcessedLayout
 //  ************************************************************************************************
 
 ProcessedLayout::ProcessedLayout(const ParticleLayout& layout, const std::vector<Slice>& slices,

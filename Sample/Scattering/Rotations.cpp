@@ -17,7 +17,7 @@
 #include "Base/Vector/Transform3D.h"
 
 //  ************************************************************************************************
-// interface IRotation
+//  interface IRotation
 //  ************************************************************************************************
 
 IRotation::IRotation(const NodeMeta& meta, const std::vector<double>& PValues)
@@ -76,7 +76,7 @@ IRotation* createProduct(const IRotation& left, const IRotation& right)
 }
 
 //  ************************************************************************************************
-// class IdentityRotation
+//  class IdentityRotation
 //  ************************************************************************************************
 
 IdentityRotation::IdentityRotation()
@@ -90,7 +90,7 @@ Transform3D IdentityRotation::getTransform3D() const
 }
 
 //  ************************************************************************************************
-// class RotationX
+//  class RotationX
 //  ************************************************************************************************
 
 //! Constructor of rotation around x-axis
@@ -109,7 +109,7 @@ Transform3D RotationX::getTransform3D() const
 }
 
 //  ************************************************************************************************
-// class RotationY
+//  class RotationY
 //  ************************************************************************************************
 
 //! Constructor of rotation around y-axis
@@ -128,7 +128,7 @@ Transform3D RotationY::getTransform3D() const
 }
 
 //  ************************************************************************************************
-// class RotationZ
+//  class RotationZ
 //  ************************************************************************************************
 
 // --- RotationZ --------------------------------------------------------------
@@ -149,7 +149,7 @@ Transform3D RotationZ::getTransform3D() const
 }
 
 //  ************************************************************************************************
-// class RotationEuler
+//  class RotationEuler
 //  ************************************************************************************************
 
 RotationEuler::RotationEuler(const std::vector<double> P)

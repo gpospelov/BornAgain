@@ -16,7 +16,7 @@
 #include "Sample/HardParticle/Ripples.h"
 
 //  ************************************************************************************************
-// class FormFactorBarGauss
+//  class FormFactorBarGauss
 //  ************************************************************************************************
 
 FormFactorBarGauss::FormFactorBarGauss(const std::vector<double> P)
@@ -45,7 +45,7 @@ complex_t FormFactorBarGauss::factor_x(complex_t qx) const
 }
 
 //  ************************************************************************************************
-// class FormFactorBarLorentz
+//  class FormFactorBarLorentz
 //  ************************************************************************************************
 
 FormFactorBarLorentz::FormFactorBarLorentz(const std::vector<double> P)

@@ -418,7 +418,7 @@ TEST_F(Std, SpecularDivergentBeam)
 }
 
 //  ************************************************************************************************
-// TODO: broken under GUI
+//  TODO: broken under GUI
 //  ************************************************************************************************
 
 #ifndef GUI_STD_TEST
@@ -432,7 +432,7 @@ TEST_F(Std, RelativeResolutionTOF)
 #endif // GUI_STD_TEST
 
 //  ************************************************************************************************
-// TODO: broken under Python
+//  TODO: broken under Python
 //  ************************************************************************************************
 
 #ifndef PYTHON_STD_TEST
@@ -450,7 +450,7 @@ TEST_F(Std, FormFactorsWithAbsorption)
 #endif // PYTHON_STD_TEST
 
 //  ************************************************************************************************
-// TODO: broken under GUI and Python
+//  TODO: broken under GUI and Python
 //  ************************************************************************************************
 
 #ifndef PYTHON_STD_TEST

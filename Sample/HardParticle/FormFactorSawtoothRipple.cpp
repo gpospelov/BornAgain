@@ -16,7 +16,7 @@
 #include "Sample/HardParticle/Ripples.h"
 
 //  ************************************************************************************************
-// class FormFactorSawtoothRippleBox
+//  class FormFactorSawtoothRippleBox
 //  ************************************************************************************************
 
 FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox(const std::vector<double> P)
@@ -46,7 +46,7 @@ complex_t FormFactorSawtoothRippleBox::factor_x(complex_t qx) const
 }
 
 //  ************************************************************************************************
-// class FormFactorSawtoothRippleGauss
+//  class FormFactorSawtoothRippleGauss
 //  ************************************************************************************************
 
 FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss(const std::vector<double> P)
@@ -76,7 +76,7 @@ complex_t FormFactorSawtoothRippleGauss::factor_x(complex_t qx) const
 }
 
 //  ************************************************************************************************
-// class FormFactorSawtoothRippleLorentz
+//  class FormFactorSawtoothRippleLorentz
 //  ************************************************************************************************
 
 FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz(const std::vector<double> P)

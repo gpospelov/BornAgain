@@ -47,7 +47,7 @@ template <class T> std::vector<T> concat(const std::vector<T>& v1, const std::ve
 } // namespace algo
 
 //  ************************************************************************************************
-// Implementation
+//  Implementation
 //  ************************************************************************************************
 
 template <typename Evaluator, typename Iterator>

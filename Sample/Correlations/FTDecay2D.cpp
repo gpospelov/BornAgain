@@ -17,7 +17,7 @@
 #include <algorithm>
 
 //  ************************************************************************************************
-// interface IIFTDecayFunction1D
+//  interface IIFTDecayFunction1D
 //  ************************************************************************************************
 
 IFTDecayFunction2D::IFTDecayFunction2D(const NodeMeta& meta, const std::vector<double>& PValues)
@@ -56,7 +56,7 @@ std::pair<double, double> IFTDecayFunction2D::transformToRecLatticeCoordinates(d
 }
 
 //  ************************************************************************************************
-// class FTDecayFunction2DCauchy
+//  class FTDecayFunction2DCauchy
 //  ************************************************************************************************
 
 FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(const std::vector<double> P)
@@ -83,7 +83,7 @@ double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const
 }
 
 //  ************************************************************************************************
-// class FTDecayFunction2DGauss
+//  class FTDecayFunction2DGauss
 //  ************************************************************************************************
 
 FTDecayFunction2DGauss::FTDecayFunction2DGauss(const std::vector<double> P)
@@ -110,7 +110,7 @@ double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
 }
 
 //  ************************************************************************************************
-// class FTDecayFunction2DVoigt
+//  class FTDecayFunction2DVoigt
 //  ************************************************************************************************
 
 FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(const std::vector<double> P)

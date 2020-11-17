@@ -19,7 +19,7 @@
 #include <limits>
 
 //  ************************************************************************************************
-// interface IFTDistribution1D
+//  interface IFTDistribution1D
 //  ************************************************************************************************
 
 IFTDistribution2D::IFTDistribution2D(const NodeMeta& meta, const std::vector<double>& PValues)
@@ -42,7 +42,7 @@ double IFTDistribution2D::sumsq(double qx, double qy) const
 }
 
 //  ************************************************************************************************
-// class FTDistribution2DCauchy
+//  class FTDistribution2DCauchy
 //  ************************************************************************************************
 
 FTDistribution2DCauchy::FTDistribution2DCauchy(const std::vector<double> P)
@@ -71,7 +71,7 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCauchy::createSampler() 
 }
 
 //  ************************************************************************************************
-// class FTDistribution2DGauss
+//  class FTDistribution2DGauss
 //  ************************************************************************************************
 
 FTDistribution2DGauss::FTDistribution2DGauss(const std::vector<double> P)
@@ -100,7 +100,7 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGauss::createSampler() c
 }
 
 //  ************************************************************************************************
-// class FTDistribution2DGate
+//  class FTDistribution2DGate
 //  ************************************************************************************************
 
 FTDistribution2DGate::FTDistribution2DGate(const std::vector<double> P)
@@ -130,7 +130,7 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() co
 }
 
 //  ************************************************************************************************
-// class FTDistribution2DCone
+//  class FTDistribution2DCone
 //  ************************************************************************************************
 
 FTDistribution2DCone::FTDistribution2DCone(const std::vector<double> P)
@@ -165,7 +165,7 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() co
 }
 
 //  ************************************************************************************************
-// class FTDistribution2DVoigt
+//  class FTDistribution2DVoigt
 //  ************************************************************************************************
 
 FTDistribution2DVoigt::FTDistribution2DVoigt(const std::vector<double> P)

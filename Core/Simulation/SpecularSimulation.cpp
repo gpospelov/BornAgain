@@ -57,7 +57,7 @@ std::vector<SpecularSimulationElement> generateSimulationElements(const Instrume
 } // namespace
 
 //  ************************************************************************************************
-// class SpecularSimulation
+//  class SpecularSimulation
 //  ************************************************************************************************
 
 SpecularSimulation::SpecularSimulation() : ISimulation()

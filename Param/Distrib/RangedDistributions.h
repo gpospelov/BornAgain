@@ -24,7 +24,7 @@ class IDistribution1D;
 class ParameterSample;
 
 //  ************************************************************************************************
-// interface class IDistribution1D
+//  interface class IDistribution1D
 //  ************************************************************************************************
 
 //! Interface for one-dimensional ranged distributions.
@@ -89,7 +89,7 @@ private:
 };
 
 //  ************************************************************************************************
-// specific distribution classes
+//  specific distribution classes
 //  ************************************************************************************************
 
 //! Uniform distribution function.

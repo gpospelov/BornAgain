@@ -16,7 +16,7 @@
 #include <algorithm>
 
 //  ************************************************************************************************
-// class VarianceConstantFunction
+//  class VarianceConstantFunction
 //  ************************************************************************************************
 
 VarianceConstantFunction* VarianceConstantFunction::clone() const
@@ -30,7 +30,7 @@ double VarianceConstantFunction::variance(double, double) const
 }
 
 //  ************************************************************************************************
-// class VarianceSimFunction
+//  class VarianceSimFunction
 //  ************************************************************************************************
 
 VarianceSimFunction::VarianceSimFunction(double epsilon) : m_epsilon(epsilon) {}

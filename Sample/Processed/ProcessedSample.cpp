@@ -75,7 +75,7 @@ createAverageMaterialSlices(const std::vector<Slice>& slices,
 } // namespace
 
 //  ************************************************************************************************
-// class ProcessedSample
+//  class ProcessedSample
 //  ************************************************************************************************
 
 ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptions& options)

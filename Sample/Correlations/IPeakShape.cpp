@@ -76,7 +76,7 @@ double Cauchy3D(double q2, double domainsize)
 } // namespace
 
 //  ************************************************************************************************
-// interface IPeakShape
+//  interface IPeakShape
 //  ************************************************************************************************
 
 IPeakShape::IPeakShape(const NodeMeta& meta, const std::vector<double>& PValues)
@@ -87,7 +87,7 @@ IPeakShape::IPeakShape(const NodeMeta& meta, const std::vector<double>& PValues)
 IPeakShape::~IPeakShape() = default;
 
 //  ************************************************************************************************
-// class IsotropicGaussPeakShape
+//  class IsotropicGaussPeakShape
 //  ************************************************************************************************
 
 IsotropicGaussPeakShape::IsotropicGaussPeakShape(double max_intensity, double domainsize)
@@ -114,7 +114,7 @@ double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_la
 }
 
 //  ************************************************************************************************
-// class IsotropicLorentzPeakShape
+//  class IsotropicLorentzPeakShape
 //  ************************************************************************************************
 
 IsotropicLorentzPeakShape::IsotropicLorentzPeakShape(double max_intensity, double domainsize)
@@ -141,7 +141,7 @@ double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_
 }
 
 //  ************************************************************************************************
-// class GaussFisherPeakShape
+//  class GaussFisherPeakShape
 //  ************************************************************************************************
 
 GaussFisherPeakShape::GaussFisherPeakShape(double max_intensity, double radial_size, double kappa)
@@ -174,7 +174,7 @@ double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_latti
 }
 
 //  ************************************************************************************************
-// class LorentzFisherPeakShape
+//  class LorentzFisherPeakShape
 //  ************************************************************************************************
 
 LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size,
@@ -207,7 +207,7 @@ double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lat
 }
 
 //  ************************************************************************************************
-// class MisesFisherGaussPeakShape
+//  class MisesFisherGaussPeakShape
 //  ************************************************************************************************
 
 MisesFisherGaussPeakShape::MisesFisherGaussPeakShape(double max_intensity, double radial_size,
@@ -270,7 +270,7 @@ double MisesFisherGaussPeakShape::integrand(double phi) const
 }
 
 //  ************************************************************************************************
-// class MisesGaussPeakShape
+//  class MisesGaussPeakShape
 //  ************************************************************************************************
 
 MisesGaussPeakShape::MisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith,

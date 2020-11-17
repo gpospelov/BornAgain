@@ -19,7 +19,7 @@
 #include "Sample/Shapes/RippleSawtooth.h"
 
 //  ************************************************************************************************
-// interface IProfileRipple
+//  interface IProfileRipple
 //  ************************************************************************************************
 
 IProfileRipple::IProfileRipple(const NodeMeta& meta, const std::vector<double>& PValues)
@@ -45,7 +45,7 @@ complex_t IProfileRipple::evaluate_for_q(cvector_t q) const
 }
 
 //  ************************************************************************************************
-// interface IProfileRectangularRipple
+//  interface IProfileRectangularRipple
 //  ************************************************************************************************
 
 IProfileRectangularRipple::IProfileRectangularRipple(const NodeMeta& meta,
@@ -67,7 +67,7 @@ void IProfileRectangularRipple::onChange()
 }
 
 //  ************************************************************************************************
-// interface ICosineRipple
+//  interface ICosineRipple
 //  ************************************************************************************************
 
 ICosineRipple::ICosineRipple(const NodeMeta& meta, const std::vector<double>& PValues)
@@ -88,7 +88,7 @@ void ICosineRipple::onChange()
 }
 
 //  ************************************************************************************************
-// interface ISawtoothRipple
+//  interface ISawtoothRipple
 //  ************************************************************************************************
 
 ISawtoothRipple::ISawtoothRipple(const NodeMeta& meta, const std::vector<double>& PValues)

@@ -115,7 +115,7 @@ void runComputations(std::vector<std::unique_ptr<IComputation>>& computations)
 } // namespace
 
 //  ************************************************************************************************
-// class ISimulation
+//  class ISimulation
 //  ************************************************************************************************
 
 ISimulation::ISimulation()

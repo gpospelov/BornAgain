@@ -78,7 +78,7 @@ P_integrator_miser<T> make_integrator_miser(const T* object, miser_integrand<T> 
 }
 
 //  ************************************************************************************************
-// Implementation
+//  Implementation
 //  ************************************************************************************************
 
 template <class T>

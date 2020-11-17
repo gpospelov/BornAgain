@@ -26,29 +26,25 @@ void FormFactorCoherentSum::addCoherentPart(const FormFactorCoherentPart& part)
 complex_t FormFactorCoherentSum::evaluate(const SimulationElement& sim_element) const
 {
     complex_t result{};
-    for (auto& part : m_parts) {
+    for (auto& part : m_parts)
         result += part.evaluate(sim_element);
-    }
     return result;
 }
 
 Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement& sim_element) const
 {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
-    for (auto& part : m_parts) {
+    for (auto& part : m_parts)
         result += part.evaluatePol(sim_element);
-    }
     return result;
 }
 
 void FormFactorCoherentSum::scaleRelativeAbundance(double total_abundance)
 {
-    if (total_abundance > 0.0) {
-        m_abundance /= total_abundance;
-        return;
-    }
-    throw Exceptions::LogicErrorException("FormFactorCoherentSum::scaleRelativeAbundance: "
-                                          "Trying to scale with non strictly positive factor.");
+    if (total_abundance <= 0.0)
+        throw Exceptions::LogicErrorException("FormFactorCoherentSum::scaleRelativeAbundance: "
+                                              "Trying to scale with non strictly positive factor.");
+    m_abundance /= total_abundance;
 }
 
 double FormFactorCoherentSum::radialExtension() const

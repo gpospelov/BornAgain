@@ -40,7 +40,7 @@ The `ParticleLayoutComputation` constructor points the member `m_interference_fu
 
 `ParticleLayoutComputation::compute` increments `SimulationElement::m_intensity` by a scattering intensity times the `ProcessedLayout::surfaceDensity()`. The intensity is computed by `m_interference_function_strategy->evaluate`, which is implemented as `IInterferenceFunctionStrategy::evaluate`. Except for Monte-Carlo integration, this wraps just one call to `IInterferenceFunctionStrategy::evaluateSinglePoint`. For unpolarized scattering, and except for radial paracrystals, the next call goes to `DecouplingApproximationStrategy::scalarCalculation`.
 
-`DecouplingApproximationStrategy::scalarCalculation` performs a coherent and an incoherent summation over scattering amplitudes `ff` obtained from `ProcessedLayout::formFactorList()`, which is of type `FormFactorCoherentSum`. The mixed sum is sum
+`DecouplingApproximationStrategy::scalarCalculation` performs a coherent and an incoherent summation over scattering amplitudes `ff` obtained by calling `FormFactorCoherentSum::evaluate` on members of `ProcessedLayout::formFactorList()`. The mixed sum is sum
 
 > |ff|^2 + |sum ff|^2 * (coherence_factor - 1)
 
@@ -57,3 +57,11 @@ By default, outer_iff = 1, so that
 For the simplest of all interference functions, `InterferenceFunctionNone::iff_without_dw` just returns 1, so that
 
 > coherence_factor = 1.
+
+### Computing the particle formfactor
+
+`FormFactorCoherentSum::evaluate` returns the sum over `FormFactorCoherentPart::evaluate`.
+
+`FormFactorCoherentPart` wraps an `IFormFactor` and additionally holds members `m_fresnel_map` and ``m_layer_index` that are set by `FormFactorCoherentPart::setSpecularInfo`. This information is forwarded by calling `IFormFactor::setSpecularInfo`, which does nothing, unless overridden in `FormFactorDWBA::setSpecularInfo`.
+
+After this preparation, `FormFactorDWBA::evaluate` calls `IFormFactor::evaluate`, which is pure virtual, overridden by `FormFactorDWBA::evaluate`, which computes the sum over the four DWBA terms. This involves four calls to `m_form_factor->evaluate`. The member `m_form_factor` is probably of type `IFormFactorBorn`. `IFormFactorBorn::evaluate` calls `IFormFactorBorn::evaluate_for_q`, which is pure virtual, overriden by shape-specific classes like `FormFactorFullSphere`.

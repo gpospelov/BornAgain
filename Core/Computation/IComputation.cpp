@@ -14,7 +14,7 @@
 
 #include "Core/Computation/IComputation.h"
 #include "Base/Pixel/SimulationElement.h"
-#include "Core/Computation/ProcessedSample.h"
+#include "Sample/Fresnel/ProcessedSample.h"
 #include "Core/Computation/ProgressHandler.h"
 #include "Sample/Multilayer/MultiLayer.h"
 

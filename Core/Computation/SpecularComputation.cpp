@@ -13,10 +13,10 @@
 // ************************************************************************** //
 
 #include "Core/Computation/SpecularComputation.h"
-#include "Core/Computation/ProcessedSample.h"
+#include "Sample/Fresnel/ProcessedSample.h"
 #include "Core/Computation/ProgressHandler.h"
 #include "Core/Computation/SpecularComputationTerm.h"
-#include "Core/Computation/SpecularStrategyBuilder.h"
+#include "Sample/Specular/SpecularStrategyBuilder.h"
 #include "Core/Scan/SpecularSimulationElement.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,

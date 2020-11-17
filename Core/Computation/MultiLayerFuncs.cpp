@@ -13,7 +13,7 @@
 // ************************************************************************** //
 
 #include "Core/Computation/MultiLayerFuncs.h"
-#include "Core/Computation/ProcessedSample.h"
+#include "Sample/Fresnel/ProcessedSample.h"
 #include "Core/Computation/ProfileHelper.h"
 #include "Sample/RT/SimulationOptions.h"
 

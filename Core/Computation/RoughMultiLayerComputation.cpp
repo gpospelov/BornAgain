@@ -15,7 +15,7 @@
 #include "Core/Computation/RoughMultiLayerComputation.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Pixel/SimulationElement.h"
-#include "Core/Computation/ProcessedSample.h"
+#include "Sample/Fresnel/ProcessedSample.h"
 #include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"

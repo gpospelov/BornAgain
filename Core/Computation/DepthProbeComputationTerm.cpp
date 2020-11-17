@@ -16,7 +16,7 @@
 #include "Base/Axis/IAxis.h"
 #include "Core/Computation/DelayedProgressCounter.h"
 #include "Core/Computation/DepthProbeElement.h"
-#include "Core/Computation/ProcessedSample.h"
+#include "Sample/Fresnel/ProcessedSample.h"
 #include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 

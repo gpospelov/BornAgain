@@ -1,5 +1,5 @@
 #include "Base/Const/MathConstants.h"
-#include "Core/Computation/ProcessedSample.h"
+#include "Sample/Fresnel/ProcessedSample.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"

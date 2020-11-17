@@ -36,8 +36,6 @@ processedInterferenceFunction(const ProcessedLayout& layout, const SimulationOpt
 
     const std::vector<FormFactorCoherentSum>& weighted_formfactors = layout.formFactorList();
 
-    std::unique_ptr<IInterferenceFunctionStrategy> result;
-
     if (radial_para && radial_para->kappa() > 0.0) {
         double kappa = radial_para->kappa();
         return std::make_unique<SSCApproximationStrategy>(weighted_formfactors, radial_para,

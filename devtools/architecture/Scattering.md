@@ -33,3 +33,27 @@ The `DWBAComputation` constructor populates the member `DWBASingleComputation m_
 `DWBASingleComputation::compute` performs an incoherent summation: it increments `SimulationElement::m_intensity` by contributions from each processed particle layouts, and from roughness.
 
 ### Scattering from a particle layout
+
+For each processed particle layout, `DWBASingleComputation::compute` calls `ParticleLayoutComputation::compute`.
+
+The `ParticleLayoutComputation` constructor points the member `m_interference_function_strategy` to a `new DecouplingApproximationStrategy`, unless we are simulating a radial paracrystal, for which the `SSCApproximationStrategy` is used.
+
+`ParticleLayoutComputation::compute` increments `SimulationElement::m_intensity` by a scattering intensity times the `ProcessedLayout::surfaceDensity()`. The intensity is computed by `m_interference_function_strategy->evaluate`, which is implemented as `IInterferenceFunctionStrategy::evaluate`. Except for Monte-Carlo integration, this wraps just one call to `IInterferenceFunctionStrategy::evaluateSinglePoint`. For unpolarized scattering, and except for radial paracrystals, the next call goes to `DecouplingApproximationStrategy::scalarCalculation`.
+
+`DecouplingApproximationStrategy::scalarCalculation` performs a coherent and an incoherent summation over scattering amplitudes `ff` obtained from `ProcessedLayout::formFactorList()`, which is of type `FormFactorCoherentSum`. The mixed sum is sum
+
+> |ff|^2 + |sum ff|^2 * (coherence_factor - 1)
+
+where coherence_factor is computed by `IInterferenceFunction::evaluate`.
+
+Except for superlattices, there is no "inner" structure, and therefore `IInterferenceFunction::evaluate` just wraps `IInterferenceFunction::iff_no_inner`, so that
+
+> coherence_factor = DWfactor(q) * (iff_without_dw(q) * outer_iff - 1) + 1.
+
+By default, outer_iff = 1, so that
+
+> coherence_factor = DWfactor(q) * (iff_without_dw - 1) + 1.
+
+For the simplest of all interference functions, `InterferenceFunctionNone::iff_without_dw` just returns 1, so that
+
+> coherence_factor = 1.

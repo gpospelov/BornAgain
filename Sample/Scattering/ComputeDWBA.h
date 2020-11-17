@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/FormFactorBAPol.h
-//! @brief     Defines class FormFactorBAPol.
+//! @file      Sample/Scattering/ComputeDWBA.h
+//! @brief     Defines class FormFactorDWBA.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,33 +12,31 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORBAPOL_H
-#define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORBAPOL_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBA_H
+#define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBA_H
 
 #include "Sample/Scattering/IFormFactor.h"
 #include <memory>
 
-//! Evaluates the matrix BA term in a polarized IFormFactor.
+class ILayerRTCoefficients;
 
+//! Evaluates the coherent sum of the four DWBA terms in a scalar IFormFactor.
 //! @ingroup formfactors_internal
 
-class FormFactorBAPol final : public IFormFactor
+class FormFactorDWBA final : public IFormFactor
 {
 public:
-    FormFactorBAPol(const IFormFactor& ff);
-    ~FormFactorBAPol() override;
+    FormFactorDWBA(const IFormFactor& ff);
+    ~FormFactorDWBA() override;
 
-    FormFactorBAPol* clone() const override;
+    FormFactorDWBA* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void setAmbientMaterial(const Material& material) override;
 
-    //! Throws not-implemented exception
+    //! Calculates and returns a form factor calculation in DWBA
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
-
-    //! Calculates and returns a polarized form factor calculation in BA
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 
     double volume() const override;
 
@@ -48,9 +46,17 @@ public:
 
     double topZ(const IRotation& rotation) const override;
 
+    void setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
+                         std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs) override;
+
+    friend class TestPolarizedDWBATerms;
+
 private:
     //! The form factor for BA
     std::unique_ptr<IFormFactor> m_ff;
+
+    std::unique_ptr<const ILayerRTCoefficients> m_in_coeffs;
+    std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORBAPOL_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDWBA_H

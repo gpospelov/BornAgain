@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/FormFactorBA.cpp
+//! @file      Sample/Scattering/ComputeBA.cpp
 //! @brief     Implements class FormFactorBA.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Scattering/FormFactorBA.h"
+#include "Sample/Scattering/ComputeBA.h"
 #include "Sample/Material/WavevectorInfo.h"
 
 FormFactorBA::FormFactorBA(const IFormFactor& ff) : m_ff(ff.clone())

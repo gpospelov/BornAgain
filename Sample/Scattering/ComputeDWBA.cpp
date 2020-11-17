@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/FormFactorDWBA.cpp
+//! @file      Sample/Scattering/ComputeDWBA.cpp
 //! @brief     Implements class FormFactorDWBA.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Scattering/FormFactorDWBA.h"
+#include "Sample/Scattering/ComputeDWBA.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 

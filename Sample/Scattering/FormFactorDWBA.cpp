@@ -71,6 +71,15 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
     return term_S + term_RS + term_SR + term_RSR;
 }
 
+void FormFactorDWBA::setAmbientMaterial(const Material& material)
+{
+    m_form_factor->setAmbientMaterial(material);
+}
+
+double FormFactorDWBA::volume() const { return m_form_factor->volume(); }
+
+double FormFactorDWBA::radialExtension() const { return m_form_factor->radialExtension(); }
+
 double FormFactorDWBA::bottomZ(const IRotation& rotation) const
 {
     return m_form_factor->bottomZ(rotation);

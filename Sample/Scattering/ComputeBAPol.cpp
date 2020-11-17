@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/ComputeBAPol.cpp
-//! @brief     Defines class FormFactorBAPol.
+//! @brief     Defines class ComputeBAPol.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,25 +16,25 @@
 #include "Sample/Material/WavevectorInfo.h"
 #include <stdexcept>
 
-FormFactorBAPol::FormFactorBAPol(const IFormFactor& ff) : m_ff(ff.clone())
+ComputeBAPol::ComputeBAPol(const IFormFactor& ff) : m_ff(ff.clone())
 {
-    setName("FormFactorBAPol");
+    setName("ComputeBAPol");
 }
 
-FormFactorBAPol::~FormFactorBAPol() = default;
+ComputeBAPol::~ComputeBAPol() = default;
 
-FormFactorBAPol* FormFactorBAPol::clone() const
+ComputeBAPol* ComputeBAPol::clone() const
 {
-    return new FormFactorBAPol(*m_ff);
+    return new ComputeBAPol(*m_ff);
 }
 
-complex_t FormFactorBAPol::evaluate(const WavevectorInfo&) const
+complex_t ComputeBAPol::evaluate(const WavevectorInfo&) const
 {
-    throw std::runtime_error("FormFactorBAPol::evaluate: "
+    throw std::runtime_error("ComputeBAPol::evaluate: "
                              "should never be called for matrix interactions");
 }
 
-Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
+Eigen::Matrix2cd ComputeBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
 {
     Eigen::Matrix2cd ff_BA = m_ff->evaluatePol(wavevectors);
     Eigen::Matrix2cd result;
@@ -45,27 +45,27 @@ Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo& wavevectors)
     return result;
 }
 
-void FormFactorBAPol::setAmbientMaterial(const Material& material)
+void ComputeBAPol::setAmbientMaterial(const Material& material)
 {
     m_ff->setAmbientMaterial(material);
 }
 
-double FormFactorBAPol::volume() const
+double ComputeBAPol::volume() const
 {
     return m_ff->volume();
 }
 
-double FormFactorBAPol::radialExtension() const
+double ComputeBAPol::radialExtension() const
 {
     return m_ff->radialExtension();
 }
 
-double FormFactorBAPol::bottomZ(const IRotation& rotation) const
+double ComputeBAPol::bottomZ(const IRotation& rotation) const
 {
     return m_ff->bottomZ(rotation);
 }
 
-double FormFactorBAPol::topZ(const IRotation& rotation) const
+double ComputeBAPol::topZ(const IRotation& rotation) const
 {
     return m_ff->topZ(rotation);
 }

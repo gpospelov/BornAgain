@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/ComputeDWBAPol.cpp
-//! @brief     Defines class FormFactorDWBAPol.
+//! @brief     Defines class ComputeDWBAPol.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,16 +25,16 @@ std::complex<double> VecMatVecProduct(const Eigen::Vector2cd& vec1, const Eigen:
 }
 } // namespace
 
-FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor& ff) : m_ff(ff.clone())
+ComputeDWBAPol::ComputeDWBAPol(const IFormFactor& ff) : m_ff(ff.clone())
 {
-    setName("FormFactorDWBAPol");
+    setName("ComputeDWBAPol");
 }
 
-FormFactorDWBAPol::~FormFactorDWBAPol() = default;
+ComputeDWBAPol::~ComputeDWBAPol() = default;
 
-FormFactorDWBAPol* FormFactorDWBAPol::clone() const
+ComputeDWBAPol* ComputeDWBAPol::clone() const
 {
-    FormFactorDWBAPol* p_result = new FormFactorDWBAPol(*m_ff);
+    ComputeDWBAPol* p_result = new ComputeDWBAPol(*m_ff);
     std::unique_ptr<const ILayerRTCoefficients> p_in_coefs =
         m_in_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(m_in_coeffs->clone()) : nullptr;
     std::unique_ptr<const ILayerRTCoefficients> p_out_coefs =
@@ -43,13 +43,13 @@ FormFactorDWBAPol* FormFactorDWBAPol::clone() const
     return p_result;
 }
 
-complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo&) const
+complex_t ComputeDWBAPol::evaluate(const WavevectorInfo&) const
 {
     throw Exceptions::NotImplementedException(
-        "FormFactorDWBAPol::evaluate: should never be called for matrix interactions");
+        "ComputeDWBAPol::evaluate: should never be called for matrix interactions");
 }
 
-Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
+Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
 {
     // the required wavevectors inside the layer for
     // different eigenmodes and in- and outgoing wavevector;
@@ -194,17 +194,17 @@ Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo& wavevector
            + M21_SR + M21_RSR + M22_S + M22_RS + M22_SR + M22_RSR;
 }
 
-double FormFactorDWBAPol::bottomZ(const IRotation& rotation) const
+double ComputeDWBAPol::bottomZ(const IRotation& rotation) const
 {
     return m_ff->bottomZ(rotation);
 }
 
-double FormFactorDWBAPol::topZ(const IRotation& rotation) const
+double ComputeDWBAPol::topZ(const IRotation& rotation) const
 {
     return m_ff->topZ(rotation);
 }
 
-void FormFactorDWBAPol::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
+void ComputeDWBAPol::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
                                         std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
 {
     m_in_coeffs = std::move(p_in_coeffs);

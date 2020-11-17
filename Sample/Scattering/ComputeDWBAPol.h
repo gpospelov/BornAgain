@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/ComputeDWBAPol.h
-//! @brief     Defines class FormFactorDWBAPol.
+//! @brief     Defines class ComputeDWBAPol.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -24,13 +24,13 @@ class ILayerRTCoefficients;
 
 //! @ingroup formfactors_internal
 
-class FormFactorDWBAPol final : public IFormFactor
+class ComputeDWBAPol final : public IFormFactor
 {
 public:
-    FormFactorDWBAPol(const IFormFactor& ff);
-    ~FormFactorDWBAPol() override;
+    ComputeDWBAPol(const IFormFactor& ff);
+    ~ComputeDWBAPol() override;
 
-    FormFactorDWBAPol* clone() const override;
+    ComputeDWBAPol* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 

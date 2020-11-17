@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/ComputeBA.cpp
-//! @brief     Implements class FormFactorBA.
+//! @brief     Implements class ComputeBA.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -15,44 +15,44 @@
 #include "Sample/Scattering/ComputeBA.h"
 #include "Sample/Material/WavevectorInfo.h"
 
-FormFactorBA::FormFactorBA(const IFormFactor& ff) : m_ff(ff.clone())
+ComputeBA::ComputeBA(const IFormFactor& ff) : m_ff(ff.clone())
 {
-    setName("FormFactorBA");
+    setName("ComputeBA");
 }
 
-FormFactorBA::~FormFactorBA() = default;
+ComputeBA::~ComputeBA() = default;
 
-FormFactorBA* FormFactorBA::clone() const
+ComputeBA* ComputeBA::clone() const
 {
-    return new FormFactorBA(*m_ff);
+    return new ComputeBA(*m_ff);
 }
 
-complex_t FormFactorBA::evaluate(const WavevectorInfo& wavevectors) const
+complex_t ComputeBA::evaluate(const WavevectorInfo& wavevectors) const
 {
     return m_ff->evaluate(wavevectors);
 }
 
-void FormFactorBA::setAmbientMaterial(const Material& material)
+void ComputeBA::setAmbientMaterial(const Material& material)
 {
     m_ff->setAmbientMaterial(material);
 }
 
-double FormFactorBA::volume() const
+double ComputeBA::volume() const
 {
     return m_ff->volume();
 }
 
-double FormFactorBA::radialExtension() const
+double ComputeBA::radialExtension() const
 {
     return m_ff->radialExtension();
 }
 
-double FormFactorBA::bottomZ(const IRotation& rotation) const
+double ComputeBA::bottomZ(const IRotation& rotation) const
 {
     return m_ff->bottomZ(rotation);
 }
 
-double FormFactorBA::topZ(const IRotation& rotation) const
+double ComputeBA::topZ(const IRotation& rotation) const
 {
     return m_ff->topZ(rotation);
 }

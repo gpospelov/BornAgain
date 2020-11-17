@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/ComputeBA.h
-//! @brief     Defines class FormFactorBA.
+//! @brief     Defines class ComputeBA.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -21,13 +21,13 @@
 //! Evaluates the scalar Born form factor.
 //! @ingroup formfactors_internal
 
-class FormFactorBA final : public IFormFactor
+class ComputeBA final : public IFormFactor
 {
 public:
-    FormFactorBA(const IFormFactor& ff);
-    ~FormFactorBA() override;
+    ComputeBA(const IFormFactor& ff);
+    ~ComputeBA() override;
 
-    FormFactorBA* clone() const override;
+    ComputeBA* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 

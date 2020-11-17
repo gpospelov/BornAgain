@@ -70544,7 +70544,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IFormFactor_createSlicedFormFactor", _wrap_IFormFactor_createSlicedFormFactor, METH_VARARGS, "\n"
 		"IFormFactor_createSlicedFormFactor(IFormFactor self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor\n"
-		"IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const\n"
+		"IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const\n"
 		"\n"
 		"Creates a (possibly sliced) form factor with the given rotation and translation. \n"
 		"\n"
@@ -70565,7 +70565,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IFormFactor_volume", _wrap_IFormFactor_volume, METH_O, "\n"
 		"IFormFactor_volume(IFormFactor self) -> double\n"
-		"double IFormFactor::volume() const\n"
+		"virtual double IFormFactor::volume() const\n"
 		"\n"
 		"Returns the total volume of the particle of this form factor's shape. \n"
 		"\n"

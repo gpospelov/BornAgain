@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/ComputeDWBA.h
-//! @brief     Defines class FormFactorDWBA.
+//! @brief     Defines class ComputeDWBA.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,13 +23,13 @@ class ILayerRTCoefficients;
 //! Evaluates the coherent sum of the four DWBA terms in a scalar IFormFactor.
 //! @ingroup formfactors_internal
 
-class FormFactorDWBA final : public IFormFactor
+class ComputeDWBA final : public IFormFactor
 {
 public:
-    FormFactorDWBA(const IFormFactor& ff);
-    ~FormFactorDWBA() override;
+    ComputeDWBA(const IFormFactor& ff);
+    ~ComputeDWBA() override;
 
-    FormFactorDWBA* clone() const override;
+    ComputeDWBA* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 

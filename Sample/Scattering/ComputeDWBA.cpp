@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/ComputeDWBA.cpp
-//! @brief     Implements class FormFactorDWBA.
+//! @brief     Implements class ComputeDWBA.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -16,16 +16,16 @@
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 
-FormFactorDWBA::FormFactorDWBA(const IFormFactor& ff) : m_ff(ff.clone())
+ComputeDWBA::ComputeDWBA(const IFormFactor& ff) : m_ff(ff.clone())
 {
-    setName("FormFactorDWBA");
+    setName("ComputeDWBA");
 }
 
-FormFactorDWBA::~FormFactorDWBA() = default;
+ComputeDWBA::~ComputeDWBA() = default;
 
-FormFactorDWBA* FormFactorDWBA::clone() const
+ComputeDWBA* ComputeDWBA::clone() const
 {
-    FormFactorDWBA* result = new FormFactorDWBA(*m_ff);
+    ComputeDWBA* result = new ComputeDWBA(*m_ff);
     std::unique_ptr<const ILayerRTCoefficients> p_in_coefs =
         m_in_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(m_in_coeffs->clone()) : nullptr;
     std::unique_ptr<const ILayerRTCoefficients> p_out_coefs =
@@ -34,7 +34,7 @@ FormFactorDWBA* FormFactorDWBA::clone() const
     return result;
 }
 
-complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
+complex_t ComputeDWBA::evaluate(const WavevectorInfo& wavevectors) const
 {
     // Retrieve the two different incoming wavevectors in the layer
     cvector_t k_i_T = wavevectors.getKi();
@@ -71,32 +71,32 @@ complex_t FormFactorDWBA::evaluate(const WavevectorInfo& wavevectors) const
     return term_S + term_RS + term_SR + term_RSR;
 }
 
-void FormFactorDWBA::setAmbientMaterial(const Material& material)
+void ComputeDWBA::setAmbientMaterial(const Material& material)
 {
     m_ff->setAmbientMaterial(material);
 }
 
-double FormFactorDWBA::volume() const
+double ComputeDWBA::volume() const
 {
     return m_ff->volume();
 }
 
-double FormFactorDWBA::radialExtension() const
+double ComputeDWBA::radialExtension() const
 {
     return m_ff->radialExtension();
 }
 
-double FormFactorDWBA::bottomZ(const IRotation& rotation) const
+double ComputeDWBA::bottomZ(const IRotation& rotation) const
 {
     return m_ff->bottomZ(rotation);
 }
 
-double FormFactorDWBA::topZ(const IRotation& rotation) const
+double ComputeDWBA::topZ(const IRotation& rotation) const
 {
     return m_ff->topZ(rotation);
 }
 
-void FormFactorDWBA::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
+void ComputeDWBA::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
                                      std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
 {
     m_in_coeffs = std::move(p_in_coeffs);

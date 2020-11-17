@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/ComputeBAPol.h
-//! @brief     Defines class FormFactorBAPol.
+//! @brief     Defines class ComputeBAPol.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -22,13 +22,13 @@
 
 //! @ingroup formfactors_internal
 
-class FormFactorBAPol final : public IFormFactor
+class ComputeBAPol final : public IFormFactor
 {
 public:
-    FormFactorBAPol(const IFormFactor& ff);
-    ~FormFactorBAPol() override;
+    ComputeBAPol(const IFormFactor& ff);
+    ~ComputeBAPol() override;
 
-    FormFactorBAPol* clone() const override;
+    ComputeBAPol* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Computation/ProfileHelper.h
+//! @file      Sample/Fresnel/ProfileHelper.h
 //! @brief     Defines class ProfileHelper.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -17,6 +17,7 @@
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 #include "Sample/Particle/IParticle.h"
+#include "Sample/Scattering/FormFactorBA.h"
 #include "Sample/Scattering/FormFactorBAPol.h"
 #include "Sample/Scattering/FormFactorDWBA.h"
 #include "Sample/Scattering/FormFactorDWBAPol.h"
@@ -124,7 +125,7 @@ FormFactorCoherentSum ProcessedLayout::processParticle(const IParticle& particle
             if (m_polarized)
                 ff_framework = std::make_unique<FormFactorBAPol>(*ff_pair.first);
             else
-                ff_framework.reset(ff_pair.first->clone());
+                ff_framework = std::make_unique<FormFactorBA>(*ff_pair.first);
         }
 
         size_t slice_index = ff_pair.second;

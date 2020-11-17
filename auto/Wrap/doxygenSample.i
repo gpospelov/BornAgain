@@ -647,6 +647,59 @@ Returns a clone of this  ISample object.
 ";
 
 
+// File: classFormFactorBA.xml
+%feature("docstring") FormFactorBA "
+
+Evaluates the scalar Born form factor.
+
+C++ includes: FormFactorBA.h
+";
+
+%feature("docstring")  FormFactorBA::FormFactorBA "FormFactorBA::FormFactorBA(const IFormFactor &ff)
+";
+
+%feature("docstring")  FormFactorBA::~FormFactorBA "FormFactorBA::~FormFactorBA() override
+";
+
+%feature("docstring")  FormFactorBA::clone "FormFactorBA * FormFactorBA::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  FormFactorBA::accept "void FormFactorBA::accept(INodeVisitor *visitor) const override
+";
+
+%feature("docstring")  FormFactorBA::setAmbientMaterial "void FormFactorBA::setAmbientMaterial(const Material &material) override
+
+Passes the material in which this particle is embedded. 
+";
+
+%feature("docstring")  FormFactorBA::evaluate "complex_t FormFactorBA::evaluate(const WavevectorInfo &wavevectors) const override
+
+Calculates and returns a form factor calculation in BA. 
+";
+
+%feature("docstring")  FormFactorBA::volume "double FormFactorBA::volume() const override
+
+Returns the total volume of the particle of this form factor's shape. 
+";
+
+%feature("docstring")  FormFactorBA::radialExtension "double FormFactorBA::radialExtension() const override
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  FormFactorBA::bottomZ "double FormFactorBA::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  FormFactorBA::topZ "double FormFactorBA::topZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+
 // File: classFormFactorBAPol.xml
 %feature("docstring") FormFactorBAPol "
 
@@ -3031,6 +3084,61 @@ Applies the given rotation to the particle.
 ";
 
 
+// File: classIBornFF.xml
+%feature("docstring") IBornFF "
+
+Pure virtual base class for Born form factors.
+
+In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
+
+C++ includes: IBornFF.h
+";
+
+%feature("docstring")  IBornFF::IBornFF "IBornFF::IBornFF()
+";
+
+%feature("docstring")  IBornFF::IBornFF "IBornFF::IBornFF(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  IBornFF::~IBornFF "IBornFF::~IBornFF()
+";
+
+%feature("docstring")  IBornFF::clone "IBornFF* IBornFF::clone() const override=0
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  IBornFF::setAmbientMaterial "void IBornFF::setAmbientMaterial(const Material &) override
+
+Passes the material in which this particle is embedded. 
+";
+
+%feature("docstring")  IBornFF::evaluate "complex_t IBornFF::evaluate(const WavevectorInfo &wavevectors) const override
+
+Returns scattering amplitude for complex wavevectors ki, kf. 
+";
+
+%feature("docstring")  IBornFF::evaluatePol "Eigen::Matrix2cd IBornFF::evaluatePol(const WavevectorInfo &wavevectors) const override
+
+Returns scattering amplitude for matrix interactions. 
+";
+
+%feature("docstring")  IBornFF::bottomZ "double IBornFF::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IBornFF::topZ "double IBornFF::topZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IBornFF::evaluate_for_q "virtual complex_t IBornFF::evaluate_for_q(cvector_t q) const =0
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+";
+
+
 // File: classICosineRipple.xml
 %feature("docstring") ICosineRipple "
 
@@ -3107,7 +3215,7 @@ Returns true if rotation matrix is identity matrix (no rotations)
 
 Pure virtual base class for all form factors.
 
-The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a  IFormFactorBorn.
+The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a  IBornFF.
 
 C++ includes: IFormFactor.h
 ";
@@ -3169,61 +3277,6 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 %feature("docstring")  IFormFactor::setSpecularInfo "void IFormFactor::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients >, std::unique_ptr< const ILayerRTCoefficients >)
 
 Sets reflection/transmission info. 
-";
-
-
-// File: classIFormFactorBorn.xml
-%feature("docstring") IFormFactorBorn "
-
-Pure virtual base class for Born form factors.
-
-In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
-
-C++ includes: IFormFactorBorn.h
-";
-
-%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()
-";
-
-%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  IFormFactorBorn::~IFormFactorBorn "IFormFactorBorn::~IFormFactorBorn()
-";
-
-%feature("docstring")  IFormFactorBorn::clone "IFormFactorBorn* IFormFactorBorn::clone() const override=0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IFormFactorBorn::setAmbientMaterial "void IFormFactorBorn::setAmbientMaterial(const Material &) override
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  IFormFactorBorn::evaluate "complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  IFormFactorBorn::evaluatePol "Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-%feature("docstring")  IFormFactorBorn::bottomZ "double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorBorn::topZ "double IFormFactorBorn::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 ";
 
 
@@ -7256,7 +7309,7 @@ C++ includes: SlicedParticle.h
 
 Nested structure that holds slicing effects on position and removed parts.
 
-C++ includes: IFormFactorBorn.h
+C++ includes: IBornFF.h
 ";
 
 
@@ -7688,25 +7741,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d212.xml
 
 
-// File: namespace_0d228.xml
-
-
 // File: namespace_0d230.xml
 
 
-// File: namespace_0d237.xml
+// File: namespace_0d234.xml
+
+
+// File: namespace_0d239.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d255.xml
+// File: namespace_0d257.xml
 
 
-// File: namespace_0d263.xml
-
-
-// File: namespace_0d273.xml
+// File: namespace_0d265.xml
 
 
 // File: namespace_0d275.xml
@@ -7721,31 +7771,34 @@ C++ includes: ZLimits.h
 // File: namespace_0d281.xml
 
 
-// File: namespace_0d285.xml
+// File: namespace_0d283.xml
 
 
 // File: namespace_0d287.xml
 
 
-// File: namespace_0d291.xml
+// File: namespace_0d289.xml
 
 
-// File: namespace_0d303.xml
+// File: namespace_0d293.xml
 
 
-// File: namespace_0d309.xml
+// File: namespace_0d305.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d313.xml
+// File: namespace_0d311.xml
 
 
-// File: namespace_0d331.xml
+// File: namespace_0d315.xml
 
 
-// File: namespace_0d350.xml
+// File: namespace_0d333.xml
+
+
+// File: namespace_0d352.xml
 
 
 // File: namespace_0d37.xml
@@ -8697,6 +8750,12 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: SampleProvider_8h.xml
 
 
+// File: FormFactorBA_8cpp.xml
+
+
+// File: FormFactorBA_8h.xml
+
+
 // File: FormFactorBAPol_8cpp.xml
 
 
@@ -8733,6 +8792,12 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: FormFactorDWBAPol_8h.xml
 
 
+// File: IBornFF_8cpp.xml
+
+
+// File: IBornFF_8h.xml
+
+
 // File: IFormFactor_8cpp.xml
 %feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
@@ -8741,12 +8806,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: IFormFactor_8h.xml
 %feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
-
-
-// File: IFormFactorBorn_8cpp.xml
-
-
-// File: IFormFactorBorn_8h.xml
 
 
 // File: IFormFactorDecorator_8h.xml

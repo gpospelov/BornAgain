@@ -3375,7 +3375,7 @@ class INodeVisitor(object):
         visit(INodeVisitor self, IClusteredParticles const * arg2)
         visit(INodeVisitor self, IdentityRotation const * arg2)
         visit(INodeVisitor self, IFormFactor const * arg2)
-        visit(INodeVisitor self, IFormFactorBorn const * arg2)
+        visit(INodeVisitor self, IBornFF const * arg2)
         visit(INodeVisitor self, IFormFactorDecorator const * arg2)
         visit(INodeVisitor self, IInterferenceFunction const * arg2)
         visit(INodeVisitor self, ParticleLayout const * arg2)

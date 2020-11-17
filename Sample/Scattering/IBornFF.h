@@ -18,7 +18,17 @@
 #include "Sample/Scattering/IFormFactor.h"
 
 class IShape;
-struct SlicingEffects; // defined below
+
+//! Nested structure that holds slicing effects on position and removed parts.
+
+//! @ingroup formfactors_internal
+
+struct SlicingEffects {
+    kvector_t position;
+    double dz_bottom;
+    double dz_top;
+};
+
 
 //! Pure virtual base class for Born form factors.
 //!
@@ -76,16 +86,6 @@ protected:
 
     //! Calculates the z-coordinate of the highest vertex after rotation
     static double TopZ(const std::vector<kvector_t>& vertices, const IRotation& rotation);
-};
-
-//! Nested structure that holds slicing effects on position and removed parts.
-
-//! @ingroup formfactors_internal
-
-struct SlicingEffects {
-    kvector_t position;
-    double dz_bottom;
-    double dz_top;
 };
 
 #ifdef POLYHEDRAL_DIAGNOSTIC

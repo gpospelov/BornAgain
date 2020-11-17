@@ -74,13 +74,13 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("Basic2DLatticeBuilder", create_new<Basic2DLatticeBuilder>);
 
-    registerItem("SquareLatticeBuilder", create_new<SquareLatticeBuilder>);
+    registerItem("SquareLattice2DBuilder", create_new<SquareLattice2DBuilder>);
 
-    registerItem("CenteredSquareLatticeBuilder", create_new<CenteredSquareLatticeBuilder>);
+    registerItem("CenteredSquareLattice2DBuilder", create_new<CenteredSquareLattice2DBuilder>);
 
-    registerItem("RotatedSquareLatticeBuilder", create_new<RotatedSquareLatticeBuilder>);
+    registerItem("RotatedSquareLattice2DBuilder", create_new<RotatedSquareLattice2DBuilder>);
 
-    registerItem("FiniteSquareLatticeBuilder", create_new<FiniteSquareLatticeBuilder>);
+    registerItem("FiniteSquareLattice2DBuilder", create_new<FiniteSquareLattice2DBuilder>);
 
     registerItem("SuperLatticeBuilder", create_new<SuperLatticeBuilder>);
 
@@ -165,7 +165,7 @@ SampleBuilderFactory::SampleBuilderFactory()
 
     registerItem("LayersWithAbsorptionBySLDBuilder", create_new<LayersWithAbsorptionBySLDBuilder>);
 
-    registerItem("BoxesSquareLatticeBuilder", create_new<BoxesSquareLatticeBuilder>);
+    registerItem("BoxesSquareLattice2DBuilder", create_new<BoxesSquareLattice2DBuilder>);
 
     registerItem("RotatedCylindersBuilder", create_new<RotatedCylindersBuilder>);
 

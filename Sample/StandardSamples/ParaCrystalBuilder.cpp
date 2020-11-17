@@ -71,7 +71,7 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     Layer substrate_layer(refMat::Substrate);
 
     InterferenceFunction2DParaCrystal iff(
-        BasicLattice(10.0 * Units::nm, 20.0 * Units::nm, 30.0 * Units::deg, 45.0 * Units::deg),
+        BasicLattice2D(10.0 * Units::nm, 20.0 * Units::nm, 30.0 * Units::deg, 45.0 * Units::deg),
         1000.0 * Units::nm, 20.0 * Units::micrometer, 40.0 * Units::micrometer);
 
     iff.setProbabilityDistributions(*m_pdf1, *m_pdf2);
@@ -118,7 +118,7 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DParaCrystal iff(HexagonalLattice(m_peak_distance, 0.0), m_corr_length,
+    InterferenceFunction2DParaCrystal iff(HexagonalLattice2D(m_peak_distance, 0.0), m_corr_length,
                                           m_domain_size_1, m_domain_size_2);
     iff.setIntegrationOverXi(true);
     FTDistribution2DCauchy pdf(1.0 * Units::nm, 1.0 * Units::nm, 0);
@@ -147,7 +147,7 @@ MultiLayer* RectParaCrystalBuilder::buildSample() const
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
-    InterferenceFunction2DParaCrystal iff(SquareLattice(10 * Units::nm), 0, 0, 0);
+    InterferenceFunction2DParaCrystal iff(SquareLattice2D(10 * Units::nm), 0, 0, 0);
     iff.setIntegrationOverXi(true);
     iff.setDomainSizes(20.0 * Units::micrometer, 20.0 * Units::micrometer);
     FTDistribution2DCauchy pdf1(0.5 * Units::nm, 2.0 * Units::nm, 0);

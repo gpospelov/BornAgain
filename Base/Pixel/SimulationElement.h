@@ -53,7 +53,7 @@ public:
     double getIntensity() const { return m_intensity; }
     kvector_t getKi() const;
     kvector_t getMeanKf() const;
-    kvector_t getMeanQ() const;
+    kvector_t meanQ() const;
     kvector_t getQ(double x, double y) const;
 
     double integrationFactor(double x, double y) const;

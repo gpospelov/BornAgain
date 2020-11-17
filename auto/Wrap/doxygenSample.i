@@ -139,28 +139,28 @@ C++ includes: ParaCrystalBuilder.h
 ";
 
 
-// File: classBasicLattice.xml
-%feature("docstring") BasicLattice "";
+// File: classBasicLattice2D.xml
+%feature("docstring") BasicLattice2D "";
 
-%feature("docstring")  BasicLattice::BasicLattice "BasicLattice::BasicLattice(double length1, double length2, double angle, double xi)
+%feature("docstring")  BasicLattice2D::BasicLattice2D "BasicLattice2D::BasicLattice2D(double length1, double length2, double angle, double xi)
 ";
 
-%feature("docstring")  BasicLattice::clone "BasicLattice * BasicLattice::clone() const
+%feature("docstring")  BasicLattice2D::clone "BasicLattice2D * BasicLattice2D::clone() const
 ";
 
-%feature("docstring")  BasicLattice::accept "void BasicLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  BasicLattice2D::accept "void BasicLattice2D::accept(INodeVisitor *visitor) const final
 ";
 
-%feature("docstring")  BasicLattice::length1 "virtual double BasicLattice::length1() const
+%feature("docstring")  BasicLattice2D::length1 "virtual double BasicLattice2D::length1() const
 ";
 
-%feature("docstring")  BasicLattice::length2 "virtual double BasicLattice::length2() const
+%feature("docstring")  BasicLattice2D::length2 "virtual double BasicLattice2D::length2() const
 ";
 
-%feature("docstring")  BasicLattice::latticeAngle "virtual double BasicLattice::latticeAngle() const
+%feature("docstring")  BasicLattice2D::latticeAngle "virtual double BasicLattice2D::latticeAngle() const
 ";
 
-%feature("docstring")  BasicLattice::unitCellArea "double BasicLattice::unitCellArea() const
+%feature("docstring")  BasicLattice2D::unitCellArea "double BasicLattice2D::unitCellArea() const
 ";
 
 
@@ -222,15 +222,15 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: classBoxesSquareLatticeBuilder.xml
-%feature("docstring") BoxesSquareLatticeBuilder "
+// File: classBoxesSquareLattice2DBuilder.xml
+%feature("docstring") BoxesSquareLattice2DBuilder "
 
 Builds sample: square boxes in a square lattice
 
 C++ includes: BoxesSquareLatticeBuilder.h
 ";
 
-%feature("docstring")  BoxesSquareLatticeBuilder::buildSample "MultiLayer * BoxesSquareLatticeBuilder::buildSample() const
+%feature("docstring")  BoxesSquareLattice2DBuilder::buildSample "MultiLayer * BoxesSquareLattice2DBuilder::buildSample() const
 ";
 
 
@@ -246,15 +246,15 @@ C++ includes: BoxCompositionBuilder.h
 ";
 
 
-// File: classCenteredSquareLatticeBuilder.xml
-%feature("docstring") CenteredSquareLatticeBuilder "
+// File: classCenteredSquareLattice2DBuilder.xml
+%feature("docstring") CenteredSquareLattice2DBuilder "
 
 Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
 
-%feature("docstring")  CenteredSquareLatticeBuilder::buildSample "MultiLayer * CenteredSquareLatticeBuilder::buildSample() const
+%feature("docstring")  CenteredSquareLattice2DBuilder::buildSample "MultiLayer * CenteredSquareLattice2DBuilder::buildSample() const
 ";
 
 
@@ -436,7 +436,7 @@ Strategy class to compute the total scattering from a particle layout in the dec
 C++ includes: DecouplingApproximationStrategy.h
 ";
 
-%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff, SimulationOptions sim_params, bool polarized)
+%feature("docstring")  DecouplingApproximationStrategy::DecouplingApproximationStrategy "DecouplingApproximationStrategy::DecouplingApproximationStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *iff, SimulationOptions sim_params, bool polarized)
 ";
 
 
@@ -582,15 +582,15 @@ C++ includes: DecouplingApproximationStrategy.h
 ";
 
 
-// File: classFiniteSquareLatticeBuilder.xml
-%feature("docstring") FiniteSquareLatticeBuilder "
+// File: classFiniteSquareLattice2DBuilder.xml
+%feature("docstring") FiniteSquareLattice2DBuilder "
 
 Builds sample: 2D finite lattice with thermal disorder.
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
 
-%feature("docstring")  FiniteSquareLatticeBuilder::buildSample "MultiLayer * FiniteSquareLatticeBuilder::buildSample() const
+%feature("docstring")  FiniteSquareLattice2DBuilder::buildSample "MultiLayer * FiniteSquareLattice2DBuilder::buildSample() const
 ";
 
 
@@ -2921,28 +2921,28 @@ C++ includes: PercusYevickBuilder.h
 // File: classMatrixFresnelMap_1_1HashKVector.xml
 
 
-// File: classHexagonalLattice.xml
-%feature("docstring") HexagonalLattice "";
+// File: classHexagonalLattice2D.xml
+%feature("docstring") HexagonalLattice2D "";
 
-%feature("docstring")  HexagonalLattice::HexagonalLattice "HexagonalLattice::HexagonalLattice(double length, double xi)
+%feature("docstring")  HexagonalLattice2D::HexagonalLattice2D "HexagonalLattice2D::HexagonalLattice2D(double length, double xi)
 ";
 
-%feature("docstring")  HexagonalLattice::clone "HexagonalLattice * HexagonalLattice::clone() const
+%feature("docstring")  HexagonalLattice2D::clone "HexagonalLattice2D * HexagonalLattice2D::clone() const
 ";
 
-%feature("docstring")  HexagonalLattice::accept "void HexagonalLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  HexagonalLattice2D::accept "void HexagonalLattice2D::accept(INodeVisitor *visitor) const final
 ";
 
-%feature("docstring")  HexagonalLattice::length1 "virtual double HexagonalLattice::length1() const
+%feature("docstring")  HexagonalLattice2D::length1 "virtual double HexagonalLattice2D::length1() const
 ";
 
-%feature("docstring")  HexagonalLattice::length2 "virtual double HexagonalLattice::length2() const
+%feature("docstring")  HexagonalLattice2D::length2 "virtual double HexagonalLattice2D::length2() const
 ";
 
-%feature("docstring")  HexagonalLattice::latticeAngle "double HexagonalLattice::latticeAngle() const
+%feature("docstring")  HexagonalLattice2D::latticeAngle "double HexagonalLattice2D::latticeAngle() const
 ";
 
-%feature("docstring")  HexagonalLattice::unitCellArea "double HexagonalLattice::unitCellArea() const
+%feature("docstring")  HexagonalLattice2D::unitCellArea "double HexagonalLattice2D::unitCellArea() const
 ";
 
 
@@ -3602,7 +3602,7 @@ Instantiation of child classes takes place in LayoutStrategyBuilder::createStrat
 C++ includes: IInterferenceFunctionStrategy.h
 ";
 
-%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff, const SimulationOptions &sim_params, bool polarized)
+%feature("docstring")  IInterferenceFunctionStrategy::IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const SimulationOptions &sim_params, bool polarized)
 ";
 
 %feature("docstring")  IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy "IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy()
@@ -3740,26 +3740,6 @@ Interference function of a 2D lattice.
 C++ includes: InterferenceFunction2DLattice.h
 ";
 
-%feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi)
-
-Constructor of two-dimensional interference function.
-
-Parameters:
------------
-
-length_1: 
-length of the first basis vector in nanometers
-
-length_2: 
-length of the second basis vector in nanometers
-
-alpha: 
-angle between the basis vectors in radians
-
-xi: 
-rotation of the lattice with respect to the x-axis (beam direction) in radians 
-";
-
 %feature("docstring")  InterferenceFunction2DLattice::InterferenceFunction2DLattice "InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D &lattice)
 ";
 
@@ -3815,29 +3795,6 @@ C++ includes: InterferenceFunction2DParaCrystal.h
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Lattice2D &lattice, double damping_length, double domain_size_1, double domain_size_2)
-";
-
-%feature("docstring")  InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi, double damping_length)
-
-Constructor of interference function of two-dimensional paracrystal.
-
-Parameters:
------------
-
-length_1: 
-length of first lattice vector in nanometers
-
-length_2: 
-length of second lattice vector in nanometers
-
-alpha: 
-angle between lattice vectors in radians
-
-xi: 
-rotation of lattice with respect to x-axis (beam direction) in radians
-
-damping_length: 
-the damping (coherence) length of the paracrystal in nanometers 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal "InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal() final
@@ -4063,32 +4020,6 @@ Parameters:
 
 lattice: 
 object specifying a 2d lattice structure
-
-N_1: 
-number of lattice cells in the first lattice direction
-
-N_2: 
-number of lattice cells in the second lattice direction 
-";
-
-%feature("docstring")  InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice "InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi, unsigned N_1, unsigned N_2)
-
-Constructor of two-dimensional finite lattice interference function.
-
-Parameters:
------------
-
-length_1: 
-length of first lattice vector in nanometers
-
-length_2: 
-length of second lattice vector in nanometers
-
-alpha: 
-angle between lattice vectors in radians
-
-xi: 
-rotation of lattice with respect to x-axis (beam direction) in radians
 
 N_1: 
 number of lattice cells in the first lattice direction
@@ -6570,15 +6501,15 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classRotatedSquareLatticeBuilder.xml
-%feature("docstring") RotatedSquareLatticeBuilder "
+// File: classRotatedSquareLattice2DBuilder.xml
+%feature("docstring") RotatedSquareLattice2DBuilder "
 
 Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
 
-%feature("docstring")  RotatedSquareLatticeBuilder::buildSample "MultiLayer * RotatedSquareLatticeBuilder::buildSample() const
+%feature("docstring")  RotatedSquareLattice2DBuilder::buildSample "MultiLayer * RotatedSquareLattice2DBuilder::buildSample() const
 ";
 
 
@@ -7349,73 +7280,43 @@ C++ includes: ParticleDistributionsBuilder.h
 ";
 
 
-// File: classSquareLattice.xml
-%feature("docstring") SquareLattice "";
+// File: classSquareLattice2D.xml
+%feature("docstring") SquareLattice2D "";
 
-%feature("docstring")  SquareLattice::SquareLattice "SquareLattice::SquareLattice(double length, double xi=0.0)
+%feature("docstring")  SquareLattice2D::SquareLattice2D "SquareLattice2D::SquareLattice2D(double length, double xi=0.0)
 ";
 
-%feature("docstring")  SquareLattice::clone "SquareLattice * SquareLattice::clone() const
+%feature("docstring")  SquareLattice2D::clone "SquareLattice2D * SquareLattice2D::clone() const
 ";
 
-%feature("docstring")  SquareLattice::accept "void SquareLattice::accept(INodeVisitor *visitor) const final
+%feature("docstring")  SquareLattice2D::accept "void SquareLattice2D::accept(INodeVisitor *visitor) const final
 ";
 
-%feature("docstring")  SquareLattice::length1 "virtual double SquareLattice::length1() const
+%feature("docstring")  SquareLattice2D::length1 "virtual double SquareLattice2D::length1() const
 ";
 
-%feature("docstring")  SquareLattice::length2 "virtual double SquareLattice::length2() const
+%feature("docstring")  SquareLattice2D::length2 "virtual double SquareLattice2D::length2() const
 ";
 
-%feature("docstring")  SquareLattice::latticeAngle "double SquareLattice::latticeAngle() const
+%feature("docstring")  SquareLattice2D::latticeAngle "double SquareLattice2D::latticeAngle() const
 ";
 
-%feature("docstring")  SquareLattice::unitCellArea "double SquareLattice::unitCellArea() const
+%feature("docstring")  SquareLattice2D::unitCellArea "double SquareLattice2D::unitCellArea() const
 ";
 
 
-// File: classSquareLatticeBuilder.xml
-%feature("docstring") SquareLatticeBuilder "
+// File: classSquareLattice2DBuilder.xml
+%feature("docstring") SquareLattice2DBuilder "
 
 Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 
 C++ includes: TwoDimLatticeBuilder.h
 ";
 
-%feature("docstring")  SquareLatticeBuilder::SquareLatticeBuilder "SquareLatticeBuilder::SquareLatticeBuilder()
+%feature("docstring")  SquareLattice2DBuilder::SquareLattice2DBuilder "SquareLattice2DBuilder::SquareLattice2DBuilder()
 ";
 
-%feature("docstring")  SquareLatticeBuilder::buildSample "MultiLayer * SquareLatticeBuilder::buildSample() const
-";
-
-
-// File: classSSCAHelper.xml
-%feature("docstring") SSCAHelper "
-
-Helper class for  SSCApproximationStrategy, offering some methods, shared between the scalar and polarized scattering calculations
-
-C++ includes: SSCAHelper.h
-";
-
-%feature("docstring")  SSCAHelper::SSCAHelper "SSCAHelper::SSCAHelper(double kappa)
-";
-
-%feature("docstring")  SSCAHelper::init "void SSCAHelper::init(const std::vector< FormFactorCoherentSum > &ff_wrappers)
-";
-
-%feature("docstring")  SSCAHelper::getCharacteristicSizeCoupling "complex_t SSCAHelper::getCharacteristicSizeCoupling(double qp, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
-";
-
-%feature("docstring")  SSCAHelper::getCharacteristicDistribution "complex_t SSCAHelper::getCharacteristicDistribution(double qp, const IInterferenceFunction *p_iff) const
-";
-
-%feature("docstring")  SSCAHelper::calculatePositionOffsetPhase "complex_t SSCAHelper::calculatePositionOffsetPhase(double qp, double radial_extension) const
-";
-
-%feature("docstring")  SSCAHelper::getMeanFormfactorNorm "complex_t SSCAHelper::getMeanFormfactorNorm(double qp, const std::vector< complex_t > &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
-";
-
-%feature("docstring")  SSCAHelper::getMeanFormfactors "void SSCAHelper::getMeanFormfactors(double qp, Eigen::Matrix2cd &ff_orig, Eigen::Matrix2cd &ff_conj, const FormFactorPrecompute::matrixFFVector_t &precomputed_ff, const std::vector< FormFactorCoherentSum > &ff_wrappers) const
+%feature("docstring")  SquareLattice2DBuilder::buildSample "MultiLayer * SquareLattice2DBuilder::buildSample() const
 ";
 
 
@@ -7427,7 +7328,7 @@ Strategy class to compute the total scattering from a particle layout in the siz
 C++ includes: SSCApproximationStrategy.h
 ";
 
-%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const IInterferenceFunction *p_iff, SimulationOptions sim_params, bool polarized, double kappa)
+%feature("docstring")  SSCApproximationStrategy::SSCApproximationStrategy "SSCApproximationStrategy::SSCApproximationStrategy(const std::vector< FormFactorCoherentSum > &weighted_formfactors, const InterferenceFunctionRadialParaCrystal *iff, SimulationOptions sim_params, bool polarized, double kappa)
 ";
 
 
@@ -7619,13 +7520,16 @@ C++ includes: ZLimits.h
 // File: namespace_0d115.xml
 
 
-// File: namespace_0d141.xml
+// File: namespace_0d139.xml
 
 
-// File: namespace_0d145.xml
+// File: namespace_0d143.xml
 
 
-// File: namespace_0d149.xml
+// File: namespace_0d147.xml
+
+
+// File: namespace_0d157.xml
 
 
 // File: namespace_0d159.xml
@@ -7637,40 +7541,40 @@ C++ includes: ZLimits.h
 // File: namespace_0d161.xml
 
 
-// File: namespace_0d163.xml
+// File: namespace_0d171.xml
 
 
-// File: namespace_0d173.xml
+// File: namespace_0d192.xml
 
 
 // File: namespace_0d194.xml
 
 
-// File: namespace_0d196.xml
-
-
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d206.xml
+// File: namespace_0d204.xml
+
+
+// File: namespace_0d220.xml
 
 
 // File: namespace_0d222.xml
 
 
-// File: namespace_0d224.xml
+// File: namespace_0d229.xml
 
 
-// File: namespace_0d231.xml
-
-
-// File: namespace_0d249.xml
+// File: namespace_0d247.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d257.xml
+// File: namespace_0d255.xml
+
+
+// File: namespace_0d265.xml
 
 
 // File: namespace_0d267.xml
@@ -7685,7 +7589,7 @@ C++ includes: ZLimits.h
 // File: namespace_0d273.xml
 
 
-// File: namespace_0d275.xml
+// File: namespace_0d277.xml
 
 
 // File: namespace_0d279.xml
@@ -7694,25 +7598,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d281.xml
 
 
-// File: namespace_0d283.xml
+// File: namespace_0d293.xml
 
 
-// File: namespace_0d295.xml
+// File: namespace_0d299.xml
 
 
-// File: namespace_0d301.xml
-
-
-// File: namespace_0d305.xml
+// File: namespace_0d303.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d323.xml
+// File: namespace_0d321.xml
 
 
-// File: namespace_0d342.xml
+// File: namespace_0d340.xml
 
 
 // File: namespace_0d37.xml
@@ -7725,32 +7626,32 @@ C++ includes: ZLimits.h
 
 
 // File: namespacebake.xml
-%feature("docstring")  bake::createCubicLattice "Lattice3D bake::createCubicLattice(double a)
+%feature("docstring")  bake::CubicLattice "Lattice3D bake::CubicLattice(double a)
 
 Returns a primitive cubic (cP) lattice with edge length a. 
 ";
 
-%feature("docstring")  bake::createFCCLattice "Lattice3D bake::createFCCLattice(double a)
+%feature("docstring")  bake::FCCLattice "Lattice3D bake::FCCLattice(double a)
 
 Returns a face-centered cubic (cF) lattice with edge length a. 
 ";
 
-%feature("docstring")  bake::createHexagonalLattice "Lattice3D bake::createHexagonalLattice(double a, double c)
+%feature("docstring")  bake::HexagonalLattice "Lattice3D bake::HexagonalLattice(double a, double c)
 
 Returns a primitive hexagonal (hP) lattice with hexagonal edge a and height c. 
 ";
 
-%feature("docstring")  bake::createHCPLattice "Lattice3D bake::createHCPLattice(double a, double c)
+%feature("docstring")  bake::HCPLattice "Lattice3D bake::HCPLattice(double a, double c)
 
 TODO: Clarify how this is meant: HCP is not a Bravais lattice. 
 ";
 
-%feature("docstring")  bake::createTetragonalLattice "Lattice3D bake::createTetragonalLattice(double a, double c)
+%feature("docstring")  bake::TetragonalLattice "Lattice3D bake::TetragonalLattice(double a, double c)
 
 Returns a primitive tetragonal (tP) lattice with square base edge a and height c. 
 ";
 
-%feature("docstring")  bake::createBCTLattice "Lattice3D bake::createBCTLattice(double a, double c)
+%feature("docstring")  bake::BCTLattice "Lattice3D bake::BCTLattice(double a, double c)
 
 Returns a body-centered cubic (cI) lattice with edge length a. TODO: Clarify meaning of c 
 ";
@@ -8285,12 +8186,6 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: IInterferenceFunctionStrategy_8h.xml
-
-
-// File: SSCAHelper_8cpp.xml
-
-
-// File: SSCAHelper_8h.xml
 
 
 // File: SSCApproximationStrategy_8cpp.xml

@@ -27,29 +27,29 @@ public:
     double unitCellArea() const;
 };
 
-class BA_CORE_API_ BasicLatticeItem : public Lattice2DItem
+class BA_CORE_API_ BasicLattice2DItem : public Lattice2DItem
 {
 public:
     static const QString P_LATTICE_LENGTH1;
     static const QString P_LATTICE_LENGTH2;
     static const QString P_LATTICE_ANGLE;
-    BasicLatticeItem();
+    BasicLattice2DItem();
     std::unique_ptr<Lattice2D> createLattice() const;
 };
 
-class BA_CORE_API_ SquareLatticeItem : public Lattice2DItem
+class BA_CORE_API_ SquareLattice2DItem : public Lattice2DItem
 {
 public:
     static const QString P_LATTICE_LENGTH;
-    SquareLatticeItem();
+    SquareLattice2DItem();
     std::unique_ptr<Lattice2D> createLattice() const;
 };
 
-class BA_CORE_API_ HexagonalLatticeItem : public Lattice2DItem
+class BA_CORE_API_ HexagonalLattice2DItem : public Lattice2DItem
 {
 public:
     static const QString P_LATTICE_LENGTH;
-    HexagonalLatticeItem();
+    HexagonalLattice2DItem();
     std::unique_ptr<Lattice2D> createLattice() const;
 };
 

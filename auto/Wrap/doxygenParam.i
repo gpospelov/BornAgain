@@ -484,7 +484,7 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::~INodeVisitor "virtual INodeVisitor::~INodeVisitor()
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const BasicLattice *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const BasicLattice2D *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const Beam *)
@@ -709,7 +709,7 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const GISASSimulation *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const HexagonalLattice *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const HexagonalLattice2D *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IAbstractParticle *)
@@ -850,7 +850,7 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const SphericalDetector *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const SquareLattice *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const SquareLattice2D *)
 ";
 
 %feature("docstring")  INodeVisitor::depth "int INodeVisitor::depth() const

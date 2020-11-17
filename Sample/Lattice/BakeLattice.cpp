@@ -15,7 +15,7 @@
 #include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Lattice/Lattice3D.h"
 
-Lattice3D bake::createCubicLattice(double a)
+Lattice3D bake::CubicLattice(double a)
 {
     kvector_t a1(a, 0.0, 0.0);
     kvector_t a2(0.0, a, 0.0);
@@ -23,7 +23,7 @@ Lattice3D bake::createCubicLattice(double a)
     return Lattice3D(a1, a2, a3);
 }
 
-Lattice3D bake::createFCCLattice(double a)
+Lattice3D bake::FCCLattice(double a)
 {
     double b = a / 2.0;
     kvector_t a1(0.0, b, b);
@@ -32,7 +32,7 @@ Lattice3D bake::createFCCLattice(double a)
     return Lattice3D(a1, a2, a3);
 }
 
-Lattice3D bake::createHexagonalLattice(double a, double c)
+Lattice3D bake::HexagonalLattice(double a, double c)
 {
     kvector_t a1(a, 0.0, 0.0);
     kvector_t a2(-a / 2.0, std::sqrt(3.0) * a / 2.0, 0.0);
@@ -40,7 +40,7 @@ Lattice3D bake::createHexagonalLattice(double a, double c)
     return Lattice3D(a1, a2, a3);
 }
 
-Lattice3D bake::createHCPLattice(double a, double c)
+Lattice3D bake::HCPLattice(double a, double c)
 {
     kvector_t a1(a, 0.0, 0.0);
     kvector_t a2(-a / 2.0, std::sqrt(3.0) * a / 2.0, 0);
@@ -48,7 +48,7 @@ Lattice3D bake::createHCPLattice(double a, double c)
     return Lattice3D(a1, a2, a3);
 }
 
-Lattice3D bake::createTetragonalLattice(double a, double c)
+Lattice3D bake::TetragonalLattice(double a, double c)
 {
     kvector_t a1(a, 0.0, 0.0);
     kvector_t a2(0.0, a, 0.0);
@@ -56,7 +56,7 @@ Lattice3D bake::createTetragonalLattice(double a, double c)
     return Lattice3D(a1, a2, a3);
 }
 
-Lattice3D bake::createBCTLattice(double a, double c)
+Lattice3D bake::BCTLattice(double a, double c)
 {
     kvector_t a1(a, 0.0, 0.0);
     kvector_t a2(0.0, a, 0.0);

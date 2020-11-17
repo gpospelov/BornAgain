@@ -761,22 +761,22 @@ void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QStrin
 void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice)
 {
     SessionItem* latticeItem(nullptr);
-    if (lattice.getName() == "SquareLattice") {
+    if (lattice.getName() == "SquareLattice2D") {
         latticeItem = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                             "SquareLattice");
-        latticeItem->setItemValue(SquareLatticeItem::P_LATTICE_LENGTH, lattice.length1());
+                                             "SquareLattice2D");
+        latticeItem->setItemValue(SquareLattice2DItem::P_LATTICE_LENGTH, lattice.length1());
 
-    } else if (lattice.getName() == "HexagonalLattice") {
+    } else if (lattice.getName() == "HexagonalLattice2D") {
         latticeItem = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                             "HexagonalLattice");
-        latticeItem->setItemValue(HexagonalLatticeItem::P_LATTICE_LENGTH, lattice.length1());
+                                             "HexagonalLattice2D");
+        latticeItem->setItemValue(HexagonalLattice2DItem::P_LATTICE_LENGTH, lattice.length1());
 
     } else {
         latticeItem = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
-                                             "BasicLattice");
-        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_LENGTH1, lattice.length1());
-        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_LENGTH2, lattice.length2());
-        latticeItem->setItemValue(BasicLatticeItem::P_LATTICE_ANGLE,
+                                             "BasicLattice2D");
+        latticeItem->setItemValue(BasicLattice2DItem::P_LATTICE_LENGTH1, lattice.length1());
+        latticeItem->setItemValue(BasicLattice2DItem::P_LATTICE_LENGTH2, lattice.length2());
+        latticeItem->setItemValue(BasicLattice2DItem::P_LATTICE_ANGLE,
                                   Units::rad2deg(lattice.latticeAngle()));
     }
     latticeItem->setItemValue(Lattice2DItem::P_LATTICE_ROTATION_ANGLE,

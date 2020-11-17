@@ -112,9 +112,8 @@ const IInterferenceFunction* ParticleLayout::interferenceFunction() const
 double ParticleLayout::getTotalAbundance() const
 {
     double result = 0.0;
-    for (auto p_particle : m_particles) {
+    for (auto p_particle : m_particles)
         result += p_particle->abundance();
-    }
     return result;
 }
 

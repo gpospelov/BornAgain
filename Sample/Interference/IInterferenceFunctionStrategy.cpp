@@ -17,20 +17,18 @@
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Assert.h"
 #include "Base/Utils/IntegratorMCMiser.h"
-#include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 
 IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
-    const IInterferenceFunction* p_iff, const SimulationOptions& sim_params, bool polarized)
-    : m_formfactor_wrappers(weighted_formfactors)
-    , m_iff(p_iff ? p_iff->clone() : new InterferenceFunctionNone())
+    const SimulationOptions& sim_params, bool polarized)
+    : m_weighted_formfactors(weighted_formfactors)
     , m_options(sim_params)
     , m_polarized(polarized)
     , m_integrator(
           make_integrator_miser(this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2))
 {
-    ASSERT(!m_formfactor_wrappers.empty());
+    ASSERT(!m_weighted_formfactors.empty());
 }
 
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() = default;

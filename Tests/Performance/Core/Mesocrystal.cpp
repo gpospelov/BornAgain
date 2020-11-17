@@ -55,7 +55,7 @@ std::unique_ptr<RectangularDetector> create_detector()
 
 Lattice3D createLattice(double a, double c)
 {
-    Lattice3D result = bake::createHexagonalLattice(a, c);
+    Lattice3D result = bake::HexagonalLattice(a, c);
     result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return result;
 }

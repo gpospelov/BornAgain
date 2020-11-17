@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_PARAM_NODE_INODEVISITOR_H
 #define BORNAGAIN_PARAM_NODE_INODEVISITOR_H
 
-class BasicLattice;
+class BasicLattice2D;
 class Beam;
 class ConstantBackground;
 class ConvolutionDetectorResolution;
@@ -90,7 +90,7 @@ class FTDistribution2DGate;
 class FTDistribution2DGauss;
 class FTDistribution2DVoigt;
 class GISASSimulation;
-class HexagonalLattice;
+class HexagonalLattice2D;
 class IAbstractParticle;
 class IClusteredParticles;
 class IdentityRotation;
@@ -137,7 +137,7 @@ class RotationZ;
 class SpecularDetector1D;
 class SpecularSimulation;
 class SphericalDetector;
-class SquareLattice;
+class SquareLattice2D;
 
 //! Visitor interface to visit ISample objects.
 //! @ingroup samples_internal
@@ -150,7 +150,7 @@ public:
     INodeVisitor() : m_depth(0) {}
     virtual ~INodeVisitor() {}
 
-    virtual void visit(const BasicLattice*) {}
+    virtual void visit(const BasicLattice2D*) {}
     virtual void visit(const Beam*) {}
     virtual void visit(const ConstantBackground*) {}
     virtual void visit(const ConvolutionDetectorResolution*) {}
@@ -225,7 +225,7 @@ public:
     virtual void visit(const FTDistribution2DGauss*) {}
     virtual void visit(const FTDistribution2DVoigt*) {}
     virtual void visit(const GISASSimulation*) {}
-    virtual void visit(const HexagonalLattice*) {}
+    virtual void visit(const HexagonalLattice2D*) {}
     virtual void visit(const IAbstractParticle*) {}
     virtual void visit(const IClusteredParticles*) {}
     virtual void visit(const IdentityRotation*) {}
@@ -272,7 +272,7 @@ public:
     virtual void visit(const SpecularDetector1D*) {}
     virtual void visit(const SpecularSimulation*) {}
     virtual void visit(const SphericalDetector*) {}
-    virtual void visit(const SquareLattice*) {}
+    virtual void visit(const SquareLattice2D*) {}
 
     //! Returns depth of the visitor in the composite hierarchy
     int depth() const { return m_depth; }

@@ -26,7 +26,6 @@
 class InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
-    InterferenceFunction2DLattice(double length_1, double length_2, double alpha, double xi);
     InterferenceFunction2DLattice(const Lattice2D& lattice);
     ~InterferenceFunction2DLattice() final;
 

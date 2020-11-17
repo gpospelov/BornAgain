@@ -937,7 +937,7 @@ Returns assigned  PolarizationHandler.
 %feature("docstring")  SimulationElement::getMeanKf "kvector_t SimulationElement::getMeanKf() const
 ";
 
-%feature("docstring")  SimulationElement::getMeanQ "kvector_t SimulationElement::getMeanQ() const
+%feature("docstring")  SimulationElement::meanQ "kvector_t SimulationElement::meanQ() const
 ";
 
 %feature("docstring")  SimulationElement::getQ "kvector_t SimulationElement::getQ(double x, double y) const

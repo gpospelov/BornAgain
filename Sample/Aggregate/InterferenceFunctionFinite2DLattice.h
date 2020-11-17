@@ -25,8 +25,6 @@ class InterferenceFunctionFinite2DLattice : public IInterferenceFunction
 {
 public:
     InterferenceFunctionFinite2DLattice(const Lattice2D& lattice, unsigned N_1, unsigned N_2);
-    InterferenceFunctionFinite2DLattice(double length_1, double length_2, double alpha, double xi,
-                                        unsigned N_1, unsigned N_2);
     ~InterferenceFunctionFinite2DLattice() final;
 
     InterferenceFunctionFinite2DLattice* clone() const override final;

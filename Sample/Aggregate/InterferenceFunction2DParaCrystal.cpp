@@ -34,22 +34,6 @@ InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(const Latti
     registerParameter("DomainSize2", &m_domain_sizes[1]).setUnit("nm").setNonnegative();
 }
 
-//! Constructor of interference function of two-dimensional paracrystal.
-//! @param length_1: length of first lattice vector in nanometers
-//! @param length_2: length of second lattice vector in nanometers
-//! @param alpha: angle between lattice vectors in radians
-//! @param xi: rotation of lattice with respect to x-axis (beam direction) in radians
-//! @param damping_length: the damping (coherence) length of the paracrystal in nanometers
-
-InterferenceFunction2DParaCrystal::InterferenceFunction2DParaCrystal(double length_1,
-                                                                     double length_2, double alpha,
-                                                                     double xi,
-                                                                     double damping_length)
-    : InterferenceFunction2DParaCrystal(BasicLattice(length_1, length_2, alpha, xi), damping_length,
-                                        0, 0)
-{
-}
-
 InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal() = default;
 
 InterferenceFunction2DParaCrystal* InterferenceFunction2DParaCrystal::clone() const

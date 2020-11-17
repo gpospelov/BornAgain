@@ -27,12 +27,14 @@ class DecouplingApproximationStrategy final : public IInterferenceFunctionStrate
 {
 public:
     DecouplingApproximationStrategy(const std::vector<FormFactorCoherentSum>& weighted_formfactors,
-                                    const IInterferenceFunction* p_iff,
-                                    SimulationOptions sim_params, bool polarized);
+                                    const IInterferenceFunction* iff, SimulationOptions sim_params,
+                                    bool polarized);
 
 private:
     double scalarCalculation(const SimulationElement& sim_element) const override;
     double polarizedCalculation(const SimulationElement& sim_element) const override;
+
+    std::unique_ptr<IInterferenceFunction> m_iff;
 };
 
 #endif // BORNAGAIN_SAMPLE_INTERFERENCE_DECOUPLINGAPPROXIMATIONSTRATEGY_H

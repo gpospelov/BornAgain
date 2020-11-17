@@ -86,24 +86,25 @@ TEST_F(Std, MultiLayerWithRoughness)
         run("MultiLayerWithRoughness", "MiniGISAS", "MultiLayerWithRoughnessBuilder", 2e-10));
 }
 
-TEST_F(Std, SquareLattice)
+TEST_F(Std, SquareLattice2D)
 {
-    EXPECT_TRUE(run("SquareLattice", "MiniGISAS", "SquareLatticeBuilder", 2e-10));
+    EXPECT_TRUE(run("SquareLattice2D", "MiniGISAS", "SquareLattice2DBuilder", 2e-10));
 }
 
-TEST_F(Std, CenteredSquareLattice)
+TEST_F(Std, CenteredSquareLattice2D)
 {
-    EXPECT_TRUE(run("CenteredSquareLattice", "MiniGISAS", "CenteredSquareLatticeBuilder", 2e-10));
+    EXPECT_TRUE(
+        run("CenteredSquareLattice2D", "MiniGISAS", "CenteredSquareLattice2DBuilder", 2e-10));
 }
 
-TEST_F(Std, RotatedSquareLattice)
+TEST_F(Std, RotatedSquareLattice2D)
 {
-    EXPECT_TRUE(run("RotatedSquareLattice", "MiniGISAS", "RotatedSquareLatticeBuilder", 2e-10));
+    EXPECT_TRUE(run("RotatedSquareLattice2D", "MiniGISAS", "RotatedSquareLattice2DBuilder", 2e-10));
 }
 
-TEST_F(Std, FiniteSquareLattice)
+TEST_F(Std, FiniteSquareLattice2D)
 {
-    EXPECT_TRUE(run("FiniteSquareLattice", "MiniGISAS", "FiniteSquareLatticeBuilder", 2e-10));
+    EXPECT_TRUE(run("FiniteSquareLattice2D", "MiniGISAS", "FiniteSquareLattice2DBuilder", 2e-10));
 }
 
 TEST_F(Std, RotatedPyramids)
@@ -361,7 +362,8 @@ TEST_F(Std, RectDetWithRoi)
 
 TEST_F(Std, BoxesWithSpecular)
 {
-    EXPECT_TRUE(run("BoxesWithSpecular", "MiniGISASSpecular", "BoxesSquareLatticeBuilder", 1e-10));
+    EXPECT_TRUE(
+        run("BoxesWithSpecular", "MiniGISASSpecular", "BoxesSquareLattice2DBuilder", 1e-10));
 }
 
 TEST_F(Std, RotatedCylinder)

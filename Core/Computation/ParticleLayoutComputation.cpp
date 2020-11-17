@@ -27,24 +27,24 @@ std::unique_ptr<IInterferenceFunctionStrategy>
 processedInterferenceFunction(const ProcessedLayout& layout, const SimulationOptions& sim_params,
                               bool polarized)
 {
-    const IInterferenceFunction* p_iff = layout.interferenceFunction();
-    if (p_iff && layout.numberOfSlices() > 1 && !p_iff->supportsMultilayer())
+    const IInterferenceFunction* iff = layout.interferenceFunction();
+    if (iff && layout.numberOfSlices() > 1 && !iff->supportsMultilayer())
         throw std::runtime_error("LayoutStrategyBuilder::checkInterferenceFunction: "
                                  "interference function does not support multiple layers");
 
-    auto p_radial_para = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(p_iff);
+    auto radial_para = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(iff);
 
     const std::vector<FormFactorCoherentSum>& weighted_formfactors = layout.formFactorList();
 
     std::unique_ptr<IInterferenceFunctionStrategy> result;
 
-    if (p_radial_para && p_radial_para->kappa() > 0.0) {
-        double kappa = p_radial_para->kappa();
-        return std::make_unique<SSCApproximationStrategy>(weighted_formfactors, p_iff, sim_params,
-                                                          polarized, kappa);
+    if (radial_para && radial_para->kappa() > 0.0) {
+        double kappa = radial_para->kappa();
+        return std::make_unique<SSCApproximationStrategy>(weighted_formfactors, radial_para,
+                                                          sim_params, polarized, kappa);
     }
-    return std::make_unique<DecouplingApproximationStrategy>(weighted_formfactors, p_iff,
-                                                             sim_params, polarized);
+    return std::make_unique<DecouplingApproximationStrategy>(weighted_formfactors, iff, sim_params,
+                                                             polarized);
 }
 
 } // namespace

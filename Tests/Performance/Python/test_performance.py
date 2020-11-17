@@ -201,7 +201,7 @@ class PerformanceTests:
         self.add("CylindersInDWBA",    "MaxiGISAS",    "CylindersInDWBABuilder", 10)
         self.add("RotatedPyramids",    "MaxiGISAS",    "RotatedPyramidsBuilder", 10)
         self.add("CoreShell",          "MaxiGISAS",    "CoreShellParticleBuilder", 10)
-        self.add("SquareLattice",      "MaxiGISAS",    "SquareLatticeBuilder", 10)
+        self.add("SquareLattice2D",      "MaxiGISAS",    "SquareLattice2DBuilder", 10)
         self.add("RadialParaCrystal",  "MaxiGISAS",    "RadialParaCrystalBuilder", 10)
         self.add("HexParaCrystal",     "BasicGISAS",   "HexParaCrystalBuilder", 1)
         self.add("SSCA",               "MaxiGISAS",    "SizeDistributionSSCAModelBuilder", 10)

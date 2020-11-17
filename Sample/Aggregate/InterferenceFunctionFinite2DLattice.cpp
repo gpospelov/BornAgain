@@ -36,21 +36,6 @@ InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const L
     registerChild(m_lattice.get());
 }
 
-//! Constructor of two-dimensional finite lattice interference function.
-//! @param length_1: length of first lattice vector in nanometers
-//! @param length_2: length of second lattice vector  in nanometers
-//! @param alpha: angle between lattice vectors in radians
-//! @param xi: rotation of lattice with respect to x-axis (beam direction) in radians
-//! @param N_1: number of lattice cells in the first lattice direction
-//! @param N_2: number of lattice cells in the second lattice direction
-InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(double length_1,
-                                                                         double length_2,
-                                                                         double alpha, double xi,
-                                                                         unsigned N_1, unsigned N_2)
-    : InterferenceFunctionFinite2DLattice(BasicLattice(length_1, length_2, alpha, xi), N_1, N_2)
-{
-}
-
 InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice() = default;
 
 InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::clone() const

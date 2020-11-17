@@ -17,7 +17,7 @@ def get_sample():
 
     # collection of particles
     interference = ba.InterferenceFunctionFinite2DLattice(
-        ba.SquareLattice(25.0*nm, 0.0), 40, 40)
+        ba.SquareLattice2D(25.0*nm, 0.0), 40, 40)
     interference.setPositionVariance(1.0)
 
     cylinder_ff = ba.FormFactorCylinder(3.*nm, 3.*nm)

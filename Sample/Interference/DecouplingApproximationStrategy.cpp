@@ -18,13 +18,15 @@
 #include "Base/Utils/MathFunctions.h"
 #include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
+#include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
-#include "Sample/Interference/FormFactorPrecompute.h"
 
 DecouplingApproximationStrategy::DecouplingApproximationStrategy(
     const std::vector<FormFactorCoherentSum>& weighted_formfactors,
-    const IInterferenceFunction* p_iff, SimulationOptions sim_params, bool polarized)
-    : IInterferenceFunctionStrategy(weighted_formfactors, p_iff, sim_params, polarized)
+    const IInterferenceFunction* iff, SimulationOptions sim_params, bool polarized)
+    : IInterferenceFunctionStrategy(weighted_formfactors, sim_params, polarized)
+    , m_iff(iff ? iff->clone() : new InterferenceFunctionNone())
+
 {
 }
 
@@ -36,18 +38,17 @@ DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_
 {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
-    auto precomputed_ff = FormFactorPrecompute::scalar(sim_element, m_formfactor_wrappers);
-    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        complex_t ff = precomputed_ff[i];
+    for (const auto& ffw : m_weighted_formfactors) {
+        const complex_t ff = ffw.evaluate(sim_element);
         if (std::isnan(ff.real()))
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::scalarCalculation() -> Error! Amplitude is NaN");
-        double fraction = m_formfactor_wrappers[i].relativeAbundance();
+        double fraction = ffw.relativeAbundance();
         amplitude += fraction * ff;
         intensity += fraction * std::norm(ff);
     }
-    double amplitude_norm = std::norm(amplitude);
-    double coherence_factor = m_iff->evaluate(sim_element.getMeanQ());
+    const double amplitude_norm = std::norm(amplitude);
+    const double coherence_factor = m_iff->evaluate(sim_element.meanQ());
     return intensity + amplitude_norm * (coherence_factor - 1.0);
 }
 
@@ -58,24 +59,24 @@ DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& s
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 
-    auto precomputed_ff = FormFactorPrecompute::polarized(sim_element, m_formfactor_wrappers);
     const auto& polarization_handler = sim_element.polarizationHandler();
-    for (size_t i = 0; i < m_formfactor_wrappers.size(); ++i) {
-        Eigen::Matrix2cd ff = precomputed_ff[i];
+    for (const auto& ffw : m_weighted_formfactors) {
+        const Eigen::Matrix2cd ff = ffw.evaluatePol(sim_element);
         if (!ff.allFinite())
             throw Exceptions::RuntimeErrorException(
                 "DecouplingApproximationStrategy::polarizedCalculation() -> "
                 "Error! Form factor contains NaN or infinite");
-        double fraction = m_formfactor_wrappers[i].relativeAbundance();
+        const double fraction = ffw.relativeAbundance();
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * polarization_handler.getPolarization() * ff.adjoint());
     }
-    Eigen::Matrix2cd amplitude_matrix = polarization_handler.getAnalyzerOperator() * mean_amplitude
-                                        * polarization_handler.getPolarization()
-                                        * mean_amplitude.adjoint();
-    Eigen::Matrix2cd intensity_matrix = polarization_handler.getAnalyzerOperator() * mean_intensity;
-    double amplitude_trace = std::abs(amplitude_matrix.trace());
-    double intensity_trace = std::abs(intensity_matrix.trace());
-    double coherence_factor = m_iff->evaluate(sim_element.getMeanQ());
+    const Eigen::Matrix2cd amplitude_matrix =
+        polarization_handler.getAnalyzerOperator() * mean_amplitude
+        * polarization_handler.getPolarization() * mean_amplitude.adjoint();
+    const Eigen::Matrix2cd intensity_matrix =
+        polarization_handler.getAnalyzerOperator() * mean_intensity;
+    const double amplitude_trace = std::abs(amplitude_matrix.trace());
+    const double intensity_trace = std::abs(intensity_matrix.trace());
+    const double coherence_factor = m_iff->evaluate(sim_element.meanQ());
     return intensity_trace + amplitude_trace * (coherence_factor - 1.0);
 }

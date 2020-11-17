@@ -32,9 +32,6 @@ public:
     InterferenceFunction2DParaCrystal(const Lattice2D& lattice, double damping_length,
                                       double domain_size_1, double domain_size_2);
 
-    InterferenceFunction2DParaCrystal(double length_1, double length_2, double alpha, double xi,
-                                      double damping_length);
-
     ~InterferenceFunction2DParaCrystal() final;
 
     InterferenceFunction2DParaCrystal* clone() const override final;

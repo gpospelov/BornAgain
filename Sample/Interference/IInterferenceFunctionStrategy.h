@@ -42,7 +42,6 @@ class IInterferenceFunctionStrategy
 {
 public:
     IInterferenceFunctionStrategy(const std::vector<FormFactorCoherentSum>& weighted_formfactors,
-                                  const IInterferenceFunction* p_iff,
                                   const SimulationOptions& sim_params, bool polarized);
     virtual ~IInterferenceFunctionStrategy();
 
@@ -50,8 +49,7 @@ public:
     double evaluate(const SimulationElement& sim_element) const;
 
 protected:
-    std::vector<FormFactorCoherentSum> m_formfactor_wrappers;
-    std::unique_ptr<IInterferenceFunction> m_iff;
+    std::vector<FormFactorCoherentSum> m_weighted_formfactors;
     const SimulationOptions m_options;
 
 private:

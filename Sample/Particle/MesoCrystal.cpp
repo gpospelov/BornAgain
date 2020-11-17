@@ -17,6 +17,7 @@
 #include "Sample/Particle/SlicedParticle.h"
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Sample/Scattering/FormFactorDecoratorRotation.h"
+#include "Sample/Scattering/Rotations.h"
 
 MesoCrystal::MesoCrystal(const Crystal& particle_structure, const IFormFactor& form_factor)
     : m_particle_structure(particle_structure.clone()), m_meso_form_factor(form_factor.clone())

@@ -16,6 +16,7 @@
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Particle/SlicedParticle.h"
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Sample/Scattering/Rotations.h"
 
 Particle::Particle() : m_material(HomogeneousMaterial())
 {

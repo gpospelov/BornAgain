@@ -17,7 +17,6 @@
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/MathFunctions.h"
 #include "Param/Base/RealParameter.h"
-#include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 

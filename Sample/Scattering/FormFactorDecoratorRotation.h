@@ -17,7 +17,8 @@
 
 #include "Base/Vector/Transform3D.h"
 #include "Sample/Scattering/IFormFactorDecorator.h"
-#include "Sample/Scattering/Rotations.h"
+
+class IRotation;
 
 //! Equips a form factor with a rotation.
 //! @ingroup formfactors_internal

@@ -16,6 +16,7 @@
 #include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Sample/Scattering/FormFactorDecoratorRotation.h"
+#include "Sample/Scattering/Rotations.h"
 #include <memory>
 #include <utility>
 

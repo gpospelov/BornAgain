@@ -24,7 +24,7 @@
 class Particle : public IParticle
 {
 public:
-    Particle();
+    Particle() = delete;
     ~Particle();
     Particle(Material material);
     Particle(Material material, const IFormFactor& form_factor);
@@ -39,8 +39,6 @@ public:
     void setMaterial(Material material);
     const Material* material() const override final { return &m_material; }
 
-    void setFormFactor(const IFormFactor& form_factor);
-
     std::vector<const INode*> getChildren() const override final;
 
 protected:
@@ -49,6 +47,7 @@ protected:
 
 private:
     void initialize();
+    void setFormFactor(const IFormFactor& form_factor);
 };
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_PARTICLE_H

@@ -3363,6 +3363,38 @@ def createTransformedFormFactor(formfactor, rot, translation):
 
     """
     return _libBornAgainSample.createTransformedFormFactor(formfactor, rot, translation)
+class SlicingEffects(object):
+    r"""
+
+
+    Nested structure that holds slicing effects on position and removed parts.
+
+    C++ includes: IBornFF.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    position = property(_libBornAgainSample.SlicingEffects_position_get, _libBornAgainSample.SlicingEffects_position_set, doc=r"""position : kvector_t""")
+    dz_bottom = property(_libBornAgainSample.SlicingEffects_dz_bottom_get, _libBornAgainSample.SlicingEffects_dz_bottom_set, doc=r"""dz_bottom : double""")
+    dz_top = property(_libBornAgainSample.SlicingEffects_dz_top_get, _libBornAgainSample.SlicingEffects_dz_top_set, doc=r"""dz_top : double""")
+
+    def __init__(self):
+        r"""
+        __init__(SlicingEffects self) -> SlicingEffects
+
+
+        Nested structure that holds slicing effects on position and removed parts.
+
+        C++ includes: IBornFF.h
+
+        """
+        _libBornAgainSample.SlicingEffects_swiginit(self, _libBornAgainSample.new_SlicingEffects())
+    __swig_destroy__ = _libBornAgainSample.delete_SlicingEffects
+
+# Register SlicingEffects in _libBornAgainSample:
+_libBornAgainSample.SlicingEffects_swigregister(SlicingEffects)
+
 class IBornFF(IFormFactor):
     r"""
 
@@ -3466,38 +3498,6 @@ class IBornFF(IFormFactor):
 
 # Register IBornFF in _libBornAgainSample:
 _libBornAgainSample.IBornFF_swigregister(IBornFF)
-
-class SlicingEffects(object):
-    r"""
-
-
-    Nested structure that holds slicing effects on position and removed parts.
-
-    C++ includes: IBornFF.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    position = property(_libBornAgainSample.SlicingEffects_position_get, _libBornAgainSample.SlicingEffects_position_set, doc=r"""position : kvector_t""")
-    dz_bottom = property(_libBornAgainSample.SlicingEffects_dz_bottom_get, _libBornAgainSample.SlicingEffects_dz_bottom_set, doc=r"""dz_bottom : double""")
-    dz_top = property(_libBornAgainSample.SlicingEffects_dz_top_get, _libBornAgainSample.SlicingEffects_dz_top_set, doc=r"""dz_top : double""")
-
-    def __init__(self):
-        r"""
-        __init__(SlicingEffects self) -> SlicingEffects
-
-
-        Nested structure that holds slicing effects on position and removed parts.
-
-        C++ includes: IBornFF.h
-
-        """
-        _libBornAgainSample.SlicingEffects_swiginit(self, _libBornAgainSample.new_SlicingEffects())
-    __swig_destroy__ = _libBornAgainSample.delete_SlicingEffects
-
-# Register SlicingEffects in _libBornAgainSample:
-_libBornAgainSample.SlicingEffects_swigregister(SlicingEffects)
 
 class IFormFactorDecorator(IFormFactor):
     r"""
@@ -4662,10 +4662,10 @@ class Particle(IParticle):
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainSample.delete_Particle
 
     def __init__(self, *args):
         r"""
-        __init__(Particle self) -> Particle
         __init__(Particle self, Material material) -> Particle
         __init__(Particle self, Material material, IFormFactor form_factor) -> Particle
         __init__(Particle self, Material material, IFormFactor form_factor, IRotation rotation) -> Particle
@@ -4720,14 +4720,6 @@ class Particle(IParticle):
         """
         return _libBornAgainSample.Particle_material(self)
 
-    def setFormFactor(self, form_factor):
-        r"""
-        setFormFactor(Particle self, IFormFactor form_factor)
-        void Particle::setFormFactor(const IFormFactor &form_factor)
-
-        """
-        return _libBornAgainSample.Particle_setFormFactor(self, form_factor)
-
     def getChildren(self):
         r"""
         getChildren(Particle self) -> swig_dummy_type_const_inode_vector
@@ -4735,7 +4727,6 @@ class Particle(IParticle):
 
         """
         return _libBornAgainSample.Particle_getChildren(self)
-    __swig_destroy__ = _libBornAgainSample.delete_Particle
 
 # Register Particle in _libBornAgainSample:
 _libBornAgainSample.Particle_swigregister(Particle)
@@ -8113,6 +8104,136 @@ class ParticleLayout(ISample):
 # Register ParticleLayout in _libBornAgainSample:
 _libBornAgainSample.ParticleLayout_swigregister(ParticleLayout)
 
+class LayerRoughness(ISample):
+    r"""
+
+
+    A roughness of interface between two layers.
+
+    Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 "X-ray reflection and transmission by rough surfaces"
+
+    C++ includes: LayerRoughness.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(LayerRoughness self, double sigma, double hurstParameter, double lateralCorrLength) -> LayerRoughness
+        __init__(LayerRoughness self) -> LayerRoughness
+        LayerRoughness::LayerRoughness()
+
+        """
+        _libBornAgainSample.LayerRoughness_swiginit(self, _libBornAgainSample.new_LayerRoughness(*args))
+
+    def clone(self):
+        r"""
+        clone(LayerRoughness self) -> LayerRoughness
+        LayerRoughness* LayerRoughness::clone() const
+
+        Returns a clone of this  ISample object. 
+
+        """
+        return _libBornAgainSample.LayerRoughness_clone(self)
+
+    def accept(self, visitor):
+        r"""
+        accept(LayerRoughness self, INodeVisitor * visitor)
+        virtual void LayerRoughness::accept(INodeVisitor *visitor) const
+
+        """
+        return _libBornAgainSample.LayerRoughness_accept(self, visitor)
+
+    def getSpectralFun(self, kvec):
+        r"""
+        getSpectralFun(LayerRoughness self, kvector_t kvec) -> double
+        double LayerRoughness::getSpectralFun(const kvector_t kvec) const
+
+        Returns power spectral density of the surface roughness.
+
+        Power spectral density of the surface roughness is a result of two-dimensional Fourier transform of the correlation function of the roughness profile.
+
+        Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 "X-ray reflection and transmission by rough surfaces" 
+
+        """
+        return _libBornAgainSample.LayerRoughness_getSpectralFun(self, kvec)
+
+    def getCorrFun(self, k):
+        r"""
+        getCorrFun(LayerRoughness self, kvector_t k) -> double
+        double LayerRoughness::getCorrFun(const kvector_t k) const
+
+        Correlation function of the roughness profile. 
+
+        """
+        return _libBornAgainSample.LayerRoughness_getCorrFun(self, k)
+
+    def setSigma(self, sigma):
+        r"""
+        setSigma(LayerRoughness self, double sigma)
+        void LayerRoughness::setSigma(double sigma)
+
+        Sets rms of roughness. 
+
+        """
+        return _libBornAgainSample.LayerRoughness_setSigma(self, sigma)
+
+    def getSigma(self):
+        r"""
+        getSigma(LayerRoughness self) -> double
+        double LayerRoughness::getSigma() const
+
+        Returns rms of roughness. 
+
+        """
+        return _libBornAgainSample.LayerRoughness_getSigma(self)
+
+    def setHurstParameter(self, hurstParameter):
+        r"""
+        setHurstParameter(LayerRoughness self, double hurstParameter)
+        void LayerRoughness::setHurstParameter(double hurstParameter)
+
+        Sets hurst parameter. It describes how jagged the surface is. 
+
+        """
+        return _libBornAgainSample.LayerRoughness_setHurstParameter(self, hurstParameter)
+
+    def getHurstParameter(self):
+        r"""
+        getHurstParameter(LayerRoughness self) -> double
+        double LayerRoughness::getHurstParameter() const
+
+        Returns hurst parameter. 
+
+        """
+        return _libBornAgainSample.LayerRoughness_getHurstParameter(self)
+
+    def setLatteralCorrLength(self, lateralCorrLength):
+        r"""
+        setLatteralCorrLength(LayerRoughness self, double lateralCorrLength)
+        void LayerRoughness::setLatteralCorrLength(double lateralCorrLength)
+
+        Sets lateral correlation length. 
+
+        """
+        return _libBornAgainSample.LayerRoughness_setLatteralCorrLength(self, lateralCorrLength)
+
+    def getLatteralCorrLength(self):
+        r"""
+        getLatteralCorrLength(LayerRoughness self) -> double
+        double LayerRoughness::getLatteralCorrLength() const
+
+        Returns lateral correlation length. 
+
+        """
+        return _libBornAgainSample.LayerRoughness_getLatteralCorrLength(self)
+    __swig_destroy__ = _libBornAgainSample.delete_LayerRoughness
+
+# Register LayerRoughness in _libBornAgainSample:
+_libBornAgainSample.LayerRoughness_swigregister(LayerRoughness)
+
 class Layer(ISample):
     r"""
 
@@ -8258,136 +8379,6 @@ class Layer(ISample):
 
 # Register Layer in _libBornAgainSample:
 _libBornAgainSample.Layer_swigregister(Layer)
-
-class LayerRoughness(ISample):
-    r"""
-
-
-    A roughness of interface between two layers.
-
-    Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 "X-ray reflection and transmission by rough surfaces"
-
-    C++ includes: LayerRoughness.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(LayerRoughness self, double sigma, double hurstParameter, double lateralCorrLength) -> LayerRoughness
-        __init__(LayerRoughness self) -> LayerRoughness
-        LayerRoughness::LayerRoughness()
-
-        """
-        _libBornAgainSample.LayerRoughness_swiginit(self, _libBornAgainSample.new_LayerRoughness(*args))
-
-    def clone(self):
-        r"""
-        clone(LayerRoughness self) -> LayerRoughness
-        LayerRoughness* LayerRoughness::clone() const
-
-        Returns a clone of this  ISample object. 
-
-        """
-        return _libBornAgainSample.LayerRoughness_clone(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(LayerRoughness self, INodeVisitor * visitor)
-        virtual void LayerRoughness::accept(INodeVisitor *visitor) const
-
-        """
-        return _libBornAgainSample.LayerRoughness_accept(self, visitor)
-
-    def getSpectralFun(self, kvec):
-        r"""
-        getSpectralFun(LayerRoughness self, kvector_t kvec) -> double
-        double LayerRoughness::getSpectralFun(const kvector_t kvec) const
-
-        Returns power spectral density of the surface roughness.
-
-        Power spectral density of the surface roughness is a result of two-dimensional Fourier transform of the correlation function of the roughness profile.
-
-        Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 "X-ray reflection and transmission by rough surfaces" 
-
-        """
-        return _libBornAgainSample.LayerRoughness_getSpectralFun(self, kvec)
-
-    def getCorrFun(self, k):
-        r"""
-        getCorrFun(LayerRoughness self, kvector_t k) -> double
-        double LayerRoughness::getCorrFun(const kvector_t k) const
-
-        Correlation function of the roughness profile. 
-
-        """
-        return _libBornAgainSample.LayerRoughness_getCorrFun(self, k)
-
-    def setSigma(self, sigma):
-        r"""
-        setSigma(LayerRoughness self, double sigma)
-        void LayerRoughness::setSigma(double sigma)
-
-        Sets rms of roughness. 
-
-        """
-        return _libBornAgainSample.LayerRoughness_setSigma(self, sigma)
-
-    def getSigma(self):
-        r"""
-        getSigma(LayerRoughness self) -> double
-        double LayerRoughness::getSigma() const
-
-        Returns rms of roughness. 
-
-        """
-        return _libBornAgainSample.LayerRoughness_getSigma(self)
-
-    def setHurstParameter(self, hurstParameter):
-        r"""
-        setHurstParameter(LayerRoughness self, double hurstParameter)
-        void LayerRoughness::setHurstParameter(double hurstParameter)
-
-        Sets hurst parameter. It describes how jagged the surface is. 
-
-        """
-        return _libBornAgainSample.LayerRoughness_setHurstParameter(self, hurstParameter)
-
-    def getHurstParameter(self):
-        r"""
-        getHurstParameter(LayerRoughness self) -> double
-        double LayerRoughness::getHurstParameter() const
-
-        Returns hurst parameter. 
-
-        """
-        return _libBornAgainSample.LayerRoughness_getHurstParameter(self)
-
-    def setLatteralCorrLength(self, lateralCorrLength):
-        r"""
-        setLatteralCorrLength(LayerRoughness self, double lateralCorrLength)
-        void LayerRoughness::setLatteralCorrLength(double lateralCorrLength)
-
-        Sets lateral correlation length. 
-
-        """
-        return _libBornAgainSample.LayerRoughness_setLatteralCorrLength(self, lateralCorrLength)
-
-    def getLatteralCorrLength(self):
-        r"""
-        getLatteralCorrLength(LayerRoughness self) -> double
-        double LayerRoughness::getLatteralCorrLength() const
-
-        Returns lateral correlation length. 
-
-        """
-        return _libBornAgainSample.LayerRoughness_getLatteralCorrLength(self)
-    __swig_destroy__ = _libBornAgainSample.delete_LayerRoughness
-
-# Register LayerRoughness in _libBornAgainSample:
-_libBornAgainSample.LayerRoughness_swigregister(LayerRoughness)
 
 class MultiLayer(ISample):
     r"""

@@ -20,11 +20,6 @@
 #include "Sample/FFCompute/FormFactorDecoratorPositionFactor.h"
 #include "Sample/FFCompute/Rotations.h"
 
-Particle::Particle() : m_material(HomogeneousMaterial())
-{
-    initialize();
-}
-
 Particle::~Particle() = default;
 
 Particle::Particle(Material material) : m_material(std::move(material))

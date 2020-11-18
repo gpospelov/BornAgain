@@ -22,6 +22,7 @@
 #include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "Sample/Particle/Particle.h"
+#include "Sample/Scattering/IFormFactor.h"
 
 using SessionItemUtils::SetVectorItem;
 
@@ -66,18 +67,16 @@ ParticleItem::ParticleItem() : SessionGraphicsItem("Particle")
 
 std::unique_ptr<Particle> ParticleItem::createParticle() const
 {
-    auto P_material = TransformToDomain::createDomainMaterial(*this);
-    auto P_particle = std::make_unique<Particle>(*P_material);
-
-    double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
-    P_particle->setAbundance(abundance);
-
     auto& ffItem = groupItem<FormFactorItem>(ParticleItem::P_FORM_FACTOR);
-    P_particle->setFormFactor(*ffItem.createFormFactor());
+    auto material = TransformToDomain::createDomainMaterial(*this);
+    double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
 
-    TransformToDomain::setTransformationInfo(P_particle.get(), *this);
+    auto particle = std::make_unique<Particle>(*material, *ffItem.createFormFactor());
+    particle->setAbundance(abundance);
 
-    return P_particle;
+    TransformToDomain::setTransformationInfo(particle.get(), *this);
+
+    return particle;
 }
 
 QVector<SessionItem*> ParticleItem::materialPropertyItems()

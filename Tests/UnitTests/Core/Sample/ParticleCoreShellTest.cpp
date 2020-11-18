@@ -18,8 +18,9 @@ protected:
 
 ParticleCoreShellTest::ParticleCoreShellTest() : m_coreshell(nullptr)
 {
-    Particle core;
-    Particle shell;
+    Material mat = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
+    Particle core(mat);
+    Particle shell(mat);
     kvector_t position;
     m_coreshell = new ParticleCoreShell(shell, core, position);
 }

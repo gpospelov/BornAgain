@@ -5828,7 +5828,10 @@ A particle with a form factor and refractive index.
 C++ includes: Particle.h
 ";
 
-%feature("docstring")  Particle::Particle "Particle::Particle()
+%feature("docstring")  Particle::Particle "Particle::Particle()=delete
+";
+
+%feature("docstring")  Particle::~Particle "Particle::~Particle()
 ";
 
 %feature("docstring")  Particle::Particle "Particle::Particle(Material material)
@@ -5859,9 +5862,6 @@ Creates a sliced form factor for this particle.
 %feature("docstring")  Particle::material "const Material* Particle::material() const override final
 
 Returns nullptr, unless overwritten to return a specific material. 
-";
-
-%feature("docstring")  Particle::setFormFactor "void Particle::setFormFactor(const IFormFactor &form_factor)
 ";
 
 %feature("docstring")  Particle::getChildren "std::vector< const INode * > Particle::getChildren() const override final
@@ -7622,115 +7622,112 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d112.xml
+// File: namespace_0d131.xml
 
 
-// File: namespace_0d115.xml
+// File: namespace_0d134.xml
 
 
-// File: namespace_0d139.xml
-
-
-// File: namespace_0d143.xml
-
-
-// File: namespace_0d147.xml
-
-
-// File: namespace_0d157.xml
-
-
-// File: namespace_0d159.xml
+// File: namespace_0d158.xml
 
 
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d161.xml
+// File: namespace_0d162.xml
 
 
-// File: namespace_0d171.xml
+// File: namespace_0d166.xml
 
 
-// File: namespace_0d191.xml
+// File: namespace_0d176.xml
 
 
-// File: namespace_0d193.xml
+// File: namespace_0d178.xml
 
 
-// File: namespace_0d195.xml
+// File: namespace_0d180.xml
+
+
+// File: namespace_0d190.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d200.xml
-
-
-// File: namespace_0d202.xml
+// File: namespace_0d210.xml
 
 
 // File: namespace_0d212.xml
 
 
-// File: namespace_0d224.xml
+// File: namespace_0d214.xml
 
 
-// File: namespace_0d236.xml
+// File: namespace_0d219.xml
 
 
-// File: namespace_0d242.xml
+// File: namespace_0d221.xml
+
+
+// File: namespace_0d231.xml
+
+
+// File: namespace_0d239.xml
+
+
+// File: namespace_0d243.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d260.xml
+// File: namespace_0d259.xml
 
 
-// File: namespace_0d268.xml
+// File: namespace_0d267.xml
 
 
-// File: namespace_0d278.xml
+// File: namespace_0d277.xml
 
 
-// File: namespace_0d280.xml
+// File: namespace_0d279.xml
 
 
-// File: namespace_0d282.xml
+// File: namespace_0d281.xml
 
 
-// File: namespace_0d284.xml
+// File: namespace_0d283.xml
 
 
-// File: namespace_0d286.xml
+// File: namespace_0d285.xml
 
 
-// File: namespace_0d290.xml
+// File: namespace_0d289.xml
 
 
-// File: namespace_0d292.xml
+// File: namespace_0d291.xml
 
 
-// File: namespace_0d296.xml
+// File: namespace_0d295.xml
 
 
-// File: namespace_0d308.xml
+// File: namespace_0d307.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d314.xml
+// File: namespace_0d313.xml
 
 
-// File: namespace_0d318.xml
+// File: namespace_0d317.xml
 
 
-// File: namespace_0d336.xml
+// File: namespace_0d335.xml
 
 
-// File: namespace_0d355.xml
+// File: namespace_0d354.xml
 
 
 // File: namespace_0d37.xml
@@ -7740,6 +7737,9 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0d4.xml
+
+
+// File: namespace_0d47.xml
 
 
 // File: namespacebake.xml
@@ -8045,6 +8045,71 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: IPeakShape_8h.xml
+
+
+// File: ComputeBA_8cpp.xml
+
+
+// File: ComputeBA_8h.xml
+
+
+// File: ComputeBAPol_8cpp.xml
+
+
+// File: ComputeBAPol_8h.xml
+
+
+// File: ComputeDWBA_8cpp.xml
+
+
+// File: ComputeDWBA_8h.xml
+
+
+// File: ComputeDWBAPol_8cpp.xml
+
+
+// File: ComputeDWBAPol_8h.xml
+
+
+// File: FormFactorDecoratorMaterial_8cpp.xml
+
+
+// File: FormFactorDecoratorMaterial_8h.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8cpp.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8h.xml
+
+
+// File: FormFactorDecoratorRotation_8cpp.xml
+
+
+// File: FormFactorDecoratorRotation_8h.xml
+
+
+// File: IComputeFF_8cpp.xml
+
+
+// File: IComputeFF_8h.xml
+
+
+// File: IFormFactorDecorator_8h.xml
+
+
+// File: Rotations_8cpp.xml
+%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
+
+Returns concatenated rotation (first right, then left). 
+";
+
+
+// File: Rotations_8h.xml
+%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
+
+Returns concatenated rotation (first right, then left). 
+";
 
 
 // File: FormFactorCoherentPart_8cpp.xml
@@ -8682,58 +8747,10 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: SampleProvider_8h.xml
 
 
-// File: ComputeBA_8cpp.xml
-
-
-// File: ComputeBA_8h.xml
-
-
-// File: ComputeBAPol_8cpp.xml
-
-
-// File: ComputeBAPol_8h.xml
-
-
-// File: ComputeDWBA_8cpp.xml
-
-
-// File: ComputeDWBA_8h.xml
-
-
-// File: ComputeDWBAPol_8cpp.xml
-
-
-// File: ComputeDWBAPol_8h.xml
-
-
-// File: FormFactorDecoratorMaterial_8cpp.xml
-
-
-// File: FormFactorDecoratorMaterial_8h.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorRotation_8cpp.xml
-
-
-// File: FormFactorDecoratorRotation_8h.xml
-
-
 // File: IBornFF_8cpp.xml
 
 
 // File: IBornFF_8h.xml
-
-
-// File: IComputeFF_8cpp.xml
-
-
-// File: IComputeFF_8h.xml
 
 
 // File: IFormFactor_8cpp.xml
@@ -8746,12 +8763,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 ";
 
 
-// File: IFormFactorDecorator_8cpp.xml
-
-
-// File: IFormFactorDecorator_8h.xml
-
-
 // File: ISample_8cpp.xml
 
 
@@ -8762,20 +8773,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: LayerFillLimits_8h.xml
-
-
-// File: Rotations_8cpp.xml
-%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
-
-Returns concatenated rotation (first right, then left). 
-";
-
-
-// File: Rotations_8h.xml
-%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
-
-Returns concatenated rotation (first right, then left). 
-";
 
 
 // File: ZLimits_8cpp.xml
@@ -9179,6 +9176,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_7b210e8d28f50f0c519681ee1b473363.xml
+
+
+// File: dir_c4c8c79bb34eb89326ea47d04b453458.xml
 
 
 // File: dir_e6ff3e2fec27a07ceb0da6f4d6911ef2.xml

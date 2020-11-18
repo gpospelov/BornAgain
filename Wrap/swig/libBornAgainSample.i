@@ -37,6 +37,8 @@
 %feature("director") IBornFF;    // used in CustomFormFactor.py
 
 %{
+#include "Base/Vector/Transform3D.h"
+
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Aggregate/InterferenceFunction1DLattice.h"
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
@@ -55,6 +57,8 @@
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Sample/Correlations/FTDistributions2D.h"
 #include "Sample/Correlations/IPeakShape.h"
+#include "Sample/FFCompute/IFormFactorDecorator.h"
+#include "Sample/FFCompute/Rotations.h"
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Sample/HardParticle/FormFactorBar.h"
 #include "Sample/HardParticle/FormFactorBox.h"
@@ -84,15 +88,13 @@
 #include "Sample/HardParticle/FormFactorTruncatedSpheroid.h"
 #include "Sample/HardParticle/IFormFactorPolyhedron.h"
 #include "Sample/HardParticle/IFormFactorPrism.h"
-#include "Sample/Lattice/ISelectionRule.h"
-#include "Sample/Lattice/Lattice3D.h"
-#include "Sample/Lattice/Lattice2D.h"
 #include "Sample/Lattice/BakeLattice.h"
+#include "Sample/Lattice/ISelectionRule.h"
+#include "Sample/Lattice/Lattice2D.h"
+#include "Sample/Lattice/Lattice3D.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Slice/LayerInterface.h"
-#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/FormFactorCrystal.h"
@@ -107,9 +109,9 @@
 #include "Sample/Particle/SlicedParticle.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
-#include "Sample/FFCompute/IFormFactorDecorator.h"
 #include "Sample/Scattering/ISample.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Slice/LayerInterface.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/SoftParticle/FormFactorGauss.h"
 #include "Sample/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Sample/SoftParticle/FormFactorSphereLogNormalRadius.h"
@@ -152,8 +154,8 @@
 %include "Sample/Scattering/ISample.h"
 %include "Sample/Scattering/IFormFactor.h"
 %include "Sample/Scattering/IBornFF.h"
-%include "Sample/FFCompute/IFormFactorDecorator.h"
 
+%include "Sample/FFCompute/IFormFactorDecorator.h"
 %include "Sample/FFCompute/Rotations.h"
 
 %include "Sample/Particle/FormFactorCrystal.h"
@@ -189,8 +191,9 @@
 %include "Sample/Aggregate/InterferenceFunctionTwin.h"
 %include "Sample/Aggregate/ParticleLayout.h"
 
-%include "Sample/Multilayer/Layer.h"
 %include "Sample/Slice/LayerRoughness.h"
+
+%include "Sample/Multilayer/Layer.h"
 %include "Sample/Multilayer/MultiLayer.h"
 
 // SWIG workaround for using axes units the same way as they are used in cpp files

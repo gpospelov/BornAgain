@@ -11,19 +11,12 @@ class ParticleTest : public ::testing::Test
 {
 };
 
-TEST_F(ParticleTest, InitialState)
-{
-    Particle particle;
-    EXPECT_EQ(HomogeneousMaterial(), *particle.material());
-    EXPECT_EQ(nullptr, particle.createFormFactor());
-    EXPECT_EQ(nullptr, particle.rotation());
-}
-
 TEST_F(ParticleTest, Clone)
 {
-    Particle particle;
+    Material mat = HomogeneousMaterial("Any", 1e-4, 1e-6);
+    Particle particle(mat);
     std::unique_ptr<Particle> clone(particle.clone());
-    EXPECT_EQ(HomogeneousMaterial(), *clone->material());
+    EXPECT_EQ(mat, *clone->material());
     EXPECT_EQ(nullptr, clone->createFormFactor());
     EXPECT_EQ(nullptr, clone->rotation());
 }
@@ -54,20 +47,19 @@ TEST_F(ParticleTest, Constructors)
 
 TEST_F(ParticleTest, setters)
 {
-    Material mat = HomogeneousMaterial("Vacuum", 0, 0);
+    Material mat = HomogeneousMaterial("Any", 10e-2, 10e-5);
     FormFactorFullSphere sphere(2.1);
     RotationY transform(45. * Units::deg);
 
-    Particle particle;
-    Material vacuum = HomogeneousMaterial();
-    EXPECT_EQ(vacuum, *particle.material());
+    Particle particle(mat);
+    EXPECT_EQ(mat, *particle.material());
     EXPECT_EQ(nullptr, particle.rotation());
 
     particle.setRotation(transform);
     EXPECT_TRUE(nullptr != particle.rotation());
 
     std::unique_ptr<Particle> particle2(particle.clone());
-    EXPECT_EQ(vacuum, *particle2->material());
+    EXPECT_EQ(mat, *particle2->material());
     EXPECT_TRUE(nullptr != particle2->rotation());
 }
 

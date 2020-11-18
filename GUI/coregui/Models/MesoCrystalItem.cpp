@@ -27,6 +27,7 @@
 #include "Sample/Particle/MesoCrystal.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleCoreShell.h"
+#include "Sample/Scattering/IFormFactor.h"
 
 using SessionItemUtils::GetVectorItem;
 

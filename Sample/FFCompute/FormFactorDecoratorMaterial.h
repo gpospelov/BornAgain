@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDECORATORMATERIAL_H
 #define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDECORATORMATERIAL_H
 
-#include "Sample/Material/Material.h"
 #include "Sample/FFCompute/IFormFactorDecorator.h"
+#include "Sample/Material/Material.h"
 #include <memory>
 
 //! Decorates a scalar formfactor with the correct factor for the material's

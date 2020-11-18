@@ -17,10 +17,13 @@
 
 #include "Sample/Scattering/IFormFactor.h"
 
-class IComputeFF : public IFormFactor {
+class IComputeFF : public IFormFactor
+{
 
 public:
     IComputeFF() = delete;
+    IComputeFF* clone() const override = 0;
+
     void setAmbientMaterial(const Material& material) final;
 
     double volume() const final;

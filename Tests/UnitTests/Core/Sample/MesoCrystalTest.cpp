@@ -1,9 +1,9 @@
 #include "Sample/Particle/MesoCrystal.h"
+#include "Sample/FFCompute/Rotations.h"
 #include "Sample/HardParticle/FormFactorFullSphere.h"
 #include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/ParticleComposition.h"
-#include "Sample/FFCompute/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class MesoCrystalTest : public ::testing::Test

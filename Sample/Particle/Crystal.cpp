@@ -14,11 +14,11 @@
 
 #include "Sample/Particle/Crystal.h"
 #include "Base/Vector/Transform3D.h"
+#include "Sample/FFCompute/Rotations.h"
 #include "Sample/Particle/FormFactorCrystal.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/Particle/SlicedParticle.h"
-#include "Sample/FFCompute/Rotations.h"
 
 Crystal::Crystal(const IParticle& basis, const Lattice3D& lattice, double position_variance)
     : m_lattice(lattice), m_position_variance(position_variance)

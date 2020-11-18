@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_PARTICLE_H
 #define BORNAGAIN_SAMPLE_PARTICLE_PARTICLE_H
 
-#include "Sample/Particle/IParticle.h"
 #include "Sample/Material/Material.h"
+#include "Sample/Particle/IParticle.h"
 
 //! A particle with a form factor and refractive index.
 //! @ingroup samples

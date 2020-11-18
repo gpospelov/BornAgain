@@ -29,7 +29,6 @@ struct SlicingEffects {
     double dz_top;
 };
 
-
 //! Pure virtual base class for Born form factors.
 //!
 //! In contrast to the generic IFormFactor, a Born form factor does not depend

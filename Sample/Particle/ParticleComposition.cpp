@@ -14,9 +14,9 @@
 
 #include "Sample/Particle/ParticleComposition.h"
 #include "Base/Types/Exceptions.h"
+#include "Sample/FFCompute/Rotations.h"
 #include "Sample/Particle/FormFactorWeighted.h"
 #include "Sample/Particle/ParticleDistribution.h"
-#include "Sample/FFCompute/Rotations.h"
 
 ParticleComposition::ParticleComposition()
 {

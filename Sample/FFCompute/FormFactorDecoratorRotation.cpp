@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Sample/FFCompute/FormFactorDecoratorRotation.h"
-#include "Sample/Material/WavevectorInfo.h"
 #include "Sample/FFCompute/Rotations.h"
+#include "Sample/Material/WavevectorInfo.h"
 #include <memory>
 
 FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor& ff,

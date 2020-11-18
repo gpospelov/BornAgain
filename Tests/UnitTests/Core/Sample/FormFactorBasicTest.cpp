@@ -1,7 +1,7 @@
 #include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
-#include "Sample/HardParticle/HardParticles.h"
 #include "Sample/FFCompute/Rotations.h"
+#include "Sample/HardParticle/HardParticles.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class FormFactorBasicTest : public ::testing::Test

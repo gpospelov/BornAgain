@@ -15,8 +15,8 @@
 #include "Sample/Scattering/IBornFF.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Algorithms.h"
-#include "Sample/Material/WavevectorInfo.h"
 #include "Sample/FFCompute/Rotations.h"
+#include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Shapes/IShape.h"
 
 IBornFF::IBornFF() = default;
@@ -65,7 +65,7 @@ Eigen::Matrix2cd IBornFF::evaluate_for_q_pol(cvector_t q) const
 }
 
 SlicingEffects IBornFF::computeSlicingEffects(ZLimits limits, const kvector_t& position,
-                                                      double height) const
+                                              double height) const
 {
     kvector_t new_position(position);
     double z_bottom = position.z();

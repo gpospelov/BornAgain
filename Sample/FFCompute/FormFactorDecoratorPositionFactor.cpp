@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Sample/FFCompute/FormFactorDecoratorPositionFactor.h"
-#include "Sample/Material/WavevectorInfo.h"
 #include "Sample/FFCompute/Rotations.h"
+#include "Sample/Material/WavevectorInfo.h"
 
 FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor& ff,
                                                                      const kvector_t& position)

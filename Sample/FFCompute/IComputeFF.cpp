@@ -14,10 +14,7 @@
 
 #include "Sample/FFCompute/IComputeFF.h"
 
-IComputeFF::IComputeFF(const IFormFactor& ff)
-    : m_ff(ff.clone())
-{
-}
+IComputeFF::IComputeFF(const IFormFactor& ff) : m_ff(ff.clone()) {}
 
 void IComputeFF::setAmbientMaterial(const Material& material)
 {

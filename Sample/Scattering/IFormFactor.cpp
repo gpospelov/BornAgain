@@ -12,11 +12,11 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Material/WavevectorInfo.h"
-#include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/FFCompute/FormFactorDecoratorPositionFactor.h"
 #include "Sample/FFCompute/FormFactorDecoratorRotation.h"
 #include "Sample/FFCompute/Rotations.h"
+#include "Sample/Material/WavevectorInfo.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 #include <memory>
 #include <utility>
 
@@ -49,7 +49,6 @@ bool shapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits, const IRo
     return false;
 }
 } // namespace
-
 
 IFormFactor::IFormFactor(const NodeMeta& meta, const std::vector<double>& PValues)
     : ISample(meta, PValues)

@@ -14,11 +14,11 @@
 
 #include "Sample/Particle/Particle.h"
 #include "Base/Vector/Transform3D.h"
-#include "Sample/Material/MaterialFactoryFuncs.h"
-#include "Sample/Particle/SlicedParticle.h"
 #include "Sample/FFCompute/FormFactorDecoratorMaterial.h"
 #include "Sample/FFCompute/FormFactorDecoratorPositionFactor.h"
 #include "Sample/FFCompute/Rotations.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Particle/SlicedParticle.h"
 
 Particle::~Particle() = default;
 

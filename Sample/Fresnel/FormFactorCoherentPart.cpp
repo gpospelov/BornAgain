@@ -14,15 +14,15 @@
 
 #include "Sample/Fresnel/FormFactorCoherentPart.h"
 #include "Base/Pixel/SimulationElement.h"
+#include "Sample/FFCompute/IComputeFF.h"
 #include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
-#include "Sample/Scattering/IFormFactor.h"
 
-FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor* p_ff) : m_ff(p_ff) {}
+FormFactorCoherentPart::FormFactorCoherentPart(IComputeFF* ff) : m_ff(ff) {}
 
 FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart& other)
-    : m_ff(other.m_ff->clone())
+    : m_ff(std::unique_ptr<IComputeFF>(other.m_ff->clone()))
     , m_fresnel_map(other.m_fresnel_map)
     , m_layer_index(other.m_layer_index)
 {
@@ -47,9 +47,9 @@ complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element)
     WavevectorInfo wavevectors(sim_element.getKi(), sim_element.getMeanKf(),
                                sim_element.getWavelength());
 
-    auto P_in_coeffs = m_fresnel_map->getInCoefficients(sim_element, m_layer_index);
-    auto P_out_coeffs = m_fresnel_map->getOutCoefficients(sim_element, m_layer_index);
-    m_ff->setSpecularInfo(std::move(P_in_coeffs), std::move(P_out_coeffs));
+    auto in_coeffs = m_fresnel_map->getInCoefficients(sim_element, m_layer_index);
+    auto out_coeffs = m_fresnel_map->getOutCoefficients(sim_element, m_layer_index);
+    m_ff->setSpecularInfo(std::move(in_coeffs), std::move(out_coeffs));
     return m_ff->evaluate(wavevectors);
 }
 
@@ -58,15 +58,15 @@ Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& si
     WavevectorInfo wavevectors(sim_element.getKi(), sim_element.getMeanKf(),
                                sim_element.getWavelength());
 
-    auto P_in_coeffs = m_fresnel_map->getInCoefficients(sim_element, m_layer_index);
-    auto P_out_coeffs = m_fresnel_map->getOutCoefficients(sim_element, m_layer_index);
-    m_ff->setSpecularInfo(std::move(P_in_coeffs), std::move(P_out_coeffs));
+    auto in_coeffs = m_fresnel_map->getInCoefficients(sim_element, m_layer_index);
+    auto out_coeffs = m_fresnel_map->getOutCoefficients(sim_element, m_layer_index);
+    m_ff->setSpecularInfo(std::move(in_coeffs), std::move(out_coeffs));
     return m_ff->evaluatePol(wavevectors);
 }
 
-void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap* p_fresnel_map, size_t layer_index)
+void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap* fresnel_map, size_t layer_index)
 {
-    m_fresnel_map = p_fresnel_map;
+    m_fresnel_map = fresnel_map;
     m_layer_index = layer_index;
 }
 

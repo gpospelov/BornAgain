@@ -72,7 +72,7 @@ complex_t ComputeDWBA::evaluate(const WavevectorInfo& wavevectors) const
 }
 
 void ComputeDWBA::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
-                                     std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
+                                  std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
 {
     m_in_coeffs = std::move(p_in_coeffs);
     m_out_coeffs = std::move(p_out_coeffs);

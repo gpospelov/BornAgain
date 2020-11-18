@@ -1,11 +1,11 @@
 #include "Base/Const/Units.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Vector/Transform3D.h"
+#include "Sample/FFCompute/Rotations.h"
 #include "Sample/Material/MaterialBySLDImpl.h"
 #include "Sample/Material/RefractiveMaterialImpl.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Particle/HomogeneousRegion.h"
-#include "Sample/FFCompute/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class MaterialTest : public ::testing::Test

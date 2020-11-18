@@ -23,11 +23,11 @@
 
 FormFactorCone::FormFactorCone(const std::vector<double> P)
     : IBornFF({"Cone",
-                       "frustum with circular base",
-                       {{"Radius", "nm", "radius of base", 0, +INF, 0},
-                        {"Height", "nm", "height", 0, +INF, 0},
-                        {"Alpha", "rad", "angle between base and side", 0., M_PI_2, 0}}},
-                      P)
+               "frustum with circular base",
+               {{"Radius", "nm", "radius of base", 0, +INF, 0},
+                {"Height", "nm", "height", 0, +INF, 0},
+                {"Alpha", "rad", "angle between base and side", 0., M_PI_2, 0}}},
+              P)
     , m_radius(m_P[0])
     , m_height(m_P[1])
     , m_alpha(m_P[2])

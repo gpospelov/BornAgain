@@ -13,11 +13,11 @@
 //  ************************************************************************************************
 
 #include "Sample/Particle/MesoCrystal.h"
-#include "Sample/Particle/Crystal.h"
-#include "Sample/Particle/SlicedParticle.h"
 #include "Sample/FFCompute/FormFactorDecoratorPositionFactor.h"
 #include "Sample/FFCompute/FormFactorDecoratorRotation.h"
 #include "Sample/FFCompute/Rotations.h"
+#include "Sample/Particle/Crystal.h"
+#include "Sample/Particle/SlicedParticle.h"
 
 MesoCrystal::MesoCrystal(const Crystal& particle_structure, const IFormFactor& form_factor)
     : m_particle_structure(particle_structure.clone()), m_meso_form_factor(form_factor.clone())

@@ -906,7 +906,7 @@ Information about single particle form factor and specular info of the embedding
 C++ includes: FormFactorCoherentPart.h
 ";
 
-%feature("docstring")  FormFactorCoherentPart::FormFactorCoherentPart "FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor *p_ff)
+%feature("docstring")  FormFactorCoherentPart::FormFactorCoherentPart "FormFactorCoherentPart::FormFactorCoherentPart(IComputeFF *ff)
 ";
 
 %feature("docstring")  FormFactorCoherentPart::FormFactorCoherentPart "FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart &other)
@@ -924,7 +924,7 @@ C++ includes: FormFactorCoherentPart.h
 %feature("docstring")  FormFactorCoherentPart::evaluatePol "Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement &sim_element) const
 ";
 
-%feature("docstring")  FormFactorCoherentPart::setSpecularInfo "void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap *p_fresnel_map, size_t layer_index)
+%feature("docstring")  FormFactorCoherentPart::setSpecularInfo "void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap *fresnel_map, size_t layer_index)
 ";
 
 %feature("docstring")  FormFactorCoherentPart::radialExtension "double FormFactorCoherentPart::radialExtension() const
@@ -3043,6 +3043,11 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 %feature("docstring") IComputeFF "";
 
 %feature("docstring")  IComputeFF::IComputeFF "IComputeFF::IComputeFF()=delete
+";
+
+%feature("docstring")  IComputeFF::clone "IComputeFF* IComputeFF::clone() const override=0
+
+Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IComputeFF::setAmbientMaterial "void IComputeFF::setAmbientMaterial(const Material &material) final

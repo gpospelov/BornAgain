@@ -25,7 +25,6 @@ std::complex<double> VecMatVecProduct(const Eigen::Vector2cd& vec1, const Eigen:
 }
 } // namespace
 
-
 ComputeDWBAPol::ComputeDWBAPol(const IFormFactor& ff) : IComputeFF(ff)
 {
     setName("ComputeDWBAPol");
@@ -196,7 +195,7 @@ Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) 
 }
 
 void ComputeDWBAPol::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
-                                        std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
+                                     std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
 {
     m_in_coeffs = std::move(p_in_coeffs);
     m_out_coeffs = std::move(p_out_coeffs);

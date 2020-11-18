@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/IComputeFF.cpp
+//! @file      Sample/FFCompute/IComputeFF.cpp
 //! @brief     Implements interface class IFormFactor.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Scattering/IComputeFF.h"
+#include "Sample/FFCompute/IComputeFF.h"
 
 IComputeFF::IComputeFF(const IFormFactor& ff)
     : m_ff(ff.clone())

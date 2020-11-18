@@ -5,7 +5,7 @@
 #include "Sample/Material/RefractiveMaterialImpl.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Particle/HomogeneousRegion.h"
-#include "Sample/Scattering/Rotations.h"
+#include "Sample/FFCompute/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class MaterialTest : public ::testing::Test

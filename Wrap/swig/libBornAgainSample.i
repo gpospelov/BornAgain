@@ -107,9 +107,9 @@
 #include "Sample/Particle/SlicedParticle.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
-#include "Sample/Scattering/IFormFactorDecorator.h"
+#include "Sample/FFCompute/IFormFactorDecorator.h"
 #include "Sample/Scattering/ISample.h"
-#include "Sample/Scattering/Rotations.h"
+#include "Sample/FFCompute/Rotations.h"
 #include "Sample/SoftParticle/FormFactorGauss.h"
 #include "Sample/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Sample/SoftParticle/FormFactorSphereLogNormalRadius.h"
@@ -152,9 +152,9 @@
 %include "Sample/Scattering/ISample.h"
 %include "Sample/Scattering/IFormFactor.h"
 %include "Sample/Scattering/IBornFF.h"
-%include "Sample/Scattering/IFormFactorDecorator.h"
+%include "Sample/FFCompute/IFormFactorDecorator.h"
 
-%include "Sample/Scattering/Rotations.h"
+%include "Sample/FFCompute/Rotations.h"
 
 %include "Sample/Particle/FormFactorCrystal.h"
 %include "Sample/Particle/FormFactorWeighted.h"

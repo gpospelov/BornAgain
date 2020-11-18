@@ -3,7 +3,7 @@
 #include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/ParticleComposition.h"
-#include "Sample/Scattering/Rotations.h"
+#include "Sample/FFCompute/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class MesoCrystalTest : public ::testing::Test

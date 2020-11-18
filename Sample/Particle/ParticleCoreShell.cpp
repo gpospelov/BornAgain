@@ -16,7 +16,7 @@
 #include "Sample/Particle/FormFactorCoreShell.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/SlicedParticle.h"
-#include "Sample/Scattering/Rotations.h"
+#include "Sample/FFCompute/Rotations.h"
 
 ParticleCoreShell::ParticleCoreShell(const Particle& shell, const Particle& core,
                                      kvector_t relative_core_position)

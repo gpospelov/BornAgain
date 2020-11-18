@@ -14,7 +14,7 @@
 
 #include "GUI/coregui/Models/RotationItems.h"
 #include "Base/Const/Units.h"
-#include "Sample/Scattering/Rotations.h"
+#include "Sample/FFCompute/Rotations.h"
 
 // ----------------------------------------------------------------------------
 

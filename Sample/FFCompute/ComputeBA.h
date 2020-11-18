@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/ComputeBAPol.h
-//! @brief     Defines class ComputeBAPol.
+//! @file      Sample/FFCompute/ComputeBA.h
+//! @brief     Defines class ComputeBA.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,31 +12,27 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBAPOL_H
-#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBAPOL_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBA_H
+#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBA_H
 
-#include "Sample/Scattering/IComputeFF.h"
+#include "Sample/FFCompute/IComputeFF.h"
 #include <memory>
 
-//! Evaluates the matrix BA term in a polarized IFormFactor.
-
+//! Evaluates the scalar Born form factor.
 //! @ingroup formfactors_internal
 
-class ComputeBAPol final : public IComputeFF
+class ComputeBA final : public IComputeFF
 {
 public:
-    ComputeBAPol(const IFormFactor& ff);
-    ~ComputeBAPol() override;
+    ComputeBA(const IFormFactor& ff);
+    ~ComputeBA() override;
 
-    ComputeBAPol* clone() const override;
+    ComputeBA* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    //! Throws not-implemented exception
+    //! Calculates and returns a form factor calculation in BA
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
-
-    //! Calculates and returns a polarized form factor calculation in BA
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBAPOL_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBA_H

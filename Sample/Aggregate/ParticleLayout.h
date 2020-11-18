@@ -17,7 +17,7 @@
 
 #include "Base/Types/SafePointerVector.h"
 #include "Sample/Scattering/ISample.h"
-#include "Sample/Scattering/Rotations.h"
+#include "Sample/FFCompute/Rotations.h"
 #include <memory>
 
 class IAbstractParticle;

@@ -16,9 +16,9 @@
 #include "Base/Vector/Transform3D.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Particle/SlicedParticle.h"
-#include "Sample/Scattering/FormFactorDecoratorMaterial.h"
-#include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
-#include "Sample/Scattering/Rotations.h"
+#include "Sample/FFCompute/FormFactorDecoratorMaterial.h"
+#include "Sample/FFCompute/FormFactorDecoratorPositionFactor.h"
+#include "Sample/FFCompute/Rotations.h"
 
 Particle::Particle() : m_material(HomogeneousMaterial())
 {

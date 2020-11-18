@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/ComputeDWBAPol.h
-//! @brief     Defines class ComputeDWBAPol.
+//! @file      Sample/FFCompute/ComputeDWBA.h
+//! @brief     Defines class ComputeDWBA.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,33 +12,29 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBAPOL_H
-#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBAPOL_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBA_H
+#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBA_H
 
-#include "Sample/Scattering/IComputeFF.h"
+#include "Sample/FFCompute/IComputeFF.h"
 #include <memory>
 
 class ILayerRTCoefficients;
 
-//! Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized IFormFactor.
-
+//! Evaluates the coherent sum of the four DWBA terms in a scalar IFormFactor.
 //! @ingroup formfactors_internal
 
-class ComputeDWBAPol final : public IComputeFF
+class ComputeDWBA final : public IComputeFF
 {
 public:
-    ComputeDWBAPol(const IFormFactor& ff);
-    ~ComputeDWBAPol() override;
+    ComputeDWBA(const IFormFactor& ff);
+    ~ComputeDWBA() override;
 
-    ComputeDWBAPol* clone() const override;
+    ComputeDWBA* clone() const override;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    //! Throws not-implemented exception
+    //! Calculates and returns a form factor calculation in DWBA
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
-
-    //! Calculates and returns a polarized form factor calculation in DWBA
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 
     void setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
                          std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs) override;
@@ -50,4 +46,4 @@ private:
     std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBAPOL_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBA_H

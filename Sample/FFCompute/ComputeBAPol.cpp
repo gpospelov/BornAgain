@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/ComputeBAPol.cpp
+//! @file      Sample/FFCompute/ComputeBAPol.cpp
 //! @brief     Defines class ComputeBAPol.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Scattering/ComputeBAPol.h"
+#include "Sample/FFCompute/ComputeBAPol.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include <stdexcept>
 

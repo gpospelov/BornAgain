@@ -16,7 +16,7 @@
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Algorithms.h"
 #include "Sample/Material/WavevectorInfo.h"
-#include "Sample/Scattering/Rotations.h"
+#include "Sample/FFCompute/Rotations.h"
 #include "Sample/Shapes/IShape.h"
 
 IBornFF::IBornFF() = default;

@@ -16,20 +16,29 @@
 #define BORNAGAIN_SAMPLE_SCATTERING_ICOMPUTEFF_H
 
 #include "Sample/Scattering/IFormFactor.h"
+#include <Eigen/Core>
 
-class IComputeFF : public IFormFactor
-{
+class IComputeFF : public ISample {
 
 public:
     IComputeFF() = delete;
-    IComputeFF* clone() const override = 0;
+    virtual ~IComputeFF();
+    virtual IComputeFF* clone() const = 0;
 
-    void setAmbientMaterial(const Material& material) final;
+    virtual void setAmbientMaterial(const Material& material);
 
-    double volume() const final;
-    double radialExtension() const final;
-    double bottomZ(const IRotation& rotation) const final;
-    double topZ(const IRotation& rotation) const final;
+    virtual double volume() const;
+    virtual double radialExtension() const;
+    virtual double bottomZ(const IRotation& rotation) const;
+    virtual double topZ(const IRotation& rotation) const;
+    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const = 0;
+#ifndef SWIG
+    //! Returns scattering amplitude for matrix interactions
+    virtual Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const;
+    //! Sets reflection/transmission info
+    virtual void setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients>,
+                                 std::unique_ptr<const ILayerRTCoefficients>);
+#endif
 
 protected:
     IComputeFF(const IFormFactor&);

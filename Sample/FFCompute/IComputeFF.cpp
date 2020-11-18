@@ -13,8 +13,11 @@
 //  ************************************************************************************************
 
 #include "Sample/FFCompute/IComputeFF.h"
+#include <stdexcept>
 
 IComputeFF::IComputeFF(const IFormFactor& ff) : m_ff(ff.clone()) {}
+
+IComputeFF::~IComputeFF() = default;
 
 void IComputeFF::setAmbientMaterial(const Material& material)
 {
@@ -39,4 +42,14 @@ double IComputeFF::bottomZ(const IRotation& rotation) const
 double IComputeFF::topZ(const IRotation& rotation) const
 {
     return m_ff->topZ(rotation);
+}
+
+Eigen::Matrix2cd IComputeFF::evaluatePol(const WavevectorInfo&) const
+{
+    throw std::runtime_error("Bug: impossible call to FFCompute::evaluatePol");
+}
+
+void IComputeFF::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients>,
+                                 std::unique_ptr<const ILayerRTCoefficients>)
+{
 }

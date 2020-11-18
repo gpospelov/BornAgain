@@ -72,7 +72,7 @@ IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation
 Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 {
     // Throws to prevent unanticipated behaviour
-    throw Exceptions::NotImplementedException(
+    throw std::runtime_error(
         "IFormFactor::evaluatePol: is not implemented by default");
 }
 

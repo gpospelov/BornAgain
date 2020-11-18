@@ -3045,34 +3045,40 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 %feature("docstring")  IComputeFF::IComputeFF "IComputeFF::IComputeFF()=delete
 ";
 
-%feature("docstring")  IComputeFF::clone "IComputeFF* IComputeFF::clone() const override=0
+%feature("docstring")  IComputeFF::~IComputeFF "virtual IComputeFF::~IComputeFF()
+";
+
+%feature("docstring")  IComputeFF::clone "virtual IComputeFF* IComputeFF::clone() const =0
 
 Returns a clone of this  ISample object. 
 ";
 
-%feature("docstring")  IComputeFF::setAmbientMaterial "void IComputeFF::setAmbientMaterial(const Material &material) final
-
-Passes the material in which this particle is embedded. 
+%feature("docstring")  IComputeFF::setAmbientMaterial "void IComputeFF::setAmbientMaterial(const Material &material)
 ";
 
-%feature("docstring")  IComputeFF::volume "double IComputeFF::volume() const final
-
-Returns the total volume of the particle of this form factor's shape. 
+%feature("docstring")  IComputeFF::volume "double IComputeFF::volume() const
 ";
 
-%feature("docstring")  IComputeFF::radialExtension "double IComputeFF::radialExtension() const final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+%feature("docstring")  IComputeFF::radialExtension "double IComputeFF::radialExtension() const
 ";
 
-%feature("docstring")  IComputeFF::bottomZ "double IComputeFF::bottomZ(const IRotation &rotation) const final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+%feature("docstring")  IComputeFF::bottomZ "double IComputeFF::bottomZ(const IRotation &rotation) const
 ";
 
-%feature("docstring")  IComputeFF::topZ "double IComputeFF::topZ(const IRotation &rotation) const final
+%feature("docstring")  IComputeFF::topZ "double IComputeFF::topZ(const IRotation &rotation) const
+";
 
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+%feature("docstring")  IComputeFF::evaluate "virtual complex_t IComputeFF::evaluate(const WavevectorInfo &wavevectors) const =0
+";
+
+%feature("docstring")  IComputeFF::evaluatePol "Eigen::Matrix2cd IComputeFF::evaluatePol(const WavevectorInfo &wavevectors) const
+
+Returns scattering amplitude for matrix interactions. 
+";
+
+%feature("docstring")  IComputeFF::setSpecularInfo "void IComputeFF::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients >, std::unique_ptr< const ILayerRTCoefficients >)
+
+Sets reflection/transmission info. 
 ";
 
 

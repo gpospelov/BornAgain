@@ -315,7 +315,7 @@ C++ includes: IFunctionAdapter.h
 // File: classIMinimizer.xml
 %feature("docstring") IMinimizer "
 
-Pure virtual interface for all kind minimizers.
+Abstract base class for all kind minimizers.
 
 C++ includes: IMinimizer.h
 ";
@@ -1088,7 +1088,7 @@ C++ includes: ResidualFunctionAdapter.h
 // File: classRootMinimizerAdapter.xml
 %feature("docstring") RootMinimizerAdapter "
 
-Pure virtual interface that adapts the CERN ROOT minimizer to our  IMinimizer.
+Abstract base class that adapts the CERN ROOT minimizer to our  IMinimizer.
 
 C++ includes: RootMinimizerAdapter.h
 ";

@@ -2618,7 +2618,7 @@ class IMinimizer(object):
     r"""
 
 
-    Pure virtual interface for all kind minimizers.
+    Abstract base class for all kind minimizers.
 
     C++ includes: IMinimizer.h
 

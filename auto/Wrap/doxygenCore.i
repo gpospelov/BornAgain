@@ -876,7 +876,7 @@ method which is used by observable subject to notify change in status
 // File: classISimulation.xml
 %feature("docstring") ISimulation "
 
-Pure virtual base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
+Abstract base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
 
 C++ includes: ISimulation.h
 ";
@@ -1000,7 +1000,7 @@ Convert user data to SimulationResult object for later drawing in various axes u
 // File: classISimulation2D.xml
 %feature("docstring") ISimulation2D "
 
-Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+Abstract base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
 
 C++ includes: ISimulation2D.h
 ";
@@ -1083,7 +1083,7 @@ Sets rectangular region of interest with lower left and upper right corners defi
 // File: classISpecularScan.xml
 %feature("docstring") ISpecularScan "
 
-Pure virtual base class for all types of specular scans.
+Abstract base class for all types of specular scans.
 
 C++ includes: ISpecularScan.h
 ";
@@ -2052,7 +2052,7 @@ C++ includes: SpecularComputation.h
 
 Computes the specular scattering. Used by  SpecularComputation.
 
-Pure virtual base class of  SpecularScalarTerm,  SpecularMatrixTerm
+Abstract base class of  SpecularScalarTerm,  SpecularMatrixTerm
 
 C++ includes: SpecularComputationTerm.h
 ";

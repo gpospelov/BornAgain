@@ -2611,7 +2611,7 @@ class IPixel(object):
     r"""
 
 
-    Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel. Pure virtual base class for SphericalPixel and RectangularPixel.
+    Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel. Abstract base class for SphericalPixel and RectangularPixel.
 
     C++ includes: IPixel.h
 

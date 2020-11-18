@@ -3161,7 +3161,7 @@ class ISample(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
-    Pure virtual base class for sample components and properties related to scattering.
+    Abstract base class for sample components and properties related to scattering.
 
     C++ includes: ISample.h
 
@@ -3235,7 +3235,7 @@ class IFormFactor(ISample):
     r"""
 
 
-    Pure virtual base class for all form factors.
+    Abstract base class for all form factors.
 
     The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a  IBornFF.
 
@@ -3391,7 +3391,7 @@ class IBornFF(IFormFactor):
     r"""
 
 
-    Pure virtual base class for Born form factors.
+    Abstract base class for Born form factors.
 
     In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
 
@@ -3585,7 +3585,7 @@ class IRotation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
-    Pure virtual interface for rotations.
+    Abstract base class for rotations.
 
     C++ includes: Rotations.h
 
@@ -4416,7 +4416,7 @@ class IParticle(IAbstractParticle):
     r"""
 
 
-    Pure virtual base class for  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal. Provides position/rotation and form factor. Abundance is inherited from  IAbstractParticle.
+    Abstract base class for  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal. Provides position/rotation and form factor. Abundance is inherited from  IAbstractParticle.
 
     C++ includes: IParticle.h
 
@@ -6296,7 +6296,7 @@ class IPeakShape(ISample):
     r"""
 
 
-    Pure virtual interface class that defines the peak shape of a Bragg peak.
+    Abstract base class class that defines the peak shape of a Bragg peak.
 
     C++ includes: IPeakShape.h
 
@@ -6704,7 +6704,7 @@ class IInterferenceFunction(ISample):
     r"""
 
 
-    Pure virtual base class of interference functions.
+    Abstract base class of interference functions.
 
     C++ includes: IInterferenceFunction.h
 
@@ -11122,7 +11122,7 @@ class ISelectionRule(object):
     r"""
 
 
-    Pure virtual base class for selection rules.
+    Abstract base class for selection rules.
 
     C++ includes: ISelectionRule.h
 

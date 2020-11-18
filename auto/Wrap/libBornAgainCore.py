@@ -3585,7 +3585,7 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
-    Pure virtual base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
+    Abstract base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
 
     C++ includes: ISimulation.h
 
@@ -3843,7 +3843,7 @@ class ISimulation2D(ISimulation):
     r"""
 
 
-    Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+    Abstract base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
 
     C++ includes: ISimulation2D.h
 

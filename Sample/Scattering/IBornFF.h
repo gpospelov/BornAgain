@@ -77,8 +77,8 @@ protected:
     std::unique_ptr<IShape> m_shape;
 
     //! Helper method for slicing
-    SlicingEffects computeSlicingEffects(ZLimits limits, const kvector_t& position,
-                                         double height) const;
+    static SlicingEffects computeSlicingEffects(ZLimits limits, const kvector_t& position,
+                                         double height);
 
     //! Calculates the z-coordinate of the lowest vertex after rotation
     static double BottomZ(const std::vector<kvector_t>& vertices, const IRotation& rotation);

@@ -15,7 +15,7 @@
 #include "Param/Base/ParameterPool.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Assert.h"
-#include "Fit/Tools/StringUtils.h"
+#include "Base/Utils/StringUtils.h"
 #include "Param/Base/RealParameter.h"
 #include <algorithm>
 #include <iostream>
@@ -102,7 +102,7 @@ std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::strin
     std::vector<RealParameter*> result;
     // loop over all parameters in the pool
     for (auto* par : m_params)
-        if (mumufit::StringUtils::matchesPattern(par->getName(), pattern))
+        if (StringUtils::matchesPattern(par->getName(), pattern))
             result.push_back(par);
     if (result.empty())
         report_find_matched_parameters_error(pattern);

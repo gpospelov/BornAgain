@@ -12,14 +12,14 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBAPOL_H
-#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBAPOL_H
+#ifndef BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBAPOL_H
+#define BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBAPOL_H
 
 #include "Sample/FFCompute/IComputeFF.h"
 #include "Sample/Scattering/IFormFactor.h"
 #include <memory>
 
-//! Evaluates the matrix BA term in a polarized IFormFactor.
+//! Provides polarized form factor evaluation in Born Approximation for given IFormFactor.
 
 //! @ingroup formfactors_internal
 
@@ -38,4 +38,4 @@ public:
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBAPOL_H
+#endif // BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBAPOL_H

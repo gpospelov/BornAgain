@@ -43,8 +43,7 @@ ComputeDWBAPol* ComputeDWBAPol::clone() const
 
 complex_t ComputeDWBAPol::evaluate(const WavevectorInfo&) const
 {
-    throw Exceptions::NotImplementedException(
-        "ComputeDWBAPol::evaluate: should never be called for matrix interactions");
+    throw std::runtime_error("Bug: forbidden call of ComputeDWBAPol::evaluate");
 }
 
 Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) const

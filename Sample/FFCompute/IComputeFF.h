@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_ICOMPUTEFF_H
-#define BORNAGAIN_SAMPLE_SCATTERING_ICOMPUTEFF_H
+#ifndef BORNAGAIN_SAMPLE_FFCOMPUTE_ICOMPUTEFF_H
+#define BORNAGAIN_SAMPLE_FFCOMPUTE_ICOMPUTEFF_H
 
 #include "Base/Types/Complex.h"
 #include <Eigen/Core>
@@ -24,6 +24,12 @@ class ILayerRTCoefficients;
 class IRotation;
 class Material;
 class WavevectorInfo;
+
+//! Abstract base class for form factor evaluations.
+//!
+//! Wraps an IFormFactor, and provides functions evaluate or evaluatePol.
+
+//! @ingroup formfactors_internal
 
 class IComputeFF
 {
@@ -54,4 +60,4 @@ protected:
     std::unique_ptr<IFormFactor> m_ff;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_ICOMPUTEFF_H
+#endif // BORNAGAIN_SAMPLE_FFCOMPUTE_ICOMPUTEFF_H

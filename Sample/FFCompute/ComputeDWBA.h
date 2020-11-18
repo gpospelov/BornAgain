@@ -12,15 +12,16 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBA_H
-#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBA_H
+#ifndef BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEDWBA_H
+#define BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEDWBA_H
 
 #include "Sample/FFCompute/IComputeFF.h"
 #include <memory>
 
 class ILayerRTCoefficients;
 
-//! Evaluates the coherent sum of the four DWBA terms in a scalar IFormFactor.
+//! Provides scalar DWBA computation for given IFormFactor.
+
 //! @ingroup formfactors_internal
 
 class ComputeDWBA final : public IComputeFF
@@ -31,7 +32,7 @@ public:
 
     ComputeDWBA* clone() const override;
 
-    //! Calculates and returns a form factor calculation in DWBA
+    //! Returns the coherent sum of the four DWBA terms for scalar scattering.
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 
     void setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
@@ -44,4 +45,4 @@ private:
     std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBA_H
+#endif // BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEDWBA_H

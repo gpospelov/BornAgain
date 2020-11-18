@@ -12,15 +12,15 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBAPOL_H
-#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBAPOL_H
+#ifndef BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEDWBAPOL_H
+#define BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEDWBAPOL_H
 
 #include "Sample/FFCompute/IComputeFF.h"
 #include <memory>
 
 class ILayerRTCoefficients;
 
-//! Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized IFormFactor.
+//! Provides polarized DWBA computation for given IFormFactor.
 
 //! @ingroup formfactors_internal
 
@@ -32,10 +32,10 @@ public:
 
     ComputeDWBAPol* clone() const override;
 
-    //! Throws not-implemented exception
+    //! Throws not-implemented exception.
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 
-    //! Calculates and returns a polarized form factor calculation in DWBA
+    //! Returns the coherent sum of the four DWBA terms for polarized scattering.
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 
     void setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
@@ -48,4 +48,4 @@ private:
     std::unique_ptr<const ILayerRTCoefficients> m_out_coeffs;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEDWBAPOL_H
+#endif // BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEDWBAPOL_H

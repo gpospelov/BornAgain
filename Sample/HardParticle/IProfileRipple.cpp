@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/HardParticle/IProfileRipple.cpp
-//! @brief     Implements class ISawtoothRipple.
+//! @brief     Implements interface ISawtoothRipple.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

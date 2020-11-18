@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/HardParticle/IFormFactorPolyhedron.cpp
-//! @brief     Implements class IFormFactorPolyhedron.
+//! @brief     Implements interface IFormFactorPolyhedron.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

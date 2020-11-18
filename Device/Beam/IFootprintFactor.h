@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Device/Beam/IFootprintFactor.h
-//! @brief     Defines class IFootprintFactor.
+//! @brief     Defines interface IFootprintFactor.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

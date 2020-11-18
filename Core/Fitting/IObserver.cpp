@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Fitting/IObserver.cpp
-//! @brief     Implements class IObserver, mostly by including IObserver.h.
+//! @brief     Implements interface IObserver, mostly by including IObserver.h.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

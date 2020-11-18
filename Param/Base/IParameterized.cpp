@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Param/Base/IParameterized.cpp
-//! @brief     Implements class IParameterized.
+//! @brief     Implements interface IParameterized.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

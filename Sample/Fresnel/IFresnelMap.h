@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Fresnel/IFresnelMap.h
-//! @brief     Defines class IFresnelMap.
+//! @brief     Defines interface IFresnelMap.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

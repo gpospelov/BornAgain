@@ -29,8 +29,6 @@ public:
 
     ComputeBA* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
-
     //! Calculates and returns a form factor calculation in BA
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 };

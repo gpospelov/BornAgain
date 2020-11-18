@@ -30,8 +30,6 @@ public:
 
     ComputeBAPol* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
-
     //! Throws not-implemented exception
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 

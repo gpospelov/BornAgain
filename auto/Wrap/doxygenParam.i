@@ -556,12 +556,6 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorCylinder *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ComputeDWBA *)
-";
-
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ComputeDWBAPol *)
-";
-
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const FormFactorDecoratorMaterial *)
 ";
 

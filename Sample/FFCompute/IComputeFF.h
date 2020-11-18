@@ -18,7 +18,7 @@
 #include "Sample/Scattering/IFormFactor.h"
 #include <Eigen/Core>
 
-class IComputeFF : public ISample {
+class IComputeFF {
 
 public:
     IComputeFF() = delete;

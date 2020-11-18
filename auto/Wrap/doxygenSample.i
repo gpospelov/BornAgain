@@ -273,11 +273,6 @@ C++ includes: ComputeBA.h
 ";
 
 %feature("docstring")  ComputeBA::clone "ComputeBA * ComputeBA::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ComputeBA::accept "void ComputeBA::accept(INodeVisitor *visitor) const override
 ";
 
 %feature("docstring")  ComputeBA::evaluate "complex_t ComputeBA::evaluate(const WavevectorInfo &wavevectors) const override
@@ -301,11 +296,6 @@ C++ includes: ComputeBAPol.h
 ";
 
 %feature("docstring")  ComputeBAPol::clone "ComputeBAPol * ComputeBAPol::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ComputeBAPol::accept "void ComputeBAPol::accept(INodeVisitor *visitor) const override
 ";
 
 %feature("docstring")  ComputeBAPol::evaluate "complex_t ComputeBAPol::evaluate(const WavevectorInfo &wavevectors) const override
@@ -334,11 +324,6 @@ C++ includes: ComputeDWBA.h
 ";
 
 %feature("docstring")  ComputeDWBA::clone "ComputeDWBA * ComputeDWBA::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ComputeDWBA::accept "void ComputeDWBA::accept(INodeVisitor *visitor) const override
 ";
 
 %feature("docstring")  ComputeDWBA::evaluate "complex_t ComputeDWBA::evaluate(const WavevectorInfo &wavevectors) const override
@@ -367,11 +352,6 @@ C++ includes: ComputeDWBAPol.h
 ";
 
 %feature("docstring")  ComputeDWBAPol::clone "ComputeDWBAPol * ComputeDWBAPol::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ComputeDWBAPol::accept "void ComputeDWBAPol::accept(INodeVisitor *visitor) const override
 ";
 
 %feature("docstring")  ComputeDWBAPol::evaluate "complex_t ComputeDWBAPol::evaluate(const WavevectorInfo &wavevectors) const override
@@ -3045,12 +3025,10 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 %feature("docstring")  IComputeFF::IComputeFF "IComputeFF::IComputeFF()=delete
 ";
 
-%feature("docstring")  IComputeFF::~IComputeFF "virtual IComputeFF::~IComputeFF()
+%feature("docstring")  IComputeFF::~IComputeFF "IComputeFF::~IComputeFF()
 ";
 
 %feature("docstring")  IComputeFF::clone "virtual IComputeFF* IComputeFF::clone() const =0
-
-Returns a clone of this  ISample object. 
 ";
 
 %feature("docstring")  IComputeFF::setAmbientMaterial "void IComputeFF::setAmbientMaterial(const Material &material)

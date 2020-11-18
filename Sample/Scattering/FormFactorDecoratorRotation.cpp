@@ -33,15 +33,15 @@ FormFactorDecoratorRotation* FormFactorDecoratorRotation::clone() const
 double FormFactorDecoratorRotation::bottomZ(const IRotation& rotation) const
 {
     Transform3D transform = rotation.getTransform3D();
-    std::unique_ptr<IRotation> P_total_rotation(IRotation::createRotation(transform * m_transform));
-    return m_ff->bottomZ(*P_total_rotation);
+    std::unique_ptr<IRotation> total_rotation(IRotation::createRotation(transform * m_transform));
+    return m_ff->bottomZ(*total_rotation);
 }
 
 double FormFactorDecoratorRotation::topZ(const IRotation& rotation) const
 {
     Transform3D transform = rotation.getTransform3D();
-    std::unique_ptr<IRotation> P_total_rotation(IRotation::createRotation(transform * m_transform));
-    return m_ff->topZ(*P_total_rotation);
+    std::unique_ptr<IRotation> total_rotation(IRotation::createRotation(transform * m_transform));
+    return m_ff->topZ(*total_rotation);
 }
 
 complex_t FormFactorDecoratorRotation::evaluate(const WavevectorInfo& wavevectors) const

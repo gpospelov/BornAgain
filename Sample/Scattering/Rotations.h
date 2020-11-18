@@ -20,7 +20,7 @@
 
 class Transform3D;
 
-//! Pure virtual interface for rotations.
+//! Abstract base class for rotations.
 //! @ingroup samples
 
 class IRotation : public ICloneable, public INode

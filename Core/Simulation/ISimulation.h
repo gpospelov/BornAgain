@@ -29,7 +29,7 @@ class IComputation;
 class ISampleBuilder;
 class MultiLayer;
 
-//! Pure virtual base class of OffSpecularSimulation, GISASSimulation and SpecularSimulation.
+//! Abstract base class of OffSpecularSimulation, GISASSimulation and SpecularSimulation.
 //! Holds the common infrastructure to run a simulation: multithreading, batch processing,
 //! weighting over parameter distributions, ...
 //! @ingroup simulation

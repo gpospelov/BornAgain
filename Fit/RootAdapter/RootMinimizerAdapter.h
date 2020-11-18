@@ -37,7 +37,7 @@ class Minimizer;
 }
 } // namespace ROOT
 
-//! Pure virtual interface that adapts the CERN ROOT minimizer to our IMinimizer.
+//! Abstract base class that adapts the CERN ROOT minimizer to our IMinimizer.
 //! @ingroup fitting_internal
 
 class RootMinimizerAdapter : public IMinimizer

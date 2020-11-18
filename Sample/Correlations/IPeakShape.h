@@ -17,7 +17,7 @@
 
 #include "Sample/Scattering/ISample.h"
 
-//! Pure virtual interface class that defines the peak shape of a Bragg peak.
+//! Abstract base class class that defines the peak shape of a Bragg peak.
 //!
 //! @ingroup samples_internal
 

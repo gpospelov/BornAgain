@@ -19,7 +19,7 @@
 
 class DetectorContext;
 
-//! Pure virtual base class of OffSpecularSimulation and GISASSimulation.
+//! Abstract base class of OffSpecularSimulation and GISASSimulation.
 //! Holds the common implementations for simulations with a 2D detector
 //! @ingroup simulation
 

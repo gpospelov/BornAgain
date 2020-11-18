@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Param/Base/IParameter.h
-//! @brief     Defines and implements pure virtual base class IParameter<T>.
+//! @brief     Defines and implements interface IParameter<T>.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,7 @@
 #include <stdexcept>
 #include <string>
 
-//! Pure virtual base class for parameter wrapper classes RealParameter, ComponentParameter.
+//! Abstract base class for parameter wrapper classes RealParameter, ComponentParameter.
 //! Holds a pointer to the wrapped parameter, a name, and a callback function to be called
 //! when the parameter is changed.
 //! This class is templated on the data type of the wrapped parameter.

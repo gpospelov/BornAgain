@@ -24,7 +24,7 @@ namespace Fit
 class Parameters;
 }
 
-//! Pure virtual interface for all kind minimizers.
+//! Abstract base class for all kind minimizers.
 //! @ingroup fitting_internal
 
 class IMinimizer

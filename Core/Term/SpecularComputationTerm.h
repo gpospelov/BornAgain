@@ -28,7 +28,7 @@ class Slice;
 //! Computes the specular scattering.
 //! Used by SpecularComputation.
 //!
-//! Pure virtual base class of SpecularScalarTerm, SpecularMatrixTerm
+//! Abstract base class of SpecularScalarTerm, SpecularMatrixTerm
 //!
 //! @ingroup algorithms_internal
 

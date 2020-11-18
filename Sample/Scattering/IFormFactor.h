@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/IFormFactor.h
-//! @brief     Defines and implements pure virtual interface IFormFactor.
+//! @brief     Defines and implements interface IFormFactor.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,7 +25,7 @@ class IRotation;
 class Material;
 class WavevectorInfo;
 
-//! Pure virtual base class for all form factors.
+//! Abstract base class for all form factors.
 //!
 //! The actual form factor is returned by the complex valued function IFormFactor::evaluate,
 //! which depends on the incoming and outgoing wave vectors ki and kf.

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/IBornFF.h
-//! @brief     Defines pure virtual interface class IBornFF.
+//! @brief     Defines interface IBornFF.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -29,7 +29,7 @@ struct SlicingEffects {
     double dz_top;
 };
 
-//! Pure virtual base class for Born form factors.
+//! Abstract base class for Born form factors.
 //!
 //! In contrast to the generic IFormFactor, a Born form factor does not depend
 //! on the incoming and outgoing wave vectors ki and kf, except through their

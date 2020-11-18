@@ -115,7 +115,7 @@ FormFactorCoherentSum ProcessedLayout::processParticle(const IParticle& particle
     auto result = FormFactorCoherentSum(abundance);
     for (size_t i = 0; i < sliced_ffs.size(); ++i) {
         const auto ff_pair = sliced_ffs[i];
-        std::unique_ptr<IFormFactor> ff_framework;
+        std::unique_ptr<IComputeFF> ff_framework;
         if (slices.size() > 1) {
             if (m_polarized)
                 ff_framework = std::make_unique<ComputeDWBAPol>(*ff_pair.first);

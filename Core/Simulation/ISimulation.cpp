@@ -17,7 +17,7 @@
 #include "Core/Computation/IComputation.h"
 #include "Core/Simulation/MPISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
-#include "Fit/Tools/StringUtils.h"
+#include "Base/Utils/StringUtils.h"
 #include "Param/Base/ParameterPool.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"

@@ -1487,6 +1487,50 @@ Returns a string of blanks with given width. By default the width equals standar
 ";
 
 
+// File: namespaceStringUtils.xml
+%feature("docstring")  StringUtils::matchesPattern "bool StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
+
+Returns true if text matches pattern with wildcards '*' and '?'. 
+";
+
+%feature("docstring")  StringUtils::padRight "std::string StringUtils::padRight(const std::string &name, size_t length)
+
+Returns string right-padded with blanks. 
+";
+
+%feature("docstring")  StringUtils::split "std::vector< std::string > StringUtils::split(const std::string &text, const std::string &delimeter)
+
+Split string into vector of string using delimeter.
+
+Returns token vector obtained by splitting string at delimiters. 
+";
+
+%feature("docstring")  StringUtils::replaceItemsFromString "void StringUtils::replaceItemsFromString(std::string &text, const std::vector< std::string > &items, const std::string &replacement=\"\")
+
+Replaces all occurences of items from string text with delimiter. 
+";
+
+%feature("docstring")  StringUtils::join "std::string StringUtils::join(const std::vector< std::string > &joinable, const std::string &joint)
+
+Returns string obtain by joining vector elements. 
+";
+
+%feature("docstring")  StringUtils::removeSubstring "std::string StringUtils::removeSubstring(const std::string &text, const std::string &substr)
+
+Removes multiple occurences of given substring from a string and returns result. 
+";
+
+%feature("docstring")  StringUtils::scientific "std::string StringUtils::scientific(const T value, int n=10)
+
+Returns scientific string representing given value of any numeric type. 
+";
+
+%feature("docstring")  StringUtils::to_lower "std::string StringUtils::to_lower(std::string text)
+
+Returns new string which is lower case of text. 
+";
+
+
 // File: namespaceSysUtils.xml
 %feature("docstring")  SysUtils::getCurrentDateAndTime "std::string SysUtils::getCurrentDateAndTime()
 ";
@@ -1699,6 +1743,12 @@ Template function to create an integrator object
 
 
 // File: PythonCore_8h.xml
+
+
+// File: StringUtils_8cpp.xml
+
+
+// File: StringUtils_8h.xml
 
 
 // File: SysUtils_8cpp.xml

@@ -126,7 +126,7 @@ std::string Minuit2Minimizer::statusToString() const
 std::map<std::string, std::string> Minuit2Minimizer::statusMap() const
 {
     auto result = RootMinimizerAdapter::statusMap();
-    result["Edm"] = StringUtils::scientific(rootMinimizer()->Edm());
+    result["Edm"] = mumufit::StringUtils::scientific(rootMinimizer()->Edm());
     result["CovMatrixStatus"] = covmatrixStatusDescription()[rootMinimizer()->CovMatrixStatus()];
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
     return result;

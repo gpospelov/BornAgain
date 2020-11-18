@@ -35,7 +35,7 @@ std::string MinimizerOptions::toOptionString() const
 void MinimizerOptions::setOptionString(const std::string& options)
 {
     // splits multiple option string "Strategy=1;Tolerance=0.01;"
-    std::vector<std::string> tokens = StringUtils::split(options, delimeter);
+    std::vector<std::string> tokens = mumufit::StringUtils::split(options, delimeter);
     try {
         for (std::string opt : tokens)
             if (!opt.empty())
@@ -53,7 +53,7 @@ void MinimizerOptions::setOptionString(const std::string& options)
 
 void MinimizerOptions::processCommand(const std::string& command)
 {
-    std::vector<std::string> tokens = StringUtils::split(command, "=");
+    std::vector<std::string> tokens = mumufit::StringUtils::split(command, "=");
     if (tokens.size() != 2)
         throw std::runtime_error("MinimizerOptions::processOption() -> Can't parse option '"
                                  + command + "'");

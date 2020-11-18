@@ -1435,6 +1435,38 @@ Returns horizontal line of 80 characters length with section name in it.
 ";
 
 
+// File: namespacemumufit.xml
+
+
+// File: namespacemumufit_1_1StringUtils.xml
+%feature("docstring")  mumufit::StringUtils::matchesPattern "bool mumufit::StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
+
+Returns true if text matches pattern with wildcards '*' and '?'. 
+";
+
+%feature("docstring")  mumufit::StringUtils::split "std::vector< std::string > mumufit::StringUtils::split(const std::string &text, const std::string &delimeter)
+
+Split string into vector of string using delimeter.
+
+Returns token vector obtained by splitting string at delimiters. 
+";
+
+%feature("docstring")  mumufit::StringUtils::removeSubstring "std::string mumufit::StringUtils::removeSubstring(const std::string &text, const std::string &substr)
+
+Removes multiple occurences of given substring from a string and returns result. 
+";
+
+%feature("docstring")  mumufit::StringUtils::scientific "std::string mumufit::StringUtils::scientific(const T value, int n=10)
+
+Returns scientific string representing given value of any numeric type. 
+";
+
+%feature("docstring")  mumufit::StringUtils::to_lower "std::string mumufit::StringUtils::to_lower(std::string text)
+
+Returns new string which is lower case of text. 
+";
+
+
 // File: namespaceNumeric.xml
 %feature("docstring")  Numeric::GetAbsoluteDifference "double Numeric::GetAbsoluteDifference(double a, double b)
 
@@ -1459,50 +1491,6 @@ Returns the difference of the logarithm; input values are truncated at the minim
 
 
 // File: namespaceROOT_1_1Minuit2.xml
-
-
-// File: namespaceStringUtils.xml
-%feature("docstring")  StringUtils::matchesPattern "bool StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
-
-Returns true if text matches pattern with wildcards '*' and '?'. 
-";
-
-%feature("docstring")  StringUtils::padRight "std::string StringUtils::padRight(const std::string &name, size_t length)
-
-Returns string right-padded with blanks. 
-";
-
-%feature("docstring")  StringUtils::split "std::vector< std::string > StringUtils::split(const std::string &text, const std::string &delimeter)
-
-Split string into vector of string using delimeter.
-
-Returns token vector obtained by splitting string at delimiters. 
-";
-
-%feature("docstring")  StringUtils::replaceItemsFromString "void StringUtils::replaceItemsFromString(std::string &text, const std::vector< std::string > &items, const std::string &replacement=\"\")
-
-Replaces all occurences of items from string text with delimiter. 
-";
-
-%feature("docstring")  StringUtils::join "std::string StringUtils::join(const std::vector< std::string > &joinable, const std::string &joint)
-
-Returns string obtain by joining vector elements. 
-";
-
-%feature("docstring")  StringUtils::removeSubstring "std::string StringUtils::removeSubstring(const std::string &text, const std::string &substr)
-
-Removes multiple occurences of given substring from a string and returns result. 
-";
-
-%feature("docstring")  StringUtils::scientific "std::string StringUtils::scientific(const T value, int n=10)
-
-Returns scientific string representing given value of any numeric type. 
-";
-
-%feature("docstring")  StringUtils::to_lower "std::string StringUtils::to_lower(std::string text)
-
-Returns new string which is lower case of text. 
-";
 
 
 // File: FitOptions_8cpp.xml

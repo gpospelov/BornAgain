@@ -20,8 +20,6 @@
 #include <string>
 #include <vector>
 
-namespace mumufit {
-
 //! Utility functions to analyze or modify strings.
 
 namespace StringUtils
@@ -30,8 +28,17 @@ namespace StringUtils
 //! Returns true if text matches pattern with wildcards '*' and '?'.
 bool matchesPattern(const std::string& text, const std::string& wildcardPattern);
 
+std::string padRight(const std::string& name, size_t length);
+
 //! Split string into vector of string using delimeter.
 std::vector<std::string> split(const std::string& text, const std::string& delimeter);
+
+//! Replaces all occurences of items from string text with delimiter
+void replaceItemsFromString(std::string& text, const std::vector<std::string>& items,
+                            const std::string& replacement = "");
+
+//! Returns string obtain by joining vector elements
+std::string join(const std::vector<std::string>& joinable, const std::string& joint);
 
 //! Removes multiple occurences of given substring from a string and returns result.
 std::string removeSubstring(const std::string& text, const std::string& substr);
@@ -42,15 +49,13 @@ template <typename T> std::string scientific(const T value, int n = 10);
 //! Returns new string which is lower case of text.
 std::string to_lower(std::string text);
 
-template <typename T> std::string scientific(const T value, int n)
+} // namespace StringUtils
+
+template <typename T> std::string StringUtils::scientific(const T value, int n)
 {
     std::ostringstream out;
     out << std::scientific << std::setprecision(n) << value;
     return out.str();
 }
-
-} // namespace StringUtils
-
-} // namespace mumufit
 
 #endif // BORNAGAIN_FIT_TOOLS_STRINGUTILS_H

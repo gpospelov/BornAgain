@@ -14,7 +14,7 @@
 
 #include "Tests/Functional/GUI/Translate/GUITranslationTest.h"
 #include "Core/Simulation/SimulationFactory.h"
-#include "Fit/Tools/StringUtils.h"
+#include "Base/Utils/StringUtils.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/FitParameterHelper.h"

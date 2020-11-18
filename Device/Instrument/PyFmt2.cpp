@@ -22,7 +22,7 @@
 #include "Device/Mask/Line.h"
 #include "Device/Mask/Polygon.h"
 #include "Device/Mask/Rectangle.h"
-#include "Fit/Tools/StringUtils.h"
+#include "Base/Utils/StringUtils.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"

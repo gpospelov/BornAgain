@@ -102,7 +102,7 @@ std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::strin
     std::vector<RealParameter*> result;
     // loop over all parameters in the pool
     for (auto* par : m_params)
-        if (StringUtils::matchesPattern(par->getName(), pattern))
+        if (mumufit::StringUtils::matchesPattern(par->getName(), pattern))
             result.push_back(par);
     if (result.empty())
         report_find_matched_parameters_error(pattern);

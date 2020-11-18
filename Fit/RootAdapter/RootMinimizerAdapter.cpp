@@ -103,7 +103,7 @@ std::map<std::string, std::string> RootMinimizerAdapter::statusMap() const
     else
         result["ProvidesError"] = "Doesn't provide error calculation";
 
-    result["MinValue"] = StringUtils::scientific(minValue());
+    result["MinValue"] = mumufit::StringUtils::scientific(minValue());
 
     return result;
 }

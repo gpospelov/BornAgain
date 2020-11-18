@@ -93,7 +93,7 @@ std::string GSLLevenbergMarquardtMinimizer::statusToString() const
 std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() const
 {
     auto result = RootMinimizerAdapter::statusMap();
-    result["Edm"] = StringUtils::scientific(rootMinimizer()->Edm());
+    result["Edm"] = mumufit::StringUtils::scientific(rootMinimizer()->Edm());
     result["CovMatrixStatus"] = covmatrixStatusDescription()[rootMinimizer()->CovMatrixStatus()];
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
     return result;

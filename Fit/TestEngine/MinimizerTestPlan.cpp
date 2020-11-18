@@ -14,7 +14,6 @@
 
 #include "Fit/TestEngine/MinimizerTestPlan.h"
 #include "Fit/Kernel/Parameters.h"
-#include "Base/Utils/Numeric.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>

@@ -16,7 +16,7 @@
 #include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
-#include "Fit/TestEngine/Numeric.h"
+#include "Base/Utils/Numeric.h"
 
 namespace
 {

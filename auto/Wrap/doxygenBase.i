@@ -1392,6 +1392,23 @@ Complex Bessel function J1(x)/x.
 ";
 
 
+// File: namespaceNumeric.xml
+%feature("docstring")  Numeric::GetAbsoluteDifference "double Numeric::GetAbsoluteDifference(double a, double b)
+
+Returns the absolute value of the difference between a and b. 
+";
+
+%feature("docstring")  Numeric::GetRelativeDifference "double Numeric::GetRelativeDifference(double a, double b)
+
+Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
+";
+
+%feature("docstring")  Numeric::GetLogDifference "double Numeric::GetLogDifference(double a, double b)
+
+Returns the difference of the logarithm; input values are truncated at the minimum positive value 
+";
+
+
 // File: namespacePhysConsts.xml
 
 
@@ -1722,6 +1739,12 @@ Template function to create an integrator object
 
 
 // File: MathFunctions_8h.xml
+
+
+// File: Numeric_8cpp.xml
+
+
+// File: Numeric_8h.xml
 
 
 // File: Precomputed_8h.xml

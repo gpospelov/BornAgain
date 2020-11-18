@@ -14,7 +14,7 @@
 
 #include "Tests/Functional/Fit/Minimizer/ResidualTestPlan.h"
 #include "Fit/Kernel/Minimizer.h"
-#include "Fit/TestEngine/Numeric.h"
+#include "Base/Utils/Numeric.h"
 #include <cassert>
 #include <iostream>
 #include <sstream>

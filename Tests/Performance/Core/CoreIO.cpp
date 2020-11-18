@@ -14,7 +14,7 @@
 
 #include "Device/Data/OutputData.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Fit/TestEngine/Numeric.h"
+#include "Base/Utils/Numeric.h"
 #include "Tests/Performance/Benchmark.h"
 #include <boost/format.hpp>
 #include <iomanip>

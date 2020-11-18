@@ -19,7 +19,7 @@
 #include "Device/Instrument/Instrument.h"
 #include "Device/Intensity/ArrayUtils.h"
 #include "Device/Resolution/ConvolutionDetectorResolution.h"
-#include "Fit/TestEngine/Numeric.h"
+#include "Base/Utils/Numeric.h"
 #include <cmath>
 #include <iostream>
 

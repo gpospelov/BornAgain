@@ -14,10 +14,25 @@
 
 #include "Fit/TestEngine/MinimizerTestPlan.h"
 #include "Fit/Kernel/Parameters.h"
-#include "Fit/TestEngine/Numeric.h"
+#include "Base/Utils/Numeric.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>
+
+namespace {
+
+//! Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases.
+double relativeDifference(double a, double b)
+{
+    constexpr double eps = std::numeric_limits<double>::epsilon();
+    const double avg_abs = (std::abs(a) + std::abs(b)) / 2.0;
+    // return 0.0 if relative error smaller than epsilon
+    if (std::abs(a - b) <= eps * avg_abs)
+        return 0.0;
+    return std::abs(a - b) / avg_abs;
+}
+
+} // namespace
 
 using namespace Fit;
 
@@ -65,7 +80,7 @@ bool MinimizerTestPlan::valuesAsExpected(const std::vector<double>& values) cons
     size_t index(0);
     std::ostringstream text;
     for (const auto& plan : m_parameter_plan) {
-        double diff = Numeric::GetRelativeDifference(values[index], plan.expectedValue());
+        double diff = relativeDifference(values[index], plan.expectedValue());
 
         bool diff_ok(true);
         if (diff > plan.tolerance())

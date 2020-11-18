@@ -1,6 +1,6 @@
 ## How does BornAgain compute scattering?
 
-Code analysis per 17nov, after merge of https://github.com/scgmlz/BornAgain/pull/1104.
+Code analysis per 18nov, after merge of https://github.com/scgmlz/BornAgain/pull/1105.
 
 ### Simulation computes an incoherent sum
 
@@ -62,6 +62,6 @@ For the simplest of all interference functions, `InterferenceFunctionNone::iff_w
 
 `FormFactorCoherentSum::evaluate` returns the sum over `FormFactorCoherentPart::evaluate`.
 
-`FormFactorCoherentPart` wraps an `IFormFactor` and additionally holds members `m_fresnel_map` and `m_layer_index` that are set by `FormFactorCoherentPart::setSpecularInfo`. This information is forwarded by calling `IFormFactor::setSpecularInfo`, which does nothing, unless overridden in `FormFactorDWBA::setSpecularInfo`.
+`FormFactorCoherentPart` wraps an `IComputeFF` and additionally holds members `m_fresnel_map` and `m_layer_index` that are set by `FormFactorCoherentPart::setSpecularInfo`. This information is forwarded by calling `IComputeFF::setSpecularInfo`, which does nothing, unless overridden in `ComputeDWBA`.
 
-After this preparation, `FormFactorDWBA::evaluate` calls `IFormFactor::evaluate`, which is pure virtual, overridden by `FormFactorDWBA::evaluate`, which computes the sum over the four DWBA terms. This involves four calls to `m_form_factor->evaluate`. The member `m_form_factor` is probably of type `IFormFactorBorn`. `IFormFactorBorn::evaluate` calls `IFormFactorBorn::evaluate_for_q`, which is pure virtual, overriden by shape-specific classes like `FormFactorFullSphere`.
+After this preparation, `ComputeDWBA::evaluate` computes the coherent sum over the four DWBA terms. Each of them uses the scattering amplitude from `IFormFactor::evaluate`, which is pure virtual, overridden by `IFormFactorBorn::evaluate`, which calls `IFormFactorBorn::evaluate_for_q`, which is pure virtual, overriden by shape-specific classes like `FormFactorFullSphere`.

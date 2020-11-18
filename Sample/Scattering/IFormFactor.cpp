@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#include "Sample/Scattering/IFormFactor.h"
 #include "Sample/FFCompute/FormFactorDecoratorPositionFactor.h"
 #include "Sample/FFCompute/FormFactorDecoratorRotation.h"
 #include "Sample/FFCompute/Rotations.h"

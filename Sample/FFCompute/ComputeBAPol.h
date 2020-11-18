@@ -16,6 +16,7 @@
 #define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBAPOL_H
 
 #include "Sample/FFCompute/IComputeFF.h"
+#include "Sample/Scattering/IFormFactor.h"
 #include <memory>
 
 //! Evaluates the matrix BA term in a polarized IFormFactor.

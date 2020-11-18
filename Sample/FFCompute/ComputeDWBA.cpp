@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/FFCompute/ComputeDWBA.h"
+#include "Sample/Scattering/IFormFactor.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 

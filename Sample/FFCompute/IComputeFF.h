@@ -15,8 +15,15 @@
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_ICOMPUTEFF_H
 #define BORNAGAIN_SAMPLE_SCATTERING_ICOMPUTEFF_H
 
-#include "Sample/Scattering/IFormFactor.h"
+#include "Base/Types/Complex.h"
 #include <Eigen/Core>
+#include <memory>
+
+class IFormFactor;
+class ILayerRTCoefficients;
+class IRotation;
+class Material;
+class WavevectorInfo;
 
 class IComputeFF {
 

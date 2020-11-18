@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/FFCompute/IComputeFF.h"
+#include "Sample/Scattering/IFormFactor.h"
 #include <stdexcept>
 
 IComputeFF::IComputeFF(const IFormFactor& ff) : m_ff(ff.clone()) {}

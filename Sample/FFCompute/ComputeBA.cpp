@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/FFCompute/ComputeBA.h"
+#include "Sample/Scattering/IFormFactor.h"
 #include "Sample/Material/WavevectorInfo.h"
 
 ComputeBA::ComputeBA(const IFormFactor& ff) : IComputeFF(ff)

@@ -27,7 +27,6 @@ std::complex<double> VecMatVecProduct(const Eigen::Vector2cd& vec1, const Eigen:
 
 ComputeDWBAPol::ComputeDWBAPol(const IFormFactor& ff) : IComputeFF(ff)
 {
-    setName("ComputeDWBAPol");
 }
 
 ComputeDWBAPol::~ComputeDWBAPol() = default;

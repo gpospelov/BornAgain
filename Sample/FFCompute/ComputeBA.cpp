@@ -17,7 +17,6 @@
 
 ComputeBA::ComputeBA(const IFormFactor& ff) : IComputeFF(ff)
 {
-    setName("ComputeBA");
 }
 
 ComputeBA::~ComputeBA() = default;

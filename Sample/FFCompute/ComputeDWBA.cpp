@@ -18,7 +18,6 @@
 
 ComputeDWBA::ComputeDWBA(const IFormFactor& ff) : IComputeFF(ff)
 {
-    setName("ComputeDWBA");
 }
 
 ComputeDWBA::~ComputeDWBA() = default;

@@ -18,7 +18,6 @@
 
 ComputeBAPol::ComputeBAPol(const IFormFactor& ff) : IComputeFF(ff)
 {
-    setName("ComputeBAPol");
 }
 
 ComputeBAPol::~ComputeBAPol() = default;

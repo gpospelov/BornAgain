@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/FFCompute/IComputeFF.h"
+#include "Sample/RT/ILayerRTCoefficients.h" // required by VS19 compiler
 #include "Sample/Scattering/IFormFactor.h"
 #include <stdexcept>
 

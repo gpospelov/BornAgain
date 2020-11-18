@@ -16,9 +16,7 @@
 #include "Sample/Material/WavevectorInfo.h"
 #include <stdexcept>
 
-ComputeBAPol::ComputeBAPol(const IFormFactor& ff) : IComputeFF(ff)
-{
-}
+ComputeBAPol::ComputeBAPol(const IFormFactor& ff) : IComputeFF(ff) {}
 
 ComputeBAPol::~ComputeBAPol() = default;
 

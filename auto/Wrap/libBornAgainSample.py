@@ -3355,14 +3355,6 @@ class IFormFactor(ISample):
 # Register IFormFactor in _libBornAgainSample:
 _libBornAgainSample.IFormFactor_swigregister(IFormFactor)
 
-
-def createTransformedFormFactor(formfactor, rot, translation):
-    r"""
-    createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor
-    IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-
-    """
-    return _libBornAgainSample.createTransformedFormFactor(formfactor, rot, translation)
 class SlicingEffects(object):
     r"""
 

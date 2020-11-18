@@ -25,7 +25,8 @@ class IRotation;
 class Material;
 class WavevectorInfo;
 
-class IComputeFF {
+class IComputeFF
+{
 
 public:
     IComputeFF() = delete;

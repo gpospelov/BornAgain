@@ -14,9 +14,9 @@
 
 #include "Sample/HardParticle/FormFactorFullSphere.h"
 #include "Base/Const/MathConstants.h"
-#include "Sample/Scattering/Rotations.h"
 #include "Sample/HardParticle/FormFactorTruncatedSphere.h"
 #include "Sample/LibFF/SomeFormFactors.h"
+#include "Sample/Scattering/Rotations.h"
 
 FormFactorFullSphere::FormFactorFullSphere(const std::vector<double> P, bool position_at_center)
     : IBornFF({"FullSphere", "sphere", {{"Radius", "nm", "radius", 0, +INF, 0}}}, P)

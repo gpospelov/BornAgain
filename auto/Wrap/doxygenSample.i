@@ -8726,13 +8726,9 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: IFormFactor_8cpp.xml
-%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-";
 
 
 // File: IFormFactor_8h.xml
-%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-";
 
 
 // File: IFormFactorDecorator_8h.xml

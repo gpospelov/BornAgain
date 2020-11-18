@@ -13,12 +13,10 @@
 //  ************************************************************************************************
 
 #include "Sample/FFCompute/ComputeBA.h"
-#include "Sample/Scattering/IFormFactor.h"
 #include "Sample/Material/WavevectorInfo.h"
+#include "Sample/Scattering/IFormFactor.h"
 
-ComputeBA::ComputeBA(const IFormFactor& ff) : IComputeFF(ff)
-{
-}
+ComputeBA::ComputeBA(const IFormFactor& ff) : IComputeFF(ff) {}
 
 ComputeBA::~ComputeBA() = default;
 

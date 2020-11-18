@@ -1,9 +1,9 @@
 #include "Sample/Particle/ParticleComposition.h"
 #include "Base/Const/MathConstants.h"
-#include "Sample/Scattering/Rotations.h"
 #include "Sample/HardParticle/FormFactorFullSphere.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Particle/Particle.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class ParticleCompositionTest : public ::testing::Test

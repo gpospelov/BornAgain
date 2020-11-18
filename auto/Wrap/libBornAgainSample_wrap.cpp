@@ -39338,58 +39338,6 @@ SWIGINTERN PyObject *IFormFactor_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObje
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_createTransformedFormFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IFormFactor *arg1 = 0 ;
-  IRotation *arg2 = 0 ;
-  kvector_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 ;
-  int res3 = 0 ;
-  PyObject *swig_obj[3] ;
-  IFormFactor *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "createTransformedFormFactor", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IFormFactor,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "createTransformedFormFactor" "', argument " "1"" of type '" "IFormFactor const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createTransformedFormFactor" "', argument " "1"" of type '" "IFormFactor const &""'"); 
-  }
-  arg1 = reinterpret_cast< IFormFactor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IRotation,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "createTransformedFormFactor" "', argument " "2"" of type '" "IRotation const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createTransformedFormFactor" "', argument " "2"" of type '" "IRotation const &""'"); 
-  }
-  arg2 = reinterpret_cast< IRotation * >(argp2);
-  {
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "createTransformedFormFactor" "', argument " "3"" of type '" "kvector_t""'"); 
-    }  
-    if (!argp3) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createTransformedFormFactor" "', argument " "3"" of type '" "kvector_t""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp3);
-      arg3 = *temp;
-      if (SWIG_IsNewObj(res3)) delete temp;
-    }
-  }
-  result = (IFormFactor *)createTransformedFormFactor((IFormFactor const &)*arg1,(IRotation const &)*arg2,arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFormFactor, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_SlicingEffects_position_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SlicingEffects *arg1 = (SlicingEffects *) 0 ;
@@ -70549,11 +70497,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "disown_IFormFactor", _wrap_disown_IFormFactor, METH_O, NULL},
 	 { "IFormFactor_swigregister", IFormFactor_swigregister, METH_O, NULL},
 	 { "IFormFactor_swiginit", IFormFactor_swiginit, METH_VARARGS, NULL},
-	 { "createTransformedFormFactor", _wrap_createTransformedFormFactor, METH_VARARGS, "\n"
-		"createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor\n"
-		"IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)\n"
-		"\n"
-		""},
 	 { "SlicingEffects_position_set", _wrap_SlicingEffects_position_set, METH_VARARGS, "SlicingEffects_position_set(SlicingEffects self, kvector_t position)"},
 	 { "SlicingEffects_position_get", _wrap_SlicingEffects_position_get, METH_O, "SlicingEffects_position_get(SlicingEffects self) -> kvector_t"},
 	 { "SlicingEffects_dz_bottom_set", _wrap_SlicingEffects_dz_bottom_set, METH_VARARGS, "SlicingEffects_dz_bottom_set(SlicingEffects self, double dz_bottom)"},

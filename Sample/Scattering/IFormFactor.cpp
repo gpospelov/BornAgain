@@ -13,11 +13,11 @@
 //  ************************************************************************************************
 
 #include "Sample/Scattering/IFormFactor.h"
+#include "Sample/Material/WavevectorInfo.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Sample/Scattering/FormFactorDecoratorRotation.h"
 #include "Sample/Scattering/Rotations.h"
-#include "Sample/Material/WavevectorInfo.h"
-#include "Sample/RT/ILayerRTCoefficients.h"
 #include <memory>
 #include <utility>
 
@@ -73,8 +73,7 @@ IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation
 Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
 {
     // Throws to prevent unanticipated behaviour
-    throw std::runtime_error(
-        "IFormFactor::evaluatePol: is not implemented by default");
+    throw std::runtime_error("IFormFactor::evaluatePol: is not implemented by default");
 }
 
 double IFormFactor::volume() const
@@ -98,8 +97,8 @@ IFormFactor* IFormFactor::sliceFormFactor(ZLimits, const IRotation&, kvector_t) 
     throw std::runtime_error(getName() + "::sliceFormFactor error: not implemented!");
 }
 
-IFormFactor* createTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,
-                                         kvector_t translation)
+IFormFactor* IFormFactor::createTransformedFormFactor(const IFormFactor& formfactor,
+                                                      const IRotation& rot, kvector_t translation)
 {
     std::unique_ptr<IFormFactor> P_fftemp, P_result;
     if (!rot.isIdentity())

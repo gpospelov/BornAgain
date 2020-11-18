@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Sample/Scattering/FormFactorDecoratorRotation.h"
-#include "Sample/Scattering/Rotations.h"
 #include "Sample/Material/WavevectorInfo.h"
+#include "Sample/Scattering/Rotations.h"
 #include <memory>
 
 FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor& ff,

@@ -16,8 +16,8 @@
 #define BORNAGAIN_SAMPLE_AGGREGATE_PARTICLELAYOUT_H
 
 #include "Base/Types/SafePointerVector.h"
-#include "Sample/Scattering/Rotations.h"
 #include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/Rotations.h"
 #include <memory>
 
 class IAbstractParticle;

@@ -15,8 +15,8 @@
 #include "Sample/Scattering/IBornFF.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Algorithms.h"
-#include "Sample/Scattering/Rotations.h"
 #include "Sample/Material/WavevectorInfo.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/Shapes/IShape.h"
 
 IBornFF::IBornFF() = default;

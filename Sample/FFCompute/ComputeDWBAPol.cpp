@@ -13,9 +13,9 @@
 //  ************************************************************************************************
 
 #include "Sample/FFCompute/ComputeDWBAPol.h"
-#include "Sample/Scattering/IFormFactor.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
+#include "Sample/Scattering/IFormFactor.h"
 
 namespace
 {
@@ -26,9 +26,7 @@ std::complex<double> VecMatVecProduct(const Eigen::Vector2cd& vec1, const Eigen:
 }
 } // namespace
 
-ComputeDWBAPol::ComputeDWBAPol(const IFormFactor& ff) : IComputeFF(ff)
-{
-}
+ComputeDWBAPol::ComputeDWBAPol(const IFormFactor& ff) : IComputeFF(ff) {}
 
 ComputeDWBAPol::~ComputeDWBAPol() = default;
 

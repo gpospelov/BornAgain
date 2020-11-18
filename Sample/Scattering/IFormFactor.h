@@ -83,9 +83,9 @@ protected:
     //! Actually slices the form factor or throws an exception
     virtual IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
                                          kvector_t translation) const;
-};
 
-IFormFactor* createTransformedFormFactor(const IFormFactor& formfactor, const IRotation& rot,
-                                         kvector_t translation);
+    static IFormFactor* createTransformedFormFactor(const IFormFactor& formfactor,
+                                                    const IRotation& rot, kvector_t translation);
+};
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTOR_H

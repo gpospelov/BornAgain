@@ -17,7 +17,6 @@
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Bessel.h"
 #include "Base/Utils/Integrator.h"
-#include "Fit/Tools/RealLimits.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 

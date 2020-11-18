@@ -620,6 +620,36 @@ Used for Python overriding of clone (see swig/tweaks.py)
 ";
 
 
+// File: classIFactory.xml
+%feature("docstring") IFactory "
+
+Base class for all factories.
+
+C++ includes: IFactory.h
+";
+
+%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
+
+Creates object by calling creation function corresponded to given identifier. 
+";
+
+%feature("docstring")  IFactory::createItemPtr "std::unique_ptr<AbstractProduct> IFactory< Key, AbstractProduct >::createItemPtr(const Key &item_key) const
+";
+
+%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
+
+Registers object's creation function. 
+";
+
+%feature("docstring")  IFactory::contains "bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
+";
+
+%feature("docstring")  IFactory::size "size_t IFactory< Key, AbstractProduct >::size() const
+
+Returns number of registered objects. 
+";
+
+
 // File: classIntegratorMCMiser.xml
 %feature("docstring") IntegratorMCMiser "
 
@@ -1620,6 +1650,15 @@ Returns exp(I*z), where I is the imaginary unit.
 
 
 // File: FileSystemUtils_8h.xml
+
+
+// File: IFactory_8h.xml
+%feature("docstring")  create_new "T* create_new()
+
+Returns new instance of class T.
+
+This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
+";
 
 
 // File: Integrator_8cpp.xml

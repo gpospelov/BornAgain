@@ -22,8 +22,6 @@
 #include <memory>
 #include <sstream>
 
-namespace fittest {
-
 //! Base class for all factories.
 //! @ingroup tools_internal
 
@@ -80,7 +78,5 @@ template <class T> T* create_new()
 {
     return new T();
 }
-
-} // namespace fittest
 
 #endif // BORNAGAIN_FIT_TESTENGINE_IFACTORY_H

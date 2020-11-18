@@ -94,7 +94,7 @@
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
 %template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
 
-%include "Fit/TestEngine/IFactory.h"
+%include "Base/Utils/IFactory.h"
 %template(SimulationFactoryTemp) IFactory<std::string, ISimulation>;
 
 %include "Core/Fitting/FitObjective.h"

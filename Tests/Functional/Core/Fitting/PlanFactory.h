@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_PLANFACTORY_H
 #define BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_PLANFACTORY_H
 
-#include "Fit/TestEngine/IFactory.h"
+#include "Base/Utils/IFactory.h"
 #include "Fit/TestEngine/MinimizerTestPlan.h"
 
 //! Factory to generate plans for fitting with FitObjective.

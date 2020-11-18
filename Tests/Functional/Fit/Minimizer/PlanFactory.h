@@ -20,7 +20,7 @@
 
 //! Factory to generate plans for fitting objective functions.
 
-class PlanFactory : public IFactory<std::string, MinimizerTestPlan>
+class PlanFactory : public fittest::IFactory<std::string, MinimizerTestPlan>
 {
 public:
     PlanFactory();

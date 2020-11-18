@@ -261,31 +261,31 @@ Returns string representation of current minimizer status.
 ";
 
 
-// File: classIFactory.xml
-%feature("docstring") IFactory "
+// File: classfittest_1_1IFactory.xml
+%feature("docstring") fittest::IFactory "
 
 Base class for all factories.
 
 C++ includes: IFactory.h
 ";
 
-%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
+%feature("docstring")  fittest::IFactory::createItem "AbstractProduct* fittest::IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
 
 Creates object by calling creation function corresponded to given identifier. 
 ";
 
-%feature("docstring")  IFactory::createItemPtr "std::unique_ptr<AbstractProduct> IFactory< Key, AbstractProduct >::createItemPtr(const Key &item_key) const
+%feature("docstring")  fittest::IFactory::createItemPtr "std::unique_ptr<AbstractProduct> fittest::IFactory< Key, AbstractProduct >::createItemPtr(const Key &item_key) const
 ";
 
-%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
+%feature("docstring")  fittest::IFactory::registerItem "bool fittest::IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
 
 Registers object's creation function. 
 ";
 
-%feature("docstring")  IFactory::contains "bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
+%feature("docstring")  fittest::IFactory::contains "bool fittest::IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
 ";
 
-%feature("docstring")  IFactory::size "size_t IFactory< Key, AbstractProduct >::size() const
+%feature("docstring")  fittest::IFactory::size "size_t fittest::IFactory< Key, AbstractProduct >::size() const
 
 Returns number of registered objects. 
 ";
@@ -1393,6 +1393,15 @@ Internal state of a  WallclockTimer object.
 // File: namespaceFit.xml
 
 
+// File: namespacefittest.xml
+%feature("docstring")  fittest::create_new "T* fittest::create_new()
+
+Returns new instance of class T.
+
+This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
+";
+
+
 // File: namespaceMinimizerResultUtils.xml
 %feature("docstring")  MinimizerResultUtils::reportToString "std::string MinimizerResultUtils::reportToString(const RootMinimizerAdapter &minimizer)
 
@@ -1656,12 +1665,6 @@ Returns new string which is lower case of text.
 
 
 // File: IFactory_8h.xml
-%feature("docstring")  create_new "T* create_new()
-
-Returns new instance of class T.
-
-This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
-";
 
 
 // File: MinimizerTestPlan_8cpp.xml

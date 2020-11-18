@@ -142,7 +142,7 @@
 
 %template(vector_IFormFactorPtr_t) std::vector<IFormFactor*>;
 
-%include "Fit/TestEngine/IFactory.h"
+%include "Base/Utils/IFactory.h"
 %template(SampleBuilderFactoryTemp) IFactory<std::string, ISampleBuilder>;
 
 %include "Sample/Material/Material.h"

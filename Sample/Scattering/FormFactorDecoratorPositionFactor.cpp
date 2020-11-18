@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/FFCompute/FormFactorDecoratorPositionFactor.cpp
+//! @file      Sample/Scattering/FormFactorDecoratorPositionFactor.cpp
 //! @brief     Implements class FormFactorDecoratorPositionFactor.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/FFCompute/FormFactorDecoratorPositionFactor.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/Material/WavevectorInfo.h"
 
 FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor& ff,

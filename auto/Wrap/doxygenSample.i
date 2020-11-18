@@ -7611,37 +7611,46 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d131.xml
+// File: namespace_0d122.xml
 
 
-// File: namespace_0d134.xml
+// File: namespace_0d125.xml
 
 
-// File: namespace_0d158.xml
+// File: namespace_0d149.xml
+
+
+// File: namespace_0d153.xml
+
+
+// File: namespace_0d157.xml
 
 
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d162.xml
+// File: namespace_0d167.xml
 
 
-// File: namespace_0d166.xml
+// File: namespace_0d169.xml
 
 
-// File: namespace_0d176.xml
+// File: namespace_0d171.xml
 
 
-// File: namespace_0d178.xml
-
-
-// File: namespace_0d180.xml
-
-
-// File: namespace_0d190.xml
+// File: namespace_0d181.xml
 
 
 // File: namespace_0d2.xml
+
+
+// File: namespace_0d201.xml
+
+
+// File: namespace_0d203.xml
+
+
+// File: namespace_0d205.xml
 
 
 // File: namespace_0d210.xml
@@ -7650,22 +7659,13 @@ C++ includes: ZLimits.h
 // File: namespace_0d212.xml
 
 
-// File: namespace_0d214.xml
+// File: namespace_0d222.xml
 
 
-// File: namespace_0d219.xml
+// File: namespace_0d236.xml
 
 
-// File: namespace_0d221.xml
-
-
-// File: namespace_0d231.xml
-
-
-// File: namespace_0d239.xml
-
-
-// File: namespace_0d243.xml
+// File: namespace_0d241.xml
 
 
 // File: namespace_0d25.xml
@@ -8060,45 +8060,10 @@ Used by the hard sphere and by several soft sphere classes.
 // File: ComputeDWBAPol_8h.xml
 
 
-// File: FormFactorDecoratorMaterial_8cpp.xml
-
-
-// File: FormFactorDecoratorMaterial_8h.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8cpp.xml
-
-
-// File: FormFactorDecoratorPositionFactor_8h.xml
-
-
-// File: FormFactorDecoratorRotation_8cpp.xml
-
-
-// File: FormFactorDecoratorRotation_8h.xml
-
-
 // File: IComputeFF_8cpp.xml
 
 
 // File: IComputeFF_8h.xml
-
-
-// File: IFormFactorDecorator_8h.xml
-
-
-// File: Rotations_8cpp.xml
-%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
-
-Returns concatenated rotation (first right, then left). 
-";
-
-
-// File: Rotations_8h.xml
-%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
-
-Returns concatenated rotation (first right, then left). 
-";
 
 
 // File: FormFactorCoherentPart_8cpp.xml
@@ -8736,6 +8701,24 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: SampleProvider_8h.xml
 
 
+// File: FormFactorDecoratorMaterial_8cpp.xml
+
+
+// File: FormFactorDecoratorMaterial_8h.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8cpp.xml
+
+
+// File: FormFactorDecoratorPositionFactor_8h.xml
+
+
+// File: FormFactorDecoratorRotation_8cpp.xml
+
+
+// File: FormFactorDecoratorRotation_8h.xml
+
+
 // File: IBornFF_8cpp.xml
 
 
@@ -8752,6 +8735,9 @@ Generate z values (equidistant) for use in MaterialProfile.
 ";
 
 
+// File: IFormFactorDecorator_8h.xml
+
+
 // File: ISample_8cpp.xml
 
 
@@ -8762,6 +8748,20 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: LayerFillLimits_8h.xml
+
+
+// File: Rotations_8cpp.xml
+%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
+
+Returns concatenated rotation (first right, then left). 
+";
+
+
+// File: Rotations_8h.xml
+%feature("docstring")  createProduct "IRotation* createProduct(const IRotation &left, const IRotation &right)
+
+Returns concatenated rotation (first right, then left). 
+";
 
 
 // File: ZLimits_8cpp.xml

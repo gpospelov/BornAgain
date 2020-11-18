@@ -13,9 +13,9 @@
 //  ************************************************************************************************
 
 #include "Sample/Particle/MesoCrystal.h"
-#include "Sample/FFCompute/FormFactorDecoratorPositionFactor.h"
-#include "Sample/FFCompute/FormFactorDecoratorRotation.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Sample/Scattering/FormFactorDecoratorRotation.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/SlicedParticle.h"
 

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMESOCRYSTALUTILS_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMESOCRYSTALUTILS_H
 
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 #include <QVector3D>
 
 class Particle;

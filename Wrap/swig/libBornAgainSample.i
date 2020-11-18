@@ -57,8 +57,8 @@
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Sample/Correlations/FTDistributions2D.h"
 #include "Sample/Correlations/IPeakShape.h"
-#include "Sample/FFCompute/IFormFactorDecorator.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/IFormFactorDecorator.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Sample/HardParticle/FormFactorBar.h"
 #include "Sample/HardParticle/FormFactorBox.h"
@@ -155,8 +155,8 @@
 %include "Sample/Scattering/IFormFactor.h"
 %include "Sample/Scattering/IBornFF.h"
 
-%include "Sample/FFCompute/IFormFactorDecorator.h"
-%include "Sample/FFCompute/Rotations.h"
+%include "Sample/Scattering/IFormFactorDecorator.h"
+%include "Sample/Scattering/Rotations.h"
 
 %include "Sample/Particle/FormFactorCrystal.h"
 %include "Sample/Particle/FormFactorWeighted.h"

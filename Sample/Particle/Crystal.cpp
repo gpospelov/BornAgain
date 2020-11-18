@@ -14,7 +14,7 @@
 
 #include "Sample/Particle/Crystal.h"
 #include "Base/Vector/Transform3D.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/Particle/FormFactorCrystal.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleComposition.h"

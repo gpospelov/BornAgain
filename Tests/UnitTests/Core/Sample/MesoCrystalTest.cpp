@@ -1,5 +1,5 @@
 #include "Sample/Particle/MesoCrystal.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/HardParticle/FormFactorFullSphere.h"
 #include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Particle/Crystal.h"

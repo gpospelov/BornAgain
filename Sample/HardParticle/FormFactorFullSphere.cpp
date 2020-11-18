@@ -14,7 +14,7 @@
 
 #include "Sample/HardParticle/FormFactorFullSphere.h"
 #include "Base/Const/MathConstants.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/HardParticle/FormFactorTruncatedSphere.h"
 #include "Sample/LibFF/SomeFormFactors.h"
 

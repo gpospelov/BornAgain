@@ -13,9 +13,9 @@
 //  ************************************************************************************************
 
 #include "Sample/Scattering/IFormFactor.h"
-#include "Sample/FFCompute/FormFactorDecoratorPositionFactor.h"
-#include "Sample/FFCompute/FormFactorDecoratorRotation.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Sample/Scattering/FormFactorDecoratorRotation.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 #include <memory>

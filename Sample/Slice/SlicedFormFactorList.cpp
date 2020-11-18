@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/Slice/SlicedFormFactorList.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/Particle/IParticle.h"
 #include "Sample/Particle/SlicedParticle.h"
 #include "Sample/Slice/Slice.h"

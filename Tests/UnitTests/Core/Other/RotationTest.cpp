@@ -1,5 +1,5 @@
 #include "Base/Vector/Transform3D.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 #include <memory>

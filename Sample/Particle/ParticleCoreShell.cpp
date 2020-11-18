@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/Particle/ParticleCoreShell.h"
-#include "Sample/FFCompute/Rotations.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/Particle/FormFactorCoreShell.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/SlicedParticle.h"

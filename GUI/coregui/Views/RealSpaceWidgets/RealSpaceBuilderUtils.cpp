@@ -38,7 +38,7 @@
 #include "GUI/coregui/Views/RealSpaceWidgets/TransformTo3D.h"
 #include "GUI/coregui/mainwindow/AppSvc.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
-#include "Sample/FFCompute/IFormFactorDecorator.h"
+#include "Sample/Scattering/IFormFactorDecorator.h"
 #include "Sample/Particle/FormFactorCrystal.h"
 #include "Sample/Particle/MesoCrystal.h"
 #include "Sample/Particle/Particle.h"

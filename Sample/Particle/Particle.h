@@ -15,9 +15,8 @@
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_PARTICLE_H
 #define BORNAGAIN_SAMPLE_PARTICLE_PARTICLE_H
 
+#include "Sample/Material/Material.h"
 #include "Sample/Particle/IParticle.h"
-#include "Sample/Scattering/FormFactorDecoratorMaterial.h"
-#include "Sample/Scattering/FormFactorDecoratorRotation.h"
 
 //! A particle with a form factor and refractive index.
 //! @ingroup samples
@@ -25,7 +24,8 @@
 class Particle : public IParticle
 {
 public:
-    Particle();
+    Particle() = delete;
+    ~Particle();
     Particle(Material material);
     Particle(Material material, const IFormFactor& form_factor);
     Particle(Material material, const IFormFactor& form_factor, const IRotation& rotation);
@@ -39,8 +39,6 @@ public:
     void setMaterial(Material material);
     const Material* material() const override final { return &m_material; }
 
-    void setFormFactor(const IFormFactor& form_factor);
-
     std::vector<const INode*> getChildren() const override final;
 
 protected:
@@ -49,6 +47,7 @@ protected:
 
 private:
     void initialize();
+    void setFormFactor(const IFormFactor& form_factor);
 };
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_PARTICLE_H

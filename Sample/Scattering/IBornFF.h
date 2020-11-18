@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/Scattering/IBornFF.h
-//! @brief     Defines pure virtual interface class IBornFF.
+//! @brief     Defines interface IBornFF.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,9 +18,18 @@
 #include "Sample/Scattering/IFormFactor.h"
 
 class IShape;
-struct SlicingEffects; // defined below
 
-//! Pure virtual base class for Born form factors.
+//! Nested structure that holds slicing effects on position and removed parts.
+
+//! @ingroup formfactors_internal
+
+struct SlicingEffects {
+    kvector_t position;
+    double dz_bottom;
+    double dz_top;
+};
+
+//! Abstract base class for Born form factors.
 //!
 //! In contrast to the generic IFormFactor, a Born form factor does not depend
 //! on the incoming and outgoing wave vectors ki and kf, except through their
@@ -77,36 +86,5 @@ protected:
     //! Calculates the z-coordinate of the highest vertex after rotation
     static double TopZ(const std::vector<kvector_t>& vertices, const IRotation& rotation);
 };
-
-//! Nested structure that holds slicing effects on position and removed parts.
-
-//! @ingroup formfactors_internal
-
-struct SlicingEffects {
-    kvector_t position;
-    double dz_bottom;
-    double dz_top;
-};
-
-#ifdef POLYHEDRAL_DIAGNOSTIC
-//! Information about the latest form factor evaluation. Not thread-safe.
-//! Used only by external test program.
-class Diagnosis
-{
-public:
-    int maxOrder;
-    int nExpandedFaces;
-    int debmsg;
-    bool request_convergence;
-    bool operator!=(const Diagnosis& other) const
-    {
-        return maxOrder != other.maxOrder || nExpandedFaces != other.nExpandedFaces;
-    }
-    friend std::ostream& operator<<(std::ostream& stream, const Diagnosis& diag)
-    {
-        return stream << " [" << diag.nExpandedFaces << ":" << diag.maxOrder << "]";
-    }
-};
-#endif
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_IBORNFF_H

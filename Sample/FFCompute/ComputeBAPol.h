@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/ComputeBAPol.h
+//! @file      Sample/FFCompute/ComputeBAPol.h
 //! @brief     Defines class ComputeBAPol.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,13 +12,14 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBAPOL_H
-#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBAPOL_H
+#ifndef BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBAPOL_H
+#define BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBAPOL_H
 
-#include "Sample/Scattering/IComputeFF.h"
+#include "Sample/FFCompute/IComputeFF.h"
+#include "Sample/Scattering/IFormFactor.h"
 #include <memory>
 
-//! Evaluates the matrix BA term in a polarized IFormFactor.
+//! Provides polarized form factor evaluation in Born Approximation for given IFormFactor.
 
 //! @ingroup formfactors_internal
 
@@ -30,8 +31,6 @@ public:
 
     ComputeBAPol* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
-
     //! Throws not-implemented exception
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 
@@ -39,4 +38,4 @@ public:
     Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBAPOL_H
+#endif // BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBAPOL_H

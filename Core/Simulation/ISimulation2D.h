@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Simulation/ISimulation2D.h
-//! @brief     Defines class ISimulation2D.
+//! @brief     Defines interface ISimulation2D.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,7 +19,7 @@
 
 class DetectorContext;
 
-//! Pure virtual base class of OffSpecularSimulation and GISASSimulation.
+//! Abstract base class of OffSpecularSimulation and GISASSimulation.
 //! Holds the common implementations for simulations with a 2D detector
 //! @ingroup simulation
 

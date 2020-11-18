@@ -15,12 +15,12 @@
 #include "Sample/Processed/ProcessedLayout.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Aggregate/ParticleLayout.h"
+#include "Sample/FFCompute/ComputeBA.h"
+#include "Sample/FFCompute/ComputeBAPol.h"
+#include "Sample/FFCompute/ComputeDWBA.h"
+#include "Sample/FFCompute/ComputeDWBAPol.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 #include "Sample/Particle/IParticle.h"
-#include "Sample/Scattering/ComputeBA.h"
-#include "Sample/Scattering/ComputeBAPol.h"
-#include "Sample/Scattering/ComputeDWBA.h"
-#include "Sample/Scattering/ComputeDWBAPol.h"
 #include "Sample/Slice/Slice.h"
 #include "Sample/Slice/SlicedFormFactorList.h"
 
@@ -115,7 +115,7 @@ FormFactorCoherentSum ProcessedLayout::processParticle(const IParticle& particle
     auto result = FormFactorCoherentSum(abundance);
     for (size_t i = 0; i < sliced_ffs.size(); ++i) {
         const auto ff_pair = sliced_ffs[i];
-        std::unique_ptr<IFormFactor> ff_framework;
+        std::unique_ptr<IComputeFF> ff_framework;
         if (slices.size() > 1) {
             if (m_polarized)
                 ff_framework = std::make_unique<ComputeDWBAPol>(*ff_pair.first);

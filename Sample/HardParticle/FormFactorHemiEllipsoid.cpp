@@ -21,11 +21,11 @@
 
 FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(const std::vector<double> P)
     : IBornFF({"HemiEllipsoid",
-                       "actually a spheroid, truncated at central xy plane",
-                       {{"RadiusX", "nm", "radius in x direction", 0, +INF, 0},
-                        {"RadiusY", "nm", "radius in y direction", 0, +INF, 0},
-                        {"Height", "nm", "height = radius in z direction", 0, +INF, 0}}},
-                      P)
+               "actually a spheroid, truncated at central xy plane",
+               {{"RadiusX", "nm", "radius in x direction", 0, +INF, 0},
+                {"RadiusY", "nm", "radius in y direction", 0, +INF, 0},
+                {"Height", "nm", "height = radius in z direction", 0, +INF, 0}}},
+              P)
     , m_radius_x(m_P[0])
     , m_radius_y(m_P[1])
     , m_height(m_P[2])

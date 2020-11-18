@@ -6788,6 +6788,8 @@ SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std
 SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_0(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::value_type const &x){ return self->insert(pos, x); }
 SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_1(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::size_type n,std::vector< std::pair< double,double > >::value_type const &x){ self->insert(pos, n, x); }
 
+#include "Base/Vector/Transform3D.h"
+
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Aggregate/InterferenceFunction1DLattice.h"
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
@@ -6806,6 +6808,8 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Sample/Correlations/FTDistributions2D.h"
 #include "Sample/Correlations/IPeakShape.h"
+#include "Sample/Scattering/IFormFactorDecorator.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Sample/HardParticle/FormFactorBar.h"
 #include "Sample/HardParticle/FormFactorBox.h"
@@ -6835,15 +6839,13 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Sample/HardParticle/FormFactorTruncatedSpheroid.h"
 #include "Sample/HardParticle/IFormFactorPolyhedron.h"
 #include "Sample/HardParticle/IFormFactorPrism.h"
-#include "Sample/Lattice/ISelectionRule.h"
-#include "Sample/Lattice/Lattice3D.h"
-#include "Sample/Lattice/Lattice2D.h"
 #include "Sample/Lattice/BakeLattice.h"
+#include "Sample/Lattice/ISelectionRule.h"
+#include "Sample/Lattice/Lattice2D.h"
+#include "Sample/Lattice/Lattice3D.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
-#include "Sample/Slice/LayerInterface.h"
-#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/FormFactorCrystal.h"
@@ -6858,9 +6860,9 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Sample/Particle/SlicedParticle.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
-#include "Sample/Scattering/IFormFactorDecorator.h"
 #include "Sample/Scattering/ISample.h"
-#include "Sample/Scattering/Rotations.h"
+#include "Sample/Slice/LayerInterface.h"
+#include "Sample/Slice/LayerRoughness.h"
 #include "Sample/SoftParticle/FormFactorGauss.h"
 #include "Sample/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Sample/SoftParticle/FormFactorSphereLogNormalRadius.h"
@@ -39336,57 +39338,207 @@ SWIGINTERN PyObject *IFormFactor_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObje
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_createTransformedFormFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_SlicingEffects_position_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactor *arg1 = 0 ;
-  IRotation *arg2 = 0 ;
-  kvector_t arg3 ;
+  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
+  kvector_t *arg2 = (kvector_t *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
-  void *argp3 ;
-  int res3 = 0 ;
-  PyObject *swig_obj[3] ;
-  IFormFactor *result = 0 ;
+  PyObject *swig_obj[2] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "createTransformedFormFactor", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IFormFactor,  0  | 0);
+  if (!SWIG_Python_UnpackTuple(args, "SlicingEffects_position_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "createTransformedFormFactor" "', argument " "1"" of type '" "IFormFactor const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_position_set" "', argument " "1"" of type '" "SlicingEffects *""'"); 
   }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createTransformedFormFactor" "', argument " "1"" of type '" "IFormFactor const &""'"); 
-  }
-  arg1 = reinterpret_cast< IFormFactor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IRotation,  0  | 0);
+  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_BasicVector3DT_double_t, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "createTransformedFormFactor" "', argument " "2"" of type '" "IRotation const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SlicingEffects_position_set" "', argument " "2"" of type '" "kvector_t *""'"); 
   }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createTransformedFormFactor" "', argument " "2"" of type '" "IRotation const &""'"); 
-  }
-  arg2 = reinterpret_cast< IRotation * >(argp2);
-  {
-    res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "createTransformedFormFactor" "', argument " "3"" of type '" "kvector_t""'"); 
-    }  
-    if (!argp3) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "createTransformedFormFactor" "', argument " "3"" of type '" "kvector_t""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp3);
-      arg3 = *temp;
-      if (SWIG_IsNewObj(res3)) delete temp;
-    }
-  }
-  result = (IFormFactor *)createTransformedFormFactor((IFormFactor const &)*arg1,(IRotation const &)*arg2,arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFormFactor, 0 |  0 );
+  arg2 = reinterpret_cast< kvector_t * >(argp2);
+  if (arg1) (arg1)->position = *arg2;
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
 }
 
+
+SWIGINTERN PyObject *_wrap_SlicingEffects_position_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  kvector_t *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_position_get" "', argument " "1"" of type '" "SlicingEffects *""'"); 
+  }
+  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
+  result = (kvector_t *)& ((arg1)->position);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_BasicVector3DT_double_t, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_SlicingEffects_dz_bottom_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "SlicingEffects_dz_bottom_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_dz_bottom_set" "', argument " "1"" of type '" "SlicingEffects *""'"); 
+  }
+  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SlicingEffects_dz_bottom_set" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  if (arg1) (arg1)->dz_bottom = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_SlicingEffects_dz_bottom_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_dz_bottom_get" "', argument " "1"" of type '" "SlicingEffects *""'"); 
+  }
+  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
+  result = (double) ((arg1)->dz_bottom);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_SlicingEffects_dz_top_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "SlicingEffects_dz_top_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_dz_top_set" "', argument " "1"" of type '" "SlicingEffects *""'"); 
+  }
+  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SlicingEffects_dz_top_set" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  if (arg1) (arg1)->dz_top = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_SlicingEffects_dz_top_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_dz_top_get" "', argument " "1"" of type '" "SlicingEffects *""'"); 
+  }
+  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
+  result = (double) ((arg1)->dz_top);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_SlicingEffects(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SlicingEffects *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "new_SlicingEffects", 0, 0, 0)) SWIG_fail;
+  result = (SlicingEffects *)new SlicingEffects();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SlicingEffects, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_SlicingEffects(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_SlicingEffects" "', argument " "1"" of type '" "SlicingEffects *""'"); 
+  }
+  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *SlicingEffects_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_SlicingEffects, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *SlicingEffects_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
 
 SWIGINTERN PyObject *_wrap_new_IBornFF__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
@@ -39970,208 +40122,6 @@ SWIGINTERN PyObject *IBornFF_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObje
 }
 
 SWIGINTERN PyObject *IBornFF_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
-SWIGINTERN PyObject *_wrap_SlicingEffects_position_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
-  kvector_t *arg2 = (kvector_t *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "SlicingEffects_position_set", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_position_set" "', argument " "1"" of type '" "SlicingEffects *""'"); 
-  }
-  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_BasicVector3DT_double_t, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SlicingEffects_position_set" "', argument " "2"" of type '" "kvector_t *""'"); 
-  }
-  arg2 = reinterpret_cast< kvector_t * >(argp2);
-  if (arg1) (arg1)->position = *arg2;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_SlicingEffects_position_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  kvector_t *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_position_get" "', argument " "1"" of type '" "SlicingEffects *""'"); 
-  }
-  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
-  result = (kvector_t *)& ((arg1)->position);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_BasicVector3DT_double_t, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_SlicingEffects_dz_bottom_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "SlicingEffects_dz_bottom_set", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_dz_bottom_set" "', argument " "1"" of type '" "SlicingEffects *""'"); 
-  }
-  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SlicingEffects_dz_bottom_set" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  if (arg1) (arg1)->dz_bottom = arg2;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_SlicingEffects_dz_bottom_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_dz_bottom_get" "', argument " "1"" of type '" "SlicingEffects *""'"); 
-  }
-  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
-  result = (double) ((arg1)->dz_bottom);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_SlicingEffects_dz_top_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "SlicingEffects_dz_top_set", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_dz_top_set" "', argument " "1"" of type '" "SlicingEffects *""'"); 
-  }
-  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SlicingEffects_dz_top_set" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  if (arg1) (arg1)->dz_top = arg2;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_SlicingEffects_dz_top_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SlicingEffects_dz_top_get" "', argument " "1"" of type '" "SlicingEffects *""'"); 
-  }
-  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
-  result = (double) ((arg1)->dz_top);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_SlicingEffects(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SlicingEffects *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "new_SlicingEffects", 0, 0, 0)) SWIG_fail;
-  result = (SlicingEffects *)new SlicingEffects();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SlicingEffects, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_SlicingEffects(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SlicingEffects *arg1 = (SlicingEffects *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_SlicingEffects, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_SlicingEffects" "', argument " "1"" of type '" "SlicingEffects *""'"); 
-  }
-  arg1 = reinterpret_cast< SlicingEffects * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *SlicingEffects_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_SlicingEffects, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *SlicingEffects_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
 
@@ -44056,20 +44006,29 @@ SWIGINTERN PyObject *MesoCrystal_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObje
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_new_Particle__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_delete_Particle(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Particle *result = 0 ;
+  Particle *arg1 = (Particle *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
   
-  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
-  result = (Particle *)new Particle();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Particle, SWIG_POINTER_NEW |  0 );
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Particle, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Particle" "', argument " "1"" of type '" "Particle *""'"); 
+  }
+  arg1 = reinterpret_cast< Particle * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_new_Particle__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_Particle__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   SwigValueWrapper< Material > arg1 ;
   void *argp1 ;
@@ -44098,7 +44057,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_new_Particle__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_Particle__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   SwigValueWrapper< Material > arg1 ;
   IFormFactor *arg2 = 0 ;
@@ -44138,7 +44097,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_new_Particle__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_Particle__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   SwigValueWrapper< Material > arg1 ;
   IFormFactor *arg2 = 0 ;
@@ -44197,15 +44156,12 @@ SWIGINTERN PyObject *_wrap_new_Particle(PyObject *self, PyObject *args) {
   
   if (!(argc = SWIG_Python_UnpackTuple(args, "new_Particle", 0, 3, argv))) SWIG_fail;
   --argc;
-  if (argc == 0) {
-    return _wrap_new_Particle__SWIG_0(self, argc, argv);
-  }
   if (argc == 1) {
     int _v;
     int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Material, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_new_Particle__SWIG_1(self, argc, argv);
+      return _wrap_new_Particle__SWIG_0(self, argc, argv);
     }
   }
   if (argc == 2) {
@@ -44216,7 +44172,7 @@ SWIGINTERN PyObject *_wrap_new_Particle(PyObject *self, PyObject *args) {
       int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IFormFactor, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_new_Particle__SWIG_2(self, argc, argv);
+        return _wrap_new_Particle__SWIG_1(self, argc, argv);
       }
     }
   }
@@ -44231,7 +44187,7 @@ SWIGINTERN PyObject *_wrap_new_Particle(PyObject *self, PyObject *args) {
         int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_IRotation, SWIG_POINTER_NO_NULL | 0);
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_new_Particle__SWIG_3(self, argc, argv);
+          return _wrap_new_Particle__SWIG_2(self, argc, argv);
         }
       }
     }
@@ -44240,7 +44196,6 @@ SWIGINTERN PyObject *_wrap_new_Particle(PyObject *self, PyObject *args) {
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Particle'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Particle::Particle()\n"
     "    Particle::Particle(Material)\n"
     "    Particle::Particle(Material,IFormFactor const &)\n"
     "    Particle::Particle(Material,IFormFactor const &,IRotation const &)\n");
@@ -44400,38 +44355,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Particle_setFormFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Particle *arg1 = (Particle *) 0 ;
-  IFormFactor *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Particle_setFormFactor", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Particle, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Particle_setFormFactor" "', argument " "1"" of type '" "Particle *""'"); 
-  }
-  arg1 = reinterpret_cast< Particle * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IFormFactor,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Particle_setFormFactor" "', argument " "2"" of type '" "IFormFactor const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Particle_setFormFactor" "', argument " "2"" of type '" "IFormFactor const &""'"); 
-  }
-  arg2 = reinterpret_cast< IFormFactor * >(argp2);
-  (arg1)->setFormFactor((IFormFactor const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Particle_getChildren(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Particle *arg1 = (Particle *) 0 ;
@@ -44449,28 +44372,6 @@ SWIGINTERN PyObject *_wrap_Particle_getChildren(PyObject *SWIGUNUSEDPARM(self), 
   arg1 = reinterpret_cast< Particle * >(argp1);
   result = ((Particle const *)arg1)->getChildren();
   resultobj = swig::from(static_cast< std::vector< INode const*,std::allocator< INode const * > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_Particle(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Particle *arg1 = (Particle *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Particle, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Particle" "', argument " "1"" of type '" "Particle *""'"); 
-  }
-  arg1 = reinterpret_cast< Particle * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -55934,6 +55835,416 @@ SWIGINTERN PyObject *ParticleLayout_swiginit(PyObject *SWIGUNUSEDPARM(self), PyO
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_new_LayerRoughness__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  LayerRoughness *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_LayerRoughness" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_LayerRoughness" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_LayerRoughness" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (LayerRoughness *)new LayerRoughness(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_LayerRoughness, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_LayerRoughness__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  LayerRoughness *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (LayerRoughness *)new LayerRoughness();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_LayerRoughness, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_LayerRoughness(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_LayerRoughness", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_LayerRoughness__SWIG_1(self, argc, argv);
+  }
+  if (argc == 3) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          return _wrap_new_LayerRoughness__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_LayerRoughness'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    LayerRoughness::LayerRoughness(double,double,double)\n"
+    "    LayerRoughness::LayerRoughness()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_LayerRoughness_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  LayerRoughness *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_clone" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  result = (LayerRoughness *)((LayerRoughness const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LayerRoughness_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_accept" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LayerRoughness_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+  }
+  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
+  ((LayerRoughness const *)arg1)->accept(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LayerRoughness_getSpectralFun(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  kvector_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_getSpectralFun", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_getSpectralFun" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LayerRoughness_getSpectralFun" "', argument " "2"" of type '" "kvector_t const""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LayerRoughness_getSpectralFun" "', argument " "2"" of type '" "kvector_t const""'");
+    } else {
+      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  result = (double)((LayerRoughness const *)arg1)->getSpectralFun(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LayerRoughness_getCorrFun(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  kvector_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_getCorrFun", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_getCorrFun" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LayerRoughness_getCorrFun" "', argument " "2"" of type '" "kvector_t const""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LayerRoughness_getCorrFun" "', argument " "2"" of type '" "kvector_t const""'");
+    } else {
+      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  result = (double)((LayerRoughness const *)arg1)->getCorrFun(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LayerRoughness_setSigma(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_setSigma", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_setSigma" "', argument " "1"" of type '" "LayerRoughness *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LayerRoughness_setSigma" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setSigma(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LayerRoughness_getSigma(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_getSigma" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  result = (double)((LayerRoughness const *)arg1)->getSigma();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LayerRoughness_setHurstParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_setHurstParameter", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_setHurstParameter" "', argument " "1"" of type '" "LayerRoughness *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LayerRoughness_setHurstParameter" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setHurstParameter(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LayerRoughness_getHurstParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_getHurstParameter" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  result = (double)((LayerRoughness const *)arg1)->getHurstParameter();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LayerRoughness_setLatteralCorrLength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_setLatteralCorrLength", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_setLatteralCorrLength" "', argument " "1"" of type '" "LayerRoughness *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LayerRoughness_setLatteralCorrLength" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setLatteralCorrLength(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LayerRoughness_getLatteralCorrLength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_getLatteralCorrLength" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  result = (double)((LayerRoughness const *)arg1)->getLatteralCorrLength();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_LayerRoughness(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_LayerRoughness" "', argument " "1"" of type '" "LayerRoughness *""'"); 
+  }
+  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *LayerRoughness_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_LayerRoughness, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *LayerRoughness_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
 SWIGINTERN PyObject *_wrap_new_Layer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   SwigValueWrapper< Material > arg1 ;
@@ -56477,416 +56788,6 @@ SWIGINTERN PyObject *Layer_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject
 }
 
 SWIGINTERN PyObject *Layer_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
-SWIGINTERN PyObject *_wrap_new_LayerRoughness__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double arg3 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  LayerRoughness *result = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_LayerRoughness" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_LayerRoughness" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_LayerRoughness" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (LayerRoughness *)new LayerRoughness(arg1,arg2,arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_LayerRoughness, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_LayerRoughness__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  LayerRoughness *result = 0 ;
-  
-  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
-  result = (LayerRoughness *)new LayerRoughness();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_LayerRoughness, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_LayerRoughness(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_LayerRoughness", 0, 3, argv))) SWIG_fail;
-  --argc;
-  if (argc == 0) {
-    return _wrap_new_LayerRoughness__SWIG_1(self, argc, argv);
-  }
-  if (argc == 3) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
-        if (_v) {
-          return _wrap_new_LayerRoughness__SWIG_0(self, argc, argv);
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_LayerRoughness'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    LayerRoughness::LayerRoughness(double,double,double)\n"
-    "    LayerRoughness::LayerRoughness()\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_LayerRoughness_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  LayerRoughness *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_clone" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  result = (LayerRoughness *)((LayerRoughness const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LayerRoughness_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_accept", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_accept" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LayerRoughness_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
-  }
-  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
-  ((LayerRoughness const *)arg1)->accept(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LayerRoughness_getSpectralFun(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  kvector_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_getSpectralFun", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_getSpectralFun" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LayerRoughness_getSpectralFun" "', argument " "2"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LayerRoughness_getSpectralFun" "', argument " "2"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  result = (double)((LayerRoughness const *)arg1)->getSpectralFun(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LayerRoughness_getCorrFun(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  kvector_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_getCorrFun", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_getCorrFun" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "LayerRoughness_getCorrFun" "', argument " "2"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "LayerRoughness_getCorrFun" "', argument " "2"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  result = (double)((LayerRoughness const *)arg1)->getCorrFun(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LayerRoughness_setSigma(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_setSigma", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_setSigma" "', argument " "1"" of type '" "LayerRoughness *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LayerRoughness_setSigma" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setSigma(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LayerRoughness_getSigma(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_getSigma" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  result = (double)((LayerRoughness const *)arg1)->getSigma();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LayerRoughness_setHurstParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_setHurstParameter", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_setHurstParameter" "', argument " "1"" of type '" "LayerRoughness *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LayerRoughness_setHurstParameter" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setHurstParameter(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LayerRoughness_getHurstParameter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_getHurstParameter" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  result = (double)((LayerRoughness const *)arg1)->getHurstParameter();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LayerRoughness_setLatteralCorrLength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "LayerRoughness_setLatteralCorrLength", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_setLatteralCorrLength" "', argument " "1"" of type '" "LayerRoughness *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LayerRoughness_setLatteralCorrLength" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setLatteralCorrLength(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_LayerRoughness_getLatteralCorrLength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LayerRoughness_getLatteralCorrLength" "', argument " "1"" of type '" "LayerRoughness const *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  result = (double)((LayerRoughness const *)arg1)->getLatteralCorrLength();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_LayerRoughness(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  LayerRoughness *arg1 = (LayerRoughness *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_LayerRoughness, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_LayerRoughness" "', argument " "1"" of type '" "LayerRoughness *""'"); 
-  }
-  arg1 = reinterpret_cast< LayerRoughness * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *LayerRoughness_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_LayerRoughness, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *LayerRoughness_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
 
@@ -70596,11 +70497,24 @@ static PyMethodDef SwigMethods[] = {
 	 { "disown_IFormFactor", _wrap_disown_IFormFactor, METH_O, NULL},
 	 { "IFormFactor_swigregister", IFormFactor_swigregister, METH_O, NULL},
 	 { "IFormFactor_swiginit", IFormFactor_swiginit, METH_VARARGS, NULL},
-	 { "createTransformedFormFactor", _wrap_createTransformedFormFactor, METH_VARARGS, "\n"
-		"createTransformedFormFactor(IFormFactor formfactor, IRotation rot, kvector_t translation) -> IFormFactor\n"
-		"IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)\n"
+	 { "SlicingEffects_position_set", _wrap_SlicingEffects_position_set, METH_VARARGS, "SlicingEffects_position_set(SlicingEffects self, kvector_t position)"},
+	 { "SlicingEffects_position_get", _wrap_SlicingEffects_position_get, METH_O, "SlicingEffects_position_get(SlicingEffects self) -> kvector_t"},
+	 { "SlicingEffects_dz_bottom_set", _wrap_SlicingEffects_dz_bottom_set, METH_VARARGS, "SlicingEffects_dz_bottom_set(SlicingEffects self, double dz_bottom)"},
+	 { "SlicingEffects_dz_bottom_get", _wrap_SlicingEffects_dz_bottom_get, METH_O, "SlicingEffects_dz_bottom_get(SlicingEffects self) -> double"},
+	 { "SlicingEffects_dz_top_set", _wrap_SlicingEffects_dz_top_set, METH_VARARGS, "SlicingEffects_dz_top_set(SlicingEffects self, double dz_top)"},
+	 { "SlicingEffects_dz_top_get", _wrap_SlicingEffects_dz_top_get, METH_O, "SlicingEffects_dz_top_get(SlicingEffects self) -> double"},
+	 { "new_SlicingEffects", _wrap_new_SlicingEffects, METH_NOARGS, "\n"
+		"new_SlicingEffects() -> SlicingEffects\n"
+		"\n"
+		"\n"
+		"Nested structure that holds slicing effects on position and removed parts.\n"
+		"\n"
+		"C++ includes: IBornFF.h\n"
 		"\n"
 		""},
+	 { "delete_SlicingEffects", _wrap_delete_SlicingEffects, METH_O, "delete_SlicingEffects(SlicingEffects self)"},
+	 { "SlicingEffects_swigregister", SlicingEffects_swigregister, METH_O, NULL},
+	 { "SlicingEffects_swiginit", SlicingEffects_swiginit, METH_VARARGS, NULL},
 	 { "new_IBornFF", _wrap_new_IBornFF, METH_VARARGS, "\n"
 		"IBornFF()\n"
 		"new_IBornFF(PyObject * _self, NodeMeta meta, vdouble1d_t PValues) -> IBornFF\n"
@@ -70659,24 +70573,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "IBornFF_sliceFormFactor", _wrap_IBornFF_sliceFormFactor, METH_VARARGS, "IBornFF_sliceFormFactor(IBornFF self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"},
 	 { "IBornFF_swigregister", IBornFF_swigregister, METH_O, NULL},
 	 { "IBornFF_swiginit", IBornFF_swiginit, METH_VARARGS, NULL},
-	 { "SlicingEffects_position_set", _wrap_SlicingEffects_position_set, METH_VARARGS, "SlicingEffects_position_set(SlicingEffects self, kvector_t position)"},
-	 { "SlicingEffects_position_get", _wrap_SlicingEffects_position_get, METH_O, "SlicingEffects_position_get(SlicingEffects self) -> kvector_t"},
-	 { "SlicingEffects_dz_bottom_set", _wrap_SlicingEffects_dz_bottom_set, METH_VARARGS, "SlicingEffects_dz_bottom_set(SlicingEffects self, double dz_bottom)"},
-	 { "SlicingEffects_dz_bottom_get", _wrap_SlicingEffects_dz_bottom_get, METH_O, "SlicingEffects_dz_bottom_get(SlicingEffects self) -> double"},
-	 { "SlicingEffects_dz_top_set", _wrap_SlicingEffects_dz_top_set, METH_VARARGS, "SlicingEffects_dz_top_set(SlicingEffects self, double dz_top)"},
-	 { "SlicingEffects_dz_top_get", _wrap_SlicingEffects_dz_top_get, METH_O, "SlicingEffects_dz_top_get(SlicingEffects self) -> double"},
-	 { "new_SlicingEffects", _wrap_new_SlicingEffects, METH_NOARGS, "\n"
-		"new_SlicingEffects() -> SlicingEffects\n"
-		"\n"
-		"\n"
-		"Nested structure that holds slicing effects on position and removed parts.\n"
-		"\n"
-		"C++ includes: IBornFF.h\n"
-		"\n"
-		""},
-	 { "delete_SlicingEffects", _wrap_delete_SlicingEffects, METH_O, "delete_SlicingEffects(SlicingEffects self)"},
-	 { "SlicingEffects_swigregister", SlicingEffects_swigregister, METH_O, NULL},
-	 { "SlicingEffects_swiginit", SlicingEffects_swiginit, METH_VARARGS, NULL},
 	 { "delete_IFormFactorDecorator", _wrap_delete_IFormFactorDecorator, METH_O, "\n"
 		"delete_IFormFactorDecorator(IFormFactorDecorator self)\n"
 		"IFormFactorDecorator::~IFormFactorDecorator() override\n"
@@ -71350,8 +71246,12 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "MesoCrystal_swigregister", MesoCrystal_swigregister, METH_O, NULL},
 	 { "MesoCrystal_swiginit", MesoCrystal_swiginit, METH_VARARGS, NULL},
+	 { "delete_Particle", _wrap_delete_Particle, METH_O, "\n"
+		"delete_Particle(Particle self)\n"
+		"Particle::~Particle()\n"
+		"\n"
+		""},
 	 { "new_Particle", _wrap_new_Particle, METH_VARARGS, "\n"
-		"Particle()\n"
 		"Particle(Material material)\n"
 		"Particle(Material material, IFormFactor form_factor)\n"
 		"new_Particle(Material material, IFormFactor form_factor, IRotation rotation) -> Particle\n"
@@ -71389,17 +71289,11 @@ static PyMethodDef SwigMethods[] = {
 		"Returns nullptr, unless overwritten to return a specific material. \n"
 		"\n"
 		""},
-	 { "Particle_setFormFactor", _wrap_Particle_setFormFactor, METH_VARARGS, "\n"
-		"Particle_setFormFactor(Particle self, IFormFactor form_factor)\n"
-		"void Particle::setFormFactor(const IFormFactor &form_factor)\n"
-		"\n"
-		""},
 	 { "Particle_getChildren", _wrap_Particle_getChildren, METH_O, "\n"
 		"Particle_getChildren(Particle self) -> swig_dummy_type_const_inode_vector\n"
 		"std::vector< const INode * > Particle::getChildren() const override final\n"
 		"\n"
 		""},
-	 { "delete_Particle", _wrap_delete_Particle, METH_O, "delete_Particle(Particle self)"},
 	 { "Particle_swigregister", Particle_swigregister, METH_O, NULL},
 	 { "Particle_swiginit", Particle_swiginit, METH_VARARGS, NULL},
 	 { "new_ParticleComposition", _wrap_new_ParticleComposition, METH_VARARGS, "\n"
@@ -73357,6 +73251,87 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleLayout_swigregister", ParticleLayout_swigregister, METH_O, NULL},
 	 { "ParticleLayout_swiginit", ParticleLayout_swiginit, METH_VARARGS, NULL},
+	 { "new_LayerRoughness", _wrap_new_LayerRoughness, METH_VARARGS, "\n"
+		"LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)\n"
+		"new_LayerRoughness() -> LayerRoughness\n"
+		"LayerRoughness::LayerRoughness()\n"
+		"\n"
+		""},
+	 { "LayerRoughness_clone", _wrap_LayerRoughness_clone, METH_O, "\n"
+		"LayerRoughness_clone(LayerRoughness self) -> LayerRoughness\n"
+		"LayerRoughness* LayerRoughness::clone() const\n"
+		"\n"
+		"Returns a clone of this  ISample object. \n"
+		"\n"
+		""},
+	 { "LayerRoughness_accept", _wrap_LayerRoughness_accept, METH_VARARGS, "\n"
+		"LayerRoughness_accept(LayerRoughness self, INodeVisitor * visitor)\n"
+		"virtual void LayerRoughness::accept(INodeVisitor *visitor) const\n"
+		"\n"
+		""},
+	 { "LayerRoughness_getSpectralFun", _wrap_LayerRoughness_getSpectralFun, METH_VARARGS, "\n"
+		"LayerRoughness_getSpectralFun(LayerRoughness self, kvector_t kvec) -> double\n"
+		"double LayerRoughness::getSpectralFun(const kvector_t kvec) const\n"
+		"\n"
+		"Returns power spectral density of the surface roughness.\n"
+		"\n"
+		"Power spectral density of the surface roughness is a result of two-dimensional Fourier transform of the correlation function of the roughness profile.\n"
+		"\n"
+		"Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 \"X-ray reflection and transmission by rough surfaces\" \n"
+		"\n"
+		""},
+	 { "LayerRoughness_getCorrFun", _wrap_LayerRoughness_getCorrFun, METH_VARARGS, "\n"
+		"LayerRoughness_getCorrFun(LayerRoughness self, kvector_t k) -> double\n"
+		"double LayerRoughness::getCorrFun(const kvector_t k) const\n"
+		"\n"
+		"Correlation function of the roughness profile. \n"
+		"\n"
+		""},
+	 { "LayerRoughness_setSigma", _wrap_LayerRoughness_setSigma, METH_VARARGS, "\n"
+		"LayerRoughness_setSigma(LayerRoughness self, double sigma)\n"
+		"void LayerRoughness::setSigma(double sigma)\n"
+		"\n"
+		"Sets rms of roughness. \n"
+		"\n"
+		""},
+	 { "LayerRoughness_getSigma", _wrap_LayerRoughness_getSigma, METH_O, "\n"
+		"LayerRoughness_getSigma(LayerRoughness self) -> double\n"
+		"double LayerRoughness::getSigma() const\n"
+		"\n"
+		"Returns rms of roughness. \n"
+		"\n"
+		""},
+	 { "LayerRoughness_setHurstParameter", _wrap_LayerRoughness_setHurstParameter, METH_VARARGS, "\n"
+		"LayerRoughness_setHurstParameter(LayerRoughness self, double hurstParameter)\n"
+		"void LayerRoughness::setHurstParameter(double hurstParameter)\n"
+		"\n"
+		"Sets hurst parameter. It describes how jagged the surface is. \n"
+		"\n"
+		""},
+	 { "LayerRoughness_getHurstParameter", _wrap_LayerRoughness_getHurstParameter, METH_O, "\n"
+		"LayerRoughness_getHurstParameter(LayerRoughness self) -> double\n"
+		"double LayerRoughness::getHurstParameter() const\n"
+		"\n"
+		"Returns hurst parameter. \n"
+		"\n"
+		""},
+	 { "LayerRoughness_setLatteralCorrLength", _wrap_LayerRoughness_setLatteralCorrLength, METH_VARARGS, "\n"
+		"LayerRoughness_setLatteralCorrLength(LayerRoughness self, double lateralCorrLength)\n"
+		"void LayerRoughness::setLatteralCorrLength(double lateralCorrLength)\n"
+		"\n"
+		"Sets lateral correlation length. \n"
+		"\n"
+		""},
+	 { "LayerRoughness_getLatteralCorrLength", _wrap_LayerRoughness_getLatteralCorrLength, METH_O, "\n"
+		"LayerRoughness_getLatteralCorrLength(LayerRoughness self) -> double\n"
+		"double LayerRoughness::getLatteralCorrLength() const\n"
+		"\n"
+		"Returns lateral correlation length. \n"
+		"\n"
+		""},
+	 { "delete_LayerRoughness", _wrap_delete_LayerRoughness, METH_O, "delete_LayerRoughness(LayerRoughness self)"},
+	 { "LayerRoughness_swigregister", LayerRoughness_swigregister, METH_O, NULL},
+	 { "LayerRoughness_swiginit", LayerRoughness_swiginit, METH_VARARGS, NULL},
 	 { "new_Layer", _wrap_new_Layer, METH_VARARGS, "\n"
 		"Layer(Material material, double thickness=0)\n"
 		"Layer::Layer(Material material, double thickness=0)\n"
@@ -73451,87 +73426,6 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Layer_swigregister", Layer_swigregister, METH_O, NULL},
 	 { "Layer_swiginit", Layer_swiginit, METH_VARARGS, NULL},
-	 { "new_LayerRoughness", _wrap_new_LayerRoughness, METH_VARARGS, "\n"
-		"LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)\n"
-		"new_LayerRoughness() -> LayerRoughness\n"
-		"LayerRoughness::LayerRoughness()\n"
-		"\n"
-		""},
-	 { "LayerRoughness_clone", _wrap_LayerRoughness_clone, METH_O, "\n"
-		"LayerRoughness_clone(LayerRoughness self) -> LayerRoughness\n"
-		"LayerRoughness* LayerRoughness::clone() const\n"
-		"\n"
-		"Returns a clone of this  ISample object. \n"
-		"\n"
-		""},
-	 { "LayerRoughness_accept", _wrap_LayerRoughness_accept, METH_VARARGS, "\n"
-		"LayerRoughness_accept(LayerRoughness self, INodeVisitor * visitor)\n"
-		"virtual void LayerRoughness::accept(INodeVisitor *visitor) const\n"
-		"\n"
-		""},
-	 { "LayerRoughness_getSpectralFun", _wrap_LayerRoughness_getSpectralFun, METH_VARARGS, "\n"
-		"LayerRoughness_getSpectralFun(LayerRoughness self, kvector_t kvec) -> double\n"
-		"double LayerRoughness::getSpectralFun(const kvector_t kvec) const\n"
-		"\n"
-		"Returns power spectral density of the surface roughness.\n"
-		"\n"
-		"Power spectral density of the surface roughness is a result of two-dimensional Fourier transform of the correlation function of the roughness profile.\n"
-		"\n"
-		"Based on the article D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995 \"X-ray reflection and transmission by rough surfaces\" \n"
-		"\n"
-		""},
-	 { "LayerRoughness_getCorrFun", _wrap_LayerRoughness_getCorrFun, METH_VARARGS, "\n"
-		"LayerRoughness_getCorrFun(LayerRoughness self, kvector_t k) -> double\n"
-		"double LayerRoughness::getCorrFun(const kvector_t k) const\n"
-		"\n"
-		"Correlation function of the roughness profile. \n"
-		"\n"
-		""},
-	 { "LayerRoughness_setSigma", _wrap_LayerRoughness_setSigma, METH_VARARGS, "\n"
-		"LayerRoughness_setSigma(LayerRoughness self, double sigma)\n"
-		"void LayerRoughness::setSigma(double sigma)\n"
-		"\n"
-		"Sets rms of roughness. \n"
-		"\n"
-		""},
-	 { "LayerRoughness_getSigma", _wrap_LayerRoughness_getSigma, METH_O, "\n"
-		"LayerRoughness_getSigma(LayerRoughness self) -> double\n"
-		"double LayerRoughness::getSigma() const\n"
-		"\n"
-		"Returns rms of roughness. \n"
-		"\n"
-		""},
-	 { "LayerRoughness_setHurstParameter", _wrap_LayerRoughness_setHurstParameter, METH_VARARGS, "\n"
-		"LayerRoughness_setHurstParameter(LayerRoughness self, double hurstParameter)\n"
-		"void LayerRoughness::setHurstParameter(double hurstParameter)\n"
-		"\n"
-		"Sets hurst parameter. It describes how jagged the surface is. \n"
-		"\n"
-		""},
-	 { "LayerRoughness_getHurstParameter", _wrap_LayerRoughness_getHurstParameter, METH_O, "\n"
-		"LayerRoughness_getHurstParameter(LayerRoughness self) -> double\n"
-		"double LayerRoughness::getHurstParameter() const\n"
-		"\n"
-		"Returns hurst parameter. \n"
-		"\n"
-		""},
-	 { "LayerRoughness_setLatteralCorrLength", _wrap_LayerRoughness_setLatteralCorrLength, METH_VARARGS, "\n"
-		"LayerRoughness_setLatteralCorrLength(LayerRoughness self, double lateralCorrLength)\n"
-		"void LayerRoughness::setLatteralCorrLength(double lateralCorrLength)\n"
-		"\n"
-		"Sets lateral correlation length. \n"
-		"\n"
-		""},
-	 { "LayerRoughness_getLatteralCorrLength", _wrap_LayerRoughness_getLatteralCorrLength, METH_O, "\n"
-		"LayerRoughness_getLatteralCorrLength(LayerRoughness self) -> double\n"
-		"double LayerRoughness::getLatteralCorrLength() const\n"
-		"\n"
-		"Returns lateral correlation length. \n"
-		"\n"
-		""},
-	 { "delete_LayerRoughness", _wrap_delete_LayerRoughness, METH_O, "delete_LayerRoughness(LayerRoughness self)"},
-	 { "LayerRoughness_swigregister", LayerRoughness_swigregister, METH_O, NULL},
-	 { "LayerRoughness_swiginit", LayerRoughness_swiginit, METH_VARARGS, NULL},
 	 { "new_MultiLayer", _wrap_new_MultiLayer, METH_NOARGS, "\n"
 		"new_MultiLayer() -> MultiLayer\n"
 		"MultiLayer::MultiLayer()\n"

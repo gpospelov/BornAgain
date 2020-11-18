@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/ComputeBA.cpp
+//! @file      Sample/FFCompute/ComputeBA.cpp
 //! @brief     Implements class ComputeBA.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,13 +12,11 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Scattering/ComputeBA.h"
+#include "Sample/FFCompute/ComputeBA.h"
 #include "Sample/Material/WavevectorInfo.h"
+#include "Sample/Scattering/IFormFactor.h"
 
-ComputeBA::ComputeBA(const IFormFactor& ff) : IComputeFF(ff)
-{
-    setName("ComputeBA");
-}
+ComputeBA::ComputeBA(const IFormFactor& ff) : IComputeFF(ff) {}
 
 ComputeBA::~ComputeBA() = default;
 

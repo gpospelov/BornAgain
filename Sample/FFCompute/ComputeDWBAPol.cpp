@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/ComputeDWBAPol.cpp
+//! @file      Sample/FFCompute/ComputeDWBAPol.cpp
 //! @brief     Defines class ComputeDWBAPol.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,9 +12,10 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Scattering/ComputeDWBAPol.h"
+#include "Sample/FFCompute/ComputeDWBAPol.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
+#include "Sample/Scattering/IFormFactor.h"
 
 namespace
 {
@@ -25,11 +26,7 @@ std::complex<double> VecMatVecProduct(const Eigen::Vector2cd& vec1, const Eigen:
 }
 } // namespace
 
-
-ComputeDWBAPol::ComputeDWBAPol(const IFormFactor& ff) : IComputeFF(ff)
-{
-    setName("ComputeDWBAPol");
-}
+ComputeDWBAPol::ComputeDWBAPol(const IFormFactor& ff) : IComputeFF(ff) {}
 
 ComputeDWBAPol::~ComputeDWBAPol() = default;
 
@@ -46,8 +43,7 @@ ComputeDWBAPol* ComputeDWBAPol::clone() const
 
 complex_t ComputeDWBAPol::evaluate(const WavevectorInfo&) const
 {
-    throw Exceptions::NotImplementedException(
-        "ComputeDWBAPol::evaluate: should never be called for matrix interactions");
+    throw std::runtime_error("Bug: forbidden call of ComputeDWBAPol::evaluate");
 }
 
 Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
@@ -196,7 +192,7 @@ Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) 
 }
 
 void ComputeDWBAPol::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
-                                        std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
+                                     std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
 {
     m_in_coeffs = std::move(p_in_coeffs);
     m_out_coeffs = std::move(p_out_coeffs);

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/ComputeDWBA.cpp
+//! @file      Sample/FFCompute/ComputeDWBA.cpp
 //! @brief     Implements class ComputeDWBA.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,14 +12,12 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Scattering/ComputeDWBA.h"
+#include "Sample/FFCompute/ComputeDWBA.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
+#include "Sample/Scattering/IFormFactor.h"
 
-ComputeDWBA::ComputeDWBA(const IFormFactor& ff) : IComputeFF(ff)
-{
-    setName("ComputeDWBA");
-}
+ComputeDWBA::ComputeDWBA(const IFormFactor& ff) : IComputeFF(ff) {}
 
 ComputeDWBA::~ComputeDWBA() = default;
 
@@ -72,7 +70,7 @@ complex_t ComputeDWBA::evaluate(const WavevectorInfo& wavevectors) const
 }
 
 void ComputeDWBA::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
-                                     std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
+                                  std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
 {
     m_in_coeffs = std::move(p_in_coeffs);
     m_out_coeffs = std::move(p_out_coeffs);

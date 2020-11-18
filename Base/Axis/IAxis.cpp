@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Base/Axis/IAxis.cpp
-//! @brief     Implements class IAxis.
+//! @brief     Implements interface IAxis.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

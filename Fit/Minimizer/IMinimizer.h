@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Fit/Minimizer/IMinimizer.h
-//! @brief     Defines class IMinimizer.
+//! @brief     Defines interface IMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -24,7 +24,7 @@ namespace Fit
 class Parameters;
 }
 
-//! Pure virtual interface for all kind minimizers.
+//! Abstract base class for all kind minimizers.
 //! @ingroup fitting_internal
 
 class IMinimizer

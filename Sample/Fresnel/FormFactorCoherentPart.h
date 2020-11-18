@@ -20,7 +20,7 @@
 #include <memory>
 
 class IFresnelMap;
-class IFormFactor;
+class IComputeFF;
 class SimulationElement;
 
 //! Information about single particle form factor and specular info of the embedding layer.
@@ -29,7 +29,7 @@ class SimulationElement;
 class FormFactorCoherentPart
 {
 public:
-    FormFactorCoherentPart(IFormFactor* p_ff);
+    FormFactorCoherentPart(IComputeFF* ff);
     FormFactorCoherentPart(const FormFactorCoherentPart& other);
     FormFactorCoherentPart(FormFactorCoherentPart&& other);
     FormFactorCoherentPart& operator=(const FormFactorCoherentPart& other);
@@ -41,11 +41,11 @@ public:
     Eigen::Matrix2cd evaluatePol(const SimulationElement& sim_element) const;
 #endif
 
-    void setSpecularInfo(const IFresnelMap* p_fresnel_map, size_t layer_index);
+    void setSpecularInfo(const IFresnelMap* fresnel_map, size_t layer_index);
     double radialExtension() const;
 
 private:
-    std::unique_ptr<IFormFactor> m_ff;
+    std::unique_ptr<IComputeFF> m_ff;
     const IFresnelMap* m_fresnel_map;
     size_t m_layer_index;
 };

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/ComputeBA.h
+//! @file      Sample/FFCompute/ComputeBA.h
 //! @brief     Defines class ComputeBA.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,13 +12,14 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBA_H
-#define BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBA_H
+#ifndef BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBA_H
+#define BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBA_H
 
-#include "Sample/Scattering/IComputeFF.h"
+#include "Sample/FFCompute/IComputeFF.h"
 #include <memory>
 
-//! Evaluates the scalar Born form factor.
+//! Provides scalar form factor evaluation in Born Approximation for given IFormFactor.
+
 //! @ingroup formfactors_internal
 
 class ComputeBA final : public IComputeFF
@@ -29,10 +30,8 @@ public:
 
     ComputeBA* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
-
     //! Calculates and returns a form factor calculation in BA
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_COMPUTEBA_H
+#endif // BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBA_H

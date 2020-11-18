@@ -21,7 +21,7 @@
 
 class Material;
 
-//! Pure virtual base class for sample components and properties related to scattering.
+//! Abstract base class for sample components and properties related to scattering.
 //! @ingroup samples_internal
 
 class ISample : public ICloneable, public INode

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Base/Pixel/IPixel.h
-//! @brief     Defines and implements pure virtual interface IPixel.
+//! @brief     Defines and implements interface IPixel.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -18,7 +18,7 @@
 #include "Base/Vector/Vectors3D.h"
 
 //! Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel.
-//! Pure virtual base class for SphericalPixel and RectangularPixel.
+//! Abstract base class for SphericalPixel and RectangularPixel.
 //! @ingroup detector
 
 class IPixel

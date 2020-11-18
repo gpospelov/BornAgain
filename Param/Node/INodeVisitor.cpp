@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Param/Node/INodeVisitor.cpp
-//! @brief     Implements class INodeVisitor.
+//! @brief     Implements interface INodeVisitor.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

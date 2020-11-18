@@ -19,10 +19,10 @@
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(const std::vector<double> P)
     : IBornFF({"FormFactorSphereGaussianRadius",
-                       "class_tooltip",
-                       {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
-                        {"SigmaRadius", "nm", "para_tooltip", 0, +INF, 0}}},
-                      P)
+               "class_tooltip",
+               {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
+                {"SigmaRadius", "nm", "para_tooltip", 0, +INF, 0}}},
+              P)
     , m_mean(m_P[0])
     , m_sigma(m_P[1])
 {

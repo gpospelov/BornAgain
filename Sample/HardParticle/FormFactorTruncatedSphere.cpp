@@ -23,11 +23,11 @@
 
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(const std::vector<double> P)
     : IBornFF({"TruncatedSphere",
-                       "class_tooltip",
-                       {{"Radius", "nm", "radius", 0, +INF, 0},
-                        {"Height", "nm", "height before removal of cap", 0, +INF, 0},
-                        {"DeltaHeight", "nm", "height of removed cap", 0, +INF, 0}}},
-                      P)
+               "class_tooltip",
+               {{"Radius", "nm", "radius", 0, +INF, 0},
+                {"Height", "nm", "height before removal of cap", 0, +INF, 0},
+                {"DeltaHeight", "nm", "height of removed cap", 0, +INF, 0}}},
+              P)
     , m_radius(m_P[0])
     , m_height(m_P[1])
     , m_dh(m_P[2])

@@ -17,7 +17,7 @@
 
 #include "Sample/Scattering/ISample.h"
 
-//! Pure virtual base class of interference functions.
+//! Abstract base class of interference functions.
 //! @ingroup distribution_internal
 
 class IInterferenceFunction : public ISample

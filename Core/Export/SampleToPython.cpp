@@ -14,6 +14,7 @@
 
 #include "Core/Export/SampleToPython.h"
 #include "Base/Utils/PyFmt.h"
+#include "Base/Vector/Transform3D.h"
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/SampleLabelHandler.h"
 #include "Device/Instrument/PyFmt2.h"
@@ -28,6 +29,7 @@
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Particle/ParticleDistribution.h"
+#include "Sample/Scattering/IFormFactor.h"
 #include "Sample/Slice/LayerInterface.h"
 #include "Sample/Slice/LayerRoughness.h"
 #include <iomanip>

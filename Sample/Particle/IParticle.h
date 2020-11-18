@@ -24,7 +24,7 @@ struct ParticleLimits;
 class Rotations;
 class ZLimits;
 
-//! Pure virtual base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
+//! Abstract base class for Particle, ParticleComposition, ParticleCoreShell, MesoCrystal.
 //! Provides position/rotation and form factor. Abundance is inherited from IAbstractParticle.
 //!
 //! @ingroup samples

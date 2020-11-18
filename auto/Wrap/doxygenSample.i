@@ -273,11 +273,6 @@ C++ includes: ComputeBA.h
 ";
 
 %feature("docstring")  ComputeBA::clone "ComputeBA * ComputeBA::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ComputeBA::accept "void ComputeBA::accept(INodeVisitor *visitor) const override
 ";
 
 %feature("docstring")  ComputeBA::evaluate "complex_t ComputeBA::evaluate(const WavevectorInfo &wavevectors) const override
@@ -301,11 +296,6 @@ C++ includes: ComputeBAPol.h
 ";
 
 %feature("docstring")  ComputeBAPol::clone "ComputeBAPol * ComputeBAPol::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ComputeBAPol::accept "void ComputeBAPol::accept(INodeVisitor *visitor) const override
 ";
 
 %feature("docstring")  ComputeBAPol::evaluate "complex_t ComputeBAPol::evaluate(const WavevectorInfo &wavevectors) const override
@@ -334,11 +324,6 @@ C++ includes: ComputeDWBA.h
 ";
 
 %feature("docstring")  ComputeDWBA::clone "ComputeDWBA * ComputeDWBA::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ComputeDWBA::accept "void ComputeDWBA::accept(INodeVisitor *visitor) const override
 ";
 
 %feature("docstring")  ComputeDWBA::evaluate "complex_t ComputeDWBA::evaluate(const WavevectorInfo &wavevectors) const override
@@ -367,11 +352,6 @@ C++ includes: ComputeDWBAPol.h
 ";
 
 %feature("docstring")  ComputeDWBAPol::clone "ComputeDWBAPol * ComputeDWBAPol::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ComputeDWBAPol::accept "void ComputeDWBAPol::accept(INodeVisitor *visitor) const override
 ";
 
 %feature("docstring")  ComputeDWBAPol::evaluate "complex_t ComputeDWBAPol::evaluate(const WavevectorInfo &wavevectors) const override
@@ -906,7 +886,7 @@ Information about single particle form factor and specular info of the embedding
 C++ includes: FormFactorCoherentPart.h
 ";
 
-%feature("docstring")  FormFactorCoherentPart::FormFactorCoherentPart "FormFactorCoherentPart::FormFactorCoherentPart(IFormFactor *p_ff)
+%feature("docstring")  FormFactorCoherentPart::FormFactorCoherentPart "FormFactorCoherentPart::FormFactorCoherentPart(IComputeFF *ff)
 ";
 
 %feature("docstring")  FormFactorCoherentPart::FormFactorCoherentPart "FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart &other)
@@ -924,7 +904,7 @@ C++ includes: FormFactorCoherentPart.h
 %feature("docstring")  FormFactorCoherentPart::evaluatePol "Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement &sim_element) const
 ";
 
-%feature("docstring")  FormFactorCoherentPart::setSpecularInfo "void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap *p_fresnel_map, size_t layer_index)
+%feature("docstring")  FormFactorCoherentPart::setSpecularInfo "void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap *fresnel_map, size_t layer_index)
 ";
 
 %feature("docstring")  FormFactorCoherentPart::radialExtension "double FormFactorCoherentPart::radialExtension() const
@@ -3045,29 +3025,38 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 %feature("docstring")  IComputeFF::IComputeFF "IComputeFF::IComputeFF()=delete
 ";
 
-%feature("docstring")  IComputeFF::setAmbientMaterial "void IComputeFF::setAmbientMaterial(const Material &material) final
-
-Passes the material in which this particle is embedded. 
+%feature("docstring")  IComputeFF::~IComputeFF "IComputeFF::~IComputeFF()
 ";
 
-%feature("docstring")  IComputeFF::volume "double IComputeFF::volume() const final
-
-Returns the total volume of the particle of this form factor's shape. 
+%feature("docstring")  IComputeFF::clone "virtual IComputeFF* IComputeFF::clone() const =0
 ";
 
-%feature("docstring")  IComputeFF::radialExtension "double IComputeFF::radialExtension() const final
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+%feature("docstring")  IComputeFF::setAmbientMaterial "void IComputeFF::setAmbientMaterial(const Material &material)
 ";
 
-%feature("docstring")  IComputeFF::bottomZ "double IComputeFF::bottomZ(const IRotation &rotation) const final
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+%feature("docstring")  IComputeFF::volume "double IComputeFF::volume() const
 ";
 
-%feature("docstring")  IComputeFF::topZ "double IComputeFF::topZ(const IRotation &rotation) const final
+%feature("docstring")  IComputeFF::radialExtension "double IComputeFF::radialExtension() const
+";
 
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+%feature("docstring")  IComputeFF::bottomZ "double IComputeFF::bottomZ(const IRotation &rotation) const
+";
+
+%feature("docstring")  IComputeFF::topZ "double IComputeFF::topZ(const IRotation &rotation) const
+";
+
+%feature("docstring")  IComputeFF::evaluate "virtual complex_t IComputeFF::evaluate(const WavevectorInfo &wavevectors) const =0
+";
+
+%feature("docstring")  IComputeFF::evaluatePol "Eigen::Matrix2cd IComputeFF::evaluatePol(const WavevectorInfo &wavevectors) const
+
+Returns scattering amplitude for matrix interactions. 
+";
+
+%feature("docstring")  IComputeFF::setSpecularInfo "void IComputeFF::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients >, std::unique_ptr< const ILayerRTCoefficients >)
+
+Sets reflection/transmission info. 
 ";
 
 
@@ -5828,7 +5817,10 @@ A particle with a form factor and refractive index.
 C++ includes: Particle.h
 ";
 
-%feature("docstring")  Particle::Particle "Particle::Particle()
+%feature("docstring")  Particle::Particle "Particle::Particle()=delete
+";
+
+%feature("docstring")  Particle::~Particle "Particle::~Particle()
 ";
 
 %feature("docstring")  Particle::Particle "Particle::Particle(Material material)
@@ -5859,9 +5851,6 @@ Creates a sliced form factor for this particle.
 %feature("docstring")  Particle::material "const Material* Particle::material() const override final
 
 Returns nullptr, unless overwritten to return a specific material. 
-";
-
-%feature("docstring")  Particle::setFormFactor "void Particle::setFormFactor(const IFormFactor &form_factor)
 ";
 
 %feature("docstring")  Particle::getChildren "std::vector< const INode * > Particle::getChildren() const override final
@@ -7622,58 +7611,55 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d112.xml
+// File: namespace_0d122.xml
 
 
-// File: namespace_0d115.xml
+// File: namespace_0d125.xml
 
 
-// File: namespace_0d139.xml
+// File: namespace_0d149.xml
 
 
-// File: namespace_0d143.xml
-
-
-// File: namespace_0d147.xml
+// File: namespace_0d153.xml
 
 
 // File: namespace_0d157.xml
 
 
-// File: namespace_0d159.xml
-
-
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d161.xml
+// File: namespace_0d167.xml
+
+
+// File: namespace_0d169.xml
 
 
 // File: namespace_0d171.xml
 
 
-// File: namespace_0d191.xml
-
-
-// File: namespace_0d193.xml
-
-
-// File: namespace_0d195.xml
+// File: namespace_0d181.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d200.xml
+// File: namespace_0d201.xml
 
 
-// File: namespace_0d202.xml
+// File: namespace_0d203.xml
+
+
+// File: namespace_0d205.xml
+
+
+// File: namespace_0d210.xml
 
 
 // File: namespace_0d212.xml
 
 
-// File: namespace_0d224.xml
+// File: namespace_0d222.xml
 
 
 // File: namespace_0d236.xml
@@ -7740,6 +7726,9 @@ C++ includes: ZLimits.h
 
 
 // File: namespace_0d4.xml
+
+
+// File: namespace_0d47.xml
 
 
 // File: namespacebake.xml
@@ -8045,6 +8034,36 @@ Used by the hard sphere and by several soft sphere classes.
 
 
 // File: IPeakShape_8h.xml
+
+
+// File: ComputeBA_8cpp.xml
+
+
+// File: ComputeBA_8h.xml
+
+
+// File: ComputeBAPol_8cpp.xml
+
+
+// File: ComputeBAPol_8h.xml
+
+
+// File: ComputeDWBA_8cpp.xml
+
+
+// File: ComputeDWBA_8h.xml
+
+
+// File: ComputeDWBAPol_8cpp.xml
+
+
+// File: ComputeDWBAPol_8h.xml
+
+
+// File: IComputeFF_8cpp.xml
+
+
+// File: IComputeFF_8h.xml
 
 
 // File: FormFactorCoherentPart_8cpp.xml
@@ -8682,30 +8701,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: SampleProvider_8h.xml
 
 
-// File: ComputeBA_8cpp.xml
-
-
-// File: ComputeBA_8h.xml
-
-
-// File: ComputeBAPol_8cpp.xml
-
-
-// File: ComputeBAPol_8h.xml
-
-
-// File: ComputeDWBA_8cpp.xml
-
-
-// File: ComputeDWBA_8h.xml
-
-
-// File: ComputeDWBAPol_8cpp.xml
-
-
-// File: ComputeDWBAPol_8h.xml
-
-
 // File: FormFactorDecoratorMaterial_8cpp.xml
 
 
@@ -8730,20 +8725,10 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: IBornFF_8h.xml
 
 
-// File: IComputeFF_8cpp.xml
-
-
-// File: IComputeFF_8h.xml
-
-
 // File: IFormFactor_8cpp.xml
-%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-";
 
 
 // File: IFormFactor_8h.xml
-%feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
-";
 
 
 // File: IFormFactorDecorator_8h.xml
@@ -9176,6 +9161,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_7b210e8d28f50f0c519681ee1b473363.xml
+
+
+// File: dir_c4c8c79bb34eb89326ea47d04b453458.xml
 
 
 // File: dir_e6ff3e2fec27a07ceb0da6f4d6911ef2.xml

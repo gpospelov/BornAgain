@@ -17,7 +17,7 @@
 
 #include "Base/Vector/Vectors3D.h"
 
-//! Pure virtual base class for selection rules.
+//! Abstract base class for selection rules.
 //! @ingroup samples_internal
 
 class ISelectionRule

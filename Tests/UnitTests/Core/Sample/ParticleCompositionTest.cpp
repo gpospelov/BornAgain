@@ -21,9 +21,9 @@ TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
 TEST_F(ParticleCompositionTest, ParticleCompositionClone)
 {
     ParticleComposition composition;
-    Particle particle;
     kvector_t position = kvector_t(1.0, 1.0, 1.0);
     Material material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
+    Particle particle(material);
     composition.addParticle(particle, position);
 
     std::unique_ptr<ParticleComposition> clone(composition.clone());

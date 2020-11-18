@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Scan/ISpecularScan.h
-//! @brief     Declares and implements pure virtual class ISpecularScan.
+//! @brief     Declares and implements interface ISpecularScan.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,7 +26,7 @@ class IFootprintFactor;
 class Instrument;
 class SpecularSimulationElement;
 
-//! Pure virtual base class for all types of specular scans.
+//! Abstract base class for all types of specular scans.
 
 class ISpecularScan : public ICloneable
 {

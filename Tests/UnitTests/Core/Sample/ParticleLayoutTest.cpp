@@ -27,7 +27,7 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitial)
 
 TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
 {
-    Particle particle;
+    Particle particle(HomogeneousMaterial());
 
     ParticleLayout particleDecoration(particle, 2.0);
     auto p_iff = INodeUtils::OnlyChildOfType<IInterferenceFunction>(particleDecoration);
@@ -44,10 +44,10 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
 {
     ParticleLayout particleDecoration;
 
-    Particle particle1;
-    Particle particle2;
-    Particle particle3;
-    Particle particle4;
+    Particle particle1(HomogeneousMaterial());
+    Particle particle2(HomogeneousMaterial());
+    Particle particle3(HomogeneousMaterial());
+    Particle particle4(HomogeneousMaterial());
 
     RotationZ transform3(45. * Units::deg);
     RotationZ transform4(45. * Units::deg);
@@ -81,10 +81,10 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
 {
     ParticleLayout particleDecoration;
 
-    Particle particle1;
-    Particle particle2;
-    Particle particle3;
-    Particle particle4;
+    Particle particle1(HomogeneousMaterial());
+    Particle particle2(HomogeneousMaterial());
+    Particle particle3(HomogeneousMaterial());
+    Particle particle4(HomogeneousMaterial());
 
     RotationY transform3(45. * Units::deg);
     RotationZ transform4(45. * Units::deg);
@@ -100,10 +100,10 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone)
 {
     ParticleLayout particleDecoration;
 
-    Particle particle1;
-    Particle particle2;
-    Particle particle3;
-    Particle particle4;
+    Particle particle1(HomogeneousMaterial());
+    Particle particle2(HomogeneousMaterial());
+    Particle particle3(HomogeneousMaterial());
+    Particle particle4(HomogeneousMaterial());
 
     RotationY transform3(45. * Units::deg);
     RotationZ transform4(45. * Units::deg);
@@ -167,7 +167,7 @@ TEST_F(ParticleLayoutTest, getChildren)
     std::vector<const INode*> children = layout.getChildren();
     EXPECT_EQ(children.size(), 0u);
 
-    layout.addParticle(Particle());
+    layout.addParticle(Particle(HomogeneousMaterial()));
     layout.setInterferenceFunction(InterferenceFunction1DLattice(1.0, 2.0));
     children = layout.getChildren();
     EXPECT_EQ(children.size(), 2u);

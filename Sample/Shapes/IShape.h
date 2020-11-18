@@ -18,7 +18,7 @@
 #include "Base/Vector/Vectors3D.h"
 #include <vector>
 
-//! Pure virtual base class for different shapes.
+//! Abstract base class for different shapes.
 //!
 //! In contrast to the form factors, these shapes only provide an intereface
 //! for returning a set of vertices.

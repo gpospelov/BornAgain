@@ -65,7 +65,7 @@ Eigen::Matrix2cd IBornFF::evaluate_for_q_pol(cvector_t q) const
 }
 
 SlicingEffects IBornFF::computeSlicingEffects(ZLimits limits, const kvector_t& position,
-                                                      double height) const
+                                              double height) const
 {
     kvector_t new_position(position);
     double z_bottom = position.z();

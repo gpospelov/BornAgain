@@ -13,15 +13,14 @@
 //  ************************************************************************************************
 
 #include "Sample/Particle/Particle.h"
+#include "Base/Vector/Transform3D.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Particle/SlicedParticle.h"
+#include "Sample/Scattering/FormFactorDecoratorMaterial.h"
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Sample/Scattering/Rotations.h"
 
-Particle::Particle() : m_material(HomogeneousMaterial())
-{
-    initialize();
-}
+Particle::~Particle() = default;
 
 Particle::Particle(Material material) : m_material(std::move(material))
 {

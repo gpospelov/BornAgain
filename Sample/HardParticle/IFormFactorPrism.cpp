@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Sample/HardParticle/IFormFactorPrism.cpp
-//! @brief     Implements class IFormFactorPrism.
+//! @brief     Implements interface IFormFactorPrism.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

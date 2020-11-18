@@ -3103,202 +3103,200 @@ namespace Swig {
 #define SWIGTYPE_p_BasicVector3DT_int_t swig_types[3]
 #define SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t swig_types[4]
 #define SWIGTYPE_p_Beam swig_types[5]
-#define SWIGTYPE_p_ComputeDWBA swig_types[6]
-#define SWIGTYPE_p_ComputeDWBAPol swig_types[7]
-#define SWIGTYPE_p_ConstantBackground swig_types[8]
-#define SWIGTYPE_p_ConvolutionDetectorResolution swig_types[9]
-#define SWIGTYPE_p_Crystal swig_types[10]
-#define SWIGTYPE_p_DistributionCosine swig_types[11]
-#define SWIGTYPE_p_DistributionGate swig_types[12]
-#define SWIGTYPE_p_DistributionGaussian swig_types[13]
-#define SWIGTYPE_p_DistributionLogNormal swig_types[14]
-#define SWIGTYPE_p_DistributionLorentz swig_types[15]
-#define SWIGTYPE_p_DistributionTrapezoid swig_types[16]
-#define SWIGTYPE_p_FTDecayFunction1DCauchy swig_types[17]
-#define SWIGTYPE_p_FTDecayFunction1DGauss swig_types[18]
-#define SWIGTYPE_p_FTDecayFunction1DTriangle swig_types[19]
-#define SWIGTYPE_p_FTDecayFunction1DVoigt swig_types[20]
-#define SWIGTYPE_p_FTDecayFunction2DCauchy swig_types[21]
-#define SWIGTYPE_p_FTDecayFunction2DGauss swig_types[22]
-#define SWIGTYPE_p_FTDecayFunction2DVoigt swig_types[23]
-#define SWIGTYPE_p_FTDistribution1DCauchy swig_types[24]
-#define SWIGTYPE_p_FTDistribution1DCosine swig_types[25]
-#define SWIGTYPE_p_FTDistribution1DGate swig_types[26]
-#define SWIGTYPE_p_FTDistribution1DGauss swig_types[27]
-#define SWIGTYPE_p_FTDistribution1DTriangle swig_types[28]
-#define SWIGTYPE_p_FTDistribution1DVoigt swig_types[29]
-#define SWIGTYPE_p_FTDistribution2DCauchy swig_types[30]
-#define SWIGTYPE_p_FTDistribution2DCone swig_types[31]
-#define SWIGTYPE_p_FTDistribution2DGate swig_types[32]
-#define SWIGTYPE_p_FTDistribution2DGauss swig_types[33]
-#define SWIGTYPE_p_FTDistribution2DVoigt swig_types[34]
-#define SWIGTYPE_p_FootprintGauss swig_types[35]
-#define SWIGTYPE_p_FootprintSquare swig_types[36]
-#define SWIGTYPE_p_FormFactorAnisoPyramid swig_types[37]
-#define SWIGTYPE_p_FormFactorBarGauss swig_types[38]
-#define SWIGTYPE_p_FormFactorBarLorentz swig_types[39]
-#define SWIGTYPE_p_FormFactorBox swig_types[40]
-#define SWIGTYPE_p_FormFactorCantellatedCube swig_types[41]
-#define SWIGTYPE_p_FormFactorCone swig_types[42]
-#define SWIGTYPE_p_FormFactorCone6 swig_types[43]
-#define SWIGTYPE_p_FormFactorCoreShell swig_types[44]
-#define SWIGTYPE_p_FormFactorCosineRippleBox swig_types[45]
-#define SWIGTYPE_p_FormFactorCosineRippleGauss swig_types[46]
-#define SWIGTYPE_p_FormFactorCosineRippleLorentz swig_types[47]
-#define SWIGTYPE_p_FormFactorCrystal swig_types[48]
-#define SWIGTYPE_p_FormFactorCuboctahedron swig_types[49]
-#define SWIGTYPE_p_FormFactorCylinder swig_types[50]
-#define SWIGTYPE_p_FormFactorDecoratorMaterial swig_types[51]
-#define SWIGTYPE_p_FormFactorDecoratorPositionFactor swig_types[52]
-#define SWIGTYPE_p_FormFactorDecoratorRotation swig_types[53]
-#define SWIGTYPE_p_FormFactorDodecahedron swig_types[54]
-#define SWIGTYPE_p_FormFactorDot swig_types[55]
-#define SWIGTYPE_p_FormFactorEllipsoidalCylinder swig_types[56]
-#define SWIGTYPE_p_FormFactorFullSphere swig_types[57]
-#define SWIGTYPE_p_FormFactorFullSpheroid swig_types[58]
-#define SWIGTYPE_p_FormFactorGaussSphere swig_types[59]
-#define SWIGTYPE_p_FormFactorHemiEllipsoid swig_types[60]
-#define SWIGTYPE_p_FormFactorHollowSphere swig_types[61]
-#define SWIGTYPE_p_FormFactorIcosahedron swig_types[62]
-#define SWIGTYPE_p_FormFactorLongBoxGauss swig_types[63]
-#define SWIGTYPE_p_FormFactorLongBoxLorentz swig_types[64]
-#define SWIGTYPE_p_FormFactorPrism3 swig_types[65]
-#define SWIGTYPE_p_FormFactorPrism6 swig_types[66]
-#define SWIGTYPE_p_FormFactorPyramid swig_types[67]
-#define SWIGTYPE_p_FormFactorSawtoothRippleBox swig_types[68]
-#define SWIGTYPE_p_FormFactorSawtoothRippleGauss swig_types[69]
-#define SWIGTYPE_p_FormFactorSawtoothRippleLorentz swig_types[70]
-#define SWIGTYPE_p_FormFactorSphereGaussianRadius swig_types[71]
-#define SWIGTYPE_p_FormFactorSphereLogNormalRadius swig_types[72]
-#define SWIGTYPE_p_FormFactorTetrahedron swig_types[73]
-#define SWIGTYPE_p_FormFactorTruncatedCube swig_types[74]
-#define SWIGTYPE_p_FormFactorTruncatedSphere swig_types[75]
-#define SWIGTYPE_p_FormFactorTruncatedSpheroid swig_types[76]
-#define SWIGTYPE_p_FormFactorWeighted swig_types[77]
-#define SWIGTYPE_p_GISASSimulation swig_types[78]
-#define SWIGTYPE_p_HexagonalLattice2D swig_types[79]
-#define SWIGTYPE_p_IAbstractParticle swig_types[80]
-#define SWIGTYPE_p_IBornFF swig_types[81]
-#define SWIGTYPE_p_ICloneable swig_types[82]
-#define SWIGTYPE_p_IClusteredParticles swig_types[83]
-#define SWIGTYPE_p_IDistribution1D swig_types[84]
-#define SWIGTYPE_p_IFormFactor swig_types[85]
-#define SWIGTYPE_p_IFormFactorDecorator swig_types[86]
-#define SWIGTYPE_p_IInterferenceFunction swig_types[87]
-#define SWIGTYPE_p_INode swig_types[88]
-#define SWIGTYPE_p_INodeVisitor swig_types[89]
-#define SWIGTYPE_p_IParameterT_double_t swig_types[90]
-#define SWIGTYPE_p_IParameterized swig_types[91]
-#define SWIGTYPE_p_IParticle swig_types[92]
-#define SWIGTYPE_p_IPeakShape swig_types[93]
-#define SWIGTYPE_p_IRotation swig_types[94]
-#define SWIGTYPE_p_ISample swig_types[95]
-#define SWIGTYPE_p_IdentityRotation swig_types[96]
-#define SWIGTYPE_p_Instrument swig_types[97]
-#define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[98]
-#define SWIGTYPE_p_InterferenceFunction2DLattice swig_types[99]
-#define SWIGTYPE_p_InterferenceFunction2DParaCrystal swig_types[100]
-#define SWIGTYPE_p_InterferenceFunction2DSuperLattice swig_types[101]
-#define SWIGTYPE_p_InterferenceFunction3DLattice swig_types[102]
-#define SWIGTYPE_p_InterferenceFunctionFinite2DLattice swig_types[103]
-#define SWIGTYPE_p_InterferenceFunctionFinite3DLattice swig_types[104]
-#define SWIGTYPE_p_InterferenceFunctionHardDisk swig_types[105]
-#define SWIGTYPE_p_InterferenceFunctionNone swig_types[106]
-#define SWIGTYPE_p_InterferenceFunctionRadialParaCrystal swig_types[107]
-#define SWIGTYPE_p_InterferenceFunctionTwin swig_types[108]
-#define SWIGTYPE_p_IsGISAXSDetector swig_types[109]
-#define SWIGTYPE_p_Layer swig_types[110]
-#define SWIGTYPE_p_LayerInterface swig_types[111]
-#define SWIGTYPE_p_LayerRoughness swig_types[112]
-#define SWIGTYPE_p_MesoCrystal swig_types[113]
-#define SWIGTYPE_p_MultiLayer swig_types[114]
-#define SWIGTYPE_p_NodeMeta swig_types[115]
-#define SWIGTYPE_p_OffSpecSimulation swig_types[116]
-#define SWIGTYPE_p_ParaMeta swig_types[117]
-#define SWIGTYPE_p_ParameterDistribution swig_types[118]
-#define SWIGTYPE_p_ParameterPool swig_types[119]
-#define SWIGTYPE_p_ParameterSample swig_types[120]
-#define SWIGTYPE_p_Particle swig_types[121]
-#define SWIGTYPE_p_ParticleComposition swig_types[122]
-#define SWIGTYPE_p_ParticleCoreShell swig_types[123]
-#define SWIGTYPE_p_ParticleDistribution swig_types[124]
-#define SWIGTYPE_p_ParticleLayout swig_types[125]
-#define SWIGTYPE_p_PoissonNoiseBackground swig_types[126]
-#define SWIGTYPE_p_RangedDistribution swig_types[127]
-#define SWIGTYPE_p_RangedDistributionCosine swig_types[128]
-#define SWIGTYPE_p_RangedDistributionGate swig_types[129]
-#define SWIGTYPE_p_RangedDistributionGaussian swig_types[130]
-#define SWIGTYPE_p_RangedDistributionLogNormal swig_types[131]
-#define SWIGTYPE_p_RangedDistributionLorentz swig_types[132]
-#define SWIGTYPE_p_RealLimits swig_types[133]
-#define SWIGTYPE_p_RealParameter swig_types[134]
-#define SWIGTYPE_p_RectangularDetector swig_types[135]
-#define SWIGTYPE_p_ResolutionFunction2DGaussian swig_types[136]
-#define SWIGTYPE_p_RotationEuler swig_types[137]
-#define SWIGTYPE_p_RotationX swig_types[138]
-#define SWIGTYPE_p_RotationY swig_types[139]
-#define SWIGTYPE_p_RotationZ swig_types[140]
-#define SWIGTYPE_p_SpecularDetector1D swig_types[141]
-#define SWIGTYPE_p_SpecularSimulation swig_types[142]
-#define SWIGTYPE_p_SphericalDetector swig_types[143]
-#define SWIGTYPE_p_SquareLattice2D swig_types[144]
-#define SWIGTYPE_p_allocator_type swig_types[145]
-#define SWIGTYPE_p_char swig_types[146]
-#define SWIGTYPE_p_difference_type swig_types[147]
-#define SWIGTYPE_p_double swig_types[148]
-#define SWIGTYPE_p_first_type swig_types[149]
-#define SWIGTYPE_p_int swig_types[150]
-#define SWIGTYPE_p_key_type swig_types[151]
-#define SWIGTYPE_p_long_long swig_types[152]
-#define SWIGTYPE_p_mapped_type swig_types[153]
-#define SWIGTYPE_p_p_PyObject swig_types[154]
-#define SWIGTYPE_p_second_type swig_types[155]
-#define SWIGTYPE_p_short swig_types[156]
-#define SWIGTYPE_p_signed_char swig_types[157]
-#define SWIGTYPE_p_size_type swig_types[158]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[159]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[160]
-#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[161]
-#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[162]
-#define SWIGTYPE_p_std__allocatorT_ParameterSample_t swig_types[163]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[164]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[165]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[166]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[167]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[168]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[169]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[170]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[171]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[172]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[173]
-#define SWIGTYPE_p_std__functionT_void_fF_t swig_types[174]
-#define SWIGTYPE_p_std__invalid_argument swig_types[175]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[176]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[177]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[178]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[179]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[180]
-#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[181]
-#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[182]
-#define SWIGTYPE_p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t swig_types[183]
-#define SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t swig_types[184]
-#define SWIGTYPE_p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t swig_types[185]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[186]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[187]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[188]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[189]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[190]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[191]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[192]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[193]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[194]
-#define SWIGTYPE_p_unsigned_char swig_types[195]
-#define SWIGTYPE_p_unsigned_int swig_types[196]
-#define SWIGTYPE_p_unsigned_long_long swig_types[197]
-#define SWIGTYPE_p_unsigned_short swig_types[198]
-#define SWIGTYPE_p_value_type swig_types[199]
-static swig_type_info *swig_types[201];
-static swig_module_info swig_module = {swig_types, 200, 0, 0, 0, 0};
+#define SWIGTYPE_p_ConstantBackground swig_types[6]
+#define SWIGTYPE_p_ConvolutionDetectorResolution swig_types[7]
+#define SWIGTYPE_p_Crystal swig_types[8]
+#define SWIGTYPE_p_DistributionCosine swig_types[9]
+#define SWIGTYPE_p_DistributionGate swig_types[10]
+#define SWIGTYPE_p_DistributionGaussian swig_types[11]
+#define SWIGTYPE_p_DistributionLogNormal swig_types[12]
+#define SWIGTYPE_p_DistributionLorentz swig_types[13]
+#define SWIGTYPE_p_DistributionTrapezoid swig_types[14]
+#define SWIGTYPE_p_FTDecayFunction1DCauchy swig_types[15]
+#define SWIGTYPE_p_FTDecayFunction1DGauss swig_types[16]
+#define SWIGTYPE_p_FTDecayFunction1DTriangle swig_types[17]
+#define SWIGTYPE_p_FTDecayFunction1DVoigt swig_types[18]
+#define SWIGTYPE_p_FTDecayFunction2DCauchy swig_types[19]
+#define SWIGTYPE_p_FTDecayFunction2DGauss swig_types[20]
+#define SWIGTYPE_p_FTDecayFunction2DVoigt swig_types[21]
+#define SWIGTYPE_p_FTDistribution1DCauchy swig_types[22]
+#define SWIGTYPE_p_FTDistribution1DCosine swig_types[23]
+#define SWIGTYPE_p_FTDistribution1DGate swig_types[24]
+#define SWIGTYPE_p_FTDistribution1DGauss swig_types[25]
+#define SWIGTYPE_p_FTDistribution1DTriangle swig_types[26]
+#define SWIGTYPE_p_FTDistribution1DVoigt swig_types[27]
+#define SWIGTYPE_p_FTDistribution2DCauchy swig_types[28]
+#define SWIGTYPE_p_FTDistribution2DCone swig_types[29]
+#define SWIGTYPE_p_FTDistribution2DGate swig_types[30]
+#define SWIGTYPE_p_FTDistribution2DGauss swig_types[31]
+#define SWIGTYPE_p_FTDistribution2DVoigt swig_types[32]
+#define SWIGTYPE_p_FootprintGauss swig_types[33]
+#define SWIGTYPE_p_FootprintSquare swig_types[34]
+#define SWIGTYPE_p_FormFactorAnisoPyramid swig_types[35]
+#define SWIGTYPE_p_FormFactorBarGauss swig_types[36]
+#define SWIGTYPE_p_FormFactorBarLorentz swig_types[37]
+#define SWIGTYPE_p_FormFactorBox swig_types[38]
+#define SWIGTYPE_p_FormFactorCantellatedCube swig_types[39]
+#define SWIGTYPE_p_FormFactorCone swig_types[40]
+#define SWIGTYPE_p_FormFactorCone6 swig_types[41]
+#define SWIGTYPE_p_FormFactorCoreShell swig_types[42]
+#define SWIGTYPE_p_FormFactorCosineRippleBox swig_types[43]
+#define SWIGTYPE_p_FormFactorCosineRippleGauss swig_types[44]
+#define SWIGTYPE_p_FormFactorCosineRippleLorentz swig_types[45]
+#define SWIGTYPE_p_FormFactorCrystal swig_types[46]
+#define SWIGTYPE_p_FormFactorCuboctahedron swig_types[47]
+#define SWIGTYPE_p_FormFactorCylinder swig_types[48]
+#define SWIGTYPE_p_FormFactorDecoratorMaterial swig_types[49]
+#define SWIGTYPE_p_FormFactorDecoratorPositionFactor swig_types[50]
+#define SWIGTYPE_p_FormFactorDecoratorRotation swig_types[51]
+#define SWIGTYPE_p_FormFactorDodecahedron swig_types[52]
+#define SWIGTYPE_p_FormFactorDot swig_types[53]
+#define SWIGTYPE_p_FormFactorEllipsoidalCylinder swig_types[54]
+#define SWIGTYPE_p_FormFactorFullSphere swig_types[55]
+#define SWIGTYPE_p_FormFactorFullSpheroid swig_types[56]
+#define SWIGTYPE_p_FormFactorGaussSphere swig_types[57]
+#define SWIGTYPE_p_FormFactorHemiEllipsoid swig_types[58]
+#define SWIGTYPE_p_FormFactorHollowSphere swig_types[59]
+#define SWIGTYPE_p_FormFactorIcosahedron swig_types[60]
+#define SWIGTYPE_p_FormFactorLongBoxGauss swig_types[61]
+#define SWIGTYPE_p_FormFactorLongBoxLorentz swig_types[62]
+#define SWIGTYPE_p_FormFactorPrism3 swig_types[63]
+#define SWIGTYPE_p_FormFactorPrism6 swig_types[64]
+#define SWIGTYPE_p_FormFactorPyramid swig_types[65]
+#define SWIGTYPE_p_FormFactorSawtoothRippleBox swig_types[66]
+#define SWIGTYPE_p_FormFactorSawtoothRippleGauss swig_types[67]
+#define SWIGTYPE_p_FormFactorSawtoothRippleLorentz swig_types[68]
+#define SWIGTYPE_p_FormFactorSphereGaussianRadius swig_types[69]
+#define SWIGTYPE_p_FormFactorSphereLogNormalRadius swig_types[70]
+#define SWIGTYPE_p_FormFactorTetrahedron swig_types[71]
+#define SWIGTYPE_p_FormFactorTruncatedCube swig_types[72]
+#define SWIGTYPE_p_FormFactorTruncatedSphere swig_types[73]
+#define SWIGTYPE_p_FormFactorTruncatedSpheroid swig_types[74]
+#define SWIGTYPE_p_FormFactorWeighted swig_types[75]
+#define SWIGTYPE_p_GISASSimulation swig_types[76]
+#define SWIGTYPE_p_HexagonalLattice2D swig_types[77]
+#define SWIGTYPE_p_IAbstractParticle swig_types[78]
+#define SWIGTYPE_p_IBornFF swig_types[79]
+#define SWIGTYPE_p_ICloneable swig_types[80]
+#define SWIGTYPE_p_IClusteredParticles swig_types[81]
+#define SWIGTYPE_p_IDistribution1D swig_types[82]
+#define SWIGTYPE_p_IFormFactor swig_types[83]
+#define SWIGTYPE_p_IFormFactorDecorator swig_types[84]
+#define SWIGTYPE_p_IInterferenceFunction swig_types[85]
+#define SWIGTYPE_p_INode swig_types[86]
+#define SWIGTYPE_p_INodeVisitor swig_types[87]
+#define SWIGTYPE_p_IParameterT_double_t swig_types[88]
+#define SWIGTYPE_p_IParameterized swig_types[89]
+#define SWIGTYPE_p_IParticle swig_types[90]
+#define SWIGTYPE_p_IPeakShape swig_types[91]
+#define SWIGTYPE_p_IRotation swig_types[92]
+#define SWIGTYPE_p_ISample swig_types[93]
+#define SWIGTYPE_p_IdentityRotation swig_types[94]
+#define SWIGTYPE_p_Instrument swig_types[95]
+#define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[96]
+#define SWIGTYPE_p_InterferenceFunction2DLattice swig_types[97]
+#define SWIGTYPE_p_InterferenceFunction2DParaCrystal swig_types[98]
+#define SWIGTYPE_p_InterferenceFunction2DSuperLattice swig_types[99]
+#define SWIGTYPE_p_InterferenceFunction3DLattice swig_types[100]
+#define SWIGTYPE_p_InterferenceFunctionFinite2DLattice swig_types[101]
+#define SWIGTYPE_p_InterferenceFunctionFinite3DLattice swig_types[102]
+#define SWIGTYPE_p_InterferenceFunctionHardDisk swig_types[103]
+#define SWIGTYPE_p_InterferenceFunctionNone swig_types[104]
+#define SWIGTYPE_p_InterferenceFunctionRadialParaCrystal swig_types[105]
+#define SWIGTYPE_p_InterferenceFunctionTwin swig_types[106]
+#define SWIGTYPE_p_IsGISAXSDetector swig_types[107]
+#define SWIGTYPE_p_Layer swig_types[108]
+#define SWIGTYPE_p_LayerInterface swig_types[109]
+#define SWIGTYPE_p_LayerRoughness swig_types[110]
+#define SWIGTYPE_p_MesoCrystal swig_types[111]
+#define SWIGTYPE_p_MultiLayer swig_types[112]
+#define SWIGTYPE_p_NodeMeta swig_types[113]
+#define SWIGTYPE_p_OffSpecSimulation swig_types[114]
+#define SWIGTYPE_p_ParaMeta swig_types[115]
+#define SWIGTYPE_p_ParameterDistribution swig_types[116]
+#define SWIGTYPE_p_ParameterPool swig_types[117]
+#define SWIGTYPE_p_ParameterSample swig_types[118]
+#define SWIGTYPE_p_Particle swig_types[119]
+#define SWIGTYPE_p_ParticleComposition swig_types[120]
+#define SWIGTYPE_p_ParticleCoreShell swig_types[121]
+#define SWIGTYPE_p_ParticleDistribution swig_types[122]
+#define SWIGTYPE_p_ParticleLayout swig_types[123]
+#define SWIGTYPE_p_PoissonNoiseBackground swig_types[124]
+#define SWIGTYPE_p_RangedDistribution swig_types[125]
+#define SWIGTYPE_p_RangedDistributionCosine swig_types[126]
+#define SWIGTYPE_p_RangedDistributionGate swig_types[127]
+#define SWIGTYPE_p_RangedDistributionGaussian swig_types[128]
+#define SWIGTYPE_p_RangedDistributionLogNormal swig_types[129]
+#define SWIGTYPE_p_RangedDistributionLorentz swig_types[130]
+#define SWIGTYPE_p_RealLimits swig_types[131]
+#define SWIGTYPE_p_RealParameter swig_types[132]
+#define SWIGTYPE_p_RectangularDetector swig_types[133]
+#define SWIGTYPE_p_ResolutionFunction2DGaussian swig_types[134]
+#define SWIGTYPE_p_RotationEuler swig_types[135]
+#define SWIGTYPE_p_RotationX swig_types[136]
+#define SWIGTYPE_p_RotationY swig_types[137]
+#define SWIGTYPE_p_RotationZ swig_types[138]
+#define SWIGTYPE_p_SpecularDetector1D swig_types[139]
+#define SWIGTYPE_p_SpecularSimulation swig_types[140]
+#define SWIGTYPE_p_SphericalDetector swig_types[141]
+#define SWIGTYPE_p_SquareLattice2D swig_types[142]
+#define SWIGTYPE_p_allocator_type swig_types[143]
+#define SWIGTYPE_p_char swig_types[144]
+#define SWIGTYPE_p_difference_type swig_types[145]
+#define SWIGTYPE_p_double swig_types[146]
+#define SWIGTYPE_p_first_type swig_types[147]
+#define SWIGTYPE_p_int swig_types[148]
+#define SWIGTYPE_p_key_type swig_types[149]
+#define SWIGTYPE_p_long_long swig_types[150]
+#define SWIGTYPE_p_mapped_type swig_types[151]
+#define SWIGTYPE_p_p_PyObject swig_types[152]
+#define SWIGTYPE_p_second_type swig_types[153]
+#define SWIGTYPE_p_short swig_types[154]
+#define SWIGTYPE_p_signed_char swig_types[155]
+#define SWIGTYPE_p_size_type swig_types[156]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[157]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[158]
+#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[159]
+#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[160]
+#define SWIGTYPE_p_std__allocatorT_ParameterSample_t swig_types[161]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[162]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[163]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[164]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[165]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[166]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[167]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[168]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[169]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[170]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[171]
+#define SWIGTYPE_p_std__functionT_void_fF_t swig_types[172]
+#define SWIGTYPE_p_std__invalid_argument swig_types[173]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[174]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[175]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[176]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[177]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[178]
+#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[179]
+#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[180]
+#define SWIGTYPE_p_std__vectorT_ParaMeta_std__allocatorT_ParaMeta_t_t swig_types[181]
+#define SWIGTYPE_p_std__vectorT_ParameterSample_std__allocatorT_ParameterSample_t_t swig_types[182]
+#define SWIGTYPE_p_std__vectorT_RealParameter_p_std__allocatorT_RealParameter_p_t_t swig_types[183]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[184]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[185]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[186]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[187]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[188]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[189]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[190]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[191]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[192]
+#define SWIGTYPE_p_unsigned_char swig_types[193]
+#define SWIGTYPE_p_unsigned_int swig_types[194]
+#define SWIGTYPE_p_unsigned_long_long swig_types[195]
+#define SWIGTYPE_p_unsigned_short swig_types[196]
+#define SWIGTYPE_p_value_type swig_types[197]
+static swig_type_info *swig_types[199];
+static swig_module_info swig_module = {swig_types, 198, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -37564,62 +37562,6 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_24(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  ComputeDWBA *arg2 = (ComputeDWBA *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_INodeVisitor, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
-  }
-  arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_ComputeDWBA, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "ComputeDWBA const *""'"); 
-  }
-  arg2 = reinterpret_cast< ComputeDWBA * >(argp2);
-  (arg1)->visit((ComputeDWBA const *)arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_25(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  ComputeDWBAPol *arg2 = (ComputeDWBAPol *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_INodeVisitor, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
-  }
-  arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_ComputeDWBAPol, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "ComputeDWBAPol const *""'"); 
-  }
-  arg2 = reinterpret_cast< ComputeDWBAPol * >(argp2);
-  (arg1)->visit((ComputeDWBAPol const *)arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_26(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorDecoratorMaterial *arg2 = (FormFactorDecoratorMaterial *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -37645,7 +37587,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_27(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_25(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorDecoratorPositionFactor *arg2 = (FormFactorDecoratorPositionFactor *) 0 ;
@@ -37673,7 +37615,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_28(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_26(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorDecoratorRotation *arg2 = (FormFactorDecoratorRotation *) 0 ;
@@ -37701,7 +37643,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_29(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_27(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorDodecahedron *arg2 = (FormFactorDodecahedron *) 0 ;
@@ -37729,7 +37671,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_30(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_28(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorDot *arg2 = (FormFactorDot *) 0 ;
@@ -37757,7 +37699,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_31(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_29(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorEllipsoidalCylinder *arg2 = (FormFactorEllipsoidalCylinder *) 0 ;
@@ -37785,7 +37727,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_32(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_30(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorFullSphere *arg2 = (FormFactorFullSphere *) 0 ;
@@ -37813,7 +37755,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_33(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_31(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorFullSpheroid *arg2 = (FormFactorFullSpheroid *) 0 ;
@@ -37841,7 +37783,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_34(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_32(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorGaussSphere *arg2 = (FormFactorGaussSphere *) 0 ;
@@ -37869,7 +37811,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_35(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_33(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorHemiEllipsoid *arg2 = (FormFactorHemiEllipsoid *) 0 ;
@@ -37897,7 +37839,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_36(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_34(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorHollowSphere *arg2 = (FormFactorHollowSphere *) 0 ;
@@ -37925,7 +37867,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_37(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_35(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorIcosahedron *arg2 = (FormFactorIcosahedron *) 0 ;
@@ -37953,7 +37895,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_38(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_36(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorLongBoxGauss *arg2 = (FormFactorLongBoxGauss *) 0 ;
@@ -37981,7 +37923,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_39(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_37(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorLongBoxLorentz *arg2 = (FormFactorLongBoxLorentz *) 0 ;
@@ -38009,7 +37951,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_40(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_38(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorPrism3 *arg2 = (FormFactorPrism3 *) 0 ;
@@ -38037,7 +37979,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_41(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_39(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorPrism6 *arg2 = (FormFactorPrism6 *) 0 ;
@@ -38065,7 +38007,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_42(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_40(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorPyramid *arg2 = (FormFactorPyramid *) 0 ;
@@ -38093,7 +38035,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_43(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_41(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorCosineRippleBox *arg2 = (FormFactorCosineRippleBox *) 0 ;
@@ -38121,7 +38063,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_44(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_42(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorCosineRippleGauss *arg2 = (FormFactorCosineRippleGauss *) 0 ;
@@ -38149,7 +38091,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_45(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_43(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorCosineRippleLorentz *arg2 = (FormFactorCosineRippleLorentz *) 0 ;
@@ -38177,7 +38119,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_46(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_44(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorSawtoothRippleBox *arg2 = (FormFactorSawtoothRippleBox *) 0 ;
@@ -38205,7 +38147,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_47(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_45(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorSawtoothRippleGauss *arg2 = (FormFactorSawtoothRippleGauss *) 0 ;
@@ -38233,7 +38175,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_48(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_46(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorSawtoothRippleLorentz *arg2 = (FormFactorSawtoothRippleLorentz *) 0 ;
@@ -38261,7 +38203,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_49(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_47(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorSphereGaussianRadius *arg2 = (FormFactorSphereGaussianRadius *) 0 ;
@@ -38289,7 +38231,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_50(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_48(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorSphereLogNormalRadius *arg2 = (FormFactorSphereLogNormalRadius *) 0 ;
@@ -38317,7 +38259,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_51(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_49(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorTetrahedron *arg2 = (FormFactorTetrahedron *) 0 ;
@@ -38345,7 +38287,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_52(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_50(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorTruncatedCube *arg2 = (FormFactorTruncatedCube *) 0 ;
@@ -38373,7 +38315,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_53(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_51(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorTruncatedSphere *arg2 = (FormFactorTruncatedSphere *) 0 ;
@@ -38401,7 +38343,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_54(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_52(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorTruncatedSpheroid *arg2 = (FormFactorTruncatedSpheroid *) 0 ;
@@ -38429,7 +38371,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_55(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_53(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FormFactorWeighted *arg2 = (FormFactorWeighted *) 0 ;
@@ -38457,7 +38399,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_56(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_54(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDecayFunction1DCauchy *arg2 = (FTDecayFunction1DCauchy *) 0 ;
@@ -38485,7 +38427,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_57(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_55(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDecayFunction1DGauss *arg2 = (FTDecayFunction1DGauss *) 0 ;
@@ -38513,7 +38455,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_58(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_56(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDecayFunction1DTriangle *arg2 = (FTDecayFunction1DTriangle *) 0 ;
@@ -38541,7 +38483,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_59(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_57(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDecayFunction1DVoigt *arg2 = (FTDecayFunction1DVoigt *) 0 ;
@@ -38569,7 +38511,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_60(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_58(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDecayFunction2DCauchy *arg2 = (FTDecayFunction2DCauchy *) 0 ;
@@ -38597,7 +38539,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_61(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_59(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDecayFunction2DGauss *arg2 = (FTDecayFunction2DGauss *) 0 ;
@@ -38625,7 +38567,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_62(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_60(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDecayFunction2DVoigt *arg2 = (FTDecayFunction2DVoigt *) 0 ;
@@ -38653,7 +38595,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_63(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_61(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution1DCauchy *arg2 = (FTDistribution1DCauchy *) 0 ;
@@ -38681,7 +38623,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_64(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_62(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution1DCosine *arg2 = (FTDistribution1DCosine *) 0 ;
@@ -38709,7 +38651,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_65(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_63(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution1DGate *arg2 = (FTDistribution1DGate *) 0 ;
@@ -38737,7 +38679,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_66(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_64(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution1DGauss *arg2 = (FTDistribution1DGauss *) 0 ;
@@ -38765,7 +38707,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_67(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_65(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution1DTriangle *arg2 = (FTDistribution1DTriangle *) 0 ;
@@ -38793,7 +38735,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_68(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_66(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution1DVoigt *arg2 = (FTDistribution1DVoigt *) 0 ;
@@ -38821,7 +38763,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_69(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_67(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution2DCauchy *arg2 = (FTDistribution2DCauchy *) 0 ;
@@ -38849,7 +38791,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_70(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_68(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution2DCone *arg2 = (FTDistribution2DCone *) 0 ;
@@ -38877,7 +38819,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_71(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_69(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution2DGate *arg2 = (FTDistribution2DGate *) 0 ;
@@ -38905,7 +38847,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_72(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_70(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution2DGauss *arg2 = (FTDistribution2DGauss *) 0 ;
@@ -38933,7 +38875,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_73(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_71(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   FTDistribution2DVoigt *arg2 = (FTDistribution2DVoigt *) 0 ;
@@ -38961,7 +38903,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_74(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_72(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   GISASSimulation *arg2 = (GISASSimulation *) 0 ;
@@ -38989,7 +38931,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_75(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_73(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   HexagonalLattice2D *arg2 = (HexagonalLattice2D *) 0 ;
@@ -39017,7 +38959,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_76(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_74(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IAbstractParticle *arg2 = (IAbstractParticle *) 0 ;
@@ -39045,7 +38987,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_77(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_75(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IClusteredParticles *arg2 = (IClusteredParticles *) 0 ;
@@ -39073,7 +39015,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_78(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_76(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IdentityRotation *arg2 = (IdentityRotation *) 0 ;
@@ -39101,7 +39043,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_79(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_77(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IFormFactor *arg2 = (IFormFactor *) 0 ;
@@ -39129,7 +39071,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_80(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_78(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IBornFF *arg2 = (IBornFF *) 0 ;
@@ -39157,7 +39099,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_81(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_79(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IFormFactorDecorator *arg2 = (IFormFactorDecorator *) 0 ;
@@ -39185,7 +39127,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_82(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_80(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IInterferenceFunction *arg2 = (IInterferenceFunction *) 0 ;
@@ -39213,7 +39155,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_83(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_81(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   ParticleLayout *arg2 = (ParticleLayout *) 0 ;
@@ -39241,7 +39183,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_84(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_82(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   INode *arg2 = (INode *) 0 ;
@@ -39269,7 +39211,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_85(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_83(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   Instrument *arg2 = (Instrument *) 0 ;
@@ -39297,7 +39239,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_86(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_84(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunction1DLattice *arg2 = (InterferenceFunction1DLattice *) 0 ;
@@ -39325,7 +39267,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_87(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_85(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunction2DLattice *arg2 = (InterferenceFunction2DLattice *) 0 ;
@@ -39353,7 +39295,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_88(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_86(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunction2DParaCrystal *arg2 = (InterferenceFunction2DParaCrystal *) 0 ;
@@ -39381,7 +39323,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_89(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_87(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunction2DSuperLattice *arg2 = (InterferenceFunction2DSuperLattice *) 0 ;
@@ -39409,7 +39351,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_90(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_88(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunction3DLattice *arg2 = (InterferenceFunction3DLattice *) 0 ;
@@ -39437,7 +39379,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_91(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_89(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunctionFinite2DLattice *arg2 = (InterferenceFunctionFinite2DLattice *) 0 ;
@@ -39465,7 +39407,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_92(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_90(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunctionFinite3DLattice *arg2 = (InterferenceFunctionFinite3DLattice *) 0 ;
@@ -39493,7 +39435,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_93(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_91(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunctionHardDisk *arg2 = (InterferenceFunctionHardDisk *) 0 ;
@@ -39521,7 +39463,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_94(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_92(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunctionRadialParaCrystal *arg2 = (InterferenceFunctionRadialParaCrystal *) 0 ;
@@ -39549,7 +39491,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_95(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_93(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunctionTwin *arg2 = (InterferenceFunctionTwin *) 0 ;
@@ -39577,7 +39519,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_96(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_94(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   InterferenceFunctionNone *arg2 = (InterferenceFunctionNone *) 0 ;
@@ -39605,7 +39547,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_97(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_95(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IParticle *arg2 = (IParticle *) 0 ;
@@ -39633,7 +39575,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_98(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_96(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IPeakShape *arg2 = (IPeakShape *) 0 ;
@@ -39661,7 +39603,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_99(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_97(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IRotation *arg2 = (IRotation *) 0 ;
@@ -39689,7 +39631,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_100(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_98(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   ISample *arg2 = (ISample *) 0 ;
@@ -39717,7 +39659,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_101(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_99(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   IsGISAXSDetector *arg2 = (IsGISAXSDetector *) 0 ;
@@ -39745,7 +39687,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_102(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_100(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   Layer *arg2 = (Layer *) 0 ;
@@ -39773,7 +39715,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_103(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_101(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   LayerInterface *arg2 = (LayerInterface *) 0 ;
@@ -39801,7 +39743,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_104(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_102(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   LayerRoughness *arg2 = (LayerRoughness *) 0 ;
@@ -39829,7 +39771,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_105(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_103(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   MesoCrystal *arg2 = (MesoCrystal *) 0 ;
@@ -39857,7 +39799,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_106(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_104(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   MultiLayer *arg2 = (MultiLayer *) 0 ;
@@ -39885,7 +39827,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_107(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_105(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   OffSpecSimulation *arg2 = (OffSpecSimulation *) 0 ;
@@ -39913,7 +39855,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_108(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_106(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   Particle *arg2 = (Particle *) 0 ;
@@ -39941,7 +39883,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_109(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_107(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   ParticleComposition *arg2 = (ParticleComposition *) 0 ;
@@ -39969,7 +39911,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_110(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_108(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   ParticleCoreShell *arg2 = (ParticleCoreShell *) 0 ;
@@ -39997,7 +39939,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_111(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_109(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   ParticleDistribution *arg2 = (ParticleDistribution *) 0 ;
@@ -40025,7 +39967,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_112(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_110(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   PoissonNoiseBackground *arg2 = (PoissonNoiseBackground *) 0 ;
@@ -40053,7 +39995,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_113(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_111(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   RectangularDetector *arg2 = (RectangularDetector *) 0 ;
@@ -40081,7 +40023,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_114(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_112(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   ResolutionFunction2DGaussian *arg2 = (ResolutionFunction2DGaussian *) 0 ;
@@ -40109,7 +40051,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_115(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_113(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   RotationEuler *arg2 = (RotationEuler *) 0 ;
@@ -40137,7 +40079,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_116(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_114(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   RotationX *arg2 = (RotationX *) 0 ;
@@ -40165,7 +40107,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_117(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_115(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   RotationY *arg2 = (RotationY *) 0 ;
@@ -40193,7 +40135,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_118(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_116(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   RotationZ *arg2 = (RotationZ *) 0 ;
@@ -40221,7 +40163,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_119(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_117(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   SpecularDetector1D *arg2 = (SpecularDetector1D *) 0 ;
@@ -40249,7 +40191,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_120(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_118(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   SpecularSimulation *arg2 = (SpecularSimulation *) 0 ;
@@ -40277,7 +40219,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_121(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_119(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   SphericalDetector *arg2 = (SphericalDetector *) 0 ;
@@ -40305,7 +40247,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_122(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_120(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
   SquareLattice2D *arg2 = (SquareLattice2D *) 0 ;
@@ -40684,7 +40626,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ComputeDWBA, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDecoratorMaterial, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_24(self, argc, argv);
@@ -40698,7 +40640,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ComputeDWBAPol, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDecoratorPositionFactor, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_25(self, argc, argv);
@@ -40712,7 +40654,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDecoratorMaterial, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDecoratorRotation, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_26(self, argc, argv);
@@ -40726,7 +40668,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDecoratorPositionFactor, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDodecahedron, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_27(self, argc, argv);
@@ -40740,7 +40682,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDecoratorRotation, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDot, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_28(self, argc, argv);
@@ -40754,7 +40696,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDodecahedron, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorEllipsoidalCylinder, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_29(self, argc, argv);
@@ -40768,7 +40710,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDot, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorFullSphere, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_30(self, argc, argv);
@@ -40782,7 +40724,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorEllipsoidalCylinder, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorFullSpheroid, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_31(self, argc, argv);
@@ -40796,7 +40738,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorFullSphere, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorGaussSphere, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_32(self, argc, argv);
@@ -40810,7 +40752,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorFullSpheroid, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorHemiEllipsoid, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_33(self, argc, argv);
@@ -40824,7 +40766,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorGaussSphere, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorHollowSphere, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_34(self, argc, argv);
@@ -40838,7 +40780,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorHemiEllipsoid, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorIcosahedron, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_35(self, argc, argv);
@@ -40852,7 +40794,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorHollowSphere, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorLongBoxGauss, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_36(self, argc, argv);
@@ -40866,7 +40808,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorIcosahedron, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorLongBoxLorentz, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_37(self, argc, argv);
@@ -40880,7 +40822,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorLongBoxGauss, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorPrism3, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_38(self, argc, argv);
@@ -40894,7 +40836,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorLongBoxLorentz, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorPrism6, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_39(self, argc, argv);
@@ -40908,7 +40850,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorPrism3, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorPyramid, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_40(self, argc, argv);
@@ -40922,7 +40864,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorPrism6, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorCosineRippleBox, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_41(self, argc, argv);
@@ -40936,7 +40878,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorPyramid, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorCosineRippleGauss, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_42(self, argc, argv);
@@ -40950,7 +40892,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorCosineRippleBox, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorCosineRippleLorentz, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_43(self, argc, argv);
@@ -40964,7 +40906,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorCosineRippleGauss, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorSawtoothRippleBox, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_44(self, argc, argv);
@@ -40978,7 +40920,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorCosineRippleLorentz, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorSawtoothRippleGauss, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_45(self, argc, argv);
@@ -40992,7 +40934,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorSawtoothRippleBox, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorSawtoothRippleLorentz, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_46(self, argc, argv);
@@ -41006,7 +40948,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorSawtoothRippleGauss, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorSphereGaussianRadius, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_47(self, argc, argv);
@@ -41020,7 +40962,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorSawtoothRippleLorentz, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorSphereLogNormalRadius, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_48(self, argc, argv);
@@ -41034,7 +40976,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorSphereGaussianRadius, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorTetrahedron, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_49(self, argc, argv);
@@ -41048,7 +40990,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorSphereLogNormalRadius, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorTruncatedCube, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_50(self, argc, argv);
@@ -41062,7 +41004,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorTetrahedron, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorTruncatedSphere, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_51(self, argc, argv);
@@ -41076,7 +41018,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorTruncatedCube, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorTruncatedSpheroid, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_52(self, argc, argv);
@@ -41090,7 +41032,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorTruncatedSphere, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorWeighted, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_53(self, argc, argv);
@@ -41104,7 +41046,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorTruncatedSpheroid, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction1DCauchy, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_54(self, argc, argv);
@@ -41118,7 +41060,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorWeighted, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction1DGauss, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_55(self, argc, argv);
@@ -41132,7 +41074,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction1DCauchy, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction1DTriangle, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_56(self, argc, argv);
@@ -41146,7 +41088,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction1DGauss, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction1DVoigt, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_57(self, argc, argv);
@@ -41160,7 +41102,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction1DTriangle, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction2DCauchy, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_58(self, argc, argv);
@@ -41174,7 +41116,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction1DVoigt, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction2DGauss, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_59(self, argc, argv);
@@ -41188,7 +41130,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction2DCauchy, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction2DVoigt, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_60(self, argc, argv);
@@ -41202,7 +41144,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction2DGauss, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DCauchy, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_61(self, argc, argv);
@@ -41216,7 +41158,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDecayFunction2DVoigt, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DCosine, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_62(self, argc, argv);
@@ -41230,7 +41172,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DCauchy, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DGate, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_63(self, argc, argv);
@@ -41244,7 +41186,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DCosine, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DGauss, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_64(self, argc, argv);
@@ -41258,7 +41200,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DGate, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DTriangle, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_65(self, argc, argv);
@@ -41272,7 +41214,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DGauss, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DVoigt, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_66(self, argc, argv);
@@ -41286,7 +41228,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DTriangle, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution2DCauchy, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_67(self, argc, argv);
@@ -41300,7 +41242,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution1DVoigt, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution2DCone, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_68(self, argc, argv);
@@ -41314,7 +41256,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution2DCauchy, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution2DGate, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_69(self, argc, argv);
@@ -41328,7 +41270,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution2DCone, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution2DGauss, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_70(self, argc, argv);
@@ -41342,7 +41284,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution2DGate, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution2DVoigt, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_71(self, argc, argv);
@@ -41356,7 +41298,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution2DGauss, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_GISASSimulation, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_72(self, argc, argv);
@@ -41370,7 +41312,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FTDistribution2DVoigt, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_HexagonalLattice2D, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_73(self, argc, argv);
@@ -41384,7 +41326,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_GISASSimulation, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IAbstractParticle, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_74(self, argc, argv);
@@ -41398,7 +41340,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_HexagonalLattice2D, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IClusteredParticles, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_75(self, argc, argv);
@@ -41412,7 +41354,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IAbstractParticle, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IdentityRotation, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_76(self, argc, argv);
@@ -41426,7 +41368,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IClusteredParticles, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IFormFactor, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_77(self, argc, argv);
@@ -41440,7 +41382,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IdentityRotation, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IBornFF, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_78(self, argc, argv);
@@ -41454,7 +41396,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IFormFactor, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IFormFactorDecorator, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_79(self, argc, argv);
@@ -41468,7 +41410,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IBornFF, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IInterferenceFunction, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_80(self, argc, argv);
@@ -41482,7 +41424,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IFormFactorDecorator, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParticleLayout, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_81(self, argc, argv);
@@ -41496,7 +41438,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IInterferenceFunction, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_INode, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_82(self, argc, argv);
@@ -41510,7 +41452,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParticleLayout, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Instrument, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_83(self, argc, argv);
@@ -41524,7 +41466,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_INode, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunction1DLattice, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_84(self, argc, argv);
@@ -41538,7 +41480,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Instrument, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunction2DLattice, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_85(self, argc, argv);
@@ -41552,7 +41494,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunction1DLattice, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunction2DParaCrystal, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_86(self, argc, argv);
@@ -41566,7 +41508,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunction2DLattice, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunction2DSuperLattice, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_87(self, argc, argv);
@@ -41580,7 +41522,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunction2DParaCrystal, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunction3DLattice, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_88(self, argc, argv);
@@ -41594,7 +41536,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunction2DSuperLattice, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionFinite2DLattice, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_89(self, argc, argv);
@@ -41608,7 +41550,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunction3DLattice, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionFinite3DLattice, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_90(self, argc, argv);
@@ -41622,7 +41564,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionFinite2DLattice, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionHardDisk, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_91(self, argc, argv);
@@ -41636,7 +41578,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionFinite3DLattice, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionRadialParaCrystal, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_92(self, argc, argv);
@@ -41650,7 +41592,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionHardDisk, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionTwin, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_93(self, argc, argv);
@@ -41664,7 +41606,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionRadialParaCrystal, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionNone, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_94(self, argc, argv);
@@ -41678,7 +41620,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionTwin, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IParticle, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_95(self, argc, argv);
@@ -41692,7 +41634,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_InterferenceFunctionNone, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IPeakShape, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_96(self, argc, argv);
@@ -41706,7 +41648,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IParticle, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IRotation, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_97(self, argc, argv);
@@ -41720,7 +41662,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IPeakShape, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ISample, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_98(self, argc, argv);
@@ -41734,7 +41676,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IRotation, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IsGISAXSDetector, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_99(self, argc, argv);
@@ -41748,7 +41690,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ISample, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Layer, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_100(self, argc, argv);
@@ -41762,7 +41704,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IsGISAXSDetector, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_LayerInterface, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_101(self, argc, argv);
@@ -41776,7 +41718,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Layer, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_LayerRoughness, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_102(self, argc, argv);
@@ -41790,7 +41732,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_LayerInterface, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_MesoCrystal, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_103(self, argc, argv);
@@ -41804,7 +41746,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_LayerRoughness, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_MultiLayer, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_104(self, argc, argv);
@@ -41818,7 +41760,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_MesoCrystal, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_OffSpecSimulation, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_105(self, argc, argv);
@@ -41832,7 +41774,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_MultiLayer, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Particle, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_106(self, argc, argv);
@@ -41846,7 +41788,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_OffSpecSimulation, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParticleComposition, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_107(self, argc, argv);
@@ -41860,7 +41802,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Particle, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParticleCoreShell, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_108(self, argc, argv);
@@ -41874,7 +41816,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParticleComposition, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParticleDistribution, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_109(self, argc, argv);
@@ -41888,7 +41830,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParticleCoreShell, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_PoissonNoiseBackground, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_110(self, argc, argv);
@@ -41902,7 +41844,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParticleDistribution, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RectangularDetector, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_111(self, argc, argv);
@@ -41916,7 +41858,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_PoissonNoiseBackground, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ResolutionFunction2DGaussian, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_112(self, argc, argv);
@@ -41930,7 +41872,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RectangularDetector, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationEuler, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_113(self, argc, argv);
@@ -41944,7 +41886,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ResolutionFunction2DGaussian, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationX, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_114(self, argc, argv);
@@ -41958,7 +41900,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationEuler, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationY, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_115(self, argc, argv);
@@ -41972,7 +41914,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationX, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationZ, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_116(self, argc, argv);
@@ -41986,7 +41928,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationY, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SpecularDetector1D, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_117(self, argc, argv);
@@ -42000,7 +41942,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_RotationZ, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SpecularSimulation, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_118(self, argc, argv);
@@ -42014,7 +41956,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SpecularDetector1D, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SphericalDetector, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_119(self, argc, argv);
@@ -42028,38 +41970,10 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SpecularSimulation, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_INodeVisitor_visit__SWIG_120(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_INodeVisitor, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SphericalDetector, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_INodeVisitor_visit__SWIG_121(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_INodeVisitor, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
       int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_SquareLattice2D, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
-        return _wrap_INodeVisitor_visit__SWIG_122(self, argc, argv);
+        return _wrap_INodeVisitor_visit__SWIG_120(self, argc, argv);
       }
     }
   }
@@ -42091,8 +42005,6 @@ fail:
     "    INodeVisitor::visit(FormFactorCrystal const *)\n"
     "    INodeVisitor::visit(FormFactorCuboctahedron const *)\n"
     "    INodeVisitor::visit(FormFactorCylinder const *)\n"
-    "    INodeVisitor::visit(ComputeDWBA const *)\n"
-    "    INodeVisitor::visit(ComputeDWBAPol const *)\n"
     "    INodeVisitor::visit(FormFactorDecoratorMaterial const *)\n"
     "    INodeVisitor::visit(FormFactorDecoratorPositionFactor const *)\n"
     "    INodeVisitor::visit(FormFactorDecoratorRotation const *)\n"
@@ -51171,8 +51083,6 @@ static PyMethodDef SwigMethods[] = {
 		"INodeVisitor_visit(INodeVisitor self, FormFactorCrystal const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorCuboctahedron const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorCylinder const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, ComputeDWBA const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, ComputeDWBAPol const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorDecoratorMaterial const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorDecoratorPositionFactor const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorDecoratorRotation const * arg2)\n"
@@ -52109,8 +52019,6 @@ static swig_type_info _swigt__p_BasicVector3DT_double_t = {"_p_BasicVector3DT_do
 static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t", "ivector_t *|BasicVector3D< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Beam = {"_p_Beam", "Beam *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ComputeDWBA = {"_p_ComputeDWBA", "ComputeDWBA *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ComputeDWBAPol = {"_p_ComputeDWBAPol", "ComputeDWBAPol *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ConstantBackground = {"_p_ConstantBackground", "ConstantBackground *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ConvolutionDetectorResolution = {"_p_ConvolutionDetectorResolution", "ConvolutionDetectorResolution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Crystal = {"_p_Crystal", "Crystal *", 0, 0, (void*)0, 0};
@@ -52311,8 +52219,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_BasicVector3DT_int_t,
   &_swigt__p_BasicVector3DT_std__complexT_double_t_t,
   &_swigt__p_Beam,
-  &_swigt__p_ComputeDWBA,
-  &_swigt__p_ComputeDWBAPol,
   &_swigt__p_ConstantBackground,
   &_swigt__p_ConvolutionDetectorResolution,
   &_swigt__p_Crystal,
@@ -52513,8 +52419,6 @@ static swig_cast_info _swigc__p_BasicVector3DT_double_t[] = {  {&_swigt__p_Basic
 static swig_cast_info _swigc__p_BasicVector3DT_int_t[] = {  {&_swigt__p_BasicVector3DT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicVector3DT_std__complexT_double_t_t[] = {  {&_swigt__p_BasicVector3DT_std__complexT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Beam[] = {  {&_swigt__p_Beam, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ComputeDWBA[] = {  {&_swigt__p_ComputeDWBA, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ComputeDWBAPol[] = {  {&_swigt__p_ComputeDWBAPol, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ConstantBackground[] = {  {&_swigt__p_ConstantBackground, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ConvolutionDetectorResolution[] = {  {&_swigt__p_ConvolutionDetectorResolution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Crystal[] = {  {&_swigt__p_Crystal, 0, 0, 0},{0, 0, 0, 0}};
@@ -52715,8 +52619,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_BasicVector3DT_int_t,
   _swigc__p_BasicVector3DT_std__complexT_double_t_t,
   _swigc__p_Beam,
-  _swigc__p_ComputeDWBA,
-  _swigc__p_ComputeDWBAPol,
   _swigc__p_ConstantBackground,
   _swigc__p_ConvolutionDetectorResolution,
   _swigc__p_Crystal,

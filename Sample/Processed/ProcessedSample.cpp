@@ -38,8 +38,7 @@ std::unique_ptr<IFresnelMap> createFresnelMap(const MultiLayer& sample,
     if (magnetic)
         result = std::make_unique<MatrixFresnelMap>(SpecularStrategyBuilder::build(sample, true));
     else
-        result =
-            std::make_unique<ScalarFresnelMap>(SpecularStrategyBuilder::build(sample, false));
+        result = std::make_unique<ScalarFresnelMap>(SpecularStrategyBuilder::build(sample, false));
     if (options.isIntegrate())
         result->disableCaching();
     return result;
@@ -185,9 +184,10 @@ double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, siz
     const double sigma_k = rough_k->getSigma();
     if (sigma_j <= 0 || sigma_k <= 0)
         return 0.0;
-    return 0.5    * ((sigma_k / sigma_j) * rough_j->getSpectralFun(kvec)
-                     + (sigma_j / sigma_k) * rough_k->getSpectralFun(kvec))
-                  * std::exp(-1 * std::abs(z_j - z_k) / m_crossCorrLength);
+    return 0.5
+           * ((sigma_k / sigma_j) * rough_j->getSpectralFun(kvec)
+              + (sigma_j / sigma_k) * rough_k->getSpectralFun(kvec))
+           * std::exp(-1 * std::abs(z_j - z_k) / m_crossCorrLength);
 }
 
 // Creates a array of slices with the correct thickness, roughness and material

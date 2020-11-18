@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,15 +10,15 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/SampleBuilderEngine/SampleComponents.h"
 #include "Base/Const/Units.h"
 #include "Sample/HardParticle/HardParticles.h"
 
-// ************************************************************************** //
+//  ************************************************************************************************
 FTDistribution2DComponents::FTDistribution2DComponents()
-// ************************************************************************** //
+//  ************************************************************************************************
 {
     add("FTDistribution2DCauchy", new FTDistribution2DCauchy(0.5, 1.0, 0));
     add("FTDistribution2DGauss", new FTDistribution2DGauss(0.5, 1.0, 0));
@@ -27,9 +27,9 @@ FTDistribution2DComponents::FTDistribution2DComponents()
     add("FTDistribution2DVoigt", new FTDistribution2DVoigt(0.5, 1.0, 0, 0.2));
 }
 
-// ************************************************************************** //
+//  ************************************************************************************************
 FormFactorComponents::FormFactorComponents()
-// ************************************************************************** //
+//  ************************************************************************************************
 {
     add("AnisoPyramid", new FormFactorAnisoPyramid(10.0, 20.0, 5.0, Units::deg2rad(54.73)));
 

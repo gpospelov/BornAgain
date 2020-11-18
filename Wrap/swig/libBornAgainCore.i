@@ -62,7 +62,7 @@
 #include "Core/Scan/QSpecScan.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
-#include "Core/Computation/MultiLayerFuncs.h"
+#include "Sample/Processed/MultiLayerFuncs.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/IObserver.h"
@@ -87,7 +87,7 @@
 
 %import(module="libBornAgainSample") "Sample/Scattering/ISample.h"
 %import(module="libBornAgainSample") "Sample/Scattering/IFormFactor.h"
-%import(module="libBornAgainSample") "Sample/Scattering/IFormFactorBorn.h"
+%import(module="libBornAgainSample") "Sample/Scattering/IBornFF.h"
 
 %template(swig_dummy_type_axisinfo_vector) std::vector<AxisInfo>;
 
@@ -123,7 +123,7 @@
 %include "Core/Computation/IBackground.h"
 %include "Core/Computation/ConstantBackground.h"
 %include "Core/Computation/PoissonNoiseBackground.h"
-%include "Core/Computation/MultiLayerFuncs.h"
+%include "Sample/Processed/MultiLayerFuncs.h"
 
 %include "Core/Simulation/SimulationFactory.h"
 

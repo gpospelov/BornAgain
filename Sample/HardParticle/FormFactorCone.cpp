@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorCone.h"
 #include "Base/Const/MathConstants.h"
@@ -22,7 +22,7 @@
 #include <limits>
 
 FormFactorCone::FormFactorCone(const std::vector<double> P)
-    : IFormFactorBorn({"Cone",
+    : IBornFF({"Cone",
                        "frustum with circular base",
                        {{"Radius", "nm", "radius of base", 0, +INF, 0},
                         {"Height", "nm", "height", 0, +INF, 0},

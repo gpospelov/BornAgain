@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,14 +10,13 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Interference/DecouplingApproximationStrategy.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/MathFunctions.h"
 #include "Param/Base/RealParameter.h"
-#include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 

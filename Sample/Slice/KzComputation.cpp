@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Slice/KzComputation.h"
 #include "Base/Const/Units.h"
@@ -34,9 +34,9 @@ complex_t checkForUnderflow(complex_t val)
 }
 } // namespace
 
-// ************************************************************************** //
-// namespace KzComputatin
-// ************************************************************************** //
+//  ************************************************************************************************
+//  namespace KzComputatin
+//  ************************************************************************************************
 
 std::vector<complex_t> KzComputation::computeReducedKz(const std::vector<Slice>& slices,
                                                        kvector_t k)

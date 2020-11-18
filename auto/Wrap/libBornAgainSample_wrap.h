@@ -131,13 +131,13 @@ private:
 };
 
 
-class SwigDirector_IFormFactorBorn : public IFormFactorBorn, public Swig::Director {
+class SwigDirector_IBornFF : public IBornFF, public Swig::Director {
 
 public:
-    SwigDirector_IFormFactorBorn(PyObject *self);
-    SwigDirector_IFormFactorBorn(PyObject *self, NodeMeta const &meta, std::vector< double, std::allocator< double > > const &PValues);
-    virtual ~SwigDirector_IFormFactorBorn();
-    virtual IFormFactorBorn *clone() const;
+    SwigDirector_IBornFF(PyObject *self);
+    SwigDirector_IBornFF(PyObject *self, NodeMeta const &meta, std::vector< double, std::allocator< double > > const &PValues);
+    virtual ~SwigDirector_IBornFF();
+    virtual IBornFF *clone() const;
     virtual void transferToCPP();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
@@ -154,7 +154,7 @@ public:
     virtual double topZ(IRotation const &rotation) const;
     virtual bool canSliceAnalytically(IRotation const &rot) const;
     virtual bool canSliceAnalyticallySwigPublic(IRotation const &rot) const {
-      return IFormFactorBorn::canSliceAnalytically(rot);
+      return IBornFF::canSliceAnalytically(rot);
     }
     virtual IFormFactor *sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const;
     virtual IFormFactor *sliceFormFactorSwigPublic(ZLimits limits, IRotation const &rot, kvector_t translation) const {
@@ -182,7 +182,7 @@ private:
         swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
         method = PyObject_GetAttr(swig_get_self(), name);
         if (!method) {
-          std::string msg = "Method in class IFormFactorBorn doesn't exist, undefined ";
+          std::string msg = "Method in class IBornFF doesn't exist, undefined ";
           msg += method_name;
           Swig::DirectorMethodException::raise(msg.c_str());
         }

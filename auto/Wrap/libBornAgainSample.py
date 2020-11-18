@@ -3212,6 +3212,16 @@ class ISample(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 
         """
         return _libBornAgainSample.ISample_containedMaterials(self)
+
+    def isMagnetic(self):
+        r"""
+        isMagnetic(ISample self) -> bool
+        bool ISample::isMagnetic() const
+
+        Returns true if there is any magnetic material in this  ISample. 
+
+        """
+        return _libBornAgainSample.ISample_isMagnetic(self)
     __swig_destroy__ = _libBornAgainSample.delete_ISample
     def __disown__(self):
         self.this.disown()
@@ -3227,9 +3237,7 @@ class IFormFactor(ISample):
 
     Pure virtual base class for all form factors.
 
-    The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
-
-    Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBA,  FormFactorDWBAPol and  FormFactorCrystal.
+    The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a  IBornFF.
 
     C++ includes: IFormFactor.h
 
@@ -3355,7 +3363,7 @@ def createTransformedFormFactor(formfactor, rot, translation):
 
     """
     return _libBornAgainSample.createTransformedFormFactor(formfactor, rot, translation)
-class IFormFactorBorn(IFormFactor):
+class IBornFF(IFormFactor):
     r"""
 
 
@@ -3363,7 +3371,7 @@ class IFormFactorBorn(IFormFactor):
 
     In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
 
-    C++ includes: IFormFactorBorn.h
+    C++ includes: IBornFF.h
 
     """
 
@@ -3372,92 +3380,92 @@ class IFormFactorBorn(IFormFactor):
 
     def __init__(self, *args):
         r"""
-        __init__(IFormFactorBorn self) -> IFormFactorBorn
-        __init__(IFormFactorBorn self, NodeMeta meta, vdouble1d_t PValues) -> IFormFactorBorn
-        IFormFactorBorn::IFormFactorBorn(const NodeMeta &meta, const std::vector< double > &PValues)
+        __init__(IBornFF self) -> IBornFF
+        __init__(IBornFF self, NodeMeta meta, vdouble1d_t PValues) -> IBornFF
+        IBornFF::IBornFF(const NodeMeta &meta, const std::vector< double > &PValues)
 
         """
-        if self.__class__ == IFormFactorBorn:
+        if self.__class__ == IBornFF:
             _self = None
         else:
             _self = self
-        _libBornAgainSample.IFormFactorBorn_swiginit(self, _libBornAgainSample.new_IFormFactorBorn(_self, *args))
-    __swig_destroy__ = _libBornAgainSample.delete_IFormFactorBorn
+        _libBornAgainSample.IBornFF_swiginit(self, _libBornAgainSample.new_IBornFF(_self, *args))
+    __swig_destroy__ = _libBornAgainSample.delete_IBornFF
 
     def clone(self):
         r"""
-        clone(IFormFactorBorn self) -> IFormFactorBorn
-        IFormFactorBorn* IFormFactorBorn::clone() const override=0
+        clone(IBornFF self) -> IBornFF
+        IBornFF* IBornFF::clone() const override=0
 
         Returns a clone of this  ISample object. 
 
         """
-        return _libBornAgainSample.IFormFactorBorn_clone(self)
+        return _libBornAgainSample.IBornFF_clone(self)
 
     def setAmbientMaterial(self, arg0):
         r"""
-        setAmbientMaterial(IFormFactorBorn self, Material arg0)
-        void IFormFactorBorn::setAmbientMaterial(const Material &) override
+        setAmbientMaterial(IBornFF self, Material arg0)
+        void IBornFF::setAmbientMaterial(const Material &) override
 
         Passes the material in which this particle is embedded. 
 
         """
-        return _libBornAgainSample.IFormFactorBorn_setAmbientMaterial(self, arg0)
+        return _libBornAgainSample.IBornFF_setAmbientMaterial(self, arg0)
 
     def evaluate(self, wavevectors):
         r"""
-        evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t
-        complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
+        evaluate(IBornFF self, WavevectorInfo wavevectors) -> complex_t
+        complex_t IBornFF::evaluate(const WavevectorInfo &wavevectors) const override
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
         """
-        return _libBornAgainSample.IFormFactorBorn_evaluate(self, wavevectors)
+        return _libBornAgainSample.IBornFF_evaluate(self, wavevectors)
 
     def bottomZ(self, rotation):
         r"""
-        bottomZ(IFormFactorBorn self, IRotation rotation) -> double
-        double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
+        bottomZ(IBornFF self, IRotation rotation) -> double
+        double IBornFF::bottomZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
         """
-        return _libBornAgainSample.IFormFactorBorn_bottomZ(self, rotation)
+        return _libBornAgainSample.IBornFF_bottomZ(self, rotation)
 
     def topZ(self, rotation):
         r"""
-        topZ(IFormFactorBorn self, IRotation rotation) -> double
-        double IFormFactorBorn::topZ(const IRotation &rotation) const override
+        topZ(IBornFF self, IRotation rotation) -> double
+        double IBornFF::topZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
         """
-        return _libBornAgainSample.IFormFactorBorn_topZ(self, rotation)
+        return _libBornAgainSample.IBornFF_topZ(self, rotation)
 
     def evaluate_for_q(self, q):
         r"""
-        evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t
-        virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
+        evaluate_for_q(IBornFF self, cvector_t q) -> complex_t
+        virtual complex_t IBornFF::evaluate_for_q(cvector_t q) const =0
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
         """
-        return _libBornAgainSample.IFormFactorBorn_evaluate_for_q(self, q)
+        return _libBornAgainSample.IBornFF_evaluate_for_q(self, q)
 
     def canSliceAnalytically(self, rot):
-        r"""canSliceAnalytically(IFormFactorBorn self, IRotation rot) -> bool"""
-        return _libBornAgainSample.IFormFactorBorn_canSliceAnalytically(self, rot)
+        r"""canSliceAnalytically(IBornFF self, IRotation rot) -> bool"""
+        return _libBornAgainSample.IBornFF_canSliceAnalytically(self, rot)
     def __disown__(self):
         self.this.disown()
-        _libBornAgainSample.disown_IFormFactorBorn(self)
+        _libBornAgainSample.disown_IBornFF(self)
         return weakref.proxy(self)
 
     def sliceFormFactor(self, limits, rot, translation):
-        r"""sliceFormFactor(IFormFactorBorn self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
-        return _libBornAgainSample.IFormFactorBorn_sliceFormFactor(self, limits, rot, translation)
+        r"""sliceFormFactor(IBornFF self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"""
+        return _libBornAgainSample.IBornFF_sliceFormFactor(self, limits, rot, translation)
 
-# Register IFormFactorBorn in _libBornAgainSample:
-_libBornAgainSample.IFormFactorBorn_swigregister(IFormFactorBorn)
+# Register IBornFF in _libBornAgainSample:
+_libBornAgainSample.IBornFF_swigregister(IBornFF)
 
 class SlicingEffects(object):
     r"""
@@ -3465,7 +3473,7 @@ class SlicingEffects(object):
 
     Nested structure that holds slicing effects on position and removed parts.
 
-    C++ includes: IFormFactorBorn.h
+    C++ includes: IBornFF.h
 
     """
 
@@ -3482,7 +3490,7 @@ class SlicingEffects(object):
 
         Nested structure that holds slicing effects on position and removed parts.
 
-        C++ includes: IFormFactorBorn.h
+        C++ includes: IBornFF.h
 
         """
         _libBornAgainSample.SlicingEffects_swiginit(self, _libBornAgainSample.new_SlicingEffects())
@@ -8559,7 +8567,7 @@ class RoughnessModel(object):
 # Register RoughnessModel in _libBornAgainSample:
 _libBornAgainSample.RoughnessModel_swigregister(RoughnessModel)
 
-class IFormFactorPolyhedron(IFormFactorBorn):
+class IFormFactorPolyhedron(IBornFF):
     r"""
 
 
@@ -8647,7 +8655,7 @@ class IFormFactorPolyhedron(IFormFactorBorn):
 # Register IFormFactorPolyhedron in _libBornAgainSample:
 _libBornAgainSample.IFormFactorPolyhedron_swigregister(IFormFactorPolyhedron)
 
-class IFormFactorPrism(IFormFactorBorn):
+class IFormFactorPrism(IBornFF):
     r"""
 
 
@@ -8725,7 +8733,7 @@ class IFormFactorPrism(IFormFactorBorn):
 # Register IFormFactorPrism in _libBornAgainSample:
 _libBornAgainSample.IFormFactorPrism_swigregister(IFormFactorPrism)
 
-class IProfileRipple(IFormFactorBorn):
+class IProfileRipple(IBornFF):
     r"""
 
 
@@ -9083,7 +9091,7 @@ class FormFactorCantellatedCube(IFormFactorPolyhedron):
 # Register FormFactorCantellatedCube in _libBornAgainSample:
 _libBornAgainSample.FormFactorCantellatedCube_swigregister(FormFactorCantellatedCube)
 
-class FormFactorCone(IFormFactorBorn):
+class FormFactorCone(IBornFF):
     r"""
 
 
@@ -9447,7 +9455,7 @@ class FormFactorCuboctahedron(IFormFactorPolyhedron):
 # Register FormFactorCuboctahedron in _libBornAgainSample:
 _libBornAgainSample.FormFactorCuboctahedron_swigregister(FormFactorCuboctahedron)
 
-class FormFactorCylinder(IFormFactorBorn):
+class FormFactorCylinder(IBornFF):
     r"""
 
 
@@ -9579,7 +9587,7 @@ class FormFactorDodecahedron(IFormFactorPolyhedron):
 # Register FormFactorDodecahedron in _libBornAgainSample:
 _libBornAgainSample.FormFactorDodecahedron_swigregister(FormFactorDodecahedron)
 
-class FormFactorDot(IFormFactorBorn):
+class FormFactorDot(IBornFF):
     r"""
 
 
@@ -9671,7 +9679,7 @@ class FormFactorDot(IFormFactorBorn):
 # Register FormFactorDot in _libBornAgainSample:
 _libBornAgainSample.FormFactorDot_swigregister(FormFactorDot)
 
-class FormFactorEllipsoidalCylinder(IFormFactorBorn):
+class FormFactorEllipsoidalCylinder(IBornFF):
     r"""
 
 
@@ -9759,7 +9767,7 @@ class FormFactorEllipsoidalCylinder(IFormFactorBorn):
 # Register FormFactorEllipsoidalCylinder in _libBornAgainSample:
 _libBornAgainSample.FormFactorEllipsoidalCylinder_swigregister(FormFactorEllipsoidalCylinder)
 
-class FormFactorFullSphere(IFormFactorBorn):
+class FormFactorFullSphere(IBornFF):
     r"""
 
 
@@ -9851,7 +9859,7 @@ class FormFactorFullSphere(IFormFactorBorn):
 # Register FormFactorFullSphere in _libBornAgainSample:
 _libBornAgainSample.FormFactorFullSphere_swigregister(FormFactorFullSphere)
 
-class FormFactorFullSpheroid(IFormFactorBorn):
+class FormFactorFullSpheroid(IBornFF):
     r"""
 
 
@@ -9931,7 +9939,7 @@ class FormFactorFullSpheroid(IFormFactorBorn):
 # Register FormFactorFullSpheroid in _libBornAgainSample:
 _libBornAgainSample.FormFactorFullSpheroid_swigregister(FormFactorFullSpheroid)
 
-class FormFactorHemiEllipsoid(IFormFactorBorn):
+class FormFactorHemiEllipsoid(IBornFF):
     r"""
 
 
@@ -10019,7 +10027,7 @@ class FormFactorHemiEllipsoid(IFormFactorBorn):
 # Register FormFactorHemiEllipsoid in _libBornAgainSample:
 _libBornAgainSample.FormFactorHemiEllipsoid_swigregister(FormFactorHemiEllipsoid)
 
-class FormFactorHollowSphere(IFormFactorBorn):
+class FormFactorHollowSphere(IBornFF):
     r"""
 
 
@@ -10135,7 +10143,7 @@ class FormFactorIcosahedron(IFormFactorPolyhedron):
 # Register FormFactorIcosahedron in _libBornAgainSample:
 _libBornAgainSample.FormFactorIcosahedron_swigregister(FormFactorIcosahedron)
 
-class FormFactorLongBoxGauss(IFormFactorBorn):
+class FormFactorLongBoxGauss(IBornFF):
     r"""
 
 
@@ -10223,7 +10231,7 @@ class FormFactorLongBoxGauss(IFormFactorBorn):
 # Register FormFactorLongBoxGauss in _libBornAgainSample:
 _libBornAgainSample.FormFactorLongBoxGauss_swigregister(FormFactorLongBoxGauss)
 
-class FormFactorLongBoxLorentz(IFormFactorBorn):
+class FormFactorLongBoxLorentz(IBornFF):
     r"""
 
 
@@ -10743,7 +10751,7 @@ class FormFactorTruncatedCube(IFormFactorPolyhedron):
 # Register FormFactorTruncatedCube in _libBornAgainSample:
 _libBornAgainSample.FormFactorTruncatedCube_swigregister(FormFactorTruncatedCube)
 
-class FormFactorTruncatedSphere(IFormFactorBorn):
+class FormFactorTruncatedSphere(IBornFF):
     r"""
 
 
@@ -10831,7 +10839,7 @@ class FormFactorTruncatedSphere(IFormFactorBorn):
 # Register FormFactorTruncatedSphere in _libBornAgainSample:
 _libBornAgainSample.FormFactorTruncatedSphere_swigregister(FormFactorTruncatedSphere)
 
-class FormFactorTruncatedSpheroid(IFormFactorBorn):
+class FormFactorTruncatedSpheroid(IBornFF):
     r"""
 
 
@@ -10927,7 +10935,7 @@ class FormFactorTruncatedSpheroid(IFormFactorBorn):
 # Register FormFactorTruncatedSpheroid in _libBornAgainSample:
 _libBornAgainSample.FormFactorTruncatedSpheroid_swigregister(FormFactorTruncatedSpheroid)
 
-class FormFactorGaussSphere(IFormFactorBorn):
+class FormFactorGaussSphere(IBornFF):
     r"""
 
 
@@ -10999,7 +11007,7 @@ class FormFactorGaussSphere(IFormFactorBorn):
 # Register FormFactorGaussSphere in _libBornAgainSample:
 _libBornAgainSample.FormFactorGaussSphere_swigregister(FormFactorGaussSphere)
 
-class FormFactorSphereGaussianRadius(IFormFactorBorn):
+class FormFactorSphereGaussianRadius(IBornFF):
     r"""
 
 
@@ -11063,7 +11071,7 @@ class FormFactorSphereGaussianRadius(IFormFactorBorn):
 # Register FormFactorSphereGaussianRadius in _libBornAgainSample:
 _libBornAgainSample.FormFactorSphereGaussianRadius_swigregister(FormFactorSphereGaussianRadius)
 
-class FormFactorSphereLogNormalRadius(IFormFactorBorn):
+class FormFactorSphereLogNormalRadius(IBornFF):
     r"""
 
 

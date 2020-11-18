@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,17 +10,17 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORDOT_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORDOT_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! A dot, with scattering power as a sphere of radius rscat, but with F(q)=const.
 //! @ingroup hardParticle
 
-class FormFactorDot : public IFormFactorBorn
+class FormFactorDot : public IBornFF
 {
 public:
     FormFactorDot(const std::vector<double> P);

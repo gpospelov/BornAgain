@@ -237,26 +237,6 @@ C++ includes: ConstantBackground.h
 ";
 
 
-// File: classDelayedProgressCounter.xml
-%feature("docstring") DelayedProgressCounter "
-
-Counter for reporting progress (with delay interval) in a threaded computation.
-
-C++ includes: DelayedProgressCounter.h
-";
-
-%feature("docstring")  DelayedProgressCounter::DelayedProgressCounter "DelayedProgressCounter::DelayedProgressCounter(ProgressHandler *p_progress, size_t interval)
-";
-
-%feature("docstring")  DelayedProgressCounter::~DelayedProgressCounter "DelayedProgressCounter::~DelayedProgressCounter()
-";
-
-%feature("docstring")  DelayedProgressCounter::stepProgress "void DelayedProgressCounter::stepProgress()
-
-Increments inner counter; at regular intervals updates progress handler. 
-";
-
-
 // File: classDepthProbeComputation.xml
 %feature("docstring") DepthProbeComputation "
 
@@ -821,7 +801,7 @@ C++ includes: IBackground.h
 // File: classIComputation.xml
 %feature("docstring") IComputation "
 
-Interface for a single-threaded computation with given range of SimulationElements and  ProgressHandler.
+Interface for a single-threaded computation with given range of SimulationElements and ProgressHandler.
 
 Controlled by the multi-threading machinery in ISimulation::runSingleSimulation().
 
@@ -1545,154 +1525,6 @@ C++ includes: PoissonNoiseBackground.h
 ";
 
 
-// File: classProcessedLayout.xml
-%feature("docstring") ProcessedLayout "
-
-Data structure that contains preprocessed data for a single layout.
-
-If particles in the layout crossed the limits of the layer slices, these particles will be sliced themselves.
-
-C++ includes: ProcessedLayout.h
-";
-
-%feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(const ParticleLayout &layout, const std::vector< Slice > &slices, double z_ref, const IFresnelMap *p_fresnel_map, bool polarized)
-";
-
-%feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(ProcessedLayout &&other)
-";
-
-%feature("docstring")  ProcessedLayout::~ProcessedLayout "ProcessedLayout::~ProcessedLayout()
-";
-
-%feature("docstring")  ProcessedLayout::numberOfSlices "size_t ProcessedLayout::numberOfSlices() const
-";
-
-%feature("docstring")  ProcessedLayout::surfaceDensity "double ProcessedLayout::surfaceDensity() const
-";
-
-%feature("docstring")  ProcessedLayout::formFactorList "const std::vector< FormFactorCoherentSum > & ProcessedLayout::formFactorList() const
-";
-
-%feature("docstring")  ProcessedLayout::interferenceFunction "const IInterferenceFunction * ProcessedLayout::interferenceFunction() const
-";
-
-%feature("docstring")  ProcessedLayout::regionMap "std::map< size_t, std::vector< HomogeneousRegion > > ProcessedLayout::regionMap() const
-";
-
-
-// File: classProcessedSample.xml
-%feature("docstring") ProcessedSample "
-
-Data structure that contains all the necessary data for scattering calculations.
-
-If the usage of average materials is requested, layers and particles are sliced into multiple slices and the average material is calculated for each slice.
-
-C++ includes: ProcessedSample.h
-";
-
-%feature("docstring")  ProcessedSample::ProcessedSample "ProcessedSample::ProcessedSample(const MultiLayer &sample, const SimulationOptions &options)
-";
-
-%feature("docstring")  ProcessedSample::~ProcessedSample "ProcessedSample::~ProcessedSample()
-";
-
-%feature("docstring")  ProcessedSample::numberOfSlices "size_t ProcessedSample::numberOfSlices() const
-";
-
-%feature("docstring")  ProcessedSample::slices "const std::vector< Slice > & ProcessedSample::slices() const
-";
-
-%feature("docstring")  ProcessedSample::averageSlices "const std::vector< Slice > & ProcessedSample::averageSlices() const
-";
-
-%feature("docstring")  ProcessedSample::layouts "const std::vector< ProcessedLayout > & ProcessedSample::layouts() const
-";
-
-%feature("docstring")  ProcessedSample::fresnelMap "const IFresnelMap * ProcessedSample::fresnelMap() const
-";
-
-%feature("docstring")  ProcessedSample::crossCorrelationLength "double ProcessedSample::crossCorrelationLength() const
-";
-
-%feature("docstring")  ProcessedSample::externalField "kvector_t ProcessedSample::externalField() const
-";
-
-%feature("docstring")  ProcessedSample::bottomRoughness "const LayerRoughness * ProcessedSample::bottomRoughness(size_t i) const
-";
-
-%feature("docstring")  ProcessedSample::sliceTopZ "double ProcessedSample::sliceTopZ(size_t i) const
-";
-
-%feature("docstring")  ProcessedSample::sliceBottomZ "double ProcessedSample::sliceBottomZ(size_t i) const
-";
-
-%feature("docstring")  ProcessedSample::containsMagneticMaterial "bool ProcessedSample::containsMagneticMaterial() const
-";
-
-%feature("docstring")  ProcessedSample::hasRoughness "bool ProcessedSample::hasRoughness() const
-";
-
-%feature("docstring")  ProcessedSample::crossCorrSpectralFun "double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
-
-Fourier transform of the correlation function of roughnesses between the interfaces 
-";
-
-
-// File: classProfileHelper.xml
-%feature("docstring") ProfileHelper "
-
-Object that can generate the material profile of a sample as a function of depth.
-
-The generated profile contains the complex SLD for SLD materials and the parameters delta and beta for refractive index materials
-
-C++ includes: ProfileHelper.h
-";
-
-%feature("docstring")  ProfileHelper::ProfileHelper "ProfileHelper::ProfileHelper(const ProcessedSample &sample)
-";
-
-%feature("docstring")  ProfileHelper::~ProfileHelper "ProfileHelper::~ProfileHelper()
-";
-
-%feature("docstring")  ProfileHelper::calculateProfile "std::vector< complex_t > ProfileHelper::calculateProfile(const std::vector< double > &z_values) const
-";
-
-%feature("docstring")  ProfileHelper::defaultLimits "std::pair< double, double > ProfileHelper::defaultLimits() const
-";
-
-
-// File: classProgressHandler.xml
-%feature("docstring") ProgressHandler "
-
-Maintains information about progress of a computation. Owner is the computation, which periodically calls the thread-safe function incrementDone(..). An application (GUI or script) may subscribe(..) to be informed about progress. It is then periodically called back by inform(..). The return value of inform(..) can be used to request termination of the computation.
-
-C++ includes: ProgressHandler.h
-";
-
-%feature("docstring")  ProgressHandler::ProgressHandler "ProgressHandler::ProgressHandler()
-";
-
-%feature("docstring")  ProgressHandler::ProgressHandler "ProgressHandler::ProgressHandler(const ProgressHandler &other)
-";
-
-%feature("docstring")  ProgressHandler::subscribe "void ProgressHandler::subscribe(ProgressHandler::Callback_t callback)
-";
-
-%feature("docstring")  ProgressHandler::reset "void ProgressHandler::reset()
-";
-
-%feature("docstring")  ProgressHandler::setExpectedNTicks "void ProgressHandler::setExpectedNTicks(size_t n)
-";
-
-%feature("docstring")  ProgressHandler::incrementDone "void ProgressHandler::incrementDone(size_t ticks_done)
-
-Increments number of completed computation steps (ticks). Performs callback (method m_inform) to inform the subscriber about the state of the computation and to obtain as return value a flag that indicates whether to continue the computation. 
-";
-
-%feature("docstring")  ProgressHandler::alive "bool ProgressHandler::alive()
-";
-
-
 // File: classPyBuilderCallback.xml
 %feature("docstring") PyBuilderCallback "
 
@@ -2366,10 +2198,6 @@ Returns kz values for Abeles computation of reflection/transition coefficients.
 ";
 
 
-// File: classSpecularStrategyBuilder.xml
-%feature("docstring") SpecularStrategyBuilder "";
-
-
 // File: classUnitConverter1D.xml
 %feature("docstring") UnitConverter1D "
 
@@ -2481,58 +2309,49 @@ Returns default units to convert to.
 ";
 
 
-// File: namespace_0d23.xml
+// File: namespace_0d15.xml
+
+
+// File: namespace_0d19.xml
 
 
 // File: namespace_0d27.xml
 
 
-// File: namespace_0d29.xml
-
-
-// File: namespace_0d31.xml
-
-
 // File: namespace_0d35.xml
 
 
-// File: namespace_0d39.xml
+// File: namespace_0d40.xml
 
 
-// File: namespace_0d43.xml
+// File: namespace_0d49.xml
 
 
 // File: namespace_0d51.xml
 
 
-// File: namespace_0d56.xml
+// File: namespace_0d55.xml
 
 
-// File: namespace_0d65.xml
+// File: namespace_0d57.xml
 
 
-// File: namespace_0d67.xml
+// File: namespace_0d62.xml
 
 
-// File: namespace_0d71.xml
+// File: namespace_0d64.xml
 
 
-// File: namespace_0d73.xml
+// File: namespace_0d68.xml
+
+
+// File: namespace_0d78.xml
 
 
 // File: namespace_0d80.xml
 
 
-// File: namespace_0d82.xml
-
-
 // File: namespace_0d86.xml
-
-
-// File: namespace_0d96.xml
-
-
-// File: namespace_0d98.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2814,28 +2633,10 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: ConstantBackground_8h.xml
 
 
-// File: DelayedProgressCounter_8cpp.xml
-
-
-// File: DelayedProgressCounter_8h.xml
-
-
 // File: DepthProbeComputation_8cpp.xml
 
 
 // File: DepthProbeComputation_8h.xml
-
-
-// File: DepthProbeComputationTerm_8cpp.xml
-
-
-// File: DepthProbeComputationTerm_8h.xml
-
-
-// File: DepthProbeElement_8cpp.xml
-
-
-// File: DepthProbeElement_8h.xml
 
 
 // File: DWBAComputation_8cpp.xml
@@ -2868,40 +2669,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: IComputation_8h.xml
 
 
-// File: MultiLayerFuncs_8cpp.xml
-%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
-
-Calculate average material profile for given multilayer 
-";
-
-%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
-
-Get default z limits for generating a material profile. 
-";
-
-%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
-
-Generate z values (equidistant) for use in MaterialProfile. 
-";
-
-
-// File: MultiLayerFuncs_8h.xml
-%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
-
-Calculate average material profile for given multilayer 
-";
-
-%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
-
-Get default z limits for generating a material profile. 
-";
-
-%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
-
-Generate z values (equidistant) for use in MaterialProfile. 
-";
-
-
 // File: ParticleLayoutComputation_8cpp.xml
 
 
@@ -2912,30 +2679,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: PoissonNoiseBackground_8h.xml
-
-
-// File: ProcessedLayout_8cpp.xml
-
-
-// File: ProcessedLayout_8h.xml
-
-
-// File: ProcessedSample_8cpp.xml
-
-
-// File: ProcessedSample_8h.xml
-
-
-// File: ProfileHelper_8cpp.xml
-
-
-// File: ProfileHelper_8h.xml
-
-
-// File: ProgressHandler_8cpp.xml
-
-
-// File: ProgressHandler_8h.xml
 
 
 // File: RoughMultiLayerComputation_8cpp.xml
@@ -2950,16 +2693,16 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: SpecularComputation_8h.xml
 
 
-// File: SpecularComputationTerm_8cpp.xml
+// File: DepthProbeElement_8cpp.xml
 
 
-// File: SpecularComputationTerm_8h.xml
+// File: DepthProbeElement_8h.xml
 
 
-// File: SpecularStrategyBuilder_8cpp.xml
+// File: SpecularSimulationElement_8cpp.xml
 
 
-// File: SpecularStrategyBuilder_8h.xml
+// File: SpecularSimulationElement_8h.xml
 
 
 // File: ExportToPython_8cpp.xml
@@ -3067,12 +2810,6 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: QSpecScan_8h.xml
 
 
-// File: SpecularSimulationElement_8cpp.xml
-
-
-// File: SpecularSimulationElement_8h.xml
-
-
 // File: UnitConverter1D_8cpp.xml
 
 
@@ -3139,10 +2876,25 @@ Generate z values (equidistant) for use in MaterialProfile.
 // File: UnitConverterUtils_8h.xml
 
 
+// File: DepthProbeComputationTerm_8cpp.xml
+
+
+// File: DepthProbeComputationTerm_8h.xml
+
+
+// File: SpecularComputationTerm_8cpp.xml
+
+
+// File: SpecularComputationTerm_8h.xml
+
+
 // File: dir_7de90f35ae2a2c7b4fa95823d333cc96.xml
 
 
 // File: dir_c6310732a22f63c0c2fc5595561e68f1.xml
+
+
+// File: dir_e40015403c3f1f9058463bc2c73ff8d5.xml
 
 
 // File: dir_cca9b87b2505f372a6ce58947a507789.xml
@@ -3155,4 +2907,7 @@ Generate z values (equidistant) for use in MaterialProfile.
 
 
 // File: dir_d7a24665a95cfc15308ebd7b07b5ebd6.xml
+
+
+// File: dir_52128420a621ebf8ad4a4626c50b78b3.xml
 

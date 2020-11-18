@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_ISAMPLE_H
 #define BORNAGAIN_SAMPLE_SCATTERING_ISAMPLE_H
@@ -38,6 +38,9 @@ public:
 
     //! Returns set of unique materials contained in this ISample.
     std::vector<const Material*> containedMaterials() const;
+
+    //! Returns true if there is any magnetic material in this ISample.
+    bool isMagnetic() const;
 };
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_ISAMPLE_H

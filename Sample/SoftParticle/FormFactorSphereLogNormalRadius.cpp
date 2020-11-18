@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/SoftParticle/FormFactorSphereLogNormalRadius.h"
 #include "Param/Distrib/Distributions.h"
@@ -20,7 +20,7 @@
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(const std::vector<double> P,
                                                                  size_t n_samples)
-    : IFormFactorBorn({"FormFactorSphereLogNormalRadius",
+    : IBornFF({"FormFactorSphereLogNormalRadius",
                        "class_tooltip",
                        {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
                         {"ScaleParameter", "", "para_tooltip", -INF, +INF, 0}}},

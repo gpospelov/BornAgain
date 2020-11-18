@@ -376,6 +376,26 @@ Creates a new clipped axis.
 ";
 
 
+// File: classDelayedProgressCounter.xml
+%feature("docstring") DelayedProgressCounter "
+
+Counter for reporting progress (with delay interval) in a threaded computation.
+
+C++ includes: DelayedProgressCounter.h
+";
+
+%feature("docstring")  DelayedProgressCounter::DelayedProgressCounter "DelayedProgressCounter::DelayedProgressCounter(ProgressHandler *p_progress, size_t interval)
+";
+
+%feature("docstring")  DelayedProgressCounter::~DelayedProgressCounter "DelayedProgressCounter::~DelayedProgressCounter()
+";
+
+%feature("docstring")  DelayedProgressCounter::stepProgress "void DelayedProgressCounter::stepProgress()
+
+Increments inner counter; at regular intervals updates progress handler. 
+";
+
+
 // File: classExceptions_1_1DomainErrorException.xml
 %feature("docstring") Exceptions::DomainErrorException "";
 
@@ -784,6 +804,38 @@ Gets the polarization analyzer operator (in spin basis along z-axis)
 ";
 
 
+// File: classProgressHandler.xml
+%feature("docstring") ProgressHandler "
+
+Maintains information about progress of a computation. Owner is the computation, which periodically calls the thread-safe function incrementDone(..). An application (GUI or script) may subscribe(..) to be informed about progress. It is then periodically called back by inform(..). The return value of inform(..) can be used to request termination of the computation.
+
+C++ includes: ProgressHandler.h
+";
+
+%feature("docstring")  ProgressHandler::ProgressHandler "ProgressHandler::ProgressHandler()
+";
+
+%feature("docstring")  ProgressHandler::ProgressHandler "ProgressHandler::ProgressHandler(const ProgressHandler &other)
+";
+
+%feature("docstring")  ProgressHandler::subscribe "void ProgressHandler::subscribe(ProgressHandler::Callback_t callback)
+";
+
+%feature("docstring")  ProgressHandler::reset "void ProgressHandler::reset()
+";
+
+%feature("docstring")  ProgressHandler::setExpectedNTicks "void ProgressHandler::setExpectedNTicks(size_t n)
+";
+
+%feature("docstring")  ProgressHandler::incrementDone "void ProgressHandler::incrementDone(size_t ticks_done)
+
+Increments number of completed computation steps (ticks). Performs callback (method m_inform) to inform the subscriber about the state of the computation and to obtain as return value a flag that indicates whether to continue the computation. 
+";
+
+%feature("docstring")  ProgressHandler::alive "bool ProgressHandler::alive()
+";
+
+
 // File: classRealIntegrator.xml
 %feature("docstring") RealIntegrator "
 
@@ -1137,7 +1189,7 @@ Creates a new clipped axis.
 ";
 
 
-// File: namespace_0d30.xml
+// File: namespace_0d34.xml
 
 
 // File: namespacealgo.xml
@@ -1513,6 +1565,18 @@ global helper function for comparison of axes
 // File: SimulationElement_8h.xml
 
 
+// File: DelayedProgressCounter_8cpp.xml
+
+
+// File: DelayedProgressCounter_8h.xml
+
+
+// File: ProgressHandler_8cpp.xml
+
+
+// File: ProgressHandler_8h.xml
+
+
 // File: CloneableVector_8h.xml
 
 
@@ -1643,6 +1707,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_ec49f598ebf9445998ce86a14e7c0417.xml
+
+
+// File: dir_218b7a826f06e97e45b5c3355c035233.xml
 
 
 // File: dir_38a5ec4dd9a60e867dacdb92549a13e0.xml

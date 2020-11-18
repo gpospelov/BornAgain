@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTOR_H
 #define BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTOR_H
@@ -29,10 +29,7 @@ class WavevectorInfo;
 //!
 //! The actual form factor is returned by the complex valued function IFormFactor::evaluate,
 //! which depends on the incoming and outgoing wave vectors ki and kf.
-//! If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
-//!
-//! Other children besides IBornFormFactor are IFormFactorDecorator, FormFactorWeighted,
-//! FormFactorDWBA, FormFactorDWBAPol and FormFactorCrystal.
+//! If it only depends on the scattering vector q=ki-kf, then it is a IBornFF.
 
 //! @ingroup formfactors_internal
 

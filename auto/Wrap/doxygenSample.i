@@ -258,6 +258,138 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 
+// File: classComputeBA.xml
+%feature("docstring") ComputeBA "
+
+Evaluates the scalar Born form factor.
+
+C++ includes: ComputeBA.h
+";
+
+%feature("docstring")  ComputeBA::ComputeBA "ComputeBA::ComputeBA(const IFormFactor &ff)
+";
+
+%feature("docstring")  ComputeBA::~ComputeBA "ComputeBA::~ComputeBA() override
+";
+
+%feature("docstring")  ComputeBA::clone "ComputeBA * ComputeBA::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  ComputeBA::accept "void ComputeBA::accept(INodeVisitor *visitor) const override
+";
+
+%feature("docstring")  ComputeBA::evaluate "complex_t ComputeBA::evaluate(const WavevectorInfo &wavevectors) const override
+
+Calculates and returns a form factor calculation in BA. 
+";
+
+
+// File: classComputeBAPol.xml
+%feature("docstring") ComputeBAPol "
+
+Evaluates the matrix BA term in a polarized  IFormFactor.
+
+C++ includes: ComputeBAPol.h
+";
+
+%feature("docstring")  ComputeBAPol::ComputeBAPol "ComputeBAPol::ComputeBAPol(const IFormFactor &ff)
+";
+
+%feature("docstring")  ComputeBAPol::~ComputeBAPol "ComputeBAPol::~ComputeBAPol() override
+";
+
+%feature("docstring")  ComputeBAPol::clone "ComputeBAPol * ComputeBAPol::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  ComputeBAPol::accept "void ComputeBAPol::accept(INodeVisitor *visitor) const override
+";
+
+%feature("docstring")  ComputeBAPol::evaluate "complex_t ComputeBAPol::evaluate(const WavevectorInfo &wavevectors) const override
+
+Throws not-implemented exception. 
+";
+
+%feature("docstring")  ComputeBAPol::evaluatePol "Eigen::Matrix2cd ComputeBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
+
+Calculates and returns a polarized form factor calculation in BA. 
+";
+
+
+// File: classComputeDWBA.xml
+%feature("docstring") ComputeDWBA "
+
+Evaluates the coherent sum of the four DWBA terms in a scalar  IFormFactor.
+
+C++ includes: ComputeDWBA.h
+";
+
+%feature("docstring")  ComputeDWBA::ComputeDWBA "ComputeDWBA::ComputeDWBA(const IFormFactor &ff)
+";
+
+%feature("docstring")  ComputeDWBA::~ComputeDWBA "ComputeDWBA::~ComputeDWBA() override
+";
+
+%feature("docstring")  ComputeDWBA::clone "ComputeDWBA * ComputeDWBA::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  ComputeDWBA::accept "void ComputeDWBA::accept(INodeVisitor *visitor) const override
+";
+
+%feature("docstring")  ComputeDWBA::evaluate "complex_t ComputeDWBA::evaluate(const WavevectorInfo &wavevectors) const override
+
+Calculates and returns a form factor calculation in DWBA. 
+";
+
+%feature("docstring")  ComputeDWBA::setSpecularInfo "void ComputeDWBA::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
+
+Sets reflection/transmission info. 
+";
+
+
+// File: classComputeDWBAPol.xml
+%feature("docstring") ComputeDWBAPol "
+
+Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized  IFormFactor.
+
+C++ includes: ComputeDWBAPol.h
+";
+
+%feature("docstring")  ComputeDWBAPol::ComputeDWBAPol "ComputeDWBAPol::ComputeDWBAPol(const IFormFactor &ff)
+";
+
+%feature("docstring")  ComputeDWBAPol::~ComputeDWBAPol "ComputeDWBAPol::~ComputeDWBAPol() override
+";
+
+%feature("docstring")  ComputeDWBAPol::clone "ComputeDWBAPol * ComputeDWBAPol::clone() const override
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  ComputeDWBAPol::accept "void ComputeDWBAPol::accept(INodeVisitor *visitor) const override
+";
+
+%feature("docstring")  ComputeDWBAPol::evaluate "complex_t ComputeDWBAPol::evaluate(const WavevectorInfo &wavevectors) const override
+
+Throws not-implemented exception. 
+";
+
+%feature("docstring")  ComputeDWBAPol::evaluatePol "Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
+
+Calculates and returns a polarized form factor calculation in DWBA. 
+";
+
+%feature("docstring")  ComputeDWBAPol::setSpecularInfo "void ComputeDWBAPol::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
+
+Sets reflection/transmission info. 
+";
+
+
 // File: classConesWithLimitsDistributionBuilder.xml
 %feature("docstring") ConesWithLimitsDistributionBuilder "
 
@@ -644,64 +776,6 @@ Returns a clone of this  ISample object.
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::getAlpha "double FormFactorAnisoPyramid::getAlpha() const
-";
-
-
-// File: classFormFactorBAPol.xml
-%feature("docstring") FormFactorBAPol "
-
-Evaluates the matrix BA term in a polarized  IFormFactor.
-
-C++ includes: FormFactorBAPol.h
-";
-
-%feature("docstring")  FormFactorBAPol::FormFactorBAPol "FormFactorBAPol::FormFactorBAPol(const IFormFactor &form_factor)
-";
-
-%feature("docstring")  FormFactorBAPol::~FormFactorBAPol "FormFactorBAPol::~FormFactorBAPol() override
-";
-
-%feature("docstring")  FormFactorBAPol::clone "FormFactorBAPol * FormFactorBAPol::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorBAPol::accept "void FormFactorBAPol::accept(INodeVisitor *visitor) const override
-";
-
-%feature("docstring")  FormFactorBAPol::setAmbientMaterial "void FormFactorBAPol::setAmbientMaterial(const Material &material) override
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  FormFactorBAPol::evaluate "complex_t FormFactorBAPol::evaluate(const WavevectorInfo &wavevectors) const override
-
-Throws not-implemented exception. 
-";
-
-%feature("docstring")  FormFactorBAPol::evaluatePol "Eigen::Matrix2cd FormFactorBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
-
-Calculates and returns a polarized form factor calculation in BA. 
-";
-
-%feature("docstring")  FormFactorBAPol::volume "double FormFactorBAPol::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorBAPol::radialExtension "double FormFactorBAPol::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorBAPol::bottomZ "double FormFactorBAPol::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorBAPol::topZ "double FormFactorBAPol::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 ";
 
 
@@ -1237,7 +1311,7 @@ Decorates a scalar formfactor with the correct factor for the material's refract
 C++ includes: FormFactorDecoratorMaterial.h
 ";
 
-%feature("docstring")  FormFactorDecoratorMaterial::FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &form_factor)
+%feature("docstring")  FormFactorDecoratorMaterial::FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor &ff)
 ";
 
 %feature("docstring")  FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial "FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() override final
@@ -1280,7 +1354,7 @@ Decorates a form factor with a position dependent phase factor.
 C++ includes: FormFactorDecoratorPositionFactor.h
 ";
 
-%feature("docstring")  FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor "FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor &form_factor, const kvector_t &position)
+%feature("docstring")  FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor "FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor &ff, const kvector_t &position)
 ";
 
 %feature("docstring")  FormFactorDecoratorPositionFactor::clone "FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const override final
@@ -1320,7 +1394,7 @@ Equips a form factor with a rotation.
 C++ includes: FormFactorDecoratorRotation.h
 ";
 
-%feature("docstring")  FormFactorDecoratorRotation::FormFactorDecoratorRotation "FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &form_factor, const IRotation &rotation)
+%feature("docstring")  FormFactorDecoratorRotation::FormFactorDecoratorRotation "FormFactorDecoratorRotation::FormFactorDecoratorRotation(const IFormFactor &ff, const IRotation &rotation)
 
 Constructor, setting form factor and rotation. 
 ";
@@ -1423,127 +1497,6 @@ Returns the z-coordinate of the lowest point in this shape after a given rotatio
 %feature("docstring")  FormFactorDot::evaluate_for_q "complex_t FormFactorDot::evaluate_for_q(cvector_t q) const override final
 
 Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
-// File: classFormFactorDWBA.xml
-%feature("docstring") FormFactorDWBA "
-
-Evaluates the coherent sum of the four DWBA terms in a scalar  IFormFactor.
-
-C++ includes: FormFactorDWBA.h
-";
-
-%feature("docstring")  FormFactorDWBA::FormFactorDWBA "FormFactorDWBA::FormFactorDWBA(const IFormFactor &form_factor)
-";
-
-%feature("docstring")  FormFactorDWBA::~FormFactorDWBA "FormFactorDWBA::~FormFactorDWBA() override
-";
-
-%feature("docstring")  FormFactorDWBA::clone "FormFactorDWBA * FormFactorDWBA::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDWBA::accept "void FormFactorDWBA::accept(INodeVisitor *visitor) const override
-";
-
-%feature("docstring")  FormFactorDWBA::setAmbientMaterial "void FormFactorDWBA::setAmbientMaterial(const Material &material) override
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  FormFactorDWBA::evaluate "complex_t FormFactorDWBA::evaluate(const WavevectorInfo &wavevectors) const override
-
-Calculates and returns a form factor calculation in DWBA. 
-";
-
-%feature("docstring")  FormFactorDWBA::volume "double FormFactorDWBA::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorDWBA::radialExtension "double FormFactorDWBA::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorDWBA::bottomZ "double FormFactorDWBA::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDWBA::topZ "double FormFactorDWBA::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDWBA::setSpecularInfo "void FormFactorDWBA::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
-
-Sets reflection/transmission info. 
-";
-
-
-// File: classFormFactorDWBAPol.xml
-%feature("docstring") FormFactorDWBAPol "
-
-Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized  IFormFactor.
-
-C++ includes: FormFactorDWBAPol.h
-";
-
-%feature("docstring")  FormFactorDWBAPol::FormFactorDWBAPol "FormFactorDWBAPol::FormFactorDWBAPol(const IFormFactor &form_factor)
-";
-
-%feature("docstring")  FormFactorDWBAPol::~FormFactorDWBAPol "FormFactorDWBAPol::~FormFactorDWBAPol() override
-";
-
-%feature("docstring")  FormFactorDWBAPol::clone "FormFactorDWBAPol * FormFactorDWBAPol::clone() const override
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::accept "void FormFactorDWBAPol::accept(INodeVisitor *visitor) const override
-";
-
-%feature("docstring")  FormFactorDWBAPol::setAmbientMaterial "void FormFactorDWBAPol::setAmbientMaterial(const Material &material) override
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::evaluate "complex_t FormFactorDWBAPol::evaluate(const WavevectorInfo &wavevectors) const override
-
-Throws not-implemented exception. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::evaluatePol "Eigen::Matrix2cd FormFactorDWBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
-
-Calculates and returns a polarized form factor calculation in DWBA. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::volume "double FormFactorDWBAPol::volume() const override
-
-Returns the total volume of the particle of this form factor's shape. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::radialExtension "double FormFactorDWBAPol::radialExtension() const override
-
-Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
-";
-
-%feature("docstring")  FormFactorDWBAPol::bottomZ "double FormFactorDWBAPol::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::topZ "double FormFactorDWBAPol::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  FormFactorDWBAPol::setSpecularInfo "void FormFactorDWBAPol::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
-
-Sets reflection/transmission info. 
 ";
 
 
@@ -3031,6 +2984,93 @@ Applies the given rotation to the particle.
 ";
 
 
+// File: classIBornFF.xml
+%feature("docstring") IBornFF "
+
+Pure virtual base class for Born form factors.
+
+In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
+
+C++ includes: IBornFF.h
+";
+
+%feature("docstring")  IBornFF::IBornFF "IBornFF::IBornFF()
+";
+
+%feature("docstring")  IBornFF::IBornFF "IBornFF::IBornFF(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  IBornFF::~IBornFF "IBornFF::~IBornFF()
+";
+
+%feature("docstring")  IBornFF::clone "IBornFF* IBornFF::clone() const override=0
+
+Returns a clone of this  ISample object. 
+";
+
+%feature("docstring")  IBornFF::setAmbientMaterial "void IBornFF::setAmbientMaterial(const Material &) override
+
+Passes the material in which this particle is embedded. 
+";
+
+%feature("docstring")  IBornFF::evaluate "complex_t IBornFF::evaluate(const WavevectorInfo &wavevectors) const override
+
+Returns scattering amplitude for complex wavevectors ki, kf. 
+";
+
+%feature("docstring")  IBornFF::evaluatePol "Eigen::Matrix2cd IBornFF::evaluatePol(const WavevectorInfo &wavevectors) const override
+
+Returns scattering amplitude for matrix interactions. 
+";
+
+%feature("docstring")  IBornFF::bottomZ "double IBornFF::bottomZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IBornFF::topZ "double IBornFF::topZ(const IRotation &rotation) const override
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IBornFF::evaluate_for_q "virtual complex_t IBornFF::evaluate_for_q(cvector_t q) const =0
+
+Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
+";
+
+
+// File: classIComputeFF.xml
+%feature("docstring") IComputeFF "";
+
+%feature("docstring")  IComputeFF::IComputeFF "IComputeFF::IComputeFF()=delete
+";
+
+%feature("docstring")  IComputeFF::setAmbientMaterial "void IComputeFF::setAmbientMaterial(const Material &material) final
+
+Passes the material in which this particle is embedded. 
+";
+
+%feature("docstring")  IComputeFF::volume "double IComputeFF::volume() const final
+
+Returns the total volume of the particle of this form factor's shape. 
+";
+
+%feature("docstring")  IComputeFF::radialExtension "double IComputeFF::radialExtension() const final
+
+Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
+";
+
+%feature("docstring")  IComputeFF::bottomZ "double IComputeFF::bottomZ(const IRotation &rotation) const final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+%feature("docstring")  IComputeFF::topZ "double IComputeFF::topZ(const IRotation &rotation) const final
+
+Returns the z-coordinate of the lowest point in this shape after a given rotation. 
+";
+
+
 // File: classICosineRipple.xml
 %feature("docstring") ICosineRipple "
 
@@ -3107,9 +3147,7 @@ Returns true if rotation matrix is identity matrix (no rotations)
 
 Pure virtual base class for all form factors.
 
-The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a IBornFormFactor.
-
-Other children besides IBornFormFactor are  IFormFactorDecorator,  FormFactorWeighted,  FormFactorDWBA,  FormFactorDWBAPol and  FormFactorCrystal.
+The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a  IBornFF.
 
 C++ includes: IFormFactor.h
 ";
@@ -3174,61 +3212,6 @@ Sets reflection/transmission info.
 ";
 
 
-// File: classIFormFactorBorn.xml
-%feature("docstring") IFormFactorBorn "
-
-Pure virtual base class for Born form factors.
-
-In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
-
-C++ includes: IFormFactorBorn.h
-";
-
-%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn()
-";
-
-%feature("docstring")  IFormFactorBorn::IFormFactorBorn "IFormFactorBorn::IFormFactorBorn(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  IFormFactorBorn::~IFormFactorBorn "IFormFactorBorn::~IFormFactorBorn()
-";
-
-%feature("docstring")  IFormFactorBorn::clone "IFormFactorBorn* IFormFactorBorn::clone() const override=0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  IFormFactorBorn::setAmbientMaterial "void IFormFactorBorn::setAmbientMaterial(const Material &) override
-
-Passes the material in which this particle is embedded. 
-";
-
-%feature("docstring")  IFormFactorBorn::evaluate "complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for complex wavevectors ki, kf. 
-";
-
-%feature("docstring")  IFormFactorBorn::evaluatePol "Eigen::Matrix2cd IFormFactorBorn::evaluatePol(const WavevectorInfo &wavevectors) const override
-
-Returns scattering amplitude for matrix interactions. 
-";
-
-%feature("docstring")  IFormFactorBorn::bottomZ "double IFormFactorBorn::bottomZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorBorn::topZ "double IFormFactorBorn::topZ(const IRotation &rotation) const override
-
-Returns the z-coordinate of the lowest point in this shape after a given rotation. 
-";
-
-%feature("docstring")  IFormFactorBorn::evaluate_for_q "virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0
-
-Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
-";
-
-
 // File: classIFormFactorDecorator.xml
 %feature("docstring") IFormFactorDecorator "
 
@@ -3239,7 +3222,7 @@ This class is designed according to the Decorator Pattern. It inherits from  IFo
 C++ includes: IFormFactorDecorator.h
 ";
 
-%feature("docstring")  IFormFactorDecorator::IFormFactorDecorator "IFormFactorDecorator::IFormFactorDecorator(const IFormFactor &form_factor)
+%feature("docstring")  IFormFactorDecorator::IFormFactorDecorator "IFormFactorDecorator::IFormFactorDecorator(const IFormFactor &ff)
 ";
 
 %feature("docstring")  IFormFactorDecorator::~IFormFactorDecorator "IFormFactorDecorator::~IFormFactorDecorator() override
@@ -4528,6 +4511,11 @@ Returns nullptr, unless overwritten to return a specific material.
 %feature("docstring")  ISample::containedMaterials "std::vector< const Material * > ISample::containedMaterials() const
 
 Returns set of unique materials contained in this  ISample. 
+";
+
+%feature("docstring")  ISample::isMagnetic "bool ISample::isMagnetic() const
+
+Returns true if there is any magnetic material in this  ISample. 
 ";
 
 
@@ -6349,6 +6337,122 @@ needed for topZ, bottomZ computation
 ";
 
 
+// File: classProcessedLayout.xml
+%feature("docstring") ProcessedLayout "
+
+Data structure that contains preprocessed data for a single layout.
+
+If particles in the layout crossed the limits of the layer slices, these particles will be sliced themselves.
+
+C++ includes: ProcessedLayout.h
+";
+
+%feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(const ParticleLayout &layout, const std::vector< Slice > &slices, double z_ref, const IFresnelMap *p_fresnel_map, bool polarized)
+";
+
+%feature("docstring")  ProcessedLayout::ProcessedLayout "ProcessedLayout::ProcessedLayout(ProcessedLayout &&other)
+";
+
+%feature("docstring")  ProcessedLayout::~ProcessedLayout "ProcessedLayout::~ProcessedLayout()
+";
+
+%feature("docstring")  ProcessedLayout::numberOfSlices "size_t ProcessedLayout::numberOfSlices() const
+";
+
+%feature("docstring")  ProcessedLayout::surfaceDensity "double ProcessedLayout::surfaceDensity() const
+";
+
+%feature("docstring")  ProcessedLayout::formFactorList "const std::vector< FormFactorCoherentSum > & ProcessedLayout::formFactorList() const
+";
+
+%feature("docstring")  ProcessedLayout::interferenceFunction "const IInterferenceFunction * ProcessedLayout::interferenceFunction() const
+";
+
+%feature("docstring")  ProcessedLayout::regionMap "std::map< size_t, std::vector< HomogeneousRegion > > ProcessedLayout::regionMap() const
+";
+
+
+// File: classProcessedSample.xml
+%feature("docstring") ProcessedSample "
+
+Data structure that contains all the necessary data for scattering calculations.
+
+If the usage of average materials is requested, layers and particles are sliced into multiple slices and the average material is calculated for each slice.
+
+C++ includes: ProcessedSample.h
+";
+
+%feature("docstring")  ProcessedSample::ProcessedSample "ProcessedSample::ProcessedSample(const MultiLayer &sample, const SimulationOptions &options)
+";
+
+%feature("docstring")  ProcessedSample::~ProcessedSample "ProcessedSample::~ProcessedSample()
+";
+
+%feature("docstring")  ProcessedSample::numberOfSlices "size_t ProcessedSample::numberOfSlices() const
+";
+
+%feature("docstring")  ProcessedSample::slices "const std::vector< Slice > & ProcessedSample::slices() const
+";
+
+%feature("docstring")  ProcessedSample::averageSlices "const std::vector< Slice > & ProcessedSample::averageSlices() const
+";
+
+%feature("docstring")  ProcessedSample::layouts "const std::vector< ProcessedLayout > & ProcessedSample::layouts() const
+";
+
+%feature("docstring")  ProcessedSample::fresnelMap "const IFresnelMap * ProcessedSample::fresnelMap() const
+";
+
+%feature("docstring")  ProcessedSample::crossCorrelationLength "double ProcessedSample::crossCorrelationLength() const
+";
+
+%feature("docstring")  ProcessedSample::externalField "kvector_t ProcessedSample::externalField() const
+";
+
+%feature("docstring")  ProcessedSample::bottomRoughness "const LayerRoughness * ProcessedSample::bottomRoughness(size_t i) const
+";
+
+%feature("docstring")  ProcessedSample::sliceTopZ "double ProcessedSample::sliceTopZ(size_t i) const
+";
+
+%feature("docstring")  ProcessedSample::sliceBottomZ "double ProcessedSample::sliceBottomZ(size_t i) const
+";
+
+%feature("docstring")  ProcessedSample::containsMagneticMaterial "bool ProcessedSample::containsMagneticMaterial() const
+";
+
+%feature("docstring")  ProcessedSample::hasRoughness "bool ProcessedSample::hasRoughness() const
+";
+
+%feature("docstring")  ProcessedSample::crossCorrSpectralFun "double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
+
+Fourier transform of the correlation function of roughnesses between the interfaces 
+";
+
+
+// File: classProfileHelper.xml
+%feature("docstring") ProfileHelper "
+
+Object that can generate the material profile of a sample as a function of depth.
+
+The generated profile contains the complex SLD for SLD materials and the parameters delta and beta for refractive index materials
+
+C++ includes: ProfileHelper.h
+";
+
+%feature("docstring")  ProfileHelper::ProfileHelper "ProfileHelper::ProfileHelper(const ProcessedSample &sample)
+";
+
+%feature("docstring")  ProfileHelper::~ProfileHelper "ProfileHelper::~ProfileHelper()
+";
+
+%feature("docstring")  ProfileHelper::calculateProfile "std::vector< complex_t > ProfileHelper::calculateProfile(const std::vector< double > &z_values) const
+";
+
+%feature("docstring")  ProfileHelper::defaultLimits "std::pair< double, double > ProfileHelper::defaultLimits() const
+";
+
+
 // File: classRadialParaCrystalBuilder.xml
 %feature("docstring") RadialParaCrystalBuilder "
 
@@ -7137,7 +7241,7 @@ C++ includes: SlicedParticle.h
 
 Nested structure that holds slicing effects on position and removed parts.
 
-C++ includes: IFormFactorBorn.h
+C++ includes: IBornFF.h
 ";
 
 
@@ -7263,6 +7367,10 @@ Implements the transition function that includes the analytical roughness model 
 
 C++ includes: SpecularScalarTanhStrategy.h
 ";
+
+
+// File: classSpecularStrategyBuilder.xml
+%feature("docstring") SpecularStrategyBuilder "";
 
 
 // File: classSpheresWithLimitsDistributionBuilder.xml
@@ -7544,49 +7652,43 @@ C++ includes: ZLimits.h
 // File: namespace_0d171.xml
 
 
-// File: namespace_0d192.xml
+// File: namespace_0d191.xml
 
 
-// File: namespace_0d194.xml
+// File: namespace_0d193.xml
+
+
+// File: namespace_0d195.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d204.xml
+// File: namespace_0d200.xml
 
 
-// File: namespace_0d220.xml
+// File: namespace_0d202.xml
 
 
-// File: namespace_0d222.xml
+// File: namespace_0d212.xml
 
 
-// File: namespace_0d229.xml
+// File: namespace_0d224.xml
 
 
-// File: namespace_0d247.xml
+// File: namespace_0d236.xml
+
+
+// File: namespace_0d241.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d255.xml
-
-
-// File: namespace_0d265.xml
+// File: namespace_0d259.xml
 
 
 // File: namespace_0d267.xml
-
-
-// File: namespace_0d269.xml
-
-
-// File: namespace_0d271.xml
-
-
-// File: namespace_0d273.xml
 
 
 // File: namespace_0d277.xml
@@ -7598,22 +7700,37 @@ C++ includes: ZLimits.h
 // File: namespace_0d281.xml
 
 
-// File: namespace_0d293.xml
+// File: namespace_0d283.xml
 
 
-// File: namespace_0d299.xml
+// File: namespace_0d285.xml
 
 
-// File: namespace_0d303.xml
+// File: namespace_0d289.xml
+
+
+// File: namespace_0d291.xml
+
+
+// File: namespace_0d295.xml
+
+
+// File: namespace_0d307.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d321.xml
+// File: namespace_0d313.xml
 
 
-// File: namespace_0d340.xml
+// File: namespace_0d317.xml
+
+
+// File: namespace_0d335.xml
+
+
+// File: namespace_0d354.xml
 
 
 // File: namespace_0d37.xml
@@ -8450,6 +8567,58 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: TRange_8h.xml
 
 
+// File: MultiLayerFuncs_8cpp.xml
+%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+Calculate average material profile for given multilayer 
+";
+
+%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+Get default z limits for generating a material profile. 
+";
+
+%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+
+Generate z values (equidistant) for use in MaterialProfile. 
+";
+
+
+// File: MultiLayerFuncs_8h.xml
+%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+Calculate average material profile for given multilayer 
+";
+
+%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+Get default z limits for generating a material profile. 
+";
+
+%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+
+Generate z values (equidistant) for use in MaterialProfile. 
+";
+
+
+// File: ProcessedLayout_8cpp.xml
+
+
+// File: ProcessedLayout_8h.xml
+
+
+// File: ProcessedSample_8cpp.xml
+
+
+// File: ProcessedSample_8h.xml
+
+
+// File: ProfileHelper_8cpp.xml
+
+
+// File: ProfileHelper_8h.xml
+
+
 // File: ILayerRTCoefficients_8h.xml
 
 
@@ -8513,10 +8682,28 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: SampleProvider_8h.xml
 
 
-// File: FormFactorBAPol_8cpp.xml
+// File: ComputeBA_8cpp.xml
 
 
-// File: FormFactorBAPol_8h.xml
+// File: ComputeBA_8h.xml
+
+
+// File: ComputeBAPol_8cpp.xml
+
+
+// File: ComputeBAPol_8h.xml
+
+
+// File: ComputeDWBA_8cpp.xml
+
+
+// File: ComputeDWBA_8h.xml
+
+
+// File: ComputeDWBAPol_8cpp.xml
+
+
+// File: ComputeDWBAPol_8h.xml
 
 
 // File: FormFactorDecoratorMaterial_8cpp.xml
@@ -8537,16 +8724,16 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: FormFactorDecoratorRotation_8h.xml
 
 
-// File: FormFactorDWBA_8cpp.xml
+// File: IBornFF_8cpp.xml
 
 
-// File: FormFactorDWBA_8h.xml
+// File: IBornFF_8h.xml
 
 
-// File: FormFactorDWBAPol_8cpp.xml
+// File: IComputeFF_8cpp.xml
 
 
-// File: FormFactorDWBAPol_8h.xml
+// File: IComputeFF_8h.xml
 
 
 // File: IFormFactor_8cpp.xml
@@ -8557,12 +8744,6 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: IFormFactor_8h.xml
 %feature("docstring")  createTransformedFormFactor "IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)
 ";
-
-
-// File: IFormFactorBorn_8cpp.xml
-
-
-// File: IFormFactorBorn_8h.xml
 
 
 // File: IFormFactorDecorator_8h.xml
@@ -8774,6 +8955,12 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: SpecularScalarTanhStrategy_8h.xml
+
+
+// File: SpecularStrategyBuilder_8cpp.xml
+
+
+// File: SpecularStrategyBuilder_8h.xml
 
 
 // File: BoxCompositionBuilder_8cpp.xml
@@ -9013,6 +9200,9 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 
 
 // File: dir_61bfb933e72dfe3586b97d80db501038.xml
+
+
+// File: dir_ccb77c5fc9fada2051f2fad6bbe3a645.xml
 
 
 // File: dir_52f00155c6a6846eb7173e2ee1c8b0ff.xml

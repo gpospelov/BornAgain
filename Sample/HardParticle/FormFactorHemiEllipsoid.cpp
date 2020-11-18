@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorHemiEllipsoid.h"
 #include "Base/Const/MathConstants.h"
@@ -20,7 +20,7 @@
 #include <limits>
 
 FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(const std::vector<double> P)
-    : IFormFactorBorn({"HemiEllipsoid",
+    : IBornFF({"HemiEllipsoid",
                        "actually a spheroid, truncated at central xy plane",
                        {{"RadiusX", "nm", "radius in x direction", 0, +INF, 0},
                         {"RadiusY", "nm", "radius in y direction", 0, +INF, 0},

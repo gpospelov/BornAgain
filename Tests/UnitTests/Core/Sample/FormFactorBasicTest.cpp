@@ -7,7 +7,7 @@
 class FormFactorBasicTest : public ::testing::Test
 {
 protected:
-    void test_eps_q(const IFormFactorBorn* p, cvector_t qdir, double eps)
+    void test_eps_q(const IBornFF* p, cvector_t qdir, double eps)
     {
         cvector_t q = eps * qdir;
         complex_t ff = p->evaluate_for_q(q);
@@ -19,7 +19,7 @@ protected:
         EXPECT_GT(real(ff), V * (1 - std::max(3e-16, 2 * eps * R * eps * R)));
         EXPECT_LT(std::abs(imag(ff)), 2 * eps * V * R);
     }
-    void test_small_q(const IFormFactorBorn* p, complex_t x, complex_t y, complex_t z)
+    void test_small_q(const IBornFF* p, complex_t x, complex_t y, complex_t z)
     {
         cvector_t q(x, y, z);
         test_eps_q(p, q, 1e-14);
@@ -27,7 +27,7 @@ protected:
         test_eps_q(p, q, 1e-8);
         test_eps_q(p, q, 1e-5);
     }
-    void test_ff(const IFormFactorBorn* p)
+    void test_ff(const IBornFF* p)
     {
         complex_t ff0 = p->evaluate_for_q(cvector_t(0., 0., 0.));
         EXPECT_EQ(imag(ff0), 0.);
@@ -55,7 +55,7 @@ protected:
         test_small_q(p, 1, 1, 1);
         test_small_q(p, .7, .8, .9);
 
-        IFormFactorBorn* clone = p->clone();
+        IBornFF* clone = p->clone();
         EXPECT_EQ(clone->volume(), V);
         cvector_t q(.1, .2, complex_t(.3, .004));
         EXPECT_EQ(clone->evaluate_for_q(q), p->evaluate_for_q(q));

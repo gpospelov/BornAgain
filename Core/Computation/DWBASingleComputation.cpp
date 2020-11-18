@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,10 +10,10 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Computation/DWBASingleComputation.h"
-#include "Core/Computation/DelayedProgressCounter.h"
+#include "Base/Progress/DelayedProgressCounter.h"
 #include "Core/Computation/GISASSpecularComputation.h"
 #include "Core/Computation/ParticleLayoutComputation.h"
 #include "Core/Computation/RoughMultiLayerComputation.h"

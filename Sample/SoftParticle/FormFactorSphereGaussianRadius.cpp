@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/SoftParticle/FormFactorSphereGaussianRadius.h"
 #include "Fit/Tools/RealLimits.h"
@@ -18,7 +18,7 @@
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 
 FormFactorSphereGaussianRadius::FormFactorSphereGaussianRadius(const std::vector<double> P)
-    : IFormFactorBorn({"FormFactorSphereGaussianRadius",
+    : IBornFF({"FormFactorSphereGaussianRadius",
                        "class_tooltip",
                        {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
                         {"SigmaRadius", "nm", "para_tooltip", 0, +INF, 0}}},

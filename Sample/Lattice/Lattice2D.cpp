@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Lattice/Lattice2D.h"
 #include "Base/Const/MathConstants.h"
@@ -18,9 +18,9 @@
 #include "Param/Base/RealParameter.h"
 #include <cmath>
 
-// ************************************************************************** //
-// class Lattice2D
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class Lattice2D
+//  ************************************************************************************************
 
 Lattice2D::Lattice2D(const NodeMeta& meta, const std::vector<double>& PValues)
     : INode(meta, PValues)
@@ -61,9 +61,9 @@ void Lattice2D::setRotationEnabled(bool enabled) // TODO ASAP replace by generic
     }
 }
 
-// ************************************************************************** //
-// class BasicLattice2D
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class BasicLattice2D
+//  ************************************************************************************************
 
 BasicLattice2D::BasicLattice2D(double length1, double length2, double angle, double xi)
     : Lattice2D(xi), m_length1(length1), m_length2(length2), m_angle(angle)
@@ -89,9 +89,9 @@ double BasicLattice2D::unitCellArea() const
     return std::abs(m_length1 * m_length2 * std::sin(m_angle));
 }
 
-// ************************************************************************** //
-// class SquareLattice2D
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class SquareLattice2D
+//  ************************************************************************************************
 
 SquareLattice2D::SquareLattice2D(double length, double xi) : Lattice2D(xi), m_length(length)
 {
@@ -119,9 +119,9 @@ double SquareLattice2D::unitCellArea() const
     return std::abs(m_length * m_length);
 }
 
-// ************************************************************************** //
-// class HexagonalLattice2D
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class HexagonalLattice2D
+//  ************************************************************************************************
 
 HexagonalLattice2D::HexagonalLattice2D(double length, double xi) : Lattice2D(xi), m_length(length)
 {

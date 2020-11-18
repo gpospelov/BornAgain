@@ -15,10 +15,10 @@
 // extra ignores for types and methods that shouldn't be visible in Python
 %ignore DWBAComputation;
 %ignore DecoratedLayerComputation;
-%ignore FormFactorDWBA;
-%ignore FormFactorDWBAPol;
-%ignore ISampleVisitor::visit(const FormFactorDWBA*);
-%ignore ISampleVisitor::visit(const FormFactorDWBAPol*);
+%ignore ComputeDWBA;
+%ignore ComputeDWBAPol;
+%ignore ISampleVisitor::visit(const ComputeDWBA*);
+%ignore ISampleVisitor::visit(const ComputeDWBAPol*);
 %ignore Lattice2D::ReciprocalBases;
 %ignore Lattice2D::reciprocalBases();
 %ignore RoughMultiLayerComputation;

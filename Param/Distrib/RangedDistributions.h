@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_PARAM_DISTRIB_RANGEDDISTRIBUTIONS_H
 #define BORNAGAIN_PARAM_DISTRIB_RANGEDDISTRIBUTIONS_H
@@ -23,9 +23,9 @@
 class IDistribution1D;
 class ParameterSample;
 
-// ************************************************************************** //
-// interface class IDistribution1D
-// ************************************************************************** //
+//  ************************************************************************************************
+//  interface class IDistribution1D
+//  ************************************************************************************************
 
 //! Interface for one-dimensional ranged distributions.
 //! All derived distributions
@@ -88,9 +88,9 @@ private:
     RealLimits m_limits;
 };
 
-// ************************************************************************** //
-// specific distribution classes
-// ************************************************************************** //
+//  ************************************************************************************************
+//  specific distribution classes
+//  ************************************************************************************************
 
 //! Uniform distribution function.
 //! @ingroup paramDistribution

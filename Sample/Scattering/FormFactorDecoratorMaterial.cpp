@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,15 +10,15 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Scattering/FormFactorDecoratorMaterial.h"
 #include "Base/Const/MathConstants.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Material/WavevectorInfo.h"
 
-FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& form_factor)
-    : IFormFactorDecorator(form_factor)
+FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& ff)
+    : IFormFactorDecorator(ff)
     , m_material(HomogeneousMaterial())
     , m_ambient_material(HomogeneousMaterial())
 {
@@ -29,7 +29,7 @@ FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() = default;
 
 FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
 {
-    auto* result = new FormFactorDecoratorMaterial(*m_form_factor);
+    auto* result = new FormFactorDecoratorMaterial(*m_ff);
     result->setMaterial(m_material);
     result->setAmbientMaterial(m_ambient_material);
     return result;
@@ -47,7 +47,7 @@ void FormFactorDecoratorMaterial::setAmbientMaterial(const Material& material)
 
 complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const
 {
-    return getRefractiveIndexFactor(wavevectors) * m_form_factor->evaluate(wavevectors);
+    return getRefractiveIndexFactor(wavevectors) * m_ff->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& wavevectors) const
@@ -61,7 +61,7 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& 
     Eigen::Matrix2cd V_eff = time_reverse_conj
                              * (m_material.polarizedSubtrSLD(wavevectors)
                                 - m_ambient_material.polarizedSubtrSLD(wavevectors));
-    return m_form_factor->evaluate(wavevectors) * V_eff;
+    return m_ff->evaluate(wavevectors) * V_eff;
 }
 
 complex_t

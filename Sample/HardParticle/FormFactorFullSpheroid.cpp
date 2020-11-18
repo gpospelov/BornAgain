@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorFullSpheroid.h"
 #include "Base/Const/MathConstants.h"
@@ -20,7 +20,7 @@
 #include <limits>
 
 FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector<double> P)
-    : IFormFactorBorn(
+    : IBornFF(
         {"FullSpheroid",
          "ellipsoid of revolution",
          {{"Radius", "nm", "revolution radius", 0, +INF, 0},

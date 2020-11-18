@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Base/Const/MathConstants.h"
@@ -19,7 +19,7 @@
 #include "Sample/Shapes/DoubleEllipse.h"
 
 FormFactorCylinder::FormFactorCylinder(const std::vector<double> P)
-    : IFormFactorBorn(
+    : IBornFF(
         {"Cylinder",
          "circular cylinder",
          {{"Radius", "nm", "radius of base", 0, +INF, 0}, {"Height", "nm", "height", 0, +INF, 0}}},

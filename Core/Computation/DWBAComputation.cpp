@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,18 +10,18 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Computation/DWBAComputation.h"
 #include "Base/Pixel/SimulationElement.h"
+#include "Base/Progress/ProgressHandler.h"
 #include "Core/Computation/GISASSpecularComputation.h"
 #include "Core/Computation/ParticleLayoutComputation.h"
-#include "Core/Computation/ProcessedLayout.h"
-#include "Core/Computation/ProcessedSample.h"
-#include "Core/Computation/ProgressHandler.h"
 #include "Core/Computation/RoughMultiLayerComputation.h"
 #include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Processed/ProcessedLayout.h"
+#include "Sample/Processed/ProcessedSample.h"
 
 static_assert(std::is_copy_constructible<DWBAComputation>::value == false,
               "DWBAComputation should not be copy constructable");

@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -11,7 +11,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2020
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_SAMPLE_STANDARDSAMPLES_FENIBILAYERBUILDER_H
 #define BORNAGAIN_SAMPLE_STANDARDSAMPLES_FENIBILAYERBUILDER_H

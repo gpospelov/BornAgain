@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,13 +10,13 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/IFormFactorPrism.h"
 #include "Sample/HardParticle/Prism.h"
 
 IFormFactorPrism::IFormFactorPrism(const NodeMeta& meta, const std::vector<double>& PValues)
-    : IFormFactorBorn(meta, PValues)
+    : IBornFF(meta, PValues)
 {
 }
 

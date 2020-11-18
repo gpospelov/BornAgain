@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Device/Detector/SimpleUnitConverters.h"
 #include "Base/Const/MathConstants.h"
@@ -33,9 +33,9 @@ double getQ(double wavelength, double angle)
 }
 } // namespace
 
-// ************************************************************************** //
-// class UnitConverterSimple
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class UnitConverterSimple
+//  ************************************************************************************************
 
 UnitConverterSimple::UnitConverterSimple(const Beam& beam)
     : m_wavelength(beam.getWavelength()), m_alpha_i(-beam.getAlpha()), m_phi_i(beam.getPhi())
@@ -117,9 +117,9 @@ void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_ax
                 P_roi_axis->size());
 }
 
-// ************************************************************************** //
-// class SphericalConverter
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class SphericalConverter
+//  ************************************************************************************************
 
 SphericalConverter::SphericalConverter(const SphericalDetector& detector, const Beam& beam)
     : UnitConverterSimple(beam)
@@ -201,9 +201,9 @@ std::vector<std::map<Axes::Units, std::string>> SphericalConverter::createNameMa
     return result;
 }
 
-// ************************************************************************** //
-// class RectangularConverter
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class RectangularConverter
+//  ************************************************************************************************
 
 RectangularConverter::RectangularConverter(const RectangularDetector& detector, const Beam& beam)
     : UnitConverterSimple(beam)
@@ -311,9 +311,9 @@ double RectangularConverter::axisAngle(size_t i_axis, kvector_t k_f) const
                              + std::to_string(static_cast<int>(i_axis)));
 }
 
-// ************************************************************************** //
-// class OffSpecularConverter
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class OffSpecularConverter
+//  ************************************************************************************************
 
 OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Beam& beam,
                                            const IAxis& alpha_axis)
@@ -396,9 +396,9 @@ void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
     }
 }
 
-// ************************************************************************** //
-// class DepthProbeConverter
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class DepthProbeConverter
+//  ************************************************************************************************
 
 const std::string z_axis_name = "Position [nm]";
 

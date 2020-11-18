@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,10 +10,10 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_LATTICE_LATTICE_H
-#define BORNAGAIN_SAMPLE_LATTICE_LATTICE_H
+#ifndef BORNAGAIN_SAMPLE_LATTICE_LATTICE3D_H
+#define BORNAGAIN_SAMPLE_LATTICE_LATTICE3D_H
 
 #include "Param/Node/INode.h"
 #include <memory>
@@ -81,4 +81,4 @@ private:
     mutable kvector_t m_ra, m_rb, m_rc; //!< Cache of basis vectors in reciprocal space
 };
 
-#endif // BORNAGAIN_SAMPLE_LATTICE_LATTICE_H
+#endif // BORNAGAIN_SAMPLE_LATTICE_LATTICE3D_H

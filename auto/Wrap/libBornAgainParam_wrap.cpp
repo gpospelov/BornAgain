@@ -3103,51 +3103,51 @@ namespace Swig {
 #define SWIGTYPE_p_BasicVector3DT_int_t swig_types[3]
 #define SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t swig_types[4]
 #define SWIGTYPE_p_Beam swig_types[5]
-#define SWIGTYPE_p_ConstantBackground swig_types[6]
-#define SWIGTYPE_p_ConvolutionDetectorResolution swig_types[7]
-#define SWIGTYPE_p_Crystal swig_types[8]
-#define SWIGTYPE_p_DistributionCosine swig_types[9]
-#define SWIGTYPE_p_DistributionGate swig_types[10]
-#define SWIGTYPE_p_DistributionGaussian swig_types[11]
-#define SWIGTYPE_p_DistributionLogNormal swig_types[12]
-#define SWIGTYPE_p_DistributionLorentz swig_types[13]
-#define SWIGTYPE_p_DistributionTrapezoid swig_types[14]
-#define SWIGTYPE_p_FTDecayFunction1DCauchy swig_types[15]
-#define SWIGTYPE_p_FTDecayFunction1DGauss swig_types[16]
-#define SWIGTYPE_p_FTDecayFunction1DTriangle swig_types[17]
-#define SWIGTYPE_p_FTDecayFunction1DVoigt swig_types[18]
-#define SWIGTYPE_p_FTDecayFunction2DCauchy swig_types[19]
-#define SWIGTYPE_p_FTDecayFunction2DGauss swig_types[20]
-#define SWIGTYPE_p_FTDecayFunction2DVoigt swig_types[21]
-#define SWIGTYPE_p_FTDistribution1DCauchy swig_types[22]
-#define SWIGTYPE_p_FTDistribution1DCosine swig_types[23]
-#define SWIGTYPE_p_FTDistribution1DGate swig_types[24]
-#define SWIGTYPE_p_FTDistribution1DGauss swig_types[25]
-#define SWIGTYPE_p_FTDistribution1DTriangle swig_types[26]
-#define SWIGTYPE_p_FTDistribution1DVoigt swig_types[27]
-#define SWIGTYPE_p_FTDistribution2DCauchy swig_types[28]
-#define SWIGTYPE_p_FTDistribution2DCone swig_types[29]
-#define SWIGTYPE_p_FTDistribution2DGate swig_types[30]
-#define SWIGTYPE_p_FTDistribution2DGauss swig_types[31]
-#define SWIGTYPE_p_FTDistribution2DVoigt swig_types[32]
-#define SWIGTYPE_p_FootprintGauss swig_types[33]
-#define SWIGTYPE_p_FootprintSquare swig_types[34]
-#define SWIGTYPE_p_FormFactorAnisoPyramid swig_types[35]
-#define SWIGTYPE_p_FormFactorBarGauss swig_types[36]
-#define SWIGTYPE_p_FormFactorBarLorentz swig_types[37]
-#define SWIGTYPE_p_FormFactorBox swig_types[38]
-#define SWIGTYPE_p_FormFactorCantellatedCube swig_types[39]
-#define SWIGTYPE_p_FormFactorCone swig_types[40]
-#define SWIGTYPE_p_FormFactorCone6 swig_types[41]
-#define SWIGTYPE_p_FormFactorCoreShell swig_types[42]
-#define SWIGTYPE_p_FormFactorCosineRippleBox swig_types[43]
-#define SWIGTYPE_p_FormFactorCosineRippleGauss swig_types[44]
-#define SWIGTYPE_p_FormFactorCosineRippleLorentz swig_types[45]
-#define SWIGTYPE_p_FormFactorCrystal swig_types[46]
-#define SWIGTYPE_p_FormFactorCuboctahedron swig_types[47]
-#define SWIGTYPE_p_FormFactorCylinder swig_types[48]
-#define SWIGTYPE_p_FormFactorDWBA swig_types[49]
-#define SWIGTYPE_p_FormFactorDWBAPol swig_types[50]
+#define SWIGTYPE_p_ComputeDWBA swig_types[6]
+#define SWIGTYPE_p_ComputeDWBAPol swig_types[7]
+#define SWIGTYPE_p_ConstantBackground swig_types[8]
+#define SWIGTYPE_p_ConvolutionDetectorResolution swig_types[9]
+#define SWIGTYPE_p_Crystal swig_types[10]
+#define SWIGTYPE_p_DistributionCosine swig_types[11]
+#define SWIGTYPE_p_DistributionGate swig_types[12]
+#define SWIGTYPE_p_DistributionGaussian swig_types[13]
+#define SWIGTYPE_p_DistributionLogNormal swig_types[14]
+#define SWIGTYPE_p_DistributionLorentz swig_types[15]
+#define SWIGTYPE_p_DistributionTrapezoid swig_types[16]
+#define SWIGTYPE_p_FTDecayFunction1DCauchy swig_types[17]
+#define SWIGTYPE_p_FTDecayFunction1DGauss swig_types[18]
+#define SWIGTYPE_p_FTDecayFunction1DTriangle swig_types[19]
+#define SWIGTYPE_p_FTDecayFunction1DVoigt swig_types[20]
+#define SWIGTYPE_p_FTDecayFunction2DCauchy swig_types[21]
+#define SWIGTYPE_p_FTDecayFunction2DGauss swig_types[22]
+#define SWIGTYPE_p_FTDecayFunction2DVoigt swig_types[23]
+#define SWIGTYPE_p_FTDistribution1DCauchy swig_types[24]
+#define SWIGTYPE_p_FTDistribution1DCosine swig_types[25]
+#define SWIGTYPE_p_FTDistribution1DGate swig_types[26]
+#define SWIGTYPE_p_FTDistribution1DGauss swig_types[27]
+#define SWIGTYPE_p_FTDistribution1DTriangle swig_types[28]
+#define SWIGTYPE_p_FTDistribution1DVoigt swig_types[29]
+#define SWIGTYPE_p_FTDistribution2DCauchy swig_types[30]
+#define SWIGTYPE_p_FTDistribution2DCone swig_types[31]
+#define SWIGTYPE_p_FTDistribution2DGate swig_types[32]
+#define SWIGTYPE_p_FTDistribution2DGauss swig_types[33]
+#define SWIGTYPE_p_FTDistribution2DVoigt swig_types[34]
+#define SWIGTYPE_p_FootprintGauss swig_types[35]
+#define SWIGTYPE_p_FootprintSquare swig_types[36]
+#define SWIGTYPE_p_FormFactorAnisoPyramid swig_types[37]
+#define SWIGTYPE_p_FormFactorBarGauss swig_types[38]
+#define SWIGTYPE_p_FormFactorBarLorentz swig_types[39]
+#define SWIGTYPE_p_FormFactorBox swig_types[40]
+#define SWIGTYPE_p_FormFactorCantellatedCube swig_types[41]
+#define SWIGTYPE_p_FormFactorCone swig_types[42]
+#define SWIGTYPE_p_FormFactorCone6 swig_types[43]
+#define SWIGTYPE_p_FormFactorCoreShell swig_types[44]
+#define SWIGTYPE_p_FormFactorCosineRippleBox swig_types[45]
+#define SWIGTYPE_p_FormFactorCosineRippleGauss swig_types[46]
+#define SWIGTYPE_p_FormFactorCosineRippleLorentz swig_types[47]
+#define SWIGTYPE_p_FormFactorCrystal swig_types[48]
+#define SWIGTYPE_p_FormFactorCuboctahedron swig_types[49]
+#define SWIGTYPE_p_FormFactorCylinder swig_types[50]
 #define SWIGTYPE_p_FormFactorDecoratorMaterial swig_types[51]
 #define SWIGTYPE_p_FormFactorDecoratorPositionFactor swig_types[52]
 #define SWIGTYPE_p_FormFactorDecoratorRotation swig_types[53]
@@ -3178,11 +3178,11 @@ namespace Swig {
 #define SWIGTYPE_p_GISASSimulation swig_types[78]
 #define SWIGTYPE_p_HexagonalLattice2D swig_types[79]
 #define SWIGTYPE_p_IAbstractParticle swig_types[80]
-#define SWIGTYPE_p_ICloneable swig_types[81]
-#define SWIGTYPE_p_IClusteredParticles swig_types[82]
-#define SWIGTYPE_p_IDistribution1D swig_types[83]
-#define SWIGTYPE_p_IFormFactor swig_types[84]
-#define SWIGTYPE_p_IFormFactorBorn swig_types[85]
+#define SWIGTYPE_p_IBornFF swig_types[81]
+#define SWIGTYPE_p_ICloneable swig_types[82]
+#define SWIGTYPE_p_IClusteredParticles swig_types[83]
+#define SWIGTYPE_p_IDistribution1D swig_types[84]
+#define SWIGTYPE_p_IFormFactor swig_types[85]
 #define SWIGTYPE_p_IFormFactorDecorator swig_types[86]
 #define SWIGTYPE_p_IInterferenceFunction swig_types[87]
 #define SWIGTYPE_p_INode swig_types[88]
@@ -37564,7 +37564,7 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_24(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  FormFactorDWBA *arg2 = (FormFactorDWBA *) 0 ;
+  ComputeDWBA *arg2 = (ComputeDWBA *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -37576,12 +37576,12 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_24(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
   }
   arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_FormFactorDWBA, 0 |  0 );
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_ComputeDWBA, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "FormFactorDWBA const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "ComputeDWBA const *""'"); 
   }
-  arg2 = reinterpret_cast< FormFactorDWBA * >(argp2);
-  (arg1)->visit((FormFactorDWBA const *)arg2);
+  arg2 = reinterpret_cast< ComputeDWBA * >(argp2);
+  (arg1)->visit((ComputeDWBA const *)arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -37592,7 +37592,7 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_25(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  FormFactorDWBAPol *arg2 = (FormFactorDWBAPol *) 0 ;
+  ComputeDWBAPol *arg2 = (ComputeDWBAPol *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -37604,12 +37604,12 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_25(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
   }
   arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_FormFactorDWBAPol, 0 |  0 );
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_ComputeDWBAPol, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "FormFactorDWBAPol const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "ComputeDWBAPol const *""'"); 
   }
-  arg2 = reinterpret_cast< FormFactorDWBAPol * >(argp2);
-  (arg1)->visit((FormFactorDWBAPol const *)arg2);
+  arg2 = reinterpret_cast< ComputeDWBAPol * >(argp2);
+  (arg1)->visit((ComputeDWBAPol const *)arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -39132,7 +39132,7 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_80(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  IFormFactorBorn *arg2 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg2 = (IBornFF *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -39144,12 +39144,12 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_80(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
   }
   arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_IBornFF, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "IFormFactorBorn const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "IBornFF const *""'"); 
   }
-  arg2 = reinterpret_cast< IFormFactorBorn * >(argp2);
-  (arg1)->visit((IFormFactorBorn const *)arg2);
+  arg2 = reinterpret_cast< IBornFF * >(argp2);
+  (arg1)->visit((IBornFF const *)arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -40684,7 +40684,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDWBA, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ComputeDWBA, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_24(self, argc, argv);
@@ -40698,7 +40698,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_FormFactorDWBAPol, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ComputeDWBAPol, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_25(self, argc, argv);
@@ -41468,7 +41468,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IFormFactorBorn, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IBornFF, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_80(self, argc, argv);
@@ -42091,8 +42091,8 @@ fail:
     "    INodeVisitor::visit(FormFactorCrystal const *)\n"
     "    INodeVisitor::visit(FormFactorCuboctahedron const *)\n"
     "    INodeVisitor::visit(FormFactorCylinder const *)\n"
-    "    INodeVisitor::visit(FormFactorDWBA const *)\n"
-    "    INodeVisitor::visit(FormFactorDWBAPol const *)\n"
+    "    INodeVisitor::visit(ComputeDWBA const *)\n"
+    "    INodeVisitor::visit(ComputeDWBAPol const *)\n"
     "    INodeVisitor::visit(FormFactorDecoratorMaterial const *)\n"
     "    INodeVisitor::visit(FormFactorDecoratorPositionFactor const *)\n"
     "    INodeVisitor::visit(FormFactorDecoratorRotation const *)\n"
@@ -42147,7 +42147,7 @@ fail:
     "    INodeVisitor::visit(IClusteredParticles const *)\n"
     "    INodeVisitor::visit(IdentityRotation const *)\n"
     "    INodeVisitor::visit(IFormFactor const *)\n"
-    "    INodeVisitor::visit(IFormFactorBorn const *)\n"
+    "    INodeVisitor::visit(IBornFF const *)\n"
     "    INodeVisitor::visit(IFormFactorDecorator const *)\n"
     "    INodeVisitor::visit(IInterferenceFunction const *)\n"
     "    INodeVisitor::visit(ParticleLayout const *)\n"
@@ -51171,8 +51171,8 @@ static PyMethodDef SwigMethods[] = {
 		"INodeVisitor_visit(INodeVisitor self, FormFactorCrystal const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorCuboctahedron const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorCylinder const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, FormFactorDWBA const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, FormFactorDWBAPol const * arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, ComputeDWBA const * arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, ComputeDWBAPol const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorDecoratorMaterial const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorDecoratorPositionFactor const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, FormFactorDecoratorRotation const * arg2)\n"
@@ -51227,7 +51227,7 @@ static PyMethodDef SwigMethods[] = {
 		"INodeVisitor_visit(INodeVisitor self, IClusteredParticles const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IdentityRotation const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IFormFactor const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, IFormFactorBorn const * arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, IBornFF const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IFormFactorDecorator const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IInterferenceFunction const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, ParticleLayout const * arg2)\n"
@@ -52109,6 +52109,8 @@ static swig_type_info _swigt__p_BasicVector3DT_double_t = {"_p_BasicVector3DT_do
 static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t", "ivector_t *|BasicVector3D< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Beam = {"_p_Beam", "Beam *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ComputeDWBA = {"_p_ComputeDWBA", "ComputeDWBA *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ComputeDWBAPol = {"_p_ComputeDWBAPol", "ComputeDWBAPol *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ConstantBackground = {"_p_ConstantBackground", "ConstantBackground *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ConvolutionDetectorResolution = {"_p_ConvolutionDetectorResolution", "ConvolutionDetectorResolution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Crystal = {"_p_Crystal", "Crystal *", 0, 0, (void*)0, 0};
@@ -52152,8 +52154,6 @@ static swig_type_info _swigt__p_FormFactorCosineRippleLorentz = {"_p_FormFactorC
 static swig_type_info _swigt__p_FormFactorCrystal = {"_p_FormFactorCrystal", "FormFactorCrystal *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FormFactorCuboctahedron = {"_p_FormFactorCuboctahedron", "FormFactorCuboctahedron *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FormFactorCylinder = {"_p_FormFactorCylinder", "FormFactorCylinder *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_FormFactorDWBA = {"_p_FormFactorDWBA", "FormFactorDWBA *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_FormFactorDWBAPol = {"_p_FormFactorDWBAPol", "FormFactorDWBAPol *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FormFactorDecoratorMaterial = {"_p_FormFactorDecoratorMaterial", "FormFactorDecoratorMaterial *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FormFactorDecoratorPositionFactor = {"_p_FormFactorDecoratorPositionFactor", "FormFactorDecoratorPositionFactor *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FormFactorDecoratorRotation = {"_p_FormFactorDecoratorRotation", "FormFactorDecoratorRotation *", 0, 0, (void*)0, 0};
@@ -52184,11 +52184,11 @@ static swig_type_info _swigt__p_FormFactorWeighted = {"_p_FormFactorWeighted", "
 static swig_type_info _swigt__p_GISASSimulation = {"_p_GISASSimulation", "GISASSimulation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_HexagonalLattice2D = {"_p_HexagonalLattice2D", "HexagonalLattice2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IAbstractParticle = {"_p_IAbstractParticle", "IAbstractParticle *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IBornFF = {"_p_IBornFF", "IBornFF *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICloneable = {"_p_ICloneable", "ICloneable *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IClusteredParticles = {"_p_IClusteredParticles", "IClusteredParticles *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IDistribution1D = {"_p_IDistribution1D", "IDistribution1D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactor = {"_p_IFormFactor", "IFormFactor *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IFormFactorBorn = {"_p_IFormFactorBorn", "IFormFactorBorn *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactorDecorator = {"_p_IFormFactorDecorator", "IFormFactorDecorator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IInterferenceFunction = {"_p_IInterferenceFunction", "IInterferenceFunction *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INode = {"_p_INode", "INode *|std::vector< INode * >::value_type|std::vector< INode const * >::value_type", 0, 0, (void*)0, 0};
@@ -52311,6 +52311,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_BasicVector3DT_int_t,
   &_swigt__p_BasicVector3DT_std__complexT_double_t_t,
   &_swigt__p_Beam,
+  &_swigt__p_ComputeDWBA,
+  &_swigt__p_ComputeDWBAPol,
   &_swigt__p_ConstantBackground,
   &_swigt__p_ConvolutionDetectorResolution,
   &_swigt__p_Crystal,
@@ -52354,8 +52356,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_FormFactorCrystal,
   &_swigt__p_FormFactorCuboctahedron,
   &_swigt__p_FormFactorCylinder,
-  &_swigt__p_FormFactorDWBA,
-  &_swigt__p_FormFactorDWBAPol,
   &_swigt__p_FormFactorDecoratorMaterial,
   &_swigt__p_FormFactorDecoratorPositionFactor,
   &_swigt__p_FormFactorDecoratorRotation,
@@ -52386,11 +52386,11 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_GISASSimulation,
   &_swigt__p_HexagonalLattice2D,
   &_swigt__p_IAbstractParticle,
+  &_swigt__p_IBornFF,
   &_swigt__p_ICloneable,
   &_swigt__p_IClusteredParticles,
   &_swigt__p_IDistribution1D,
   &_swigt__p_IFormFactor,
-  &_swigt__p_IFormFactorBorn,
   &_swigt__p_IFormFactorDecorator,
   &_swigt__p_IInterferenceFunction,
   &_swigt__p_INode,
@@ -52513,6 +52513,8 @@ static swig_cast_info _swigc__p_BasicVector3DT_double_t[] = {  {&_swigt__p_Basic
 static swig_cast_info _swigc__p_BasicVector3DT_int_t[] = {  {&_swigt__p_BasicVector3DT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicVector3DT_std__complexT_double_t_t[] = {  {&_swigt__p_BasicVector3DT_std__complexT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Beam[] = {  {&_swigt__p_Beam, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ComputeDWBA[] = {  {&_swigt__p_ComputeDWBA, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ComputeDWBAPol[] = {  {&_swigt__p_ComputeDWBAPol, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ConstantBackground[] = {  {&_swigt__p_ConstantBackground, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ConvolutionDetectorResolution[] = {  {&_swigt__p_ConvolutionDetectorResolution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Crystal[] = {  {&_swigt__p_Crystal, 0, 0, 0},{0, 0, 0, 0}};
@@ -52556,8 +52558,6 @@ static swig_cast_info _swigc__p_FormFactorCosineRippleLorentz[] = {  {&_swigt__p
 static swig_cast_info _swigc__p_FormFactorCrystal[] = {  {&_swigt__p_FormFactorCrystal, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FormFactorCuboctahedron[] = {  {&_swigt__p_FormFactorCuboctahedron, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FormFactorCylinder[] = {  {&_swigt__p_FormFactorCylinder, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_FormFactorDWBA[] = {  {&_swigt__p_FormFactorDWBA, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_FormFactorDWBAPol[] = {  {&_swigt__p_FormFactorDWBAPol, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FormFactorDecoratorMaterial[] = {  {&_swigt__p_FormFactorDecoratorMaterial, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FormFactorDecoratorPositionFactor[] = {  {&_swigt__p_FormFactorDecoratorPositionFactor, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FormFactorDecoratorRotation[] = {  {&_swigt__p_FormFactorDecoratorRotation, 0, 0, 0},{0, 0, 0, 0}};
@@ -52588,11 +52588,11 @@ static swig_cast_info _swigc__p_FormFactorWeighted[] = {  {&_swigt__p_FormFactor
 static swig_cast_info _swigc__p_GISASSimulation[] = {  {&_swigt__p_GISASSimulation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_HexagonalLattice2D[] = {  {&_swigt__p_HexagonalLattice2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IAbstractParticle[] = {  {&_swigt__p_IAbstractParticle, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IBornFF[] = {  {&_swigt__p_IBornFF, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_RangedDistributionGate, _p_RangedDistributionGateTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_ICloneable, 0, 0},  {&_swigt__p_IDistribution1D, _p_IDistribution1DTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_RangedDistributionGaussian, _p_RangedDistributionGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionCosine, _p_RangedDistributionCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionLorentz, _p_RangedDistributionLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionLogNormal, _p_RangedDistributionLogNormalTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistribution, _p_RangedDistributionTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IClusteredParticles[] = {  {&_swigt__p_IClusteredParticles, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDistribution1D[] = {  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_IDistribution1D, 0, 0},  {&_swigt__p_IDistribution1D, 0, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_IDistribution1D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactor[] = {  {&_swigt__p_IFormFactor, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IFormFactorBorn[] = {  {&_swigt__p_IFormFactorBorn, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactorDecorator[] = {  {&_swigt__p_IFormFactorDecorator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IInterferenceFunction[] = {  {&_swigt__p_IInterferenceFunction, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_INode, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_INode, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_INode, 0, 0},  {&_swigt__p_IDistribution1D, _p_IDistribution1DTo_p_INode, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_INode, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_INode, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_INode, 0, 0},{0, 0, 0, 0}};
@@ -52715,6 +52715,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_BasicVector3DT_int_t,
   _swigc__p_BasicVector3DT_std__complexT_double_t_t,
   _swigc__p_Beam,
+  _swigc__p_ComputeDWBA,
+  _swigc__p_ComputeDWBAPol,
   _swigc__p_ConstantBackground,
   _swigc__p_ConvolutionDetectorResolution,
   _swigc__p_Crystal,
@@ -52758,8 +52760,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_FormFactorCrystal,
   _swigc__p_FormFactorCuboctahedron,
   _swigc__p_FormFactorCylinder,
-  _swigc__p_FormFactorDWBA,
-  _swigc__p_FormFactorDWBAPol,
   _swigc__p_FormFactorDecoratorMaterial,
   _swigc__p_FormFactorDecoratorPositionFactor,
   _swigc__p_FormFactorDecoratorRotation,
@@ -52790,11 +52790,11 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_GISASSimulation,
   _swigc__p_HexagonalLattice2D,
   _swigc__p_IAbstractParticle,
+  _swigc__p_IBornFF,
   _swigc__p_ICloneable,
   _swigc__p_IClusteredParticles,
   _swigc__p_IDistribution1D,
   _swigc__p_IFormFactor,
-  _swigc__p_IFormFactorBorn,
   _swigc__p_IFormFactorDecorator,
   _swigc__p_IInterferenceFunction,
   _swigc__p_INode,

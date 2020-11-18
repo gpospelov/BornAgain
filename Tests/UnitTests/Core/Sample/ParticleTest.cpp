@@ -3,6 +3,7 @@
 #include "Base/Const/Units.h"
 #include "Sample/HardParticle/FormFactorFullSphere.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class ParticleTest : public ::testing::Test

@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,11 +10,11 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Computation/DepthProbeComputation.h"
-#include "Core/Computation/DepthProbeElement.h"
-#include "Core/Computation/ProgressHandler.h"
+#include "Base/Progress/ProgressHandler.h"
+#include "Core/Element/DepthProbeElement.h"
 #include "Sample/Multilayer/MultiLayer.h"
 
 static_assert(std::is_copy_constructible<DepthProbeComputation>::value == false,

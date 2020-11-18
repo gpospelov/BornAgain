@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 //! The mathematics implemented here is described in full detail in a paper
 //! by Joachim Wuttke, entitled
@@ -29,7 +29,7 @@ void IFormFactorPolyhedron::setLimits(double _q, int _n)
 
 IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta& meta,
                                              const std::vector<double>& PValues)
-    : IFormFactorBorn(meta, PValues)
+    : IBornFF(meta, PValues)
 {
 }
 

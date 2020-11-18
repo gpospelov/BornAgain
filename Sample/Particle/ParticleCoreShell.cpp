@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,12 +10,13 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Particle/FormFactorCoreShell.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/SlicedParticle.h"
+#include "Sample/Scattering/Rotations.h"
 
 ParticleCoreShell::ParticleCoreShell(const Particle& shell, const Particle& core,
                                      kvector_t relative_core_position)

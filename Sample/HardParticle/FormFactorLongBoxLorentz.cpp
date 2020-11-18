@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,14 +10,14 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorLongBoxLorentz.h"
 #include "Base/Utils/MathFunctions.h"
 #include "Sample/Shapes/Box.h"
 
 FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(const std::vector<double> P)
-    : IFormFactorBorn({"FormFactorLongBoxLorentz",
+    : IBornFF({"FormFactorLongBoxLorentz",
                        "class_tooltip",
                        {{"Length", "nm", "para_tooltip", 0, +INF, 0},
                         {"Width", "nm", "para_tooltip", 0, +INF, 0},

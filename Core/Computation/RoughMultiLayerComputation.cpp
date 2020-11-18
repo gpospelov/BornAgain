@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,15 +10,15 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Computation/RoughMultiLayerComputation.h"
 #include "Base/Const/MathConstants.h"
 #include "Base/Pixel/SimulationElement.h"
-#include "Core/Computation/ProcessedSample.h"
 #include "Sample/Fresnel/IFresnelMap.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Processed/ProcessedSample.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/Slice/LayerInterface.h"
 #include "Sample/Slice/LayerRoughness.h"

@@ -8,14 +8,14 @@
 class FFSpecializationTest : public testing::Test
 {
 protected:
-    void run_test(IFormFactorBorn* p0, IFormFactorBorn* p1, double eps, double qmag1, double qmag2)
+    void run_test(IBornFF* p0, IBornFF* p1, double eps, double qmag1, double qmag2)
     {
         formFactorTest::run_test_for_many_q([&](cvector_t q) { test_ff_eq(q, p0, p1, eps); }, qmag1,
                                             qmag2);
     }
 
 private:
-    void test_ff_eq(cvector_t q, IFormFactorBorn* p0, IFormFactorBorn* p1, double eps)
+    void test_ff_eq(cvector_t q, IBornFF* p0, IBornFF* p1, double eps)
     {
         complex_t f0 = p0->evaluate_for_q(q);
         complex_t f1 = p1->evaluate_for_q(q);

@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,14 +10,14 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorSawtoothRipple.h"
 #include "Sample/HardParticle/Ripples.h"
 
-// ************************************************************************** //
-// class FormFactorSawtoothRippleBox
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class FormFactorSawtoothRippleBox
+//  ************************************************************************************************
 
 FormFactorSawtoothRippleBox::FormFactorSawtoothRippleBox(const std::vector<double> P)
     : ISawtoothRipple({"SawtoothRippleBox", "class_tooltip", {}}, P)
@@ -45,9 +45,9 @@ complex_t FormFactorSawtoothRippleBox::factor_x(complex_t qx) const
     return ripples::factor_x_box(qx, m_length);
 }
 
-// ************************************************************************** //
-// class FormFactorSawtoothRippleGauss
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class FormFactorSawtoothRippleGauss
+//  ************************************************************************************************
 
 FormFactorSawtoothRippleGauss::FormFactorSawtoothRippleGauss(const std::vector<double> P)
     : ISawtoothRipple({"SawtoothRippleGauss", "class_tooltip", {}}, P)
@@ -75,9 +75,9 @@ complex_t FormFactorSawtoothRippleGauss::factor_x(complex_t qx) const
     return ripples::factor_x_Gauss(qx, m_length);
 }
 
-// ************************************************************************** //
-// class FormFactorSawtoothRippleLorentz
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class FormFactorSawtoothRippleLorentz
+//  ************************************************************************************************
 
 FormFactorSawtoothRippleLorentz::FormFactorSawtoothRippleLorentz(const std::vector<double> P)
     : ISawtoothRipple({"SawtoothRippleLorentz", "class_tooltip", {}}, P)

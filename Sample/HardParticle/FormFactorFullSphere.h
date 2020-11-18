@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,17 +10,17 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORFULLSPHERE_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORFULLSPHERE_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! A full sphere.
 //! @ingroup hardParticle
 
-class FormFactorFullSphere : public IFormFactorBorn
+class FormFactorFullSphere : public IBornFF
 {
 public:
     FormFactorFullSphere(const std::vector<double> P, bool position_at_center = false);

@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,12 +10,13 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Particle/Particle.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Particle/SlicedParticle.h"
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
+#include "Sample/Scattering/Rotations.h"
 
 Particle::Particle() : m_material(HomogeneousMaterial())
 {

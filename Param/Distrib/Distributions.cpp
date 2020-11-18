@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Param/Distrib/Distributions.h"
 #include "Base/Const/MathConstants.h"
@@ -28,9 +28,9 @@ namespace
 bool DoubleEqual(double a, double b);
 }
 
-// ************************************************************************** //
-// class IDistribution1D
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class IDistribution1D
+//  ************************************************************************************************
 
 IDistribution1D::IDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues)
     : INode(meta, PValues)
@@ -120,9 +120,9 @@ IDistribution1D::generateSamplesFromValues(const std::vector<double>& sample_val
     return result;
 }
 
-// ************************************************************************** //
-// class DistributionGate
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class DistributionGate
+//  ************************************************************************************************
 
 DistributionGate::DistributionGate(const std::vector<double> P)
     : IDistribution1D(
@@ -167,9 +167,9 @@ bool DistributionGate::isDelta() const
     return DoubleEqual(m_min, m_max);
 }
 
-// ************************************************************************** //
-// class DistributionLorentz
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class DistributionLorentz
+//  ************************************************************************************************
 
 DistributionLorentz::DistributionLorentz(const std::vector<double> P)
     : IDistribution1D({"DistributionLorentz",
@@ -214,9 +214,9 @@ bool DistributionLorentz::isDelta() const
     return m_hwhm == 0.0;
 }
 
-// ************************************************************************** //
-// class DistributionGaussian
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class DistributionGaussian
+//  ************************************************************************************************
 
 DistributionGaussian::DistributionGaussian(const std::vector<double> P)
     : IDistribution1D({"DistributionGaussian",
@@ -262,9 +262,9 @@ bool DistributionGaussian::isDelta() const
     return m_std_dev == 0.0;
 }
 
-// ************************************************************************** //
-// class DistributionLogNormal
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class DistributionLogNormal
+//  ************************************************************************************************
 
 DistributionLogNormal::DistributionLogNormal(const std::vector<double> P)
     : IDistribution1D({"DistributionLogNormal",
@@ -330,9 +330,9 @@ void DistributionLogNormal::setUnits(const std::string& units)
     // scale parameter remains unitless
 }
 
-// ************************************************************************** //
-// class DistributionCosine
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class DistributionCosine
+//  ************************************************************************************************
 
 DistributionCosine::DistributionCosine(const std::vector<double> P)
     : IDistribution1D({"DistributionCosine",
@@ -379,9 +379,9 @@ bool DistributionCosine::isDelta() const
     return m_sigma == 0.0;
 }
 
-// ************************************************************************** //
-// class DistributionTrapezoidal
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class DistributionTrapezoidal
+//  ************************************************************************************************
 
 DistributionTrapezoid::DistributionTrapezoid(const std::vector<double> P)
     : IDistribution1D({"DistributionTrapezoid",

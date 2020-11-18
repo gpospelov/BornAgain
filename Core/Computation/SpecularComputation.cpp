@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,14 +10,14 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Computation/SpecularComputation.h"
-#include "Core/Computation/ProcessedSample.h"
-#include "Core/Computation/ProgressHandler.h"
-#include "Core/Computation/SpecularComputationTerm.h"
-#include "Core/Computation/SpecularStrategyBuilder.h"
-#include "Core/Scan/SpecularSimulationElement.h"
+#include "Base/Progress/ProgressHandler.h"
+#include "Core/Element/SpecularSimulationElement.h"
+#include "Core/Term/SpecularComputationTerm.h"
+#include "Sample/Processed/ProcessedSample.h"
+#include "Sample/Specular/SpecularStrategyBuilder.h"
 
 static_assert(std::is_copy_constructible<SpecularComputation>::value == false,
               "SpecularComputation should not be copy constructible");

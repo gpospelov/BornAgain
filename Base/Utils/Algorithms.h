@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_BASE_UTILS_ALGORITHMS_H
 #define BORNAGAIN_BASE_UTILS_ALGORITHMS_H
@@ -46,9 +46,9 @@ template <class T> std::vector<T> concat(const std::vector<T>& v1, const std::ve
 
 } // namespace algo
 
-// ************************************************************************** //
-// Implementation
-// ************************************************************************** //
+//  ************************************************************************************************
+//  Implementation
+//  ************************************************************************************************
 
 template <typename Evaluator, typename Iterator>
 double algo::min_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate)

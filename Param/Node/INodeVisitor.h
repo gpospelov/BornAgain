@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_PARAM_NODE_INODEVISITOR_H
 #define BORNAGAIN_PARAM_NODE_INODEVISITOR_H
@@ -39,8 +39,8 @@ class FormFactorCoreShell;
 class FormFactorCrystal;
 class FormFactorCuboctahedron;
 class FormFactorCylinder;
-class FormFactorDWBA;
-class FormFactorDWBAPol;
+class ComputeDWBA;
+class ComputeDWBAPol;
 class FormFactorDecoratorMaterial;
 class FormFactorDecoratorPositionFactor;
 class FormFactorDecoratorRotation;
@@ -95,7 +95,7 @@ class IAbstractParticle;
 class IClusteredParticles;
 class IdentityRotation;
 class IFormFactor;
-class IFormFactorBorn;
+class IBornFF;
 class IFormFactorDecorator;
 class IInterferenceFunction;
 class ParticleLayout;
@@ -174,8 +174,8 @@ public:
     virtual void visit(const FormFactorCrystal*) {}
     virtual void visit(const FormFactorCuboctahedron*) {}
     virtual void visit(const FormFactorCylinder*) {}
-    virtual void visit(const FormFactorDWBA*) {}
-    virtual void visit(const FormFactorDWBAPol*) {}
+    virtual void visit(const ComputeDWBA*) {}
+    virtual void visit(const ComputeDWBAPol*) {}
     virtual void visit(const FormFactorDecoratorMaterial*) {}
     virtual void visit(const FormFactorDecoratorPositionFactor*) {}
     virtual void visit(const FormFactorDecoratorRotation*) {}
@@ -230,7 +230,7 @@ public:
     virtual void visit(const IClusteredParticles*) {}
     virtual void visit(const IdentityRotation*) {}
     virtual void visit(const IFormFactor*) {}
-    virtual void visit(const IFormFactorBorn*) {}
+    virtual void visit(const IBornFF*) {}
     virtual void visit(const IFormFactorDecorator*) {}
     virtual void visit(const IInterferenceFunction*) {}
     virtual void visit(const ParticleLayout*) {}

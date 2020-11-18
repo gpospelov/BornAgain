@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,17 +10,17 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCONE_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCONE_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! A conical frustum (cone truncated parallel to the base) with circular base.
 //! @ingroup hardParticle
 
-class FormFactorCone : public IFormFactorBorn
+class FormFactorCone : public IBornFF
 {
 public:
     FormFactorCone(const std::vector<double> P);

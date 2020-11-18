@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,15 +10,15 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Computation/ParticleLayoutComputation.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Base/Types/Exceptions.h"
-#include "Core/Computation/ProcessedLayout.h"
 #include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Sample/Interference/DecouplingApproximationStrategy.h"
 #include "Sample/Interference/SSCApproximationStrategy.h"
+#include "Sample/Processed/ProcessedLayout.h"
 
 namespace
 {
@@ -35,8 +35,6 @@ processedInterferenceFunction(const ProcessedLayout& layout, const SimulationOpt
     auto radial_para = dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(iff);
 
     const std::vector<FormFactorCoherentSum>& weighted_formfactors = layout.formFactorList();
-
-    std::unique_ptr<IInterferenceFunctionStrategy> result;
 
     if (radial_para && radial_para->kappa() > 0.0) {
         double kappa = radial_para->kappa();

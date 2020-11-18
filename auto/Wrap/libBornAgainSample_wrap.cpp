@@ -3160,15 +3160,15 @@ namespace Swig {
 #define SWIGTYPE_p_GaussFisherPeakShape swig_types[60]
 #define SWIGTYPE_p_HexagonalLattice2D swig_types[61]
 #define SWIGTYPE_p_IAbstractParticle swig_types[62]
-#define SWIGTYPE_p_ICloneable swig_types[63]
-#define SWIGTYPE_p_ICosineRipple swig_types[64]
-#define SWIGTYPE_p_IFTDecayFunction1D swig_types[65]
-#define SWIGTYPE_p_IFTDecayFunction2D swig_types[66]
-#define SWIGTYPE_p_IFTDistribution1D swig_types[67]
-#define SWIGTYPE_p_IFTDistribution2D swig_types[68]
-#define SWIGTYPE_p_IFactoryT_std__string_ISampleBuilder_t swig_types[69]
-#define SWIGTYPE_p_IFormFactor swig_types[70]
-#define SWIGTYPE_p_IFormFactorBorn swig_types[71]
+#define SWIGTYPE_p_IBornFF swig_types[63]
+#define SWIGTYPE_p_ICloneable swig_types[64]
+#define SWIGTYPE_p_ICosineRipple swig_types[65]
+#define SWIGTYPE_p_IFTDecayFunction1D swig_types[66]
+#define SWIGTYPE_p_IFTDecayFunction2D swig_types[67]
+#define SWIGTYPE_p_IFTDistribution1D swig_types[68]
+#define SWIGTYPE_p_IFTDistribution2D swig_types[69]
+#define SWIGTYPE_p_IFactoryT_std__string_ISampleBuilder_t swig_types[70]
+#define SWIGTYPE_p_IFormFactor swig_types[71]
 #define SWIGTYPE_p_IFormFactorDecorator swig_types[72]
 #define SWIGTYPE_p_IFormFactorPolyhedron swig_types[73]
 #define SWIGTYPE_p_IFormFactorPrism swig_types[74]
@@ -8308,31 +8308,31 @@ IFormFactor *SwigDirector_IFormFactor::sliceFormFactor(ZLimits limits, IRotation
 }
 
 
-SwigDirector_IFormFactorBorn::SwigDirector_IFormFactorBorn(PyObject *self): IFormFactorBorn(), Swig::Director(self) {
-  SWIG_DIRECTOR_RGTR((IFormFactorBorn *)this, this); 
+SwigDirector_IBornFF::SwigDirector_IBornFF(PyObject *self): IBornFF(), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IBornFF *)this, this); 
 }
 
 
 
 
-SwigDirector_IFormFactorBorn::SwigDirector_IFormFactorBorn(PyObject *self, NodeMeta const &meta, std::vector< double, std::allocator< double > > const &PValues): IFormFactorBorn(meta, PValues), Swig::Director(self) {
-  SWIG_DIRECTOR_RGTR((IFormFactorBorn *)this, this); 
+SwigDirector_IBornFF::SwigDirector_IBornFF(PyObject *self, NodeMeta const &meta, std::vector< double, std::allocator< double > > const &PValues): IBornFF(meta, PValues), Swig::Director(self) {
+  SWIG_DIRECTOR_RGTR((IBornFF *)this, this); 
 }
 
 
 
 
-SwigDirector_IFormFactorBorn::~SwigDirector_IFormFactorBorn() {
+SwigDirector_IBornFF::~SwigDirector_IBornFF() {
 }
 
-IFormFactorBorn *SwigDirector_IFormFactorBorn::clone() const {
-  IFormFactorBorn *c_result = 0 ;
+IBornFF *SwigDirector_IBornFF::clone() const {
+  IBornFF *c_result = 0 ;
   void *swig_argp ;
   int swig_res ;
   swig_owntype own ;
   
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 0;
@@ -8347,22 +8347,22 @@ IFormFactorBorn *SwigDirector_IFormFactorBorn::clone() const {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.clone'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.clone'");
     }
   }
-  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IFormFactorBorn,  0  | SWIG_POINTER_DISOWN, &own);
+  swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IBornFF,  0  | SWIG_POINTER_DISOWN, &own);
   if (!SWIG_IsOK(swig_res)) {
-    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IFormFactorBorn *""'");
+    Swig::DirectorTypeMismatchException::raise(SWIG_ErrorType(SWIG_ArgError(swig_res)), "in output value of type '""IBornFF *""'");
   }
-  c_result = reinterpret_cast< IFormFactorBorn * >(swig_argp);
+  c_result = reinterpret_cast< IBornFF * >(swig_argp);
   swig_acquire_ownership_obj(SWIG_as_voidptr(c_result), own /* & TODO: SWIG_POINTER_OWN */);
-  return (IFormFactorBorn *) c_result;
+  return (IBornFF *) c_result;
 }
 
 
-void SwigDirector_IFormFactorBorn::transferToCPP() {
+void SwigDirector_IBornFF::transferToCPP() {
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 1;
@@ -8377,20 +8377,20 @@ void SwigDirector_IFormFactorBorn::transferToCPP() {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.transferToCPP'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.transferToCPP'");
     }
   }
 }
 
 
-ParameterPool *SwigDirector_IFormFactorBorn::createParameterTree() const {
+ParameterPool *SwigDirector_IBornFF::createParameterTree() const {
   ParameterPool *c_result = 0 ;
   void *swig_argp ;
   int swig_res ;
   swig_owntype own ;
   
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 2;
@@ -8405,7 +8405,7 @@ ParameterPool *SwigDirector_IFormFactorBorn::createParameterTree() const {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.createParameterTree'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.createParameterTree'");
     }
   }
   swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_ParameterPool,  0  | SWIG_POINTER_DISOWN, &own);
@@ -8418,9 +8418,9 @@ ParameterPool *SwigDirector_IFormFactorBorn::createParameterTree() const {
 }
 
 
-void SwigDirector_IFormFactorBorn::onChange() {
+void SwigDirector_IBornFF::onChange() {
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 3;
@@ -8435,17 +8435,17 @@ void SwigDirector_IFormFactorBorn::onChange() {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.onChange'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.onChange'");
     }
   }
 }
 
 
-void SwigDirector_IFormFactorBorn::accept(INodeVisitor *visitor) const {
+void SwigDirector_IBornFF::accept(INodeVisitor *visitor) const {
   swig::SwigVar_PyObject obj0;
   obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(visitor), SWIGTYPE_p_INodeVisitor,  0 );
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 4;
@@ -8459,16 +8459,16 @@ void SwigDirector_IFormFactorBorn::accept(INodeVisitor *visitor) const {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.accept'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.accept'");
     }
   }
 }
 
 
-std::string SwigDirector_IFormFactorBorn::treeToString() const {
+std::string SwigDirector_IBornFF::treeToString() const {
   std::string c_result;
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 5;
@@ -8483,7 +8483,7 @@ std::string SwigDirector_IFormFactorBorn::treeToString() const {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.treeToString'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.treeToString'");
     }
   }
   std::string *swig_optr = 0;
@@ -8497,10 +8497,10 @@ std::string SwigDirector_IFormFactorBorn::treeToString() const {
 }
 
 
-std::vector< INode const *, std::allocator< INode const * > > SwigDirector_IFormFactorBorn::getChildren() const {
+std::vector< INode const *, std::allocator< INode const * > > SwigDirector_IBornFF::getChildren() const {
   std::vector< INode const *,std::allocator< INode const * > > c_result;
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 6;
@@ -8515,7 +8515,7 @@ std::vector< INode const *, std::allocator< INode const * > > SwigDirector_IForm
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.getChildren'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.getChildren'");
     }
   }
   std::vector< INode const*,std::allocator< INode const * > > *swig_optr = 0;
@@ -8529,11 +8529,11 @@ std::vector< INode const *, std::allocator< INode const * > > SwigDirector_IForm
 }
 
 
-void SwigDirector_IFormFactorBorn::setParent(INode const *newParent) {
+void SwigDirector_IBornFF::setParent(INode const *newParent) {
   swig::SwigVar_PyObject obj0;
   obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(newParent), SWIGTYPE_p_INode,  0 );
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 7;
@@ -8547,20 +8547,20 @@ void SwigDirector_IFormFactorBorn::setParent(INode const *newParent) {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.setParent'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.setParent'");
     }
   }
 }
 
 
-Material const *SwigDirector_IFormFactorBorn::material() const {
+Material const *SwigDirector_IBornFF::material() const {
   Material *c_result = 0 ;
   void *swig_argp ;
   int swig_res ;
   swig_owntype own ;
   
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 8;
@@ -8575,7 +8575,7 @@ Material const *SwigDirector_IFormFactorBorn::material() const {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.material'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.material'");
     }
   }
   swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_Material,  0  | SWIG_POINTER_DISOWN, &own);
@@ -8588,11 +8588,11 @@ Material const *SwigDirector_IFormFactorBorn::material() const {
 }
 
 
-void SwigDirector_IFormFactorBorn::setAmbientMaterial(Material const &arg0) {
+void SwigDirector_IBornFF::setAmbientMaterial(Material const &arg0) {
   swig::SwigVar_PyObject obj0;
   obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&arg0), SWIGTYPE_p_Material,  0 );
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 9;
@@ -8606,18 +8606,18 @@ void SwigDirector_IFormFactorBorn::setAmbientMaterial(Material const &arg0) {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.setAmbientMaterial'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.setAmbientMaterial'");
     }
   }
 }
 
 
-complex_t SwigDirector_IFormFactorBorn::evaluate(WavevectorInfo const &wavevectors) const {
+complex_t SwigDirector_IBornFF::evaluate(WavevectorInfo const &wavevectors) const {
   complex_t c_result;
   swig::SwigVar_PyObject obj0;
   obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&wavevectors), SWIGTYPE_p_WavevectorInfo,  0 );
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 10;
@@ -8631,7 +8631,7 @@ complex_t SwigDirector_IFormFactorBorn::evaluate(WavevectorInfo const &wavevecto
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.evaluate'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.evaluate'");
     }
   }
   std::complex<double> swig_val;
@@ -8644,11 +8644,11 @@ complex_t SwigDirector_IFormFactorBorn::evaluate(WavevectorInfo const &wavevecto
 }
 
 
-double SwigDirector_IFormFactorBorn::volume() const {
+double SwigDirector_IBornFF::volume() const {
   double c_result = SwigValueInit< double >() ;
   
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 11;
@@ -8663,7 +8663,7 @@ double SwigDirector_IFormFactorBorn::volume() const {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.volume'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.volume'");
     }
   }
   double swig_val;
@@ -8676,11 +8676,11 @@ double SwigDirector_IFormFactorBorn::volume() const {
 }
 
 
-double SwigDirector_IFormFactorBorn::radialExtension() const {
+double SwigDirector_IBornFF::radialExtension() const {
   double c_result = SwigValueInit< double >() ;
   
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 12;
@@ -8695,7 +8695,7 @@ double SwigDirector_IFormFactorBorn::radialExtension() const {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.radialExtension'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.radialExtension'");
     }
   }
   double swig_val;
@@ -8708,13 +8708,13 @@ double SwigDirector_IFormFactorBorn::radialExtension() const {
 }
 
 
-double SwigDirector_IFormFactorBorn::bottomZ(IRotation const &rotation) const {
+double SwigDirector_IBornFF::bottomZ(IRotation const &rotation) const {
   double c_result = SwigValueInit< double >() ;
   
   swig::SwigVar_PyObject obj0;
   obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&rotation), SWIGTYPE_p_IRotation,  0 );
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 13;
@@ -8728,7 +8728,7 @@ double SwigDirector_IFormFactorBorn::bottomZ(IRotation const &rotation) const {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.bottomZ'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.bottomZ'");
     }
   }
   double swig_val;
@@ -8741,13 +8741,13 @@ double SwigDirector_IFormFactorBorn::bottomZ(IRotation const &rotation) const {
 }
 
 
-double SwigDirector_IFormFactorBorn::topZ(IRotation const &rotation) const {
+double SwigDirector_IBornFF::topZ(IRotation const &rotation) const {
   double c_result = SwigValueInit< double >() ;
   
   swig::SwigVar_PyObject obj0;
   obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&rotation), SWIGTYPE_p_IRotation,  0 );
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 14;
@@ -8761,7 +8761,7 @@ double SwigDirector_IFormFactorBorn::topZ(IRotation const &rotation) const {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.topZ'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.topZ'");
     }
   }
   double swig_val;
@@ -8774,14 +8774,14 @@ double SwigDirector_IFormFactorBorn::topZ(IRotation const &rotation) const {
 }
 
 
-bool SwigDirector_IFormFactorBorn::canSliceAnalytically(IRotation const &rot) const {
+bool SwigDirector_IBornFF::canSliceAnalytically(IRotation const &rot) const {
   bool c_result = SwigValueInit< bool >() ;
   
   swig::SwigVar_PyObject obj0;
   obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&rot), SWIGTYPE_p_IRotation,  0 );
   swig_set_inner("canSliceAnalytically", true);
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 15;
@@ -8796,7 +8796,7 @@ bool SwigDirector_IFormFactorBorn::canSliceAnalytically(IRotation const &rot) co
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.canSliceAnalytically'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.canSliceAnalytically'");
     }
   }
   bool swig_val;
@@ -8809,7 +8809,7 @@ bool SwigDirector_IFormFactorBorn::canSliceAnalytically(IRotation const &rot) co
 }
 
 
-IFormFactor *SwigDirector_IFormFactorBorn::sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const {
+IFormFactor *SwigDirector_IBornFF::sliceFormFactor(ZLimits limits, IRotation const &rot, kvector_t translation) const {
   IFormFactor *c_result = 0 ;
   void *swig_argp ;
   int swig_res ;
@@ -8823,7 +8823,7 @@ IFormFactor *SwigDirector_IFormFactorBorn::sliceFormFactor(ZLimits limits, IRota
   obj2 = SWIG_NewPointerObj(SWIG_as_voidptr(new kvector_t((const kvector_t &)translation)), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
   swig_set_inner("sliceFormFactor", true);
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 16;
@@ -8838,7 +8838,7 @@ IFormFactor *SwigDirector_IFormFactorBorn::sliceFormFactor(ZLimits limits, IRota
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.sliceFormFactor'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.sliceFormFactor'");
     }
   }
   swig_res = SWIG_ConvertPtrAndOwn(result, &swig_argp, SWIGTYPE_p_IFormFactor,  0  | SWIG_POINTER_DISOWN, &own);
@@ -8851,12 +8851,12 @@ IFormFactor *SwigDirector_IFormFactorBorn::sliceFormFactor(ZLimits limits, IRota
 }
 
 
-complex_t SwigDirector_IFormFactorBorn::evaluate_for_q(cvector_t q) const {
+complex_t SwigDirector_IBornFF::evaluate_for_q(cvector_t q) const {
   complex_t c_result;
   swig::SwigVar_PyObject obj0;
   obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(new cvector_t((const cvector_t &)q)), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
   if (!swig_get_self()) {
-    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IFormFactorBorn.__init__.");
+    Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call IBornFF.__init__.");
   }
 #if defined(SWIG_PYTHON_DIRECTOR_VTABLE)
   const size_t swig_method_index = 17;
@@ -8870,7 +8870,7 @@ complex_t SwigDirector_IFormFactorBorn::evaluate_for_q(cvector_t q) const {
   if (!result) {
     PyObject *error = PyErr_Occurred();
     if (error) {
-      Swig::DirectorMethodException::raise("Error detected when calling 'IFormFactorBorn.evaluate_for_q'");
+      Swig::DirectorMethodException::raise("Error detected when calling 'IBornFF.evaluate_for_q'");
     }
   }
   std::complex<double> swig_val;
@@ -38577,6 +38577,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_ISample_isMagnetic(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ISample *arg1 = (ISample *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISample, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISample_isMagnetic" "', argument " "1"" of type '" "ISample const *""'"); 
+  }
+  arg1 = reinterpret_cast< ISample * >(argp1);
+  result = (bool)((ISample const *)arg1)->isMagnetic();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_ISample(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ISample *arg1 = (ISample *) 0 ;
@@ -39365,29 +39388,29 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_new_IFormFactorBorn__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_IBornFF__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   PyObject *arg1 = (PyObject *) 0 ;
-  IFormFactorBorn *result = 0 ;
+  IBornFF *result = 0 ;
   
   if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
   arg1 = swig_obj[0];
   if ( arg1 != Py_None ) {
     /* subclassed */
-    result = (IFormFactorBorn *)new SwigDirector_IFormFactorBorn(arg1); 
+    result = (IBornFF *)new SwigDirector_IBornFF(arg1); 
   } else {
     SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
     SWIG_fail;
   }
   
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFormFactorBorn, SWIG_POINTER_NEW |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IBornFF, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_new_IFormFactorBorn__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_IBornFF__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   PyObject *arg1 = (PyObject *) 0 ;
   NodeMeta *arg2 = 0 ;
@@ -39395,38 +39418,38 @@ SWIGINTERN PyObject *_wrap_new_IFormFactorBorn__SWIG_1(PyObject *SWIGUNUSEDPARM(
   void *argp2 = 0 ;
   int res2 = 0 ;
   int res3 = SWIG_OLDOBJ ;
-  IFormFactorBorn *result = 0 ;
+  IBornFF *result = 0 ;
   
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   arg1 = swig_obj[0];
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_NodeMeta,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IFormFactorBorn" "', argument " "2"" of type '" "NodeMeta const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_IBornFF" "', argument " "2"" of type '" "NodeMeta const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IFormFactorBorn" "', argument " "2"" of type '" "NodeMeta const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IBornFF" "', argument " "2"" of type '" "NodeMeta const &""'"); 
   }
   arg2 = reinterpret_cast< NodeMeta * >(argp2);
   {
     std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
     res3 = swig::asptr(swig_obj[2], &ptr);
     if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_IFormFactorBorn" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_IBornFF" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IFormFactorBorn" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_IBornFF" "', argument " "3"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
     }
     arg3 = ptr;
   }
   if ( arg1 != Py_None ) {
     /* subclassed */
-    result = (IFormFactorBorn *)new SwigDirector_IFormFactorBorn(arg1,(NodeMeta const &)*arg2,(std::vector< double,std::allocator< double > > const &)*arg3); 
+    result = (IBornFF *)new SwigDirector_IBornFF(arg1,(NodeMeta const &)*arg2,(std::vector< double,std::allocator< double > > const &)*arg3); 
   } else {
     SWIG_SetErrorMsg(PyExc_RuntimeError,"accessing abstract class or protected constructor"); 
     SWIG_fail;
   }
   
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFormFactorBorn, SWIG_POINTER_NEW |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IBornFF, SWIG_POINTER_NEW |  0 );
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
 fail:
@@ -39435,19 +39458,19 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_new_IFormFactorBorn(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_IBornFF(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_IFormFactorBorn", 0, 3, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_IBornFF", 0, 3, argv))) SWIG_fail;
   --argc;
   if (argc == 1) {
     int _v;
     _v = (argv[0] != 0);
     if (_v) {
-      return _wrap_new_IFormFactorBorn__SWIG_0(self, argc, argv);
+      return _wrap_new_IBornFF__SWIG_0(self, argc, argv);
     }
   }
   if (argc == 3) {
@@ -39460,35 +39483,35 @@ SWIGINTERN PyObject *_wrap_new_IFormFactorBorn(PyObject *self, PyObject *args) {
         int res = swig::asptr(argv[2], (std::vector< double,std::allocator< double > >**)(0));
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_new_IFormFactorBorn__SWIG_1(self, argc, argv);
+          return _wrap_new_IBornFF__SWIG_1(self, argc, argv);
         }
       }
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_IFormFactorBorn'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_IBornFF'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    IFormFactorBorn::IFormFactorBorn()\n"
-    "    IFormFactorBorn::IFormFactorBorn(PyObject *,NodeMeta const &,std::vector< double,std::allocator< double > > const &)\n");
+    "    IBornFF::IBornFF()\n"
+    "    IBornFF::IBornFF(PyObject *,NodeMeta const &,std::vector< double,std::allocator< double > > const &)\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_IFormFactorBorn(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_IBornFF(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg1 = (IBornFF *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFormFactorBorn, SWIG_POINTER_DISOWN |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBornFF, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IFormFactorBorn" "', argument " "1"" of type '" "IFormFactorBorn *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IBornFF" "', argument " "1"" of type '" "IBornFF *""'"); 
   }
-  arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
+  arg1 = reinterpret_cast< IBornFF * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -39497,30 +39520,30 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IFormFactorBorn_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IBornFF_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg1 = (IBornFF *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   Swig::Director *director = 0;
   bool upcall = false;
-  IFormFactorBorn *result = 0 ;
+  IBornFF *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBornFF, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactorBorn_clone" "', argument " "1"" of type '" "IFormFactorBorn const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IBornFF_clone" "', argument " "1"" of type '" "IBornFF const *""'"); 
   }
-  arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
+  arg1 = reinterpret_cast< IBornFF * >(argp1);
   director = SWIG_DIRECTOR_CAST(arg1);
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
     if (upcall) {
-      Swig::DirectorPureVirtualException::raise("IFormFactorBorn::clone");
+      Swig::DirectorPureVirtualException::raise("IBornFF::clone");
     } else {
-      result = (IFormFactorBorn *)((IFormFactorBorn const *)arg1)->clone();
+      result = (IBornFF *)((IBornFF const *)arg1)->clone();
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -39530,7 +39553,7 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_clone(PyObject *SWIGUNUSEDPARM(self),
     resultobj = director->swig_get_self();
     Py_INCREF(resultobj);
   } else {
-    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IBornFF, 0 |  0 );
   }
   if (director) {
     SWIG_AcquirePtr(resultobj, director->swig_release_ownership(SWIG_as_voidptr(result)));
@@ -39541,9 +39564,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IFormFactorBorn_setAmbientMaterial(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IBornFF_setAmbientMaterial(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg1 = (IBornFF *) 0 ;
   Material *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -39553,25 +39576,25 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_setAmbientMaterial(PyObject *SWIGUNUS
   Swig::Director *director = 0;
   bool upcall = false;
   
-  if (!SWIG_Python_UnpackTuple(args, "IFormFactorBorn_setAmbientMaterial", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IBornFF_setAmbientMaterial", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBornFF, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactorBorn_setAmbientMaterial" "', argument " "1"" of type '" "IFormFactorBorn *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IBornFF_setAmbientMaterial" "', argument " "1"" of type '" "IBornFF *""'"); 
   }
-  arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
+  arg1 = reinterpret_cast< IBornFF * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Material,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorBorn_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IBornFF_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IBornFF_setAmbientMaterial" "', argument " "2"" of type '" "Material const &""'"); 
   }
   arg2 = reinterpret_cast< Material * >(argp2);
   director = SWIG_DIRECTOR_CAST(arg1);
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
     if (upcall) {
-      (arg1)->IFormFactorBorn::setAmbientMaterial((Material const &)*arg2);
+      (arg1)->IBornFF::setAmbientMaterial((Material const &)*arg2);
     } else {
       (arg1)->setAmbientMaterial((Material const &)*arg2);
     }
@@ -39585,9 +39608,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IFormFactorBorn_evaluate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IBornFF_evaluate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg1 = (IBornFF *) 0 ;
   WavevectorInfo *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -39598,27 +39621,27 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_evaluate(PyObject *SWIGUNUSEDPARM(sel
   bool upcall = false;
   complex_t result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IFormFactorBorn_evaluate", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IBornFF_evaluate", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBornFF, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactorBorn_evaluate" "', argument " "1"" of type '" "IFormFactorBorn const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IBornFF_evaluate" "', argument " "1"" of type '" "IBornFF const *""'"); 
   }
-  arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
+  arg1 = reinterpret_cast< IBornFF * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_WavevectorInfo,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorBorn_evaluate" "', argument " "2"" of type '" "WavevectorInfo const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IBornFF_evaluate" "', argument " "2"" of type '" "WavevectorInfo const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_evaluate" "', argument " "2"" of type '" "WavevectorInfo const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IBornFF_evaluate" "', argument " "2"" of type '" "WavevectorInfo const &""'"); 
   }
   arg2 = reinterpret_cast< WavevectorInfo * >(argp2);
   director = SWIG_DIRECTOR_CAST(arg1);
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
     if (upcall) {
-      result = ((IFormFactorBorn const *)arg1)->IFormFactorBorn::evaluate((WavevectorInfo const &)*arg2);
+      result = ((IBornFF const *)arg1)->IBornFF::evaluate((WavevectorInfo const &)*arg2);
     } else {
-      result = ((IFormFactorBorn const *)arg1)->evaluate((WavevectorInfo const &)*arg2);
+      result = ((IBornFF const *)arg1)->evaluate((WavevectorInfo const &)*arg2);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -39630,9 +39653,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IFormFactorBorn_bottomZ(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IBornFF_bottomZ(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg1 = (IBornFF *) 0 ;
   IRotation *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -39643,27 +39666,27 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_bottomZ(PyObject *SWIGUNUSEDPARM(self
   bool upcall = false;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IFormFactorBorn_bottomZ", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IBornFF_bottomZ", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBornFF, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactorBorn_bottomZ" "', argument " "1"" of type '" "IFormFactorBorn const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IBornFF_bottomZ" "', argument " "1"" of type '" "IBornFF const *""'"); 
   }
-  arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
+  arg1 = reinterpret_cast< IBornFF * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IRotation,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorBorn_bottomZ" "', argument " "2"" of type '" "IRotation const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IBornFF_bottomZ" "', argument " "2"" of type '" "IRotation const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_bottomZ" "', argument " "2"" of type '" "IRotation const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IBornFF_bottomZ" "', argument " "2"" of type '" "IRotation const &""'"); 
   }
   arg2 = reinterpret_cast< IRotation * >(argp2);
   director = SWIG_DIRECTOR_CAST(arg1);
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
     if (upcall) {
-      result = (double)((IFormFactorBorn const *)arg1)->IFormFactorBorn::bottomZ((IRotation const &)*arg2);
+      result = (double)((IBornFF const *)arg1)->IBornFF::bottomZ((IRotation const &)*arg2);
     } else {
-      result = (double)((IFormFactorBorn const *)arg1)->bottomZ((IRotation const &)*arg2);
+      result = (double)((IBornFF const *)arg1)->bottomZ((IRotation const &)*arg2);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -39675,9 +39698,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IFormFactorBorn_topZ(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IBornFF_topZ(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg1 = (IBornFF *) 0 ;
   IRotation *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -39688,27 +39711,27 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_topZ(PyObject *SWIGUNUSEDPARM(self), 
   bool upcall = false;
   double result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IFormFactorBorn_topZ", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IBornFF_topZ", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBornFF, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactorBorn_topZ" "', argument " "1"" of type '" "IFormFactorBorn const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IBornFF_topZ" "', argument " "1"" of type '" "IBornFF const *""'"); 
   }
-  arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
+  arg1 = reinterpret_cast< IBornFF * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IRotation,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorBorn_topZ" "', argument " "2"" of type '" "IRotation const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IBornFF_topZ" "', argument " "2"" of type '" "IRotation const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_topZ" "', argument " "2"" of type '" "IRotation const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IBornFF_topZ" "', argument " "2"" of type '" "IRotation const &""'"); 
   }
   arg2 = reinterpret_cast< IRotation * >(argp2);
   director = SWIG_DIRECTOR_CAST(arg1);
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
     if (upcall) {
-      result = (double)((IFormFactorBorn const *)arg1)->IFormFactorBorn::topZ((IRotation const &)*arg2);
+      result = (double)((IBornFF const *)arg1)->IBornFF::topZ((IRotation const &)*arg2);
     } else {
-      result = (double)((IFormFactorBorn const *)arg1)->topZ((IRotation const &)*arg2);
+      result = (double)((IBornFF const *)arg1)->topZ((IRotation const &)*arg2);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -39720,9 +39743,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IFormFactorBorn_evaluate_for_q(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IBornFF_evaluate_for_q(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg1 = (IBornFF *) 0 ;
   cvector_t arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -39733,19 +39756,19 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_evaluate_for_q(PyObject *SWIGUNUSEDPA
   bool upcall = false;
   complex_t result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IFormFactorBorn_evaluate_for_q", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IBornFF_evaluate_for_q", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBornFF, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactorBorn_evaluate_for_q" "', argument " "1"" of type '" "IFormFactorBorn const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IBornFF_evaluate_for_q" "', argument " "1"" of type '" "IBornFF const *""'"); 
   }
-  arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
+  arg1 = reinterpret_cast< IBornFF * >(argp1);
   {
     res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorBorn_evaluate_for_q" "', argument " "2"" of type '" "cvector_t""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IBornFF_evaluate_for_q" "', argument " "2"" of type '" "cvector_t""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_evaluate_for_q" "', argument " "2"" of type '" "cvector_t""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IBornFF_evaluate_for_q" "', argument " "2"" of type '" "cvector_t""'");
     } else {
       cvector_t * temp = reinterpret_cast< cvector_t * >(argp2);
       arg2 = *temp;
@@ -39756,9 +39779,9 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_evaluate_for_q(PyObject *SWIGUNUSEDPA
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
     if (upcall) {
-      Swig::DirectorPureVirtualException::raise("IFormFactorBorn::evaluate_for_q");
+      Swig::DirectorPureVirtualException::raise("IBornFF::evaluate_for_q");
     } else {
-      result = ((IFormFactorBorn const *)arg1)->evaluate_for_q(arg2);
+      result = ((IBornFF const *)arg1)->evaluate_for_q(arg2);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -39770,9 +39793,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IFormFactorBorn_canSliceAnalytically(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IBornFF_canSliceAnalytically(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg1 = (IBornFF *) 0 ;
   IRotation *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -39781,21 +39804,21 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_canSliceAnalytically(PyObject *SWIGUN
   PyObject *swig_obj[2] ;
   Swig::Director *director = 0;
   bool upcall = false;
-  SwigDirector_IFormFactorBorn *darg = 0;
+  SwigDirector_IBornFF *darg = 0;
   bool result;
   
-  if (!SWIG_Python_UnpackTuple(args, "IFormFactorBorn_canSliceAnalytically", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IBornFF_canSliceAnalytically", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBornFF, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactorBorn_canSliceAnalytically" "', argument " "1"" of type '" "IFormFactorBorn const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IBornFF_canSliceAnalytically" "', argument " "1"" of type '" "IBornFF const *""'"); 
   }
-  arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
+  arg1 = reinterpret_cast< IBornFF * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IRotation,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorBorn_canSliceAnalytically" "', argument " "2"" of type '" "IRotation const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IBornFF_canSliceAnalytically" "', argument " "2"" of type '" "IRotation const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_canSliceAnalytically" "', argument " "2"" of type '" "IRotation const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IBornFF_canSliceAnalytically" "', argument " "2"" of type '" "IRotation const &""'"); 
   }
   arg2 = reinterpret_cast< IRotation * >(argp2);
   director = SWIG_DIRECTOR_CAST(arg1);
@@ -39805,11 +39828,11 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_canSliceAnalytically(PyObject *SWIGUN
   }
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
-    darg = dynamic_cast<SwigDirector_IFormFactorBorn *>(arg1);
+    darg = dynamic_cast<SwigDirector_IBornFF *>(arg1);
     if (upcall) {
-      result = (bool)((SwigDirector_IFormFactorBorn const *)darg)->canSliceAnalyticallySwigPublic((IRotation const &)*arg2);
+      result = (bool)((SwigDirector_IBornFF const *)darg)->canSliceAnalyticallySwigPublic((IRotation const &)*arg2);
     } else {
-      result = (bool)((SwigDirector_IFormFactorBorn const *)darg)->canSliceAnalytically((IRotation const &)*arg2);
+      result = (bool)((SwigDirector_IBornFF const *)darg)->canSliceAnalytically((IRotation const &)*arg2);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -39821,20 +39844,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_disown_IFormFactorBorn(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_disown_IBornFF(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg1 = (IBornFF *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBornFF, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IFormFactorBorn" "', argument " "1"" of type '" "IFormFactorBorn *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_IBornFF" "', argument " "1"" of type '" "IBornFF *""'"); 
   }
-  arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
+  arg1 = reinterpret_cast< IBornFF * >(argp1);
   {
     Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
     if (director) director->swig_disown();
@@ -39847,9 +39870,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IFormFactorBorn_sliceFormFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IBornFF_sliceFormFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  IFormFactorBorn *arg1 = (IFormFactorBorn *) 0 ;
+  IBornFF *arg1 = (IBornFF *) 0 ;
   ZLimits arg2 ;
   IRotation *arg3 = 0 ;
   kvector_t arg4 ;
@@ -39864,22 +39887,22 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_sliceFormFactor(PyObject *SWIGUNUSEDP
   PyObject *swig_obj[4] ;
   Swig::Director *director = 0;
   bool upcall = false;
-  SwigDirector_IFormFactorBorn *darg = 0;
+  SwigDirector_IBornFF *darg = 0;
   IFormFactor *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "IFormFactorBorn_sliceFormFactor", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFormFactorBorn, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "IBornFF_sliceFormFactor", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IBornFF, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFormFactorBorn_sliceFormFactor" "', argument " "1"" of type '" "IFormFactorBorn const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IBornFF_sliceFormFactor" "', argument " "1"" of type '" "IBornFF const *""'"); 
   }
-  arg1 = reinterpret_cast< IFormFactorBorn * >(argp1);
+  arg1 = reinterpret_cast< IBornFF * >(argp1);
   {
     res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_ZLimits,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IFormFactorBorn_sliceFormFactor" "', argument " "2"" of type '" "ZLimits""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IBornFF_sliceFormFactor" "', argument " "2"" of type '" "ZLimits""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_sliceFormFactor" "', argument " "2"" of type '" "ZLimits""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IBornFF_sliceFormFactor" "', argument " "2"" of type '" "ZLimits""'");
     } else {
       ZLimits * temp = reinterpret_cast< ZLimits * >(argp2);
       arg2 = *temp;
@@ -39888,19 +39911,19 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_sliceFormFactor(PyObject *SWIGUNUSEDP
   }
   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_IRotation,  0  | 0);
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IFormFactorBorn_sliceFormFactor" "', argument " "3"" of type '" "IRotation const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "IBornFF_sliceFormFactor" "', argument " "3"" of type '" "IRotation const &""'"); 
   }
   if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_sliceFormFactor" "', argument " "3"" of type '" "IRotation const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IBornFF_sliceFormFactor" "', argument " "3"" of type '" "IRotation const &""'"); 
   }
   arg3 = reinterpret_cast< IRotation * >(argp3);
   {
     res4 = SWIG_ConvertPtr(swig_obj[3], &argp4, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
     if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "IFormFactorBorn_sliceFormFactor" "', argument " "4"" of type '" "kvector_t""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "IBornFF_sliceFormFactor" "', argument " "4"" of type '" "kvector_t""'"); 
     }  
     if (!argp4) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IFormFactorBorn_sliceFormFactor" "', argument " "4"" of type '" "kvector_t""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IBornFF_sliceFormFactor" "', argument " "4"" of type '" "kvector_t""'");
     } else {
       kvector_t * temp = reinterpret_cast< kvector_t * >(argp4);
       arg4 = *temp;
@@ -39914,11 +39937,11 @@ SWIGINTERN PyObject *_wrap_IFormFactorBorn_sliceFormFactor(PyObject *SWIGUNUSEDP
   }
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
-    darg = dynamic_cast<SwigDirector_IFormFactorBorn *>(arg1);
+    darg = dynamic_cast<SwigDirector_IBornFF *>(arg1);
     if (upcall) {
-      result = (IFormFactor *)((SwigDirector_IFormFactorBorn const *)darg)->sliceFormFactorSwigPublic(arg2,(IRotation const &)*arg3,arg4);
+      result = (IFormFactor *)((SwigDirector_IBornFF const *)darg)->sliceFormFactorSwigPublic(arg2,(IRotation const &)*arg3,arg4);
     } else {
-      result = (IFormFactor *)((SwigDirector_IFormFactorBorn const *)darg)->sliceFormFactor(arg2,(IRotation const &)*arg3,arg4);
+      result = (IFormFactor *)((SwigDirector_IBornFF const *)darg)->sliceFormFactor(arg2,(IRotation const &)*arg3,arg4);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -39939,14 +39962,14 @@ fail:
 }
 
 
-SWIGINTERN PyObject *IFormFactorBorn_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *IBornFF_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IFormFactorBorn, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_IBornFF, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *IFormFactorBorn_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *IBornFF_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
 
@@ -70490,6 +70513,13 @@ static PyMethodDef SwigMethods[] = {
 		"Returns set of unique materials contained in this  ISample. \n"
 		"\n"
 		""},
+	 { "ISample_isMagnetic", _wrap_ISample_isMagnetic, METH_O, "\n"
+		"ISample_isMagnetic(ISample self) -> bool\n"
+		"bool ISample::isMagnetic() const\n"
+		"\n"
+		"Returns true if there is any magnetic material in this  ISample. \n"
+		"\n"
+		""},
 	 { "delete_ISample", _wrap_delete_ISample, METH_O, "delete_ISample(ISample self)"},
 	 { "disown_ISample", _wrap_disown_ISample, METH_O, NULL},
 	 { "ISample_swigregister", ISample_swigregister, METH_O, NULL},
@@ -70571,64 +70601,64 @@ static PyMethodDef SwigMethods[] = {
 		"IFormFactor* createTransformedFormFactor(const IFormFactor &formfactor, const IRotation &rot, kvector_t translation)\n"
 		"\n"
 		""},
-	 { "new_IFormFactorBorn", _wrap_new_IFormFactorBorn, METH_VARARGS, "\n"
-		"IFormFactorBorn()\n"
-		"new_IFormFactorBorn(PyObject * _self, NodeMeta meta, vdouble1d_t PValues) -> IFormFactorBorn\n"
-		"IFormFactorBorn::IFormFactorBorn(const NodeMeta &meta, const std::vector< double > &PValues)\n"
+	 { "new_IBornFF", _wrap_new_IBornFF, METH_VARARGS, "\n"
+		"IBornFF()\n"
+		"new_IBornFF(PyObject * _self, NodeMeta meta, vdouble1d_t PValues) -> IBornFF\n"
+		"IBornFF::IBornFF(const NodeMeta &meta, const std::vector< double > &PValues)\n"
 		"\n"
 		""},
-	 { "delete_IFormFactorBorn", _wrap_delete_IFormFactorBorn, METH_O, "\n"
-		"delete_IFormFactorBorn(IFormFactorBorn self)\n"
-		"IFormFactorBorn::~IFormFactorBorn()\n"
+	 { "delete_IBornFF", _wrap_delete_IBornFF, METH_O, "\n"
+		"delete_IBornFF(IBornFF self)\n"
+		"IBornFF::~IBornFF()\n"
 		"\n"
 		""},
-	 { "IFormFactorBorn_clone", _wrap_IFormFactorBorn_clone, METH_O, "\n"
-		"IFormFactorBorn_clone(IFormFactorBorn self) -> IFormFactorBorn\n"
-		"IFormFactorBorn* IFormFactorBorn::clone() const override=0\n"
+	 { "IBornFF_clone", _wrap_IBornFF_clone, METH_O, "\n"
+		"IBornFF_clone(IBornFF self) -> IBornFF\n"
+		"IBornFF* IBornFF::clone() const override=0\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
-	 { "IFormFactorBorn_setAmbientMaterial", _wrap_IFormFactorBorn_setAmbientMaterial, METH_VARARGS, "\n"
-		"IFormFactorBorn_setAmbientMaterial(IFormFactorBorn self, Material arg0)\n"
-		"void IFormFactorBorn::setAmbientMaterial(const Material &) override\n"
+	 { "IBornFF_setAmbientMaterial", _wrap_IBornFF_setAmbientMaterial, METH_VARARGS, "\n"
+		"IBornFF_setAmbientMaterial(IBornFF self, Material arg0)\n"
+		"void IBornFF::setAmbientMaterial(const Material &) override\n"
 		"\n"
 		"Passes the material in which this particle is embedded. \n"
 		"\n"
 		""},
-	 { "IFormFactorBorn_evaluate", _wrap_IFormFactorBorn_evaluate, METH_VARARGS, "\n"
-		"IFormFactorBorn_evaluate(IFormFactorBorn self, WavevectorInfo wavevectors) -> complex_t\n"
-		"complex_t IFormFactorBorn::evaluate(const WavevectorInfo &wavevectors) const override\n"
+	 { "IBornFF_evaluate", _wrap_IBornFF_evaluate, METH_VARARGS, "\n"
+		"IBornFF_evaluate(IBornFF self, WavevectorInfo wavevectors) -> complex_t\n"
+		"complex_t IBornFF::evaluate(const WavevectorInfo &wavevectors) const override\n"
 		"\n"
 		"Returns scattering amplitude for complex wavevectors ki, kf. \n"
 		"\n"
 		""},
-	 { "IFormFactorBorn_bottomZ", _wrap_IFormFactorBorn_bottomZ, METH_VARARGS, "\n"
-		"IFormFactorBorn_bottomZ(IFormFactorBorn self, IRotation rotation) -> double\n"
-		"double IFormFactorBorn::bottomZ(const IRotation &rotation) const override\n"
+	 { "IBornFF_bottomZ", _wrap_IBornFF_bottomZ, METH_VARARGS, "\n"
+		"IBornFF_bottomZ(IBornFF self, IRotation rotation) -> double\n"
+		"double IBornFF::bottomZ(const IRotation &rotation) const override\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
-	 { "IFormFactorBorn_topZ", _wrap_IFormFactorBorn_topZ, METH_VARARGS, "\n"
-		"IFormFactorBorn_topZ(IFormFactorBorn self, IRotation rotation) -> double\n"
-		"double IFormFactorBorn::topZ(const IRotation &rotation) const override\n"
+	 { "IBornFF_topZ", _wrap_IBornFF_topZ, METH_VARARGS, "\n"
+		"IBornFF_topZ(IBornFF self, IRotation rotation) -> double\n"
+		"double IBornFF::topZ(const IRotation &rotation) const override\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
-	 { "IFormFactorBorn_evaluate_for_q", _wrap_IFormFactorBorn_evaluate_for_q, METH_VARARGS, "\n"
-		"IFormFactorBorn_evaluate_for_q(IFormFactorBorn self, cvector_t q) -> complex_t\n"
-		"virtual complex_t IFormFactorBorn::evaluate_for_q(cvector_t q) const =0\n"
+	 { "IBornFF_evaluate_for_q", _wrap_IBornFF_evaluate_for_q, METH_VARARGS, "\n"
+		"IBornFF_evaluate_for_q(IBornFF self, cvector_t q) -> complex_t\n"
+		"virtual complex_t IBornFF::evaluate_for_q(cvector_t q) const =0\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
 		""},
-	 { "IFormFactorBorn_canSliceAnalytically", _wrap_IFormFactorBorn_canSliceAnalytically, METH_VARARGS, "IFormFactorBorn_canSliceAnalytically(IFormFactorBorn self, IRotation rot) -> bool"},
-	 { "disown_IFormFactorBorn", _wrap_disown_IFormFactorBorn, METH_O, NULL},
-	 { "IFormFactorBorn_sliceFormFactor", _wrap_IFormFactorBorn_sliceFormFactor, METH_VARARGS, "IFormFactorBorn_sliceFormFactor(IFormFactorBorn self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"},
-	 { "IFormFactorBorn_swigregister", IFormFactorBorn_swigregister, METH_O, NULL},
-	 { "IFormFactorBorn_swiginit", IFormFactorBorn_swiginit, METH_VARARGS, NULL},
+	 { "IBornFF_canSliceAnalytically", _wrap_IBornFF_canSliceAnalytically, METH_VARARGS, "IBornFF_canSliceAnalytically(IBornFF self, IRotation rot) -> bool"},
+	 { "disown_IBornFF", _wrap_disown_IBornFF, METH_O, NULL},
+	 { "IBornFF_sliceFormFactor", _wrap_IBornFF_sliceFormFactor, METH_VARARGS, "IBornFF_sliceFormFactor(IBornFF self, ZLimits limits, IRotation rot, kvector_t translation) -> IFormFactor"},
+	 { "IBornFF_swigregister", IBornFF_swigregister, METH_O, NULL},
+	 { "IBornFF_swiginit", IBornFF_swiginit, METH_VARARGS, NULL},
 	 { "SlicingEffects_position_set", _wrap_SlicingEffects_position_set, METH_VARARGS, "SlicingEffects_position_set(SlicingEffects self, kvector_t position)"},
 	 { "SlicingEffects_position_get", _wrap_SlicingEffects_position_get, METH_O, "SlicingEffects_position_get(SlicingEffects self) -> kvector_t"},
 	 { "SlicingEffects_dz_bottom_set", _wrap_SlicingEffects_dz_bottom_set, METH_VARARGS, "SlicingEffects_dz_bottom_set(SlicingEffects self, double dz_bottom)"},
@@ -70641,7 +70671,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		"Nested structure that holds slicing effects on position and removed parts.\n"
 		"\n"
-		"C++ includes: IFormFactorBorn.h\n"
+		"C++ includes: IBornFF.h\n"
 		"\n"
 		""},
 	 { "delete_SlicingEffects", _wrap_delete_SlicingEffects, METH_O, "delete_SlicingEffects(SlicingEffects self)"},
@@ -75392,134 +75422,134 @@ static void *_p_IdentityRotationTo_p_IRotation(void *x, int *SWIGUNUSEDPARM(newm
 static void *_p_RotationXTo_p_IRotation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IRotation *)  ((RotationX *) x));
 }
+static void *_p_IBornFFTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IFormFactor *)  ((IBornFF *) x));
+}
 static void *_p_FormFactorPrism6To_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorPrism6 *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPrism *) ((FormFactorPrism6 *) x));
 }
 static void *_p_FormFactorHemiEllipsoidTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorHemiEllipsoid *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorHemiEllipsoid *) x));
 }
 static void *_p_FormFactorFullSpheroidTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorFullSpheroid *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorFullSpheroid *) x));
 }
 static void *_p_FormFactorTruncatedSpheroidTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorTruncatedSpheroid *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorTruncatedSpheroid *) x));
 }
 static void *_p_IProfileRippleTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((IProfileRipple *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((IProfileRipple *) x));
 }
 static void *_p_ICosineRippleTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IProfileRipple *) ((ICosineRipple *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IProfileRipple *) ((ICosineRipple *) x));
 }
 static void *_p_FormFactorLongBoxGaussTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorLongBoxGauss *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorLongBoxGauss *) x));
 }
 static void *_p_FormFactorCosineRippleGaussTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
 }
 static void *_p_FormFactorSawtoothRippleGaussTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
 }
 static void *_p_IFormFactorPrismTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((IFormFactorPrism *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((IFormFactorPrism *) x));
 }
 static void *_p_FormFactorCrystalTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IFormFactor *)  ((FormFactorCrystal *) x));
 }
 static void *_p_FormFactorCantellatedCubeTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
 }
 static void *_p_FormFactorFullSphereTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorFullSphere *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorFullSphere *) x));
 }
 static void *_p_FormFactorTruncatedCubeTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
 }
 static void *_p_FormFactorTruncatedSphereTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorTruncatedSphere *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorTruncatedSphere *) x));
 }
 static void *_p_FormFactorEllipsoidalCylinderTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorEllipsoidalCylinder *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorEllipsoidalCylinder *) x));
 }
 static void *_p_FormFactorCylinderTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorCylinder *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorCylinder *) x));
 }
 static void *_p_FormFactorBoxTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorBox *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPrism *) ((FormFactorBox *) x));
 }
 static void *_p_IFormFactorDecoratorTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IFormFactor *)  ((IFormFactorDecorator *) x));
 }
 static void *_p_FormFactorIcosahedronTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
 }
 static void *_p_FormFactorDodecahedronTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
 }
 static void *_p_FormFactorCuboctahedronTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
 }
 static void *_p_IFormFactorPolyhedronTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((IFormFactorPolyhedron *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((IFormFactorPolyhedron *) x));
 }
 static void *_p_FormFactorTetrahedronTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
 }
 static void *_p_FormFactorConeTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorCone *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorCone *) x));
 }
 static void *_p_FormFactorCone6To_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
 }
 static void *_p_FormFactorSphereGaussianRadiusTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorSphereGaussianRadius *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorSphereGaussianRadius *) x));
 }
 static void *_p_FormFactorSphereLogNormalRadiusTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorSphereLogNormalRadius *) x));
-}
-static void *_p_IFormFactorBornTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *)  ((IFormFactorBorn *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorSphereLogNormalRadius *) x));
 }
 static void *_p_FormFactorHollowSphereTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorHollowSphere *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorHollowSphere *) x));
 }
 static void *_p_FormFactorGaussSphereTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorGaussSphere *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorGaussSphere *) x));
 }
 static void *_p_FormFactorDotTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorDot *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorDot *) x));
 }
 static void *_p_IProfileRectangularRippleTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
 }
 static void *_p_ISawtoothRippleTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IProfileRipple *) ((ISawtoothRipple *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IProfileRipple *) ((ISawtoothRipple *) x));
 }
 static void *_p_FormFactorLongBoxLorentzTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *) ((FormFactorLongBoxLorentz *) x));
+    return (void *)((IFormFactor *) (IBornFF *) ((FormFactorLongBoxLorentz *) x));
 }
 static void *_p_FormFactorCosineRippleLorentzTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
 }
 static void *_p_FormFactorWeightedTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IFormFactor *)  ((FormFactorWeighted *) x));
 }
 static void *_p_FormFactorSawtoothRippleLorentzTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
 }
 static void *_p_FormFactorSawtoothRippleBoxTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
 }
 static void *_p_FormFactorCosineRippleBoxTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
 }
 static void *_p_FormFactorPyramidTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
 }
 static void *_p_FormFactorAnisoPyramidTo_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
 }
 static void *_p_FormFactorPrism3To_p_IFormFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactor *) (IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorPrism3 *) x));
+    return (void *)((IFormFactor *) (IBornFF *)(IFormFactorPrism *) ((FormFactorPrism3 *) x));
 }
 static void *_p_FormFactorCuboctahedronTo_p_IFormFactorPolyhedron(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IFormFactorPolyhedron *)  ((FormFactorCuboctahedron *) x));
@@ -75567,16 +75597,16 @@ static void *_p_MisesGaussPeakShapeTo_p_IPeakShape(void *x, int *SWIGUNUSEDPARM(
     return (void *)((IPeakShape *)  ((MisesGaussPeakShape *) x));
 }
 static void *_p_FormFactorBoxTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorBox *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorBox *) x));
 }
 static void *_p_MultiLayerTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *) ((MultiLayer *) x));
 }
 static void *_p_FormFactorSphereGaussianRadiusTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorSphereGaussianRadius *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorSphereGaussianRadius *) x));
 }
 static void *_p_FormFactorSphereLogNormalRadiusTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorSphereLogNormalRadius *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorSphereLogNormalRadius *) x));
 }
 static void *_p_ParameterDistributionTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *)  ((ParameterDistribution *) x));
@@ -75597,10 +75627,13 @@ static void *_p_ParticleLayoutTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(n
     return (void *)((IParameterized *) (INode *)(ISample *) ((ParticleLayout *) x));
 }
 static void *_p_FormFactorHemiEllipsoidTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorHemiEllipsoid *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorHemiEllipsoid *) x));
 }
 static void *_p_INodeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *)  ((INode *) x));
+}
+static void *_p_IBornFFTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *) ((IBornFF *) x));
 }
 static void *_p_MisesGaussPeakShapeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IPeakShape *) ((MisesGaussPeakShape *) x));
@@ -75624,28 +75657,28 @@ static void *_p_IPeakShapeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newme
     return (void *)((IParameterized *) (INode *)(ISample *) ((IPeakShape *) x));
 }
 static void *_p_FormFactorPrism3To_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorPrism3 *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorPrism3 *) x));
 }
 static void *_p_IFormFactorPolyhedronTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((IFormFactorPolyhedron *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((IFormFactorPolyhedron *) x));
 }
 static void *_p_IFormFactorPrismTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((IFormFactorPrism *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((IFormFactorPrism *) x));
 }
 static void *_p_FormFactorCuboctahedronTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
 }
 static void *_p_FormFactorDodecahedronTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
 }
 static void *_p_FormFactorIcosahedronTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
 }
 static void *_p_FormFactorTetrahedronTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
 }
 static void *_p_FormFactorPrism6To_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorPrism6 *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorPrism6 *) x));
 }
 static void *_p_FTDistribution2DConeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(IFTDistribution2D *) ((FTDistribution2DCone *) x));
@@ -75654,16 +75687,16 @@ static void *_p_ParticleCoreShellTo_p_IParameterized(void *x, int *SWIGUNUSEDPAR
     return (void *)((IParameterized *) (INode *)(ISample *)(IAbstractParticle *)(IParticle *) ((ParticleCoreShell *) x));
 }
 static void *_p_ISawtoothRippleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((ISawtoothRipple *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *) ((ISawtoothRipple *) x));
 }
 static void *_p_IProfileRectangularRippleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
 }
 static void *_p_FormFactorFullSphereTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorFullSphere *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorFullSphere *) x));
 }
 static void *_p_FormFactorTruncatedSphereTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorTruncatedSphere *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorTruncatedSphere *) x));
 }
 static void *_p_IFormFactorTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *) ((IFormFactor *) x));
@@ -75672,7 +75705,7 @@ static void *_p_ISampleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemor
     return (void *)((IParameterized *) (INode *) ((ISample *) x));
 }
 static void *_p_FormFactorLongBoxGaussTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorLongBoxGauss *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorLongBoxGauss *) x));
 }
 static void *_p_InterferenceFunctionHardDiskTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IInterferenceFunction *) ((InterferenceFunctionHardDisk *) x));
@@ -75696,10 +75729,10 @@ static void *_p_RotationXTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmem
     return (void *)((IParameterized *) (INode *)(IRotation *) ((RotationX *) x));
 }
 static void *_p_FormFactorFullSpheroidTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorFullSpheroid *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorFullSpheroid *) x));
 }
 static void *_p_FormFactorTruncatedSpheroidTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorTruncatedSpheroid *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorTruncatedSpheroid *) x));
 }
 static void *_p_FTDistribution2DGaussTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(IFTDistribution2D *) ((FTDistribution2DGauss *) x));
@@ -75711,16 +75744,13 @@ static void *_p_RotationYTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmem
     return (void *)((IParameterized *) (INode *)(IRotation *) ((RotationY *) x));
 }
 static void *_p_FormFactorCantellatedCubeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
 }
 static void *_p_FormFactorTruncatedCubeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
 }
 static void *_p_RotationZTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(IRotation *) ((RotationZ *) x));
-}
-static void *_p_IFormFactorBornTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
 }
 static void *_p_ISampleBuilderTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *)  ((ISampleBuilder *) x));
@@ -75753,13 +75783,13 @@ static void *_p_IFTDistribution1DTo_p_IParameterized(void *x, int *SWIGUNUSEDPAR
     return (void *)((IParameterized *) (INode *) ((IFTDistribution1D *) x));
 }
 static void *_p_FormFactorConeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorCone *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorCone *) x));
 }
 static void *_p_FormFactorCosineRippleBoxTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
 }
 static void *_p_FormFactorSawtoothRippleBoxTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
 }
 static void *_p_InterferenceFunctionTwinTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IInterferenceFunction *) ((InterferenceFunctionTwin *) x));
@@ -75768,16 +75798,16 @@ static void *_p_LayerTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)
     return (void *)((IParameterized *) (INode *)(ISample *) ((Layer *) x));
 }
 static void *_p_FormFactorAnisoPyramidTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
 }
 static void *_p_FormFactorPyramidTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
 }
 static void *_p_FormFactorCylinderTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorCylinder *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorCylinder *) x));
 }
 static void *_p_FormFactorEllipsoidalCylinderTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorEllipsoidalCylinder *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorEllipsoidalCylinder *) x));
 }
 static void *_p_ParticleCompositionTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IAbstractParticle *)(IParticle *) ((ParticleComposition *) x));
@@ -75795,10 +75825,10 @@ static void *_p_FTDecayFunction2DVoigtTo_p_IParameterized(void *x, int *SWIGUNUS
     return (void *)((IParameterized *) (INode *)(IFTDecayFunction2D *) ((FTDecayFunction2DVoigt *) x));
 }
 static void *_p_FormFactorCosineRippleGaussTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
 }
 static void *_p_FormFactorSawtoothRippleGaussTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
 }
 static void *_p_FTDistribution2DCauchyTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(IFTDistribution2D *) ((FTDistribution2DCauchy *) x));
@@ -75816,13 +75846,13 @@ static void *_p_IInterferenceFunctionTo_p_IParameterized(void *x, int *SWIGUNUSE
     return (void *)((IParameterized *) (INode *)(ISample *) ((IInterferenceFunction *) x));
 }
 static void *_p_FormFactorCone6To_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
 }
 static void *_p_IFormFactorDecoratorTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *) ((IFormFactorDecorator *) x));
 }
 static void *_p_FormFactorDotTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorDot *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorDot *) x));
 }
 static void *_p_LayerRoughnessTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *) ((LayerRoughness *) x));
@@ -75843,10 +75873,10 @@ static void *_p_MesoCrystalTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newm
     return (void *)((IParameterized *) (INode *)(ISample *)(IAbstractParticle *)(IParticle *) ((MesoCrystal *) x));
 }
 static void *_p_ICosineRippleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((ICosineRipple *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *) ((ICosineRipple *) x));
 }
 static void *_p_IProfileRippleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((IProfileRipple *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((IProfileRipple *) x));
 }
 static void *_p_Lattice3DTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *) ((Lattice3D *) x));
@@ -75858,10 +75888,10 @@ static void *_p_IFTDecayFunction2DTo_p_IParameterized(void *x, int *SWIGUNUSEDPA
     return (void *)((IParameterized *) (INode *) ((IFTDecayFunction2D *) x));
 }
 static void *_p_FormFactorHollowSphereTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorHollowSphere *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorHollowSphere *) x));
 }
 static void *_p_FormFactorGaussSphereTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorGaussSphere *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorGaussSphere *) x));
 }
 static void *_p_FormFactorWeightedTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *) ((FormFactorWeighted *) x));
@@ -75885,13 +75915,13 @@ static void *_p_InterferenceFunction1DLatticeTo_p_IParameterized(void *x, int *S
     return (void *)((IParameterized *) (INode *)(ISample *)(IInterferenceFunction *) ((InterferenceFunction1DLattice *) x));
 }
 static void *_p_FormFactorCosineRippleLorentzTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
 }
 static void *_p_FormFactorLongBoxLorentzTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorLongBoxLorentz *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *) ((FormFactorLongBoxLorentz *) x));
 }
 static void *_p_FormFactorSawtoothRippleLorentzTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
+    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
 }
 static void *_p_FTDistribution1DTriangleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(IFTDistribution1D *) ((FTDistribution1DTriangle *) x));
@@ -75960,16 +75990,16 @@ static void *_p_FormFactorSawtoothRippleGaussTo_p_ISawtoothRipple(void *x, int *
     return (void *)((ISawtoothRipple *)  ((FormFactorSawtoothRippleGauss *) x));
 }
 static void *_p_FormFactorBoxTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorBox *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorBox *) x));
 }
 static void *_p_MultiLayerTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *) ((MultiLayer *) x));
 }
 static void *_p_FormFactorSphereGaussianRadiusTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorSphereGaussianRadius *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorSphereGaussianRadius *) x));
 }
 static void *_p_FormFactorSphereLogNormalRadiusTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorSphereLogNormalRadius *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorSphereLogNormalRadius *) x));
 }
 static void *_p_ParticleDistributionTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IAbstractParticle *) ((ParticleDistribution *) x));
@@ -75987,7 +76017,10 @@ static void *_p_ParticleLayoutTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newme
     return (void *)((ICloneable *) (ISample *) ((ParticleLayout *) x));
 }
 static void *_p_FormFactorHemiEllipsoidTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorHemiEllipsoid *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorHemiEllipsoid *) x));
+}
+static void *_p_IBornFFTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *) ((IBornFF *) x));
 }
 static void *_p_MisesGaussPeakShapeTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IPeakShape *) ((MisesGaussPeakShape *) x));
@@ -76011,28 +76044,28 @@ static void *_p_IPeakShapeTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory
     return (void *)((ICloneable *) (ISample *) ((IPeakShape *) x));
 }
 static void *_p_FormFactorPrism3To_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorPrism3 *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorPrism3 *) x));
 }
 static void *_p_IFormFactorPolyhedronTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((IFormFactorPolyhedron *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((IFormFactorPolyhedron *) x));
 }
 static void *_p_IFormFactorPrismTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((IFormFactorPrism *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((IFormFactorPrism *) x));
 }
 static void *_p_FormFactorCuboctahedronTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
 }
 static void *_p_FormFactorDodecahedronTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
 }
 static void *_p_FormFactorIcosahedronTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
 }
 static void *_p_FormFactorTetrahedronTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
 }
 static void *_p_FormFactorPrism6To_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorPrism6 *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorPrism6 *) x));
 }
 static void *_p_FTDistribution2DConeTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IFTDistribution2D *) ((FTDistribution2DCone *) x));
@@ -76041,16 +76074,16 @@ static void *_p_ParticleCoreShellTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(ne
     return (void *)((ICloneable *) (ISample *)(IAbstractParticle *)(IParticle *) ((ParticleCoreShell *) x));
 }
 static void *_p_ISawtoothRippleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((ISawtoothRipple *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *) ((ISawtoothRipple *) x));
 }
 static void *_p_IProfileRectangularRippleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
 }
 static void *_p_FormFactorFullSphereTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorFullSphere *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorFullSphere *) x));
 }
 static void *_p_FormFactorTruncatedSphereTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorTruncatedSphere *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorTruncatedSphere *) x));
 }
 static void *_p_IFormFactorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *) ((IFormFactor *) x));
@@ -76059,7 +76092,7 @@ static void *_p_ISampleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) 
     return (void *)((ICloneable *)  ((ISample *) x));
 }
 static void *_p_FormFactorLongBoxGaussTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorLongBoxGauss *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorLongBoxGauss *) x));
 }
 static void *_p_InterferenceFunctionHardDiskTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IInterferenceFunction *) ((InterferenceFunctionHardDisk *) x));
@@ -76083,10 +76116,10 @@ static void *_p_RotationXTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)
     return (void *)((ICloneable *) (IRotation *) ((RotationX *) x));
 }
 static void *_p_FormFactorFullSpheroidTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorFullSpheroid *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorFullSpheroid *) x));
 }
 static void *_p_FormFactorTruncatedSpheroidTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorTruncatedSpheroid *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorTruncatedSpheroid *) x));
 }
 static void *_p_FTDistribution2DGaussTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IFTDistribution2D *) ((FTDistribution2DGauss *) x));
@@ -76098,16 +76131,13 @@ static void *_p_RotationYTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)
     return (void *)((ICloneable *) (IRotation *) ((RotationY *) x));
 }
 static void *_p_FormFactorCantellatedCubeTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
 }
 static void *_p_FormFactorTruncatedCubeTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
 }
 static void *_p_RotationZTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IRotation *) ((RotationZ *) x));
-}
-static void *_p_IFormFactorBornTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
 }
 static void *_p_IAbstractParticleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *) ((IAbstractParticle *) x));
@@ -76137,13 +76167,13 @@ static void *_p_IFTDistribution1DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(ne
     return (void *)((ICloneable *)  ((IFTDistribution1D *) x));
 }
 static void *_p_FormFactorConeTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorCone *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorCone *) x));
 }
 static void *_p_FormFactorCosineRippleBoxTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
 }
 static void *_p_FormFactorSawtoothRippleBoxTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
 }
 static void *_p_InterferenceFunctionTwinTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IInterferenceFunction *) ((InterferenceFunctionTwin *) x));
@@ -76152,16 +76182,16 @@ static void *_p_LayerTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *) ((Layer *) x));
 }
 static void *_p_FormFactorAnisoPyramidTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
 }
 static void *_p_FormFactorPyramidTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
 }
 static void *_p_FormFactorCylinderTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorCylinder *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorCylinder *) x));
 }
 static void *_p_FormFactorEllipsoidalCylinderTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorEllipsoidalCylinder *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorEllipsoidalCylinder *) x));
 }
 static void *_p_ParticleCompositionTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IAbstractParticle *)(IParticle *) ((ParticleComposition *) x));
@@ -76179,10 +76209,10 @@ static void *_p_FTDecayFunction2DVoigtTo_p_ICloneable(void *x, int *SWIGUNUSEDPA
     return (void *)((ICloneable *) (IFTDecayFunction2D *) ((FTDecayFunction2DVoigt *) x));
 }
 static void *_p_FormFactorCosineRippleGaussTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
 }
 static void *_p_FormFactorSawtoothRippleGaussTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
 }
 static void *_p_FTDistribution2DCauchyTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IFTDistribution2D *) ((FTDistribution2DCauchy *) x));
@@ -76203,13 +76233,13 @@ static void *_p_ParameterPoolTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmem
     return (void *)((ICloneable *)  ((ParameterPool *) x));
 }
 static void *_p_FormFactorCone6To_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
 }
 static void *_p_IFormFactorDecoratorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IFormFactor *) ((IFormFactorDecorator *) x));
 }
 static void *_p_FormFactorDotTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorDot *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorDot *) x));
 }
 static void *_p_LayerRoughnessTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *) ((LayerRoughness *) x));
@@ -76230,10 +76260,10 @@ static void *_p_MesoCrystalTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemor
     return (void *)((ICloneable *) (ISample *)(IAbstractParticle *)(IParticle *) ((MesoCrystal *) x));
 }
 static void *_p_ICosineRippleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((ICosineRipple *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *) ((ICosineRipple *) x));
 }
 static void *_p_IProfileRippleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((IProfileRipple *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((IProfileRipple *) x));
 }
 static void *_p_IFTDistribution2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *)  ((IFTDistribution2D *) x));
@@ -76242,10 +76272,10 @@ static void *_p_IFTDecayFunction2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(n
     return (void *)((ICloneable *)  ((IFTDecayFunction2D *) x));
 }
 static void *_p_FormFactorHollowSphereTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorHollowSphere *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorHollowSphere *) x));
 }
 static void *_p_FormFactorGaussSphereTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorGaussSphere *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorGaussSphere *) x));
 }
 static void *_p_FormFactorWeightedTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISample *)(IFormFactor *) ((FormFactorWeighted *) x));
@@ -76269,13 +76299,13 @@ static void *_p_InterferenceFunction1DLatticeTo_p_ICloneable(void *x, int *SWIGU
     return (void *)((ICloneable *) (ISample *)(IInterferenceFunction *) ((InterferenceFunction1DLattice *) x));
 }
 static void *_p_FormFactorCosineRippleLorentzTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
 }
 static void *_p_FormFactorLongBoxLorentzTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorLongBoxLorentz *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorLongBoxLorentz *) x));
 }
 static void *_p_FormFactorSawtoothRippleLorentzTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
+    return (void *)((ICloneable *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
 }
 static void *_p_FTDistribution1DTriangleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IFTDistribution1D *) ((FTDistribution1DTriangle *) x));
@@ -76326,16 +76356,16 @@ static void *_p_SimpleSelectionRuleTo_p_ISelectionRule(void *x, int *SWIGUNUSEDP
     return (void *)((ISelectionRule *)  ((SimpleSelectionRule *) x));
 }
 static void *_p_FormFactorBoxTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorBox *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorBox *) x));
 }
 static void *_p_MultiLayerTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *) ((MultiLayer *) x));
 }
 static void *_p_FormFactorSphereGaussianRadiusTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorSphereGaussianRadius *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorSphereGaussianRadius *) x));
 }
 static void *_p_FormFactorSphereLogNormalRadiusTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorSphereLogNormalRadius *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorSphereLogNormalRadius *) x));
 }
 static void *_p_ParticleDistributionTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IAbstractParticle *) ((ParticleDistribution *) x));
@@ -76353,7 +76383,10 @@ static void *_p_ParticleLayoutTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)
     return (void *)((INode *) (ISample *) ((ParticleLayout *) x));
 }
 static void *_p_FormFactorHemiEllipsoidTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorHemiEllipsoid *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorHemiEllipsoid *) x));
+}
+static void *_p_IBornFFTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (ISample *)(IFormFactor *) ((IBornFF *) x));
 }
 static void *_p_MisesGaussPeakShapeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IPeakShape *) ((MisesGaussPeakShape *) x));
@@ -76377,28 +76410,28 @@ static void *_p_IPeakShapeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *) ((IPeakShape *) x));
 }
 static void *_p_FormFactorPrism3To_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorPrism3 *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorPrism3 *) x));
 }
 static void *_p_IFormFactorPolyhedronTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((IFormFactorPolyhedron *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((IFormFactorPolyhedron *) x));
 }
 static void *_p_IFormFactorPrismTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((IFormFactorPrism *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((IFormFactorPrism *) x));
 }
 static void *_p_FormFactorCuboctahedronTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
 }
 static void *_p_FormFactorDodecahedronTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
 }
 static void *_p_FormFactorIcosahedronTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
 }
 static void *_p_FormFactorTetrahedronTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
 }
 static void *_p_FormFactorPrism6To_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorPrism6 *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorPrism6 *) x));
 }
 static void *_p_FTDistribution2DConeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IFTDistribution2D *) ((FTDistribution2DCone *) x));
@@ -76407,16 +76440,16 @@ static void *_p_ParticleCoreShellTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemo
     return (void *)((INode *) (ISample *)(IAbstractParticle *)(IParticle *) ((ParticleCoreShell *) x));
 }
 static void *_p_ISawtoothRippleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((ISawtoothRipple *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *) ((ISawtoothRipple *) x));
 }
 static void *_p_IProfileRectangularRippleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
 }
 static void *_p_FormFactorFullSphereTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorFullSphere *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorFullSphere *) x));
 }
 static void *_p_FormFactorTruncatedSphereTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorTruncatedSphere *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorTruncatedSphere *) x));
 }
 static void *_p_IFormFactorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *) ((IFormFactor *) x));
@@ -76425,7 +76458,7 @@ static void *_p_ISampleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *)  ((ISample *) x));
 }
 static void *_p_FormFactorLongBoxGaussTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorLongBoxGauss *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorLongBoxGauss *) x));
 }
 static void *_p_InterferenceFunctionHardDiskTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IInterferenceFunction *) ((InterferenceFunctionHardDisk *) x));
@@ -76449,10 +76482,10 @@ static void *_p_RotationXTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IRotation *) ((RotationX *) x));
 }
 static void *_p_FormFactorFullSpheroidTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorFullSpheroid *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorFullSpheroid *) x));
 }
 static void *_p_FormFactorTruncatedSpheroidTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorTruncatedSpheroid *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorTruncatedSpheroid *) x));
 }
 static void *_p_FTDistribution2DGaussTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IFTDistribution2D *) ((FTDistribution2DGauss *) x));
@@ -76461,19 +76494,16 @@ static void *_p_FTDecayFunction2DGaussTo_p_INode(void *x, int *SWIGUNUSEDPARM(ne
     return (void *)((INode *) (IFTDecayFunction2D *) ((FTDecayFunction2DGauss *) x));
 }
 static void *_p_FormFactorCantellatedCubeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
 }
 static void *_p_RotationYTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IRotation *) ((RotationY *) x));
 }
 static void *_p_FormFactorTruncatedCubeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
 }
 static void *_p_RotationZTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IRotation *) ((RotationZ *) x));
-}
-static void *_p_IFormFactorBornTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *) ((IFormFactorBorn *) x));
 }
 static void *_p_IAbstractParticleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *) ((IAbstractParticle *) x));
@@ -76503,13 +76533,13 @@ static void *_p_IFTDistribution1DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemo
     return (void *)((INode *)  ((IFTDistribution1D *) x));
 }
 static void *_p_FormFactorConeTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorCone *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorCone *) x));
 }
 static void *_p_FormFactorCosineRippleBoxTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
 }
 static void *_p_FormFactorSawtoothRippleBoxTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
 }
 static void *_p_InterferenceFunctionTwinTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IInterferenceFunction *) ((InterferenceFunctionTwin *) x));
@@ -76518,16 +76548,16 @@ static void *_p_LayerTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *) ((Layer *) x));
 }
 static void *_p_FormFactorAnisoPyramidTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
 }
 static void *_p_FormFactorPyramidTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
 }
 static void *_p_FormFactorCylinderTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorCylinder *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorCylinder *) x));
 }
 static void *_p_FormFactorEllipsoidalCylinderTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorEllipsoidalCylinder *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorEllipsoidalCylinder *) x));
 }
 static void *_p_ParticleCompositionTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IAbstractParticle *)(IParticle *) ((ParticleComposition *) x));
@@ -76545,10 +76575,10 @@ static void *_p_FTDecayFunction2DVoigtTo_p_INode(void *x, int *SWIGUNUSEDPARM(ne
     return (void *)((INode *) (IFTDecayFunction2D *) ((FTDecayFunction2DVoigt *) x));
 }
 static void *_p_FormFactorCosineRippleGaussTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
 }
 static void *_p_FormFactorSawtoothRippleGaussTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
 }
 static void *_p_FTDistribution2DCauchyTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IFTDistribution2D *) ((FTDistribution2DCauchy *) x));
@@ -76566,13 +76596,13 @@ static void *_p_IInterferenceFunctionTo_p_INode(void *x, int *SWIGUNUSEDPARM(new
     return (void *)((INode *) (ISample *) ((IInterferenceFunction *) x));
 }
 static void *_p_FormFactorCone6To_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
 }
 static void *_p_IFormFactorDecoratorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *) ((IFormFactorDecorator *) x));
 }
 static void *_p_FormFactorDotTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorDot *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorDot *) x));
 }
 static void *_p_LayerRoughnessTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *) ((LayerRoughness *) x));
@@ -76593,10 +76623,10 @@ static void *_p_MesoCrystalTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IAbstractParticle *)(IParticle *) ((MesoCrystal *) x));
 }
 static void *_p_ICosineRippleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((ICosineRipple *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *) ((ICosineRipple *) x));
 }
 static void *_p_IProfileRippleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((IProfileRipple *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((IProfileRipple *) x));
 }
 static void *_p_Lattice3DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *)  ((Lattice3D *) x));
@@ -76608,10 +76638,10 @@ static void *_p_IFTDecayFunction2DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmem
     return (void *)((INode *)  ((IFTDecayFunction2D *) x));
 }
 static void *_p_FormFactorHollowSphereTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorHollowSphere *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorHollowSphere *) x));
 }
 static void *_p_FormFactorGaussSphereTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorGaussSphere *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorGaussSphere *) x));
 }
 static void *_p_FormFactorWeightedTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *) ((FormFactorWeighted *) x));
@@ -76635,13 +76665,13 @@ static void *_p_InterferenceFunction1DLatticeTo_p_INode(void *x, int *SWIGUNUSED
     return (void *)((INode *) (ISample *)(IInterferenceFunction *) ((InterferenceFunction1DLattice *) x));
 }
 static void *_p_FormFactorCosineRippleLorentzTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
 }
 static void *_p_FormFactorLongBoxLorentzTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *) ((FormFactorLongBoxLorentz *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *) ((FormFactorLongBoxLorentz *) x));
 }
 static void *_p_FormFactorSawtoothRippleLorentzTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISample *)(IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
+    return (void *)((INode *) (ISample *)(IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
 }
 static void *_p_FTDecayFunction1DTriangleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IFTDecayFunction1D *) ((FTDecayFunction1DTriangle *) x));
@@ -76685,122 +76715,122 @@ static void *_p_InterferenceFunctionRadialParaCrystalTo_p_IInterferenceFunction(
 static void *_p_InterferenceFunctionTwinTo_p_IInterferenceFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IInterferenceFunction *)  ((InterferenceFunctionTwin *) x));
 }
-static void *_p_FormFactorPrism6To_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPrism *) ((FormFactorPrism6 *) x));
+static void *_p_FormFactorPrism6To_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPrism *) ((FormFactorPrism6 *) x));
 }
-static void *_p_FormFactorHemiEllipsoidTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorHemiEllipsoid *) x));
+static void *_p_FormFactorHemiEllipsoidTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorHemiEllipsoid *) x));
 }
-static void *_p_FormFactorFullSpheroidTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorFullSpheroid *) x));
+static void *_p_FormFactorFullSpheroidTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorFullSpheroid *) x));
 }
-static void *_p_FormFactorTruncatedSpheroidTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorTruncatedSpheroid *) x));
+static void *_p_FormFactorTruncatedSpheroidTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorTruncatedSpheroid *) x));
 }
-static void *_p_IProfileRippleTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((IProfileRipple *) x));
+static void *_p_IProfileRippleTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((IProfileRipple *) x));
 }
-static void *_p_ICosineRippleTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IProfileRipple *) ((ICosineRipple *) x));
+static void *_p_ICosineRippleTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IProfileRipple *) ((ICosineRipple *) x));
 }
-static void *_p_FormFactorLongBoxGaussTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorLongBoxGauss *) x));
+static void *_p_FormFactorLongBoxGaussTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorLongBoxGauss *) x));
 }
-static void *_p_FormFactorSawtoothRippleGaussTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
+static void *_p_FormFactorSawtoothRippleGaussTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
 }
-static void *_p_FormFactorCosineRippleGaussTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
+static void *_p_FormFactorCosineRippleGaussTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
 }
-static void *_p_IFormFactorPrismTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((IFormFactorPrism *) x));
+static void *_p_IFormFactorPrismTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((IFormFactorPrism *) x));
 }
-static void *_p_FormFactorTruncatedCubeTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
+static void *_p_FormFactorTruncatedCubeTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
 }
-static void *_p_FormFactorCantellatedCubeTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
+static void *_p_FormFactorCantellatedCubeTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
 }
-static void *_p_FormFactorFullSphereTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorFullSphere *) x));
+static void *_p_FormFactorFullSphereTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorFullSphere *) x));
 }
-static void *_p_FormFactorTruncatedSphereTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorTruncatedSphere *) x));
+static void *_p_FormFactorTruncatedSphereTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorTruncatedSphere *) x));
 }
-static void *_p_FormFactorEllipsoidalCylinderTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorEllipsoidalCylinder *) x));
+static void *_p_FormFactorEllipsoidalCylinderTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorEllipsoidalCylinder *) x));
 }
-static void *_p_FormFactorCylinderTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorCylinder *) x));
+static void *_p_FormFactorCylinderTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorCylinder *) x));
 }
-static void *_p_FormFactorBoxTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPrism *) ((FormFactorBox *) x));
+static void *_p_FormFactorBoxTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPrism *) ((FormFactorBox *) x));
 }
-static void *_p_FormFactorTetrahedronTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
+static void *_p_FormFactorTetrahedronTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
 }
-static void *_p_FormFactorIcosahedronTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
+static void *_p_FormFactorIcosahedronTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
 }
-static void *_p_FormFactorDodecahedronTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
+static void *_p_FormFactorDodecahedronTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
 }
-static void *_p_FormFactorCuboctahedronTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
+static void *_p_FormFactorCuboctahedronTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
 }
-static void *_p_IFormFactorPolyhedronTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((IFormFactorPolyhedron *) x));
+static void *_p_IFormFactorPolyhedronTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((IFormFactorPolyhedron *) x));
 }
-static void *_p_FormFactorConeTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorCone *) x));
+static void *_p_FormFactorConeTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorCone *) x));
 }
-static void *_p_FormFactorCone6To_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
+static void *_p_FormFactorCone6To_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
 }
-static void *_p_FormFactorSphereGaussianRadiusTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorSphereGaussianRadius *) x));
+static void *_p_FormFactorSphereGaussianRadiusTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorSphereGaussianRadius *) x));
 }
-static void *_p_FormFactorSphereLogNormalRadiusTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorSphereLogNormalRadius *) x));
+static void *_p_FormFactorSphereLogNormalRadiusTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorSphereLogNormalRadius *) x));
 }
-static void *_p_FormFactorHollowSphereTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorHollowSphere *) x));
+static void *_p_FormFactorHollowSphereTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorHollowSphere *) x));
 }
-static void *_p_FormFactorGaussSphereTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorGaussSphere *) x));
+static void *_p_FormFactorGaussSphereTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorGaussSphere *) x));
 }
-static void *_p_FormFactorDotTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorDot *) x));
+static void *_p_FormFactorDotTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorDot *) x));
 }
-static void *_p_IProfileRectangularRippleTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IProfileRipple *) ((IProfileRectangularRipple *) x));
+static void *_p_IProfileRectangularRippleTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IProfileRipple *) ((IProfileRectangularRipple *) x));
 }
-static void *_p_ISawtoothRippleTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IProfileRipple *) ((ISawtoothRipple *) x));
+static void *_p_ISawtoothRippleTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IProfileRipple *) ((ISawtoothRipple *) x));
 }
-static void *_p_FormFactorSawtoothRippleLorentzTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
+static void *_p_FormFactorSawtoothRippleLorentzTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
 }
-static void *_p_FormFactorLongBoxLorentzTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *)  ((FormFactorLongBoxLorentz *) x));
+static void *_p_FormFactorLongBoxLorentzTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *)  ((FormFactorLongBoxLorentz *) x));
 }
-static void *_p_FormFactorCosineRippleLorentzTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
+static void *_p_FormFactorCosineRippleLorentzTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
 }
-static void *_p_FormFactorSawtoothRippleBoxTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
+static void *_p_FormFactorSawtoothRippleBoxTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
 }
-static void *_p_FormFactorCosineRippleBoxTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
+static void *_p_FormFactorCosineRippleBoxTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
 }
-static void *_p_FormFactorPyramidTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
+static void *_p_FormFactorPyramidTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
 }
-static void *_p_FormFactorAnisoPyramidTo_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
+static void *_p_FormFactorAnisoPyramidTo_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
 }
-static void *_p_FormFactorPrism3To_p_IFormFactorBorn(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IFormFactorBorn *) (IFormFactorPrism *) ((FormFactorPrism3 *) x));
+static void *_p_FormFactorPrism3To_p_IBornFF(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IBornFF *) (IFormFactorPrism *) ((FormFactorPrism3 *) x));
 }
 static void *_p_FTDecayFunction1DCauchyTo_p_IFTDecayFunction1D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IFTDecayFunction1D *)  ((FTDecayFunction1DCauchy *) x));
@@ -76836,16 +76866,16 @@ static void *_p_SampleBuilderFactoryTo_p_IFactoryT_std__string_ISampleBuilder_t(
     return (void *)((IFactory< std::string,ISampleBuilder > *)  ((SampleBuilderFactory *) x));
 }
 static void *_p_FormFactorBoxTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorBox *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorBox *) x));
 }
 static void *_p_FormFactorSphereGaussianRadiusTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorSphereGaussianRadius *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorSphereGaussianRadius *) x));
 }
 static void *_p_MultiLayerTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *)  ((MultiLayer *) x));
 }
 static void *_p_FormFactorSphereLogNormalRadiusTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorSphereLogNormalRadius *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorSphereLogNormalRadius *) x));
 }
 static void *_p_ParticleDistributionTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IAbstractParticle *) ((ParticleDistribution *) x));
@@ -76857,7 +76887,10 @@ static void *_p_ParticleLayoutTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemor
     return (void *)((ISample *)  ((ParticleLayout *) x));
 }
 static void *_p_FormFactorHemiEllipsoidTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorHemiEllipsoid *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorHemiEllipsoid *) x));
+}
+static void *_p_IBornFFTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ISample *) (IFormFactor *) ((IBornFF *) x));
 }
 static void *_p_IPeakShapeTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *)  ((IPeakShape *) x));
@@ -76881,67 +76914,64 @@ static void *_p_MisesGaussPeakShapeTo_p_ISample(void *x, int *SWIGUNUSEDPARM(new
     return (void *)((ISample *) (IPeakShape *) ((MisesGaussPeakShape *) x));
 }
 static void *_p_FormFactorPrism3To_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorPrism3 *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorPrism3 *) x));
 }
 static void *_p_FormFactorTetrahedronTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorTetrahedron *) x));
 }
 static void *_p_FormFactorIcosahedronTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorIcosahedron *) x));
 }
 static void *_p_FormFactorDodecahedronTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorDodecahedron *) x));
 }
 static void *_p_FormFactorCuboctahedronTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCuboctahedron *) x));
 }
 static void *_p_IFormFactorPolyhedronTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((IFormFactorPolyhedron *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((IFormFactorPolyhedron *) x));
 }
 static void *_p_IFormFactorPrismTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((IFormFactorPrism *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((IFormFactorPrism *) x));
 }
 static void *_p_FormFactorPrism6To_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPrism *) ((FormFactorPrism6 *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPrism *) ((FormFactorPrism6 *) x));
 }
 static void *_p_ParticleCoreShellTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IAbstractParticle *)(IParticle *) ((ParticleCoreShell *) x));
 }
 static void *_p_ISawtoothRippleTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((ISawtoothRipple *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IProfileRipple *) ((ISawtoothRipple *) x));
 }
 static void *_p_IProfileRectangularRippleTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IProfileRipple *) ((IProfileRectangularRipple *) x));
 }
 static void *_p_FormFactorTruncatedSphereTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorTruncatedSphere *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorTruncatedSphere *) x));
 }
 static void *_p_FormFactorFullSphereTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorFullSphere *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorFullSphere *) x));
 }
 static void *_p_IFormFactorTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *)  ((IFormFactor *) x));
 }
 static void *_p_FormFactorLongBoxGaussTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorLongBoxGauss *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorLongBoxGauss *) x));
 }
 static void *_p_InterferenceFunctionHardDiskTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IInterferenceFunction *) ((InterferenceFunctionHardDisk *) x));
 }
 static void *_p_FormFactorTruncatedSpheroidTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorTruncatedSpheroid *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorTruncatedSpheroid *) x));
 }
 static void *_p_FormFactorFullSpheroidTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorFullSpheroid *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorFullSpheroid *) x));
 }
 static void *_p_FormFactorTruncatedCubeTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorTruncatedCube *) x));
 }
 static void *_p_FormFactorCantellatedCubeTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
-}
-static void *_p_IFormFactorBornTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *) ((IFormFactorBorn *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCantellatedCube *) x));
 }
 static void *_p_ParticleTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IAbstractParticle *)(IParticle *) ((Particle *) x));
@@ -76953,13 +76983,13 @@ static void *_p_IAbstractParticleTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newme
     return (void *)((ISample *)  ((IAbstractParticle *) x));
 }
 static void *_p_FormFactorSawtoothRippleBoxTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleBox *) x));
 }
 static void *_p_FormFactorCosineRippleBoxTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleBox *) x));
 }
 static void *_p_FormFactorConeTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorCone *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorCone *) x));
 }
 static void *_p_InterferenceFunctionTwinTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IInterferenceFunction *) ((InterferenceFunctionTwin *) x));
@@ -76968,37 +76998,37 @@ static void *_p_LayerTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *)  ((Layer *) x));
 }
 static void *_p_FormFactorPyramidTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorPyramid *) x));
 }
 static void *_p_FormFactorAnisoPyramidTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorAnisoPyramid *) x));
 }
 static void *_p_FormFactorEllipsoidalCylinderTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorEllipsoidalCylinder *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorEllipsoidalCylinder *) x));
 }
 static void *_p_FormFactorCylinderTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorCylinder *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorCylinder *) x));
 }
 static void *_p_ParticleCompositionTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IAbstractParticle *)(IParticle *) ((ParticleComposition *) x));
 }
 static void *_p_FormFactorSawtoothRippleGaussTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleGauss *) x));
 }
 static void *_p_FormFactorCosineRippleGaussTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleGauss *) x));
 }
 static void *_p_IInterferenceFunctionTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *)  ((IInterferenceFunction *) x));
 }
 static void *_p_FormFactorCone6To_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IFormFactorPolyhedron *) ((FormFactorCone6 *) x));
 }
 static void *_p_IFormFactorDecoratorTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *) ((IFormFactorDecorator *) x));
 }
 static void *_p_FormFactorDotTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorDot *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorDot *) x));
 }
 static void *_p_LayerRoughnessTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *)  ((LayerRoughness *) x));
@@ -77019,28 +77049,28 @@ static void *_p_InterferenceFunctionRadialParaCrystalTo_p_ISample(void *x, int *
     return (void *)((ISample *) (IInterferenceFunction *) ((InterferenceFunctionRadialParaCrystal *) x));
 }
 static void *_p_ICosineRippleTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IProfileRipple *) ((ICosineRipple *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IProfileRipple *) ((ICosineRipple *) x));
 }
 static void *_p_IProfileRippleTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((IProfileRipple *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((IProfileRipple *) x));
 }
 static void *_p_FormFactorGaussSphereTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorGaussSphere *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorGaussSphere *) x));
 }
 static void *_p_FormFactorHollowSphereTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorHollowSphere *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorHollowSphere *) x));
 }
 static void *_p_FormFactorWeightedTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IFormFactor *) ((FormFactorWeighted *) x));
 }
 static void *_p_FormFactorSawtoothRippleLorentzTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IProfileRipple *)(ISawtoothRipple *) ((FormFactorSawtoothRippleLorentz *) x));
 }
 static void *_p_FormFactorLongBoxLorentzTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *) ((FormFactorLongBoxLorentz *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *) ((FormFactorLongBoxLorentz *) x));
 }
 static void *_p_FormFactorCosineRippleLorentzTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISample *) (IFormFactor *)(IFormFactorBorn *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
+    return (void *)((ISample *) (IFormFactor *)(IBornFF *)(IProfileRipple *)(ICosineRipple *) ((FormFactorCosineRippleLorentz *) x));
 }
 static void *_p_InterferenceFunction1DLatticeTo_p_ISample(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISample *) (IInterferenceFunction *) ((InterferenceFunction1DLattice *) x));
@@ -77147,6 +77177,7 @@ static swig_type_info _swigt__p_FormFactorWeighted = {"_p_FormFactorWeighted", "
 static swig_type_info _swigt__p_GaussFisherPeakShape = {"_p_GaussFisherPeakShape", "GaussFisherPeakShape *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_HexagonalLattice2D = {"_p_HexagonalLattice2D", "HexagonalLattice2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IAbstractParticle = {"_p_IAbstractParticle", "IAbstractParticle *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IBornFF = {"_p_IBornFF", "IBornFF *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICloneable = {"_p_ICloneable", "ICloneable *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICosineRipple = {"_p_ICosineRipple", "ICosineRipple *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFTDecayFunction1D = {"_p_IFTDecayFunction1D", "IFTDecayFunction1D *", 0, 0, (void*)0, 0};
@@ -77155,7 +77186,6 @@ static swig_type_info _swigt__p_IFTDistribution1D = {"_p_IFTDistribution1D", "IF
 static swig_type_info _swigt__p_IFTDistribution2D = {"_p_IFTDistribution2D", "IFTDistribution2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFactoryT_std__string_ISampleBuilder_t = {"_p_IFactoryT_std__string_ISampleBuilder_t", "IFactory< std::string,ISampleBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactor = {"_p_IFormFactor", "std::vector< IFormFactor * >::value_type|IFormFactor *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IFormFactorBorn = {"_p_IFormFactorBorn", "IFormFactorBorn *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactorDecorator = {"_p_IFormFactorDecorator", "IFormFactorDecorator *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactorPolyhedron = {"_p_IFormFactorPolyhedron", "IFormFactorPolyhedron *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFormFactorPrism = {"_p_IFormFactorPrism", "IFormFactorPrism *", 0, 0, (void*)0, 0};
@@ -77346,6 +77376,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_GaussFisherPeakShape,
   &_swigt__p_HexagonalLattice2D,
   &_swigt__p_IAbstractParticle,
+  &_swigt__p_IBornFF,
   &_swigt__p_ICloneable,
   &_swigt__p_ICosineRipple,
   &_swigt__p_IFTDecayFunction1D,
@@ -77354,7 +77385,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IFTDistribution2D,
   &_swigt__p_IFactoryT_std__string_ISampleBuilder_t,
   &_swigt__p_IFormFactor,
-  &_swigt__p_IFormFactorBorn,
   &_swigt__p_IFormFactorDecorator,
   &_swigt__p_IFormFactorPolyhedron,
   &_swigt__p_IFormFactorPrism,
@@ -77545,28 +77575,28 @@ static swig_cast_info _swigc__p_FormFactorWeighted[] = {  {&_swigt__p_FormFactor
 static swig_cast_info _swigc__p_GaussFisherPeakShape[] = {  {&_swigt__p_GaussFisherPeakShape, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_HexagonalLattice2D[] = {  {&_swigt__p_HexagonalLattice2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IAbstractParticle[] = {  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_IAbstractParticle, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_IAbstractParticle, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_IAbstractParticle, 0, 0},  {&_swigt__p_IAbstractParticle, 0, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_IAbstractParticle, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_IAbstractParticle, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_IAbstractParticle, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_ICloneable, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_ICloneable, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_ICloneable, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_ICloneable, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_ICloneable, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_HexagonalLattice2D, _p_HexagonalLattice2DTo_p_ICloneable, 0, 0},  {&_swigt__p_SquareLattice2D, _p_SquareLattice2DTo_p_ICloneable, 0, 0},  {&_swigt__p_BasicLattice2D, _p_BasicLattice2DTo_p_ICloneable, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_ICloneable, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_ICloneable, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_ICloneable, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IBornFF[] = {  {&_swigt__p_IBornFF, 0, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_IBornFF, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_IBornFF, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_IBornFF, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_IBornFF, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_IBornFF, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_IBornFF, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_IBornFF, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_IBornFF, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_ICloneable, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_ICloneable, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_ICloneable, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_ICloneable, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_ICloneable, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_ICloneable, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_ICloneable, 0, 0},  {&_swigt__p_HexagonalLattice2D, _p_HexagonalLattice2DTo_p_ICloneable, 0, 0},  {&_swigt__p_SquareLattice2D, _p_SquareLattice2DTo_p_ICloneable, 0, 0},  {&_swigt__p_BasicLattice2D, _p_BasicLattice2DTo_p_ICloneable, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_ICloneable, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_ICloneable, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_ICloneable, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_ICloneable, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_ICloneable, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_ICloneable, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_ICloneable, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_ICloneable, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICosineRipple[] = {  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_ICosineRipple, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_ICosineRipple, 0, 0},  {&_swigt__p_ICosineRipple, 0, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_ICosineRipple, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFTDecayFunction1D[] = {  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_IFTDecayFunction1D, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_IFTDecayFunction1D, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_IFTDecayFunction1D, 0, 0},  {&_swigt__p_IFTDecayFunction1D, 0, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_IFTDecayFunction1D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFTDecayFunction2D[] = {  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_IFTDecayFunction2D, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_IFTDecayFunction2D, 0, 0},  {&_swigt__p_IFTDecayFunction2D, 0, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_IFTDecayFunction2D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFTDistribution1D[] = {  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_IFTDistribution1D, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_IFTDistribution1D, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_IFTDistribution1D, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_IFTDistribution1D, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_IFTDistribution1D, 0, 0},  {&_swigt__p_IFTDistribution1D, 0, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_IFTDistribution1D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFTDistribution2D[] = {  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_IFTDistribution2D, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_IFTDistribution2D, 0, 0},  {&_swigt__p_IFTDistribution2D, 0, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_IFTDistribution2D, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_IFTDistribution2D, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_IFTDistribution2D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFactoryT_std__string_ISampleBuilder_t[] = {  {&_swigt__p_IFactoryT_std__string_ISampleBuilder_t, 0, 0, 0},  {&_swigt__p_SampleBuilderFactory, _p_SampleBuilderFactoryTo_p_IFactoryT_std__string_ISampleBuilder_t, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IFormFactor[] = {  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_IFormFactor, 0, 0},  {&_swigt__p_IFormFactor, 0, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_IFormFactor, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_IFormFactor, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_IFormFactor, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_IFormFactor, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_IFormFactor, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_IFormFactor, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_IFormFactor, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_IFormFactor, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_IFormFactor, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IFormFactorBorn[] = {  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_IFormFactorBorn, 0, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_IFormFactorBorn, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_IFormFactorBorn, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IFormFactor[] = {  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_IFormFactor, 0, 0},  {&_swigt__p_IFormFactor, 0, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_IFormFactor, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_IFormFactor, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_IFormFactor, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_IFormFactor, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_IFormFactor, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_IFormFactor, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_IFormFactor, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_IFormFactor, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_IFormFactor, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactorDecorator[] = {  {&_swigt__p_IFormFactorDecorator, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactorPolyhedron[] = {  {&_swigt__p_IFormFactorPolyhedron, 0, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_IFormFactorPolyhedron, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_IFormFactorPolyhedron, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactorPrism[] = {  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_IFormFactorPrism, 0, 0},  {&_swigt__p_IFormFactorPrism, 0, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_IFormFactorPrism, 0, 0},  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_IFormFactorPrism, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IInterferenceFunction[] = {  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_IInterferenceFunction, 0, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_IInterferenceFunction, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_IInterferenceFunction, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_INode, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_INode, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_INode, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_INode, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_INode, 0, 0},  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_INode, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_INode, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_INode, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_INode, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_INode, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_INode, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_INode, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_INode, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_INode, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_INode, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_INode, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_INode, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_INode, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_INode, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_INode, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_INode, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_INode, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_INode, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_INode, 0, 0},  {&_swigt__p_HexagonalLattice2D, _p_HexagonalLattice2DTo_p_INode, 0, 0},  {&_swigt__p_SquareLattice2D, _p_SquareLattice2DTo_p_INode, 0, 0},  {&_swigt__p_BasicLattice2D, _p_BasicLattice2DTo_p_INode, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_INode, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_INode, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_INode, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_INode, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_INode, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_INode, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_INode, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_INode, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_INode, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_INode, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_INode, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_INode, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_INode, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_INode, 0, 0},  {&_swigt__p_Lattice3D, _p_Lattice3DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_INode, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_INode, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_INode, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_INode, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_INode, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_INode, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_INode, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_INode, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_INode, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_INode, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_INode, 0, 0},  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_INode, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_INode, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_INode, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_INode, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_INode, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_INode, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_INode, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_INode, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_INode, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_INode, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_INode, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_INode, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_INode, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_INode, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_INode, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_INode, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_INode, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_INode, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_INode, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_INode, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_INode, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_INode, 0, 0},  {&_swigt__p_HexagonalLattice2D, _p_HexagonalLattice2DTo_p_INode, 0, 0},  {&_swigt__p_SquareLattice2D, _p_SquareLattice2DTo_p_INode, 0, 0},  {&_swigt__p_BasicLattice2D, _p_BasicLattice2DTo_p_INode, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_INode, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_INode, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_INode, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_INode, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_INode, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_INode, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_INode, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_INode, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_INode, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_INode, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_INode, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_INode, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_INode, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_INode, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_INode, 0, 0},  {&_swigt__p_Lattice3D, _p_Lattice3DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_INode, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_INode, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_INode, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_INode, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_INode, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_INode, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_INode, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_INode, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_INode, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_INode, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_INode, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_IParameterized, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_IParameterized, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_IParameterized, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParameterized, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_IParameterized, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_IParameterized, 0, 0},  {&_swigt__p_ISampleBuilder, _p_ISampleBuilderTo_p_IParameterized, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_HexagonalLattice2D, _p_HexagonalLattice2DTo_p_IParameterized, 0, 0},  {&_swigt__p_SquareLattice2D, _p_SquareLattice2DTo_p_IParameterized, 0, 0},  {&_swigt__p_BasicLattice2D, _p_BasicLattice2DTo_p_IParameterized, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_IParameterized, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_IParameterized, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_IParameterized, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_Lattice3D, _p_Lattice3DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_IParameterized, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DGauss, _p_FTDecayFunction1DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DGauss, _p_FTDistribution1DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_IParameterized, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IParameterized, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DCone, _p_FTDistribution2DConeTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_IParameterized, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParameterized, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DGate, _p_FTDistribution2DGateTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DVoigt, _p_FTDecayFunction1DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DVoigt, _p_FTDistribution1DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_IRotation, _p_IRotationTo_p_IParameterized, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationY, _p_RotationYTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DGauss, _p_FTDecayFunction2DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DGauss, _p_FTDistribution2DGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_IParameterized, 0, 0},  {&_swigt__p_ISampleBuilder, _p_ISampleBuilderTo_p_IParameterized, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_IParameterized, 0, 0},  {&_swigt__p_HexagonalLattice2D, _p_HexagonalLattice2DTo_p_IParameterized, 0, 0},  {&_swigt__p_SquareLattice2D, _p_SquareLattice2DTo_p_IParameterized, 0, 0},  {&_swigt__p_BasicLattice2D, _p_BasicLattice2DTo_p_IParameterized, 0, 0},  {&_swigt__p_Lattice2D, _p_Lattice2DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDistribution1D, _p_IFTDistribution1DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDecayFunction1D, _p_IFTDecayFunction1DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_IParameterized, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_IParameterized, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DCosine, _p_FTDistribution1DCosineTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DGate, _p_FTDistribution1DGateTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DVoigt, _p_FTDecayFunction2DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DVoigt, _p_FTDistribution2DVoigtTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DCauchy, _p_FTDistribution1DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DCauchy, _p_FTDecayFunction1DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution2DCauchy, _p_FTDistribution2DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction2DCauchy, _p_FTDecayFunction2DCauchyTo_p_IParameterized, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_IParameterized, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_IParameterized, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_IParameterized, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_IParameterized, 0, 0},  {&_swigt__p_Lattice3D, _p_Lattice3DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDistribution2D, _p_IFTDistribution2DTo_p_IParameterized, 0, 0},  {&_swigt__p_IFTDecayFunction2D, _p_IFTDecayFunction2DTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDistribution1DTriangle, _p_FTDistribution1DTriangleTo_p_IParameterized, 0, 0},  {&_swigt__p_FTDecayFunction1DTriangle, _p_FTDecayFunction1DTriangleTo_p_IParameterized, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IParticle[] = {  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_IParticle, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_IParticle, 0, 0},  {&_swigt__p_IParticle, 0, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_IParticle, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_IParticle, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IPeakShape[] = {  {&_swigt__p_IPeakShape, 0, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_IPeakShape, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_IPeakShape, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_IPeakShape, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_IPeakShape, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_IPeakShape, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_IPeakShape, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IProfileRectangularRipple[] = {  {&_swigt__p_IProfileRectangularRipple, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IProfileRipple[] = {  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_IProfileRipple, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_IProfileRipple, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_IProfileRipple, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_IProfileRipple, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_IProfileRipple, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_IProfileRipple, 0, 0},  {&_swigt__p_IProfileRipple, 0, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_IProfileRipple, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_IProfileRipple, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_IProfileRipple, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRotation[] = {  {&_swigt__p_RotationY, _p_RotationYTo_p_IRotation, 0, 0},  {&_swigt__p_RotationEuler, _p_RotationEulerTo_p_IRotation, 0, 0},  {&_swigt__p_RotationZ, _p_RotationZTo_p_IRotation, 0, 0},  {&_swigt__p_IRotation, 0, 0, 0},  {&_swigt__p_IdentityRotation, _p_IdentityRotationTo_p_IRotation, 0, 0},  {&_swigt__p_RotationX, _p_RotationXTo_p_IRotation, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ISample[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_ISample, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_ISample, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_ISample, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_ISample, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_ISample, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_ISample, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_ISample, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_ISample, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ISample, 0, 0},  {&_swigt__p_ISample, 0, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorBorn, _p_IFormFactorBornTo_p_ISample, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_ISample, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_ISample, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_ISample, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_ISample, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_ISample, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_ISample, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_ISample, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_ISample, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_ISample, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_ISample, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_ISample, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_ISample, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ISample[] = {  {&_swigt__p_FormFactorBox, _p_FormFactorBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSphereGaussianRadius, _p_FormFactorSphereGaussianRadiusTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSphereLogNormalRadius, _p_FormFactorSphereLogNormalRadiusTo_p_ISample, 0, 0},  {&_swigt__p_MultiLayer, _p_MultiLayerTo_p_ISample, 0, 0},  {&_swigt__p_ParticleDistribution, _p_ParticleDistributionTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionNone, _p_InterferenceFunctionNoneTo_p_ISample, 0, 0},  {&_swigt__p_ParticleLayout, _p_ParticleLayoutTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorHemiEllipsoid, _p_FormFactorHemiEllipsoidTo_p_ISample, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_ISample, 0, 0},  {&_swigt__p_MisesGaussPeakShape, _p_MisesGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_MisesFisherGaussPeakShape, _p_MisesFisherGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_LorentzFisherPeakShape, _p_LorentzFisherPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_IPeakShape, _p_IPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_IsotropicGaussPeakShape, _p_IsotropicGaussPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_IsotropicLorentzPeakShape, _p_IsotropicLorentzPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_GaussFisherPeakShape, _p_GaussFisherPeakShapeTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPrism3, _p_FormFactorPrism3To_p_ISample, 0, 0},  {&_swigt__p_FormFactorTetrahedron, _p_FormFactorTetrahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorIcosahedron, _p_FormFactorIcosahedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorDodecahedron, _p_FormFactorDodecahedronTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorPolyhedron, _p_IFormFactorPolyhedronTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCuboctahedron, _p_FormFactorCuboctahedronTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactorPrism, _p_IFormFactorPrismTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPrism6, _p_FormFactorPrism6To_p_ISample, 0, 0},  {&_swigt__p_ParticleCoreShell, _p_ParticleCoreShellTo_p_ISample, 0, 0},  {&_swigt__p_IProfileRectangularRipple, _p_IProfileRectangularRippleTo_p_ISample, 0, 0},  {&_swigt__p_ISawtoothRipple, _p_ISawtoothRippleTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedSphere, _p_FormFactorTruncatedSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorFullSphere, _p_FormFactorFullSphereTo_p_ISample, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ISample, 0, 0},  {&_swigt__p_ISample, 0, 0, 0},  {&_swigt__p_FormFactorLongBoxGauss, _p_FormFactorLongBoxGaussTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionHardDisk, _p_InterferenceFunctionHardDiskTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedSpheroid, _p_FormFactorTruncatedSpheroidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorFullSpheroid, _p_FormFactorFullSpheroidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorTruncatedCube, _p_FormFactorTruncatedCubeTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCantellatedCube, _p_FormFactorCantellatedCubeTo_p_ISample, 0, 0},  {&_swigt__p_Particle, _p_ParticleTo_p_ISample, 0, 0},  {&_swigt__p_IParticle, _p_IParticleTo_p_ISample, 0, 0},  {&_swigt__p_IAbstractParticle, _p_IAbstractParticleTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleBox, _p_FormFactorCosineRippleBoxTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCone, _p_FormFactorConeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionTwin, _p_InterferenceFunctionTwinTo_p_ISample, 0, 0},  {&_swigt__p_Layer, _p_LayerTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorPyramid, _p_FormFactorPyramidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorAnisoPyramid, _p_FormFactorAnisoPyramidTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCylinder, _p_FormFactorCylinderTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorEllipsoidalCylinder, _p_FormFactorEllipsoidalCylinderTo_p_ISample, 0, 0},  {&_swigt__p_ParticleComposition, _p_ParticleCompositionTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleGauss, _p_FormFactorCosineRippleGaussTo_p_ISample, 0, 0},  {&_swigt__p_IInterferenceFunction, _p_IInterferenceFunctionTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCone6, _p_FormFactorCone6To_p_ISample, 0, 0},  {&_swigt__p_IFormFactorDecorator, _p_IFormFactorDecoratorTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorDot, _p_FormFactorDotTo_p_ISample, 0, 0},  {&_swigt__p_LayerRoughness, _p_LayerRoughnessTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionRadialParaCrystal, _p_InterferenceFunctionRadialParaCrystalTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DParaCrystal, _p_InterferenceFunction2DParaCrystalTo_p_ISample, 0, 0},  {&_swigt__p_MesoCrystal, _p_MesoCrystalTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCrystal, _p_FormFactorCrystalTo_p_ISample, 0, 0},  {&_swigt__p_IProfileRipple, _p_IProfileRippleTo_p_ISample, 0, 0},  {&_swigt__p_ICosineRipple, _p_ICosineRippleTo_p_ISample, 0, 0},  {&_swigt__p_Crystal, _p_CrystalTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorHollowSphere, _p_FormFactorHollowSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorGaussSphere, _p_FormFactorGaussSphereTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorWeighted, _p_FormFactorWeightedTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorLongBoxLorentz, _p_FormFactorLongBoxLorentzTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorCosineRippleLorentz, _p_FormFactorCosineRippleLorentzTo_p_ISample, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionFinite3DLattice, _p_InterferenceFunctionFinite3DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunctionFinite2DLattice, _p_InterferenceFunctionFinite2DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction3DLattice, _p_InterferenceFunction3DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DSuperLattice, _p_InterferenceFunction2DSuperLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction2DLattice, _p_InterferenceFunction2DLatticeTo_p_ISample, 0, 0},  {&_swigt__p_InterferenceFunction1DLattice, _p_InterferenceFunction1DLatticeTo_p_ISample, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISampleBuilder[] = {  {&_swigt__p_ISampleBuilder, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISawtoothRipple[] = {  {&_swigt__p_FormFactorSawtoothRippleLorentz, _p_FormFactorSawtoothRippleLorentzTo_p_ISawtoothRipple, 0, 0},  {&_swigt__p_ISawtoothRipple, 0, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleBox, _p_FormFactorSawtoothRippleBoxTo_p_ISawtoothRipple, 0, 0},  {&_swigt__p_FormFactorSawtoothRippleGauss, _p_FormFactorSawtoothRippleGaussTo_p_ISawtoothRipple, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISelectionRule[] = {  {&_swigt__p_ISelectionRule, 0, 0, 0},  {&_swigt__p_SimpleSelectionRule, _p_SimpleSelectionRuleTo_p_ISelectionRule, 0, 0},{0, 0, 0, 0}};
@@ -77744,6 +77774,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_GaussFisherPeakShape,
   _swigc__p_HexagonalLattice2D,
   _swigc__p_IAbstractParticle,
+  _swigc__p_IBornFF,
   _swigc__p_ICloneable,
   _swigc__p_ICosineRipple,
   _swigc__p_IFTDecayFunction1D,
@@ -77752,7 +77783,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IFTDistribution2D,
   _swigc__p_IFactoryT_std__string_ISampleBuilder_t,
   _swigc__p_IFormFactor,
-  _swigc__p_IFormFactorBorn,
   _swigc__p_IFormFactorDecorator,
   _swigc__p_IFormFactorPolyhedron,
   _swigc__p_IFormFactorPrism,

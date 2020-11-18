@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,13 +10,13 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Scan/QSpecScan.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Utils/PyFmt.h"
-#include "Core/Scan/SpecularSimulationElement.h"
+#include "Core/Element/SpecularSimulationElement.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
 

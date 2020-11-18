@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorHollowSphere.h"
 #include "Base/Const/MathConstants.h"
@@ -19,7 +19,7 @@
 #include <limits>
 
 FormFactorHollowSphere::FormFactorHollowSphere(const std::vector<double> P)
-    : IFormFactorBorn({"FormFactorHollowSphere",
+    : IBornFF({"FormFactorHollowSphere",
                        "class_tooltip",
                        {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0},
                         {"FullWidth", "nm", "para_tooltip", 0, +INF, 0}}},

@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDECORATORMATERIAL_H
 #define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDECORATORMATERIAL_H
@@ -26,7 +26,7 @@
 class FormFactorDecoratorMaterial : public IFormFactorDecorator
 {
 public:
-    FormFactorDecoratorMaterial(const IFormFactor& form_factor);
+    FormFactorDecoratorMaterial(const IFormFactor& ff);
 
     ~FormFactorDecoratorMaterial() override final;
 

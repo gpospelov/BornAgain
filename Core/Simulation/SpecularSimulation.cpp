@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,14 +10,14 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/SpecularComputation.h"
+#include "Core/Element/SpecularSimulationElement.h"
 #include "Core/Scan/AngularSpecScan.h"
-#include "Core/Scan/SpecularSimulationElement.h"
 #include "Core/Scan/UnitConverter1D.h"
 #include "Device/Beam/IFootprintFactor.h"
 #include "Device/Detector/SpecularDetector1D.h"
@@ -56,9 +56,9 @@ std::vector<SpecularSimulationElement> generateSimulationElements(const Instrume
 
 } // namespace
 
-// ************************************************************************** //
-// class SpecularSimulation
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class SpecularSimulation
+//  ************************************************************************************************
 
 SpecularSimulation::SpecularSimulation() : ISimulation()
 {

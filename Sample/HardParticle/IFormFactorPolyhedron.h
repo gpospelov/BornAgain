@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,20 +10,20 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_IFORMFACTORPOLYHEDRON_H
 
 #include "Sample/HardParticle/PolyhedralTopology.h"
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 #include <memory>
 
 class Polyhedron;
 
 //! A polyhedron, for form factor computation.
 
-class IFormFactorPolyhedron : public IFormFactorBorn
+class IFormFactorPolyhedron : public IBornFF
 {
 public:
 #ifdef POLYHEDRAL_DIAGNOSTIC

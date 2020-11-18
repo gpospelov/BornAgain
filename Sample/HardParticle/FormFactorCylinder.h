@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,17 +10,17 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCYLINDER_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCYLINDER_H
 
-#include "Sample/Scattering/IFormFactorBorn.h"
+#include "Sample/Scattering/IBornFF.h"
 
 //! A circular cylinder.
 //! @ingroup hardParticle
 
-class FormFactorCylinder : public IFormFactorBorn
+class FormFactorCylinder : public IBornFF
 {
 public:
     FormFactorCylinder(const std::vector<double> P);

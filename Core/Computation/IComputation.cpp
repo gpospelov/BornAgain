@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,13 +10,13 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Core/Computation/IComputation.h"
 #include "Base/Pixel/SimulationElement.h"
-#include "Core/Computation/ProcessedSample.h"
-#include "Core/Computation/ProgressHandler.h"
+#include "Base/Progress/ProgressHandler.h"
 #include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Processed/ProcessedSample.h"
 
 IComputation::IComputation(const MultiLayer& sample, const SimulationOptions& options,
                            ProgressHandler& progress)

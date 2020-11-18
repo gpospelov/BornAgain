@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,13 +10,13 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_CORE_COMPUTATION_DEPTHPROBECOMPUTATION_H
 #define BORNAGAIN_CORE_COMPUTATION_DEPTHPROBECOMPUTATION_H
 
-#include "Core/Computation/DepthProbeComputationTerm.h"
 #include "Core/Computation/IComputation.h"
+#include "Core/Term/DepthProbeComputationTerm.h"
 
 class MultiLayer;
 

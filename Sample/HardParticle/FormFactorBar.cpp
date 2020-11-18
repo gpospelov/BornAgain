@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,14 +10,14 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorBar.h"
 #include "Sample/HardParticle/Ripples.h"
 
-// ************************************************************************** //
-// class FormFactorBarGauss
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class FormFactorBarGauss
+//  ************************************************************************************************
 
 FormFactorBarGauss::FormFactorBarGauss(const std::vector<double> P)
     : IProfileRectangularRipple({"BarGauss", "class_tooltip", {}}, P)
@@ -44,9 +44,9 @@ complex_t FormFactorBarGauss::factor_x(complex_t qx) const
     return ripples::factor_x_Gauss(qx, m_length);
 }
 
-// ************************************************************************** //
-// class FormFactorBarLorentz
-// ************************************************************************** //
+//  ************************************************************************************************
+//  class FormFactorBarLorentz
+//  ************************************************************************************************
 
 FormFactorBarLorentz::FormFactorBarLorentz(const std::vector<double> P)
     : IProfileRectangularRipple({"BarLorentz", "class_tooltip", {}}, P)

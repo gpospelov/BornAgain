@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,15 +10,15 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Scattering/Rotations.h"
 
-FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor& form_factor,
+FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor& ff,
                                                                      const kvector_t& position)
-    : IFormFactorDecorator(form_factor), m_position(position)
+    : IFormFactorDecorator(ff), m_position(position)
 {
     setName("FormFactorDecoratorPositionFactor");
 }
@@ -26,24 +26,24 @@ FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IForm
 double FormFactorDecoratorPositionFactor::bottomZ(const IRotation& rotation) const
 {
     kvector_t rotated_translation = rotation.transformed(m_position);
-    return m_form_factor->bottomZ(rotation) + rotated_translation.z();
+    return m_ff->bottomZ(rotation) + rotated_translation.z();
 }
 
 double FormFactorDecoratorPositionFactor::topZ(const IRotation& rotation) const
 {
     kvector_t rotated_translation = rotation.transformed(m_position);
-    return m_form_factor->topZ(rotation) + rotated_translation.z();
+    return m_ff->topZ(rotation) + rotated_translation.z();
 }
 
 complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
 {
-    return getPositionFactor(wavevectors) * m_form_factor->evaluate(wavevectors);
+    return getPositionFactor(wavevectors) * m_ff->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd
 FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo& wavevectors) const
 {
-    return getPositionFactor(wavevectors) * m_form_factor->evaluatePol(wavevectors);
+    return getPositionFactor(wavevectors) * m_ff->evaluatePol(wavevectors);
 }
 
 complex_t

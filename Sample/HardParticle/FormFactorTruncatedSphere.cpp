@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,7 +10,7 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorTruncatedSphere.h"
 #include "Base/Const/MathConstants.h"
@@ -22,7 +22,7 @@
 #include <limits>
 
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(const std::vector<double> P)
-    : IFormFactorBorn({"TruncatedSphere",
+    : IBornFF({"TruncatedSphere",
                        "class_tooltip",
                        {{"Radius", "nm", "radius", 0, +INF, 0},
                         {"Height", "nm", "height before removal of cap", 0, +INF, 0},

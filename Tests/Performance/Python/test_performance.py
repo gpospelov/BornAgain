@@ -47,7 +47,7 @@ phi_min, phi_max = -1.0, 1.0
 alpha_min, alpha_max = 0.0, 2.0
 
 # user-defined custom form factor
-class CustomFormFactor(IFormFactorBorn):
+class CustomFormFactor(IBornFF):
     """
     A custom defined form factor
     The form factor is V sech(q L) with
@@ -55,7 +55,7 @@ class CustomFormFactor(IFormFactorBorn):
     L length scale which defines mean radius
     """
     def __init__(self, V, L):
-        IFormFactorBorn.__init__(self)
+        IBornFF.__init__(self)
         # parameters describing the form factor
         self.V = V
         self.L = L

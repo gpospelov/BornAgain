@@ -1,4 +1,4 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
@@ -10,12 +10,13 @@
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/Scattering/FormFactorDecoratorPositionFactor.h"
 #include "Sample/Scattering/FormFactorDecoratorRotation.h"
+#include "Sample/Scattering/Rotations.h"
 #include <memory>
 #include <utility>
 

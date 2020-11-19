@@ -2,7 +2,7 @@
 # Tests/Functional/PyCore/persistence/CMakeLists.txt
 ############################################################################
 
-set(OUTPUT_DIR ${TEST_OUTPUT_DIR_PY_PERSIST}/PyPersist)
+set(OUTPUT_DIR ${TEST_OUTPUT_DIR_PY_PERSIST})
 file(MAKE_DIRECTORY ${OUTPUT_DIR})
 
 set(PYPERSIST_REFERENCE_DIR ${TEST_REFERENCE_DIR}/Python)

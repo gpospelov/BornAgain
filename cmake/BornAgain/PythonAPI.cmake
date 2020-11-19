@@ -4,7 +4,7 @@ if(NOT BORNAGAIN_PYTHON)
     message(FATAL_ERROR "PythonAPI included though BORNAGAIN_PYTHON=false")
 endif()
 
-configure_file(${WRAP_DIR}/python/plot_utils.py
+configure_file(${WRAP_DIR}/Python/plot_utils.py
     ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
 
 if(WIN32)
@@ -16,7 +16,7 @@ if(BORNAGAIN_APPLE_BUNDLE)
     set(BA_MODULES_IMPORT_PATH
         lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
 endif()
-configure_file("${WRAP_DIR}/python/__init__.py.in"
+configure_file("${WRAP_DIR}/Python/__init__.py.in"
     "${CMAKE_BINARY_DIR}/lib/bornagain/__init__.py" @ONLY)
 
 if(CONFIGURE_BINDINGS)

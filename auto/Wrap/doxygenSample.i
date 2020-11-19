@@ -7073,7 +7073,7 @@ Sets the batch and thread information to be used.
 // File: classSizeDistributionDAModelBuilder.xml
 %feature("docstring") SizeDistributionDAModelBuilder "
 
-Creates the sample demonstrating size distribution model in decoupling approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationDA.py
+Creates the sample demonstrating size distribution model in decoupling approximation. Equivalent of Examples/Python/simulation/ex03_InterferenceFunctions/ApproximationDA.py
 
 C++ includes: SizeDistributionModelsBuilder.h
 ";
@@ -7085,7 +7085,7 @@ C++ includes: SizeDistributionModelsBuilder.h
 // File: classSizeDistributionLMAModelBuilder.xml
 %feature("docstring") SizeDistributionLMAModelBuilder "
 
-Creates the sample demonstrating size distribution model in local monodisperse approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py
+Creates the sample demonstrating size distribution model in local monodisperse approximation. Equivalent of Examples/Python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py
 
 C++ includes: SizeDistributionModelsBuilder.h
 ";
@@ -7097,7 +7097,7 @@ C++ includes: SizeDistributionModelsBuilder.h
 // File: classSizeDistributionSSCAModelBuilder.xml
 %feature("docstring") SizeDistributionSSCAModelBuilder "
 
-Creates the sample demonstrating size distribution model in size space coupling approximation. Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py
+Creates the sample demonstrating size distribution model in size space coupling approximation. Equivalent of Examples/Python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py
 
 C++ includes: SizeDistributionModelsBuilder.h
 ";

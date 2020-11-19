@@ -18,7 +18,7 @@
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
 //! Creates the sample demonstrating size distribution model in decoupling approximation.
-//! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationDA.py
+//! Equivalent of Examples/Python/simulation/ex03_InterferenceFunctions/ApproximationDA.py
 //! @ingroup standard_samples
 
 class SizeDistributionDAModelBuilder : public ISampleBuilder
@@ -28,7 +28,7 @@ public:
 };
 
 //! Creates the sample demonstrating size distribution model in local monodisperse approximation.
-//! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py
+//! Equivalent of Examples/Python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py
 //! @ingroup standard_samples
 
 class SizeDistributionLMAModelBuilder : public ISampleBuilder
@@ -38,7 +38,7 @@ public:
 };
 
 //! Creates the sample demonstrating size distribution model in size space coupling approximation.
-//! Equivalent of Examples/python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py
+//! Equivalent of Examples/Python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py
 //! @ingroup standard_samples
 
 class SizeDistributionSSCAModelBuilder : public ISampleBuilder

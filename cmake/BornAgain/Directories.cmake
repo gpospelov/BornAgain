@@ -4,7 +4,7 @@
 
 set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
 set(TEST_REFERENCE_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
-set(PY_EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples/python)
+set(PY_EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples/Python)
 
 # -----------------------------------------------------------------------------
 # auto directories (refreshed when CONFIGURE options are set)

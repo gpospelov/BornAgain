@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/ClassicalTestFunctions.cpp
+//! @file      Fit/Test/Functional/Minimizer/ClassicalTestFunctions.cpp
 //! @brief     Implements set of ObjectiveTestFunctions.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Tests/Functional/Fit/Minimizer/ClassicalTestFunctions.h"
+#include "Fit/Test/Functional/Minimizer/ClassicalTestFunctions.h"
 #include <cassert>
 #include <cmath>
 #include <iostream>

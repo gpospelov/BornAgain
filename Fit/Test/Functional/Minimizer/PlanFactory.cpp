@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Tests/Functional/Fit/Minimizer/PlanFactory.cpp
+//! @file      Fit/Test/Functional/Minimizer/PlanFactory.cpp
 //! @brief     Implements class FunctionTestPlanFactory
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#include "Tests/Functional/Fit/Minimizer/PlanFactory.h"
-#include "Tests/Functional/Fit/Minimizer/PlanCases.h"
+#include "Fit/Test/Functional/Minimizer/PlanFactory.h"
+#include "Fit/Test/Functional/Minimizer/PlanCases.h"
 
 using mumufit::test::create_new;
 

@@ -27,7 +27,7 @@ def PlotNumpyArray(a, zmin = 1, zmax = None):
     plt.xlabel(r'$\phi_f$', fontsize=20)
     plt.ylabel(r'$\alpha_f$', fontsize=20)
     # Use one of the predefined colormaps or the above defined 'blue_cmap':
-    im=plt.imshow(dataarray, norm=LogNorm(), vmax=zmax, cmap=cm.jet) #, interpolation='none')
+    im=plt.imshow(dataarray, norm=LogNorm(), vmax=zmax, cmap=cm.jet)
     plt.gca().axes.get_xaxis().set_ticks([])
     plt.gca().axes.get_yaxis().set_ticks([])
     plt.colorbar(im)

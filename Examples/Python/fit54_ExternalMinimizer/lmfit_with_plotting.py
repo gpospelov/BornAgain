@@ -103,7 +103,8 @@ def run_fitting():
     params.add('length', value=10*nm, min=8*nm, max=14*nm)
 
     plotter = Plotter(fit_objective)
-    result = lmfit.minimize(fit_objective.evaluate_residuals, params, iter_cb=plotter)
+    result = lmfit.minimize(
+        fit_objective.evaluate_residuals, params, iter_cb=plotter)
     fit_objective.finalize(result)
 
     result.params.pretty_print()

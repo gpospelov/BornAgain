@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 '''
 Plots intensity data difference stored in BornAgain "*.int" or "*.int.gz" format
-Usage: python plot_intensity_data_diff.py intensity_reference.int.gz intensity_other.int.gz
+Usage: python plot_intensity_data_diff.py reference.int.gz new.int.gz
 '''
 
 import numpy as np
@@ -20,8 +20,10 @@ def plot_intensity_data_diff(filename1, filename2):
     rank = intensity_ref.rank()
     if rank == 2:
         pid.plot_raw_data_2d(data,
-                             [intensity_ref.getXmin() / ba.deg, intensity_ref.getXmax() / ba.deg,
-                              intensity_ref.getYmin() / ba.deg, intensity_ref.getYmax() / ba.deg],
+                             [intensity_ref.getXmin() / ba.deg,
+                              intensity_ref.getXmax() / ba.deg,
+                              intensity_ref.getYmin() / ba.deg,
+                              intensity_ref.getYmax() / ba.deg],
                              data.max())
     elif rank == 1:
         axis_values = np.asarray(intensity_ref.xAxis().binCenters()) / ba.deg

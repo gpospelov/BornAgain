@@ -113,11 +113,15 @@ endif()
 
 ## Fit
 add_subdirectory(Fit/3rdParty)
+add_subdirectory(Fit)
+add_subdirectory(Fit/Test/Unit)
+add_subdirectory(Fit/Test/Functional)
+
 
 ## recurse into the given subdirectories
 
 # BornAgain components are build as separate shared libraries
-set(CoreComponents "Base;Fit;Param;Sample;Device;Core")
+set(CoreComponents "Base;Param;Sample;Device;Core")
 set(AllComponents "${CoreComponents};GUI")
 
 # code analysis
@@ -146,9 +150,6 @@ endforeach()
 if(BORNAGAIN_PYTHON)
     add_dependencies(BornAgainFit swig_runtime)
 endif()
-
-add_subdirectory(Fit/Test/Unit)
-add_subdirectory(Fit/Test/Functional)
 
 # core tests
 add_subdirectory(Tests/UnitTests/Core)

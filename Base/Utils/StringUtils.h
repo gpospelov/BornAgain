@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_TOOLS_STRINGUTILS_H
-#define BORNAGAIN_FIT_TOOLS_STRINGUTILS_H
+#ifndef BORNAGAIN_BASE_UTILS_STRINGUTILS_H
+#define BORNAGAIN_BASE_UTILS_STRINGUTILS_H
 
 #include <iomanip>
 #include <sstream>
@@ -58,4 +58,4 @@ template <typename T> std::string StringUtils::scientific(const T value, int n)
     return out.str();
 }
 
-#endif // BORNAGAIN_FIT_TOOLS_STRINGUTILS_H
+#endif // BORNAGAIN_BASE_UTILS_STRINGUTILS_H

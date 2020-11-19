@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/Parameters.cpp
+//! @file      Fit/Param/Parameters.cpp
 //! @brief     Defines class Parameters.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 #include <cmath>
 #include <sstream>
 #include <stdexcept>

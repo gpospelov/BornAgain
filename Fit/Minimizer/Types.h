@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/KernelTypes.h
+//! @file      Fit/Minimizer/Types.h
 //! @brief     Defines common types for fitting library.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_KERNEL_KERNELTYPES_H
-#define BORNAGAIN_FIT_KERNEL_KERNELTYPES_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_TYPES_H
+#define BORNAGAIN_FIT_MINIMIZER_TYPES_H
 
 #include <functional>
 #include <vector>
@@ -37,4 +37,4 @@ using root_gradient_t = std::function<double(const double*, unsigned int, double
 using fcn_scalar_t = std::function<double(const Fit::Parameters&)>;
 using fcn_residual_t = std::function<std::vector<double>(const Fit::Parameters&)>;
 
-#endif // BORNAGAIN_FIT_KERNEL_KERNELTYPES_H
+#endif // BORNAGAIN_FIT_MINIMIZER_TYPES_H

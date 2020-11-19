@@ -3,7 +3,7 @@
 
 #include "Base/Const/Units.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"

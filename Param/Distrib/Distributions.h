@@ -16,7 +16,7 @@
 #define BORNAGAIN_PARAM_DISTRIB_DISTRIBUTIONS_H
 
 #include "Base/Types/ICloneable.h"
-#include "Fit/Tools/RealLimits.h"
+#include "Fit/Param/RealLimits.h"
 #include "Param/Node/INode.h"
 #include <vector>
 

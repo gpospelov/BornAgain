@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/MinimizerResultUtils.h
+//! @file      Fit/Result/MinimizerResultUtils.h
 //! @brief     Declares MinimizerResultUtils namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_ROOTADAPTER_MINIMIZERRESULTUTILS_H
-#define BORNAGAIN_FIT_ROOTADAPTER_MINIMIZERRESULTUTILS_H
+#ifndef BORNAGAIN_FIT_RESULT_MINIMIZERRESULTUTILS_H
+#define BORNAGAIN_FIT_RESULT_MINIMIZERRESULTUTILS_H
 
 #include <string>
 
@@ -36,4 +36,4 @@ std::string reportParameters(const Fit::Parameters& parameters);
 
 }; // namespace MinimizerResultUtils
 
-#endif // BORNAGAIN_FIT_ROOTADAPTER_MINIMIZERRESULTUTILS_H
+#endif // BORNAGAIN_FIT_RESULT_MINIMIZERRESULTUTILS_H

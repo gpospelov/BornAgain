@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Models/FitParameterItems.h"
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/ModelPath.h"

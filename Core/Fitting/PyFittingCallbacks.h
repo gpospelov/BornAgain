@@ -17,7 +17,7 @@
 
 //! Collection of wrapper classes to call Python callable from C++.
 
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 
 class ISimulation;
 

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/TestEngine/ParameterPlan.h
+//! @file      Fit/Param/ParameterPlan.h
 //! @brief     Defines class ParameterPlan
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_TESTENGINE_PARAMETERPLAN_H
-#define BORNAGAIN_FIT_TESTENGINE_PARAMETERPLAN_H
+#ifndef BORNAGAIN_FIT_PARAM_PARAMETERPLAN_H
+#define BORNAGAIN_FIT_PARAM_PARAMETERPLAN_H
 
-#include "Fit/Kernel/Parameter.h"
+#include "Fit/Param/Parameter.h"
 
 //! Defines initial settings of single fit parameter and the final value which has to be found
 //! in the course of the fit.
@@ -40,4 +40,4 @@ private:
     Fit::Parameter m_parameter; //!< initial parameter settings
 };
 
-#endif // BORNAGAIN_FIT_TESTENGINE_PARAMETERPLAN_H
+#endif // BORNAGAIN_FIT_PARAM_PARAMETERPLAN_H

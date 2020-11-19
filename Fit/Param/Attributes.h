@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Tools/Attributes.h
+//! @file      Fit/Param/Attributes.h
 //! @brief     Defines and implements class Attributes.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_TOOLS_ATTRIBUTES_H
-#define BORNAGAIN_FIT_TOOLS_ATTRIBUTES_H
+#ifndef BORNAGAIN_FIT_PARAM_ATTRIBUTES_H
+#define BORNAGAIN_FIT_PARAM_ATTRIBUTES_H
 
 #include <ostream>
 
@@ -58,4 +58,4 @@ inline void Attributes::print(std::ostream& ostr) const
         ostr << "free";
 }
 
-#endif // BORNAGAIN_FIT_TOOLS_ATTRIBUTES_H
+#endif // BORNAGAIN_FIT_PARAM_ATTRIBUTES_H

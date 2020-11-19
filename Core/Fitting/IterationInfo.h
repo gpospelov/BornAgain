@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_CORE_FITTING_ITERATIONINFO_H
 #define BORNAGAIN_CORE_FITTING_ITERATIONINFO_H
 
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 #include <map>
 #include <string>
 

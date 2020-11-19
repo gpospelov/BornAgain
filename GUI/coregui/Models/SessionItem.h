@@ -16,7 +16,7 @@
 #define BORNAGAIN_GUI_COREGUI_MODELS_SESSIONITEM_H
 
 #include "Base/Utils/Assert.h"
-#include "Fit/Tools/RealLimits.h"
+#include "Fit/Param/RealLimits.h"
 #include "GUI/coregui/Models/ModelMapper.h"
 #include "Wrap/WinDllMacros.h"
 #include <QStringList>

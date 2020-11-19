@@ -1,4 +1,4 @@
-#include "Fit/Tools/AttLimits.h"
+#include "Fit/Param/AttLimits.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class AttLimitsTest : public ::testing::Test

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_KERNEL_PYCALLBACK_H
 #define BORNAGAIN_FIT_KERNEL_PYCALLBACK_H
 
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 #include <vector>
 
 //! Base class to wrap Python callable and pass it to C++. Used in swig interface file,

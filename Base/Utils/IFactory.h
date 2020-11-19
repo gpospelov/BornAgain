@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_TESTENGINE_IFACTORY_H
-#define BORNAGAIN_FIT_TESTENGINE_IFACTORY_H
+#ifndef BORNAGAIN_BASE_UTILS_IFACTORY_H
+#define BORNAGAIN_BASE_UTILS_IFACTORY_H
 
 #include <cassert>
 #include <functional>
@@ -79,4 +79,4 @@ template <class T> T* create_new()
     return new T();
 }
 
-#endif // BORNAGAIN_FIT_TESTENGINE_IFACTORY_H
+#endif // BORNAGAIN_BASE_UTILS_IFACTORY_H

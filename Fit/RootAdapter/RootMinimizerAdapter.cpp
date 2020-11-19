@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Fit/RootAdapter/RootMinimizerAdapter.h"
-#include "Fit/RootAdapter/MinimizerResultUtils.h"
+#include "Fit/Result/MinimizerResultUtils.h"
 #include "Fit/RootAdapter/ObjectiveFunctionAdapter.h"
 #include "Fit/RootAdapter/RootResidualFunction.h"
 #include "Fit/RootAdapter/RootScalarFunction.h"

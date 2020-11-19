@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Tools/AttLimits.h
+//! @file      Fit/Param/AttLimits.h
 //! @brief     Defines and implements class AttLimits.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,11 +12,11 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_TOOLS_ATTLIMITS_H
-#define BORNAGAIN_FIT_TOOLS_ATTLIMITS_H
+#ifndef BORNAGAIN_FIT_PARAM_ATTLIMITS_H
+#define BORNAGAIN_FIT_PARAM_ATTLIMITS_H
 
-#include "Fit/Tools/Attributes.h"
-#include "Fit/Tools/RealLimits.h"
+#include "Fit/Param/Attributes.h"
+#include "Fit/Param/RealLimits.h"
 #include <string>
 
 //! Attributes and limits of a fit parameter, and coupling between these properties.
@@ -64,4 +64,4 @@ private:
     Attributes m_att_fixed;
 };
 
-#endif // BORNAGAIN_FIT_TOOLS_ATTLIMITS_H
+#endif // BORNAGAIN_FIT_PARAM_ATTLIMITS_H

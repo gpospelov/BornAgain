@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/MinimizerResult.h
+//! @file      Fit/Result/MinimizerResult.h
 //! @brief     Defines class MinimizerResult.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_KERNEL_MINIMIZERRESULT_H
-#define BORNAGAIN_FIT_KERNEL_MINIMIZERRESULT_H
+#ifndef BORNAGAIN_FIT_RESULT_MINIMIZERRESULT_H
+#define BORNAGAIN_FIT_RESULT_MINIMIZERRESULT_H
 
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 #include <string>
 
 namespace Fit
@@ -55,4 +55,4 @@ private:
 
 } // namespace Fit
 
-#endif // BORNAGAIN_FIT_KERNEL_MINIMIZERRESULT_H
+#endif // BORNAGAIN_FIT_RESULT_MINIMIZERRESULT_H

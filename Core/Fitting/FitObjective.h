@@ -18,7 +18,7 @@
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/SimDataPair.h"
 #include "Device/Intensity/ArrayUtils.h"
-#include "Fit/Kernel/MinimizerResult.h"
+#include "Fit/Result/MinimizerResult.h"
 
 class FitStatus;
 class IChiSquaredModule;

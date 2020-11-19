@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERITEMS_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERITEMS_H
 
-#include "Fit/Tools/AttLimits.h"
+#include "Fit/Param/AttLimits.h"
 #include "GUI/coregui/Models/SessionItem.h"
 
 //! FitParameterItems is a collection of items to define fit parameters in GUI.

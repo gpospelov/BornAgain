@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_TESTENGINE_MINIMIZERTESTPLAN_H
 #define BORNAGAIN_FIT_TESTENGINE_MINIMIZERTESTPLAN_H
 
-#include "Fit/TestEngine/ParameterPlan.h"
+#include "Fit/Param/ParameterPlan.h"
 #include <vector>
 
 namespace Fit

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/Parameters.h
+//! @file      Fit/Param/Parameters.h
 //! @brief     Defines class Parameters.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,10 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_KERNEL_PARAMETERS_H
-#define BORNAGAIN_FIT_KERNEL_PARAMETERS_H
+#ifndef BORNAGAIN_FIT_PARAM_PARAMETERS_H
+#define BORNAGAIN_FIT_PARAM_PARAMETERS_H
 
-#include "Fit/Kernel/Parameter.h"
+#include "Fit/Param/Parameter.h"
 #include <vector>
 
 namespace Fit
@@ -69,4 +69,4 @@ private:
 
 } // namespace Fit
 
-#endif // BORNAGAIN_FIT_KERNEL_PARAMETERS_H
+#endif // BORNAGAIN_FIT_PARAM_PARAMETERS_H

@@ -16,7 +16,7 @@
 #define BORNAGAIN_FIT_MINIMIZER_IMINIMIZER_H
 
 #include "Fit/Kernel/KernelTypes.h"
-#include "Fit/Kernel/MinimizerResult.h"
+#include "Fit/Result/MinimizerResult.h"
 #include <string>
 
 namespace Fit

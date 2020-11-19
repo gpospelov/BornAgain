@@ -27,28 +27,28 @@
 %feature("director") PyCallback;         // used in extendFit.i
 
 %{
-#include "Fit/Tools/RealLimits.h"
-#include "Fit/Tools/AttLimits.h"
-#include "Fit/Kernel/Parameter.h"
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/RealLimits.h"
+#include "Fit/Param/AttLimits.h"
+#include "Fit/Param/Parameter.h"
+#include "Fit/Param/Parameters.h"
 #include "Fit/Minimizer/IMinimizer.h"
 #include "Fit/Minimizer/MinimizerCatalog.h"
 #include "Fit/Minimizer/MinimizerFactory.h"
 
 #include "Fit/Kernel/PyCallback.h"
-#include "Fit/Kernel/MinimizerResult.h"
+#include "Fit/Result/MinimizerResult.h"
 #include "Fit/Kernel/Minimizer.h"
 %}
 
 // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
-%include "Fit/Tools/RealLimits.h"
-%include "Fit/Tools/AttLimits.h"
-%include "Fit/Kernel/Parameter.h"
-%include "Fit/Kernel/Parameters.h"
+%include "Fit/Param/RealLimits.h"
+%include "Fit/Param/AttLimits.h"
+%include "Fit/Param/Parameter.h"
+%include "Fit/Param/Parameters.h"
 %include "Fit/Kernel/PyCallback.h"
-%include "Fit/Kernel/MinimizerResult.h"
+%include "Fit/Result/MinimizerResult.h"
 %include "Fit/Kernel/Minimizer.h"
 %include "Fit/Minimizer/IMinimizer.h"
 %include "Fit/Minimizer/MinimizerCatalog.h"

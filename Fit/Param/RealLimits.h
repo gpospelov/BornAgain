@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Tools/RealLimits.h
+//! @file      Fit/Param/RealLimits.h
 //! @brief     Defines class RealLimits.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_TOOLS_REALLIMITS_H
-#define BORNAGAIN_FIT_TOOLS_REALLIMITS_H
+#ifndef BORNAGAIN_FIT_PARAM_REALLIMITS_H
+#define BORNAGAIN_FIT_PARAM_REALLIMITS_H
 
 #include <ostream>
 #include <string>
@@ -108,4 +108,4 @@ protected:
     double m_upper_limit;   //! maximum allowed value
 };
 
-#endif // BORNAGAIN_FIT_TOOLS_REALLIMITS_H
+#endif // BORNAGAIN_FIT_PARAM_REALLIMITS_H

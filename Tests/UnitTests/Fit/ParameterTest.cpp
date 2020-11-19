@@ -1,4 +1,4 @@
-#include "Fit/Kernel/Parameter.h"
+#include "Fit/Param/Parameter.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <string>
 

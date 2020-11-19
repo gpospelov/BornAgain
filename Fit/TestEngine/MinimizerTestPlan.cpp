@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Fit/TestEngine/MinimizerTestPlan.h"
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 #include <cmath>
 #include <iostream>
 #include <sstream>

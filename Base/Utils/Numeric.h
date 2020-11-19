@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_TESTENGINE_NUMERIC_H
-#define BORNAGAIN_FIT_TESTENGINE_NUMERIC_H
+#ifndef BORNAGAIN_BASE_UTILS_NUMERIC_H
+#define BORNAGAIN_BASE_UTILS_NUMERIC_H
 
 #include <limits>
 
@@ -30,4 +30,4 @@ double GetLogDifference(double a, double b);
 
 } // namespace Numeric
 
-#endif // BORNAGAIN_FIT_TESTENGINE_NUMERIC_H
+#endif // BORNAGAIN_BASE_UTILS_NUMERIC_H

@@ -39,17 +39,17 @@ foreach(dir ${include_dirs})
 endforeach()
 
 set(source_widgetbox
-    "Views/widgetbox/widgetboxcategorylistview.cpp"
-    "Views/widgetbox/widgetboxtreewidget.cpp"
-    "Views/widgetbox/widgetbox.cpp"
+    Views/widgetbox/widgetboxcategorylistview.cpp
+    Views/widgetbox/widgetboxtreewidget.cpp
+    Views/widgetbox/widgetbox.cpp
 )
 list(APPEND source_files ${source_widgetbox})
 
 set(include_widgetbox
-    "Views/widgetbox/widgetboxcategorylistview.h"
-    "Views/widgetbox/widgetboxtreewidget.h"
-    "Views/widgetbox/widgetbox.h"
-    "Views/widgetbox/widgetbox_global.h"
+    Views/widgetbox/widgetboxcategorylistview.h
+    Views/widgetbox/widgetboxtreewidget.h
+    Views/widgetbox/widgetbox.h
+    Views/widgetbox/widgetbox_global.h
 )
 if(WIN32)
     add_definitions(-DQDESIGNER_UILIB_LIBRARY)
@@ -60,11 +60,11 @@ list(APPEND include_files ${include_widgetbox})
 list(APPEND include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/Views/widgetbox)
 
 set(resource_files
-    "coregui.qrc"
-    "Views/SampleDesigner/SampleDesigner.qrc"
-    "Views/MaskWidgets/MaskWidgets.qrc"
-    "Views/widgetbox/widgetbox.qrc"
-    "Views/AccordionWidget/accordionwidgeticons.qrc"
+    coregui.qrc
+    Views/SampleDesigner/SampleDesigner.qrc
+    Views/MaskWidgets/MaskWidgets.qrc
+    Views/widgetbox/widgetbox.qrc
+    Views/AccordionWidget/accordionwidgeticons.qrc
 )
 
 # --- Qt configuration ---------
@@ -77,7 +77,7 @@ if(BORNAGAIN_CRASHHANDLER)
 endif()
 
 if(WIN32)
-    string(APPEND CMAKE_CXX_FLAGS " -DBA_CORE_BUILD_DLL")
+    string(APPEND CMAKE_CXX_FLAGS  -DBA_CORE_BUILD_DLL)
 endif()
 
 
@@ -139,13 +139,13 @@ if(WIN32)
     ${QTDIR}/bin/libGLESv2.dll
     DESTINATION ${destination_lib} COMPONENT Libraries)
 
-    set(QT_VISTA_STYLE "${QTDIR}/plugins/styles/qwindowsvistastyle.dll")
-    if(EXISTS "${QT_VISTA_STYLE}")
+    set(QT_VISTA_STYLE ${QTDIR}/plugins/styles/qwindowsvistastyle.dll)
+    if(EXISTS ${QT_VISTA_STYLE})
         install(FILES ${QT_VISTA_STYLE}
                 DESTINATION bin/styles COMPONENT Libraries)
-    else(EXISTS "${QT_VISTA_STYLE}")
-        MESSAGE(AUTHOR_WARNING "File ${QT_VISTA_STYLE} not found.")
-    endif(EXISTS "${QT_VISTA_STYLE}")
+    else(EXISTS ${QT_VISTA_STYLE})
+        MESSAGE(AUTHOR_WARNING File ${QT_VISTA_STYLE} not found.)
+    endif(EXISTS ${QT_VISTA_STYLE})
     unset(QT_VISTA_STYLE)
 
 endif()

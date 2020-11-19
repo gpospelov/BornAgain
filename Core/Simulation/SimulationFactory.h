@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_CORE_SIMULATION_SIMULATIONFACTORY_H
 #define BORNAGAIN_CORE_SIMULATION_SIMULATIONFACTORY_H
 
-#include "Core/Simulation/GISASSimulation.h"
 #include "Base/Utils/IFactory.h"
+#include "Core/Simulation/GISASSimulation.h"
 #include <string>
 
 //! Registry to create standard pre-defined simulations.

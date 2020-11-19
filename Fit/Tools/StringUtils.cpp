@@ -16,7 +16,8 @@
 #include <boost/algorithm/string.hpp>
 #include <regex>
 
-namespace mumufit {
+namespace mumufit
+{
 
 //! Returns true if text matches pattern with wildcards '*' and '?'.
 bool StringUtils::matchesPattern(const std::string& text, const std::string& wildcardPattern)

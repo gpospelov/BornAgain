@@ -20,7 +20,8 @@
 #include <string>
 #include <vector>
 
-namespace mumufit {
+namespace mumufit
+{
 
 //! Utility functions to analyze or modify strings.
 

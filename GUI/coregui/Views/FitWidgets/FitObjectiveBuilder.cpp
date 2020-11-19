@@ -53,16 +53,16 @@ void FitObjectiveBuilder::runFit()
     mumufit::Minimizer minimizer;
     minimizer.setMinimizer(minimizer_impl.release());
 
-    auto result =
-        requires_residuals
-            ? minimizer.minimize(
-                [&](const mumufit::Parameters& params) {
-                    return m_fit_objective->evaluate_residuals(params);
-                },
-                createParameters())
-            : minimizer.minimize(
-                [&](const mumufit::Parameters& params) { return m_fit_objective->evaluate(params); },
-                createParameters());
+    auto result = requires_residuals ? minimizer.minimize(
+                      [&](const mumufit::Parameters& params) {
+                          return m_fit_objective->evaluate_residuals(params);
+                      },
+                      createParameters())
+                                     : minimizer.minimize(
+                                         [&](const mumufit::Parameters& params) {
+                                             return m_fit_objective->evaluate(params);
+                                         },
+                                         createParameters());
     m_fit_objective->finalize(result);
 }
 

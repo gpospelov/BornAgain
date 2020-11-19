@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Core/Fitting/FitPrintService.h"
-#include "Core/Fitting/FitObjective.h"
 #include "Base/Utils/StringUtils.h"
+#include "Core/Fitting/FitObjective.h"
 #include <iomanip>
 #include <iostream>
 #include <sstream>

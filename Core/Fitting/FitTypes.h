@@ -25,7 +25,8 @@ class Parameters;
 }
 class FitObjective;
 
-using simulation_builder_t = std::function<std::unique_ptr<ISimulation>(const mumufit::Parameters&)>;
+using simulation_builder_t =
+    std::function<std::unique_ptr<ISimulation>(const mumufit::Parameters&)>;
 
 using fit_observer_t = std::function<void(const FitObjective&)>;
 

@@ -12,10 +12,10 @@
 //
 //  ************************************************************************************************
 
+#include "Base/Utils/Numeric.h"
 #include "Device/Histo/Histogram1D.h"
 #include "Device/Histo/Histogram2D.h"
 #include "Device/Histo/IntensityDataIOFactory.h" // TODO rm
-#include "Base/Utils/Numeric.h"
 #include <memory>
 
 IHistogram::IHistogram() = default;

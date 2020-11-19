@@ -22,8 +22,11 @@
 
 class ObjectiveMetric;
 
+//! Utility functions related to class ObjectiveMetric.
+
 namespace ObjectiveMetricUtils
 {
+
 //! Returns L1 normalization function.
 const std::function<double(double)> l1Norm();
 //! Returns L2 normalization function.
@@ -49,6 +52,7 @@ std::string defaultNormName();
 
 //! Returns default metric name.
 std::string defaultMetricName();
+
 } // namespace ObjectiveMetricUtils
 
 #endif // BORNAGAIN_CORE_FITTING_OBJECTIVEMETRICUTILS_H

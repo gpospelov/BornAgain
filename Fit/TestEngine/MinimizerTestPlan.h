@@ -35,7 +35,8 @@ public:
 
     virtual ~MinimizerTestPlan();
 
-    void addParameter(const mumufit::Parameter& param, double expected_value, double tolerance = 0.01);
+    void addParameter(const mumufit::Parameter& param, double expected_value,
+                      double tolerance = 0.01);
 
     std::string name() const { return m_name; }
 

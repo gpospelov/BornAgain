@@ -18,7 +18,8 @@
 #include <iostream>
 #include <sstream>
 
-namespace {
+namespace
+{
 
 //! Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases.
 double relativeDifference(double a, double b)

@@ -72,8 +72,8 @@ SlicingEffects IBornFF::computeSlicingEffects(ZLimits limits, const kvector_t& p
     double z_top = position.z() + height;
     OneSidedLimit lower_limit = limits.lowerLimit();
     OneSidedLimit upper_limit = limits.upperLimit();
-    ASSERT(upper_limit.m_limitless || lower_limit.m_limitless || lower_limit.m_value
-           <= upper_limit.m_value);
+    ASSERT(upper_limit.m_limitless || lower_limit.m_limitless
+           || lower_limit.m_value <= upper_limit.m_value);
     double dz_top = upper_limit.m_limitless ? -1 : z_top - upper_limit.m_value;
     double dz_bottom = lower_limit.m_limitless ? -1 : lower_limit.m_value - z_bottom;
     ASSERT(dz_top >= 0 || dz_bottom >= 0);

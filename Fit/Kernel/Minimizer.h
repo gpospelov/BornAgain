@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_FIT_KERNEL_MINIMIZER_H
 #define BORNAGAIN_FIT_KERNEL_MINIMIZER_H
 
-#include "Fit/Minimizer/Types.h"
 #include "Fit/Minimizer/MinimizerResult.h"
+#include "Fit/Minimizer/Types.h"
 #include <functional>
 #include <memory>
 #include <string>
@@ -24,6 +24,8 @@
 
 class PyCallback;
 class IMinimizer;
+
+//! The multi-library, multi-algorithm fit wrapper library.
 
 namespace mumufit
 {

@@ -17,7 +17,8 @@
 #include <boost/format.hpp>
 #include <sstream>
 
-namespace {
+namespace
+{
 
 std::string reportParameters(const mumufit::Parameters& parameters)
 {

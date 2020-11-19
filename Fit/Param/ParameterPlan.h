@@ -35,8 +35,8 @@ public:
     void setTolerance(double tolerance) { m_tolerance = tolerance; }
 
 private:
-    double m_expected_value;    //!< expected value to find in the fit
-    double m_tolerance;         //!< tolerance on found value wrt expected value
+    double m_expected_value;        //!< expected value to find in the fit
+    double m_tolerance;             //!< tolerance on found value wrt expected value
     mumufit::Parameter m_parameter; //!< initial parameter settings
 };
 

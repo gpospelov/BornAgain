@@ -18,8 +18,6 @@
 #include <functional>
 #include <vector>
 
-//! Objective function types.
-
 namespace mumufit
 {
 class Parameters;

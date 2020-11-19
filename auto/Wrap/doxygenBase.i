@@ -1373,22 +1373,22 @@ Bessel function J1(x)/x.
 
 %feature("docstring")  Math::Bessel::I0 "double Math::Bessel::I0(double x)
 
-Modified Bessel function of the first kind and order 0. 
+Modified  Bessel function of the first kind and order 0. 
 ";
 
 %feature("docstring")  Math::Bessel::J0 "complex_t Math::Bessel::J0(const complex_t z)
 
-Complex Bessel function of the first kind and order 0. 
+Complex  Bessel function of the first kind and order 0. 
 ";
 
 %feature("docstring")  Math::Bessel::J1 "complex_t Math::Bessel::J1(const complex_t z)
 
-Complex Bessel function of the first kind and order 1. 
+Complex  Bessel function of the first kind and order 1. 
 ";
 
 %feature("docstring")  Math::Bessel::J1c "complex_t Math::Bessel::J1c(const complex_t z)
 
-Complex Bessel function J1(x)/x. 
+Complex  Bessel function J1(x)/x. 
 ";
 
 

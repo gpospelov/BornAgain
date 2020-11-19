@@ -20,6 +20,8 @@
 
 namespace Math
 {
+
+//! Real and complex Bessel functions
 namespace Bessel
 {
 

@@ -13,10 +13,10 @@
 //  ************************************************************************************************
 
 #include "Core/Fitting/SimDataPair.h"
+#include "Base/Utils/Numeric.h"
 #include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
-#include "Base/Utils/Numeric.h"
 
 namespace
 {

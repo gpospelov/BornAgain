@@ -13,12 +13,12 @@
 //  ************************************************************************************************
 
 #include "Fit/Kernel/MinimizerFactory.h"
-#include "Fit/Minimizer/TestMinimizer.h"
 #include "Fit/Adapter/GSLLevenbergMarquardtMinimizer.h"
 #include "Fit/Adapter/GSLMultiMinimizer.h"
 #include "Fit/Adapter/GeneticMinimizer.h"
 #include "Fit/Adapter/Minuit2Minimizer.h"
 #include "Fit/Adapter/SimAnMinimizer.h"
+#include "Fit/Minimizer/TestMinimizer.h"
 #include <boost/format.hpp>
 #include <iomanip>
 #include <iostream>

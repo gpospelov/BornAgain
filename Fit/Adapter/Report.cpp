@@ -30,7 +30,6 @@ template <typename T> std::string reportValue(const std::string& name, T value)
     return result.str();
 }
 
-
 std::string reportDescription(const MinimizerAdapter& minimizer)
 {
     std::ostringstream result;

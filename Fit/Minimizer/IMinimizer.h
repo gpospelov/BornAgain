@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_FIT_MINIMIZER_IMINIMIZER_H
 #define BORNAGAIN_FIT_MINIMIZER_IMINIMIZER_H
 
-#include "Fit/Minimizer/Types.h"
 #include "Fit/Minimizer/MinimizerResult.h"
+#include "Fit/Minimizer/Types.h"
 #include <string>
 
 namespace mumufit

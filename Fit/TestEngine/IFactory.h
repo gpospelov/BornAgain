@@ -22,7 +22,8 @@
 #include <memory>
 #include <sstream>
 
-namespace fittest {
+namespace fittest
+{
 
 //! Base class for all factories.
 //! @ingroup tools_internal

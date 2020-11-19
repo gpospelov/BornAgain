@@ -78,7 +78,7 @@ protected:
 
     //! Helper method for slicing
     static SlicingEffects computeSlicingEffects(ZLimits limits, const kvector_t& position,
-                                         double height);
+                                                double height);
 
     //! Calculates the z-coordinate of the lowest vertex after rotation
     static double BottomZ(const std::vector<kvector_t>& vertices, const IRotation& rotation);

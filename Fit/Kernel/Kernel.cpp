@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Fit/Kernel/Kernel.h"
-#include "Fit/Minimizer/IMinimizer.h"
 #include "Fit/Kernel/MinimizerFactory.h"
+#include "Fit/Minimizer/IMinimizer.h"
 
 using namespace mumufit;
 

@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Fit/Adapter/MinimizerAdapter.h"
-#include "Fit/Adapter/Report.h"
 #include "Fit/Adapter/ObjectiveFunctionAdapter.h"
+#include "Fit/Adapter/Report.h"
 #include "Fit/Adapter/RootResidualFunction.h"
 #include "Fit/Adapter/RootScalarFunction.h"
 #include "Fit/Tools/StringUtils.h"
@@ -23,7 +23,9 @@
 using namespace mumufit;
 
 MinimizerAdapter::MinimizerAdapter(const MinimizerInfo& minimizerInfo)
-    : m_minimizerInfo(minimizerInfo), m_adapter(new mumufit::ObjectiveFunctionAdapter), m_status(false)
+    : m_minimizerInfo(minimizerInfo)
+    , m_adapter(new mumufit::ObjectiveFunctionAdapter)
+    , m_status(false)
 {
 }
 

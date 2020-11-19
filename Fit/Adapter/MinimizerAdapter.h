@@ -47,8 +47,10 @@ public:
 
     virtual ~MinimizerAdapter() override;
 
-    mumufit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, mumufit::Parameters parameters) override;
-    mumufit::MinimizerResult minimize_residual(fcn_residual_t fcn, mumufit::Parameters parameters) override;
+    mumufit::MinimizerResult minimize_scalar(fcn_scalar_t fcn,
+                                             mumufit::Parameters parameters) override;
+    mumufit::MinimizerResult minimize_residual(fcn_residual_t fcn,
+                                               mumufit::Parameters parameters) override;
 
     //! Returns name of the minimizer.
     std::string minimizerName() const override final;
@@ -108,7 +110,7 @@ private:
 
 template <class T>
 OptionContainer::option_t MinimizerAdapter::addOption(const std::string& optionName, T value,
-                                                          const std::string& description)
+                                                      const std::string& description)
 {
     return m_options.addOption(optionName, value, description);
 }

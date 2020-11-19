@@ -44,9 +44,9 @@ def get_simulation(params):
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*deg, 2.0*deg,
-                                     100, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setDetectorParameters(100, 0.0 * deg, 2.0 * deg, 100, 0.0 * deg,
+                                     2.0 * deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
     simulation.setBeamIntensity(1e+08)
     simulation.setSample(get_sample(params))
     return simulation
@@ -56,7 +56,7 @@ def create_real_data():
     """
     Generating "real" data by adding noise to the simulated data.
     """
-    params = {'radius': 5.0*nm, 'height': 5.0*nm}
+    params = {'radius': 5.0 * nm, 'height': 5.0 * nm}
 
     simulation = get_simulation(params)
     simulation.runSimulation()
@@ -66,7 +66,7 @@ def create_real_data():
 
     # spoiling simulated data with the noise to produce "real" data
     noise_factor = 0.1
-    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
+    noisy = np.random.normal(real_data, noise_factor * np.sqrt(real_data))
     noisy[noisy < 0.1] = 0.1
     return noisy
 
@@ -81,16 +81,14 @@ def run_fitting():
     fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
     fit_objective.initPrint(10)
     fit_objective.initPlot(10)
-
     """
     Setting fitting parameters with starting values.
     Here we select starting values being quite far from true values
     to puzzle our minimizer's as much as possible.
     """
     params = ba.Parameters()
-    params.add("height", 1.*nm, min=0.01, max=30.0, step=0.05*nm)
-    params.add("radius", 20.*nm, min=0.01, max=30.0, step=0.05*nm)
-
+    params.add("height", 1. * nm, min=0.01, max=30.0, step=0.05 * nm)
+    params.add("radius", 20. * nm, min=0.01, max=30.0, step=0.05 * nm)
     """
     Now we run first minimization round using the Genetic minimizer.
     The Genetic minimizer is able to explore large parameter space
@@ -102,7 +100,6 @@ def run_fitting():
     fit_objective.finalize(result)
 
     best_params_so_far = result.parameters()
-
     """
     Second fit will use another minimizer.
     It starts from best parameters found in previous minimization

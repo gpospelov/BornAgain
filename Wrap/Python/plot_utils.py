@@ -22,7 +22,6 @@ try:  # workaround for build servers
 except Exception as e:
     print("In plot_utils.py: {:s}".format(str(e)))
 
-
 label_fontsize = 16
 
 
@@ -34,8 +33,9 @@ def get_axes_limits(result, units):
     :return: axes ranges as a flat list
     """
     axis_infos = result.axisInfo(units)
-    limits = [ [axis_infos[i].m_min, axis_infos[i].m_max] for i in range(len(axis_infos)) ]
-    flat_limits = [ v for sublist in limits for v in sublist ]
+    limits = [[axis_infos[i].m_min, axis_infos[i].m_max]
+              for i in range(len(axis_infos))]
+    flat_limits = [v for sublist in limits for v in sublist]
 
     return flat_limits
 
@@ -47,23 +47,22 @@ def translate_axis_label(label):
     :return: LaTeX representation
     """
     label_dict = {
-                 'X [nbins]'     : r'$X \; $(bins)',
-                 'phi_f [rad]'   : r'$\varphi_f \; $(rad)',
-                 'phi_f [deg]'   : r'$\varphi_f \; $(deg)',
-                 'alpha_i [rad]' : r'$\alpha_i \; $(rad)',
-                 'alpha_i [deg]' : r'$\alpha_i \; $(deg)',
-                 'X [mm]'        : r'$X \; $(mm)',
-                 'Qx [1/nm]'     : r'$Q_x \; $(nm$^{-1}$)',
-                 'Qy [1/nm]'     : r'$Q_y \; $(nm$^{-1}$)',
-                 'Q [1/nm]'      : r'$Q \; $(nm$^{-1}$)',
-
-                 'Y [nbins]'     : r'$Y \; $(bins)',
-                 'alpha_f [rad]' : r'$\alpha_f \; $(rad)',
-                 'alpha_f [deg]' : r'$\alpha_f \; $(deg)',
-                 'Y [mm]'        : r'$Y \; $(mm)',
-                 'Qz [1/nm]'     : r'$Q_z \; $(nm$^{-1}$)',
-                 'Position [nm]' : r'$Position \; $(nm)'
-                 }
+        'X [nbins]': r'$X \; $(bins)',
+        'phi_f [rad]': r'$\varphi_f \; $(rad)',
+        'phi_f [deg]': r'$\varphi_f \; $(deg)',
+        'alpha_i [rad]': r'$\alpha_i \; $(rad)',
+        'alpha_i [deg]': r'$\alpha_i \; $(deg)',
+        'X [mm]': r'$X \; $(mm)',
+        'Qx [1/nm]': r'$Q_x \; $(nm$^{-1}$)',
+        'Qy [1/nm]': r'$Q_y \; $(nm$^{-1}$)',
+        'Q [1/nm]': r'$Q \; $(nm$^{-1}$)',
+        'Y [nbins]': r'$Y \; $(bins)',
+        'alpha_f [rad]': r'$\alpha_f \; $(rad)',
+        'alpha_f [deg]': r'$\alpha_f \; $(deg)',
+        'Y [mm]': r'$Y \; $(mm)',
+        'Qz [1/nm]': r'$Q_z \; $(nm$^{-1}$)',
+        'Position [nm]': r'$Position \; $(nm)'
+    }
     if label in label_dict.keys():
         return label_dict[label]
     else:
@@ -78,13 +77,22 @@ def get_axes_labels(result, units):
     :return: axes ranges as a flat list
     """
     axis_infos = result.axisInfo(units)
-    labels = [ translate_axis_label(axis_infos[i].m_name) for i in range(len(axis_infos)) ]
+    labels = [
+        translate_axis_label(axis_infos[i].m_name) for i in range(len(axis_infos))
+    ]
 
     return labels
 
 
-def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
-               title=None, axes_limits=None, **kwargs):
+def plot_array(array,
+               zmin=None,
+               zmax=None,
+               xlabel=None,
+               ylabel=None,
+               zlabel=None,
+               title=None,
+               axes_limits=None,
+               **kwargs):
     """
     Plots numpy array as a colormap in log scale.
     """
@@ -92,7 +100,7 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
     zlabel = "Intensity" if zlabel is None else zlabel
 
     zmax = np.amax(array) if zmax is None else zmax
-    zmin = 1e-6*zmax if zmin is None else zmin
+    zmin = 1e-6 * zmax if zmin is None else zmin
 
     if zmin == zmax == 0.0:
         norm = colors.Normalize(0, 1)
@@ -115,8 +123,14 @@ def plot_array(array, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=Non
         plt.title(title)
 
 
-def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=None,
-                  title=None, **kwargs):
+def plot_histogram(hist,
+                   zmin=None,
+                   zmax=None,
+                   xlabel=None,
+                   ylabel=None,
+                   zlabel=None,
+                   title=None,
+                   **kwargs):
     """
     Plots intensity data as color map
     :param intensity: Histogram2D object obtained from GISASSimulation
@@ -130,16 +144,28 @@ def plot_histogram(hist, zmin=None, zmax=None, xlabel=None, ylabel=None, zlabel=
     if not ylabel:
         ylabel = translate_axis_label(hist.yAxis().getName())
 
-    axes_limits = [hist.getXmin(), hist.getXmax(),
-                   hist.getYmin(), hist.getYmax()]
+    axes_limits = [hist.getXmin(), hist.getXmax(), hist.getYmin(), hist.getYmax()]
 
-    plot_array(hist.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
-               zlabel=zlabel, title=title, axes_limits=axes_limits, **kwargs)
+    plot_array(hist.array(),
+               zmin=zmin,
+               zmax=zmax,
+               xlabel=xlabel,
+               ylabel=ylabel,
+               zlabel=zlabel,
+               title=title,
+               axes_limits=axes_limits,
+               **kwargs)
 
 
-def plot_colormap(result, zmin=None, zmax=None, units=ba.Axes.DEFAULT,
-                  xlabel=None, ylabel=None, zlabel=None,
-                  title=None, **kwargs):
+def plot_colormap(result,
+                  zmin=None,
+                  zmax=None,
+                  units=ba.Axes.DEFAULT,
+                  xlabel=None,
+                  ylabel=None,
+                  zlabel=None,
+                  title=None,
+                  **kwargs):
     """
     Plots intensity data as color map
     :param result: SimulationResult from GISAS/OffSpecSimulation
@@ -152,12 +178,25 @@ def plot_colormap(result, zmin=None, zmax=None, units=ba.Axes.DEFAULT,
     xlabel = axes_labels[0] if xlabel is None else xlabel
     ylabel = axes_labels[1] if ylabel is None else ylabel
 
-    plot_array(result.array(), zmin=zmin, zmax=zmax, xlabel=xlabel, ylabel=ylabel,
-               zlabel=zlabel, title=title, axes_limits=axes_limits, **kwargs)
+    plot_array(result.array(),
+               zmin=zmin,
+               zmax=zmax,
+               xlabel=xlabel,
+               ylabel=ylabel,
+               zlabel=zlabel,
+               title=title,
+               axes_limits=axes_limits,
+               **kwargs)
 
 
-def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.Axes.DEFAULT,
-              xlabel=None, ylabel=None, title=None, **kwargs):
+def plot_specular_simulation_result(result,
+                                    ymin=None,
+                                    ymax=None,
+                                    units=ba.Axes.DEFAULT,
+                                    xlabel=None,
+                                    ylabel=None,
+                                    title=None,
+                                    **kwargs):
     """
     Plots intensity data for specular simulation result
     :param result: SimulationResult from SpecularSimulation
@@ -188,8 +227,15 @@ def plot_specular_simulation_result(result, ymin=None, ymax=None, units=ba.Axes.
         plt.title(title)
 
 
-def plot_simulation_result(result, intensity_min=None, intensity_max=None, units=ba.Axes.DEFAULT,
-                           xlabel=None, ylabel=None, postpone_show=False, title=None, **kwargs):
+def plot_simulation_result(result,
+                           intensity_min=None,
+                           intensity_max=None,
+                           units=ba.Axes.DEFAULT,
+                           xlabel=None,
+                           ylabel=None,
+                           postpone_show=False,
+                           title=None,
+                           **kwargs):
     """
     Draws simulation result and (optionally) shows the plot.
     :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation
@@ -199,18 +245,30 @@ def plot_simulation_result(result, intensity_min=None, intensity_max=None, units
     :param postpone_show: postpone showing the plot for later tuning (False by default)
     """
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
-        plot_specular_simulation_result(result, intensity_min, intensity_max, units, **kwargs)
+        plot_specular_simulation_result(result, intensity_min, intensity_max, units,
+                                        **kwargs)
     else:
-        plot_colormap(result, intensity_min, intensity_max, units, xlabel, ylabel,
-                      title=title, **kwargs)
+        plot_colormap(result,
+                      intensity_min,
+                      intensity_max,
+                      units,
+                      xlabel,
+                      ylabel,
+                      title=title,
+                      **kwargs)
     plt.tight_layout()
     if not postpone_show:
         plt.show()
 
 
 class Plotter:
-    def __init__(self, zmin=None, zmax=None, xlabel=None, ylabel=None,
-                 units=ba.Axes.DEFAULT, aspect=None):
+    def __init__(self,
+                 zmin=None,
+                 zmax=None,
+                 xlabel=None,
+                 ylabel=None,
+                 units=ba.Axes.DEFAULT,
+                 aspect=None):
 
         self._fig = plt.figure(figsize=(10.25, 7.69))
         self._fig.canvas.draw()
@@ -230,8 +288,13 @@ class Plotter:
 
 
 class PlotterGISAS(Plotter):
-    def __init__(self, zmin=None, zmax=None, xlabel=None, ylabel=None,
-                 units=ba.Axes.DEFAULT, aspect=None):
+    def __init__(self,
+                 zmin=None,
+                 zmax=None,
+                 xlabel=None,
+                 ylabel=None,
+                 units=ba.Axes.DEFAULT,
+                 aspect=None):
         Plotter.__init__(self, zmin, zmax, xlabel, ylabel, units, aspect)
 
     @staticmethod
@@ -251,21 +314,39 @@ class PlotterGISAS(Plotter):
         # same limits for both plots
         arr = real_data.array()
         zmax = np.amax(arr) if self._zmax is None else self._zmax
-        zmin = zmax*1e-6 if self._zmin is None else self._zmin
+        zmin = zmax * 1e-6 if self._zmin is None else self._zmin
 
-        ba.plot_colormap(real_data, title="Experimental data", zmin=zmin, zmax=zmax,
-                         units=self._units, xlabel=self._xlabel, ylabel=self._ylabel,
-                         zlabel='', aspect=self._aspect)
+        ba.plot_colormap(real_data,
+                         title="Experimental data",
+                         zmin=zmin,
+                         zmax=zmax,
+                         units=self._units,
+                         xlabel=self._xlabel,
+                         ylabel=self._ylabel,
+                         zlabel='',
+                         aspect=self._aspect)
 
         self.make_subplot(2)
-        ba.plot_colormap(sim_data, title="Simulated data", zmin=zmin, zmax=zmax,
-                         units=self._units, xlabel=self._xlabel, ylabel=self._ylabel,
-                         zlabel='', aspect=self._aspect)
+        ba.plot_colormap(sim_data,
+                         title="Simulated data",
+                         zmin=zmin,
+                         zmax=zmax,
+                         units=self._units,
+                         xlabel=self._xlabel,
+                         ylabel=self._ylabel,
+                         zlabel='',
+                         aspect=self._aspect)
 
         self.make_subplot(3)
-        ba.plot_colormap(diff, title="Difference", zmin=zmin, zmax=zmax,
-                         units=self._units, xlabel=self._xlabel, ylabel=self._ylabel,
-                         zlabel='', aspect=self._aspect)
+        ba.plot_colormap(diff,
+                         title="Difference",
+                         zmin=zmin,
+                         zmax=zmax,
+                         units=self._units,
+                         xlabel=self._xlabel,
+                         ylabel=self._ylabel,
+                         zlabel='',
+                         aspect=self._aspect)
 
         self.make_subplot(4)
         plt.title('Parameters')
@@ -273,13 +354,14 @@ class PlotterGISAS(Plotter):
 
         iteration_info = fit_objective.iterationInfo()
 
-        plt.text(0.01, 0.85, "Iterations  " + '{:d}'.
-                 format(iteration_info.iterationCount()))
+        plt.text(0.01, 0.85,
+                 "Iterations  " + '{:d}'.format(iteration_info.iterationCount()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(iteration_info.chi2()))
         index = 0
         params = iteration_info.parameterMap()
         for key in params:
-            plt.text(0.01, 0.55 - index * 0.1, '{:30.30s}: {:6.3f}'.format(key, params[key]))
+            plt.text(0.01, 0.55 - index * 0.1,
+                     '{:30.30s}: {:6.3f}'.format(key, params[key]))
             index = index + 1
 
         Plotter.plot(self)
@@ -290,7 +372,6 @@ class PlotterSpecular(Plotter):
     Draws fit progress. Intended specifically for observing
     specular data fit.
     """
-
     def __init__(self, units=ba.Axes.DEFAULT):
         Plotter.__init__(self)
         self.gs = gridspec.GridSpec(1, 2, width_ratios=[2.5, 1], wspace=0)
@@ -334,24 +415,34 @@ class PlotterSpecular(Plotter):
         trunc_length = 9  # max string field width in the table
         n_digits = 1  # number of decimal digits to print
 
-        n_iterations = iteration_info.iterationCount()  # current number of iterations passed
-        rel_dif = fit_objective.relativeDifference().array().max()  # maximum relative difference
+        n_iterations = iteration_info.iterationCount(
+        )  # current number of iterations passed
+        rel_dif = fit_objective.relativeDifference().array().max(
+        )  # maximum relative difference
         fitted_parameters = iteration_info.parameterMap()
 
         # creating table content
         labels = ("Parameter", "Value")
         table_data = [["Iteration", '${:d}$'.format(n_iterations)],
-                      ["$d_{r, max}$", '${:s}$'.format(self.as_si(rel_dif, n_digits))]]
+                      [
+                          "$d_{r, max}$",
+                          '${:s}$'.format(self.as_si(rel_dif, n_digits))
+                      ]]
         for key, value in fitted_parameters.iteritems():
-            table_data.append(['{:s}'.format(self.trunc_str(key, trunc_length)),
-                               '${:s}$'.format(self.as_si(value, n_digits))])
+            table_data.append([
+                '{:s}'.format(self.trunc_str(key, trunc_length)),
+                '${:s}$'.format(self.as_si(value, n_digits))
+            ])
 
         # creating table
         axs = plt.subplot(self.gs[1])
         axs.axis('tight')
         axs.axis('off')
-        table = plt.table(cellText=table_data, colLabels=labels, cellLoc='center',
-                          loc='bottom left', bbox=[0.0, 0.0, 1.0, 1.0])
+        table = plt.table(cellText=table_data,
+                          colLabels=labels,
+                          cellLoc='center',
+                          loc='bottom left',
+                          bbox=[0.0, 0.0, 1.0, 1.0])
 
     def plot_graph(self, fit_objective):
         # retrieving data from fit suite
@@ -365,16 +456,20 @@ class PlotterSpecular(Plotter):
         unc_values = None if unc_data is None else unc_data.array(self.units)
 
         # default font properties dictionary to use
-        font = {'family': 'serif',
-                'weight': 'normal',
-                'size': label_fontsize}
+        font = {'family': 'serif', 'weight': 'normal', 'size': label_fontsize}
 
         plt.subplot(self.gs[0])
-        plt.semilogy(sim_data.axis(), sim_values, 'b',
-                     real_data.axis(), real_values, 'k--')
+        plt.semilogy(sim_data.axis(), sim_values, 'b', real_data.axis(), real_values,
+                     'k--')
         if unc_values is not None:
-            plt.semilogy(real_data.axis(), real_values - unc_values, 'xkcd:grey', alpha=0.6)
-            plt.semilogy(real_data.axis(), real_values + unc_values, 'xkcd:grey', alpha=0.6)
+            plt.semilogy(real_data.axis(),
+                         real_values - unc_values,
+                         'xkcd:grey',
+                         alpha=0.6)
+            plt.semilogy(real_data.axis(),
+                         real_values + unc_values,
+                         'xkcd:grey',
+                         alpha=0.6)
         plt.ylim((0.5 * np.min(real_values), 5 * np.max(real_values)))
 
         xlabel = get_axes_labels(real_data, self.units)[0]

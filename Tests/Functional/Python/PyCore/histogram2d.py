@@ -3,16 +3,15 @@ import numpy, os, sys, unittest
 sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 
-class Histogram2DTest(unittest.TestCase):
 
+class Histogram2DTest(unittest.TestCase):
     def test_constructFromNumpyInt(self):
         """
         Testing construction of 2D histogram from numpy array.
         Automatic conversion under Python3 is not working, that's why it is float64 and not int64
         """
-        arr = numpy.array([[ 1,  2,  3,  4,  5],
-                           [ 6,  7,  8,  9, 10],
-                           [11, 12, 13, 14, 15]], numpy.float64)
+        arr = numpy.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15]],
+                          numpy.float64)
         hist = ba.Histogram2D(arr)
 
         self.assertEqual(hist.getNbinsX(), 5)
@@ -36,9 +35,9 @@ class Histogram2DTest(unittest.TestCase):
         """
         Testing construction of 2D histogram from numpy array
         """
-        arr = numpy.array([[ 1.0,  2.0,  3.0,  4.0,  5.0],
-                           [ 6.0,  7.0,  8.0,  9.0, 10.0],
-                           [11.0, 12.0, 13.0, 14.0, 15.0]], dtype=numpy.float64)
+        arr = numpy.array([[1.0, 2.0, 3.0, 4.0, 5.0], [6.0, 7.0, 8.0, 9.0, 10.0],
+                           [11.0, 12.0, 13.0, 14.0, 15.0]],
+                          dtype=numpy.float64)
         hist = ba.Histogram2D(arr)
 
         self.assertEqual(hist.getNbinsX(), 5)
@@ -62,9 +61,8 @@ class Histogram2DTest(unittest.TestCase):
         """
         Adding to the histogram content from numpy array
         """
-        arr = numpy.array([[ 1,  2,  3,  4,  5],
-                           [ 6,  7,  8,  9, 10],
-                           [11, 12, 13, 14, 15]], dtype=numpy.float64)
+        arr = numpy.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15]],
+                          dtype=numpy.float64)
         print(type(arr))
         hist = ba.Histogram2D(arr)
         # adding same content once again
@@ -72,22 +70,22 @@ class Histogram2DTest(unittest.TestCase):
         arr_from_hist = hist.getArray()
 
         for (x, y), element in numpy.ndenumerate(arr):
-            self.assertEqual(element*2.0, arr_from_hist[x][y])
+            self.assertEqual(element * 2.0, arr_from_hist[x][y])
 
     def test_constructAndAddFromNumpyDouble(self):
         """
         Adding to the histogram content from numpy array
         """
-        arr = numpy.array([[ 1.0,  2.0,  3.0,  4.0,  5.0],
-                           [ 6.0,  7.0,  8.0,  9.0, 10.0],
-                           [11.0, 12.0, 13.0, 14.0, 15.0]], dtype=numpy.float64)
+        arr = numpy.array([[1.0, 2.0, 3.0, 4.0, 5.0], [6.0, 7.0, 8.0, 9.0, 10.0],
+                           [11.0, 12.0, 13.0, 14.0, 15.0]],
+                          dtype=numpy.float64)
         hist = ba.Histogram2D(arr)
         # adding same content once again
         hist.addContent(arr)
         arr_from_hist = hist.getArray()
 
         for (x, y), element in numpy.ndenumerate(arr):
-            self.assertEqual(element*2.0, arr_from_hist[x][y])
+            self.assertEqual(element * 2.0, arr_from_hist[x][y])
 
     def create_histogram(self, arr):
         """
@@ -99,9 +97,8 @@ class Histogram2DTest(unittest.TestCase):
         """
         Testing newly create object
         """
-        arr = numpy.array([[ 1,  2,  3,  4,  5],
-                           [ 6,  7,  8,  9, 10],
-                           [11, 12, 13, 14, 15]], dtype=numpy.float64)
+        arr = numpy.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15]],
+                          dtype=numpy.float64)
         hist = self.create_histogram(arr)
         arr_from_hist = hist.getArray()
 
@@ -112,9 +109,9 @@ class Histogram2DTest(unittest.TestCase):
         """
         Testing newly create object
         """
-        arr = numpy.array([[ 1.0,  2.0,  3.0,  4.0,  5.0],
-                           [ 6.0,  7.0,  8.0,  9.0, 10.0],
-                           [11.0, 12.0, 13.0, 14.0, 15.0]], dtype=numpy.float64)
+        arr = numpy.array([[1.0, 2.0, 3.0, 4.0, 5.0], [6.0, 7.0, 8.0, 9.0, 10.0],
+                           [11.0, 12.0, 13.0, 14.0, 15.0]],
+                          dtype=numpy.float64)
         hist = self.create_histogram(arr)
         arr_from_hist = hist.getArray()
 

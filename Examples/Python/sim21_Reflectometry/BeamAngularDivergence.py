@@ -56,9 +56,11 @@ def create_real_data():
     Loading data from genx_angular_divergence.dat
     """
     filepath = path.join(path.dirname(path.realpath(__file__)),
-                                      "genx_angular_divergence.dat.gz")
+                         "genx_angular_divergence.dat.gz")
     ax_values, real_data = np.loadtxt(filepath,
-                                      usecols=(0, 1), skiprows=3, unpack=True)
+                                      usecols=(0, 1),
+                                      skiprows=3,
+                                      unpack=True)
 
     # translating axis values from double incident angle # to incident angle
     ax_values *= 0.5
@@ -107,9 +109,7 @@ def plot(results):
     genx_axis, genx_values = create_real_data()
 
     plt.semilogy(genx_axis, genx_values, 'ko', markevery=300)
-    plt.legend(['BornAgain',
-                'GenX'],
-               loc='upper right')
+    plt.legend(['BornAgain', 'GenX'], loc='upper right')
 
     plt.show()
 

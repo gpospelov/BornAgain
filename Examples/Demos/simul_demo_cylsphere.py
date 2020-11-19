@@ -7,6 +7,7 @@ import matplotlib
 import math
 from bornagain import *
 
+
 # ----------------------------------
 # describe sample and run simulation
 # ----------------------------------
@@ -39,7 +40,8 @@ def RunSimulation():
 
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -4.0 * degree, 4.0 * degree, 100, 0.0 * degree, 8.0 * degree)
+    simulation.setDetectorParameters(100, -4.0 * degree, 4.0 * degree, 100,
+                                     0.0 * degree, 8.0 * degree)
     simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
@@ -51,10 +53,10 @@ def RunSimulation():
 # main()
 #-------------------------------------------------------------
 if __name__ == '__main__':
-    result = RunSimulation() + 1 # for log scale
+    result = RunSimulation() + 1  # for log scale
     im = plt.imshow(result,
-                 norm=matplotlib.colors.LogNorm(),
-                 extent=[-4.0, 4.0, 0, 8.0])
+                    norm=matplotlib.colors.LogNorm(),
+                    extent=[-4.0, 4.0, 0, 8.0])
     plt.colorbar(im)
     plt.xlabel(r'$\phi_f$', fontsize=20)
     plt.ylabel(r'$\alpha_f$', fontsize=20)

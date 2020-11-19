@@ -47,10 +47,10 @@ def get_simulation(params):
     scale = params["scale"]
 
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
-                                     100, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e12*scale)
+    simulation.setDetectorParameters(100, -1.0 * deg, 1.0 * deg, 100, 0.0 * deg,
+                                     2.0 * deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setBeamIntensity(1e12 * scale)
     simulation.setBackground(ba.ConstantBackground(background))
     simulation.setSample(get_sample(params))
 
@@ -66,7 +66,12 @@ def create_real_data():
     scale, background factors.
     """
 
-    params = {'radius': 5.0*nm, 'height': 10.0*nm, 'scale': 2.0, 'background': 1000}
+    params = {
+        'radius': 5.0 * nm,
+        'height': 10.0 * nm,
+        'scale': 2.0,
+        'background': 1000
+    }
 
     simulation = get_simulation(params)
     simulation.runSimulation()
@@ -88,8 +93,8 @@ def run_fitting():
     fit_objective.initPlot(10)
 
     params = ba.Parameters()
-    params.add("radius", 5.*nm, vary=False)
-    params.add("height", 9.*nm, min=8.*nm, max=12.*nm)
+    params.add("radius", 5. * nm, vary=False)
+    params.add("height", 9. * nm, min=8. * nm, max=12. * nm)
     params.add("scale", 1.5, min=1.0, max=3.0)
     params.add("background", 200, min=100.0, max=2000.0, step=100.0)
 

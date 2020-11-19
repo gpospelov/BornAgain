@@ -20,9 +20,9 @@ def get_simulation(params):
     multi_layer.addLayer(layer)
 
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
-                                     100, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setDetectorParameters(100, -1.0 * deg, 1.0 * deg, 100, 0.0 * deg,
+                                     2.0 * deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
     simulation.setSample(multi_layer)
 
     return simulation
@@ -32,7 +32,7 @@ def real_data():
     """
     Generating "experimental" data by running simulation with default parameters.
     """
-    simulation = get_simulation({'radius': 5.0*nm})
+    simulation = get_simulation({'radius': 5.0 * nm})
     simulation.runSimulation()
     return simulation.result().array()
 
@@ -46,7 +46,7 @@ def run_fitting():
     fit_objective.initPrint(10)
 
     params = ba.Parameters()
-    params.add("radius", 4.*nm, min=0.01)
+    params.add("radius", 4. * nm, min=0.01)
 
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)

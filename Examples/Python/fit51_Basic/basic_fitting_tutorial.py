@@ -47,9 +47,9 @@ def get_simulation(params):
     Returns a GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
-                                     100, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setDetectorParameters(100, -1.0 * deg, 1.0 * deg, 100, 0.0 * deg,
+                                     2.0 * deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
     simulation.setBeamIntensity(1e+08)
     simulation.setSample(get_sample(params))
     return simulation
@@ -62,8 +62,12 @@ def create_real_data():
     """
 
     # default sample parameters
-    params = {'cylinder_height': 5.0*nm, 'cylinder_radius': 5.0*nm,
-              'prism_height': 5.0*nm, 'prism_base_edge': 5.0*nm}
+    params = {
+        'cylinder_height': 5.0 * nm,
+        'cylinder_radius': 5.0 * nm,
+        'prism_height': 5.0 * nm,
+        'prism_base_edge': 5.0 * nm
+    }
 
     # retrieving simulated data in the form of numpy array
     simulation = get_simulation(params)
@@ -73,7 +77,7 @@ def create_real_data():
     # spoiling simulated data with noise to produce "real" data
     np.random.seed(0)
     noise_factor = 0.1
-    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
+    noisy = np.random.normal(real_data, noise_factor * np.sqrt(real_data))
     noisy[noisy < 0.1] = 0.1
 
     np.savetxt("basic_fitting_tutorial_data.txt.gz", real_data)
@@ -103,10 +107,10 @@ def run_fitting():
     fit_objective.initPlot(10)
 
     params = ba.Parameters()
-    params.add("cylinder_height", 4.*nm, min=0.01)
-    params.add("cylinder_radius", 6.*nm, min=0.01)
-    params.add("prism_height", 4.*nm, min=0.01)
-    params.add("prism_base_edge", 6.*nm, min=0.01)
+    params.add("cylinder_height", 4. * nm, min=0.01)
+    params.add("cylinder_radius", 6. * nm, min=0.01)
+    params.add("prism_height", 4. * nm, min=0.01)
+    params.add("prism_base_edge", 6. * nm, min=0.01)
 
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)

@@ -20,7 +20,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
+    cylinder_ff = ba.FormFactorCylinder(5 * nm, 5 * nm)
     cylinder = ba.Particle(m_particle, cylinder_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
@@ -40,9 +40,9 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(201, -2.0*deg, 2.0*deg,
-                                     201, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setDetectorParameters(201, -2.0 * deg, 2.0 * deg, 201, 0.0 * deg,
+                                     2.0 * deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
     simulation.setBeamIntensity(1e+05)
     return simulation
 
@@ -55,17 +55,21 @@ def get_noisy_image(hist):
     noise_factor = 2.0
     for i in range(0, result.getTotalNumberOfBins()):
         amplitude = result.binContent(i)
-        sigma = noise_factor*math.sqrt(amplitude)
+        sigma = noise_factor * math.sqrt(amplitude)
         noisy_amplitude = random.gauss(amplitude, sigma)
         result.setBinContent(i, noisy_amplitude)
     return result
 
 
 def plot_histogram(hist, zmin=None, zmax=None):
-    ba.plot_histogram(hist, xlabel=r'$\varphi_f ^{\circ}$',
+    ba.plot_histogram(hist,
+                      xlabel=r'$\varphi_f ^{\circ}$',
                       ylabel=r'$\alpha_f ^{\circ}$',
-                      zlabel="", zmin=zmin, zmax=zmax,
-                      cmap='jet', aspect='auto')
+                      zlabel="",
+                      zmin=zmin,
+                      zmax=zmax,
+                      cmap='jet',
+                      aspect='auto')
 
 
 def get_relative_difference(hist):
@@ -85,15 +89,11 @@ def plot_slices(hist):
 
     # projection along Y, slice at fixed x-value
     proj1 = noisy.projectionY(0.0)
-    plt.semilogy(proj1.binCenters(),
-                 proj1.binValues(),
-                 label=r'$\phi=0.0^{\circ}$')
+    plt.semilogy(proj1.binCenters(), proj1.binValues(), label=r'$\phi=0.0^{\circ}$')
 
     # projection along Y, slice at fixed x-value
     proj2 = noisy.projectionY(0.5)  # slice at fixed value
-    plt.semilogy(proj2.binCenters(),
-                 proj2.binValues(),
-                 label=r'$\phi=0.5^{\circ}$')
+    plt.semilogy(proj2.binCenters(), proj2.binValues(), label=r'$\phi=0.5^{\circ}$')
 
     # projection along Y for all X values between [xlow, xup], averaged
     proj3 = noisy.projectionY(0.41, 0.59)
@@ -102,7 +102,7 @@ def plot_slices(hist):
                  label=r'$<\phi>=0.5^{\circ}$')
 
     plt.xlim(proj1.getXmin(), proj1.getXmax())
-    plt.ylim(proj2.getMinimum(), proj1.getMaximum()*10.0)
+    plt.ylim(proj2.getMinimum(), proj1.getMaximum() * 10.0)
     plt.xlabel(r'$\alpha_f ^{\circ}$', fontsize=16)
     plt.legend(loc='upper right')
     plt.tight_layout()

@@ -19,12 +19,12 @@ def plot_intensity_data_diff(filename1, filename2):
         exit("Both data sets are equal, there is nothing to plot.")
     rank = intensity_ref.rank()
     if rank == 2:
-        pid.plot_raw_data_2d(data,
-                             [intensity_ref.getXmin() / ba.deg,
-                              intensity_ref.getXmax() / ba.deg,
-                              intensity_ref.getYmin() / ba.deg,
-                              intensity_ref.getYmax() / ba.deg],
-                             data.max())
+        pid.plot_raw_data_2d(data, [
+            intensity_ref.getXmin() / ba.deg,
+            intensity_ref.getXmax() / ba.deg,
+            intensity_ref.getYmin() / ba.deg,
+            intensity_ref.getYmax() / ba.deg
+        ], data.max())
     elif rank == 1:
         axis_values = np.asarray(intensity_ref.xAxis().binCenters()) / ba.deg
         pid.plot_raw_data_1d(axis_values, data, log_y=False)
@@ -33,7 +33,7 @@ def plot_intensity_data_diff(filename1, filename2):
 
 
 if __name__ == '__main__':
-    if len(sys.argv)!=3:
+    if len(sys.argv) != 3:
         exit("Usage: plot_intensity_data_diff.py reference.int.gz other.int.gz")
 
     plot_intensity_data_diff(sys.argv[1], sys.argv[2])

@@ -41,8 +41,7 @@ def get_simulation(footprint):
     Defines and returns a specular simulation.
     """
     simulation = ba.SpecularSimulation()
-    scan = ba.AngularSpecScan(
-        1.54 * angstrom, 500 , 0.0 * deg, 0.6 * deg)
+    scan = ba.AngularSpecScan(1.54 * angstrom, 500, 0.0 * deg, 0.6 * deg)
     scan.setFootprintFactor(footprint)
     simulation.setScan(scan)
     return simulation
@@ -69,13 +68,11 @@ def plot(sim_result_1, sim_result_2):
     x1, y1 = get_plot_data(sim_result_1)
     x2, y2 = get_plot_data(sim_result_2)
     plt.semilogy(x1, y1, x2, y2)
-    
+
     plt.xlabel(r'$\alpha_i \; (deg)$', fontsize=16)
     plt.ylabel(r'Intensity', fontsize=16)
 
-    plt.legend(['With footprint',
-                'Without footprint'],
-                loc='upper right')
+    plt.legend(['With footprint', 'Without footprint'], loc='upper right')
 
     plt.show()
 
@@ -83,9 +80,6 @@ def plot(sim_result_1, sim_result_2):
 if __name__ == '__main__':
     beam_sample_ratio = 0.01  # beam-to-sample size ratio
     result_with_fp = run_simulation(
-        get_simulation(
-            footprint=ba.FootprintSquare(beam_sample_ratio)
-        )
-    )
+        get_simulation(footprint=ba.FootprintSquare(beam_sample_ratio)))
     result_without_fp = run_simulation(get_simulation(footprint=None))
     plot(result_with_fp, result_without_fp)

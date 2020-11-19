@@ -32,7 +32,7 @@ def decaying_sin(params, x):
     phaseshift = params['phase'].value
     freq = params['frequency'].value
     decay = params['decay'].value
-    return amp * np.sin(x*freq + phaseshift) * np.exp(-x*x*decay)
+    return amp * np.sin(x * freq + phaseshift) * np.exp(-x * x * decay)
 
 
 class DecayingSin:
@@ -53,7 +53,6 @@ class DecayingSin:
 
 
 class StandaloneFitTest(unittest.TestCase):
-
     def test_RosenbrockFit(self):
         """
         Testing fit of rosenbrock function
@@ -73,9 +72,8 @@ class StandaloneFitTest(unittest.TestCase):
                                        model.m_expected_params, 3)
 
         # check found minimum
-        np.testing.assert_almost_equal(result.minValue(),
-                                       model.m_expected_minimum, 3)
-
+        np.testing.assert_almost_equal(result.minValue(), model.m_expected_minimum,
+                                       3)
 
     def test_DecayingSinFit(self):
         params = ba.Parameters()
@@ -88,12 +86,12 @@ class StandaloneFitTest(unittest.TestCase):
         minimizer = ba.Minimizer()
         result = minimizer.minimize(model.objective_function, params)
 
-
         print(result.toString())
 
         # check found parameter values
         np.testing.assert_almost_equal(result.parameters().values(),
                                        model.m_params.values(), 3)
+
 
 if __name__ == '__main__':
     unittest.main()

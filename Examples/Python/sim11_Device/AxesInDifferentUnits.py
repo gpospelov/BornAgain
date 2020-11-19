@@ -18,7 +18,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
+    cylinder_ff = ba.FormFactorCylinder(5 * nm, 5 * nm)
     cylinder = ba.Particle(m_particle, cylinder_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
@@ -42,10 +42,10 @@ def get_rectangular_detector():
     pilatus_pixel_size = 0.172  # in mm
     pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
 
-    width = pilatus_npx*pilatus_pixel_size
-    height = pilatus_npy*pilatus_pixel_size
+    width = pilatus_npx * pilatus_pixel_size
+    height = pilatus_npy * pilatus_pixel_size
     detector = ba.RectangularDetector(pilatus_npx, width, pilatus_npy, height)
-    detector.setPerpendicularToSampleX(detector_distance, width/2., 0.0)
+    detector.setPerpendicularToSampleX(detector_distance, width / 2., 0.0)
     return detector
 
 
@@ -54,7 +54,7 @@ def get_simulation():
     Returns a GISAXS simulation with beam defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
     simulation.setDetector(get_rectangular_detector())
     return simulation
 
@@ -80,27 +80,41 @@ def plot(result):
     # set plotting parameters
     rcParams['image.cmap'] = 'jet'
     rcParams['image.aspect'] = 'auto'
-    
+
     fig = plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
 
-    ba.plot_colormap(result, title="In default units",
-                     xlabel=r'$X_{mm}$', ylabel=r'$Y_{mm}$', zlabel=None)
+    ba.plot_colormap(result,
+                     title="In default units",
+                     xlabel=r'$X_{mm}$',
+                     ylabel=r'$Y_{mm}$',
+                     zlabel=None)
 
     plt.subplot(2, 2, 2)
-    ba.plot_colormap(result, units=ba.Axes.NBINS, title="In number of bins",
-                     xlabel=r'$X_{nbins}$', ylabel=r'$Y_{nbins}$', zlabel=None)
+    ba.plot_colormap(result,
+                     units=ba.Axes.NBINS,
+                     title="In number of bins",
+                     xlabel=r'$X_{nbins}$',
+                     ylabel=r'$Y_{nbins}$',
+                     zlabel=None)
 
     plt.subplot(2, 2, 3)
-    ba.plot_colormap(result, units=ba.Axes.DEGREES, title="In degs",
-                     xlabel=r'$\phi_f ^{\circ}$', ylabel=r'$\alpha_f ^{\circ}$',
+    ba.plot_colormap(result,
+                     units=ba.Axes.DEGREES,
+                     title="In degs",
+                     xlabel=r'$\phi_f ^{\circ}$',
+                     ylabel=r'$\alpha_f ^{\circ}$',
                      zlabel=None)
 
     plt.subplot(2, 2, 4)
-    ba.plot_colormap(result, units=ba.Axes.QSPACE, title="Q-space",
-                     xlabel=r'$Q_{y} [1/nm]$', ylabel=r'$Q_{z} [1/nm]$', zlabel=None)
+    ba.plot_colormap(result,
+                     units=ba.Axes.QSPACE,
+                     title="Q-space",
+                     xlabel=r'$Q_{y} [1/nm]$',
+                     ylabel=r'$Q_{z} [1/nm]$',
+                     zlabel=None)
 
     plt.subplots_adjust(left=0.07, right=0.97, top=0.9, bottom=0.1, hspace=0.25)
     plt.show()

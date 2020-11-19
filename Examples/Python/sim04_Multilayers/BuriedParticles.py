@@ -17,7 +17,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 0.0, 0.0)
 
     # collection of particles
-    ff = ba.FormFactorFullSphere(10.2*nm)
+    ff = ba.FormFactorFullSphere(10.2 * nm)
     sphere = ba.Particle(m_particle, ff)
     sphere.setPosition(0.0, 0.0, -25.2)
     particle_layout = ba.ParticleLayout()
@@ -25,7 +25,7 @@ def get_sample():
 
     # assembling the sample
     vacuum_layer = ba.Layer(m_vacuum)
-    intermediate_layer = ba.Layer(m_interm_layer, 30.*nm)
+    intermediate_layer = ba.Layer(m_interm_layer, 30. * nm)
     intermediate_layer.addLayout(particle_layout)
     substrate_layer = ba.Layer(m_substrate, 0)
 
@@ -42,8 +42,8 @@ def get_simulation():
     """
     simulation = ba.GISASSimulation()
     simulation.setSample(get_sample())
-    simulation.setDetectorParameters(200, -1*deg, +1*deg, 200, 0*deg, +2*deg)
-    simulation.setBeamParameters(1.5*angstrom, 0.15*deg, 0.0*deg)
+    simulation.setDetectorParameters(200, -1 * deg, +1 * deg, 200, 0 * deg, +2 * deg)
+    simulation.setBeamParameters(1.5 * angstrom, 0.15 * deg, 0.0 * deg)
     return simulation
 
 

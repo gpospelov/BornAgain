@@ -10,6 +10,7 @@ from bornagain import *
 
 REFERENCE_DIR = "@TEST_REFERENCE_DIR@/Python"
 
+
 # ----------------------------------
 # describe sample and run simulation
 # ----------------------------------
@@ -21,9 +22,9 @@ def getSimulationIntensity(rho_beam, efficiency):
 
     magnetization = kvector_t(0, 1e6, 0)
 
-    magParticle = HomogeneousMaterial("magParticle", 5e-6, 0.0, magnetization )
+    magParticle = HomogeneousMaterial("magParticle", 5e-6, 0.0, magnetization)
     # collection of particles
-    cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
+    cylinder_ff = FormFactorCylinder(5 * nanometer, 5 * nanometer)
     cylinder = Particle(magParticle, cylinder_ff)
 
     particle_layout = ParticleLayout()
@@ -41,10 +42,11 @@ def getSimulationIntensity(rho_beam, efficiency):
 
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -1*degree, 1.0*degree, 100, 0.0*degree, 2.0*degree)
+    simulation.setDetectorParameters(100, -1 * degree, 1.0 * degree, 100,
+                                     0.0 * degree, 2.0 * degree)
     zplus = kvector_t(0.0, 0.0, 1.0)
     simulation.setAnalyzerProperties(zplus, efficiency, 0.5)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
     simulation.setBeamPolarization(rho_beam)
     simulation.setSample(multi_layer)
     simulation.setBeamIntensity(1e9)
@@ -58,11 +60,12 @@ def get_reference_data(filename):
     """
     read and return reference data from file
     """
-    path = os.path.join(REFERENCE_DIR,filename)
+    path = os.path.join(REFERENCE_DIR, filename)
     print("- read reference from", path, flush=True)
     ret = IntensityDataIOFactory.readIntensityData(path)
     print("- - reference read", flush=True)
     return ret
+
 
 # --------------------------------------------------------------
 # run test and analyse test results
@@ -77,14 +80,18 @@ def run_test():
     # IntensityDataIOFactory.writeIntensityData(getSimulationIntensity(zmin, 1.0), 'polmagcylinders2_reference_10.int')
     # IntensityDataIOFactory.writeIntensityData(getSimulationIntensity(zmin, -1.0), 'polmagcylinders2_reference_11.int')
     diff = 0.0
-    diff += get_difference(getSimulationIntensity(zplus, 1.0).array(),
-                           get_reference_data('polmagcylinders2_reference_00.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zplus, -1.0).array(),
-                           get_reference_data('polmagcylinders2_reference_01.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zmin, 1.0).array(),
-                           get_reference_data('polmagcylinders2_reference_10.int.gz').getArray())
-    diff += get_difference(getSimulationIntensity(zmin, -1.0).array(),
-                           get_reference_data('polmagcylinders2_reference_11.int.gz').getArray())
+    diff += get_difference(
+        getSimulationIntensity(zplus, 1.0).array(),
+        get_reference_data('polmagcylinders2_reference_00.int.gz').getArray())
+    diff += get_difference(
+        getSimulationIntensity(zplus, -1.0).array(),
+        get_reference_data('polmagcylinders2_reference_01.int.gz').getArray())
+    diff += get_difference(
+        getSimulationIntensity(zmin, 1.0).array(),
+        get_reference_data('polmagcylinders2_reference_10.int.gz').getArray())
+    diff += get_difference(
+        getSimulationIntensity(zmin, -1.0).array(),
+        get_reference_data('polmagcylinders2_reference_11.int.gz').getArray())
 
     diff /= 4.0
     status = "OK"
@@ -96,5 +103,5 @@ def run_test():
 if __name__ == '__main__':
     name, description, diff, status = run_test()
     print(name, description, diff, status)
-    if("FAILED" in status):
+    if ("FAILED" in status):
         exit(1)

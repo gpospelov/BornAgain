@@ -17,6 +17,7 @@ sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 
 output_dir = "@output_dir@"
 
+
 def get_figure(filename):
     """
     Returns pyplot figure of appropriate size
@@ -27,7 +28,7 @@ def get_figure(filename):
         xsize, ysize = 640, 480
 
     dpi = 72.
-    return plt.figure(figsize=(xsize/dpi, ysize/dpi))
+    return plt.figure(figsize=(xsize / dpi, ysize / dpi))
 
 
 def exec_full(filepath):
@@ -50,17 +51,18 @@ def run_example(filename):
     Tries to run python example and produce a *.png image
     """
     if not os.path.exists(filename):
-        raise Exception("Example script '"+filename+"' not found")
+        raise Exception("Example script '" + filename + "' not found")
 
-    print("Input script: "+filename)
+    print("Input script: " + filename)
 
     fig = get_figure(filename)
 
     exec_full(filename)
 
-    plot_file_name = os.path.join(output_dir,
-                                  os.path.splitext(os.path.basename(filename))[0] + ".png")
-    print("Output image: "+plot_file_name)
+    plot_file_name = os.path.join(
+        output_dir,
+        os.path.splitext(os.path.basename(filename))[0] + ".png")
+    print("Output image: " + plot_file_name)
     plt.savefig(plot_file_name, bbox_inches='tight')
     plt.close(fig)
 
@@ -74,6 +76,8 @@ def run_example(filename):
 if __name__ == '__main__':
 
     if len(sys.argv) != 2:
-        exit("Auxiliary script check_functionality called with wrong number of arguments")
+        exit(
+            "Auxiliary script check_functionality called with wrong number of arguments"
+        )
 
     run_example(sys.argv[1])

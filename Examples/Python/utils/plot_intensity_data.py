@@ -10,7 +10,7 @@ import numpy as np
 import bornagain as ba
 from matplotlib import pyplot as plt
 from matplotlib import rc, colors
-rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+rc('font', **{'family': 'sans-serif', 'sans-serif': ['Helvetica']})
 rc('text', usetex=True)
 
 
@@ -27,10 +27,12 @@ def plot_intensity_data(file_name, intensity_max=None):
 
 
 def plot_intensity_data_2d(histogram, intensity_max):
-    plot_raw_data_2d(histogram.array(),
-                     [histogram.getXmin() / ba.deg, histogram.getXmax() / ba.deg,
-                      histogram.getYmin() / ba.deg, histogram.getYmax() / ba.deg],
-                     intensity_max)
+    plot_raw_data_2d(histogram.array(), [
+        histogram.getXmin() / ba.deg,
+        histogram.getXmax() / ba.deg,
+        histogram.getYmin() / ba.deg,
+        histogram.getYmax() / ba.deg
+    ], intensity_max)
 
 
 def plot_raw_data_2d(values, extent_array, intensity_max):
@@ -62,10 +64,10 @@ def plot_raw_data_1d(axis, values, log_y=True):
 
 
 if __name__ == '__main__':
-    if len(sys.argv)<2 or len(sys.argv)>3:
+    if len(sys.argv) < 2 or len(sys.argv) > 3:
         exit("Usage: plot_intensity_data.py intensity_file.int.gz [intensity_max]")
 
-    if len(sys.argv)==2:
+    if len(sys.argv) == 2:
         plot_intensity_data(sys.argv[1])
     else:
         plot_intensity_data(sys.argv[1], float(sys.argv[2]))

@@ -3,8 +3,8 @@ import numpy, os, sys, unittest
 sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 
-class Shape2DTest(unittest.TestCase):
 
+class Shape2DTest(unittest.TestCase):
     def test_constructPolygonFromList(self):
         """
         Testing construction of polygon from two Numpy arrays

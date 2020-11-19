@@ -15,20 +15,20 @@ def get_sample():
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    radius = 10.0*nm
+    radius = 10.0 * nm
     sphere_ff = ba.FormFactorFullSphere(radius)
     sphere = ba.Particle(m_particle, sphere_ff)
     particle_layout = ba.ParticleLayout()
 
     pos0 = ba.kvector_t(0.0, 0.0, 0.0)
-    pos1 = ba.kvector_t(radius, radius, numpy.sqrt(3.0)*radius)
+    pos1 = ba.kvector_t(radius, radius, numpy.sqrt(3.0) * radius)
     basis = ba.ParticleComposition()
     basis.addParticles(sphere, [pos0, pos1])
     particle_layout.addParticle(basis)
 
     interference = ba.InterferenceFunction2DLattice(
-        ba.HexagonalLattice2D(radius*2.0, 0*deg))
-    pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm, 0)
+        ba.HexagonalLattice2D(radius * 2.0, 0 * deg))
+    pdf = ba.FTDecayFunction2DCauchy(10 * nm, 10 * nm, 0)
     interference.setDecayFunction(pdf)
 
     particle_layout.setInterferenceFunction(interference)
@@ -47,9 +47,9 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -1.0*deg, 1.0*deg,
-                                     200, 0.0*deg, 1.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setDetectorParameters(200, -1.0 * deg, 1.0 * deg, 200, 0.0 * deg,
+                                     1.0 * deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
     return simulation
 
 

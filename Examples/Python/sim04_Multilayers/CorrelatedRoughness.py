@@ -17,14 +17,14 @@ def get_sample():
 
     # defining layers
     l_ambience = ba.Layer(m_vacuum)
-    l_part_a = ba.Layer(m_part_a, 2.5*nm)
-    l_part_b = ba.Layer(m_part_b, 5.0*nm)
+    l_part_a = ba.Layer(m_part_a, 2.5 * nm)
+    l_part_b = ba.Layer(m_part_b, 5.0 * nm)
     l_substrate = ba.Layer(m_substrate)
 
     roughness = ba.LayerRoughness()
-    roughness.setSigma(1.0*nm)
+    roughness.setSigma(1.0 * nm)
     roughness.setHurstParameter(0.3)
-    roughness.setLatteralCorrLength(5.0*nm)
+    roughness.setLatteralCorrLength(5.0 * nm)
 
     my_sample = ba.MultiLayer()
 
@@ -37,7 +37,7 @@ def get_sample():
         my_sample.addLayerWithTopRoughness(l_part_b, roughness)
 
     my_sample.addLayerWithTopRoughness(l_substrate, roughness)
-    my_sample.setCrossCorrLength(10*nm)
+    my_sample.setCrossCorrLength(10 * nm)
 
     print(my_sample.treeToString())
 
@@ -49,9 +49,9 @@ def get_simulation():
     Characterizing the input beam and output detector
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -0.5*deg, 0.5*deg,
-                                     200, 0.0*deg, 1.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setDetectorParameters(200, -0.5 * deg, 0.5 * deg, 200, 0.0 * deg,
+                                     1.0 * deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
     simulation.setBeamIntensity(5e11)
     return simulation
 

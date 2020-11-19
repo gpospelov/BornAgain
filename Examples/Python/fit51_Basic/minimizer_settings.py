@@ -45,9 +45,9 @@ def get_simulation(params):
     Returns a GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg,
-                                     100, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setDetectorParameters(100, -1.0 * deg, 1.0 * deg, 100, 0.0 * deg,
+                                     2.0 * deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
     simulation.setBeamIntensity(1e+08)
     simulation.setSample(get_sample(params))
     return simulation
@@ -58,8 +58,12 @@ def create_real_data():
     Generating "real" data from simulated image with default parameters.
     """
 
-    params = {'cylinder_height': 5.0*nm, 'cylinder_radius': 5.0*nm,
-              'prism_height': 5.0*nm, 'prism_base_edge': 5.0*nm}
+    params = {
+        'cylinder_height': 5.0 * nm,
+        'cylinder_radius': 5.0 * nm,
+        'prism_height': 5.0 * nm,
+        'prism_base_edge': 5.0 * nm
+    }
 
     simulation = get_simulation(params)
     simulation.runSimulation()
@@ -85,32 +89,28 @@ def run_fitting():
     fit_objective.initPrint(10)
 
     params = ba.Parameters()
-    params.add("cylinder_height", 4.*nm, min=0.01)
-    params.add("cylinder_radius", 6.*nm, min=0.01)
-    params.add("prism_height", 4.*nm, min=0.01)
-    params.add("prism_base_edge", 12.*nm, min=0.01)
+    params.add("cylinder_height", 4. * nm, min=0.01)
+    params.add("cylinder_radius", 6. * nm, min=0.01)
+    params.add("prism_height", 4. * nm, min=0.01)
+    params.add("prism_base_edge", 12. * nm, min=0.01)
 
     minimizer = ba.Minimizer()
 
     # Uncomment one of the line below to adjust minimizer settings
-
     """
     Setting Minuit2 minimizer with Migrad algorithm, limiting number of iterations.
     Minimization will try to respect MaxFunctionCalls value.
     """
     # minimizer.setMinimizer("Minuit2", "Migrad", "MaxFunctionCalls=50")
-
     """
     Setting two options at once.
     Strategy=2 promises more accurate fit.    
     """
     # minimizer.setMinimizer("Minuit2", "Migrad", "MaxFunctionCalls=500;Strategy=2")
-
     """
     Setting Minuit2 minimizer with Fumili algorithm.
     """
     # minimizer.setMinimizer("Minuit2", "Fumili")
-
     """
     Setting Levenberg-Marquardt algorithm.
     """

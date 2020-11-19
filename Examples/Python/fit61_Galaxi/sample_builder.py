@@ -13,13 +13,13 @@ class SampleBuilder:
         """
         Init SampleBuilder with default sample parameters.
         """
-        self.radius = 5.75*ba.nm
+        self.radius = 5.75 * ba.nm
         self.sigma = 0.4
-        self.distance = 53.6*ba.nm
-        self.disorder = 10.5*ba.nm
+        self.distance = 53.6 * ba.nm
+        self.disorder = 10.5 * ba.nm
         self.kappa = 17.5
-        self.ptfe_thickness = 22.1*ba.nm
-        self.hmdso_thickness = 18.5*ba.nm
+        self.ptfe_thickness = 22.1 * ba.nm
+        self.hmdso_thickness = 18.5 * ba.nm
 
     def create_sample(self, params):
         """
@@ -54,17 +54,17 @@ class SampleBuilder:
         sphere_ff = ba.FormFactorFullSphere(self.radius)
 
         sphere = ba.Particle(m_Ag, sphere_ff)
-        position = ba.kvector_t(0*ba.nm, 0*ba.nm,-1.0*self.hmdso_thickness)
+        position = ba.kvector_t(0 * ba.nm, 0 * ba.nm, -1.0 * self.hmdso_thickness)
         sphere.setPosition(position)
         ln_distr = ba.DistributionLogNormal(self.radius, self.sigma)
         par_distr = ba.ParameterDistribution(
             "/Particle/FullSphere/Radius", ln_distr, nparticles, nfwhm,
-            ba.RealLimits.limited(0.0, self.hmdso_thickness/2.0))
+            ba.RealLimits.limited(0.0, self.hmdso_thickness / 2.0))
         part_coll = ba.ParticleDistribution(sphere, par_distr)
 
         # interference function
         interference = ba.InterferenceFunctionRadialParaCrystal(
-            self.distance, 1e6*ba.nm)
+            self.distance, 1e6 * ba.nm)
         interference.setKappa(self.kappa)
         interference.setDomainSize(20000.0)
         pdf = ba.FTDistribution1DGauss(self.disorder)
@@ -77,8 +77,8 @@ class SampleBuilder:
         layout.setTotalParticleSurfaceDensity(1)
 
         # roughness
-        r_ptfe = ba.LayerRoughness(2.3*ba.nm, 0.3, 5.0*ba.nm)
-        r_hmdso = ba.LayerRoughness(1.1*ba.nm, 0.3, 5.0*ba.nm)
+        r_ptfe = ba.LayerRoughness(2.3 * ba.nm, 0.3, 5.0 * ba.nm)
+        r_hmdso = ba.LayerRoughness(1.1 * ba.nm, 0.3, 5.0 * ba.nm)
 
         # layers
         vacuum_layer = ba.Layer(m_vacuum)

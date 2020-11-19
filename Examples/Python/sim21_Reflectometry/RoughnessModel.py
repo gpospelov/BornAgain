@@ -8,6 +8,7 @@ from matplotlib import pyplot as plt
 import bornagain as ba
 from bornagain import deg, angstrom, nm
 
+
 def get_sample(roughness_model):
     """
     Defines sample and returns it
@@ -36,7 +37,7 @@ def get_sample(roughness_model):
         multi_layer.addLayerWithTopRoughness(ti_layer, roughness)
         multi_layer.addLayerWithTopRoughness(ni_layer, roughness)
     multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
-    
+
     multi_layer.setRoughnessModel(roughness_model)
 
     return multi_layer
@@ -47,8 +48,7 @@ def get_simulation(scan_size=500):
     Defines and returns a specular simulation.
     """
     simulation = ba.SpecularSimulation()
-    scan = ba.AngularSpecScan(1.54 * angstrom, scan_size,
-                              0.0 * deg, 2.0 * deg)
+    scan = ba.AngularSpecScan(1.54 * angstrom, scan_size, 0.0 * deg, 2.0 * deg)
     simulation.setScan(scan)
     return simulation
 
@@ -65,20 +65,21 @@ def run_simulation(roughness_model=ba.RoughnessModel.TANH):
 
 
 def plot(result_tanh, result_nevot_croce):
-    
-    plt.semilogy(result_nevot_croce.axis(), result_nevot_croce.array(),
+
+    plt.semilogy(result_nevot_croce.axis(),
+                 result_nevot_croce.array(),
                  label="Névot-Croce")
     plt.semilogy(result_tanh.axis(), result_tanh.array(), label="Tanh")
-    
+
     plt.xlabel(r'$\alpha_i \; (deg)$', fontsize=12)
     plt.ylabel(r'Intensity', fontsize=12)
-    
+
     plt.legend()
     plt.show()
 
 
 if __name__ == '__main__':
     result_tanh = run_simulation(roughness_model=ba.RoughnessModel.TANH)
-    result_nevot_croce  = run_simulation(
+    result_nevot_croce = run_simulation(
         roughness_model=ba.RoughnessModel.NEVOT_CROCE)
     plot(result_tanh, result_nevot_croce)

@@ -26,7 +26,7 @@ def get_sample(params):
 
     # substrate (Si)
     si_sld_real = 2.0704e-06  # \AA^{-2}
-    density_si = 0.0499 / ba.angstrom ** 3  # Si atomic number density
+    density_si = 0.0499 / ba.angstrom**3  # Si atomic number density
 
     # layers' parameters
     n_repetitions = 10
@@ -124,8 +124,10 @@ def run_fitting():
     fit_objective.setObjectiveMetric("Chi2", "L1")
 
     params = ba.Parameters()
-    params.add("ti_thickness", 50 * ba.angstrom,
-               min=10 * ba.angstrom, max=60 * ba.angstrom)
+    params.add("ti_thickness",
+               50 * ba.angstrom,
+               min=10 * ba.angstrom,
+               max=60 * ba.angstrom)
 
     minimizer = ba.Minimizer()
     minimizer.setMinimizer("Genetic", "", "MaxIterations=40;PopSize=10")

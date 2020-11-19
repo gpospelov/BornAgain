@@ -14,13 +14,13 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(4*nm, 5*nm)
+    cylinder_ff = ba.FormFactorCylinder(4 * nm, 5 * nm)
     cylinder = ba.Particle(m_particle, cylinder_ff)
 
     interference = ba.InterferenceFunction2DParaCrystal(
-        ba.SquareLattice2D(10.0*nm), 0.0, 20.0*micrometer, 20.0*micrometer)
+        ba.SquareLattice2D(10.0 * nm), 0.0, 20.0 * micrometer, 20.0 * micrometer)
     interference.setIntegrationOverXi(True)
-    pdf = ba.FTDistribution2DCauchy(1.0*nm, 1.0*nm, 0)
+    pdf = ba.FTDistribution2DCauchy(1.0 * nm, 1.0 * nm, 0)
     interference.setProbabilityDistributions(pdf, pdf)
 
     particle_layout = ba.ParticleLayout()
@@ -47,9 +47,9 @@ def get_simulation():
     """
     simulation = ba.GISASSimulation()
     # coarse grid because this simulation takes rather long
-    simulation.setDetectorParameters(200, -2.0*deg, 2.0*deg,
-                                     200, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setDetectorParameters(200, -2.0 * deg, 2.0 * deg, 200, 0.0 * deg,
+                                     2.0 * deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
     return simulation
 
 

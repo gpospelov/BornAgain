@@ -93,8 +93,7 @@ def create_simulation(arg_dict, bin_start, bin_end):
     alpha_distr = ba.RangedDistributionGaussian(30, 3)
     footprint = ba.FootprintGauss(arg_dict["footprint_factor"])
 
-    scan = ba.AngularSpecScan(wavelength,
-                              get_real_data_axis(bin_start, bin_end))
+    scan = ba.AngularSpecScan(wavelength, get_real_data_axis(bin_start, bin_end))
     scan.setAbsoluteAngularResolution(alpha_distr, arg_dict["divergence"])
     scan.setFootprintFactor(footprint)
 
@@ -111,8 +110,8 @@ def buildSample(arg_dict):
     # defining materials
     m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
     m_si_o2 = ba.HomogeneousMaterial("SiO2",
-        8.57040868e-06 * arg_dict["concentration"],
-        1.11016654e-07 * arg_dict["concentration"])
+                                     8.57040868e-06 * arg_dict["concentration"],
+                                     1.11016654e-07 * arg_dict["concentration"])
     m_si = ba.HomogeneousMaterial("Si", 7.57211137e-06, 1.72728178e-07)
 
     # roughness
@@ -152,7 +151,7 @@ def chi_2(real_data, sim_data, weights):
     sim_data_upsc[sim_data_upsc is 0] = 1e-30
     real_data_upsc = np.multiply(weights, real_data)
     diff = real_data_upsc - sim_data_upsc
-    return np.sum(np.divide(np.multiply(diff,diff), sim_data_upsc))
+    return np.sum(np.divide(np.multiply(diff, diff), sim_data_upsc))
 
 
 def create_par_dict(*arg):
@@ -160,13 +159,14 @@ def create_par_dict(*arg):
     Creates a dictionary with parameter names and values
     and returns it
     """
-    return {'intensity': arg[0],
-            'footprint_factor': arg[1],
-            'divergence':arg[2],
-            'concentration': arg[3],
-            'thickness': arg[4],
-            'roughness': arg[5]
-            }
+    return {
+        'intensity': arg[0],
+        'footprint_factor': arg[1],
+        'divergence': arg[2],
+        'concentration': arg[3],
+        'thickness': arg[4],
+        'roughness': arg[5]
+    }
 
 
 def objective_primary(args):
@@ -180,8 +180,8 @@ def objective_primary(args):
 
     sim_result = run_simulation(arg_dict, bin_start, bin_end)
     sim_data = sim_result.array()
-    return chi_2(get_real_data_values(bin_start, bin_end),
-                 sim_data, get_weights(bin_start, bin_end))
+    return chi_2(get_real_data_values(bin_start, bin_end), sim_data,
+                 get_weights(bin_start, bin_end))
 
 
 def objective_fine(args, intensity, footprint_factor, divergence):
@@ -195,8 +195,8 @@ def objective_fine(args, intensity, footprint_factor, divergence):
 
     sim_result = run_simulation(arg_dict, bin_start, bin_end)
     sim_data = sim_result.array()
-    return chi_2(get_real_data_values(bin_start, bin_end),
-                 sim_data, get_weights(bin_start, bin_end))
+    return chi_2(get_real_data_values(bin_start, bin_end), sim_data,
+                 get_weights(bin_start, bin_end))
 
 
 def run_fitting():
@@ -204,39 +204,51 @@ def run_fitting():
     Runs fitting and returns its result
     """
     # running preliminary optimization on the total range of experimental data.
-    bounds = [(1e6, 1e8),   # beam intensity
-              (0.0, 0.1),   # beam-to-sample width ratio
-              (0.0, 0.08 * ba.deg),  # beam_divergence
-              (0.0, 1.0),  # oxide_concentration
-              (0.0, 2.0 * ba.nm),  # oxide_thickness
-              (0.0, 2.0 * ba.nm)]    # roughness
+    bounds = [
+        (1e6, 1e8),  # beam intensity
+        (0.0, 0.1),  # beam-to-sample width ratio
+        (0.0, 0.08 * ba.deg),  # beam_divergence
+        (0.0, 1.0),  # oxide_concentration
+        (0.0, 2.0 * ba.nm),  # oxide_thickness
+        (0.0, 2.0 * ba.nm)
+    ]  # roughness
 
     print("Start preliminary fitting of experimental data:\n")
 
-    preliminary_result = differential_evolution(objective_primary, bounds,
-                                                maxiter=20, popsize=60,
+    preliminary_result = differential_evolution(objective_primary,
+                                                bounds,
+                                                maxiter=20,
+                                                popsize=60,
                                                 mutation=(0.5, 1.5),
-                                                disp=True, tol=1e-5)
+                                                disp=True,
+                                                tol=1e-5)
 
-    bounds = [(0.0, 1.0),  # oxide_concentration
-              (0.0, 2.0 * ba.nm),  # oxide_thickness
-              (0.0, 2.0 * ba.nm)]    # roughness
+    bounds = [
+        (0.0, 1.0),  # oxide_concentration
+        (0.0, 2.0 * ba.nm),  # oxide_thickness
+        (0.0, 2.0 * ba.nm)
+    ]  # roughness
 
-    fixed_args = (preliminary_result.x[0],  # beam intensity
-                  preliminary_result.x[1],  # beam-to-sample width ratio
-                  preliminary_result.x[2]  # beam divergence
-                  )
+    fixed_args = (
+        preliminary_result.x[0],  # beam intensity
+        preliminary_result.x[1],  # beam-to-sample width ratio
+        preliminary_result.x[2]  # beam divergence
+    )
 
     print("\nStart fitting big incident angle part of experimental data:\n")
 
-    fine_tuning_result = differential_evolution(objective_fine, bounds,
-                                                fixed_args, maxiter=20,
-                                                popsize=40, mutation=(0.5, 1.5),
-                                                disp=True, tol=1e-5)
+    fine_tuning_result = differential_evolution(objective_fine,
+                                                bounds,
+                                                fixed_args,
+                                                maxiter=20,
+                                                popsize=40,
+                                                mutation=(0.5, 1.5),
+                                                disp=True,
+                                                tol=1e-5)
 
     result = create_par_dict(*fixed_args, *fine_tuning_result.x)
     print("\nFitting result:")
-    print(result,"\n")
+    print(result, "\n")
 
     return result
 
@@ -248,27 +260,29 @@ def plot_result(sim_result, ref_result, bin_start=0, bin_end=-1):
     sim_data = sim_result.array()
     ref_data = ref_result.array()
 
-    plt.semilogy(get_real_data_axis(bin_start, bin_end) * 180 / np.pi,
-                 get_real_data_values(bin_start, bin_end),
-                 sim_result.axis(), sim_data,
-                 ref_result.axis(), ref_data)
+    plt.semilogy(
+        get_real_data_axis(bin_start, bin_end) * 180 / np.pi,
+        get_real_data_values(bin_start, bin_end), sim_result.axis(), sim_data,
+        ref_result.axis(), ref_data)
 
     xlabel = ba.get_axes_labels(sim_result, ba.Axes.DEFAULT)[0]
     ylabel = "Intensity"
     plt.xlabel(xlabel, fontsize=16)
     plt.ylabel(ylabel, fontsize=16)
     plt.legend(['Experimental data', 'Simulation', 'Reference'],
-               loc='upper right', fontsize=16)
+               loc='upper right',
+               fontsize=16)
 
     plt.show()
 
 
 if __name__ == '__main__':
     fit_data = run_fitting()
-    ref_data = create_par_dict(3.78271438e+06,  # beam intensity
-                               9.58009763e-04,  # beam-to-sample width ratio
-                               2.30471294e-04,  # beam angular divergence
-                               0.58721753,  # oxide concentration
-                               1.25559347,  # oxide thickness
-                               0.19281863)  # roughness
+    ref_data = create_par_dict(
+        3.78271438e+06,  # beam intensity
+        9.58009763e-04,  # beam-to-sample width ratio
+        2.30471294e-04,  # beam angular divergence
+        0.58721753,  # oxide concentration
+        1.25559347,  # oxide thickness
+        0.19281863)  # roughness
     plot_result(run_simulation(fit_data), run_simulation(ref_data))

@@ -17,10 +17,10 @@ def get_sample():
 
     # collection of particles
     interference = ba.InterferenceFunctionFinite2DLattice(
-        ba.SquareLattice2D(25.0*nm, 0.0), 40, 40)
+        ba.SquareLattice2D(25.0 * nm, 0.0), 40, 40)
     interference.setPositionVariance(1.0)
 
-    cylinder_ff = ba.FormFactorCylinder(3.*nm, 3.*nm)
+    cylinder_ff = ba.FormFactorCylinder(3. * nm, 3. * nm)
     cylinder = ba.Particle(m_particle, cylinder_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder)
@@ -44,9 +44,9 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -2.0*deg, 2.0*deg,
-                                     200, 0.0*deg, 2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setDetectorParameters(200, -2.0 * deg, 2.0 * deg, 200, 0.0 * deg,
+                                     2.0 * deg)
+    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
     return simulation
 
 

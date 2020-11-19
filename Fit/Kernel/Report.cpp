@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Result/MinimizerResultUtils.cpp
-//! @brief     Implements MinimizerResultUtils namespace.
+//! @file      Fit/Kernel/Report.cpp
+//! @brief     Implements report namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,14 +12,12 @@
 //
 //  ************************************************************************************************
 
-#include "Fit/Result/MinimizerResultUtils.h"
+#include "Fit/Kernel/Report.h"
 #include "Fit/RootAdapter/RootMinimizerAdapter.h"
 #include "Fit/Tools/MinimizerUtils.h"
 #include <boost/format.hpp>
 #include <iomanip>
 #include <sstream>
-
-using namespace Fit;
 
 namespace
 {
@@ -33,54 +31,6 @@ template <typename T> std::string reportValue(const std::string& name, T value)
     return result.str();
 }
 
-std::string reportDescription(const RootMinimizerAdapter& minimizer);
-std::string reportOption(const RootMinimizerAdapter& minimizer);
-std::string reportStatus(const RootMinimizerAdapter& minimizer);
-
-} // namespace
-
-std::string MinimizerResultUtils::reportToString(const RootMinimizerAdapter& minimizer)
-{
-    std::ostringstream result;
-
-    result << MinimizerUtils::sectionString();
-    result << reportDescription(minimizer);
-    result << reportOption(minimizer);
-    result << reportStatus(minimizer);
-
-    return result.str();
-}
-
-std::string MinimizerResultUtils::reportParameters(const Fit::Parameters& parameters)
-{
-    std::ostringstream result;
-
-    result << MinimizerUtils::sectionString("FitParameters");
-
-    result << "Name                       StartValue  Limits                        FitValue"
-           << "     Error" << std::endl;
-
-    for (const auto& par : parameters) {
-        result << boost::format("%-26.26s %-8.3e   %-28s  %-8.3e    %8.3e \n") % par.name()
-                      % par.startValue() % par.limits().toString() % par.value() % par.error();
-    }
-
-    Fit::Parameters::corr_matrix_t matrix = parameters.correlationMatrix();
-    if (!matrix.empty()) {
-        result << MinimizerUtils::sectionString("Correlations");
-        for (size_t i = 0; i < matrix.size(); ++i) {
-            result << boost::format("#%-2d       ") % i;
-            for (size_t j = 0; j < matrix[i].size(); ++j)
-                result << boost::format("%_7.4f    ") % matrix[i][j];
-            result << std::endl;
-        }
-    }
-
-    return result.str();
-}
-
-namespace
-{
 
 std::string reportDescription(const RootMinimizerAdapter& minimizer)
 {
@@ -121,3 +71,49 @@ std::string reportStatus(const RootMinimizerAdapter& minimizer)
 }
 
 } // namespace
+
+//  ************************************************************************************************
+//  namespace report
+//  ************************************************************************************************
+
+using namespace Fit;
+
+std::string report::reportToString(const RootMinimizerAdapter& minimizer)
+{
+    std::ostringstream result;
+
+    result << MinimizerUtils::sectionString();
+    result << reportDescription(minimizer);
+    result << reportOption(minimizer);
+    result << reportStatus(minimizer);
+
+    return result.str();
+}
+
+std::string report::reportParameters(const Fit::Parameters& parameters)
+{
+    std::ostringstream result;
+
+    result << MinimizerUtils::sectionString("FitParameters");
+
+    result << "Name                       StartValue  Limits                        FitValue"
+           << "     Error" << std::endl;
+
+    for (const auto& par : parameters) {
+        result << boost::format("%-26.26s %-8.3e   %-28s  %-8.3e    %8.3e \n") % par.name()
+                      % par.startValue() % par.limits().toString() % par.value() % par.error();
+    }
+
+    Fit::Parameters::corr_matrix_t matrix = parameters.correlationMatrix();
+    if (!matrix.empty()) {
+        result << MinimizerUtils::sectionString("Correlations");
+        for (size_t i = 0; i < matrix.size(); ++i) {
+            result << boost::format("#%-2d       ") % i;
+            for (size_t j = 0; j < matrix[i].size(); ++j)
+                result << boost::format("%_7.4f    ") % matrix[i][j];
+            result << std::endl;
+        }
+    }
+
+    return result.str();
+}

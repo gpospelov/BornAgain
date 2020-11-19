@@ -1366,28 +1366,31 @@ Internal state of a  WallclockTimer object.
 ";
 
 
-// File: namespace_0d11.xml
+// File: namespace_0d12.xml
 
 
-// File: namespace_0d25.xml
+// File: namespace_0d20.xml
 
 
-// File: namespace_0d29.xml
-
-
-// File: namespace_0d31.xml
-
-
-// File: namespace_0d35.xml
+// File: namespace_0d30.xml
 
 
 // File: namespace_0d37.xml
 
 
+// File: namespace_0d39.xml
+
+
 // File: namespace_0d4.xml
 
 
-// File: namespace_0d41.xml
+// File: namespace_0d43.xml
+
+
+// File: namespace_0d47.xml
+
+
+// File: namespace_0d60.xml
 
 
 // File: namespaceFit.xml
@@ -1399,18 +1402,6 @@ Internal state of a  WallclockTimer object.
 Returns new instance of class T.
 
 This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
-";
-
-
-// File: namespaceMinimizerResultUtils.xml
-%feature("docstring")  MinimizerResultUtils::reportToString "std::string MinimizerResultUtils::reportToString(const RootMinimizerAdapter &minimizer)
-
-Reports results of minimization in the form of multi-line string. 
-";
-
-%feature("docstring")  MinimizerResultUtils::reportParameters "std::string MinimizerResultUtils::reportParameters(const Fit::Parameters &parameters)
-
-Reports fit parameters settings and final results. 
 ";
 
 
@@ -1467,20 +1458,15 @@ Returns new string which is lower case of text.
 ";
 
 
-// File: namespaceNumeric.xml
-%feature("docstring")  Numeric::GetAbsoluteDifference "double Numeric::GetAbsoluteDifference(double a, double b)
+// File: namespacereport.xml
+%feature("docstring")  report::reportToString "std::string report::reportToString(const RootMinimizerAdapter &minimizer)
 
-Returns the absolute value of the difference between a and b. 
+Reports results of minimization in the form of multi-line string. 
 ";
 
-%feature("docstring")  Numeric::GetRelativeDifference "double Numeric::GetRelativeDifference(double a, double b)
+%feature("docstring")  report::reportParameters "std::string report::reportParameters(const Fit::Parameters &parameters)
 
-Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
-";
-
-%feature("docstring")  Numeric::GetLogDifference "double Numeric::GetLogDifference(double a, double b)
-
-Returns the difference of the logarithm; input values are truncated at the minimum positive value 
+Reports fit parameters settings and final results. 
 ";
 
 
@@ -1511,37 +1497,28 @@ Returns the difference of the logarithm; input values are truncated at the minim
 // File: Kernel_8h.xml
 
 
-// File: KernelTypes_8h.xml
-
-
 // File: Minimizer_8cpp.xml
 
 
 // File: Minimizer_8h.xml
 
 
-// File: MinimizerResult_8cpp.xml
+// File: MinimizerFactory_8cpp.xml
 
 
-// File: MinimizerResult_8h.xml
-
-
-// File: Parameter_8cpp.xml
-
-
-// File: Parameter_8h.xml
-
-
-// File: Parameters_8cpp.xml
-
-
-// File: Parameters_8h.xml
+// File: MinimizerFactory_8h.xml
 
 
 // File: PyCallback_8cpp.xml
 
 
 // File: PyCallback_8h.xml
+
+
+// File: Report_8cpp.xml
+
+
+// File: Report_8h.xml
 
 
 // File: IMinimizer_8cpp.xml
@@ -1556,12 +1533,6 @@ Returns the difference of the logarithm; input values are truncated at the minim
 // File: MinimizerCatalog_8h.xml
 
 
-// File: MinimizerFactory_8cpp.xml
-
-
-// File: MinimizerFactory_8h.xml
-
-
 // File: MinimizerInfo_8cpp.xml
 
 
@@ -1574,10 +1545,49 @@ Returns the difference of the logarithm; input values are truncated at the minim
 // File: MinimizerOptions_8h.xml
 
 
+// File: MinimizerResult_8cpp.xml
+
+
+// File: MinimizerResult_8h.xml
+
+
 // File: TestMinimizer_8cpp.xml
 
 
 // File: TestMinimizer_8h.xml
+
+
+// File: Types_8h.xml
+
+
+// File: AttLimits_8cpp.xml
+
+
+// File: AttLimits_8h.xml
+
+
+// File: Attributes_8h.xml
+
+
+// File: Parameter_8cpp.xml
+
+
+// File: Parameter_8h.xml
+
+
+// File: ParameterPlan_8h.xml
+
+
+// File: Parameters_8cpp.xml
+
+
+// File: Parameters_8h.xml
+
+
+// File: RealLimits_8cpp.xml
+
+
+// File: RealLimits_8h.xml
 
 
 // File: GeneticMinimizer_8cpp.xml
@@ -1596,12 +1606,6 @@ Returns the difference of the logarithm; input values are truncated at the minim
 
 
 // File: GSLMultiMinimizer_8h.xml
-
-
-// File: MinimizerResultUtils_8cpp.xml
-
-
-// File: MinimizerResultUtils_8h.xml
 
 
 // File: Minuit2Minimizer_8cpp.xml
@@ -1661,24 +1665,6 @@ Returns the difference of the logarithm; input values are truncated at the minim
 // File: MinimizerTestPlan_8h.xml
 
 
-// File: Numeric_8cpp.xml
-
-
-// File: Numeric_8h.xml
-
-
-// File: ParameterPlan_8h.xml
-
-
-// File: AttLimits_8cpp.xml
-
-
-// File: AttLimits_8h.xml
-
-
-// File: Attributes_8h.xml
-
-
 // File: MinimizerUtils_8cpp.xml
 
 
@@ -1695,12 +1681,6 @@ Returns the difference of the logarithm; input values are truncated at the minim
 
 
 // File: OptionContainer_8h.xml
-
-
-// File: RealLimits_8cpp.xml
-
-
-// File: RealLimits_8h.xml
 
 
 // File: StringUtils_8cpp.xml
@@ -1722,6 +1702,9 @@ Returns the difference of the logarithm; input values are truncated at the minim
 
 
 // File: dir_7c95011753c2f8fb6f2a9c22c1fbdc50.xml
+
+
+// File: dir_38d3fa544be6e05025bba6e85a25baf3.xml
 
 
 // File: dir_5e88eb7454533834afc0f9fdcde3e277.xml

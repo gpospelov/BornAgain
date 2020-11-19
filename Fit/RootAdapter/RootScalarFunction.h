@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_ROOTSCALARFUNCTION_H
 #define BORNAGAIN_FIT_ROOTADAPTER_ROOTSCALARFUNCTION_H
 
-#include "Fit/Kernel/KernelTypes.h"
+#include "Fit/Minimizer/Types.h"
 
 #ifdef _WIN32
 #include <Math/Functor.h>

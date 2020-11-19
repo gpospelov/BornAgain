@@ -33,10 +33,10 @@
 #include "Fit/Param/Parameters.h"
 #include "Fit/Minimizer/IMinimizer.h"
 #include "Fit/Minimizer/MinimizerCatalog.h"
-#include "Fit/Minimizer/MinimizerFactory.h"
+#include "Fit/Kernel/MinimizerFactory.h"
 
 #include "Fit/Kernel/PyCallback.h"
-#include "Fit/Result/MinimizerResult.h"
+#include "Fit/Minimizer/MinimizerResult.h"
 #include "Fit/Kernel/Minimizer.h"
 %}
 
@@ -48,11 +48,11 @@
 %include "Fit/Param/Parameter.h"
 %include "Fit/Param/Parameters.h"
 %include "Fit/Kernel/PyCallback.h"
-%include "Fit/Result/MinimizerResult.h"
+%include "Fit/Minimizer/MinimizerResult.h"
 %include "Fit/Kernel/Minimizer.h"
 %include "Fit/Minimizer/IMinimizer.h"
 %include "Fit/Minimizer/MinimizerCatalog.h"
-%include "Fit/Minimizer/MinimizerFactory.h"
+%include "Fit/Kernel/MinimizerFactory.h"
 
 %pythoncode %{
 class ParametersIterator(object):

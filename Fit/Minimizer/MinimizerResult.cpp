@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Result/MinimizerResult.cpp
+//! @file      Fit/Minimizer/MinimizerResult.cpp
 //! @brief     Implements class MinimizerResult.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#include "Fit/Result/MinimizerResult.h"
-#include "Fit/Result/MinimizerResultUtils.h"
+#include "Fit/Minimizer/MinimizerResult.h"
+#include "Fit/Kernel/Report.h"
 #include "Fit/Tools/MinimizerUtils.h"
 #include <sstream>
 
@@ -61,7 +61,7 @@ std::string MinimizerResult::toString() const
         result << "Objective function calls : " << m_number_of_calls << "\n";
         result << "Gradient calls           : " << m_number_of_gradient_calls << "\n";
         result << m_minimizer_report;
-        result << MinimizerResultUtils::reportParameters(m_parameters);
+        result << report::reportParameters(m_parameters);
     }
 
     return result.str();

@@ -14,7 +14,7 @@
 
 #include "Core/Fitting/FitStatus.h"
 #include "Core/Fitting/FitPrintService.h"
-#include "Fit/Result/MinimizerResult.h"
+#include "Fit/Minimizer/MinimizerResult.h"
 #include <stdexcept>
 
 FitStatus::FitStatus(const FitObjective* fit_objective)

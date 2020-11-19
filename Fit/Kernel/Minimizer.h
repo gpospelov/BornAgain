@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_FIT_KERNEL_MINIMIZER_H
 #define BORNAGAIN_FIT_KERNEL_MINIMIZER_H
 
-#include "Fit/Kernel/KernelTypes.h"
-#include "Fit/Result/MinimizerResult.h"
+#include "Fit/Minimizer/Types.h"
+#include "Fit/Minimizer/MinimizerResult.h"
 #include <functional>
 #include <memory>
 #include <string>

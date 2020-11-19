@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_OBJECTIVEFUNCTIONADAPTER_H
 #define BORNAGAIN_FIT_ROOTADAPTER_OBJECTIVEFUNCTIONADAPTER_H
 
-#include "Fit/Kernel/KernelTypes.h"
+#include "Fit/Minimizer/Types.h"
 #include <memory>
 
 class RootScalarFunction;

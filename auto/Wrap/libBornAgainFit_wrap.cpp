@@ -6650,16 +6650,16 @@ SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std
 SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_0(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::value_type const &x){ return self->insert(pos, x); }
 SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_1(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::size_type n,std::vector< std::pair< double,double > >::value_type const &x){ self->insert(pos, n, x); }
 
-#include "Fit/Tools/RealLimits.h"
-#include "Fit/Tools/AttLimits.h"
-#include "Fit/Kernel/Parameter.h"
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/RealLimits.h"
+#include "Fit/Param/AttLimits.h"
+#include "Fit/Param/Parameter.h"
+#include "Fit/Param/Parameters.h"
 #include "Fit/Minimizer/IMinimizer.h"
 #include "Fit/Minimizer/MinimizerCatalog.h"
-#include "Fit/Minimizer/MinimizerFactory.h"
+#include "Fit/Kernel/MinimizerFactory.h"
 
 #include "Fit/Kernel/PyCallback.h"
-#include "Fit/Kernel/MinimizerResult.h"
+#include "Fit/Minimizer/MinimizerResult.h"
 #include "Fit/Kernel/Minimizer.h"
 
 

@@ -16,7 +16,7 @@
 #define BORNAGAIN_FIT_ROOTADAPTER_RESIDUALFUNCTIONADAPTER_H
 
 #include "Fit/Kernel/IFunctionAdapter.h"
-#include "Fit/Kernel/KernelTypes.h"
+#include "Fit/Minimizer/Types.h"
 #include "Fit/Param/Parameters.h"
 #include <functional>
 #include <memory>

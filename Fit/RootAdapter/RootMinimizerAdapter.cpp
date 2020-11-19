@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Fit/RootAdapter/RootMinimizerAdapter.h"
-#include "Fit/Result/MinimizerResultUtils.h"
+#include "Fit/Kernel/Report.h"
 #include "Fit/RootAdapter/ObjectiveFunctionAdapter.h"
 #include "Fit/RootAdapter/RootResidualFunction.h"
 #include "Fit/RootAdapter/RootScalarFunction.h"
@@ -54,7 +54,7 @@ MinimizerResult RootMinimizerAdapter::minimize(Parameters parameters)
     MinimizerResult result;
     result.setParameters(parameters);
     result.setMinValue(minValue());
-    result.setReport(MinimizerResultUtils::reportToString(*this));
+    result.setReport(report::reportToString(*this));
     result.setNumberOfCalls(m_adapter->numberOfCalls());
     result.setNumberOfGradientCalls(m_adapter->numberOfGradientCalls());
 

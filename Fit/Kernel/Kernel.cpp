@@ -14,7 +14,7 @@
 
 #include "Fit/Kernel/Kernel.h"
 #include "Fit/Minimizer/IMinimizer.h"
-#include "Fit/Minimizer/MinimizerFactory.h"
+#include "Fit/Kernel/MinimizerFactory.h"
 
 using namespace Fit;
 

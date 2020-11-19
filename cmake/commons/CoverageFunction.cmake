@@ -65,7 +65,7 @@ function(add_coverage_target targetname ignore_directories html_dir)
         message(FATAL_ERROR "genhtml not found! aborting")
     endif()
 
-    set(lcov_output "${CMAKE_CURRENT_BINARY_DIR}/${targetname}.info")
+    set(lcov_output ${CMAKE_CURRENT_BINARY_DIR}/${targetname}.info)
 
     add_custom_target(${targetname}
         COMMAND ${LCOV_COMMAND} --directory ${CMAKE_CURRENT_BINARY_DIR} --capture --output-file ${lcov_output})

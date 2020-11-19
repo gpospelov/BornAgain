@@ -185,9 +185,9 @@ class CustomTest(FactoryTest):
         """
         simulation = GISASSimulation()
         simulation.getOptions().setNumberOfThreads(-1)
-        simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100,
-                                         alpha_min*degree, alpha_max*degree)
-        simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+        simulation.setDetectorParameters(100, phi_min*deg, phi_max*deg, 100,
+                                         alpha_min*deg, alpha_max*deg)
+        simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
         return simulation
 
 

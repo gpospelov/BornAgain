@@ -10,7 +10,7 @@ rc('text', usetex=True)
 rc('image', cmap='inferno')
 
 import bornagain as ba
-from bornagain import nm, degree, angstrom, deg2rad
+from bornagain import nm, deg, angstrom, deg2rad
 
 
 class BinRange:
@@ -147,9 +147,9 @@ def get_simulation(det):
     :param det: Detector limits
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(det.phi.n, det.phi.vmin*degree,
-                                     det.phi.vmax*degree, det.alpha.n,
-                                     det.alpha.vmin*degree, det.alpha.vmax*degree)
+    simulation.setDetectorParameters(det.phi.n, det.phi.vmin*deg,
+                                     det.phi.vmax*deg, det.alpha.n,
+                                     det.alpha.vmin*deg, det.alpha.vmax*deg)
     simulation.setBeamParameters(1.0*angstrom, 0, 0)
     return simulation
 

@@ -4,7 +4,7 @@ import math, numpy, os, sys, time, unittest
 
 sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
-from bornagain import degree, deg2rad, rad2deg
+from bornagain import deg, deg2rad, rad2deg
 
 
 def fill_data(data):
@@ -110,8 +110,8 @@ class OutputDataIOTest(unittest.TestCase):
 
     def test_07_ConstKBinAxis_2D(self):
         data = ba.IntensityData()
-        data.addAxis(ba.ConstKBinAxis("axis0", 9, -1.00000001*degree, 1.0*degree))
-        data.addAxis(ba.ConstKBinAxis("axis1", 3, -4.0*degree, 5.0*degree))
+        data.addAxis(ba.ConstKBinAxis("axis0", 9, -1.00000001*deg, 1.0*deg))
+        data.addAxis(ba.ConstKBinAxis("axis1", 3, -4.0*deg, 5.0*deg))
         fill_data(data)
         ba.IntensityDataIOFactory.writeOutputData(data, "tmp.int")
         newdata = ba.IntensityDataIOFactory.readOutputData("tmp.int")
@@ -119,8 +119,8 @@ class OutputDataIOTest(unittest.TestCase):
 
     def test_08_CustomBinAxis_2D(self):
         data = ba.IntensityData()
-        data.addAxis(ba.CustomBinAxis("axis0", 9, -1.00000001*degree, 1.0*degree))
-        data.addAxis(ba.CustomBinAxis("axis1", 3, -4.0*degree, 5.0*degree))
+        data.addAxis(ba.CustomBinAxis("axis0", 9, -1.00000001*deg, 1.0*deg))
+        data.addAxis(ba.CustomBinAxis("axis1", 3, -4.0*deg, 5.0*deg))
         fill_data(data)
         ba.IntensityDataIOFactory.writeOutputData(data, "tmp.int")
         newdata = ba.IntensityDataIOFactory.readOutputData("tmp.int")

@@ -119,7 +119,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
                          FormFactorBox(shell_length, shell_width, shell_height))
         coreshell = ParticleCoreShell(
             shell, core, kvector_t(0.0, 0.0, (shell_height - core_height)/2.0))
-        coreshell.setRotation(RotationZ(90.0*degree))
+        coreshell.setRotation(RotationZ(90.0*deg))
         coreshell.setPosition(
             kvector_t(
                 0.0, 0.0, -layer_thickness/2.0 -
@@ -175,7 +175,7 @@ class TransformCoreShellBoxTest(unittest.TestCase):
                          FormFactorBox(shell_length, shell_width, shell_height))
         coreshell = ParticleCoreShell(
             shell, core, kvector_t(0.0, 0.0, (shell_height - core_height)/2.0))
-        coreshell.setRotation(RotationY(90.*degree))
+        coreshell.setRotation(RotationY(90.*deg))
         coreshell.setPosition(kvector_t(
             0.0, 0.0,
             -layer_thickness/2.0))  # center of coreshell  in center of the layer
@@ -231,8 +231,8 @@ class TransformCoreShellBoxTest(unittest.TestCase):
                          FormFactorBox(shell_length, shell_width, shell_height))
         coreshell = ParticleCoreShell(
             shell, core, kvector_t(0.0, 0.0, (shell_height - core_height)/2.0))
-        coreshell.setRotation(RotationZ(90.0*degree))
-        coreshell.rotate(RotationY(90.0*degree))
+        coreshell.setRotation(RotationZ(90.0*deg))
+        coreshell.rotate(RotationY(90.0*deg))
         # rotation changes reference point, which now coincide with center of the volume
         coreshell.setPosition(kvector_t(
             0.0, 0.0,

@@ -64,7 +64,7 @@ def get_real_data():
         filepath = path.join(path.dirname(path.realpath(__file__)), filename)
         real_data = np.loadtxt(filepath, usecols=(0, 1), skiprows=3)
 
-        # translating axis values from double incident angle (degrees)
+        # translating axis values from double incident angle (degs)
         # to incident angle (radians)
         real_data[:, 0] *= np.pi/360
         get_real_data.data = real_data

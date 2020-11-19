@@ -3,7 +3,7 @@
 from __future__ import print_function
 import gzip, numpy, os, sys, utils
 import bornagain as ba
-from bornagain import nm, angstrom, degree
+from bornagain import nm, angstrom, deg
 
 
 # ----------------------------------
@@ -36,9 +36,9 @@ def runSimulation():
 
     # build and run experiment
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, 0*degree, 2.0*degree, 100, 0.0*degree,
-                                     2.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, 0*deg, 2.0*deg, 100, 0.0*deg,
+                                     2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setSample(multi_layer)
     simulation.setBeamIntensity(1e2)
     simulation.runSimulation()

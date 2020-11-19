@@ -46,9 +46,9 @@ def RunSimulation():
 
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -4.0*degree, 4.0*degree, 100, 0.0*degree,
-                                     8.0*degree)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
+    simulation.setDetectorParameters(100, -4.0*deg, 4.0*deg, 100, 0.0*deg,
+                                     8.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     # intensity data

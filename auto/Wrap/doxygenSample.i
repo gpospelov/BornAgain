@@ -6874,7 +6874,7 @@ C++ includes: ScalarFresnelMap.h
 %feature("docstring")  ScalarFresnelMap::ScalarFresnelMap "ScalarFresnelMap::ScalarFresnelMap(std::unique_ptr< ISpecularStrategy > strategy)
 ";
 
-%feature("docstring")  ScalarFresnelMap::~ScalarFresnelMap "ScalarFresnelMap::~ScalarFresnelMap() final
+%feature("docstring")  ScalarFresnelMap::~ScalarFresnelMap "ScalarFresnelMap::~ScalarFresnelMap() override
 ";
 
 %feature("docstring")  ScalarFresnelMap::ScalarFresnelMap "ScalarFresnelMap::ScalarFresnelMap(const ScalarFresnelMap &other)=delete

@@ -76,8 +76,8 @@ void DesignerView::onCenterView()
 
 void DesignerView::onChangeScale(double new_scale)
 {
-    QMatrix oldMatrix = matrix();
-    resetMatrix();
+    QTransform oldMatrix = transform();
+    resetTransform();
     translate(oldMatrix.dx(), oldMatrix.dy());
     scale(new_scale, new_scale);
 }

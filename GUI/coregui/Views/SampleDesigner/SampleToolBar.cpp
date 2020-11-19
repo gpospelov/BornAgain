@@ -44,8 +44,10 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
     m_pointerModeGroup = new QButtonGroup(this);
     m_pointerModeGroup->addButton(selectionPointerButton, DesignerView::RUBBER_SELECTION);
     m_pointerModeGroup->addButton(handPointerButton, DesignerView::HAND_DRAG);
-    connect(m_pointerModeGroup, static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::idClicked),
+    connect(m_pointerModeGroup,
+            static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
             this, &SampleToolBar::selectionMode);
+            // TODO: replace buttonClicked by idClicked when Qt5.14 is available
     addWidget(selectionPointerButton);
     addWidget(handPointerButton);
 

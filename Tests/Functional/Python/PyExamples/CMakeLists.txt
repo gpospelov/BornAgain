@@ -5,7 +5,7 @@
 #
 ###############################################################################
 
-set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python/PyExamples)
+set(output_dir ${TEST_OUTPUT_DIR_PY_EXAMPLES})
 file(MAKE_DIRECTORY ${output_dir})
 
 file(GLOB sim_examples "${PY_EXAMPLES_DIR}/sim*/*.py")

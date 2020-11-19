@@ -2,7 +2,7 @@
 # Tests/Functional/PyCore/scripts/CMakeLists.txt
 ############################################################################
 
-set(OUTPUT_DIR ${TEST_OUTPUT_DIR}/Python/PyCore)
+set(OUTPUT_DIR ${TEST_OUTPUT_DIR_PY_CORE})
 file(MAKE_DIRECTORY ${OUTPUT_DIR})
 
 set(PYCORE_REFERENCE_DIR ${TEST_REFERENCE_DIR}/Python)

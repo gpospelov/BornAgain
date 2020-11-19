@@ -43,15 +43,15 @@ inline std::string TestOutDir()
 }
 inline std::string TestOutDir_Std()
 {
-    return "@TEST_OUTPUT_DIR@/Std";
+    return "@TEST_OUTPUT_DIR_STD@";
 }
 inline std::string TestOutDir_Core()
 {
-    return "@TEST_OUTPUT_DIR@/Core";
+    return "@TEST_OUTPUT_DIR_CORE@";
 }
 inline std::string TestOutDir_PyStd()
 {
-    return "@TEST_OUTPUT_DIR@/PyStd";
+    return "@TEST_OUTPUT_DIR_PY_STD@";
 }
 
 } // namespace BATesting

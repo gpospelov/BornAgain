@@ -12,4 +12,4 @@ target_link_libraries(${test} BornAgainCore gtest)
 
 gtest_discover_tests(${test} DISCOVERY_TIMEOUT 300 TEST_PREFIX Py.)
 
-file(MAKE_DIRECTORY ${TEST_OUTPUT_DIR}/Functional/Python/Std)
+file(MAKE_DIRECTORY ${TEST_OUTPUT_DIR_PY_STD})

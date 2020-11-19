@@ -15,8 +15,11 @@
 #ifndef BORNAGAIN_BASE_CONST_PHYSICALCONSTANTS_H
 #define BORNAGAIN_BASE_CONST_PHYSICALCONSTANTS_H
 
+//! Physical constants.
+
 namespace PhysConsts
 {
+
 constexpr double m_n = 1.67492749804e-27;  //!< Neutron mass, kg
 constexpr double h_bar = 1.054571817e-34;  //!< Reduced Plank constant, J s
 constexpr double mu_N = 5.0507837461e-27;  //!< Nuclear magneton (\f$ \mu_N \f$), J/T
@@ -25,6 +28,7 @@ constexpr double r_e = 2.8179403262e-15;   //!< Thomson scattering length (\f$ r
 constexpr double gamma_n = 1.91304272;     //!< \f$\gamma\f$ factor for neutron magnetic moment,
                                            //!< \f$\mu_n = \gamma \cdot \mu_N\f$
 constexpr double g_factor_n = -3.82608545; //!< neutron g-factor
+
 } // namespace PhysConsts
 
 #endif // BORNAGAIN_BASE_CONST_PHYSICALCONSTANTS_H

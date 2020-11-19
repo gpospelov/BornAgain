@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_PARAM_DISTRIB_PARAMETERDISTRIBUTION_H
 #define BORNAGAIN_PARAM_DISTRIB_PARAMETERDISTRIBUTION_H
 
-#include "Fit/Tools/RealLimits.h"
+#include "Fit/Param/RealLimits.h"
 #include "Param/Base/IParameterized.h"
 #include "Param/Varia/ParameterSample.h"
 #include <memory>

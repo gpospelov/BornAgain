@@ -1,5 +1,5 @@
 #include "Sample/Particle/ParticleComposition.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Sample/HardParticle/FormFactorFullSphere.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Particle/Particle.h"

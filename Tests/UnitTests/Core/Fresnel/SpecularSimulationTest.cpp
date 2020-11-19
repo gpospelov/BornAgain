@@ -1,7 +1,7 @@
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Base/Axis/VariableBinAxis.h"
-#include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
+#include "Base/Math/Constants.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
 #include "Device/Histo/Histogram1D.h"

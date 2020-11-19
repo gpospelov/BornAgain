@@ -22,6 +22,9 @@
 #include <memory>
 #include <sstream>
 
+namespace mumufit::test
+{
+
 //! Base class for all factories.
 //! @ingroup tools_internal
 
@@ -78,5 +81,7 @@ template <class T> T* create_new()
 {
     return new T();
 }
+
+} // namespace mumufit::test
 
 #endif // BORNAGAIN_FIT_TESTENGINE_IFACTORY_H

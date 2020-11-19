@@ -10,12 +10,12 @@ TEST_F(FitObjectiveTest, twoDatasets)
 {
     // creating two simulation builders
     FittingTestHelper helper1(2, 3);
-    simulation_builder_t builder1 = [&](const Fit::Parameters& pars) {
+    simulation_builder_t builder1 = [&](const mumufit::Parameters& pars) {
         return helper1.createSimulation(pars);
     };
 
     FittingTestHelper helper2(3, 4);
-    simulation_builder_t builder2 = [&](const Fit::Parameters& pars) {
+    simulation_builder_t builder2 = [&](const mumufit::Parameters& pars) {
         return helper2.createSimulation(pars);
     };
 
@@ -31,7 +31,7 @@ TEST_F(FitObjectiveTest, twoDatasets)
     objective.addSimulationAndData(builder2, *data2, nullptr);
 
     // running simulation once
-    Fit::Parameters params;
+    mumufit::Parameters params;
     objective.evaluate(params);
 
     // number of fit elements should be the sum of two dataset sizes

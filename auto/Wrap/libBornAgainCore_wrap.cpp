@@ -3109,57 +3109,57 @@ namespace Swig {
 #define SWIGTYPE_p_DistributionHandler swig_types[9]
 #define SWIGTYPE_p_FitObjective swig_types[10]
 #define SWIGTYPE_p_FitOptions swig_types[11]
-#define SWIGTYPE_p_Fit__MinimizerResult swig_types[12]
-#define SWIGTYPE_p_Fit__Parameters swig_types[13]
-#define SWIGTYPE_p_GISASSimulation swig_types[14]
-#define SWIGTYPE_p_IAxis swig_types[15]
-#define SWIGTYPE_p_IBackground swig_types[16]
-#define SWIGTYPE_p_IBornFF swig_types[17]
-#define SWIGTYPE_p_IChiSquaredModule swig_types[18]
-#define SWIGTYPE_p_ICloneable swig_types[19]
-#define SWIGTYPE_p_IDetector2D swig_types[20]
-#define SWIGTYPE_p_IDistribution1D swig_types[21]
-#define SWIGTYPE_p_IFactoryT_std__string_ISimulation_t swig_types[22]
-#define SWIGTYPE_p_IFootprintFactor swig_types[23]
-#define SWIGTYPE_p_IFormFactor swig_types[24]
-#define SWIGTYPE_p_INode swig_types[25]
-#define SWIGTYPE_p_INodeVisitor swig_types[26]
-#define SWIGTYPE_p_IObservable swig_types[27]
-#define SWIGTYPE_p_IObserver swig_types[28]
-#define SWIGTYPE_p_IParameterized swig_types[29]
-#define SWIGTYPE_p_IResolutionFunction2D swig_types[30]
-#define SWIGTYPE_p_ISample swig_types[31]
-#define SWIGTYPE_p_IShape2D swig_types[32]
-#define SWIGTYPE_p_ISimulation swig_types[33]
-#define SWIGTYPE_p_ISimulation2D swig_types[34]
-#define SWIGTYPE_p_ISpecularScan swig_types[35]
-#define SWIGTYPE_p_Instrument swig_types[36]
-#define SWIGTYPE_p_IterationInfo swig_types[37]
-#define SWIGTYPE_p_MultiLayer swig_types[38]
-#define SWIGTYPE_p_OffSpecSimulation swig_types[39]
-#define SWIGTYPE_p_OutputDataT_double_t swig_types[40]
-#define SWIGTYPE_p_ParameterDistribution swig_types[41]
-#define SWIGTYPE_p_ParameterPool swig_types[42]
-#define SWIGTYPE_p_PoissonNoiseBackground swig_types[43]
-#define SWIGTYPE_p_ProgressHandler__Callback_t swig_types[44]
-#define SWIGTYPE_p_PyBuilderCallback swig_types[45]
-#define SWIGTYPE_p_PyObserverCallback swig_types[46]
-#define SWIGTYPE_p_QSpecScan swig_types[47]
-#define SWIGTYPE_p_RangedDistribution swig_types[48]
-#define SWIGTYPE_p_RealLimits swig_types[49]
-#define SWIGTYPE_p_ScanResolution swig_types[50]
-#define SWIGTYPE_p_SimulationFactory swig_types[51]
-#define SWIGTYPE_p_SimulationOptions swig_types[52]
-#define SWIGTYPE_p_SimulationResult swig_types[53]
-#define SWIGTYPE_p_SpecularSimulation swig_types[54]
-#define SWIGTYPE_p_allocator_type swig_types[55]
-#define SWIGTYPE_p_char swig_types[56]
-#define SWIGTYPE_p_difference_type swig_types[57]
-#define SWIGTYPE_p_first_type swig_types[58]
-#define SWIGTYPE_p_int swig_types[59]
-#define SWIGTYPE_p_key_type swig_types[60]
-#define SWIGTYPE_p_long_long swig_types[61]
-#define SWIGTYPE_p_mapped_type swig_types[62]
+#define SWIGTYPE_p_GISASSimulation swig_types[12]
+#define SWIGTYPE_p_IAxis swig_types[13]
+#define SWIGTYPE_p_IBackground swig_types[14]
+#define SWIGTYPE_p_IBornFF swig_types[15]
+#define SWIGTYPE_p_IChiSquaredModule swig_types[16]
+#define SWIGTYPE_p_ICloneable swig_types[17]
+#define SWIGTYPE_p_IDetector2D swig_types[18]
+#define SWIGTYPE_p_IDistribution1D swig_types[19]
+#define SWIGTYPE_p_IFactoryT_std__string_ISimulation_t swig_types[20]
+#define SWIGTYPE_p_IFootprintFactor swig_types[21]
+#define SWIGTYPE_p_IFormFactor swig_types[22]
+#define SWIGTYPE_p_INode swig_types[23]
+#define SWIGTYPE_p_INodeVisitor swig_types[24]
+#define SWIGTYPE_p_IObservable swig_types[25]
+#define SWIGTYPE_p_IObserver swig_types[26]
+#define SWIGTYPE_p_IParameterized swig_types[27]
+#define SWIGTYPE_p_IResolutionFunction2D swig_types[28]
+#define SWIGTYPE_p_ISample swig_types[29]
+#define SWIGTYPE_p_IShape2D swig_types[30]
+#define SWIGTYPE_p_ISimulation swig_types[31]
+#define SWIGTYPE_p_ISimulation2D swig_types[32]
+#define SWIGTYPE_p_ISpecularScan swig_types[33]
+#define SWIGTYPE_p_Instrument swig_types[34]
+#define SWIGTYPE_p_IterationInfo swig_types[35]
+#define SWIGTYPE_p_MultiLayer swig_types[36]
+#define SWIGTYPE_p_OffSpecSimulation swig_types[37]
+#define SWIGTYPE_p_OutputDataT_double_t swig_types[38]
+#define SWIGTYPE_p_ParameterDistribution swig_types[39]
+#define SWIGTYPE_p_ParameterPool swig_types[40]
+#define SWIGTYPE_p_PoissonNoiseBackground swig_types[41]
+#define SWIGTYPE_p_ProgressHandler__Callback_t swig_types[42]
+#define SWIGTYPE_p_PyBuilderCallback swig_types[43]
+#define SWIGTYPE_p_PyObserverCallback swig_types[44]
+#define SWIGTYPE_p_QSpecScan swig_types[45]
+#define SWIGTYPE_p_RangedDistribution swig_types[46]
+#define SWIGTYPE_p_RealLimits swig_types[47]
+#define SWIGTYPE_p_ScanResolution swig_types[48]
+#define SWIGTYPE_p_SimulationFactory swig_types[49]
+#define SWIGTYPE_p_SimulationOptions swig_types[50]
+#define SWIGTYPE_p_SimulationResult swig_types[51]
+#define SWIGTYPE_p_SpecularSimulation swig_types[52]
+#define SWIGTYPE_p_allocator_type swig_types[53]
+#define SWIGTYPE_p_char swig_types[54]
+#define SWIGTYPE_p_difference_type swig_types[55]
+#define SWIGTYPE_p_first_type swig_types[56]
+#define SWIGTYPE_p_int swig_types[57]
+#define SWIGTYPE_p_key_type swig_types[58]
+#define SWIGTYPE_p_long_long swig_types[59]
+#define SWIGTYPE_p_mapped_type swig_types[60]
+#define SWIGTYPE_p_mumufit__MinimizerResult swig_types[61]
+#define SWIGTYPE_p_mumufit__Parameters swig_types[62]
 #define SWIGTYPE_p_observer_t swig_types[63]
 #define SWIGTYPE_p_p_PyObject swig_types[64]
 #define SWIGTYPE_p_second_type swig_types[65]
@@ -7305,11 +7305,11 @@ SwigDirector_FitObjective::SwigDirector_FitObjective(PyObject *self): FitObjecti
 SwigDirector_FitObjective::~SwigDirector_FitObjective() {
 }
 
-double SwigDirector_FitObjective::evaluate(Fit::Parameters const &params) {
+double SwigDirector_FitObjective::evaluate(mumufit::Parameters const &params) {
   double c_result = SwigValueInit< double >() ;
   
   swig::SwigVar_PyObject obj0;
-  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&params), SWIGTYPE_p_Fit__Parameters,  0 );
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&params), SWIGTYPE_p_mumufit__Parameters,  0 );
   if (!swig_get_self()) {
     Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitObjective.__init__.");
   }
@@ -7344,10 +7344,10 @@ double SwigDirector_FitObjective::evaluate(Fit::Parameters const &params) {
 }
 
 
-std::vector< double, std::allocator< double > > SwigDirector_FitObjective::evaluate_residuals(Fit::Parameters const &params) {
+std::vector< double, std::allocator< double > > SwigDirector_FitObjective::evaluate_residuals(mumufit::Parameters const &params) {
   std::vector< double,std::allocator< double > > c_result;
   swig::SwigVar_PyObject obj0;
-  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&params), SWIGTYPE_p_Fit__Parameters,  0 );
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(&params), SWIGTYPE_p_mumufit__Parameters,  0 );
   if (!swig_get_self()) {
     Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call FitObjective.__init__.");
   }
@@ -7393,14 +7393,14 @@ SwigDirector_PyBuilderCallback::SwigDirector_PyBuilderCallback(PyObject *self): 
 SwigDirector_PyBuilderCallback::~SwigDirector_PyBuilderCallback() {
 }
 
-ISimulation *SwigDirector_PyBuilderCallback::build_simulation(Fit::Parameters arg0) {
+ISimulation *SwigDirector_PyBuilderCallback::build_simulation(mumufit::Parameters arg0) {
   ISimulation *c_result = 0 ;
   void *swig_argp ;
   int swig_res ;
   swig_owntype own ;
   
   swig::SwigVar_PyObject obj0;
-  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(new Fit::Parameters((const Fit::Parameters &)arg0)), SWIGTYPE_p_Fit__Parameters, SWIG_POINTER_OWN |  0 );
+  obj0 = SWIG_NewPointerObj(SWIG_as_voidptr(new mumufit::Parameters((const mumufit::Parameters &)arg0)), SWIGTYPE_p_mumufit__Parameters, SWIG_POINTER_OWN |  0 );
   if (!swig_get_self()) {
     Swig::DirectorException::raise("'self' uninitialized, maybe you forgot to call PyBuilderCallback.__init__.");
   }
@@ -35136,7 +35136,7 @@ fail:
 SWIGINTERN PyObject *_wrap_FitObjective_evaluate_cpp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitObjective *arg1 = (FitObjective *) 0 ;
-  Fit::Parameters *arg2 = 0 ;
+  mumufit::Parameters *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -35152,21 +35152,21 @@ SWIGINTERN PyObject *_wrap_FitObjective_evaluate_cpp(PyObject *SWIGUNUSEDPARM(se
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitObjective_evaluate_cpp" "', argument " "1"" of type '" "FitObjective *""'"); 
   }
   arg1 = reinterpret_cast< FitObjective * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Fit__Parameters,  0  | 0);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitObjective_evaluate_cpp" "', argument " "2"" of type '" "Fit::Parameters const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitObjective_evaluate_cpp" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitObjective_evaluate_cpp" "', argument " "2"" of type '" "Fit::Parameters const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitObjective_evaluate_cpp" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
   }
-  arg2 = reinterpret_cast< Fit::Parameters * >(argp2);
+  arg2 = reinterpret_cast< mumufit::Parameters * >(argp2);
   director = SWIG_DIRECTOR_CAST(arg1);
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
     if (upcall) {
-      result = (double)(arg1)->FitObjective::evaluate((Fit::Parameters const &)*arg2);
+      result = (double)(arg1)->FitObjective::evaluate((mumufit::Parameters const &)*arg2);
     } else {
-      result = (double)(arg1)->evaluate((Fit::Parameters const &)*arg2);
+      result = (double)(arg1)->evaluate((mumufit::Parameters const &)*arg2);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -35181,7 +35181,7 @@ fail:
 SWIGINTERN PyObject *_wrap_FitObjective_evaluate_residuals_cpp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitObjective *arg1 = (FitObjective *) 0 ;
-  Fit::Parameters *arg2 = 0 ;
+  mumufit::Parameters *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -35197,21 +35197,21 @@ SWIGINTERN PyObject *_wrap_FitObjective_evaluate_residuals_cpp(PyObject *SWIGUNU
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitObjective_evaluate_residuals_cpp" "', argument " "1"" of type '" "FitObjective *""'"); 
   }
   arg1 = reinterpret_cast< FitObjective * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Fit__Parameters,  0  | 0);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitObjective_evaluate_residuals_cpp" "', argument " "2"" of type '" "Fit::Parameters const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitObjective_evaluate_residuals_cpp" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitObjective_evaluate_residuals_cpp" "', argument " "2"" of type '" "Fit::Parameters const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitObjective_evaluate_residuals_cpp" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
   }
-  arg2 = reinterpret_cast< Fit::Parameters * >(argp2);
+  arg2 = reinterpret_cast< mumufit::Parameters * >(argp2);
   director = SWIG_DIRECTOR_CAST(arg1);
   upcall = (director && (director->swig_get_self()==swig_obj[0]));
   try {
     if (upcall) {
-      result = (arg1)->FitObjective::evaluate_residuals((Fit::Parameters const &)*arg2);
+      result = (arg1)->FitObjective::evaluate_residuals((mumufit::Parameters const &)*arg2);
     } else {
-      result = (arg1)->evaluate_residuals((Fit::Parameters const &)*arg2);
+      result = (arg1)->evaluate_residuals((mumufit::Parameters const &)*arg2);
     }
   } catch (Swig::DirectorException&) {
     SWIG_fail;
@@ -35896,7 +35896,7 @@ SWIGINTERN PyObject *_wrap_FitObjective_minimizerResult(PyObject *SWIGUNUSEDPARM
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  Fit::MinimizerResult result;
+  mumufit::MinimizerResult result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -35906,7 +35906,7 @@ SWIGINTERN PyObject *_wrap_FitObjective_minimizerResult(PyObject *SWIGUNUSEDPARM
   }
   arg1 = reinterpret_cast< FitObjective * >(argp1);
   result = ((FitObjective const *)arg1)->minimizerResult();
-  resultobj = SWIG_NewPointerObj((new Fit::MinimizerResult(static_cast< const Fit::MinimizerResult& >(result))), SWIGTYPE_p_Fit__MinimizerResult, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new mumufit::MinimizerResult(static_cast< const mumufit::MinimizerResult& >(result))), SWIGTYPE_p_mumufit__MinimizerResult, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -35916,7 +35916,7 @@ fail:
 SWIGINTERN PyObject *_wrap_FitObjective_finalize_cpp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitObjective *arg1 = (FitObjective *) 0 ;
-  Fit::MinimizerResult *arg2 = 0 ;
+  mumufit::MinimizerResult *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -35929,15 +35929,15 @@ SWIGINTERN PyObject *_wrap_FitObjective_finalize_cpp(PyObject *SWIGUNUSEDPARM(se
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitObjective_finalize_cpp" "', argument " "1"" of type '" "FitObjective *""'"); 
   }
   arg1 = reinterpret_cast< FitObjective * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Fit__MinimizerResult,  0  | 0);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__MinimizerResult,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitObjective_finalize_cpp" "', argument " "2"" of type '" "Fit::MinimizerResult const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitObjective_finalize_cpp" "', argument " "2"" of type '" "mumufit::MinimizerResult const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitObjective_finalize_cpp" "', argument " "2"" of type '" "Fit::MinimizerResult const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitObjective_finalize_cpp" "', argument " "2"" of type '" "mumufit::MinimizerResult const &""'"); 
   }
-  arg2 = reinterpret_cast< Fit::MinimizerResult * >(argp2);
-  (arg1)->finalize((Fit::MinimizerResult const &)*arg2);
+  arg2 = reinterpret_cast< mumufit::MinimizerResult * >(argp2);
+  (arg1)->finalize((mumufit::MinimizerResult const &)*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -35971,7 +35971,7 @@ fail:
 SWIGINTERN PyObject *_wrap_FitObjective_run_simulations(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FitObjective *arg1 = (FitObjective *) 0 ;
-  Fit::Parameters *arg2 = 0 ;
+  mumufit::Parameters *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -35984,15 +35984,15 @@ SWIGINTERN PyObject *_wrap_FitObjective_run_simulations(PyObject *SWIGUNUSEDPARM
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitObjective_run_simulations" "', argument " "1"" of type '" "FitObjective *""'"); 
   }
   arg1 = reinterpret_cast< FitObjective * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Fit__Parameters,  0  | 0);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitObjective_run_simulations" "', argument " "2"" of type '" "Fit::Parameters const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FitObjective_run_simulations" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitObjective_run_simulations" "', argument " "2"" of type '" "Fit::Parameters const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FitObjective_run_simulations" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
   }
-  arg2 = reinterpret_cast< Fit::Parameters * >(argp2);
-  (arg1)->run_simulations((Fit::Parameters const &)*arg2);
+  arg2 = reinterpret_cast< mumufit::Parameters * >(argp2);
+  (arg1)->run_simulations((mumufit::Parameters const &)*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -37372,7 +37372,7 @@ fail:
 SWIGINTERN PyObject *_wrap_IterationInfo_update(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IterationInfo *arg1 = (IterationInfo *) 0 ;
-  Fit::Parameters *arg2 = 0 ;
+  mumufit::Parameters *arg2 = 0 ;
   double arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -37388,20 +37388,20 @@ SWIGINTERN PyObject *_wrap_IterationInfo_update(PyObject *SWIGUNUSEDPARM(self), 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IterationInfo_update" "', argument " "1"" of type '" "IterationInfo *""'"); 
   }
   arg1 = reinterpret_cast< IterationInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Fit__Parameters,  0  | 0);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IterationInfo_update" "', argument " "2"" of type '" "Fit::Parameters const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IterationInfo_update" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IterationInfo_update" "', argument " "2"" of type '" "Fit::Parameters const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IterationInfo_update" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
   }
-  arg2 = reinterpret_cast< Fit::Parameters * >(argp2);
+  arg2 = reinterpret_cast< mumufit::Parameters * >(argp2);
   ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IterationInfo_update" "', argument " "3"" of type '" "double""'");
   } 
   arg3 = static_cast< double >(val3);
-  (arg1)->update((Fit::Parameters const &)*arg2,arg3);
+  (arg1)->update((mumufit::Parameters const &)*arg2,arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -37461,7 +37461,7 @@ SWIGINTERN PyObject *_wrap_IterationInfo_parameters(PyObject *SWIGUNUSEDPARM(sel
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  Fit::Parameters result;
+  mumufit::Parameters result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -37471,7 +37471,7 @@ SWIGINTERN PyObject *_wrap_IterationInfo_parameters(PyObject *SWIGUNUSEDPARM(sel
   }
   arg1 = reinterpret_cast< IterationInfo * >(argp1);
   result = ((IterationInfo const *)arg1)->parameters();
-  resultobj = SWIG_NewPointerObj((new Fit::Parameters(static_cast< const Fit::Parameters& >(result))), SWIGTYPE_p_Fit__Parameters, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new mumufit::Parameters(static_cast< const mumufit::Parameters& >(result))), SWIGTYPE_p_mumufit__Parameters, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -37582,7 +37582,7 @@ fail:
 SWIGINTERN PyObject *_wrap_PyBuilderCallback_build_simulation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   PyBuilderCallback *arg1 = (PyBuilderCallback *) 0 ;
-  Fit::Parameters arg2 ;
+  mumufit::Parameters arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
@@ -37599,14 +37599,14 @@ SWIGINTERN PyObject *_wrap_PyBuilderCallback_build_simulation(PyObject *SWIGUNUS
   }
   arg1 = reinterpret_cast< PyBuilderCallback * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Fit__Parameters,  0  | 0);
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "PyBuilderCallback_build_simulation" "', argument " "2"" of type '" "Fit::Parameters""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "PyBuilderCallback_build_simulation" "', argument " "2"" of type '" "mumufit::Parameters""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PyBuilderCallback_build_simulation" "', argument " "2"" of type '" "Fit::Parameters""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PyBuilderCallback_build_simulation" "', argument " "2"" of type '" "mumufit::Parameters""'");
     } else {
-      Fit::Parameters * temp = reinterpret_cast< Fit::Parameters * >(argp2);
+      mumufit::Parameters * temp = reinterpret_cast< mumufit::Parameters * >(argp2);
       arg2 = *temp;
       if (SWIG_IsNewObj(res2)) delete temp;
     }
@@ -43522,13 +43522,13 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "FitObjective_evaluate_cpp", _wrap_FitObjective_evaluate_cpp, METH_VARARGS, "\n"
-		"FitObjective_evaluate_cpp(FitObjective self, Fit::Parameters const & params) -> double\n"
-		"double FitObjective::evaluate(const Fit::Parameters &params)\n"
+		"FitObjective_evaluate_cpp(FitObjective self, mumufit::Parameters const & params) -> double\n"
+		"double FitObjective::evaluate(const mumufit::Parameters &params)\n"
 		"\n"
 		""},
 	 { "FitObjective_evaluate_residuals_cpp", _wrap_FitObjective_evaluate_residuals_cpp, METH_VARARGS, "\n"
-		"FitObjective_evaluate_residuals_cpp(FitObjective self, Fit::Parameters const & params) -> vdouble1d_t\n"
-		"std::vector< double > FitObjective::evaluate_residuals(const Fit::Parameters &params)\n"
+		"FitObjective_evaluate_residuals_cpp(FitObjective self, mumufit::Parameters const & params) -> vdouble1d_t\n"
+		"std::vector< double > FitObjective::evaluate_residuals(const mumufit::Parameters &params)\n"
 		"\n"
 		""},
 	 { "FitObjective_numberOfFitElements", _wrap_FitObjective_numberOfFitElements, METH_O, "\n"
@@ -43617,13 +43617,13 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "FitObjective_minimizerResult", _wrap_FitObjective_minimizerResult, METH_O, "\n"
-		"FitObjective_minimizerResult(FitObjective self) -> Fit::MinimizerResult\n"
-		"Fit::MinimizerResult FitObjective::minimizerResult() const\n"
+		"FitObjective_minimizerResult(FitObjective self) -> mumufit::MinimizerResult\n"
+		"mumufit::MinimizerResult FitObjective::minimizerResult() const\n"
 		"\n"
 		""},
 	 { "FitObjective_finalize_cpp", _wrap_FitObjective_finalize_cpp, METH_VARARGS, "\n"
-		"FitObjective_finalize_cpp(FitObjective self, Fit::MinimizerResult const & result)\n"
-		"void FitObjective::finalize(const Fit::MinimizerResult &result)\n"
+		"FitObjective_finalize_cpp(FitObjective self, mumufit::MinimizerResult const & result)\n"
+		"void FitObjective::finalize(const mumufit::MinimizerResult &result)\n"
 		"\n"
 		"Should be explicitely called on last iteration to notify all observers. \n"
 		"\n"
@@ -43634,8 +43634,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "FitObjective_run_simulations", _wrap_FitObjective_run_simulations, METH_VARARGS, "\n"
-		"FitObjective_run_simulations(FitObjective self, Fit::Parameters const & params)\n"
-		"void FitObjective::run_simulations(const Fit::Parameters &params)\n"
+		"FitObjective_run_simulations(FitObjective self, mumufit::Parameters const & params)\n"
+		"void FitObjective::run_simulations(const mumufit::Parameters &params)\n"
 		"\n"
 		""},
 	 { "FitObjective_setChiSquaredModule", _wrap_FitObjective_setChiSquaredModule, METH_VARARGS, "\n"
@@ -43754,8 +43754,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "IterationInfo_update", _wrap_IterationInfo_update, METH_VARARGS, "\n"
-		"IterationInfo_update(IterationInfo self, Fit::Parameters const & params, double chi2)\n"
-		"void IterationInfo::update(const Fit::Parameters &params, double chi2)\n"
+		"IterationInfo_update(IterationInfo self, mumufit::Parameters const & params, double chi2)\n"
+		"void IterationInfo::update(const mumufit::Parameters &params, double chi2)\n"
 		"\n"
 		""},
 	 { "IterationInfo_iterationCount", _wrap_IterationInfo_iterationCount, METH_O, "\n"
@@ -43771,8 +43771,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "IterationInfo_parameters", _wrap_IterationInfo_parameters, METH_O, "\n"
-		"IterationInfo_parameters(IterationInfo self) -> Fit::Parameters\n"
-		"Fit::Parameters IterationInfo::parameters() const\n"
+		"IterationInfo_parameters(IterationInfo self) -> mumufit::Parameters\n"
+		"mumufit::Parameters IterationInfo::parameters() const\n"
 		"\n"
 		""},
 	 { "IterationInfo_parameterMap", _wrap_IterationInfo_parameterMap, METH_O, "\n"
@@ -43796,8 +43796,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "PyBuilderCallback_build_simulation", _wrap_PyBuilderCallback_build_simulation, METH_VARARGS, "\n"
-		"PyBuilderCallback_build_simulation(PyBuilderCallback self, Fit::Parameters arg0) -> ISimulation\n"
-		"ISimulation * PyBuilderCallback::build_simulation(Fit::Parameters)\n"
+		"PyBuilderCallback_build_simulation(PyBuilderCallback self, mumufit::Parameters arg0) -> ISimulation\n"
+		"ISimulation * PyBuilderCallback::build_simulation(mumufit::Parameters)\n"
 		"\n"
 		""},
 	 { "disown_PyBuilderCallback", _wrap_disown_PyBuilderCallback, METH_O, NULL},
@@ -44688,8 +44688,6 @@ static swig_type_info _swigt__p_DepthProbeSimulation = {"_p_DepthProbeSimulation
 static swig_type_info _swigt__p_DistributionHandler = {"_p_DistributionHandler", "DistributionHandler *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FitObjective = {"_p_FitObjective", "FitObjective *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FitOptions = {"_p_FitOptions", "FitOptions *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Fit__MinimizerResult = {"_p_Fit__MinimizerResult", "Fit::MinimizerResult *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Fit__Parameters = {"_p_Fit__Parameters", "Fit::Parameters *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_GISASSimulation = {"_p_GISASSimulation", "GISASSimulation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IAxis = {"_p_IAxis", "IAxis *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IBackground = {"_p_IBackground", "IBackground *", 0, 0, (void*)0, 0};
@@ -44739,6 +44737,8 @@ static swig_type_info _swigt__p_int = {"_p_int", "intptr_t *|int *|int_least32_t
 static swig_type_info _swigt__p_key_type = {"_p_key_type", "key_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_long_long = {"_p_long_long", "int_least64_t *|int_fast64_t *|int64_t *|long long *|intmax_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_mapped_type = {"_p_mapped_type", "mapped_type *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_mumufit__MinimizerResult = {"_p_mumufit__MinimizerResult", "mumufit::MinimizerResult *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_mumufit__Parameters = {"_p_mumufit__Parameters", "mumufit::Parameters *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_observer_t = {"_p_observer_t", "observer_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_p_PyObject = {"_p_p_PyObject", "PyObject **", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *", 0, 0, (void*)0, 0};
@@ -44800,8 +44800,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_DistributionHandler,
   &_swigt__p_FitObjective,
   &_swigt__p_FitOptions,
-  &_swigt__p_Fit__MinimizerResult,
-  &_swigt__p_Fit__Parameters,
   &_swigt__p_GISASSimulation,
   &_swigt__p_IAxis,
   &_swigt__p_IBackground,
@@ -44851,6 +44849,8 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_key_type,
   &_swigt__p_long_long,
   &_swigt__p_mapped_type,
+  &_swigt__p_mumufit__MinimizerResult,
+  &_swigt__p_mumufit__Parameters,
   &_swigt__p_observer_t,
   &_swigt__p_p_PyObject,
   &_swigt__p_second_type,
@@ -44912,8 +44912,6 @@ static swig_cast_info _swigc__p_DepthProbeSimulation[] = {  {&_swigt__p_DepthPro
 static swig_cast_info _swigc__p_DistributionHandler[] = {  {&_swigt__p_DistributionHandler, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FitObjective[] = {  {&_swigt__p_FitObjective, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FitOptions[] = {  {&_swigt__p_FitOptions, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Fit__MinimizerResult[] = {  {&_swigt__p_Fit__MinimizerResult, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Fit__Parameters[] = {  {&_swigt__p_Fit__Parameters, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_GISASSimulation[] = {  {&_swigt__p_GISASSimulation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IAxis[] = {  {&_swigt__p_IAxis, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IBackground[] = {  {&_swigt__p_IBackground, 0, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IBackground, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IBackground, 0, 0},{0, 0, 0, 0}};
@@ -44963,6 +44961,8 @@ static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0
 static swig_cast_info _swigc__p_key_type[] = {  {&_swigt__p_key_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_long_long[] = {  {&_swigt__p_long_long, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_mapped_type[] = {  {&_swigt__p_mapped_type, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_mumufit__MinimizerResult[] = {  {&_swigt__p_mumufit__MinimizerResult, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_mumufit__Parameters[] = {  {&_swigt__p_mumufit__Parameters, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_observer_t[] = {  {&_swigt__p_observer_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_p_PyObject[] = {  {&_swigt__p_p_PyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -45024,8 +45024,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_DistributionHandler,
   _swigc__p_FitObjective,
   _swigc__p_FitOptions,
-  _swigc__p_Fit__MinimizerResult,
-  _swigc__p_Fit__Parameters,
   _swigc__p_GISASSimulation,
   _swigc__p_IAxis,
   _swigc__p_IBackground,
@@ -45075,6 +45073,8 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_key_type,
   _swigc__p_long_long,
   _swigc__p_mapped_type,
+  _swigc__p_mumufit__MinimizerResult,
+  _swigc__p_mumufit__Parameters,
   _swigc__p_observer_t,
   _swigc__p_p_PyObject,
   _swigc__p_second_type,

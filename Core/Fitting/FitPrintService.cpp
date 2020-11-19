@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Core/Fitting/FitPrintService.h"
+#include "Base/Utils/StringUtils.h"
 #include "Core/Fitting/FitObjective.h"
-#include "Fit/Tools/StringUtils.h"
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -22,7 +22,7 @@
 namespace
 {
 
-size_t length_of_longest_name(const Fit::Parameters& params)
+size_t length_of_longest_name(const mumufit::Parameters& params)
 {
     size_t result(0);
     for (const auto& par : params) {

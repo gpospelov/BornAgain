@@ -16,7 +16,7 @@
 #include "Fit/Kernel/Kernel.h"
 #include "Fit/Kernel/PyCallback.h"
 
-using namespace Fit;
+using namespace mumufit;
 
 Minimizer::Minimizer() : m_kernel(new Kernel) {}
 

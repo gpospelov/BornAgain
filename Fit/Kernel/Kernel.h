@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_FIT_KERNEL_KERNEL_H
 #define BORNAGAIN_FIT_KERNEL_KERNEL_H
 
-#include "Fit/Kernel/KernelTypes.h"
-#include "Fit/Kernel/MinimizerResult.h"
+#include "Fit/Minimizer/MinimizerResult.h"
+#include "Fit/Minimizer/Types.h"
 #include "Fit/Tools/WallclockTimer.h"
 #include <functional>
 #include <memory>
@@ -24,7 +24,7 @@
 
 class IMinimizer;
 
-namespace Fit
+namespace mumufit
 {
 
 //! A main class to run fitting.
@@ -52,6 +52,6 @@ private:
     WallclockTimer m_timer;
 };
 
-} // namespace Fit
+} // namespace mumufit
 
 #endif // BORNAGAIN_FIT_KERNEL_KERNEL_H

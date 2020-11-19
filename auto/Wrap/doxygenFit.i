@@ -261,61 +261,61 @@ Returns string representation of current minimizer status.
 ";
 
 
-// File: classIFactory.xml
-%feature("docstring") IFactory "
+// File: classmumufit_1_1test_1_1IFactory.xml
+%feature("docstring") mumufit::test::IFactory "
 
 Base class for all factories.
 
 C++ includes: IFactory.h
 ";
 
-%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
+%feature("docstring")  mumufit::test::IFactory::createItem "AbstractProduct* mumufit::test::IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
 
 Creates object by calling creation function corresponded to given identifier. 
 ";
 
-%feature("docstring")  IFactory::createItemPtr "std::unique_ptr<AbstractProduct> IFactory< Key, AbstractProduct >::createItemPtr(const Key &item_key) const
+%feature("docstring")  mumufit::test::IFactory::createItemPtr "std::unique_ptr<AbstractProduct> mumufit::test::IFactory< Key, AbstractProduct >::createItemPtr(const Key &item_key) const
 ";
 
-%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
+%feature("docstring")  mumufit::test::IFactory::registerItem "bool mumufit::test::IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
 
 Registers object's creation function. 
 ";
 
-%feature("docstring")  IFactory::contains "bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
+%feature("docstring")  mumufit::test::IFactory::contains "bool mumufit::test::IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
 ";
 
-%feature("docstring")  IFactory::size "size_t IFactory< Key, AbstractProduct >::size() const
+%feature("docstring")  mumufit::test::IFactory::size "size_t mumufit::test::IFactory< Key, AbstractProduct >::size() const
 
 Returns number of registered objects. 
 ";
 
 
-// File: classFit_1_1IFunctionAdapter.xml
-%feature("docstring") Fit::IFunctionAdapter "
+// File: classmumufit_1_1IFunctionAdapter.xml
+%feature("docstring") mumufit::IFunctionAdapter "
 
 Base class for objective function adapters, which converts user functions to minimize into the function which minimization machinery expects.
 
 C++ includes: IFunctionAdapter.h
 ";
 
-%feature("docstring")  Fit::IFunctionAdapter::IFunctionAdapter "IFunctionAdapter::IFunctionAdapter()
+%feature("docstring")  mumufit::IFunctionAdapter::IFunctionAdapter "IFunctionAdapter::IFunctionAdapter()
 ";
 
-%feature("docstring")  Fit::IFunctionAdapter::~IFunctionAdapter "IFunctionAdapter::~IFunctionAdapter()
+%feature("docstring")  mumufit::IFunctionAdapter::~IFunctionAdapter "IFunctionAdapter::~IFunctionAdapter()
 ";
 
-%feature("docstring")  Fit::IFunctionAdapter::numberOfCalls "int IFunctionAdapter::numberOfCalls() const
+%feature("docstring")  mumufit::IFunctionAdapter::numberOfCalls "int IFunctionAdapter::numberOfCalls() const
 ";
 
-%feature("docstring")  Fit::IFunctionAdapter::numberOfGradientCalls "int IFunctionAdapter::numberOfGradientCalls() const
+%feature("docstring")  mumufit::IFunctionAdapter::numberOfGradientCalls "int IFunctionAdapter::numberOfGradientCalls() const
 ";
 
 
 // File: classIMinimizer.xml
 %feature("docstring") IMinimizer "
 
-Pure virtual interface for all kind minimizers.
+Abstract base class for all kind minimizers.
 
 C++ includes: IMinimizer.h
 ";
@@ -339,12 +339,12 @@ return name of the minimizer
 return name of the minimization algorithm 
 ";
 
-%feature("docstring")  IMinimizer::minimize_scalar "Fit::MinimizerResult IMinimizer::minimize_scalar(fcn_scalar_t, Fit::Parameters)
+%feature("docstring")  IMinimizer::minimize_scalar "mumufit::MinimizerResult IMinimizer::minimize_scalar(fcn_scalar_t, mumufit::Parameters)
 
 run minimization 
 ";
 
-%feature("docstring")  IMinimizer::minimize_residual "Fit::MinimizerResult IMinimizer::minimize_residual(fcn_residual_t, Fit::Parameters)
+%feature("docstring")  IMinimizer::minimize_residual "mumufit::MinimizerResult IMinimizer::minimize_residual(fcn_residual_t, mumufit::Parameters)
 ";
 
 %feature("docstring")  IMinimizer::clear "virtual void IMinimizer::clear()
@@ -368,62 +368,126 @@ Returns true if minimizer computations are residual-based, false otherwise.
 ";
 
 
-// File: classFit_1_1Kernel.xml
-%feature("docstring") Fit::Kernel "
+// File: classmumufit_1_1Kernel.xml
+%feature("docstring") mumufit::Kernel "
 
 A main class to run fitting.
 
 C++ includes: Kernel.h
 ";
 
-%feature("docstring")  Fit::Kernel::Kernel "Kernel::Kernel()
+%feature("docstring")  mumufit::Kernel::Kernel "Kernel::Kernel()
 ";
 
-%feature("docstring")  Fit::Kernel::~Kernel "Kernel::~Kernel()
+%feature("docstring")  mumufit::Kernel::~Kernel "Kernel::~Kernel()
 ";
 
-%feature("docstring")  Fit::Kernel::setMinimizer "void Kernel::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=\"\", const std::string &options=\"\")
+%feature("docstring")  mumufit::Kernel::setMinimizer "void Kernel::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=\"\", const std::string &options=\"\")
 ";
 
-%feature("docstring")  Fit::Kernel::setMinimizer "void Kernel::setMinimizer(IMinimizer *minimizer)
+%feature("docstring")  mumufit::Kernel::setMinimizer "void Kernel::setMinimizer(IMinimizer *minimizer)
 ";
 
-%feature("docstring")  Fit::Kernel::minimize "MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters &parameters)
+%feature("docstring")  mumufit::Kernel::minimize "MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters &parameters)
 ";
 
-%feature("docstring")  Fit::Kernel::minimize "MinimizerResult Kernel::minimize(fcn_residual_t fcn, const Parameters &parameters)
+%feature("docstring")  mumufit::Kernel::minimize "MinimizerResult Kernel::minimize(fcn_residual_t fcn, const Parameters &parameters)
 ";
 
 
-// File: classFit_1_1Minimizer.xml
-%feature("docstring") Fit::Minimizer "
+// File: classmumufit_1_1Minimizer.xml
+%feature("docstring") mumufit::Minimizer "
 
 A main class to run fitting.
 
 C++ includes: Minimizer.h
 ";
 
-%feature("docstring")  Fit::Minimizer::Minimizer "Minimizer::Minimizer()
+%feature("docstring")  mumufit::Minimizer::Minimizer "Minimizer::Minimizer()
 ";
 
-%feature("docstring")  Fit::Minimizer::~Minimizer "Minimizer::~Minimizer()
+%feature("docstring")  mumufit::Minimizer::~Minimizer "Minimizer::~Minimizer()
 ";
 
-%feature("docstring")  Fit::Minimizer::setMinimizer "void Minimizer::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=\"\", const std::string &options=\"\")
+%feature("docstring")  mumufit::Minimizer::setMinimizer "void Minimizer::setMinimizer(const std::string &minimizerName, const std::string &algorithmName=\"\", const std::string &options=\"\")
 ";
 
-%feature("docstring")  Fit::Minimizer::setMinimizer "void Minimizer::setMinimizer(IMinimizer *minimizer)
+%feature("docstring")  mumufit::Minimizer::setMinimizer "void Minimizer::setMinimizer(IMinimizer *minimizer)
 ";
 
-%feature("docstring")  Fit::Minimizer::minimize "MinimizerResult Minimizer::minimize(fcn_scalar_t fcn, const Parameters &parameters)
+%feature("docstring")  mumufit::Minimizer::minimize "MinimizerResult Minimizer::minimize(fcn_scalar_t fcn, const Parameters &parameters)
 ";
 
-%feature("docstring")  Fit::Minimizer::minimize "MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters &parameters)
+%feature("docstring")  mumufit::Minimizer::minimize "MinimizerResult Minimizer::minimize(fcn_residual_t fcn, const Parameters &parameters)
 ";
 
-%feature("docstring")  Fit::Minimizer::minimize "MinimizerResult Minimizer::minimize(PyCallback &callback, const Parameters &parameters)
+%feature("docstring")  mumufit::Minimizer::minimize "MinimizerResult Minimizer::minimize(PyCallback &callback, const Parameters &parameters)
 
 Finds minimum of user objective function (to be called from Python). 
+";
+
+
+// File: classMinimizerAdapter.xml
+%feature("docstring") MinimizerAdapter "
+
+Abstract base class that adapts the CERN ROOT minimizer to our  IMinimizer.
+
+C++ includes: MinimizerAdapter.h
+";
+
+%feature("docstring")  MinimizerAdapter::~MinimizerAdapter "MinimizerAdapter::~MinimizerAdapter() override
+";
+
+%feature("docstring")  MinimizerAdapter::minimize_scalar "MinimizerResult MinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, mumufit::Parameters parameters) override
+
+run minimization 
+";
+
+%feature("docstring")  MinimizerAdapter::minimize_residual "MinimizerResult MinimizerAdapter::minimize_residual(fcn_residual_t fcn, mumufit::Parameters parameters) override
+";
+
+%feature("docstring")  MinimizerAdapter::minimizerName "std::string MinimizerAdapter::minimizerName() const override final
+
+Returns name of the minimizer. 
+";
+
+%feature("docstring")  MinimizerAdapter::algorithmName "std::string MinimizerAdapter::algorithmName() const override final
+
+Returns name of the minimization algorithm. 
+";
+
+%feature("docstring")  MinimizerAdapter::setParameters "void MinimizerAdapter::setParameters(const mumufit::Parameters &parameters)
+";
+
+%feature("docstring")  MinimizerAdapter::minValue "double MinimizerAdapter::minValue() const override final
+
+Returns minimum function value. 
+";
+
+%feature("docstring")  MinimizerAdapter::options "MinimizerOptions& MinimizerAdapter::options()
+";
+
+%feature("docstring")  MinimizerAdapter::options "const MinimizerOptions& MinimizerAdapter::options() const
+";
+
+%feature("docstring")  MinimizerAdapter::statusToString "std::string MinimizerAdapter::statusToString() const
+
+Returns string representation of current minimizer status. 
+";
+
+%feature("docstring")  MinimizerAdapter::providesError "bool MinimizerAdapter::providesError() const
+
+Returns true if minimizer provides error and error matrix. 
+";
+
+%feature("docstring")  MinimizerAdapter::statusMap "std::map< std::string, std::string > MinimizerAdapter::statusMap() const
+
+Returns map of string representing different minimizer statuses. 
+";
+
+%feature("docstring")  MinimizerAdapter::setOptions "void MinimizerAdapter::setOptions(const std::string &optionString) override final
+
+Sets option string to the minimizer. 
 ";
 
 
@@ -529,46 +593,46 @@ Set options from their string representation.
 ";
 
 
-// File: classFit_1_1MinimizerResult.xml
-%feature("docstring") Fit::MinimizerResult "
+// File: classmumufit_1_1MinimizerResult.xml
+%feature("docstring") mumufit::MinimizerResult "
 
 Result of minimization round.
 
 C++ includes: MinimizerResult.h
 ";
 
-%feature("docstring")  Fit::MinimizerResult::MinimizerResult "MinimizerResult::MinimizerResult()
+%feature("docstring")  mumufit::MinimizerResult::MinimizerResult "MinimizerResult::MinimizerResult()
 ";
 
-%feature("docstring")  Fit::MinimizerResult::setParameters "void MinimizerResult::setParameters(const Parameters &parameters)
+%feature("docstring")  mumufit::MinimizerResult::setParameters "void MinimizerResult::setParameters(const Parameters &parameters)
 ";
 
-%feature("docstring")  Fit::MinimizerResult::parameters "Parameters MinimizerResult::parameters() const
+%feature("docstring")  mumufit::MinimizerResult::parameters "Parameters MinimizerResult::parameters() const
 ";
 
-%feature("docstring")  Fit::MinimizerResult::setMinValue "void MinimizerResult::setMinValue(double value)
+%feature("docstring")  mumufit::MinimizerResult::setMinValue "void MinimizerResult::setMinValue(double value)
 ";
 
-%feature("docstring")  Fit::MinimizerResult::minValue "double MinimizerResult::minValue() const
+%feature("docstring")  mumufit::MinimizerResult::minValue "double MinimizerResult::minValue() const
 
 Minimum value of objective function found by minimizer. 
 ";
 
-%feature("docstring")  Fit::MinimizerResult::toString "std::string MinimizerResult::toString() const
+%feature("docstring")  mumufit::MinimizerResult::toString "std::string MinimizerResult::toString() const
 
 Returns multi-line string representing minimization results. 
 ";
 
-%feature("docstring")  Fit::MinimizerResult::setReport "void MinimizerResult::setReport(const std::string &value)
+%feature("docstring")  mumufit::MinimizerResult::setReport "void MinimizerResult::setReport(const std::string &value)
 ";
 
-%feature("docstring")  Fit::MinimizerResult::setDuration "void MinimizerResult::setDuration(double value)
+%feature("docstring")  mumufit::MinimizerResult::setDuration "void MinimizerResult::setDuration(double value)
 ";
 
-%feature("docstring")  Fit::MinimizerResult::setNumberOfCalls "void MinimizerResult::setNumberOfCalls(int value)
+%feature("docstring")  mumufit::MinimizerResult::setNumberOfCalls "void MinimizerResult::setNumberOfCalls(int value)
 ";
 
-%feature("docstring")  Fit::MinimizerResult::setNumberOfGradientCalls "void MinimizerResult::setNumberOfGradientCalls(int value)
+%feature("docstring")  mumufit::MinimizerResult::setNumberOfGradientCalls "void MinimizerResult::setNumberOfGradientCalls(int value)
 ";
 
 
@@ -586,13 +650,13 @@ C++ includes: MinimizerTestPlan.h
 %feature("docstring")  MinimizerTestPlan::~MinimizerTestPlan "MinimizerTestPlan::~MinimizerTestPlan()
 ";
 
-%feature("docstring")  MinimizerTestPlan::addParameter "void MinimizerTestPlan::addParameter(const Fit::Parameter &param, double expected_value, double tolerance=0.01)
+%feature("docstring")  MinimizerTestPlan::addParameter "void MinimizerTestPlan::addParameter(const mumufit::Parameter &param, double expected_value, double tolerance=0.01)
 ";
 
 %feature("docstring")  MinimizerTestPlan::name "std::string MinimizerTestPlan::name() const
 ";
 
-%feature("docstring")  MinimizerTestPlan::checkMinimizer "virtual bool MinimizerTestPlan::checkMinimizer(Fit::Minimizer &minimizer)=0
+%feature("docstring")  MinimizerTestPlan::checkMinimizer "virtual bool MinimizerTestPlan::checkMinimizer(mumufit::Minimizer &minimizer)=0
 
 Runs minimization and check minimization result. 
 ";
@@ -721,30 +785,30 @@ Sets the value of option from string. TODO find more elegant way (without if/els
 ";
 
 
-// File: classFit_1_1ObjectiveFunctionAdapter.xml
-%feature("docstring") Fit::ObjectiveFunctionAdapter "
+// File: classmumufit_1_1ObjectiveFunctionAdapter.xml
+%feature("docstring") mumufit::ObjectiveFunctionAdapter "
 
 Converts user objective function to function ROOT expects. Handles time of life of function objects.
 
 C++ includes: ObjectiveFunctionAdapter.h
 ";
 
-%feature("docstring")  Fit::ObjectiveFunctionAdapter::ObjectiveFunctionAdapter "ObjectiveFunctionAdapter::ObjectiveFunctionAdapter()
+%feature("docstring")  mumufit::ObjectiveFunctionAdapter::ObjectiveFunctionAdapter "ObjectiveFunctionAdapter::ObjectiveFunctionAdapter()
 ";
 
-%feature("docstring")  Fit::ObjectiveFunctionAdapter::~ObjectiveFunctionAdapter "ObjectiveFunctionAdapter::~ObjectiveFunctionAdapter()
+%feature("docstring")  mumufit::ObjectiveFunctionAdapter::~ObjectiveFunctionAdapter "ObjectiveFunctionAdapter::~ObjectiveFunctionAdapter()
 ";
 
-%feature("docstring")  Fit::ObjectiveFunctionAdapter::rootObjectiveFunction "const RootScalarFunction * ObjectiveFunctionAdapter::rootObjectiveFunction(fcn_scalar_t fcn, const Parameters &parameters)
+%feature("docstring")  mumufit::ObjectiveFunctionAdapter::rootObjectiveFunction "const RootScalarFunction * ObjectiveFunctionAdapter::rootObjectiveFunction(fcn_scalar_t fcn, const Parameters &parameters)
 ";
 
-%feature("docstring")  Fit::ObjectiveFunctionAdapter::rootResidualFunction "const RootResidualFunction * ObjectiveFunctionAdapter::rootResidualFunction(fcn_residual_t fcn, const Parameters &parameters)
+%feature("docstring")  mumufit::ObjectiveFunctionAdapter::rootResidualFunction "const RootResidualFunction * ObjectiveFunctionAdapter::rootResidualFunction(fcn_residual_t fcn, const Parameters &parameters)
 ";
 
-%feature("docstring")  Fit::ObjectiveFunctionAdapter::numberOfCalls "int ObjectiveFunctionAdapter::numberOfCalls() const
+%feature("docstring")  mumufit::ObjectiveFunctionAdapter::numberOfCalls "int ObjectiveFunctionAdapter::numberOfCalls() const
 ";
 
-%feature("docstring")  Fit::ObjectiveFunctionAdapter::numberOfGradientCalls "int ObjectiveFunctionAdapter::numberOfGradientCalls() const
+%feature("docstring")  mumufit::ObjectiveFunctionAdapter::numberOfGradientCalls "int ObjectiveFunctionAdapter::numberOfGradientCalls() const
 ";
 
 
@@ -800,18 +864,18 @@ Sets the value of option. Option should hold same value type already.
 ";
 
 
-// File: classFit_1_1Parameter.xml
-%feature("docstring") Fit::Parameter "
+// File: classmumufit_1_1Parameter.xml
+%feature("docstring") mumufit::Parameter "
 
 A fittable parameter with value, error, step, and limits.
 
 C++ includes: Parameter.h
 ";
 
-%feature("docstring")  Fit::Parameter::Parameter "Parameter::Parameter()
+%feature("docstring")  mumufit::Parameter::Parameter "Parameter::Parameter()
 ";
 
-%feature("docstring")  Fit::Parameter::Parameter "Parameter::Parameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
+%feature("docstring")  mumufit::Parameter::Parameter "Parameter::Parameter(const std::string &name, double value, const AttLimits &limits=AttLimits::limitless(), double step=0.0)
 
 Fit parameter constructor.
 
@@ -831,28 +895,28 @@ step:
 initial step of fit parameter during the minimization, will be calculated automatically, if zero. 
 ";
 
-%feature("docstring")  Fit::Parameter::name "std::string Parameter::name() const
+%feature("docstring")  mumufit::Parameter::name "std::string Parameter::name() const
 ";
 
-%feature("docstring")  Fit::Parameter::startValue "double Parameter::startValue() const
+%feature("docstring")  mumufit::Parameter::startValue "double Parameter::startValue() const
 ";
 
-%feature("docstring")  Fit::Parameter::limits "AttLimits Parameter::limits() const
+%feature("docstring")  mumufit::Parameter::limits "AttLimits Parameter::limits() const
 ";
 
-%feature("docstring")  Fit::Parameter::value "double Parameter::value() const
+%feature("docstring")  mumufit::Parameter::value "double Parameter::value() const
 ";
 
-%feature("docstring")  Fit::Parameter::setValue "void Parameter::setValue(double value)
+%feature("docstring")  mumufit::Parameter::setValue "void Parameter::setValue(double value)
 ";
 
-%feature("docstring")  Fit::Parameter::step "double Parameter::step() const
+%feature("docstring")  mumufit::Parameter::step "double Parameter::step() const
 ";
 
-%feature("docstring")  Fit::Parameter::error "double Parameter::error() const
+%feature("docstring")  mumufit::Parameter::error "double Parameter::error() const
 ";
 
-%feature("docstring")  Fit::Parameter::setError "void Parameter::setError(double value)
+%feature("docstring")  mumufit::Parameter::setError "void Parameter::setError(double value)
 ";
 
 
@@ -864,10 +928,10 @@ Defines initial settings of single fit parameter and the final value which has t
 C++ includes: ParameterPlan.h
 ";
 
-%feature("docstring")  ParameterPlan::ParameterPlan "ParameterPlan::ParameterPlan(const Fit::Parameter &param, double expected_value, double tolerance=0.01)
+%feature("docstring")  ParameterPlan::ParameterPlan "ParameterPlan::ParameterPlan(const mumufit::Parameter &param, double expected_value, double tolerance=0.01)
 ";
 
-%feature("docstring")  ParameterPlan::fitParameter "Fit::Parameter ParameterPlan::fitParameter() const
+%feature("docstring")  ParameterPlan::fitParameter "mumufit::Parameter ParameterPlan::fitParameter() const
 ";
 
 %feature("docstring")  ParameterPlan::expectedValue "double ParameterPlan::expectedValue() const
@@ -880,54 +944,54 @@ C++ includes: ParameterPlan.h
 ";
 
 
-// File: classFit_1_1Parameters.xml
-%feature("docstring") Fit::Parameters "
+// File: classmumufit_1_1Parameters.xml
+%feature("docstring") mumufit::Parameters "
 
 A collection of fit parameters.
 
 C++ includes: Parameters.h
 ";
 
-%feature("docstring")  Fit::Parameters::Parameters "Fit::Parameters::Parameters()=default
+%feature("docstring")  mumufit::Parameters::Parameters "mumufit::Parameters::Parameters()=default
 ";
 
-%feature("docstring")  Fit::Parameters::add "void Parameters::add(const Parameter &par)
+%feature("docstring")  mumufit::Parameters::add "void Parameters::add(const Parameter &par)
 ";
 
-%feature("docstring")  Fit::Parameters::begin "Parameters::const_iterator Parameters::begin() const
+%feature("docstring")  mumufit::Parameters::begin "Parameters::const_iterator Parameters::begin() const
 ";
 
-%feature("docstring")  Fit::Parameters::end "Parameters::const_iterator Parameters::end() const
+%feature("docstring")  mumufit::Parameters::end "Parameters::const_iterator Parameters::end() const
 ";
 
-%feature("docstring")  Fit::Parameters::begin "Parameters::iterator Parameters::begin()
+%feature("docstring")  mumufit::Parameters::begin "Parameters::iterator Parameters::begin()
 ";
 
-%feature("docstring")  Fit::Parameters::end "Parameters::iterator Parameters::end()
+%feature("docstring")  mumufit::Parameters::end "Parameters::iterator Parameters::end()
 ";
 
-%feature("docstring")  Fit::Parameters::size "size_t Parameters::size() const
+%feature("docstring")  mumufit::Parameters::size "size_t Parameters::size() const
 ";
 
-%feature("docstring")  Fit::Parameters::values "std::vector< double > Parameters::values() const
+%feature("docstring")  mumufit::Parameters::values "std::vector< double > Parameters::values() const
 ";
 
-%feature("docstring")  Fit::Parameters::setValues "void Parameters::setValues(const std::vector< double > &values)
+%feature("docstring")  mumufit::Parameters::setValues "void Parameters::setValues(const std::vector< double > &values)
 ";
 
-%feature("docstring")  Fit::Parameters::errors "std::vector< double > Parameters::errors() const
+%feature("docstring")  mumufit::Parameters::errors "std::vector< double > Parameters::errors() const
 ";
 
-%feature("docstring")  Fit::Parameters::setErrors "void Parameters::setErrors(const std::vector< double > &errors)
+%feature("docstring")  mumufit::Parameters::setErrors "void Parameters::setErrors(const std::vector< double > &errors)
 ";
 
-%feature("docstring")  Fit::Parameters::correlationMatrix "Parameters::corr_matrix_t Parameters::correlationMatrix() const
+%feature("docstring")  mumufit::Parameters::correlationMatrix "Parameters::corr_matrix_t Parameters::correlationMatrix() const
 ";
 
-%feature("docstring")  Fit::Parameters::setCorrelationMatrix "void Parameters::setCorrelationMatrix(const corr_matrix_t &matrix)
+%feature("docstring")  mumufit::Parameters::setCorrelationMatrix "void Parameters::setCorrelationMatrix(const corr_matrix_t &matrix)
 ";
 
-%feature("docstring")  Fit::Parameters::freeParameterCount "size_t Parameters::freeParameterCount() const
+%feature("docstring")  mumufit::Parameters::freeParameterCount "size_t Parameters::freeParameterCount() const
 
 Returns number of free parameters. 
 ";
@@ -950,7 +1014,7 @@ C++ includes: PyCallback.h
 %feature("docstring")  PyCallback::callback_type "PyCallback::CallbackType PyCallback::callback_type() const
 ";
 
-%feature("docstring")  PyCallback::call_scalar "double PyCallback::call_scalar(Fit::Parameters pars)
+%feature("docstring")  PyCallback::call_scalar "double PyCallback::call_scalar(mumufit::Parameters pars)
 
 Call Python callable and returns its result. Intended to be overloaded in Python.
 
@@ -958,12 +1022,12 @@ Parameters:
 -----------
 
 pars: 
- Fit parameters object (intentionally passed by value).
+Fit parameters object (intentionally passed by value).
 
 value of objective function. 
 ";
 
-%feature("docstring")  PyCallback::call_residuals "std::vector< double > PyCallback::call_residuals(Fit::Parameters pars)
+%feature("docstring")  PyCallback::call_residuals "std::vector< double > PyCallback::call_residuals(mumufit::Parameters pars)
 
 Call Python callable and returns its result. Intended to be overloaded in Python.
 
@@ -971,7 +1035,7 @@ Parameters:
 -----------
 
 pars: 
- Fit parameters object (intentionally passed by value).
+Fit parameters object (intentionally passed by value).
 
 vector of residuals 
 ";
@@ -1070,82 +1134,18 @@ returns true if proposed value is in limits range
 ";
 
 
-// File: classFit_1_1ResidualFunctionAdapter.xml
-%feature("docstring") Fit::ResidualFunctionAdapter "
+// File: classmumufit_1_1ResidualFunctionAdapter.xml
+%feature("docstring") mumufit::ResidualFunctionAdapter "
 
 Provides  RootResidualFunction which will be minimizer by ROOT. Converts ROOT calls to the call of fcn_residual_t.
 
 C++ includes: ResidualFunctionAdapter.h
 ";
 
-%feature("docstring")  Fit::ResidualFunctionAdapter::ResidualFunctionAdapter "ResidualFunctionAdapter::ResidualFunctionAdapter(fcn_residual_t func, const Parameters &parameters)
+%feature("docstring")  mumufit::ResidualFunctionAdapter::ResidualFunctionAdapter "ResidualFunctionAdapter::ResidualFunctionAdapter(fcn_residual_t func, const Parameters &parameters)
 ";
 
-%feature("docstring")  Fit::ResidualFunctionAdapter::rootResidualFunction "const RootResidualFunction * ResidualFunctionAdapter::rootResidualFunction()
-";
-
-
-// File: classRootMinimizerAdapter.xml
-%feature("docstring") RootMinimizerAdapter "
-
-Pure virtual interface that adapts the CERN ROOT minimizer to our  IMinimizer.
-
-C++ includes: RootMinimizerAdapter.h
-";
-
-%feature("docstring")  RootMinimizerAdapter::~RootMinimizerAdapter "RootMinimizerAdapter::~RootMinimizerAdapter() override
-";
-
-%feature("docstring")  RootMinimizerAdapter::minimize_scalar "MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override
-
-run minimization 
-";
-
-%feature("docstring")  RootMinimizerAdapter::minimize_residual "MinimizerResult RootMinimizerAdapter::minimize_residual(fcn_residual_t fcn, Fit::Parameters parameters) override
-";
-
-%feature("docstring")  RootMinimizerAdapter::minimizerName "std::string RootMinimizerAdapter::minimizerName() const override final
-
-Returns name of the minimizer. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::algorithmName "std::string RootMinimizerAdapter::algorithmName() const override final
-
-Returns name of the minimization algorithm. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::setParameters "void RootMinimizerAdapter::setParameters(const Fit::Parameters &parameters)
-";
-
-%feature("docstring")  RootMinimizerAdapter::minValue "double RootMinimizerAdapter::minValue() const override final
-
-Returns minimum function value. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::options "MinimizerOptions& RootMinimizerAdapter::options()
-";
-
-%feature("docstring")  RootMinimizerAdapter::options "const MinimizerOptions& RootMinimizerAdapter::options() const
-";
-
-%feature("docstring")  RootMinimizerAdapter::statusToString "std::string RootMinimizerAdapter::statusToString() const
-
-Returns string representation of current minimizer status. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::providesError "bool RootMinimizerAdapter::providesError() const
-
-Returns true if minimizer provides error and error matrix. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::statusMap "std::map< std::string, std::string > RootMinimizerAdapter::statusMap() const
-
-Returns map of string representing different minimizer statuses. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::setOptions "void RootMinimizerAdapter::setOptions(const std::string &optionString) override final
-
-Sets option string to the minimizer. 
+%feature("docstring")  mumufit::ResidualFunctionAdapter::rootResidualFunction "const RootResidualFunction * ResidualFunctionAdapter::rootResidualFunction()
 ";
 
 
@@ -1202,8 +1202,8 @@ C++ includes: RootScalarFunction.h
 ";
 
 
-// File: classFit_1_1ScalarFunctionAdapter.xml
-%feature("docstring") Fit::ScalarFunctionAdapter "
+// File: classmumufit_1_1ScalarFunctionAdapter.xml
+%feature("docstring") mumufit::ScalarFunctionAdapter "
 
 Converts user objective function to chi2 like function which ROOT expects.
 
@@ -1212,10 +1212,10 @@ More precisely, ROOT call to std::function<double(const double*)> will cause the
 C++ includes: ScalarFunctionAdapter.h
 ";
 
-%feature("docstring")  Fit::ScalarFunctionAdapter::ScalarFunctionAdapter "ScalarFunctionAdapter::ScalarFunctionAdapter(fcn_scalar_t func, const Parameters &parameters)
+%feature("docstring")  mumufit::ScalarFunctionAdapter::ScalarFunctionAdapter "ScalarFunctionAdapter::ScalarFunctionAdapter(fcn_scalar_t func, const Parameters &parameters)
 ";
 
-%feature("docstring")  Fit::ScalarFunctionAdapter::rootObjectiveFunction "const RootScalarFunction * ScalarFunctionAdapter::rootObjectiveFunction()
+%feature("docstring")  mumufit::ScalarFunctionAdapter::rootObjectiveFunction "const RootScalarFunction * ScalarFunctionAdapter::rootObjectiveFunction()
 ";
 
 
@@ -1327,7 +1327,7 @@ return name of the minimizer
 return name of the minimization algorithm 
 ";
 
-%feature("docstring")  TestMinimizer::minimize_scalar "MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override
+%feature("docstring")  TestMinimizer::minimize_scalar "MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, mumufit::Parameters parameters) override
 
 run minimization 
 ";
@@ -1366,80 +1366,102 @@ Internal state of a  WallclockTimer object.
 ";
 
 
-// File: namespace_0d11.xml
+// File: namespace_0d0.xml
 
 
-// File: namespace_0d25.xml
+// File: namespace_0d10.xml
 
 
-// File: namespace_0d29.xml
+// File: namespace_0d14.xml
 
 
-// File: namespace_0d31.xml
+// File: namespace_0d16.xml
 
 
-// File: namespace_0d35.xml
+// File: namespace_0d2.xml
 
 
-// File: namespace_0d37.xml
+// File: namespace_0d28.xml
 
 
-// File: namespace_0d4.xml
+// File: namespace_0d42.xml
 
 
-// File: namespace_0d41.xml
+// File: namespace_0d44.xml
 
 
-// File: namespaceFit.xml
+// File: namespace_0d52.xml
 
 
-// File: namespaceMinimizerResultUtils.xml
-%feature("docstring")  MinimizerResultUtils::reportToString "std::string MinimizerResultUtils::reportToString(const RootMinimizerAdapter &minimizer)
+// File: namespace_0d60.xml
+
+
+// File: namespacemumufit.xml
+
+
+// File: namespacemumufit_1_1internal.xml
+%feature("docstring")  mumufit::internal::reportToString "std::string mumufit::internal::reportToString(const MinimizerAdapter &minimizer)
 
 Reports results of minimization in the form of multi-line string. 
 ";
 
-%feature("docstring")  MinimizerResultUtils::reportParameters "std::string MinimizerResultUtils::reportParameters(const Fit::Parameters &parameters)
 
-Reports fit parameters settings and final results. 
+// File: namespacemumufit_1_1stringUtils.xml
+%feature("docstring")  mumufit::stringUtils::matchesPattern "bool mumufit::stringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
+
+Returns true if text matches pattern with wildcards '*' and '?'. 
+";
+
+%feature("docstring")  mumufit::stringUtils::split "std::vector< std::string > mumufit::stringUtils::split(const std::string &text, const std::string &delimeter)
+
+Split string into vector of string using delimeter.
+
+Returns token vector obtained by splitting string at delimiters. 
+";
+
+%feature("docstring")  mumufit::stringUtils::removeSubstring "std::string mumufit::stringUtils::removeSubstring(const std::string &text, const std::string &substr)
+
+Removes multiple occurences of given substring from a string and returns result. 
+";
+
+%feature("docstring")  mumufit::stringUtils::scientific "std::string mumufit::stringUtils::scientific(const T value, int n=10)
+
+Returns scientific string representing given value of any numeric type. 
+";
+
+%feature("docstring")  mumufit::stringUtils::to_lower "std::string mumufit::stringUtils::to_lower(std::string text)
+
+Returns new string which is lower case of text. 
 ";
 
 
-// File: namespaceMinimizerUtils.xml
-%feature("docstring")  MinimizerUtils::toString "std::string MinimizerUtils::toString(const std::vector< std::string > &v, const std::string &delim=\"\")
+// File: namespacemumufit_1_1test.xml
+%feature("docstring")  mumufit::test::create_new "T* mumufit::test::create_new()
+
+Returns new instance of class T.
+
+This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
 ";
 
-%feature("docstring")  MinimizerUtils::gslErrorDescriptionMap "std::map< int, std::string > MinimizerUtils::gslErrorDescriptionMap()
+
+// File: namespacemumufit_1_1utils.xml
+%feature("docstring")  mumufit::utils::toString "std::string mumufit::utils::toString(const std::vector< std::string > &v, const std::string &delim=\"\")
+";
+
+%feature("docstring")  mumufit::utils::gslErrorDescriptionMap "std::map< int, std::string > mumufit::utils::gslErrorDescriptionMap()
 
 Returns translation of GSL error code to string. 
 ";
 
-%feature("docstring")  MinimizerUtils::gslErrorDescription "std::string MinimizerUtils::gslErrorDescription(int errorCode)
+%feature("docstring")  mumufit::utils::gslErrorDescription "std::string mumufit::utils::gslErrorDescription(int errorCode)
 ";
 
-%feature("docstring")  MinimizerUtils::numbersDiffer "bool MinimizerUtils::numbersDiffer(double a, double b, double tol)
+%feature("docstring")  mumufit::utils::numbersDiffer "bool mumufit::utils::numbersDiffer(double a, double b, double tol)
 ";
 
-%feature("docstring")  MinimizerUtils::sectionString "std::string MinimizerUtils::sectionString(const std::string &sectionName=\"\", size_t report_width=80)
+%feature("docstring")  mumufit::utils::sectionString "std::string mumufit::utils::sectionString(const std::string &sectionName=\"\", size_t report_width=80)
 
 Returns horizontal line of 80 characters length with section name in it. 
-";
-
-
-// File: namespaceNumeric.xml
-%feature("docstring")  Numeric::GetAbsoluteDifference "double Numeric::GetAbsoluteDifference(double a, double b)
-
-Returns the absolute value of the difference between a and b. 
-";
-
-%feature("docstring")  Numeric::GetRelativeDifference "double Numeric::GetRelativeDifference(double a, double b)
-
-Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
-";
-
-%feature("docstring")  Numeric::GetLogDifference "double Numeric::GetLogDifference(double a, double b)
-
-Returns the difference of the logarithm; input values are truncated at the minimum positive value 
 ";
 
 
@@ -1450,137 +1472,6 @@ Returns the difference of the logarithm; input values are truncated at the minim
 
 
 // File: namespaceROOT_1_1Minuit2.xml
-
-
-// File: namespaceStringUtils.xml
-%feature("docstring")  StringUtils::matchesPattern "bool StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
-
-Returns true if text matches pattern with wildcards '*' and '?'. 
-";
-
-%feature("docstring")  StringUtils::padRight "std::string StringUtils::padRight(const std::string &name, size_t length)
-
-Returns string right-padded with blanks. 
-";
-
-%feature("docstring")  StringUtils::split "std::vector< std::string > StringUtils::split(const std::string &text, const std::string &delimeter)
-
-Split string into vector of string using delimeter.
-
-Returns token vector obtained by splitting string at delimiters. 
-";
-
-%feature("docstring")  StringUtils::replaceItemsFromString "void StringUtils::replaceItemsFromString(std::string &text, const std::vector< std::string > &items, const std::string &replacement=\"\")
-
-Replaces all occurences of items from string text with delimiter. 
-";
-
-%feature("docstring")  StringUtils::join "std::string StringUtils::join(const std::vector< std::string > &joinable, const std::string &joint)
-
-Returns string obtain by joining vector elements. 
-";
-
-%feature("docstring")  StringUtils::removeSubstring "std::string StringUtils::removeSubstring(const std::string &text, const std::string &substr)
-
-Removes multiple occurences of given substring from a string and returns result. 
-";
-
-%feature("docstring")  StringUtils::scientific "std::string StringUtils::scientific(const T value, int n=10)
-
-Returns scientific string representing given value of any numeric type. 
-";
-
-%feature("docstring")  StringUtils::to_lower "std::string StringUtils::to_lower(std::string text)
-
-Returns new string which is lower case of text. 
-";
-
-
-// File: FitOptions_8cpp.xml
-
-
-// File: FitOptions_8h.xml
-
-
-// File: IFunctionAdapter_8cpp.xml
-
-
-// File: IFunctionAdapter_8h.xml
-
-
-// File: Kernel_8cpp.xml
-
-
-// File: Kernel_8h.xml
-
-
-// File: KernelTypes_8h.xml
-
-
-// File: Minimizer_8cpp.xml
-
-
-// File: Minimizer_8h.xml
-
-
-// File: MinimizerResult_8cpp.xml
-
-
-// File: MinimizerResult_8h.xml
-
-
-// File: Parameter_8cpp.xml
-
-
-// File: Parameter_8h.xml
-
-
-// File: Parameters_8cpp.xml
-
-
-// File: Parameters_8h.xml
-
-
-// File: PyCallback_8cpp.xml
-
-
-// File: PyCallback_8h.xml
-
-
-// File: IMinimizer_8cpp.xml
-
-
-// File: IMinimizer_8h.xml
-
-
-// File: MinimizerCatalog_8cpp.xml
-
-
-// File: MinimizerCatalog_8h.xml
-
-
-// File: MinimizerFactory_8cpp.xml
-
-
-// File: MinimizerFactory_8h.xml
-
-
-// File: MinimizerInfo_8cpp.xml
-
-
-// File: MinimizerInfo_8h.xml
-
-
-// File: MinimizerOptions_8cpp.xml
-
-
-// File: MinimizerOptions_8h.xml
-
-
-// File: TestMinimizer_8cpp.xml
-
-
-// File: TestMinimizer_8h.xml
 
 
 // File: GeneticMinimizer_8cpp.xml
@@ -1601,10 +1492,16 @@ Returns new string which is lower case of text.
 // File: GSLMultiMinimizer_8h.xml
 
 
-// File: MinimizerResultUtils_8cpp.xml
+// File: IFunctionAdapter_8cpp.xml
 
 
-// File: MinimizerResultUtils_8h.xml
+// File: IFunctionAdapter_8h.xml
+
+
+// File: MinimizerAdapter_8cpp.xml
+
+
+// File: MinimizerAdapter_8h.xml
 
 
 // File: Minuit2Minimizer_8cpp.xml
@@ -1619,16 +1516,16 @@ Returns new string which is lower case of text.
 // File: ObjectiveFunctionAdapter_8h.xml
 
 
+// File: Report_8cpp.xml
+
+
+// File: Report_8h.xml
+
+
 // File: ResidualFunctionAdapter_8cpp.xml
 
 
 // File: ResidualFunctionAdapter_8h.xml
-
-
-// File: RootMinimizerAdapter_8cpp.xml
-
-
-// File: RootMinimizerAdapter_8h.xml
 
 
 // File: RootResidualFunction_8cpp.xml
@@ -1655,28 +1552,73 @@ Returns new string which is lower case of text.
 // File: SimAnMinimizer_8h.xml
 
 
-// File: IFactory_8h.xml
-%feature("docstring")  create_new "T* create_new()
-
-Returns new instance of class T.
-
-This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
-";
+// File: FitOptions_8cpp.xml
 
 
-// File: MinimizerTestPlan_8cpp.xml
+// File: FitOptions_8h.xml
 
 
-// File: MinimizerTestPlan_8h.xml
+// File: Kernel_8cpp.xml
 
 
-// File: Numeric_8cpp.xml
+// File: Kernel_8h.xml
 
 
-// File: Numeric_8h.xml
+// File: Minimizer_8cpp.xml
 
 
-// File: ParameterPlan_8h.xml
+// File: Minimizer_8h.xml
+
+
+// File: MinimizerFactory_8cpp.xml
+
+
+// File: MinimizerFactory_8h.xml
+
+
+// File: PyCallback_8cpp.xml
+
+
+// File: PyCallback_8h.xml
+
+
+// File: IMinimizer_8cpp.xml
+
+
+// File: IMinimizer_8h.xml
+
+
+// File: MinimizerCatalog_8cpp.xml
+
+
+// File: MinimizerCatalog_8h.xml
+
+
+// File: MinimizerInfo_8cpp.xml
+
+
+// File: MinimizerInfo_8h.xml
+
+
+// File: MinimizerOptions_8cpp.xml
+
+
+// File: MinimizerOptions_8h.xml
+
+
+// File: MinimizerResult_8cpp.xml
+
+
+// File: MinimizerResult_8h.xml
+
+
+// File: TestMinimizer_8cpp.xml
+
+
+// File: TestMinimizer_8h.xml
+
+
+// File: Types_8h.xml
 
 
 // File: AttLimits_8cpp.xml
@@ -1686,6 +1628,36 @@ This templated function is used in catalogs in form of a function pointer 'creat
 
 
 // File: Attributes_8h.xml
+
+
+// File: Parameter_8cpp.xml
+
+
+// File: Parameter_8h.xml
+
+
+// File: ParameterPlan_8h.xml
+
+
+// File: Parameters_8cpp.xml
+
+
+// File: Parameters_8h.xml
+
+
+// File: RealLimits_8cpp.xml
+
+
+// File: RealLimits_8h.xml
+
+
+// File: IFactory_8h.xml
+
+
+// File: MinimizerTestPlan_8cpp.xml
+
+
+// File: MinimizerTestPlan_8h.xml
 
 
 // File: MinimizerUtils_8cpp.xml
@@ -1706,12 +1678,6 @@ This templated function is used in catalogs in form of a function pointer 'creat
 // File: OptionContainer_8h.xml
 
 
-// File: RealLimits_8cpp.xml
-
-
-// File: RealLimits_8h.xml
-
-
 // File: StringUtils_8cpp.xml
 
 
@@ -1724,6 +1690,9 @@ This templated function is used in catalogs in form of a function pointer 'creat
 // File: WallclockTimer_8h.xml
 
 
+// File: dir_d6063ef14e63c037d0d36c201f22d500.xml
+
+
 // File: dir_892d84e8d1420bf45a9053cf0eede900.xml
 
 
@@ -1733,7 +1702,7 @@ This templated function is used in catalogs in form of a function pointer 'creat
 // File: dir_7c95011753c2f8fb6f2a9c22c1fbdc50.xml
 
 
-// File: dir_5e88eb7454533834afc0f9fdcde3e277.xml
+// File: dir_38d3fa544be6e05025bba6e85a25baf3.xml
 
 
 // File: dir_03da15e295bc2986014d40bf58034da8.xml

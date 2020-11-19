@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Models/FitParameterItems.h"
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/ModelPath.h"
@@ -295,9 +295,9 @@ void FitParameterContainerItem::setValuesInParameterContainer(
     }
 }
 
-Fit::Parameters FitParameterContainerItem::createParameters() const
+mumufit::Parameters FitParameterContainerItem::createParameters() const
 {
-    Fit::Parameters result;
+    mumufit::Parameters result;
 
     int index(0);
     for (auto item : getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
@@ -313,7 +313,7 @@ Fit::Parameters FitParameterContainerItem::createParameters() const
         double startValue = fitPar->getItemValue(FitParameterItem::P_START_VALUE).toDouble();
         AttLimits limits = fitPar->attLimits();
         QString name = QString("par%1").arg(index);
-        result.add(Fit::Parameter(name.toStdString(), startValue, limits));
+        result.add(mumufit::Parameter(name.toStdString(), startValue, limits));
         ++index;
     }
 

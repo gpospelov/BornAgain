@@ -20,7 +20,7 @@
 #include <functional>
 #include <vector>
 
-namespace Fit
+namespace mumufit
 {
 class MinimizerResult;
 }
@@ -41,7 +41,7 @@ public:
     bool isInterrupted() const;
     bool isCompleted() const;
 
-    void update(const Fit::Parameters& params, double chi2);
+    void update(const mumufit::Parameters& params, double chi2);
 
     void initPrint(int every_nth);
 
@@ -49,10 +49,10 @@ public:
 
     IterationInfo iterationInfo() const;
 
-    Fit::MinimizerResult minimizerResult() const;
+    mumufit::MinimizerResult minimizerResult() const;
 
     //! Should be explicitely called on last iteration to notify all observers.
-    void finalize(const Fit::MinimizerResult& result);
+    void finalize(const mumufit::MinimizerResult& result);
 
 private:
     enum EFitStatus { IDLE, RUNNING, COMPLETED, FAILED, INTERRUPTED };
@@ -61,7 +61,7 @@ private:
     std::unique_ptr<FitPrintService> m_print_service;
     const FitObjective* m_fit_objective;
     IterationInfo m_iterationInfo;
-    std::unique_ptr<Fit::MinimizerResult> m_minimizer_result;
+    std::unique_ptr<mumufit::MinimizerResult> m_minimizer_result;
 };
 
 #endif // BORNAGAIN_CORE_FITTING_FITSTATUS_H

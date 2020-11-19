@@ -15,6 +15,8 @@
 #include "Tests/Functional/Fit/Minimizer/PlanFactory.h"
 #include "Tests/Functional/Fit/Minimizer/PlanCases.h"
 
+using mumufit::test::create_new;
+
 PlanFactory::PlanFactory()
 {
     registerItem("RosenbrockPlan", create_new<RosenbrockPlan>);

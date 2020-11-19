@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorLongBoxLorentz.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Functions.h"
 #include "Sample/Shapes/Box.h"
 
 FormFactorLongBoxLorentz::FormFactorLongBoxLorentz(const std::vector<double> P)

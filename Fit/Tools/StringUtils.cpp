@@ -16,8 +16,11 @@
 #include <boost/algorithm/string.hpp>
 #include <regex>
 
+namespace mumufit
+{
+
 //! Returns true if text matches pattern with wildcards '*' and '?'.
-bool StringUtils::matchesPattern(const std::string& text, const std::string& wildcardPattern)
+bool stringUtils::matchesPattern(const std::string& text, const std::string& wildcardPattern)
 {
     // escape all regex special characters, except '?' and '*'
     std::string mywildcardPattern = wildcardPattern;
@@ -45,42 +48,15 @@ bool StringUtils::matchesPattern(const std::string& text, const std::string& wil
     return std::regex_match(text, pattern);
 }
 
-//! Returns string right-padded with blanks.
-std::string StringUtils::padRight(const std::string& name, size_t length)
-{
-    std::string result = name;
-    result.resize(length, ' ');
-    return result;
-}
-
 //! Returns token vector obtained by splitting string at delimiters.
-std::vector<std::string> StringUtils::split(const std::string& text, const std::string& delimiter)
+std::vector<std::string> stringUtils::split(const std::string& text, const std::string& delimiter)
 {
     std::vector<std::string> tokens;
     boost::split(tokens, text, boost::is_any_of(delimiter));
     return tokens;
 }
 
-void StringUtils::replaceItemsFromString(std::string& text, const std::vector<std::string>& items,
-                                         const std::string& replacement)
-{
-    for (size_t i = 0; i < items.size(); ++i)
-        boost::replace_all(text, items[i], replacement);
-}
-
-std::string StringUtils::join(const std::vector<std::string>& joinable, const std::string& joint)
-{
-    std::string result;
-    size_t n = joinable.size();
-    if (n == 0)
-        return result;
-    for (size_t i = 0; i < n - 1; ++i)
-        result += joinable[i] + joint;
-    result += joinable[n - 1];
-    return result;
-}
-
-std::string StringUtils::removeSubstring(const std::string& text, const std::string& substr)
+std::string stringUtils::removeSubstring(const std::string& text, const std::string& substr)
 {
     std::string result = text;
     for (std::string::size_type i = result.find(substr); i != std::string::npos;
@@ -89,8 +65,10 @@ std::string StringUtils::removeSubstring(const std::string& text, const std::str
     return result;
 }
 
-std::string StringUtils::to_lower(std::string text)
+std::string stringUtils::to_lower(std::string text)
 {
     boost::to_lower(text);
     return text;
 }
+
+} // namespace mumufit

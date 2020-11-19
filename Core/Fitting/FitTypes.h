@@ -19,13 +19,14 @@
 #include <memory>
 
 class ISimulation;
-namespace Fit
+namespace mumufit
 {
 class Parameters;
 }
 class FitObjective;
 
-using simulation_builder_t = std::function<std::unique_ptr<ISimulation>(const Fit::Parameters&)>;
+using simulation_builder_t =
+    std::function<std::unique_ptr<ISimulation>(const mumufit::Parameters&)>;
 
 using fit_observer_t = std::function<void(const FitObjective&)>;
 

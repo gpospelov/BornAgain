@@ -50,19 +50,19 @@ void FitObjectiveBuilder::runFit()
     auto minimizer_impl = createMinimizer();
     const bool requires_residuals = minimizer_impl->requiresResiduals();
 
-    Fit::Minimizer minimizer;
+    mumufit::Minimizer minimizer;
     minimizer.setMinimizer(minimizer_impl.release());
 
-    auto result =
-        requires_residuals
-            ? minimizer.minimize(
-                [&](const Fit::Parameters& params) {
-                    return m_fit_objective->evaluate_residuals(params);
-                },
-                createParameters())
-            : minimizer.minimize(
-                [&](const Fit::Parameters& params) { return m_fit_objective->evaluate(params); },
-                createParameters());
+    auto result = requires_residuals ? minimizer.minimize(
+                      [&](const mumufit::Parameters& params) {
+                          return m_fit_objective->evaluate_residuals(params);
+                      },
+                      createParameters())
+                                     : minimizer.minimize(
+                                         [&](const mumufit::Parameters& params) {
+                                             return m_fit_objective->evaluate(params);
+                                         },
+                                         createParameters());
     m_fit_objective->finalize(result);
 }
 
@@ -70,7 +70,7 @@ std::unique_ptr<FitObjective> FitObjectiveBuilder::createFitObjective() const
 {
     std::unique_ptr<FitObjective> result(new FitObjective);
 
-    simulation_builder_t builder = [&](const Fit::Parameters& params) {
+    simulation_builder_t builder = [&](const mumufit::Parameters& params) {
         return buildSimulation(params);
     };
 
@@ -84,7 +84,7 @@ std::unique_ptr<IMinimizer> FitObjectiveBuilder::createMinimizer() const
     return m_jobItem->fitSuiteItem()->minimizerContainerItem()->createMinimizer();
 }
 
-Fit::Parameters FitObjectiveBuilder::createParameters() const
+mumufit::Parameters FitObjectiveBuilder::createParameters() const
 {
     return m_jobItem->fitSuiteItem()->fitParameterContainerItem()->createParameters();
 }
@@ -100,7 +100,7 @@ void FitObjectiveBuilder::interruptFitting()
 }
 
 std::unique_ptr<ISimulation>
-FitObjectiveBuilder::buildSimulation(const Fit::Parameters& params) const
+FitObjectiveBuilder::buildSimulation(const mumufit::Parameters& params) const
 {
     static std::mutex build_simulation_mutex;
     std::unique_lock<std::mutex> lock(build_simulation_mutex);
@@ -124,7 +124,7 @@ std::unique_ptr<OutputData<double>> FitObjectiveBuilder::createOutputData() cons
     return std::unique_ptr<OutputData<double>>(intensity_item->getOutputData()->clone());
 }
 
-void FitObjectiveBuilder::update_fit_parameters(const Fit::Parameters& params) const
+void FitObjectiveBuilder::update_fit_parameters(const mumufit::Parameters& params) const
 {
     QVector<double> values = GUIHelpers::fromStdVector(params.values());
 

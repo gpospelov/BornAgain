@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorFullSpheroid.h"
-#include "Base/Const/MathConstants.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Constants.h"
+#include "Base/Math/Functions.h"
 #include "Sample/HardParticle/FormFactorTruncatedSpheroid.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 #include <limits>

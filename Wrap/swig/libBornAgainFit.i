@@ -21,38 +21,38 @@
 
 %include "auto/Wrap/doxygenFit.i"
 
-%rename(minimize_cpp) Fit::Minimizer::minimize;
-%rename(add_cpp) Fit::Parameters::add;
+%rename(minimize_cpp) mumufit::Minimizer::minimize;
+%rename(add_cpp) mumufit::Parameters::add;
 
 %feature("director") PyCallback;         // used in extendFit.i
 
 %{
-#include "Fit/Tools/RealLimits.h"
-#include "Fit/Tools/AttLimits.h"
-#include "Fit/Kernel/Parameter.h"
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/RealLimits.h"
+#include "Fit/Param/AttLimits.h"
+#include "Fit/Param/Parameter.h"
+#include "Fit/Param/Parameters.h"
 #include "Fit/Minimizer/IMinimizer.h"
 #include "Fit/Minimizer/MinimizerCatalog.h"
-#include "Fit/Minimizer/MinimizerFactory.h"
+#include "Fit/Kernel/MinimizerFactory.h"
 
 #include "Fit/Kernel/PyCallback.h"
-#include "Fit/Kernel/MinimizerResult.h"
+#include "Fit/Minimizer/MinimizerResult.h"
 #include "Fit/Kernel/Minimizer.h"
 %}
 
 // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
 // Note that the order matters, as base classes must be included before derived classes.
 
-%include "Fit/Tools/RealLimits.h"
-%include "Fit/Tools/AttLimits.h"
-%include "Fit/Kernel/Parameter.h"
-%include "Fit/Kernel/Parameters.h"
+%include "Fit/Param/RealLimits.h"
+%include "Fit/Param/AttLimits.h"
+%include "Fit/Param/Parameter.h"
+%include "Fit/Param/Parameters.h"
 %include "Fit/Kernel/PyCallback.h"
-%include "Fit/Kernel/MinimizerResult.h"
+%include "Fit/Minimizer/MinimizerResult.h"
 %include "Fit/Kernel/Minimizer.h"
 %include "Fit/Minimizer/IMinimizer.h"
 %include "Fit/Minimizer/MinimizerCatalog.h"
-%include "Fit/Minimizer/MinimizerFactory.h"
+%include "Fit/Kernel/MinimizerFactory.h"
 
 %pythoncode %{
 class ParametersIterator(object):
@@ -76,7 +76,7 @@ class ParametersIterator(object):
 %}
 
 // Parameters accessors
-namespace Fit {
+namespace mumufit {
 
 %extend Parameters {
     const Parameter& __getitem__(std::string name) const
@@ -97,7 +97,7 @@ def __iter__(self):
 }
 
 // --- Parameter x.value attribute
-namespace Fit {
+namespace mumufit {
 
 %extend Parameter{
 %pythoncode %{
@@ -125,7 +125,7 @@ class CallableWrapper(PyCallback):
 
 %}
 
-namespace Fit {
+namespace mumufit {
 
 %extend Minimizer {
 %pythoncode %{

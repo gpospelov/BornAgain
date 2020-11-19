@@ -2776,16 +2776,16 @@ class FitObjective(object):
 
     def evaluate_cpp(self, params):
         r"""
-        evaluate_cpp(FitObjective self, Fit::Parameters const & params) -> double
-        double FitObjective::evaluate(const Fit::Parameters &params)
+        evaluate_cpp(FitObjective self, mumufit::Parameters const & params) -> double
+        double FitObjective::evaluate(const mumufit::Parameters &params)
 
         """
         return _libBornAgainCore.FitObjective_evaluate_cpp(self, params)
 
     def evaluate_residuals_cpp(self, params):
         r"""
-        evaluate_residuals_cpp(FitObjective self, Fit::Parameters const & params) -> vdouble1d_t
-        std::vector< double > FitObjective::evaluate_residuals(const Fit::Parameters &params)
+        evaluate_residuals_cpp(FitObjective self, mumufit::Parameters const & params) -> vdouble1d_t
+        std::vector< double > FitObjective::evaluate_residuals(const mumufit::Parameters &params)
 
         """
         return _libBornAgainCore.FitObjective_evaluate_residuals_cpp(self, params)
@@ -2916,16 +2916,16 @@ class FitObjective(object):
 
     def minimizerResult(self):
         r"""
-        minimizerResult(FitObjective self) -> Fit::MinimizerResult
-        Fit::MinimizerResult FitObjective::minimizerResult() const
+        minimizerResult(FitObjective self) -> mumufit::MinimizerResult
+        mumufit::MinimizerResult FitObjective::minimizerResult() const
 
         """
         return _libBornAgainCore.FitObjective_minimizerResult(self)
 
     def finalize_cpp(self, result):
         r"""
-        finalize_cpp(FitObjective self, Fit::MinimizerResult const & result)
-        void FitObjective::finalize(const Fit::MinimizerResult &result)
+        finalize_cpp(FitObjective self, mumufit::MinimizerResult const & result)
+        void FitObjective::finalize(const mumufit::MinimizerResult &result)
 
         Should be explicitely called on last iteration to notify all observers. 
 
@@ -2942,8 +2942,8 @@ class FitObjective(object):
 
     def run_simulations(self, params):
         r"""
-        run_simulations(FitObjective self, Fit::Parameters const & params)
-        void FitObjective::run_simulations(const Fit::Parameters &params)
+        run_simulations(FitObjective self, mumufit::Parameters const & params)
+        void FitObjective::run_simulations(const mumufit::Parameters &params)
 
         """
         return _libBornAgainCore.FitObjective_run_simulations(self, params)
@@ -3273,8 +3273,8 @@ class IterationInfo(object):
 
     def update(self, params, chi2):
         r"""
-        update(IterationInfo self, Fit::Parameters const & params, double chi2)
-        void IterationInfo::update(const Fit::Parameters &params, double chi2)
+        update(IterationInfo self, mumufit::Parameters const & params, double chi2)
+        void IterationInfo::update(const mumufit::Parameters &params, double chi2)
 
         """
         return _libBornAgainCore.IterationInfo_update(self, params, chi2)
@@ -3299,8 +3299,8 @@ class IterationInfo(object):
 
     def parameters(self):
         r"""
-        parameters(IterationInfo self) -> Fit::Parameters
-        Fit::Parameters IterationInfo::parameters() const
+        parameters(IterationInfo self) -> mumufit::Parameters
+        mumufit::Parameters IterationInfo::parameters() const
 
         """
         return _libBornAgainCore.IterationInfo_parameters(self)
@@ -3347,8 +3347,8 @@ class PyBuilderCallback(object):
 
     def build_simulation(self, arg0):
         r"""
-        build_simulation(PyBuilderCallback self, Fit::Parameters arg0) -> ISimulation
-        ISimulation * PyBuilderCallback::build_simulation(Fit::Parameters)
+        build_simulation(PyBuilderCallback self, mumufit::Parameters arg0) -> ISimulation
+        ISimulation * PyBuilderCallback::build_simulation(mumufit::Parameters)
 
         """
         return _libBornAgainCore.PyBuilderCallback_build_simulation(self, arg0)
@@ -3585,7 +3585,7 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
-    Pure virtual base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
+    Abstract base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
 
     C++ includes: ISimulation.h
 
@@ -3843,7 +3843,7 @@ class ISimulation2D(ISimulation):
     r"""
 
 
-    Pure virtual base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+    Abstract base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
 
     C++ includes: ISimulation2D.h
 

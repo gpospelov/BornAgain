@@ -13,10 +13,10 @@
 //  ************************************************************************************************
 
 #include "Core/Fitting/SimDataPair.h"
+#include "Base/Math/Numeric.h"
 #include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
-#include "Fit/TestEngine/Numeric.h"
 
 namespace
 {
@@ -75,7 +75,7 @@ SimDataPair::SimDataPair(SimDataPair&& other)
 
 SimDataPair::~SimDataPair() = default;
 
-void SimDataPair::runSimulation(const Fit::Parameters& params)
+void SimDataPair::runSimulation(const mumufit::Parameters& params)
 {
     m_simulation = m_simulation_builder(params);
     m_simulation->runSimulation();

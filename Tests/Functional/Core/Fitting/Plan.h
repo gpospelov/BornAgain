@@ -18,7 +18,7 @@
 #include "Fit/TestEngine/MinimizerTestPlan.h"
 #include <memory>
 
-namespace Fit
+namespace mumufit
 {
 class Parameters;
 }
@@ -36,16 +36,16 @@ public:
     Plan(const std::string& name, bool residual_based = false);
     ~Plan();
 
-    virtual bool checkMinimizer(Fit::Minimizer& minimizer);
+    virtual bool checkMinimizer(mumufit::Minimizer& minimizer);
 
     void setBuilderName(const std::string& name);
     void setSimulationName(const std::string& name);
 
 protected:
     virtual std::unique_ptr<FitObjective> createFitObjective() const;
-    virtual std::unique_ptr<ISimulation> buildSimulation(const Fit::Parameters& params) const;
-    virtual std::unique_ptr<ISimulation> createSimulation(const Fit::Parameters& params) const;
-    virtual std::unique_ptr<MultiLayer> createMultiLayer(const Fit::Parameters& params) const;
+    virtual std::unique_ptr<ISimulation> buildSimulation(const mumufit::Parameters& params) const;
+    virtual std::unique_ptr<ISimulation> createSimulation(const mumufit::Parameters& params) const;
+    virtual std::unique_ptr<MultiLayer> createMultiLayer(const mumufit::Parameters& params) const;
     virtual std::unique_ptr<OutputData<double>> createOutputData() const;
 
     std::string m_simulation_name;

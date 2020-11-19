@@ -26,7 +26,7 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
 
-using namespace Fit;
+using namespace mumufit;
 
 namespace
 {
@@ -124,7 +124,7 @@ std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
 {
     std::unique_ptr<FitObjective> result(new FitObjective);
 
-    simulation_builder_t builder = [&](const Fit::Parameters& params) {
+    simulation_builder_t builder = [&](const mumufit::Parameters& params) {
         return buildSimulation(params);
     };
 

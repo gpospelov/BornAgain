@@ -261,7 +261,7 @@ C++ includes: TwoDimLatticeBuilder.h
 // File: classComputeBA.xml
 %feature("docstring") ComputeBA "
 
-Evaluates the scalar Born form factor.
+Provides scalar form factor evaluation in Born Approximation for given  IFormFactor.
 
 C++ includes: ComputeBA.h
 ";
@@ -284,7 +284,7 @@ Calculates and returns a form factor calculation in BA.
 // File: classComputeBAPol.xml
 %feature("docstring") ComputeBAPol "
 
-Evaluates the matrix BA term in a polarized  IFormFactor.
+Provides polarized form factor evaluation in Born Approximation for given  IFormFactor.
 
 C++ includes: ComputeBAPol.h
 ";
@@ -312,7 +312,7 @@ Calculates and returns a polarized form factor calculation in BA.
 // File: classComputeDWBA.xml
 %feature("docstring") ComputeDWBA "
 
-Evaluates the coherent sum of the four DWBA terms in a scalar  IFormFactor.
+Provides scalar DWBA computation for given  IFormFactor.
 
 C++ includes: ComputeDWBA.h
 ";
@@ -328,7 +328,7 @@ C++ includes: ComputeDWBA.h
 
 %feature("docstring")  ComputeDWBA::evaluate "complex_t ComputeDWBA::evaluate(const WavevectorInfo &wavevectors) const override
 
-Calculates and returns a form factor calculation in DWBA. 
+Returns the coherent sum of the four DWBA terms for scalar scattering. 
 ";
 
 %feature("docstring")  ComputeDWBA::setSpecularInfo "void ComputeDWBA::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
@@ -340,7 +340,7 @@ Sets reflection/transmission info.
 // File: classComputeDWBAPol.xml
 %feature("docstring") ComputeDWBAPol "
 
-Evaluates the coherent sum of the 16 matrix DWBA terms in a polarized  IFormFactor.
+Provides polarized DWBA computation for given  IFormFactor.
 
 C++ includes: ComputeDWBAPol.h
 ";
@@ -361,7 +361,7 @@ Throws not-implemented exception.
 
 %feature("docstring")  ComputeDWBAPol::evaluatePol "Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo &wavevectors) const override
 
-Calculates and returns a polarized form factor calculation in DWBA. 
+Returns the coherent sum of the four DWBA terms for polarized scattering. 
 ";
 
 %feature("docstring")  ComputeDWBAPol::setSpecularInfo "void ComputeDWBAPol::setSpecularInfo(std::unique_ptr< const ILayerRTCoefficients > p_in_coeffs, std::unique_ptr< const ILayerRTCoefficients > p_out_coeffs) override
@@ -2967,7 +2967,7 @@ Applies the given rotation to the particle.
 // File: classIBornFF.xml
 %feature("docstring") IBornFF "
 
-Pure virtual base class for Born form factors.
+Abstract base class for Born form factors.
 
 In contrast to the generic  IFormFactor, a Born form factor does not depend on the incoming and outgoing wave vectors ki and kf, except through their difference, the scattering vector q=ki-kf.
 
@@ -3020,7 +3020,14 @@ Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This m
 
 
 // File: classIComputeFF.xml
-%feature("docstring") IComputeFF "";
+%feature("docstring") IComputeFF "
+
+Abstract base class for form factor evaluations.
+
+Wraps an  IFormFactor, and provides functions evaluate or evaluatePol.
+
+C++ includes: IComputeFF.h
+";
 
 %feature("docstring")  IComputeFF::IComputeFF "IComputeFF::IComputeFF()=delete
 ";
@@ -3134,7 +3141,7 @@ Returns true if rotation matrix is identity matrix (no rotations)
 // File: classIFormFactor.xml
 %feature("docstring") IFormFactor "
 
-Pure virtual base class for all form factors.
+Abstract base class for all form factors.
 
 The actual form factor is returned by the complex valued function  IFormFactor::evaluate, which depends on the incoming and outgoing wave vectors ki and kf. If it only depends on the scattering vector q=ki-kf, then it is a  IBornFF.
 
@@ -3517,7 +3524,7 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 // File: classIInterferenceFunction.xml
 %feature("docstring") IInterferenceFunction "
 
-Pure virtual base class of interference functions.
+Abstract base class of interference functions.
 
 C++ includes: IInterferenceFunction.h
 ";
@@ -4245,7 +4252,7 @@ Returns a clone of this  ISample object.
 // File: classIParticle.xml
 %feature("docstring") IParticle "
 
-Pure virtual base class for  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal. Provides position/rotation and form factor. Abundance is inherited from  IAbstractParticle.
+Abstract base class for  Particle,  ParticleComposition,  ParticleCoreShell,  MesoCrystal. Provides position/rotation and form factor. Abundance is inherited from  IAbstractParticle.
 
 C++ includes: IParticle.h
 ";
@@ -4346,7 +4353,7 @@ Top and bottom z-coordinate.
 // File: classIPeakShape.xml
 %feature("docstring") IPeakShape "
 
-Pure virtual interface class that defines the peak shape of a Bragg peak.
+Abstract base class class that defines the peak shape of a Bragg peak.
 
 C++ includes: IPeakShape.h
 ";
@@ -4440,7 +4447,7 @@ C++ includes: IRegistry.h
 // File: classIRotation.xml
 %feature("docstring") IRotation "
 
-Pure virtual interface for rotations.
+Abstract base class for rotations.
 
 C++ includes: Rotations.h
 ";
@@ -4476,7 +4483,7 @@ Returns true if rotation matrix is identity matrix (no rotations)
 // File: classISample.xml
 %feature("docstring") ISample "
 
-Pure virtual base class for sample components and properties related to scattering.
+Abstract base class for sample components and properties related to scattering.
 
 C++ includes: ISample.h
 ";
@@ -4550,7 +4557,7 @@ C++ includes: IProfileRipple.h
 // File: classISelectionRule.xml
 %feature("docstring") ISelectionRule "
 
-Pure virtual base class for selection rules.
+Abstract base class for selection rules.
 
 C++ includes: ISelectionRule.h
 ";
@@ -4568,7 +4575,7 @@ C++ includes: ISelectionRule.h
 // File: classIShape.xml
 %feature("docstring") IShape "
 
-Pure virtual base class for different shapes.
+Abstract base class for different shapes.
 
 In contrast to the form factors, these shapes only provide an intereface for returning a set of vertices.
 

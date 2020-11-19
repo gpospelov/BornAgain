@@ -13,16 +13,16 @@
 //  ************************************************************************************************
 
 #include "Device/Instrument/PyFmt2.h"
-#include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
+#include "Base/Math/Constants.h"
 #include "Base/Utils/Algorithms.h"
 #include "Base/Utils/PyFmt.h"
+#include "Base/Utils/StringUtils.h"
 #include "Device/Mask/Ellipse.h"
 #include "Device/Mask/InfinitePlane.h"
 #include "Device/Mask/Line.h"
 #include "Device/Mask/Polygon.h"
 #include "Device/Mask/Rectangle.h"
-#include "Fit/Tools/StringUtils.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"

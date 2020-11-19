@@ -1,6 +1,6 @@
 #include "Base/Axis/Bin.h"
-#include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
+#include "Base/Math/Constants.h"
 #include "Device/Mask/Ellipse.h"
 #include "Device/Mask/Line.h"
 #include "Device/Mask/Rectangle.h"

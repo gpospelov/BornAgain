@@ -620,6 +620,36 @@ Used for Python overriding of clone (see swig/tweaks.py)
 ";
 
 
+// File: classIFactory.xml
+%feature("docstring") IFactory "
+
+Base class for all factories.
+
+C++ includes: IFactory.h
+";
+
+%feature("docstring")  IFactory::createItem "AbstractProduct* IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
+
+Creates object by calling creation function corresponded to given identifier. 
+";
+
+%feature("docstring")  IFactory::createItemPtr "std::unique_ptr<AbstractProduct> IFactory< Key, AbstractProduct >::createItemPtr(const Key &item_key) const
+";
+
+%feature("docstring")  IFactory::registerItem "bool IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
+
+Registers object's creation function. 
+";
+
+%feature("docstring")  IFactory::contains "bool IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
+";
+
+%feature("docstring")  IFactory::size "size_t IFactory< Key, AbstractProduct >::size() const
+
+Returns number of registered objects. 
+";
+
+
 // File: classIntegratorMCMiser.xml
 %feature("docstring") IntegratorMCMiser "
 
@@ -650,7 +680,7 @@ perform the actual integration over the ranges [min_array, max_array]
 // File: classIPixel.xml
 %feature("docstring") IPixel "
 
-Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel. Pure virtual base class for SphericalPixel and RectangularPixel.
+Interface for a function that maps [0,1]x[0,1] to the kvectors in a pixel. Abstract base class for SphericalPixel and RectangularPixel.
 
 C++ includes: IPixel.h
 ";
@@ -854,12 +884,12 @@ C++ includes: Integrator.h
 ";
 
 
-// File: structPrecomputed_1_1ReciprocalFactorial.xml
-%feature("docstring") Precomputed::ReciprocalFactorial "";
+// File: structMath_1_1internal_1_1ReciprocalFactorial.xml
+%feature("docstring") Math::internal::ReciprocalFactorial "";
 
 
-// File: structPrecomputed_1_1ReciprocalFactorial_3_010_01_4.xml
-%feature("docstring") Precomputed::ReciprocalFactorial< 0 > "
+// File: structMath_1_1internal_1_1ReciprocalFactorial_3_010_01_4.xml
+%feature("docstring") Math::internal::ReciprocalFactorial< 0 > "
 ";
 
 
@@ -1189,7 +1219,7 @@ Creates a new clipped axis.
 ";
 
 
-// File: namespace_0d34.xml
+// File: namespace_0d16.xml
 
 
 // File: namespacealgo.xml
@@ -1324,6 +1354,11 @@ Error function of real-valued argument.
 %feature("docstring")  Math::Bessel::GeneratePoissonRandom "double Math::GeneratePoissonRandom(double average)
 ";
 
+%feature("docstring")  Math::Bessel::generateReciprocalFactorialArray "constexpr std::array<double, N> Math::generateReciprocalFactorialArray()
+
+Returns a compile-time generated std::array of reciprocal factorials. 
+";
+
 
 // File: namespaceMath_1_1Bessel.xml
 %feature("docstring")  Math::Bessel::J0 "double Math::Bessel::J0(double x)
@@ -1343,34 +1378,48 @@ Bessel function J1(x)/x.
 
 %feature("docstring")  Math::Bessel::I0 "double Math::Bessel::I0(double x)
 
-Modified Bessel function of the first kind and order 0. 
+Modified  Bessel function of the first kind and order 0. 
 ";
 
 %feature("docstring")  Math::Bessel::J0 "complex_t Math::Bessel::J0(const complex_t z)
 
-Complex Bessel function of the first kind and order 0. 
+Complex  Bessel function of the first kind and order 0. 
 ";
 
 %feature("docstring")  Math::Bessel::J1 "complex_t Math::Bessel::J1(const complex_t z)
 
-Complex Bessel function of the first kind and order 1. 
+Complex  Bessel function of the first kind and order 1. 
 ";
 
 %feature("docstring")  Math::Bessel::J1c "complex_t Math::Bessel::J1c(const complex_t z)
 
-Complex Bessel function J1(x)/x. 
+Complex  Bessel function J1(x)/x. 
+";
+
+
+// File: namespaceMath_1_1internal.xml
+%feature("docstring")  Math::internal::generateArrayHelper "constexpr std::array<double, sizeof...(I)> Math::internal::generateArrayHelper(std::index_sequence< I... >)
+";
+
+
+// File: namespaceNumeric.xml
+%feature("docstring")  Numeric::GetAbsoluteDifference "double Numeric::GetAbsoluteDifference(double a, double b)
+
+Returns the absolute value of the difference between a and b. 
+";
+
+%feature("docstring")  Numeric::GetRelativeDifference "double Numeric::GetRelativeDifference(double a, double b)
+
+Returns the safe relative difference, which is 2(|a-b|)/(|a|+|b|) except in special cases. 
+";
+
+%feature("docstring")  Numeric::GetLogDifference "double Numeric::GetLogDifference(double a, double b)
+
+Returns the difference of the logarithm; input values are truncated at the minimum positive value 
 ";
 
 
 // File: namespacePhysConsts.xml
-
-
-// File: namespacePrecomputed.xml
-%feature("docstring")  Precomputed::GenerateArrayHelper "constexpr std::array<double, sizeof...(I)> Precomputed::GenerateArrayHelper(std::index_sequence< I... >)
-";
-
-%feature("docstring")  Precomputed::GenerateReciprocalFactorialArray "constexpr std::array<double, N> Precomputed::GenerateReciprocalFactorialArray()
-";
 
 
 // File: namespacePyEmbeddedUtils.xml
@@ -1454,6 +1503,50 @@ Returns a string of blanks with given width. By default the width equals standar
 ";
 
 %feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
+";
+
+
+// File: namespaceStringUtils.xml
+%feature("docstring")  StringUtils::matchesPattern "bool StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
+
+Returns true if text matches pattern with wildcards '*' and '?'. 
+";
+
+%feature("docstring")  StringUtils::padRight "std::string StringUtils::padRight(const std::string &name, size_t length)
+
+Returns string right-padded with blanks. 
+";
+
+%feature("docstring")  StringUtils::split "std::vector< std::string > StringUtils::split(const std::string &text, const std::string &delimeter)
+
+Split string into vector of string using delimeter.
+
+Returns token vector obtained by splitting string at delimiters. 
+";
+
+%feature("docstring")  StringUtils::replaceItemsFromString "void StringUtils::replaceItemsFromString(std::string &text, const std::vector< std::string > &items, const std::string &replacement=\"\")
+
+Replaces all occurences of items from string text with delimiter. 
+";
+
+%feature("docstring")  StringUtils::join "std::string StringUtils::join(const std::vector< std::string > &joinable, const std::string &joint)
+
+Returns string obtain by joining vector elements. 
+";
+
+%feature("docstring")  StringUtils::removeSubstring "std::string StringUtils::removeSubstring(const std::string &text, const std::string &substr)
+
+Removes multiple occurences of given substring from a string and returns result. 
+";
+
+%feature("docstring")  StringUtils::scientific "std::string StringUtils::scientific(const T value, int n=10)
+
+Returns scientific string representing given value of any numeric type. 
+";
+
+%feature("docstring")  StringUtils::to_lower "std::string StringUtils::to_lower(std::string text)
+
+Returns new string which is lower case of text. 
 ";
 
 
@@ -1541,13 +1634,47 @@ global helper function for comparison of axes
 // File: VariableBinAxis_8h.xml
 
 
-// File: MathConstants_8h.xml
-
-
 // File: PhysicalConstants_8h.xml
 
 
 // File: Units_8h.xml
+
+
+// File: Bessel_8cpp.xml
+
+
+// File: Bessel_8h.xml
+
+
+// File: Constants_8h.xml
+
+
+// File: Functions_8cpp.xml
+
+
+// File: Functions_8h.xml
+
+
+// File: Integrator_8cpp.xml
+
+
+// File: Integrator_8h.xml
+
+
+// File: IntegratorMCMiser_8h.xml
+%feature("docstring")  make_integrator_miser "P_integrator_miser<T> make_integrator_miser(const T *object, miser_integrand< T > mem_function, size_t dim)
+
+Template function to create an integrator object 
+";
+
+
+// File: Numeric_8cpp.xml
+
+
+// File: Numeric_8h.xml
+
+
+// File: Precomputed_8h.xml
 
 
 // File: IPixel_8h.xml
@@ -1610,38 +1737,19 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: Assert_8h.xml
 
 
-// File: Bessel_8cpp.xml
-
-
-// File: Bessel_8h.xml
-
-
 // File: FileSystemUtils_8cpp.xml
 
 
 // File: FileSystemUtils_8h.xml
 
 
-// File: Integrator_8cpp.xml
+// File: IFactory_8h.xml
+%feature("docstring")  create_new "T* create_new()
 
+Returns new instance of class T.
 
-// File: Integrator_8h.xml
-
-
-// File: IntegratorMCMiser_8h.xml
-%feature("docstring")  make_integrator_miser "P_integrator_miser<T> make_integrator_miser(const T *object, miser_integrand< T > mem_function, size_t dim)
-
-Template function to create an integrator object 
+This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
 ";
-
-
-// File: MathFunctions_8cpp.xml
-
-
-// File: MathFunctions_8h.xml
-
-
-// File: Precomputed_8h.xml
 
 
 // File: PyEmbeddedUtils_8cpp.xml
@@ -1660,6 +1768,12 @@ Template function to create an integrator object
 
 
 // File: PythonCore_8h.xml
+
+
+// File: StringUtils_8cpp.xml
+
+
+// File: StringUtils_8h.xml
 
 
 // File: SysUtils_8cpp.xml
@@ -1704,6 +1818,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_53458346a71374f205070d8bd3d865f1.xml
+
+
+// File: dir_1deae888303a1f34152fb62b13af5143.xml
 
 
 // File: dir_ec49f598ebf9445998ce86a14e7c0417.xml

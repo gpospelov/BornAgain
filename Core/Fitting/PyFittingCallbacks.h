@@ -17,7 +17,7 @@
 
 //! Collection of wrapper classes to call Python callable from C++.
 
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 
 class ISimulation;
 
@@ -31,7 +31,7 @@ public:
     PyBuilderCallback();
     virtual ~PyBuilderCallback();
 
-    virtual ISimulation* build_simulation(Fit::Parameters);
+    virtual ISimulation* build_simulation(mumufit::Parameters);
 };
 
 class FitObjective;

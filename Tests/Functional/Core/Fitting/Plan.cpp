@@ -26,19 +26,19 @@ Plan::Plan(const std::string& name, bool residual_based)
 
 Plan::~Plan() = default;
 
-bool Plan::checkMinimizer(Fit::Minimizer& minimizer)
+bool Plan::checkMinimizer(mumufit::Minimizer& minimizer)
 {
     std::unique_ptr<FitObjective> fit_objective = createFitObjective();
 
-    fcn_scalar_t scalar_func = [&](const Fit::Parameters& params) {
+    fcn_scalar_t scalar_func = [&](const mumufit::Parameters& params) {
         return fit_objective->evaluate(params);
     };
 
-    fcn_residual_t residual_func = [&](const Fit::Parameters& params) {
+    fcn_residual_t residual_func = [&](const mumufit::Parameters& params) {
         return fit_objective->evaluate_residuals(params);
     };
 
-    Fit::MinimizerResult result;
+    mumufit::MinimizerResult result;
 
     if (m_residual_based)
         result = minimizer.minimize(residual_func, parameters());
@@ -68,7 +68,7 @@ std::unique_ptr<FitObjective> Plan::createFitObjective() const
 {
     std::unique_ptr<FitObjective> result(new FitObjective);
 
-    simulation_builder_t builder = [&](const Fit::Parameters& params) {
+    simulation_builder_t builder = [&](const mumufit::Parameters& params) {
         return buildSimulation(params);
     };
 
@@ -80,7 +80,7 @@ std::unique_ptr<FitObjective> Plan::createFitObjective() const
 
 //! Build simulation (sample included) for given set of fit parameters.
 
-std::unique_ptr<ISimulation> Plan::buildSimulation(const Fit::Parameters& params) const
+std::unique_ptr<ISimulation> Plan::buildSimulation(const mumufit::Parameters& params) const
 {
     auto simulation = createSimulation(params);
     auto sample = createMultiLayer(params);
@@ -90,14 +90,14 @@ std::unique_ptr<ISimulation> Plan::buildSimulation(const Fit::Parameters& params
 
 //! Creates simulation for given set of fit parameters. No sample yets.
 
-std::unique_ptr<ISimulation> Plan::createSimulation(const Fit::Parameters&) const
+std::unique_ptr<ISimulation> Plan::createSimulation(const mumufit::Parameters&) const
 {
     return SimulationFactory().createItemPtr(m_simulation_name);
 }
 
 //! Creates sample for given set of fit parameters.
 
-std::unique_ptr<MultiLayer> Plan::createMultiLayer(const Fit::Parameters& params) const
+std::unique_ptr<MultiLayer> Plan::createMultiLayer(const mumufit::Parameters& params) const
 {
     auto sample_builder = SampleBuilderFactory().createItemPtr(m_sample_builder_name);
 

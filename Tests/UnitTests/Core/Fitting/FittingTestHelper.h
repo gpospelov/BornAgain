@@ -3,7 +3,7 @@
 
 #include "Base/Const/Units.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Fit/Kernel/Parameters.h"
+#include "Fit/Param/Parameters.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
@@ -25,7 +25,7 @@ public:
 
     size_t m_builder_calls;
 
-    std::unique_ptr<ISimulation> createSimulation(const Fit::Parameters&)
+    std::unique_ptr<ISimulation> createSimulation(const mumufit::Parameters&)
     {
         MultiLayer multilayer;
         auto material = HomogeneousMaterial("Shell", 0.0, 0.0);

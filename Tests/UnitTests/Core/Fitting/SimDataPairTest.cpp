@@ -10,7 +10,7 @@ TEST_F(SimDataPairTest, standardPair)
 {
     FittingTestHelper helper;
 
-    simulation_builder_t builder = [&](const Fit::Parameters& pars) {
+    simulation_builder_t builder = [&](const mumufit::Parameters& pars) {
         return helper.createSimulation(pars);
     };
 
@@ -29,7 +29,7 @@ TEST_F(SimDataPairTest, standardPair)
     EXPECT_THROW(obj.experimentalData(), std::runtime_error);
 
     // calling builder once
-    Fit::Parameters params;
+    mumufit::Parameters params;
     EXPECT_EQ(helper.m_builder_calls, 0u);
     obj.runSimulation(params);
     EXPECT_EQ(helper.m_builder_calls, 1u);
@@ -65,7 +65,7 @@ TEST_F(SimDataPairTest, moveTest)
 {
     FittingTestHelper helper;
 
-    simulation_builder_t builder = [&](const Fit::Parameters& pars) {
+    simulation_builder_t builder = [&](const mumufit::Parameters& pars) {
         return helper.createSimulation(pars);
     };
 
@@ -74,7 +74,7 @@ TEST_F(SimDataPairTest, moveTest)
 
     SimDataPair obj(builder, *helper.createData(exp_value), nullptr, dataset_weight);
     // calling builder once
-    Fit::Parameters params;
+    mumufit::Parameters params;
     EXPECT_EQ(helper.m_builder_calls, 0u);
     obj.runSimulation(params);
     EXPECT_EQ(helper.m_builder_calls, 1u);

@@ -13,11 +13,10 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorTruncatedSphere.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Bessel.h"
+#include "Base/Math/Constants.h"
+#include "Base/Math/Integrator.h"
 #include "Base/Types/Exceptions.h"
-#include "Base/Utils/Bessel.h"
-#include "Base/Utils/Integrator.h"
-#include "Fit/Tools/RealLimits.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 

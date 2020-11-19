@@ -861,7 +861,7 @@ Sets depth of the visitor in the composite hierarchy.
 // File: classIParameter.xml
 %feature("docstring") IParameter "
 
-Pure virtual base class for parameter wrapper classes  RealParameter, ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
+Abstract base class for parameter wrapper classes  RealParameter, ComponentParameter. Holds a pointer to the wrapped parameter, a name, and a callback function to be called when the parameter is changed. This class is templated on the data type of the wrapped parameter.
 
 C++ includes: IParameter.h
 ";

@@ -13,10 +13,10 @@
 //  ************************************************************************************************
 
 #include "Sample/Aggregate/InterferenceFunctionFinite2DLattice.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
+#include "Base/Math/Functions.h"
+#include "Base/Math/Integrator.h"
 #include "Base/Types/Exceptions.h"
-#include "Base/Utils/Integrator.h"
-#include "Base/Utils/MathFunctions.h"
 #include "Param/Base/RealParameter.h"
 
 #include <limits>

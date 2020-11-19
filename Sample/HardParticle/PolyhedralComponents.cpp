@@ -13,15 +13,15 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/PolyhedralComponents.h"
-#include "Base/Utils/MathFunctions.h"
-#include "Base/Utils/Precomputed.h"
+#include "Base/Math/Functions.h"
+#include "Base/Math/Precomputed.h"
 #include <iomanip>
 #include <stdexcept> // need overlooked by g++ 5.4
 
 namespace
 {
 const double eps = 2e-16;
-constexpr auto ReciprocalFactorialArray = Precomputed::GenerateReciprocalFactorialArray<171>();
+constexpr auto ReciprocalFactorialArray = Math::generateReciprocalFactorialArray<171>();
 } // namespace
 
 //  ************************************************************************************************

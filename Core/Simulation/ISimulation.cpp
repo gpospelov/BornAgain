@@ -13,11 +13,11 @@
 //  ************************************************************************************************
 
 #include "Core/Simulation/ISimulation.h"
+#include "Base/Utils/StringUtils.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/IComputation.h"
 #include "Core/Simulation/MPISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
-#include "Fit/Tools/StringUtils.h"
 #include "Param/Base/ParameterPool.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"

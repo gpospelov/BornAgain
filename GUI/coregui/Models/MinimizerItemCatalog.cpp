@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Models/MinimizerItemCatalog.h"
-#include "Fit/Minimizer/MinimizerFactory.h"
+#include "Fit/Kernel/MinimizerFactory.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
 //! Returns ComboProperty representing list of algorithms defined for given minimizerType.

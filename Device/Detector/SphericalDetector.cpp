@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Device/Detector/SphericalDetector.h"
-#include "Base/Const/MathConstants.h"
 #include "Base/Const/Units.h"
+#include "Base/Math/Constants.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Device/Beam/Beam.h"
 #include "Device/Detector/SphericalPixel.h"

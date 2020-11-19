@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Views/SpecularDataWidgets/SpecularPlot.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"
 #include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"

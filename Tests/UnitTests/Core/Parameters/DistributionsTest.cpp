@@ -1,5 +1,5 @@
 #include "Param/Distrib/Distributions.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Base/Types/Exceptions.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Varia/ParameterSample.h"

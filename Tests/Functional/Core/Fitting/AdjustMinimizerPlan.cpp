@@ -23,7 +23,7 @@ namespace
 const double nm = Units::nm;
 }
 
-using namespace Fit;
+using namespace mumufit;
 
 AdjustMinimizerPlan::AdjustMinimizerPlan() : Plan("AdjustMinimizerPlan")
 {
@@ -33,11 +33,11 @@ AdjustMinimizerPlan::AdjustMinimizerPlan() : Plan("AdjustMinimizerPlan")
     addParameter(Parameter("radius", 10.0 * nm, AttLimits::limited(0.01, 30.0), 0.05), 5.0 * nm);
 }
 
-bool AdjustMinimizerPlan::checkMinimizer(Fit::Minimizer& minimizer)
+bool AdjustMinimizerPlan::checkMinimizer(mumufit::Minimizer& minimizer)
 {
     auto fit_objective = createFitObjective();
 
-    fcn_scalar_t scalar_func = [&](const Fit::Parameters& params) {
+    fcn_scalar_t scalar_func = [&](const mumufit::Parameters& params) {
         return fit_objective->evaluate(params);
     };
 

@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/Correlations/FTDecay1D.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Functions.h"
 #include <algorithm>
 
 //  ************************************************************************************************

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERITEMS_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERITEMS_H
 
-#include "Fit/Tools/AttLimits.h"
+#include "Fit/Param/AttLimits.h"
 #include "GUI/coregui/Models/SessionItem.h"
 
 //! FitParameterItems is a collection of items to define fit parameters in GUI.
@@ -64,7 +64,7 @@ private:
 
 //! The FitParameterContainerItem class is a collection of all defined fit parameters in JobItem.
 
-namespace Fit
+namespace mumufit
 {
 class Parameters;
 }
@@ -80,7 +80,7 @@ public:
     bool isEmpty();
     void setValuesInParameterContainer(const QVector<double>& values,
                                        class ParameterContainerItem* parameterContainer);
-    Fit::Parameters createParameters() const;
+    mumufit::Parameters createParameters() const;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERITEMS_H

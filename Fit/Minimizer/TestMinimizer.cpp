@@ -15,7 +15,7 @@
 #include "Fit/Minimizer/TestMinimizer.h"
 #include <sstream>
 
-using namespace Fit;
+using namespace mumufit;
 
 TestMinimizer::TestMinimizer() = default;
 
@@ -26,7 +26,7 @@ std::string TestMinimizer::minimizerName() const
     return "Test";
 }
 
-MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters)
+MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, mumufit::Parameters parameters)
 {
     // calling user function once
     auto min_value = fcn(parameters);

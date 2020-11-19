@@ -18,7 +18,7 @@
 #include <iostream>
 #include <sstream>
 
-using namespace Fit;
+using namespace mumufit;
 
 ScalarTestPlan::ScalarTestPlan(const std::string& name, scalar_function_t func,
                                double expected_minimum, double tolerance)

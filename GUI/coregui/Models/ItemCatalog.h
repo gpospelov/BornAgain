@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOG_H
 #define BORNAGAIN_GUI_COREGUI_MODELS_ITEMCATALOG_H
 
-#include "Fit/TestEngine/IFactory.h"
+#include "Base/Utils/IFactory.h"
 #include <QStringList>
 #include <memory>
 

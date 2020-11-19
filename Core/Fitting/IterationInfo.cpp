@@ -16,7 +16,7 @@
 
 IterationInfo::IterationInfo() : m_chi2(0.0), m_iteration_count(0) {}
 
-void IterationInfo::update(const Fit::Parameters& params, double chi2)
+void IterationInfo::update(const mumufit::Parameters& params, double chi2)
 {
     m_current_parameters = params;
     m_chi2 = chi2;
@@ -33,7 +33,7 @@ double IterationInfo::chi2() const
     return m_chi2;
 }
 
-Fit::Parameters IterationInfo::parameters() const
+mumufit::Parameters IterationInfo::parameters() const
 {
     return m_current_parameters;
 }

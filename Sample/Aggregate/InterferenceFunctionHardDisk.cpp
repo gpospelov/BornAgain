@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Sample/Aggregate/InterferenceFunctionHardDisk.h"
-#include "Base/Utils/Bessel.h"
-#include "Base/Utils/Integrator.h"
+#include "Base/Math/Bessel.h"
+#include "Base/Math/Integrator.h"
 #include "Param/Base/RealParameter.h"
 #include <cmath>
 

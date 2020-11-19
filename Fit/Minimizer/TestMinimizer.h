@@ -28,7 +28,8 @@ public:
     std::string minimizerName() const final;
     std::string algorithmName() const final { return ""; }
 
-    Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
+    mumufit::MinimizerResult minimize_scalar(fcn_scalar_t fcn,
+                                             mumufit::Parameters parameters) override;
 
 private:
     std::vector<double> m_parameter_values;

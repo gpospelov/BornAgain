@@ -13,13 +13,13 @@
 //  ************************************************************************************************
 
 #include "Tests/Functional/Fit/Minimizer/ResidualTestPlan.h"
+#include "Base/Math/Numeric.h"
 #include "Fit/Kernel/Minimizer.h"
-#include "Fit/TestEngine/Numeric.h"
 #include <cassert>
 #include <iostream>
 #include <sstream>
 
-using namespace Fit;
+using namespace mumufit;
 
 ResidualTestPlan::ResidualTestPlan(const std::string& name, test_funct_t func)
     : MinimizerTestPlan(name), m_test_func(func)
@@ -31,7 +31,7 @@ ResidualTestPlan::ResidualTestPlan(const std::string& name, test_funct_t func)
 
 fcn_residual_t ResidualTestPlan::residualFunction()
 {
-    fcn_residual_t func = [&](Fit::Parameters pars) -> std::vector<double> {
+    fcn_residual_t func = [&](mumufit::Parameters pars) -> std::vector<double> {
         return evaluate(pars.values());
     };
 

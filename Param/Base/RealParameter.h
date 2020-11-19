@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_PARAM_BASE_REALPARAMETER_H
 #define BORNAGAIN_PARAM_BASE_REALPARAMETER_H
 
-#include "Fit/Tools/Attributes.h"
-#include "Fit/Tools/RealLimits.h"
+#include "Fit/Param/Attributes.h"
+#include "Fit/Param/RealLimits.h"
 #include "Param/Base/IParameter.h"
 #include "Param/Base/Unit.h"
 #include <string>

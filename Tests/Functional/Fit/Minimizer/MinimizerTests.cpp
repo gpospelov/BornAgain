@@ -24,7 +24,7 @@ bool run(const std::string& minimizer_name, const std::string& algorithm_name,
          const std::string& fit_plan_name, const std::string& options = "")
 {
     auto plan = PlanFactory().createItemPtr(fit_plan_name);
-    Fit::Minimizer minimizer;
+    mumufit::Minimizer minimizer;
     minimizer.setMinimizer(minimizer_name, algorithm_name, options);
     return plan->checkMinimizer(minimizer);
 }

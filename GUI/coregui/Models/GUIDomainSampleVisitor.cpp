@@ -47,8 +47,22 @@ using SessionItemUtils::SetVectorItem;
 
 namespace
 {
-SessionItem* AddFormFactorItem(SessionItem* p_parent, const QString& model_type);
+SessionItem* AddFormFactorItem(SessionItem* p_parent, const QString& model_type)
+{
+    auto parent_type = p_parent->modelType();
+    QString property_name;
+    if (parent_type == "Particle") {
+        property_name = ParticleItem::P_FORM_FACTOR;
+    } else if (parent_type == "MesoCrystal") {
+        property_name = MesoCrystalItem::P_OUTER_SHAPE;
+    }
+    if (property_name.isEmpty()) {
+        throw GUIHelpers::Error("AddFormFactorItem: parent is neither ParticleItem or "
+                                "MesoCrystalItem");
+    }
+    return p_parent->setGroupProperty(property_name, model_type);
 }
+} // namespace
 
 GUIDomainSampleVisitor::GUIDomainSampleVisitor() : m_sampleModel(nullptr), m_materialModel(nullptr)
 {
@@ -647,22 +661,3 @@ SessionItem* GUIDomainSampleVisitor::InsertIParticle(const IParticle* p_particle
 
     return p_particle_item;
 }
-
-namespace
-{
-SessionItem* AddFormFactorItem(SessionItem* p_parent, const QString& model_type)
-{
-    auto parent_type = p_parent->modelType();
-    QString property_name;
-    if (parent_type == "Particle") {
-        property_name = ParticleItem::P_FORM_FACTOR;
-    } else if (parent_type == "MesoCrystal") {
-        property_name = MesoCrystalItem::P_OUTER_SHAPE;
-    }
-    if (property_name.isEmpty()) {
-        throw GUIHelpers::Error("AddFormFactorItem: parent is neither ParticleItem or "
-                                "MesoCrystalItem");
-    }
-    return p_parent->setGroupProperty(property_name, model_type);
-}
-} // namespace

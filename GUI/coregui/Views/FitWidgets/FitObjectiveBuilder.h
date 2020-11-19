@@ -20,7 +20,7 @@
 class JobItem;
 class FitObjective;
 class ISimulation;
-namespace Fit
+namespace mumufit
 {
 class Parameters;
 }
@@ -41,7 +41,7 @@ public:
     std::unique_ptr<IMinimizer> createMinimizer() const;
     std::unique_ptr<IChiSquaredModule> createChiSquaredModule() const;
 
-    Fit::Parameters createParameters() const;
+    mumufit::Parameters createParameters() const;
 
     void attachObserver(std::shared_ptr<GUIFitObserver> observer);
 
@@ -50,10 +50,10 @@ public:
 private:
     JobItem* m_jobItem;
 
-    std::unique_ptr<ISimulation> buildSimulation(const Fit::Parameters& params) const;
+    std::unique_ptr<ISimulation> buildSimulation(const mumufit::Parameters& params) const;
     std::unique_ptr<OutputData<double>> createOutputData() const;
 
-    void update_fit_parameters(const Fit::Parameters& params) const;
+    void update_fit_parameters(const mumufit::Parameters& params) const;
 
     std::shared_ptr<GUIFitObserver> m_observer;
     std::unique_ptr<FitObjective> m_fit_objective;

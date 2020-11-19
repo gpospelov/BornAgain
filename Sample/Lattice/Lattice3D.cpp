@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/Lattice/Lattice3D.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Base/Vector/Transform3D.h"
 #include "Param/Base/RealParameter.h"
 #include "Sample/Lattice/ISelectionRule.h"

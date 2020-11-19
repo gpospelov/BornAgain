@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorLongBoxGauss.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Functions.h"
 #include "Sample/Shapes/Box.h"
 
 FormFactorLongBoxGauss::FormFactorLongBoxGauss(const std::vector<double> P)

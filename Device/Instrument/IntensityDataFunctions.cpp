@@ -13,13 +13,13 @@
 //  ************************************************************************************************
 
 #include "Device/Instrument/IntensityDataFunctions.h"
+#include "Base/Math/Numeric.h"
 #include "Device/Histo/IHistogram.h"
 #include "Device/Histo/SimulationResult.h"
 #include "Device/Instrument/FourierTransform.h"
 #include "Device/Instrument/Instrument.h"
 #include "Device/Intensity/ArrayUtils.h"
 #include "Device/Resolution/ConvolutionDetectorResolution.h"
-#include "Fit/TestEngine/Numeric.h"
 #include <cmath>
 #include <iostream>
 

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOWIDGET_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_ITEMCOMBOWIDGET_H
 
-#include "Fit/TestEngine/IFactory.h"
+#include "Base/Utils/IFactory.h"
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 #include <QMap>
 #include <QString>

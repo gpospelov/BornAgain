@@ -1,10 +1,10 @@
-#include "Base/Utils/Precomputed.h"
+#include "Base/Math/Precomputed.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
 namespace
 {
-constexpr auto ReciprocalFactorialArray = Precomputed::GenerateReciprocalFactorialArray<171>();
+constexpr auto ReciprocalFactorialArray = Math::generateReciprocalFactorialArray<171>();
 }
 
 class PrecomputedTest : public ::testing::Test

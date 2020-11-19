@@ -18,7 +18,7 @@
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/SimDataPair.h"
 #include "Device/Intensity/ArrayUtils.h"
-#include "Fit/Kernel/MinimizerResult.h"
+#include "Fit/Minimizer/MinimizerResult.h"
 
 class FitStatus;
 class IChiSquaredModule;
@@ -67,9 +67,9 @@ public:
                              ArrayUtils::createData(uncertainties), weight);
     }
 
-    virtual double evaluate(const Fit::Parameters& params);
+    virtual double evaluate(const mumufit::Parameters& params);
 
-    virtual std::vector<double> evaluate_residuals(const Fit::Parameters& params);
+    virtual std::vector<double> evaluate_residuals(const mumufit::Parameters& params);
 
     size_t numberOfFitElements() const;
 
@@ -92,14 +92,14 @@ public:
 
     IterationInfo iterationInfo() const;
 
-    Fit::MinimizerResult minimizerResult() const;
+    mumufit::MinimizerResult minimizerResult() const;
 
     //! Should be explicitely called on last iteration to notify all observers.
-    void finalize(const Fit::MinimizerResult& result);
+    void finalize(const mumufit::MinimizerResult& result);
 
     unsigned fitObjectCount() const;
 
-    void run_simulations(const Fit::Parameters& params);
+    void run_simulations(const mumufit::Parameters& params);
 
     void setChiSquaredModule(const IChiSquaredModule& module);
 

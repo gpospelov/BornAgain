@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Core/Simulation/DepthProbeSimulation.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Core/Computation/DepthProbeComputation.h"
 #include "Core/Computation/IBackground.h"
 #include "Device/Beam/IFootprintFactor.h"

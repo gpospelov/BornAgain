@@ -26,10 +26,7 @@ public:
     FormFactorIcosahedron(const std::vector<double> P);
     FormFactorIcosahedron(double edge);
 
-    FormFactorIcosahedron* clone() const final
-    {
-        return new FormFactorIcosahedron(m_edge);
-    }
+    FormFactorIcosahedron* clone() const final { return new FormFactorIcosahedron(m_edge); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getEdge() const { return m_edge; }

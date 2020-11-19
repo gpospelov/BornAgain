@@ -41,8 +41,7 @@ public:
     MatrixFresnelMap& operator=(const MatrixFresnelMap& other) = delete;
 
     std::unique_ptr<const ILayerRTCoefficients>
-    getOutCoefficients(const SimulationElement& sim_element,
-                       size_t layer_index) const final;
+    getOutCoefficients(const SimulationElement& sim_element, size_t layer_index) const final;
 
     void setSlices(const std::vector<Slice>& slices) final;
 

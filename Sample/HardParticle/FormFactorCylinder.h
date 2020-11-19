@@ -26,10 +26,7 @@ public:
     FormFactorCylinder(const std::vector<double> P);
     FormFactorCylinder(double radius, double height);
 
-    FormFactorCylinder* clone() const final
-    {
-        return new FormFactorCylinder(m_radius, m_height);
-    }
+    FormFactorCylinder* clone() const final { return new FormFactorCylinder(m_radius, m_height); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }

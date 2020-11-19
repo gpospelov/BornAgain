@@ -20,7 +20,7 @@
 //! Axis with fixed bin size in sin(angle) space.
 //! @ingroup tools
 
-class ConstKBinAxis final: public VariableBinAxis
+class ConstKBinAxis final : public VariableBinAxis
 {
 public:
     //! ConstKBinAxis constructor.

@@ -26,10 +26,7 @@ public:
     FormFactorGaussSphere(const std::vector<double> P);
     FormFactorGaussSphere(double mean_radius);
 
-    FormFactorGaussSphere* clone() const final
-    {
-        return new FormFactorGaussSphere(m_mean_radius);
-    }
+    FormFactorGaussSphere* clone() const final { return new FormFactorGaussSphere(m_mean_radius); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getMeanRadius() const { return m_mean_radius; }

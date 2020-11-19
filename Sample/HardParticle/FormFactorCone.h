@@ -26,10 +26,7 @@ public:
     FormFactorCone(const std::vector<double> P);
     FormFactorCone(double radius, double height, double alpha);
 
-    FormFactorCone* clone() const final
-    {
-        return new FormFactorCone(m_radius, m_height, m_alpha);
-    }
+    FormFactorCone* clone() const final { return new FormFactorCone(m_radius, m_height, m_alpha); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }

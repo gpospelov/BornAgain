@@ -26,10 +26,7 @@ public:
     FormFactorPrism6(const std::vector<double> P);
     FormFactorPrism6(double base_edge, double height);
 
-    FormFactorPrism6* clone() const final
-    {
-        return new FormFactorPrism6(m_base_edge, m_height);
-    }
+    FormFactorPrism6* clone() const final { return new FormFactorPrism6(m_base_edge, m_height); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }

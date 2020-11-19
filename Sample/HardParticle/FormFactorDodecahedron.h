@@ -26,10 +26,7 @@ public:
     FormFactorDodecahedron(const std::vector<double> P);
     FormFactorDodecahedron(double edge);
 
-    FormFactorDodecahedron* clone() const final
-    {
-        return new FormFactorDodecahedron(m_edge);
-    }
+    FormFactorDodecahedron* clone() const final { return new FormFactorDodecahedron(m_edge); }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getEdge() const { return m_edge; }

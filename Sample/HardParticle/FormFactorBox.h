@@ -26,10 +26,7 @@ public:
     FormFactorBox(const std::vector<double> P);
     FormFactorBox(double length, double width, double height);
 
-    FormFactorBox* clone() const final
-    {
-        return new FormFactorBox(m_length, m_width, m_height);
-    }
+    FormFactorBox* clone() const final { return new FormFactorBox(m_length, m_width, m_height); }
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 

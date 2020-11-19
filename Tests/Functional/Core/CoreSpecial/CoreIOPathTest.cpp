@@ -53,17 +53,16 @@ TEST_F(CoreIOPathTest, CoreIOPath)
         "\xd0\xb4\xd0\xb8\xd1\x80\xd0\xb5\xd0\xba\xd1\x82\xd0\xbe\xd1\x80\xd0\xb8\xd1\x8f";
 
     const boost::filesystem::path test_dir(BATesting::TestOutDir_Core());
-    const boost::filesystem::path test_subdir("test_CoreIOPathTest");
 
-    FileSystemUtils::createDirectories((test_dir / test_subdir).string());
+    FileSystemUtils::createDirectories(test_dir.string());
 
     // tests file writing when file name contains cyrillic characters
     boost::filesystem::path test_file(filename_rus);
-    EXPECT_TRUE(test_io(data.get(), (test_dir / test_subdir / test_file).string()));
+    EXPECT_TRUE(test_io(data.get(), (test_dir / test_file).string()));
 
     // tests file writing and directory creation when dirname contains cyrillic characters
     boost::filesystem::path test_subdir_rus(dirname_rus);
-    FileSystemUtils::createDirectories((test_dir / test_subdir / test_subdir_rus).string());
+    FileSystemUtils::createDirectories((test_dir / test_subdir_rus).string());
     EXPECT_TRUE(
-        test_io(data.get(), (test_dir / test_subdir / test_subdir_rus / test_file).string()));
+        test_io(data.get(), (test_dir / test_subdir_rus / test_file).string()));
 }

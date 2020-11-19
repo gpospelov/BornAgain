@@ -432,7 +432,7 @@ Finds minimum of user objective function (to be called from Python).
 
 Abstract base class that adapts the CERN ROOT minimizer to our  IMinimizer.
 
-C++ includes: RootMinimizerAdapter.h
+C++ includes: MinimizerAdapter.h
 ";
 
 %feature("docstring")  MinimizerAdapter::~MinimizerAdapter "MinimizerAdapter::~MinimizerAdapter() override
@@ -1369,28 +1369,31 @@ Internal state of a  WallclockTimer object.
 // File: namespace_0d0.xml
 
 
-// File: namespace_0d12.xml
+// File: namespace_0d10.xml
+
+
+// File: namespace_0d14.xml
+
+
+// File: namespace_0d16.xml
 
 
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d26.xml
+// File: namespace_0d28.xml
 
 
-// File: namespace_0d40.xml
+// File: namespace_0d42.xml
 
 
-// File: namespace_0d50.xml
+// File: namespace_0d44.xml
 
 
-// File: namespace_0d57.xml
+// File: namespace_0d52.xml
 
 
 // File: namespace_0d60.xml
-
-
-// File: namespace_0d8.xml
 
 
 // File: namespaceFit.xml
@@ -1464,11 +1467,6 @@ Returns new string which is lower case of text.
 Reports results of minimization in the form of multi-line string. 
 ";
 
-%feature("docstring")  report::reportParameters "std::string report::reportParameters(const Fit::Parameters &parameters)
-
-Reports fit parameters settings and final results. 
-";
-
 
 // File: namespaceROOT.xml
 
@@ -1503,6 +1501,12 @@ Reports fit parameters settings and final results.
 // File: IFunctionAdapter_8h.xml
 
 
+// File: MinimizerAdapter_8cpp.xml
+
+
+// File: MinimizerAdapter_8h.xml
+
+
 // File: Minuit2Minimizer_8cpp.xml
 
 
@@ -1515,16 +1519,16 @@ Reports fit parameters settings and final results.
 // File: ObjectiveFunctionAdapter_8h.xml
 
 
+// File: Report_8cpp.xml
+
+
+// File: Report_8h.xml
+
+
 // File: ResidualFunctionAdapter_8cpp.xml
 
 
 // File: ResidualFunctionAdapter_8h.xml
-
-
-// File: RootMinimizerAdapter_8cpp.xml
-
-
-// File: RootMinimizerAdapter_8h.xml
 
 
 // File: RootResidualFunction_8cpp.xml
@@ -1650,12 +1654,6 @@ Reports fit parameters settings and final results.
 // File: RealLimits_8h.xml
 
 
-// File: Report_8cpp.xml
-
-
-// File: Report_8h.xml
-
-
 // File: IFactory_8h.xml
 
 
@@ -1708,9 +1706,6 @@ Reports fit parameters settings and final results.
 
 
 // File: dir_38d3fa544be6e05025bba6e85a25baf3.xml
-
-
-// File: dir_4ffbbb2ac033d83797f518ac66a039fa.xml
 
 
 // File: dir_03da15e295bc2986014d40bf58034da8.xml

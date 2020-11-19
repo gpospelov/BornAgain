@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Report/Report.cpp
+//! @file      Fit/Adapter/Report.cpp
 //! @brief     Implements report namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,10 +12,9 @@
 //
 //  ************************************************************************************************
 
-#include "Fit/Report/Report.h"
+#include "Fit/Adapter/Report.h"
 #include "Fit/Adapter/MinimizerAdapter.h"
 #include "Fit/Tools/MinimizerUtils.h"
-#include <boost/format.hpp>
 #include <iomanip>
 #include <sstream>
 
@@ -76,8 +75,6 @@ std::string reportStatus(const MinimizerAdapter& minimizer)
 //  namespace report
 //  ************************************************************************************************
 
-using namespace Fit;
-
 std::string report::reportToString(const MinimizerAdapter& minimizer)
 {
     std::ostringstream result;
@@ -86,34 +83,6 @@ std::string report::reportToString(const MinimizerAdapter& minimizer)
     result << reportDescription(minimizer);
     result << reportOption(minimizer);
     result << reportStatus(minimizer);
-
-    return result.str();
-}
-
-std::string report::reportParameters(const Fit::Parameters& parameters)
-{
-    std::ostringstream result;
-
-    result << MinimizerUtils::sectionString("FitParameters");
-
-    result << "Name                       StartValue  Limits                        FitValue"
-           << "     Error" << std::endl;
-
-    for (const auto& par : parameters) {
-        result << boost::format("%-26.26s %-8.3e   %-28s  %-8.3e    %8.3e \n") % par.name()
-                      % par.startValue() % par.limits().toString() % par.value() % par.error();
-    }
-
-    Fit::Parameters::corr_matrix_t matrix = parameters.correlationMatrix();
-    if (!matrix.empty()) {
-        result << MinimizerUtils::sectionString("Correlations");
-        for (size_t i = 0; i < matrix.size(); ++i) {
-            result << boost::format("#%-2d       ") % i;
-            for (size_t j = 0; j < matrix[i].size(); ++j)
-                result << boost::format("%_7.4f    ") % matrix[i][j];
-            result << std::endl;
-        }
-    }
 
     return result.str();
 }

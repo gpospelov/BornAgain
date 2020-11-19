@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Report/Report.h
+//! @file      Fit/Adapter/Report.h
 //! @brief     Declares report namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,10 +18,6 @@
 #include <string>
 
 class MinimizerAdapter;
-namespace Fit
-{
-class Parameters;
-}
 
 //! Utility functions to generate reports
 
@@ -30,9 +26,6 @@ namespace report
 
 //! Reports results of minimization in the form of multi-line string
 std::string reportToString(const MinimizerAdapter& minimizer);
-
-//! Reports fit parameters settings and final results
-std::string reportParameters(const Fit::Parameters& parameters);
 
 }; // namespace report
 

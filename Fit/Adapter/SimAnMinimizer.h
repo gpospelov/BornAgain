@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_SIMANMINIMIZER_H
 #define BORNAGAIN_FIT_ROOTADAPTER_SIMANMINIMIZER_H
 
-#include "Fit/Adapter/RootMinimizerAdapter.h"
+#include "Fit/Adapter/MinimizerAdapter.h"
 
 namespace ROOT
 {
@@ -28,7 +28,7 @@ class GSLSimAnMinimizer;
 //! Wrapper for the CERN ROOT facade of the GSL simmulated annealing minimizer.
 //! @ingroup fitting_internal
 
-class SimAnMinimizer : public RootMinimizerAdapter
+class SimAnMinimizer : public MinimizerAdapter
 {
 public:
     SimAnMinimizer();

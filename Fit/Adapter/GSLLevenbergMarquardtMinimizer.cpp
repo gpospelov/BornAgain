@@ -45,7 +45,7 @@ std::map<int, std::string> covmatrixStatusDescription()
 } // namespace
 
 GSLLevenbergMarquardtMinimizer::GSLLevenbergMarquardtMinimizer()
-    : RootMinimizerAdapter(MinimizerInfo::buildGSLLMAInfo())
+    : MinimizerAdapter(MinimizerInfo::buildGSLLMAInfo())
     , m_gsl_minimizer(new ROOT::Math::GSLNLSMinimizer(2))
 {
     addOption("Tolerance", 0.01, "Tolerance on the function value at the minimum");
@@ -92,7 +92,7 @@ std::string GSLLevenbergMarquardtMinimizer::statusToString() const
 
 std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() const
 {
-    auto result = RootMinimizerAdapter::statusMap();
+    auto result = MinimizerAdapter::statusMap();
     result["Edm"] = mumufit::StringUtils::scientific(rootMinimizer()->Edm());
     result["CovMatrixStatus"] = covmatrixStatusDescription()[rootMinimizer()->CovMatrixStatus()];
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
@@ -106,7 +106,7 @@ void GSLLevenbergMarquardtMinimizer::propagateOptions()
     m_gsl_minimizer->SetMaxIterations(static_cast<unsigned int>(maxIterations()));
 }
 
-const RootMinimizerAdapter::root_minimizer_t* GSLLevenbergMarquardtMinimizer::rootMinimizer() const
+const MinimizerAdapter::root_minimizer_t* GSLLevenbergMarquardtMinimizer::rootMinimizer() const
 {
     return m_gsl_minimizer.get();
 }
@@ -117,5 +117,5 @@ void GSLLevenbergMarquardtMinimizer::setParameter(unsigned int index, const Fit:
     if (!limits.isLimitless() && !limits.isFixed())
         throw std::runtime_error("GSLLMA minimizer can't handle limited parameters."
                                  "Please make them free");
-    RootMinimizerAdapter::setParameter(index, par);
+    MinimizerAdapter::setParameter(index, par);
 }

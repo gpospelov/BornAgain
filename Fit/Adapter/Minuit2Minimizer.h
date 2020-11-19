@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_MINUIT2MINIMIZER_H
 #define BORNAGAIN_FIT_ROOTADAPTER_MINUIT2MINIMIZER_H
 
-#include "Fit/Adapter/RootMinimizerAdapter.h"
+#include "Fit/Adapter/MinimizerAdapter.h"
 #include <memory>
 
 namespace ROOT
@@ -30,7 +30,7 @@ class Minuit2Minimizer;
 //! See Minuit2 user manual https://root.cern.ch/root/htmldoc/guides/minuit2/Minuit2.pdf.
 //! @ingroup fitting_internal
 
-class Minuit2Minimizer : public RootMinimizerAdapter
+class Minuit2Minimizer : public MinimizerAdapter
 {
 public:
     Minuit2Minimizer(const std::string& algorithmName = "Migrad");

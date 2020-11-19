@@ -28,7 +28,7 @@ std::map<int, std::string> statusDescription()
 } // namespace
 
 GeneticMinimizer::GeneticMinimizer()
-    : RootMinimizerAdapter(MinimizerInfo::buildGeneticInfo())
+    : MinimizerAdapter(MinimizerInfo::buildGeneticInfo())
     , m_genetic_minimizer(new ROOT::Math::GeneticMinimizer())
 {
     addOption("Tolerance", 0.01, "Tolerance on the function value at the minimum");
@@ -110,7 +110,7 @@ void GeneticMinimizer::setParameter(unsigned int index, const Fit::Parameter& pa
              << " Parameter name '" << par.name() << "', limits:" << par.limits().toString();
         throw std::runtime_error(ostr.str());
     }
-    RootMinimizerAdapter::setParameter(index, par);
+    MinimizerAdapter::setParameter(index, par);
 }
 
 std::string GeneticMinimizer::statusToString() const
@@ -120,7 +120,7 @@ std::string GeneticMinimizer::statusToString() const
 
 std::map<std::string, std::string> GeneticMinimizer::statusMap() const
 {
-    auto result = RootMinimizerAdapter::statusMap();
+    auto result = MinimizerAdapter::statusMap();
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
     return result;
 }
@@ -140,7 +140,7 @@ void GeneticMinimizer::propagateOptions()
     m_genetic_minimizer->SetParameters(pars);
 }
 
-const RootMinimizerAdapter::root_minimizer_t* GeneticMinimizer::rootMinimizer() const
+const MinimizerAdapter::root_minimizer_t* GeneticMinimizer::rootMinimizer() const
 {
     return m_genetic_minimizer.get();
 }

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_GSLLEVENBERGMARQUARDTMINIMIZER_H
 #define BORNAGAIN_FIT_ROOTADAPTER_GSLLEVENBERGMARQUARDTMINIMIZER_H
 
-#include "Fit/Adapter/RootMinimizerAdapter.h"
+#include "Fit/Adapter/MinimizerAdapter.h"
 
 namespace ROOT
 {
@@ -30,7 +30,7 @@ class GSLNLSMinimizer;
 //! (http://www.gnu.org/software/gsl/manual/html_node/Nonlinear-Least_002dSquares-Fitting.html).
 //! @ingroup fitting_internal
 
-class GSLLevenbergMarquardtMinimizer : public RootMinimizerAdapter
+class GSLLevenbergMarquardtMinimizer : public MinimizerAdapter
 {
 public:
     GSLLevenbergMarquardtMinimizer();

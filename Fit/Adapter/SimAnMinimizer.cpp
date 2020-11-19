@@ -28,7 +28,7 @@
 #endif
 
 SimAnMinimizer::SimAnMinimizer()
-    : RootMinimizerAdapter(MinimizerInfo::buildGSLSimAnInfo())
+    : MinimizerAdapter(MinimizerInfo::buildGSLSimAnInfo())
     , m_siman_minimizer(new ROOT::Math::GSLSimAnMinimizer())
 {
     addOption("PrintLevel", 0, "Minimizer internal print level");
@@ -125,7 +125,7 @@ double SimAnMinimizer::boltzmannMinTemp() const
 
 std::map<std::string, std::string> SimAnMinimizer::statusMap() const
 {
-    auto result = RootMinimizerAdapter::statusMap();
+    auto result = MinimizerAdapter::statusMap();
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
     return result;
 }
@@ -142,7 +142,7 @@ void SimAnMinimizer::propagateOptions()
     pars.t_min = boltzmannMinTemp();
 }
 
-const RootMinimizerAdapter::root_minimizer_t* SimAnMinimizer::rootMinimizer() const
+const MinimizerAdapter::root_minimizer_t* SimAnMinimizer::rootMinimizer() const
 {
     return m_siman_minimizer.get();
 }

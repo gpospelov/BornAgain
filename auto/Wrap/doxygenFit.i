@@ -427,6 +427,70 @@ Finds minimum of user objective function (to be called from Python).
 ";
 
 
+// File: classMinimizerAdapter.xml
+%feature("docstring") MinimizerAdapter "
+
+Abstract base class that adapts the CERN ROOT minimizer to our  IMinimizer.
+
+C++ includes: RootMinimizerAdapter.h
+";
+
+%feature("docstring")  MinimizerAdapter::~MinimizerAdapter "MinimizerAdapter::~MinimizerAdapter() override
+";
+
+%feature("docstring")  MinimizerAdapter::minimize_scalar "MinimizerResult MinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override
+
+run minimization 
+";
+
+%feature("docstring")  MinimizerAdapter::minimize_residual "MinimizerResult MinimizerAdapter::minimize_residual(fcn_residual_t fcn, Fit::Parameters parameters) override
+";
+
+%feature("docstring")  MinimizerAdapter::minimizerName "std::string MinimizerAdapter::minimizerName() const override final
+
+Returns name of the minimizer. 
+";
+
+%feature("docstring")  MinimizerAdapter::algorithmName "std::string MinimizerAdapter::algorithmName() const override final
+
+Returns name of the minimization algorithm. 
+";
+
+%feature("docstring")  MinimizerAdapter::setParameters "void MinimizerAdapter::setParameters(const Fit::Parameters &parameters)
+";
+
+%feature("docstring")  MinimizerAdapter::minValue "double MinimizerAdapter::minValue() const override final
+
+Returns minimum function value. 
+";
+
+%feature("docstring")  MinimizerAdapter::options "MinimizerOptions& MinimizerAdapter::options()
+";
+
+%feature("docstring")  MinimizerAdapter::options "const MinimizerOptions& MinimizerAdapter::options() const
+";
+
+%feature("docstring")  MinimizerAdapter::statusToString "std::string MinimizerAdapter::statusToString() const
+
+Returns string representation of current minimizer status. 
+";
+
+%feature("docstring")  MinimizerAdapter::providesError "bool MinimizerAdapter::providesError() const
+
+Returns true if minimizer provides error and error matrix. 
+";
+
+%feature("docstring")  MinimizerAdapter::statusMap "std::map< std::string, std::string > MinimizerAdapter::statusMap() const
+
+Returns map of string representing different minimizer statuses. 
+";
+
+%feature("docstring")  MinimizerAdapter::setOptions "void MinimizerAdapter::setOptions(const std::string &optionString) override final
+
+Sets option string to the minimizer. 
+";
+
+
 // File: classMinimizerCatalog.xml
 %feature("docstring") MinimizerCatalog "
 
@@ -1085,70 +1149,6 @@ C++ includes: ResidualFunctionAdapter.h
 ";
 
 
-// File: classRootMinimizerAdapter.xml
-%feature("docstring") RootMinimizerAdapter "
-
-Abstract base class that adapts the CERN ROOT minimizer to our  IMinimizer.
-
-C++ includes: RootMinimizerAdapter.h
-";
-
-%feature("docstring")  RootMinimizerAdapter::~RootMinimizerAdapter "RootMinimizerAdapter::~RootMinimizerAdapter() override
-";
-
-%feature("docstring")  RootMinimizerAdapter::minimize_scalar "MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override
-
-run minimization 
-";
-
-%feature("docstring")  RootMinimizerAdapter::minimize_residual "MinimizerResult RootMinimizerAdapter::minimize_residual(fcn_residual_t fcn, Fit::Parameters parameters) override
-";
-
-%feature("docstring")  RootMinimizerAdapter::minimizerName "std::string RootMinimizerAdapter::minimizerName() const override final
-
-Returns name of the minimizer. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::algorithmName "std::string RootMinimizerAdapter::algorithmName() const override final
-
-Returns name of the minimization algorithm. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::setParameters "void RootMinimizerAdapter::setParameters(const Fit::Parameters &parameters)
-";
-
-%feature("docstring")  RootMinimizerAdapter::minValue "double RootMinimizerAdapter::minValue() const override final
-
-Returns minimum function value. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::options "MinimizerOptions& RootMinimizerAdapter::options()
-";
-
-%feature("docstring")  RootMinimizerAdapter::options "const MinimizerOptions& RootMinimizerAdapter::options() const
-";
-
-%feature("docstring")  RootMinimizerAdapter::statusToString "std::string RootMinimizerAdapter::statusToString() const
-
-Returns string representation of current minimizer status. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::providesError "bool RootMinimizerAdapter::providesError() const
-
-Returns true if minimizer provides error and error matrix. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::statusMap "std::map< std::string, std::string > RootMinimizerAdapter::statusMap() const
-
-Returns map of string representing different minimizer statuses. 
-";
-
-%feature("docstring")  RootMinimizerAdapter::setOptions "void RootMinimizerAdapter::setOptions(const std::string &optionString) override final
-
-Sets option string to the minimizer. 
-";
-
-
 // File: classRootResidualFunction.xml
 %feature("docstring") RootResidualFunction "
 
@@ -1366,31 +1366,31 @@ Internal state of a  WallclockTimer object.
 ";
 
 
+// File: namespace_0d0.xml
+
+
 // File: namespace_0d12.xml
 
 
-// File: namespace_0d20.xml
+// File: namespace_0d2.xml
 
 
-// File: namespace_0d30.xml
+// File: namespace_0d26.xml
 
 
-// File: namespace_0d37.xml
+// File: namespace_0d40.xml
 
 
-// File: namespace_0d39.xml
+// File: namespace_0d50.xml
 
 
-// File: namespace_0d4.xml
-
-
-// File: namespace_0d43.xml
-
-
-// File: namespace_0d47.xml
+// File: namespace_0d57.xml
 
 
 // File: namespace_0d60.xml
+
+
+// File: namespace_0d8.xml
 
 
 // File: namespaceFit.xml
@@ -1459,7 +1459,7 @@ Returns new string which is lower case of text.
 
 
 // File: namespacereport.xml
-%feature("docstring")  report::reportToString "std::string report::reportToString(const RootMinimizerAdapter &minimizer)
+%feature("docstring")  report::reportToString "std::string report::reportToString(const MinimizerAdapter &minimizer)
 
 Reports results of minimization in the form of multi-line string. 
 ";
@@ -1479,16 +1479,82 @@ Reports fit parameters settings and final results.
 // File: namespaceROOT_1_1Minuit2.xml
 
 
-// File: FitOptions_8cpp.xml
+// File: GeneticMinimizer_8cpp.xml
 
 
-// File: FitOptions_8h.xml
+// File: GeneticMinimizer_8h.xml
+
+
+// File: GSLLevenbergMarquardtMinimizer_8cpp.xml
+
+
+// File: GSLLevenbergMarquardtMinimizer_8h.xml
+
+
+// File: GSLMultiMinimizer_8cpp.xml
+
+
+// File: GSLMultiMinimizer_8h.xml
 
 
 // File: IFunctionAdapter_8cpp.xml
 
 
 // File: IFunctionAdapter_8h.xml
+
+
+// File: Minuit2Minimizer_8cpp.xml
+
+
+// File: Minuit2Minimizer_8h.xml
+
+
+// File: ObjectiveFunctionAdapter_8cpp.xml
+
+
+// File: ObjectiveFunctionAdapter_8h.xml
+
+
+// File: ResidualFunctionAdapter_8cpp.xml
+
+
+// File: ResidualFunctionAdapter_8h.xml
+
+
+// File: RootMinimizerAdapter_8cpp.xml
+
+
+// File: RootMinimizerAdapter_8h.xml
+
+
+// File: RootResidualFunction_8cpp.xml
+
+
+// File: RootResidualFunction_8h.xml
+
+
+// File: RootScalarFunction_8cpp.xml
+
+
+// File: RootScalarFunction_8h.xml
+
+
+// File: ScalarFunctionAdapter_8cpp.xml
+
+
+// File: ScalarFunctionAdapter_8h.xml
+
+
+// File: SimAnMinimizer_8cpp.xml
+
+
+// File: SimAnMinimizer_8h.xml
+
+
+// File: FitOptions_8cpp.xml
+
+
+// File: FitOptions_8h.xml
 
 
 // File: Kernel_8cpp.xml
@@ -1513,12 +1579,6 @@ Reports fit parameters settings and final results.
 
 
 // File: PyCallback_8h.xml
-
-
-// File: Report_8cpp.xml
-
-
-// File: Report_8h.xml
 
 
 // File: IMinimizer_8cpp.xml
@@ -1590,70 +1650,10 @@ Reports fit parameters settings and final results.
 // File: RealLimits_8h.xml
 
 
-// File: GeneticMinimizer_8cpp.xml
+// File: Report_8cpp.xml
 
 
-// File: GeneticMinimizer_8h.xml
-
-
-// File: GSLLevenbergMarquardtMinimizer_8cpp.xml
-
-
-// File: GSLLevenbergMarquardtMinimizer_8h.xml
-
-
-// File: GSLMultiMinimizer_8cpp.xml
-
-
-// File: GSLMultiMinimizer_8h.xml
-
-
-// File: Minuit2Minimizer_8cpp.xml
-
-
-// File: Minuit2Minimizer_8h.xml
-
-
-// File: ObjectiveFunctionAdapter_8cpp.xml
-
-
-// File: ObjectiveFunctionAdapter_8h.xml
-
-
-// File: ResidualFunctionAdapter_8cpp.xml
-
-
-// File: ResidualFunctionAdapter_8h.xml
-
-
-// File: RootMinimizerAdapter_8cpp.xml
-
-
-// File: RootMinimizerAdapter_8h.xml
-
-
-// File: RootResidualFunction_8cpp.xml
-
-
-// File: RootResidualFunction_8h.xml
-
-
-// File: RootScalarFunction_8cpp.xml
-
-
-// File: RootScalarFunction_8h.xml
-
-
-// File: ScalarFunctionAdapter_8cpp.xml
-
-
-// File: ScalarFunctionAdapter_8h.xml
-
-
-// File: SimAnMinimizer_8cpp.xml
-
-
-// File: SimAnMinimizer_8h.xml
+// File: Report_8h.xml
 
 
 // File: IFactory_8h.xml
@@ -1695,6 +1695,9 @@ Reports fit parameters settings and final results.
 // File: WallclockTimer_8h.xml
 
 
+// File: dir_d6063ef14e63c037d0d36c201f22d500.xml
+
+
 // File: dir_892d84e8d1420bf45a9053cf0eede900.xml
 
 
@@ -1707,7 +1710,7 @@ Reports fit parameters settings and final results.
 // File: dir_38d3fa544be6e05025bba6e85a25baf3.xml
 
 
-// File: dir_5e88eb7454533834afc0f9fdcde3e277.xml
+// File: dir_4ffbbb2ac033d83797f518ac66a039fa.xml
 
 
 // File: dir_03da15e295bc2986014d40bf58034da8.xml

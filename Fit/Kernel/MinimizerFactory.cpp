@@ -112,7 +112,7 @@ std::string MinimizerFactory::catalogDetailsToString()
 
         // list of minimizer options
         std::unique_ptr<IMinimizer> minimizer(createMinimizer(minimizerName));
-        if (auto rootMinimizer = dynamic_cast<RootMinimizerAdapter*>(minimizer.get())) {
+        if (auto rootMinimizer = dynamic_cast<MinimizerAdapter*>(minimizer.get())) {
             result << "\nOptions\n";
             for (auto option : rootMinimizer->options()) {
                 std::ostringstream opt;

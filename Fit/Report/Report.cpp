@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Fit/Report/Report.h"
-#include "Fit/Adapter/RootMinimizerAdapter.h"
+#include "Fit/Adapter/MinimizerAdapter.h"
 #include "Fit/Tools/MinimizerUtils.h"
 #include <boost/format.hpp>
 #include <iomanip>
@@ -32,7 +32,7 @@ template <typename T> std::string reportValue(const std::string& name, T value)
 }
 
 
-std::string reportDescription(const RootMinimizerAdapter& minimizer)
+std::string reportDescription(const MinimizerAdapter& minimizer)
 {
     std::ostringstream result;
     result << reportValue("MinimizerType", minimizer.minimizerName());
@@ -40,7 +40,7 @@ std::string reportDescription(const RootMinimizerAdapter& minimizer)
     return result.str();
 }
 
-std::string reportOption(const RootMinimizerAdapter& minimizer)
+std::string reportOption(const MinimizerAdapter& minimizer)
 {
     if (minimizer.options().empty())
         return "";
@@ -58,7 +58,7 @@ std::string reportOption(const RootMinimizerAdapter& minimizer)
     return result.str();
 }
 
-std::string reportStatus(const RootMinimizerAdapter& minimizer)
+std::string reportStatus(const MinimizerAdapter& minimizer)
 {
     std::ostringstream result;
     result << MinimizerUtils::sectionString("Status");
@@ -78,7 +78,7 @@ std::string reportStatus(const RootMinimizerAdapter& minimizer)
 
 using namespace Fit;
 
-std::string report::reportToString(const RootMinimizerAdapter& minimizer)
+std::string report::reportToString(const MinimizerAdapter& minimizer)
 {
     std::ostringstream result;
 

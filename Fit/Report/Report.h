@@ -17,7 +17,7 @@
 
 #include <string>
 
-class RootMinimizerAdapter;
+class MinimizerAdapter;
 namespace Fit
 {
 class Parameters;
@@ -29,7 +29,7 @@ namespace report
 {
 
 //! Reports results of minimization in the form of multi-line string
-std::string reportToString(const RootMinimizerAdapter& minimizer);
+std::string reportToString(const MinimizerAdapter& minimizer);
 
 //! Reports fit parameters settings and final results
 std::string reportParameters(const Fit::Parameters& parameters);

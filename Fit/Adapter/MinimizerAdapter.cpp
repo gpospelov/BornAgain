@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Adapter/RootMinimizerAdapter.cpp
-//! @brief     Implements class RootMinimizerAdapter.
+//! @file      Fit/Adapter/MinimizerAdapter.cpp
+//! @brief     Implements class MinimizerAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Fit/Adapter/RootMinimizerAdapter.h"
+#include "Fit/Adapter/MinimizerAdapter.h"
 #include "Fit/Report/Report.h"
 #include "Fit/Adapter/ObjectiveFunctionAdapter.h"
 #include "Fit/Adapter/RootResidualFunction.h"
@@ -22,28 +22,28 @@
 
 using namespace Fit;
 
-RootMinimizerAdapter::RootMinimizerAdapter(const MinimizerInfo& minimizerInfo)
+MinimizerAdapter::MinimizerAdapter(const MinimizerInfo& minimizerInfo)
     : m_minimizerInfo(minimizerInfo), m_adapter(new Fit::ObjectiveFunctionAdapter), m_status(false)
 {
 }
 
-RootMinimizerAdapter::~RootMinimizerAdapter() = default;
+MinimizerAdapter::~MinimizerAdapter() = default;
 
-MinimizerResult RootMinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, Parameters parameters)
+MinimizerResult MinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, Parameters parameters)
 {
     // Genetic minimizer requires SetFunction before setParameters, others don't care
     rootMinimizer()->SetFunction(*m_adapter->rootObjectiveFunction(fcn, parameters));
     return minimize(parameters);
 }
 
-MinimizerResult RootMinimizerAdapter::minimize_residual(fcn_residual_t fcn, Parameters parameters)
+MinimizerResult MinimizerAdapter::minimize_residual(fcn_residual_t fcn, Parameters parameters)
 {
     // Genetic minimizer requires SetFunction before setParameters, others don't care
     rootMinimizer()->SetFunction(*m_adapter->rootResidualFunction(fcn, parameters));
     return minimize(parameters);
 }
 
-MinimizerResult RootMinimizerAdapter::minimize(Parameters parameters)
+MinimizerResult MinimizerAdapter::minimize(Parameters parameters)
 {
     setParameters(parameters);
     propagateOptions();
@@ -61,39 +61,39 @@ MinimizerResult RootMinimizerAdapter::minimize(Parameters parameters)
     return result;
 }
 
-std::string RootMinimizerAdapter::minimizerName() const
+std::string MinimizerAdapter::minimizerName() const
 {
     return m_minimizerInfo.name();
 }
 
-std::string RootMinimizerAdapter::algorithmName() const
+std::string MinimizerAdapter::algorithmName() const
 {
     return m_minimizerInfo.algorithmName();
 }
 
-void RootMinimizerAdapter::setParameters(const Fit::Parameters& parameters)
+void MinimizerAdapter::setParameters(const Fit::Parameters& parameters)
 {
     unsigned int index(0);
     for (const auto& par : parameters)
         setParameter(index++, par);
 }
 
-double RootMinimizerAdapter::minValue() const
+double MinimizerAdapter::minValue() const
 {
     return rootMinimizer()->MinValue();
 }
 
-std::string RootMinimizerAdapter::statusToString() const
+std::string MinimizerAdapter::statusToString() const
 {
     return m_status ? "Minimum found" : "Error in solving";
 }
 
-bool RootMinimizerAdapter::providesError() const
+bool MinimizerAdapter::providesError() const
 {
     return rootMinimizer()->ProvidesError();
 }
 
-std::map<std::string, std::string> RootMinimizerAdapter::statusMap() const
+std::map<std::string, std::string> MinimizerAdapter::statusMap() const
 {
     std::map<std::string, std::string> result;
     result["Status"] = statusToString();
@@ -108,14 +108,14 @@ std::map<std::string, std::string> RootMinimizerAdapter::statusMap() const
     return result;
 }
 
-void RootMinimizerAdapter::setOptions(const std::string& optionString)
+void MinimizerAdapter::setOptions(const std::string& optionString)
 {
     options().setOptionString(optionString);
 }
 
 //! Propagates results of minimization to fit parameter set
 
-void RootMinimizerAdapter::propagateResults(Fit::Parameters& parameters)
+void MinimizerAdapter::propagateResults(Fit::Parameters& parameters)
 {
     parameters.setValues(parValuesAtMinimum());
     parameters.setErrors(parErrorsAtMinimum());
@@ -134,7 +134,7 @@ void RootMinimizerAdapter::propagateResults(Fit::Parameters& parameters)
     }
 }
 
-void RootMinimizerAdapter::setParameter(unsigned int index, const Fit::Parameter& par)
+void MinimizerAdapter::setParameter(unsigned int index, const Fit::Parameter& par)
 {
     bool success;
     if (par.limits().isFixed()) {
@@ -176,14 +176,14 @@ void RootMinimizerAdapter::setParameter(unsigned int index, const Fit::Parameter
 
 //! Returns number of fit parameters defined (i.e. dimension of the function to be minimized).
 
-size_t RootMinimizerAdapter::fitDimension() const
+size_t MinimizerAdapter::fitDimension() const
 {
     return rootMinimizer()->NDim();
 }
 
 //! Returns value of the variables at minimum.
 
-std::vector<double> RootMinimizerAdapter::parValuesAtMinimum() const
+std::vector<double> MinimizerAdapter::parValuesAtMinimum() const
 {
     std::vector<double> result;
     result.resize(fitDimension(), 0.0);
@@ -193,7 +193,7 @@ std::vector<double> RootMinimizerAdapter::parValuesAtMinimum() const
 
 //! Returns errors of the variables at minimum.
 
-std::vector<double> RootMinimizerAdapter::parErrorsAtMinimum() const
+std::vector<double> MinimizerAdapter::parErrorsAtMinimum() const
 {
     std::vector<double> result;
     result.resize(fitDimension(), 0.0);
@@ -204,8 +204,8 @@ std::vector<double> RootMinimizerAdapter::parErrorsAtMinimum() const
     return result;
 }
 
-RootMinimizerAdapter::root_minimizer_t* RootMinimizerAdapter::rootMinimizer()
+MinimizerAdapter::root_minimizer_t* MinimizerAdapter::rootMinimizer()
 {
     return const_cast<root_minimizer_t*>(
-        static_cast<const RootMinimizerAdapter*>(this)->rootMinimizer());
+        static_cast<const MinimizerAdapter*>(this)->rootMinimizer());
 }

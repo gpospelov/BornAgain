@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_GSLMULTIMINIMIZER_H
 #define BORNAGAIN_FIT_ROOTADAPTER_GSLMULTIMINIMIZER_H
 
-#include "Fit/Adapter/RootMinimizerAdapter.h"
+#include "Fit/Adapter/MinimizerAdapter.h"
 
 namespace ROOT
 {
@@ -28,7 +28,7 @@ class GSLMinimizer;
 //! Wrapper for the CERN ROOT facade of the GSL multi minimizer family (gradient descent based).
 //! @ingroup fitting_internal
 
-class GSLMultiMinimizer : public RootMinimizerAdapter
+class GSLMultiMinimizer : public MinimizerAdapter
 {
 public:
     explicit GSLMultiMinimizer(const std::string& algorithmName = "ConjugateFR");

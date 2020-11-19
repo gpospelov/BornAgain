@@ -29,7 +29,7 @@
 #endif
 
 GSLMultiMinimizer::GSLMultiMinimizer(const std::string& algorithmName)
-    : RootMinimizerAdapter(MinimizerInfo::buildGSLMultiMinInfo(algorithmName))
+    : MinimizerAdapter(MinimizerInfo::buildGSLMultiMinInfo(algorithmName))
     , m_gsl_minimizer(new ROOT::Math::GSLMinimizer(algorithmName.c_str()))
 {
     addOption("PrintLevel", 0, "Minimizer internal print level");
@@ -69,7 +69,7 @@ void GSLMultiMinimizer::propagateOptions()
     m_gsl_minimizer->SetMaxIterations(static_cast<unsigned int>(maxIterations()));
 }
 
-const RootMinimizerAdapter::root_minimizer_t* GSLMultiMinimizer::rootMinimizer() const
+const MinimizerAdapter::root_minimizer_t* GSLMultiMinimizer::rootMinimizer() const
 {
     return m_gsl_minimizer.get();
 }

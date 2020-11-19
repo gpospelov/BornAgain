@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_GENETICMINIMIZER_H
 #define BORNAGAIN_FIT_ROOTADAPTER_GENETICMINIMIZER_H
 
-#include "Fit/Adapter/RootMinimizerAdapter.h"
+#include "Fit/Adapter/MinimizerAdapter.h"
 
 namespace ROOT
 {
@@ -28,7 +28,7 @@ class GeneticMinimizer;
 //! Wrapper for the CERN ROOT Genetic minimizer.
 //! @ingroup fitting_internal
 
-class GeneticMinimizer : public RootMinimizerAdapter
+class GeneticMinimizer : public MinimizerAdapter
 {
 public:
     GeneticMinimizer();
@@ -64,7 +64,7 @@ protected:
     void propagateOptions() override;
     const root_minimizer_t* rootMinimizer() const override;
 
-    using RootMinimizerAdapter::setParameter;
+    using MinimizerAdapter::setParameter;
     void setParameter(unsigned int index, const Fit::Parameter& par) override;
 
 private:

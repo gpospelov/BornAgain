@@ -1,5 +1,5 @@
 function(PerformanceTest NAME SPEED DEPS)
-    set(TEST "PTest${NAME}")
+    set(TEST PTest${NAME})
     add_executable(${TEST} ${NAME}.cpp ${DEPS})
     target_link_libraries(${TEST} BornAgainCore)
     if((${SPEED} STREQUAL "fast") OR SLOWTESTS)

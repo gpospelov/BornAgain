@@ -435,9 +435,10 @@ std::string SimulationToPython::defineMain(SimulationToPython::EMainType mainTyp
         result = "if __name__ == '__main__': \n"
                  "    result = run_simulation()\n"
                  "    import sys\n"
-                 "    if len(sys.argv)<2:\n"
-                 "        exit(\"File name is required\")\n"
-                 "    ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n";
+                 "    if len(sys.argv)>=2:\n"
+                 "        ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n"
+                 "    else:\n"
+            "        ba.plot_simulation_result(result, cmap='jet', aspect='auto')\n";
     } else {
         throw std::runtime_error("SimulationToPython::defineMain() -> Error. Unknown main type.");
     }

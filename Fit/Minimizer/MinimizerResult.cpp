@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Fit/Minimizer/MinimizerResult.h"
-#include "Fit/Kernel/Report.h"
+#include "Fit/Report/Report.h"
 #include "Fit/Tools/MinimizerUtils.h"
 #include <sstream>
 

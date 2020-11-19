@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/ScalarFunctionAdapter.h
+//! @file      Fit/Adapter/ScalarFunctionAdapter.h
 //! @brief     Defines class ScalarFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_SCALARFUNCTIONADAPTER_H
 #define BORNAGAIN_FIT_ROOTADAPTER_SCALARFUNCTIONADAPTER_H
 
-#include "Fit/Kernel/IFunctionAdapter.h"
+#include "Fit/Adapter/IFunctionAdapter.h"
 #include "Fit/Minimizer/Types.h"
 #include "Fit/Param/Parameters.h"
 #include <functional>

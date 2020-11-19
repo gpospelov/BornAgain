@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/IFunctionAdapter.h
+//! @file      Fit/Adapter/IFunctionAdapter.h
 //! @brief     Defines interface IFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/Minuit2Minimizer.h
+//! @file      Fit/Adapter/Minuit2Minimizer.h
 //! @brief     Declares class Minuit2Minimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_MINUIT2MINIMIZER_H
 #define BORNAGAIN_FIT_ROOTADAPTER_MINUIT2MINIMIZER_H
 
-#include "Fit/RootAdapter/RootMinimizerAdapter.h"
+#include "Fit/Adapter/RootMinimizerAdapter.h"
 #include <memory>
 
 namespace ROOT

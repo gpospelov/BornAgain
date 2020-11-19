@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/SimAnMinimizer.cpp
+//! @file      Fit/Adapter/SimAnMinimizer.cpp
 //! @brief     Implements class SimAnMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#include "Fit/RootAdapter/SimAnMinimizer.h"
-#include "Fit/RootAdapter/GSLMultiMinimizer.h"
+#include "Fit/Adapter/SimAnMinimizer.h"
+#include "Fit/Adapter/GSLMultiMinimizer.h"
 
 #ifdef _WIN32
 #pragma warning(push)

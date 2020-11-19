@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/Report.h
+//! @file      Fit/Report/Report.h
 //! @brief     Declares report namespace.
 //!
 //! @homepage  http://www.bornagainproject.org

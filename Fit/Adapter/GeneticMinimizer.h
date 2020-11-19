@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/GSLLevenbergMarquardtMinimizer.h
-//! @brief     Declares class GSLLevenbergMarquardtMinimizer.
+//! @file      Fit/Adapter/GeneticMinimizer.h
+//! @brief     Declares class GeneticMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,31 +12,32 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_ROOTADAPTER_GSLLEVENBERGMARQUARDTMINIMIZER_H
-#define BORNAGAIN_FIT_ROOTADAPTER_GSLLEVENBERGMARQUARDTMINIMIZER_H
+#ifndef BORNAGAIN_FIT_ROOTADAPTER_GENETICMINIMIZER_H
+#define BORNAGAIN_FIT_ROOTADAPTER_GENETICMINIMIZER_H
 
-#include "Fit/RootAdapter/RootMinimizerAdapter.h"
+#include "Fit/Adapter/RootMinimizerAdapter.h"
 
 namespace ROOT
 {
 namespace Math
 {
-class GSLNLSMinimizer;
+class GeneticMinimizer;
 }
 } // namespace ROOT
 
-//! It's a facade to ROOT::Math::GSLNLSMinimizer which, in turn, is a facade to the
-//! actual GSL's gsl_multifit_fdfsolver_type
-//! (http://www.gnu.org/software/gsl/manual/html_node/Nonlinear-Least_002dSquares-Fitting.html).
+//! Wrapper for the CERN ROOT Genetic minimizer.
 //! @ingroup fitting_internal
 
-class GSLLevenbergMarquardtMinimizer : public RootMinimizerAdapter
+class GeneticMinimizer : public RootMinimizerAdapter
 {
 public:
-    GSLLevenbergMarquardtMinimizer();
-    ~GSLLevenbergMarquardtMinimizer() override;
+    GeneticMinimizer();
+    ~GeneticMinimizer();
 
     //! Sets tolerance on the function value at the minimum.
+    //! Minimization will stop when the estimated vertical distance to the minimum (EDM) is less
+    //! than 0.001*tolerance*ErrorDef. Here ErrorDef=1.0 for chi squared fit and ErrorDef=0.5
+    //! for negative log likelihood fit.
     void setTolerance(double value);
     double tolerance() const;
 
@@ -44,24 +45,30 @@ public:
     void setPrintLevel(int value);
     int printLevel() const;
 
-    //! Sets maximum number of iterations. This is an internal minimizer setting which has
-    //! no direct relation to the number of objective function calls (e.g. numberOfIteraction=5
-    //! might correspond to ~100 objective function calls).
+    //! Sets maximum number of iterations to try at each step.
     void setMaxIterations(int value);
     int maxIterations() const;
+
+    //! Sets population size.
+    void setPopulationSize(int value);
+    int populationSize() const;
+
+    //! Sets random seed.
+    void setRandomSeed(int value);
+    int randomSeed() const;
 
     std::string statusToString() const override;
     std::map<std::string, std::string> statusMap() const override;
 
-    bool requiresResiduals() override { return true; }
-
 protected:
     void propagateOptions() override;
     const root_minimizer_t* rootMinimizer() const override;
+
+    using RootMinimizerAdapter::setParameter;
     void setParameter(unsigned int index, const Fit::Parameter& par) override;
 
 private:
-    std::unique_ptr<ROOT::Math::GSLNLSMinimizer> m_gsl_minimizer;
+    std::unique_ptr<ROOT::Math::GeneticMinimizer> m_genetic_minimizer;
 };
 
-#endif // BORNAGAIN_FIT_ROOTADAPTER_GSLLEVENBERGMARQUARDTMINIMIZER_H
+#endif // BORNAGAIN_FIT_ROOTADAPTER_GENETICMINIMIZER_H

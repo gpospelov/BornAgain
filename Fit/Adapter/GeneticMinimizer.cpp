@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/GeneticMinimizer.cpp
+//! @file      Fit/Adapter/GeneticMinimizer.cpp
 //! @brief     Implements class GeneticMinimizer.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Fit/RootAdapter/GeneticMinimizer.h"
+#include "Fit/Adapter/GeneticMinimizer.h"
 #include <Math/GeneticMinimizer.h>
 
 namespace

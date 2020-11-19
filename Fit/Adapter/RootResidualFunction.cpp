@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/RootResidualFunction.cpp
+//! @file      Fit/Adapter/RootResidualFunction.cpp
 //! @brief     Implements class RootResidualFunction.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Fit/RootAdapter/RootResidualFunction.h"
+#include "Fit/Adapter/RootResidualFunction.h"
 
 RootResidualFunction::RootResidualFunction(scalar_function_t objective_fun,
                                            gradient_function_t gradient_fun, size_t npars,

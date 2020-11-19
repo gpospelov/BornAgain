@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/ObjectiveFunctionAdapter.h
+//! @file      Fit/Adapter/ObjectiveFunctionAdapter.h
 //! @brief     Declares class ObjectiveFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org

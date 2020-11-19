@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/Kernel/Report.cpp
+//! @file      Fit/Report/Report.cpp
 //! @brief     Implements report namespace.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#include "Fit/Kernel/Report.h"
-#include "Fit/RootAdapter/RootMinimizerAdapter.h"
+#include "Fit/Report/Report.h"
+#include "Fit/Adapter/RootMinimizerAdapter.h"
 #include "Fit/Tools/MinimizerUtils.h"
 #include <boost/format.hpp>
 #include <iomanip>

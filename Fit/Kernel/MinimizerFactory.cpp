@@ -14,11 +14,11 @@
 
 #include "Fit/Kernel/MinimizerFactory.h"
 #include "Fit/Minimizer/TestMinimizer.h"
-#include "Fit/RootAdapter/GSLLevenbergMarquardtMinimizer.h"
-#include "Fit/RootAdapter/GSLMultiMinimizer.h"
-#include "Fit/RootAdapter/GeneticMinimizer.h"
-#include "Fit/RootAdapter/Minuit2Minimizer.h"
-#include "Fit/RootAdapter/SimAnMinimizer.h"
+#include "Fit/Adapter/GSLLevenbergMarquardtMinimizer.h"
+#include "Fit/Adapter/GSLMultiMinimizer.h"
+#include "Fit/Adapter/GeneticMinimizer.h"
+#include "Fit/Adapter/Minuit2Minimizer.h"
+#include "Fit/Adapter/SimAnMinimizer.h"
 #include <boost/format.hpp>
 #include <iomanip>
 #include <iostream>

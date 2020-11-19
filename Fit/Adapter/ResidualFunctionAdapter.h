@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Fit/RootAdapter/ResidualFunctionAdapter.h
+//! @file      Fit/Adapter/ResidualFunctionAdapter.h
 //! @brief     Defines class ResidualFunctionAdapter.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_ROOTADAPTER_RESIDUALFUNCTIONADAPTER_H
 #define BORNAGAIN_FIT_ROOTADAPTER_RESIDUALFUNCTIONADAPTER_H
 
-#include "Fit/Kernel/IFunctionAdapter.h"
+#include "Fit/Adapter/IFunctionAdapter.h"
 #include "Fit/Minimizer/Types.h"
 #include "Fit/Param/Parameters.h"
 #include <functional>

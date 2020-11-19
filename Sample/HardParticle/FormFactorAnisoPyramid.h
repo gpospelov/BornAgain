@@ -26,11 +26,11 @@ public:
     FormFactorAnisoPyramid(const std::vector<double> P);
     FormFactorAnisoPyramid(double length, double width, double height, double alpha);
 
-    FormFactorAnisoPyramid* clone() const override final
+    FormFactorAnisoPyramid* clone() const final
     {
         return new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getWidth() const { return m_width; }
@@ -39,9 +39,9 @@ public:
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
+                                 kvector_t translation) const final;
 
-    void onChange() override final;
+    void onChange() final;
 
 private:
     static const PolyhedralTopology topology;

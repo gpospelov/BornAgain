@@ -26,18 +26,18 @@ public:
     FormFactorHollowSphere(const std::vector<double> P);
     FormFactorHollowSphere(double mean, double full_width);
 
-    FormFactorHollowSphere* clone() const override final
+    FormFactorHollowSphere* clone() const final
     {
         return new FormFactorHollowSphere(m_mean, m_full_width);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    double radialExtension() const override final { return m_mean; }
+    double radialExtension() const final { return m_mean; }
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
-    void onChange() override final;
+    void onChange() final;
 
 private:
     bool checkParameters() const;

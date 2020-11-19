@@ -50,14 +50,14 @@ public:
                                                mumufit::Parameters parameters) override;
 
     //! Returns name of the minimizer.
-    std::string minimizerName() const override final;
+    std::string minimizerName() const final;
 
     //! Returns name of the minimization algorithm.
-    std::string algorithmName() const override final;
+    std::string algorithmName() const final;
 
     void setParameters(const mumufit::Parameters& parameters);
 
-    double minValue() const override final;
+    double minValue() const final;
 
     MinimizerOptions& options() { return m_options; }
     const MinimizerOptions& options() const { return m_options; }
@@ -72,7 +72,7 @@ public:
     virtual std::map<std::string, std::string> statusMap() const;
 
     //! Sets option string to the minimizer
-    void setOptions(const std::string& optionString) override final;
+    void setOptions(const std::string& optionString) final;
 
 protected:
     MinimizerAdapter(const MinimizerInfo& minimizerInfo);

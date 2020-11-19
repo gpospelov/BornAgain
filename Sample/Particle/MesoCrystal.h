@@ -28,13 +28,13 @@ public:
     MesoCrystal(const Crystal& particle_structure, const IFormFactor& form_factor);
 
     ~MesoCrystal();
-    MesoCrystal* clone() const override final;
+    MesoCrystal* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final;
+    void accept(INodeVisitor* visitor) const final;
 
-    SlicedParticle createSlicedParticle(ZLimits limits) const override final;
+    SlicedParticle createSlicedParticle(ZLimits limits) const final;
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const final;
 
 private:
     MesoCrystal(Crystal* p_particle_structure, IFormFactor* p_form_factor);

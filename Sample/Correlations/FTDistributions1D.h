@@ -57,13 +57,13 @@ public:
     FTDistribution1DCauchy(const std::vector<double> P);
     FTDistribution1DCauchy(double omega);
 
-    FTDistribution1DCauchy* clone() const override final;
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
-    double evaluate(double q) const override final;
+    FTDistribution1DCauchy* clone() const final;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    double evaluate(double q) const final;
 
-    double qSecondDerivative() const override final;
+    double qSecondDerivative() const final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 #endif
 };
 
@@ -77,13 +77,13 @@ public:
     FTDistribution1DGauss(const std::vector<double> P);
     FTDistribution1DGauss(double omega);
 
-    FTDistribution1DGauss* clone() const override final;
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
-    double evaluate(double q) const override final;
+    FTDistribution1DGauss* clone() const final;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    double evaluate(double q) const final;
 
-    double qSecondDerivative() const override final;
+    double qSecondDerivative() const final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 #endif
 };
 
@@ -97,13 +97,13 @@ public:
     FTDistribution1DGate(const std::vector<double> P);
     FTDistribution1DGate(double omega);
 
-    FTDistribution1DGate* clone() const override final;
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
-    double evaluate(double q) const override final;
+    FTDistribution1DGate* clone() const final;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    double evaluate(double q) const final;
 
-    double qSecondDerivative() const override final;
+    double qSecondDerivative() const final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 #endif
 };
 
@@ -117,13 +117,13 @@ public:
     FTDistribution1DTriangle(const std::vector<double> P);
     FTDistribution1DTriangle(double omega);
 
-    FTDistribution1DTriangle* clone() const override final;
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
-    double evaluate(double q) const override final;
+    FTDistribution1DTriangle* clone() const final;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    double evaluate(double q) const final;
 
-    double qSecondDerivative() const override final;
+    double qSecondDerivative() const final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 #endif
 };
 
@@ -138,13 +138,13 @@ public:
     FTDistribution1DCosine(const std::vector<double> P);
     FTDistribution1DCosine(double omega);
 
-    FTDistribution1DCosine* clone() const override final;
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
-    double evaluate(double q) const override final;
+    FTDistribution1DCosine* clone() const final;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    double evaluate(double q) const final;
 
-    double qSecondDerivative() const override final;
+    double qSecondDerivative() const final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 #endif
 };
 
@@ -159,14 +159,14 @@ public:
     FTDistribution1DVoigt(const std::vector<double> P);
     FTDistribution1DVoigt(double omega, double eta);
 
-    FTDistribution1DVoigt* clone() const override final;
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
-    double evaluate(double q) const override final;
+    FTDistribution1DVoigt* clone() const final;
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    double evaluate(double q) const final;
     double eta() const { return m_eta; }
 
-    double qSecondDerivative() const override final;
+    double qSecondDerivative() const final;
 #ifndef SWIG
-    std::unique_ptr<IDistribution1DSampler> createSampler() const override final;
+    std::unique_ptr<IDistribution1DSampler> createSampler() const final;
 #endif
 
 protected:

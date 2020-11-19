@@ -28,8 +28,8 @@ public:
     IFormFactorPrism(const NodeMeta& meta, const std::vector<double>& PValues);
     ~IFormFactorPrism();
 
-    double bottomZ(const IRotation& rotation) const override final;
-    double topZ(const IRotation& rotation) const override final;
+    double bottomZ(const IRotation& rotation) const final;
+    double topZ(const IRotation& rotation) const final;
 
     complex_t evaluate_for_q(cvector_t q) const override;
     double volume() const override;

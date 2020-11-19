@@ -25,11 +25,11 @@ class PoissonNoiseBackground : public IBackground
 {
 public:
     PoissonNoiseBackground();
-    PoissonNoiseBackground* clone() const override final;
+    PoissonNoiseBackground* clone() const final;
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    double addBackground(double intensity) const override final;
+    double addBackground(double intensity) const final;
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_POISSONNOISEBACKGROUND_H

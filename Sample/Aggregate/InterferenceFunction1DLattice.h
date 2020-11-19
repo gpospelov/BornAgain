@@ -22,25 +22,25 @@ class IFTDecayFunction1D;
 //! Interference function of a 1D lattice.
 //! @ingroup interference
 
-class InterferenceFunction1DLattice : public IInterferenceFunction
+class InterferenceFunction1DLattice final: public IInterferenceFunction
 {
 public:
     InterferenceFunction1DLattice(double length, double xi);
-    ~InterferenceFunction1DLattice() final;
+    ~InterferenceFunction1DLattice() override;
 
-    InterferenceFunction1DLattice* clone() const override final;
+    InterferenceFunction1DLattice* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void setDecayFunction(const IFTDecayFunction1D& decay);
 
     double getLength() const { return m_length; }
     double getXi() const { return m_xi; }
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const override;
 
 private:
-    double iff_without_dw(const kvector_t q) const override final;
+    double iff_without_dw(const kvector_t q) const override;
 
     double m_length;
     double m_xi;

@@ -27,19 +27,19 @@ public:
     FormFactorSphereGaussianRadius(const std::vector<double> P);
     FormFactorSphereGaussianRadius(double mean, double sigma);
 
-    FormFactorSphereGaussianRadius* clone() const override final
+    FormFactorSphereGaussianRadius* clone() const final
     {
         return new FormFactorSphereGaussianRadius(m_mean, m_sigma);
     }
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    double radialExtension() const override final { return m_mean; }
+    double radialExtension() const final { return m_mean; }
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
-    void onChange() override final;
+    void onChange() final;
 
 private:
     double calculateMeanR3() const;

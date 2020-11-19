@@ -26,17 +26,17 @@ class IFTDistribution2D;
 //! Interference function of a 2D paracrystal.
 //! @ingroup interference
 
-class InterferenceFunction2DParaCrystal : public IInterferenceFunction
+class InterferenceFunction2DParaCrystal final: public IInterferenceFunction
 {
 public:
     InterferenceFunction2DParaCrystal(const Lattice2D& lattice, double damping_length,
                                       double domain_size_1, double domain_size_2);
 
-    ~InterferenceFunction2DParaCrystal() final;
+    ~InterferenceFunction2DParaCrystal() override;
 
-    InterferenceFunction2DParaCrystal* clone() const override final;
+    InterferenceFunction2DParaCrystal* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void setDomainSizes(double size_1, double size_2);
 
@@ -53,16 +53,16 @@ public:
 
     const Lattice2D& lattice() const;
 
-    double getParticleDensity() const override final;
+    double getParticleDensity() const override;
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const override;
 
     const IFTDistribution2D* pdf1() const { return m_pdf1.get(); }
 
     const IFTDistribution2D* pdf2() const { return m_pdf2.get(); }
 
 private:
-    double iff_without_dw(const kvector_t q) const override final;
+    double iff_without_dw(const kvector_t q) const override;
 
     double interferenceForXi(double xi) const;
     double interference1D(double qx, double qy, double xi, size_t index) const;

@@ -28,9 +28,9 @@ public:
                                         unsigned N_3);
     ~InterferenceFunctionFinite3DLattice() final;
 
-    InterferenceFunctionFinite3DLattice* clone() const override final;
+    InterferenceFunctionFinite3DLattice* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     unsigned numberUnitCells1() const { return m_N_1; }
     unsigned numberUnitCells2() const { return m_N_2; }
@@ -38,12 +38,12 @@ public:
 
     const Lattice3D& lattice() const;
 
-    bool supportsMultilayer() const override final { return false; }
+    bool supportsMultilayer() const final { return false; }
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const final;
 
 private:
-    double iff_without_dw(const kvector_t q) const override final;
+    double iff_without_dw(const kvector_t q) const final;
     void setLattice(const Lattice3D& lattice);
 
     std::unique_ptr<Lattice3D> m_lattice;

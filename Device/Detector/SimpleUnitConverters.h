@@ -34,16 +34,16 @@ public:
     UnitConverterSimple(const Beam& beam);
     ~UnitConverterSimple() override = default;
 
-    virtual size_t dimension() const final;
+    virtual size_t dimension() const override;
 
-    double calculateMin(size_t i_axis, Axes::Units units_type) const final;
-    double calculateMax(size_t i_axis, Axes::Units units_type) const final;
-    size_t axisSize(size_t i_axis) const final;
+    double calculateMin(size_t i_axis, Axes::Units units_type) const override;
+    double calculateMax(size_t i_axis, Axes::Units units_type) const override;
+    size_t axisSize(size_t i_axis) const override;
 
     //! Returns the list of all available units
     std::vector<Axes::Units> availableUnits() const override;
 
-    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, Axes::Units units) const final;
+    std::unique_ptr<IAxis> createConvertedAxis(size_t i_axis, Axes::Units units) const override;
 
 protected:
     UnitConverterSimple(const UnitConverterSimple& other);
@@ -73,47 +73,47 @@ private:
 //! Its default units are radians for both axes
 //! @ingroup simulation_internal
 
-class SphericalConverter : public UnitConverterSimple
+class SphericalConverter final: public UnitConverterSimple
 {
 public:
     SphericalConverter(const SphericalDetector& detector, const Beam& beam);
 
-    ~SphericalConverter() final;
+    ~SphericalConverter() override;
 
-    SphericalConverter* clone() const final;
+    SphericalConverter* clone() const override;
 
     //! Returns the list of all available units
-    std::vector<Axes::Units> availableUnits() const final;
+    std::vector<Axes::Units> availableUnits() const override;
 
-    Axes::Units defaultUnits() const final;
+    Axes::Units defaultUnits() const override;
 
 private:
     SphericalConverter(const SphericalConverter& other);
-    double calculateValue(size_t i_axis, Axes::Units units_type, double value) const final;
-    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const final;
+    double calculateValue(size_t i_axis, Axes::Units units_type, double value) const override;
+    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const override;
 };
 
 //! IUnitConverter class that handles the unit translations for rectangular detectors
 //! Its default units are mm for both axes
 //! @ingroup simulation_internal
 
-class RectangularConverter : public UnitConverterSimple
+class RectangularConverter final: public UnitConverterSimple
 {
 public:
     RectangularConverter(const RectangularDetector& detector, const Beam& beam);
-    ~RectangularConverter() final;
+    ~RectangularConverter() override;
 
-    RectangularConverter* clone() const final;
+    RectangularConverter* clone() const override;
 
     //! Returns the list of all available units
-    std::vector<Axes::Units> availableUnits() const final;
+    std::vector<Axes::Units> availableUnits() const override;
 
-    Axes::Units defaultUnits() const final;
+    Axes::Units defaultUnits() const override;
 
 private:
     RectangularConverter(const RectangularConverter& other);
-    double calculateValue(size_t i_axis, Axes::Units units_type, double value) const final;
-    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const final;
+    double calculateValue(size_t i_axis, Axes::Units units_type, double value) const override;
+    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const override;
     kvector_t normalizeToWavelength(kvector_t vector) const;
     double axisAngle(size_t i_axis, kvector_t k_f) const;
     std::unique_ptr<RectangularPixel> m_detector_pixel;
@@ -124,20 +124,20 @@ private:
 //! Its default units are radians for both axes
 //! @ingroup simulation_internal
 
-class OffSpecularConverter : public UnitConverterSimple
+class OffSpecularConverter final: public UnitConverterSimple
 {
 public:
     OffSpecularConverter(const IDetector2D& detector, const Beam& beam, const IAxis& alpha_axis);
-    ~OffSpecularConverter() final;
+    ~OffSpecularConverter() override;
 
-    OffSpecularConverter* clone() const final;
+    OffSpecularConverter* clone() const override;
 
-    Axes::Units defaultUnits() const final;
+    Axes::Units defaultUnits() const override;
 
 private:
     OffSpecularConverter(const OffSpecularConverter& other);
-    double calculateValue(size_t i_axis, Axes::Units units_type, double value) const final;
-    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const final;
+    double calculateValue(size_t i_axis, Axes::Units units_type, double value) const override;
+    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const override;
     void addDetectorYAxis(const IDetector2D& detector);
 };
 
@@ -145,23 +145,23 @@ private:
 //! Its default units are radians for x-axis and nm for y-axis
 //! @ingroup simulation_internal
 
-class DepthProbeConverter : public UnitConverterSimple
+class DepthProbeConverter final: public UnitConverterSimple
 {
 public:
     DepthProbeConverter(const Beam& beam, const IAxis& alpha_axis, const IAxis& z_axis);
-    ~DepthProbeConverter() final;
+    ~DepthProbeConverter() override;
 
-    DepthProbeConverter* clone() const final;
+    DepthProbeConverter* clone() const override;
 
     //! Returns the list of all available units
-    std::vector<Axes::Units> availableUnits() const final;
+    std::vector<Axes::Units> availableUnits() const override;
 
-    Axes::Units defaultUnits() const final { return Axes::Units::DEGREES; }
+    Axes::Units defaultUnits() const override { return Axes::Units::DEGREES; }
 
 private:
     DepthProbeConverter(const DepthProbeConverter& other);
-    double calculateValue(size_t, Axes::Units units_type, double value) const final;
-    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const final;
+    double calculateValue(size_t, Axes::Units units_type, double value) const override;
+    std::vector<std::map<Axes::Units, std::string>> createNameMaps() const override;
     void checkUnits(Axes::Units units_type) const;
 };
 

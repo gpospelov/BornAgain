@@ -26,11 +26,11 @@ public:
     FormFactorPyramid(const std::vector<double> P);
     FormFactorPyramid(double base_edge, double height, double alpha);
 
-    FormFactorPyramid* clone() const override final
+    FormFactorPyramid* clone() const final
     {
         return new FormFactorPyramid(m_base_edge, m_height, m_alpha);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getBaseEdge() const { return m_base_edge; }
@@ -38,9 +38,9 @@ public:
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
+                                 kvector_t translation) const final;
 
-    void onChange() override final;
+    void onChange() final;
 
 private:
     static const PolyhedralTopology topology;

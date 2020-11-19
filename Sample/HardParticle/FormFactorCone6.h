@@ -26,11 +26,11 @@ public:
     FormFactorCone6(const std::vector<double> P);
     FormFactorCone6(double base_edge, double height, double alpha);
 
-    FormFactorCone6* clone() const override final
+    FormFactorCone6* clone() const final
     {
         return new FormFactorCone6(m_base_edge, m_height, m_alpha);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
     double getHeight() const { return m_height; }
@@ -38,9 +38,9 @@ public:
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
+                                 kvector_t translation) const final;
 
-    void onChange() override final;
+    void onChange() final;
 
 private:
     static const PolyhedralTopology topology;

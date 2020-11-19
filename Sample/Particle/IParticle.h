@@ -57,7 +57,7 @@ public:
     void setPosition(double x, double y, double z) { m_position = kvector_t(x, y, z); }
 
     //! Translates the particle
-    void translate(kvector_t translation) override final;
+    void translate(kvector_t translation) final;
 
     //! Returns rotation object
     const IRotation* rotation() const;
@@ -66,7 +66,7 @@ public:
     void setRotation(const IRotation& rotation);
 
     //! Rotates the particle
-    void rotate(const IRotation& rotation) override final;
+    void rotate(const IRotation& rotation) final;
 
     std::vector<const INode*> getChildren() const override;
 

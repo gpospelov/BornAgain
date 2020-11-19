@@ -22,22 +22,22 @@
 //! each lattice site.
 //! @ingroup interference
 
-class InterferenceFunction2DSuperLattice : public IInterferenceFunction
+class InterferenceFunction2DSuperLattice final: public IInterferenceFunction
 {
 public:
     InterferenceFunction2DSuperLattice(const Lattice2D& lattice, unsigned size_1, unsigned size_2);
     InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha, double xi,
                                        unsigned size_1, unsigned size_2);
-    ~InterferenceFunction2DSuperLattice() final;
+    ~InterferenceFunction2DSuperLattice() override;
 
-    InterferenceFunction2DSuperLattice* clone() const override final;
+    InterferenceFunction2DSuperLattice* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void setSubstructureIFF(const IInterferenceFunction& sub_iff);
     const IInterferenceFunction& substructureIFF() const;
 
-    double evaluate(const kvector_t q, double outer_iff = 1.0) const override final;
+    double evaluate(const kvector_t q, double outer_iff = 1.0) const override;
     unsigned domainSize1() const { return m_size_1; }
     unsigned domainSize2() const { return m_size_2; }
 
@@ -46,10 +46,10 @@ public:
 
     const Lattice2D& lattice() const;
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const override;
 
 private:
-    double iff_without_dw(const kvector_t q) const override final;
+    double iff_without_dw(const kvector_t q) const override;
 
     double interferenceForXi(double xi) const;
 

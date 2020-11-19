@@ -23,28 +23,28 @@ class IPeakShape;
 //! Interference function of a 3D lattice.
 //! @ingroup interference
 
-class InterferenceFunction3DLattice : public IInterferenceFunction
+class InterferenceFunction3DLattice final: public IInterferenceFunction
 {
 public:
     InterferenceFunction3DLattice(const Lattice3D& lattice);
-    ~InterferenceFunction3DLattice() final;
+    ~InterferenceFunction3DLattice() override;
 
-    InterferenceFunction3DLattice* clone() const override final;
+    InterferenceFunction3DLattice* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void setPeakShape(const IPeakShape& peak_shape);
 
     const Lattice3D& lattice() const;
 
-    bool supportsMultilayer() const override final { return false; }
+    bool supportsMultilayer() const override { return false; }
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const override;
 
-    void onChange() override final;
+    void onChange() override;
 
 private:
-    double iff_without_dw(const kvector_t q) const override final;
+    double iff_without_dw(const kvector_t q) const override;
     void initRecRadius();
 
     Lattice3D m_lattice; // TODO ASAP unique_ptr as in otehr InterferenceFunction%s

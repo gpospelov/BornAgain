@@ -23,15 +23,15 @@
 //! Interference function of a 2D lattice.
 //! @ingroup interference
 
-class InterferenceFunction2DLattice : public IInterferenceFunction
+class InterferenceFunction2DLattice final: public IInterferenceFunction
 {
 public:
     InterferenceFunction2DLattice(const Lattice2D& lattice);
-    ~InterferenceFunction2DLattice() final;
+    ~InterferenceFunction2DLattice() override;
 
-    InterferenceFunction2DLattice* clone() const override final;
+    InterferenceFunction2DLattice* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void setDecayFunction(const IFTDecayFunction2D& decay);
 
@@ -41,14 +41,14 @@ public:
     const Lattice2D& lattice() const;
 
     //! Returns the particle density associated with this 2d lattice
-    double getParticleDensity() const override final;
+    double getParticleDensity() const override;
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const override;
 
-    void onChange() override final;
+    void onChange() override;
 
 private:
-    double iff_without_dw(const kvector_t q) const override final;
+    double iff_without_dw(const kvector_t q) const override;
 
     double interferenceForXi(double xi) const;
 

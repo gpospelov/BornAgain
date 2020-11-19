@@ -29,13 +29,13 @@ class ParticleDistribution : public IAbstractParticle
 public:
     ParticleDistribution(const IParticle& prototype, const ParameterDistribution& par_distr);
 
-    ParticleDistribution* clone() const override final;
+    ParticleDistribution* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    void translate(kvector_t translation) override final;
+    void translate(kvector_t translation) final;
 
-    void rotate(const IRotation& rotation) override final;
+    void rotate(const IRotation& rotation) final;
 
     //! Returns list of new particles generated according to a distribution.
     SafePointerVector<IParticle> generateParticles() const;
@@ -46,7 +46,7 @@ public:
     //! Returns the distributed parameter data
     ParameterDistribution parameterDistribution() const { return m_par_distribution; }
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const final;
 
     std::string mainUnits() const;
 

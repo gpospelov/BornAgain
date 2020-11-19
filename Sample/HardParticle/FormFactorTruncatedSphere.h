@@ -26,25 +26,25 @@ public:
     FormFactorTruncatedSphere(const std::vector<double> P);
     FormFactorTruncatedSphere(double radius, double height, double dh);
 
-    FormFactorTruncatedSphere* clone() const override final
+    FormFactorTruncatedSphere* clone() const final
     {
         return new FormFactorTruncatedSphere(m_radius, m_height, m_dh);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
     double getRemovedTop() const { return m_dh; }
 
-    double radialExtension() const override final { return m_radius; }
+    double radialExtension() const final { return m_radius; }
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
+                                 kvector_t translation) const final;
 
-    void onChange() override final;
+    void onChange() final;
 
 private:
     bool check_initialization() const;

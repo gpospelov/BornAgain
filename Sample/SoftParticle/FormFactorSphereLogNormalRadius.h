@@ -28,16 +28,16 @@ public:
     FormFactorSphereLogNormalRadius(const std::vector<double> P, size_t n_samples = 0);
     FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples);
 
-    FormFactorSphereLogNormalRadius* clone() const override final;
+    FormFactorSphereLogNormalRadius* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    double radialExtension() const override final { return m_mean; }
+    double radialExtension() const final { return m_mean; }
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
-    void onChange() override final;
+    void onChange() final;
 
 private:
     const double& m_mean;

@@ -21,36 +21,36 @@
 //! The form factor of a MesoCrystal.
 //! @ingroup formfactors
 
-class FormFactorCrystal : public IFormFactor
+class FormFactorCrystal final: public IFormFactor
 {
 public:
     FormFactorCrystal(const Lattice3D& lattice, const IFormFactor& basis_form_factor,
                       const IFormFactor& meso_form_factor, double position_variance = 0.0);
-    ~FormFactorCrystal() override final;
+    ~FormFactorCrystal() override;
 
-    FormFactorCrystal* clone() const override final
+    FormFactorCrystal* clone() const override
     {
         return new FormFactorCrystal(m_lattice, *m_basis_form_factor, *m_meso_form_factor,
                                      m_position_variance);
     }
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     void setAmbientMaterial(const Material& material) override
     {
         m_basis_form_factor->setAmbientMaterial(material);
     }
 
-    double volume() const override final { return m_meso_form_factor->volume(); }
-    double radialExtension() const override final { return m_meso_form_factor->radialExtension(); }
+    double volume() const override { return m_meso_form_factor->volume(); }
+    double radialExtension() const override { return m_meso_form_factor->radialExtension(); }
 
     double bottomZ(const IRotation& rotation) const override;
 
-    double topZ(const IRotation& rotation) const override final;
+    double topZ(const IRotation& rotation) const override;
 
-    complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 #ifndef SWIG
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 #endif
 
 private:

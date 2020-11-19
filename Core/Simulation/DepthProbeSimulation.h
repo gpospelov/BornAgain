@@ -38,7 +38,7 @@ public:
 
     DepthProbeSimulation* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays

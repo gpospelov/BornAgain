@@ -26,16 +26,16 @@ public:
     FormFactorIcosahedron(const std::vector<double> P);
     FormFactorIcosahedron(double edge);
 
-    FormFactorIcosahedron* clone() const override final
+    FormFactorIcosahedron* clone() const final
     {
         return new FormFactorIcosahedron(m_edge);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getEdge() const { return m_edge; }
 
 protected:
-    void onChange() override final;
+    void onChange() final;
 
 private:
     static const PolyhedralTopology topology;

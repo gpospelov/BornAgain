@@ -28,9 +28,9 @@ public:
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
 
-    double radialExtension() const override final;
+    double radialExtension() const final;
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
     const double& m_length;
@@ -50,7 +50,7 @@ public:
     IProfileRectangularRipple(const NodeMeta& meta, const std::vector<double>& PValues);
 
 private:
-    virtual void onChange() override final;
+    virtual void onChange() final;
     complex_t factor_yz(complex_t qy, complex_t qz) const final;
 };
 
@@ -62,7 +62,7 @@ public:
     ICosineRipple(const NodeMeta& meta, const std::vector<double>& PValues);
 
 private:
-    virtual void onChange() override final;
+    virtual void onChange() final;
     complex_t factor_yz(complex_t qy, complex_t qz) const final;
 };
 
@@ -79,7 +79,7 @@ protected:
     const double& m_asymmetry;
 
 private:
-    virtual void onChange() override final;
+    virtual void onChange() final;
     complex_t factor_yz(complex_t qy, complex_t qz) const final;
 };
 

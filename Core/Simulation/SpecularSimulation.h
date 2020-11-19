@@ -40,7 +40,7 @@ public:
     //! Put into a clean state for running a simulation.
     void prepareSimulation() override;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays. If simulation was not run, returns an array of proper size filled with

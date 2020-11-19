@@ -25,20 +25,20 @@ class FormFactorDecoratorPositionFactor : public IFormFactorDecorator
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor& ff, const kvector_t& position);
 
-    FormFactorDecoratorPositionFactor* clone() const override final
+    FormFactorDecoratorPositionFactor* clone() const final
     {
         return new FormFactorDecoratorPositionFactor(*m_ff, m_position);
     }
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    double bottomZ(const IRotation& rotation) const override final;
+    double bottomZ(const IRotation& rotation) const final;
 
-    double topZ(const IRotation& rotation) const override final;
+    double topZ(const IRotation& rotation) const final;
 
-    complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
 #ifndef SWIG
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const final;
 #endif
 
 private:

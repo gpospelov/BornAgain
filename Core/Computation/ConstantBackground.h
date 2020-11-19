@@ -27,13 +27,13 @@ public:
     ConstantBackground(const std::vector<double> P);
     ConstantBackground(double background_value);
 
-    ConstantBackground* clone() const override final;
+    ConstantBackground* clone() const final;
 
     double backgroundValue() const { return m_background_value; }
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    double addBackground(double intensity) const override final;
+    double addBackground(double intensity) const final;
 
 private:
     const double& m_background_value;

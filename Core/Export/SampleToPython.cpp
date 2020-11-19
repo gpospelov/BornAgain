@@ -102,10 +102,10 @@ std::string SampleToPython::defineMaterials() const
 {
     const LabelMap<const Material*>* themap = m_label->materialMap();
     if (themap->empty())
-        return "# No Materials.\n\n";
+        return "# No materials.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << indent() << "# Define Materials\n";
+    result << indent() << "# Define materials\n";
     std::set<std::string> visitedMaterials;
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         if (visitedMaterials.find(it->second) != visitedMaterials.end())
@@ -143,7 +143,7 @@ std::string SampleToPython::defineLayers() const
         return "# No Layers.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Define Layers\n";
+    result << "\n" << indent() << "# Define layers\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const Layer* layer = it->first;
         result << indent() << it->second << " = ba.Layer("
@@ -165,7 +165,7 @@ std::string SampleToPython::defineFormFactors() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Define Form Factors\n";
+    result << "\n" << indent() << "# Define form factors\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const IFormFactor* ff = it->first;
         result << indent() << it->second << " = ba.FormFactor" << ff->getName() << "("
@@ -181,7 +181,7 @@ std::string SampleToPython::defineParticles() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Define Particles\n";
+    result << "\n" << indent() << "# Define particles\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const Particle* particle = it->first;
         std::string particle_name = it->second;
@@ -204,7 +204,7 @@ std::string SampleToPython::defineCoreShellParticles() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Define Core Shell Particles\n";
+    result << "\n" << indent() << "# Define core shell particles\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const ParticleCoreShell* coreshell = it->first;
         result << "\n"
@@ -387,7 +387,7 @@ std::string SampleToPython::defineInterferenceFunctions() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Define Interference Functions\n";
+    result << "\n" << indent() << "# Define interference functions\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const IInterferenceFunction* interference = it->first;
 
@@ -511,7 +511,7 @@ std::string SampleToPython::defineParticleLayouts() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Define Particle Layouts and adding Particles\n";
+    result << "\n" << indent() << "# Define particle layouts and adding particles\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const ParticleLayout* iLayout = it->first;
         if (const ParticleLayout* particleLayout = dynamic_cast<const ParticleLayout*>(iLayout)) {
@@ -543,7 +543,7 @@ std::string SampleToPython::defineRoughnesses() const
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Define Roughness Parameters\n";
+    result << "\n" << indent() << "# Define roughness parameters\n";
     for (auto it = themap->begin(); it != themap->end(); ++it)
         result << indent() << it->second << " = ba.LayerRoughness("
                << pyfmt2::argumentList(it->first) << ")\n";
@@ -575,7 +575,7 @@ std::string SampleToPython::defineMultiLayers() const
         return "# No MultiLayers.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Define Multilayers\n";
+    result << "\n" << indent() << "# Define multilayers\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         result << indent() << it->second << " = ba.MultiLayer()\n";
         double ccl = it->first->crossCorrLength();

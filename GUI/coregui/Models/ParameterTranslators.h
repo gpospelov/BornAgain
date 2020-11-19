@@ -29,7 +29,7 @@ public:
     virtual QStringList translate(const QStringList& list) const = 0;
 };
 
-class ModelTypeTranslator: public IPathTranslator
+class ModelTypeTranslator : public IPathTranslator
 {
 public:
     ModelTypeTranslator(QString gui_model_type, QString domain_name);
@@ -44,7 +44,7 @@ private:
     QString m_domain_name;
 };
 
-class AddElementTranslator: public IPathTranslator
+class AddElementTranslator : public IPathTranslator
 {
 public:
     AddElementTranslator(QString gui_name, QString additional_name);
@@ -59,7 +59,7 @@ private:
     QString m_additional_name;
 };
 
-class RotationTranslator: public IPathTranslator
+class RotationTranslator : public IPathTranslator
 {
 public:
     ~RotationTranslator() override {}
@@ -69,7 +69,7 @@ public:
     QStringList translate(const QStringList& list) const override;
 };
 
-class DistributionNoneTranslator: public IPathTranslator
+class DistributionNoneTranslator : public IPathTranslator
 {
 public:
     ~DistributionNoneTranslator() override {}
@@ -79,7 +79,7 @@ public:
     QStringList translate(const QStringList& list) const override;
 };
 
-class RoughnessTranslator: public IPathTranslator
+class RoughnessTranslator : public IPathTranslator
 {
 public:
     RoughnessTranslator(const SessionItem* p_parent);
@@ -95,7 +95,7 @@ private:
     const SessionItem* m_parent;
 };
 
-class VectorParameterTranslator: public IPathTranslator
+class VectorParameterTranslator : public IPathTranslator
 {
 public:
     VectorParameterTranslator(QString gui_name, std::string base_name,

@@ -23,7 +23,7 @@ class Histogram2D;
 //! Main class to run an off-specular simulation.
 //! @ingroup simulation
 
-class OffSpecSimulation: public ISimulation2D
+class OffSpecSimulation : public ISimulation2D
 {
 public:
     OffSpecSimulation();

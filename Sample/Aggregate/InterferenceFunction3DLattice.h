@@ -23,7 +23,7 @@ class IPeakShape;
 //! Interference function of a 3D lattice.
 //! @ingroup interference
 
-class InterferenceFunction3DLattice: public IInterferenceFunction
+class InterferenceFunction3DLattice : public IInterferenceFunction
 {
 public:
     InterferenceFunction3DLattice(const Lattice3D& lattice);

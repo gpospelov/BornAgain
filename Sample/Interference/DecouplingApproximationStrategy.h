@@ -23,7 +23,7 @@ class SimulationElement;
 //! in the decoupling approximation.
 //! @ingroup algorithms_internal
 
-class DecouplingApproximationStrategy: public IInterferenceFunctionStrategy
+class DecouplingApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
     DecouplingApproximationStrategy(const std::vector<FormFactorCoherentSum>& weighted_formfactors,

@@ -22,7 +22,7 @@
 
 //! @ingroup formfactors_internal
 
-class ComputeBA: public IComputeFF
+class ComputeBA : public IComputeFF
 {
 public:
     ComputeBA(const IFormFactor& ff);

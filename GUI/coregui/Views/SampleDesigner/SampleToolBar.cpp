@@ -44,9 +44,8 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
     m_pointerModeGroup = new QButtonGroup(this);
     m_pointerModeGroup->addButton(selectionPointerButton, DesignerView::RUBBER_SELECTION);
     m_pointerModeGroup->addButton(handPointerButton, DesignerView::HAND_DRAG);
-    connect(m_pointerModeGroup,
-            static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::idClicked), this,
-            &SampleToolBar::selectionMode);
+    connect(m_pointerModeGroup, static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::idClicked),
+            this, &SampleToolBar::selectionMode);
     addWidget(selectionPointerButton);
     addWidget(handPointerButton);
 

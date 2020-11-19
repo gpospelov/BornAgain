@@ -25,7 +25,7 @@ class SimulationElement;
 //! in the size-spacing correlation approximation.
 //! @ingroup algorithms_internal
 
-class SSCApproximationStrategy: public IInterferenceFunctionStrategy
+class SSCApproximationStrategy : public IInterferenceFunctionStrategy
 {
 public:
     SSCApproximationStrategy(const std::vector<FormFactorCoherentSum>& weighted_formfactors,

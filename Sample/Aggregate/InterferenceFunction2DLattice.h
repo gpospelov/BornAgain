@@ -23,7 +23,7 @@
 //! Interference function of a 2D lattice.
 //! @ingroup interference
 
-class InterferenceFunction2DLattice: public IInterferenceFunction
+class InterferenceFunction2DLattice : public IInterferenceFunction
 {
 public:
     InterferenceFunction2DLattice(const Lattice2D& lattice);

@@ -1,13 +1,10 @@
 BasedOnStyle: LLVM
-BreakBeforeBraces: Linux
-BraceWrapping:
-  AfterNamespace: false
-
 AccessModifierOffset: -4
 AllowAllConstructorInitializersOnNextLine: true
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: false
 BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Linux
 BreakConstructorInitializers : BeforeComma
 ColumnLimit: 100
 ConstructorInitializerAllOnOneLineOrOnePerLine: true

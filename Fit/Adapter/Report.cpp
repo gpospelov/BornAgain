@@ -44,13 +44,13 @@ std::string reportOption(const MinimizerAdapter& minimizer)
         return "";
 
     std::ostringstream result;
-    result << MinimizerUtils::sectionString("Options");
+    result << mumufit::utils::sectionString("Options");
     for (auto option : minimizer.options()) {
         std::ostringstream opt;
         opt << std::setw(5) << std::left << option->value() << option->description();
         result << reportValue(option->name(), opt.str());
     }
-    result << MinimizerUtils::sectionString("OptionString");
+    result << mumufit::utils::sectionString("OptionString");
     result << minimizer.options().toOptionString() << std::endl;
 
     return result.str();
@@ -59,7 +59,7 @@ std::string reportOption(const MinimizerAdapter& minimizer)
 std::string reportStatus(const MinimizerAdapter& minimizer)
 {
     std::ostringstream result;
-    result << MinimizerUtils::sectionString("Status");
+    result << mumufit::utils::sectionString("Status");
 
     auto status = minimizer.statusMap();
     for (auto it : status)
@@ -78,7 +78,7 @@ std::string report::reportToString(const MinimizerAdapter& minimizer)
 {
     std::ostringstream result;
 
-    result << MinimizerUtils::sectionString();
+    result << mumufit::utils::sectionString();
     result << reportDescription(minimizer);
     result << reportOption(minimizer);
     result << reportStatus(minimizer);

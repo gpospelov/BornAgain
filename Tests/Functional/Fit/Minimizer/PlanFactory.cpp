@@ -15,7 +15,7 @@
 #include "Tests/Functional/Fit/Minimizer/PlanFactory.h"
 #include "Tests/Functional/Fit/Minimizer/PlanCases.h"
 
-using fittest::create_new;
+using mumufit::test::create_new;
 
 PlanFactory::PlanFactory()
 {

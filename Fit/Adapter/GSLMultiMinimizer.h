@@ -17,13 +17,10 @@
 
 #include "Fit/Adapter/MinimizerAdapter.h"
 
-namespace ROOT
-{
-namespace Math
+namespace ROOT::Math
 {
 class GSLMinimizer;
 }
-} // namespace ROOT
 
 //! Wrapper for the CERN ROOT facade of the GSL multi minimizer family (gradient descent based).
 //! @ingroup fitting_internal

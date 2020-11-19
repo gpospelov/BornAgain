@@ -261,31 +261,31 @@ Returns string representation of current minimizer status.
 ";
 
 
-// File: classfittest_1_1IFactory.xml
-%feature("docstring") fittest::IFactory "
+// File: classmumufit_1_1test_1_1IFactory.xml
+%feature("docstring") mumufit::test::IFactory "
 
 Base class for all factories.
 
 C++ includes: IFactory.h
 ";
 
-%feature("docstring")  fittest::IFactory::createItem "AbstractProduct* fittest::IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
+%feature("docstring")  mumufit::test::IFactory::createItem "AbstractProduct* mumufit::test::IFactory< Key, AbstractProduct >::createItem(const Key &item_key) const
 
 Creates object by calling creation function corresponded to given identifier. 
 ";
 
-%feature("docstring")  fittest::IFactory::createItemPtr "std::unique_ptr<AbstractProduct> fittest::IFactory< Key, AbstractProduct >::createItemPtr(const Key &item_key) const
+%feature("docstring")  mumufit::test::IFactory::createItemPtr "std::unique_ptr<AbstractProduct> mumufit::test::IFactory< Key, AbstractProduct >::createItemPtr(const Key &item_key) const
 ";
 
-%feature("docstring")  fittest::IFactory::registerItem "bool fittest::IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
+%feature("docstring")  mumufit::test::IFactory::registerItem "bool mumufit::test::IFactory< Key, AbstractProduct >::registerItem(const Key &item_key, CreateItemCallback CreateFn)
 
 Registers object's creation function. 
 ";
 
-%feature("docstring")  fittest::IFactory::contains "bool fittest::IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
+%feature("docstring")  mumufit::test::IFactory::contains "bool mumufit::test::IFactory< Key, AbstractProduct >::contains(const Key &item_key) const
 ";
 
-%feature("docstring")  fittest::IFactory::size "size_t fittest::IFactory< Key, AbstractProduct >::size() const
+%feature("docstring")  mumufit::test::IFactory::size "size_t mumufit::test::IFactory< Key, AbstractProduct >::size() const
 
 Returns number of registered objects. 
 ";
@@ -1396,8 +1396,40 @@ Internal state of a  WallclockTimer object.
 // File: namespace_0d60.xml
 
 
-// File: namespacefittest.xml
-%feature("docstring")  fittest::create_new "T* fittest::create_new()
+// File: namespacemumufit.xml
+
+
+// File: namespacemumufit_1_1stringUtils.xml
+%feature("docstring")  mumufit::stringUtils::matchesPattern "bool mumufit::stringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
+
+Returns true if text matches pattern with wildcards '*' and '?'. 
+";
+
+%feature("docstring")  mumufit::stringUtils::split "std::vector< std::string > mumufit::stringUtils::split(const std::string &text, const std::string &delimeter)
+
+Split string into vector of string using delimeter.
+
+Returns token vector obtained by splitting string at delimiters. 
+";
+
+%feature("docstring")  mumufit::stringUtils::removeSubstring "std::string mumufit::stringUtils::removeSubstring(const std::string &text, const std::string &substr)
+
+Removes multiple occurences of given substring from a string and returns result. 
+";
+
+%feature("docstring")  mumufit::stringUtils::scientific "std::string mumufit::stringUtils::scientific(const T value, int n=10)
+
+Returns scientific string representing given value of any numeric type. 
+";
+
+%feature("docstring")  mumufit::stringUtils::to_lower "std::string mumufit::stringUtils::to_lower(std::string text)
+
+Returns new string which is lower case of text. 
+";
+
+
+// File: namespacemumufit_1_1test.xml
+%feature("docstring")  mumufit::test::create_new "T* mumufit::test::create_new()
 
 Returns new instance of class T.
 
@@ -1405,56 +1437,24 @@ This templated function is used in catalogs in form of a function pointer 'creat
 ";
 
 
-// File: namespaceMinimizerUtils.xml
-%feature("docstring")  MinimizerUtils::toString "std::string MinimizerUtils::toString(const std::vector< std::string > &v, const std::string &delim=\"\")
+// File: namespacemumufit_1_1utils.xml
+%feature("docstring")  mumufit::utils::toString "std::string mumufit::utils::toString(const std::vector< std::string > &v, const std::string &delim=\"\")
 ";
 
-%feature("docstring")  MinimizerUtils::gslErrorDescriptionMap "std::map< int, std::string > MinimizerUtils::gslErrorDescriptionMap()
+%feature("docstring")  mumufit::utils::gslErrorDescriptionMap "std::map< int, std::string > mumufit::utils::gslErrorDescriptionMap()
 
 Returns translation of GSL error code to string. 
 ";
 
-%feature("docstring")  MinimizerUtils::gslErrorDescription "std::string MinimizerUtils::gslErrorDescription(int errorCode)
+%feature("docstring")  mumufit::utils::gslErrorDescription "std::string mumufit::utils::gslErrorDescription(int errorCode)
 ";
 
-%feature("docstring")  MinimizerUtils::numbersDiffer "bool MinimizerUtils::numbersDiffer(double a, double b, double tol)
+%feature("docstring")  mumufit::utils::numbersDiffer "bool mumufit::utils::numbersDiffer(double a, double b, double tol)
 ";
 
-%feature("docstring")  MinimizerUtils::sectionString "std::string MinimizerUtils::sectionString(const std::string &sectionName=\"\", size_t report_width=80)
+%feature("docstring")  mumufit::utils::sectionString "std::string mumufit::utils::sectionString(const std::string &sectionName=\"\", size_t report_width=80)
 
 Returns horizontal line of 80 characters length with section name in it. 
-";
-
-
-// File: namespacemumufit.xml
-
-
-// File: namespacemumufit_1_1StringUtils.xml
-%feature("docstring")  mumufit::StringUtils::matchesPattern "bool mumufit::StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
-
-Returns true if text matches pattern with wildcards '*' and '?'. 
-";
-
-%feature("docstring")  mumufit::StringUtils::split "std::vector< std::string > mumufit::StringUtils::split(const std::string &text, const std::string &delimeter)
-
-Split string into vector of string using delimeter.
-
-Returns token vector obtained by splitting string at delimiters. 
-";
-
-%feature("docstring")  mumufit::StringUtils::removeSubstring "std::string mumufit::StringUtils::removeSubstring(const std::string &text, const std::string &substr)
-
-Removes multiple occurences of given substring from a string and returns result. 
-";
-
-%feature("docstring")  mumufit::StringUtils::scientific "std::string mumufit::StringUtils::scientific(const T value, int n=10)
-
-Returns scientific string representing given value of any numeric type. 
-";
-
-%feature("docstring")  mumufit::StringUtils::to_lower "std::string mumufit::StringUtils::to_lower(std::string text)
-
-Returns new string which is lower case of text. 
 ";
 
 

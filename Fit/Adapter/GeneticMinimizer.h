@@ -17,13 +17,10 @@
 
 #include "Fit/Adapter/MinimizerAdapter.h"
 
-namespace ROOT
-{
-namespace Math
+namespace ROOT::Math
 {
 class GeneticMinimizer;
 }
-} // namespace ROOT
 
 //! Wrapper for the CERN ROOT Genetic minimizer.
 //! @ingroup fitting_internal

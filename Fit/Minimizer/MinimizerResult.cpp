@@ -24,7 +24,7 @@ std::string reportParameters(const mumufit::Parameters& parameters)
 {
     std::ostringstream result;
 
-    result << MinimizerUtils::sectionString("FitParameters");
+    result << mumufit::utils::sectionString("FitParameters");
 
     result << "Name                       StartValue  Limits                        FitValue"
            << "     Error" << std::endl;
@@ -36,7 +36,7 @@ std::string reportParameters(const mumufit::Parameters& parameters)
 
     mumufit::Parameters::corr_matrix_t matrix = parameters.correlationMatrix();
     if (!matrix.empty()) {
-        result << MinimizerUtils::sectionString("Correlations");
+        result << mumufit::utils::sectionString("Correlations");
         for (size_t i = 0; i < matrix.size(); ++i) {
             result << boost::format("#%-2d       ") % i;
             for (size_t j = 0; j < matrix[i].size(); ++j)
@@ -93,7 +93,7 @@ std::string MinimizerResult::toString() const
                << "Use minimizer API to get result of minimization.\n";
 
     } else {
-        result << MinimizerUtils::sectionString();
+        result << mumufit::utils::sectionString();
         result << "Run time (sec)           : " << m_duration << "\n";
         result << "Objective function calls : " << m_number_of_calls << "\n";
         result << "Gradient calls           : " << m_number_of_gradient_calls << "\n";

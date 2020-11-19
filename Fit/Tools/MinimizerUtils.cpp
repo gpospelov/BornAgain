@@ -18,7 +18,7 @@
 #include <limits>
 #include <sstream>
 
-std::string MinimizerUtils::toString(const std::vector<std::string>& v, const std::string& delim)
+std::string mumufit::utils::toString(const std::vector<std::string>& v, const std::string& delim)
 {
     std::stringstream s;
     std::for_each(v.begin(), v.end(),
@@ -28,7 +28,7 @@ std::string MinimizerUtils::toString(const std::vector<std::string>& v, const st
 
 //! Returns translation of GSL error code to string.
 
-std::map<int, std::string> MinimizerUtils::gslErrorDescriptionMap()
+std::map<int, std::string> mumufit::utils::gslErrorDescriptionMap()
 {
     std::map<int, std::string> result;
 
@@ -69,7 +69,7 @@ std::map<int, std::string> MinimizerUtils::gslErrorDescriptionMap()
     return result;
 }
 
-std::string MinimizerUtils::gslErrorDescription(int errorCode)
+std::string mumufit::utils::gslErrorDescription(int errorCode)
 {
     static std::map<int, std::string> errorDescription = gslErrorDescriptionMap();
 
@@ -80,17 +80,17 @@ std::string MinimizerUtils::gslErrorDescription(int errorCode)
     return "Unknown error";
 }
 
-bool MinimizerUtils::numbersDiffer(double a, double b, double tol)
+bool mumufit::utils::numbersDiffer(double a, double b, double tol)
 {
     constexpr double eps = std::numeric_limits<double>::epsilon();
     if (tol < 1)
-        throw std::runtime_error("MinimizerUtils::numbersDiffer() -> Error.Not intended for tol<1");
+        throw std::runtime_error("mumufit::utils::numbersDiffer() -> Error.Not intended for tol<1");
     return std::abs(a - b) > eps * std::max(tol * eps, std::abs(b));
 }
 
 //! Returns horizontal line of 80 characters length with section name in it.
 
-std::string MinimizerUtils::sectionString(const std::string& sectionName, size_t report_width)
+std::string mumufit::utils::sectionString(const std::string& sectionName, size_t report_width)
 {
     if (sectionName.empty())
         return std::string(report_width, '-') + "\n";

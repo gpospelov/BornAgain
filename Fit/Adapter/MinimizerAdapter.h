@@ -29,13 +29,10 @@ class ObjectiveFunctionAdapter;
 class MinimizerResult;
 } // namespace mumufit
 
-namespace ROOT
-{
-namespace Math
+namespace ROOT::Math
 {
 class Minimizer;
 }
-} // namespace ROOT
 
 //! Abstract base class that adapts the CERN ROOT minimizer to our IMinimizer.
 //! @ingroup fitting_internal

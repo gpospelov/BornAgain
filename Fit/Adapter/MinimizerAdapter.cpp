@@ -105,7 +105,7 @@ std::map<std::string, std::string> MinimizerAdapter::statusMap() const
     else
         result["ProvidesError"] = "Doesn't provide error calculation";
 
-    result["MinValue"] = mumufit::StringUtils::scientific(minValue());
+    result["MinValue"] = mumufit::stringUtils::scientific(minValue());
 
     return result;
 }

@@ -20,12 +20,9 @@
 #include <string>
 #include <vector>
 
-namespace mumufit
-{
-
 //! Utility functions to analyze or modify strings.
 
-namespace StringUtils
+namespace mumufit::stringUtils
 {
 
 //! Returns true if text matches pattern with wildcards '*' and '?'.
@@ -50,8 +47,6 @@ template <typename T> std::string scientific(const T value, int n)
     return out.str();
 }
 
-} // namespace StringUtils
-
-} // namespace mumufit
+} // namespace mumufit::stringUtils
 
 #endif // BORNAGAIN_FIT_TOOLS_STRINGUTILS_H

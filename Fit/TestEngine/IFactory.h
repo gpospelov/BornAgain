@@ -22,7 +22,7 @@
 #include <memory>
 #include <sstream>
 
-namespace fittest
+namespace mumufit::test
 {
 
 //! Base class for all factories.
@@ -82,6 +82,6 @@ template <class T> T* create_new()
     return new T();
 }
 
-} // namespace fittest
+} // namespace mumufit::test
 
 #endif // BORNAGAIN_FIT_TESTENGINE_IFACTORY_H

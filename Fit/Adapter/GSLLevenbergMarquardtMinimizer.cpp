@@ -87,13 +87,13 @@ int GSLLevenbergMarquardtMinimizer::maxIterations() const
 
 std::string GSLLevenbergMarquardtMinimizer::statusToString() const
 {
-    return MinimizerUtils::gslErrorDescription(rootMinimizer()->Status());
+    return mumufit::utils::gslErrorDescription(rootMinimizer()->Status());
 }
 
 std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() const
 {
     auto result = MinimizerAdapter::statusMap();
-    result["Edm"] = mumufit::StringUtils::scientific(rootMinimizer()->Edm());
+    result["Edm"] = mumufit::stringUtils::scientific(rootMinimizer()->Edm());
     result["CovMatrixStatus"] = covmatrixStatusDescription()[rootMinimizer()->CovMatrixStatus()];
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
     return result;

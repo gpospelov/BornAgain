@@ -53,10 +53,6 @@ inline std::string TestOutDir_PyStd()
 {
     return "@TEST_OUTPUT_DIR@/PyStd";
 }
-inline std::string TestOutDir_GUI()
-{
-    return "@TEST_OUTPUT_DIR@/GUI";
-}
 
 } // namespace BATesting
 

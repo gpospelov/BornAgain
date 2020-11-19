@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Sample/Correlations/IPeakShape.h"
-#include "Base/Math/Constants.h"
 #include "Base/Math/Bessel.h"
+#include "Base/Math/Constants.h"
 #include "Base/Math/Integrator.h"
 #include <limits>
 

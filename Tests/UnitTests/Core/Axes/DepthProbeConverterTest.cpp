@@ -1,6 +1,6 @@
 #include "Base/Axis/FixedBinAxis.h"
-#include "Base/Math/Constants.h"
 #include "Base/Const/Units.h"
+#include "Base/Math/Constants.h"
 #include "Device/Beam/Beam.h"
 #include "Device/Detector/SimpleUnitConverters.h"
 #include "Tests/GTestWrapper/google_test.h"

@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorEllipsoidalCylinder.h"
-#include "Base/Math/Constants.h"
 #include "Base/Math/Bessel.h"
+#include "Base/Math/Constants.h"
 #include "Base/Math/Functions.h"
 #include "Sample/Shapes/DoubleEllipse.h"
 

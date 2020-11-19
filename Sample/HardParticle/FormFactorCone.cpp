@@ -13,11 +13,11 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorCone.h"
-#include "Base/Math/Constants.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Math/Bessel.h"
-#include "Base/Math/Integrator.h"
+#include "Base/Math/Constants.h"
 #include "Base/Math/Functions.h"
+#include "Base/Math/Integrator.h"
+#include "Base/Types/Exceptions.h"
 #include "Sample/Shapes/DoubleEllipse.h"
 #include <limits>
 

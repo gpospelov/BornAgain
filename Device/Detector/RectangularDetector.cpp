@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Device/Detector/RectangularDetector.h"
-#include "Base/Math/Constants.h"
 #include "Base/Const/Units.h"
+#include "Base/Math/Constants.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Device/Beam/Beam.h"
 #include "Device/Detector/RectangularPixel.h"

@@ -14,8 +14,8 @@
 
 #include "Sample/Aggregate/InterferenceFunctionFinite3DLattice.h"
 #include "Base/Math/Constants.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Math/Functions.h"
+#include "Base/Types/Exceptions.h"
 #include "Param/Base/RealParameter.h"
 
 #include <limits>

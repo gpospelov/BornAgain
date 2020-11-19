@@ -19,7 +19,8 @@
 #include <utility>
 #include <vector>
 
-namespace Math::internal {
+namespace Math::internal
+{
 
 template <size_t N> struct ReciprocalFactorial {
     static constexpr double value = ReciprocalFactorial<N - 1>::value / N;

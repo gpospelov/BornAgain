@@ -14,8 +14,8 @@
 
 #include "Core/Scan/UnitConverter1D.h"
 #include "Base/Axis/PointwiseAxis.h"
-#include "Base/Math/Constants.h"
 #include "Base/Const/Units.h"
+#include "Base/Math/Constants.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
 #include "Device/Beam/Beam.h"

@@ -14,9 +14,9 @@
 
 #include "Sample/Aggregate/InterferenceFunction2DSuperLattice.h"
 #include "Base/Math/Constants.h"
-#include "Base/Types/Exceptions.h"
-#include "Base/Math/Integrator.h"
 #include "Base/Math/Functions.h"
+#include "Base/Math/Integrator.h"
+#include "Base/Types/Exceptions.h"
 #include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/InterferenceFunctionNone.h"
 

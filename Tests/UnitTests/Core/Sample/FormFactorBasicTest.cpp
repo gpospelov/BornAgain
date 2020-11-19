@@ -1,5 +1,5 @@
-#include "Base/Math/Constants.h"
 #include "Base/Const/Units.h"
+#include "Base/Math/Constants.h"
 #include "Sample/HardParticle/HardParticles.h"
 #include "Sample/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"

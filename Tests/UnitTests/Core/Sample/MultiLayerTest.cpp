@@ -1,6 +1,6 @@
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Base/Math/Constants.h"
 #include "Base/Const/Units.h"
+#include "Base/Math/Constants.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"

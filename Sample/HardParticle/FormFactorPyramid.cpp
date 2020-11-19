@@ -14,8 +14,8 @@
 
 #include "Sample/HardParticle/FormFactorPyramid.h"
 #include "Base/Math/Constants.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Math/Functions.h"
+#include "Base/Types/Exceptions.h"
 
 const PolyhedralTopology FormFactorPyramid::topology = {{
                                                             {{3, 2, 1, 0}, true}, // TODO -> true

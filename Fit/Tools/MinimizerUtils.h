@@ -34,6 +34,6 @@ bool numbersDiffer(double a, double b, double tol);
 
 std::string sectionString(const std::string& sectionName = "", size_t report_width = 80);
 
-} // namespace MinimizerUtils
+} // namespace mumufit::utils
 
 #endif // BORNAGAIN_FIT_TOOLS_MINIMIZERUTILS_H

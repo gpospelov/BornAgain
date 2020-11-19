@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Sample/StandardSamples/SlicedCylindersBuilder.h"
-#include "Base/Math/Constants.h"
 #include "Base/Const/Units.h"
+#include "Base/Math/Constants.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/FormFactorCylinder.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"

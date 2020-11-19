@@ -17,7 +17,8 @@
 
 #include "Fit/Adapter/MinimizerAdapter.h"
 
-namespace ROOT::Math {
+namespace ROOT::Math
+{
 class GSLSimAnMinimizer;
 }
 

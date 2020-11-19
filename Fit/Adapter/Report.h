@@ -27,6 +27,6 @@ namespace mumufit::internal
 //! Reports results of minimization in the form of multi-line string
 std::string reportToString(const MinimizerAdapter& minimizer);
 
-}; // namespace report
+}; // namespace mumufit::internal
 
 #endif // BORNAGAIN_FIT_ADAPTER_REPORT_H

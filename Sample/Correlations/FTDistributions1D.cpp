@@ -14,8 +14,8 @@
 
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Base/Math/Constants.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Math/Functions.h"
+#include "Base/Types/Exceptions.h"
 #include <limits>
 
 namespace

@@ -23,7 +23,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    edge = 40 * nm
+    edge = 40*nm
     ff = ba.FormFactorBox(edge, edge, edge)
     cylinder = ba.Particle(m_particle, ff)
     particle_layout = ba.ParticleLayout()
@@ -45,12 +45,12 @@ def get_spherical_detector():
     """
     n_phi = pilatus_npx
     n_alpha = pilatus_npy
-    width = pilatus_npx * pilatus_pixel_size
-    height = pilatus_npy * pilatus_pixel_size
-    phi_min = numpy.arctan(-width / 2. / detector_distance)
-    phi_max = numpy.arctan(width / 2. / detector_distance)
+    width = pilatus_npx*pilatus_pixel_size
+    height = pilatus_npy*pilatus_pixel_size
+    phi_min = numpy.arctan(-width/2./detector_distance)
+    phi_max = numpy.arctan(width/2./detector_distance)
     alpha_min = 0.0
-    alpha_max = numpy.arctan(height / detector_distance)
+    alpha_max = numpy.arctan(height/detector_distance)
     return ba.SphericalDetector(n_phi, phi_min, phi_max, n_alpha, alpha_min,
                                 alpha_max)
 
@@ -59,10 +59,10 @@ def get_rectangular_detector():
     """
     Returns a rectangular detector representing our PILATUS detector
     """
-    width = pilatus_npx * pilatus_pixel_size
-    height = pilatus_npy * pilatus_pixel_size
+    width = pilatus_npx*pilatus_pixel_size
+    height = pilatus_npy*pilatus_pixel_size
     detector = ba.RectangularDetector(pilatus_npx, width, pilatus_npy, height)
-    detector.setPerpendicularToSampleX(detector_distance, width / 2., 0.0)
+    detector.setPerpendicularToSampleX(detector_distance, width/2., 0.0)
     return detector
 
 
@@ -71,7 +71,7 @@ def get_simulation():
     Return a GISAXS simulation with defined beam
     """
     simulation = ba.GISASSimulation()
-    simulation.setBeamParameters(10 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setBeamParameters(10*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -106,7 +106,7 @@ def plot(results):
     # for every detector pixel
     sph_array = results['spherical'].array()
     rect_array = results['rectangular'].array()
-    rel_diff = 2.0 * numpy.abs(sph_array - rect_array) / (sph_array + rect_array)
+    rel_diff = 2.0*numpy.abs(sph_array - rect_array)/(sph_array + rect_array)
     plt.subplot(1, 3, 3)
     im = plt.imshow(rel_diff,
                     norm=colors.LogNorm(1e-6, 1.0),

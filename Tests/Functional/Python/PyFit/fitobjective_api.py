@@ -18,7 +18,7 @@ class SimulationBuilder:
         self.m_ncol = 4
 
     def size(self):
-        return self.m_nrow * self.m_ncol
+        return self.m_nrow*self.m_ncol
 
     def build_simulation(self, pars):
         self.m_ncalls += 1

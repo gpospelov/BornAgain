@@ -70,7 +70,7 @@ class Histogram2DTest(unittest.TestCase):
         arr_from_hist = hist.getArray()
 
         for (x, y), element in numpy.ndenumerate(arr):
-            self.assertEqual(element * 2.0, arr_from_hist[x][y])
+            self.assertEqual(element*2.0, arr_from_hist[x][y])
 
     def test_constructAndAddFromNumpyDouble(self):
         """
@@ -85,7 +85,7 @@ class Histogram2DTest(unittest.TestCase):
         arr_from_hist = hist.getArray()
 
         for (x, y), element in numpy.ndenumerate(arr):
-            self.assertEqual(element * 2.0, arr_from_hist[x][y])
+            self.assertEqual(element*2.0, arr_from_hist[x][y])
 
     def create_histogram(self, arr):
         """

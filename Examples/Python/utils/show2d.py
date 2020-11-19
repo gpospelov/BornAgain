@@ -21,8 +21,8 @@ def PlotNumpyArray(a, zmin=1, zmax=None):
     # Make a plot of the data
     #print( "plotting..." )
     amax = a.flatten().max()
-    amean = np.sum(a) / a.size
-    aminplot = amean**2 / amax
+    amean = np.sum(a)/a.size
+    aminplot = amean**2/amax
     a = np.maximum(a, zmin)
     dataarray = np.flipud(np.transpose(a))
     plt.xlabel(r'$\phi_f$', fontsize=20)

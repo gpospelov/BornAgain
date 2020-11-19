@@ -14,7 +14,7 @@ def get_composition(top_material,
     Returns cylindrical particle made of two different materials.
     """
 
-    cylinder_radius = 10 * nm
+    cylinder_radius = 10*nm
 
     topPart = ba.Particle(top_material,
                           ba.FormFactorCylinder(cylinder_radius, top_height))
@@ -43,7 +43,7 @@ def get_sample():
 
     # collection of particles
     composition = get_composition(m_top_part, m_bottom_part)
-    shift = 10.0 * nm
+    shift = 10.0*nm
     composition.setPosition(0, 0, -shift)  # will be shifted below interface
 
     particle_layout = ba.ParticleLayout()
@@ -66,9 +66,8 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0 * deg, 1.0 * deg, 100, 0.0 * deg,
-                                     2.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg, 100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setBeamIntensity(1.0e+08)
     return simulation
 

@@ -256,9 +256,9 @@ def create_bundle(app_dir):
     Creates ready to install BornAgain Python bundle package
     """
     bundle_dir = create_bundle_tem_dir()
-    print('-' * 80)
+    print('-'*80)
     print("Generating Python bundle in temporary '{0}'".format(bundle_dir))
-    print('-' * 80)
+    print('-'*80)
 
     print("--> Generating bundle setup files")
 
@@ -284,9 +284,9 @@ def install_bundle(dir_name):
     """
     Installs BornAgain Python bundle previously generated in the directory dir_name
     """
-    print('-' * 80)
+    print('-'*80)
     print("Installing bundle in Python site-packages '{0}'".format(get_python_lib()))
-    print('-' * 80)
+    print('-'*80)
 
     os.chdir(bundle_dir)
     sys.argv = ['setup.py', 'install']
@@ -302,11 +302,11 @@ if __name__ == '__main__':
 
     app_dir = get_application_dir()
 
-    print('-' * 80)
+    print('-'*80)
     print(
         "Installation of BornAgain-{0} libraries into site-packages of your Python".
         format(BORNAGAIN_VERSION))
-    print('-' * 80)
+    print('-'*80)
     print("From :", app_dir)
     print("To   :", get_python_lib())
     print(" ")

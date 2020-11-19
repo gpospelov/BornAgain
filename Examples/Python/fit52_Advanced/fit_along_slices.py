@@ -42,9 +42,8 @@ def get_simulation(params, add_masks=True):
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0 * deg, 1.0 * deg, 100, 0.0 * deg,
-                                     2.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg, 100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setBeamIntensity(1e+08)
     simulation.setSample(get_sample(params))
     if add_masks:
@@ -54,8 +53,8 @@ def get_simulation(params, add_masks=True):
         simulation/fitting to be performed along slices only.
         """
         simulation.maskAll()
-        simulation.addMask(ba.HorizontalLine(alpha_slice_value * deg), False)
-        simulation.addMask(ba.VerticalLine(phi_slice_value * deg), False)
+        simulation.addMask(ba.HorizontalLine(alpha_slice_value*deg), False)
+        simulation.addMask(ba.VerticalLine(phi_slice_value*deg), False)
     return simulation
 
 
@@ -64,7 +63,7 @@ def create_real_data():
     Generating "real" data by adding noise to the simulated data.
     """
     # initial values which we will have to find later during the fit
-    params = {'radius': 5.0 * nm, 'height': 10.0 * nm}
+    params = {'radius': 5.0*nm, 'height': 10.0*nm}
 
     # retrieving simulated data in the form of numpy array
     simulation = get_simulation(params, add_masks=False)
@@ -116,7 +115,7 @@ class PlotObserver:
         for label, slice in slices:
             plt.semilogy(slice.binCenters(), slice.binValues(), label=label)
             plt.xlim(slice.getXmin(), slice.getXmax())
-            plt.ylim(1.0, slice.getMaximum() * 10.0)
+            plt.ylim(1.0, slice.getMaximum()*10.0)
         plt.legend(loc='upper right')
         plt.title(title)
 
@@ -134,7 +133,7 @@ class PlotObserver:
                  "Iterations  " + '{:d}'.format(iteration_info.iterationCount()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(iteration_info.chi2()))
         for index, params in enumerate(iteration_info.parameters()):
-            plt.text(0.01, 0.55 - index * 0.1,
+            plt.text(0.01, 0.55 - index*0.1,
                      '{:30.30s}: {:6.3f}'.format(params.name(), params.value))
 
         plt.tight_layout()
@@ -189,8 +188,8 @@ def run_fitting():
     fit_objective.initPlot(10, plotter)
 
     params = ba.Parameters()
-    params.add("radius", 6. * nm, min=4.0, max=8.0)
-    params.add("height", 9. * nm, min=8.0, max=12.0)
+    params.add("radius", 6.*nm, min=4.0, max=8.0)
+    params.add("height", 9.*nm, min=8.0, max=12.0)
 
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)

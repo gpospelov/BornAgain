@@ -24,8 +24,8 @@ def get_sample():
 
     # Defining particle layout with a core-shell particle
     layout = ba.ParticleLayout()
-    core_sphere_ff = ba.FormFactorFullSphere(10 * nm)
-    shell_sphere_ff = ba.FormFactorFullSphere(12 * nm)
+    core_sphere_ff = ba.FormFactorFullSphere(10*nm)
+    shell_sphere_ff = ba.FormFactorFullSphere(12*nm)
     core = ba.Particle(mat_core, core_sphere_ff)
     shell = ba.Particle(mat_shell, shell_sphere_ff)
     position = kvector_t(0.0, 0.0, 2.0)
@@ -48,11 +48,10 @@ def get_simulation():
     simulation = ba.GISASSimulation()
 
     # Defining detector
-    simulation.setDetectorParameters(200, -3.0 * deg, 3.0 * deg, 200, -3.0 * deg,
-                                     3.0 * deg)
+    simulation.setDetectorParameters(200, -3.0*deg, 3.0*deg, 200, -3.0*deg, 3.0*deg)
 
     # Defining beam parameters
-    simulation.setBeamParameters(0.5 * nm, 0.0 * deg, 0.0 * deg)
+    simulation.setBeamParameters(0.5*nm, 0.0*deg, 0.0*deg)
     simulation.setBeamIntensity(1e12)
 
     # Defining beam polarization and polarization analysis for spin-flip channel

@@ -23,19 +23,19 @@ def get_sample():
 
     # creating layers
     ambient_layer = ba.Layer(m_ambient)
-    ti_layer = ba.Layer(m_ti, 30 * angstrom)
-    ni_layer = ba.Layer(m_ni, 70 * angstrom)
+    ti_layer = ba.Layer(m_ti, 30*angstrom)
+    ni_layer = ba.Layer(m_ni, 70*angstrom)
     substrate_layer = ba.Layer(m_substrate)
 
     # create roughness
-    roughness = ba.LayerRoughness(5 * angstrom, 0.5, 10 * angstrom)
+    roughness = ba.LayerRoughness(5*angstrom, 0.5, 10*angstrom)
 
     # create particle layout
-    ff = ba.FormFactorCone(5 * nm, 10 * nm, 75 * deg)
+    ff = ba.FormFactorCone(5*nm, 10*nm, 75*deg)
     particle = ba.Particle(m_particle, ff)
     layout = ba.ParticleLayout()
     layout.addParticle(particle)
-    iff = ba.InterferenceFunction2DLattice(ba.SquareLattice2D(10 * nm, 0))
+    iff = ba.InterferenceFunction2DLattice(ba.SquareLattice2D(10*nm, 0))
     layout.setInterferenceFunction(iff)
     ambient_layer.addLayout(layout)
     ambient_layer.setNumberOfSlices(20)

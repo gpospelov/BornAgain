@@ -14,14 +14,14 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # cylindrical particle
-    radius = 5 * nm
+    radius = 5*nm
     height = radius
     cylinder_ff = ba.FormFactorCylinder(radius, height)
     cylinder = ba.Particle(m_particle, cylinder_ff)
 
     # collection of particles with size distribution
     nparticles = 100
-    sigma = 0.2 * radius
+    sigma = 0.2*radius
 
     gauss_distr = ba.DistributionGaussian(radius, sigma)
 
@@ -49,9 +49,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, 0.0 * deg, 2.0 * deg, 200, 0.0 * deg,
-                                     2.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(200, 0.0*deg, 2.0*deg, 200, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 

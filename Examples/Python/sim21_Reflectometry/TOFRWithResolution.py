@@ -27,8 +27,8 @@ def get_sample():
 
     # creating layers
     ambient_layer = ba.Layer(m_ambient)
-    ti_layer = ba.Layer(m_ti, 30 * angstrom)
-    ni_layer = ba.Layer(m_ni, 70 * angstrom)
+    ti_layer = ba.Layer(m_ti, 30*angstrom)
+    ni_layer = ba.Layer(m_ni, 70*angstrom)
     substrate_layer = ba.Layer(m_substrate)
 
     # creating multilayer
@@ -48,7 +48,7 @@ def get_simulation(scan_size=500):
     with a qz-defined beam
     """
     qzs = np.linspace(0.01, 1.0, scan_size)  # qz-values
-    dq = 0.03 * qzs
+    dq = 0.03*qzs
     n_sig = 2.0
     n_samples = 25
 

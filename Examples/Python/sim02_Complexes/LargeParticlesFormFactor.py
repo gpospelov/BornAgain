@@ -10,8 +10,8 @@ import bornagain as ba
 from bornagain import deg, angstrom, nm
 from matplotlib import pyplot as plt
 
-default_cylinder_radius = 10 * nm
-default_cylinder_height = 20 * nm
+default_cylinder_radius = 10*nm
+default_cylinder_height = 20*nm
 
 
 def get_sample(cylinder_radius, cylinder_height):
@@ -45,9 +45,8 @@ def get_simulation(integration_flag):
     If integration_flag=True, the simulation will integrate over detector bins.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -2.0 * deg, 2.0 * deg, 200, 0.0 * deg,
-                                     2.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(200, -2.0*deg, 2.0*deg, 200, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.getOptions().setMonteCarloIntegration(integration_flag, 50)
     simulation.setTerminalProgressMonitor()
     return simulation
@@ -93,8 +92,8 @@ def run_simulation():
         scale = condition['scale']
         integration_flag = condition['integration']
 
-        sample = get_sample(default_cylinder_radius * scale,
-                            default_cylinder_height * scale)
+        sample = get_sample(default_cylinder_radius*scale,
+                            default_cylinder_height*scale)
         simulation = get_simulation(integration_flag)
         simulation.setSample(sample)
         simulation.runSimulation()

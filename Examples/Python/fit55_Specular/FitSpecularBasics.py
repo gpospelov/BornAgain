@@ -21,13 +21,13 @@ def get_sample(params):
 
     # substrate (Si)
     si_sld_real = 2.0704e-06  # \AA^{-2}
-    density_si = 0.0499 / ba.angstrom**3  # Si atomic number density
+    density_si = 0.0499/ba.angstrom**3  # Si atomic number density
 
     # layers' parameters
     n_repetitions = 10
     # Ni
     ni_sld_real = 9.4245e-06  # \AA^{-2}
-    ni_thickness = 70 * ba.angstrom
+    ni_thickness = 70*ba.angstrom
     # Ti
     ti_sld_real = -1.9493e-06  # \AA^{-2}
     ti_thickness = params["ti_thickness"]
@@ -66,7 +66,7 @@ def get_real_data():
 
         # translating axis values from double incident angle (degrees)
         # to incident angle (radians)
-        real_data[:, 0] *= np.pi / 360
+        real_data[:, 0] *= np.pi/360
         get_real_data.data = real_data
     return get_real_data.data.copy()
 
@@ -91,7 +91,7 @@ def get_simulation(params):
     """
     Create and return specular simulation with its instrument defined
     """
-    wavelength = 1.54 * ba.angstrom  # beam wavelength
+    wavelength = 1.54*ba.angstrom  # beam wavelength
 
     simulation = ba.SpecularSimulation()
     scan = ba.AngularSpecScan(wavelength, get_real_data_axis())
@@ -116,9 +116,9 @@ def run_fitting():
 
     params = ba.Parameters()
     params.add("ti_thickness",
-               50 * ba.angstrom,
-               min=10 * ba.angstrom,
-               max=60 * ba.angstrom)
+               50*ba.angstrom,
+               min=10*ba.angstrom,
+               max=60*ba.angstrom)
 
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)

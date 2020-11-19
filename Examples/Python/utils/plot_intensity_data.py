@@ -28,10 +28,10 @@ def plot_intensity_data(file_name, intensity_max=None):
 
 def plot_intensity_data_2d(histogram, intensity_max):
     plot_raw_data_2d(histogram.array(), [
-        histogram.getXmin() / ba.deg,
-        histogram.getXmax() / ba.deg,
-        histogram.getYmin() / ba.deg,
-        histogram.getYmax() / ba.deg
+        histogram.getXmin()/ba.deg,
+        histogram.getXmax()/ba.deg,
+        histogram.getYmin()/ba.deg,
+        histogram.getYmax()/ba.deg
     ], intensity_max)
 
 
@@ -48,8 +48,8 @@ def plot_raw_data_2d(values, extent_array, intensity_max):
 
 
 def plot_intensity_data_1d(histogram, intensity_max):
-    axis_values = np.asarray(histogram.xAxis().binCenters()) / ba.deg
-    array_values = histogram.array() * intensity_max / histogram.getMaximum()
+    axis_values = np.asarray(histogram.xAxis().binCenters())/ba.deg
+    array_values = histogram.array()*intensity_max/histogram.getMaximum()
     plot_raw_data_1d(axis_values, array_values)
 
 

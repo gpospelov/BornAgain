@@ -9,7 +9,7 @@ det = bp.Detector(200, 0, 5, 0, 5)
 n = 1
 results = []
 for i in range(n):
-    ff = ba.FormFactorFullSphere(3.9 * nanometer)
+    ff = ba.FormFactorFullSphere(3.9*nanometer)
     data = bp.run_simulation(det, ff)
     results.append(bp.Result(i, data))
 

@@ -50,7 +50,7 @@ def get_real_data(filename="mg6a_Merged.txt.gz"):
 
         # translating axis values from double incident angle (degrees)
         # to incident angle (radians)
-        real_data[:, 0] *= np.pi / 360
+        real_data[:, 0] *= np.pi/360
         get_real_data.data = real_data
     return get_real_data.data.copy()
 
@@ -89,7 +89,7 @@ def create_simulation(arg_dict, bin_start, bin_end):
     """
     Creates and returns specular simulation
     """
-    wavelength = 1.54 * ba.angstrom
+    wavelength = 1.54*ba.angstrom
     alpha_distr = ba.RangedDistributionGaussian(30, 3)
     footprint = ba.FootprintGauss(arg_dict["footprint_factor"])
 
@@ -110,8 +110,8 @@ def buildSample(arg_dict):
     # defining materials
     m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
     m_si_o2 = ba.HomogeneousMaterial("SiO2",
-                                     8.57040868e-06 * arg_dict["concentration"],
-                                     1.11016654e-07 * arg_dict["concentration"])
+                                     8.57040868e-06*arg_dict["concentration"],
+                                     1.11016654e-07*arg_dict["concentration"])
     m_si = ba.HomogeneousMaterial("Si", 7.57211137e-06, 1.72728178e-07)
 
     # roughness
@@ -207,10 +207,10 @@ def run_fitting():
     bounds = [
         (1e6, 1e8),  # beam intensity
         (0.0, 0.1),  # beam-to-sample width ratio
-        (0.0, 0.08 * ba.deg),  # beam_divergence
+        (0.0, 0.08*ba.deg),  # beam_divergence
         (0.0, 1.0),  # oxide_concentration
-        (0.0, 2.0 * ba.nm),  # oxide_thickness
-        (0.0, 2.0 * ba.nm)
+        (0.0, 2.0*ba.nm),  # oxide_thickness
+        (0.0, 2.0*ba.nm)
     ]  # roughness
 
     print("Start preliminary fitting of experimental data:\n")
@@ -225,8 +225,8 @@ def run_fitting():
 
     bounds = [
         (0.0, 1.0),  # oxide_concentration
-        (0.0, 2.0 * ba.nm),  # oxide_thickness
-        (0.0, 2.0 * ba.nm)
+        (0.0, 2.0*ba.nm),  # oxide_thickness
+        (0.0, 2.0*ba.nm)
     ]  # roughness
 
     fixed_args = (
@@ -261,7 +261,7 @@ def plot_result(sim_result, ref_result, bin_start=0, bin_end=-1):
     ref_data = ref_result.array()
 
     plt.semilogy(
-        get_real_data_axis(bin_start, bin_end) * 180 / np.pi,
+        get_real_data_axis(bin_start, bin_end)*180/np.pi,
         get_real_data_values(bin_start, bin_end), sim_result.axis(), sim_data,
         ref_result.axis(), ref_data)
 

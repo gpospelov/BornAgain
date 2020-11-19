@@ -20,7 +20,7 @@ class BinRange:
         self.n = n
 
     def central_index(self):
-        return int((0. - self.vmin) / (self.vmax - self.vmin) * self.n)
+        return int((0. - self.vmin)/(self.vmax - self.vmin)*self.n)
 
 
 class Detector:
@@ -55,12 +55,12 @@ def make_plot(results, det, name, nrow=1):
     # Parameters as fraction of subfig size.
     yskip = 0.2  # +ncol*0.02
     bottomskip = yskip
-    topskip = yskip / 2
+    topskip = yskip/2
     xskip = 0.18
     leftskip = xskip
-    rightskip = 0.28 + ncol * 0.03
-    xtot = ncol * 1.0 + (ncol - 1) * xskip + leftskip + rightskip
-    ytot = nrow * 1.0 + (nrow - 1) * yskip + bottomskip + topskip
+    rightskip = 0.28 + ncol*0.03
+    xtot = ncol*1.0 + (ncol - 1)*xskip + leftskip + rightskip
+    ytot = nrow*1.0 + (nrow - 1)*yskip + bottomskip + topskip
     # We need parameters as fraction of total fig size.
     xskip /= xtot
     leftskip /= xtot
@@ -70,9 +70,9 @@ def make_plot(results, det, name, nrow=1):
     topskip /= ytot
     # Set total figure dimensions.
     ftot = 5
-    fontsize = 18 + 36.0 / (ncol + 2)
+    fontsize = 18 + 36.0/(ncol + 2)
     # Create the figure 'fig' and its subplots axes ('tmp'->'axes').
-    fig, tmp = plt.subplots(nrow, ncol, figsize=(ftot * xtot, ftot * ytot))
+    fig, tmp = plt.subplots(nrow, ncol, figsize=(ftot*xtot, ftot*ytot))
     if n > 1:
         axes = tmp.flat
     else:
@@ -88,7 +88,7 @@ def make_plot(results, det, name, nrow=1):
             ax.set_ylabel(r'$\alpha_{\rm f} (^{\circ})$', fontsize=fontsize)
         if res.title != "":
             ax.set_title(res.title, fontsize=fontsize)
-        ax.tick_params(axis='both', which='major', labelsize=fontsize * 21 / 24)
+        ax.tick_params(axis='both', which='major', labelsize=fontsize*21/24)
     # Adjust whitespace around and between subfigures.
     plt.subplots_adjust(wspace=xskip,
                         hspace=yskip,
@@ -98,8 +98,7 @@ def make_plot(results, det, name, nrow=1):
                         top=1 - topskip)
     # Plot the color scale.
     cbar_ax = fig.add_axes([
-        1 - rightskip + 0.4 * xskip, bottomskip, 0.25 * xskip,
-        1 - bottomskip - topskip
+        1 - rightskip + 0.4*xskip, bottomskip, 0.25*xskip, 1 - bottomskip - topskip
     ])
     cb = fig.colorbar(im, cax=cbar_ax)
     cb.set_label(r'$\left|F(q)\right|^2/V^{\,2}$', fontsize=fontsize)
@@ -148,11 +147,10 @@ def get_simulation(det):
     :param det: Detector limits
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(det.phi.n, det.phi.vmin * degree,
-                                     det.phi.vmax * degree, det.alpha.n,
-                                     det.alpha.vmin * degree,
-                                     det.alpha.vmax * degree)
-    simulation.setBeamParameters(1.0 * angstrom, 0, 0)
+    simulation.setDetectorParameters(det.phi.n, det.phi.vmin*degree,
+                                     det.phi.vmax*degree, det.alpha.n,
+                                     det.alpha.vmin*degree, det.alpha.vmax*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0, 0)
     return simulation
 
 

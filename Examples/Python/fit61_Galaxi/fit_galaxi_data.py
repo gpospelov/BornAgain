@@ -6,8 +6,8 @@ import bornagain as ba
 from bornagain import nm as nm
 from sample_builder import SampleBuilder
 
-wavelength = 1.34 * ba.angstrom
-alpha_i = 0.463 * ba.deg
+wavelength = 1.34*ba.angstrom
+alpha_i = 0.463*ba.deg
 
 # detector setup as given from instrument responsible
 pilatus_npx, pilatus_npy = 981, 1043
@@ -20,10 +20,10 @@ def create_detector():
     """
     Returns a model of the GALAXY detector
     """
-    u0 = beam_xpos * pilatus_pixel_size  # in mm
-    v0 = beam_ypos * pilatus_pixel_size  # in mm
-    detector = ba.RectangularDetector(pilatus_npx, pilatus_npx * pilatus_pixel_size,
-                                      pilatus_npy, pilatus_npy * pilatus_pixel_size)
+    u0 = beam_xpos*pilatus_pixel_size  # in mm
+    v0 = beam_ypos*pilatus_pixel_size  # in mm
+    detector = ba.RectangularDetector(pilatus_npx, pilatus_npx*pilatus_pixel_size,
+                                      pilatus_npy, pilatus_npy*pilatus_pixel_size)
     detector.setPerpendicularToDirectBeam(detector_distance, u0, v0)
     return detector
 
@@ -62,9 +62,9 @@ def run_fitting():
     fit_objective.initPlot(10)
 
     params = ba.Parameters()
-    params.add("radius", 5. * nm, min=4.0, max=6.0, step=0.1 * nm)
+    params.add("radius", 5.*nm, min=4.0, max=6.0, step=0.1*nm)
     params.add("sigma", 0.55, min=0.2, max=0.8, step=0.01)
-    params.add("distance", 27. * nm, min=20.0, max=70.0)
+    params.add("distance", 27.*nm, min=20.0, max=70.0)
 
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)

@@ -39,9 +39,9 @@ def get_boundaries_flat_in_sin(nbins, start, end):
     result = []
     start_sin = math.sin(deg2rad(start))
     end_sin = math.sin(deg2rad(end))
-    step = (end_sin - start_sin) / nbins
+    step = (end_sin - start_sin)/nbins
     for i in range(0, nbins + 1):
-        result.append(rad2deg(math.asin(start_sin + step * i)))
+        result.append(rad2deg(math.asin(start_sin + step*i)))
     return result
 
 
@@ -110,9 +110,8 @@ class OutputDataIOTest(unittest.TestCase):
 
     def test_07_ConstKBinAxis_2D(self):
         data = ba.IntensityData()
-        data.addAxis(ba.ConstKBinAxis("axis0", 9, -1.00000001 * degree,
-                                      1.0 * degree))
-        data.addAxis(ba.ConstKBinAxis("axis1", 3, -4.0 * degree, 5.0 * degree))
+        data.addAxis(ba.ConstKBinAxis("axis0", 9, -1.00000001*degree, 1.0*degree))
+        data.addAxis(ba.ConstKBinAxis("axis1", 3, -4.0*degree, 5.0*degree))
         fill_data(data)
         ba.IntensityDataIOFactory.writeOutputData(data, "tmp.int")
         newdata = ba.IntensityDataIOFactory.readOutputData("tmp.int")
@@ -120,9 +119,8 @@ class OutputDataIOTest(unittest.TestCase):
 
     def test_08_CustomBinAxis_2D(self):
         data = ba.IntensityData()
-        data.addAxis(ba.CustomBinAxis("axis0", 9, -1.00000001 * degree,
-                                      1.0 * degree))
-        data.addAxis(ba.CustomBinAxis("axis1", 3, -4.0 * degree, 5.0 * degree))
+        data.addAxis(ba.CustomBinAxis("axis0", 9, -1.00000001*degree, 1.0*degree))
+        data.addAxis(ba.CustomBinAxis("axis1", 3, -4.0*degree, 5.0*degree))
         fill_data(data)
         ba.IntensityDataIOFactory.writeOutputData(data, "tmp.int")
         newdata = ba.IntensityDataIOFactory.readOutputData("tmp.int")

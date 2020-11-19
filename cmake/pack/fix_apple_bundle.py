@@ -425,9 +425,9 @@ def validate_dependencies():
 
 
 def fix_apple_bundle():
-    print('-' * 80)
+    print('-'*80)
     print("Fixing OS X bundle at '{0}'".format(bundle_dir()))
-    print('-' * 80)
+    print('-'*80)
     # # copy_python_framework()
     # FIXME provide automatic recognition of Qt dependency type (@rpath or hard coded)
     # copy_qt_libraries() # this line should be uncommented for macport based builds

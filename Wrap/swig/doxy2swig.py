@@ -339,7 +339,7 @@ class Doxy2SWIG:
                 elif count > 2:
                     ret.append('\n\n')
                 elif count:
-                    ret.append('\n' * count)
+                    ret.append('\n'*count)
                 count = 0
                 ret.append(i)
 

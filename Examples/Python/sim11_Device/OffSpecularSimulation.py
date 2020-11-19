@@ -20,16 +20,16 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    lattice_length = 100.0 * nm
-    lattice_rotation_angle = 0.0 * deg
+    lattice_length = 100.0*nm
+    lattice_rotation_angle = 0.0*deg
     interference = ba.InterferenceFunction1DLattice(lattice_length,
                                                     lattice_rotation_angle)
     pdf = ba.FTDecayFunction1DCauchy(1e+6)
     interference.setDecayFunction(pdf)
 
-    box_ff = ba.FormFactorBox(1000 * nm, 20 * nm, 10.0 * nm)
+    box_ff = ba.FormFactorBox(1000*nm, 20*nm, 10.0*nm)
     box = ba.Particle(m_particle, box_ff)
-    transform = ba.RotationZ(90.0 * deg)
+    transform = ba.RotationZ(90.0*deg)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(box, 1.0, ba.kvector_t(0.0, 0.0, 0.0), transform)
     particle_layout.setInterferenceFunction(interference)
@@ -50,12 +50,11 @@ def get_simulation():
     Returns an off-specular simulation with beam and detector defined.
     """
     simulation = ba.OffSpecSimulation()
-    simulation.setDetectorParameters(20, phi_f_min * deg, phi_f_max * deg, 200,
-                                     alpha_f_min * deg, alpha_f_max * deg)
+    simulation.setDetectorParameters(20, phi_f_min*deg, phi_f_max*deg, 200,
+                                     alpha_f_min*deg, alpha_f_max*deg)
     # define the beam with alpha_i varied between alpha_i_min and alpha_i_max
-    alpha_i_axis = ba.FixedBinAxis("alpha_i", 200, alpha_i_min * deg,
-                                   alpha_i_max * deg)
-    simulation.setBeamParameters(1.0 * angstrom, alpha_i_axis, 0.0 * deg)
+    alpha_i_axis = ba.FixedBinAxis("alpha_i", 200, alpha_i_min*deg, alpha_i_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, alpha_i_axis, 0.0*deg)
     simulation.setBeamIntensity(1e9)
     return simulation
 

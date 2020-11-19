@@ -19,9 +19,9 @@ def get_sample():
     substrate_material = ba.HomogeneousMaterial("Substrate", 7e-6, 1.8e-7)
 
     # spherical magnetic particle
-    sphere_ff = ba.FormFactorFullSphere(5 * nm)
+    sphere_ff = ba.FormFactorFullSphere(5*nm)
     sphere = ba.Particle(particle_material, sphere_ff)
-    position = ba.kvector_t(0.0, 0.0, -10.0 * nm)
+    position = ba.kvector_t(0.0, 0.0, -10.0*nm)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(sphere, 1.0, position)
 
@@ -43,9 +43,8 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -3.0 * deg, 3.0 * deg, 200, 0.0 * deg,
-                                     6.0 * deg)
-    simulation.setBeamParameters(1. * angstrom, 0.5 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(200, -3.0*deg, 3.0*deg, 200, 0.0*deg, 6.0*deg)
+    simulation.setBeamParameters(1.*angstrom, 0.5*deg, 0.0*deg)
     simulation.setBeamIntensity(1e12)
 
     analyzer_dir = ba.kvector_t(0.0, 0.0, -1.0)

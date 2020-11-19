@@ -82,12 +82,12 @@ class RotationsCubeTest(unittest.TestCase):
         data_to_test = [
             # ff  rot                     pos                    layout_rot              layout_pos
             (box, None, None, None, None),  # reference
-            (box, RotationZ(90. * degree), None, None, None),  # rotating particle
-            (box, RotationZ(-90. * degree), None, None, None),
-            (box, RotationZ(180. * degree), None, None, None),
-            (box, None, None, RotationZ(90. * degree),
+            (box, RotationZ(90.*degree), None, None, None),  # rotating particle
+            (box, RotationZ(-90.*degree), None, None, None),
+            (box, RotationZ(180.*degree), None, None, None),
+            (box, None, None, RotationZ(90.*degree),
              None),  # rotating through layout
-            (box, RotationZ(45. * degree), None, RotationZ(45. * degree),
+            (box, RotationZ(45.*degree), None, RotationZ(45.*degree),
              None),  # cumulative rotation
         ]
 
@@ -112,15 +112,14 @@ class RotationsCubeTest(unittest.TestCase):
         data_to_test = [
             # ff  rot                     pos                    layout_rot              layout_pos
             (box, None, None, None, None),  # reference
-            (box, RotationY(90. * degree), kvector_t(0, 0, 5.0), None,
+            (box, RotationY(90.*degree), kvector_t(0, 0, 5.0), None,
              None),  # rotating and translating
-            (box, None, None, RotationY(90. * degree),
+            (box, None, None, RotationY(90.*degree),
              kvector_t(0, 0, 5.0)),  # rotating and translating
-            (box, RotationY(90. * degree), None, None,
+            (box, RotationY(90.*degree), None, None,
              kvector_t(0, 0, 5.0)),  # rotating and translating
-            (box, RotationY(45. * degree), kvector_t(0, 0, 0.0),
-             RotationY(45. * degree), kvector_t(0, 0,
-                                                5.0)),  # rotating and translating
+            (box, RotationY(45.*degree), kvector_t(0, 0, 0.0), RotationY(45.*degree),
+             kvector_t(0, 0, 5.0)),  # rotating and translating
         ]
 
         reference_data = self.get_result(data_to_test[0])
@@ -144,15 +143,14 @@ class RotationsCubeTest(unittest.TestCase):
         data_to_test = [
             # ff  rot                     pos                    layout_rot              layout_pos
             (box, None, None, None, None),  # reference
-            (box, RotationX(90. * degree), kvector_t(0, 0, 5.0), None,
+            (box, RotationX(90.*degree), kvector_t(0, 0, 5.0), None,
              None),  # rotating and translating
-            (box, None, None, RotationX(90. * degree),
+            (box, None, None, RotationX(90.*degree),
              kvector_t(0, 0, 5.0)),  # rotating and translating
-            (box, RotationX(90. * degree), None, None,
+            (box, RotationX(90.*degree), None, None,
              kvector_t(0, 0, 5.0)),  # rotating and translating
-            (box, RotationX(45. * degree), kvector_t(0, 0, 0.0),
-             RotationX(45. * degree), kvector_t(0, 0,
-                                                5.0)),  # rotating and translating
+            (box, RotationX(45.*degree), kvector_t(0, 0, 0.0), RotationX(45.*degree),
+             kvector_t(0, 0, 5.0)),  # rotating and translating
         ]
 
         reference_data = self.get_result(data_to_test[0])
@@ -174,7 +172,7 @@ class RotationsCubeTest(unittest.TestCase):
         data_to_test = [
             # ff  rot                     pos                    layout_rot              layout_pos
             (box, None, kvector_t(0, 0, -25.0), None, None),  # reference
-            (box, RotationX(90. * degree), kvector_t(0, 0, -20.0), None,
+            (box, RotationX(90.*degree), kvector_t(0, 0, -20.0), None,
              None),  # rotating and translating
         ]
 

@@ -45,26 +45,26 @@ def get_sample(params):
     """
     construct the sample with the given parameters
     """
-    magnetizationMagnitude = params["rhoM_Mafo"] * 1e-6 / RhoMconst
+    magnetizationMagnitude = params["rhoM_Mafo"]*1e-6/RhoMconst
     angle = 0
-    magnetizationVector = ba.kvector_t(
-        magnetizationMagnitude * numpy.sin(angle * deg),
-        magnetizationMagnitude * numpy.cos(angle * deg), 0)
+    magnetizationVector = ba.kvector_t(magnetizationMagnitude*numpy.sin(angle*deg),
+                                       magnetizationMagnitude*numpy.cos(angle*deg),
+                                       0)
 
     mat_vacuum = ba.MaterialBySLD("Vacuum", 0.0, 0.0)
-    mat_layer = ba.MaterialBySLD("(Mg,Al,Fe)3O4", params["rho_Mafo"] * 1e-6, 0,
+    mat_layer = ba.MaterialBySLD("(Mg,Al,Fe)3O4", params["rho_Mafo"]*1e-6, 0,
                                  magnetizationVector)
     mat_substrate = ba.MaterialBySLD("MgAl2O4", *sldMao)
 
     ambient_layer = ba.Layer(mat_vacuum)
-    layer = ba.Layer(mat_layer, params["t_Mafo"] * angstrom)
+    layer = ba.Layer(mat_layer, params["t_Mafo"]*angstrom)
     substrate_layer = ba.Layer(mat_substrate)
 
     r_Mafo = ba.LayerRoughness()
-    r_Mafo.setSigma(params["r_Mafo"] * angstrom)
+    r_Mafo.setSigma(params["r_Mafo"]*angstrom)
 
     r_substrate = ba.LayerRoughness()
-    r_substrate.setSigma(params["r_Mao"] * angstrom)
+    r_substrate.setSigma(params["r_Mao"]*angstrom)
 
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(ambient_layer)
@@ -84,7 +84,7 @@ def get_simulation(q_axis, parameters, polarization, analyzer):
     q_axis = q_axis + parameters["q_offset"]
     scan = ba.QSpecScan(q_axis)
 
-    dq = parameters["q_res"] * q_axis
+    dq = parameters["q_res"]*q_axis
     n_sig = 4.0
     n_samples = 25
 
@@ -173,14 +173,14 @@ def plotSpinAsymmetry(data_pp, data_mm, q, r_pp, r_mm, filename):
     fig = plt.figure()
     ax = fig.add_subplot(111)
 
-    ax.errorbar(data_pp[0], (data_pp[1] - data_mm[1]) / (data_pp[1] + data_mm[1]),
+    ax.errorbar(data_pp[0], (data_pp[1] - data_mm[1])/(data_pp[1] + data_mm[1]),
                 xerr=data_pp[3],
                 yerr=delta,
                 fmt='.',
                 markersize=0.75,
                 linewidth=0.5)
 
-    ax.plot(q, (r_pp - r_mm) / (r_pp + r_mm))
+    ax.plot(q, (r_pp - r_mm)/(r_pp + r_mm))
 
     plt.gca().set_ylim((-0.3, 0.5))
 
@@ -206,12 +206,12 @@ def normalizeData(data):
     r0 = numpy.where(data[0] - numpy.roll(data[0], 1) == 0)
     data = numpy.delete(data, r0, 1)
 
-    data[0] = data[0] / angstrom
-    data[3] = data[3] / angstrom
+    data[0] = data[0]/angstrom
+    data[3] = data[3]/angstrom
 
     norm = numpy.max(data[1])
-    data[1] = data[1] / norm
-    data[2] = data[2] / norm
+    data[1] = data[1]/norm
+    data[2] = data[2]/norm
 
     so = numpy.argsort(data[0])
     data = data[:, so]

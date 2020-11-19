@@ -10,7 +10,7 @@ class ParameterPoolTest(unittest.TestCase):
         """
         Checks values in particle's parameter pool
         """
-        ff = ba.FormFactorCylinder(5 * nm, 6 * nm)
+        ff = ba.FormFactorCylinder(5*nm, 6*nm)
         particle = ba.Particle(ba.HomogeneousMaterial("Vacuum", 0.0, 0.0), ff)
         particle.setAbundance(1.0)
         particle.setPosition(2.0, 3.0, 4.0)
@@ -37,7 +37,7 @@ class ParameterPoolTest(unittest.TestCase):
         """
         Modification of particle parameters via parameter pool
         """
-        ff = ba.FormFactorCylinder(5 * nm, 6 * nm)
+        ff = ba.FormFactorCylinder(5*nm, 6*nm)
         particle = ba.Particle(ba.HomogeneousMaterial("Vacuum", 0.0, 0.0), ff)
         particle.setAbundance(1.0)
         particle.setPosition(2.0, 3.0, 4.0)
@@ -62,7 +62,7 @@ class ParameterPoolTest(unittest.TestCase):
         Checks values in particle's parameter tree. Parameter tree is a pool with parameters of
         particle and its children (in given case, form factor of cylinder)
         """
-        ff = ba.FormFactorCylinder(5 * nm, 6 * nm)
+        ff = ba.FormFactorCylinder(5*nm, 6*nm)
         particle = ba.Particle(ba.HomogeneousMaterial("Vacuum", 0.0, 0.0), ff)
         particle.setAbundance(1.0)
         particle.setPosition(2.0, 3.0, 4.0)
@@ -85,7 +85,7 @@ class ParameterPoolTest(unittest.TestCase):
         """
         Modifies values of particle's parameter tree.
         """
-        ff = ba.FormFactorCylinder(5 * nm, 6 * nm)
+        ff = ba.FormFactorCylinder(5*nm, 6*nm)
         particle = ba.Particle(ba.HomogeneousMaterial("Vacuum", 0.0, 0.0), ff)
         particle.setAbundance(1.0)
         particle.setPosition(2.0, 3.0, 4.0)
@@ -115,7 +115,7 @@ class ParameterPoolTest(unittest.TestCase):
         """
         Modification of particle's parameters without intermediate access to parameter pool
         """
-        ff = ba.FormFactorCylinder(5 * nm, 6 * nm)
+        ff = ba.FormFactorCylinder(5*nm, 6*nm)
         particle = ba.Particle(ba.HomogeneousMaterial("Vacuum", 0.0, 0.0), ff)
         particle.setAbundance(1.0)
         particle.setPosition(2.0, 3.0, 4.0)

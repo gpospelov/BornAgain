@@ -28,7 +28,7 @@ def get_figure(filename):
         xsize, ysize = 640, 480
 
     dpi = 72.
-    return plt.figure(figsize=(xsize / dpi, ysize / dpi))
+    return plt.figure(figsize=(xsize/dpi, ysize/dpi))
 
 
 def exec_full(filepath):

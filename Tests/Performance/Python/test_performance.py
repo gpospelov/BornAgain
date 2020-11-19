@@ -71,7 +71,7 @@ class CustomFormFactor(IBornFF):
         return cloned_ff
 
     def evaluate_for_q(self, q):
-        return self.V * 1.0 / math.cosh(q.mag() * self.L)
+        return self.V*1.0/math.cosh(q.mag()*self.L)
 
 
 # class for performance test, constructed using sample factories
@@ -163,7 +163,7 @@ class CustomTest(FactoryTest):
         m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
         # collection of particles
-        ff = CustomFormFactor(343.0 * nanometer, 7.0 * nanometer)
+        ff = CustomFormFactor(343.0*nanometer, 7.0*nanometer)
         particle = Particle(m_particle, ff)
         particle_layout = ParticleLayout()
         particle_layout.addParticle(particle, 1.0)
@@ -185,9 +185,9 @@ class CustomTest(FactoryTest):
         """
         simulation = GISASSimulation()
         simulation.getOptions().setNumberOfThreads(-1)
-        simulation.setDetectorParameters(100, phi_min * degree, phi_max * degree,
-                                         100, alpha_min * degree, alpha_max * degree)
-        simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
+        simulation.setDetectorParameters(100, phi_min*degree, phi_max*degree, 100,
+                                         alpha_min*degree, alpha_max*degree)
+        simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
         return simulation
 
 

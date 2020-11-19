@@ -27,26 +27,26 @@ import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 # layer thicknesses in angstroms
-t_Ti = 130.0 * angstrom
-t_Pt = 320.0 * angstrom
-t_Ti_top = 100.0 * angstrom
-t_TiO2 = 30.0 * angstrom
+t_Ti = 130.0*angstrom
+t_Pt = 320.0*angstrom
+t_Ti_top = 100.0*angstrom
+t_TiO2 = 30.0*angstrom
 
 #  beam data
-ai_min = 0.0 * deg  # minimum incident angle
-ai_max = 1.0 * deg  # maximum incident angle
+ai_min = 0.0*deg  # minimum incident angle
+ai_max = 1.0*deg  # maximum incident angle
 n_ai_bins = 5000  # number of bins in incident angle axis
 beam_sample_ratio = 0.01  # beam-to-sample size ratio
-wl = 10 * angstrom  # wavelength in angstroms
+wl = 10*angstrom  # wavelength in angstroms
 
 # convolution parameters
-d_ang = 0.01 * ba.deg  # spread width for incident angle
+d_ang = 0.01*ba.deg  # spread width for incident angle
 n_points = 25  # number of points to convolve over
 n_sig = 3  # number of sigmas to convolve over
 
 #  depth position span
-z_min = -100 * nm
-z_max = 100 * nm
+z_min = -100*nm
+z_max = 100*nm
 n_z_bins = 500
 
 
@@ -64,10 +64,10 @@ def get_sample():
 
     # create layers
     l_Si = ba.Layer(m_Si)
-    l_Ti = ba.Layer(m_Ti, 130.0 * angstrom)
-    l_Pt = ba.Layer(m_Pt, 320.0 * angstrom)
-    l_Ti_top = ba.Layer(m_Ti, 100.0 * angstrom)
-    l_TiO2 = ba.Layer(m_TiO2, 30.0 * angstrom)
+    l_Ti = ba.Layer(m_Ti, 130.0*angstrom)
+    l_Pt = ba.Layer(m_Pt, 320.0*angstrom)
+    l_Ti_top = ba.Layer(m_Ti, 100.0*angstrom)
+    l_TiO2 = ba.Layer(m_TiO2, 30.0*angstrom)
     l_D2O = ba.Layer(m_D2O)
 
     # construct sample

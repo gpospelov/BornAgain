@@ -15,15 +15,14 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 3e-5, 2e-8)
 
     # cylindrical particle
-    box_ff = ba.FormFactorBox(5 * nm, 5 * nm, 10 * nm)
+    box_ff = ba.FormFactorBox(5*nm, 5*nm, 10*nm)
     box = ba.Particle(m_particle, box_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(box)
 
     # interference function
-    interference = ba.InterferenceFunction2DLattice(
-        ba.SquareLattice2D(8 * nm, 0 * deg))
-    pdf = ba.FTDecayFunction2DCauchy(100 * nm, 100 * nm, 0)
+    interference = ba.InterferenceFunction2DLattice(ba.SquareLattice2D(8*nm, 0*deg))
+    pdf = ba.FTDecayFunction2DCauchy(100*nm, 100*nm, 0)
     interference.setDecayFunction(pdf)
     particle_layout.setInterferenceFunction(interference)
 
@@ -42,9 +41,8 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(101, -2.0 * deg, 2.0 * deg, 101, 0.0 * deg,
-                                     2.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(101, -2.0*deg, 2.0*deg, 101, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.getOptions().setUseAvgMaterials(True)
     simulation.getOptions().setIncludeSpecular(True)
     return simulation

@@ -21,9 +21,9 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5 * nm, 5 * nm)
+    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
     cylinder = ba.Particle(m_particle, cylinder_ff)
-    prism_ff = ba.FormFactorPrism3(5 * nm, 5 * nm)
+    prism_ff = ba.FormFactorPrism3(5*nm, 5*nm)
     prism = ba.Particle(m_particle, prism_ff)
 
     layout = ba.ParticleLayout()
@@ -47,9 +47,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0 * deg, 1.0 * deg, 100, 0.0 * deg,
-                                     2.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg, 100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 
@@ -79,20 +78,20 @@ def run_simulation():
     # one sample parameter (cylinder height) is changed using exact parameter name
     simulation.setParameterValue(
         "/GISASSimulation/MultiLayer/Layer0/ParticleLayout"
-        "/Particle0/Cylinder/Height", 10.0 * nm)
+        "/Particle0/Cylinder/Height", 10.0*nm)
     simulation.runSimulation()
     results[1] = simulation.result()
 
     # simulation #3
     # all parameters matching criteria will be changed (cylinder height in this case)
-    simulation.setParameterValue("*/Cylinder/Height", 100.0 * nm)
+    simulation.setParameterValue("*/Cylinder/Height", 100.0*nm)
     simulation.runSimulation()
     results[2] = simulation.result()
 
     # simulation #4
     # all parameters which are matching criteria will be changed
-    simulation.setParameterValue("*/Cylinder/Height", 10.0 * nm)
-    simulation.setParameterValue("*/Prism3/*", 10.0 * nm)
+    simulation.setParameterValue("*/Cylinder/Height", 10.0*nm)
+    simulation.setParameterValue("*/Prism3/*", 10.0*nm)
     simulation.runSimulation()
     results[3] = simulation.result()
 

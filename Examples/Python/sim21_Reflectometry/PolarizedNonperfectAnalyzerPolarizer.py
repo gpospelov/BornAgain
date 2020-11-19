@@ -15,9 +15,8 @@ sldMgO = (5.9803e-06, 9.3996e-12)
 
 magnetizationMagnitude = 1.6e6
 angle = 0
-magnetizationVector = ba.kvector_t(magnetizationMagnitude * numpy.sin(angle * deg),
-                                   magnetizationMagnitude * numpy.cos(angle * deg),
-                                   0)
+magnetizationVector = ba.kvector_t(magnetizationMagnitude*numpy.sin(angle*deg),
+                                   magnetizationMagnitude*numpy.cos(angle*deg), 0)
 
 
 def get_sample(*, magnetization=magnetizationVector):
@@ -33,12 +32,12 @@ def get_sample(*, magnetization=magnetizationVector):
 
     # create layers
     layer_vacuum = ba.Layer(mat_vacuum)
-    layer_Pd = ba.Layer(mat_Pd, 120 * angstrom)
-    layer_Fe = ba.Layer(mat_Fe, 1000 * angstrom)
+    layer_Pd = ba.Layer(mat_Pd, 120*angstrom)
+    layer_Fe = ba.Layer(mat_Fe, 1000*angstrom)
     layer_substrate = ba.Layer(mat_substrate)
 
     roughness = ba.LayerRoughness()
-    roughness.setSigma(20 * angstrom)
+    roughness.setSigma(20*angstrom)
 
     # create sample
     multi_layer = ba.MultiLayer()
@@ -81,7 +80,7 @@ def run_simulation(*,
 
     simulation = get_simulation()
 
-    simulation.setBeamPolarization(polarization * polarizer_efficiency)
+    simulation.setBeamPolarization(polarization*polarizer_efficiency)
     simulation.setAnalyzerProperties(analyzer, analyzer_efficiency, 0.5)
 
     simulation.setBackground(ba.ConstantBackground(1e-7))

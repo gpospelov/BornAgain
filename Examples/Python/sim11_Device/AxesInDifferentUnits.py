@@ -18,7 +18,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5 * nm, 5 * nm)
+    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
     cylinder = ba.Particle(m_particle, cylinder_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(cylinder, 1.0)
@@ -42,10 +42,10 @@ def get_rectangular_detector():
     pilatus_pixel_size = 0.172  # in mm
     pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
 
-    width = pilatus_npx * pilatus_pixel_size
-    height = pilatus_npy * pilatus_pixel_size
+    width = pilatus_npx*pilatus_pixel_size
+    height = pilatus_npy*pilatus_pixel_size
     detector = ba.RectangularDetector(pilatus_npx, width, pilatus_npy, height)
-    detector.setPerpendicularToSampleX(detector_distance, width / 2., 0.0)
+    detector.setPerpendicularToSampleX(detector_distance, width/2., 0.0)
     return detector
 
 
@@ -54,7 +54,7 @@ def get_simulation():
     Returns a GISAXS simulation with beam defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setDetector(get_rectangular_detector())
     return simulation
 

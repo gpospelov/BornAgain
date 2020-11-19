@@ -15,20 +15,20 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # cylindrical particle 1
-    radius1 = 5 * nm
+    radius1 = 5*nm
     height1 = radius1
     cylinder_ff1 = ba.FormFactorCylinder(radius1, height1)
     cylinder1 = ba.Particle(m_particle, cylinder_ff1)
 
     # cylindrical particle 2
-    radius2 = 8 * nm
+    radius2 = 8*nm
     height2 = radius2
     cylinder_ff2 = ba.FormFactorCylinder(radius2, height2)
     cylinder2 = ba.Particle(m_particle, cylinder_ff2)
 
     # interference function
-    interference = ba.InterferenceFunctionRadialParaCrystal(18.0 * nm, 1e3 * nm)
-    pdf = ba.FTDistribution1DGauss(3 * nm)
+    interference = ba.InterferenceFunctionRadialParaCrystal(18.0*nm, 1e3*nm)
+    pdf = ba.FTDistribution1DGauss(3*nm)
     interference.setProbabilityDistribution(pdf)
     interference.setKappa(1.0)
 
@@ -52,9 +52,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, 0.0 * deg, 2.0 * deg, 200, 0.0 * deg,
-                                     2.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(200, 0.0*deg, 2.0*deg, 200, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 

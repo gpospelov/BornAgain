@@ -44,21 +44,20 @@ def get_simulation(params):
     incident_angle = params["incident_angle"]
 
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(50, -1.5 * deg, 1.5 * deg, 50, 0.0 * deg,
-                                     2.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, incident_angle, 0.0 * deg)
+    simulation.setDetectorParameters(50, -1.5*deg, 1.5*deg, 50, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, incident_angle, 0.0*deg)
     simulation.setBeamIntensity(1e+08)
     simulation.setSample(get_sample(params))
     return simulation
 
 
 def simulation1(params):
-    params["incident_angle"] = 0.1 * deg
+    params["incident_angle"] = 0.1*deg
     return get_simulation(params)
 
 
 def simulation2(params):
-    params["incident_angle"] = 0.4 * deg
+    params["incident_angle"] = 0.4*deg
     return get_simulation(params)
 
 
@@ -67,9 +66,9 @@ def create_real_data(incident_alpha):
     Generating "real" data by adding noise to the simulated data.
     """
     params = {
-        'radius_a': 5.0 * nm,
-        'radius_b': 6.0 * nm,
-        'height': 8.0 * nm,
+        'radius_a': 5.0*nm,
+        'radius_b': 6.0*nm,
+        'height': 8.0*nm,
         "incident_angle": incident_alpha
     }
 
@@ -81,7 +80,7 @@ def create_real_data(incident_alpha):
 
     # spoiling simulated data with the noise to produce "real" data
     noise_factor = 0.1
-    noisy = np.random.normal(real_data, noise_factor * np.sqrt(real_data))
+    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
     noisy[noisy < 0.1] = 0.1
     return noisy
 
@@ -107,19 +106,19 @@ class PlotObserver():
 
             zmax = real_data.histogram2d().getMaximum()
 
-            plt.subplot(canvas[i_dataset * 3])
+            plt.subplot(canvas[i_dataset*3])
             ba.plot_colormap(real_data,
                              title="\"Real\" data - #" + str(i_dataset + 1),
                              zmin=1.0,
                              zmax=zmax,
                              zlabel="")
-            plt.subplot(canvas[1 + i_dataset * 3])
+            plt.subplot(canvas[1 + i_dataset*3])
             ba.plot_colormap(simul_data,
                              title="Simulated data - #" + str(i_dataset + 1),
                              zmin=1.0,
                              zmax=zmax,
                              zlabel="")
-            plt.subplot(canvas[2 + i_dataset * 3])
+            plt.subplot(canvas[2 + i_dataset*3])
             ba.plot_colormap(chi2_map,
                              title="Chi2 map - #" + str(i_dataset + 1),
                              zmin=0.001,
@@ -140,7 +139,7 @@ class PlotObserver():
                  "Iterations  " + '{:d}'.format(iteration_info.iterationCount()))
         plt.text(0.01, 0.75, "Chi2       " + '{:8.4f}'.format(iteration_info.chi2()))
         for index, params in enumerate(iteration_info.parameters()):
-            plt.text(0.01, 0.55 - index * 0.1,
+            plt.text(0.01, 0.55 - index*0.1,
                      '{:30.30s}: {:6.3f}'.format(params.name(), params.value))
 
     @staticmethod
@@ -156,7 +155,7 @@ class PlotObserver():
                  "Iterations  " + '{:d}'.format(iteration_info.iterationCount()))
         plt.text(0.01, 0.70, "Chi2       " + '{:8.4f}'.format(iteration_info.chi2()))
         for index, params in enumerate(iteration_info.parameters()):
-            plt.text(0.01, 0.30 - index * 0.3,
+            plt.text(0.01, 0.30 - index*0.3,
                      '{:30.30s}: {:6.3f}'.format(params.name(), params.value))
 
     def update(self, fit_objective):
@@ -183,8 +182,8 @@ def run_fitting():
     main function to run fitting
     """
 
-    data1 = create_real_data(0.1 * deg)
-    data2 = create_real_data(0.4 * deg)
+    data1 = create_real_data(0.1*deg)
+    data2 = create_real_data(0.4*deg)
 
     fit_objective = ba.FitObjective()
     fit_objective.addSimulationAndData(simulation1, data1, 1.0)
@@ -196,9 +195,9 @@ def run_fitting():
     fit_objective.initPlot(10, plotter.update)
 
     params = ba.Parameters()
-    params.add("radius_a", 4. * nm, min=2.0, max=10.0)
-    params.add("radius_b", 6. * nm, vary=False)
-    params.add("height", 4. * nm, min=2.0, max=10.0)
+    params.add("radius_a", 4.*nm, min=2.0, max=10.0)
+    params.add("radius_b", 6.*nm, vary=False)
+    params.add("height", 4.*nm, min=2.0, max=10.0)
 
     minimizer = ba.Minimizer()
     result = minimizer.minimize(fit_objective.evaluate, params)

@@ -8,7 +8,7 @@ from bornagain import deg, angstrom, nm, micrometer
 from matplotlib import pyplot as plt
 
 
-def get_sample(lattice_rotation_angle=0.0 * deg):
+def get_sample(lattice_rotation_angle=0.0*deg):
     """
     Returns a sample with a grating on a substrate.
     lattice_rotation_angle = 0 - beam parallel to grating lines
@@ -18,12 +18,12 @@ def get_sample(lattice_rotation_angle=0.0 * deg):
     m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
     m_si = ba.HomogeneousMaterial("Si", 5.78164736e-6, 1.02294578e-7)
 
-    box_length, box_width, box_height = 50 * micrometer, 70 * nm, 50 * nm
-    lattice_length = 150 * nm
+    box_length, box_width, box_height = 50*micrometer, 70*nm, 50*nm
+    lattice_length = 150*nm
 
     # collection of particles
     interference = ba.InterferenceFunction1DLattice(
-        lattice_length, 90.0 * deg - lattice_rotation_angle)
+        lattice_length, 90.0*deg - lattice_rotation_angle)
 
     pdf = ba.ba.FTDecayFunction1DGauss(450.0)
     interference.setDecayFunction(pdf)
@@ -42,9 +42,9 @@ def get_sample(lattice_rotation_angle=0.0 * deg):
     substrate_layer = ba.Layer(m_si)
 
     roughness = ba.LayerRoughness()
-    roughness.setSigma(5.0 * nm)
+    roughness.setSigma(5.0*nm)
     roughness.setHurstParameter(0.5)
-    roughness.setLatteralCorrLength(10.0 * nm)
+    roughness.setLatteralCorrLength(10.0*nm)
 
     multi_layer = ba.MultiLayer()
     multi_layer.addLayer(vacuum_layer)
@@ -57,9 +57,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -0.5 * deg, 0.5 * deg, 200, 0.0 * deg,
-                                     0.6 * deg)
-    simulation.setBeamParameters(1.34 * angstrom, 0.4 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(200, -0.5*deg, 0.5*deg, 200, 0.0*deg, 0.6*deg)
+    simulation.setBeamParameters(1.34*angstrom, 0.4*deg, 0.0*deg)
     simulation.setBeamIntensity(1e+08)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
     return simulation

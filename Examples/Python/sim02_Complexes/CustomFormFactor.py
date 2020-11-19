@@ -10,7 +10,7 @@ def sinc(x):
     if abs(x) == 0:
         return 1.
     else:
-        return cmath.sin(x) / x
+        return cmath.sin(x)/x
 
 
 class CustomFormFactor(ba.IBornFF):
@@ -36,9 +36,9 @@ class CustomFormFactor(ba.IBornFF):
         return cloned_ff
 
     def evaluate_for_q(self, q):
-        qzhH = 0.5 * q.z() * self.H
-        qxhL = 0.5 * q.x() * self.L
-        qyhL = 0.5 * q.y() * self.L
+        qzhH = 0.5*q.z()*self.H
+        qxhL = 0.5*q.x()*self.L
+        qyhL = 0.5*q.y()*self.L
         return 0.5*self.H*self.L**2*cmath.exp(complex(0., 1.)*qzhH)*\
                sinc(qzhH)*(sinc(0.5*qyhL)*(sinc(qxhL)-0.5*sinc(0.5*qxhL))+\
                sinc(0.5*qxhL)*sinc(qyhL))
@@ -54,7 +54,7 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    ff = CustomFormFactor(20.0 * nm, 15.0 * nm)
+    ff = CustomFormFactor(20.0*nm, 15.0*nm)
     particle = ba.Particle(m_particle, ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(particle, 1.0)
@@ -77,9 +77,8 @@ def get_simulation():
     """
     simulation = ba.GISASSimulation()
     simulation.getOptions().setNumberOfThreads(-1)
-    simulation.setDetectorParameters(100, -1.0 * deg, 1.0 * deg, 100, 0.0 * deg,
-                                     2.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg, 100, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 

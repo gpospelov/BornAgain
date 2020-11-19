@@ -7,7 +7,7 @@ import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 
-def get_sample(lattice_rotation_angle=45 * deg):
+def get_sample(lattice_rotation_angle=45*deg):
     """
     Returns a sample with a grating on a substrate,
     modelled by very long boxes forming a 1D lattice with Cauchy correlations.
@@ -17,8 +17,8 @@ def get_sample(lattice_rotation_angle=45 * deg):
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    box_length, box_width, box_height = 10 * nm, 10000 * nm, 10 * nm
-    lattice_length = 30 * nm
+    box_length, box_width, box_height = 10*nm, 10000*nm, 10*nm
+    lattice_length = 30*nm
 
     # collection of particles
     interference = ba.InterferenceFunction1DLattice(lattice_length,
@@ -50,9 +50,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -1.0 * deg, 1.0 * deg, 200, 0.0 * deg,
-                                     2.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(200, -1.0*deg, 1.0*deg, 200, 0.0*deg, 2.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
     return simulation
 

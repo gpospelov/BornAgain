@@ -37,8 +37,8 @@ def xsum(a0, P, D):
         exit(1)
     ret = 0
     for i in range(n):
-        a = math.acos(min(.99, math.cos(a0) / (1 - D[i])))
-        ret += abs(P[i]) / math.tan(a)
+        a = math.acos(min(.99, math.cos(a0)/(1 - D[i])))
+        ret += abs(P[i])/math.tan(a)
     return ret - xtot
 
 
@@ -72,24 +72,24 @@ for P in PP:
     y = -s
     x1 = x0
     x2 = x0
-    wgt = 5 - len(P) / 2
+    wgt = 5 - len(P)/2
     cmd1 += "%1i [] lset\n" % (wgt)
     cmd2 += "%1i [] lset\n" % (wgt)
     cmd1 += "%6.3g %6.3g np mv\n" % (x1, y)
     cmd2 += "%6.3g %6.3g np mv\n" % (x2, y)
     for i in range(len(P) - 1):
-        a = math.acos(math.cos(a0) / (1 - DeltaPath[i]))
-        x1 += abs(P[i]) / math.tan(a)
-        b = math.acos(math.cos(b0) / (1 - DeltaPath[i]))
-        x2 += abs(P[i]) / math.tan(b)
+        a = math.acos(math.cos(a0)/(1 - DeltaPath[i]))
+        x1 += abs(P[i])/math.tan(a)
+        b = math.acos(math.cos(b0)/(1 - DeltaPath[i]))
+        x2 += abs(P[i])/math.tan(b)
         y += P[i]
         cmd1 += "%6.3g %6.3g li\n" % (x1, y)
         cmd2 += "%6.3g %6.3g li\n" % (x2, y)
     cmd1 += "st\n"
     cmd2 += "st\n"
     len1 = math.sqrt((xtot + x0 - x1)**2 + yd**2) - 8
-    cmd1 += "%6.3g %6.3g %7.3g .8 %6.3g pfeiL\n" % (x1, y, 180 * a0 / math.pi, len1)
-    cmd2 += "%6.3g %6.3g %7.3g .8 %6.3g pfeiL\n" % (x2, y, 180 * b0 / math.pi, 7)
+    cmd1 += "%6.3g %6.3g %7.3g .8 %6.3g pfeiL\n" % (x1, y, 180*a0/math.pi, len1)
+    cmd2 += "%6.3g %6.3g %7.3g .8 %6.3g pfeiL\n" % (x2, y, 180*b0/math.pi, 7)
     cmd1 += "\n"
     cmd2 += "\n"
 #/pfeiL { % (arrow anchored at base) x y rot siz len
@@ -100,7 +100,7 @@ fd = open("Green1.ps.in", 'r')
 t += fd.read()
 fd.close
 
-cmd0 += "/b0 %7.3g def\n" % (180 * b0 / math.pi)
+cmd0 += "/b0 %7.3g def\n" % (180*b0/math.pi)
 t = re.sub(r'%#0', cmd0, t)
 t = re.sub(r'%#1', cmd1, t)
 t = re.sub(r'%#2', cmd2, t)

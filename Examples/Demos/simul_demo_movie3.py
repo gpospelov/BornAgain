@@ -24,9 +24,9 @@ def RunSimulation():
     mLayer = HomogeneousMaterial("Layer", 2e-5, 2e-8)
 
     # collection of particles
-    cylinder_ff1 = FormFactorCylinder(2 * nanometer, 5 * nanometer)
-    cylinder_ff2 = FormFactorCylinder(3 * nanometer, 6 * nanometer)
-    cylinder_ff3 = FormFactorCylinder(4 * nanometer, 7 * nanometer)
+    cylinder_ff1 = FormFactorCylinder(2*nanometer, 5*nanometer)
+    cylinder_ff2 = FormFactorCylinder(3*nanometer, 6*nanometer)
+    cylinder_ff3 = FormFactorCylinder(4*nanometer, 7*nanometer)
     cylinder1 = Particle(mParticle, cylinder_ff1)
     cylinder2 = Particle(mParticle, cylinder_ff2)
     cylinder3 = Particle(mParticle, cylinder_ff3)
@@ -34,8 +34,8 @@ def RunSimulation():
     particle_layout.addParticle(cylinder1)
     particle_layout.addParticle(cylinder2)
     particle_layout.addParticle(cylinder3)
-    interference = InterferenceFunctionRadialParaCrystal(6 * nanometer)
-    pdf = FTDistribution1DGauss(.5 * nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(6*nanometer)
+    pdf = FTDistribution1DGauss(.5*nanometer)
     interference.setProbabilityDistribution(pdf)
     # set coupling between size and space
     interference.setKappa(kappa)
@@ -47,14 +47,14 @@ def RunSimulation():
     substrate_layer = Layer(mSubstrate)
     multi_layer = MultiLayer()
     multi_layer.addLayer(vacuum_layer)
-    roughness = LayerRoughness(10 * nanometer, 3, 20 * nanometer)
+    roughness = LayerRoughness(10*nanometer, 3, 20*nanometer)
     multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
 
     # build and run experiment
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -4.0 * degree, 4.0 * degree, 100,
-                                     0.0 * degree, 8.0 * degree)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
+    simulation.setDetectorParameters(100, -4.0*degree, 4.0*degree, 100, 0.0*degree,
+                                     8.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.runSimulation()
     # intensity data
@@ -63,7 +63,7 @@ def RunSimulation():
 
 def SetParameters(i):
     global kappa
-    kappa = 0.01 + (2.0 / Nframes) * i
+    kappa = 0.01 + (2.0/Nframes)*i
 
 
 #-------------------------------------------------------------

@@ -56,11 +56,11 @@ class SlicedSpheresTest(unittest.TestCase):
         topCup = ba.Particle(
             top_material,
             ba.FormFactorTruncatedSphere(sphere_radius,
-                                         sphere_radius * 2 - bottom_cup_height, 0))
+                                         sphere_radius*2 - bottom_cup_height, 0))
         bottomCup = ba.Particle(
             bottom_material,
-            ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius * 2,
-                                         sphere_radius * 2 - bottom_cup_height))
+            ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius*2,
+                                         sphere_radius*2 - bottom_cup_height))
 
         #  origin of resulting sphere will be at the bottom
         result = ba.ParticleComposition()
@@ -79,11 +79,11 @@ class SlicedSpheresTest(unittest.TestCase):
         topCup = ba.Particle(
             top_material,
             ba.FormFactorTruncatedSphere(sphere_radius,
-                                         sphere_radius * 2 - bottom_cup_height, 0))
+                                         sphere_radius*2 - bottom_cup_height, 0))
         bottomCup = ba.Particle(
             bottom_material,
             ba.FormFactorTruncatedSphere(sphere_radius, bottom_cup_height, 0))
-        bottomCup.setRotation(ba.RotationX(180 * deg))
+        bottomCup.setRotation(ba.RotationX(180*deg))
 
         #  origin of resulting sphere will be at the bottom
         result = ba.ParticleComposition()
@@ -159,7 +159,7 @@ class SlicedSpheresTest(unittest.TestCase):
         Both particles are inserted in vacuum layer with shift to go below interface
         """
 
-        shift = 3 * nm
+        shift = 3*nm
 
         # spherical particle
         sphere = ba.Particle(mParticle, ba.FormFactorFullSphere(sphere_radius))
@@ -188,7 +188,7 @@ class SlicedSpheresTest(unittest.TestCase):
         truncatedSphere = ba.Particle(
             mParticle,
             ba.FormFactorTruncatedSphere(sphere_radius,
-                                         sphere_radius * 2 - bottom_cup_height, 0))
+                                         sphere_radius*2 - bottom_cup_height, 0))
         reference = self.get_result(truncatedSphere)
 
         # Particle composition, top part made of same material, as particle. Bottom part made of same material as substrate.

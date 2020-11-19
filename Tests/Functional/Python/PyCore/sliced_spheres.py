@@ -60,7 +60,7 @@ class SlicedSpheresTest(unittest.TestCase):
         truncatedSphere = ba.Particle(
             mSubstrate,
             ba.FormFactorTruncatedSphere(sphere_radius,
-                                         sphere_radius * 2 - sphere_shift, 0))
+                                         sphere_radius*2 - sphere_shift, 0))
         reference = self.get_result(truncatedSphere)
 
         # sphere crossing interface to look like truncated sphere above
@@ -84,8 +84,8 @@ class SlicedSpheresTest(unittest.TestCase):
         # Sphere truncated from top. Intended to go below interface.
         truncatedSphere = ba.Particle(
             mAmbience,
-            ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius * 2,
-                                         sphere_radius * 2 - sphere_shift))
+            ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius*2,
+                                         sphere_radius*2 - sphere_shift))
         truncatedSphere.setPosition(0, 0, -sphere_shift)
         reference = self.get_result(truncatedSphere)
 

@@ -14,14 +14,14 @@ def get_sample():
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    sphere_ff = ba.FormFactorFullSphere(10.0 * nm)
+    sphere_ff = ba.FormFactorFullSphere(10.0*nm)
     sphere = ba.Particle(m_particle, sphere_ff)
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(sphere)
 
     interference = ba.InterferenceFunction2DLattice(
-        ba.HexagonalLattice2D(20.0 * nm, 0 * deg))
-    pdf = ba.FTDecayFunction2DCauchy(10 * nm, 10 * nm, 0)
+        ba.HexagonalLattice2D(20.0*nm, 0*deg))
+    pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm, 0)
     interference.setDecayFunction(pdf)
 
     particle_layout.setInterferenceFunction(interference)
@@ -40,9 +40,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -1.0 * deg, 1.0 * deg, 200, 0.0 * deg,
-                                     1.0 * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(200, -1.0*deg, 1.0*deg, 200, 0.0*deg, 1.0*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 

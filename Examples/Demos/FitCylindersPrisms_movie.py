@@ -34,10 +34,10 @@ fig = plt.figure(1)
 max_line_length = 30
 
 
-def get_sample(cylinder_height=1.0 * nanometer,
-               cylinder_radius=1.0 * nanometer,
-               prism_length=2.0 * nanometer,
-               prism_height=1.0 * nanometer):
+def get_sample(cylinder_height=1.0*nanometer,
+               cylinder_radius=1.0*nanometer,
+               prism_length=2.0*nanometer,
+               prism_height=1.0*nanometer):
     """
     Build the sample representing cylinders and pyramids on top of
     substrate without interference.
@@ -74,8 +74,7 @@ def create_real_data():
     This function has been used once to generate refdata_fitcylinderprisms.int
     """
     # creating sample with set of parameters we will later try to find during the fit
-    sample = get_sample(5.0 * nanometer, 5.0 * nanometer, 5.0 * nanometer,
-                        5.0 * nanometer)
+    sample = get_sample(5.0*nanometer, 5.0*nanometer, 5.0*nanometer, 5.0*nanometer)
     simulation = get_simulation()
     simulation.setSample(sample)
     simulation.runSimulation()
@@ -85,7 +84,7 @@ def create_real_data():
     # random seed made as in FitSPheresInHexLattice_builder.py example
     np.random.seed(0)
     noise_factor = 0.1
-    noisy = np.random.normal(real_data, noise_factor * np.sqrt(real_data))
+    noisy = np.random.normal(real_data, noise_factor*np.sqrt(real_data))
     noisy[noisy < 0.1] = 0.1
     IntensityDataIOFactory.writeIntensityData(ba.Histogram2D(noisy),
                                               'refdata_fitcylinderprisms.int')
@@ -96,9 +95,9 @@ def get_simulation():
     Create GISAXS simulation with beam and detector defined
     """
     simulation = GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0 * degree, 1.0 * degree, 100,
-                                     0.0 * degree, 2.0 * degree)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
+    simulation.setDetectorParameters(100, -1.0*degree, 1.0*degree, 100, 0.0*degree,
+                                     2.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     return simulation
 
 
@@ -201,13 +200,13 @@ def run_fitting():
     fit_suite.attachObserver(draw_observer)
 
     # setting fitting parameters with starting values
-    fit_suite.addFitParameter("*Cylinder/Height", 2. * nanometer,
+    fit_suite.addFitParameter("*Cylinder/Height", 2.*nanometer,
                               Limits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*Cylinder/Radius", 2. * nanometer,
+    fit_suite.addFitParameter("*Cylinder/Radius", 2.*nanometer,
                               Limits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*Prism3/Height", 2. * nanometer,
+    fit_suite.addFitParameter("*Prism3/Height", 2.*nanometer,
                               Limits.limited(0.01, 10.0))
-    fit_suite.addFitParameter("*Prism3/Length", 2. * nanometer,
+    fit_suite.addFitParameter("*Prism3/Length", 2.*nanometer,
                               Limits.limited(0.01, 10.0))
 
     # # Now we create first fig strategy which will run first minimization round using Genetic minimizer.

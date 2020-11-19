@@ -32,14 +32,14 @@ def get_sample():
     m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    shift_down = 3 * nm
+    shift_down = 3*nm
 
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5 * nm, 5 * nm)
+    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
     cylinder = ba.Particle(m_particle, cylinder_ff)
     cylinder.setPosition(0, 0, -shift_down)
 
-    prism_ff = ba.FormFactorPrism3(10 * nm, 5 * nm)
+    prism_ff = ba.FormFactorPrism3(10*nm, 5*nm)
     prism = ba.Particle(m_particle, prism_ff)
     prism.setPosition(0, 0, -shift_down)
 
@@ -65,9 +65,9 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, phi_min * deg, phi_max * deg, 100,
-                                     alpha_min * deg, alpha_max * deg)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(100, phi_min*deg, phi_max*deg, 100,
+                                     alpha_min*deg, alpha_max*deg)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 
 

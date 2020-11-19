@@ -100,7 +100,7 @@ def plot_array(array,
     zlabel = "Intensity" if zlabel is None else zlabel
 
     zmax = np.amax(array) if zmax is None else zmax
-    zmin = 1e-6 * zmax if zmin is None else zmin
+    zmin = 1e-6*zmax if zmin is None else zmin
 
     if zmin == zmax == 0.0:
         norm = colors.Normalize(0, 1)
@@ -207,8 +207,8 @@ def plot_specular_simulation_result(result,
 
     intensity = result.array(units)
     x_axis = result.axis(units)
-    ymax = np.amax(intensity) * 2.0 if ymax is None else ymax
-    ymin = max(np.amin(intensity) * 0.5, 1e-18 * ymax) if ymin is None else ymin
+    ymax = np.amax(intensity)*2.0 if ymax is None else ymax
+    ymin = max(np.amin(intensity)*0.5, 1e-18*ymax) if ymin is None else ymin
 
     xlabel = get_axes_labels(result, units)[0] if xlabel is None else xlabel
     ylabel = "Intensity" if ylabel is None else ylabel
@@ -314,7 +314,7 @@ class PlotterGISAS(Plotter):
         # same limits for both plots
         arr = real_data.array()
         zmax = np.amax(arr) if self._zmax is None else self._zmax
-        zmin = zmax * 1e-6 if self._zmin is None else self._zmin
+        zmin = zmax*1e-6 if self._zmin is None else self._zmin
 
         ba.plot_colormap(real_data,
                          title="Experimental data",
@@ -360,7 +360,7 @@ class PlotterGISAS(Plotter):
         index = 0
         params = iteration_info.parameterMap()
         for key in params:
-            plt.text(0.01, 0.55 - index * 0.1,
+            plt.text(0.01, 0.55 - index*0.1,
                      '{:30.30s}: {:6.3f}'.format(key, params[key]))
             index = index + 1
 
@@ -470,7 +470,7 @@ class PlotterSpecular(Plotter):
                          real_values + unc_values,
                          'xkcd:grey',
                          alpha=0.6)
-        plt.ylim((0.5 * np.min(real_values), 5 * np.max(real_values)))
+        plt.ylim((0.5*np.min(real_values), 5*np.max(real_values)))
 
         xlabel = get_axes_labels(real_data, self.units)[0]
         legend = ['BornAgain', 'Data']

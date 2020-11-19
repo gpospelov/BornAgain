@@ -18,7 +18,7 @@ def runSimulation():
 
     magParticle = ba.HomogeneousMaterial("magParticle", 6e-4, 2e-8, magnetic_field)
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5 * nanometer, 5 * nanometer)
+    cylinder_ff = ba.FormFactorCylinder(5*nanometer, 5*nanometer)
     cylinder = ba.Particle(magParticle, cylinder_ff)
 
     particle_layout = ba.ParticleLayout()
@@ -36,9 +36,9 @@ def runSimulation():
 
     # build and run experiment
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, 0 * degree, 2.0 * degree, 100,
-                                     0.0 * degree, 2.0 * degree)
-    simulation.setBeamParameters(1.0 * angstrom, 0.2 * degree, 0.0 * degree)
+    simulation.setDetectorParameters(100, 0*degree, 2.0*degree, 100, 0.0*degree,
+                                     2.0*degree)
+    simulation.setBeamParameters(1.0*angstrom, 0.2*degree, 0.0*degree)
     simulation.setSample(multi_layer)
     simulation.setBeamIntensity(1e2)
     simulation.runSimulation()

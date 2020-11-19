@@ -17,16 +17,15 @@ def get_sample():
     m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    ff = ba.FormFactorCosineRippleBox(100 * nm, 20 * nm, 4 * nm)
+    ff = ba.FormFactorCosineRippleBox(100*nm, 20*nm, 4*nm)
     particle = ba.Particle(m_particle, ff)
 
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(particle, 1.0)
 
     interference = ba.InterferenceFunction2DLattice(
-        ba.BasicLattice2D(200.0 * nm, 50.0 * nm, 90.0 * deg, 0.0 * deg))
-    pdf = ba.FTDecayFunction2DCauchy(1000. * nm / 2. / numpy.pi,
-                                     100. * nm / 2. / numpy.pi, 0)
+        ba.BasicLattice2D(200.0*nm, 50.0*nm, 90.0*deg, 0.0*deg))
+    pdf = ba.FTDecayFunction2DCauchy(1000.*nm/2./numpy.pi, 100.*nm/2./numpy.pi, 0)
     interference.setDecayFunction(pdf)
     particle_layout.setInterferenceFunction(interference)
 
@@ -46,9 +45,8 @@ def get_simulation():
     characterizing the input beam and output detector
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.5 * deg, 1.5 * deg, 100, 0.0 * deg,
-                                     2.5 * deg)
-    simulation.setBeamParameters(1.6 * angstrom, 0.3 * deg, 0.0 * deg)
+    simulation.setDetectorParameters(100, -1.5*deg, 1.5*deg, 100, 0.0*deg, 2.5*deg)
+    simulation.setBeamParameters(1.6*angstrom, 0.3*deg, 0.0*deg)
     return simulation
 
 

@@ -15,9 +15,9 @@
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 #include <QPainter>
-#include <QtGlobal>
 #include <cmath>
 #include <iostream>
+#include <random>
 
 namespace
 {
@@ -131,7 +131,11 @@ QPixmap DesignerHelper::getPixmapParticle()
 
 QColor DesignerHelper::getRandomColor()
 {
-    return QColor(qrand() % 256, qrand() % 256, qrand() % 256);
+    static std::random_device r;
+    std::default_random_engine re(r());
+    std::uniform_int_distribution<int> ru(0, 255);
+
+    return QColor(ru(re), ru(re), ru(re));
 }
 
 bool DesignerHelper::sort_layers(QGraphicsItem* left, QGraphicsItem* right)
@@ -266,7 +270,7 @@ QRectF DesignerHelper::getTransformationBoundingRect()
 
 QColor DesignerHelper::getDefaultMaterialColor()
 {
-    return QColor(qrand() % 256, qrand() % 256, qrand() % 256);
+    return getRandomColor();
 }
 
 int DesignerHelper::getSectionFontSize()

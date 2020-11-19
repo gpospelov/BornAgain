@@ -24,9 +24,9 @@ def RunSimulation():
     mLayer = HomogeneousMaterial("Layer", 2e-5, 2e-8)
 
     # collection of particles
-    cylinder_ff1 = FormFactorCylinder(2*nanometer, 5*nanometer)
-    cylinder_ff2 = FormFactorCylinder(3*nanometer, 6*nanometer)
-    cylinder_ff3 = FormFactorCylinder(4*nanometer, 7*nanometer)
+    cylinder_ff1 = FormFactorCylinder(2*nm, 5*nm)
+    cylinder_ff2 = FormFactorCylinder(3*nm, 6*nm)
+    cylinder_ff3 = FormFactorCylinder(4*nm, 7*nm)
     cylinder1 = Particle(mParticle, cylinder_ff1)
     cylinder2 = Particle(mParticle, cylinder_ff2)
     cylinder3 = Particle(mParticle, cylinder_ff3)
@@ -34,8 +34,8 @@ def RunSimulation():
     particle_layout.addParticle(cylinder1)
     particle_layout.addParticle(cylinder2)
     particle_layout.addParticle(cylinder3)
-    interference = InterferenceFunctionRadialParaCrystal(6*nanometer)
-    pdf = FTDistribution1DGauss(.5*nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(6*nm)
+    pdf = FTDistribution1DGauss(.5*nm)
     interference.setProbabilityDistribution(pdf)
     # set coupling between size and space
     interference.setKappa(kappa)
@@ -47,7 +47,7 @@ def RunSimulation():
     substrate_layer = Layer(mSubstrate)
     multi_layer = MultiLayer()
     multi_layer.addLayer(vacuum_layer)
-    roughness = LayerRoughness(10*nanometer, 3, 20*nanometer)
+    roughness = LayerRoughness(10*nm, 3, 20*nm)
     multi_layer.addLayerWithTopRoughness(substrate_layer, roughness)
 
     # build and run experiment

@@ -2,7 +2,7 @@
 Plot form factors.
 """
 import bornagain as ba
-from bornagain import nanometer, degree
+from bornagain import nm, degree
 import bornplot as bp
 
 det = bp.Detector(1000, 0, 5, 0, 5)

@@ -3,7 +3,7 @@
 from __future__ import print_function
 import gzip, numpy, os, sys, utils
 import bornagain as ba
-from bornagain import nanometer, angstrom, degree
+from bornagain import nm, angstrom, degree
 
 
 # ----------------------------------
@@ -18,7 +18,7 @@ def runSimulation():
 
     magParticle = ba.HomogeneousMaterial("magParticle", 6e-4, 2e-8, magnetic_field)
     # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nanometer, 5*nanometer)
+    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
     cylinder = ba.Particle(magParticle, cylinder_ff)
 
     particle_layout = ba.ParticleLayout()

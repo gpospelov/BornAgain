@@ -30,8 +30,8 @@ def RunSimulation():
     particle_layout.addParticle(semisphere)
 
     # interference function
-    interference = InterferenceFunctionRadialParaCrystal(6*nanometer)
-    pdf = FTDistribution1DGauss(1*nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(6*nm)
+    pdf = FTDistribution1DGauss(1*nm)
     interference.setProbabilityDistribution(pdf)
     particle_layout.setInterferenceFunction(interference)
 
@@ -60,12 +60,12 @@ def SetParameters(i):
     global radius
     global layer_thickness
     if i < Ngrowframes:
-        radius = (1. + (3.0/Ngrowframes)*i)*nanometer
-        layer_thickness = 0.01*nanometer
+        radius = (1. + (3.0/Ngrowframes)*i)*nm
+        layer_thickness = 0.01*nm
     else:
-        radius = 4.*nanometer
+        radius = 4.*nm
         layer_thickness = (0.01 + (0.5/(Nframes - Ngrowframes))*
-                           (i - Ngrowframes))*nanometer
+                           (i - Ngrowframes))*nm
 
 
 #-------------------------------------------------------------

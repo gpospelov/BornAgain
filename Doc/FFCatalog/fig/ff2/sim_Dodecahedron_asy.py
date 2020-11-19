@@ -2,7 +2,7 @@
 Plot form factors.
 """
 import bornagain as ba
-from bornagain import nanometer, degree
+from bornagain import nm, degree
 import bornplot as bp
 import math
 
@@ -12,19 +12,19 @@ results = []
 edge = 3.2
 
 title = 'default'
-ff = ba.FormFactorDodecahedron(edge*nanometer)
+ff = ba.FormFactorDodecahedron(edge*nm)
 data = bp.run_simulation(det, ff)
 results.append(bp.Result(0, data, title))
 
 title = 'rotated'
 trafo = ba.RotationZ(13*degree)
-ff = ba.FormFactorDodecahedron(edge*nanometer)
+ff = ba.FormFactorDodecahedron(edge*nm)
 data = bp.run_simulation(det, ff, trafo)
 results.append(bp.Result(1, data, title))
 
 title = 'rotated, tilted'
 trafo = ba.createProduct(ba.RotationX(9*degree), ba.RotationZ(13*degree))
-ff = ba.FormFactorDodecahedron(edge*nanometer)
+ff = ba.FormFactorDodecahedron(edge*nm)
 data = bp.run_simulation(det, ff, trafo)
 results.append(bp.Result(2, data, title))
 

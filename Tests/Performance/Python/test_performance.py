@@ -163,7 +163,7 @@ class CustomTest(FactoryTest):
         m_particle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
         # collection of particles
-        ff = CustomFormFactor(343.0*nanometer, 7.0*nanometer)
+        ff = CustomFormFactor(343.0*nm, 7.0*nm)
         particle = Particle(m_particle, ff)
         particle_layout = ParticleLayout()
         particle_layout.addParticle(particle, 1.0)

@@ -18,15 +18,15 @@ def RunSimulation():
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # collection of particles
-    cylinder_ff = FormFactorCylinder(2*nanometer, 5*nanometer)
+    cylinder_ff = FormFactorCylinder(2*nm, 5*nm)
     cylinder = Particle(mParticle, cylinder_ff)
-    sphere_ff = FormFactorFullSphere(4*nanometer)
+    sphere_ff = FormFactorFullSphere(4*nm)
     sphere = Particle(mParticle, sphere_ff)
     particle_layout = ParticleLayout()
     particle_layout.addParticle(cylinder)
     particle_layout.addParticle(sphere)
-    interference = InterferenceFunctionRadialParaCrystal(20*nanometer)
-    pdf = FTDistribution1DGauss(2*nanometer)
+    interference = InterferenceFunctionRadialParaCrystal(20*nm)
+    pdf = FTDistribution1DGauss(2*nm)
     interference.setProbabilityDistribution(pdf)
     particle_layout.setInterferenceFunction(interference)
 

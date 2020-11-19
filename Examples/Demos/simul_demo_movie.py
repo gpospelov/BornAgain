@@ -32,7 +32,7 @@ def RunSimulation():
 
     # interference function
     interference = InterferenceFunctionRadialParaCrystal(distance)
-    pdf = FTDistribution1DGauss(3*nanometer)
+    pdf = FTDistribution1DGauss(3*nm)
     interference.setProbabilityDistribution(pdf)
     particle_layout.setInterferenceFunction(interference)
 
@@ -59,9 +59,9 @@ def SetParameters(i):
     global radius
     global height
     global distance
-    radius = (1. + (3.0/Nframes)*i)*nanometer
-    height = (1. + (4.0/Nframes)*i)*nanometer
-    distance = (10. - (1.0/Nframes)*i)*nanometer
+    radius = (1. + (3.0/Nframes)*i)*nm
+    height = (1. + (4.0/Nframes)*i)*nm
+    distance = (10. - (1.0/Nframes)*i)*nm
 
 
 #-------------------------------------------------------------

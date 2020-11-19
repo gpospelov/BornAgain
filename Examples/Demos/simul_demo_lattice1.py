@@ -20,7 +20,7 @@ def RunSimulation():
     mParticle = HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
     # particle
-    cylinder_ff = FormFactorCylinder(5*nanometer, 5*nanometer)
+    cylinder_ff = FormFactorCylinder(5*nm, 5*nm)
     cylinder = Particle(mParticle, cylinder_ff.clone())
     position = kvector_t(0.0, 0.0, 0.0)
     cylinder.setPosition(position)
@@ -28,8 +28,8 @@ def RunSimulation():
     particle_layout.addParticle(cylinder, 1.0)
 
     # interference function
-    interference = InterferenceFunction2DLattice(ba.SquareLattice2D(10.0*nanometer))
-    pdf = FTDecayFunction2DCauchy(300.0*nanometer/2.0/M_PI, 100.0*nanometer/2.0/M_PI,
+    interference = InterferenceFunction2DLattice(ba.SquareLattice2D(10.0*nm))
+    pdf = FTDecayFunction2DCauchy(300.0*nm/2.0/M_PI, 100.0*nm/2.0/M_PI,
                                   0)
     interference.setDecayFunction(pdf)
     particle_layout.setInterferenceFunction(interference)

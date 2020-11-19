@@ -18,7 +18,7 @@
 #include "Fit/Param/AttLimits.h"
 #include <string>
 
-namespace Fit
+namespace mumufit
 {
 
 //! A fittable parameter with value, error, step, and limits.
@@ -61,6 +61,6 @@ private:
     AttLimits m_limits;
 };
 
-} // namespace Fit
+} // namespace mumufit
 
 #endif // BORNAGAIN_FIT_PARAM_PARAMETER_H

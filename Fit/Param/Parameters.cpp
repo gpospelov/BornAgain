@@ -17,7 +17,7 @@
 #include <sstream>
 #include <stdexcept>
 
-using namespace Fit;
+using namespace mumufit;
 
 void Parameters::add(const Parameter& par)
 {

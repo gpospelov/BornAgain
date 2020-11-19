@@ -21,8 +21,8 @@
 
 %include "auto/Wrap/doxygenFit.i"
 
-%rename(minimize_cpp) Fit::Minimizer::minimize;
-%rename(add_cpp) Fit::Parameters::add;
+%rename(minimize_cpp) mumufit::Minimizer::minimize;
+%rename(add_cpp) mumufit::Parameters::add;
 
 %feature("director") PyCallback;         // used in extendFit.i
 
@@ -76,7 +76,7 @@ class ParametersIterator(object):
 %}
 
 // Parameters accessors
-namespace Fit {
+namespace mumufit {
 
 %extend Parameters {
     const Parameter& __getitem__(std::string name) const
@@ -97,7 +97,7 @@ def __iter__(self):
 }
 
 // --- Parameter x.value attribute
-namespace Fit {
+namespace mumufit {
 
 %extend Parameter{
 %pythoncode %{
@@ -125,7 +125,7 @@ class CallableWrapper(PyCallback):
 
 %}
 
-namespace Fit {
+namespace mumufit {
 
 %extend Minimizer {
 %pythoncode %{

@@ -24,7 +24,7 @@
 
 class RootScalarFunction;
 
-namespace Fit
+namespace mumufit
 {
 
 //! Converts user objective function to chi2 like function which ROOT expects.
@@ -46,6 +46,6 @@ private:
     std::unique_ptr<RootScalarFunction> m_root_objective;
 };
 
-} //  namespace Fit
+} //  namespace mumufit
 
 #endif // BORNAGAIN_FIT_ROOTADAPTER_SCALARFUNCTIONADAPTER_H

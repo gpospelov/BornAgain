@@ -18,12 +18,12 @@ IMinimizer::IMinimizer() = default;
 
 IMinimizer::~IMinimizer() = default;
 
-Fit::MinimizerResult IMinimizer::minimize_scalar(fcn_scalar_t, Fit::Parameters)
+mumufit::MinimizerResult IMinimizer::minimize_scalar(fcn_scalar_t, mumufit::Parameters)
 {
     throw std::runtime_error("IMinimizer::minimize_scalar() -> Not implemented.");
 }
 
-Fit::MinimizerResult IMinimizer::minimize_residual(fcn_residual_t, Fit::Parameters)
+mumufit::MinimizerResult IMinimizer::minimize_residual(fcn_residual_t, mumufit::Parameters)
 {
     throw std::runtime_error("IMinimizer::minimize_residual() -> Not implemented.");
 }

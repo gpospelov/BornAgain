@@ -21,7 +21,7 @@
 class RootScalarFunction;
 class RootResidualFunction;
 
-namespace Fit
+namespace mumufit
 {
 
 class IFunctionAdapter;
@@ -48,6 +48,6 @@ private:
     std::unique_ptr<IFunctionAdapter> m_adapter;
 };
 
-} // namespace Fit
+} // namespace mumufit
 
 #endif // BORNAGAIN_FIT_ROOTADAPTER_OBJECTIVEFUNCTIONADAPTER_H

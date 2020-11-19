@@ -25,7 +25,7 @@ public:
 
     size_t m_builder_calls;
 
-    std::unique_ptr<ISimulation> createSimulation(const Fit::Parameters&)
+    std::unique_ptr<ISimulation> createSimulation(const mumufit::Parameters&)
     {
         MultiLayer multilayer;
         auto material = HomogeneousMaterial("Shell", 0.0, 0.0);

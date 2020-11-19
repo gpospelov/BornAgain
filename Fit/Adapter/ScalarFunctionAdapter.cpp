@@ -15,7 +15,7 @@
 #include "Fit/Adapter/ScalarFunctionAdapter.h"
 #include "Fit/Adapter/RootScalarFunction.h"
 
-using namespace Fit;
+using namespace mumufit;
 
 ScalarFunctionAdapter::ScalarFunctionAdapter(fcn_scalar_t func, const Parameters& parameters)
     : m_fcn(func), m_parameters(parameters)

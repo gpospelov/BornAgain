@@ -24,7 +24,7 @@
 
 class IMinimizer;
 
-namespace Fit
+namespace mumufit
 {
 
 //! A main class to run fitting.
@@ -52,6 +52,6 @@ private:
     WallclockTimer m_timer;
 };
 
-} // namespace Fit
+} // namespace mumufit
 
 #endif // BORNAGAIN_FIT_KERNEL_KERNEL_H

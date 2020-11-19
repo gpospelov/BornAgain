@@ -26,7 +26,7 @@ public:
     ScalarTestPlan(const std::string& name, scalar_function_t func, double expected_minimum,
                    double tolerance = 0.01);
 
-    bool checkMinimizer(Fit::Minimizer& minimizer);
+    bool checkMinimizer(mumufit::Minimizer& minimizer);
 
 private:
     fcn_scalar_t scalarFunction() const;

@@ -22,7 +22,7 @@
 namespace
 {
 
-size_t length_of_longest_name(const Fit::Parameters& params)
+size_t length_of_longest_name(const mumufit::Parameters& params)
 {
     size_t result(0);
     for (const auto& par : params) {

@@ -21,13 +21,13 @@
 #include <memory>
 #include <string>
 
-namespace Fit
+namespace mumufit
 {
 class Parameters;
 class Parameter;
 class ObjectiveFunctionAdapter;
 class MinimizerResult;
-} // namespace Fit
+} // namespace mumufit
 
 namespace ROOT
 {
@@ -47,8 +47,8 @@ public:
 
     virtual ~MinimizerAdapter() override;
 
-    Fit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, Fit::Parameters parameters) override;
-    Fit::MinimizerResult minimize_residual(fcn_residual_t fcn, Fit::Parameters parameters) override;
+    mumufit::MinimizerResult minimize_scalar(fcn_scalar_t fcn, mumufit::Parameters parameters) override;
+    mumufit::MinimizerResult minimize_residual(fcn_residual_t fcn, mumufit::Parameters parameters) override;
 
     //! Returns name of the minimizer.
     std::string minimizerName() const override final;
@@ -56,7 +56,7 @@ public:
     //! Returns name of the minimization algorithm.
     std::string algorithmName() const override final;
 
-    void setParameters(const Fit::Parameters& parameters);
+    void setParameters(const mumufit::Parameters& parameters);
 
     double minValue() const override final;
 
@@ -78,11 +78,11 @@ public:
 protected:
     MinimizerAdapter(const MinimizerInfo& minimizerInfo);
 
-    Fit::MinimizerResult minimize(Fit::Parameters parameters);
+    mumufit::MinimizerResult minimize(mumufit::Parameters parameters);
 
-    void propagateResults(Fit::Parameters& parameters);
+    void propagateResults(mumufit::Parameters& parameters);
 
-    virtual void setParameter(unsigned int index, const Fit::Parameter& par);
+    virtual void setParameter(unsigned int index, const mumufit::Parameter& par);
     size_t fitDimension() const;
     std::vector<double> parValuesAtMinimum() const;
     std::vector<double> parErrorsAtMinimum() const;
@@ -102,7 +102,7 @@ protected:
 private:
     MinimizerOptions m_options;
     MinimizerInfo m_minimizerInfo;
-    std::unique_ptr<Fit::ObjectiveFunctionAdapter> m_adapter;
+    std::unique_ptr<mumufit::ObjectiveFunctionAdapter> m_adapter;
     bool m_status;
 };
 

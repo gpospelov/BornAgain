@@ -100,7 +100,7 @@ int GeneticMinimizer::randomSeed() const
     return optionValue<int>("RandomSeed");
 }
 
-void GeneticMinimizer::setParameter(unsigned int index, const Fit::Parameter& par)
+void GeneticMinimizer::setParameter(unsigned int index, const mumufit::Parameter& par)
 {
     if (!par.limits().isFixed() && !par.limits().isLimited()) {
         std::ostringstream ostr;

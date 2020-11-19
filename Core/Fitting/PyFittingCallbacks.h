@@ -31,7 +31,7 @@ public:
     PyBuilderCallback();
     virtual ~PyBuilderCallback();
 
-    virtual ISimulation* build_simulation(Fit::Parameters);
+    virtual ISimulation* build_simulation(mumufit::Parameters);
 };
 
 class FitObjective;

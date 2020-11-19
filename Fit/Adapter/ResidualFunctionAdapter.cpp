@@ -23,10 +23,10 @@ namespace
 const double kEps = 1.0E-9;
 } // namespace
 
-using namespace Fit;
+using namespace mumufit;
 
 ResidualFunctionAdapter::ResidualFunctionAdapter(fcn_residual_t func,
-                                                 const Fit::Parameters& parameters)
+                                                 const mumufit::Parameters& parameters)
     : m_datasize(0), m_fcn(func), m_parameters(parameters)
 {
     // single call of user function to get dataset size

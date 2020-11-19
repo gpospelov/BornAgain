@@ -39,7 +39,7 @@ bool FitStatus::isCompleted() const
     return m_fit_status == COMPLETED;
 }
 
-void FitStatus::update(const Fit::Parameters& params, double chi2)
+void FitStatus::update(const mumufit::Parameters& params, double chi2)
 {
     if (!isInterrupted())
         m_fit_status = RUNNING;
@@ -70,18 +70,18 @@ IterationInfo FitStatus::iterationInfo() const
     return m_iterationInfo;
 }
 
-Fit::MinimizerResult FitStatus::minimizerResult() const
+mumufit::MinimizerResult FitStatus::minimizerResult() const
 {
     if (!m_minimizer_result)
         throw std::runtime_error("FitStatus::minimizerResult() -> Minimizer result wasn't set. "
                                  "Make sure that FitObjective::finalize() was called.");
 
-    return Fit::MinimizerResult(*m_minimizer_result);
+    return mumufit::MinimizerResult(*m_minimizer_result);
 }
 
-void FitStatus::finalize(const Fit::MinimizerResult& result)
+void FitStatus::finalize(const mumufit::MinimizerResult& result)
 {
-    m_minimizer_result.reset(new Fit::MinimizerResult(result));
+    m_minimizer_result.reset(new mumufit::MinimizerResult(result));
     m_fit_status = COMPLETED;
     m_observers.notify_all(*m_fit_objective);
 }

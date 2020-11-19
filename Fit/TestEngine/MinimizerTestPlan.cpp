@@ -33,7 +33,7 @@ double relativeDifference(double a, double b)
 
 } // namespace
 
-using namespace Fit;
+using namespace mumufit;
 
 MinimizerTestPlan::MinimizerTestPlan(const std::string& name) : m_name(name) {}
 

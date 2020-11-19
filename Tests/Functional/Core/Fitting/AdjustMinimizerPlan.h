@@ -25,7 +25,7 @@ class AdjustMinimizerPlan : public Plan
 public:
     AdjustMinimizerPlan();
 
-    bool checkMinimizer(Fit::Minimizer& minimizer);
+    bool checkMinimizer(mumufit::Minimizer& minimizer);
 };
 
 #endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_ADJUSTMINIMIZERPLAN_H

@@ -24,7 +24,7 @@
 
 class RootResidualFunction;
 
-namespace Fit
+namespace mumufit
 {
 
 //! Provides RootResidualFunction which will be minimizer by ROOT.
@@ -56,6 +56,6 @@ private:
     std::unique_ptr<RootResidualFunction> m_root_objective;
 };
 
-} //  namespace Fit
+} //  namespace mumufit
 
 #endif // BORNAGAIN_FIT_ROOTADAPTER_RESIDUALFUNCTIONADAPTER_H

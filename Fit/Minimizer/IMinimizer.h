@@ -19,7 +19,7 @@
 #include "Fit/Minimizer/MinimizerResult.h"
 #include <string>
 
-namespace Fit
+namespace mumufit
 {
 class Parameters;
 }
@@ -43,8 +43,8 @@ public:
     virtual std::string algorithmName() const = 0;
 
     //! run minimization
-    virtual Fit::MinimizerResult minimize_scalar(fcn_scalar_t, Fit::Parameters);
-    virtual Fit::MinimizerResult minimize_residual(fcn_residual_t, Fit::Parameters);
+    virtual mumufit::MinimizerResult minimize_scalar(fcn_scalar_t, mumufit::Parameters);
+    virtual mumufit::MinimizerResult minimize_residual(fcn_residual_t, mumufit::Parameters);
 
     //! clear resources (parameters) for consecutives minimizations
     virtual void clear() {}

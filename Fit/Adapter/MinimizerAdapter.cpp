@@ -20,10 +20,10 @@
 #include "Fit/Tools/StringUtils.h"
 #include <Math/Minimizer.h>
 
-using namespace Fit;
+using namespace mumufit;
 
 MinimizerAdapter::MinimizerAdapter(const MinimizerInfo& minimizerInfo)
-    : m_minimizerInfo(minimizerInfo), m_adapter(new Fit::ObjectiveFunctionAdapter), m_status(false)
+    : m_minimizerInfo(minimizerInfo), m_adapter(new mumufit::ObjectiveFunctionAdapter), m_status(false)
 {
 }
 
@@ -71,7 +71,7 @@ std::string MinimizerAdapter::algorithmName() const
     return m_minimizerInfo.algorithmName();
 }
 
-void MinimizerAdapter::setParameters(const Fit::Parameters& parameters)
+void MinimizerAdapter::setParameters(const mumufit::Parameters& parameters)
 {
     unsigned int index(0);
     for (const auto& par : parameters)
@@ -115,13 +115,13 @@ void MinimizerAdapter::setOptions(const std::string& optionString)
 
 //! Propagates results of minimization to fit parameter set
 
-void MinimizerAdapter::propagateResults(Fit::Parameters& parameters)
+void MinimizerAdapter::propagateResults(mumufit::Parameters& parameters)
 {
     parameters.setValues(parValuesAtMinimum());
     parameters.setErrors(parErrorsAtMinimum());
     // sets correlation matrix
     if (providesError()) {
-        Fit::Parameters::corr_matrix_t matrix;
+        mumufit::Parameters::corr_matrix_t matrix;
         matrix.resize(fitDimension());
 
         for (size_t i = 0; i < fitDimension(); ++i) {
@@ -134,7 +134,7 @@ void MinimizerAdapter::propagateResults(Fit::Parameters& parameters)
     }
 }
 
-void MinimizerAdapter::setParameter(unsigned int index, const Fit::Parameter& par)
+void MinimizerAdapter::setParameter(unsigned int index, const mumufit::Parameter& par)
 {
     bool success;
     if (par.limits().isFixed()) {

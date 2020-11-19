@@ -26,7 +26,7 @@ double step_for_value(double value)
 }
 } // namespace
 
-using namespace Fit;
+using namespace mumufit;
 
 Parameter::Parameter() : m_start_value(0.0), m_value(0.0), m_step(0.0), m_error(0.0) {}
 

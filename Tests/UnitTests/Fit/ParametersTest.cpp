@@ -8,7 +8,7 @@ class ParametersTest : public ::testing::Test
 
 TEST_F(ParametersTest, defaultConstructor)
 {
-    Fit::Parameters pars;
+    mumufit::Parameters pars;
     EXPECT_EQ(pars.size(), 0u);
     EXPECT_TRUE(pars.values().empty());
     EXPECT_TRUE(pars.errors().empty());
@@ -16,10 +16,10 @@ TEST_F(ParametersTest, defaultConstructor)
 
 TEST_F(ParametersTest, addParameter)
 {
-    Fit::Parameters pars;
+    mumufit::Parameters pars;
 
-    Fit::Parameter par0("par0", 2.0, AttLimits::limitless(), 0.2);
-    Fit::Parameter par1("par1", 3.0, AttLimits::limitless(), 0.2);
+    mumufit::Parameter par0("par0", 2.0, AttLimits::limitless(), 0.2);
+    mumufit::Parameter par1("par1", 3.0, AttLimits::limitless(), 0.2);
     pars.add(par0);
     pars.add(par1);
 
@@ -31,7 +31,7 @@ TEST_F(ParametersTest, addParameter)
     EXPECT_EQ(pars.errors(), expected_errors);
 
     // attempt to add parameter with same name should lead to exception
-    Fit::Parameter par2("par1", 3.0, AttLimits::limitless(), 0.2);
+    mumufit::Parameter par2("par1", 3.0, AttLimits::limitless(), 0.2);
     EXPECT_THROW(pars.add(par2), std::runtime_error);
 
     // access to parameters by name
@@ -46,9 +46,9 @@ TEST_F(ParametersTest, addParameter)
 
 TEST_F(ParametersTest, setters)
 {
-    Fit::Parameters pars;
-    pars.add(Fit::Parameter("par0", 2.0, AttLimits::limitless(), 0.2));
-    pars.add(Fit::Parameter("par1", 3.0, AttLimits::limitless(), 0.2));
+    mumufit::Parameters pars;
+    pars.add(mumufit::Parameter("par0", 2.0, AttLimits::limitless(), 0.2));
+    pars.add(mumufit::Parameter("par1", 3.0, AttLimits::limitless(), 0.2));
 
     std::vector<double> expected_values = {42.0, 43.0};
     std::vector<double> expected_errors = {0.1, 0.2};
@@ -64,11 +64,11 @@ TEST_F(ParametersTest, setters)
 
 TEST_F(ParametersTest, freeParameterCount)
 {
-    Fit::Parameters pars;
+    mumufit::Parameters pars;
     EXPECT_EQ(pars.freeParameterCount(), 0u);
 
-    pars.add(Fit::Parameter("par0", 2.0, AttLimits::fixed(), 0.2));
-    pars.add(Fit::Parameter("par1", 3.0, AttLimits::limitless(), 0.2));
+    pars.add(mumufit::Parameter("par0", 2.0, AttLimits::fixed(), 0.2));
+    pars.add(mumufit::Parameter("par1", 3.0, AttLimits::limitless(), 0.2));
 
     EXPECT_EQ(pars.freeParameterCount(), 1u);
 }

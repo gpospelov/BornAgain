@@ -2238,7 +2238,7 @@ class Parameters(object):
     def __init__(self):
         r"""
         __init__(Parameters self) -> Parameters
-        Fit::Parameters::Parameters()=default
+        mumufit::Parameters::Parameters()=default
 
         """
         _libBornAgainFit.Parameters_swiginit(self, _libBornAgainFit.new_Parameters())
@@ -2253,8 +2253,8 @@ class Parameters(object):
 
     def begin(self, *args):
         r"""
-        begin(Parameters self) -> Fit::Parameters::const_iterator
-        begin(Parameters self) -> Fit::Parameters::iterator
+        begin(Parameters self) -> mumufit::Parameters::const_iterator
+        begin(Parameters self) -> mumufit::Parameters::iterator
         Parameters::iterator Parameters::begin()
 
         """
@@ -2262,8 +2262,8 @@ class Parameters(object):
 
     def end(self, *args):
         r"""
-        end(Parameters self) -> Fit::Parameters::const_iterator
-        end(Parameters self) -> Fit::Parameters::iterator
+        end(Parameters self) -> mumufit::Parameters::const_iterator
+        end(Parameters self) -> mumufit::Parameters::iterator
         Parameters::iterator Parameters::end()
 
         """
@@ -2411,7 +2411,7 @@ class PyCallback(object):
     def call_scalar(self, pars):
         r"""
         call_scalar(PyCallback self, Parameters pars) -> double
-        double PyCallback::call_scalar(Fit::Parameters pars)
+        double PyCallback::call_scalar(mumufit::Parameters pars)
 
         Call Python callable and returns its result. Intended to be overloaded in Python.
 
@@ -2419,7 +2419,7 @@ class PyCallback(object):
         -----------
 
         pars: 
-         Fit parameters object (intentionally passed by value).
+        Fit parameters object (intentionally passed by value).
 
         value of objective function. 
 
@@ -2429,7 +2429,7 @@ class PyCallback(object):
     def call_residuals(self, pars):
         r"""
         call_residuals(PyCallback self, Parameters pars) -> vdouble1d_t
-        std::vector< double > PyCallback::call_residuals(Fit::Parameters pars)
+        std::vector< double > PyCallback::call_residuals(mumufit::Parameters pars)
 
         Call Python callable and returns its result. Intended to be overloaded in Python.
 
@@ -2437,7 +2437,7 @@ class PyCallback(object):
         -----------
 
         pars: 
-         Fit parameters object (intentionally passed by value).
+        Fit parameters object (intentionally passed by value).
 
         vector of residuals 
 
@@ -2654,7 +2654,7 @@ class IMinimizer(object):
     def minimize_scalar(self, arg2, arg3):
         r"""
         minimize_scalar(IMinimizer self, fcn_scalar_t arg2, Parameters arg3) -> MinimizerResult
-        Fit::MinimizerResult IMinimizer::minimize_scalar(fcn_scalar_t, Fit::Parameters)
+        mumufit::MinimizerResult IMinimizer::minimize_scalar(fcn_scalar_t, mumufit::Parameters)
 
         run minimization 
 
@@ -2664,7 +2664,7 @@ class IMinimizer(object):
     def minimize_residual(self, arg2, arg3):
         r"""
         minimize_residual(IMinimizer self, fcn_residual_t arg2, Parameters arg3) -> MinimizerResult
-        Fit::MinimizerResult IMinimizer::minimize_residual(fcn_residual_t, Fit::Parameters)
+        mumufit::MinimizerResult IMinimizer::minimize_residual(fcn_residual_t, mumufit::Parameters)
 
         """
         return _libBornAgainFit.IMinimizer_minimize_residual(self, arg2, arg3)

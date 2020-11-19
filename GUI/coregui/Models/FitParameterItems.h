@@ -64,7 +64,7 @@ private:
 
 //! The FitParameterContainerItem class is a collection of all defined fit parameters in JobItem.
 
-namespace Fit
+namespace mumufit
 {
 class Parameters;
 }
@@ -80,7 +80,7 @@ public:
     bool isEmpty();
     void setValuesInParameterContainer(const QVector<double>& values,
                                        class ParameterContainerItem* parameterContainer);
-    Fit::Parameters createParameters() const;
+    mumufit::Parameters createParameters() const;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_MODELS_FITPARAMETERITEMS_H

@@ -25,7 +25,7 @@
 class PyCallback;
 class IMinimizer;
 
-namespace Fit
+namespace mumufit
 {
 
 class Kernel;
@@ -57,6 +57,6 @@ private:
     std::unique_ptr<Kernel> m_kernel;
 };
 
-} // namespace Fit
+} // namespace mumufit
 
 #endif // BORNAGAIN_FIT_KERNEL_MINIMIZER_H

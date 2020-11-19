@@ -16,7 +16,7 @@
 #include "Fit/Minimizer/IMinimizer.h"
 #include "Fit/Kernel/MinimizerFactory.h"
 
-using namespace Fit;
+using namespace mumufit;
 
 namespace
 {

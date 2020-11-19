@@ -18,7 +18,7 @@
 #include "Fit/Param/Parameters.h"
 #include <string>
 
-namespace Fit
+namespace mumufit
 {
 
 //! Result of minimization round.
@@ -53,6 +53,6 @@ private:
     Parameters m_parameters;
 };
 
-} // namespace Fit
+} // namespace mumufit
 
 #endif // BORNAGAIN_FIT_RESULT_MINIMIZERRESULT_H

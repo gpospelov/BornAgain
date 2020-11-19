@@ -27,7 +27,7 @@ public:
 
     fcn_residual_t residualFunction();
 
-    bool checkMinimizer(Fit::Minimizer& minimizer);
+    bool checkMinimizer(mumufit::Minimizer& minimizer);
 
 private:
     void init_data_values();

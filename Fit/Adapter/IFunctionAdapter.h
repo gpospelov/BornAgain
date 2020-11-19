@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H
 #define BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H
 
-namespace Fit
+namespace mumufit
 {
 
 //! Base class for objective function adapters, which converts user functions
@@ -35,6 +35,6 @@ protected:
     int m_number_of_gradient_calls;
 };
 
-} // namespace Fit
+} // namespace mumufit
 
 #endif // BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H

@@ -20,7 +20,7 @@ namespace
 const double loose_tolerance_on_function_min = 0.1;
 }
 
-using namespace Fit;
+using namespace mumufit;
 
 //! Plan to minimize a Rosenbrock function.
 //! start point: F(-1.2,1.0) = 24.20

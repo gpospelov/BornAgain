@@ -19,7 +19,7 @@
 
 namespace {
 
-std::string reportParameters(const Fit::Parameters& parameters)
+std::string reportParameters(const mumufit::Parameters& parameters)
 {
     std::ostringstream result;
 
@@ -33,7 +33,7 @@ std::string reportParameters(const Fit::Parameters& parameters)
                       % par.startValue() % par.limits().toString() % par.value() % par.error();
     }
 
-    Fit::Parameters::corr_matrix_t matrix = parameters.correlationMatrix();
+    mumufit::Parameters::corr_matrix_t matrix = parameters.correlationMatrix();
     if (!matrix.empty()) {
         result << MinimizerUtils::sectionString("Correlations");
         for (size_t i = 0; i < matrix.size(); ++i) {
@@ -53,7 +53,7 @@ std::string reportParameters(const Fit::Parameters& parameters)
 //  class MinimizerResult
 //  ************************************************************************************************
 
-using namespace Fit;
+using namespace mumufit;
 
 MinimizerResult::MinimizerResult()
     : m_min_value(0.0), m_number_of_calls(0), m_number_of_gradient_calls(0), m_duration(0.0)

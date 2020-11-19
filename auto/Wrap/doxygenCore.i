@@ -487,10 +487,10 @@ weight:
 weight of dataset in metric calculations 
 ";
 
-%feature("docstring")  FitObjective::evaluate "double FitObjective::evaluate(const Fit::Parameters &params)
+%feature("docstring")  FitObjective::evaluate "double FitObjective::evaluate(const mumufit::Parameters &params)
 ";
 
-%feature("docstring")  FitObjective::evaluate_residuals "std::vector< double > FitObjective::evaluate_residuals(const Fit::Parameters &params)
+%feature("docstring")  FitObjective::evaluate_residuals "std::vector< double > FitObjective::evaluate_residuals(const mumufit::Parameters &params)
 ";
 
 %feature("docstring")  FitObjective::numberOfFitElements "size_t FitObjective::numberOfFitElements() const
@@ -554,10 +554,10 @@ Initializes observer callback to be called on every_nth fit iteration.
 %feature("docstring")  FitObjective::iterationInfo "IterationInfo FitObjective::iterationInfo() const
 ";
 
-%feature("docstring")  FitObjective::minimizerResult "Fit::MinimizerResult FitObjective::minimizerResult() const
+%feature("docstring")  FitObjective::minimizerResult "mumufit::MinimizerResult FitObjective::minimizerResult() const
 ";
 
-%feature("docstring")  FitObjective::finalize "void FitObjective::finalize(const Fit::MinimizerResult &result)
+%feature("docstring")  FitObjective::finalize "void FitObjective::finalize(const mumufit::MinimizerResult &result)
 
 Should be explicitely called on last iteration to notify all observers. 
 ";
@@ -565,7 +565,7 @@ Should be explicitely called on last iteration to notify all observers.
 %feature("docstring")  FitObjective::fitObjectCount "unsigned FitObjective::fitObjectCount() const
 ";
 
-%feature("docstring")  FitObjective::run_simulations "void FitObjective::run_simulations(const Fit::Parameters &params)
+%feature("docstring")  FitObjective::run_simulations "void FitObjective::run_simulations(const mumufit::Parameters &params)
 ";
 
 %feature("docstring")  FitObjective::setChiSquaredModule "void FitObjective::setChiSquaredModule(const IChiSquaredModule &module)
@@ -700,7 +700,7 @@ C++ includes: FitStatus.h
 %feature("docstring")  FitStatus::isCompleted "bool FitStatus::isCompleted() const
 ";
 
-%feature("docstring")  FitStatus::update "void FitStatus::update(const Fit::Parameters &params, double chi2)
+%feature("docstring")  FitStatus::update "void FitStatus::update(const mumufit::Parameters &params, double chi2)
 ";
 
 %feature("docstring")  FitStatus::initPrint "void FitStatus::initPrint(int every_nth)
@@ -712,10 +712,10 @@ C++ includes: FitStatus.h
 %feature("docstring")  FitStatus::iterationInfo "IterationInfo FitStatus::iterationInfo() const
 ";
 
-%feature("docstring")  FitStatus::minimizerResult "Fit::MinimizerResult FitStatus::minimizerResult() const
+%feature("docstring")  FitStatus::minimizerResult "mumufit::MinimizerResult FitStatus::minimizerResult() const
 ";
 
-%feature("docstring")  FitStatus::finalize "void FitStatus::finalize(const Fit::MinimizerResult &result)
+%feature("docstring")  FitStatus::finalize "void FitStatus::finalize(const mumufit::MinimizerResult &result)
 
 Should be explicitely called on last iteration to notify all observers. 
 ";
@@ -1138,7 +1138,7 @@ C++ includes: IterationInfo.h
 %feature("docstring")  IterationInfo::IterationInfo "IterationInfo::IterationInfo()
 ";
 
-%feature("docstring")  IterationInfo::update "void IterationInfo::update(const Fit::Parameters &params, double chi2)
+%feature("docstring")  IterationInfo::update "void IterationInfo::update(const mumufit::Parameters &params, double chi2)
 ";
 
 %feature("docstring")  IterationInfo::iterationCount "unsigned IterationInfo::iterationCount() const
@@ -1149,7 +1149,7 @@ Returns current number of minimizer iterations.
 %feature("docstring")  IterationInfo::chi2 "double IterationInfo::chi2() const
 ";
 
-%feature("docstring")  IterationInfo::parameters "Fit::Parameters IterationInfo::parameters() const
+%feature("docstring")  IterationInfo::parameters "mumufit::Parameters IterationInfo::parameters() const
 ";
 
 %feature("docstring")  IterationInfo::parameterMap "std::map< std::string, double > IterationInfo::parameterMap() const
@@ -1539,7 +1539,7 @@ C++ includes: PyFittingCallbacks.h
 %feature("docstring")  PyBuilderCallback::~PyBuilderCallback "PyBuilderCallback::~PyBuilderCallback()
 ";
 
-%feature("docstring")  PyBuilderCallback::build_simulation "ISimulation * PyBuilderCallback::build_simulation(Fit::Parameters)
+%feature("docstring")  PyBuilderCallback::build_simulation "ISimulation * PyBuilderCallback::build_simulation(mumufit::Parameters)
 ";
 
 
@@ -1940,7 +1940,7 @@ C++ includes: SimDataPair.h
 %feature("docstring")  SimDataPair::~SimDataPair "SimDataPair::~SimDataPair()
 ";
 
-%feature("docstring")  SimDataPair::runSimulation "void SimDataPair::runSimulation(const Fit::Parameters &params)
+%feature("docstring")  SimDataPair::runSimulation "void SimDataPair::runSimulation(const mumufit::Parameters &params)
 ";
 
 %feature("docstring")  SimDataPair::containsUncertainties "bool SimDataPair::containsUncertainties() const
@@ -2365,9 +2365,6 @@ Returns default units to convert to.
 ";
 
 
-// File: namespaceFit.xml
-
-
 // File: namespaceINodeUtils.xml
 %feature("docstring")  INodeUtils::ChildNodesOfType "std::vector<const T*> INodeUtils::ChildNodesOfType(const INode &node)
 ";
@@ -2377,6 +2374,9 @@ Returns default units to convert to.
 
 %feature("docstring")  INodeUtils::AllDescendantsOfType "std::vector<const T*> INodeUtils::AllDescendantsOfType(const INode &node)
 ";
+
+
+// File: namespacemumufit.xml
 
 
 // File: namespaceObjectiveMetricUtils.xml

@@ -65,7 +65,7 @@ protected:
     const root_minimizer_t* rootMinimizer() const override;
 
     using MinimizerAdapter::setParameter;
-    void setParameter(unsigned int index, const Fit::Parameter& par) override;
+    void setParameter(unsigned int index, const mumufit::Parameter& par) override;
 
 private:
     std::unique_ptr<ROOT::Math::GeneticMinimizer> m_genetic_minimizer;

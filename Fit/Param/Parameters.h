@@ -18,7 +18,7 @@
 #include "Fit/Param/Parameter.h"
 #include <vector>
 
-namespace Fit
+namespace mumufit
 {
 
 //! A collection of fit parameters.
@@ -67,6 +67,6 @@ private:
     corr_matrix_t m_corr_matrix; //!< correlation matrix
 };
 
-} // namespace Fit
+} // namespace mumufit
 
 #endif // BORNAGAIN_FIT_PARAM_PARAMETERS_H

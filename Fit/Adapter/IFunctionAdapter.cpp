@@ -14,7 +14,7 @@
 
 #include "Fit/Adapter/IFunctionAdapter.h"
 
-using namespace Fit;
+using namespace mumufit;
 
 IFunctionAdapter::IFunctionAdapter() : m_number_of_calls(0), m_number_of_gradient_calls(0) {}
 

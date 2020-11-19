@@ -36,7 +36,7 @@ public:
 
     ~SimDataPair();
 
-    void runSimulation(const Fit::Parameters& params);
+    void runSimulation(const mumufit::Parameters& params);
 
     bool containsUncertainties() const;
 

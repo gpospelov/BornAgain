@@ -51,7 +51,7 @@ private:
 
 simulation_builder_t FitObjective::simulationBuilder(PyBuilderCallback& callback)
 {
-    return [&callback](const Fit::Parameters& params) {
+    return [&callback](const mumufit::Parameters& params) {
         auto simulation = callback.build_simulation(params);
         std::unique_ptr<ISimulation> clone(simulation->clone());
         delete simulation; // deleting Python object
@@ -81,7 +81,7 @@ void FitObjective::addSimulationAndData(simulation_builder_t builder,
     m_fit_objects.emplace_back(builder, data, std::move(uncertainties), weight);
 }
 
-double FitObjective::evaluate(const Fit::Parameters& params)
+double FitObjective::evaluate(const mumufit::Parameters& params)
 {
     run_simulations(params);
     const double metric_value = m_metric_module->compute(m_fit_objects, params.size());
@@ -89,7 +89,7 @@ double FitObjective::evaluate(const Fit::Parameters& params)
     return metric_value;
 }
 
-std::vector<double> FitObjective::evaluate_residuals(const Fit::Parameters& params)
+std::vector<double> FitObjective::evaluate_residuals(const mumufit::Parameters& params)
 {
     evaluate(params);
 
@@ -198,12 +198,12 @@ IterationInfo FitObjective::iterationInfo() const
     return m_fit_status->iterationInfo();
 }
 
-Fit::MinimizerResult FitObjective::minimizerResult() const
+mumufit::MinimizerResult FitObjective::minimizerResult() const
 {
     return m_fit_status->minimizerResult();
 }
 
-void FitObjective::finalize(const Fit::MinimizerResult& result)
+void FitObjective::finalize(const mumufit::MinimizerResult& result)
 {
     m_fit_status->finalize(result);
 }
@@ -228,7 +228,7 @@ bool FitObjective::isFirstIteration() const
     return iterationInfo().iterationCount() == 1;
 }
 
-void FitObjective::run_simulations(const Fit::Parameters& params)
+void FitObjective::run_simulations(const mumufit::Parameters& params)
 {
     if (m_fit_status->isInterrupted())
         throw std::runtime_error("Fitting was interrupted by the user.");

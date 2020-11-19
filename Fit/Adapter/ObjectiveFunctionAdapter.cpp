@@ -18,7 +18,7 @@
 #include "Fit/Adapter/RootScalarFunction.h"
 #include "Fit/Adapter/ScalarFunctionAdapter.h"
 
-using namespace Fit;
+using namespace mumufit;
 
 ObjectiveFunctionAdapter::ObjectiveFunctionAdapter() = default;
 

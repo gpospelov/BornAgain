@@ -111,7 +111,7 @@ const MinimizerAdapter::root_minimizer_t* GSLLevenbergMarquardtMinimizer::rootMi
     return m_gsl_minimizer.get();
 }
 
-void GSLLevenbergMarquardtMinimizer::setParameter(unsigned int index, const Fit::Parameter& par)
+void GSLLevenbergMarquardtMinimizer::setParameter(unsigned int index, const mumufit::Parameter& par)
 {
     auto limits = par.limits();
     if (!limits.isLimitless() && !limits.isFixed())

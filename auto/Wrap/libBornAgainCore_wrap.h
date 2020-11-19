@@ -20,8 +20,8 @@ class SwigDirector_FitObjective : public FitObjective, public Swig::Director {
 public:
     SwigDirector_FitObjective(PyObject *self);
     virtual ~SwigDirector_FitObjective();
-    virtual double evaluate(Fit::Parameters const &params);
-    virtual std::vector< double, std::allocator< double > > evaluate_residuals(Fit::Parameters const &params);
+    virtual double evaluate(mumufit::Parameters const &params);
+    virtual std::vector< double, std::allocator< double > > evaluate_residuals(mumufit::Parameters const &params);
 
 /* Internal director utilities */
 public:
@@ -63,7 +63,7 @@ class SwigDirector_PyBuilderCallback : public PyBuilderCallback, public Swig::Di
 public:
     SwigDirector_PyBuilderCallback(PyObject *self);
     virtual ~SwigDirector_PyBuilderCallback();
-    virtual ISimulation *build_simulation(Fit::Parameters arg0);
+    virtual ISimulation *build_simulation(mumufit::Parameters arg0);
 
 /* Internal director utilities */
 public:

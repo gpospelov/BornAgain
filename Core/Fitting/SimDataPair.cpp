@@ -75,7 +75,7 @@ SimDataPair::SimDataPair(SimDataPair&& other)
 
 SimDataPair::~SimDataPair() = default;
 
-void SimDataPair::runSimulation(const Fit::Parameters& params)
+void SimDataPair::runSimulation(const mumufit::Parameters& params)
 {
     m_simulation = m_simulation_builder(params);
     m_simulation->runSimulation();

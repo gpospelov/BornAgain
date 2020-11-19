@@ -23,12 +23,12 @@
 class ParameterPlan
 {
 public:
-    ParameterPlan(const Fit::Parameter& param, double expected_value, double tolerance = 0.01)
+    ParameterPlan(const mumufit::Parameter& param, double expected_value, double tolerance = 0.01)
         : m_expected_value(expected_value), m_tolerance(tolerance), m_parameter(param)
     {
     }
 
-    Fit::Parameter fitParameter() const { return m_parameter; }
+    mumufit::Parameter fitParameter() const { return m_parameter; }
     double expectedValue() const { return m_expected_value; }
     double tolerance() const { return m_tolerance; }
 
@@ -37,7 +37,7 @@ public:
 private:
     double m_expected_value;    //!< expected value to find in the fit
     double m_tolerance;         //!< tolerance on found value wrt expected value
-    Fit::Parameter m_parameter; //!< initial parameter settings
+    mumufit::Parameter m_parameter; //!< initial parameter settings
 };
 
 #endif // BORNAGAIN_FIT_PARAM_PARAMETERPLAN_H

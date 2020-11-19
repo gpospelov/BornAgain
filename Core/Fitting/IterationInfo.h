@@ -27,21 +27,21 @@ class IterationInfo
 public:
     IterationInfo();
 
-    void update(const Fit::Parameters& params, double chi2);
+    void update(const mumufit::Parameters& params, double chi2);
 
     //! Returns current number of minimizer iterations.
     unsigned iterationCount() const;
 
     double chi2() const;
 
-    Fit::Parameters parameters() const;
+    mumufit::Parameters parameters() const;
 
     //! Returns map of fit parameter names and its current values.
     std::map<std::string, double> parameterMap() const;
 
 private:
     double m_chi2;
-    Fit::Parameters m_current_parameters;
+    mumufit::Parameters m_current_parameters;
     unsigned m_iteration_count;
 };
 

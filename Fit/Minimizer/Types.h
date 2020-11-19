@@ -20,7 +20,7 @@
 
 //! Objective function types.
 
-namespace Fit
+namespace mumufit
 {
 class Parameters;
 }
@@ -34,7 +34,7 @@ using root_scalar_t = std::function<double(const double*)>;
 
 using root_gradient_t = std::function<double(const double*, unsigned int, double*)>;
 
-using fcn_scalar_t = std::function<double(const Fit::Parameters&)>;
-using fcn_residual_t = std::function<std::vector<double>(const Fit::Parameters&)>;
+using fcn_scalar_t = std::function<double(const mumufit::Parameters&)>;
+using fcn_residual_t = std::function<std::vector<double>(const mumufit::Parameters&)>;
 
 #endif // BORNAGAIN_FIT_MINIMIZER_TYPES_H

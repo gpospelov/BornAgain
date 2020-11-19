@@ -44257,7 +44257,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "DepthProbeSimulation_accept", _wrap_DepthProbeSimulation_accept, METH_VARARGS, "\n"
 		"DepthProbeSimulation_accept(DepthProbeSimulation self, INodeVisitor * visitor)\n"
-		"void DepthProbeSimulation::accept(INodeVisitor *visitor) const override final\n"
+		"void DepthProbeSimulation::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "DepthProbeSimulation_result", _wrap_DepthProbeSimulation_result, METH_O, "\n"
@@ -44328,7 +44328,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "SpecularSimulation_accept", _wrap_SpecularSimulation_accept, METH_VARARGS, "\n"
 		"SpecularSimulation_accept(SpecularSimulation self, INodeVisitor * visitor)\n"
-		"void SpecularSimulation::accept(INodeVisitor *visitor) const override final\n"
+		"void SpecularSimulation::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "SpecularSimulation_result", _wrap_SpecularSimulation_result, METH_O, "\n"
@@ -44375,7 +44375,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_OffSpecSimulation", _wrap_delete_OffSpecSimulation, METH_O, "\n"
 		"delete_OffSpecSimulation(OffSpecSimulation self)\n"
-		"OffSpecSimulation::~OffSpecSimulation() final\n"
+		"OffSpecSimulation::~OffSpecSimulation() override\n"
 		"\n"
 		""},
 	 { "OffSpecSimulation_clone", _wrap_OffSpecSimulation_clone, METH_O, "\n"
@@ -44385,12 +44385,12 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "OffSpecSimulation_accept", _wrap_OffSpecSimulation_accept, METH_VARARGS, "\n"
 		"OffSpecSimulation_accept(OffSpecSimulation self, INodeVisitor * visitor)\n"
-		"void OffSpecSimulation::accept(INodeVisitor *visitor) const final\n"
+		"void OffSpecSimulation::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "OffSpecSimulation_prepareSimulation", _wrap_OffSpecSimulation_prepareSimulation, METH_O, "\n"
 		"OffSpecSimulation_prepareSimulation(OffSpecSimulation self)\n"
-		"void OffSpecSimulation::prepareSimulation() final\n"
+		"void OffSpecSimulation::prepareSimulation() override\n"
 		"\n"
 		"Put into a clean state for running a simulation. \n"
 		"\n"
@@ -44449,7 +44449,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ConstantBackground_clone", _wrap_ConstantBackground_clone, METH_O, "\n"
 		"ConstantBackground_clone(ConstantBackground self) -> ConstantBackground\n"
-		"ConstantBackground * ConstantBackground::clone() const override final\n"
+		"ConstantBackground * ConstantBackground::clone() const final\n"
 		"\n"
 		""},
 	 { "ConstantBackground_backgroundValue", _wrap_ConstantBackground_backgroundValue, METH_O, "\n"
@@ -44464,7 +44464,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ConstantBackground_addBackground", _wrap_ConstantBackground_addBackground, METH_VARARGS, "\n"
 		"ConstantBackground_addBackground(ConstantBackground self, double intensity) -> double\n"
-		"double ConstantBackground::addBackground(double intensity) const override final\n"
+		"double ConstantBackground::addBackground(double intensity) const final\n"
 		"\n"
 		""},
 	 { "delete_ConstantBackground", _wrap_delete_ConstantBackground, METH_O, "delete_ConstantBackground(ConstantBackground self)"},
@@ -44477,7 +44477,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "PoissonNoiseBackground_clone", _wrap_PoissonNoiseBackground_clone, METH_O, "\n"
 		"PoissonNoiseBackground_clone(PoissonNoiseBackground self) -> PoissonNoiseBackground\n"
-		"PoissonNoiseBackground * PoissonNoiseBackground::clone() const override final\n"
+		"PoissonNoiseBackground * PoissonNoiseBackground::clone() const final\n"
 		"\n"
 		""},
 	 { "PoissonNoiseBackground_accept", _wrap_PoissonNoiseBackground_accept, METH_VARARGS, "\n"
@@ -44487,7 +44487,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "PoissonNoiseBackground_addBackground", _wrap_PoissonNoiseBackground_addBackground, METH_VARARGS, "\n"
 		"PoissonNoiseBackground_addBackground(PoissonNoiseBackground self, double intensity) -> double\n"
-		"double PoissonNoiseBackground::addBackground(double intensity) const override final\n"
+		"double PoissonNoiseBackground::addBackground(double intensity) const final\n"
 		"\n"
 		""},
 	 { "delete_PoissonNoiseBackground", _wrap_delete_PoissonNoiseBackground, METH_O, "delete_PoissonNoiseBackground(PoissonNoiseBackground self)"},

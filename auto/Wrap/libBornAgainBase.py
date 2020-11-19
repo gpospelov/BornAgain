@@ -2359,7 +2359,7 @@ class ConstKBinAxis(VariableBinAxis):
     def clone(self):
         r"""
         clone(ConstKBinAxis self) -> ConstKBinAxis
-        ConstKBinAxis * ConstKBinAxis::clone() const final
+        ConstKBinAxis * ConstKBinAxis::clone() const override
 
         clone function 
 
@@ -2369,7 +2369,7 @@ class ConstKBinAxis(VariableBinAxis):
     def createClippedAxis(self, left, right):
         r"""
         createClippedAxis(ConstKBinAxis self, double left, double right) -> ConstKBinAxis
-        ConstKBinAxis * ConstKBinAxis::createClippedAxis(double left, double right) const final
+        ConstKBinAxis * ConstKBinAxis::createClippedAxis(double left, double right) const override
 
         Creates a new clipped axis. 
 

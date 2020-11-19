@@ -21,16 +21,16 @@
 //! Interference function of a finite 3D lattice.
 //! @ingroup interference
 
-class InterferenceFunctionFinite3DLattice : public IInterferenceFunction
+class InterferenceFunctionFinite3DLattice: public IInterferenceFunction
 {
 public:
     InterferenceFunctionFinite3DLattice(const Lattice3D& lattice, unsigned N_1, unsigned N_2,
                                         unsigned N_3);
-    ~InterferenceFunctionFinite3DLattice() final;
+    ~InterferenceFunctionFinite3DLattice() override;
 
-    InterferenceFunctionFinite3DLattice* clone() const final;
+    InterferenceFunctionFinite3DLattice* clone() const override;
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     unsigned numberUnitCells1() const { return m_N_1; }
     unsigned numberUnitCells2() const { return m_N_2; }
@@ -38,12 +38,12 @@ public:
 
     const Lattice3D& lattice() const;
 
-    bool supportsMultilayer() const final { return false; }
+    bool supportsMultilayer() const override { return false; }
 
-    std::vector<const INode*> getChildren() const final;
+    std::vector<const INode*> getChildren() const override;
 
 private:
-    double iff_without_dw(const kvector_t q) const final;
+    double iff_without_dw(const kvector_t q) const override;
     void setLattice(const Lattice3D& lattice);
 
     std::unique_ptr<Lattice3D> m_lattice;

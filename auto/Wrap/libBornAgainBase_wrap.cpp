@@ -33647,19 +33647,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_ConstKBinAxis", _wrap_delete_ConstKBinAxis, METH_O, "\n"
 		"delete_ConstKBinAxis(ConstKBinAxis self)\n"
-		"ConstKBinAxis::~ConstKBinAxis() final\n"
+		"ConstKBinAxis::~ConstKBinAxis() override\n"
 		"\n"
 		""},
 	 { "ConstKBinAxis_clone", _wrap_ConstKBinAxis_clone, METH_O, "\n"
 		"ConstKBinAxis_clone(ConstKBinAxis self) -> ConstKBinAxis\n"
-		"ConstKBinAxis * ConstKBinAxis::clone() const final\n"
+		"ConstKBinAxis * ConstKBinAxis::clone() const override\n"
 		"\n"
 		"clone function \n"
 		"\n"
 		""},
 	 { "ConstKBinAxis_createClippedAxis", _wrap_ConstKBinAxis_createClippedAxis, METH_VARARGS, "\n"
 		"ConstKBinAxis_createClippedAxis(ConstKBinAxis self, double left, double right) -> ConstKBinAxis\n"
-		"ConstKBinAxis * ConstKBinAxis::createClippedAxis(double left, double right) const final\n"
+		"ConstKBinAxis * ConstKBinAxis::createClippedAxis(double left, double right) const override\n"
 		"\n"
 		"Creates a new clipped axis. \n"
 		"\n"

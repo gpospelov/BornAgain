@@ -33,7 +33,7 @@ class ScalarFresnelMap : public IFresnelMap
 {
 public:
     ScalarFresnelMap(std::unique_ptr<ISpecularStrategy> strategy);
-    ~ScalarFresnelMap() final;
+    ~ScalarFresnelMap() override;
 
     ScalarFresnelMap(const ScalarFresnelMap& other) = delete;
     ScalarFresnelMap& operator=(const ScalarFresnelMap& other) = delete;

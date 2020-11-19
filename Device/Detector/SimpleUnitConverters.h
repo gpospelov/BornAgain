@@ -73,7 +73,7 @@ private:
 //! Its default units are radians for both axes
 //! @ingroup simulation_internal
 
-class SphericalConverter final : public UnitConverterSimple
+class SphericalConverter: public UnitConverterSimple
 {
 public:
     SphericalConverter(const SphericalDetector& detector, const Beam& beam);
@@ -97,7 +97,7 @@ private:
 //! Its default units are mm for both axes
 //! @ingroup simulation_internal
 
-class RectangularConverter final : public UnitConverterSimple
+class RectangularConverter: public UnitConverterSimple
 {
 public:
     RectangularConverter(const RectangularDetector& detector, const Beam& beam);
@@ -124,7 +124,7 @@ private:
 //! Its default units are radians for both axes
 //! @ingroup simulation_internal
 
-class OffSpecularConverter final : public UnitConverterSimple
+class OffSpecularConverter: public UnitConverterSimple
 {
 public:
     OffSpecularConverter(const IDetector2D& detector, const Beam& beam, const IAxis& alpha_axis);
@@ -145,7 +145,7 @@ private:
 //! Its default units are radians for x-axis and nm for y-axis
 //! @ingroup simulation_internal
 
-class DepthProbeConverter final : public UnitConverterSimple
+class DepthProbeConverter: public UnitConverterSimple
 {
 public:
     DepthProbeConverter(const Beam& beam, const IAxis& alpha_axis, const IAxis& z_axis);

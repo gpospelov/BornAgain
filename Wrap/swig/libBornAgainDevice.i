@@ -69,11 +69,11 @@
 #include "Device/Resolution/ScanResolution.h"
 %}
 
-%import(module="libBornAgainFit") "Fit/Tools/AttLimits.h"
-%import(module="libBornAgainFit") "Fit/Tools/Attributes.h"
-%import(module="libBornAgainFit") "Fit/Tools/RealLimits.h"
-%import(module="libBornAgainFit") "Fit/Kernel/Parameters.h"
-%import(module="libBornAgainFit") "Fit/Kernel/Parameter.h"
+%import(module="libBornAgainFit") "Fit/Param/AttLimits.h"
+%import(module="libBornAgainFit") "Fit/Param/Attributes.h"
+%import(module="libBornAgainFit") "Fit/Param/RealLimits.h"
+%import(module="libBornAgainFit") "Fit/Param/Parameters.h"
+%import(module="libBornAgainFit") "Fit/Param/Parameter.h"
 
 %include "fromBase.i"
 %include "fromParam.i"

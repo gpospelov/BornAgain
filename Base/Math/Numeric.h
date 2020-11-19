@@ -17,7 +17,7 @@
 
 #include <limits>
 
-//! Floating-point epsilon, tolerances, almost-equal.
+//! Floating-point approximations.
 
 namespace Numeric
 {

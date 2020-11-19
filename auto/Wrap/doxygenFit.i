@@ -1399,6 +1399,13 @@ Internal state of a  WallclockTimer object.
 // File: namespacemumufit.xml
 
 
+// File: namespacemumufit_1_1internal.xml
+%feature("docstring")  mumufit::internal::reportToString "std::string mumufit::internal::reportToString(const MinimizerAdapter &minimizer)
+
+Reports results of minimization in the form of multi-line string. 
+";
+
+
 // File: namespacemumufit_1_1stringUtils.xml
 %feature("docstring")  mumufit::stringUtils::matchesPattern "bool mumufit::stringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
 
@@ -1455,13 +1462,6 @@ Returns translation of GSL error code to string.
 %feature("docstring")  mumufit::utils::sectionString "std::string mumufit::utils::sectionString(const std::string &sectionName=\"\", size_t report_width=80)
 
 Returns horizontal line of 80 characters length with section name in it. 
-";
-
-
-// File: namespacereport.xml
-%feature("docstring")  report::reportToString "std::string report::reportToString(const MinimizerAdapter &minimizer)
-
-Reports results of minimization in the form of multi-line string. 
 ";
 
 

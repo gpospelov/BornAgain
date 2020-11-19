@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Base/Math/Precomputed.h
-//! @brief     Defines namespace Precomputed, providing precomputed constants
+//! @brief     Defines namespace Math::Precomputed, providing precomputed constants
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,9 +19,8 @@
 #include <utility>
 #include <vector>
 
-//! Compile-time generated std::array of reciprocal factorials
-namespace Precomputed
-{
+namespace Math::internal {
+
 template <size_t N> struct ReciprocalFactorial {
     static constexpr double value = ReciprocalFactorial<N - 1>::value / N;
 };
@@ -31,16 +30,22 @@ template <> struct ReciprocalFactorial<0> {
 };
 
 template <template <size_t> class F, size_t... I>
-constexpr std::array<double, sizeof...(I)> GenerateArrayHelper(std::index_sequence<I...>)
+constexpr std::array<double, sizeof...(I)> generateArrayHelper(std::index_sequence<I...>)
 {
     return {F<I>::value...};
 };
 
-template <size_t N, typename Indices = std::make_index_sequence<N>>
-constexpr std::array<double, N> GenerateReciprocalFactorialArray()
+} // namespace Math::internal
+namespace Math
 {
-    return GenerateArrayHelper<ReciprocalFactorial>(Indices{});
+
+//! Returns a compile-time generated std::array of reciprocal factorials.
+
+template <size_t N, typename Indices = std::make_index_sequence<N>>
+constexpr std::array<double, N> generateReciprocalFactorialArray()
+{
+    return internal::generateArrayHelper<internal::ReciprocalFactorial>(Indices{});
 };
-} // namespace Precomputed
+} // namespace Math
 
 #endif // BORNAGAIN_BASE_MATH_PRECOMPUTED_H

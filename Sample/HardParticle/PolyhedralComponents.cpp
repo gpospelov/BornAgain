@@ -21,7 +21,7 @@
 namespace
 {
 const double eps = 2e-16;
-constexpr auto ReciprocalFactorialArray = Precomputed::GenerateReciprocalFactorialArray<171>();
+constexpr auto ReciprocalFactorialArray = Math::generateReciprocalFactorialArray<171>();
 } // namespace
 
 //  ************************************************************************************************

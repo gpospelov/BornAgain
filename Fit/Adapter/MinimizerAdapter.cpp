@@ -56,7 +56,7 @@ MinimizerResult MinimizerAdapter::minimize(Parameters parameters)
     MinimizerResult result;
     result.setParameters(parameters);
     result.setMinValue(minValue());
-    result.setReport(report::reportToString(*this));
+    result.setReport(internal::reportToString(*this));
     result.setNumberOfCalls(m_adapter->numberOfCalls());
     result.setNumberOfGradientCalls(m_adapter->numberOfGradientCalls());
 

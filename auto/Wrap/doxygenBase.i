@@ -884,12 +884,12 @@ C++ includes: Integrator.h
 ";
 
 
-// File: structPrecomputed_1_1ReciprocalFactorial.xml
-%feature("docstring") Precomputed::ReciprocalFactorial "";
+// File: structMath_1_1internal_1_1ReciprocalFactorial.xml
+%feature("docstring") Math::internal::ReciprocalFactorial "";
 
 
-// File: structPrecomputed_1_1ReciprocalFactorial_3_010_01_4.xml
-%feature("docstring") Precomputed::ReciprocalFactorial< 0 > "
+// File: structMath_1_1internal_1_1ReciprocalFactorial_3_010_01_4.xml
+%feature("docstring") Math::internal::ReciprocalFactorial< 0 > "
 ";
 
 
@@ -1354,6 +1354,11 @@ Error function of real-valued argument.
 %feature("docstring")  Math::Bessel::GeneratePoissonRandom "double Math::GeneratePoissonRandom(double average)
 ";
 
+%feature("docstring")  Math::Bessel::generateReciprocalFactorialArray "constexpr std::array<double, N> Math::generateReciprocalFactorialArray()
+
+Returns a compile-time generated std::array of reciprocal factorials. 
+";
+
 
 // File: namespaceMath_1_1Bessel.xml
 %feature("docstring")  Math::Bessel::J0 "double Math::Bessel::J0(double x)
@@ -1392,6 +1397,11 @@ Complex  Bessel function J1(x)/x.
 ";
 
 
+// File: namespaceMath_1_1internal.xml
+%feature("docstring")  Math::internal::generateArrayHelper "constexpr std::array<double, sizeof...(I)> Math::internal::generateArrayHelper(std::index_sequence< I... >)
+";
+
+
 // File: namespaceNumeric.xml
 %feature("docstring")  Numeric::GetAbsoluteDifference "double Numeric::GetAbsoluteDifference(double a, double b)
 
@@ -1410,14 +1420,6 @@ Returns the difference of the logarithm; input values are truncated at the minim
 
 
 // File: namespacePhysConsts.xml
-
-
-// File: namespacePrecomputed.xml
-%feature("docstring")  Precomputed::GenerateArrayHelper "constexpr std::array<double, sizeof...(I)> Precomputed::GenerateArrayHelper(std::index_sequence< I... >)
-";
-
-%feature("docstring")  Precomputed::GenerateReciprocalFactorialArray "constexpr std::array<double, N> Precomputed::GenerateReciprocalFactorialArray()
-";
 
 
 // File: namespacePyEmbeddedUtils.xml

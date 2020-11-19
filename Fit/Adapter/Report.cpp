@@ -71,10 +71,10 @@ std::string reportStatus(const MinimizerAdapter& minimizer)
 } // namespace
 
 //  ************************************************************************************************
-//  namespace report
+//  implement API
 //  ************************************************************************************************
 
-std::string report::reportToString(const MinimizerAdapter& minimizer)
+std::string mumufit::internal::reportToString(const MinimizerAdapter& minimizer)
 {
     std::ostringstream result;
 

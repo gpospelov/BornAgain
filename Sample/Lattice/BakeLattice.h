@@ -17,6 +17,8 @@
 
 class Lattice3D;
 
+//! Functions that instantiate objects. To be used like constructors.
+
 namespace bake
 {
 

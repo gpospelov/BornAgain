@@ -17,8 +17,6 @@
 #include <cmath>
 #include <limits>
 
-//! Floating-point epsilon, tolerances, almost-equal.
-
 namespace Numeric
 {
 

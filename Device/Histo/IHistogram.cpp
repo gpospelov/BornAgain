@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Base/Utils/Numeric.h"
+#include "Base/Math/Numeric.h"
 #include "Device/Histo/Histogram1D.h"
 #include "Device/Histo/Histogram2D.h"
 #include "Device/Histo/IntensityDataIOFactory.h" // TODO rm

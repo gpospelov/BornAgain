@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Utils/Bessel.cpp
+//! @file      Base/Math/Bessel.cpp
 //! @brief     Implements Bessel functions in namespace Math.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#include "Base/Utils/Bessel.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Bessel.h"
+#include "Base/Math/Constants.h"
 #include <gsl/gsl_sf_bessel.h>
 
 namespace

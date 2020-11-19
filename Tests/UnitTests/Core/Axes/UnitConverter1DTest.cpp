@@ -1,7 +1,7 @@
 #include "Core/Scan/UnitConverter1D.h"
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Axis/VariableBinAxis.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Base/Const/Units.h"
 #include "Core/Scan/QSpecScan.h"
 #include "Device/Beam/Beam.h"

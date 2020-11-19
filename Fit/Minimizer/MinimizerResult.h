@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_RESULT_MINIMIZERRESULT_H
-#define BORNAGAIN_FIT_RESULT_MINIMIZERRESULT_H
+#ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZERRESULT_H
+#define BORNAGAIN_FIT_MINIMIZER_MINIMIZERRESULT_H
 
 #include "Fit/Param/Parameters.h"
 #include <string>
@@ -55,4 +55,4 @@ private:
 
 } // namespace mumufit
 
-#endif // BORNAGAIN_FIT_RESULT_MINIMIZERRESULT_H
+#endif // BORNAGAIN_FIT_MINIMIZER_MINIMIZERRESULT_H

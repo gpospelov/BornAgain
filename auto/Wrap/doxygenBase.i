@@ -1219,7 +1219,7 @@ Creates a new clipped axis.
 ";
 
 
-// File: namespace_0d34.xml
+// File: namespace_0d16.xml
 
 
 // File: namespacealgo.xml
@@ -1632,13 +1632,47 @@ global helper function for comparison of axes
 // File: VariableBinAxis_8h.xml
 
 
-// File: MathConstants_8h.xml
-
-
 // File: PhysicalConstants_8h.xml
 
 
 // File: Units_8h.xml
+
+
+// File: Bessel_8cpp.xml
+
+
+// File: Bessel_8h.xml
+
+
+// File: Constants_8h.xml
+
+
+// File: Functions_8cpp.xml
+
+
+// File: Functions_8h.xml
+
+
+// File: Integrator_8cpp.xml
+
+
+// File: Integrator_8h.xml
+
+
+// File: IntegratorMCMiser_8h.xml
+%feature("docstring")  make_integrator_miser "P_integrator_miser<T> make_integrator_miser(const T *object, miser_integrand< T > mem_function, size_t dim)
+
+Template function to create an integrator object 
+";
+
+
+// File: Numeric_8cpp.xml
+
+
+// File: Numeric_8h.xml
+
+
+// File: Precomputed_8h.xml
 
 
 // File: IPixel_8h.xml
@@ -1701,12 +1735,6 @@ Returns exp(I*z), where I is the imaginary unit.
 // File: Assert_8h.xml
 
 
-// File: Bessel_8cpp.xml
-
-
-// File: Bessel_8h.xml
-
-
 // File: FileSystemUtils_8cpp.xml
 
 
@@ -1720,34 +1748,6 @@ Returns new instance of class T.
 
 This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
 ";
-
-
-// File: Integrator_8cpp.xml
-
-
-// File: Integrator_8h.xml
-
-
-// File: IntegratorMCMiser_8h.xml
-%feature("docstring")  make_integrator_miser "P_integrator_miser<T> make_integrator_miser(const T *object, miser_integrand< T > mem_function, size_t dim)
-
-Template function to create an integrator object 
-";
-
-
-// File: MathFunctions_8cpp.xml
-
-
-// File: MathFunctions_8h.xml
-
-
-// File: Numeric_8cpp.xml
-
-
-// File: Numeric_8h.xml
-
-
-// File: Precomputed_8h.xml
 
 
 // File: PyEmbeddedUtils_8cpp.xml
@@ -1816,6 +1816,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_53458346a71374f205070d8bd3d865f1.xml
+
+
+// File: dir_1deae888303a1f34152fb62b13af5143.xml
 
 
 // File: dir_ec49f598ebf9445998ce86a14e7c0417.xml

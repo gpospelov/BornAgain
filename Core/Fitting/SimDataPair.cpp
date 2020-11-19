@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Core/Fitting/SimDataPair.h"
-#include "Base/Utils/Numeric.h"
+#include "Base/Math/Numeric.h"
 #include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "Device/Instrument/IntensityDataFunctions.h"

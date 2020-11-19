@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_ROOTADAPTER_GSLMULTIMINIMIZER_H
-#define BORNAGAIN_FIT_ROOTADAPTER_GSLMULTIMINIMIZER_H
+#ifndef BORNAGAIN_FIT_ADAPTER_GSLMULTIMINIMIZER_H
+#define BORNAGAIN_FIT_ADAPTER_GSLMULTIMINIMIZER_H
 
 #include "Fit/Adapter/MinimizerAdapter.h"
 
@@ -51,4 +51,4 @@ private:
     std::unique_ptr<ROOT::Math::GSLMinimizer> m_gsl_minimizer;
 };
 
-#endif // BORNAGAIN_FIT_ROOTADAPTER_GSLMULTIMINIMIZER_H
+#endif // BORNAGAIN_FIT_ADAPTER_GSLMULTIMINIMIZER_H

@@ -1,4 +1,4 @@
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Base/Vector/Transform3D.h"
 #include "Sample/Lattice/BakeLattice.h"
 #include "Sample/Lattice/Lattice3D.h"

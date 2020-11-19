@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_SAMPLE_CORRELATIONS_FTDECAY1D_H
 #define BORNAGAIN_SAMPLE_CORRELATIONS_FTDECAY1D_H
 
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Base/Types/ICloneable.h"
 #include "Param/Node/INode.h"
 #include <utility>

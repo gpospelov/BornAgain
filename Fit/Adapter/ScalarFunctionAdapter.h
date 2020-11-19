@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_ROOTADAPTER_SCALARFUNCTIONADAPTER_H
-#define BORNAGAIN_FIT_ROOTADAPTER_SCALARFUNCTIONADAPTER_H
+#ifndef BORNAGAIN_FIT_ADAPTER_SCALARFUNCTIONADAPTER_H
+#define BORNAGAIN_FIT_ADAPTER_SCALARFUNCTIONADAPTER_H
 
 #include "Fit/Adapter/IFunctionAdapter.h"
 #include "Fit/Minimizer/Types.h"
@@ -48,4 +48,4 @@ private:
 
 } //  namespace mumufit
 
-#endif // BORNAGAIN_FIT_ROOTADAPTER_SCALARFUNCTIONADAPTER_H
+#endif // BORNAGAIN_FIT_ADAPTER_SCALARFUNCTIONADAPTER_H

@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Tests/Functional/Fit/Minimizer/ResidualTestPlan.h"
-#include "Base/Utils/Numeric.h"
+#include "Base/Math/Numeric.h"
 #include "Fit/Kernel/Minimizer.h"
 #include <cassert>
 #include <iostream>

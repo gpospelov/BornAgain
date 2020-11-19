@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Device/Detector/RectangularPixel.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 
 RectangularPixel::RectangularPixel(const kvector_t& corner_pos, const kvector_t& width,
                                    const kvector_t& height)

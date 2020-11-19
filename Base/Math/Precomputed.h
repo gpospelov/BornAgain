@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Utils/Precomputed.h
+//! @file      Base/Math/Precomputed.h
 //! @brief     Defines namespace Precomputed, providing precomputed constants
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_BASE_UTILS_PRECOMPUTED_H
-#define BORNAGAIN_BASE_UTILS_PRECOMPUTED_H
+#ifndef BORNAGAIN_BASE_MATH_PRECOMPUTED_H
+#define BORNAGAIN_BASE_MATH_PRECOMPUTED_H
 
 #include <array>
 #include <utility>
@@ -43,4 +43,4 @@ constexpr std::array<double, N> GenerateReciprocalFactorialArray()
 };
 } // namespace Precomputed
 
-#endif // BORNAGAIN_BASE_UTILS_PRECOMPUTED_H
+#endif // BORNAGAIN_BASE_MATH_PRECOMPUTED_H

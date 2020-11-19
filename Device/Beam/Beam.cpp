@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Device/Beam/Beam.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Base/Types/Complex.h"
 #include "Base/Types/Exceptions.h"
 #include "Base/Utils/Assert.h"

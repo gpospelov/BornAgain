@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_RESULT_MINIMIZERRESULTUTILS_H
-#define BORNAGAIN_FIT_RESULT_MINIMIZERRESULTUTILS_H
+#ifndef BORNAGAIN_FIT_ADAPTER_REPORT_H
+#define BORNAGAIN_FIT_ADAPTER_REPORT_H
 
 #include <string>
 
@@ -29,4 +29,4 @@ std::string reportToString(const MinimizerAdapter& minimizer);
 
 }; // namespace report
 
-#endif // BORNAGAIN_FIT_RESULT_MINIMIZERRESULTUTILS_H
+#endif // BORNAGAIN_FIT_ADAPTER_REPORT_H

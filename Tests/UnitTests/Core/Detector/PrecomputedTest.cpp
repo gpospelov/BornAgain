@@ -1,4 +1,4 @@
-#include "Base/Utils/Precomputed.h"
+#include "Base/Math/Precomputed.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 

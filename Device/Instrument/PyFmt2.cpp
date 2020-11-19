@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Device/Instrument/PyFmt2.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Base/Const/Units.h"
 #include "Base/Utils/Algorithms.h"
 #include "Base/Utils/PyFmt.h"

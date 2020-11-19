@@ -14,7 +14,7 @@
 
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
 #include "Base/Types/Exceptions.h"
-#include "Base/Utils/Integrator.h"
+#include "Base/Math/Integrator.h"
 #include "Param/Base/RealParameter.h"
 #include <algorithm>
 

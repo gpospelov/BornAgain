@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_ROOTADAPTER_RESIDUALFUNCTIONADAPTER_H
-#define BORNAGAIN_FIT_ROOTADAPTER_RESIDUALFUNCTIONADAPTER_H
+#ifndef BORNAGAIN_FIT_ADAPTER_RESIDUALFUNCTIONADAPTER_H
+#define BORNAGAIN_FIT_ADAPTER_RESIDUALFUNCTIONADAPTER_H
 
 #include "Fit/Adapter/IFunctionAdapter.h"
 #include "Fit/Minimizer/Types.h"
@@ -58,4 +58,4 @@ private:
 
 } //  namespace mumufit
 
-#endif // BORNAGAIN_FIT_ROOTADAPTER_RESIDUALFUNCTIONADAPTER_H
+#endif // BORNAGAIN_FIT_ADAPTER_RESIDUALFUNCTIONADAPTER_H

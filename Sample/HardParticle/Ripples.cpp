@@ -13,9 +13,9 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/Ripples.h"
-#include "Base/Const/MathConstants.h"
-#include "Base/Utils/Integrator.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Constants.h"
+#include "Base/Math/Integrator.h"
+#include "Base/Math/Functions.h"
 
 complex_t ripples::factor_x_box(complex_t q, double r)
 {

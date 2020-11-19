@@ -13,9 +13,9 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorCylinder.h"
-#include "Base/Const/MathConstants.h"
-#include "Base/Utils/Bessel.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Constants.h"
+#include "Base/Math/Bessel.h"
+#include "Base/Math/Functions.h"
 #include "Sample/Shapes/DoubleEllipse.h"
 
 FormFactorCylinder::FormFactorCylinder(const std::vector<double> P)

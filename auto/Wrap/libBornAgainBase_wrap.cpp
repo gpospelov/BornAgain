@@ -6658,7 +6658,7 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Base/Vector/BasicVector3D.h"
 #include "Base/Vector/Vectors3D.h"
 
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Functions.h"
 
 #include "Base/Axis/Bin.h"
 #include "Base/Axis/ConstKBinAxis.h"

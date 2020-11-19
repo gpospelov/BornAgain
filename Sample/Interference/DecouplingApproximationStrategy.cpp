@@ -15,7 +15,7 @@
 #include "Sample/Interference/DecouplingApproximationStrategy.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Base/Types/Exceptions.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Functions.h"
 #include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"

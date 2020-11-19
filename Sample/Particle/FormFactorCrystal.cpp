@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Sample/Particle/FormFactorCrystal.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Base/Types/Exceptions.h"
 #include "Sample/Material/WavevectorInfo.h"
 

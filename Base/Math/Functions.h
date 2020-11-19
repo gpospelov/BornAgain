@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Utils/MathFunctions.h
+//! @file      Base/Math/Functions.h
 //! @brief     Defines functions in namespace Math.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_BASE_UTILS_MATHFUNCTIONS_H
-#define BORNAGAIN_BASE_UTILS_MATHFUNCTIONS_H
+#ifndef BORNAGAIN_BASE_MATH_FUNCTIONS_H
+#define BORNAGAIN_BASE_MATH_FUNCTIONS_H
 
 #include "Base/Types/Complex.h"
 #include <vector>
@@ -60,4 +60,4 @@ double GeneratePoissonRandom(double average);
 
 } // Namespace Math
 
-#endif // BORNAGAIN_BASE_UTILS_MATHFUNCTIONS_H
+#endif // BORNAGAIN_BASE_MATH_FUNCTIONS_H

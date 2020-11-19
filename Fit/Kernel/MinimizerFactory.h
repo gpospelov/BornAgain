@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZERFACTORY_H
-#define BORNAGAIN_FIT_MINIMIZER_MINIMIZERFACTORY_H
+#ifndef BORNAGAIN_FIT_KERNEL_MINIMIZERFACTORY_H
+#define BORNAGAIN_FIT_KERNEL_MINIMIZERFACTORY_H
 
 #include "Fit/Minimizer/MinimizerCatalog.h"
 #include <string>
@@ -39,4 +39,4 @@ public:
     static const MinimizerCatalog& catalog();
 };
 
-#endif // BORNAGAIN_FIT_MINIMIZER_MINIMIZERFACTORY_H
+#endif // BORNAGAIN_FIT_KERNEL_MINIMIZERFACTORY_H

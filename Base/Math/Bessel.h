@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Utils/Bessel.h
+//! @file      Base/Math/Bessel.h
 //! @brief     Defines Bessel functions in namespace Math.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_BASE_UTILS_BESSEL_H
-#define BORNAGAIN_BASE_UTILS_BESSEL_H
+#ifndef BORNAGAIN_BASE_MATH_BESSEL_H
+#define BORNAGAIN_BASE_MATH_BESSEL_H
 
 #include "Base/Types/Complex.h"
 #include <vector>
@@ -49,4 +49,4 @@ complex_t J1c(const complex_t z);
 } // namespace Bessel
 } // namespace Math
 
-#endif // BORNAGAIN_BASE_UTILS_BESSEL_H
+#endif // BORNAGAIN_BASE_MATH_BESSEL_H

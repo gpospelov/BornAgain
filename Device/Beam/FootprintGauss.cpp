@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Device/Beam/FootprintGauss.h"
-#include "Base/Const/MathConstants.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Constants.h"
+#include "Base/Math/Functions.h"
 #include "Base/Utils/PyFmt.h"
 
 FootprintGauss::FootprintGauss(const std::vector<double> P)

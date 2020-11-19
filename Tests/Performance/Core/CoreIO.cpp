@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Base/Utils/Numeric.h"
+#include "Base/Math/Numeric.h"
 #include "Device/Data/OutputData.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "Tests/Performance/Benchmark.h"

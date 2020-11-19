@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Utils/Integrator.cpp
+//! @file      Base/Math/Integrator.cpp
 //! @brief     Implements classes RealIntegrator, ComplexIntegrator.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Base/Utils/Integrator.h"
+#include "Base/Math/Integrator.h"
 
 RealIntegrator::RealIntegrator()
     : m_gsl_f{m_Cfunction, nullptr}, m_workspace{gsl_integration_workspace_alloc(200)}

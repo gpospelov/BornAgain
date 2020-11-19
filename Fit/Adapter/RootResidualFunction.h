@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_ROOTADAPTER_ROOTRESIDUALFUNCTION_H
-#define BORNAGAIN_FIT_ROOTADAPTER_ROOTRESIDUALFUNCTION_H
+#ifndef BORNAGAIN_FIT_ADAPTER_ROOTRESIDUALFUNCTION_H
+#define BORNAGAIN_FIT_ADAPTER_ROOTRESIDUALFUNCTION_H
 
 #include "Fit/Minimizer/Types.h"
 
@@ -56,4 +56,4 @@ private:
     size_t m_datasize;
 };
 
-#endif // BORNAGAIN_FIT_ROOTADAPTER_ROOTRESIDUALFUNCTION_H
+#endif // BORNAGAIN_FIT_ADAPTER_ROOTRESIDUALFUNCTION_H

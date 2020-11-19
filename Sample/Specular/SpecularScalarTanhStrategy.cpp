@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
-#include "Base/Const/MathConstants.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Constants.h"
+#include "Base/Math/Functions.h"
 #include <Eigen/Dense>
 
 namespace

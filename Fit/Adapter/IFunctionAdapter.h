@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H
-#define BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H
+#ifndef BORNAGAIN_FIT_ADAPTER_IFUNCTIONADAPTER_H
+#define BORNAGAIN_FIT_ADAPTER_IFUNCTIONADAPTER_H
 
 namespace mumufit
 {
@@ -37,4 +37,4 @@ protected:
 
 } // namespace mumufit
 
-#endif // BORNAGAIN_FIT_KERNEL_IFUNCTIONADAPTER_H
+#endif // BORNAGAIN_FIT_ADAPTER_IFUNCTIONADAPTER_H

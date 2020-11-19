@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_ROOTADAPTER_ROOTSCALARFUNCTION_H
-#define BORNAGAIN_FIT_ROOTADAPTER_ROOTSCALARFUNCTION_H
+#ifndef BORNAGAIN_FIT_ADAPTER_ROOTSCALARFUNCTION_H
+#define BORNAGAIN_FIT_ADAPTER_ROOTSCALARFUNCTION_H
 
 #include "Fit/Minimizer/Types.h"
 
@@ -35,4 +35,4 @@ public:
     RootScalarFunction(root_scalar_t fcn, int ndims);
 };
 
-#endif // BORNAGAIN_FIT_ROOTADAPTER_ROOTSCALARFUNCTION_H
+#endif // BORNAGAIN_FIT_ADAPTER_ROOTSCALARFUNCTION_H

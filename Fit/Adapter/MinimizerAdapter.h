@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_FIT_ROOTADAPTER_ROOTMINIMIZERADAPTER_H
-#define BORNAGAIN_FIT_ROOTADAPTER_ROOTMINIMIZERADAPTER_H
+#ifndef BORNAGAIN_FIT_ADAPTER_MINIMIZERADAPTER_H
+#define BORNAGAIN_FIT_ADAPTER_MINIMIZERADAPTER_H
 
 #include "Fit/Minimizer/IMinimizer.h"
 #include "Fit/Minimizer/MinimizerInfo.h"
@@ -122,4 +122,4 @@ template <class T> T MinimizerAdapter::optionValue(const std::string& optionName
     return m_options.optionValue<T>(optionName);
 }
 
-#endif // BORNAGAIN_FIT_ROOTADAPTER_ROOTMINIMIZERADAPTER_H
+#endif // BORNAGAIN_FIT_ADAPTER_MINIMIZERADAPTER_H

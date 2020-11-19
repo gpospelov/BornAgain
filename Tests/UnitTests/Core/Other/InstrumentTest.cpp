@@ -1,5 +1,5 @@
 #include "Device/Instrument/Instrument.h"
-#include "Base/Const/MathConstants.h"
+#include "Base/Math/Constants.h"
 #include "Device/Data/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 

@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Device/Resolution/ResolutionFunction2DGaussian.h"
-#include "Base/Utils/MathFunctions.h"
+#include "Base/Math/Functions.h"
 #include "Param/Base/RealParameter.h"
 
 ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, double sigma_y)

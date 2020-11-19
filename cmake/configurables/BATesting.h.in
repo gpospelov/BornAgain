@@ -37,21 +37,25 @@ inline std::string CoreReferenceDir()
     return "@TEST_REFERENCE_DIR@/Core";
 }
 
-inline std::string TestOutputDir()
+inline std::string TestOutDir()
 {
     return "@TEST_OUTPUT_DIR@";
 }
-inline std::string StdOutputDir()
+inline std::string TestOutDir_Std()
 {
-    return "@TEST_OUTPUT_DIR@/Functional/Std";
+    return "@TEST_OUTPUT_DIR@/Std";
 }
-inline std::string CoreOutputDir()
+inline std::string TestOutDir_Core()
 {
-    return "@TEST_OUTPUT_DIR@/Functional/Core";
+    return "@TEST_OUTPUT_DIR@/Core";
 }
-inline std::string PyStandardOutputDir()
+inline std::string TestOutDir_PyStd()
 {
-    return "@TEST_OUTPUT_DIR@/Functional/Python/Std";
+    return "@TEST_OUTPUT_DIR@/PyStd";
+}
+inline std::string TestOutDir_GUI()
+{
+    return "@TEST_OUTPUT_DIR@/GUI";
 }
 
 } // namespace BATesting

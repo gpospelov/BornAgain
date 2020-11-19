@@ -52,7 +52,7 @@ TEST_F(CoreIOPathTest, CoreIOPath)
     const char dirname_rus[] =
         "\xd0\xb4\xd0\xb8\xd1\x80\xd0\xb5\xd0\xba\xd1\x82\xd0\xbe\xd1\x80\xd0\xb8\xd1\x8f";
 
-    const boost::filesystem::path test_dir(BATesting::CoreOutputDir());
+    const boost::filesystem::path test_dir(BATesting::TestOutDir_Core());
     const boost::filesystem::path test_subdir("test_CoreIOPathTest");
 
     FileSystemUtils::createDirectories((test_dir / test_subdir).string());

@@ -68,9 +68,9 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
         success = IntensityDataFunctions::getRelativeDifference(*fft, *reference_fft) <= threshold;
 
     if (!success) {
-        FileSystemUtils::createDirectory(BATesting::CoreOutputDir());
+        FileSystemUtils::createDirectory(BATesting::TestOutDir_Core());
         std::string out_fname = FileSystemUtils::jointPath(
-            BATesting::CoreOutputDir(), FileSystemUtils::filename(reference_fft_name));
+            BATesting::TestOutDir_Core(), FileSystemUtils::filename(reference_fft_name));
         IntensityDataIOFactory::writeOutputData(*fft, out_fname);
         std::cout << "New fft image stored in " << out_fname << std::endl;
     }

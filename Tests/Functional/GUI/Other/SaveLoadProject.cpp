@@ -44,7 +44,7 @@ const int success = 0;
 QString path(const QString& projectName)
 {
     return QString::fromStdString(
-        FileSystemUtils::jointPath(BATesting::GUIOutputDir(), projectName.toStdString()));
+        FileSystemUtils::jointPath(BATesting::TestOutDir_GUI(), projectName.toStdString()));
 }
 } // namespace
 

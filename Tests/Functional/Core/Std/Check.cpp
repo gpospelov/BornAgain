@@ -48,9 +48,9 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
     // Save simulation if different from reference.
     if (!success) {
         std::cout << "- failure ..." << std::endl;
-        FileSystemUtils::createDirectories(BATesting::StdOutputDir());
+        FileSystemUtils::createDirectories(BATesting::TestOutDir_Std());
         std::string out_fname =
-            FileSystemUtils::jointPath(BATesting::StdOutputDir(), name + ".int.gz");
+            FileSystemUtils::jointPath(BATesting::TestOutDir_Std(), name + ".int.gz");
         IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
         std::cout << "New simulation result stored in " << out_fname << "\n"
                   << "To visualize an intensity map, use " << BABuild::buildBinDir()

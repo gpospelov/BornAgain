@@ -78,7 +78,7 @@ def get_minified_simulation():
     """
     Returns a simulation constructed from example simulation with smaller detector.
     """
-    if "ex06_Reflectometry" in EXAMPLE_DIR:
+    if "sim21_Reflectometry" in EXAMPLE_DIR:
         return get_simulation_SpecularSimulation()
 
     elif EXAMPLE_NAME == "RectangularGrating":
@@ -138,7 +138,6 @@ def save_result(result, filename):
         print("Exception caught, failed to write file", err)
 
 
-
 def check_result(result, example_name):
     print("Checking results for '{}'".format(example_name))
     reffile = get_reffile_name(example_name)
@@ -184,4 +183,3 @@ def process_example():
 
 if __name__ == '__main__':
     sys.exit(process_example())
-

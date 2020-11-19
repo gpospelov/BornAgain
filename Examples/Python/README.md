@@ -7,3 +7,6 @@ Content:
 
 All simulation examples are under continuous test coverage
 through Tests/Functional/Python/PyExamples/CMakeLists.txt.
+
+Additionally, many simulation examples are also tested
+through Tests/Functional/Python/PyPersistence/CMakeLists.txt.

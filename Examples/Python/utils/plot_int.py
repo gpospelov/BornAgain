@@ -6,6 +6,7 @@ Can handle both 1D and 2D arrays.
 Usage: plot_int.py intensity_file.int.gz [intensity_max]
 '''
 
+import argparse
 import sys
 import numpy as np
 import bornagain as ba
@@ -15,10 +16,12 @@ rc('font', **{'family': 'sans-serif', 'sans-serif': ['Helvetica']})
 rc('text', usetex=True)
 
 
-def plot_int(file_name, intensity_max=None):
-    data = ba.IntensityDataIOFactory.readIntensityData(file_name)
-    if intensity_max is None:
+def plot_int(args):
+    data = ba.IntensityDataIOFactory.readIntensityData(args.file)
+    if args.max is None:
         intensity_max = data.getMaximum()
+    if args.verbose:
+        print(f'Data extend from {data.getMinimum()} to {data.getMaximum()}')
     if data.rank() == 1:
         plot_int_1d(data, intensity_max)
     elif data.rank() == 2:
@@ -65,10 +68,13 @@ def plot_raw_data_1d(axis, values, log_y=True):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2 or len(sys.argv) > 3:
-        exit(Helptext)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-v", "--verbose", help="print some output to the terminal",
+                        action="store_true")
+    parser.add_argument("file", type=str,
+                        help="input data file (.int or .int.gz)")
+    parser.add_argument("-u", "--min", type=int, help="upper plot limit")
+    parser.add_argument("-l", "--max", type=int, help="lower plot limit")
+    args = parser.parse_args()
 
-    if len(sys.argv) == 2:
-        plot_int(sys.argv[1])
-    else:
-        plot_int(sys.argv[1], float(sys.argv[2]))
+    plot_int(args)

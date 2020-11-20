@@ -3,7 +3,11 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Tests/Functional/Std/StandardTests.h
-//! @brief     Implements class StandardTestCatalog.
+//! @brief     Provides TEST_F stances that define the BornAgain standard tests.
+//!
+//!            Each of these stances runs one standard test.
+//!            The function run, defined in file Run.cpp, is the same for Core/Py/GUI std tests.
+//!            It calls a function checkSimulation that is different for those three test suites.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

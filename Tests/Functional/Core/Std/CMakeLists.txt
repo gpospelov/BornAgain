@@ -1,3 +1,17 @@
+#   ************************************************************************************************
+#
+#   BornAgain: simulate and fit scattering at grazing incidence
+#
+#!  @file      Tests/Functional/Core/Std/CMakeLists.txt
+#!  @brief     Builds Core standard tests.
+#
+#!  @homepage  http://www.bornagainproject.org
+#!  @license   GNU General Public License v3 or higher (see COPYING)
+#!  @copyright Forschungszentrum Jülich GmbH 2018
+#!  @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+#
+#   ************************************************************************************************
+
 include(GoogleTest) # provides gtest_discover_tests
 
 set(test TestCoreStd)

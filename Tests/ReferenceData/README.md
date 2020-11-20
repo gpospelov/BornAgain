@@ -1,16 +1,18 @@
 #### Reference data for functional tests
 
-Core
-: used by Tests/Functional/Core/CoreSpecial
+`Core`
+: used by `Tests/Functional/Core/CoreSpecial`
 
-PyCore
-: used by Tests/Functional/Tests/Functional/Python/PyCore
+`PyCore`
+: used by `Tests/Functional/Tests/Functional/Python/PyCore`
 
-PyPersist
-: used by Tests/Functional/Tests/Functional/Python/PyPersist
+`PyPersist`
+: used by `Tests/Functional/Tests/Functional/Python/PyPersist`
 
-Std
+`Std`
 : used by Core, Python, and GUI standard tests
 
-To visualize one data file, call
-> python3 Examples/Python/utils/plot_intensity_data.py <reference.int.gz>
+To visualize one data file, run
+> `plot_int.py <reference.int.gz>`
+
+This script is provided in `Examples/Python/utils`, and copied verbatim to `<build>/bin`.

@@ -2,7 +2,7 @@
 '''
 Plots data stored in BornAgain "*.int" or "*.int.gz" format
 Can handle both 1D and 2D arrays
-Usage: python plot_intensity_data.py intensity_file.int.gz [intensity_max]
+Usage: python plot_int.py intensity_file.int.gz [intensity_max]
 '''
 
 import sys
@@ -14,19 +14,19 @@ rc('font', **{'family': 'sans-serif', 'sans-serif': ['Helvetica']})
 rc('text', usetex=True)
 
 
-def plot_intensity_data(file_name, intensity_max=None):
+def plot_int(file_name, intensity_max=None):
     data = ba.IntensityDataIOFactory.readIntensityData(file_name)
     if intensity_max is None:
         intensity_max = data.getMaximum()
     if data.rank() == 1:
-        plot_intensity_data_1d(data, intensity_max)
+        plot_int_1d(data, intensity_max)
     elif data.rank() == 2:
-        plot_intensity_data_2d(data, intensity_max)
+        plot_int_2d(data, intensity_max)
     else:
-        exit("Error in plot_intensity_data: wrong data rank")
+        exit("Error in plot_int: wrong data rank")
 
 
-def plot_intensity_data_2d(histogram, intensity_max):
+def plot_int_2d(histogram, intensity_max):
     plot_raw_data_2d(histogram.array(), [
         histogram.getXmin()/ba.deg,
         histogram.getXmax()/ba.deg,
@@ -47,7 +47,7 @@ def plot_raw_data_2d(values, extent_array, intensity_max):
     plt.show()
 
 
-def plot_intensity_data_1d(histogram, intensity_max):
+def plot_int_1d(histogram, intensity_max):
     axis_values = np.asarray(histogram.xAxis().binCenters())/ba.deg
     array_values = histogram.array()*intensity_max/histogram.getMaximum()
     plot_raw_data_1d(axis_values, array_values)
@@ -65,9 +65,9 @@ def plot_raw_data_1d(axis, values, log_y=True):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2 or len(sys.argv) > 3:
-        exit("Usage: plot_intensity_data.py intensity_file.int.gz [intensity_max]")
+        exit("Usage: plot_int.py intensity_file.int.gz [intensity_max]")
 
     if len(sys.argv) == 2:
-        plot_intensity_data(sys.argv[1])
+        plot_int(sys.argv[1])
     else:
-        plot_intensity_data(sys.argv[1], float(sys.argv[2]))
+        plot_int(sys.argv[1], float(sys.argv[2]))

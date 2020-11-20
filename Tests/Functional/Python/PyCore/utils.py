@@ -60,7 +60,7 @@ def get_simulation_BasicGISAS(sample=None):
     return simulation
 
 
-def plot_intensity_data(intensity):
+def plot_int(intensity):
     import matplotlib, pylab
     data = intensity.getArray() + 1
     # data = numpy.abs(intensity.getArray())

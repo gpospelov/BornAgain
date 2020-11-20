@@ -22,13 +22,17 @@
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <iostream>
 
+//! Run simulation directly (in C+ core), and compare result with reference data.
+
 bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
                      const double limit) {
+
+    // Run simulation directly.
     const auto result_data = direct_simulation.result().data();
 
     std::unique_ptr<OutputData<double>> reference;
 
-    // Load reference if available
+    // Load reference if available.
     ASSERT(name != "");
     try {
         const std::string refPath = FileSystemUtils::jointPath(

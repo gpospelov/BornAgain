@@ -33,11 +33,10 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
     try {
         const std::string refPath = FileSystemUtils::jointPath(
             BATesting::ReferenceDir_Std(), name + ".int.gz");
-        std::cout << "- compare with reference: " << refPath << "\n";
+        std::cout << "- reference: " << refPath << "\n";
         reference.reset(IntensityDataIOFactory::readOutputData(refPath));
     } catch (const std::exception&) {
-        std::cout << "Failure: reference not found\n";
-        std::cout << "  note: we proceed with the simulation to create a new one\n";
+        std::cout << "Failure: cannot read reference\n";
     }
 
     // Compare with reference if available.
@@ -47,7 +46,8 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
             std::cout << "- success" << std::endl;
             return true; // regular exit
         }
-        std::cout << "Failure ..." << std::endl;
+    } else {
+        std::cout << "Failure: reference not found\n";
     }
 
     // Save simulation, as it differs from reference.
@@ -55,12 +55,14 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
     std::string out_fname =
         FileSystemUtils::jointPath(BATesting::TestOutDir_Std(), name + ".int.gz");
     IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
-    std::cout << "New simulation result: " << out_fname << "\n"
-              << "To visualize an intensity map, use " << BABuild::buildBinDir() << "/plot_int.py;"
-              << "   to plot a difference image, use " << BABuild::buildBinDir()
+    std::cout << "Notes:\n- to visualize an intensity map, use " << BABuild::buildBinDir()
+              << "/plot_int.py\n"
+              << "- to plot a difference image, use " << BABuild::buildBinDir()
               << "/plot_diff_int.py\n"
-              << "If the new result is correct, then move it to "
-              << BATesting::ReferenceDir_Core() << "/\n";
+              << "- if the new simulation result\n"
+              << out_fname << "\n"
+              << "  is correct, then move it to the reference directory\n"
+              << BATesting::ReferenceDir_Std() << "/\n\n";
 
     return false;
 }

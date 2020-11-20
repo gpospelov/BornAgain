@@ -8,7 +8,7 @@ sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 from bornagain import deg, angstrom
 
-REFERENCE_DIR = "@PYCORE_REFERENCE_DIR@"
+REFERENCE_DIR = "@TEST_REFERENCE_DIR_PY_CORE@"
 
 
 def get_difference(data, reference):

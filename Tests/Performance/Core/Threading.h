@@ -22,8 +22,7 @@
 //! Two aspects are addressed: performance scaling with number of threads, influence of
 //! simulation settings on scaling.
 
-class MultiThreadPerformanceTest
-{
+class MultiThreadPerformanceTest {
 public:
     bool runTest();
 

@@ -21,8 +21,7 @@ class SessionItem;
 class MultiLayerItem;
 
 //! Validates SampleModel for MultiLayerItem suitable for simulation
-class SampleValidator
-{
+class SampleValidator {
 public:
     SampleValidator();
 

@@ -25,8 +25,7 @@ class ScientificPlot;
 //! Provides event filter for ScientificPlot. Its goal is to make font size adjustments
 //! on resize events.
 
-class FontScalingEvent : public QObject
-{
+class FontScalingEvent : public QObject {
     Q_OBJECT
 
 public:

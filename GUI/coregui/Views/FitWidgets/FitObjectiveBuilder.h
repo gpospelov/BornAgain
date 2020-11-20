@@ -20,8 +20,7 @@
 class JobItem;
 class FitObjective;
 class ISimulation;
-namespace mumufit
-{
+namespace mumufit {
 class Parameters;
 }
 template <class T> class OutputData;
@@ -29,8 +28,7 @@ class IMinimizer;
 class GUIFitObserver;
 class IChiSquaredModule;
 
-class FitObjectiveBuilder
-{
+class FitObjectiveBuilder {
 public:
     FitObjectiveBuilder(JobItem* jobItem);
     ~FitObjectiveBuilder();

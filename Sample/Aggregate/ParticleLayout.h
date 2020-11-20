@@ -27,8 +27,7 @@ class IParticle;
 //! Decorator class that adds particles to ISample objects.
 //! @ingroup samples
 
-class ParticleLayout : public ISample
-{
+class ParticleLayout : public ISample {
 public:
     ParticleLayout();
     ParticleLayout(const IAbstractParticle& particle, double abundance = -1.0);

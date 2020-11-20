@@ -20,19 +20,16 @@ ComputeBAPol::ComputeBAPol(const IFormFactor& ff) : IComputeFF(ff) {}
 
 ComputeBAPol::~ComputeBAPol() = default;
 
-ComputeBAPol* ComputeBAPol::clone() const
-{
+ComputeBAPol* ComputeBAPol::clone() const {
     return new ComputeBAPol(*m_ff);
 }
 
-complex_t ComputeBAPol::evaluate(const WavevectorInfo&) const
-{
+complex_t ComputeBAPol::evaluate(const WavevectorInfo&) const {
     throw std::runtime_error("ComputeBAPol::evaluate: "
                              "should never be called for matrix interactions");
 }
 
-Eigen::Matrix2cd ComputeBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
-{
+Eigen::Matrix2cd ComputeBAPol::evaluatePol(const WavevectorInfo& wavevectors) const {
     Eigen::Matrix2cd ff_BA = m_ff->evaluatePol(wavevectors);
     Eigen::Matrix2cd result;
     result(0, 0) = -ff_BA(1, 0);

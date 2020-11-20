@@ -21,39 +21,31 @@ RefractiveMaterialImpl::RefractiveMaterialImpl(const std::string& name, double d
     , m_delta(delta)
     , m_beta(beta < 0. ? throw std::runtime_error(
                  "The imaginary part of the refractive index must be greater or equal zero")
-                       : beta)
-{
-}
+                       : beta) {}
 
-RefractiveMaterialImpl* RefractiveMaterialImpl::clone() const
-{
+RefractiveMaterialImpl* RefractiveMaterialImpl::clone() const {
     return new RefractiveMaterialImpl(*this);
 }
 
-complex_t RefractiveMaterialImpl::refractiveIndex(double) const
-{
+complex_t RefractiveMaterialImpl::refractiveIndex(double) const {
     return complex_t(1.0 - m_delta, m_beta);
 }
 
-complex_t RefractiveMaterialImpl::refractiveIndex2(double) const
-{
+complex_t RefractiveMaterialImpl::refractiveIndex2(double) const {
     complex_t result(1.0 - m_delta, m_beta);
     return result * result;
 }
 
-complex_t RefractiveMaterialImpl::materialData() const
-{
+complex_t RefractiveMaterialImpl::materialData() const {
     return complex_t(m_delta, m_beta);
 }
 
-complex_t RefractiveMaterialImpl::scalarSubtrSLD(const WavevectorInfo& wavevectors) const
-{
+complex_t RefractiveMaterialImpl::scalarSubtrSLD(const WavevectorInfo& wavevectors) const {
     double wavelength = wavevectors.getWavelength();
     return M_PI / wavelength / wavelength * refractiveIndex2(wavelength);
 }
 
-void RefractiveMaterialImpl::print(std::ostream& ostr) const
-{
+void RefractiveMaterialImpl::print(std::ostream& ostr) const {
     ostr << "RefractiveMaterial:" << getName() << "<" << this << ">{ "
          << "delta=" << m_delta << ", beta=" << m_beta << ", B=" << magnetization() << "}";
 }

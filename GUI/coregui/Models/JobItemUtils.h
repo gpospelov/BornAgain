@@ -27,8 +27,7 @@ class ISimulation;
 //! Contains set of convenience methods to set data to the IntensityDataItem from domain simulation.
 //! Used to modify OutputData's axes units as requested by IntensityDataItem.
 
-namespace JobItemUtils
-{
+namespace JobItemUtils {
 //! updates axes of OutputData in IntensityData item
 void updateDataAxes(DataItem* intensityItem, const InstrumentItem* instrumentItem);
 

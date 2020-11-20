@@ -21,24 +21,21 @@
 #include <memory>
 #include <string>
 
-namespace mumufit
-{
+namespace mumufit {
 class Parameters;
 class Parameter;
 class ObjectiveFunctionAdapter;
 class MinimizerResult;
 } // namespace mumufit
 
-namespace ROOT::Math
-{
+namespace ROOT::Math {
 class Minimizer;
 }
 
 //! Abstract base class that adapts the CERN ROOT minimizer to our IMinimizer.
 //! @ingroup fitting_internal
 
-class MinimizerAdapter : public IMinimizer
-{
+class MinimizerAdapter : public IMinimizer {
 public:
     typedef ROOT::Math::Minimizer root_minimizer_t;
 
@@ -50,14 +47,14 @@ public:
                                                mumufit::Parameters parameters) override;
 
     //! Returns name of the minimizer.
-    std::string minimizerName() const override final;
+    std::string minimizerName() const final;
 
     //! Returns name of the minimization algorithm.
-    std::string algorithmName() const override final;
+    std::string algorithmName() const final;
 
     void setParameters(const mumufit::Parameters& parameters);
 
-    double minValue() const override final;
+    double minValue() const final;
 
     MinimizerOptions& options() { return m_options; }
     const MinimizerOptions& options() const { return m_options; }
@@ -72,7 +69,7 @@ public:
     virtual std::map<std::string, std::string> statusMap() const;
 
     //! Sets option string to the minimizer
-    void setOptions(const std::string& optionString) override final;
+    void setOptions(const std::string& optionString) final;
 
 protected:
     MinimizerAdapter(const MinimizerInfo& minimizerInfo);
@@ -107,18 +104,15 @@ private:
 
 template <class T>
 OptionContainer::option_t MinimizerAdapter::addOption(const std::string& optionName, T value,
-                                                      const std::string& description)
-{
+                                                      const std::string& description) {
     return m_options.addOption(optionName, value, description);
 }
 
-template <class T> void MinimizerAdapter::setOptionValue(const std::string& optionName, T value)
-{
+template <class T> void MinimizerAdapter::setOptionValue(const std::string& optionName, T value) {
     m_options.setOptionValue(optionName, value);
 }
 
-template <class T> T MinimizerAdapter::optionValue(const std::string& optionName) const
-{
+template <class T> T MinimizerAdapter::optionValue(const std::string& optionName) const {
     return m_options.optionValue<T>(optionName);
 }
 

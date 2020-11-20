@@ -25,8 +25,7 @@ class IRotation;
 
 //! @ingroup samples
 
-class IAbstractParticle : public ISample
-{
+class IAbstractParticle : public ISample {
 public:
     IAbstractParticle() = default;
     IAbstractParticle(const NodeMeta& meta, const std::vector<double>& PValues);

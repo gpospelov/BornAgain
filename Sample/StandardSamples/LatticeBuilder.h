@@ -20,8 +20,7 @@
 //! Builds sample: cylinders with 1DDL structure factor.
 //! @ingroup standard_samples
 
-class Lattice1DBuilder : public ISampleBuilder
-{
+class Lattice1DBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

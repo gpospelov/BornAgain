@@ -29,8 +29,7 @@ class UpdateTimer;
 //! Provides minimal functionality for data plotting and axes interaction. Should be a component
 //! for more complicated plotting widgets. Corresponds to ColorMap for 2D intensity data.
 
-class SpecularPlot : public ScientificPlot
-{
+class SpecularPlot : public ScientificPlot {
     Q_OBJECT
 
 public:

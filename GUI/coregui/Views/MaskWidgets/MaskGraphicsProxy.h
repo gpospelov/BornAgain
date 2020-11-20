@@ -26,8 +26,7 @@ class IntensityDataItem;
 
 //! Graphics proxy to place QWidget inside QGraphicsScene, used by MaskEditorCanvas.
 
-class MaskGraphicsProxy : public QGraphicsProxyWidget
-{
+class MaskGraphicsProxy : public QGraphicsProxyWidget {
     Q_OBJECT
 
 public:

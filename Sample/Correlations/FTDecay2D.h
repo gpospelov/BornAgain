@@ -22,8 +22,7 @@
 
 //! Interface for two-dimensional decay function in reciprocal space.
 //! @ingroup decayFT_internal
-class IFTDecayFunction2D : public ICloneable, public INode
-{
+class IFTDecayFunction2D : public ICloneable, public INode {
 public:
     IFTDecayFunction2D(const NodeMeta& meta, const std::vector<double>& PValues);
 
@@ -59,8 +58,7 @@ private:
 //! corresponds to exp(-r) in real space,
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup decayFT
-class FTDecayFunction2DCauchy : public IFTDecayFunction2D
-{
+class FTDecayFunction2DCauchy : public IFTDecayFunction2D {
 public:
     FTDecayFunction2DCauchy(const std::vector<double> P);
     FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y, double gamma);
@@ -74,8 +72,7 @@ public:
 //! corresponds to exp(-r^2/2) in real space,
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup decayFT
-class FTDecayFunction2DGauss : public IFTDecayFunction2D
-{
+class FTDecayFunction2DGauss : public IFTDecayFunction2D {
 public:
     FTDecayFunction2DGauss(const std::vector<double> P);
     FTDecayFunction2DGauss(double decay_length_x, double decay_length_y, double gamma);
@@ -88,8 +85,7 @@ public:
 //! Two-dimensional pseudo-Voigt decay function in reciprocal space;
 //! corresponds to eta*Gauss + (1-eta)*Cauchy.
 //! @ingroup decayFT
-class FTDecayFunction2DVoigt : public IFTDecayFunction2D
-{
+class FTDecayFunction2DVoigt : public IFTDecayFunction2D {
 public:
     FTDecayFunction2DVoigt(const std::vector<double> P);
     FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y, double gamma, double eta);

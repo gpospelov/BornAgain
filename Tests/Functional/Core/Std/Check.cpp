@@ -23,8 +23,7 @@
 #include <iostream>
 
 bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
-                     const double limit)
-{
+                     const double limit) {
     const auto result_data = direct_simulation.result().data();
 
     std::unique_ptr<OutputData<double>> reference;
@@ -33,7 +32,7 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
     ASSERT(name != "");
     try {
         reference.reset(IntensityDataIOFactory::readOutputData(
-            FileSystemUtils::jointPath(BATesting::StdReferenceDir(), name + ".int.gz")));
+            FileSystemUtils::jointPath(BATesting::ReferenceDir_Std(), name + ".int.gz")));
     } catch (const std::exception&) {
         std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
     }
@@ -48,9 +47,9 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
     // Save simulation if different from reference.
     if (!success) {
         std::cout << "- failure ..." << std::endl;
-        FileSystemUtils::createDirectories(BATesting::StdOutputDir());
+        FileSystemUtils::createDirectories(BATesting::TestOutDir_Std());
         std::string out_fname =
-            FileSystemUtils::jointPath(BATesting::StdOutputDir(), name + ".int.gz");
+            FileSystemUtils::jointPath(BATesting::TestOutDir_Std(), name + ".int.gz");
         IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
         std::cout << "New simulation result stored in " << out_fname << "\n"
                   << "To visualize an intensity map, use " << BABuild::buildBinDir()
@@ -58,7 +57,7 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
                   << "   to plot a difference image, use " << BABuild::buildBinDir()
                   << "/plot_intensity_data_diff.py\n"
                   << "If the new result is correct, then move it to "
-                  << BATesting::CoreReferenceDir() << "/\n";
+                  << BATesting::ReferenceDir_Core() << "/\n";
     }
 
     return success;

@@ -18,8 +18,7 @@
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 #include "Sample/Particle/ParticleComposition.h"
 
-class BA_CORE_API_ ParticleCompositionItem : public SessionGraphicsItem
-{
+class BA_CORE_API_ ParticleCompositionItem : public SessionGraphicsItem {
 public:
     static const QString T_PARTICLES;
     ParticleCompositionItem();

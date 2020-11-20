@@ -23,8 +23,7 @@
 
 //! Limitation: this class assumes that the data points are evenly distributed on each axis
 
-class ConvolutionDetectorResolution : public IDetectorResolution
-{
+class ConvolutionDetectorResolution : public IDetectorResolution {
 public:
     typedef double (*cumulative_DF_1d)(double);
 
@@ -62,8 +61,7 @@ private:
     std::unique_ptr<IResolutionFunction2D> m_res_function_2d;
 };
 
-inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolutionFunction2D() const
-{
+inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolutionFunction2D() const {
     return m_res_function_2d.get();
 }
 

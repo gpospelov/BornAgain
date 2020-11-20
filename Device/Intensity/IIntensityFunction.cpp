@@ -18,22 +18,18 @@
 
 IIntensityFunction::~IIntensityFunction() = default;
 
-IntensityFunctionLog* IntensityFunctionLog::clone() const
-{
+IntensityFunctionLog* IntensityFunctionLog::clone() const {
     return new IntensityFunctionLog;
 }
 
-double IntensityFunctionLog::evaluate(double value) const
-{
+double IntensityFunctionLog::evaluate(double value) const {
     return value > 0 ? std::log(value) : std::numeric_limits<double>::lowest();
 }
 
-IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const
-{
+IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const {
     return new IntensityFunctionSqrt;
 }
 
-double IntensityFunctionSqrt::evaluate(double value) const
-{
+double IntensityFunctionSqrt::evaluate(double value) const {
     return value > 0 ? std::sqrt(value) : std::numeric_limits<double>::lowest();
 }

@@ -4,15 +4,13 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 
-class DistributionHandlerTest : public ::testing::Test
-{
+class DistributionHandlerTest : public ::testing::Test {
 protected:
     DistributionHandlerTest() : m_value(99.0) {}
     double m_value;
 };
 
-TEST_F(DistributionHandlerTest, DistributionHandlerConstructor)
-{
+TEST_F(DistributionHandlerTest, DistributionHandlerConstructor) {
     DistributionHandler handler;
     DistributionGate distribution(1.0, 2.0);
     std::string paraName = "value";

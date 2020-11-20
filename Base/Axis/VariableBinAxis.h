@@ -20,8 +20,7 @@
 //! Axis with variable bin size.
 //! @ingroup tools
 
-class VariableBinAxis : public IAxis
-{
+class VariableBinAxis : public IAxis {
 public:
     //! VariableBinAxis constructor.
     //! @param name Axis name

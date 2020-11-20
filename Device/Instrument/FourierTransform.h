@@ -31,8 +31,7 @@
 //! by Jeremy Fix, May 30, 2011
 //!
 //! @ingroup tools_internal
-class FourierTransform
-{
+class FourierTransform {
 public:
     //! definition of 1D vector of double
     typedef std::vector<double> double1d_t;
@@ -66,8 +65,7 @@ private:
     //! Workspace contains input (src), intermediate and output (out)
     //! arrays to run FT via fft; 'source' is our signal
     //! Output arrays are allocated via fftw3 allocation for maximum performance.
-    class Workspace
-    {
+    class Workspace {
     public:
         Workspace();
         ~Workspace();

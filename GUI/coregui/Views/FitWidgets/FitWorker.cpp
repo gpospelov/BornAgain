@@ -16,8 +16,7 @@
 #include "GUI/coregui/Views/FitWidgets/FitObjectiveBuilder.h"
 #include <QDateTime>
 
-void FitWorker::startFit()
-{
+void FitWorker::startFit() {
     int duration(0);
     QDateTime beginTime = QDateTime::currentDateTime();
 
@@ -33,14 +32,12 @@ void FitWorker::startFit()
     emit finished(duration);
 }
 
-void FitWorker::interruptFitting()
-{
+void FitWorker::interruptFitting() {
     if (m_fit_objective)
         m_fit_objective->interruptFitting();
 }
 
-int FitWorker::durationSince(const QDateTime& since)
-{
+int FitWorker::durationSince(const QDateTime& since) {
     QDateTime endTime = QDateTime::currentDateTime();
     return int(since.msecsTo(endTime));
 }

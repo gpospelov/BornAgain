@@ -10,18 +10,15 @@
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class RTTest : public ::testing::Test
-{
+class RTTest : public ::testing::Test {
 protected:
-    void printCoeffs(const std::vector<ScalarRTCoefficients>& coeffs)
-    { // for debug phases
+    void printCoeffs(const std::vector<ScalarRTCoefficients>& coeffs) { // for debug phases
         for (size_t i = 0; i < coeffs.size(); ++i) {
             const ScalarRTCoefficients& coeff = coeffs[i];
             std::cout << i << " " << coeff.t_r(0) << " " << coeff.t_r(1) << "\n";
         }
     }
-    void compareCoeffs(const ScalarRTCoefficients& coeff1, const ScalarRTCoefficients& coeff2)
-    {
+    void compareCoeffs(const ScalarRTCoefficients& coeff1, const ScalarRTCoefficients& coeff2) {
         EXPECT_NEAR(abs(coeff1.t_r(0)), abs(coeff2.t_r(0)), 5e-14);
         EXPECT_NEAR(coeff1.t_r(0).real(), coeff2.t_r(0).real(), 1e-10);
         EXPECT_NEAR(coeff1.t_r(0).imag(), coeff2.t_r(0).imag(), 1e-10);
@@ -29,8 +26,7 @@ protected:
         EXPECT_NEAR(coeff1.t_r(1).real(), coeff2.t_r(1).real(), 1e-10);
         EXPECT_NEAR(coeff1.t_r(1).imag(), coeff2.t_r(1).imag(), 1e-10);
     }
-    std::vector<ScalarRTCoefficients> getCoeffs(ISpecularStrategy::coeffs_t&& inputCoeffs)
-    {
+    std::vector<ScalarRTCoefficients> getCoeffs(ISpecularStrategy::coeffs_t&& inputCoeffs) {
         std::vector<ScalarRTCoefficients> result;
         for (auto& coeff : inputCoeffs)
             result.push_back(*dynamic_cast<const ScalarRTCoefficients*>(coeff.get()));
@@ -48,8 +44,7 @@ protected:
     std::vector<ScalarRTCoefficients> coeffs1, coeffs2;
 };
 
-TEST_F(RTTest, SplitLayer)
-{
+TEST_F(RTTest, SplitLayer) {
     const int n = 40;
 
     sample1.addLayer(topLayer);
@@ -78,8 +73,7 @@ TEST_F(RTTest, SplitLayer)
     compareCoeffs(coeffs1.back(), coeffs2.back());
 }
 
-TEST_F(RTTest, SplitBilayers)
-{
+TEST_F(RTTest, SplitBilayers) {
     // With exaggerated values of #layers, layer thickness, and absorption
     // so that we also test correct handling of floating-point overflow.
     const int n = 250;
@@ -123,8 +117,7 @@ TEST_F(RTTest, SplitBilayers)
     EXPECT_EQ(complex_t(), coeffs2[coeffs2.size() - 2].t_r(1));
 }
 
-TEST_F(RTTest, Overflow)
-{
+TEST_F(RTTest, Overflow) {
     // Text extra thick layers to also provoke an overflow in the new algorithm
     const int n = 5;
 

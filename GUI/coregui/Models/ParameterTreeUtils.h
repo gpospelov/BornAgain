@@ -27,8 +27,7 @@ class ParameterItem;
 //! with ParameterItems. The ParameterItem appears in RealTimeView and provides real
 //! time tuning of MultiLayerItem and InstrumentItem.
 
-namespace ParameterTreeUtils
-{
+namespace ParameterTreeUtils {
 
 void createParameterTree(JobItem* jobItem);
 

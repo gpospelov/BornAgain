@@ -27,8 +27,7 @@ class PolygonPrivate;
 //! Sizes of arrays should coincide.  If polygon is unclosed (the last point
 //! doesn't repeat the first one), it will be closed automatically.
 
-class Polygon : public IShape2D
-{
+class Polygon : public IShape2D {
 public:
     Polygon(const std::vector<double> x, const std::vector<double> y);
     Polygon(const std::vector<std::vector<double>> points);

@@ -22,8 +22,7 @@ class DataProperties;
 class Data1DProperties;
 template <class T> class OutputData;
 
-class BA_CORE_API_ DataPropertyContainer : public SessionItem
-{
+class BA_CORE_API_ DataPropertyContainer : public SessionItem {
     static const QString T_CHILDREN;
 
 public:

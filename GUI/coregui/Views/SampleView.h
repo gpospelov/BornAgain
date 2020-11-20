@@ -28,8 +28,7 @@ class QShowEvent;
 class QHideEvent;
 class SampleViewActions;
 
-class SampleView : public Manhattan::FancyMainWindow
-{
+class SampleView : public Manhattan::FancyMainWindow {
     Q_OBJECT
 
 public:

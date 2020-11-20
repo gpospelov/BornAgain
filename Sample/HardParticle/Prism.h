@@ -19,8 +19,7 @@
 #include "Sample/HardParticle/PolyhedralTopology.h"
 #include <memory>
 
-class Prism
-{
+class Prism {
 public:
     Prism() = delete;
     Prism(const Prism&) = delete;

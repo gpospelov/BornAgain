@@ -22,8 +22,7 @@ class IteratorMemento;
 //!
 //! For definition of different strategies see https://en.wikipedia.org/wiki/Tree_traversal.
 
-class IterationStrategy
-{
+class IterationStrategy {
 public:
     virtual IterationStrategy* clone() const = 0;
 
@@ -33,8 +32,7 @@ public:
 };
 
 //! Traverse tree; visit parents before their children.
-class PreorderStrategy : public IterationStrategy
-{
+class PreorderStrategy : public IterationStrategy {
 public:
     PreorderStrategy();
 

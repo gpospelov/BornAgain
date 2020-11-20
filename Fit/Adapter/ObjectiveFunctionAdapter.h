@@ -21,8 +21,7 @@
 class RootScalarFunction;
 class RootResidualFunction;
 
-namespace mumufit
-{
+namespace mumufit {
 
 class IFunctionAdapter;
 class Parameters;
@@ -30,8 +29,7 @@ class Parameters;
 //! Converts user objective function to function ROOT expects.
 //! Handles time of life of function objects.
 
-class ObjectiveFunctionAdapter
-{
+class ObjectiveFunctionAdapter {
 public:
     ObjectiveFunctionAdapter();
     ~ObjectiveFunctionAdapter();

@@ -21,8 +21,7 @@
 #include <QGridLayout>
 #include <QGroupBox>
 
-namespace
-{
+namespace {
 const QString wavelength_title("Wavelength [nm]");
 const QString inclination_title("Inclination angle [deg]");
 const QString azimuthal_title("Azimuthal angle [deg]");
@@ -36,8 +35,7 @@ OffSpecBeamEditor::OffSpecBeamEditor(ColumnResizer* columnResizer, QWidget* pare
     , m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title))
     , m_inclinationEditor(new ComponentEditor(ComponentEditor::GroupWidget, inclination_title))
     , m_azimuthalEditor(new ComponentEditor(ComponentEditor::InfoWidget, azimuthal_title))
-    , m_gridLayout(new QGridLayout)
-{
+    , m_gridLayout(new QGridLayout) {
     m_gridLayout->addWidget(m_intensityEditor, 0, 0);
     m_gridLayout->addWidget(m_wavelengthEditor, 1, 0);
     m_gridLayout->addWidget(m_inclinationEditor, 1, 1);
@@ -60,8 +58,7 @@ OffSpecBeamEditor::OffSpecBeamEditor(ColumnResizer* columnResizer, QWidget* pare
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
 }
 
-void OffSpecBeamEditor::subscribeToItem()
-{
+void OffSpecBeamEditor::subscribeToItem() {
     m_intensityEditor->setItem(beamItem()->getItem(BeamItem::P_INTENSITY));
 
     auto wavelengthItem = beamItem()->getItem(BeamItem::P_WAVELENGTH);
@@ -74,28 +71,24 @@ void OffSpecBeamEditor::subscribeToItem()
     m_azimuthalEditor->setItem(azimuthalItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 }
 
-void OffSpecBeamEditor::unsubscribeFromItem()
-{
+void OffSpecBeamEditor::unsubscribeFromItem() {
     m_intensityEditor->clearEditor();
     m_wavelengthEditor->clearEditor();
     m_inclinationEditor->clearEditor();
     m_azimuthalEditor->clearEditor();
 }
 
-OffSpecInstrumentItem* OffSpecBeamEditor::instrumentItem()
-{
+OffSpecInstrumentItem* OffSpecBeamEditor::instrumentItem() {
     auto result = dynamic_cast<OffSpecInstrumentItem*>(currentItem());
     ASSERT(result);
     return result;
 }
 
-BeamItem* OffSpecBeamEditor::beamItem()
-{
+BeamItem* OffSpecBeamEditor::beamItem() {
     return instrumentItem()->beamItem();
 }
 
-void OffSpecBeamEditor::onDialogRequest(SessionItem* item, const QString& name)
-{
+void OffSpecBeamEditor::onDialogRequest(SessionItem* item, const QString& name) {
     if (!item)
         return;
 

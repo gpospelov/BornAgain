@@ -25,8 +25,7 @@ class QBoxLayout;
 //! A dialog similar to standard QMessageBox intended for detailed warning messages.
 //! On the contrary to QMessageBox, the dialog has size grip and visible text editor.
 
-class DetailedMessageBox : public QDialog
-{
+class DetailedMessageBox : public QDialog {
     Q_OBJECT
 public:
     DetailedMessageBox(QWidget* parent, const QString& title, const QString& text,

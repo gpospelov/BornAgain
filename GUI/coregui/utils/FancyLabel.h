@@ -19,8 +19,7 @@
 
 //! The FancyLabel class is QLabel-like class with trivail animation, when text slowly
 //! appears on the screen from left to right pretending to be typed
-class FancyLabel : public QLabel
-{
+class FancyLabel : public QLabel {
     Q_OBJECT
 public:
     FancyLabel(const QString& text, QWidget* parent = 0);

@@ -21,8 +21,7 @@ class QToolButton;
 
 //! Represents a toolbar with buttons for ParameterTuningWidget.
 
-class JobRealTimeToolBar : public StyledToolBar
-{
+class JobRealTimeToolBar : public StyledToolBar {
     Q_OBJECT
 
 public:

@@ -21,8 +21,7 @@ class MainWindow;
 class SimulationSetupWidget;
 class StyledToolBar;
 
-class SimulationView : public QWidget
-{
+class SimulationView : public QWidget {
     Q_OBJECT
 
 public:

@@ -23,8 +23,7 @@ class JobItem;
 class PropertyRepeater;
 class SessionModel;
 
-class DiffItemController : public QObject
-{
+class DiffItemController : public QObject {
 public:
     DiffItemController(const QString& data_type, QObject* parent);
     ~DiffItemController() override;
@@ -42,8 +41,7 @@ private:
     DataItem* m_diff_item;
 };
 
-class FitComparison1DViewController : public QObject
-{
+class FitComparison1DViewController : public QObject {
 public:
     explicit FitComparison1DViewController(QObject* parent);
 

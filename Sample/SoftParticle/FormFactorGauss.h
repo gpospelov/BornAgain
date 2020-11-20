@@ -20,26 +20,22 @@
 //! The form factor of a Gaussian sphere.
 //! @ingroup softParticle
 
-class FormFactorGaussSphere : public IBornFF
-{
+class FormFactorGaussSphere : public IBornFF {
 public:
     FormFactorGaussSphere(const std::vector<double> P);
     FormFactorGaussSphere(double mean_radius);
 
-    FormFactorGaussSphere* clone() const override final
-    {
-        return new FormFactorGaussSphere(m_mean_radius);
-    }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    FormFactorGaussSphere* clone() const final { return new FormFactorGaussSphere(m_mean_radius); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getMeanRadius() const { return m_mean_radius; }
 
-    double radialExtension() const override final { return m_mean_radius; }
+    double radialExtension() const final { return m_mean_radius; }
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
-    void onChange() override final{};
+    void onChange() final{};
 
 private:
     const double& m_mean_radius;

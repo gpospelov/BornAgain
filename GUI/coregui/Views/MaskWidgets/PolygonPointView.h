@@ -19,8 +19,7 @@
 
 //! This is a View of polygon point for PolygonMaskItem
 
-class PolygonPointView : public IShape2DView
-{
+class PolygonPointView : public IShape2DView {
     Q_OBJECT
 
 public:

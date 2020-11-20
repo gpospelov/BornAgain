@@ -26,8 +26,7 @@ class Plot1D;
 //! for specular data presentation, and provides
 //! status string appearance.
 
-class Plot1DCanvas : public SessionItemWidget
-{
+class Plot1DCanvas : public SessionItemWidget {
     Q_OBJECT
 
 public:

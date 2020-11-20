@@ -19,8 +19,7 @@
 
 class IFootprintFactor;
 
-class BA_CORE_API_ FootprintItem : public SessionItem
-{
+class BA_CORE_API_ FootprintItem : public SessionItem {
 public:
     virtual ~FootprintItem();
     virtual std::unique_ptr<IFootprintFactor> createFootprint() const = 0;
@@ -29,16 +28,14 @@ protected:
     explicit FootprintItem(const QString& model_type);
 };
 
-class BA_CORE_API_ FootprintNoneItem : public FootprintItem
-{
+class BA_CORE_API_ FootprintNoneItem : public FootprintItem {
 public:
     FootprintNoneItem();
     virtual ~FootprintNoneItem();
     std::unique_ptr<IFootprintFactor> createFootprint() const override;
 };
 
-class BA_CORE_API_ FootprintGaussianItem : public FootprintItem
-{
+class BA_CORE_API_ FootprintGaussianItem : public FootprintItem {
 public:
     static const QString P_VALUE;
 
@@ -47,8 +44,7 @@ public:
     std::unique_ptr<IFootprintFactor> createFootprint() const override;
 };
 
-class BA_CORE_API_ FootprintSquareItem : public FootprintItem
-{
+class BA_CORE_API_ FootprintSquareItem : public FootprintItem {
 public:
     static const QString P_VALUE;
 

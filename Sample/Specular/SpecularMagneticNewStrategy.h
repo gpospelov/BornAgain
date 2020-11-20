@@ -30,8 +30,7 @@ class Slice;
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class SpecularMagneticNewStrategy : public ISpecularStrategy
-{
+class SpecularMagneticNewStrategy : public ISpecularStrategy {
 public:
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k

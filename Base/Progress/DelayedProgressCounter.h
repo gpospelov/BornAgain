@@ -21,8 +21,7 @@ class ProgressHandler;
 
 //! Counter for reporting progress (with delay interval) in a threaded computation.
 
-class DelayedProgressCounter
-{
+class DelayedProgressCounter {
 public:
     DelayedProgressCounter(ProgressHandler* p_progress, size_t interval);
     ~DelayedProgressCounter() {}

@@ -34,8 +34,7 @@ class ColumnResizerPrivate;
 
 //! The ColumnResizer class provides vertically aligned widgets from diferent layouts.
 
-class ColumnResizer : public QObject
-{
+class ColumnResizer : public QObject {
     Q_OBJECT
 public:
     ColumnResizer(QObject* parent = 0);

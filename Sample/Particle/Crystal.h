@@ -32,15 +32,14 @@ struct HomogeneousRegion;
 //!
 //! @ingroup samples
 
-class Crystal : public ISample
-{
+class Crystal : public ISample {
 public:
     Crystal(const IParticle& basis, const Lattice3D& lattice, double position_variance = 0);
     ~Crystal();
 
-    Crystal* clone() const override final;
+    Crystal* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     IFormFactor* createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
                                        const IRotation* p_rotation,
@@ -50,7 +49,7 @@ public:
 
     Lattice3D transformedLattice(const IRotation* p_rotation = nullptr) const;
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const final;
 
 private:
     Crystal(IParticle* p_basis, const Lattice3D& lattice, double position_variance = 0);

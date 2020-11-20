@@ -31,13 +31,11 @@ class SessionModel;
 //! RealDataModel. Particularly, it notifies RealDataItem about changes in linked instruments
 //! to adjust axes of IntensityDataItem.
 
-class LinkInstrumentManager : public QObject
-{
+class LinkInstrumentManager : public QObject {
     Q_OBJECT
 
 public:
-    class InstrumentInfo
-    {
+    class InstrumentInfo {
     public:
         InstrumentInfo();
         QString m_identifier;

@@ -17,8 +17,7 @@
 #include "Device/Intensity/ArrayUtils.h"
 #include "Base/Utils/PythonCore.h"
 
-PyObject* ArrayUtils::createNumpyArray(const std::vector<double>& data)
-{
+PyObject* ArrayUtils::createNumpyArray(const std::vector<double>& data) {
     const size_t ndim(1);
     npy_int ndim_numpy = ndim;
     npy_intp* ndimsizes_numpy = new npy_intp[ndim];

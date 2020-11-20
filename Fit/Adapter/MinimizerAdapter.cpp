@@ -25,28 +25,23 @@ using namespace mumufit;
 MinimizerAdapter::MinimizerAdapter(const MinimizerInfo& minimizerInfo)
     : m_minimizerInfo(minimizerInfo)
     , m_adapter(new mumufit::ObjectiveFunctionAdapter)
-    , m_status(false)
-{
-}
+    , m_status(false) {}
 
 MinimizerAdapter::~MinimizerAdapter() = default;
 
-MinimizerResult MinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, Parameters parameters)
-{
+MinimizerResult MinimizerAdapter::minimize_scalar(fcn_scalar_t fcn, Parameters parameters) {
     // Genetic minimizer requires SetFunction before setParameters, others don't care
     rootMinimizer()->SetFunction(*m_adapter->rootObjectiveFunction(fcn, parameters));
     return minimize(parameters);
 }
 
-MinimizerResult MinimizerAdapter::minimize_residual(fcn_residual_t fcn, Parameters parameters)
-{
+MinimizerResult MinimizerAdapter::minimize_residual(fcn_residual_t fcn, Parameters parameters) {
     // Genetic minimizer requires SetFunction before setParameters, others don't care
     rootMinimizer()->SetFunction(*m_adapter->rootResidualFunction(fcn, parameters));
     return minimize(parameters);
 }
 
-MinimizerResult MinimizerAdapter::minimize(Parameters parameters)
-{
+MinimizerResult MinimizerAdapter::minimize(Parameters parameters) {
     setParameters(parameters);
     propagateOptions();
 
@@ -63,40 +58,33 @@ MinimizerResult MinimizerAdapter::minimize(Parameters parameters)
     return result;
 }
 
-std::string MinimizerAdapter::minimizerName() const
-{
+std::string MinimizerAdapter::minimizerName() const {
     return m_minimizerInfo.name();
 }
 
-std::string MinimizerAdapter::algorithmName() const
-{
+std::string MinimizerAdapter::algorithmName() const {
     return m_minimizerInfo.algorithmName();
 }
 
-void MinimizerAdapter::setParameters(const mumufit::Parameters& parameters)
-{
+void MinimizerAdapter::setParameters(const mumufit::Parameters& parameters) {
     unsigned int index(0);
     for (const auto& par : parameters)
         setParameter(index++, par);
 }
 
-double MinimizerAdapter::minValue() const
-{
+double MinimizerAdapter::minValue() const {
     return rootMinimizer()->MinValue();
 }
 
-std::string MinimizerAdapter::statusToString() const
-{
+std::string MinimizerAdapter::statusToString() const {
     return m_status ? "Minimum found" : "Error in solving";
 }
 
-bool MinimizerAdapter::providesError() const
-{
+bool MinimizerAdapter::providesError() const {
     return rootMinimizer()->ProvidesError();
 }
 
-std::map<std::string, std::string> MinimizerAdapter::statusMap() const
-{
+std::map<std::string, std::string> MinimizerAdapter::statusMap() const {
     std::map<std::string, std::string> result;
     result["Status"] = statusToString();
 
@@ -110,15 +98,13 @@ std::map<std::string, std::string> MinimizerAdapter::statusMap() const
     return result;
 }
 
-void MinimizerAdapter::setOptions(const std::string& optionString)
-{
+void MinimizerAdapter::setOptions(const std::string& optionString) {
     options().setOptionString(optionString);
 }
 
 //! Propagates results of minimization to fit parameter set
 
-void MinimizerAdapter::propagateResults(mumufit::Parameters& parameters)
-{
+void MinimizerAdapter::propagateResults(mumufit::Parameters& parameters) {
     parameters.setValues(parValuesAtMinimum());
     parameters.setErrors(parErrorsAtMinimum());
     // sets correlation matrix
@@ -136,8 +122,7 @@ void MinimizerAdapter::propagateResults(mumufit::Parameters& parameters)
     }
 }
 
-void MinimizerAdapter::setParameter(unsigned int index, const mumufit::Parameter& par)
-{
+void MinimizerAdapter::setParameter(unsigned int index, const mumufit::Parameter& par) {
     bool success;
     if (par.limits().isFixed()) {
         success = rootMinimizer()->SetFixedVariable(index, par.name().c_str(), par.value());
@@ -178,15 +163,13 @@ void MinimizerAdapter::setParameter(unsigned int index, const mumufit::Parameter
 
 //! Returns number of fit parameters defined (i.e. dimension of the function to be minimized).
 
-size_t MinimizerAdapter::fitDimension() const
-{
+size_t MinimizerAdapter::fitDimension() const {
     return rootMinimizer()->NDim();
 }
 
 //! Returns value of the variables at minimum.
 
-std::vector<double> MinimizerAdapter::parValuesAtMinimum() const
-{
+std::vector<double> MinimizerAdapter::parValuesAtMinimum() const {
     std::vector<double> result;
     result.resize(fitDimension(), 0.0);
     std::copy(rootMinimizer()->X(), rootMinimizer()->X() + fitDimension(), result.begin());
@@ -195,8 +178,7 @@ std::vector<double> MinimizerAdapter::parValuesAtMinimum() const
 
 //! Returns errors of the variables at minimum.
 
-std::vector<double> MinimizerAdapter::parErrorsAtMinimum() const
-{
+std::vector<double> MinimizerAdapter::parErrorsAtMinimum() const {
     std::vector<double> result;
     result.resize(fitDimension(), 0.0);
     if (rootMinimizer()->Errors() != 0) {
@@ -206,8 +188,7 @@ std::vector<double> MinimizerAdapter::parErrorsAtMinimum() const
     return result;
 }
 
-MinimizerAdapter::root_minimizer_t* MinimizerAdapter::rootMinimizer()
-{
+MinimizerAdapter::root_minimizer_t* MinimizerAdapter::rootMinimizer() {
     return const_cast<root_minimizer_t*>(
         static_cast<const MinimizerAdapter*>(this)->rootMinimizer());
 }

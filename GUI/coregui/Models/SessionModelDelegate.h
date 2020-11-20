@@ -21,8 +21,7 @@
 //! standard QTreeView. Extents base QItemDelegate with possibility to show/edit
 //! our custom QVariant's.
 
-class SessionModelDelegate : public QStyledItemDelegate
-{
+class SessionModelDelegate : public QStyledItemDelegate {
     Q_OBJECT
 public:
     SessionModelDelegate(QObject* parent);

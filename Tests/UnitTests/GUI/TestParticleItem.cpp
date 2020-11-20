@@ -8,12 +8,9 @@
 
 using namespace SessionItemUtils;
 
-class TestParticleItem : public ::testing::Test
-{
-};
+class TestParticleItem : public ::testing::Test {};
 
-TEST_F(TestParticleItem, test_InitialState)
-{
+TEST_F(TestParticleItem, test_InitialState) {
     SampleModel model;
     SessionItem* item = model.insertNewItem("Particle");
 
@@ -28,8 +25,7 @@ TEST_F(TestParticleItem, test_InitialState)
     EXPECT_EQ(group->children().size(), 1);
 }
 
-TEST_F(TestParticleItem, test_compositionContext)
-{
+TEST_F(TestParticleItem, test_compositionContext) {
     SampleModel model;
     SessionItem* particle = model.insertNewItem("Particle");
     particle->setItemValue(ParticleItem::P_ABUNDANCE, 0.2);
@@ -48,8 +44,7 @@ TEST_F(TestParticleItem, test_compositionContext)
     delete particle;
 }
 
-TEST_F(TestParticleItem, test_distributionContext)
-{
+TEST_F(TestParticleItem, test_distributionContext) {
     SampleModel model;
     SessionItem* particle = model.insertNewItem("Particle");
     particle->setItemValue(ParticleItem::P_ABUNDANCE, 0.2);

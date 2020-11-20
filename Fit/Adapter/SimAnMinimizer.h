@@ -17,16 +17,14 @@
 
 #include "Fit/Adapter/MinimizerAdapter.h"
 
-namespace ROOT::Math
-{
+namespace ROOT::Math {
 class GSLSimAnMinimizer;
 }
 
 //! Wrapper for the CERN ROOT facade of the GSL simmulated annealing minimizer.
 //! @ingroup fitting_internal
 
-class SimAnMinimizer : public MinimizerAdapter
-{
+class SimAnMinimizer : public MinimizerAdapter {
 public:
     SimAnMinimizer();
     ~SimAnMinimizer() override;

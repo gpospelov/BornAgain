@@ -20,8 +20,7 @@
 //! Builds sample: two layers with rough interface.
 //! @ingroup standard_samples
 
-class TwoLayerRoughnessBuilder : public ISampleBuilder
-{
+class TwoLayerRoughnessBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

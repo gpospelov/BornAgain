@@ -21,8 +21,7 @@
 //! Detector properties (efficiency, transmission).
 //! @ingroup detector
 
-class DetectionProperties : public INode
-{
+class DetectionProperties : public INode {
 public:
     DetectionProperties(kvector_t direction, double efficiency, double total_transmission);
     DetectionProperties();

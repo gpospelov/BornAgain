@@ -17,8 +17,7 @@
 
 #include <QString>
 
-namespace GUI_StringUtils
-{
+namespace GUI_StringUtils {
 
 QString withTildeHomePath(const QString& path);
 

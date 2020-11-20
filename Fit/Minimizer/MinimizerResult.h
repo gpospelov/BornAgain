@@ -18,13 +18,11 @@
 #include "Fit/Param/Parameters.h"
 #include <string>
 
-namespace mumufit
-{
+namespace mumufit {
 
 //! Result of minimization round.
 
-class MinimizerResult
-{
+class MinimizerResult {
 public:
     MinimizerResult();
 

@@ -21,8 +21,7 @@
 
 //! One edge of a polygon, for form factor computation.
 
-class PolyhedralEdge
-{
+class PolyhedralEdge {
 public:
     PolyhedralEdge(const kvector_t _Vlow, const kvector_t _Vhig);
 
@@ -40,8 +39,7 @@ private:
 
 //! A polygon, for form factor computation.
 
-class PolyhedralFace
-{
+class PolyhedralFace {
 public:
     static double diameter(const std::vector<kvector_t>& V);
 #ifdef POLYHEDRAL_DIAGNOSTIC

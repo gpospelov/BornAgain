@@ -21,8 +21,7 @@
 #include <QVBoxLayout>
 
 MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget* parent)
-    : QWidget(parent), m_currentItem(nullptr), m_componentEditor(new ComponentEditor)
-{
+    : QWidget(parent), m_currentItem(nullptr), m_componentEditor(new ComponentEditor) {
     setWindowTitle(QLatin1String("Minimizer Settings"));
 
     auto layout = new QVBoxLayout;
@@ -34,19 +33,16 @@ MinimizerSettingsWidget::MinimizerSettingsWidget(QWidget* parent)
     setLayout(layout);
 }
 
-QSize MinimizerSettingsWidget::minimumSizeHint() const
-{
+QSize MinimizerSettingsWidget::minimumSizeHint() const {
     return QSize(25, 25);
 }
 
-void MinimizerSettingsWidget::setItem(JobItem* jobItem)
-{
+void MinimizerSettingsWidget::setItem(JobItem* jobItem) {
     ASSERT(jobItem);
     setItem(jobItem->fitSuiteItem()->minimizerContainerItem());
 }
 
-void MinimizerSettingsWidget::setItem(MinimizerContainerItem* minimizerItem)
-{
+void MinimizerSettingsWidget::setItem(MinimizerContainerItem* minimizerItem) {
     ASSERT(minimizerItem);
     m_currentItem = minimizerItem;
     m_componentEditor->setItem(minimizerItem);

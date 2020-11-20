@@ -21,8 +21,7 @@
 //! The FitProgressInfo class contains all essential information about fit progress.
 //! It is send from GUIFitObserver to FitSuiteWidget on every nth iteration.
 
-class FitProgressInfo
-{
+class FitProgressInfo {
 public:
     FitProgressInfo();
 

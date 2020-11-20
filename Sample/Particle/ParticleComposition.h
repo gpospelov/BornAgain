@@ -21,18 +21,17 @@
 //! A composition of particles at fixed positions
 //! @ingroup samples
 
-class ParticleComposition : public IParticle
-{
+class ParticleComposition : public IParticle {
 public:
     ParticleComposition();
     ParticleComposition(const IParticle& particle, std::vector<kvector_t> positions);
 
     ~ParticleComposition();
-    ParticleComposition* clone() const override final;
+    ParticleComposition* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    IFormFactor* createFormFactor() const override final;
+    IFormFactor* createFormFactor() const final;
 
     void addParticle(const IParticle& particle);
     void addParticle(const IParticle& particle, kvector_t position);
@@ -41,11 +40,11 @@ public:
     //! Returns number of different particles
     size_t nbrParticles() const { return m_particles.size(); }
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const final;
 
-    SafePointerVector<IParticle> decompose() const override final;
+    SafePointerVector<IParticle> decompose() const final;
 
-    ParticleLimits bottomTopZ() const override final;
+    ParticleLimits bottomTopZ() const final;
 
 private:
     size_t check_index(size_t index) const;

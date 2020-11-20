@@ -23,8 +23,7 @@ class Transform3D;
 //! Abstract base class for rotations.
 //! @ingroup samples
 
-class IRotation : public ICloneable, public INode
-{
+class IRotation : public ICloneable, public INode {
 public:
     static IRotation* createRotation(const Transform3D& transform);
 
@@ -67,8 +66,7 @@ public:
 
 //! A rotation about the x axis.
 
-class RotationX : public IRotation
-{
+class RotationX : public IRotation {
 public:
     RotationX(const std::vector<double> P);
     RotationX(double angle);
@@ -88,8 +86,7 @@ protected:
 
 //! A rotation about the y axis.
 
-class RotationY : public IRotation
-{
+class RotationY : public IRotation {
 public:
     RotationY(const std::vector<double> P);
     RotationY(double angle);
@@ -109,8 +106,7 @@ protected:
 
 //! A rotation about the z axis.
 
-class RotationZ : public IRotation
-{
+class RotationZ : public IRotation {
 public:
     RotationZ(const std::vector<double> P);
     RotationZ(double angle);
@@ -130,8 +126,7 @@ protected:
 
 //! A sequence of rotations about the z-x'-z'' axes.
 
-class RotationEuler : public IRotation
-{
+class RotationEuler : public IRotation {
 public:
     RotationEuler(const std::vector<double> P);
     RotationEuler(double alpha, double beta, double gamma);

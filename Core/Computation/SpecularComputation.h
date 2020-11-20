@@ -27,8 +27,7 @@ class SpecularSimulationElement;
 //!
 //! @ingroup algorithms_internal
 
-class SpecularComputation : public IComputation
-{
+class SpecularComputation : public IComputation {
     using SpecularElementIter = std::vector<SpecularSimulationElement>::iterator;
 
 public:

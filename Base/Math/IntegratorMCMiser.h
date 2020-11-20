@@ -31,8 +31,7 @@ template <class T> using miser_integrand = double (T::*)(double*, size_t, void*)
 //! - Call: 'integrator.integrate(lmin, lmax, data, nbr_points)'
 //! @ingroup tools_internal
 
-template <class T> class IntegratorMCMiser
-{
+template <class T> class IntegratorMCMiser {
 public:
     //! structure holding the object and possible extra parameters
     struct CallBackHolder {
@@ -50,8 +49,7 @@ public:
 
 private:
     //! static function that can be passed to gsl integrator
-    static double StaticCallBack(double* d_array, size_t dim, void* v)
-    {
+    static double StaticCallBack(double* d_array, size_t dim, void* v) {
         CallBackHolder* p_cb = static_cast<CallBackHolder*>(v);
         auto mf = static_cast<miser_integrand<T>>(p_cb->m_member_function);
         return (p_cb->m_object_pointer->*mf)(d_array, dim, p_cb->m_data);
@@ -71,8 +69,7 @@ template <class T> using P_integrator_miser = std::unique_ptr<IntegratorMCMiser<
 
 template <class T>
 P_integrator_miser<T> make_integrator_miser(const T* object, miser_integrand<T> mem_function,
-                                            size_t dim)
-{
+                                            size_t dim) {
     P_integrator_miser<T> P_integrator(new IntegratorMCMiser<T>(object, mem_function, dim));
     return P_integrator;
 }
@@ -84,8 +81,10 @@ P_integrator_miser<T> make_integrator_miser(const T* object, miser_integrand<T> 
 template <class T>
 IntegratorMCMiser<T>::IntegratorMCMiser(const T* p_object, miser_integrand<T> p_member_function,
                                         size_t dim)
-    : m_object(p_object), m_member_function(p_member_function), m_dim(dim), m_gsl_workspace{nullptr}
-{
+    : m_object(p_object)
+    , m_member_function(p_member_function)
+    , m_dim(dim)
+    , m_gsl_workspace{nullptr} {
     m_gsl_workspace = gsl_monte_miser_alloc(m_dim);
 
     const gsl_rng_type* random_type;
@@ -94,16 +93,14 @@ IntegratorMCMiser<T>::IntegratorMCMiser(const T* p_object, miser_integrand<T> p_
     m_random_gen = gsl_rng_alloc(random_type);
 }
 
-template <class T> IntegratorMCMiser<T>::~IntegratorMCMiser()
-{
+template <class T> IntegratorMCMiser<T>::~IntegratorMCMiser() {
     gsl_monte_miser_free(m_gsl_workspace);
     gsl_rng_free(m_random_gen);
 }
 
 template <class T>
 double IntegratorMCMiser<T>::integrate(double* min_array, double* max_array, void* params,
-                                       size_t nbr_points)
-{
+                                       size_t nbr_points) {
     CallBackHolder cb = {m_object, m_member_function, params};
 
     gsl_monte_function f;

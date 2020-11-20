@@ -20,8 +20,7 @@
 //! Completion status (flag and text) of a numeric computation.
 //! @ingroup algorithms_internal
 
-class ComputationStatus
-{
+class ComputationStatus {
 public:
     ComputationStatus() : m_status(IDLE) {}
 
@@ -30,8 +29,7 @@ public:
 
     void setRunning() { m_status = RUNNING; }
     void setCompleted() { m_status = COMPLETED; }
-    void setFailed(const std::string& message)
-    {
+    void setFailed(const std::string& message) {
         m_error_message = message;
         m_status = FAILED;
     }

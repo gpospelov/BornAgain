@@ -18,8 +18,7 @@
 #include "Fit/TestEngine/MinimizerTestPlan.h"
 #include <memory>
 
-namespace mumufit
-{
+namespace mumufit {
 class Parameters;
 }
 class ISimulation;
@@ -30,8 +29,7 @@ class FitObjective;
 //! Contains all logic to construct FitObjective, setup Minimizer and check minimization results.
 //! Parent of various *Plan classes in source file PlanCases.
 
-class Plan : public MinimizerTestPlan
-{
+class Plan : public MinimizerTestPlan {
 public:
     Plan(const std::string& name, bool residual_based = false);
     ~Plan();

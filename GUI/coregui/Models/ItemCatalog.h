@@ -23,8 +23,7 @@ class SessionItem;
 
 //! Catalog of SessionItem%s. A single instance is created and used in ItemFactory.cpp.
 
-class ItemCatalog
-{
+class ItemCatalog {
 public:
     ItemCatalog();
 

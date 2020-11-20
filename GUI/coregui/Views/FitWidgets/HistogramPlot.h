@@ -18,8 +18,7 @@
 #include <QWidget>
 #include <qcustomplot.h>
 
-class HistogramPlot : public QWidget
-{
+class HistogramPlot : public QWidget {
     Q_OBJECT
 public:
     explicit HistogramPlot(QWidget* parent = 0);

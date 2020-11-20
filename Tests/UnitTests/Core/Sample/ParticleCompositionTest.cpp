@@ -6,20 +6,16 @@
 #include "Sample/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class ParticleCompositionTest : public ::testing::Test
-{
-};
+class ParticleCompositionTest : public ::testing::Test {};
 
-TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor)
-{
+TEST_F(ParticleCompositionTest, ParticleCompositionDefaultConstructor) {
     std::unique_ptr<ParticleComposition> composition(new ParticleComposition());
     std::vector<kvector_t> positions;
     positions.push_back(kvector_t(0.0, 0.0, 0.0));
     EXPECT_EQ(0u, composition->nbrParticles());
 }
 
-TEST_F(ParticleCompositionTest, ParticleCompositionClone)
-{
+TEST_F(ParticleCompositionTest, ParticleCompositionClone) {
     ParticleComposition composition;
     kvector_t position = kvector_t(1.0, 1.0, 1.0);
     Material material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
@@ -34,8 +30,7 @@ TEST_F(ParticleCompositionTest, ParticleCompositionClone)
     EXPECT_EQ(p_particle->position(), position);
 }
 
-TEST_F(ParticleCompositionTest, getChildren)
-{
+TEST_F(ParticleCompositionTest, getChildren) {
     Material material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
 
     ParticleComposition composition;

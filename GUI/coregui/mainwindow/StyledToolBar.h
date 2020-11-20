@@ -19,8 +19,7 @@
 
 //! The StyledToolBar class represents our standard narrow toolbar with the height 24 pixels.
 
-class StyledToolBar : public QToolBar
-{
+class StyledToolBar : public QToolBar {
     Q_OBJECT
 
 public:

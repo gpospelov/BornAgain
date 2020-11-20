@@ -16,15 +16,13 @@
 #include "Device/Resolution/Convolve.h"
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(cumulative_DF_1d res_function_1d)
-    : m_dimension(1), m_res_function_1d(res_function_1d)
-{
+    : m_dimension(1), m_res_function_1d(res_function_1d) {
     setName("ConvolutionDetectorResolution");
 }
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     const IResolutionFunction2D& p_res_function_2d)
-    : m_dimension(2), m_res_function_1d(0)
-{
+    : m_dimension(2), m_res_function_1d(0) {
     setName("ConvolutionDetectorResolution");
     setResolutionFunction(p_res_function_2d);
 }
@@ -32,8 +30,7 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
 ConvolutionDetectorResolution::~ConvolutionDetectorResolution() = default;
 
 ConvolutionDetectorResolution::ConvolutionDetectorResolution(
-    const ConvolutionDetectorResolution& other)
-{
+    const ConvolutionDetectorResolution& other) {
     m_dimension = other.m_dimension;
     m_res_function_1d = other.m_res_function_1d;
     if (other.m_res_function_2d)
@@ -41,19 +38,16 @@ ConvolutionDetectorResolution::ConvolutionDetectorResolution(
     setName(other.getName());
 }
 
-ConvolutionDetectorResolution* ConvolutionDetectorResolution::clone() const
-{
+ConvolutionDetectorResolution* ConvolutionDetectorResolution::clone() const {
     return new ConvolutionDetectorResolution(*this);
 }
 
-std::vector<const INode*> ConvolutionDetectorResolution::getChildren() const
-{
+std::vector<const INode*> ConvolutionDetectorResolution::getChildren() const {
     return std::vector<const INode*>() << m_res_function_2d;
 }
 
 void ConvolutionDetectorResolution::applyDetectorResolution(
-    OutputData<double>* p_intensity_map) const
-{
+    OutputData<double>* p_intensity_map) const {
     if (p_intensity_map->rank() != m_dimension) {
         throw Exceptions::RuntimeErrorException(
             "ConvolutionDetectorResolution::applyDetectorResolution() -> Error! "
@@ -73,14 +67,12 @@ void ConvolutionDetectorResolution::applyDetectorResolution(
     }
 }
 
-void ConvolutionDetectorResolution::setResolutionFunction(const IResolutionFunction2D& resFunc)
-{
+void ConvolutionDetectorResolution::setResolutionFunction(const IResolutionFunction2D& resFunc) {
     m_res_function_2d.reset(resFunc.clone());
     registerChild(m_res_function_2d.get());
 }
 
-void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_intensity_map) const
-{
+void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_intensity_map) const {
     if (m_res_function_1d == 0)
         throw Exceptions::LogicErrorException(
             "ConvolutionDetectorResolution::apply1dConvolution() -> Error! "
@@ -115,8 +107,7 @@ void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_int
     p_intensity_map->setRawDataVector(result);
 }
 
-void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_intensity_map) const
-{
+void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_intensity_map) const {
     if (m_res_function_2d == 0)
         throw Exceptions::LogicErrorException(
             "ConvolutionDetectorResolution::apply2dConvolution() -> Error! "
@@ -179,8 +170,7 @@ void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_int
         (*it) = result_vector[it.getIndex()];
 }
 
-double ConvolutionDetectorResolution::getIntegratedPDF1d(double x, double step) const
-{
+double ConvolutionDetectorResolution::getIntegratedPDF1d(double x, double step) const {
     double halfstep = step / 2.0;
     double xmin = x - halfstep;
     double xmax = x + halfstep;
@@ -189,8 +179,7 @@ double ConvolutionDetectorResolution::getIntegratedPDF1d(double x, double step) 
 }
 
 double ConvolutionDetectorResolution::getIntegratedPDF2d(double x, double step_x, double y,
-                                                         double step_y) const
-{
+                                                         double step_y) const {
     double halfstepx = step_x / 2.0;
     double halfstepy = step_y / 2.0;
     double xmin = x - halfstepx;

@@ -23,8 +23,7 @@ class SessionItem;
 //! Provides subscribe/unsubscribe mechanism for any QObject to track
 //! time of life of SessionItem. Mainly intended for SessionItemWidget.
 
-class SessionItemController : public QObject
-{
+class SessionItemController : public QObject {
     Q_OBJECT
 public:
     using callback_t = std::function<void(void)>;

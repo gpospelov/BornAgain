@@ -8,8 +8,7 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <vector>
 
-class TestCsvImportAssistant : public ::testing::Test
-{
+class TestCsvImportAssistant : public ::testing::Test {
 protected:
     const std::string m_testFilename = "tm_TestCsvImportAssistant.txt";
     const std::vector<std::vector<double>> m_testVector = {
@@ -18,16 +17,14 @@ protected:
 
     const QString testFilename() { return QString::fromStdString(m_testFilename); }
 
-    void writeTestFile()
-    {
+    void writeTestFile() {
         remove(m_testFilename.c_str());
         OutputDataWriter* writer = OutputDataWriteFactory::getWriter(m_testFilename);
         OutputData<double>* data = ArrayUtils::createData(m_testVector).release();
         writer->writeOutputData(*data);
     }
 
-    void writeTestFile(size_t nRows, size_t nCols)
-    {
+    void writeTestFile(size_t nRows, size_t nCols) {
         remove(m_testFilename.c_str());
         std::ofstream myfile;
         myfile.open(m_testFilename);
@@ -40,8 +37,7 @@ protected:
         myfile.close();
     }
 
-    OutputData<double>* readTestFile()
-    {
+    OutputData<double>* readTestFile() {
         OutputDataReader* reader = OutputDataReadFactory::getReader(m_testFilename);
         OutputData<double>* data = reader->getOutputData();
         return data;
@@ -49,8 +45,7 @@ protected:
 };
 
 //! Testing component items of particle item.
-TEST_F(TestCsvImportAssistant, test_readFile)
-{
+TEST_F(TestCsvImportAssistant, test_readFile) {
     /*
      * The file to read looks like this ['-' symbols added to clarify what is going on].
      * It has originaly ten columns, not four (The separator is a space).

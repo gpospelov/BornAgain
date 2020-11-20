@@ -21,21 +21,20 @@
 //! from each other in a given direction.
 //! @ingroup interference
 
-class InterferenceFunctionTwin : public IInterferenceFunction
-{
+class InterferenceFunctionTwin : public IInterferenceFunction {
 public:
     InterferenceFunctionTwin(const kvector_t& direction, double mean_distance, double std_dev);
 
-    InterferenceFunctionTwin* clone() const override final;
+    InterferenceFunctionTwin* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     kvector_t direction() const;
     double meanDistance() const;
     double stdDev() const;
 
 private:
-    double iff_without_dw(const kvector_t q) const override final;
+    double iff_without_dw(const kvector_t q) const final;
 
     kvector_t m_direction;
     double m_distance;

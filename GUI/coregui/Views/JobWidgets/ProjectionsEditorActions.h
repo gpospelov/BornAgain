@@ -26,8 +26,7 @@ class IntensityDataItem;
 
 //! Provides various actions for ProjectionsEditor.
 
-class ProjectionsEditorActions : public QObject
-{
+class ProjectionsEditorActions : public QObject {
     Q_OBJECT
 
 public:

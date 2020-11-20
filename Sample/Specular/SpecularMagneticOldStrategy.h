@@ -26,8 +26,7 @@ class Slice;
 //! the coherent wave solution in a multilayer with magnetization.
 //! @ingroup algorithms_internal
 
-class SpecularMagneticOldStrategy : public ISpecularStrategy
-{
+class SpecularMagneticOldStrategy : public ISpecularStrategy {
 public:
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k

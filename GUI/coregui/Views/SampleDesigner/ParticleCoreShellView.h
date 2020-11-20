@@ -18,8 +18,7 @@
 #include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
 //! Class representing view of Particle item
-class ParticleCoreShellView : public ConnectableView
-{
+class ParticleCoreShellView : public ConnectableView {
     Q_OBJECT
 
 public:

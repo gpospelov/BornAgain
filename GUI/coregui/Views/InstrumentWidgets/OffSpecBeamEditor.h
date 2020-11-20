@@ -25,8 +25,7 @@ class ColumnResizer;
 
 //! GISAS beam editor. Operates on GISASInstrumentItem.
 
-class OffSpecBeamEditor : public SessionItemWidget
-{
+class OffSpecBeamEditor : public SessionItemWidget {
     Q_OBJECT
 
 public:

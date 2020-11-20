@@ -21,8 +21,7 @@
 //! Material implementation based on wavelength-independent data (valid for a range of wavelengths)
 //! @ingroup materials
 
-class MaterialBySLDImpl : public MagneticMaterialImpl
-{
+class MaterialBySLDImpl : public MagneticMaterialImpl {
 public:
     friend Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag,
                                   kvector_t magnetization);

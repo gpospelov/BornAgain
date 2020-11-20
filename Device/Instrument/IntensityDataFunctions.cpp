@@ -26,8 +26,7 @@
 //! Returns sum of relative differences between each pair of elements:
 //! (a, b) -> 2*abs(a - b)/(|a| + |b|)      ( and zero if  a=b=0 within epsilon )
 double IntensityDataFunctions::RelativeDifference(const SimulationResult& dat,
-                                                  const SimulationResult& ref)
-{
+                                                  const SimulationResult& ref) {
     if (dat.size() != ref.size())
         throw std::runtime_error("Error in IntensityDataFunctions::RelativeDifference: "
                                  "different number of elements");
@@ -42,8 +41,7 @@ double IntensityDataFunctions::RelativeDifference(const SimulationResult& dat,
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double IntensityDataFunctions::getRelativeDifference(const OutputData<double>& dat,
-                                                     const OutputData<double>& ref)
-{
+                                                     const OutputData<double>& ref) {
     if (!dat.hasSameDimensions(ref))
         throw Exceptions::RuntimeErrorException(
             "IntensityDataFunctions::getRelativeDifference() -> "
@@ -59,8 +57,7 @@ double IntensityDataFunctions::getRelativeDifference(const OutputData<double>& d
     return diff;
 }
 
-double IntensityDataFunctions::getRelativeDifference(const IHistogram& dat, const IHistogram& ref)
-{
+double IntensityDataFunctions::getRelativeDifference(const IHistogram& dat, const IHistogram& ref) {
     return getRelativeDifference(*std::unique_ptr<OutputData<double>>(dat.getData().meanValues()),
                                  *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()));
 }
@@ -68,8 +65,7 @@ double IntensityDataFunctions::getRelativeDifference(const IHistogram& dat, cons
 //! Returns true is relative difference is below threshold; prints informative output
 bool IntensityDataFunctions::checkRelativeDifference(const OutputData<double>& dat,
                                                      const OutputData<double>& ref,
-                                                     const double threshold)
-{
+                                                     const double threshold) {
     const double diff = getRelativeDifference(dat, ref);
     if (diff > threshold) {
         std::cerr << "  => FAILED: relative deviation of dat from ref is " << diff
@@ -86,8 +82,7 @@ bool IntensityDataFunctions::checkRelativeDifference(const OutputData<double>& d
 
 std::unique_ptr<OutputData<double>>
 IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& data,
-                                                     const OutputData<double>& reference)
-{
+                                                     const OutputData<double>& reference) {
     if (!data.hasSameDimensions(reference))
         throw Exceptions::RuntimeErrorException(
             "IntensityDataFunctions::createRelativeDifferenceData() -> "
@@ -99,8 +94,7 @@ IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& d
 }
 
 std::unique_ptr<OutputData<double>>
-IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, int n)
-{
+IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, int n) {
     if (data.rank() != 2)
         throw Exceptions::LogicErrorException("IntensityDataFunctions::rotateDataByN90Deg()"
                                               " -> Error! Works only on two-dimensional data");
@@ -146,8 +140,7 @@ IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, 
 
 std::unique_ptr<OutputData<double>>
 IntensityDataFunctions::createClippedDataSet(const OutputData<double>& origin, double x1, double y1,
-                                             double x2, double y2)
-{
+                                             double x2, double y2) {
     if (origin.rank() != 2)
         throw Exceptions::LogicErrorException("IntensityDataFunctions::createClippedData()"
                                               " -> Error! Works only on two-dimensional data");
@@ -186,16 +179,14 @@ IntensityDataFunctions::createClippedDataSet(const OutputData<double>& origin, d
 // (center of non-existing bin #-1).
 // Used for Mask conversion.
 
-double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis& axis)
-{
+double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis& axis) {
     size_t index = axis.findClosestIndex(coordinate);
     Bin1D bin = axis.bin(index);
     double f = (coordinate - bin.m_lower) / bin.binSize();
     return static_cast<double>(index) + f;
 }
 
-double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axis)
-{
+double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axis) {
     int index = static_cast<int>(value);
 
     double result(0);
@@ -213,22 +204,20 @@ double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis& axi
     return result;
 }
 
-void IntensityDataFunctions::coordinateToBinf(double& x, double& y, const OutputData<double>& data)
-{
+void IntensityDataFunctions::coordinateToBinf(double& x, double& y,
+                                              const OutputData<double>& data) {
     x = coordinateToBinf(x, data.axis(0));
     y = coordinateToBinf(y, data.axis(1));
 }
 
 void IntensityDataFunctions::coordinateFromBinf(double& x, double& y,
-                                                const OutputData<double>& data)
-{
+                                                const OutputData<double>& data) {
     x = coordinateFromBinf(x, data.axis(0));
     y = coordinateFromBinf(y, data.axis(1));
 }
 
 std::vector<std::vector<double>>
-IntensityDataFunctions::create2DArrayfromOutputData(const OutputData<double>& data)
-{
+IntensityDataFunctions::create2DArrayfromOutputData(const OutputData<double>& data) {
     if (data.rank() != 2)
         throw Exceptions::LogicErrorException(
             "IntensityDataFunctions::create2DArrayfromOutputData() -> "
@@ -254,8 +243,7 @@ IntensityDataFunctions::create2DArrayfromOutputData(const OutputData<double>& da
 }
 
 std::vector<std::vector<double>>
-IntensityDataFunctions::FT2DArray(const std::vector<std::vector<double>>& signal)
-{
+IntensityDataFunctions::FT2DArray(const std::vector<std::vector<double>>& signal) {
     FourierTransform ft;
     std::vector<std::vector<double>> fft_array;
     ft.fft(signal, fft_array);
@@ -266,8 +254,7 @@ IntensityDataFunctions::FT2DArray(const std::vector<std::vector<double>>& signal
 }
 
 std::unique_ptr<OutputData<double>> IntensityDataFunctions::createOutputDatafrom2DArray(
-    const std::vector<std::vector<double>>& array_2d)
-{
+    const std::vector<std::vector<double>>& array_2d) {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     size_t nrows = array_2d.size();
     size_t ncols = array_2d[0].size();
@@ -288,8 +275,7 @@ std::unique_ptr<OutputData<double>> IntensityDataFunctions::createOutputDatafrom
 }
 
 std::unique_ptr<OutputData<double>>
-IntensityDataFunctions::createFFT(const OutputData<double>& data)
-{
+IntensityDataFunctions::createFFT(const OutputData<double>& data) {
     auto array_2d = IntensityDataFunctions::create2DArrayfromOutputData(data);
     auto fft_array_2d = IntensityDataFunctions::FT2DArray(array_2d);
     return IntensityDataFunctions::createOutputDatafrom2DArray(fft_array_2d);

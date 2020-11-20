@@ -23,8 +23,7 @@
 //! of magnetic interactions between the scattered particle and the layer.
 //! @ingroup algorithms_internal
 
-class MatrixRTCoefficients_v3 : public ILayerRTCoefficients
-{
+class MatrixRTCoefficients_v3 : public ILayerRTCoefficients {
 public:
     friend class SpecularMagneticNewStrategy;
     friend class SpecularMagneticNewNCStrategy;

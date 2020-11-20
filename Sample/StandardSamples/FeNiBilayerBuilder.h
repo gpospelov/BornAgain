@@ -18,38 +18,32 @@
 
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
-class FeNiBilayerBuilder : public ISampleBuilder
-{
+class FeNiBilayerBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
 
-class FeNiBilayerTanhBuilder : public ISampleBuilder
-{
+class FeNiBilayerTanhBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
 
-class FeNiBilayerNCBuilder : public ISampleBuilder
-{
+class FeNiBilayerNCBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
 
-class FeNiBilayerSpinFlipBuilder : public ISampleBuilder
-{
+class FeNiBilayerSpinFlipBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
 
-class FeNiBilayerSpinFlipTanhBuilder : public ISampleBuilder
-{
+class FeNiBilayerSpinFlipTanhBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
 
-class FeNiBilayerSpinFlipNCBuilder : public ISampleBuilder
-{
+class FeNiBilayerSpinFlipNCBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

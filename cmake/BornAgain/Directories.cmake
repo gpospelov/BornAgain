@@ -3,8 +3,13 @@
 # -----------------------------------------------------------------------------
 
 set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
-set(TEST_REFERENCE_DIR ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
-set(PY_EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples/python)
+set(PY_EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples/Python)
+
+set(TEST_REFERENCE_DIR            ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
+set(TEST_REFERENCE_DIR_CORE       ${TEST_REFERENCE_DIR}/Core)
+set(TEST_REFERENCE_DIR_PY_CORE    ${TEST_REFERENCE_DIR}/PyCore)
+set(TEST_REFERENCE_DIR_PY_PERSIST ${TEST_REFERENCE_DIR}/PyPersist)
+set(TEST_REFERENCE_DIR_STD        ${TEST_REFERENCE_DIR}/Std)
 
 # -----------------------------------------------------------------------------
 # auto directories (refreshed when CONFIGURE options are set)
@@ -18,15 +23,23 @@ file(MAKE_DIRECTORY ${AUTO_DIR})
 # output directories
 # -----------------------------------------------------------------------------
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY         ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY         ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG   ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 set(BUILD_VAR_DIR ${CMAKE_BINARY_DIR}/var)
 set(BUILD_INC_DIR ${CMAKE_BINARY_DIR}/inc)
 set(BUILD_SRC_DIR ${CMAKE_BINARY_DIR}/src)
-set(TEST_OUTPUT_DIR ${CMAKE_BINARY_DIR}/test_output)
+
+set(TEST_OUTPUT_DIR             ${CMAKE_BINARY_DIR}/test_output)
+set(TEST_OUTPUT_DIR_CORE        ${TEST_OUTPUT_DIR}/Core)
+set(TEST_OUTPUT_DIR_PY_EXAMPLES ${TEST_OUTPUT_DIR}/PyExamples)
+set(TEST_OUTPUT_DIR_PY_CORE     ${TEST_OUTPUT_DIR}/PyCore)
+set(TEST_OUTPUT_DIR_PY_FIT      ${TEST_OUTPUT_DIR}/PyFit)
+set(TEST_OUTPUT_DIR_PY_PERSIST  ${TEST_OUTPUT_DIR}/PyPersist)
+set(TEST_OUTPUT_DIR_PY_STD      ${TEST_OUTPUT_DIR}/PyStd)
+set(TEST_OUTPUT_DIR_STD         ${TEST_OUTPUT_DIR}/Std)
 
 configure_file("${CONFIGURABLES_DIR}/auto_README.in" "${CMAKE_SOURCE_DIR}/auto/README" @ONLY)
 

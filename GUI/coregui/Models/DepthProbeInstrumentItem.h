@@ -21,8 +21,7 @@ class DepthProbeSimulation;
 
 //! Depth probe instrument.
 
-class BA_CORE_API_ DepthProbeInstrumentItem : public InstrumentItem
-{
+class BA_CORE_API_ DepthProbeInstrumentItem : public InstrumentItem {
 public:
     static const QString P_BEAM;
     static const QString P_Z_AXIS;

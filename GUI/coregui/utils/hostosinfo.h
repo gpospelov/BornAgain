@@ -17,35 +17,30 @@
 
 #include <QString>
 
-namespace GUI_OS_Utils
-{
+namespace GUI_OS_Utils {
 
 #define QTC_WIN_EXE_SUFFIX ".exe"
 
 enum EOsType { WINDOWS_OS, LINUX_OS, MAC_OS, OTHER_UNIX_OS, OTHER_OS };
 
-class OsSpecificAspects
-{
+class OsSpecificAspects {
 public:
     OsSpecificAspects(EOsType osType) : m_osType(osType) {}
 
-    QString withExecutableSuffix(const QString& executable) const
-    {
+    QString withExecutableSuffix(const QString& executable) const {
         QString finalName = executable;
         if (m_osType == WINDOWS_OS)
             finalName += QLatin1String(QTC_WIN_EXE_SUFFIX);
         return finalName;
     }
 
-    Qt::CaseSensitivity fileNameCaseSensitivity() const
-    {
+    Qt::CaseSensitivity fileNameCaseSensitivity() const {
         return m_osType == WINDOWS_OS ? Qt::CaseInsensitive : Qt::CaseSensitive;
     }
 
     QChar pathListSeparator() const { return QLatin1Char(m_osType == WINDOWS_OS ? ';' : ':'); }
 
-    Qt::KeyboardModifier controlModifier() const
-    {
+    Qt::KeyboardModifier controlModifier() const {
         return m_osType == MAC_OS ? Qt::MetaModifier : Qt::ControlModifier;
     }
 
@@ -53,8 +48,7 @@ private:
     const EOsType m_osType;
 };
 
-class HostOsInfo
-{
+class HostOsInfo {
 public:
     static inline EOsType hostOs();
 
@@ -72,13 +66,11 @@ public:
     static bool isMacHost() { return hostOs() == MAC_OS; }
     static inline bool isAnyUnixHost();
 
-    static QString withExecutableSuffix(const QString& executable)
-    {
+    static QString withExecutableSuffix(const QString& executable) {
         return hostOsAspects().withExecutableSuffix(executable);
     }
 
-    static Qt::CaseSensitivity fileNameCaseSensitivity()
-    {
+    static Qt::CaseSensitivity fileNameCaseSensitivity() {
         return hostOsAspects().fileNameCaseSensitivity();
     }
 
@@ -90,8 +82,7 @@ private:
     static OsSpecificAspects hostOsAspects() { return OsSpecificAspects(hostOs()); }
 };
 
-EOsType HostOsInfo::hostOs()
-{
+EOsType HostOsInfo::hostOs() {
 #if defined(Q_OS_WIN)
     return WINDOWS_OS;
 #elif defined(Q_OS_LINUX)
@@ -105,8 +96,7 @@ EOsType HostOsInfo::hostOs()
 #endif
 }
 
-bool HostOsInfo::isAnyUnixHost()
-{
+bool HostOsInfo::isAnyUnixHost() {
 #ifdef Q_OS_UNIX
     return true;
 #else

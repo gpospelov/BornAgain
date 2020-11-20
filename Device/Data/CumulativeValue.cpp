@@ -15,13 +15,11 @@
 #include "Device/Data/CumulativeValue.h"
 #include <cmath>
 
-double CumulativeValue::getRMS() const
-{
+double CumulativeValue::getRMS() const {
     return std::sqrt(m_rms2);
 }
 
-void CumulativeValue::add(double value, double weight)
-{
+void CumulativeValue::add(double value, double weight) {
     m_n_entries++;
     m_sum += value;
     m_rms2 =
@@ -32,8 +30,7 @@ void CumulativeValue::add(double value, double weight)
     m_sum_of_weights += weight;
 }
 
-void CumulativeValue::clear()
-{
+void CumulativeValue::clear() {
     m_n_entries = 0;
     m_sum = 0.0;
     m_average = 0.0;
@@ -41,12 +38,10 @@ void CumulativeValue::clear()
     m_sum_of_weights = 0.0;
 }
 
-bool operator<(const CumulativeValue& lhs, const CumulativeValue& rhs)
-{
+bool operator<(const CumulativeValue& lhs, const CumulativeValue& rhs) {
     return lhs.getContent() < rhs.getContent();
 }
 
-bool operator>(const CumulativeValue& lhs, const CumulativeValue& rhs)
-{
+bool operator>(const CumulativeValue& lhs, const CumulativeValue& rhs) {
     return rhs < lhs;
 }

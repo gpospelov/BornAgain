@@ -24,8 +24,7 @@
 // MPI support
 // -----------------------------------------------------------------------------
 
-void MPISimulation::runSimulation(ISimulation* simulation)
-{
+void MPISimulation::runSimulation(ISimulation* simulation) {
     MPI_Status st;
 
     int world_size(0), world_rank(0);
@@ -72,8 +71,7 @@ void MPISimulation::runSimulation(ISimulation* simulation)
 // No MPI support
 // -----------------------------------------------------------------------------
 
-void MPISimulation::runSimulation(ISimulation* /* simulation */)
-{
+void MPISimulation::runSimulation(ISimulation* /* simulation */) {
     throw std::runtime_error(
         "MPISimulation::runSimulation() -> Error! Can't run MPI simulation. "
         "The package was compiled without MPI support (compile with -DBORNAGAIN_MPI=ON)");

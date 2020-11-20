@@ -17,11 +17,9 @@
 #include <QQuaternion>
 #include <qmath.h>
 
-namespace RealSpace
-{
+namespace RealSpace {
 
-Geometry::Mesh Geometry::meshIcosahedron()
-{
+Geometry::Mesh Geometry::meshIcosahedron() {
     Vertices vs_(12); // 12 vertices of the icosahedron retrieved from Icosahedron.cpp
 
     const float E = 1.0; // edge

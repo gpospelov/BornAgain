@@ -20,13 +20,11 @@
 #include "Sample/Interference/SSCApproximationStrategy.h"
 #include "Sample/Processed/ProcessedLayout.h"
 
-namespace
-{
+namespace {
 
 std::unique_ptr<IInterferenceFunctionStrategy>
 processedInterferenceFunction(const ProcessedLayout& layout, const SimulationOptions& sim_params,
-                              bool polarized)
-{
+                              bool polarized) {
     const IInterferenceFunction* iff = layout.interferenceFunction();
     if (iff && layout.numberOfSlices() > 1 && !iff->supportsMultilayer())
         throw std::runtime_error("LayoutStrategyBuilder::checkInterferenceFunction: "
@@ -52,14 +50,11 @@ ParticleLayoutComputation::ParticleLayoutComputation(const ProcessedLayout& layo
                                                      bool polarized)
     : m_layout(layout)
     , m_region_map(layout.regionMap())
-    , m_interference_function_strategy(processedInterferenceFunction(layout, options, polarized))
-{
-}
+    , m_interference_function_strategy(processedInterferenceFunction(layout, options, polarized)) {}
 
 ParticleLayoutComputation::~ParticleLayoutComputation() = default;
 
-void ParticleLayoutComputation::compute(SimulationElement& elem) const
-{
+void ParticleLayoutComputation::compute(SimulationElement& elem) const {
     const double alpha_f = elem.getAlphaMean();
     const size_t n_layers = m_layout.numberOfSlices();
     if (n_layers > 1 && alpha_f < 0)
@@ -69,8 +64,7 @@ void ParticleLayoutComputation::compute(SimulationElement& elem) const
 }
 
 void ParticleLayoutComputation::mergeRegionMap(
-    std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const
-{
+    std::map<size_t, std::vector<HomogeneousRegion>>& region_map) const {
     for (auto& entry : m_region_map) {
         size_t i = entry.first;
         auto& regions = entry.second;

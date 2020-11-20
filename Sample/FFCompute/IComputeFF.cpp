@@ -21,37 +21,29 @@ IComputeFF::IComputeFF(const IFormFactor& ff) : m_ff(ff.clone()) {}
 
 IComputeFF::~IComputeFF() = default;
 
-void IComputeFF::setAmbientMaterial(const Material& material)
-{
+void IComputeFF::setAmbientMaterial(const Material& material) {
     m_ff->setAmbientMaterial(material);
 }
 
-double IComputeFF::volume() const
-{
+double IComputeFF::volume() const {
     return m_ff->volume();
 }
 
-double IComputeFF::radialExtension() const
-{
+double IComputeFF::radialExtension() const {
     return m_ff->radialExtension();
 }
 
-double IComputeFF::bottomZ(const IRotation& rotation) const
-{
+double IComputeFF::bottomZ(const IRotation& rotation) const {
     return m_ff->bottomZ(rotation);
 }
 
-double IComputeFF::topZ(const IRotation& rotation) const
-{
+double IComputeFF::topZ(const IRotation& rotation) const {
     return m_ff->topZ(rotation);
 }
 
-Eigen::Matrix2cd IComputeFF::evaluatePol(const WavevectorInfo&) const
-{
+Eigen::Matrix2cd IComputeFF::evaluatePol(const WavevectorInfo&) const {
     throw std::runtime_error("Bug: impossible call to FFCompute::evaluatePol");
 }
 
 void IComputeFF::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients>,
-                                 std::unique_ptr<const ILayerRTCoefficients>)
-{
-}
+                                 std::unique_ptr<const ILayerRTCoefficients>) {}

@@ -23,8 +23,7 @@
 
 ParticleDistribution::ParticleDistribution(const IParticle& prototype,
                                            const ParameterDistribution& par_distr)
-    : m_par_distribution(par_distr)
-{
+    : m_par_distribution(par_distr) {
     setName("ParticleDistribution");
     m_particle.reset(prototype.clone());
     registerChild(m_particle.get());
@@ -34,27 +33,23 @@ ParticleDistribution::ParticleDistribution(const IParticle& prototype,
     registerParameter("Abundance", &m_abundance);
 }
 
-ParticleDistribution* ParticleDistribution::clone() const
-{
+ParticleDistribution* ParticleDistribution::clone() const {
     ParticleDistribution* p_result = new ParticleDistribution(*m_particle, m_par_distribution);
     p_result->setAbundance(m_abundance);
     return p_result;
 }
 
-void ParticleDistribution::translate(kvector_t translation)
-{
+void ParticleDistribution::translate(kvector_t translation) {
     m_particle->translate(translation);
 }
 
-void ParticleDistribution::rotate(const IRotation& rotation)
-{
+void ParticleDistribution::rotate(const IRotation& rotation) {
     m_particle->rotate(rotation);
 }
 
 //! Returns particle clones with parameter values drawn from distribution.
 
-SafePointerVector<IParticle> ParticleDistribution::generateParticles() const
-{
+SafePointerVector<IParticle> ParticleDistribution::generateParticles() const {
     std::unique_ptr<ParameterPool> P_pool{m_particle->createParameterTree()};
     std::string main_par_name = m_par_distribution.getMainParameterName();
     double main_par_value = P_pool->getUniqueMatch(main_par_name)->value();
@@ -80,16 +75,14 @@ SafePointerVector<IParticle> ParticleDistribution::generateParticles() const
     return result;
 }
 
-std::vector<const INode*> ParticleDistribution::getChildren() const
-{
+std::vector<const INode*> ParticleDistribution::getChildren() const {
     std::vector<const INode*> result = std::vector<const INode*>() << m_particle;
     if (auto dist = m_par_distribution.getDistribution())
         result.push_back(dist);
     return result;
 }
 
-std::string ParticleDistribution::mainUnits() const
-{
+std::string ParticleDistribution::mainUnits() const {
     return ParameterUtils::poolParameterUnits(prototype(),
                                               parameterDistribution().getMainParameterName());
 }

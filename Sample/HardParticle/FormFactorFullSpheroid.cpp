@@ -27,18 +27,14 @@ FormFactorFullSpheroid::FormFactorFullSpheroid(const std::vector<double> P)
           {"Height", "nm", "height = twice the radius in non-revolution direction", 0, +INF, 0}}},
         P)
     , m_radius(m_P[0])
-    , m_height(m_P[1])
-{
+    , m_height(m_P[1]) {
     onChange();
 }
 
 FormFactorFullSpheroid::FormFactorFullSpheroid(double radius, double height)
-    : FormFactorFullSpheroid(std::vector<double>{radius, height})
-{
-}
+    : FormFactorFullSpheroid(std::vector<double>{radius, height}) {}
 
-complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const
-{
+complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const {
     double h = m_height / 2;
     double R = m_radius;
 
@@ -56,8 +52,7 @@ complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const
 }
 
 IFormFactor* FormFactorFullSpheroid::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                     kvector_t translation) const
-{
+                                                     kvector_t translation) const {
     double flattening = m_height / (2.0 * m_radius);
     auto effects = computeSlicingEffects(limits, translation, m_height);
     FormFactorTruncatedSpheroid slicedff(m_radius, m_height - effects.dz_bottom, flattening,
@@ -65,8 +60,7 @@ IFormFactor* FormFactorFullSpheroid::sliceFormFactor(ZLimits limits, const IRota
     return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
-void FormFactorFullSpheroid::onChange()
-{
+void FormFactorFullSpheroid::onChange() {
     m_shape =
         std::make_unique<TruncatedEllipsoid>(m_radius, m_radius, m_height / 2.0, m_height, 0.0);
 }

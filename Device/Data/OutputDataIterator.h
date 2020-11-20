@@ -22,8 +22,7 @@
 //! Iterator for underlying OutputData container.
 //! @ingroup tools_internal
 
-template <class TValue, class TContainer> class OutputDataIterator
-{
+template <class TValue, class TContainer> class OutputDataIterator {
 public:
     //! Empty constructor to comply with stl forward iterators
     OutputDataIterator();
@@ -89,8 +88,7 @@ private:
 //! make Swappable
 template <class TValue, class TContainer>
 void swap(OutputDataIterator<TValue, TContainer>& left,
-          OutputDataIterator<TValue, TContainer>& right)
-{
+          OutputDataIterator<TValue, TContainer>& right) {
     left.swap(right);
 }
 
@@ -105,23 +103,19 @@ bool operator!=(const OutputDataIterator<TValue1, TContainer1>& left,
                 const OutputDataIterator<TValue2, TContainer2>& right);
 
 template <class TValue, class TContainer>
-OutputDataIterator<TValue, TContainer>::OutputDataIterator() : m_current_index(0), m_output_data(0)
-{
-}
+OutputDataIterator<TValue, TContainer>::OutputDataIterator()
+    : m_current_index(0), m_output_data(0) {}
 
 template <class TValue, class TContainer>
 OutputDataIterator<TValue, TContainer>::OutputDataIterator(TContainer* p_output_data,
                                                            size_t start_at_index)
-    : m_current_index(start_at_index), m_output_data(p_output_data)
-{
-}
+    : m_current_index(start_at_index), m_output_data(p_output_data) {}
 
 template <class TValue, class TContainer>
 template <class TValue2, class TContainer2>
 OutputDataIterator<TValue, TContainer>::OutputDataIterator(
     const OutputDataIterator<TValue2, TContainer2>& other)
-    : m_current_index(0), m_output_data(0)
-{
+    : m_current_index(0), m_output_data(0) {
     m_output_data = static_cast<TContainer*>(other.getContainer());
     m_current_index = other.getIndex();
 }
@@ -129,8 +123,7 @@ OutputDataIterator<TValue, TContainer>::OutputDataIterator(
 template <class TValue, class TContainer>
 OutputDataIterator<TValue, TContainer>::OutputDataIterator(
     const OutputDataIterator<TValue, TContainer>& other)
-    : m_current_index(0), m_output_data(0)
-{
+    : m_current_index(0), m_output_data(0) {
     m_output_data = other.getContainer();
     m_current_index = other.getIndex();
 }
@@ -138,8 +131,7 @@ OutputDataIterator<TValue, TContainer>::OutputDataIterator(
 template <class TValue, class TContainer>
 template <class TValue2, class TContainer2>
 OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::operator=(
-    const OutputDataIterator<TValue2, TContainer2>& right)
-{
+    const OutputDataIterator<TValue2, TContainer2>& right) {
     OutputDataIterator<TValue, TContainer> copy(right);
     swap(copy);
     return *this;
@@ -147,21 +139,17 @@ OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::
 
 template <class TValue, class TContainer>
 OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::operator=(
-    const OutputDataIterator<TValue, TContainer>& right)
-{
+    const OutputDataIterator<TValue, TContainer>& right) {
     OutputDataIterator<TValue, TContainer> copy(right);
     swap(copy);
     return *this;
 }
 
 template <class TValue, class TContainer>
-OutputDataIterator<TValue, TContainer>::~OutputDataIterator()
-{
-}
+OutputDataIterator<TValue, TContainer>::~OutputDataIterator() {}
 
 template <class TValue, class TContainer>
-OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::operator++()
-{
+OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::operator++() {
     if (m_current_index < m_output_data->getAllocatedSize()) {
         ++m_current_index;
     }
@@ -169,28 +157,25 @@ OutputDataIterator<TValue, TContainer>& OutputDataIterator<TValue, TContainer>::
 }
 
 template <class TValue, class TContainer>
-OutputDataIterator<TValue, TContainer> OutputDataIterator<TValue, TContainer>::operator++(int /**/)
-{
+OutputDataIterator<TValue, TContainer>
+OutputDataIterator<TValue, TContainer>::operator++(int /**/) {
     OutputDataIterator<TValue, TContainer> result(*this);
     this->operator++();
     return result;
 }
 
 template <class TValue, class TContainer>
-TValue& OutputDataIterator<TValue, TContainer>::operator*() const
-{
+TValue& OutputDataIterator<TValue, TContainer>::operator*() const {
     return (*m_output_data)[m_current_index];
 }
 
 template <class TValue, class TContainer>
-TValue* OutputDataIterator<TValue, TContainer>::operator->() const
-{
+TValue* OutputDataIterator<TValue, TContainer>::operator->() const {
     return &((*m_output_data)[m_current_index]);
 }
 
 template <class TValue, class TContainer>
-void OutputDataIterator<TValue, TContainer>::swap(OutputDataIterator<TValue, TContainer>& other)
-{
+void OutputDataIterator<TValue, TContainer>::swap(OutputDataIterator<TValue, TContainer>& other) {
     std::swap(this->m_current_index, other.m_current_index);
     std::swap(this->m_output_data, other.m_output_data);
 }
@@ -198,16 +183,14 @@ void OutputDataIterator<TValue, TContainer>::swap(OutputDataIterator<TValue, TCo
 //! test for equality
 template <class TValue1, class TContainer1, class TValue2, class TContainer2>
 bool operator==(const OutputDataIterator<TValue1, TContainer1>& left,
-                const OutputDataIterator<TValue2, TContainer2>& right)
-{
+                const OutputDataIterator<TValue2, TContainer2>& right) {
     return left.getContainer() == right.getContainer() && left.getIndex() == right.getIndex();
 }
 
 //! test for inequality
 template <class TValue1, class TContainer1, class TValue2, class TContainer2>
 bool operator!=(const OutputDataIterator<TValue1, TContainer1>& left,
-                const OutputDataIterator<TValue2, TContainer2>& right)
-{
+                const OutputDataIterator<TValue2, TContainer2>& right) {
     return !(left == right);
 }
 

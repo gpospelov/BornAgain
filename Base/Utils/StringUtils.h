@@ -22,8 +22,7 @@
 
 //! Utility functions to analyze or modify strings.
 
-namespace StringUtils
-{
+namespace StringUtils {
 
 //! Returns true if text matches pattern with wildcards '*' and '?'.
 bool matchesPattern(const std::string& text, const std::string& wildcardPattern);
@@ -51,8 +50,7 @@ std::string to_lower(std::string text);
 
 } // namespace StringUtils
 
-template <typename T> std::string StringUtils::scientific(const T value, int n)
-{
+template <typename T> std::string StringUtils::scientific(const T value, int n) {
     std::ostringstream out;
     out << std::scientific << std::setprecision(n) << value;
     return out.str();

@@ -18,28 +18,24 @@
 #include <iomanip>
 #include <sstream>
 
-namespace
-{
+namespace {
 
 const int column_width = 18;
 
-template <typename T> std::string reportValue(const std::string& name, T value)
-{
+template <typename T> std::string reportValue(const std::string& name, T value) {
     std::ostringstream result;
     result << std::setw(column_width) << std::left << name << ": " << value << std::endl;
     return result.str();
 }
 
-std::string reportDescription(const MinimizerAdapter& minimizer)
-{
+std::string reportDescription(const MinimizerAdapter& minimizer) {
     std::ostringstream result;
     result << reportValue("MinimizerType", minimizer.minimizerName());
     result << reportValue("AlgorithmName", minimizer.algorithmName());
     return result.str();
 }
 
-std::string reportOption(const MinimizerAdapter& minimizer)
-{
+std::string reportOption(const MinimizerAdapter& minimizer) {
     if (minimizer.options().empty())
         return "";
 
@@ -56,8 +52,7 @@ std::string reportOption(const MinimizerAdapter& minimizer)
     return result.str();
 }
 
-std::string reportStatus(const MinimizerAdapter& minimizer)
-{
+std::string reportStatus(const MinimizerAdapter& minimizer) {
     std::ostringstream result;
     result << mumufit::utils::sectionString("Status");
 
@@ -74,8 +69,7 @@ std::string reportStatus(const MinimizerAdapter& minimizer)
 //  implement API
 //  ************************************************************************************************
 
-std::string mumufit::internal::reportToString(const MinimizerAdapter& minimizer)
-{
+std::string mumufit::internal::reportToString(const MinimizerAdapter& minimizer) {
     std::ostringstream result;
 
     result << mumufit::utils::sectionString();

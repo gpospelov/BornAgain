@@ -3,8 +3,7 @@
 #include "Device/Data/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class InstrumentTest : public ::testing::Test
-{
+class InstrumentTest : public ::testing::Test {
 protected:
     InstrumentTest();
 
@@ -12,19 +11,16 @@ protected:
     OutputData<double> m_data;
 };
 
-InstrumentTest::InstrumentTest()
-{
+InstrumentTest::InstrumentTest() {
     m_data.addAxis("phi_f", 10, 0., 10.);
     m_data.addAxis("theta_f", 20, 0., 20.);
 }
 
-TEST_F(InstrumentTest, InstrumentInitialState)
-{
+TEST_F(InstrumentTest, InstrumentInitialState) {
     EXPECT_EQ(1.0, m_instrument.getBeamIntensity());
 }
 
-TEST_F(InstrumentTest, BeamManipulation)
-{
+TEST_F(InstrumentTest, BeamManipulation) {
     double lambda(1), alpha(-1), phi(1);
     double k = M_TWOPI / lambda;
     double x = k * std::cos(alpha) * std::cos(phi);
@@ -39,8 +35,7 @@ TEST_F(InstrumentTest, BeamManipulation)
     EXPECT_EQ(double(10), m_instrument.getBeamIntensity());
 }
 
-TEST_F(InstrumentTest, InstrumentClone)
-{
+TEST_F(InstrumentTest, InstrumentClone) {
     Instrument clone(m_instrument);
     EXPECT_EQ(size_t(0), clone.getDetectorDimension());
     EXPECT_EQ(1.0, clone.getBeamIntensity());

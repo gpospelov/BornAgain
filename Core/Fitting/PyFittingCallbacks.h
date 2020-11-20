@@ -25,8 +25,7 @@ class ISimulation;
 //! Base class to wrap Python callable and pass it to C++. Used in swig interface file,
 //! intended to be overloaded from Python.
 
-class PyBuilderCallback
-{
+class PyBuilderCallback {
 public:
     PyBuilderCallback();
     virtual ~PyBuilderCallback();
@@ -40,8 +39,7 @@ class FitObjective;
 //! Base class to wrap Python callable and pass it to C++. Used in swig interface file,
 //! intended to be overloaded from Python.
 
-class PyObserverCallback
-{
+class PyObserverCallback {
 public:
     PyObserverCallback();
     virtual ~PyObserverCallback();

@@ -20,8 +20,7 @@
 #include <QToolButton>
 
 SampleViewStatusBar::SampleViewStatusBar(MainWindow* mainWindow)
-    : QWidget(mainWindow), m_dockMenuButton(nullptr), m_mainWindow(mainWindow)
-{
+    : QWidget(mainWindow), m_dockMenuButton(nullptr), m_mainWindow(mainWindow) {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     auto layout = new QHBoxLayout;
@@ -41,8 +40,7 @@ SampleViewStatusBar::SampleViewStatusBar(MainWindow* mainWindow)
 
 //! Init appearance of MainWindow's statusBar.
 
-void SampleViewStatusBar::initAppearance()
-{
+void SampleViewStatusBar::initAppearance() {
     ASSERT(m_mainWindow);
     m_mainWindow->statusBar()->addWidget(this, 1);
     m_mainWindow->statusBar()->setSizeGripEnabled(false);

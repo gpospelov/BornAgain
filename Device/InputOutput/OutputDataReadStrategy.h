@@ -22,8 +22,7 @@ template <class T> class OutputData;
 //! Interface for reading strategy of OutputData from file.
 //! @ingroup input_output_internal
 
-class IOutputDataReadStrategy
-{
+class IOutputDataReadStrategy {
 public:
     virtual ~IOutputDataReadStrategy() = default;
     virtual OutputData<double>* readOutputData(std::istream& input_stream) = 0;
@@ -32,8 +31,7 @@ public:
 //! Strategy to read BornAgain native IntensityData from ASCII file.
 //! @ingroup input_output_internal
 
-class OutputDataReadINTStrategy : public IOutputDataReadStrategy
-{
+class OutputDataReadINTStrategy : public IOutputDataReadStrategy {
 public:
     OutputData<double>* readOutputData(std::istream& input_stream);
 };
@@ -41,8 +39,7 @@ public:
 //! Strategy to read Reflectometry data from ASCII file.
 //! @ingroup input_output_internal
 
-class OutputDataReadReflectometryStrategy : public IOutputDataReadStrategy
-{
+class OutputDataReadReflectometryStrategy : public IOutputDataReadStrategy {
 public:
     OutputData<double>* readOutputData(std::istream& input_stream);
 };
@@ -50,8 +47,7 @@ public:
 //! Strategy to read OutputData from simple ASCII file with the layout as in numpy.savetxt.
 //! @ingroup input_output_internal
 
-class OutputDataReadNumpyTXTStrategy : public IOutputDataReadStrategy
-{
+class OutputDataReadNumpyTXTStrategy : public IOutputDataReadStrategy {
 public:
     OutputData<double>* readOutputData(std::istream& input_stream);
 };
@@ -63,8 +59,7 @@ class TiffHandler;
 //! Strategy to read a TIFF file.
 //! @ingroup input_output_internal
 
-class OutputDataReadTiffStrategy : public IOutputDataReadStrategy
-{
+class OutputDataReadTiffStrategy : public IOutputDataReadStrategy {
 public:
     OutputDataReadTiffStrategy();
     virtual ~OutputDataReadTiffStrategy();

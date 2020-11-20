@@ -17,14 +17,12 @@
 
 #include "GUI/coregui/Models/SessionItem.h"
 
-class BA_CORE_API_ LayerZeroRoughnessItem : public SessionItem
-{
+class BA_CORE_API_ LayerZeroRoughnessItem : public SessionItem {
 public:
     LayerZeroRoughnessItem();
 };
 
-class BA_CORE_API_ LayerBasicRoughnessItem : public SessionItem
-{
+class BA_CORE_API_ LayerBasicRoughnessItem : public SessionItem {
 public:
     static const QString P_SIGMA;
     static const QString P_HURST;

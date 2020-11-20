@@ -26,8 +26,7 @@ class QResizeEvent;
 
 //! Used in JobMessagePanel.
 
-class InfoPanel : public QFrame
-{
+class InfoPanel : public QFrame {
     Q_OBJECT
 public:
     explicit InfoPanel(QWidget* parent);

@@ -19,44 +19,41 @@
 
 //! The form factor for a cosine ripple, with box profile in elongation direction.
 //! @ingroup legacyGrating
-class FormFactorCosineRippleBox : public ICosineRipple
-{
+class FormFactorCosineRippleBox : public ICosineRipple {
 public:
     FormFactorCosineRippleBox(const std::vector<double> P);
     FormFactorCosineRippleBox(double length, double width, double height);
-    FormFactorCosineRippleBox* clone() const override final;
-    void accept(INodeVisitor* visitor) const override final;
+    FormFactorCosineRippleBox* clone() const final;
+    void accept(INodeVisitor* visitor) const final;
 
 private:
-    complex_t factor_x(complex_t qx) const override final;
+    complex_t factor_x(complex_t qx) const final;
 };
 
 //! The form factor for a cosine ripple, with Gaussian profile in elongation direction.
 //! @ingroup legacyGrating
-class FormFactorCosineRippleGauss : public ICosineRipple
-{
+class FormFactorCosineRippleGauss : public ICosineRipple {
 public:
     FormFactorCosineRippleGauss(const std::vector<double> P);
     FormFactorCosineRippleGauss(double length, double width, double height);
-    FormFactorCosineRippleGauss* clone() const override final;
-    void accept(INodeVisitor* visitor) const override final;
+    FormFactorCosineRippleGauss* clone() const final;
+    void accept(INodeVisitor* visitor) const final;
 
 private:
-    complex_t factor_x(complex_t qx) const override final;
+    complex_t factor_x(complex_t qx) const final;
 };
 
 //! The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
 //! @ingroup legacyGrating
-class FormFactorCosineRippleLorentz : public ICosineRipple
-{
+class FormFactorCosineRippleLorentz : public ICosineRipple {
 public:
     FormFactorCosineRippleLorentz(const std::vector<double> P);
     FormFactorCosineRippleLorentz(double length, double width, double height);
-    FormFactorCosineRippleLorentz* clone() const override final;
-    void accept(INodeVisitor* visitor) const override final;
+    FormFactorCosineRippleLorentz* clone() const final;
+    void accept(INodeVisitor* visitor) const final;
 
 private:
-    complex_t factor_x(complex_t qx) const override final;
+    complex_t factor_x(complex_t qx) const final;
 };
 
 #endif // BORNAGAIN_SAMPLE_HARDPARTICLE_FORMFACTORCOSINERIPPLE_H

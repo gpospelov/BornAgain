@@ -29,8 +29,7 @@
 
 SimAnMinimizer::SimAnMinimizer()
     : MinimizerAdapter(MinimizerInfo::buildGSLSimAnInfo())
-    , m_siman_minimizer(new ROOT::Math::GSLSimAnMinimizer())
-{
+    , m_siman_minimizer(new ROOT::Math::GSLSimAnMinimizer()) {
     addOption("PrintLevel", 0, "Minimizer internal print level");
     addOption("MaxIterations", 100, "Number of points to try for each step");
     addOption("IterationsAtTemp", 10, "Number of iterations at each temperature");
@@ -43,95 +42,77 @@ SimAnMinimizer::SimAnMinimizer()
 
 SimAnMinimizer::~SimAnMinimizer() = default;
 
-void SimAnMinimizer::setPrintLevel(int value)
-{
+void SimAnMinimizer::setPrintLevel(int value) {
     setOptionValue("PrintLevel", value);
 }
 
-int SimAnMinimizer::printLevel() const
-{
+int SimAnMinimizer::printLevel() const {
     return optionValue<int>("PrintLevel");
 }
 
-void SimAnMinimizer::setMaxIterations(int value)
-{
+void SimAnMinimizer::setMaxIterations(int value) {
     setOptionValue("MaxIterations", value);
 }
 
-int SimAnMinimizer::maxIterations() const
-{
+int SimAnMinimizer::maxIterations() const {
     return optionValue<int>("MaxIterations");
 }
 
-void SimAnMinimizer::setIterationsAtEachTemp(int value)
-{
+void SimAnMinimizer::setIterationsAtEachTemp(int value) {
     setOptionValue("IterationsAtTemp", value);
 }
 
-int SimAnMinimizer::iterationsAtEachTemp() const
-{
+int SimAnMinimizer::iterationsAtEachTemp() const {
     return optionValue<int>("IterationsAtTemp");
 }
 
-void SimAnMinimizer::setStepSize(double value)
-{
+void SimAnMinimizer::setStepSize(double value) {
     setOptionValue("StepSize", value);
 }
 
-double SimAnMinimizer::stepSize() const
-{
+double SimAnMinimizer::stepSize() const {
     return optionValue<double>("StepSize");
 }
 
-void SimAnMinimizer::setBoltzmannK(double value)
-{
+void SimAnMinimizer::setBoltzmannK(double value) {
     setOptionValue("k", value);
 }
 
-double SimAnMinimizer::boltzmannK() const
-{
+double SimAnMinimizer::boltzmannK() const {
     return optionValue<double>("k");
 }
 
-void SimAnMinimizer::setBoltzmannInitialTemp(double value)
-{
+void SimAnMinimizer::setBoltzmannInitialTemp(double value) {
     setOptionValue("t_init", value);
 }
 
-double SimAnMinimizer::boltzmannInitialTemp() const
-{
+double SimAnMinimizer::boltzmannInitialTemp() const {
     return optionValue<double>("t_init");
 }
 
-void SimAnMinimizer::setBoltzmannMu(double value)
-{
+void SimAnMinimizer::setBoltzmannMu(double value) {
     setOptionValue("mu", value);
 }
 
-double SimAnMinimizer::boltzmannMu() const
-{
+double SimAnMinimizer::boltzmannMu() const {
     return optionValue<double>("mu");
 }
 
-void SimAnMinimizer::setBoltzmannMinTemp(double value)
-{
+void SimAnMinimizer::setBoltzmannMinTemp(double value) {
     setOptionValue("t_min", value);
 }
 
-double SimAnMinimizer::boltzmannMinTemp() const
-{
+double SimAnMinimizer::boltzmannMinTemp() const {
     return optionValue<double>("t_min");
 }
 
-std::map<std::string, std::string> SimAnMinimizer::statusMap() const
-{
+std::map<std::string, std::string> SimAnMinimizer::statusMap() const {
     auto result = MinimizerAdapter::statusMap();
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
     return result;
 }
 
-void SimAnMinimizer::propagateOptions()
-{
+void SimAnMinimizer::propagateOptions() {
     ROOT::Math::GSLSimAnParams& pars = m_siman_minimizer->getSolver().Params();
     pars.n_tries = maxIterations();
     pars.iters_fixed_T = iterationsAtEachTemp();
@@ -142,7 +123,6 @@ void SimAnMinimizer::propagateOptions()
     pars.t_min = boltzmannMinTemp();
 }
 
-const MinimizerAdapter::root_minimizer_t* SimAnMinimizer::rootMinimizer() const
-{
+const MinimizerAdapter::root_minimizer_t* SimAnMinimizer::rootMinimizer() const {
     return m_siman_minimizer.get();
 }

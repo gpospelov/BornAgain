@@ -25,8 +25,7 @@ class GUIMessage;
 //! @class MessageService
 //! @brief The service to collect messages from different senders.
 
-class MessageService
-{
+class MessageService {
 public:
     virtual ~MessageService();
 

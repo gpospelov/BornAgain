@@ -38,17 +38,16 @@ class LayerRoughness;
 //!  ---------   interface #2    z=-60.0
 //!  substrate   layer #3
 
-class MultiLayer : public ISample
-{
+class MultiLayer : public ISample {
 public:
     MultiLayer();
     ~MultiLayer() override;
 
     //! Returns a clone of multilayer with clones of all layers and
     //! interfaces between layers
-    MultiLayer* clone() const final override;
+    MultiLayer* clone() const final;
 
-    void accept(INodeVisitor* visitor) const final override { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     size_t numberOfLayers() const { return m_layers.size(); }
 
@@ -76,7 +75,7 @@ public:
     //! Returns the external field applied to the multilayer (units: A/m)
     kvector_t externalField() const { return m_ext_field; }
 
-    std::vector<const INode*> getChildren() const final override;
+    std::vector<const INode*> getChildren() const final;
 
     void setRoughnessModel(RoughnessModel roughnessModel);
 

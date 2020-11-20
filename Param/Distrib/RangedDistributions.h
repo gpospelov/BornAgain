@@ -33,8 +33,7 @@ class ParameterSample;
 //! (except for RangedDistributionLorentz which uses median and hwhm).
 //! @ingroup distribution_internal
 
-class RangedDistribution : public ICloneable
-{
+class RangedDistribution : public ICloneable {
 public:
     RangedDistribution();
     RangedDistribution(size_t n_samples, double sigma_factor,
@@ -95,8 +94,7 @@ private:
 //! Uniform distribution function.
 //! @ingroup paramDistribution
 
-class RangedDistributionGate : public RangedDistribution
-{
+class RangedDistributionGate : public RangedDistribution {
 public:
     RangedDistributionGate();
     RangedDistributionGate(size_t n_samples, double sigma_factor,
@@ -120,8 +118,7 @@ protected:
 //! Lorentz distribution with median and hwhm.
 //! @ingroup paramDistribution
 
-class RangedDistributionLorentz : public RangedDistribution
-{
+class RangedDistributionLorentz : public RangedDistribution {
 public:
     RangedDistributionLorentz();
     RangedDistributionLorentz(size_t n_samples, double hwhm_factor,
@@ -145,8 +142,7 @@ protected:
 //! Gaussian distribution with standard deviation std_dev.
 //! @ingroup paramDistribution
 
-class RangedDistributionGaussian : public RangedDistribution
-{
+class RangedDistributionGaussian : public RangedDistribution {
 public:
     RangedDistributionGaussian();
     RangedDistributionGaussian(size_t n_samples, double sigma_factor,
@@ -170,8 +166,7 @@ protected:
 //! Log-normal distribution.
 //! @ingroup paramDistribution
 
-class RangedDistributionLogNormal : public RangedDistribution
-{
+class RangedDistributionLogNormal : public RangedDistribution {
 public:
     RangedDistributionLogNormal();
     RangedDistributionLogNormal(size_t n_samples, double sigma_factor,
@@ -195,8 +190,7 @@ protected:
 //! Cosine distribution.
 //! @ingroup paramDistribution
 
-class RangedDistributionCosine : public RangedDistribution
-{
+class RangedDistributionCosine : public RangedDistribution {
 public:
     RangedDistributionCosine();
     RangedDistributionCosine(size_t n_samples, double sigma_factor,
@@ -217,8 +211,7 @@ protected:
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
 
-inline std::ostream& operator<<(std::ostream& os, const RangedDistribution& distribution)
-{
+inline std::ostream& operator<<(std::ostream& os, const RangedDistribution& distribution) {
     return os << distribution.pyString();
 }
 

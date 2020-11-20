@@ -21,8 +21,7 @@
 //!
 //! @ingroup samples_internal
 
-class IPeakShape : public ISample
-{
+class IPeakShape : public ISample {
 public:
     IPeakShape() = default;
     IPeakShape(const NodeMeta& meta, const std::vector<double>& PValues);
@@ -43,8 +42,7 @@ public:
 //!
 //! @ingroup samples_internal
 
-class IsotropicGaussPeakShape : public IPeakShape
-{
+class IsotropicGaussPeakShape : public IPeakShape {
 public:
     IsotropicGaussPeakShape(double max_intensity, double domainsize);
     ~IsotropicGaussPeakShape() override;
@@ -65,8 +63,7 @@ private:
 //!
 //! @ingroup samples_internal
 
-class IsotropicLorentzPeakShape : public IPeakShape
-{
+class IsotropicLorentzPeakShape : public IPeakShape {
 public:
     IsotropicLorentzPeakShape(double max_intensity, double domainsize);
     ~IsotropicLorentzPeakShape() override;
@@ -88,8 +85,7 @@ private:
 //!
 //! @ingroup samples_internal
 
-class GaussFisherPeakShape : public IPeakShape
-{
+class GaussFisherPeakShape : public IPeakShape {
 public:
     GaussFisherPeakShape(double max_intensity, double radial_size, double kappa);
     ~GaussFisherPeakShape() override;
@@ -113,8 +109,7 @@ private:
 //!
 //! @ingroup samples_internal
 
-class LorentzFisherPeakShape : public IPeakShape
-{
+class LorentzFisherPeakShape : public IPeakShape {
 public:
     LorentzFisherPeakShape(double max_intensity, double radial_size, double kappa);
     ~LorentzFisherPeakShape() override;
@@ -138,8 +133,7 @@ private:
 //!
 //! @ingroup samples_internal
 
-class MisesFisherGaussPeakShape : public IPeakShape
-{
+class MisesFisherGaussPeakShape : public IPeakShape {
 public:
     MisesFisherGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith,
                               double kappa_1, double kappa_2);
@@ -168,8 +162,7 @@ private:
 //!
 //! @ingroup samples_internal
 
-class MisesGaussPeakShape : public IPeakShape
-{
+class MisesGaussPeakShape : public IPeakShape {
 public:
     MisesGaussPeakShape(double max_intensity, double radial_size, kvector_t zenith, double kappa);
     ~MisesGaussPeakShape() override;

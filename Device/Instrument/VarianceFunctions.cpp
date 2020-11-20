@@ -19,13 +19,11 @@
 //  class VarianceConstantFunction
 //  ************************************************************************************************
 
-VarianceConstantFunction* VarianceConstantFunction::clone() const
-{
+VarianceConstantFunction* VarianceConstantFunction::clone() const {
     return new VarianceConstantFunction();
 }
 
-double VarianceConstantFunction::variance(double, double) const
-{
+double VarianceConstantFunction::variance(double, double) const {
     return 1.0;
 }
 
@@ -35,12 +33,10 @@ double VarianceConstantFunction::variance(double, double) const
 
 VarianceSimFunction::VarianceSimFunction(double epsilon) : m_epsilon(epsilon) {}
 
-VarianceSimFunction* VarianceSimFunction::clone() const
-{
+VarianceSimFunction* VarianceSimFunction::clone() const {
     return new VarianceSimFunction(m_epsilon);
 }
 
-double VarianceSimFunction::variance(double /*exp*/, double sim) const
-{
+double VarianceSimFunction::variance(double /*exp*/, double sim) const {
     return std::max(sim, m_epsilon);
 }

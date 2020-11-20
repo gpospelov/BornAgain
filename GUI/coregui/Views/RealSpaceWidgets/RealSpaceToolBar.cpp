@@ -18,8 +18,7 @@
 #include <QCheckBox>
 #include <QToolButton>
 
-namespace
-{
+namespace {
 const double increaseLayerSizeScale = 1.25;
 const double decreaseLayerSizeScale = 0.8;
 } // namespace
@@ -32,8 +31,7 @@ RealSpaceToolBar::RealSpaceToolBar(QWidget* parent)
     , m_lockViewCheckBox(new QCheckBox)
     , m_increaseLayerSizeButton(new QToolButton)
     , m_decreaseLayerSizeButton(new QToolButton)
-    , m_savePictureButton(new QToolButton)
-{
+    , m_savePictureButton(new QToolButton) {
     setMinimumSize(Constants::styled_toolbar_height, Constants::styled_toolbar_height);
 
     // Save image -- this first so it is available for smaller widget sizes

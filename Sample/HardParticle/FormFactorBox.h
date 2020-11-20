@@ -20,31 +20,27 @@
 //! A rectangular prism (parallelepiped).
 //! @ingroup hardParticle
 
-class FormFactorBox : public IFormFactorPrism
-{
+class FormFactorBox : public IFormFactorPrism {
 public:
     FormFactorBox(const std::vector<double> P);
     FormFactorBox(double length, double width, double height);
 
-    FormFactorBox* clone() const override final
-    {
-        return new FormFactorBox(m_length, m_width, m_height);
-    }
+    FormFactorBox* clone() const final { return new FormFactorBox(m_length, m_width, m_height); }
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getWidth() const { return m_width; }
 
-    double volume() const override final { return m_length * m_height * m_width; }
-    double radialExtension() const override final { return m_length / 2.0; }
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    double volume() const final { return m_length * m_height * m_width; }
+    double radialExtension() const final { return m_length / 2.0; }
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
+                                 kvector_t translation) const final;
 
-    void onChange() override final;
+    void onChange() final;
     double height() const final { return m_height; }
 
 private:

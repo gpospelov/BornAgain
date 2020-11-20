@@ -24,8 +24,7 @@
 //! Vector transformations in three dimensions.
 //! @ingroup tools_internal
 
-class Transform3D
-{
+class Transform3D {
 public:
     enum ERotationType { EULER, XAXIS, YAXIS, ZAXIS };
 
@@ -91,8 +90,7 @@ public:
     //! Determine if the transformation is trivial (identity)
     bool isIdentity() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const Transform3D& m)
-    {
+    friend std::ostream& operator<<(std::ostream& ostr, const Transform3D& m) {
         m.print(ostr);
         return ostr;
     }

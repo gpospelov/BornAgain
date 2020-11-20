@@ -21,8 +21,7 @@
 
 //! Holds all tag info for SessionItem.
 
-class SessionItemTags
-{
+class SessionItemTags {
 public:
     bool registerTag(const QString& name, int min, int max, const QStringList& modelTypes);
 

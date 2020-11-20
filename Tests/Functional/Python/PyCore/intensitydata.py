@@ -51,7 +51,7 @@ class IntensityDataTest(unittest.TestCase):
         data.setAllTo(1.0)
         self.assertEqual(200.0, data.totalSum())
         for i in range(0, data.getAllocatedSize()):
-            data[i] = data[i]*-1.0
+            data[i] = data[i]* -1.0
         self.assertEqual(-200.0, data.totalSum())
 
     def test_access_simulation_intensity(self):

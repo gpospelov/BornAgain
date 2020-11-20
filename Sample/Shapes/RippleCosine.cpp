@@ -16,8 +16,7 @@
 
 #include <cmath>
 
-RippleCosine::RippleCosine(double length, double width, double height)
-{
+RippleCosine::RippleCosine(double length, double width, double height) {
     size_t n_y = IShape::N_Circle + 1;
     double y_step = width / (IShape::N_Circle);
     m_vertices.resize(2 * n_y);

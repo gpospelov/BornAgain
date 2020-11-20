@@ -22,16 +22,14 @@
 #include <iostream>
 #include <stdexcept> // need overlooked by g++ 5.4
 
-namespace
-{
+namespace {
 const double eps = 2e-16;
 const double q_limit_series = 1e-2;
 const int n_limit_series = 20;
 } // namespace
 
 Polyhedron::Polyhedron(const PolyhedralTopology& topology, double z_bottom,
-                       const std::vector<kvector_t>& vertices)
-{
+                       const std::vector<kvector_t>& vertices) {
 
     m_vertices.clear();
     for (const kvector_t& vertex : vertices)
@@ -88,8 +86,7 @@ Polyhedron::Polyhedron(const PolyhedralTopology& topology, double z_bottom,
 
 Polyhedron::~Polyhedron() = default;
 
-void Polyhedron::assert_platonic() const
-{
+void Polyhedron::assert_platonic() const {
     // just one test; one could do much more ...
     double pyramidal_volume = 0;
     for (const auto& Gk : m_faces)
@@ -104,24 +101,20 @@ void Polyhedron::assert_platonic() const
         }
 }
 
-double Polyhedron::volume() const
-{
+double Polyhedron::volume() const {
     return m_volume;
 }
-double Polyhedron::radius() const
-{
+double Polyhedron::radius() const {
     return m_radius;
 }
 
-const std::vector<kvector_t>& Polyhedron::vertices()
-{
+const std::vector<kvector_t>& Polyhedron::vertices() {
     return m_vertices;
 }
 
 //! Returns the form factor F(q) of this polyhedron, respecting the offset z_bottom.
 
-complex_t Polyhedron::evaluate_for_q(const cvector_t& q) const
-{
+complex_t Polyhedron::evaluate_for_q(const cvector_t& q) const {
     try {
         return exp_I(-m_z_bottom * q.z()) * evaluate_centered(q);
     } catch (std::logic_error& e) {
@@ -138,8 +131,7 @@ complex_t Polyhedron::evaluate_for_q(const cvector_t& q) const
 
 //! Returns the form factor F(q) of this polyhedron, with origin at z=0.
 
-complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
-{
+complex_t Polyhedron::evaluate_centered(const cvector_t& q) const {
     double q_red = m_radius * q.mag();
 #ifdef POLYHEDRAL_DIAGNOSTIC
     diagnosis.maxOrder = 0;

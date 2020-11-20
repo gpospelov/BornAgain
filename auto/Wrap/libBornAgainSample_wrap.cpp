@@ -70880,19 +70880,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_FormFactorCrystal", _wrap_delete_FormFactorCrystal, METH_O, "\n"
 		"delete_FormFactorCrystal(FormFactorCrystal self)\n"
-		"FormFactorCrystal::~FormFactorCrystal() override final\n"
+		"FormFactorCrystal::~FormFactorCrystal() override\n"
 		"\n"
 		""},
 	 { "FormFactorCrystal_clone", _wrap_FormFactorCrystal_clone, METH_O, "\n"
 		"FormFactorCrystal_clone(FormFactorCrystal self) -> FormFactorCrystal\n"
-		"FormFactorCrystal* FormFactorCrystal::clone() const override final\n"
+		"FormFactorCrystal* FormFactorCrystal::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorCrystal_accept", _wrap_FormFactorCrystal_accept, METH_VARARGS, "\n"
 		"FormFactorCrystal_accept(FormFactorCrystal self, INodeVisitor * visitor)\n"
-		"void FormFactorCrystal::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorCrystal::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "FormFactorCrystal_setAmbientMaterial", _wrap_FormFactorCrystal_setAmbientMaterial, METH_VARARGS, "\n"
@@ -70904,14 +70904,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCrystal_volume", _wrap_FormFactorCrystal_volume, METH_O, "\n"
 		"FormFactorCrystal_volume(FormFactorCrystal self) -> double\n"
-		"double FormFactorCrystal::volume() const override final\n"
+		"double FormFactorCrystal::volume() const override\n"
 		"\n"
 		"Returns the total volume of the particle of this form factor's shape. \n"
 		"\n"
 		""},
 	 { "FormFactorCrystal_radialExtension", _wrap_FormFactorCrystal_radialExtension, METH_O, "\n"
 		"FormFactorCrystal_radialExtension(FormFactorCrystal self) -> double\n"
-		"double FormFactorCrystal::radialExtension() const override final\n"
+		"double FormFactorCrystal::radialExtension() const override\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
@@ -70925,14 +70925,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCrystal_topZ", _wrap_FormFactorCrystal_topZ, METH_VARARGS, "\n"
 		"FormFactorCrystal_topZ(FormFactorCrystal self, IRotation rotation) -> double\n"
-		"double FormFactorCrystal::topZ(const IRotation &rotation) const override final\n"
+		"double FormFactorCrystal::topZ(const IRotation &rotation) const override\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
 	 { "FormFactorCrystal_evaluate", _wrap_FormFactorCrystal_evaluate, METH_VARARGS, "\n"
 		"FormFactorCrystal_evaluate(FormFactorCrystal self, WavevectorInfo wavevectors) -> complex_t\n"
-		"complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override final\n"
+		"complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override\n"
 		"\n"
 		"Returns scattering amplitude for complex wavevectors ki, kf. \n"
 		"\n"
@@ -70946,38 +70946,38 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_FormFactorWeighted", _wrap_delete_FormFactorWeighted, METH_O, "\n"
 		"delete_FormFactorWeighted(FormFactorWeighted self)\n"
-		"FormFactorWeighted::~FormFactorWeighted() override final\n"
+		"FormFactorWeighted::~FormFactorWeighted() override\n"
 		"\n"
 		""},
 	 { "FormFactorWeighted_clone", _wrap_FormFactorWeighted_clone, METH_O, "\n"
 		"FormFactorWeighted_clone(FormFactorWeighted self) -> FormFactorWeighted\n"
-		"FormFactorWeighted * FormFactorWeighted::clone() const override final\n"
+		"FormFactorWeighted * FormFactorWeighted::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorWeighted_accept", _wrap_FormFactorWeighted_accept, METH_VARARGS, "\n"
 		"FormFactorWeighted_accept(FormFactorWeighted self, INodeVisitor * visitor)\n"
-		"void FormFactorWeighted::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorWeighted::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "FormFactorWeighted_radialExtension", _wrap_FormFactorWeighted_radialExtension, METH_O, "\n"
 		"FormFactorWeighted_radialExtension(FormFactorWeighted self) -> double\n"
-		"double FormFactorWeighted::radialExtension() const override final\n"
+		"double FormFactorWeighted::radialExtension() const override\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorWeighted_bottomZ", _wrap_FormFactorWeighted_bottomZ, METH_VARARGS, "\n"
 		"FormFactorWeighted_bottomZ(FormFactorWeighted self, IRotation rotation) -> double\n"
-		"double FormFactorWeighted::bottomZ(const IRotation &rotation) const override final\n"
+		"double FormFactorWeighted::bottomZ(const IRotation &rotation) const override\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
 	 { "FormFactorWeighted_topZ", _wrap_FormFactorWeighted_topZ, METH_VARARGS, "\n"
 		"FormFactorWeighted_topZ(FormFactorWeighted self, IRotation rotation) -> double\n"
-		"double FormFactorWeighted::topZ(const IRotation &rotation) const override final\n"
+		"double FormFactorWeighted::topZ(const IRotation &rotation) const override\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
@@ -70989,14 +70989,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorWeighted_setAmbientMaterial", _wrap_FormFactorWeighted_setAmbientMaterial, METH_VARARGS, "\n"
 		"FormFactorWeighted_setAmbientMaterial(FormFactorWeighted self, Material material)\n"
-		"void FormFactorWeighted::setAmbientMaterial(const Material &material) override final\n"
+		"void FormFactorWeighted::setAmbientMaterial(const Material &material) override\n"
 		"\n"
 		"Passes the material in which this particle is embedded. \n"
 		"\n"
 		""},
 	 { "FormFactorWeighted_evaluate", _wrap_FormFactorWeighted_evaluate, METH_VARARGS, "\n"
 		"FormFactorWeighted_evaluate(FormFactorWeighted self, WavevectorInfo wavevectors) -> complex_t\n"
-		"complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override final\n"
+		"complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override\n"
 		"\n"
 		"Returns scattering amplitude for complex wavevectors ki, kf. \n"
 		"\n"
@@ -71065,14 +71065,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Crystal_clone", _wrap_Crystal_clone, METH_O, "\n"
 		"Crystal_clone(Crystal self) -> Crystal\n"
-		"Crystal * Crystal::clone() const override final\n"
+		"Crystal * Crystal::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "Crystal_accept", _wrap_Crystal_accept, METH_VARARGS, "\n"
 		"Crystal_accept(Crystal self, INodeVisitor * visitor)\n"
-		"void Crystal::accept(INodeVisitor *visitor) const override final\n"
+		"void Crystal::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "Crystal_createTotalFormFactor", _wrap_Crystal_createTotalFormFactor, METH_VARARGS, "\n"
@@ -71092,7 +71092,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Crystal_getChildren", _wrap_Crystal_getChildren, METH_O, "\n"
 		"Crystal_getChildren(Crystal self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > Crystal::getChildren() const override final\n"
+		"std::vector< const INode * > Crystal::getChildren() const final\n"
 		"\n"
 		""},
 	 { "Crystal_swigregister", Crystal_swigregister, METH_O, NULL},
@@ -71152,7 +71152,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IParticle_translate", _wrap_IParticle_translate, METH_VARARGS, "\n"
 		"IParticle_translate(IParticle self, kvector_t translation)\n"
-		"void IParticle::translate(kvector_t translation) override final\n"
+		"void IParticle::translate(kvector_t translation) final\n"
 		"\n"
 		"Translates the particle. \n"
 		"\n"
@@ -71173,7 +71173,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IParticle_rotate", _wrap_IParticle_rotate, METH_VARARGS, "\n"
 		"IParticle_rotate(IParticle self, IRotation rotation)\n"
-		"void IParticle::rotate(const IRotation &rotation) override final\n"
+		"void IParticle::rotate(const IRotation &rotation) final\n"
 		"\n"
 		"Rotates the particle. \n"
 		"\n"
@@ -71222,26 +71222,26 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "MesoCrystal_clone", _wrap_MesoCrystal_clone, METH_O, "\n"
 		"MesoCrystal_clone(MesoCrystal self) -> MesoCrystal\n"
-		"MesoCrystal * MesoCrystal::clone() const override final\n"
+		"MesoCrystal * MesoCrystal::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "MesoCrystal_accept", _wrap_MesoCrystal_accept, METH_VARARGS, "\n"
 		"MesoCrystal_accept(MesoCrystal self, INodeVisitor * visitor)\n"
-		"void MesoCrystal::accept(INodeVisitor *visitor) const override final\n"
+		"void MesoCrystal::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "MesoCrystal_createSlicedParticle", _wrap_MesoCrystal_createSlicedParticle, METH_VARARGS, "\n"
 		"MesoCrystal_createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle\n"
-		"SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const override final\n"
+		"SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const final\n"
 		"\n"
 		"Creates a sliced form factor for this particle. \n"
 		"\n"
 		""},
 	 { "MesoCrystal_getChildren", _wrap_MesoCrystal_getChildren, METH_O, "\n"
 		"MesoCrystal_getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > MesoCrystal::getChildren() const override final\n"
+		"std::vector< const INode * > MesoCrystal::getChildren() const final\n"
 		"\n"
 		""},
 	 { "MesoCrystal_swigregister", MesoCrystal_swigregister, METH_O, NULL},
@@ -71260,19 +71260,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Particle_clone", _wrap_Particle_clone, METH_O, "\n"
 		"Particle_clone(Particle self) -> Particle\n"
-		"Particle * Particle::clone() const override final\n"
+		"Particle * Particle::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "Particle_accept", _wrap_Particle_accept, METH_VARARGS, "\n"
 		"Particle_accept(Particle self, INodeVisitor * visitor)\n"
-		"void Particle::accept(INodeVisitor *visitor) const override final\n"
+		"void Particle::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "Particle_createSlicedParticle", _wrap_Particle_createSlicedParticle, METH_VARARGS, "\n"
 		"Particle_createSlicedParticle(Particle self, ZLimits limits) -> SlicedParticle\n"
-		"SlicedParticle Particle::createSlicedParticle(ZLimits limits) const override final\n"
+		"SlicedParticle Particle::createSlicedParticle(ZLimits limits) const final\n"
 		"\n"
 		"Creates a sliced form factor for this particle. \n"
 		"\n"
@@ -71284,14 +71284,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Particle_material", _wrap_Particle_material, METH_O, "\n"
 		"Particle_material(Particle self) -> Material\n"
-		"const Material* Particle::material() const override final\n"
+		"const Material* Particle::material() const final\n"
 		"\n"
 		"Returns nullptr, unless overwritten to return a specific material. \n"
 		"\n"
 		""},
 	 { "Particle_getChildren", _wrap_Particle_getChildren, METH_O, "\n"
 		"Particle_getChildren(Particle self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > Particle::getChildren() const override final\n"
+		"std::vector< const INode * > Particle::getChildren() const final\n"
 		"\n"
 		""},
 	 { "Particle_swigregister", Particle_swigregister, METH_O, NULL},
@@ -71309,19 +71309,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleComposition_clone", _wrap_ParticleComposition_clone, METH_O, "\n"
 		"ParticleComposition_clone(ParticleComposition self) -> ParticleComposition\n"
-		"ParticleComposition * ParticleComposition::clone() const override final\n"
+		"ParticleComposition * ParticleComposition::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "ParticleComposition_accept", _wrap_ParticleComposition_accept, METH_VARARGS, "\n"
 		"ParticleComposition_accept(ParticleComposition self, INodeVisitor * visitor)\n"
-		"void ParticleComposition::accept(INodeVisitor *visitor) const override final\n"
+		"void ParticleComposition::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "ParticleComposition_createFormFactor", _wrap_ParticleComposition_createFormFactor, METH_O, "\n"
 		"ParticleComposition_createFormFactor(ParticleComposition self) -> IFormFactor\n"
-		"IFormFactor * ParticleComposition::createFormFactor() const override final\n"
+		"IFormFactor * ParticleComposition::createFormFactor() const final\n"
 		"\n"
 		"Creates a form factor for this particle. \n"
 		"\n"
@@ -71346,19 +71346,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleComposition_getChildren", _wrap_ParticleComposition_getChildren, METH_O, "\n"
 		"ParticleComposition_getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > ParticleComposition::getChildren() const override final\n"
+		"std::vector< const INode * > ParticleComposition::getChildren() const final\n"
 		"\n"
 		""},
 	 { "ParticleComposition_decompose", _wrap_ParticleComposition_decompose, METH_O, "\n"
 		"ParticleComposition_decompose(ParticleComposition self) -> SafePointerVector< IParticle >\n"
-		"SafePointerVector< IParticle > ParticleComposition::decompose() const override final\n"
+		"SafePointerVector< IParticle > ParticleComposition::decompose() const final\n"
 		"\n"
 		"Decompose in constituent  IParticle objects. \n"
 		"\n"
 		""},
 	 { "ParticleComposition_bottomTopZ", _wrap_ParticleComposition_bottomTopZ, METH_O, "\n"
 		"ParticleComposition_bottomTopZ(ParticleComposition self) -> ParticleLimits\n"
-		"ParticleLimits ParticleComposition::bottomTopZ() const override final\n"
+		"ParticleLimits ParticleComposition::bottomTopZ() const final\n"
 		"\n"
 		"Top and bottom z-coordinate. \n"
 		"\n"
@@ -71377,19 +71377,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleCoreShell_clone", _wrap_ParticleCoreShell_clone, METH_O, "\n"
 		"ParticleCoreShell_clone(ParticleCoreShell self) -> ParticleCoreShell\n"
-		"ParticleCoreShell * ParticleCoreShell::clone() const override final\n"
+		"ParticleCoreShell * ParticleCoreShell::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "ParticleCoreShell_accept", _wrap_ParticleCoreShell_accept, METH_VARARGS, "\n"
 		"ParticleCoreShell_accept(ParticleCoreShell self, INodeVisitor * visitor)\n"
-		"void ParticleCoreShell::accept(INodeVisitor *visitor) const override final\n"
+		"void ParticleCoreShell::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "ParticleCoreShell_createSlicedParticle", _wrap_ParticleCoreShell_createSlicedParticle, METH_VARARGS, "\n"
 		"ParticleCoreShell_createSlicedParticle(ParticleCoreShell self, ZLimits limits) -> SlicedParticle\n"
-		"SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const override final\n"
+		"SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const final\n"
 		"\n"
 		"Creates a sliced form factor for this particle. \n"
 		"\n"
@@ -71406,7 +71406,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleCoreShell_getChildren", _wrap_ParticleCoreShell_getChildren, METH_O, "\n"
 		"ParticleCoreShell_getChildren(ParticleCoreShell self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > ParticleCoreShell::getChildren() const override final\n"
+		"std::vector< const INode * > ParticleCoreShell::getChildren() const final\n"
 		"\n"
 		""},
 	 { "ParticleCoreShell_swigregister", ParticleCoreShell_swigregister, METH_O, NULL},
@@ -71418,26 +71418,26 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleDistribution_clone", _wrap_ParticleDistribution_clone, METH_O, "\n"
 		"ParticleDistribution_clone(ParticleDistribution self) -> ParticleDistribution\n"
-		"ParticleDistribution * ParticleDistribution::clone() const override final\n"
+		"ParticleDistribution * ParticleDistribution::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "ParticleDistribution_accept", _wrap_ParticleDistribution_accept, METH_VARARGS, "\n"
 		"ParticleDistribution_accept(ParticleDistribution self, INodeVisitor * visitor)\n"
-		"void ParticleDistribution::accept(INodeVisitor *visitor) const override final\n"
+		"void ParticleDistribution::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "ParticleDistribution_translate", _wrap_ParticleDistribution_translate, METH_VARARGS, "\n"
 		"ParticleDistribution_translate(ParticleDistribution self, kvector_t translation)\n"
-		"void ParticleDistribution::translate(kvector_t translation) override final\n"
+		"void ParticleDistribution::translate(kvector_t translation) final\n"
 		"\n"
 		"Translates the particle with the given vector. \n"
 		"\n"
 		""},
 	 { "ParticleDistribution_rotate", _wrap_ParticleDistribution_rotate, METH_VARARGS, "\n"
 		"ParticleDistribution_rotate(ParticleDistribution self, IRotation rotation)\n"
-		"void ParticleDistribution::rotate(const IRotation &rotation) override final\n"
+		"void ParticleDistribution::rotate(const IRotation &rotation) final\n"
 		"\n"
 		"Applies the given rotation to the particle. \n"
 		"\n"
@@ -71467,7 +71467,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ParticleDistribution_getChildren", _wrap_ParticleDistribution_getChildren, METH_O, "\n"
 		"ParticleDistribution_getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > ParticleDistribution::getChildren() const override final\n"
+		"std::vector< const INode * > ParticleDistribution::getChildren() const final\n"
 		"\n"
 		""},
 	 { "ParticleDistribution_mainUnits", _wrap_ParticleDistribution_mainUnits, METH_O, "\n"
@@ -71757,24 +71757,24 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FTDistribution1DCauchy_clone", _wrap_FTDistribution1DCauchy_clone, METH_O, "\n"
 		"FTDistribution1DCauchy_clone(FTDistribution1DCauchy self) -> FTDistribution1DCauchy\n"
-		"FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const override final\n"
+		"FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DCauchy_accept", _wrap_FTDistribution1DCauchy_accept, METH_VARARGS, "\n"
 		"FTDistribution1DCauchy_accept(FTDistribution1DCauchy self, INodeVisitor * visitor)\n"
-		"void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const override final\n"
+		"void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DCauchy_evaluate", _wrap_FTDistribution1DCauchy_evaluate, METH_VARARGS, "\n"
 		"FTDistribution1DCauchy_evaluate(FTDistribution1DCauchy self, double q) -> double\n"
-		"double FTDistribution1DCauchy::evaluate(double q) const override final\n"
+		"double FTDistribution1DCauchy::evaluate(double q) const final\n"
 		"\n"
 		"Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. \n"
 		"\n"
 		""},
 	 { "FTDistribution1DCauchy_qSecondDerivative", _wrap_FTDistribution1DCauchy_qSecondDerivative, METH_O, "\n"
 		"FTDistribution1DCauchy_qSecondDerivative(FTDistribution1DCauchy self) -> double\n"
-		"double FTDistribution1DCauchy::qSecondDerivative() const override final\n"
+		"double FTDistribution1DCauchy::qSecondDerivative() const final\n"
 		"\n"
 		"Returns the negative of the second order derivative in q space around q=0. \n"
 		"\n"
@@ -71790,24 +71790,24 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FTDistribution1DGauss_clone", _wrap_FTDistribution1DGauss_clone, METH_O, "\n"
 		"FTDistribution1DGauss_clone(FTDistribution1DGauss self) -> FTDistribution1DGauss\n"
-		"FTDistribution1DGauss * FTDistribution1DGauss::clone() const override final\n"
+		"FTDistribution1DGauss * FTDistribution1DGauss::clone() const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DGauss_accept", _wrap_FTDistribution1DGauss_accept, METH_VARARGS, "\n"
 		"FTDistribution1DGauss_accept(FTDistribution1DGauss self, INodeVisitor * visitor)\n"
-		"void FTDistribution1DGauss::accept(INodeVisitor *visitor) const override final\n"
+		"void FTDistribution1DGauss::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DGauss_evaluate", _wrap_FTDistribution1DGauss_evaluate, METH_VARARGS, "\n"
 		"FTDistribution1DGauss_evaluate(FTDistribution1DGauss self, double q) -> double\n"
-		"double FTDistribution1DGauss::evaluate(double q) const override final\n"
+		"double FTDistribution1DGauss::evaluate(double q) const final\n"
 		"\n"
 		"Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. \n"
 		"\n"
 		""},
 	 { "FTDistribution1DGauss_qSecondDerivative", _wrap_FTDistribution1DGauss_qSecondDerivative, METH_O, "\n"
 		"FTDistribution1DGauss_qSecondDerivative(FTDistribution1DGauss self) -> double\n"
-		"double FTDistribution1DGauss::qSecondDerivative() const override final\n"
+		"double FTDistribution1DGauss::qSecondDerivative() const final\n"
 		"\n"
 		"Returns the negative of the second order derivative in q space around q=0. \n"
 		"\n"
@@ -71823,24 +71823,24 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FTDistribution1DGate_clone", _wrap_FTDistribution1DGate_clone, METH_O, "\n"
 		"FTDistribution1DGate_clone(FTDistribution1DGate self) -> FTDistribution1DGate\n"
-		"FTDistribution1DGate * FTDistribution1DGate::clone() const override final\n"
+		"FTDistribution1DGate * FTDistribution1DGate::clone() const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DGate_accept", _wrap_FTDistribution1DGate_accept, METH_VARARGS, "\n"
 		"FTDistribution1DGate_accept(FTDistribution1DGate self, INodeVisitor * visitor)\n"
-		"void FTDistribution1DGate::accept(INodeVisitor *visitor) const override final\n"
+		"void FTDistribution1DGate::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DGate_evaluate", _wrap_FTDistribution1DGate_evaluate, METH_VARARGS, "\n"
 		"FTDistribution1DGate_evaluate(FTDistribution1DGate self, double q) -> double\n"
-		"double FTDistribution1DGate::evaluate(double q) const override final\n"
+		"double FTDistribution1DGate::evaluate(double q) const final\n"
 		"\n"
 		"Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. \n"
 		"\n"
 		""},
 	 { "FTDistribution1DGate_qSecondDerivative", _wrap_FTDistribution1DGate_qSecondDerivative, METH_O, "\n"
 		"FTDistribution1DGate_qSecondDerivative(FTDistribution1DGate self) -> double\n"
-		"double FTDistribution1DGate::qSecondDerivative() const override final\n"
+		"double FTDistribution1DGate::qSecondDerivative() const final\n"
 		"\n"
 		"Returns the negative of the second order derivative in q space around q=0. \n"
 		"\n"
@@ -71856,24 +71856,24 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FTDistribution1DTriangle_clone", _wrap_FTDistribution1DTriangle_clone, METH_O, "\n"
 		"FTDistribution1DTriangle_clone(FTDistribution1DTriangle self) -> FTDistribution1DTriangle\n"
-		"FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const override final\n"
+		"FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DTriangle_accept", _wrap_FTDistribution1DTriangle_accept, METH_VARARGS, "\n"
 		"FTDistribution1DTriangle_accept(FTDistribution1DTriangle self, INodeVisitor * visitor)\n"
-		"void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const override final\n"
+		"void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DTriangle_evaluate", _wrap_FTDistribution1DTriangle_evaluate, METH_VARARGS, "\n"
 		"FTDistribution1DTriangle_evaluate(FTDistribution1DTriangle self, double q) -> double\n"
-		"double FTDistribution1DTriangle::evaluate(double q) const override final\n"
+		"double FTDistribution1DTriangle::evaluate(double q) const final\n"
 		"\n"
 		"Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. \n"
 		"\n"
 		""},
 	 { "FTDistribution1DTriangle_qSecondDerivative", _wrap_FTDistribution1DTriangle_qSecondDerivative, METH_O, "\n"
 		"FTDistribution1DTriangle_qSecondDerivative(FTDistribution1DTriangle self) -> double\n"
-		"double FTDistribution1DTriangle::qSecondDerivative() const override final\n"
+		"double FTDistribution1DTriangle::qSecondDerivative() const final\n"
 		"\n"
 		"Returns the negative of the second order derivative in q space around q=0. \n"
 		"\n"
@@ -71889,24 +71889,24 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FTDistribution1DCosine_clone", _wrap_FTDistribution1DCosine_clone, METH_O, "\n"
 		"FTDistribution1DCosine_clone(FTDistribution1DCosine self) -> FTDistribution1DCosine\n"
-		"FTDistribution1DCosine * FTDistribution1DCosine::clone() const override final\n"
+		"FTDistribution1DCosine * FTDistribution1DCosine::clone() const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DCosine_accept", _wrap_FTDistribution1DCosine_accept, METH_VARARGS, "\n"
 		"FTDistribution1DCosine_accept(FTDistribution1DCosine self, INodeVisitor * visitor)\n"
-		"void FTDistribution1DCosine::accept(INodeVisitor *visitor) const override final\n"
+		"void FTDistribution1DCosine::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DCosine_evaluate", _wrap_FTDistribution1DCosine_evaluate, METH_VARARGS, "\n"
 		"FTDistribution1DCosine_evaluate(FTDistribution1DCosine self, double q) -> double\n"
-		"double FTDistribution1DCosine::evaluate(double q) const override final\n"
+		"double FTDistribution1DCosine::evaluate(double q) const final\n"
 		"\n"
 		"Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. \n"
 		"\n"
 		""},
 	 { "FTDistribution1DCosine_qSecondDerivative", _wrap_FTDistribution1DCosine_qSecondDerivative, METH_O, "\n"
 		"FTDistribution1DCosine_qSecondDerivative(FTDistribution1DCosine self) -> double\n"
-		"double FTDistribution1DCosine::qSecondDerivative() const override final\n"
+		"double FTDistribution1DCosine::qSecondDerivative() const final\n"
 		"\n"
 		"Returns the negative of the second order derivative in q space around q=0. \n"
 		"\n"
@@ -71922,17 +71922,17 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FTDistribution1DVoigt_clone", _wrap_FTDistribution1DVoigt_clone, METH_O, "\n"
 		"FTDistribution1DVoigt_clone(FTDistribution1DVoigt self) -> FTDistribution1DVoigt\n"
-		"FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const override final\n"
+		"FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DVoigt_accept", _wrap_FTDistribution1DVoigt_accept, METH_VARARGS, "\n"
 		"FTDistribution1DVoigt_accept(FTDistribution1DVoigt self, INodeVisitor * visitor)\n"
-		"void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const override final\n"
+		"void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FTDistribution1DVoigt_evaluate", _wrap_FTDistribution1DVoigt_evaluate, METH_VARARGS, "\n"
 		"FTDistribution1DVoigt_evaluate(FTDistribution1DVoigt self, double q) -> double\n"
-		"double FTDistribution1DVoigt::evaluate(double q) const override final\n"
+		"double FTDistribution1DVoigt::evaluate(double q) const final\n"
 		"\n"
 		"Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. \n"
 		"\n"
@@ -71944,7 +71944,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FTDistribution1DVoigt_qSecondDerivative", _wrap_FTDistribution1DVoigt_qSecondDerivative, METH_O, "\n"
 		"FTDistribution1DVoigt_qSecondDerivative(FTDistribution1DVoigt self) -> double\n"
-		"double FTDistribution1DVoigt::qSecondDerivative() const override final\n"
+		"double FTDistribution1DVoigt::qSecondDerivative() const final\n"
 		"\n"
 		"Returns the negative of the second order derivative in q space around q=0. \n"
 		"\n"
@@ -72433,19 +72433,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_InterferenceFunction1DLattice", _wrap_delete_InterferenceFunction1DLattice, METH_O, "\n"
 		"delete_InterferenceFunction1DLattice(InterferenceFunction1DLattice self)\n"
-		"InterferenceFunction1DLattice::~InterferenceFunction1DLattice() final\n"
+		"InterferenceFunction1DLattice::~InterferenceFunction1DLattice() override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction1DLattice_clone", _wrap_InterferenceFunction1DLattice_clone, METH_O, "\n"
 		"InterferenceFunction1DLattice_clone(InterferenceFunction1DLattice self) -> InterferenceFunction1DLattice\n"
-		"InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override final\n"
+		"InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunction1DLattice_accept", _wrap_InterferenceFunction1DLattice_accept, METH_VARARGS, "\n"
 		"InterferenceFunction1DLattice_accept(InterferenceFunction1DLattice self, INodeVisitor * visitor)\n"
-		"void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction1DLattice_setDecayFunction", _wrap_InterferenceFunction1DLattice_setDecayFunction, METH_VARARGS, "\n"
@@ -72473,7 +72473,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunction1DLattice_getChildren", _wrap_InterferenceFunction1DLattice_getChildren, METH_O, "\n"
 		"InterferenceFunction1DLattice_getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override final\n"
+		"std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction1DLattice_swigregister", InterferenceFunction1DLattice_swigregister, METH_O, NULL},
@@ -72485,19 +72485,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_InterferenceFunction2DLattice", _wrap_delete_InterferenceFunction2DLattice, METH_O, "\n"
 		"delete_InterferenceFunction2DLattice(InterferenceFunction2DLattice self)\n"
-		"InterferenceFunction2DLattice::~InterferenceFunction2DLattice() final\n"
+		"InterferenceFunction2DLattice::~InterferenceFunction2DLattice() override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DLattice_clone", _wrap_InterferenceFunction2DLattice_clone, METH_O, "\n"
 		"InterferenceFunction2DLattice_clone(InterferenceFunction2DLattice self) -> InterferenceFunction2DLattice\n"
-		"InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override final\n"
+		"InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DLattice_accept", _wrap_InterferenceFunction2DLattice_accept, METH_VARARGS, "\n"
 		"InterferenceFunction2DLattice_accept(InterferenceFunction2DLattice self, INodeVisitor * visitor)\n"
-		"void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DLattice_setDecayFunction", _wrap_InterferenceFunction2DLattice_setDecayFunction, METH_VARARGS, "\n"
@@ -72530,19 +72530,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunction2DLattice_getParticleDensity", _wrap_InterferenceFunction2DLattice_getParticleDensity, METH_O, "\n"
 		"InterferenceFunction2DLattice_getParticleDensity(InterferenceFunction2DLattice self) -> double\n"
-		"double InterferenceFunction2DLattice::getParticleDensity() const override final\n"
+		"double InterferenceFunction2DLattice::getParticleDensity() const override\n"
 		"\n"
 		"Returns the particle density associated with this 2d lattice. \n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DLattice_getChildren", _wrap_InterferenceFunction2DLattice_getChildren, METH_O, "\n"
 		"InterferenceFunction2DLattice_getChildren(InterferenceFunction2DLattice self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override final\n"
+		"std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DLattice_onChange", _wrap_InterferenceFunction2DLattice_onChange, METH_O, "\n"
 		"InterferenceFunction2DLattice_onChange(InterferenceFunction2DLattice self)\n"
-		"void InterferenceFunction2DLattice::onChange() override final\n"
+		"void InterferenceFunction2DLattice::onChange() override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DLattice_swigregister", InterferenceFunction2DLattice_swigregister, METH_O, NULL},
@@ -72554,19 +72554,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_InterferenceFunction2DParaCrystal", _wrap_delete_InterferenceFunction2DParaCrystal, METH_O, "\n"
 		"delete_InterferenceFunction2DParaCrystal(InterferenceFunction2DParaCrystal self)\n"
-		"InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal() final\n"
+		"InterferenceFunction2DParaCrystal::~InterferenceFunction2DParaCrystal() override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DParaCrystal_clone", _wrap_InterferenceFunction2DParaCrystal_clone, METH_O, "\n"
 		"InterferenceFunction2DParaCrystal_clone(InterferenceFunction2DParaCrystal self) -> InterferenceFunction2DParaCrystal\n"
-		"InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override final\n"
+		"InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DParaCrystal_accept", _wrap_InterferenceFunction2DParaCrystal_accept, METH_VARARGS, "\n"
 		"InterferenceFunction2DParaCrystal_accept(InterferenceFunction2DParaCrystal self, INodeVisitor * visitor)\n"
-		"void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DParaCrystal_setDomainSizes", _wrap_InterferenceFunction2DParaCrystal_setDomainSizes, METH_VARARGS, "\n"
@@ -72649,14 +72649,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunction2DParaCrystal_getParticleDensity", _wrap_InterferenceFunction2DParaCrystal_getParticleDensity, METH_O, "\n"
 		"InterferenceFunction2DParaCrystal_getParticleDensity(InterferenceFunction2DParaCrystal self) -> double\n"
-		"double InterferenceFunction2DParaCrystal::getParticleDensity() const override final\n"
+		"double InterferenceFunction2DParaCrystal::getParticleDensity() const override\n"
 		"\n"
 		"If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value \n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DParaCrystal_getChildren", _wrap_InterferenceFunction2DParaCrystal_getChildren, METH_O, "\n"
 		"InterferenceFunction2DParaCrystal_getChildren(InterferenceFunction2DParaCrystal self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override final\n"
+		"std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DParaCrystal_pdf1", _wrap_InterferenceFunction2DParaCrystal_pdf1, METH_O, "\n"
@@ -72702,19 +72702,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_InterferenceFunction2DSuperLattice", _wrap_delete_InterferenceFunction2DSuperLattice, METH_O, "\n"
 		"delete_InterferenceFunction2DSuperLattice(InterferenceFunction2DSuperLattice self)\n"
-		"InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice() final\n"
+		"InterferenceFunction2DSuperLattice::~InterferenceFunction2DSuperLattice() override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DSuperLattice_clone", _wrap_InterferenceFunction2DSuperLattice_clone, METH_O, "\n"
 		"InterferenceFunction2DSuperLattice_clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice\n"
-		"InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override final\n"
+		"InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DSuperLattice_accept", _wrap_InterferenceFunction2DSuperLattice_accept, METH_VARARGS, "\n"
 		"InterferenceFunction2DSuperLattice_accept(InterferenceFunction2DSuperLattice self, INodeVisitor * visitor)\n"
-		"void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DSuperLattice_setSubstructureIFF", _wrap_InterferenceFunction2DSuperLattice_setSubstructureIFF, METH_VARARGS, "\n"
@@ -72729,7 +72729,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunction2DSuperLattice_evaluate", _wrap_InterferenceFunction2DSuperLattice_evaluate, METH_VARARGS, "\n"
 		"InterferenceFunction2DSuperLattice_evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double\n"
-		"double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final\n"
+		"double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override\n"
 		"\n"
 		"Evaluates the interference function for a given wavevector transfer. \n"
 		"\n"
@@ -72761,7 +72761,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunction2DSuperLattice_getChildren", _wrap_InterferenceFunction2DSuperLattice_getChildren, METH_O, "\n"
 		"InterferenceFunction2DSuperLattice_getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override final\n"
+		"std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction2DSuperLattice_swigregister", InterferenceFunction2DSuperLattice_swigregister, METH_O, NULL},
@@ -72773,19 +72773,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_InterferenceFunction3DLattice", _wrap_delete_InterferenceFunction3DLattice, METH_O, "\n"
 		"delete_InterferenceFunction3DLattice(InterferenceFunction3DLattice self)\n"
-		"InterferenceFunction3DLattice::~InterferenceFunction3DLattice() final\n"
+		"InterferenceFunction3DLattice::~InterferenceFunction3DLattice() override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction3DLattice_clone", _wrap_InterferenceFunction3DLattice_clone, METH_O, "\n"
 		"InterferenceFunction3DLattice_clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice\n"
-		"InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override final\n"
+		"InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunction3DLattice_accept", _wrap_InterferenceFunction3DLattice_accept, METH_VARARGS, "\n"
 		"InterferenceFunction3DLattice_accept(InterferenceFunction3DLattice self, INodeVisitor * visitor)\n"
-		"void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction3DLattice_setPeakShape", _wrap_InterferenceFunction3DLattice_setPeakShape, METH_VARARGS, "\n"
@@ -72800,19 +72800,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunction3DLattice_supportsMultilayer", _wrap_InterferenceFunction3DLattice_supportsMultilayer, METH_O, "\n"
 		"InterferenceFunction3DLattice_supportsMultilayer(InterferenceFunction3DLattice self) -> bool\n"
-		"bool InterferenceFunction3DLattice::supportsMultilayer() const override final\n"
+		"bool InterferenceFunction3DLattice::supportsMultilayer() const override\n"
 		"\n"
 		"Indicates if this interference function can be used with a multilayer (DWBA mode) \n"
 		"\n"
 		""},
 	 { "InterferenceFunction3DLattice_getChildren", _wrap_InterferenceFunction3DLattice_getChildren, METH_O, "\n"
 		"InterferenceFunction3DLattice_getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override final\n"
+		"std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction3DLattice_onChange", _wrap_InterferenceFunction3DLattice_onChange, METH_O, "\n"
 		"InterferenceFunction3DLattice_onChange(InterferenceFunction3DLattice self)\n"
-		"void InterferenceFunction3DLattice::onChange() override final\n"
+		"void InterferenceFunction3DLattice::onChange() override\n"
 		"\n"
 		""},
 	 { "InterferenceFunction3DLattice_swigregister", InterferenceFunction3DLattice_swigregister, METH_O, NULL},
@@ -72838,19 +72838,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_InterferenceFunctionFinite2DLattice", _wrap_delete_InterferenceFunctionFinite2DLattice, METH_O, "\n"
 		"delete_InterferenceFunctionFinite2DLattice(InterferenceFunctionFinite2DLattice self)\n"
-		"InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice() final\n"
+		"InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice() override\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite2DLattice_clone", _wrap_InterferenceFunctionFinite2DLattice_clone, METH_O, "\n"
 		"InterferenceFunctionFinite2DLattice_clone(InterferenceFunctionFinite2DLattice self) -> InterferenceFunctionFinite2DLattice\n"
-		"InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override final\n"
+		"InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite2DLattice_accept", _wrap_InterferenceFunctionFinite2DLattice_accept, METH_VARARGS, "\n"
 		"InterferenceFunctionFinite2DLattice_accept(InterferenceFunctionFinite2DLattice self, INodeVisitor * visitor)\n"
-		"void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite2DLattice_numberUnitCells1", _wrap_InterferenceFunctionFinite2DLattice_numberUnitCells1, METH_O, "\n"
@@ -72880,14 +72880,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunctionFinite2DLattice_getParticleDensity", _wrap_InterferenceFunctionFinite2DLattice_getParticleDensity, METH_O, "\n"
 		"InterferenceFunctionFinite2DLattice_getParticleDensity(InterferenceFunctionFinite2DLattice self) -> double\n"
-		"double InterferenceFunctionFinite2DLattice::getParticleDensity() const override final\n"
+		"double InterferenceFunctionFinite2DLattice::getParticleDensity() const override\n"
 		"\n"
 		"Returns the particle density associated with this 2d lattice. \n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite2DLattice_getChildren", _wrap_InterferenceFunctionFinite2DLattice_getChildren, METH_O, "\n"
 		"InterferenceFunctionFinite2DLattice_getChildren(InterferenceFunctionFinite2DLattice self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override final\n"
+		"std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite2DLattice_swigregister", InterferenceFunctionFinite2DLattice_swigregister, METH_O, NULL},
@@ -72899,19 +72899,19 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_InterferenceFunctionFinite3DLattice", _wrap_delete_InterferenceFunctionFinite3DLattice, METH_O, "\n"
 		"delete_InterferenceFunctionFinite3DLattice(InterferenceFunctionFinite3DLattice self)\n"
-		"InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice() final\n"
+		"InterferenceFunctionFinite3DLattice::~InterferenceFunctionFinite3DLattice() override\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite3DLattice_clone", _wrap_InterferenceFunctionFinite3DLattice_clone, METH_O, "\n"
 		"InterferenceFunctionFinite3DLattice_clone(InterferenceFunctionFinite3DLattice self) -> InterferenceFunctionFinite3DLattice\n"
-		"InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override final\n"
+		"InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite3DLattice_accept", _wrap_InterferenceFunctionFinite3DLattice_accept, METH_VARARGS, "\n"
 		"InterferenceFunctionFinite3DLattice_accept(InterferenceFunctionFinite3DLattice self, INodeVisitor * visitor)\n"
-		"void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite3DLattice_numberUnitCells1", _wrap_InterferenceFunctionFinite3DLattice_numberUnitCells1, METH_O, "\n"
@@ -72936,14 +72936,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunctionFinite3DLattice_supportsMultilayer", _wrap_InterferenceFunctionFinite3DLattice_supportsMultilayer, METH_O, "\n"
 		"InterferenceFunctionFinite3DLattice_supportsMultilayer(InterferenceFunctionFinite3DLattice self) -> bool\n"
-		"bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override final\n"
+		"bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override\n"
 		"\n"
 		"Indicates if this interference function can be used with a multilayer (DWBA mode) \n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite3DLattice_getChildren", _wrap_InterferenceFunctionFinite3DLattice_getChildren, METH_O, "\n"
 		"InterferenceFunctionFinite3DLattice_getChildren(InterferenceFunctionFinite3DLattice self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override final\n"
+		"std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionFinite3DLattice_swigregister", InterferenceFunctionFinite3DLattice_swigregister, METH_O, NULL},
@@ -72955,24 +72955,24 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "delete_InterferenceFunctionHardDisk", _wrap_delete_InterferenceFunctionHardDisk, METH_O, "\n"
 		"delete_InterferenceFunctionHardDisk(InterferenceFunctionHardDisk self)\n"
-		"InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk() final=default\n"
+		"InterferenceFunctionHardDisk::~InterferenceFunctionHardDisk() override=default\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionHardDisk_clone", _wrap_InterferenceFunctionHardDisk_clone, METH_O, "\n"
 		"InterferenceFunctionHardDisk_clone(InterferenceFunctionHardDisk self) -> InterferenceFunctionHardDisk\n"
-		"InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final\n"
+		"InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunctionHardDisk_accept", _wrap_InterferenceFunctionHardDisk_accept, METH_VARARGS, "\n"
 		"InterferenceFunctionHardDisk_accept(InterferenceFunctionHardDisk self, INodeVisitor * visitor)\n"
-		"void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionHardDisk_getParticleDensity", _wrap_InterferenceFunctionHardDisk_getParticleDensity, METH_O, "\n"
 		"InterferenceFunctionHardDisk_getParticleDensity(InterferenceFunctionHardDisk self) -> double\n"
-		"double InterferenceFunctionHardDisk::getParticleDensity() const override final\n"
+		"double InterferenceFunctionHardDisk::getParticleDensity() const override\n"
 		"\n"
 		"If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value \n"
 		"\n"
@@ -72996,14 +72996,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunctionNone_clone", _wrap_InterferenceFunctionNone_clone, METH_O, "\n"
 		"InterferenceFunctionNone_clone(InterferenceFunctionNone self) -> InterferenceFunctionNone\n"
-		"InterferenceFunctionNone * InterferenceFunctionNone::clone() const override final\n"
+		"InterferenceFunctionNone * InterferenceFunctionNone::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunctionNone_accept", _wrap_InterferenceFunctionNone_accept, METH_VARARGS, "\n"
 		"InterferenceFunctionNone_accept(InterferenceFunctionNone self, INodeVisitor * visitor)\n"
-		"void InterferenceFunctionNone::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunctionNone::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "delete_InterferenceFunctionNone", _wrap_delete_InterferenceFunctionNone, METH_O, "delete_InterferenceFunctionNone(InterferenceFunctionNone self)"},
@@ -73027,14 +73027,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunctionRadialParaCrystal_clone", _wrap_InterferenceFunctionRadialParaCrystal_clone, METH_O, "\n"
 		"InterferenceFunctionRadialParaCrystal_clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal\n"
-		"InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const override final\n"
+		"InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunctionRadialParaCrystal_accept", _wrap_InterferenceFunctionRadialParaCrystal_accept, METH_VARARGS, "\n"
 		"InterferenceFunctionRadialParaCrystal_accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor * visitor)\n"
-		"void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionRadialParaCrystal_setKappa", _wrap_InterferenceFunctionRadialParaCrystal_setKappa, METH_VARARGS, "\n"
@@ -73097,7 +73097,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunctionRadialParaCrystal_getChildren", _wrap_InterferenceFunctionRadialParaCrystal_getChildren, METH_O, "\n"
 		"InterferenceFunctionRadialParaCrystal_getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override final\n"
+		"std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const final\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionRadialParaCrystal_randomSample", _wrap_InterferenceFunctionRadialParaCrystal_randomSample, METH_O, "\n"
@@ -73115,14 +73115,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "InterferenceFunctionTwin_clone", _wrap_InterferenceFunctionTwin_clone, METH_O, "\n"
 		"InterferenceFunctionTwin_clone(InterferenceFunctionTwin self) -> InterferenceFunctionTwin\n"
-		"InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const override final\n"
+		"InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "InterferenceFunctionTwin_accept", _wrap_InterferenceFunctionTwin_accept, METH_VARARGS, "\n"
 		"InterferenceFunctionTwin_accept(InterferenceFunctionTwin self, INodeVisitor * visitor)\n"
-		"void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const override final\n"
+		"void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "InterferenceFunctionTwin_direction", _wrap_InterferenceFunctionTwin_direction, METH_O, "\n"
@@ -73355,14 +73355,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Layer_clone", _wrap_Layer_clone, METH_O, "\n"
 		"Layer_clone(Layer self) -> Layer\n"
-		"Layer * Layer::clone() const override final\n"
+		"Layer * Layer::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "Layer_accept", _wrap_Layer_accept, METH_VARARGS, "\n"
 		"Layer_accept(Layer self, INodeVisitor * visitor)\n"
-		"void Layer::accept(INodeVisitor *visitor) const override final\n"
+		"void Layer::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "Layer_setThickness", _wrap_Layer_setThickness, METH_VARARGS, "\n"
@@ -73379,7 +73379,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Layer_material", _wrap_Layer_material, METH_O, "\n"
 		"Layer_material(Layer self) -> Material\n"
-		"const Material* Layer::material() const override final\n"
+		"const Material* Layer::material() const final\n"
 		"\n"
 		"Returns nullptr, unless overwritten to return a specific material. \n"
 		"\n"
@@ -73406,7 +73406,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "Layer_getChildren", _wrap_Layer_getChildren, METH_O, "\n"
 		"Layer_getChildren(Layer self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > Layer::getChildren() const override final\n"
+		"std::vector< const INode * > Layer::getChildren() const final\n"
 		"\n"
 		""},
 	 { "Layer_registerThickness", _wrap_Layer_registerThickness, METH_VARARGS, "\n"
@@ -73438,14 +73438,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "MultiLayer_clone", _wrap_MultiLayer_clone, METH_O, "\n"
 		"MultiLayer_clone(MultiLayer self) -> MultiLayer\n"
-		"MultiLayer * MultiLayer::clone() const final override\n"
+		"MultiLayer * MultiLayer::clone() const final\n"
 		"\n"
 		"Returns a clone of multilayer with clones of all layers and interfaces between layers \n"
 		"\n"
 		""},
 	 { "MultiLayer_accept", _wrap_MultiLayer_accept, METH_VARARGS, "\n"
 		"MultiLayer_accept(MultiLayer self, INodeVisitor * visitor)\n"
-		"void MultiLayer::accept(INodeVisitor *visitor) const final override\n"
+		"void MultiLayer::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "MultiLayer_numberOfLayers", _wrap_MultiLayer_numberOfLayers, METH_O, "\n"
@@ -73513,7 +73513,7 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "MultiLayer_getChildren", _wrap_MultiLayer_getChildren, METH_O, "\n"
 		"MultiLayer_getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector\n"
-		"std::vector< const INode * > MultiLayer::getChildren() const final override\n"
+		"std::vector< const INode * > MultiLayer::getChildren() const final\n"
 		"\n"
 		""},
 	 { "MultiLayer_setRoughnessModel", _wrap_MultiLayer_setRoughnessModel, METH_VARARGS, "\n"
@@ -73537,21 +73537,21 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IFormFactorPolyhedron_bottomZ", _wrap_IFormFactorPolyhedron_bottomZ, METH_VARARGS, "\n"
 		"IFormFactorPolyhedron_bottomZ(IFormFactorPolyhedron self, IRotation rotation) -> double\n"
-		"double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final\n"
+		"double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const final\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
 	 { "IFormFactorPolyhedron_topZ", _wrap_IFormFactorPolyhedron_topZ, METH_VARARGS, "\n"
 		"IFormFactorPolyhedron_topZ(IFormFactorPolyhedron self, IRotation rotation) -> double\n"
-		"double IFormFactorPolyhedron::topZ(const IRotation &rotation) const override final\n"
+		"double IFormFactorPolyhedron::topZ(const IRotation &rotation) const final\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
 	 { "IFormFactorPolyhedron_evaluate_for_q", _wrap_IFormFactorPolyhedron_evaluate_for_q, METH_VARARGS, "\n"
 		"IFormFactorPolyhedron_evaluate_for_q(IFormFactorPolyhedron self, cvector_t q) -> complex_t\n"
-		"complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -73563,14 +73563,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IFormFactorPolyhedron_volume", _wrap_IFormFactorPolyhedron_volume, METH_O, "\n"
 		"IFormFactorPolyhedron_volume(IFormFactorPolyhedron self) -> double\n"
-		"double IFormFactorPolyhedron::volume() const override final\n"
+		"double IFormFactorPolyhedron::volume() const final\n"
 		"\n"
 		"Returns the total volume of the particle of this form factor's shape. \n"
 		"\n"
 		""},
 	 { "IFormFactorPolyhedron_radialExtension", _wrap_IFormFactorPolyhedron_radialExtension, METH_O, "\n"
 		"IFormFactorPolyhedron_radialExtension(IFormFactorPolyhedron self) -> double\n"
-		"double IFormFactorPolyhedron::radialExtension() const override final\n"
+		"double IFormFactorPolyhedron::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
@@ -73590,14 +73590,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IFormFactorPrism_bottomZ", _wrap_IFormFactorPrism_bottomZ, METH_VARARGS, "\n"
 		"IFormFactorPrism_bottomZ(IFormFactorPrism self, IRotation rotation) -> double\n"
-		"double IFormFactorPrism::bottomZ(const IRotation &rotation) const override final\n"
+		"double IFormFactorPrism::bottomZ(const IRotation &rotation) const final\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
 	 { "IFormFactorPrism_topZ", _wrap_IFormFactorPrism_topZ, METH_VARARGS, "\n"
 		"IFormFactorPrism_topZ(IFormFactorPrism self, IRotation rotation) -> double\n"
-		"double IFormFactorPrism::topZ(const IRotation &rotation) const override final\n"
+		"double IFormFactorPrism::topZ(const IRotation &rotation) const final\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
@@ -73646,14 +73646,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IProfileRipple_radialExtension", _wrap_IProfileRipple_radialExtension, METH_O, "\n"
 		"IProfileRipple_radialExtension(IProfileRipple self) -> double\n"
-		"double IProfileRipple::radialExtension() const override final\n"
+		"double IProfileRipple::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "IProfileRipple_evaluate_for_q", _wrap_IProfileRipple_evaluate_for_q, METH_VARARGS, "\n"
 		"IProfileRipple_evaluate_for_q(IProfileRipple self, cvector_t q) -> complex_t\n"
-		"complex_t IProfileRipple::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t IProfileRipple::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -73679,14 +73679,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorAnisoPyramid_clone", _wrap_FormFactorAnisoPyramid_clone, METH_O, "\n"
 		"FormFactorAnisoPyramid_clone(FormFactorAnisoPyramid self) -> FormFactorAnisoPyramid\n"
-		"FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const override final\n"
+		"FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorAnisoPyramid_accept", _wrap_FormFactorAnisoPyramid_accept, METH_VARARGS, "\n"
 		"FormFactorAnisoPyramid_accept(FormFactorAnisoPyramid self, INodeVisitor * visitor)\n"
-		"void FormFactorAnisoPyramid::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorAnisoPyramid::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorAnisoPyramid_getLength", _wrap_FormFactorAnisoPyramid_getLength, METH_O, "\n"
@@ -73720,14 +73720,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorBox_clone", _wrap_FormFactorBox_clone, METH_O, "\n"
 		"FormFactorBox_clone(FormFactorBox self) -> FormFactorBox\n"
-		"FormFactorBox* FormFactorBox::clone() const override final\n"
+		"FormFactorBox* FormFactorBox::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorBox_accept", _wrap_FormFactorBox_accept, METH_VARARGS, "\n"
 		"FormFactorBox_accept(FormFactorBox self, INodeVisitor * visitor)\n"
-		"void FormFactorBox::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorBox::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorBox_getLength", _wrap_FormFactorBox_getLength, METH_O, "\n"
@@ -73742,21 +73742,21 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorBox_volume", _wrap_FormFactorBox_volume, METH_O, "\n"
 		"FormFactorBox_volume(FormFactorBox self) -> double\n"
-		"double FormFactorBox::volume() const override final\n"
+		"double FormFactorBox::volume() const final\n"
 		"\n"
 		"Returns the total volume of the particle of this form factor's shape. \n"
 		"\n"
 		""},
 	 { "FormFactorBox_radialExtension", _wrap_FormFactorBox_radialExtension, METH_O, "\n"
 		"FormFactorBox_radialExtension(FormFactorBox self) -> double\n"
-		"double FormFactorBox::radialExtension() const override final\n"
+		"double FormFactorBox::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorBox_evaluate_for_q", _wrap_FormFactorBox_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorBox_evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorBox::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -73772,14 +73772,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCantellatedCube_clone", _wrap_FormFactorCantellatedCube_clone, METH_O, "\n"
 		"FormFactorCantellatedCube_clone(FormFactorCantellatedCube self) -> FormFactorCantellatedCube\n"
-		"FormFactorCantellatedCube* FormFactorCantellatedCube::clone() const override final\n"
+		"FormFactorCantellatedCube* FormFactorCantellatedCube::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorCantellatedCube_accept", _wrap_FormFactorCantellatedCube_accept, METH_VARARGS, "\n"
 		"FormFactorCantellatedCube_accept(FormFactorCantellatedCube self, INodeVisitor * visitor)\n"
-		"void FormFactorCantellatedCube::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorCantellatedCube::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorCantellatedCube_getLength", _wrap_FormFactorCantellatedCube_getLength, METH_O, "\n"
@@ -73803,14 +73803,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCone_clone", _wrap_FormFactorCone_clone, METH_O, "\n"
 		"FormFactorCone_clone(FormFactorCone self) -> FormFactorCone\n"
-		"FormFactorCone* FormFactorCone::clone() const override final\n"
+		"FormFactorCone* FormFactorCone::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorCone_accept", _wrap_FormFactorCone_accept, METH_VARARGS, "\n"
 		"FormFactorCone_accept(FormFactorCone self, INodeVisitor * visitor)\n"
-		"void FormFactorCone::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorCone::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorCone_getHeight", _wrap_FormFactorCone_getHeight, METH_O, "\n"
@@ -73830,14 +73830,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCone_radialExtension", _wrap_FormFactorCone_radialExtension, METH_O, "\n"
 		"FormFactorCone_radialExtension(FormFactorCone self) -> double\n"
-		"double FormFactorCone::radialExtension() const override final\n"
+		"double FormFactorCone::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorCone_evaluate_for_q", _wrap_FormFactorCone_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorCone_evaluate_for_q(FormFactorCone self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorCone::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorCone::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -73853,14 +73853,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCone6_clone", _wrap_FormFactorCone6_clone, METH_O, "\n"
 		"FormFactorCone6_clone(FormFactorCone6 self) -> FormFactorCone6\n"
-		"FormFactorCone6* FormFactorCone6::clone() const override final\n"
+		"FormFactorCone6* FormFactorCone6::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorCone6_accept", _wrap_FormFactorCone6_accept, METH_VARARGS, "\n"
 		"FormFactorCone6_accept(FormFactorCone6 self, INodeVisitor * visitor)\n"
-		"void FormFactorCone6::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorCone6::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorCone6_getBaseEdge", _wrap_FormFactorCone6_getBaseEdge, METH_O, "\n"
@@ -73889,14 +73889,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCosineRippleBox_clone", _wrap_FormFactorCosineRippleBox_clone, METH_O, "\n"
 		"FormFactorCosineRippleBox_clone(FormFactorCosineRippleBox self) -> FormFactorCosineRippleBox\n"
-		"FormFactorCosineRippleBox * FormFactorCosineRippleBox::clone() const override final\n"
+		"FormFactorCosineRippleBox * FormFactorCosineRippleBox::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorCosineRippleBox_accept", _wrap_FormFactorCosineRippleBox_accept, METH_VARARGS, "\n"
 		"FormFactorCosineRippleBox_accept(FormFactorCosineRippleBox self, INodeVisitor * visitor)\n"
-		"void FormFactorCosineRippleBox::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorCosineRippleBox::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "delete_FormFactorCosineRippleBox", _wrap_delete_FormFactorCosineRippleBox, METH_O, "delete_FormFactorCosineRippleBox(FormFactorCosineRippleBox self)"},
@@ -73910,14 +73910,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCosineRippleGauss_clone", _wrap_FormFactorCosineRippleGauss_clone, METH_O, "\n"
 		"FormFactorCosineRippleGauss_clone(FormFactorCosineRippleGauss self) -> FormFactorCosineRippleGauss\n"
-		"FormFactorCosineRippleGauss * FormFactorCosineRippleGauss::clone() const override final\n"
+		"FormFactorCosineRippleGauss * FormFactorCosineRippleGauss::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorCosineRippleGauss_accept", _wrap_FormFactorCosineRippleGauss_accept, METH_VARARGS, "\n"
 		"FormFactorCosineRippleGauss_accept(FormFactorCosineRippleGauss self, INodeVisitor * visitor)\n"
-		"void FormFactorCosineRippleGauss::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorCosineRippleGauss::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "delete_FormFactorCosineRippleGauss", _wrap_delete_FormFactorCosineRippleGauss, METH_O, "delete_FormFactorCosineRippleGauss(FormFactorCosineRippleGauss self)"},
@@ -73931,14 +73931,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCosineRippleLorentz_clone", _wrap_FormFactorCosineRippleLorentz_clone, METH_O, "\n"
 		"FormFactorCosineRippleLorentz_clone(FormFactorCosineRippleLorentz self) -> FormFactorCosineRippleLorentz\n"
-		"FormFactorCosineRippleLorentz * FormFactorCosineRippleLorentz::clone() const override final\n"
+		"FormFactorCosineRippleLorentz * FormFactorCosineRippleLorentz::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorCosineRippleLorentz_accept", _wrap_FormFactorCosineRippleLorentz_accept, METH_VARARGS, "\n"
 		"FormFactorCosineRippleLorentz_accept(FormFactorCosineRippleLorentz self, INodeVisitor * visitor)\n"
-		"void FormFactorCosineRippleLorentz::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorCosineRippleLorentz::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "delete_FormFactorCosineRippleLorentz", _wrap_delete_FormFactorCosineRippleLorentz, METH_O, "delete_FormFactorCosineRippleLorentz(FormFactorCosineRippleLorentz self)"},
@@ -73952,14 +73952,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCuboctahedron_clone", _wrap_FormFactorCuboctahedron_clone, METH_O, "\n"
 		"FormFactorCuboctahedron_clone(FormFactorCuboctahedron self) -> FormFactorCuboctahedron\n"
-		"FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const override final\n"
+		"FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorCuboctahedron_accept", _wrap_FormFactorCuboctahedron_accept, METH_VARARGS, "\n"
 		"FormFactorCuboctahedron_accept(FormFactorCuboctahedron self, INodeVisitor * visitor)\n"
-		"void FormFactorCuboctahedron::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorCuboctahedron::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorCuboctahedron_getLength", _wrap_FormFactorCuboctahedron_getLength, METH_O, "\n"
@@ -73993,14 +73993,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCylinder_clone", _wrap_FormFactorCylinder_clone, METH_O, "\n"
 		"FormFactorCylinder_clone(FormFactorCylinder self) -> FormFactorCylinder\n"
-		"FormFactorCylinder* FormFactorCylinder::clone() const override final\n"
+		"FormFactorCylinder* FormFactorCylinder::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorCylinder_accept", _wrap_FormFactorCylinder_accept, METH_VARARGS, "\n"
 		"FormFactorCylinder_accept(FormFactorCylinder self, INodeVisitor * visitor)\n"
-		"void FormFactorCylinder::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorCylinder::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorCylinder_getHeight", _wrap_FormFactorCylinder_getHeight, METH_O, "\n"
@@ -74015,14 +74015,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorCylinder_radialExtension", _wrap_FormFactorCylinder_radialExtension, METH_O, "\n"
 		"FormFactorCylinder_radialExtension(FormFactorCylinder self) -> double\n"
-		"double FormFactorCylinder::radialExtension() const override final\n"
+		"double FormFactorCylinder::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorCylinder_evaluate_for_q", _wrap_FormFactorCylinder_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorCylinder_evaluate_for_q(FormFactorCylinder self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74038,14 +74038,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorDodecahedron_clone", _wrap_FormFactorDodecahedron_clone, METH_O, "\n"
 		"FormFactorDodecahedron_clone(FormFactorDodecahedron self) -> FormFactorDodecahedron\n"
-		"FormFactorDodecahedron* FormFactorDodecahedron::clone() const override final\n"
+		"FormFactorDodecahedron* FormFactorDodecahedron::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorDodecahedron_accept", _wrap_FormFactorDodecahedron_accept, METH_VARARGS, "\n"
 		"FormFactorDodecahedron_accept(FormFactorDodecahedron self, INodeVisitor * visitor)\n"
-		"void FormFactorDodecahedron::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorDodecahedron::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorDodecahedron_getEdge", _wrap_FormFactorDodecahedron_getEdge, METH_O, "\n"
@@ -74064,14 +74064,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorDot_clone", _wrap_FormFactorDot_clone, METH_O, "\n"
 		"FormFactorDot_clone(FormFactorDot self) -> FormFactorDot\n"
-		"FormFactorDot* FormFactorDot::clone() const override final\n"
+		"FormFactorDot* FormFactorDot::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorDot_accept", _wrap_FormFactorDot_accept, METH_VARARGS, "\n"
 		"FormFactorDot_accept(FormFactorDot self, INodeVisitor * visitor)\n"
-		"void FormFactorDot::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorDot::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorDot_getRadius", _wrap_FormFactorDot_getRadius, METH_O, "\n"
@@ -74081,28 +74081,28 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorDot_radialExtension", _wrap_FormFactorDot_radialExtension, METH_O, "\n"
 		"FormFactorDot_radialExtension(FormFactorDot self) -> double\n"
-		"double FormFactorDot::radialExtension() const override final\n"
+		"double FormFactorDot::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorDot_bottomZ", _wrap_FormFactorDot_bottomZ, METH_VARARGS, "\n"
 		"FormFactorDot_bottomZ(FormFactorDot self, IRotation arg2) -> double\n"
-		"double FormFactorDot::bottomZ(const IRotation &) const override final\n"
+		"double FormFactorDot::bottomZ(const IRotation &) const final\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
 	 { "FormFactorDot_topZ", _wrap_FormFactorDot_topZ, METH_VARARGS, "\n"
 		"FormFactorDot_topZ(FormFactorDot self, IRotation arg2) -> double\n"
-		"double FormFactorDot::topZ(const IRotation &) const override final\n"
+		"double FormFactorDot::topZ(const IRotation &) const final\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
 	 { "FormFactorDot_evaluate_for_q", _wrap_FormFactorDot_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorDot_evaluate_for_q(FormFactorDot self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorDot::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorDot::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74118,14 +74118,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorEllipsoidalCylinder_clone", _wrap_FormFactorEllipsoidalCylinder_clone, METH_O, "\n"
 		"FormFactorEllipsoidalCylinder_clone(FormFactorEllipsoidalCylinder self) -> FormFactorEllipsoidalCylinder\n"
-		"FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const override final\n"
+		"FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorEllipsoidalCylinder_accept", _wrap_FormFactorEllipsoidalCylinder_accept, METH_VARARGS, "\n"
 		"FormFactorEllipsoidalCylinder_accept(FormFactorEllipsoidalCylinder self, INodeVisitor * visitor)\n"
-		"void FormFactorEllipsoidalCylinder::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorEllipsoidalCylinder::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorEllipsoidalCylinder_getRadiusX", _wrap_FormFactorEllipsoidalCylinder_getRadiusX, METH_O, "\n"
@@ -74145,14 +74145,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorEllipsoidalCylinder_radialExtension", _wrap_FormFactorEllipsoidalCylinder_radialExtension, METH_O, "\n"
 		"FormFactorEllipsoidalCylinder_radialExtension(FormFactorEllipsoidalCylinder self) -> double\n"
-		"double FormFactorEllipsoidalCylinder::radialExtension() const override final\n"
+		"double FormFactorEllipsoidalCylinder::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorEllipsoidalCylinder_evaluate_for_q", _wrap_FormFactorEllipsoidalCylinder_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorEllipsoidalCylinder_evaluate_for_q(FormFactorEllipsoidalCylinder self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74168,14 +74168,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorFullSphere_clone", _wrap_FormFactorFullSphere_clone, METH_O, "\n"
 		"FormFactorFullSphere_clone(FormFactorFullSphere self) -> FormFactorFullSphere\n"
-		"FormFactorFullSphere* FormFactorFullSphere::clone() const override final\n"
+		"FormFactorFullSphere* FormFactorFullSphere::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorFullSphere_accept", _wrap_FormFactorFullSphere_accept, METH_VARARGS, "\n"
 		"FormFactorFullSphere_accept(FormFactorFullSphere self, INodeVisitor * visitor)\n"
-		"void FormFactorFullSphere::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorFullSphere::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorFullSphere_getRadius", _wrap_FormFactorFullSphere_getRadius, METH_O, "\n"
@@ -74185,28 +74185,28 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorFullSphere_radialExtension", _wrap_FormFactorFullSphere_radialExtension, METH_O, "\n"
 		"FormFactorFullSphere_radialExtension(FormFactorFullSphere self) -> double\n"
-		"double FormFactorFullSphere::radialExtension() const override final\n"
+		"double FormFactorFullSphere::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorFullSphere_bottomZ", _wrap_FormFactorFullSphere_bottomZ, METH_VARARGS, "\n"
 		"FormFactorFullSphere_bottomZ(FormFactorFullSphere self, IRotation rotation) -> double\n"
-		"double FormFactorFullSphere::bottomZ(const IRotation &rotation) const override final\n"
+		"double FormFactorFullSphere::bottomZ(const IRotation &rotation) const final\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
 	 { "FormFactorFullSphere_topZ", _wrap_FormFactorFullSphere_topZ, METH_VARARGS, "\n"
 		"FormFactorFullSphere_topZ(FormFactorFullSphere self, IRotation rotation) -> double\n"
-		"double FormFactorFullSphere::topZ(const IRotation &rotation) const override final\n"
+		"double FormFactorFullSphere::topZ(const IRotation &rotation) const final\n"
 		"\n"
 		"Returns the z-coordinate of the lowest point in this shape after a given rotation. \n"
 		"\n"
 		""},
 	 { "FormFactorFullSphere_evaluate_for_q", _wrap_FormFactorFullSphere_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorFullSphere_evaluate_for_q(FormFactorFullSphere self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74222,14 +74222,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorFullSpheroid_clone", _wrap_FormFactorFullSpheroid_clone, METH_O, "\n"
 		"FormFactorFullSpheroid_clone(FormFactorFullSpheroid self) -> FormFactorFullSpheroid\n"
-		"FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const override final\n"
+		"FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorFullSpheroid_accept", _wrap_FormFactorFullSpheroid_accept, METH_VARARGS, "\n"
 		"FormFactorFullSpheroid_accept(FormFactorFullSpheroid self, INodeVisitor * visitor)\n"
-		"void FormFactorFullSpheroid::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorFullSpheroid::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorFullSpheroid_getHeight", _wrap_FormFactorFullSpheroid_getHeight, METH_O, "\n"
@@ -74244,14 +74244,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorFullSpheroid_radialExtension", _wrap_FormFactorFullSpheroid_radialExtension, METH_O, "\n"
 		"FormFactorFullSpheroid_radialExtension(FormFactorFullSpheroid self) -> double\n"
-		"double FormFactorFullSpheroid::radialExtension() const override final\n"
+		"double FormFactorFullSpheroid::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorFullSpheroid_evaluate_for_q", _wrap_FormFactorFullSpheroid_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorFullSpheroid_evaluate_for_q(FormFactorFullSpheroid self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74272,14 +74272,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorHemiEllipsoid_clone", _wrap_FormFactorHemiEllipsoid_clone, METH_O, "\n"
 		"FormFactorHemiEllipsoid_clone(FormFactorHemiEllipsoid self) -> FormFactorHemiEllipsoid\n"
-		"FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const override final\n"
+		"FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorHemiEllipsoid_accept", _wrap_FormFactorHemiEllipsoid_accept, METH_VARARGS, "\n"
 		"FormFactorHemiEllipsoid_accept(FormFactorHemiEllipsoid self, INodeVisitor * visitor)\n"
-		"void FormFactorHemiEllipsoid::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorHemiEllipsoid::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorHemiEllipsoid_getHeight", _wrap_FormFactorHemiEllipsoid_getHeight, METH_O, "\n"
@@ -74299,14 +74299,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorHemiEllipsoid_radialExtension", _wrap_FormFactorHemiEllipsoid_radialExtension, METH_O, "\n"
 		"FormFactorHemiEllipsoid_radialExtension(FormFactorHemiEllipsoid self) -> double\n"
-		"double FormFactorHemiEllipsoid::radialExtension() const override final\n"
+		"double FormFactorHemiEllipsoid::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorHemiEllipsoid_evaluate_for_q", _wrap_FormFactorHemiEllipsoid_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorHemiEllipsoid_evaluate_for_q(FormFactorHemiEllipsoid self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74321,26 +74321,26 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorHollowSphere_clone", _wrap_FormFactorHollowSphere_clone, METH_O, "\n"
 		"FormFactorHollowSphere_clone(FormFactorHollowSphere self) -> FormFactorHollowSphere\n"
-		"FormFactorHollowSphere* FormFactorHollowSphere::clone() const override final\n"
+		"FormFactorHollowSphere* FormFactorHollowSphere::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorHollowSphere_accept", _wrap_FormFactorHollowSphere_accept, METH_VARARGS, "\n"
 		"FormFactorHollowSphere_accept(FormFactorHollowSphere self, INodeVisitor * visitor)\n"
-		"void FormFactorHollowSphere::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorHollowSphere::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorHollowSphere_radialExtension", _wrap_FormFactorHollowSphere_radialExtension, METH_O, "\n"
 		"FormFactorHollowSphere_radialExtension(FormFactorHollowSphere self) -> double\n"
-		"double FormFactorHollowSphere::radialExtension() const override final\n"
+		"double FormFactorHollowSphere::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorHollowSphere_evaluate_for_q", _wrap_FormFactorHollowSphere_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorHollowSphere_evaluate_for_q(FormFactorHollowSphere self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74356,14 +74356,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorIcosahedron_clone", _wrap_FormFactorIcosahedron_clone, METH_O, "\n"
 		"FormFactorIcosahedron_clone(FormFactorIcosahedron self) -> FormFactorIcosahedron\n"
-		"FormFactorIcosahedron* FormFactorIcosahedron::clone() const override final\n"
+		"FormFactorIcosahedron* FormFactorIcosahedron::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorIcosahedron_accept", _wrap_FormFactorIcosahedron_accept, METH_VARARGS, "\n"
 		"FormFactorIcosahedron_accept(FormFactorIcosahedron self, INodeVisitor * visitor)\n"
-		"void FormFactorIcosahedron::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorIcosahedron::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorIcosahedron_getEdge", _wrap_FormFactorIcosahedron_getEdge, METH_O, "\n"
@@ -74382,14 +74382,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorLongBoxGauss_clone", _wrap_FormFactorLongBoxGauss_clone, METH_O, "\n"
 		"FormFactorLongBoxGauss_clone(FormFactorLongBoxGauss self) -> FormFactorLongBoxGauss\n"
-		"FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const override final\n"
+		"FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorLongBoxGauss_accept", _wrap_FormFactorLongBoxGauss_accept, METH_VARARGS, "\n"
 		"FormFactorLongBoxGauss_accept(FormFactorLongBoxGauss self, INodeVisitor * visitor)\n"
-		"void FormFactorLongBoxGauss::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorLongBoxGauss::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorLongBoxGauss_getLength", _wrap_FormFactorLongBoxGauss_getLength, METH_O, "\n"
@@ -74409,14 +74409,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorLongBoxGauss_radialExtension", _wrap_FormFactorLongBoxGauss_radialExtension, METH_O, "\n"
 		"FormFactorLongBoxGauss_radialExtension(FormFactorLongBoxGauss self) -> double\n"
-		"double FormFactorLongBoxGauss::radialExtension() const override final\n"
+		"double FormFactorLongBoxGauss::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorLongBoxGauss_evaluate_for_q", _wrap_FormFactorLongBoxGauss_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorLongBoxGauss_evaluate_for_q(FormFactorLongBoxGauss self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74432,14 +74432,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorLongBoxLorentz_clone", _wrap_FormFactorLongBoxLorentz_clone, METH_O, "\n"
 		"FormFactorLongBoxLorentz_clone(FormFactorLongBoxLorentz self) -> FormFactorLongBoxLorentz\n"
-		"FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const override final\n"
+		"FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorLongBoxLorentz_accept", _wrap_FormFactorLongBoxLorentz_accept, METH_VARARGS, "\n"
 		"FormFactorLongBoxLorentz_accept(FormFactorLongBoxLorentz self, INodeVisitor * visitor)\n"
-		"void FormFactorLongBoxLorentz::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorLongBoxLorentz::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorLongBoxLorentz_getLength", _wrap_FormFactorLongBoxLorentz_getLength, METH_O, "\n"
@@ -74459,14 +74459,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorLongBoxLorentz_radialExtension", _wrap_FormFactorLongBoxLorentz_radialExtension, METH_O, "\n"
 		"FormFactorLongBoxLorentz_radialExtension(FormFactorLongBoxLorentz self) -> double\n"
-		"double FormFactorLongBoxLorentz::radialExtension() const override final\n"
+		"double FormFactorLongBoxLorentz::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorLongBoxLorentz_evaluate_for_q", _wrap_FormFactorLongBoxLorentz_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorLongBoxLorentz_evaluate_for_q(FormFactorLongBoxLorentz self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74482,14 +74482,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorPrism3_clone", _wrap_FormFactorPrism3_clone, METH_O, "\n"
 		"FormFactorPrism3_clone(FormFactorPrism3 self) -> FormFactorPrism3\n"
-		"FormFactorPrism3* FormFactorPrism3::clone() const override final\n"
+		"FormFactorPrism3* FormFactorPrism3::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorPrism3_accept", _wrap_FormFactorPrism3_accept, METH_VARARGS, "\n"
 		"FormFactorPrism3_accept(FormFactorPrism3 self, INodeVisitor * visitor)\n"
-		"void FormFactorPrism3::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorPrism3::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorPrism3_getBaseEdge", _wrap_FormFactorPrism3_getBaseEdge, METH_O, "\n"
@@ -74508,14 +74508,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorPrism6_clone", _wrap_FormFactorPrism6_clone, METH_O, "\n"
 		"FormFactorPrism6_clone(FormFactorPrism6 self) -> FormFactorPrism6\n"
-		"FormFactorPrism6* FormFactorPrism6::clone() const override final\n"
+		"FormFactorPrism6* FormFactorPrism6::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorPrism6_accept", _wrap_FormFactorPrism6_accept, METH_VARARGS, "\n"
 		"FormFactorPrism6_accept(FormFactorPrism6 self, INodeVisitor * visitor)\n"
-		"void FormFactorPrism6::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorPrism6::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorPrism6_getBaseEdge", _wrap_FormFactorPrism6_getBaseEdge, METH_O, "\n"
@@ -74534,14 +74534,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorPyramid_clone", _wrap_FormFactorPyramid_clone, METH_O, "\n"
 		"FormFactorPyramid_clone(FormFactorPyramid self) -> FormFactorPyramid\n"
-		"FormFactorPyramid* FormFactorPyramid::clone() const override final\n"
+		"FormFactorPyramid* FormFactorPyramid::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorPyramid_accept", _wrap_FormFactorPyramid_accept, METH_VARARGS, "\n"
 		"FormFactorPyramid_accept(FormFactorPyramid self, INodeVisitor * visitor)\n"
-		"void FormFactorPyramid::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorPyramid::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorPyramid_getHeight", _wrap_FormFactorPyramid_getHeight, METH_O, "\n"
@@ -74570,14 +74570,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorSawtoothRippleBox_clone", _wrap_FormFactorSawtoothRippleBox_clone, METH_O, "\n"
 		"FormFactorSawtoothRippleBox_clone(FormFactorSawtoothRippleBox self) -> FormFactorSawtoothRippleBox\n"
-		"FormFactorSawtoothRippleBox * FormFactorSawtoothRippleBox::clone() const override final\n"
+		"FormFactorSawtoothRippleBox * FormFactorSawtoothRippleBox::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorSawtoothRippleBox_accept", _wrap_FormFactorSawtoothRippleBox_accept, METH_VARARGS, "\n"
 		"FormFactorSawtoothRippleBox_accept(FormFactorSawtoothRippleBox self, INodeVisitor * visitor)\n"
-		"void FormFactorSawtoothRippleBox::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorSawtoothRippleBox::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "delete_FormFactorSawtoothRippleBox", _wrap_delete_FormFactorSawtoothRippleBox, METH_O, "delete_FormFactorSawtoothRippleBox(FormFactorSawtoothRippleBox self)"},
@@ -74591,14 +74591,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorSawtoothRippleGauss_clone", _wrap_FormFactorSawtoothRippleGauss_clone, METH_O, "\n"
 		"FormFactorSawtoothRippleGauss_clone(FormFactorSawtoothRippleGauss self) -> FormFactorSawtoothRippleGauss\n"
-		"FormFactorSawtoothRippleGauss * FormFactorSawtoothRippleGauss::clone() const override final\n"
+		"FormFactorSawtoothRippleGauss * FormFactorSawtoothRippleGauss::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorSawtoothRippleGauss_accept", _wrap_FormFactorSawtoothRippleGauss_accept, METH_VARARGS, "\n"
 		"FormFactorSawtoothRippleGauss_accept(FormFactorSawtoothRippleGauss self, INodeVisitor * visitor)\n"
-		"void FormFactorSawtoothRippleGauss::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorSawtoothRippleGauss::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "delete_FormFactorSawtoothRippleGauss", _wrap_delete_FormFactorSawtoothRippleGauss, METH_O, "delete_FormFactorSawtoothRippleGauss(FormFactorSawtoothRippleGauss self)"},
@@ -74612,14 +74612,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorSawtoothRippleLorentz_clone", _wrap_FormFactorSawtoothRippleLorentz_clone, METH_O, "\n"
 		"FormFactorSawtoothRippleLorentz_clone(FormFactorSawtoothRippleLorentz self) -> FormFactorSawtoothRippleLorentz\n"
-		"FormFactorSawtoothRippleLorentz * FormFactorSawtoothRippleLorentz::clone() const override final\n"
+		"FormFactorSawtoothRippleLorentz * FormFactorSawtoothRippleLorentz::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorSawtoothRippleLorentz_accept", _wrap_FormFactorSawtoothRippleLorentz_accept, METH_VARARGS, "\n"
 		"FormFactorSawtoothRippleLorentz_accept(FormFactorSawtoothRippleLorentz self, INodeVisitor * visitor)\n"
-		"void FormFactorSawtoothRippleLorentz::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorSawtoothRippleLorentz::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "delete_FormFactorSawtoothRippleLorentz", _wrap_delete_FormFactorSawtoothRippleLorentz, METH_O, "delete_FormFactorSawtoothRippleLorentz(FormFactorSawtoothRippleLorentz self)"},
@@ -74633,14 +74633,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorTetrahedron_clone", _wrap_FormFactorTetrahedron_clone, METH_O, "\n"
 		"FormFactorTetrahedron_clone(FormFactorTetrahedron self) -> FormFactorTetrahedron\n"
-		"FormFactorTetrahedron* FormFactorTetrahedron::clone() const override final\n"
+		"FormFactorTetrahedron* FormFactorTetrahedron::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorTetrahedron_accept", _wrap_FormFactorTetrahedron_accept, METH_VARARGS, "\n"
 		"FormFactorTetrahedron_accept(FormFactorTetrahedron self, INodeVisitor * visitor)\n"
-		"void FormFactorTetrahedron::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorTetrahedron::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorTetrahedron_getBaseEdge", _wrap_FormFactorTetrahedron_getBaseEdge, METH_O, "\n"
@@ -74669,14 +74669,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorTruncatedCube_clone", _wrap_FormFactorTruncatedCube_clone, METH_O, "\n"
 		"FormFactorTruncatedCube_clone(FormFactorTruncatedCube self) -> FormFactorTruncatedCube\n"
-		"FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const override final\n"
+		"FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorTruncatedCube_accept", _wrap_FormFactorTruncatedCube_accept, METH_VARARGS, "\n"
 		"FormFactorTruncatedCube_accept(FormFactorTruncatedCube self, INodeVisitor * visitor)\n"
-		"void FormFactorTruncatedCube::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorTruncatedCube::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorTruncatedCube_getLength", _wrap_FormFactorTruncatedCube_getLength, METH_O, "\n"
@@ -74700,14 +74700,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorTruncatedSphere_clone", _wrap_FormFactorTruncatedSphere_clone, METH_O, "\n"
 		"FormFactorTruncatedSphere_clone(FormFactorTruncatedSphere self) -> FormFactorTruncatedSphere\n"
-		"FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const override final\n"
+		"FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorTruncatedSphere_accept", _wrap_FormFactorTruncatedSphere_accept, METH_VARARGS, "\n"
 		"FormFactorTruncatedSphere_accept(FormFactorTruncatedSphere self, INodeVisitor * visitor)\n"
-		"void FormFactorTruncatedSphere::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorTruncatedSphere::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorTruncatedSphere_getHeight", _wrap_FormFactorTruncatedSphere_getHeight, METH_O, "\n"
@@ -74727,14 +74727,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorTruncatedSphere_radialExtension", _wrap_FormFactorTruncatedSphere_radialExtension, METH_O, "\n"
 		"FormFactorTruncatedSphere_radialExtension(FormFactorTruncatedSphere self) -> double\n"
-		"double FormFactorTruncatedSphere::radialExtension() const override final\n"
+		"double FormFactorTruncatedSphere::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorTruncatedSphere_evaluate_for_q", _wrap_FormFactorTruncatedSphere_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorTruncatedSphere_evaluate_for_q(FormFactorTruncatedSphere self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Complex form factor. \n"
 		"\n"
@@ -74750,14 +74750,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorTruncatedSpheroid_clone", _wrap_FormFactorTruncatedSpheroid_clone, METH_O, "\n"
 		"FormFactorTruncatedSpheroid_clone(FormFactorTruncatedSpheroid self) -> FormFactorTruncatedSpheroid\n"
-		"FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const override final\n"
+		"FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorTruncatedSpheroid_accept", _wrap_FormFactorTruncatedSpheroid_accept, METH_VARARGS, "\n"
 		"FormFactorTruncatedSpheroid_accept(FormFactorTruncatedSpheroid self, INodeVisitor * visitor)\n"
-		"void FormFactorTruncatedSpheroid::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorTruncatedSpheroid::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorTruncatedSpheroid_getRadius", _wrap_FormFactorTruncatedSpheroid_getRadius, METH_O, "\n"
@@ -74782,14 +74782,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorTruncatedSpheroid_radialExtension", _wrap_FormFactorTruncatedSpheroid_radialExtension, METH_O, "\n"
 		"FormFactorTruncatedSpheroid_radialExtension(FormFactorTruncatedSpheroid self) -> double\n"
-		"double FormFactorTruncatedSpheroid::radialExtension() const override final\n"
+		"double FormFactorTruncatedSpheroid::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorTruncatedSpheroid_evaluate_for_q", _wrap_FormFactorTruncatedSpheroid_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorTruncatedSpheroid_evaluate_for_q(FormFactorTruncatedSpheroid self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74805,14 +74805,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorGaussSphere_clone", _wrap_FormFactorGaussSphere_clone, METH_O, "\n"
 		"FormFactorGaussSphere_clone(FormFactorGaussSphere self) -> FormFactorGaussSphere\n"
-		"FormFactorGaussSphere* FormFactorGaussSphere::clone() const override final\n"
+		"FormFactorGaussSphere* FormFactorGaussSphere::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorGaussSphere_accept", _wrap_FormFactorGaussSphere_accept, METH_VARARGS, "\n"
 		"FormFactorGaussSphere_accept(FormFactorGaussSphere self, INodeVisitor * visitor)\n"
-		"void FormFactorGaussSphere::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorGaussSphere::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorGaussSphere_getMeanRadius", _wrap_FormFactorGaussSphere_getMeanRadius, METH_O, "\n"
@@ -74822,14 +74822,14 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorGaussSphere_radialExtension", _wrap_FormFactorGaussSphere_radialExtension, METH_O, "\n"
 		"FormFactorGaussSphere_radialExtension(FormFactorGaussSphere self) -> double\n"
-		"double FormFactorGaussSphere::radialExtension() const override final\n"
+		"double FormFactorGaussSphere::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorGaussSphere_evaluate_for_q", _wrap_FormFactorGaussSphere_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorGaussSphere_evaluate_for_q(FormFactorGaussSphere self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74845,26 +74845,26 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorSphereGaussianRadius_clone", _wrap_FormFactorSphereGaussianRadius_clone, METH_O, "\n"
 		"FormFactorSphereGaussianRadius_clone(FormFactorSphereGaussianRadius self) -> FormFactorSphereGaussianRadius\n"
-		"FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const override final\n"
+		"FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorSphereGaussianRadius_accept", _wrap_FormFactorSphereGaussianRadius_accept, METH_VARARGS, "\n"
 		"FormFactorSphereGaussianRadius_accept(FormFactorSphereGaussianRadius self, INodeVisitor * visitor)\n"
-		"void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorSphereGaussianRadius_radialExtension", _wrap_FormFactorSphereGaussianRadius_radialExtension, METH_O, "\n"
 		"FormFactorSphereGaussianRadius_radialExtension(FormFactorSphereGaussianRadius self) -> double\n"
-		"double FormFactorSphereGaussianRadius::radialExtension() const override final\n"
+		"double FormFactorSphereGaussianRadius::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorSphereGaussianRadius_evaluate_for_q", _wrap_FormFactorSphereGaussianRadius_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorSphereGaussianRadius_evaluate_for_q(FormFactorSphereGaussianRadius self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"
@@ -74880,26 +74880,26 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FormFactorSphereLogNormalRadius_clone", _wrap_FormFactorSphereLogNormalRadius_clone, METH_O, "\n"
 		"FormFactorSphereLogNormalRadius_clone(FormFactorSphereLogNormalRadius self) -> FormFactorSphereLogNormalRadius\n"
-		"FormFactorSphereLogNormalRadius * FormFactorSphereLogNormalRadius::clone() const override final\n"
+		"FormFactorSphereLogNormalRadius * FormFactorSphereLogNormalRadius::clone() const final\n"
 		"\n"
 		"Returns a clone of this  ISample object. \n"
 		"\n"
 		""},
 	 { "FormFactorSphereLogNormalRadius_accept", _wrap_FormFactorSphereLogNormalRadius_accept, METH_VARARGS, "\n"
 		"FormFactorSphereLogNormalRadius_accept(FormFactorSphereLogNormalRadius self, INodeVisitor * visitor)\n"
-		"void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const override final\n"
+		"void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const final\n"
 		"\n"
 		""},
 	 { "FormFactorSphereLogNormalRadius_radialExtension", _wrap_FormFactorSphereLogNormalRadius_radialExtension, METH_O, "\n"
 		"FormFactorSphereLogNormalRadius_radialExtension(FormFactorSphereLogNormalRadius self) -> double\n"
-		"double FormFactorSphereLogNormalRadius::radialExtension() const override final\n"
+		"double FormFactorSphereLogNormalRadius::radialExtension() const final\n"
 		"\n"
 		"Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations \n"
 		"\n"
 		""},
 	 { "FormFactorSphereLogNormalRadius_evaluate_for_q", _wrap_FormFactorSphereLogNormalRadius_evaluate_for_q, METH_VARARGS, "\n"
 		"FormFactorSphereLogNormalRadius_evaluate_for_q(FormFactorSphereLogNormalRadius self, cvector_t q) -> complex_t\n"
-		"complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const override final\n"
+		"complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const final\n"
 		"\n"
 		"Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. \n"
 		"\n"

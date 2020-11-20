@@ -34,8 +34,7 @@ class MaterialItemContainer;
 class SessionItem;
 class ISimulation;
 
-namespace TransformToDomain
-{
+namespace TransformToDomain {
 std::unique_ptr<Material> createDomainMaterial(const SessionItem& item);
 std::unique_ptr<IParticle> createIParticle(const SessionItem& item);
 std::unique_ptr<Layer> createLayer(const SessionItem& item);

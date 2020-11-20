@@ -20,8 +20,7 @@ class DistributionEditor;
 class SessionItem;
 
 //! The dialog which shows an editor to change parameters of DistributionItem
-class DistributionDialog : public QDialog
-{
+class DistributionDialog : public QDialog {
     Q_OBJECT
 
 public:

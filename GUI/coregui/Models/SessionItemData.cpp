@@ -17,21 +17,18 @@
 
 SessionItemData::ItemData::ItemData(int r, const QVariant& v) : role(r), data(v) {}
 
-bool SessionItemData::ItemData::operator==(const SessionItemData::ItemData& other) const
-{
+bool SessionItemData::ItemData::operator==(const SessionItemData::ItemData& other) const {
     return role == other.role && SessionItemUtils::IsTheSame(data, other.data);
 }
 
-QVector<int> SessionItemData::roles() const
-{
+QVector<int> SessionItemData::roles() const {
     QVector<int> result;
     for (const auto& value : m_values)
         result.push_back(value.role);
     return result;
 }
 
-QVariant SessionItemData::data(int role) const
-{
+QVariant SessionItemData::data(int role) const {
     role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
     for (const auto& value : m_values) {
         if (value.role == role)
@@ -42,8 +39,7 @@ QVariant SessionItemData::data(int role) const
 
 //! Sets the data for given role. Returns true if data was changed.
 
-bool SessionItemData::setData(int role, const QVariant& value)
-{
+bool SessionItemData::setData(int role, const QVariant& value) {
     role = (role == Qt::EditRole) ? Qt::DisplayRole : role;
     for (auto it = m_values.begin(); it != m_values.end(); ++it) {
         if (it->role == role) {

@@ -23,8 +23,7 @@ class QWidget;
 class QLayout;
 class QWidget;
 
-namespace StyleUtils
-{
+namespace StyleUtils {
 
 //! Sets style for the tree to use in property editors.
 void setPropertyStyle(QTreeView* tree);

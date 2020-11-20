@@ -37,8 +37,7 @@ struct AxisInfo {
 //! Wrapper around OutputData<double> that also provides unit conversions.
 //! @ingroup detector
 
-class SimulationResult
-{
+class SimulationResult {
 public:
     SimulationResult() = default;
     SimulationResult(const OutputData<double>& data, const IUnitConverter& unit_converter);

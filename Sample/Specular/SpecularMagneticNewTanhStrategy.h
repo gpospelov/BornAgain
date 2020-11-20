@@ -25,8 +25,7 @@
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class SpecularMagneticNewTanhStrategy : public SpecularMagneticNewStrategy
-{
+class SpecularMagneticNewTanhStrategy : public SpecularMagneticNewStrategy {
 private:
     virtual std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
     computeBackwardsSubmatrices(const MatrixRTCoefficients_v3& coeff_i,

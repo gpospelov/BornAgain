@@ -26,8 +26,7 @@ class ImportDataInfo;
 
 //! The RealDataItem class represents intensity data imported from file and intended for fitting.
 
-class BA_CORE_API_ RealDataItem : public SessionItem
-{
+class BA_CORE_API_ RealDataItem : public SessionItem {
 public:
     static const QString T_INTENSITY_DATA;
     static const QString P_INSTRUMENT_ID;

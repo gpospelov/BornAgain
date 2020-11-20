@@ -27,8 +27,7 @@ class QCustomPlot;
 //! control of font size, status string appearance, defines common actions
 //! (reset view, save plot, show context menu).
 
-class ColorMapCanvas : public SessionItemWidget
-{
+class ColorMapCanvas : public SessionItemWidget {
     Q_OBJECT
 
 public:

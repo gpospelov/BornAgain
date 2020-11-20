@@ -26,8 +26,7 @@ class IUnitConverter;
 class MaskContainerItem;
 class RealDataItem;
 
-class BA_CORE_API_ InstrumentItem : public SessionItem
-{
+class BA_CORE_API_ InstrumentItem : public SessionItem {
 public:
     static const QString P_IDENTIFIER;
     static const QString P_BEAM;
@@ -53,8 +52,7 @@ protected:
     void initBackgroundGroup();
 };
 
-class BA_CORE_API_ SpecularInstrumentItem : public InstrumentItem
-{
+class BA_CORE_API_ SpecularInstrumentItem : public InstrumentItem {
 public:
     SpecularInstrumentItem();
     ~SpecularInstrumentItem() override;
@@ -69,8 +67,7 @@ public:
     std::unique_ptr<IUnitConverter> createUnitConverter() const;
 };
 
-class BA_CORE_API_ Instrument2DItem : public InstrumentItem
-{
+class BA_CORE_API_ Instrument2DItem : public InstrumentItem {
 public:
     static const QString P_DETECTOR;
 
@@ -90,16 +87,14 @@ protected:
     explicit Instrument2DItem(const QString& modelType);
 };
 
-class BA_CORE_API_ GISASInstrumentItem : public Instrument2DItem
-{
+class BA_CORE_API_ GISASInstrumentItem : public Instrument2DItem {
 public:
     GISASInstrumentItem();
     std::vector<int> shape() const override;
     void updateToRealData(const RealDataItem* item) override;
 };
 
-class BA_CORE_API_ OffSpecInstrumentItem : public Instrument2DItem
-{
+class BA_CORE_API_ OffSpecInstrumentItem : public Instrument2DItem {
 public:
     static const QString P_ALPHA_AXIS;
 

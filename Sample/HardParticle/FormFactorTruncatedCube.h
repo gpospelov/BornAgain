@@ -20,23 +20,21 @@
 //! A cube, with tetrahedral truncation of all corners
 //! @ingroup hardParticle
 
-class FormFactorTruncatedCube : public IFormFactorPolyhedron
-{
+class FormFactorTruncatedCube : public IFormFactorPolyhedron {
 public:
     FormFactorTruncatedCube(const std::vector<double> P);
     FormFactorTruncatedCube(double length, double removed_length);
 
-    FormFactorTruncatedCube* clone() const override final
-    {
+    FormFactorTruncatedCube* clone() const final {
         return new FormFactorTruncatedCube(m_length, m_removed_length);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getRemovedLength() const { return m_removed_length; }
 
 protected:
-    void onChange() override final;
+    void onChange() final;
 
 private:
     static const PolyhedralTopology topology;

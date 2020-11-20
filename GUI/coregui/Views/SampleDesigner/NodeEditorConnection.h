@@ -27,8 +27,7 @@
 class NodeEditorPort;
 class ConnectableView;
 
-class NodeEditorConnection : public QGraphicsPathItem
-{
+class NodeEditorConnection : public QGraphicsPathItem {
 public:
     NodeEditorConnection(QGraphicsItem* parent = 0, QGraphicsScene* scene = 0);
     virtual ~NodeEditorConnection();

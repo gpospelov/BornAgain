@@ -2,7 +2,7 @@
 # Tests/Functional/PyFit/CMakeLists.txt
 ############################################################################
 
-set(output_dir ${TEST_OUTPUT_DIR}/Functional/Python/PyFit)
+set(output_dir ${TEST_OUTPUT_DIR_PY_FIT})
 file(MAKE_DIRECTORY ${output_dir})
 
 file(GLOB sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.py")

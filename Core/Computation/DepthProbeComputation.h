@@ -26,8 +26,7 @@ class MultiLayer;
 //!
 //! @ingroup algorithms_internal
 
-class DepthProbeComputation : public IComputation
-{
+class DepthProbeComputation : public IComputation {
     using DepthProbeElementIter = std::vector<DepthProbeElement>::iterator;
 
 public:

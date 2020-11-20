@@ -20,8 +20,7 @@
 #include "Sample/Correlations/FTDecay2D.h"
 #include <algorithm>
 
-namespace
-{
+namespace {
 // maximum value for qx*Lambdax
 const int nmax = 20;
 // minimum number of neighboring reciprocal lattice points to use
@@ -32,8 +31,7 @@ const int min_points = 4;
 //! @param length: lattice constant in nanometers
 //! @param xi: rotation of lattice with respect to x-axis in radians
 InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, double xi)
-    : IInterferenceFunction(0), m_length(length), m_xi(xi), m_na{0}
-{
+    : IInterferenceFunction(0), m_length(length), m_xi(xi), m_na{0} {
     setName("Interference1DLattice");
     registerParameter("Length", &m_length).setUnit("nm").setNonnegative();
     registerParameter("Xi", &m_xi).setUnit("rad");
@@ -41,8 +39,7 @@ InterferenceFunction1DLattice::InterferenceFunction1DLattice(double length, doub
 
 InterferenceFunction1DLattice::~InterferenceFunction1DLattice() = default;
 
-InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
-{
+InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const {
     auto* ret = new InterferenceFunction1DLattice(m_length, m_xi);
     ret->setPositionVariance(m_position_var);
     ret->m_na = m_na;
@@ -53,8 +50,7 @@ InterferenceFunction1DLattice* InterferenceFunction1DLattice::clone() const
 
 //! Sets one-dimensional decay function.
 //! @param decay: one-dimensional decay function in reciprocal space
-void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& decay)
-{
+void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& decay) {
     m_decay.reset(decay.clone());
     registerChild(m_decay.get());
     double decay_length = m_decay->decayLength();
@@ -63,13 +59,11 @@ void InterferenceFunction1DLattice::setDecayFunction(const IFTDecayFunction1D& d
     m_na = std::max(m_na, min_points);
 }
 
-std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const
-{
+std::vector<const INode*> InterferenceFunction1DLattice::getChildren() const {
     return std::vector<const INode*>() << m_decay;
 }
 
-double InterferenceFunction1DLattice::iff_without_dw(const kvector_t q) const
-{
+double InterferenceFunction1DLattice::iff_without_dw(const kvector_t q) const {
     ASSERT(m_decay);
     double result = 0.0;
     double qxr = q.x();

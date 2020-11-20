@@ -22,8 +22,7 @@ template <class T> class OutputData;
 
 //! Holds pair of simulation/experimental data to fit.
 
-class SimDataPair
-{
+class SimDataPair {
 public:
     SimDataPair(simulation_builder_t builder, const OutputData<double>& data,
                 std::unique_ptr<OutputData<double>> uncertainties, double user_weight = 1.0);

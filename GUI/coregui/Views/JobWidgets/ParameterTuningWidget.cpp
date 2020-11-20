@@ -34,8 +34,7 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
     , m_sliderSettingsWidget(new SliderSettingsWidget(this))
     , m_treeView(new QTreeView)
     , m_delegate(new ParameterTuningDelegate(this))
-    , m_warningSign(new WarningSign(m_treeView))
-{
+    , m_warningSign(new WarningSign(m_treeView)) {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_treeView->setItemDelegate(m_delegate);
@@ -63,16 +62,14 @@ ParameterTuningWidget::ParameterTuningWidget(QWidget* parent)
             &ParameterTuningWidget::restoreModelsOfCurrentJobItem);
 }
 
-QItemSelectionModel* ParameterTuningWidget::selectionModel()
-{
+QItemSelectionModel* ParameterTuningWidget::selectionModel() {
     ASSERT(m_treeView);
     return m_treeView->selectionModel();
 }
 
 //! Returns list of ParameterItem's currently selected in parameter tree
 
-QVector<ParameterItem*> ParameterTuningWidget::getSelectedParameters()
-{
+QVector<ParameterItem*> ParameterTuningWidget::getSelectedParameters() {
     QVector<ParameterItem*> result;
     QModelIndexList proxyIndexes = selectionModel()->selectedIndexes();
     for (auto proxyIndex : proxyIndexes) {
@@ -82,8 +79,7 @@ QVector<ParameterItem*> ParameterTuningWidget::getSelectedParameters()
     return result;
 }
 
-void ParameterTuningWidget::onCurrentLinkChanged(SessionItem* item)
-{
+void ParameterTuningWidget::onCurrentLinkChanged(SessionItem* item) {
     ASSERT(jobItem());
 
     if (jobItem()->isRunning())
@@ -95,21 +91,18 @@ void ParameterTuningWidget::onCurrentLinkChanged(SessionItem* item)
     }
 }
 
-void ParameterTuningWidget::onSliderValueChanged(double value)
-{
+void ParameterTuningWidget::onSliderValueChanged(double value) {
     m_delegate->setSliderRangeFactor(value);
 }
 
-void ParameterTuningWidget::onLockZValueChanged(bool value)
-{
+void ParameterTuningWidget::onLockZValueChanged(bool value) {
     if (!jobItem())
         return;
     if (IntensityDataItem* intensityDataItem = jobItem()->intensityDataItem())
         intensityDataItem->setZAxisLocked(value);
 }
 
-void ParameterTuningWidget::updateParameterModel()
-{
+void ParameterTuningWidget::updateParameterModel() {
     ASSERT(m_jobModel);
 
     if (!jobItem())
@@ -131,13 +124,11 @@ void ParameterTuningWidget::updateParameterModel()
     m_treeView->expandAll();
 }
 
-void ParameterTuningWidget::onCustomContextMenuRequested(const QPoint& point)
-{
+void ParameterTuningWidget::onCustomContextMenuRequested(const QPoint& point) {
     emit itemContextMenuRequest(m_treeView->mapToGlobal(point + QPoint(2, 22)));
 }
 
-void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
-{
+void ParameterTuningWidget::restoreModelsOfCurrentJobItem() {
     ASSERT(m_jobModel);
     ASSERT(jobItem());
 
@@ -150,20 +141,17 @@ void ParameterTuningWidget::restoreModelsOfCurrentJobItem()
     m_jobModel->runJob(jobItem()->index());
 }
 
-void ParameterTuningWidget::makeSelected(ParameterItem* item)
-{
+void ParameterTuningWidget::makeSelected(ParameterItem* item) {
     QModelIndex proxyIndex = m_parameterTuningModel->mapFromSource(item->index());
     if (proxyIndex.isValid())
         selectionModel()->select(proxyIndex, QItemSelectionModel::Select);
 }
 
-void ParameterTuningWidget::contextMenuEvent(QContextMenuEvent*)
-{
+void ParameterTuningWidget::contextMenuEvent(QContextMenuEvent*) {
     // reimplemented to suppress context menu from QMainWindow
 }
 
-void ParameterTuningWidget::subscribeToItem()
-{
+void ParameterTuningWidget::subscribeToItem() {
     m_jobModel = dynamic_cast<JobModel*>(jobItem()->model());
 
     updateParameterModel();
@@ -175,8 +163,7 @@ void ParameterTuningWidget::subscribeToItem()
     onPropertyChanged(JobItem::P_STATUS);
 }
 
-void ParameterTuningWidget::onPropertyChanged(const QString& property_name)
-{
+void ParameterTuningWidget::onPropertyChanged(const QString& property_name) {
     if (property_name == JobItem::P_STATUS) {
         m_warningSign->clear();
 
@@ -191,15 +178,13 @@ void ParameterTuningWidget::onPropertyChanged(const QString& property_name)
     }
 }
 
-JobItem* ParameterTuningWidget::jobItem()
-{
+JobItem* ParameterTuningWidget::jobItem() {
     return dynamic_cast<JobItem*>(currentItem());
 }
 
 //! Disable drag-and-drop abilities, if job is in fit running state.
 
-void ParameterTuningWidget::updateDragAndDropSettings()
-{
+void ParameterTuningWidget::updateDragAndDropSettings() {
     ASSERT(jobItem());
     if (jobItem()->getStatus() == "Fitting") {
         setTuningDelegateEnabled(false);
@@ -214,8 +199,7 @@ void ParameterTuningWidget::updateDragAndDropSettings()
 //! Sets delegate to enabled/disabled state.
 //! In 'disabled' state the delegate is in ReadOnlyMode, if it was containing already some
 //! editing widget, it will be forced to close.
-void ParameterTuningWidget::setTuningDelegateEnabled(bool enabled)
-{
+void ParameterTuningWidget::setTuningDelegateEnabled(bool enabled) {
     if (enabled) {
         m_delegate->setReadOnly(false);
     } else {
@@ -224,8 +208,7 @@ void ParameterTuningWidget::setTuningDelegateEnabled(bool enabled)
     }
 }
 
-void ParameterTuningWidget::closeActiveEditors()
-{
+void ParameterTuningWidget::closeActiveEditors() {
     QModelIndex index = m_treeView->currentIndex();
     QWidget* editor = m_treeView->indexWidget(index);
     if (editor) {

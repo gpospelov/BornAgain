@@ -27,8 +27,7 @@ class DetectorContext;
 //! Abstract 2D detector interface.
 //! @ingroup detector
 
-class IDetector2D : public IDetector
-{
+class IDetector2D : public IDetector {
 public:
     IDetector2D();
 

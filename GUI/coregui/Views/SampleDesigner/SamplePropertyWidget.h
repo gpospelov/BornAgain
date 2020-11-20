@@ -24,8 +24,7 @@ class ComponentEditor;
 //! Property editor to modify property of the object currently selected on the
 //! graphics scene. Located in the bottom right corner of SampleView.
 
-class SamplePropertyWidget : public QWidget
-{
+class SamplePropertyWidget : public QWidget {
     Q_OBJECT
 public:
     SamplePropertyWidget(QItemSelectionModel* selection_model, QWidget* parent = nullptr);

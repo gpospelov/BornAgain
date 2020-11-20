@@ -3,14 +3,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
-class RegionOfInterestTest : public ::testing::Test
-{
-};
+class RegionOfInterestTest : public ::testing::Test {};
 
 //! Testing region of interest with reasonable area within the detector.
 
-TEST_F(RegionOfInterestTest, constructor)
-{
+TEST_F(RegionOfInterestTest, constructor) {
     SphericalDetector detector;
     detector.addAxis(FixedBinAxis("axis0", 8, -3.0, 5.0));
     detector.addAxis(FixedBinAxis("axis1", 4, 0.0, 4.0));
@@ -44,8 +41,7 @@ TEST_F(RegionOfInterestTest, constructor)
 
 //! Testing region of interest which is larger than the detector.
 
-TEST_F(RegionOfInterestTest, largeArea)
-{
+TEST_F(RegionOfInterestTest, largeArea) {
     SphericalDetector detector;
     detector.addAxis(FixedBinAxis("axis0", 8, -3.0, 5.0));
     detector.addAxis(FixedBinAxis("axis1", 4, 0.0, 4.0));
@@ -71,8 +67,7 @@ TEST_F(RegionOfInterestTest, largeArea)
 
 //! Testing clone
 
-TEST_F(RegionOfInterestTest, clone)
-{
+TEST_F(RegionOfInterestTest, clone) {
     SphericalDetector detector;
     detector.addAxis(FixedBinAxis("axis0", 8, -3.0, 5.0));
     detector.addAxis(FixedBinAxis("axis1", 4, 0.0, 4.0));

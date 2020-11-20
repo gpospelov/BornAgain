@@ -24,8 +24,7 @@
 
 class RootScalarFunction;
 
-namespace mumufit
-{
+namespace mumufit {
 
 //! Converts user objective function to chi2 like function which ROOT expects.
 
@@ -33,8 +32,7 @@ namespace mumufit
 //! the call of user function std::function<double(std::vector<double>)>, where
 //! function input parameters will be current values fit parameters.
 
-class ScalarFunctionAdapter : public IFunctionAdapter
-{
+class ScalarFunctionAdapter : public IFunctionAdapter {
 public:
     ScalarFunctionAdapter(fcn_scalar_t func, const Parameters& parameters);
 

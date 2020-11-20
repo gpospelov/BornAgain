@@ -24,28 +24,27 @@ class ParticleLayout;
 //! A layer, with thickness (in nanometer) and material.
 //! @ingroup samples
 
-class Layer : public ISample
-{
+class Layer : public ISample {
 public:
     Layer(Material material, double thickness = 0);
 
     ~Layer() override;
 
-    Layer* clone() const override final;
+    Layer* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     void setThickness(double thickness);
     double thickness() const { return m_thickness; }
 
-    const Material* material() const override final { return &m_material; }
+    const Material* material() const final { return &m_material; }
     void setMaterial(Material material);
 
     void addLayout(const ParticleLayout& decoration);
     size_t numberOfLayouts() const { return m_layouts.size(); }
     std::vector<const ParticleLayout*> layouts() const;
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const final;
 
     void registerThickness(bool make_registered = true);
 

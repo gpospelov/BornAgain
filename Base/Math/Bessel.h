@@ -18,12 +18,10 @@
 #include "Base/Types/Complex.h"
 #include <vector>
 
-namespace Math
-{
+namespace Math {
 
 //! Real and complex Bessel functions
-namespace Bessel
-{
+namespace Bessel {
 
 //! Bessel function of the first kind and order 0
 double J0(double x);

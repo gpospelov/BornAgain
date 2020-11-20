@@ -18,14 +18,12 @@
 #include "Device/Instrument/IntensityDataFunctions.h"
 #include <iostream>
 
-namespace
-{
+namespace {
 
-std::unique_ptr<OutputData<double>> load(const std::string& name)
-{
+std::unique_ptr<OutputData<double>> load(const std::string& name) {
     ASSERT(name != "");
     const std::string path =
-        FileSystemUtils::jointPath(BATesting::StdReferenceDir(), name + ".int.gz");
+        FileSystemUtils::jointPath(BATesting::ReferenceDir_Std(), name + ".int.gz");
     std::unique_ptr<OutputData<double>> data;
     try {
         data.reset(IntensityDataIOFactory::readOutputData(path));
@@ -40,8 +38,7 @@ std::unique_ptr<OutputData<double>> load(const std::string& name)
 
 } // namespace
 
-int compareTwoReferences(const std::string& name0, const std::string& name1, const double limit)
-{
+int compareTwoReferences(const std::string& name0, const std::string& name1, const double limit) {
     std::unique_ptr<OutputData<double>> data0 = load(name0);
     std::unique_ptr<OutputData<double>> data1 = load(name1);
 

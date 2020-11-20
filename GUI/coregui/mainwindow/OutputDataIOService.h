@@ -27,8 +27,7 @@ class SaveLoadInterface;
 //! Listens all models and keep tracks of changes in items. Provides logic to
 //! not to re-save already saved data.
 
-class OutputDataIOService : public QObject
-{
+class OutputDataIOService : public QObject {
     Q_OBJECT
 public:
     explicit OutputDataIOService(QObject* parent = nullptr);

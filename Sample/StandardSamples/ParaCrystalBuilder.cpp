@@ -25,8 +25,7 @@
 #include "Sample/SampleBuilderEngine/SampleComponents.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* RadialParaCrystalBuilder::buildSample() const
-{
+MultiLayer* RadialParaCrystalBuilder::buildSample() const {
     const double m_corr_peak_distance(20.0 * Units::nm);
     const double m_corr_width(7 * Units::nm);
     const double m_corr_length(1e3 * Units::nm);
@@ -59,14 +58,11 @@ MultiLayer* RadialParaCrystalBuilder::buildSample() const
 
 Basic2DParaCrystalBuilder::Basic2DParaCrystalBuilder()
     : m_pdf1(new FTDistribution2DCauchy(0.1 * Units::nm, 0.2 * Units::nm, 0))
-    , m_pdf2(new FTDistribution2DCauchy(0.3 * Units::nm, 0.4 * Units::nm, 0))
-{
-}
+    , m_pdf2(new FTDistribution2DCauchy(0.3 * Units::nm, 0.4 * Units::nm, 0)) {}
 
 Basic2DParaCrystalBuilder::~Basic2DParaCrystalBuilder() = default;
 
-MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
-{
+MultiLayer* Basic2DParaCrystalBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
@@ -90,8 +86,7 @@ MultiLayer* Basic2DParaCrystalBuilder::buildSample() const
     return multi_layer;
 }
 
-MultiLayer* Basic2DParaCrystalBuilder::createSampleByIndex(size_t index)
-{
+MultiLayer* Basic2DParaCrystalBuilder::createSampleByIndex(size_t index) {
     ASSERT(index < FTDistribution2DComponents().size());
 
     auto names = FTDistribution2DComponents().keys();
@@ -106,8 +101,7 @@ MultiLayer* Basic2DParaCrystalBuilder::createSampleByIndex(size_t index)
 // HexParaCrystalBuilder
 // -----------------------------------------------------------------------------
 
-MultiLayer* HexParaCrystalBuilder::buildSample() const
-{
+MultiLayer* HexParaCrystalBuilder::buildSample() const {
     const double m_peak_distance(20.0 * Units::nm);
     const double m_corr_length(0.0);
     const double m_domain_size_1(20.0 * Units::micrometer);
@@ -142,8 +136,7 @@ MultiLayer* HexParaCrystalBuilder::buildSample() const
 // RectParaCrystalBuilder
 // -----------------------------------------------------------------------------
 
-MultiLayer* RectParaCrystalBuilder::buildSample() const
-{
+MultiLayer* RectParaCrystalBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 

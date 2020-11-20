@@ -19,8 +19,7 @@
 
 class InstrumentItem;
 
-class InstrumentModel : public SessionModel
-{
+class InstrumentModel : public SessionModel {
     Q_OBJECT
 
 public:

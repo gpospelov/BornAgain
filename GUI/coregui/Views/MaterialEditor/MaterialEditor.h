@@ -29,8 +29,7 @@ class ExternalProperty;
 
 //! Main widget of MaterialEditor
 
-class MaterialEditor : public QWidget
-{
+class MaterialEditor : public QWidget {
     Q_OBJECT
 
 public:

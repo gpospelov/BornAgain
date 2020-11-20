@@ -21,8 +21,7 @@
 //! A particle with a form factor and refractive index.
 //! @ingroup samples
 
-class Particle : public IParticle
-{
+class Particle : public IParticle {
 public:
     Particle() = delete;
     ~Particle();
@@ -30,16 +29,16 @@ public:
     Particle(Material material, const IFormFactor& form_factor);
     Particle(Material material, const IFormFactor& form_factor, const IRotation& rotation);
 
-    Particle* clone() const override final;
+    Particle* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    SlicedParticle createSlicedParticle(ZLimits limits) const override final;
+    SlicedParticle createSlicedParticle(ZLimits limits) const final;
 
     void setMaterial(Material material);
-    const Material* material() const override final { return &m_material; }
+    const Material* material() const final { return &m_material; }
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const final;
 
 protected:
     Material m_material;

@@ -20,12 +20,10 @@ ComputeBA::ComputeBA(const IFormFactor& ff) : IComputeFF(ff) {}
 
 ComputeBA::~ComputeBA() = default;
 
-ComputeBA* ComputeBA::clone() const
-{
+ComputeBA* ComputeBA::clone() const {
     return new ComputeBA(*m_ff);
 }
 
-complex_t ComputeBA::evaluate(const WavevectorInfo& wavevectors) const
-{
+complex_t ComputeBA::evaluate(const WavevectorInfo& wavevectors) const {
     return m_ff->evaluate(wavevectors);
 }

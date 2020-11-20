@@ -18,14 +18,12 @@
 #include "Fit/Param/Parameter.h"
 #include <vector>
 
-namespace mumufit
-{
+namespace mumufit {
 
 //! A collection of fit parameters.
 //! @ingroup fitting
 
-class Parameters
-{
+class Parameters {
 public:
     using parameters_t = std::vector<Parameter>;
     using const_iterator = parameters_t::const_iterator;

@@ -20,8 +20,7 @@
 #include "Sample/Slice/Slice.h"
 #include <Eigen/LU>
 
-namespace
-{
+namespace {
 void CalculateEigenvalues(const std::vector<Slice>& slices, const kvector_t k,
                           std::vector<MatrixRTCoefficients>& coeff);
 void CalculateTransferAndBoundary(const std::vector<Slice>& slices,
@@ -31,8 +30,7 @@ complex_t GetImExponential(complex_t exponent);
 } // namespace
 
 ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
-                                                                 const kvector_t& k) const
-{
+                                                                 const kvector_t& k) const {
     std::vector<MatrixRTCoefficients> result(slices.size());
     CalculateEigenvalues(slices, k, result);
     CalculateTransferAndBoundary(slices, result);
@@ -45,16 +43,14 @@ ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vect
 }
 
 ISpecularStrategy::coeffs_t
-SpecularMagneticOldStrategy::Execute(const std::vector<Slice>&, const std::vector<complex_t>&) const
-{
+SpecularMagneticOldStrategy::Execute(const std::vector<Slice>&,
+                                     const std::vector<complex_t>&) const {
     throw std::runtime_error("Not implemented");
 }
 
-namespace
-{
+namespace {
 void CalculateEigenvalues(const std::vector<Slice>& slices, const kvector_t k,
-                          std::vector<MatrixRTCoefficients>& coeff)
-{
+                          std::vector<MatrixRTCoefficients>& coeff) {
     double mag_k = k.mag();
     double n_ref = slices[0].material().refractiveIndex(2 * M_PI / mag_k).real();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
@@ -82,8 +78,7 @@ void CalculateEigenvalues(const std::vector<Slice>& slices, const kvector_t k,
 
 // todo: avoid overflows (see SpecularMatrix.cpp)
 void CalculateTransferAndBoundary(const std::vector<Slice>& slices,
-                                  std::vector<MatrixRTCoefficients>& coeff)
-{
+                                  std::vector<MatrixRTCoefficients>& coeff) {
     size_t N = coeff.size();
     if (coeff[0].lambda == Eigen::Vector2cd::Zero() && N > 1) {
         SetForNoTransmission(coeff);
@@ -141,8 +136,7 @@ void CalculateTransferAndBoundary(const std::vector<Slice>& slices,
     }
 }
 
-void SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff)
-{
+void SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff) {
     size_t N = coeff.size();
     for (size_t i = 0; i < N; ++i) {
         coeff[i].phi_psi_plus.setZero();
@@ -154,8 +148,7 @@ void SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff)
     }
 }
 
-complex_t GetImExponential(complex_t exponent)
-{
+complex_t GetImExponential(complex_t exponent) {
     if (exponent.imag() > -std::log(std::numeric_limits<double>::min()))
         return 0.0;
     return std::exp(I * exponent);

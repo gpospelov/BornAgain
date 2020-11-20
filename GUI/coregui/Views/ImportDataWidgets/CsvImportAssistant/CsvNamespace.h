@@ -19,8 +19,7 @@
 #include <QStringList>
 #include <vector>
 
-namespace csv
-{
+namespace csv {
 enum ColumnType { _intensity_, _theta_, _q_ };
 const QStringList HeaderLabels{"Intensity", "theta", "q"};
 const QStringList UnitsLabels{"default", "bin", "rad", "deg", "mm", "1/nm"};

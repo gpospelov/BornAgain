@@ -24,8 +24,7 @@ class SessionItem;
 //! Contains set of functions to extend JobModel functionality.
 //! Handles setup of JobItem in fitting context.
 
-namespace JobModelFunctions
-{
+namespace JobModelFunctions {
 //! Initializes Data1DViewItem and assigns it to the passed JobItem
 void initDataView(JobItem* jobItem);
 

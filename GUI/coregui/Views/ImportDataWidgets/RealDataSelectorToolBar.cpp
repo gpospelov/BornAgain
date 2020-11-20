@@ -20,8 +20,7 @@ RealDataSelectorToolBar::RealDataSelectorToolBar(RealDataSelectorActions* action
     : StyledToolBar(parent)
     , m_import2dDataButton(new QToolButton)
     , m_import1dDataButton(new QToolButton)
-    , m_removeDataButton(new QToolButton)
-{
+    , m_removeDataButton(new QToolButton) {
     setMinimumSize(minimumHeight(), minimumHeight());
 
     m_import2dDataButton->setText("Import 2D");

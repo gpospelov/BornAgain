@@ -22,8 +22,7 @@ class QModelIndex;
 class QAbstractItemModel;
 class SessionModel;
 
-namespace ModelUtils
-{
+namespace ModelUtils {
 //! Returns list of top iten manes.
 QStringList topItemNames(SessionModel* model, const QString& modelType = "");
 

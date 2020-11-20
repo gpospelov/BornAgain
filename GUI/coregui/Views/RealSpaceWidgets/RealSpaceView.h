@@ -19,16 +19,14 @@
 
 class RealSpaceModel;
 
-namespace RealSpace
-{
+namespace RealSpace {
 class Widget3D;
 class Camera;
 } // namespace RealSpace
 
 //! Contains 3D view.
 
-class RealSpaceView : public QWidget
-{
+class RealSpaceView : public QWidget {
     Q_OBJECT
 
 public:

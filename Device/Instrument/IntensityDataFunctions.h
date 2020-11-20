@@ -25,8 +25,7 @@ class ISimulation;
 //! Functions to work with intensity data.
 //! @ingroup tools
 
-namespace IntensityDataFunctions
-{
+namespace IntensityDataFunctions {
 //! Returns sum of relative differences between each pair of elements:
 //! (a, b) -> 2*abs(a - b)/(a + b)      ( and zero if  a-b=0 )
 double RelativeDifference(const SimulationResult& dat, const SimulationResult& ref);

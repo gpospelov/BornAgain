@@ -53,8 +53,7 @@ MainWindow::MainWindow()
     , m_importDataView(0)
     , m_simulationView(0)
     , m_jobView(0)
-    , m_sessionModelView(0)
-{
+    , m_sessionModelView(0) {
     initApplication();
     readSettings();
     initProgressBar();
@@ -66,71 +65,58 @@ MainWindow::MainWindow()
     //    m_applicationModels->createTestRealData();
 }
 
-MaterialModel* MainWindow::materialModel()
-{
+MaterialModel* MainWindow::materialModel() {
     return models()->materialModel();
 }
 
-InstrumentModel* MainWindow::instrumentModel()
-{
+InstrumentModel* MainWindow::instrumentModel() {
     return models()->instrumentModel();
 }
 
-SampleModel* MainWindow::sampleModel()
-{
+SampleModel* MainWindow::sampleModel() {
     return models()->sampleModel();
 }
 
-RealDataModel* MainWindow::realDataModel()
-{
+RealDataModel* MainWindow::realDataModel() {
     return models()->realDataModel();
 }
 
-JobModel* MainWindow::jobModel()
-{
+JobModel* MainWindow::jobModel() {
     return models()->jobModel();
 }
 
-ApplicationModels* MainWindow::models()
-{
+ApplicationModels* MainWindow::models() {
     return m_applicationModels;
 }
 
-Manhattan::ProgressBar* MainWindow::progressBar()
-{
+Manhattan::ProgressBar* MainWindow::progressBar() {
     return m_progressBar;
 }
 
-QStatusBar* MainWindow::statusBar()
-{
+QStatusBar* MainWindow::statusBar() {
     return m_tabWidget->statusBar();
 }
 
-ProjectManager* MainWindow::projectManager()
-{
+ProjectManager* MainWindow::projectManager() {
     return m_projectManager;
 }
 
-UpdateNotifier* MainWindow::updateNotifier()
-{
+UpdateNotifier* MainWindow::updateNotifier() {
     return m_updateNotifier;
 }
 
-void MainWindow::onFocusRequest(int index)
-{
+void MainWindow::onFocusRequest(int index) {
     m_tabWidget->setCurrentIndex(index);
 }
 
-void MainWindow::openRecentProject()
-{
+void MainWindow::openRecentProject() {
     if (const QAction* action = qobject_cast<const QAction*>(sender())) {
         QString file = action->data().value<QString>();
         m_projectManager->openProject(file);
     }
 }
 
-void MainWindow::onRunSimulationShortcut()
-{
+void MainWindow::onRunSimulationShortcut() {
     // This clearFocus is needed for the propagation of the current editor value,
     // since the runSimulation method will only change focus after finishing the simulation
     if (auto widget = QApplication::focusWidget())
@@ -140,8 +126,7 @@ void MainWindow::onRunSimulationShortcut()
 
 //! Inserts/removes developers SessionModelView on the left fancy tabbar.
 //! This SessionModelView will be known for the tab under MAXVIEWCOUNT id (so it is the last one)
-void MainWindow::onSessionModelViewActive(bool isActive)
-{
+void MainWindow::onSessionModelViewActive(bool isActive) {
     if (isActive) {
         if (m_sessionModelView)
             return;
@@ -162,8 +147,7 @@ void MainWindow::onSessionModelViewActive(bool isActive)
     }
 }
 
-void MainWindow::closeEvent(QCloseEvent* event)
-{
+void MainWindow::closeEvent(QCloseEvent* event) {
     if (jobModel()->hasUnfinishedJobs()) {
         QMessageBox::warning(this, "Can't quit the application.",
                              "Can't quit the application while jobs are running.\n"
@@ -179,8 +163,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
     }
 }
 
-void MainWindow::initApplication()
-{
+void MainWindow::initApplication() {
     QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
     QCoreApplication::setApplicationVersion(GUIHelpers::getBornAgainVersionString());
     QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
@@ -197,14 +180,12 @@ void MainWindow::initApplication()
     setCorner(Qt::BottomRightCorner, Qt::BottomDockWidgetArea);
 }
 
-void MainWindow::initProgressBar()
-{
+void MainWindow::initProgressBar() {
     m_tabWidget->addBottomCornerWidget(m_progressBar);
     m_progressBar->hide();
 }
 
-void MainWindow::initViews()
-{
+void MainWindow::initViews() {
     m_welcomeView = new WelcomeView(this);
     m_instrumentView = new InstrumentView(this);
     m_sampleView = new SampleView(this);
@@ -245,8 +226,7 @@ void MainWindow::initViews()
     setCentralWidget(m_tabWidget);
 }
 
-void MainWindow::readSettings()
-{
+void MainWindow::readSettings() {
     QSettings settings;
     if (settings.childGroups().contains(Constants::S_MAINWINDOW)) {
         settings.beginGroup(Constants::S_MAINWINDOW);
@@ -257,8 +237,7 @@ void MainWindow::readSettings()
     m_projectManager->readSettings();
 }
 
-void MainWindow::writeSettings()
-{
+void MainWindow::writeSettings() {
     QSettings settings;
     settings.beginGroup(Constants::S_MAINWINDOW);
     settings.setValue(Constants::S_WINDOWSIZE, size());
@@ -268,7 +247,6 @@ void MainWindow::writeSettings()
     settings.sync();
 }
 
-void MainWindow::initConnections()
-{
+void MainWindow::initConnections() {
     connect(m_jobView, &JobView::focusRequest, this, &MainWindow::onFocusRequest);
 }

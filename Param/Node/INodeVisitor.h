@@ -142,8 +142,7 @@ class SquareLattice2D;
 
 //! From visitor pattern to achieve double dispatch.
 
-class INodeVisitor
-{
+class INodeVisitor {
 public:
     INodeVisitor() : m_depth(0) {}
     virtual ~INodeVisitor() {}

@@ -21,11 +21,9 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-namespace
-{
+namespace {
 
-QLabel* createLinkLabel()
-{
+QLabel* createLinkLabel() {
     auto result = new QLabel();
     result->setTextFormat(Qt::RichText);
     result->setTextInteractionFlags(Qt::TextBrowserInteraction);
@@ -34,8 +32,7 @@ QLabel* createLinkLabel()
     return result;
 }
 
-QLabel* createCopyrightLabel()
-{
+QLabel* createCopyrightLabel() {
     QDate date = QDate::currentDate();
     QString copyright =
         QString("Copyright: Forschungszentrum Jülich GmbH ").append(date.toString("yyyy"));
@@ -45,8 +42,7 @@ QLabel* createCopyrightLabel()
     return result;
 }
 
-QLabel* createLogoLabel()
-{
+QLabel* createLogoLabel() {
     QPixmap logo(":/images/about_icon.awk", "JPG");
     auto result = new QLabel;
     result->setPixmap(logo.scaled(656, 674, Qt::KeepAspectRatio));
@@ -54,8 +50,7 @@ QLabel* createLogoLabel()
 }
 } // namespace
 
-AboutApplicationDialog::AboutApplicationDialog(QWidget* parent) : QDialog(parent)
-{
+AboutApplicationDialog::AboutApplicationDialog(QWidget* parent) : QDialog(parent) {
     QColor bgColor(240, 240, 240, 255);
     QPalette palette;
     palette.setColor(QPalette::Window, bgColor);
@@ -76,8 +71,7 @@ AboutApplicationDialog::AboutApplicationDialog(QWidget* parent) : QDialog(parent
     setLayout(mainLayout);
 }
 
-QBoxLayout* AboutApplicationDialog::createLogoLayout()
-{
+QBoxLayout* AboutApplicationDialog::createLogoLayout() {
     auto result = new QVBoxLayout;
 
     QPixmap logo(":/images/about_icon.png");
@@ -91,8 +85,7 @@ QBoxLayout* AboutApplicationDialog::createLogoLayout()
     return result;
 }
 
-QBoxLayout* AboutApplicationDialog::createTextLayout()
-{
+QBoxLayout* AboutApplicationDialog::createTextLayout() {
     auto result = new QVBoxLayout;
 
     QFont titleFont;
@@ -131,8 +124,7 @@ QBoxLayout* AboutApplicationDialog::createTextLayout()
     return result;
 }
 
-QBoxLayout* AboutApplicationDialog::createButtonLayout()
-{
+QBoxLayout* AboutApplicationDialog::createButtonLayout() {
     auto result = new QHBoxLayout;
 
     auto closeButton = new QPushButton("Close");

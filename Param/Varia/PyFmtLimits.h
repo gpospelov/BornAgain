@@ -21,8 +21,7 @@ class RealLimits;
 
 //! Utility functions for writing Python code snippets.
 
-namespace pyfmt
-{
+namespace pyfmt {
 std::string printRealLimits(const RealLimits& limits, const std::string& units = "");
 std::string printRealLimitsArg(const RealLimits& limits, const std::string& units = "");
 } // namespace pyfmt

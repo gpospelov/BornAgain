@@ -21,8 +21,7 @@
 
 //! @ingroup tools_internal
 
-class ICloneable
-{
+class ICloneable {
 public:
     ICloneable() = default;
     virtual ~ICloneable() = default;

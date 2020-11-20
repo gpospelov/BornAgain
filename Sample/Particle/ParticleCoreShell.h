@@ -22,24 +22,23 @@ class Particle;
 //! A particle with a core/shell geometry.
 //! @ingroup samples
 
-class ParticleCoreShell : public IParticle
-{
+class ParticleCoreShell : public IParticle {
 public:
     ParticleCoreShell(const Particle& shell, const Particle& core,
                       kvector_t relative_core_position = kvector_t(0.0, 0.0, 0.0));
     ~ParticleCoreShell();
 
-    ParticleCoreShell* clone() const override final;
+    ParticleCoreShell* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    SlicedParticle createSlicedParticle(ZLimits limits) const override final;
+    SlicedParticle createSlicedParticle(ZLimits limits) const final;
 
     const Particle* coreParticle() const;
 
     const Particle* shellParticle() const;
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const final;
 
 protected:
     void addAndRegisterCore(const Particle& core, kvector_t relative_core_position);
@@ -50,13 +49,11 @@ protected:
     std::unique_ptr<Particle> m_core;
 };
 
-inline const Particle* ParticleCoreShell::coreParticle() const
-{
+inline const Particle* ParticleCoreShell::coreParticle() const {
     return m_core.get();
 }
 
-inline const Particle* ParticleCoreShell::shellParticle() const
-{
+inline const Particle* ParticleCoreShell::shellParticle() const {
     return m_shell.get();
 }
 

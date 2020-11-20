@@ -30,8 +30,7 @@ class QLabel;
 //! The RealDataPropertiesWidget class holds instrument selector to link with RealDataItem.
 //! Part of RealDataSelectorWidget, resides at lower left corner of ImportDataView.
 
-class RealDataPropertiesWidget : public QWidget
-{
+class RealDataPropertiesWidget : public QWidget {
     Q_OBJECT
 public:
     explicit RealDataPropertiesWidget(QWidget* parent = 0);

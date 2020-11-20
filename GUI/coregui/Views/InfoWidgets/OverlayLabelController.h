@@ -24,8 +24,7 @@ class QAbstractScrollArea;
 //! The OverlayLabelController class controlls appearance of InfoLabelWidget (position, show/hide)
 //! on top of some scroll area.
 
-class OverlayLabelController : public QObject
-{
+class OverlayLabelController : public QObject {
     Q_OBJECT
 public:
     OverlayLabelController(QObject* parent = 0);

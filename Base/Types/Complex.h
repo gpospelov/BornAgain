@@ -21,14 +21,12 @@ using complex_t = std::complex<double>;
 constexpr complex_t I = complex_t(0.0, 1.0);
 
 //! Returns product I*z, where I is the imaginary unit.
-inline complex_t mul_I(complex_t z)
-{
+inline complex_t mul_I(complex_t z) {
     return complex_t(-z.imag(), z.real());
 }
 
 //! Returns exp(I*z), where I is the imaginary unit.
-inline complex_t exp_I(complex_t z)
-{
+inline complex_t exp_I(complex_t z) {
     return std::exp(complex_t(-z.imag(), z.real()));
 }
 

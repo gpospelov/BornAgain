@@ -21,8 +21,7 @@ class SessionItem;
 
 //! Additional action for ComponentTreeView.
 
-class ComponentTreeActions : public QObject
-{
+class ComponentTreeActions : public QObject {
     Q_OBJECT
 public:
     ComponentTreeActions(QObject* parent = nullptr);

@@ -23,8 +23,7 @@ class DetectorContext;
 //! Holds the common implementations for simulations with a 2D detector
 //! @ingroup simulation
 
-class ISimulation2D : public ISimulation
-{
+class ISimulation2D : public ISimulation {
 public:
     ISimulation2D();
     ~ISimulation2D() override;

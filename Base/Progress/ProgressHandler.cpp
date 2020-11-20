@@ -16,8 +16,7 @@
 #include <mutex>
 #include <stdexcept>
 
-void ProgressHandler::subscribe(ProgressHandler::Callback_t inform)
-{
+void ProgressHandler::subscribe(ProgressHandler::Callback_t inform) {
     if (m_inform)
         throw std::runtime_error("Invalid call of ProgressHandler::subscribe: "
                                  "currently, no more than one subscriber is allowed");
@@ -28,8 +27,7 @@ void ProgressHandler::subscribe(ProgressHandler::Callback_t inform)
 //! Performs callback (method m_inform) to inform the subscriber about
 //! the state of the computation and to obtain as return value a flag
 //! that indicates whether to continue the computation.
-void ProgressHandler::incrementDone(size_t ticks_done)
-{
+void ProgressHandler::incrementDone(size_t ticks_done) {
     static std::mutex single_mutex;
     std::unique_lock<std::mutex> single_lock(single_mutex);
 

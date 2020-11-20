@@ -17,8 +17,7 @@
 
 #include "GUI/coregui/Models/BeamDistributionItem.h"
 
-class BA_CORE_API_ BeamAzimuthalAngleItem : public BeamDistributionItem
-{
+class BA_CORE_API_ BeamAzimuthalAngleItem : public BeamDistributionItem {
 public:
     BeamAzimuthalAngleItem();
 
@@ -30,8 +29,7 @@ private:
     static const bool m_show_mean = true;
 };
 
-class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem
-{
+class BA_CORE_API_ BeamInclinationAngleItem : public BeamDistributionItem {
 public:
     BeamInclinationAngleItem();
 

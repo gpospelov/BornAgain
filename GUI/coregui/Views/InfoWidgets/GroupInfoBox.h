@@ -18,8 +18,7 @@
 #include <QGroupBox>
 
 //! The class which extends QGroupBox with clickable icon next to the label
-class GroupInfoBox : public QGroupBox
-{
+class GroupInfoBox : public QGroupBox {
     Q_OBJECT
 
 public:

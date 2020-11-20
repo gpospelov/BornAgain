@@ -24,8 +24,7 @@ class SimulationOptionsItem;
 
 //! Contains functions to build the domain simulation from instrument and sample models.
 
-namespace DomainSimulationBuilder
-{
+namespace DomainSimulationBuilder {
 
 //! Creates domain simulation from sample and instrument items.
 

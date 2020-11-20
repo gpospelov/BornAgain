@@ -20,31 +20,29 @@
 //! The form factor for a long rectangular box.
 //! @ingroup legacyGrating
 
-class FormFactorLongBoxLorentz : public IBornFF
-{
+class FormFactorLongBoxLorentz : public IBornFF {
 public:
     FormFactorLongBoxLorentz(const std::vector<double> P);
     FormFactorLongBoxLorentz(double length, double width, double height);
 
-    FormFactorLongBoxLorentz* clone() const override final
-    {
+    FormFactorLongBoxLorentz* clone() const final {
         return new FormFactorLongBoxLorentz(m_length, m_width, m_height);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getLength() const { return m_length; }
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
 
-    double radialExtension() const override final { return m_length / 2.0; }
+    double radialExtension() const final { return m_length / 2.0; }
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
+                                 kvector_t translation) const final;
 
-    void onChange() override final;
+    void onChange() final;
 
 private:
     const double& m_length;

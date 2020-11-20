@@ -22,8 +22,7 @@ class FitObjective;
 
 //! Prints fit statistics to standard output during minimizer iterations.
 
-class FitPrintService
-{
+class FitPrintService {
 public:
     FitPrintService();
 

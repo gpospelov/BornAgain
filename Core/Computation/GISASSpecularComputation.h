@@ -21,8 +21,7 @@ class SimulationElement;
 //! Computes the specular signal in the bin where q_parallel = 0. Used by DWBAComputation.
 //! @ingroup algorithms_internal
 
-class GISASSpecularComputation final
-{
+class GISASSpecularComputation final {
 public:
     GISASSpecularComputation(const IFresnelMap* p_fresnel_map);
 

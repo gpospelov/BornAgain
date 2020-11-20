@@ -43,8 +43,7 @@ IntensityDataIOFactory.writeIntensityData(histogram, "filename.tif.bz2")
 \endcode
 */
 
-class IntensityDataIOFactory
-{
+class IntensityDataIOFactory {
 public:
     //! Reads file and returns newly created OutputData object
     static OutputData<double>* readOutputData(const std::string& file_name);

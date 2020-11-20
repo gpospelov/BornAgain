@@ -11,8 +11,7 @@
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class DepthProbeSimulationTest : public ::testing::Test
-{
+class DepthProbeSimulationTest : public ::testing::Test {
 protected:
     DepthProbeSimulationTest();
 
@@ -23,8 +22,7 @@ protected:
     MultiLayer multilayer;
 };
 
-DepthProbeSimulationTest::DepthProbeSimulationTest()
-{
+DepthProbeSimulationTest::DepthProbeSimulationTest() {
     Material mat0 = HomogeneousMaterial("ambience", 0.0, 0.0);
     Material mat1 = HomogeneousMaterial("PartA", 5e-6, 0.0);
     Material mat2 = HomogeneousMaterial("substrate", 15e-6, 0.0);
@@ -38,8 +36,7 @@ DepthProbeSimulationTest::DepthProbeSimulationTest()
     multilayer.addLayer(layer2);
 }
 
-std::unique_ptr<DepthProbeSimulation> DepthProbeSimulationTest::defaultSimulation()
-{
+std::unique_ptr<DepthProbeSimulation> DepthProbeSimulationTest::defaultSimulation() {
     std::unique_ptr<DepthProbeSimulation> result = std::make_unique<DepthProbeSimulation>();
     result->setBeamParameters(1.0, 10, 0.0 * Units::deg, 2.0 * Units::deg);
     result->setZSpan(12, -30.0 * Units::nm, 10.0 * Units::nm);
@@ -47,16 +44,14 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeSimulationTest::defaultSimulatio
     return result;
 }
 
-void DepthProbeSimulationTest::checkBeamState(const DepthProbeSimulation& sim)
-{
+void DepthProbeSimulationTest::checkBeamState(const DepthProbeSimulation& sim) {
     const auto* inclination = sim.instrument().beam().parameter("InclinationAngle");
     const auto test_limits = RealLimits::limited(-M_PI_2, M_PI_2);
     EXPECT_EQ(test_limits, inclination->limits());
     EXPECT_EQ(0.0, inclination->value());
 }
 
-void DepthProbeSimulationTest::checkEmptySimulation(DepthProbeSimulation& sim)
-{
+void DepthProbeSimulationTest::checkEmptySimulation(DepthProbeSimulation& sim) {
     ASSERT_THROW(sim.runSimulation(), std::runtime_error);
     ASSERT_THROW(sim.getAlphaAxis(), std::runtime_error);
     ASSERT_THROW(sim.getZAxis(), std::runtime_error);
@@ -66,8 +61,7 @@ void DepthProbeSimulationTest::checkEmptySimulation(DepthProbeSimulation& sim)
     checkBeamState(sim);
 }
 
-TEST_F(DepthProbeSimulationTest, InitialState)
-{
+TEST_F(DepthProbeSimulationTest, InitialState) {
     std::unique_ptr<DepthProbeSimulation> sim = std::make_unique<DepthProbeSimulation>();
     std::unique_ptr<DepthProbeSimulation> sim_clone(sim->clone());
     checkEmptySimulation(*sim);
@@ -75,8 +69,7 @@ TEST_F(DepthProbeSimulationTest, InitialState)
     checkEmptySimulation(*sim_clone);
 }
 
-TEST_F(DepthProbeSimulationTest, CheckAxesOfDefaultSimulation)
-{
+TEST_F(DepthProbeSimulationTest, CheckAxesOfDefaultSimulation) {
     auto sim = defaultSimulation();
 
     const auto alpha_axis = sim->getAlphaAxis();
@@ -96,8 +89,7 @@ TEST_F(DepthProbeSimulationTest, CheckAxesOfDefaultSimulation)
     EXPECT_FALSE(z_axis == sim_clone->getZAxis());
 }
 
-TEST_F(DepthProbeSimulationTest, SetBeamParameters)
-{
+TEST_F(DepthProbeSimulationTest, SetBeamParameters) {
     DepthProbeSimulation sim;
     const auto& beam = sim.instrument().beam();
 
@@ -135,8 +127,7 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters)
     checkBeamState(sim);
 }
 
-TEST_F(DepthProbeSimulationTest, ResultAquisition)
-{
+TEST_F(DepthProbeSimulationTest, ResultAquisition) {
     auto sim = defaultSimulation();
 
     EXPECT_EQ(3u, sim->sample()->numberOfLayers());
@@ -167,8 +158,7 @@ TEST_F(DepthProbeSimulationTest, ResultAquisition)
     checkBeamState(*sim);
 }
 
-TEST_F(DepthProbeSimulationTest, SimulationClone)
-{
+TEST_F(DepthProbeSimulationTest, SimulationClone) {
     auto sim = defaultSimulation();
 
     sim->runSimulation();
@@ -187,8 +177,7 @@ TEST_F(DepthProbeSimulationTest, SimulationClone)
     }
 }
 
-TEST_F(DepthProbeSimulationTest, AddingBeamDistributions)
-{
+TEST_F(DepthProbeSimulationTest, AddingBeamDistributions) {
     auto sim = defaultSimulation();
     DistributionGaussian distribution(1.0, 2.0);
 

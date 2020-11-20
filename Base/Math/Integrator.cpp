@@ -15,17 +15,13 @@
 #include "Base/Math/Integrator.h"
 
 RealIntegrator::RealIntegrator()
-    : m_gsl_f{m_Cfunction, nullptr}, m_workspace{gsl_integration_workspace_alloc(200)}
-{
-}
+    : m_gsl_f{m_Cfunction, nullptr}, m_workspace{gsl_integration_workspace_alloc(200)} {}
 
-RealIntegrator::~RealIntegrator()
-{
+RealIntegrator::~RealIntegrator() {
     gsl_integration_workspace_free(m_workspace);
 }
 
-double RealIntegrator::integrate(const std::function<double(double)>& f, double lmin, double lmax)
-{
+double RealIntegrator::integrate(const std::function<double(double)>& f, double lmin, double lmax) {
     m_gsl_f.params = (void*)&f;
     double result, error;
     gsl_integration_qag(&m_gsl_f, lmin, lmax, 1e-9, 1e-7, 200, 3, m_workspace, &result, &error);
@@ -34,8 +30,7 @@ double RealIntegrator::integrate(const std::function<double(double)>& f, double 
 }
 
 complex_t ComplexIntegrator::integrate(const std::function<complex_t(double)>& f, double lmin,
-                                       double lmax)
-{
+                                       double lmax) {
     return {realPart.integrate([f](double x) { return f(x).real(); }, lmin, lmax),
             imagPart.integrate([f](double x) { return f(x).imag(); }, lmin, lmax)};
 }

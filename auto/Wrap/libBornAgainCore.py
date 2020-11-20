@@ -4074,7 +4074,7 @@ class DepthProbeSimulation(ISimulation):
     def accept(self, visitor):
         r"""
         accept(DepthProbeSimulation self, INodeVisitor * visitor)
-        void DepthProbeSimulation::accept(INodeVisitor *visitor) const override final
+        void DepthProbeSimulation::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainCore.DepthProbeSimulation_accept(self, visitor)
@@ -4185,7 +4185,7 @@ class SpecularSimulation(ISimulation):
     def accept(self, visitor):
         r"""
         accept(SpecularSimulation self, INodeVisitor * visitor)
-        void SpecularSimulation::accept(INodeVisitor *visitor) const override final
+        void SpecularSimulation::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainCore.SpecularSimulation_accept(self, visitor)
@@ -4281,7 +4281,7 @@ class OffSpecSimulation(ISimulation2D):
     def accept(self, visitor):
         r"""
         accept(OffSpecSimulation self, INodeVisitor * visitor)
-        void OffSpecSimulation::accept(INodeVisitor *visitor) const final
+        void OffSpecSimulation::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainCore.OffSpecSimulation_accept(self, visitor)
@@ -4289,7 +4289,7 @@ class OffSpecSimulation(ISimulation2D):
     def prepareSimulation(self):
         r"""
         prepareSimulation(OffSpecSimulation self)
-        void OffSpecSimulation::prepareSimulation() final
+        void OffSpecSimulation::prepareSimulation() override
 
         Put into a clean state for running a simulation. 
 
@@ -4400,7 +4400,7 @@ class ConstantBackground(IBackground):
     def clone(self):
         r"""
         clone(ConstantBackground self) -> ConstantBackground
-        ConstantBackground * ConstantBackground::clone() const override final
+        ConstantBackground * ConstantBackground::clone() const final
 
         """
         return _libBornAgainCore.ConstantBackground_clone(self)
@@ -4424,7 +4424,7 @@ class ConstantBackground(IBackground):
     def addBackground(self, intensity):
         r"""
         addBackground(ConstantBackground self, double intensity) -> double
-        double ConstantBackground::addBackground(double intensity) const override final
+        double ConstantBackground::addBackground(double intensity) const final
 
         """
         return _libBornAgainCore.ConstantBackground_addBackground(self, intensity)
@@ -4457,7 +4457,7 @@ class PoissonNoiseBackground(IBackground):
     def clone(self):
         r"""
         clone(PoissonNoiseBackground self) -> PoissonNoiseBackground
-        PoissonNoiseBackground * PoissonNoiseBackground::clone() const override final
+        PoissonNoiseBackground * PoissonNoiseBackground::clone() const final
 
         """
         return _libBornAgainCore.PoissonNoiseBackground_clone(self)
@@ -4473,7 +4473,7 @@ class PoissonNoiseBackground(IBackground):
     def addBackground(self, intensity):
         r"""
         addBackground(PoissonNoiseBackground self, double intensity) -> double
-        double PoissonNoiseBackground::addBackground(double intensity) const override final
+        double PoissonNoiseBackground::addBackground(double intensity) const final
 
         """
         return _libBornAgainCore.PoissonNoiseBackground_addBackground(self, intensity)

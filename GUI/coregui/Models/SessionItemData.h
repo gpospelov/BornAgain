@@ -20,8 +20,7 @@
 
 //! Handles all data roles for SessionItem.
 
-class SessionItemData
-{
+class SessionItemData {
 public:
     QVector<int> roles() const;
 
@@ -30,8 +29,7 @@ public:
     bool setData(int role, const QVariant& value);
 
 private:
-    class ItemData
-    {
+    class ItemData {
     public:
         ItemData(int r = -1, const QVariant& v = {});
         int role;

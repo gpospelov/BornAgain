@@ -22,18 +22,14 @@ FormFactorGaussSphere::FormFactorGaussSphere(const std::vector<double> P)
                "class_tooltip",
                {{"MeanRadius", "nm", "para_tooltip", 0, +INF, 0}}},
               P)
-    , m_mean_radius(m_P[0])
-{
+    , m_mean_radius(m_P[0]) {
     onChange();
 }
 
 FormFactorGaussSphere::FormFactorGaussSphere(double mean_radius)
-    : FormFactorGaussSphere(std::vector<double>{mean_radius})
-{
-}
+    : FormFactorGaussSphere(std::vector<double>{mean_radius}) {}
 
-complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const
-{
+complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const {
     const double max_ql = std::sqrt(-4 * M_PI * std::log(std::numeric_limits<double>::min()) / 3);
 
     double qzh = q.z().real() * m_mean_radius;

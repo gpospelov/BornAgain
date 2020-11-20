@@ -24,8 +24,7 @@ class RealDataItem;
 //! The SimulationSetupAssistant class provides sample, instrument and real data validation before
 //! submitting the job.
 
-class SimulationSetupAssistant
-{
+class SimulationSetupAssistant {
 public:
     SimulationSetupAssistant();
 

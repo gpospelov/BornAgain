@@ -20,8 +20,7 @@
 //! Builds sample: cylindrical mesocrystal composed of spheres in a cubic lattice.
 //! @ingroup standard_samples
 
-class MesoCrystalBuilder : public ISampleBuilder
-{
+class MesoCrystalBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

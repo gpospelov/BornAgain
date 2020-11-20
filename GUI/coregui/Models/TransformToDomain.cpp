@@ -55,8 +55,7 @@
 
 using SessionItemUtils::GetVectorItem;
 
-namespace
-{
+namespace {
 template <class T>
 void setParameterDistributionToSimulation(const std::string& parameter_name,
                                           const SessionItem* item, ISimulation& simulation);
@@ -64,8 +63,7 @@ void setParameterDistributionToSimulation(const std::string& parameter_name,
 std::unique_ptr<ScanResolution> createScanResolution(const SessionItem* item);
 } // namespace
 
-std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item)
-{
+std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionItem& item) {
     auto parent_job = JobModelFunctions::findJobItem(&item);
     const MaterialItemContainer* container =
         parent_job ? parent_job->materialContainerItem() : nullptr;
@@ -75,8 +73,7 @@ std::unique_ptr<Material> TransformToDomain::createDomainMaterial(const SessionI
                      : MaterialItemUtils::createDomainMaterial(property);
 }
 
-std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionItem& item)
-{
+std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionItem& item) {
     auto P_multilayer = std::make_unique<MultiLayer>();
     auto cross_corr_length = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
@@ -86,8 +83,7 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionIte
     return P_multilayer;
 }
 
-std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem& item)
-{
+std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem& item) {
     auto P_layer = std::make_unique<Layer>(*createDomainMaterial(item),
                                            item.getItemValue(LayerItem::P_THICKNESS).toDouble());
     P_layer->setNumberOfSlices(item.getItemValue(LayerItem::P_NSLICES).toUInt());
@@ -95,8 +91,7 @@ std::unique_ptr<Layer> TransformToDomain::createLayer(const SessionItem& item)
 }
 
 std::unique_ptr<LayerRoughness>
-TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
-{
+TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem) {
     if (roughnessItem.modelType() == "LayerZeroRoughness") {
         return nullptr;
     } else if (roughnessItem.modelType() == "LayerBasicRoughness") {
@@ -109,8 +104,7 @@ TransformToDomain::createLayerRoughness(const SessionItem& roughnessItem)
     }
 }
 
-std::unique_ptr<ParticleLayout> TransformToDomain::createParticleLayout(const SessionItem& item)
-{
+std::unique_ptr<ParticleLayout> TransformToDomain::createParticleLayout(const SessionItem& item) {
     auto P_layout = std::make_unique<ParticleLayout>();
     auto total_density = item.getItemValue(ParticleLayoutItem::P_TOTAL_DENSITY).value<double>();
     auto layout_weight = item.getItemValue(ParticleLayoutItem::P_WEIGHT).value<double>();
@@ -119,8 +113,7 @@ std::unique_ptr<ParticleLayout> TransformToDomain::createParticleLayout(const Se
     return P_layout;
 }
 
-std::unique_ptr<IParticle> TransformToDomain::createIParticle(const SessionItem& item)
-{
+std::unique_ptr<IParticle> TransformToDomain::createIParticle(const SessionItem& item) {
     std::unique_ptr<IParticle> P_particle;
     if (item.modelType() == "Particle") {
         auto& particle_item = static_cast<const ParticleItem&>(item);
@@ -139,8 +132,7 @@ std::unique_ptr<IParticle> TransformToDomain::createIParticle(const SessionItem&
 }
 
 std::unique_ptr<ParticleDistribution>
-TransformToDomain::createParticleDistribution(const SessionItem& item)
-{
+TransformToDomain::createParticleDistribution(const SessionItem& item) {
     auto& particle_distribution = static_cast<const ParticleDistributionItem&>(item);
     auto P_part_distr = particle_distribution.createParticleDistribution();
     return P_part_distr;
@@ -148,8 +140,7 @@ TransformToDomain::createParticleDistribution(const SessionItem& item)
 
 //! adds DistributionParameters to the ISimulation
 void TransformToDomain::addDistributionParametersToSimulation(const SessionItem& beam_item,
-                                                              GISASSimulation& simulation)
-{
+                                                              GISASSimulation& simulation) {
     if (beam_item.modelType() != "GISASBeam") {
         ASSERT(beam_item.modelType() == "GISASBeam");
         return;
@@ -164,8 +155,7 @@ void TransformToDomain::addDistributionParametersToSimulation(const SessionItem&
 }
 
 void TransformToDomain::addBeamDivergencesToScan(const SessionItem& beam_item,
-                                                 AngularSpecScan& scan)
-{
+                                                 AngularSpecScan& scan) {
     if (beam_item.modelType() != "SpecularBeam") {
         ASSERT(beam_item.modelType() == "SpecularBeam");
         return;
@@ -181,8 +171,7 @@ void TransformToDomain::addBeamDivergencesToScan(const SessionItem& beam_item,
 
 void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
                                             const BeamDistributionItem& item,
-                                            ISimulation& simulation)
-{
+                                            ISimulation& simulation) {
     ParameterPattern parameter_pattern;
     parameter_pattern.beginsWith("*").add("Beam").add(parameter_name);
 
@@ -191,8 +180,7 @@ void TransformToDomain::setBeamDistribution(const std::string& parameter_name,
         simulation.addParameterDistribution(*P_par_distr);
 }
 
-void TransformToDomain::setSimulationOptions(ISimulation* simulation, const SessionItem& item)
-{
+void TransformToDomain::setSimulationOptions(ISimulation* simulation, const SessionItem& item) {
     ASSERT(item.modelType() == "SimulationOptions");
 
     if (auto optionItem = dynamic_cast<const SimulationOptionsItem*>(&item)) {
@@ -208,20 +196,17 @@ void TransformToDomain::setSimulationOptions(ISimulation* simulation, const Sess
     }
 }
 
-void TransformToDomain::setTransformationInfo(IParticle* result, const SessionItem& item)
-{
+void TransformToDomain::setTransformationInfo(IParticle* result, const SessionItem& item) {
     setPositionInfo(result, item);
     setRotationInfo(result, item);
 }
 
-void TransformToDomain::setPositionInfo(IParticle* result, const SessionItem& item)
-{
+void TransformToDomain::setPositionInfo(IParticle* result, const SessionItem& item) {
     kvector_t pos = GetVectorItem(item, ParticleItem::P_POSITION);
     result->setPosition(pos.x(), pos.y(), pos.z());
 }
 
-void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& item)
-{
+void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& item) {
     QVector<SessionItem*> children = item.children();
     for (int i = 0; i < children.size(); ++i) {
         if (children[i]->modelType() == "Rotation") {
@@ -234,12 +219,10 @@ void TransformToDomain::setRotationInfo(IParticle* result, const SessionItem& it
     }
 }
 
-namespace
-{
+namespace {
 template <class T>
 void setParameterDistributionToSimulation(const std::string& parameter_name,
-                                          const SessionItem* item, ISimulation& simulation)
-{
+                                          const SessionItem* item, ISimulation& simulation) {
     const auto parameter_item = dynamic_cast<const T*>(item);
     if (!parameter_item) {
         ASSERT(parameter_item);
@@ -255,8 +238,7 @@ void setParameterDistributionToSimulation(const std::string& parameter_name,
         simulation.addParameterDistribution(*P_par_distr);
 }
 
-std::unique_ptr<ScanResolution> createScanResolution(const SessionItem* item)
-{
+std::unique_ptr<ScanResolution> createScanResolution(const SessionItem* item) {
     auto beam_item = dynamic_cast<const BeamDistributionItem*>(item);
     if (!beam_item)
         return nullptr;

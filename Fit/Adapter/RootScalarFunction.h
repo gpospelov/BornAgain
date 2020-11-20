@@ -29,8 +29,7 @@
 //! The chi2 function for use in minimizers.
 //! @ingroup fitting_internal
 
-class RootScalarFunction : public ROOT::Math::Functor
-{
+class RootScalarFunction : public ROOT::Math::Functor {
 public:
     RootScalarFunction(root_scalar_t fcn, int ndims);
 };

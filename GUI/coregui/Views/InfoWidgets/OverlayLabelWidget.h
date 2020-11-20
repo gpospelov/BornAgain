@@ -22,8 +22,7 @@
 //! The OverlayLabelWidget is a semi-transparent overlay label to place on top of other
 //! widgets outside of any layout context.
 
-class OverlayLabelWidget : public QWidget
-{
+class OverlayLabelWidget : public QWidget {
     Q_OBJECT
 public:
     OverlayLabelWidget(QWidget* parent = 0);

@@ -27,8 +27,7 @@ class Slice;
 //! Data stucture containing both input and output of a single image pixel for specular simulation.
 //! @ingroup simulation
 
-class SpecularSimulationElement
-{
+class SpecularSimulationElement {
 public:
     SpecularSimulationElement(double kz, const Instrument& instrument, bool computable);
     SpecularSimulationElement(double wavelength, double alpha, const Instrument& instrument,

@@ -17,24 +17,19 @@
 #include "Sample/Slice/LayerRoughness.h"
 
 Slice::Slice(double thickness, const Material& material)
-    : m_thickness{thickness}, m_material{material}, m_B_field{}, m_top_roughness{nullptr}
-{
-}
+    : m_thickness{thickness}, m_material{material}, m_B_field{}, m_top_roughness{nullptr} {}
 
 Slice::Slice(double thickness, const Material& material, const LayerRoughness& top_roughness)
     : m_thickness{thickness}
     , m_material{material}
     , m_B_field{}
-    , m_top_roughness{top_roughness.clone()}
-{
-}
+    , m_top_roughness{top_roughness.clone()} {}
 
 Slice::Slice(const Slice& other)
     : m_thickness{other.m_thickness}
     , m_material{other.m_material}
     , m_B_field{other.m_B_field}
-    , m_top_roughness{}
-{
+    , m_top_roughness{} {
     if (other.m_top_roughness) {
         m_top_roughness.reset(other.m_top_roughness->clone());
     }
@@ -44,12 +39,9 @@ Slice::Slice(Slice&& other)
     : m_thickness{other.m_thickness}
     , m_material{std::move(other.m_material)}
     , m_B_field{other.m_B_field}
-    , m_top_roughness{std::move(other.m_top_roughness)}
-{
-}
+    , m_top_roughness{std::move(other.m_top_roughness)} {}
 
-Slice& Slice::operator=(const Slice& other)
-{
+Slice& Slice::operator=(const Slice& other) {
     m_thickness = other.m_thickness;
     m_material = other.m_material;
     m_B_field = other.m_B_field;
@@ -61,45 +53,37 @@ Slice& Slice::operator=(const Slice& other)
 
 Slice::~Slice() = default;
 
-void Slice::setMaterial(const Material& material)
-{
+void Slice::setMaterial(const Material& material) {
     m_material = material;
 }
 
-Material Slice::material() const
-{
+Material Slice::material() const {
     return m_material;
 }
 
-double Slice::thickness() const
-{
+double Slice::thickness() const {
     return m_thickness;
 }
 
-const LayerRoughness* Slice::topRoughness() const
-{
+const LayerRoughness* Slice::topRoughness() const {
     return m_top_roughness.get();
 }
 
-complex_t Slice::scalarReducedPotential(kvector_t k, double n_ref) const
-{
+complex_t Slice::scalarReducedPotential(kvector_t k, double n_ref) const {
     complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
     return MaterialUtils::ScalarReducedPotential(n, k, n_ref);
 }
 
-Eigen::Matrix2cd Slice::polarizedReducedPotential(kvector_t k, double n_ref) const
-{
+Eigen::Matrix2cd Slice::polarizedReducedPotential(kvector_t k, double n_ref) const {
     complex_t n = m_material.refractiveIndex(2.0 * M_PI / k.mag());
     return MaterialUtils::PolarizedReducedPotential(n, m_B_field, k, n_ref);
 }
 
-void Slice::initBField(kvector_t h_field, double b_z)
-{
+void Slice::initBField(kvector_t h_field, double b_z) {
     m_B_field = Magnetic_Permeability * (h_field + m_material.magnetization());
     m_B_field.setZ(b_z);
 }
 
-void Slice::invertBField()
-{
+void Slice::invertBField() {
     m_B_field = -m_B_field;
 }

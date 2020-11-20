@@ -20,8 +20,7 @@
 //! A number of materials-related helper functions for internal use
 //! @ingroup materials
 
-namespace MaterialUtils
-{
+namespace MaterialUtils {
 
 //! Function for calculating the reduced potential, used for obtaining the Fresnel coefficients
 //! (non-polarized material case)

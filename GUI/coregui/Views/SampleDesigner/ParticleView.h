@@ -19,8 +19,7 @@
 #include <QPixmap>
 
 //! Class representing view of Particle item
-class ParticleView : public ConnectableView
-{
+class ParticleView : public ConnectableView {
     Q_OBJECT
 
 public:

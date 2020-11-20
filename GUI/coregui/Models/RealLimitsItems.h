@@ -17,8 +17,7 @@
 
 #include "GUI/coregui/Models/SessionItem.h"
 
-class BA_CORE_API_ RealLimitsItem : public SessionItem
-{
+class BA_CORE_API_ RealLimitsItem : public SessionItem {
 public:
     static const QString P_XMIN;
     static const QString P_XMAX;
@@ -27,43 +26,37 @@ public:
     virtual RealLimits createRealLimits(double scale_factor = 1.0) const = 0;
 };
 
-class BA_CORE_API_ LimitlessItem : public RealLimitsItem
-{
+class BA_CORE_API_ LimitlessItem : public RealLimitsItem {
 public:
     LimitlessItem();
     RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
-class BA_CORE_API_ PositiveItem : public RealLimitsItem
-{
+class BA_CORE_API_ PositiveItem : public RealLimitsItem {
 public:
     PositiveItem();
     RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
-class BA_CORE_API_ NonnegativeItem : public RealLimitsItem
-{
+class BA_CORE_API_ NonnegativeItem : public RealLimitsItem {
 public:
     NonnegativeItem();
     RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
-class BA_CORE_API_ LowerLimitedItem : public RealLimitsItem
-{
+class BA_CORE_API_ LowerLimitedItem : public RealLimitsItem {
 public:
     LowerLimitedItem();
     RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
-class BA_CORE_API_ UpperLimitedItem : public RealLimitsItem
-{
+class BA_CORE_API_ UpperLimitedItem : public RealLimitsItem {
 public:
     UpperLimitedItem();
     RealLimits createRealLimits(double scale_factor = 1.0) const;
 };
 
-class BA_CORE_API_ LimitedItem : public RealLimitsItem
-{
+class BA_CORE_API_ LimitedItem : public RealLimitsItem {
 public:
     LimitedItem();
     RealLimits createRealLimits(double scale_factor = 1.0) const;

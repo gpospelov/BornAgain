@@ -24,14 +24,12 @@
 
 class IMinimizer;
 
-namespace mumufit
-{
+namespace mumufit {
 
 //! A main class to run fitting.
 //! @ingroup fitting
 
-class Kernel
-{
+class Kernel {
 public:
     Kernel();
     ~Kernel();

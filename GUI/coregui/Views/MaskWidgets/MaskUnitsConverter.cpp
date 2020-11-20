@@ -23,8 +23,7 @@ MaskUnitsConverter::MaskUnitsConverter() : m_data(nullptr), m_direction(UNDEFINE
 
 //! Converts all masks on board of IntensityDataItem into bin-fraction coordinates.
 
-void MaskUnitsConverter::convertToNbins(IntensityDataItem* intensityData)
-{
+void MaskUnitsConverter::convertToNbins(IntensityDataItem* intensityData) {
     m_direction = TO_NBINS;
     convertIntensityDataItem(intensityData);
 }
@@ -32,16 +31,14 @@ void MaskUnitsConverter::convertToNbins(IntensityDataItem* intensityData)
 //! Converts all masks on board of IntensityDataItem from bin-fraction coordinates to coordinates
 //! of axes currently defined in OutputData.
 
-void MaskUnitsConverter::convertFromNbins(IntensityDataItem* intensityData)
-{
+void MaskUnitsConverter::convertFromNbins(IntensityDataItem* intensityData) {
     m_direction = FROM_NBINS;
     convertIntensityDataItem(intensityData);
 }
 
 //! Converts all masks on board of IntensityDataItem from/to bin-fraction coordinates
 
-void MaskUnitsConverter::convertIntensityDataItem(IntensityDataItem* intensityData)
-{
+void MaskUnitsConverter::convertIntensityDataItem(IntensityDataItem* intensityData) {
     if (!intensityData || !intensityData->getOutputData())
         return;
 
@@ -58,8 +55,7 @@ void MaskUnitsConverter::convertIntensityDataItem(IntensityDataItem* intensityDa
 
 //! Converts single mask from/to bin-fraction coordinates
 
-void MaskUnitsConverter::convertMask(SessionItem* maskItem)
-{
+void MaskUnitsConverter::convertMask(SessionItem* maskItem) {
     if (maskItem->modelType() == "RectangleMask" || maskItem->modelType() == "RegionOfInterest") {
         convertCoordinate(maskItem, RectangleItem::P_XLOW, RectangleItem::P_YLOW);
         convertCoordinate(maskItem, RectangleItem::P_XUP, RectangleItem::P_YUP);
@@ -97,8 +93,7 @@ void MaskUnitsConverter::convertMask(SessionItem* maskItem)
 //! bin-fraction coordinates. Result of operation are new values for registered properties.
 
 void MaskUnitsConverter::convertCoordinate(SessionItem* maskItem, const QString& xname,
-                                           const QString& yname)
-{
+                                           const QString& yname) {
     if (maskItem->isTag(xname)) {
         double x = convert(maskItem->getItemValue(xname).toDouble(), 0);
         maskItem->setItemValue(xname, x);
@@ -111,8 +106,7 @@ void MaskUnitsConverter::convertCoordinate(SessionItem* maskItem, const QString&
 
 //! Convert value of axis from/to bin-fraction coordinates.
 
-double MaskUnitsConverter::convert(double value, int axis_index)
-{
+double MaskUnitsConverter::convert(double value, int axis_index) {
     ASSERT(m_data);
     ASSERT(axis_index == 0 || axis_index == 1);
 

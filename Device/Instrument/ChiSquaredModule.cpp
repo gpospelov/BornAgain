@@ -19,8 +19,7 @@
 #include <cmath>
 #include <limits>
 
-double ChiSquaredModule::residual(double a, double b, double weight)
-{
+double ChiSquaredModule::residual(double a, double b, double weight) {
     double value_simu = a;
     double value_real = b;
 

@@ -22,8 +22,7 @@
 //! particles. MaterialBySLD is used to generate maaterials
 //! @ingroup standard_samples
 
-class LayersWithAbsorptionBySLDBuilder : public ISampleBuilder
-{
+class LayersWithAbsorptionBySLDBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

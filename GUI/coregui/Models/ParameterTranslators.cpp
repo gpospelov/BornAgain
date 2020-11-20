@@ -18,8 +18,7 @@
 #include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-namespace
-{
+namespace {
 const QStringList expectedRoughnessPars =
     QStringList() << QString::fromStdString("Sigma") << QString::fromStdString("Hurst")
                   << QString::fromStdString("CorrelationLength");
@@ -28,17 +27,13 @@ const QStringList expectedRoughnessPars =
 IPathTranslator::~IPathTranslator() = default;
 
 ModelTypeTranslator::ModelTypeTranslator(QString gui_model_type, QString domain_name)
-    : m_gui_model_type{std::move(gui_model_type)}, m_domain_name{std::move(domain_name)}
-{
-}
+    : m_gui_model_type{std::move(gui_model_type)}, m_domain_name{std::move(domain_name)} {}
 
-ModelTypeTranslator* ModelTypeTranslator::clone() const
-{
+ModelTypeTranslator* ModelTypeTranslator::clone() const {
     return new ModelTypeTranslator(m_gui_model_type, m_domain_name);
 }
 
-QStringList ModelTypeTranslator::translate(const QStringList& list) const
-{
+QStringList ModelTypeTranslator::translate(const QStringList& list) const {
     if (list.back() != m_gui_model_type)
         return list;
 
@@ -49,17 +44,13 @@ QStringList ModelTypeTranslator::translate(const QStringList& list) const
 }
 
 AddElementTranslator::AddElementTranslator(QString gui_name, QString additional_name)
-    : m_gui_name{std::move(gui_name)}, m_additional_name{std::move(additional_name)}
-{
-}
+    : m_gui_name{std::move(gui_name)}, m_additional_name{std::move(additional_name)} {}
 
-AddElementTranslator* AddElementTranslator::clone() const
-{
+AddElementTranslator* AddElementTranslator::clone() const {
     return new AddElementTranslator(m_gui_name, m_additional_name);
 }
 
-QStringList AddElementTranslator::translate(const QStringList& list) const
-{
+QStringList AddElementTranslator::translate(const QStringList& list) const {
     if (list.back() != m_gui_name)
         return list;
 
@@ -68,8 +59,7 @@ QStringList AddElementTranslator::translate(const QStringList& list) const
     return result;
 }
 
-QStringList RotationTranslator::translate(const QStringList& list) const
-{
+QStringList RotationTranslator::translate(const QStringList& list) const {
     if (list.back() != "Rotation")
         return list;
 
@@ -79,8 +69,7 @@ QStringList RotationTranslator::translate(const QStringList& list) const
     return result;
 }
 
-QStringList DistributionNoneTranslator::translate(const QStringList& list) const
-{
+QStringList DistributionNoneTranslator::translate(const QStringList& list) const {
     if (list.back() != "DistributionNone")
         return list;
 
@@ -92,13 +81,11 @@ QStringList DistributionNoneTranslator::translate(const QStringList& list) const
 
 RoughnessTranslator::RoughnessTranslator(const SessionItem* p_parent) : m_parent(p_parent) {}
 
-RoughnessTranslator* RoughnessTranslator::clone() const
-{
+RoughnessTranslator* RoughnessTranslator::clone() const {
     return new RoughnessTranslator(m_parent);
 }
 
-QStringList RoughnessTranslator::translate(const QStringList& list) const
-{
+QStringList RoughnessTranslator::translate(const QStringList& list) const {
     if (list.empty())
         return {};
 
@@ -117,8 +104,7 @@ QStringList RoughnessTranslator::translate(const QStringList& list) const
 
 //! Extract layer index from the string "Layer11"
 
-int RoughnessTranslator::getLayerIndex(QString layerName) const
-{
+int RoughnessTranslator::getLayerIndex(QString layerName) const {
     layerName.remove("Layer");
     bool ok(true);
     int layerIndex = layerName.toInt(&ok);
@@ -127,8 +113,7 @@ int RoughnessTranslator::getLayerIndex(QString layerName) const
     return layerIndex;
 }
 
-int RoughnessTranslator::numberOfLayers() const
-{
+int RoughnessTranslator::numberOfLayers() const {
     QVector<SessionItem*> list = m_parent->getChildrenOfType("Layer");
     return list.size();
 }
@@ -137,17 +122,13 @@ VectorParameterTranslator::VectorParameterTranslator(QString gui_name, std::stri
                                                      QStringList additional_names)
     : m_gui_name{std::move(gui_name)}
     , m_base_name{std::move(base_name)}
-    , m_additional_names{std::move(additional_names)}
-{
-}
+    , m_additional_names{std::move(additional_names)} {}
 
-VectorParameterTranslator* VectorParameterTranslator::clone() const
-{
+VectorParameterTranslator* VectorParameterTranslator::clone() const {
     return new VectorParameterTranslator(m_gui_name, m_base_name, m_additional_names);
 }
 
-QStringList VectorParameterTranslator::translate(const QStringList& list) const
-{
+QStringList VectorParameterTranslator::translate(const QStringList& list) const {
     if (list.empty())
         return {};
 

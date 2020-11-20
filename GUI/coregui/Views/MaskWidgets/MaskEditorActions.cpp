@@ -69,44 +69,37 @@ MaskEditorActions::MaskEditorActions(QWidget* parent)
             &MaskEditorActions::propertyPanelRequest);
 }
 
-void MaskEditorActions::setModel(SessionModel* maskModel, const QModelIndex& rootIndex)
-{
+void MaskEditorActions::setModel(SessionModel* maskModel, const QModelIndex& rootIndex) {
     m_maskModel = maskModel;
     m_rootIndex = rootIndex;
 }
 
-void MaskEditorActions::setSelectionModel(QItemSelectionModel* selectionModel)
-{
+void MaskEditorActions::setSelectionModel(QItemSelectionModel* selectionModel) {
     m_selectionModel = selectionModel;
 }
 
-QAction* MaskEditorActions::sendToBackAction()
-{
+QAction* MaskEditorActions::sendToBackAction() {
     return m_sendToBackAction;
 }
 
-QAction* MaskEditorActions::bringToFrontAction()
-{
+QAction* MaskEditorActions::bringToFrontAction() {
     return m_bringToFrontAction;
 }
 
-QList<QAction*> MaskEditorActions::topToolBarActions()
-{
+QList<QAction*> MaskEditorActions::topToolBarActions() {
     return QList<QAction*>() << m_resetViewAction << m_togglePanelAction;
 }
 
 //! Constructs MaskItem context menu following the request from MaskGraphicsScene
 //! or MaskEditorInfoPanel
-void MaskEditorActions::onItemContextMenuRequest(const QPoint& point)
-{
+void MaskEditorActions::onItemContextMenuRequest(const QPoint& point) {
     QMenu menu;
     initItemContextMenu(menu);
     menu.exec(point);
     setAllActionsEnabled(true);
 }
 
-void MaskEditorActions::onDeleteMaskAction()
-{
+void MaskEditorActions::onDeleteMaskAction() {
     ASSERT(m_maskModel);
     ASSERT(m_selectionModel);
 
@@ -118,8 +111,7 @@ void MaskEditorActions::onDeleteMaskAction()
 }
 
 //! Performs switch of mask value for all selected items (true -> false, false -> true)
-void MaskEditorActions::onToggleMaskValueAction()
-{
+void MaskEditorActions::onToggleMaskValueAction() {
     ASSERT(m_maskModel);
     ASSERT(m_selectionModel);
     for (auto itemIndex : m_selectionModel->selectedIndexes()) {
@@ -130,19 +122,16 @@ void MaskEditorActions::onToggleMaskValueAction()
     }
 }
 
-void MaskEditorActions::onBringToFrontAction()
-{
+void MaskEditorActions::onBringToFrontAction() {
     changeMaskStackingOrder(MaskEditorFlags::BRING_TO_FRONT);
 }
 
-void MaskEditorActions::onSendToBackAction()
-{
+void MaskEditorActions::onSendToBackAction() {
     changeMaskStackingOrder(MaskEditorFlags::SEND_TO_BACK);
 }
 
 //! Lower mask one level down or rise one level up in the masks stack
-void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
-{
+void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value) {
     if (!m_maskModel || !m_selectionModel)
         return;
 
@@ -171,8 +160,7 @@ void MaskEditorActions::changeMaskStackingOrder(MaskEditorFlags::Stacking value)
 //! (Naturally, it is always true, if selection contains more than one item. If selection contains
 //! only one item, the result will depend on position of item on the stack.
 //! Top item can't be moved up. Used to disable corresponding context menu line.)
-bool MaskEditorActions::isBringToFrontPossible() const
-{
+bool MaskEditorActions::isBringToFrontPossible() const {
     bool result(false);
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
     if (indexes.size() == 1 && indexes.front().row() != 0)
@@ -181,8 +169,7 @@ bool MaskEditorActions::isBringToFrontPossible() const
 }
 
 //! Returns true if at least one of MaskItems in the selection can be moved one level down.
-bool MaskEditorActions::isSendToBackPossible() const
-{
+bool MaskEditorActions::isSendToBackPossible() const {
     bool result(false);
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
     if (indexes.size() == 1) {
@@ -193,8 +180,7 @@ bool MaskEditorActions::isSendToBackPossible() const
     return result;
 }
 
-void MaskEditorActions::setAllActionsEnabled(bool value)
-{
+void MaskEditorActions::setAllActionsEnabled(bool value) {
     m_sendToBackAction->setEnabled(value);
     m_bringToFrontAction->setEnabled(value);
     m_toggleMaskValueAction->setEnabled(value);
@@ -203,8 +189,7 @@ void MaskEditorActions::setAllActionsEnabled(bool value)
 
 //! Init external context menu with currently defined actions.
 //! Triggered from MaskGraphicsScene of MaskEditorInfoPanel (QListView)
-void MaskEditorActions::initItemContextMenu(QMenu& menu)
-{
+void MaskEditorActions::initItemContextMenu(QMenu& menu) {
     if (!m_rootIndex.isValid())
         return;
 

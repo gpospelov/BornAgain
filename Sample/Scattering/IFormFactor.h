@@ -33,8 +33,7 @@ class WavevectorInfo;
 
 //! @ingroup formfactors_internal
 
-class IFormFactor : public ISample
-{
+class IFormFactor : public ISample {
 public:
     IFormFactor() = default;
     IFormFactor(const NodeMeta& meta, const std::vector<double>& PValues);

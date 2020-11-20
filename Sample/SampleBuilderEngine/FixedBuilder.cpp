@@ -17,7 +17,6 @@
 
 FixedBuilder::FixedBuilder(const MultiLayer& sample) : m_sample(sample.clone()) {}
 
-MultiLayer* FixedBuilder::buildSample() const
-{
+MultiLayer* FixedBuilder::buildSample() const {
     return m_sample->clone();
 }

@@ -23,22 +23,17 @@ JobWorker::JobWorker(const QString& identifier, ISimulation* simulation)
     , m_percentage_done(0)
     , m_job_status("Idle")
     , m_terminate_request_flag(false)
-    , m_simulation_duration(0)
-{
-}
+    , m_simulation_duration(0) {}
 
-QString JobWorker::identifier() const
-{
+QString JobWorker::identifier() const {
     return m_identifier;
 }
 
-int JobWorker::progress() const
-{
+int JobWorker::progress() const {
     return m_percentage_done;
 }
 
-void JobWorker::start()
-{
+void JobWorker::start() {
     m_terminate_request_flag = false;
     m_simulation_duration = 0;
     emit started();
@@ -78,33 +73,28 @@ void JobWorker::start()
     emit finished();
 }
 
-QString JobWorker::status() const
-{
+QString JobWorker::status() const {
     return m_job_status;
 }
 
-QString JobWorker::failureMessage() const
-{
+QString JobWorker::failureMessage() const {
     return m_failure_message;
 }
 
-int JobWorker::simulationDuration() const
-{
+int JobWorker::simulationDuration() const {
     return m_simulation_duration;
 }
 
 //! Sets request for JobRunner to terminate underlying domain simulation.
 
-void JobWorker::terminate()
-{
+void JobWorker::terminate() {
     m_terminate_request_flag = true;
     m_job_status = "Canceled";
 }
 
 //! Sets current progress. Returns true if we want to continue the simulation.
 
-bool JobWorker::updateProgress(int percentage_done)
-{
+bool JobWorker::updateProgress(int percentage_done) {
     if (percentage_done > m_percentage_done) {
         m_percentage_done = percentage_done;
         emit progressUpdate();

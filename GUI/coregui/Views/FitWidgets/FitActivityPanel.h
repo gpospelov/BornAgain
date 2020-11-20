@@ -30,8 +30,7 @@ class FitSessionManager;
 //! Occupies bottom right corner of JobView, contains stack of FitSuiteWidgets for every
 //! JobItem which is suitable for fitting.
 
-class FitActivityPanel : public QWidget
-{
+class FitActivityPanel : public QWidget {
     Q_OBJECT
 public:
     FitActivityPanel(JobModel* jobModel, QWidget* parent = 0);

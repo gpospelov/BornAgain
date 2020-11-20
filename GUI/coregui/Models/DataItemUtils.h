@@ -21,8 +21,7 @@ class SpecularDataItem;
 
 //! Utility functions for Intensity and Specular DataItems
 
-namespace DataItemUtils
-{
+namespace DataItemUtils {
 //! Returns IntensityDataItem contained as a child in givent parent.
 IntensityDataItem* intensityDataItem(SessionItem* parent);
 

@@ -37,8 +37,7 @@ struct SlicingEffects {
 
 //! @ingroup formfactors_internal
 
-class IBornFF : public IFormFactor
-{
+class IBornFF : public IFormFactor {
 public:
     IBornFF();
     IBornFF(const NodeMeta& meta, const std::vector<double>& PValues);

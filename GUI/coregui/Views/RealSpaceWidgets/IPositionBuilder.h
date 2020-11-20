@@ -24,8 +24,7 @@ class InterferenceFunction2DParaCrystal;
 class InterferenceFunctionFinite2DLattice;
 class InterferenceFunctionRadialParaCrystal;
 
-class IPositionBuilder
-{
+class IPositionBuilder {
 public:
     virtual ~IPositionBuilder();
 
@@ -42,8 +41,7 @@ private:
 //! the positions based on the interference function
 //!
 //! It always generates a single point at the origin
-class DefaultPositionBuilder : public IPositionBuilder
-{
+class DefaultPositionBuilder : public IPositionBuilder {
 public:
     DefaultPositionBuilder();
     ~DefaultPositionBuilder() override;
@@ -54,8 +52,7 @@ private:
     double positionVariance() const override;
 };
 
-class RandomPositionBuilder : public IPositionBuilder
-{
+class RandomPositionBuilder : public IPositionBuilder {
 public:
     RandomPositionBuilder();
     ~RandomPositionBuilder() override;
@@ -66,8 +63,7 @@ private:
     double positionVariance() const override;
 };
 
-class Lattice1DPositionBuilder : public IPositionBuilder
-{
+class Lattice1DPositionBuilder : public IPositionBuilder {
 public:
     Lattice1DPositionBuilder(const InterferenceFunction1DLattice* p_iff);
     ~Lattice1DPositionBuilder() override;
@@ -79,8 +75,7 @@ private:
     std::unique_ptr<InterferenceFunction1DLattice> m_iff;
 };
 
-class Lattice2DPositionBuilder : public IPositionBuilder
-{
+class Lattice2DPositionBuilder : public IPositionBuilder {
 public:
     Lattice2DPositionBuilder(const InterferenceFunction2DLattice* p_iff);
     ~Lattice2DPositionBuilder() override;
@@ -92,8 +87,7 @@ private:
     std::unique_ptr<InterferenceFunction2DLattice> m_iff;
 };
 
-class ParaCrystal2DPositionBuilder : public IPositionBuilder
-{
+class ParaCrystal2DPositionBuilder : public IPositionBuilder {
 public:
     ParaCrystal2DPositionBuilder(const InterferenceFunction2DParaCrystal* p_iff);
     ~ParaCrystal2DPositionBuilder() override;
@@ -105,8 +99,7 @@ private:
     std::unique_ptr<InterferenceFunction2DParaCrystal> m_iff;
 };
 
-class Finite2DLatticePositionBuilder : public IPositionBuilder
-{
+class Finite2DLatticePositionBuilder : public IPositionBuilder {
 public:
     Finite2DLatticePositionBuilder(const InterferenceFunctionFinite2DLattice* p_iff);
     ~Finite2DLatticePositionBuilder() override;
@@ -118,8 +111,7 @@ private:
     std::unique_ptr<InterferenceFunctionFinite2DLattice> m_iff;
 };
 
-class RadialParacrystalPositionBuilder : public IPositionBuilder
-{
+class RadialParacrystalPositionBuilder : public IPositionBuilder {
 public:
     RadialParacrystalPositionBuilder(const InterferenceFunctionRadialParaCrystal* p_iff);
     ~RadialParacrystalPositionBuilder() override;

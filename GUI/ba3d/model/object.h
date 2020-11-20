@@ -19,14 +19,12 @@
 #include <QColor>
 #include <QMatrix4x4>
 
-namespace RealSpace
-{
+namespace RealSpace {
 
 class Model;
 class Canvas;
 
-class Object
-{
+class Object {
     friend class Model;
 
 public:

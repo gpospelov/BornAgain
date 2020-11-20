@@ -25,8 +25,7 @@
 //! @ingroup tools_internal
 //! @brief Ordered map which saves the order of insertion
 
-template <class Key, class Object> class OrderedMap
-{
+template <class Key, class Object> class OrderedMap {
 public:
     typedef std::pair<Key, Object> entry_t;
     typedef std::list<entry_t> list_t;
@@ -37,8 +36,7 @@ public:
     OrderedMap() {}
     virtual ~OrderedMap() {}
 
-    void clear()
-    {
+    void clear() {
         m_map.clear();
         m_list.clear();
     }
@@ -48,37 +46,32 @@ public:
     iterator begin() { return m_list.begin(); }
     iterator end() { return m_list.end(); }
 
-    size_t size() const
-    {
+    size_t size() const {
         ASSERT(m_list.size() == m_map.size());
         return m_list.size();
     }
     bool empty() const { return size() == 0; }
 
     // if such key exists, pair will be deleted, and new pair appended to the end
-    void insert(const Key& key, const Object& object)
-    {
+    void insert(const Key& key, const Object& object) {
         erase(key);
         iterator it = m_list.insert(m_list.end(), std::make_pair(key, object));
         m_map[key] = it;
     }
 
-    iterator find(const Key& key)
-    {
+    iterator find(const Key& key) {
         if (m_map.find(key) != m_map.end())
             return m_map[key];
         return m_list.end();
     }
 
-    const_iterator find(const Key& key) const
-    {
+    const_iterator find(const Key& key) const {
         if (m_map.find(key) != m_map.end())
             return m_map[key];
         return m_list.end();
     }
 
-    size_t erase(const Key& key)
-    {
+    size_t erase(const Key& key) {
         size_t result(0);
         if (m_map.find(key) == m_map.end())
             return result;
@@ -88,8 +81,7 @@ public:
         return 1;
     }
 
-    const Object& value(const Key& key) const
-    {
+    const Object& value(const Key& key) const {
         typename map_t::const_iterator mit = m_map.find(key);
         if (mit == m_map.end())
             throw std::runtime_error("OrderedMap::value() -> No such key");

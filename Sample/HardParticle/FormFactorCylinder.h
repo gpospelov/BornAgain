@@ -20,30 +20,26 @@
 //! A circular cylinder.
 //! @ingroup hardParticle
 
-class FormFactorCylinder : public IBornFF
-{
+class FormFactorCylinder : public IBornFF {
 public:
     FormFactorCylinder(const std::vector<double> P);
     FormFactorCylinder(double radius, double height);
 
-    FormFactorCylinder* clone() const override final
-    {
-        return new FormFactorCylinder(m_radius, m_height);
-    }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    FormFactorCylinder* clone() const final { return new FormFactorCylinder(m_radius, m_height); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadius() const { return m_radius; }
 
-    double radialExtension() const override final { return m_radius; }
+    double radialExtension() const final { return m_radius; }
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
+                                 kvector_t translation) const final;
 
-    void onChange() override final;
+    void onChange() final;
 
 private:
     const double& m_radius;

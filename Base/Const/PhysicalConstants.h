@@ -17,8 +17,7 @@
 
 //! Physical constants.
 
-namespace PhysConsts
-{
+namespace PhysConsts {
 
 constexpr double m_n = 1.67492749804e-27;  //!< Neutron mass, kg
 constexpr double h_bar = 1.054571817e-34;  //!< Reduced Plank constant, J s

@@ -3,27 +3,24 @@ set(WEB_LEN_LIM 85) # maximum line length of code for display in web docs
 
 if(NOT MSVC)
 
-    set(LINECOUNT ${CMAKE_SOURCE_DIR}/devtools/line-count/check-line-length.py)
+    set(LINECOUNT
+        ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/devtools/line-count/check-line-length.py)
 
     foreach(dir ${AllComponents})
         file(GLOB_RECURSE src1 ${dir}/*.cpp)
         file(GLOB_RECURSE src2 ${dir}/*.h)
-        add_test(NAME "LineLength.Cpp.${dir}"
-            COMMAND ${Python3_EXECUTABLE}
-            ${LINECOUNT} ${SRC_LEN_LIM}
-            ${src1} ${src2})
+        add_test(NAME LineLength.Cpp.${dir}
+            COMMAND ${LINECOUNT} ${SRC_LEN_LIM} ${src1} ${src2})
     endforeach()
 
     foreach(dir ${AllComponents})
         file(GLOB_RECURSE src1 ${dir}/*CMakeLists.txt)
-        add_test(NAME "LineLength.CMake.${dir}"
-            COMMAND ${Python3_EXECUTABLE}
-            ${LINECOUNT} ${SRC_LEN_LIM}
-            ${src1})
+        add_test(NAME LineLength.CMake.${dir}
+            COMMAND ${LINECOUNT} ${SRC_LEN_LIM} ${src1})
     endforeach()
 
-    file(GLOB sources "${PY_EXAMPLES_DIR}/*/ex*/*.py")
-    add_test(NAME "LineLength.PyExamples" COMMAND ${Python3_EXECUTABLE}
-        ${LINECOUNT} ${WEB_LEN_LIM} ${sources})
+    file(GLOB_RECURSE sources ${PY_EXAMPLES_DIR}/*.py)
+    add_test(NAME LineLength.PyExamples
+        COMMAND ${LINECOUNT} ${WEB_LEN_LIM} ${sources})
 
 endif()

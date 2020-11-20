@@ -18,8 +18,7 @@
 #include <cmath>
 #include <random>
 
-namespace
-{
+namespace {
 std::vector<std::vector<double>> Generate2DLatticePoints(double l1, double l2, double alpha,
                                                          double xi, unsigned n1, unsigned n2);
 }
@@ -27,8 +26,7 @@ std::vector<std::vector<double>> Generate2DLatticePoints(double l1, double l2, d
 IPositionBuilder::~IPositionBuilder() = default;
 
 std::vector<std::vector<double>> IPositionBuilder::generatePositions(double layer_size,
-                                                                     double density) const
-{
+                                                                     double density) const {
     std::vector<std::vector<double>> positions = generatePositionsImpl(layer_size, density);
     double pos_var = positionVariance();
     if (pos_var > 0.0) {
@@ -48,14 +46,13 @@ DefaultPositionBuilder::DefaultPositionBuilder() = default;
 
 DefaultPositionBuilder::~DefaultPositionBuilder() = default;
 
-std::vector<std::vector<double>> DefaultPositionBuilder::generatePositionsImpl(double, double) const
-{
+std::vector<std::vector<double>> DefaultPositionBuilder::generatePositionsImpl(double,
+                                                                               double) const {
     std::vector<double> origin = {0.0, 0.0};
     return {origin};
 }
 
-double DefaultPositionBuilder::positionVariance() const
-{
+double DefaultPositionBuilder::positionVariance() const {
     return 0.0;
 }
 
@@ -63,9 +60,8 @@ RandomPositionBuilder::RandomPositionBuilder() = default;
 
 RandomPositionBuilder::~RandomPositionBuilder() = default;
 
-std::vector<std::vector<double>> RandomPositionBuilder::generatePositionsImpl(double layer_size,
-                                                                              double density) const
-{
+std::vector<std::vector<double>>
+RandomPositionBuilder::generatePositionsImpl(double layer_size, double density) const {
     std::vector<std::vector<double>> lattice_positions;
     std::vector<double> position;
 
@@ -89,21 +85,17 @@ std::vector<std::vector<double>> RandomPositionBuilder::generatePositionsImpl(do
     return lattice_positions;
 }
 
-double RandomPositionBuilder::positionVariance() const
-{
+double RandomPositionBuilder::positionVariance() const {
     return 0.0; // no need for extra randomness here
 }
 
 Lattice1DPositionBuilder::Lattice1DPositionBuilder(const InterferenceFunction1DLattice* p_iff)
-    : m_iff(p_iff->clone())
-{
-}
+    : m_iff(p_iff->clone()) {}
 
 Lattice1DPositionBuilder::~Lattice1DPositionBuilder() = default;
 
 std::vector<std::vector<double>> Lattice1DPositionBuilder::generatePositionsImpl(double layer_size,
-                                                                                 double) const
-{
+                                                                                 double) const {
     const double length = m_iff->getLength();
     const double xi = m_iff->getXi();
 
@@ -115,21 +107,17 @@ std::vector<std::vector<double>> Lattice1DPositionBuilder::generatePositionsImpl
     return Generate2DLatticePoints(length, 0.0, 0.0, xi, n1, 1u);
 }
 
-double Lattice1DPositionBuilder::positionVariance() const
-{
+double Lattice1DPositionBuilder::positionVariance() const {
     return m_iff->positionVariance();
 }
 
 Lattice2DPositionBuilder::Lattice2DPositionBuilder(const InterferenceFunction2DLattice* p_iff)
-    : m_iff(p_iff->clone())
-{
-}
+    : m_iff(p_iff->clone()) {}
 
 Lattice2DPositionBuilder::~Lattice2DPositionBuilder() = default;
 
 std::vector<std::vector<double>> Lattice2DPositionBuilder::generatePositionsImpl(double layer_size,
-                                                                                 double) const
-{
+                                                                                 double) const {
     auto& lattice = m_iff->lattice();
     double l1 = lattice.length1();
     double l2 = lattice.length2();
@@ -150,42 +138,34 @@ std::vector<std::vector<double>> Lattice2DPositionBuilder::generatePositionsImpl
     return Generate2DLatticePoints(l1, l2, alpha, xi, n1, n2);
 }
 
-double Lattice2DPositionBuilder::positionVariance() const
-{
+double Lattice2DPositionBuilder::positionVariance() const {
     return m_iff->positionVariance();
 }
 
 ParaCrystal2DPositionBuilder::ParaCrystal2DPositionBuilder(
     const InterferenceFunction2DParaCrystal* p_iff)
-    : m_iff(p_iff->clone())
-{
-}
+    : m_iff(p_iff->clone()) {}
 
 ParaCrystal2DPositionBuilder::~ParaCrystal2DPositionBuilder() = default;
 
 std::vector<std::vector<double>>
-ParaCrystal2DPositionBuilder::generatePositionsImpl(double layer_size, double) const
-{
+ParaCrystal2DPositionBuilder::generatePositionsImpl(double layer_size, double) const {
     return RealSpace2DParacrystalUtils::Compute2DParacrystalLatticePositions(m_iff.get(),
                                                                              layer_size);
 }
 
-double ParaCrystal2DPositionBuilder::positionVariance() const
-{
+double ParaCrystal2DPositionBuilder::positionVariance() const {
     return m_iff->positionVariance();
 }
 
 Finite2DLatticePositionBuilder::Finite2DLatticePositionBuilder(
     const InterferenceFunctionFinite2DLattice* p_iff)
-    : m_iff(p_iff->clone())
-{
-}
+    : m_iff(p_iff->clone()) {}
 
 Finite2DLatticePositionBuilder::~Finite2DLatticePositionBuilder() = default;
 
 std::vector<std::vector<double>>
-Finite2DLatticePositionBuilder::generatePositionsImpl(double layer_size, double) const
-{
+Finite2DLatticePositionBuilder::generatePositionsImpl(double layer_size, double) const {
     auto& lattice = m_iff->lattice();
     double l1 = lattice.length1();
     double l2 = lattice.length2();
@@ -207,22 +187,18 @@ Finite2DLatticePositionBuilder::generatePositionsImpl(double layer_size, double)
     return Generate2DLatticePoints(l1, l2, alpha, xi, n1, n2);
 }
 
-double Finite2DLatticePositionBuilder::positionVariance() const
-{
+double Finite2DLatticePositionBuilder::positionVariance() const {
     return m_iff->positionVariance();
 }
 
 RadialParacrystalPositionBuilder::RadialParacrystalPositionBuilder(
     const InterferenceFunctionRadialParaCrystal* p_iff)
-    : m_iff(p_iff->clone())
-{
-}
+    : m_iff(p_iff->clone()) {}
 
 RadialParacrystalPositionBuilder::~RadialParacrystalPositionBuilder() = default;
 
 std::vector<std::vector<double>>
-RadialParacrystalPositionBuilder::generatePositionsImpl(double layer_size, double) const
-{
+RadialParacrystalPositionBuilder::generatePositionsImpl(double layer_size, double) const {
     std::vector<std::vector<double>> lattice_positions;
 
     double distance = m_iff->peakDistance();
@@ -259,16 +235,13 @@ RadialParacrystalPositionBuilder::generatePositionsImpl(double layer_size, doubl
     return lattice_positions;
 }
 
-double RadialParacrystalPositionBuilder::positionVariance() const
-{
+double RadialParacrystalPositionBuilder::positionVariance() const {
     return m_iff->positionVariance();
 }
 
-namespace
-{
+namespace {
 std::vector<std::vector<double>> Generate2DLatticePoints(double l1, double l2, double alpha,
-                                                         double xi, unsigned n1, unsigned n2)
-{
+                                                         double xi, unsigned n1, unsigned n2) {
     std::vector<std::vector<double>> lattice_positions;
     std::vector<double> position;
 

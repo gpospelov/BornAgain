@@ -23,22 +23,18 @@
 #include "Sample/Slice/LayerInterface.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-namespace
-{
+namespace {
 
 static const FormFactorComponents ff_components;
 
 } // namespace
 
 LayersWithAbsorptionBuilder::LayersWithAbsorptionBuilder()
-    : m_ff(new FormFactorFullSphere(5.0 * Units::nm))
-{
-}
+    : m_ff(new FormFactorFullSphere(5.0 * Units::nm)) {}
 
 LayersWithAbsorptionBuilder::~LayersWithAbsorptionBuilder() = default;
 
-MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
-{
+MultiLayer* LayersWithAbsorptionBuilder::buildSample() const {
     const double middle_layer_thickness(60.0 * Units::nm);
 
     Particle particle(refMat::Ag, *m_ff);
@@ -63,15 +59,13 @@ MultiLayer* LayersWithAbsorptionBuilder::buildSample() const
     return multi_layer;
 }
 
-MultiLayer* LayersWithAbsorptionBuilder::createSampleByIndex(size_t index)
-{
+MultiLayer* LayersWithAbsorptionBuilder::createSampleByIndex(size_t index) {
     const std::string name = ff_components.keys().at(index);
     m_ff.reset(ff_components.getItem(name)->clone());
     setName(name);
     return buildSample();
 }
 
-size_t LayersWithAbsorptionBuilder::size()
-{
+size_t LayersWithAbsorptionBuilder::size() {
     return ff_components.size();
 }

@@ -26,8 +26,7 @@ class DistributionItem;
 //! The DistributionEditor class, being a child of DistributionDialog, contains a widget
 //! to show Distribution1D and property editor to change distribution parameters.
 
-class DistributionEditor : public SessionItemWidget
-{
+class DistributionEditor : public SessionItemWidget {
     Q_OBJECT
 public:
     DistributionEditor(QWidget* parent = nullptr);

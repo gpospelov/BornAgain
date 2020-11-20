@@ -20,8 +20,7 @@
 //! Builds sample: two layers of spheres at hex lattice.
 //! @ingroup standard_samples
 
-class ParticleCompositionBuilder : public ISampleBuilder
-{
+class ParticleCompositionBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

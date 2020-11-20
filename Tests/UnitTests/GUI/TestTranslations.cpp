@@ -8,12 +8,9 @@
 #include "GUI/coregui/Models/VectorItem.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class TestTranslations : public ::testing::Test
-{
-};
+class TestTranslations : public ::testing::Test {};
 
-TEST_F(TestTranslations, test_TranslatePosition)
-{
+TEST_F(TestTranslations, test_TranslatePosition) {
     SampleModel model;
     SessionItem* multilayer = model.insertNewItem("MultiLayer");
     SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
@@ -27,8 +24,7 @@ TEST_F(TestTranslations, test_TranslatePosition)
               "MultiLayer/Layer/ParticleLayout/Particle/PositionX");
 }
 
-TEST_F(TestTranslations, test_TranslateRotation)
-{
+TEST_F(TestTranslations, test_TranslateRotation) {
     SampleModel model;
     SessionItem* multilayer = model.insertNewItem("MultiLayer");
     SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
@@ -46,8 +42,7 @@ TEST_F(TestTranslations, test_TranslateRotation)
               "MultiLayer/Layer/ParticleLayout/Particle/XRotation/Angle");
 }
 
-TEST_F(TestTranslations, test_BeamDistributionNone)
-{
+TEST_F(TestTranslations, test_BeamDistributionNone) {
     SampleModel model;
     SessionItem* instrument = model.insertNewItem("GISASInstrument");
     SessionItem* beam = instrument->getItem(Instrument2DItem::P_BEAM);

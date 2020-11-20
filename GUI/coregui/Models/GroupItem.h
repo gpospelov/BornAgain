@@ -22,8 +22,7 @@
 class GroupInfo;
 class GroupItemController;
 
-class BA_CORE_API_ GroupItem : public SessionItem
-{
+class BA_CORE_API_ GroupItem : public SessionItem {
 public:
     static const QString T_ITEMS;
     GroupItem();

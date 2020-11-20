@@ -27,8 +27,7 @@ class SessionItem;
 //! specific editor's logic. Used in InstrumentView, ImportDataView, JobView to show editors for
 //! currently selected items.
 
-class ItemStackWidget : public QWidget
-{
+class ItemStackWidget : public QWidget {
     Q_OBJECT
 
 public:

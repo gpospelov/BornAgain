@@ -18,8 +18,7 @@
 #include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
 //! Class representing view of a meso crystal item
-class MesoCrystalView : public ConnectableView
-{
+class MesoCrystalView : public ConnectableView {
     Q_OBJECT
 
 public:

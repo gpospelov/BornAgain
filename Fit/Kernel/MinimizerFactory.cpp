@@ -27,8 +27,7 @@
 
 IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
                                               const std::string& algorithmType,
-                                              const std::string& optionString)
-{
+                                              const std::string& optionString) {
     IMinimizer* result(0);
 
     if (minimizerName == "Minuit2") {
@@ -72,24 +71,21 @@ IMinimizer* MinimizerFactory::createMinimizer(const std::string& minimizerName,
     return result;
 }
 
-void MinimizerFactory::printCatalog()
-{
+void MinimizerFactory::printCatalog() {
     std::cout << catalogToString() << std::endl;
 }
 
 //! Returns multi-line string representing catalog content: minimizer names and list of their
 //! algorithms.
 
-std::string MinimizerFactory::catalogToString()
-{
+std::string MinimizerFactory::catalogToString() {
     return catalog().toString();
 }
 
 //! Returns multi-line string representing detailed catalog content:
 //! minimizer names, list of their algorithms and description, list of minimizer options.
 
-std::string MinimizerFactory::catalogDetailsToString()
-{
+std::string MinimizerFactory::catalogDetailsToString() {
     const int text_width = 80;
     std::ostringstream result;
     const std::string fmt("%-20s| %-65s\n");
@@ -127,8 +123,7 @@ std::string MinimizerFactory::catalogDetailsToString()
     return result.str();
 }
 
-const MinimizerCatalog& MinimizerFactory::catalog()
-{
+const MinimizerCatalog& MinimizerFactory::catalog() {
     static MinimizerCatalog s_catalog;
     return s_catalog;
 }

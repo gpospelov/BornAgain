@@ -22,8 +22,7 @@ class InstrumentItem;
 class RealDataItem;
 class SimulationOptionsItem;
 
-class JobModel : public SessionModel
-{
+class JobModel : public SessionModel {
     Q_OBJECT
 
 public:

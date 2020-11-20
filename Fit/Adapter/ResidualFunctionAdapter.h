@@ -24,14 +24,12 @@
 
 class RootResidualFunction;
 
-namespace mumufit
-{
+namespace mumufit {
 
 //! Provides RootResidualFunction which will be minimizer by ROOT.
 //! Converts ROOT calls to the call of fcn_residual_t.
 
-class ResidualFunctionAdapter : public IFunctionAdapter
-{
+class ResidualFunctionAdapter : public IFunctionAdapter {
 public:
     ResidualFunctionAdapter(fcn_residual_t func, const Parameters& parameters);
 

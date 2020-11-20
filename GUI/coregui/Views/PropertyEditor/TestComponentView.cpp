@@ -46,8 +46,7 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
     , m_expandButton(new QPushButton("Expand tree"))
     , m_splitter(new Manhattan::MiniSplitter)
     , m_delegate(new SessionModelDelegate(this))
-    , m_isExpaned(false)
-{
+    , m_isExpaned(false) {
     auto buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget(m_updateButton);
     buttonLayout->addWidget(m_addItemButton);
@@ -81,18 +80,15 @@ TestComponentView::TestComponentView(MainWindow* mainWindow)
             &TestComponentView::onSelectionChanged);
 }
 
-void TestComponentView::onUpdateRequest()
-{
+void TestComponentView::onUpdateRequest() {
     //    m_componentTree->setModel(m_sourceModel);
 }
 
-void TestComponentView::onAddItemRequest()
-{
+void TestComponentView::onAddItemRequest() {
     m_sampleModel->insertNewItem("Particle");
 }
 
-void TestComponentView::onExpandRequest()
-{
+void TestComponentView::onExpandRequest() {
     if (!m_isExpaned) {
         m_sourceTree->expandAll();
         m_sourceTree->resizeColumnToContents(0);
@@ -115,8 +111,7 @@ void TestComponentView::onExpandRequest()
 
 //! Inserts test items into source model.
 
-void TestComponentView::init_source()
-{
+void TestComponentView::init_source() {
     SampleBuilderFactory factory;
     const std::unique_ptr<MultiLayer> sample(
         factory.createSampleByName("CylindersWithSizeDistributionBuilder"));
@@ -128,8 +123,7 @@ void TestComponentView::init_source()
     m_sampleModel->insertNewItem("IntensityData");
 }
 
-void TestComponentView::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)
-{
+void TestComponentView::onSelectionChanged(const QItemSelection& selected, const QItemSelection&) {
     QModelIndexList indices = selected.indexes();
 
     if (!indices.empty()) {
@@ -143,8 +137,7 @@ void TestComponentView::onSelectionChanged(const QItemSelection& selected, const
     }
 }
 
-QWidget* TestComponentView::componentTreePanel()
-{
+QWidget* TestComponentView::componentTreePanel() {
     Manhattan::MiniSplitter* result = new Manhattan::MiniSplitter(Qt::Vertical);
     result->addWidget(m_componentTree);
 
@@ -152,8 +145,7 @@ QWidget* TestComponentView::componentTreePanel()
     return result;
 }
 
-QWidget* TestComponentView::componentBoxPanel()
-{
+QWidget* TestComponentView::componentBoxPanel() {
     Manhattan::MiniSplitter* result = new Manhattan::MiniSplitter(Qt::Vertical);
     result->addWidget(m_componentFlat);
 

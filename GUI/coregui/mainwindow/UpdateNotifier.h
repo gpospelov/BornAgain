@@ -20,8 +20,7 @@
 class QNetworkAccessManager;
 class QNetworkReply;
 
-class UpdateNotifier : public QObject
-{
+class UpdateNotifier : public QObject {
     Q_OBJECT
 public:
     UpdateNotifier(QObject* parent = 0);

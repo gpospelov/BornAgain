@@ -24,8 +24,7 @@ class QTimer;
 
 //! Used in ColorMap plot to avoid often replot of CustomPlot.
 
-class UpdateTimer : public QObject
-{
+class UpdateTimer : public QObject {
     Q_OBJECT
 public:
     explicit UpdateTimer(int timerInterval, QObject* parent = 0);

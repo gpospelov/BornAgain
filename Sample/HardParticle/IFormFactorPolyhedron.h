@@ -23,8 +23,7 @@ class Polyhedron;
 
 //! A polyhedron, for form factor computation.
 
-class IFormFactorPolyhedron : public IBornFF
-{
+class IFormFactorPolyhedron : public IBornFF {
 public:
 #ifdef POLYHEDRAL_DIAGNOSTIC
     static void setLimits(double _q, int _n);
@@ -34,14 +33,14 @@ public:
     IFormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues);
     ~IFormFactorPolyhedron();
 
-    double bottomZ(const IRotation& rotation) const override final;
-    double topZ(const IRotation& rotation) const override final;
+    double bottomZ(const IRotation& rotation) const final;
+    double topZ(const IRotation& rotation) const final;
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
     complex_t evaluate_centered(cvector_t q) const;
 
-    double volume() const override final;
-    double radialExtension() const override final;
+    double volume() const final;
+    double radialExtension() const final;
     void assert_platonic() const;
 
 protected:

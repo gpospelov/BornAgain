@@ -27,8 +27,7 @@ class FitObjective;
 //! Serves as observer for FitObjective and saves fit iteration data for later display
 //! in GUI widgets.
 
-class GUIFitObserver : public QObject
-{
+class GUIFitObserver : public QObject {
     Q_OBJECT
 
 public:

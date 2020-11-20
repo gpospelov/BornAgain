@@ -224,7 +224,7 @@ C++ includes: ConstantBackground.h
 %feature("docstring")  ConstantBackground::ConstantBackground "ConstantBackground::ConstantBackground(double background_value)
 ";
 
-%feature("docstring")  ConstantBackground::clone "ConstantBackground * ConstantBackground::clone() const override final
+%feature("docstring")  ConstantBackground::clone "ConstantBackground * ConstantBackground::clone() const final
 ";
 
 %feature("docstring")  ConstantBackground::backgroundValue "double ConstantBackground::backgroundValue() const
@@ -233,7 +233,7 @@ C++ includes: ConstantBackground.h
 %feature("docstring")  ConstantBackground::accept "void ConstantBackground::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  ConstantBackground::addBackground "double ConstantBackground::addBackground(double intensity) const override final
+%feature("docstring")  ConstantBackground::addBackground "double ConstantBackground::addBackground(double intensity) const final
 ";
 
 
@@ -330,7 +330,7 @@ Set calculation flag (if it's false, zero intensity is assigned to the element)
 %feature("docstring")  DepthProbeSimulation::clone "DepthProbeSimulation * DepthProbeSimulation::clone() const override
 ";
 
-%feature("docstring")  DepthProbeSimulation::accept "void DepthProbeSimulation::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  DepthProbeSimulation::accept "void DepthProbeSimulation::accept(INodeVisitor *visitor) const final
 ";
 
 %feature("docstring")  DepthProbeSimulation::result "SimulationResult DepthProbeSimulation::result() const override
@@ -1319,16 +1319,16 @@ C++ includes: OffSpecSimulation.h
 %feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation()
 ";
 
-%feature("docstring")  OffSpecSimulation::~OffSpecSimulation "OffSpecSimulation::~OffSpecSimulation() final
+%feature("docstring")  OffSpecSimulation::~OffSpecSimulation "OffSpecSimulation::~OffSpecSimulation() override
 ";
 
 %feature("docstring")  OffSpecSimulation::clone "OffSpecSimulation* OffSpecSimulation::clone() const override
 ";
 
-%feature("docstring")  OffSpecSimulation::accept "void OffSpecSimulation::accept(INodeVisitor *visitor) const final
+%feature("docstring")  OffSpecSimulation::accept "void OffSpecSimulation::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  OffSpecSimulation::prepareSimulation "void OffSpecSimulation::prepareSimulation() final
+%feature("docstring")  OffSpecSimulation::prepareSimulation "void OffSpecSimulation::prepareSimulation() override
 
 Put into a clean state for running a simulation. 
 ";
@@ -1515,13 +1515,13 @@ C++ includes: PoissonNoiseBackground.h
 %feature("docstring")  PoissonNoiseBackground::PoissonNoiseBackground "PoissonNoiseBackground::PoissonNoiseBackground()
 ";
 
-%feature("docstring")  PoissonNoiseBackground::clone "PoissonNoiseBackground * PoissonNoiseBackground::clone() const override final
+%feature("docstring")  PoissonNoiseBackground::clone "PoissonNoiseBackground * PoissonNoiseBackground::clone() const final
 ";
 
 %feature("docstring")  PoissonNoiseBackground::accept "void PoissonNoiseBackground::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  PoissonNoiseBackground::addBackground "double PoissonNoiseBackground::addBackground(double intensity) const override final
+%feature("docstring")  PoissonNoiseBackground::addBackground "double PoissonNoiseBackground::addBackground(double intensity) const final
 ";
 
 
@@ -2119,7 +2119,7 @@ C++ includes: SpecularSimulation.h
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  SpecularSimulation::accept "void SpecularSimulation::accept(INodeVisitor *visitor) const override final
+%feature("docstring")  SpecularSimulation::accept "void SpecularSimulation::accept(INodeVisitor *visitor) const final
 ";
 
 %feature("docstring")  SpecularSimulation::result "SimulationResult SpecularSimulation::result() const override

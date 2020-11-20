@@ -17,8 +17,7 @@
 
 IDistribution1DSampler::~IDistribution1DSampler() = default;
 
-double Distribution1DCauchySampler::randomSample() const
-{
+double Distribution1DCauchySampler::randomSample() const {
     // BornAgain Cauchy Distribution = std library Exponential distribution
     std::random_device rd;  // random device class instance
     std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
@@ -34,8 +33,7 @@ double Distribution1DCauchySampler::randomSample() const
         return -value;
 }
 
-double Distribution1DGaussSampler::randomSample() const
-{
+double Distribution1DGaussSampler::randomSample() const {
     // BornAgain Gauss Distribution = std library Normal distribution
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -44,8 +42,7 @@ double Distribution1DGaussSampler::randomSample() const
     return normalDist(gen);
 }
 
-double Distribution1DGateSampler::randomSample() const
-{
+double Distribution1DGateSampler::randomSample() const {
     // BornAgain Gate Distribution = std library Uniform distribution
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -54,8 +51,7 @@ double Distribution1DGateSampler::randomSample() const
     return uniformDist(gen);
 }
 
-double Distribution1DTriangleSampler::randomSample() const
-{
+double Distribution1DTriangleSampler::randomSample() const {
     std::random_device rd;
     std::mt19937 gen(rd());
 
@@ -70,8 +66,7 @@ double Distribution1DTriangleSampler::randomSample() const
         return (m_omega - m_omega * std::sqrt(2 * (1 - cdf_value)));
 }
 
-double Distribution1DCosineSampler::randomSample() const
-{
+double Distribution1DCosineSampler::randomSample() const {
     std::random_device rd;
     std::mt19937 gen(rd());
 

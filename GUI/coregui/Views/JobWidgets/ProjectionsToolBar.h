@@ -24,8 +24,7 @@ class QButtonGroup;
 //! Toolbar with projections buttons (horizontal projections, vertical projections, select, zoom)
 //! located at the right-hand side of ProjectionsEditor (part of JobProjectionsWidget).
 
-class ProjectionsToolBar : public QToolBar
-{
+class ProjectionsToolBar : public QToolBar {
     Q_OBJECT
 
 public:

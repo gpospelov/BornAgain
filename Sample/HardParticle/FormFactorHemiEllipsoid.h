@@ -21,29 +21,27 @@
 //!   obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
 //! @ingroup hardParticle
 
-class FormFactorHemiEllipsoid : public IBornFF
-{
+class FormFactorHemiEllipsoid : public IBornFF {
 public:
     FormFactorHemiEllipsoid(const std::vector<double> P);
     FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
     virtual ~FormFactorHemiEllipsoid() {}
 
-    FormFactorHemiEllipsoid* clone() const override final
-    {
+    FormFactorHemiEllipsoid* clone() const final {
         return new FormFactorHemiEllipsoid(m_radius_x, m_radius_y, m_height);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getHeight() const { return m_height; }
     double getRadiusX() const { return m_radius_x; }
     double getRadiusY() const { return m_radius_y; }
 
-    double radialExtension() const override final;
+    double radialExtension() const final;
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
-    void onChange() override final;
+    void onChange() final;
 
 private:
     complex_t Integrand(double Z) const;

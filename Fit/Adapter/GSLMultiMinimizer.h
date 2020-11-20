@@ -17,16 +17,14 @@
 
 #include "Fit/Adapter/MinimizerAdapter.h"
 
-namespace ROOT::Math
-{
+namespace ROOT::Math {
 class GSLMinimizer;
 }
 
 //! Wrapper for the CERN ROOT facade of the GSL multi minimizer family (gradient descent based).
 //! @ingroup fitting_internal
 
-class GSLMultiMinimizer : public MinimizerAdapter
-{
+class GSLMultiMinimizer : public MinimizerAdapter {
 public:
     explicit GSLMultiMinimizer(const std::string& algorithmName = "ConjugateFR");
     ~GSLMultiMinimizer();

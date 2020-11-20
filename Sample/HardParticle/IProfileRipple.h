@@ -19,8 +19,7 @@
 
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 
-class IProfileRipple : public IBornFF
-{
+class IProfileRipple : public IBornFF {
 public:
     IProfileRipple(const NodeMeta& meta, const std::vector<double>& PValues);
 
@@ -28,9 +27,9 @@ public:
     double getHeight() const { return m_height; }
     double getWidth() const { return m_width; }
 
-    double radialExtension() const override final;
+    double radialExtension() const final;
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
     const double& m_length;
@@ -44,32 +43,29 @@ protected:
 
 //! Base class for form factors with a rectangular ripple (bar) profile in the yz plane.
 
-class IProfileRectangularRipple : public IProfileRipple
-{
+class IProfileRectangularRipple : public IProfileRipple {
 public:
     IProfileRectangularRipple(const NodeMeta& meta, const std::vector<double>& PValues);
 
 private:
-    virtual void onChange() override final;
+    virtual void onChange() final;
     complex_t factor_yz(complex_t qy, complex_t qz) const final;
 };
 
 //! Base class for form factors with a cosine ripple profile in the yz plane.
 
-class ICosineRipple : public IProfileRipple
-{
+class ICosineRipple : public IProfileRipple {
 public:
     ICosineRipple(const NodeMeta& meta, const std::vector<double>& PValues);
 
 private:
-    virtual void onChange() override final;
+    virtual void onChange() final;
     complex_t factor_yz(complex_t qy, complex_t qz) const final;
 };
 
 //! Base class for form factors with a triangular ripple profile in the yz plane.
 
-class ISawtoothRipple : public IProfileRipple
-{
+class ISawtoothRipple : public IProfileRipple {
 public:
     ISawtoothRipple(const NodeMeta& meta, const std::vector<double>& PValues);
 
@@ -79,7 +75,7 @@ protected:
     const double& m_asymmetry;
 
 private:
-    virtual void onChange() override final;
+    virtual void onChange() final;
     complex_t factor_yz(complex_t qy, complex_t qz) const final;
 };
 

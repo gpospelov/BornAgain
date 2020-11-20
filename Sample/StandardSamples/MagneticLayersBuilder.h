@@ -21,8 +21,7 @@
 //! Builds sample: spheres in substrate layer with a zero magnetic field.
 //! @ingroup standard_samples
 
-class MagneticSubstrateZeroFieldBuilder : public ISampleBuilder
-{
+class MagneticSubstrateZeroFieldBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -30,8 +29,7 @@ public:
 //! Builds sample: ambient and one magnetized layer on a non-magnetized substrate.
 //! @ingroup standard_samples
 
-class SimpleMagneticLayerBuilder : public ISampleBuilder
-{
+class SimpleMagneticLayerBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -39,8 +37,7 @@ public:
 //! Builds sample: magnetic spheres in a magnetized layer on a non-magnetized substrate.
 //! @ingroup standard_samples
 
-class MagneticLayerBuilder : public ISampleBuilder
-{
+class MagneticLayerBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -48,8 +45,7 @@ public:
 //! Builds sample: magnetic layer on a magnetic substrate with the fields rotated by 90°
 //! @ingroup standard_samples
 
-class SimpleMagneticRotationBuilder : public ISampleBuilder
-{
+class SimpleMagneticRotationBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const override;
 
@@ -60,8 +56,7 @@ public:
 //! Builds sample: rotated magnetic spheres in substrate layer with a unit magnetic field.
 //! @ingroup standard_samples
 
-class MagneticRotationBuilder : public ISampleBuilder
-{
+class MagneticRotationBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

@@ -19,11 +19,9 @@
 #include "Base/Utils/PythonCore.h"
 #include "Sample/Multilayer/MultiLayer.h"
 
-namespace
-{
+namespace {
 
-std::string error_description(const std::string& title)
-{
+std::string error_description(const std::string& title) {
     std::stringstream buf;
     buf << title << "\n";
     buf << PyEmbeddedUtils::pythonStackTrace() << "\n";
@@ -34,8 +32,7 @@ std::string error_description(const std::string& title)
 
 std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script,
                                                        const std::string& functionName,
-                                                       const std::string& path)
-{
+                                                       const std::string& path) {
     PyEmbeddedUtils::import_bornagain(path);
 
     PyObject* pCompiledFn = Py_CompileString(script.c_str(), "", Py_file_input);
@@ -85,8 +82,7 @@ std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script
 }
 
 std::vector<std::string> PyImport::listOfFunctions(const std::string& script,
-                                                   const std::string& path)
-{
+                                                   const std::string& path) {
     PyEmbeddedUtils::import_bornagain(path);
 
     PyObject* pCompiledFn = Py_CompileString(script.c_str(), "", Py_file_input);

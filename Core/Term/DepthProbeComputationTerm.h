@@ -22,8 +22,7 @@ class ProcessedSample;
 class ProgressHandler;
 class DepthProbeElement;
 
-class DepthProbeComputationTerm
-{
+class DepthProbeComputationTerm {
 public:
     DepthProbeComputationTerm(const ProcessedSample* p_sample);
     ~DepthProbeComputationTerm();

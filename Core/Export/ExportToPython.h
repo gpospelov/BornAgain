@@ -22,8 +22,7 @@ class ISimulation;
 
 //! Contains main methods to generate Python scripts from Core simulation objects.
 
-namespace ExportToPython
-{
+namespace ExportToPython {
 
 std::string generateSampleCode(const MultiLayer& multilayer);
 std::string generateSimulationCode(const ISimulation& simulation);

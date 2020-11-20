@@ -19,8 +19,7 @@
 
 //! The FitResultsWidget contains fitting summary. Part of FitSuiteWidget.
 
-class FitResultsWidget : public QWidget
-{
+class FitResultsWidget : public QWidget {
     Q_OBJECT
 
 public:

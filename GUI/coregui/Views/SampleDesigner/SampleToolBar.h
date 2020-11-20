@@ -29,8 +29,7 @@ class SampleViewActions;
 
 //! The SampleToolBar class represents a main toolbar on top of SampleView window
 
-class SampleToolBar : public StyledToolBar
-{
+class SampleToolBar : public StyledToolBar {
     Q_OBJECT
 
 public:

@@ -23,8 +23,7 @@ class SpecularPlot;
 
 //! Contains parameters of mouse position in 1D or 2D plot.
 
-class PlotEventInfo
-{
+class PlotEventInfo {
     using PLOT_TYPE = ScientificPlot::PLOT_TYPE;
 
 public:

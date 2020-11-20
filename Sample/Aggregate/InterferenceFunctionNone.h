@@ -20,17 +20,16 @@
 //! Default interference function (i.e. absence of any interference).
 //! @ingroup interference
 
-class InterferenceFunctionNone : public IInterferenceFunction
-{
+class InterferenceFunctionNone : public IInterferenceFunction {
 public:
     InterferenceFunctionNone();
 
-    InterferenceFunctionNone* clone() const override final;
+    InterferenceFunctionNone* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
 private:
-    double iff_without_dw(const kvector_t q) const override final;
+    double iff_without_dw(const kvector_t q) const final;
 };
 
 #endif // BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONNONE_H

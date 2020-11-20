@@ -25,8 +25,7 @@ class IFormFactor;
 //! Requires IComponentService which generates form factors, used for bulk form factors testing.
 //! @ingroup standard_samples
 
-class ParticleInVacuumBuilder : public ISampleBuilder
-{
+class ParticleInVacuumBuilder : public ISampleBuilder {
 public:
     ParticleInVacuumBuilder();
     virtual MultiLayer* buildSample() const;

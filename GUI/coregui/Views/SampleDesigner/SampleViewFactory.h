@@ -20,8 +20,7 @@
 
 class IView;
 
-class SampleViewFactory
-{
+class SampleViewFactory {
 public:
     static bool isValidType(const QString& name);
     static IView* createSampleView(const QString& name);

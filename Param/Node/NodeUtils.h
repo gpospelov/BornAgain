@@ -19,8 +19,7 @@
 
 class INode;
 
-namespace NodeUtils
-{
+namespace NodeUtils {
 
 //! Returns multiline string representing tree structure starting from given node.
 std::string nodeToString(const INode& node);

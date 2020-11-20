@@ -22,8 +22,7 @@
 class SessionItem;
 class GroupInfo;
 
-namespace SessionItemUtils
-{
+namespace SessionItemUtils {
 //! Returns the index of the given item within its parent. Returns -1 when no parent is set.
 int ParentRow(const SessionItem& item);
 

@@ -20,17 +20,15 @@
 //! A frustum with equilateral trigonal base.
 //! @ingroup hardParticle
 
-class FormFactorTetrahedron : public IFormFactorPolyhedron
-{
+class FormFactorTetrahedron : public IFormFactorPolyhedron {
 public:
     FormFactorTetrahedron(const std::vector<double> P);
     FormFactorTetrahedron(double base_edge, double height, double alpha);
 
-    FormFactorTetrahedron* clone() const override final
-    {
+    FormFactorTetrahedron* clone() const final {
         return new FormFactorTetrahedron(m_base_edge, m_height, m_alpha);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
     double getHeight() const { return m_height; }
@@ -38,9 +36,9 @@ public:
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
+                                 kvector_t translation) const final;
 
-    void onChange() override final;
+    void onChange() final;
 
 private:
     static const PolyhedralTopology topology;

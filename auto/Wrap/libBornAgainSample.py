@@ -4066,7 +4066,7 @@ class FormFactorCrystal(IFormFactor):
     def clone(self):
         r"""
         clone(FormFactorCrystal self) -> FormFactorCrystal
-        FormFactorCrystal* FormFactorCrystal::clone() const override final
+        FormFactorCrystal* FormFactorCrystal::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -4076,7 +4076,7 @@ class FormFactorCrystal(IFormFactor):
     def accept(self, visitor):
         r"""
         accept(FormFactorCrystal self, INodeVisitor * visitor)
-        void FormFactorCrystal::accept(INodeVisitor *visitor) const override final
+        void FormFactorCrystal::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.FormFactorCrystal_accept(self, visitor)
@@ -4094,7 +4094,7 @@ class FormFactorCrystal(IFormFactor):
     def volume(self):
         r"""
         volume(FormFactorCrystal self) -> double
-        double FormFactorCrystal::volume() const override final
+        double FormFactorCrystal::volume() const override
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -4104,7 +4104,7 @@ class FormFactorCrystal(IFormFactor):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorCrystal self) -> double
-        double FormFactorCrystal::radialExtension() const override final
+        double FormFactorCrystal::radialExtension() const override
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -4124,7 +4124,7 @@ class FormFactorCrystal(IFormFactor):
     def topZ(self, rotation):
         r"""
         topZ(FormFactorCrystal self, IRotation rotation) -> double
-        double FormFactorCrystal::topZ(const IRotation &rotation) const override final
+        double FormFactorCrystal::topZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -4134,7 +4134,7 @@ class FormFactorCrystal(IFormFactor):
     def evaluate(self, wavevectors):
         r"""
         evaluate(FormFactorCrystal self, WavevectorInfo wavevectors) -> complex_t
-        complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override final
+        complex_t FormFactorCrystal::evaluate(const WavevectorInfo &wavevectors) const override
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -4148,7 +4148,7 @@ class FormFactorWeighted(IFormFactor):
     r"""
 
 
-    Coherent sum of different scalar  IFormFactor's with different weights.
+    Coherent sum of different scalar  IFormFactors with different weights.
 
     Used by  ParticleComposition. If same particles are at different positions, then consider FormFactorDecoratorMultiPositionFactor (restore from commit 0500a26de76).
 
@@ -4171,7 +4171,7 @@ class FormFactorWeighted(IFormFactor):
     def clone(self):
         r"""
         clone(FormFactorWeighted self) -> FormFactorWeighted
-        FormFactorWeighted * FormFactorWeighted::clone() const override final
+        FormFactorWeighted * FormFactorWeighted::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -4181,7 +4181,7 @@ class FormFactorWeighted(IFormFactor):
     def accept(self, visitor):
         r"""
         accept(FormFactorWeighted self, INodeVisitor * visitor)
-        void FormFactorWeighted::accept(INodeVisitor *visitor) const override final
+        void FormFactorWeighted::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.FormFactorWeighted_accept(self, visitor)
@@ -4189,7 +4189,7 @@ class FormFactorWeighted(IFormFactor):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorWeighted self) -> double
-        double FormFactorWeighted::radialExtension() const override final
+        double FormFactorWeighted::radialExtension() const override
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -4199,7 +4199,7 @@ class FormFactorWeighted(IFormFactor):
     def bottomZ(self, rotation):
         r"""
         bottomZ(FormFactorWeighted self, IRotation rotation) -> double
-        double FormFactorWeighted::bottomZ(const IRotation &rotation) const override final
+        double FormFactorWeighted::bottomZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -4209,7 +4209,7 @@ class FormFactorWeighted(IFormFactor):
     def topZ(self, rotation):
         r"""
         topZ(FormFactorWeighted self, IRotation rotation) -> double
-        double FormFactorWeighted::topZ(const IRotation &rotation) const override final
+        double FormFactorWeighted::topZ(const IRotation &rotation) const override
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -4227,7 +4227,7 @@ class FormFactorWeighted(IFormFactor):
     def setAmbientMaterial(self, material):
         r"""
         setAmbientMaterial(FormFactorWeighted self, Material material)
-        void FormFactorWeighted::setAmbientMaterial(const Material &material) override final
+        void FormFactorWeighted::setAmbientMaterial(const Material &material) override
 
         Passes the material in which this particle is embedded. 
 
@@ -4237,7 +4237,7 @@ class FormFactorWeighted(IFormFactor):
     def evaluate(self, wavevectors):
         r"""
         evaluate(FormFactorWeighted self, WavevectorInfo wavevectors) -> complex_t
-        complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override final
+        complex_t FormFactorWeighted::evaluate(const WavevectorInfo &wavevectors) const override
 
         Returns scattering amplitude for complex wavevectors ki, kf. 
 
@@ -4362,7 +4362,7 @@ class Crystal(ISample):
     def clone(self):
         r"""
         clone(Crystal self) -> Crystal
-        Crystal * Crystal::clone() const override final
+        Crystal * Crystal::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -4372,7 +4372,7 @@ class Crystal(ISample):
     def accept(self, visitor):
         r"""
         accept(Crystal self, INodeVisitor * visitor)
-        void Crystal::accept(INodeVisitor *visitor) const override final
+        void Crystal::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.Crystal_accept(self, visitor)
@@ -4404,7 +4404,7 @@ class Crystal(ISample):
     def getChildren(self):
         r"""
         getChildren(Crystal self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > Crystal::getChildren() const override final
+        std::vector< const INode * > Crystal::getChildren() const final
 
         """
         return _libBornAgainSample.Crystal_getChildren(self)
@@ -4495,7 +4495,7 @@ class IParticle(IAbstractParticle):
     def translate(self, translation):
         r"""
         translate(IParticle self, kvector_t translation)
-        void IParticle::translate(kvector_t translation) override final
+        void IParticle::translate(kvector_t translation) final
 
         Translates the particle. 
 
@@ -4525,7 +4525,7 @@ class IParticle(IAbstractParticle):
     def rotate(self, rotation):
         r"""
         rotate(IParticle self, IRotation rotation)
-        void IParticle::rotate(const IRotation &rotation) override final
+        void IParticle::rotate(const IRotation &rotation) final
 
         Rotates the particle. 
 
@@ -4606,7 +4606,7 @@ class MesoCrystal(IParticle):
     def clone(self):
         r"""
         clone(MesoCrystal self) -> MesoCrystal
-        MesoCrystal * MesoCrystal::clone() const override final
+        MesoCrystal * MesoCrystal::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -4616,7 +4616,7 @@ class MesoCrystal(IParticle):
     def accept(self, visitor):
         r"""
         accept(MesoCrystal self, INodeVisitor * visitor)
-        void MesoCrystal::accept(INodeVisitor *visitor) const override final
+        void MesoCrystal::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.MesoCrystal_accept(self, visitor)
@@ -4624,7 +4624,7 @@ class MesoCrystal(IParticle):
     def createSlicedParticle(self, limits):
         r"""
         createSlicedParticle(MesoCrystal self, ZLimits limits) -> SlicedParticle
-        SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const override final
+        SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const final
 
         Creates a sliced form factor for this particle. 
 
@@ -4634,7 +4634,7 @@ class MesoCrystal(IParticle):
     def getChildren(self):
         r"""
         getChildren(MesoCrystal self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > MesoCrystal::getChildren() const override final
+        std::vector< const INode * > MesoCrystal::getChildren() const final
 
         """
         return _libBornAgainSample.MesoCrystal_getChildren(self)
@@ -4669,7 +4669,7 @@ class Particle(IParticle):
     def clone(self):
         r"""
         clone(Particle self) -> Particle
-        Particle * Particle::clone() const override final
+        Particle * Particle::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -4679,7 +4679,7 @@ class Particle(IParticle):
     def accept(self, visitor):
         r"""
         accept(Particle self, INodeVisitor * visitor)
-        void Particle::accept(INodeVisitor *visitor) const override final
+        void Particle::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.Particle_accept(self, visitor)
@@ -4687,7 +4687,7 @@ class Particle(IParticle):
     def createSlicedParticle(self, limits):
         r"""
         createSlicedParticle(Particle self, ZLimits limits) -> SlicedParticle
-        SlicedParticle Particle::createSlicedParticle(ZLimits limits) const override final
+        SlicedParticle Particle::createSlicedParticle(ZLimits limits) const final
 
         Creates a sliced form factor for this particle. 
 
@@ -4705,7 +4705,7 @@ class Particle(IParticle):
     def material(self):
         r"""
         material(Particle self) -> Material
-        const Material* Particle::material() const override final
+        const Material* Particle::material() const final
 
         Returns nullptr, unless overwritten to return a specific material. 
 
@@ -4715,7 +4715,7 @@ class Particle(IParticle):
     def getChildren(self):
         r"""
         getChildren(Particle self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > Particle::getChildren() const override final
+        std::vector< const INode * > Particle::getChildren() const final
 
         """
         return _libBornAgainSample.Particle_getChildren(self)
@@ -4749,7 +4749,7 @@ class ParticleComposition(IParticle):
     def clone(self):
         r"""
         clone(ParticleComposition self) -> ParticleComposition
-        ParticleComposition * ParticleComposition::clone() const override final
+        ParticleComposition * ParticleComposition::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -4759,7 +4759,7 @@ class ParticleComposition(IParticle):
     def accept(self, visitor):
         r"""
         accept(ParticleComposition self, INodeVisitor * visitor)
-        void ParticleComposition::accept(INodeVisitor *visitor) const override final
+        void ParticleComposition::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.ParticleComposition_accept(self, visitor)
@@ -4767,7 +4767,7 @@ class ParticleComposition(IParticle):
     def createFormFactor(self):
         r"""
         createFormFactor(ParticleComposition self) -> IFormFactor
-        IFormFactor * ParticleComposition::createFormFactor() const override final
+        IFormFactor * ParticleComposition::createFormFactor() const final
 
         Creates a form factor for this particle. 
 
@@ -4804,7 +4804,7 @@ class ParticleComposition(IParticle):
     def getChildren(self):
         r"""
         getChildren(ParticleComposition self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > ParticleComposition::getChildren() const override final
+        std::vector< const INode * > ParticleComposition::getChildren() const final
 
         """
         return _libBornAgainSample.ParticleComposition_getChildren(self)
@@ -4812,7 +4812,7 @@ class ParticleComposition(IParticle):
     def decompose(self):
         r"""
         decompose(ParticleComposition self) -> SafePointerVector< IParticle >
-        SafePointerVector< IParticle > ParticleComposition::decompose() const override final
+        SafePointerVector< IParticle > ParticleComposition::decompose() const final
 
         Decompose in constituent  IParticle objects. 
 
@@ -4822,7 +4822,7 @@ class ParticleComposition(IParticle):
     def bottomTopZ(self):
         r"""
         bottomTopZ(ParticleComposition self) -> ParticleLimits
-        ParticleLimits ParticleComposition::bottomTopZ() const override final
+        ParticleLimits ParticleComposition::bottomTopZ() const final
 
         Top and bottom z-coordinate. 
 
@@ -4857,7 +4857,7 @@ class ParticleCoreShell(IParticle):
     def clone(self):
         r"""
         clone(ParticleCoreShell self) -> ParticleCoreShell
-        ParticleCoreShell * ParticleCoreShell::clone() const override final
+        ParticleCoreShell * ParticleCoreShell::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -4867,7 +4867,7 @@ class ParticleCoreShell(IParticle):
     def accept(self, visitor):
         r"""
         accept(ParticleCoreShell self, INodeVisitor * visitor)
-        void ParticleCoreShell::accept(INodeVisitor *visitor) const override final
+        void ParticleCoreShell::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.ParticleCoreShell_accept(self, visitor)
@@ -4875,7 +4875,7 @@ class ParticleCoreShell(IParticle):
     def createSlicedParticle(self, limits):
         r"""
         createSlicedParticle(ParticleCoreShell self, ZLimits limits) -> SlicedParticle
-        SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const override final
+        SlicedParticle ParticleCoreShell::createSlicedParticle(ZLimits limits) const final
 
         Creates a sliced form factor for this particle. 
 
@@ -4901,7 +4901,7 @@ class ParticleCoreShell(IParticle):
     def getChildren(self):
         r"""
         getChildren(ParticleCoreShell self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > ParticleCoreShell::getChildren() const override final
+        std::vector< const INode * > ParticleCoreShell::getChildren() const final
 
         """
         return _libBornAgainSample.ParticleCoreShell_getChildren(self)
@@ -4933,7 +4933,7 @@ class ParticleDistribution(IAbstractParticle):
     def clone(self):
         r"""
         clone(ParticleDistribution self) -> ParticleDistribution
-        ParticleDistribution * ParticleDistribution::clone() const override final
+        ParticleDistribution * ParticleDistribution::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -4943,7 +4943,7 @@ class ParticleDistribution(IAbstractParticle):
     def accept(self, visitor):
         r"""
         accept(ParticleDistribution self, INodeVisitor * visitor)
-        void ParticleDistribution::accept(INodeVisitor *visitor) const override final
+        void ParticleDistribution::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.ParticleDistribution_accept(self, visitor)
@@ -4951,7 +4951,7 @@ class ParticleDistribution(IAbstractParticle):
     def translate(self, translation):
         r"""
         translate(ParticleDistribution self, kvector_t translation)
-        void ParticleDistribution::translate(kvector_t translation) override final
+        void ParticleDistribution::translate(kvector_t translation) final
 
         Translates the particle with the given vector. 
 
@@ -4961,7 +4961,7 @@ class ParticleDistribution(IAbstractParticle):
     def rotate(self, rotation):
         r"""
         rotate(ParticleDistribution self, IRotation rotation)
-        void ParticleDistribution::rotate(const IRotation &rotation) override final
+        void ParticleDistribution::rotate(const IRotation &rotation) final
 
         Applies the given rotation to the particle. 
 
@@ -5003,7 +5003,7 @@ class ParticleDistribution(IAbstractParticle):
     def getChildren(self):
         r"""
         getChildren(ParticleDistribution self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > ParticleDistribution::getChildren() const override final
+        std::vector< const INode * > ParticleDistribution::getChildren() const final
 
         """
         return _libBornAgainSample.ParticleDistribution_getChildren(self)
@@ -5597,7 +5597,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
     def clone(self):
         r"""
         clone(FTDistribution1DCauchy self) -> FTDistribution1DCauchy
-        FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const override final
+        FTDistribution1DCauchy * FTDistribution1DCauchy::clone() const final
 
         """
         return _libBornAgainSample.FTDistribution1DCauchy_clone(self)
@@ -5605,7 +5605,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
     def accept(self, visitor):
         r"""
         accept(FTDistribution1DCauchy self, INodeVisitor * visitor)
-        void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const override final
+        void FTDistribution1DCauchy::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FTDistribution1DCauchy_accept(self, visitor)
@@ -5613,7 +5613,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
     def evaluate(self, q):
         r"""
         evaluate(FTDistribution1DCauchy self, double q) -> double
-        double FTDistribution1DCauchy::evaluate(double q) const override final
+        double FTDistribution1DCauchy::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -5623,7 +5623,7 @@ class FTDistribution1DCauchy(IFTDistribution1D):
     def qSecondDerivative(self):
         r"""
         qSecondDerivative(FTDistribution1DCauchy self) -> double
-        double FTDistribution1DCauchy::qSecondDerivative() const override final
+        double FTDistribution1DCauchy::qSecondDerivative() const final
 
         Returns the negative of the second order derivative in q space around q=0. 
 
@@ -5659,7 +5659,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
     def clone(self):
         r"""
         clone(FTDistribution1DGauss self) -> FTDistribution1DGauss
-        FTDistribution1DGauss * FTDistribution1DGauss::clone() const override final
+        FTDistribution1DGauss * FTDistribution1DGauss::clone() const final
 
         """
         return _libBornAgainSample.FTDistribution1DGauss_clone(self)
@@ -5667,7 +5667,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
     def accept(self, visitor):
         r"""
         accept(FTDistribution1DGauss self, INodeVisitor * visitor)
-        void FTDistribution1DGauss::accept(INodeVisitor *visitor) const override final
+        void FTDistribution1DGauss::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FTDistribution1DGauss_accept(self, visitor)
@@ -5675,7 +5675,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
     def evaluate(self, q):
         r"""
         evaluate(FTDistribution1DGauss self, double q) -> double
-        double FTDistribution1DGauss::evaluate(double q) const override final
+        double FTDistribution1DGauss::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -5685,7 +5685,7 @@ class FTDistribution1DGauss(IFTDistribution1D):
     def qSecondDerivative(self):
         r"""
         qSecondDerivative(FTDistribution1DGauss self) -> double
-        double FTDistribution1DGauss::qSecondDerivative() const override final
+        double FTDistribution1DGauss::qSecondDerivative() const final
 
         Returns the negative of the second order derivative in q space around q=0. 
 
@@ -5721,7 +5721,7 @@ class FTDistribution1DGate(IFTDistribution1D):
     def clone(self):
         r"""
         clone(FTDistribution1DGate self) -> FTDistribution1DGate
-        FTDistribution1DGate * FTDistribution1DGate::clone() const override final
+        FTDistribution1DGate * FTDistribution1DGate::clone() const final
 
         """
         return _libBornAgainSample.FTDistribution1DGate_clone(self)
@@ -5729,7 +5729,7 @@ class FTDistribution1DGate(IFTDistribution1D):
     def accept(self, visitor):
         r"""
         accept(FTDistribution1DGate self, INodeVisitor * visitor)
-        void FTDistribution1DGate::accept(INodeVisitor *visitor) const override final
+        void FTDistribution1DGate::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FTDistribution1DGate_accept(self, visitor)
@@ -5737,7 +5737,7 @@ class FTDistribution1DGate(IFTDistribution1D):
     def evaluate(self, q):
         r"""
         evaluate(FTDistribution1DGate self, double q) -> double
-        double FTDistribution1DGate::evaluate(double q) const override final
+        double FTDistribution1DGate::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -5747,7 +5747,7 @@ class FTDistribution1DGate(IFTDistribution1D):
     def qSecondDerivative(self):
         r"""
         qSecondDerivative(FTDistribution1DGate self) -> double
-        double FTDistribution1DGate::qSecondDerivative() const override final
+        double FTDistribution1DGate::qSecondDerivative() const final
 
         Returns the negative of the second order derivative in q space around q=0. 
 
@@ -5783,7 +5783,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     def clone(self):
         r"""
         clone(FTDistribution1DTriangle self) -> FTDistribution1DTriangle
-        FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const override final
+        FTDistribution1DTriangle * FTDistribution1DTriangle::clone() const final
 
         """
         return _libBornAgainSample.FTDistribution1DTriangle_clone(self)
@@ -5791,7 +5791,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     def accept(self, visitor):
         r"""
         accept(FTDistribution1DTriangle self, INodeVisitor * visitor)
-        void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const override final
+        void FTDistribution1DTriangle::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FTDistribution1DTriangle_accept(self, visitor)
@@ -5799,7 +5799,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     def evaluate(self, q):
         r"""
         evaluate(FTDistribution1DTriangle self, double q) -> double
-        double FTDistribution1DTriangle::evaluate(double q) const override final
+        double FTDistribution1DTriangle::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -5809,7 +5809,7 @@ class FTDistribution1DTriangle(IFTDistribution1D):
     def qSecondDerivative(self):
         r"""
         qSecondDerivative(FTDistribution1DTriangle self) -> double
-        double FTDistribution1DTriangle::qSecondDerivative() const override final
+        double FTDistribution1DTriangle::qSecondDerivative() const final
 
         Returns the negative of the second order derivative in q space around q=0. 
 
@@ -5845,7 +5845,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
     def clone(self):
         r"""
         clone(FTDistribution1DCosine self) -> FTDistribution1DCosine
-        FTDistribution1DCosine * FTDistribution1DCosine::clone() const override final
+        FTDistribution1DCosine * FTDistribution1DCosine::clone() const final
 
         """
         return _libBornAgainSample.FTDistribution1DCosine_clone(self)
@@ -5853,7 +5853,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
     def accept(self, visitor):
         r"""
         accept(FTDistribution1DCosine self, INodeVisitor * visitor)
-        void FTDistribution1DCosine::accept(INodeVisitor *visitor) const override final
+        void FTDistribution1DCosine::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FTDistribution1DCosine_accept(self, visitor)
@@ -5861,7 +5861,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
     def evaluate(self, q):
         r"""
         evaluate(FTDistribution1DCosine self, double q) -> double
-        double FTDistribution1DCosine::evaluate(double q) const override final
+        double FTDistribution1DCosine::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -5871,7 +5871,7 @@ class FTDistribution1DCosine(IFTDistribution1D):
     def qSecondDerivative(self):
         r"""
         qSecondDerivative(FTDistribution1DCosine self) -> double
-        double FTDistribution1DCosine::qSecondDerivative() const override final
+        double FTDistribution1DCosine::qSecondDerivative() const final
 
         Returns the negative of the second order derivative in q space around q=0. 
 
@@ -5907,7 +5907,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
     def clone(self):
         r"""
         clone(FTDistribution1DVoigt self) -> FTDistribution1DVoigt
-        FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const override final
+        FTDistribution1DVoigt * FTDistribution1DVoigt::clone() const final
 
         """
         return _libBornAgainSample.FTDistribution1DVoigt_clone(self)
@@ -5915,7 +5915,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
     def accept(self, visitor):
         r"""
         accept(FTDistribution1DVoigt self, INodeVisitor * visitor)
-        void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const override final
+        void FTDistribution1DVoigt::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FTDistribution1DVoigt_accept(self, visitor)
@@ -5923,7 +5923,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
     def evaluate(self, q):
         r"""
         evaluate(FTDistribution1DVoigt self, double q) -> double
-        double FTDistribution1DVoigt::evaluate(double q) const override final
+        double FTDistribution1DVoigt::evaluate(double q) const final
 
         Returns Fourier transform of this distribution; is a decay function starting at evaluate(0)=1. 
 
@@ -5941,7 +5941,7 @@ class FTDistribution1DVoigt(IFTDistribution1D):
     def qSecondDerivative(self):
         r"""
         qSecondDerivative(FTDistribution1DVoigt self) -> double
-        double FTDistribution1DVoigt::qSecondDerivative() const override final
+        double FTDistribution1DVoigt::qSecondDerivative() const final
 
         Returns the negative of the second order derivative in q space around q=0. 
 
@@ -6826,7 +6826,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunction1DLattice self) -> InterferenceFunction1DLattice
-        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override final
+        InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -6836,7 +6836,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunction1DLattice self, INodeVisitor * visitor)
-        void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.InterferenceFunction1DLattice_accept(self, visitor)
@@ -6876,7 +6876,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
     def getChildren(self):
         r"""
         getChildren(InterferenceFunction1DLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override final
+        std::vector< const INode * > InterferenceFunction1DLattice::getChildren() const override
 
         """
         return _libBornAgainSample.InterferenceFunction1DLattice_getChildren(self)
@@ -6909,7 +6909,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunction2DLattice self) -> InterferenceFunction2DLattice
-        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override final
+        InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -6919,7 +6919,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunction2DLattice self, INodeVisitor * visitor)
-        void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.InterferenceFunction2DLattice_accept(self, visitor)
@@ -6967,7 +6967,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     def getParticleDensity(self):
         r"""
         getParticleDensity(InterferenceFunction2DLattice self) -> double
-        double InterferenceFunction2DLattice::getParticleDensity() const override final
+        double InterferenceFunction2DLattice::getParticleDensity() const override
 
         Returns the particle density associated with this 2d lattice. 
 
@@ -6977,7 +6977,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     def getChildren(self):
         r"""
         getChildren(InterferenceFunction2DLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override final
+        std::vector< const INode * > InterferenceFunction2DLattice::getChildren() const override
 
         """
         return _libBornAgainSample.InterferenceFunction2DLattice_getChildren(self)
@@ -6985,7 +6985,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
     def onChange(self):
         r"""
         onChange(InterferenceFunction2DLattice self)
-        void InterferenceFunction2DLattice::onChange() override final
+        void InterferenceFunction2DLattice::onChange() override
 
         """
         return _libBornAgainSample.InterferenceFunction2DLattice_onChange(self)
@@ -7018,7 +7018,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunction2DParaCrystal self) -> InterferenceFunction2DParaCrystal
-        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override final
+        InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -7028,7 +7028,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunction2DParaCrystal self, INodeVisitor * visitor)
-        void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.InterferenceFunction2DParaCrystal_accept(self, visitor)
@@ -7138,7 +7138,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     def getParticleDensity(self):
         r"""
         getParticleDensity(InterferenceFunction2DParaCrystal self) -> double
-        double InterferenceFunction2DParaCrystal::getParticleDensity() const override final
+        double InterferenceFunction2DParaCrystal::getParticleDensity() const override
 
         If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 
@@ -7148,7 +7148,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
     def getChildren(self):
         r"""
         getChildren(InterferenceFunction2DParaCrystal self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override final
+        std::vector< const INode * > InterferenceFunction2DParaCrystal::getChildren() const override
 
         """
         return _libBornAgainSample.InterferenceFunction2DParaCrystal_getChildren(self)
@@ -7221,7 +7221,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice
-        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override final
+        InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -7231,7 +7231,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunction2DSuperLattice self, INodeVisitor * visitor)
-        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.InterferenceFunction2DSuperLattice_accept(self, visitor)
@@ -7255,7 +7255,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
     def evaluate(self, q, outer_iff=1.0):
         r"""
         evaluate(InterferenceFunction2DSuperLattice self, kvector_t q, double outer_iff=1.0) -> double
-        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override final
+        double InterferenceFunction2DSuperLattice::evaluate(const kvector_t q, double outer_iff=1.0) const override
 
         Evaluates the interference function for a given wavevector transfer. 
 
@@ -7305,7 +7305,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
     def getChildren(self):
         r"""
         getChildren(InterferenceFunction2DSuperLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override final
+        std::vector< const INode * > InterferenceFunction2DSuperLattice::getChildren() const override
 
         """
         return _libBornAgainSample.InterferenceFunction2DSuperLattice_getChildren(self)
@@ -7338,7 +7338,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
-        InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override final
+        InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -7348,7 +7348,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunction3DLattice self, INodeVisitor * visitor)
-        void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.InterferenceFunction3DLattice_accept(self, visitor)
@@ -7372,7 +7372,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
     def supportsMultilayer(self):
         r"""
         supportsMultilayer(InterferenceFunction3DLattice self) -> bool
-        bool InterferenceFunction3DLattice::supportsMultilayer() const override final
+        bool InterferenceFunction3DLattice::supportsMultilayer() const override
 
         Indicates if this interference function can be used with a multilayer (DWBA mode) 
 
@@ -7382,7 +7382,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
     def getChildren(self):
         r"""
         getChildren(InterferenceFunction3DLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override final
+        std::vector< const INode * > InterferenceFunction3DLattice::getChildren() const override
 
         """
         return _libBornAgainSample.InterferenceFunction3DLattice_getChildren(self)
@@ -7390,7 +7390,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
     def onChange(self):
         r"""
         onChange(InterferenceFunction3DLattice self)
-        void InterferenceFunction3DLattice::onChange() override final
+        void InterferenceFunction3DLattice::onChange() override
 
         """
         return _libBornAgainSample.InterferenceFunction3DLattice_onChange(self)
@@ -7437,7 +7437,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunctionFinite2DLattice self) -> InterferenceFunctionFinite2DLattice
-        InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override final
+        InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -7447,7 +7447,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunctionFinite2DLattice self, INodeVisitor * visitor)
-        void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.InterferenceFunctionFinite2DLattice_accept(self, visitor)
@@ -7495,7 +7495,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
     def getParticleDensity(self):
         r"""
         getParticleDensity(InterferenceFunctionFinite2DLattice self) -> double
-        double InterferenceFunctionFinite2DLattice::getParticleDensity() const override final
+        double InterferenceFunctionFinite2DLattice::getParticleDensity() const override
 
         Returns the particle density associated with this 2d lattice. 
 
@@ -7505,7 +7505,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
     def getChildren(self):
         r"""
         getChildren(InterferenceFunctionFinite2DLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override final
+        std::vector< const INode * > InterferenceFunctionFinite2DLattice::getChildren() const override
 
         """
         return _libBornAgainSample.InterferenceFunctionFinite2DLattice_getChildren(self)
@@ -7538,7 +7538,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunctionFinite3DLattice self) -> InterferenceFunctionFinite3DLattice
-        InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override final
+        InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -7548,7 +7548,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunctionFinite3DLattice self, INodeVisitor * visitor)
-        void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.InterferenceFunctionFinite3DLattice_accept(self, visitor)
@@ -7588,7 +7588,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
     def supportsMultilayer(self):
         r"""
         supportsMultilayer(InterferenceFunctionFinite3DLattice self) -> bool
-        bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override final
+        bool InterferenceFunctionFinite3DLattice::supportsMultilayer() const override
 
         Indicates if this interference function can be used with a multilayer (DWBA mode) 
 
@@ -7598,7 +7598,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
     def getChildren(self):
         r"""
         getChildren(InterferenceFunctionFinite3DLattice self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override final
+        std::vector< const INode * > InterferenceFunctionFinite3DLattice::getChildren() const override
 
         """
         return _libBornAgainSample.InterferenceFunctionFinite3DLattice_getChildren(self)
@@ -7633,7 +7633,7 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunctionHardDisk self) -> InterferenceFunctionHardDisk
-        InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override final
+        InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override
 
         Returns a clone of this  ISample object. 
 
@@ -7643,7 +7643,7 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunctionHardDisk self, INodeVisitor * visitor)
-        void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override
 
         """
         return _libBornAgainSample.InterferenceFunctionHardDisk_accept(self, visitor)
@@ -7651,7 +7651,7 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
     def getParticleDensity(self):
         r"""
         getParticleDensity(InterferenceFunctionHardDisk self) -> double
-        double InterferenceFunctionHardDisk::getParticleDensity() const override final
+        double InterferenceFunctionHardDisk::getParticleDensity() const override
 
         If defined by this interference function's parameters, returns the particle density (per area). Otherwise, returns zero or a user-defined value 
 
@@ -7701,7 +7701,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunctionNone self) -> InterferenceFunctionNone
-        InterferenceFunctionNone * InterferenceFunctionNone::clone() const override final
+        InterferenceFunctionNone * InterferenceFunctionNone::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -7711,7 +7711,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunctionNone self, INodeVisitor * visitor)
-        void InterferenceFunctionNone::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunctionNone::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.InterferenceFunctionNone_accept(self, visitor)
@@ -7755,7 +7755,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
-        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const override final
+        InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -7765,7 +7765,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunctionRadialParaCrystal self, INodeVisitor * visitor)
-        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.InterferenceFunctionRadialParaCrystal_accept(self, visitor)
@@ -7855,7 +7855,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
     def getChildren(self):
         r"""
         getChildren(InterferenceFunctionRadialParaCrystal self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const override final
+        std::vector< const INode * > InterferenceFunctionRadialParaCrystal::getChildren() const final
 
         """
         return _libBornAgainSample.InterferenceFunctionRadialParaCrystal_getChildren(self)
@@ -7896,7 +7896,7 @@ class InterferenceFunctionTwin(IInterferenceFunction):
     def clone(self):
         r"""
         clone(InterferenceFunctionTwin self) -> InterferenceFunctionTwin
-        InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const override final
+        InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -7906,7 +7906,7 @@ class InterferenceFunctionTwin(IInterferenceFunction):
     def accept(self, visitor):
         r"""
         accept(InterferenceFunctionTwin self, INodeVisitor * visitor)
-        void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const override final
+        void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.InterferenceFunctionTwin_accept(self, visitor)
@@ -8262,7 +8262,7 @@ class Layer(ISample):
     def clone(self):
         r"""
         clone(Layer self) -> Layer
-        Layer * Layer::clone() const override final
+        Layer * Layer::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -8272,7 +8272,7 @@ class Layer(ISample):
     def accept(self, visitor):
         r"""
         accept(Layer self, INodeVisitor * visitor)
-        void Layer::accept(INodeVisitor *visitor) const override final
+        void Layer::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.Layer_accept(self, visitor)
@@ -8298,7 +8298,7 @@ class Layer(ISample):
     def material(self):
         r"""
         material(Layer self) -> Material
-        const Material* Layer::material() const override final
+        const Material* Layer::material() const final
 
         Returns nullptr, unless overwritten to return a specific material. 
 
@@ -8340,7 +8340,7 @@ class Layer(ISample):
     def getChildren(self):
         r"""
         getChildren(Layer self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > Layer::getChildren() const override final
+        std::vector< const INode * > Layer::getChildren() const final
 
         """
         return _libBornAgainSample.Layer_getChildren(self)
@@ -8399,7 +8399,7 @@ class MultiLayer(ISample):
     def clone(self):
         r"""
         clone(MultiLayer self) -> MultiLayer
-        MultiLayer * MultiLayer::clone() const final override
+        MultiLayer * MultiLayer::clone() const final
 
         Returns a clone of multilayer with clones of all layers and interfaces between layers 
 
@@ -8409,7 +8409,7 @@ class MultiLayer(ISample):
     def accept(self, visitor):
         r"""
         accept(MultiLayer self, INodeVisitor * visitor)
-        void MultiLayer::accept(INodeVisitor *visitor) const final override
+        void MultiLayer::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.MultiLayer_accept(self, visitor)
@@ -8507,7 +8507,7 @@ class MultiLayer(ISample):
     def getChildren(self):
         r"""
         getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector
-        std::vector< const INode * > MultiLayer::getChildren() const final override
+        std::vector< const INode * > MultiLayer::getChildren() const final
 
         """
         return _libBornAgainSample.MultiLayer_getChildren(self)
@@ -8570,7 +8570,7 @@ class IFormFactorPolyhedron(IBornFF):
     def bottomZ(self, rotation):
         r"""
         bottomZ(IFormFactorPolyhedron self, IRotation rotation) -> double
-        double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const override final
+        double IFormFactorPolyhedron::bottomZ(const IRotation &rotation) const final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -8580,7 +8580,7 @@ class IFormFactorPolyhedron(IBornFF):
     def topZ(self, rotation):
         r"""
         topZ(IFormFactorPolyhedron self, IRotation rotation) -> double
-        double IFormFactorPolyhedron::topZ(const IRotation &rotation) const override final
+        double IFormFactorPolyhedron::topZ(const IRotation &rotation) const final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -8590,7 +8590,7 @@ class IFormFactorPolyhedron(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(IFormFactorPolyhedron self, cvector_t q) -> complex_t
-        complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const override final
+        complex_t IFormFactorPolyhedron::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -8608,7 +8608,7 @@ class IFormFactorPolyhedron(IBornFF):
     def volume(self):
         r"""
         volume(IFormFactorPolyhedron self) -> double
-        double IFormFactorPolyhedron::volume() const override final
+        double IFormFactorPolyhedron::volume() const final
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -8618,7 +8618,7 @@ class IFormFactorPolyhedron(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(IFormFactorPolyhedron self) -> double
-        double IFormFactorPolyhedron::radialExtension() const override final
+        double IFormFactorPolyhedron::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -8658,7 +8658,7 @@ class IFormFactorPrism(IBornFF):
     def bottomZ(self, rotation):
         r"""
         bottomZ(IFormFactorPrism self, IRotation rotation) -> double
-        double IFormFactorPrism::bottomZ(const IRotation &rotation) const override final
+        double IFormFactorPrism::bottomZ(const IRotation &rotation) const final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -8668,7 +8668,7 @@ class IFormFactorPrism(IBornFF):
     def topZ(self, rotation):
         r"""
         topZ(IFormFactorPrism self, IRotation rotation) -> double
-        double IFormFactorPrism::topZ(const IRotation &rotation) const override final
+        double IFormFactorPrism::topZ(const IRotation &rotation) const final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -8759,7 +8759,7 @@ class IProfileRipple(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(IProfileRipple self) -> double
-        double IProfileRipple::radialExtension() const override final
+        double IProfileRipple::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -8769,7 +8769,7 @@ class IProfileRipple(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(IProfileRipple self, cvector_t q) -> complex_t
-        complex_t IProfileRipple::evaluate_for_q(cvector_t q) const override final
+        complex_t IProfileRipple::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -8873,7 +8873,7 @@ class FormFactorAnisoPyramid(IFormFactorPolyhedron):
     def clone(self):
         r"""
         clone(FormFactorAnisoPyramid self) -> FormFactorAnisoPyramid
-        FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const override final
+        FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -8883,7 +8883,7 @@ class FormFactorAnisoPyramid(IFormFactorPolyhedron):
     def accept(self, visitor):
         r"""
         accept(FormFactorAnisoPyramid self, INodeVisitor * visitor)
-        void FormFactorAnisoPyramid::accept(INodeVisitor *visitor) const override final
+        void FormFactorAnisoPyramid::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorAnisoPyramid_accept(self, visitor)
@@ -8949,7 +8949,7 @@ class FormFactorBox(IFormFactorPrism):
     def clone(self):
         r"""
         clone(FormFactorBox self) -> FormFactorBox
-        FormFactorBox* FormFactorBox::clone() const override final
+        FormFactorBox* FormFactorBox::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -8959,7 +8959,7 @@ class FormFactorBox(IFormFactorPrism):
     def accept(self, visitor):
         r"""
         accept(FormFactorBox self, INodeVisitor * visitor)
-        void FormFactorBox::accept(INodeVisitor *visitor) const override final
+        void FormFactorBox::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorBox_accept(self, visitor)
@@ -8983,7 +8983,7 @@ class FormFactorBox(IFormFactorPrism):
     def volume(self):
         r"""
         volume(FormFactorBox self) -> double
-        double FormFactorBox::volume() const override final
+        double FormFactorBox::volume() const final
 
         Returns the total volume of the particle of this form factor's shape. 
 
@@ -8993,7 +8993,7 @@ class FormFactorBox(IFormFactorPrism):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorBox self) -> double
-        double FormFactorBox::radialExtension() const override final
+        double FormFactorBox::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -9003,7 +9003,7 @@ class FormFactorBox(IFormFactorPrism):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorBox self, cvector_t q) -> complex_t
-        complex_t FormFactorBox::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorBox::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -9039,7 +9039,7 @@ class FormFactorCantellatedCube(IFormFactorPolyhedron):
     def clone(self):
         r"""
         clone(FormFactorCantellatedCube self) -> FormFactorCantellatedCube
-        FormFactorCantellatedCube* FormFactorCantellatedCube::clone() const override final
+        FormFactorCantellatedCube* FormFactorCantellatedCube::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9049,7 +9049,7 @@ class FormFactorCantellatedCube(IFormFactorPolyhedron):
     def accept(self, visitor):
         r"""
         accept(FormFactorCantellatedCube self, INodeVisitor * visitor)
-        void FormFactorCantellatedCube::accept(INodeVisitor *visitor) const override final
+        void FormFactorCantellatedCube::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorCantellatedCube_accept(self, visitor)
@@ -9099,7 +9099,7 @@ class FormFactorCone(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorCone self) -> FormFactorCone
-        FormFactorCone* FormFactorCone::clone() const override final
+        FormFactorCone* FormFactorCone::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9109,7 +9109,7 @@ class FormFactorCone(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorCone self, INodeVisitor * visitor)
-        void FormFactorCone::accept(INodeVisitor *visitor) const override final
+        void FormFactorCone::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorCone_accept(self, visitor)
@@ -9141,7 +9141,7 @@ class FormFactorCone(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorCone self) -> double
-        double FormFactorCone::radialExtension() const override final
+        double FormFactorCone::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -9151,7 +9151,7 @@ class FormFactorCone(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorCone self, cvector_t q) -> complex_t
-        complex_t FormFactorCone::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorCone::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -9187,7 +9187,7 @@ class FormFactorCone6(IFormFactorPolyhedron):
     def clone(self):
         r"""
         clone(FormFactorCone6 self) -> FormFactorCone6
-        FormFactorCone6* FormFactorCone6::clone() const override final
+        FormFactorCone6* FormFactorCone6::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9197,7 +9197,7 @@ class FormFactorCone6(IFormFactorPolyhedron):
     def accept(self, visitor):
         r"""
         accept(FormFactorCone6 self, INodeVisitor * visitor)
-        void FormFactorCone6::accept(INodeVisitor *visitor) const override final
+        void FormFactorCone6::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorCone6_accept(self, visitor)
@@ -9255,7 +9255,7 @@ class FormFactorCosineRippleBox(ICosineRipple):
     def clone(self):
         r"""
         clone(FormFactorCosineRippleBox self) -> FormFactorCosineRippleBox
-        FormFactorCosineRippleBox * FormFactorCosineRippleBox::clone() const override final
+        FormFactorCosineRippleBox * FormFactorCosineRippleBox::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9265,7 +9265,7 @@ class FormFactorCosineRippleBox(ICosineRipple):
     def accept(self, visitor):
         r"""
         accept(FormFactorCosineRippleBox self, INodeVisitor * visitor)
-        void FormFactorCosineRippleBox::accept(INodeVisitor *visitor) const override final
+        void FormFactorCosineRippleBox::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorCosineRippleBox_accept(self, visitor)
@@ -9299,7 +9299,7 @@ class FormFactorCosineRippleGauss(ICosineRipple):
     def clone(self):
         r"""
         clone(FormFactorCosineRippleGauss self) -> FormFactorCosineRippleGauss
-        FormFactorCosineRippleGauss * FormFactorCosineRippleGauss::clone() const override final
+        FormFactorCosineRippleGauss * FormFactorCosineRippleGauss::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9309,7 +9309,7 @@ class FormFactorCosineRippleGauss(ICosineRipple):
     def accept(self, visitor):
         r"""
         accept(FormFactorCosineRippleGauss self, INodeVisitor * visitor)
-        void FormFactorCosineRippleGauss::accept(INodeVisitor *visitor) const override final
+        void FormFactorCosineRippleGauss::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorCosineRippleGauss_accept(self, visitor)
@@ -9343,7 +9343,7 @@ class FormFactorCosineRippleLorentz(ICosineRipple):
     def clone(self):
         r"""
         clone(FormFactorCosineRippleLorentz self) -> FormFactorCosineRippleLorentz
-        FormFactorCosineRippleLorentz * FormFactorCosineRippleLorentz::clone() const override final
+        FormFactorCosineRippleLorentz * FormFactorCosineRippleLorentz::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9353,7 +9353,7 @@ class FormFactorCosineRippleLorentz(ICosineRipple):
     def accept(self, visitor):
         r"""
         accept(FormFactorCosineRippleLorentz self, INodeVisitor * visitor)
-        void FormFactorCosineRippleLorentz::accept(INodeVisitor *visitor) const override final
+        void FormFactorCosineRippleLorentz::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorCosineRippleLorentz_accept(self, visitor)
@@ -9387,7 +9387,7 @@ class FormFactorCuboctahedron(IFormFactorPolyhedron):
     def clone(self):
         r"""
         clone(FormFactorCuboctahedron self) -> FormFactorCuboctahedron
-        FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const override final
+        FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9397,7 +9397,7 @@ class FormFactorCuboctahedron(IFormFactorPolyhedron):
     def accept(self, visitor):
         r"""
         accept(FormFactorCuboctahedron self, INodeVisitor * visitor)
-        void FormFactorCuboctahedron::accept(INodeVisitor *visitor) const override final
+        void FormFactorCuboctahedron::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorCuboctahedron_accept(self, visitor)
@@ -9463,7 +9463,7 @@ class FormFactorCylinder(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorCylinder self) -> FormFactorCylinder
-        FormFactorCylinder* FormFactorCylinder::clone() const override final
+        FormFactorCylinder* FormFactorCylinder::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9473,7 +9473,7 @@ class FormFactorCylinder(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorCylinder self, INodeVisitor * visitor)
-        void FormFactorCylinder::accept(INodeVisitor *visitor) const override final
+        void FormFactorCylinder::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorCylinder_accept(self, visitor)
@@ -9497,7 +9497,7 @@ class FormFactorCylinder(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorCylinder self) -> double
-        double FormFactorCylinder::radialExtension() const override final
+        double FormFactorCylinder::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -9507,7 +9507,7 @@ class FormFactorCylinder(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorCylinder self, cvector_t q) -> complex_t
-        complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -9543,7 +9543,7 @@ class FormFactorDodecahedron(IFormFactorPolyhedron):
     def clone(self):
         r"""
         clone(FormFactorDodecahedron self) -> FormFactorDodecahedron
-        FormFactorDodecahedron* FormFactorDodecahedron::clone() const override final
+        FormFactorDodecahedron* FormFactorDodecahedron::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9553,7 +9553,7 @@ class FormFactorDodecahedron(IFormFactorPolyhedron):
     def accept(self, visitor):
         r"""
         accept(FormFactorDodecahedron self, INodeVisitor * visitor)
-        void FormFactorDodecahedron::accept(INodeVisitor *visitor) const override final
+        void FormFactorDodecahedron::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorDodecahedron_accept(self, visitor)
@@ -9595,7 +9595,7 @@ class FormFactorDot(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorDot self) -> FormFactorDot
-        FormFactorDot* FormFactorDot::clone() const override final
+        FormFactorDot* FormFactorDot::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9605,7 +9605,7 @@ class FormFactorDot(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorDot self, INodeVisitor * visitor)
-        void FormFactorDot::accept(INodeVisitor *visitor) const override final
+        void FormFactorDot::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorDot_accept(self, visitor)
@@ -9621,7 +9621,7 @@ class FormFactorDot(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorDot self) -> double
-        double FormFactorDot::radialExtension() const override final
+        double FormFactorDot::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -9631,7 +9631,7 @@ class FormFactorDot(IBornFF):
     def bottomZ(self, arg2):
         r"""
         bottomZ(FormFactorDot self, IRotation arg2) -> double
-        double FormFactorDot::bottomZ(const IRotation &) const override final
+        double FormFactorDot::bottomZ(const IRotation &) const final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -9641,7 +9641,7 @@ class FormFactorDot(IBornFF):
     def topZ(self, arg2):
         r"""
         topZ(FormFactorDot self, IRotation arg2) -> double
-        double FormFactorDot::topZ(const IRotation &) const override final
+        double FormFactorDot::topZ(const IRotation &) const final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -9651,7 +9651,7 @@ class FormFactorDot(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorDot self, cvector_t q) -> complex_t
-        complex_t FormFactorDot::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorDot::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -9687,7 +9687,7 @@ class FormFactorEllipsoidalCylinder(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorEllipsoidalCylinder self) -> FormFactorEllipsoidalCylinder
-        FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const override final
+        FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9697,7 +9697,7 @@ class FormFactorEllipsoidalCylinder(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorEllipsoidalCylinder self, INodeVisitor * visitor)
-        void FormFactorEllipsoidalCylinder::accept(INodeVisitor *visitor) const override final
+        void FormFactorEllipsoidalCylinder::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorEllipsoidalCylinder_accept(self, visitor)
@@ -9729,7 +9729,7 @@ class FormFactorEllipsoidalCylinder(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorEllipsoidalCylinder self) -> double
-        double FormFactorEllipsoidalCylinder::radialExtension() const override final
+        double FormFactorEllipsoidalCylinder::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -9739,7 +9739,7 @@ class FormFactorEllipsoidalCylinder(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorEllipsoidalCylinder self, cvector_t q) -> complex_t
-        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -9775,7 +9775,7 @@ class FormFactorFullSphere(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorFullSphere self) -> FormFactorFullSphere
-        FormFactorFullSphere* FormFactorFullSphere::clone() const override final
+        FormFactorFullSphere* FormFactorFullSphere::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9785,7 +9785,7 @@ class FormFactorFullSphere(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorFullSphere self, INodeVisitor * visitor)
-        void FormFactorFullSphere::accept(INodeVisitor *visitor) const override final
+        void FormFactorFullSphere::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorFullSphere_accept(self, visitor)
@@ -9801,7 +9801,7 @@ class FormFactorFullSphere(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorFullSphere self) -> double
-        double FormFactorFullSphere::radialExtension() const override final
+        double FormFactorFullSphere::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -9811,7 +9811,7 @@ class FormFactorFullSphere(IBornFF):
     def bottomZ(self, rotation):
         r"""
         bottomZ(FormFactorFullSphere self, IRotation rotation) -> double
-        double FormFactorFullSphere::bottomZ(const IRotation &rotation) const override final
+        double FormFactorFullSphere::bottomZ(const IRotation &rotation) const final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -9821,7 +9821,7 @@ class FormFactorFullSphere(IBornFF):
     def topZ(self, rotation):
         r"""
         topZ(FormFactorFullSphere self, IRotation rotation) -> double
-        double FormFactorFullSphere::topZ(const IRotation &rotation) const override final
+        double FormFactorFullSphere::topZ(const IRotation &rotation) const final
 
         Returns the z-coordinate of the lowest point in this shape after a given rotation. 
 
@@ -9831,7 +9831,7 @@ class FormFactorFullSphere(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorFullSphere self, cvector_t q) -> complex_t
-        complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -9867,7 +9867,7 @@ class FormFactorFullSpheroid(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorFullSpheroid self) -> FormFactorFullSpheroid
-        FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const override final
+        FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9877,7 +9877,7 @@ class FormFactorFullSpheroid(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorFullSpheroid self, INodeVisitor * visitor)
-        void FormFactorFullSpheroid::accept(INodeVisitor *visitor) const override final
+        void FormFactorFullSpheroid::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorFullSpheroid_accept(self, visitor)
@@ -9901,7 +9901,7 @@ class FormFactorFullSpheroid(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorFullSpheroid self) -> double
-        double FormFactorFullSpheroid::radialExtension() const override final
+        double FormFactorFullSpheroid::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -9911,7 +9911,7 @@ class FormFactorFullSpheroid(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorFullSpheroid self, cvector_t q) -> complex_t
-        complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorFullSpheroid::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -9948,7 +9948,7 @@ class FormFactorHemiEllipsoid(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorHemiEllipsoid self) -> FormFactorHemiEllipsoid
-        FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const override final
+        FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -9958,7 +9958,7 @@ class FormFactorHemiEllipsoid(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorHemiEllipsoid self, INodeVisitor * visitor)
-        void FormFactorHemiEllipsoid::accept(INodeVisitor *visitor) const override final
+        void FormFactorHemiEllipsoid::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorHemiEllipsoid_accept(self, visitor)
@@ -9990,7 +9990,7 @@ class FormFactorHemiEllipsoid(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorHemiEllipsoid self) -> double
-        double FormFactorHemiEllipsoid::radialExtension() const override final
+        double FormFactorHemiEllipsoid::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10000,7 +10000,7 @@ class FormFactorHemiEllipsoid(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorHemiEllipsoid self, cvector_t q) -> complex_t
-        complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -10035,7 +10035,7 @@ class FormFactorHollowSphere(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorHollowSphere self) -> FormFactorHollowSphere
-        FormFactorHollowSphere* FormFactorHollowSphere::clone() const override final
+        FormFactorHollowSphere* FormFactorHollowSphere::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10045,7 +10045,7 @@ class FormFactorHollowSphere(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorHollowSphere self, INodeVisitor * visitor)
-        void FormFactorHollowSphere::accept(INodeVisitor *visitor) const override final
+        void FormFactorHollowSphere::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorHollowSphere_accept(self, visitor)
@@ -10053,7 +10053,7 @@ class FormFactorHollowSphere(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorHollowSphere self) -> double
-        double FormFactorHollowSphere::radialExtension() const override final
+        double FormFactorHollowSphere::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10063,7 +10063,7 @@ class FormFactorHollowSphere(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorHollowSphere self, cvector_t q) -> complex_t
-        complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -10099,7 +10099,7 @@ class FormFactorIcosahedron(IFormFactorPolyhedron):
     def clone(self):
         r"""
         clone(FormFactorIcosahedron self) -> FormFactorIcosahedron
-        FormFactorIcosahedron* FormFactorIcosahedron::clone() const override final
+        FormFactorIcosahedron* FormFactorIcosahedron::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10109,7 +10109,7 @@ class FormFactorIcosahedron(IFormFactorPolyhedron):
     def accept(self, visitor):
         r"""
         accept(FormFactorIcosahedron self, INodeVisitor * visitor)
-        void FormFactorIcosahedron::accept(INodeVisitor *visitor) const override final
+        void FormFactorIcosahedron::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorIcosahedron_accept(self, visitor)
@@ -10151,7 +10151,7 @@ class FormFactorLongBoxGauss(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorLongBoxGauss self) -> FormFactorLongBoxGauss
-        FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const override final
+        FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10161,7 +10161,7 @@ class FormFactorLongBoxGauss(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorLongBoxGauss self, INodeVisitor * visitor)
-        void FormFactorLongBoxGauss::accept(INodeVisitor *visitor) const override final
+        void FormFactorLongBoxGauss::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorLongBoxGauss_accept(self, visitor)
@@ -10193,7 +10193,7 @@ class FormFactorLongBoxGauss(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorLongBoxGauss self) -> double
-        double FormFactorLongBoxGauss::radialExtension() const override final
+        double FormFactorLongBoxGauss::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10203,7 +10203,7 @@ class FormFactorLongBoxGauss(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorLongBoxGauss self, cvector_t q) -> complex_t
-        complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorLongBoxGauss::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -10239,7 +10239,7 @@ class FormFactorLongBoxLorentz(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorLongBoxLorentz self) -> FormFactorLongBoxLorentz
-        FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const override final
+        FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10249,7 +10249,7 @@ class FormFactorLongBoxLorentz(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorLongBoxLorentz self, INodeVisitor * visitor)
-        void FormFactorLongBoxLorentz::accept(INodeVisitor *visitor) const override final
+        void FormFactorLongBoxLorentz::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorLongBoxLorentz_accept(self, visitor)
@@ -10281,7 +10281,7 @@ class FormFactorLongBoxLorentz(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorLongBoxLorentz self) -> double
-        double FormFactorLongBoxLorentz::radialExtension() const override final
+        double FormFactorLongBoxLorentz::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10291,7 +10291,7 @@ class FormFactorLongBoxLorentz(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorLongBoxLorentz self, cvector_t q) -> complex_t
-        complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorLongBoxLorentz::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -10327,7 +10327,7 @@ class FormFactorPrism3(IFormFactorPrism):
     def clone(self):
         r"""
         clone(FormFactorPrism3 self) -> FormFactorPrism3
-        FormFactorPrism3* FormFactorPrism3::clone() const override final
+        FormFactorPrism3* FormFactorPrism3::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10337,7 +10337,7 @@ class FormFactorPrism3(IFormFactorPrism):
     def accept(self, visitor):
         r"""
         accept(FormFactorPrism3 self, INodeVisitor * visitor)
-        void FormFactorPrism3::accept(INodeVisitor *visitor) const override final
+        void FormFactorPrism3::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorPrism3_accept(self, visitor)
@@ -10379,7 +10379,7 @@ class FormFactorPrism6(IFormFactorPrism):
     def clone(self):
         r"""
         clone(FormFactorPrism6 self) -> FormFactorPrism6
-        FormFactorPrism6* FormFactorPrism6::clone() const override final
+        FormFactorPrism6* FormFactorPrism6::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10389,7 +10389,7 @@ class FormFactorPrism6(IFormFactorPrism):
     def accept(self, visitor):
         r"""
         accept(FormFactorPrism6 self, INodeVisitor * visitor)
-        void FormFactorPrism6::accept(INodeVisitor *visitor) const override final
+        void FormFactorPrism6::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorPrism6_accept(self, visitor)
@@ -10431,7 +10431,7 @@ class FormFactorPyramid(IFormFactorPolyhedron):
     def clone(self):
         r"""
         clone(FormFactorPyramid self) -> FormFactorPyramid
-        FormFactorPyramid* FormFactorPyramid::clone() const override final
+        FormFactorPyramid* FormFactorPyramid::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10441,7 +10441,7 @@ class FormFactorPyramid(IFormFactorPolyhedron):
     def accept(self, visitor):
         r"""
         accept(FormFactorPyramid self, INodeVisitor * visitor)
-        void FormFactorPyramid::accept(INodeVisitor *visitor) const override final
+        void FormFactorPyramid::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorPyramid_accept(self, visitor)
@@ -10499,7 +10499,7 @@ class FormFactorSawtoothRippleBox(ISawtoothRipple):
     def clone(self):
         r"""
         clone(FormFactorSawtoothRippleBox self) -> FormFactorSawtoothRippleBox
-        FormFactorSawtoothRippleBox * FormFactorSawtoothRippleBox::clone() const override final
+        FormFactorSawtoothRippleBox * FormFactorSawtoothRippleBox::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10509,7 +10509,7 @@ class FormFactorSawtoothRippleBox(ISawtoothRipple):
     def accept(self, visitor):
         r"""
         accept(FormFactorSawtoothRippleBox self, INodeVisitor * visitor)
-        void FormFactorSawtoothRippleBox::accept(INodeVisitor *visitor) const override final
+        void FormFactorSawtoothRippleBox::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorSawtoothRippleBox_accept(self, visitor)
@@ -10543,7 +10543,7 @@ class FormFactorSawtoothRippleGauss(ISawtoothRipple):
     def clone(self):
         r"""
         clone(FormFactorSawtoothRippleGauss self) -> FormFactorSawtoothRippleGauss
-        FormFactorSawtoothRippleGauss * FormFactorSawtoothRippleGauss::clone() const override final
+        FormFactorSawtoothRippleGauss * FormFactorSawtoothRippleGauss::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10553,7 +10553,7 @@ class FormFactorSawtoothRippleGauss(ISawtoothRipple):
     def accept(self, visitor):
         r"""
         accept(FormFactorSawtoothRippleGauss self, INodeVisitor * visitor)
-        void FormFactorSawtoothRippleGauss::accept(INodeVisitor *visitor) const override final
+        void FormFactorSawtoothRippleGauss::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorSawtoothRippleGauss_accept(self, visitor)
@@ -10587,7 +10587,7 @@ class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
     def clone(self):
         r"""
         clone(FormFactorSawtoothRippleLorentz self) -> FormFactorSawtoothRippleLorentz
-        FormFactorSawtoothRippleLorentz * FormFactorSawtoothRippleLorentz::clone() const override final
+        FormFactorSawtoothRippleLorentz * FormFactorSawtoothRippleLorentz::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10597,7 +10597,7 @@ class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
     def accept(self, visitor):
         r"""
         accept(FormFactorSawtoothRippleLorentz self, INodeVisitor * visitor)
-        void FormFactorSawtoothRippleLorentz::accept(INodeVisitor *visitor) const override final
+        void FormFactorSawtoothRippleLorentz::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorSawtoothRippleLorentz_accept(self, visitor)
@@ -10631,7 +10631,7 @@ class FormFactorTetrahedron(IFormFactorPolyhedron):
     def clone(self):
         r"""
         clone(FormFactorTetrahedron self) -> FormFactorTetrahedron
-        FormFactorTetrahedron* FormFactorTetrahedron::clone() const override final
+        FormFactorTetrahedron* FormFactorTetrahedron::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10641,7 +10641,7 @@ class FormFactorTetrahedron(IFormFactorPolyhedron):
     def accept(self, visitor):
         r"""
         accept(FormFactorTetrahedron self, INodeVisitor * visitor)
-        void FormFactorTetrahedron::accept(INodeVisitor *visitor) const override final
+        void FormFactorTetrahedron::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorTetrahedron_accept(self, visitor)
@@ -10699,7 +10699,7 @@ class FormFactorTruncatedCube(IFormFactorPolyhedron):
     def clone(self):
         r"""
         clone(FormFactorTruncatedCube self) -> FormFactorTruncatedCube
-        FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const override final
+        FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10709,7 +10709,7 @@ class FormFactorTruncatedCube(IFormFactorPolyhedron):
     def accept(self, visitor):
         r"""
         accept(FormFactorTruncatedCube self, INodeVisitor * visitor)
-        void FormFactorTruncatedCube::accept(INodeVisitor *visitor) const override final
+        void FormFactorTruncatedCube::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorTruncatedCube_accept(self, visitor)
@@ -10759,7 +10759,7 @@ class FormFactorTruncatedSphere(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorTruncatedSphere self) -> FormFactorTruncatedSphere
-        FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const override final
+        FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10769,7 +10769,7 @@ class FormFactorTruncatedSphere(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorTruncatedSphere self, INodeVisitor * visitor)
-        void FormFactorTruncatedSphere::accept(INodeVisitor *visitor) const override final
+        void FormFactorTruncatedSphere::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorTruncatedSphere_accept(self, visitor)
@@ -10801,7 +10801,7 @@ class FormFactorTruncatedSphere(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorTruncatedSphere self) -> double
-        double FormFactorTruncatedSphere::radialExtension() const override final
+        double FormFactorTruncatedSphere::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10811,7 +10811,7 @@ class FormFactorTruncatedSphere(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorTruncatedSphere self, cvector_t q) -> complex_t
-        complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const final
 
         Complex form factor. 
 
@@ -10847,7 +10847,7 @@ class FormFactorTruncatedSpheroid(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorTruncatedSpheroid self) -> FormFactorTruncatedSpheroid
-        FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const override final
+        FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10857,7 +10857,7 @@ class FormFactorTruncatedSpheroid(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorTruncatedSpheroid self, INodeVisitor * visitor)
-        void FormFactorTruncatedSpheroid::accept(INodeVisitor *visitor) const override final
+        void FormFactorTruncatedSpheroid::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorTruncatedSpheroid_accept(self, visitor)
@@ -10897,7 +10897,7 @@ class FormFactorTruncatedSpheroid(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorTruncatedSpheroid self) -> double
-        double FormFactorTruncatedSpheroid::radialExtension() const override final
+        double FormFactorTruncatedSpheroid::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10907,7 +10907,7 @@ class FormFactorTruncatedSpheroid(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorTruncatedSpheroid self, cvector_t q) -> complex_t
-        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -10943,7 +10943,7 @@ class FormFactorGaussSphere(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorGaussSphere self) -> FormFactorGaussSphere
-        FormFactorGaussSphere* FormFactorGaussSphere::clone() const override final
+        FormFactorGaussSphere* FormFactorGaussSphere::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -10953,7 +10953,7 @@ class FormFactorGaussSphere(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorGaussSphere self, INodeVisitor * visitor)
-        void FormFactorGaussSphere::accept(INodeVisitor *visitor) const override final
+        void FormFactorGaussSphere::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorGaussSphere_accept(self, visitor)
@@ -10969,7 +10969,7 @@ class FormFactorGaussSphere(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorGaussSphere self) -> double
-        double FormFactorGaussSphere::radialExtension() const override final
+        double FormFactorGaussSphere::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -10979,7 +10979,7 @@ class FormFactorGaussSphere(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorGaussSphere self, cvector_t q) -> complex_t
-        complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorGaussSphere::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -11015,7 +11015,7 @@ class FormFactorSphereGaussianRadius(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorSphereGaussianRadius self) -> FormFactorSphereGaussianRadius
-        FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const override final
+        FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -11025,7 +11025,7 @@ class FormFactorSphereGaussianRadius(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorSphereGaussianRadius self, INodeVisitor * visitor)
-        void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const override final
+        void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorSphereGaussianRadius_accept(self, visitor)
@@ -11033,7 +11033,7 @@ class FormFactorSphereGaussianRadius(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorSphereGaussianRadius self) -> double
-        double FormFactorSphereGaussianRadius::radialExtension() const override final
+        double FormFactorSphereGaussianRadius::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -11043,7 +11043,7 @@ class FormFactorSphereGaussianRadius(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorSphereGaussianRadius self, cvector_t q) -> complex_t
-        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorSphereGaussianRadius::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 
@@ -11079,7 +11079,7 @@ class FormFactorSphereLogNormalRadius(IBornFF):
     def clone(self):
         r"""
         clone(FormFactorSphereLogNormalRadius self) -> FormFactorSphereLogNormalRadius
-        FormFactorSphereLogNormalRadius * FormFactorSphereLogNormalRadius::clone() const override final
+        FormFactorSphereLogNormalRadius * FormFactorSphereLogNormalRadius::clone() const final
 
         Returns a clone of this  ISample object. 
 
@@ -11089,7 +11089,7 @@ class FormFactorSphereLogNormalRadius(IBornFF):
     def accept(self, visitor):
         r"""
         accept(FormFactorSphereLogNormalRadius self, INodeVisitor * visitor)
-        void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const override final
+        void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const final
 
         """
         return _libBornAgainSample.FormFactorSphereLogNormalRadius_accept(self, visitor)
@@ -11097,7 +11097,7 @@ class FormFactorSphereLogNormalRadius(IBornFF):
     def radialExtension(self):
         r"""
         radialExtension(FormFactorSphereLogNormalRadius self) -> double
-        double FormFactorSphereLogNormalRadius::radialExtension() const override final
+        double FormFactorSphereLogNormalRadius::radialExtension() const final
 
         Returns the (approximate in some cases) radial size of the particle of this form factor's shape. This is used for SSCA calculations 
 
@@ -11107,7 +11107,7 @@ class FormFactorSphereLogNormalRadius(IBornFF):
     def evaluate_for_q(self, q):
         r"""
         evaluate_for_q(FormFactorSphereLogNormalRadius self, cvector_t q) -> complex_t
-        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const override final
+        complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const final
 
         Returns scattering amplitude for complex scattering wavevector q=k_i-k_f. This method is public only for convenience of plotting form factors in Python. 
 

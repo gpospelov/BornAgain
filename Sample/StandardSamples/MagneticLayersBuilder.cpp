@@ -23,13 +23,11 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/Slice/LayerRoughness.h"
 
-namespace
-{
+namespace {
 
 const double sphere_radius = 5 * Units::nm;
 
-MultiLayer* parametricBuild(double sigmaRoughness, RoughnessModel roughnessModel)
-{
+MultiLayer* parametricBuild(double sigmaRoughness, RoughnessModel roughnessModel) {
     MultiLayer* multi_layer = new MultiLayer();
 
     kvector_t substr_field = kvector_t(0.0, 1e6, 0.0);
@@ -53,8 +51,7 @@ MultiLayer* parametricBuild(double sigmaRoughness, RoughnessModel roughnessModel
 
 } // namespace
 
-MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
-{
+MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const {
     kvector_t substr_field(0.0, 0.0, 0.0);
     kvector_t particle_field(0.1, 0.0, 0.0);
     Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
@@ -77,8 +74,7 @@ MultiLayer* MagneticSubstrateZeroFieldBuilder::buildSample() const
     return multi_layer;
 }
 
-MultiLayer* SimpleMagneticLayerBuilder::buildSample() const
-{
+MultiLayer* SimpleMagneticLayerBuilder::buildSample() const {
     MultiLayer* multi_layer = new MultiLayer();
 
     kvector_t layer_field = kvector_t(0.0, 1e8, 0.0);
@@ -96,8 +92,7 @@ MultiLayer* SimpleMagneticLayerBuilder::buildSample() const
     return multi_layer;
 }
 
-MultiLayer* MagneticLayerBuilder::buildSample() const
-{
+MultiLayer* MagneticLayerBuilder::buildSample() const {
     MultiLayer* multi_layer = new MultiLayer();
 
     kvector_t layer_field = kvector_t(0.0, 0.0, 1e6);
@@ -123,18 +118,15 @@ MultiLayer* MagneticLayerBuilder::buildSample() const
     return multi_layer;
 }
 
-MultiLayer* SimpleMagneticRotationBuilder::buildSample() const
-{
+MultiLayer* SimpleMagneticRotationBuilder::buildSample() const {
     return parametricBuild(0., RoughnessModel::TANH);
 }
 
-size_t SimpleMagneticRotationBuilder::size()
-{
+size_t SimpleMagneticRotationBuilder::size() {
     return 3;
 }
 
-MultiLayer* SimpleMagneticRotationBuilder::createSampleByIndex(size_t index)
-{
+MultiLayer* SimpleMagneticRotationBuilder::createSampleByIndex(size_t index) {
     switch (index) {
 
     case 0:
@@ -153,8 +145,7 @@ MultiLayer* SimpleMagneticRotationBuilder::createSampleByIndex(size_t index)
     }
 }
 
-MultiLayer* MagneticRotationBuilder::buildSample() const
-{
+MultiLayer* MagneticRotationBuilder::buildSample() const {
     MultiLayer* multi_layer = new MultiLayer();
 
     kvector_t substr_field = kvector_t(0.0, 1e6, 0.0);

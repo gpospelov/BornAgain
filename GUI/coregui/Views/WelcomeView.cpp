@@ -28,8 +28,7 @@
 #include <QUrl>
 #include <QVBoxLayout>
 
-namespace
-{
+namespace {
 const int buttonHeight = 45;
 const int buttonWidth = 140;
 
@@ -45,8 +44,7 @@ WelcomeView::WelcomeView(MainWindow* parent)
     , m_newUsertButton(nullptr)
     , m_currentProjectLabel(nullptr)
     , m_recentProjectLayout(nullptr)
-    , m_notifierWidget(new UpdateNotifierWidget(parent->updateNotifier()))
-{
+    , m_notifierWidget(new UpdateNotifierWidget(parent->updateNotifier())) {
     QPalette palette;
     palette.setColor(QPalette::Window, QColor(240, 240, 240, 255));
     setAutoFillBackground(true);
@@ -83,8 +81,7 @@ WelcomeView::WelcomeView(MainWindow* parent)
     updateRecentProjectPanel();
 }
 
-void WelcomeView::generateRecentProjectList()
-{
+void WelcomeView::generateRecentProjectList() {
     auto recentProLabel = new QLabel("Recent Projects:");
     recentProLabel->setFont(StyleUtils::sectionFont());
 
@@ -107,8 +104,7 @@ void WelcomeView::generateRecentProjectList()
 }
 
 //! returns current project name suited for displaying on current project layout
-QString WelcomeView::currentProjectFancyName()
-{
+QString WelcomeView::currentProjectFancyName() {
     QString result("Untitled");
     if (auto projectDocument = projectManager()->document()) {
         if (projectDocument->hasValidNameAndPath())
@@ -120,40 +116,33 @@ QString WelcomeView::currentProjectFancyName()
 }
 
 //! updates label with current project name in picturesque manner
-void WelcomeView::setCurrentProjectName(const QString& name)
-{
+void WelcomeView::setCurrentProjectName(const QString& name) {
     m_currentProjectLabel->setTextAnimated(name);
 }
 
-ProjectManager* WelcomeView::projectManager()
-{
+ProjectManager* WelcomeView::projectManager() {
     return m_mainWindow->projectManager();
 }
 
-void WelcomeView::onWebLinkClicked(const QUrl& url)
-{
+void WelcomeView::onWebLinkClicked(const QUrl& url) {
     QDesktopServices::openUrl(url);
 }
 
-void WelcomeView::onNewUser()
-{
+void WelcomeView::onNewUser() {
     QDesktopServices::openUrl(QUrl("http://www.bornagainproject.org"));
 }
 
-void WelcomeView::updateRecentProjectPanel()
-{
+void WelcomeView::updateRecentProjectPanel() {
     LayoutUtils::clearLayout(m_recentProjectLayout);
     generateRecentProjectList();
     update();
 }
 
-void WelcomeView::showEvent(QShowEvent*)
-{
+void WelcomeView::showEvent(QShowEvent*) {
     updateRecentProjectPanel();
 }
 
-QWidget* WelcomeView::createProjectWidget()
-{
+QWidget* WelcomeView::createProjectWidget() {
     auto layout = new QHBoxLayout;
     layout->addLayout(createButtonLayout());
     layout->addWidget(createSeparationFrame());
@@ -167,8 +156,7 @@ QWidget* WelcomeView::createProjectWidget()
     return result;
 }
 
-QBoxLayout* WelcomeView::createButtonLayout()
-{
+QBoxLayout* WelcomeView::createButtonLayout() {
     m_newProjectButton = new QPushButton("New Project");
     m_newProjectButton->setMinimumWidth(buttonWidth);
     m_newProjectButton->setMinimumHeight(buttonHeight);
@@ -198,8 +186,7 @@ QBoxLayout* WelcomeView::createButtonLayout()
     return result;
 }
 
-QBoxLayout* WelcomeView::createCurrentProjectLayout()
-{
+QBoxLayout* WelcomeView::createCurrentProjectLayout() {
     auto result = new QVBoxLayout;
     result->setContentsMargins(30, 0, 0, 0);
 
@@ -213,15 +200,13 @@ QBoxLayout* WelcomeView::createCurrentProjectLayout()
     return result;
 }
 
-QBoxLayout* WelcomeView::createRecentProjectLayout()
-{
+QBoxLayout* WelcomeView::createRecentProjectLayout() {
     m_recentProjectLayout = new QVBoxLayout;
     m_recentProjectLayout->setContentsMargins(30, 0, 0, 0);
     return m_recentProjectLayout;
 }
 
-QBoxLayout* WelcomeView::createProjectLayout()
-{
+QBoxLayout* WelcomeView::createProjectLayout() {
     auto result = new QVBoxLayout;
     result->addLayout(createCurrentProjectLayout());
     result->addSpacing(15);
@@ -229,8 +214,7 @@ QBoxLayout* WelcomeView::createProjectLayout()
     return result;
 }
 
-QFrame* WelcomeView::createSeparationFrame()
-{
+QFrame* WelcomeView::createSeparationFrame() {
     auto result = new QFrame;
     result->setFrameShape(QFrame::VLine);
     result->setFrameShadow(QFrame::Sunken);

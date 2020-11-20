@@ -25,8 +25,7 @@ class SaveService;
 
 //! Handles activity related to opening/save projects.
 
-class ProjectManager : public QObject
-{
+class ProjectManager : public QObject {
     Q_OBJECT
 public:
     ProjectManager(MainWindow* parent);

@@ -17,8 +17,7 @@
 
 #include <QAbstractSpinBox>
 
-class ScientificSpinBox : public QAbstractSpinBox
-{
+class ScientificSpinBox : public QAbstractSpinBox {
     Q_OBJECT
 
     Q_PROPERTY(double value MEMBER m_value READ value WRITE setValue NOTIFY valueChanged USER true)

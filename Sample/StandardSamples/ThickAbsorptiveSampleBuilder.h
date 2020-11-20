@@ -17,8 +17,7 @@
 
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
-class ThickAbsorptiveSampleBuilder : public ISampleBuilder
-{
+class ThickAbsorptiveSampleBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const override;
 };

@@ -20,8 +20,7 @@
 #include <string>
 #include <vector>
 
-class BA_CORE_API_ ParticleDistributionItem : public SessionGraphicsItem
-{
+class BA_CORE_API_ ParticleDistributionItem : public SessionGraphicsItem {
 public:
     static const QString P_DISTRIBUTED_PARAMETER;
     static const QString P_LINKED_PARAMETER;

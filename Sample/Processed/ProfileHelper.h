@@ -28,8 +28,7 @@ class ProcessedSample;
 //!
 //! @ingroup algorithms_internal
 
-class ProfileHelper
-{
+class ProfileHelper {
 public:
     ProfileHelper(const ProcessedSample& sample);
     ~ProfileHelper();

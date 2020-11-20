@@ -20,8 +20,7 @@
 //! @ingroup standard_samples
 //! Builds sample: cylinders with hard disk Percus-Yevick interference.
 
-class HardDiskBuilder : public ISampleBuilder
-{
+class HardDiskBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

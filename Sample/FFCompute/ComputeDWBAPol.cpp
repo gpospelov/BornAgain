@@ -17,11 +17,9 @@
 #include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/Scattering/IFormFactor.h"
 
-namespace
-{
+namespace {
 std::complex<double> VecMatVecProduct(const Eigen::Vector2cd& vec1, const Eigen::Matrix2cd& ff,
-                                      const Eigen::Vector2cd& vec2)
-{
+                                      const Eigen::Vector2cd& vec2) {
     return vec1.transpose() * ff * vec2;
 }
 } // namespace
@@ -30,8 +28,7 @@ ComputeDWBAPol::ComputeDWBAPol(const IFormFactor& ff) : IComputeFF(ff) {}
 
 ComputeDWBAPol::~ComputeDWBAPol() = default;
 
-ComputeDWBAPol* ComputeDWBAPol::clone() const
-{
+ComputeDWBAPol* ComputeDWBAPol::clone() const {
     ComputeDWBAPol* p_result = new ComputeDWBAPol(*m_ff);
     std::unique_ptr<const ILayerRTCoefficients> p_in_coefs =
         m_in_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(m_in_coeffs->clone()) : nullptr;
@@ -41,13 +38,11 @@ ComputeDWBAPol* ComputeDWBAPol::clone() const
     return p_result;
 }
 
-complex_t ComputeDWBAPol::evaluate(const WavevectorInfo&) const
-{
+complex_t ComputeDWBAPol::evaluate(const WavevectorInfo&) const {
     throw std::runtime_error("Bug: forbidden call of ComputeDWBAPol::evaluate");
 }
 
-Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) const
-{
+Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) const {
     // the required wavevectors inside the layer for
     // different eigenmodes and in- and outgoing wavevector;
     complex_t kix = wavevectors.getKi().x();
@@ -192,8 +187,7 @@ Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) 
 }
 
 void ComputeDWBAPol::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
-                                     std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
-{
+                                     std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs) {
     m_in_coeffs = std::move(p_in_coeffs);
     m_out_coeffs = std::move(p_out_coeffs);
 }

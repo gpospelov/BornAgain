@@ -23,8 +23,7 @@
 #include "GUI/coregui/Models/SampleModel.h"
 
 std::unique_ptr<OutputData<double>> domainData(const std::string& /*test_name*/,
-                                               const ISimulation& direct_simulation)
-{
+                                               const ISimulation& direct_simulation) {
     // initializing necessary GUI
     DocumentModel documentModel;
     SampleModel sampleModel;
@@ -45,8 +44,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& /*test_name*/,
 }
 
 bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
-                     const double limit)
-{
+                     const double limit) {
     const std::unique_ptr<OutputData<double>> domain_data = domainData(name, direct_simulation);
 
     const std::unique_ptr<OutputData<double>> ref_data = direct_simulation.result().data();

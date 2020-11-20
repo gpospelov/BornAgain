@@ -27,8 +27,7 @@ class SessionModelDelegate;
 //! Container to hold label and editor for PropertyItem.
 //! Contains also logic to map editor to SessionModel.
 
-class PropertyWidgetItem : public QObject
-{
+class PropertyWidgetItem : public QObject {
     Q_OBJECT
 public:
     explicit PropertyWidgetItem(QWidget* parent = nullptr);

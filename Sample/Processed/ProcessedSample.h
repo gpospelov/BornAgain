@@ -34,8 +34,7 @@ class SimulationOptions;
 //!
 //! @ingroup algorithms_internal
 
-class ProcessedSample
-{
+class ProcessedSample {
 public:
     ProcessedSample(const MultiLayer& sample, const SimulationOptions& options);
     ~ProcessedSample();

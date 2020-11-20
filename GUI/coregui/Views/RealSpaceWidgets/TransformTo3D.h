@@ -26,8 +26,7 @@ class IFormFactor;
 
 //! Collection of utility functions to build 3D objects from session items.
 
-namespace TransformTo3D
-{
+namespace TransformTo3D {
 
 double visualLayerThickness(const SessionItem& layerItem, const SceneGeometry& sceneGeometry);
 

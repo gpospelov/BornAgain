@@ -24,8 +24,7 @@ using std::size_t;
 //! @ingroup simulation
 //! @ref SimulationOptions
 
-class SimulationOptions
-{
+class SimulationOptions {
 public:
     SimulationOptions();
 

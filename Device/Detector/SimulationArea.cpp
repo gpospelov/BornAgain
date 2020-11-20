@@ -19,8 +19,7 @@
 #include "Device/Mask/Rectangle.h"
 #include <sstream>
 
-SimulationArea::SimulationArea(const IDetector* detector) : m_detector(detector), m_max_index(0)
-{
+SimulationArea::SimulationArea(const IDetector* detector) : m_detector(detector), m_max_index(0) {
     if (m_detector == nullptr)
         throw std::runtime_error("SimulationArea::SimulationArea: null pointer passed"
                                  " as detector");
@@ -35,29 +34,24 @@ SimulationArea::SimulationArea(const IDetector* detector) : m_detector(detector)
         m_max_index = m_detector->totalSize();
 }
 
-SimulationAreaIterator SimulationArea::begin()
-{
+SimulationAreaIterator SimulationArea::begin() {
     return SimulationAreaIterator(this, 0);
 }
 
-SimulationAreaIterator SimulationArea::end()
-{
+SimulationAreaIterator SimulationArea::end() {
     return SimulationAreaIterator(this, totalSize());
 }
 
-bool SimulationArea::isMasked(size_t index) const
-{
+bool SimulationArea::isMasked(size_t index) const {
     auto masks = m_detector->detectorMask();
     return (masks && masks->hasMasks() && masks->isMasked(detectorIndex(index)));
 }
 
-size_t SimulationArea::roiIndex(size_t index) const
-{
+size_t SimulationArea::roiIndex(size_t index) const {
     return index;
 }
 
-size_t SimulationArea::detectorIndex(size_t index) const
-{
+size_t SimulationArea::detectorIndex(size_t index) const {
     if (!m_detector->regionOfInterest())
         return index;
 
@@ -68,7 +62,6 @@ size_t SimulationArea::detectorIndex(size_t index) const
 
 SimulationRoiArea::SimulationRoiArea(const IDetector* detector) : SimulationArea(detector) {}
 
-bool SimulationRoiArea::isMasked(size_t) const
-{
+bool SimulationRoiArea::isMasked(size_t) const {
     return false;
 }

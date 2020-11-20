@@ -26,8 +26,7 @@ class QMenu;
 
 //! Collection of actions to add/remove/clone instrument.
 
-class InstrumentViewActions : public QObject
-{
+class InstrumentViewActions : public QObject {
     Q_OBJECT
 
 public:

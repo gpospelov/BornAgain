@@ -27,8 +27,7 @@ class QAction;
 //! The IntensityDataCanvas class represents IntensityDataItem as color map,
 //! provides standard actions (reset view, save as) for external toolbars and context menus.
 
-class IntensityDataCanvas : public SessionItemWidget
-{
+class IntensityDataCanvas : public SessionItemWidget {
     Q_OBJECT
 public:
     explicit IntensityDataCanvas(QWidget* parent = 0);

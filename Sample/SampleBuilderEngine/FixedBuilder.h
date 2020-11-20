@@ -22,8 +22,7 @@ class MultiLayer;
 
 //! A trivial sample builder class that builds a fixed sample.
 
-class FixedBuilder : public ISampleBuilder
-{
+class FixedBuilder : public ISampleBuilder {
 public:
     FixedBuilder() = delete;
     FixedBuilder(const MultiLayer&);

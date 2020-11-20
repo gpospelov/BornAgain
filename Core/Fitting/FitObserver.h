@@ -22,8 +22,7 @@
 //! Contains collection of observers and call them at specified intervals.
 //! Each observer will be called at first iteration and every-nth iterations.
 
-template <class T> class FitObserver
-{
+template <class T> class FitObserver {
 public:
     using observer_t = std::function<void(const T&)>;
     FitObserver();
@@ -40,14 +39,11 @@ public:
     void notify_all(const T& data);
 
 private:
-    class ObserverData
-    {
+    class ObserverData {
     public:
         ObserverData() : m_every_nth(0) {}
         ObserverData(int every_nth, observer_t observer)
-            : m_every_nth(every_nth), m_observer(observer)
-        {
-        }
+            : m_every_nth(every_nth), m_observer(observer) {}
         int m_every_nth;
         observer_t m_observer;
     };
@@ -61,13 +57,11 @@ private:
 template <class T> FitObserver<T>::FitObserver() : m_notify_count(0) {}
 
 template <class T>
-void FitObserver<T>::addObserver(int every_nth, typename FitObserver::observer_t observer)
-{
+void FitObserver<T>::addObserver(int every_nth, typename FitObserver::observer_t observer) {
     m_observers.push_back(ObserverData(every_nth, observer));
 }
 
-template <class T> void FitObserver<T>::notify(const T& data)
-{
+template <class T> void FitObserver<T>::notify(const T& data) {
     for (const auto& observer : m_observers) {
         if (need_notify(observer.m_every_nth))
             observer.m_observer(data);
@@ -76,16 +70,14 @@ template <class T> void FitObserver<T>::notify(const T& data)
     m_notify_count++;
 }
 
-template <class T> void FitObserver<T>::notify_all(const T& data)
-{
+template <class T> void FitObserver<T>::notify_all(const T& data) {
     for (const auto& observer : m_observers)
         observer.m_observer(data);
 
     m_notify_count++;
 }
 
-template <class T> bool FitObserver<T>::need_notify(int every_nth)
-{
+template <class T> bool FitObserver<T>::need_notify(int every_nth) {
     return m_notify_count == 0 || m_notify_count % every_nth == 0;
 }
 

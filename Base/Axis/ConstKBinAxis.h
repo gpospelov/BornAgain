@@ -20,8 +20,7 @@
 //! Axis with fixed bin size in sin(angle) space.
 //! @ingroup tools
 
-class ConstKBinAxis : public VariableBinAxis
-{
+class ConstKBinAxis : public VariableBinAxis {
 public:
     //! ConstKBinAxis constructor.
     //! @param name Axis name
@@ -29,17 +28,17 @@ public:
     //! @param start low edge of first bin
     //! @param end upper edge of last bin
     ConstKBinAxis(const std::string& name, size_t nbins, double start, double end);
-    ~ConstKBinAxis() final {}
+    ~ConstKBinAxis() override {}
 
-    ConstKBinAxis* clone() const final;
+    ConstKBinAxis* clone() const override;
 
-    ConstKBinAxis* createClippedAxis(double left, double right) const final;
+    ConstKBinAxis* createClippedAxis(double left, double right) const override;
 
 protected:
     ConstKBinAxis(const std::string& name, size_t nbins);
 
-    void print(std::ostream& ostr) const final;
-    bool equals(const IAxis& other) const final;
+    void print(std::ostream& ostr) const override;
+    bool equals(const IAxis& other) const override;
 
     double m_start;
     double m_end;

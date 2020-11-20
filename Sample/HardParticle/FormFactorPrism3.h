@@ -20,25 +20,21 @@
 //! A prism based on an equilateral triangle.
 //! @ingroup hardParticle
 
-class FormFactorPrism3 : public IFormFactorPrism
-{
+class FormFactorPrism3 : public IFormFactorPrism {
 public:
     FormFactorPrism3(const std::vector<double> P);
     FormFactorPrism3(double base_edge, double height);
 
-    FormFactorPrism3* clone() const override final
-    {
-        return new FormFactorPrism3(m_base_edge, m_height);
-    }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    FormFactorPrism3* clone() const final { return new FormFactorPrism3(m_base_edge, m_height); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getBaseEdge() const { return m_base_edge; }
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
+                                 kvector_t translation) const final;
 
-    void onChange() override final;
+    void onChange() final;
     double height() const final { return m_height; }
 
 private:

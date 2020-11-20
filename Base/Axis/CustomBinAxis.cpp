@@ -19,8 +19,7 @@
 #include <limits>
 
 CustomBinAxis::CustomBinAxis(const std::string& name, size_t nbins, double start, double end)
-    : VariableBinAxis(name, nbins), m_start(start), m_end(end)
-{
+    : VariableBinAxis(name, nbins), m_start(start), m_end(end) {
     if (m_start >= m_end)
         throw Exceptions::LogicErrorException("CustomBinAxis::CustomBinAxis() -> Error."
                                               " start >= end is not allowed.");
@@ -42,13 +41,11 @@ CustomBinAxis::CustomBinAxis(const std::string& name, size_t nbins, double start
     setBinBoundaries(bin_boundaries);
 }
 
-CustomBinAxis* CustomBinAxis::clone() const
-{
+CustomBinAxis* CustomBinAxis::clone() const {
     return new CustomBinAxis(getName(), m_nbins, m_start, m_end);
 }
 
-Bin1D CustomBinAxis::bin(size_t index) const
-{
+Bin1D CustomBinAxis::bin(size_t index) const {
     if (index >= m_nbins)
         throw Exceptions::OutOfBoundsException("CustomBinAxis::bin() -> Error. Wrong index.");
 
@@ -56,26 +53,22 @@ Bin1D CustomBinAxis::bin(size_t index) const
     return result;
 }
 
-std::vector<double> CustomBinAxis::binCenters() const
-{
+std::vector<double> CustomBinAxis::binCenters() const {
     return m_bin_centers;
 }
 
-CustomBinAxis* CustomBinAxis::createClippedAxis(double /* left */, double /* right */) const
-{
+CustomBinAxis* CustomBinAxis::createClippedAxis(double /* left */, double /* right */) const {
     throw Exceptions::NotImplementedException("VariableBinAxis::CustomBinAxis() -> Error."
                                               " Not implemented.");
 }
 
-void CustomBinAxis::print(std::ostream& ostr) const
-{
+void CustomBinAxis::print(std::ostream& ostr) const {
     ostr << "CustomBinAxis(\"" << getName() << "\", " << size() << ", "
          << std::setprecision(std::numeric_limits<double>::digits10 + 2) << m_start << ", " << m_end
          << ")";
 }
 
-bool CustomBinAxis::equals(const IAxis& other) const
-{
+bool CustomBinAxis::equals(const IAxis& other) const {
     if (!IAxis::equals(other))
         return false;
     if (const CustomBinAxis* otherAxis = dynamic_cast<const CustomBinAxis*>(&other)) {

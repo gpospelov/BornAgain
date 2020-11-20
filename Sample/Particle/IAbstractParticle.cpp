@@ -15,11 +15,8 @@
 #include "Sample/Particle/IAbstractParticle.h"
 
 IAbstractParticle::IAbstractParticle(const NodeMeta& meta, const std::vector<double>& PValues)
-    : ISample(meta, PValues)
-{
-}
+    : ISample(meta, PValues) {}
 
-void IAbstractParticle::accept(INodeVisitor* visitor) const
-{
+void IAbstractParticle::accept(INodeVisitor* visitor) const {
     visitor->visit(this);
 }

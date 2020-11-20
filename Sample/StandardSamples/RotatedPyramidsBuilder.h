@@ -20,8 +20,7 @@
 //! Builds sample: Pyramids, rotated pyramids on top of substrate (IsGISAXS example #9)
 //! @ingroup standard_samples
 
-class RotatedPyramidsBuilder : public ISampleBuilder
-{
+class RotatedPyramidsBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

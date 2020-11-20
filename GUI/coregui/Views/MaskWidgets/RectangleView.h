@@ -20,8 +20,7 @@
 //! This is a View of rectangular mask (represented by RectangleItem) on GraphicsScene.
 //! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.
 
-class RectangleView : public RectangleBaseView
-{
+class RectangleView : public RectangleBaseView {
     Q_OBJECT
 
 public:

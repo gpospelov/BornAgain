@@ -17,8 +17,7 @@
 
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 
-class BA_CORE_API_ MultiLayerItem : public SessionGraphicsItem
-{
+class BA_CORE_API_ MultiLayerItem : public SessionGraphicsItem {
 public:
     static const QString P_CROSS_CORR_LENGTH;
     static const QString P_EXTERNAL_FIELD;

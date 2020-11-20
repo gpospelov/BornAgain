@@ -17,13 +17,11 @@
 
 // TODO: can be removed when IFormFactor::volume() is refactored
 // (static function is provided to easily track usage of default constructor)
-WavevectorInfo WavevectorInfo::GetZeroQ()
-{
+WavevectorInfo WavevectorInfo::GetZeroQ() {
     return {};
 }
 
-WavevectorInfo WavevectorInfo::transformed(const Transform3D& transform) const
-{
+WavevectorInfo WavevectorInfo::transformed(const Transform3D& transform) const {
     return WavevectorInfo(transform.transformed(m_ki), transform.transformed(m_kf),
                           m_vacuum_wavelength);
 }

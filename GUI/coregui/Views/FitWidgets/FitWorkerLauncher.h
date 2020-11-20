@@ -21,8 +21,7 @@
 
 class FitObjectiveBuilder;
 
-class FitWorkerLauncher : public QObject
-{
+class FitWorkerLauncher : public QObject {
     Q_OBJECT
 
 public:

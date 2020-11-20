@@ -22,8 +22,7 @@ class SampleModel;
 class MaterialModel;
 
 //! Class that generates GUI model from
-class GUIExamplesFactory
-{
+class GUIExamplesFactory {
 public:
     static bool isValidExampleName(const QString& name);
 

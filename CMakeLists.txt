@@ -111,10 +111,17 @@ if(BORNAGAIN_DEBUG_OPTIMIZATION)
   include(commons/DebugOptimization)
 endif()
 
+## Fit
+add_subdirectory(Fit/3rdParty)
+add_subdirectory(Fit)
+add_subdirectory(Fit/Test/Unit)
+add_subdirectory(Fit/Test/Functional)
+
+
 ## recurse into the given subdirectories
 
 # BornAgain components are build as separate shared libraries
-set(CoreComponents "Base;Fit;Param;Sample;Device;Core")
+set(CoreComponents "Base;Param;Sample;Device;Core")
 set(AllComponents "${CoreComponents};GUI")
 
 # code analysis
@@ -126,7 +133,6 @@ endif()
 
 # third-party code
 add_subdirectory(ThirdParty/common)
-add_subdirectory(ThirdParty/Fit)
 add_subdirectory(ThirdParty/Core)
 if(BORNAGAIN_GUI)
     add_subdirectory(ThirdParty/GUI)
@@ -146,7 +152,6 @@ if(BORNAGAIN_PYTHON)
 endif()
 
 # core tests
-add_subdirectory(Tests/UnitTests/Fit)
 add_subdirectory(Tests/UnitTests/Core)
 add_subdirectory(Tests/UnitTests/Numeric)
 add_subdirectory(Tests/Performance/Core)

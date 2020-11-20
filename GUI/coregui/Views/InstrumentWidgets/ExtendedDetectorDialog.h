@@ -24,8 +24,7 @@ class InstrumentModel;
 
 //! The dialog which shows a MaskEditor
 
-class ExtendedDetectorDialog : public QDialog
-{
+class ExtendedDetectorDialog : public QDialog {
     Q_OBJECT
 
 public:

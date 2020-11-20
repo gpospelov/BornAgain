@@ -24,8 +24,7 @@
 //! Stores multi option (int,double,string) in a container.
 //! @ingroup fitting_internal
 
-class OptionContainer
-{
+class OptionContainer {
 public:
     using option_t = std::shared_ptr<MultiOption>;
     using container_t = std::vector<option_t>;
@@ -64,8 +63,7 @@ protected:
 
 template <class T>
 OptionContainer::option_t OptionContainer::addOption(const std::string& optionName, T value,
-                                                     const std::string& description)
-{
+                                                     const std::string& description) {
     if (exists(optionName))
         throw std::runtime_error("OptionContainer::addOption() -> Error. Option '" + optionName
                                  + "' exists.");
@@ -75,13 +73,11 @@ OptionContainer::option_t OptionContainer::addOption(const std::string& optionNa
     return result;
 }
 
-template <class T> T OptionContainer::optionValue(const std::string& optionName) const
-{
+template <class T> T OptionContainer::optionValue(const std::string& optionName) const {
     return option(optionName)->get<T>();
 }
 
-template <class T> void OptionContainer::setOptionValue(const std::string& optionName, T value)
-{
+template <class T> void OptionContainer::setOptionValue(const std::string& optionName, T value) {
     option(optionName)->value() = value;
     if (option(optionName)->value().which() != option(optionName)->defaultValue().which())
         throw std::runtime_error(

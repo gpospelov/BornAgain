@@ -17,8 +17,7 @@
 
 #include <QSplashScreen>
 
-class SplashScreen : public QSplashScreen
-{
+class SplashScreen : public QSplashScreen {
     Q_OBJECT
 public:
     explicit SplashScreen(QWidget* parent = nullptr);

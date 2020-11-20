@@ -24,8 +24,7 @@ class LayerRoughness;
 class MultiLayer;
 class ZLimits;
 
-namespace MultiLayerUtils
-{
+namespace MultiLayerUtils {
 //! Returns thickness of layer
 double LayerThickness(const MultiLayer& multilayer, size_t i);
 

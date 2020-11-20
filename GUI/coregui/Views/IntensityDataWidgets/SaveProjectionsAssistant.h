@@ -26,8 +26,7 @@ class SessionItem;
 
 //! Assistant class which save all projections of IndensityDataItem into ASCII file.
 
-class SaveProjectionsAssistant
-{
+class SaveProjectionsAssistant {
 public:
     SaveProjectionsAssistant();
     ~SaveProjectionsAssistant();

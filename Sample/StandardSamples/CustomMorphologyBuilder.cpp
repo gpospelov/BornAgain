@@ -21,8 +21,7 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* CustomMorphologyBuilder::buildSample() const
-{
+MultiLayer* CustomMorphologyBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
 
     ParticleLayout particle_layout;

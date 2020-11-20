@@ -23,16 +23,15 @@
 //! refractive index and that of its surrounding material.
 //! @ingroup formfactors_decorations
 
-class FormFactorDecoratorMaterial : public IFormFactorDecorator
-{
+class FormFactorDecoratorMaterial : public IFormFactorDecorator {
 public:
     FormFactorDecoratorMaterial(const IFormFactor& ff);
 
-    ~FormFactorDecoratorMaterial() override final;
+    ~FormFactorDecoratorMaterial() override;
 
-    FormFactorDecoratorMaterial* clone() const override final;
+    FormFactorDecoratorMaterial* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Sets the material of the scatterer
     void setMaterial(const Material& material);
@@ -43,7 +42,7 @@ public:
     complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 #ifndef SWIG
     //! Returns scattering amplitude for matrix interactions
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 #endif
 
 private:

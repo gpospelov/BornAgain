@@ -23,23 +23,22 @@ class IRotation;
 //! Equips a form factor with a rotation.
 //! @ingroup formfactors_internal
 
-class FormFactorDecoratorRotation : public IFormFactorDecorator
-{
+class FormFactorDecoratorRotation : public IFormFactorDecorator {
 public:
     //! Constructor, setting form factor and rotation.
     FormFactorDecoratorRotation(const IFormFactor& ff, const IRotation& rotation);
 
-    FormFactorDecoratorRotation* clone() const override final;
+    FormFactorDecoratorRotation* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-    double bottomZ(const IRotation& rotation) const override final;
+    double bottomZ(const IRotation& rotation) const final;
 
-    double topZ(const IRotation& rotation) const override final;
+    double topZ(const IRotation& rotation) const final;
 
-    complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
 #ifndef SWIG
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const final;
 #endif
 
 private:

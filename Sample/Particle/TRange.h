@@ -20,8 +20,7 @@
 //! An interval [lowerBound..upperBound[.
 //! @ingroup tools_internal
 
-template <class T> class TRange
-{
+template <class T> class TRange {
 public:
     TRange(T lowerBound, T upperBound) : m_lower_bound(lowerBound), m_upper_bound(upperBound) {}
     virtual ~TRange() {}
@@ -38,13 +37,10 @@ private:
 
 //! An interval [lowerBound..upperBound[, and a number of samples.
 
-template <class T> class TSampledRange : public TRange<T>
-{
+template <class T> class TSampledRange : public TRange<T> {
 public:
     TSampledRange(size_t n_samples, T lowerBound, T upperBound)
-        : TRange<T>(lowerBound, upperBound), m_n_samples(n_samples)
-    {
-    }
+        : TRange<T>(lowerBound, upperBound), m_n_samples(n_samples) {}
 
     size_t getNSamples() const { return m_n_samples; }
 

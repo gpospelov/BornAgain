@@ -27,8 +27,7 @@ class QTableWidgetItem;
 //! @class ProjectLoadWarningDialog
 //! @brief The dialog to inform user about encountered problems during the loading of old project
 
-class ProjectLoadWarningDialog : public QDialog
-{
+class ProjectLoadWarningDialog : public QDialog {
     Q_OBJECT
 
 public:

@@ -27,8 +27,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-namespace
-{
+namespace {
 const QString select_instrument_tooltip =
     "Select Instrument to simulate from those defined in Instrument View";
 const QString select_sample_tooltip = "Select Sample to simulate from those defined in Sample View";
@@ -41,8 +40,7 @@ SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget* parent)
     , m_instrumentCombo(new QComboBox)
     , m_sampleCombo(new QComboBox)
     , m_realDataCombo(new QComboBox)
-    , m_applicationModels(0)
-{
+    , m_applicationModels(0) {
     QVBoxLayout* mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
@@ -79,8 +77,7 @@ SimulationDataSelectorWidget::SimulationDataSelectorWidget(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void SimulationDataSelectorWidget::setApplicationModels(ApplicationModels* applicationModels)
-{
+void SimulationDataSelectorWidget::setApplicationModels(ApplicationModels* applicationModels) {
     m_applicationModels = applicationModels;
     updateViewElements();
 }
@@ -88,8 +85,7 @@ void SimulationDataSelectorWidget::setApplicationModels(ApplicationModels* appli
 //! Returns selected MultiLayerItem taking into account that there might be several
 //! multilayers with same name.
 
-const MultiLayerItem* SimulationDataSelectorWidget::selectedMultiLayerItem() const
-{
+const MultiLayerItem* SimulationDataSelectorWidget::selectedMultiLayerItem() const {
     auto items = m_applicationModels->sampleModel()->topItems<MultiLayerItem>();
     if (items.isEmpty())
         return nullptr;
@@ -99,8 +95,7 @@ const MultiLayerItem* SimulationDataSelectorWidget::selectedMultiLayerItem() con
 //! Returns selected InstrumentItem taking into account that there might be several
 //! instruments with same name.
 
-const InstrumentItem* SimulationDataSelectorWidget::selectedInstrumentItem() const
-{
+const InstrumentItem* SimulationDataSelectorWidget::selectedInstrumentItem() const {
     auto items = m_applicationModels->instrumentModel()->topItems<InstrumentItem>();
     return items.isEmpty() ? nullptr : items.at(selectedInstrumentIndex());
 }
@@ -108,8 +103,7 @@ const InstrumentItem* SimulationDataSelectorWidget::selectedInstrumentItem() con
 //! Returns selected InstrumentItem taking into account that there might be several
 //! instruments with same name.
 
-const RealDataItem* SimulationDataSelectorWidget::selectedRealDataItem() const
-{
+const RealDataItem* SimulationDataSelectorWidget::selectedRealDataItem() const {
     auto items = m_applicationModels->realDataModel()->topItems();
     if (items.isEmpty())
         return nullptr;
@@ -119,8 +113,7 @@ const RealDataItem* SimulationDataSelectorWidget::selectedRealDataItem() const
     return nullptr;
 }
 
-void SimulationDataSelectorWidget::updateViewElements()
-{
+void SimulationDataSelectorWidget::updateViewElements() {
     ASSERT(m_applicationModels);
     updateSelection(m_instrumentCombo,
                     ModelUtils::topItemNames(m_applicationModels->instrumentModel()));
@@ -130,18 +123,15 @@ void SimulationDataSelectorWidget::updateViewElements()
                     true);
 }
 
-int SimulationDataSelectorWidget::selectedInstrumentIndex() const
-{
+int SimulationDataSelectorWidget::selectedInstrumentIndex() const {
     return m_instrumentCombo->currentIndex();
 }
 
-int SimulationDataSelectorWidget::selectedSampleIndex() const
-{
+int SimulationDataSelectorWidget::selectedSampleIndex() const {
     return m_sampleCombo->currentIndex();
 }
 
-int SimulationDataSelectorWidget::selectedRealDataIndex() const
-{
+int SimulationDataSelectorWidget::selectedRealDataIndex() const {
     // -1 because m_realDataCombo always contains "None" as a first entry
     return m_realDataCombo->currentIndex() - 1;
 }
@@ -150,8 +140,7 @@ int SimulationDataSelectorWidget::selectedRealDataIndex() const
 //! If allow_none == true, additional "None" item will be added to the combo.
 
 void SimulationDataSelectorWidget::updateSelection(QComboBox* comboBox, QStringList itemList,
-                                                   bool allow_none)
-{
+                                                   bool allow_none) {
     QString previousItem = comboBox->currentText();
 
     comboBox->clear();

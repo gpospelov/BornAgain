@@ -8,12 +8,9 @@
 #include "Sample/StandardSamples/PlainMultiLayerBySLDBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class KzComputationTest : public ::testing::Test
-{
-};
+class KzComputationTest : public ::testing::Test {};
 
-TEST_F(KzComputationTest, initial)
-{
+TEST_F(KzComputationTest, initial) {
     const complex_t sld_0(0.0, 0.0);
     const complex_t sld_1(8.0241e-06, 6.0448e-8);
     const complex_t sld_2(4.0241e-06, 2.0448e-8);
@@ -52,8 +49,7 @@ TEST_F(KzComputationTest, initial)
     }
 }
 
-TEST_F(KzComputationTest, negativeKz)
-{
+TEST_F(KzComputationTest, negativeKz) {
     const complex_t sld_0(0.0, 0.0);
     const complex_t sld_1(8.0241e-06, 6.0448e-8);
     const complex_t sld_2(4.0241e-06, 2.0448e-8);
@@ -92,8 +88,7 @@ TEST_F(KzComputationTest, negativeKz)
     }
 }
 
-TEST_F(KzComputationTest, absorptiveAmbience)
-{
+TEST_F(KzComputationTest, absorptiveAmbience) {
     const complex_t sld_0(8.0241e-06, 6.0448e-5);
     const complex_t sld_1(8.0241e-06, 6.0448e-8);
     const complex_t sld_2(4.0241e-06, 2.0448e-8);
@@ -128,8 +123,7 @@ TEST_F(KzComputationTest, absorptiveAmbience)
     }
 }
 
-TEST_F(KzComputationTest, TiNiSampleWithRoughness)
-{
+TEST_F(KzComputationTest, TiNiSampleWithRoughness) {
     PlainMultiLayerBySLDBuilder builder;
     std::unique_ptr<MultiLayer> sample(builder.buildSample());
 

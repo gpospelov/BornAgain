@@ -19,8 +19,7 @@
 
 class Material;
 
-class BA_CORE_API_ MaterialItem : public SessionItem
-{
+class BA_CORE_API_ MaterialItem : public SessionItem {
 public:
     static const QString P_COLOR;
     static const QString P_MATERIAL_DATA;

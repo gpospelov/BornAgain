@@ -26,8 +26,7 @@ class ApplicationModels;
 //! The SimulationSetupWidget class represents a main widget to define simulation settings
 //! and run the simulation. Belongs to the SimulationView.
 
-class SimulationSetupWidget : public QWidget
-{
+class SimulationSetupWidget : public QWidget {
     Q_OBJECT
 
 public:

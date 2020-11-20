@@ -28,8 +28,7 @@ enum class MATERIAL_TYPES { InvalidMaterialType = -1, RefractiveMaterial = 0, Ma
 //! Inherited by MagneticMaterialImpl, which has further children.
 //! @ingroup materials
 
-class BaseMaterialImpl
-{
+class BaseMaterialImpl {
 public:
     //! Constructs basic material with name
     BaseMaterialImpl(const std::string& name) : m_name(name) {}

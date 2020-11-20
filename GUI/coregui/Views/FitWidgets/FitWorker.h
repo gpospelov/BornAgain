@@ -20,8 +20,7 @@
 
 class FitObjectiveBuilder;
 
-class FitWorker : public QObject
-{
+class FitWorker : public QObject {
     Q_OBJECT
 
 public:

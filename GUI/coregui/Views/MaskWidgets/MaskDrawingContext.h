@@ -19,8 +19,7 @@
 
 //! Helper class for MaskGraphicsScene to hold drawing conditions
 
-class MaskDrawingContext
-{
+class MaskDrawingContext {
 public:
     MaskDrawingContext();
 

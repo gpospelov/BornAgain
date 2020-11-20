@@ -15,8 +15,7 @@
 #include "GUI/coregui/Models/GroupInfoCatalog.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-GroupInfoCatalog::GroupInfoCatalog()
-{
+GroupInfoCatalog::GroupInfoCatalog() {
     GroupInfo info("Form Factor");
     info.add("AnisoPyramid", "Aniso Pyramid");
     info.add("BarGauss", "BarGauss");
@@ -198,8 +197,7 @@ GroupInfoCatalog::GroupInfoCatalog()
     addInfo(info);
 }
 
-GroupInfo GroupInfoCatalog::groupInfo(const QString& groupType) const
-{
+GroupInfo GroupInfoCatalog::groupInfo(const QString& groupType) const {
     for (auto& info : m_groups)
         if (info.groupType() == groupType)
             return info;
@@ -208,8 +206,7 @@ GroupInfo GroupInfoCatalog::groupInfo(const QString& groupType) const
                             + "'");
 }
 
-bool GroupInfoCatalog::containsGroup(const QString& groupType) const
-{
+bool GroupInfoCatalog::containsGroup(const QString& groupType) const {
     for (auto& info : m_groups)
         if (info.groupType() == groupType)
             return true;
@@ -217,8 +214,7 @@ bool GroupInfoCatalog::containsGroup(const QString& groupType) const
     return false;
 }
 
-void GroupInfoCatalog::addInfo(const GroupInfo& info)
-{
+void GroupInfoCatalog::addInfo(const GroupInfo& info) {
     if (containsGroup(info.groupType()))
         throw GUIHelpers::Error("GroupInfoCatalog::addInfo -> Error. Already exists '"
                                 + info.groupType() + "'");

@@ -25,8 +25,7 @@ class QMenu;
 
 //! Toolbar for MaterialEditor.
 
-class MaterialEditorToolBar : public QToolBar
-{
+class MaterialEditorToolBar : public QToolBar {
     Q_OBJECT
 public:
     MaterialEditorToolBar(MaterialModel* materialModel, QWidget* parent = nullptr);

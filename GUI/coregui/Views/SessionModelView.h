@@ -29,8 +29,7 @@ class SessionModelDelegate;
 //! models. It appears as an additional view in the main navigation bar on the left, right
 //! after the jobView (if corresponding setting of MainWindow is On).
 
-class SessionModelView : public QWidget
-{
+class SessionModelView : public QWidget {
     Q_OBJECT
 
 public:

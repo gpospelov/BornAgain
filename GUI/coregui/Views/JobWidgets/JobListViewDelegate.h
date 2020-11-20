@@ -22,8 +22,7 @@
 class JobItem;
 
 //! ViewDelegate to show progress bar JobQueuListView
-class JobListViewDelegate : public QItemDelegate
-{
+class JobListViewDelegate : public QItemDelegate {
     Q_OBJECT
 public:
     JobListViewDelegate(QWidget* parent);

@@ -21,8 +21,7 @@ class QBoxLayout;
 
 //! About BornAgain dialog.
 
-class AboutApplicationDialog : public QDialog
-{
+class AboutApplicationDialog : public QDialog {
     Q_OBJECT
 public:
     AboutApplicationDialog(QWidget* parent = 0);

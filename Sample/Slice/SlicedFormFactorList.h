@@ -28,8 +28,7 @@ class Slice;
 //!
 //! @ingroup intern
 
-class SlicedFormFactorList
-{
+class SlicedFormFactorList {
 public:
     SlicedFormFactorList() = default;
     SlicedFormFactorList(SlicedFormFactorList&& other) = default;

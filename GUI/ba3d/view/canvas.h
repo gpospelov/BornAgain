@@ -22,8 +22,7 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLWidget>
 
-namespace RealSpace
-{
+namespace RealSpace {
 
 class Camera;
 class Program;
@@ -32,8 +31,7 @@ class Geometry;
 class Buffer;
 class Object;
 
-class Canvas : public QOpenGLWidget, protected QOpenGLFunctions
-{
+class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
     Q_OBJECT
     friend class Object;
 

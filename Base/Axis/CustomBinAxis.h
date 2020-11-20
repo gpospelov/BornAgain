@@ -21,8 +21,7 @@
 //! The main feature of the axis is that it produces zero bin sizes.
 //! @ingroup tools
 
-class CustomBinAxis : public VariableBinAxis
-{
+class CustomBinAxis : public VariableBinAxis {
 public:
     //! CustomBinAxis constructor.
     //! @param name Axis name

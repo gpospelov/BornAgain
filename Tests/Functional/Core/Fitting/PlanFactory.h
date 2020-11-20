@@ -20,8 +20,7 @@
 
 //! Factory to generate plans for fitting with FitObjective.
 
-class PlanFactory : public IFactory<std::string, MinimizerTestPlan>
-{
+class PlanFactory : public IFactory<std::string, MinimizerTestPlan> {
 public:
     PlanFactory();
 };

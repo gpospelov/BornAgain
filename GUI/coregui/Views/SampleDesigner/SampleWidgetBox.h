@@ -21,8 +21,7 @@ class QDesignerWidgetBoxInterface;
 class SampleDesignerInterface;
 
 //! widget box and tool window on the left side of SampleView
-class SampleWidgetBox : public QWidget
-{
+class SampleWidgetBox : public QWidget {
 public:
     explicit SampleWidgetBox(SampleDesignerInterface* core, QWidget* parent);
 

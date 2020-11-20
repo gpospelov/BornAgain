@@ -20,31 +20,29 @@
 //! A cylinder with elliptical base.
 //! @ingroup hardParticle
 
-class FormFactorEllipsoidalCylinder : public IBornFF
-{
+class FormFactorEllipsoidalCylinder : public IBornFF {
 public:
     FormFactorEllipsoidalCylinder(const std::vector<double> P);
     FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height);
 
-    FormFactorEllipsoidalCylinder* clone() const override final
-    {
+    FormFactorEllipsoidalCylinder* clone() const final {
         return new FormFactorEllipsoidalCylinder(m_radius_x, m_radius_y, m_height);
     }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getRadiusX() const { return m_radius_x; }
     double getRadiusY() const { return m_radius_y; }
     double getHeight() const { return m_height; }
 
-    double radialExtension() const override final;
+    double radialExtension() const final;
 
-    complex_t evaluate_for_q(cvector_t q) const override final;
+    complex_t evaluate_for_q(cvector_t q) const final;
 
 protected:
     IFormFactor* sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                 kvector_t translation) const override final;
+                                 kvector_t translation) const final;
 
-    void onChange() override final;
+    void onChange() final;
 
 private:
     const double& m_radius_x;

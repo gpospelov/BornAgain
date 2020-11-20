@@ -28,8 +28,7 @@ JobSelectorActions::JobSelectorActions(JobModel* jobModel, QObject* parent)
     , m_runJobAction(nullptr)
     , m_removeJobAction(nullptr)
     , m_selectionModel(nullptr)
-    , m_jobModel(jobModel)
-{
+    , m_jobModel(jobModel) {
     m_runJobAction = new QAction("Run", this);
     m_runJobAction->setIcon(QIcon(":/images/play.svg"));
     m_runJobAction->setToolTip("Run currently selected job");
@@ -41,13 +40,11 @@ JobSelectorActions::JobSelectorActions(JobModel* jobModel, QObject* parent)
     connect(m_removeJobAction, &QAction::triggered, this, &JobSelectorActions::onRemoveJob);
 }
 
-void JobSelectorActions::setSelectionModel(QItemSelectionModel* selectionModel)
-{
+void JobSelectorActions::setSelectionModel(QItemSelectionModel* selectionModel) {
     m_selectionModel = selectionModel;
 }
 
-void JobSelectorActions::onRunJob()
-{
+void JobSelectorActions::onRunJob() {
     QModelIndexList indexList = m_selectionModel->selectedIndexes();
     for (auto index : indexList) {
         if (canRunJob(index))
@@ -55,8 +52,7 @@ void JobSelectorActions::onRunJob()
     }
 }
 
-void JobSelectorActions::onRemoveJob()
-{
+void JobSelectorActions::onRemoveJob() {
     QList<QPersistentModelIndex> toRemove;
     for (auto index : m_selectionModel->selectedIndexes())
         if (canRemoveJob(index))
@@ -69,8 +65,8 @@ void JobSelectorActions::onRemoveJob()
 //! Generates context menu at given point. If indexAtPoint is provided, the actions will be done
 //! for corresponding JobItem
 
-void JobSelectorActions::onContextMenuRequest(const QPoint& point, const QModelIndex& indexAtPoint)
-{
+void JobSelectorActions::onContextMenuRequest(const QPoint& point,
+                                              const QModelIndex& indexAtPoint) {
     QMenu menu;
     initItemContextMenu(menu, indexAtPoint);
     menu.exec(point);
@@ -79,8 +75,7 @@ void JobSelectorActions::onContextMenuRequest(const QPoint& point, const QModelI
 
 //! Puts all IntensityDataItem axes range to the selected job
 
-void JobSelectorActions::equalizeSelectedToJob(int selected_id)
-{
+void JobSelectorActions::equalizeSelectedToJob(int selected_id) {
     QModelIndexList selectedList = m_selectionModel->selectedIndexes();
 
     if (selected_id >= selectedList.size())
@@ -108,8 +103,7 @@ void JobSelectorActions::equalizeSelectedToJob(int selected_id)
     }
 }
 
-void JobSelectorActions::initItemContextMenu(QMenu& menu, const QModelIndex& indexAtPoint)
-{
+void JobSelectorActions::initItemContextMenu(QMenu& menu, const QModelIndex& indexAtPoint) {
     menu.setToolTipsVisible(true);
 
     menu.addAction(m_runJobAction);
@@ -127,8 +121,7 @@ void JobSelectorActions::initItemContextMenu(QMenu& menu, const QModelIndex& ind
     setupEqualizeMenu(menu);
 }
 
-void JobSelectorActions::setupEqualizeMenu(QMenu& menu)
-{
+void JobSelectorActions::setupEqualizeMenu(QMenu& menu) {
     menu.addSeparator();
 
     QMenu* equalize_menu = menu.addMenu("Equalize selected plots");
@@ -151,14 +144,12 @@ void JobSelectorActions::setupEqualizeMenu(QMenu& menu)
     }
 }
 
-void JobSelectorActions::setAllActionsEnabled(bool value)
-{
+void JobSelectorActions::setAllActionsEnabled(bool value) {
     m_runJobAction->setEnabled(value);
     m_removeJobAction->setEnabled(value);
 }
 
-bool JobSelectorActions::canRunJob(const QModelIndex& index) const
-{
+bool JobSelectorActions::canRunJob(const QModelIndex& index) const {
     if (!index.isValid())
         return false;
 
@@ -170,8 +161,7 @@ bool JobSelectorActions::canRunJob(const QModelIndex& index) const
     return true;
 }
 
-bool JobSelectorActions::canRemoveJob(const QModelIndex& index) const
-{
+bool JobSelectorActions::canRemoveJob(const QModelIndex& index) const {
     if (!index.isValid())
         return false;
 

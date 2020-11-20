@@ -23,9 +23,9 @@ configure_file(${CONFIGURABLES_DIR}/BABuild.h.in  ${BUILD_INC_DIR}/BABuild.h @ON
 configure_file(${CONFIGURABLES_DIR}/BATesting.h.in  ${BUILD_INC_DIR}/BATesting.h @ONLY)
 string(APPEND CMAKE_CXX_FLAGS " -I${BUILD_INC_DIR}")
 
-configure_file(${CMAKE_SOURCE_DIR}/Examples/python/utils/plot_intensity_data.py
+configure_file(${CMAKE_SOURCE_DIR}/Examples/Python/utils/plot_intensity_data.py
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/plot_intensity_data.py COPYONLY)
-configure_file(${CMAKE_SOURCE_DIR}/Examples/python/utils/plot_intensity_data_diff.py
+configure_file(${CMAKE_SOURCE_DIR}/Examples/Python/utils/plot_intensity_data_diff.py
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/plot_intensity_data_diff.py COPYONLY)
 
 # -----------------------------------------------------------------------------

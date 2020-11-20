@@ -22,8 +22,7 @@
 //! detector types and units
 //! @ingroup detector
 
-namespace AxisNames
-{
+namespace AxisNames {
 std::map<Axes::Units, std::string> InitSphericalAxis0();
 std::map<Axes::Units, std::string> InitSphericalAxis1();
 std::map<Axes::Units, std::string> InitRectangularAxis0();

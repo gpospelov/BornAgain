@@ -21,11 +21,9 @@
 #include <memory>
 #include <utility>
 
-namespace
-{
+namespace {
 bool shapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits, const IRotation& rot,
-                              kvector_t translation)
-{
+                              kvector_t translation) {
     double zbottom = formfactor.bottomZ(rot) + translation.z();
     double ztop = formfactor.topZ(rot) + translation.z();
     OneSidedLimit lower_limit = limits.lowerLimit();
@@ -37,8 +35,7 @@ bool shapeIsContainedInLimits(const IFormFactor& formfactor, ZLimits limits, con
     return true;
 }
 bool shapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits, const IRotation& rot,
-                        kvector_t translation)
-{
+                        kvector_t translation) {
     double zbottom = formfactor.bottomZ(rot) + translation.z();
     double ztop = formfactor.topZ(rot) + translation.z();
     OneSidedLimit lower_limit = limits.lowerLimit();
@@ -52,13 +49,10 @@ bool shapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits, const IRo
 } // namespace
 
 IFormFactor::IFormFactor(const NodeMeta& meta, const std::vector<double>& PValues)
-    : ISample(meta, PValues)
-{
-}
+    : ISample(meta, PValues) {}
 
 IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation& rot,
-                                                 kvector_t translation) const
-{
+                                                 kvector_t translation) const {
     if (shapeIsContainedInLimits(*this, limits, rot, translation))
         return createTransformedFormFactor(*this, rot, translation);
     if (shapeOutsideLimits(*this, limits, rot, translation))
@@ -70,36 +64,29 @@ IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation
                                "the given rotation!");
 }
 
-Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const
-{
+Eigen::Matrix2cd IFormFactor::evaluatePol(const WavevectorInfo&) const {
     // Throws to prevent unanticipated behaviour
     throw std::runtime_error("IFormFactor::evaluatePol: is not implemented by default");
 }
 
-double IFormFactor::volume() const
-{
+double IFormFactor::volume() const {
     auto zero_wavevectors = WavevectorInfo::GetZeroQ();
     return std::abs(evaluate(zero_wavevectors));
 }
 
 void IFormFactor::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients>,
-                                  std::unique_ptr<const ILayerRTCoefficients>)
-{
-}
+                                  std::unique_ptr<const ILayerRTCoefficients>) {}
 
-bool IFormFactor::canSliceAnalytically(const IRotation&) const
-{
+bool IFormFactor::canSliceAnalytically(const IRotation&) const {
     return false;
 }
 
-IFormFactor* IFormFactor::sliceFormFactor(ZLimits, const IRotation&, kvector_t) const
-{
+IFormFactor* IFormFactor::sliceFormFactor(ZLimits, const IRotation&, kvector_t) const {
     throw std::runtime_error(getName() + "::sliceFormFactor error: not implemented!");
 }
 
 IFormFactor* IFormFactor::createTransformedFormFactor(const IFormFactor& formfactor,
-                                                      const IRotation& rot, kvector_t translation)
-{
+                                                      const IRotation& rot, kvector_t translation) {
     std::unique_ptr<IFormFactor> P_fftemp, P_result;
     if (!rot.isIdentity())
         P_fftemp = std::make_unique<FormFactorDecoratorRotation>(formfactor, rot);

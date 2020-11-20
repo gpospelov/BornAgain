@@ -25,29 +25,28 @@
 
 //! @ingroup formfactors_internal
 
-class FormFactorCoreShell : public IFormFactor
-{
+class FormFactorCoreShell : public IFormFactor {
 public:
     FormFactorCoreShell(IFormFactor* core, IFormFactor* shell);
-    ~FormFactorCoreShell() override final;
+    ~FormFactorCoreShell() override;
 
-    FormFactorCoreShell* clone() const override final;
+    FormFactorCoreShell* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    double radialExtension() const override final;
+    double radialExtension() const override;
 
-    double bottomZ(const IRotation& rotation) const override final;
+    double bottomZ(const IRotation& rotation) const override;
 
-    double topZ(const IRotation& rotation) const override final;
+    double topZ(const IRotation& rotation) const override;
 
-    void setAmbientMaterial(const Material& material) override final;
+    void setAmbientMaterial(const Material& material) override;
 
-    complex_t evaluate(const WavevectorInfo& wavevectors) const override final;
+    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
 
 #ifndef SWIG
     //! Calculates and returns a polarized form factor calculation in DWBA
-    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override final;
+    Eigen::Matrix2cd evaluatePol(const WavevectorInfo& wavevectors) const override;
 #endif
 
 protected:

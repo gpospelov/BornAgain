@@ -18,6 +18,7 @@ BUNDLE_DIR = ""
 # Locations
 # -----------------------------------------------------------------------------
 
+
 def is_python3():
     if (sys.version_info > (3, 0)):
         return True
@@ -52,7 +53,8 @@ def bundle_main_executables():
 
 
 def bundle_python_library():
-    return os.path.join("Python.framework", "Versions", python_version_string(), "Python")
+    return os.path.join("Python.framework", "Versions", python_version_string(),
+                        "Python")
 
 
 def qtlibs_path():
@@ -64,7 +66,8 @@ def qtplugins_path():
 
 
 def bundle_libraries():
-    return glob.glob(os.path.join(bundle_dir(), "Contents", "lib", "BornAgain-*", "*"))
+    return glob.glob(
+        os.path.join(bundle_dir(), "Contents", "lib", "BornAgain-*", "*"))
 
 
 def bundle_plugins():
@@ -82,7 +85,7 @@ def get_list_of_files(dirname):
     result = []
     for root, directories, filenames in os.walk(dirname):
         for filename in filenames:
-            result.append(os.path.join(root,filename))
+            result.append(os.path.join(root, filename))
     return result
 
 
@@ -131,7 +134,8 @@ def setId(filename, newId):
     """
     Sets new id for binary file
     """
-    p = subprocess.Popen(['install_name_tool', '-id', newId, filename], stdout=subprocess.PIPE)
+    p = subprocess.Popen(['install_name_tool', '-id', newId, filename],
+                         stdout=subprocess.PIPE)
     p.communicate()
     return
 
@@ -141,7 +145,8 @@ def fixDependency(filename, old, new):
     Replaces old dependency with new one for given binary file
     """
     print("    fixDependency(filename, old, new)", filename, old, new)
-    p = subprocess.Popen(['install_name_tool', '-change', old, new, filename], stdout=subprocess.PIPE)
+    p = subprocess.Popen(['install_name_tool', '-change', old, new, filename],
+                         stdout=subprocess.PIPE)
     p.communicate()
     return
 
@@ -213,7 +218,7 @@ def get_dependency_libId(dependency):
         return "@rpath/" + bundle_python_library()
 
     if is_qt_framework_dependency(dependency):
-        return "@rpath/" + libname +".framework/Versions/5/"+libname
+        return "@rpath/" + libname + ".framework/Versions/5/" + libname
 
     # all other libraries
     return "@rpath/" + libname
@@ -235,7 +240,7 @@ def get_dependency_orig_location(dependency):
 
     elif is_qt_framework_dependency(dependency):
         libname = os.path.basename(dependency)
-        libpath = os.path.join(libname+".framework", "Versions", "5")
+        libpath = os.path.join(libname + ".framework", "Versions", "5")
         result = os.path.join(qtlibs_path(), libpath, libname)
 
     return result
@@ -251,7 +256,7 @@ def get_dependency_dest_location(dependency):
         return os.path.join(bundle_frameworks_path(), bundle_python_library())
 
     if is_qt_framework_dependency(dependency):
-        libpath = os.path.join(libname+".framework", "Versions", "5")
+        libpath = os.path.join(libname + ".framework", "Versions", "5")
         return os.path.join(bundle_frameworks_path(), libpath, libname)
 
     return os.path.join(bundle_frameworks_path(), libname)
@@ -266,7 +271,7 @@ def get_special_dependency_id(dependency):
 
     if is_qt_framework_dependency(dependency) and not "@rpath" in dependency:
         libname = os.path.basename(dependency)
-        return "@rpath/" + libname +".framework/Versions/5/"+libname
+        return "@rpath/" + libname + ".framework/Versions/5/" + libname
     return None
 
 
@@ -283,8 +288,9 @@ def get_python_library_location():
     # Let's try to find library directly
 
     prefix = sys.prefix
-    suffix = sysconfig.get_config_var('LDVERSION') or sysconfig.get_config_var('VERSION')
-    result = sys.prefix+"/lib/libpython"+suffix+".dylib"
+    suffix = sysconfig.get_config_var('LDVERSION') or sysconfig.get_config_var(
+        'VERSION')
+    result = sys.prefix + "/lib/libpython" + suffix + ".dylib"
     if os.path.exists(result):
         return result
 
@@ -313,11 +319,14 @@ def copy_python_framework():
 
 def copy_qt_libraries():
     print("--> Copying Qt libraries")
-    libs = ['QtCore', 'QtDBus', 'QtDesigner', 'QtGui', 'QtPrintSupport', 'QtWidgets', 'QtXml', 'QtSvg', 'QtNetwork', 'QtOpenGL']
+    libs = [
+        'QtCore', 'QtDBus', 'QtDesigner', 'QtGui', 'QtPrintSupport', 'QtWidgets',
+        'QtXml', 'QtSvg', 'QtNetwork', 'QtOpenGL'
+    ]
     print("   ", end="")
     for libname in libs:
         print(libname, end="")
-        libpath = os.path.join(libname+".framework", "Versions", "5")
+        libpath = os.path.join(libname + ".framework", "Versions", "5")
         srcfile = os.path.join(qtlibs_path(), libpath, libname)
         if os.path.exists(srcfile):
             dstdir = os.path.join(bundle_frameworks_path(), libpath)
@@ -326,8 +335,11 @@ def copy_qt_libraries():
 
 def copy_qt_plugins():
     print("--> Copying Qt plugins")
-    plugins = ['platforms/libqcocoa.dylib', 'iconengines/libqsvgicon.dylib',
-        'imageformats/libqjpeg.dylib', 'imageformats/libqsvg.dylib', 'styles/libqmacstyle.dylib']
+    plugins = [
+        'platforms/libqcocoa.dylib', 'iconengines/libqsvgicon.dylib',
+        'imageformats/libqjpeg.dylib', 'imageformats/libqsvg.dylib',
+        'styles/libqmacstyle.dylib'
+    ]
     print("   ", end="")
     for name in plugins:
         print(name, end="")
@@ -344,7 +356,7 @@ def process_dependency(dependency):
     """
 
     libId = get_dependency_libId(dependency)
-    origLocation  = get_dependency_orig_location(dependency)
+    origLocation = get_dependency_orig_location(dependency)
     destLocation = get_dependency_dest_location(dependency)
 
     print("     ------")
@@ -394,7 +406,7 @@ def validate_dependencies():
     """
     binaries = bornagain_binaries()
     libraries = get_list_of_files(bundle_frameworks_path())
-    file_list = binaries+libraries
+    file_list = binaries + libraries
     files_with_missed_dependencies = []
     for file_name in file_list:
         for dependency in otool(file_name):

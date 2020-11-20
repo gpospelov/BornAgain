@@ -24,23 +24,22 @@
 //! DOI: 10.1080/00268979500101211
 //! @ingroup interference
 
-class InterferenceFunctionHardDisk : public IInterferenceFunction
-{
+class InterferenceFunctionHardDisk : public IInterferenceFunction {
 public:
     InterferenceFunctionHardDisk(double radius, double density, double position_var = 0);
-    ~InterferenceFunctionHardDisk() final = default;
+    ~InterferenceFunctionHardDisk() override = default;
 
-    InterferenceFunctionHardDisk* clone() const override final;
+    InterferenceFunctionHardDisk* clone() const override;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    double getParticleDensity() const override final;
+    double getParticleDensity() const override;
 
     double radius() const;
     double density() const;
 
 private:
-    double iff_without_dw(const kvector_t q) const override final;
+    double iff_without_dw(const kvector_t q) const override;
     double packingRatio() const;
     double integrand(double x) const;
 

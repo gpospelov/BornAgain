@@ -23,8 +23,7 @@ class RectangularPixel;
 //! A flat rectangular detector with axes and resolution function.
 //! @ingroup detector
 
-class RectangularDetector : public IDetector2D
-{
+class RectangularDetector : public IDetector2D {
 public:
     enum EDetectorArrangement {
         GENERIC,

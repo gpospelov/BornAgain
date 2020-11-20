@@ -19,8 +19,7 @@
 
 //! Help class to define various flags for MaskEditor operation
 
-class MaskEditorFlags
-{
+class MaskEditorFlags {
 public:
     enum EActivityType {
         SELECTION_MODE,

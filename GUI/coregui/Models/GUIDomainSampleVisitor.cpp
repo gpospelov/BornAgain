@@ -45,10 +45,8 @@
 
 using SessionItemUtils::SetVectorItem;
 
-namespace
-{
-SessionItem* AddFormFactorItem(SessionItem* p_parent, const QString& model_type)
-{
+namespace {
+SessionItem* AddFormFactorItem(SessionItem* p_parent, const QString& model_type) {
     auto parent_type = p_parent->modelType();
     QString property_name;
     if (parent_type == "Particle") {
@@ -64,17 +62,15 @@ SessionItem* AddFormFactorItem(SessionItem* p_parent, const QString& model_type)
 }
 } // namespace
 
-GUIDomainSampleVisitor::GUIDomainSampleVisitor() : m_sampleModel(nullptr), m_materialModel(nullptr)
-{
-}
+GUIDomainSampleVisitor::GUIDomainSampleVisitor()
+    : m_sampleModel(nullptr), m_materialModel(nullptr) {}
 
 GUIDomainSampleVisitor::~GUIDomainSampleVisitor() = default;
 
 SessionItem* GUIDomainSampleVisitor::populateSampleModel(SampleModel* sampleModel,
                                                          MaterialModel* materialModel,
                                                          const MultiLayer& sample,
-                                                         const QString& sample_name)
-{
+                                                         const QString& sample_name) {
     m_sampleModel = sampleModel;
     m_materialModel = materialModel;
     m_levelToParentItem.clear();
@@ -90,8 +86,7 @@ SessionItem* GUIDomainSampleVisitor::populateSampleModel(SampleModel* sampleMode
     return result;
 }
 
-void GUIDomainSampleVisitor::visit(const ParticleLayout* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const ParticleLayout* p_sample) {
     SessionItem* p_parent = m_levelToParentItem[depth() - 1];
     SessionItem* p_layout_item(nullptr);
     if (p_parent) {
@@ -106,8 +101,7 @@ void GUIDomainSampleVisitor::visit(const ParticleLayout* p_sample)
     m_levelToParentItem[depth()] = p_layout_item;
 }
 
-void GUIDomainSampleVisitor::visit(const Layer* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const Layer* p_sample) {
     SessionItem* p_parent = m_levelToParentItem[depth() - 1];
     ASSERT(p_parent);
 
@@ -127,8 +121,7 @@ void GUIDomainSampleVisitor::visit(const Layer* p_sample)
     m_levelToParentItem[depth()] = p_layer_item;
 }
 
-void GUIDomainSampleVisitor::visit(const MultiLayer* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const MultiLayer* p_sample) {
     SessionItem* p_multilayer_item = m_sampleModel->insertNewItem("MultiLayer");
     p_multilayer_item->setItemName(p_sample->getName().c_str());
     p_multilayer_item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH,
@@ -138,15 +131,13 @@ void GUIDomainSampleVisitor::visit(const MultiLayer* p_sample)
     m_itemToSample[p_multilayer_item] = p_sample;
 }
 
-void GUIDomainSampleVisitor::visit(const Particle* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const Particle* p_sample) {
     auto p_particle_item = InsertIParticle(p_sample, "Particle");
     p_particle_item->setItemValue(ParticleItem::P_MATERIAL,
                                   createMaterialFromDomain(p_sample->material()).variant());
 }
 
-void GUIDomainSampleVisitor::visit(const ParticleDistribution* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const ParticleDistribution* p_sample) {
     SessionItem* p_layout_item = m_levelToParentItem[depth() - 1];
     ASSERT(p_layout_item);
     SessionItem* p_particle_distribution_item = m_sampleModel->insertNewItem(
@@ -159,23 +150,19 @@ void GUIDomainSampleVisitor::visit(const ParticleDistribution* p_sample)
     m_itemToSample[p_particle_distribution_item] = p_sample;
 }
 
-void GUIDomainSampleVisitor::visit(const ParticleCoreShell* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const ParticleCoreShell* p_sample) {
     InsertIParticle(p_sample, "ParticleCoreShell");
 }
 
-void GUIDomainSampleVisitor::visit(const ParticleComposition* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const ParticleComposition* p_sample) {
     InsertIParticle(p_sample, "ParticleComposition");
 }
 
-void GUIDomainSampleVisitor::visit(const MesoCrystal* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const MesoCrystal* p_sample) {
     InsertIParticle(p_sample, "MesoCrystal");
 }
 
-void GUIDomainSampleVisitor::visit(const Crystal* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const Crystal* p_sample) {
     SessionItem* p_mesocrystal_item = m_levelToParentItem[depth() - 1];
     ASSERT(p_mesocrystal_item);
     if (p_mesocrystal_item->modelType() != "MesoCrystal") {
@@ -195,8 +182,7 @@ void GUIDomainSampleVisitor::visit(const Crystal* p_sample)
     m_levelToParentItem[depth()] = p_mesocrystal_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorAnisoPyramid* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorAnisoPyramid* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "AnisoPyramid");
     p_ff_item->setItemValue(AnisoPyramidItem::P_LENGTH, p_sample->getLength());
@@ -206,8 +192,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorAnisoPyramid* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorBarGauss* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorBarGauss* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "BarGauss");
     p_ff_item->setItemValue(BarGaussItem::P_LENGTH, p_sample->getLength());
@@ -216,8 +201,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorBarGauss* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorBarLorentz* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorBarLorentz* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "BarLorentz");
     p_ff_item->setItemValue(BarLorentzItem::P_LENGTH, p_sample->getLength());
@@ -226,8 +210,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorBarLorentz* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorBox* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorBox* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Box");
     p_ff_item->setItemValue(BoxItem::P_LENGTH, p_sample->getLength());
@@ -236,8 +219,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorBox* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorCone* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorCone* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Cone");
     p_ff_item->setItemValue(ConeItem::P_RADIUS, p_sample->getRadius());
@@ -246,8 +228,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorCone* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorCone6* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorCone6* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Cone6");
     p_ff_item->setItemValue(Cone6Item::P_BASEEDGE, p_sample->getBaseEdge());
@@ -256,8 +237,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorCone6* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorCuboctahedron* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorCuboctahedron* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Cuboctahedron");
     p_ff_item->setItemValue(CuboctahedronItem::P_LENGTH, p_sample->getLength());
@@ -267,8 +247,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorCuboctahedron* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorCylinder* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorCylinder* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Cylinder");
     p_ff_item->setItemValue(CylinderItem::P_RADIUS, p_sample->getRadius());
@@ -276,24 +255,21 @@ void GUIDomainSampleVisitor::visit(const FormFactorCylinder* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorDodecahedron* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorDodecahedron* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Dodecahedron");
     p_ff_item->setItemValue(DodecahedronItem::P_EDGE, p_sample->getEdge());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorDot* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorDot* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Dot");
     p_ff_item->setItemValue(FullSphereItem::P_RADIUS, p_sample->getRadius());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorEllipsoidalCylinder* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorEllipsoidalCylinder* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "EllipsoidalCylinder");
     p_ff_item->setItemValue(EllipsoidalCylinderItem::P_RADIUS_X, p_sample->getRadiusX());
@@ -302,16 +278,14 @@ void GUIDomainSampleVisitor::visit(const FormFactorEllipsoidalCylinder* p_sample
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorFullSphere* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorFullSphere* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "FullSphere");
     p_ff_item->setItemValue(FullSphereItem::P_RADIUS, p_sample->getRadius());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorFullSpheroid* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorFullSpheroid* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "FullSpheroid");
     p_ff_item->setItemValue(FullSpheroidItem::P_RADIUS, p_sample->getRadius());
@@ -319,16 +293,14 @@ void GUIDomainSampleVisitor::visit(const FormFactorFullSpheroid* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorIcosahedron* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorIcosahedron* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Icosahedron");
     p_ff_item->setItemValue(IcosahedronItem::P_EDGE, p_sample->getEdge());
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorHemiEllipsoid* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorHemiEllipsoid* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "HemiEllipsoid");
     p_ff_item->setItemValue(HemiEllipsoidItem::P_RADIUS_X, p_sample->getRadiusX());
@@ -337,8 +309,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorHemiEllipsoid* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorPrism3* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorPrism3* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Prism3");
     p_ff_item->setItemValue(Prism3Item::P_BASEEDGE, p_sample->getBaseEdge());
@@ -346,8 +317,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorPrism3* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorPrism6* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorPrism6* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Prism6");
     p_ff_item->setItemValue(Prism6Item::P_BASEEDGE, p_sample->getBaseEdge());
@@ -355,8 +325,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorPrism6* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorPyramid* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorPyramid* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Pyramid");
     p_ff_item->setItemValue(PyramidItem::P_BASEEDGE, p_sample->getBaseEdge());
@@ -365,8 +334,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorPyramid* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleBox* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleBox* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "CosineRippleBox");
     p_ff_item->setItemValue(CosineRippleBoxItem::P_LENGTH, p_sample->getLength());
@@ -375,8 +343,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleBox* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleGauss* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleGauss* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "CosineRippleGauss");
     p_ff_item->setItemValue(CosineRippleGaussItem::P_LENGTH, p_sample->getLength());
@@ -385,8 +352,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleGauss* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleLorentz* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleLorentz* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "CosineRippleLorentz");
     p_ff_item->setItemValue(CosineRippleLorentzItem::P_LENGTH, p_sample->getLength());
@@ -395,8 +361,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorCosineRippleLorentz* p_sample
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleBox* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleBox* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "SawtoothRippleBox");
     p_ff_item->setItemValue(SawtoothRippleBoxItem::P_LENGTH, p_sample->getLength());
@@ -406,8 +371,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleBox* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleGauss* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleGauss* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "SawtoothRippleGauss");
     p_ff_item->setItemValue(SawtoothRippleGaussItem::P_LENGTH, p_sample->getLength());
@@ -417,8 +381,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleGauss* p_sample
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleLorentz* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleLorentz* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "SawtoothRippleLorentz");
     p_ff_item->setItemValue(SawtoothRippleLorentzItem::P_LENGTH, p_sample->getLength());
@@ -428,8 +391,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorSawtoothRippleLorentz* p_samp
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorTetrahedron* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorTetrahedron* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "Tetrahedron");
     p_ff_item->setItemValue(TetrahedronItem::P_BASEEDGE, p_sample->getBaseEdge());
@@ -438,8 +400,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorTetrahedron* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorTruncatedCube* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorTruncatedCube* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "TruncatedCube");
     p_ff_item->setItemValue(TruncatedCubeItem::P_LENGTH, p_sample->getLength());
@@ -447,8 +408,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorTruncatedCube* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorTruncatedSphere* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorTruncatedSphere* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "TruncatedSphere");
     p_ff_item->setItemValue(TruncatedSphereItem::P_RADIUS, p_sample->getRadius());
@@ -457,8 +417,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorTruncatedSphere* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const FormFactorTruncatedSpheroid* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const FormFactorTruncatedSpheroid* p_sample) {
     SessionItem* p_particle_item = m_levelToParentItem[depth() - 1];
     SessionItem* p_ff_item = AddFormFactorItem(p_particle_item, "TruncatedSpheroid");
     p_ff_item->setItemValue(TruncatedSpheroidItem::P_RADIUS, p_sample->getRadius());
@@ -468,8 +427,7 @@ void GUIDomainSampleVisitor::visit(const FormFactorTruncatedSpheroid* p_sample)
     m_levelToParentItem[depth()] = p_particle_item;
 }
 
-void GUIDomainSampleVisitor::visit(const InterferenceFunction1DLattice* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const InterferenceFunction1DLattice* p_sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
     SessionItem* item =
@@ -480,8 +438,7 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunction1DLattice* p_sample
     m_levelToParentItem[depth()] = item;
 }
 
-void GUIDomainSampleVisitor::visit(const InterferenceFunction2DLattice* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const InterferenceFunction2DLattice* p_sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
     SessionItem* item =
@@ -492,8 +449,7 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunction2DLattice* p_sample
     m_levelToParentItem[depth()] = item;
 }
 
-void GUIDomainSampleVisitor::visit(const InterferenceFunction2DParaCrystal* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const InterferenceFunction2DParaCrystal* p_sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
     SessionItem* item = m_sampleModel->insertNewItem("Interference2DParaCrystal",
@@ -504,8 +460,7 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunction2DParaCrystal* p_sa
     m_levelToParentItem[depth()] = item;
 }
 
-void GUIDomainSampleVisitor::visit(const InterferenceFunctionFinite2DLattice* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const InterferenceFunctionFinite2DLattice* p_sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
     SessionItem* item = m_sampleModel->insertNewItem("InterferenceFinite2DLattice",
@@ -516,8 +471,7 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunctionFinite2DLattice* p_
     m_levelToParentItem[depth()] = item;
 }
 
-void GUIDomainSampleVisitor::visit(const InterferenceFunctionHardDisk* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const InterferenceFunctionHardDisk* p_sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
     SessionItem* item =
@@ -528,8 +482,7 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunctionHardDisk* p_sample)
     m_levelToParentItem[depth()] = item;
 }
 
-void GUIDomainSampleVisitor::visit(const InterferenceFunctionRadialParaCrystal* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const InterferenceFunctionRadialParaCrystal* p_sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
     SessionItem* item = m_sampleModel->insertNewItem("InterferenceRadialParaCrystal",
@@ -540,8 +493,7 @@ void GUIDomainSampleVisitor::visit(const InterferenceFunctionRadialParaCrystal* 
     m_levelToParentItem[depth()] = item;
 }
 
-void GUIDomainSampleVisitor::visit(const RotationX* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const RotationX* p_sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
 
@@ -553,8 +505,7 @@ void GUIDomainSampleVisitor::visit(const RotationX* p_sample)
     m_levelToParentItem[depth()] = transformation_item;
 }
 
-void GUIDomainSampleVisitor::visit(const RotationY* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const RotationY* p_sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
 
@@ -566,8 +517,7 @@ void GUIDomainSampleVisitor::visit(const RotationY* p_sample)
     m_levelToParentItem[depth()] = transformation_item;
 }
 
-void GUIDomainSampleVisitor::visit(const RotationZ* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const RotationZ* p_sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
 
@@ -579,8 +529,7 @@ void GUIDomainSampleVisitor::visit(const RotationZ* p_sample)
     m_levelToParentItem[depth()] = transformation_item;
 }
 
-void GUIDomainSampleVisitor::visit(const RotationEuler* p_sample)
-{
+void GUIDomainSampleVisitor::visit(const RotationEuler* p_sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
 
@@ -596,14 +545,12 @@ void GUIDomainSampleVisitor::visit(const RotationEuler* p_sample)
 }
 
 void GUIDomainSampleVisitor::buildPositionInfo(SessionItem* p_particle_item,
-                                               const IParticle* p_sample)
-{
+                                               const IParticle* p_sample) {
     kvector_t position = p_sample->position();
     SetVectorItem(*p_particle_item, ParticleItem::P_POSITION, position);
 }
 
-ExternalProperty GUIDomainSampleVisitor::createMaterialFromDomain(const Material* material)
-{
+ExternalProperty GUIDomainSampleVisitor::createMaterialFromDomain(const Material* material) {
     QString materialName = m_topSampleName + QString("_") + QString(material->getName().c_str());
 
     if (auto material = m_materialModel->materialFromName(materialName))
@@ -627,8 +574,7 @@ ExternalProperty GUIDomainSampleVisitor::createMaterialFromDomain(const Material
 }
 
 SessionItem* GUIDomainSampleVisitor::InsertIParticle(const IParticle* p_particle,
-                                                     QString model_type)
-{
+                                                     QString model_type) {
     auto p_parent = m_levelToParentItem[depth() - 1];
     ASSERT(p_parent);
 

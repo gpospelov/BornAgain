@@ -21,8 +21,7 @@
 #include <QVBoxLayout>
 
 InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel* model, QWidget* parent)
-    : ItemSelectorWidget(parent)
-{
+    : ItemSelectorWidget(parent) {
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
     listView()->setViewMode(QListView::IconMode);
@@ -44,12 +43,10 @@ InstrumentSelectorWidget::InstrumentSelectorWidget(InstrumentModel* model, QWidg
     layout()->setMargin(10);
 }
 
-QSize InstrumentSelectorWidget::sizeHint() const
-{
+QSize InstrumentSelectorWidget::sizeHint() const {
     return QSize(170, 400);
 }
 
-QSize InstrumentSelectorWidget::minimumSizeHint() const
-{
+QSize InstrumentSelectorWidget::minimumSizeHint() const {
     return QSize(96, 200);
 }

@@ -25,8 +25,7 @@ class RealLimits;
 
 //! Base class for all custom variants editors.
 
-class CustomEditor : public QWidget
-{
+class CustomEditor : public QWidget {
     Q_OBJECT
 public:
     explicit CustomEditor(QWidget* parent = nullptr) : QWidget(parent) {}
@@ -48,8 +47,7 @@ protected:
 
 //! Editor for ExternalProperty variant.
 
-class ExternalPropertyEditor : public CustomEditor
-{
+class ExternalPropertyEditor : public CustomEditor {
     Q_OBJECT
 public:
     explicit ExternalPropertyEditor(QWidget* parent = nullptr);
@@ -71,8 +69,7 @@ private:
 
 //! Editor for ComboProperty variant.
 
-class ComboPropertyEditor : public CustomEditor
-{
+class ComboPropertyEditor : public CustomEditor {
     Q_OBJECT
 public:
     explicit ComboPropertyEditor(QWidget* parent = nullptr);
@@ -95,8 +92,7 @@ protected:
 
 //! Editor for ScientificDoubleProperty variant.
 
-class ScientificDoublePropertyEditor : public CustomEditor
-{
+class ScientificDoublePropertyEditor : public CustomEditor {
     Q_OBJECT
 public:
     ScientificDoublePropertyEditor(QWidget* parent = nullptr);
@@ -116,8 +112,7 @@ private:
 
 //! Editor for Double variant.
 
-class DoubleEditor : public CustomEditor
-{
+class DoubleEditor : public CustomEditor {
     Q_OBJECT
 public:
     DoubleEditor(QWidget* parent = nullptr);
@@ -137,8 +132,7 @@ private:
 
 //! Editor for Double variant using ScientificSpinBox.
 
-class ScientificSpinBoxEditor : public CustomEditor
-{
+class ScientificSpinBoxEditor : public CustomEditor {
     Q_OBJECT
 public:
     ScientificSpinBoxEditor(QWidget* parent = nullptr);
@@ -159,8 +153,7 @@ private:
 
 //! Editor for Int variant.
 
-class IntEditor : public CustomEditor
-{
+class IntEditor : public CustomEditor {
     Q_OBJECT
 public:
     IntEditor(QWidget* parent = nullptr);
@@ -181,8 +174,7 @@ private:
 
 class QCheckBox;
 
-class BoolEditor : public CustomEditor
-{
+class BoolEditor : public CustomEditor {
     Q_OBJECT
 public:
     BoolEditor(QWidget* parent = nullptr);

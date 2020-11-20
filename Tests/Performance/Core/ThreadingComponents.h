@@ -20,8 +20,7 @@
 class ISimulation;
 
 //! Collection of simulations for MultiThreadPerformanceTest.
-namespace TestComponents
-{
+namespace TestComponents {
 
 std::unique_ptr<ISimulation> CreateSimpleGISAS();
 

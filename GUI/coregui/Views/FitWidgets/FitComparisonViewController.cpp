@@ -23,8 +23,7 @@
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Views/IntensityDataWidgets/PropertyRepeater.h"
 
-namespace
-{
+namespace {
 const double relative_diff_min_1d = 1e-05;
 const double relative_diff_max_1d = 4.0;
 } // namespace
@@ -34,17 +33,13 @@ FitComparison1DViewController::FitComparison1DViewController(QObject* parent)
     , m_diff_item_controller(new DiffItemController("SpecularData", this))
     , m_diff_view_item(nullptr)
     , m_appearanceRepeater(new PropertyRepeater(this))
-    , m_xAxisRepeater(new PropertyRepeater(this))
-{
-}
+    , m_xAxisRepeater(new PropertyRepeater(this)) {}
 
-Data1DViewItem* FitComparison1DViewController::diffItemView()
-{
+Data1DViewItem* FitComparison1DViewController::diffItemView() {
     return m_diff_view_item;
 }
 
-void FitComparison1DViewController::setItem(JobItem* job_item)
-{
+void FitComparison1DViewController::setItem(JobItem* job_item) {
     ASSERT(job_item);
 
     clear();
@@ -65,13 +60,11 @@ void FitComparison1DViewController::setItem(JobItem* job_item)
     m_diff_view_item->setUpperY(relative_diff_max_1d);
 }
 
-void FitComparison1DViewController::updateDiffData()
-{
+void FitComparison1DViewController::updateDiffData() {
     m_diff_item_controller->updateDiffData();
 }
 
-void FitComparison1DViewController::resetDiffView()
-{
+void FitComparison1DViewController::resetDiffView() {
     if (!m_diff_view_item)
         return;
     m_diff_view_item->resetView();
@@ -79,8 +72,7 @@ void FitComparison1DViewController::resetDiffView()
     m_diff_view_item->setUpperY(relative_diff_max_1d);
 }
 
-void FitComparison1DViewController::clear()
-{
+void FitComparison1DViewController::clear() {
     m_diff_item_controller->unsubscribe();
     m_appearanceRepeater->clear();
     m_xAxisRepeater->clear();
@@ -88,8 +80,7 @@ void FitComparison1DViewController::clear()
         deleteDiffViewItem();
 }
 
-void FitComparison1DViewController::createDiffViewItem(JobItem* job_item)
-{
+void FitComparison1DViewController::createDiffViewItem(JobItem* job_item) {
     m_diff_view_item = dynamic_cast<Data1DViewItem*>(
         m_diff_item_controller->model()->insertNewItem("Data1DViewItem"));
     auto container = m_diff_view_item->model()->insertNewItem(
@@ -102,8 +93,7 @@ void FitComparison1DViewController::createDiffViewItem(JobItem* job_item)
     m_diff_view_item->setItemValue(Data1DViewItem::P_AXES_UNITS, units_value);
 }
 
-void FitComparison1DViewController::deleteDiffViewItem()
-{
+void FitComparison1DViewController::deleteDiffViewItem() {
     auto parent = m_diff_view_item->parent();
     auto old_view_item = parent->takeRow(parent->rowOfChild(m_diff_view_item));
     ASSERT(old_view_item == m_diff_view_item);
@@ -115,18 +105,15 @@ DiffItemController::DiffItemController(const QString& data_type, QObject* parent
     : QObject(parent)
     , m_current_item(nullptr)
     , m_private_model(new SessionModel("TempIntensityDataModel", this))
-    , m_diff_item(dynamic_cast<DataItem*>(m_private_model->insertNewItem(data_type)))
-{
+    , m_diff_item(dynamic_cast<DataItem*>(m_private_model->insertNewItem(data_type))) {
     ASSERT(m_diff_item);
 }
 
-DiffItemController::~DiffItemController()
-{
+DiffItemController::~DiffItemController() {
     unsubscribe();
 }
 
-void DiffItemController::setJobItem(JobItem* job_item)
-{
+void DiffItemController::setJobItem(JobItem* job_item) {
     ASSERT(job_item);
     if (m_current_item)
         unsubscribe();
@@ -135,8 +122,7 @@ void DiffItemController::setJobItem(JobItem* job_item)
     updateDiffData();
 }
 
-void DiffItemController::updateDiffData()
-{
+void DiffItemController::updateDiffData() {
     ASSERT(m_current_item);
 
     auto sim_data = m_current_item->dataItem();
@@ -151,8 +137,7 @@ void DiffItemController::updateDiffData()
                                    .release());
 }
 
-void DiffItemController::subscribe()
-{
+void DiffItemController::subscribe() {
     if (!m_current_item) {
         ASSERT(false);
         return;
@@ -162,8 +147,7 @@ void DiffItemController::subscribe()
     m_current_item->dataItem()->mapper()->setOnValueChange([this]() { updateDiffData(); }, this);
 }
 
-void DiffItemController::unsubscribe()
-{
+void DiffItemController::unsubscribe() {
     m_diff_item->mapper()->unsubscribe(this);
     if (!m_current_item)
         return;

@@ -25,8 +25,7 @@ class QStyleOptionViewItem;
 
 //! Provides custom editor for ComboProperty with multi-select option.
 
-class MultiComboPropertyEditor : public CustomEditor
-{
+class MultiComboPropertyEditor : public CustomEditor {
     Q_OBJECT
 public:
     explicit MultiComboPropertyEditor(QWidget* parent = nullptr);
@@ -57,8 +56,7 @@ private:
 
 //! Provides custom style delegate for QComboBox to allow checkboxes.
 
-class QCheckListStyledItemDelegate : public QStyledItemDelegate
-{
+class QCheckListStyledItemDelegate : public QStyledItemDelegate {
 public:
     QCheckListStyledItemDelegate(QObject* parent = nullptr);
 

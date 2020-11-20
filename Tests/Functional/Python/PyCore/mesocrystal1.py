@@ -7,6 +7,7 @@ import ctypes, math, numpy, os, sys, time
 import utils
 from bornagain import *
 
+
 # ----------------------------------------------------------------------------
 # Sample builder to build mixture of cylinders and prisms on top of substrate
 # ----------------------------------------------------------------------------
@@ -25,31 +26,50 @@ class MySampleBuilder(ISampleBuilder):
         self.surface_filling_ratio = ctypes.c_double(1.7286e-01)
         self.roughness = ctypes.c_double(2.8746e+01*nm)
         # register parameters
-        self.registerParameter("lattice_length_a", ctypes.addressof(self.lattice_length_a)).setUnit("nm").setNonnegative()
-        self.registerParameter("lattice_length_c", ctypes.addressof(self.lattice_length_c)).setUnit("nm").setNonnegative()
-        self.registerParameter("nanoparticle_radius", ctypes.addressof(self.nanoparticle_radius)).setUnit("nm").setNonnegative()
-        self.registerParameter("sigma_nanoparticle_radius", ctypes.addressof(self.sigma_nanoparticle_radius)).setUnit("nm").setNonnegative()
-        self.registerParameter("meso_height", ctypes.addressof(self.meso_height)).setUnit("nm").setNonnegative()
-        self.registerParameter("meso_radius",  ctypes.addressof(self.meso_radius)).setUnit("nm").setNonnegative()
-        self.registerParameter("sigma_lattice_length_a", ctypes.addressof(self.sigma_lattice_length_a)).setUnit("nm").setNonnegative()
-        self.registerParameter("surface_filling_ratio", ctypes.addressof(self.surface_filling_ratio) ).setNonnegative()
-        self.registerParameter("roughness", ctypes.addressof(self.roughness)).setUnit("nm").setNonnegative()
+        self.registerParameter(
+            "lattice_length_a",
+            ctypes.addressof(self.lattice_length_a)).setUnit("nm").setNonnegative()
+        self.registerParameter(
+            "lattice_length_c",
+            ctypes.addressof(self.lattice_length_c)).setUnit("nm").setNonnegative()
+        self.registerParameter(
+            "nanoparticle_radius", ctypes.addressof(
+                self.nanoparticle_radius)).setUnit("nm").setNonnegative()
+        self.registerParameter(
+            "sigma_nanoparticle_radius",
+            ctypes.addressof(
+                self.sigma_nanoparticle_radius)).setUnit("nm").setNonnegative()
+        self.registerParameter("meso_height", ctypes.addressof(
+            self.meso_height)).setUnit("nm").setNonnegative()
+        self.registerParameter("meso_radius", ctypes.addressof(
+            self.meso_radius)).setUnit("nm").setNonnegative()
+        self.registerParameter(
+            "sigma_lattice_length_a", ctypes.addressof(
+                self.sigma_lattice_length_a)).setUnit("nm").setNonnegative()
+        self.registerParameter("surface_filling_ratio",
+                               ctypes.addressof(
+                                   self.surface_filling_ratio)).setNonnegative()
+        self.registerParameter("roughness", ctypes.addressof(
+            self.roughness)).setUnit("nm").setNonnegative()
 
     # -------------------------------------------------------------------------
     # constructs the sample for current values of parameters
     # -------------------------------------------------------------------------
     def buildSample(self):
         surface_density = self.surface_filling_ratio.value/numpy.pi/self.meso_radius.value/self.meso_radius.value
-        n_particle = complex(1.0-2.84e-5, 4.7e-7)
+        n_particle = complex(1.0 - 2.84e-5, 4.7e-7)
         avg_n_squared_meso = complex(0.7886*n_particle*n_particle + 0.2114)
-        n_avg = complex(numpy.sqrt(self.surface_filling_ratio.value*avg_n_squared_meso + 1.0 - self.surface_filling_ratio.value))
-        n_particle_adapted = complex(numpy.sqrt(n_avg*n_avg + n_particle*n_particle - 1.0))
+        n_avg = complex(
+            numpy.sqrt(self.surface_filling_ratio.value*avg_n_squared_meso + 1.0 -
+                       self.surface_filling_ratio.value))
+        n_particle_adapted = complex(
+            numpy.sqrt(n_avg*n_avg + n_particle*n_particle - 1.0))
         ff = FormFactorCylinder(self.meso_radius.value, self.meso_height.value)
 
         # Create multilayer
         p_multi_layer = MultiLayer()
         n_air = complex(1.0, 0.0)
-        n_substrate = complex(1.0-7.57e-6, 1.73e-7)
+        n_substrate = complex(1.0 - 7.57e-6, 1.73e-7)
 
         p_vacuum_material = HomogeneousMaterial("Vacuum", n_air)
         p_average_layer_material = HomogeneousMaterial("Averagelayer", n_avg)
@@ -63,7 +83,7 @@ class MySampleBuilder(ISampleBuilder):
         n_max_phi_rotation_steps = 2
         n_alpha_rotation_steps = 1
         alpha_step = 5.0*deg/n_alpha_rotation_steps
-        alpha_start = - (n_alpha_rotation_steps/2.0)*alpha_step
+        alpha_start = -(n_alpha_rotation_steps/2.0)*alpha_step
 
         phi_step = 2*numpy.pi/3.0/n_max_phi_rotation_steps
         phi_start = 0.0
@@ -71,9 +91,12 @@ class MySampleBuilder(ISampleBuilder):
             for j in range(0, n_alpha_rotation_steps):
 
                 total_transform = RotationZ(phi_start + i*phi_step)
-                meso = self.createMesoCrystal(self.lattice_length_a.value, self.lattice_length_c.value, n_particle_adapted, ff)
+                meso = self.createMesoCrystal(self.lattice_length_a.value,
+                                              self.lattice_length_c.value,
+                                              n_particle_adapted, ff)
                 meso.setPosition(0.0, 0.0, -self.meso_height.value)
-                particle_layout.addParticle(meso, 1.0, kvector_t(0,0,0), total_transform)
+                particle_layout.addParticle(meso, 1.0, kvector_t(0, 0, 0),
+                                            total_transform)
 
         particle_layout.setTotalParticleSurfaceDensity(surface_density)
         particle_layout.setInterferenceFunction(p_interference_function)
@@ -91,20 +114,22 @@ class MySampleBuilder(ISampleBuilder):
     # -------------------------------------------------------------------------
     # building meso crystal
     # -------------------------------------------------------------------------
-    def createMesoCrystal(self,stacking_radius_a, stacking_radius_c, n_particle, p_meso_form_factor):
+    def createMesoCrystal(self, stacking_radius_a, stacking_radius_c, n_particle,
+                          p_meso_form_factor):
 
-        mParticle = HomogeneousMaterial("Particle", n_particle )
+        mParticle = HomogeneousMaterial("Particle", n_particle)
 
         p_lat = self.createLattice(stacking_radius_a, stacking_radius_c)
         bas_a = p_lat.getBasisVectorA()
         bas_b = p_lat.getBasisVectorB()
         bas_c = p_lat.getBasisVectorC()
-        ff = FormFactorSphereGaussianRadius(self.nanoparticle_radius.value, self.sigma_nanoparticle_radius.value)
-        particle = Particle(mParticle, ff )
+        ff = FormFactorSphereGaussianRadius(self.nanoparticle_radius.value,
+                                            self.sigma_nanoparticle_radius.value)
+        particle = Particle(mParticle, ff)
         position_0 = kvector_t(0.0, 0.0, 0.0)
         position_1 = 1.0/3.0*(2.0*bas_a + bas_b + bas_c)
         position_2 = 1.0/3.0*(bas_a + 2.0*bas_b + 2.0*bas_c)
-        positions = [ position_0, position_1, position_2 ]
+        positions = [position_0, position_1, position_2]
         basis = ParticleComposition()
         basis.addParticles(particle, positions)
 
@@ -129,7 +154,7 @@ def runTest():
     # setting simulation
     sample_builder = MySampleBuilder()
     simulation = createSimulation()
-    simulation.setSampleBuilder( sample_builder )
+    simulation.setSampleBuilder(sample_builder)
 
     reference = utils.get_reference_data("mesocrystal01_reference.int.gz")
 

@@ -29,8 +29,7 @@ class QHideEvent;
 
 //! Displays Python script representing a MultiLayer at the bottom of SampleView.
 
-class PySampleWidget : public QWidget
-{
+class PySampleWidget : public QWidget {
     Q_OBJECT
 
 public:

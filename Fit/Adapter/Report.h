@@ -21,8 +21,7 @@ class MinimizerAdapter;
 
 //! Utility functions to generate reports
 
-namespace mumufit::internal
-{
+namespace mumufit::internal {
 
 //! Reports results of minimization in the form of multi-line string
 std::string reportToString(const MinimizerAdapter& minimizer);

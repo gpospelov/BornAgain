@@ -23,8 +23,7 @@ class PySampleWidget;
 
 //! Resides at the bottom of SampleView and displays a Python script.
 
-class ScriptPanel : public InfoPanel
-{
+class ScriptPanel : public InfoPanel {
     Q_OBJECT
 
 public:

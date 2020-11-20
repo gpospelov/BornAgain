@@ -19,13 +19,11 @@
 #include "Sample/Material/RefractiveMaterialImpl.h"
 #include <functional>
 
-namespace
-{
+namespace {
 
 template <class T>
 T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& regions,
-              std::function<T(const Material&)> average)
-{
+              std::function<T(const Material&)> average) {
     const T layer_data = average(layer_mat);
     T averaged_data = layer_data;
     for (auto& region : regions)
@@ -36,8 +34,7 @@ T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& r
 } // namespace
 
 Material createAveragedMaterial(const Material& layer_mat,
-                                const std::vector<HomogeneousRegion>& regions)
-{
+                                const std::vector<HomogeneousRegion>& regions) {
     // determine the type of returned material
     std::vector<const Material*> materials(regions.size() + 1);
     materials[0] = &layer_mat;

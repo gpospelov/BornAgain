@@ -24,8 +24,7 @@ class ILayerRTCoefficients;
 
 //! @ingroup formfactors_internal
 
-class ComputeDWBA final : public IComputeFF
-{
+class ComputeDWBA : public IComputeFF {
 public:
     ComputeDWBA(const IFormFactor& ff);
     ~ComputeDWBA() override;

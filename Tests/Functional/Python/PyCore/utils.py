@@ -8,7 +8,8 @@ sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 from bornagain import deg, angstrom
 
-REFERENCE_DIR = "@PYCORE_REFERENCE_DIR@"
+REFERENCE_DIR = "@TEST_REFERENCE_DIR_PY_CORE@"
+
 
 def get_difference(data, reference):
     """
@@ -32,13 +33,16 @@ def get_difference(data, reference):
         raise ba.Exception("get_difference", "isnan")
     return diff
 
+
 def get_reference_data(filename):
     """
     read and return reference data from file
     """
-    return ba.IntensityDataIOFactory.readIntensityData(os.path.join(REFERENCE_DIR, filename))
+    return ba.IntensityDataIOFactory.readIntensityData(
+        os.path.join(REFERENCE_DIR, filename))
 
-def get_simulation_MiniGISAS(sample = None):
+
+def get_simulation_MiniGISAS(sample=None):
     simulation = ba.GISASSimulation()
     simulation.setDetectorParameters(25, -2.0*deg, 2.0*deg, 25, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
@@ -46,13 +50,15 @@ def get_simulation_MiniGISAS(sample = None):
         simulation.setSample(sample)
     return simulation
 
-def get_simulation_BasicGISAS(sample = None):
+
+def get_simulation_BasicGISAS(sample=None):
     simulation = ba.GISASSimulation()
     simulation.setDetectorParameters(100, 0.0*deg, 2.0*deg, 100, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     if sample:
         simulation.setSample(sample)
     return simulation
+
 
 def plot_intensity_data(intensity):
     import matplotlib, pylab
@@ -62,7 +68,8 @@ def plot_intensity_data(intensity):
     phi_max = rad2deg(intensity.axis(0).upperBound())
     alpha_min = rad2deg(intensity.axis(1).lowerBound())
     alpha_max = rad2deg(intensity.axis(1).upperBound())
-    im = pylab.imshow(data, norm=matplotlib.colors.LogNorm(),
+    im = pylab.imshow(data,
+                      norm=matplotlib.colors.LogNorm(),
                       extent=[phi_min, phi_max, alpha_min, alpha_max])
     cb = pylab.colorbar(im)
     cb.set_label(r'Intensity (arb. u.)', size=16)

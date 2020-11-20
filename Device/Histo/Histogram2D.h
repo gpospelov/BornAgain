@@ -21,8 +21,7 @@
 //! Two dimensional histogram.
 //! @ingroup tools
 
-class Histogram2D : public IHistogram
-{
+class Histogram2D : public IHistogram {
 public:
     //! @brief Constructor for fix bin size histograms.
     //! @param nbinsx number of bins on X-axis
@@ -112,8 +111,7 @@ protected:
     Histogram1D* create_projectionY(int xbinlow, int xbinup);
 };
 
-template <typename T> void Histogram2D::initFromShape(const T& data)
-{
+template <typename T> void Histogram2D::initFromShape(const T& data) {
     auto shape = ArrayUtils::getShape(data);
     const size_t nrows = shape.first;
     const size_t ncols = shape.second;

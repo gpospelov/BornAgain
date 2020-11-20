@@ -30,8 +30,7 @@
 //! by Jeremy Fix, May 30, 2011
 //!
 //! @ingroup tools_internal
-class Convolve
-{
+class Convolve {
 public:
     //! definition of 1d vector of double
     typedef std::vector<double> double1d_t;
@@ -82,8 +81,7 @@ private:
     //! it is our resolution function.
     //! Sizes of input arrays are adjusted; output arrays are alocated via
     //! fftw3 allocation for maximum performance.
-    class Workspace
-    {
+    class Workspace {
     public:
         Workspace();
         ~Workspace();

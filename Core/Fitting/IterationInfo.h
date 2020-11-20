@@ -22,8 +22,7 @@
 //! Stores fit iteration info to track fit flow from various observers.
 //! Used in context of FitObjective.
 
-class IterationInfo
-{
+class IterationInfo {
 public:
     IterationInfo();
 

@@ -24,8 +24,7 @@ class SampleLabelHandler;
 
 //! Generates Python code snippet from domain (C++) objects representing sample construction.
 
-class SampleToPython
-{
+class SampleToPython {
 public:
     SampleToPython();
     ~SampleToPython();

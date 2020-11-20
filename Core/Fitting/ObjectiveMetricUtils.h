@@ -24,8 +24,7 @@ class ObjectiveMetric;
 
 //! Utility functions related to class ObjectiveMetric.
 
-namespace ObjectiveMetricUtils
-{
+namespace ObjectiveMetricUtils {
 
 //! Returns L1 normalization function.
 const std::function<double(double)> l1Norm();

@@ -19,8 +19,7 @@
 
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 
-class CylindersInBAPlan : public Plan
-{
+class CylindersInBAPlan : public Plan {
 public:
     CylindersInBAPlan();
 };
@@ -28,8 +27,7 @@ public:
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Large tolerance on expected parameter values to help stocastic minimizers to converge fatser.
 
-class CylindersInBAEasyPlan : public Plan
-{
+class CylindersInBAEasyPlan : public Plan {
 public:
     CylindersInBAEasyPlan();
 };
@@ -37,8 +35,7 @@ public:
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Residual like objective function is used
 
-class CylindersInBAResidualPlan : public Plan
-{
+class CylindersInBAResidualPlan : public Plan {
 public:
     CylindersInBAResidualPlan();
 };
@@ -46,8 +43,7 @@ public:
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Rectangular detector.
 
-class RectDetPlan : public Plan
-{
+class RectDetPlan : public Plan {
 public:
     RectDetPlan();
     ~RectDetPlan();
@@ -58,24 +54,21 @@ protected:
 
 //! Plan for fitting reflectometry curve on Ti/Ni multilayer
 
-class SpecularPlan : public Plan
-{
+class SpecularPlan : public Plan {
 public:
     SpecularPlan();
 };
 
 //! Plan for fitting reflectometry curve on Ti/Ni multilayer (q-defined beam)
 
-class SpecularPlanQ : public Plan
-{
+class SpecularPlanQ : public Plan {
 public:
     SpecularPlanQ();
 };
 
 //! The same as SpecularPlan, but with two (identical) datasets
 
-class MultipleSpecPlan : public Plan
-{
+class MultipleSpecPlan : public Plan {
 public:
     MultipleSpecPlan();
     ~MultipleSpecPlan() override;
@@ -86,8 +79,7 @@ protected:
 
 //! Fit for off-specular experiment
 
-class OffSpecPlan : public Plan
-{
+class OffSpecPlan : public Plan {
 public:
     OffSpecPlan();
     ~OffSpecPlan() override = default;

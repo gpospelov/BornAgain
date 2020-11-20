@@ -22,8 +22,7 @@ class MultiLayerCandidate;
 
 //! Base class for LayerView and MultiLayerView
 //! Provides functionality for moving view on top of MultiLayer.
-class ILayerView : public ConnectableView
-{
+class ILayerView : public ConnectableView {
     Q_OBJECT
 
 public:
@@ -53,8 +52,7 @@ private:
 };
 
 //! Class to hold MultiLayer candidate for dropping LayerView.
-class MultiLayerCandidate
-{
+class MultiLayerCandidate {
 public:
     MultiLayerCandidate() : multilayer(0), row(-1), distance(0) {}
     MultiLayerView* multilayer; //!< pointer to the candidate

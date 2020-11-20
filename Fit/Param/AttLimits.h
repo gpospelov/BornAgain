@@ -22,8 +22,7 @@
 //! Attributes and limits of a fit parameter, and coupling between these properties.
 //! @ingroup fitting
 
-class AttLimits
-{
+class AttLimits {
 public:
     AttLimits();
 
@@ -51,8 +50,7 @@ public:
 
     std::string toString() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m)
-    {
+    friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m) {
         ostr << m.toString();
         return ostr;
     }

@@ -23,17 +23,16 @@
 #include <iostream>
 
 std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
-                                               const ISimulation& direct_simulation)
-{
+                                               const ISimulation& direct_simulation) {
     const std::string output_name =
-        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), test_name);
+        FileSystemUtils::jointPath(BATesting::TestOutDir_PyStd(), test_name);
     const std::string output_path = output_name + ".ref.int.gz";
     std::remove(output_path.c_str());
     std::cout << "- removed old output " << output_path << "\n";
 
     // Generate Python script
     const std::string pyscript_filename =
-        FileSystemUtils::jointPath(BATesting::PyStandardOutputDir(), test_name + ".py");
+        FileSystemUtils::jointPath(BATesting::TestOutDir_PyStd(), test_name + ".py");
     std::ofstream pythonFile(pyscript_filename);
     pythonFile << ExportToPython::generatePyExportTest(direct_simulation);
     pythonFile.close();
@@ -61,8 +60,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
 }
 
 bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
-                     const double limit)
-{
+                     const double limit) {
     const std::unique_ptr<OutputData<double>> domain_data = domainData(name, direct_simulation);
 
     const std::unique_ptr<OutputData<double>> ref_data = direct_simulation.result().data();

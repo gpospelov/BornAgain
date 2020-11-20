@@ -37,8 +37,7 @@ struct OneSidedLimit {
 //!
 //! @ingroup intern
 
-class ZLimits
-{
+class ZLimits {
 public:
     ZLimits();
     ZLimits(double min, double max);

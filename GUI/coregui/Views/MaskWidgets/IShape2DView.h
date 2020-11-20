@@ -24,8 +24,7 @@ class QPainter;
 
 //! Main interface class for views representing MaskItems, Projections on graphics scene.
 
-class IShape2DView : public QGraphicsObject
-{
+class IShape2DView : public QGraphicsObject {
     Q_OBJECT
 
 public:

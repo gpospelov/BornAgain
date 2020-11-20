@@ -22,8 +22,7 @@ class ApplicationModels;
 
 //! Functional test to measure performance of GUI by mimicking activity typical for RealTimeView.
 
-class GUIPerformanceTest
-{
+class GUIPerformanceTest {
 public:
     GUIPerformanceTest();
 

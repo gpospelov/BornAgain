@@ -16,8 +16,7 @@
 #include "Device/Detector/SimulationArea.h"
 
 SimulationAreaIterator::SimulationAreaIterator(const SimulationArea* area, size_t start_at_index)
-    : m_area(area), m_index(start_at_index), m_element_index(0)
-{
+    : m_area(area), m_index(start_at_index), m_element_index(0) {
     if (m_index > m_area->totalSize())
         throw Exceptions::RuntimeErrorException("SimulationAreaIterator::SimulationAreaIterator() "
                                                 "-> Error. Invalid initial index");
@@ -26,18 +25,15 @@ SimulationAreaIterator::SimulationAreaIterator(const SimulationArea* area, size_
         m_index = nextIndex(m_index);
 }
 
-size_t SimulationAreaIterator::roiIndex() const
-{
+size_t SimulationAreaIterator::roiIndex() const {
     return m_area->roiIndex(m_index);
 }
 
-size_t SimulationAreaIterator::detectorIndex() const
-{
+size_t SimulationAreaIterator::detectorIndex() const {
     return m_area->detectorIndex(m_index);
 }
 
-SimulationAreaIterator& SimulationAreaIterator::operator++()
-{
+SimulationAreaIterator& SimulationAreaIterator::operator++() {
     size_t index = nextIndex(m_index);
     if (index != m_index) {
         ++m_element_index;
@@ -46,15 +42,13 @@ SimulationAreaIterator& SimulationAreaIterator::operator++()
     return *this;
 }
 
-SimulationAreaIterator SimulationAreaIterator::operator++(int)
-{
+SimulationAreaIterator SimulationAreaIterator::operator++(int) {
     SimulationAreaIterator result(*this);
     this->operator++();
     return result;
 }
 
-size_t SimulationAreaIterator::nextIndex(size_t currentIndex)
-{
+size_t SimulationAreaIterator::nextIndex(size_t currentIndex) {
     size_t result = ++currentIndex;
     if (result < m_area->totalSize()) {
         while (m_area->isMasked(result)) {

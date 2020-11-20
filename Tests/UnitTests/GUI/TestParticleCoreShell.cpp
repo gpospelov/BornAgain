@@ -10,12 +10,9 @@
 
 using namespace SessionItemUtils;
 
-class TestParticleCoreShell : public ::testing::Test
-{
-};
+class TestParticleCoreShell : public ::testing::Test {};
 
-TEST_F(TestParticleCoreShell, test_moveCoreAndShell)
-{
+TEST_F(TestParticleCoreShell, test_moveCoreAndShell) {
     SampleModel model;
     SessionItem* coreshell = model.insertNewItem("ParticleCoreShell");
     SessionItem* particle1 = model.insertNewItem("Particle");
@@ -49,8 +46,7 @@ TEST_F(TestParticleCoreShell, test_moveCoreAndShell)
 //! Checking that adding and removing core/shell leads to enabling/disabling of their position
 //! and abundance properties.
 
-TEST_F(TestParticleCoreShell, test_propertyAppearance)
-{
+TEST_F(TestParticleCoreShell, test_propertyAppearance) {
     SampleModel model;
 
     // empty coreshell particle
@@ -99,8 +95,7 @@ TEST_F(TestParticleCoreShell, test_propertyAppearance)
 
 //! Checking that abundance gets disabled in particle distribution context.
 
-TEST_F(TestParticleCoreShell, test_distributionContext)
-{
+TEST_F(TestParticleCoreShell, test_distributionContext) {
     SampleModel model;
 
     // coreshell particle
@@ -124,8 +119,7 @@ TEST_F(TestParticleCoreShell, test_distributionContext)
 
 //! Checking that abundance gets disabled in particle composition context.
 
-TEST_F(TestParticleCoreShell, test_compositionContext)
-{
+TEST_F(TestParticleCoreShell, test_compositionContext) {
     SampleModel model;
 
     // coreshell particle

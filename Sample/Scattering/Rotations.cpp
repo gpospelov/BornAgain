@@ -21,12 +21,9 @@
 //  ************************************************************************************************
 
 IRotation::IRotation(const NodeMeta& meta, const std::vector<double>& PValues)
-    : INode(meta, PValues)
-{
-}
+    : INode(meta, PValues) {}
 
-IRotation* IRotation::createRotation(const Transform3D& transform)
-{
+IRotation* IRotation::createRotation(const Transform3D& transform) {
     auto rot_type = transform.getRotationType();
     switch (rot_type) {
     case Transform3D::XAXIS: {
@@ -50,25 +47,21 @@ IRotation* IRotation::createRotation(const Transform3D& transform)
     ASSERT(0); // impossible case
 }
 
-kvector_t IRotation::transformed(const kvector_t& v) const
-{
+kvector_t IRotation::transformed(const kvector_t& v) const {
     return getTransform3D().transformed(v);
 }
 
-bool IRotation::isIdentity() const
-{
+bool IRotation::isIdentity() const {
     return getTransform3D().isIdentity();
 }
 
-bool IRotation::zInvariant() const
-{
+bool IRotation::zInvariant() const {
     return getTransform3D().isZRotation();
 }
 
 //! Returns concatenated rotation (first right, then left).
 
-IRotation* createProduct(const IRotation& left, const IRotation& right)
-{
+IRotation* createProduct(const IRotation& left, const IRotation& right) {
     Transform3D tr_left = left.getTransform3D();
     Transform3D tr_right = right.getTransform3D();
     IRotation* p_result = IRotation::createRotation(tr_left * tr_right);
@@ -80,12 +73,9 @@ IRotation* createProduct(const IRotation& left, const IRotation& right)
 //  ************************************************************************************************
 
 IdentityRotation::IdentityRotation()
-    : IRotation({"IdentityRotation", "Identity rotation, does nothing", {}}, {})
-{
-}
+    : IRotation({"IdentityRotation", "Identity rotation, does nothing", {}}, {}) {}
 
-Transform3D IdentityRotation::getTransform3D() const
-{
+Transform3D IdentityRotation::getTransform3D() const {
     return {};
 }
 
@@ -97,14 +87,11 @@ Transform3D IdentityRotation::getTransform3D() const
 RotationX::RotationX(const std::vector<double> P)
     : IRotation(
         {"XRotation", "class_tooltip", {{"Angle", "rad", "Angle around x axis", -INF, +INF, 0}}}, P)
-    , m_angle(m_P[0])
-{
-}
+    , m_angle(m_P[0]) {}
 
 RotationX::RotationX(double angle) : RotationX(std::vector<double>{angle}) {}
 
-Transform3D RotationX::getTransform3D() const
-{
+Transform3D RotationX::getTransform3D() const {
     return Transform3D::createRotateX(m_angle);
 }
 
@@ -116,14 +103,11 @@ Transform3D RotationX::getTransform3D() const
 RotationY::RotationY(const std::vector<double> P)
     : IRotation(
         {"YRotation", "class_tooltip", {{"Angle", "rad", "Angle around y axis", -INF, +INF, 0}}}, P)
-    , m_angle(m_P[0])
-{
-}
+    , m_angle(m_P[0]) {}
 
 RotationY::RotationY(double angle) : RotationY(std::vector<double>{angle}) {}
 
-Transform3D RotationY::getTransform3D() const
-{
+Transform3D RotationY::getTransform3D() const {
     return Transform3D::createRotateY(m_angle);
 }
 
@@ -137,14 +121,11 @@ Transform3D RotationY::getTransform3D() const
 RotationZ::RotationZ(const std::vector<double> P)
     : IRotation(
         {"ZRotation", "class_tooltip", {{"Angle", "rad", "Angle around z axis", -INF, +INF, 0}}}, P)
-    , m_angle(m_P[0])
-{
-}
+    , m_angle(m_P[0]) {}
 
 RotationZ::RotationZ(double angle) : RotationZ(std::vector<double>{angle}) {}
 
-Transform3D RotationZ::getTransform3D() const
-{
+Transform3D RotationZ::getTransform3D() const {
     return Transform3D::createRotateZ(m_angle);
 }
 
@@ -161,22 +142,16 @@ RotationEuler::RotationEuler(const std::vector<double> P)
                 P)
     , m_alpha(m_P[0])
     , m_beta(m_P[1])
-    , m_gamma(m_P[2])
-{
-}
+    , m_gamma(m_P[2]) {}
 
 RotationEuler::RotationEuler(double alpha, double beta, double gamma)
-    : RotationEuler(std::vector<double>{alpha, beta, gamma})
-{
-}
+    : RotationEuler(std::vector<double>{alpha, beta, gamma}) {}
 
-IRotation* RotationEuler::createInverse() const
-{
+IRotation* RotationEuler::createInverse() const {
     Transform3D inverse_transform(getTransform3D().getInverse());
     return createRotation(inverse_transform);
 }
 
-Transform3D RotationEuler::getTransform3D() const
-{
+Transform3D RotationEuler::getTransform3D() const {
     return Transform3D::createRotateEuler(m_alpha, m_beta, m_gamma);
 }

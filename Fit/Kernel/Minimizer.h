@@ -27,16 +27,14 @@ class IMinimizer;
 
 //! The multi-library, multi-algorithm fit wrapper library.
 
-namespace mumufit
-{
+namespace mumufit {
 
 class Kernel;
 
 //! A main class to run fitting.
 //! @ingroup fitting
 
-class Minimizer
-{
+class Minimizer {
 public:
     Minimizer();
     ~Minimizer();

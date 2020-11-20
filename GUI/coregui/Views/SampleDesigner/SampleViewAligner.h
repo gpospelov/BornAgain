@@ -24,8 +24,7 @@ class SessionItem;
 
 //! Makes alignment of sample droped on graphics scene.
 //! Implements additional algorithm for smart alignment.
-class SampleViewAligner
-{
+class SampleViewAligner {
 public:
     SampleViewAligner(DesignerScene* scene);
 

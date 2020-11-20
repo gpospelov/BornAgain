@@ -26,8 +26,7 @@ class RealParameter;
 //! Container with parameters for IParameterized object.
 //! @ingroup tools_internal
 
-class ParameterPool : public ICloneable
-{
+class ParameterPool : public ICloneable {
 public:
     ParameterPool();
     virtual ~ParameterPool();
@@ -61,8 +60,7 @@ public:
 
     std::vector<std::string> parameterNames() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj)
-    {
+    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
         obj.print(ostr);
         return ostr;
     }

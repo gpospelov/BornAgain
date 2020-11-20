@@ -21,8 +21,7 @@
 #include <QStringList>
 #include <QTableWidget>
 
-class TableContextMenu : public QMenu
-{
+class TableContextMenu : public QMenu {
     Q_OBJECT
 public:
     TableContextMenu(QWidget* parent = nullptr);

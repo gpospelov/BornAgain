@@ -20,8 +20,7 @@
 //! Attributes for a fit parameter. Currently, the only attribute is fixed/free.
 //! @ingroup fitting
 
-class Attributes
-{
+class Attributes {
 public:
     Attributes() : m_is_fixed(false) {}
     //! Creates a fixed value object
@@ -32,8 +31,7 @@ public:
     bool isFixed() const { return m_is_fixed; }
     bool isFree() const { return !isFixed(); }
 
-    friend std::ostream& operator<<(std::ostream& ostr, const Attributes& m)
-    {
+    friend std::ostream& operator<<(std::ostream& ostr, const Attributes& m) {
         m.print(ostr);
         return ostr;
     }
@@ -50,8 +48,7 @@ protected:
 };
 
 //! Prints class
-inline void Attributes::print(std::ostream& ostr) const
-{
+inline void Attributes::print(std::ostream& ostr) const {
     if (isFixed())
         ostr << "fixed";
     else

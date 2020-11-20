@@ -8,8 +8,7 @@
 
 #include <iostream>
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
     MPI_Init(&argc, &argv);
 
     int world_size(0), world_rank(0);

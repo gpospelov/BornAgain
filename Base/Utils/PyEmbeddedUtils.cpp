@@ -21,8 +21,7 @@
 #include <sstream>
 #include <stdexcept>
 
-std::string PyEmbeddedUtils::toString(PyObject* obj)
-{
+std::string PyEmbeddedUtils::toString(PyObject* obj) {
     std::string result;
 #if PY_MAJOR_VERSION >= 3
     PyObject* pyStr = PyUnicode_AsEncodedString(obj, "utf-8", "Error ~");
@@ -35,8 +34,7 @@ std::string PyEmbeddedUtils::toString(PyObject* obj)
     return result;
 }
 
-std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj)
-{
+std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj) {
     std::vector<std::string> result;
 
     if (PyTuple_Check(obj)) {
@@ -58,16 +56,14 @@ std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj)
     return result;
 }
 
-std::string PyEmbeddedUtils::toString(char* c)
-{
+std::string PyEmbeddedUtils::toString(char* c) {
     if (c)
         return c;
     else
         return "";
 }
 
-std::string PyEmbeddedUtils::toString(wchar_t* c)
-{
+std::string PyEmbeddedUtils::toString(wchar_t* c) {
     if (c) {
         std::wstring wstr(c);
         std::string result(wstr.begin(), wstr.end());
@@ -77,8 +73,7 @@ std::string PyEmbeddedUtils::toString(wchar_t* c)
     }
 }
 
-void PyEmbeddedUtils::import_bornagain(const std::string& path)
-{
+void PyEmbeddedUtils::import_bornagain(const std::string& path) {
     if (!Py_IsInitialized()) {
         Py_InitializeEx(0);
 
@@ -106,8 +101,7 @@ void PyEmbeddedUtils::import_bornagain(const std::string& path)
     }
 }
 
-std::string PyEmbeddedUtils::pythonRuntimeInfo()
-{
+std::string PyEmbeddedUtils::pythonRuntimeInfo() {
     Py_InitializeEx(0);
 
     std::stringstream result;
@@ -139,8 +133,7 @@ std::string PyEmbeddedUtils::pythonRuntimeInfo()
 // Attempt to retrieve Python stack trace
 // https://stackoverflow.com/questions/1796510/accessing-a-python-traceback-from-the-c-api
 
-std::string PyEmbeddedUtils::pythonStackTrace()
-{
+std::string PyEmbeddedUtils::pythonStackTrace() {
     std::stringstream result;
 
     if (PyErr_Occurred()) {

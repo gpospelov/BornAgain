@@ -20,8 +20,7 @@
 //! Builds sample: 2D lattice with arbitrary angle and different lattice length_1 and length_2.
 //! @ingroup standard_samples
 
-class Basic2DLatticeBuilder : public ISampleBuilder
-{
+class Basic2DLatticeBuilder : public ISampleBuilder {
 public:
     Basic2DLatticeBuilder() {}
     MultiLayer* buildSample() const;
@@ -30,8 +29,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class SquareLattice2DBuilder : public ISampleBuilder
-{
+class SquareLattice2DBuilder : public ISampleBuilder {
 public:
     SquareLattice2DBuilder() {}
     MultiLayer* buildSample() const;
@@ -40,8 +38,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class CenteredSquareLattice2DBuilder : public ISampleBuilder
-{
+class CenteredSquareLattice2DBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -49,8 +46,7 @@ public:
 //! Builds sample: 2D lattice with different disorder (IsGISAXS example #6).
 //! @ingroup standard_samples
 
-class RotatedSquareLattice2DBuilder : public ISampleBuilder
-{
+class RotatedSquareLattice2DBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -58,8 +54,7 @@ public:
 //! Builds sample: 2D finite lattice with thermal disorder.
 //! @ingroup standard_samples
 
-class FiniteSquareLattice2DBuilder : public ISampleBuilder
-{
+class FiniteSquareLattice2DBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -67,8 +62,7 @@ public:
 //! Builds sample: 2D finite lattice of 2D finite lattices (superlattice).
 //! @ingroup standard_samples
 
-class SuperLatticeBuilder : public ISampleBuilder
-{
+class SuperLatticeBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

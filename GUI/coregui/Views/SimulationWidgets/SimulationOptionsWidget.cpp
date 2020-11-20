@@ -19,8 +19,7 @@
 #include <QVBoxLayout>
 
 SimulationOptionsWidget::SimulationOptionsWidget(QWidget* parent)
-    : QWidget(parent), m_boxEditor(new ComponentFlatView)
-{
+    : QWidget(parent), m_boxEditor(new ComponentFlatView) {
     auto groupBox = new QGroupBox("ISimulation Parameters");
 
     auto groupLayout = new QVBoxLayout;
@@ -35,8 +34,7 @@ SimulationOptionsWidget::SimulationOptionsWidget(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void SimulationOptionsWidget::setItem(SimulationOptionsItem* item)
-{
+void SimulationOptionsWidget::setItem(SimulationOptionsItem* item) {
     m_boxEditor->clearEditor();
     m_boxEditor->setItem(item);
 }

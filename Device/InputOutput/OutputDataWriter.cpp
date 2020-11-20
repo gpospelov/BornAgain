@@ -28,8 +28,7 @@
 
 OutputDataWriter::OutputDataWriter(const std::string& file_name) : m_file_name(file_name) {}
 
-void OutputDataWriter::writeOutputData(const OutputData<double>& data)
-{
+void OutputDataWriter::writeOutputData(const OutputData<double>& data) {
     using namespace DataFormatUtils;
     if (!m_write_strategy)
         throw Exceptions::NullPointerException("OutputDataWriter::getOutputData() ->"
@@ -68,7 +67,6 @@ void OutputDataWriter::writeOutputData(const OutputData<double>& data)
     fout.close();
 }
 
-void OutputDataWriter::setStrategy(IOutputDataWriteStrategy* write_strategy)
-{
+void OutputDataWriter::setStrategy(IOutputDataWriteStrategy* write_strategy) {
     m_write_strategy.reset(write_strategy);
 }

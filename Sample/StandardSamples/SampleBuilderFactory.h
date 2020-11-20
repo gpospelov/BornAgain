@@ -23,8 +23,7 @@ class MultiLayer;
 //! Factory to create standard pre-defined samples
 //! @ingroup standard_samples
 
-class SampleBuilderFactory : public IFactory<std::string, ISampleBuilder>
-{
+class SampleBuilderFactory : public IFactory<std::string, ISampleBuilder> {
 public:
     SampleBuilderFactory();
     MultiLayer* createSampleByName(const std::string& name);

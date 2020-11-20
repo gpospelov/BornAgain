@@ -28,8 +28,7 @@ class JobModel;
 class MaterialPropertyController;
 class MessageService;
 
-class ApplicationModels : public QObject
-{
+class ApplicationModels : public QObject {
     Q_OBJECT
 public:
     explicit ApplicationModels(QObject* parent = nullptr);

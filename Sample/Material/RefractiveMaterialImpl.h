@@ -21,8 +21,7 @@
 //! Material implementation based on refractive coefficiencts (valid for one wavelength value only)
 //! @ingroup materials
 
-class RefractiveMaterialImpl : public MagneticMaterialImpl
-{
+class RefractiveMaterialImpl : public MagneticMaterialImpl {
 public:
     friend Material HomogeneousMaterial(const std::string&, double, double, kvector_t);
 

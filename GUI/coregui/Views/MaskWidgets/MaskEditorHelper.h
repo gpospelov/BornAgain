@@ -24,8 +24,7 @@ class QPointF;
 
 //! Static class to provide MaskEditor with common settings (colors, gradients, etc)
 
-class MaskEditorHelper
-{
+class MaskEditorHelper {
 public:
     enum EViewTypes {
         IMASKVIEW = QGraphicsItem::UserType + 1, // = 65537

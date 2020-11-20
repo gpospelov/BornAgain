@@ -18,7 +18,6 @@ bottom_cup_height = 4.0
 
 
 class SlicedSpheresTest(unittest.TestCase):
-
     def get_sample(self, particle_to_air=None, particle_to_substrate=None):
         """
         Helper function returning a multilayer (air, substrate) using particles provided
@@ -54,8 +53,14 @@ class SlicedSpheresTest(unittest.TestCase):
         Origin of new object is at the bottom of resulting sphere.
         """
 
-        topCup = ba.Particle(top_material, ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius*2 - bottom_cup_height, 0))
-        bottomCup = ba.Particle(bottom_material, ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius*2, sphere_radius*2 - bottom_cup_height))
+        topCup = ba.Particle(
+            top_material,
+            ba.FormFactorTruncatedSphere(sphere_radius,
+                                         sphere_radius*2 - bottom_cup_height, 0))
+        bottomCup = ba.Particle(
+            bottom_material,
+            ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius*2,
+                                         sphere_radius*2 - bottom_cup_height))
 
         #  origin of resulting sphere will be at the bottom
         result = ba.ParticleComposition()
@@ -71,8 +76,13 @@ class SlicedSpheresTest(unittest.TestCase):
         Rotation is used to get bottom part
         """
 
-        topCup = ba.Particle(top_material, ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius*2 - bottom_cup_height, 0))
-        bottomCup = ba.Particle(bottom_material, ba.FormFactorTruncatedSphere(sphere_radius, bottom_cup_height, 0))
+        topCup = ba.Particle(
+            top_material,
+            ba.FormFactorTruncatedSphere(sphere_radius,
+                                         sphere_radius*2 - bottom_cup_height, 0))
+        bottomCup = ba.Particle(
+            bottom_material,
+            ba.FormFactorTruncatedSphere(sphere_radius, bottom_cup_height, 0))
         bottomCup.setRotation(ba.RotationX(180*deg))
 
         #  origin of resulting sphere will be at the bottom
@@ -118,7 +128,6 @@ class SlicedSpheresTest(unittest.TestCase):
         diff = ba.RelativeDifference(data, reference)
         print(diff)
         self.assertLess(diff, 1e-10)
-
 
     def testInvisibleComposition(self):
         """
@@ -176,7 +185,10 @@ class SlicedSpheresTest(unittest.TestCase):
         """
 
         # truncated sphere on top of substrate with height 16nm
-        truncatedSphere = ba.Particle(mParticle, ba.FormFactorTruncatedSphere(sphere_radius, sphere_radius*2 - bottom_cup_height, 0))
+        truncatedSphere = ba.Particle(
+            mParticle,
+            ba.FormFactorTruncatedSphere(sphere_radius,
+                                         sphere_radius*2 - bottom_cup_height, 0))
         reference = self.get_result(truncatedSphere)
 
         # Particle composition, top part made of same material, as particle. Bottom part made of same material as substrate.

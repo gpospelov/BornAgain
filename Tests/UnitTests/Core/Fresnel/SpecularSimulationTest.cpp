@@ -15,8 +15,7 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 
-class SpecularSimulationTest : public ::testing::Test
-{
+class SpecularSimulationTest : public ::testing::Test {
 protected:
     SpecularSimulationTest();
 
@@ -26,8 +25,7 @@ protected:
     MultiLayer multilayer;
 };
 
-SpecularSimulationTest::SpecularSimulationTest()
-{
+SpecularSimulationTest::SpecularSimulationTest() {
     Material mat0 = HomogeneousMaterial("ambience", 0.0, 0.0);
     Material mat1 = HomogeneousMaterial("PartA", 5e-6, 0.0);
     Material mat2 = HomogeneousMaterial("substrate", 15e-6, 0.0);
@@ -41,8 +39,7 @@ SpecularSimulationTest::SpecularSimulationTest()
     multilayer.addLayer(layer2);
 }
 
-TEST_F(SpecularSimulationTest, InitialState)
-{
+TEST_F(SpecularSimulationTest, InitialState) {
     SpecularSimulation sim;
     ASSERT_THROW(sim.runSimulation(), std::runtime_error);
     ASSERT_THROW(sim.coordinateAxis(), std::runtime_error);
@@ -50,8 +47,7 @@ TEST_F(SpecularSimulationTest, InitialState)
     ASSERT_THROW(sim.result(), std::runtime_error);
 }
 
-std::unique_ptr<SpecularSimulation> SpecularSimulationTest::defaultSimulation()
-{
+std::unique_ptr<SpecularSimulation> SpecularSimulationTest::defaultSimulation() {
     auto result = std::make_unique<SpecularSimulation>();
     AngularSpecScan scan(1.0, FixedBinAxis("axis", 10, 0.0 * Units::deg, 2.0 * Units::deg));
     result->setScan(scan);
@@ -59,16 +55,14 @@ std::unique_ptr<SpecularSimulation> SpecularSimulationTest::defaultSimulation()
     return result;
 }
 
-void SpecularSimulationTest::checkBeamState(const SpecularSimulation& sim)
-{
+void SpecularSimulationTest::checkBeamState(const SpecularSimulation& sim) {
     const auto* inclination = sim.instrument().beam().parameter("InclinationAngle");
     const auto test_limits = RealLimits::limited(-M_PI_2, M_PI_2);
     EXPECT_EQ(test_limits, inclination->limits());
     EXPECT_EQ(0.0, inclination->value());
 }
 
-TEST_F(SpecularSimulationTest, CloneOfEmpty)
-{
+TEST_F(SpecularSimulationTest, CloneOfEmpty) {
     SpecularSimulation sim;
 
     std::unique_ptr<SpecularSimulation> clone(sim.clone());
@@ -81,8 +75,7 @@ TEST_F(SpecularSimulationTest, CloneOfEmpty)
     checkBeamState(*clone);
 }
 
-TEST_F(SpecularSimulationTest, SetAngularScan)
-{
+TEST_F(SpecularSimulationTest, SetAngularScan) {
     SpecularSimulation sim;
     AngularSpecScan scan(1.0, std::vector<double>{1.0 * Units::deg, 3.0 * Units::deg});
     sim.setScan(scan);
@@ -128,8 +121,7 @@ TEST_F(SpecularSimulationTest, SetAngularScan)
     checkBeamState(sim);
 }
 
-TEST_F(SpecularSimulationTest, SetQScan)
-{
+TEST_F(SpecularSimulationTest, SetQScan) {
     SpecularSimulation sim;
 
     QSpecScan scan(std::vector<double>{1.0, 3.0});
@@ -162,8 +154,7 @@ TEST_F(SpecularSimulationTest, SetQScan)
     checkBeamState(sim);
 }
 
-TEST_F(SpecularSimulationTest, ConstructSimulation)
-{
+TEST_F(SpecularSimulationTest, ConstructSimulation) {
     auto sim = defaultSimulation();
 
     EXPECT_EQ(3u, sim->sample()->numberOfLayers());
@@ -188,8 +179,7 @@ TEST_F(SpecularSimulationTest, ConstructSimulation)
     checkBeamState(*sim);
 }
 
-TEST_F(SpecularSimulationTest, SimulationClone)
-{
+TEST_F(SpecularSimulationTest, SimulationClone) {
     auto sim = defaultSimulation();
 
     std::unique_ptr<SpecularSimulation> clone(sim->clone());
@@ -214,8 +204,7 @@ TEST_F(SpecularSimulationTest, SimulationClone)
     checkBeamState(*clone2);
 }
 
-TEST_F(SpecularSimulationTest, AddingBeamDistributions)
-{
+TEST_F(SpecularSimulationTest, AddingBeamDistributions) {
     auto sim = defaultSimulation();
     DistributionGaussian distribution(1.0, 2.0);
 
@@ -241,8 +230,7 @@ TEST_F(SpecularSimulationTest, AddingBeamDistributions)
     checkBeamState(*sim);
 }
 
-TEST_F(SpecularSimulationTest, OutOfRangeAngles)
-{
+TEST_F(SpecularSimulationTest, OutOfRangeAngles) {
     auto sim = defaultSimulation();
     auto& beam = sim->instrument().beam();
     beam.parameter("InclinationAngle")->setValue(-0.2 * Units::deg);

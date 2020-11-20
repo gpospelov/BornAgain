@@ -36,19 +36,15 @@ FormFactorPyramid::FormFactorPyramid(const std::vector<double> P)
                             P)
     , m_base_edge(m_P[0])
     , m_height(m_P[1])
-    , m_alpha(m_P[2])
-{
+    , m_alpha(m_P[2]) {
     onChange();
 }
 
 FormFactorPyramid::FormFactorPyramid(double base_edge, double height, double alpha)
-    : FormFactorPyramid(std::vector<double>{base_edge, height, alpha})
-{
-}
+    : FormFactorPyramid(std::vector<double>{base_edge, height, alpha}) {}
 
 IFormFactor* FormFactorPyramid::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                kvector_t translation) const
-{
+                                                kvector_t translation) const {
     auto effects = computeSlicingEffects(limits, translation, m_height);
     double dbase_edge = 2 * effects.dz_bottom * Math::cot(m_alpha);
     FormFactorPyramid slicedff(m_base_edge - dbase_edge,
@@ -56,8 +52,7 @@ IFormFactor* FormFactorPyramid::sliceFormFactor(ZLimits limits, const IRotation&
     return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
-void FormFactorPyramid::onChange()
-{
+void FormFactorPyramid::onChange() {
     double cot_alpha = Math::cot(m_alpha);
     if (!std::isfinite(cot_alpha))
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");

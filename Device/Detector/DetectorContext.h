@@ -25,8 +25,7 @@ class IDetector2D;
 //! Holds precalculated information for faster SimulationElement generation.
 //! @ingroup detector
 
-class DetectorContext
-{
+class DetectorContext {
 public:
     DetectorContext(const IDetector2D* detector);
 

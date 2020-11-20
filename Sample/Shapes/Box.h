@@ -17,8 +17,7 @@
 
 #include "Sample/Shapes/IShape.h"
 
-class Box : public IShape
-{
+class Box : public IShape {
 public:
     Box(double length, double width, double height);
     ~Box();

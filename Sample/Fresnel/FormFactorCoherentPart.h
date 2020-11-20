@@ -26,8 +26,7 @@ class SimulationElement;
 //! Information about single particle form factor and specular info of the embedding layer.
 //! @ingroup formfactors_internal
 
-class FormFactorCoherentPart
-{
+class FormFactorCoherentPart {
 public:
     FormFactorCoherentPart(IComputeFF* ff);
     FormFactorCoherentPart(const FormFactorCoherentPart& other);

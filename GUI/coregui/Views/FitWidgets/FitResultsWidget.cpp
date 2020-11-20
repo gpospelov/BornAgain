@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Views/FitWidgets/FitResultsWidget.h"
 
-FitResultsWidget::FitResultsWidget(QWidget* parent) : QWidget(parent)
-{
+FitResultsWidget::FitResultsWidget(QWidget* parent) : QWidget(parent) {
     setWindowTitle(QLatin1String("Fit Results"));
 }

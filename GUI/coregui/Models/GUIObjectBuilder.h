@@ -30,8 +30,7 @@ class ExternalProperty;
 
 //! Contains set of methods to populate GUI models with content from domain.
 
-namespace GUIObjectBuilder
-{
+namespace GUIObjectBuilder {
 SessionItem* populateSampleModelFromSim(SampleModel* sampleModel, MaterialModel* materialModel,
                                         const ISimulation& simulation);
 

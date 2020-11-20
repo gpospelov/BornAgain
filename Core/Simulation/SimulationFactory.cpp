@@ -19,8 +19,7 @@
 #include "Core/Simulation/StandardSimulations.h"
 #include "Param/Base/RealParameter.h"
 
-SimulationFactory::SimulationFactory()
-{
+SimulationFactory::SimulationFactory() {
     registerItem("BasicGISAS", StandardSimulations::BasicGISAS);
 
     registerItem("BasicGISAS00", StandardSimulations::BasicGISAS00);

@@ -17,8 +17,7 @@
 
 #include "GUI/coregui/Models/DetectorItems.h"
 
-class BA_CORE_API_ SphericalDetectorItem : public DetectorItem
-{
+class BA_CORE_API_ SphericalDetectorItem : public DetectorItem {
 public:
     static const QString P_PHI_AXIS;
     static const QString P_ALPHA_AXIS;

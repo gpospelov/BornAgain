@@ -1,13 +1,10 @@
 #include "Base/Math/Bessel.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class BesselTest : public ::testing::Test
-{
-};
+class BesselTest : public ::testing::Test {};
 
 // Test complex Bessel function J1
-TEST_F(BesselTest, BesselJ1)
-{
+TEST_F(BesselTest, BesselJ1) {
     const double eps = 4.7e-16; // more than twice the machine precision
     complex_t res;
 

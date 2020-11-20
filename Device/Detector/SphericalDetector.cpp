@@ -20,35 +20,29 @@
 #include "Device/Detector/SphericalPixel.h"
 #include "Device/Resolution/IDetectorResolution.h"
 
-SphericalDetector::SphericalDetector()
-{
+SphericalDetector::SphericalDetector() {
     setName("SphericalDetector");
 }
 
 SphericalDetector::SphericalDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha,
-                                     double alpha_min, double alpha_max)
-{
+                                     double alpha_min, double alpha_max) {
     setName("SphericalDetector");
     setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
-SphericalDetector::SphericalDetector(const SphericalDetector& other) : IDetector2D(other)
-{
+SphericalDetector::SphericalDetector(const SphericalDetector& other) : IDetector2D(other) {
     setName("SphericalDetector");
 }
 
-SphericalDetector* SphericalDetector::clone() const
-{
+SphericalDetector* SphericalDetector::clone() const {
     return new SphericalDetector(*this);
 }
 
-Axes::Units SphericalDetector::defaultAxesUnits() const
-{
+Axes::Units SphericalDetector::defaultAxesUnits() const {
     return Axes::Units::RADIANS;
 }
 
-IPixel* SphericalDetector::createPixel(size_t index) const
-{
+IPixel* SphericalDetector::createPixel(size_t index) const {
     const IAxis& phi_axis = axis(0);
     const IAxis& alpha_axis = axis(1);
     const size_t phi_index = axisBinIndex(index, 0);
@@ -59,8 +53,7 @@ IPixel* SphericalDetector::createPixel(size_t index) const
     return new SphericalPixel(alpha_bin, phi_bin);
 }
 
-std::string SphericalDetector::axisName(size_t index) const
-{
+std::string SphericalDetector::axisName(size_t index) const {
     switch (index) {
     case 0:
         return "phi_f";
@@ -72,8 +65,7 @@ std::string SphericalDetector::axisName(size_t index) const
     }
 }
 
-size_t SphericalDetector::indexOfSpecular(const Beam& beam) const
-{
+size_t SphericalDetector::indexOfSpecular(const Beam& beam) const {
     if (dimension() != 2)
         return totalSize();
     double alpha = beam.getAlpha();

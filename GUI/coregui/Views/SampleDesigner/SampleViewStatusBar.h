@@ -23,8 +23,7 @@ class QComboBox;
 
 //! Narrow status bar at very bottom of SampleView to access dock menu.
 
-class SampleViewStatusBar : public QWidget
-{
+class SampleViewStatusBar : public QWidget {
     Q_OBJECT
 public:
     SampleViewStatusBar(MainWindow* mainWindow);

@@ -22,8 +22,7 @@
 //! No absorption, no roughness, target wavelength is 1.54 angstroms.
 //! @ingroup standard_samples
 
-class HomogeneousMultilayerBuilder : public ISampleBuilder
-{
+class HomogeneousMultilayerBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

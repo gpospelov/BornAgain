@@ -23,18 +23,17 @@ class Histogram2D;
 //! Main class to run an off-specular simulation.
 //! @ingroup simulation
 
-class OffSpecSimulation : public ISimulation2D
-{
+class OffSpecSimulation : public ISimulation2D {
 public:
     OffSpecSimulation();
-    ~OffSpecSimulation() final {}
+    ~OffSpecSimulation() override {}
 
     OffSpecSimulation* clone() const override { return new OffSpecSimulation(*this); }
 
-    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
     //! Put into a clean state for running a simulation
-    void prepareSimulation() final;
+    void prepareSimulation() override;
 
     //! Returns the results of the simulation in a format that supports unit conversion and export
     //! to numpy arrays
@@ -70,7 +69,7 @@ private:
     void updateIntensityMap() override;
 
     //! Gets the number of elements this simulation needs to calculate
-    size_t numberOfSimulationElements() const final;
+    size_t numberOfSimulationElements() const override;
 
     //! Normalize, apply detector resolution and transfer detector image corresponding to
     //! alpha_i = m_alpha_i_axis->bin(index)

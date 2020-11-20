@@ -19,8 +19,7 @@
 
 class ComponentEditor;
 
-class ProjectionsPropertyPanel : public SessionItemWidget
-{
+class ProjectionsPropertyPanel : public SessionItemWidget {
     Q_OBJECT
 
 public:

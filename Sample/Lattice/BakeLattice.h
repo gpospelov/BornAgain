@@ -19,8 +19,7 @@ class Lattice3D;
 
 //! Functions that instantiate objects. To be used like constructors.
 
-namespace bake
-{
+namespace bake {
 
 //! Returns a primitive cubic (cP) lattice with edge length a.
 Lattice3D CubicLattice(double a);

@@ -20,8 +20,7 @@
 //! Convenience class for handling polarization density matrix and polarization analyzer operator
 //! @ingroup simulation
 
-class PolarizationHandler
-{
+class PolarizationHandler {
 public:
     PolarizationHandler();
     PolarizationHandler(const Eigen::Matrix2cd& polarization, const Eigen::Matrix2cd& analyzer);

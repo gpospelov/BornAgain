@@ -22,8 +22,7 @@ class QWidget;
 //! Utility functions to add/remove widgets to the layout on the fly.
 //! Taken from https://stackoverflow.com/questions/5395266/removing-widgets-from-qgridlayout
 
-namespace LayoutUtils
-{
+namespace LayoutUtils {
 
 //! Removes content from box layout.
 void clearLayout(QLayout* layout, bool deleteWidgets = true);

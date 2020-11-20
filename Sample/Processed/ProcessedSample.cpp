@@ -24,13 +24,11 @@
 #include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Specular/SpecularStrategyBuilder.h"
 
-namespace
-{
+namespace {
 
 std::unique_ptr<IFresnelMap> createFresnelMap(const MultiLayer& sample,
                                               const std::vector<Slice>& slices,
-                                              const SimulationOptions& options)
-{
+                                              const SimulationOptions& options) {
     std::unique_ptr<IFresnelMap> result;
     const bool magnetic = std::any_of(slices.cbegin(), slices.cend(), [](const Slice& slice) {
         return slice.material().isMagneticMaterial();
@@ -44,8 +42,7 @@ std::unique_ptr<IFresnelMap> createFresnelMap(const MultiLayer& sample,
     return result;
 }
 
-bool checkRegions(const std::vector<HomogeneousRegion>& regions)
-{
+bool checkRegions(const std::vector<HomogeneousRegion>& regions) {
     double total_fraction = 0.0;
     for (auto& region : regions)
         total_fraction += region.m_volume;
@@ -54,8 +51,7 @@ bool checkRegions(const std::vector<HomogeneousRegion>& regions)
 
 std::vector<Slice>
 createAverageMaterialSlices(const std::vector<Slice>& slices,
-                            const std::map<size_t, std::vector<HomogeneousRegion>>& region_map)
-{
+                            const std::map<size_t, std::vector<HomogeneousRegion>>& region_map) {
     std::vector<Slice> result = slices;
     const auto last_slice_index = slices.size() - 1;
     for (const auto& entry : region_map) {
@@ -82,8 +78,7 @@ ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptio
     , m_top_z{0.0}
     , m_polarized{false}
     , m_crossCorrLength{sample.crossCorrLength()}
-    , m_ext_field{sample.externalField()}
-{
+    , m_ext_field{sample.externalField()} {
     initSlices(sample, options);
     m_fresnel_map = createFresnelMap(sample, m_slices, options);
     initBFields();
@@ -93,58 +88,48 @@ ProcessedSample::ProcessedSample(const MultiLayer& sample, const SimulationOptio
 
 ProcessedSample::~ProcessedSample() = default;
 
-size_t ProcessedSample::numberOfSlices() const
-{
+size_t ProcessedSample::numberOfSlices() const {
     return m_slices.size();
 }
 
-const std::vector<Slice>& ProcessedSample::slices() const
-{
+const std::vector<Slice>& ProcessedSample::slices() const {
     return m_slices;
 }
 
-const std::vector<Slice>& ProcessedSample::averageSlices() const
-{
+const std::vector<Slice>& ProcessedSample::averageSlices() const {
     return m_fresnel_map->slices();
 }
 
-const std::vector<ProcessedLayout>& ProcessedSample::layouts() const
-{
+const std::vector<ProcessedLayout>& ProcessedSample::layouts() const {
     return m_layouts;
 }
 
-const IFresnelMap* ProcessedSample::fresnelMap() const
-{
+const IFresnelMap* ProcessedSample::fresnelMap() const {
     return m_fresnel_map.get();
 }
 
-double ProcessedSample::crossCorrelationLength() const
-{
+double ProcessedSample::crossCorrelationLength() const {
     return m_crossCorrLength;
 }
 
-kvector_t ProcessedSample::externalField() const
-{
+kvector_t ProcessedSample::externalField() const {
     return m_ext_field;
 }
 
-const LayerRoughness* ProcessedSample::bottomRoughness(size_t i) const
-{
+const LayerRoughness* ProcessedSample::bottomRoughness(size_t i) const {
     if (i + 2 > m_slices.size())
         throw std::runtime_error("ProcessedSample::bottomRoughness: "
                                  "index out of bounds.");
     return m_slices[i + 1].topRoughness();
 }
 
-double ProcessedSample::sliceTopZ(size_t i) const
-{
+double ProcessedSample::sliceTopZ(size_t i) const {
     if (i == 0)
         return m_top_z;
     return sliceBottomZ(i - 1);
 }
 
-double ProcessedSample::sliceBottomZ(size_t i) const
-{
+double ProcessedSample::sliceBottomZ(size_t i) const {
     if (numberOfSlices() < 2)
         return m_top_z;
     // Last slice has no bottom:
@@ -156,13 +141,11 @@ double ProcessedSample::sliceBottomZ(size_t i) const
     return z;
 }
 
-bool ProcessedSample::containsMagneticMaterial() const
-{
+bool ProcessedSample::containsMagneticMaterial() const {
     return m_polarized;
 }
 
-bool ProcessedSample::hasRoughness() const
-{
+bool ProcessedSample::hasRoughness() const {
     for (auto& slice : m_slices) {
         if (slice.topRoughness())
             return true;
@@ -170,8 +153,7 @@ bool ProcessedSample::hasRoughness() const
     return false;
 }
 
-double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const
-{
+double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, size_t k) const {
     if (m_crossCorrLength <= 0.0)
         return 0.0;
     const double z_j = sliceBottomZ(j);
@@ -191,8 +173,7 @@ double ProcessedSample::crossCorrSpectralFun(const kvector_t kvec, size_t j, siz
 }
 
 // Creates a array of slices with the correct thickness, roughness and material
-void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptions& options)
-{
+void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptions& options) {
     if (sample.numberOfLayers() == 0)
         return;
     bool use_slicing = options.useAvgMaterials() && sample.numberOfLayers() > 1;
@@ -244,8 +225,7 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
     }
 }
 
-void ProcessedSample::initLayouts(const MultiLayer& sample)
-{
+void ProcessedSample::initLayouts(const MultiLayer& sample) {
     double z_ref = -m_top_z;
     m_polarized = sample.isMagnetic();
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
@@ -260,8 +240,7 @@ void ProcessedSample::initLayouts(const MultiLayer& sample)
 }
 
 void ProcessedSample::addSlice(double thickness, const Material& material,
-                               const LayerRoughness* roughness)
-{
+                               const LayerRoughness* roughness) {
     if (roughness)
         m_slices.emplace_back(thickness, material, *roughness);
     else
@@ -269,8 +248,7 @@ void ProcessedSample::addSlice(double thickness, const Material& material,
 }
 
 void ProcessedSample::addNSlices(size_t n, double thickness, const Material& material,
-                                 const LayerRoughness* roughness)
-{
+                                 const LayerRoughness* roughness) {
     if (thickness <= 0.0)
         return;
     if (n == 0)
@@ -283,8 +261,7 @@ void ProcessedSample::addNSlices(size_t n, double thickness, const Material& mat
     }
 }
 
-void ProcessedSample::initBFields()
-{
+void ProcessedSample::initBFields() {
     if (m_slices.empty())
         return;
     const double m_z0 = m_slices[0].material().magnetization().z();
@@ -295,8 +272,7 @@ void ProcessedSample::initBFields()
 }
 
 void ProcessedSample::mergeRegionMap(
-    const std::map<size_t, std::vector<HomogeneousRegion>>& region_map)
-{
+    const std::map<size_t, std::vector<HomogeneousRegion>>& region_map) {
     for (const auto& entry : region_map) {
         size_t i = entry.first;
         auto& regions = entry.second;
@@ -304,8 +280,7 @@ void ProcessedSample::mergeRegionMap(
     }
 }
 
-void ProcessedSample::initFresnelMap(const SimulationOptions& sim_options)
-{
+void ProcessedSample::initFresnelMap(const SimulationOptions& sim_options) {
     if (sim_options.useAvgMaterials()) {
         m_fresnel_map->setSlices(createAverageMaterialSlices(m_slices, m_region_map));
     } else {

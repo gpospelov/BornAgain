@@ -37,8 +37,7 @@
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include <map>
 
-namespace
-{
+namespace {
 //! Links RealDataItem to the JobItem's instrument.
 // (re-)Linking is necessary because of following reason
 // 1) Copying of RealDataItem from RealDataModel on board of JobItem requires relink to the copied
@@ -58,8 +57,7 @@ void createFitContainers(JobItem* jobItem);
 PointwiseAxisItem* getPointwiseAxisItem(const SpecularInstrumentItem* instrument);
 } // namespace
 
-void JobModelFunctions::initDataView(JobItem* job_item)
-{
+void JobModelFunctions::initDataView(JobItem* job_item) {
     ASSERT(job_item && job_item->isValidForFitting());
     ASSERT(job_item->instrumentItem()
            && job_item->instrumentItem()->modelType() == "SpecularInstrument");
@@ -84,8 +82,7 @@ void JobModelFunctions::initDataView(JobItem* job_item)
                             JobItemUtils::availableUnits(*converter).variant());
 }
 
-void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLayerItem* sampleItem)
-{
+void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLayerItem* sampleItem) {
     auto model = jobItem->model();
     MultiLayerItem* multilayer =
         static_cast<MultiLayerItem*>(model->copyItem(sampleItem, jobItem, JobItem::T_SAMPLE));
@@ -111,8 +108,7 @@ void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLaye
     }
 }
 
-void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem, const InstrumentItem* from)
-{
+void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem, const InstrumentItem* from) {
     auto model = jobItem->model();
     SessionItem* to = model->copyItem(from, jobItem, JobItem::T_INSTRUMENT);
     to->setItemName(from->modelType());
@@ -139,8 +135,7 @@ void JobModelFunctions::setupJobItemInstrument(JobItem* jobItem, const Instrumen
 
 //! Setup items intended for storing results of the job.
 
-void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
-{
+void JobModelFunctions::setupJobItemOutput(JobItem* jobItem) {
     auto model = jobItem->model();
 
     auto instrumentType = jobItem->instrumentItem()->modelType();
@@ -159,8 +154,7 @@ void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
 
 //! Setups JobItem for fit.
 
-void JobModelFunctions::setupJobItemForFit(JobItem* jobItem, const RealDataItem* realDataItem)
-{
+void JobModelFunctions::setupJobItemForFit(JobItem* jobItem, const RealDataItem* realDataItem) {
     if (!jobItem->instrumentItem())
         throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. "
                                 "No instrument.");
@@ -178,8 +172,7 @@ void JobModelFunctions::setupJobItemForFit(JobItem* jobItem, const RealDataItem*
     createFitContainers(jobItem);
 }
 
-void JobModelFunctions::muteMagnetizationData(JobItem* jobItem)
-{
+void JobModelFunctions::muteMagnetizationData(JobItem* jobItem) {
     auto container =
         static_cast<MaterialItemContainer*>(jobItem->getItem(JobItem::T_MATERIAL_CONTAINER));
     for (auto item : container->getItems(MaterialItemContainer::T_MATERIALS))
@@ -189,8 +182,7 @@ void JobModelFunctions::muteMagnetizationData(JobItem* jobItem)
     sample->getItem(MultiLayerItem::P_EXTERNAL_FIELD)->setVisible(false);
 }
 
-void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem)
-{
+void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* realDataItem) {
     if (!realDataItem)
         return;
 
@@ -215,17 +207,14 @@ void JobModelFunctions::copyRealDataItem(JobItem* jobItem, const RealDataItem* r
         DataItem::P_FILE_NAME, ItemFileNameUtils::jobNativeDataFileName(*jobItem));
 }
 
-const JobItem* JobModelFunctions::findJobItem(const SessionItem* item)
-{
+const JobItem* JobModelFunctions::findJobItem(const SessionItem* item) {
     while (item && item->modelType() != "JobItem")
         item = item->parent();
     return static_cast<const JobItem*>(item);
 }
 
-namespace
-{
-void processInstrumentLink(JobItem* jobItem)
-{
+namespace {
+void processInstrumentLink(JobItem* jobItem) {
     RealDataItem* realData = jobItem->realDataItem();
     if (!realData)
         throw GUIHelpers::Error("JobModelFunctions::processInstrumentLink() -> Error. No data.");
@@ -233,14 +222,12 @@ void processInstrumentLink(JobItem* jobItem)
     realData->linkToInstrument(jobItem->instrumentItem());
 }
 
-void copyMasksToInstrument(JobItem* jobItem)
-{
+void copyMasksToInstrument(JobItem* jobItem) {
     auto mask_container = jobItem->realDataItem()->maskContainerItem();
     jobItem->instrumentItem()->importMasks(mask_container);
 }
 
-void cropRealData(JobItem* jobItem)
-{
+void cropRealData(JobItem* jobItem) {
     RealDataItem* realData = jobItem->realDataItem();
 
     // adjusting real data to the size of region of interest
@@ -261,8 +248,7 @@ void cropRealData(JobItem* jobItem)
     intensityItem->updateDataRange();
 }
 
-void createFitContainers(JobItem* jobItem)
-{
+void createFitContainers(JobItem* jobItem) {
     SessionModel* model = jobItem->model();
 
     SessionItem* fitSuiteItem = jobItem->getItem(JobItem::T_FIT_SUITE);
@@ -294,8 +280,7 @@ void createFitContainers(JobItem* jobItem)
                          FitSuiteItem::T_MINIMIZER);
 }
 
-PointwiseAxisItem* getPointwiseAxisItem(const SpecularInstrumentItem* instrument)
-{
+PointwiseAxisItem* getPointwiseAxisItem(const SpecularInstrumentItem* instrument) {
     return dynamic_cast<PointwiseAxisItem*>(
         instrument->beamItem()->inclinationAxisGroup()->getChildOfType("PointwiseAxis"));
 }

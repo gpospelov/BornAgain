@@ -20,22 +20,18 @@
 //! A regular icosahedron.
 //! @ingroup hardParticle
 
-class FormFactorIcosahedron : public IFormFactorPolyhedron
-{
+class FormFactorIcosahedron : public IFormFactorPolyhedron {
 public:
     FormFactorIcosahedron(const std::vector<double> P);
     FormFactorIcosahedron(double edge);
 
-    FormFactorIcosahedron* clone() const override final
-    {
-        return new FormFactorIcosahedron(m_edge);
-    }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    FormFactorIcosahedron* clone() const final { return new FormFactorIcosahedron(m_edge); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getEdge() const { return m_edge; }
 
 protected:
-    void onChange() override final;
+    void onChange() final;
 
 private:
     static const PolyhedralTopology topology;

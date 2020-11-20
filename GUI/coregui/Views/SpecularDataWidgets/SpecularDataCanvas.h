@@ -21,8 +21,7 @@
 class SpecularDataItem;
 class SpecularPlotCanvas;
 
-class SpecularDataCanvas : public SessionItemWidget
-{
+class SpecularDataCanvas : public SessionItemWidget {
     Q_OBJECT
 public:
     explicit SpecularDataCanvas(QWidget* parent = nullptr);

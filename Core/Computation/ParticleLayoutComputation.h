@@ -29,8 +29,7 @@ class SimulationOptions;
 //! Used by DWBAComputation.
 //! @ingroup algorithms_internal
 
-class ParticleLayoutComputation final
-{
+class ParticleLayoutComputation final {
 public:
     ParticleLayoutComputation(const ProcessedLayout& layout, const SimulationOptions& options,
                               bool polarized);

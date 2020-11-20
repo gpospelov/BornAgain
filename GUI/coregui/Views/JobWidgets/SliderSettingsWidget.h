@@ -20,8 +20,7 @@
 class QRadioButton;
 class QCheckBox;
 
-class SliderSettingsWidget : public QWidget
-{
+class SliderSettingsWidget : public QWidget {
     Q_OBJECT
 
 public:

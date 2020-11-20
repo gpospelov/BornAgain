@@ -18,8 +18,7 @@
 #include "Base/Vector/Vectors3D.h"
 #include "GUI/coregui/Models/SessionItem.h"
 
-class BA_CORE_API_ VectorItem : public SessionItem
-{
+class BA_CORE_API_ VectorItem : public SessionItem {
 
 public:
     static const QString P_X;

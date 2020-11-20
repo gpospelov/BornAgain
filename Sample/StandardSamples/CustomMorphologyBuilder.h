@@ -20,8 +20,7 @@
 //! Builds sample: mixture of different particles (IsGISAXS example #7).
 //! @ingroup standard_samples
 
-class CustomMorphologyBuilder : public ISampleBuilder
-{
+class CustomMorphologyBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

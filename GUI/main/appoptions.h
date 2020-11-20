@@ -29,8 +29,7 @@ namespace bpo = boost::program_options;
 //! @ingroup tools_internal
 //! @brief Handles command line and config file program options
 
-class ApplicationOptions
-{
+class ApplicationOptions {
 public:
     ApplicationOptions(int argc = 0, char** argv = 0);
 

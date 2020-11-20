@@ -21,8 +21,7 @@ class ISimulation;
 
 //! The JobWorker class provides running the domain simulation in a thread.
 
-class JobWorker : public QObject
-{
+class JobWorker : public QObject {
     Q_OBJECT
 public:
     JobWorker(const QString& identifier, ISimulation* simulation);

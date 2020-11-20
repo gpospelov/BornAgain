@@ -19,8 +19,7 @@
 
 //! A trivial minimizer that calls the objective function once. Used to test the whole chain.
 
-class TestMinimizer : public IMinimizer
-{
+class TestMinimizer : public IMinimizer {
 public:
     TestMinimizer();
     ~TestMinimizer() override;

@@ -26,8 +26,7 @@ class Transform3D;
 
 //! @ingroup samples
 
-class Lattice3D : public INode
-{
+class Lattice3D : public INode {
 public:
     Lattice3D() = delete;
     Lattice3D(const kvector_t a, const kvector_t b, const kvector_t c);

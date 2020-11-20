@@ -23,13 +23,12 @@
 //! Interference function of radial paracrystal.
 //! @ingroup interference
 
-class InterferenceFunctionRadialParaCrystal : public IInterferenceFunction
-{
+class InterferenceFunctionRadialParaCrystal : public IInterferenceFunction {
 public:
     InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length);
-    InterferenceFunctionRadialParaCrystal* clone() const override final;
+    InterferenceFunctionRadialParaCrystal* clone() const final;
 
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     void setKappa(double kappa);
     double kappa() const;
@@ -45,12 +44,12 @@ public:
 
     double dampingLength() const { return m_damping_length; }
 
-    std::vector<const INode*> getChildren() const override final;
+    std::vector<const INode*> getChildren() const final;
 
     double randomSample() const { return m_pdf->createSampler()->randomSample(); }
 
 private:
-    double iff_without_dw(const kvector_t q) const override final;
+    double iff_without_dw(const kvector_t q) const final;
     void init_parameters();
 
     double m_peak_distance;  //!< the distance to the first neighbor peak

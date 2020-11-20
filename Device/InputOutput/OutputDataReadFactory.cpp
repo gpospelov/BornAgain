@@ -16,22 +16,19 @@
 #include "Base/Types/Exceptions.h"
 #include "Device/InputOutput/DataFormatUtils.h"
 
-OutputDataReader* OutputDataReadFactory::getReader(const std::string& file_name)
-{
+OutputDataReader* OutputDataReadFactory::getReader(const std::string& file_name) {
     OutputDataReader* result = new OutputDataReader(file_name);
     result->setStrategy(getReadStrategy(file_name));
     return result;
 }
 
-OutputDataReader* OutputDataReadFactory::getReflectometryReader(const std::string& file_name)
-{
+OutputDataReader* OutputDataReadFactory::getReflectometryReader(const std::string& file_name) {
     OutputDataReader* result = new OutputDataReader(file_name);
     result->setStrategy(new OutputDataReadReflectometryStrategy());
     return result;
 }
 
-IOutputDataReadStrategy* OutputDataReadFactory::getReadStrategy(const std::string& file_name)
-{
+IOutputDataReadStrategy* OutputDataReadFactory::getReadStrategy(const std::string& file_name) {
     IOutputDataReadStrategy* result(nullptr);
     if (DataFormatUtils::isIntFile(file_name))
         result = new OutputDataReadINTStrategy();

@@ -21,8 +21,7 @@
 class QLabel;
 
 //! new project dialog window
-class NewProjectDialog : public QDialog
-{
+class NewProjectDialog : public QDialog {
     Q_OBJECT
 public:
     NewProjectDialog(QWidget* parent = 0, const QString& workingDirectory = "",

@@ -21,8 +21,7 @@
 #include "Sample/Scattering/Rotations.h"
 
 Crystal::Crystal(const IParticle& basis, const Lattice3D& lattice, double position_variance)
-    : m_lattice(lattice), m_position_variance(position_variance)
-{
+    : m_lattice(lattice), m_position_variance(position_variance) {
     setName("Crystal");
     m_basis.reset(basis.clone());
     m_basis->registerAbundance(false);
@@ -31,8 +30,7 @@ Crystal::Crystal(const IParticle& basis, const Lattice3D& lattice, double positi
 }
 
 Crystal::Crystal(IParticle* p_basis, const Lattice3D& lattice, double position_variance)
-    : m_lattice(lattice), m_position_variance(position_variance)
-{
+    : m_lattice(lattice), m_position_variance(position_variance) {
     setName("Crystal");
     m_basis.reset(p_basis);
     registerChild(m_basis.get());
@@ -41,15 +39,13 @@ Crystal::Crystal(IParticle* p_basis, const Lattice3D& lattice, double position_v
 
 Crystal::~Crystal() = default;
 
-Crystal* Crystal::clone() const
-{
+Crystal* Crystal::clone() const {
     return new Crystal(*m_basis, m_lattice, m_position_variance);
 }
 
 IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
                                             const IRotation* p_rotation,
-                                            const kvector_t& translation) const
-{
+                                            const kvector_t& translation) const {
     Lattice3D transformed_lattice = transformedLattice(p_rotation);
     std::unique_ptr<IParticle> P_basis_clone{m_basis->clone()};
     if (p_rotation)
@@ -60,8 +56,7 @@ IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form
                                  m_position_variance);
 }
 
-std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const
-{
+std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const {
     std::vector<HomogeneousRegion> result;
     double unit_cell_volume = m_lattice.unitCellVolume();
     if (unit_cell_volume <= 0)
@@ -78,14 +73,12 @@ std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const
     return result;
 }
 
-Lattice3D Crystal::transformedLattice(const IRotation* p_rotation) const
-{
+Lattice3D Crystal::transformedLattice(const IRotation* p_rotation) const {
     if (!p_rotation)
         return m_lattice;
     return m_lattice.transformed(p_rotation->getTransform3D());
 }
 
-std::vector<const INode*> Crystal::getChildren() const
-{
+std::vector<const INode*> Crystal::getChildren() const {
     return std::vector<const INode*>() << m_basis << &m_lattice;
 }

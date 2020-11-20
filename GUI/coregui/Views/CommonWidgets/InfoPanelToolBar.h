@@ -21,8 +21,7 @@ class QAction;
 
 //! Toolbar for InfoPanel with collapse/expand buttons.
 
-class InfoPanelToolBar : public QToolBar
-{
+class InfoPanelToolBar : public QToolBar {
     Q_OBJECT
 
 public:

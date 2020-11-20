@@ -21,8 +21,7 @@
 
 //! A polyhedron, implementation class for use in IFormFactorPolyhedron
 
-class Polyhedron
-{
+class Polyhedron {
 public:
     Polyhedron() = delete;
     Polyhedron(const Polyhedron&) = delete;

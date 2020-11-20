@@ -20,8 +20,7 @@
 //! Modification of standard scroll area, which makes widget with dynamic layout ocuupy whole
 //! available space.
 
-class AdjustingScrollArea : public QScrollArea
-{
+class AdjustingScrollArea : public QScrollArea {
     Q_OBJECT
 
 public:

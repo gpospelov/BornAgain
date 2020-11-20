@@ -18,12 +18,9 @@
 using namespace mumufit;
 
 ScalarFunctionAdapter::ScalarFunctionAdapter(fcn_scalar_t func, const Parameters& parameters)
-    : m_fcn(func), m_parameters(parameters)
-{
-}
+    : m_fcn(func), m_parameters(parameters) {}
 
-const RootScalarFunction* ScalarFunctionAdapter::rootObjectiveFunction()
-{
+const RootScalarFunction* ScalarFunctionAdapter::rootObjectiveFunction() {
     root_scalar_t rootfun = [&](const double* pars) {
         std::vector<double> vec;
         vec.resize(m_parameters.size(), 0.0);

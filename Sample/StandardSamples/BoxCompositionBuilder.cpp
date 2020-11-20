@@ -22,8 +22,7 @@
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-namespace
-{
+namespace {
 
 const Material particleMaterial = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
 const double layer_thickness = 100.0 * Units::nm;
@@ -31,8 +30,7 @@ const double length = 50.0 * Units::nm;
 const double width = 20.0 * Units::nm;
 const double height = 10.0 * Units::nm;
 
-MultiLayer* finalizeMultiLayer(const ParticleComposition& composition)
-{
+MultiLayer* finalizeMultiLayer(const ParticleComposition& composition) {
     ParticleLayout layout;
     layout.addParticle(composition);
 
@@ -52,8 +50,7 @@ MultiLayer* finalizeMultiLayer(const ParticleComposition& composition)
 
 // --- BoxCompositionRotateXBuilder ---
 
-MultiLayer* BoxCompositionRotateXBuilder::buildSample() const
-{
+MultiLayer* BoxCompositionRotateXBuilder::buildSample() const {
     Particle box(particleMaterial, FormFactorBox(length / 2.0, width, height));
     ParticleComposition composition;
     composition.addParticle(box, kvector_t(0.0, 0.0, 0.0));
@@ -65,8 +62,7 @@ MultiLayer* BoxCompositionRotateXBuilder::buildSample() const
 
 // --- BoxCompositionRotateYBuilder ---
 
-MultiLayer* BoxCompositionRotateYBuilder::buildSample() const
-{
+MultiLayer* BoxCompositionRotateYBuilder::buildSample() const {
     Particle box(particleMaterial, FormFactorBox(length / 2.0, width, height));
     ParticleComposition composition;
     composition.addParticle(box, kvector_t(0.0, 0.0, 0.0));
@@ -78,8 +74,7 @@ MultiLayer* BoxCompositionRotateYBuilder::buildSample() const
 
 // --- BoxCompositionRotateZBuilder ---
 
-MultiLayer* BoxCompositionRotateZBuilder::buildSample() const
-{
+MultiLayer* BoxCompositionRotateZBuilder::buildSample() const {
     Particle box(particleMaterial, FormFactorBox(length / 2.0, width, height));
     ParticleComposition composition;
     composition.addParticle(box, kvector_t(0.0, 0.0, 0.0));
@@ -91,8 +86,7 @@ MultiLayer* BoxCompositionRotateZBuilder::buildSample() const
 
 // --- BoxCompositionRotateZandYBuilder ---
 
-MultiLayer* BoxCompositionRotateZandYBuilder::buildSample() const
-{
+MultiLayer* BoxCompositionRotateZandYBuilder::buildSample() const {
     Particle box(particleMaterial, FormFactorBox(length / 2.0, width, height));
     ParticleComposition composition;
     composition.addParticle(box, kvector_t(0.0, 0.0, 0.0));
@@ -106,8 +100,7 @@ MultiLayer* BoxCompositionRotateZandYBuilder::buildSample() const
 // --- BoxStackCompositionBuilder ---
 
 // Composition of two boxes which gives you the box (10,20,50) with reference point as usual.
-MultiLayer* BoxStackCompositionBuilder::buildSample() const
-{
+MultiLayer* BoxStackCompositionBuilder::buildSample() const {
     ParticleComposition composition;
 
     // box1 (20,50,5), rotatedZ

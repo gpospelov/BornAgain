@@ -21,8 +21,7 @@ class SessionItem;
 
 //! Base class for ComponentTreeView and ComponentFlatView.
 
-class ComponentView : public QWidget
-{
+class ComponentView : public QWidget {
     Q_OBJECT
 public:
     ComponentView(QWidget* parent = nullptr) : QWidget(parent) {}

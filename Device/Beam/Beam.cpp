@@ -24,8 +24,7 @@
 static constexpr double INCLINATION_LIMIT = M_PI_2 + 1e-10;
 
 Beam::Beam(double wavelength, double alpha, double phi, double intensity)
-    : m_wavelength(wavelength), m_alpha(alpha), m_phi(phi), m_intensity(intensity)
-{
+    : m_wavelength(wavelength), m_alpha(alpha), m_phi(phi), m_intensity(intensity) {
     setName("Beam");
     registerParameter("Wavelength", &m_wavelength).setUnit("nm").setNonnegative();
     registerParameter("InclinationAngle", &m_alpha).setUnit("rad").setLimited(0, INCLINATION_LIMIT);
@@ -34,14 +33,12 @@ Beam::Beam(double wavelength, double alpha, double phi, double intensity)
     registerVector("BlochVector", &m_bloch_vector, "");
 }
 
-Beam Beam::horizontalBeam()
-{
+Beam Beam::horizontalBeam() {
     return Beam(1.0, 0.0, 0.0, 1.0);
 }
 
 Beam::Beam(const Beam& other)
-    : Beam(other.m_wavelength, other.m_alpha, other.m_phi, other.m_intensity)
-{
+    : Beam(other.m_wavelength, other.m_alpha, other.m_phi, other.m_intensity) {
     m_bloch_vector = other.m_bloch_vector;
     setName(other.getName());
     if (other.m_shape_factor) {
@@ -50,8 +47,7 @@ Beam::Beam(const Beam& other)
     }
 }
 
-Beam& Beam::operator=(const Beam& other)
-{
+Beam& Beam::operator=(const Beam& other) {
     m_wavelength = other.m_wavelength;
     m_alpha = other.m_alpha;
     m_phi = other.m_phi;
@@ -68,13 +64,11 @@ Beam& Beam::operator=(const Beam& other)
 
 Beam::~Beam() = default;
 
-kvector_t Beam::getCentralK() const
-{
+kvector_t Beam::getCentralK() const {
     return vecOfLambdaAlphaPhi(m_wavelength, -m_alpha, m_phi);
 }
 
-void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
-{
+void Beam::setCentralK(double wavelength, double alpha_i, double phi_i) {
     if (wavelength <= 0.0)
         throw Exceptions::ClassInitializationException(
             "Beam::setCentralK() -> Error. Wavelength can't be negative or zero.");
@@ -86,27 +80,23 @@ void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
     m_phi = phi_i;
 }
 
-const IFootprintFactor* Beam::footprintFactor() const
-{
+const IFootprintFactor* Beam::footprintFactor() const {
     return m_shape_factor.get();
 }
 
-void Beam::setFootprintFactor(const IFootprintFactor& shape_factor)
-{
+void Beam::setFootprintFactor(const IFootprintFactor& shape_factor) {
     m_shape_factor.reset(shape_factor.clone());
     registerChild(m_shape_factor.get());
 }
 
-void Beam::setWidthRatio(double width_ratio)
-{
+void Beam::setWidthRatio(double width_ratio) {
     if (!m_shape_factor)
         throw std::runtime_error("Error in Beam::setWidthRatio: footprint factor is nullptr. "
                                  "Probably, you have forgotten to initialize it.");
     m_shape_factor->setWidthRatio(width_ratio);
 }
 
-void Beam::setPolarization(const kvector_t bloch_vector)
-{
+void Beam::setPolarization(const kvector_t bloch_vector) {
     if (bloch_vector.mag() > 1.0) {
         throw Exceptions::ClassInitializationException(
             "Beam::setPolarization: "
@@ -115,13 +105,11 @@ void Beam::setPolarization(const kvector_t bloch_vector)
     m_bloch_vector = bloch_vector;
 }
 
-kvector_t Beam::getBlochVector() const
-{
+kvector_t Beam::getBlochVector() const {
     return m_bloch_vector;
 }
 
-Eigen::Matrix2cd Beam::getPolarization() const
-{
+Eigen::Matrix2cd Beam::getPolarization() const {
     Eigen::Matrix2cd result;
     double x = m_bloch_vector.x();
     double y = m_bloch_vector.y();
@@ -133,8 +121,7 @@ Eigen::Matrix2cd Beam::getPolarization() const
     return result;
 }
 
-std::vector<const INode*> Beam::getChildren() const
-{
+std::vector<const INode*> Beam::getChildren() const {
     if (m_shape_factor)
         return {m_shape_factor.get()};
     return {};

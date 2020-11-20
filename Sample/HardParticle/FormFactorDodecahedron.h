@@ -20,22 +20,18 @@
 //! A regular dodecahedron.
 //! @ingroup hardParticle
 
-class FormFactorDodecahedron : public IFormFactorPolyhedron
-{
+class FormFactorDodecahedron : public IFormFactorPolyhedron {
 public:
     FormFactorDodecahedron(const std::vector<double> P);
     FormFactorDodecahedron(double edge);
 
-    FormFactorDodecahedron* clone() const override final
-    {
-        return new FormFactorDodecahedron(m_edge);
-    }
-    void accept(INodeVisitor* visitor) const override final { visitor->visit(this); }
+    FormFactorDodecahedron* clone() const final { return new FormFactorDodecahedron(m_edge); }
+    void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     double getEdge() const { return m_edge; }
 
 protected:
-    void onChange() override final;
+    void onChange() final;
 
 private:
     static const PolyhedralTopology topology;

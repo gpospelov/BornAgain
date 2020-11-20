@@ -17,12 +17,10 @@
 
 #include "GUI/ba3d/model/object.h"
 
-namespace RealSpace
-{
+namespace RealSpace {
 
 // particle layer: a transparent box
-class Layer : public Object
-{
+class Layer : public Object {
 public:
     Layer(VectorRange);
 };

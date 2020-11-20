@@ -41,8 +41,7 @@ QStringList SampleViewFactory::m_valid_item_names = QStringList()
                                                     << "InterferenceHardDisk"
                                                     << "InterferenceRadialParaCrystal";
 
-bool SampleViewFactory::isValidType(const QString& name)
-{
+bool SampleViewFactory::isValidType(const QString& name) {
     if (name.startsWith("FormFactor")) {
         return true;
     } else {
@@ -50,8 +49,7 @@ bool SampleViewFactory::isValidType(const QString& name)
     }
 }
 
-IView* SampleViewFactory::createSampleView(const QString& name)
-{
+IView* SampleViewFactory::createSampleView(const QString& name) {
     if (name == "MultiLayer") {
         return new MultiLayerView();
     } else if (name == "Layer") {

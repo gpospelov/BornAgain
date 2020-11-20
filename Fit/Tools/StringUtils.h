@@ -22,8 +22,7 @@
 
 //! Utility functions to analyze or modify strings.
 
-namespace mumufit::stringUtils
-{
+namespace mumufit::stringUtils {
 
 //! Returns true if text matches pattern with wildcards '*' and '?'.
 bool matchesPattern(const std::string& text, const std::string& wildcardPattern);
@@ -40,8 +39,7 @@ template <typename T> std::string scientific(const T value, int n = 10);
 //! Returns new string which is lower case of text.
 std::string to_lower(std::string text);
 
-template <typename T> std::string scientific(const T value, int n)
-{
+template <typename T> std::string scientific(const T value, int n) {
     std::ostringstream out;
     out << std::scientific << std::setprecision(n) << value;
     return out.str();

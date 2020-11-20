@@ -21,17 +21,13 @@ RootResidualFunction::RootResidualFunction(scalar_function_t objective_fun,
     , m_objective_fun(objective_fun)
     , m_gradient_fun(gradient_fun)
     , m_npars(npars)
-    , m_datasize(ndatasize)
-{
-}
+    , m_datasize(ndatasize) {}
 
-RootResidualFunction::Type_t RootResidualFunction::Type() const
-{
+RootResidualFunction::Type_t RootResidualFunction::Type() const {
     return ROOT::Math::FitMethodFunction::kLeastSquare;
 }
 
-ROOT::Math::IMultiGenFunction* RootResidualFunction::Clone() const
-{
+ROOT::Math::IMultiGenFunction* RootResidualFunction::Clone() const {
     return new RootResidualFunction(m_objective_fun, m_gradient_fun, m_npars, m_datasize);
 }
 
@@ -43,8 +39,7 @@ ROOT::Math::IMultiGenFunction* RootResidualFunction::Clone() const
 //! @return value of residual for given data element index
 
 double RootResidualFunction::DataElement(const double* pars, unsigned int index,
-                                         double* gradients) const
-{
+                                         double* gradients) const {
     std::vector<double> par_values;
     par_values.resize(m_npars, 0.0);
     std::copy(pars, pars + m_npars, par_values.begin());
@@ -65,8 +60,7 @@ double RootResidualFunction::DataElement(const double* pars, unsigned int index,
     return result;
 }
 
-double RootResidualFunction::DoEval(const double* pars) const
-{
+double RootResidualFunction::DoEval(const double* pars) const {
     std::vector<double> par_values;
     par_values.resize(m_npars, 0.0);
     std::copy(pars, pars + m_npars, par_values.begin());

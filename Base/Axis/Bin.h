@@ -35,9 +35,8 @@ bool BinContains(const Bin1D& bin, double value);
 
 struct Bin1DKVector {
     Bin1DKVector() : m_q_lower(), m_q_upper() {}
-    Bin1DKVector(const kvector_t lower, const kvector_t upper) : m_q_lower(lower), m_q_upper(upper)
-    {
-    }
+    Bin1DKVector(const kvector_t lower, const kvector_t upper)
+        : m_q_lower(lower), m_q_upper(upper) {}
     Bin1DKVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin);
 
     kvector_t center() const { return (m_q_lower + m_q_upper) / 2.0; }
@@ -49,8 +48,7 @@ struct Bin1DKVector {
 //! An one-dimensional range of cvector_t's.
 //! @ingroup tools_internal
 
-class Bin1DCVector
-{
+class Bin1DCVector {
 public:
     Bin1DCVector() : m_q_lower(), m_q_upper() {}
     Bin1DCVector(cvector_t lower, cvector_t upper) : m_q_lower(lower), m_q_upper(upper) {}

@@ -28,21 +28,20 @@ def plot_int(args):
     if ylog and intensity_min<=0:
         intensity_min = intensity_max / 1e6
 
-    # some white space above and below automatically determined y range:
-    if not args.max:
-        if args.ylin:
-            intensity_max = intensity_max + (intensity_max-intensity_min)*0.05
-        else:
-            intensity_max = intensity_max*(intensity_max/intensity_min)**0.05
-    if not args.min:
-        if args.ylin:
-            intensity_min = intensity_min - (intensity_max-intensity_min)*0.05
-        else:
-            intensity_min = intensity_min/(intensity_max/intensity_min)**0.05
-
     if args.verbose:
         print(f'Data extend from {data.getMinimum()} to {data.getMaximum()}')
     if data.rank() == 1:
+        # some white space above and below automatically determined y range:
+        if not args.max:
+            if args.ylin:
+                intensity_max = intensity_max + (intensity_max-intensity_min)*0.05
+            else:
+                intensity_max = intensity_max*(intensity_max/intensity_min)**0.05
+        if not args.min:
+            if args.ylin:
+                intensity_min = intensity_min - (intensity_max-intensity_min)*0.05
+            else:
+                intensity_min = intensity_min/(intensity_max/intensity_min)**0.05
         plot_int_1d(data, ylog, intensity_min, intensity_max)
     elif data.rank() == 2:
         plot_int_2d(data, ylog, intensity_min, intensity_max)

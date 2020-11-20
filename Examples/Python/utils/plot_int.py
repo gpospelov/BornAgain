@@ -16,17 +16,30 @@ rc('text', usetex=True)
 
 def plot_int(args):
     data = ba.IntensityDataIOFactory.readIntensityData(args.file)
-    if args.max is not None:
+    if args.max:
         intensity_max = args.max
     else:
         intensity_max = data.getMaximum()
-    if args.min is not None:
+    if args.min:
         intensity_min = args.min
     else:
         intensity_min = data.getMinimum()
     ylog = not args.ylin
     if ylog and intensity_min<=0:
         intensity_min = intensity_max / 1e6
+
+    # some white space above and below automatically determined y range:
+    if not args.max:
+        if args.ylin:
+            intensity_max = intensity_max + (intensity_max-intensity_min)*0.05
+        else:
+            intensity_max = intensity_max*(intensity_max/intensity_min)**0.05
+    if not args.min:
+        if args.ylin:
+            intensity_min = intensity_min - (intensity_max-intensity_min)*0.05
+        else:
+            intensity_min = intensity_min/(intensity_max/intensity_min)**0.05
+
     if args.verbose:
         print(f'Data extend from {data.getMinimum()} to {data.getMaximum()}')
     if data.rank() == 1:
@@ -63,9 +76,9 @@ def plot_raw_data_2d(values, extent_array, ylog, intensity_min, intensity_max):
 
 
 def plot_int_1d(histogram, ylog, intensity_min, intensity_max):
-    # TODO use intensity_min, intensity_max, which are currently ignored
     axis_values = np.asarray(histogram.xAxis().binCenters())/ba.deg
     array_values = histogram.array()
+    plt.ylim(intensity_min, intensity_max)
     plot_raw_data_1d(axis_values, array_values, ylog)
 
 
@@ -74,6 +87,7 @@ def plot_raw_data_1d(axis, values, ylog):
         plt.semilogy(axis, values)
     else:
         plt.plot(axis, values)
+
     plt.xlabel(r'$\alpha_i (^{\circ})$', fontsize=16)
     plt.ylabel(r'Value (a.u.)', fontsize=16)
     plt.show()

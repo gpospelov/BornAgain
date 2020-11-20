@@ -33,7 +33,7 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
     ASSERT(name != "");
     try {
         reference.reset(IntensityDataIOFactory::readOutputData(
-            FileSystemUtils::jointPath(BATesting::StdReferenceDir(), name + ".int.gz")));
+            FileSystemUtils::jointPath(BATesting::ReferenceDir_Std(), name + ".int.gz")));
     } catch (const std::exception&) {
         std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
     }
@@ -58,7 +58,7 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
                   << "   to plot a difference image, use " << BABuild::buildBinDir()
                   << "/plot_intensity_data_diff.py\n"
                   << "If the new result is correct, then move it to "
-                  << BATesting::CoreReferenceDir() << "/\n";
+                  << BATesting::ReferenceDir_Core() << "/\n";
     }
 
     return success;

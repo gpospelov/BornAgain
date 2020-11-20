@@ -4,11 +4,9 @@ import sys
 import os
 import numpy
 import gzip
-from utils import get_difference
+from utils import get_difference, REFERENCE_DIR
 
 from bornagain import *
-
-REFERENCE_DIR = "@TEST_REFERENCE_DIR_PY_CORE@"
 
 # ----------------------------------
 # describe sample and run simulation

@@ -25,7 +25,7 @@ std::unique_ptr<OutputData<double>> load(const std::string& name)
 {
     ASSERT(name != "");
     const std::string path =
-        FileSystemUtils::jointPath(BATesting::StdReferenceDir(), name + ".int.gz");
+        FileSystemUtils::jointPath(BATesting::ReferenceDir_Std(), name + ".int.gz");
     std::unique_ptr<OutputData<double>> data;
     try {
         data.reset(IntensityDataIOFactory::readOutputData(path));

@@ -24,17 +24,13 @@
 namespace BATesting
 {
 
-inline std::string ReferenceDataDir()
+inline std::string ReferenceDir_Std()
 {
-    return "@TEST_REFERENCE_DIR@";
+    return "@TEST_REFERENCE_DIR_STD@";
 }
-inline std::string StdReferenceDir()
+inline std::string ReferenceDir_Core()
 {
-    return "@TEST_REFERENCE_DIR@/Std";
-}
-inline std::string CoreReferenceDir()
-{
-    return "@TEST_REFERENCE_DIR@/Core";
+    return "@TEST_REFERENCE_DIR_CORE@";
 }
 
 inline std::string TestOutDir()

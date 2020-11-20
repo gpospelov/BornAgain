@@ -30,7 +30,7 @@ const double threshold = 1e-10;
 std::string fftReferenceImage(const std::string& input_image)
 {
     auto filename = FileSystemUtils::filename(input_image);
-    return FileSystemUtils::jointPath(BATesting::CoreReferenceDir(),
+    return FileSystemUtils::jointPath(BATesting::ReferenceDir_Core(),
                                       "FourierTransformation_" + filename);
 }
 
@@ -44,7 +44,7 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
     std::unique_ptr<OutputData<double>> input_image;
     try {
         const auto filename =
-            FileSystemUtils::jointPath(BATesting::StdReferenceDir(), input_image_name);
+            FileSystemUtils::jointPath(BATesting::ReferenceDir_Std(), input_image_name);
         input_image.reset(IntensityDataIOFactory::readOutputData(filename));
     } catch (const std::exception&) {
         std::cout << "Error: no input image.\n";

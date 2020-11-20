@@ -36,7 +36,7 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
         std::cout << "- reference: " << refPath << "\n";
         reference.reset(IntensityDataIOFactory::readOutputData(refPath));
     } catch (const std::exception&) {
-        std::cout << "Failure: cannot read reference\n";
+        std::cerr << "FAILED: cannot read reference\n";
     }
 
     // Compare with reference if available.
@@ -47,7 +47,7 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
             return true; // regular exit
         }
     } else {
-        std::cout << "Failure: reference not found\n";
+        std::cerr << "FAILED: reference not found\n";
     }
 
     // Save simulation, as it differs from reference.

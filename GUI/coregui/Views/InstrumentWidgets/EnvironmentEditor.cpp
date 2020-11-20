@@ -21,8 +21,7 @@
 #include <QGridLayout>
 #include <QSpacerItem>
 
-namespace
-{
+namespace {
 const QString background_title("Background");
 }
 
@@ -30,8 +29,7 @@ EnvironmentEditor::EnvironmentEditor(ColumnResizer* columnResizer, QWidget* pare
     : SessionItemWidget(parent)
     , m_columnResizer(columnResizer)
     , m_backgroundEditor(new ComponentEditor(ComponentEditor::GroupWidget, background_title))
-    , m_gridLayout(new QGridLayout)
-{
+    , m_gridLayout(new QGridLayout) {
     m_gridLayout->addWidget(m_backgroundEditor, 0, 0);
     m_gridLayout->addWidget(LayoutUtils::placeHolder(), 0, 1);
     m_gridLayout->addWidget(LayoutUtils::placeHolder(), 0, 2);
@@ -46,18 +44,15 @@ EnvironmentEditor::EnvironmentEditor(ColumnResizer* columnResizer, QWidget* pare
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
 }
 
-void EnvironmentEditor::subscribeToItem()
-{
+void EnvironmentEditor::subscribeToItem() {
     m_backgroundEditor->setItem(instrumentItem()->backgroundGroup());
 }
 
-void EnvironmentEditor::unsubscribeFromItem()
-{
+void EnvironmentEditor::unsubscribeFromItem() {
     m_backgroundEditor->clearEditor();
 }
 
-InstrumentItem* EnvironmentEditor::instrumentItem()
-{
+InstrumentItem* EnvironmentEditor::instrumentItem() {
     auto result = dynamic_cast<InstrumentItem*>(currentItem());
     ASSERT(result);
     return result;

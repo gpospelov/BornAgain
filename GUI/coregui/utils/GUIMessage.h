@@ -19,8 +19,7 @@
 
 class QObject;
 
-class GUIMessage
-{
+class GUIMessage {
 public:
     GUIMessage(const QString& senderName, const QString& messageType,
                const QString& messageDescription);

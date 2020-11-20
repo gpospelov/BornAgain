@@ -4,13 +4,10 @@
 #include "Sample/Lattice/Lattice3D.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class LatticeTest : public ::testing::Test
-{
-};
+class LatticeTest : public ::testing::Test {};
 
 // tests the declaration of Lattice object, copy constructor and the getBasisVector_() functions
-TEST_F(LatticeTest, declarationTest)
-{
+TEST_F(LatticeTest, declarationTest) {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
 
     Lattice3D l1(a1, a2, a3);
@@ -37,8 +34,7 @@ TEST_F(LatticeTest, declarationTest)
 }
 
 // tests volume of the unit cell
-TEST_F(LatticeTest, volumeTest)
-{
+TEST_F(LatticeTest, volumeTest) {
     kvector_t a1(4, 0, 0), a2(0, 2.1, 0), a3(0, 0, 1);
 
     Lattice3D l1(a1, a2, a3);
@@ -46,8 +42,7 @@ TEST_F(LatticeTest, volumeTest)
 }
 
 // tests whether reciprocal lattice basis vectors have been initialized or not
-TEST_F(LatticeTest, reciprocalTest)
-{
+TEST_F(LatticeTest, reciprocalTest) {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
     Lattice3D l1(a1, a2, a3);
 
@@ -69,8 +64,7 @@ TEST_F(LatticeTest, reciprocalTest)
 }
 
 // tests whether Lattice has been transformed correctly
-TEST_F(LatticeTest, transformTest)
-{
+TEST_F(LatticeTest, transformTest) {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
     Lattice3D l1(a1, a2, a3);
 
@@ -90,8 +84,7 @@ TEST_F(LatticeTest, transformTest)
 }
 
 // tests the nearest REC. LATTICE point to a given REC. SPACE vector
-TEST_F(LatticeTest, NearestReciprocalLatticeVectorCoordinatesTest)
-{
+TEST_F(LatticeTest, NearestReciprocalLatticeVectorCoordinatesTest) {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
     Lattice3D l1(a1, a2, a3);
 
@@ -106,8 +99,7 @@ TEST_F(LatticeTest, NearestReciprocalLatticeVectorCoordinatesTest)
 
 // tests the list of REC. LATTICE vectors (in REC. SPACE coords) computed within a specified
 // radius of a given REC. SPACE vector
-TEST_F(LatticeTest, reciprocalLatticeVectorsWithinRadiusTest)
-{
+TEST_F(LatticeTest, reciprocalLatticeVectorsWithinRadiusTest) {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
     Lattice3D l1(a1, a2, a3);
 
@@ -131,8 +123,7 @@ TEST_F(LatticeTest, reciprocalLatticeVectorsWithinRadiusTest)
 }
 
 // tests FCC lattice creation
-TEST_F(LatticeTest, FCCLatticeTest)
-{
+TEST_F(LatticeTest, FCCLatticeTest) {
     // creates FCC lattice onto a new Lattice instance l1
     Lattice3D l1 = bake::FCCLattice(1);
 
@@ -144,8 +135,7 @@ TEST_F(LatticeTest, FCCLatticeTest)
 }
 
 // tests hexagonal lattice creation
-TEST_F(LatticeTest, HexagonalLattice2DTest)
-{
+TEST_F(LatticeTest, HexagonalLattice2DTest) {
     Lattice3D l1 = bake::HexagonalLattice(1, 4);
 
     kvector_t tri1(1, 0.0, 0.0);
@@ -159,8 +149,7 @@ TEST_F(LatticeTest, HexagonalLattice2DTest)
 
 // tests whether basis and reciprocal vectors are returned correctly when the basis
 // vectors are manually changed using the setVectorValue method
-TEST_F(LatticeTest, onChangeTest)
-{
+TEST_F(LatticeTest, onChangeTest) {
     kvector_t a1(1, 0, 0), a2(0, 1, 0), a3(0, 0, 1);
     Lattice3D l1(a1, a2, a3);
 

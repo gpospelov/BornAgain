@@ -25,8 +25,7 @@ class InstrumentPresenter;
 //! Main widget of InstrumentView. Contains InstrumentPresenter
 //! showing proper insturment editor for given instrument type.
 
-class InstrumentEditorWidget : public QWidget
-{
+class InstrumentEditorWidget : public QWidget {
     Q_OBJECT
 
 public:

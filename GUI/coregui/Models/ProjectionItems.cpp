@@ -14,8 +14,7 @@
 
 #include "GUI/coregui/Models/ProjectionItems.h"
 
-ProjectionContainerItem::ProjectionContainerItem() : SessionItem("ProjectionContainer")
-{
+ProjectionContainerItem::ProjectionContainerItem() : SessionItem("ProjectionContainer") {
     const QString T_CHILDREN = "children tag";
     registerTag(T_CHILDREN, 0, -1,
                 QStringList() << "HorizontalLineMask"

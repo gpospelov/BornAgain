@@ -20,14 +20,12 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLVertexArrayObject>
 
-namespace RealSpace
-{
+namespace RealSpace {
 
 class Geometry;
 
 // GL buffer
-class Buffer final : protected QOpenGLFunctions
-{
+class Buffer final : protected QOpenGLFunctions {
 public:
     Buffer(Geometry const&);
     void draw();
@@ -39,8 +37,7 @@ private:
 };
 
 // Buffer for drawing 3D Coordinate Axes on canvas
-class Buffer3DAxes final : protected QOpenGLFunctions
-{
+class Buffer3DAxes final : protected QOpenGLFunctions {
 public:
     Buffer3DAxes();
     void draw3DAxes();

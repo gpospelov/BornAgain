@@ -24,8 +24,7 @@ class QBoxLayout;
 
 //! A dialog similar to standard QMessageBox with combo box selector.
 
-class ComboSelectorDialog : public QDialog
-{
+class ComboSelectorDialog : public QDialog {
     Q_OBJECT
 public:
     ComboSelectorDialog(QWidget* parent = 0);

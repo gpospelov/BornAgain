@@ -25,8 +25,7 @@ class SessionModelDelegate;
 class QItemSelection;
 class ComponentEditor;
 class ComponentTreeView;
-namespace Manhattan
-{
+namespace Manhattan {
 class MiniSplitter;
 }
 class QBoxLayout;
@@ -35,8 +34,7 @@ class MaterialModel;
 
 //! View to tests QListView working with ComponentProxyModel.
 
-class TestComponentView : public QWidget
-{
+class TestComponentView : public QWidget {
     Q_OBJECT
 public:
     TestComponentView(MainWindow* mainWindow = nullptr);

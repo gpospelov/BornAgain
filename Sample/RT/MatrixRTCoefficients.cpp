@@ -14,13 +14,11 @@
 
 #include "Sample/RT/MatrixRTCoefficients.h"
 
-MatrixRTCoefficients* MatrixRTCoefficients::clone() const
-{
+MatrixRTCoefficients* MatrixRTCoefficients::clone() const {
     return new MatrixRTCoefficients(*this);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients::T1plus() const
-{
+Eigen::Vector2cd MatrixRTCoefficients::T1plus() const {
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = T1m * phi_psi_plus;
     result(0) = m(2);
@@ -30,8 +28,7 @@ Eigen::Vector2cd MatrixRTCoefficients::T1plus() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients::R1plus() const
-{
+Eigen::Vector2cd MatrixRTCoefficients::R1plus() const {
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = R1m * phi_psi_plus;
     result(0) = m(2);
@@ -42,8 +39,7 @@ Eigen::Vector2cd MatrixRTCoefficients::R1plus() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients::T2plus() const
-{
+Eigen::Vector2cd MatrixRTCoefficients::T2plus() const {
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = T2m * phi_psi_plus;
     result(0) = m(2);
@@ -53,8 +49,7 @@ Eigen::Vector2cd MatrixRTCoefficients::T2plus() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients::R2plus() const
-{
+Eigen::Vector2cd MatrixRTCoefficients::R2plus() const {
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = R2m * phi_psi_plus;
     result(0) = m(2);
@@ -65,8 +60,7 @@ Eigen::Vector2cd MatrixRTCoefficients::R2plus() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients::T1min() const
-{
+Eigen::Vector2cd MatrixRTCoefficients::T1min() const {
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = T1m * phi_psi_min;
     result(0) = m(2);
@@ -76,8 +70,7 @@ Eigen::Vector2cd MatrixRTCoefficients::T1min() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients::R1min() const
-{
+Eigen::Vector2cd MatrixRTCoefficients::R1min() const {
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = R1m * phi_psi_min;
     result(0) = m(2);
@@ -88,8 +81,7 @@ Eigen::Vector2cd MatrixRTCoefficients::R1min() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients::T2min() const
-{
+Eigen::Vector2cd MatrixRTCoefficients::T2min() const {
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = T2m * phi_psi_min;
     result(0) = m(2);
@@ -99,8 +91,7 @@ Eigen::Vector2cd MatrixRTCoefficients::T2min() const
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients::R2min() const
-{
+Eigen::Vector2cd MatrixRTCoefficients::R2min() const {
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = R2m * phi_psi_min;
     result(0) = m(2);
@@ -111,8 +102,7 @@ Eigen::Vector2cd MatrixRTCoefficients::R2min() const
     return result;
 }
 
-void MatrixRTCoefficients::calculateTRMatrices()
-{
+void MatrixRTCoefficients::calculateTRMatrices() {
     if (m_b_mag == 0.0) {
         calculateTRWithoutMagnetization();
         return;
@@ -249,8 +239,7 @@ void MatrixRTCoefficients::calculateTRMatrices()
     }
 }
 
-void MatrixRTCoefficients::calculateTRWithoutMagnetization()
-{
+void MatrixRTCoefficients::calculateTRWithoutMagnetization() {
     T1m.setZero();
     R1m.setZero();
     T2m.setZero();
@@ -294,8 +283,7 @@ void MatrixRTCoefficients::calculateTRWithoutMagnetization()
     R2m(2, 2) = 0.5;
 }
 
-void MatrixRTCoefficients::initializeBottomLayerPhiPsi()
-{
+void MatrixRTCoefficients::initializeBottomLayerPhiPsi() {
     if (m_b_mag == 0.0) {
         phi_psi_min << 0.0, -std::sqrt(m_a), 0.0, 1.0;
         phi_psi_plus << -std::sqrt(m_a), 0.0, 1.0, 0.0;

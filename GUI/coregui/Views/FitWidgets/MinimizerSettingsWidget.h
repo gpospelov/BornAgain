@@ -24,8 +24,7 @@ class MinimizerContainerItem;
 //! The MinimizerSettingsWidget contains editor for all minnimizer settings and related fit
 //! options. Part of FitSuiteWidget.
 
-class MinimizerSettingsWidget : public QWidget
-{
+class MinimizerSettingsWidget : public QWidget {
     Q_OBJECT
 
 public:

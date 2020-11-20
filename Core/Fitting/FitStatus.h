@@ -20,8 +20,7 @@
 #include <functional>
 #include <vector>
 
-namespace mumufit
-{
+namespace mumufit {
 class MinimizerResult;
 }
 class FitObjective;
@@ -31,8 +30,7 @@ class FitPrintService;
 //! information which has to be collected during the fit.
 //! Owned by FitObjective.
 
-class FitStatus
-{
+class FitStatus {
 public:
     FitStatus(const FitObjective* fit_objective);
     ~FitStatus();

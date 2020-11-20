@@ -22,8 +22,7 @@
 //! Custom property to define list of string values with multiple selections.
 //! Intended for QVariant.
 
-class ComboProperty
-{
+class ComboProperty {
 public:
     ComboProperty();
 

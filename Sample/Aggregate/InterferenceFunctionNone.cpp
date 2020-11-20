@@ -14,19 +14,16 @@
 
 #include "Sample/Aggregate/InterferenceFunctionNone.h"
 
-InterferenceFunctionNone::InterferenceFunctionNone() : IInterferenceFunction(0)
-{
+InterferenceFunctionNone::InterferenceFunctionNone() : IInterferenceFunction(0) {
     setName("InterferenceNone");
 }
 
-InterferenceFunctionNone* InterferenceFunctionNone::clone() const
-{
+InterferenceFunctionNone* InterferenceFunctionNone::clone() const {
     auto* ret = new InterferenceFunctionNone();
     ret->setPositionVariance(m_position_var);
     return ret;
 }
 
-double InterferenceFunctionNone::iff_without_dw(const kvector_t) const
-{
+double InterferenceFunctionNone::iff_without_dw(const kvector_t) const {
     return 1.0;
 }

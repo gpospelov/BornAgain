@@ -23,10 +23,8 @@
 class JobItem;
 class RealDataItem;
 
-namespace GUIHelpers
-{
-class Error : public std::exception
-{
+namespace GUIHelpers {
+class Error : public std::exception {
 public:
     explicit Error(const QString& message) noexcept : message(message) {}
     virtual ~Error() noexcept;
@@ -79,8 +77,7 @@ QString readTextFile(const QString& fileName);
 
 } // namespace GUIHelpers
 
-inline std::ostream& operator<<(std::ostream& stream, const QString& str)
-{
+inline std::ostream& operator<<(std::ostream& stream, const QString& str) {
     stream << str.toStdString();
     return stream;
 }

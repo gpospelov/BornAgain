@@ -2,16 +2,13 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <stdexcept>
 
-class IParameterizedTest : public ::testing::Test
-{
+class IParameterizedTest : public ::testing::Test {
 protected:
     IParameterized m_initial_object;
 
-    class ParameterizedObject : public IParameterized
-    {
+    class ParameterizedObject : public IParameterized {
     public:
-        ParameterizedObject() : m_real_par1(0), m_real_par2(0)
-        {
+        ParameterizedObject() : m_real_par1(0), m_real_par2(0) {
             setName("Parameterized");
             registerParameter("par1", &m_real_par1);
             registerParameter("par2", &m_real_par2);
@@ -24,8 +21,7 @@ protected:
 
 // TODO enable tests
 
-TEST_F(IParameterizedTest, InitialState)
-{
+TEST_F(IParameterizedTest, InitialState) {
     /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ( size_t(0), m_initial_object.getParameterPool()->size() );
     IParameterized obj2(m_initial_object);
@@ -33,8 +29,7 @@ TEST_F(IParameterizedTest, InitialState)
     */
 }
 
-TEST_F(IParameterizedTest, DealingWithPool)
-{
+TEST_F(IParameterizedTest, DealingWithPool) {
     /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ( size_t(2), m_parameterized.getParameterPool()->size());
     IParameterizedTest::ParameterizedObject obj2 = m_parameterized;
@@ -49,8 +44,7 @@ TEST_F(IParameterizedTest, DealingWithPool)
     */
 }
 
-TEST_F(IParameterizedTest, SetParameterValue)
-{
+TEST_F(IParameterizedTest, SetParameterValue) {
     //    m_parameterized.m_real_par1 = 1.0;
     //    m_parameterized.m_real_par2 = 2.0;
     //    m_parameterized.setParameterValue("par1", 3.0);

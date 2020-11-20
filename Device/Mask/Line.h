@@ -20,8 +20,7 @@
 //! A line segment.
 //! @ingroup mask
 
-class Line : public IShape2D
-{
+class Line : public IShape2D {
 public:
     Line(double x1, double y1, double x2, double y2);
     Line* clone() const { return new Line(m_x1, m_y1, m_x2, m_y2); }
@@ -36,8 +35,7 @@ private:
 //! An infinite vertical line.
 //! @ingroup mask
 
-class VerticalLine : public IShape2D
-{
+class VerticalLine : public IShape2D {
 public:
     VerticalLine(double x);
     VerticalLine* clone() const { return new VerticalLine(m_x); }
@@ -54,8 +52,7 @@ private:
 //! An infinite horizontal line.
 //! @ingroup mask
 
-class HorizontalLine : public IShape2D
-{
+class HorizontalLine : public IShape2D {
 public:
     HorizontalLine(double y);
     HorizontalLine* clone() const { return new HorizontalLine(m_y); }

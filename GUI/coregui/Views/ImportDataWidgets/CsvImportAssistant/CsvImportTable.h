@@ -19,8 +19,7 @@
 #include <QTableWidget>
 #include <set>
 
-class CsvImportData : public QObject
-{
+class CsvImportData : public QObject {
 public:
     // FIXME: move DATA_TYPE enumeration to csv namespace
     enum DATA_TYPE { Intensity, Coordinate };
@@ -71,8 +70,7 @@ private:
     std::set<int> m_discarded_rows;
 };
 
-class CsvImportTable : public QTableWidget
-{
+class CsvImportTable : public QTableWidget {
     Q_OBJECT
 public:
     CsvImportTable(QWidget* parent = nullptr);

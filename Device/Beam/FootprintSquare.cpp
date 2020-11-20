@@ -19,22 +19,16 @@
 #include <stdexcept>
 
 FootprintSquare::FootprintSquare(const std::vector<double> P)
-    : IFootprintFactor({"FootprintSquare", "class_tooltip", {}}, P)
-{
-}
+    : IFootprintFactor({"FootprintSquare", "class_tooltip", {}}, P) {}
 
 FootprintSquare::FootprintSquare(double width_ratio)
-    : FootprintSquare(std::vector<double>{width_ratio})
-{
-}
+    : FootprintSquare(std::vector<double>{width_ratio}) {}
 
-FootprintSquare* FootprintSquare::clone() const
-{
+FootprintSquare* FootprintSquare::clone() const {
     return new FootprintSquare(m_width_ratio);
 }
 
-double FootprintSquare::calculate(double alpha) const
-{
+double FootprintSquare::calculate(double alpha) const {
     if (alpha < 0.0 || alpha > M_PI_2)
         return 0.0;
     if (widthRatio() == 0.0)
@@ -43,8 +37,7 @@ double FootprintSquare::calculate(double alpha) const
     return std::min(arg, 1.0);
 }
 
-std::string FootprintSquare::print() const
-{
+std::string FootprintSquare::print() const {
     std::stringstream result;
     result << "\n" << pyfmt::indent() << "# Defining footprint:\n";
     result << pyfmt::indent() << "footprint = ";

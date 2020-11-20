@@ -30,8 +30,7 @@ class PyObserverCallback;
 //! Holds vector of `SimDataPair`s (experimental data and simulation results) for use in fitting.
 //! @ingroup fitting_internal
 
-class FitObjective
-{
+class FitObjective {
     static simulation_builder_t simulationBuilder(PyBuilderCallback& callback);
 
 public:
@@ -48,8 +47,7 @@ public:
     //! @param data: experimental data array
     //! @param weight: weight of dataset in metric calculations
     template <class T>
-    void addSimulationAndData(PyBuilderCallback& callback, const T& data, double weight = 1.0)
-    {
+    void addSimulationAndData(PyBuilderCallback& callback, const T& data, double weight = 1.0) {
         addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data), nullptr,
                              weight);
     }
@@ -61,8 +59,7 @@ public:
     //! @param weight: weight of dataset in metric calculations
     template <class T>
     void addSimulationAndData(PyBuilderCallback& callback, const T& data, const T& uncertainties,
-                              double weight = 1.0)
-    {
+                              double weight = 1.0) {
         addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data),
                              ArrayUtils::createData(uncertainties), weight);
     }

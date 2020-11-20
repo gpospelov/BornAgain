@@ -29,13 +29,12 @@
 //! values passed to the constructor.
 //! @ingroup tools
 
-class PointwiseAxis : public IAxis
-{
+class PointwiseAxis : public IAxis {
 public:
     template <class String, class Vector>
     PointwiseAxis(String&& name, Vector&& coordinate_values)
-        : IAxis(std::forward<String>(name)), m_coordinates(std::forward<Vector>(coordinate_values))
-    {
+        : IAxis(std::forward<String>(name))
+        , m_coordinates(std::forward<Vector>(coordinate_values)) {
         sanityCheck();
     }
 

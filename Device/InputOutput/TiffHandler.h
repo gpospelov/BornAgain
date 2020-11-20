@@ -24,8 +24,7 @@
 //! Reads/write tiff files, should be used through TiffReadStrategy.
 //! @ingroup input_output_internal
 
-class TiffHandler
-{
+class TiffHandler {
 public:
     TiffHandler();
     ~TiffHandler();

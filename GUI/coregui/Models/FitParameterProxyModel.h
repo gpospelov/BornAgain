@@ -26,8 +26,7 @@ class SessionItem;
 //! in 5 column tree view.
 //! It is derived from QAbstractItemModel (and not from QAbstractProxyModel).
 
-class FitParameterProxyModel : public QAbstractItemModel
-{
+class FitParameterProxyModel : public QAbstractItemModel {
     Q_OBJECT
 
 public:
@@ -79,13 +78,11 @@ private:
     QMap<int, QString> m_columnToolTips;
 };
 
-inline Qt::DropActions FitParameterProxyModel::supportedDragActions() const
-{
+inline Qt::DropActions FitParameterProxyModel::supportedDragActions() const {
     return Qt::MoveAction | Qt::CopyAction;
 }
 
-inline Qt::DropActions FitParameterProxyModel::supportedDropActions() const
-{
+inline Qt::DropActions FitParameterProxyModel::supportedDropActions() const {
     return Qt::MoveAction | Qt::CopyAction;
 }
 

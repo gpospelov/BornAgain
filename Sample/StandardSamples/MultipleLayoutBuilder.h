@@ -21,8 +21,7 @@
 //! using multiple particle layouts
 //! @ingroup standard_samples
 
-class MultipleLayoutBuilder : public ISampleBuilder
-{
+class MultipleLayoutBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

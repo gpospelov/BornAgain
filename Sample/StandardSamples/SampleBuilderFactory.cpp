@@ -46,8 +46,7 @@
 #include "Sample/StandardSamples/TwoDimLatticeBuilder.h"
 #include "Sample/StandardSamples/TwoLayerRoughnessBuilder.h"
 
-SampleBuilderFactory::SampleBuilderFactory()
-{
+SampleBuilderFactory::SampleBuilderFactory() {
     registerItem("CylindersAndPrismsBuilder", create_new<CylindersAndPrismsBuilder>);
 
     registerItem("TwoTypesCylindersDistributionBuilder",
@@ -199,7 +198,6 @@ SampleBuilderFactory::SampleBuilderFactory()
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.
 
-MultiLayer* SampleBuilderFactory::createSampleByName(const std::string& name)
-{
+MultiLayer* SampleBuilderFactory::createSampleByName(const std::string& name) {
     return createItemPtr(name)->buildSample();
 }

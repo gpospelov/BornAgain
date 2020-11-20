@@ -21,23 +21,20 @@
 //! The form factor of a MesoCrystal.
 //! @ingroup formfactors
 
-class FormFactorCrystal : public IFormFactor
-{
+class FormFactorCrystal : public IFormFactor {
 public:
     FormFactorCrystal(const Lattice3D& lattice, const IFormFactor& basis_form_factor,
                       const IFormFactor& meso_form_factor, double position_variance = 0.0);
     ~FormFactorCrystal() override;
 
-    FormFactorCrystal* clone() const override
-    {
+    FormFactorCrystal* clone() const override {
         return new FormFactorCrystal(m_lattice, *m_basis_form_factor, *m_meso_form_factor,
                                      m_position_variance);
     }
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    void setAmbientMaterial(const Material& material) override
-    {
+    void setAmbientMaterial(const Material& material) override {
         m_basis_form_factor->setAmbientMaterial(material);
     }
 

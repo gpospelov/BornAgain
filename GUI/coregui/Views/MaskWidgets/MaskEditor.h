@@ -25,15 +25,13 @@ class MaskEditorToolBar;
 class MaskEditorCanvas;
 class SessionModel;
 class IntensityDataItem;
-namespace Manhattan
-{
+namespace Manhattan {
 class MiniSplitter;
 }
 
 //! Main class to draw masks on top of intensity data map
 
-class MaskEditor : public QMainWindow
-{
+class MaskEditor : public QMainWindow {
     Q_OBJECT
 public:
     MaskEditor(QWidget* parent = nullptr);

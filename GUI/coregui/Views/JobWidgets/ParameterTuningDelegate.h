@@ -25,13 +25,11 @@ class ParameterItem;
 class ScientificSpinBox;
 class SessionItem;
 
-class ParameterTuningDelegate : public QItemDelegate
-{
+class ParameterTuningDelegate : public QItemDelegate {
     Q_OBJECT
 
 public:
-    class TuningData
-    {
+    class TuningData {
     public:
         TuningData();
         void setRangeFactor(double range_factor);
@@ -50,8 +48,7 @@ public:
     ParameterTuningDelegate(QObject* parent = 0);
     ~ParameterTuningDelegate();
 
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& /* index */) const
-    {
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& /* index */) const {
         return QSize(option.rect.width(), 25);
     }
 

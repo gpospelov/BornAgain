@@ -2,12 +2,9 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <exception>
 
-class MinimizerOptionsTest : public ::testing::Test
-{
-};
+class MinimizerOptionsTest : public ::testing::Test {};
 
-TEST_F(MinimizerOptionsTest, toOptionString)
-{
+TEST_F(MinimizerOptionsTest, toOptionString) {
     MinimizerOptions options;
 
     options.addOption("option_1", 99);
@@ -17,8 +14,7 @@ TEST_F(MinimizerOptionsTest, toOptionString)
     EXPECT_EQ(options.toOptionString(), "option_1=99;option_2=1.1;option_3=xxx;");
 }
 
-TEST_F(MinimizerOptionsTest, setOptionsFromString)
-{
+TEST_F(MinimizerOptionsTest, setOptionsFromString) {
     MinimizerOptions options;
 
     options.addOption("Strategy", 1);

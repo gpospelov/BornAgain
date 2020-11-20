@@ -20,8 +20,7 @@
 //! Builds sample: square boxes in a square lattice
 //! @ingroup standard_samples
 
-class BoxesSquareLattice2DBuilder : public ISampleBuilder
-{
+class BoxesSquareLattice2DBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

@@ -22,29 +22,24 @@ DWBASingleComputation::DWBASingleComputation() = default;
 
 DWBASingleComputation::~DWBASingleComputation() = default;
 
-void DWBASingleComputation::setProgressHandler(ProgressHandler* p_progress)
-{
+void DWBASingleComputation::setProgressHandler(ProgressHandler* p_progress) {
     m_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
-void DWBASingleComputation::addLayoutComputation(ParticleLayoutComputation* p_layout_comp)
-{
+void DWBASingleComputation::addLayoutComputation(ParticleLayoutComputation* p_layout_comp) {
     m_layout_comps.emplace_back(p_layout_comp);
     p_layout_comp->mergeRegionMap(m_region_map);
 }
 
-void DWBASingleComputation::setRoughnessComputation(RoughMultiLayerComputation* p_roughness_comp)
-{
+void DWBASingleComputation::setRoughnessComputation(RoughMultiLayerComputation* p_roughness_comp) {
     m_roughness_comp.reset(p_roughness_comp);
 }
 
-void DWBASingleComputation::setSpecularBinComputation(GISASSpecularComputation* p_spec_comp)
-{
+void DWBASingleComputation::setSpecularBinComputation(GISASSpecularComputation* p_spec_comp) {
     m_spec_comp.reset(p_spec_comp);
 }
 
-void DWBASingleComputation::compute(SimulationElement& elem) const
-{
+void DWBASingleComputation::compute(SimulationElement& elem) const {
     for (auto& layout_comp : m_layout_comps)
         layout_comp->compute(elem);
 

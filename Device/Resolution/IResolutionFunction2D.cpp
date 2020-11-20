@@ -16,6 +16,4 @@
 
 IResolutionFunction2D::IResolutionFunction2D(const NodeMeta& meta,
                                              const std::vector<double>& PValues)
-    : INode(meta, PValues)
-{
-}
+    : INode(meta, PValues) {}

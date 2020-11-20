@@ -25,8 +25,7 @@ class Slice;
 //! on the surface of the sample.
 //! @ingroup samples_internal
 
-namespace KzComputation
-{
+namespace KzComputation {
 /* Computes kz values from known k vector and slices with the following assumptions:
  * - the beam penetrates fronting medium from a side
  * - the wavelength is known for a distant point in vacuum (ref. index = 1)

@@ -21,8 +21,7 @@
 //! A composition of particles at fixed positions
 //! @ingroup samples
 
-class ParticleComposition : public IParticle
-{
+class ParticleComposition : public IParticle {
 public:
     ParticleComposition();
     ParticleComposition(const IParticle& particle, std::vector<kvector_t> positions);

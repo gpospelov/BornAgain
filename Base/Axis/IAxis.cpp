@@ -15,33 +15,27 @@
 #include "Base/Axis/IAxis.h"
 #include "Base/Types/Exceptions.h"
 
-bool IAxis::equals(const IAxis& other) const
-{
+bool IAxis::equals(const IAxis& other) const {
     return getName() == other.getName();
 }
 
-std::vector<double> IAxis::binCenters() const
-{
+std::vector<double> IAxis::binCenters() const {
     throw Exceptions::NotImplementedException("IAxis::binCenters() -> Error. Not implemented.");
 }
 
-std::vector<double> IAxis::binBoundaries() const
-{
+std::vector<double> IAxis::binBoundaries() const {
     throw Exceptions::NotImplementedException("IAxis::binBoundaries() -> Error. Not implemented.");
 }
 
-IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const
-{
+IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const {
     throw Exceptions::NotImplementedException(
         "IAxis::createClippedAxis() -> Error. Not implemented.");
 }
 
-bool IAxis::contains(double value) const
-{
+bool IAxis::contains(double value) const {
     return value >= lowerBound() && value < upperBound();
 }
 
-double IAxis::span() const
-{
+double IAxis::span() const {
     return upperBound() - lowerBound();
 }

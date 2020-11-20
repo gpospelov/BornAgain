@@ -17,8 +17,7 @@
 
 //! General fitting options.
 
-class FitOptions
-{
+class FitOptions {
 public:
     FitOptions();
 

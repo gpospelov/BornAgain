@@ -26,8 +26,7 @@ class ParameterDistribution;
 
 //! Utility functions for writing Python code snippets.
 
-namespace pyfmt2
-{
+namespace pyfmt2 {
 
 std::string representShape2D(const std::string& indent, const IShape2D* ishape, bool mask_value,
                              std::function<std::string(double)> printValueFunc);

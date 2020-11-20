@@ -18,14 +18,12 @@
 #include "GUI/ba3d/def.h"
 #include <QOpenGLShaderProgram>
 
-namespace RealSpace
-{
+namespace RealSpace {
 
 class Camera;
 class Canvas;
 
-class Program : public QOpenGLShaderProgram
-{
+class Program : public QOpenGLShaderProgram {
     friend class Canvas;
 
 public:

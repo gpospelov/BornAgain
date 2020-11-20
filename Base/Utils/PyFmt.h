@@ -22,8 +22,7 @@ class RealLimits;
 
 //! Utility functions for writing Python code snippets.
 
-namespace pyfmt
-{
+namespace pyfmt {
 
 std::string scriptPreamble();
 std::string getSampleFunctionName();

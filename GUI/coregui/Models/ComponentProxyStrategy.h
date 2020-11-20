@@ -19,8 +19,7 @@
 
 //! Strategy for ComponentProxyModel which hides extra level of GroupProperty.
 
-class ComponentProxyStrategy : public ProxyModelStrategy
-{
+class ComponentProxyStrategy : public ProxyModelStrategy {
 public:
     void onDataChanged(SessionModel* source, ComponentProxyModel* proxy);
 

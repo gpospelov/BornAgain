@@ -45,8 +45,7 @@ NodeMeta nodeMetaUnion(const std::vector<ParaMeta>& base, const NodeMeta& other)
 //! Base class for tree-like structures containing parameterized objects.
 //! @ingroup tools_internal
 
-class INode : public IParameterized
-{
+class INode : public IParameterized {
 public:
     INode() : m_NP{0} {}
     INode(const NodeMeta& meta, const std::vector<double>& PValues);
@@ -89,8 +88,7 @@ protected:
 
 template <class T>
 std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,
-                                      const std::unique_ptr<T>& node)
-{
+                                      const std::unique_ptr<T>& node) {
     if (node)
         v_node.push_back(node.get());
     return v_node;
@@ -98,35 +96,31 @@ std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,
 
 template <class T>
 std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
-                                      const std::unique_ptr<T>& node)
-{
+                                      const std::unique_ptr<T>& node) {
     if (node)
         v_node.push_back(node.get());
     return v_node;
 }
 
-inline std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node, const INode* node)
-{
+inline std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node, const INode* node) {
     v_node.push_back(node);
     return v_node;
 }
 
-inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node, const INode* node)
-{
+inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
+                                             const INode* node) {
     v_node.push_back(node);
     return v_node;
 }
 
 inline std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,
-                                             const std::vector<const INode*>& other)
-{
+                                             const std::vector<const INode*>& other) {
     v_node.insert(v_node.end(), other.begin(), other.end());
     return v_node;
 }
 
 inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
-                                             const std::vector<const INode*>& other)
-{
+                                             const std::vector<const INode*>& other) {
     v_node.insert(v_node.end(), other.begin(), other.end());
     return v_node;
 }

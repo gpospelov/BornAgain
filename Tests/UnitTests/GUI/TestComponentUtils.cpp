@@ -5,14 +5,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <QDebug>
 
-class TestComponentUtils : public ::testing::Test
-{
-};
+class TestComponentUtils : public ::testing::Test {};
 
 //! Testing component items of particle item.
 
-TEST_F(TestComponentUtils, test_componentItems)
-{
+TEST_F(TestComponentUtils, test_componentItems) {
     SessionModel model("TestModel");
 
     SessionItem* particle = model.insertNewItem("Particle");
@@ -31,8 +28,7 @@ TEST_F(TestComponentUtils, test_componentItems)
     EXPECT_EQ(itemList, expectedList);
 }
 
-TEST_F(TestComponentUtils, test_componentItemsFFChange)
-{
+TEST_F(TestComponentUtils, test_componentItemsFFChange) {
     SessionModel model("TestModel");
 
     SessionItem* particle = model.insertNewItem("Particle");

@@ -26,15 +26,13 @@ DecouplingApproximationStrategy::DecouplingApproximationStrategy(
     : IInterferenceFunctionStrategy(weighted_formfactors, sim_params, polarized)
     , m_iff(iff ? iff->clone() : new InterferenceFunctionNone())
 
-{
-}
+{}
 
 //! Returns the total incoherent and coherent scattering intensity for given kf and
 //! for one particle layout (implied by the given particle form factors).
 //! This is the scalar version
 double
-DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_element) const
-{
+DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_element) const {
     double intensity = 0.0;
     complex_t amplitude = complex_t(0.0, 0.0);
     for (const auto& ffw : m_weighted_formfactors) {
@@ -53,8 +51,7 @@ DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_
 
 //! This is the polarized version
 double
-DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& sim_element) const
-{
+DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& sim_element) const {
     Eigen::Matrix2cd mean_intensity = Eigen::Matrix2cd::Zero();
     Eigen::Matrix2cd mean_amplitude = Eigen::Matrix2cd::Zero();
 

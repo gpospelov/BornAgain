@@ -28,8 +28,7 @@ class SpecularSimulationElement;
 
 //! Abstract base class for all types of specular scans.
 
-class ISpecularScan : public ICloneable
-{
+class ISpecularScan : public ICloneable {
 public:
     ISpecularScan* clone() const override = 0;
 
@@ -60,8 +59,7 @@ public:
 #endif // SWIG
 };
 
-inline std::ostream& operator<<(std::ostream& os, const ISpecularScan& scan)
-{
+inline std::ostream& operator<<(std::ostream& os, const ISpecularScan& scan) {
     return os << scan.print();
 }
 #endif // BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H

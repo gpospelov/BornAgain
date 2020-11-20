@@ -20,8 +20,7 @@
 //! A dot, with scattering power as a sphere of radius rscat, but with F(q)=const.
 //! @ingroup hardParticle
 
-class FormFactorDot : public IBornFF
-{
+class FormFactorDot : public IBornFF {
 public:
     FormFactorDot(const std::vector<double> P);
     FormFactorDot(double radius);

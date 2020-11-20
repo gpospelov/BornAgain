@@ -17,8 +17,7 @@
 
 #include "GUI/coregui/Models/SessionItem.h"
 
-class BA_CORE_API_ SessionGraphicsItem : public SessionItem
-{
+class BA_CORE_API_ SessionGraphicsItem : public SessionItem {
 
 public:
     static const QString P_XPOS;

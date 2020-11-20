@@ -19,8 +19,7 @@
 
 //! Collection of flags for SessionModel and SessionItem.
 
-class SessionFlags
-{
+class SessionFlags {
 public:
     // SessionModel columns
     enum EColumn { ITEM_NAME, ITEM_VALUE, MAX_COLUMNS };

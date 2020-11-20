@@ -19,8 +19,7 @@
 
 //! The JobViewFlags class is a namespace for various flags used in JobView.
 
-class JobViewFlags
-{
+class JobViewFlags {
 public:
     enum EDocksId {
         JOB_LIST_DOCK,

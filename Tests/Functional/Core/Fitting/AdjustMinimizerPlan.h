@@ -20,8 +20,7 @@
 //! Two parameter fit: cylinders in BA with mini GISAS simulation.
 //! Parameters are made far from their original values, Genetic+Minuit used in pair.
 
-class AdjustMinimizerPlan : public Plan
-{
+class AdjustMinimizerPlan : public Plan {
 public:
     AdjustMinimizerPlan();
 

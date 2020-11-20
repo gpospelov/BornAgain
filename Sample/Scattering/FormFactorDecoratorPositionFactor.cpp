@@ -18,37 +18,31 @@
 
 FormFactorDecoratorPositionFactor::FormFactorDecoratorPositionFactor(const IFormFactor& ff,
                                                                      const kvector_t& position)
-    : IFormFactorDecorator(ff), m_position(position)
-{
+    : IFormFactorDecorator(ff), m_position(position) {
     setName("FormFactorDecoratorPositionFactor");
 }
 
-double FormFactorDecoratorPositionFactor::bottomZ(const IRotation& rotation) const
-{
+double FormFactorDecoratorPositionFactor::bottomZ(const IRotation& rotation) const {
     kvector_t rotated_translation = rotation.transformed(m_position);
     return m_ff->bottomZ(rotation) + rotated_translation.z();
 }
 
-double FormFactorDecoratorPositionFactor::topZ(const IRotation& rotation) const
-{
+double FormFactorDecoratorPositionFactor::topZ(const IRotation& rotation) const {
     kvector_t rotated_translation = rotation.transformed(m_position);
     return m_ff->topZ(rotation) + rotated_translation.z();
 }
 
-complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo& wavevectors) const
-{
+complex_t FormFactorDecoratorPositionFactor::evaluate(const WavevectorInfo& wavevectors) const {
     return getPositionFactor(wavevectors) * m_ff->evaluate(wavevectors);
 }
 
 Eigen::Matrix2cd
-FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo& wavevectors) const
-{
+FormFactorDecoratorPositionFactor::evaluatePol(const WavevectorInfo& wavevectors) const {
     return getPositionFactor(wavevectors) * m_ff->evaluatePol(wavevectors);
 }
 
 complex_t
-FormFactorDecoratorPositionFactor::getPositionFactor(const WavevectorInfo& wavevectors) const
-{
+FormFactorDecoratorPositionFactor::getPositionFactor(const WavevectorInfo& wavevectors) const {
     cvector_t q = wavevectors.getQ();
     return exp_I(m_position.dot(q));
 }

@@ -19,8 +19,7 @@
 std::vector<std::pair<double, double>> SpectrumUtils::FindPeaks(const Histogram2D& hist,
                                                                 double sigma,
                                                                 const std::string& option,
-                                                                double threshold)
-{
+                                                                double threshold) {
     std::unique_ptr<OutputData<double>> data(hist.createOutputData());
     std::vector<std::vector<double>> arr = ArrayUtils::createVector2D(*data);
     tspectrum::Spectrum2D spec;

@@ -21,8 +21,7 @@
 
 //! Utility functions for fit library
 
-namespace mumufit::utils
-{
+namespace mumufit::utils {
 
 std::string toString(const std::vector<std::string>& v, const std::string& delim = "");
 

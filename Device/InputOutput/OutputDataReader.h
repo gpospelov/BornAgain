@@ -23,8 +23,7 @@ template <class T> class OutputData;
 //! Reads OutputData from file using different reading strategies.
 //! @ingroup input_output_internal
 
-class OutputDataReader
-{
+class OutputDataReader {
 public:
     OutputDataReader(const std::string& file_name);
 

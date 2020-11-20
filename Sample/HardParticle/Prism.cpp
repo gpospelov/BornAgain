@@ -20,8 +20,7 @@
 #include "Base/Math/Functions.h"
 #include <stdexcept> // need overlooked by g++ 5.4
 
-Prism::Prism(bool symmetry_Ci, double height, const std::vector<kvector_t>& vertices)
-{
+Prism::Prism(bool symmetry_Ci, double height, const std::vector<kvector_t>& vertices) {
     m_height = height;
     m_vertices.clear();
     for (const kvector_t& vertex : vertices) {
@@ -42,18 +41,15 @@ Prism::Prism(bool symmetry_Ci, double height, const std::vector<kvector_t>& vert
     }
 }
 
-double Prism::area() const
-{
+double Prism::area() const {
     return m_base->area();
 }
 
-const std::vector<kvector_t>& Prism::vertices()
-{
+const std::vector<kvector_t>& Prism::vertices() {
     return m_vertices;
 }
 
-complex_t Prism::evaluate_for_q(const cvector_t& q) const
-{
+complex_t Prism::evaluate_for_q(const cvector_t& q) const {
     try {
 #ifdef POLYHEDRAL_DIAGNOSTIC
         diagnosis.maxOrder = 0;

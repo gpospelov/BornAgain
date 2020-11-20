@@ -20,8 +20,7 @@
 #include <QPushButton>
 
 DistributionDialog::DistributionDialog(QWidget* parent)
-    : QDialog(parent), m_editor(new DistributionEditor)
-{
+    : QDialog(parent), m_editor(new DistributionEditor) {
     setMinimumSize(256, 256);
     resize(700, 480);
     setWindowTitle("Select Distribution");
@@ -48,12 +47,10 @@ DistributionDialog::DistributionDialog(QWidget* parent)
     StyleUtils::setResizable(this);
 }
 
-void DistributionDialog::setItem(SessionItem* item)
-{
+void DistributionDialog::setItem(SessionItem* item) {
     m_editor->setItem(item);
 }
 
-void DistributionDialog::setNameOfEditor(const QString& name)
-{
+void DistributionDialog::setNameOfEditor(const QString& name) {
     m_editor->setNameOfEditor(name);
 }

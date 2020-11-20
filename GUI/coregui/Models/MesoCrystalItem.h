@@ -22,8 +22,7 @@ class IFormFactor;
 class IParticle;
 class MesoCrystal;
 
-class BA_CORE_API_ MesoCrystalItem : public SessionGraphicsItem
-{
+class BA_CORE_API_ MesoCrystalItem : public SessionGraphicsItem {
 public:
     static const QString P_OUTER_SHAPE;
     static const QString T_BASIS_PARTICLE;

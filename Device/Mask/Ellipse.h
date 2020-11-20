@@ -20,8 +20,7 @@
 //! Ellipse shape.
 //! @ingroup tools
 
-class Ellipse : public IShape2D
-{
+class Ellipse : public IShape2D {
 public:
     Ellipse(double xcenter, double ycenter, double xradius, double yradius, double theta = 0.0);
     Ellipse* clone() const { return new Ellipse(m_xc, m_yc, m_xr, m_yr, m_theta); }

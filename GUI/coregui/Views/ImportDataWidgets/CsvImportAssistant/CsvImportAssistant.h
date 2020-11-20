@@ -24,8 +24,7 @@
 #include <memory>
 #include <set>
 
-class csvSelectionState
-{
+class csvSelectionState {
 public:
     csvSelectionState()
         : m_intensityColNum(-1)
@@ -34,9 +33,7 @@ public:
         , m_coordinateMultiplier(1.)
         , m_firstRow(-1)
         , m_lastRow(-1)
-        , m_units(Axes::Units::NBINS)
-    {
-    }
+        , m_units(Axes::Units::NBINS) {}
 
     int m_intensityColNum;
     double m_intensityMultiplier;
@@ -50,8 +47,7 @@ public:
 };
 
 //! Logic for importing intensity data from csv files
-class CsvImportAssistant : public QObject
-{
+class CsvImportAssistant : public QObject {
     Q_OBJECT
 public:
     CsvImportAssistant(const QString& file, const bool useGUI = false, QWidget* parent = nullptr);

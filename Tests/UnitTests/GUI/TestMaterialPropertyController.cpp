@@ -6,9 +6,7 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <QtTest>
 
-class TestMaterialPropertyController : public ::testing::Test
-{
-};
+class TestMaterialPropertyController : public ::testing::Test {};
 
 // TEST_F(TestMaterialPropertyController, test_ControllerForLayer)
 //{
@@ -59,8 +57,7 @@ class TestMaterialPropertyController : public ::testing::Test
 
 //! Test MaterialProperty update in sample items when working on model clone.
 
-TEST_F(TestMaterialPropertyController, test_ControllerInEditorContext)
-{
+TEST_F(TestMaterialPropertyController, test_ControllerInEditorContext) {
     MaterialModel materialModel;
     auto mat1 = materialModel.addRefractiveMaterial("name1", 1.0, 2.0);
     auto mat2 = materialModel.addRefractiveMaterial("name2", 1.0, 2.0);

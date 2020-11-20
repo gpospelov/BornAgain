@@ -21,8 +21,7 @@
 //! @class FTDistribution2DComponents
 //! @brief Predefined Fourier transformed distributions for functional tests.
 
-class FTDistribution2DComponents : public IRegistry<IFTDistribution2D>
-{
+class FTDistribution2DComponents : public IRegistry<IFTDistribution2D> {
 public:
     FTDistribution2DComponents();
 };
@@ -30,8 +29,7 @@ public:
 //! @class FormFactorComponents
 //! @brief Predefined form factors for functional tests.
 
-class FormFactorComponents : public IRegistry<IFormFactor>
-{
+class FormFactorComponents : public IRegistry<IFormFactor> {
 public:
     FormFactorComponents();
 };

@@ -17,8 +17,7 @@
 
 #include "GUI/coregui/Views/SampleDesigner/ConnectableView.h"
 
-class TransformationView : public ConnectableView
-{
+class TransformationView : public ConnectableView {
     Q_OBJECT
 
 public:

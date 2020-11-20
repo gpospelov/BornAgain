@@ -24,8 +24,7 @@ class QBoxLayout;
 //! Component editor for SessionItem. Can have various appearance depending
 //! on EditorFlags
 
-class ComponentEditor : public QWidget
-{
+class ComponentEditor : public QWidget {
     Q_OBJECT
 public:
     enum EditorFlags {

@@ -28,8 +28,7 @@ class FitObjectiveBuilder;
 //! Controls all activity related to the single fitting task for JobItem.
 //! Provides interaction between FitSessionWidget and fit observers.
 
-class FitSessionController : public QObject
-{
+class FitSessionController : public QObject {
     Q_OBJECT
 public:
     FitSessionController(QObject* parent = nullptr);

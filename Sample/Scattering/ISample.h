@@ -24,8 +24,7 @@ class Material;
 //! Abstract base class for sample components and properties related to scattering.
 //! @ingroup samples_internal
 
-class ISample : public ICloneable, public INode
-{
+class ISample : public ICloneable, public INode {
 public:
     ISample() = default;
     ISample(const NodeMeta& meta, const std::vector<double>& PValues);

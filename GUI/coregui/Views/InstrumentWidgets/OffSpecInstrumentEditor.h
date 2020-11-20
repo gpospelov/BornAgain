@@ -24,8 +24,7 @@ class EnvironmentEditor;
 class PolarizationAnalysisEditor;
 class ColumnResizer;
 
-class OffSpecInstrumentEditor : public SessionItemWidget
-{
+class OffSpecInstrumentEditor : public SessionItemWidget {
     Q_OBJECT
 
 public:

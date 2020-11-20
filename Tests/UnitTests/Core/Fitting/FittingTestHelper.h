@@ -11,8 +11,7 @@
 
 //! Helper class to simplify testing of SimDataPair and FitObjective
 
-class FittingTestHelper
-{
+class FittingTestHelper {
 public:
     FittingTestHelper(size_t nx = 5, size_t ny = 5) : m_nx(nx), m_ny(ny), m_builder_calls(0) {}
 
@@ -25,8 +24,7 @@ public:
 
     size_t m_builder_calls;
 
-    std::unique_ptr<ISimulation> createSimulation(const mumufit::Parameters&)
-    {
+    std::unique_ptr<ISimulation> createSimulation(const mumufit::Parameters&) {
         MultiLayer multilayer;
         auto material = HomogeneousMaterial("Shell", 0.0, 0.0);
         multilayer.addLayer(Layer(material));
@@ -40,8 +38,7 @@ public:
         return std::unique_ptr<ISimulation>(result.release());
     }
 
-    std::unique_ptr<OutputData<double>> createData(double value)
-    {
+    std::unique_ptr<OutputData<double>> createData(double value) {
         std::unique_ptr<OutputData<double>> result(new OutputData<double>);
         result->addAxis(FixedBinAxis("phi_f", m_nx, m_xmin, m_xmax));
         result->addAxis(FixedBinAxis("alpha_f", m_ny, m_ymin, m_ymax));

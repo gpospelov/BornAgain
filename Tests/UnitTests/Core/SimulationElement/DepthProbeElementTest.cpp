@@ -2,8 +2,7 @@
 #include "Base/Axis/FixedBinAxis.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class DepthProbeElementTest : public ::testing::Test
-{
+class DepthProbeElementTest : public ::testing::Test {
 protected:
     DepthProbeElementTest();
     DepthProbeElement createDefaultElement();
@@ -13,20 +12,17 @@ protected:
     std::unique_ptr<FixedBinAxis> m_z_positions;
 };
 
-DepthProbeElementTest::DepthProbeElementTest() : m_z_positions(new FixedBinAxis("z", 10, 0.0, 10.0))
-{
-}
+DepthProbeElementTest::DepthProbeElementTest()
+    : m_z_positions(new FixedBinAxis("z", 10, 0.0, 10.0)) {}
 
-DepthProbeElement DepthProbeElementTest::createDefaultElement()
-{
+DepthProbeElement DepthProbeElementTest::createDefaultElement() {
     const double wavelength = 1.0;
     const double angle = 2.0;
     return DepthProbeElement(wavelength, angle, m_z_positions.get());
 }
 
 void DepthProbeElementTest::compareEqualElements(const DepthProbeElement& lhs,
-                                                 const DepthProbeElement& rhs)
-{
+                                                 const DepthProbeElement& rhs) {
     EXPECT_EQ(lhs.getWavelength(), rhs.getWavelength());
     EXPECT_EQ(lhs.getAlphaI(), rhs.getAlphaI());
     bool intensity_comparison_result = (lhs.getIntensities() == rhs.getIntensities()).min();
@@ -35,8 +31,7 @@ void DepthProbeElementTest::compareEqualElements(const DepthProbeElement& lhs,
     EXPECT_EQ(lhs.isCalculated(), rhs.isCalculated());
 }
 
-TEST_F(DepthProbeElementTest, InitialState)
-{
+TEST_F(DepthProbeElementTest, InitialState) {
     const double wavelength = 1.0;
     const double angle = 2.0;
     const double phi = 0.0;
@@ -51,8 +46,7 @@ TEST_F(DepthProbeElementTest, InitialState)
     EXPECT_TRUE(element.isCalculated());
 }
 
-TEST_F(DepthProbeElementTest, CopyMoveAssign)
-{
+TEST_F(DepthProbeElementTest, CopyMoveAssign) {
     auto element = createDefaultElement();
 
     element.setCalculationFlag(false);

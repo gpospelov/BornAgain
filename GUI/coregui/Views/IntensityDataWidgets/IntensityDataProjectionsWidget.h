@@ -24,8 +24,7 @@ class ProjectionContainerItem;
 //! Main widget to embed projections editor for IntensityDataItem.
 //! Part of RealDataPresenter and JobResultsPresenter.
 
-class IntensityDataProjectionsWidget : public SessionItemWidget
-{
+class IntensityDataProjectionsWidget : public SessionItemWidget {
     Q_OBJECT
 
 public:

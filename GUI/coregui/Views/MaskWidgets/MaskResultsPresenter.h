@@ -27,8 +27,7 @@ template <class T> class OutputData;
 //! Updates bin values inside IntensityData to display current mask state. Returns IntensityData
 //! to original state when requested.
 
-class MaskResultsPresenter : public QObject
-{
+class MaskResultsPresenter : public QObject {
 public:
     MaskResultsPresenter(QWidget* parent = 0);
 

@@ -25,8 +25,7 @@ class WavevectorInfo;
 //! A wrapper for underlying material implementation
 //! @ingroup materials
 
-class Material
-{
+class Material {
 public:
 #ifndef SWIG
     //! Creates material with particular material implementation

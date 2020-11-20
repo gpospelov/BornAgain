@@ -33,17 +33,14 @@ class ParticleDistribution;
 class IInterferenceFunction;
 class Particle3DContainer;
 class InterferenceFunction2DParaCrystal;
-namespace RealSpace
-{
+namespace RealSpace {
 struct Vector3D;
-namespace Particles
-{
+namespace Particles {
 class Particle;
 }
 } // namespace RealSpace
 
-namespace RealSpaceBuilderUtils
-{
+namespace RealSpaceBuilderUtils {
 // compute cumulative abundances of particles
 QVector<double> computeCumulativeAbundances(const SessionItem& layoutItem);
 

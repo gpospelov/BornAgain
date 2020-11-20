@@ -18,14 +18,12 @@
 #include "Fit/Param/AttLimits.h"
 #include <string>
 
-namespace mumufit
-{
+namespace mumufit {
 
 //! A fittable parameter with value, error, step, and limits.
 //! @ingroup fitting
 
-class Parameter
-{
+class Parameter {
 public:
     Parameter();
 

@@ -30,8 +30,7 @@ class MultiLayer;
 class Histogram1D;
 class IUnitConverter;
 
-class DepthProbeSimulation : public ISimulation
-{
+class DepthProbeSimulation : public ISimulation {
 public:
     DepthProbeSimulation();
     ~DepthProbeSimulation() override;

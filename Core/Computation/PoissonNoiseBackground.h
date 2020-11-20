@@ -21,8 +21,7 @@
 //!
 //! @ingroup simulation
 
-class PoissonNoiseBackground : public IBackground
-{
+class PoissonNoiseBackground : public IBackground {
 public:
     PoissonNoiseBackground();
     PoissonNoiseBackground* clone() const final;

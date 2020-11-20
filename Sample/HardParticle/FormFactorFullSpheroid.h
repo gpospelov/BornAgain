@@ -20,14 +20,12 @@
 //! A full spheroid (an ellipsoid with two equal axes, hence with circular cross section)
 //! @ingroup hardParticle
 
-class FormFactorFullSpheroid : public IBornFF
-{
+class FormFactorFullSpheroid : public IBornFF {
 public:
     FormFactorFullSpheroid(const std::vector<double> P);
     FormFactorFullSpheroid(double radius, double height);
 
-    FormFactorFullSpheroid* clone() const final
-    {
+    FormFactorFullSpheroid* clone() const final {
         return new FormFactorFullSpheroid(m_radius, m_height);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

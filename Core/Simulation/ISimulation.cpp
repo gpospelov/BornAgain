@@ -27,11 +27,9 @@
 #include <iostream>
 #include <thread>
 
-namespace
-{
+namespace {
 
-bool detHasSameDimensions(const IDetector& detector, const OutputData<double>& data)
-{
+bool detHasSameDimensions(const IDetector& detector, const OutputData<double>& data) {
     if (data.rank() != detector.dimension())
         return false;
 
@@ -42,16 +40,14 @@ bool detHasSameDimensions(const IDetector& detector, const OutputData<double>& d
     return true;
 }
 
-size_t getIndexStep(size_t total_size, size_t n_handlers)
-{
+size_t getIndexStep(size_t total_size, size_t n_handlers) {
     ASSERT(total_size > 0);
     ASSERT(n_handlers > 0);
     size_t result = total_size / n_handlers;
     return total_size % n_handlers ? ++result : result;
 }
 
-size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements)
-{
+size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_elements) {
     const size_t handler_size = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
     const size_t start_index = current_handler * handler_size;
     if (start_index >= n_elements)
@@ -59,8 +55,7 @@ size_t getStartIndex(size_t n_handlers, size_t current_handler, size_t n_element
     return start_index;
 }
 
-size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_elements)
-{
+size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_elements) {
     const size_t handler_size = getIndexStep(n_elements, static_cast<size_t>(n_handlers));
     const size_t start_index = current_handler * handler_size;
     if (start_index >= n_elements)
@@ -68,8 +63,7 @@ size_t getNumberOfElements(size_t n_handlers, size_t current_handler, size_t n_e
     return std::min(handler_size, n_elements - start_index);
 }
 
-void runComputations(std::vector<std::unique_ptr<IComputation>>& computations)
-{
+void runComputations(std::vector<std::unique_ptr<IComputation>>& computations) {
     ASSERT(!computations.empty());
 
     if (computations.size() == 1) { // Running computation in current thread
@@ -118,8 +112,7 @@ void runComputations(std::vector<std::unique_ptr<IComputation>>& computations)
 //  class ISimulation
 //  ************************************************************************************************
 
-ISimulation::ISimulation()
-{
+ISimulation::ISimulation() {
     initialize();
 }
 
@@ -130,8 +123,7 @@ ISimulation::ISimulation(const ISimulation& other)
     , m_progress(other.m_progress)
     , m_sample_provider(other.m_sample_provider)
     , m_distribution_handler(other.m_distribution_handler)
-    , m_instrument(other.instrument())
-{
+    , m_instrument(other.instrument()) {
     if (other.m_background)
         setBackground(*other.m_background);
     initialize();
@@ -139,15 +131,13 @@ ISimulation::ISimulation(const ISimulation& other)
 
 ISimulation::~ISimulation() = default;
 
-void ISimulation::initialize()
-{
+void ISimulation::initialize() {
     registerChild(&m_instrument);
     registerChild(&m_sample_provider);
 }
 
 //! Initializes a progress monitor that prints to stdout.
-void ISimulation::setTerminalProgressMonitor()
-{
+void ISimulation::setTerminalProgressMonitor() {
     m_progress.subscribe([](size_t percentage_done) -> bool {
         if (percentage_done < 100)
             std::cout << std::setprecision(2) << "\r... " << percentage_done << "%" << std::flush;
@@ -157,36 +147,30 @@ void ISimulation::setTerminalProgressMonitor()
     });
 }
 
-void ISimulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function)
-{
+void ISimulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function) {
     instrument().setDetectorResolutionFunction(resolution_function);
 }
 
 //! Sets the polarization analyzer characteristics of the detector
 void ISimulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                        double total_transmission)
-{
+                                        double total_transmission) {
     instrument().setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-void ISimulation::setBeamIntensity(double intensity)
-{
+void ISimulation::setBeamIntensity(double intensity) {
     instrument().setBeamIntensity(intensity);
 }
 
-double ISimulation::getBeamIntensity() const
-{
+double ISimulation::getBeamIntensity() const {
     return instrument().getBeamIntensity();
 }
 
 //! Sets the beam polarization according to the given Bloch vector
-void ISimulation::setBeamPolarization(const kvector_t bloch_vector)
-{
+void ISimulation::setBeamPolarization(const kvector_t bloch_vector) {
     instrument().setBeamPolarization(bloch_vector);
 }
 
-void ISimulation::prepareSimulation()
-{
+void ISimulation::prepareSimulation() {
     m_sample_provider.updateSample();
     if (!MultiLayerUtils::ContainsCompatibleMaterials(*m_sample_provider.sample()))
         throw std::runtime_error(
@@ -196,8 +180,7 @@ void ISimulation::prepareSimulation()
 }
 
 //! Run simulation with possible averaging over parameter distributions
-void ISimulation::runSimulation()
-{
+void ISimulation::runSimulation() {
     prepareSimulation();
 
     const size_t total_size = numberOfSimulationElements();
@@ -225,42 +208,35 @@ void ISimulation::runSimulation()
     transferResultsToIntensityMap();
 }
 
-void ISimulation::runMPISimulation()
-{
+void ISimulation::runMPISimulation() {
     MPISimulation ompi;
     ompi.runSimulation(this);
 }
 
-void ISimulation::setInstrument(const Instrument& instrument_)
-{
+void ISimulation::setInstrument(const Instrument& instrument_) {
     m_instrument = instrument_;
     updateIntensityMap();
 }
 
 //! The MultiLayer object will not be owned by the ISimulation object
-void ISimulation::setSample(const MultiLayer& sample)
-{
+void ISimulation::setSample(const MultiLayer& sample) {
     m_sample_provider.setSample(sample);
 }
 
-const MultiLayer* ISimulation::sample() const
-{
+const MultiLayer* ISimulation::sample() const {
     return m_sample_provider.sample();
 }
 
-void ISimulation::setSampleBuilder(const std::shared_ptr<class ISampleBuilder>& sample_builder)
-{
+void ISimulation::setSampleBuilder(const std::shared_ptr<class ISampleBuilder>& sample_builder) {
     m_sample_provider.setBuilder(sample_builder);
 }
 
-void ISimulation::setBackground(const IBackground& bg)
-{
+void ISimulation::setBackground(const IBackground& bg) {
     m_background.reset(bg.clone());
     registerChild(m_background.get());
 }
 
-std::vector<const INode*> ISimulation::getChildren() const
-{
+std::vector<const INode*> ISimulation::getChildren() const {
     std::vector<const INode*> result;
     result.push_back(&instrument());
     result << m_sample_provider.getChildren();
@@ -271,22 +247,19 @@ std::vector<const INode*> ISimulation::getChildren() const
 
 void ISimulation::addParameterDistribution(const std::string& param_name,
                                            const IDistribution1D& distribution, size_t nbr_samples,
-                                           double sigma_factor, const RealLimits& limits)
-{
+                                           double sigma_factor, const RealLimits& limits) {
     ParameterDistribution par_distr(param_name, distribution, nbr_samples, sigma_factor, limits);
     addParameterDistribution(par_distr);
 }
 
-void ISimulation::addParameterDistribution(const ParameterDistribution& par_distr)
-{
+void ISimulation::addParameterDistribution(const ParameterDistribution& par_distr) {
     validateParametrization(par_distr);
     m_distribution_handler.addParameterDistribution(par_distr);
 }
 
 //! Runs a single simulation with fixed parameter values.
 //! If desired, the simulation is run in several threads.
-void ISimulation::runSingleSimulation(size_t batch_start, size_t batch_size, double weight)
-{
+void ISimulation::runSingleSimulation(size_t batch_start, size_t batch_size, double weight) {
     initSimulationElementVector();
 
     const size_t n_threads = m_options.getNumberOfThreads();
@@ -314,8 +287,7 @@ void ISimulation::runSingleSimulation(size_t batch_start, size_t batch_size, dou
 //! corresponding to the masked areas of the detector will be set to zero.
 
 SimulationResult ISimulation::convertData(const OutputData<double>& data,
-                                          bool put_masked_areas_to_zero)
-{
+                                          bool put_masked_areas_to_zero) {
     auto converter = UnitConverterUtils::createConverter(*this);
     auto roi_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
 

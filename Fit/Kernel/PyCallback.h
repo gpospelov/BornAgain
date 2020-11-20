@@ -21,8 +21,7 @@
 //! Base class to wrap Python callable and pass it to C++. Used in swig interface file,
 //! intended to be overloaded from Python.
 
-class PyCallback
-{
+class PyCallback {
 public:
     enum CallbackType { SCALAR, RESIDUAL };
 

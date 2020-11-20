@@ -1,12 +1,9 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class SimulationResultTest : public ::testing::Test
-{
-};
+class SimulationResultTest : public ::testing::Test {};
 
-TEST_F(SimulationResultTest, initialState)
-{
+TEST_F(SimulationResultTest, initialState) {
     SimulationResult simres;
 
     SimulationResult other;
@@ -15,8 +12,7 @@ TEST_F(SimulationResultTest, initialState)
     EXPECT_THROW(SimulationResult another(other), std::runtime_error);
 }
 
-TEST_F(SimulationResultTest, accessToEmptySimulation)
-{
+TEST_F(SimulationResultTest, accessToEmptySimulation) {
     const int nx(5), ny(4);
 
     GISASSimulation simulation;
@@ -34,8 +30,7 @@ TEST_F(SimulationResultTest, accessToEmptySimulation)
     EXPECT_EQ(data->totalSum(), 0.0);
 }
 
-TEST_F(SimulationResultTest, accessToEmptyRoiSimulation)
-{
+TEST_F(SimulationResultTest, accessToEmptyRoiSimulation) {
     const int nx(5), ny(4);
 
     GISASSimulation simulation;

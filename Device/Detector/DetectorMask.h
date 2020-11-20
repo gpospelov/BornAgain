@@ -25,8 +25,7 @@ class Histogram2D;
 //! Collection of detector masks.
 //! @ingroup detector
 
-class DetectorMask
-{
+class DetectorMask {
 public:
     DetectorMask();
     DetectorMask(const DetectorMask& other);

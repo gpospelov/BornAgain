@@ -20,14 +20,12 @@
 //! The form factor for a long rectangular box.
 //! @ingroup legacyGrating
 
-class FormFactorLongBoxLorentz : public IBornFF
-{
+class FormFactorLongBoxLorentz : public IBornFF {
 public:
     FormFactorLongBoxLorentz(const std::vector<double> P);
     FormFactorLongBoxLorentz(double length, double width, double height);
 
-    FormFactorLongBoxLorentz* clone() const final
-    {
+    FormFactorLongBoxLorentz* clone() const final {
         return new FormFactorLongBoxLorentz(m_length, m_width, m_height);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

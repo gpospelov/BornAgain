@@ -23,8 +23,7 @@ class SessionItem;
 
 //! Provides logic for manipulating items belonging to GroupItem parent.
 
-class GroupItemController
-{
+class GroupItemController {
 public:
     GroupItemController(SessionItem* groupItem, GroupInfo groupInfo);
 

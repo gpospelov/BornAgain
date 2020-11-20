@@ -23,8 +23,7 @@
 //! Size handle on top of RectangleView represented as small circle or small rectangle.
 //! Placed either in corners on in the middle of the edge.
 
-class SizeHandleElement : public QGraphicsObject
-{
+class SizeHandleElement : public QGraphicsObject {
     Q_OBJECT
 
 public:

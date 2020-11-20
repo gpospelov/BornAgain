@@ -21,8 +21,7 @@
 
 class IAxis;
 
-class DepthProbeElement
-{
+class DepthProbeElement {
 public:
     DepthProbeElement(double wavelength, double alpha_i, const IAxis* z_positions);
     DepthProbeElement(const DepthProbeElement& other);
@@ -36,8 +35,7 @@ public:
     double getAlphaI() const { return m_alpha_i; }
     kvector_t getKi() const;
 
-    template <typename T> void setIntensities(T&& intensities)
-    {
+    template <typename T> void setIntensities(T&& intensities) {
         static_assert(
             std::is_assignable<std::valarray<double>, typename std::decay<T>::type>::value,
             "Error in DepthProbeElement::setIntensities: wrong type of input data.");

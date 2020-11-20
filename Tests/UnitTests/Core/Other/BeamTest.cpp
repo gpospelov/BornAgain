@@ -8,12 +8,9 @@
 
 #include <memory>
 
-class BeamTest : public ::testing::Test
-{
-};
+class BeamTest : public ::testing::Test {};
 
-TEST_F(BeamTest, BeamInitialState)
-{
+TEST_F(BeamTest, BeamInitialState) {
     Beam beam = Beam::horizontalBeam();
     EXPECT_DOUBLE_EQ(M_TWOPI, beam.getCentralK()[0]);
     EXPECT_EQ(0.0, beam.getCentralK()[1]);
@@ -28,8 +25,7 @@ TEST_F(BeamTest, BeamInitialState)
     //    EXPECT_EQ(complex_t(0.5, 0.0), beam.getPolarization()(1, 1));
 }
 
-TEST_F(BeamTest, BeamAssignment)
-{
+TEST_F(BeamTest, BeamAssignment) {
     kvector_t polarization(0.0, 0.0, 0.2);
 
     std::unique_ptr<Beam> P_beam{new Beam(1.0, 1.0, 1.0, 2.0)};
@@ -49,8 +45,7 @@ TEST_F(BeamTest, BeamAssignment)
     */
 }
 
-TEST_F(BeamTest, BeamPolarization)
-{
+TEST_F(BeamTest, BeamPolarization) {
     Beam beam = Beam::horizontalBeam();
     kvector_t polarization(0.1, -0.2, 0.4);
     beam.setPolarization(polarization);
@@ -61,8 +56,7 @@ TEST_F(BeamTest, BeamPolarization)
     EXPECT_NEAR(0.4, bloch_vector.z(), 1e-8);
 }
 
-TEST_F(BeamTest, FootprintBehaviour)
-{
+TEST_F(BeamTest, FootprintBehaviour) {
     Beam beam = Beam::horizontalBeam();
     EXPECT_EQ(nullptr, beam.footprintFactor());
     EXPECT_THROW(beam.setWidthRatio(1.0), std::runtime_error);

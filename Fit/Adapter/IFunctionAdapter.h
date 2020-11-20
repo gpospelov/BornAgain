@@ -15,14 +15,12 @@
 #ifndef BORNAGAIN_FIT_ADAPTER_IFUNCTIONADAPTER_H
 #define BORNAGAIN_FIT_ADAPTER_IFUNCTIONADAPTER_H
 
-namespace mumufit
-{
+namespace mumufit {
 
 //! Base class for objective function adapters, which converts user functions
 //! to minimize into the function which minimization machinery expects.
 
-class IFunctionAdapter
-{
+class IFunctionAdapter {
 public:
     IFunctionAdapter();
     virtual ~IFunctionAdapter();

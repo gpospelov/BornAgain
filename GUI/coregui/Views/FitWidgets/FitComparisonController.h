@@ -27,8 +27,7 @@ class SpecularDataItem;
 //! Provides synchronization between certain properties of fit related IntensityDataItems.
 //! Used solely in FitComparisonWidget.
 
-class FitComparisonController2D : public QObject
-{
+class FitComparisonController2D : public QObject {
 public:
     class DiffItemController;
 

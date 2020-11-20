@@ -21,11 +21,9 @@
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include <cmath>
 
-namespace
-{
+namespace {
 
-ComboProperty fitParameterTypeCombo()
-{
+ComboProperty fitParameterTypeCombo() {
     QStringList tooltips = QStringList() << "Fixed at given value"
                                          << "Limited in the range [min, max]"
                                          << "Limited at lower bound [min, inf]"
@@ -51,8 +49,7 @@ const double range_factor = 0.5;
 const QString FitParameterLinkItem::P_LINK = "Link";
 const QString FitParameterLinkItem::P_DOMAIN = "Domain";
 
-FitParameterLinkItem::FitParameterLinkItem() : SessionItem("FitParameterLink")
-{
+FitParameterLinkItem::FitParameterLinkItem() : SessionItem("FitParameterLink") {
     addProperty(P_LINK, "");
     addProperty(P_DOMAIN, "");
 }
@@ -65,8 +62,7 @@ const QString FitParameterItem::P_MIN = "Min";
 const QString FitParameterItem::P_MAX = "Max";
 const QString FitParameterItem::T_LINK = "Link tag";
 
-FitParameterItem::FitParameterItem() : SessionItem("FitParameter")
-{
+FitParameterItem::FitParameterItem() : SessionItem("FitParameter") {
     addProperty(P_TYPE, fitParameterTypeCombo().variant());
     addProperty(P_START_VALUE, 0.0)->setEditorType("ScientificSpinBox");
     addProperty(P_MIN, 0.0)->setEditorType("ScientificSpinBox");
@@ -88,8 +84,7 @@ FitParameterItem::FitParameterItem() : SessionItem("FitParameter")
 
 //! Inits P_MIN and P_MAX taking into account current value and external limits
 
-void FitParameterItem::initMinMaxValues(const RealLimits& limits)
-{
+void FitParameterItem::initMinMaxValues(const RealLimits& limits) {
     double value = getItemValue(P_START_VALUE).toDouble();
 
     double dr(0);
@@ -118,8 +113,7 @@ void FitParameterItem::initMinMaxValues(const RealLimits& limits)
 
 //! Constructs Limits correspodning to current GUI settings.
 
-AttLimits FitParameterItem::attLimits() const
-{
+AttLimits FitParameterItem::attLimits() const {
     if (isFixed()) {
         return AttLimits::fixed();
     }
@@ -145,8 +139,7 @@ AttLimits FitParameterItem::attLimits() const
     }
 }
 
-bool FitParameterItem::isValid() const
-{
+bool FitParameterItem::isValid() const {
     if (isFixed() || isFree())
         return true;
 
@@ -161,16 +154,14 @@ bool FitParameterItem::isValid() const
     return min <= value && value <= max;
 }
 
-QString FitParameterItem::parameterType() const
-{
+QString FitParameterItem::parameterType() const {
     ComboProperty partype = getItemValue(P_TYPE).value<ComboProperty>();
     return partype.getValue();
 }
 
 //! Enables/disables min, max properties on FitParameterItem's type
 
-void FitParameterItem::onTypeChange()
-{
+void FitParameterItem::onTypeChange() {
     if (isFixed()) {
         setLimitEnabled(P_MIN, false);
         setLimitEnabled(P_MAX, false);
@@ -199,8 +190,7 @@ void FitParameterItem::onTypeChange()
 
 //! Set limit property with given name to the enabled state
 
-void FitParameterItem::setLimitEnabled(const QString& name, bool enabled)
-{
+void FitParameterItem::setLimitEnabled(const QString& name, bool enabled) {
     if (isTag(name)) {
         SessionItem* propertyItem = getItem(name);
         ASSERT(propertyItem);
@@ -209,28 +199,23 @@ void FitParameterItem::setLimitEnabled(const QString& name, bool enabled)
     }
 }
 
-bool FitParameterItem::isLimited() const
-{
+bool FitParameterItem::isLimited() const {
     return parameterType() == "limited";
 }
 
-bool FitParameterItem::isFree() const
-{
+bool FitParameterItem::isFree() const {
     return parameterType() == "free";
 }
 
-bool FitParameterItem::isLowerLimited() const
-{
+bool FitParameterItem::isLowerLimited() const {
     return parameterType() == "lower limited";
 }
 
-bool FitParameterItem::isUpperLimited() const
-{
+bool FitParameterItem::isUpperLimited() const {
     return parameterType() == "upper limited";
 }
 
-bool FitParameterItem::isFixed() const
-{
+bool FitParameterItem::isFixed() const {
     return parameterType() == "fixed";
 }
 
@@ -238,16 +223,14 @@ bool FitParameterItem::isFixed() const
 
 const QString FitParameterContainerItem::T_FIT_PARAMETERS = "Data tag";
 
-FitParameterContainerItem::FitParameterContainerItem() : SessionItem("FitParameterContainer")
-{
+FitParameterContainerItem::FitParameterContainerItem() : SessionItem("FitParameterContainer") {
     registerTag(T_FIT_PARAMETERS, 0, -1, QStringList() << "FitParameter");
     setDefaultTag(T_FIT_PARAMETERS);
 }
 
 //! returns FitParameterItem for given link (path in model)
 
-FitParameterItem* FitParameterContainerItem::fitParameterItem(const QString& link)
-{
+FitParameterItem* FitParameterContainerItem::fitParameterItem(const QString& link) {
     for (auto item : getItems(T_FIT_PARAMETERS)) {
         for (auto linkItem : item->getItems(FitParameterItem::T_LINK)) {
             if (link == linkItem->getItemValue(FitParameterLinkItem::P_LINK))
@@ -257,24 +240,21 @@ FitParameterItem* FitParameterContainerItem::fitParameterItem(const QString& lin
     return nullptr;
 }
 
-QVector<FitParameterItem*> FitParameterContainerItem::fitParameterItems()
-{
+QVector<FitParameterItem*> FitParameterContainerItem::fitParameterItems() {
     QVector<FitParameterItem*> result;
     for (auto parItem : getItems(T_FIT_PARAMETERS))
         result.push_back(dynamic_cast<FitParameterItem*>(parItem));
     return result;
 }
 
-bool FitParameterContainerItem::isEmpty()
-{
+bool FitParameterContainerItem::isEmpty() {
     return getItems(T_FIT_PARAMETERS).isEmpty();
 }
 
 //! Propagate values to the corresponding parameter tree items of parameterContainer.
 
 void FitParameterContainerItem::setValuesInParameterContainer(
-    const QVector<double>& values, ParameterContainerItem* parameterContainer)
-{
+    const QVector<double>& values, ParameterContainerItem* parameterContainer) {
     ASSERT(parameterContainer);
 
     QVector<SessionItem*> fitPars = getItems(FitParameterContainerItem::T_FIT_PARAMETERS);
@@ -295,8 +275,7 @@ void FitParameterContainerItem::setValuesInParameterContainer(
     }
 }
 
-mumufit::Parameters FitParameterContainerItem::createParameters() const
-{
+mumufit::Parameters FitParameterContainerItem::createParameters() const {
     mumufit::Parameters result;
 
     int index(0);

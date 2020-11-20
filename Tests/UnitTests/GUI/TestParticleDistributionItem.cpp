@@ -14,8 +14,7 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <QXmlStreamWriter>
 
-namespace
-{
+namespace {
 const QStringList expectedCylinderParams = {"None",
                                             "Particle/Cylinder/Radius",
                                             "Particle/Cylinder/Height",
@@ -32,12 +31,9 @@ const QStringList expectedBoxParams = {"None",
                                        "Particle/Position Offset/Z"};
 } // namespace
 
-class TestParticleDistributionItem : public ::testing::Test
-{
-};
+class TestParticleDistributionItem : public ::testing::Test {};
 
-TEST_F(TestParticleDistributionItem, test_InitialState)
-{
+TEST_F(TestParticleDistributionItem, test_InitialState) {
     SampleModel model;
     SessionItem* distItem = model.insertNewItem("ParticleDistribution");
 
@@ -67,8 +63,7 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
     EXPECT_EQ(prop.getValue(), "");
 }
 
-TEST_F(TestParticleDistributionItem, test_AddParticle)
-{
+TEST_F(TestParticleDistributionItem, test_AddParticle) {
     SampleModel model;
     SessionItem* dist = model.insertNewItem("ParticleDistribution");
 
@@ -112,8 +107,7 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
 
 //! Values available for linking should depend on main parameter.
 
-TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation)
-{
+TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation) {
     SampleModel model;
     SessionItem* dist = model.insertNewItem("ParticleDistribution");
     model.insertNewItem("Particle", dist->index());
@@ -173,8 +167,7 @@ TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation)
     EXPECT_EQ(linkedCombo.selectedValues(), QStringList("Particle/Cylinder/Height"));
 }
 
-TEST_F(TestParticleDistributionItem, test_FromDomain)
-{
+TEST_F(TestParticleDistributionItem, test_FromDomain) {
     const std::string pattern("/Particle/Cylinder/Radius");
 
     // creating domain distribution
@@ -210,8 +203,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomain)
 
 //! Constructing from domain distribution with linked parameter defined
 
-TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
-{
+TEST_F(TestParticleDistributionItem, test_FromDomainLinked) {
     const std::string pattern("/Particle/Cylinder/Radius");
     const std::string linked("/Particle/Cylinder/Height");
 
@@ -256,8 +248,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
     EXPECT_EQ(linkedProp.getValue(), expectedLinked.at(0));
 }
 
-TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
-{
+TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits) {
     const std::string pattern("/Particle/Cylinder/Radius");
 
     // creating domain distribution
@@ -287,8 +278,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
     EXPECT_EQ(limitsItem->createRealLimits(), domainLimits);
 }
 
-TEST_F(TestParticleDistributionItem, test_Clone)
-{
+TEST_F(TestParticleDistributionItem, test_Clone) {
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
 
     SampleModel model1;

@@ -23,8 +23,7 @@ class QShowEvent;
 
 //! Small on WelcomeView for notofications about updates.
 
-class UpdateNotifierWidget : public QWidget
-{
+class UpdateNotifierWidget : public QWidget {
     Q_OBJECT
 public:
     explicit UpdateNotifierWidget(UpdateNotifier* updateNotifier, QWidget* parent = nullptr);

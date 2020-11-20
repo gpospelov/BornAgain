@@ -19,8 +19,7 @@
 
 //! Catalog to hold info for GroupProperty creation.
 
-class GroupInfoCatalog
-{
+class GroupInfoCatalog {
 public:
     GroupInfoCatalog();
 

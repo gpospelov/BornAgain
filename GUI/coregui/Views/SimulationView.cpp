@@ -21,8 +21,7 @@
 SimulationView::SimulationView(MainWindow* mainWindow)
     : QWidget(mainWindow)
     , m_simulationSetupWidget(new SimulationSetupWidget)
-    , m_toolBar(new StyledToolBar)
-{
+    , m_toolBar(new StyledToolBar) {
     m_toolBar->setFixedHeight(m_toolBar->minimumHeight());
     m_simulationSetupWidget->setApplicationModels(mainWindow->models());
 
@@ -35,17 +34,14 @@ SimulationView::SimulationView(MainWindow* mainWindow)
     setLayout(mainLayout);
 }
 
-void SimulationView::onRunSimulationShortcut()
-{
+void SimulationView::onRunSimulationShortcut() {
     m_simulationSetupWidget->onRunSimulation();
 }
 
-void SimulationView::showEvent(QShowEvent*)
-{
+void SimulationView::showEvent(QShowEvent*) {
     updateSimulationViewElements();
 }
 
-void SimulationView::updateSimulationViewElements()
-{
+void SimulationView::updateSimulationViewElements() {
     m_simulationSetupWidget->updateViewElements();
 }

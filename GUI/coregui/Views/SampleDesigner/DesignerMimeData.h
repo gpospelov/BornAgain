@@ -21,8 +21,7 @@ class QDrag;
 class QXmlStreamReader;
 
 //! Mime data for use with SampleDesigner drag and drop operations
-class DesignerMimeData : public QMimeData
-{
+class DesignerMimeData : public QMimeData {
     Q_OBJECT
 public:
     DesignerMimeData(const QString& name, const QString& xmldescr, QDrag* drag);

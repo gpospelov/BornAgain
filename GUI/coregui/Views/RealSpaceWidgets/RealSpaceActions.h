@@ -19,8 +19,7 @@
 
 //! Collection of actions for RealSpaceWidget.
 
-class RealSpaceActions : public QObject
-{
+class RealSpaceActions : public QObject {
     Q_OBJECT
 
 public:

@@ -20,8 +20,7 @@
 //! Two boxes in particle composition rotated in X by 90 degrees.
 //! @ingroup standard_samples
 
-class BoxCompositionRotateXBuilder : public ISampleBuilder
-{
+class BoxCompositionRotateXBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -29,8 +28,7 @@ public:
 //! Two boxes in particle composition rotated in Y by 90 degrees.
 //! @ingroup standard_samples
 
-class BoxCompositionRotateYBuilder : public ISampleBuilder
-{
+class BoxCompositionRotateYBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -38,8 +36,7 @@ public:
 //! Two boxes in particle composition rotated in Z by 90 degrees.
 //! @ingroup standard_samples
 
-class BoxCompositionRotateZBuilder : public ISampleBuilder
-{
+class BoxCompositionRotateZBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -47,8 +44,7 @@ public:
 //! Two boxes in particle composition rotated in Z and Y by 90 degrees.
 //! @ingroup standard_samples
 
-class BoxCompositionRotateZandYBuilder : public ISampleBuilder
-{
+class BoxCompositionRotateZandYBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -56,8 +52,7 @@ public:
 //! Two different boxes are first rotated and then composed, composition is then rotated.
 //! @ingroup standard_samples
 
-class BoxStackCompositionBuilder : public ISampleBuilder
-{
+class BoxStackCompositionBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

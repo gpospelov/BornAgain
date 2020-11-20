@@ -23,8 +23,7 @@ struct Bin1D;
 //! Basic class for all shapes in 2D.
 //! @ingroup tools
 
-class IShape2D : public ICloneable
-{
+class IShape2D : public ICloneable {
 public:
     IShape2D(const char* name) : m_name(name) {}
     virtual IShape2D* clone() const = 0;
@@ -36,8 +35,7 @@ public:
     //! (more precisely, if mid point of two bins satisfy this condition).
     virtual bool contains(const Bin1D& binx, const Bin1D& biny) const = 0;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IShape2D& shape)
-    {
+    friend std::ostream& operator<<(std::ostream& ostr, const IShape2D& shape) {
         shape.print(ostr);
         return ostr;
     }

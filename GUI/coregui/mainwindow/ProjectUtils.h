@@ -19,8 +19,7 @@
 
 //! Defines convenience function for project manager and document.
 
-namespace ProjectUtils
-{
+namespace ProjectUtils {
 
 //! Returns project name deduced from project file name.
 QString projectName(const QString& projectFileName);

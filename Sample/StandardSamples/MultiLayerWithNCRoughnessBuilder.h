@@ -20,8 +20,7 @@
 //! Builds sample: layers with correlated roughness.
 //! @ingroup standard_samples
 
-class MultiLayerWithNCRoughnessBuilder : public MultiLayerWithRoughnessBuilder
-{
+class MultiLayerWithNCRoughnessBuilder : public MultiLayerWithRoughnessBuilder {
 public:
     MultiLayer* buildSample() const override;
 };

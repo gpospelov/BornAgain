@@ -19,8 +19,7 @@
 
 //! Type definition for graphics items.
 
-namespace ViewTypes
-{
+namespace ViewTypes {
 
 enum EWidgetTypes {
     IVIEW = QGraphicsItem::UserType + 1, // = 65537

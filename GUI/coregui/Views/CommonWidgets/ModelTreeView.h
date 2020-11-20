@@ -25,8 +25,7 @@ class QAbstractItemDelegate;
 //! Equivalent of QTreeView for SessionModel allowing to add visual decorations to the tree.
 //! Additionaly provides expand/collapse utility methods.
 
-class ModelTreeView : public QWidget
-{
+class ModelTreeView : public QWidget {
     Q_OBJECT
 public:
     ModelTreeView(QWidget* parent, SessionModel* model);

@@ -27,8 +27,7 @@
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class SpecularMagneticNewNCStrategy : public SpecularMagneticNewStrategy
-{
+class SpecularMagneticNewNCStrategy : public SpecularMagneticNewStrategy {
 private:
     std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
     computeRoughnessMatrices(const MatrixRTCoefficients_v3& coeff_i,

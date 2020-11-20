@@ -28,8 +28,7 @@
 class NodeEditorConnection;
 class IView;
 
-class NodeEditorPort : public QGraphicsPathItem
-{
+class NodeEditorPort : public QGraphicsPathItem {
 public:
     //! type of ports, same type can be connected together
     enum EPortType { DEFAULT, INTERFERENCE, PARTICLE_LAYOUT, FORM_FACTOR, TRANSFORMATION };
@@ -76,23 +75,19 @@ private:
     QGraphicsTextItem* m_label;
 };
 
-inline const QString& NodeEditorPort::portName() const
-{
+inline const QString& NodeEditorPort::portName() const {
     return m_name;
 }
 
-inline int NodeEditorPort::type() const
-{
+inline int NodeEditorPort::type() const {
     return ViewTypes::NODE_EDITOR_PORT;
 }
 
-inline bool NodeEditorPort::isConnected()
-{
+inline bool NodeEditorPort::isConnected() {
     return m_connections.size();
 }
 
-inline NodeEditorPort::EPortType NodeEditorPort::getPortType() const
-{
+inline NodeEditorPort::EPortType NodeEditorPort::getPortType() const {
     return m_port_type;
 }
 

@@ -19,8 +19,7 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Slice/LayerRoughness.h"
 
-MultiLayer* MultiLayerWithRoughnessBuilder::buildSample() const
-{
+MultiLayer* MultiLayerWithRoughnessBuilder::buildSample() const {
     const double thicknessA(2.5 * Units::nm);
     const double thicknessB(5.0 * Units::nm);
     const double sigma(1.0 * Units::nm);

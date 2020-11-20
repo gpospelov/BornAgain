@@ -21,8 +21,7 @@
 //! Equivalent of Examples/Python/simulation/ex03_InterferenceFunctions/ApproximationDA.py
 //! @ingroup standard_samples
 
-class SizeDistributionDAModelBuilder : public ISampleBuilder
-{
+class SizeDistributionDAModelBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -31,8 +30,7 @@ public:
 //! Equivalent of Examples/Python/simulation/ex03_InterferenceFunctions/ApproximationLMA.py
 //! @ingroup standard_samples
 
-class SizeDistributionLMAModelBuilder : public ISampleBuilder
-{
+class SizeDistributionLMAModelBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -41,8 +39,7 @@ public:
 //! Equivalent of Examples/Python/simulation/ex03_InterferenceFunctions/ApproximationSSCA.py
 //! @ingroup standard_samples
 
-class SizeDistributionSSCAModelBuilder : public ISampleBuilder
-{
+class SizeDistributionSSCAModelBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -50,8 +47,7 @@ public:
 //! Builds sample: size spacing correlation approximation (IsGISAXS example #15).
 //! @ingroup standard_samples
 
-class CylindersInSSCABuilder : public ISampleBuilder
-{
+class CylindersInSSCABuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

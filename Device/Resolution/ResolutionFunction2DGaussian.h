@@ -20,15 +20,13 @@
 //! Simple gaussian two-dimensional resolution function.
 //! @ingroup algorithms_internal
 
-class ResolutionFunction2DGaussian : public IResolutionFunction2D
-{
+class ResolutionFunction2DGaussian : public IResolutionFunction2D {
 public:
     ResolutionFunction2DGaussian(double sigma_x, double sigma_y);
 
     virtual double evaluateCDF(double x, double y) const;
 
-    ResolutionFunction2DGaussian* clone() const
-    {
+    ResolutionFunction2DGaussian* clone() const {
         return new ResolutionFunction2DGaussian(m_sigma_x, m_sigma_y);
     }
 

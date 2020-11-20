@@ -20,14 +20,12 @@
 //! A cylinder with elliptical base.
 //! @ingroup hardParticle
 
-class FormFactorEllipsoidalCylinder : public IBornFF
-{
+class FormFactorEllipsoidalCylinder : public IBornFF {
 public:
     FormFactorEllipsoidalCylinder(const std::vector<double> P);
     FormFactorEllipsoidalCylinder(double radius_x, double radius_y, double height);
 
-    FormFactorEllipsoidalCylinder* clone() const final
-    {
+    FormFactorEllipsoidalCylinder* clone() const final {
         return new FormFactorEllipsoidalCylinder(m_radius_x, m_radius_y, m_height);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

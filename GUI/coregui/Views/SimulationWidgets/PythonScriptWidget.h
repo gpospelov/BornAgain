@@ -27,8 +27,7 @@ class SimulationOptionsItem;
 //! The PythonScriptWidget displays a python script which represents full simulation.
 //! Part of SimulationSetupWidget
 
-class PythonScriptWidget : public QDialog
-{
+class PythonScriptWidget : public QDialog {
     Q_OBJECT
 
 public:

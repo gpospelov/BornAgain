@@ -20,8 +20,7 @@
 //! Default interference function (i.e. absence of any interference).
 //! @ingroup interference
 
-class InterferenceFunctionNone : public IInterferenceFunction
-{
+class InterferenceFunctionNone : public IInterferenceFunction {
 public:
     InterferenceFunctionNone();
 

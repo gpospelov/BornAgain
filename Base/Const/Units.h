@@ -17,8 +17,7 @@
 
 //! Constants and functions for physical unit conversions.
 
-namespace Units
-{
+namespace Units {
 
 // Length
 static constexpr double nanometer = 1.;
@@ -40,12 +39,10 @@ static constexpr double milliradian = 1.e-3 * radian;
 static constexpr double degree = (3.1415926535897932 / 180.0) * radian;
 static constexpr double steradian = 1.;
 
-inline double rad2deg(double angle)
-{
+inline double rad2deg(double angle) {
     return angle / degree;
 }
-inline double deg2rad(double angle)
-{
+inline double deg2rad(double angle) {
     return angle * degree;
 }
 

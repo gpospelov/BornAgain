@@ -27,8 +27,7 @@ class RealLimits;
 class WarningSign;
 
 //! The DistributionWidget class plots 1d functions corresponding to domain's Distribution1D
-class DistributionWidget : public QWidget
-{
+class DistributionWidget : public QWidget {
     Q_OBJECT
 
 public:

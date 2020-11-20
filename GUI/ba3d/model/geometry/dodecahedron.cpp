@@ -17,11 +17,9 @@
 #include <QQuaternion>
 #include <qmath.h>
 
-namespace RealSpace
-{
+namespace RealSpace {
 
-Geometry::Mesh Geometry::meshDodecahedron()
-{
+Geometry::Mesh Geometry::meshDodecahedron() {
     const float GR = GoldenRatio, G1 = 1 / GR;
 
     Vertices vs_;

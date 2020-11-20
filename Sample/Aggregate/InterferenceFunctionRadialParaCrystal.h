@@ -23,8 +23,7 @@
 //! Interference function of radial paracrystal.
 //! @ingroup interference
 
-class InterferenceFunctionRadialParaCrystal : public IInterferenceFunction
-{
+class InterferenceFunctionRadialParaCrystal : public IInterferenceFunction {
 public:
     InterferenceFunctionRadialParaCrystal(double peak_distance, double damping_length);
     InterferenceFunctionRadialParaCrystal* clone() const final;

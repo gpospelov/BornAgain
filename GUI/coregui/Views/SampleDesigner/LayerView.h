@@ -18,8 +18,7 @@
 #include "GUI/coregui/Views/SampleDesigner/ILayerView.h"
 
 //! Class that represents view of Layer
-class LayerView : public ILayerView
-{
+class LayerView : public ILayerView {
     Q_OBJECT
 public:
     LayerView(QGraphicsItem* parent = 0);

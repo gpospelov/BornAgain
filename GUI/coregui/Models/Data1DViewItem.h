@@ -29,8 +29,7 @@ template <class T> class OutputData;
 //! at once. In current implementation the first of carried
 //! items determines axes' limits.
 
-class BA_CORE_API_ Data1DViewItem : public SessionItem
-{
+class BA_CORE_API_ Data1DViewItem : public SessionItem {
 public:
     static const QString P_TITLE;
     static const QString P_XAXIS;

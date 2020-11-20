@@ -18,8 +18,7 @@
 #include "GUI/ba3d/def.h"
 #include <QWidget>
 
-namespace RealSpace
-{
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Model;
@@ -27,8 +26,7 @@ class Canvas;
 class Camera;
 class Program;
 
-class Widget3D : public QWidget
-{
+class Widget3D : public QWidget {
     Q_OBJECT
 public:
     Widget3D();

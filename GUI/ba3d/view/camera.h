@@ -20,14 +20,12 @@
 #include <QMatrix4x4>
 #include <QQuaternion>
 
-namespace RealSpace
-{
+namespace RealSpace {
 
 class Canvas;
 class Program;
 
-class Camera : public QObject
-{
+class Camera : public QObject {
     Q_OBJECT
     friend class Canvas;
     friend class Program;

@@ -25,8 +25,7 @@ class Instrument2DItem;
 //! (spherical/rectangular) and stack to show proper editor.
 //! Operates on GISASInstrumentItem.
 
-class GISASDetectorEditor : public SessionItemWidget
-{
+class GISASDetectorEditor : public SessionItemWidget {
     Q_OBJECT
 
 public:

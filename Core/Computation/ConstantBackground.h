@@ -21,8 +21,7 @@
 //!
 //! @ingroup simulation
 
-class ConstantBackground : public IBackground
-{
+class ConstantBackground : public IBackground {
 public:
     ConstantBackground(const std::vector<double> P);
     ConstantBackground(double background_value);

@@ -19,8 +19,7 @@
 
 //! Filter out space bar key events, which is special case for dialog windows.
 
-class SpaceKeyEater : public QObject
-{
+class SpaceKeyEater : public QObject {
     Q_OBJECT
 public:
     SpaceKeyEater(QObject* parent = 0);
@@ -32,8 +31,7 @@ protected:
 //! Event filter to install on combo boxes and spin boxes to not
 //! to react on wheel events during scrolling of InstrumentComponentWidget.
 
-class WheelEventEater : public QObject
-{
+class WheelEventEater : public QObject {
     Q_OBJECT
 public:
     WheelEventEater(QObject* parent = 0);
@@ -44,8 +42,7 @@ protected:
 
 //! Lisens for press-del-key events
 
-class DeleteEventFilter : public QObject
-{
+class DeleteEventFilter : public QObject {
     Q_OBJECT
 public:
     DeleteEventFilter(QObject* parent = 0) : QObject(parent) {}
@@ -59,8 +56,7 @@ signals:
 
 //! Event filter to prevent lost of focus by custom material editor.
 
-class LostFocusFilter : public QObject
-{
+class LostFocusFilter : public QObject {
     Q_OBJECT
 public:
     LostFocusFilter(QObject* parent = 0);
@@ -71,8 +67,7 @@ protected:
 
 //! Event filter for global tracking of shortcodes.
 
-class ShortcodeFilter : public QObject
-{
+class ShortcodeFilter : public QObject {
     Q_OBJECT
 public:
     ShortcodeFilter(const QString& shortcode, QObject* parent = 0);
@@ -88,8 +83,7 @@ protected:
 
 //! Filter out right mouse button events.
 
-class RightMouseButtonEater : public QObject
-{
+class RightMouseButtonEater : public QObject {
     Q_OBJECT
 public:
     RightMouseButtonEater(QObject* parent = 0);
@@ -100,8 +94,7 @@ protected:
 
 //! Propagate tab events from focusProxy to parent.
 
-class TabFromFocusProxy : public QObject
-{
+class TabFromFocusProxy : public QObject {
     Q_OBJECT
 public:
     TabFromFocusProxy(QWidget* parent = 0);

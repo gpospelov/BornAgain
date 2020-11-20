@@ -19,16 +19,14 @@
 #include "Fit/Minimizer/Types.h"
 #include <string>
 
-namespace mumufit
-{
+namespace mumufit {
 class Parameters;
 }
 
 //! Abstract base class for all kind minimizers.
 //! @ingroup fitting_internal
 
-class IMinimizer
-{
+class IMinimizer {
 public:
     IMinimizer();
     virtual ~IMinimizer();

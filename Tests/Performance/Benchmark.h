@@ -24,14 +24,12 @@
 // No Win export symbols here, because Benchmark.cpp is linked directly to the executables,
 // and not in form of a library
 
-class Duration
-{
+class Duration {
 public:
     Duration() : m_totalTime(0) {}
 
     void start() { m_timer.start(); }
-    void stop()
-    {
+    void stop() {
         m_timer.stop();
         m_totalTime += m_timer.runTime();
     }
@@ -44,8 +42,7 @@ private:
 
 //! Benchmark tool to measure duration of several processes.
 
-class Benchmark
-{
+class Benchmark {
     typedef OrderedMap<std::string, Duration*> BenchmarkMap;
 
 public:

@@ -48,8 +48,7 @@
 
 // TODO: No need to use a namespace for our constants as we are using them only
 // in this class
-namespace ClickableFrame_constants
-{
+namespace ClickableFrame_constants {
 const char* const CARRET_ICON_CLOSED =
     ":/qAccordionIcons/caret-right.png"; /**< Qt qrc "path" for the closed icon */
 const char* const CARRET_ICON_OPENED =
@@ -62,8 +61,7 @@ const char* const CARRET_ICON_OPENED =
  * This class represents a clickable QFrame. It is used by a ContentPane. The class
  * is used internally.
  */
-class ClickableFrame : public QFrame
-{
+class ClickableFrame : public QFrame {
 
     Q_OBJECT
 public:

@@ -21,8 +21,7 @@
 //! Purely virtual interface to handle non-XML
 //! data save and load.
 
-class SaveLoadInterface
-{
+class SaveLoadInterface {
 public:
     virtual ~SaveLoadInterface();
 

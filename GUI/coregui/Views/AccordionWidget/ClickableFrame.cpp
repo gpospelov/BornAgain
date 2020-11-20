@@ -34,8 +34,7 @@
 #include <QStyleOption>
 
 ClickableFrame::ClickableFrame(QString header, QWidget* parent, Qt::WindowFlags f)
-    : QFrame(parent, f), header(header)
-{
+    : QFrame(parent, f), header(header) {
     this->setAttribute(Qt::WA_Hover, true);
     this->clickable = true;
     this->setCursor(Qt::PointingHandCursor);
@@ -46,8 +45,7 @@ ClickableFrame::ClickableFrame(QString header, QWidget* parent, Qt::WindowFlags 
     this->initFrame();
 }
 
-void ClickableFrame::setClickable(bool status)
-{
+void ClickableFrame::setClickable(bool status) {
     this->clickable = status;
     if (status) {
         this->setCursor(Qt::PointingHandCursor);
@@ -56,50 +54,41 @@ void ClickableFrame::setClickable(bool status)
     }
 }
 
-bool ClickableFrame::getClickable()
-{
+bool ClickableFrame::getClickable() {
     return this->clickable;
 }
 
-void ClickableFrame::setHeader(QString header)
-{
+void ClickableFrame::setHeader(QString header) {
     this->header = header;
     this->nameLabel->setText(this->header);
 }
 
-QString ClickableFrame::getHeader()
-{
+QString ClickableFrame::getHeader() {
     return this->header;
 }
 
-void ClickableFrame::setNormalStylesheet(QString stylesheet)
-{
+void ClickableFrame::setNormalStylesheet(QString stylesheet) {
     this->normalStylesheet = stylesheet;
     this->setStyleSheet(this->normalStylesheet);
 }
 
-QString ClickableFrame::getNormalStylesheet()
-{
+QString ClickableFrame::getNormalStylesheet() {
     return this->normalStylesheet;
 }
 
-void ClickableFrame::setHoverStylesheet(QString stylesheet)
-{
+void ClickableFrame::setHoverStylesheet(QString stylesheet) {
     this->hoverStylesheet = stylesheet;
 }
 
-QString ClickableFrame::getHoverStylesheet()
-{
+QString ClickableFrame::getHoverStylesheet() {
     return this->hoverStylesheet;
 }
 
-void ClickableFrame::setCaretPixmap(QString pixmapPath)
-{
+void ClickableFrame::setCaretPixmap(QString pixmapPath) {
     this->caretLabel->setPixmap(QPixmap(pixmapPath));
 }
 
-void ClickableFrame::initFrame()
-{
+void ClickableFrame::initFrame() {
     this->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed);
     this->setLayout(new QHBoxLayout());
 
@@ -116,8 +105,7 @@ void ClickableFrame::initFrame()
     this->setStyleSheet(this->normalStylesheet);
 }
 
-void ClickableFrame::mousePressEvent(QMouseEvent* event)
-{
+void ClickableFrame::mousePressEvent(QMouseEvent* event) {
     if (this->clickable) {
         emit this->singleClick(event->pos());
         event->accept();
@@ -126,15 +114,13 @@ void ClickableFrame::mousePressEvent(QMouseEvent* event)
     }
 }
 
-void ClickableFrame::enterEvent(ATTR_UNUSED QEvent* event)
-{
+void ClickableFrame::enterEvent(ATTR_UNUSED QEvent* event) {
     if (this->clickable) {
         this->setStyleSheet(this->hoverStylesheet);
     }
 }
 
-void ClickableFrame::leaveEvent(ATTR_UNUSED QEvent* event)
-{
+void ClickableFrame::leaveEvent(ATTR_UNUSED QEvent* event) {
     if (this->clickable) {
         this->setStyleSheet(this->normalStylesheet);
     }

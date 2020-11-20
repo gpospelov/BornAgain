@@ -21,8 +21,7 @@ class BasicAxisItem;
 class MaskContainerItem;
 class ProjectionContainerItem;
 
-class BA_CORE_API_ IntensityDataItem : public DataItem
-{
+class BA_CORE_API_ IntensityDataItem : public DataItem {
 public:
     static const QString P_PROJECTIONS_FLAG;
     static const QString P_TITLE;

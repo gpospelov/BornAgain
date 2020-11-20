@@ -23,8 +23,7 @@ class MesoCrystal;
 class MesoCrystalItem;
 class Particle3DContainer;
 
-class RealSpaceMesoCrystal
-{
+class RealSpaceMesoCrystal {
 public:
     ~RealSpaceMesoCrystal();
 

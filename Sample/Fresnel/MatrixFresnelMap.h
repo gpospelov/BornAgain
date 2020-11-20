@@ -31,8 +31,7 @@ class SimulationElement;
 //! Implementation of IFresnelMap for matrix valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
 
-class MatrixFresnelMap : public IFresnelMap
-{
+class MatrixFresnelMap : public IFresnelMap {
 public:
     MatrixFresnelMap(std::unique_ptr<ISpecularStrategy> strategy);
     ~MatrixFresnelMap() override;
@@ -47,8 +46,7 @@ public:
 
 private:
     //! Provides a hash function for a 3-vector of doubles, for use in MatrixFresnelMap.
-    class HashKVector
-    {
+    class HashKVector {
     public:
         size_t operator()(const kvector_t& kvec) const noexcept;
     };

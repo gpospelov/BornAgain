@@ -22,8 +22,7 @@
 //! integration flag). Used in SimulationView to define job settings. When job is started,
 //! item is copied to the job as a child.
 
-class BA_CORE_API_ SimulationOptionsItem : public SessionItem
-{
+class BA_CORE_API_ SimulationOptionsItem : public SessionItem {
 public:
     static const QString P_RUN_POLICY;
     static const QString P_NTHREADS;

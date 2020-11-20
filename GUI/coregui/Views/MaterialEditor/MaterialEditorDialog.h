@@ -27,8 +27,7 @@ class QBoxLayout;
 //! It's main function is to return MaterialModel to original state, if user decided to cancel
 //! changes.
 
-class MaterialEditorDialog : public QDialog
-{
+class MaterialEditorDialog : public QDialog {
     Q_OBJECT
 
 public:

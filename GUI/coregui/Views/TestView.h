@@ -19,8 +19,7 @@
 
 class MainWindow;
 
-class TestView : public QWidget
-{
+class TestView : public QWidget {
     Q_OBJECT
 public:
     TestView(MainWindow* mainWindow = nullptr);

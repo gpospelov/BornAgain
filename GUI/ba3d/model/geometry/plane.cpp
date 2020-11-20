@@ -15,11 +15,9 @@
 #include "Base/Utils/Assert.h"
 #include "GUI/ba3d/model/geometry.h"
 
-namespace RealSpace
-{
+namespace RealSpace {
 
-Geometry::Mesh Geometry::meshPlane()
-{
+Geometry::Mesh Geometry::meshPlane() {
     float const D = .5f;
 
     Vertices vs;

@@ -22,15 +22,13 @@
 using namespace mumufit;
 
 ResidualTestPlan::ResidualTestPlan(const std::string& name, test_funct_t func)
-    : MinimizerTestPlan(name), m_test_func(func)
-{
+    : MinimizerTestPlan(name), m_test_func(func) {
     m_xvalues.resize(101);
     for (int i = 0; i <= 100; ++i)
         m_xvalues[i] = i * 0.1;
 }
 
-fcn_residual_t ResidualTestPlan::residualFunction()
-{
+fcn_residual_t ResidualTestPlan::residualFunction() {
     fcn_residual_t func = [&](mumufit::Parameters pars) -> std::vector<double> {
         return evaluate(pars.values());
     };
@@ -38,8 +36,7 @@ fcn_residual_t ResidualTestPlan::residualFunction()
     return func;
 }
 
-bool ResidualTestPlan::checkMinimizer(Minimizer& minimizer)
-{
+bool ResidualTestPlan::checkMinimizer(Minimizer& minimizer) {
     bool success(true);
 
     auto result = minimizer.minimize(residualFunction(), parameters());
@@ -52,8 +49,7 @@ bool ResidualTestPlan::checkMinimizer(Minimizer& minimizer)
     return success;
 }
 
-void ResidualTestPlan::init_data_values()
-{
+void ResidualTestPlan::init_data_values() {
     std::vector<double> pars;
     for (const auto& plan : m_parameter_plan)
         pars.push_back(plan.expectedValue());
@@ -62,8 +58,7 @@ void ResidualTestPlan::init_data_values()
         m_data_values.push_back(m_test_func(x, pars));
 }
 
-std::vector<double> ResidualTestPlan::evaluate(const std::vector<double>& pars)
-{
+std::vector<double> ResidualTestPlan::evaluate(const std::vector<double>& pars) {
     if (m_data_values.empty())
         init_data_values();
 

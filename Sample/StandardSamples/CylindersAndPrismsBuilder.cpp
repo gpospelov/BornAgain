@@ -22,8 +22,7 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* CylindersAndPrismsBuilder::buildSample() const
-{
+MultiLayer* CylindersAndPrismsBuilder::buildSample() const {
     MultiLayer* multi_layer = new MultiLayer();
 
     Layer vacuum_layer(refMat::Vacuum);

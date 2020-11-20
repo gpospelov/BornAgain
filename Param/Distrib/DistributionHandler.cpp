@@ -17,15 +17,13 @@
 #include "Param/Base/ParameterPool.h"
 #include "Param/Distrib/Distributions.h"
 
-DistributionHandler::DistributionHandler() : m_nbr_combinations(1)
-{
+DistributionHandler::DistributionHandler() : m_nbr_combinations(1) {
     setName("DistributionHandler");
 }
 
 DistributionHandler::~DistributionHandler() = default;
 
-void DistributionHandler::addParameterDistribution(const ParameterDistribution& par_distr)
-{
+void DistributionHandler::addParameterDistribution(const ParameterDistribution& par_distr) {
     if (par_distr.getNbrSamples() > 0) {
         m_distributions.push_back(par_distr);
         m_nbr_combinations *= par_distr.getNbrSamples();
@@ -33,13 +31,11 @@ void DistributionHandler::addParameterDistribution(const ParameterDistribution& 
     }
 }
 
-size_t DistributionHandler::getTotalNumberOfSamples() const
-{
+size_t DistributionHandler::getTotalNumberOfSamples() const {
     return m_nbr_combinations;
 }
 
-double DistributionHandler::setParameterValues(ParameterPool* p_parameter_pool, size_t index)
-{
+double DistributionHandler::setParameterValues(ParameterPool* p_parameter_pool, size_t index) {
     if (index >= m_nbr_combinations)
         throw Exceptions::RuntimeErrorException(
             "DistributionWeighter::setParameterValues: "
@@ -66,8 +62,7 @@ double DistributionHandler::setParameterValues(ParameterPool* p_parameter_pool, 
     return weight;
 }
 
-void DistributionHandler::setParameterToMeans(ParameterPool* p_parameter_pool) const
-{
+void DistributionHandler::setParameterToMeans(ParameterPool* p_parameter_pool) const {
     for (auto& distribution : m_distributions) {
         const std::string par_name = distribution.getMainParameterName();
         const double mean_val = distribution.getDistribution()->getMean();
@@ -78,7 +73,6 @@ void DistributionHandler::setParameterToMeans(ParameterPool* p_parameter_pool) c
     }
 }
 
-const DistributionHandler::Distributions_t& DistributionHandler::getDistributions() const
-{
+const DistributionHandler::Distributions_t& DistributionHandler::getDistributions() const {
     return m_distributions;
 }

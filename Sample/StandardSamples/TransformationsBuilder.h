@@ -20,8 +20,7 @@
 //! Rotated box in 3 layers system.
 //! @ingroup standard_samples
 
-class TransformBoxBuilder : public ISampleBuilder
-{
+class TransformBoxBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

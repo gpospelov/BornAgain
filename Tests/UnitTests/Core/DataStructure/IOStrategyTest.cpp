@@ -3,16 +3,14 @@
 #include "Device/InputOutput/OutputDataWriteStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class IOStrategyTest : public ::testing::Test
-{
+class IOStrategyTest : public ::testing::Test {
 protected:
     IOStrategyTest();
 
     OutputData<double> m_model_data;
 };
 
-IOStrategyTest::IOStrategyTest()
-{
+IOStrategyTest::IOStrategyTest() {
     FixedBinAxis axis1("x", 5, 1.0, 5.0);
     FixedBinAxis axis2("y", 10, 6.0, 7.0);
     m_model_data.addAxis(axis1);
@@ -21,8 +19,7 @@ IOStrategyTest::IOStrategyTest()
         m_model_data[i] = static_cast<double>(i);
 }
 
-TEST_F(IOStrategyTest, TestINTStrategies)
-{
+TEST_F(IOStrategyTest, TestINTStrategies) {
     std::stringstream ss;
     OutputDataWriteINTStrategy write_int_strategy;
     write_int_strategy.writeOutputData(m_model_data, ss);
@@ -43,8 +40,7 @@ TEST_F(IOStrategyTest, TestINTStrategies)
         EXPECT_EQ(m_model_data[i], (*result)[i]);
 }
 
-TEST_F(IOStrategyTest, TestNumpyTXTStrategies)
-{
+TEST_F(IOStrategyTest, TestNumpyTXTStrategies) {
     std::stringstream ss;
     OutputDataWriteNumpyTXTStrategy write_txt_strategy;
     write_txt_strategy.writeOutputData(m_model_data, ss);
@@ -59,8 +55,7 @@ TEST_F(IOStrategyTest, TestNumpyTXTStrategies)
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-TEST_F(IOStrategyTest, TestTIFFStrategies)
-{
+TEST_F(IOStrategyTest, TestTIFFStrategies) {
     std::stringstream ss;
     OutputDataWriteTiffStrategy write_tiff_strategy;
     write_tiff_strategy.writeOutputData(m_model_data, ss);

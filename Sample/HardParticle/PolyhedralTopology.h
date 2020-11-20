@@ -18,16 +18,14 @@
 #include <vector>
 
 //! For internal use in PolyhedralFace.
-class PolygonalTopology
-{
+class PolygonalTopology {
 public:
     std::vector<int> vertexIndices;
     bool symmetry_S2;
 };
 
 //! For internal use in IFormFactorPolyhedron.
-class PolyhedralTopology
-{
+class PolyhedralTopology {
 public:
     std::vector<PolygonalTopology> faces;
     bool symmetry_Ci;

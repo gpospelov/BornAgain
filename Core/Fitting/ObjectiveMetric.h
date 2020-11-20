@@ -23,8 +23,7 @@
 class SimDataPair;
 
 //! Base class for metric implementations
-class ObjectiveMetric : public ICloneable
-{
+class ObjectiveMetric : public ICloneable {
 public:
     ObjectiveMetric(std::function<double(double)> norm);
 
@@ -70,8 +69,7 @@ private:
 //! derived from maximum likelihood with Gaussian uncertainties.
 //! With default L2 norm corresponds to the formula
 //! \f[\chi^2 = \sum \frac{(I - D)^2}{\delta_D^2}\f]
-class Chi2Metric : public ObjectiveMetric
-{
+class Chi2Metric : public ObjectiveMetric {
 public:
     Chi2Metric();
     Chi2Metric* clone() const override;
@@ -106,8 +104,7 @@ public:
 //! \f[\chi^2 = \sum \frac{(I - D)^2}{max(I, 1)}\f]
 //! for unweighted experimental data. Falls to standard
 //! Chi2Metric when data uncertainties are taken into account.
-class PoissonLikeMetric : public Chi2Metric
-{
+class PoissonLikeMetric : public Chi2Metric {
 public:
     PoissonLikeMetric();
     PoissonLikeMetric* clone() const override;
@@ -130,8 +127,7 @@ public:
 //! being replaced by \f$ \log_{10} I \f$ and \f$\log_{10} D\f$ accordingly.
 //! With default L2 norm corresponds to the formula
 //! \f[\chi^2 = \sum \frac{(\log_{10} I - log_{10} D)^2 D^2 \ln^2{10}}{\delta_D^2}\f]
-class LogMetric : public ObjectiveMetric
-{
+class LogMetric : public ObjectiveMetric {
 public:
     LogMetric();
     LogMetric* clone() const override;
@@ -164,8 +160,7 @@ public:
 //! \f[Result = \sum \frac{(I - D)^2}{(I + D)^2}\f]
 //! where \f$I\f$ is the simulated intensity, \f$D\f$ - experimental data.
 //! If weighting is on, falls back to the standard \f$\chi^2\f$ metric.
-class RelativeDifferenceMetric : public Chi2Metric
-{
+class RelativeDifferenceMetric : public Chi2Metric {
 public:
     RelativeDifferenceMetric();
     RelativeDifferenceMetric* clone() const override;
@@ -188,8 +183,7 @@ public:
 //! \f[Result = \sum (I \cdot Q^4 - D \cdot Q^4)^2\f]
 //! where \f$Q\f$ is the scattering vector magnitude. If weighting is on,
 //! coincides with the metric provided by Chi2Metric class.
-class RQ4Metric : public Chi2Metric
-{
+class RQ4Metric : public Chi2Metric {
 public:
     RQ4Metric();
     RQ4Metric* clone() const override;

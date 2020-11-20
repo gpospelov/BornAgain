@@ -22,8 +22,7 @@
 //! Interface for detector resolution algorithms
 //! @ingroup algorithms_internal
 
-class IDetectorResolution : public ICloneable, public INode
-{
+class IDetectorResolution : public ICloneable, public INode {
 public:
     virtual ~IDetectorResolution() {}
     //! Apply the resolution function to the intensity data

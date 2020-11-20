@@ -20,8 +20,7 @@
 
 //! Factory to generate plans for fitting objective functions.
 
-class PlanFactory : public mumufit::test::IFactory<std::string, MinimizerTestPlan>
-{
+class PlanFactory : public mumufit::test::IFactory<std::string, MinimizerTestPlan> {
 public:
     PlanFactory();
 };

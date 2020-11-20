@@ -8,12 +8,9 @@
 #include "GUI/coregui/Models/RectangularDetectorItem.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class TestDetectorItems : public ::testing::Test
-{
-};
+class TestDetectorItems : public ::testing::Test {};
 
-TEST_F(TestDetectorItems, test_detectorAlignment)
-{
+TEST_F(TestDetectorItems, test_detectorAlignment) {
     InstrumentModel model;
     SessionItem* detector = model.insertNewItem("RectangularDetector");
 
@@ -32,8 +29,7 @@ TEST_F(TestDetectorItems, test_detectorAlignment)
     EXPECT_FALSE(detector->getItem(RectangularDetectorItem::P_NORMAL)->isVisible());
 }
 
-TEST_F(TestDetectorItems, test_resolutionFunction)
-{
+TEST_F(TestDetectorItems, test_resolutionFunction) {
     InstrumentModel model;
     GISASInstrumentItem* instrument =
         dynamic_cast<GISASInstrumentItem*>(model.insertNewItem("GISASInstrument"));

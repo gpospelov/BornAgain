@@ -23,8 +23,7 @@ class RealDataItem;
 
 //! Contains set of convenience methods for JobItem and its children.
 
-namespace ItemFileNameUtils
-{
+namespace ItemFileNameUtils {
 
 QString jobResultsFileName(const JobItem& jobItem);
 

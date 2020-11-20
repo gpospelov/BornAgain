@@ -50,8 +50,7 @@ class ISimulation2D;
 class OffSpecSimulation;
 class IAxis;
 
-namespace TransformFromDomain
-{
+namespace TransformFromDomain {
 void set1DLatticeItem(SessionItem* item, const InterferenceFunction1DLattice& sample);
 
 void set2DLatticeItem(SessionItem* item, const InterferenceFunction2DLattice& sample);

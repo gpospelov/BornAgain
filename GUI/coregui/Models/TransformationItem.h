@@ -17,8 +17,7 @@
 
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 
-class BA_CORE_API_ TransformationItem : public SessionGraphicsItem
-{
+class BA_CORE_API_ TransformationItem : public SessionGraphicsItem {
 public:
     static const QString P_ROT;
     TransformationItem();

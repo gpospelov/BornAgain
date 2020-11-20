@@ -20,8 +20,7 @@
 //! This is a View of ellipse mask (represented by EllipseItem) on GraphicsScene.
 //! Given view follows standard QGraphicsScene notations: (x,y) is top left corner.
 
-class EllipseView : public RectangleBaseView
-{
+class EllipseView : public RectangleBaseView {
     Q_OBJECT
 
 public:

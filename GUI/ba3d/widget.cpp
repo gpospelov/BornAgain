@@ -19,12 +19,10 @@
 
 #include <QBoxLayout>
 
-namespace RealSpace
-{
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
-Widget3D::Widget3D() : canvas(nullptr)
-{
+Widget3D::Widget3D() : canvas(nullptr) {
     auto box = new QHBoxLayout;
     setLayout(box);
     box->setMargin(0);
@@ -33,38 +31,31 @@ Widget3D::Widget3D() : canvas(nullptr)
 
 Widget3D::~Widget3D() = default;
 
-Camera& Widget3D::cam()
-{
+Camera& Widget3D::cam() {
     return *canvas->cam();
 }
 
-void Widget3D::setBackground(QColor const& color)
-{
+void Widget3D::setBackground(QColor const& color) {
     canvas->setBgColor(color);
 }
 
-void Widget3D::setModel(Model* model)
-{
+void Widget3D::setModel(Model* model) {
     canvas->setModel(model);
 }
 
-void Widget3D::defaultView()
-{
+void Widget3D::defaultView() {
     canvas->defaultView();
 }
 
-void Widget3D::sideView()
-{
+void Widget3D::sideView() {
     canvas->sideView();
 }
 
-void Widget3D::topView()
-{
+void Widget3D::topView() {
     canvas->topView();
 }
 
-Model* Widget3D::model()
-{
+Model* Widget3D::model() {
     return canvas->getModel();
 }
 

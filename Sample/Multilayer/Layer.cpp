@@ -22,16 +22,14 @@
 //! @param material: material the layer is made of
 //! @param thickness: thickness of a layer in nanometers
 Layer::Layer(Material material, double thickness)
-    : m_material(std::move(material)), m_thickness(thickness)
-{
+    : m_material(std::move(material)), m_thickness(thickness) {
     setName("Layer");
     registerThickness();
 }
 
 Layer::~Layer() = default;
 
-Layer* Layer::clone() const
-{
+Layer* Layer::clone() const {
     Layer* p_result = new Layer(m_material, m_thickness);
     p_result->setName(getName());
     p_result->m_B_field = m_B_field;
@@ -42,43 +40,37 @@ Layer* Layer::clone() const
 }
 
 //! Sets layer thickness in nanometers.
-void Layer::setThickness(double thickness)
-{
+void Layer::setThickness(double thickness) {
     if (thickness < 0.)
         throw Exceptions::DomainErrorException("Layer thickness cannot be negative");
     m_thickness = thickness;
 }
 
-void Layer::setMaterial(Material material)
-{
+void Layer::setMaterial(Material material) {
     m_material = std::move(material);
 }
 
-void Layer::addLayout(const ParticleLayout& layout)
-{
+void Layer::addLayout(const ParticleLayout& layout) {
     ParticleLayout* clone = layout.clone();
     m_layouts.push_back(clone);
     registerChild(clone);
 }
 
-std::vector<const ParticleLayout*> Layer::layouts() const
-{
+std::vector<const ParticleLayout*> Layer::layouts() const {
     std::vector<const ParticleLayout*> result;
     for (auto p_layout : m_layouts)
         result.push_back(p_layout);
     return result;
 }
 
-std::vector<const INode*> Layer::getChildren() const
-{
+std::vector<const INode*> Layer::getChildren() const {
     std::vector<const INode*> result;
     for (auto layout : m_layouts)
         result.push_back(layout);
     return result;
 }
 
-void Layer::registerThickness(bool make_registered)
-{
+void Layer::registerThickness(bool make_registered) {
     if (make_registered) {
         if (!parameter("Thickness"))
             registerParameter("Thickness", &m_thickness).setUnit("nm").setNonnegative();

@@ -28,8 +28,7 @@
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const
-{
+MultiLayer* CylindersWithSizeDistributionBuilder::buildSample() const {
     const double height(5 * Units::nm);
     const double radius(5 * Units::nm);
 
@@ -69,12 +68,9 @@ TwoTypesCylindersDistributionBuilder::TwoTypesCylindersDistributionBuilder()
     , m_height1(5 * Units::nm)
     , m_height2(10 * Units::nm)
     , m_sigma1_ratio(0.2)
-    , m_sigma2_ratio(0.02)
-{
-}
+    , m_sigma2_ratio(0.02) {}
 
-MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const
-{
+MultiLayer* TwoTypesCylindersDistributionBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
 
     ParticleLayout particle_layout;
@@ -121,12 +117,9 @@ RotatedPyramidsDistributionBuilder::RotatedPyramidsDistributionBuilder()
     : m_length(10 * Units::nm)
     , m_height(5 * Units::nm)
     , m_alpha(Units::deg2rad(54.73))
-    , m_zangle(45. * Units::deg)
-{
-}
+    , m_zangle(45. * Units::deg) {}
 
-MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
-{
+MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const {
     // particle
     FormFactorPyramid ff_pyramid(m_length, m_height, m_alpha);
     Particle pyramid(refMat::Particle, ff_pyramid);
@@ -155,8 +148,7 @@ MultiLayer* RotatedPyramidsDistributionBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
-{
+MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const {
     // particle
     FormFactorFullSphere ff(3.0 * Units::nm);
     Particle sphere(refMat::Particle, ff);
@@ -186,8 +178,7 @@ MultiLayer* SpheresWithLimitsDistributionBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
-{
+MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const {
     // particle
     FormFactorCone ff(10.0 * Units::nm, 13.0 * Units::nm, 60.0 * Units::deg);
     Particle cone(refMat::Particle, ff);
@@ -215,8 +206,7 @@ MultiLayer* ConesWithLimitsDistributionBuilder::buildSample() const
     return multi_layer;
 }
 
-MultiLayer* LinkedBoxDistributionBuilder::buildSample() const
-{
+MultiLayer* LinkedBoxDistributionBuilder::buildSample() const {
     // particle
     FormFactorBox ff(40.0 * Units::nm, 30.0 * Units::nm, 10.0 * Units::nm);
     Particle box(refMat::Particle, ff);

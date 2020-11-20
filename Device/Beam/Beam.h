@@ -23,8 +23,7 @@ class IFootprintFactor;
 //! Beam defined by wavelength, direction and intensity.
 //! @ingroup beam
 
-class Beam : public INode
-{
+class Beam : public INode {
 public:
     Beam(double wavelength, double alpha, double phi, double intensity);
 

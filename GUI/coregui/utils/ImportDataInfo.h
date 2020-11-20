@@ -23,8 +23,7 @@ template <class T> class OutputData;
 
 //! Carries information about loaded data.
 
-class ImportDataInfo
-{
+class ImportDataInfo {
 public:
     ImportDataInfo();
     ImportDataInfo(ImportDataInfo&& other);

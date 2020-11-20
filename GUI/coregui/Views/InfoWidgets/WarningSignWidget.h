@@ -21,8 +21,7 @@
 
 //! The WarningSignWidget is an transparent widget with warning sign pixmap intended to be
 //! overlayed onto other widget at some arbitrary position.
-class WarningSignWidget : public QWidget
-{
+class WarningSignWidget : public QWidget {
 public:
     WarningSignWidget(QWidget* parent = 0);
 

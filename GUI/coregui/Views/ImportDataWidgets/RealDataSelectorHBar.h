@@ -22,8 +22,7 @@ class QToolButton;
 
 //! Toolbar on top of selector tree with hamburger-like menu button.
 
-class RealDataSelectorHBar : public QToolBar
-{
+class RealDataSelectorHBar : public QToolBar {
     Q_OBJECT
 public:
     RealDataSelectorHBar(RealDataSelectorActions* actions, QWidget* parent = nullptr);

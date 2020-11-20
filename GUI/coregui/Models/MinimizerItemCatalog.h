@@ -22,8 +22,7 @@ class MinimizerItem;
 //! The MinimizerItemCatalog class is a static class to provide MinimizerItem
 //! with the list of available minimizers/algorithms.
 
-class MinimizerItemCatalog
-{
+class MinimizerItemCatalog {
 public:
     static ComboProperty algorithmCombo(const QString& minimizerType);
 

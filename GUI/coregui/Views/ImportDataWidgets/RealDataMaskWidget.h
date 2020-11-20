@@ -25,8 +25,7 @@ class MaskContainerItem;
 
 //! The RealDataMaskWidget class provides mask editing for RealDataItem on ImportDataView.
 
-class RealDataMaskWidget : public SessionItemWidget
-{
+class RealDataMaskWidget : public SessionItemWidget {
     Q_OBJECT
 
 public:

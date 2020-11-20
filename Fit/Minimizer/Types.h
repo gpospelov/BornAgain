@@ -18,8 +18,7 @@
 #include <functional>
 #include <vector>
 
-namespace mumufit
-{
+namespace mumufit {
 class Parameters;
 }
 

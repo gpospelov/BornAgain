@@ -21,8 +21,7 @@
 //! Limits for a real fit parameter.
 //! @ingroup fitting
 
-class RealLimits
-{
+class RealLimits {
 public:
     RealLimits();
 
@@ -83,8 +82,7 @@ public:
     std::string toString() const;
 
     //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, const RealLimits& m)
-    {
+    friend std::ostream& operator<<(std::ostream& ostr, const RealLimits& m) {
         ostr << m.toString();
         return ostr;
     }

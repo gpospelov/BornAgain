@@ -23,8 +23,7 @@ class Polyhedron;
 
 //! A polyhedron, for form factor computation.
 
-class IFormFactorPolyhedron : public IBornFF
-{
+class IFormFactorPolyhedron : public IBornFF {
 public:
 #ifdef POLYHEDRAL_DIAGNOSTIC
     static void setLimits(double _q, int _n);

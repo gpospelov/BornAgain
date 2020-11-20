@@ -19,8 +19,7 @@
 
 //! A pixel in a RectangularDetector.
 
-class RectangularPixel : public IPixel
-{
+class RectangularPixel : public IPixel {
 public:
     RectangularPixel(const kvector_t& corner_pos, const kvector_t& width, const kvector_t& height);
 

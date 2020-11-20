@@ -20,8 +20,7 @@
 
 // include to use geometry basics, without details
 
-namespace RealSpace
-{
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Geometry;
@@ -34,8 +33,7 @@ extern const float GoldenRatio;
 extern const float IcosahedronL2R; // L/R conversion
 extern const float DodecahedronL2R;
 
-namespace GeometricID
-{
+namespace GeometricID {
 
 // Enum id for basic shapes
 enum class BaseShape {

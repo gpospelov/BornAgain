@@ -24,8 +24,7 @@ template <class T> class OutputData;
 
 //! Utility functions for data input and output.
 
-namespace DataFormatUtils
-{
+namespace DataFormatUtils {
 //! Returns true if name contains *.gz extension
 bool isCompressed(const std::string& name);
 

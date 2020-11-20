@@ -21,8 +21,7 @@
 
 //! Base view for all rectangular-like masks.
 
-class RectangleBaseView : public IShape2DView
-{
+class RectangleBaseView : public IShape2DView {
     Q_OBJECT
 
 public:

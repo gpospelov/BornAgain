@@ -1,12 +1,9 @@
 #include "Core/Export/OrderedMap.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class OrderedMapTest : public ::testing::Test
-{
-};
+class OrderedMapTest : public ::testing::Test {};
 
-TEST_F(OrderedMapTest, OrderedMapInsert)
-{
+TEST_F(OrderedMapTest, OrderedMapInsert) {
     OrderedMap<int, std::string> omap;
     EXPECT_EQ(size_t(0), omap.size());
 
@@ -31,8 +28,7 @@ TEST_F(OrderedMapTest, OrderedMapInsert)
     EXPECT_EQ(size_t(0), omap.size());
 }
 
-TEST_F(OrderedMapTest, OrderedMapErase)
-{
+TEST_F(OrderedMapTest, OrderedMapErase) {
     OrderedMap<std::string, double> omap;
 
     std::vector<std::string> keys = {"ccc", "bbb", "aaa"};
@@ -76,8 +72,7 @@ TEST_F(OrderedMapTest, OrderedMapErase)
     EXPECT_EQ(size_t(1), omap.size());
 }
 
-TEST_F(OrderedMapTest, OrderedMapGetValue)
-{
+TEST_F(OrderedMapTest, OrderedMapGetValue) {
     OrderedMap<const std::string*, std::string*> omap;
 
     std::unique_ptr<std::string> key1(new std::string("key1"));
@@ -96,8 +91,7 @@ TEST_F(OrderedMapTest, OrderedMapGetValue)
     EXPECT_EQ(omap.value(key3.get()), val3.get());
 }
 
-TEST_F(OrderedMapTest, OrderedMapFind)
-{
+TEST_F(OrderedMapTest, OrderedMapFind) {
     OrderedMap<const std::string*, std::string> omap;
 
     std::unique_ptr<std::string> n1(new std::string("named1"));
@@ -122,8 +116,7 @@ TEST_F(OrderedMapTest, OrderedMapFind)
     EXPECT_EQ(omap.find(n4.get()), omap.end());
 }
 
-TEST_F(OrderedMapTest, OrderedMapReInsert)
-{
+TEST_F(OrderedMapTest, OrderedMapReInsert) {
     std::unique_ptr<std::string> P_n1(new std::string("named1"));
     std::unique_ptr<std::string> P_n2(new std::string("named2"));
     std::unique_ptr<std::string> P_n3(new std::string("named3"));

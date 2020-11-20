@@ -15,8 +15,7 @@
 #include "Param/Node/IterationStrategy.h"
 #include "Param/Node/NodeIterator.h"
 
-void VisitNodesPreorder(const INode& node, INodeVisitor& visitor)
-{
+void VisitNodesPreorder(const INode& node, INodeVisitor& visitor) {
     NodeIterator<PreorderStrategy> it(&node);
     it.first();
     while (!it.isDone()) {

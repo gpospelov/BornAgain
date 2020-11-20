@@ -30,8 +30,7 @@ class QMenu;
 //! lower/rize mask in the stack, delete mask). If more than one MaskItem is selected,
 //! action will be applied to the whole selection, if possible.
 
-class MaskEditorActions : public QObject
-{
+class MaskEditorActions : public QObject {
     Q_OBJECT
 public:
     MaskEditorActions(QWidget* parent);

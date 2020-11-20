@@ -23,8 +23,7 @@ class QToolButton;
 //! The RealDataSelectorToolBar class represents a narrow toolbar on top of
 //! RealDataSelectorWidget (ImportDataView)
 
-class RealDataSelectorToolBar : public StyledToolBar
-{
+class RealDataSelectorToolBar : public StyledToolBar {
     Q_OBJECT
 public:
     RealDataSelectorToolBar(RealDataSelectorActions* actions, QWidget* parent = nullptr);

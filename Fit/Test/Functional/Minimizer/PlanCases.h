@@ -20,8 +20,7 @@
 
 //! Setting for standalone fit of Rosenbrock function.
 
-class RosenbrockPlan : public ScalarTestPlan
-{
+class RosenbrockPlan : public ScalarTestPlan {
 public:
     RosenbrockPlan();
 };
@@ -29,16 +28,14 @@ public:
 //! Setting for standalone fit of Rosenbrock function. Fit parameter limits
 //! are made small here to help stochastic minimizer to converge in reasonable time.
 
-class EasyRosenbrockPlan : public ScalarTestPlan
-{
+class EasyRosenbrockPlan : public ScalarTestPlan {
 public:
     EasyRosenbrockPlan();
 };
 
 //! Setting for standalone fit of WoodFour function.
 
-class WoodFourPlan : public ScalarTestPlan
-{
+class WoodFourPlan : public ScalarTestPlan {
 public:
     WoodFourPlan();
 };
@@ -46,8 +43,7 @@ public:
 //! Setting for standalone fit of WoodFour function. Fit parameter limits
 //! are made small here to help stochastic minimizer to converge in reasonable time.
 
-class EasyWoodFourPlan : public ScalarTestPlan
-{
+class EasyWoodFourPlan : public ScalarTestPlan {
 public:
     EasyWoodFourPlan();
 };
@@ -55,24 +51,21 @@ public:
 //! Settings for standalone fit using Minimizer's residual interface.
 //! "Decaying sin" objective function from lmfit tutorial is used.
 
-class DecayingSinPlan : public ResidualTestPlan
-{
+class DecayingSinPlan : public ResidualTestPlan {
 public:
     DecayingSinPlan();
 };
 
 //! Same as DecayingSinPlan with fewer fit parameters
 
-class DecayingSinPlanV2 : public ResidualTestPlan
-{
+class DecayingSinPlanV2 : public ResidualTestPlan {
 public:
     DecayingSinPlanV2();
 };
 
 //! Special plan to test TestMinimizer.
 
-class TestMinimizerPlan : public ScalarTestPlan
-{
+class TestMinimizerPlan : public ScalarTestPlan {
 public:
     TestMinimizerPlan();
 };

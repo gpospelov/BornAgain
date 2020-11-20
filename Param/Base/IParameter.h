@@ -25,8 +25,7 @@
 //! This class is templated on the data type of the wrapped parameter.
 //! @ingroup tools_internal
 
-template <class T> class IParameter
-{
+template <class T> class IParameter {
 public:
     IParameter() = delete;
     IParameter(const std::string& name, T* data, const std::string& parent_name,
@@ -39,8 +38,7 @@ public:
     virtual bool isNull() const { return m_data ? false : true; }
 
     T& getData() const { return *m_data; }
-    void setData(T& data)
-    {
+    void setData(T& data) {
         m_data = &data;
         m_onChange();
     }
@@ -61,16 +59,14 @@ protected:
 template <class T>
 IParameter<T>::IParameter(const std::string& name, T* data, const std::string& parent_name,
                           const std::function<void()>& onChange)
-    : m_name(name), m_data(data), m_parent_name(parent_name), m_onChange(onChange)
-{
+    : m_name(name), m_data(data), m_parent_name(parent_name), m_onChange(onChange) {
     if (!m_data)
         throw std::runtime_error("Attempt to construct an IParameter with null data pointer");
 }
 
 //! Returns true if two parameters are pointing to the same raw data.
 
-template <class T> bool IParameter<T>::hasSameData(const IParameter<T>& other)
-{
+template <class T> bool IParameter<T>::hasSameData(const IParameter<T>& other) {
     return &getData() == &other.getData();
 }
 

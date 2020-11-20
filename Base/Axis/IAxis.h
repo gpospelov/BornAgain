@@ -21,8 +21,7 @@
 //! Interface for one-dimensional axes.
 //! @ingroup tools_internal
 
-class IAxis
-{
+class IAxis {
 public:
     //! constructors
     IAxis(const std::string& name) : m_name(name) {}
@@ -66,8 +65,7 @@ public:
     bool operator==(const IAxis& right) const { return equals(right); }
     bool operator!=(const IAxis& right) const { return !(*this == right); }
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m)
-    {
+    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m) {
         m.print(ostr);
         return ostr;
     }
@@ -96,8 +94,7 @@ private:
 };
 
 //! global helper function for comparison of axes
-inline bool HaveSameNameAndShape(const IAxis& left, const IAxis& right)
-{
+inline bool HaveSameNameAndShape(const IAxis& left, const IAxis& right) {
     return left == right;
 }
 

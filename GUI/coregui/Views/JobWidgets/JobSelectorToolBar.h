@@ -23,8 +23,7 @@ class JobSelectorActions;
 
 //! Styled tool bar on top of JobSelector with run/remove job buttons.
 
-class JobSelectorToolBar : public StyledToolBar
-{
+class JobSelectorToolBar : public StyledToolBar {
     Q_OBJECT
 
 public:

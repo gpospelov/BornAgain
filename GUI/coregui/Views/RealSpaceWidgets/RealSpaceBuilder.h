@@ -25,8 +25,7 @@ class Shape3D;
 class SceneGeometry;
 class Particle3DContainer;
 
-class RealSpaceBuilder : public QWidget
-{
+class RealSpaceBuilder : public QWidget {
     Q_OBJECT
 
 public:

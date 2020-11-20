@@ -25,8 +25,7 @@ class ColorMap;
 
 //! Provides few helper functions for ColorMapPlot.
 
-namespace ColorMapUtils
-{
+namespace ColorMapUtils {
 
 QCPColorGradient getGradient(const QString& gradientName);
 QCPColorGradient itemGradient(const IntensityDataItem* item);

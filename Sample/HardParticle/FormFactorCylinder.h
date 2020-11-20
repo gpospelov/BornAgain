@@ -20,8 +20,7 @@
 //! A circular cylinder.
 //! @ingroup hardParticle
 
-class FormFactorCylinder : public IBornFF
-{
+class FormFactorCylinder : public IBornFF {
 public:
     FormFactorCylinder(const std::vector<double> P);
     FormFactorCylinder(double radius, double height);

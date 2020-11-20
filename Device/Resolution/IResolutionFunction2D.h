@@ -21,8 +21,7 @@
 //! Interface providing two-dimensional resolution function.
 //! @ingroup algorithms_internal
 
-class IResolutionFunction2D : public ICloneable, public INode
-{
+class IResolutionFunction2D : public ICloneable, public INode {
 public:
     IResolutionFunction2D() = default;
     IResolutionFunction2D(const NodeMeta& meta, const std::vector<double>& PValues);

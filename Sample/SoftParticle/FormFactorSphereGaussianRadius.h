@@ -21,14 +21,12 @@
 //! A sphere with gaussian radius distribution.
 //! @ingroup softParticle
 
-class FormFactorSphereGaussianRadius : public IBornFF
-{
+class FormFactorSphereGaussianRadius : public IBornFF {
 public:
     FormFactorSphereGaussianRadius(const std::vector<double> P);
     FormFactorSphereGaussianRadius(double mean, double sigma);
 
-    FormFactorSphereGaussianRadius* clone() const final
-    {
+    FormFactorSphereGaussianRadius* clone() const final {
         return new FormFactorSphereGaussianRadius(m_mean, m_sigma);
     }
 

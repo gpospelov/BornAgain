@@ -28,24 +28,19 @@ FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(const std::vector<double> P)
               P)
     , m_radius_x(m_P[0])
     , m_radius_y(m_P[1])
-    , m_height(m_P[2])
-{
+    , m_height(m_P[2]) {
     onChange();
 }
 
 FormFactorHemiEllipsoid::FormFactorHemiEllipsoid(double radius_x, double radius_y, double height)
-    : FormFactorHemiEllipsoid(std::vector<double>{radius_x, radius_y, height})
-{
-}
+    : FormFactorHemiEllipsoid(std::vector<double>{radius_x, radius_y, height}) {}
 
-double FormFactorHemiEllipsoid::radialExtension() const
-{
+double FormFactorHemiEllipsoid::radialExtension() const {
     return (m_radius_x + m_radius_y) / 2.0;
 }
 
 //! Integrand for complex form factor.
-complex_t FormFactorHemiEllipsoid::Integrand(double Z) const
-{
+complex_t FormFactorHemiEllipsoid::Integrand(double Z) const {
     double R = m_radius_x;
     double W = m_radius_y;
     double H = m_height;
@@ -62,8 +57,7 @@ complex_t FormFactorHemiEllipsoid::Integrand(double Z) const
     return Rz * Wz * J1_gamma_div_gamma * exp_I(m_q.z() * Z);
 }
 
-complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const
-{
+complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const {
     m_q = q;
     double R = m_radius_x;
     double W = m_radius_y;
@@ -74,7 +68,6 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const
     return M_TWOPI * ComplexIntegrator().integrate([&](double Z) { return Integrand(Z); }, 0., H);
 }
 
-void FormFactorHemiEllipsoid::onChange()
-{
+void FormFactorHemiEllipsoid::onChange() {
     m_shape = std::make_unique<TruncatedEllipsoid>(m_radius_x, m_radius_x, m_height, m_height, 0.0);
 }

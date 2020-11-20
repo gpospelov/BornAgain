@@ -22,8 +22,7 @@
 class SessionItem;
 
 //! parent class for graphic representation of all ISample's
-class IView : public QGraphicsObject
-{
+class IView : public QGraphicsObject {
     Q_OBJECT
 public:
     IView(QGraphicsItem* parent = 0);
@@ -52,13 +51,11 @@ protected:
     SessionItem* m_item;
 };
 
-inline int IView::type() const
-{
+inline int IView::type() const {
     return ViewTypes::IVIEW;
 }
 
-inline SessionItem* IView::getItem()
-{
+inline SessionItem* IView::getItem() {
     return m_item;
 }
 

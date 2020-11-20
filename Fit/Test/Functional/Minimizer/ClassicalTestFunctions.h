@@ -22,8 +22,7 @@
 //! @brief Collection of objective functions for minimization library testing.
 //! Borrowed from StressFit test framework of http://root.cern.ch.
 
-namespace TestFunctions
-{
+namespace TestFunctions {
 double RosenBrock(const std::vector<double>& par);
 double WoodFour(const std::vector<double>& par);
 double DecayingSin(double x, const std::vector<double>& par);

@@ -24,8 +24,7 @@ class Data1DViewItem;
 class JobItem;
 template <class T> class OutputData;
 
-namespace DataViewUtils
-{
+namespace DataViewUtils {
 void updateAxesTitle(Data1DViewItem* view_item);
 
 std::unique_ptr<OutputData<double>> getTranslatedData(Data1DViewItem* view_item,

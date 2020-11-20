@@ -18,11 +18,9 @@
 //! Base class for singletons.
 //! @ingroup tools_internal
 
-template <class T> class ISingleton
-{
+template <class T> class ISingleton {
 public:
-    static T& instance()
-    {
+    static T& instance() {
         static T m_instance;
         return m_instance;
     }

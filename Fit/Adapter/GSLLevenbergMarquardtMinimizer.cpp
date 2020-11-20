@@ -30,11 +30,9 @@
 #pragma GCC diagnostic pop
 #endif
 
-namespace
-{
+namespace {
 
-std::map<int, std::string> covmatrixStatusDescription()
-{
+std::map<int, std::string> covmatrixStatusDescription() {
     std::map<int, std::string> result;
     result[0] = "Covariance matrix was not computed";
     result[1] = "Covariance matrix approximate because minimum is not valid";
@@ -46,8 +44,7 @@ std::map<int, std::string> covmatrixStatusDescription()
 
 GSLLevenbergMarquardtMinimizer::GSLLevenbergMarquardtMinimizer()
     : MinimizerAdapter(MinimizerInfo::buildGSLLMAInfo())
-    , m_gsl_minimizer(new ROOT::Math::GSLNLSMinimizer(2))
-{
+    , m_gsl_minimizer(new ROOT::Math::GSLNLSMinimizer(2)) {
     addOption("Tolerance", 0.01, "Tolerance on the function value at the minimum");
     addOption("PrintLevel", 0, "Minimizer internal print level");
     addOption("MaxIterations", 0, "Maximum number of iterations");
@@ -55,43 +52,35 @@ GSLLevenbergMarquardtMinimizer::GSLLevenbergMarquardtMinimizer()
 
 GSLLevenbergMarquardtMinimizer::~GSLLevenbergMarquardtMinimizer() = default;
 
-void GSLLevenbergMarquardtMinimizer::setTolerance(double value)
-{
+void GSLLevenbergMarquardtMinimizer::setTolerance(double value) {
     setOptionValue("Tolerance", value);
 }
 
-double GSLLevenbergMarquardtMinimizer::tolerance() const
-{
+double GSLLevenbergMarquardtMinimizer::tolerance() const {
     return optionValue<double>("Tolerance");
 }
 
-void GSLLevenbergMarquardtMinimizer::setPrintLevel(int value)
-{
+void GSLLevenbergMarquardtMinimizer::setPrintLevel(int value) {
     setOptionValue("PrintLevel", value);
 }
 
-int GSLLevenbergMarquardtMinimizer::printLevel() const
-{
+int GSLLevenbergMarquardtMinimizer::printLevel() const {
     return optionValue<int>("PrintLevel");
 }
 
-void GSLLevenbergMarquardtMinimizer::setMaxIterations(int value)
-{
+void GSLLevenbergMarquardtMinimizer::setMaxIterations(int value) {
     setOptionValue("MaxIterations", value);
 }
 
-int GSLLevenbergMarquardtMinimizer::maxIterations() const
-{
+int GSLLevenbergMarquardtMinimizer::maxIterations() const {
     return optionValue<int>("MaxIterations");
 }
 
-std::string GSLLevenbergMarquardtMinimizer::statusToString() const
-{
+std::string GSLLevenbergMarquardtMinimizer::statusToString() const {
     return mumufit::utils::gslErrorDescription(rootMinimizer()->Status());
 }
 
-std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() const
-{
+std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() const {
     auto result = MinimizerAdapter::statusMap();
     result["Edm"] = mumufit::stringUtils::scientific(rootMinimizer()->Edm());
     result["CovMatrixStatus"] = covmatrixStatusDescription()[rootMinimizer()->CovMatrixStatus()];
@@ -99,20 +88,18 @@ std::map<std::string, std::string> GSLLevenbergMarquardtMinimizer::statusMap() c
     return result;
 }
 
-void GSLLevenbergMarquardtMinimizer::propagateOptions()
-{
+void GSLLevenbergMarquardtMinimizer::propagateOptions() {
     m_gsl_minimizer->SetTolerance(tolerance());
     m_gsl_minimizer->SetPrintLevel(printLevel());
     m_gsl_minimizer->SetMaxIterations(static_cast<unsigned int>(maxIterations()));
 }
 
-const MinimizerAdapter::root_minimizer_t* GSLLevenbergMarquardtMinimizer::rootMinimizer() const
-{
+const MinimizerAdapter::root_minimizer_t* GSLLevenbergMarquardtMinimizer::rootMinimizer() const {
     return m_gsl_minimizer.get();
 }
 
-void GSLLevenbergMarquardtMinimizer::setParameter(unsigned int index, const mumufit::Parameter& par)
-{
+void GSLLevenbergMarquardtMinimizer::setParameter(unsigned int index,
+                                                  const mumufit::Parameter& par) {
     auto limits = par.limits();
     if (!limits.isLimitless() && !limits.isFixed())
         throw std::runtime_error("GSLLMA minimizer can't handle limited parameters."

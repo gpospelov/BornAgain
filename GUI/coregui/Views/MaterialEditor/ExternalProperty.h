@@ -24,8 +24,7 @@
 //! The ExternalProperty class defines custom QVariant property to carry the text, color and
 //! an identifier.
 
-class ExternalProperty
-{
+class ExternalProperty {
 public:
     explicit ExternalProperty();
 

@@ -28,11 +28,9 @@
 
 #include <fstream>
 
-namespace
-{
+namespace {
 
-std::stringstream getFromFilteredStream(std::istream& input_stream, const std::string& fname)
-{
+std::stringstream getFromFilteredStream(std::istream& input_stream, const std::string& fname) {
     boost::iostreams::filtering_streambuf<boost::iostreams::input> input_filtered;
     if (DataFormatUtils::isGZipped(fname))
         input_filtered.push(boost::iostreams::gzip_decompressor());
@@ -49,8 +47,7 @@ std::stringstream getFromFilteredStream(std::istream& input_stream, const std::s
 
 OutputDataReader::OutputDataReader(const std::string& file_name) : m_file_name(file_name) {}
 
-OutputData<double>* OutputDataReader::getOutputData()
-{
+OutputData<double>* OutputDataReader::getOutputData() {
     using namespace DataFormatUtils;
     if (!m_read_strategy)
         throw Exceptions::NullPointerException(
@@ -82,7 +79,6 @@ OutputData<double>* OutputDataReader::getOutputData()
     return result;
 }
 
-void OutputDataReader::setStrategy(IOutputDataReadStrategy* read_strategy)
-{
+void OutputDataReader::setStrategy(IOutputDataReadStrategy* read_strategy) {
     m_read_strategy.reset(read_strategy);
 }

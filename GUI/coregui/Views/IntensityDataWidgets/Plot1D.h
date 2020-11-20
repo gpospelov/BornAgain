@@ -29,8 +29,7 @@ class UpdateTimer;
 //! Data1DViewItem. Provides minimal functionality for data plotting and axes interaction. Should be
 //! a component for more complicated plotting widgets.
 
-class Plot1D : public ScientificPlot
-{
+class Plot1D : public ScientificPlot {
     Q_OBJECT
 
 public:

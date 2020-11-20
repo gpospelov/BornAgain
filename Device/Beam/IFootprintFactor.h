@@ -24,8 +24,7 @@ class Beam;
 //! Abstract base for classes that calculate the beam footprint factor
 //! @ingroup beam
 
-class IFootprintFactor : public ICloneable, public INode
-{
+class IFootprintFactor : public ICloneable, public INode {
 public:
     IFootprintFactor(const NodeMeta& meta, const std::vector<double>& PValues);
     IFootprintFactor() = delete;
@@ -49,8 +48,7 @@ private:
     void initialize();
 };
 
-inline std::ostream& operator<<(std::ostream& os, const IFootprintFactor& f_factor)
-{
+inline std::ostream& operator<<(std::ostream& os, const IFootprintFactor& f_factor) {
     return os << f_factor.print();
 }
 

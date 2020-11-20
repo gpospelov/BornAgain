@@ -17,8 +17,7 @@
 
 #include <QString>
 
-namespace Constants
-{
+namespace Constants {
 
 // general application settings
 const char APPLICATION_NAME[] = "BornAgain";

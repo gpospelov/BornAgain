@@ -15,13 +15,11 @@
 #include "Device/Instrument/PyArrayImportUtils.h"
 #include "Device/Intensity/ArrayUtils.h"
 
-OutputData<double>* PyArrayImport::importArrayToOutputData(const std::vector<double>& vec)
-{
+OutputData<double>* PyArrayImport::importArrayToOutputData(const std::vector<double>& vec) {
     return ArrayUtils::createData(vec).release();
 }
 
 OutputData<double>*
-PyArrayImport::importArrayToOutputData(const std::vector<std::vector<double>>& vec)
-{
+PyArrayImport::importArrayToOutputData(const std::vector<std::vector<double>>& vec) {
     return ArrayUtils::createData(vec).release();
 }

@@ -24,8 +24,7 @@ class ISampleBuilder;
 //! Used by SampleProvider.
 //! @ingroup simulation_internal
 
-class SampleBuilderNode : public INode
-{
+class SampleBuilderNode : public INode {
 public:
     SampleBuilderNode();
     SampleBuilderNode(const SampleBuilderNode& other);

@@ -20,8 +20,7 @@
 //! Builds sample: cosine ripple within the 1D-paracrystal model.
 //! @ingroup standard_samples
 
-class CosineRippleBuilder : public ISampleBuilder
-{
+class CosineRippleBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -29,8 +28,7 @@ public:
 //! Builds sample: triangular ripple within the 1D-paracrystal model (from PRB 85, 235415, 2012).
 //! @ingroup standard_samples
 
-class TriangularRippleBuilder : public ISampleBuilder
-{
+class TriangularRippleBuilder : public ISampleBuilder {
 public:
     TriangularRippleBuilder();
     MultiLayer* buildSample() const;
@@ -39,8 +37,7 @@ private:
     double m_d;
 };
 
-class AsymRippleBuilder : public ISampleBuilder
-{
+class AsymRippleBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

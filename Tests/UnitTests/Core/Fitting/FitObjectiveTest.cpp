@@ -2,12 +2,9 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include "Tests/UnitTests/Core/Fitting/FittingTestHelper.h"
 
-class FitObjectiveTest : public ::testing::Test
-{
-};
+class FitObjectiveTest : public ::testing::Test {};
 
-TEST_F(FitObjectiveTest, twoDatasets)
-{
+TEST_F(FitObjectiveTest, twoDatasets) {
     // creating two simulation builders
     FittingTestHelper helper1(2, 3);
     simulation_builder_t builder1 = [&](const mumufit::Parameters& pars) {

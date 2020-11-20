@@ -25,8 +25,7 @@ class QMenu;
 
 //! Styled tool bar on top of InstrumentView with add/remove/clone instrument buttons.
 
-class InstrumentViewToolBar : public StyledToolBar
-{
+class InstrumentViewToolBar : public StyledToolBar {
     Q_OBJECT
 
 public:

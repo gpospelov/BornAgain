@@ -29,8 +29,7 @@ class QAction;
 //! The FitComparisonWidget class plots realdata, simulated data and relative difference map
 //! during the course of the fit.
 
-class FitComparisonWidget1D : public SessionItemWidget
-{
+class FitComparisonWidget1D : public SessionItemWidget {
     Q_OBJECT
 public:
     explicit FitComparisonWidget1D(QWidget* parent = nullptr);

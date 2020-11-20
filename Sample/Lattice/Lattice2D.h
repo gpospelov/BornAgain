@@ -18,8 +18,7 @@
 #include "Base/Types/ICloneable.h"
 #include "Param/Node/INode.h"
 
-class Lattice2D : public ICloneable, public INode
-{
+class Lattice2D : public ICloneable, public INode {
 public:
     Lattice2D(const NodeMeta& meta, const std::vector<double>& PValues);
     explicit Lattice2D(double xi);
@@ -47,8 +46,7 @@ protected:
     double m_xi;
 };
 
-class BasicLattice2D : public Lattice2D
-{
+class BasicLattice2D : public Lattice2D {
 public:
     BasicLattice2D(double length1, double length2, double angle, double xi);
 
@@ -66,8 +64,7 @@ private:
     double m_angle;
 };
 
-class SquareLattice2D : public Lattice2D
-{
+class SquareLattice2D : public Lattice2D {
 public:
     SquareLattice2D(double length, double xi = 0.0);
 
@@ -84,8 +81,7 @@ private:
     double m_length;
 };
 
-class HexagonalLattice2D : public Lattice2D
-{
+class HexagonalLattice2D : public Lattice2D {
 public:
     HexagonalLattice2D(double length, double xi);
 

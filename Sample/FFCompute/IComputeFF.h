@@ -31,8 +31,7 @@ class WavevectorInfo;
 
 //! @ingroup formfactors_internal
 
-class IComputeFF
-{
+class IComputeFF {
 
 public:
     IComputeFF() = delete;

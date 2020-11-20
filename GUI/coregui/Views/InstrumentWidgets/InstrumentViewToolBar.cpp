@@ -22,8 +22,7 @@ InstrumentViewToolBar::InstrumentViewToolBar(InstrumentViewActions* actions, QWi
     , m_addInstrumentButton(new QToolButton)
     , m_removeInstrumentButton(new QToolButton)
     , m_cloneInstrumentButton(new QToolButton)
-    , m_addInstrumentMenu(actions->instrumentMenu())
-{
+    , m_addInstrumentMenu(actions->instrumentMenu()) {
     m_addInstrumentButton->setText("Add");
     m_addInstrumentButton->setIcon(QIcon(":/images/shape-square-plus.svg"));
     m_addInstrumentButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -53,7 +52,6 @@ InstrumentViewToolBar::InstrumentViewToolBar(InstrumentViewActions* actions, QWi
             &InstrumentViewActions::onCloneInstrument);
 }
 
-void InstrumentViewToolBar::onAddInstrument()
-{
+void InstrumentViewToolBar::onAddInstrument() {
     m_addInstrumentMenu->defaultAction()->triggered();
 }

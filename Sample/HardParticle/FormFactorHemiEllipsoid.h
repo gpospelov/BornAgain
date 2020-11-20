@@ -21,15 +21,13 @@
 //!   obtained by truncating a full ellipsoid in the middle plane spanned by two principal axes.
 //! @ingroup hardParticle
 
-class FormFactorHemiEllipsoid : public IBornFF
-{
+class FormFactorHemiEllipsoid : public IBornFF {
 public:
     FormFactorHemiEllipsoid(const std::vector<double> P);
     FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
     virtual ~FormFactorHemiEllipsoid() {}
 
-    FormFactorHemiEllipsoid* clone() const final
-    {
+    FormFactorHemiEllipsoid* clone() const final {
         return new FormFactorHemiEllipsoid(m_radius_x, m_radius_y, m_height);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

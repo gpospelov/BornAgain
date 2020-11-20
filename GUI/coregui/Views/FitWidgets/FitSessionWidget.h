@@ -31,8 +31,7 @@ class JobMessagePanel;
 //! Contains all fit settings for given JobItem (fit parameters,
 //! minimizer settings). Controlled by FitActivityPanel.
 
-class FitSessionWidget : public QWidget
-{
+class FitSessionWidget : public QWidget {
     Q_OBJECT
 
 public:

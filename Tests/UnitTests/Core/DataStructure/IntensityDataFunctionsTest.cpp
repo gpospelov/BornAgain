@@ -2,12 +2,9 @@
 #include "Base/Axis/VariableBinAxis.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class IntensityDataFunctionsTest : public ::testing::Test
-{
-};
+class IntensityDataFunctionsTest : public ::testing::Test {};
 
-TEST_F(IntensityDataFunctionsTest, ClipDataSetFixed)
-{
+TEST_F(IntensityDataFunctionsTest, ClipDataSetFixed) {
     OutputData<double> data;
     FixedBinAxis axis0("axis0", 10, -5.0, 5.0);
     data.addAxis(axis0);
@@ -25,8 +22,7 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetFixed)
         EXPECT_EQ(vref[index++], (*clip)[i]);
 }
 
-TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
-{
+TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable) {
     static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values(arr, arr + sizeof(arr) / sizeof(arr[0]));
 
@@ -47,8 +43,7 @@ TEST_F(IntensityDataFunctionsTest, ClipDataSetVariable)
         EXPECT_EQ(vref[index++], (*clip)[i]);
 }
 
-TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
-{
+TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet) {
     OutputData<double> input_data;
     input_data.addAxis("axis0", 2, 1.0, 2.0);
     input_data.addAxis("axis1", 3, 3.0, 4.0);
@@ -104,8 +99,7 @@ TEST_F(IntensityDataFunctionsTest, createRearrangedDataSet)
     EXPECT_EQ(input_data[2], (*output_data)[5]);
 }
 
-TEST_F(IntensityDataFunctionsTest, coordinateToFromBinf)
-{
+TEST_F(IntensityDataFunctionsTest, coordinateToFromBinf) {
     FixedBinAxis axis("axis", 8, -5.0, 3.0);
     EXPECT_EQ(0.5, IntensityDataFunctions::coordinateToBinf(-4.5, axis));
     EXPECT_EQ(-4.5, IntensityDataFunctions::coordinateFromBinf(0.5, axis));
@@ -126,8 +120,7 @@ TEST_F(IntensityDataFunctionsTest, coordinateToFromBinf)
 //! Transformation of coordinates from one OutputData to another using conversion from axes
 //! coordinates to bin-fraction-coordinates and then to another axes coordinates.
 
-TEST_F(IntensityDataFunctionsTest, outputDataCoordinatesToFromBinf)
-{
+TEST_F(IntensityDataFunctionsTest, outputDataCoordinatesToFromBinf) {
     OutputData<double> data1;
     data1.addAxis("axis0", 8, -5.0, 3.0);
     data1.addAxis("axis1", 3, 2.0, 5.0);
@@ -150,8 +143,7 @@ TEST_F(IntensityDataFunctionsTest, outputDataCoordinatesToFromBinf)
     EXPECT_DOUBLE_EQ(y, 21.0);
 }
 
-TEST_F(IntensityDataFunctionsTest, create2DArrayfromOutputDataTest)
-{
+TEST_F(IntensityDataFunctionsTest, create2DArrayfromOutputDataTest) {
     OutputData<double> out_data;
     out_data.addAxis("axis0", 2, 1.0, 2.0);
     out_data.addAxis("axis1", 3, 3.0, 4.0);
@@ -180,8 +172,7 @@ TEST_F(IntensityDataFunctionsTest, create2DArrayfromOutputDataTest)
     EXPECT_EQ(array_expected_2d, array_2d);
 }
 
-TEST_F(IntensityDataFunctionsTest, createOutputDatafrom2DArrayTest)
-{
+TEST_F(IntensityDataFunctionsTest, createOutputDatafrom2DArrayTest) {
     std::vector<double> arr_in{1, 2, 3, 4, 5, 6};
     std::vector<std::vector<double>> array_2d{{arr_in[0], arr_in[1], arr_in[2]},
                                               {arr_in[3], arr_in[4], arr_in[5]}};

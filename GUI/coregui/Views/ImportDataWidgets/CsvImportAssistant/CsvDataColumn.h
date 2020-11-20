@@ -18,8 +18,7 @@
 #include "Device/Unit/IUnitConverter.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvNamespace.h"
 
-class CsvIntensityColumn
-{
+class CsvIntensityColumn {
 public:
     // Constructors:
     CsvIntensityColumn();
@@ -43,8 +42,7 @@ private:
     csv::DataColumn m_values;
 };
 
-class CsvCoordinateColumn : public CsvIntensityColumn
-{
+class CsvCoordinateColumn : public CsvIntensityColumn {
 public:
     // Constructors:
     CsvCoordinateColumn();

@@ -34,8 +34,7 @@ class MultiLayer;
 //! weighting over parameter distributions, ...
 //! @ingroup simulation
 
-class ISimulation : public ICloneable, public INode
-{
+class ISimulation : public ICloneable, public INode {
 public:
     ISimulation();
     virtual ~ISimulation();

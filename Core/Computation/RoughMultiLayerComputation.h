@@ -24,8 +24,7 @@ class SimulationElement;
 //! Used by DWBAComputation.
 //! @ingroup algorithms_internal
 
-class RoughMultiLayerComputation final
-{
+class RoughMultiLayerComputation final {
 public:
     RoughMultiLayerComputation(const ProcessedSample* p_sample);
 

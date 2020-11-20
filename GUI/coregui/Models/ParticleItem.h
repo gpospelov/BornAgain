@@ -19,8 +19,7 @@
 
 class Particle;
 
-class BA_CORE_API_ ParticleItem : public SessionGraphicsItem
-{
+class BA_CORE_API_ ParticleItem : public SessionGraphicsItem {
 public:
     static const QString P_FORM_FACTOR;
     static const QString P_ABUNDANCE;

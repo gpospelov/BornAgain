@@ -28,8 +28,7 @@ class FilterPropertyProxy;
 class ApplicationModels;
 
 //! sample designer interface
-class SampleDesignerInterface : public QObject
-{
+class SampleDesignerInterface : public QObject {
     Q_OBJECT
 
 public:
@@ -41,8 +40,7 @@ public:
 };
 
 //! sample designer provide central window with graphic scene to drag and drop
-class SampleDesigner : public SampleDesignerInterface
-{
+class SampleDesigner : public SampleDesignerInterface {
     Q_OBJECT
 
 public:

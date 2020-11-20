@@ -21,8 +21,7 @@
 #include "GUI/coregui/Views/SpecularDataWidgets/SpecularDataWidget.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-namespace
-{
+namespace {
 // Will switch to the presentation which was used before for given item
 const bool use_job_last_presentation = true;
 
@@ -50,8 +49,7 @@ const std::map<QString, QStringList> default_active_presentation_list{
 
 template <class QStringObj>
 QStringObj getPresentations(const SessionItem* job_item,
-                            const std::map<QString, QStringObj>& presentation_map)
-{
+                            const std::map<QString, QStringObj>& presentation_map) {
     const QString& instrument_type = job_item->getItem(JobItem::T_INSTRUMENT)->modelType();
     const auto list_iter = presentation_map.find(instrument_type);
     if (list_iter == presentation_map.cend())
@@ -60,8 +58,7 @@ QStringObj getPresentations(const SessionItem* job_item,
 }
 } // namespace
 
-JobResultsPresenter::JobResultsPresenter(QWidget* parent) : ItemComboWidget(parent)
-{
+JobResultsPresenter::JobResultsPresenter(QWidget* parent) : ItemComboWidget(parent) {
     registerWidget("Color Map", create_new<IntensityDataWidget>);
 
     registerWidget("Projections", create_new<IntensityDataProjectionsWidget>);
@@ -72,8 +69,7 @@ JobResultsPresenter::JobResultsPresenter(QWidget* parent) : ItemComboWidget(pare
     registerWidget("Reflectometry", create_new<SpecularDataWidget>);
 }
 
-QString JobResultsPresenter::itemPresentation() const
-{
+QString JobResultsPresenter::itemPresentation() const {
     if (!currentItem())
         return {};
 
@@ -81,8 +77,7 @@ QString JobResultsPresenter::itemPresentation() const
     return use_job_last_presentation && value.isValid() ? value.toString() : selectedPresentation();
 }
 
-void JobResultsPresenter::setPresentation(const QString& presentationType)
-{
+void JobResultsPresenter::setPresentation(const QString& presentationType) {
     if (!currentItem())
         return;
 
@@ -90,8 +85,7 @@ void JobResultsPresenter::setPresentation(const QString& presentationType)
     currentItem()->setItemValue(JobItem::P_PRESENTATION_TYPE, presentationType);
 }
 
-void JobResultsPresenter::setPresentation(JobViewFlags::EActivities activity)
-{
+void JobResultsPresenter::setPresentation(JobViewFlags::EActivities activity) {
     if (!currentItem())
         return;
 
@@ -105,8 +99,7 @@ void JobResultsPresenter::setPresentation(JobViewFlags::EActivities activity)
 //! Returns list of presentation types, available for given item. JobItem with fitting abilities
 //! is valid for IntensityDataWidget and FitComparisonWidget.
 
-QStringList JobResultsPresenter::activePresentationList(SessionItem* item)
-{
+QStringList JobResultsPresenter::activePresentationList(SessionItem* item) {
     auto result = getPresentations(item, default_active_presentation_list);
 
     auto job_item = dynamic_cast<JobItem*>(item);
@@ -116,8 +109,7 @@ QStringList JobResultsPresenter::activePresentationList(SessionItem* item)
     return result;
 }
 
-QStringList JobResultsPresenter::presentationList(SessionItem* item)
-{
+QStringList JobResultsPresenter::presentationList(SessionItem* item) {
     auto result = getPresentations(item, default_active_presentation_list);
     auto addon = getPresentations(item, instrument_to_fit_presentaion);
     if (!addon.isEmpty())

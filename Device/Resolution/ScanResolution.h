@@ -25,8 +25,7 @@ class RangedDistribution;
 class RealLimits;
 
 //! Container for reflectivity resolution data.
-class ScanResolution : public ICloneable
-{
+class ScanResolution : public ICloneable {
 protected:
     using DistrOutput = std::vector<std::vector<ParameterSample>>;
 
@@ -64,8 +63,7 @@ private:
     std::unique_ptr<RangedDistribution> m_distr; //!< basic distribution function
 };
 
-inline std::ostream& operator<<(std::ostream& os, const ScanResolution& scan_resolution)
-{
+inline std::ostream& operator<<(std::ostream& os, const ScanResolution& scan_resolution) {
     return os << scan_resolution.print();
 }
 

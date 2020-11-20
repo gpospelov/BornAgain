@@ -19,15 +19,13 @@
 #include "GUI/ba3d/view/camera.h"
 #include <QVector>
 
-namespace RealSpace
-{
+namespace RealSpace {
 //------------------------------------------------------------------------------
 
 class Canvas;
 class Object;
 
-class Model : public QObject
-{
+class Model : public QObject {
     Q_OBJECT
     friend class Canvas;
     friend class Camera;

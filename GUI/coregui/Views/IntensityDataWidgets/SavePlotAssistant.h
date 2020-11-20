@@ -24,11 +24,9 @@ template <class T> class OutputData;
 //! Assistant class which contains all logic for saving IntensityData to various formats
 //! from IntensityDataPlotWidget.
 
-class SavePlotAssistant
-{
+class SavePlotAssistant {
 public:
-    class Format
-    {
+    class Format {
     public:
         Format() {}
         Format(const QString& file_extention, const QString& filter);

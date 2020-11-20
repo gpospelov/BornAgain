@@ -26,8 +26,7 @@ class JobMessagePanel;
 
 //! Handles all activity related to the simultaneous running of fitting jobs.
 
-class FitSessionManager : public QObject
-{
+class FitSessionManager : public QObject {
     Q_OBJECT
 public:
     FitSessionManager(QObject* parent = nullptr);

@@ -8,8 +8,7 @@
 #include "Device/Data/OutputData.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class UnitConverter1DTest : public ::testing::Test
-{
+class UnitConverter1DTest : public ::testing::Test {
 public:
     UnitConverter1DTest();
 
@@ -28,12 +27,9 @@ UnitConverter1DTest::UnitConverter1DTest()
     : m_axis("Angles", 5, 0.5, 1.0)     // angles in radians
     , m_q_axis("Q values", 5, 0.0, 1.0) // q axis in inv. nm
     , m_qscan(m_q_axis)
-    , m_beam(Beam::horizontalBeam())
-{
-}
+    , m_beam(Beam::horizontalBeam()) {}
 
-void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test_object)
-{
+void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test_object) {
     double expected_min = m_axis.binCenter(0);
     EXPECT_NEAR(test_object.calculateMin(0, Axes::Units::DEFAULT), Units::rad2deg(expected_min),
                 Units::rad2deg(expected_min) * 1e-10);
@@ -113,8 +109,7 @@ void UnitConverter1DTest::checkConventionalConverter(const UnitConverter1D& test
     }
 }
 
-void UnitConverter1DTest::checkQSpecConverter(const UnitConverter1D& test_object)
-{
+void UnitConverter1DTest::checkQSpecConverter(const UnitConverter1D& test_object) {
     double expected_min = m_q_axis.binCenter(0);
     EXPECT_EQ(test_object.calculateMin(0, Axes::Units::DEFAULT), expected_min);
     EXPECT_NEAR(test_object.calculateMin(0, Axes::Units::NBINS), 0.0, 1e-10);
@@ -181,14 +176,12 @@ void UnitConverter1DTest::checkQSpecConverter(const UnitConverter1D& test_object
     }
 }
 
-TEST_F(UnitConverter1DTest, MainFunctionality)
-{
+TEST_F(UnitConverter1DTest, MainFunctionality) {
     checkConventionalConverter(UnitConverterConvSpec(m_beam, m_axis));
     checkQSpecConverter(UnitConverterQSpec(m_qscan));
 }
 
-TEST_F(UnitConverter1DTest, Exceptions)
-{
+TEST_F(UnitConverter1DTest, Exceptions) {
     UnitConverterConvSpec converter(m_beam, m_axis);
 
     EXPECT_THROW(converter.calculateMin(0, Axes::Units::MM), std::runtime_error);
@@ -219,8 +212,7 @@ TEST_F(UnitConverter1DTest, Exceptions)
     EXPECT_THROW(converter2.createConvertedAxis(1, Axes::Units::DEFAULT), std::runtime_error);
 }
 
-TEST_F(UnitConverter1DTest, Clone)
-{
+TEST_F(UnitConverter1DTest, Clone) {
     UnitConverterConvSpec converter(m_beam, m_axis);
     std::unique_ptr<UnitConverter1D> converter_clone(converter.clone());
     checkConventionalConverter(*converter_clone);
@@ -230,8 +222,7 @@ TEST_F(UnitConverter1DTest, Clone)
     checkQSpecConverter(*converterQ_clone);
 }
 
-TEST_F(UnitConverter1DTest, NonDefaultUnitsInInput)
-{
+TEST_F(UnitConverter1DTest, NonDefaultUnitsInInput) {
     PointwiseAxis axis("x", std::vector<double>{0.0, 0.5, 1.0});
 
     EXPECT_THROW(UnitConverterConvSpec(m_beam, axis, Axes::Units::NBINS), std::runtime_error);

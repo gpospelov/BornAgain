@@ -25,8 +25,7 @@ class MultiLayer;
 
 //! Assists in importing Python object to GUI models.
 
-class PyImportAssistant : public QObject
-{
+class PyImportAssistant : public QObject {
     Q_OBJECT
 public:
     PyImportAssistant(MainWindow* mainwin);

@@ -25,8 +25,7 @@ class QShortcut;
 
 //! Class to handle MainWindow's menu and corresponding actions
 
-class ActionManager : public QObject
-{
+class ActionManager : public QObject {
     Q_OBJECT
 public:
     ActionManager(MainWindow* parent);

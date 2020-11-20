@@ -22,8 +22,7 @@ class Crystal;
 //! A particle with an internal structure of smaller particles.
 //! @ingroup samples
 
-class MesoCrystal : public IParticle
-{
+class MesoCrystal : public IParticle {
 public:
     MesoCrystal(const Crystal& particle_structure, const IFormFactor& form_factor);
 

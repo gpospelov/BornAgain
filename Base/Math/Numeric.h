@@ -19,8 +19,7 @@
 
 //! Floating-point approximations.
 
-namespace Numeric
-{
+namespace Numeric {
 
 double GetAbsoluteDifference(double a, double b);
 

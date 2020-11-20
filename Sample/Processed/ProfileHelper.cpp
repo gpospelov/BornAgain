@@ -16,23 +16,19 @@
 #include "Sample/Processed/ProcessedSample.h"
 #include "Sample/Slice/LayerRoughness.h"
 
-namespace
-{
+namespace {
 const double prefactor = std::sqrt(2.0 / M_PI);
-double TransitionTanh(double x)
-{
+double TransitionTanh(double x) {
     return (1.0 - std::tanh(prefactor * x)) / 2.0;
 }
-double Transition(double x, double sigma)
-{
+double Transition(double x, double sigma) {
     if (sigma <= 0.0)
         return x < 0.0 ? 1.0 : 0.0;
     return TransitionTanh(x / sigma);
 }
 } // namespace
 
-ProfileHelper::ProfileHelper(const ProcessedSample& sample)
-{
+ProfileHelper::ProfileHelper(const ProcessedSample& sample) {
     auto N = sample.numberOfSlices();
     m_materialdata.reserve(N);
     if (N > 1) {
@@ -58,8 +54,7 @@ ProfileHelper::~ProfileHelper() = default;
 // Note: for refractive index materials, the material interpolation actually happens at the level
 // of n^2. To first order in delta and beta, this implies the same smooth interpolation of delta
 // and beta, as is done here.
-std::vector<complex_t> ProfileHelper::calculateProfile(const std::vector<double>& z_values) const
-{
+std::vector<complex_t> ProfileHelper::calculateProfile(const std::vector<double>& z_values) const {
     complex_t top_value = m_materialdata.size() ? m_materialdata[0] : 0.0;
     std::vector<complex_t> result(z_values.size(), top_value);
     for (size_t i = 0; i < m_zlimits.size(); ++i) {
@@ -73,8 +68,7 @@ std::vector<complex_t> ProfileHelper::calculateProfile(const std::vector<double>
     return result;
 }
 
-std::pair<double, double> ProfileHelper::defaultLimits() const
-{
+std::pair<double, double> ProfileHelper::defaultLimits() const {
     if (m_zlimits.size() < 1)
         return {0.0, 0.0};
     double interface_span = m_zlimits.front() - m_zlimits.back();

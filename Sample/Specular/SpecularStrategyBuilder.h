@@ -18,8 +18,7 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Specular/ISpecularStrategy.h"
 
-class SpecularStrategyBuilder
-{
+class SpecularStrategyBuilder {
 
 public:
     static std::unique_ptr<ISpecularStrategy> build(const MultiLayer& sample, const bool magnetic);

@@ -26,8 +26,7 @@ class InstrumentSelectorWidget;
 class InstrumentEditorWidget;
 class InstrumentModel;
 
-class InstrumentView : public QWidget
-{
+class InstrumentView : public QWidget {
     Q_OBJECT
 
 public:

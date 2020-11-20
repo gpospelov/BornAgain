@@ -23,8 +23,7 @@ class ComponentFlatView;
 //! Holds widgets related to the setup of simulation/job options (nthreads, run policy,
 //! computation method). Part of SimulationView/SimulationSetupWidet
 
-class SimulationOptionsWidget : public QWidget
-{
+class SimulationOptionsWidget : public QWidget {
     Q_OBJECT
 
 public:

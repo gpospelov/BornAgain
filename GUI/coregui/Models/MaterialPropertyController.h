@@ -24,8 +24,7 @@ class SessionItem;
 //! Listens MaterialModel for changes in MaterialItems and then
 //! updates MaterialProperties in all related items in SampleModel.
 
-class MaterialPropertyController : public QObject
-{
+class MaterialPropertyController : public QObject {
     Q_OBJECT
 public:
     MaterialPropertyController(QObject* parent = nullptr);

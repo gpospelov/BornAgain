@@ -3,12 +3,9 @@
 #include "Base/Vector/Vectors3D.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class CVectorTest : public ::testing::Test
-{
-};
+class CVectorTest : public ::testing::Test {};
 
-TEST_F(CVectorTest, TrivialOperations)
-{
+TEST_F(CVectorTest, TrivialOperations) {
     kvector_t vec_k(1., 2., 3.);
     EXPECT_EQ(vec_k.complex().z(), complex_t(3., 0.));
 
@@ -17,8 +14,7 @@ TEST_F(CVectorTest, TrivialOperations)
     EXPECT_DOUBLE_EQ(vec_c.mag(), 8.);
 }
 
-TEST_F(CVectorTest, BasicArithmetics)
-{
+TEST_F(CVectorTest, BasicArithmetics) {
     // Dot product with "Eigen" library
     Eigen::Vector3cd va(complex_t(1., 0.), complex_t(2., 0.), complex_t(3., 0.));
     Eigen::Vector3cd vc(complex_t(1., 1.), complex_t(2., -5.), complex_t(3., 4.));

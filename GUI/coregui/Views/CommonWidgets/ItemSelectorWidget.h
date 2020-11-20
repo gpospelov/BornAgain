@@ -30,8 +30,7 @@ class SessionDecorationModel;
 //! The ItemSelectorWidget class holds QListView to show top level items of SessionModel.
 //! Used in InstrumentView, ImportDataView, JobSelectorView to switch between items.
 
-class ItemSelectorWidget : public QWidget
-{
+class ItemSelectorWidget : public QWidget {
     Q_OBJECT
 
 public:

@@ -24,8 +24,7 @@ class MultiLayer;
 
 //! @ingroup simulation_internal
 
-class SampleProvider : public INode
-{
+class SampleProvider : public INode {
 public:
     SampleProvider();
     SampleProvider(const SampleProvider& other); // TODO ASAP can't we clone?

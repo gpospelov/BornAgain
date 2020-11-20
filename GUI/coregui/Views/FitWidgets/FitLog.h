@@ -21,8 +21,7 @@
 
 class JobMessagePanel;
 
-class FitLog
-{
+class FitLog {
 public:
     FitLog();
 

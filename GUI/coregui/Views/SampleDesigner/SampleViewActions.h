@@ -23,8 +23,7 @@ class SampleView;
 
 //! Holds all actions of SampleView.
 
-class SampleViewActions : public QObject
-{
+class SampleViewActions : public QObject {
     Q_OBJECT
 public:
     SampleViewActions(SampleModel* model, SampleView* parent);

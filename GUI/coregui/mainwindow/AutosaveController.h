@@ -22,8 +22,7 @@ class UpdateTimer;
 
 //! Triggers autosave request after some accumulated ammount of document changes.
 
-class AutosaveController : public QObject
-{
+class AutosaveController : public QObject {
     Q_OBJECT
 public:
     explicit AutosaveController(QObject* parent = 0);

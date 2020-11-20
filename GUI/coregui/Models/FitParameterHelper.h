@@ -24,8 +24,7 @@ class FitParameterContainerItem;
 //! The FitParameterHelper class contains set of convenience static methods to handle
 //! various fitting items in given JobItem.
 
-class FitParameterHelper
-{
+class FitParameterHelper {
 public:
     static void createFitParameter(FitParameterContainerItem* container,
                                    ParameterItem* parameterItem);

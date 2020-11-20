@@ -24,8 +24,7 @@ class ParticleLayout;
 //! A layer, with thickness (in nanometer) and material.
 //! @ingroup samples
 
-class Layer : public ISample
-{
+class Layer : public ISample {
 public:
     Layer(Material material, double thickness = 0);
 

@@ -20,8 +20,7 @@
 
 //! Various mathematical functions.
 
-namespace Math
-{
+namespace Math {
 
 //  ************************************************************************************************
 //  Various functions

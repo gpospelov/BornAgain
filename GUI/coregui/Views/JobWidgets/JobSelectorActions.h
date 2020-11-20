@@ -27,8 +27,7 @@ class QMenu;
 //! The JobSelectorActions class contains actions to run/remove jobs. Actions are used by the
 //! toolbar and JobSelectorList's context menu.
 
-class JobSelectorActions : public QObject
-{
+class JobSelectorActions : public QObject {
     Q_OBJECT
 public:
     JobSelectorActions(JobModel* jobModel, QObject* parent = 0);

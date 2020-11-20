@@ -23,8 +23,7 @@ class IMinimizer;
 //! Factory to create minimizers.
 //! @ingroup fitting
 
-class MinimizerFactory
-{
+class MinimizerFactory {
 public:
     static IMinimizer* createMinimizer(const std::string& minimizerName,
                                        const std::string& algorithmType = "",

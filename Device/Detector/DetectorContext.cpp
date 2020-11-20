@@ -15,13 +15,11 @@
 #include "Device/Detector/DetectorContext.h"
 #include "Device/Detector/IDetector2D.h"
 
-DetectorContext::DetectorContext(const IDetector2D* detector)
-{
+DetectorContext::DetectorContext(const IDetector2D* detector) {
     setup_context(detector);
 }
 
-size_t DetectorContext::numberOfSimulationElements() const
-{
+size_t DetectorContext::numberOfSimulationElements() const {
     return active_indices.size();
 }
 
@@ -29,18 +27,15 @@ size_t DetectorContext::numberOfSimulationElements() const
 //! of SimulationElements. Corresponds to sequence of detector bins inside ROI and outside
 //! of masked areas.
 
-std::unique_ptr<IPixel> DetectorContext::createPixel(size_t element_index) const
-{
+std::unique_ptr<IPixel> DetectorContext::createPixel(size_t element_index) const {
     return std::unique_ptr<IPixel>(pixels[element_index]->clone());
 }
 
-size_t DetectorContext::detectorIndex(size_t element_index) const
-{
+size_t DetectorContext::detectorIndex(size_t element_index) const {
     return active_indices[element_index];
 }
 
-void DetectorContext::setup_context(const IDetector2D* detector)
-{
+void DetectorContext::setup_context(const IDetector2D* detector) {
     active_indices = detector->active_indices();
     analyzer_operator = detector->detectionProperties().analyzerOperator();
     pixels.reserve(active_indices.size());

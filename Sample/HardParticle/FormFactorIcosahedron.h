@@ -20,8 +20,7 @@
 //! A regular icosahedron.
 //! @ingroup hardParticle
 
-class FormFactorIcosahedron : public IFormFactorPolyhedron
-{
+class FormFactorIcosahedron : public IFormFactorPolyhedron {
 public:
     FormFactorIcosahedron(const std::vector<double> P);
     FormFactorIcosahedron(double edge);

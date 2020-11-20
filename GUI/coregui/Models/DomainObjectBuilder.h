@@ -26,8 +26,7 @@ class SessionItem;
 class InstrumentItem;
 class IUnitConverter;
 
-namespace DomainObjectBuilder
-{
+namespace DomainObjectBuilder {
 std::unique_ptr<MultiLayer> buildMultiLayer(const SessionItem& multilayer_item);
 std::unique_ptr<Layer> buildLayer(const SessionItem& item);
 std::unique_ptr<ParticleLayout> buildParticleLayout(const SessionItem& item);

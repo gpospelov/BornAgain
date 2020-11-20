@@ -23,8 +23,7 @@ ComponentTreeActions::ComponentTreeActions(QObject* parent) : QObject(parent) {}
 //! which will allow user to switch between scientific notation and the notation
 //! with a specified number of decimals.
 
-void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, SessionItem& item)
-{
+void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, SessionItem& item) {
     bool sc_editor = item.editorType() == "ScientificDouble";
 
     QMenu menu;

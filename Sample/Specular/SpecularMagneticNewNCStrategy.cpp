@@ -14,16 +14,14 @@
 
 #include "Sample/Specular/SpecularMagneticNewNCStrategy.h"
 
-namespace
-{
+namespace {
 complex_t checkForUnderflow(complex_t val);
 }
 
 std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
 SpecularMagneticNewNCStrategy::computeRoughnessMatrices(const MatrixRTCoefficients_v3& coeff_i,
                                                         const MatrixRTCoefficients_v3& coeff_i1,
-                                                        double sigma) const
-{
+                                                        double sigma) const {
     complex_t beta_i = coeff_i.m_lambda(1) - coeff_i.m_lambda(0);
     complex_t beta_i1 = coeff_i1.m_lambda(1) - coeff_i1.m_lambda(0);
 
@@ -69,8 +67,7 @@ SpecularMagneticNewNCStrategy::computeRoughnessMatrices(const MatrixRTCoefficien
 std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
 SpecularMagneticNewNCStrategy::computeBackwardsSubmatrices(const MatrixRTCoefficients_v3& coeff_i,
                                                            const MatrixRTCoefficients_v3& coeff_i1,
-                                                           double sigma) const
-{
+                                                           double sigma) const {
     Eigen::Matrix2cd roughness_sum{Eigen::Matrix2cd::Identity()};
     Eigen::Matrix2cd roughness_diff{Eigen::Matrix2cd::Identity()};
     if (sigma != 0.) {
@@ -86,10 +83,8 @@ SpecularMagneticNewNCStrategy::computeBackwardsSubmatrices(const MatrixRTCoeffic
     return {mp, mm};
 }
 
-namespace
-{
-complex_t checkForUnderflow(complex_t val)
-{
+namespace {
+complex_t checkForUnderflow(complex_t val) {
     return std::abs(val.imag()) < 1e-80 && val.real() < 0 ? complex_t(val.real(), 1e-40) : val;
 }
 } // namespace

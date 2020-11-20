@@ -24,8 +24,7 @@ class QWidget;
 class NodeEditorPort;
 
 //! view of ISample's with rectangular shape and node functionality
-class ConnectableView : public IView
-{
+class ConnectableView : public IView {
     Q_OBJECT
 public:
     ConnectableView(QGraphicsItem* parent = 0, QRectF rect = {0, 0, 50, 50});

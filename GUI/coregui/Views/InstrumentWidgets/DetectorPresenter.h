@@ -21,8 +21,7 @@
 //! of detector item (SphericalDetectorEditor or RectangularDetectorEditor).
 //! Main component of GISASDetectorEditor.
 
-class DetectorPresenter : public ItemComboWidget
-{
+class DetectorPresenter : public ItemComboWidget {
     Q_OBJECT
 
 public:

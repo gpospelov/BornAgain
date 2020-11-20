@@ -17,8 +17,7 @@
 
 #include <utility>
 
-class IDistribution2DSampler
-{
+class IDistribution2DSampler {
 public:
     IDistribution2DSampler() {}
     virtual ~IDistribution2DSampler();
@@ -26,52 +25,40 @@ public:
     virtual std::pair<double, double> randomSample() const = 0;
 };
 
-class Distribution2DCauchySampler : public IDistribution2DSampler
-{
+class Distribution2DCauchySampler : public IDistribution2DSampler {
 public:
     Distribution2DCauchySampler(double omega_x, double omega_y)
-        : m_omega_x(omega_x), m_omega_y(omega_y)
-    {
-    }
+        : m_omega_x(omega_x), m_omega_y(omega_y) {}
     std::pair<double, double> randomSample() const final;
 
 private:
     double m_omega_x, m_omega_y;
 };
 
-class Distribution2DGaussSampler : public IDistribution2DSampler
-{
+class Distribution2DGaussSampler : public IDistribution2DSampler {
 public:
     Distribution2DGaussSampler(double omega_x, double omega_y)
-        : m_omega_x(omega_x), m_omega_y(omega_y)
-    {
-    }
+        : m_omega_x(omega_x), m_omega_y(omega_y) {}
     std::pair<double, double> randomSample() const final;
 
 private:
     double m_omega_x, m_omega_y;
 };
 
-class Distribution2DGateSampler : public IDistribution2DSampler
-{
+class Distribution2DGateSampler : public IDistribution2DSampler {
 public:
     Distribution2DGateSampler(double omega_x, double omega_y)
-        : m_omega_x(omega_x), m_omega_y(omega_y)
-    {
-    }
+        : m_omega_x(omega_x), m_omega_y(omega_y) {}
     std::pair<double, double> randomSample() const final;
 
 private:
     double m_omega_x, m_omega_y;
 };
 
-class Distribution2DConeSampler : public IDistribution2DSampler
-{
+class Distribution2DConeSampler : public IDistribution2DSampler {
 public:
     Distribution2DConeSampler(double omega_x, double omega_y)
-        : m_omega_x(omega_x), m_omega_y(omega_y)
-    {
-    }
+        : m_omega_x(omega_x), m_omega_y(omega_y) {}
     std::pair<double, double> randomSample() const final;
 
 private:

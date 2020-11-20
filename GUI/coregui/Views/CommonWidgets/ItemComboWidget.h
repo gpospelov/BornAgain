@@ -32,8 +32,7 @@ class QStackedWidget;
 //! For example, in JobOutputDataWidget the results of the job can be presented with either
 //! IntensityDataWidget or FitDataWidget, depending from the JobView's activity type.
 
-class ItemComboWidget : public SessionItemWidget
-{
+class ItemComboWidget : public SessionItemWidget {
     Q_OBJECT
 
 public:

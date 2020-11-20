@@ -23,8 +23,7 @@
 #include "Device/Detector/SphericalDetector.h"
 
 std::unique_ptr<OutputData<double>>
-UnitConverterUtils::createOutputData(const IUnitConverter& converter, Axes::Units units)
-{
+UnitConverterUtils::createOutputData(const IUnitConverter& converter, Axes::Units units) {
     std::unique_ptr<OutputData<double>> result = std::make_unique<OutputData<double>>();
     for (size_t i = 0; i < converter.dimension(); ++i)
         result->addAxis(*converter.createConvertedAxis(i, units));
@@ -33,8 +32,7 @@ UnitConverterUtils::createOutputData(const IUnitConverter& converter, Axes::Unit
 }
 
 std::unique_ptr<IUnitConverter>
-UnitConverterUtils::createConverterForGISAS(const Instrument& instrument)
-{
+UnitConverterUtils::createConverterForGISAS(const Instrument& instrument) {
     const IDetector* const detector = instrument.getDetector();
 
     if (const auto* const det = dynamic_cast<const SphericalDetector*>(detector))
@@ -45,8 +43,7 @@ UnitConverterUtils::createConverterForGISAS(const Instrument& instrument)
     throw std::runtime_error("Error in createConverterForGISAS: wrong or absent detector type");
 }
 
-std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const ISimulation& simulation)
-{
+std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const ISimulation& simulation) {
     if (auto gisas = dynamic_cast<const GISASSimulation*>(&simulation)) {
         return createConverterForGISAS(gisas->instrument());
 

@@ -19,8 +19,7 @@
 //! Interface for applying arbitrary function to the measured intensity.
 //! @ingroup algorithms_internal
 
-class IIntensityFunction
-{
+class IIntensityFunction {
 public:
     virtual ~IIntensityFunction();
     virtual IIntensityFunction* clone() const = 0;
@@ -30,8 +29,7 @@ public:
 //! Algorithm for applying log function to the measured intensity.
 //! @ingroup algorithms_internal
 
-class IntensityFunctionLog : public IIntensityFunction
-{
+class IntensityFunctionLog : public IIntensityFunction {
 public:
     virtual IntensityFunctionLog* clone() const;
     virtual double evaluate(double value) const;
@@ -40,8 +38,7 @@ public:
 //! Algorithm for applying sqrt function to the measured intensity.
 //! @ingroup algorithms_internal
 
-class IntensityFunctionSqrt : public IIntensityFunction
-{
+class IntensityFunctionSqrt : public IIntensityFunction {
 public:
     virtual IntensityFunctionSqrt* clone() const;
     virtual double evaluate(double value) const;

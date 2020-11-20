@@ -18,8 +18,7 @@
 //!
 //! Used by the hard sphere and by several soft sphere classes.
 
-complex_t someff::ffSphere(cvector_t q, double R)
-{
+complex_t someff::ffSphere(cvector_t q, double R) {
     complex_t q1 =
         sqrt(q.x() * q.x() + q.y() * q.y() + q.z() * q.z()); // NO sesquilinear dot product!
     complex_t qR = q1 * R;

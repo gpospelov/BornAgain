@@ -24,8 +24,7 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* Lattice1DBuilder::buildSample() const
-{
+MultiLayer* Lattice1DBuilder::buildSample() const {
     const double length(20.0 * Units::nm);
     const double xi(10.0 * Units::deg);
     const double corr_length(1000.0 * Units::nm);

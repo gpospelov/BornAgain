@@ -21,8 +21,7 @@
 
 class IPositionBuilder;
 
-class RealSpacePositionBuilder : public INodeVisitor
-{
+class RealSpacePositionBuilder : public INodeVisitor {
 public:
     RealSpacePositionBuilder();
     ~RealSpacePositionBuilder() override;

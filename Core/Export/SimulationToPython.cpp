@@ -35,8 +35,7 @@
 #include "Param/Varia/PyFmtLimits.h"
 #include <iomanip>
 
-namespace
-{
+namespace {
 const std::string defineSimulate = "def run_simulation():\n"
                                    "    sample = "
                                    + pyfmt::getSampleFunctionName()
@@ -48,8 +47,7 @@ const std::string defineSimulate = "def run_simulation():\n"
                                      "\n\n";
 
 //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
-std::function<std::string(double)> printFunc(const IDetector* detector)
-{
+std::function<std::string(double)> printFunc(const IDetector* detector) {
     if (detector->defaultAxesUnits() == Axes::Units::MM)
         return pyfmt::printDouble;
     if (detector->defaultAxesUnits() == Axes::Units::RADIANS)
@@ -59,8 +57,7 @@ std::function<std::string(double)> printFunc(const IDetector* detector)
 }
 
 //! returns true if it is (0, -1, 0) vector
-bool isDefaultDirection(const kvector_t direction)
-{
+bool isDefaultDirection(const kvector_t direction) {
     return algo::almostEqual(direction.x(), 0.0) && algo::almostEqual(direction.y(), -1.0)
            && algo::almostEqual(direction.z(), 0.0);
 }
@@ -70,8 +67,7 @@ bool isDefaultDirection(const kvector_t direction)
 //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
 
 std::string SimulationToPython::generateSimulationCode(const ISimulation& simulation,
-                                                       EMainType mainType)
-{
+                                                       EMainType mainType) {
     if (simulation.sample() == nullptr)
         throw std::runtime_error("SimulationToPython::generateSimulationCode() -> Error. "
                                  "ISimulation is not initialized.");
@@ -82,8 +78,7 @@ std::string SimulationToPython::generateSimulationCode(const ISimulation& simula
            + defineGetSimulation(&simulation) + defineSimulate + defineMain(mainType);
 }
 
-std::string SimulationToPython::defineGetSimulation(const ISimulation* simulation) const
-{
+std::string SimulationToPython::defineGetSimulation(const ISimulation* simulation) const {
     std::ostringstream result;
     result << "def get_simulation():\n";
 
@@ -101,8 +96,7 @@ std::string SimulationToPython::defineGetSimulation(const ISimulation* simulatio
     return result.str();
 }
 
-std::string SimulationToPython::defineGISASSimulation(const GISASSimulation* simulation) const
-{
+std::string SimulationToPython::defineGISASSimulation(const GISASSimulation* simulation) const {
     std::ostringstream result;
     result << pyfmt::indent() << "simulation = ba.GISASSimulation()\n";
     result << defineDetector(simulation);
@@ -116,8 +110,7 @@ std::string SimulationToPython::defineGISASSimulation(const GISASSimulation* sim
     return result.str();
 }
 
-std::string SimulationToPython::defineOffSpecSimulation(const OffSpecSimulation* simulation) const
-{
+std::string SimulationToPython::defineOffSpecSimulation(const OffSpecSimulation* simulation) const {
     std::ostringstream result;
     result << pyfmt::indent() << "simulation = ba.OffSpecSimulation()\n";
     result << defineDetector(simulation);
@@ -131,8 +124,8 @@ std::string SimulationToPython::defineOffSpecSimulation(const OffSpecSimulation*
     return result.str();
 }
 
-std::string SimulationToPython::defineSpecularSimulation(const SpecularSimulation* simulation) const
-{
+std::string
+SimulationToPython::defineSpecularSimulation(const SpecularSimulation* simulation) const {
     std::ostringstream result;
     result << pyfmt::indent() << "simulation = ba.SpecularSimulation()\n";
     result << defineDetectorPolarizationAnalysis(simulation);
@@ -143,8 +136,7 @@ std::string SimulationToPython::defineSpecularSimulation(const SpecularSimulatio
     return result.str();
 }
 
-std::string SimulationToPython::defineDetector(const ISimulation* simulation) const
-{
+std::string SimulationToPython::defineDetector(const ISimulation* simulation) const {
     const IDetector* const detector = simulation->instrument().getDetector();
     if (detector->dimension() != 2)
         throw Exceptions::RuntimeErrorException("SimulationToPython::defineDetector: "
@@ -218,8 +210,7 @@ std::string SimulationToPython::defineDetector(const ISimulation* simulation) co
 }
 
 std::string
-SimulationToPython::defineDetectorResolutionFunction(const ISimulation* simulation) const
-{
+SimulationToPython::defineDetectorResolutionFunction(const ISimulation* simulation) const {
     std::ostringstream result;
     const IDetector* detector = simulation->instrument().getDetector();
 
@@ -244,8 +235,7 @@ SimulationToPython::defineDetectorResolutionFunction(const ISimulation* simulati
 }
 
 std::string
-SimulationToPython::defineDetectorPolarizationAnalysis(const ISimulation* simulation) const
-{
+SimulationToPython::defineDetectorPolarizationAnalysis(const ISimulation* simulation) const {
     std::ostringstream result;
     const IDetector* detector = simulation->instrument().getDetector();
     kvector_t analyzer_direction = detector->detectionProperties().analyzerDirection();
@@ -266,8 +256,7 @@ SimulationToPython::defineDetectorPolarizationAnalysis(const ISimulation* simula
     return result.str();
 }
 
-std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulation) const
-{
+std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulation) const {
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
@@ -281,8 +270,7 @@ std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulatio
     return result.str();
 }
 
-std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simulation) const
-{
+std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simulation) const {
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
@@ -298,8 +286,7 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
     return result.str();
 }
 
-std::string SimulationToPython::defineSpecularScan(const SpecularSimulation& simulation) const
-{
+std::string SimulationToPython::defineSpecularScan(const SpecularSimulation& simulation) const {
     std::ostringstream result;
     const ISpecularScan* scan = simulation.dataHandler();
     if (!scan)
@@ -313,8 +300,7 @@ std::string SimulationToPython::defineSpecularScan(const SpecularSimulation& sim
     return result.str();
 }
 
-std::string SimulationToPython::defineBeamPolarization(const Beam& beam) const
-{
+std::string SimulationToPython::defineBeamPolarization(const Beam& beam) const {
     std::ostringstream result;
     auto bloch_vector = beam.getBlochVector();
     if (bloch_vector.mag() > 0.0) {
@@ -329,8 +315,7 @@ std::string SimulationToPython::defineBeamPolarization(const Beam& beam) const
     return result.str();
 }
 
-std::string SimulationToPython::defineBeamIntensity(const Beam& beam) const
-{
+std::string SimulationToPython::defineBeamIntensity(const Beam& beam) const {
     std::ostringstream result;
     double beam_intensity = beam.getIntensity();
     if (beam_intensity > 0.0)
@@ -339,8 +324,7 @@ std::string SimulationToPython::defineBeamIntensity(const Beam& beam) const
     return result.str();
 }
 
-std::string SimulationToPython::defineParameterDistributions(const ISimulation* simulation) const
-{
+std::string SimulationToPython::defineParameterDistributions(const ISimulation* simulation) const {
     std::ostringstream result;
     const std::vector<ParameterDistribution>& distributions =
         simulation->getDistributionHandler().getDistributions();
@@ -367,8 +351,7 @@ std::string SimulationToPython::defineParameterDistributions(const ISimulation* 
     return result.str();
 }
 
-std::string SimulationToPython::defineMasks(const ISimulation* simulation) const
-{
+std::string SimulationToPython::defineMasks(const ISimulation* simulation) const {
     std::ostringstream result;
     result << std::setprecision(12);
 
@@ -387,8 +370,7 @@ std::string SimulationToPython::defineMasks(const ISimulation* simulation) const
     return result.str();
 }
 
-std::string SimulationToPython::defineSimulationOptions(const ISimulation* simulation) const
-{
+std::string SimulationToPython::defineSimulationOptions(const ISimulation* simulation) const {
     std::ostringstream result;
     result << std::setprecision(12);
 
@@ -406,8 +388,7 @@ std::string SimulationToPython::defineSimulationOptions(const ISimulation* simul
     return result.str();
 }
 
-std::string SimulationToPython::defineBackground(const ISimulation* simulation) const
-{
+std::string SimulationToPython::defineBackground(const ISimulation* simulation) const {
     std::ostringstream result;
 
     auto p_bg = simulation->background();
@@ -424,8 +405,7 @@ std::string SimulationToPython::defineBackground(const ISimulation* simulation) 
     return result.str();
 }
 
-std::string SimulationToPython::defineMain(SimulationToPython::EMainType mainType)
-{
+std::string SimulationToPython::defineMain(SimulationToPython::EMainType mainType) {
     std::string result;
     if (mainType == RUN_SIMULATION) {
         result = "if __name__ == '__main__': \n"
@@ -438,7 +418,7 @@ std::string SimulationToPython::defineMain(SimulationToPython::EMainType mainTyp
                  "    if len(sys.argv)>=2:\n"
                  "        ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n"
                  "    else:\n"
-            "        ba.plot_simulation_result(result, cmap='jet', aspect='auto')\n";
+                 "        ba.plot_simulation_result(result, cmap='jet', aspect='auto')\n";
     } else {
         throw std::runtime_error("SimulationToPython::defineMain() -> Error. Unknown main type.");
     }

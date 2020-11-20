@@ -20,14 +20,12 @@
 //! Integrated full sphere form factor over a uniform distribution of radii.
 //! @ingroup softParticle
 
-class FormFactorHollowSphere : public IBornFF
-{
+class FormFactorHollowSphere : public IBornFF {
 public:
     FormFactorHollowSphere(const std::vector<double> P);
     FormFactorHollowSphere(double mean, double full_width);
 
-    FormFactorHollowSphere* clone() const final
-    {
+    FormFactorHollowSphere* clone() const final {
         return new FormFactorHollowSphere(m_mean, m_full_width);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

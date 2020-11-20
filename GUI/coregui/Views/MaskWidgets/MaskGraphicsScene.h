@@ -38,8 +38,7 @@ class ColorMap;
 
 //! Graphics scene for MaskEditorCanvas to draw masks on top of intensity data widgets.
 
-class MaskGraphicsScene : public QGraphicsScene
-{
+class MaskGraphicsScene : public QGraphicsScene {
     Q_OBJECT
 public:
     MaskGraphicsScene(QObject* parent = 0);

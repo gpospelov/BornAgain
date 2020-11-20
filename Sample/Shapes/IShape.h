@@ -25,8 +25,7 @@
 
 //! @ingroup shapes_internal
 
-class IShape
-{
+class IShape {
 public:
     IShape() {}
     virtual ~IShape() {}

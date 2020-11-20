@@ -22,8 +22,7 @@ class Particle;
 //! A particle with a core/shell geometry.
 //! @ingroup samples
 
-class ParticleCoreShell : public IParticle
-{
+class ParticleCoreShell : public IParticle {
 public:
     ParticleCoreShell(const Particle& shell, const Particle& core,
                       kvector_t relative_core_position = kvector_t(0.0, 0.0, 0.0));
@@ -50,13 +49,11 @@ protected:
     std::unique_ptr<Particle> m_core;
 };
 
-inline const Particle* ParticleCoreShell::coreParticle() const
-{
+inline const Particle* ParticleCoreShell::coreParticle() const {
     return m_core.get();
 }
 
-inline const Particle* ParticleCoreShell::shellParticle() const
-{
+inline const Particle* ParticleCoreShell::shellParticle() const {
     return m_shell.get();
 }
 

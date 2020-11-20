@@ -29,8 +29,7 @@ class ParameterSample;
 //! Interface for one-dimensional distributions.
 //! @ingroup distribution_internal
 
-class IDistribution1D : public ICloneable, public INode
-{
+class IDistribution1D : public ICloneable, public INode {
 public:
     IDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues);
 
@@ -82,8 +81,7 @@ protected:
 //! Uniform distribution function with half width hwhm.
 //! @ingroup paramDistribution
 
-class DistributionGate : public IDistribution1D
-{
+class DistributionGate : public IDistribution1D {
 public:
     DistributionGate(const std::vector<double> P);
     DistributionGate(double min, double max);
@@ -116,8 +114,7 @@ private:
 //! Lorentz distribution with half width hwhm.
 //! @ingroup paramDistribution
 
-class DistributionLorentz : public IDistribution1D
-{
+class DistributionLorentz : public IDistribution1D {
 public:
     DistributionLorentz(const std::vector<double> P);
     DistributionLorentz(double mean, double hwhm);
@@ -149,15 +146,13 @@ private:
 //! Gaussian distribution with standard deviation std_dev.
 //! @ingroup paramDistribution
 
-class DistributionGaussian : public IDistribution1D
-{
+class DistributionGaussian : public IDistribution1D {
 public:
     DistributionGaussian(const std::vector<double> P);
     DistributionGaussian(double mean, double std_dev);
     DistributionGaussian();
 
-    DistributionGaussian* clone() const final
-    {
+    DistributionGaussian* clone() const final {
         return new DistributionGaussian(m_mean, m_std_dev);
     }
 
@@ -185,15 +180,13 @@ private:
 //! Log-normal distribution.
 //! @ingroup paramDistribution
 
-class DistributionLogNormal : public IDistribution1D
-{
+class DistributionLogNormal : public IDistribution1D {
 public:
     DistributionLogNormal(const std::vector<double> P);
     DistributionLogNormal(double median, double scale_param);
     DistributionLogNormal() = delete;
 
-    DistributionLogNormal* clone() const final
-    {
+    DistributionLogNormal* clone() const final {
         return new DistributionLogNormal(m_median, m_scale_param);
     }
 
@@ -224,8 +217,7 @@ private:
 //! Cosine distribution.
 //! @ingroup paramDistribution
 
-class DistributionCosine : public IDistribution1D
-{
+class DistributionCosine : public IDistribution1D {
 public:
     DistributionCosine(const std::vector<double> P);
     DistributionCosine(double mean, double sigma);
@@ -257,15 +249,13 @@ private:
 //! Trapezoidal distribution.
 //! @ingroup paramDistribution
 
-class DistributionTrapezoid : public IDistribution1D
-{
+class DistributionTrapezoid : public IDistribution1D {
 public:
     DistributionTrapezoid(const std::vector<double> P);
     DistributionTrapezoid(double center, double left, double middle, double right);
     DistributionTrapezoid();
 
-    DistributionTrapezoid* clone() const final
-    {
+    DistributionTrapezoid* clone() const final {
         return new DistributionTrapezoid(m_center, m_left, m_middle, m_right);
     }
 

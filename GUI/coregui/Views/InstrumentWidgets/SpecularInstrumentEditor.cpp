@@ -26,8 +26,7 @@ SpecularInstrumentEditor::SpecularInstrumentEditor(QWidget* parent)
     , m_columnResizer(new ColumnResizer(this))
     , m_beamEditor(new SpecularBeamEditor(m_columnResizer))
     , m_environmentEditor(new EnvironmentEditor(m_columnResizer))
-    , m_polarizationAnalysisEditor(nullptr)
-{
+    , m_polarizationAnalysisEditor(nullptr) {
     auto mainLayout = new QVBoxLayout;
 
     mainLayout->addWidget(StyleUtils::createDetailsWidget(m_beamEditor, "Beam parameters"));
@@ -38,15 +37,13 @@ SpecularInstrumentEditor::SpecularInstrumentEditor(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void SpecularInstrumentEditor::subscribeToItem()
-{
+void SpecularInstrumentEditor::subscribeToItem() {
     m_beamEditor->setItem(instrumentItem());
     m_environmentEditor->setItem(instrumentItem());
     //    m_polarizationAnalysisEditor->setItem(instrumentItem());
 }
 
-SpecularInstrumentItem* SpecularInstrumentEditor::instrumentItem()
-{
+SpecularInstrumentItem* SpecularInstrumentEditor::instrumentItem() {
     auto result = dynamic_cast<SpecularInstrumentItem*>(currentItem());
     ASSERT(result);
     return result;

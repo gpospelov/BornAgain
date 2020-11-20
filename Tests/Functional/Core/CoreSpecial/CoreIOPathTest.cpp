@@ -21,10 +21,8 @@
 #include <iostream>
 #include <memory>
 
-namespace
-{
-std::unique_ptr<OutputData<double>> createTestData()
-{
+namespace {
+std::unique_ptr<OutputData<double>> createTestData() {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis("x", 10, 0.0, 10.0);
     for (size_t i = 0; i < result->getAllocatedSize(); ++i)
@@ -32,8 +30,7 @@ std::unique_ptr<OutputData<double>> createTestData()
     return result;
 }
 
-bool test_io(const OutputData<double>* data, const std::string& file_name)
-{
+bool test_io(const OutputData<double>* data, const std::string& file_name) {
     IntensityDataIOFactory::writeOutputData(*data, file_name);
     std::unique_ptr<OutputData<double>> loaded(IntensityDataIOFactory::readOutputData(file_name));
     return IntensityDataFunctions::getRelativeDifference(*data, *loaded) <= 1e-06;
@@ -41,12 +38,9 @@ bool test_io(const OutputData<double>* data, const std::string& file_name)
 
 } // namespace
 
-class CoreIOPathTest : public ::testing::Test
-{
-};
+class CoreIOPathTest : public ::testing::Test {};
 
-TEST_F(CoreIOPathTest, CoreIOPath)
-{
+TEST_F(CoreIOPathTest, CoreIOPath) {
     const auto data = createTestData();
     const char filename_rus[] = "\xd0\xb4\xd0\xb0\xd0\xbd\xd0\xbd\xd1\x8b\xd0\xb5\x2e\x69\x6e\x74";
     const char dirname_rus[] =
@@ -63,6 +57,5 @@ TEST_F(CoreIOPathTest, CoreIOPath)
     // tests file writing and directory creation when dirname contains cyrillic characters
     boost::filesystem::path test_subdir_rus(dirname_rus);
     FileSystemUtils::createDirectories((test_dir / test_subdir_rus).string());
-    EXPECT_TRUE(
-        test_io(data.get(), (test_dir / test_subdir_rus / test_file).string()));
+    EXPECT_TRUE(test_io(data.get(), (test_dir / test_subdir_rus / test_file).string()));
 }

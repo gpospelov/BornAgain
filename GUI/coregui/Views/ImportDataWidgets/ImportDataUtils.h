@@ -27,8 +27,7 @@ class GISASInstrumentItem;
 
 //! Provides utility methods to import data files.
 
-namespace ImportDataUtils
-{
+namespace ImportDataUtils {
 std::unique_ptr<OutputData<double>> Import2dData(QString& baseNameOfLoadedFile);
 ImportDataInfo Import1dData(QString& baseNameOfLoadedFile);
 std::unique_ptr<OutputData<double>> ImportKnownData(QString& baseNameOfLoadedFile);

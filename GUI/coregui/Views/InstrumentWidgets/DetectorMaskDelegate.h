@@ -28,8 +28,7 @@ class DetectorItem;
 //! in InstrumentModel) and temporary IntensityDataItem (defined in temporary SessionModel).
 //! The later one is used by MaskEditor for mask drawing.
 
-class DetectorMaskDelegate : public QObject
-{
+class DetectorMaskDelegate : public QObject {
     Q_OBJECT
 
 public:

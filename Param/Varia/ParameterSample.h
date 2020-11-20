@@ -18,8 +18,7 @@
 //! A parameter value with a weight, as obtained when sampling from a distribution.
 //! @ingroup algorithms_internal
 
-class ParameterSample
-{
+class ParameterSample {
 public:
     ParameterSample(double _value = 0., double _weight = 1.) : value(_value), weight(_weight) {}
     double value;

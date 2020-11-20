@@ -23,19 +23,16 @@
 #include <iterator>
 #include <sstream>
 
-namespace
-{
+namespace {
 
 // Returns string filled with '.'
-std::string s_indent(int depth)
-{
+std::string s_indent(int depth) {
     const int multiplier = 4;
     return std::string(multiplier * depth, '.');
 }
 
 // Returns single line string representing pool parameters of given node.
-std::string poolToString(const INode& node)
-{
+std::string poolToString(const INode& node) {
     std::ostringstream result;
 
     const std::vector<RealParameter*> pars = node.parameterPool()->parameters();
@@ -56,16 +53,14 @@ std::string poolToString(const INode& node)
 }
 
 // Returns a string representing given node.
-std::string nodeString(const INode& node, int depth)
-{
+std::string nodeString(const INode& node, int depth) {
     std::ostringstream result;
     result << s_indent(depth) << node.displayName() << poolToString(node) << "\n";
     return result.str();
 }
 } // namespace
 
-std::string NodeUtils::nodeToString(const INode& node)
-{
+std::string NodeUtils::nodeToString(const INode& node) {
     std::ostringstream result;
 
     NodeIterator<PreorderStrategy> it(&node);
@@ -79,8 +74,7 @@ std::string NodeUtils::nodeToString(const INode& node)
     return result.str();
 }
 
-std::string NodeUtils::nodePath(const INode& node, const INode* root)
-{
+std::string NodeUtils::nodePath(const INode& node, const INode* root) {
     std::vector<std::string> pathElements;
     const INode* current = &node;
     while (current && current != root) {

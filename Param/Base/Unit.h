@@ -19,8 +19,7 @@
 
 //! A physical unit.
 
-class Unit
-{
+class Unit {
 public:
     explicit Unit(const std::string& name = "") : m_name(name) {}
     void setUnit(const std::string& name) { m_name = name; }

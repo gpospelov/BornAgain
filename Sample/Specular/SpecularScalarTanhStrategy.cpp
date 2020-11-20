@@ -17,14 +17,12 @@
 #include "Base/Math/Functions.h"
 #include <Eigen/Dense>
 
-namespace
-{
+namespace {
 const double pi2_15 = std::pow(M_PI_2, 1.5);
 }
 
 std::pair<complex_t, complex_t>
-SpecularScalarTanhStrategy::transition(complex_t kzi, complex_t kzi1, double sigma) const
-{
+SpecularScalarTanhStrategy::transition(complex_t kzi, complex_t kzi1, double sigma) const {
     complex_t roughness = 1;
     if (sigma > 0.0) {
         const double sigeff = pi2_15 * sigma;

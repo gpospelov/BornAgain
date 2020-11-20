@@ -24,17 +24,13 @@ TiffHandler::TiffHandler()
     , m_height(0)
     , m_bitsPerSample(0)
     , m_samplesPerPixel(0)
-    , m_sampleFormat(0)
-{
-}
+    , m_sampleFormat(0) {}
 
-TiffHandler::~TiffHandler()
-{
+TiffHandler::~TiffHandler() {
     close();
 }
 
-void TiffHandler::read(std::istream& input_stream)
-{
+void TiffHandler::read(std::istream& input_stream) {
     m_tiff = TIFFStreamOpen("MemTIFF", &input_stream);
     if (!m_tiff) {
         throw Exceptions::FormatErrorException("TiffHandler::read() -> Can't open the file.");
@@ -44,13 +40,11 @@ void TiffHandler::read(std::istream& input_stream)
     close();
 }
 
-const OutputData<double>* TiffHandler::getOutputData() const
-{
+const OutputData<double>* TiffHandler::getOutputData() const {
     return m_data.get();
 }
 
-void TiffHandler::write(const OutputData<double>& data, std::ostream& output_stream)
-{
+void TiffHandler::write(const OutputData<double>& data, std::ostream& output_stream) {
     m_data.reset(data.clone());
     if (m_data->rank() != 2)
         throw Exceptions::LogicErrorException("TiffHandler::write -> Error. "
@@ -63,8 +57,7 @@ void TiffHandler::write(const OutputData<double>& data, std::ostream& output_str
     close();
 }
 
-void TiffHandler::read_header()
-{
+void TiffHandler::read_header() {
     ASSERT(m_tiff);
     uint32 width(0);
     uint32 height(0);
@@ -120,8 +113,7 @@ void TiffHandler::read_header()
     }
 }
 
-void TiffHandler::read_data()
-{
+void TiffHandler::read_data() {
     ASSERT(m_tiff);
 
     ASSERT(0 == m_bitsPerSample % 8);
@@ -199,8 +191,7 @@ void TiffHandler::read_data()
     _TIFFfree(buf);
 }
 
-void TiffHandler::write_header()
-{
+void TiffHandler::write_header() {
     ASSERT(m_tiff);
     TIFFSetField(m_tiff, TIFFTAG_ARTIST, "BornAgain.IOFactory");
     TIFFSetField(m_tiff, TIFFTAG_DATETIME, SysUtils::getCurrentDateAndTime().c_str());
@@ -221,8 +212,7 @@ void TiffHandler::write_header()
     TIFFSetField(m_tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISWHITE);
 }
 
-void TiffHandler::write_data()
-{
+void TiffHandler::write_data() {
     typedef int sample_t;
     tmsize_t buf_size = sizeof(sample_t) * m_width;
     tdata_t buf = _TIFFmalloc(buf_size);
@@ -250,8 +240,7 @@ void TiffHandler::write_data()
     TIFFFlush(m_tiff);
 }
 
-void TiffHandler::close()
-{
+void TiffHandler::close() {
     if (m_tiff) {
         TIFFClose(m_tiff);
         m_tiff = 0;
@@ -260,8 +249,7 @@ void TiffHandler::close()
     }
 }
 
-void TiffHandler::create_output_data()
-{
+void TiffHandler::create_output_data() {
     ASSERT(m_tiff);
     m_data.reset(new OutputData<double>);
     m_data->addAxis("x", m_width, 0.0, double(m_width));

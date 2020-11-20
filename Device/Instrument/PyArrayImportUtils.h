@@ -22,8 +22,7 @@ template <class T> class OutputData;
 //! Functions for numpy array import to OutputData.
 //! Required solely as a shortcut to produce OutputData from numpy arrays of doubles.
 
-namespace PyArrayImport
-{
+namespace PyArrayImport {
 
 //! for importing 1D array of doubles from python into OutputData
 OutputData<double>* importArrayToOutputData(const std::vector<double>& vec);

@@ -29,8 +29,7 @@ class AccordionWidget;
 
 //! Tool widget for MaskEditor
 
-class MaskEditorPropertyPanel : public QWidget
-{
+class MaskEditorPropertyPanel : public QWidget {
     Q_OBJECT
 public:
     MaskEditorPropertyPanel(QWidget* parent = nullptr);

@@ -23,8 +23,7 @@ class QButtonGroup;
 
 //! Main class to draw masks on top of intensity data map
 
-class MaskEditorToolBar : public QToolBar
-{
+class MaskEditorToolBar : public QToolBar {
     Q_OBJECT
 public:
     MaskEditorToolBar(MaskEditorActions* editorActions, QWidget* parent = 0);

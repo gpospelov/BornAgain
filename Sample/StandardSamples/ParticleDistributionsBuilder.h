@@ -20,8 +20,7 @@
 //! Cylinders in BA with size distributions (IsGISAXS example #3, part II).
 //! @ingroup standard_samples
 
-class CylindersWithSizeDistributionBuilder : public ISampleBuilder
-{
+class CylindersWithSizeDistributionBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -29,8 +28,7 @@ public:
 //! Builds mixture of cylinder particles with different size distribution (IsGISAXS example #2)
 //! @ingroup standard_samples
 
-class TwoTypesCylindersDistributionBuilder : public ISampleBuilder
-{
+class TwoTypesCylindersDistributionBuilder : public ISampleBuilder {
 public:
     TwoTypesCylindersDistributionBuilder();
     MultiLayer* buildSample() const;
@@ -47,8 +45,7 @@ private:
 //! Rotated Pyramids with the distribution applied to the rotation angle.
 //! @ingroup standard_samples
 
-class RotatedPyramidsDistributionBuilder : public ISampleBuilder
-{
+class RotatedPyramidsDistributionBuilder : public ISampleBuilder {
 public:
     RotatedPyramidsDistributionBuilder();
     MultiLayer* buildSample() const;
@@ -63,8 +60,7 @@ private:
 //! Spherical particles with the distribution applied to the radius and RealLimits defined.
 //! @ingroup standard_samples
 
-class SpheresWithLimitsDistributionBuilder : public ISampleBuilder
-{
+class SpheresWithLimitsDistributionBuilder : public ISampleBuilder {
 public:
     SpheresWithLimitsDistributionBuilder() {}
     MultiLayer* buildSample() const;
@@ -73,8 +69,7 @@ public:
 //! Cones with the distribution applied to the angle and RealLimits defined.
 //! @ingroup standard_samples
 
-class ConesWithLimitsDistributionBuilder : public ISampleBuilder
-{
+class ConesWithLimitsDistributionBuilder : public ISampleBuilder {
 public:
     ConesWithLimitsDistributionBuilder() {}
     MultiLayer* buildSample() const;
@@ -83,8 +78,7 @@ public:
 //! Distribution of boxes with main parameter and two linked parameters.
 //! @ingroup standard_samples
 
-class LinkedBoxDistributionBuilder : public ISampleBuilder
-{
+class LinkedBoxDistributionBuilder : public ISampleBuilder {
 public:
     LinkedBoxDistributionBuilder() = default;
     MultiLayer* buildSample() const;

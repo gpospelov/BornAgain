@@ -20,14 +20,12 @@
 //! A truncated Sphere.
 //! @ingroup hardParticle
 
-class FormFactorTruncatedSphere : public IBornFF
-{
+class FormFactorTruncatedSphere : public IBornFF {
 public:
     FormFactorTruncatedSphere(const std::vector<double> P);
     FormFactorTruncatedSphere(double radius, double height, double dh);
 
-    FormFactorTruncatedSphere* clone() const final
-    {
+    FormFactorTruncatedSphere* clone() const final {
         return new FormFactorTruncatedSphere(m_radius, m_height, m_dh);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

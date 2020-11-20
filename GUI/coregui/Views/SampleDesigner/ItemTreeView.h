@@ -17,8 +17,7 @@
 
 #include <QTreeView>
 
-class ItemTreeView : public QTreeView
-{
+class ItemTreeView : public QTreeView {
     Q_OBJECT
 public:
     explicit ItemTreeView(QWidget* parent = 0);

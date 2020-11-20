@@ -17,8 +17,7 @@
 
 #include "Sample/Shapes/IShape.h"
 
-class RippleSawtooth : public IShape
-{
+class RippleSawtooth : public IShape {
 public:
     RippleSawtooth(double length, double width, double height, double asymmetry);
     ~RippleSawtooth();

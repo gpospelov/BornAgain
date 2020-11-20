@@ -4,8 +4,7 @@
 #include "Device/Detector/SphericalDetector.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class SphericalConverterTest : public ::testing::Test
-{
+class SphericalConverterTest : public ::testing::Test {
 public:
     SphericalConverterTest();
 
@@ -17,8 +16,7 @@ protected:
 
 SphericalConverterTest::SphericalConverterTest()
     : m_detector(100, 0.0, 5.0 * Units::deg, 70, -2.0 * Units::deg, 1.5)
-    , m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0)
-{
+    , m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0) {
     const auto k_i = m_beam.getCentralK();
     m_kiz = k_i.z();
     const double K = 2.0 * M_PI / m_beam.getWavelength();
@@ -27,8 +25,7 @@ SphericalConverterTest::SphericalConverterTest()
     m_kfz2 = K * std::sin(1.5);
 }
 
-TEST_F(SphericalConverterTest, SphericalConverter)
-{
+TEST_F(SphericalConverterTest, SphericalConverter) {
     SphericalConverter converter(m_detector, m_beam);
 
     EXPECT_EQ(converter.dimension(), 2u);
@@ -79,8 +76,7 @@ TEST_F(SphericalConverterTest, SphericalConverter)
     EXPECT_THROW(converter.createConvertedAxis(2, Axes::Units::DEFAULT), std::runtime_error);
 }
 
-TEST_F(SphericalConverterTest, SphericalConverterClone)
-{
+TEST_F(SphericalConverterTest, SphericalConverterClone) {
     SphericalConverter converter(m_detector, m_beam);
     std::unique_ptr<SphericalConverter> P_clone(converter.clone());
 

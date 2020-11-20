@@ -21,8 +21,7 @@
 //! Interface to adapt MaskItems coordinates (expressed in units of IntensityDataItem)
 //! to/from scene coordinates.
 
-class ISceneAdaptor : public QObject
-{
+class ISceneAdaptor : public QObject {
     Q_OBJECT
 public:
     virtual ~ISceneAdaptor() {}
@@ -46,8 +45,7 @@ protected:
     QRectF m_viewport_rectangle;
 };
 
-class DefaultSceneAdaptor : public ISceneAdaptor
-{
+class DefaultSceneAdaptor : public ISceneAdaptor {
     Q_OBJECT
 public:
     DefaultSceneAdaptor() {}

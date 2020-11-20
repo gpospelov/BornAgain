@@ -20,15 +20,13 @@
 
 class RealDataModel;
 class RealDataSelectorWidget;
-namespace Manhattan
-{
+namespace Manhattan {
 class MiniSplitter;
 }
 
 //! The ImportDataView class is a main view for importing experimental data.
 
-class ImportDataView : public QWidget
-{
+class ImportDataView : public QWidget {
     Q_OBJECT
 
 public:

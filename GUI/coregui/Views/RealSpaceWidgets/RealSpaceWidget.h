@@ -26,8 +26,7 @@ class SampleModel;
 
 //! Prototype of real space widget to present sample structure in 3D view.
 
-class RealSpaceWidget : public QWidget
-{
+class RealSpaceWidget : public QWidget {
     Q_OBJECT
 
 public:

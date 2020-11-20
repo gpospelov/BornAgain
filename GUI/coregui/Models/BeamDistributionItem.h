@@ -22,8 +22,7 @@ class ParameterDistribution;
 //! The BeamDistributionItem handles wavelength, inclination and azimuthal parameter
 //! distribution for BeamItem
 
-class BA_CORE_API_ BeamDistributionItem : public SessionItem
-{
+class BA_CORE_API_ BeamDistributionItem : public SessionItem {
 public:
     static const QString P_DISTRIBUTION;
     explicit BeamDistributionItem(const QString& name, bool show_mean);

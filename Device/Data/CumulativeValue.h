@@ -18,8 +18,7 @@
 //! The cumulative value with average and rms on-the-flight calculations.
 //! @ingroup tools
 
-class CumulativeValue
-{
+class CumulativeValue {
 public:
     CumulativeValue() { clear(); }
 

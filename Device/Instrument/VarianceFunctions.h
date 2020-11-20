@@ -18,8 +18,7 @@
 //! Variance function interface.
 //! @ingroup fitting_internal
 
-class IVarianceFunction
-{
+class IVarianceFunction {
 public:
     IVarianceFunction() = default;
     virtual ~IVarianceFunction() = default;
@@ -33,8 +32,7 @@ public:
 //! Returns 1.0 as variance value
 //! @ingroup fitting
 
-class VarianceConstantFunction : public IVarianceFunction
-{
+class VarianceConstantFunction : public IVarianceFunction {
 public:
     VarianceConstantFunction* clone() const override;
     double variance(double, double) const override;
@@ -43,8 +41,7 @@ public:
 //! Returns max(sim, epsilon)
 //! @ingroup fitting
 
-class VarianceSimFunction : public IVarianceFunction
-{
+class VarianceSimFunction : public IVarianceFunction {
 public:
     explicit VarianceSimFunction(double epsilon = 1.0);
     VarianceSimFunction* clone() const override;

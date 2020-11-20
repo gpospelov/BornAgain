@@ -20,8 +20,7 @@
 
 using Results = std::vector<std::pair<int, long>>;
 
-namespace
-{
+namespace {
 const std::vector<int> n_layers = {10, 100, 200, 500, 1000};
 
 const auto now = std::chrono::high_resolution_clock::now;
@@ -29,15 +28,13 @@ const auto duration = [](auto time_interval) {
     return std::chrono::duration_cast<std::chrono::milliseconds>(time_interval).count();
 };
 
-void report(const Results& results)
-{
+void report(const Results& results) {
     for (auto& pair : results)
         std::cout << "n_layers = " << pair.first << ",\t time = " << pair.second << " ms\n";
 }
 } // namespace
 
-int main()
-{
+int main() {
     Results results;
     results.reserve(n_layers.size());
 

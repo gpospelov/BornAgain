@@ -19,8 +19,7 @@
 
 //! Utility functions getCurrentDateAndTime, enableFloatingPointExceptions.
 
-namespace SysUtils
-{
+namespace SysUtils {
 
 std::string getCurrentDateAndTime();
 

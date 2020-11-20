@@ -25,8 +25,7 @@ class JobWorker;
 
 //! The JobQueueData class holds all objects/logic to run simulation in a thread.
 
-class JobQueueData : public QObject
-{
+class JobQueueData : public QObject {
     Q_OBJECT
 public:
     JobQueueData(JobModel* jobModel);

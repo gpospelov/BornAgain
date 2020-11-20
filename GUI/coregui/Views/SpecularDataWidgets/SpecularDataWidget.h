@@ -21,8 +21,7 @@ class SpecularDataCanvas;
 class SpecularDataItem;
 class IntensityDataPropertyWidget;
 
-class SpecularDataWidget : public SessionItemWidget
-{
+class SpecularDataWidget : public SessionItemWidget {
     Q_OBJECT
 
 public:

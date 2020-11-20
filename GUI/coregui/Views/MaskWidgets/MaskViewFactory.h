@@ -23,8 +23,7 @@ class ISceneAdaptor;
 
 //! Factory to construct views out of MaskItems for MaskGraphicsScene
 
-class MaskViewFactory
-{
+class MaskViewFactory {
 public:
     static IShape2DView* createMaskView(SessionItem* item, ISceneAdaptor* adaptor = 0);
 };

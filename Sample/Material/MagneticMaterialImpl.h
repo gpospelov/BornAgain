@@ -25,8 +25,7 @@ class WavevectorInfo;
 //! Incorporates data and methods required to handle material magnetization.
 //! @ingroup materials
 
-class MagneticMaterialImpl : public BaseMaterialImpl
-{
+class MagneticMaterialImpl : public BaseMaterialImpl {
 public:
     //! Constructs basic material with name and magnetization
     MagneticMaterialImpl(const std::string& name, kvector_t magnetization);

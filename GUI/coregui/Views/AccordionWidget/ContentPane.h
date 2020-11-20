@@ -72,8 +72,7 @@
  * @details
  * The animation speed is influenceable setAnimationDuration().
  */
-class ContentPane : public QWidget
-{
+class ContentPane : public QWidget {
     Q_OBJECT
 public:
     /**

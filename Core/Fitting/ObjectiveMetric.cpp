@@ -19,22 +19,19 @@
 #include <cmath>
 #include <limits>
 
-namespace
-{
+namespace {
 const double double_max = std::numeric_limits<double>::max();
 const double double_min = std::numeric_limits<double>::min();
 const double ln10 = std::log(10.0);
 
-template <class T> T* copyMetric(const T& metric)
-{
+template <class T> T* copyMetric(const T& metric) {
     auto* result = new T;
     result->setNorm(metric.norm());
     return result;
 }
 
 void checkIntegrity(const std::vector<double>& sim_data, const std::vector<double>& exp_data,
-                    const std::vector<double>& weight_factors)
-{
+                    const std::vector<double>& weight_factors) {
     const size_t sim_size = sim_data.size();
     if (sim_size != exp_data.size() || sim_size != weight_factors.size())
         throw std::runtime_error("Error in ObjectiveMetric: input arrays have different sizes");
@@ -47,8 +44,7 @@ void checkIntegrity(const std::vector<double>& sim_data, const std::vector<doubl
 
 void checkIntegrity(const std::vector<double>& sim_data, const std::vector<double>& exp_data,
                     const std::vector<double>& uncertainties,
-                    const std::vector<double>& weight_factors)
-{
+                    const std::vector<double>& weight_factors) {
     if (sim_data.size() != uncertainties.size())
         throw std::runtime_error("Error in ObjectiveMetric: input arrays have different sizes");
 
@@ -58,8 +54,7 @@ void checkIntegrity(const std::vector<double>& sim_data, const std::vector<doubl
 
 ObjectiveMetric::ObjectiveMetric(std::function<double(double)> norm) : m_norm(std::move(norm)) {}
 
-double ObjectiveMetric::compute(const SimDataPair& data_pair, bool use_weights) const
-{
+double ObjectiveMetric::compute(const SimDataPair& data_pair, bool use_weights) const {
     if (use_weights && !data_pair.containsUncertainties())
         throw std::runtime_error("Error in ObjectiveMetric::compute: the metric is weighted, but "
                                  "the simulation-data pair does not contain uncertainties");
@@ -72,8 +67,7 @@ double ObjectiveMetric::compute(const SimDataPair& data_pair, bool use_weights) 
                                  data_pair.user_weights_array());
 }
 
-void ObjectiveMetric::setNorm(std::function<double(double)> norm)
-{
+void ObjectiveMetric::setNorm(std::function<double(double)> norm) {
     m_norm = std::move(norm);
 }
 
@@ -81,15 +75,13 @@ void ObjectiveMetric::setNorm(std::function<double(double)> norm)
 
 Chi2Metric::Chi2Metric() : ObjectiveMetric(ObjectiveMetricUtils::l2Norm()) {}
 
-Chi2Metric* Chi2Metric::clone() const
-{
+Chi2Metric* Chi2Metric::clone() const {
     return copyMetric(*this);
 }
 
 double Chi2Metric::computeFromArrays(std::vector<double> sim_data, std::vector<double> exp_data,
                                      std::vector<double> uncertainties,
-                                     std::vector<double> weight_factors) const
-{
+                                     std::vector<double> weight_factors) const {
     checkIntegrity(sim_data, exp_data, uncertainties, weight_factors);
 
     double result = 0.0;
@@ -102,8 +94,7 @@ double Chi2Metric::computeFromArrays(std::vector<double> sim_data, std::vector<d
 }
 
 double Chi2Metric::computeFromArrays(std::vector<double> sim_data, std::vector<double> exp_data,
-                                     std::vector<double> weight_factors) const
-{
+                                     std::vector<double> weight_factors) const {
     checkIntegrity(sim_data, exp_data, weight_factors);
 
     auto norm_fun = norm();
@@ -119,15 +110,13 @@ double Chi2Metric::computeFromArrays(std::vector<double> sim_data, std::vector<d
 
 PoissonLikeMetric::PoissonLikeMetric() : Chi2Metric() {}
 
-PoissonLikeMetric* PoissonLikeMetric::clone() const
-{
+PoissonLikeMetric* PoissonLikeMetric::clone() const {
     return copyMetric(*this);
 }
 
 double PoissonLikeMetric::computeFromArrays(std::vector<double> sim_data,
                                             std::vector<double> exp_data,
-                                            std::vector<double> weight_factors) const
-{
+                                            std::vector<double> weight_factors) const {
     checkIntegrity(sim_data, exp_data, weight_factors);
 
     double result = 0.0;
@@ -147,15 +136,13 @@ double PoissonLikeMetric::computeFromArrays(std::vector<double> sim_data,
 
 LogMetric::LogMetric() : ObjectiveMetric(ObjectiveMetricUtils::l2Norm()) {}
 
-LogMetric* LogMetric::clone() const
-{
+LogMetric* LogMetric::clone() const {
     return copyMetric(*this);
 }
 
 double LogMetric::computeFromArrays(std::vector<double> sim_data, std::vector<double> exp_data,
                                     std::vector<double> uncertainties,
-                                    std::vector<double> weight_factors) const
-{
+                                    std::vector<double> weight_factors) const {
     checkIntegrity(sim_data, exp_data, uncertainties, weight_factors);
 
     double result = 0.0;
@@ -174,8 +161,7 @@ double LogMetric::computeFromArrays(std::vector<double> sim_data, std::vector<do
 }
 
 double LogMetric::computeFromArrays(std::vector<double> sim_data, std::vector<double> exp_data,
-                                    std::vector<double> weight_factors) const
-{
+                                    std::vector<double> weight_factors) const {
     checkIntegrity(sim_data, exp_data, weight_factors);
 
     double result = 0.0;
@@ -195,15 +181,13 @@ double LogMetric::computeFromArrays(std::vector<double> sim_data, std::vector<do
 
 RelativeDifferenceMetric::RelativeDifferenceMetric() : Chi2Metric() {}
 
-RelativeDifferenceMetric* RelativeDifferenceMetric::clone() const
-{
+RelativeDifferenceMetric* RelativeDifferenceMetric::clone() const {
     return copyMetric(*this);
 }
 
 double RelativeDifferenceMetric::computeFromArrays(std::vector<double> sim_data,
                                                    std::vector<double> exp_data,
-                                                   std::vector<double> weight_factors) const
-{
+                                                   std::vector<double> weight_factors) const {
     checkIntegrity(sim_data, exp_data, weight_factors);
 
     double result = 0.0;
@@ -223,13 +207,11 @@ double RelativeDifferenceMetric::computeFromArrays(std::vector<double> sim_data,
 
 RQ4Metric::RQ4Metric() : Chi2Metric() {}
 
-RQ4Metric* RQ4Metric::clone() const
-{
+RQ4Metric* RQ4Metric::clone() const {
     return copyMetric(*this);
 }
 
-double RQ4Metric::compute(const SimDataPair& data_pair, bool use_weights) const
-{
+double RQ4Metric::compute(const SimDataPair& data_pair, bool use_weights) const {
     if (use_weights)
         return Chi2Metric::compute(data_pair, use_weights);
 

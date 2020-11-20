@@ -36,14 +36,12 @@
 #include <map>
 #include <set>
 
-std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer)
-{
+std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer) {
     initLabels(multilayer);
     return defineGetSample();
 }
 
-void SampleToPython::initLabels(const MultiLayer& multilayer)
-{
+void SampleToPython::initLabels(const MultiLayer& multilayer) {
     m_label.reset(new SampleLabelHandler());
 
     m_label->insertMultiLayer(&multilayer);
@@ -84,8 +82,7 @@ SampleToPython::SampleToPython() = default;
 
 SampleToPython::~SampleToPython() = default;
 
-std::string SampleToPython::defineGetSample() const
-{
+std::string SampleToPython::defineGetSample() const {
     return "def " + pyfmt::getSampleFunctionName() + "():\n" + defineMaterials() + defineLayers()
            + defineFormFactors() + defineParticles() + defineCoreShellParticles()
            + defineParticleCompositions() + defineLattices2D() + defineLattices3D()
@@ -98,8 +95,7 @@ const std::map<MATERIAL_TYPES, std::string> factory_names{
     {MATERIAL_TYPES::RefractiveMaterial, "HomogeneousMaterial"},
     {MATERIAL_TYPES::MaterialBySLD, "MaterialBySLD"}};
 
-std::string SampleToPython::defineMaterials() const
-{
+std::string SampleToPython::defineMaterials() const {
     const LabelMap<const Material*>* themap = m_label->materialMap();
     if (themap->empty())
         return "# No materials.\n\n";
@@ -136,8 +132,7 @@ std::string SampleToPython::defineMaterials() const
     return result.str();
 }
 
-std::string SampleToPython::defineLayers() const
-{
+std::string SampleToPython::defineLayers() const {
     const auto* themap = m_label->layerMap();
     if (themap->empty())
         return "# No Layers.\n\n";
@@ -158,8 +153,7 @@ std::string SampleToPython::defineLayers() const
     return result.str();
 }
 
-std::string SampleToPython::defineFormFactors() const
-{
+std::string SampleToPython::defineFormFactors() const {
     const auto* themap = m_label->formFactorMap();
     if (themap->empty())
         return "";
@@ -174,8 +168,7 @@ std::string SampleToPython::defineFormFactors() const
     return result.str();
 }
 
-std::string SampleToPython::defineParticles() const
-{
+std::string SampleToPython::defineParticles() const {
     const auto* themap = m_label->particleMap();
     if (themap->empty())
         return "";
@@ -197,8 +190,7 @@ std::string SampleToPython::defineParticles() const
     return result.str();
 }
 
-std::string SampleToPython::defineCoreShellParticles() const
-{
+std::string SampleToPython::defineCoreShellParticles() const {
     const auto* themap = m_label->particleCoreShellMap();
     if (themap->empty())
         return "";
@@ -218,8 +210,7 @@ std::string SampleToPython::defineCoreShellParticles() const
     return result.str();
 }
 
-std::string SampleToPython::defineParticleDistributions() const
-{
+std::string SampleToPython::defineParticleDistributions() const {
     const auto* themap = m_label->particleDistributionsMap();
     if (themap->empty())
         return "";
@@ -266,8 +257,7 @@ std::string SampleToPython::defineParticleDistributions() const
     return result.str();
 }
 
-std::string SampleToPython::defineParticleCompositions() const
-{
+std::string SampleToPython::defineParticleCompositions() const {
     const auto* themap = m_label->particleCompositionMap();
     if (themap->empty())
         return "";
@@ -289,8 +279,7 @@ std::string SampleToPython::defineParticleCompositions() const
     return result.str();
 }
 
-std::string SampleToPython::defineLattices2D() const
-{
+std::string SampleToPython::defineLattices2D() const {
     const auto* themap = m_label->lattice2DMap();
     if (themap->empty())
         return "";
@@ -309,8 +298,7 @@ std::string SampleToPython::defineLattices2D() const
     return result.str();
 }
 
-std::string SampleToPython::defineLattices3D() const
-{
+std::string SampleToPython::defineLattices3D() const {
     const auto* themap = m_label->lattice3DMap();
     if (themap->empty())
         return "";
@@ -334,8 +322,7 @@ std::string SampleToPython::defineLattices3D() const
     return result.str();
 }
 
-std::string SampleToPython::defineCrystals() const
-{
+std::string SampleToPython::defineCrystals() const {
     const auto* themap = m_label->crystalMap();
     if (themap->empty())
         return "";
@@ -356,8 +343,7 @@ std::string SampleToPython::defineCrystals() const
     return result.str();
 }
 
-std::string SampleToPython::defineMesoCrystals() const
-{
+std::string SampleToPython::defineMesoCrystals() const {
     const auto* themap = m_label->mesocrystalMap();
     if (themap->empty())
         return "";
@@ -380,8 +366,7 @@ std::string SampleToPython::defineMesoCrystals() const
     return result.str();
 }
 
-std::string SampleToPython::defineInterferenceFunctions() const
-{
+std::string SampleToPython::defineInterferenceFunctions() const {
     const auto* themap = m_label->interferenceFunctionMap();
     if (themap->empty())
         return "";
@@ -504,8 +489,7 @@ std::string SampleToPython::defineInterferenceFunctions() const
     return result.str();
 }
 
-std::string SampleToPython::defineParticleLayouts() const
-{
+std::string SampleToPython::defineParticleLayouts() const {
     const auto* themap = m_label->particleLayoutMap();
     if (themap->empty())
         return "";
@@ -536,8 +520,7 @@ std::string SampleToPython::defineParticleLayouts() const
     return result.str();
 }
 
-std::string SampleToPython::defineRoughnesses() const
-{
+std::string SampleToPython::defineRoughnesses() const {
     const auto* themap = m_label->layerRoughnessMap();
     if (themap->empty())
         return "";
@@ -550,8 +533,7 @@ std::string SampleToPython::defineRoughnesses() const
     return result.str();
 }
 
-std::string SampleToPython::addLayoutsToLayers() const
-{
+std::string SampleToPython::addLayoutsToLayers() const {
     if (m_label->particleLayoutMap()->empty())
         return "";
     std::ostringstream result;
@@ -568,8 +550,7 @@ std::string SampleToPython::addLayoutsToLayers() const
     return result.str();
 }
 
-std::string SampleToPython::defineMultiLayers() const
-{
+std::string SampleToPython::defineMultiLayers() const {
     const auto* themap = m_label->multiLayerMap();
     if (themap->empty())
         return "# No MultiLayers.\n\n";
@@ -614,14 +595,12 @@ std::string SampleToPython::defineMultiLayers() const
     return result.str();
 }
 
-std::string SampleToPython::indent() const
-{
+std::string SampleToPython::indent() const {
     return "    ";
 }
 
 void SampleToPython::setRotationInformation(const IParticle* particle, std::string name,
-                                            std::ostringstream& result) const
-{
+                                            std::ostringstream& result) const {
     if (particle->rotation()) {
         switch (particle->rotation()->getTransform3D().getRotationType()) {
         case Transform3D::EULER: {
@@ -656,8 +635,7 @@ void SampleToPython::setRotationInformation(const IParticle* particle, std::stri
 }
 
 void SampleToPython::setPositionInformation(const IParticle* particle, std::string name,
-                                            std::ostringstream& result) const
-{
+                                            std::ostringstream& result) const {
     kvector_t pos = particle->position();
     if (pos == kvector_t())
         return;

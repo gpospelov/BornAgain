@@ -30,8 +30,7 @@ class RealDataItem;
 class ISimulation;
 class SimulationOptionsItem;
 
-class BA_CORE_API_ JobItem : public SessionItem
-{
+class BA_CORE_API_ JobItem : public SessionItem {
 
 public:
     static const QString P_IDENTIFIER;

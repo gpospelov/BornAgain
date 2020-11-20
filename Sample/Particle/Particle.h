@@ -21,8 +21,7 @@
 //! A particle with a form factor and refractive index.
 //! @ingroup samples
 
-class Particle : public IParticle
-{
+class Particle : public IParticle {
 public:
     Particle() = delete;
     ~Particle();

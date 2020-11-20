@@ -16,8 +16,7 @@
 
 const QString TransformationItem::P_ROT = "Rotation type";
 
-TransformationItem::TransformationItem() : SessionGraphicsItem("Rotation")
-{
+TransformationItem::TransformationItem() : SessionGraphicsItem("Rotation") {
     setToolTip("Rotation applied to particles");
     addGroupProperty(P_ROT, "Rotation group");
 }

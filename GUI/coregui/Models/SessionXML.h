@@ -22,8 +22,7 @@ class QXmlStreamReader;
 class SessionItem;
 class MessageService;
 
-namespace SessionXML
-{
+namespace SessionXML {
 const QString ItemMimeType = "application/org.bornagainproject.xml.item.z";
 const QString LinkMimeType = "application/org.bornagainproject.fittinglink";
 

@@ -24,8 +24,7 @@ TableContextMenu::TableContextMenu(QWidget* parent)
     , m_setAsQ(new QAction(csv::HeaderLabels[csv::_q_], this))
     , m_setAsIntensity(
           new QAction("Set As " + csv::HeaderLabels[csv::_intensity_] + " Column", this))
-    , m_discardRow(new QAction("Toogle Discard Selected Rows", this))
-{
+    , m_discardRow(new QAction("Toogle Discard Selected Rows", this)) {
     this->addAction(m_selectFromThisRowOn);
     this->addAction(m_selectUntilThisRow);
     this->addAction(m_discardRow);

@@ -19,8 +19,7 @@
 
 class ParticleCoreShell;
 
-class BA_CORE_API_ ParticleCoreShellItem : public SessionGraphicsItem
-{
+class BA_CORE_API_ ParticleCoreShellItem : public SessionGraphicsItem {
 public:
     static const QString T_CORE;
     static const QString T_SHELL;

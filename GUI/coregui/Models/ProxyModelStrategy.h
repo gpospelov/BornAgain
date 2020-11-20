@@ -23,8 +23,7 @@ class SessionItem;
 
 //! Base class for proxy strategies in ComponentProxyModel.
 
-class ProxyModelStrategy
-{
+class ProxyModelStrategy {
 public:
     using map_t = QMap<QPersistentModelIndex, QPersistentModelIndex>;
 
@@ -55,8 +54,7 @@ protected:
 
 //! Strategy for ComponentProxyModel which makes it identical to source model.
 
-class IndentityProxyStrategy : public ProxyModelStrategy
-{
+class IndentityProxyStrategy : public ProxyModelStrategy {
 protected:
     bool processSourceIndex(const QModelIndex& index);
 };

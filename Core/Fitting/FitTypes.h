@@ -19,8 +19,7 @@
 #include <memory>
 
 class ISimulation;
-namespace mumufit
-{
+namespace mumufit {
 class Parameters;
 }
 class FitObjective;

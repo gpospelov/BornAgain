@@ -18,19 +18,16 @@
 #include <cmath>
 #include <iomanip>
 
-namespace
-{
+namespace {
 const int precision{12};
 
-double IgnoreDenormalized(double value)
-{
+double IgnoreDenormalized(double value) {
     if (std::fpclassify(value) == FP_SUBNORMAL)
         return 0.0;
     return value;
 }
 
-void Write2DRepresentation(const OutputData<double>& data, std::ostream& output_stream)
-{
+void Write2DRepresentation(const OutputData<double>& data, std::ostream& output_stream) {
     const size_t nrows = data.axis(1).size();
     const size_t ncols = data.axis(0).size();
 
@@ -50,8 +47,7 @@ void Write2DRepresentation(const OutputData<double>& data, std::ostream& output_
 }
 
 void WriteOutputDataDoubles(const OutputData<double>& data, std::ostream& output_stream,
-                            size_t n_columns)
-{
+                            size_t n_columns) {
 
     OutputData<double>::const_iterator it = data.begin();
     output_stream.imbue(std::locale::classic());
@@ -68,8 +64,7 @@ void WriteOutputDataDoubles(const OutputData<double>& data, std::ostream& output
     }
 }
 
-void Write1DRepresentation(const OutputData<double>& data, std::ostream& output_stream)
-{
+void Write1DRepresentation(const OutputData<double>& data, std::ostream& output_stream) {
     output_stream << "# coordinates         intensities" << std::endl;
     output_stream.imbue(std::locale::classic());
     output_stream << std::scientific << std::setprecision(precision);
@@ -87,8 +82,7 @@ void Write1DRepresentation(const OutputData<double>& data, std::ostream& output_
 // ----------------------------------------------------------------------------
 
 void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double>& data,
-                                                 std::ostream& output_stream)
-{
+                                                 std::ostream& output_stream) {
     output_stream << "# BornAgain Intensity Data\n\n";
 
     for (size_t i = 0; i < data.rank(); ++i) {
@@ -111,8 +105,7 @@ void OutputDataWriteINTStrategy::writeOutputData(const OutputData<double>& data,
 // ----------------------------------------------------------------------------
 
 void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double>& data,
-                                                      std::ostream& output_stream)
-{
+                                                      std::ostream& output_stream) {
     output_stream << "# BornAgain Intensity Data" << std::endl;
     output_stream << "# Simple array suitable for numpy, matlab etc." << std::endl;
 
@@ -138,14 +131,12 @@ void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData<double>& 
 
 OutputDataWriteTiffStrategy::OutputDataWriteTiffStrategy() : m_d(new TiffHandler) {}
 
-OutputDataWriteTiffStrategy::~OutputDataWriteTiffStrategy()
-{
+OutputDataWriteTiffStrategy::~OutputDataWriteTiffStrategy() {
     delete m_d;
 }
 
 void OutputDataWriteTiffStrategy::writeOutputData(const OutputData<double>& data,
-                                                  std::ostream& output_stream)
-{
+                                                  std::ostream& output_stream) {
     m_d->write(data, output_stream);
 }
 

@@ -7,8 +7,7 @@
 #include "Sample/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class ParticleCoreShellTest : public ::testing::Test
-{
+class ParticleCoreShellTest : public ::testing::Test {
 protected:
     ParticleCoreShellTest();
     virtual ~ParticleCoreShellTest();
@@ -16,8 +15,7 @@ protected:
     ParticleCoreShell* m_coreshell;
 };
 
-ParticleCoreShellTest::ParticleCoreShellTest() : m_coreshell(nullptr)
-{
+ParticleCoreShellTest::ParticleCoreShellTest() : m_coreshell(nullptr) {
     Material mat = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
     Particle core(mat);
     Particle shell(mat);
@@ -25,27 +23,23 @@ ParticleCoreShellTest::ParticleCoreShellTest() : m_coreshell(nullptr)
     m_coreshell = new ParticleCoreShell(shell, core, position);
 }
 
-ParticleCoreShellTest::~ParticleCoreShellTest()
-{
+ParticleCoreShellTest::~ParticleCoreShellTest() {
     delete m_coreshell;
 }
 
-TEST_F(ParticleCoreShellTest, InitialState)
-{
+TEST_F(ParticleCoreShellTest, InitialState) {
     EXPECT_EQ(nullptr, m_coreshell->createFormFactor());
     EXPECT_EQ(nullptr, m_coreshell->rotation());
 }
 
-TEST_F(ParticleCoreShellTest, Clone)
-{
+TEST_F(ParticleCoreShellTest, Clone) {
     ParticleCoreShell* p_clone = m_coreshell->clone();
     EXPECT_EQ(nullptr, p_clone->createFormFactor());
     EXPECT_EQ(nullptr, p_clone->rotation());
     delete p_clone;
 }
 
-TEST_F(ParticleCoreShellTest, ComplexCoreShellClone)
-{
+TEST_F(ParticleCoreShellTest, ComplexCoreShellClone) {
     Material mCore = HomogeneousMaterial("Ag", 1.245e-5, 5.419e-7);
     Material mShell = HomogeneousMaterial("AgO2", 8.600e-6, 3.442e-7);
 
@@ -68,8 +62,7 @@ TEST_F(ParticleCoreShellTest, ComplexCoreShellClone)
     EXPECT_EQ(clone->coreParticle()->position(), relative_pos);
 }
 
-TEST_F(ParticleCoreShellTest, getChildren)
-{
+TEST_F(ParticleCoreShellTest, getChildren) {
     Material mat = HomogeneousMaterial("mat", 0.0, 0.0);
     Particle core(mat, FormFactorBox(1.0, 1.0, 1.0));
     Particle shell(mat, FormFactorFullSphere(1.0));

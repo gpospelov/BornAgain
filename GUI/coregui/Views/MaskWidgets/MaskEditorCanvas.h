@@ -30,8 +30,7 @@ class IntensityDataItem;
 
 //! Painting widget for MaskEditor, contains graphics scene and graphics view
 
-class MaskEditorCanvas : public QWidget
-{
+class MaskEditorCanvas : public QWidget {
     Q_OBJECT
 public:
     MaskEditorCanvas(QWidget* parent = 0);

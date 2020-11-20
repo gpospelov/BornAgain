@@ -26,8 +26,7 @@ class QCustomPlot;
 //! Helps ScientificPlot to handle mouse events. Particularly, it constructs a valid
 //! status string. Can be extended to play a role of event filter.
 
-class ScientificPlotEvent : public QObject
-{
+class ScientificPlotEvent : public QObject {
     Q_OBJECT
 
 public:

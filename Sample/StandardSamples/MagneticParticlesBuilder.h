@@ -20,8 +20,7 @@
 //! Builds sample: cylinders with magnetic material and zero magnetic field.
 //! @ingroup standard_samples
 
-class MagneticParticleZeroFieldBuilder : public ISampleBuilder
-{
+class MagneticParticleZeroFieldBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -29,8 +28,7 @@ public:
 //! Builds sample: cylinders with magnetic material and non-zero magnetic field.
 //! @ingroup standard_samples
 
-class MagneticCylindersBuilder : public ISampleBuilder
-{
+class MagneticCylindersBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -38,8 +36,7 @@ public:
 //! Builds sample: spheres with magnetization inside substrate.
 //! @ingroup standard_samples
 
-class MagneticSpheresBuilder : public ISampleBuilder
-{
+class MagneticSpheresBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

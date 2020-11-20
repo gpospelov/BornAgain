@@ -21,8 +21,7 @@
 #include <QVBoxLayout>
 #include <minisplitter.h>
 
-namespace
-{
+namespace {
 const bool reuse_widget = true;
 }
 
@@ -31,8 +30,7 @@ ImportDataView::ImportDataView(MainWindow* mainWindow)
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new RealDataSelectorWidget)
     , m_stackedWidget(new ItemStackPresenter<RealDataPresenter>(reuse_widget))
-    , m_realDataModel(mainWindow->realDataModel())
-{
+    , m_realDataModel(mainWindow->realDataModel()) {
     auto mainLayout = new QVBoxLayout;
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
@@ -60,13 +58,11 @@ ImportDataView::ImportDataView(MainWindow* mainWindow)
     m_stackedWidget->setModel(mainWindow->realDataModel());
 }
 
-void ImportDataView::onSelectionChanged(SessionItem* item)
-{
+void ImportDataView::onSelectionChanged(SessionItem* item) {
     m_stackedWidget->setItem(item);
 }
 
-void ImportDataView::setupConnections()
-{
+void ImportDataView::setupConnections() {
     connect(m_selectorWidget, &RealDataSelectorWidget::selectionChanged, this,
             &ImportDataView::onSelectionChanged);
 }

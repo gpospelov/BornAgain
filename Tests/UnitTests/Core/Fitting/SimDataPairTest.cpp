@@ -2,12 +2,9 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include "Tests/UnitTests/Core/Fitting/FittingTestHelper.h"
 
-class SimDataPairTest : public ::testing::Test
-{
-};
+class SimDataPairTest : public ::testing::Test {};
 
-TEST_F(SimDataPairTest, standardPair)
-{
+TEST_F(SimDataPairTest, standardPair) {
     FittingTestHelper helper;
 
     simulation_builder_t builder = [&](const mumufit::Parameters& pars) {
@@ -61,8 +58,7 @@ TEST_F(SimDataPairTest, standardPair)
     EXPECT_DOUBLE_EQ(std::accumulate(array.begin(), array.end(), 0), expected_size * exp_value);
 }
 
-TEST_F(SimDataPairTest, moveTest)
-{
+TEST_F(SimDataPairTest, moveTest) {
     FittingTestHelper helper;
 
     simulation_builder_t builder = [&](const mumufit::Parameters& pars) {

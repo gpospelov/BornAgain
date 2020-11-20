@@ -23,8 +23,7 @@ template <class T> class OutputData;
 //! Write OutputData to file using different witing strategies.
 //! @ingroup input_output_internal
 
-class OutputDataWriter
-{
+class OutputDataWriter {
 public:
     OutputDataWriter(const std::string& file_name);
 

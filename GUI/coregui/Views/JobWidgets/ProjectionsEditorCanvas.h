@@ -34,8 +34,7 @@ class QItemSelectionModel;
 //! Particularly, it creates temporary ProjectionItem in projection container, when mouse
 //! is inside ColorMap viewport.
 
-class ProjectionsEditorCanvas : public QWidget
-{
+class ProjectionsEditorCanvas : public QWidget {
     Q_OBJECT
 
 public:

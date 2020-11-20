@@ -31,8 +31,7 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
     , m_placeHolderModel(new QStandardItemModel(this))
     , m_eventFilter(new RightMouseButtonEater)
     , m_actions(new ComponentTreeActions(this))
-    , m_show_root_item(false)
-{
+    , m_show_root_item(false) {
     auto layout = new QVBoxLayout;
 
     layout->setMargin(0);
@@ -61,8 +60,7 @@ ComponentTreeView::ComponentTreeView(QWidget* parent)
 
 ComponentTreeView::~ComponentTreeView() = default;
 
-void ComponentTreeView::setItem(SessionItem* item)
-{
+void ComponentTreeView::setItem(SessionItem* item) {
     if (!item) {
         setModel(nullptr);
         return;
@@ -72,13 +70,11 @@ void ComponentTreeView::setItem(SessionItem* item)
     m_tree->expandAll();
 }
 
-void ComponentTreeView::clearEditor()
-{
+void ComponentTreeView::clearEditor() {
     m_tree->setModel(m_placeHolderModel);
 }
 
-void ComponentTreeView::setModel(SessionModel* model)
-{
+void ComponentTreeView::setModel(SessionModel* model) {
     m_proxyModel->setSessionModel(model);
     if (model)
         m_tree->setModel(m_proxyModel);
@@ -86,8 +82,7 @@ void ComponentTreeView::setModel(SessionModel* model)
         m_tree->setModel(m_placeHolderModel);
 }
 
-void ComponentTreeView::setRootIndex(const QModelIndex& index, bool show_root_item)
-{
+void ComponentTreeView::setRootIndex(const QModelIndex& index, bool show_root_item) {
     if (QWidget* editor = m_tree->indexWidget(m_tree->currentIndex()))
         m_delegate->closeEditor(editor, QAbstractItemDelegate::NoHint);
     ASSERT(m_proxyModel);
@@ -96,18 +91,15 @@ void ComponentTreeView::setRootIndex(const QModelIndex& index, bool show_root_it
         m_tree->setRootIndex(m_proxyModel->mapFromSource(index));
 }
 
-void ComponentTreeView::setShowHeader(bool show)
-{
+void ComponentTreeView::setShowHeader(bool show) {
     m_tree->setHeaderHidden(!show);
 }
 
-void ComponentTreeView::setShowRootItem(bool show)
-{
+void ComponentTreeView::setShowRootItem(bool show) {
     m_show_root_item = show;
 }
 
-void ComponentTreeView::onCustomContextMenuRequested(const QPoint& pos)
-{
+void ComponentTreeView::onCustomContextMenuRequested(const QPoint& pos) {
     auto point = m_tree->mapToGlobal(pos);
     auto treeIndex = m_tree->indexAt(pos);
     if (!treeIndex.isValid())

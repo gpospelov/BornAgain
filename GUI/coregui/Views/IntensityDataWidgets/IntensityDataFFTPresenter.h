@@ -25,8 +25,7 @@ class QAction;
 //! Provides support in Fast Fourier transformation of IntensityDataItem.
 //! Contains own model to hold IntensityDataItem with fft-transformed results.
 
-class IntensityDataFFTPresenter : public QObject
-{
+class IntensityDataFFTPresenter : public QObject {
     Q_OBJECT
 public:
     IntensityDataFFTPresenter(QWidget* parent = nullptr);

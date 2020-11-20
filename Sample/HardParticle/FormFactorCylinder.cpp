@@ -25,18 +25,14 @@ FormFactorCylinder::FormFactorCylinder(const std::vector<double> P)
          {{"Radius", "nm", "radius of base", 0, +INF, 0}, {"Height", "nm", "height", 0, +INF, 0}}},
         P)
     , m_radius(m_P[0])
-    , m_height(m_P[1])
-{
+    , m_height(m_P[1]) {
     onChange();
 }
 
 FormFactorCylinder::FormFactorCylinder(double radius, double height)
-    : FormFactorCylinder(std::vector<double>{radius, height})
-{
-}
+    : FormFactorCylinder(std::vector<double>{radius, height}) {}
 
-complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const
-{
+complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const {
     double R = m_radius;
     double H = m_height;
 
@@ -50,14 +46,12 @@ complex_t FormFactorCylinder::evaluate_for_q(cvector_t q) const
 }
 
 IFormFactor* FormFactorCylinder::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                 kvector_t translation) const
-{
+                                                 kvector_t translation) const {
     auto effects = computeSlicingEffects(limits, translation, m_height);
     FormFactorCylinder slicedff(m_radius, m_height - effects.dz_bottom - effects.dz_top);
     return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
-void FormFactorCylinder::onChange()
-{
+void FormFactorCylinder::onChange() {
     m_shape = std::make_unique<DoubleEllipse>(m_radius, m_radius, m_height, m_radius, m_radius);
 }

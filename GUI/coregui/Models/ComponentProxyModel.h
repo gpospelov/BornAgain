@@ -30,8 +30,7 @@ class ProxyModelStrategy;
 //! The model hides GroupPropertyItem children and shows grand-children of currently selected item
 //! one level up.
 
-class ComponentProxyModel : public QAbstractProxyModel
-{
+class ComponentProxyModel : public QAbstractProxyModel {
     Q_OBJECT
 
     friend class ProxyModelStrategy;

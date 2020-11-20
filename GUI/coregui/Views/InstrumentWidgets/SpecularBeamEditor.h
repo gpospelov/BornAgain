@@ -25,8 +25,7 @@ class SpecularInstrumentItem;
 
 //! Specular beam editor. Operates on SpecularInstrumentItem.
 
-class SpecularBeamEditor : public SessionItemWidget
-{
+class SpecularBeamEditor : public SessionItemWidget {
     Q_OBJECT
 
 public:

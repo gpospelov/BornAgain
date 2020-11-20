@@ -24,8 +24,7 @@ class IParticle;
 //! A particle type that is a parametric distribution of IParticle's.
 //! @ingroup samples
 
-class ParticleDistribution : public IAbstractParticle
-{
+class ParticleDistribution : public IAbstractParticle {
 public:
     ParticleDistribution(const IParticle& prototype, const ParameterDistribution& par_distr);
 

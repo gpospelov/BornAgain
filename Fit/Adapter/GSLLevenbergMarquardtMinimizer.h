@@ -17,8 +17,7 @@
 
 #include "Fit/Adapter/MinimizerAdapter.h"
 
-namespace ROOT::Math
-{
+namespace ROOT::Math {
 class GSLNLSMinimizer;
 }
 
@@ -27,8 +26,7 @@ class GSLNLSMinimizer;
 //! (http://www.gnu.org/software/gsl/manual/html_node/Nonlinear-Least_002dSquares-Fitting.html).
 //! @ingroup fitting_internal
 
-class GSLLevenbergMarquardtMinimizer : public MinimizerAdapter
-{
+class GSLLevenbergMarquardtMinimizer : public MinimizerAdapter {
 public:
     GSLLevenbergMarquardtMinimizer();
     ~GSLLevenbergMarquardtMinimizer() override;

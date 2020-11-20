@@ -74,8 +74,7 @@ class ContentPane;
  * Currently Headers have to be unique
  *
  */
-class AccordionWidget : public QWidget
-{
+class AccordionWidget : public QWidget {
     Q_OBJECT
 public:
     /**

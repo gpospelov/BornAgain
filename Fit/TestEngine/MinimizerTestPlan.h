@@ -18,8 +18,7 @@
 #include "Fit/Param/ParameterPlan.h"
 #include <vector>
 
-namespace mumufit
-{
+namespace mumufit {
 class Parameter;
 class Parameters;
 class Minimizer;
@@ -28,8 +27,7 @@ class Minimizer;
 //! Defines objective function to fit, expected minimum, initial fit parameters and
 //! expected values of fit parameters at minimum.
 
-class MinimizerTestPlan
-{
+class MinimizerTestPlan {
 public:
     MinimizerTestPlan(const std::string& name);
 

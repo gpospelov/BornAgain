@@ -22,8 +22,7 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* MultipleLayoutBuilder::buildSample() const
-{
+MultiLayer* MultipleLayoutBuilder::buildSample() const {
     const double cylinder_height(5 * Units::nm);
     const double cylinder_radius(5 * Units::nm);
     const double prisheight(5 * Units::nm);

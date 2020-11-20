@@ -14,13 +14,11 @@
 
 #include "Core/Fitting/IObserver.h"
 
-void IObservable::attachObserver(observer_t obj)
-{
+void IObservable::attachObserver(observer_t obj) {
     m_observers.push_back(obj);
 }
 
-void IObservable::notifyObservers()
-{
+void IObservable::notifyObservers() {
     for (auto it : m_observers)
         it->notify(this);
 }

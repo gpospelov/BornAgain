@@ -22,8 +22,7 @@
 //! start point: F(-1.2,1.0) = 24.20
 //! minimum    : F(1.0,1.0)  = 0.
 
-double TestFunctions::RosenBrock(const std::vector<double>& par)
-{
+double TestFunctions::RosenBrock(const std::vector<double>& par) {
     assert(par.size() == 2);
 
     const double x = par[0];
@@ -42,8 +41,7 @@ double TestFunctions::RosenBrock(const std::vector<double>& par)
 //!   start point: F(-3,-1,-3,-1) = 19192
 //!   minimum    : F(1,1,1,1)  =   0.
 
-double TestFunctions::WoodFour(const std::vector<double>& par)
-{
+double TestFunctions::WoodFour(const std::vector<double>& par) {
     assert(par.size() == 4);
 
     const double w = par[0];
@@ -64,8 +62,7 @@ double TestFunctions::WoodFour(const std::vector<double>& par)
 
 //! Decaying sinus from lmfit tutorial.
 
-double TestFunctions::DecayingSin(double x, const std::vector<double>& par)
-{
+double TestFunctions::DecayingSin(double x, const std::vector<double>& par) {
     assert(par.size() == 4);
 
     const double amp = par[0];

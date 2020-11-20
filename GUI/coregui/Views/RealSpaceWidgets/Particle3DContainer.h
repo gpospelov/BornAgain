@@ -19,16 +19,13 @@
 #include <memory>
 #include <vector>
 
-namespace RealSpace
-{
-namespace Particles
-{
+namespace RealSpace {
+namespace Particles {
 class Particle;
 }
 } // namespace RealSpace
 
-class Particle3DContainer
-{
+class Particle3DContainer {
 public:
     Particle3DContainer() : m_cumulativeAbundance(0) {}
     Particle3DContainer(const Particle3DContainer& other);          // copy constructor

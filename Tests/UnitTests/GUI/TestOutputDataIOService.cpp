@@ -16,15 +16,13 @@
 #include <QTest>
 #include <memory>
 
-class TestOutputDataIOService : public ::testing::Test
-{
+class TestOutputDataIOService : public ::testing::Test {
 protected:
     TestOutputDataIOService();
     OutputData<double> m_data;
 };
 
-TestOutputDataIOService::TestOutputDataIOService()
-{
+TestOutputDataIOService::TestOutputDataIOService() {
     FixedBinAxis axis0("x", 10, 0.0, 1.0);
     FixedBinAxis axis1("y", 10, -1.0, 1.0);
     m_data.addAxis(axis0);
@@ -33,8 +31,7 @@ TestOutputDataIOService::TestOutputDataIOService()
 
 //! Test methods for retrieving nonXML data.
 
-TEST_F(TestOutputDataIOService, test_nonXMLData)
-{
+TEST_F(TestOutputDataIOService, test_nonXMLData) {
     ApplicationModels models;
 
     // initial state
@@ -86,8 +83,7 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
 
 //! Tests OutputDataSaveInfo class intended for storing info about the last save.
 
-TEST_F(TestOutputDataIOService, test_OutputDataSaveInfo)
-{
+TEST_F(TestOutputDataIOService, test_OutputDataSaveInfo) {
     SessionModel model("TempModel");
     DataItem* item = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
 
@@ -107,8 +103,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataSaveInfo)
 //! Tests OutputDataDirHistory class intended for storing save history of several
 //! IntensityDataItems in a directory.
 
-TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
-{
+TEST_F(TestOutputDataIOService, test_OutputDataDirHistory) {
     SessionModel model("TempModel");
     DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
 
@@ -144,8 +139,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
 
 //! Tests OutputDataIOHistory class (save info for several independent directories).
 
-TEST_F(TestOutputDataIOService, test_OutputDataIOHistory)
-{
+TEST_F(TestOutputDataIOService, test_OutputDataIOHistory) {
     SessionModel model("TempModel");
     DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
 
@@ -185,8 +179,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOHistory)
 
 //! Testing saving abilities of OutputDataIOService class.
 
-TEST_F(TestOutputDataIOService, test_OutputDataIOService)
-{
+TEST_F(TestOutputDataIOService, test_OutputDataIOService) {
     const QString projectDir("test_OutputDataIOService");
     GuiUnittestUtils::create_dir(projectDir);
 
@@ -242,8 +235,7 @@ TEST_F(TestOutputDataIOService, test_OutputDataIOService)
     EXPECT_FALSE(ProjectUtils::exists(fname2));
 }
 
-TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)
-{
+TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData) {
     ApplicationModels models;
 
     // initial state

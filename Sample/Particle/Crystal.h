@@ -32,8 +32,7 @@ struct HomogeneousRegion;
 //!
 //! @ingroup samples
 
-class Crystal : public ISample
-{
+class Crystal : public ISample {
 public:
     Crystal(const IParticle& basis, const Lattice3D& lattice, double position_variance = 0);
     ~Crystal();

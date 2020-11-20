@@ -17,8 +17,7 @@
 
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 
-class BA_CORE_API_ LayerItem : public SessionGraphicsItem
-{
+class BA_CORE_API_ LayerItem : public SessionGraphicsItem {
 public:
     static const QString P_THICKNESS;
     static const QString P_ROUGHNESS;

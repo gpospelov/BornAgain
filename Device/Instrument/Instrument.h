@@ -30,8 +30,7 @@ class SimulationElement;
 //! Assembles beam, detector and their relative positions with respect to the sample.
 //! @ingroup simulation_internal
 
-class Instrument : public INode
-{
+class Instrument : public INode {
 public:
     Instrument();
     Instrument(const Instrument& other);

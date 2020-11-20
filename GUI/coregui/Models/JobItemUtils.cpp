@@ -24,8 +24,7 @@
 #include <QDebug>
 #include <QFileInfo>
 
-namespace
-{
+namespace {
 const std::map<QString, Axes::Units> units_from_names{{"nbins", Axes::Units::NBINS},
                                                       {"Radians", Axes::Units::RADIANS},
                                                       {"Degrees", Axes::Units::DEGREES},
@@ -45,8 +44,7 @@ void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, A
 //! Updates axes of OutputData in IntensityData item to correspond with ::P_AXES_UNITS selection.
 //! InstrumentItem is used to get domain's detector map for given units.
 
-void JobItemUtils::updateDataAxes(DataItem* intensityItem, const InstrumentItem* instrumentItem)
-{
+void JobItemUtils::updateDataAxes(DataItem* intensityItem, const InstrumentItem* instrumentItem) {
     ASSERT(intensityItem);
 
     if (!instrumentItem) {
@@ -72,24 +70,21 @@ void JobItemUtils::updateDataAxes(DataItem* intensityItem, const InstrumentItem*
 
 //! Correspondance of domain detector axes types to their gui counterpart.
 
-QString JobItemUtils::nameFromAxesUnits(Axes::Units units)
-{
+QString JobItemUtils::nameFromAxesUnits(Axes::Units units) {
     return names_from_units.find(units) != names_from_units.end() ? names_from_units.at(units)
                                                                   : QString();
 }
 
 //! Correspondance of GUI axes units names to their domain counterpart.
 
-Axes::Units JobItemUtils::axesUnitsFromName(const QString& name)
-{
+Axes::Units JobItemUtils::axesUnitsFromName(const QString& name) {
     return units_from_names.at(name);
 }
 
 //! Sets axes units suitable for given instrument.
 
 void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
-                                             const InstrumentItem* instrumentItem)
-{
+                                             const InstrumentItem* instrumentItem) {
     const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
     if (!converter)
         return;
@@ -97,15 +92,13 @@ void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
 }
 
 void JobItemUtils::setIntensityItemAxesUnits(DataItem* intensityItem,
-                                             const IUnitConverter& converter)
-{
+                                             const IUnitConverter& converter) {
     ComboProperty combo = availableUnits(converter);
     intensityItem->setItemValue(DataItem::P_AXES_UNITS, combo.variant());
 }
 
 void JobItemUtils::createDefaultDetectorMap(DataItem* intensityItem,
-                                            const InstrumentItem* instrumentItem)
-{
+                                            const InstrumentItem* instrumentItem) {
     const auto converter = DomainObjectBuilder::createUnitConverter(instrumentItem);
     auto output_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
     intensityItem->setOutputData(output_data.release());
@@ -113,8 +106,7 @@ void JobItemUtils::createDefaultDetectorMap(DataItem* intensityItem,
     updateAxesTitle(intensityItem, *converter, converter->defaultUnits());
 }
 
-void JobItemUtils::setResults(DataItem* intensityItem, const ISimulation* simulation)
-{
+void JobItemUtils::setResults(DataItem* intensityItem, const ISimulation* simulation) {
     const auto sim_result = simulation->result();
     if (intensityItem->getOutputData() == nullptr) {
         const auto& converter = sim_result.converter();
@@ -126,8 +118,7 @@ void JobItemUtils::setResults(DataItem* intensityItem, const ISimulation* simula
     intensityItem->setOutputData(data.release());
 }
 
-ComboProperty JobItemUtils::availableUnits(const IUnitConverter& converter)
-{
+ComboProperty JobItemUtils::availableUnits(const IUnitConverter& converter) {
     ComboProperty result;
     for (auto units : converter.availableUnits()) {
         auto unit_name = nameFromAxesUnits(units);
@@ -139,10 +130,8 @@ ComboProperty JobItemUtils::availableUnits(const IUnitConverter& converter)
     return result;
 }
 
-namespace
-{
-void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, Axes::Units units)
-{
+namespace {
+void updateAxesTitle(DataItem* intensityItem, const IUnitConverter& converter, Axes::Units units) {
     intensityItem->setXaxisTitle(QString::fromStdString(converter.axisName(0, units)));
     if (converter.dimension() > 1)
         intensityItem->setYaxisTitle(QString::fromStdString(converter.axisName(1, units)));

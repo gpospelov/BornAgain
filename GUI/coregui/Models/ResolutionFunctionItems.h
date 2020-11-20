@@ -20,8 +20,7 @@
 
 class IResolutionFunction2D;
 
-class BA_CORE_API_ ResolutionFunctionItem : public SessionItem
-{
+class BA_CORE_API_ ResolutionFunctionItem : public SessionItem {
 
 public:
     explicit ResolutionFunctionItem(const QString& name);
@@ -31,16 +30,14 @@ public:
     createResolutionFunction(double scale = 1.0) const = 0;
 };
 
-class BA_CORE_API_ ResolutionFunctionNoneItem : public ResolutionFunctionItem
-{
+class BA_CORE_API_ ResolutionFunctionNoneItem : public ResolutionFunctionItem {
 
 public:
     ResolutionFunctionNoneItem();
     std::unique_ptr<IResolutionFunction2D> createResolutionFunction(double scale = 1.0) const;
 };
 
-class BA_CORE_API_ ResolutionFunction2DGaussianItem : public ResolutionFunctionItem
-{
+class BA_CORE_API_ ResolutionFunction2DGaussianItem : public ResolutionFunctionItem {
 
 public:
     static const QString P_SIGMA_X;

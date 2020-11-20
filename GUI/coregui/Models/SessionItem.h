@@ -28,8 +28,7 @@ class SessionItemData;
 class SessionItemTags;
 class IPathTranslator;
 
-class BA_CORE_API_ SessionItem
-{
+class BA_CORE_API_ SessionItem {
     friend class SessionModel;
 
 public:
@@ -139,15 +138,13 @@ private:
     QVector<IPathTranslator*> m_translators;
 };
 
-template <typename T> T& SessionItem::item(const QString& tag) const
-{
+template <typename T> T& SessionItem::item(const QString& tag) const {
     T* t = dynamic_cast<T*>(getItem(tag));
     ASSERT(t);
     return *t;
 }
 
-template <typename T> T& SessionItem::groupItem(const QString& groupName) const
-{
+template <typename T> T& SessionItem::groupItem(const QString& groupName) const {
     T* t = dynamic_cast<T*>(getGroupItem(groupName));
     ASSERT(t);
     return *t;

@@ -27,8 +27,7 @@ class UpdateNotifierWidget;
 class QLabel;
 class QFrame;
 
-class WelcomeView : public QWidget
-{
+class WelcomeView : public QWidget {
     Q_OBJECT
 public:
     WelcomeView(MainWindow* parent);

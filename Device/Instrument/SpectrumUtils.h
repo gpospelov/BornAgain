@@ -23,8 +23,7 @@ class Histogram2D;
 
 //! Collection of utils for 1D and 2D spectrum processing (background, peaks, ets).
 
-namespace SpectrumUtils
-{
+namespace SpectrumUtils {
 
 std::vector<std::pair<double, double>> FindPeaks(const Histogram2D& hist, double sigma = 2,
                                                  const std::string& option = {},

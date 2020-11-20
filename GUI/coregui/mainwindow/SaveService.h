@@ -23,8 +23,7 @@ class AutosaveController;
 
 //! Provides save/autosave of ProjectDocument in a thread.
 
-class SaveService : public QObject
-{
+class SaveService : public QObject {
     Q_OBJECT
 
 public:

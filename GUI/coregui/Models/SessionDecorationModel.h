@@ -24,8 +24,7 @@ class SessionItem;
 //! It is implemented as identity proxy model, so it has one-to-one data structure as in
 //! source SessionModel.
 
-class SessionDecorationModel : public QIdentityProxyModel
-{
+class SessionDecorationModel : public QIdentityProxyModel {
     Q_OBJECT
 public:
     explicit SessionDecorationModel(QObject* parent, SessionModel* model = nullptr);

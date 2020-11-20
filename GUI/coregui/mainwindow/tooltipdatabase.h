@@ -19,8 +19,7 @@
 #include <QObject>
 
 //! The MaterialEditor is the main class to access materials.
-class ToolTipDataBase : public QObject
-{
+class ToolTipDataBase : public QObject {
     Q_OBJECT
 public:
     explicit ToolTipDataBase(QObject* parent = nullptr);

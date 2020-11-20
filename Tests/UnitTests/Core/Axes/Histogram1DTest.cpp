@@ -2,12 +2,9 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
-class Histogram1DTest : public ::testing::Test
-{
-};
+class Histogram1DTest : public ::testing::Test {};
 
-TEST_F(Histogram1DTest, FixedBinConstructor)
-{
+TEST_F(Histogram1DTest, FixedBinConstructor) {
     Histogram1D hist(5, 0.0, 5.0);
 
     EXPECT_EQ(size_t(1), hist.rank());
@@ -21,8 +18,7 @@ TEST_F(Histogram1DTest, FixedBinConstructor)
     }
 }
 
-TEST_F(Histogram1DTest, FixedBinDefaultContent)
-{
+TEST_F(Histogram1DTest, FixedBinDefaultContent) {
     Histogram1D hist(5, 0.0, 5.0);
 
     // bin centers
@@ -54,8 +50,7 @@ TEST_F(Histogram1DTest, FixedBinDefaultContent)
     }
 }
 
-TEST_F(Histogram1DTest, FixedBinFill)
-{
+TEST_F(Histogram1DTest, FixedBinFill) {
     Histogram1D hist(5, 0.0, 5.0);
 
     // filling two different bins
@@ -109,8 +104,7 @@ TEST_F(Histogram1DTest, FixedBinFill)
 
 //     -1.0  -0.5        0.5   1.0        2.0  X
 
-TEST_F(Histogram1DTest, crop)
-{
+TEST_F(Histogram1DTest, crop) {
     std::vector<double> xedges = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> xvalues = {-0.75, 0.0, 0.75, 1.5};
     Histogram1D hist(4, xedges);
@@ -128,8 +122,7 @@ TEST_F(Histogram1DTest, crop)
     EXPECT_EQ(20.0, crop->binContent(1));
 }
 
-TEST_F(Histogram1DTest, CreateHistogram)
-{
+TEST_F(Histogram1DTest, CreateHistogram) {
     OutputData<double> data;
     data.addAxis("x-axis", 10, 0.0, 10.0);
     for (size_t i = 0; i < data.getAllocatedSize(); ++i) {
@@ -149,8 +142,7 @@ TEST_F(Histogram1DTest, CreateHistogram)
     }
 }
 
-TEST_F(Histogram1DTest, CreateOutputData)
-{
+TEST_F(Histogram1DTest, CreateOutputData) {
     Histogram1D hist(10, -5.0, 5.0);
 
     for (size_t i = 0; i < hist.getNbinsX(); ++i) {
@@ -183,8 +175,7 @@ TEST_F(Histogram1DTest, CreateOutputData)
     }
 }
 
-TEST_F(Histogram1DTest, GetMaximumGetMinimum)
-{
+TEST_F(Histogram1DTest, GetMaximumGetMinimum) {
     Histogram1D hist(10, -5.0, 5.0);
     hist.fill(-4.5, 10.);
     EXPECT_EQ(10.0, hist.getMaximum());
@@ -197,8 +188,7 @@ TEST_F(Histogram1DTest, GetMaximumGetMinimum)
     EXPECT_EQ(size_t(1), hist.getMaximumBinIndex());
 }
 
-TEST_F(Histogram1DTest, Scale)
-{
+TEST_F(Histogram1DTest, Scale) {
     Histogram1D hist(10, -5.0, 5.0);
 
     for (size_t i = 0; i < hist.getTotalNumberOfBins(); ++i) {
@@ -210,8 +200,7 @@ TEST_F(Histogram1DTest, Scale)
     }
 }
 
-TEST_F(Histogram1DTest, Integral)
-{
+TEST_F(Histogram1DTest, Integral) {
     Histogram1D hist(10, -5.0, 5.0);
 
     for (size_t i = 0; i < hist.getTotalNumberOfBins(); ++i) {
@@ -220,8 +209,7 @@ TEST_F(Histogram1DTest, Integral)
     EXPECT_EQ(10.0, hist.integral());
 }
 
-TEST_F(Histogram1DTest, Addition)
-{
+TEST_F(Histogram1DTest, Addition) {
     Histogram1D hist1(10, -5.0, 5.0);
     for (size_t i = 0; i < hist1.getTotalNumberOfBins(); ++i) {
         hist1.fill(-4.5 + i, 1.0);

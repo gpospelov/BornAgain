@@ -19,8 +19,7 @@
 
 //! This is a view of MaskAllItem which covers whole detector plane with mask value=true.
 
-class MaskAllView : public IShape2DView
-{
+class MaskAllView : public IShape2DView {
     Q_OBJECT
 
 public:

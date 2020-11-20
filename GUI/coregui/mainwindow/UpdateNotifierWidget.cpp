@@ -22,13 +22,11 @@
 #include <QTimer>
 #include <QUrl>
 
-namespace
-{
+namespace {
 const QString yes = "yes";
 const QString no = "no";
 
-QString update_question()
-{
+QString update_question() {
     QString result = QString("Should BornAgain check for updates automatically? - "
                              " <a href=\"%1\">yes</a> /"
                              " <a href=\"%2\">no</a>")
@@ -41,8 +39,7 @@ UpdateNotifierWidget::UpdateNotifierWidget(UpdateNotifier* updateNotifier, QWidg
     : QWidget(parent)
     , m_updateNotifier(updateNotifier)
     , m_updateLabel(new QLabel)
-    , m_check_for_updates(true)
-{
+    , m_check_for_updates(true) {
     auto layout = new QHBoxLayout();
     layout->addWidget(m_updateLabel);
     setLayout(layout);
@@ -68,8 +65,7 @@ UpdateNotifierWidget::UpdateNotifierWidget(UpdateNotifier* updateNotifier, QWidg
 
 //! Schedule check for updates if it was not done yet.
 
-void UpdateNotifierWidget::showEvent(QShowEvent* event)
-{
+void UpdateNotifierWidget::showEvent(QShowEvent* event) {
     QWidget::showEvent(event);
     if (m_check_for_updates) {
         m_check_for_updates = false;
@@ -79,15 +75,13 @@ void UpdateNotifierWidget::showEvent(QShowEvent* event)
 
 //! Updates label when notification is coming.
 
-void UpdateNotifierWidget::onUpdateNotification(const QString& text)
-{
+void UpdateNotifierWidget::onUpdateNotification(const QString& text) {
     m_updateLabel->setText(text);
 }
 
 //! Processes mouse click on update notification label.
 
-void UpdateNotifierWidget::onLinkActivated(const QString& text)
-{
+void UpdateNotifierWidget::onLinkActivated(const QString& text) {
     if (text == yes) {
         m_updateNotifier->setCheckUpdatesFlag(true);
         m_updateNotifier->checkForUpdates();

@@ -17,8 +17,7 @@
 
 IUnitConverter::~IUnitConverter() = default;
 
-std::string IUnitConverter::axisName(size_t i_axis, Axes::Units units_type) const
-{
+std::string IUnitConverter::axisName(size_t i_axis, Axes::Units units_type) const {
     const auto& name_maps = createNameMaps();
     if (name_maps.size() <= i_axis)
         throw std::runtime_error("Error in IUnitConverter::axisName: the size of name map vector "
@@ -33,8 +32,7 @@ std::string IUnitConverter::axisName(size_t i_axis, Axes::Units units_type) cons
 }
 
 std::unique_ptr<OutputData<double>>
-IUnitConverter::createConvertedData(const OutputData<double>& data, Axes::Units units) const
-{
+IUnitConverter::createConvertedData(const OutputData<double>& data, Axes::Units units) const {
     const size_t dim = data.rank();
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i = 0; i < dim; ++i)
@@ -43,16 +41,14 @@ IUnitConverter::createConvertedData(const OutputData<double>& data, Axes::Units 
     return result;
 }
 
-void IUnitConverter::checkIndex(size_t i_axis) const
-{
+void IUnitConverter::checkIndex(size_t i_axis) const {
     if (i_axis < dimension())
         return;
     throw std::runtime_error("Error in IUnitConverter::checkIndex: passed axis index too big: "
                              + std::to_string(static_cast<int>(i_axis)));
 }
 
-void IUnitConverter::throwUnitsError(std::string method, std::vector<Axes::Units> available) const
-{
+void IUnitConverter::throwUnitsError(std::string method, std::vector<Axes::Units> available) const {
     std::stringstream ss;
     ss << "Unit type error in " << method
        << ": unknown or unsupported unit type. Available units "
@@ -62,7 +58,6 @@ void IUnitConverter::throwUnitsError(std::string method, std::vector<Axes::Units
     throw std::runtime_error(ss.str());
 }
 
-Axes::Units IUnitConverter::substituteDefaultUnits(Axes::Units units) const
-{
+Axes::Units IUnitConverter::substituteDefaultUnits(Axes::Units units) const {
     return units == Axes::Units::DEFAULT ? defaultUnits() : units;
 }

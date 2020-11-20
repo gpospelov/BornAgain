@@ -17,14 +17,12 @@
 #include <QMenu>
 #include <QToolButton>
 
-namespace
-{
+namespace {
 const int toolbar_icon_size = 24;
 }
 
 RealDataSelectorHBar::RealDataSelectorHBar(RealDataSelectorActions* actions, QWidget* parent)
-    : QToolBar(parent), m_dropDownMenuButton(nullptr), m_actions(actions)
-{
+    : QToolBar(parent), m_dropDownMenuButton(nullptr), m_actions(actions) {
     setIconSize(QSize(toolbar_icon_size, toolbar_icon_size));
     setProperty("_q_custom_style_disabled", QVariant(true));
 
@@ -40,8 +38,7 @@ RealDataSelectorHBar::RealDataSelectorHBar(RealDataSelectorActions* actions, QWi
     addWidget(m_dropDownMenuButton);
 }
 
-void RealDataSelectorHBar::onDropDownMenuRequest()
-{
+void RealDataSelectorHBar::onDropDownMenuRequest() {
     QMenu menu;
     menu.setToolTipsVisible(true);
     auto action = menu.addAction("Import 1D data");

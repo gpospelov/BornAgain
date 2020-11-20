@@ -21,8 +21,7 @@
 //! from each other in a given direction.
 //! @ingroup interference
 
-class InterferenceFunctionTwin : public IInterferenceFunction
-{
+class InterferenceFunctionTwin : public IInterferenceFunction {
 public:
     InterferenceFunctionTwin(const kvector_t& direction, double mean_distance, double std_dev);
 

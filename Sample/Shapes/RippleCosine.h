@@ -17,8 +17,7 @@
 
 #include "Sample/Shapes/IShape.h"
 
-class RippleCosine : public IShape
-{
+class RippleCosine : public IShape {
 public:
     RippleCosine(double length, double width, double height);
     ~RippleCosine();

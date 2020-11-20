@@ -21,14 +21,12 @@
 #include <unordered_map>
 #include <vector>
 
-namespace RealSpace
-{
+namespace RealSpace {
 
 class Buffer;
 class GeometryStore;
 
-class Geometry
-{
+class Geometry {
     friend class Buffer;
     friend class GeometryStore;
 
@@ -94,8 +92,7 @@ private:
 
 // a single store keeps existing geometries for sharing
 
-class GeometryStore : public QObject
-{
+class GeometryStore : public QObject {
     Q_OBJECT
     friend class Geometry;
 

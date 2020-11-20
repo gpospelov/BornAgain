@@ -16,15 +16,13 @@
 #include "Base/Math/Constants.h"
 #include "Base/Math/Functions.h"
 
-namespace
-{
+namespace {
 const double pi2_15 = std::pow(M_PI_2, 1.5);
 } // namespace
 
 Eigen::Matrix2cd
 SpecularMagneticNewTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficients_v3& coeff,
-                                                        double sigma, bool inverse) const
-{
+                                                        double sigma, bool inverse) const {
     if (sigma < 10 * std::numeric_limits<double>::epsilon())
         return Eigen::Matrix2cd{Eigen::Matrix2cd::Identity()};
 
@@ -64,8 +62,7 @@ SpecularMagneticNewTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficien
 std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
 SpecularMagneticNewTanhStrategy::computeBackwardsSubmatrices(
     const MatrixRTCoefficients_v3& coeff_i, const MatrixRTCoefficients_v3& coeff_i1,
-    double sigma) const
-{
+    double sigma) const {
     Eigen::Matrix2cd R{Eigen::Matrix2cd::Identity()};
     Eigen::Matrix2cd RInv{Eigen::Matrix2cd::Identity()};
 

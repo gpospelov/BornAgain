@@ -20,8 +20,7 @@
 //! A spherical detector used for validation with IsGISAXS results.
 //! @ingroup detector
 
-class IsGISAXSDetector : public SphericalDetector
-{
+class IsGISAXSDetector : public SphericalDetector {
 public:
     IsGISAXSDetector();
     IsGISAXSDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min,

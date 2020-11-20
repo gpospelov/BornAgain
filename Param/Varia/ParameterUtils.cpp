@@ -18,19 +18,16 @@
 #include "Param/Base/RealParameter.h"
 #include <memory>
 
-namespace
-{
+namespace {
 //! Returns list of all angle related parameters used in Core library.
-std::vector<std::string> angleRelatedParameters()
-{
+std::vector<std::string> angleRelatedParameters() {
     std::vector<std::string> result{
         "InclinationAngle", "AzimuthalAngle", "Alpha", "Beta", "Gamma", "Angle"};
     return result;
 }
 } // namespace
 
-bool ParameterUtils::isAngleRelated(const std::string& par_name)
-{
+bool ParameterUtils::isAngleRelated(const std::string& par_name) {
     static std::vector<std::string> angleRelated = angleRelatedParameters();
 
     for (const auto& par : angleRelated) {
@@ -41,8 +38,7 @@ bool ParameterUtils::isAngleRelated(const std::string& par_name)
 }
 
 std::string ParameterUtils::poolParameterUnits(const IParameterized& node,
-                                               const std::string& parName)
-{
+                                               const std::string& parName) {
     std::unique_ptr<ParameterPool> pool{node.createParameterTree()};
     return pool->getUniqueMatch(parName)->unit();
 }

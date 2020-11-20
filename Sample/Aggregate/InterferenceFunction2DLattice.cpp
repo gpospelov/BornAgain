@@ -18,8 +18,7 @@
 #include "Param/Base/RealParameter.h"
 #include <algorithm>
 
-namespace
-{
+namespace {
 // maximum value for qx*Lambdax and qy*lambday
 const int nmax = 20;
 // minimum number of neighboring reciprocal lattice points to use
@@ -27,8 +26,7 @@ const int min_points = 4;
 } // namespace
 
 InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& lattice)
-    : IInterferenceFunction(0), m_integrate_xi(false)
-{
+    : IInterferenceFunction(0), m_integrate_xi(false) {
     setName("Interference2DLattice");
     m_lattice.reset(lattice.clone());
     registerChild(m_lattice.get());
@@ -37,8 +35,7 @@ InterferenceFunction2DLattice::InterferenceFunction2DLattice(const Lattice2D& la
 
 InterferenceFunction2DLattice::~InterferenceFunction2DLattice() = default;
 
-InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
-{
+InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const {
     auto* ret = new InterferenceFunction2DLattice(*m_lattice);
     ret->setPositionVariance(m_position_var);
     ret->setIntegrationOverXi(integrationOverXi());
@@ -49,46 +46,39 @@ InterferenceFunction2DLattice* InterferenceFunction2DLattice::clone() const
 
 //! Sets two-dimensional decay function.
 //! @param decay: two-dimensional decay function in reciprocal space
-void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D& decay)
-{
+void InterferenceFunction2DLattice::setDecayFunction(const IFTDecayFunction2D& decay) {
     m_decay.reset(decay.clone());
     registerChild(m_decay.get());
     initialize_calc_factors();
 }
 
-void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi)
-{
+void InterferenceFunction2DLattice::setIntegrationOverXi(bool integrate_xi) {
     m_integrate_xi = integrate_xi;
     m_lattice->setRotationEnabled(!m_integrate_xi); // deregister Xi in the case of integration
 }
 
-const Lattice2D& InterferenceFunction2DLattice::lattice() const
-{
+const Lattice2D& InterferenceFunction2DLattice::lattice() const {
     if (!m_lattice)
         throw std::runtime_error("InterferenceFunction2DLattice::lattice() -> Error. "
                                  "No lattice defined.");
     return *m_lattice;
 }
 
-double InterferenceFunction2DLattice::getParticleDensity() const
-{
+double InterferenceFunction2DLattice::getParticleDensity() const {
     double area = m_lattice->unitCellArea();
     return area == 0.0 ? 0.0 : 1.0 / area;
 }
 
-std::vector<const INode*> InterferenceFunction2DLattice::getChildren() const
-{
+std::vector<const INode*> InterferenceFunction2DLattice::getChildren() const {
     return std::vector<const INode*>() << m_decay << m_lattice;
 }
 
-void InterferenceFunction2DLattice::onChange()
-{
+void InterferenceFunction2DLattice::onChange() {
     initialize_rec_vectors();
     initialize_calc_factors();
 }
 
-double InterferenceFunction2DLattice::iff_without_dw(const kvector_t q) const
-{
+double InterferenceFunction2DLattice::iff_without_dw(const kvector_t q) const {
     if (!m_decay)
         throw Exceptions::NullPointerException("InterferenceFunction2DLattice::evaluate"
                                                " -> Error! No decay function defined.");
@@ -101,8 +91,7 @@ double InterferenceFunction2DLattice::iff_without_dw(const kvector_t q) const
            / M_TWOPI;
 }
 
-double InterferenceFunction2DLattice::interferenceForXi(double xi) const
-{
+double InterferenceFunction2DLattice::interferenceForXi(double xi) const {
     double result = 0.0;
     auto q_frac = calculateReciprocalVectorFraction(m_qx, m_qy, xi);
 
@@ -116,8 +105,7 @@ double InterferenceFunction2DLattice::interferenceForXi(double xi) const
     return getParticleDensity() * result;
 }
 
-double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const
-{
+double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const {
     if (!m_decay)
         throw Exceptions::NullPointerException(
             "InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
@@ -129,8 +117,7 @@ double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx
 
 // Rotate by angle gamma between orthonormal systems
 std::pair<double, double> InterferenceFunction2DLattice::rotateOrthonormal(double qx, double qy,
-                                                                           double gamma) const
-{
+                                                                           double gamma) const {
     double q_X = qx * std::cos(gamma) + qy * std::sin(gamma);
     double q_Y = -qx * std::sin(gamma) + qy * std::cos(gamma);
     return {q_X, q_Y};
@@ -141,8 +128,7 @@ std::pair<double, double> InterferenceFunction2DLattice::rotateOrthonormal(doubl
 // vector aligned with the real-space x-axis (same frame as the one stored in m_sbase)
 std::pair<double, double>
 InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx, double qy,
-                                                                 double xi) const
-{
+                                                                 double xi) const {
     double a = m_lattice->length1();
     double b = m_lattice->length2();
     double alpha = m_lattice->latticeAngle();
@@ -161,8 +147,7 @@ InterferenceFunction2DLattice::calculateReciprocalVectorFraction(double qx, doub
 }
 
 // Do not store xi in the reciprocal lattice
-void InterferenceFunction2DLattice::initialize_rec_vectors()
-{
+void InterferenceFunction2DLattice::initialize_rec_vectors() {
     if (!m_lattice)
         throw std::runtime_error("InterferenceFunction2DLattice::initialize_rec_vectors() -> "
                                  "Error. No lattice defined yet");
@@ -172,8 +157,7 @@ void InterferenceFunction2DLattice::initialize_rec_vectors()
     m_sbase = base_lattice.reciprocalBases();
 }
 
-void InterferenceFunction2DLattice::initialize_calc_factors()
-{
+void InterferenceFunction2DLattice::initialize_calc_factors() {
     if (!m_decay)
         throw Exceptions::NullPointerException(
             "InterferenceFunction2DLattice::initialize_calc_factors"

@@ -38,8 +38,7 @@ class SimulationElement;
 //!
 //! @ingroup algorithms_internal
 
-class IInterferenceFunctionStrategy
-{
+class IInterferenceFunctionStrategy {
 public:
     IInterferenceFunctionStrategy(const std::vector<FormFactorCoherentSum>& weighted_formfactors,
                                   const SimulationOptions& sim_params, bool polarized);

@@ -22,8 +22,7 @@ class MaterialModel;
 
 //! The AppSvc class provides common access for key components of the GUI.
 
-class AppSvc : public ISingleton<AppSvc>
-{
+class AppSvc : public ISingleton<AppSvc> {
     friend class ISingleton<AppSvc>;
 
 public:

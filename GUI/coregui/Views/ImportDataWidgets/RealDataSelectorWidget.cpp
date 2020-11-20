@@ -30,8 +30,7 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     , m_hamBar(new RealDataSelectorHBar(m_selectorActions, this))
     , m_splitter(new Manhattan::MiniSplitter)
     , m_selectorWidget(new ItemSelectorWidget)
-    , m_propertiesWidget(new RealDataPropertiesWidget)
-{
+    , m_propertiesWidget(new RealDataPropertiesWidget) {
     setMinimumSize(128, 600);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
     setWindowTitle("RealDataSelectorWidget");
@@ -57,19 +56,16 @@ RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
             &RealDataSelectorWidget::onSelectionChanged);
 }
 
-QSize RealDataSelectorWidget::sizeHint() const
-{
+QSize RealDataSelectorWidget::sizeHint() const {
     return QSize(200, 400);
 }
 
-QSize RealDataSelectorWidget::minimumSizeHint() const
-{
+QSize RealDataSelectorWidget::minimumSizeHint() const {
     return QSize(128, 200);
 }
 
 void RealDataSelectorWidget::setModels(InstrumentModel* instrumentModel,
-                                       RealDataModel* realDataModel)
-{
+                                       RealDataModel* realDataModel) {
     m_selectorWidget->setModel(realDataModel);
     m_propertiesWidget->setModels(instrumentModel, realDataModel);
 
@@ -77,8 +73,7 @@ void RealDataSelectorWidget::setModels(InstrumentModel* instrumentModel,
     m_selectorActions->setSelectionModel(m_selectorWidget->selectionModel());
 }
 
-void RealDataSelectorWidget::onSelectionChanged(SessionItem* item)
-{
+void RealDataSelectorWidget::onSelectionChanged(SessionItem* item) {
     m_propertiesWidget->setItem(item);
     emit selectionChanged(item);
 }

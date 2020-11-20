@@ -22,8 +22,7 @@
 //! A sphere with log normal radius distribution.
 //! @ingroup softParticle
 
-class FormFactorSphereLogNormalRadius : public IBornFF
-{
+class FormFactorSphereLogNormalRadius : public IBornFF {
 public:
     FormFactorSphereLogNormalRadius(const std::vector<double> P, size_t n_samples = 0);
     FormFactorSphereLogNormalRadius(double mean, double scale_param, size_t n_samples);

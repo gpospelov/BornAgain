@@ -22,8 +22,7 @@ class Prism;
 
 //! A prism with a polygonal base, for form factor computation.
 
-class IFormFactorPrism : public IBornFF
-{
+class IFormFactorPrism : public IBornFF {
 public:
     IFormFactorPrism(const NodeMeta& meta, const std::vector<double>& PValues);
     ~IFormFactorPrism();

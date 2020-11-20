@@ -17,8 +17,7 @@
 
 #include "Sample/Shapes/IShape.h"
 
-class DoubleEllipse : public IShape
-{
+class DoubleEllipse : public IShape {
 public:
     DoubleEllipse(double r0_x, double r0_y, double z, double rz_x, double rz_y);
     ~DoubleEllipse();

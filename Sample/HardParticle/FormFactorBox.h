@@ -20,8 +20,7 @@
 //! A rectangular prism (parallelepiped).
 //! @ingroup hardParticle
 
-class FormFactorBox : public IFormFactorPrism
-{
+class FormFactorBox : public IFormFactorPrism {
 public:
     FormFactorBox(const std::vector<double> P);
     FormFactorBox(double length, double width, double height);

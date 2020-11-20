@@ -27,8 +27,7 @@ class QKeyEvent;
 //!
 //! Belongs to SampleDesigner
 //! Currently contains logic for zooming, deleting objects
-class DesignerView : public QGraphicsView
-{
+class DesignerView : public QGraphicsView {
     Q_OBJECT
 
 public:

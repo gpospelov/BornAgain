@@ -23,8 +23,7 @@
 //! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
 //! @ingroup distribution_internal
 
-class IFTDistribution1D : public ICloneable, public INode
-{
+class IFTDistribution1D : public ICloneable, public INode {
 public:
     IFTDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues);
 
@@ -51,8 +50,7 @@ protected:
 //! its Fourier transform evaluate(q) is a Cauchy-Lorentzian starting at evaluate(0)=1.
 //! @ingroup distributionFT
 
-class FTDistribution1DCauchy : public IFTDistribution1D
-{
+class FTDistribution1DCauchy : public IFTDistribution1D {
 public:
     FTDistribution1DCauchy(const std::vector<double> P);
     FTDistribution1DCauchy(double omega);
@@ -71,8 +69,7 @@ public:
 //! its Fourier transform evaluate(q) is a Gaussian starting at evaluate(0)=1.
 //! @ingroup distributionFT
 
-class FTDistribution1DGauss : public IFTDistribution1D
-{
+class FTDistribution1DGauss : public IFTDistribution1D {
 public:
     FTDistribution1DGauss(const std::vector<double> P);
     FTDistribution1DGauss(double omega);
@@ -91,8 +88,7 @@ public:
 //! its Fourier transform evaluate(q) is a sinc function starting at evaluate(0)=1.
 //! @ingroup distributionFT
 
-class FTDistribution1DGate : public IFTDistribution1D
-{
+class FTDistribution1DGate : public IFTDistribution1D {
 public:
     FTDistribution1DGate(const std::vector<double> P);
     FTDistribution1DGate(double omega);
@@ -111,8 +107,7 @@ public:
 //! its Fourier transform evaluate(q) is a squared sinc function starting at evaluate(0)=1.
 //! @ingroup distributionFT
 
-class FTDistribution1DTriangle : public IFTDistribution1D
-{
+class FTDistribution1DTriangle : public IFTDistribution1D {
 public:
     FTDistribution1DTriangle(const std::vector<double> P);
     FTDistribution1DTriangle(double omega);
@@ -132,8 +127,7 @@ public:
 //! its Fourier transform evaluate(q) starts at evaluate(0)=1.
 //! @ingroup distributionFT
 
-class FTDistribution1DCosine : public IFTDistribution1D
-{
+class FTDistribution1DCosine : public IFTDistribution1D {
 public:
     FTDistribution1DCosine(const std::vector<double> P);
     FTDistribution1DCosine(double omega);
@@ -153,8 +147,7 @@ public:
 //! starting at 1 for q=0.
 //! @ingroup distributionFT
 
-class FTDistribution1DVoigt : public IFTDistribution1D
-{
+class FTDistribution1DVoigt : public IFTDistribution1D {
 public:
     FTDistribution1DVoigt(const std::vector<double> P);
     FTDistribution1DVoigt(double omega, double eta);

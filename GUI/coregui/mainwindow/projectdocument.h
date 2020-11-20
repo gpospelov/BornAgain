@@ -23,8 +23,7 @@ class ApplicationModels;
 class MessageService;
 class OutputDataIOService;
 
-namespace ProjectDocumentXML
-{
+namespace ProjectDocumentXML {
 const QString BornAgainTag("BornAgain");
 const QString BornAgainVersionAttribute("Version");
 const QString InfoTag("DocumentInfo");
@@ -38,8 +37,7 @@ const QString InfoNameAttribute("ProjectName");
 //! projectName()     - 'Untitled'
 //! projectDir()      - '/home/users/development/Untitled
 //! projectFileName() - '/home/users/development/Untitled/Untitled.pro'
-class ProjectDocument : public QObject
-{
+class ProjectDocument : public QObject {
     Q_OBJECT
 
 public:

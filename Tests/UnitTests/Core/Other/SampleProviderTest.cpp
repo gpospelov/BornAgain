@@ -6,29 +6,24 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
-class SampleProviderTest : public ::testing::Test
-{
+class SampleProviderTest : public ::testing::Test {
 public:
     //! Returns test multilayer.
-    static std::unique_ptr<MultiLayer> testMultiLayer(double length)
-    {
+    static std::unique_ptr<MultiLayer> testMultiLayer(double length) {
         std::unique_ptr<MultiLayer> result(new MultiLayer);
         result->setCrossCorrLength(length); // used to check following cloning
         return result;
     }
 
     //! Test class playing the role of SampleContainer's parent
-    class TestSimulation : public INode
-    {
+    class TestSimulation : public INode {
     public:
-        TestSimulation()
-        {
+        TestSimulation() {
             setName("TestSimulation");
             registerChild(&m_provider);
         }
 
-        TestSimulation(const TestSimulation& other) : INode(), m_provider(other.m_provider)
-        {
+        TestSimulation(const TestSimulation& other) : INode(), m_provider(other.m_provider) {
             setName("TestSimulation");
             registerChild(&m_provider);
         }
@@ -42,11 +37,9 @@ public:
     };
 
     //! Test sample builder
-    class TestBuilder : public ISampleBuilder
-    {
+    class TestBuilder : public ISampleBuilder {
     public:
-        explicit TestBuilder(double length = 42.0) : m_length(length)
-        {
+        explicit TestBuilder(double length = 42.0) : m_length(length) {
             setName("TestBuilder");
             registerParameter("length", &m_length);
         }
@@ -58,8 +51,7 @@ public:
 
 //! Test initial state,  assignment operator.
 
-TEST_F(SampleProviderTest, initialState)
-{
+TEST_F(SampleProviderTest, initialState) {
     SampleProvider provider;
     EXPECT_EQ(provider.sample(), nullptr);
     EXPECT_EQ(provider.getChildren().size(), 0u);
@@ -78,8 +70,7 @@ TEST_F(SampleProviderTest, initialState)
 
 //! Testing sample builder assignment.
 
-TEST_F(SampleProviderTest, sampleBuilder)
-{
+TEST_F(SampleProviderTest, sampleBuilder) {
     // Setting sample first
     SampleProvider provider;
     provider.setSample(*SampleProviderTest::testMultiLayer(42.0));
@@ -113,8 +104,7 @@ TEST_F(SampleProviderTest, sampleBuilder)
 
 //! Test parentship of container and sample in simulation context.
 
-TEST_F(SampleProviderTest, sampleInSimulationContext)
-{
+TEST_F(SampleProviderTest, sampleInSimulationContext) {
     SampleProviderTest::TestSimulation sim;
     SampleProvider& provider = sim.m_provider;
     provider.setSample(*SampleProviderTest::testMultiLayer(42.0));
@@ -147,8 +137,7 @@ TEST_F(SampleProviderTest, sampleInSimulationContext)
 
 //! Test parentship of container and builder in simulation context.
 
-TEST_F(SampleProviderTest, builderInSimulationContext)
-{
+TEST_F(SampleProviderTest, builderInSimulationContext) {
     SampleProviderTest::TestSimulation sim;
     SampleProvider& provider = sim.m_provider;
 

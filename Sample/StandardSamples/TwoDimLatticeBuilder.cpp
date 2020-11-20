@@ -25,8 +25,7 @@
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* Basic2DLatticeBuilder::buildSample() const
-{
+MultiLayer* Basic2DLatticeBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
@@ -55,8 +54,7 @@ MultiLayer* Basic2DLatticeBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #1:
 // -----------------------------------------------------------------------------
-MultiLayer* SquareLattice2DBuilder::buildSample() const
-{
+MultiLayer* SquareLattice2DBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
@@ -83,8 +81,7 @@ MultiLayer* SquareLattice2DBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #2: centered
 // -----------------------------------------------------------------------------
-MultiLayer* CenteredSquareLattice2DBuilder::buildSample() const
-{
+MultiLayer* CenteredSquareLattice2DBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
@@ -117,8 +114,7 @@ MultiLayer* CenteredSquareLattice2DBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #3: rotated
 // -----------------------------------------------------------------------------
-MultiLayer* RotatedSquareLattice2DBuilder::buildSample() const
-{
+MultiLayer* RotatedSquareLattice2DBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
@@ -147,8 +143,7 @@ MultiLayer* RotatedSquareLattice2DBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #4: finite square
 // -----------------------------------------------------------------------------
-MultiLayer* FiniteSquareLattice2DBuilder::buildSample() const
-{
+MultiLayer* FiniteSquareLattice2DBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
@@ -174,8 +169,7 @@ MultiLayer* FiniteSquareLattice2DBuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // lattice #5: superlattice
 // -----------------------------------------------------------------------------
-MultiLayer* SuperLatticeBuilder::buildSample() const
-{
+MultiLayer* SuperLatticeBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 

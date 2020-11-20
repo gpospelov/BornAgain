@@ -20,8 +20,7 @@
 //! Builds sample: spherical composition made of top+bottom spherical cups
 //! @ingroup standard_samples
 
-class SlicedCompositionBuilder : public ISampleBuilder
-{
+class SlicedCompositionBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

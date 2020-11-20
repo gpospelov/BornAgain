@@ -19,8 +19,7 @@
 
 class InterferenceFunction2DParaCrystal;
 
-namespace RealSpace2DParacrystalUtils
-{
+namespace RealSpace2DParacrystalUtils {
 std::vector<std::vector<double>>
 Compute2DParacrystalLatticePositions(const InterferenceFunction2DParaCrystal*, double layer_size);
 };

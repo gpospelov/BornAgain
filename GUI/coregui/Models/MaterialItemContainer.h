@@ -19,8 +19,7 @@
 
 class MaterialItem;
 
-class MaterialItemContainer : public SessionItem
-{
+class MaterialItemContainer : public SessionItem {
 public:
     static const QString T_MATERIALS;
 

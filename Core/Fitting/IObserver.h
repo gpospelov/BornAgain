@@ -23,8 +23,7 @@ class IObservable;
 //! Observer interface from %Observer pattern.
 //! @ingroup tools_internal
 
-class IObserver
-{
+class IObserver {
 public:
     virtual ~IObserver();
 
@@ -35,8 +34,7 @@ public:
 //! Observable interface from %Observer pattern
 //! @ingroup tools_internal
 
-class IObservable
-{
+class IObservable {
 public:
     //! Shared pointer is used when passing these objects from Python to C++
     typedef std::shared_ptr<IObserver> observer_t;

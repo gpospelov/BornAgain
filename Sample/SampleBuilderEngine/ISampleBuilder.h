@@ -22,8 +22,7 @@ class MultiLayer;
 //! Interface to the class capable to build samples to simulate.
 //! @ingroup simulation_internal
 
-class ISampleBuilder : public IParameterized
-{
+class ISampleBuilder : public IParameterized {
 public:
     ISampleBuilder();
     virtual ~ISampleBuilder();

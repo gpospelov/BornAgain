@@ -19,8 +19,7 @@
 
 class SessionItem;
 
-namespace ItemFactory
-{
+namespace ItemFactory {
 //! create SessionItem of specific type and parent
 SessionItem* CreateItem(const QString& model_name, SessionItem* parent = nullptr);
 

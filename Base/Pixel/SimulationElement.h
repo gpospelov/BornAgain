@@ -25,8 +25,7 @@ class IPixel;
 //! Data stucture containing both input and output of a single detector cell.
 //! @ingroup simulation
 
-class SimulationElement
-{
+class SimulationElement {
 public:
     SimulationElement() = delete;
     SimulationElement(double wavelength, double alpha_i, double phi_i,

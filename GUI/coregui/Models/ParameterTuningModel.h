@@ -25,8 +25,7 @@ class ParameterItem;
 //! to the FitParametersWidget.
 //!
 
-class ParameterTuningModel : public FilterPropertyProxy
-{
+class ParameterTuningModel : public FilterPropertyProxy {
     Q_OBJECT
 
 public:
@@ -40,13 +39,11 @@ public:
     ParameterItem* getParameterItem(const QModelIndex& proxyIndex) const;
 };
 
-inline Qt::DropActions ParameterTuningModel::supportedDragActions() const
-{
+inline Qt::DropActions ParameterTuningModel::supportedDragActions() const {
     return Qt::CopyAction;
 }
 
-inline Qt::DropActions ParameterTuningModel::supportedDropActions() const
-{
+inline Qt::DropActions ParameterTuningModel::supportedDropActions() const {
     return Qt::IgnoreAction;
 }
 

@@ -23,8 +23,7 @@ class QAction;
 //! Presents imported data (RealDataItem) using stack of different widgets and combo box in the
 //! right top corner of ImportDataView, to switch between widgets.
 
-class RealDataPresenter : public ItemComboWidget
-{
+class RealDataPresenter : public ItemComboWidget {
     Q_OBJECT
 public:
     explicit RealDataPresenter(QWidget* parent = nullptr);

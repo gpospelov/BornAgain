@@ -33,8 +33,7 @@ Genetic        | Default
 Test           | Default
 */
 
-class MinimizerCatalog
-{
+class MinimizerCatalog {
 public:
     MinimizerCatalog();
 

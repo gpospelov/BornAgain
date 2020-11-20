@@ -28,12 +28,10 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleCoreShell.h"
 
-namespace
-{
+namespace {
 const int n = 10; // TODO: Adjust this parameter based on the size of the mesocrystal
 
-bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positionInside)
-{
+bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positionInside) {
     bool check(false);
     if (auto ff_AnisoPyramid = dynamic_cast<const FormFactorAnisoPyramid*>(outerShape)) {
         double L = ff_AnisoPyramid->getLength();
@@ -347,15 +345,13 @@ bool isPositionInsideMesoCrystal(const IFormFactor* outerShape, kvector_t positi
 RealSpaceMesoCrystal::~RealSpaceMesoCrystal() = default;
 
 RealSpaceMesoCrystal::RealSpaceMesoCrystal(const MesoCrystalItem* mesoCrystalItem,
-                                           double total_abundance, const QVector3D& origin)
-{
+                                           double total_abundance, const QVector3D& origin) {
     m_mesoCrystalItem = mesoCrystalItem;
     m_total_abundance = total_abundance;
     m_origin = origin;
 }
 
-Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal()
-{
+Particle3DContainer RealSpaceMesoCrystal::populateMesoCrystal() {
     auto mesoCrystal = m_mesoCrystalItem->createMesoCrystal();
 
     std::unique_ptr<MesoCrystal> M_clone(mesoCrystal->clone()); // clone of the mesoCrystal

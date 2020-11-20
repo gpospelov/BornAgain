@@ -25,8 +25,7 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
 
-int main()
-{
+int main() {
     // Define the sample
     Material vacuum_material = HomogeneousMaterial("Vacuum", 0., 0.);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);

@@ -25,8 +25,7 @@ class QPaintEvent;
 //! This class is intended for ColorMapLabel, where the size of font is adjusted automatically
 //! depending from available space.
 
-class StatusLabel : public QFrame
-{
+class StatusLabel : public QFrame {
     Q_OBJECT
 
 public:

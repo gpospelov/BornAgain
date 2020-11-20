@@ -22,8 +22,7 @@
 //! Defines info for GroupProperty, i.e. collection of model types, their labels and
 //! the name of default item's modelType.
 
-class GroupInfo
-{
+class GroupInfo {
 public:
     explicit GroupInfo(const QString& groupType = "", bool is_sorted = true);
 

@@ -20,8 +20,7 @@ class ColorMap;
 
 //! Performs conversion of MaskItems coordinates between ColorMap and GraphicsScene.
 
-class ColorMapSceneAdaptor : public ISceneAdaptor
-{
+class ColorMapSceneAdaptor : public ISceneAdaptor {
     Q_OBJECT
 
 public:

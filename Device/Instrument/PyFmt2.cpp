@@ -30,14 +30,12 @@
 #include "Param/Varia/PyFmtLimits.h"
 #include <iomanip>
 
-namespace pyfmt2
-{
+namespace pyfmt2 {
 
 //! Returns fixed Python code snippet that defines the function "runSimulation".
 
 std::string representShape2D(const std::string& indent, const IShape2D* ishape, bool mask_value,
-                             std::function<std::string(double)> printValueFunc)
-{
+                             std::function<std::string(double)> printValueFunc) {
     std::ostringstream result;
     result << std::setprecision(12);
 
@@ -94,8 +92,7 @@ std::string representShape2D(const std::string& indent, const IShape2D* ishape, 
 
 //! Returns parameter value, followed by its unit multiplicator (like "* nm").
 
-std::string valueTimesUnit(const RealParameter* par)
-{
+std::string valueTimesUnit(const RealParameter* par) {
     if (par->unit() == "rad")
         return pyfmt::printDegrees(par->value());
     return pyfmt::printDouble(par->value()) + (par->unit() == "" ? "" : ("*" + par->unit()));
@@ -103,8 +100,7 @@ std::string valueTimesUnit(const RealParameter* par)
 
 //! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").
 
-std::string argumentList(const IParameterized* ip)
-{
+std::string argumentList(const IParameterized* ip) {
     std::vector<std::string> args;
     for (const auto* par : ip->parameterPool()->parameters())
         args.push_back(valueTimesUnit(par));
@@ -114,8 +110,7 @@ std::string argumentList(const IParameterized* ip)
 //! Prints distribution with constructor parameters in given units.
 //! ba.DistributionGaussian(2.0*deg, 0.02*deg)
 
-std::string printDistribution(const IDistribution1D& par_distr, const std::string& units)
-{
+std::string printDistribution(const IDistribution1D& par_distr, const std::string& units) {
     std::unique_ptr<IDistribution1D> distr(par_distr.clone());
     distr->setUnits(units);
 
@@ -125,8 +120,7 @@ std::string printDistribution(const IDistribution1D& par_distr, const std::strin
 }
 
 std::string printParameterDistribution(const ParameterDistribution& par_distr,
-                                       const std::string& distVarName, const std::string& units)
-{
+                                       const std::string& distVarName, const std::string& units) {
     std::ostringstream result;
 
     result << "ba.ParameterDistribution("

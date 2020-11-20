@@ -23,8 +23,7 @@ class LayerRoughness;
 //! Interface between two layers, possibly with roughness.
 //! @ingroup samples_internal
 
-class LayerInterface : public ISample
-{
+class LayerInterface : public ISample {
 public:
     virtual ~LayerInterface();
 
@@ -60,18 +59,15 @@ private:
     std::unique_ptr<LayerRoughness> m_roughness; //!< roughness of the interface
 };
 
-inline const LayerRoughness* LayerInterface::getRoughness() const
-{
+inline const LayerRoughness* LayerInterface::getRoughness() const {
     return m_roughness.get();
 }
 
-inline const Layer* LayerInterface::topLayer() const
-{
+inline const Layer* LayerInterface::topLayer() const {
     return m_topLayer;
 }
 
-inline const Layer* LayerInterface::bottomLayer() const
-{
+inline const Layer* LayerInterface::bottomLayer() const {
     return m_bottomLayer;
 }
 

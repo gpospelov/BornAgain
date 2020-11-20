@@ -23,8 +23,7 @@ template <class T> class OutputData;
 
 //! Namespace enclosing a number of utilities/helpers for unit converters
 
-namespace UnitConverterUtils
-{
+namespace UnitConverterUtils {
 
 //! Returns zero-valued output data array in specified units
 std::unique_ptr<OutputData<double>> createOutputData(const IUnitConverter& converter,

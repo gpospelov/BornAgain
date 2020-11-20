@@ -29,8 +29,7 @@ class Slice;
 //! Implementation of IFresnelMap for scalar valued reflection/transmission coefficients.
 //! @ingroup algorithms_internal
 
-class ScalarFresnelMap : public IFresnelMap
-{
+class ScalarFresnelMap : public IFresnelMap {
 public:
     ScalarFresnelMap(std::unique_ptr<ISpecularStrategy> strategy);
     ~ScalarFresnelMap() override;
@@ -43,8 +42,7 @@ public:
 
 private:
     //! Provides a hash function for a pair of doubles.
-    class Hash2Doubles
-    {
+    class Hash2Doubles {
     public:
         size_t operator()(const std::pair<double, double>& doubles) const noexcept;
     };

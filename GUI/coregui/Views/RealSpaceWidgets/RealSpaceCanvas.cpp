@@ -34,8 +34,7 @@ RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
     , m_selectionModel(nullptr)
     , m_view_locked(false)
     , m_sceneGeometry(new SceneGeometry)
-    , m_warningSign(new WarningSign(this))
-{
+    , m_warningSign(new WarningSign(this)) {
     auto layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
@@ -45,8 +44,7 @@ RealSpaceCanvas::RealSpaceCanvas(QWidget* parent)
 
 RealSpaceCanvas::~RealSpaceCanvas() = default;
 
-void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* selectionModel)
-{
+void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* selectionModel) {
     if (sampleModel != m_sampleModel) {
 
         if (m_sampleModel)
@@ -73,13 +71,11 @@ void RealSpaceCanvas::setModel(SampleModel* sampleModel, QItemSelectionModel* se
     updateToSelection();
 }
 
-void RealSpaceCanvas::onSelectionChanged(const QItemSelection&, const QItemSelection&)
-{
+void RealSpaceCanvas::onSelectionChanged(const QItemSelection&, const QItemSelection&) {
     updateToSelection();
 }
 
-void RealSpaceCanvas::updateToSelection()
-{
+void RealSpaceCanvas::updateToSelection() {
     if (!m_selectionModel)
         return;
 
@@ -96,31 +92,26 @@ void RealSpaceCanvas::updateToSelection()
     }
 }
 
-void RealSpaceCanvas::onDefaultViewAction()
-{
+void RealSpaceCanvas::onDefaultViewAction() {
     defaultView();
 }
 
-void RealSpaceCanvas::onSideViewAction()
-{
+void RealSpaceCanvas::onSideViewAction() {
     sideView();
 }
 
-void RealSpaceCanvas::onTopViewAction()
-{
+void RealSpaceCanvas::onTopViewAction() {
     topView();
 }
 
-void RealSpaceCanvas::onLockViewAction(bool view_locked)
-{
+void RealSpaceCanvas::onLockViewAction(bool view_locked) {
     if (m_view_locked != view_locked) {
         m_view_locked = view_locked;
         updateToSelection();
     }
 }
 
-void RealSpaceCanvas::onChangeLayerSizeAction(double layerSizeChangeScale)
-{
+void RealSpaceCanvas::onChangeLayerSizeAction(double layerSizeChangeScale) {
     // when no object is selected --> take no action
     if (m_currentSelection == QModelIndex())
         return;
@@ -129,22 +120,19 @@ void RealSpaceCanvas::onChangeLayerSizeAction(double layerSizeChangeScale)
     updateScene();
 }
 
-void RealSpaceCanvas::onSavePictureAction()
-{
+void RealSpaceCanvas::onSavePictureAction() {
     QPixmap pixmap(this->size());
     render(&pixmap, QPoint(), childrenRegion());
     savePicture(pixmap);
 }
 
-void RealSpaceCanvas::onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int)
-{
+void RealSpaceCanvas::onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int) {
     // clear scene if current selection will be removed
     if (m_currentSelection == m_sampleModel->index(first, 0, parent))
         resetScene();
 }
 
-void RealSpaceCanvas::savePicture(const QPixmap& pixmap)
-{
+void RealSpaceCanvas::savePicture(const QPixmap& pixmap) {
     QString dirname = AppSvc::projectManager()->userExportDir();
     QString defaultExtension = ".png";
     QString selectedFilter("*" + defaultExtension);
@@ -167,8 +155,7 @@ void RealSpaceCanvas::savePicture(const QPixmap& pixmap)
     }
 }
 
-void RealSpaceCanvas::onDataChanged(const QModelIndex& index)
-{
+void RealSpaceCanvas::onDataChanged(const QModelIndex& index) {
     auto item = m_sampleModel->itemForIndex(index);
     if (!item)
         return;
@@ -177,8 +164,7 @@ void RealSpaceCanvas::onDataChanged(const QModelIndex& index)
         updateScene();
 }
 
-void RealSpaceCanvas::updateScene()
-{
+void RealSpaceCanvas::updateScene() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
     m_realSpaceModel.reset(new RealSpaceModel);
@@ -209,30 +195,25 @@ void RealSpaceCanvas::updateScene()
     QApplication::restoreOverrideCursor();
 }
 
-void RealSpaceCanvas::resetScene()
-{
+void RealSpaceCanvas::resetScene() {
     m_realSpaceModel.reset();
     m_view->setModel(nullptr);
     m_currentSelection = {};
 }
 
-void RealSpaceCanvas::defaultView()
-{
+void RealSpaceCanvas::defaultView() {
     m_view->defaultView();
 }
 
-void RealSpaceCanvas::sideView()
-{
+void RealSpaceCanvas::sideView() {
     m_view->sideView();
 }
 
-void RealSpaceCanvas::topView()
-{
+void RealSpaceCanvas::topView() {
     m_view->topView();
 }
 
-void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected)
-{
+void RealSpaceCanvas::setConnected(SampleModel* model, bool makeConnected) {
     if (!model)
         return;
 

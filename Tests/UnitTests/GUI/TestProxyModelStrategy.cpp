@@ -7,14 +7,11 @@
 #include "GUI/coregui/Models/VectorItem.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class TestProxyModelStrategy : public ::testing::Test
-{
-};
+class TestProxyModelStrategy : public ::testing::Test {};
 
 //! Checking the mapping in the case of PropertyItem inserted in the source.
 
-TEST_F(TestProxyModelStrategy, test_identityStrategy)
-{
+TEST_F(TestProxyModelStrategy, test_identityStrategy) {
     SessionModel model("TestModel");
     ComponentProxyModel proxy;
     IndentityProxyStrategy strategy;
@@ -63,8 +60,7 @@ TEST_F(TestProxyModelStrategy, test_identityStrategy)
 
 //! Checking the mapping in the case of ParticleItem inserted in the source.
 
-TEST_F(TestProxyModelStrategy, test_identityStrategyParticle)
-{
+TEST_F(TestProxyModelStrategy, test_identityStrategyParticle) {
     SessionModel model("TestModel");
     ComponentProxyModel proxy;
     IndentityProxyStrategy strategy;
@@ -94,8 +90,7 @@ TEST_F(TestProxyModelStrategy, test_identityStrategyParticle)
 //! Checking the mapping of ComponentProxyStrategy in the case of ParticleItem inserted in
 //! the source.
 
-TEST_F(TestProxyModelStrategy, test_componentStrategyParticle)
-{
+TEST_F(TestProxyModelStrategy, test_componentStrategyParticle) {
     SessionModel model("TestModel");
     ComponentProxyModel proxy;
     ComponentProxyStrategy strategy;
@@ -134,8 +129,7 @@ TEST_F(TestProxyModelStrategy, test_componentStrategyParticle)
 //! Checking setRootIndex: proxy model should contain only items corresponding
 //! to rootIndex and its children.
 
-TEST_F(TestProxyModelStrategy, test_setRootIndex)
-{
+TEST_F(TestProxyModelStrategy, test_setRootIndex) {
     SessionModel model("TestModel");
     ComponentProxyModel proxy;
     ComponentProxyStrategy strategy;

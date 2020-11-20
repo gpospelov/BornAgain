@@ -31,8 +31,7 @@ class ProgressHandler;
 //!
 //! @ingroup algorithms_internal
 
-class IComputation
-{
+class IComputation {
 public:
     IComputation(const MultiLayer& sample, const SimulationOptions& options,
                  ProgressHandler& progress);

@@ -24,8 +24,7 @@ class QVariant;
 
 //! Creates editors for SessionItem's values.
 
-namespace PropertyEditorFactory
-{
+namespace PropertyEditorFactory {
 
 //! Returns true if the index data has known (custom) convertion to string.
 bool hasStringRepresentation(const QModelIndex& index);

@@ -7,12 +7,9 @@
 #include "Sample/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class ParticleTest : public ::testing::Test
-{
-};
+class ParticleTest : public ::testing::Test {};
 
-TEST_F(ParticleTest, Clone)
-{
+TEST_F(ParticleTest, Clone) {
     Material mat = HomogeneousMaterial("Any", 1e-4, 1e-6);
     Particle particle(mat);
     std::unique_ptr<Particle> clone(particle.clone());
@@ -21,8 +18,7 @@ TEST_F(ParticleTest, Clone)
     EXPECT_EQ(nullptr, clone->rotation());
 }
 
-TEST_F(ParticleTest, Constructors)
-{
+TEST_F(ParticleTest, Constructors) {
     Material mat = HomogeneousMaterial("Vacuum", 0, 0);
     FormFactorFullSphere sphere(1.0);
     RotationZ transform(45. * Units::deg);
@@ -45,8 +41,7 @@ TEST_F(ParticleTest, Constructors)
     EXPECT_TRUE(dynamic_cast<FormFactorDecoratorMaterial*>(p3->createFormFactor()));
 }
 
-TEST_F(ParticleTest, setters)
-{
+TEST_F(ParticleTest, setters) {
     Material mat = HomogeneousMaterial("Any", 10e-2, 10e-5);
     FormFactorFullSphere sphere(2.1);
     RotationY transform(45. * Units::deg);
@@ -63,8 +58,7 @@ TEST_F(ParticleTest, setters)
     EXPECT_TRUE(nullptr != particle2->rotation());
 }
 
-TEST_F(ParticleTest, getChildren)
-{
+TEST_F(ParticleTest, getChildren) {
     Material mat = HomogeneousMaterial("Vacuum", 0, 0);
     FormFactorFullSphere sphere(2.1);
 

@@ -25,8 +25,7 @@
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
-{
+MultiLayer* SizeDistributionDAModelBuilder::buildSample() const {
     // cylindrical particle 1
     double radius1(5 * Units::nm);
     double height1 = radius1;
@@ -62,8 +61,7 @@ MultiLayer* SizeDistributionDAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
-{
+MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const {
     // cylindrical particle 1
     double radius1(5 * Units::nm);
     double height1 = radius1;
@@ -107,8 +105,7 @@ MultiLayer* SizeDistributionLMAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
-{
+MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const {
     // cylindrical particle 1
     double radius1(5 * Units::nm);
     double height1 = radius1;
@@ -145,8 +142,7 @@ MultiLayer* SizeDistributionSSCAModelBuilder::buildSample() const
 
 // ----------------------------------------------------------------------------
 
-MultiLayer* CylindersInSSCABuilder::buildSample() const
-{
+MultiLayer* CylindersInSSCABuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
 
     InterferenceFunctionRadialParaCrystal interference_function(15.0 * Units::nm, 1e3 * Units::nm);

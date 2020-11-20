@@ -21,8 +21,7 @@
 #include <QRect>
 
 //! collection of static methods with SampleDesigner geometry settings
-class DesignerHelper
-{
+class DesignerHelper {
 public:
     static int layerWidth();
     static int layerHeight();

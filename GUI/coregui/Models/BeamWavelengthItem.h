@@ -17,8 +17,7 @@
 
 #include "GUI/coregui/Models/BeamDistributionItem.h"
 
-class BA_CORE_API_ BeamWavelengthItem : public BeamDistributionItem
-{
+class BA_CORE_API_ BeamWavelengthItem : public BeamDistributionItem {
 public:
     BeamWavelengthItem(const QString& model_type = "BeamWavelength",
                        const QString& distribution_group = "Distribution extended group");
@@ -29,8 +28,7 @@ private:
     static const bool m_show_mean = true;
 };
 
-class BA_CORE_API_ SpecularBeamWavelengthItem : public BeamWavelengthItem
-{
+class BA_CORE_API_ SpecularBeamWavelengthItem : public BeamWavelengthItem {
 public:
     SpecularBeamWavelengthItem();
     void setToRange(const RealLimits& limits);

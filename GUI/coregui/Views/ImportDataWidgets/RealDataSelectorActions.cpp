@@ -29,10 +29,8 @@
 #include <QItemSelectionModel>
 #include <QMenu>
 
-namespace
-{
-bool openRotateWarningDialog(QWidget* parent)
-{
+namespace {
+bool openRotateWarningDialog(QWidget* parent) {
     const QString title("Rotate data");
 
     const QString message("Rotation will break the link between the data and the instrument. "
@@ -44,8 +42,7 @@ bool openRotateWarningDialog(QWidget* parent)
 
 //! Returns true, if rotation will affect linked instrument or mask presence.
 
-bool rotationAffectsSetup(IntensityDataItem& intensityItem)
-{
+bool rotationAffectsSetup(IntensityDataItem& intensityItem) {
     if (intensityItem.parent()->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool())
         return true;
 
@@ -61,8 +58,7 @@ bool rotationAffectsSetup(IntensityDataItem& intensityItem)
 
 //! Resets linked instruments and masks.
 
-void resetSetup(IntensityDataItem& intensityItem)
-{
+void resetSetup(IntensityDataItem& intensityItem) {
 
     auto data_parent = intensityItem.parent();
     if (data_parent->getItemValue(RealDataItem::P_INSTRUMENT_ID).toBool())
@@ -86,8 +82,7 @@ RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
     , m_removeDataAction(nullptr)
     , m_rotateDataAction(new QAction(this))
     , m_realDataModel(nullptr)
-    , m_selectionModel(nullptr)
-{
+    , m_selectionModel(nullptr) {
     m_import2dDataAction = new QAction("Import 2D data", parent);
     m_import2dDataAction->setIcon(QIcon(":/images/import.svg"));
     m_import2dDataAction->setToolTip("Import 2D data");
@@ -113,18 +108,15 @@ RealDataSelectorActions::RealDataSelectorActions(QObject* parent)
             &RealDataSelectorActions::onRotateDataRequest);
 }
 
-void RealDataSelectorActions::setRealDataModel(RealDataModel* model)
-{
+void RealDataSelectorActions::setRealDataModel(RealDataModel* model) {
     m_realDataModel = model;
 }
 
-void RealDataSelectorActions::setSelectionModel(QItemSelectionModel* selectionModel)
-{
+void RealDataSelectorActions::setSelectionModel(QItemSelectionModel* selectionModel) {
     m_selectionModel = selectionModel;
 }
 
-void RealDataSelectorActions::importDataLoop(int ndim)
-{
+void RealDataSelectorActions::importDataLoop(int ndim) {
     ASSERT(m_realDataModel);
     ASSERT(m_selectionModel);
     QString filter_string_ba;
@@ -173,18 +165,15 @@ void RealDataSelectorActions::importDataLoop(int ndim)
     }
 }
 
-void RealDataSelectorActions::onImport2dDataAction()
-{
+void RealDataSelectorActions::onImport2dDataAction() {
     importDataLoop(2);
 }
 
-void RealDataSelectorActions::onImport1dDataAction()
-{
+void RealDataSelectorActions::onImport1dDataAction() {
     importDataLoop(1);
 }
 
-void RealDataSelectorActions::onRemoveDataAction()
-{
+void RealDataSelectorActions::onRemoveDataAction() {
     QModelIndex currentIndex = m_selectionModel->currentIndex();
     if (currentIndex.isValid())
         m_realDataModel->removeRows(currentIndex.row(), 1, QModelIndex());
@@ -192,8 +181,7 @@ void RealDataSelectorActions::onRemoveDataAction()
     updateSelection();
 }
 
-void RealDataSelectorActions::onRotateDataRequest()
-{
+void RealDataSelectorActions::onRotateDataRequest() {
     QModelIndex currentIndex = m_selectionModel->currentIndex();
     if (!currentIndex.isValid())
         return;
@@ -223,8 +211,7 @@ void RealDataSelectorActions::onRotateDataRequest()
 }
 
 void RealDataSelectorActions::onContextMenuRequest(const QPoint& point,
-                                                   const QModelIndex& indexAtPoint)
-{
+                                                   const QModelIndex& indexAtPoint) {
     QMenu menu;
     menu.setToolTipsVisible(true);
 
@@ -241,16 +228,14 @@ void RealDataSelectorActions::onContextMenuRequest(const QPoint& point,
     menu.exec(point);
 }
 
-void RealDataSelectorActions::setAllActionsEnabled(bool value)
-{
+void RealDataSelectorActions::setAllActionsEnabled(bool value) {
     m_import2dDataAction->setEnabled(value);
     m_import1dDataAction->setEnabled(value);
     m_rotateDataAction->setEnabled(value);
     m_removeDataAction->setEnabled(value);
 }
 
-void RealDataSelectorActions::updateSelection()
-{
+void RealDataSelectorActions::updateSelection() {
     if (!m_selectionModel->hasSelection()) {
         // select last item
         QModelIndex itemIndex =

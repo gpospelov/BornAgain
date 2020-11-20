@@ -20,8 +20,7 @@
 //! Builds sample: cylinders on a silicon substrate
 //! @ingroup standard_samples
 
-class SlicedCylindersBuilder : public ISampleBuilder
-{
+class SlicedCylindersBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -30,8 +29,7 @@ public:
 //! sld-based materials. Assumed wavelength is 1.54 Angstrom.
 //! @ingroup standard_samples
 
-class SLDSlicedCylindersBuilder : public ISampleBuilder
-{
+class SLDSlicedCylindersBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };
@@ -41,8 +39,7 @@ public:
 //! Assumed wavelength is 1.54 Angstrom.
 //! @ingroup standard_samples
 
-class AveragedSlicedCylindersBuilder : public ISampleBuilder
-{
+class AveragedSlicedCylindersBuilder : public ISampleBuilder {
 public:
     MultiLayer* buildSample() const;
 };

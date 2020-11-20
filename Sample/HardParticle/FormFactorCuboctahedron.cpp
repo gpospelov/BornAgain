@@ -42,20 +42,16 @@ FormFactorCuboctahedron::FormFactorCuboctahedron(const std::vector<double> P)
     , m_length(m_P[0])
     , m_height(m_P[1])
     , m_height_ratio(m_P[2])
-    , m_alpha(m_P[3])
-{
+    , m_alpha(m_P[3]) {
     onChange();
 }
 
 FormFactorCuboctahedron::FormFactorCuboctahedron(double length, double height, double height_ratio,
                                                  double alpha)
-    : FormFactorCuboctahedron(std::vector<double>{length, height, height_ratio, alpha})
-{
-}
+    : FormFactorCuboctahedron(std::vector<double>{length, height, height_ratio, alpha}) {}
 
 IFormFactor* FormFactorCuboctahedron::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                      kvector_t translation) const
-{
+                                                      kvector_t translation) const {
     auto effects = computeSlicingEffects(limits, translation, m_height * (1 + m_height_ratio));
     if (effects.dz_bottom > m_height) {
         double dbase_edge = 2 * (effects.dz_bottom - m_height) * Math::cot(m_alpha);
@@ -76,8 +72,7 @@ IFormFactor* FormFactorCuboctahedron::sliceFormFactor(ZLimits limits, const IRot
     }
 }
 
-void FormFactorCuboctahedron::onChange()
-{
+void FormFactorCuboctahedron::onChange() {
     double cot_alpha = Math::cot(m_alpha);
     if (!std::isfinite(cot_alpha) || cot_alpha < 0)
         throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");

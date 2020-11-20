@@ -20,8 +20,7 @@
 class FitParameterContainerItem;
 class MinimizerContainerItem;
 
-class BA_CORE_API_ FitSuiteItem : public SessionItem
-{
+class BA_CORE_API_ FitSuiteItem : public SessionItem {
 
 public:
     static const QString P_UPDATE_INTERVAL;

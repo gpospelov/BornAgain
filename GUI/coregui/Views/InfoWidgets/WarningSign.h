@@ -22,8 +22,7 @@ class QWidget;
 
 //! The WarningSign controls appearance of WarningSignWidget on top of parent widget.
 
-class WarningSign : public QObject
-{
+class WarningSign : public QObject {
 public:
     WarningSign(QWidget* parent);
 

@@ -22,8 +22,7 @@
 //! each lattice site.
 //! @ingroup interference
 
-class InterferenceFunction2DSuperLattice : public IInterferenceFunction
-{
+class InterferenceFunction2DSuperLattice : public IInterferenceFunction {
 public:
     InterferenceFunction2DSuperLattice(const Lattice2D& lattice, unsigned size_1, unsigned size_2);
     InterferenceFunction2DSuperLattice(double length_1, double length_2, double alpha, double xi,

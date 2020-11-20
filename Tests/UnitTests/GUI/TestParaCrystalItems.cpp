@@ -8,12 +8,9 @@
 #include "Sample/Aggregate/InterferenceFunction2DParaCrystal.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class TestParaCrystalItems : public ::testing::Test
-{
-};
+class TestParaCrystalItems : public ::testing::Test {};
 
-TEST_F(TestParaCrystalItems, test_Para2D_fromToDomain)
-{
+TEST_F(TestParaCrystalItems, test_Para2D_fromToDomain) {
     double length1(10.0), length2(20.0), angle(45.0), xi(90.0);
     double damping_length(1000.0), domain_size1(50.0), domain_size2(100.0);
 
@@ -72,8 +69,7 @@ TEST_F(TestParaCrystalItems, test_Para2D_fromToDomain)
     EXPECT_EQ(domain->lattice().rotationAngle(), orig.lattice().rotationAngle());
 }
 
-TEST_F(TestParaCrystalItems, test_Inference2DRotationAngleToggle)
-{
+TEST_F(TestParaCrystalItems, test_Inference2DRotationAngleToggle) {
     SampleModel model;
     SessionItem* multilayer = model.insertNewItem("MultiLayer");
     SessionItem* layer = model.insertNewItem("Layer", multilayer->index());

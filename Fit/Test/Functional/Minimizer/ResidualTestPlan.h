@@ -18,8 +18,7 @@
 #include "Fit/Minimizer/Types.h"
 #include "Fit/TestEngine/MinimizerTestPlan.h"
 
-class ResidualTestPlan : public MinimizerTestPlan
-{
+class ResidualTestPlan : public MinimizerTestPlan {
 public:
     using test_funct_t = std::function<double(double, const std::vector<double>&)>;
 

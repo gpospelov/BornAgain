@@ -20,13 +20,11 @@
 #include "Sample/Slice/LayerRoughness.h"
 #include <memory>
 
-ResonatorBuilder::ResonatorBuilder() : ISampleBuilder(), m_l_ti(13.0 * Units::nm)
-{
+ResonatorBuilder::ResonatorBuilder() : ISampleBuilder(), m_l_ti(13.0 * Units::nm) {
     registerParameter("ti_thickness", &m_l_ti);
 }
 
-MultiLayer* ResonatorBuilder::buildSample() const
-{
+MultiLayer* ResonatorBuilder::buildSample() const {
     auto* result = new MultiLayer;
 
     Material m_Si = HomogeneousMaterial("Si", 8.25218379931e-06, 0.0);

@@ -30,8 +30,7 @@ class Slice;
 //! Inherited by SpecularScalarNCStrategy, SpecularScalarTanhStrategy
 //!
 //! @ingroup algorithms_internal
-class SpecularScalarStrategy : public ISpecularStrategy
-{
+class SpecularScalarStrategy : public ISpecularStrategy {
 public:
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.

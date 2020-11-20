@@ -19,8 +19,7 @@
 
 //! Reference materials for use in tests and exemplary samples.
 
-namespace refMat
-{
+namespace refMat {
 
 static const Material Vacuum = HomogeneousMaterial("Vacuum", 0.0, 0.0);
 static const Material Substrate = HomogeneousMaterial("Substrate", 6e-6, 2e-8);

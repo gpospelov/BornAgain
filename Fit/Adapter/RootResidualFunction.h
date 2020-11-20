@@ -29,8 +29,7 @@
 //! Minimizer function with access to single data element residuals,
 //! required by Fumili2 and GSLMultiMin minimizers.
 
-class RootResidualFunction : public ROOT::Math::FitMethodFunction
-{
+class RootResidualFunction : public ROOT::Math::FitMethodFunction {
 public:
     typedef ROOT::Math::BasicFitMethodFunction<ROOT::Math::IMultiGenFunction>::Type_t Type_t;
 

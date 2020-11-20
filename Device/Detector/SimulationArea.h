@@ -23,8 +23,7 @@ class IDetector;
 //! and RegionOfInterest defined.
 //! @ingroup detector
 
-class SimulationArea
-{
+class SimulationArea {
 public:
     using iterator = SimulationAreaIterator;
     explicit SimulationArea(const IDetector* detector);
@@ -49,8 +48,7 @@ protected:
     size_t m_max_index;
 };
 
-inline size_t SimulationArea::totalSize() const
-{
+inline size_t SimulationArea::totalSize() const {
     return m_max_index;
 }
 
@@ -58,8 +56,7 @@ inline size_t SimulationArea::totalSize() const
 //! to SimulationArea class, iterates also over masked areas.
 //! @ingroup detector
 
-class SimulationRoiArea : public SimulationArea
-{
+class SimulationRoiArea : public SimulationArea {
 public:
     explicit SimulationRoiArea(const IDetector* detector);
 

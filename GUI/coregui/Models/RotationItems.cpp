@@ -20,14 +20,12 @@
 
 const QString XRotationItem::P_ANGLE = "Angle";
 
-XRotationItem::XRotationItem() : RotationItem("XRotation")
-{
+XRotationItem::XRotationItem() : RotationItem("XRotation") {
     setToolTip("Particle rotation around x-axis");
     addProperty(P_ANGLE, 0.0)->setToolTip("Rotation angle around x-axis in degrees");
 }
 
-std::unique_ptr<IRotation> XRotationItem::createRotation() const
-{
+std::unique_ptr<IRotation> XRotationItem::createRotation() const {
     double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble());
     return std::make_unique<RotationX>(alpha);
 }
@@ -36,14 +34,12 @@ std::unique_ptr<IRotation> XRotationItem::createRotation() const
 
 const QString YRotationItem::P_ANGLE = "Angle";
 
-YRotationItem::YRotationItem() : RotationItem("YRotation")
-{
+YRotationItem::YRotationItem() : RotationItem("YRotation") {
     setToolTip("Particle rotation around y-axis");
     addProperty(P_ANGLE, 0.0)->setToolTip("Rotation angle around y-axis in degrees");
 }
 
-std::unique_ptr<IRotation> YRotationItem::createRotation() const
-{
+std::unique_ptr<IRotation> YRotationItem::createRotation() const {
     double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble());
     return std::make_unique<RotationY>(alpha);
 }
@@ -52,14 +48,12 @@ std::unique_ptr<IRotation> YRotationItem::createRotation() const
 
 const QString ZRotationItem::P_ANGLE = "Angle";
 
-ZRotationItem::ZRotationItem() : RotationItem("ZRotation")
-{
+ZRotationItem::ZRotationItem() : RotationItem("ZRotation") {
     setToolTip("Particle rotation around z-axis");
     addProperty(P_ANGLE, 0.0)->setToolTip("Rotation angle around z-axis in degrees");
 }
 
-std::unique_ptr<IRotation> ZRotationItem::createRotation() const
-{
+std::unique_ptr<IRotation> ZRotationItem::createRotation() const {
     double alpha = Units::deg2rad(getItemValue(P_ANGLE).toDouble());
     return std::make_unique<RotationZ>(alpha);
 }
@@ -70,8 +64,7 @@ const QString EulerRotationItem::P_ALPHA = "Alpha";
 const QString EulerRotationItem::P_BETA = "Beta";
 const QString EulerRotationItem::P_GAMMA = "Gamma";
 
-EulerRotationItem::EulerRotationItem() : RotationItem("EulerRotation")
-{
+EulerRotationItem::EulerRotationItem() : RotationItem("EulerRotation") {
     setToolTip("Sequence of three rotations following Euler angles \n"
                "notation z-x'-z'");
     addProperty(P_ALPHA, 0.0)->setToolTip("First Euler anle in z-x'-z' sequence in degrees");
@@ -79,8 +72,7 @@ EulerRotationItem::EulerRotationItem() : RotationItem("EulerRotation")
     addProperty(P_GAMMA, 0.0)->setToolTip("Third Euler anle in z-x'-z' sequence in degrees");
 }
 
-std::unique_ptr<IRotation> EulerRotationItem::createRotation() const
-{
+std::unique_ptr<IRotation> EulerRotationItem::createRotation() const {
     double alpha = Units::deg2rad(getItemValue(P_ALPHA).toDouble());
     double beta = Units::deg2rad(getItemValue(P_BETA).toDouble());
     double gamma = Units::deg2rad(getItemValue(P_GAMMA).toDouble());

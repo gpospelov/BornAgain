@@ -15,15 +15,13 @@
 #include "Base/Types/Exceptions.h"
 #include "Device/InputOutput/DataFormatUtils.h"
 
-OutputDataWriter* OutputDataWriteFactory::getWriter(const std::string& file_name)
-{
+OutputDataWriter* OutputDataWriteFactory::getWriter(const std::string& file_name) {
     OutputDataWriter* result = new OutputDataWriter(file_name);
     result->setStrategy(getWriteStrategy(file_name));
     return result;
 }
 
-IOutputDataWriteStrategy* OutputDataWriteFactory::getWriteStrategy(const std::string& file_name)
-{
+IOutputDataWriteStrategy* OutputDataWriteFactory::getWriteStrategy(const std::string& file_name) {
     IOutputDataWriteStrategy* result(nullptr);
     if (DataFormatUtils::isIntFile(file_name)) {
         result = new OutputDataWriteINTStrategy();

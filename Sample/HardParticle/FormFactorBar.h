@@ -19,8 +19,7 @@
 
 //! The form factor of an elongated bar, with Gaussian profile in elongation direction.
 //! @ingroup legacyGrating
-class FormFactorBarGauss : public IProfileRectangularRipple
-{
+class FormFactorBarGauss : public IProfileRectangularRipple {
 public:
     FormFactorBarGauss(const std::vector<double> P);
     FormFactorBarGauss(double length, double width, double height);
@@ -33,8 +32,7 @@ private:
 
 //! The form factor of an elongated, with Lorentz form factor in elongation direction.
 //! @ingroup legacyGrating
-class FormFactorBarLorentz : public IProfileRectangularRipple
-{
+class FormFactorBarLorentz : public IProfileRectangularRipple {
 public:
     FormFactorBarLorentz(const std::vector<double> P);
     FormFactorBarLorentz(double length, double width, double height);

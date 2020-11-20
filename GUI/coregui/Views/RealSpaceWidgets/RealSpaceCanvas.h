@@ -26,12 +26,10 @@ class RealSpaceModel;
 class WarningSign;
 
 // Class for holding size and thickness information of layers
-class SceneGeometry
-{
+class SceneGeometry {
 public:
     SceneGeometry(double size = 100.0, double top_thickness = 25.0, double bottom_thickness = 25.0,
-                  double min_thickness = 2.0)
-    {
+                  double min_thickness = 2.0) {
         l_size = size;                         // layer size
         l_top_thickness = top_thickness;       // top layer thickness
         l_bottom_thickness = bottom_thickness; // bottom layer thickness
@@ -55,8 +53,7 @@ private:
 };
 
 //! Provides 3D object generation for RealSpaceWidget.
-class RealSpaceCanvas : public QWidget
-{
+class RealSpaceCanvas : public QWidget {
     Q_OBJECT
 
 public:

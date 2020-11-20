@@ -28,8 +28,7 @@ class SessionItem;
 
 //! The JobListWidget class contains list view to select job items.
 
-class JobListWidget : public QWidget
-{
+class JobListWidget : public QWidget {
     Q_OBJECT
 public:
     explicit JobListWidget(QWidget* parent = nullptr);

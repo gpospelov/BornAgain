@@ -21,15 +21,13 @@
 #include <algorithm>
 #include <exception>
 
-NodeMeta nodeMetaUnion(const std::vector<ParaMeta>& base, const NodeMeta& other)
-{
+NodeMeta nodeMetaUnion(const std::vector<ParaMeta>& base, const NodeMeta& other) {
     return {other.className, other.tooltip, algo::concat(base, other.paraMeta)};
 }
 
 INode::INode(const NodeMeta& meta, const std::vector<double>& PValues)
     : /*m_tooltip(meta.tooltip),*/
-    m_NP(meta.paraMeta.size())
-{
+    m_NP(meta.paraMeta.size()) {
     m_P.resize(m_NP);
     setName(meta.className);
     parameterPool()->clear(); // non-trivially needed by a few children
@@ -50,39 +48,32 @@ INode::INode(const NodeMeta& meta, const std::vector<double>& PValues)
     }
 }
 
-std::string INode::treeToString() const
-{
+std::string INode::treeToString() const {
     return NodeUtils::nodeToString(*this);
 }
 
-void INode::registerChild(INode* node)
-{
+void INode::registerChild(INode* node) {
     ASSERT(node);
     node->setParent(this);
 }
 
-std::vector<const INode*> INode::getChildren() const
-{
+std::vector<const INode*> INode::getChildren() const {
     return {};
 }
 
-void INode::setParent(const INode* newParent)
-{
+void INode::setParent(const INode* newParent) {
     m_parent = newParent;
 }
 
-const INode* INode::parent() const
-{
+const INode* INode::parent() const {
     return m_parent;
 }
 
-INode* INode::parent()
-{
+INode* INode::parent() {
     return const_cast<INode*>(m_parent);
 }
 
-int INode::copyNumber(const INode* node) const
-{
+int INode::copyNumber(const INode* node) const {
     if (node->parent() != this)
         return -1;
 
@@ -102,8 +93,7 @@ int INode::copyNumber(const INode* node) const
     return count > 1 ? result : -1;
 }
 
-std::string INode::displayName() const
-{
+std::string INode::displayName() const {
     std::string result = getName();
     if (m_parent) {
         int index = m_parent->copyNumber(this);
@@ -113,8 +103,7 @@ std::string INode::displayName() const
     return result;
 }
 
-ParameterPool* INode::createParameterTree() const
-{
+ParameterPool* INode::createParameterTree() const {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
 
     NodeIterator<PreorderStrategy> it(this);

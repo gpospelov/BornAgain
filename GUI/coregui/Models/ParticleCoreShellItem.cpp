@@ -21,8 +21,7 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleCoreShell.h"
 
-namespace
-{
+namespace {
 const QString abundance_tooltip = "Proportion of this type of particles normalized to the \n"
                                   "total number of particles in the layout";
 
@@ -36,8 +35,7 @@ const QString ParticleCoreShellItem::T_SHELL = "Shell tag";
 
 // TODO make ParticleCoreShellItem and ParticleItem to derive from common base.
 
-ParticleCoreShellItem::ParticleCoreShellItem() : SessionGraphicsItem("ParticleCoreShell")
-{
+ParticleCoreShellItem::ParticleCoreShellItem() : SessionGraphicsItem("ParticleCoreShell") {
     setToolTip("A particle with a core/shell geometry");
 
     addProperty(ParticleItem::P_ABUNDANCE, 1.0)
@@ -64,8 +62,7 @@ ParticleCoreShellItem::ParticleCoreShellItem() : SessionGraphicsItem("ParticleCo
     });
 }
 
-std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const
-{
+std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const {
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     std::unique_ptr<Particle> P_core{};
     std::unique_ptr<Particle> P_shell{};
@@ -84,8 +81,7 @@ std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShel
     return P_coreshell;
 }
 
-QVector<SessionItem*> ParticleCoreShellItem::materialPropertyItems()
-{
+QVector<SessionItem*> ParticleCoreShellItem::materialPropertyItems() {
     QVector<SessionItem*> result;
     if (auto core = static_cast<ParticleItem*>(getItem(T_CORE)))
         result.append(core->materialPropertyItems());

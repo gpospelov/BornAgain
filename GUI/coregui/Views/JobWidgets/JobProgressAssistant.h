@@ -21,8 +21,7 @@ class MainWindow;
 
 //! The JobProgressAssistant class helps JobView to visualize current progress.
 
-class JobProgressAssistant : public QObject
-{
+class JobProgressAssistant : public QObject {
     Q_OBJECT
 public:
     JobProgressAssistant(MainWindow* mainWindow);

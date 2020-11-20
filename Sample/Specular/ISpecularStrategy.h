@@ -30,8 +30,7 @@ class Slice;
 
 //! @ingroup algorithms_internal
 
-class ISpecularStrategy
-{
+class ISpecularStrategy {
 public:
     ISpecularStrategy() = default;
     virtual ~ISpecularStrategy() = default;

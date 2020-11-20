@@ -3,12 +3,9 @@
 #include <iostream>
 #include <tspectrum.h>
 
-class SpectrumTest : public ::testing::Test
-{
-};
+class SpectrumTest : public ::testing::Test {};
 
-TEST_F(SpectrumTest, arrayPeaks)
-{
+TEST_F(SpectrumTest, arrayPeaks) {
     std::vector<std::vector<double>> data = {{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
                                              {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
                                              {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
@@ -23,8 +20,7 @@ TEST_F(SpectrumTest, arrayPeaks)
     EXPECT_NEAR(peaks[0].second, 4.0, 0.01); // cols
 }
 
-TEST_F(SpectrumTest, histogramPeaks)
-{
+TEST_F(SpectrumTest, histogramPeaks) {
     std::vector<std::vector<double>> data = {{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
                                              {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
                                              {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},

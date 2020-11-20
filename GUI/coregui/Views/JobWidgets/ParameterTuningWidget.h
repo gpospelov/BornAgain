@@ -32,8 +32,7 @@ class ParameterItem;
 //! Main widget for real time parameter tuning.
 //! Contains a tree for parameter tuning and the model to provide drag-and-drop in FitActivityPanel.
 
-class ParameterTuningWidget : public SessionItemWidget
-{
+class ParameterTuningWidget : public SessionItemWidget {
     Q_OBJECT
 
 public:

@@ -23,8 +23,7 @@ class FootprintItem;
 class GroupItem;
 class IAxis;
 
-class BA_CORE_API_ BeamItem : public SessionItem
-{
+class BA_CORE_API_ BeamItem : public SessionItem {
 public:
     static const QString P_INTENSITY;
     static const QString P_WAVELENGTH;
@@ -55,8 +54,7 @@ protected:
     void setWavelengthProperty(const QString& wavelength_type);
 };
 
-class BA_CORE_API_ SpecularBeamItem : public BeamItem
-{
+class BA_CORE_API_ SpecularBeamItem : public BeamItem {
 public:
     static const QString P_FOOPTPRINT;
 
@@ -77,8 +75,7 @@ private:
     void updateWavelength();
 };
 
-class BA_CORE_API_ GISASBeamItem : public BeamItem
-{
+class BA_CORE_API_ GISASBeamItem : public BeamItem {
 public:
     GISASBeamItem();
     ~GISASBeamItem() override;

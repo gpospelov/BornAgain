@@ -19,8 +19,7 @@
 
 class IParameterized;
 
-namespace ParameterUtils
-{
+namespace ParameterUtils {
 
 //! Returns true if given parameter name is related to angles.
 bool isAngleRelated(const std::string& par_name);

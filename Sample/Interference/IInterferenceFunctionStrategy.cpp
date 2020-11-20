@@ -25,24 +25,21 @@ IInterferenceFunctionStrategy::IInterferenceFunctionStrategy(
     : m_weighted_formfactors(weighted_formfactors)
     , m_options(sim_params)
     , m_polarized(polarized)
-    , m_integrator(
-          make_integrator_miser(this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2))
-{
+    , m_integrator(make_integrator_miser(
+          this, &IInterferenceFunctionStrategy::evaluate_for_fixed_angles, 2)) {
     ASSERT(!m_weighted_formfactors.empty());
 }
 
 IInterferenceFunctionStrategy::~IInterferenceFunctionStrategy() = default;
 
-double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const
-{
+double IInterferenceFunctionStrategy::evaluate(const SimulationElement& sim_element) const {
     if (m_options.isIntegrate() && (sim_element.solidAngle() > 0.0))
         return MCIntegratedEvaluate(sim_element);
     return evaluateSinglePoint(sim_element);
 }
 
 double
-IInterferenceFunctionStrategy::evaluateSinglePoint(const SimulationElement& sim_element) const
-{
+IInterferenceFunctionStrategy::evaluateSinglePoint(const SimulationElement& sim_element) const {
     if (!m_polarized)
         return scalarCalculation(sim_element);
     return polarizedCalculation(sim_element);
@@ -50,8 +47,7 @@ IInterferenceFunctionStrategy::evaluateSinglePoint(const SimulationElement& sim_
 
 //! Performs a Monte Carlo integration over the bin for the evaluation of the intensity.
 double
-IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationElement& sim_element) const
-{
+IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationElement& sim_element) const {
     double min_array[] = {0.0, 0.0};
     double max_array[] = {1.0, 1.0};
     return m_integrator->integrate(min_array, max_array, (void*)&sim_element,
@@ -59,8 +55,7 @@ IInterferenceFunctionStrategy::MCIntegratedEvaluate(const SimulationElement& sim
 }
 
 double IInterferenceFunctionStrategy::evaluate_for_fixed_angles(double* fractions, size_t,
-                                                                void* params) const
-{
+                                                                void* params) const {
     double par0 = fractions[0];
     double par1 = fractions[1];
 

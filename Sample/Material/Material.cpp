@@ -19,20 +19,16 @@
 #include <typeinfo>
 
 Material::Material(std::unique_ptr<BaseMaterialImpl> material_impl)
-    : m_material_impl(std::move(material_impl))
-{
-}
+    : m_material_impl(std::move(material_impl)) {}
 
-Material::Material(const Material& material)
-{
+Material::Material(const Material& material) {
     if (material.isEmpty())
         throw Exceptions::NullPointerException(
             "Material: Error! Attempt to initialize material with nullptr.");
     m_material_impl.reset(material.m_material_impl->clone());
 }
 
-Material& Material::operator=(const Material& other)
-{
+Material& Material::operator=(const Material& other) {
     if (other.isEmpty())
         throw Exceptions::NullPointerException(
             "Material: Error! Attempt to assign nullptr to material.");
@@ -40,64 +36,52 @@ Material& Material::operator=(const Material& other)
     return *this;
 }
 
-Material Material::inverted() const
-{
+Material Material::inverted() const {
     std::unique_ptr<BaseMaterialImpl> material_impl(m_material_impl->inverted());
     return Material(std::move(material_impl));
 }
 
-complex_t Material::refractiveIndex(double wavelength) const
-{
+complex_t Material::refractiveIndex(double wavelength) const {
     return m_material_impl->refractiveIndex(wavelength);
 }
 
-complex_t Material::refractiveIndex2(double wavelength) const
-{
+complex_t Material::refractiveIndex2(double wavelength) const {
     return m_material_impl->refractiveIndex2(wavelength);
 }
 
-bool Material::isScalarMaterial() const
-{
+bool Material::isScalarMaterial() const {
     return m_material_impl->isScalarMaterial();
 }
 
-bool Material::isMagneticMaterial() const
-{
+bool Material::isMagneticMaterial() const {
     return m_material_impl->isMagneticMaterial();
 }
 
-std::string Material::getName() const
-{
+std::string Material::getName() const {
     return m_material_impl->getName();
 }
 
-MATERIAL_TYPES Material::typeID() const
-{
+MATERIAL_TYPES Material::typeID() const {
     return m_material_impl->typeID();
 }
 
-kvector_t Material::magnetization() const
-{
+kvector_t Material::magnetization() const {
     return m_material_impl->magnetization();
 }
 
-complex_t Material::materialData() const
-{
+complex_t Material::materialData() const {
     return m_material_impl->materialData();
 }
 
-bool Material::isDefaultMaterial() const
-{
+bool Material::isDefaultMaterial() const {
     return materialData() == complex_t() && isScalarMaterial();
 }
 
-complex_t Material::scalarSubtrSLD(const WavevectorInfo& wavevectors) const
-{
+complex_t Material::scalarSubtrSLD(const WavevectorInfo& wavevectors) const {
     return m_material_impl->scalarSubtrSLD(wavevectors);
 }
 
-Eigen::Matrix2cd Material::polarizedSubtrSLD(const WavevectorInfo& wavevectors) const
-{
+Eigen::Matrix2cd Material::polarizedSubtrSLD(const WavevectorInfo& wavevectors) const {
     return m_material_impl->polarizedSubtrSLD(wavevectors);
 }
 
@@ -107,14 +91,12 @@ Material Material::rotatedMaterial(const Transform3D& transform) const // TODO p
     return Material(std::move(material_impl));
 }
 
-std::ostream& operator<<(std::ostream& ostr, const Material& m)
-{
+std::ostream& operator<<(std::ostream& ostr, const Material& m) {
     m.m_material_impl->print(ostr);
     return ostr;
 }
 
-bool operator==(const Material& left, const Material& right)
-{
+bool operator==(const Material& left, const Material& right) {
     if (left.getName() != right.getName())
         return false;
     if (left.magnetization() != right.magnetization())
@@ -126,7 +108,6 @@ bool operator==(const Material& left, const Material& right)
     return true;
 }
 
-bool operator!=(const Material& left, const Material& right)
-{
+bool operator!=(const Material& left, const Material& right) {
     return !(left == right);
 }

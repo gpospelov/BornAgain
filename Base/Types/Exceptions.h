@@ -27,65 +27,54 @@
 
 //! Different exceptions, all inheriting from std::exception.
 
-namespace Exceptions
-{
+namespace Exceptions {
 
-class NotImplementedException : public std::logic_error
-{
+class NotImplementedException : public std::logic_error {
 public:
     NotImplementedException(const std::string& message);
 };
 
-class NullPointerException : public std::logic_error
-{
+class NullPointerException : public std::logic_error {
 public:
     NullPointerException(const std::string& message);
 };
 
-class OutOfBoundsException : public std::logic_error
-{
+class OutOfBoundsException : public std::logic_error {
 public:
     OutOfBoundsException(const std::string& message);
 };
 
-class ClassInitializationException : public std::runtime_error
-{
+class ClassInitializationException : public std::runtime_error {
 public:
     ClassInitializationException(const std::string& message);
 };
 
-class LogicErrorException : public std::logic_error
-{
+class LogicErrorException : public std::logic_error {
 public:
     LogicErrorException(const std::string& message);
 };
 
-class RuntimeErrorException : public std::runtime_error
-{
+class RuntimeErrorException : public std::runtime_error {
 public:
     RuntimeErrorException(const std::string& message);
 };
 
-class DomainErrorException : public std::domain_error
-{
+class DomainErrorException : public std::domain_error {
 public:
     DomainErrorException(const std::string& message);
 };
 
-class FileNotIsOpenException : public std::runtime_error
-{
+class FileNotIsOpenException : public std::runtime_error {
 public:
     FileNotIsOpenException(const std::string& message);
 };
 
-class FileIsBadException : public std::runtime_error
-{
+class FileIsBadException : public std::runtime_error {
 public:
     FileIsBadException(const std::string& message);
 };
 
-class FormatErrorException : public std::runtime_error
-{
+class FormatErrorException : public std::runtime_error {
 public:
     FormatErrorException(const std::string& message);
 };

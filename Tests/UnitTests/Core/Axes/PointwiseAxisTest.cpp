@@ -4,12 +4,9 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 
-class PointwiseAxisTest : public ::testing::Test
-{
-};
+class PointwiseAxisTest : public ::testing::Test {};
 
-TEST_F(PointwiseAxisTest, Construction)
-{
+TEST_F(PointwiseAxisTest, Construction) {
     EXPECT_THROW(PointwiseAxis("length", std::vector<double>{0.0}), std::runtime_error);
     EXPECT_THROW(PointwiseAxis("length", std::vector<double>{1.0, 0.0}), std::runtime_error);
     EXPECT_THROW(PointwiseAxis("length", std::vector<double>{0.0, 1.0, 0.5}), std::runtime_error);
@@ -20,8 +17,7 @@ TEST_F(PointwiseAxisTest, Construction)
     EXPECT_TRUE(a1 == a2);
 }
 
-TEST_F(PointwiseAxisTest, BasicProperties)
-{
+TEST_F(PointwiseAxisTest, BasicProperties) {
     std::vector<double> coordinates{0.0, 1.0, 4.0, 8.0};
     PointwiseAxis a1("length", coordinates);
     EXPECT_EQ(4u, a1.size());
@@ -40,8 +36,7 @@ TEST_F(PointwiseAxisTest, BasicProperties)
     EXPECT_TRUE(coordinates == a1.binCenters());
 }
 
-TEST_F(PointwiseAxisTest, FindClosestIndex)
-{
+TEST_F(PointwiseAxisTest, FindClosestIndex) {
     PointwiseAxis v1("name", std::vector<double>{0.0, 1.0, 4.0, 8.0});
     EXPECT_EQ(4u, v1.size());
     EXPECT_EQ(v1.findClosestIndex(-1.0), 0u);
@@ -64,8 +59,7 @@ TEST_F(PointwiseAxisTest, FindClosestIndex)
     EXPECT_EQ(1u, v2.findClosestIndex(1.0));
 }
 
-TEST_F(PointwiseAxisTest, CheckBin)
-{
+TEST_F(PointwiseAxisTest, CheckBin) {
     PointwiseAxis axis("name", std::vector<double>{0, 2, 10});
     auto boundaries = axis.binBoundaries();
     EXPECT_EQ(4u, boundaries.size());
@@ -97,8 +91,7 @@ TEST_F(PointwiseAxisTest, CheckBin)
     EXPECT_THROW(axis.bin(3), std::runtime_error);
 }
 
-TEST_F(PointwiseAxisTest, CheckEquality)
-{
+TEST_F(PointwiseAxisTest, CheckEquality) {
     PointwiseAxis b1("axis", std::vector<double>{1.0, 2.0, 5.0});
     PointwiseAxis b2("axis", std::vector<double>{1.0, 2.0, 5.0});
     EXPECT_TRUE(b1 == b2);
@@ -110,15 +103,13 @@ TEST_F(PointwiseAxisTest, CheckEquality)
     EXPECT_FALSE(b1 == b6);
 }
 
-TEST_F(PointwiseAxisTest, CheckClone)
-{
+TEST_F(PointwiseAxisTest, CheckClone) {
     PointwiseAxis a1("axis", std::vector<double>{1.0, 2.0, 5.0});
     std::unique_ptr<PointwiseAxis> clone(a1.clone());
     EXPECT_TRUE(a1 == *clone);
 }
 
-TEST_F(PointwiseAxisTest, IOStream)
-{
+TEST_F(PointwiseAxisTest, IOStream) {
     PointwiseAxis axis("name", std::vector<double>{1.0, 2.0, 5.0});
 
     std::ostringstream oss;
@@ -129,8 +120,7 @@ TEST_F(PointwiseAxisTest, IOStream)
     EXPECT_TRUE(axis == *result);
 }
 
-TEST_F(PointwiseAxisTest, ClippedAxis)
-{
+TEST_F(PointwiseAxisTest, ClippedAxis) {
     PointwiseAxis axis("name", std::vector<double>{1.0, 2.0, 2.5, 2.7, 5.0});
 
     std::unique_ptr<PointwiseAxis> clip1(axis.createClippedAxis(0.99, 5.1));
@@ -149,8 +139,7 @@ TEST_F(PointwiseAxisTest, ClippedAxis)
     EXPECT_THROW(axis.createClippedAxis(5.0, 1.0), std::runtime_error);
 }
 
-TEST_F(PointwiseAxisTest, FixedBinAxisComparison)
-{
+TEST_F(PointwiseAxisTest, FixedBinAxisComparison) {
     FixedBinAxis fixed_axis("name", 4, 0.0, 4.0);
     PointwiseAxis pointwise_axis("name", std::vector<double>{0.5, 1.5, 2.5, 3.5});
 
@@ -184,8 +173,7 @@ TEST_F(PointwiseAxisTest, FixedBinAxisComparison)
     EXPECT_DOUBLE_EQ(clipped_fixed->binCenter(2), clipped_pointwise->binCenter(2));
 }
 
-TEST_F(PointwiseAxisTest, FixedBinAxisComparisonWithMask)
-{
+TEST_F(PointwiseAxisTest, FixedBinAxisComparisonWithMask) {
     FixedBinAxis axis("reference", 10, 0.0, 10.0);
 
     const std::vector<size_t> mask{0u, 2u, 3u, 4u, 7u, 8u, 9u};

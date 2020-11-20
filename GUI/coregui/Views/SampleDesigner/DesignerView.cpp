@@ -24,16 +24,14 @@
 #include <QShortcut>
 #include <QVBoxLayout>
 
-DesignerView::DesignerView(QGraphicsScene* scene, QWidget* parent) : QGraphicsView(scene, parent)
-{
+DesignerView::DesignerView(QGraphicsScene* scene, QWidget* parent) : QGraphicsView(scene, parent) {
     setAcceptDrops(true);
     setRenderHint(QPainter::Antialiasing);
     setMouseTracking(true);
     setDragMode(QGraphicsView::RubberBandDrag);
 }
 
-int DesignerView::getSelectionMode() const
-{
+int DesignerView::getSelectionMode() const {
     if (dragMode() == QGraphicsView::NoDrag) {
         return SIMPLE_SELECTION;
     } else if (dragMode() == QGraphicsView::RubberBandDrag) {
@@ -45,8 +43,7 @@ int DesignerView::getSelectionMode() const
     }
 }
 
-void DesignerView::onSelectionMode(int mode)
-{
+void DesignerView::onSelectionMode(int mode) {
     switch (mode) {
     case SIMPLE_SELECTION:
         setDragMode(QGraphicsView::NoDrag);
@@ -68,29 +65,25 @@ void DesignerView::onSelectionMode(int mode)
     }
 }
 
-void DesignerView::onCenterView()
-{
+void DesignerView::onCenterView() {
     // fitInView(scene()->itemsBoundingRect() ,Qt::KeepAspectRatio);
     centerOn(scene()->itemsBoundingRect().center());
 }
 
-void DesignerView::onChangeScale(double new_scale)
-{
+void DesignerView::onChangeScale(double new_scale) {
     QTransform oldMatrix = transform();
     resetTransform();
     translate(oldMatrix.dx(), oldMatrix.dy());
     scale(new_scale, new_scale);
 }
 
-void DesignerView::deleteSelectedItems()
-{
+void DesignerView::deleteSelectedItems() {
     DesignerScene* designerScene = dynamic_cast<DesignerScene*>(scene());
     ASSERT(designerScene);
     designerScene->deleteSelectedItems();
 }
 
-void DesignerView::keyPressEvent(QKeyEvent* event)
-{
+void DesignerView::keyPressEvent(QKeyEvent* event) {
     switch (event->key()) {
     case Qt::Key_Left:
         break;
@@ -110,8 +103,7 @@ void DesignerView::keyPressEvent(QKeyEvent* event)
     }
 }
 
-void DesignerView::keyReleaseEvent(QKeyEvent* event)
-{
+void DesignerView::keyReleaseEvent(QKeyEvent* event) {
     switch (event->key()) {
     case Qt::Key_Space:
 

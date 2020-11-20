@@ -24,8 +24,7 @@ class QItemSelectionModel;
 //! The RealDataSelectorActions class contains actions to run/remove real data.
 //! Actions are used by the toolbar and context menu of selector list.
 
-class RealDataSelectorActions : public QObject
-{
+class RealDataSelectorActions : public QObject {
     Q_OBJECT
 public:
     RealDataSelectorActions(QObject* parent = nullptr);

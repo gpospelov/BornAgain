@@ -20,8 +20,7 @@
 //! The infinite plane is used for masking everything once and forever.
 //! @ingroup tools
 
-class InfinitePlane : public IShape2D
-{
+class InfinitePlane : public IShape2D {
 public:
     InfinitePlane() : IShape2D("InfinitePlane") {}
     InfinitePlane* clone() const { return new InfinitePlane(); }

@@ -22,8 +22,7 @@ class QWidget;
 
 //! Holds information about the widget and its dock.
 
-class DockWidgetInfo
-{
+class DockWidgetInfo {
 public:
     DockWidgetInfo();
     DockWidgetInfo(QDockWidget* dock, QWidget* widget, Qt::DockWidgetArea area);

@@ -20,8 +20,7 @@
 //! The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
 //! @ingroup mask
 
-class Rectangle : public IShape2D
-{
+class Rectangle : public IShape2D {
 public:
     Rectangle(double xlow, double ylow, double xup, double yup);
     Rectangle* clone() const { return new Rectangle(m_xlow, m_ylow, m_xup, m_yup); }

@@ -20,8 +20,7 @@
 //! Helper class for constructing parameter patterns.
 //! @ingroup tools_internal
 
-class ParameterPattern
-{
+class ParameterPattern {
 public:
     ParameterPattern() {}
     ParameterPattern(std::string root_object) : m_pattern("/" + root_object) {}

@@ -25,8 +25,7 @@
 
 //! @ingroup formfactors_internal
 
-class FormFactorWeighted : public IFormFactor
-{
+class FormFactorWeighted : public IFormFactor {
 public:
     FormFactorWeighted();
     ~FormFactorWeighted() override;

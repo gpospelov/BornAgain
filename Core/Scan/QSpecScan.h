@@ -25,8 +25,7 @@ class ScanResolution;
 //! Scan type with z-components of scattering vector as coordinate values.
 //! Wavelength and incident angles are not accessible separately.
 
-class QSpecScan : public ISpecularScan
-{
+class QSpecScan : public ISpecularScan {
 public:
     //! Accepts qz-value vector (in inverse nm)
     QSpecScan(std::vector<double> qs_nm);

@@ -18,20 +18,17 @@
 
 PreorderStrategy::PreorderStrategy() = default;
 
-PreorderStrategy* PreorderStrategy::clone() const
-{
+PreorderStrategy* PreorderStrategy::clone() const {
     return new PreorderStrategy();
 }
 
-IteratorMemento PreorderStrategy::first(const INode* p_root)
-{
+IteratorMemento PreorderStrategy::first(const INode* p_root) {
     IteratorMemento iterator_stack;
     iterator_stack.push_state(IteratorState(p_root));
     return iterator_stack;
 }
 
-void PreorderStrategy::next(IteratorMemento& iterator_stack) const
-{
+void PreorderStrategy::next(IteratorMemento& iterator_stack) const {
     const INode* node = iterator_stack.getCurrent();
     ASSERT(node);
     std::vector<const INode*> children = node->getChildren();
@@ -47,7 +44,6 @@ void PreorderStrategy::next(IteratorMemento& iterator_stack) const
     }
 }
 
-bool PreorderStrategy::isDone(IteratorMemento& iterator_stack) const
-{
+bool PreorderStrategy::isDone(IteratorMemento& iterator_stack) const {
     return iterator_stack.empty();
 }

@@ -29,8 +29,7 @@ class ZLimits;
 //!
 //! @ingroup samples
 
-class IParticle : public IAbstractParticle
-{
+class IParticle : public IAbstractParticle {
 public:
     ~IParticle();
     IParticle* clone() const override = 0;

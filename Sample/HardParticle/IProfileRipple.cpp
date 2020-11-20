@@ -30,17 +30,13 @@ IProfileRipple::IProfileRipple(const NodeMeta& meta, const std::vector<double>& 
               PValues)
     , m_length(m_P[0])
     , m_width(m_P[1])
-    , m_height(m_P[2])
-{
-}
+    , m_height(m_P[2]) {}
 
-double IProfileRipple::radialExtension() const
-{
+double IProfileRipple::radialExtension() const {
     return (m_width + m_length) / 4.0;
 }
 
-complex_t IProfileRipple::evaluate_for_q(cvector_t q) const
-{
+complex_t IProfileRipple::evaluate_for_q(cvector_t q) const {
     return factor_x(q.x()) * factor_yz(q.y(), q.z());
 }
 
@@ -50,19 +46,16 @@ complex_t IProfileRipple::evaluate_for_q(cvector_t q) const
 
 IProfileRectangularRipple::IProfileRectangularRipple(const NodeMeta& meta,
                                                      const std::vector<double>& PValues)
-    : IProfileRipple(meta, PValues)
-{
+    : IProfileRipple(meta, PValues) {
     onChange();
 }
 
 //! Complex form factor.
-complex_t IProfileRectangularRipple::factor_yz(complex_t qy, complex_t qz) const
-{
+complex_t IProfileRectangularRipple::factor_yz(complex_t qy, complex_t qz) const {
     return ripples::profile_yz_bar(qy, qz, m_width, m_height);
 }
 
-void IProfileRectangularRipple::onChange()
-{
+void IProfileRectangularRipple::onChange() {
     m_shape = std::make_unique<Box>(m_length, m_width, m_height);
 }
 
@@ -71,19 +64,16 @@ void IProfileRectangularRipple::onChange()
 //  ************************************************************************************************
 
 ICosineRipple::ICosineRipple(const NodeMeta& meta, const std::vector<double>& PValues)
-    : IProfileRipple(meta, PValues)
-{
+    : IProfileRipple(meta, PValues) {
     onChange();
 }
 
 //! Complex form factor.
-complex_t ICosineRipple::factor_yz(complex_t qy, complex_t qz) const
-{
+complex_t ICosineRipple::factor_yz(complex_t qy, complex_t qz) const {
     return ripples::profile_yz_cosine(qy, qz, m_width, m_height);
 }
 
-void ICosineRipple::onChange()
-{
+void ICosineRipple::onChange() {
     m_shape = std::make_unique<RippleCosine>(m_length, m_width, m_height);
 }
 
@@ -95,18 +85,15 @@ ISawtoothRipple::ISawtoothRipple(const NodeMeta& meta, const std::vector<double>
     : IProfileRipple(
         nodeMetaUnion({{"AsymmetryLength", "nm", "Asymmetry of width", -INF, INF, 0.}}, meta),
         PValues)
-    , m_asymmetry(m_P[3])
-{
+    , m_asymmetry(m_P[3]) {
     onChange();
 }
 
 //! Complex form factor.
-complex_t ISawtoothRipple::factor_yz(complex_t qy, complex_t qz) const
-{
+complex_t ISawtoothRipple::factor_yz(complex_t qy, complex_t qz) const {
     return ripples::profile_yz_triangular(qy, qz, m_width, m_height, m_asymmetry);
 }
 
-void ISawtoothRipple::onChange()
-{
+void ISawtoothRipple::onChange() {
     m_shape = std::make_unique<RippleSawtooth>(m_length, m_width, m_height, m_asymmetry);
 }

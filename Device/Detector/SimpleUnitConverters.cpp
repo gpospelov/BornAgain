@@ -25,10 +25,8 @@
 #include <cmath>
 #include <stdexcept>
 
-namespace
-{
-double getQ(double wavelength, double angle)
-{
+namespace {
+double getQ(double wavelength, double angle) {
     return 4.0 * M_PI * std::sin(angle) / wavelength;
 }
 } // namespace
@@ -38,24 +36,19 @@ double getQ(double wavelength, double angle)
 //  ************************************************************************************************
 
 UnitConverterSimple::UnitConverterSimple(const Beam& beam)
-    : m_wavelength(beam.getWavelength()), m_alpha_i(-beam.getAlpha()), m_phi_i(beam.getPhi())
-{
-}
+    : m_wavelength(beam.getWavelength()), m_alpha_i(-beam.getAlpha()), m_phi_i(beam.getPhi()) {}
 
-size_t UnitConverterSimple::dimension() const
-{
+size_t UnitConverterSimple::dimension() const {
     return m_axis_data_table.size();
 }
 
 void UnitConverterSimple::addAxisData(std::string name, double min, double max,
-                                      Axes::Units default_units, size_t nbins)
-{
+                                      Axes::Units default_units, size_t nbins) {
     AxisData axis_data{name, min, max, default_units, nbins};
     m_axis_data_table.push_back(axis_data);
 }
 
-double UnitConverterSimple::calculateMin(size_t i_axis, Axes::Units units_type) const
-{
+double UnitConverterSimple::calculateMin(size_t i_axis, Axes::Units units_type) const {
     checkIndex(i_axis);
     units_type = substituteDefaultUnits(units_type);
     const auto& axis_data = m_axis_data_table[i_axis];
@@ -64,8 +57,7 @@ double UnitConverterSimple::calculateMin(size_t i_axis, Axes::Units units_type) 
     return calculateValue(i_axis, units_type, axis_data.min);
 }
 
-double UnitConverterSimple::calculateMax(size_t i_axis, Axes::Units units_type) const
-{
+double UnitConverterSimple::calculateMax(size_t i_axis, Axes::Units units_type) const {
     checkIndex(i_axis);
     units_type = substituteDefaultUnits(units_type);
     const auto& axis_data = m_axis_data_table[i_axis];
@@ -74,20 +66,17 @@ double UnitConverterSimple::calculateMax(size_t i_axis, Axes::Units units_type) 
     return calculateValue(i_axis, units_type, axis_data.max);
 }
 
-size_t UnitConverterSimple::axisSize(size_t i_axis) const
-{
+size_t UnitConverterSimple::axisSize(size_t i_axis) const {
     checkIndex(i_axis);
     return m_axis_data_table[i_axis].nbins;
 }
 
-std::vector<Axes::Units> UnitConverterSimple::availableUnits() const
-{
+std::vector<Axes::Units> UnitConverterSimple::availableUnits() const {
     return {Axes::Units::NBINS, Axes::Units::RADIANS, Axes::Units::DEGREES};
 }
 
 std::unique_ptr<IAxis> UnitConverterSimple::createConvertedAxis(size_t i_axis,
-                                                                Axes::Units units) const
-{
+                                                                Axes::Units units) const {
     const double min = calculateMin(i_axis, units);
     const double max = calculateMax(i_axis, units);
     const auto& axis_name = axisName(i_axis, units);
@@ -99,12 +88,9 @@ UnitConverterSimple::UnitConverterSimple(const UnitConverterSimple& other)
     : m_axis_data_table(other.m_axis_data_table)
     , m_wavelength(other.m_wavelength)
     , m_alpha_i(other.m_alpha_i)
-    , m_phi_i(other.m_phi_i)
-{
-}
+    , m_phi_i(other.m_phi_i) {}
 
-void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_axis)
-{
+void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_axis) {
     const auto& axis = detector.axis(i_axis);
     const auto* p_roi = detector.regionOfInterest();
     const auto& axis_name = axisName(i_axis);
@@ -122,8 +108,7 @@ void UnitConverterSimple::addDetectorAxis(const IDetector& detector, size_t i_ax
 //  ************************************************************************************************
 
 SphericalConverter::SphericalConverter(const SphericalDetector& detector, const Beam& beam)
-    : UnitConverterSimple(beam)
-{
+    : UnitConverterSimple(beam) {
     if (detector.dimension() != 2)
         throw std::runtime_error("Error in SphericalConverter constructor: "
                                  "detector has wrong dimension: "
@@ -134,29 +119,25 @@ SphericalConverter::SphericalConverter(const SphericalDetector& detector, const 
 
 SphericalConverter::~SphericalConverter() = default;
 
-SphericalConverter* SphericalConverter::clone() const
-{
+SphericalConverter* SphericalConverter::clone() const {
     return new SphericalConverter(*this);
 }
 
-std::vector<Axes::Units> SphericalConverter::availableUnits() const
-{
+std::vector<Axes::Units> SphericalConverter::availableUnits() const {
     auto result = UnitConverterSimple::availableUnits();
     result.push_back(Axes::Units::QSPACE);
     return result;
 }
 
-Axes::Units SphericalConverter::defaultUnits() const
-{
+Axes::Units SphericalConverter::defaultUnits() const {
     return Axes::Units::DEGREES;
 }
 
-SphericalConverter::SphericalConverter(const SphericalConverter& other) : UnitConverterSimple(other)
-{
-}
+SphericalConverter::SphericalConverter(const SphericalConverter& other)
+    : UnitConverterSimple(other) {}
 
-double SphericalConverter::calculateValue(size_t i_axis, Axes::Units units_type, double value) const
-{
+double SphericalConverter::calculateValue(size_t i_axis, Axes::Units units_type,
+                                          double value) const {
     switch (units_type) {
     case Axes::Units::RADIANS:
         return value;
@@ -193,8 +174,7 @@ double SphericalConverter::calculateValue(size_t i_axis, Axes::Units units_type,
     }
 }
 
-std::vector<std::map<Axes::Units, std::string>> SphericalConverter::createNameMaps() const
-{
+std::vector<std::map<Axes::Units, std::string>> SphericalConverter::createNameMaps() const {
     std::vector<std::map<Axes::Units, std::string>> result;
     result.push_back(AxisNames::InitSphericalAxis0());
     result.push_back(AxisNames::InitSphericalAxis1());
@@ -206,8 +186,7 @@ std::vector<std::map<Axes::Units, std::string>> SphericalConverter::createNameMa
 //  ************************************************************************************************
 
 RectangularConverter::RectangularConverter(const RectangularDetector& detector, const Beam& beam)
-    : UnitConverterSimple(beam)
-{
+    : UnitConverterSimple(beam) {
     if (detector.dimension() != 2)
         throw std::runtime_error("Error in RectangularConverter constructor: "
                                  "detector has wrong dimension: "
@@ -219,32 +198,26 @@ RectangularConverter::RectangularConverter(const RectangularDetector& detector, 
 
 RectangularConverter::~RectangularConverter() = default;
 
-RectangularConverter* RectangularConverter::clone() const
-{
+RectangularConverter* RectangularConverter::clone() const {
     return new RectangularConverter(*this);
 }
 
-std::vector<Axes::Units> RectangularConverter::availableUnits() const
-{
+std::vector<Axes::Units> RectangularConverter::availableUnits() const {
     auto result = UnitConverterSimple::availableUnits();
     result.push_back(Axes::Units::QSPACE);
     result.push_back(Axes::Units::MM);
     return result;
 }
 
-Axes::Units RectangularConverter::defaultUnits() const
-{
+Axes::Units RectangularConverter::defaultUnits() const {
     return Axes::Units::MM;
 }
 
 RectangularConverter::RectangularConverter(const RectangularConverter& other)
-    : UnitConverterSimple(other), m_detector_pixel(other.m_detector_pixel->clone())
-{
-}
+    : UnitConverterSimple(other), m_detector_pixel(other.m_detector_pixel->clone()) {}
 
 double RectangularConverter::calculateValue(size_t i_axis, Axes::Units units_type,
-                                            double value) const
-{
+                                            double value) const {
     if (units_type == Axes::Units::MM)
         return value;
     const auto k00 = m_detector_pixel->getPosition(0.0, 0.0);
@@ -283,16 +256,14 @@ double RectangularConverter::calculateValue(size_t i_axis, Axes::Units units_typ
     }
 }
 
-std::vector<std::map<Axes::Units, std::string>> RectangularConverter::createNameMaps() const
-{
+std::vector<std::map<Axes::Units, std::string>> RectangularConverter::createNameMaps() const {
     std::vector<std::map<Axes::Units, std::string>> result;
     result.push_back(AxisNames::InitRectangularAxis0());
     result.push_back(AxisNames::InitRectangularAxis1());
     return result;
 }
 
-kvector_t RectangularConverter::normalizeToWavelength(kvector_t vector) const
-{
+kvector_t RectangularConverter::normalizeToWavelength(kvector_t vector) const {
     if (m_wavelength <= 0.0)
         throw std::runtime_error("Error in RectangularConverter::normalizeToWavelength: "
                                  "wavelength <= 0");
@@ -300,8 +271,7 @@ kvector_t RectangularConverter::normalizeToWavelength(kvector_t vector) const
     return vector.unit() * K;
 }
 
-double RectangularConverter::axisAngle(size_t i_axis, kvector_t k_f) const
-{
+double RectangularConverter::axisAngle(size_t i_axis, kvector_t k_f) const {
     if (i_axis == 0)
         return k_f.phi();
     if (i_axis == 1)
@@ -317,8 +287,7 @@ double RectangularConverter::axisAngle(size_t i_axis, kvector_t k_f) const
 
 OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Beam& beam,
                                            const IAxis& alpha_axis)
-    : UnitConverterSimple(beam)
-{
+    : UnitConverterSimple(beam) {
     if (detector.dimension() != 2)
         throw std::runtime_error("Error in OffSpecularConverter constructor: "
                                  "detector has wrong dimension: "
@@ -330,23 +299,18 @@ OffSpecularConverter::OffSpecularConverter(const IDetector2D& detector, const Be
 
 OffSpecularConverter::~OffSpecularConverter() = default;
 
-OffSpecularConverter* OffSpecularConverter::clone() const
-{
+OffSpecularConverter* OffSpecularConverter::clone() const {
     return new OffSpecularConverter(*this);
 }
 
-Axes::Units OffSpecularConverter::defaultUnits() const
-{
+Axes::Units OffSpecularConverter::defaultUnits() const {
     return Axes::Units::DEGREES;
 }
 
 OffSpecularConverter::OffSpecularConverter(const OffSpecularConverter& other)
-    : UnitConverterSimple(other)
-{
-}
+    : UnitConverterSimple(other) {}
 
-double OffSpecularConverter::calculateValue(size_t, Axes::Units units_type, double value) const
-{
+double OffSpecularConverter::calculateValue(size_t, Axes::Units units_type, double value) const {
     switch (units_type) {
     case Axes::Units::RADIANS:
         return value;
@@ -357,16 +321,14 @@ double OffSpecularConverter::calculateValue(size_t, Axes::Units units_type, doub
     }
 }
 
-std::vector<std::map<Axes::Units, std::string>> OffSpecularConverter::createNameMaps() const
-{
+std::vector<std::map<Axes::Units, std::string>> OffSpecularConverter::createNameMaps() const {
     std::vector<std::map<Axes::Units, std::string>> result;
     result.push_back(AxisNames::InitOffSpecAxis0());
     result.push_back(AxisNames::InitOffSpecAxis1());
     return result;
 }
 
-void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector)
-{
+void OffSpecularConverter::addDetectorYAxis(const IDetector2D& detector) {
     const auto& axis = detector.axis(1);
     const auto* p_roi = detector.regionOfInterest();
     const auto& axis_name = axisName(1);
@@ -404,8 +366,7 @@ const std::string z_axis_name = "Position [nm]";
 
 DepthProbeConverter::DepthProbeConverter(const Beam& beam, const IAxis& alpha_axis,
                                          const IAxis& z_axis)
-    : UnitConverterSimple(beam)
-{
+    : UnitConverterSimple(beam) {
     const auto& alpha_axis_name = axisName(0);
     const auto& z_axis_name = axisName(1);
     addAxisData(alpha_axis_name, alpha_axis.lowerBound(), alpha_axis.upperBound(), defaultUnits(),
@@ -416,26 +377,21 @@ DepthProbeConverter::DepthProbeConverter(const Beam& beam, const IAxis& alpha_ax
 
 DepthProbeConverter::~DepthProbeConverter() = default;
 
-DepthProbeConverter* DepthProbeConverter::clone() const
-{
+DepthProbeConverter* DepthProbeConverter::clone() const {
     return new DepthProbeConverter(*this);
 }
 
-std::vector<Axes::Units> DepthProbeConverter::availableUnits() const
-{
+std::vector<Axes::Units> DepthProbeConverter::availableUnits() const {
     auto result = UnitConverterSimple::availableUnits();
     result.push_back(Axes::Units::QSPACE);
     return result;
 }
 
 DepthProbeConverter::DepthProbeConverter(const DepthProbeConverter& other)
-    : UnitConverterSimple(other)
-{
-}
+    : UnitConverterSimple(other) {}
 
 double DepthProbeConverter::calculateValue(size_t i_axis, Axes::Units units_type,
-                                           double value) const
-{
+                                           double value) const {
     checkUnits(units_type);
     if (i_axis == 1)
         return value; // unit conversions are not applied to sample position axis
@@ -449,16 +405,14 @@ double DepthProbeConverter::calculateValue(size_t i_axis, Axes::Units units_type
     }
 }
 
-std::vector<std::map<Axes::Units, std::string>> DepthProbeConverter::createNameMaps() const
-{
+std::vector<std::map<Axes::Units, std::string>> DepthProbeConverter::createNameMaps() const {
     std::vector<std::map<Axes::Units, std::string>> result;
     result.push_back(AxisNames::InitSpecAxis());
     result.push_back(AxisNames::InitSampleDepthAxis());
     return result;
 }
 
-void DepthProbeConverter::checkUnits(Axes::Units units_type) const
-{
+void DepthProbeConverter::checkUnits(Axes::Units units_type) const {
     const auto& available_units = availableUnits();
     if (std::find(available_units.begin(), available_units.end(), units_type)
         == available_units.cend())

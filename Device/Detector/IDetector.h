@@ -32,8 +32,7 @@ class RegionOfInterest;
 //! Abstract detector interface.
 //! @ingroup detector
 
-class IDetector : public ICloneable, public INode
-{
+class IDetector : public ICloneable, public INode {
 public:
     using const_iterator = const SimulationAreaIterator&;
     IDetector();

@@ -20,8 +20,7 @@
 
 //! Flags for log records related to fitting.
 
-class FitLogFlags
-{
+class FitLogFlags {
 public:
     enum EMessageType { DEFAULT, SUCCESS, HIGHLIGHT, WARNING, ERROR };
     Q_DECLARE_FLAGS(MessageType, EMessageType)

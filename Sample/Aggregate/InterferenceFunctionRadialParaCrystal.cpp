@@ -28,8 +28,7 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(dou
     , m_damping_length(damping_length)
     , m_use_damping_length(true)
     , m_kappa(0.0)
-    , m_domain_size(0.0)
-{
+    , m_domain_size(0.0) {
     setName("InterferenceRadialParaCrystal");
     if (m_damping_length == 0.0)
         m_use_damping_length = false;
@@ -39,8 +38,7 @@ InterferenceFunctionRadialParaCrystal::InterferenceFunctionRadialParaCrystal(dou
     registerParameter("DomainSize", &m_domain_size).setUnit("nm").setNonnegative();
 }
 
-InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::clone() const
-{
+InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::clone() const {
     auto* ret = new InterferenceFunctionRadialParaCrystal(m_peak_distance, m_damping_length);
     ret->setPositionVariance(m_position_var);
     if (m_pdf)
@@ -51,26 +49,22 @@ InterferenceFunctionRadialParaCrystal* InterferenceFunctionRadialParaCrystal::cl
 }
 
 //! Sets size spacing coupling parameter of the Size Spacing Correlation Approximation.
-void InterferenceFunctionRadialParaCrystal::setKappa(double kappa)
-{
+void InterferenceFunctionRadialParaCrystal::setKappa(double kappa) {
     m_kappa = kappa;
 }
 
-double InterferenceFunctionRadialParaCrystal::kappa() const
-{
+double InterferenceFunctionRadialParaCrystal::kappa() const {
     return m_kappa;
 }
 
 //! Sets domain size (finite size corrections).
 //! @param size: size of coherence domain along the lattice main axis in nanometers
 
-void InterferenceFunctionRadialParaCrystal::setDomainSize(double size)
-{
+void InterferenceFunctionRadialParaCrystal::setDomainSize(double size) {
     m_domain_size = size;
 }
 
-complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
-{
+complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const {
     complex_t phase = exp_I(qpar * m_peak_distance);
     double amplitude = m_pdf->evaluate(qpar);
     complex_t result = phase * amplitude;
@@ -82,19 +76,17 @@ complex_t InterferenceFunctionRadialParaCrystal::FTPDF(double qpar) const
 //! Sets one-dimensional probability distribution.
 //! @param pdf: probability distribution (Fourier transform of probability density)
 
-void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(const IFTDistribution1D& pdf)
-{
+void InterferenceFunctionRadialParaCrystal::setProbabilityDistribution(
+    const IFTDistribution1D& pdf) {
     m_pdf.reset(pdf.clone());
     registerChild(m_pdf.get());
 }
 
-std::vector<const INode*> InterferenceFunctionRadialParaCrystal::getChildren() const
-{
+std::vector<const INode*> InterferenceFunctionRadialParaCrystal::getChildren() const {
     return std::vector<const INode*>() << m_pdf;
 }
 
-double InterferenceFunctionRadialParaCrystal::iff_without_dw(const kvector_t q) const
-{
+double InterferenceFunctionRadialParaCrystal::iff_without_dw(const kvector_t q) const {
     if (!m_pdf)
         throw Exceptions::NullPointerException("InterferenceFunctionRadialParaCrystal::"
                                                "evaluate() -> Error! Probability distribution for "

@@ -23,8 +23,7 @@ class IRotation;
 //! Equips a form factor with a rotation.
 //! @ingroup formfactors_internal
 
-class FormFactorDecoratorRotation : public IFormFactorDecorator
-{
+class FormFactorDecoratorRotation : public IFormFactorDecorator {
 public:
     //! Constructor, setting form factor and rotation.
     FormFactorDecoratorRotation(const IFormFactor& ff, const IRotation& rotation);

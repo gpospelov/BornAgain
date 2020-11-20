@@ -23,8 +23,7 @@ class SessionItem;
 class QModelIndex;
 class SessionModel;
 
-namespace ModelPath
-{
+namespace ModelPath {
 QString getPathFromIndex(const QModelIndex& index);
 
 QModelIndex getIndexFromPath(const SessionModel* model, const QString& path);

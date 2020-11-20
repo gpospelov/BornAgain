@@ -22,8 +22,7 @@ class IDetector2D;
 class IResolutionFunction2D;
 class DetectorItem;
 
-class BA_CORE_API_ DetectorItem : public SessionItem
-{
+class BA_CORE_API_ DetectorItem : public SessionItem {
 public:
     static const QString T_MASKS;
     static const QString P_RESOLUTION_FUNCTION;

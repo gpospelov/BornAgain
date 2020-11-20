@@ -29,8 +29,7 @@ class SpecularSimulationElement;
 //! Main class to run a specular simulation.
 //! @ingroup simulation
 
-class SpecularSimulation : public ISimulation
-{
+class SpecularSimulation : public ISimulation {
 public:
     SpecularSimulation();
     ~SpecularSimulation() override;

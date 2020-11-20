@@ -27,8 +27,7 @@ class SimulationElement;
 //!
 //! @ingroup algorithms_internal
 
-class DWBAComputation : public IComputation
-{
+class DWBAComputation : public IComputation {
 public:
     DWBAComputation(const MultiLayer& multilayer, const SimulationOptions& options,
                     ProgressHandler& progress, std::vector<SimulationElement>::iterator begin_it,

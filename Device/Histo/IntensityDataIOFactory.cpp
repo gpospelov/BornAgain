@@ -22,8 +22,7 @@
 #include <fstream>
 #include <memory>
 
-OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& file_name)
-{
+OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& file_name) {
     if (!FileSystemUtils::IsFileExists(file_name))
         return nullptr;
     std::unique_ptr<OutputDataReader> reader(OutputDataReadFactory::getReader(file_name));
@@ -32,8 +31,7 @@ OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& fi
     return nullptr;
 }
 
-OutputData<double>* IntensityDataIOFactory::readReflectometryData(const std::string& file_name)
-{
+OutputData<double>* IntensityDataIOFactory::readReflectometryData(const std::string& file_name) {
     if (!FileSystemUtils::IsFileExists(file_name))
         return nullptr;
     std::unique_ptr<OutputDataReader> reader(
@@ -43,8 +41,7 @@ OutputData<double>* IntensityDataIOFactory::readReflectometryData(const std::str
     return nullptr;
 }
 
-IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_name)
-{
+IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_name) {
     std::unique_ptr<OutputData<double>> data(readOutputData(file_name));
     if (!data)
         throw std::runtime_error("Could not read " + file_name);
@@ -52,23 +49,20 @@ IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_na
 }
 
 void IntensityDataIOFactory::writeOutputData(const OutputData<double>& data,
-                                             const std::string& file_name)
-{
+                                             const std::string& file_name) {
     auto* writer = OutputDataWriteFactory::getWriter(file_name);
     writer->writeOutputData(data);
     delete writer;
 }
 
 void IntensityDataIOFactory::writeIntensityData(const IHistogram& histogram,
-                                                const std::string& file_name)
-{
+                                                const std::string& file_name) {
     std::unique_ptr<OutputData<double>> data(histogram.createOutputData());
     writeOutputData(*data, file_name);
 }
 
 void IntensityDataIOFactory::writeSimulationResult(const SimulationResult& result,
-                                                   const std::string& file_name)
-{
+                                                   const std::string& file_name) {
     auto data = result.data();
     writeOutputData(*data, file_name);
 }

@@ -26,8 +26,7 @@ class QAction;
 
 //! Holds tree to select top level sample items. Part of SampleView.
 
-class SampleTreeWidget : public QWidget
-{
+class SampleTreeWidget : public QWidget {
     Q_OBJECT
 public:
     SampleTreeWidget(QWidget* parent, SampleModel* model);

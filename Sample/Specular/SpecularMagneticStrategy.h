@@ -29,8 +29,7 @@ class Slice;
 //! For a detailed description see internal document "Polarized Specular Reflectometry"
 //!
 //! @ingroup algorithms_internal
-class SpecularMagneticStrategy : public ISpecularStrategy
-{
+class SpecularMagneticStrategy : public ISpecularStrategy {
 public:
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k

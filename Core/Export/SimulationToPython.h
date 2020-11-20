@@ -27,8 +27,7 @@ class SpecularSimulation;
 
 //! Write a Python script that allows to run the current simulation.
 
-class SimulationToPython
-{
+class SimulationToPython {
 public:
     enum EMainType {
         RUN_SIMULATION, //!< main function runs simulation

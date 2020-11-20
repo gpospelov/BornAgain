@@ -21,8 +21,7 @@ struct WallclockTimerState;
 
 //! A timer for measuring real (wall-clock) time spent between 'start' and 'stop' commands.
 
-class WallclockTimer
-{
+class WallclockTimer {
 public:
     WallclockTimer();
     ~WallclockTimer();

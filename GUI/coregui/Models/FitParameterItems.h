@@ -22,8 +22,7 @@
 
 //! The FitParameterLinkItem class holds a link to ParameterItem in tuning tree.
 
-class BA_CORE_API_ FitParameterLinkItem : public SessionItem
-{
+class BA_CORE_API_ FitParameterLinkItem : public SessionItem {
 
 public:
     static const QString P_LINK;
@@ -34,8 +33,7 @@ public:
 //! The FitParameterItem class represents a fit parameter in GUI. Contains links to corresponding
 //! ParameterItem's in a tuning tree.
 
-class BA_CORE_API_ FitParameterItem : public SessionItem
-{
+class BA_CORE_API_ FitParameterItem : public SessionItem {
 
 public:
     static const QString P_TYPE;
@@ -64,13 +62,11 @@ private:
 
 //! The FitParameterContainerItem class is a collection of all defined fit parameters in JobItem.
 
-namespace mumufit
-{
+namespace mumufit {
 class Parameters;
 }
 
-class BA_CORE_API_ FitParameterContainerItem : public SessionItem
-{
+class BA_CORE_API_ FitParameterContainerItem : public SessionItem {
 
 public:
     static const QString T_FIT_PARAMETERS;

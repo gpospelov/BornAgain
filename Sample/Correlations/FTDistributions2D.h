@@ -23,8 +23,7 @@
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal
 
-class IFTDistribution2D : public ICloneable, public INode
-{
+class IFTDistribution2D : public ICloneable, public INode {
 public:
     IFTDistribution2D(const NodeMeta& meta, const std::vector<double>& PValues);
 
@@ -59,8 +58,7 @@ protected:
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup distributionFT
 
-class FTDistribution2DCauchy : public IFTDistribution2D
-{
+class FTDistribution2DCauchy : public IFTDistribution2D {
 public:
     FTDistribution2DCauchy(const std::vector<double> P);
     FTDistribution2DCauchy(double omega_x, double omega_y, double gamma);
@@ -78,8 +76,7 @@ public:
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup distributionFT
 
-class FTDistribution2DGauss : public IFTDistribution2D
-{
+class FTDistribution2DGauss : public IFTDistribution2D {
 public:
     FTDistribution2DGauss(const std::vector<double> P);
     FTDistribution2DGauss(double omega_x, double omega_y, double gamma);
@@ -97,8 +94,7 @@ public:
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup distributionFT
 
-class FTDistribution2DGate : public IFTDistribution2D
-{
+class FTDistribution2DGate : public IFTDistribution2D {
 public:
     FTDistribution2DGate(const std::vector<double> P);
     FTDistribution2DGate(double omega_x, double omega_y, double gamma);
@@ -116,8 +112,7 @@ public:
 //! with \f$r=\sqrt{(\frac{x}{\omega_x})^2 + (\frac{y}{\omega_y})^2}\f$.
 //! @ingroup distributionFT
 
-class FTDistribution2DCone : public IFTDistribution2D
-{
+class FTDistribution2DCone : public IFTDistribution2D {
 public:
     FTDistribution2DCone(const std::vector<double> P);
     FTDistribution2DCone(double omega_x, double omega_y, double gamma);
@@ -134,8 +129,7 @@ public:
 //! corresponds to eta*Gauss + (1-eta)*Cauchy
 //! @ingroup distributionFT
 
-class FTDistribution2DVoigt : public IFTDistribution2D
-{
+class FTDistribution2DVoigt : public IFTDistribution2D {
 public:
     FTDistribution2DVoigt(const std::vector<double> P);
     FTDistribution2DVoigt(double omega_x, double omega_y, double gamma, double eta);

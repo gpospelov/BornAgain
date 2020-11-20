@@ -38,8 +38,7 @@ class LayerRoughness;
 //!  ---------   interface #2    z=-60.0
 //!  substrate   layer #3
 
-class MultiLayer : public ISample
-{
+class MultiLayer : public ISample {
 public:
     MultiLayer();
     ~MultiLayer() override;

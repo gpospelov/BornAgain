@@ -28,8 +28,7 @@
 // Magnetic cylinders and zero magnetic field
 // ----------------------------------------------------------------------------
 
-MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
-{
+MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const {
     const double m_cylinder_radius(5 * Units::nm);
     const double m_cylinder_height(5 * Units::nm);
 
@@ -58,8 +57,7 @@ MultiLayer* MagneticParticleZeroFieldBuilder::buildSample() const
 // Magnetic cylinders and non-zero magnetization
 // ----------------------------------------------------------------------------
 
-MultiLayer* MagneticCylindersBuilder::buildSample() const
-{
+MultiLayer* MagneticCylindersBuilder::buildSample() const {
     const double m_cylinder_radius(5 * Units::nm);
     const double m_cylinder_height(5 * Units::nm);
 
@@ -88,8 +86,7 @@ MultiLayer* MagneticCylindersBuilder::buildSample() const
 // Magnetic spheres inside substrate
 // ----------------------------------------------------------------------------
 
-MultiLayer* MagneticSpheresBuilder::buildSample() const
-{
+MultiLayer* MagneticSpheresBuilder::buildSample() const {
     const double m_sphere_radius(5 * Units::nm);
 
     kvector_t magnetization(0.0, 0.0, 1e7);

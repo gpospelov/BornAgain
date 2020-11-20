@@ -24,8 +24,7 @@
 
 class MultiLayer;
 
-namespace PyEmbeddedUtils
-{
+namespace PyEmbeddedUtils {
 
 //! Converts PyObject into string, if possible, or throws exception.
 std::string toString(PyObject* obj);

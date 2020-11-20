@@ -21,8 +21,7 @@
 #include <iostream>
 #include <random>
 
-namespace
-{
+namespace {
 
 struct TestResults {
     int m_nx;
@@ -38,8 +37,7 @@ struct TestResults {
 
 std::vector<TestResults> results;
 
-std::unique_ptr<OutputData<double>> createData(int nx, int ny, bool fill)
-{
+std::unique_ptr<OutputData<double>> createData(int nx, int ny, bool fill) {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     result->addAxis("x", nx, 0.0, static_cast<double>(nx));
     result->addAxis("y", ny, 0.0, static_cast<double>(ny));
@@ -59,8 +57,7 @@ std::unique_ptr<OutputData<double>> createData(int nx, int ny, bool fill)
 
 //! Returns biggest element difference found.
 
-double biggest_difference(const OutputData<double>& data, const OutputData<double>& ref)
-{
+double biggest_difference(const OutputData<double>& data, const OutputData<double>& ref) {
     if (data.getAllocatedSize() != ref.getAllocatedSize())
         throw std::runtime_error("CoreIOTest::biggest_difference() -> Error. Size is different.");
 
@@ -73,8 +70,7 @@ double biggest_difference(const OutputData<double>& data, const OutputData<doubl
     return max_diff;
 }
 
-bool test_io(int nx, int ny, bool random_data, const std::string& ext)
-{
+bool test_io(int nx, int ny, bool random_data, const std::string& ext) {
     std::cout << "Test " << nx << "x" << ny << ", " << (random_data ? "random data" : "zeros")
               << ", file_format: " << ext << "\n";
 
@@ -121,8 +117,7 @@ bool test_io(int nx, int ny, bool random_data, const std::string& ext)
     return success;
 }
 
-std::string report()
-{
+std::string report() {
     std::ostringstream result;
 
     result << "--- CoreIOTest::report() ---\n";
@@ -139,8 +134,7 @@ std::string report()
 
 } // namespace
 
-int main()
-{
+int main() {
     bool success(true);
 
     // 1024x768, zeros

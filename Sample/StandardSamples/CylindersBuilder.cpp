@@ -25,12 +25,10 @@
 // -----------------------------------------------------------------------------
 // Cylinders in DWBA
 // -----------------------------------------------------------------------------
-CylindersInDWBABuilder::CylindersInDWBABuilder() : m_height(5 * Units::nm), m_radius(5 * Units::nm)
-{
-}
+CylindersInDWBABuilder::CylindersInDWBABuilder()
+    : m_height(5 * Units::nm), m_radius(5 * Units::nm) {}
 
-MultiLayer* CylindersInDWBABuilder::buildSample() const
-{
+MultiLayer* CylindersInDWBABuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
@@ -50,14 +48,12 @@ MultiLayer* CylindersInDWBABuilder::buildSample() const
 // -----------------------------------------------------------------------------
 // Cylinders in BA
 // -----------------------------------------------------------------------------
-CylindersInBABuilder::CylindersInBABuilder() : m_height(5 * Units::nm), m_radius(5 * Units::nm)
-{
+CylindersInBABuilder::CylindersInBABuilder() : m_height(5 * Units::nm), m_radius(5 * Units::nm) {
     registerParameter("height", &m_height);
     registerParameter("radius", &m_radius);
 }
 
-MultiLayer* CylindersInBABuilder::buildSample() const
-{
+MultiLayer* CylindersInBABuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
 
     FormFactorCylinder ff_cylinder(m_radius, m_height);
@@ -76,12 +72,9 @@ MultiLayer* CylindersInBABuilder::buildSample() const
 // Large cylinders in DWBA
 // -----------------------------------------------------------------------------
 LargeCylindersInDWBABuilder::LargeCylindersInDWBABuilder()
-    : m_height(1000 * Units::nm), m_radius(500 * Units::nm)
-{
-}
+    : m_height(1000 * Units::nm), m_radius(500 * Units::nm) {}
 
-MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
-{
+MultiLayer* LargeCylindersInDWBABuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 
@@ -102,12 +95,9 @@ MultiLayer* LargeCylindersInDWBABuilder::buildSample() const
 // Rotated cylinders in DWBA
 // -----------------------------------------------------------------------------
 RotatedCylindersBuilder::RotatedCylindersBuilder()
-    : m_height(5 * Units::nm), m_radius(5 * Units::nm)
-{
-}
+    : m_height(5 * Units::nm), m_radius(5 * Units::nm) {}
 
-MultiLayer* RotatedCylindersBuilder::buildSample() const
-{
+MultiLayer* RotatedCylindersBuilder::buildSample() const {
     FormFactorCylinder ff_cylinder(m_radius, m_height);
 
     Particle particle(refMat::Particle, ff_cylinder);

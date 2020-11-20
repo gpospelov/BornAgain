@@ -24,19 +24,16 @@
 #include <QFileDialog>
 #include <QTextStream>
 
-namespace
-{
+namespace {
 const int bin_centers_colwidth = 12;
 const int bin_values_colwidth = 20;
 
-QString to_scientific_str(double value)
-{
+QString to_scientific_str(double value) {
     auto str = pyfmt::printScientificDouble(value);
     return QString("%1").arg(QString::fromStdString(str), -bin_values_colwidth);
 }
 
-QString to_double_str(double value)
-{
+QString to_double_str(double value) {
     auto str = pyfmt::printDouble(value);
     return QString("%1").arg(QString::fromStdString(str), -bin_centers_colwidth);
 }
@@ -47,8 +44,7 @@ SaveProjectionsAssistant::~SaveProjectionsAssistant() = default;
 
 //! Calls file open dialog and writes projection data as ASCII
 
-void SaveProjectionsAssistant::saveProjections(QWidget* parent, IntensityDataItem* intensityItem)
-{
+void SaveProjectionsAssistant::saveProjections(QWidget* parent, IntensityDataItem* intensityItem) {
     ASSERT(intensityItem);
 
     QString defaultName = ProjectUtils::userExportDir() + "/untitled.txt";
@@ -80,8 +76,7 @@ void SaveProjectionsAssistant::saveProjections(QWidget* parent, IntensityDataIte
 //! Generates multi-line string with projections data of given type (horizontal, vertical).
 
 QString SaveProjectionsAssistant::projectionsToString(const QString& projectionsType,
-                                                      IntensityDataItem* intensityItem)
-{
+                                                      IntensityDataItem* intensityItem) {
     QString result;
     QTextStream out(&result);
 
@@ -108,8 +103,7 @@ QString SaveProjectionsAssistant::projectionsToString(const QString& projections
 
 SaveProjectionsAssistant::ProjectionsData
 SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
-                                          IntensityDataItem* intensityItem)
-{
+                                          IntensityDataItem* intensityItem) {
     ProjectionsData result;
     projectionsType == "VerticalLineMask" ? result.is_horizontal = false
                                           : result.is_horizontal = true;
@@ -146,8 +140,7 @@ SaveProjectionsAssistant::projectionsData(const QString& projectionsType,
 //! Returns vector of ProjectionItems sorted according to axis value.
 
 QVector<SessionItem*> SaveProjectionsAssistant::projectionItems(const QString& projectionsType,
-                                                                IntensityDataItem* intensityItem)
-{
+                                                                IntensityDataItem* intensityItem) {
     auto result = intensityItem->projectionContainerItem()->getChildrenOfType(projectionsType);
     std::sort(result.begin(), result.end(), [=](SessionItem* item1, SessionItem* item2) {
         QString propertyName = HorizontalLineItem::P_POSY;
@@ -163,8 +156,7 @@ QVector<SessionItem*> SaveProjectionsAssistant::projectionItems(const QString& p
 //! Returns projections header. For projections along x it will be
 //! "# x         y=6.0194            y=33.5922           y=61.9417"
 
-QString SaveProjectionsAssistant::projectionFileHeader(ProjectionsData& projectionsData)
-{
+QString SaveProjectionsAssistant::projectionFileHeader(ProjectionsData& projectionsData) {
     QString xcol, ycol;
 
     projectionsData.is_horizontal ? xcol = "# x" : xcol = "# y";

@@ -23,8 +23,7 @@
 #include <iostream>
 
 bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
-                     const double limit)
-{
+                     const double limit) {
     const auto result_data = direct_simulation.result().data();
 
     std::unique_ptr<OutputData<double>> reference;

@@ -17,8 +17,7 @@
 
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 
-class BA_CORE_API_ ParticleLayoutItem : public SessionGraphicsItem
-{
+class BA_CORE_API_ ParticleLayoutItem : public SessionGraphicsItem {
 public:
     static const QString P_TOTAL_DENSITY;
     static const QString P_WEIGHT;

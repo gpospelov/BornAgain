@@ -20,10 +20,8 @@
 #include <map>
 #include <stdexcept> // need overlooked by g++ 5.4
 
-namespace
-{
-inline std::string trim(const std::string& str, const std::string& whitespace = " \t")
-{
+namespace {
+inline std::string trim(const std::string& str, const std::string& whitespace = " \t") {
     const auto strBegin = str.find_first_not_of(whitespace);
 
     if (strBegin == std::string::npos)
@@ -34,14 +32,12 @@ inline std::string trim(const std::string& str, const std::string& whitespace = 
 
     return str.substr(strBegin, strRange);
 }
-inline bool isDoubleStartChar(char c)
-{
+inline bool isDoubleStartChar(char c) {
     return isdigit(c) || c == '-' || c == '+';
 }
 } // namespace
 
-OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& input_stream)
-{
+OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& input_stream) {
     OutputData<double>* result = new OutputData<double>;
     std::string line;
 
@@ -59,8 +55,7 @@ OutputData<double>* OutputDataReadINTStrategy::readOutputData(std::istream& inpu
     return result;
 }
 
-OutputData<double>* OutputDataReadReflectometryStrategy::readOutputData(std::istream& fin)
-{
+OutputData<double>* OutputDataReadReflectometryStrategy::readOutputData(std::istream& fin) {
     OutputData<double>* oData = new OutputData<double>();
     std::string line;
     std::vector<std::vector<double>> vecVec;
@@ -127,8 +122,7 @@ OutputData<double>* OutputDataReadReflectometryStrategy::readOutputData(std::ist
     return oData;
 }
 
-OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream& input_stream)
-{
+OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream& input_stream) {
     std::string line;
     std::vector<std::vector<double>> data;
 
@@ -180,13 +174,11 @@ OutputData<double>* OutputDataReadNumpyTXTStrategy::readOutputData(std::istream&
 
 OutputDataReadTiffStrategy::OutputDataReadTiffStrategy() : m_d(new TiffHandler) {}
 
-OutputDataReadTiffStrategy::~OutputDataReadTiffStrategy()
-{
+OutputDataReadTiffStrategy::~OutputDataReadTiffStrategy() {
     delete m_d;
 }
 
-OutputData<double>* OutputDataReadTiffStrategy::readOutputData(std::istream& input_stream)
-{
+OutputData<double>* OutputDataReadTiffStrategy::readOutputData(std::istream& input_stream) {
     m_d->read(input_stream);
     return m_d->getOutputData()->clone();
 }

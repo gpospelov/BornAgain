@@ -32,8 +32,7 @@ class Slice;
 //!
 //! @ingroup algorithms_internal
 
-class SpecularComputationTerm
-{
+class SpecularComputationTerm {
 public:
     SpecularComputationTerm(std::unique_ptr<ISpecularStrategy> strategy);
     virtual ~SpecularComputationTerm();
@@ -57,8 +56,7 @@ private:
 //! Used by SpecularComputation.
 //! @ingroup algorithms_internal
 
-class SpecularScalarTerm : public SpecularComputationTerm
-{
+class SpecularScalarTerm : public SpecularComputationTerm {
 public:
     SpecularScalarTerm(std::unique_ptr<ISpecularStrategy> strategy);
 
@@ -72,8 +70,7 @@ private:
 //! Used by SpecularComputation.
 //! @ingroup algorithms_internal
 
-class SpecularMatrixTerm : public SpecularComputationTerm
-{
+class SpecularMatrixTerm : public SpecularComputationTerm {
 public:
     SpecularMatrixTerm(std::unique_ptr<ISpecularStrategy> strategy);
 

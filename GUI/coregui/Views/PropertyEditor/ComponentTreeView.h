@@ -31,8 +31,7 @@ class ComponentTreeActions;
 //! Component property tree for SessionItems.
 //! Shows only PropertyItems and current items of GroupProperties.
 
-class ComponentTreeView : public ComponentView
-{
+class ComponentTreeView : public ComponentView {
     Q_OBJECT
 public:
     ComponentTreeView(QWidget* parent = nullptr);

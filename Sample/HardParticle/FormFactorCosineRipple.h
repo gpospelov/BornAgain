@@ -19,8 +19,7 @@
 
 //! The form factor for a cosine ripple, with box profile in elongation direction.
 //! @ingroup legacyGrating
-class FormFactorCosineRippleBox : public ICosineRipple
-{
+class FormFactorCosineRippleBox : public ICosineRipple {
 public:
     FormFactorCosineRippleBox(const std::vector<double> P);
     FormFactorCosineRippleBox(double length, double width, double height);
@@ -33,8 +32,7 @@ private:
 
 //! The form factor for a cosine ripple, with Gaussian profile in elongation direction.
 //! @ingroup legacyGrating
-class FormFactorCosineRippleGauss : public ICosineRipple
-{
+class FormFactorCosineRippleGauss : public ICosineRipple {
 public:
     FormFactorCosineRippleGauss(const std::vector<double> P);
     FormFactorCosineRippleGauss(double length, double width, double height);
@@ -47,8 +45,7 @@ private:
 
 //! The form factor for a cosine ripple, with Lorentz form factor in elongation direction.
 //! @ingroup legacyGrating
-class FormFactorCosineRippleLorentz : public ICosineRipple
-{
+class FormFactorCosineRippleLorentz : public ICosineRipple {
 public:
     FormFactorCosineRippleLorentz(const std::vector<double> P);
     FormFactorCosineRippleLorentz(double length, double width, double height);

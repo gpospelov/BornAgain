@@ -20,8 +20,7 @@
 //! Builds sample: multilayer with Ti/Pt layers sequence.
 //! @ingroup standard_samples
 
-class ResonatorBuilder : public ISampleBuilder
-{
+class ResonatorBuilder : public ISampleBuilder {
 public:
     ResonatorBuilder();
     MultiLayer* buildSample() const;

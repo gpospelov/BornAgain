@@ -22,8 +22,7 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 
-namespace
-{
+namespace {
 const QString instrumentNameTooltip = "Name of real data";
 const QString selectorTooltip = "Select instrument to link with real data";
 } // namespace
@@ -36,8 +35,7 @@ RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget* parent)
     , m_dataNameEdit(new QLineEdit)
     , m_instrumentLabel(new QLabel("Linked instrument"))
     , m_instrumentCombo(new QComboBox)
-    , m_currentDataItem(0)
-{
+    , m_currentDataItem(0) {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     setWindowTitle("RealDataPropertiesWidget");
 
@@ -68,15 +66,13 @@ RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget* parent)
 //! Sets models to underlying link manager.
 
 void RealDataPropertiesWidget::setModels(InstrumentModel* instrumentModel,
-                                         RealDataModel* realDataModel)
-{
+                                         RealDataModel* realDataModel) {
     m_linkManager->setModels(instrumentModel, realDataModel);
 }
 
 //! Set current RealDataItem to display in instrument selector.
 
-void RealDataPropertiesWidget::setItem(SessionItem* item)
-{
+void RealDataPropertiesWidget::setItem(SessionItem* item) {
     m_dataNameMapper->clearMapping();
 
     if (item == m_currentDataItem)
@@ -114,8 +110,7 @@ void RealDataPropertiesWidget::setItem(SessionItem* item)
 //! Processes user interaction with instrument selector combo. If there is realDataItem,
 //! it will be linked with selected instrument.
 
-void RealDataPropertiesWidget::onInstrumentComboIndexChanged(int index)
-{
+void RealDataPropertiesWidget::onInstrumentComboIndexChanged(int index) {
     m_current_id = m_linkManager->instrumentIdentifier(index);
 
     if (!m_currentDataItem)
@@ -137,8 +132,7 @@ void RealDataPropertiesWidget::onInstrumentComboIndexChanged(int index)
 //! Updates instrument selector for new instruments and their names.
 //! Current selection will be preserved.
 
-void RealDataPropertiesWidget::onInstrumentMapUpdate()
-{
+void RealDataPropertiesWidget::onInstrumentMapUpdate() {
     setComboConnected(false);
     m_instrumentCombo->clear();
     m_instrumentCombo->addItems(m_linkManager->instrumentNames());
@@ -155,8 +149,7 @@ void RealDataPropertiesWidget::onInstrumentMapUpdate()
 
 //! Updates instrument combo on link change of current RealDataItem.
 
-void RealDataPropertiesWidget::onRealDataPropertyChanged(const QString& name)
-{
+void RealDataPropertiesWidget::onRealDataPropertyChanged(const QString& name) {
     if (name == RealDataItem::P_INSTRUMENT_ID) {
         setComboToIdentifier(
             m_currentDataItem->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString());
@@ -165,8 +158,7 @@ void RealDataPropertiesWidget::onRealDataPropertyChanged(const QString& name)
 
 //! Sets instrument combo selector to the state corresponding to given instrument identifier.
 
-void RealDataPropertiesWidget::setComboToIdentifier(const QString& identifier)
-{
+void RealDataPropertiesWidget::setComboToIdentifier(const QString& identifier) {
     setComboConnected(false);
     m_current_id = identifier;
     int index = m_linkManager->instrumentComboIndex(identifier);
@@ -177,8 +169,7 @@ void RealDataPropertiesWidget::setComboToIdentifier(const QString& identifier)
 
 //! Sets connected/disconnected for instrument combo selector.
 
-void RealDataPropertiesWidget::setComboConnected(bool isConnected)
-{
+void RealDataPropertiesWidget::setComboConnected(bool isConnected) {
     if (isConnected) {
         connect(m_instrumentCombo, SIGNAL(currentIndexChanged(int)), this,
                 SLOT(onInstrumentComboIndexChanged(int)));
@@ -191,8 +182,7 @@ void RealDataPropertiesWidget::setComboConnected(bool isConnected)
 //! Sets all widget's children enabled/disabled. When no RealDataItem selected all
 //! will appear in gray.
 
-void RealDataPropertiesWidget::setPropertiesEnabled(bool enabled)
-{
+void RealDataPropertiesWidget::setPropertiesEnabled(bool enabled) {
     m_dataNameLabel->setEnabled(enabled);
     m_dataNameEdit->setEnabled(enabled);
     m_instrumentLabel->setEnabled(enabled);

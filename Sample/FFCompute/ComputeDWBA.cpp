@@ -21,8 +21,7 @@ ComputeDWBA::ComputeDWBA(const IFormFactor& ff) : IComputeFF(ff) {}
 
 ComputeDWBA::~ComputeDWBA() = default;
 
-ComputeDWBA* ComputeDWBA::clone() const
-{
+ComputeDWBA* ComputeDWBA::clone() const {
     ComputeDWBA* result = new ComputeDWBA(*m_ff);
     std::unique_ptr<const ILayerRTCoefficients> p_in_coefs =
         m_in_coeffs ? std::unique_ptr<const ILayerRTCoefficients>(m_in_coeffs->clone()) : nullptr;
@@ -32,8 +31,7 @@ ComputeDWBA* ComputeDWBA::clone() const
     return result;
 }
 
-complex_t ComputeDWBA::evaluate(const WavevectorInfo& wavevectors) const
-{
+complex_t ComputeDWBA::evaluate(const WavevectorInfo& wavevectors) const {
     // Retrieve the two different incoming wavevectors in the layer
     cvector_t k_i_T = wavevectors.getKi();
     k_i_T.setZ(-m_in_coeffs->getScalarKz());
@@ -70,8 +68,7 @@ complex_t ComputeDWBA::evaluate(const WavevectorInfo& wavevectors) const
 }
 
 void ComputeDWBA::setSpecularInfo(std::unique_ptr<const ILayerRTCoefficients> p_in_coeffs,
-                                  std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs)
-{
+                                  std::unique_ptr<const ILayerRTCoefficients> p_out_coeffs) {
     m_in_coeffs = std::move(p_in_coeffs);
     m_out_coeffs = std::move(p_out_coeffs);
 }

@@ -9,23 +9,19 @@
 
 #define EXPECT_ASSERT_TRIGGERED(condition) EXPECT_THROW((condition), std::runtime_error)
 
-class SampleBuilderNodeTest : public ::testing::Test
-{
+class SampleBuilderNodeTest : public ::testing::Test {
 public:
     //! Returns test multilayer.
-    static std::unique_ptr<MultiLayer> testMultiLayer(double length)
-    {
+    static std::unique_ptr<MultiLayer> testMultiLayer(double length) {
         std::unique_ptr<MultiLayer> result(new MultiLayer);
         result->setCrossCorrLength(length); // used to check following cloning
         return result;
     }
 
     //! Test sample builder
-    class TestBuilder : public ISampleBuilder
-    {
+    class TestBuilder : public ISampleBuilder {
     public:
-        explicit TestBuilder(double length = 42.0) : m_length(length)
-        {
+        explicit TestBuilder(double length = 42.0) : m_length(length) {
             setName("TestBuilder");
             registerParameter("length", &m_length);
         }
@@ -37,8 +33,7 @@ public:
 
 //! Checks children and pool parameters.
 
-TEST_F(SampleBuilderNodeTest, builderParameters)
-{
+TEST_F(SampleBuilderNodeTest, builderParameters) {
     SampleBuilderNode builderNode;
 
     // initial state
@@ -73,8 +68,7 @@ TEST_F(SampleBuilderNodeTest, builderParameters)
 
 //! Checks assignment operator.
 
-TEST_F(SampleBuilderNodeTest, assignmentOperator)
-{
+TEST_F(SampleBuilderNodeTest, assignmentOperator) {
     SampleBuilderNode builderNode;
     std::shared_ptr<ISampleBuilder> builder(new SampleBuilderNodeTest::TestBuilder(33.0));
     builderNode.setSBN(builder);

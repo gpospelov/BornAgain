@@ -15,8 +15,7 @@
 #include "Fit/Test/Functional/Minimizer/PlanCases.h"
 #include "Fit/Test/Functional/Minimizer/ClassicalTestFunctions.h"
 
-namespace
-{
+namespace {
 const double loose_tolerance_on_function_min = 0.1;
 }
 
@@ -26,16 +25,15 @@ using namespace mumufit;
 //! start point: F(-1.2,1.0) = 24.20
 //! minimum    : F(1.0,1.0)  = 0.
 
-RosenbrockPlan::RosenbrockPlan() : ScalarTestPlan("RosenbrockPlan", TestFunctions::RosenBrock, 0.0)
-{
+RosenbrockPlan::RosenbrockPlan()
+    : ScalarTestPlan("RosenbrockPlan", TestFunctions::RosenBrock, 0.0) {
     addParameter(Parameter("par0", -1.2, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
     addParameter(Parameter("par1", 1.0, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
 }
 
 EasyRosenbrockPlan::EasyRosenbrockPlan()
     : ScalarTestPlan("EasyRosenbrockPlan", TestFunctions::RosenBrock, 0.0,
-                     loose_tolerance_on_function_min)
-{
+                     loose_tolerance_on_function_min) {
     // narrow parameter limits and big tolerance for stochastic minimizers
     const double tolerance = 0.1;
     addParameter(Parameter("par0", 1.1, AttLimits::limited(0.8, 1.2), 0.01), 1.0, tolerance);
@@ -46,8 +44,7 @@ EasyRosenbrockPlan::EasyRosenbrockPlan()
 //!   start point: F(-3,-1,-3,-1) = 19192
 //!   minimum    : F(1,1,1,1)  =   0.
 
-WoodFourPlan::WoodFourPlan() : ScalarTestPlan("WoodFourPlan", TestFunctions::WoodFour, 0.0)
-{
+WoodFourPlan::WoodFourPlan() : ScalarTestPlan("WoodFourPlan", TestFunctions::WoodFour, 0.0) {
     addParameter(Parameter("par0", -3.0, AttLimits::limited(-5.0, 5.0)), 1.0);
     addParameter(Parameter("par1", -1.0, AttLimits::limited(-5.0, 5.0)), 1.0);
     addParameter(Parameter("par2", -3.0, AttLimits::limited(-5.0, 5.0)), 1.0);
@@ -56,8 +53,7 @@ WoodFourPlan::WoodFourPlan() : ScalarTestPlan("WoodFourPlan", TestFunctions::Woo
 
 EasyWoodFourPlan::EasyWoodFourPlan()
     : ScalarTestPlan("EasyWoodFourPlan", TestFunctions::WoodFour, 0.0,
-                     loose_tolerance_on_function_min)
-{
+                     loose_tolerance_on_function_min) {
     // narrow parameter limits and big tolerance for stochastic minimizers
     const double tolerance = 0.1;
     addParameter(Parameter("par0", 1.1, AttLimits::limited(0.8, 1.2)), 1.0, tolerance);
@@ -66,8 +62,8 @@ EasyWoodFourPlan::EasyWoodFourPlan()
     addParameter(Parameter("par3", 1.1, AttLimits::limited(0.8, 1.2)), 1.0, tolerance);
 }
 
-DecayingSinPlan::DecayingSinPlan() : ResidualTestPlan("DecayingSinPlan", TestFunctions::DecayingSin)
-{
+DecayingSinPlan::DecayingSinPlan()
+    : ResidualTestPlan("DecayingSinPlan", TestFunctions::DecayingSin) {
     addParameter(Parameter("amp", 1.0, AttLimits::nonnegative()), 10.0);
     addParameter(Parameter("frequency", 1.0, AttLimits::nonnegative()), 4.0);
     addParameter(Parameter("phase", 0.1, AttLimits::limited(0.0, 3.1)), 1.0);
@@ -75,8 +71,7 @@ DecayingSinPlan::DecayingSinPlan() : ResidualTestPlan("DecayingSinPlan", TestFun
 }
 
 DecayingSinPlanV2::DecayingSinPlanV2()
-    : ResidualTestPlan("DecayingSinPlanV2", TestFunctions::DecayingSin)
-{
+    : ResidualTestPlan("DecayingSinPlanV2", TestFunctions::DecayingSin) {
     addParameter(Parameter("amp", 1.0, AttLimits::limitless()), 2.0);
     addParameter(Parameter("frequency", 1.0, AttLimits::limitless()), 2.0);
     addParameter(Parameter("phase", 1.0, AttLimits::fixed()), 1.0);
@@ -84,8 +79,7 @@ DecayingSinPlanV2::DecayingSinPlanV2()
 }
 
 TestMinimizerPlan::TestMinimizerPlan()
-    : ScalarTestPlan("TestMinimizerPlan", TestFunctions::RosenBrock, 0.0)
-{
+    : ScalarTestPlan("TestMinimizerPlan", TestFunctions::RosenBrock, 0.0) {
     // starting values of fit parameters are already correct
     addParameter(Parameter("par0", 1.0, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);
     addParameter(Parameter("par1", 1.0, AttLimits::limited(-5.0, 5.0), 0.01), 1.0);

@@ -20,8 +20,7 @@
 
 VariableBinAxis::VariableBinAxis(const std::string& name, size_t nbins,
                                  const std::vector<double>& bin_boundaries)
-    : IAxis(name), m_nbins(nbins)
-{
+    : IAxis(name), m_nbins(nbins) {
     if (m_nbins != bin_boundaries.size() - 1)
         throw Exceptions::LogicErrorException(
             "VariableBinAxis::VariableBinAxis() -> Error! "
@@ -31,23 +30,18 @@ VariableBinAxis::VariableBinAxis(const std::string& name, size_t nbins,
 }
 
 VariableBinAxis::VariableBinAxis(const std::string& name, size_t nbins)
-    : IAxis(name), m_nbins(nbins)
-{
-}
+    : IAxis(name), m_nbins(nbins) {}
 
-VariableBinAxis* VariableBinAxis::clone() const
-{
+VariableBinAxis* VariableBinAxis::clone() const {
     VariableBinAxis* result = new VariableBinAxis(getName(), m_nbins, m_bin_boundaries);
     return result;
 }
 
-double VariableBinAxis::operator[](size_t index) const
-{
+double VariableBinAxis::operator[](size_t index) const {
     return bin(index).center();
 }
 
-Bin1D VariableBinAxis::bin(size_t index) const
-{
+Bin1D VariableBinAxis::bin(size_t index) const {
     if (index >= m_nbins)
         throw Exceptions::OutOfBoundsException("VariableBinAxis::bin() -> Error. Wrong index.");
 
@@ -55,23 +49,19 @@ Bin1D VariableBinAxis::bin(size_t index) const
     return result;
 }
 
-double VariableBinAxis::lowerBound() const
-{
+double VariableBinAxis::lowerBound() const {
     return m_bin_boundaries.front();
 }
 
-double VariableBinAxis::upperBound() const
-{
+double VariableBinAxis::upperBound() const {
     return m_bin_boundaries.back();
 }
 
-double VariableBinAxis::binCenter(size_t index) const
-{
+double VariableBinAxis::binCenter(size_t index) const {
     return bin(index).center();
 }
 
-size_t VariableBinAxis::findClosestIndex(double value) const
-{
+size_t VariableBinAxis::findClosestIndex(double value) const {
     if (m_bin_boundaries.size() < 2)
         throw Exceptions::ClassInitializationException(
             "VariableBinAxis::findClosestIndex() -> Error! "
@@ -90,8 +80,7 @@ size_t VariableBinAxis::findClosestIndex(double value) const
     return nbin;
 }
 
-std::vector<double> VariableBinAxis::binCenters() const
-{
+std::vector<double> VariableBinAxis::binCenters() const {
     std::vector<double> result;
     result.resize(size(), 0.0);
     for (size_t i = 0; i < size(); ++i) {
@@ -100,8 +89,7 @@ std::vector<double> VariableBinAxis::binCenters() const
     return result;
 }
 
-VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) const
-{
+VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) const {
 
     if (left >= right)
         throw Exceptions::LogicErrorException("VariableBinAxis::createClippedAxis() -> Error. "
@@ -124,13 +112,11 @@ VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) c
     return new VariableBinAxis(getName(), new_nbins, new_boundaries);
 }
 
-std::string VariableBinAxis::pyString(const std::string&, size_t) const
-{
+std::string VariableBinAxis::pyString(const std::string&, size_t) const {
     throw std::runtime_error("VariableBinAxis::pyString not yet implemented"); // TODO
 }
 
-void VariableBinAxis::print(std::ostream& ostr) const
-{
+void VariableBinAxis::print(std::ostream& ostr) const {
     ostr << "VariableBinAxis(\"" << getName() << "\", " << size() << ", [";
     for (size_t i = 0; i < m_bin_boundaries.size(); ++i) {
         ostr << std::setprecision(std::numeric_limits<double>::digits10 + 2) << m_bin_boundaries[i];
@@ -140,8 +126,7 @@ void VariableBinAxis::print(std::ostream& ostr) const
     ostr << "])";
 }
 
-bool VariableBinAxis::equals(const IAxis& other) const
-{
+bool VariableBinAxis::equals(const IAxis& other) const {
     if (!IAxis::equals(other))
         return false;
     if (const VariableBinAxis* p_other_cast = dynamic_cast<const VariableBinAxis*>(&other)) {
@@ -157,8 +142,7 @@ bool VariableBinAxis::equals(const IAxis& other) const
     return false;
 }
 
-void VariableBinAxis::setBinBoundaries(const std::vector<double>& bin_boundaries)
-{
+void VariableBinAxis::setBinBoundaries(const std::vector<double>& bin_boundaries) {
     // checking that values are sorted
     std::vector<double> vec_sorted = bin_boundaries;
     std::sort(vec_sorted.begin(), vec_sorted.end());

@@ -30,8 +30,7 @@ class ApplicationModels;
 //! * Complains, if translated names doesn't match registered parameters of domain simulation.
 //! * Complains, if simulation contains parameters which do not have translations.
 
-class GUITranslationTest
-{
+class GUITranslationTest {
 public:
     GUITranslationTest(const std::string& simName, const std::string& sampleName);
 

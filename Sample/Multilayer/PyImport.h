@@ -23,8 +23,7 @@
 
 class MultiLayer;
 
-namespace PyImport
-{
+namespace PyImport {
 
 ////! Returns directory name
 // std::string bornagainPythonDir();

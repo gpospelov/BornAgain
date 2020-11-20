@@ -23,8 +23,7 @@
 
 //! @ingroup formfactors_internal
 
-class ComputeBAPol : public IComputeFF
-{
+class ComputeBAPol : public IComputeFF {
 public:
     ComputeBAPol(const IFormFactor& ff);
     ~ComputeBAPol() override;

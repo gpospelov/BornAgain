@@ -28,8 +28,7 @@ template <class T> class OutputData;
 //! detector axes units in python
 //! @ingroup detector
 
-class Axes
-{
+class Axes {
 public:
     enum Units { DEFAULT, NBINS, RADIANS, DEGREES, MM, QSPACE, QXQY, RQ4 };
 };
@@ -42,8 +41,7 @@ const std::map<Axes::Units, const char*> axisUnitLabel = {
 //! Interface to provide axis translations to different units for simulation output
 //! @ingroup simulation_internal
 
-class IUnitConverter : public ICloneable
-{
+class IUnitConverter : public ICloneable {
 public:
     virtual ~IUnitConverter();
 

@@ -24,8 +24,7 @@ class ISampleBuilder;
 //! Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 //! @ingroup simulation
 
-class GISASSimulation : public ISimulation2D
-{
+class GISASSimulation : public ISimulation2D {
 public:
     GISASSimulation();
     ~GISASSimulation() {}

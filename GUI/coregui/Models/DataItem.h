@@ -26,8 +26,7 @@ class InstrumentItem;
 
 //! Provides common functionality for IntensityDataItem and SpecularDataItem
 
-class BA_CORE_API_ DataItem : public SessionItem, public SaveLoadInterface
-{
+class BA_CORE_API_ DataItem : public SessionItem, public SaveLoadInterface {
 public:
     static const QString P_FILE_NAME;
     static const QString P_AXES_UNITS;

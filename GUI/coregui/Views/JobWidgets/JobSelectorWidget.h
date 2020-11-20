@@ -24,16 +24,14 @@ class JobSelectorActions;
 class JobListWidget;
 class JobPropertiesWidget;
 
-namespace Manhattan
-{
+namespace Manhattan {
 class MiniSplitter;
 }
 
 //! The JobSelectorWidget class represents left panel of JobView. Contains a tree to select jobs
 //! on the top and job property editor at the bottom.
 
-class JobSelectorWidget : public QWidget
-{
+class JobSelectorWidget : public QWidget {
     Q_OBJECT
 
 public:

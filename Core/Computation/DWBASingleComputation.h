@@ -34,8 +34,7 @@ class SimulationElement;
 //!
 //! @ingroup algorithms_internal
 
-class DWBASingleComputation
-{
+class DWBASingleComputation {
 public:
     DWBASingleComputation();
     ~DWBASingleComputation();

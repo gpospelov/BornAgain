@@ -20,8 +20,7 @@
 //! The form factor of a Gaussian sphere.
 //! @ingroup softParticle
 
-class FormFactorGaussSphere : public IBornFF
-{
+class FormFactorGaussSphere : public IBornFF {
 public:
     FormFactorGaussSphere(const std::vector<double> P);
     FormFactorGaussSphere(double mean_radius);

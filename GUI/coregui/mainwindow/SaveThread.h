@@ -22,8 +22,7 @@ class ProjectDocument;
 
 //! Performs saving of heavy intensity data in a thread.
 
-class SaveThread : public QThread
-{
+class SaveThread : public QThread {
     Q_OBJECT
 public:
     explicit SaveThread(QObject* parent = 0);

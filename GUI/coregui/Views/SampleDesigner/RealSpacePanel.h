@@ -23,8 +23,7 @@ class RealSpaceWidget;
 
 //! Panel with item selector, property editor on the right side of RealSpaceWidget.
 
-class RealSpacePanel : public QWidget
-{
+class RealSpacePanel : public QWidget {
     Q_OBJECT
 
 public:

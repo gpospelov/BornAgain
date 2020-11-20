@@ -20,8 +20,7 @@
 
 //! Some form factor functions.
 
-namespace someff
-{
+namespace someff {
 
 complex_t ffSphere(cvector_t q, double R);
 

@@ -23,8 +23,7 @@ class SessionItem;
 
 //! The IntensityDataPropertyWidget shows ComponentEditor for given IntensityDataItem.
 
-class IntensityDataPropertyWidget : public SessionItemWidget
-{
+class IntensityDataPropertyWidget : public SessionItemWidget {
     Q_OBJECT
 public:
     explicit IntensityDataPropertyWidget(QWidget* parent = 0);

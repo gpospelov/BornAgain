@@ -23,8 +23,7 @@ class MaskGraphicsProxy;
 
 //! Graphics view for MaskEditorCanvas
 
-class MaskGraphicsView : public QGraphicsView
-{
+class MaskGraphicsView : public QGraphicsView {
     Q_OBJECT
 public:
     MaskGraphicsView(QGraphicsScene* scene, QWidget* parent = 0);

@@ -26,8 +26,7 @@ class RealDataItem;
 //! The SimulationDataSelectorWidget class represents widget to select instrument, sample and
 //! real data. Located at the top of SimulationView.
 
-class SimulationDataSelectorWidget : public QWidget
-{
+class SimulationDataSelectorWidget : public QWidget {
     Q_OBJECT
 
 public:

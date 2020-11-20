@@ -22,8 +22,7 @@ class SessionItem;
 
 //! Contains collection of utility functions to support editing of SessionItem's components.
 
-namespace ComponentUtils
-{
+namespace ComponentUtils {
 
 //! Returns list of strings representing modelTypes suitable for editing in component editors.
 QStringList propertyRelatedTypes();

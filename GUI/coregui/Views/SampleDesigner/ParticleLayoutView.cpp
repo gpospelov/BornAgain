@@ -18,8 +18,7 @@
 #include "GUI/coregui/Views/SampleDesigner/ParticleView.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-ParticleLayoutView::ParticleLayoutView(QGraphicsItem* parent) : ConnectableView(parent)
-{
+ParticleLayoutView::ParticleLayoutView(QGraphicsItem* parent) : ConnectableView(parent) {
     setName("ParticleLayout");
     setColor(QColor(135, 206, 50));
     setRectangle(DesignerHelper::getParticleLayoutBoundingRect());
@@ -33,8 +32,7 @@ ParticleLayoutView::ParticleLayoutView(QGraphicsItem* parent) : ConnectableView(
                      "to have coherent scattering");
 }
 
-void ParticleLayoutView::addView(IView* childView, int /* row */)
-{
+void ParticleLayoutView::addView(IView* childView, int /* row */) {
     if (childView->type() == ViewTypes::PARTICLE) {
         connectInputPort(dynamic_cast<ConnectableView*>(childView), 0);
     } else if (childView->type() == ViewTypes::INTERFERENCE_FUNCTION_1D_LATTICE

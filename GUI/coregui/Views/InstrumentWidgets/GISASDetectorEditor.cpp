@@ -24,8 +24,7 @@ GISASDetectorEditor::GISASDetectorEditor(QWidget* parent)
     : SessionItemWidget(parent)
     , m_detectorTypeEditor(
           new ComponentEditor(ComponentEditor::PlainWidget | ComponentEditor::W_NoChildren))
-    , m_detectorPresenter(new DetectorPresenter)
-{
+    , m_detectorPresenter(new DetectorPresenter) {
     auto mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_detectorTypeEditor);
     mainLayout->addWidget(m_detectorPresenter);
@@ -33,8 +32,7 @@ GISASDetectorEditor::GISASDetectorEditor(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void GISASDetectorEditor::subscribeToItem()
-{
+void GISASDetectorEditor::subscribeToItem() {
     currentItem()->mapper()->setOnPropertyChange(
         [this](const QString& name) {
             if (name == Instrument2DItem::P_DETECTOR)
@@ -46,13 +44,11 @@ void GISASDetectorEditor::subscribeToItem()
     updateDetectorPresenter();
 }
 
-void GISASDetectorEditor::unsubscribeFromItem()
-{
+void GISASDetectorEditor::unsubscribeFromItem() {
     m_detectorTypeEditor->clearEditor();
 }
 
-Instrument2DItem* GISASDetectorEditor::instrumentItem()
-{
+Instrument2DItem* GISASDetectorEditor::instrumentItem() {
     auto result = dynamic_cast<Instrument2DItem*>(currentItem());
     ASSERT(result);
     return result;
@@ -60,7 +56,6 @@ Instrument2DItem* GISASDetectorEditor::instrumentItem()
 
 //! Shows detector editor corresponding to the currently selected detector in detectorGroup.
 
-void GISASDetectorEditor::updateDetectorPresenter()
-{
+void GISASDetectorEditor::updateDetectorPresenter() {
     m_detectorPresenter->setItem(instrumentItem()->detectorItem());
 }

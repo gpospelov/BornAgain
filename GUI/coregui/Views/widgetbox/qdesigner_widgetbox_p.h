@@ -62,13 +62,11 @@ QT_BEGIN_NAMESPACE
 
 class DomUI;
 
-namespace qdesigner_internal
-{
+namespace qdesigner_internal {
 
 // A widget box with a load mode that allows for updating custom widgets.
 
-class QDESIGNER_SHARED_EXPORT QDesignerWidgetBox : public QDesignerWidgetBoxInterface
-{
+class QDESIGNER_SHARED_EXPORT QDesignerWidgetBox : public QDesignerWidgetBoxInterface {
     Q_OBJECT
 public:
     enum LoadMode { LoadMerge, LoadReplace, LoadCustomWidgetsOnly };

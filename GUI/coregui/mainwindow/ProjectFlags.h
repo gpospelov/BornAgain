@@ -17,8 +17,7 @@
 
 #include <QFlags>
 
-class ProjectFlags
-{
+class ProjectFlags {
 public:
     enum EDocumentStatus {
         STATUS_OK = 0x0001,
@@ -28,8 +27,7 @@ public:
 
     Q_DECLARE_FLAGS(DocumentStatus, EDocumentStatus)
 
-    static void setFlag(ProjectFlags::DocumentStatus& flags, EDocumentStatus status)
-    {
+    static void setFlag(ProjectFlags::DocumentStatus& flags, EDocumentStatus status) {
         flags |= status;
     }
 };

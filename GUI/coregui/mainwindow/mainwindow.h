@@ -17,8 +17,7 @@
 
 #include <fancymainwindow.h>
 
-namespace Manhattan
-{
+namespace Manhattan {
 class FancyTabWidget;
 class ProgressBar;
 } // namespace Manhattan
@@ -42,8 +41,7 @@ class ActionManager;
 class ToolTipDataBase;
 class UpdateNotifier;
 
-class MainWindow : public Manhattan::FancyMainWindow
-{
+class MainWindow : public Manhattan::FancyMainWindow {
     Q_OBJECT
 
 public:

@@ -24,8 +24,7 @@
 class Material;
 class MaterialItemContainer;
 
-namespace MaterialItemUtils
-{
+namespace MaterialItemUtils {
 
 QColor suggestMaterialColor(const QString& name);
 ExternalProperty defaultMaterialProperty();

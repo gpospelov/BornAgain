@@ -13,8 +13,7 @@
 
 constexpr double eps = 1e-10;
 
-class SpecularMagneticTest : public ::testing::Test
-{
+class SpecularMagneticTest : public ::testing::Test {
 protected:
     std::unique_ptr<ProcessedSample> sample_zerofield();
     std::unique_ptr<ProcessedSample> sample_degenerate();
@@ -25,8 +24,7 @@ protected:
     template <typename Strategy> void testcase_zerofield(std::vector<double>&& angles);
 };
 
-template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhStrategy>()
-{
+template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhStrategy>() {
     kvector_t v;
 
     Eigen::Vector2cd T1p{0.0, 0.0};
@@ -54,8 +52,7 @@ template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhSt
 
 //! Compares results with scalar case
 template <typename Strategy>
-void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSample& sample)
-{
+void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSample& sample) {
     auto coeffs_scalar = std::make_unique<SpecularScalarTanhStrategy>()->Execute(
         sample.slices(), KzComputation::computeKzFromRefIndices(sample.slices(), k));
     auto coeffs_zerofield = std::make_unique<Strategy>()->Execute(
@@ -81,21 +78,18 @@ void SpecularMagneticTest::testZeroField(const kvector_t& k, const ProcessedSamp
     }
 }
 
-std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_degenerate()
-{
+std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_degenerate() {
     MultiLayer mLayer;
     Material air = HomogeneousMaterial("Vacuum", 0, 1.0);
     mLayer.addLayer(Layer(air, 0 * Units::nm));
     return std::make_unique<ProcessedSample>(mLayer, SimulationOptions());
 }
 
-TEST_F(SpecularMagneticTest, degenerate_new)
-{
+TEST_F(SpecularMagneticTest, degenerate_new) {
     test_degenerate<SpecularMagneticNewTanhStrategy>();
 }
 
-std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_zerofield()
-{
+std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_zerofield() {
     MultiLayer multi_layer_scalar;
     Material substr_material_scalar = HomogeneousMaterial("Substrate", 7e-6, 2e-8);
     Layer vacuum_layer(HomogeneousMaterial("Vacuum", 0.0, 0.0));
@@ -110,8 +104,7 @@ std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_zerofield()
 }
 
 template <typename Strategy>
-void SpecularMagneticTest::testcase_zerofield(std::vector<double>&& angles)
-{
+void SpecularMagneticTest::testcase_zerofield(std::vector<double>&& angles) {
     for (auto& angle : angles) {
         auto sample = sample_zerofield();
         kvector_t k = vecOfLambdaAlphaPhi(1.0, angle * Units::deg, 0.0);
@@ -119,12 +112,10 @@ void SpecularMagneticTest::testcase_zerofield(std::vector<double>&& angles)
     }
 }
 
-TEST_F(SpecularMagneticTest, zerofield)
-{
+TEST_F(SpecularMagneticTest, zerofield) {
     testcase_zerofield<SpecularMagneticStrategy>({-0.1, -2.0, -10.0});
 }
 
-TEST_F(SpecularMagneticTest, zerofield_new)
-{
+TEST_F(SpecularMagneticTest, zerofield_new) {
     testcase_zerofield<SpecularMagneticNewTanhStrategy>({-0.0, -1.e-9, -1.e-5, -0.1, -2.0, -10.0});
 }

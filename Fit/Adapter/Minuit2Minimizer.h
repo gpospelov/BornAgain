@@ -18,8 +18,7 @@
 #include "Fit/Adapter/MinimizerAdapter.h"
 #include <memory>
 
-namespace ROOT::Minuit2
-{
+namespace ROOT::Minuit2 {
 class Minuit2Minimizer;
 }
 
@@ -27,8 +26,7 @@ class Minuit2Minimizer;
 //! See Minuit2 user manual https://root.cern.ch/root/htmldoc/guides/minuit2/Minuit2.pdf.
 //! @ingroup fitting_internal
 
-class Minuit2Minimizer : public MinimizerAdapter
-{
+class Minuit2Minimizer : public MinimizerAdapter {
 public:
     Minuit2Minimizer(const std::string& algorithmName = "Migrad");
     ~Minuit2Minimizer();

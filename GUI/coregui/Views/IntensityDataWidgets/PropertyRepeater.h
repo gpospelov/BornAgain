@@ -24,8 +24,7 @@ class SessionItem;
 //! Tracks property change (axes range, units etc) for the collection of IntensityDataItems
 //! and sets same properties for all of them.
 
-class PropertyRepeater : public QObject
-{
+class PropertyRepeater : public QObject {
     Q_OBJECT
 public:
     explicit PropertyRepeater(QObject* parent = nullptr, bool repeat_child_properties = false);

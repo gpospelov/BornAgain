@@ -34,8 +34,7 @@ class Slice;
 //!
 //! @ingroup algorithms_internal
 
-class ProcessedLayout
-{
+class ProcessedLayout {
 public:
     ProcessedLayout(const ParticleLayout& layout, const std::vector<Slice>& slices, double z_ref,
                     const IFresnelMap* p_fresnel_map, bool polarized);

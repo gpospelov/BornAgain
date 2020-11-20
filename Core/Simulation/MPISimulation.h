@@ -18,8 +18,7 @@
 
 class ISimulation;
 
-class MPISimulation
-{
+class MPISimulation {
 public:
     void runSimulation(ISimulation* simulation);
 };

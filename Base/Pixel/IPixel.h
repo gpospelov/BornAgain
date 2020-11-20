@@ -21,8 +21,7 @@
 //! Abstract base class for SphericalPixel and RectangularPixel.
 //! @ingroup detector
 
-class IPixel
-{
+class IPixel {
 public:
     virtual ~IPixel() {}
 

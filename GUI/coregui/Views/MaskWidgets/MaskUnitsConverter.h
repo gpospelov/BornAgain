@@ -28,8 +28,7 @@ class QString;
 //! On second step masks are converted from bin-fraction coordinates into current axes of
 //! OutputData.
 
-class MaskUnitsConverter
-{
+class MaskUnitsConverter {
 public:
     enum EConvertionDirection { TO_NBINS, FROM_NBINS, UNDEFINED };
 

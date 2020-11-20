@@ -20,8 +20,7 @@
 #include <memory>
 
 //! Functional test to measure performance of CsvImportAssistant by loading files of different sizes
-class CsvImportAssistantPerformanceTest
-{
+class CsvImportAssistantPerformanceTest {
 public:
     bool runTest();
 

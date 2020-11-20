@@ -25,8 +25,7 @@
 
 // --- ParticleCompositionBuilder ---
 
-MultiLayer* ParticleCompositionBuilder::buildSample() const
-{
+MultiLayer* ParticleCompositionBuilder::buildSample() const {
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 

@@ -21,11 +21,9 @@
 #include "Sample/Scattering/LayerFillLimits.h"
 #include "Sample/Slice/LayerInterface.h"
 
-namespace
-{
+namespace {
 
-std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer)
-{
+std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer) {
     auto n_layers = multilayer.numberOfLayers();
     if (n_layers < 2)
         return {};
@@ -39,49 +37,43 @@ std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer)
 
 } // namespace
 
-double MultiLayerUtils::LayerThickness(const MultiLayer& multilayer, size_t i)
-{
+double MultiLayerUtils::LayerThickness(const MultiLayer& multilayer, size_t i) {
     return multilayer.layer(i)->thickness();
 }
 
-const LayerInterface* MultiLayerUtils::LayerTopInterface(const MultiLayer& multilayer, size_t i)
-{
+const LayerInterface* MultiLayerUtils::LayerTopInterface(const MultiLayer& multilayer, size_t i) {
     if (i == 0)
         return nullptr;
     return multilayer.layerInterface(i - 1);
 }
 
-const LayerInterface* MultiLayerUtils::LayerBottomInterface(const MultiLayer& multilayer, size_t i)
-{
+const LayerInterface* MultiLayerUtils::LayerBottomInterface(const MultiLayer& multilayer,
+                                                            size_t i) {
     if (i + 1 < multilayer.numberOfLayers())
         return multilayer.layerInterface(i);
     return nullptr;
 }
 
-const LayerRoughness* MultiLayerUtils::LayerTopRoughness(const MultiLayer& multilayer, size_t i)
-{
+const LayerRoughness* MultiLayerUtils::LayerTopRoughness(const MultiLayer& multilayer, size_t i) {
     if (i == 0)
         return nullptr;
     return multilayer.layerInterface(i - 1)->getRoughness();
 }
 
-size_t MultiLayerUtils::IndexOfLayer(const MultiLayer& multilayer, const Layer* p_layer)
-{
+size_t MultiLayerUtils::IndexOfLayer(const MultiLayer& multilayer, const Layer* p_layer) {
     for (size_t i = 0; i < multilayer.numberOfLayers(); ++i)
         if (p_layer == multilayer.layer(i))
             return i;
     throw std::out_of_range("MultiLayerUtils::IndexOfLayer: layer not found");
 }
 
-bool MultiLayerUtils::ContainsCompatibleMaterials(const MultiLayer& multilayer)
-{
+bool MultiLayerUtils::ContainsCompatibleMaterials(const MultiLayer& multilayer) {
     return MaterialUtils::checkMaterialTypes(multilayer.containedMaterials())
            != MATERIAL_TYPES::InvalidMaterialType;
 }
 
 std::vector<ZLimits> MultiLayerUtils::ParticleRegions(const MultiLayer& multilayer,
-                                                      bool use_slicing)
-{
+                                                      bool use_slicing) {
     auto bottom_coords = BottomLayerCoordinates(multilayer);
     LayerFillLimits layer_fill_limits(bottom_coords);
     if (use_slicing) {
@@ -97,8 +89,7 @@ std::vector<ZLimits> MultiLayerUtils::ParticleRegions(const MultiLayer& multilay
     return layer_fill_limits.layerZLimits();
 }
 
-bool MultiLayerUtils::hasRoughness(const MultiLayer& sample)
-{
+bool MultiLayerUtils::hasRoughness(const MultiLayer& sample) {
     for (size_t i = 0; i < sample.numberOfLayers() - 1; i++) {
         if (sample.layerInterface(i)->getRoughness())
             return true;

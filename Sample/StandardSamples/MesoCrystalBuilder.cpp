@@ -24,8 +24,7 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* MesoCrystalBuilder::buildSample() const
-{
+MultiLayer* MesoCrystalBuilder::buildSample() const {
     // mesocrystal lattice
     kvector_t lattice_basis_a(5.0, 0.0, 0.0);
     kvector_t lattice_basis_b(0.0, 5.0, 0.0);

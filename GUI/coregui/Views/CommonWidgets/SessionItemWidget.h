@@ -27,8 +27,7 @@ class SessionItemController;
 //! The main purpose is to save performance, when item keeps changing its properties, while
 //! widget is hidden.
 
-class SessionItemWidget : public QWidget
-{
+class SessionItemWidget : public QWidget {
     Q_OBJECT
 public:
     explicit SessionItemWidget(QWidget* parent = 0);

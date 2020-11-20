@@ -22,8 +22,7 @@
 //! Considering distribution, differs from BeamInclinationAngleItem
 //! by any distribution mean value being always zero.
 
-class BA_CORE_API_ SpecularBeamInclinationItem : public BeamDistributionItem
-{
+class BA_CORE_API_ SpecularBeamInclinationItem : public BeamDistributionItem {
 public:
     static const QString P_ALPHA_AXIS;
 

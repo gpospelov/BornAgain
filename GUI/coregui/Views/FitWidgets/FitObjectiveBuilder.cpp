@@ -28,15 +28,13 @@
 #include "GUI/coregui/Views/FitWidgets/GUIFitObserver.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem) : m_jobItem(jobItem)
-{
+FitObjectiveBuilder::FitObjectiveBuilder(JobItem* jobItem) : m_jobItem(jobItem) {
     ASSERT(m_jobItem->fitSuiteItem());
 }
 
 FitObjectiveBuilder::~FitObjectiveBuilder() = default;
 
-void FitObjectiveBuilder::runFit()
-{
+void FitObjectiveBuilder::runFit() {
     m_fit_objective = createFitObjective();
 
     auto module = m_jobItem->fitSuiteItem()->minimizerContainerItem()->createMetric();
@@ -66,8 +64,7 @@ void FitObjectiveBuilder::runFit()
     m_fit_objective->finalize(result);
 }
 
-std::unique_ptr<FitObjective> FitObjectiveBuilder::createFitObjective() const
-{
+std::unique_ptr<FitObjective> FitObjectiveBuilder::createFitObjective() const {
     std::unique_ptr<FitObjective> result(new FitObjective);
 
     simulation_builder_t builder = [&](const mumufit::Parameters& params) {
@@ -79,29 +76,24 @@ std::unique_ptr<FitObjective> FitObjectiveBuilder::createFitObjective() const
     return result;
 }
 
-std::unique_ptr<IMinimizer> FitObjectiveBuilder::createMinimizer() const
-{
+std::unique_ptr<IMinimizer> FitObjectiveBuilder::createMinimizer() const {
     return m_jobItem->fitSuiteItem()->minimizerContainerItem()->createMinimizer();
 }
 
-mumufit::Parameters FitObjectiveBuilder::createParameters() const
-{
+mumufit::Parameters FitObjectiveBuilder::createParameters() const {
     return m_jobItem->fitSuiteItem()->fitParameterContainerItem()->createParameters();
 }
 
-void FitObjectiveBuilder::attachObserver(std::shared_ptr<GUIFitObserver> observer)
-{
+void FitObjectiveBuilder::attachObserver(std::shared_ptr<GUIFitObserver> observer) {
     m_observer = observer;
 }
 
-void FitObjectiveBuilder::interruptFitting()
-{
+void FitObjectiveBuilder::interruptFitting() {
     m_fit_objective->interruptFitting();
 }
 
 std::unique_ptr<ISimulation>
-FitObjectiveBuilder::buildSimulation(const mumufit::Parameters& params) const
-{
+FitObjectiveBuilder::buildSimulation(const mumufit::Parameters& params) const {
     static std::mutex build_simulation_mutex;
     std::unique_lock<std::mutex> lock(build_simulation_mutex);
 
@@ -111,8 +103,7 @@ FitObjectiveBuilder::buildSimulation(const mumufit::Parameters& params) const
                                                      m_jobItem->simulationOptionsItem());
 }
 
-std::unique_ptr<OutputData<double>> FitObjectiveBuilder::createOutputData() const
-{
+std::unique_ptr<OutputData<double>> FitObjectiveBuilder::createOutputData() const {
     auto realDataItem = m_jobItem->realDataItem();
     if (!realDataItem)
         throw GUIHelpers::Error("FitObjectiveBuilder::createOutputData() -> No Real Data defined.");
@@ -124,8 +115,7 @@ std::unique_ptr<OutputData<double>> FitObjectiveBuilder::createOutputData() cons
     return std::unique_ptr<OutputData<double>>(intensity_item->getOutputData()->clone());
 }
 
-void FitObjectiveBuilder::update_fit_parameters(const mumufit::Parameters& params) const
-{
+void FitObjectiveBuilder::update_fit_parameters(const mumufit::Parameters& params) const {
     QVector<double> values = GUIHelpers::fromStdVector(params.values());
 
     auto fitParContainer = m_jobItem->fitParameterContainerItem();

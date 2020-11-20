@@ -26,8 +26,7 @@ class SessionItem;
 class RealDataSelectorActions;
 class RealDataSelectorToolBar;
 class RealDataSelectorHBar;
-namespace Manhattan
-{
+namespace Manhattan {
 class MiniSplitter;
 }
 
@@ -35,8 +34,7 @@ class MiniSplitter;
 //! select data set (ItemSelectorWidget) and properties of currently selected data
 //! (RealDataPropertiesWidget).
 
-class RealDataSelectorWidget : public QWidget
-{
+class RealDataSelectorWidget : public QWidget {
     Q_OBJECT
 
 public:

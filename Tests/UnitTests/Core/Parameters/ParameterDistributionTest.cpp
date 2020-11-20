@@ -5,12 +5,9 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <cmath>
 
-class ParameterDistributionTest : public ::testing::Test
-{
-};
+class ParameterDistributionTest : public ::testing::Test {};
 
-TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
-{
+TEST_F(ParameterDistributionTest, ParameterDistributionConstructor) {
     std::string name = "MainParameterName";
     DistributionGate distribution(1.0, 2.0);
     EXPECT_THROW(ParameterDistribution(name, distribution, 1, -1.0),
@@ -45,8 +42,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionConstructor)
     EXPECT_EQ(pardistr3.getLinkedParameterNames().size(), size_t(0));
 }
 
-TEST_F(ParameterDistributionTest, ParameterDistributionCopyConstructor)
-{
+TEST_F(ParameterDistributionTest, ParameterDistributionCopyConstructor) {
     DistributionGate distribution(1.0, 2.0);
     std::string name = "MainParameterName";
     ParameterDistribution pardistr(name, distribution, 5, 2.0, RealLimits::limited(1.0, 2.0));
@@ -68,8 +64,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionCopyConstructor)
     EXPECT_EQ(pardistr.getMaxValue(), pcopy.getMaxValue());
 }
 
-TEST_F(ParameterDistributionTest, ParameterDistributionAssignment)
-{
+TEST_F(ParameterDistributionTest, ParameterDistributionAssignment) {
     DistributionGate distribution(1.0, 2.0);
     std::string name = "MainParameterName";
     ParameterDistribution pardistr(name, distribution, 5, 2.0, RealLimits::limited(1.0, 2.0));
@@ -91,8 +86,7 @@ TEST_F(ParameterDistributionTest, ParameterDistributionAssignment)
     EXPECT_EQ(pardistr.getMaxValue(), pcopy.getMaxValue());
 }
 
-TEST_F(ParameterDistributionTest, GenerateSamples)
-{
+TEST_F(ParameterDistributionTest, GenerateSamples) {
     const double mean(1.0);
     const double sigma(0.8);
     DistributionGaussian distribution(mean, sigma);
@@ -131,8 +125,7 @@ TEST_F(ParameterDistributionTest, GenerateSamples)
 
 //! Tests if main parameter name is related to angles.
 
-TEST_F(ParameterDistributionTest, isAngleRelated)
-{
+TEST_F(ParameterDistributionTest, isAngleRelated) {
     EXPECT_FALSE(ParameterUtils::isAngleRelated("Some"));
     EXPECT_TRUE(ParameterUtils::isAngleRelated("InclinationAngle"));
     EXPECT_TRUE(ParameterUtils::isAngleRelated("*/Beam/InclinationAngle"));

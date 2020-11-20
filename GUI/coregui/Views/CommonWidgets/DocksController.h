@@ -20,15 +20,13 @@
 #include <QSize>
 #include <map>
 
-namespace Manhattan
-{
+namespace Manhattan {
 class FancyMainWindow;
 }
 
 //! Handles appearance of docked widgets in the context of FancyMainWindow.
 
-class DocksController : public QObject
-{
+class DocksController : public QObject {
     Q_OBJECT
 
 public:

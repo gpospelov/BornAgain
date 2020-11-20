@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-
-Helptext = '''
+'''
 Plots data stored in BornAgain's .int or .int.gz format.
 Can handle both 1D and 2D arrays.
-Usage: plot_int.py intensity_file.int.gz [intensity_max]
 '''
 
 import argparse
@@ -18,30 +16,43 @@ rc('text', usetex=True)
 
 def plot_int(args):
     data = ba.IntensityDataIOFactory.readIntensityData(args.file)
-    if args.max is None:
+    if args.max is not None:
+        intensity_max = args.max
+    else:
         intensity_max = data.getMaximum()
+    if args.min is not None:
+        intensity_min = args.min
+    else:
+        intensity_min = data.getMinimum()
+    ylog = not args.ylin
+    if ylog and intensity_min<=0:
+        intensity_min = intensity_max / 1e6
     if args.verbose:
         print(f'Data extend from {data.getMinimum()} to {data.getMaximum()}')
     if data.rank() == 1:
-        plot_int_1d(data, intensity_max)
+        plot_int_1d(data, ylog, intensity_min, intensity_max)
     elif data.rank() == 2:
-        plot_int_2d(data, intensity_max)
+        plot_int_2d(data, ylog, intensity_min, intensity_max)
     else:
         exit("Error in plot_int: wrong data rank")
 
 
-def plot_int_2d(histogram, intensity_max):
+def plot_int_2d(histogram, ylog, intensity_min, intensity_max):
     plot_raw_data_2d(histogram.array(), [
         histogram.getXmin()/ba.deg,
         histogram.getXmax()/ba.deg,
         histogram.getYmin()/ba.deg,
         histogram.getYmax()/ba.deg
-    ], intensity_max)
+    ], ylog, intensity_min, intensity_max)
 
 
-def plot_raw_data_2d(values, extent_array, intensity_max):
+def plot_raw_data_2d(values, extent_array, ylog, intensity_min, intensity_max):
+    if ylog:
+        norm = colors.LogNorm(intensity_min, intensity_max)
+    else:
+        norm = colors.Normalize(intensity_min, intensity_max)
     im = plt.imshow(values,
-                    norm=colors.LogNorm(1.0, intensity_max),
+                    norm=norm,
                     extent=extent_array,
                     aspect='auto')
     cb = plt.colorbar(im)
@@ -51,14 +62,15 @@ def plot_raw_data_2d(values, extent_array, intensity_max):
     plt.show()
 
 
-def plot_int_1d(histogram, intensity_max):
+def plot_int_1d(histogram, ylog, intensity_min, intensity_max):
+    # TODO use intensity_min, intensity_max, which are currently ignored
     axis_values = np.asarray(histogram.xAxis().binCenters())/ba.deg
-    array_values = histogram.array()*intensity_max/histogram.getMaximum()
-    plot_raw_data_1d(axis_values, array_values)
+    array_values = histogram.array()
+    plot_raw_data_1d(axis_values, array_values, ylog)
 
 
-def plot_raw_data_1d(axis, values, log_y=True):
-    if log_y:
+def plot_raw_data_1d(axis, values, ylog):
+    if ylog:
         plt.semilogy(axis, values)
     else:
         plt.plot(axis, values)
@@ -69,12 +81,13 @@ def plot_raw_data_1d(axis, values, log_y=True):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("-v", "--verbose", help="print some output to the terminal",
-                        action="store_true")
+    parser.add_argument("-v", "--verbose", action="store_true",
+                        help="print some output to the terminal")
     parser.add_argument("file", type=str,
                         help="input data file (.int or .int.gz)")
-    parser.add_argument("-u", "--min", type=int, help="upper plot limit")
-    parser.add_argument("-l", "--max", type=int, help="lower plot limit")
+    parser.add_argument("-l", "--min", type=float, help="upper plot limit")
+    parser.add_argument("-u", "--max", type=float, help="lower plot limit")
+    parser.add_argument("-y", "--ylin", action="store_true", help="linear y scale", )
     args = parser.parse_args()
 
     plot_int(args)

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-'''
-Plots data stored in BornAgain "*.int" or "*.int.gz" format
-Can handle both 1D and 2D arrays
-Usage: python plot_int.py intensity_file.int.gz [intensity_max]
+
+Helptext = '''
+Plots data stored in BornAgain's .int or .int.gz format.
+Can handle both 1D and 2D arrays.
+Usage: plot_int.py intensity_file.int.gz [intensity_max]
 '''
 
 import sys
@@ -65,7 +66,7 @@ def plot_raw_data_1d(axis, values, log_y=True):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2 or len(sys.argv) > 3:
-        exit("Usage: plot_int.py intensity_file.int.gz [intensity_max]")
+        exit(Helptext)
 
     if len(sys.argv) == 2:
         plot_int(sys.argv[1])

@@ -10,7 +10,7 @@ This will run all existing examples and generate intensity images for web site.
 python update-examples.py <website-source-dir> <BornAgain-source-dir> <BornAgain-build-dir>
 """
 
-import argparse, os, shutil
+import argparse, datetime, os, shutil
 
 def find_files(dir_name):
     """
@@ -68,33 +68,15 @@ def copy_files(source_list, destination_list):
             print(f)
 
 
-def update_example_scripts(website_dir, bornagain_source):
-    """
-    Copies example scripts from BornAgain to website.
-    """
-    website = os.path.join(website_dir, "static/files/python")
-    source = os.path.join(bornagain_source, "Examples/Python")
-    website_files = get_files(website, ".py")
-    source_files = get_files(source, ".py")
+def update_all_files_of_one_type(source, destination, extension):
 
-    print(f'Update {len(website_files)} scripts ...')
+    source_files = get_files(source, extension)
+    website_files = get_files(destination, extension)
 
-    if verbose:
-        print(website_files)
+    print(f'Update {len(website_files)} {extension} files ...')
 
-    copy_files(source_files, website_files)
-
-
-def update_example_images(website_dir, example_images):
-    """
-    Copies example images from BornAgain build directory to website.
-    """
-    print("Update images ...")
-
-    website = os.path.join(website_dir, "content/documentation/examples")
-    source = example_images
-    website_files = get_files(website, ".png")
-    source_files = get_files(source, ".png")
+    flog.write(f'Update {len(website_files)} {extension} files:')
+    flog.write(f'  {website_files}')
 
     copy_files(source_files, website_files)
 
@@ -103,31 +85,40 @@ def update_website(website_source_dir, ba_source_dir, ba_build_dir):
     """
     Updates example scripts and images on website.
     """
-    user_website_dir = os.path.expanduser(website_source_dir)
+
+    # Start logging
+    website_dirpath = os.path.expanduser(website_source_dir)
+    log_path = os.path.join(website_dirpath, "update.examples.log")
+    global flog
+    flog = open(log_path, "a")
+    print(f'Appending log to {log_path}')
+    flog.write(f'\n===\n{datetime.datetime.now().strftime("%d%b%y %H:%M:%S")}\n')
+
     user_source_dir = os.path.expanduser(ba_source_dir)
     user_build_dir = os.path.expanduser(ba_build_dir)
     user_image_dir = os.path.join(user_build_dir, "test_output/Functional/PyExamples")
 
-    if verbose:
-        print("Directories:")
-        print("  website_dir    : '{}'".format(user_website_dir))
-        print("  source_dir     : '{}'".format(user_source_dir))
-        print("  build_dir      : '{}'".format(user_build_dir))
-        print("  image_dir      : '{}'".format(user_image_dir))
+    flog.write('Directories:\n')
+    flog.write(f'  website_dir : {website_dirpath}\n')
+    flog.write(f'  source_dir  : {user_source_dir}\n')
+    flog.write(f'  build_dir   : {user_build_dir}\n')
+    flog.write(f'  image_dir   : {user_image_dir}\n')
 
-    update_example_scripts(user_website_dir, user_source_dir)
-    update_example_images(user_website_dir, user_image_dir)
+    website = os.path.join(website_dirpath, "static/files/python")
+    source = os.path.join(user_source_dir, "Examples/Python")
+    update_all_files_of_one_type(source, website_dirpath, '.py')
+
+    website = os.path.join(website_dirpath, "content/documentation/examples")
+    source = user_image_dir
+    update_all_files_of_one_type(source, website_dirpath, '.png')
 
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-v", "--verbose", action="store_true")
     parser.add_argument("website_source_dir", type=str)
     parser.add_argument("ba_source_dir", type=str)
     parser.add_argument("ba_build_dir", type=str)
     args = parser.parse_args()
-
-    verbose = args.verbose
 
     update_website(args.website_source_dir, args.ba_source_dir, args.ba_build_dir)

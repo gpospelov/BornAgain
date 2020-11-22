@@ -105,9 +105,9 @@ def update_example_scripts(website_dir, bornagain_source):
 @click.argument("ba_build_dir", required=True, type=str)
 
 def update_website(website_source_dir, ba_source_dir, ba_build_dir):
-    '''
+    """
     Updates example scripts and images on website.
-    '''
+    """
     user_website_dir = os.path.expanduser(website_source_dir)
     user_source_dir = os.path.expanduser(ba_source_dir)
     user_build_dir = os.path.expanduser(ba_build_dir)

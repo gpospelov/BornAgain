@@ -1,6 +1,6 @@
-'''
+"""
 Simulation demo: 2d lattice structure of particles
-'''
+"""
 
 import numpy
 import matplotlib

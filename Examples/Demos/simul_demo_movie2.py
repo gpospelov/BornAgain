@@ -1,6 +1,6 @@
-'''
+"""
 Simulation demo: make movie
-'''
+"""
 
 import os, sys
 import numpy

@@ -1,5 +1,5 @@
 #  **************************************************************************  #
-'''
+"""
 #   BornAgain: simulate and fit scattering at grazing incidence
 #
 #   @file      Wrap/Python.plot_utils
@@ -10,7 +10,7 @@
 #   @copyright Forschungszentrum Juelich GmbH 2016
 #   @authors   Scientific Computing Group at MLZ Garching
 #   @authors   J. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
-'''
+"""
 #  **************************************************************************  #
 from __future__ import print_function
 import bornagain as ba

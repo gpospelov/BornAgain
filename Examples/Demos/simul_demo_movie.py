@@ -1,6 +1,6 @@
-'''
+"""
 Simulation demo: movie of growing particles on substrate
-'''
+"""
 
 import os, sys
 import numpy

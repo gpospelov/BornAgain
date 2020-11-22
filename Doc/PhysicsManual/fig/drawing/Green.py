@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-'''
+"""
 Compute radiation trajectories through multilayer sample
 for use in figure that explains the Green function.
-'''
+"""
 
 xd = 52
 yd = 10  # detector

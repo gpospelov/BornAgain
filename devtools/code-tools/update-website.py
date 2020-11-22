@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 To update examples on website:
 
@@ -105,7 +106,7 @@ def update_example_scripts(website_dir, bornagain_source):
     Copies example scripts from BornAgain directory to website directory
     """
     website = os.path.join(website_dir, "static/files/python")
-    source = os.path.join(bornagain_source, "Examples/python")
+    source = os.path.join(bornagain_source, "Examples/Python")
     website_files = get_files(website, ".py")
     source_files = get_files(source, ".py")
     print(website_files)
@@ -121,7 +122,7 @@ def update_website(website_dir, bornagain_source, build_dir):
     user_website_dir = os.path.expanduser(website_dir)
     user_bornagain_source = os.path.expanduser(bornagain_source)
     user_build_dir = os.path.expanduser(build_dir)
-    user_example_images = os.path.join(user_build_dir, "test_output/Functional/Python/PyExamples")
+    user_example_images = os.path.join(user_build_dir, "test_output/Functional/PyExamples")
 
     print("website_dir      : '{}'".format(user_website_dir))
     print("bornagain_source      : '{}'".format(user_bornagain_source))
@@ -134,4 +135,3 @@ def update_website(website_dir, bornagain_source, build_dir):
 
 if __name__ == '__main__':
     update_website()
-

@@ -12,6 +12,13 @@ python update-examples.py <website-source-dir> <BornAgain-source-dir> <BornAgain
 
 import argparse, datetime, os, shutil
 
+def log(msg):
+    flog.write(msg+"\n")
+
+def log2(msg):
+    print(msg)
+    log(msg)
+
 def find_files(dir_name):
     """
     Return recursive list of files in given dir_name
@@ -42,14 +49,23 @@ def find_files_with_same_name(filename_list, name_to_find):
     return same_names
 
 
-def copy_files(source_list, destination_list):
+def update_all_files_of_one_type(source, destination, extension):
     """
-    Every file in destination_list will be replaced by the file with the same
+    Every file in dest_list will be replaced by the file with the same
     basename found in source_list
     """
+
+    source_list = get_files(source, extension)
+    dest_list = get_files(destination, extension)
+
+    log2(f'Update {len(dest_list)} {extension} files')
+    log2(f'  from {source}')
+    log2(f'    to {destination}')
+    log(f'  {dest_list}')
+
     missed_files = []
     updated_files = []
-    for f in destination_list:
+    for f in dest_list:
         found_source = find_files_with_same_name(source_list, os.path.basename(f))
         if len(found_source) == 1:
             updated_files.append(f)
@@ -68,19 +84,6 @@ def copy_files(source_list, destination_list):
             print(f)
 
 
-def update_all_files_of_one_type(source, destination, extension):
-
-    source_files = get_files(source, extension)
-    website_files = get_files(destination, extension)
-
-    print(f'Update {len(website_files)} {extension} files ...')
-
-    flog.write(f'Update {len(website_files)} {extension} files:')
-    flog.write(f'  {website_files}')
-
-    copy_files(source_files, website_files)
-
-
 def update_website(website_source_dir, ba_source_dir, ba_build_dir):
     """
     Updates example scripts and images on website.
@@ -92,25 +95,17 @@ def update_website(website_source_dir, ba_source_dir, ba_build_dir):
     global flog
     flog = open(log_path, "a")
     print(f'Appending log to {log_path}')
-    flog.write(f'\n===\n{datetime.datetime.now().strftime("%d%b%y %H:%M:%S")}\n')
+    log(f'\n===\n{datetime.datetime.now().strftime("%d%b%y %H:%M:%S")}')
 
-    user_source_dir = os.path.expanduser(ba_source_dir)
-    user_build_dir = os.path.expanduser(ba_build_dir)
-    user_image_dir = os.path.join(user_build_dir, "test_output/Functional/PyExamples")
+    update_all_files_of_one_type(
+        os.path.join(ba_source_dir, "Examples/Python"),
+        os.path.join(website_dirpath, "static/files/python"),
+        '.py')
 
-    flog.write('Directories:\n')
-    flog.write(f'  website_dir : {website_dirpath}\n')
-    flog.write(f'  source_dir  : {user_source_dir}\n')
-    flog.write(f'  build_dir   : {user_build_dir}\n')
-    flog.write(f'  image_dir   : {user_image_dir}\n')
-
-    website = os.path.join(website_dirpath, "static/files/python")
-    source = os.path.join(user_source_dir, "Examples/Python")
-    update_all_files_of_one_type(source, website_dirpath, '.py')
-
-    website = os.path.join(website_dirpath, "content/documentation/examples")
-    source = user_image_dir
-    update_all_files_of_one_type(source, website_dirpath, '.png')
+    update_all_files_of_one_type(
+        os.path.join(website_dirpath, "content/documentation/examples"),
+        os.path.join(ba_build_dir, "test_output/Functional/PyExamples"),
+        '.png')
 
 
 if __name__ == '__main__':

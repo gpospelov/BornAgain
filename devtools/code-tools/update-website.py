@@ -10,14 +10,17 @@ This will run all existing examples and generate intensity images for web site.
 python update-examples.py <website-source-dir> <BornAgain-source-dir> <BornAgain-build-dir>
 """
 
-import argparse, datetime, os, shutil
+import argparse, datetime, filecmp, os, shutil
+
 
 def log(msg):
     flog.write(msg+"\n")
 
+
 def log2(msg):
     print(msg)
     log(msg)
+
 
 def find_files(dir_name):
     """
@@ -49,39 +52,56 @@ def find_files_with_same_name(filename_list, name_to_find):
     return same_names
 
 
-def update_all_files_of_one_type(source, destination, extension):
+def update_one_file(source_list, dest):
+    """
+    Update destination file 'dest', using a suitable source file from 'source_dir'.
+    Returns 2=error, 1=modified, 0=unchanged
+    """
+    likely_sources = find_files_with_same_name(source_list, os.path.basename(dest))
+    if len(likely_sources) == 0:
+        log2(f'! error: file {dest}\n    not found in source dir')
+        return 2
+    if len(likely_sources) > 1:
+        log2(f'! error: file {dest}\n    has several possible sources:')
+        for f in likely_sources:
+            log2(f'  - {f}')
+        return 2
+    src = likely_sources[0]
+    if filecmp.cmp(src, dest):
+        log(f'. {dest}\n    is same as {src}')
+        return 0
+    shutil.copyfile(src, dest)
+    log2(f'< {dest}\n    updated from {src}')
+    return 1
+
+
+def update_all_files_of_one_type(source_dir, dest_dir, extension):
     """
     Every file in dest_list will be replaced by the file with the same
     basename found in source_list
     """
 
-    source_list = get_files(source, extension)
-    dest_list = get_files(destination, extension)
+    source_list = get_files(source_dir, extension)
+    dest_list = get_files(dest_dir, extension)
 
     log2(f'Update {len(dest_list)} {extension} files')
-    log2(f'  from {source}')
-    log2(f'    to {destination}')
-    log(f'  {dest_list}')
+    log2(f'  from {source_dir}')
+    log2(f'    to {dest_dir}')
+    log(f'     with source list {source_list}')
 
-    missed_files = []
-    updated_files = []
-    for f in dest_list:
-        found_source = find_files_with_same_name(source_list, os.path.basename(f))
-        if len(found_source) == 1:
-            updated_files.append(f)
-            shutil.copyfile(found_source[0], f)
-        else:
-            print(len(found_source), "Problem with ", f)
-            missed_files.append(f)
+    nError = 0
+    nModified = 0
+    nUnchanged = 0
+    for dest in dest_list:
+        ret = update_one_file(source_list, dest)
+        if ret == 0:
+            nUnchanged += 1
+        elif ret == 1:
+            nModified += 1
+        elif ret == 2:
+            nError += 1
 
-    print("Following files have been updated on website:")
-    for f in updated_files:
-        print(f)
-
-    if len(missed_files):
-        print("Following files exist on website but not in source dir:")
-        for f in missed_files:
-            print(f)
+    log2(f'=> {nUnchanged} files unchanged, {nModified} files updated, {nError} errors')
 
 
 def update_website(website_source_dir, ba_source_dir, ba_build_dir):
@@ -97,14 +117,16 @@ def update_website(website_source_dir, ba_source_dir, ba_build_dir):
     print(f'Appending log to {log_path}')
     log(f'\n===\n{datetime.datetime.now().strftime("%d%b%y %H:%M:%S")}')
 
+    # Update scripts
     update_all_files_of_one_type(
         os.path.join(ba_source_dir, "Examples/Python"),
         os.path.join(website_dirpath, "static/files/python"),
         '.py')
 
+    # Update images
     update_all_files_of_one_type(
+        os.path.join(ba_build_dir, "test_output/PyExamples"),
         os.path.join(website_dirpath, "content/documentation/examples"),
-        os.path.join(ba_build_dir, "test_output/Functional/PyExamples"),
         '.png')
 
 

@@ -8,13 +8,9 @@ This will run all existing examples and generate intensity images for web site.
 
 2) Run this script
 python update-examples.py <website-source-dir> <BornAgain-source-dir> <BornAgain-build-dir>
-
-TODO: move the script under ctest control
 """
-import os
-import shutil
-import click
 
+import argparse, os, shutil
 
 def find_files(dir_name):
     """
@@ -62,8 +58,6 @@ def copy_files(source_list, destination_list):
             print(len(found_source), "Problem with ", f)
             missed_files.append(f)
 
-    print("Summary:")
-
     print("Following files have been updated on website:")
     for f in updated_files:
         print(f)
@@ -74,18 +68,6 @@ def copy_files(source_list, destination_list):
             print(f)
 
 
-def update_example_images(website_dir, example_images):
-    """
-    Copies example images from BornAgain build directory to website.
-    """
-    website = os.path.join(website_dir, "content/documentation/examples")
-    source = example_images
-    website_files = get_files(website, ".png")
-    source_files = get_files(source, ".png")
-
-    copy_files(source_files, website_files)
-
-
 def update_example_scripts(website_dir, bornagain_source):
     """
     Copies example scripts from BornAgain to website.
@@ -94,15 +76,28 @@ def update_example_scripts(website_dir, bornagain_source):
     source = os.path.join(bornagain_source, "Examples/Python")
     website_files = get_files(website, ".py")
     source_files = get_files(source, ".py")
-    print(website_files)
+
+    print(f'Update {len(website_files)} scripts ...')
+
+    if verbose:
+        print(website_files)
 
     copy_files(source_files, website_files)
 
 
-@click.command()
-@click.argument("website_source_dir", required=True, type=str)
-@click.argument("ba_source_dir", required=True, type=str)
-@click.argument("ba_build_dir", required=True, type=str)
+def update_example_images(website_dir, example_images):
+    """
+    Copies example images from BornAgain build directory to website.
+    """
+    print("Update images ...")
+
+    website = os.path.join(website_dir, "content/documentation/examples")
+    source = example_images
+    website_files = get_files(website, ".png")
+    source_files = get_files(source, ".png")
+
+    copy_files(source_files, website_files)
+
 
 def update_website(website_source_dir, ba_source_dir, ba_build_dir):
     """
@@ -113,14 +108,26 @@ def update_website(website_source_dir, ba_source_dir, ba_build_dir):
     user_build_dir = os.path.expanduser(ba_build_dir)
     user_image_dir = os.path.join(user_build_dir, "test_output/Functional/PyExamples")
 
-    print("website_dir    : '{}'".format(user_website_dir))
-    print("source_dir     : '{}'".format(user_source_dir))
-    print("build_dir      : '{}'".format(user_build_dir))
-    print("image_dir      : '{}'".format(user_image_dir))
+    if verbose:
+        print("Directories:")
+        print("  website_dir    : '{}'".format(user_website_dir))
+        print("  source_dir     : '{}'".format(user_source_dir))
+        print("  build_dir      : '{}'".format(user_build_dir))
+        print("  image_dir      : '{}'".format(user_image_dir))
 
     update_example_scripts(user_website_dir, user_source_dir)
     update_example_images(user_website_dir, user_image_dir)
 
 
 if __name__ == '__main__':
-    update_website()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-v", "--verbose", action="store_true")
+    parser.add_argument("website_source_dir", type=str)
+    parser.add_argument("ba_source_dir", type=str)
+    parser.add_argument("ba_build_dir", type=str)
+    args = parser.parse_args()
+
+    verbose = args.verbose
+
+    update_website(args.website_source_dir, args.ba_source_dir, args.ba_build_dir)

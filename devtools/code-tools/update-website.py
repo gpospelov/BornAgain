@@ -6,11 +6,8 @@ To update examples on website:
 ctest -R PyExamples
 This will run all existing examples and generate intensity images for web site.
 
-2) Modify variables in this script
-WEBSITE_DIR, BORNAGAIN_SOURCE, EXAMPLE_IMAGES
-
-3) Run this script
-python update-examples.py
+2) Run this script
+python update-examples.py <website-source-dir> <BornAgain-source-dir> <BornAgain-build-dir>
 
 TODO: move the script under ctest control
 """
@@ -19,21 +16,9 @@ import shutil
 import click
 
 
-WEBSITE_DIR = "~/development/BornAgain/BornAgain-website"
-BORNAGAIN_SOURCE = "~/development/BornAgain/BornAgain"
-BUILD_DIR = "~/development/BornAgain/build-release/"
-
-
-def copy_file_to_file(source, destination):
-    """
-    Copies file to another.
-    """
-    shutil.copyfile(source, destination)
-
-
 def find_files(dir_name):
     """
-    Yield recursive list of files in given dir_name
+    Return recursive list of files in given dir_name
     """
     for subdir, dirs, files in os.walk(dir_name):
         for filename in files:
@@ -72,7 +57,7 @@ def copy_files(source_list, destination_list):
         found_source = find_files_with_same_name(source_list, os.path.basename(f))
         if len(found_source) == 1:
             updated_files.append(f)
-            copy_file_to_file(found_source[0], f)
+            shutil.copyfile(found_source[0], f)
         else:
             print(len(found_source), "Problem with ", f)
             missed_files.append(f)
@@ -91,7 +76,7 @@ def copy_files(source_list, destination_list):
 
 def update_example_images(website_dir, example_images):
     """
-    Copies example intensity images from build directory to website directory
+    Copies example images from BornAgain build directory to website.
     """
     website = os.path.join(website_dir, "content/documentation/examples")
     source = example_images
@@ -103,7 +88,7 @@ def update_example_images(website_dir, example_images):
 
 def update_example_scripts(website_dir, bornagain_source):
     """
-    Copies example scripts from BornAgain directory to website directory
+    Copies example scripts from BornAgain to website.
     """
     website = os.path.join(website_dir, "static/files/python")
     source = os.path.join(bornagain_source, "Examples/Python")
@@ -115,22 +100,26 @@ def update_example_scripts(website_dir, bornagain_source):
 
 
 @click.command()
-@click.argument("website_dir", required=False, type=str, default=WEBSITE_DIR)
-@click.argument("bornagain_source", required=False, type=str, default=BORNAGAIN_SOURCE)
-@click.argument("build_dir", required=False, type=str, default=BUILD_DIR)
-def update_website(website_dir, bornagain_source, build_dir):
-    user_website_dir = os.path.expanduser(website_dir)
-    user_bornagain_source = os.path.expanduser(bornagain_source)
-    user_build_dir = os.path.expanduser(build_dir)
-    user_example_images = os.path.join(user_build_dir, "test_output/Functional/PyExamples")
+@click.argument("website_source_dir", required=True, type=str)
+@click.argument("ba_source_dir", required=True, type=str)
+@click.argument("ba_build_dir", required=True, type=str)
 
-    print("website_dir      : '{}'".format(user_website_dir))
-    print("bornagain_source      : '{}'".format(user_bornagain_source))
+def update_website(website_source_dir, ba_source_dir, ba_build_dir):
+    '''
+    Updates example scripts and images on website.
+    '''
+    user_website_dir = os.path.expanduser(website_source_dir)
+    user_source_dir = os.path.expanduser(ba_source_dir)
+    user_build_dir = os.path.expanduser(ba_build_dir)
+    user_image_dir = os.path.join(user_build_dir, "test_output/Functional/PyExamples")
+
+    print("website_dir    : '{}'".format(user_website_dir))
+    print("source_dir     : '{}'".format(user_source_dir))
     print("build_dir      : '{}'".format(user_build_dir))
-    print("example_images      : '{}'".format(user_example_images))
+    print("image_dir      : '{}'".format(user_image_dir))
 
-    update_example_images(user_website_dir, user_example_images)
-    update_example_scripts(user_website_dir, user_bornagain_source)
+    update_example_scripts(user_website_dir, user_source_dir)
+    update_example_images(user_website_dir, user_image_dir)
 
 
 if __name__ == '__main__':

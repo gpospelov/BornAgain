@@ -1,3 +1,17 @@
+//  ************************************************************************************************
+//
+//  BornAgain: simulate and fit scattering at grazing incidence
+//
+//! @file      Tests/GTestWrapper/google_test.h
+//! @brief     Wraps gtest.h, and provides tests for complex number.
+//!
+//! @homepage  http://www.bornagainproject.org
+//! @license   GNU General Public License v3 or higher (see COPYING)
+//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//
+//  ************************************************************************************************
+
 #ifndef BORNAGAIN_TESTS_GTESTWRAPPER_GOOGLE_TEST_H
 #define BORNAGAIN_TESTS_GTESTWRAPPER_GOOGLE_TEST_H
 

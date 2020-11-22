@@ -12,9 +12,11 @@
 //
 //  ************************************************************************************************
 
+#include "Tests/Functional/Std/Run.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
+#include "Tests/Functional/Std/StandardTests.h" // provides F_TEST macros to be executed by gtest
 #include <iostream>
 
 //! This function, called from run, has different implementations in Core/Py/Gui tests:

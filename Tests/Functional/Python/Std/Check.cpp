@@ -22,6 +22,8 @@
 #include <fstream>
 #include <iostream>
 
+namespace {
+
 std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
                                                const ISimulation& direct_simulation) {
     const std::string output_name =
@@ -58,6 +60,10 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
 
     return std::unique_ptr<OutputData<double>>(IntensityDataIOFactory::readOutputData(output_path));
 }
+
+} // namespace
+
+//! Run simulation directly (in C+ core) and through Python export, and compare results.
 
 bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
                      const double limit) {

@@ -22,43 +22,51 @@
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <iostream>
 
+//! Run simulation directly (in C+ core), and compare result with reference data.
+
 bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
                      const double limit) {
+
+    // Run simulation directly.
     const auto result_data = direct_simulation.result().data();
 
     std::unique_ptr<OutputData<double>> reference;
 
-    // Load reference if available
+    // Load reference if available.
     ASSERT(name != "");
     try {
-        reference.reset(IntensityDataIOFactory::readOutputData(
-            FileSystemUtils::jointPath(BATesting::ReferenceDir_Std(), name + ".int.gz")));
+        const std::string refPath = FileSystemUtils::jointPath(
+            BATesting::ReferenceDir_Std(), name + ".int.gz");
+        std::cout << "- reference: " << refPath << "\n";
+        reference.reset(IntensityDataIOFactory::readOutputData(refPath));
     } catch (const std::exception&) {
-        std::cout << "No reference found, but we proceed with the simulation to create a new one\n";
+        std::cerr << "FAILED: cannot read reference\n";
     }
 
     // Compare with reference if available.
-    bool success = false;
     if (reference) {
         std::cout << "- check diff" << std::endl;
-        success = IntensityDataFunctions::checkRelativeDifference(*reference, *result_data, limit);
+        if (IntensityDataFunctions::checkRelativeDifference(*reference, *result_data, limit)) {
+            std::cout << "- success" << std::endl;
+            return true; // regular exit
+        }
+    } else {
+        std::cerr << "FAILED: reference not found\n";
     }
 
-    // Save simulation if different from reference.
-    if (!success) {
-        std::cout << "- failure ..." << std::endl;
-        FileSystemUtils::createDirectories(BATesting::TestOutDir_Std());
-        std::string out_fname =
-            FileSystemUtils::jointPath(BATesting::TestOutDir_Std(), name + ".int.gz");
-        IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
-        std::cout << "New simulation result stored in " << out_fname << "\n"
-                  << "To visualize an intensity map, use " << BABuild::buildBinDir()
-                  << "/plot_intensity_data.py;"
-                  << "   to plot a difference image, use " << BABuild::buildBinDir()
-                  << "/plot_intensity_data_diff.py\n"
-                  << "If the new result is correct, then move it to "
-                  << BATesting::ReferenceDir_Core() << "/\n";
-    }
+    // Save simulation, as it differs from reference.
+    FileSystemUtils::createDirectories(BATesting::TestOutDir_Std());
+    std::string out_fname =
+        FileSystemUtils::jointPath(BATesting::TestOutDir_Std(), name + ".int.gz");
+    IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
+    std::cout << "Notes:\n- to visualize an intensity map, use " << BABuild::buildBinDir()
+              << "/plot_int.py\n"
+              << "- to plot a difference image, use " << BABuild::buildBinDir()
+              << "/plot_diff_int.py\n"
+              << "- if the new simulation result\n"
+              << out_fname << "\n"
+              << "  is correct, then move it to the reference directory\n"
+              << BATesting::ReferenceDir_Std() << "/\n\n";
 
-    return success;
+    return false;
 }

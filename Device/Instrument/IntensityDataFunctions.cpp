@@ -68,15 +68,15 @@ bool IntensityDataFunctions::checkRelativeDifference(const OutputData<double>& d
                                                      const double threshold) {
     const double diff = getRelativeDifference(dat, ref);
     if (diff > threshold) {
-        std::cerr << "  => FAILED: relative deviation of dat from ref is " << diff
+        std::cerr << "FAILED: relative deviation of dat from ref is " << diff
                   << ", above given threshold " << threshold << "\n";
         return false;
     }
     if (diff)
-        std::cerr << "  => OK: relative deviation of dat from ref is " << diff
+        std::cerr << "- OK: relative deviation of dat from ref is " << diff
                   << ", within given threshold " << threshold << "\n";
     else
-        std::cout << "  => OK: dat = ref\n";
+        std::cout << "- OK: dat = ref\n";
     return true;
 }
 

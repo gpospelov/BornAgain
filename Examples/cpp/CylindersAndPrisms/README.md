@@ -40,4 +40,4 @@ cd <build_dir>
 -------------------------------------------------------------------------------
 5) Inspect result
 -------------------------------------------------------------------------------
-<bornagain>/Examples/python/utils/plot_intensity_data.py result.int
+<bornagain>/Examples/python/utils/plot_int.py result.int

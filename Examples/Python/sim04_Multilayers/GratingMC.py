@@ -70,12 +70,14 @@ def run_simulation():
     """
     simulation = get_simulation()
     simulation.setSample(get_sample())
-    simulation.setTerminalProgressMonitor()
+    if not "__no_terminal__" in globals():
+        simulation.setTerminalProgressMonitor()
     simulation.runSimulation()
     return simulation.result()
 
 
 if __name__ == '__main__':
+    interactive = True
     result = run_simulation().histogram2d()
     ba.plot_histogram(result, cmap='jet', aspect='auto')
 

@@ -55,7 +55,8 @@ def get_offspec_simulation():
 
     # create OffSpecular simulation
     simulation = ba.OffSpecSimulation()
-    simulation.setTerminalProgressMonitor()
+    if not "__no_terminal__" in globals():
+        simulation.setTerminalProgressMonitor()
 
     # define detector parameters
     n_alpha, alpha_min, alpha_max = 300, 0.0*deg, 4.0*deg

@@ -62,7 +62,8 @@ def run_simulation():
     """
     simulation = get_simulation()
     simulation.setSample(get_sample())
-    simulation.setTerminalProgressMonitor()
+    if not "__no_terminal__" in globals():
+        simulation.setTerminalProgressMonitor()
     simulation.runSimulation()
     return simulation.result()
 

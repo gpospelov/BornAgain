@@ -59,10 +59,10 @@ def update_one_file(source_list, dest):
     """
     likely_sources = find_files_with_same_name(source_list, os.path.basename(dest))
     if len(likely_sources) == 0:
-        log2(f'! error: file {dest}\n    not found in source dir')
+        log2(f'! file {dest}\n    not found in source dir (ERROR)')
         return 2
     if len(likely_sources) > 1:
-        log2(f'! error: file {dest}\n    has several possible sources:')
+        log2(f'! {dest}\n    has {len(likely_sources)} possible sources (ERROR):')
         for f in likely_sources:
             log2(f'  - {f}')
         return 2
@@ -126,7 +126,7 @@ def update_website(website_source_dir, ba_source_dir, ba_build_dir):
     # Update images
     update_all_files_of_one_type(
         os.path.join(ba_build_dir, "test_output/PyExamples"),
-        os.path.join(website_dirpath, "content/documentation/examples"),
+        os.path.join(website_dirpath, "static/files/simulated"),
         '.png')
 
 

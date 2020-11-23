@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-'''
+"""
 Plots intensity data difference stored in BornAgain "*.int" or "*.int.gz" format
 Usage: python plot_diff_int.py reference.int.gz new.int.gz
-'''
+"""
 
 import numpy as np
 import bornagain as ba

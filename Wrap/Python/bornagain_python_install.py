@@ -156,7 +156,7 @@ def generate_setup_py(destination_dir):
     """
     Generates setup.py file in BornAgain's bundle directory
     """
-    text = '''\
+    text = """\
 # BornAgain setup.py to install BornAgain libraries into Python's site-packages
 # Usage: python setup.py install
 
@@ -182,7 +182,7 @@ setup(name='bornagain',
     data_files = datafiles,
     zip_safe=False,
     )
-'''.format(BORNAGAIN_VERSION)
+""".format(BORNAGAIN_VERSION)
     with open(os.path.join(destination_dir, "setup.py"), "w") as fout:
         fout.write(text)
         fout.close()

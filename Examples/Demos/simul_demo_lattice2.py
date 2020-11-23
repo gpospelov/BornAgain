@@ -1,6 +1,6 @@
-'''
+"""
 Simulation demo: Cylinder form factor without interference
-'''
+"""
 
 import numpy
 import matplotlib

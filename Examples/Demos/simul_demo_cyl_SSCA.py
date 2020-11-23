@@ -1,6 +1,6 @@
-'''
+"""
 Simulation demo: Size Space Coupling Approximation
-'''
+"""
 
 import numpy
 import matplotlib

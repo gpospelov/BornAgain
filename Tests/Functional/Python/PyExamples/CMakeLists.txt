@@ -14,7 +14,7 @@ file(GLOB fit_examples
 set(examples ${sim_examples} ${fit_examples})
 
 set(test_script ${output_dir}/check_functionality.py)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_functionality.py ${test_script} @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_functionality.in.py ${test_script} @ONLY)
 
 foreach(example_path ${examples})
     get_filename_component(example_name ${example_path} NAME_WE)

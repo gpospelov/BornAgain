@@ -40,8 +40,9 @@ def exec_full(filepath):
     global_namespace = {
         "__file__": filepath,
         "__name__": "__main__",
+        "__no_terminal__": True
     }
-    sys.argv = []  # FIXME after cleanup in plot_utils
+    sys.argv = []  # TODO: FIXME after cleanup in plot_utils
     with open(filepath, 'rb') as file:
         exec(compile(file.read(), filepath, 'exec'), global_namespace)
 
@@ -53,11 +54,12 @@ def run_example(filename):
     if not os.path.exists(filename):
         raise Exception("Example script '" + filename + "' not found")
 
-    print("Input script: " + filename)
+    print("Input script: " + filename, flush=True)
 
     fig = get_figure(filename)
 
     exec_full(filename)
+    print("Input script completed.", flush=True)
 
     plot_file_name = os.path.join(
         output_dir,
@@ -76,8 +78,6 @@ def run_example(filename):
 if __name__ == '__main__':
 
     if len(sys.argv) != 2:
-        exit(
-            "Auxiliary script check_functionality called with wrong number of arguments"
-        )
+        exit("check_functionality called with wrong number of arguments")
 
     run_example(sys.argv[1])

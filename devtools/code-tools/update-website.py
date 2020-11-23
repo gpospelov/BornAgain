@@ -24,7 +24,7 @@ def log2(msg):
 
 def find_files(dir_name):
     """
-    Return recursive list of files in given dir_name
+    Return recursive list of files in given dir_name.
     """
     for subdir, dirs, files in os.walk(dir_name):
         for filename in files:
@@ -37,9 +37,11 @@ def get_files(dir_name, extension):
     """
     result = []
     for subdir, filename in find_files(dir_name):
-            name, ext = os.path.splitext(filename)
-            if ext in extension:
-                result.append(os.sep.join([subdir, filename]))
+        if os.path.basename(subdir)=="utils":
+            continue
+        name, ext = os.path.splitext(filename)
+        if ext in extension:
+            result.append(os.sep.join([subdir, filename]))
     return result
 
 
@@ -55,7 +57,8 @@ def find_files_with_same_name(filename_list, name_to_find):
 def update_one_file(source_list, dest):
     """
     Update destination file 'dest', using a suitable source file from 'source_dir'.
-    Returns 2=error, 1=modified, 0=unchanged
+    Returns 2=error, 1=modified, 0=unchanged.
+    On succes (0 or 1), the source file is removed from source_list.
     """
     likely_sources = find_files_with_same_name(source_list, os.path.basename(dest))
     if len(likely_sources) == 0:
@@ -67,6 +70,7 @@ def update_one_file(source_list, dest):
             log2(f'  - {f}')
         return 2
     src = likely_sources[0]
+    source_list.remove(src)
     if filecmp.cmp(src, dest):
         log(f'. {dest}\n    is same as {src}')
         return 0
@@ -102,6 +106,11 @@ def update_all_files_of_one_type(source_dir, dest_dir, extension):
             nError += 1
 
     log2(f'=> {nUnchanged} files unchanged, {nModified} files updated, {nError} errors')
+
+    if len(source_list)>0:
+        log2(f'!! WARNING: {len(source_list)} source files are unused')
+        for src in source_list:
+            log(f'  unused: {src}')
 
 
 def update_website(website_source_dir, ba_source_dir, ba_build_dir):

@@ -37,9 +37,11 @@ def get_files(dir_name, extension):
     """
     result = []
     for subdir, filename in find_files(dir_name):
-            name, ext = os.path.splitext(filename)
-            if ext in extension:
-                result.append(os.sep.join([subdir, filename]))
+        if os.path.basename(subdir)=="utils":
+            continue
+        name, ext = os.path.splitext(filename)
+        if ext in extension:
+            result.append(os.sep.join([subdir, filename]))
     return result
 
 

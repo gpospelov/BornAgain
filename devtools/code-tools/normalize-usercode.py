@@ -20,6 +20,8 @@ def normalize_text(ti, fname):
 
 def normalize_file(fname, inplace):
     try:
+        print(f'FILE {fname}:')
+
         # read file, normalize
         with open(fname, 'r') as f:
             ti = f.read()
@@ -34,18 +36,18 @@ def normalize_file(fname, inplace):
                 f.write(t)
             with open("out2.py", 'w') as f:
                 f.write(t2)
-            exit(f'FILE {fname}: BUG - changes under second normalization, see files out1.py and out2.py')
+            exit(f'=> BUG - changes under second normalization, see files out1.py and out2.py')
 
         # output
         if inplace:
             with open(fname, 'w') as f:
                 f.write(t)
-            print(f'FILE {fname}: NORMALIZED')
+            print(f'=> NORMALIZED')
         else:
             print(t)
         return 1
     except Exception as e:
-        print(f'FILE {fname}: FAILED - {e}')
+        print(f'=> FAILED - {e}')
         return 2
 
 

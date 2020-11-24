@@ -24,13 +24,13 @@ class MultiLayer;
 //! @ingroup materials
 
 //! Calculate average material profile for given multilayer
-std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer, int n_points, double z_min,
+std::vector<complex_t> materialProfileSLD(const MultiLayer& multilayer, int n_points, double z_min,
                                        double z_max);
 
 //! Get default z limits for generating a material profile
-std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer& multilayer);
+std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer& multilayer);
 
-//! Generate z values (equidistant) for use in MaterialProfile
-std::vector<double> GenerateZValues(int n_points, double z_min, double z_max);
+//! Generate z values (equidistant) for use in materialProfileSLD
+std::vector<double> generateZValues(int n_points, double z_min, double z_max);
 
 #endif // BORNAGAIN_SAMPLE_PROCESSED_MULTILAYERFUNCS_H

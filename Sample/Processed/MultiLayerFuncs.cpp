@@ -17,17 +17,17 @@
 #include "Sample/Processed/ProfileHelper.h"
 #include "Sample/RT/SimulationOptions.h"
 
-std::vector<complex_t> MaterialProfile(const MultiLayer& multilayer, int n_points, double z_min,
-                                       double z_max) {
+std::vector<complex_t> materialProfileSLD(const MultiLayer& multilayer, int n_points, double z_min,
+                                          double z_max) {
     SimulationOptions options;
     options.setUseAvgMaterials(true);
     ProcessedSample sample(multilayer, options);
     ProfileHelper helper(sample);
-    std::vector<double> z_values = GenerateZValues(n_points, z_min, z_max);
+    std::vector<double> z_values = generateZValues(n_points, z_min, z_max);
     return helper.calculateProfile(z_values);
 }
 
-std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer& multilayer) {
+std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer& multilayer) {
     SimulationOptions options;
     options.setUseAvgMaterials(true);
     ProcessedSample sample(multilayer, options);
@@ -35,7 +35,7 @@ std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer& multila
     return helper.defaultLimits();
 }
 
-std::vector<double> GenerateZValues(int n_points, double z_min, double z_max) {
+std::vector<double> generateZValues(int n_points, double z_min, double z_max) {
     std::vector<double> result;
     if (n_points < 1)
         return result;

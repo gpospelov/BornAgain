@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Instrument/PyFmt2.cpp
+//! @file      Core/Export/PyFmt2.cpp
 //! @brief     Implements functions from namespace pyfmt2.
 //!
 //! @homepage  http://www.bornagainproject.org

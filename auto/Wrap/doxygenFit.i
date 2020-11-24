@@ -3344,9 +3344,13 @@ Copy constructor for functor based on ROOT::Math::IMultiGenFunction
 ";
 
 %feature("docstring")  ROOT::Math::Functor::Clone "ImplBase* ROOT::Math::Functor::Clone() const
+
+Clone a function. Each derived class must implement their version of the Clone method 
 ";
 
 %feature("docstring")  ROOT::Math::Functor::NDim "unsigned int ROOT::Math::Functor::NDim() const
+
+Retrieve the dimension of the function 
 ";
 
 
@@ -3534,7 +3538,7 @@ C++ includes: GenericFunction.h
 // File: classTMVA_1_1GeneticAlgorithm.xml
 %feature("docstring") TMVA::GeneticAlgorithm "";
 
-%feature("docstring")  TMVA::GeneticAlgorithm::GeneticAlgorithm "TMVA::GeneticAlgorithm::GeneticAlgorithm(IFitterTarget &target, Int_t populationSize, const std::vector< TMVA::Interval * > &ranges, UInt_t seed=0)
+%feature("docstring")  TMVA::GeneticAlgorithm::GeneticAlgorithm "TMVA::GeneticAlgorithm::GeneticAlgorithm(IFitterTarget &target, Int_t populationSize, const std::vector< TMVA::Interval *> &ranges, UInt_t seed=0)
 ";
 
 %feature("docstring")  TMVA::GeneticAlgorithm::~GeneticAlgorithm "virtual TMVA::GeneticAlgorithm::~GeneticAlgorithm()
@@ -3785,7 +3789,7 @@ Returns map of string representing different minimizer statuses.
 // File: classTMVA_1_1GeneticPopulation.xml
 %feature("docstring") TMVA::GeneticPopulation "";
 
-%feature("docstring")  TMVA::GeneticPopulation::GeneticPopulation "TMVA::GeneticPopulation::GeneticPopulation(const std::vector< TMVA::Interval * > &ranges, Int_t size, UInt_t seed=0)
+%feature("docstring")  TMVA::GeneticPopulation::GeneticPopulation "TMVA::GeneticPopulation::GeneticPopulation(const std::vector< TMVA::Interval *> &ranges, Int_t size, UInt_t seed=0)
 ";
 
 %feature("docstring")  TMVA::GeneticPopulation::~GeneticPopulation "virtual TMVA::GeneticPopulation::~GeneticPopulation()
@@ -5438,11 +5442,6 @@ Evaluate all the vector of function derivatives (gradient) at a point x. Derived
 Optimized method to evaluate at the same time the function value and derivative at a point x. Often both value and derivatives are needed and it is often more efficient to compute them at the same time. Derived class should implement this method if performances play an important role and if it is faster to evaluate value and derivative at the same time 
 ";
 
-%feature("docstring")  ROOT::Math::IGradientFunctionMultiDimTempl::NDim "virtual unsigned int ROOT::Math::IBaseFunctionMultiDimTempl< T >::NDim() const=0
-
-Retrieve the dimension of the function 
-";
-
 
 // File: classROOT_1_1Math_1_1IGradientFunctionOneDim.xml
 %feature("docstring") ROOT::Math::IGradientFunctionOneDim "
@@ -5957,7 +5956,7 @@ Evaluate partial derivative using cached parameter values (multi-dim like interf
 
 The Kahan compensate summation algorithm significantly reduces the numerical error in the total obtained by adding a sequence of finite precision floating point numbers. This is done by keeping a separate running compensation (a variable to accumulate small errors).
  The intial values of the result and the correction are set to the default value of the type it hass been instantiated with.
-Examples:
+ ####Examples:
 
 C++ includes: Util.h
 ";
@@ -7976,73 +7975,19 @@ C++ includes: MinuitParameter.h
 // File: classROOT_1_1Math_1_1MixMaxEngine.xml
 %feature("docstring") ROOT::Math::MixMaxEngine "
 
-MixMaxEngine is a wrapper class for the MIXMAX Random number generator.
-     MIXMAX is a matrix-recursive random number generator introduced by
-     G. Savvidy.
+MixMaxEngine is a wrapper class for the MIXMAX Random number generator. MIXMAX is a matrix-recursive random number generator introduced by G. Savvidy.
 
-The real implementation of the generator, written in C, is in the mixmax.h and mixmax.cxx files.
-     This generator code is available also at hepforge: http://mixmax.hepforge.org
-     The MIXMAX code has been created and developed by Konstantin Savvidy and it is 
-     released under GNU Lesser General Public License v3.
+The real implementation of the generator, written in C, is in the  mixmax.h and mixmax.cxx files. This generator code is available also at hepforge: http://mixmax.hepforge.org The MIXMAX code has been created and developed by Konstantin Savvidy and it is released under GNU Lesser General Public License v3.
 
-This wrapper class provides 3 different variants of MIXMAX according to the template para extra parameter N. 
-     The extra parameter, `SkipNumber`, is used to perform additional iterations of the generator before returning the random numbers. 
-       For example, when `SkipNumber = 2`, the generator will have two extra iterations that will be discarder.
+This wrapper class provides 3 different variants of MIXMAX according to the template para extra parameter N. The extra parameter,  SkipNumber, is used to perform additional iterations of the generator before returning the random numbers. For example, when  SkipNumber = 2, the generator will have two extra iterations that will be discarder.
 
-MIXMAX with N = 240. This is a new version of  the generator (version 2.0beta)  described in the 
-        <a href=\"http://dx.doi.org/10.1016/j.chaos.2016.05.003\">2016 paper</a> (3rd reference), with 
-        special number $s=487013230256099140$, $m=2^{51}+1$ and having a period of $10^{4389}$.
+MIXMAX with N = 240. This is a new version of the generator (version 2.0beta) described in the 2016 paper (3rd reference), with special number $s=487013230256099140$, $m=2^{51}+1$ and having a period of $10^{4389}$.
 
 MIXMAX with N = 17, from the 2.0beta version with $s=0$ and $m=2^{36}+1$. The period of the generator is $10^{294}$.
 
-MIXMAX with N = 256 from the 1.0 version. The period is (for `SkipNumber=0`) $10^{4682}$. 
-        For this generator we recommend in ROOT using a default value of `SkipNumber=2, while for the previous two generators 
-        skipping is not needed.
+MIXMAX with N = 256 from the 1.0 version. The period is (for  SkipNumber=0) $10^{4682}$. For this generator we recommend in  ROOT using a default value of `SkipNumber=2, while for the previous two generators skipping is not needed.
 
-This table describes the properties of the MIXMAX generators. MIXMAX is a genuine 61 bit generator on the Galois field GF[p], where
-       $p=2^{61}-1$ is the Mersenne prime number.
-      The MIXMAX generators with these parameters pass all of the BigCrush
-      tests in the <a href=\"http://simul.iro.umontreal.ca/testu01/tu01.html\">TestU01 suite</a\\\\>.
-
-\\\\begin{table}[h]
-   \\\\centering
-     \\\\begin{tabular}{@{} rrlcrr @{}} 
-     
-      \\\\toprule
-      Dimension &~ Entropy & Decorrelation Time &  Iteration Time  & Relaxation Time                                 &Period  q\\\\\\\\
-      N     &~~ $~h(T)$   &~~~ $\\\\tau_0 = {1\\\\over h(T) 2N }$ & t & $\\\\tau ={1\\\\over h(T) \\\\ln {1\\\\over \\\\delta v_0}}$ &  $  \\\\log_{10} (q)$  \\\\\\\\ % Crush
-      \\\\midrule
-      256    & 194   & ~~~~~0.000012     & 1   & 95.00  &   4682\\\\footnote{full
-      period is not confirmed}  \\\\\\\\
-      \\\\hline
-         8   & 220   & $~~~~~0.00028$    & 1   & 1.54   &    129  \\\\\\\\
-        17   & 374   & ~~~~~0.000079     & 1   & 1.92   &    294  \\\\\\\\
-       240   & 8679  & ~~~~~0.00000024   & 1   & 1.17   &   4389  \\\\\\\\
-      \\\\bottomrule
-   \\\\end{tabular}
-     \\\\caption{The entropy $h(T)$, decorrelation time $\\\\tau_0$ 
-       decorrelation time, relaxation time $\\\\tau $ and period of the MIXMAX generator
-       \\\\cite{savvidy2017ex,savvidy2017cl},
-       expressed in units of the iteration time $t$, which is
-       normalised to 1.
-       Clearly $\\\\tau_0~ < t ~< \\\\tau $.
-}
-\\\\end{table}
-     The References for MIXMAX are
-
-G.K.Savvidy and N.G.Ter-Arutyunian, *On the Monte Carlo simulation of physical systems,
-     J.Comput.Phys. 97, 566 (1991)*;
-     Preprint EPI-865-16-86, Yerevan, Jan. 1986
-
-K.Savvidy, *The MIXMAX random number generator*, 
-     Comp. Phys. Commun. 196 (2015), pp 161–165
-     http://dx.doi.org/10.1016/j.cpc.2015.06.003
-
-K.Savvidy and G.Savvidy, *Spectrum and Entropy of C-systems MIXMAX Random Number Generator*,
-     Chaos, Solitons & Fractals, Volume 91, (2016) pp. 33–38
-     http://dx.doi.org/10.1016/j.chaos.2016.05.003
-
-@ingroup Random
+This table describes the properties of the MIXMAX generators. MIXMAX is a genuine 61 bit generator on the Galois field GF[p], where $p=2^{61}-1$ is the Mersenne prime number. The MIXMAX generators with these parameters pass all of the BigCrush tests in the TestU01 suite</a>.   The References for MIXMAX are  G.K.Savvidy and N.G.Ter-Arutyunian, *On the Monte Carlo simulation of physical systems, J.Comput.Phys. 97, 566 (1991)*; Preprint EPI-865-16-86, Yerevan, Jan. 1986  K.Savvidy, *The MIXMAX random number generator*, Comp. Phys. Commun. 196 (2015), pp 161–165 http://dx.doi.org/10.1016/j.cpc.2015.06.003  K.Savvidy and G.Savvidy, *Spectrum and Entropy of C-systems MIXMAX Random Number Generator*, Chaos, Solitons & Fractals, Volume 91, (2016) pp. 33–38 http://dx.doi.org/10.1016/j.chaos.2016.05.003@endverbatim
 
 C++ includes: MixMaxEngine.h
 ";
@@ -8660,12 +8605,12 @@ override Minuit's own determination
 ";
 
 
-// File: classROOT_1_1Minuit2_1_1BasicMinimumError_1_1MnMadePosDef.xml
-%feature("docstring") ROOT::Minuit2::BasicMinimumError::MnMadePosDef "";
-
-
 // File: classROOT_1_1Minuit2_1_1MinimumError_1_1MnMadePosDef.xml
 %feature("docstring") ROOT::Minuit2::MinimumError::MnMadePosDef "";
+
+
+// File: classROOT_1_1Minuit2_1_1BasicMinimumError_1_1MnMadePosDef.xml
+%feature("docstring") ROOT::Minuit2::BasicMinimumError::MnMadePosDef "";
 
 
 // File: classROOT_1_1Minuit2_1_1MnMigrad.xml
@@ -8871,12 +8816,12 @@ ask for  MinosError (Lower + Upper) can be printed via std::cout
 ";
 
 
-// File: classROOT_1_1Minuit2_1_1MinimumError_1_1MnNotPosDef.xml
-%feature("docstring") ROOT::Minuit2::MinimumError::MnNotPosDef "";
-
-
 // File: classROOT_1_1Minuit2_1_1BasicMinimumError_1_1MnNotPosDef.xml
 %feature("docstring") ROOT::Minuit2::BasicMinimumError::MnNotPosDef "";
+
+
+// File: classROOT_1_1Minuit2_1_1MinimumError_1_1MnNotPosDef.xml
+%feature("docstring") ROOT::Minuit2::MinimumError::MnNotPosDef "";
 
 
 // File: classROOT_1_1Minuit2_1_1MnParabola.xml
@@ -12100,12 +12045,6 @@ C++ includes: PlanCases.h
 %feature("docstring")  TRandom2::SetSeed "virtual void TRandom2::SetSeed(ULong_t seed=0)
 ";
 
-%feature("docstring")  TRandom2::Rndm "virtual Double_t TRandom::Rndm()
-";
-
-%feature("docstring")  TRandom2::Rndm "virtual Double_t TRandom::Rndm(Int_t)
-";
-
 
 // File: classTRandom3.xml
 %feature("docstring") TRandom3 "";
@@ -12129,12 +12068,6 @@ C++ includes: PlanCases.h
 ";
 
 %feature("docstring")  TRandom3::SetSeed "virtual void TRandom3::SetSeed(ULong_t seed=0)
-";
-
-%feature("docstring")  TRandom3::Rndm "virtual Double_t TRandom::Rndm()
-";
-
-%feature("docstring")  TRandom3::Rndm "virtual Double_t TRandom::Rndm(Int_t)
 ";
 
 
@@ -12174,8 +12107,6 @@ Class describing the unbinned data sets (just x coordinates values) of any dimen
 When the data are copying in the number of points can be set later (or re-set) using Initialize and
        the data are inserted one by one using the Add method.
        It is mandatory to set the size before using the Add method.
-
-@ingroup  FitData
 
 C++ includes: UnBinData.h
 ";
@@ -12522,12 +12453,14 @@ Constructor a wrapped function from a pointer to a callable object, the function
 
 %feature("docstring")  ROOT::Math::WrappedParamFunction::WrappedParamFunction "ROOT::Math::WrappedParamFunction< FuncPtr >::WrappedParamFunction(FuncPtr func, unsigned int dim, Iterator begin, Iterator end)
 
-Constructor a wrapped function from a pointer to a callable object, the function dimension and an iterator specifying begin and end of parameters 
+Constructor a wrapped function from a non-const pointer to a callable object, the function dimension and number of parameters which are set to zero by default This constructor is needed in the case FuncPtr is a std::unique_ptr which has a copy ctor taking non const objects Constructor a wrapped function from a pointer to a callable object, the function dimension and an iterator specifying begin and end of parameters 
 ";
 
 %feature("docstring")  ROOT::Math::WrappedParamFunction::Clone "IMultiGenFunction* ROOT::Math::WrappedParamFunction< FuncPtr >::Clone() const
 
-clone the function 
+clone the function
+
+Constructor a wrapped function from a non - const pointer to a callable object, the function dimension and an iterator specifying begin and end of parameters. This constructor is needed in the case FuncPtr is a std::unique_ptr which has a copy ctor taking non const objects 
 ";
 
 %feature("docstring")  ROOT::Math::WrappedParamFunction::Parameters "const double* ROOT::Math::WrappedParamFunction< FuncPtr >::Parameters() const
@@ -12606,43 +12539,45 @@ Return the number of Parameters
 ";
 
 %feature("docstring")  ROOT::Math::WrappedParamFunctionGen::NDim "unsigned int ROOT::Math::WrappedParamFunctionGen< FuncPtr >::NDim() const
+
+Retrieve the dimension of the function 
 ";
 
 
-// File: namespace_0d201.xml
+// File: namespace_0D201.xml
 
 
-// File: namespace_0d203.xml
+// File: namespace_0D203.xml
 
 
-// File: namespace_0d211.xml
+// File: namespace_0D211.xml
 
 
-// File: namespace_0d215.xml
+// File: namespace_0D215.xml
 
 
-// File: namespace_0d217.xml
+// File: namespace_0D217.xml
 
 
-// File: namespace_0d229.xml
+// File: namespace_0D229.xml
 
 
-// File: namespace_0d243.xml
+// File: namespace_0D243.xml
 
 
-// File: namespace_0d245.xml
+// File: namespace_0D245.xml
 
 
-// File: namespace_0d253.xml
+// File: namespace_0D253.xml
 
 
-// File: namespace_0d263.xml
+// File: namespace_0D263.xml
 
 
-// File: namespace_0d280.xml
+// File: namespace_0D280.xml
 
 
-// File: namespace_0d65.xml
+// File: namespace_0D65.xml
 
 
 // File: namespaceMath.xml

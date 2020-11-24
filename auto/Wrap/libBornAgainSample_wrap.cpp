@@ -6808,8 +6808,6 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Sample/Correlations/FTDistributions2D.h"
 #include "Sample/Correlations/IPeakShape.h"
-#include "Sample/Scattering/IFormFactorDecorator.h"
-#include "Sample/Scattering/Rotations.h"
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Sample/HardParticle/FormFactorBar.h"
 #include "Sample/HardParticle/FormFactorBox.h"
@@ -6858,9 +6856,12 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Sample/Particle/SlicedParticle.h"
+#include "Sample/Processed/MultiLayerFuncs.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/Scattering/IFormFactorDecorator.h"
 #include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/Slice/LayerInterface.h"
 #include "Sample/Slice/LayerRoughness.h"
 #include "Sample/SoftParticle/FormFactorGauss.h"
@@ -56245,6 +56246,119 @@ SWIGINTERN PyObject *LayerRoughness_swiginit(PyObject *SWIGUNUSEDPARM(self), PyO
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_materialProfileSLD(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MultiLayer *arg1 = 0 ;
+  int arg2 ;
+  double arg3 ;
+  double arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  PyObject *swig_obj[4] ;
+  std::vector< complex_t,std::allocator< complex_t > > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "materialProfileSLD", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_MultiLayer,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "materialProfileSLD" "', argument " "1"" of type '" "MultiLayer const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "materialProfileSLD" "', argument " "1"" of type '" "MultiLayer const &""'"); 
+  }
+  arg1 = reinterpret_cast< MultiLayer * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "materialProfileSLD" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "materialProfileSLD" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "materialProfileSLD" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = materialProfileSLD((MultiLayer const &)*arg1,arg2,arg3,arg4);
+  resultobj = swig::from(static_cast< std::vector< std::complex< double >,std::allocator< std::complex< double > > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_defaultMaterialProfileLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MultiLayer *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::pair< double,double > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_MultiLayer,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "defaultMaterialProfileLimits" "', argument " "1"" of type '" "MultiLayer const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "defaultMaterialProfileLimits" "', argument " "1"" of type '" "MultiLayer const &""'"); 
+  }
+  arg1 = reinterpret_cast< MultiLayer * >(argp1);
+  result = defaultMaterialProfileLimits((MultiLayer const &)*arg1);
+  resultobj = swig::from(static_cast< std::pair< double,double > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_generateZValues(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  int arg1 ;
+  double arg2 ;
+  double arg3 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "generateZValues", 3, 3, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "generateZValues" "', argument " "1"" of type '" "int""'");
+  } 
+  arg1 = static_cast< int >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "generateZValues" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "generateZValues" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = generateZValues(arg1,arg2,arg3);
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_new_Layer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   SwigValueWrapper< Material > arg1 ;
@@ -73332,6 +73446,27 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_LayerRoughness", _wrap_delete_LayerRoughness, METH_O, "delete_LayerRoughness(LayerRoughness self)"},
 	 { "LayerRoughness_swigregister", LayerRoughness_swigregister, METH_O, NULL},
 	 { "LayerRoughness_swiginit", LayerRoughness_swiginit, METH_VARARGS, NULL},
+	 { "materialProfileSLD", _wrap_materialProfileSLD, METH_VARARGS, "\n"
+		"materialProfileSLD(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t\n"
+		"std::vector<complex_t> materialProfileSLD(const MultiLayer &multilayer, int n_points, double z_min, double z_max)\n"
+		"\n"
+		"Calculate average material profile for given multilayer \n"
+		"\n"
+		""},
+	 { "defaultMaterialProfileLimits", _wrap_defaultMaterialProfileLimits, METH_O, "\n"
+		"defaultMaterialProfileLimits(MultiLayer multilayer) -> pvacuum_double_t\n"
+		"std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer &multilayer)\n"
+		"\n"
+		"Get default z limits for generating a material profile. \n"
+		"\n"
+		""},
+	 { "generateZValues", _wrap_generateZValues, METH_VARARGS, "\n"
+		"generateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t\n"
+		"std::vector<double> generateZValues(int n_points, double z_min, double z_max)\n"
+		"\n"
+		"Generate z values (equidistant) for use in materialProfileSLD. \n"
+		"\n"
+		""},
 	 { "new_Layer", _wrap_new_Layer, METH_VARARGS, "\n"
 		"Layer(Material material, double thickness=0)\n"
 		"Layer::Layer(Material material, double thickness=0)\n"

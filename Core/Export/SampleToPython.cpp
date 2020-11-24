@@ -36,6 +36,8 @@
 #include <map>
 #include <set>
 
+using pyfmt::indent;
+
 std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer) {
     initLabels(multilayer);
     return defineGetSample();
@@ -593,10 +595,6 @@ std::string SampleToPython::defineMultiLayers() const {
         result << indent() << "return " << it->second << "\n";
     }
     return result.str();
-}
-
-std::string SampleToPython::indent() const {
-    return "    ";
 }
 
 void SampleToPython::setRotationInformation(const IParticle* particle, std::string name,

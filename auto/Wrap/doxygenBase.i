@@ -1219,7 +1219,7 @@ Creates a new clipped axis.
 ";
 
 
-// File: namespace_0d16.xml
+// File: namespace_0D16.xml
 
 
 // File: namespacealgo.xml

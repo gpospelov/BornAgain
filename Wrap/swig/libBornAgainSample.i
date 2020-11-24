@@ -57,8 +57,6 @@
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Sample/Correlations/FTDistributions2D.h"
 #include "Sample/Correlations/IPeakShape.h"
-#include "Sample/Scattering/IFormFactorDecorator.h"
-#include "Sample/Scattering/Rotations.h"
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Sample/HardParticle/FormFactorBar.h"
 #include "Sample/HardParticle/FormFactorBox.h"
@@ -107,9 +105,12 @@
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Sample/Particle/SlicedParticle.h"
+#include "Sample/Processed/MultiLayerFuncs.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/Scattering/IFormFactorDecorator.h"
 #include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/Slice/LayerInterface.h"
 #include "Sample/Slice/LayerRoughness.h"
 #include "Sample/SoftParticle/FormFactorGauss.h"
@@ -119,7 +120,6 @@
 %}
 
 %include "fromBase.i"
-
 %include "fromParam.i"
 
 %newobject InterferenceFunction2DLattice::createSquare(double lattice_length, double xi);
@@ -154,7 +154,6 @@
 %include "Sample/Scattering/ISample.h"
 %include "Sample/Scattering/IFormFactor.h"
 %include "Sample/Scattering/IBornFF.h"
-
 %include "Sample/Scattering/IFormFactorDecorator.h"
 %include "Sample/Scattering/Rotations.h"
 
@@ -192,6 +191,7 @@
 %include "Sample/Aggregate/ParticleLayout.h"
 
 %include "Sample/Slice/LayerRoughness.h"
+%include "Sample/Processed/MultiLayerFuncs.h"
 
 %include "Sample/Multilayer/Layer.h"
 %include "Sample/Multilayer/MultiLayer.h"
@@ -278,3 +278,23 @@
     }
 
 };
+
+%pythoncode %{
+    def materialProfile(multilayer, n_points=400, z_min=None, z_max=None):
+        """
+        Creates a material profile from the given multilayer. If no limits are given,
+        it will provide sensible default values, considering the included particles and
+        interface roughnesses.
+        :param multilayer: bornagain.MultiLayer object
+        :param n_points: number of points to generate
+        :param z_min: starting value for z
+        :param z_max: ending value for z
+        :return: numpy arrays containing z positions and the complex material values in those positions
+        """
+        def_z_min, def_z_max = defaultMaterialProfileLimits(multilayer)
+        z_min = def_z_min if z_min is None else z_min
+        z_max = def_z_max if z_max is None else z_max
+        z_points = generateZValues(n_points, z_min, z_max)
+        material_values = materialProfileSLD(multilayer, n_points, z_min, z_max)
+        return (z_points, material_values)
+%}

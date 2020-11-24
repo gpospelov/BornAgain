@@ -3098,66 +3098,67 @@ namespace Swig {
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_AttLimits swig_types[0]
-#define SWIGTYPE_p_IMinimizer swig_types[1]
-#define SWIGTYPE_p_MinimizerCatalog swig_types[2]
-#define SWIGTYPE_p_MinimizerFactory swig_types[3]
-#define SWIGTYPE_p_MinimizerInfo swig_types[4]
-#define SWIGTYPE_p_PyCallback swig_types[5]
-#define SWIGTYPE_p_RealLimits swig_types[6]
-#define SWIGTYPE_p_allocator_type swig_types[7]
-#define SWIGTYPE_p_char swig_types[8]
-#define SWIGTYPE_p_const_iterator swig_types[9]
-#define SWIGTYPE_p_corr_matrix_t swig_types[10]
-#define SWIGTYPE_p_difference_type swig_types[11]
-#define SWIGTYPE_p_fcn_residual_t swig_types[12]
-#define SWIGTYPE_p_fcn_scalar_t swig_types[13]
-#define SWIGTYPE_p_first_type swig_types[14]
-#define SWIGTYPE_p_int swig_types[15]
-#define SWIGTYPE_p_iterator swig_types[16]
-#define SWIGTYPE_p_key_type swig_types[17]
-#define SWIGTYPE_p_long_long swig_types[18]
-#define SWIGTYPE_p_mapped_type swig_types[19]
-#define SWIGTYPE_p_mumufit__Minimizer swig_types[20]
-#define SWIGTYPE_p_mumufit__MinimizerResult swig_types[21]
-#define SWIGTYPE_p_mumufit__Parameter swig_types[22]
-#define SWIGTYPE_p_mumufit__Parameters swig_types[23]
-#define SWIGTYPE_p_p_PyObject swig_types[24]
-#define SWIGTYPE_p_parameters_t swig_types[25]
-#define SWIGTYPE_p_second_type swig_types[26]
-#define SWIGTYPE_p_short swig_types[27]
-#define SWIGTYPE_p_signed_char swig_types[28]
-#define SWIGTYPE_p_size_type swig_types[29]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[30]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[31]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[32]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[33]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[34]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[35]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[36]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[37]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[38]
-#define SWIGTYPE_p_std__invalid_argument swig_types[39]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[40]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[41]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[42]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[43]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[44]
-#define SWIGTYPE_p_std__vectorT_mumufit__Parameter_std__allocatorT_mumufit__Parameter_t_t__const_iterator swig_types[45]
-#define SWIGTYPE_p_std__vectorT_mumufit__Parameter_std__allocatorT_mumufit__Parameter_t_t__iterator swig_types[46]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[47]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[48]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[49]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[50]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[51]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[52]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[53]
-#define SWIGTYPE_p_unsigned_char swig_types[54]
-#define SWIGTYPE_p_unsigned_int swig_types[55]
-#define SWIGTYPE_p_unsigned_long_long swig_types[56]
-#define SWIGTYPE_p_unsigned_short swig_types[57]
-#define SWIGTYPE_p_value_type swig_types[58]
-static swig_type_info *swig_types[60];
-static swig_module_info swig_module = {swig_types, 59, 0, 0, 0, 0};
+#define SWIGTYPE_p_FitOptions swig_types[1]
+#define SWIGTYPE_p_IMinimizer swig_types[2]
+#define SWIGTYPE_p_MinimizerCatalog swig_types[3]
+#define SWIGTYPE_p_MinimizerFactory swig_types[4]
+#define SWIGTYPE_p_MinimizerInfo swig_types[5]
+#define SWIGTYPE_p_PyCallback swig_types[6]
+#define SWIGTYPE_p_RealLimits swig_types[7]
+#define SWIGTYPE_p_allocator_type swig_types[8]
+#define SWIGTYPE_p_char swig_types[9]
+#define SWIGTYPE_p_const_iterator swig_types[10]
+#define SWIGTYPE_p_corr_matrix_t swig_types[11]
+#define SWIGTYPE_p_difference_type swig_types[12]
+#define SWIGTYPE_p_fcn_residual_t swig_types[13]
+#define SWIGTYPE_p_fcn_scalar_t swig_types[14]
+#define SWIGTYPE_p_first_type swig_types[15]
+#define SWIGTYPE_p_int swig_types[16]
+#define SWIGTYPE_p_iterator swig_types[17]
+#define SWIGTYPE_p_key_type swig_types[18]
+#define SWIGTYPE_p_long_long swig_types[19]
+#define SWIGTYPE_p_mapped_type swig_types[20]
+#define SWIGTYPE_p_mumufit__Minimizer swig_types[21]
+#define SWIGTYPE_p_mumufit__MinimizerResult swig_types[22]
+#define SWIGTYPE_p_mumufit__Parameter swig_types[23]
+#define SWIGTYPE_p_mumufit__Parameters swig_types[24]
+#define SWIGTYPE_p_p_PyObject swig_types[25]
+#define SWIGTYPE_p_parameters_t swig_types[26]
+#define SWIGTYPE_p_second_type swig_types[27]
+#define SWIGTYPE_p_short swig_types[28]
+#define SWIGTYPE_p_signed_char swig_types[29]
+#define SWIGTYPE_p_size_type swig_types[30]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[31]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[32]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[33]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[34]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[35]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[36]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[37]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[38]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[39]
+#define SWIGTYPE_p_std__invalid_argument swig_types[40]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[41]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[42]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[43]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[44]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[45]
+#define SWIGTYPE_p_std__vectorT_mumufit__Parameter_std__allocatorT_mumufit__Parameter_t_t__const_iterator swig_types[46]
+#define SWIGTYPE_p_std__vectorT_mumufit__Parameter_std__allocatorT_mumufit__Parameter_t_t__iterator swig_types[47]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[48]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[49]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[50]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[51]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[52]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[53]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[54]
+#define SWIGTYPE_p_unsigned_char swig_types[55]
+#define SWIGTYPE_p_unsigned_int swig_types[56]
+#define SWIGTYPE_p_unsigned_long_long swig_types[57]
+#define SWIGTYPE_p_unsigned_short swig_types[58]
+#define SWIGTYPE_p_value_type swig_types[59]
+static swig_type_info *swig_types[61];
+static swig_module_info swig_module = {swig_types, 60, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6650,17 +6651,17 @@ SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std
 SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_0(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::value_type const &x){ return self->insert(pos, x); }
 SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_1(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::size_type n,std::vector< std::pair< double,double > >::value_type const &x){ self->insert(pos, n, x); }
 
-#include "Fit/Param/RealLimits.h"
+#include "Fit/Kernel/FitOptions.h"
+#include "Fit/Kernel/Minimizer.h"
+#include "Fit/Kernel/MinimizerFactory.h"
+#include "Fit/Kernel/PyCallback.h"
+#include "Fit/Minimizer/IMinimizer.h"
+#include "Fit/Minimizer/MinimizerCatalog.h"
+#include "Fit/Minimizer/MinimizerResult.h"
 #include "Fit/Param/AttLimits.h"
 #include "Fit/Param/Parameter.h"
 #include "Fit/Param/Parameters.h"
-#include "Fit/Minimizer/IMinimizer.h"
-#include "Fit/Minimizer/MinimizerCatalog.h"
-#include "Fit/Kernel/MinimizerFactory.h"
-
-#include "Fit/Kernel/PyCallback.h"
-#include "Fit/Minimizer/MinimizerResult.h"
-#include "Fit/Kernel/Minimizer.h"
+#include "Fit/Param/RealLimits.h"
 
 
 SWIGINTERN int
@@ -25926,928 +25927,6 @@ SWIGINTERN PyObject *Parameters_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObjec
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_new_PyCallback__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  PyObject *arg1 = (PyObject *) 0 ;
-  PyCallback::CallbackType arg2 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyCallback *result = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  arg1 = swig_obj[0];
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_PyCallback" "', argument " "2"" of type '" "PyCallback::CallbackType""'");
-  } 
-  arg2 = static_cast< PyCallback::CallbackType >(val2);
-  if ( arg1 != Py_None ) {
-    /* subclassed */
-    result = (PyCallback *)new SwigDirector_PyCallback(arg1,arg2); 
-  } else {
-    result = (PyCallback *)new PyCallback(arg2); 
-  }
-  
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PyCallback, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_PyCallback__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  PyObject *arg1 = (PyObject *) 0 ;
-  PyCallback *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  arg1 = swig_obj[0];
-  if ( arg1 != Py_None ) {
-    /* subclassed */
-    result = (PyCallback *)new SwigDirector_PyCallback(arg1); 
-  } else {
-    result = (PyCallback *)new PyCallback(); 
-  }
-  
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PyCallback, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_PyCallback(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_PyCallback", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    _v = (argv[0] != 0);
-    if (_v) {
-      return _wrap_new_PyCallback__SWIG_1(self, argc, argv);
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    _v = (argv[0] != 0);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_int(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        return _wrap_new_PyCallback__SWIG_0(self, argc, argv);
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_PyCallback'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    PyCallback::PyCallback(PyCallback::CallbackType)\n"
-    "    PyCallback::PyCallback(PyObject *)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_PyCallback(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  PyCallback *arg1 = (PyCallback *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PyCallback, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_PyCallback" "', argument " "1"" of type '" "PyCallback *""'"); 
-  }
-  arg1 = reinterpret_cast< PyCallback * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_PyCallback_callback_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  PyCallback *arg1 = (PyCallback *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  PyCallback::CallbackType result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyCallback_callback_type" "', argument " "1"" of type '" "PyCallback const *""'"); 
-  }
-  arg1 = reinterpret_cast< PyCallback * >(argp1);
-  result = (PyCallback::CallbackType)((PyCallback const *)arg1)->callback_type();
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_PyCallback_call_scalar(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  PyCallback *arg1 = (PyCallback *) 0 ;
-  mumufit::Parameters arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  Swig::Director *director = 0;
-  bool upcall = false;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "PyCallback_call_scalar", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyCallback_call_scalar" "', argument " "1"" of type '" "PyCallback *""'"); 
-  }
-  arg1 = reinterpret_cast< PyCallback * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "PyCallback_call_scalar" "', argument " "2"" of type '" "mumufit::Parameters""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PyCallback_call_scalar" "', argument " "2"" of type '" "mumufit::Parameters""'");
-    } else {
-      mumufit::Parameters * temp = reinterpret_cast< mumufit::Parameters * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  director = SWIG_DIRECTOR_CAST(arg1);
-  upcall = (director && (director->swig_get_self()==swig_obj[0]));
-  try {
-    if (upcall) {
-      result = (double)(arg1)->PyCallback::call_scalar(arg2);
-    } else {
-      result = (double)(arg1)->call_scalar(arg2);
-    }
-  } catch (Swig::DirectorException&) {
-    SWIG_fail;
-  }
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_PyCallback_call_residuals(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  PyCallback *arg1 = (PyCallback *) 0 ;
-  mumufit::Parameters arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  Swig::Director *director = 0;
-  bool upcall = false;
-  std::vector< double,std::allocator< double > > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "PyCallback_call_residuals", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyCallback_call_residuals" "', argument " "1"" of type '" "PyCallback *""'"); 
-  }
-  arg1 = reinterpret_cast< PyCallback * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "PyCallback_call_residuals" "', argument " "2"" of type '" "mumufit::Parameters""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PyCallback_call_residuals" "', argument " "2"" of type '" "mumufit::Parameters""'");
-    } else {
-      mumufit::Parameters * temp = reinterpret_cast< mumufit::Parameters * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  director = SWIG_DIRECTOR_CAST(arg1);
-  upcall = (director && (director->swig_get_self()==swig_obj[0]));
-  try {
-    if (upcall) {
-      result = (arg1)->PyCallback::call_residuals(arg2);
-    } else {
-      result = (arg1)->call_residuals(arg2);
-    }
-  } catch (Swig::DirectorException&) {
-    SWIG_fail;
-  }
-  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_disown_PyCallback(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  PyCallback *arg1 = (PyCallback *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_PyCallback" "', argument " "1"" of type '" "PyCallback *""'"); 
-  }
-  arg1 = reinterpret_cast< PyCallback * >(argp1);
-  {
-    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
-    if (director) director->swig_disown();
-  }
-  
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *PyCallback_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_PyCallback, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *PyCallback_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
-SWIGINTERN PyObject *_wrap_new_MinimizerResult(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "new_MinimizerResult", 0, 0, 0)) SWIG_fail;
-  result = (mumufit::MinimizerResult *)new mumufit::MinimizerResult();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_mumufit__MinimizerResult, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerResult_setParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
-  mumufit::Parameters *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setParameters", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setParameters" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerResult_setParameters" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerResult_setParameters" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
-  }
-  arg2 = reinterpret_cast< mumufit::Parameters * >(argp2);
-  (arg1)->setParameters((mumufit::Parameters const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerResult_parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  mumufit::Parameters result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_parameters" "', argument " "1"" of type '" "mumufit::MinimizerResult const *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
-  result = ((mumufit::MinimizerResult const *)arg1)->parameters();
-  resultobj = SWIG_NewPointerObj((new mumufit::Parameters(static_cast< const mumufit::Parameters& >(result))), SWIGTYPE_p_mumufit__Parameters, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerResult_setMinValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setMinValue", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setMinValue" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerResult_setMinValue" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setMinValue(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerResult_minValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_minValue" "', argument " "1"" of type '" "mumufit::MinimizerResult const *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
-  result = (double)((mumufit::MinimizerResult const *)arg1)->minValue();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerResult_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::string result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_toString" "', argument " "1"" of type '" "mumufit::MinimizerResult const *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
-  result = ((mumufit::MinimizerResult const *)arg1)->toString();
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerResult_setReport(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setReport", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setReport" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerResult_setReport" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerResult_setReport" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  (arg1)->setReport((std::string const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerResult_setDuration(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setDuration", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setDuration" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerResult_setDuration" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setDuration(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerResult_setNumberOfCalls(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
-  int arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setNumberOfCalls", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setNumberOfCalls" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerResult_setNumberOfCalls" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = static_cast< int >(val2);
-  (arg1)->setNumberOfCalls(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MinimizerResult_setNumberOfGradientCalls(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
-  int arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setNumberOfGradientCalls", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setNumberOfGradientCalls" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerResult_setNumberOfGradientCalls" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = static_cast< int >(val2);
-  (arg1)->setNumberOfGradientCalls(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_MinimizerResult(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_MinimizerResult" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *MinimizerResult_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_mumufit__MinimizerResult, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *MinimizerResult_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
-SWIGINTERN PyObject *_wrap_new_Minimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::Minimizer *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "new_Minimizer", 0, 0, 0)) SWIG_fail;
-  result = (mumufit::Minimizer *)new mumufit::Minimizer();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_mumufit__Minimizer, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_Minimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Minimizer" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  std::string *arg4 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = SWIG_OLDOBJ ;
-  int res4 = SWIG_OLDOBJ ;
-  
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_setMinimizer" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Minimizer_setMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res4 = SWIG_AsPtr_std_string(swig_obj[3], &ptr);
-    if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "Minimizer_setMinimizer" "', argument " "4"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "4"" of type '" "std::string const &""'"); 
-    }
-    arg4 = ptr;
-  }
-  (arg1)->setMinimizer((std::string const &)*arg2,(std::string const &)*arg3,(std::string const &)*arg4);
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  if (SWIG_IsNewObj(res4)) delete arg4;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  if (SWIG_IsNewObj(res4)) delete arg4;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
-  std::string *arg2 = 0 ;
-  std::string *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  int res3 = SWIG_OLDOBJ ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_setMinimizer" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Minimizer_setMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  (arg1)->setMinimizer((std::string const &)*arg2,(std::string const &)*arg3);
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_setMinimizer" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  (arg1)->setMinimizer((std::string const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
-  IMinimizer *arg2 = (IMinimizer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_setMinimizer" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_IMinimizer, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "IMinimizer *""'"); 
-  }
-  arg2 = reinterpret_cast< IMinimizer * >(argp2);
-  (arg1)->setMinimizer(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[5] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Minimizer_setMinimizer", 0, 4, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_mumufit__Minimizer, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IMinimizer, 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_Minimizer_setMinimizer__SWIG_3(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_mumufit__Minimizer, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_Minimizer_setMinimizer__SWIG_2(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_mumufit__Minimizer, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          return _wrap_Minimizer_setMinimizer__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-  }
-  if (argc == 4) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_mumufit__Minimizer, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          int res = SWIG_AsPtr_std_string(argv[3], (std::string**)(0));
-          _v = SWIG_CheckState(res);
-          if (_v) {
-            return _wrap_Minimizer_setMinimizer__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Minimizer_setMinimizer'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    mumufit::Minimizer::setMinimizer(std::string const &,std::string const &,std::string const &)\n"
-    "    mumufit::Minimizer::setMinimizer(std::string const &,std::string const &)\n"
-    "    mumufit::Minimizer::setMinimizer(std::string const &)\n"
-    "    mumufit::Minimizer::setMinimizer(IMinimizer *)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_Minimizer_minimize_cpp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
-  PyCallback *arg2 = 0 ;
-  mumufit::Parameters *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject *swig_obj[3] ;
-  mumufit::MinimizerResult result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Minimizer_minimize_cpp", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_minimize_cpp" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
-  }
-  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_PyCallback,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_minimize_cpp" "', argument " "2"" of type '" "PyCallback &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_minimize_cpp" "', argument " "2"" of type '" "PyCallback &""'"); 
-  }
-  arg2 = reinterpret_cast< PyCallback * >(argp2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Minimizer_minimize_cpp" "', argument " "3"" of type '" "mumufit::Parameters const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_minimize_cpp" "', argument " "3"" of type '" "mumufit::Parameters const &""'"); 
-  }
-  arg3 = reinterpret_cast< mumufit::Parameters * >(argp3);
-  result = (arg1)->minimize(*arg2,(mumufit::Parameters const &)*arg3);
-  resultobj = SWIG_NewPointerObj((new mumufit::MinimizerResult(static_cast< const mumufit::MinimizerResult& >(result))), SWIGTYPE_p_mumufit__MinimizerResult, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *Minimizer_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_mumufit__Minimizer, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *Minimizer_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
 SWIGINTERN PyObject *_wrap_delete_IMinimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IMinimizer *arg1 = (IMinimizer *) 0 ;
@@ -27315,6 +26394,808 @@ SWIGINTERN PyObject *MinimizerCatalog_swiginit(PyObject *SWIGUNUSEDPARM(self), P
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_new_MinimizerResult(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "new_MinimizerResult", 0, 0, 0)) SWIG_fail;
+  result = (mumufit::MinimizerResult *)new mumufit::MinimizerResult();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_mumufit__MinimizerResult, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerResult_setParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
+  mumufit::Parameters *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setParameters", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setParameters" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerResult_setParameters" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerResult_setParameters" "', argument " "2"" of type '" "mumufit::Parameters const &""'"); 
+  }
+  arg2 = reinterpret_cast< mumufit::Parameters * >(argp2);
+  (arg1)->setParameters((mumufit::Parameters const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerResult_parameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  mumufit::Parameters result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_parameters" "', argument " "1"" of type '" "mumufit::MinimizerResult const *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
+  result = ((mumufit::MinimizerResult const *)arg1)->parameters();
+  resultobj = SWIG_NewPointerObj((new mumufit::Parameters(static_cast< const mumufit::Parameters& >(result))), SWIGTYPE_p_mumufit__Parameters, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerResult_setMinValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setMinValue", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setMinValue" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerResult_setMinValue" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setMinValue(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerResult_minValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_minValue" "', argument " "1"" of type '" "mumufit::MinimizerResult const *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
+  result = (double)((mumufit::MinimizerResult const *)arg1)->minValue();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerResult_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_toString" "', argument " "1"" of type '" "mumufit::MinimizerResult const *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
+  result = ((mumufit::MinimizerResult const *)arg1)->toString();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerResult_setReport(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setReport", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setReport" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MinimizerResult_setReport" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MinimizerResult_setReport" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  (arg1)->setReport((std::string const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerResult_setDuration(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setDuration", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setDuration" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerResult_setDuration" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setDuration(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerResult_setNumberOfCalls(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setNumberOfCalls", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setNumberOfCalls" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerResult_setNumberOfCalls" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  (arg1)->setNumberOfCalls(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MinimizerResult_setNumberOfGradientCalls(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "MinimizerResult_setNumberOfGradientCalls", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MinimizerResult_setNumberOfGradientCalls" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MinimizerResult_setNumberOfGradientCalls" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  (arg1)->setNumberOfGradientCalls(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_MinimizerResult(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::MinimizerResult *arg1 = (mumufit::MinimizerResult *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__MinimizerResult, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_MinimizerResult" "', argument " "1"" of type '" "mumufit::MinimizerResult *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::MinimizerResult * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *MinimizerResult_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_mumufit__MinimizerResult, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *MinimizerResult_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_FitOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitOptions *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "new_FitOptions", 0, 0, 0)) SWIG_fail;
+  result = (FitOptions *)new FitOptions();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_FitOptions, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitOptions_derivEpsilon(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitOptions *arg1 = (FitOptions *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FitOptions, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitOptions_derivEpsilon" "', argument " "1"" of type '" "FitOptions const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitOptions * >(argp1);
+  result = (double)((FitOptions const *)arg1)->derivEpsilon();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitOptions_setDerivEpsilon(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitOptions *arg1 = (FitOptions *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "FitOptions_setDerivEpsilon", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FitOptions, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitOptions_setDerivEpsilon" "', argument " "1"" of type '" "FitOptions *""'"); 
+  }
+  arg1 = reinterpret_cast< FitOptions * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitOptions_setDerivEpsilon" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setDerivEpsilon(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitOptions_stepFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitOptions *arg1 = (FitOptions *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FitOptions, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitOptions_stepFactor" "', argument " "1"" of type '" "FitOptions const *""'"); 
+  }
+  arg1 = reinterpret_cast< FitOptions * >(argp1);
+  result = (double)((FitOptions const *)arg1)->stepFactor();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FitOptions_setStepFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitOptions *arg1 = (FitOptions *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "FitOptions_setStepFactor", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FitOptions, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FitOptions_setStepFactor" "', argument " "1"" of type '" "FitOptions *""'"); 
+  }
+  arg1 = reinterpret_cast< FitOptions * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FitOptions_setStepFactor" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setStepFactor(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_FitOptions(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  FitOptions *arg1 = (FitOptions *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FitOptions, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_FitOptions" "', argument " "1"" of type '" "FitOptions *""'"); 
+  }
+  arg1 = reinterpret_cast< FitOptions * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *FitOptions_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_FitOptions, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *FitOptions_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_Minimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::Minimizer *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "new_Minimizer", 0, 0, 0)) SWIG_fail;
+  result = (mumufit::Minimizer *)new mumufit::Minimizer();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_mumufit__Minimizer, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_Minimizer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Minimizer" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  std::string *arg4 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  int res3 = SWIG_OLDOBJ ;
+  int res4 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_setMinimizer" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Minimizer_setMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res4 = SWIG_AsPtr_std_string(swig_obj[3], &ptr);
+    if (!SWIG_IsOK(res4)) {
+      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "Minimizer_setMinimizer" "', argument " "4"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "4"" of type '" "std::string const &""'"); 
+    }
+    arg4 = ptr;
+  }
+  (arg1)->setMinimizer((std::string const &)*arg2,(std::string const &)*arg3,(std::string const &)*arg4);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  if (SWIG_IsNewObj(res4)) delete arg4;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  int res3 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_setMinimizer" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Minimizer_setMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  (arg1)->setMinimizer((std::string const &)*arg2,(std::string const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_setMinimizer" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  (arg1)->setMinimizer((std::string const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
+  IMinimizer *arg2 = (IMinimizer *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_setMinimizer" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_IMinimizer, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_setMinimizer" "', argument " "2"" of type '" "IMinimizer *""'"); 
+  }
+  arg2 = reinterpret_cast< IMinimizer * >(argp2);
+  (arg1)->setMinimizer(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Minimizer_setMinimizer(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "Minimizer_setMinimizer", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_mumufit__Minimizer, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IMinimizer, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_Minimizer_setMinimizer__SWIG_3(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_mumufit__Minimizer, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_Minimizer_setMinimizer__SWIG_2(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_mumufit__Minimizer, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_Minimizer_setMinimizer__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_mumufit__Minimizer, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          int res = SWIG_AsPtr_std_string(argv[3], (std::string**)(0));
+          _v = SWIG_CheckState(res);
+          if (_v) {
+            return _wrap_Minimizer_setMinimizer__SWIG_0(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Minimizer_setMinimizer'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    mumufit::Minimizer::setMinimizer(std::string const &,std::string const &,std::string const &)\n"
+    "    mumufit::Minimizer::setMinimizer(std::string const &,std::string const &)\n"
+    "    mumufit::Minimizer::setMinimizer(std::string const &)\n"
+    "    mumufit::Minimizer::setMinimizer(IMinimizer *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Minimizer_minimize_cpp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  mumufit::Minimizer *arg1 = (mumufit::Minimizer *) 0 ;
+  PyCallback *arg2 = 0 ;
+  mumufit::Parameters *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject *swig_obj[3] ;
+  mumufit::MinimizerResult result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Minimizer_minimize_cpp", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_mumufit__Minimizer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Minimizer_minimize_cpp" "', argument " "1"" of type '" "mumufit::Minimizer *""'"); 
+  }
+  arg1 = reinterpret_cast< mumufit::Minimizer * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_PyCallback,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Minimizer_minimize_cpp" "', argument " "2"" of type '" "PyCallback &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_minimize_cpp" "', argument " "2"" of type '" "PyCallback &""'"); 
+  }
+  arg2 = reinterpret_cast< PyCallback * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Minimizer_minimize_cpp" "', argument " "3"" of type '" "mumufit::Parameters const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Minimizer_minimize_cpp" "', argument " "3"" of type '" "mumufit::Parameters const &""'"); 
+  }
+  arg3 = reinterpret_cast< mumufit::Parameters * >(argp3);
+  result = (arg1)->minimize(*arg2,(mumufit::Parameters const &)*arg3);
+  resultobj = SWIG_NewPointerObj((new mumufit::MinimizerResult(static_cast< const mumufit::MinimizerResult& >(result))), SWIGTYPE_p_mumufit__MinimizerResult, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Minimizer_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_mumufit__Minimizer, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *Minimizer_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
 SWIGINTERN PyObject *_wrap_MinimizerFactory_createMinimizer__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   std::string *arg1 = 0 ;
@@ -27593,6 +27474,276 @@ SWIGINTERN PyObject *MinimizerFactory_swigregister(PyObject *SWIGUNUSEDPARM(self
 }
 
 SWIGINTERN PyObject *MinimizerFactory_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_new_PyCallback__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyCallback::CallbackType arg2 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyCallback *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  arg1 = swig_obj[0];
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_PyCallback" "', argument " "2"" of type '" "PyCallback::CallbackType""'");
+  } 
+  arg2 = static_cast< PyCallback::CallbackType >(val2);
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (PyCallback *)new SwigDirector_PyCallback(arg1,arg2); 
+  } else {
+    result = (PyCallback *)new PyCallback(arg2); 
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PyCallback, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_PyCallback__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  PyObject *arg1 = (PyObject *) 0 ;
+  PyCallback *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  arg1 = swig_obj[0];
+  if ( arg1 != Py_None ) {
+    /* subclassed */
+    result = (PyCallback *)new SwigDirector_PyCallback(arg1); 
+  } else {
+    result = (PyCallback *)new PyCallback(); 
+  }
+  
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PyCallback, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_PyCallback(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_PyCallback", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      return _wrap_new_PyCallback__SWIG_1(self, argc, argv);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    _v = (argv[0] != 0);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_int(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_PyCallback__SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_PyCallback'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    PyCallback::PyCallback(PyCallback::CallbackType)\n"
+    "    PyCallback::PyCallback(PyObject *)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_PyCallback(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyCallback *arg1 = (PyCallback *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PyCallback, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_PyCallback" "', argument " "1"" of type '" "PyCallback *""'"); 
+  }
+  arg1 = reinterpret_cast< PyCallback * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PyCallback_callback_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyCallback *arg1 = (PyCallback *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  PyCallback::CallbackType result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyCallback_callback_type" "', argument " "1"" of type '" "PyCallback const *""'"); 
+  }
+  arg1 = reinterpret_cast< PyCallback * >(argp1);
+  result = (PyCallback::CallbackType)((PyCallback const *)arg1)->callback_type();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PyCallback_call_scalar(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyCallback *arg1 = (PyCallback *) 0 ;
+  mumufit::Parameters arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "PyCallback_call_scalar", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyCallback_call_scalar" "', argument " "1"" of type '" "PyCallback *""'"); 
+  }
+  arg1 = reinterpret_cast< PyCallback * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "PyCallback_call_scalar" "', argument " "2"" of type '" "mumufit::Parameters""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PyCallback_call_scalar" "', argument " "2"" of type '" "mumufit::Parameters""'");
+    } else {
+      mumufit::Parameters * temp = reinterpret_cast< mumufit::Parameters * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==swig_obj[0]));
+  try {
+    if (upcall) {
+      result = (double)(arg1)->PyCallback::call_scalar(arg2);
+    } else {
+      result = (double)(arg1)->call_scalar(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PyCallback_call_residuals(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyCallback *arg1 = (PyCallback *) 0 ;
+  mumufit::Parameters arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  Swig::Director *director = 0;
+  bool upcall = false;
+  std::vector< double,std::allocator< double > > result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "PyCallback_call_residuals", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PyCallback_call_residuals" "', argument " "1"" of type '" "PyCallback *""'"); 
+  }
+  arg1 = reinterpret_cast< PyCallback * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_mumufit__Parameters,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "PyCallback_call_residuals" "', argument " "2"" of type '" "mumufit::Parameters""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "PyCallback_call_residuals" "', argument " "2"" of type '" "mumufit::Parameters""'");
+    } else {
+      mumufit::Parameters * temp = reinterpret_cast< mumufit::Parameters * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  director = SWIG_DIRECTOR_CAST(arg1);
+  upcall = (director && (director->swig_get_self()==swig_obj[0]));
+  try {
+    if (upcall) {
+      result = (arg1)->PyCallback::call_residuals(arg2);
+    } else {
+      result = (arg1)->call_residuals(arg2);
+    }
+  } catch (Swig::DirectorException&) {
+    SWIG_fail;
+  }
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_disown_PyCallback(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PyCallback *arg1 = (PyCallback *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_PyCallback, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "disown_PyCallback" "', argument " "1"" of type '" "PyCallback *""'"); 
+  }
+  arg1 = reinterpret_cast< PyCallback * >(argp1);
+  {
+    Swig::Director *director = SWIG_DIRECTOR_CAST(arg1);
+    if (director) director->swig_disown();
+  }
+  
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *PyCallback_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_PyCallback, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *PyCallback_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
 
@@ -28505,136 +28656,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_Parameters", _wrap_delete_Parameters, METH_O, "delete_Parameters(Parameters self)"},
 	 { "Parameters_swigregister", Parameters_swigregister, METH_O, NULL},
 	 { "Parameters_swiginit", Parameters_swiginit, METH_VARARGS, NULL},
-	 { "new_PyCallback", _wrap_new_PyCallback, METH_VARARGS, "\n"
-		"PyCallback(PyCallback::CallbackType callback_type=SCALAR)\n"
-		"PyCallback::PyCallback(CallbackType callback_type=SCALAR)\n"
-		"\n"
-		""},
-	 { "delete_PyCallback", _wrap_delete_PyCallback, METH_O, "\n"
-		"delete_PyCallback(PyCallback self)\n"
-		"PyCallback::~PyCallback()\n"
-		"\n"
-		""},
-	 { "PyCallback_callback_type", _wrap_PyCallback_callback_type, METH_O, "\n"
-		"PyCallback_callback_type(PyCallback self) -> PyCallback::CallbackType\n"
-		"PyCallback::CallbackType PyCallback::callback_type() const\n"
-		"\n"
-		""},
-	 { "PyCallback_call_scalar", _wrap_PyCallback_call_scalar, METH_VARARGS, "\n"
-		"PyCallback_call_scalar(PyCallback self, Parameters pars) -> double\n"
-		"double PyCallback::call_scalar(mumufit::Parameters pars)\n"
-		"\n"
-		"Call Python callable and returns its result. Intended to be overloaded in Python.\n"
-		"\n"
-		"Parameters:\n"
-		"-----------\n"
-		"\n"
-		"pars: \n"
-		"Fit parameters object (intentionally passed by value).\n"
-		"\n"
-		"value of objective function. \n"
-		"\n"
-		""},
-	 { "PyCallback_call_residuals", _wrap_PyCallback_call_residuals, METH_VARARGS, "\n"
-		"PyCallback_call_residuals(PyCallback self, Parameters pars) -> vdouble1d_t\n"
-		"std::vector< double > PyCallback::call_residuals(mumufit::Parameters pars)\n"
-		"\n"
-		"Call Python callable and returns its result. Intended to be overloaded in Python.\n"
-		"\n"
-		"Parameters:\n"
-		"-----------\n"
-		"\n"
-		"pars: \n"
-		"Fit parameters object (intentionally passed by value).\n"
-		"\n"
-		"vector of residuals \n"
-		"\n"
-		""},
-	 { "disown_PyCallback", _wrap_disown_PyCallback, METH_O, NULL},
-	 { "PyCallback_swigregister", PyCallback_swigregister, METH_O, NULL},
-	 { "PyCallback_swiginit", PyCallback_swiginit, METH_VARARGS, NULL},
-	 { "new_MinimizerResult", _wrap_new_MinimizerResult, METH_NOARGS, "\n"
-		"new_MinimizerResult() -> MinimizerResult\n"
-		"MinimizerResult::MinimizerResult()\n"
-		"\n"
-		""},
-	 { "MinimizerResult_setParameters", _wrap_MinimizerResult_setParameters, METH_VARARGS, "\n"
-		"MinimizerResult_setParameters(MinimizerResult self, Parameters parameters)\n"
-		"void MinimizerResult::setParameters(const Parameters &parameters)\n"
-		"\n"
-		""},
-	 { "MinimizerResult_parameters", _wrap_MinimizerResult_parameters, METH_O, "\n"
-		"MinimizerResult_parameters(MinimizerResult self) -> Parameters\n"
-		"Parameters MinimizerResult::parameters() const\n"
-		"\n"
-		""},
-	 { "MinimizerResult_setMinValue", _wrap_MinimizerResult_setMinValue, METH_VARARGS, "\n"
-		"MinimizerResult_setMinValue(MinimizerResult self, double value)\n"
-		"void MinimizerResult::setMinValue(double value)\n"
-		"\n"
-		""},
-	 { "MinimizerResult_minValue", _wrap_MinimizerResult_minValue, METH_O, "\n"
-		"MinimizerResult_minValue(MinimizerResult self) -> double\n"
-		"double MinimizerResult::minValue() const\n"
-		"\n"
-		"Minimum value of objective function found by minimizer. \n"
-		"\n"
-		""},
-	 { "MinimizerResult_toString", _wrap_MinimizerResult_toString, METH_O, "\n"
-		"MinimizerResult_toString(MinimizerResult self) -> std::string\n"
-		"std::string MinimizerResult::toString() const\n"
-		"\n"
-		"Returns multi-line string representing minimization results. \n"
-		"\n"
-		""},
-	 { "MinimizerResult_setReport", _wrap_MinimizerResult_setReport, METH_VARARGS, "\n"
-		"MinimizerResult_setReport(MinimizerResult self, std::string const & value)\n"
-		"void MinimizerResult::setReport(const std::string &value)\n"
-		"\n"
-		""},
-	 { "MinimizerResult_setDuration", _wrap_MinimizerResult_setDuration, METH_VARARGS, "\n"
-		"MinimizerResult_setDuration(MinimizerResult self, double value)\n"
-		"void MinimizerResult::setDuration(double value)\n"
-		"\n"
-		""},
-	 { "MinimizerResult_setNumberOfCalls", _wrap_MinimizerResult_setNumberOfCalls, METH_VARARGS, "\n"
-		"MinimizerResult_setNumberOfCalls(MinimizerResult self, int value)\n"
-		"void MinimizerResult::setNumberOfCalls(int value)\n"
-		"\n"
-		""},
-	 { "MinimizerResult_setNumberOfGradientCalls", _wrap_MinimizerResult_setNumberOfGradientCalls, METH_VARARGS, "\n"
-		"MinimizerResult_setNumberOfGradientCalls(MinimizerResult self, int value)\n"
-		"void MinimizerResult::setNumberOfGradientCalls(int value)\n"
-		"\n"
-		""},
-	 { "delete_MinimizerResult", _wrap_delete_MinimizerResult, METH_O, "delete_MinimizerResult(MinimizerResult self)"},
-	 { "MinimizerResult_swigregister", MinimizerResult_swigregister, METH_O, NULL},
-	 { "MinimizerResult_swiginit", MinimizerResult_swiginit, METH_VARARGS, NULL},
-	 { "new_Minimizer", _wrap_new_Minimizer, METH_NOARGS, "\n"
-		"new_Minimizer() -> Minimizer\n"
-		"Minimizer::Minimizer()\n"
-		"\n"
-		""},
-	 { "delete_Minimizer", _wrap_delete_Minimizer, METH_O, "\n"
-		"delete_Minimizer(Minimizer self)\n"
-		"Minimizer::~Minimizer()\n"
-		"\n"
-		""},
-	 { "Minimizer_setMinimizer", _wrap_Minimizer_setMinimizer, METH_VARARGS, "\n"
-		"Minimizer_setMinimizer(Minimizer self, std::string const & minimizerName, std::string const & algorithmName=\"\", std::string const & options=\"\")\n"
-		"Minimizer_setMinimizer(Minimizer self, IMinimizer minimizer)\n"
-		"void Minimizer::setMinimizer(IMinimizer *minimizer)\n"
-		"\n"
-		""},
-	 { "Minimizer_minimize_cpp", _wrap_Minimizer_minimize_cpp, METH_VARARGS, "\n"
-		"Minimizer_minimize_cpp(Minimizer self, PyCallback callback, Parameters parameters) -> MinimizerResult\n"
-		"MinimizerResult Minimizer::minimize(PyCallback &callback, const Parameters &parameters)\n"
-		"\n"
-		"Finds minimum of user objective function (to be called from Python). \n"
-		"\n"
-		""},
-	 { "Minimizer_swigregister", Minimizer_swigregister, METH_O, NULL},
-	 { "Minimizer_swiginit", Minimizer_swiginit, METH_VARARGS, NULL},
 	 { "delete_IMinimizer", _wrap_delete_IMinimizer, METH_O, "\n"
 		"delete_IMinimizer(IMinimizer self)\n"
 		"IMinimizer::~IMinimizer()\n"
@@ -28729,6 +28750,116 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_MinimizerCatalog", _wrap_delete_MinimizerCatalog, METH_O, "delete_MinimizerCatalog(MinimizerCatalog self)"},
 	 { "MinimizerCatalog_swigregister", MinimizerCatalog_swigregister, METH_O, NULL},
 	 { "MinimizerCatalog_swiginit", MinimizerCatalog_swiginit, METH_VARARGS, NULL},
+	 { "new_MinimizerResult", _wrap_new_MinimizerResult, METH_NOARGS, "\n"
+		"new_MinimizerResult() -> MinimizerResult\n"
+		"MinimizerResult::MinimizerResult()\n"
+		"\n"
+		""},
+	 { "MinimizerResult_setParameters", _wrap_MinimizerResult_setParameters, METH_VARARGS, "\n"
+		"MinimizerResult_setParameters(MinimizerResult self, Parameters parameters)\n"
+		"void MinimizerResult::setParameters(const Parameters &parameters)\n"
+		"\n"
+		""},
+	 { "MinimizerResult_parameters", _wrap_MinimizerResult_parameters, METH_O, "\n"
+		"MinimizerResult_parameters(MinimizerResult self) -> Parameters\n"
+		"Parameters MinimizerResult::parameters() const\n"
+		"\n"
+		""},
+	 { "MinimizerResult_setMinValue", _wrap_MinimizerResult_setMinValue, METH_VARARGS, "\n"
+		"MinimizerResult_setMinValue(MinimizerResult self, double value)\n"
+		"void MinimizerResult::setMinValue(double value)\n"
+		"\n"
+		""},
+	 { "MinimizerResult_minValue", _wrap_MinimizerResult_minValue, METH_O, "\n"
+		"MinimizerResult_minValue(MinimizerResult self) -> double\n"
+		"double MinimizerResult::minValue() const\n"
+		"\n"
+		"Minimum value of objective function found by minimizer. \n"
+		"\n"
+		""},
+	 { "MinimizerResult_toString", _wrap_MinimizerResult_toString, METH_O, "\n"
+		"MinimizerResult_toString(MinimizerResult self) -> std::string\n"
+		"std::string MinimizerResult::toString() const\n"
+		"\n"
+		"Returns multi-line string representing minimization results. \n"
+		"\n"
+		""},
+	 { "MinimizerResult_setReport", _wrap_MinimizerResult_setReport, METH_VARARGS, "\n"
+		"MinimizerResult_setReport(MinimizerResult self, std::string const & value)\n"
+		"void MinimizerResult::setReport(const std::string &value)\n"
+		"\n"
+		""},
+	 { "MinimizerResult_setDuration", _wrap_MinimizerResult_setDuration, METH_VARARGS, "\n"
+		"MinimizerResult_setDuration(MinimizerResult self, double value)\n"
+		"void MinimizerResult::setDuration(double value)\n"
+		"\n"
+		""},
+	 { "MinimizerResult_setNumberOfCalls", _wrap_MinimizerResult_setNumberOfCalls, METH_VARARGS, "\n"
+		"MinimizerResult_setNumberOfCalls(MinimizerResult self, int value)\n"
+		"void MinimizerResult::setNumberOfCalls(int value)\n"
+		"\n"
+		""},
+	 { "MinimizerResult_setNumberOfGradientCalls", _wrap_MinimizerResult_setNumberOfGradientCalls, METH_VARARGS, "\n"
+		"MinimizerResult_setNumberOfGradientCalls(MinimizerResult self, int value)\n"
+		"void MinimizerResult::setNumberOfGradientCalls(int value)\n"
+		"\n"
+		""},
+	 { "delete_MinimizerResult", _wrap_delete_MinimizerResult, METH_O, "delete_MinimizerResult(MinimizerResult self)"},
+	 { "MinimizerResult_swigregister", MinimizerResult_swigregister, METH_O, NULL},
+	 { "MinimizerResult_swiginit", MinimizerResult_swiginit, METH_VARARGS, NULL},
+	 { "new_FitOptions", _wrap_new_FitOptions, METH_NOARGS, "\n"
+		"new_FitOptions() -> FitOptions\n"
+		"FitOptions::FitOptions()\n"
+		"\n"
+		""},
+	 { "FitOptions_derivEpsilon", _wrap_FitOptions_derivEpsilon, METH_O, "\n"
+		"FitOptions_derivEpsilon(FitOptions self) -> double\n"
+		"double FitOptions::derivEpsilon() const\n"
+		"\n"
+		""},
+	 { "FitOptions_setDerivEpsilon", _wrap_FitOptions_setDerivEpsilon, METH_VARARGS, "\n"
+		"FitOptions_setDerivEpsilon(FitOptions self, double deriv_epsilon)\n"
+		"void FitOptions::setDerivEpsilon(double deriv_epsilon)\n"
+		"\n"
+		""},
+	 { "FitOptions_stepFactor", _wrap_FitOptions_stepFactor, METH_O, "\n"
+		"FitOptions_stepFactor(FitOptions self) -> double\n"
+		"double FitOptions::stepFactor() const\n"
+		"\n"
+		""},
+	 { "FitOptions_setStepFactor", _wrap_FitOptions_setStepFactor, METH_VARARGS, "\n"
+		"FitOptions_setStepFactor(FitOptions self, double step_factor)\n"
+		"void FitOptions::setStepFactor(double step_factor)\n"
+		"\n"
+		""},
+	 { "delete_FitOptions", _wrap_delete_FitOptions, METH_O, "delete_FitOptions(FitOptions self)"},
+	 { "FitOptions_swigregister", FitOptions_swigregister, METH_O, NULL},
+	 { "FitOptions_swiginit", FitOptions_swiginit, METH_VARARGS, NULL},
+	 { "new_Minimizer", _wrap_new_Minimizer, METH_NOARGS, "\n"
+		"new_Minimizer() -> Minimizer\n"
+		"Minimizer::Minimizer()\n"
+		"\n"
+		""},
+	 { "delete_Minimizer", _wrap_delete_Minimizer, METH_O, "\n"
+		"delete_Minimizer(Minimizer self)\n"
+		"Minimizer::~Minimizer()\n"
+		"\n"
+		""},
+	 { "Minimizer_setMinimizer", _wrap_Minimizer_setMinimizer, METH_VARARGS, "\n"
+		"Minimizer_setMinimizer(Minimizer self, std::string const & minimizerName, std::string const & algorithmName=\"\", std::string const & options=\"\")\n"
+		"Minimizer_setMinimizer(Minimizer self, IMinimizer minimizer)\n"
+		"void Minimizer::setMinimizer(IMinimizer *minimizer)\n"
+		"\n"
+		""},
+	 { "Minimizer_minimize_cpp", _wrap_Minimizer_minimize_cpp, METH_VARARGS, "\n"
+		"Minimizer_minimize_cpp(Minimizer self, PyCallback callback, Parameters parameters) -> MinimizerResult\n"
+		"MinimizerResult Minimizer::minimize(PyCallback &callback, const Parameters &parameters)\n"
+		"\n"
+		"Finds minimum of user objective function (to be called from Python). \n"
+		"\n"
+		""},
+	 { "Minimizer_swigregister", Minimizer_swigregister, METH_O, NULL},
+	 { "Minimizer_swiginit", Minimizer_swiginit, METH_VARARGS, NULL},
 	 { "MinimizerFactory_createMinimizer", _wrap_MinimizerFactory_createMinimizer, METH_VARARGS, "MinimizerFactory_createMinimizer(std::string const & minimizerName, std::string const & algorithmType=\"\", std::string const & optionString=\"\") -> IMinimizer"},
 	 { "MinimizerFactory_printCatalog", _wrap_MinimizerFactory_printCatalog, METH_NOARGS, "MinimizerFactory_printCatalog()"},
 	 { "MinimizerFactory_catalogToString", _wrap_MinimizerFactory_catalogToString, METH_NOARGS, "MinimizerFactory_catalogToString() -> std::string"},
@@ -28746,6 +28877,54 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_MinimizerFactory", _wrap_delete_MinimizerFactory, METH_O, "delete_MinimizerFactory(MinimizerFactory self)"},
 	 { "MinimizerFactory_swigregister", MinimizerFactory_swigregister, METH_O, NULL},
 	 { "MinimizerFactory_swiginit", MinimizerFactory_swiginit, METH_VARARGS, NULL},
+	 { "new_PyCallback", _wrap_new_PyCallback, METH_VARARGS, "\n"
+		"PyCallback(PyCallback::CallbackType callback_type=SCALAR)\n"
+		"PyCallback::PyCallback(CallbackType callback_type=SCALAR)\n"
+		"\n"
+		""},
+	 { "delete_PyCallback", _wrap_delete_PyCallback, METH_O, "\n"
+		"delete_PyCallback(PyCallback self)\n"
+		"PyCallback::~PyCallback()\n"
+		"\n"
+		""},
+	 { "PyCallback_callback_type", _wrap_PyCallback_callback_type, METH_O, "\n"
+		"PyCallback_callback_type(PyCallback self) -> PyCallback::CallbackType\n"
+		"PyCallback::CallbackType PyCallback::callback_type() const\n"
+		"\n"
+		""},
+	 { "PyCallback_call_scalar", _wrap_PyCallback_call_scalar, METH_VARARGS, "\n"
+		"PyCallback_call_scalar(PyCallback self, Parameters pars) -> double\n"
+		"double PyCallback::call_scalar(mumufit::Parameters pars)\n"
+		"\n"
+		"Call Python callable and returns its result. Intended to be overloaded in Python.\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"pars: \n"
+		"Fit parameters object (intentionally passed by value).\n"
+		"\n"
+		"value of objective function. \n"
+		"\n"
+		""},
+	 { "PyCallback_call_residuals", _wrap_PyCallback_call_residuals, METH_VARARGS, "\n"
+		"PyCallback_call_residuals(PyCallback self, Parameters pars) -> vdouble1d_t\n"
+		"std::vector< double > PyCallback::call_residuals(mumufit::Parameters pars)\n"
+		"\n"
+		"Call Python callable and returns its result. Intended to be overloaded in Python.\n"
+		"\n"
+		"Parameters:\n"
+		"-----------\n"
+		"\n"
+		"pars: \n"
+		"Fit parameters object (intentionally passed by value).\n"
+		"\n"
+		"vector of residuals \n"
+		"\n"
+		""},
+	 { "disown_PyCallback", _wrap_disown_PyCallback, METH_O, NULL},
+	 { "PyCallback_swigregister", PyCallback_swigregister, METH_O, NULL},
+	 { "PyCallback_swiginit", PyCallback_swiginit, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -28757,6 +28936,7 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
 static swig_type_info _swigt__p_AttLimits = {"_p_AttLimits", "AttLimits *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_FitOptions = {"_p_FitOptions", "FitOptions *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IMinimizer = {"_p_IMinimizer", "IMinimizer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerCatalog = {"_p_MinimizerCatalog", "MinimizerCatalog *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MinimizerFactory = {"_p_MinimizerFactory", "MinimizerFactory *", 0, 0, (void*)0, 0};
@@ -28818,6 +28998,7 @@ static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_AttLimits,
+  &_swigt__p_FitOptions,
   &_swigt__p_IMinimizer,
   &_swigt__p_MinimizerCatalog,
   &_swigt__p_MinimizerFactory,
@@ -28879,6 +29060,7 @@ static swig_type_info *swig_type_initial[] = {
 };
 
 static swig_cast_info _swigc__p_AttLimits[] = {  {&_swigt__p_AttLimits, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_FitOptions[] = {  {&_swigt__p_FitOptions, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IMinimizer[] = {  {&_swigt__p_IMinimizer, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerCatalog[] = {  {&_swigt__p_MinimizerCatalog, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MinimizerFactory[] = {  {&_swigt__p_MinimizerFactory, 0, 0, 0},{0, 0, 0, 0}};
@@ -28940,6 +29122,7 @@ static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_AttLimits,
+  _swigc__p_FitOptions,
   _swigc__p_IMinimizer,
   _swigc__p_MinimizerCatalog,
   _swigc__p_MinimizerFactory,

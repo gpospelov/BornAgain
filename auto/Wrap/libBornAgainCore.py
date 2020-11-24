@@ -3137,40 +3137,6 @@ def GetName():
 def GetVersionNumber():
     r"""GetVersionNumber() -> std::string"""
     return _libBornAgainCore.GetVersionNumber()
-class FitOptions(object):
-    r"""Proxy of C++ FitOptions class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""__init__(FitOptions self) -> FitOptions"""
-        _libBornAgainCore.FitOptions_swiginit(self, _libBornAgainCore.new_FitOptions())
-
-    def derivEpsilon(self):
-        r"""derivEpsilon(FitOptions self) -> double"""
-        return _libBornAgainCore.FitOptions_derivEpsilon(self)
-
-    def setDerivEpsilon(self, deriv_epsilon):
-        r"""setDerivEpsilon(FitOptions self, double deriv_epsilon)"""
-        return _libBornAgainCore.FitOptions_setDerivEpsilon(self, deriv_epsilon)
-
-    def stepFactor(self):
-        r"""stepFactor(FitOptions self) -> double"""
-        return _libBornAgainCore.FitOptions_stepFactor(self)
-
-    def setStepFactor(self, step_factor):
-        r"""setStepFactor(FitOptions self, double step_factor)"""
-        return _libBornAgainCore.FitOptions_setStepFactor(self, step_factor)
-    __swig_destroy__ = _libBornAgainCore.delete_FitOptions
-
-# Register FitOptions in _libBornAgainCore:
-_libBornAgainCore.FitOptions_swigregister(FitOptions)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-
 class IObserver(object):
     r"""
 
@@ -3200,6 +3166,10 @@ class IObserver(object):
 
 # Register IObserver in _libBornAgainCore:
 _libBornAgainCore.IObserver_swigregister(IObserver)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
 
 class IObservable(object):
     r"""
@@ -4482,18 +4452,6 @@ class PoissonNoiseBackground(IBackground):
 # Register PoissonNoiseBackground in _libBornAgainCore:
 _libBornAgainCore.PoissonNoiseBackground_swigregister(PoissonNoiseBackground)
 
-
-def MaterialProfile_cpp(multilayer, n_points, z_min, z_max):
-    r"""MaterialProfile_cpp(MultiLayer const & multilayer, int n_points, double z_min, double z_max) -> vector_complex_t"""
-    return _libBornAgainCore.MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
-
-def DefaultMaterialProfileLimits(multilayer):
-    r"""DefaultMaterialProfileLimits(MultiLayer const & multilayer) -> pvacuum_double_t"""
-    return _libBornAgainCore.DefaultMaterialProfileLimits(multilayer)
-
-def GenerateZValues(n_points, z_min, z_max):
-    r"""GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t"""
-    return _libBornAgainCore.GenerateZValues(n_points, z_min, z_max)
 class SimulationFactory(SimulationFactoryTemp):
     r"""
 
@@ -4519,6 +4477,30 @@ class SimulationFactory(SimulationFactoryTemp):
 # Register SimulationFactory in _libBornAgainCore:
 _libBornAgainCore.SimulationFactory_swigregister(SimulationFactory)
 
+
+def generateSampleCode(multilayer):
+    r"""
+    generateSampleCode(MultiLayer const & multilayer) -> std::string
+    std::string ExportToPython::generateSampleCode(const MultiLayer &multilayer)
+
+    """
+    return _libBornAgainCore.generateSampleCode(multilayer)
+
+def generateSimulationCode(simulation):
+    r"""
+    generateSimulationCode(ISimulation simulation) -> std::string
+    std::string ExportToPython::generateSimulationCode(const ISimulation &simulation)
+
+    """
+    return _libBornAgainCore.generateSimulationCode(simulation)
+
+def generatePyExportTest(simulation):
+    r"""
+    generatePyExportTest(ISimulation simulation) -> std::string
+    std::string ExportToPython::generatePyExportTest(const ISimulation &simulation)
+
+    """
+    return _libBornAgainCore.generatePyExportTest(simulation)
 
 class SimulationBuilderWrapper(PyBuilderCallback):
     def __init__(self, f):
@@ -4550,24 +4532,5 @@ class ObserverCallbackWrapper(PyObserverCallback):
     def update(self, fit_objective):
         return self.callback_(fit_objective)
 
-
-
-def MaterialProfile(multilayer, n_points=400, z_min=None, z_max=None):
-    """
-    Creates a material profile from the given multilayer. If no limits are given,
-    it will provide sensible default values, considering the included particles and
-    interface roughnesses.
-    :param multilayer: bornagain.MultiLayer object
-    :param n_points: number of points to generate
-    :param z_min: starting value for z
-    :param z_max: ending value for z
-    :return: numpy arrays containing z positions and the complex material values in those positions
-    """
-    def_z_min, def_z_max = DefaultMaterialProfileLimits(multilayer)
-    z_min = def_z_min if z_min is None else z_min
-    z_max = def_z_max if z_max is None else z_max
-    z_points = GenerateZValues(n_points, z_min, z_max)
-    material_values = MaterialProfile_cpp(multilayer, n_points, z_min, z_max)
-    return (z_points, material_values)
 
 

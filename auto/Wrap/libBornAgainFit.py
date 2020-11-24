@@ -2370,250 +2370,6 @@ class Parameters(object):
 # Register Parameters in _libBornAgainFit:
 _libBornAgainFit.Parameters_swigregister(Parameters)
 
-class PyCallback(object):
-    r"""
-
-
-    Base class to wrap Python callable and pass it to C++. Used in swig interface file, intended to be overloaded from Python.
-
-    C++ includes: PyCallback.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    SCALAR = _libBornAgainFit.PyCallback_SCALAR
-    
-    RESIDUAL = _libBornAgainFit.PyCallback_RESIDUAL
-    
-
-    def __init__(self, *args):
-        r"""
-        __init__(PyCallback self, PyCallback::CallbackType callback_type=SCALAR) -> PyCallback
-        PyCallback::PyCallback(CallbackType callback_type=SCALAR)
-
-        """
-        if self.__class__ == PyCallback:
-            _self = None
-        else:
-            _self = self
-        _libBornAgainFit.PyCallback_swiginit(self, _libBornAgainFit.new_PyCallback(_self, *args))
-    __swig_destroy__ = _libBornAgainFit.delete_PyCallback
-
-    def callback_type(self):
-        r"""
-        callback_type(PyCallback self) -> PyCallback::CallbackType
-        PyCallback::CallbackType PyCallback::callback_type() const
-
-        """
-        return _libBornAgainFit.PyCallback_callback_type(self)
-
-    def call_scalar(self, pars):
-        r"""
-        call_scalar(PyCallback self, Parameters pars) -> double
-        double PyCallback::call_scalar(mumufit::Parameters pars)
-
-        Call Python callable and returns its result. Intended to be overloaded in Python.
-
-        Parameters:
-        -----------
-
-        pars: 
-        Fit parameters object (intentionally passed by value).
-
-        value of objective function. 
-
-        """
-        return _libBornAgainFit.PyCallback_call_scalar(self, pars)
-
-    def call_residuals(self, pars):
-        r"""
-        call_residuals(PyCallback self, Parameters pars) -> vdouble1d_t
-        std::vector< double > PyCallback::call_residuals(mumufit::Parameters pars)
-
-        Call Python callable and returns its result. Intended to be overloaded in Python.
-
-        Parameters:
-        -----------
-
-        pars: 
-        Fit parameters object (intentionally passed by value).
-
-        vector of residuals 
-
-        """
-        return _libBornAgainFit.PyCallback_call_residuals(self, pars)
-    def __disown__(self):
-        self.this.disown()
-        _libBornAgainFit.disown_PyCallback(self)
-        return weakref.proxy(self)
-
-# Register PyCallback in _libBornAgainFit:
-_libBornAgainFit.PyCallback_swigregister(PyCallback)
-
-class MinimizerResult(object):
-    r"""
-
-
-    Result of minimization round.
-
-    C++ includes: MinimizerResult.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(MinimizerResult self) -> MinimizerResult
-        MinimizerResult::MinimizerResult()
-
-        """
-        _libBornAgainFit.MinimizerResult_swiginit(self, _libBornAgainFit.new_MinimizerResult())
-
-    def setParameters(self, parameters):
-        r"""
-        setParameters(MinimizerResult self, Parameters parameters)
-        void MinimizerResult::setParameters(const Parameters &parameters)
-
-        """
-        return _libBornAgainFit.MinimizerResult_setParameters(self, parameters)
-
-    def parameters(self):
-        r"""
-        parameters(MinimizerResult self) -> Parameters
-        Parameters MinimizerResult::parameters() const
-
-        """
-        return _libBornAgainFit.MinimizerResult_parameters(self)
-
-    def setMinValue(self, value):
-        r"""
-        setMinValue(MinimizerResult self, double value)
-        void MinimizerResult::setMinValue(double value)
-
-        """
-        return _libBornAgainFit.MinimizerResult_setMinValue(self, value)
-
-    def minValue(self):
-        r"""
-        minValue(MinimizerResult self) -> double
-        double MinimizerResult::minValue() const
-
-        Minimum value of objective function found by minimizer. 
-
-        """
-        return _libBornAgainFit.MinimizerResult_minValue(self)
-
-    def toString(self):
-        r"""
-        toString(MinimizerResult self) -> std::string
-        std::string MinimizerResult::toString() const
-
-        Returns multi-line string representing minimization results. 
-
-        """
-        return _libBornAgainFit.MinimizerResult_toString(self)
-
-    def setReport(self, value):
-        r"""
-        setReport(MinimizerResult self, std::string const & value)
-        void MinimizerResult::setReport(const std::string &value)
-
-        """
-        return _libBornAgainFit.MinimizerResult_setReport(self, value)
-
-    def setDuration(self, value):
-        r"""
-        setDuration(MinimizerResult self, double value)
-        void MinimizerResult::setDuration(double value)
-
-        """
-        return _libBornAgainFit.MinimizerResult_setDuration(self, value)
-
-    def setNumberOfCalls(self, value):
-        r"""
-        setNumberOfCalls(MinimizerResult self, int value)
-        void MinimizerResult::setNumberOfCalls(int value)
-
-        """
-        return _libBornAgainFit.MinimizerResult_setNumberOfCalls(self, value)
-
-    def setNumberOfGradientCalls(self, value):
-        r"""
-        setNumberOfGradientCalls(MinimizerResult self, int value)
-        void MinimizerResult::setNumberOfGradientCalls(int value)
-
-        """
-        return _libBornAgainFit.MinimizerResult_setNumberOfGradientCalls(self, value)
-    __swig_destroy__ = _libBornAgainFit.delete_MinimizerResult
-
-# Register MinimizerResult in _libBornAgainFit:
-_libBornAgainFit.MinimizerResult_swigregister(MinimizerResult)
-
-class Minimizer(object):
-    r"""
-
-
-    A main class to run fitting.
-
-    C++ includes: Minimizer.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(Minimizer self) -> Minimizer
-        Minimizer::Minimizer()
-
-        """
-        _libBornAgainFit.Minimizer_swiginit(self, _libBornAgainFit.new_Minimizer())
-    __swig_destroy__ = _libBornAgainFit.delete_Minimizer
-
-    def setMinimizer(self, *args):
-        r"""
-        setMinimizer(Minimizer self, std::string const & minimizerName, std::string const & algorithmName="", std::string const & options="")
-        setMinimizer(Minimizer self, IMinimizer minimizer)
-        void Minimizer::setMinimizer(IMinimizer *minimizer)
-
-        """
-        return _libBornAgainFit.Minimizer_setMinimizer(self, *args)
-
-    def minimize_cpp(self, callback, parameters):
-        r"""
-        minimize_cpp(Minimizer self, PyCallback callback, Parameters parameters) -> MinimizerResult
-        MinimizerResult Minimizer::minimize(PyCallback &callback, const Parameters &parameters)
-
-        Finds minimum of user objective function (to be called from Python). 
-
-        """
-        return _libBornAgainFit.Minimizer_minimize_cpp(self, callback, parameters)
-
-    def minimize(self, callback, pars):
-        if not callable(callback):
-            raise Exception("Not a Python callable")
-
-    # single call to callback to check return type
-        result = callback(pars)
-
-        if isinstance(result, float):
-            wrp = CallableWrapper(callback, PyCallback.SCALAR)
-            return self.minimize_cpp(wrp, pars)
-        elif hasattr(result, '__len__'):
-            wrp = CallableWrapper(callback, PyCallback.RESIDUAL)
-            return self.minimize_cpp(wrp, pars)
-        else:
-            raise Exception("Wrong callable type")
-
-
-
-# Register Minimizer in _libBornAgainFit:
-_libBornAgainFit.Minimizer_swigregister(Minimizer)
-
 class IMinimizer(object):
     r"""
 
@@ -2775,6 +2531,226 @@ class MinimizerCatalog(object):
 # Register MinimizerCatalog in _libBornAgainFit:
 _libBornAgainFit.MinimizerCatalog_swigregister(MinimizerCatalog)
 
+class MinimizerResult(object):
+    r"""
+
+
+    Result of minimization round.
+
+    C++ includes: MinimizerResult.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(MinimizerResult self) -> MinimizerResult
+        MinimizerResult::MinimizerResult()
+
+        """
+        _libBornAgainFit.MinimizerResult_swiginit(self, _libBornAgainFit.new_MinimizerResult())
+
+    def setParameters(self, parameters):
+        r"""
+        setParameters(MinimizerResult self, Parameters parameters)
+        void MinimizerResult::setParameters(const Parameters &parameters)
+
+        """
+        return _libBornAgainFit.MinimizerResult_setParameters(self, parameters)
+
+    def parameters(self):
+        r"""
+        parameters(MinimizerResult self) -> Parameters
+        Parameters MinimizerResult::parameters() const
+
+        """
+        return _libBornAgainFit.MinimizerResult_parameters(self)
+
+    def setMinValue(self, value):
+        r"""
+        setMinValue(MinimizerResult self, double value)
+        void MinimizerResult::setMinValue(double value)
+
+        """
+        return _libBornAgainFit.MinimizerResult_setMinValue(self, value)
+
+    def minValue(self):
+        r"""
+        minValue(MinimizerResult self) -> double
+        double MinimizerResult::minValue() const
+
+        Minimum value of objective function found by minimizer. 
+
+        """
+        return _libBornAgainFit.MinimizerResult_minValue(self)
+
+    def toString(self):
+        r"""
+        toString(MinimizerResult self) -> std::string
+        std::string MinimizerResult::toString() const
+
+        Returns multi-line string representing minimization results. 
+
+        """
+        return _libBornAgainFit.MinimizerResult_toString(self)
+
+    def setReport(self, value):
+        r"""
+        setReport(MinimizerResult self, std::string const & value)
+        void MinimizerResult::setReport(const std::string &value)
+
+        """
+        return _libBornAgainFit.MinimizerResult_setReport(self, value)
+
+    def setDuration(self, value):
+        r"""
+        setDuration(MinimizerResult self, double value)
+        void MinimizerResult::setDuration(double value)
+
+        """
+        return _libBornAgainFit.MinimizerResult_setDuration(self, value)
+
+    def setNumberOfCalls(self, value):
+        r"""
+        setNumberOfCalls(MinimizerResult self, int value)
+        void MinimizerResult::setNumberOfCalls(int value)
+
+        """
+        return _libBornAgainFit.MinimizerResult_setNumberOfCalls(self, value)
+
+    def setNumberOfGradientCalls(self, value):
+        r"""
+        setNumberOfGradientCalls(MinimizerResult self, int value)
+        void MinimizerResult::setNumberOfGradientCalls(int value)
+
+        """
+        return _libBornAgainFit.MinimizerResult_setNumberOfGradientCalls(self, value)
+    __swig_destroy__ = _libBornAgainFit.delete_MinimizerResult
+
+# Register MinimizerResult in _libBornAgainFit:
+_libBornAgainFit.MinimizerResult_swigregister(MinimizerResult)
+
+class FitOptions(object):
+    r"""
+
+
+    General fitting options.
+
+    C++ includes: FitOptions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(FitOptions self) -> FitOptions
+        FitOptions::FitOptions()
+
+        """
+        _libBornAgainFit.FitOptions_swiginit(self, _libBornAgainFit.new_FitOptions())
+
+    def derivEpsilon(self):
+        r"""
+        derivEpsilon(FitOptions self) -> double
+        double FitOptions::derivEpsilon() const
+
+        """
+        return _libBornAgainFit.FitOptions_derivEpsilon(self)
+
+    def setDerivEpsilon(self, deriv_epsilon):
+        r"""
+        setDerivEpsilon(FitOptions self, double deriv_epsilon)
+        void FitOptions::setDerivEpsilon(double deriv_epsilon)
+
+        """
+        return _libBornAgainFit.FitOptions_setDerivEpsilon(self, deriv_epsilon)
+
+    def stepFactor(self):
+        r"""
+        stepFactor(FitOptions self) -> double
+        double FitOptions::stepFactor() const
+
+        """
+        return _libBornAgainFit.FitOptions_stepFactor(self)
+
+    def setStepFactor(self, step_factor):
+        r"""
+        setStepFactor(FitOptions self, double step_factor)
+        void FitOptions::setStepFactor(double step_factor)
+
+        """
+        return _libBornAgainFit.FitOptions_setStepFactor(self, step_factor)
+    __swig_destroy__ = _libBornAgainFit.delete_FitOptions
+
+# Register FitOptions in _libBornAgainFit:
+_libBornAgainFit.FitOptions_swigregister(FitOptions)
+
+class Minimizer(object):
+    r"""
+
+
+    A main class to run fitting.
+
+    C++ includes: Minimizer.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self):
+        r"""
+        __init__(Minimizer self) -> Minimizer
+        Minimizer::Minimizer()
+
+        """
+        _libBornAgainFit.Minimizer_swiginit(self, _libBornAgainFit.new_Minimizer())
+    __swig_destroy__ = _libBornAgainFit.delete_Minimizer
+
+    def setMinimizer(self, *args):
+        r"""
+        setMinimizer(Minimizer self, std::string const & minimizerName, std::string const & algorithmName="", std::string const & options="")
+        setMinimizer(Minimizer self, IMinimizer minimizer)
+        void Minimizer::setMinimizer(IMinimizer *minimizer)
+
+        """
+        return _libBornAgainFit.Minimizer_setMinimizer(self, *args)
+
+    def minimize_cpp(self, callback, parameters):
+        r"""
+        minimize_cpp(Minimizer self, PyCallback callback, Parameters parameters) -> MinimizerResult
+        MinimizerResult Minimizer::minimize(PyCallback &callback, const Parameters &parameters)
+
+        Finds minimum of user objective function (to be called from Python). 
+
+        """
+        return _libBornAgainFit.Minimizer_minimize_cpp(self, callback, parameters)
+
+    def minimize(self, callback, pars):
+        if not callable(callback):
+            raise Exception("Not a Python callable")
+
+    # single call to callback to check return type
+        result = callback(pars)
+
+        if isinstance(result, float):
+            wrp = CallableWrapper(callback, PyCallback.SCALAR)
+            return self.minimize_cpp(wrp, pars)
+        elif hasattr(result, '__len__'):
+            wrp = CallableWrapper(callback, PyCallback.RESIDUAL)
+            return self.minimize_cpp(wrp, pars)
+        else:
+            raise Exception("Wrong callable type")
+
+
+
+# Register Minimizer in _libBornAgainFit:
+_libBornAgainFit.Minimizer_swigregister(Minimizer)
+
 class MinimizerFactory(object):
     r"""
 
@@ -2848,6 +2824,87 @@ def MinimizerFactory_catalogDetailsToString():
 def MinimizerFactory_catalog():
     r"""MinimizerFactory_catalog() -> MinimizerCatalog"""
     return _libBornAgainFit.MinimizerFactory_catalog()
+
+class PyCallback(object):
+    r"""
+
+
+    Base class to wrap Python callable and pass it to C++. Used in swig interface file, intended to be overloaded from Python.
+
+    C++ includes: PyCallback.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    SCALAR = _libBornAgainFit.PyCallback_SCALAR
+    
+    RESIDUAL = _libBornAgainFit.PyCallback_RESIDUAL
+    
+
+    def __init__(self, *args):
+        r"""
+        __init__(PyCallback self, PyCallback::CallbackType callback_type=SCALAR) -> PyCallback
+        PyCallback::PyCallback(CallbackType callback_type=SCALAR)
+
+        """
+        if self.__class__ == PyCallback:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainFit.PyCallback_swiginit(self, _libBornAgainFit.new_PyCallback(_self, *args))
+    __swig_destroy__ = _libBornAgainFit.delete_PyCallback
+
+    def callback_type(self):
+        r"""
+        callback_type(PyCallback self) -> PyCallback::CallbackType
+        PyCallback::CallbackType PyCallback::callback_type() const
+
+        """
+        return _libBornAgainFit.PyCallback_callback_type(self)
+
+    def call_scalar(self, pars):
+        r"""
+        call_scalar(PyCallback self, Parameters pars) -> double
+        double PyCallback::call_scalar(mumufit::Parameters pars)
+
+        Call Python callable and returns its result. Intended to be overloaded in Python.
+
+        Parameters:
+        -----------
+
+        pars: 
+        Fit parameters object (intentionally passed by value).
+
+        value of objective function. 
+
+        """
+        return _libBornAgainFit.PyCallback_call_scalar(self, pars)
+
+    def call_residuals(self, pars):
+        r"""
+        call_residuals(PyCallback self, Parameters pars) -> vdouble1d_t
+        std::vector< double > PyCallback::call_residuals(mumufit::Parameters pars)
+
+        Call Python callable and returns its result. Intended to be overloaded in Python.
+
+        Parameters:
+        -----------
+
+        pars: 
+        Fit parameters object (intentionally passed by value).
+
+        vector of residuals 
+
+        """
+        return _libBornAgainFit.PyCallback_call_residuals(self, pars)
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainFit.disown_PyCallback(self)
+        return weakref.proxy(self)
+
+# Register PyCallback in _libBornAgainFit:
+_libBornAgainFit.PyCallback_swigregister(PyCallback)
 
 
 class ParametersIterator(object):

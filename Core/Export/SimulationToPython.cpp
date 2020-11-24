@@ -35,6 +35,8 @@
 #include "Param/Varia/PyFmtLimits.h"
 #include <iomanip>
 
+using pyfmt::indent;
+
 namespace {
 const std::string defineSimulate = "def run_simulation():\n"
                                    "    sample = "
@@ -92,13 +94,13 @@ std::string SimulationToPython::defineGetSimulation(const ISimulation* simulatio
         throw std::runtime_error("SimulationToPython::defineGetSimulation() -> Error. "
                                  "Wrong simulation type");
 
-    result << pyfmt::indent() << "return simulation\n\n\n";
+    result << indent() << "return simulation\n\n\n";
     return result.str();
 }
 
 std::string SimulationToPython::defineGISASSimulation(const GISASSimulation* simulation) const {
     std::ostringstream result;
-    result << pyfmt::indent() << "simulation = ba.GISASSimulation()\n";
+    result << indent() << "simulation = ba.GISASSimulation()\n";
     result << defineDetector(simulation);
     result << defineDetectorResolutionFunction(simulation);
     result << defineDetectorPolarizationAnalysis(simulation);
@@ -112,7 +114,7 @@ std::string SimulationToPython::defineGISASSimulation(const GISASSimulation* sim
 
 std::string SimulationToPython::defineOffSpecSimulation(const OffSpecSimulation* simulation) const {
     std::ostringstream result;
-    result << pyfmt::indent() << "simulation = ba.OffSpecSimulation()\n";
+    result << indent() << "simulation = ba.OffSpecSimulation()\n";
     result << defineDetector(simulation);
     result << defineDetectorResolutionFunction(simulation);
     result << defineDetectorPolarizationAnalysis(simulation);
@@ -127,7 +129,7 @@ std::string SimulationToPython::defineOffSpecSimulation(const OffSpecSimulation*
 std::string
 SimulationToPython::defineSpecularSimulation(const SpecularSimulation* simulation) const {
     std::ostringstream result;
-    result << pyfmt::indent() << "simulation = ba.SpecularSimulation()\n";
+    result << indent() << "simulation = ba.SpecularSimulation()\n";
     result << defineDetectorPolarizationAnalysis(simulation);
     result << defineSpecularScan(*simulation);
     result << defineParameterDistributions(simulation);
@@ -145,7 +147,7 @@ std::string SimulationToPython::defineDetector(const ISimulation* simulation) co
     result << std::setprecision(12);
 
     if (const auto* const det = dynamic_cast<const SphericalDetector*>(detector)) {
-        result << pyfmt::indent() << "simulation.setDetectorParameters(";
+        result << indent() << "simulation.setDetectorParameters(";
         for (size_t index = 0; index < det->dimension(); ++index) {
             if (index != 0)
                 result << ", ";
@@ -156,50 +158,50 @@ std::string SimulationToPython::defineDetector(const ISimulation* simulation) co
         result << ")\n";
     } else if (const auto* const det = dynamic_cast<const RectangularDetector*>(detector)) {
         result << "\n";
-        result << pyfmt::indent() << "detector = ba.RectangularDetector(" << det->getNbinsX()
+        result << indent() << "detector = ba.RectangularDetector(" << det->getNbinsX()
                << ", " << pyfmt::printDouble(det->getWidth()) << ", " << det->getNbinsY() << ", "
                << pyfmt::printDouble(det->getHeight()) << ")\n";
         if (det->getDetectorArrangment() == RectangularDetector::GENERIC) {
-            result << pyfmt::indent() << "detector.setPosition("
+            result << indent() << "detector.setPosition("
                    << pyfmt::printKvector(det->getNormalVector()) << ", "
                    << pyfmt::printDouble(det->getU0()) << ", " << pyfmt::printDouble(det->getV0());
             if (!isDefaultDirection(det->getDirectionVector()))
                 result << ", " << pyfmt::printKvector(det->getDirectionVector());
             result << ")\n";
         } else if (det->getDetectorArrangment() == RectangularDetector::PERPENDICULAR_TO_SAMPLE) {
-            result << pyfmt::indent() << "detector.setPerpendicularToSampleX("
+            result << indent() << "detector.setPerpendicularToSampleX("
                    << pyfmt::printDouble(det->getDistance()) << ", "
                    << pyfmt::printDouble(det->getU0()) << ", " << pyfmt::printDouble(det->getV0())
                    << ")\n";
         } else if (det->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_DIRECT_BEAM) {
-            result << pyfmt::indent() << "detector.setPerpendicularToDirectBeam("
+            result << indent() << "detector.setPerpendicularToDirectBeam("
                    << pyfmt::printDouble(det->getDistance()) << ", "
                    << pyfmt::printDouble(det->getU0()) << ", " << pyfmt::printDouble(det->getV0())
                    << ")\n";
         } else if (det->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM) {
-            result << pyfmt::indent() << "detector.setPerpendicularToReflectedBeam("
+            result << indent() << "detector.setPerpendicularToReflectedBeam("
                    << pyfmt::printDouble(det->getDistance()) << ", "
                    << pyfmt::printDouble(det->getU0()) << ", " << pyfmt::printDouble(det->getV0())
                    << ")\n";
         } else if (det->getDetectorArrangment()
                    == RectangularDetector::PERPENDICULAR_TO_REFLECTED_BEAM_DPOS) {
-            result << pyfmt::indent() << "detector.setPerpendicularToReflectedBeam("
+            result << indent() << "detector.setPerpendicularToReflectedBeam("
                    << pyfmt::printDouble(det->getDistance()) << ")\n";
-            result << pyfmt::indent() << "detector.setDirectBeamPosition("
+            result << indent() << "detector.setDirectBeamPosition("
                    << pyfmt::printDouble(det->getDirectBeamU0()) << ", "
                    << pyfmt::printDouble(det->getDirectBeamV0()) << ")\n";
         } else
             throw Exceptions::RuntimeErrorException(
                 "SimulationToPython::defineDetector() -> Error. Unknown alignment.");
 
-        result << pyfmt::indent() << "simulation.setDetector(detector)\n";
+        result << indent() << "simulation.setDetector(detector)\n";
     } else
         throw Exceptions::RuntimeErrorException("SimulationToPython::defineDetector() -> Error. "
                                                 "Unknown detector");
     if (detector->regionOfInterest()) {
-        result << pyfmt::indent() << "simulation.setRegionOfInterest("
+        result << indent() << "simulation.setRegionOfInterest("
                << printFunc(detector)(detector->regionOfInterest()->getXlow()) << ", "
                << printFunc(detector)(detector->regionOfInterest()->getYlow()) << ", "
                << printFunc(detector)(detector->regionOfInterest()->getXup()) << ", "
@@ -218,7 +220,7 @@ SimulationToPython::defineDetectorResolutionFunction(const ISimulation* simulati
         if (auto* p_convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
             if (auto* resfunc = dynamic_cast<const ResolutionFunction2DGaussian*>(
                     p_convfunc->getResolutionFunction2D())) {
-                result << pyfmt::indent() << "simulation.setDetectorResolutionFunction(";
+                result << indent() << "simulation.setDetectorResolutionFunction(";
                 result << "ba.ResolutionFunction2DGaussian(";
                 result << printFunc(detector)(resfunc->getSigmaX()) << ", ";
                 result << printFunc(detector)(resfunc->getSigmaY()) << "))\n";
@@ -245,11 +247,11 @@ SimulationToPython::defineDetectorPolarizationAnalysis(const ISimulation* simula
 
     if (analyzer_direction.mag() > 0.0) {
         std::string direction_name = "analyzer_direction";
-        result << pyfmt::indent() << direction_name << " = kvector_t("
+        result << indent() << direction_name << " = kvector_t("
                << pyfmt::printDouble(analyzer_direction.x()) << ", "
                << pyfmt::printDouble(analyzer_direction.y()) << ", "
                << pyfmt::printDouble(analyzer_direction.z()) << ")\n";
-        result << pyfmt::indent() << "simulation.setAnalyzerProperties(" << direction_name << ", "
+        result << indent() << "simulation.setAnalyzerProperties(" << direction_name << ", "
                << pyfmt::printDouble(analyzer_efficiency) << ", "
                << pyfmt::printDouble(analyzer_total_transmission) << ")\n";
     }
@@ -260,7 +262,7 @@ std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulatio
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
-    result << pyfmt::indent() << "simulation.setBeamParameters("
+    result << indent() << "simulation.setBeamParameters("
            << pyfmt::printNm(beam.getWavelength()) << ", " << pyfmt::printDegrees(beam.getAlpha())
            << ", " << pyfmt::printDegrees(beam.getPhi()) << ")\n";
 
@@ -274,10 +276,10 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
-    const std::string axis_def = pyfmt::indent() + "alpha_i_axis = ";
+    const std::string axis_def = indent() + "alpha_i_axis = ";
     result << axis_def << simulation.beamAxis()->pyString("rad", axis_def.size()) << "\n";
 
-    result << pyfmt::indent() << "simulation.setBeamParameters("
+    result << indent() << "simulation.setBeamParameters("
            << pyfmt::printNm(beam.getWavelength()) << ", "
            << "alpha_i_axis, " << pyfmt::printDegrees(beam.getPhi()) << ")\n";
 
@@ -294,7 +296,7 @@ std::string SimulationToPython::defineSpecularScan(const SpecularSimulation& sim
                                  "does not contain any scan");
     result << *scan << "\n";
 
-    result << pyfmt::indent() << "simulation.setScan(scan)\n";
+    result << indent() << "simulation.setScan(scan)\n";
     result << defineBeamIntensity(simulation.instrument().beam());
     result << "\n";
     return result.str();
@@ -305,11 +307,11 @@ std::string SimulationToPython::defineBeamPolarization(const Beam& beam) const {
     auto bloch_vector = beam.getBlochVector();
     if (bloch_vector.mag() > 0.0) {
         std::string beam_polarization = "beam_polarization";
-        result << pyfmt::indent() << beam_polarization << " = kvector_t("
+        result << indent() << beam_polarization << " = kvector_t("
                << pyfmt::printDouble(bloch_vector.x()) << ", "
                << pyfmt::printDouble(bloch_vector.y()) << ", "
                << pyfmt::printDouble(bloch_vector.z()) << ")\n";
-        result << pyfmt::indent() << "simulation.setBeamPolarization(" << beam_polarization
+        result << indent() << "simulation.setBeamPolarization(" << beam_polarization
                << ")\n";
     }
     return result.str();
@@ -319,7 +321,7 @@ std::string SimulationToPython::defineBeamIntensity(const Beam& beam) const {
     std::ostringstream result;
     double beam_intensity = beam.getIntensity();
     if (beam_intensity > 0.0)
-        result << pyfmt::indent() << "simulation.setBeamIntensity("
+        result << indent() << "simulation.setBeamIntensity("
                << pyfmt::printScientificDouble(beam_intensity) << ")\n";
     return result.str();
 }
@@ -339,11 +341,11 @@ std::string SimulationToPython::defineParameterDistributions(const ISimulation* 
         double sigma_factor = distributions[i].getSigmaFactor();
 
         std::string s_distr = "distr_" + std::to_string(i + 1);
-        result << pyfmt::indent() << s_distr << " = "
+        result << indent() << s_distr << " = "
                << pyfmt2::printDistribution(*distributions[i].getDistribution(), mainParUnits)
                << "\n";
 
-        result << pyfmt::indent() << "simulation.addParameterDistribution(\"" << main_par_name
+        result << indent() << "simulation.addParameterDistribution(\"" << main_par_name
                << "\", " << s_distr << ", " << nbr_samples << ", "
                << pyfmt::printDouble(sigma_factor)
                << pyfmt::printRealLimitsArg(distributions[i].getLimits(), mainParUnits) << ")\n";
@@ -362,7 +364,7 @@ std::string SimulationToPython::defineMasks(const ISimulation* simulation) const
         for (size_t i_mask = 0; i_mask < detectorMask->numberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
-            result << pyfmt2::representShape2D(pyfmt::indent(), shape, mask_value,
+            result << pyfmt2::representShape2D(indent(), shape, mask_value,
                                                printFunc(detector));
         }
         result << "\n";
@@ -376,15 +378,15 @@ std::string SimulationToPython::defineSimulationOptions(const ISimulation* simul
 
     const SimulationOptions& options = simulation->getOptions();
     if (options.getHardwareConcurrency() != options.getNumberOfThreads())
-        result << pyfmt::indent() << "simulation.getOptions().setNumberOfThreads("
+        result << indent() << "simulation.getOptions().setNumberOfThreads("
                << options.getNumberOfThreads() << ")\n";
     if (options.isIntegrate())
-        result << pyfmt::indent() << "simulation.getOptions().setMonteCarloIntegration(True, "
+        result << indent() << "simulation.getOptions().setMonteCarloIntegration(True, "
                << options.getMcPoints() << ")\n";
     if (options.useAvgMaterials())
-        result << pyfmt::indent() << "simulation.getOptions().setUseAvgMaterials(True)\n";
+        result << indent() << "simulation.getOptions().setUseAvgMaterials(True)\n";
     if (options.includeSpecular())
-        result << pyfmt::indent() << "simulation.getOptions().setIncludeSpecular(True)\n";
+        result << indent() << "simulation.getOptions().setIncludeSpecular(True)\n";
     return result.str();
 }
 
@@ -394,13 +396,13 @@ std::string SimulationToPython::defineBackground(const ISimulation* simulation) 
     auto p_bg = simulation->background();
     if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
         if (p_constant_bg->backgroundValue() > 0.0) {
-            result << pyfmt::indent() << "background = ba.ConstantBackground("
+            result << indent() << "background = ba.ConstantBackground("
                    << pyfmt::printScientificDouble(p_constant_bg->backgroundValue()) << ")\n";
-            result << pyfmt::indent() << "simulation.setBackground(background)\n";
+            result << indent() << "simulation.setBackground(background)\n";
         }
     } else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
-        result << pyfmt::indent() << "background = ba.PoissonNoiseBackground()\n";
-        result << pyfmt::indent() << "simulation.setBackground(background)\n";
+        result << indent() << "background = ba.PoissonNoiseBackground()\n";
+        result << indent() << "simulation.setBackground(background)\n";
     }
     return result.str();
 }

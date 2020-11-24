@@ -52,8 +52,6 @@ private:
     std::string addLayoutsToLayers() const;
     std::string defineMultiLayers() const;
 
-    std::string indent() const;
-
     void setRotationInformation(const IParticle* particle, std::string particle_name,
                                 std::ostringstream& result) const;
     void setPositionInformation(const IParticle* particle, std::string particle_name,

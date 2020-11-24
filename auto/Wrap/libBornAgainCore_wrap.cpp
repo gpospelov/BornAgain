@@ -6706,7 +6706,6 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Core/Scan/QSpecScan.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
-#include "Sample/Processed/MultiLayerFuncs.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/IObserver.h"
@@ -42404,119 +42403,6 @@ SWIGINTERN PyObject *PoissonNoiseBackground_swiginit(PyObject *SWIGUNUSEDPARM(se
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_MaterialProfile_cpp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MultiLayer *arg1 = 0 ;
-  int arg2 ;
-  double arg3 ;
-  double arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  std::vector< complex_t,std::allocator< complex_t > > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MaterialProfile_cpp", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_MultiLayer,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MaterialProfile_cpp" "', argument " "1"" of type '" "MultiLayer const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MaterialProfile_cpp" "', argument " "1"" of type '" "MultiLayer const &""'"); 
-  }
-  arg1 = reinterpret_cast< MultiLayer * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MaterialProfile_cpp" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = static_cast< int >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MaterialProfile_cpp" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "MaterialProfile_cpp" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  result = MaterialProfile((MultiLayer const &)*arg1,arg2,arg3,arg4);
-  resultobj = swig::from(static_cast< std::vector< std::complex< double >,std::allocator< std::complex< double > > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_DefaultMaterialProfileLimits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MultiLayer *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::pair< double,double > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_MultiLayer,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DefaultMaterialProfileLimits" "', argument " "1"" of type '" "MultiLayer const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "DefaultMaterialProfileLimits" "', argument " "1"" of type '" "MultiLayer const &""'"); 
-  }
-  arg1 = reinterpret_cast< MultiLayer * >(argp1);
-  result = DefaultMaterialProfileLimits((MultiLayer const &)*arg1);
-  resultobj = swig::from(static_cast< std::pair< double,double > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_GenerateZValues(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  int arg1 ;
-  double arg2 ;
-  double arg3 ;
-  int val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  std::vector< double,std::allocator< double > > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "GenerateZValues", 3, 3, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_int(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "GenerateZValues" "', argument " "1"" of type '" "int""'");
-  } 
-  arg1 = static_cast< int >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "GenerateZValues" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "GenerateZValues" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = GenerateZValues(arg1,arg2,arg3);
-  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_new_SimulationFactory(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SimulationFactory *result = 0 ;
@@ -44572,9 +44458,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_PoissonNoiseBackground", _wrap_delete_PoissonNoiseBackground, METH_O, "delete_PoissonNoiseBackground(PoissonNoiseBackground self)"},
 	 { "PoissonNoiseBackground_swigregister", PoissonNoiseBackground_swigregister, METH_O, NULL},
 	 { "PoissonNoiseBackground_swiginit", PoissonNoiseBackground_swiginit, METH_VARARGS, NULL},
-	 { "MaterialProfile_cpp", _wrap_MaterialProfile_cpp, METH_VARARGS, "MaterialProfile_cpp(MultiLayer const & multilayer, int n_points, double z_min, double z_max) -> vector_complex_t"},
-	 { "DefaultMaterialProfileLimits", _wrap_DefaultMaterialProfileLimits, METH_O, "DefaultMaterialProfileLimits(MultiLayer const & multilayer) -> pvacuum_double_t"},
-	 { "GenerateZValues", _wrap_GenerateZValues, METH_VARARGS, "GenerateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t"},
 	 { "new_SimulationFactory", _wrap_new_SimulationFactory, METH_NOARGS, "\n"
 		"new_SimulationFactory() -> SimulationFactory\n"
 		"SimulationFactory::SimulationFactory()\n"

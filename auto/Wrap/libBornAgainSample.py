@@ -8226,6 +8226,36 @@ class LayerRoughness(ISample):
 # Register LayerRoughness in _libBornAgainSample:
 _libBornAgainSample.LayerRoughness_swigregister(LayerRoughness)
 
+
+def materialProfileSLD(multilayer, n_points, z_min, z_max):
+    r"""
+    materialProfileSLD(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t
+    std::vector<complex_t> materialProfileSLD(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+    Calculate average material profile for given multilayer 
+
+    """
+    return _libBornAgainSample.materialProfileSLD(multilayer, n_points, z_min, z_max)
+
+def defaultMaterialProfileLimits(multilayer):
+    r"""
+    defaultMaterialProfileLimits(MultiLayer multilayer) -> pvacuum_double_t
+    std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+    Get default z limits for generating a material profile. 
+
+    """
+    return _libBornAgainSample.defaultMaterialProfileLimits(multilayer)
+
+def generateZValues(n_points, z_min, z_max):
+    r"""
+    generateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t
+    std::vector<double> generateZValues(int n_points, double z_min, double z_max)
+
+    Generate z values (equidistant) for use in materialProfileSLD. 
+
+    """
+    return _libBornAgainSample.generateZValues(n_points, z_min, z_max)
 class Layer(ISample):
     r"""
 
@@ -11793,5 +11823,24 @@ class SampleBuilderFactory(SampleBuilderFactoryTemp):
 
 # Register SampleBuilderFactory in _libBornAgainSample:
 _libBornAgainSample.SampleBuilderFactory_swigregister(SampleBuilderFactory)
+
+
+def materialProfile(multilayer, n_points=400, z_min=None, z_max=None):
+    """
+    Creates a material profile from the given multilayer. If no limits are given,
+    it will provide sensible default values, considering the included particles and
+    interface roughnesses.
+    :param multilayer: bornagain.MultiLayer object
+    :param n_points: number of points to generate
+    :param z_min: starting value for z
+    :param z_max: ending value for z
+    :return: numpy arrays containing z positions and the complex material values in those positions
+    """
+    def_z_min, def_z_max = defaultMaterialProfileLimits(multilayer)
+    z_min = def_z_min if z_min is None else z_min
+    z_max = def_z_max if z_max is None else z_max
+    z_points = generateZValues(n_points, z_min, z_max)
+    material_values = materialProfileSLD(multilayer, n_points, z_min, z_max)
+    return (z_points, material_values)
 
 

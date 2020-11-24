@@ -53,7 +53,7 @@ def get_sample():
 
 if __name__ == '__main__':
     sample = get_sample()
-    zpoints, slds = ba.MaterialProfile(sample)
+    zpoints, slds = ba.materialProfile(sample)
 
     plt.figure()
     plt.plot(zpoints, np.real(slds))

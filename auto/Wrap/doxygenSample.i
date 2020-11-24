@@ -8594,36 +8594,36 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: MultiLayerFuncs_8cpp.xml
-%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+%feature("docstring")  materialProfileSLD "std::vector<complex_t> materialProfileSLD(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
 Calculate average material profile for given multilayer 
 ";
 
-%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+%feature("docstring")  defaultMaterialProfileLimits "std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer &multilayer)
 
 Get default z limits for generating a material profile. 
 ";
 
-%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+%feature("docstring")  generateZValues "std::vector<double> generateZValues(int n_points, double z_min, double z_max)
 
-Generate z values (equidistant) for use in MaterialProfile. 
+Generate z values (equidistant) for use in materialProfileSLD. 
 ";
 
 
 // File: MultiLayerFuncs_8h.xml
-%feature("docstring")  MaterialProfile "std::vector<complex_t> MaterialProfile(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+%feature("docstring")  materialProfileSLD "std::vector<complex_t> materialProfileSLD(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
 Calculate average material profile for given multilayer 
 ";
 
-%feature("docstring")  DefaultMaterialProfileLimits "std::pair<double, double> DefaultMaterialProfileLimits(const MultiLayer &multilayer)
+%feature("docstring")  defaultMaterialProfileLimits "std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer &multilayer)
 
 Get default z limits for generating a material profile. 
 ";
 
-%feature("docstring")  GenerateZValues "std::vector<double> GenerateZValues(int n_points, double z_min, double z_max)
+%feature("docstring")  generateZValues "std::vector<double> generateZValues(int n_points, double z_min, double z_max)
 
-Generate z values (equidistant) for use in MaterialProfile. 
+Generate z values (equidistant) for use in materialProfileSLD. 
 ";
 
 

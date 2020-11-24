@@ -20,12 +20,15 @@ def normalize_text(ti, fname):
 
 def normalize_file(fname, inplace):
     try:
+        # read file, normalize
         with open(fname, 'r') as f:
             ti = f.read()
         t = normalize_text(ti, fname)
         if t == ti:
             print(f'FILE {fname}: WAS OK')
             return
+
+        # check invariance under second normalization
         t2 = normalize_text(t, fname)
         if t2 != t:
             with open("out1.py", 'w') as f:
@@ -34,6 +37,7 @@ def normalize_file(fname, inplace):
                 f.write(t2)
             exit(f'FILE {fname}: BUG - changes under second normalization, see files out1.py and out2.py')
 
+        # output
         if inplace:
             with open(fname, 'w') as f:
                 f.write(t)

@@ -20,7 +20,7 @@ def normalize_text(ti, fname):
 
 def normalize_file(fname, inplace):
     try:
-        with open(fname, 'rb') as f:
+        with open(fname, 'r') as f:
             ti = f.read()
         t = normalize_text(ti, fname)
         if t == ti:

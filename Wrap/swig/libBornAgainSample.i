@@ -57,8 +57,6 @@
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Sample/Correlations/FTDistributions2D.h"
 #include "Sample/Correlations/IPeakShape.h"
-#include "Sample/Scattering/IFormFactorDecorator.h"
-#include "Sample/Scattering/Rotations.h"
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Sample/HardParticle/FormFactorBar.h"
 #include "Sample/HardParticle/FormFactorBox.h"
@@ -96,7 +94,6 @@
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/Processed/MultiLayerFuncs.h"
 #include "Sample/Particle/Crystal.h"
 #include "Sample/Particle/FormFactorCrystal.h"
 #include "Sample/Particle/FormFactorWeighted.h"
@@ -108,9 +105,12 @@
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Sample/Particle/SlicedParticle.h"
+#include "Sample/Processed/MultiLayerFuncs.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
+#include "Sample/Scattering/IFormFactorDecorator.h"
 #include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/Rotations.h"
 #include "Sample/Slice/LayerInterface.h"
 #include "Sample/Slice/LayerRoughness.h"
 #include "Sample/SoftParticle/FormFactorGauss.h"
@@ -120,7 +120,6 @@
 %}
 
 %include "fromBase.i"
-
 %include "fromParam.i"
 
 %newobject InterferenceFunction2DLattice::createSquare(double lattice_length, double xi);
@@ -155,7 +154,6 @@
 %include "Sample/Scattering/ISample.h"
 %include "Sample/Scattering/IFormFactor.h"
 %include "Sample/Scattering/IBornFF.h"
-
 %include "Sample/Scattering/IFormFactorDecorator.h"
 %include "Sample/Scattering/Rotations.h"
 

@@ -73,7 +73,6 @@
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Fit/Kernel/FitOptions.h"
 %}
 
 // The following goes verbatim from libBornAgainCore.i to libBornAgainCore_wrap.cxx.
@@ -100,8 +99,6 @@
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
 
 %include "BAVersion.h"
-
-%include "Fit/Kernel/FitOptions.h"
 
 %include "Core/Fitting/IObserver.h"
 %include "Core/Fitting/IterationInfo.h"

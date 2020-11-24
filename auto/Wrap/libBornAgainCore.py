@@ -3137,40 +3137,6 @@ def GetName():
 def GetVersionNumber():
     r"""GetVersionNumber() -> std::string"""
     return _libBornAgainCore.GetVersionNumber()
-class FitOptions(object):
-    r"""Proxy of C++ FitOptions class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""__init__(FitOptions self) -> FitOptions"""
-        _libBornAgainCore.FitOptions_swiginit(self, _libBornAgainCore.new_FitOptions())
-
-    def derivEpsilon(self):
-        r"""derivEpsilon(FitOptions self) -> double"""
-        return _libBornAgainCore.FitOptions_derivEpsilon(self)
-
-    def setDerivEpsilon(self, deriv_epsilon):
-        r"""setDerivEpsilon(FitOptions self, double deriv_epsilon)"""
-        return _libBornAgainCore.FitOptions_setDerivEpsilon(self, deriv_epsilon)
-
-    def stepFactor(self):
-        r"""stepFactor(FitOptions self) -> double"""
-        return _libBornAgainCore.FitOptions_stepFactor(self)
-
-    def setStepFactor(self, step_factor):
-        r"""setStepFactor(FitOptions self, double step_factor)"""
-        return _libBornAgainCore.FitOptions_setStepFactor(self, step_factor)
-    __swig_destroy__ = _libBornAgainCore.delete_FitOptions
-
-# Register FitOptions in _libBornAgainCore:
-_libBornAgainCore.FitOptions_swigregister(FitOptions)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-
 class IObserver(object):
     r"""
 
@@ -3200,6 +3166,10 @@ class IObserver(object):
 
 # Register IObserver in _libBornAgainCore:
 _libBornAgainCore.IObserver_swigregister(IObserver)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
 
 class IObservable(object):
     r"""

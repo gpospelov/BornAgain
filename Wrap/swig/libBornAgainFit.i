@@ -27,17 +27,17 @@
 %feature("director") PyCallback;         // used in extendFit.i
 
 %{
-#include "Fit/Param/RealLimits.h"
+#include "Fit/Kernel/FitOptions.h"
+#include "Fit/Kernel/Minimizer.h"
+#include "Fit/Kernel/MinimizerFactory.h"
+#include "Fit/Kernel/PyCallback.h"
+#include "Fit/Minimizer/IMinimizer.h"
+#include "Fit/Minimizer/MinimizerCatalog.h"
+#include "Fit/Minimizer/MinimizerResult.h"
 #include "Fit/Param/AttLimits.h"
 #include "Fit/Param/Parameter.h"
 #include "Fit/Param/Parameters.h"
-#include "Fit/Minimizer/IMinimizer.h"
-#include "Fit/Minimizer/MinimizerCatalog.h"
-#include "Fit/Kernel/MinimizerFactory.h"
-
-#include "Fit/Kernel/PyCallback.h"
-#include "Fit/Minimizer/MinimizerResult.h"
-#include "Fit/Kernel/Minimizer.h"
+#include "Fit/Param/RealLimits.h"
 %}
 
 // The following goes verbatim from libBornAgainFit.i to libBornAgainFit_wrap.cxx.
@@ -47,12 +47,13 @@
 %include "Fit/Param/AttLimits.h"
 %include "Fit/Param/Parameter.h"
 %include "Fit/Param/Parameters.h"
-%include "Fit/Kernel/PyCallback.h"
-%include "Fit/Minimizer/MinimizerResult.h"
-%include "Fit/Kernel/Minimizer.h"
 %include "Fit/Minimizer/IMinimizer.h"
 %include "Fit/Minimizer/MinimizerCatalog.h"
+%include "Fit/Minimizer/MinimizerResult.h"
+%include "Fit/Kernel/FitOptions.h"
+%include "Fit/Kernel/Minimizer.h"
 %include "Fit/Kernel/MinimizerFactory.h"
+%include "Fit/Kernel/PyCallback.h"
 
 %pythoncode %{
 class ParametersIterator(object):

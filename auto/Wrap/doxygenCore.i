@@ -1466,6 +1466,43 @@ weight_factors:
 user-defined weighting factors. Used linearly, no matter which norm is chosen. 
 ";
 
+%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
 
 // File: classPoissonNoiseBackground.xml
 %feature("docstring") PoissonNoiseBackground "
@@ -1623,6 +1660,43 @@ C++ includes: ObjectiveMetric.h
 ";
 
 %feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double RelativeDifferenceMetric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
 
 Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
 
@@ -2235,49 +2309,49 @@ Returns default units to convert to.
 ";
 
 
-// File: namespace_0D15.xml
+// File: namespace_0d15.xml
 
 
-// File: namespace_0D19.xml
+// File: namespace_0d19.xml
 
 
-// File: namespace_0D27.xml
+// File: namespace_0d27.xml
 
 
-// File: namespace_0D35.xml
+// File: namespace_0d36.xml
 
 
-// File: namespace_0D40.xml
+// File: namespace_0d41.xml
 
 
-// File: namespace_0D49.xml
+// File: namespace_0d50.xml
 
 
-// File: namespace_0D51.xml
+// File: namespace_0d52.xml
 
 
-// File: namespace_0D55.xml
+// File: namespace_0d56.xml
 
 
-// File: namespace_0D57.xml
+// File: namespace_0d58.xml
 
 
-// File: namespace_0D62.xml
+// File: namespace_0d63.xml
 
 
-// File: namespace_0D64.xml
+// File: namespace_0d65.xml
 
 
-// File: namespace_0D68.xml
+// File: namespace_0d69.xml
 
 
-// File: namespace_0D78.xml
+// File: namespace_0d79.xml
 
 
-// File: namespace_0D80.xml
+// File: namespace_0d81.xml
 
 
-// File: namespace_0D86.xml
+// File: namespace_0d87.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2349,6 +2423,31 @@ Returns default norm name.
 %feature("docstring")  ObjectiveMetricUtils::defaultMetricName "std::string ObjectiveMetricUtils::defaultMetricName()
 
 Returns default metric name. 
+";
+
+
+// File: namespacepyfmt2.xml
+%feature("docstring")  pyfmt2::representShape2D "std::string pyfmt2::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
+
+Returns fixed Python code snippet that defines the function \"runSimulation\". 
+";
+
+%feature("docstring")  pyfmt2::valueTimesUnit "std::string pyfmt2::valueTimesUnit(const RealParameter *par)
+
+Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParameterized *ip)
+
+Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  pyfmt2::printDistribution "std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units)
+
+Prints distribution with constructor parameters in given units. ba.DistributionGaussian(2.0*deg, 0.02*deg) 
+";
+
+%feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
 ";
 
 
@@ -2641,6 +2740,9 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: OrderedMap_8h.xml
+
+
+// File: PyFmt2_8cpp.xml
 
 
 // File: SampleLabelHandler_8cpp.xml

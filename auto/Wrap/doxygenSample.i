@@ -5040,7 +5040,7 @@ Returns lateral correlation length.
 // File: classLayersWithAbsorptionBuilder.xml
 %feature("docstring") LayersWithAbsorptionBuilder "
 
-The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part). The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
+The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part).The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
 
 C++ includes: LayersWithAbsorptionBuilder.h
 ";
@@ -5695,7 +5695,7 @@ Indicates if the peak shape encodes angular disorder, in which case all peaks in
 // File: classMultiLayer.xml
 %feature("docstring") MultiLayer "
 
-Our sample model: a stack of layers one below the other. Example of system of 4 layers (3 interfaces):
+Our sample model: a stack of layers one below the other.Example of system of 4 layers (3 interfaces):
 
 ambience layer #0 ------ interface #0 z=0.0 Fe, 20A layer #1 ------ interface #1 z=-20.0 Cr, 40A layer #2 ------ interface #2 z=-60.0 substrate layer #3
 
@@ -7618,124 +7618,124 @@ C++ includes: ZLimits.h
 ";
 
 
-// File: namespace_0d122.xml
+// File: namespace_0D122.xml
 
 
-// File: namespace_0d125.xml
+// File: namespace_0D125.xml
 
 
-// File: namespace_0d149.xml
+// File: namespace_0D149.xml
 
 
-// File: namespace_0d153.xml
+// File: namespace_0D153.xml
 
 
-// File: namespace_0d157.xml
+// File: namespace_0D157.xml
 
 
-// File: namespace_0d16.xml
+// File: namespace_0D16.xml
 
 
-// File: namespace_0d167.xml
+// File: namespace_0D167.xml
 
 
-// File: namespace_0d169.xml
+// File: namespace_0D169.xml
 
 
-// File: namespace_0d171.xml
+// File: namespace_0D171.xml
 
 
-// File: namespace_0d181.xml
+// File: namespace_0D181.xml
 
 
-// File: namespace_0d2.xml
+// File: namespace_0D2.xml
 
 
-// File: namespace_0d201.xml
+// File: namespace_0D201.xml
 
 
-// File: namespace_0d203.xml
+// File: namespace_0D203.xml
 
 
-// File: namespace_0d205.xml
+// File: namespace_0D205.xml
 
 
-// File: namespace_0d210.xml
+// File: namespace_0D210.xml
 
 
-// File: namespace_0d212.xml
+// File: namespace_0D212.xml
 
 
-// File: namespace_0d222.xml
+// File: namespace_0D222.xml
 
 
-// File: namespace_0d236.xml
+// File: namespace_0D236.xml
 
 
-// File: namespace_0d241.xml
+// File: namespace_0D241.xml
 
 
-// File: namespace_0d25.xml
+// File: namespace_0D25.xml
 
 
-// File: namespace_0d259.xml
+// File: namespace_0D259.xml
 
 
-// File: namespace_0d267.xml
+// File: namespace_0D267.xml
 
 
-// File: namespace_0d277.xml
+// File: namespace_0D277.xml
 
 
-// File: namespace_0d279.xml
+// File: namespace_0D279.xml
 
 
-// File: namespace_0d281.xml
+// File: namespace_0D281.xml
 
 
-// File: namespace_0d283.xml
+// File: namespace_0D283.xml
 
 
-// File: namespace_0d285.xml
+// File: namespace_0D285.xml
 
 
-// File: namespace_0d289.xml
+// File: namespace_0D289.xml
 
 
-// File: namespace_0d291.xml
+// File: namespace_0D291.xml
 
 
-// File: namespace_0d295.xml
+// File: namespace_0D295.xml
 
 
-// File: namespace_0d307.xml
+// File: namespace_0D307.xml
 
 
-// File: namespace_0d31.xml
+// File: namespace_0D31.xml
 
 
-// File: namespace_0d313.xml
+// File: namespace_0D313.xml
 
 
-// File: namespace_0d317.xml
+// File: namespace_0D317.xml
 
 
-// File: namespace_0d335.xml
+// File: namespace_0D335.xml
 
 
-// File: namespace_0d354.xml
+// File: namespace_0D354.xml
 
 
-// File: namespace_0d37.xml
+// File: namespace_0D37.xml
 
 
-// File: namespace_0d39.xml
+// File: namespace_0D39.xml
 
 
-// File: namespace_0d4.xml
+// File: namespace_0D4.xml
 
 
-// File: namespace_0d47.xml
+// File: namespace_0D47.xml
 
 
 // File: namespacebake.xml
@@ -7803,7 +7803,7 @@ Function for calculating the reduced potential, used for obtaining the Fresnel c
 %feature("docstring")  MaterialUtils::MagnetizationCorrection "Eigen::Matrix2cd MaterialUtils::MagnetizationCorrection(complex_t unit_factor, double magnetic_factor, BasicVector3D< T > polarization)
 ";
 
-%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material * > &materials)
+%feature("docstring")  MaterialUtils::checkMaterialTypes "MATERIAL_TYPES MaterialUtils::checkMaterialTypes(const std::vector< const Material *> &materials)
 
 Checks if all non-default materials in  materials are of the same type and returns this type. If several types of materials are involved, InvalidMaterialType identifier is returned. 
 ";

@@ -1466,43 +1466,6 @@ weight_factors:
 user-defined weighting factors. Used linearly, no matter which norm is chosen. 
 ";
 
-%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
-
-Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
-
-Parameters:
------------
-
-sim_data: 
-array with simulated intensities.
-
-exp_data: 
-array with intensity values obtained from an experiment.
-
-uncertainties: 
-array with experimental data uncertainties.
-
-weight_factors: 
-user-defined weighting factors. Used linearly, no matter which norm is chosen. 
-";
-
-%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
-
-Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
-
-Parameters:
------------
-
-sim_data: 
-array with simulated intensities.
-
-exp_data: 
-array with intensity values obtained from an experiment.
-
-weight_factors: 
-user-defined weighting factors. Used linearly, no matter which norm is chosen. 
-";
-
 
 // File: classPoissonNoiseBackground.xml
 %feature("docstring") PoissonNoiseBackground "
@@ -1660,43 +1623,6 @@ C++ includes: ObjectiveMetric.h
 ";
 
 %feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double RelativeDifferenceMetric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
-
-Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
-
-Parameters:
------------
-
-sim_data: 
-array with simulated intensities.
-
-exp_data: 
-array with intensity values obtained from an experiment.
-
-weight_factors: 
-user-defined weighting factors. Used linearly, no matter which norm is chosen. 
-";
-
-%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
-
-Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
-
-Parameters:
------------
-
-sim_data: 
-array with simulated intensities.
-
-exp_data: 
-array with intensity values obtained from an experiment.
-
-uncertainties: 
-array with experimental data uncertainties.
-
-weight_factors: 
-user-defined weighting factors. Used linearly, no matter which norm is chosen. 
-";
-
-%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
 
 Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
 
@@ -2309,49 +2235,49 @@ Returns default units to convert to.
 ";
 
 
-// File: namespace_0d15.xml
+// File: namespace_0D15.xml
 
 
-// File: namespace_0d19.xml
+// File: namespace_0D19.xml
 
 
-// File: namespace_0d27.xml
+// File: namespace_0D27.xml
 
 
-// File: namespace_0d35.xml
+// File: namespace_0D35.xml
 
 
-// File: namespace_0d40.xml
+// File: namespace_0D40.xml
 
 
-// File: namespace_0d49.xml
+// File: namespace_0D49.xml
 
 
-// File: namespace_0d51.xml
+// File: namespace_0D51.xml
 
 
-// File: namespace_0d55.xml
+// File: namespace_0D55.xml
 
 
-// File: namespace_0d57.xml
+// File: namespace_0D57.xml
 
 
-// File: namespace_0d62.xml
+// File: namespace_0D62.xml
 
 
-// File: namespace_0d64.xml
+// File: namespace_0D64.xml
 
 
-// File: namespace_0d68.xml
+// File: namespace_0D68.xml
 
 
-// File: namespace_0d78.xml
+// File: namespace_0D78.xml
 
 
-// File: namespace_0d80.xml
+// File: namespace_0D80.xml
 
 
-// File: namespace_0d86.xml
+// File: namespace_0D86.xml
 
 
 // File: namespaceExportToPython.xml

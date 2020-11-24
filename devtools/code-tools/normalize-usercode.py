@@ -24,7 +24,7 @@ def normalize_file(fname, inplace):
             ti = f.read()
         t = normalize_text(ti, fname)
         if t == ti:
-            print(f'Nothing changed in file {fname}')
+            print(f'FILE {fname}: WAS OK')
             return
         t2 = normalize_text(t, fname)
         if t2 != t:
@@ -32,16 +32,16 @@ def normalize_file(fname, inplace):
                 f.write(t)
             with open("out2.py", 'w') as f:
                 f.write(t2)
-            exit("Script changes under second normalization, see files out1.py and out2.py")
+            exit(f'FILE {fname}: BUG - changes under second normalization, see files out1.py and out2.py')
 
         if inplace:
             with open(fname, 'w') as f:
                 f.write(t)
-            print(f'Normalized file {fname}')
+            print(f'FILE {fname}: NORMALIZED')
         else:
             print(t)
     except Exception as e:
-        print(f'Failed for file {fname}: {e}')
+        print(f'FILE {fname}: FAILED - {e}')
 
 
 if __name__ == '__main__':

@@ -75,6 +75,7 @@
 #include "Core/Simulation/ISimulation2D.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
+#include "Core/Export/ExportToPython.h"
 #include "Fit/Kernel/FitOptions.h"
 %}
 
@@ -126,6 +127,8 @@
 %include "Sample/Processed/MultiLayerFuncs.h"
 
 %include "Core/Simulation/SimulationFactory.h"
+
+%include "Core/Export/ExportToPython.h"
 
 %extend BasicVector3D<double> {
     BasicVector3D<double> __add__(const BasicVector3D<double>& rhs) const {

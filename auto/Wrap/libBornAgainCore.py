@@ -4520,6 +4520,30 @@ class SimulationFactory(SimulationFactoryTemp):
 _libBornAgainCore.SimulationFactory_swigregister(SimulationFactory)
 
 
+def generateSampleCode(multilayer):
+    r"""
+    generateSampleCode(MultiLayer const & multilayer) -> std::string
+    std::string ExportToPython::generateSampleCode(const MultiLayer &multilayer)
+
+    """
+    return _libBornAgainCore.generateSampleCode(multilayer)
+
+def generateSimulationCode(simulation):
+    r"""
+    generateSimulationCode(ISimulation simulation) -> std::string
+    std::string ExportToPython::generateSimulationCode(const ISimulation &simulation)
+
+    """
+    return _libBornAgainCore.generateSimulationCode(simulation)
+
+def generatePyExportTest(simulation):
+    r"""
+    generatePyExportTest(ISimulation simulation) -> std::string
+    std::string ExportToPython::generatePyExportTest(const ISimulation &simulation)
+
+    """
+    return _libBornAgainCore.generatePyExportTest(simulation)
+
 class SimulationBuilderWrapper(PyBuilderCallback):
     def __init__(self, f):
         super(SimulationBuilderWrapper, self).__init__()

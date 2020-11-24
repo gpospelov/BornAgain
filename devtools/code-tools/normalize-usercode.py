@@ -25,8 +25,7 @@ def normalize_file(fname, inplace):
             ti = f.read()
         t = normalize_text(ti, fname)
         if t == ti:
-            print(f'FILE {fname}: WAS OK')
-            return
+            return 0
 
         # check invariance under second normalization
         t2 = normalize_text(t, fname)
@@ -44,15 +43,22 @@ def normalize_file(fname, inplace):
             print(f'FILE {fname}: NORMALIZED')
         else:
             print(t)
+        return 1
     except Exception as e:
         print(f'FILE {fname}: FAILED - {e}')
+        return 2
 
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("simulation_script", type=str)
+    parser.add_argument("input_files", nargs='+', type=str)
     parser.add_argument("-i", "--in-place", action="store_true")
     args = parser.parse_args()
 
-    normalize_file(args.simulation_script, args.in_place)
+    count = [0, 0, 0]
+    for f in args.input_files:
+        ret = normalize_file(f, args.in_place)
+        count[ret] += 1
+
+    print(f'TOTAL: {count[0]} unchanged, {count[1]} normalized, {count[2]} failed')

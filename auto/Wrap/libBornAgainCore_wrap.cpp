@@ -6702,23 +6702,23 @@ SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std
 SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_1(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::size_type n,std::vector< std::pair< double,double > >::value_type const &x){ self->insert(pos, n, x); }
 
 #include "BAVersion.h"
-#include "Core/Scan/AngularSpecScan.h"
-#include "Core/Scan/QSpecScan.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/IBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
+#include "Core/Export/ExportToPython.h"
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/IObserver.h"
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/ISimulation2D.h"
+#include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
-#include "Core/Export/ExportToPython.h"
 #include "Fit/Kernel/FitOptions.h"
 
 SWIGINTERN BasicVector3D< double > BasicVector3D_Sl_double_Sg____add__(BasicVector3D< double > const *self,BasicVector3D< double > const &rhs){

@@ -8,23 +8,24 @@ Export to normal form is done by BornAgain's ExportToPython function.
 import argparse
 import bornagain as ba
 
-def normalize_text(ti):
+def normalize_text(ti, fname):
     c=compile(ti, fname, 'exec')
     ns = {}
     exec(c,ns)
     globals().update(ns)
     s = get_simulation()
     s.setSample(get_sample())
-    return ba.generatePyExportTest(s)
+    t = ba.generatePyExportTest(s)
+    return t
 
 def normalize_file(fname, inplace):
     with open(fname, 'rb') as f:
         ti = f.read()
-    t = normalize_text(ti)
+    t = normalize_text(ti, fname)
     if t == ti:
         print(f'Nothing changed in file {fname}')
         return
-    t2 = normalize_text(t)
+    t2 = normalize_text(t, fname)
     if t2 != t:
         with open("out1.py", 'w') as f:
             f.write(t)
@@ -35,6 +36,7 @@ def normalize_file(fname, inplace):
     if inplace:
         with open(fname, 'w') as f:
             f.write(t)
+        print(f'Normalized file {fname}')
     else:
         print(t)
 

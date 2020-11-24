@@ -155,7 +155,7 @@ std::string SimulationToPython::defineDetector(const ISimulation* simulation) co
         }
         result << ")\n";
     } else if (const auto* const det = dynamic_cast<const RectangularDetector*>(detector)) {
-        result << pyfmt::indent() << "\n";
+        result << "\n";
         result << pyfmt::indent() << "detector = ba.RectangularDetector(" << det->getNbinsX()
                << ", " << pyfmt::printDouble(det->getWidth()) << ", " << det->getNbinsY() << ", "
                << pyfmt::printDouble(det->getHeight()) << ")\n";
@@ -205,7 +205,7 @@ std::string SimulationToPython::defineDetector(const ISimulation* simulation) co
                << printFunc(detector)(detector->regionOfInterest()->getXup()) << ", "
                << printFunc(detector)(detector->regionOfInterest()->getYup()) << ")\n";
     }
-    result << pyfmt::indent() << "\n";
+    result << "\n";
     return result.str();
 }
 
@@ -408,11 +408,11 @@ std::string SimulationToPython::defineBackground(const ISimulation* simulation) 
 std::string SimulationToPython::defineMain(SimulationToPython::EMainType mainType) {
     std::string result;
     if (mainType == RUN_SIMULATION) {
-        result = "if __name__ == '__main__': \n"
+        result = "if __name__ == '__main__':\n"
                  "    result = run_simulation()\n"
                  "    ba.plot_simulation_result(result)\n";
     } else if (mainType == SAVE_DATA) {
-        result = "if __name__ == '__main__': \n"
+        result = "if __name__ == '__main__':\n"
                  "    result = run_simulation()\n"
                  "    import sys\n"
                  "    if len(sys.argv)>=2:\n"

@@ -28,21 +28,21 @@ const double gate_stddev_factor = 2.0 * std::sqrt(3.0);
 } // namespace
 
 //  ************************************************************************************************
-//  interface RangedDistribution
+//  interface IRangedDistribution
 //  ************************************************************************************************
 
-RangedDistribution::RangedDistribution()
+IRangedDistribution::IRangedDistribution()
     : m_n_samples(5), m_sigma_factor(2.0), m_limits(RealLimits::limitless()) {
     checkInitialization();
 }
 
-RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor,
+IRangedDistribution::IRangedDistribution(size_t n_samples, double sigma_factor,
                                        const RealLimits& limits)
     : m_n_samples(n_samples), m_sigma_factor(sigma_factor), m_limits(limits) {
     checkInitialization();
 }
 
-RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min,
+IRangedDistribution::IRangedDistribution(size_t n_samples, double sigma_factor, double min,
                                        double max)
     : m_n_samples(n_samples)
     , m_sigma_factor(sigma_factor)
@@ -50,9 +50,9 @@ RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, do
     checkInitialization();
 }
 
-RangedDistribution::~RangedDistribution() = default;
+IRangedDistribution::~IRangedDistribution() = default;
 
-std::vector<ParameterSample> RangedDistribution::generateSamples(double mean, double stddev) const {
+std::vector<ParameterSample> IRangedDistribution::generateSamples(double mean, double stddev) const {
     auto generator = distribution(mean, stddev);
     if (!generator->isDelta())
         return generator->equidistantSamples(m_n_samples, m_sigma_factor, m_limits);
@@ -65,10 +65,10 @@ std::vector<ParameterSample> RangedDistribution::generateSamples(double mean, do
 }
 
 std::vector<std::vector<ParameterSample>>
-RangedDistribution::generateSamples(const std::vector<double>& mean,
+IRangedDistribution::generateSamples(const std::vector<double>& mean,
                                     const std::vector<double>& stddev) const {
     if (mean.size() != stddev.size())
-        throw std::runtime_error("Error in RangedDistribution::generateSamples: mean and variance "
+        throw std::runtime_error("Error in IRangedDistribution::generateSamples: mean and variance "
                                  "vectors shall be of the same size");
 
     const size_t size = mean.size();
@@ -80,28 +80,28 @@ RangedDistribution::generateSamples(const std::vector<double>& mean,
     return result;
 }
 
-std::unique_ptr<IDistribution1D> RangedDistribution::distribution(double mean,
+std::unique_ptr<IDistribution1D> IRangedDistribution::distribution(double mean,
                                                                   double stddev) const {
     if (stddev < 0.0)
         throw std::runtime_error(
-            "Error in RangedDistribution::distribution: standard deviation is less than zero");
+            "Error in IRangedDistribution::distribution: standard deviation is less than zero");
     return distribution_impl(mean, stddev);
 }
 
-void RangedDistribution::checkInitialization() {
+void IRangedDistribution::checkInitialization() {
     if (m_n_samples < 1u)
-        throw std::runtime_error("Error in RangedDistribution::checkInitialization: number of "
+        throw std::runtime_error("Error in IRangedDistribution::checkInitialization: number of "
                                  "samples shall be positive");
 
     if (m_sigma_factor < 0.0)
-        throw std::runtime_error("Error in RangedDistribution::checkInitialization: sigma factor "
+        throw std::runtime_error("Error in IRangedDistribution::checkInitialization: sigma factor "
                                  "shall be non-negative.");
 
     if (!m_limits.hasLowerAndUpperLimits())
         return;
 
     if (m_limits.lowerLimit() >= m_limits.upperLimit())
-        throw std::runtime_error("Error in RangedDistribution::checkInitialization: lower limit "
+        throw std::runtime_error("Error in IRangedDistribution::checkInitialization: lower limit "
                                  "shall not exceed the upper one.");
 }
 
@@ -109,15 +109,15 @@ void RangedDistribution::checkInitialization() {
 //  class RangedDistributionGate
 //  ************************************************************************************************
 
-RangedDistributionGate::RangedDistributionGate() : RangedDistribution() {}
+RangedDistributionGate::RangedDistributionGate() : IRangedDistribution() {}
 
 RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor,
                                                const RealLimits& limits)
-    : RangedDistribution(n_samples, sigma_factor, limits) {}
+    : IRangedDistribution(n_samples, sigma_factor, limits) {}
 
 RangedDistributionGate::RangedDistributionGate(size_t n_samples, double sigma_factor, double min,
                                                double max)
-    : RangedDistribution(n_samples, sigma_factor, min, max) {}
+    : IRangedDistribution(n_samples, sigma_factor, min, max) {}
 
 RangedDistributionGate* RangedDistributionGate::clone() const {
     return makeCopy(*this).release();
@@ -138,15 +138,15 @@ std::unique_ptr<IDistribution1D> RangedDistributionGate::distribution_impl(doubl
 //  class RangedDistributionLorentz
 //  ************************************************************************************************
 
-RangedDistributionLorentz::RangedDistributionLorentz() : RangedDistribution() {}
+RangedDistributionLorentz::RangedDistributionLorentz() : IRangedDistribution() {}
 
 RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor,
                                                      const RealLimits& limits)
-    : RangedDistribution(n_samples, hwhm_factor, limits) {}
+    : IRangedDistribution(n_samples, hwhm_factor, limits) {}
 
 RangedDistributionLorentz::RangedDistributionLorentz(size_t n_samples, double hwhm_factor,
                                                      double min, double max)
-    : RangedDistribution(n_samples, hwhm_factor, min, max) {}
+    : IRangedDistribution(n_samples, hwhm_factor, min, max) {}
 
 RangedDistributionLorentz* RangedDistributionLorentz::clone() const {
     return makeCopy(*this).release();
@@ -165,15 +165,15 @@ std::unique_ptr<IDistribution1D> RangedDistributionLorentz::distribution_impl(do
 //  class RangedDistributionGaussian
 //  ************************************************************************************************
 
-RangedDistributionGaussian::RangedDistributionGaussian() : RangedDistribution() {}
+RangedDistributionGaussian::RangedDistributionGaussian() : IRangedDistribution() {}
 
 RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor,
                                                        const RealLimits& limits)
-    : RangedDistribution(n_samples, sigma_factor, limits) {}
+    : IRangedDistribution(n_samples, sigma_factor, limits) {}
 
 RangedDistributionGaussian::RangedDistributionGaussian(size_t n_samples, double sigma_factor,
                                                        double min, double max)
-    : RangedDistribution(n_samples, sigma_factor, min, max) {}
+    : IRangedDistribution(n_samples, sigma_factor, min, max) {}
 
 RangedDistributionGaussian* RangedDistributionGaussian::clone() const {
     return makeCopy(*this).release();
@@ -192,15 +192,15 @@ RangedDistributionGaussian::distribution_impl(double mean, double stddev) const 
 //  class RangedDistributionLogNormal
 //  ************************************************************************************************
 
-RangedDistributionLogNormal::RangedDistributionLogNormal() : RangedDistribution() {}
+RangedDistributionLogNormal::RangedDistributionLogNormal() : IRangedDistribution() {}
 
 RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor,
                                                          const RealLimits& limits)
-    : RangedDistribution(n_samples, sigma_factor, limits) {}
+    : IRangedDistribution(n_samples, sigma_factor, limits) {}
 
 RangedDistributionLogNormal::RangedDistributionLogNormal(size_t n_samples, double sigma_factor,
                                                          double min, double max)
-    : RangedDistribution(n_samples, sigma_factor, min, max) {}
+    : IRangedDistribution(n_samples, sigma_factor, min, max) {}
 
 RangedDistributionLogNormal* RangedDistributionLogNormal::clone() const {
     return makeCopy(*this).release();
@@ -226,15 +226,15 @@ RangedDistributionLogNormal::distribution_impl(double mean, double stddev) const
 //  class RangedDistributionCosine
 //  ************************************************************************************************
 
-RangedDistributionCosine::RangedDistributionCosine() : RangedDistribution() {}
+RangedDistributionCosine::RangedDistributionCosine() : IRangedDistribution() {}
 
 RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor,
                                                    const RealLimits& limits)
-    : RangedDistribution(n_samples, sigma_factor, limits) {}
+    : IRangedDistribution(n_samples, sigma_factor, limits) {}
 
 RangedDistributionCosine::RangedDistributionCosine(size_t n_samples, double sigma_factor,
                                                    double min, double max)
-    : RangedDistribution(n_samples, sigma_factor, min, max) {}
+    : IRangedDistribution(n_samples, sigma_factor, min, max) {}
 
 RangedDistributionCosine* RangedDistributionCosine::clone() const {
     return makeCopy(*this).release();

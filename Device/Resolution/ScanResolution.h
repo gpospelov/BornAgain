@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-class RangedDistribution;
+class IRangedDistribution;
 class RealLimits;
 
 //! Container for reflectivity resolution data.
@@ -31,17 +31,17 @@ protected:
 
 public:
     ~ScanResolution() override;
-    static ScanResolution* scanRelativeResolution(const RangedDistribution& distr, double stddev);
-    static ScanResolution* scanRelativeResolution(const RangedDistribution& distr,
+    static ScanResolution* scanRelativeResolution(const IRangedDistribution& distr, double stddev);
+    static ScanResolution* scanRelativeResolution(const IRangedDistribution& distr,
                                                   const std::vector<double>& stddevs);
-    static ScanResolution* scanAbsoluteResolution(const RangedDistribution& distr, double stddev);
-    static ScanResolution* scanAbsoluteResolution(const RangedDistribution& distr,
+    static ScanResolution* scanAbsoluteResolution(const IRangedDistribution& distr, double stddev);
+    static ScanResolution* scanAbsoluteResolution(const IRangedDistribution& distr,
                                                   const std::vector<double>& stddevs);
 #ifndef SWIG
     static ScanResolution* scanEmptyResolution();
 
     ScanResolution* clone() const override = 0;
-    const RangedDistribution* distribution() const { return m_distr.get(); }
+    const IRangedDistribution* distribution() const { return m_distr.get(); }
     size_t nSamples() const;
 
     virtual DistrOutput generateSamples(double mean, size_t n_times) const = 0;
@@ -56,10 +56,10 @@ public:
 #endif // SWIG
 protected:
     ScanResolution();
-    ScanResolution(const RangedDistribution& distr);
+    ScanResolution(const IRangedDistribution& distr);
 
 private:
-    std::unique_ptr<RangedDistribution> m_distr; //!< basic distribution function
+    std::unique_ptr<IRangedDistribution> m_distr; //!< basic distribution function
 };
 
 #endif // BORNAGAIN_DEVICE_RESOLUTION_SCANRESOLUTION_H

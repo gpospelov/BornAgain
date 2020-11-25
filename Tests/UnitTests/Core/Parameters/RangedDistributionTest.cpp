@@ -5,7 +5,7 @@
 
 class RangedDistributionTest : public ::testing::Test {
 protected:
-    void checkDefaults(const RangedDistribution& distr);
+    void checkDefaults(const IRangedDistribution& distr);
 
     template <class T> void checkThrows();
 
@@ -16,7 +16,7 @@ protected:
     template <class T> void checkZeroWidth();
 };
 
-void RangedDistributionTest::checkDefaults(const RangedDistribution& distr) {
+void RangedDistributionTest::checkDefaults(const IRangedDistribution& distr) {
     EXPECT_EQ(distr.nSamples(), 5u);
     EXPECT_EQ(distr.sigmaFactor(), 2.0);
     EXPECT_EQ(distr.limits(), RealLimits::limitless());

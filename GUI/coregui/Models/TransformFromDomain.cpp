@@ -82,7 +82,7 @@ void addDistributionToBeamItem(const std::string& parameter_name, const QString&
                                const ParameterDistribution& distribution,
                                const BeamItem* beam_item);
 
-void addRangedDistributionToItem(SessionItem* item, const RangedDistribution& ranged, double mean,
+void addRangedDistributionToItem(SessionItem* item, const IRangedDistribution& ranged, double mean,
                                  double std_dev);
 } // namespace
 
@@ -823,7 +823,7 @@ void addDistributionToBeamItem(const std::string& parameter_name, const QString&
     TransformFromDomain::setItemFromSample(beam_parameter, distribution);
 }
 
-void addRangedDistributionToItem(SessionItem* item, const RangedDistribution& ranged, double mean,
+void addRangedDistributionToItem(SessionItem* item, const IRangedDistribution& ranged, double mean,
                                  double std_dev) {
     auto distr_item = dynamic_cast<BeamDistributionItem*>(item);
     if (!distr_item)

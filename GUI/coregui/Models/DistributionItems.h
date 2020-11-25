@@ -18,7 +18,7 @@
 #include "GUI/coregui/Models/SessionItem.h"
 
 class IDistribution1D;
-class RangedDistribution;
+class IRangedDistribution;
 
 class BA_CORE_API_ DistributionItem : public SessionItem {
 public:
@@ -47,7 +47,7 @@ public:
     explicit SymmetricDistributionItem(const QString& name);
     void showMean(bool flag) override;
 
-    virtual std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const = 0;
+    virtual std::unique_ptr<IRangedDistribution> createIRangedDistribution(double scale) const = 0;
     virtual double deviation(double scale) const = 0;
 };
 
@@ -57,7 +57,7 @@ public:
     DistributionNoneItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
-    std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
+    std::unique_ptr<IRangedDistribution> createIRangedDistribution(double scale) const override;
     double deviation(double scale) const override;
     void init_distribution(double value) override;
 };
@@ -79,7 +79,7 @@ public:
     DistributionLorentzItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
-    std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
+    std::unique_ptr<IRangedDistribution> createIRangedDistribution(double scale) const override;
     double deviation(double scale) const override;
     void init_distribution(double value) override;
 };
@@ -90,7 +90,7 @@ public:
     DistributionGaussianItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
-    std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
+    std::unique_ptr<IRangedDistribution> createIRangedDistribution(double scale) const override;
     double deviation(double scale) const override;
     void init_distribution(double value) override;
 };
@@ -113,7 +113,7 @@ public:
     DistributionCosineItem();
 
     std::unique_ptr<IDistribution1D> createDistribution(double scale = 1.0) const override;
-    std::unique_ptr<RangedDistribution> createRangedDistribution(double scale) const override;
+    std::unique_ptr<IRangedDistribution> createIRangedDistribution(double scale) const override;
     double deviation(double scale) const override;
     void init_distribution(double value) override;
 };

@@ -75,20 +75,20 @@ Sets footprint correction factor.
 Sets wavelength resolution values via ScanResolution object. 
 ";
 
-%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, double rel_dev)
+%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const IRangedDistribution &distr, double rel_dev)
 ";
 
-%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const IRangedDistribution &distr, const std::vector< double > &rel_dev)
 
-Sets wavelength resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+Sets wavelength resolution values via IRangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 ";
 
-%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, double std_dev)
+%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const IRangedDistribution &distr, double std_dev)
 ";
 
-%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const IRangedDistribution &distr, const std::vector< double > &std_dev)
 
-Sets wavelength resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+Sets wavelength resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 ";
 
 %feature("docstring")  AngularSpecScan::setAngleResolution "void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
@@ -96,20 +96,20 @@ Sets wavelength resolution values via RangedDistribution and values of standard 
 Sets angle resolution values via ScanResolution object. 
 ";
 
-%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, double rel_dev)
+%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const IRangedDistribution &distr, double rel_dev)
 ";
 
-%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const IRangedDistribution &distr, const std::vector< double > &rel_dev)
 
-Sets angular resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+Sets angular resolution values via IRangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 ";
 
-%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, double std_dev)
+%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const IRangedDistribution &distr, double std_dev)
 ";
 
-%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const IRangedDistribution &distr, const std::vector< double > &std_dev)
 
-Sets angular resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+Sets angular resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 ";
 
 
@@ -1616,20 +1616,20 @@ Returns intensity vector corresponding to convolution of given simulation elemen
 Sets q resolution values via ScanResolution object. 
 ";
 
-%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, double rel_dev)
+%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const IRangedDistribution &distr, double rel_dev)
 ";
 
-%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const IRangedDistribution &distr, const std::vector< double > &rel_dev)
 
-Sets qz resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+Sets qz resolution values via IRangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
 ";
 
-%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, double std_dev)
+%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const IRangedDistribution &distr, double std_dev)
 ";
 
-%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const IRangedDistribution &distr, const std::vector< double > &std_dev)
 
-Sets qz resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+Sets qz resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
 ";
 
 
@@ -2442,7 +2442,7 @@ Prints distribution with constructor parameters in given units. ba.DistributionG
 %feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
 ";
 
-%feature("docstring")  pyfmt2::printRangedDistribution "std::string pyfmt2::printRangedDistribution(const RangedDistribution &distr)
+%feature("docstring")  pyfmt2::printRangedDistribution "std::string pyfmt2::printRangedDistribution(const IRangedDistribution &distr)
 ";
 
 

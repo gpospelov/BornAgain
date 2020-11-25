@@ -133,7 +133,7 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
     return result.str();
 }
 
-std::string printRangedDistribution(const RangedDistribution& distr) {
+std::string printRangedDistribution(const IRangedDistribution& distr) {
     std::ostringstream result;
     result << pyfmt::indent() << "distribution = ba.";
     result << distr.name();

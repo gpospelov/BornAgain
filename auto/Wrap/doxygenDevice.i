@@ -2738,7 +2738,7 @@ C++ includes: ScanResolution.h
 %feature("docstring")  ScanResolution::clone "ScanResolution* ScanResolution::clone() const override=0
 ";
 
-%feature("docstring")  ScanResolution::distribution "const RangedDistribution* ScanResolution::distribution() const
+%feature("docstring")  ScanResolution::distribution "const IRangedDistribution* ScanResolution::distribution() const
 ";
 
 %feature("docstring")  ScanResolution::nSamples "size_t ScanResolution::nSamples() const

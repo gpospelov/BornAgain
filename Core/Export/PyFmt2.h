@@ -22,7 +22,7 @@ class IDistribution1D;
 class IParameterized;
 class IShape2D;
 class ParameterDistribution;
-class RangedDistribution;
+class IRangedDistribution;
 class RealParameter;
 
 //! Utility functions for writing Python code snippets.
@@ -41,7 +41,7 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
                                        const std::string& distVarName,
                                        const std::string& units = "");
 
-std::string printRangedDistribution(const RangedDistribution& distr);
+std::string printRangedDistribution(const IRangedDistribution& distr);
 
 } // namespace pyfmt2
 

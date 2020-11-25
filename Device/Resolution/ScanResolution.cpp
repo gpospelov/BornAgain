@@ -23,7 +23,7 @@ const std::string absolute_resolution = "ScanAbsoluteResolution";
 
 class ScanSingleRelativeResolution : public ScanResolution {
 public:
-    ScanSingleRelativeResolution(const RangedDistribution& distr, double reldev)
+    ScanSingleRelativeResolution(const IRangedDistribution& distr, double reldev)
         : ScanResolution(distr), m_reldev(reldev) {}
     ~ScanSingleRelativeResolution() override = default;
 
@@ -47,7 +47,7 @@ private:
 
 class ScanSingleAbsoluteResolution : public ScanResolution {
 public:
-    ScanSingleAbsoluteResolution(const RangedDistribution& distr, double stddev)
+    ScanSingleAbsoluteResolution(const IRangedDistribution& distr, double stddev)
         : ScanResolution(distr), m_stddev(stddev) {}
     ~ScanSingleAbsoluteResolution() override = default;
 
@@ -71,7 +71,7 @@ private:
 
 class ScanVectorRelativeResolution : public ScanResolution {
 public:
-    ScanVectorRelativeResolution(const RangedDistribution& distr, const std::vector<double>& reldev)
+    ScanVectorRelativeResolution(const IRangedDistribution& distr, const std::vector<double>& reldev)
         : ScanResolution(distr), m_reldev(reldev) {
         checkIfEmpty(m_reldev);
     }
@@ -97,7 +97,7 @@ private:
 
 class ScanVectorAbsoluteResolution : public ScanResolution {
 public:
-    ScanVectorAbsoluteResolution(const RangedDistribution& distr, const std::vector<double>& stddev)
+    ScanVectorAbsoluteResolution(const IRangedDistribution& distr, const std::vector<double>& stddev)
         : ScanResolution(distr), m_stddev(stddev) {
         checkIfEmpty(m_stddev);
     }
@@ -143,22 +143,22 @@ protected:
 
 ScanResolution::~ScanResolution() = default;
 
-ScanResolution* ScanResolution::scanRelativeResolution(const RangedDistribution& distr,
+ScanResolution* ScanResolution::scanRelativeResolution(const IRangedDistribution& distr,
                                                        double stddev) {
     return new ScanSingleRelativeResolution(distr, stddev);
 }
 
-ScanResolution* ScanResolution::scanRelativeResolution(const RangedDistribution& distr,
+ScanResolution* ScanResolution::scanRelativeResolution(const IRangedDistribution& distr,
                                                        const std::vector<double>& stddevs) {
     return new ScanVectorRelativeResolution(distr, stddevs);
 }
 
-ScanResolution* ScanResolution::scanAbsoluteResolution(const RangedDistribution& distr,
+ScanResolution* ScanResolution::scanAbsoluteResolution(const IRangedDistribution& distr,
                                                        double stddev) {
     return new ScanSingleAbsoluteResolution(distr, stddev);
 }
 
-ScanResolution* ScanResolution::scanAbsoluteResolution(const RangedDistribution& distr,
+ScanResolution* ScanResolution::scanAbsoluteResolution(const IRangedDistribution& distr,
                                                        const std::vector<double>& stddevs) {
     return new ScanVectorAbsoluteResolution(distr, stddevs);
 }
@@ -175,7 +175,7 @@ size_t ScanResolution::nSamples() const {
 
 ScanResolution::ScanResolution() = default;
 
-ScanResolution::ScanResolution(const RangedDistribution& distr) : m_distr(distr.clone()) {}
+ScanResolution::ScanResolution(const IRangedDistribution& distr) : m_distr(distr.clone()) {}
 
 namespace {
 ScanResolution::DistrOutput ScanSingleRelativeResolution::generateSamples(double mean,

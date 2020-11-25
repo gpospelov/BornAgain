@@ -33,19 +33,19 @@ class ParameterSample;
 //! (except for RangedDistributionLorentz which uses median and hwhm).
 //! @ingroup distribution_internal
 
-class RangedDistribution : public ICloneable {
+class IRangedDistribution : public ICloneable {
 public:
-    RangedDistribution();
-    RangedDistribution(size_t n_samples, double sigma_factor,
+    IRangedDistribution();
+    IRangedDistribution(size_t n_samples, double sigma_factor,
                        const RealLimits& limits = RealLimits::limitless());
     //! Initializes Ranged distribution with given number of samples, sigma factor
     //! (range in standard deviations to take into account during sample generation)
     //! and limits (either RealLimits object or just min and max limits).
     //! By default _n_samples_ = 5, _sigma_factor_ = 2.0, while the limits are (-inf, +inf).
-    RangedDistribution(size_t n_samples, double sigma_factor, double min, double max);
-    RangedDistribution* clone() const override = 0;
+    IRangedDistribution(size_t n_samples, double sigma_factor, double min, double max);
+    IRangedDistribution* clone() const override = 0;
 
-    ~RangedDistribution() override;
+    ~IRangedDistribution() override;
 
     std::vector<ParameterSample> generateSamples(double mean, double stddev) const;
     //! Generates list of sampled values with their weights from given means and standard
@@ -92,7 +92,7 @@ private:
 //! Uniform distribution function.
 //! @ingroup paramDistribution
 
-class RangedDistributionGate : public RangedDistribution {
+class RangedDistributionGate : public IRangedDistribution {
 public:
     RangedDistributionGate();
     RangedDistributionGate(size_t n_samples, double sigma_factor,
@@ -117,7 +117,7 @@ protected:
 //! Lorentz distribution with median and hwhm.
 //! @ingroup paramDistribution
 
-class RangedDistributionLorentz : public RangedDistribution {
+class RangedDistributionLorentz : public IRangedDistribution {
 public:
     RangedDistributionLorentz();
     RangedDistributionLorentz(size_t n_samples, double hwhm_factor,
@@ -142,7 +142,7 @@ protected:
 //! Gaussian distribution with standard deviation std_dev.
 //! @ingroup paramDistribution
 
-class RangedDistributionGaussian : public RangedDistribution {
+class RangedDistributionGaussian : public IRangedDistribution {
 public:
     RangedDistributionGaussian();
     RangedDistributionGaussian(size_t n_samples, double sigma_factor,
@@ -167,7 +167,7 @@ protected:
 //! Log-normal distribution.
 //! @ingroup paramDistribution
 
-class RangedDistributionLogNormal : public RangedDistribution {
+class RangedDistributionLogNormal : public IRangedDistribution {
 public:
     RangedDistributionLogNormal();
     RangedDistributionLogNormal(size_t n_samples, double sigma_factor,
@@ -192,7 +192,7 @@ protected:
 //! Cosine distribution.
 //! @ingroup paramDistribution
 
-class RangedDistributionCosine : public RangedDistribution {
+class RangedDistributionCosine : public IRangedDistribution {
 public:
     RangedDistributionCosine();
     RangedDistributionCosine(size_t n_samples, double sigma_factor,

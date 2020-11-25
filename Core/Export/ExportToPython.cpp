@@ -23,14 +23,12 @@ std::string simulationCode(const ISimulation& simulation,
     std::unique_ptr<ISimulation> sim(simulation.clone());
     sim->prepareSimulation();
 
-    SimulationToPython generator;
-    return generator.generateSimulationCode(*sim, mainFunctionType);
+    return SimulationToPython().generateSimulationCode(*sim, mainFunctionType);
 }
 } // namespace
 
 std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer) {
-    SampleToPython generator;
-    return generator.generateSampleCode(multilayer);
+    return SampleToPython().generateSampleCode(multilayer);
 }
 
 std::string ExportToPython::generateSimulationCode(const ISimulation& simulation) {

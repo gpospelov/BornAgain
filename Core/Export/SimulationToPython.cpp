@@ -120,8 +120,7 @@ std::string defineDetector(const ISimulation* simulation) {
 
         result << indent() << "simulation.setDetector(detector)\n";
     } else
-        throw std::runtime_error("defineDetector() -> Error. "
-                                 "Unknown detector");
+        throw std::runtime_error("defineDetector() -> Error. Unknown detector");
     if (detector->regionOfInterest()) {
         result << indent() << "simulation.setRegionOfInterest("
                << printFunc(detector)(detector->regionOfInterest()->getXlow()) << ", "

@@ -93,12 +93,12 @@ std::string defineAngularSpecScan(const AngularSpecScan& scan) {
         result << defineFootprintFactor(*scan.footprintFactor());
         result << indent() << "scan.setFootprintFactor(footprint)\n";
     }
-    if (scan.angleResolution()) {
-        result << defineScanResolution(*scan.angleResolution()) << "\n";
+    if (const auto* r = scan.angleResolution(); r && r->distribution()) {
+        result << defineScanResolution(*r) << "\n";
         result << indent() << "scan.setAngleResolution(resolution)\n";
     }
-    if (scan.wavelengthResolution()) {
-        result << defineScanResolution(*scan.wavelengthResolution()) << "\n";
+    if (const auto* r = scan.wavelengthResolution(); r && r->distribution()) {
+        result << defineScanResolution(*r) << "\n";
         result << indent() << "scan.setWavelengthResolution(resolution)\n";
     }
     return result.str();

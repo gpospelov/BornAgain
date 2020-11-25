@@ -240,13 +240,6 @@ C++ includes: IntegratorMCMiser.h
 ";
 
 
-// File: classExceptions_1_1ClassInitializationException.xml
-%feature("docstring") Exceptions::ClassInitializationException "";
-
-%feature("docstring")  Exceptions::ClassInitializationException::ClassInitializationException "Exceptions::ClassInitializationException::ClassInitializationException(const std::string &message)
-";
-
-
 // File: classCloneableVector.xml
 %feature("docstring") CloneableVector "
 
@@ -396,27 +389,6 @@ Increments inner counter; at regular intervals updates progress handler.
 ";
 
 
-// File: classExceptions_1_1DomainErrorException.xml
-%feature("docstring") Exceptions::DomainErrorException "";
-
-%feature("docstring")  Exceptions::DomainErrorException::DomainErrorException "Exceptions::DomainErrorException::DomainErrorException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1FileIsBadException.xml
-%feature("docstring") Exceptions::FileIsBadException "";
-
-%feature("docstring")  Exceptions::FileIsBadException::FileIsBadException "Exceptions::FileIsBadException::FileIsBadException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1FileNotIsOpenException.xml
-%feature("docstring") Exceptions::FileNotIsOpenException "";
-
-%feature("docstring")  Exceptions::FileNotIsOpenException::FileNotIsOpenException "Exceptions::FileNotIsOpenException::FileNotIsOpenException(const std::string &message)
-";
-
-
 // File: classFixedBinAxis.xml
 %feature("docstring") FixedBinAxis "
 
@@ -493,13 +465,6 @@ Creates a new clipped axis.
 ";
 
 %feature("docstring")  FixedBinAxis::pyString "std::string FixedBinAxis::pyString(const std::string &units, size_t) const final
-";
-
-
-// File: classExceptions_1_1FormatErrorException.xml
-%feature("docstring") Exceptions::FormatErrorException "";
-
-%feature("docstring")  Exceptions::FormatErrorException::FormatErrorException "Exceptions::FormatErrorException::FormatErrorException(const std::string &message)
 ";
 
 
@@ -704,34 +669,6 @@ C++ includes: IPixel.h
 ";
 
 
-// File: classExceptions_1_1LogicErrorException.xml
-%feature("docstring") Exceptions::LogicErrorException "";
-
-%feature("docstring")  Exceptions::LogicErrorException::LogicErrorException "Exceptions::LogicErrorException::LogicErrorException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1NotImplementedException.xml
-%feature("docstring") Exceptions::NotImplementedException "";
-
-%feature("docstring")  Exceptions::NotImplementedException::NotImplementedException "Exceptions::NotImplementedException::NotImplementedException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1NullPointerException.xml
-%feature("docstring") Exceptions::NullPointerException "";
-
-%feature("docstring")  Exceptions::NullPointerException::NullPointerException "Exceptions::NullPointerException::NullPointerException(const std::string &message)
-";
-
-
-// File: classExceptions_1_1OutOfBoundsException.xml
-%feature("docstring") Exceptions::OutOfBoundsException "";
-
-%feature("docstring")  Exceptions::OutOfBoundsException::OutOfBoundsException "Exceptions::OutOfBoundsException::OutOfBoundsException(const std::string &message)
-";
-
-
 // File: classPointwiseAxis.xml
 %feature("docstring") PointwiseAxis "
 
@@ -890,13 +827,6 @@ C++ includes: Integrator.h
 
 // File: structMath_1_1internal_1_1ReciprocalFactorial_3_010_01_4.xml
 %feature("docstring") Math::internal::ReciprocalFactorial< 0 > "
-";
-
-
-// File: classExceptions_1_1RuntimeErrorException.xml
-%feature("docstring") Exceptions::RuntimeErrorException "";
-
-%feature("docstring")  Exceptions::RuntimeErrorException::RuntimeErrorException "Exceptions::RuntimeErrorException::RuntimeErrorException(const std::string &message)
 ";
 
 
@@ -1241,11 +1171,6 @@ Returns the maximum value of function evaluate as applied to the elements of an 
 %feature("docstring")  algo::concat "std::vector< T > algo::concat(const std::vector< T > &v1, const std::vector< T > &v2)
 
 Returns the concatenation of two std::vectors. 
-";
-
-
-// File: namespaceExceptions.xml
-%feature("docstring")  Exceptions::LogExceptionMessage "void Exceptions::LogExceptionMessage(const std::string &)
 ";
 
 
@@ -1714,12 +1639,6 @@ Returns product I*z, where I is the imaginary unit.
 
 Returns exp(I*z), where I is the imaginary unit. 
 ";
-
-
-// File: Exceptions_8cpp.xml
-
-
-// File: Exceptions_8h.xml
 
 
 // File: ICloneable_8h.xml

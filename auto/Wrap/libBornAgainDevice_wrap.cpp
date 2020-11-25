@@ -31251,7 +31251,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IFootprintFactor__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IFootprintFactor_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IFootprintFactor *arg1 = (IFootprintFactor *) 0 ;
   void *argp1 = 0 ;
@@ -31263,10 +31263,10 @@ SWIGINTERN PyObject *_wrap_IFootprintFactor__print(PyObject *SWIGUNUSEDPARM(self
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFootprintFactor, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFootprintFactor__print" "', argument " "1"" of type '" "IFootprintFactor const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFootprintFactor_name" "', argument " "1"" of type '" "IFootprintFactor const *""'"); 
   }
   arg1 = reinterpret_cast< IFootprintFactor * >(argp1);
-  result = ((IFootprintFactor const *)arg1)->print();
+  result = ((IFootprintFactor const *)arg1)->name();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -31443,7 +31443,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FootprintGauss__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FootprintGauss_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FootprintGauss *arg1 = (FootprintGauss *) 0 ;
   void *argp1 = 0 ;
@@ -31455,10 +31455,10 @@ SWIGINTERN PyObject *_wrap_FootprintGauss__print(PyObject *SWIGUNUSEDPARM(self),
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FootprintGauss, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FootprintGauss__print" "', argument " "1"" of type '" "FootprintGauss const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FootprintGauss_name" "', argument " "1"" of type '" "FootprintGauss const *""'"); 
   }
   arg1 = reinterpret_cast< FootprintGauss * >(argp1);
-  result = ((FootprintGauss const *)arg1)->print();
+  result = ((FootprintGauss const *)arg1)->name();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -31661,7 +31661,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FootprintSquare__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FootprintSquare_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FootprintSquare *arg1 = (FootprintSquare *) 0 ;
   void *argp1 = 0 ;
@@ -31673,10 +31673,10 @@ SWIGINTERN PyObject *_wrap_FootprintSquare__print(PyObject *SWIGUNUSEDPARM(self)
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FootprintSquare, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FootprintSquare__print" "', argument " "1"" of type '" "FootprintSquare const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FootprintSquare_name" "', argument " "1"" of type '" "FootprintSquare const *""'"); 
   }
   arg1 = reinterpret_cast< FootprintSquare * >(argp1);
-  result = ((FootprintSquare const *)arg1)->print();
+  result = ((FootprintSquare const *)arg1)->name();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -46821,11 +46821,9 @@ static PyMethodDef SwigMethods[] = {
 		"Calculate footprint correction coefficient from the beam incident angle  alpha. \n"
 		"\n"
 		""},
-	 { "IFootprintFactor__print", _wrap_IFootprintFactor__print, METH_O, "\n"
-		"IFootprintFactor__print(IFootprintFactor self) -> std::string\n"
-		"virtual std::string IFootprintFactor::print() const =0\n"
-		"\n"
-		"Print python-formatted footprint definition. \n"
+	 { "IFootprintFactor_name", _wrap_IFootprintFactor_name, METH_O, "\n"
+		"IFootprintFactor_name(IFootprintFactor self) -> std::string\n"
+		"virtual std::string IFootprintFactor::name() const =0\n"
 		"\n"
 		""},
 	 { "IFootprintFactor_swigregister", IFootprintFactor_swigregister, METH_O, NULL},
@@ -46852,11 +46850,9 @@ static PyMethodDef SwigMethods[] = {
 		"Calculate footprint correction coefficient from the beam incident angle  alpha. \n"
 		"\n"
 		""},
-	 { "FootprintGauss__print", _wrap_FootprintGauss__print, METH_O, "\n"
-		"FootprintGauss__print(FootprintGauss self) -> std::string\n"
-		"std::string FootprintGauss::print() const override\n"
-		"\n"
-		"Print python-formatted footprint definition. \n"
+	 { "FootprintGauss_name", _wrap_FootprintGauss_name, METH_O, "\n"
+		"FootprintGauss_name(FootprintGauss self) -> std::string\n"
+		"std::string FootprintGauss::name() const override\n"
 		"\n"
 		""},
 	 { "delete_FootprintGauss", _wrap_delete_FootprintGauss, METH_O, "delete_FootprintGauss(FootprintGauss self)"},
@@ -46885,11 +46881,9 @@ static PyMethodDef SwigMethods[] = {
 		"Calculate footprint correction coefficient from the beam incident angle  alpha. \n"
 		"\n"
 		""},
-	 { "FootprintSquare__print", _wrap_FootprintSquare__print, METH_O, "\n"
-		"FootprintSquare__print(FootprintSquare self) -> std::string\n"
-		"std::string FootprintSquare::print() const override\n"
-		"\n"
-		"Print python-formatted footprint definition. \n"
+	 { "FootprintSquare_name", _wrap_FootprintSquare_name, METH_O, "\n"
+		"FootprintSquare_name(FootprintSquare self) -> std::string\n"
+		"std::string FootprintSquare::name() const override\n"
 		"\n"
 		""},
 	 { "delete_FootprintSquare", _wrap_delete_FootprintSquare, METH_O, "delete_FootprintSquare(FootprintSquare self)"},

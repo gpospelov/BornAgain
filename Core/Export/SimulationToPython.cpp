@@ -64,43 +64,45 @@ const std::string defineSimulate = "def run_simulation():\n"
                                    "    return simulation.result()\n"
                                    "\n\n";
 
-std::string defineFootprintFactor(const IFootprintFactor&) {
+std::string defineFootprintFactor(const IFootprintFactor& foot) {
     std::ostringstream result;
-    result << "footprint = TODO!!!\n";
+    result << indent() << "footprint = ba." << foot.name();
+    result << "(" << pyfmt::printDouble(foot.widthRatio()) << ")\n";
     return result.str();
 }
 
 std::string defineScanResolution(const ScanResolution& scan) {
     std::ostringstream result;
     result << pyfmt2::printRangedDistribution(*scan.distribution()) << "\n"
-           << pyfmt::indent() << "resolution = "
-           << "ba." << scan.name() << "(distribution, " << pyfmt::printDouble(scan.delta()) << ")";
+           << indent() << "resolution = "
+           << "ba." << scan.name() << "(distribution, "
+           << pyfmt::printDouble(scan.delta()) << ")\n";
     return result.str();
 }
 
 std::string defineAngularSpecScan(const AngularSpecScan& scan) {
     std::ostringstream result;
     result << "\n"
-           << pyfmt::indent() << "# Defining specular scan:\n"
-           << pyfmt::indent() << "axis = " << scan.coordinateAxis()->pyString("rad", 17 /*TODO*/)
+           << indent() << "# Defining specular scan:\n"
+           << indent() << "axis = " << scan.coordinateAxis()->pyString("rad", 17 /*TODO*/)
            << "\n"
-           << pyfmt::indent() << "scan = "
+           << indent() << "scan = "
            << "ba.AngularSpecScan(" << pyfmt::printDouble(scan.wavelength()) << ", axis)\n";
 
     if (scan.footprintFactor()) {
         result << defineFootprintFactor(*scan.footprintFactor());
-        result << pyfmt::indent() << "scan.setFootprintFactor(footprint)\n";
+        result << indent() << "scan.setFootprintFactor(footprint)\n";
     }
     /*
     if (scan.angleResolution()) {
-        result << "\n" << pyfmt::indent() << "# Defining angular resolution\n";
+        result << "\n" << indent() << "# Defining angular resolution\n";
         result << defineScanResolution(*scan.angleResolution()) << "\n";
-        result << pyfmt::indent() << "scan.setAngleResolution(resolution)\n";
+        result << indent() << "scan.setAngleResolution(resolution)\n";
     }
     if (scan.wavelengthResolution()) {
-        result << "\n" << pyfmt::indent() << "# Defining wavelength resolution\n";
+        result << "\n" << indent() << "# Defining wavelength resolution\n";
         result << defineScanResolution(*scan.wavelengthResolution()) << "\n";
-        result << pyfmt::indent() << "scan.setWavelengthResolution(resolution)\n";
+        result << indent() << "scan.setWavelengthResolution(resolution)\n";
     }
     */
     return result.str();
@@ -108,14 +110,14 @@ std::string defineAngularSpecScan(const AngularSpecScan& scan) {
 
 std::string defineQSpecScan(const QSpecScan& scan) {
     std::ostringstream result;
-    const std::string axis_def = pyfmt::indent() + "axis = ";
+    const std::string axis_def = indent() + "axis = ";
     result << axis_def << scan.coordinateAxis()->pyString("", axis_def.size()) << "\n";
 
-    result << pyfmt::indent() << "scan = ba.QSpecScan(axis)";
+    result << indent() << "scan = ba.QSpecScan(axis)";
     if (scan.resolution()) {
         result << "\n";
         result << defineScanResolution(*scan.resolution()) << "\n";
-        result << pyfmt::indent() << "scan.setQResolution(resolution)";
+        result << indent() << "scan.setQResolution(resolution)";
     }
     return result.str();
 }

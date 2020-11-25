@@ -15,7 +15,6 @@
 #include "Device/Beam/FootprintGauss.h"
 #include "Base/Math/Constants.h"
 #include "Base/Math/Functions.h"
-#include "Base/Utils/PyFmt.h"
 
 FootprintGauss::FootprintGauss(const std::vector<double> P)
     : IFootprintFactor({"FootprintGauss", "class_tooltip", {}}, P) {}
@@ -34,15 +33,6 @@ double FootprintGauss::calculate(double alpha) const {
         return 1.0;
     const double arg = std::sin(alpha) * M_SQRT1_2 / widthRatio();
     return Math::erf(arg);
-}
-
-std::string FootprintGauss::print() const {
-    std::stringstream result;
-    result << "\n" << pyfmt::indent() << "# Defining footprint:\n";
-    result << pyfmt::indent() << "footprint = ";
-    result << "ba.FootprintGauss";
-    result << "(" << pyfmt::printDouble(widthRatio()) << ")";
-    return result.str();
 }
 
 static_assert(!std::is_copy_constructible<FootprintGauss>::value,

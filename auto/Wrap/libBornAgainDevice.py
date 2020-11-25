@@ -2830,15 +2830,13 @@ class IFootprintFactor(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IFootprintFactor_calculate(self, alpha)
 
-    def _print(self):
+    def name(self):
         r"""
-        _print(IFootprintFactor self) -> std::string
-        virtual std::string IFootprintFactor::print() const =0
-
-        Print python-formatted footprint definition. 
+        name(IFootprintFactor self) -> std::string
+        virtual std::string IFootprintFactor::name() const =0
 
         """
-        return _libBornAgainDevice.IFootprintFactor__print(self)
+        return _libBornAgainDevice.IFootprintFactor_name(self)
 
 # Register IFootprintFactor in _libBornAgainDevice:
 _libBornAgainDevice.IFootprintFactor_swigregister(IFootprintFactor)
@@ -2891,15 +2889,13 @@ class FootprintGauss(IFootprintFactor):
         """
         return _libBornAgainDevice.FootprintGauss_calculate(self, alpha)
 
-    def _print(self):
+    def name(self):
         r"""
-        _print(FootprintGauss self) -> std::string
-        std::string FootprintGauss::print() const override
-
-        Print python-formatted footprint definition. 
+        name(FootprintGauss self) -> std::string
+        std::string FootprintGauss::name() const override
 
         """
-        return _libBornAgainDevice.FootprintGauss__print(self)
+        return _libBornAgainDevice.FootprintGauss_name(self)
     __swig_destroy__ = _libBornAgainDevice.delete_FootprintGauss
 
 # Register FootprintGauss in _libBornAgainDevice:
@@ -2953,15 +2949,13 @@ class FootprintSquare(IFootprintFactor):
         """
         return _libBornAgainDevice.FootprintSquare_calculate(self, alpha)
 
-    def _print(self):
+    def name(self):
         r"""
-        _print(FootprintSquare self) -> std::string
-        std::string FootprintSquare::print() const override
-
-        Print python-formatted footprint definition. 
+        name(FootprintSquare self) -> std::string
+        std::string FootprintSquare::name() const override
 
         """
-        return _libBornAgainDevice.FootprintSquare__print(self)
+        return _libBornAgainDevice.FootprintSquare_name(self)
     __swig_destroy__ = _libBornAgainDevice.delete_FootprintSquare
 
 # Register FootprintSquare in _libBornAgainDevice:

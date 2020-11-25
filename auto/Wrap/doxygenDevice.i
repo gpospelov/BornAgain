@@ -496,9 +496,7 @@ C++ includes: FootprintGauss.h
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
 ";
 
-%feature("docstring")  FootprintGauss::print "std::string FootprintGauss::print() const override
-
-Print python-formatted footprint definition. 
+%feature("docstring")  FootprintGauss::name "std::string FootprintGauss::name() const override
 ";
 
 
@@ -527,9 +525,7 @@ C++ includes: FootprintSquare.h
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
 ";
 
-%feature("docstring")  FootprintSquare::print "std::string FootprintSquare::print() const override
-
-Print python-formatted footprint definition. 
+%feature("docstring")  FootprintSquare::name "std::string FootprintSquare::name() const override
 ";
 
 
@@ -1164,9 +1160,7 @@ C++ includes: IFootprintFactor.h
 Calculate footprint correction coefficient from the beam incident angle  alpha. 
 ";
 
-%feature("docstring")  IFootprintFactor::print "virtual std::string IFootprintFactor::print() const =0
-
-Print python-formatted footprint definition. 
+%feature("docstring")  IFootprintFactor::name "virtual std::string IFootprintFactor::name() const =0
 ";
 
 

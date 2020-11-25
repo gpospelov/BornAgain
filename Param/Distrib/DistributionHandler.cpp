@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Param/Distrib/DistributionHandler.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Distrib/Distributions.h"
 
@@ -37,7 +36,7 @@ size_t DistributionHandler::getTotalNumberOfSamples() const {
 
 double DistributionHandler::setParameterValues(ParameterPool* p_parameter_pool, size_t index) {
     if (index >= m_nbr_combinations)
-        throw Exceptions::RuntimeErrorException(
+        throw std::runtime_error(
             "DistributionWeighter::setParameterValues: "
             "index must be smaller than the total number of parameter combinations");
     size_t n_distr = m_distributions.size();
@@ -51,9 +50,9 @@ double DistributionHandler::setParameterValues(ParameterPool* p_parameter_pool, 
             m_distributions[param_index].getMainParameterName(),
             m_cached_samples[param_index][remainder].value);
         if (changed != 1) {
-            throw Exceptions::RuntimeErrorException("DistributionWeighter::setParameterValues: "
-                                                    "parameter name matches nothing or more than "
-                                                    "one parameter");
+            throw std::runtime_error("DistributionWeighter::setParameterValues: "
+                                     "parameter name matches nothing or more than "
+                                     "one parameter");
         }
         weight *= m_cached_samples[param_index][remainder].weight;
         if (param_index == 0)

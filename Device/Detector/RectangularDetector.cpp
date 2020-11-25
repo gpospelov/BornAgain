@@ -189,7 +189,7 @@ std::string RectangularDetector::axisName(size_t index) const {
     case 1:
         return "v";
     default:
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "RectangularDetector::getAxisName(size_t index) -> Error! index > 1");
     }
 }
@@ -220,7 +220,7 @@ void RectangularDetector::setDistanceAndOffset(double distance, double u0, doubl
         std::ostringstream message;
         message << "RectangularDetector::setPerpendicularToSample() -> Error. "
                 << "Distance to sample can't be negative or zero";
-        throw Exceptions::LogicErrorException(message.str());
+        throw std::runtime_error(message.str());
     }
     m_distance = distance;
     m_u0 = u0;
@@ -249,8 +249,7 @@ void RectangularDetector::initNormalVector(const kvector_t central_k) {
     }
 
     else {
-        throw Exceptions::LogicErrorException(
-            "RectangularDetector::init() -> Unknown detector arrangement");
+        throw std::runtime_error("RectangularDetector::init() -> Unknown detector arrangement");
     }
 }
 

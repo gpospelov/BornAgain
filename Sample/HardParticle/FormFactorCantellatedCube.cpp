@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorCantellatedCube.h"
-#include "Base/Types/Exceptions.h"
 
 const PolyhedralTopology FormFactorCantellatedCube::topology = {
     {
@@ -69,7 +68,7 @@ void FormFactorCantellatedCube::onChange() {
         ostr << "with parameters 'length':" << m_length;
         ostr << " 'removed_length':" << m_removed_length << "\n\n";
         ostr << "Check for removed_length <= 0.5*length failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
     double a = m_length / 2;
     double b = m_removed_length;

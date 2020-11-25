@@ -15,7 +15,6 @@
 #include "Sample/Interference/DecouplingApproximationStrategy.h"
 #include "Base/Math/Functions.h"
 #include "Base/Pixel/SimulationElement.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/InterferenceFunctionNone.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
@@ -38,7 +37,7 @@ DecouplingApproximationStrategy::scalarCalculation(const SimulationElement& sim_
     for (const auto& ffw : m_weighted_formfactors) {
         const complex_t ff = ffw.evaluate(sim_element);
         if (std::isnan(ff.real()))
-            throw Exceptions::RuntimeErrorException(
+            throw std::runtime_error(
                 "DecouplingApproximationStrategy::scalarCalculation() -> Error! Amplitude is NaN");
         double fraction = ffw.relativeAbundance();
         amplitude += fraction * ff;
@@ -59,9 +58,8 @@ DecouplingApproximationStrategy::polarizedCalculation(const SimulationElement& s
     for (const auto& ffw : m_weighted_formfactors) {
         const Eigen::Matrix2cd ff = ffw.evaluatePol(sim_element);
         if (!ff.allFinite())
-            throw Exceptions::RuntimeErrorException(
-                "DecouplingApproximationStrategy::polarizedCalculation() -> "
-                "Error! Form factor contains NaN or infinite");
+            throw std::runtime_error("DecouplingApproximationStrategy::polarizedCalculation() -> "
+                                     "Error! Form factor contains NaN or infinite");
         const double fraction = ffw.relativeAbundance();
         mean_amplitude += fraction * ff;
         mean_intensity += fraction * (ff * polarization_handler.getPolarization() * ff.adjoint());

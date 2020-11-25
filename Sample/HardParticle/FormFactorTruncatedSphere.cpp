@@ -16,7 +16,6 @@
 #include "Base/Math/Bessel.h"
 #include "Base/Math/Constants.h"
 #include "Base/Math/Integrator.h"
-#include "Base/Types/Exceptions.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
@@ -45,7 +44,7 @@ bool FormFactorTruncatedSphere::check_initialization() const {
         ostr << "with parameters 'radius':" << m_radius << " 'height':" << m_height
              << " 'delta_height':" << m_dh << "\n\n";
         ostr << "Check for height <= 2.*radius AND delta_height < height failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
     return result;
 }

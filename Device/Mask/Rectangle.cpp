@@ -14,7 +14,6 @@
 
 #include "Device/Mask/Rectangle.h"
 #include "Base/Axis/Bin.h"
-#include "Base/Types/Exceptions.h"
 
 //! @param xlow x-coordinate of lower left corner
 //! @param ylow y-coordinate of lower left corner
@@ -25,13 +24,13 @@ Rectangle::Rectangle(double xlow, double ylow, double xup, double yup) : IShape2
         std::ostringstream message;
         message << "Rectangle(double xlow, double ylow, double xup, double yup) -> Error. ";
         message << " xup <= xlow" << std::endl;
-        throw Exceptions::LogicErrorException(message.str());
+        throw std::runtime_error(message.str());
     }
     if (yup <= ylow) {
         std::ostringstream message;
         message << "Rectangle(double xlow, double ylow, double xup, double yup) -> Error. ";
         message << " yup <= ylow" << std::endl;
-        throw Exceptions::LogicErrorException(message.str());
+        throw std::runtime_error(message.str());
     }
     m_xlow = xlow;
     m_ylow = ylow;

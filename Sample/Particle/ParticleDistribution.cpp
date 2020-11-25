@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/Particle/ParticleDistribution.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"

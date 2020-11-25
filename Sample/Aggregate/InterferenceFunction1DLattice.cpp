@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/Aggregate/InterferenceFunction1DLattice.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Assert.h"
 #include "Param/Base/RealParameter.h"
 #include "Sample/Correlations/FTDecay1D.h"

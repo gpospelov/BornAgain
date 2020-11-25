@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Param/Distrib/ParameterDistribution.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Distrib/Distributions.h"
 
 ParameterDistribution::ParameterDistribution(const std::string& par_name,
@@ -29,13 +28,11 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
     , m_xmax(-1.0) {
     m_distribution.reset(distribution.clone());
     if (m_sigma_factor < 0.0)
-        throw Exceptions::RuntimeErrorException(
-            "ParameterDistribution::ParameterDistribution() -> Error."
-            "sigma factor cannot be negative");
+        throw std::runtime_error("ParameterDistribution::ParameterDistribution() -> Error."
+                                 "sigma factor cannot be negative");
     if (nbr_samples == 0)
-        throw Exceptions::RuntimeErrorException(
-            "ParameterDistribution::ParameterDistribution() -> Error."
-            "Number of samples can't be zero.");
+        throw std::runtime_error("ParameterDistribution::ParameterDistribution() -> Error."
+                                 "Number of samples can't be zero.");
 }
 
 ParameterDistribution::ParameterDistribution(const std::string& par_name,
@@ -49,19 +46,16 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
     , m_xmax(xmax) {
     m_distribution.reset(distribution.clone());
     if (m_sigma_factor < 0.0) {
-        throw Exceptions::RuntimeErrorException(
-            "ParameterDistribution::ParameterDistribution() -> Error."
-            "sigma factor cannot be negative");
+        throw std::runtime_error("ParameterDistribution::ParameterDistribution() -> Error."
+                                 "sigma factor cannot be negative");
     }
     if (nbr_samples == 0) {
-        throw Exceptions::RuntimeErrorException(
-            "ParameterDistribution::ParameterDistribution() -> Error."
-            "Number of samples can't be zero.");
+        throw std::runtime_error("ParameterDistribution::ParameterDistribution() -> Error."
+                                 "Number of samples can't be zero.");
     }
     if (xmin >= xmax) {
-        throw Exceptions::RuntimeErrorException(
-            "ParameterDistribution::ParameterDistribution() -> Error."
-            "xmin>=xmax");
+        throw std::runtime_error("ParameterDistribution::ParameterDistribution() -> Error."
+                                 "xmin>=xmax");
     }
 }
 

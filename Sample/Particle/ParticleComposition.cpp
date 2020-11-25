@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/Particle/ParticleComposition.h"
-#include "Base/Types/Exceptions.h"
 #include "Sample/Particle/FormFactorWeighted.h"
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Sample/Scattering/Rotations.h"
@@ -109,7 +108,7 @@ ParticleLimits ParticleComposition::bottomTopZ() const {
 size_t ParticleComposition::check_index(size_t index) const {
     return index < m_particles.size()
                ? index
-               : throw Exceptions::OutOfBoundsException(
+               : throw std::runtime_error(
                    "ParticleComposition::check_index() -> Index is out of bounds");
 }
 

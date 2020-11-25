@@ -477,7 +477,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
                    << pyfmt::printDouble(lattice_hd->density()) << ")\n";
 
         } else
-            throw Exceptions::NotImplementedException(
+            throw std::runtime_error(
                 "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
                 "IInterferenceFunction "
                 + interference->getName());

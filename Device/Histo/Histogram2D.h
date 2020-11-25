@@ -117,8 +117,8 @@ template <typename T> void Histogram2D::initFromShape(const T& data) {
     const size_t ncols = shape.second;
 
     if (nrows == 0 || ncols == 0)
-        throw Exceptions::LogicErrorException("Histogram2D::Histogram2D() -> Error. "
-                                              "Not a two-dimensional numpy array");
+        throw std::runtime_error("Histogram2D::Histogram2D() -> Error. "
+                                 "Not a two-dimensional numpy array");
 
     m_data.addAxis(FixedBinAxis("x-axis", ncols, 0.0, static_cast<double>(ncols)));
     m_data.addAxis(FixedBinAxis("y-axis", nrows, 0.0, static_cast<double>(nrows)));

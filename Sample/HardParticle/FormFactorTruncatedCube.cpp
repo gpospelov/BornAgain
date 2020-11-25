@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/HardParticle/FormFactorTruncatedCube.h"
-#include "Base/Types/Exceptions.h"
 
 const PolyhedralTopology FormFactorTruncatedCube::topology = {
     {{{0, 1, 7, 6, 9, 10, 4, 3}, true},
@@ -54,7 +53,7 @@ void FormFactorTruncatedCube::onChange() {
         ostr << "with parameters 'length':" << m_length;
         ostr << " 'removed_length':" << m_removed_length << "\n\n";
         ostr << "Check for removed_length <= 0.5*length failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
 
     double a = m_length / 2;

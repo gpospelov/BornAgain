@@ -16,7 +16,6 @@
 #define BORNAGAIN_SAMPLE_RT_ILAYERRTCOEFFICIENTS_H
 
 #include "Base/Types/Complex.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Vector/EigenCore.h"
 
 //! Interface to access reflection/transmission coefficients.
@@ -45,20 +44,20 @@ public:
     //! be used when the derived object is really scalar
 #endif
     virtual complex_t getScalarT() const {
-        throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
-                                                  "getScalarT(): coefficients are not scalar.");
+        throw std::runtime_error("ILayerRTCoefficients::"
+                                 "getScalarT(): coefficients are not scalar.");
     }
     virtual complex_t getScalarR() const {
-        throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
-                                                  "getScalarR(): coefficients are not scalar.");
+        throw std::runtime_error("ILayerRTCoefficients::"
+                                 "getScalarR(): coefficients are not scalar.");
     }
     virtual complex_t getScalarKz() const {
-        throw Exceptions::NotImplementedException("ILayerRTCoefficients::"
-                                                  "getScalarKz(): coefficients are not scalar.");
+        throw std::runtime_error("ILayerRTCoefficients::"
+                                 "getScalarKz(): coefficients are not scalar.");
     }
 
     virtual Eigen::Matrix2cd getReflectionMatrix() const {
-        throw Exceptions::NotImplementedException("Only defined for Matrix coefficeints");
+        throw std::runtime_error("Only defined for Matrix coefficeints");
     }
 };
 

@@ -70,8 +70,7 @@ std::string SampleLabelHandler::labelParticle(const IAbstractParticle* abspartic
         return m_ParticleCompositionLabel[lattice_basis];
     if (const auto mesocrystal = dynamic_cast<const MesoCrystal*>(absparticle))
         return m_MesoCrystalLabel[mesocrystal];
-    throw Exceptions::NotImplementedException(
-        "SampleLabelHandler::getLabel: called for unknown IParticle type");
+    throw std::runtime_error("SampleLabelHandler::getLabel: called for unknown IParticle type");
 }
 
 std::string SampleLabelHandler::labelRotation(const IRotation* rot) {

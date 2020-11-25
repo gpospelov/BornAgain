@@ -12,7 +12,6 @@
 //
 //  ************************************************************************************************
 #include "Device/InputOutput/OutputDataWriteFactory.h"
-#include "Base/Types/Exceptions.h"
 #include "Device/InputOutput/DataFormatUtils.h"
 
 OutputDataWriter* OutputDataWriteFactory::getWriter(const std::string& file_name) {

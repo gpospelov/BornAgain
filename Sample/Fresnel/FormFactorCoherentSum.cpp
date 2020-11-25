@@ -14,7 +14,6 @@
 
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 #include "Base/Pixel/SimulationElement.h"
-#include "Base/Types/Exceptions.h"
 
 FormFactorCoherentSum::FormFactorCoherentSum(double abundance) : m_abundance(abundance) {}
 
@@ -38,8 +37,8 @@ Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement& sim
 
 void FormFactorCoherentSum::scaleRelativeAbundance(double total_abundance) {
     if (total_abundance <= 0.0)
-        throw Exceptions::LogicErrorException("FormFactorCoherentSum::scaleRelativeAbundance: "
-                                              "Trying to scale with non strictly positive factor.");
+        throw std::runtime_error("FormFactorCoherentSum::scaleRelativeAbundance: "
+                                 "Trying to scale with non strictly positive factor.");
     m_abundance /= total_abundance;
 }
 

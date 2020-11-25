@@ -13,23 +13,21 @@
 //  ************************************************************************************************
 
 #include "Base/Axis/IAxis.h"
-#include "Base/Types/Exceptions.h"
 
 bool IAxis::equals(const IAxis& other) const {
     return getName() == other.getName();
 }
 
 std::vector<double> IAxis::binCenters() const {
-    throw Exceptions::NotImplementedException("IAxis::binCenters() -> Error. Not implemented.");
+    throw std::runtime_error("IAxis::binCenters() -> Error. Not implemented.");
 }
 
 std::vector<double> IAxis::binBoundaries() const {
-    throw Exceptions::NotImplementedException("IAxis::binBoundaries() -> Error. Not implemented.");
+    throw std::runtime_error("IAxis::binBoundaries() -> Error. Not implemented.");
 }
 
 IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const {
-    throw Exceptions::NotImplementedException(
-        "IAxis::createClippedAxis() -> Error. Not implemented.");
+    throw std::runtime_error("IAxis::createClippedAxis() -> Error. Not implemented.");
 }
 
 bool IAxis::contains(double value) const {

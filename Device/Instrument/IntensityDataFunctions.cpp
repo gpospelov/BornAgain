@@ -43,9 +43,8 @@ double IntensityDataFunctions::RelativeDifference(const SimulationResult& dat,
 double IntensityDataFunctions::getRelativeDifference(const OutputData<double>& dat,
                                                      const OutputData<double>& ref) {
     if (!dat.hasSameDimensions(ref))
-        throw Exceptions::RuntimeErrorException(
-            "IntensityDataFunctions::getRelativeDifference() -> "
-            "Error. Different dimensions of data and reference.");
+        throw std::runtime_error("IntensityDataFunctions::getRelativeDifference() -> "
+                                 "Error. Different dimensions of data and reference.");
 
     double diff = 0.0;
     for (size_t i = 0; i < dat.getAllocatedSize(); ++i)
@@ -53,7 +52,7 @@ double IntensityDataFunctions::getRelativeDifference(const OutputData<double>& d
     diff /= dat.getAllocatedSize();
 
     if (std::isnan(diff))
-        throw Exceptions::RuntimeErrorException("diff=NaN!");
+        throw std::runtime_error("diff=NaN!");
     return diff;
 }
 
@@ -84,9 +83,8 @@ std::unique_ptr<OutputData<double>>
 IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& data,
                                                      const OutputData<double>& reference) {
     if (!data.hasSameDimensions(reference))
-        throw Exceptions::RuntimeErrorException(
-            "IntensityDataFunctions::createRelativeDifferenceData() -> "
-            "Error. Different dimensions of data and reference.");
+        throw std::runtime_error("IntensityDataFunctions::createRelativeDifferenceData() -> "
+                                 "Error. Different dimensions of data and reference.");
     std::unique_ptr<OutputData<double>> result(reference.clone());
     for (size_t i = 0; i < result->getAllocatedSize(); ++i)
         (*result)[i] = Numeric::GetRelativeDifference(data[i], reference[i]);
@@ -96,8 +94,8 @@ IntensityDataFunctions::createRelativeDifferenceData(const OutputData<double>& d
 std::unique_ptr<OutputData<double>>
 IntensityDataFunctions::createRearrangedDataSet(const OutputData<double>& data, int n) {
     if (data.rank() != 2)
-        throw Exceptions::LogicErrorException("IntensityDataFunctions::rotateDataByN90Deg()"
-                                              " -> Error! Works only on two-dimensional data");
+        throw std::runtime_error("IntensityDataFunctions::rotateDataByN90Deg()"
+                                 " -> Error! Works only on two-dimensional data");
     n = (4 + n % 4) % 4;
     if (n == 0)
         return std::unique_ptr<OutputData<double>>(data.clone());
@@ -142,8 +140,8 @@ std::unique_ptr<OutputData<double>>
 IntensityDataFunctions::createClippedDataSet(const OutputData<double>& origin, double x1, double y1,
                                              double x2, double y2) {
     if (origin.rank() != 2)
-        throw Exceptions::LogicErrorException("IntensityDataFunctions::createClippedData()"
-                                              " -> Error! Works only on two-dimensional data");
+        throw std::runtime_error("IntensityDataFunctions::createClippedData()"
+                                 " -> Error! Works only on two-dimensional data");
 
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     for (size_t i_axis = 0; i_axis < origin.rank(); i_axis++) {
@@ -219,9 +217,8 @@ void IntensityDataFunctions::coordinateFromBinf(double& x, double& y,
 std::vector<std::vector<double>>
 IntensityDataFunctions::create2DArrayfromOutputData(const OutputData<double>& data) {
     if (data.rank() != 2)
-        throw Exceptions::LogicErrorException(
-            "IntensityDataFunctions::create2DArrayfromOutputData() -> "
-            "Error! Works only on two-dimensional data");
+        throw std::runtime_error("IntensityDataFunctions::create2DArrayfromOutputData() -> "
+                                 "Error! Works only on two-dimensional data");
 
     std::vector<std::vector<double>> array_2d;
     std::vector<double> row_vec; // row vector for constructing each row of 2D array

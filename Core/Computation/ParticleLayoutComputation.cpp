@@ -14,7 +14,6 @@
 
 #include "Core/Computation/ParticleLayoutComputation.h"
 #include "Base/Pixel/SimulationElement.h"
-#include "Base/Types/Exceptions.h"
 #include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
 #include "Sample/Interference/DecouplingApproximationStrategy.h"
 #include "Sample/Interference/SSCApproximationStrategy.h"

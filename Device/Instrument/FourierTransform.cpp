@@ -14,7 +14,6 @@
 //  ************************************************************************************************
 
 #include "Device/Instrument/FourierTransform.h"
-#include "Base/Types/Exceptions.h"
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -124,7 +123,7 @@ void FourierTransform::fft(const double1d_t& source, double1d_t& result) {
     fft(source2d, result2d);
 
     if (result2d.size() != 1)
-        throw Exceptions::RuntimeErrorException("FourierTransform::fft -> Panic in 1d");
+        throw std::runtime_error("FourierTransform::fft -> Panic in 1d");
 
     result = result2d[0];
 }
@@ -151,7 +150,7 @@ void FourierTransform::init(int h_src, int w_src) {
         std::ostringstream os;
         os << "FourierTransform::init() -> Panic! Wrong dimensions " << h_src << " " << w_src
            << std::endl;
-        throw Exceptions::RuntimeErrorException(os.str());
+        throw std::runtime_error(os.str());
     }
 
     ws.clear();
@@ -172,7 +171,7 @@ void FourierTransform::init(int h_src, int w_src) {
     //                                     static_cast<double*>(ws.out_src), FFTW_ESTIMATE);
 
     if (ws.p_forw_src == nullptr)
-        throw Exceptions::RuntimeErrorException(
+        throw std::runtime_error(
             "FourierTransform::init() -> Error! Can't initialise p_forw_src plan.");
 }
 
@@ -182,7 +181,7 @@ void FourierTransform::init(int h_src, int w_src) {
 
 void FourierTransform::fftw_forward_FT(const double2d_t& src) {
     if (ws.h_fftw <= 0 || ws.w_fftw <= 0)
-        throw Exceptions::RuntimeErrorException(
+        throw std::runtime_error(
             "FourierTransform::fftw_forward_FT() -> Panic! Initialisation is missed.");
 
     double *ptr, *ptr_end;

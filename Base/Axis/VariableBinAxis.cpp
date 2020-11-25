@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Base/Axis/VariableBinAxis.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Algorithms.h"
 #include <algorithm>
 #include <iomanip>
@@ -22,9 +21,8 @@ VariableBinAxis::VariableBinAxis(const std::string& name, size_t nbins,
                                  const std::vector<double>& bin_boundaries)
     : IAxis(name), m_nbins(nbins) {
     if (m_nbins != bin_boundaries.size() - 1)
-        throw Exceptions::LogicErrorException(
-            "VariableBinAxis::VariableBinAxis() -> Error! "
-            "The size of bin_boundaries should be of size [nbins+1].");
+        throw std::runtime_error("VariableBinAxis::VariableBinAxis() -> Error! "
+                                 "The size of bin_boundaries should be of size [nbins+1].");
 
     setBinBoundaries(bin_boundaries);
 }
@@ -43,7 +41,7 @@ double VariableBinAxis::operator[](size_t index) const {
 
 Bin1D VariableBinAxis::bin(size_t index) const {
     if (index >= m_nbins)
-        throw Exceptions::OutOfBoundsException("VariableBinAxis::bin() -> Error. Wrong index.");
+        throw std::runtime_error("VariableBinAxis::bin() -> Error. Wrong index.");
 
     Bin1D result(m_bin_boundaries[index], m_bin_boundaries[index + 1]);
     return result;
@@ -63,9 +61,8 @@ double VariableBinAxis::binCenter(size_t index) const {
 
 size_t VariableBinAxis::findClosestIndex(double value) const {
     if (m_bin_boundaries.size() < 2)
-        throw Exceptions::ClassInitializationException(
-            "VariableBinAxis::findClosestIndex() -> Error! "
-            "VariableBinAxis not  correctly initialized");
+        throw std::runtime_error("VariableBinAxis::findClosestIndex() -> Error! "
+                                 "VariableBinAxis not  correctly initialized");
     if (value < lowerBound()) {
         return 0;
     } else if (value >= upperBound()) {
@@ -92,8 +89,8 @@ std::vector<double> VariableBinAxis::binCenters() const {
 VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) const {
 
     if (left >= right)
-        throw Exceptions::LogicErrorException("VariableBinAxis::createClippedAxis() -> Error. "
-                                              "'left'' should be smaller than 'right'");
+        throw std::runtime_error("VariableBinAxis::createClippedAxis() -> Error. "
+                                 "'left'' should be smaller than 'right'");
 
     if (left < lowerBound())
         left = bin(0).center();
@@ -148,16 +145,16 @@ void VariableBinAxis::setBinBoundaries(const std::vector<double>& bin_boundaries
     std::sort(vec_sorted.begin(), vec_sorted.end());
     for (size_t i = 0; i < bin_boundaries.size(); ++i) {
         if (vec_sorted[i] != bin_boundaries[i])
-            throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error. "
-                                                  "Array with bin edges is not sorted.");
+            throw std::runtime_error("VariableBinAxis::VariableBinAxis() -> Error. "
+                                     "Array with bin edges is not sorted.");
     }
 
     std::vector<double> vec = bin_boundaries;
     vec.erase(std::unique(vec.begin(), vec.end()), vec.end());
 
     if (vec.size() != bin_boundaries.size())
-        throw Exceptions::LogicErrorException("VariableBinAxis::VariableBinAxis() -> Error. "
-                                              "Array with bin edges contains repeating values.");
+        throw std::runtime_error("VariableBinAxis::VariableBinAxis() -> Error. "
+                                 "Array with bin edges contains repeating values.");
 
     m_bin_boundaries = bin_boundaries;
 }

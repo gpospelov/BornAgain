@@ -160,7 +160,7 @@ TEST_F(LLDataTest, Addition) {
     LLData<float>* fl_data_1d2 = new LLData<float>(1u, odim1);
     fl_data_1d2->setAll(10.0);
 
-    EXPECT_THROW((*fl_data_1d) += (*fl_data_1d2), Exceptions::RuntimeErrorException);
+    EXPECT_THROW((*fl_data_1d) += (*fl_data_1d2), std::runtime_error);
 
     LLData<Eigen::Matrix2d>* other_matrix_data_2d = new LLData<Eigen::Matrix2d>(*matrix_data_2d);
     matrix_data_2d->setAll(Eigen::Matrix2d::Identity());
@@ -198,7 +198,7 @@ TEST_F(LLDataTest, Substraction) {
     LLData<float>* fl_data_1d2 = new LLData<float>(1u, odim1);
     fl_data_1d2->setAll(10.0);
 
-    EXPECT_THROW((*fl_data_1d) -= (*fl_data_1d2), Exceptions::RuntimeErrorException);
+    EXPECT_THROW((*fl_data_1d) -= (*fl_data_1d2), std::runtime_error);
 
     LLData<Eigen::Matrix2d>* other_matrix_data_2d = new LLData<Eigen::Matrix2d>(*matrix_data_2d);
     matrix_data_2d->setAll(Eigen::Matrix2d::Identity());
@@ -235,7 +235,7 @@ TEST_F(LLDataTest, Multiplication) {
     LLData<float>* fl_data_1d2 = new LLData<float>(1u, odim1);
     fl_data_1d2->setAll(10.0);
 
-    EXPECT_THROW((*fl_data_1d) *= (*fl_data_1d2), Exceptions::RuntimeErrorException);
+    EXPECT_THROW((*fl_data_1d) *= (*fl_data_1d2), std::runtime_error);
 
     LLData<Eigen::Matrix2d>* other_matrix_data_2d = new LLData<Eigen::Matrix2d>(*matrix_data_2d);
     matrix_data_2d->setAll(2 * Eigen::Matrix2d::Identity());
@@ -272,7 +272,7 @@ TEST_F(LLDataTest, Division) {
     LLData<float>* fl_data_1d2 = new LLData<float>(1u, odim1);
     fl_data_1d2->setAll(10.0);
 
-    EXPECT_THROW((*fl_data_1d) /= (*fl_data_1d2), Exceptions::RuntimeErrorException);
+    EXPECT_THROW((*fl_data_1d) /= (*fl_data_1d2), std::runtime_error);
 
     delete fl_data_1d2;
     delete[] odim1;

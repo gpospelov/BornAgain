@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/Material/Material.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Vector/Transform3D.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include <typeinfo>
@@ -23,15 +22,13 @@ Material::Material(std::unique_ptr<BaseMaterialImpl> material_impl)
 
 Material::Material(const Material& material) {
     if (material.isEmpty())
-        throw Exceptions::NullPointerException(
-            "Material: Error! Attempt to initialize material with nullptr.");
+        throw std::runtime_error("Material: Error! Attempt to initialize material with nullptr.");
     m_material_impl.reset(material.m_material_impl->clone());
 }
 
 Material& Material::operator=(const Material& other) {
     if (other.isEmpty())
-        throw Exceptions::NullPointerException(
-            "Material: Error! Attempt to assign nullptr to material.");
+        throw std::runtime_error("Material: Error! Attempt to assign nullptr to material.");
     m_material_impl.reset(other.m_material_impl->clone());
     return *this;
 }

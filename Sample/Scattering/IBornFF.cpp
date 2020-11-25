@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/Scattering/IBornFF.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Algorithms.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Scattering/Rotations.h"

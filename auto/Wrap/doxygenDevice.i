@@ -1560,7 +1560,9 @@ init detector with beam settings
 // File: classIntensityDataIOFactory.xml
 %feature("docstring") IntensityDataIOFactory "
 
-Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm. Usage:
+Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
+
+Usage:
 
 C++ includes: IntensityDataIOFactory.h
 ";
@@ -2353,7 +2355,7 @@ Sets concrete writing strategy.
 // File: classPolygon.xml
 %feature("docstring") Polygon "
 
-A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
 C++ includes: Polygon.h
 ";
@@ -3159,22 +3161,22 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0D113.xml
+// File: namespace_0d112.xml
 
 
-// File: namespace_0D33.xml
+// File: namespace_0d33.xml
 
 
-// File: namespace_0D56.xml
+// File: namespace_0d56.xml
 
 
-// File: namespace_0D58.xml
+// File: namespace_0d58.xml
 
 
-// File: namespace_0D62.xml
+// File: namespace_0d62.xml
 
 
-// File: namespace_0D68.xml
+// File: namespace_0d68.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3377,26 +3379,18 @@ for importing 2D array of doubles from python into  OutputData
 
 // File: namespacepyfmt2.xml
 %feature("docstring")  pyfmt2::representShape2D "std::string pyfmt2::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
-
-Returns fixed Python code snippet that defines the function \"runSimulation\". 
 ";
 
 %feature("docstring")  pyfmt2::valueTimesUnit "std::string pyfmt2::valueTimesUnit(const RealParameter *par)
-
-Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
 ";
 
 %feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParameterized *ip)
-
-Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
 ";
 
-%feature("docstring")  pyfmt2::printDistribution "std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units)
-
-Prints distribution with constructor parameters in given units. ba.DistributionGaussian(2.0*deg, 0.02*deg) 
+%feature("docstring")  pyfmt2::printDistribution "std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units=\"\")
 ";
 
-%feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
+%feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units=\"\")
 ";
 
 
@@ -3661,9 +3655,6 @@ make Swappable
 
 
 // File: PyArrayImportUtils_8h.xml
-
-
-// File: PyFmt2_8cpp.xml
 
 
 // File: PyFmt2_8h.xml

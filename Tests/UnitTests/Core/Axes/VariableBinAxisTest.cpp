@@ -1,5 +1,4 @@
 #include "Base/Axis/VariableBinAxis.h"
-#include "Base/Types/Exceptions.h"
 #include "Device/InputOutput/DataFormatUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 
@@ -17,17 +16,17 @@ TEST_F(VariableBinAxisTest, VectorOfUnitLength) {
 
 TEST_F(VariableBinAxisTest, ValidityOfCOnstructor) {
     std::vector<double> values;
-    ASSERT_THROW(VariableBinAxis("name", 1, values), Exceptions::LogicErrorException);
+    ASSERT_THROW(VariableBinAxis("name", 1, values), std::runtime_error);
     values.resize(5);
-    ASSERT_THROW(VariableBinAxis("name", 5, values), Exceptions::LogicErrorException);
+    ASSERT_THROW(VariableBinAxis("name", 5, values), std::runtime_error);
 
     static const double arr1[] = {-1.5, -1.5, 0.5, 1.5};
     std::vector<double> v1(arr1, arr1 + sizeof(arr1) / sizeof(arr1[0]));
-    ASSERT_THROW(VariableBinAxis("name", 3, v1), Exceptions::LogicErrorException);
+    ASSERT_THROW(VariableBinAxis("name", 3, v1), std::runtime_error);
 
     static const double arr2[] = {1.5, -0.5, 0.5, -1.5};
     std::vector<double> v2(arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]));
-    ASSERT_THROW(VariableBinAxis("name", 3, v2), Exceptions::LogicErrorException);
+    ASSERT_THROW(VariableBinAxis("name", 3, v2), std::runtime_error);
 }
 
 TEST_F(VariableBinAxisTest, IndexedAccessor) {
@@ -57,7 +56,7 @@ TEST_F(VariableBinAxisTest, IndexedAccessor) {
     EXPECT_DOUBLE_EQ(-1.0, a2[0]);
     EXPECT_DOUBLE_EQ(0.0, a2[1]);
     EXPECT_DOUBLE_EQ(1.0, a2[2]);
-    ASSERT_THROW(a2[3], Exceptions::OutOfBoundsException);
+    ASSERT_THROW(a2[3], std::runtime_error);
 }
 
 TEST_F(VariableBinAxisTest, FindClosestIndex) {
@@ -70,7 +69,7 @@ TEST_F(VariableBinAxisTest, FindClosestIndex) {
     EXPECT_EQ(size_t(0), v1.findClosestIndex(0.25));
     EXPECT_EQ(size_t(1), v1.findClosestIndex(0.5));
     EXPECT_EQ(size_t(1), v1.findClosestIndex(0.6));
-    //    ASSERT_THROW( v1.findClosestIndex(1.0), Exceptions::OutOfBoundsException);
+    //    ASSERT_THROW( v1.findClosestIndex(1.0), std::runtime_error);
     EXPECT_EQ(size_t(1), v1.findClosestIndex(1.0));
 
     static const double arr2[] = {-1.5, -0.5, 0.5, 1.5};
@@ -82,7 +81,7 @@ TEST_F(VariableBinAxisTest, FindClosestIndex) {
     EXPECT_EQ(size_t(1), v2.findClosestIndex(0.0));
     EXPECT_EQ(size_t(2), v2.findClosestIndex(0.5));
     EXPECT_EQ(size_t(2), v2.findClosestIndex(1.499));
-    //    ASSERT_THROW( v2.findClosestIndex(1.5), Exceptions::OutOfBoundsException);
+    //    ASSERT_THROW( v2.findClosestIndex(1.5), std::runtime_error);
     EXPECT_EQ(size_t(2), v2.findClosestIndex(1.5));
 
     static const double arr3[] = {-1.0, -0.5, 0.5, 1.0, 2.0};

@@ -27,7 +27,7 @@ PyObject* ArrayUtils::createNumpyArray(const std::vector<double>& data) {
     PyObject* pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
     delete[] ndimsizes_numpy;
     if (pyarray == nullptr)
-        throw Exceptions::RuntimeErrorException("ExportOutputData() -> Panic in PyArray_SimpleNew");
+        throw std::runtime_error("ExportOutputData() -> Panic in PyArray_SimpleNew");
 
     // getting pointer to data buffer of numpy array
     double* array_buffer = (double*)PyArray_DATA((PyArrayObject*)pyarray);

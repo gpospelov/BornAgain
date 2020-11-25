@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/Slice/LayerInterface.h"
-#include "Base/Types/Exceptions.h"
 #include "Sample/Slice/LayerRoughness.h"
 
 LayerInterface::LayerInterface() : m_topLayer(nullptr), m_bottomLayer(nullptr) {
@@ -23,7 +22,7 @@ LayerInterface::LayerInterface() : m_topLayer(nullptr), m_bottomLayer(nullptr) {
 LayerInterface::~LayerInterface() = default;
 
 LayerInterface* LayerInterface::clone() const {
-    throw Exceptions::NotImplementedException("LayerInterface::clone() -> Not allowed to clone.");
+    throw std::runtime_error("LayerInterface::clone() -> Not allowed to clone.");
 }
 
 LayerInterface* LayerInterface::createSmoothInterface(const Layer* top_layer,
@@ -54,8 +53,8 @@ std::vector<const INode*> LayerInterface::getChildren() const {
 
 void LayerInterface::setLayersTopBottom(const Layer* top_layer, const Layer* bottom_layer) {
     if (top_layer == nullptr || bottom_layer == nullptr)
-        throw Exceptions::RuntimeErrorException("LayerInterface::setLayersTopBottom() -> Error. "
-                                                "Attempt to set nullptr.");
+        throw std::runtime_error("LayerInterface::setLayersTopBottom() -> Error. "
+                                 "Attempt to set nullptr.");
     m_topLayer = top_layer;
     m_bottomLayer = bottom_layer;
 }

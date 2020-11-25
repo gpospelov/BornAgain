@@ -44,8 +44,7 @@ std::function<std::string(double)> printFunc(const IDetector* detector) {
         return pyfmt::printDouble;
     if (detector->defaultAxesUnits() == Axes::Units::RADIANS)
         return pyfmt::printDegrees;
-    throw Exceptions::RuntimeErrorException(
-        "SimulationToPython::defineMasks() -> Error. Unknown detector units.");
+    throw std::runtime_error("SimulationToPython::defineMasks() -> Error. Unknown detector units.");
 }
 
 //! returns true if it is (0, -1, 0) vector
@@ -65,8 +64,8 @@ const std::string defineSimulate = "def run_simulation():\n"
 std::string defineDetector(const ISimulation* simulation) {
     const IDetector* const detector = simulation->instrument().getDetector();
     if (detector->dimension() != 2)
-        throw Exceptions::RuntimeErrorException("defineDetector: "
-                                                "detector must be two-dimensional for GISAS");
+        throw std::runtime_error("defineDetector: "
+                                 "detector must be two-dimensional for GISAS");
     std::ostringstream result;
     result << std::setprecision(12);
 
@@ -117,13 +116,12 @@ std::string defineDetector(const ISimulation* simulation) {
                    << pyfmt::printDouble(det->getDirectBeamU0()) << ", "
                    << pyfmt::printDouble(det->getDirectBeamV0()) << ")\n";
         } else
-            throw Exceptions::RuntimeErrorException(
-                "defineDetector() -> Error. Unknown alignment.");
+            throw std::runtime_error("defineDetector() -> Error. Unknown alignment.");
 
         result << indent() << "simulation.setDetector(detector)\n";
     } else
-        throw Exceptions::RuntimeErrorException("defineDetector() -> Error. "
-                                                "Unknown detector");
+        throw std::runtime_error("defineDetector() -> Error. "
+                                 "Unknown detector");
     if (detector->regionOfInterest()) {
         result << indent() << "simulation.setRegionOfInterest("
                << printFunc(detector)(detector->regionOfInterest()->getXlow()) << ", "
@@ -148,12 +146,11 @@ std::string defineDetectorResolutionFunction(const ISimulation* simulation) {
                 result << printFunc(detector)(resfunc->getSigmaX()) << ", ";
                 result << printFunc(detector)(resfunc->getSigmaY()) << "))\n";
             } else
-                throw Exceptions::RuntimeErrorException(
-                    "defineDetectorResolutionFunction() -> Error. "
-                    "Unknown detector resolution function");
+                throw std::runtime_error("defineDetectorResolutionFunction() -> Error. "
+                                         "Unknown detector resolution function");
         } else
-            throw Exceptions::RuntimeErrorException("defineDetectorResolutionFunction() -> Error. "
-                                                    "Not a ConvolutionDetectorResolution function");
+            throw std::runtime_error("defineDetectorResolutionFunction() -> Error. "
+                                     "Not a ConvolutionDetectorResolution function");
     }
     return result.str();
 }

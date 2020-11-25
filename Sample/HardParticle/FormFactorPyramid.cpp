@@ -15,7 +15,6 @@
 #include "Sample/HardParticle/FormFactorPyramid.h"
 #include "Base/Math/Constants.h"
 #include "Base/Math/Functions.h"
-#include "Base/Types/Exceptions.h"
 
 const PolyhedralTopology FormFactorPyramid::topology = {{
                                                             {{3, 2, 1, 0}, true}, // TODO -> true
@@ -55,7 +54,7 @@ IFormFactor* FormFactorPyramid::sliceFormFactor(ZLimits limits, const IRotation&
 void FormFactorPyramid::onChange() {
     double cot_alpha = Math::cot(m_alpha);
     if (!std::isfinite(cot_alpha))
-        throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
+        throw std::runtime_error("pyramid angle alpha out of bounds");
     double r = cot_alpha * 2 * m_height / m_base_edge; // [L(base)-L(top)]/L(base)
     if (r > 1) {
         std::ostringstream ostr;
@@ -64,7 +63,7 @@ void FormFactorPyramid::onChange() {
         ostr << " height:" << m_height;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
         ostr << "Check for 'height <= base_edge*tan(alpha)' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
 
     double a = m_base_edge / 2;

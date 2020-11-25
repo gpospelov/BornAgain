@@ -14,7 +14,6 @@
 
 #include "Sample/HardParticle/FormFactorHollowSphere.h"
 #include "Base/Math/Constants.h"
-#include "Base/Types/Exceptions.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
@@ -27,9 +26,8 @@ FormFactorHollowSphere::FormFactorHollowSphere(const std::vector<double> P)
     , m_mean(m_P[0])
     , m_full_width(m_P[1]) {
     if (!checkParameters())
-        throw Exceptions::ClassInitializationException(
-            "FormFactorHollowSphere::FormFactorHollowSphere:"
-            " mean radius must be bigger than the half width");
+        throw std::runtime_error("FormFactorHollowSphere::FormFactorHollowSphere:"
+                                 " mean radius must be bigger than the half width");
     onChange();
 }
 

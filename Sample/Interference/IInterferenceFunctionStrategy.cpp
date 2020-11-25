@@ -15,7 +15,6 @@
 #include "Sample/Interference/IInterferenceFunctionStrategy.h"
 #include "Base/Math/IntegratorMCMiser.h"
 #include "Base/Pixel/SimulationElement.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Assert.h"
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
 

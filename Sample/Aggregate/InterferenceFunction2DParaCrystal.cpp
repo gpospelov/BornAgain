@@ -14,7 +14,6 @@
 
 #include "Sample/Aggregate/InterferenceFunction2DParaCrystal.h"
 #include "Base/Math/Integrator.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include <limits>
@@ -111,15 +110,13 @@ double InterferenceFunction2DParaCrystal::interferenceForXi(double xi) const {
 double InterferenceFunction2DParaCrystal::interference1D(double qx, double qy, double xi,
                                                          size_t index) const {
     if (index > 1)
-        throw Exceptions::OutOfBoundsException(
-            "InterferenceFunction2DParaCrystal::"
-            "interference1D() -> Error! Index of interference function "
-            "probability must be < 2");
+        throw std::runtime_error("InterferenceFunction2DParaCrystal::"
+                                 "interference1D() -> Error! Index of interference function "
+                                 "probability must be < 2");
     if (!m_pdf1 || !m_pdf2)
-        throw Exceptions::NullPointerException(
-            "InterferenceFunction2DParaCrystal::"
-            "interference1D() -> Error! Probability distributions for "
-            "interference function not properly initialized");
+        throw std::runtime_error("InterferenceFunction2DParaCrystal::"
+                                 "interference1D() -> Error! Probability distributions for "
+                                 "interference function not properly initialized");
 
     double length = index ? m_lattice->length2() : m_lattice->length1();
     int n = static_cast<int>(std::abs(m_domain_sizes[index] / length));

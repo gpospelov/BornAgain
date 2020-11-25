@@ -11,7 +11,7 @@ TEST_F(Histogram1DTest, FixedBinConstructor) {
     EXPECT_EQ(size_t(5), hist.getTotalNumberOfBins());
     EXPECT_EQ(0.0, hist.getXmin());
     EXPECT_EQ(5.0, hist.getXmax());
-    EXPECT_THROW(hist.yAxis(), Exceptions::LogicErrorException);
+    EXPECT_THROW(hist.yAxis(), std::runtime_error);
     for (size_t index = 0; index < hist.getTotalNumberOfBins(); ++index) {
         EXPECT_EQ(index, hist.getGlobalBin(index));
         EXPECT_EQ(index, hist.xAxisIndex(index));

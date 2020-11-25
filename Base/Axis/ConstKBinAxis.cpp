@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Base/Axis/ConstKBinAxis.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Algorithms.h"
 #include <iomanip>
 
@@ -23,7 +22,7 @@ ConstKBinAxis::ConstKBinAxis(const std::string& name, size_t nbins)
 ConstKBinAxis::ConstKBinAxis(const std::string& name, size_t nbins, double start, double end)
     : VariableBinAxis(name, nbins), m_start(start), m_end(end) {
     if (m_start >= m_end)
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "ConstKBinAxis::ConstKBinAxis() -> Error. start >= end is not allowed.");
 
     double start_sin = std::sin(m_start);
@@ -44,7 +43,7 @@ ConstKBinAxis* ConstKBinAxis::clone() const {
 
 ConstKBinAxis* ConstKBinAxis::createClippedAxis(double left, double right) const {
     if (left >= right)
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "ConstKBinAxis::createClippedAxis() -> Error. 'left'' should be smaller than 'right'");
 
     if (left < lowerBound())

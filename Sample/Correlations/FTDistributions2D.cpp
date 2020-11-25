@@ -15,7 +15,6 @@
 #include "Sample/Correlations/FTDistributions2D.h"
 #include "Base/Math/Bessel.h"
 #include "Base/Math/Integrator.h"
-#include "Base/Types/Exceptions.h"
 #include <limits>
 
 //  ************************************************************************************************
@@ -165,5 +164,5 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DVoigt::createSampler() c
     std::ostringstream ostr;
     ostr << "FTDistribution2DVoigt::createSampler() -> Error in class initialization";
     ostr << "\n\n Has not been implemented yet...stay tuned!";
-    throw Exceptions::ClassInitializationException(ostr.str());
+    throw std::runtime_error(ostr.str());
 }

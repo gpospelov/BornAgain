@@ -5,7 +5,7 @@
 #include "Core/Export/PyFmt2.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Distrib/ParameterDistribution.h"
-#include "Param/Varia/PyFmtLimits.h"
+#include "Core/Export/PyFmtLimits.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class PythonFormattingTest : public ::testing::Test {};

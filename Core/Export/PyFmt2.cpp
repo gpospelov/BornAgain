@@ -28,7 +28,7 @@
 #include "Param/Distrib/Distributions.h"
 #include "Param/Distrib/ParameterDistribution.h"
 #include "Param/Distrib/RangedDistributions.h"
-#include "Param/Varia/PyFmtLimits.h"
+#include "Core/Export/PyFmtLimits.h"
 #include <iomanip>
 
 namespace pyfmt2 {

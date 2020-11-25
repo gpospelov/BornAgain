@@ -36,7 +36,7 @@
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
 #include "Param/Varia/ParameterUtils.h"
-#include "Param/Varia/PyFmtLimits.h"
+#include "Core/Export/PyFmtLimits.h"
 #include <iomanip>
 
 using pyfmt::indent;

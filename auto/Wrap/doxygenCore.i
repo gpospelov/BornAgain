@@ -2303,40 +2303,40 @@ Returns default units to convert to.
 // File: namespace_0d19.xml
 
 
-// File: namespace_0d37.xml
+// File: namespace_0d39.xml
 
 
-// File: namespace_0d42.xml
-
-
-// File: namespace_0d51.xml
+// File: namespace_0d44.xml
 
 
 // File: namespace_0d53.xml
 
 
-// File: namespace_0d57.xml
+// File: namespace_0d55.xml
 
 
 // File: namespace_0d59.xml
 
 
-// File: namespace_0d64.xml
+// File: namespace_0d61.xml
 
 
 // File: namespace_0d66.xml
 
 
-// File: namespace_0d70.xml
+// File: namespace_0d68.xml
 
 
-// File: namespace_0d80.xml
+// File: namespace_0d72.xml
 
 
 // File: namespace_0d82.xml
 
 
-// File: namespace_0d88.xml
+// File: namespace_0d84.xml
+
+
+// File: namespace_0d90.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2405,6 +2405,16 @@ Returns default norm name.
 %feature("docstring")  ObjectiveMetricUtils::defaultMetricName "std::string ObjectiveMetricUtils::defaultMetricName()
 
 Returns default metric name. 
+";
+
+
+// File: namespacepyfmt.xml
+%feature("docstring")  pyfmt::printRealLimits "std::string pyfmt::printRealLimits(const RealLimits &limits, const std::string &units)
+";
+
+%feature("docstring")  pyfmt::printRealLimitsArg "std::string pyfmt::printRealLimitsArg(const RealLimits &limits, const std::string &units)
+
+Prints RealLimits in the form of argument (in the context of ParameterDistribution and similar). Default RealLimits will not be printed, any other will be printed as \", ba.RealLimits.limited(1*deg, 2*deg)\" 
 ";
 
 
@@ -2731,6 +2741,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: PyFmt2_8h.xml
+
+
+// File: PyFmtLimits_8cpp.xml
+
+
+// File: PyFmtLimits_8h.xml
 
 
 // File: SampleLabelHandler_8cpp.xml

@@ -17,7 +17,7 @@
 
 #ifdef BORNAGAIN_PYTHON
 
-#include "Base/Utils/PythonCore.h"
+#include "Base/Py/PythonCore.h"
 
 template <> PyObject* OutputData<double>::getArray() const {
     std::vector<size_t> dimensions;

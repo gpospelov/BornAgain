@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_DEVICE_HISTO_SIMULATIONRESULT_H
 #define BORNAGAIN_DEVICE_HISTO_SIMULATIONRESULT_H
 
-#include "Base/Utils/PyObject.h"
+#include "Base/Py/PyObject.h"
 #include "Device/Unit/IUnitConverter.h"
 #include <memory>
 #include <vector>

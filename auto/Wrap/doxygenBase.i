@@ -1370,52 +1370,6 @@ Returns string representing python stack trace.
 ";
 
 
-// File: namespacepyfmt.xml
-%feature("docstring")  pyfmt::scriptPreamble "std::string pyfmt::scriptPreamble()
-";
-
-%feature("docstring")  pyfmt::printBool "std::string pyfmt::printBool(double value)
-";
-
-%feature("docstring")  pyfmt::printDouble "std::string pyfmt::printDouble(double input)
-";
-
-%feature("docstring")  pyfmt::printNm "std::string pyfmt::printNm(double input)
-";
-
-%feature("docstring")  pyfmt::printNm2 "std::string pyfmt::printNm2(double input)
-";
-
-%feature("docstring")  pyfmt::printScientificDouble "std::string pyfmt::printScientificDouble(double input)
-";
-
-%feature("docstring")  pyfmt::printDegrees "std::string pyfmt::printDegrees(double input)
-";
-
-%feature("docstring")  pyfmt::printValue "std::string pyfmt::printValue(double value, const std::string &units)
-";
-
-%feature("docstring")  pyfmt::printString "std::string pyfmt::printString(const std::string &value)
-";
-
-%feature("docstring")  pyfmt::isSquare "bool pyfmt::isSquare(double length1, double length2, double angle)
-";
-
-%feature("docstring")  pyfmt::isHexagonal "bool pyfmt::isHexagonal(double length1, double length2, double angle)
-";
-
-%feature("docstring")  pyfmt::printKvector "std::string pyfmt::printKvector(const kvector_t value)
-";
-
-%feature("docstring")  pyfmt::indent "std::string pyfmt::indent(size_t width)
-
-Returns a string of blanks with given width. By default the width equals standard offset in python files. 
-";
-
-%feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
-";
-
-
 // File: namespaceStringUtils.xml
 %feature("docstring")  StringUtils::matchesPattern "bool StringUtils::matchesPattern(const std::string &text, const std::string &wildcardPattern)
 
@@ -1614,6 +1568,18 @@ Template function to create an integrator object
 // File: ProgressHandler_8h.xml
 
 
+// File: PyEmbeddedUtils_8cpp.xml
+
+
+// File: PyEmbeddedUtils_8h.xml
+
+
+// File: PyObject_8h.xml
+
+
+// File: PythonCore_8h.xml
+
+
 // File: CloneableVector_8h.xml
 
 
@@ -1654,24 +1620,6 @@ Returns new instance of class T.
 
 This templated function is used in catalogs in form of a function pointer 'create_new<T>', with no function arguments supplied. Equivalently, we could use a lambda function '[](){return new T;}'. 
 ";
-
-
-// File: PyEmbeddedUtils_8cpp.xml
-
-
-// File: PyEmbeddedUtils_8h.xml
-
-
-// File: PyFmt_8cpp.xml
-
-
-// File: PyFmt_8h.xml
-
-
-// File: PyObject_8h.xml
-
-
-// File: PythonCore_8h.xml
 
 
 // File: StringUtils_8cpp.xml
@@ -1731,6 +1679,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 
 // File: dir_218b7a826f06e97e45b5c3355c035233.xml
+
+
+// File: dir_85d2541e5e50049c186ff9970a3b8ef5.xml
 
 
 // File: dir_38a5ec4dd9a60e867dacdb92549a13e0.xml

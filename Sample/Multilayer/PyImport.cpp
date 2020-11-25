@@ -15,8 +15,8 @@
 #ifdef BORNAGAIN_PYTHON
 
 #include "Sample/Multilayer/PyImport.h"
-#include "Base/Utils/PyEmbeddedUtils.h"
-#include "Base/Utils/PythonCore.h"
+#include "Base/Py/PyEmbeddedUtils.h"
+#include "Base/Py/PythonCore.h"
 #include "Sample/Multilayer/MultiLayer.h"
 
 namespace {

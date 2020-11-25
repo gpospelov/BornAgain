@@ -135,7 +135,8 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
 
 std::string printRangedDistribution(const RangedDistribution& distr) {
     std::ostringstream result;
-    result << pyfmt::indent() << "distribution = " << distr.name();
+    result << pyfmt::indent() << "distribution = ba.";
+    result << distr.name();
     result << "(" << distr.nSamples() << ", " << pyfmt::printDouble(distr.sigmaFactor());
     if (!distr.limits().isLimitless())
         result << pyfmt::printRealLimitsArg(distr.limits());

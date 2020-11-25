@@ -50,7 +50,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
                                     + std::string("set NOPLOT=TRUE") + " & \""
                                     + BABuild::pythonExecutable() + "\" -B " + py_command;
 #endif
-    std::cout << "- system call: " << sys_command << std::endl; // flushing is important here
+    std::cout << "- system call: " << sys_command << std::endl;
     int ret = std::system(sys_command.c_str());
     if (ret != 0) {
         std::stringstream msg;

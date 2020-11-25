@@ -83,7 +83,7 @@ std::string defineScanResolution(const ScanResolution& scan) {
 std::string defineAngularSpecScan(const AngularSpecScan& scan) {
     std::ostringstream result;
     result << "\n"
-           << indent() << "# Defining specular scan:\n"
+           << indent() << "# Define specular scan:\n"
            << indent() << "axis = " << scan.coordinateAxis()->pyString("rad", 17 /*TODO*/)
            << "\n"
            << indent() << "scan = "
@@ -93,18 +93,14 @@ std::string defineAngularSpecScan(const AngularSpecScan& scan) {
         result << defineFootprintFactor(*scan.footprintFactor());
         result << indent() << "scan.setFootprintFactor(footprint)\n";
     }
-    /*
     if (scan.angleResolution()) {
-        result << "\n" << indent() << "# Defining angular resolution\n";
         result << defineScanResolution(*scan.angleResolution()) << "\n";
         result << indent() << "scan.setAngleResolution(resolution)\n";
     }
     if (scan.wavelengthResolution()) {
-        result << "\n" << indent() << "# Defining wavelength resolution\n";
         result << defineScanResolution(*scan.wavelengthResolution()) << "\n";
         result << indent() << "scan.setWavelengthResolution(resolution)\n";
     }
-    */
     return result.str();
 }
 

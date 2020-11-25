@@ -25,12 +25,20 @@ def normalize_file(fname, inplace):
         # read file, normalize
         with open(fname, 'r') as f:
             ti = f.read()
+            if verbose:
+                print(f'.. read {len(ti.split())} lines')
         t = normalize_text(ti, fname)
+        if verbose:
+            print(f'.. normalized')
         if t == ti:
+            if verbose:
+                print(f'.. nothing changed')
             return 0
 
         # check invariance under second normalization
         t2 = normalize_text(t, fname)
+        if verbose:
+            print(f'.. re-normalized')
         if t2 != t:
             with open("out1.py", 'w') as f:
                 f.write(t)
@@ -56,7 +64,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("input_files", nargs='+', type=str)
     parser.add_argument("-i", "--in-place", action="store_true")
+    parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args()
+    verbose = args.verbose
 
     count = [0, 0, 0]
     for f in args.input_files:

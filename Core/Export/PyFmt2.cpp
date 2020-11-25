@@ -18,7 +18,7 @@
 #include "Base/Const/Units.h"
 #include "Base/Math/Constants.h"
 #include "Base/Utils/Algorithms.h"
-#include "Base/Utils/PyFmt.h"
+#include "Core/Export/PyFmt.h"
 #include "Base/Utils/StringUtils.h"
 #include "Core/Export/PyFmtLimits.h"
 #include "Device/Mask/Ellipse.h"

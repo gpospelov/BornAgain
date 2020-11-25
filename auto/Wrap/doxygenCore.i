@@ -2303,40 +2303,40 @@ Returns default units to convert to.
 // File: namespace_0d19.xml
 
 
-// File: namespace_0d39.xml
+// File: namespace_0d41.xml
 
 
-// File: namespace_0d44.xml
-
-
-// File: namespace_0d53.xml
+// File: namespace_0d46.xml
 
 
 // File: namespace_0d55.xml
 
 
-// File: namespace_0d59.xml
+// File: namespace_0d57.xml
 
 
 // File: namespace_0d61.xml
 
 
-// File: namespace_0d66.xml
+// File: namespace_0d63.xml
 
 
 // File: namespace_0d68.xml
 
 
-// File: namespace_0d72.xml
+// File: namespace_0d70.xml
 
 
-// File: namespace_0d82.xml
+// File: namespace_0d74.xml
 
 
 // File: namespace_0d84.xml
 
 
-// File: namespace_0d90.xml
+// File: namespace_0d86.xml
+
+
+// File: namespace_0d92.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2409,6 +2409,50 @@ Returns default metric name.
 
 
 // File: namespacepyfmt.xml
+%feature("docstring")  pyfmt::scriptPreamble "std::string pyfmt::scriptPreamble()
+";
+
+%feature("docstring")  pyfmt::printBool "std::string pyfmt::printBool(double value)
+";
+
+%feature("docstring")  pyfmt::printDouble "std::string pyfmt::printDouble(double input)
+";
+
+%feature("docstring")  pyfmt::printNm "std::string pyfmt::printNm(double input)
+";
+
+%feature("docstring")  pyfmt::printNm2 "std::string pyfmt::printNm2(double input)
+";
+
+%feature("docstring")  pyfmt::printScientificDouble "std::string pyfmt::printScientificDouble(double input)
+";
+
+%feature("docstring")  pyfmt::printDegrees "std::string pyfmt::printDegrees(double input)
+";
+
+%feature("docstring")  pyfmt::printValue "std::string pyfmt::printValue(double value, const std::string &units)
+";
+
+%feature("docstring")  pyfmt::printString "std::string pyfmt::printString(const std::string &value)
+";
+
+%feature("docstring")  pyfmt::isSquare "bool pyfmt::isSquare(double length1, double length2, double angle)
+";
+
+%feature("docstring")  pyfmt::isHexagonal "bool pyfmt::isHexagonal(double length1, double length2, double angle)
+";
+
+%feature("docstring")  pyfmt::printKvector "std::string pyfmt::printKvector(const kvector_t value)
+";
+
+%feature("docstring")  pyfmt::indent "std::string pyfmt::indent(size_t width)
+
+Returns a string of blanks with given width. By default the width equals standard offset in python files. 
+";
+
+%feature("docstring")  pyfmt::printInt "std::string pyfmt::printInt(int value)
+";
+
 %feature("docstring")  pyfmt::printRealLimits "std::string pyfmt::printRealLimits(const RealLimits &limits, const std::string &units)
 ";
 
@@ -2740,6 +2784,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: OrderedMap_8h.xml
+
+
+// File: PyFmt_8cpp.xml
+
+
+// File: PyFmt_8h.xml
 
 
 // File: PyFmt2_8cpp.xml

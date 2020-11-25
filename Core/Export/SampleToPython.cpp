@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Core/Export/SampleToPython.h"
-#include "Base/Utils/PyFmt.h"
+#include "Core/Export/PyFmt.h"
 #include "Base/Vector/Transform3D.h"
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/PyFmt2.h"

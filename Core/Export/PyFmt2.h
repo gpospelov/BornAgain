@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_DEVICE_INSTRUMENT_PYFMT2_H
-#define BORNAGAIN_DEVICE_INSTRUMENT_PYFMT2_H
+#ifndef BORNAGAIN_CORE_EXPORT_PYFMT2_H
+#define BORNAGAIN_CORE_EXPORT_PYFMT2_H
 
 #include <functional>
 #include <string>
@@ -48,4 +48,4 @@ std::string printRangedDistribution(const IRangedDistribution& distr);
 
 } // namespace pyfmt2
 
-#endif // BORNAGAIN_DEVICE_INSTRUMENT_PYFMT2_H
+#endif // BORNAGAIN_CORE_EXPORT_PYFMT2_H

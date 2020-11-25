@@ -75,8 +75,8 @@ std::string defineScanResolution(const ScanResolution& scan) {
     std::ostringstream result;
     result << pyfmt2::printRangedDistribution(*scan.distribution()) << "\n"
            << indent() << "resolution = "
-           << "ba." << scan.name() << "(distribution, "
-           << pyfmt::printDouble(scan.delta()) << ")\n";
+           << "ba." << scan.name() << "(distribution, " << pyfmt::printDouble(scan.delta())
+           << ")\n";
     return result.str();
 }
 
@@ -84,8 +84,7 @@ std::string defineAngularSpecScan(const AngularSpecScan& scan) {
     std::ostringstream result;
     result << "\n"
            << indent() << "# Define specular scan:\n"
-           << indent() << "axis = " << scan.coordinateAxis()->pyString("rad", 17 /*TODO*/)
-           << "\n"
+           << indent() << "axis = " << pyfmt2::printAxis(scan.coordinateAxis(), "rad") << "\n"
            << indent() << "scan = "
            << "ba.AngularSpecScan(" << pyfmt::printDouble(scan.wavelength()) << ", axis)\n";
 
@@ -107,7 +106,8 @@ std::string defineAngularSpecScan(const AngularSpecScan& scan) {
 std::string defineQSpecScan(const QSpecScan& scan) {
     std::ostringstream result;
     const std::string axis_def = indent() + "axis = ";
-    result << axis_def << scan.coordinateAxis()->pyString("", axis_def.size()) << "\n";
+    result << axis_def << pyfmt2::printAxis(scan.coordinateAxis(), "") << "\n";
+    // TODO correct unit would be 1/nm
 
     result << indent() << "scan = ba.QSpecScan(axis)";
     if (scan.resolution()) {
@@ -282,7 +282,7 @@ std::string defineOffSpecBeam(const OffSpecSimulation& simulation) {
     const Beam& beam = simulation.instrument().beam();
 
     const std::string axidef = indent() + "alpha_i_axis = ";
-    result << axidef << simulation.beamAxis()->pyString("rad", axidef.size()) << "\n";
+    result << axidef << pyfmt2::printAxis(simulation.beamAxis(), "rad") << "\n";
 
     result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.getWavelength())
            << ", "

@@ -51,8 +51,6 @@ public:
 
     FixedBinAxis* createClippedAxis(double left, double right) const;
 
-    std::string pyString(const std::string& units, size_t) const final;
-
 protected:
     void print(std::ostream& ostr) const;
     virtual bool equals(const IAxis& other) const;

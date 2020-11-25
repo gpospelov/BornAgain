@@ -1,5 +1,3 @@
-#include "Base/Axis/FixedBinAxis.h"
-#include "Base/Axis/PointwiseAxis.h"
 #include "Base/Const/Units.h"
 #include "Base/Utils/PyFmt.h"
 #include "Core/Export/PyFmt2.h"
@@ -89,18 +87,4 @@ TEST_F(PythonFormattingTest, printParameterDistribution) {
     EXPECT_EQ(pyfmt2::printParameterDistribution(dist4, "distr_1", "rad"),
               "ba.ParameterDistribution(\"/Particle/ZRotation/Angle\", "
               "distr_1, 5, 2.0, ba.RealLimits.limited(1.0*deg, 2.0*deg))");
-}
-
-TEST_F(PythonFormattingTest, printAxis) {
-    FixedBinAxis axis1("axis0", 10, -1.0, 2.0);
-    EXPECT_EQ(axis1.pyString("", 0), "ba.FixedBinAxis(\"axis0\", 10, -1.0, 2.0)");
-
-    FixedBinAxis axis2("axis0", 10, -1.0 * Units::deg, 2.0 * Units::deg);
-    EXPECT_EQ(axis2.pyString("rad", 0), "ba.FixedBinAxis(\"axis0\", 10, -1.0*deg, 2.0*deg)");
-
-    PointwiseAxis axis3("axis3",
-                        std::vector<double>{1.0 * Units::deg, 2.0 * Units::deg, 3.0 * Units::deg});
-    EXPECT_EQ(axis3.pyString("rad", 0), "numpy.asarray([1.0*deg,\n"
-                                        "               2.0*deg,\n"
-                                        "               3.0*deg])");
 }

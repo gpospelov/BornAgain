@@ -13,6 +13,8 @@
 //  ************************************************************************************************
 
 #include "Core/Export/PyFmt2.h"
+#include "Base/Axis/FixedBinAxis.h"
+#include "Base/Axis/PointwiseAxis.h"
 #include "Base/Const/Units.h"
 #include "Base/Math/Constants.h"
 #include "Base/Utils/Algorithms.h"
@@ -106,6 +108,25 @@ std::string argumentList(const IParameterized* ip) {
     for (const auto* par : ip->parameterPool()->parameters())
         args.push_back(valueTimesUnit(par));
     return StringUtils::join(args, ", ");
+}
+
+//! Prints an axis.
+std::string printAxis(const IAxis* axis, const std::string& unit) {
+    std::ostringstream result;
+    if (const auto* a = dynamic_cast<const FixedBinAxis*>(axis); a)
+        result << "ba.FixedBinAxis(" << pyfmt::printString(a->getName()) << ", " << a->size()
+               << ", " << pyfmt::printValue(a->lowerBound(), unit) << ", "
+               << pyfmt::printValue(a->upperBound(), unit) << ")";
+    else if (const auto* a = dynamic_cast<const PointwiseAxis*>(axis); a) {
+        result << "numpy.asarray([";
+        const std::vector<double>& points = a->binCenters();
+        for (auto iter = points.begin(); iter != points.end() - 1; ++iter) {
+            result << pyfmt::printValue(*iter, unit) << ",";
+        }
+        result << pyfmt::printValue(points.back(), unit) << "])\n";
+    } else
+        throw std::runtime_error("printAxis not implemented for current axis type");
+    return result.str();
 }
 
 //! Prints distribution with constructor parameters in given units.

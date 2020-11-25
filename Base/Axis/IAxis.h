@@ -80,8 +80,6 @@ public:
     //! Returns true if axis contains given point
     virtual bool contains(double value) const;
 
-    virtual std::string pyString(const std::string& units, size_t offset) const = 0;
-
 protected:
     virtual void print(std::ostream& ostr) const = 0;
     virtual bool equals(const IAxis& other) const; // overloaded in child classes

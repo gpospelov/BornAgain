@@ -2434,6 +2434,11 @@ Returns parameter value, followed by its unit multiplicator (like \"* nm\").
 Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
 ";
 
+%feature("docstring")  pyfmt2::printAxis "std::string pyfmt2::printAxis(const IAxis *axis, const std::string &unit)
+
+Prints an axis. 
+";
+
 %feature("docstring")  pyfmt2::printDistribution "std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units)
 
 Prints distribution with constructor parameters in given units. ba.DistributionGaussian(2.0*deg, 0.02*deg) 

@@ -464,9 +464,6 @@ find bin index which is best match for given value
 Creates a new clipped axis. 
 ";
 
-%feature("docstring")  FixedBinAxis::pyString "std::string FixedBinAxis::pyString(const std::string &units, size_t) const final
-";
-
 
 // File: classIAxis.xml
 %feature("docstring") IAxis "
@@ -548,9 +545,6 @@ Creates a new clipped axis.
 %feature("docstring")  IAxis::contains "bool IAxis::contains(double value) const
 
 Returns true if axis contains given point. 
-";
-
-%feature("docstring")  IAxis::pyString "virtual std::string IAxis::pyString(const std::string &units, size_t offset) const =0
 ";
 
 
@@ -727,9 +721,6 @@ find index of the coordinate closest to the given value
 %feature("docstring")  PointwiseAxis::createClippedAxis "PointwiseAxis * PointwiseAxis::createClippedAxis(double left, double right) const override
 
 Creates a new clipped axis. 
-";
-
-%feature("docstring")  PointwiseAxis::pyString "std::string PointwiseAxis::pyString(const std::string &units, size_t offset) const final
 ";
 
 
@@ -1143,9 +1134,6 @@ find bin index which is best match for given value
 %feature("docstring")  VariableBinAxis::createClippedAxis "VariableBinAxis * VariableBinAxis::createClippedAxis(double left, double right) const
 
 Creates a new clipped axis. 
-";
-
-%feature("docstring")  VariableBinAxis::pyString "std::string VariableBinAxis::pyString(const std::string &units, size_t offset) const final
 ";
 
 

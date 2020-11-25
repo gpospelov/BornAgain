@@ -56,11 +56,6 @@ Returns the number of simulation elements.
 Returns intensity vector corresponding to convolution of given simulation elements. 
 ";
 
-%feature("docstring")  AngularSpecScan::print "std::string AngularSpecScan::print() const override
-
-Print scan definition in python format. 
-";
-
 %feature("docstring")  AngularSpecScan::wavelength "double AngularSpecScan::wavelength() const
 ";
 
@@ -1121,11 +1116,6 @@ Returns the number of simulation elements.
 Returns intensity vector corresponding to convolution of given simulation elements. 
 ";
 
-%feature("docstring")  ISpecularScan::print "virtual std::string ISpecularScan::print() const =0
-
-Print scan definition in python format. 
-";
-
 
 // File: classIterationInfo.xml
 %feature("docstring") IterationInfo "
@@ -1588,6 +1578,9 @@ Sets q-defined specular scan. Accepts either numpy array of q-values sorted in a
 %feature("docstring")  QSpecScan::clone "QSpecScan * QSpecScan::clone() const override
 ";
 
+%feature("docstring")  QSpecScan::resolution "const ScanResolution* QSpecScan::resolution() const
+";
+
 %feature("docstring")  QSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > QSpecScan::generateSimulationElements(const Instrument &instrument) const override
 
 Generates simulation elements for specular simulations. 
@@ -1616,11 +1609,6 @@ Returns the number of simulation elements.
 %feature("docstring")  QSpecScan::createIntensities "std::vector< double > QSpecScan::createIntensities(const std::vector< SpecularSimulationElement > &sim_elements) const override
 
 Returns intensity vector corresponding to convolution of given simulation elements. 
-";
-
-%feature("docstring")  QSpecScan::print "std::string QSpecScan::print() const override
-
-Print scan definition in python format. 
 ";
 
 %feature("docstring")  QSpecScan::setQResolution "void QSpecScan::setQResolution(const ScanResolution &resolution)
@@ -2315,40 +2303,40 @@ Returns default units to convert to.
 // File: namespace_0d19.xml
 
 
-// File: namespace_0d36.xml
+// File: namespace_0d37.xml
 
 
-// File: namespace_0d41.xml
+// File: namespace_0d42.xml
 
 
-// File: namespace_0d50.xml
+// File: namespace_0d51.xml
 
 
-// File: namespace_0d52.xml
+// File: namespace_0d53.xml
 
 
-// File: namespace_0d56.xml
+// File: namespace_0d57.xml
 
 
-// File: namespace_0d58.xml
+// File: namespace_0d59.xml
 
 
-// File: namespace_0d63.xml
+// File: namespace_0d64.xml
 
 
-// File: namespace_0d65.xml
+// File: namespace_0d66.xml
 
 
-// File: namespace_0d69.xml
+// File: namespace_0d70.xml
 
 
-// File: namespace_0d79.xml
+// File: namespace_0d80.xml
 
 
-// File: namespace_0d81.xml
+// File: namespace_0d82.xml
 
 
-// File: namespace_0d87.xml
+// File: namespace_0d88.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2442,6 +2430,9 @@ Prints distribution with constructor parameters in given units. ba.DistributionG
 ";
 
 %feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
+";
+
+%feature("docstring")  pyfmt2::printRangedDistribution "std::string pyfmt2::printRangedDistribution(const RangedDistribution &distr)
 ";
 
 
@@ -2737,6 +2728,9 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: PyFmt2_8cpp.xml
+
+
+// File: PyFmt2_8h.xml
 
 
 // File: SampleLabelHandler_8cpp.xml

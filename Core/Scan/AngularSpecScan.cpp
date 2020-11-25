@@ -15,7 +15,6 @@
 #include "Core/Scan/AngularSpecScan.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/PointwiseAxis.h"
-#include "Base/Utils/PyFmt.h"
 #include "Core/Element/SpecularSimulationElement.h"
 #include "Device/Beam/IFootprintFactor.h"
 #include "Device/Resolution/ScanResolution.h"
@@ -231,32 +230,6 @@ std::vector<double> AngularSpecScan::createIntensities(
         }
     }
     return result;
-}
-
-std::string AngularSpecScan::print() const {
-    std::stringstream result;
-    result << "\n" << pyfmt::indent() << "# Defining specular scan:\n";
-    const std::string axis_def = pyfmt::indent() + "axis = ";
-    result << axis_def << coordinateAxis()->pyString("rad", axis_def.size()) << "\n";
-
-    result << pyfmt::indent() << "scan = ";
-    result << "ba.AngularSpecScan(" << pyfmt::printDouble(m_wl) << ", axis)\n";
-
-    if (m_footprint) {
-        result << *m_footprint << "\n";
-        result << pyfmt::indent() << "scan.setFootprintFactor(footprint)\n";
-    }
-    if (!m_inc_resolution->empty()) {
-        result << "\n" << pyfmt::indent() << "# Defining angular resolution\n";
-        result << *m_inc_resolution << "\n";
-        result << pyfmt::indent() << "scan.setAngleResolution(resolution)\n";
-    }
-    if (!m_wl_resolution->empty()) {
-        result << "\n" << pyfmt::indent() << "# Defining wavelength resolution\n";
-        result << *m_wl_resolution << "\n";
-        result << pyfmt::indent() << "scan.setWavelengthResolution(resolution)\n";
-    }
-    return result.str();
 }
 
 void AngularSpecScan::checkInitialization() {

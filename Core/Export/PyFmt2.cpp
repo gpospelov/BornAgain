@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Device/Instrument/PyFmt2.h"
+#include "Core/Export/PyFmt2.h"
 #include "Base/Const/Units.h"
 #include "Base/Math/Constants.h"
 #include "Base/Utils/Algorithms.h"
@@ -27,6 +27,7 @@
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Distrib/ParameterDistribution.h"
+#include "Param/Distrib/RangedDistributions.h"
 #include "Param/Varia/PyFmtLimits.h"
 #include <iomanip>
 
@@ -131,5 +132,16 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
 
     return result.str();
 }
+
+std::string printRangedDistribution(const RangedDistribution& distr) {
+    std::ostringstream result;
+    result << pyfmt::indent() << "distribution = " << distr.name();
+    result << "(" << distr.nSamples() << ", " << pyfmt::printDouble(distr.sigmaFactor());
+    if (!distr.limits().isLimitless())
+        result << pyfmt::printRealLimitsArg(distr.limits());
+    result << ")";
+    return result.str();
+}
+
 
 } // namespace pyfmt2

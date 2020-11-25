@@ -2,7 +2,7 @@
 #include "Base/Axis/PointwiseAxis.h"
 #include "Base/Const/Units.h"
 #include "Base/Utils/PyFmt.h"
-#include "Device/Instrument/PyFmt2.h"
+#include "Core/Export/PyFmt2.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Distrib/ParameterDistribution.h"
 #include "Param/Varia/PyFmtLimits.h"

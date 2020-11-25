@@ -46576,6 +46576,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RangedDistributionGate_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionGate *arg1 = (RangedDistributionGate *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionGate_name" "', argument " "1"" of type '" "RangedDistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionGate * >(argp1);
+  result = ((RangedDistributionGate const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *RangedDistributionGate_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -46840,6 +46863,29 @@ SWIGINTERN PyObject *_wrap_delete_RangedDistributionLorentz(PyObject *SWIGUNUSED
   arg1 = reinterpret_cast< RangedDistributionLorentz * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RangedDistributionLorentz_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionLorentz *arg1 = (RangedDistributionLorentz *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionLorentz_name" "', argument " "1"" of type '" "RangedDistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionLorentz * >(argp1);
+  result = ((RangedDistributionLorentz const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
   return NULL;
@@ -47116,6 +47162,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RangedDistributionGaussian_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionGaussian *arg1 = (RangedDistributionGaussian *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionGaussian_name" "', argument " "1"" of type '" "RangedDistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionGaussian * >(argp1);
+  result = ((RangedDistributionGaussian const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *RangedDistributionGaussian_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -47386,6 +47455,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RangedDistributionLogNormal_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionLogNormal *arg1 = (RangedDistributionLogNormal *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionLogNormal_name" "', argument " "1"" of type '" "RangedDistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionLogNormal * >(argp1);
+  result = ((RangedDistributionLogNormal const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *RangedDistributionLogNormal_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -47650,6 +47742,29 @@ SWIGINTERN PyObject *_wrap_delete_RangedDistributionCosine(PyObject *SWIGUNUSEDP
   arg1 = reinterpret_cast< RangedDistributionCosine * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RangedDistributionCosine_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionCosine *arg1 = (RangedDistributionCosine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionCosine_name" "', argument " "1"" of type '" "RangedDistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionCosine * >(argp1);
+  result = ((RangedDistributionCosine const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
   return NULL;
@@ -51717,6 +51832,13 @@ static PyMethodDef SwigMethods[] = {
 		"RangedDistributionGate::~RangedDistributionGate() override=default\n"
 		"\n"
 		""},
+	 { "RangedDistributionGate_name", _wrap_RangedDistributionGate_name, METH_O, "\n"
+		"RangedDistributionGate_name(RangedDistributionGate self) -> std::string\n"
+		"std::string RangedDistributionGate::name() const override\n"
+		"\n"
+		"Returns distribution name for python-formatted text. \n"
+		"\n"
+		""},
 	 { "RangedDistributionGate_swigregister", RangedDistributionGate_swigregister, METH_O, NULL},
 	 { "RangedDistributionGate_swiginit", RangedDistributionGate_swiginit, METH_VARARGS, NULL},
 	 { "new_RangedDistributionLorentz", _wrap_new_RangedDistributionLorentz, METH_VARARGS, "\n"
@@ -51736,6 +51858,13 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_RangedDistributionLorentz", _wrap_delete_RangedDistributionLorentz, METH_O, "\n"
 		"delete_RangedDistributionLorentz(RangedDistributionLorentz self)\n"
 		"RangedDistributionLorentz::~RangedDistributionLorentz() override=default\n"
+		"\n"
+		""},
+	 { "RangedDistributionLorentz_name", _wrap_RangedDistributionLorentz_name, METH_O, "\n"
+		"RangedDistributionLorentz_name(RangedDistributionLorentz self) -> std::string\n"
+		"std::string RangedDistributionLorentz::name() const override\n"
+		"\n"
+		"Returns distribution name for python-formatted text. \n"
 		"\n"
 		""},
 	 { "RangedDistributionLorentz_swigregister", RangedDistributionLorentz_swigregister, METH_O, NULL},
@@ -51759,6 +51888,13 @@ static PyMethodDef SwigMethods[] = {
 		"RangedDistributionGaussian::~RangedDistributionGaussian() override=default\n"
 		"\n"
 		""},
+	 { "RangedDistributionGaussian_name", _wrap_RangedDistributionGaussian_name, METH_O, "\n"
+		"RangedDistributionGaussian_name(RangedDistributionGaussian self) -> std::string\n"
+		"std::string RangedDistributionGaussian::name() const override\n"
+		"\n"
+		"Returns distribution name for python-formatted text. \n"
+		"\n"
+		""},
 	 { "RangedDistributionGaussian_swigregister", RangedDistributionGaussian_swigregister, METH_O, NULL},
 	 { "RangedDistributionGaussian_swiginit", RangedDistributionGaussian_swiginit, METH_VARARGS, NULL},
 	 { "new_RangedDistributionLogNormal", _wrap_new_RangedDistributionLogNormal, METH_VARARGS, "\n"
@@ -51780,6 +51916,13 @@ static PyMethodDef SwigMethods[] = {
 		"RangedDistributionLogNormal::~RangedDistributionLogNormal() override=default\n"
 		"\n"
 		""},
+	 { "RangedDistributionLogNormal_name", _wrap_RangedDistributionLogNormal_name, METH_O, "\n"
+		"RangedDistributionLogNormal_name(RangedDistributionLogNormal self) -> std::string\n"
+		"std::string RangedDistributionLogNormal::name() const override\n"
+		"\n"
+		"Returns distribution name for python-formatted text. \n"
+		"\n"
+		""},
 	 { "RangedDistributionLogNormal_swigregister", RangedDistributionLogNormal_swigregister, METH_O, NULL},
 	 { "RangedDistributionLogNormal_swiginit", RangedDistributionLogNormal_swiginit, METH_VARARGS, NULL},
 	 { "new_RangedDistributionCosine", _wrap_new_RangedDistributionCosine, METH_VARARGS, "\n"
@@ -51799,6 +51942,13 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_RangedDistributionCosine", _wrap_delete_RangedDistributionCosine, METH_O, "\n"
 		"delete_RangedDistributionCosine(RangedDistributionCosine self)\n"
 		"RangedDistributionCosine::~RangedDistributionCosine() override=default\n"
+		"\n"
+		""},
+	 { "RangedDistributionCosine_name", _wrap_RangedDistributionCosine_name, METH_O, "\n"
+		"RangedDistributionCosine_name(RangedDistributionCosine self) -> std::string\n"
+		"std::string RangedDistributionCosine::name() const override\n"
+		"\n"
+		"Returns distribution name for python-formatted text. \n"
 		"\n"
 		""},
 	 { "RangedDistributionCosine_swigregister", RangedDistributionCosine_swigregister, METH_O, NULL},

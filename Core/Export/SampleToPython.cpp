@@ -17,7 +17,7 @@
 #include "Base/Vector/Transform3D.h"
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/SampleLabelHandler.h"
-#include "Device/Instrument/PyFmt2.h"
+#include "Core/Export/PyFmt2.h"
 #include "Param/Varia/ParameterUtils.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Aggregate/ParticleLayout.h"

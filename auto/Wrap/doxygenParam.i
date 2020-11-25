@@ -1379,9 +1379,9 @@ Returns number of samples to generate.
 %feature("docstring")  RangedDistribution::setLimits "void RangedDistribution::setLimits(const RealLimits &limits)
 ";
 
-%feature("docstring")  RangedDistribution::pyString "std::string RangedDistribution::pyString() const
+%feature("docstring")  RangedDistribution::name "virtual std::string RangedDistribution::name() const =0
 
-Prints python-formatted definition of the distribution. 
+Returns distribution name for python-formatted text. 
 ";
 
 
@@ -1410,6 +1410,11 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 %feature("docstring")  RangedDistributionCosine::~RangedDistributionCosine "RangedDistributionCosine::~RangedDistributionCosine() override=default
 ";
 
+%feature("docstring")  RangedDistributionCosine::name "std::string RangedDistributionCosine::name() const override
+
+Returns distribution name for python-formatted text. 
+";
+
 
 // File: classRangedDistributionGate.xml
 %feature("docstring") RangedDistributionGate "
@@ -1434,6 +1439,11 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 ";
 
 %feature("docstring")  RangedDistributionGate::~RangedDistributionGate "RangedDistributionGate::~RangedDistributionGate() override=default
+";
+
+%feature("docstring")  RangedDistributionGate::name "std::string RangedDistributionGate::name() const override
+
+Returns distribution name for python-formatted text. 
 ";
 
 
@@ -1462,6 +1472,11 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 %feature("docstring")  RangedDistributionGaussian::~RangedDistributionGaussian "RangedDistributionGaussian::~RangedDistributionGaussian() override=default
 ";
 
+%feature("docstring")  RangedDistributionGaussian::name "std::string RangedDistributionGaussian::name() const override
+
+Returns distribution name for python-formatted text. 
+";
+
 
 // File: classRangedDistributionLogNormal.xml
 %feature("docstring") RangedDistributionLogNormal "
@@ -1488,6 +1503,11 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 %feature("docstring")  RangedDistributionLogNormal::~RangedDistributionLogNormal "RangedDistributionLogNormal::~RangedDistributionLogNormal() override=default
 ";
 
+%feature("docstring")  RangedDistributionLogNormal::name "std::string RangedDistributionLogNormal::name() const override
+
+Returns distribution name for python-formatted text. 
+";
+
 
 // File: classRangedDistributionLorentz.xml
 %feature("docstring") RangedDistributionLorentz "
@@ -1512,6 +1532,11 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 ";
 
 %feature("docstring")  RangedDistributionLorentz::~RangedDistributionLorentz "RangedDistributionLorentz::~RangedDistributionLorentz() override=default
+";
+
+%feature("docstring")  RangedDistributionLorentz::name "std::string RangedDistributionLorentz::name() const override
+
+Returns distribution name for python-formatted text. 
 ";
 
 

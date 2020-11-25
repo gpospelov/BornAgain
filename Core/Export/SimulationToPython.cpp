@@ -19,7 +19,8 @@
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/SampleToPython.h"
-#include "Core/Scan/ISpecularScan.h"
+#include "Core/Scan/AngularSpecScan.h"
+#include "Core/Scan/QSpecScan.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
@@ -28,9 +29,12 @@
 #include "Device/Detector/RectangularDetector.h"
 #include "Device/Detector/RegionOfInterest.h"
 #include "Device/Detector/SphericalDetector.h"
-#include "Device/Instrument/PyFmt2.h"
+#include "Core/Export/PyFmt2.h"
+#include "Core/Scan/AngularSpecScan.h"
 #include "Device/Resolution/ConvolutionDetectorResolution.h"
 #include "Device/Resolution/ResolutionFunction2DGaussian.h"
+#include "Device/Resolution/ScanResolution.h"
+#include "Param/Distrib/RangedDistributions.h"
 #include "Param/Varia/ParameterUtils.h"
 #include "Param/Varia/PyFmtLimits.h"
 #include <iomanip>
@@ -60,6 +64,68 @@ const std::string defineSimulate = "def run_simulation():\n"
                                    "    simulation.runSimulation()\n"
                                    "    return simulation.result()\n"
                                    "\n\n";
+
+std::string defineFootprintFactor(const IFootprintFactor&) {
+    std::ostringstream result;
+    result << "footprint = TODO!!!\n";
+    return result.str();
+}
+
+std::string defineScanResolution(const ScanResolution& scan) {
+    std::ostringstream result;
+    result << pyfmt2::printRangedDistribution(*scan.distribution()) << "\n"
+           << pyfmt::indent() << "resolution = "
+           << "ba." << scan.name()
+           << "(distribution, " << pyfmt::printDouble(scan.delta()) << ")";
+    return result.str();
+}
+
+std::string defineAngularSpecScan(const AngularSpecScan& scan) {
+    std::ostringstream result;
+    result << "\n" << pyfmt::indent() << "# Defining specular scan:\n"
+           << pyfmt::indent() << "axis = "
+           << scan.coordinateAxis()->pyString("rad", 17 /*TODO*/) << "\n"
+           << pyfmt::indent() << "scan = "
+           << "ba.AngularSpecScan(" << pyfmt::printDouble(scan.wavelength()) << ", axis)\n";
+
+    if (scan.footprintFactor()) {
+        result << defineFootprintFactor(*scan.footprintFactor());
+        result << pyfmt::indent() << "scan.setFootprintFactor(footprint)\n";
+    }
+    if (scan.angleResolution()) {
+        result << "\n" << pyfmt::indent() << "# Defining angular resolution\n";
+        result << defineScanResolution(*scan.angleResolution()) << "\n";
+        result << pyfmt::indent() << "scan.setAngleResolution(resolution)\n";
+    }
+    if (scan.wavelengthResolution()) {
+        result << "\n" << pyfmt::indent() << "# Defining wavelength resolution\n";
+        result << defineScanResolution(*scan.wavelengthResolution()) << "\n";
+        result << pyfmt::indent() << "scan.setWavelengthResolution(resolution)\n";
+    }
+    return result.str();
+}
+
+std::string defineQSpecScan(const QSpecScan& scan) {
+    std::ostringstream result;
+    const std::string axis_def = pyfmt::indent() + "axis = ";
+    result << axis_def << scan.coordinateAxis()->pyString("", axis_def.size()) << "\n";
+
+    result << pyfmt::indent() << "scan = ba.QSpecScan(axis)";
+    if (scan.resolution()) {
+        result << "\n";
+        result << defineScanResolution(*scan.resolution()) << "\n";
+        result << pyfmt::indent() << "scan.setQResolution(resolution)";
+    }
+    return result.str();
+}
+
+std::string defineScan(const ISpecularScan* scan) {
+    if (const auto* s = dynamic_cast<const AngularSpecScan*>(scan); s)
+        return defineAngularSpecScan(*s);
+    if (const auto* s = dynamic_cast<const QSpecScan*>(scan); s)
+        return defineQSpecScan(*s);
+    ASSERT(0);
+}
 
 std::string defineDetector(const ISimulation* simulation) {
     const IDetector* const detector = simulation->instrument().getDetector();
@@ -234,11 +300,9 @@ std::string defineSpecularScan(const SpecularSimulation& simulation) {
     if (!scan)
         throw std::runtime_error("Error defineSpecularScan: passed simulation "
                                  "does not contain any scan");
-    result << *scan << "\n";
-
+    result << defineScan(scan) << "\n";
     result << indent() << "simulation.setScan(scan)\n";
-    result << defineBeamIntensity(simulation.instrument().beam());
-    result << "\n";
+    result << defineBeamIntensity(simulation.instrument().beam()) << "\n";
     return result.str();
 }
 

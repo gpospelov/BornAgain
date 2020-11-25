@@ -2759,9 +2759,10 @@ C++ includes: ScanResolution.h
 %feature("docstring")  ScanResolution::empty "bool ScanResolution::empty() const
 ";
 
-%feature("docstring")  ScanResolution::print "std::string ScanResolution::print() const
+%feature("docstring")  ScanResolution::name "virtual std::string ScanResolution::name() const =0
+";
 
-Prints object definition in python format. 
+%feature("docstring")  ScanResolution::delta "virtual double ScanResolution::delta() const =0
 ";
 
 
@@ -3161,7 +3162,7 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0d112.xml
+// File: namespace_0d111.xml
 
 
 // File: namespace_0d33.xml
@@ -3374,23 +3375,6 @@ for importing 1D array of doubles from python into  OutputData
 %feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
 
 for importing 2D array of doubles from python into  OutputData
-";
-
-
-// File: namespacepyfmt2.xml
-%feature("docstring")  pyfmt2::representShape2D "std::string pyfmt2::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
-";
-
-%feature("docstring")  pyfmt2::valueTimesUnit "std::string pyfmt2::valueTimesUnit(const RealParameter *par)
-";
-
-%feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParameterized *ip)
-";
-
-%feature("docstring")  pyfmt2::printDistribution "std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units=\"\")
-";
-
-%feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units=\"\")
 ";
 
 
@@ -3655,9 +3639,6 @@ make Swappable
 
 
 // File: PyArrayImportUtils_8h.xml
-
-
-// File: PyFmt2_8h.xml
 
 
 // File: SpectrumUtils_8cpp.xml

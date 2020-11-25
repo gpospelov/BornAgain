@@ -3516,6 +3516,14 @@ class QSpecScan(object):
         """
         return _libBornAgainCore.QSpecScan_clone(self)
 
+    def resolution(self):
+        r"""
+        resolution(QSpecScan self) -> ScanResolution const *
+        const ScanResolution* QSpecScan::resolution() const
+
+        """
+        return _libBornAgainCore.QSpecScan_resolution(self)
+
     def setQResolution(self, resolution):
         r"""
         setQResolution(QSpecScan self, ScanResolution const & resolution)

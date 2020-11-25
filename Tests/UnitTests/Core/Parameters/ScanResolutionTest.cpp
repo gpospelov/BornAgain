@@ -34,10 +34,6 @@ TEST_F(ScanResolutionTest, RelativeSingleValued) {
     actual = resolution->generateSamples(1.0, 3);
     compareResults(ref_result, actual);
 
-    std::stringstream print_ref;
-    print_ref << "    distribution = ba.RangedDistributionGate(3, 1.0)\n"
-              << "    resolution = ba.ScanRelativeResolution(distribution, 0.1)";
-    EXPECT_EQ(print_ref.str(), resolution->print());
     EXPECT_THROW(resolution->generateSamples(std::vector<double>()), std::runtime_error);
 }
 
@@ -55,10 +51,6 @@ TEST_F(ScanResolutionTest, AbsoluteSingleValued) {
     actual = resolution->generateSamples(1.0, 3);
     compareResults(ref_result, actual);
 
-    std::stringstream print_ref;
-    print_ref << "    distribution = ba.RangedDistributionGate(3, 1.0)\n"
-              << "    resolution = ba.ScanAbsoluteResolution(distribution, 0.1)";
-    EXPECT_EQ(print_ref.str(), resolution->print());
     EXPECT_THROW(resolution->generateSamples(std::vector<double>()), std::runtime_error);
 }
 
@@ -81,7 +73,6 @@ TEST_F(ScanResolutionTest, RelativeVectorValued) {
     actual = resolution->generateSamples(1.0, 3);
     compareResults(ref_result, actual);
 
-    EXPECT_THROW(resolution->print(), std::runtime_error);
     EXPECT_THROW(resolution->generateSamples(std::vector<double>()), std::runtime_error);
     EXPECT_THROW(resolution->generateSamples(std::vector<double>(2, 1.0)), std::runtime_error);
     EXPECT_THROW(resolution->generateSamples(std::vector<double>(10, 1.0)), std::runtime_error);
@@ -106,7 +97,6 @@ TEST_F(ScanResolutionTest, AbsoluteVectorValued) {
     actual = resolution->generateSamples(1.0, 3);
     compareResults(ref_result, actual);
 
-    EXPECT_THROW(resolution->print(), std::runtime_error);
     EXPECT_THROW(resolution->generateSamples(std::vector<double>()), std::runtime_error);
     EXPECT_THROW(resolution->generateSamples(std::vector<double>(2, 1.0)), std::runtime_error);
     EXPECT_THROW(resolution->generateSamples(std::vector<double>(10, 1.0)), std::runtime_error);

@@ -13,10 +13,8 @@
 //  ************************************************************************************************
 
 #include "Param/Distrib/RangedDistributions.h"
-#include "Base/Utils/PyFmt.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Varia/ParameterSample.h"
-#include "Param/Varia/PyFmtLimits.h"
 #include <limits>
 
 namespace {
@@ -80,16 +78,6 @@ std::unique_ptr<IDistribution1D> RangedDistribution::distribution(double mean,
         throw std::runtime_error(
             "Error in RangedDistribution::distribution: standard deviation is less than zero");
     return distribution_impl(mean, stddev);
-}
-
-std::string RangedDistribution::pyString() const {
-    std::stringstream result;
-    result << pyfmt::indent() << "distribution = " << name();
-    result << "(" << nSamples() << ", " << pyfmt::printDouble(sigmaFactor());
-    if (!limits().isLimitless())
-        result << pyfmt::printRealLimitsArg(limits());
-    result << ")";
-    return result.str();
 }
 
 void RangedDistribution::checkInitialization() {

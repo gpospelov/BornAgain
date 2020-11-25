@@ -39,6 +39,8 @@ public:
     ~QSpecScan() override;
     QSpecScan* clone() const override;
 
+    const ScanResolution * resolution() const { return m_resolution.get(); }
+
 #ifndef SWIG
     //! Generates simulation elements for specular simulations
     std::vector<SpecularSimulationElement>
@@ -61,8 +63,6 @@ public:
     std::vector<double>
     createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const override;
 
-    //! Print scan definition in python format
-    std::string print() const override;
 #endif // SWIG
 
     //! Sets q resolution values via ScanResolution object.

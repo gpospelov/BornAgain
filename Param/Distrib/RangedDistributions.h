@@ -69,12 +69,10 @@ public:
 
     void setLimits(const RealLimits& limits) { m_limits = limits; }
 
-    //! Prints python-formatted definition of the distribution
-    std::string pyString() const;
-
-protected:
     //! Returns distribution name for python-formatted text.
     virtual std::string name() const = 0;
+
+protected:
     //! Returns underlying IDistribution1D object
     virtual std::unique_ptr<IDistribution1D> distribution_impl(double mean,
                                                                double stddev) const = 0;
@@ -108,9 +106,10 @@ public:
     RangedDistributionGate* clone() const override;
     ~RangedDistributionGate() override = default;
 
-protected:
     //! Returns distribution name for python-formatted text.
     std::string name() const override;
+
+protected:
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
@@ -132,9 +131,10 @@ public:
     RangedDistributionLorentz* clone() const override;
     ~RangedDistributionLorentz() override = default;
 
-protected:
     //! Returns distribution name for python-formatted text.
     std::string name() const override;
+
+protected:
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double median, double hwhm) const override;
 };
@@ -156,9 +156,10 @@ public:
     RangedDistributionGaussian* clone() const override;
     ~RangedDistributionGaussian() override = default;
 
-protected:
     //! Returns distribution name for python-formatted text.
     std::string name() const override;
+
+protected:
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
@@ -180,9 +181,10 @@ public:
     RangedDistributionLogNormal* clone() const override;
     ~RangedDistributionLogNormal() override = default;
 
-protected:
     //! Returns distribution name for python-formatted text.
     std::string name() const override;
+
+protected:
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
@@ -204,15 +206,12 @@ public:
     RangedDistributionCosine* clone() const override;
     ~RangedDistributionCosine() override = default;
 
-protected:
     //! Returns distribution name for python-formatted text.
     std::string name() const override;
+
+protected:
     //! Returns underlying IDistribution1D object
     std::unique_ptr<IDistribution1D> distribution_impl(double mean, double stddev) const override;
 };
-
-inline std::ostream& operator<<(std::ostream& os, const RangedDistribution& distribution) {
-    return os << distribution.pyString();
-}
 
 #endif // BORNAGAIN_PARAM_DISTRIB_RANGEDDISTRIBUTIONS_H

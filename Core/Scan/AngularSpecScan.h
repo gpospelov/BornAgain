@@ -59,9 +59,6 @@ public:
     std::vector<double>
     createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const override;
 
-    //! Print scan definition in python format
-    std::string print() const override;
-
     double wavelength() const { return m_wl; }
 
     // TODO: remove these getters after transition to the new resolution machinery is finished

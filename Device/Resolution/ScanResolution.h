@@ -50,21 +50,16 @@ public:
     virtual std::vector<double> stdDevs(const std::vector<double>& mean) const = 0;
     bool empty() const { return !m_distr; }
 
-    //! Prints object definition in python format.
-    std::string print() const;
+    virtual std::string name() const = 0;
+    virtual double delta() const = 0;
+
 #endif // SWIG
 protected:
     ScanResolution();
     ScanResolution(const RangedDistribution& distr);
-    virtual std::string name() const = 0;
-    virtual std::string printStdDevs() const = 0;
 
 private:
     std::unique_ptr<RangedDistribution> m_distr; //!< basic distribution function
 };
-
-inline std::ostream& operator<<(std::ostream& os, const ScanResolution& scan_resolution) {
-    return os << scan_resolution.print();
-}
 
 #endif // BORNAGAIN_DEVICE_RESOLUTION_SCANRESOLUTION_H

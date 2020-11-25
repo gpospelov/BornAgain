@@ -38717,6 +38717,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_QSpecScan_resolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  QSpecScan *arg1 = (QSpecScan *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  ScanResolution *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_QSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "QSpecScan_resolution" "', argument " "1"" of type '" "QSpecScan const *""'"); 
+  }
+  arg1 = reinterpret_cast< QSpecScan * >(argp1);
+  result = (ScanResolution *)((QSpecScan const *)arg1)->resolution();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ScanResolution, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_QSpecScan_setQResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   QSpecScan *arg1 = (QSpecScan *) 0 ;
@@ -43691,6 +43714,11 @@ static PyMethodDef SwigMethods[] = {
 	 { "QSpecScan_clone", _wrap_QSpecScan_clone, METH_O, "\n"
 		"QSpecScan_clone(QSpecScan self) -> QSpecScan\n"
 		"QSpecScan * QSpecScan::clone() const override\n"
+		"\n"
+		""},
+	 { "QSpecScan_resolution", _wrap_QSpecScan_resolution, METH_O, "\n"
+		"QSpecScan_resolution(QSpecScan self) -> ScanResolution const *\n"
+		"const ScanResolution* QSpecScan::resolution() const\n"
 		"\n"
 		""},
 	 { "QSpecScan_setQResolution", _wrap_QSpecScan_setQResolution, METH_VARARGS, "\n"

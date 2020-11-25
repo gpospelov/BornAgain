@@ -35,17 +35,6 @@ def normalize_file(fname, inplace):
                 print(f'.. nothing changed')
             return 0
 
-        # check invariance under second normalization
-        t2 = normalize_text(t, fname)
-        if verbose:
-            print(f'.. re-normalized')
-        if t2 != t:
-            with open("out1.py", 'w') as f:
-                f.write(t)
-            with open("out2.py", 'w') as f:
-                f.write(t2)
-            exit(f'=> BUG - changes under second normalization, see files out1.py and out2.py')
-
         # output
         if inplace:
             with open(fname, 'w') as f:
@@ -53,7 +42,18 @@ def normalize_file(fname, inplace):
             print(f'=> NORMALIZED')
         else:
             print(t)
+
+        # check invariance under second normalization
+        t2 = normalize_text(t, fname)
+        if verbose:
+            print(f'.. re-normalized')
+        if t2 != t:
+            with open('reno.py', 'w') as f:
+                f.write(t2)
+            exit(f'=> BUG - changed under second normalization, see reno.py')
+
         return 1
+
     except Exception as e:
         print(f'=> FAILED - {e}')
         return 2

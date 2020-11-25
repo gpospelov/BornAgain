@@ -216,10 +216,10 @@ SimulationToPython::defineDetectorResolutionFunction(const ISimulation* simulati
     std::ostringstream result;
     const IDetector* detector = simulation->instrument().getDetector();
 
-    if (const IDetectorResolution* p_resfunc = detector->detectorResolution()) {
-        if (auto* p_convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(p_resfunc)) {
+    if (const IDetectorResolution* resfunc = detector->detectorResolution()) {
+        if (auto* convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(resfunc)) {
             if (auto* resfunc = dynamic_cast<const ResolutionFunction2DGaussian*>(
-                    p_convfunc->getResolutionFunction2D())) {
+                    convfunc->getResolutionFunction2D())) {
                 result << indent() << "simulation.setDetectorResolutionFunction(";
                 result << "ba.ResolutionFunction2DGaussian(";
                 result << printFunc(detector)(resfunc->getSigmaX()) << ", ";
@@ -276,8 +276,8 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
-    const std::string axis_def = indent() + "alpha_i_axis = ";
-    result << axis_def << simulation.beamAxis()->pyString("rad", axis_def.size()) << "\n";
+    const std::string axidef = indent() + "alpha_i_axis = ";
+    result << axidef << simulation.beamAxis()->pyString("rad", axidef.size()) << "\n";
 
     result << indent() << "simulation.setBeamParameters("
            << pyfmt::printNm(beam.getWavelength()) << ", "
@@ -340,13 +340,13 @@ std::string SimulationToPython::defineParameterDistributions(const ISimulation* 
         size_t nbr_samples = distributions[i].getNbrSamples();
         double sigma_factor = distributions[i].getSigmaFactor();
 
-        std::string s_distr = "distr_" + std::to_string(i + 1);
-        result << indent() << s_distr << " = "
+        std::string distr = "distr_" + std::to_string(i + 1);
+        result << indent() << distr << " = "
                << pyfmt2::printDistribution(*distributions[i].getDistribution(), mainParUnits)
                << "\n";
 
         result << indent() << "simulation.addParameterDistribution(\"" << main_par_name
-               << "\", " << s_distr << ", " << nbr_samples << ", "
+               << "\", " << distr << ", " << nbr_samples << ", "
                << pyfmt::printDouble(sigma_factor)
                << pyfmt::printRealLimitsArg(distributions[i].getLimits(), mainParUnits) << ")\n";
     }
@@ -393,14 +393,14 @@ std::string SimulationToPython::defineSimulationOptions(const ISimulation* simul
 std::string SimulationToPython::defineBackground(const ISimulation* simulation) const {
     std::ostringstream result;
 
-    auto p_bg = simulation->background();
-    if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
-        if (p_constant_bg->backgroundValue() > 0.0) {
+    auto bg = simulation->background();
+    if (auto constant_bg = dynamic_cast<const ConstantBackground*>(bg)) {
+        if (constant_bg->backgroundValue() > 0.0) {
             result << indent() << "background = ba.ConstantBackground("
-                   << pyfmt::printScientificDouble(p_constant_bg->backgroundValue()) << ")\n";
+                   << pyfmt::printScientificDouble(constant_bg->backgroundValue()) << ")\n";
             result << indent() << "simulation.setBackground(background)\n";
         }
-    } else if (dynamic_cast<const PoissonNoiseBackground*>(p_bg)) {
+    } else if (dynamic_cast<const PoissonNoiseBackground*>(bg)) {
         result << indent() << "background = ba.PoissonNoiseBackground()\n";
         result << indent() << "simulation.setBackground(background)\n";
     }

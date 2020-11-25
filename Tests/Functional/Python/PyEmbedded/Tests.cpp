@@ -367,8 +367,8 @@ TEST_F(PyEmbedded, ExportToPythonAndBack) {
     std::stringstream snippet;
     snippet << pyfmt::scriptPreamble() << code;
 
-    auto multilayer = PyImport::createFromPython(snippet.str(), "get_sample",
-                                                 BABuild::buildLibDir());
+    auto multilayer =
+        PyImport::createFromPython(snippet.str(), "get_sample", BABuild::buildLibDir());
     auto new_code = ExportToPython::generateSampleCode(*multilayer);
 
     EXPECT_TRUE(code == new_code);

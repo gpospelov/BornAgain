@@ -55,12 +55,12 @@ bool isDefaultDirection(const kvector_t direction) {
 }
 
 const std::string defineSimulate = "def run_simulation():\n"
-    "    sample = get_sample()\n"
-    "    simulation = get_simulation()\n"
-    "    simulation.setSample(sample)\n"
-                                     "    simulation.runSimulation()\n"
-                                     "    return simulation.result()\n"
-                                     "\n\n";
+                                   "    sample = get_sample()\n"
+                                   "    simulation = get_simulation()\n"
+                                   "    simulation.setSample(sample)\n"
+                                   "    simulation.runSimulation()\n"
+                                   "    return simulation.result()\n"
+                                   "\n\n";
 
 } // namespace
 
@@ -156,8 +156,8 @@ std::string SimulationToPython::defineDetector(const ISimulation* simulation) co
         result << ")\n";
     } else if (const auto* const det = dynamic_cast<const RectangularDetector*>(detector)) {
         result << "\n";
-        result << indent() << "detector = ba.RectangularDetector(" << det->getNbinsX()
-               << ", " << pyfmt::printDouble(det->getWidth()) << ", " << det->getNbinsY() << ", "
+        result << indent() << "detector = ba.RectangularDetector(" << det->getNbinsX() << ", "
+               << pyfmt::printDouble(det->getWidth()) << ", " << det->getNbinsY() << ", "
                << pyfmt::printDouble(det->getHeight()) << ")\n";
         if (det->getDetectorArrangment() == RectangularDetector::GENERIC) {
             result << indent() << "detector.setPosition("
@@ -260,9 +260,9 @@ std::string SimulationToPython::defineGISASBeam(const GISASSimulation& simulatio
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
-    result << indent() << "simulation.setBeamParameters("
-           << pyfmt::printNm(beam.getWavelength()) << ", " << pyfmt::printDegrees(beam.getAlpha())
-           << ", " << pyfmt::printDegrees(beam.getPhi()) << ")\n";
+    result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.getWavelength())
+           << ", " << pyfmt::printDegrees(beam.getAlpha()) << ", "
+           << pyfmt::printDegrees(beam.getPhi()) << ")\n";
 
     result << defineBeamPolarization(beam);
     result << defineBeamIntensity(beam);
@@ -277,8 +277,8 @@ std::string SimulationToPython::defineOffSpecBeam(const OffSpecSimulation& simul
     const std::string axidef = indent() + "alpha_i_axis = ";
     result << axidef << simulation.beamAxis()->pyString("rad", axidef.size()) << "\n";
 
-    result << indent() << "simulation.setBeamParameters("
-           << pyfmt::printNm(beam.getWavelength()) << ", "
+    result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.getWavelength())
+           << ", "
            << "alpha_i_axis, " << pyfmt::printDegrees(beam.getPhi()) << ")\n";
 
     result << defineBeamPolarization(beam);
@@ -309,8 +309,7 @@ std::string SimulationToPython::defineBeamPolarization(const Beam& beam) const {
                << pyfmt::printDouble(bloch_vector.x()) << ", "
                << pyfmt::printDouble(bloch_vector.y()) << ", "
                << pyfmt::printDouble(bloch_vector.z()) << ")\n";
-        result << indent() << "simulation.setBeamPolarization(" << beam_polarization
-               << ")\n";
+        result << indent() << "simulation.setBeamPolarization(" << beam_polarization << ")\n";
     }
     return result.str();
 }
@@ -343,9 +342,8 @@ std::string SimulationToPython::defineParameterDistributions(const ISimulation* 
                << pyfmt2::printDistribution(*distributions[i].getDistribution(), mainParUnits)
                << "\n";
 
-        result << indent() << "simulation.addParameterDistribution(\"" << main_par_name
-               << "\", " << distr << ", " << nbr_samples << ", "
-               << pyfmt::printDouble(sigma_factor)
+        result << indent() << "simulation.addParameterDistribution(\"" << main_par_name << "\", "
+               << distr << ", " << nbr_samples << ", " << pyfmt::printDouble(sigma_factor)
                << pyfmt::printRealLimitsArg(distributions[i].getLimits(), mainParUnits) << ")\n";
     }
     return result.str();
@@ -362,8 +360,7 @@ std::string SimulationToPython::defineMasks(const ISimulation* simulation) const
         for (size_t i_mask = 0; i_mask < detectorMask->numberOfMasks(); ++i_mask) {
             bool mask_value(false);
             const IShape2D* shape = detectorMask->getMaskShape(i_mask, mask_value);
-            result << pyfmt2::representShape2D(indent(), shape, mask_value,
-                                               printFunc(detector));
+            result << pyfmt2::representShape2D(indent(), shape, mask_value, printFunc(detector));
         }
         result << "\n";
     }

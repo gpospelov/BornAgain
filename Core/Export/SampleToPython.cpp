@@ -85,12 +85,11 @@ SampleToPython::SampleToPython() = default;
 SampleToPython::~SampleToPython() = default;
 
 std::string SampleToPython::defineGetSample() const {
-    return "def get_sample():\n" + defineMaterials() + defineLayers()
-           + defineFormFactors() + defineParticles() + defineCoreShellParticles()
-           + defineParticleCompositions() + defineLattices2D() + defineLattices3D()
-           + defineCrystals() + defineMesoCrystals() + defineParticleDistributions()
-           + defineInterferenceFunctions() + defineParticleLayouts() + defineRoughnesses()
-           + addLayoutsToLayers() + defineMultiLayers() + "\n\n";
+    return "def get_sample():\n" + defineMaterials() + defineLayers() + defineFormFactors()
+           + defineParticles() + defineCoreShellParticles() + defineParticleCompositions()
+           + defineLattices2D() + defineLattices3D() + defineCrystals() + defineMesoCrystals()
+           + defineParticleDistributions() + defineInterferenceFunctions() + defineParticleLayouts()
+           + defineRoughnesses() + addLayoutsToLayers() + defineMultiLayers() + "\n\n";
 }
 
 const std::map<MATERIAL_TYPES, std::string> factory_names{

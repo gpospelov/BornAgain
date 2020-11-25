@@ -92,6 +92,7 @@ std::string defineAngularSpecScan(const AngularSpecScan& scan) {
         result << defineFootprintFactor(*scan.footprintFactor());
         result << pyfmt::indent() << "scan.setFootprintFactor(footprint)\n";
     }
+    /*
     if (scan.angleResolution()) {
         result << "\n" << pyfmt::indent() << "# Defining angular resolution\n";
         result << defineScanResolution(*scan.angleResolution()) << "\n";
@@ -102,6 +103,7 @@ std::string defineAngularSpecScan(const AngularSpecScan& scan) {
         result << defineScanResolution(*scan.wavelengthResolution()) << "\n";
         result << pyfmt::indent() << "scan.setWavelengthResolution(resolution)\n";
     }
+    */
     return result.str();
 }
 

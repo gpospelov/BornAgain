@@ -3714,16 +3714,16 @@ class ScanResolution(libBornAgainBase.ICloneable):
     @staticmethod
     def scanRelativeResolution(*args):
         r"""
-        scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-        scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        scanRelativeResolution(IRangedDistribution const & distr, double stddev) -> ScanResolution
+        scanRelativeResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
         """
         return _libBornAgainDevice.ScanResolution_scanRelativeResolution(*args)
 
     @staticmethod
     def scanAbsoluteResolution(*args):
         r"""
-        scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-        scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        scanAbsoluteResolution(IRangedDistribution const & distr, double stddev) -> ScanResolution
+        scanAbsoluteResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
         """
         return _libBornAgainDevice.ScanResolution_scanAbsoluteResolution(*args)
 
@@ -3732,15 +3732,15 @@ _libBornAgainDevice.ScanResolution_swigregister(ScanResolution)
 
 def ScanResolution_scanRelativeResolution(*args):
     r"""
-    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    ScanResolution_scanRelativeResolution(IRangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanRelativeResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
     """
     return _libBornAgainDevice.ScanResolution_scanRelativeResolution(*args)
 
 def ScanResolution_scanAbsoluteResolution(*args):
     r"""
-    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    ScanResolution_scanAbsoluteResolution(IRangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanAbsoluteResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
     """
     return _libBornAgainDevice.ScanResolution_scanAbsoluteResolution(*args)
 
@@ -6179,7 +6179,7 @@ def ScanRelativeResolution(distribution, rel_dev):
     Creates a scan resolution from the given distribution and
     relative deviation values (that is, the ratios of standard
     deviations and means).
-    :param distribution: bornagain.RangedDistribution object
+    :param distribution: bornagain.IRangedDistribution object
     :param rel_dev: either single-valued or a numpy array.
                     In the latter case should coinside in
                     size with later used mean values array.
@@ -6191,7 +6191,7 @@ def ScanAbsoluteResolution(distribution, std_dev):
     """
     Creates a scan resolution from the given distribution and
     standard deviation values.
-    :param distribution: bornagain.RangedDistribution object
+    :param distribution: bornagain.IRangedDistribution object
     :param std_dev: either single-valued or a numpy array.
                     In the latter case should coinside in
                     size with later used mean values array.

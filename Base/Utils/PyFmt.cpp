@@ -23,7 +23,7 @@ namespace pyfmt {
 std::string scriptPreamble() {
     const std::string result = "import numpy\n"
                                "import bornagain as ba\n"
-                               "from bornagain import deg, angstrom, nm, nm2, kvector_t\n\n\n";
+                               "from bornagain import deg, nm, nm2, kvector_t\n\n\n";
 
     return result;
 }

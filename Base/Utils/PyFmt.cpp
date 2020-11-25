@@ -28,10 +28,6 @@ std::string scriptPreamble() {
     return result;
 }
 
-std::string getSampleFunctionName() {
-    return "get_sample";
-}
-
 std::string printBool(double value) {
     return value ? "True" : "False";
 }

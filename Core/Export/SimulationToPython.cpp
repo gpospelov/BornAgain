@@ -38,16 +38,6 @@
 using pyfmt::indent;
 
 namespace {
-const std::string defineSimulate = "def run_simulation():\n"
-                                   "    sample = "
-                                   + pyfmt::getSampleFunctionName()
-                                   + "()\n"
-                                     "    simulation = get_simulation()\n"
-                                     "    simulation.setSample(sample)\n"
-                                     "    simulation.runSimulation()\n"
-                                     "    return simulation.result()\n"
-                                     "\n\n";
-
 //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
 std::function<std::string(double)> printFunc(const IDetector* detector) {
     if (detector->defaultAxesUnits() == Axes::Units::MM)
@@ -63,6 +53,14 @@ bool isDefaultDirection(const kvector_t direction) {
     return algo::almostEqual(direction.x(), 0.0) && algo::almostEqual(direction.y(), -1.0)
            && algo::almostEqual(direction.z(), 0.0);
 }
+
+const std::string defineSimulate = "def run_simulation():\n"
+    "    sample = get_sample()\n"
+    "    simulation = get_simulation()\n"
+    "    simulation.setSample(sample)\n"
+                                     "    simulation.runSimulation()\n"
+                                     "    return simulation.result()\n"
+                                     "\n\n";
 
 } // namespace
 

@@ -1219,7 +1219,7 @@ Creates a new clipped axis.
 ";
 
 
-// File: namespace_0D16.xml
+// File: namespace_0d16.xml
 
 
 // File: namespacealgo.xml
@@ -1459,9 +1459,6 @@ Returns string representing python stack trace.
 
 // File: namespacepyfmt.xml
 %feature("docstring")  pyfmt::scriptPreamble "std::string pyfmt::scriptPreamble()
-";
-
-%feature("docstring")  pyfmt::getSampleFunctionName "std::string pyfmt::getSampleFunctionName()
 ";
 
 %feature("docstring")  pyfmt::printBool "std::string pyfmt::printBool(double value)

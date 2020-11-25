@@ -25,7 +25,6 @@ class RealLimits;
 namespace pyfmt {
 
 std::string scriptPreamble();
-std::string getSampleFunctionName();
 
 std::string printInt(int value);
 std::string printBool(double value);

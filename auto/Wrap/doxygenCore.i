@@ -2024,7 +2024,7 @@ Write a Python script that allows to run the current simulation.
 C++ includes: SimulationToPython.h
 ";
 
-%feature("docstring")  SimulationToPython::generateSimulationCode "std::string SimulationToPython::generateSimulationCode(const ISimulation &simulation, EMainType mainType)
+%feature("docstring")  SimulationToPython::generateSimulationCode "std::string SimulationToPython::generateSimulationCode(const ISimulation &simulation)
 
 Returns a Python script that sets up a simulation and runs it if invoked as main program. 
 ";
@@ -2315,9 +2315,6 @@ Returns default units to convert to.
 // File: namespace_0d19.xml
 
 
-// File: namespace_0d27.xml
-
-
 // File: namespace_0d36.xml
 
 
@@ -2359,9 +2356,6 @@ Returns default units to convert to.
 ";
 
 %feature("docstring")  ExportToPython::generateSimulationCode "std::string ExportToPython::generateSimulationCode(const ISimulation &simulation)
-";
-
-%feature("docstring")  ExportToPython::generatePyExportTest "std::string ExportToPython::generatePyExportTest(const ISimulation &simulation)
 ";
 
 

@@ -36,7 +36,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
     const std::string pyscript_filename =
         FileSystemUtils::jointPath(BATesting::TestOutDir_PyStd(), test_name + ".py");
     std::ofstream pythonFile(pyscript_filename);
-    pythonFile << ExportToPython::generatePyExportTest(direct_simulation);
+    pythonFile << ExportToPython::generateSimulationCode(direct_simulation);
     pythonFile.close();
 
     // Run Python script

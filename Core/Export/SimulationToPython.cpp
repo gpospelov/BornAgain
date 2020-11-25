@@ -378,32 +378,20 @@ std::string defineGetSimulation(const ISimulation* simulation) {
     return result.str();
 }
 
-std::string defineMain(SimulationToPython::EMainType mainType) {
-    std::string result;
-    if (mainType == SimulationToPython::RUN_SIMULATION) {
-        result = "if __name__ == '__main__':\n"
-                 "    result = run_simulation()\n"
-                 "    ba.plot_simulation_result(result)\n";
-    } else if (mainType == SimulationToPython::SAVE_DATA) {
-        result = "if __name__ == '__main__':\n"
-                 "    result = run_simulation()\n"
-                 "    import sys\n"
-                 "    if len(sys.argv)>=2:\n"
-                 "        ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n"
-                 "    else:\n"
-                 "        ba.plot_simulation_result(result, cmap='jet', aspect='auto')\n";
-    } else {
-        throw std::runtime_error("defineMain() -> Error. Unknown main type.");
-    }
-    return result;
-}
+const std::string defineMain =
+    "if __name__ == '__main__':\n"
+        "    result = run_simulation()\n"
+        "    import sys\n"
+        "    if len(sys.argv)>=2:\n"
+        "        ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n"
+        "    else:\n"
+        "        ba.plot_simulation_result(result, cmap='jet', aspect='auto')\n";
 
 } // namespace
 
 //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
 
-std::string SimulationToPython::generateSimulationCode(const ISimulation& simulation,
-                                                       EMainType mainType) {
+std::string SimulationToPython::generateSimulationCode(const ISimulation& simulation) {
     if (simulation.sample() == nullptr)
         throw std::runtime_error("SimulationToPython::generateSimulationCode() -> Error. "
                                  "ISimulation is not initialized.");
@@ -411,5 +399,5 @@ std::string SimulationToPython::generateSimulationCode(const ISimulation& simula
     SampleToPython sampleGenerator;
 
     return pyfmt::scriptPreamble() + sampleGenerator.generateSampleCode(*simulation.sample())
-           + defineGetSimulation(&simulation) + defineSimulate + defineMain(mainType);
+           + defineGetSimulation(&simulation) + defineSimulate + defineMain;
 }

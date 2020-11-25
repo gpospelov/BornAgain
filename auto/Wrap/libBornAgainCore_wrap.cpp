@@ -42349,32 +42349,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_generatePyExportTest(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ISimulation *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::string result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_ISimulation,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "generatePyExportTest" "', argument " "1"" of type '" "ISimulation const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "generatePyExportTest" "', argument " "1"" of type '" "ISimulation const &""'"); 
-  }
-  arg1 = reinterpret_cast< ISimulation * >(argp1);
-  result = ExportToPython::generatePyExportTest((ISimulation const &)*arg1);
-  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "delete_SwigPyIterator", _wrap_delete_SwigPyIterator, METH_O, "delete_SwigPyIterator(SwigPyIterator self)"},
@@ -44314,11 +44288,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "generateSimulationCode", _wrap_generateSimulationCode, METH_O, "\n"
 		"generateSimulationCode(ISimulation simulation) -> std::string\n"
 		"std::string ExportToPython::generateSimulationCode(const ISimulation &simulation)\n"
-		"\n"
-		""},
-	 { "generatePyExportTest", _wrap_generatePyExportTest, METH_O, "\n"
-		"generatePyExportTest(ISimulation simulation) -> std::string\n"
-		"std::string ExportToPython::generatePyExportTest(const ISimulation &simulation)\n"
 		"\n"
 		""},
 	 { NULL, NULL, 0, NULL }

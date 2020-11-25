@@ -4494,14 +4494,6 @@ def generateSimulationCode(simulation):
     """
     return _libBornAgainCore.generateSimulationCode(simulation)
 
-def generatePyExportTest(simulation):
-    r"""
-    generatePyExportTest(ISimulation simulation) -> std::string
-    std::string ExportToPython::generatePyExportTest(const ISimulation &simulation)
-
-    """
-    return _libBornAgainCore.generatePyExportTest(simulation)
-
 class SimulationBuilderWrapper(PyBuilderCallback):
     def __init__(self, f):
         super(SimulationBuilderWrapper, self).__init__()

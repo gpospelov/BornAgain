@@ -37,13 +37,13 @@ IRangedDistribution::IRangedDistribution()
 }
 
 IRangedDistribution::IRangedDistribution(size_t n_samples, double sigma_factor,
-                                       const RealLimits& limits)
+                                         const RealLimits& limits)
     : m_n_samples(n_samples), m_sigma_factor(sigma_factor), m_limits(limits) {
     checkInitialization();
 }
 
 IRangedDistribution::IRangedDistribution(size_t n_samples, double sigma_factor, double min,
-                                       double max)
+                                         double max)
     : m_n_samples(n_samples)
     , m_sigma_factor(sigma_factor)
     , m_limits(RealLimits::limited(min, max)) {
@@ -52,7 +52,8 @@ IRangedDistribution::IRangedDistribution(size_t n_samples, double sigma_factor, 
 
 IRangedDistribution::~IRangedDistribution() = default;
 
-std::vector<ParameterSample> IRangedDistribution::generateSamples(double mean, double stddev) const {
+std::vector<ParameterSample> IRangedDistribution::generateSamples(double mean,
+                                                                  double stddev) const {
     auto generator = distribution(mean, stddev);
     if (!generator->isDelta())
         return generator->equidistantSamples(m_n_samples, m_sigma_factor, m_limits);
@@ -66,7 +67,7 @@ std::vector<ParameterSample> IRangedDistribution::generateSamples(double mean, d
 
 std::vector<std::vector<ParameterSample>>
 IRangedDistribution::generateSamples(const std::vector<double>& mean,
-                                    const std::vector<double>& stddev) const {
+                                     const std::vector<double>& stddev) const {
     if (mean.size() != stddev.size())
         throw std::runtime_error("Error in IRangedDistribution::generateSamples: mean and variance "
                                  "vectors shall be of the same size");
@@ -81,7 +82,7 @@ IRangedDistribution::generateSamples(const std::vector<double>& mean,
 }
 
 std::unique_ptr<IDistribution1D> IRangedDistribution::distribution(double mean,
-                                                                  double stddev) const {
+                                                                   double stddev) const {
     if (stddev < 0.0)
         throw std::runtime_error(
             "Error in IRangedDistribution::distribution: standard deviation is less than zero");

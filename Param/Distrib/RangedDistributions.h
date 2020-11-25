@@ -37,7 +37,7 @@ class IRangedDistribution : public ICloneable {
 public:
     IRangedDistribution();
     IRangedDistribution(size_t n_samples, double sigma_factor,
-                       const RealLimits& limits = RealLimits::limitless());
+                        const RealLimits& limits = RealLimits::limitless());
     //! Initializes Ranged distribution with given number of samples, sigma factor
     //! (range in standard deviations to take into account during sample generation)
     //! and limits (either RealLimits object or just min and max limits).

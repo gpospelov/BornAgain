@@ -18,6 +18,7 @@
 #include "Base/Utils/Algorithms.h"
 #include "Base/Utils/PyFmt.h"
 #include "Base/Utils/StringUtils.h"
+#include "Core/Export/PyFmtLimits.h"
 #include "Device/Mask/Ellipse.h"
 #include "Device/Mask/InfinitePlane.h"
 #include "Device/Mask/Line.h"
@@ -28,7 +29,6 @@
 #include "Param/Distrib/Distributions.h"
 #include "Param/Distrib/ParameterDistribution.h"
 #include "Param/Distrib/RangedDistributions.h"
-#include "Core/Export/PyFmtLimits.h"
 #include <iomanip>
 
 namespace pyfmt2 {
@@ -143,6 +143,5 @@ std::string printRangedDistribution(const IRangedDistribution& distr) {
     result << ")";
     return result.str();
 }
-
 
 } // namespace pyfmt2

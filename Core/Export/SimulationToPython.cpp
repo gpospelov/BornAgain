@@ -18,6 +18,8 @@
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Export/INodeUtils.h"
+#include "Core/Export/PyFmt2.h"
+#include "Core/Export/PyFmtLimits.h"
 #include "Core/Export/SampleToPython.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
@@ -29,14 +31,11 @@
 #include "Device/Detector/RectangularDetector.h"
 #include "Device/Detector/RegionOfInterest.h"
 #include "Device/Detector/SphericalDetector.h"
-#include "Core/Export/PyFmt2.h"
-#include "Core/Scan/AngularSpecScan.h"
 #include "Device/Resolution/ConvolutionDetectorResolution.h"
 #include "Device/Resolution/ResolutionFunction2DGaussian.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
 #include "Param/Varia/ParameterUtils.h"
-#include "Core/Export/PyFmtLimits.h"
 #include <iomanip>
 
 using pyfmt::indent;
@@ -75,16 +74,16 @@ std::string defineScanResolution(const ScanResolution& scan) {
     std::ostringstream result;
     result << pyfmt2::printRangedDistribution(*scan.distribution()) << "\n"
            << pyfmt::indent() << "resolution = "
-           << "ba." << scan.name()
-           << "(distribution, " << pyfmt::printDouble(scan.delta()) << ")";
+           << "ba." << scan.name() << "(distribution, " << pyfmt::printDouble(scan.delta()) << ")";
     return result.str();
 }
 
 std::string defineAngularSpecScan(const AngularSpecScan& scan) {
     std::ostringstream result;
-    result << "\n" << pyfmt::indent() << "# Defining specular scan:\n"
-           << pyfmt::indent() << "axis = "
-           << scan.coordinateAxis()->pyString("rad", 17 /*TODO*/) << "\n"
+    result << "\n"
+           << pyfmt::indent() << "# Defining specular scan:\n"
+           << pyfmt::indent() << "axis = " << scan.coordinateAxis()->pyString("rad", 17 /*TODO*/)
+           << "\n"
            << pyfmt::indent() << "scan = "
            << "ba.AngularSpecScan(" << pyfmt::printDouble(scan.wavelength()) << ", axis)\n";
 
@@ -446,12 +445,12 @@ std::string defineGetSimulation(const ISimulation* simulation) {
 
 const std::string defineMain =
     "if __name__ == '__main__':\n"
-        "    result = run_simulation()\n"
-        "    import sys\n"
-        "    if len(sys.argv)>=2:\n"
-        "        ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n"
-        "    else:\n"
-        "        ba.plot_simulation_result(result, cmap='jet', aspect='auto')\n";
+    "    result = run_simulation()\n"
+    "    import sys\n"
+    "    if len(sys.argv)>=2:\n"
+    "        ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n"
+    "    else:\n"
+    "        ba.plot_simulation_result(result, cmap='jet', aspect='auto')\n";
 
 } // namespace
 

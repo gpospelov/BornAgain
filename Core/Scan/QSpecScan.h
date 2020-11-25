@@ -39,7 +39,7 @@ public:
     ~QSpecScan() override;
     QSpecScan* clone() const override;
 
-    const ScanResolution * resolution() const { return m_resolution.get(); }
+    const ScanResolution* resolution() const { return m_resolution.get(); }
 
 #ifndef SWIG
     //! Generates simulation elements for specular simulations

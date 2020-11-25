@@ -71,7 +71,8 @@ private:
 
 class ScanVectorRelativeResolution : public ScanResolution {
 public:
-    ScanVectorRelativeResolution(const IRangedDistribution& distr, const std::vector<double>& reldev)
+    ScanVectorRelativeResolution(const IRangedDistribution& distr,
+                                 const std::vector<double>& reldev)
         : ScanResolution(distr), m_reldev(reldev) {
         checkIfEmpty(m_reldev);
     }
@@ -97,7 +98,8 @@ private:
 
 class ScanVectorAbsoluteResolution : public ScanResolution {
 public:
-    ScanVectorAbsoluteResolution(const IRangedDistribution& distr, const std::vector<double>& stddev)
+    ScanVectorAbsoluteResolution(const IRangedDistribution& distr,
+                                 const std::vector<double>& stddev)
         : ScanResolution(distr), m_stddev(stddev) {
         checkIfEmpty(m_stddev);
     }

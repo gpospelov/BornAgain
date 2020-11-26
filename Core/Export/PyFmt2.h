@@ -12,12 +12,13 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_DEVICE_INSTRUMENT_PYFMT2_H
-#define BORNAGAIN_DEVICE_INSTRUMENT_PYFMT2_H
+#ifndef BORNAGAIN_CORE_EXPORT_PYFMT2_H
+#define BORNAGAIN_CORE_EXPORT_PYFMT2_H
 
 #include <functional>
 #include <string>
 
+class IAxis;
 class IDistribution1D;
 class IParameterized;
 class IShape2D;
@@ -35,6 +36,8 @@ std::string representShape2D(const std::string& indent, const IShape2D* ishape, 
 std::string valueTimesUnit(const RealParameter* par);
 std::string argumentList(const IParameterized* ip);
 
+std::string printAxis(const IAxis* axis, const std::string& unit);
+
 std::string printDistribution(const IDistribution1D& par_distr, const std::string& units = "");
 
 std::string printParameterDistribution(const ParameterDistribution& par_distr,
@@ -45,4 +48,4 @@ std::string printRangedDistribution(const IRangedDistribution& distr);
 
 } // namespace pyfmt2
 
-#endif // BORNAGAIN_DEVICE_INSTRUMENT_PYFMT2_H
+#endif // BORNAGAIN_CORE_EXPORT_PYFMT2_H

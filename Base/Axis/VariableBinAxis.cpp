@@ -109,10 +109,6 @@ VariableBinAxis* VariableBinAxis::createClippedAxis(double left, double right) c
     return new VariableBinAxis(getName(), new_nbins, new_boundaries);
 }
 
-std::string VariableBinAxis::pyString(const std::string&, size_t) const {
-    throw std::runtime_error("VariableBinAxis::pyString not yet implemented"); // TODO
-}
-
 void VariableBinAxis::print(std::ostream& ostr) const {
     ostr << "VariableBinAxis(\"" << getName() << "\", " << size() << ", [";
     for (size_t i = 0; i < m_bin_boundaries.size(); ++i) {

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Utils/PyObject.h
+//! @file      Base/Py/PyObject.h
 //! @brief     PyObvject forward declaration.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_BASE_UTILS_PYOBJECT_H
-#define BORNAGAIN_BASE_UTILS_PYOBJECT_H
+#ifndef BORNAGAIN_BASE_PY_PYOBJECT_H
+#define BORNAGAIN_BASE_PY_PYOBJECT_H
 
 #ifdef BORNAGAIN_PYTHON
 #ifndef PyObject_HEAD
@@ -22,4 +22,4 @@ typedef _object PyObject;
 #endif
 #endif
 
-#endif // BORNAGAIN_BASE_UTILS_PYOBJECT_H
+#endif // BORNAGAIN_BASE_PY_PYOBJECT_H

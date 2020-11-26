@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Utils/PyFmt.h
+//! @file      Core/Export/PyFmt.h
 //! @brief     Defines functions in namespace pyfmt.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_BASE_UTILS_PYFMT_H
-#define BORNAGAIN_BASE_UTILS_PYFMT_H
+#ifndef BORNAGAIN_CORE_EXPORT_PYFMT_H
+#define BORNAGAIN_CORE_EXPORT_PYFMT_H
 
 #include "Base/Vector/Vectors3D.h"
 #include <string>
@@ -46,4 +46,4 @@ std::string indent(size_t width = 4u);
 
 } // namespace pyfmt
 
-#endif // BORNAGAIN_BASE_UTILS_PYFMT_H
+#endif // BORNAGAIN_CORE_EXPORT_PYFMT_H

@@ -18,7 +18,7 @@
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Types/SafePointerVector.h"
 #include "Base/Utils/Assert.h"
-#include "Base/Utils/PyObject.h"
+#include "Base/Py/PyObject.h"
 #include "Base/Utils/ThreadInfo.h"
 #include "Device/Data/LLData.h"
 #include "Device/Data/OutputDataIterator.h"

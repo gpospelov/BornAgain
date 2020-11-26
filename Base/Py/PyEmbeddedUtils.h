@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Utils/PyEmbeddedUtils.h
+//! @file      Base/Py/PyEmbeddedUtils.h
 //! @brief     Defines PyEmbeddedUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,12 +12,12 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_BASE_UTILS_PYEMBEDDEDUTILS_H
-#define BORNAGAIN_BASE_UTILS_PYEMBEDDEDUTILS_H
+#ifndef BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H
+#define BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H
 
 #ifdef BORNAGAIN_PYTHON
 
-#include "Base/Utils/PyObject.h"
+#include "Base/Py/PyObject.h"
 #include <memory>
 #include <string>
 #include <vector>
@@ -48,4 +48,4 @@ std::string pythonStackTrace();
 
 #endif // BORNAGAIN_PYTHON
 
-#endif // BORNAGAIN_BASE_UTILS_PYEMBEDDEDUTILS_H
+#endif // BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H

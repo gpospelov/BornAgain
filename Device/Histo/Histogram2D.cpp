@@ -119,7 +119,7 @@ void Histogram2D::addContent(const std::vector<std::vector<double>>& data) {
              << "] doesn't mach histogram axes. "
              << "X-axis size: " << m_data.axis(0).size()
              << "Y-axis size: " << m_data.axis(1).size();
-        throw Exceptions::LogicErrorException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
 
     for (size_t row = 0; row < nrows; ++row) {

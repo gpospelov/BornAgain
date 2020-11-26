@@ -34,8 +34,7 @@ public:
     //! Calculate footprint correction coefficient from the beam incident angle _alpha_.
     double calculate(double alpha) const override;
 
-    //! Print python-formatted footprint definition
-    std::string print() const override;
+    std::string name() const override { return "FootprintGauss"; }
 };
 
 #endif // BORNAGAIN_DEVICE_BEAM_FOOTPRINTGAUSS_H

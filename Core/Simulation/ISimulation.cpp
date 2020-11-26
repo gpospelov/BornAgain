@@ -72,10 +72,10 @@ void runComputations(std::vector<std::unique_ptr<IComputation>>& computations) {
         if (computation->isCompleted())
             return;
         std::string message = computation->errorMessage();
-        throw Exceptions::RuntimeErrorException("Error in runComputations: ISimulation has "
-                                                "terminated unexpectedly with following error: "
-                                                "message.\n"
-                                                + message);
+        throw std::runtime_error("Error in runComputations: ISimulation has "
+                                 "terminated unexpectedly with following error: "
+                                 "message.\n"
+                                 + message);
     }
 
     // Running computations in several threads.
@@ -99,11 +99,10 @@ void runComputations(std::vector<std::unique_ptr<IComputation>>& computations) {
 
     if (failure_messages.empty())
         return;
-    throw Exceptions::RuntimeErrorException(
-        "Error in runComputations: "
-        "At least one simulation thread has terminated unexpectedly.\n"
-        "Messages: "
-        + StringUtils::join(failure_messages, " --- "));
+    throw std::runtime_error("Error in runComputations: "
+                             "At least one simulation thread has terminated unexpectedly.\n"
+                             "Messages: "
+                             + StringUtils::join(failure_messages, " --- "));
 }
 
 } // namespace

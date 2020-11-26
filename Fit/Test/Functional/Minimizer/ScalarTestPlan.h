@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_SCALARTESTPLAN_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_SCALARTESTPLAN_H
+#ifndef BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_SCALARTESTPLAN_H
+#define BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_SCALARTESTPLAN_H
 
 #include "Fit/Minimizer/Types.h"
 #include "Fit/TestEngine/MinimizerTestPlan.h"
@@ -37,4 +37,4 @@ private:
     double m_tolerance_on_minimum;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_SCALARTESTPLAN_H
+#endif // BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_SCALARTESTPLAN_H

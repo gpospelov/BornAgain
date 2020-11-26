@@ -3427,22 +3427,22 @@ class AngularSpecScan(object):
 
     def setRelativeWavelengthResolution(self, *args):
         r"""
-        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
-        setRelativeWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
-        void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+        setRelativeWavelengthResolution(AngularSpecScan self, IRangedDistribution const & distr, double rel_dev)
+        setRelativeWavelengthResolution(AngularSpecScan self, IRangedDistribution const & distr, vdouble1d_t rel_dev)
+        void AngularSpecScan::setRelativeWavelengthResolution(const IRangedDistribution &distr, const std::vector< double > &rel_dev)
 
-        Sets wavelength resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+        Sets wavelength resolution values via IRangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 
         """
         return _libBornAgainCore.AngularSpecScan_setRelativeWavelengthResolution(self, *args)
 
     def setAbsoluteWavelengthResolution(self, *args):
         r"""
-        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
-        setAbsoluteWavelengthResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
-        void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+        setAbsoluteWavelengthResolution(AngularSpecScan self, IRangedDistribution const & distr, double std_dev)
+        setAbsoluteWavelengthResolution(AngularSpecScan self, IRangedDistribution const & distr, vdouble1d_t std_dev)
+        void AngularSpecScan::setAbsoluteWavelengthResolution(const IRangedDistribution &distr, const std::vector< double > &std_dev)
 
-        Sets wavelength resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+        Sets wavelength resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 
         """
         return _libBornAgainCore.AngularSpecScan_setAbsoluteWavelengthResolution(self, *args)
@@ -3459,22 +3459,22 @@ class AngularSpecScan(object):
 
     def setRelativeAngularResolution(self, *args):
         r"""
-        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double rel_dev)
-        setRelativeAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
-        void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+        setRelativeAngularResolution(AngularSpecScan self, IRangedDistribution const & distr, double rel_dev)
+        setRelativeAngularResolution(AngularSpecScan self, IRangedDistribution const & distr, vdouble1d_t rel_dev)
+        void AngularSpecScan::setRelativeAngularResolution(const IRangedDistribution &distr, const std::vector< double > &rel_dev)
 
-        Sets angular resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+        Sets angular resolution values via IRangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 
         """
         return _libBornAgainCore.AngularSpecScan_setRelativeAngularResolution(self, *args)
 
     def setAbsoluteAngularResolution(self, *args):
         r"""
-        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, double std_dev)
-        setAbsoluteAngularResolution(AngularSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
-        void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+        setAbsoluteAngularResolution(AngularSpecScan self, IRangedDistribution const & distr, double std_dev)
+        setAbsoluteAngularResolution(AngularSpecScan self, IRangedDistribution const & distr, vdouble1d_t std_dev)
+        void AngularSpecScan::setAbsoluteAngularResolution(const IRangedDistribution &distr, const std::vector< double > &std_dev)
 
-        Sets angular resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+        Sets angular resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 
         """
         return _libBornAgainCore.AngularSpecScan_setAbsoluteAngularResolution(self, *args)
@@ -3516,6 +3516,14 @@ class QSpecScan(object):
         """
         return _libBornAgainCore.QSpecScan_clone(self)
 
+    def resolution(self):
+        r"""
+        resolution(QSpecScan self) -> ScanResolution const *
+        const ScanResolution* QSpecScan::resolution() const
+
+        """
+        return _libBornAgainCore.QSpecScan_resolution(self)
+
     def setQResolution(self, resolution):
         r"""
         setQResolution(QSpecScan self, ScanResolution const & resolution)
@@ -3528,22 +3536,22 @@ class QSpecScan(object):
 
     def setRelativeQResolution(self, *args):
         r"""
-        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, double rel_dev)
-        setRelativeQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t rel_dev)
-        void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+        setRelativeQResolution(QSpecScan self, IRangedDistribution const & distr, double rel_dev)
+        setRelativeQResolution(QSpecScan self, IRangedDistribution const & distr, vdouble1d_t rel_dev)
+        void QSpecScan::setRelativeQResolution(const IRangedDistribution &distr, const std::vector< double > &rel_dev)
 
-        Sets qz resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+        Sets qz resolution values via IRangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
 
         """
         return _libBornAgainCore.QSpecScan_setRelativeQResolution(self, *args)
 
     def setAbsoluteQResolution(self, *args):
         r"""
-        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, double std_dev)
-        setAbsoluteQResolution(QSpecScan self, RangedDistribution const & distr, vdouble1d_t std_dev)
-        void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+        setAbsoluteQResolution(QSpecScan self, IRangedDistribution const & distr, double std_dev)
+        setAbsoluteQResolution(QSpecScan self, IRangedDistribution const & distr, vdouble1d_t std_dev)
+        void QSpecScan::setAbsoluteQResolution(const IRangedDistribution &distr, const std::vector< double > &std_dev)
 
-        Sets qz resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+        Sets qz resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
 
         """
         return _libBornAgainCore.QSpecScan_setAbsoluteQResolution(self, *args)
@@ -4493,14 +4501,6 @@ def generateSimulationCode(simulation):
 
     """
     return _libBornAgainCore.generateSimulationCode(simulation)
-
-def generatePyExportTest(simulation):
-    r"""
-    generatePyExportTest(ISimulation simulation) -> std::string
-    std::string ExportToPython::generatePyExportTest(const ISimulation &simulation)
-
-    """
-    return _libBornAgainCore.generatePyExportTest(simulation)
 
 class SimulationBuilderWrapper(PyBuilderCallback):
     def __init__(self, f):

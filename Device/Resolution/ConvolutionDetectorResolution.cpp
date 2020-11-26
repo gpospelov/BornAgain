@@ -49,7 +49,7 @@ std::vector<const INode*> ConvolutionDetectorResolution::getChildren() const {
 void ConvolutionDetectorResolution::applyDetectorResolution(
     OutputData<double>* p_intensity_map) const {
     if (p_intensity_map->rank() != m_dimension) {
-        throw Exceptions::RuntimeErrorException(
+        throw std::runtime_error(
             "ConvolutionDetectorResolution::applyDetectorResolution() -> Error! "
             "Intensity map must have same dimension as detector resolution function.");
     }
@@ -61,7 +61,7 @@ void ConvolutionDetectorResolution::applyDetectorResolution(
         apply2dConvolution(p_intensity_map);
         break;
     default:
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "ConvolutionDetectorResolution::applyDetectorResolution() -> Error! "
             "Class ConvolutionDetectorResolution must be initialized with dimension 1 or 2.");
     }
@@ -74,11 +74,10 @@ void ConvolutionDetectorResolution::setResolutionFunction(const IResolutionFunct
 
 void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_intensity_map) const {
     if (m_res_function_1d == 0)
-        throw Exceptions::LogicErrorException(
-            "ConvolutionDetectorResolution::apply1dConvolution() -> Error! "
-            "No 1d resolution function present for convolution of 1d data.");
+        throw std::runtime_error("ConvolutionDetectorResolution::apply1dConvolution() -> Error! "
+                                 "No 1d resolution function present for convolution of 1d data.");
     if (p_intensity_map->rank() != 1)
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "ConvolutionDetectorResolution::apply1dConvolution() -> Error! "
             "Number of axes for intensity map does not correspond to the dimension of the map.");
     const IAxis& axis = p_intensity_map->axis(0);
@@ -89,7 +88,7 @@ void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_int
         return; // No convolution for sets of zero or one element
     // Construct kernel vector from resolution function
     if (axis.size() != data_size)
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "ConvolutionDetectorResolution::apply1dConvolution() -> Error! "
             "Size of axis for intensity map does not correspond to size of data in the map.");
     double step_size = std::abs(axis[0] - axis[axis.size() - 1]) / (data_size - 1);
@@ -109,11 +108,10 @@ void ConvolutionDetectorResolution::apply1dConvolution(OutputData<double>* p_int
 
 void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_intensity_map) const {
     if (m_res_function_2d == 0)
-        throw Exceptions::LogicErrorException(
-            "ConvolutionDetectorResolution::apply2dConvolution() -> Error! "
-            "No 2d resolution function present for convolution of 2d data.");
+        throw std::runtime_error("ConvolutionDetectorResolution::apply2dConvolution() -> Error! "
+                                 "No 2d resolution function present for convolution of 2d data.");
     if (p_intensity_map->rank() != 2)
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "ConvolutionDetectorResolution::apply2dConvolution() -> Error! "
             "Number of axes for intensity map does not correspond to the dimension of the map.");
     const IAxis& axis_1 = p_intensity_map->axis(0);
@@ -127,7 +125,7 @@ void ConvolutionDetectorResolution::apply2dConvolution(OutputData<double>* p_int
     std::vector<std::vector<double>> source;
     size_t raw_data_size = raw_source_vector.size();
     if (raw_data_size != axis_size_1 * axis_size_2)
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "ConvolutionDetectorResolution::apply2dConvolution() -> Error! "
             "Intensity map data size does not match the product of its axes' sizes");
     for (auto it = raw_source_vector.begin(); it != raw_source_vector.end(); it += axis_size_2) {

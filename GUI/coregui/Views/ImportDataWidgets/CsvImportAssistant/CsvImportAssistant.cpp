@@ -260,8 +260,7 @@ void CsvImportAssistant::removeBlankColumns() {
     size_t nCols = m_csvArray[0].size();
 
     if (!hasEqualLengthLines(m_csvArray)) {
-        throw Exceptions::NotImplementedException(
-            "All inner vectors should have the same length already.");
+        throw std::runtime_error("All inner vectors should have the same length already.");
     }
 
     // traverse the array columnwise -- this may be inneficient.

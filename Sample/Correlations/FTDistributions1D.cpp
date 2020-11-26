@@ -15,7 +15,6 @@
 #include "Sample/Correlations/FTDistributions1D.h"
 #include "Base/Math/Constants.h"
 #include "Base/Math/Functions.h"
-#include "Base/Types/Exceptions.h"
 #include <limits>
 
 namespace {
@@ -201,5 +200,5 @@ std::unique_ptr<IDistribution1DSampler> FTDistribution1DVoigt::createSampler() c
     std::ostringstream ostr;
     ostr << "FTDistribution1DVoigt::createSampler() -> Error in class initialization";
     ostr << "\n\n Has not been implemented yet...stay tuned!";
-    throw Exceptions::ClassInitializationException(ostr.str());
+    throw std::runtime_error(ostr.str());
 }

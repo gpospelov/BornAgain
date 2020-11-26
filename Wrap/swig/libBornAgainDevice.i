@@ -159,7 +159,7 @@
         Creates a scan resolution from the given distribution and
         relative deviation values (that is, the ratios of standard
         deviations and means).
-        :param distribution: bornagain.RangedDistribution object
+        :param distribution: bornagain.IRangedDistribution object
         :param rel_dev: either single-valued or a numpy array.
                         In the latter case should coinside in
                         size with later used mean values array.
@@ -171,7 +171,7 @@
         """
         Creates a scan resolution from the given distribution and
         standard deviation values.
-        :param distribution: bornagain.RangedDistribution object
+        :param distribution: bornagain.IRangedDistribution object
         :param std_dev: either single-valued or a numpy array.
                         In the latter case should coinside in
                         size with later used mean values array.

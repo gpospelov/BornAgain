@@ -56,11 +56,6 @@ Returns the number of simulation elements.
 Returns intensity vector corresponding to convolution of given simulation elements. 
 ";
 
-%feature("docstring")  AngularSpecScan::print "std::string AngularSpecScan::print() const override
-
-Print scan definition in python format. 
-";
-
 %feature("docstring")  AngularSpecScan::wavelength "double AngularSpecScan::wavelength() const
 ";
 
@@ -80,20 +75,20 @@ Sets footprint correction factor.
 Sets wavelength resolution values via ScanResolution object. 
 ";
 
-%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, double rel_dev)
+%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const IRangedDistribution &distr, double rel_dev)
 ";
 
-%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+%feature("docstring")  AngularSpecScan::setRelativeWavelengthResolution "void AngularSpecScan::setRelativeWavelengthResolution(const IRangedDistribution &distr, const std::vector< double > &rel_dev)
 
-Sets wavelength resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+Sets wavelength resolution values via IRangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 ";
 
-%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, double std_dev)
+%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const IRangedDistribution &distr, double std_dev)
 ";
 
-%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+%feature("docstring")  AngularSpecScan::setAbsoluteWavelengthResolution "void AngularSpecScan::setAbsoluteWavelengthResolution(const IRangedDistribution &distr, const std::vector< double > &std_dev)
 
-Sets wavelength resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+Sets wavelength resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 ";
 
 %feature("docstring")  AngularSpecScan::setAngleResolution "void AngularSpecScan::setAngleResolution(const ScanResolution &resolution)
@@ -101,20 +96,20 @@ Sets wavelength resolution values via RangedDistribution and values of standard 
 Sets angle resolution values via ScanResolution object. 
 ";
 
-%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, double rel_dev)
+%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const IRangedDistribution &distr, double rel_dev)
 ";
 
-%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+%feature("docstring")  AngularSpecScan::setRelativeAngularResolution "void AngularSpecScan::setRelativeAngularResolution(const IRangedDistribution &distr, const std::vector< double > &rel_dev)
 
-Sets angular resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+Sets angular resolution values via IRangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 ";
 
-%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, double std_dev)
+%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const IRangedDistribution &distr, double std_dev)
 ";
 
-%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+%feature("docstring")  AngularSpecScan::setAbsoluteAngularResolution "void AngularSpecScan::setAbsoluteAngularResolution(const IRangedDistribution &distr, const std::vector< double > &std_dev)
 
-Sets angular resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
+Sets angular resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the inclination angle axis. 
 ";
 
 
@@ -1121,11 +1116,6 @@ Returns the number of simulation elements.
 Returns intensity vector corresponding to convolution of given simulation elements. 
 ";
 
-%feature("docstring")  ISpecularScan::print "virtual std::string ISpecularScan::print() const =0
-
-Print scan definition in python format. 
-";
-
 
 // File: classIterationInfo.xml
 %feature("docstring") IterationInfo "
@@ -1466,6 +1456,43 @@ weight_factors:
 user-defined weighting factors. Used linearly, no matter which norm is chosen. 
 ";
 
+%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  PoissonLikeMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
 
 // File: classPoissonNoiseBackground.xml
 %feature("docstring") PoissonNoiseBackground "
@@ -1551,6 +1578,9 @@ Sets q-defined specular scan. Accepts either numpy array of q-values sorted in a
 %feature("docstring")  QSpecScan::clone "QSpecScan * QSpecScan::clone() const override
 ";
 
+%feature("docstring")  QSpecScan::resolution "const ScanResolution* QSpecScan::resolution() const
+";
+
 %feature("docstring")  QSpecScan::generateSimulationElements "std::vector< SpecularSimulationElement > QSpecScan::generateSimulationElements(const Instrument &instrument) const override
 
 Generates simulation elements for specular simulations. 
@@ -1581,30 +1611,25 @@ Returns the number of simulation elements.
 Returns intensity vector corresponding to convolution of given simulation elements. 
 ";
 
-%feature("docstring")  QSpecScan::print "std::string QSpecScan::print() const override
-
-Print scan definition in python format. 
-";
-
 %feature("docstring")  QSpecScan::setQResolution "void QSpecScan::setQResolution(const ScanResolution &resolution)
 
 Sets q resolution values via ScanResolution object. 
 ";
 
-%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, double rel_dev)
+%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const IRangedDistribution &distr, double rel_dev)
 ";
 
-%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const RangedDistribution &distr, const std::vector< double > &rel_dev)
+%feature("docstring")  QSpecScan::setRelativeQResolution "void QSpecScan::setRelativeQResolution(const IRangedDistribution &distr, const std::vector< double > &rel_dev)
 
-Sets qz resolution values via RangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+Sets qz resolution values via IRangedDistribution and values of relative deviations (that is,  rel_dev equals standard deviation divided by the mean value).  rel_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
 ";
 
-%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, double std_dev)
+%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const IRangedDistribution &distr, double std_dev)
 ";
 
-%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const RangedDistribution &distr, const std::vector< double > &std_dev)
+%feature("docstring")  QSpecScan::setAbsoluteQResolution "void QSpecScan::setAbsoluteQResolution(const IRangedDistribution &distr, const std::vector< double > &std_dev)
 
-Sets qz resolution values via RangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
+Sets qz resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
 ";
 
 
@@ -1623,6 +1648,43 @@ C++ includes: ObjectiveMetric.h
 ";
 
 %feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double RelativeDifferenceMetric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > uncertainties, std::vector< double > weight_factors) const override
+
+Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors and uncertainties. All arrays involved in the computation must be of the same size.
+
+Parameters:
+-----------
+
+sim_data: 
+array with simulated intensities.
+
+exp_data: 
+array with intensity values obtained from an experiment.
+
+uncertainties: 
+array with experimental data uncertainties.
+
+weight_factors: 
+user-defined weighting factors. Used linearly, no matter which norm is chosen. 
+";
+
+%feature("docstring")  RelativeDifferenceMetric::computeFromArrays "double Chi2Metric::computeFromArrays(std::vector< double > sim_data, std::vector< double > exp_data, std::vector< double > weight_factors) const override
 
 Computes metric value from data arrays. Negative values in exp_data are ignored as well as non-positive weight_factors. All arrays involved in the computation must be of the same size.
 
@@ -1950,7 +2012,7 @@ Write a Python script that allows to run the current simulation.
 C++ includes: SimulationToPython.h
 ";
 
-%feature("docstring")  SimulationToPython::generateSimulationCode "std::string SimulationToPython::generateSimulationCode(const ISimulation &simulation, EMainType mainType)
+%feature("docstring")  SimulationToPython::generateSimulationCode "std::string SimulationToPython::generateSimulationCode(const ISimulation &simulation)
 
 Returns a Python script that sets up a simulation and runs it if invoked as main program. 
 ";
@@ -2235,49 +2297,46 @@ Returns default units to convert to.
 ";
 
 
-// File: namespace_0D15.xml
+// File: namespace_0d15.xml
 
 
-// File: namespace_0D19.xml
+// File: namespace_0d19.xml
 
 
-// File: namespace_0D27.xml
+// File: namespace_0d39.xml
 
 
-// File: namespace_0D35.xml
+// File: namespace_0d44.xml
 
 
-// File: namespace_0D40.xml
+// File: namespace_0d53.xml
 
 
-// File: namespace_0D49.xml
+// File: namespace_0d55.xml
 
 
-// File: namespace_0D51.xml
+// File: namespace_0d59.xml
 
 
-// File: namespace_0D55.xml
+// File: namespace_0d61.xml
 
 
-// File: namespace_0D57.xml
+// File: namespace_0d66.xml
 
 
-// File: namespace_0D62.xml
+// File: namespace_0d68.xml
 
 
-// File: namespace_0D64.xml
+// File: namespace_0d72.xml
 
 
-// File: namespace_0D68.xml
+// File: namespace_0d82.xml
 
 
-// File: namespace_0D78.xml
+// File: namespace_0d84.xml
 
 
-// File: namespace_0D80.xml
-
-
-// File: namespace_0D86.xml
+// File: namespace_0d90.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2285,9 +2344,6 @@ Returns default units to convert to.
 ";
 
 %feature("docstring")  ExportToPython::generateSimulationCode "std::string ExportToPython::generateSimulationCode(const ISimulation &simulation)
-";
-
-%feature("docstring")  ExportToPython::generatePyExportTest "std::string ExportToPython::generatePyExportTest(const ISimulation &simulation)
 ";
 
 
@@ -2349,6 +2405,44 @@ Returns default norm name.
 %feature("docstring")  ObjectiveMetricUtils::defaultMetricName "std::string ObjectiveMetricUtils::defaultMetricName()
 
 Returns default metric name. 
+";
+
+
+// File: namespacepyfmt.xml
+%feature("docstring")  pyfmt::printRealLimits "std::string pyfmt::printRealLimits(const RealLimits &limits, const std::string &units)
+";
+
+%feature("docstring")  pyfmt::printRealLimitsArg "std::string pyfmt::printRealLimitsArg(const RealLimits &limits, const std::string &units)
+
+Prints RealLimits in the form of argument (in the context of ParameterDistribution and similar). Default RealLimits will not be printed, any other will be printed as \", ba.RealLimits.limited(1*deg, 2*deg)\" 
+";
+
+
+// File: namespacepyfmt2.xml
+%feature("docstring")  pyfmt2::representShape2D "std::string pyfmt2::representShape2D(const std::string &indent, const IShape2D *ishape, bool mask_value, std::function< std::string(double)> printValueFunc)
+
+Returns fixed Python code snippet that defines the function \"runSimulation\". 
+";
+
+%feature("docstring")  pyfmt2::valueTimesUnit "std::string pyfmt2::valueTimesUnit(const RealParameter *par)
+
+Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParameterized *ip)
+
+Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
+";
+
+%feature("docstring")  pyfmt2::printDistribution "std::string pyfmt2::printDistribution(const IDistribution1D &par_distr, const std::string &units)
+
+Prints distribution with constructor parameters in given units. ba.DistributionGaussian(2.0*deg, 0.02*deg) 
+";
+
+%feature("docstring")  pyfmt2::printParameterDistribution "std::string pyfmt2::printParameterDistribution(const ParameterDistribution &par_distr, const std::string &distVarName, const std::string &units)
+";
+
+%feature("docstring")  pyfmt2::printRangedDistribution "std::string pyfmt2::printRangedDistribution(const IRangedDistribution &distr)
 ";
 
 
@@ -2641,6 +2735,18 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: OrderedMap_8h.xml
+
+
+// File: PyFmt2_8cpp.xml
+
+
+// File: PyFmt2_8h.xml
+
+
+// File: PyFmtLimits_8cpp.xml
+
+
+// File: PyFmtLimits_8h.xml
 
 
 // File: SampleLabelHandler_8cpp.xml

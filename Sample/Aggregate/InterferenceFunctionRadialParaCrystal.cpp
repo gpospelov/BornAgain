@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include <limits>
@@ -88,9 +87,9 @@ std::vector<const INode*> InterferenceFunctionRadialParaCrystal::getChildren() c
 
 double InterferenceFunctionRadialParaCrystal::iff_without_dw(const kvector_t q) const {
     if (!m_pdf)
-        throw Exceptions::NullPointerException("InterferenceFunctionRadialParaCrystal::"
-                                               "evaluate() -> Error! Probability distribution for "
-                                               "interference function not properly initialized");
+        throw std::runtime_error("InterferenceFunctionRadialParaCrystal::"
+                                 "evaluate() -> Error! Probability distribution for "
+                                 "interference function not properly initialized");
     double result = 0.0;
     double qxr = q.x();
     double qyr = q.y();

@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Base/Axis/CustomBinAxis.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Algorithms.h"
 #include <iomanip>
 #include <limits>
@@ -21,8 +20,8 @@
 CustomBinAxis::CustomBinAxis(const std::string& name, size_t nbins, double start, double end)
     : VariableBinAxis(name, nbins), m_start(start), m_end(end) {
     if (m_start >= m_end)
-        throw Exceptions::LogicErrorException("CustomBinAxis::CustomBinAxis() -> Error."
-                                              " start >= end is not allowed.");
+        throw std::runtime_error("CustomBinAxis::CustomBinAxis() -> Error."
+                                 " start >= end is not allowed.");
 
     double start_sin = std::sin(start);
     double end_sin = std::sin(end);
@@ -47,7 +46,7 @@ CustomBinAxis* CustomBinAxis::clone() const {
 
 Bin1D CustomBinAxis::bin(size_t index) const {
     if (index >= m_nbins)
-        throw Exceptions::OutOfBoundsException("CustomBinAxis::bin() -> Error. Wrong index.");
+        throw std::runtime_error("CustomBinAxis::bin() -> Error. Wrong index.");
 
     Bin1D result(m_bin_centers[index], m_bin_centers[index]);
     return result;
@@ -58,8 +57,8 @@ std::vector<double> CustomBinAxis::binCenters() const {
 }
 
 CustomBinAxis* CustomBinAxis::createClippedAxis(double /* left */, double /* right */) const {
-    throw Exceptions::NotImplementedException("VariableBinAxis::CustomBinAxis() -> Error."
-                                              " Not implemented.");
+    throw std::runtime_error("VariableBinAxis::CustomBinAxis() -> Error."
+                             " Not implemented.");
 }
 
 void CustomBinAxis::print(std::ostream& ostr) const {

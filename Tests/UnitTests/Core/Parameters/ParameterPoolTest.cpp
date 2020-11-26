@@ -1,5 +1,4 @@
 #include "Param/Base/ParameterPool.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/RealParameter.h"
 #include "Tests/GTestWrapper/google_test.h"
 
@@ -22,7 +21,7 @@ TEST_F(ParameterPoolTest, addParameter) {
     EXPECT_EQ(pool.size(), 2u);
 
     // attempt to add same parameter twice
-    EXPECT_THROW(pool.addParameter(rp1), Exceptions::RuntimeErrorException);
+    EXPECT_THROW(pool.addParameter(rp1), std::runtime_error);
 
     // getting parameters
     EXPECT_EQ(pool.parameter("rp1"), rp1);
@@ -58,7 +57,7 @@ TEST_F(ParameterPoolTest, matchedParameters) {
 
     // unique match
     EXPECT_EQ(rp2, pool.getUniqueMatch("*xxx*"));
-    EXPECT_THROW(pool.getUniqueMatch("*par*"), Exceptions::RuntimeErrorException);
+    EXPECT_THROW(pool.getUniqueMatch("*par*"), std::runtime_error);
 }
 
 TEST_F(ParameterPoolTest, setValue) {
@@ -72,20 +71,18 @@ TEST_F(ParameterPoolTest, setValue) {
     // set single parameter value
     pool.setParameterValue("par1", 10.0);
     EXPECT_EQ(par1, 10.0);
-    EXPECT_THROW(pool.setParameterValue("non-existing", 10.0), Exceptions::RuntimeErrorException);
+    EXPECT_THROW(pool.setParameterValue("non-existing", 10.0), std::runtime_error);
 
     // set matched parameter values
     EXPECT_EQ(pool.setMatchedParametersValue("*par*", 99.0), 2);
     EXPECT_EQ(par1, 99.0);
     EXPECT_EQ(par3, 99.0);
-    EXPECT_THROW(pool.setMatchedParametersValue("*non-existing*", 10.0),
-                 Exceptions::RuntimeErrorException);
+    EXPECT_THROW(pool.setMatchedParametersValue("*non-existing*", 10.0), std::runtime_error);
 
     // set unique match value
     pool.setUniqueMatchValue("*xxx*", 88.0);
     EXPECT_EQ(par2, 88.0);
-    EXPECT_THROW(pool.setUniqueMatchValue("*non-existing*", 10.0),
-                 Exceptions::RuntimeErrorException);
+    EXPECT_THROW(pool.setUniqueMatchValue("*non-existing*", 10.0), std::runtime_error);
 }
 
 TEST_F(ParameterPoolTest, clone) {

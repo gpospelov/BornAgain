@@ -30,13 +30,13 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
         FileSystemUtils::jointPath(BATesting::TestOutDir_PyStd(), test_name);
     const std::string output_path = output_name + ".ref.int.gz";
     std::remove(output_path.c_str());
-    std::cout << "- removed old output " << output_path << "\n";
+    std::cout << "- removed old output " << output_path << std::endl;
 
     // Generate Python script
     const std::string pyscript_filename =
         FileSystemUtils::jointPath(BATesting::TestOutDir_PyStd(), test_name + ".py");
     std::ofstream pythonFile(pyscript_filename);
-    pythonFile << ExportToPython::generatePyExportTest(direct_simulation);
+    pythonFile << ExportToPython::generateSimulationCode(direct_simulation);
     pythonFile.close();
 
     // Run Python script
@@ -50,7 +50,7 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
                                     + std::string("set NOPLOT=TRUE") + " & \""
                                     + BABuild::pythonExecutable() + "\" -B " + py_command;
 #endif
-    std::cout << "- system call: " << sys_command << std::endl; // note: endl = \n + flush
+    std::cout << "- system call: " << sys_command << std::endl;
     int ret = std::system(sys_command.c_str());
     if (ret != 0) {
         std::stringstream msg;

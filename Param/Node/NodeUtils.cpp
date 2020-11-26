@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Param/Node/NodeUtils.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Node/IterationStrategy.h"
@@ -84,8 +83,8 @@ std::string NodeUtils::nodePath(const INode& node, const INode* root) {
     }
 
     if (root != nullptr && current != root) {
-        throw Exceptions::RuntimeErrorException("NodeUtils::nodePath() -> Error. Node doesn't "
-                                                "belong to root's branch");
+        throw std::runtime_error("NodeUtils::nodePath() -> Error. Node doesn't "
+                                 "belong to root's branch");
     }
 
     std::reverse(pathElements.begin(), pathElements.end());

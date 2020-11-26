@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_RESIDUALTESTPLAN_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_RESIDUALTESTPLAN_H
+#ifndef BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_RESIDUALTESTPLAN_H
+#define BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_RESIDUALTESTPLAN_H
 
 #include "Fit/Minimizer/Types.h"
 #include "Fit/TestEngine/MinimizerTestPlan.h"
@@ -37,4 +37,4 @@ private:
     test_funct_t m_test_func;
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_RESIDUALTESTPLAN_H
+#endif // BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_RESIDUALTESTPLAN_H

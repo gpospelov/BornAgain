@@ -46,8 +46,8 @@ void DetectorMask::addMask(const IShape2D& shape, bool mask_value) {
 
 void DetectorMask::initMaskData(const IDetector2D& detector) {
     if (detector.dimension() != 2)
-        throw Exceptions::RuntimeErrorException("DetectorMask::initMaskData() -> Error. Attempt "
-                                                "to add masks to uninitialized detector.");
+        throw std::runtime_error("DetectorMask::initMaskData() -> Error. Attempt "
+                                 "to add masks to uninitialized detector.");
 
     ASSERT(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();

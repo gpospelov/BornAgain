@@ -60,7 +60,7 @@ std::string SphericalDetector::axisName(size_t index) const {
     case 1:
         return "alpha_f";
     default:
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "SphericalDetector::getAxisName(size_t index) -> Error! index > 1");
     }
 }

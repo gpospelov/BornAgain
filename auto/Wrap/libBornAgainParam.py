@@ -2793,7 +2793,7 @@ class ParameterPool(libBornAgainBase.ICloneable):
 
         Adds parameter to the pool, and returns reference to the input pointer.
 
-        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
+        Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit("nm") 
 
         """
         return _libBornAgainParam.ParameterPool_addParameter(self, newPar)
@@ -4311,6 +4311,16 @@ class RangedDistributionGate(object):
         return _libBornAgainParam.RangedDistributionGate_clone(self)
     __swig_destroy__ = _libBornAgainParam.delete_RangedDistributionGate
 
+    def name(self):
+        r"""
+        name(RangedDistributionGate self) -> std::string
+        std::string RangedDistributionGate::name() const override
+
+        Returns distribution name for python-formatted text. 
+
+        """
+        return _libBornAgainParam.RangedDistributionGate_name(self)
+
 # Register RangedDistributionGate in _libBornAgainParam:
 _libBornAgainParam.RangedDistributionGate_swigregister(RangedDistributionGate)
 
@@ -4347,6 +4357,16 @@ class RangedDistributionLorentz(object):
         """
         return _libBornAgainParam.RangedDistributionLorentz_clone(self)
     __swig_destroy__ = _libBornAgainParam.delete_RangedDistributionLorentz
+
+    def name(self):
+        r"""
+        name(RangedDistributionLorentz self) -> std::string
+        std::string RangedDistributionLorentz::name() const override
+
+        Returns distribution name for python-formatted text. 
+
+        """
+        return _libBornAgainParam.RangedDistributionLorentz_name(self)
 
 # Register RangedDistributionLorentz in _libBornAgainParam:
 _libBornAgainParam.RangedDistributionLorentz_swigregister(RangedDistributionLorentz)
@@ -4385,6 +4405,16 @@ class RangedDistributionGaussian(object):
         return _libBornAgainParam.RangedDistributionGaussian_clone(self)
     __swig_destroy__ = _libBornAgainParam.delete_RangedDistributionGaussian
 
+    def name(self):
+        r"""
+        name(RangedDistributionGaussian self) -> std::string
+        std::string RangedDistributionGaussian::name() const override
+
+        Returns distribution name for python-formatted text. 
+
+        """
+        return _libBornAgainParam.RangedDistributionGaussian_name(self)
+
 # Register RangedDistributionGaussian in _libBornAgainParam:
 _libBornAgainParam.RangedDistributionGaussian_swigregister(RangedDistributionGaussian)
 
@@ -4422,6 +4452,16 @@ class RangedDistributionLogNormal(object):
         return _libBornAgainParam.RangedDistributionLogNormal_clone(self)
     __swig_destroy__ = _libBornAgainParam.delete_RangedDistributionLogNormal
 
+    def name(self):
+        r"""
+        name(RangedDistributionLogNormal self) -> std::string
+        std::string RangedDistributionLogNormal::name() const override
+
+        Returns distribution name for python-formatted text. 
+
+        """
+        return _libBornAgainParam.RangedDistributionLogNormal_name(self)
+
 # Register RangedDistributionLogNormal in _libBornAgainParam:
 _libBornAgainParam.RangedDistributionLogNormal_swigregister(RangedDistributionLogNormal)
 
@@ -4458,6 +4498,16 @@ class RangedDistributionCosine(object):
         """
         return _libBornAgainParam.RangedDistributionCosine_clone(self)
     __swig_destroy__ = _libBornAgainParam.delete_RangedDistributionCosine
+
+    def name(self):
+        r"""
+        name(RangedDistributionCosine self) -> std::string
+        std::string RangedDistributionCosine::name() const override
+
+        Returns distribution name for python-formatted text. 
+
+        """
+        return _libBornAgainParam.RangedDistributionCosine_name(self)
 
 # Register RangedDistributionCosine in _libBornAgainParam:
 _libBornAgainParam.RangedDistributionCosine_swigregister(RangedDistributionCosine)

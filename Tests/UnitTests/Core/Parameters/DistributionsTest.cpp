@@ -1,6 +1,5 @@
 #include "Param/Distrib/Distributions.h"
 #include "Base/Math/Constants.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Varia/ParameterSample.h"
 #include "Tests/GTestWrapper/google_test.h"
@@ -29,7 +28,7 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor) {
 
 TEST_F(DistributionsTest, DistributionGateConstructor) {
     // Throw error when m_min > m_max:
-    EXPECT_THROW(DistributionGate(1.1, 1.0), Exceptions::ClassInitializationException);
+    EXPECT_THROW(DistributionGate(1.1, 1.0), std::runtime_error);
 
     // When m_min == m_max, only one sample is generated (the mean):
     DistributionGate distr1(1.0, 1.0);

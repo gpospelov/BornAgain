@@ -19,7 +19,7 @@
 #include <memory>
 
 class ParameterSample;
-class RangedDistribution;
+class IRangedDistribution;
 class ScanResolution;
 
 //! Scan type with inclination angles as coordinate values and a unique wavelength.
@@ -59,9 +59,6 @@ public:
     std::vector<double>
     createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const override;
 
-    //! Print scan definition in python format
-    std::string print() const override;
-
     double wavelength() const { return m_wl; }
 
     // TODO: remove these getters after transition to the new resolution machinery is finished
@@ -75,37 +72,37 @@ public:
     //! Sets wavelength resolution values via ScanResolution object.
     void setWavelengthResolution(const ScanResolution& resolution);
 
-    void setRelativeWavelengthResolution(const RangedDistribution& distr, double rel_dev);
-    //! Sets wavelength resolution values via RangedDistribution and values of relative deviations
+    void setRelativeWavelengthResolution(const IRangedDistribution& distr, double rel_dev);
+    //! Sets wavelength resolution values via IRangedDistribution and values of relative deviations
     //! (that is, _rel_dev_ equals standard deviation divided by the mean value).
     //! _rel_dev_ can be either single-valued or a numpy array. In the latter case the length of the
     //! array should coinside with the length of the inclination angle axis.
-    void setRelativeWavelengthResolution(const RangedDistribution& distr,
+    void setRelativeWavelengthResolution(const IRangedDistribution& distr,
                                          const std::vector<double>& rel_dev);
 
-    void setAbsoluteWavelengthResolution(const RangedDistribution& distr, double std_dev);
-    //! Sets wavelength resolution values via RangedDistribution and values of standard deviations.
+    void setAbsoluteWavelengthResolution(const IRangedDistribution& distr, double std_dev);
+    //! Sets wavelength resolution values via IRangedDistribution and values of standard deviations.
     //! _std_dev_ can be either single-valued or a numpy array. In the latter case the length of the
     //! array should coinside with the length of the inclination angle axis.
-    void setAbsoluteWavelengthResolution(const RangedDistribution& distr,
+    void setAbsoluteWavelengthResolution(const IRangedDistribution& distr,
                                          const std::vector<double>& std_dev);
 
     //! Sets angle resolution values via ScanResolution object.
     void setAngleResolution(const ScanResolution& resolution);
 
-    void setRelativeAngularResolution(const RangedDistribution& distr, double rel_dev);
-    //! Sets angular resolution values via RangedDistribution and values of relative deviations
+    void setRelativeAngularResolution(const IRangedDistribution& distr, double rel_dev);
+    //! Sets angular resolution values via IRangedDistribution and values of relative deviations
     //! (that is, _rel_dev_ equals standard deviation divided by the mean value).
     //! _rel_dev_ can be either single-valued or a numpy array. In the latter case the length of the
     //! array should coinside with the length of the inclination angle axis.
-    void setRelativeAngularResolution(const RangedDistribution& distr,
+    void setRelativeAngularResolution(const IRangedDistribution& distr,
                                       const std::vector<double>& rel_dev);
 
-    void setAbsoluteAngularResolution(const RangedDistribution& distr, double std_dev);
-    //! Sets angular resolution values via RangedDistribution and values of standard deviations.
+    void setAbsoluteAngularResolution(const IRangedDistribution& distr, double std_dev);
+    //! Sets angular resolution values via IRangedDistribution and values of standard deviations.
     //! _std_dev_ can be either single-valued or a numpy array. In the latter case the length of the
     //! array should coinside with the length of the inclination angle axis.
-    void setAbsoluteAngularResolution(const RangedDistribution& distr,
+    void setAbsoluteAngularResolution(const IRangedDistribution& distr,
                                       const std::vector<double>& std_dev);
 
 private:

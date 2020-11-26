@@ -249,7 +249,7 @@ std::unique_ptr<ScanResolution> createScanResolution(const SessionItem* item) {
         return nullptr;
 
     const double scale = beam_item->scaleFactor();
-    auto ranged_distr = distr_item->createRangedDistribution(scale);
+    auto ranged_distr = distr_item->createIRangedDistribution(scale);
     if (!ranged_distr)
         return nullptr;
 

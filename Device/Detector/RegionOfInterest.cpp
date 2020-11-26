@@ -26,8 +26,8 @@ RegionOfInterest::RegionOfInterest(const OutputData<double>& data, double xlow, 
                                    double xup, double yup)
     : RegionOfInterest(xlow, ylow, xup, yup) {
     if (data.rank() != 2)
-        throw Exceptions::RuntimeErrorException("RegionOfInterest::RegionOfInterest() -> Error. "
-                                                "Data is not two-dimensional.");
+        throw std::runtime_error("RegionOfInterest::RegionOfInterest() -> Error. "
+                                 "Data is not two-dimensional.");
 
     initFrom(data.axis(0), data.axis(1));
 }
@@ -81,11 +81,11 @@ size_t RegionOfInterest::detectorIndex(size_t roiIndex) const {
 size_t RegionOfInterest::roiIndex(size_t globalIndex) const {
     size_t ny = ycoord(globalIndex, m_detector_dims);
     if (ny < m_ay1 || ny > m_ay2)
-        throw Exceptions::RuntimeErrorException("RegionOfInterest::roiIndex() -> Error.");
+        throw std::runtime_error("RegionOfInterest::roiIndex() -> Error.");
 
     size_t nx = xcoord(globalIndex, m_detector_dims);
     if (nx < m_ax1 || nx > m_ax2)
-        throw Exceptions::RuntimeErrorException("RegionOfInterest::roiIndex() -> Error.");
+        throw std::runtime_error("RegionOfInterest::roiIndex() -> Error.");
 
     return ny - m_ay1 + (nx - m_ax1) * m_roi_dims[1];
 }

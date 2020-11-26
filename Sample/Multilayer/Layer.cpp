@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/Multilayer/Layer.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/ParticleLayout.h"
@@ -42,7 +41,7 @@ Layer* Layer::clone() const {
 //! Sets layer thickness in nanometers.
 void Layer::setThickness(double thickness) {
     if (thickness < 0.)
-        throw Exceptions::DomainErrorException("Layer thickness cannot be negative");
+        throw std::runtime_error("Layer thickness cannot be negative");
     m_thickness = thickness;
 }
 

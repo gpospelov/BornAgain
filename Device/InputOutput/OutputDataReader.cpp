@@ -50,7 +50,7 @@ OutputDataReader::OutputDataReader(const std::string& file_name) : m_file_name(f
 OutputData<double>* OutputDataReader::getOutputData() {
     using namespace DataFormatUtils;
     if (!m_read_strategy)
-        throw Exceptions::NullPointerException(
+        throw std::runtime_error(
             "OutputDataReader::getOutputData() -> Error! No read strategy defined");
 
     std::ifstream fin;
@@ -65,12 +65,11 @@ OutputData<double>* OutputDataReader::getOutputData() {
 #endif
 
     if (!fin.is_open())
-        throw Exceptions::FileNotIsOpenException(
-            "OutputDataReader::getOutputData() -> Error. Can't open file '" + m_file_name
-            + "' for reading.");
+        throw std::runtime_error("OutputDataReader::getOutputData() -> Error. Can't open file '"
+                                 + m_file_name + "' for reading.");
     if (!fin.good())
-        throw Exceptions::FileIsBadException("OutputDataReader::getOutputData() -> Error! "
-                                             "File is not good, probably it is a directory.");
+        throw std::runtime_error("OutputDataReader::getOutputData() -> Error! "
+                                 "File is not good, probably it is a directory.");
 
     std::stringstream strstream = getFromFilteredStream(fin, m_file_name);
 

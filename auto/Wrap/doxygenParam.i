@@ -965,6 +965,68 @@ Action to be taken in inherited class when a parameter has changed.
 ";
 
 
+// File: classIRangedDistribution.xml
+%feature("docstring") IRangedDistribution "
+
+Interface for one-dimensional ranged distributions. All derived distributions allow for generating samples in-place for known mean and standard deviation (except for  RangedDistributionLorentz which uses median and hwhm).
+
+C++ includes: RangedDistributions.h
+";
+
+%feature("docstring")  IRangedDistribution::IRangedDistribution "IRangedDistribution::IRangedDistribution()
+";
+
+%feature("docstring")  IRangedDistribution::IRangedDistribution "IRangedDistribution::IRangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
+";
+
+%feature("docstring")  IRangedDistribution::IRangedDistribution "IRangedDistribution::IRangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
+
+Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
+";
+
+%feature("docstring")  IRangedDistribution::clone "IRangedDistribution* IRangedDistribution::clone() const override=0
+";
+
+%feature("docstring")  IRangedDistribution::~IRangedDistribution "IRangedDistribution::~IRangedDistribution() override
+";
+
+%feature("docstring")  IRangedDistribution::generateSamples "std::vector< ParameterSample > IRangedDistribution::generateSamples(double mean, double stddev) const
+";
+
+%feature("docstring")  IRangedDistribution::generateSamples "std::vector< std::vector< ParameterSample > > IRangedDistribution::generateSamples(const std::vector< double > &mean, const std::vector< double > &stddev) const
+
+Generates list of sampled values with their weights from given means and standard deviations. 
+";
+
+%feature("docstring")  IRangedDistribution::distribution "std::unique_ptr< IDistribution1D > IRangedDistribution::distribution(double mean, double stddev) const
+
+Public interface function to underlying  IDistribution1D object. 
+";
+
+%feature("docstring")  IRangedDistribution::limits "RealLimits IRangedDistribution::limits() const
+
+Returns current limits of the distribution. 
+";
+
+%feature("docstring")  IRangedDistribution::sigmaFactor "double IRangedDistribution::sigmaFactor() const
+
+Returns sigma factor to use during sampling. 
+";
+
+%feature("docstring")  IRangedDistribution::nSamples "size_t IRangedDistribution::nSamples() const
+
+Returns number of samples to generate. 
+";
+
+%feature("docstring")  IRangedDistribution::setLimits "void IRangedDistribution::setLimits(const RealLimits &limits)
+";
+
+%feature("docstring")  IRangedDistribution::name "virtual std::string IRangedDistribution::name() const =0
+
+Returns distribution name for python-formatted text. 
+";
+
+
 // File: classIterationStrategy.xml
 %feature("docstring") IterationStrategy "
 
@@ -1038,7 +1100,7 @@ C++ includes: NodeIterator.h
 %feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
 ";
 
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode *> samples)
+%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
 ";
 
 %feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
@@ -1235,7 +1297,7 @@ Returns number of parameters in the pool.
 
 Adds parameter to the pool, and returns reference to the input pointer.
 
-Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
+Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") 
 ";
 
 %feature("docstring")  ParameterPool::parameter "RealParameter * ParameterPool::parameter(const std::string &name)
@@ -1323,68 +1385,6 @@ C++ includes: IterationStrategy.h
 ";
 
 
-// File: classRangedDistribution.xml
-%feature("docstring") RangedDistribution "
-
-Interface for one-dimensional ranged distributions. All derived distributions allow for generating samples in-place for known mean and standard deviation (except for  RangedDistributionLorentz which uses median and hwhm).
-
-C++ includes: RangedDistributions.h
-";
-
-%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution()
-";
-
-%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, const RealLimits &limits=RealLimits::limitless())
-";
-
-%feature("docstring")  RangedDistribution::RangedDistribution "RangedDistribution::RangedDistribution(size_t n_samples, double sigma_factor, double min, double max)
-
-Initializes Ranged distribution with given number of samples, sigma factor (range in standard deviations to take into account during sample generation) and limits (either RealLimits object or just min and max limits). By default  n_samples = 5,  sigma_factor = 2.0, while the limits are (-inf, +inf). 
-";
-
-%feature("docstring")  RangedDistribution::clone "RangedDistribution* RangedDistribution::clone() const override=0
-";
-
-%feature("docstring")  RangedDistribution::~RangedDistribution "RangedDistribution::~RangedDistribution() override
-";
-
-%feature("docstring")  RangedDistribution::generateSamples "std::vector< ParameterSample > RangedDistribution::generateSamples(double mean, double stddev) const
-";
-
-%feature("docstring")  RangedDistribution::generateSamples "std::vector< std::vector< ParameterSample > > RangedDistribution::generateSamples(const std::vector< double > &mean, const std::vector< double > &stddev) const
-
-Generates list of sampled values with their weights from given means and standard deviations. 
-";
-
-%feature("docstring")  RangedDistribution::distribution "std::unique_ptr< IDistribution1D > RangedDistribution::distribution(double mean, double stddev) const
-
-Public interface function to underlying  IDistribution1D object. 
-";
-
-%feature("docstring")  RangedDistribution::limits "RealLimits RangedDistribution::limits() const
-
-Returns current limits of the distribution. 
-";
-
-%feature("docstring")  RangedDistribution::sigmaFactor "double RangedDistribution::sigmaFactor() const
-
-Returns sigma factor to use during sampling. 
-";
-
-%feature("docstring")  RangedDistribution::nSamples "size_t RangedDistribution::nSamples() const
-
-Returns number of samples to generate. 
-";
-
-%feature("docstring")  RangedDistribution::setLimits "void RangedDistribution::setLimits(const RealLimits &limits)
-";
-
-%feature("docstring")  RangedDistribution::pyString "std::string RangedDistribution::pyString() const
-
-Prints python-formatted definition of the distribution. 
-";
-
-
 // File: classRangedDistributionCosine.xml
 %feature("docstring") RangedDistributionCosine "
 
@@ -1408,6 +1408,11 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 ";
 
 %feature("docstring")  RangedDistributionCosine::~RangedDistributionCosine "RangedDistributionCosine::~RangedDistributionCosine() override=default
+";
+
+%feature("docstring")  RangedDistributionCosine::name "std::string RangedDistributionCosine::name() const override
+
+Returns distribution name for python-formatted text. 
 ";
 
 
@@ -1436,6 +1441,11 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 %feature("docstring")  RangedDistributionGate::~RangedDistributionGate "RangedDistributionGate::~RangedDistributionGate() override=default
 ";
 
+%feature("docstring")  RangedDistributionGate::name "std::string RangedDistributionGate::name() const override
+
+Returns distribution name for python-formatted text. 
+";
+
 
 // File: classRangedDistributionGaussian.xml
 %feature("docstring") RangedDistributionGaussian "
@@ -1460,6 +1470,11 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 ";
 
 %feature("docstring")  RangedDistributionGaussian::~RangedDistributionGaussian "RangedDistributionGaussian::~RangedDistributionGaussian() override=default
+";
+
+%feature("docstring")  RangedDistributionGaussian::name "std::string RangedDistributionGaussian::name() const override
+
+Returns distribution name for python-formatted text. 
 ";
 
 
@@ -1488,6 +1503,11 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 %feature("docstring")  RangedDistributionLogNormal::~RangedDistributionLogNormal "RangedDistributionLogNormal::~RangedDistributionLogNormal() override=default
 ";
 
+%feature("docstring")  RangedDistributionLogNormal::name "std::string RangedDistributionLogNormal::name() const override
+
+Returns distribution name for python-formatted text. 
+";
+
 
 // File: classRangedDistributionLorentz.xml
 %feature("docstring") RangedDistributionLorentz "
@@ -1512,6 +1532,11 @@ Initializes Ranged distribution with given number of samples, sigma factor (rang
 ";
 
 %feature("docstring")  RangedDistributionLorentz::~RangedDistributionLorentz "RangedDistributionLorentz::~RangedDistributionLorentz() override=default
+";
+
+%feature("docstring")  RangedDistributionLorentz::name "std::string RangedDistributionLorentz::name() const override
+
+Returns distribution name for python-formatted text. 
 ";
 
 
@@ -1582,16 +1607,16 @@ C++ includes: Unit.h
 ";
 
 
-// File: namespace_0D10.xml
+// File: namespace_0d10.xml
 
 
-// File: namespace_0D14.xml
+// File: namespace_0d14.xml
 
 
-// File: namespace_0D24.xml
+// File: namespace_0d24.xml
 
 
-// File: namespace_0D29.xml
+// File: namespace_0d29.xml
 
 
 // File: namespaceNodeUtils.xml
@@ -1615,16 +1640,6 @@ Returns true if given parameter name is related to angles.
 %feature("docstring")  ParameterUtils::poolParameterUnits "std::string ParameterUtils::poolParameterUnits(const IParameterized &node, const std::string &parName)
 
 Returns units of main parameter. 
-";
-
-
-// File: namespacepyfmt.xml
-%feature("docstring")  pyfmt::printRealLimits "std::string pyfmt::printRealLimits(const RealLimits &limits, const std::string &units)
-";
-
-%feature("docstring")  pyfmt::printRealLimitsArg "std::string pyfmt::printRealLimitsArg(const RealLimits &limits, const std::string &units)
-
-Prints RealLimits in the form of argument (in the context of  ParameterDistribution and similar). Default RealLimits will not be printed, any other will be printed as \", ba.RealLimits.limited(1*deg, 2*deg)\" 
 ";
 
 
@@ -1727,12 +1742,6 @@ Prints RealLimits in the form of argument (in the context of  ParameterDistribut
 
 
 // File: ParameterUtils_8h.xml
-
-
-// File: PyFmtLimits_8cpp.xml
-
-
-// File: PyFmtLimits_8h.xml
 
 
 // File: dir_a1f38e94e849d0203a55ad5a19f2f15a.xml

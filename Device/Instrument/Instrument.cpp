@@ -50,7 +50,7 @@ void Instrument::setDetector(const IDetector& detector) {
 
 void Instrument::initDetector() {
     if (!m_detector)
-        throw Exceptions::RuntimeErrorException(
+        throw std::runtime_error(
             "Instrument::initDetector() -> Error. Detector is not initialized.");
     m_detector->init(beam());
 }

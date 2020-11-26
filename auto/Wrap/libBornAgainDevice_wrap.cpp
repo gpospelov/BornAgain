@@ -3126,26 +3126,26 @@ namespace Swig {
 #define SWIGTYPE_p_INodeVisitor swig_types[26]
 #define SWIGTYPE_p_IParameterized swig_types[27]
 #define SWIGTYPE_p_IPixel swig_types[28]
-#define SWIGTYPE_p_IResolutionFunction2D swig_types[29]
-#define SWIGTYPE_p_IShape2D swig_types[30]
-#define SWIGTYPE_p_IUnitConverter swig_types[31]
-#define SWIGTYPE_p_IVarianceFunction swig_types[32]
-#define SWIGTYPE_p_Instrument swig_types[33]
-#define SWIGTYPE_p_IntensityDataIOFactory swig_types[34]
-#define SWIGTYPE_p_IntensityFunctionLog swig_types[35]
-#define SWIGTYPE_p_IntensityFunctionSqrt swig_types[36]
-#define SWIGTYPE_p_IsGISAXSDetector swig_types[37]
-#define SWIGTYPE_p_Line swig_types[38]
-#define SWIGTYPE_p_OutputDataIteratorT_double_OutputDataT_double_t_t swig_types[39]
-#define SWIGTYPE_p_OutputDataIteratorT_double_const_OutputDataT_double_t_const_t swig_types[40]
-#define SWIGTYPE_p_OutputDataT_CumulativeValue_t swig_types[41]
-#define SWIGTYPE_p_OutputDataT_bool_t swig_types[42]
-#define SWIGTYPE_p_OutputDataT_double_t swig_types[43]
-#define SWIGTYPE_p_ParameterDistribution swig_types[44]
-#define SWIGTYPE_p_ParameterPool swig_types[45]
-#define SWIGTYPE_p_Polygon swig_types[46]
-#define SWIGTYPE_p_PolygonPrivate swig_types[47]
-#define SWIGTYPE_p_RangedDistribution swig_types[48]
+#define SWIGTYPE_p_IRangedDistribution swig_types[29]
+#define SWIGTYPE_p_IResolutionFunction2D swig_types[30]
+#define SWIGTYPE_p_IShape2D swig_types[31]
+#define SWIGTYPE_p_IUnitConverter swig_types[32]
+#define SWIGTYPE_p_IVarianceFunction swig_types[33]
+#define SWIGTYPE_p_Instrument swig_types[34]
+#define SWIGTYPE_p_IntensityDataIOFactory swig_types[35]
+#define SWIGTYPE_p_IntensityFunctionLog swig_types[36]
+#define SWIGTYPE_p_IntensityFunctionSqrt swig_types[37]
+#define SWIGTYPE_p_IsGISAXSDetector swig_types[38]
+#define SWIGTYPE_p_Line swig_types[39]
+#define SWIGTYPE_p_OutputDataIteratorT_double_OutputDataT_double_t_t swig_types[40]
+#define SWIGTYPE_p_OutputDataIteratorT_double_const_OutputDataT_double_t_const_t swig_types[41]
+#define SWIGTYPE_p_OutputDataT_CumulativeValue_t swig_types[42]
+#define SWIGTYPE_p_OutputDataT_bool_t swig_types[43]
+#define SWIGTYPE_p_OutputDataT_double_t swig_types[44]
+#define SWIGTYPE_p_ParameterDistribution swig_types[45]
+#define SWIGTYPE_p_ParameterPool swig_types[46]
+#define SWIGTYPE_p_Polygon swig_types[47]
+#define SWIGTYPE_p_PolygonPrivate swig_types[48]
 #define SWIGTYPE_p_Rectangle swig_types[49]
 #define SWIGTYPE_p_RectangularDetector swig_types[50]
 #define SWIGTYPE_p_RectangularPixel swig_types[51]
@@ -31251,7 +31251,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IFootprintFactor__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IFootprintFactor_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IFootprintFactor *arg1 = (IFootprintFactor *) 0 ;
   void *argp1 = 0 ;
@@ -31263,10 +31263,10 @@ SWIGINTERN PyObject *_wrap_IFootprintFactor__print(PyObject *SWIGUNUSEDPARM(self
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IFootprintFactor, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFootprintFactor__print" "', argument " "1"" of type '" "IFootprintFactor const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IFootprintFactor_name" "', argument " "1"" of type '" "IFootprintFactor const *""'"); 
   }
   arg1 = reinterpret_cast< IFootprintFactor * >(argp1);
-  result = ((IFootprintFactor const *)arg1)->print();
+  result = ((IFootprintFactor const *)arg1)->name();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -31443,7 +31443,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FootprintGauss__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FootprintGauss_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FootprintGauss *arg1 = (FootprintGauss *) 0 ;
   void *argp1 = 0 ;
@@ -31455,10 +31455,10 @@ SWIGINTERN PyObject *_wrap_FootprintGauss__print(PyObject *SWIGUNUSEDPARM(self),
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FootprintGauss, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FootprintGauss__print" "', argument " "1"" of type '" "FootprintGauss const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FootprintGauss_name" "', argument " "1"" of type '" "FootprintGauss const *""'"); 
   }
   arg1 = reinterpret_cast< FootprintGauss * >(argp1);
-  result = ((FootprintGauss const *)arg1)->print();
+  result = ((FootprintGauss const *)arg1)->name();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -31661,7 +31661,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_FootprintSquare__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_FootprintSquare_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FootprintSquare *arg1 = (FootprintSquare *) 0 ;
   void *argp1 = 0 ;
@@ -31673,10 +31673,10 @@ SWIGINTERN PyObject *_wrap_FootprintSquare__print(PyObject *SWIGUNUSEDPARM(self)
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_FootprintSquare, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FootprintSquare__print" "', argument " "1"" of type '" "FootprintSquare const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FootprintSquare_name" "', argument " "1"" of type '" "FootprintSquare const *""'"); 
   }
   arg1 = reinterpret_cast< FootprintSquare * >(argp1);
-  result = ((FootprintSquare const *)arg1)->print();
+  result = ((FootprintSquare const *)arg1)->name();
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -34514,7 +34514,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ScanResolution_scanRelativeResolution__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  RangedDistribution *arg1 = 0 ;
+  IRangedDistribution *arg1 = 0 ;
   double arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -34523,20 +34523,20 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanRelativeResolution__SWIG_0(PyObjec
   ScanResolution *result = 0 ;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IRangedDistribution,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ScanResolution_scanRelativeResolution" "', argument " "1"" of type '" "RangedDistribution const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ScanResolution_scanRelativeResolution" "', argument " "1"" of type '" "IRangedDistribution const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ScanResolution_scanRelativeResolution" "', argument " "1"" of type '" "RangedDistribution const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ScanResolution_scanRelativeResolution" "', argument " "1"" of type '" "IRangedDistribution const &""'"); 
   }
-  arg1 = reinterpret_cast< RangedDistribution * >(argp1);
+  arg1 = reinterpret_cast< IRangedDistribution * >(argp1);
   ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ScanResolution_scanRelativeResolution" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (ScanResolution *)ScanResolution::scanRelativeResolution((RangedDistribution const &)*arg1,arg2);
+  result = (ScanResolution *)ScanResolution::scanRelativeResolution((IRangedDistribution const &)*arg1,arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ScanResolution, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -34546,7 +34546,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ScanResolution_scanRelativeResolution__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  RangedDistribution *arg1 = 0 ;
+  IRangedDistribution *arg1 = 0 ;
   std::vector< double,std::allocator< double > > *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -34554,14 +34554,14 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanRelativeResolution__SWIG_1(PyObjec
   ScanResolution *result = 0 ;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IRangedDistribution,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ScanResolution_scanRelativeResolution" "', argument " "1"" of type '" "RangedDistribution const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ScanResolution_scanRelativeResolution" "', argument " "1"" of type '" "IRangedDistribution const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ScanResolution_scanRelativeResolution" "', argument " "1"" of type '" "RangedDistribution const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ScanResolution_scanRelativeResolution" "', argument " "1"" of type '" "IRangedDistribution const &""'"); 
   }
-  arg1 = reinterpret_cast< RangedDistribution * >(argp1);
+  arg1 = reinterpret_cast< IRangedDistribution * >(argp1);
   {
     std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
     res2 = swig::asptr(swig_obj[1], &ptr);
@@ -34573,7 +34573,7 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanRelativeResolution__SWIG_1(PyObjec
     }
     arg2 = ptr;
   }
-  result = (ScanResolution *)ScanResolution::scanRelativeResolution((RangedDistribution const &)*arg1,(std::vector< double,std::allocator< double > > const &)*arg2);
+  result = (ScanResolution *)ScanResolution::scanRelativeResolution((IRangedDistribution const &)*arg1,(std::vector< double,std::allocator< double > > const &)*arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ScanResolution, SWIG_POINTER_OWN |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -34593,7 +34593,7 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanRelativeResolution(PyObject *self,
   --argc;
   if (argc == 2) {
     int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IRangedDistribution, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -34607,7 +34607,7 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanRelativeResolution(PyObject *self,
   }
   if (argc == 2) {
     int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IRangedDistribution, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = swig::asptr(argv[1], (std::vector< double,std::allocator< double > >**)(0));
@@ -34621,15 +34621,15 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanRelativeResolution(PyObject *self,
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ScanResolution_scanRelativeResolution'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    ScanResolution::scanRelativeResolution(RangedDistribution const &,double)\n"
-    "    ScanResolution::scanRelativeResolution(RangedDistribution const &,std::vector< double,std::allocator< double > > const &)\n");
+    "    ScanResolution::scanRelativeResolution(IRangedDistribution const &,double)\n"
+    "    ScanResolution::scanRelativeResolution(IRangedDistribution const &,std::vector< double,std::allocator< double > > const &)\n");
   return 0;
 }
 
 
 SWIGINTERN PyObject *_wrap_ScanResolution_scanAbsoluteResolution__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  RangedDistribution *arg1 = 0 ;
+  IRangedDistribution *arg1 = 0 ;
   double arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -34638,20 +34638,20 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanAbsoluteResolution__SWIG_0(PyObjec
   ScanResolution *result = 0 ;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IRangedDistribution,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ScanResolution_scanAbsoluteResolution" "', argument " "1"" of type '" "RangedDistribution const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ScanResolution_scanAbsoluteResolution" "', argument " "1"" of type '" "IRangedDistribution const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ScanResolution_scanAbsoluteResolution" "', argument " "1"" of type '" "RangedDistribution const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ScanResolution_scanAbsoluteResolution" "', argument " "1"" of type '" "IRangedDistribution const &""'"); 
   }
-  arg1 = reinterpret_cast< RangedDistribution * >(argp1);
+  arg1 = reinterpret_cast< IRangedDistribution * >(argp1);
   ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ScanResolution_scanAbsoluteResolution" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (ScanResolution *)ScanResolution::scanAbsoluteResolution((RangedDistribution const &)*arg1,arg2);
+  result = (ScanResolution *)ScanResolution::scanAbsoluteResolution((IRangedDistribution const &)*arg1,arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ScanResolution, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -34661,7 +34661,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ScanResolution_scanAbsoluteResolution__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
-  RangedDistribution *arg1 = 0 ;
+  IRangedDistribution *arg1 = 0 ;
   std::vector< double,std::allocator< double > > *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -34669,14 +34669,14 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanAbsoluteResolution__SWIG_1(PyObjec
   ScanResolution *result = 0 ;
   
   if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_RangedDistribution,  0  | 0);
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IRangedDistribution,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ScanResolution_scanAbsoluteResolution" "', argument " "1"" of type '" "RangedDistribution const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ScanResolution_scanAbsoluteResolution" "', argument " "1"" of type '" "IRangedDistribution const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ScanResolution_scanAbsoluteResolution" "', argument " "1"" of type '" "RangedDistribution const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ScanResolution_scanAbsoluteResolution" "', argument " "1"" of type '" "IRangedDistribution const &""'"); 
   }
-  arg1 = reinterpret_cast< RangedDistribution * >(argp1);
+  arg1 = reinterpret_cast< IRangedDistribution * >(argp1);
   {
     std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
     res2 = swig::asptr(swig_obj[1], &ptr);
@@ -34688,7 +34688,7 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanAbsoluteResolution__SWIG_1(PyObjec
     }
     arg2 = ptr;
   }
-  result = (ScanResolution *)ScanResolution::scanAbsoluteResolution((RangedDistribution const &)*arg1,(std::vector< double,std::allocator< double > > const &)*arg2);
+  result = (ScanResolution *)ScanResolution::scanAbsoluteResolution((IRangedDistribution const &)*arg1,(std::vector< double,std::allocator< double > > const &)*arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ScanResolution, SWIG_POINTER_OWN |  0 );
   if (SWIG_IsNewObj(res2)) delete arg2;
   return resultobj;
@@ -34708,7 +34708,7 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanAbsoluteResolution(PyObject *self,
   --argc;
   if (argc == 2) {
     int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IRangedDistribution, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -34722,7 +34722,7 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanAbsoluteResolution(PyObject *self,
   }
   if (argc == 2) {
     int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_RangedDistribution, SWIG_POINTER_NO_NULL | 0);
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IRangedDistribution, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
       int res = swig::asptr(argv[1], (std::vector< double,std::allocator< double > >**)(0));
@@ -34736,8 +34736,8 @@ SWIGINTERN PyObject *_wrap_ScanResolution_scanAbsoluteResolution(PyObject *self,
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ScanResolution_scanAbsoluteResolution'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    ScanResolution::scanAbsoluteResolution(RangedDistribution const &,double)\n"
-    "    ScanResolution::scanAbsoluteResolution(RangedDistribution const &,std::vector< double,std::allocator< double > > const &)\n");
+    "    ScanResolution::scanAbsoluteResolution(IRangedDistribution const &,double)\n"
+    "    ScanResolution::scanAbsoluteResolution(IRangedDistribution const &,std::vector< double,std::allocator< double > > const &)\n");
   return 0;
 }
 
@@ -46821,11 +46821,9 @@ static PyMethodDef SwigMethods[] = {
 		"Calculate footprint correction coefficient from the beam incident angle  alpha. \n"
 		"\n"
 		""},
-	 { "IFootprintFactor__print", _wrap_IFootprintFactor__print, METH_O, "\n"
-		"IFootprintFactor__print(IFootprintFactor self) -> std::string\n"
-		"virtual std::string IFootprintFactor::print() const =0\n"
-		"\n"
-		"Print python-formatted footprint definition. \n"
+	 { "IFootprintFactor_name", _wrap_IFootprintFactor_name, METH_O, "\n"
+		"IFootprintFactor_name(IFootprintFactor self) -> std::string\n"
+		"virtual std::string IFootprintFactor::name() const =0\n"
 		"\n"
 		""},
 	 { "IFootprintFactor_swigregister", IFootprintFactor_swigregister, METH_O, NULL},
@@ -46852,11 +46850,9 @@ static PyMethodDef SwigMethods[] = {
 		"Calculate footprint correction coefficient from the beam incident angle  alpha. \n"
 		"\n"
 		""},
-	 { "FootprintGauss__print", _wrap_FootprintGauss__print, METH_O, "\n"
-		"FootprintGauss__print(FootprintGauss self) -> std::string\n"
-		"std::string FootprintGauss::print() const override\n"
-		"\n"
-		"Print python-formatted footprint definition. \n"
+	 { "FootprintGauss_name", _wrap_FootprintGauss_name, METH_O, "\n"
+		"FootprintGauss_name(FootprintGauss self) -> std::string\n"
+		"std::string FootprintGauss::name() const override\n"
 		"\n"
 		""},
 	 { "delete_FootprintGauss", _wrap_delete_FootprintGauss, METH_O, "delete_FootprintGauss(FootprintGauss self)"},
@@ -46885,11 +46881,9 @@ static PyMethodDef SwigMethods[] = {
 		"Calculate footprint correction coefficient from the beam incident angle  alpha. \n"
 		"\n"
 		""},
-	 { "FootprintSquare__print", _wrap_FootprintSquare__print, METH_O, "\n"
-		"FootprintSquare__print(FootprintSquare self) -> std::string\n"
-		"std::string FootprintSquare::print() const override\n"
-		"\n"
-		"Print python-formatted footprint definition. \n"
+	 { "FootprintSquare_name", _wrap_FootprintSquare_name, METH_O, "\n"
+		"FootprintSquare_name(FootprintSquare self) -> std::string\n"
+		"std::string FootprintSquare::name() const override\n"
 		"\n"
 		""},
 	 { "delete_FootprintSquare", _wrap_delete_FootprintSquare, METH_O, "delete_FootprintSquare(FootprintSquare self)"},
@@ -47290,12 +47284,12 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "ScanResolution_scanRelativeResolution", _wrap_ScanResolution_scanRelativeResolution, METH_VARARGS, "\n"
-		"ScanResolution_scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution\n"
-		"ScanResolution_scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution\n"
+		"ScanResolution_scanRelativeResolution(IRangedDistribution const & distr, double stddev) -> ScanResolution\n"
+		"ScanResolution_scanRelativeResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution\n"
 		""},
 	 { "ScanResolution_scanAbsoluteResolution", _wrap_ScanResolution_scanAbsoluteResolution, METH_VARARGS, "\n"
-		"ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution\n"
-		"ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution\n"
+		"ScanResolution_scanAbsoluteResolution(IRangedDistribution const & distr, double stddev) -> ScanResolution\n"
+		"ScanResolution_scanAbsoluteResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution\n"
 		""},
 	 { "ScanResolution_swigregister", ScanResolution_swigregister, METH_O, NULL},
 	 { "delete_IChiSquaredModule", _wrap_delete_IChiSquaredModule, METH_O, "\n"
@@ -48651,7 +48645,9 @@ static PyMethodDef SwigMethods[] = {
 		"new_IntensityDataIOFactory() -> IntensityDataIOFactory\n"
 		"\n"
 		"\n"
-		"Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm. Usage:\n"
+		"Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.\n"
+		"\n"
+		"Usage:\n"
 		"\n"
 		"C++ includes: IntensityDataIOFactory.h\n"
 		"\n"
@@ -49005,6 +49001,7 @@ static swig_type_info _swigt__p_INodeVisitor = {"_p_INodeVisitor", "INodeVisitor
 static swig_type_info _swigt__p_IParameterized = {"_p_IParameterized", "IParameterized *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParameterDistribution = {"_p_ParameterDistribution", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_IPixel = {"_p_IPixel", "IPixel *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IRangedDistribution = {"_p_IRangedDistribution", "IRangedDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IResolutionFunction2D = {"_p_IResolutionFunction2D", "IResolutionFunction2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IShape2D = {"_p_IShape2D", "IShape2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IUnitConverter = {"_p_IUnitConverter", "IUnitConverter *", 0, 0, (void*)0, 0};
@@ -49022,7 +49019,6 @@ static swig_type_info _swigt__p_OutputDataT_bool_t = {"_p_OutputDataT_bool_t", "
 static swig_type_info _swigt__p_OutputDataT_double_t = {"_p_OutputDataT_double_t", "OutputData< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Polygon = {"_p_Polygon", "Polygon *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_PolygonPrivate = {"_p_PolygonPrivate", "PolygonPrivate *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_RangedDistribution = {"_p_RangedDistribution", "RangedDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Rectangle = {"_p_Rectangle", "Rectangle *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RectangularDetector = {"_p_RectangularDetector", "RectangularDetector *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RectangularPixel = {"_p_RectangularPixel", "RectangularPixel *", 0, 0, (void*)0, 0};
@@ -49124,6 +49120,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_INodeVisitor,
   &_swigt__p_IParameterized,
   &_swigt__p_IPixel,
+  &_swigt__p_IRangedDistribution,
   &_swigt__p_IResolutionFunction2D,
   &_swigt__p_IShape2D,
   &_swigt__p_IUnitConverter,
@@ -49143,7 +49140,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ParameterPool,
   &_swigt__p_Polygon,
   &_swigt__p_PolygonPrivate,
-  &_swigt__p_RangedDistribution,
   &_swigt__p_Rectangle,
   &_swigt__p_RectangularDetector,
   &_swigt__p_RectangularPixel,
@@ -49247,6 +49243,7 @@ static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0,
 static swig_cast_info _swigc__p_ParameterDistribution[] = {{&_swigt__p_ParameterDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IParameterized, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IParameterized, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IParameterized, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IParameterized, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IParameterized, 0, 0},  {&_swigt__p_Instrument, _p_InstrumentTo_p_IParameterized, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IParameterized, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IParameterized, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IParameterized, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IPixel[] = {  {&_swigt__p_IPixel, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IRangedDistribution[] = {  {&_swigt__p_IRangedDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IResolutionFunction2D[] = {  {&_swigt__p_IResolutionFunction2D, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IResolutionFunction2D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IShape2D[] = {  {&_swigt__p_Polygon, _p_PolygonTo_p_IShape2D, 0, 0},  {&_swigt__p_Line, _p_LineTo_p_IShape2D, 0, 0},  {&_swigt__p_VerticalLine, _p_VerticalLineTo_p_IShape2D, 0, 0},  {&_swigt__p_Ellipse, _p_EllipseTo_p_IShape2D, 0, 0},  {&_swigt__p_HorizontalLine, _p_HorizontalLineTo_p_IShape2D, 0, 0},  {&_swigt__p_Rectangle, _p_RectangleTo_p_IShape2D, 0, 0},  {&_swigt__p_IShape2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IUnitConverter[] = {  {&_swigt__p_IUnitConverter, 0, 0, 0},{0, 0, 0, 0}};
@@ -49264,7 +49261,6 @@ static swig_cast_info _swigc__p_OutputDataT_bool_t[] = {  {&_swigt__p_OutputData
 static swig_cast_info _swigc__p_OutputDataT_double_t[] = {  {&_swigt__p_OutputDataT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Polygon[] = {  {&_swigt__p_Polygon, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_PolygonPrivate[] = {  {&_swigt__p_PolygonPrivate, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_RangedDistribution[] = {  {&_swigt__p_RangedDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Rectangle[] = {  {&_swigt__p_Rectangle, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RectangularDetector[] = {  {&_swigt__p_RectangularDetector, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RectangularPixel[] = {  {&_swigt__p_RectangularPixel, 0, 0, 0},{0, 0, 0, 0}};
@@ -49366,6 +49362,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_INodeVisitor,
   _swigc__p_IParameterized,
   _swigc__p_IPixel,
+  _swigc__p_IRangedDistribution,
   _swigc__p_IResolutionFunction2D,
   _swigc__p_IShape2D,
   _swigc__p_IUnitConverter,
@@ -49385,7 +49382,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ParameterPool,
   _swigc__p_Polygon,
   _swigc__p_PolygonPrivate,
-  _swigc__p_RangedDistribution,
   _swigc__p_Rectangle,
   _swigc__p_RectangularDetector,
   _swigc__p_RectangularPixel,

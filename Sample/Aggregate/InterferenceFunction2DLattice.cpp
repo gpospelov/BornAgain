@@ -14,7 +14,6 @@
 
 #include "Sample/Aggregate/InterferenceFunction2DLattice.h"
 #include "Base/Math/Integrator.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/RealParameter.h"
 #include <algorithm>
 
@@ -80,8 +79,8 @@ void InterferenceFunction2DLattice::onChange() {
 
 double InterferenceFunction2DLattice::iff_without_dw(const kvector_t q) const {
     if (!m_decay)
-        throw Exceptions::NullPointerException("InterferenceFunction2DLattice::evaluate"
-                                               " -> Error! No decay function defined.");
+        throw std::runtime_error("InterferenceFunction2DLattice::evaluate"
+                                 " -> Error! No decay function defined.");
     m_qx = q.x();
     m_qy = q.y();
     if (!m_integrate_xi)
@@ -107,9 +106,8 @@ double InterferenceFunction2DLattice::interferenceForXi(double xi) const {
 
 double InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint(double qx, double qy) const {
     if (!m_decay)
-        throw Exceptions::NullPointerException(
-            "InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
-            " -> Error! No decay function defined.");
+        throw std::runtime_error("InterferenceFunction2DLattice::interferenceAtOneRecLatticePoint"
+                                 " -> Error! No decay function defined.");
     double gamma = m_decay->gamma();
     auto qXY = rotateOrthonormal(qx, qy, gamma);
     return m_decay->evaluate(qXY.first, qXY.second);
@@ -159,9 +157,8 @@ void InterferenceFunction2DLattice::initialize_rec_vectors() {
 
 void InterferenceFunction2DLattice::initialize_calc_factors() {
     if (!m_decay)
-        throw Exceptions::NullPointerException(
-            "InterferenceFunction2DLattice::initialize_calc_factors"
-            " -> Error! No decay function defined.");
+        throw std::runtime_error("InterferenceFunction2DLattice::initialize_calc_factors"
+                                 " -> Error! No decay function defined.");
 
     // number of reciprocal lattice points to use
     auto q_bounds = m_decay->boundingReciprocalLatticeCoordinates(

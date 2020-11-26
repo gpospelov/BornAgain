@@ -14,7 +14,6 @@
 
 #include "Device/Detector/DetectionProperties.h"
 #include "Base/Types/Complex.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/RealParameter.h"
 
 DetectionProperties::DetectionProperties(kvector_t direction, double efficiency,
@@ -34,8 +33,8 @@ DetectionProperties::DetectionProperties(const DetectionProperties& other)
 void DetectionProperties::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                                 double total_transmission) {
     if (!checkAnalyzerProperties(direction, efficiency, total_transmission))
-        throw Exceptions::ClassInitializationException("IDetector2D::setAnalyzerProperties: the "
-                                                       "given properties are not physical");
+        throw std::runtime_error("IDetector2D::setAnalyzerProperties: the "
+                                 "given properties are not physical");
     if (efficiency == 0.0 || total_transmission == 0.0 || direction.mag() == 0.0) {
         m_direction = kvector_t{};
         m_efficiency = 0.0;

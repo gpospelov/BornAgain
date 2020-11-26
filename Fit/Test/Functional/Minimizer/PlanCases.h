@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_PLANCASES_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_PLANCASES_H
+#ifndef BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_PLANCASES_H
+#define BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_PLANCASES_H
 
 #include "Fit/Test/Functional/Minimizer/ResidualTestPlan.h"
 #include "Fit/Test/Functional/Minimizer/ScalarTestPlan.h"
@@ -70,4 +70,4 @@ public:
     TestMinimizerPlan();
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_PLANCASES_H
+#endif // BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_PLANCASES_H

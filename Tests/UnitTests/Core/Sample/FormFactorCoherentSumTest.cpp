@@ -1,5 +1,4 @@
 #include "Sample/Fresnel/FormFactorCoherentSum.h"
-#include "Base/Types/Exceptions.h"
 #include "Sample/FFCompute/ComputeBA.h"
 #include "Sample/HardParticle/FormFactorDot.h"
 #include "Tests/GTestWrapper/google_test.h"
@@ -16,6 +15,6 @@ TEST_F(FormFactorCoherentSumTest, RelAbundance) {
     EXPECT_EQ(0.0, ffw.radialExtension());
     ffw.scaleRelativeAbundance(2.0);
     EXPECT_NEAR(0.5, ffw.relativeAbundance(), epsilon);
-    EXPECT_THROW(ffw.scaleRelativeAbundance(0.0), Exceptions::LogicErrorException);
+    EXPECT_THROW(ffw.scaleRelativeAbundance(0.0), std::runtime_error);
     EXPECT_EQ(0.0, ffw.radialExtension());
 }

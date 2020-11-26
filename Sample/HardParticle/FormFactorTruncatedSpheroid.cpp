@@ -16,7 +16,6 @@
 #include "Base/Math/Bessel.h"
 #include "Base/Math/Constants.h"
 #include "Base/Math/Integrator.h"
-#include "Base/Types/Exceptions.h"
 #include "Sample/Shapes/TruncatedEllipsoid.h"
 #include <limits>
 
@@ -49,7 +48,7 @@ bool FormFactorTruncatedSpheroid::check_initialization() const {
         ostr << " height:" << m_height;
         ostr << " height_flattening:" << m_height_flattening << "\n\n";
         ostr << "Check for 'height <= 2.*radius*height_flattening' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
     return result;
 }

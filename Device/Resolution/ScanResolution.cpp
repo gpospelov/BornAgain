@@ -13,19 +13,17 @@
 //  ************************************************************************************************
 
 #include "Device/Resolution/ScanResolution.h"
-#include "Base/Utils/PyFmt.h"
 #include "Param/Distrib/RangedDistributions.h"
 
 namespace {
 void checkIfEmpty(const std::vector<double>& input);
-std::string printDeltas(const std::vector<double>& deltas);
 
 const std::string relative_resolution = "ScanRelativeResolution";
 const std::string absolute_resolution = "ScanAbsoluteResolution";
 
 class ScanSingleRelativeResolution : public ScanResolution {
 public:
-    ScanSingleRelativeResolution(const RangedDistribution& distr, double reldev)
+    ScanSingleRelativeResolution(const IRangedDistribution& distr, double reldev)
         : ScanResolution(distr), m_reldev(reldev) {}
     ~ScanSingleRelativeResolution() override = default;
 
@@ -38,9 +36,10 @@ public:
     std::vector<double> stdDevs(double mean, size_t n_times) const override;
     std::vector<double> stdDevs(const std::vector<double>& mean) const override;
 
+    double delta() const override { return m_reldev; }
+
 protected:
     std::string name() const override { return relative_resolution; }
-    std::string printStdDevs() const override { return pyfmt::printDouble(m_reldev); }
 
 private:
     double m_reldev; //!< deltas for computing resolutions
@@ -48,7 +47,7 @@ private:
 
 class ScanSingleAbsoluteResolution : public ScanResolution {
 public:
-    ScanSingleAbsoluteResolution(const RangedDistribution& distr, double stddev)
+    ScanSingleAbsoluteResolution(const IRangedDistribution& distr, double stddev)
         : ScanResolution(distr), m_stddev(stddev) {}
     ~ScanSingleAbsoluteResolution() override = default;
 
@@ -61,9 +60,10 @@ public:
     std::vector<double> stdDevs(double mean, size_t n_times) const override;
     std::vector<double> stdDevs(const std::vector<double>& mean) const override;
 
+    double delta() const override { return m_stddev; }
+
 protected:
     std::string name() const override { return absolute_resolution; }
-    std::string printStdDevs() const override { return pyfmt::printDouble(m_stddev); }
 
 private:
     double m_stddev; //!< deltas for computing resolutions
@@ -71,7 +71,8 @@ private:
 
 class ScanVectorRelativeResolution : public ScanResolution {
 public:
-    ScanVectorRelativeResolution(const RangedDistribution& distr, const std::vector<double>& reldev)
+    ScanVectorRelativeResolution(const IRangedDistribution& distr,
+                                 const std::vector<double>& reldev)
         : ScanResolution(distr), m_reldev(reldev) {
         checkIfEmpty(m_reldev);
     }
@@ -86,9 +87,10 @@ public:
     std::vector<double> stdDevs(double mean, size_t n_times) const override;
     std::vector<double> stdDevs(const std::vector<double>& mean) const override;
 
+    double delta() const override { return 0; } // TODO
+
 protected:
     std::string name() const override { return relative_resolution; }
-    std::string printStdDevs() const override { return printDeltas(m_reldev); }
 
 private:
     std::vector<double> m_reldev; //!< deltas for computing resolutions
@@ -96,7 +98,8 @@ private:
 
 class ScanVectorAbsoluteResolution : public ScanResolution {
 public:
-    ScanVectorAbsoluteResolution(const RangedDistribution& distr, const std::vector<double>& stddev)
+    ScanVectorAbsoluteResolution(const IRangedDistribution& distr,
+                                 const std::vector<double>& stddev)
         : ScanResolution(distr), m_stddev(stddev) {
         checkIfEmpty(m_stddev);
     }
@@ -111,9 +114,10 @@ public:
     std::vector<double> stdDevs(double mean, size_t n_times) const override;
     std::vector<double> stdDevs(const std::vector<double>& mean) const override;
 
+    double delta() const override { return 0; } // TODO
+
 protected:
     std::string name() const override { return absolute_resolution; }
-    std::string printStdDevs() const override { return printDeltas(m_stddev); }
 
 private:
     std::vector<double> m_stddev; //!< deltas for computing resolutions
@@ -132,30 +136,31 @@ public:
     std::vector<double> stdDevs(double mean, size_t n_times) const override;
     std::vector<double> stdDevs(const std::vector<double>& mean) const override;
 
+    double delta() const override { return 0; }
+
 protected:
     std::string name() const override;
-    std::string printStdDevs() const override;
 };
 } // namespace
 
 ScanResolution::~ScanResolution() = default;
 
-ScanResolution* ScanResolution::scanRelativeResolution(const RangedDistribution& distr,
+ScanResolution* ScanResolution::scanRelativeResolution(const IRangedDistribution& distr,
                                                        double stddev) {
     return new ScanSingleRelativeResolution(distr, stddev);
 }
 
-ScanResolution* ScanResolution::scanRelativeResolution(const RangedDistribution& distr,
+ScanResolution* ScanResolution::scanRelativeResolution(const IRangedDistribution& distr,
                                                        const std::vector<double>& stddevs) {
     return new ScanVectorRelativeResolution(distr, stddevs);
 }
 
-ScanResolution* ScanResolution::scanAbsoluteResolution(const RangedDistribution& distr,
+ScanResolution* ScanResolution::scanAbsoluteResolution(const IRangedDistribution& distr,
                                                        double stddev) {
     return new ScanSingleAbsoluteResolution(distr, stddev);
 }
 
-ScanResolution* ScanResolution::scanAbsoluteResolution(const RangedDistribution& distr,
+ScanResolution* ScanResolution::scanAbsoluteResolution(const IRangedDistribution& distr,
                                                        const std::vector<double>& stddevs) {
     return new ScanVectorAbsoluteResolution(distr, stddevs);
 }
@@ -170,22 +175,9 @@ size_t ScanResolution::nSamples() const {
     return 1;
 }
 
-std::string ScanResolution::print() const {
-    std::stringstream result;
-    result << *m_distr << "\n";
-    result << pyfmt::indent() << "resolution = ";
-    result << "ba." << name();
-    result << "("
-           << "distribution"
-           << ", ";
-    result << printStdDevs();
-    result << ")";
-    return result.str();
-}
-
 ScanResolution::ScanResolution() = default;
 
-ScanResolution::ScanResolution(const RangedDistribution& distr) : m_distr(distr.clone()) {}
+ScanResolution::ScanResolution(const IRangedDistribution& distr) : m_distr(distr.clone()) {}
 
 namespace {
 ScanResolution::DistrOutput ScanSingleRelativeResolution::generateSamples(double mean,
@@ -322,15 +314,6 @@ std::vector<double> ScanEmptyResolution::stdDevs(const std::vector<double>& mean
 std::string ScanEmptyResolution::name() const {
     throw std::runtime_error(
         "Error in ScanEmptyResolution::name: attempt to get a name of an empty resolution object.");
-}
-
-std::string ScanEmptyResolution::printStdDevs() const {
-    throw std::runtime_error("Error in ScanEmptyResolution::printStdDevs: attempt to print data "
-                             "from empty resolution object.");
-}
-
-std::string printDeltas(const std::vector<double>&) {
-    throw std::runtime_error("Error in printDeltas: function is not implemented");
 }
 
 void checkIfEmpty(const std::vector<double>& input) {

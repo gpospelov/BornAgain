@@ -1,5 +1,4 @@
 #include "Base/Const/Units.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Vector/Transform3D.h"
 #include "Sample/Material/MaterialBySLDImpl.h"
 #include "Sample/Material/RefractiveMaterialImpl.h"

@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Param/Base/ParameterPool.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Assert.h"
 #include "Base/Utils/StringUtils.h"
 #include "Param/Base/RealParameter.h"
@@ -55,10 +54,9 @@ void ParameterPool::clear() {
 RealParameter& ParameterPool::addParameter(RealParameter* newPar) {
     for (const auto* par : m_params)
         if (par->getName() == newPar->getName())
-            throw Exceptions::RuntimeErrorException("ParameterPool::addParameter() -> Error. "
-                                                    "Parameter '"
-                                                    + newPar->getName()
-                                                    + "' is already registered");
+            throw std::runtime_error("ParameterPool::addParameter() -> Error. "
+                                     "Parameter '"
+                                     + newPar->getName() + "' is already registered");
     m_params.push_back(newPar);
     return *newPar;
 }
@@ -106,11 +104,11 @@ std::vector<RealParameter*> ParameterPool::getMatchedParameters(const std::strin
 RealParameter* ParameterPool::getUniqueMatch(const std::string& pattern) const {
     std::vector<RealParameter*> matches = getMatchedParameters(pattern);
     if (matches.empty())
-        throw Exceptions::RuntimeErrorException(
-            "ParameterPool::getUniqueMatch: there is no match for '" + pattern + "'");
+        throw std::runtime_error("ParameterPool::getUniqueMatch: there is no match for '" + pattern
+                                 + "'");
     if (matches.size() != 1)
-        throw Exceptions::RuntimeErrorException("ParameterPool::getUniqueMatch: pattern '" + pattern
-                                                + "' is not unique");
+        throw std::runtime_error("ParameterPool::getUniqueMatch: pattern '" + pattern
+                                 + "' is not unique");
     return matches[0];
 }
 
@@ -128,7 +126,7 @@ void ParameterPool::setParameterValue(const std::string& name, double value) {
         message << "ParameterPool::getParameter() -> Warning. No parameter with name '" + name
                        + "'\n"
                 << "Available parameters:" << *this;
-        throw Exceptions::RuntimeErrorException(message.str());
+        throw std::runtime_error(message.str());
     }
 }
 
@@ -153,8 +151,8 @@ int ParameterPool::setMatchedParametersValue(const std::string& pattern, double 
 
 void ParameterPool::setUniqueMatchValue(const std::string& pattern, double value) {
     if (setMatchedParametersValue(pattern, value) != 1)
-        throw Exceptions::RuntimeErrorException("ParameterPool::setUniqueMatchValue: pattern '"
-                                                + pattern + "' is not unique");
+        throw std::runtime_error("ParameterPool::setUniqueMatchValue: pattern '" + pattern
+                                 + "' is not unique");
 }
 
 std::vector<std::string> ParameterPool::parameterNames() const {
@@ -195,7 +193,7 @@ void ParameterPool::report_find_matched_parameters_error(const std::string& patt
          << "' have been found. Existing keys are:" << std::endl;
     for (const auto* par : m_params)
         ostr << "'" << par->getName() << "'\n";
-    throw Exceptions::RuntimeErrorException(ostr.str());
+    throw std::runtime_error(ostr.str());
 }
 
 //! Reports error while setting parname to given value.
@@ -206,7 +204,7 @@ void ParameterPool::report_set_value_error(const std::string& parname, double va
     ostr << " for parameter '" << parname << "' failed.";
     ostr << " Parameter limits: '" << parameter(parname)->limits() << "'.\n";
     ostr << "Original exception message: " << message << std::endl;
-    throw Exceptions::RuntimeErrorException(ostr.str());
+    throw std::runtime_error(ostr.str());
 }
 
 size_t ParameterPool::check_index(size_t index) const {

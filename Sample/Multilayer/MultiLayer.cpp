@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Sample/Aggregate/ParticleLayout.h"
@@ -91,7 +90,7 @@ const LayerInterface* MultiLayer::layerInterface(size_t i_interface) const {
 
 void MultiLayer::setCrossCorrLength(double crossCorrLength) {
     if (crossCorrLength < 0.0)
-        throw Exceptions::LogicErrorException("Attempt to set crossCorrLength to negative value");
+        throw std::runtime_error("Attempt to set crossCorrLength to negative value");
     m_crossCorrLength = crossCorrLength;
 }
 
@@ -136,12 +135,12 @@ void MultiLayer::handleLayerThicknessRegistration() {
 
 size_t MultiLayer::check_layer_index(size_t i_layer) const {
     if (i_layer >= m_layers.size())
-        throw Exceptions::OutOfBoundsException("Layer index is out of bounds");
+        throw std::runtime_error("Layer index is out of bounds");
     return i_layer;
 }
 
 size_t MultiLayer::check_interface_index(size_t i_interface) const {
     if (i_interface >= m_interfaces.size())
-        throw Exceptions::OutOfBoundsException("Interface index is out of bounds");
+        throw std::runtime_error("Interface index is out of bounds");
     return i_interface;
 }

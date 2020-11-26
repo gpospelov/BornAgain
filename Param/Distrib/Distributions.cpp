@@ -14,7 +14,6 @@
 
 #include "Param/Distrib/Distributions.h"
 #include "Base/Math/Constants.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Varia/ParameterSample.h"
@@ -40,9 +39,8 @@ std::vector<ParameterSample> IDistribution1D::equidistantSamples(size_t nbr_samp
                                                                  double sigma_factor,
                                                                  const RealLimits& limits) const {
     if (nbr_samples == 0)
-        throw Exceptions::OutOfBoundsException(
-            "IDistribution1D::generateSamples: "
-            "number of generated samples must be bigger than zero");
+        throw std::runtime_error("IDistribution1D::generateSamples: "
+                                 "number of generated samples must be bigger than zero");
     if (isDelta())
         return {ParameterSample(getMean())};
     return generateSamplesFromValues(equidistantPoints(nbr_samples, sigma_factor, limits));
@@ -53,9 +51,8 @@ std::vector<ParameterSample> IDistribution1D::equidistantSamples(size_t nbr_samp
 std::vector<ParameterSample>
 IDistribution1D::equidistantSamplesInRange(size_t nbr_samples, double xmin, double xmax) const {
     if (nbr_samples == 0)
-        throw Exceptions::OutOfBoundsException(
-            "IDistribution1D::generateSamples: "
-            "number of generated samples must be bigger than zero");
+        throw std::runtime_error("IDistribution1D::generateSamples: "
+                                 "number of generated samples must be bigger than zero");
     if (isDelta())
         return {ParameterSample(getMean())};
     return generateSamplesFromValues(equidistantPointsInRange(nbr_samples, xmin, xmax));
@@ -88,7 +85,7 @@ void IDistribution1D::adjustMinMaxForLimits(double& xmin, double& xmax,
         std::ostringstream ostr;
         ostr << "IDistribution1D::adjustMinMaxForLimits() -> Error. Can't' adjust ";
         ostr << "xmin:" << xmin << " xmax:" << xmax << " for given limits " << limits << std::endl;
-        throw Exceptions::DomainErrorException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
 }
 
@@ -104,8 +101,8 @@ IDistribution1D::generateSamplesFromValues(const std::vector<double>& sample_val
         norm_factor += pdf;
     }
     if (norm_factor <= 0.0)
-        throw Exceptions::RuntimeErrorException("IDistribution1D::generateSamples: "
-                                                "total probability must be bigger than zero");
+        throw std::runtime_error("IDistribution1D::generateSamples: "
+                                 "total probability must be bigger than zero");
     for (ParameterSample& sample : result)
         sample.weight /= norm_factor;
     return result;
@@ -124,7 +121,7 @@ DistributionGate::DistributionGate(const std::vector<double> P)
     , m_min(m_P[0])
     , m_max(m_P[1]) {
     if (m_max < m_min)
-        throw Exceptions::ClassInitializationException("DistributionGate: max<min");
+        throw std::runtime_error("DistributionGate: max<min");
 }
 
 DistributionGate::DistributionGate(double min, double max)
@@ -165,7 +162,7 @@ DistributionLorentz::DistributionLorentz(const std::vector<double> P)
     , m_mean(m_P[0])
     , m_hwhm(m_P[1]) {
     if (m_hwhm < 0.0)
-        throw Exceptions::ClassInitializationException("DistributionLorentz: hwhm<0");
+        throw std::runtime_error("DistributionLorentz: hwhm<0");
 }
 
 DistributionLorentz::DistributionLorentz(double mean, double hwhm)
@@ -206,7 +203,7 @@ DistributionGaussian::DistributionGaussian(const std::vector<double> P)
     , m_mean(m_P[0])
     , m_std_dev(m_P[1]) {
     if (m_std_dev < 0.0)
-        throw Exceptions::ClassInitializationException("DistributionGaussian: std_dev < 0");
+        throw std::runtime_error("DistributionGaussian: std_dev < 0");
 }
 
 DistributionGaussian::DistributionGaussian(double mean, double std_dev)
@@ -248,9 +245,9 @@ DistributionLogNormal::DistributionLogNormal(const std::vector<double> P)
     , m_median(m_P[0])
     , m_scale_param(m_P[1]) {
     if (m_scale_param < 0.0)
-        throw Exceptions::ClassInitializationException("DistributionLogNormal: scale_param < 0");
+        throw std::runtime_error("DistributionLogNormal: scale_param < 0");
     if (m_median <= 0.0)
-        throw Exceptions::ClassInitializationException("DistributionLogNormal: median < 0");
+        throw std::runtime_error("DistributionLogNormal: median < 0");
 }
 
 DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
@@ -308,7 +305,7 @@ DistributionCosine::DistributionCosine(const std::vector<double> P)
     , m_mean(m_P[0])
     , m_sigma(m_P[1]) {
     if (m_sigma < 0.0)
-        throw Exceptions::ClassInitializationException("DistributionCosine: sigma<0");
+        throw std::runtime_error("DistributionCosine: sigma<0");
 }
 
 DistributionCosine::DistributionCosine(double mean, double sigma)
@@ -355,11 +352,11 @@ DistributionTrapezoid::DistributionTrapezoid(const std::vector<double> P)
     , m_middle(m_P[2])
     , m_right(m_P[3]) {
     if (m_left < 0.0)
-        throw Exceptions::ClassInitializationException("DistributionTrapezoid: leftWidth < 0");
+        throw std::runtime_error("DistributionTrapezoid: leftWidth < 0");
     if (m_middle < 0.0)
-        throw Exceptions::ClassInitializationException("DistributionTrapezoid: middleWidth < 0");
+        throw std::runtime_error("DistributionTrapezoid: middleWidth < 0");
     if (m_right < 0.0)
-        throw Exceptions::ClassInitializationException("DistributionTrapezoid: rightWidth < 0");
+        throw std::runtime_error("DistributionTrapezoid: rightWidth < 0");
 }
 
 DistributionTrapezoid::DistributionTrapezoid(double center, double left, double middle,

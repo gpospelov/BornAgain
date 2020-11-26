@@ -71,10 +71,9 @@ size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const {
 std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins, double min,
                                              double max) const {
     if (max <= min)
-        throw Exceptions::LogicErrorException("IDetector::createAxis() -> Error! max <= min");
+        throw std::runtime_error("IDetector::createAxis() -> Error! max <= min");
     if (n_bins == 0)
-        throw Exceptions::LogicErrorException(
-            "IDetector::createAxis() -> Error! Number n_bins can't be zero.");
+        throw std::runtime_error("IDetector::createAxis() -> Error! Number n_bins can't be zero.");
     return std::make_unique<FixedBinAxis>(axisName(index), n_bins, min, max);
 }
 
@@ -135,8 +134,8 @@ OutputData<double>*
 IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements) const {
     std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap());
     if (!detectorMap)
-        throw Exceptions::RuntimeErrorException("Instrument::createDetectorIntensity:"
-                                                "can't create detector map.");
+        throw std::runtime_error("Instrument::createDetectorIntensity:"
+                                 "can't create detector map.");
 
     setDataToDetectorMap(*detectorMap, elements);
     if (m_detector_resolution)

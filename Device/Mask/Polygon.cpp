@@ -14,7 +14,6 @@
 
 #include "Device/Mask/Polygon.h"
 #include "Base/Axis/Bin.h"
-#include "Base/Types/Exceptions.h"
 
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
@@ -34,7 +33,7 @@ public:
 
 void PolygonPrivate::init_from(const std::vector<double>& x, const std::vector<double>& y) {
     if (x.size() != y.size())
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "Polygon::Polygon(const std::vector<double>& x, const std::vector<double>& y) "
             "Error. Sizes of arrays must conincide.");
     std::vector<point_t> points;
@@ -76,7 +75,7 @@ Polygon::Polygon(const std::vector<std::vector<double>> points)
     std::vector<double> y;
     for (size_t i = 0; i < points.size(); ++i) {
         if (points[i].size() != 2)
-            throw Exceptions::LogicErrorException(
+            throw std::runtime_error(
                 "Polygon(const std::vector<std::vector<double> >& points) -> Error. "
                 " Should be two-dimensional array with second dimension of 2 size.");
         x.push_back(points[i][0]);

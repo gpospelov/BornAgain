@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Base/Utils/FileSystemUtils.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Assert.h"
 #include <boost/filesystem.hpp>
 #include <codecvt>

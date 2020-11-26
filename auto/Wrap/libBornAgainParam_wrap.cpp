@@ -3189,40 +3189,40 @@ namespace Swig {
 #define SWIGTYPE_p_IParameterized swig_types[89]
 #define SWIGTYPE_p_IParticle swig_types[90]
 #define SWIGTYPE_p_IPeakShape swig_types[91]
-#define SWIGTYPE_p_IRotation swig_types[92]
-#define SWIGTYPE_p_ISample swig_types[93]
-#define SWIGTYPE_p_IdentityRotation swig_types[94]
-#define SWIGTYPE_p_Instrument swig_types[95]
-#define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[96]
-#define SWIGTYPE_p_InterferenceFunction2DLattice swig_types[97]
-#define SWIGTYPE_p_InterferenceFunction2DParaCrystal swig_types[98]
-#define SWIGTYPE_p_InterferenceFunction2DSuperLattice swig_types[99]
-#define SWIGTYPE_p_InterferenceFunction3DLattice swig_types[100]
-#define SWIGTYPE_p_InterferenceFunctionFinite2DLattice swig_types[101]
-#define SWIGTYPE_p_InterferenceFunctionFinite3DLattice swig_types[102]
-#define SWIGTYPE_p_InterferenceFunctionHardDisk swig_types[103]
-#define SWIGTYPE_p_InterferenceFunctionNone swig_types[104]
-#define SWIGTYPE_p_InterferenceFunctionRadialParaCrystal swig_types[105]
-#define SWIGTYPE_p_InterferenceFunctionTwin swig_types[106]
-#define SWIGTYPE_p_IsGISAXSDetector swig_types[107]
-#define SWIGTYPE_p_Layer swig_types[108]
-#define SWIGTYPE_p_LayerInterface swig_types[109]
-#define SWIGTYPE_p_LayerRoughness swig_types[110]
-#define SWIGTYPE_p_MesoCrystal swig_types[111]
-#define SWIGTYPE_p_MultiLayer swig_types[112]
-#define SWIGTYPE_p_NodeMeta swig_types[113]
-#define SWIGTYPE_p_OffSpecSimulation swig_types[114]
-#define SWIGTYPE_p_ParaMeta swig_types[115]
-#define SWIGTYPE_p_ParameterDistribution swig_types[116]
-#define SWIGTYPE_p_ParameterPool swig_types[117]
-#define SWIGTYPE_p_ParameterSample swig_types[118]
-#define SWIGTYPE_p_Particle swig_types[119]
-#define SWIGTYPE_p_ParticleComposition swig_types[120]
-#define SWIGTYPE_p_ParticleCoreShell swig_types[121]
-#define SWIGTYPE_p_ParticleDistribution swig_types[122]
-#define SWIGTYPE_p_ParticleLayout swig_types[123]
-#define SWIGTYPE_p_PoissonNoiseBackground swig_types[124]
-#define SWIGTYPE_p_RangedDistribution swig_types[125]
+#define SWIGTYPE_p_IRangedDistribution swig_types[92]
+#define SWIGTYPE_p_IRotation swig_types[93]
+#define SWIGTYPE_p_ISample swig_types[94]
+#define SWIGTYPE_p_IdentityRotation swig_types[95]
+#define SWIGTYPE_p_Instrument swig_types[96]
+#define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[97]
+#define SWIGTYPE_p_InterferenceFunction2DLattice swig_types[98]
+#define SWIGTYPE_p_InterferenceFunction2DParaCrystal swig_types[99]
+#define SWIGTYPE_p_InterferenceFunction2DSuperLattice swig_types[100]
+#define SWIGTYPE_p_InterferenceFunction3DLattice swig_types[101]
+#define SWIGTYPE_p_InterferenceFunctionFinite2DLattice swig_types[102]
+#define SWIGTYPE_p_InterferenceFunctionFinite3DLattice swig_types[103]
+#define SWIGTYPE_p_InterferenceFunctionHardDisk swig_types[104]
+#define SWIGTYPE_p_InterferenceFunctionNone swig_types[105]
+#define SWIGTYPE_p_InterferenceFunctionRadialParaCrystal swig_types[106]
+#define SWIGTYPE_p_InterferenceFunctionTwin swig_types[107]
+#define SWIGTYPE_p_IsGISAXSDetector swig_types[108]
+#define SWIGTYPE_p_Layer swig_types[109]
+#define SWIGTYPE_p_LayerInterface swig_types[110]
+#define SWIGTYPE_p_LayerRoughness swig_types[111]
+#define SWIGTYPE_p_MesoCrystal swig_types[112]
+#define SWIGTYPE_p_MultiLayer swig_types[113]
+#define SWIGTYPE_p_NodeMeta swig_types[114]
+#define SWIGTYPE_p_OffSpecSimulation swig_types[115]
+#define SWIGTYPE_p_ParaMeta swig_types[116]
+#define SWIGTYPE_p_ParameterDistribution swig_types[117]
+#define SWIGTYPE_p_ParameterPool swig_types[118]
+#define SWIGTYPE_p_ParameterSample swig_types[119]
+#define SWIGTYPE_p_Particle swig_types[120]
+#define SWIGTYPE_p_ParticleComposition swig_types[121]
+#define SWIGTYPE_p_ParticleCoreShell swig_types[122]
+#define SWIGTYPE_p_ParticleDistribution swig_types[123]
+#define SWIGTYPE_p_ParticleLayout swig_types[124]
+#define SWIGTYPE_p_PoissonNoiseBackground swig_types[125]
 #define SWIGTYPE_p_RangedDistributionCosine swig_types[126]
 #define SWIGTYPE_p_RangedDistributionGate swig_types[127]
 #define SWIGTYPE_p_RangedDistributionGaussian swig_types[128]
@@ -46576,6 +46576,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RangedDistributionGate_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionGate *arg1 = (RangedDistributionGate *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionGate, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionGate_name" "', argument " "1"" of type '" "RangedDistributionGate const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionGate * >(argp1);
+  result = ((RangedDistributionGate const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *RangedDistributionGate_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -46840,6 +46863,29 @@ SWIGINTERN PyObject *_wrap_delete_RangedDistributionLorentz(PyObject *SWIGUNUSED
   arg1 = reinterpret_cast< RangedDistributionLorentz * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RangedDistributionLorentz_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionLorentz *arg1 = (RangedDistributionLorentz *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionLorentz, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionLorentz_name" "', argument " "1"" of type '" "RangedDistributionLorentz const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionLorentz * >(argp1);
+  result = ((RangedDistributionLorentz const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
   return NULL;
@@ -47116,6 +47162,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RangedDistributionGaussian_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionGaussian *arg1 = (RangedDistributionGaussian *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionGaussian, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionGaussian_name" "', argument " "1"" of type '" "RangedDistributionGaussian const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionGaussian * >(argp1);
+  result = ((RangedDistributionGaussian const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *RangedDistributionGaussian_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -47386,6 +47455,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_RangedDistributionLogNormal_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionLogNormal *arg1 = (RangedDistributionLogNormal *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionLogNormal, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionLogNormal_name" "', argument " "1"" of type '" "RangedDistributionLogNormal const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionLogNormal * >(argp1);
+  result = ((RangedDistributionLogNormal const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *RangedDistributionLogNormal_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -47650,6 +47742,29 @@ SWIGINTERN PyObject *_wrap_delete_RangedDistributionCosine(PyObject *SWIGUNUSEDP
   arg1 = reinterpret_cast< RangedDistributionCosine * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_RangedDistributionCosine_name(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  RangedDistributionCosine *arg1 = (RangedDistributionCosine *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_RangedDistributionCosine, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RangedDistributionCosine_name" "', argument " "1"" of type '" "RangedDistributionCosine const *""'"); 
+  }
+  arg1 = reinterpret_cast< RangedDistributionCosine * >(argp1);
+  result = ((RangedDistributionCosine const *)arg1)->name();
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
   return NULL;
@@ -50769,7 +50884,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		"Adds parameter to the pool, and returns reference to the input pointer.\n"
 		"\n"
-		"Returning the input pointer allows us to concatenate function calls like pool->addParameter( new  RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") \n"
+		"Returning the input pointer allows us to concatenate function calls like pool->addParameter( new RealParameter(...) ).setLimits(-1,+1).setFixed().setUnit(\"nm\") \n"
 		"\n"
 		""},
 	 { "ParameterPool_parameter", _wrap_ParameterPool_parameter, METH_VARARGS, "\n"
@@ -51717,6 +51832,13 @@ static PyMethodDef SwigMethods[] = {
 		"RangedDistributionGate::~RangedDistributionGate() override=default\n"
 		"\n"
 		""},
+	 { "RangedDistributionGate_name", _wrap_RangedDistributionGate_name, METH_O, "\n"
+		"RangedDistributionGate_name(RangedDistributionGate self) -> std::string\n"
+		"std::string RangedDistributionGate::name() const override\n"
+		"\n"
+		"Returns distribution name for python-formatted text. \n"
+		"\n"
+		""},
 	 { "RangedDistributionGate_swigregister", RangedDistributionGate_swigregister, METH_O, NULL},
 	 { "RangedDistributionGate_swiginit", RangedDistributionGate_swiginit, METH_VARARGS, NULL},
 	 { "new_RangedDistributionLorentz", _wrap_new_RangedDistributionLorentz, METH_VARARGS, "\n"
@@ -51736,6 +51858,13 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_RangedDistributionLorentz", _wrap_delete_RangedDistributionLorentz, METH_O, "\n"
 		"delete_RangedDistributionLorentz(RangedDistributionLorentz self)\n"
 		"RangedDistributionLorentz::~RangedDistributionLorentz() override=default\n"
+		"\n"
+		""},
+	 { "RangedDistributionLorentz_name", _wrap_RangedDistributionLorentz_name, METH_O, "\n"
+		"RangedDistributionLorentz_name(RangedDistributionLorentz self) -> std::string\n"
+		"std::string RangedDistributionLorentz::name() const override\n"
+		"\n"
+		"Returns distribution name for python-formatted text. \n"
 		"\n"
 		""},
 	 { "RangedDistributionLorentz_swigregister", RangedDistributionLorentz_swigregister, METH_O, NULL},
@@ -51759,6 +51888,13 @@ static PyMethodDef SwigMethods[] = {
 		"RangedDistributionGaussian::~RangedDistributionGaussian() override=default\n"
 		"\n"
 		""},
+	 { "RangedDistributionGaussian_name", _wrap_RangedDistributionGaussian_name, METH_O, "\n"
+		"RangedDistributionGaussian_name(RangedDistributionGaussian self) -> std::string\n"
+		"std::string RangedDistributionGaussian::name() const override\n"
+		"\n"
+		"Returns distribution name for python-formatted text. \n"
+		"\n"
+		""},
 	 { "RangedDistributionGaussian_swigregister", RangedDistributionGaussian_swigregister, METH_O, NULL},
 	 { "RangedDistributionGaussian_swiginit", RangedDistributionGaussian_swiginit, METH_VARARGS, NULL},
 	 { "new_RangedDistributionLogNormal", _wrap_new_RangedDistributionLogNormal, METH_VARARGS, "\n"
@@ -51780,6 +51916,13 @@ static PyMethodDef SwigMethods[] = {
 		"RangedDistributionLogNormal::~RangedDistributionLogNormal() override=default\n"
 		"\n"
 		""},
+	 { "RangedDistributionLogNormal_name", _wrap_RangedDistributionLogNormal_name, METH_O, "\n"
+		"RangedDistributionLogNormal_name(RangedDistributionLogNormal self) -> std::string\n"
+		"std::string RangedDistributionLogNormal::name() const override\n"
+		"\n"
+		"Returns distribution name for python-formatted text. \n"
+		"\n"
+		""},
 	 { "RangedDistributionLogNormal_swigregister", RangedDistributionLogNormal_swigregister, METH_O, NULL},
 	 { "RangedDistributionLogNormal_swiginit", RangedDistributionLogNormal_swiginit, METH_VARARGS, NULL},
 	 { "new_RangedDistributionCosine", _wrap_new_RangedDistributionCosine, METH_VARARGS, "\n"
@@ -51799,6 +51942,13 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_RangedDistributionCosine", _wrap_delete_RangedDistributionCosine, METH_O, "\n"
 		"delete_RangedDistributionCosine(RangedDistributionCosine self)\n"
 		"RangedDistributionCosine::~RangedDistributionCosine() override=default\n"
+		"\n"
+		""},
+	 { "RangedDistributionCosine_name", _wrap_RangedDistributionCosine_name, METH_O, "\n"
+		"RangedDistributionCosine_name(RangedDistributionCosine self) -> std::string\n"
+		"std::string RangedDistributionCosine::name() const override\n"
+		"\n"
+		"Returns distribution name for python-formatted text. \n"
 		"\n"
 		""},
 	 { "RangedDistributionCosine_swigregister", RangedDistributionCosine_swigregister, METH_O, NULL},
@@ -51917,23 +52067,23 @@ static void *_p_DistributionTrapezoidTo_p_IParameterized(void *x, int *SWIGUNUSE
 static void *_p_DistributionLogNormalTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParameterized *) (INode *)(IDistribution1D *) ((DistributionLogNormal *) x));
 }
-static void *_p_RangedDistributionCosineTo_p_RangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((RangedDistribution *)  ((RangedDistributionCosine *) x));
+static void *_p_RangedDistributionCosineTo_p_IRangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IRangedDistribution *)  ((RangedDistributionCosine *) x));
 }
-static void *_p_RangedDistributionLorentzTo_p_RangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((RangedDistribution *)  ((RangedDistributionLorentz *) x));
+static void *_p_RangedDistributionLorentzTo_p_IRangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IRangedDistribution *)  ((RangedDistributionLorentz *) x));
 }
-static void *_p_RangedDistributionGaussianTo_p_RangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((RangedDistribution *)  ((RangedDistributionGaussian *) x));
+static void *_p_RangedDistributionGaussianTo_p_IRangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IRangedDistribution *)  ((RangedDistributionGaussian *) x));
 }
-static void *_p_RangedDistributionGateTo_p_RangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((RangedDistribution *)  ((RangedDistributionGate *) x));
+static void *_p_RangedDistributionGateTo_p_IRangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IRangedDistribution *)  ((RangedDistributionGate *) x));
 }
-static void *_p_RangedDistributionLogNormalTo_p_RangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((RangedDistribution *)  ((RangedDistributionLogNormal *) x));
+static void *_p_RangedDistributionLogNormalTo_p_IRangedDistribution(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IRangedDistribution *)  ((RangedDistributionLogNormal *) x));
 }
 static void *_p_RangedDistributionGateTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (RangedDistribution *) ((RangedDistributionGate *) x));
+    return (void *)((ICloneable *) (IRangedDistribution *) ((RangedDistributionGate *) x));
 }
 static void *_p_DistributionGateTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IDistribution1D *) ((DistributionGate *) x));
@@ -51945,7 +52095,7 @@ static void *_p_DistributionTrapezoidTo_p_ICloneable(void *x, int *SWIGUNUSEDPAR
     return (void *)((ICloneable *) (IDistribution1D *) ((DistributionTrapezoid *) x));
 }
 static void *_p_RangedDistributionGaussianTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (RangedDistribution *) ((RangedDistributionGaussian *) x));
+    return (void *)((ICloneable *) (IRangedDistribution *) ((RangedDistributionGaussian *) x));
 }
 static void *_p_DistributionGaussianTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IDistribution1D *) ((DistributionGaussian *) x));
@@ -51954,25 +52104,25 @@ static void *_p_ParameterPoolTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmem
     return (void *)((ICloneable *)  ((ParameterPool *) x));
 }
 static void *_p_RangedDistributionCosineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (RangedDistribution *) ((RangedDistributionCosine *) x));
+    return (void *)((ICloneable *) (IRangedDistribution *) ((RangedDistributionCosine *) x));
 }
 static void *_p_DistributionCosineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IDistribution1D *) ((DistributionCosine *) x));
 }
 static void *_p_RangedDistributionLorentzTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (RangedDistribution *) ((RangedDistributionLorentz *) x));
+    return (void *)((ICloneable *) (IRangedDistribution *) ((RangedDistributionLorentz *) x));
 }
 static void *_p_DistributionLorentzTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IDistribution1D *) ((DistributionLorentz *) x));
 }
 static void *_p_RangedDistributionLogNormalTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (RangedDistribution *) ((RangedDistributionLogNormal *) x));
+    return (void *)((ICloneable *) (IRangedDistribution *) ((RangedDistributionLogNormal *) x));
 }
 static void *_p_DistributionLogNormalTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IDistribution1D *) ((DistributionLogNormal *) x));
 }
-static void *_p_RangedDistributionTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((RangedDistribution *) x));
+static void *_p_IRangedDistributionTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((IRangedDistribution *) x));
 }
 static void *_p_DistributionCosineTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IDistribution1D *) ((DistributionCosine *) x));
@@ -52105,6 +52255,7 @@ static swig_type_info _swigt__p_IParameterT_double_t = {"_p_IParameterT_double_t
 static swig_type_info _swigt__p_IParameterized = {"_p_IParameterized", "IParameterized *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IParticle = {"_p_IParticle", "IParticle *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IPeakShape = {"_p_IPeakShape", "IPeakShape *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IRangedDistribution = {"_p_IRangedDistribution", "IRangedDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IRotation = {"_p_IRotation", "IRotation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ISample = {"_p_ISample", "ISample *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IdentityRotation = {"_p_IdentityRotation", "IdentityRotation *", 0, 0, (void*)0, 0};
@@ -52138,7 +52289,6 @@ static swig_type_info _swigt__p_ParticleCoreShell = {"_p_ParticleCoreShell", "Pa
 static swig_type_info _swigt__p_ParticleDistribution = {"_p_ParticleDistribution", "ParticleDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParticleLayout = {"_p_ParticleLayout", "ParticleLayout *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_PoissonNoiseBackground = {"_p_PoissonNoiseBackground", "PoissonNoiseBackground *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_RangedDistribution = {"_p_RangedDistribution", "RangedDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RangedDistributionCosine = {"_p_RangedDistributionCosine", "RangedDistributionCosine *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RangedDistributionGate = {"_p_RangedDistributionGate", "RangedDistributionGate *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RangedDistributionGaussian = {"_p_RangedDistributionGaussian", "RangedDistributionGaussian *", 0, 0, (void*)0, 0};
@@ -52305,6 +52455,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IParameterized,
   &_swigt__p_IParticle,
   &_swigt__p_IPeakShape,
+  &_swigt__p_IRangedDistribution,
   &_swigt__p_IRotation,
   &_swigt__p_ISample,
   &_swigt__p_IdentityRotation,
@@ -52338,7 +52489,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ParticleDistribution,
   &_swigt__p_ParticleLayout,
   &_swigt__p_PoissonNoiseBackground,
-  &_swigt__p_RangedDistribution,
   &_swigt__p_RangedDistributionCosine,
   &_swigt__p_RangedDistributionGate,
   &_swigt__p_RangedDistributionGaussian,
@@ -52493,7 +52643,7 @@ static swig_cast_info _swigc__p_GISASSimulation[] = {  {&_swigt__p_GISASSimulati
 static swig_cast_info _swigc__p_HexagonalLattice2D[] = {  {&_swigt__p_HexagonalLattice2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IAbstractParticle[] = {  {&_swigt__p_IAbstractParticle, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IBornFF[] = {  {&_swigt__p_IBornFF, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_RangedDistributionGate, _p_RangedDistributionGateTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_ICloneable, 0, 0},  {&_swigt__p_IDistribution1D, _p_IDistribution1DTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_RangedDistributionGaussian, _p_RangedDistributionGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionCosine, _p_RangedDistributionCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionLorentz, _p_RangedDistributionLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionLogNormal, _p_RangedDistributionLogNormalTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistribution, _p_RangedDistributionTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_RangedDistributionGate, _p_RangedDistributionGateTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_ICloneable, 0, 0},  {&_swigt__p_IDistribution1D, _p_IDistribution1DTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_RangedDistributionGaussian, _p_RangedDistributionGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionCosine, _p_RangedDistributionCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionLorentz, _p_RangedDistributionLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_ICloneable, 0, 0},  {&_swigt__p_RangedDistributionLogNormal, _p_RangedDistributionLogNormalTo_p_ICloneable, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_ICloneable, 0, 0},  {&_swigt__p_IRangedDistribution, _p_IRangedDistributionTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IClusteredParticles[] = {  {&_swigt__p_IClusteredParticles, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDistribution1D[] = {  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_IDistribution1D, 0, 0},  {&_swigt__p_IDistribution1D, 0, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_IDistribution1D, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_IDistribution1D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFormFactor[] = {  {&_swigt__p_IFormFactor, 0, 0, 0},{0, 0, 0, 0}};
@@ -52505,6 +52655,7 @@ static swig_cast_info _swigc__p_IParameterT_double_t[] = {  {&_swigt__p_IParamet
 static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_DistributionCosine, _p_DistributionCosineTo_p_IParameterized, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},  {&_swigt__p_DistributionLorentz, _p_DistributionLorentzTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_DistributionGaussian, _p_DistributionGaussianTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_IDistribution1D, _p_IDistribution1DTo_p_IParameterized, 0, 0},  {&_swigt__p_DistributionGate, _p_DistributionGateTo_p_IParameterized, 0, 0},  {&_swigt__p_DistributionTrapezoid, _p_DistributionTrapezoidTo_p_IParameterized, 0, 0},  {&_swigt__p_DistributionLogNormal, _p_DistributionLogNormalTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IParticle[] = {  {&_swigt__p_IParticle, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IPeakShape[] = {  {&_swigt__p_IPeakShape, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IRangedDistribution[] = {  {&_swigt__p_RangedDistributionCosine, _p_RangedDistributionCosineTo_p_IRangedDistribution, 0, 0},  {&_swigt__p_IRangedDistribution, 0, 0, 0},  {&_swigt__p_RangedDistributionLorentz, _p_RangedDistributionLorentzTo_p_IRangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionGaussian, _p_RangedDistributionGaussianTo_p_IRangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionGate, _p_RangedDistributionGateTo_p_IRangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionLogNormal, _p_RangedDistributionLogNormalTo_p_IRangedDistribution, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRotation[] = {  {&_swigt__p_IRotation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISample[] = {  {&_swigt__p_ISample, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IdentityRotation[] = {  {&_swigt__p_IdentityRotation, 0, 0, 0},{0, 0, 0, 0}};
@@ -52538,7 +52689,6 @@ static swig_cast_info _swigc__p_ParticleCoreShell[] = {  {&_swigt__p_ParticleCor
 static swig_cast_info _swigc__p_ParticleDistribution[] = {  {&_swigt__p_ParticleDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParticleLayout[] = {  {&_swigt__p_ParticleLayout, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_PoissonNoiseBackground[] = {  {&_swigt__p_PoissonNoiseBackground, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_RangedDistribution[] = {  {&_swigt__p_RangedDistributionCosine, _p_RangedDistributionCosineTo_p_RangedDistribution, 0, 0},  {&_swigt__p_RangedDistribution, 0, 0, 0},  {&_swigt__p_RangedDistributionLorentz, _p_RangedDistributionLorentzTo_p_RangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionGaussian, _p_RangedDistributionGaussianTo_p_RangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionGate, _p_RangedDistributionGateTo_p_RangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionLogNormal, _p_RangedDistributionLogNormalTo_p_RangedDistribution, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RangedDistributionCosine[] = {  {&_swigt__p_RangedDistributionCosine, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RangedDistributionGate[] = {  {&_swigt__p_RangedDistributionGate, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RangedDistributionGaussian[] = {  {&_swigt__p_RangedDistributionGaussian, 0, 0, 0},{0, 0, 0, 0}};
@@ -52705,6 +52855,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IParameterized,
   _swigc__p_IParticle,
   _swigc__p_IPeakShape,
+  _swigc__p_IRangedDistribution,
   _swigc__p_IRotation,
   _swigc__p_ISample,
   _swigc__p_IdentityRotation,
@@ -52738,7 +52889,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ParticleDistribution,
   _swigc__p_ParticleLayout,
   _swigc__p_PoissonNoiseBackground,
-  _swigc__p_RangedDistribution,
   _swigc__p_RangedDistributionCosine,
   _swigc__p_RangedDistributionGate,
   _swigc__p_RangedDistributionGaussian,

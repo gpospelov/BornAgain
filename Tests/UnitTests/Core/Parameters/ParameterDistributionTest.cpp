@@ -1,5 +1,4 @@
 #include "Param/Distrib/ParameterDistribution.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Varia/ParameterUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
@@ -10,9 +9,8 @@ class ParameterDistributionTest : public ::testing::Test {};
 TEST_F(ParameterDistributionTest, ParameterDistributionConstructor) {
     std::string name = "MainParameterName";
     DistributionGate distribution(1.0, 2.0);
-    EXPECT_THROW(ParameterDistribution(name, distribution, 1, -1.0),
-                 Exceptions::RuntimeErrorException);
-    EXPECT_THROW(ParameterDistribution(name, distribution, 0), Exceptions::RuntimeErrorException);
+    EXPECT_THROW(ParameterDistribution(name, distribution, 1, -1.0), std::runtime_error);
+    EXPECT_THROW(ParameterDistribution(name, distribution, 0), std::runtime_error);
 
     // Sigma constructor
     ParameterDistribution pardistr(name, distribution, 1);

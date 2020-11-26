@@ -2830,15 +2830,13 @@ class IFootprintFactor(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IFootprintFactor_calculate(self, alpha)
 
-    def _print(self):
+    def name(self):
         r"""
-        _print(IFootprintFactor self) -> std::string
-        virtual std::string IFootprintFactor::print() const =0
-
-        Print python-formatted footprint definition. 
+        name(IFootprintFactor self) -> std::string
+        virtual std::string IFootprintFactor::name() const =0
 
         """
-        return _libBornAgainDevice.IFootprintFactor__print(self)
+        return _libBornAgainDevice.IFootprintFactor_name(self)
 
 # Register IFootprintFactor in _libBornAgainDevice:
 _libBornAgainDevice.IFootprintFactor_swigregister(IFootprintFactor)
@@ -2891,15 +2889,13 @@ class FootprintGauss(IFootprintFactor):
         """
         return _libBornAgainDevice.FootprintGauss_calculate(self, alpha)
 
-    def _print(self):
+    def name(self):
         r"""
-        _print(FootprintGauss self) -> std::string
-        std::string FootprintGauss::print() const override
-
-        Print python-formatted footprint definition. 
+        name(FootprintGauss self) -> std::string
+        std::string FootprintGauss::name() const override
 
         """
-        return _libBornAgainDevice.FootprintGauss__print(self)
+        return _libBornAgainDevice.FootprintGauss_name(self)
     __swig_destroy__ = _libBornAgainDevice.delete_FootprintGauss
 
 # Register FootprintGauss in _libBornAgainDevice:
@@ -2953,15 +2949,13 @@ class FootprintSquare(IFootprintFactor):
         """
         return _libBornAgainDevice.FootprintSquare_calculate(self, alpha)
 
-    def _print(self):
+    def name(self):
         r"""
-        _print(FootprintSquare self) -> std::string
-        std::string FootprintSquare::print() const override
-
-        Print python-formatted footprint definition. 
+        name(FootprintSquare self) -> std::string
+        std::string FootprintSquare::name() const override
 
         """
-        return _libBornAgainDevice.FootprintSquare__print(self)
+        return _libBornAgainDevice.FootprintSquare_name(self)
     __swig_destroy__ = _libBornAgainDevice.delete_FootprintSquare
 
 # Register FootprintSquare in _libBornAgainDevice:
@@ -3398,7 +3392,7 @@ class Polygon(IShape2D):
     r"""
 
 
-    A polygon in 2D space.Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+    A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
     C++ includes: Polygon.h
 
@@ -3714,16 +3708,16 @@ class ScanResolution(libBornAgainBase.ICloneable):
     @staticmethod
     def scanRelativeResolution(*args):
         r"""
-        scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-        scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        scanRelativeResolution(IRangedDistribution const & distr, double stddev) -> ScanResolution
+        scanRelativeResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
         """
         return _libBornAgainDevice.ScanResolution_scanRelativeResolution(*args)
 
     @staticmethod
     def scanAbsoluteResolution(*args):
         r"""
-        scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-        scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+        scanAbsoluteResolution(IRangedDistribution const & distr, double stddev) -> ScanResolution
+        scanAbsoluteResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
         """
         return _libBornAgainDevice.ScanResolution_scanAbsoluteResolution(*args)
 
@@ -3732,15 +3726,15 @@ _libBornAgainDevice.ScanResolution_swigregister(ScanResolution)
 
 def ScanResolution_scanRelativeResolution(*args):
     r"""
-    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-    ScanResolution_scanRelativeResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    ScanResolution_scanRelativeResolution(IRangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanRelativeResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
     """
     return _libBornAgainDevice.ScanResolution_scanRelativeResolution(*args)
 
 def ScanResolution_scanAbsoluteResolution(*args):
     r"""
-    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, double stddev) -> ScanResolution
-    ScanResolution_scanAbsoluteResolution(RangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
+    ScanResolution_scanAbsoluteResolution(IRangedDistribution const & distr, double stddev) -> ScanResolution
+    ScanResolution_scanAbsoluteResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
     """
     return _libBornAgainDevice.ScanResolution_scanAbsoluteResolution(*args)
 
@@ -5949,7 +5943,9 @@ class IntensityDataIOFactory(object):
     r"""
 
 
-    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+    Usage:
 
     C++ includes: IntensityDataIOFactory.h
 
@@ -5993,7 +5989,9 @@ class IntensityDataIOFactory(object):
         __init__(IntensityDataIOFactory self) -> IntensityDataIOFactory
 
 
-        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm. Usage:
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+
+        Usage:
 
         C++ includes: IntensityDataIOFactory.h
 
@@ -6175,7 +6173,7 @@ def ScanRelativeResolution(distribution, rel_dev):
     Creates a scan resolution from the given distribution and
     relative deviation values (that is, the ratios of standard
     deviations and means).
-    :param distribution: bornagain.RangedDistribution object
+    :param distribution: bornagain.IRangedDistribution object
     :param rel_dev: either single-valued or a numpy array.
                     In the latter case should coinside in
                     size with later used mean values array.
@@ -6187,7 +6185,7 @@ def ScanAbsoluteResolution(distribution, std_dev):
     """
     Creates a scan resolution from the given distribution and
     standard deviation values.
-    :param distribution: bornagain.RangedDistribution object
+    :param distribution: bornagain.IRangedDistribution object
     :param std_dev: either single-valued or a numpy array.
                     In the latter case should coinside in
                     size with later used mean values array.

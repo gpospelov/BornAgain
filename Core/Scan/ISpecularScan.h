@@ -54,12 +54,7 @@ public:
     virtual std::vector<double>
     createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const = 0;
 
-    //! Print scan definition in python format
-    virtual std::string print() const = 0;
 #endif // SWIG
 };
 
-inline std::ostream& operator<<(std::ostream& os, const ISpecularScan& scan) {
-    return os << scan.print();
-}
 #endif // BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H

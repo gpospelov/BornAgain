@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Base/Axis/FixedBinAxis.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Algorithms.h"
 #include "Base/Utils/PyFmt.h"
 #include <iomanip>
@@ -29,7 +28,7 @@ FixedBinAxis* FixedBinAxis::clone() const {
 
 double FixedBinAxis::operator[](size_t index) const {
     if (index >= m_nbins)
-        throw Exceptions::OutOfBoundsException("FixedBinAxis::operator[] -> Error. Wrong index.");
+        throw std::runtime_error("FixedBinAxis::operator[] -> Error. Wrong index.");
 
     double step = (m_end - m_start) / m_nbins;
     return m_start + (index + 0.5) * step;
@@ -37,7 +36,7 @@ double FixedBinAxis::operator[](size_t index) const {
 
 Bin1D FixedBinAxis::bin(size_t index) const {
     if (index >= m_nbins)
-        throw Exceptions::OutOfBoundsException("FixedBinAxis::bin() -> Error. Wrong index.");
+        throw std::runtime_error("FixedBinAxis::bin() -> Error. Wrong index.");
 
     double step = (m_end - m_start) / m_nbins;
     Bin1D result(m_start + step * index, m_start + step * (index + 1));
@@ -76,8 +75,8 @@ std::vector<double> FixedBinAxis::binBoundaries() const {
 
 FixedBinAxis* FixedBinAxis::createClippedAxis(double left, double right) const {
     if (left >= right)
-        throw Exceptions::LogicErrorException("FixedBinAxis::createClippedAxis() -> Error. "
-                                              "'left' should be smaller than 'right'");
+        throw std::runtime_error("FixedBinAxis::createClippedAxis() -> Error. "
+                                 "'left' should be smaller than 'right'");
 
     if (left < lowerBound())
         left = bin(0).center();

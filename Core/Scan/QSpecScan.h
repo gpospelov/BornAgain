@@ -19,7 +19,7 @@
 #include <memory>
 
 class ParameterSample;
-class RangedDistribution;
+class IRangedDistribution;
 class ScanResolution;
 
 //! Scan type with z-components of scattering vector as coordinate values.
@@ -38,6 +38,8 @@ public:
 
     ~QSpecScan() override;
     QSpecScan* clone() const override;
+
+    const ScanResolution* resolution() const { return m_resolution.get(); }
 
 #ifndef SWIG
     //! Generates simulation elements for specular simulations
@@ -61,26 +63,24 @@ public:
     std::vector<double>
     createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const override;
 
-    //! Print scan definition in python format
-    std::string print() const override;
 #endif // SWIG
 
     //! Sets q resolution values via ScanResolution object.
     void setQResolution(const ScanResolution& resolution);
 
-    void setRelativeQResolution(const RangedDistribution& distr, double rel_dev);
-    //! Sets qz resolution values via RangedDistribution and values of relative deviations
+    void setRelativeQResolution(const IRangedDistribution& distr, double rel_dev);
+    //! Sets qz resolution values via IRangedDistribution and values of relative deviations
     //! (that is, _rel_dev_ equals standard deviation divided by the mean value).
     //! _rel_dev_ can be either single-valued or a numpy array. In the latter case the length of the
     //! array should coinside with the length of the qz-axis.
-    void setRelativeQResolution(const RangedDistribution& distr,
+    void setRelativeQResolution(const IRangedDistribution& distr,
                                 const std::vector<double>& rel_dev);
 
-    void setAbsoluteQResolution(const RangedDistribution& distr, double std_dev);
-    //! Sets qz resolution values via RangedDistribution and values of standard deviations.
+    void setAbsoluteQResolution(const IRangedDistribution& distr, double std_dev);
+    //! Sets qz resolution values via IRangedDistribution and values of standard deviations.
     //! _std_dev_ can be either single-valued or a numpy array. In the latter case the length of the
     //! array should coinside with the length of the qz-axis.
-    void setAbsoluteQResolution(const RangedDistribution& distr,
+    void setAbsoluteQResolution(const IRangedDistribution& distr,
                                 const std::vector<double>& std_dev);
 
 private:

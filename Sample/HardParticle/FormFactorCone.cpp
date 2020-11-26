@@ -17,7 +17,6 @@
 #include "Base/Math/Constants.h"
 #include "Base/Math/Functions.h"
 #include "Base/Math/Integrator.h"
-#include "Base/Types/Exceptions.h"
 #include "Sample/Shapes/DoubleEllipse.h"
 #include <limits>
 
@@ -33,7 +32,7 @@ FormFactorCone::FormFactorCone(const std::vector<double> P)
     , m_alpha(m_P[2]) {
     m_cot_alpha = Math::cot(m_alpha);
     if (!std::isfinite(m_cot_alpha) || m_cot_alpha < 0)
-        throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
+        throw std::runtime_error("pyramid angle alpha out of bounds");
     if (m_cot_alpha * m_height > m_radius) {
         std::ostringstream ostr;
         ostr << "FormFactorCone() -> Error in class initialization ";
@@ -41,7 +40,7 @@ FormFactorCone::FormFactorCone(const std::vector<double> P)
         ostr << " m_height:" << m_height;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
         ostr << "Check for 'height <= radius*tan(alpha)' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
     onChange();
 }

@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
 #define BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
 
-#include "Base/Types/Exceptions.h"
 #include "Core/Export/OrderedMap.h"
 
 class Crystal;

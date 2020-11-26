@@ -12,12 +12,13 @@
 //
 //  ************************************************************************************************
 
-#include "Device/Instrument/PyFmt2.h"
+#include "Core/Export/PyFmt2.h"
 #include "Base/Const/Units.h"
 #include "Base/Math/Constants.h"
 #include "Base/Utils/Algorithms.h"
 #include "Base/Utils/PyFmt.h"
 #include "Base/Utils/StringUtils.h"
+#include "Core/Export/PyFmtLimits.h"
 #include "Device/Mask/Ellipse.h"
 #include "Device/Mask/InfinitePlane.h"
 #include "Device/Mask/Line.h"
@@ -27,7 +28,7 @@
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"
 #include "Param/Distrib/ParameterDistribution.h"
-#include "Param/Varia/PyFmtLimits.h"
+#include "Param/Distrib/RangedDistributions.h"
 #include <iomanip>
 
 namespace pyfmt2 {
@@ -129,6 +130,17 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
            << pyfmt::printDouble(par_distr.getSigmaFactor())
            << pyfmt::printRealLimitsArg(par_distr.getLimits(), units) << ")";
 
+    return result.str();
+}
+
+std::string printRangedDistribution(const IRangedDistribution& distr) {
+    std::ostringstream result;
+    result << pyfmt::indent() << "distribution = ba.";
+    result << distr.name();
+    result << "(" << distr.nSamples() << ", " << pyfmt::printDouble(distr.sigmaFactor());
+    if (!distr.limits().isLimitless())
+        result << pyfmt::printRealLimitsArg(distr.limits());
+    result << ")";
     return result.str();
 }
 

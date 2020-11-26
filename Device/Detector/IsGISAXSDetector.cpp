@@ -36,11 +36,10 @@ IsGISAXSDetector* IsGISAXSDetector::clone() const {
 std::unique_ptr<IAxis> IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min,
                                                     double max) const {
     if (max <= min) {
-        throw Exceptions::LogicErrorException(
-            "IsGISAXSDetector::createAxis() -> Error! max <= min");
+        throw std::runtime_error("IsGISAXSDetector::createAxis() -> Error! max <= min");
     }
     if (n_bins == 0) {
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "IsGISAXSDetector::createAxis() -> Error! Number n_bins can't be zero.");
     }
     return std::make_unique<CustomBinAxis>(axisName(index), n_bins, min, max);

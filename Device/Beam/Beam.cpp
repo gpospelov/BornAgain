@@ -15,7 +15,6 @@
 #include "Device/Beam/Beam.h"
 #include "Base/Math/Constants.h"
 #include "Base/Types/Complex.h"
-#include "Base/Types/Exceptions.h"
 #include "Base/Utils/Assert.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Param/Base/RealParameter.h"
@@ -70,10 +69,10 @@ kvector_t Beam::getCentralK() const {
 
 void Beam::setCentralK(double wavelength, double alpha_i, double phi_i) {
     if (wavelength <= 0.0)
-        throw Exceptions::ClassInitializationException(
+        throw std::runtime_error(
             "Beam::setCentralK() -> Error. Wavelength can't be negative or zero.");
     if (alpha_i < 0.0)
-        throw Exceptions::ClassInitializationException(
+        throw std::runtime_error(
             "Beam::setCentralK() -> Error. Inclination angle alpha_i can't be negative.");
     m_wavelength = wavelength;
     m_alpha = alpha_i;
@@ -98,7 +97,7 @@ void Beam::setWidthRatio(double width_ratio) {
 
 void Beam::setPolarization(const kvector_t bloch_vector) {
     if (bloch_vector.mag() > 1.0) {
-        throw Exceptions::ClassInitializationException(
+        throw std::runtime_error(
             "Beam::setPolarization: "
             "The given Bloch vector cannot represent a real physical ensemble");
     }

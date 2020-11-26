@@ -50,7 +50,7 @@
 
 %ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
 %ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*) const;
-%ignore RangedDistribution;
+%ignore IRangedDistribution;
 
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
 %template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;

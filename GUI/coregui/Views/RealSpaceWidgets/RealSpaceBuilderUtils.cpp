@@ -14,7 +14,6 @@
 
 #include "GUI/coregui/Views/RealSpaceWidgets/RealSpaceBuilderUtils.h"
 #include "Base/Const/Units.h"
-#include "Base/Types/Exceptions.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
 #include "GUI/coregui/Models/LayerItem.h"
@@ -350,7 +349,7 @@ Particle3DContainer RealSpaceBuilderUtils::particleComposition3DContainer(
             std::ostringstream ostr;
             ostr << "Sorry, MesoCrystal inside ParticleComposition not yet implemented";
             ostr << "\n\nStay tuned!";
-            throw Exceptions::ClassInitializationException(ostr.str());
+            throw std::runtime_error(ostr.str());
         } else {
             auto particle = dynamic_cast<const Particle*>(pc_particle);
             particle3DContainer = singleParticle3DContainer(*particle, 1.0, origin);
@@ -391,7 +390,7 @@ std::vector<Particle3DContainer> RealSpaceBuilderUtils::particleDistribution3DCo
             std::ostringstream ostr;
             ostr << "Sorry, MesoCrystal inside ParticleDistribution not yet implemented";
             ostr << "\n\nStay tuned!";
-            throw Exceptions::ClassInitializationException(ostr.str());
+            throw std::runtime_error(ostr.str());
         } else {
             auto particle = dynamic_cast<const Particle*>(pd_particle);
             particle3DContainer = singleParticle3DContainer(*particle, total_abundance, origin);

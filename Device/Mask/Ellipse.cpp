@@ -14,7 +14,6 @@
 
 #include "Device/Mask/Ellipse.h"
 #include "Base/Axis/Bin.h"
-#include "Base/Types/Exceptions.h"
 
 //! @param xcenter x-coordinate of Ellipse's center
 //! @param ycenter y-coordinate of Ellipse's center
@@ -29,7 +28,7 @@ Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius,
     , m_yr(yradius)
     , m_theta(theta) {
     if (xradius <= 0.0 || yradius <= 0.0)
-        throw Exceptions::LogicErrorException(
+        throw std::runtime_error(
             "Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius) "
             "-> Error. Radius can't be negative\n");
 }

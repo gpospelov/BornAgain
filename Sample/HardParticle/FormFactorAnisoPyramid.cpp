@@ -15,7 +15,6 @@
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Base/Math/Constants.h"
 #include "Base/Math/Functions.h"
-#include "Base/Types/Exceptions.h"
 
 const PolyhedralTopology FormFactorAnisoPyramid::topology = {{{{3, 2, 1, 0}, true},
                                                               {{0, 1, 5, 4}, false},
@@ -57,7 +56,7 @@ IFormFactor* FormFactorAnisoPyramid::sliceFormFactor(ZLimits limits, const IRota
 void FormFactorAnisoPyramid::onChange() {
     double cot_alpha = Math::cot(m_alpha);
     if (!std::isfinite(cot_alpha) || cot_alpha < 0)
-        throw Exceptions::OutOfBoundsException("AnisoPyramid: angle alpha out of bounds");
+        throw std::runtime_error("AnisoPyramid: angle alpha out of bounds");
     double r = cot_alpha * 2 * m_height / m_length;
     double s = cot_alpha * 2 * m_height / m_width;
     if (r > 1 || s > 1) {
@@ -68,7 +67,7 @@ void FormFactorAnisoPyramid::onChange() {
         ostr << " height:" << m_height;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
         ostr << "Check for '2*height <= (length,width)*tan(alpha)' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
 
     double D = m_length / 2;

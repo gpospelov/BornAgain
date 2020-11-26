@@ -14,7 +14,6 @@
 
 #include "Device/Beam/FootprintSquare.h"
 #include "Base/Math/Constants.h"
-#include "Base/Utils/PyFmt.h"
 #include <algorithm>
 #include <stdexcept>
 
@@ -35,15 +34,6 @@ double FootprintSquare::calculate(double alpha) const {
         return 1.0;
     const double arg = std::sin(alpha) / widthRatio();
     return std::min(arg, 1.0);
-}
-
-std::string FootprintSquare::print() const {
-    std::stringstream result;
-    result << "\n" << pyfmt::indent() << "# Defining footprint:\n";
-    result << pyfmt::indent() << "footprint = ";
-    result << "ba.FootprintSquare";
-    result << "(" << pyfmt::printDouble(widthRatio()) << ")";
-    return result.str();
 }
 
 static_assert(!std::is_copy_constructible<FootprintSquare>::value,

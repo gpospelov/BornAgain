@@ -20,8 +20,8 @@
 
 namespace {
 template <class DistrType>
-std::unique_ptr<RangedDistribution>
-createRangedDistribution(const SymmetricDistributionItem& distr_item, double scale);
+std::unique_ptr<IRangedDistribution>
+createIRangedDistribution(const SymmetricDistributionItem& distr_item, double scale);
 }
 
 const QString DistributionItem::P_NUMBER_OF_SAMPLES = "Number of samples";
@@ -104,7 +104,7 @@ std::unique_ptr<IDistribution1D> DistributionNoneItem::createDistribution(double
     return nullptr;
 }
 
-std::unique_ptr<RangedDistribution> DistributionNoneItem::createRangedDistribution(double) const {
+std::unique_ptr<IRangedDistribution> DistributionNoneItem::createIRangedDistribution(double) const {
     return nullptr;
 }
 
@@ -162,9 +162,9 @@ std::unique_ptr<IDistribution1D> DistributionLorentzItem::createDistribution(dou
     return std::make_unique<DistributionLorentz>(scale * mean, scale * hwhm);
 }
 
-std::unique_ptr<RangedDistribution>
-DistributionLorentzItem::createRangedDistribution(double scale) const {
-    return ::createRangedDistribution<RangedDistributionLorentz>(*this, scale);
+std::unique_ptr<IRangedDistribution>
+DistributionLorentzItem::createIRangedDistribution(double scale) const {
+    return ::createIRangedDistribution<RangedDistributionLorentz>(*this, scale);
 }
 
 double DistributionLorentzItem::deviation(double scale) const {
@@ -200,9 +200,9 @@ std::unique_ptr<IDistribution1D> DistributionGaussianItem::createDistribution(do
     return std::make_unique<DistributionGaussian>(scale * mean, scale * std_dev);
 }
 
-std::unique_ptr<RangedDistribution>
-DistributionGaussianItem::createRangedDistribution(double scale) const {
-    return ::createRangedDistribution<RangedDistributionGaussian>(*this, scale);
+std::unique_ptr<IRangedDistribution>
+DistributionGaussianItem::createIRangedDistribution(double scale) const {
+    return ::createIRangedDistribution<RangedDistributionGaussian>(*this, scale);
 }
 
 double DistributionGaussianItem::deviation(double scale) const {
@@ -270,9 +270,9 @@ std::unique_ptr<IDistribution1D> DistributionCosineItem::createDistribution(doub
     return std::make_unique<DistributionCosine>(scale * mean, scale * sigma);
 }
 
-std::unique_ptr<RangedDistribution>
-DistributionCosineItem::createRangedDistribution(double scale) const {
-    return ::createRangedDistribution<RangedDistributionCosine>(*this, scale);
+std::unique_ptr<IRangedDistribution>
+DistributionCosineItem::createIRangedDistribution(double scale) const {
+    return ::createIRangedDistribution<RangedDistributionCosine>(*this, scale);
 }
 
 double DistributionCosineItem::deviation(double scale) const {
@@ -330,8 +330,8 @@ void DistributionTrapezoidItem::showMean(bool flag) {
 
 namespace {
 template <class DistrType>
-std::unique_ptr<RangedDistribution>
-createRangedDistribution(const SymmetricDistributionItem& distr_item, double scale) {
+std::unique_ptr<IRangedDistribution>
+createIRangedDistribution(const SymmetricDistributionItem& distr_item, double scale) {
     int n_samples = distr_item.getItemValue(SymmetricDistributionItem::P_NUMBER_OF_SAMPLES).toInt();
     double n_sig = distr_item.getItemValue(SymmetricDistributionItem::P_SIGMA_FACTOR).toDouble();
 

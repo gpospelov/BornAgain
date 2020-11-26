@@ -26,9 +26,8 @@ GISASSimulation::GISASSimulation() {
 
 void GISASSimulation::prepareSimulation() {
     if (instrument().getDetectorDimension() != 2)
-        throw Exceptions::LogicErrorException(
-            "GISASSimulation::prepareSimulation() "
-            "-> Error. The detector was not properly configured.");
+        throw std::runtime_error("GISASSimulation::prepareSimulation() "
+                                 "-> Error. The detector was not properly configured.");
     instrument().initDetector();
     ISimulation2D::prepareSimulation();
 }
@@ -42,7 +41,7 @@ SimulationResult GISASSimulation::result() const {
 
 void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i) {
     if (wavelength <= 0.0)
-        throw Exceptions::ClassInitializationException(
+        throw std::runtime_error(
             "ISimulation::setBeamParameters() -> Error. Incoming wavelength <= 0.");
     instrument().setBeamParameters(wavelength, alpha_i, phi_i);
 }

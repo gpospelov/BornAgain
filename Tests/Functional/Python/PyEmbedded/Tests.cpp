@@ -367,15 +367,15 @@ TEST_F(PyEmbedded, ExportToPythonAndBack) {
     std::stringstream snippet;
     snippet << pyfmt::scriptPreamble() << code;
 
-    auto multilayer = PyImport::createFromPython(snippet.str(), pyfmt::getSampleFunctionName(),
-                                                 BABuild::buildLibDir());
+    auto multilayer =
+        PyImport::createFromPython(snippet.str(), "get_sample", BABuild::buildLibDir());
     auto new_code = ExportToPython::generateSampleCode(*multilayer);
 
     EXPECT_TRUE(code == new_code);
 }
 
 //! Retrieves list of functions from the imported script and checks, that there is
-//! one function in a dictioonary with name "get_simulation".
+//! one function in a dictionary with name "get_simulation".
 
 TEST_F(PyEmbedded, ModuleFunctionsList) {
     // compile our function

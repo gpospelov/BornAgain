@@ -46,8 +46,8 @@ void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis& alpha_
                                           double phi_i) {
     m_alpha_i_axis.reset(alpha_axis.clone());
     if (alpha_axis.size() < 1)
-        throw Exceptions::ClassInitializationException("OffSpecSimulation::prepareSimulation() "
-                                                       "-> Error. Incoming alpha range size < 1.");
+        throw std::runtime_error("OffSpecSimulation::prepareSimulation() "
+                                 "-> Error. Incoming alpha range size < 1.");
     const double alpha_zero = alpha_axis.lowerBound();
     instrument().setBeamParameters(wavelength, alpha_zero, phi_i);
     updateIntensityMap();
@@ -116,7 +116,7 @@ void OffSpecSimulation::transferResultsToIntensityMap() {
     const IAxis& phi_axis = instrument().getDetectorAxis(0);
     size_t phi_f_size = phi_axis.size();
     if (phi_f_size * m_intensity_map.getAllocatedSize() != m_sim_elements.size())
-        throw Exceptions::RuntimeErrorException(
+        throw std::runtime_error(
             "OffSpecSimulation::transferResultsToIntensityMap: "
             "intensity map size does not conform to number of calculated intensities");
     for (size_t i = 0; i < m_alpha_i_axis->size(); ++i)
@@ -149,10 +149,10 @@ void OffSpecSimulation::transferDetectorImage(size_t index) {
 
 void OffSpecSimulation::checkInitialization() const {
     if (!m_alpha_i_axis || m_alpha_i_axis->size() < 1)
-        throw Exceptions::ClassInitializationException("OffSpecSimulation::checkInitialization() "
-                                                       "Incoming alpha range not configured.");
+        throw std::runtime_error("OffSpecSimulation::checkInitialization() "
+                                 "Incoming alpha range not configured.");
     if (instrument().getDetectorDimension() != 2)
-        throw Exceptions::RuntimeErrorException(
+        throw std::runtime_error(
             "OffSpecSimulation::checkInitialization: detector is not two-dimensional");
 }
 

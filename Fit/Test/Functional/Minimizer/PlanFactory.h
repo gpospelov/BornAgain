@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_PLANFACTORY_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_PLANFACTORY_H
+#ifndef BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_PLANFACTORY_H
+#define BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_PLANFACTORY_H
 
 #include "Fit/TestEngine/IFactory.h"
 #include "Fit/TestEngine/MinimizerTestPlan.h"
@@ -25,4 +25,4 @@ public:
     PlanFactory();
 };
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_PLANFACTORY_H
+#endif // BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_PLANFACTORY_H

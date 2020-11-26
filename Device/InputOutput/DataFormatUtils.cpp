@@ -84,15 +84,15 @@ std::unique_ptr<IAxis> DataFormatUtils::createAxis(std::istream& input_stream) {
     auto iss = getAxisStringRepresentation(input_stream);
     std::string type;
     if (!(iss >> type))
-        throw Exceptions::FormatErrorException(
+        throw std::runtime_error(
             "Error in DataFormatUtils::createAxis:: couldn't read axis type from input");
 
     for (auto iter = type_map.cbegin(); iter != type_map.end(); ++iter)
         if (iter->first == type)
             return iter->second(std::move(iss));
-    throw Exceptions::LogicErrorException("Error in DataFormatUtils::createAxis:"
-                                          "Unknown axis type '"
-                                          + type + "'");
+    throw std::runtime_error("Error in DataFormatUtils::createAxis:"
+                             "Unknown axis type '"
+                             + type + "'");
 }
 
 //! Fills output data raw buffer from input stream
@@ -113,8 +113,7 @@ void DataFormatUtils::fillOutputData(OutputData<double>* data, std::istream& inp
         }
     }
     if (it != data->end())
-        throw Exceptions::FormatErrorException(
-            "DataFormatUtils::fillOutputData() -> Error while parsing data.");
+        throw std::runtime_error("DataFormatUtils::fillOutputData() -> Error while parsing data.");
 }
 
 //! Parse double values from string to vector of double
@@ -159,15 +158,13 @@ template <class Axis> std::unique_ptr<IAxis> createFixedBinLikeAxis(std::istring
     std::string name;
     size_t nbins(0);
     if (!(iss >> name >> nbins))
-        throw Exceptions::FormatErrorException(
-            "createFixedBinLikeAxis() -> Error. Can't parse the string.");
+        throw std::runtime_error("createFixedBinLikeAxis() -> Error. Can't parse the string.");
 
     std::vector<double> boundaries;
     DataFormatUtils::readLineOfDoubles(boundaries, iss);
     if (boundaries.size() != 2)
-        throw Exceptions::FormatErrorException(
-            "Error in createFixedBinLikeAxis: Can't parse the string while "
-            "reading boundaries.");
+        throw std::runtime_error("Error in createFixedBinLikeAxis: Can't parse the string while "
+                                 "reading boundaries.");
 
     return std::make_unique<Axis>(name, nbins, boundaries[0], boundaries[1]);
 }
@@ -178,13 +175,12 @@ std::unique_ptr<IAxis> createVariableBinAxis(std::istringstream iss) {
     std::string name;
     size_t nbins(0);
     if (!(iss >> name >> nbins))
-        throw Exceptions::FormatErrorException(
-            "Error in createVariableBinAxis: Can't parse the string.");
+        throw std::runtime_error("Error in createVariableBinAxis: Can't parse the string.");
 
     std::vector<double> boundaries;
     DataFormatUtils::readLineOfDoubles(boundaries, iss);
     if (boundaries.size() != nbins + 1)
-        throw Exceptions::FormatErrorException(
+        throw std::runtime_error(
             "Error in createVariableBinAxis: wrong number of boundaries read.");
 
     return std::make_unique<VariableBinAxis>(name, nbins, boundaries);
@@ -195,8 +191,7 @@ std::unique_ptr<IAxis> createVariableBinAxis(std::istringstream iss) {
 std::unique_ptr<IAxis> createPointwiseAxis(std::istringstream iss) {
     std::string name;
     if (!(iss >> name))
-        throw Exceptions::FormatErrorException(
-            "Error in createPointwiseAxis:Can't parse the string.");
+        throw std::runtime_error("Error in createPointwiseAxis:Can't parse the string.");
 
     std::vector<double> coordinates;
     DataFormatUtils::readLineOfDoubles(coordinates, iss);

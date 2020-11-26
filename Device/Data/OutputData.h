@@ -280,10 +280,9 @@ template <class T> OutputData<double>* OutputData<T>::meanValues() const {
 
 template <class T> void OutputData<T>::addAxis(const IAxis& new_axis) {
     if (axisNameExists(new_axis.getName()))
-        throw Exceptions::LogicErrorException(
-            "OutputData<T>::addAxis(const IAxis& new_axis) -> "
-            "Error! Attempt to add axis with already existing name '"
-            + new_axis.getName() + "'");
+        throw std::runtime_error("OutputData<T>::addAxis(const IAxis& new_axis) -> "
+                                 "Error! Attempt to add axis with already existing name '"
+                                 + new_axis.getName() + "'");
     if (new_axis.size() > 0) {
         m_value_axes.push_back(new_axis.clone());
         allocate();
@@ -293,10 +292,9 @@ template <class T> void OutputData<T>::addAxis(const IAxis& new_axis) {
 template <class T>
 void OutputData<T>::addAxis(const std::string& name, size_t size, double start, double end) {
     if (axisNameExists(name))
-        throw Exceptions::LogicErrorException(
-            "OutputData<T>::addAxis(std::string name) -> "
-            "Error! Attempt to add axis with already existing name '"
-            + name + "'");
+        throw std::runtime_error("OutputData<T>::addAxis(std::string name) -> "
+                                 "Error! Attempt to add axis with already existing name '"
+                                 + name + "'");
     FixedBinAxis new_axis(name, size, start, end);
     addAxis(new_axis);
 }
@@ -361,8 +359,8 @@ size_t OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axi
             return result;
         remainder /= m_value_axes[i_axis]->size();
     }
-    throw Exceptions::LogicErrorException("OutputData<T>::getAxisBinIndex() -> "
-                                          "Error! No axis with given number");
+    throw std::runtime_error("OutputData<T>::getAxisBinIndex() -> "
+                             "Error! No axis with given number");
 }
 
 template <class T>
@@ -374,9 +372,8 @@ template <class T>
 size_t OutputData<T>::toGlobalIndex(const std::vector<unsigned>& axes_indices) const {
     ASSERT(m_ll_data);
     if (axes_indices.size() != m_ll_data->rank())
-        throw Exceptions::LogicErrorException(
-            "size_t OutputData<T>::toGlobalIndex() -> "
-            "Error! Number of coordinates must match rank of data structure");
+        throw std::runtime_error("size_t OutputData<T>::toGlobalIndex() -> "
+                                 "Error! Number of coordinates must match rank of data structure");
     size_t result = 0;
     size_t step_size = 1;
     for (size_t i = m_ll_data->rank(); i > 0; --i) {
@@ -386,7 +383,7 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<unsigned>& axes_indices) c
             message << axes_indices[i - 1] << " is out of range. Axis ";
             message << m_value_axes[i - 1]->getName();
             message << " size " << m_value_axes[i - 1]->size() << ".\n";
-            throw Exceptions::LogicErrorException(message.str());
+            throw std::runtime_error(message.str());
         }
         result += axes_indices[i - 1] * step_size;
         step_size *= m_value_axes[i - 1]->size();
@@ -398,9 +395,8 @@ template <class T>
 size_t OutputData<T>::findGlobalIndex(const std::vector<double>& coordinates) const {
     ASSERT(m_ll_data);
     if (coordinates.size() != m_ll_data->rank())
-        throw Exceptions::LogicErrorException(
-            "OutputData<T>::findClosestIndex() -> "
-            "Error! Number of coordinates must match rank of data structure");
+        throw std::runtime_error("OutputData<T>::findClosestIndex() -> "
+                                 "Error! Number of coordinates must match rank of data structure");
     std::vector<unsigned> axes_indexes;
     axes_indexes.resize(m_ll_data->rank());
     for (size_t i = 0; i < m_ll_data->rank(); ++i)
@@ -450,14 +446,14 @@ template <class T> void OutputData<T>::clear() {
 
 template <class T> void OutputData<T>::setAllTo(const T& value) {
     if (!m_ll_data)
-        throw Exceptions::ClassInitializationException(
+        throw std::runtime_error(
             "OutputData::setAllTo() -> Error! Low-level data object was not yet initialized.");
     m_ll_data->setAll(value);
 }
 
 template <class T> void OutputData<T>::scaleAll(const T& factor) {
     if (!m_ll_data)
-        throw Exceptions::ClassInitializationException(
+        throw std::runtime_error(
             "OutputData::scaleAll() -> Error! Low-level data object was not yet initialized.");
     m_ll_data->scaleAll(factor);
 }
@@ -521,7 +517,7 @@ template <class T> void OutputData<T>::allocate() {
 
 template <class T> inline void OutputData<T>::setRawDataVector(const std::vector<T>& data_vector) {
     if (data_vector.size() != getAllocatedSize())
-        throw Exceptions::RuntimeErrorException(
+        throw std::runtime_error(
             "OutputData<T>::setRawDataVector() -> Error! "
             "setRawDataVector can only be called with a data vector of the correct size.");
     for (size_t i = 0; i < getAllocatedSize(); ++i)
@@ -572,9 +568,9 @@ template <class T> size_t OutputData<T>::getAxisIndex(const std::string& axis_na
     for (size_t i = 0; i < m_value_axes.size(); ++i)
         if (m_value_axes[i]->getName() == axis_name)
             return i;
-    throw Exceptions::LogicErrorException("OutputData<T>::getAxisIndex() -> "
-                                          "Error! Axis with given name not found '"
-                                          + axis_name + "'");
+    throw std::runtime_error("OutputData<T>::getAxisIndex() -> "
+                             "Error! Axis with given name not found '"
+                             + axis_name + "'");
 }
 
 template <class T> bool OutputData<T>::axisNameExists(const std::string& axis_name) const {

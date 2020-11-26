@@ -260,7 +260,7 @@ TEST_F(RectangularDetectorTest, AnalyzerProperties) {
 
     // if direction is the zero vector, an exception is thrown
     EXPECT_THROW(detector.setAnalyzerProperties(direction, efficiency, total_transmission),
-                 Exceptions::ClassInitializationException);
+                 std::runtime_error);
 
     // zero efficiency
     direction = kvector_t(1.0, 0.0, 0.0);

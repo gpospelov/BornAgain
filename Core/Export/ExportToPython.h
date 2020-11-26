@@ -26,7 +26,6 @@ namespace ExportToPython {
 
 std::string generateSampleCode(const MultiLayer& multilayer);
 std::string generateSimulationCode(const ISimulation& simulation);
-std::string generatePyExportTest(const ISimulation& simulation);
 
 } // namespace ExportToPython
 

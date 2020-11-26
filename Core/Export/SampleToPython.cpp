@@ -16,8 +16,8 @@
 #include "Base/Utils/PyFmt.h"
 #include "Base/Vector/Transform3D.h"
 #include "Core/Export/INodeUtils.h"
+#include "Core/Export/PyFmt2.h"
 #include "Core/Export/SampleLabelHandler.h"
-#include "Device/Instrument/PyFmt2.h"
 #include "Param/Varia/ParameterUtils.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Aggregate/ParticleLayout.h"
@@ -85,12 +85,11 @@ SampleToPython::SampleToPython() = default;
 SampleToPython::~SampleToPython() = default;
 
 std::string SampleToPython::defineGetSample() const {
-    return "def " + pyfmt::getSampleFunctionName() + "():\n" + defineMaterials() + defineLayers()
-           + defineFormFactors() + defineParticles() + defineCoreShellParticles()
-           + defineParticleCompositions() + defineLattices2D() + defineLattices3D()
-           + defineCrystals() + defineMesoCrystals() + defineParticleDistributions()
-           + defineInterferenceFunctions() + defineParticleLayouts() + defineRoughnesses()
-           + addLayoutsToLayers() + defineMultiLayers() + "\n\n";
+    return "def get_sample():\n" + defineMaterials() + defineLayers() + defineFormFactors()
+           + defineParticles() + defineCoreShellParticles() + defineParticleCompositions()
+           + defineLattices2D() + defineLattices3D() + defineCrystals() + defineMesoCrystals()
+           + defineParticleDistributions() + defineInterferenceFunctions() + defineParticleLayouts()
+           + defineRoughnesses() + addLayoutsToLayers() + defineMultiLayers() + "\n\n";
 }
 
 const std::map<MATERIAL_TYPES, std::string> factory_names{
@@ -478,7 +477,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
                    << pyfmt::printDouble(lattice_hd->density()) << ")\n";
 
         } else
-            throw Exceptions::NotImplementedException(
+            throw std::runtime_error(
                 "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
                 "IInterferenceFunction "
                 + interference->getName());

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Instrument/PyFmt2.h
+//! @file      Core/Export/PyFmt2.h
 //! @brief     Defines namespace pyfmt2.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -21,8 +21,9 @@
 class IDistribution1D;
 class IParameterized;
 class IShape2D;
-class RealParameter;
 class ParameterDistribution;
+class IRangedDistribution;
+class RealParameter;
 
 //! Utility functions for writing Python code snippets.
 
@@ -39,6 +40,9 @@ std::string printDistribution(const IDistribution1D& par_distr, const std::strin
 std::string printParameterDistribution(const ParameterDistribution& par_distr,
                                        const std::string& distVarName,
                                        const std::string& units = "");
+
+std::string printRangedDistribution(const IRangedDistribution& distr);
+
 } // namespace pyfmt2
 
 #endif // BORNAGAIN_DEVICE_INSTRUMENT_PYFMT2_H

@@ -15,7 +15,6 @@
 #include "Sample/HardParticle/FormFactorCuboctahedron.h"
 #include "Base/Math/Constants.h"
 #include "Base/Math/Functions.h"
-#include "Base/Types/Exceptions.h"
 #include "Sample/HardParticle/FormFactorPyramid.h"
 
 const PolyhedralTopology FormFactorCuboctahedron::topology = {{{{3, 2, 1, 0}, true},
@@ -75,7 +74,7 @@ IFormFactor* FormFactorCuboctahedron::sliceFormFactor(ZLimits limits, const IRot
 void FormFactorCuboctahedron::onChange() {
     double cot_alpha = Math::cot(m_alpha);
     if (!std::isfinite(cot_alpha) || cot_alpha < 0)
-        throw Exceptions::OutOfBoundsException("pyramid angle alpha out of bounds");
+        throw std::runtime_error("pyramid angle alpha out of bounds");
     double x = m_height_ratio;
     double r = cot_alpha * 2 * m_height / m_length;
     if (std::max(1., x) * r > 1) {
@@ -86,7 +85,7 @@ void FormFactorCuboctahedron::onChange() {
         ostr << " height_ratio:" << m_height_ratio;
         ostr << " alpha[rad]:" << m_alpha << "\n\n";
         ostr << "Check for '2.*height <= length*tan(alpha)*min(1.,1.0/height_ratio)' failed.";
-        throw Exceptions::ClassInitializationException(ostr.str());
+        throw std::runtime_error(ostr.str());
     }
 
     double a = m_length / 2 * (1 - r);

@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_CLASSICALTESTFUNCTIONS_H
-#define BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_CLASSICALTESTFUNCTIONS_H
+#ifndef BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_CLASSICALTESTFUNCTIONS_H
+#define BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_CLASSICALTESTFUNCTIONS_H
 
 #include <vector>
 
@@ -28,4 +28,4 @@ double WoodFour(const std::vector<double>& par);
 double DecayingSin(double x, const std::vector<double>& par);
 } // namespace TestFunctions
 
-#endif // BORNAGAIN_TESTS_FUNCTIONAL_FIT_MINIMIZER_CLASSICALTESTFUNCTIONS_H
+#endif // BORNAGAIN_FIT_TEST_FUNCTIONAL_MINIMIZER_CLASSICALTESTFUNCTIONS_H

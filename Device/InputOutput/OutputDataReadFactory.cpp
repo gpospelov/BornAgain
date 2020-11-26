@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Device/InputOutput/OutputDataReadFactory.h"
-#include "Base/Types/Exceptions.h"
 #include "Device/InputOutput/DataFormatUtils.h"
 
 OutputDataReader* OutputDataReadFactory::getReader(const std::string& file_name) {

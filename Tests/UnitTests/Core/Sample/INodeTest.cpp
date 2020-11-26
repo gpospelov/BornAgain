@@ -1,5 +1,4 @@
 #include "Param/Node/INode.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Node/NodeUtils.h"
@@ -122,7 +121,7 @@ TEST_F(INodeTest, nodePath) {
     EXPECT_EQ(NodeUtils::nodePath(*grandchild, child0), "/grandchild");
 
     // Check if exception is thrown when grandchild doesn't belong to child's branch
-    EXPECT_THROW(NodeUtils::nodePath(*grandchild, child1), Exceptions::RuntimeErrorException);
+    EXPECT_THROW(NodeUtils::nodePath(*grandchild, child1), std::runtime_error);
 }
 
 //! Checking parameter tree for INode structure.

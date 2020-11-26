@@ -15,28 +15,15 @@
 #include "Core/Export/ExportToPython.h"
 #include "Core/Export/SampleToPython.h"
 #include "Core/Export/SimulationToPython.h"
-#include "Core/Simulation/GISASSimulation.h"
-
-namespace {
-std::string simulationCode(const ISimulation& simulation,
-                           SimulationToPython::EMainType mainFunctionType) {
-    std::unique_ptr<ISimulation> sim(simulation.clone());
-    sim->prepareSimulation();
-
-    SimulationToPython generator;
-    return generator.generateSimulationCode(*sim, mainFunctionType);
-}
-} // namespace
+#include "Core/Simulation/ISimulation.h"
 
 std::string ExportToPython::generateSampleCode(const MultiLayer& multilayer) {
-    SampleToPython generator;
-    return generator.generateSampleCode(multilayer);
+    return SampleToPython().generateSampleCode(multilayer);
 }
 
 std::string ExportToPython::generateSimulationCode(const ISimulation& simulation) {
-    return simulationCode(simulation, SimulationToPython::RUN_SIMULATION);
-}
+    std::unique_ptr<ISimulation> sim(simulation.clone());
+    sim->prepareSimulation();
 
-std::string ExportToPython::generatePyExportTest(const ISimulation& simulation) {
-    return simulationCode(simulation, SimulationToPython::SAVE_DATA);
+    return SimulationToPython().generateSimulationCode(*sim);
 }

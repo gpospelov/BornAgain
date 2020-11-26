@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Sample/Scattering/ISample.h"
-#include "Base/Types/Exceptions.h"
 #include "Param/Base/ParameterPool.h"
 #include "Sample/Material/Material.h"
 #include <algorithm>

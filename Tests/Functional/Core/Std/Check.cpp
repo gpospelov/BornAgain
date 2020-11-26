@@ -35,8 +35,8 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
     // Load reference if available.
     ASSERT(name != "");
     try {
-        const std::string refPath = FileSystemUtils::jointPath(
-            BATesting::ReferenceDir_Std(), name + ".int.gz");
+        const std::string refPath =
+            FileSystemUtils::jointPath(BATesting::ReferenceDir_Std(), name + ".int.gz");
         std::cout << "- reference: " << refPath << "\n";
         reference.reset(IntensityDataIOFactory::readOutputData(refPath));
     } catch (const std::exception&) {

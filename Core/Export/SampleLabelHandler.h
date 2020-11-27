@@ -65,7 +65,6 @@ public:
     crystals_t* crystalMap() { return &m_CrystalLabel; }
     formfactors_t* formFactorMap() { return &m_FormFactorLabel; }
     interferences_t* interferenceFunctionMap() { return &m_InterferenceFunctionLabel; }
-    layers_t* layerMap() { return &m_LayerLabel; }
     layouts_t* particleLayoutMap() { return &m_ParticleLayoutLabel; }
     materials_t* materialMap() { return &m_MaterialLabel; }
     lattices2D_t* lattice2DMap() { return &m_Lattice2DLabel; }
@@ -138,7 +137,7 @@ std::vector<const T*> SampleLabelHandler::objectsOfType() const {
     std::vector<const T*> ret;
     for (const ISample* s: m_objects)
         if (const auto* c = dynamic_cast<const T*>(s); c)
-            ret.push_back(c);
+            ret.emplace_back(c);
     return ret;
 }
 

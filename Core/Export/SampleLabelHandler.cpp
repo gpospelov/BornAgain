@@ -115,9 +115,6 @@ void SampleLabelHandler::insertLattice3D(const Lattice3D* sample) {
 }
 
 void SampleLabelHandler::insertLayer(const Layer* sample) {
-    std::string label = "layer_" + std::to_string(m_LayerLabel.size() + 1);
-    m_LayerLabel.insert(sample, label);
-
     m_objects.push_back((const ISample*)(sample));
 }
 

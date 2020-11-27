@@ -270,7 +270,7 @@ C++ includes: CloneableVector.h
 
 To integrate a complex function of a real variable.
 
-C++ includes: Integrator.h
+C++ includes: IntegratorGK.h
 ";
 
 %feature("docstring")  ComplexIntegrator::integrate "complex_t ComplexIntegrator::integrate(const std::function< complex_t(double)> &f, double lmin, double lmax)
@@ -799,7 +799,7 @@ Increments number of completed computation steps (ticks). Performs callback (met
 
 To integrate a real function of a real variable.
 
-C++ includes: Integrator.h
+C++ includes: IntegratorGK.h
 ";
 
 %feature("docstring")  RealIntegrator::RealIntegrator "RealIntegrator::RealIntegrator()
@@ -1519,10 +1519,10 @@ global helper function for comparison of axes
 // File: Functions_8h.xml
 
 
-// File: Integrator_8cpp.xml
+// File: IntegratorGK_8cpp.xml
 
 
-// File: Integrator_8h.xml
+// File: IntegratorGK_8h.xml
 
 
 // File: IntegratorMCMiser_8h.xml

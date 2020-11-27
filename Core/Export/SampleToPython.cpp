@@ -139,11 +139,11 @@ SampleToPython::SampleToPython() = default;
 SampleToPython::~SampleToPython() = default;
 
 std::string SampleToPython::defineGetSample() const {
-    return "def get_sample():\n" + defineMaterials() + defineLayers() + defineFormFactors()
+    return "def get_sample():\n" + defineMaterials() + defineFormFactors()
            + defineParticles() + defineCoreShellParticles() + defineParticleCompositions()
            + defineLattices2D() + defineLattices3D() + defineCrystals() + defineMesoCrystals()
            + defineParticleDistributions() + defineInterferenceFunctions() + defineParticleLayouts()
-           + defineRoughnesses() + addLayoutsToLayers() + defineMultiLayers() + "\n\n";
+           + defineRoughnesses() + defineLayers() + defineMultiLayers() + "\n\n";
 }
 
 const std::map<MATERIAL_TYPES, std::string> factory_names{
@@ -203,6 +203,14 @@ std::string SampleToPython::defineLayers() const {
         result << ")\n";
         if (layer->numberOfSlices() != 1)
             result << indent() << it->second << ".setNumberOfSlices(" << layer->numberOfSlices()
+                   << ")\n";
+    }
+    result << std::setprecision(12);
+    const auto layermap = m_label->layerMap();
+    for (auto it = layermap->begin(); it != layermap->end(); ++it) {
+        const Layer* layer = it->first;
+        for (const auto* layout : layer->layouts())
+            result << indent() << it->second << ".addLayout(" << m_label->labelLayout(layout)
                    << ")\n";
     }
     return result.str();
@@ -585,23 +593,6 @@ std::string SampleToPython::defineRoughnesses() const {
     for (auto it = themap->begin(); it != themap->end(); ++it)
         result << indent() << it->second << " = ba.LayerRoughness("
                << pyfmt2::argumentList(it->first) << ")\n";
-    return result.str();
-}
-
-std::string SampleToPython::addLayoutsToLayers() const {
-    if (m_label->particleLayoutMap()->empty())
-        return "";
-    std::ostringstream result;
-    result << std::setprecision(12);
-    result << "\n" << indent() << "# Add layouts to layers";
-    const auto layermap = m_label->layerMap();
-    for (auto it = layermap->begin(); it != layermap->end(); ++it) {
-        const Layer* layer = it->first;
-        for (const auto* layout : layer->layouts())
-            result << "\n"
-                   << indent() << it->second << ".addLayout(" << m_label->labelLayout(layout)
-                   << ")\n";
-    }
     return result.str();
 }
 

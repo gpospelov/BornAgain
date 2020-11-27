@@ -49,7 +49,6 @@ private:
     std::string defineInterferenceFunctions() const;
     std::string defineParticleLayouts() const;
     std::string defineRoughnesses() const;
-    std::string addLayoutsToLayers() const;
     std::string defineMultiLayers() const;
 
     std::unique_ptr<SampleLabelHandler> m_label;

@@ -13,9 +13,9 @@
 //  ************************************************************************************************
 
 #include "Core/Export/SampleToPython.h"
-#include "Core/Export/PyFmt.h"
 #include "Base/Vector/Transform3D.h"
 #include "Core/Export/INodeUtils.h"
+#include "Core/Export/PyFmt.h"
 #include "Core/Export/PyFmt2.h"
 #include "Core/Export/SampleLabelHandler.h"
 #include "Param/Varia/ParameterUtils.h"
@@ -40,8 +40,10 @@ using pyfmt::indent;
 
 namespace {
 
+static const char layerName[] = "layer";
+
 void setRotationInformation(const IParticle* particle, std::string name,
-                                            std::ostringstream& result) {
+                            std::ostringstream& result) {
     if (particle->rotation()) {
         switch (particle->rotation()->getTransform3D().getRotationType()) {
         case Transform3D::EULER: {
@@ -76,7 +78,7 @@ void setRotationInformation(const IParticle* particle, std::string name,
 }
 
 void setPositionInformation(const IParticle* particle, std::string name,
-                                            std::ostringstream& result) {
+                            std::ostringstream& result) {
     kvector_t pos = particle->position();
     if (pos == kvector_t())
         return;
@@ -139,9 +141,9 @@ SampleToPython::SampleToPython() = default;
 SampleToPython::~SampleToPython() = default;
 
 std::string SampleToPython::defineGetSample() const {
-    return "def get_sample():\n" + defineMaterials() + defineFormFactors()
-           + defineParticles() + defineCoreShellParticles() + defineParticleCompositions()
-           + defineLattices2D() + defineLattices3D() + defineCrystals() + defineMesoCrystals()
+    return "def get_sample():\n" + defineMaterials() + defineFormFactors() + defineParticles()
+           + defineCoreShellParticles() + defineParticleCompositions() + defineLattices2D()
+           + defineLattices3D() + defineCrystals() + defineMesoCrystals()
            + defineParticleDistributions() + defineInterferenceFunctions() + defineParticleLayouts()
            + defineRoughnesses() + defineLayers() + defineMultiLayers() + "\n\n";
 }
@@ -194,10 +196,9 @@ std::string SampleToPython::defineLayers() const {
     std::ostringstream result;
     result << "\n" << indent() << "# Define layers\n";
     result << std::setprecision(12);
-    for (const Layer* layer: v) {
-        const std::string& label = m_label->labelLayer(layer);
-        result << indent() << label << " = ba.Layer("
-               << m_label->labelMaterial(layer->material());
+    for (const Layer* layer : v) {
+        const std::string& label = m_label->labelOfType<Layer, layerName>(layer);
+        result << indent() << label << " = ba.Layer(" << m_label->labelMaterial(layer->material());
         if (layer->thickness() != 0)
             result << ", " << pyfmt::printNm(layer->thickness());
         result << ")\n";
@@ -205,8 +206,7 @@ std::string SampleToPython::defineLayers() const {
             result << indent() << label << ".setNumberOfSlices(" << layer->numberOfSlices()
                    << ")\n";
         for (const auto* layout : layer->layouts())
-            result << indent() << label << ".addLayout(" << m_label->labelLayout(layout)
-                   << ")\n";
+            result << indent() << label << ".addLayout(" << m_label->labelLayout(layout) << ")\n";
     }
     return result.str();
 }
@@ -614,7 +614,7 @@ std::string SampleToPython::defineMultiLayers() const {
         size_t numberOfLayers = it->first->numberOfLayers();
         if (numberOfLayers) {
             result << indent() << it->second << ".addLayer("
-                   << m_label->labelLayer(it->first->layer(0)) << ")\n";
+                   << m_label->labelOfType<Layer, layerName>(it->first->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
@@ -622,11 +622,13 @@ std::string SampleToPython::defineMultiLayers() const {
                 if (m_label->layerRoughnessMap()->find(layerInterface->getRoughness())
                     == m_label->layerRoughnessMap()->end())
                     result << indent() << it->second << ".addLayer("
-                           << m_label->labelLayer(it->first->layer(layerIndex)) << ")\n";
+                           << m_label->labelOfType<Layer, layerName>(it->first->layer(layerIndex))
+                           << ")\n";
                 else
                     result << indent() << it->second << ".addLayerWithTopRoughness("
-                           << m_label->labelLayer(it->first->layer(layerIndex)) << ", "
-                           << m_label->labelRoughness(layerInterface->getRoughness()) << ")\n";
+                           << m_label->labelOfType<Layer, layerName>(it->first->layer(layerIndex))
+                           << ", " << m_label->labelRoughness(layerInterface->getRoughness())
+                           << ")\n";
                 layerIndex++;
             }
         }

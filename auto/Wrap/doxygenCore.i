@@ -1889,6 +1889,9 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::objectsOfType "std::vector< const T * > SampleLabelHandler::objectsOfType() const
 ";
 
+%feature("docstring")  SampleLabelHandler::labelOfType "std::string SampleLabelHandler::labelOfType(const T *s) const
+";
+
 
 // File: classSampleToPython.xml
 %feature("docstring") SampleToPython "

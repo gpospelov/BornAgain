@@ -108,8 +108,9 @@ public:
     void insertRotation(const IRotation* sample);
     void insertRoughness(const LayerRoughness* sample);
 
-    template<class T>
-    std::vector<const T*> objectsOfType() const;
+    template <class T> std::vector<const T*> objectsOfType() const;
+
+    template <class T, const char* S> std::string labelOfType(const T* s) const;
 
 private:
     crystals_t m_CrystalLabel;
@@ -132,12 +133,22 @@ private:
     std::vector<const ISample*> m_objects;
 };
 
-template<class T>
-std::vector<const T*> SampleLabelHandler::objectsOfType() const {
+template <class T> std::vector<const T*> SampleLabelHandler::objectsOfType() const {
     std::vector<const T*> ret;
-    for (const ISample* s: m_objects)
+    for (const ISample* s : m_objects)
         if (const auto* c = dynamic_cast<const T*>(s); c)
             ret.emplace_back(c);
+    return ret;
+}
+
+template <class T, const char* S> std::string SampleLabelHandler::labelOfType(const T* s) const {
+    std::vector<const T*> v = objectsOfType<T>();
+    const auto vpos = std::find(v.begin(), v.end(), s);
+    if (vpos == std::end(v))
+        throw std::runtime_error("BUG: object not found in SampleLabelHandler");
+    std::string ret = S;
+    if (v.size() > 1)
+        ret += "_" + std::to_string(vpos - v.begin() + 1);
     return ret;
 }
 

@@ -12,7 +12,7 @@
 #   @authors   J. Fisher, M. Ganeva, G. Pospelov, W. Van Herck, J. Wuttke
 """
 #  **************************************************************************  #
-from __future__ import print_function
+
 import bornagain as ba
 from bornagain import deg as deg
 try:  # workaround for build servers

@@ -188,29 +188,24 @@ std::string SampleToPython::defineMaterials() const {
 }
 
 std::string SampleToPython::defineLayers() const {
-    const auto* themap = m_label->layerMap();
-    if (themap->empty())
-        return "# No Layers.\n\n";
+    std::vector<const Layer*> v = m_label->objectsOfType<Layer>();
+    if (v.empty())
+        return "";
     std::ostringstream result;
-    result << std::setprecision(12);
     result << "\n" << indent() << "# Define layers\n";
-    for (auto it = themap->begin(); it != themap->end(); ++it) {
-        const Layer* layer = it->first;
-        result << indent() << it->second << " = ba.Layer("
+    result << std::setprecision(12);
+    for (const Layer* layer: v) {
+        const std::string& label = m_label->labelLayer(layer);
+        result << indent() << label << " = ba.Layer("
                << m_label->labelMaterial(layer->material());
         if (layer->thickness() != 0)
             result << ", " << pyfmt::printNm(layer->thickness());
         result << ")\n";
         if (layer->numberOfSlices() != 1)
-            result << indent() << it->second << ".setNumberOfSlices(" << layer->numberOfSlices()
+            result << indent() << label << ".setNumberOfSlices(" << layer->numberOfSlices()
                    << ")\n";
-    }
-    result << std::setprecision(12);
-    const auto layermap = m_label->layerMap();
-    for (auto it = layermap->begin(); it != layermap->end(); ++it) {
-        const Layer* layer = it->first;
         for (const auto* layout : layer->layouts())
-            result << indent() << it->second << ".addLayout(" << m_label->labelLayout(layout)
+            result << indent() << label << ".addLayout(" << m_label->labelLayout(layout)
                    << ")\n";
     }
     return result.str();
@@ -262,8 +257,7 @@ std::string SampleToPython::defineCoreShellParticles() const {
     result << "\n" << indent() << "# Define core shell particles\n";
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const ParticleCoreShell* coreshell = it->first;
-        result << "\n"
-               << indent() << it->second << " = ba.ParticleCoreShell("
+        result << indent() << it->second << " = ba.ParticleCoreShell("
                << m_label->labelParticle(coreshell->shellParticle()) << ", "
                << m_label->labelParticle(coreshell->coreParticle()) << ")\n";
         std::string core_shell_name = it->second;

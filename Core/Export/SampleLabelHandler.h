@@ -16,6 +16,7 @@
 #define BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
 
 #include "Core/Export/OrderedMap.h"
+#include <vector>
 
 class Crystal;
 class IAbstractParticle;
@@ -23,6 +24,7 @@ class IFormFactor;
 class IInterferenceFunction;
 class ParticleLayout;
 class Material;
+class ISample;
 class IRotation;
 class Lattice2D;
 class Lattice3D;
@@ -107,6 +109,9 @@ public:
     void insertRotation(const IRotation* sample);
     void insertRoughness(const LayerRoughness* sample);
 
+    template<class T>
+    std::vector<const T*> objectsOfType() const;
+
 private:
     crystals_t m_CrystalLabel;
     formfactors_t m_FormFactorLabel;
@@ -124,6 +129,17 @@ private:
     particlescoreshell_t m_ParticleCoreShellLabel;
     rotations_t m_RotationsLabel;
     roughnesses_t m_LayerRoughnessLabel;
+
+    std::vector<const ISample*> m_objects;
 };
+
+template<class T>
+std::vector<const T*> SampleLabelHandler::objectsOfType() const {
+    std::vector<const T*> ret;
+    for (const ISample* s: m_objects)
+        if (const auto* c = dynamic_cast<const T*>(s); c)
+            ret.push_back(c);
+    return ret;
+}
 
 #endif // BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H

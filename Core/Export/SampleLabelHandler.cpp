@@ -15,6 +15,7 @@
 #include "Core/Export/SampleLabelHandler.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Multilayer/MultiLayer.h"
+#include "Sample/Multilayer/Layer.h"
 #include "Sample/Particle/MesoCrystal.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleComposition.h"
@@ -36,7 +37,14 @@ std::string SampleLabelHandler::labelInterferenceFunction(const IInterferenceFun
 }
 
 std::string SampleLabelHandler::labelLayer(const Layer* layer) {
-    return m_LayerLabel[layer];
+    std::vector<const Layer*> v = objectsOfType<Layer>();
+    const auto vpos = std::find(v.begin(), v.end(), layer);
+    if (vpos == std::end(v))
+        throw std::runtime_error("BUG: object not found in SampleLabelHandler::labelLayer");
+    std::string ret = "layer";
+    if (v.size()>1)
+        ret += "_" + std::to_string(vpos-v.begin()+1);
+    return ret;
 }
 
 std::string SampleLabelHandler::labelLayout(const ParticleLayout* layout) {
@@ -109,6 +117,8 @@ void SampleLabelHandler::insertLattice3D(const Lattice3D* sample) {
 void SampleLabelHandler::insertLayer(const Layer* sample) {
     std::string label = "layer_" + std::to_string(m_LayerLabel.size() + 1);
     m_LayerLabel.insert(sample, label);
+
+    m_objects.push_back((const ISample*)(sample));
 }
 
 void SampleLabelHandler::insertLayout(const ParticleLayout* sample) {

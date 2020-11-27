@@ -1889,6 +1889,9 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::insertRoughness "void SampleLabelHandler::insertRoughness(const LayerRoughness *sample)
 ";
 
+%feature("docstring")  SampleLabelHandler::objectsOfType "std::vector< const T * > SampleLabelHandler::objectsOfType() const
+";
+
 
 // File: classSampleToPython.xml
 %feature("docstring") SampleToPython "

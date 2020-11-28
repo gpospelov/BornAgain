@@ -19,7 +19,6 @@
 #include "Core/Export/PyFmt.h"
 #include "Core/Export/PyFmt2.h"
 #include "Core/Export/ModelKeyHandler.h"
-#include "Param/Varia/ParameterUtils.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Lattice/Lattice2D.h"
@@ -37,7 +36,6 @@
 #include "Sample/Slice/LayerRoughness.h"
 #include <iomanip>
 #include <map>
-#include <set>
 
 using pyfmt::indent;
 
@@ -159,14 +157,11 @@ std::string SampleToPython::defineMaterials() const {
     result << indent() << "# Define materials\n";
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
-        const auto factory_name = factory_names.find(s->typeID());
-        if (factory_name == factory_names.cend())
-            throw std::runtime_error(
-                "Error in ExportToPython::defineMaterials(): unknown material type");
+        const std::string& factory_name = factory_names.at(s->typeID());
         const complex_t& data = s->materialData();
         if (s->isScalarMaterial()) {
             result << indent() << key << " = ba."
-                   << factory_name->second << "(\"" << s->getName() << "\", "
+                   << factory_name << "(\"" << s->getName() << "\", "
                    << pyfmt::printDouble(data.real()) << ", "
                    << pyfmt::printDouble(data.imag()) << ")\n";
         } else {
@@ -174,7 +169,7 @@ std::string SampleToPython::defineMaterials() const {
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ")\n";
             result << indent() << key << " = ba."
-                   << factory_name->second << "(\"" << s->getName();
+                   << factory_name << "(\"" << s->getName();
             result << "\", " << pyfmt::printDouble(data.real()) << ", "
                    << pyfmt::printDouble(data.imag()) << ", "
                    << "magnetic_field)\n";
@@ -431,8 +426,7 @@ std::string SampleToPython::defineParticleDistributions() const {
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define particles with parameter following a distribution\n";
-
-    int index(1);
+    int index = 1;
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
         const std::string units = s->mainUnits();

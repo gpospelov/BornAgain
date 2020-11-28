@@ -110,10 +110,11 @@ void SampleToPython::initLabels(const MultiLayer& multilayer) {
         m_objs->insertKeyedObject("roughness", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IFormFactor>(multilayer))
         m_objs->insertKeyedObject("ff", x);
-    for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleLayout>(multilayer))
-        m_objs->insertLayout(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IInterferenceFunction>(multilayer))
         m_objs->insertInterferenceFunction(x);
+//        m_objs->insertKeyedObject("iff", x);
+    for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleLayout>(multilayer))
+        m_objs->insertLayout(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Particle>(multilayer))
         m_objs->insertParticle(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleCoreShell>(multilayer))
@@ -235,6 +236,130 @@ std::string SampleToPython::defineFormFactors() const {
         const std::string& label = m_objs->obj2label(s);
         result << indent() << label << " = ba.FormFactor" << s->getName() << "("
                << pyfmt2::argumentList(s) << ")\n";
+    }
+    return result.str();
+}
+
+std::string SampleToPython::defineInterferenceFunctions() const {
+    const auto* themap = m_objs->interferenceFunctionMap();
+    if (themap->empty())
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Define interference functions\n";
+    for (auto it: *themap) {
+        const IInterferenceFunction* interference = it.first;
+        const std::string& key = it.second;
+
+        if (dynamic_cast<const InterferenceFunctionNone*>(interference))
+            result << indent() << key << " = ba.InterferenceFunctionNone()\n";
+
+        else if (const auto* iff =
+                     dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
+            result << indent() << key << " = ba.InterferenceFunction1DLattice("
+                   << pyfmt::printNm(iff->getLength()) << ", " << pyfmt::printDegrees(iff->getXi())
+                   << ")\n";
+
+            const auto* pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction1D>(*iff);
+
+            if (pdf->decayLength() != 0.0)
+                result << indent() << key << "_pdf  = ba." << pdf->getName() << "("
+                       << pyfmt2::argumentList(pdf) << ")\n"
+                       << indent() << key << ".setDecayFunction(" << key << "_pdf)\n";
+
+        } else if (const auto* iff =
+                       dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
+            result << indent() << key << " = ba.InterferenceFunctionRadialParaCrystal("
+                   << pyfmt::printNm(iff->peakDistance()) << ", "
+                   << pyfmt::printNm(iff->dampingLength()) << ")\n";
+
+            if (iff->kappa() != 0.0)
+                result << indent() << key << ".setKappa(" << pyfmt::printDouble(iff->kappa())
+                       << ")\n";
+
+            if (iff->domainSize() != 0.0)
+                result << indent() << key << ".setDomainSize("
+                       << pyfmt::printDouble(iff->domainSize()) << ")\n";
+
+            const auto* pdf = INodeUtils::OnlyChildOfType<IFTDistribution1D>(*iff);
+
+            if (pdf->omega() != 0.0)
+                result << indent() << key << "_pdf  = ba." << pdf->getName() << "("
+                       << pyfmt2::argumentList(pdf) << ")\n"
+                       << indent() << key << ".setProbabilityDistribution(" << key
+                       << "_pdf)\n";
+
+        } else if (const auto* iff =
+                       dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
+            const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
+
+            result << indent() << key << " = ba.InterferenceFunction2DLattice("
+                   << m_objs->labelLattice2D(lattice) << ")\n";
+
+            const auto* pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction2D>(*iff);
+
+            result << indent() << key << "_pdf  = ba." << pdf->getName() << "("
+                   << pyfmt2::argumentList(pdf) << ")\n"
+                   << indent() << key << ".setDecayFunction(" << key << "_pdf)\n";
+
+            if (iff->integrationOverXi() == true)
+                result << indent() << key << ".setIntegrationOverXi(True)\n";
+
+        } else if (const auto* iff =
+                       dynamic_cast<const InterferenceFunctionFinite2DLattice*>(interference)) {
+            const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
+
+            result << indent() << key << " = ba.InterferenceFunctionFinite2DLattice("
+                   << m_objs->labelLattice2D(lattice) << ", " << iff->numberUnitCells1() << ", "
+                   << iff->numberUnitCells2() << ")\n";
+
+            if (iff->integrationOverXi() == true)
+                result << indent() << key << ".setIntegrationOverXi(True)\n";
+
+        } else if (const auto* iff =
+                       dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
+            const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
+            std::vector<double> domainSize = iff->domainSizes();
+
+            result << indent() << key << " = ba.InterferenceFunction2DParaCrystal("
+                   << m_objs->labelLattice2D(lattice) << ", "
+                   << pyfmt::printNm(iff->dampingLength()) << ", " << pyfmt::printNm(domainSize[0])
+                   << ", " << pyfmt::printNm(domainSize[1]) << ")\n";
+
+            if (iff->integrationOverXi() == true)
+                result << indent() << key << ".setIntegrationOverXi(True)\n";
+
+            const auto pdf_vector = INodeUtils::ChildNodesOfType<IFTDistribution2D>(*iff);
+            if (pdf_vector.size() != 2)
+                continue;
+            const IFTDistribution2D* pdf = pdf_vector[0];
+
+            result << indent() << key << "_pdf_1  = ba." << pdf->getName() << "("
+                   << pyfmt2::argumentList(pdf) << ")\n";
+
+            pdf = pdf_vector[1];
+
+            result << indent() << key << "_pdf_2  = ba." << pdf->getName() << "("
+                   << pyfmt2::argumentList(pdf) << ")\n";
+            result << indent() << key << ".setProbabilityDistributions(" << key
+                   << "_pdf_1, " << key << "_pdf_2)\n";
+
+        } else if (const auto* lattice_hd =
+                       dynamic_cast<const InterferenceFunctionHardDisk*>(interference)) {
+            result << indent() << key << " = ba.InterferenceFunctionHardDisk("
+                   << pyfmt::printNm(lattice_hd->radius()) << ", "
+                   << pyfmt::printDouble(lattice_hd->density()) << ")\n";
+
+        } else
+            throw std::runtime_error(
+                "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
+                "IInterferenceFunction "
+                + interference->getName());
+
+        if (interference->positionVariance() > 0.0) {
+            result << indent() << key << ".setPositionVariance("
+                   << pyfmt::printNm2(interference->positionVariance()) << ")\n";
+        }
     }
     return result.str();
 }
@@ -375,13 +500,13 @@ std::string SampleToPython::defineLattices3D() const {
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define 3D lattices\n";
-    for (auto it = themap->begin(); it != themap->end(); ++it) {
-        const Lattice3D* lattice = it->first;
-        std::string lattice_name = it->second;
-        kvector_t bas_a = lattice->getBasisVectorA();
-        kvector_t bas_b = lattice->getBasisVectorB();
-        kvector_t bas_c = lattice->getBasisVectorC();
-        result << indent() << lattice_name << " = ba.Lattice3D(\n";
+    for (auto it: *themap) {
+        const Lattice3D* s = it.first;
+        const std::string& key = it.second;
+        kvector_t bas_a = s->getBasisVectorA();
+        kvector_t bas_b = s->getBasisVectorB();
+        kvector_t bas_c = s->getBasisVectorC();
+        result << indent() << key << " = ba.Lattice3D(\n";
         result << indent() << indent() << "ba.kvector_t(" << pyfmt::printNm(bas_a.x()) << ", "
                << pyfmt::printNm(bas_a.y()) << ", " << pyfmt::printNm(bas_a.z()) << "),\n";
         result << indent() << indent() << "ba.kvector_t(" << pyfmt::printNm(bas_b.x()) << ", "
@@ -436,129 +561,6 @@ std::string SampleToPython::defineMesoCrystals() const {
     return result.str();
 }
 
-std::string SampleToPython::defineInterferenceFunctions() const {
-    const auto* themap = m_objs->interferenceFunctionMap();
-    if (themap->empty())
-        return "";
-    std::ostringstream result;
-    result << std::setprecision(12);
-    result << "\n" << indent() << "# Define interference functions\n";
-    for (auto it = themap->begin(); it != themap->end(); ++it) {
-        const IInterferenceFunction* interference = it->first;
-
-        if (dynamic_cast<const InterferenceFunctionNone*>(interference))
-            result << indent() << it->second << " = ba.InterferenceFunctionNone()\n";
-
-        else if (const auto* iff =
-                     dynamic_cast<const InterferenceFunction1DLattice*>(interference)) {
-            result << indent() << it->second << " = ba.InterferenceFunction1DLattice("
-                   << pyfmt::printNm(iff->getLength()) << ", " << pyfmt::printDegrees(iff->getXi())
-                   << ")\n";
-
-            const auto* pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction1D>(*iff);
-
-            if (pdf->decayLength() != 0.0)
-                result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
-                       << pyfmt2::argumentList(pdf) << ")\n"
-                       << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
-
-        } else if (const auto* iff =
-                       dynamic_cast<const InterferenceFunctionRadialParaCrystal*>(interference)) {
-            result << indent() << it->second << " = ba.InterferenceFunctionRadialParaCrystal("
-                   << pyfmt::printNm(iff->peakDistance()) << ", "
-                   << pyfmt::printNm(iff->dampingLength()) << ")\n";
-
-            if (iff->kappa() != 0.0)
-                result << indent() << it->second << ".setKappa(" << pyfmt::printDouble(iff->kappa())
-                       << ")\n";
-
-            if (iff->domainSize() != 0.0)
-                result << indent() << it->second << ".setDomainSize("
-                       << pyfmt::printDouble(iff->domainSize()) << ")\n";
-
-            const auto* pdf = INodeUtils::OnlyChildOfType<IFTDistribution1D>(*iff);
-
-            if (pdf->omega() != 0.0)
-                result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
-                       << pyfmt2::argumentList(pdf) << ")\n"
-                       << indent() << it->second << ".setProbabilityDistribution(" << it->second
-                       << "_pdf)\n";
-
-        } else if (const auto* iff =
-                       dynamic_cast<const InterferenceFunction2DLattice*>(interference)) {
-            const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
-
-            result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
-                   << m_objs->labelLattice2D(lattice) << ")\n";
-
-            const auto* pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction2D>(*iff);
-
-            result << indent() << it->second << "_pdf  = ba." << pdf->getName() << "("
-                   << pyfmt2::argumentList(pdf) << ")\n"
-                   << indent() << it->second << ".setDecayFunction(" << it->second << "_pdf)\n";
-
-            if (iff->integrationOverXi() == true)
-                result << indent() << it->second << ".setIntegrationOverXi(True)\n";
-
-        } else if (const auto* iff =
-                       dynamic_cast<const InterferenceFunctionFinite2DLattice*>(interference)) {
-            const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
-
-            result << indent() << it->second << " = ba.InterferenceFunctionFinite2DLattice("
-                   << m_objs->labelLattice2D(lattice) << ", " << iff->numberUnitCells1() << ", "
-                   << iff->numberUnitCells2() << ")\n";
-
-            if (iff->integrationOverXi() == true)
-                result << indent() << it->second << ".setIntegrationOverXi(True)\n";
-
-        } else if (const auto* iff =
-                       dynamic_cast<const InterferenceFunction2DParaCrystal*>(interference)) {
-            const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
-            std::vector<double> domainSize = iff->domainSizes();
-
-            result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
-                   << m_objs->labelLattice2D(lattice) << ", "
-                   << pyfmt::printNm(iff->dampingLength()) << ", " << pyfmt::printNm(domainSize[0])
-                   << ", " << pyfmt::printNm(domainSize[1]) << ")\n";
-
-            if (iff->integrationOverXi() == true)
-                result << indent() << it->second << ".setIntegrationOverXi(True)\n";
-
-            const auto pdf_vector = INodeUtils::ChildNodesOfType<IFTDistribution2D>(*iff);
-            if (pdf_vector.size() != 2)
-                continue;
-            const IFTDistribution2D* pdf = pdf_vector[0];
-
-            result << indent() << it->second << "_pdf_1  = ba." << pdf->getName() << "("
-                   << pyfmt2::argumentList(pdf) << ")\n";
-
-            pdf = pdf_vector[1];
-
-            result << indent() << it->second << "_pdf_2  = ba." << pdf->getName() << "("
-                   << pyfmt2::argumentList(pdf) << ")\n";
-            result << indent() << it->second << ".setProbabilityDistributions(" << it->second
-                   << "_pdf_1, " << it->second << "_pdf_2)\n";
-
-        } else if (const auto* lattice_hd =
-                       dynamic_cast<const InterferenceFunctionHardDisk*>(interference)) {
-            result << indent() << it->second << " = ba.InterferenceFunctionHardDisk("
-                   << pyfmt::printNm(lattice_hd->radius()) << ", "
-                   << pyfmt::printDouble(lattice_hd->density()) << ")\n";
-
-        } else
-            throw std::runtime_error(
-                "Bug: ExportToPython::defineInterferenceFunctions() called with unexpected "
-                "IInterferenceFunction "
-                + interference->getName());
-
-        if (interference->positionVariance() > 0.0) {
-            result << indent() << it->second << ".setPositionVariance("
-                   << pyfmt::printNm2(interference->positionVariance()) << ")\n";
-        }
-    }
-    return result.str();
-}
-
 std::string SampleToPython::defineParticleLayouts() const {
     const auto* themap = m_objs->particleLayoutMap();
     if (themap->empty())
@@ -566,26 +568,24 @@ std::string SampleToPython::defineParticleLayouts() const {
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define particle layouts and adding particles\n";
-    for (auto it = themap->begin(); it != themap->end(); ++it) {
-        const ParticleLayout* iLayout = it->first;
-        if (const ParticleLayout* particleLayout = dynamic_cast<const ParticleLayout*>(iLayout)) {
-            result << indent() << it->second << " = ba.ParticleLayout()\n";
-            const auto particles = INodeUtils::ChildNodesOfType<IAbstractParticle>(*particleLayout);
-
-            for (const auto* particle : particles) {
-                double abundance = particle->abundance();
-                result << indent() << it->second << ".addParticle("
-                       << m_objs->labelParticle(particle) << ", " << pyfmt::printDouble(abundance)
-                       << ")\n";
-            }
-            if (const auto* iff =
-                    INodeUtils::OnlyChildOfType<IInterferenceFunction>(*particleLayout))
-                result << indent() << it->second << ".setInterferenceFunction("
-                       << m_objs->labelInterferenceFunction(iff) << ")\n";
-            result << indent() << it->second << ".setWeight(" << particleLayout->weight() << ")\n";
-            result << indent() << it->second << ".setTotalParticleSurfaceDensity("
-                   << particleLayout->totalParticleSurfaceDensity() << ")\n";
+    for (auto it: *themap) {
+        const ParticleLayout* s = it.first;
+        const std::string& key = it.second;
+        result << indent() << key << " = ba.ParticleLayout()\n";
+        const auto particles = INodeUtils::ChildNodesOfType<IAbstractParticle>(*s);
+        for (const auto* particle : particles) {
+            double abundance = particle->abundance();
+            result << indent() << key << ".addParticle("
+                   << m_objs->labelParticle(particle) << ", " << pyfmt::printDouble(abundance)
+                   << ")\n";
         }
+        if (const auto* iff =
+            INodeUtils::OnlyChildOfType<IInterferenceFunction>(*s))
+            result << indent() << key << ".setInterferenceFunction("
+                   << m_objs->labelInterferenceFunction(iff) << ")\n";
+        result << indent() << key << ".setWeight(" << s->weight() << ")\n";
+        result << indent() << key << ".setTotalParticleSurfaceDensity("
+               << s->totalParticleSurfaceDensity() << ")\n";
     }
     return result.str();
 }
@@ -599,41 +599,41 @@ std::string SampleToPython::defineMultiLayers() const {
     result << "\n" << indent() << "# Define multilayers\n";
     for (auto it: *themap) {
         const MultiLayer* s = it.first;
-        const std::string& label = it.second;
-        result << indent() << label << " = ba.MultiLayer()\n";
+        const std::string& key = it.second;
+        result << indent() << key << " = ba.MultiLayer()\n";
         double ccl = s->crossCorrLength();
         if (ccl > 0.0)
-            result << indent() << label << ".setCrossCorrLength(" << ccl << ")\n";
+            result << indent() << key << ".setCrossCorrLength(" << ccl << ")\n";
         auto external_field = s->externalField();
         if (external_field.mag() > 0.0) {
-            std::string field_name = label + "_external_field";
+            std::string field_name = key + "_external_field";
             result << indent() << field_name << " = kvector_t("
                    << pyfmt::printScientificDouble(external_field.x()) << ", "
                    << pyfmt::printScientificDouble(external_field.y()) << ", "
                    << pyfmt::printScientificDouble(external_field.z()) << ")\n";
-            result << indent() << label << ".setExternalField(" << field_name << ")\n";
+            result << indent() << key << ".setExternalField(" << field_name << ")\n";
         }
         size_t numberOfLayers = s->numberOfLayers();
         if (numberOfLayers) {
-            result << indent() << label << ".addLayer("
+            result << indent() << key << ".addLayer("
                    << m_objs->obj2label(s->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
                 const LayerInterface* layerInterface = s->layerInterface(layerIndex - 1);
-                if (const LayerRoughness* rough = layerInterface->getRoughness(); rough)
-                    result << indent() << label << ".addLayerWithTopRoughness("
+                if (const LayerRoughness* rough = layerInterface->getRoughness())
+                    result << indent() << key << ".addLayerWithTopRoughness("
                            << m_objs->obj2label(s->layer(layerIndex))
                            << ", " << m_objs->obj2label(rough)
                            << ")\n";
                 else
-                    result << indent() << label << ".addLayer("
+                    result << indent() << key << ".addLayer("
                            << m_objs->obj2label(s->layer(layerIndex))
                            << ")\n";
                 layerIndex++;
             }
         }
-        result << "\n" << indent() << "return " << label << "\n";
+        result << "\n" << indent() << "return " << key << "\n";
     }
     return result.str();
 }

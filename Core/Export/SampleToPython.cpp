@@ -597,41 +597,43 @@ std::string SampleToPython::defineMultiLayers() const {
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define multilayers\n";
-    for (auto it = themap->begin(); it != themap->end(); ++it) {
-        result << indent() << it->second << " = ba.MultiLayer()\n";
-        double ccl = it->first->crossCorrLength();
+    for (auto it: *themap) {
+        const MultiLayer* s = it.first;
+        const std::string& label = it.second;
+        result << indent() << label << " = ba.MultiLayer()\n";
+        double ccl = s->crossCorrLength();
         if (ccl > 0.0)
-            result << indent() << it->second << ".setCrossCorrLength(" << ccl << ")\n";
-        auto external_field = it->first->externalField();
+            result << indent() << label << ".setCrossCorrLength(" << ccl << ")\n";
+        auto external_field = s->externalField();
         if (external_field.mag() > 0.0) {
-            std::string field_name = it->second + "_external_field";
+            std::string field_name = label + "_external_field";
             result << indent() << field_name << " = kvector_t("
                    << pyfmt::printScientificDouble(external_field.x()) << ", "
                    << pyfmt::printScientificDouble(external_field.y()) << ", "
                    << pyfmt::printScientificDouble(external_field.z()) << ")\n";
-            result << indent() << it->second << ".setExternalField(" << field_name << ")\n";
+            result << indent() << label << ".setExternalField(" << field_name << ")\n";
         }
-        size_t numberOfLayers = it->first->numberOfLayers();
+        size_t numberOfLayers = s->numberOfLayers();
         if (numberOfLayers) {
-            result << indent() << it->second << ".addLayer("
-                   << m_objs->obj2label(it->first->layer(0)) << ")\n";
+            result << indent() << label << ".addLayer("
+                   << m_objs->obj2label(s->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
-                const LayerInterface* layerInterface = it->first->layerInterface(layerIndex - 1);
+                const LayerInterface* layerInterface = s->layerInterface(layerIndex - 1);
                 if (const LayerRoughness* rough = layerInterface->getRoughness(); rough)
-                    result << indent() << it->second << ".addLayerWithTopRoughness("
-                           << m_objs->obj2label(it->first->layer(layerIndex))
+                    result << indent() << label << ".addLayerWithTopRoughness("
+                           << m_objs->obj2label(s->layer(layerIndex))
                            << ", " << m_objs->obj2label(rough)
                            << ")\n";
                 else
-                    result << indent() << it->second << ".addLayer("
-                           << m_objs->obj2label(it->first->layer(layerIndex))
+                    result << indent() << label << ".addLayer("
+                           << m_objs->obj2label(s->layer(layerIndex))
                            << ")\n";
                 layerIndex++;
             }
         }
-        result << "\n" << indent() << "return " << it->second << "\n";
+        result << "\n" << indent() << "return " << label << "\n";
     }
     return result.str();
 }

@@ -111,8 +111,7 @@ void SampleToPython::initLabels(const MultiLayer& multilayer) {
     for (const auto* x : INodeUtils::AllDescendantsOfType<IFormFactor>(multilayer))
         m_objs->insertKeyedObject("ff", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IInterferenceFunction>(multilayer))
-        m_objs->insertInterferenceFunction(x);
-//        m_objs->insertKeyedObject("iff", x);
+        m_objs->insertKeyedObject("iff", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleLayout>(multilayer))
         m_objs->insertLayout(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Particle>(multilayer))
@@ -241,15 +240,14 @@ std::string SampleToPython::defineFormFactors() const {
 }
 
 std::string SampleToPython::defineInterferenceFunctions() const {
-    const auto* themap = m_objs->interferenceFunctionMap();
-    if (themap->empty())
+    std::vector<const IInterferenceFunction*> v = m_objs->objectsOfType<IInterferenceFunction>();
+    if (v.empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define interference functions\n";
-    for (auto it: *themap) {
-        const IInterferenceFunction* s = it.first;
-        const std::string& key = it.second;
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
 
         if (dynamic_cast<const InterferenceFunctionNone*>(s))
             result << indent() << key << " = ba.InterferenceFunctionNone()\n";
@@ -583,7 +581,7 @@ std::string SampleToPython::defineParticleLayouts() const {
         if (const auto* iff =
             INodeUtils::OnlyChildOfType<IInterferenceFunction>(*s))
             result << indent() << key << ".setInterferenceFunction("
-                   << m_objs->labelInterferenceFunction(iff) << ")\n";
+                   << m_objs->obj2key(iff) << ")\n";
         result << indent() << key << ".setWeight(" << s->weight() << ")\n";
         result << indent() << key << ".setTotalParticleSurfaceDensity("
                << s->totalParticleSurfaceDensity() << ")\n";

@@ -21,7 +21,6 @@
 
 class Crystal;
 class IAbstractParticle;
-class IInterferenceFunction;
 class ParticleLayout;
 class Material;
 class ISample;
@@ -43,7 +42,6 @@ template <class Key> class LabelMap : public OrderedMap<Key, std::string> {};
 class SampleLabelHandler {
 public:
     typedef LabelMap<const Crystal*> crystals_t;
-    typedef LabelMap<const IInterferenceFunction*> interferences_t;
     typedef LabelMap<const ParticleLayout*> layouts_t;
     typedef LabelMap<const Material*> materials_t;
     typedef LabelMap<const Lattice2D*> lattices2D_t;
@@ -58,7 +56,6 @@ public:
 
     SampleLabelHandler() {}
     crystals_t* crystalMap() { return &m_CrystalLabel; }
-    interferences_t* interferenceFunctionMap() { return &m_InterferenceFunctionLabel; }
     layouts_t* particleLayoutMap() { return &m_ParticleLayoutLabel; }
     materials_t* materialMap() { return &m_MaterialLabel; }
     lattices2D_t* lattice2DMap() { return &m_Lattice2DLabel; }
@@ -72,7 +69,6 @@ public:
     rotations_t* rotationsMap() { return &m_RotationsLabel; }
 
     std::string labelCrystal(const Crystal* sample);
-    std::string labelInterferenceFunction(const IInterferenceFunction* sample);
     std::string labelLayout(const ParticleLayout* sample);
     std::string labelMaterial(const Material* sample);
     std::string labelLattice2D(const Lattice2D* sample);
@@ -82,7 +78,6 @@ public:
     std::string labelRotation(const IRotation* sample);
 
     void insertCrystal(const Crystal* sample);
-    void insertInterferenceFunction(const IInterferenceFunction* sample);
     void insertLayout(const ParticleLayout* sample);
     void insertMaterial(const Material* sample);
     void insertLattice2D(const Lattice2D* sample);
@@ -102,7 +97,6 @@ public:
 
 private:
     crystals_t m_CrystalLabel;
-    interferences_t m_InterferenceFunctionLabel;
     layouts_t m_ParticleLayoutLabel;
     materials_t m_MaterialLabel;
     lattices2D_t m_Lattice2DLabel;

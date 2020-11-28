@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Core/Export/SampleLabelHandler.h"
-#include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/MesoCrystal.h"
 #include "Sample/Particle/Particle.h"
@@ -24,10 +23,6 @@
 
 std::string SampleLabelHandler::labelCrystal(const Crystal* cr) {
     return m_CrystalLabel[cr];
-}
-
-std::string SampleLabelHandler::labelInterferenceFunction(const IInterferenceFunction* iff) {
-    return m_InterferenceFunctionLabel[iff];
 }
 
 std::string SampleLabelHandler::labelLayout(const ParticleLayout* layout) {
@@ -71,11 +66,6 @@ std::string SampleLabelHandler::labelRotation(const IRotation* rot) {
 void SampleLabelHandler::insertCrystal(const Crystal* sample) {
     std::string label = "crystal_" + std::to_string(m_CrystalLabel.size() + 1);
     m_CrystalLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction* sample) {
-    std::string label = "interference_" + std::to_string(m_InterferenceFunctionLabel.size() + 1);
-    m_InterferenceFunctionLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertLattice2D(const Lattice2D* sample) {

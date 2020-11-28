@@ -20,7 +20,7 @@
 
 class IParticle;
 class MultiLayer;
-class SampleLabelHandler;
+class ModelKeyHandler;
 
 //! Generates Python code snippet from domain (C++) objects representing sample construction.
 
@@ -51,7 +51,7 @@ private:
     std::string defineRoughnesses() const;
     std::string defineMultiLayers() const;
 
-    std::unique_ptr<SampleLabelHandler> m_objs;
+    std::unique_ptr<ModelKeyHandler> m_objs;
 };
 
 #endif // BORNAGAIN_CORE_EXPORT_SAMPLETOPYTHON_H

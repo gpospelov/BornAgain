@@ -1200,6 +1200,24 @@ user-defined weighting factors. Used linearly, no matter which norm is chosen.
 ";
 
 
+// File: classModelKeyHandler.xml
+%feature("docstring") ModelKeyHandler "
+
+Stores IModel instances, associates them with given tag, and provides unique keys.
+
+C++ includes: ModelKeyHandler.h
+";
+
+%feature("docstring")  ModelKeyHandler::insertModel "void ModelKeyHandler::insertModel(const std::string &tag, const IModel *s)
+";
+
+%feature("docstring")  ModelKeyHandler::objectsOfType "std::vector< const T * > ModelKeyHandler::objectsOfType() const
+";
+
+%feature("docstring")  ModelKeyHandler::obj2key "std::string ModelKeyHandler::obj2key(const IModel *s) const
+";
+
+
 // File: classMPISimulation.xml
 %feature("docstring") MPISimulation "";
 
@@ -1340,57 +1358,6 @@ Returns axis of the beam.
 %feature("docstring")  OffSpecSimulation::intensityMapSize "size_t OffSpecSimulation::intensityMapSize() const override
 
 Returns the total number of the intensity values in the simulation result. 
-";
-
-
-// File: classOrderedMap.xml
-%feature("docstring") OrderedMap "
-
-Ordered map which saves the order of insertion.
-
-C++ includes: OrderedMap.h
-";
-
-%feature("docstring")  OrderedMap::OrderedMap "OrderedMap< Key, Object >::OrderedMap()
-";
-
-%feature("docstring")  OrderedMap::~OrderedMap "virtual OrderedMap< Key, Object >::~OrderedMap()
-";
-
-%feature("docstring")  OrderedMap::clear "void OrderedMap< Key, Object >::clear()
-";
-
-%feature("docstring")  OrderedMap::begin "const_iterator OrderedMap< Key, Object >::begin() const
-";
-
-%feature("docstring")  OrderedMap::end "const_iterator OrderedMap< Key, Object >::end() const
-";
-
-%feature("docstring")  OrderedMap::begin "iterator OrderedMap< Key, Object >::begin()
-";
-
-%feature("docstring")  OrderedMap::end "iterator OrderedMap< Key, Object >::end()
-";
-
-%feature("docstring")  OrderedMap::size "size_t OrderedMap< Key, Object >::size() const
-";
-
-%feature("docstring")  OrderedMap::empty "bool OrderedMap< Key, Object >::empty() const
-";
-
-%feature("docstring")  OrderedMap::insert "void OrderedMap< Key, Object >::insert(const Key &key, const Object &object)
-";
-
-%feature("docstring")  OrderedMap::find "iterator OrderedMap< Key, Object >::find(const Key &key)
-";
-
-%feature("docstring")  OrderedMap::find "const_iterator OrderedMap< Key, Object >::find(const Key &key) const
-";
-
-%feature("docstring")  OrderedMap::erase "size_t OrderedMap< Key, Object >::erase(const Key &key)
-";
-
-%feature("docstring")  OrderedMap::value "const Object& OrderedMap< Key, Object >::value(const Key &key) const
 ";
 
 
@@ -1739,27 +1706,6 @@ data_pair:
 
 use_weights: 
 boolean, defines if data uncertainties should be taken into account 
-";
-
-
-// File: classSampleLabelHandler.xml
-%feature("docstring") SampleLabelHandler "
-
-The handler which construct labels for sample variables during python script generation.
-
-C++ includes: SampleLabelHandler.h
-";
-
-%feature("docstring")  SampleLabelHandler::SampleLabelHandler "SampleLabelHandler::SampleLabelHandler()
-";
-
-%feature("docstring")  SampleLabelHandler::insertKeyedObject "void SampleLabelHandler::insertKeyedObject(const std::string &key, const IModel *s)
-";
-
-%feature("docstring")  SampleLabelHandler::objectsOfType "std::vector< const T * > SampleLabelHandler::objectsOfType() const
-";
-
-%feature("docstring")  SampleLabelHandler::obj2key "std::string SampleLabelHandler::obj2key(const IModel *s) const
 ";
 
 
@@ -2176,43 +2122,43 @@ Returns default units to convert to.
 // File: namespace_0d19.xml
 
 
-// File: namespace_0d39.xml
+// File: namespace_0d38.xml
 
 
-// File: namespace_0d41.xml
+// File: namespace_0d40.xml
 
 
-// File: namespace_0d46.xml
+// File: namespace_0d45.xml
 
 
-// File: namespace_0d55.xml
+// File: namespace_0d54.xml
 
 
-// File: namespace_0d57.xml
+// File: namespace_0d56.xml
 
 
-// File: namespace_0d61.xml
+// File: namespace_0d60.xml
 
 
-// File: namespace_0d63.xml
+// File: namespace_0d62.xml
 
 
-// File: namespace_0d68.xml
+// File: namespace_0d67.xml
 
 
-// File: namespace_0d70.xml
+// File: namespace_0d69.xml
 
 
-// File: namespace_0d74.xml
+// File: namespace_0d73.xml
 
 
-// File: namespace_0d84.xml
+// File: namespace_0d83.xml
 
 
-// File: namespace_0d86.xml
+// File: namespace_0d85.xml
 
 
-// File: namespace_0d92.xml
+// File: namespace_0d91.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2659,7 +2605,10 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: INodeUtils_8h.xml
 
 
-// File: OrderedMap_8h.xml
+// File: ModelKeyHandler_8cpp.xml
+
+
+// File: ModelKeyHandler_8h.xml
 
 
 // File: PyFmt_8cpp.xml
@@ -2678,12 +2627,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: PyFmtLimits_8h.xml
-
-
-// File: SampleLabelHandler_8cpp.xml
-
-
-// File: SampleLabelHandler_8h.xml
 
 
 // File: SampleToPython_8cpp.xml

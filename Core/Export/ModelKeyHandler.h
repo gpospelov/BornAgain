@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Export/SampleLabelHandler.h
-//! @brief     Defines classes LabelMap and SampleLabelHandler.
+//! @file      Core/Export/ModelKeyHandler.h
+//! @brief     Defines classes LabelMap and ModelKeyHandler.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -21,14 +21,12 @@
 
 class IModel;
 
-//! The handler which construct labels for sample variables during python script generation.
+//! Stores IModel instances, associates them with given tag, and provides unique keys.
 //! @ingroup tools_internal
 
-class SampleLabelHandler {
+class ModelKeyHandler {
 public:
-    SampleLabelHandler() {}
-
-    void insertKeyedObject(const std::string& key, const IModel* s);
+    void insertModel(const std::string& tag, const IModel* s);
 
     template <class T> std::vector<const T*> objectsOfType() const;
     std::string obj2key(const IModel* s) const;
@@ -38,7 +36,7 @@ private:
 };
 
 
-template <class T> std::vector<const T*> SampleLabelHandler::objectsOfType() const {
+template <class T> std::vector<const T*> ModelKeyHandler::objectsOfType() const {
     std::vector<const T*> ret;
     for (auto it: m_objects)
         for (const IModel* s : it.second)

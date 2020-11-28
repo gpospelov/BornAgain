@@ -18,7 +18,7 @@
 #include "Core/Export/INodeUtils.h"
 #include "Core/Export/PyFmt.h"
 #include "Core/Export/PyFmt2.h"
-#include "Core/Export/SampleLabelHandler.h"
+#include "Core/Export/ModelKeyHandler.h"
 #include "Param/Varia/ParameterUtils.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Aggregate/ParticleLayout.h"
@@ -101,39 +101,39 @@ std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer) {
 }
 
 void SampleToPython::initLabels(const MultiLayer& multilayer) {
-    m_objs.reset(new SampleLabelHandler());
+    m_objs.reset(new ModelKeyHandler());
 
-    m_objs->insertKeyedObject("sample", &multilayer);
+    m_objs->insertModel("sample", &multilayer);
     for (const auto* x : multilayer.containedMaterials())
-        m_objs->insertKeyedObject("mat_"+x->getName(), x);
+        m_objs->insertModel("mat_"+x->getName(), x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Layer>(multilayer))
-        m_objs->insertKeyedObject("layer", x);
+        m_objs->insertModel("layer", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<LayerRoughness>(multilayer))
-        m_objs->insertKeyedObject("roughness", x);
+        m_objs->insertModel("roughness", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleLayout>(multilayer))
-        m_objs->insertKeyedObject("layout", x);
+        m_objs->insertModel("layout", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IFormFactor>(multilayer))
-        m_objs->insertKeyedObject("ff", x);
+        m_objs->insertModel("ff", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IInterferenceFunction>(multilayer))
-        m_objs->insertKeyedObject("iff", x);
+        m_objs->insertModel("iff", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Particle>(multilayer))
-        m_objs->insertKeyedObject("particle", x);
+        m_objs->insertModel("particle", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleComposition>(multilayer))
-        m_objs->insertKeyedObject("particle", x);
+        m_objs->insertModel("particle", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleCoreShell>(multilayer))
-        m_objs->insertKeyedObject("particle", x);
+        m_objs->insertModel("particle", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<MesoCrystal>(multilayer))
-        m_objs->insertKeyedObject("particle", x);
+        m_objs->insertModel("particle", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleDistribution>(multilayer))
-        m_objs->insertKeyedObject("particle_distrib", x);
+        m_objs->insertModel("particle_distrib", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Lattice2D>(multilayer))
-        m_objs->insertKeyedObject("lattice", x);
+        m_objs->insertModel("lattice", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Lattice3D>(multilayer))
-        m_objs->insertKeyedObject("lattice", x);
+        m_objs->insertModel("lattice", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Crystal>(multilayer))
-        m_objs->insertKeyedObject("crystal", x);
+        m_objs->insertModel("crystal", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IRotation>(multilayer))
-        m_objs->insertKeyedObject("rotation", x);
+        m_objs->insertModel("rotation", x);
 }
 
 SampleToPython::SampleToPython() = default;

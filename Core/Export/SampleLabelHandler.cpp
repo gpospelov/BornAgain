@@ -27,10 +27,6 @@ std::string SampleLabelHandler::labelCrystal(const Crystal* cr) {
     return m_CrystalLabel[cr];
 }
 
-std::string SampleLabelHandler::labelFormFactor(const IFormFactor* ff) {
-    return m_FormFactorLabel[ff];
-}
-
 std::string SampleLabelHandler::labelInterferenceFunction(const IInterferenceFunction* iff) {
     return m_InterferenceFunctionLabel[iff];
 }
@@ -80,11 +76,6 @@ std::string SampleLabelHandler::labelRoughness(const LayerRoughness* roughness) 
 void SampleLabelHandler::insertCrystal(const Crystal* sample) {
     std::string label = "crystal_" + std::to_string(m_CrystalLabel.size() + 1);
     m_CrystalLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertFormFactor(const IFormFactor* sample) {
-    std::string label = "formFactor_" + std::to_string(m_FormFactorLabel.size() + 1);
-    m_FormFactorLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction* sample) {

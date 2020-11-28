@@ -51,7 +51,7 @@ private:
     std::string defineRoughnesses() const;
     std::string defineMultiLayers() const;
 
-    std::unique_ptr<SampleLabelHandler> m_label;
+    std::unique_ptr<SampleLabelHandler> m_objs;
 };
 
 #endif // BORNAGAIN_CORE_EXPORT_SAMPLETOPYTHON_H

@@ -21,7 +21,6 @@
 
 class Crystal;
 class IAbstractParticle;
-class IFormFactor;
 class IInterferenceFunction;
 class ParticleLayout;
 class Material;
@@ -46,7 +45,6 @@ template <class Key> class LabelMap : public OrderedMap<Key, std::string> {};
 class SampleLabelHandler {
 public:
     typedef LabelMap<const Crystal*> crystals_t;
-    typedef LabelMap<const IFormFactor*> formfactors_t;
     typedef LabelMap<const IInterferenceFunction*> interferences_t;
     typedef LabelMap<const Layer*> layers_t;
     typedef LabelMap<const ParticleLayout*> layouts_t;
@@ -64,7 +62,6 @@ public:
 
     SampleLabelHandler() {}
     crystals_t* crystalMap() { return &m_CrystalLabel; }
-    formfactors_t* formFactorMap() { return &m_FormFactorLabel; }
     interferences_t* interferenceFunctionMap() { return &m_InterferenceFunctionLabel; }
     layouts_t* particleLayoutMap() { return &m_ParticleLayoutLabel; }
     materials_t* materialMap() { return &m_MaterialLabel; }
@@ -80,7 +77,6 @@ public:
     roughnesses_t* layerRoughnessMap() { return &m_LayerRoughnessLabel; }
 
     std::string labelCrystal(const Crystal* sample);
-    std::string labelFormFactor(const IFormFactor* sample);
     std::string labelInterferenceFunction(const IInterferenceFunction* sample);
     std::string labelLayer(const Layer* sample);
     std::string labelLayout(const ParticleLayout* sample);
@@ -93,7 +89,6 @@ public:
     std::string labelRoughness(const LayerRoughness* sample);
 
     void insertCrystal(const Crystal* sample);
-    void insertFormFactor(const IFormFactor* sample);
     void insertInterferenceFunction(const IInterferenceFunction* sample);
     void insertLayer(const Layer* sample);
     void insertLayout(const ParticleLayout* sample);
@@ -116,7 +111,6 @@ public:
 
 private:
     crystals_t m_CrystalLabel;
-    formfactors_t m_FormFactorLabel;
     interferences_t m_InterferenceFunctionLabel;
     layers_t m_LayerLabel;
     layouts_t m_ParticleLayoutLabel;

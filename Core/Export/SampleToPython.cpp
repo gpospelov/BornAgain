@@ -98,40 +98,40 @@ std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer) {
 }
 
 void SampleToPython::initLabels(const MultiLayer& multilayer) {
-    m_label.reset(new SampleLabelHandler());
+    m_objs.reset(new SampleLabelHandler());
 
-    m_label->insertMultiLayer(&multilayer);
+    m_objs->insertMultiLayer(&multilayer);
 
     for (const auto* x : multilayer.containedMaterials())
-        m_label->insertMaterial(x);
+        m_objs->insertMaterial(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Layer>(multilayer))
-        m_label->insertKeyedObject("layer", x);
+        m_objs->insertKeyedObject("layer", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<LayerRoughness>(multilayer))
-        m_label->insertRoughness(x);
+        m_objs->insertRoughness(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IFormFactor>(multilayer))
-        m_label->insertFormFactor(x);
+        m_objs->insertKeyedObject("ff", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleLayout>(multilayer))
-        m_label->insertLayout(x);
+        m_objs->insertLayout(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IInterferenceFunction>(multilayer))
-        m_label->insertInterferenceFunction(x);
+        m_objs->insertInterferenceFunction(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Particle>(multilayer))
-        m_label->insertParticle(x);
+        m_objs->insertParticle(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleCoreShell>(multilayer))
-        m_label->insertParticleCoreShell(x);
+        m_objs->insertParticleCoreShell(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleComposition>(multilayer))
-        m_label->insertParticleComposition(x);
+        m_objs->insertParticleComposition(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleDistribution>(multilayer))
-        m_label->insertParticleDistribution(x);
+        m_objs->insertParticleDistribution(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Lattice2D>(multilayer))
-        m_label->insertLattice2D(x);
+        m_objs->insertLattice2D(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Lattice3D>(multilayer))
-        m_label->insertLattice3D(x);
+        m_objs->insertLattice3D(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Crystal>(multilayer))
-        m_label->insertCrystal(x);
+        m_objs->insertCrystal(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<MesoCrystal>(multilayer))
-        m_label->insertMesoCrystal(x);
+        m_objs->insertMesoCrystal(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IRotation>(multilayer))
-        m_label->insertRotation(x);
+        m_objs->insertRotation(x);
 }
 
 SampleToPython::SampleToPython() = default;
@@ -151,7 +151,7 @@ const std::map<MATERIAL_TYPES, std::string> factory_names{
     {MATERIAL_TYPES::MaterialBySLD, "MaterialBySLD"}};
 
 std::string SampleToPython::defineMaterials() const {
-    const LabelMap<const Material*>* themap = m_label->materialMap();
+    const LabelMap<const Material*>* themap = m_objs->materialMap();
     if (themap->empty())
         return "# No materials.\n\n";
     std::ostringstream result;
@@ -169,7 +169,7 @@ std::string SampleToPython::defineMaterials() const {
                 "Error in ExportToPython::defineMaterials(): unknown material type");
         const complex_t& material_data = material->materialData();
         if (material->isScalarMaterial()) {
-            result << indent() << m_label->labelMaterial(material) << " = ba."
+            result << indent() << m_objs->labelMaterial(material) << " = ba."
                    << factory_name->second << "(\"" << material->getName() << "\", "
                    << pyfmt::printDouble(material_data.real()) << ", "
                    << pyfmt::printDouble(material_data.imag()) << ")\n";
@@ -177,7 +177,7 @@ std::string SampleToPython::defineMaterials() const {
             kvector_t magnetic_field = material->magnetization();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ")\n";
-            result << indent() << m_label->labelMaterial(material) << " = ba."
+            result << indent() << m_objs->labelMaterial(material) << " = ba."
                    << factory_name->second << "(\"" << material->getName();
             result << "\", " << pyfmt::printDouble(material_data.real()) << ", "
                    << pyfmt::printDouble(material_data.imag()) << ", "
@@ -188,44 +188,44 @@ std::string SampleToPython::defineMaterials() const {
 }
 
 std::string SampleToPython::defineLayers() const {
-    std::vector<const Layer*> v = m_label->objectsOfType<Layer>();
+    std::vector<const Layer*> v = m_objs->objectsOfType<Layer>();
     if (v.empty())
         return "";
     std::ostringstream result;
     result << "\n" << indent() << "# Define layers\n";
     result << std::setprecision(12);
-    for (const Layer* layer : v) {
-        const std::string& label = m_label->obj2label(layer);
-        result << indent() << label << " = ba.Layer(" << m_label->labelMaterial(layer->material());
-        if (layer->thickness() != 0)
-            result << ", " << pyfmt::printNm(layer->thickness());
+    for (const auto* s : v) {
+        const std::string& label = m_objs->obj2label(s);
+        result << indent() << label << " = ba.Layer(" << m_objs->labelMaterial(s->material());
+        if (s->thickness() != 0)
+            result << ", " << pyfmt::printNm(s->thickness());
         result << ")\n";
-        if (layer->numberOfSlices() != 1)
-            result << indent() << label << ".setNumberOfSlices(" << layer->numberOfSlices()
+        if (s->numberOfSlices() != 1)
+            result << indent() << label << ".setNumberOfSlices(" << s->numberOfSlices()
                    << ")\n";
-        for (const auto* layout : layer->layouts())
-            result << indent() << label << ".addLayout(" << m_label->labelLayout(layout) << ")\n";
+        for (const auto* layout : s->layouts())
+            result << indent() << label << ".addLayout(" << m_objs->labelLayout(layout) << ")\n";
     }
     return result.str();
 }
 
 std::string SampleToPython::defineFormFactors() const {
-    const auto* themap = m_label->formFactorMap();
-    if (themap->empty())
+    std::vector<const IFormFactor*> v = m_objs->objectsOfType<IFormFactor>();
+    if (v.empty())
         return "";
     std::ostringstream result;
-    result << std::setprecision(12);
     result << "\n" << indent() << "# Define form factors\n";
-    for (auto it = themap->begin(); it != themap->end(); ++it) {
-        const IFormFactor* ff = it->first;
-        result << indent() << it->second << " = ba.FormFactor" << ff->getName() << "("
-               << pyfmt2::argumentList(ff) << ")\n";
+    result << std::setprecision(12);
+    for (const auto* s : v) {
+        const std::string& label = m_objs->obj2label(s);
+        result << indent() << label << " = ba.FormFactor" << s->getName() << "("
+               << pyfmt2::argumentList(s) << ")\n";
     }
     return result.str();
 }
 
 std::string SampleToPython::defineParticles() const {
-    const auto* themap = m_label->particleMap();
+    const auto* themap = m_objs->particleMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -238,8 +238,8 @@ std::string SampleToPython::defineParticles() const {
         if (!ff)
             continue;
         result << indent() << particle_name << " = ba.Particle("
-               << m_label->labelMaterial(particle->material()) << ", "
-               << m_label->labelFormFactor(ff) << ")\n";
+               << m_objs->labelMaterial(particle->material()) << ", "
+               << m_objs->obj2label(ff) << ")\n";
         setRotationInformation(particle, particle_name, result);
         setPositionInformation(particle, particle_name, result);
     }
@@ -247,7 +247,7 @@ std::string SampleToPython::defineParticles() const {
 }
 
 std::string SampleToPython::defineCoreShellParticles() const {
-    const auto* themap = m_label->particleCoreShellMap();
+    const auto* themap = m_objs->particleCoreShellMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -256,8 +256,8 @@ std::string SampleToPython::defineCoreShellParticles() const {
     for (auto it = themap->begin(); it != themap->end(); ++it) {
         const ParticleCoreShell* coreshell = it->first;
         result << indent() << it->second << " = ba.ParticleCoreShell("
-               << m_label->labelParticle(coreshell->shellParticle()) << ", "
-               << m_label->labelParticle(coreshell->coreParticle()) << ")\n";
+               << m_objs->labelParticle(coreshell->shellParticle()) << ", "
+               << m_objs->labelParticle(coreshell->coreParticle()) << ")\n";
         std::string core_shell_name = it->second;
         setRotationInformation(coreshell, core_shell_name, result);
         setPositionInformation(coreshell, core_shell_name, result);
@@ -266,7 +266,7 @@ std::string SampleToPython::defineCoreShellParticles() const {
 }
 
 std::string SampleToPython::defineParticleDistributions() const {
-    const auto* themap = m_label->particleDistributionsMap();
+    const auto* themap = m_objs->particleDistributionsMap();
     if (themap->empty())
         return "";
 
@@ -306,14 +306,14 @@ std::string SampleToPython::defineParticleDistributions() const {
         if (!particle)
             continue;
         result << indent() << it->second << " = ba.ParticleDistribution("
-               << m_label->labelParticle(particle) << ", " << s_par_distr << ")\n";
+               << m_objs->labelParticle(particle) << ", " << s_par_distr << ")\n";
         index++;
     }
     return result.str();
 }
 
 std::string SampleToPython::defineParticleCompositions() const {
-    const auto* themap = m_label->particleCompositionMap();
+    const auto* themap = m_objs->particleCompositionMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -326,7 +326,7 @@ std::string SampleToPython::defineParticleCompositions() const {
         const auto particle_list = INodeUtils::ChildNodesOfType<IParticle>(*particle_composition);
         for (const auto* particle : particle_list) {
             result << indent() << particle_composition_name << ".addParticle("
-                   << m_label->labelParticle(particle) << ")\n";
+                   << m_objs->labelParticle(particle) << ")\n";
         }
         setRotationInformation(particle_composition, particle_composition_name, result);
         setPositionInformation(particle_composition, particle_composition_name, result);
@@ -335,7 +335,7 @@ std::string SampleToPython::defineParticleCompositions() const {
 }
 
 std::string SampleToPython::defineLattices2D() const {
-    const auto* themap = m_label->lattice2DMap();
+    const auto* themap = m_objs->lattice2DMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -354,7 +354,7 @@ std::string SampleToPython::defineLattices2D() const {
 }
 
 std::string SampleToPython::defineLattices3D() const {
-    const auto* themap = m_label->lattice3DMap();
+    const auto* themap = m_objs->lattice3DMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -378,7 +378,7 @@ std::string SampleToPython::defineLattices3D() const {
 }
 
 std::string SampleToPython::defineCrystals() const {
-    const auto* themap = m_label->crystalMap();
+    const auto* themap = m_objs->crystalMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -392,14 +392,14 @@ std::string SampleToPython::defineCrystals() const {
         if (!lattice || !basis)
             continue;
         result << indent() << crystal_name << " = ba.Crystal(";
-        result << m_label->labelParticle(basis) << ", ";
-        result << m_label->labelLattice3D(lattice) << ")\n";
+        result << m_objs->labelParticle(basis) << ", ";
+        result << m_objs->labelLattice3D(lattice) << ")\n";
     }
     return result.str();
 }
 
 std::string SampleToPython::defineMesoCrystals() const {
-    const auto* themap = m_label->mesocrystalMap();
+    const auto* themap = m_objs->mesocrystalMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -413,8 +413,8 @@ std::string SampleToPython::defineMesoCrystals() const {
         if (!crystal || !outer_shape)
             continue;
         result << indent() << mesocrystal_name << " = ba.MesoCrystal(";
-        result << m_label->labelCrystal(crystal) << ", ";
-        result << m_label->labelFormFactor(outer_shape) << ")\n";
+        result << m_objs->labelCrystal(crystal) << ", ";
+        result << m_objs->obj2label(outer_shape) << ")\n";
         setRotationInformation(mesocrystal, mesocrystal_name, result);
         setPositionInformation(mesocrystal, mesocrystal_name, result);
     }
@@ -422,7 +422,7 @@ std::string SampleToPython::defineMesoCrystals() const {
 }
 
 std::string SampleToPython::defineInterferenceFunctions() const {
-    const auto* themap = m_label->interferenceFunctionMap();
+    const auto* themap = m_objs->interferenceFunctionMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -474,7 +474,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
 
             result << indent() << it->second << " = ba.InterferenceFunction2DLattice("
-                   << m_label->labelLattice2D(lattice) << ")\n";
+                   << m_objs->labelLattice2D(lattice) << ")\n";
 
             const auto* pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction2D>(*iff);
 
@@ -490,7 +490,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
 
             result << indent() << it->second << " = ba.InterferenceFunctionFinite2DLattice("
-                   << m_label->labelLattice2D(lattice) << ", " << iff->numberUnitCells1() << ", "
+                   << m_objs->labelLattice2D(lattice) << ", " << iff->numberUnitCells1() << ", "
                    << iff->numberUnitCells2() << ")\n";
 
             if (iff->integrationOverXi() == true)
@@ -502,7 +502,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             std::vector<double> domainSize = iff->domainSizes();
 
             result << indent() << it->second << " = ba.InterferenceFunction2DParaCrystal("
-                   << m_label->labelLattice2D(lattice) << ", "
+                   << m_objs->labelLattice2D(lattice) << ", "
                    << pyfmt::printNm(iff->dampingLength()) << ", " << pyfmt::printNm(domainSize[0])
                    << ", " << pyfmt::printNm(domainSize[1]) << ")\n";
 
@@ -545,7 +545,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
 }
 
 std::string SampleToPython::defineParticleLayouts() const {
-    const auto* themap = m_label->particleLayoutMap();
+    const auto* themap = m_objs->particleLayoutMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -560,13 +560,13 @@ std::string SampleToPython::defineParticleLayouts() const {
             for (const auto* particle : particles) {
                 double abundance = particle->abundance();
                 result << indent() << it->second << ".addParticle("
-                       << m_label->labelParticle(particle) << ", " << pyfmt::printDouble(abundance)
+                       << m_objs->labelParticle(particle) << ", " << pyfmt::printDouble(abundance)
                        << ")\n";
             }
             if (const auto* iff =
                     INodeUtils::OnlyChildOfType<IInterferenceFunction>(*particleLayout))
                 result << indent() << it->second << ".setInterferenceFunction("
-                       << m_label->labelInterferenceFunction(iff) << ")\n";
+                       << m_objs->labelInterferenceFunction(iff) << ")\n";
             result << indent() << it->second << ".setWeight(" << particleLayout->weight() << ")\n";
             result << indent() << it->second << ".setTotalParticleSurfaceDensity("
                    << particleLayout->totalParticleSurfaceDensity() << ")\n";
@@ -576,7 +576,7 @@ std::string SampleToPython::defineParticleLayouts() const {
 }
 
 std::string SampleToPython::defineRoughnesses() const {
-    const auto* themap = m_label->layerRoughnessMap();
+    const auto* themap = m_objs->layerRoughnessMap();
     if (themap->empty())
         return "";
     std::ostringstream result;
@@ -589,7 +589,7 @@ std::string SampleToPython::defineRoughnesses() const {
 }
 
 std::string SampleToPython::defineMultiLayers() const {
-    const auto* themap = m_label->multiLayerMap();
+    const auto* themap = m_objs->multiLayerMap();
     if (themap->empty())
         return "# No MultiLayers.\n\n";
     std::ostringstream result;
@@ -612,20 +612,20 @@ std::string SampleToPython::defineMultiLayers() const {
         size_t numberOfLayers = it->first->numberOfLayers();
         if (numberOfLayers) {
             result << indent() << it->second << ".addLayer("
-                   << m_label->obj2label(it->first->layer(0)) << ")\n";
+                   << m_objs->obj2label(it->first->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
                 const LayerInterface* layerInterface = it->first->layerInterface(layerIndex - 1);
-                if (m_label->layerRoughnessMap()->find(layerInterface->getRoughness())
-                    == m_label->layerRoughnessMap()->end())
+                if (m_objs->layerRoughnessMap()->find(layerInterface->getRoughness())
+                    == m_objs->layerRoughnessMap()->end())
                     result << indent() << it->second << ".addLayer("
-                           << m_label->obj2label(it->first->layer(layerIndex))
+                           << m_objs->obj2label(it->first->layer(layerIndex))
                            << ")\n";
                 else
                     result << indent() << it->second << ".addLayerWithTopRoughness("
-                           << m_label->obj2label(it->first->layer(layerIndex))
-                           << ", " << m_label->labelRoughness(layerInterface->getRoughness())
+                           << m_objs->obj2label(it->first->layer(layerIndex))
+                           << ", " << m_objs->labelRoughness(layerInterface->getRoughness())
                            << ")\n";
                 layerIndex++;
             }

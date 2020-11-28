@@ -35,10 +35,9 @@ private:
     std::map<std::string, std::vector<const IModel*>> m_objects;
 };
 
-
 template <class T> std::vector<const T*> ModelKeyHandler::objectsOfType() const {
     std::vector<const T*> ret;
-    for (auto it: m_objects)
+    for (auto it : m_objects)
         for (const IModel* s : it.second)
             if (const auto* c = dynamic_cast<const T*>(s); c)
                 ret.emplace_back(c);

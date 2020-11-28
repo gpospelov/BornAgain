@@ -16,9 +16,9 @@
 #include "Base/Utils/Assert.h"
 #include "Base/Vector/Transform3D.h"
 #include "Core/Export/INodeUtils.h"
+#include "Core/Export/ModelKeyHandler.h"
 #include "Core/Export/PyFmt.h"
 #include "Core/Export/PyFmt2.h"
-#include "Core/Export/ModelKeyHandler.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Lattice/Lattice2D.h"
@@ -103,7 +103,7 @@ void SampleToPython::initLabels(const MultiLayer& multilayer) {
 
     m_objs->insertModel("sample", &multilayer);
     for (const auto* x : multilayer.containedMaterials())
-        m_objs->insertModel("mat_"+x->getName(), x);
+        m_objs->insertModel("mat_" + x->getName(), x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Layer>(multilayer))
         m_objs->insertModel("layer", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<LayerRoughness>(multilayer))
@@ -160,16 +160,14 @@ std::string SampleToPython::defineMaterials() const {
         const std::string& factory_name = factory_names.at(s->typeID());
         const complex_t& data = s->materialData();
         if (s->isScalarMaterial()) {
-            result << indent() << key << " = ba."
-                   << factory_name << "(\"" << s->getName() << "\", "
-                   << pyfmt::printDouble(data.real()) << ", "
-                   << pyfmt::printDouble(data.imag()) << ")\n";
+            result << indent() << key << " = ba." << factory_name << "(\"" << s->getName() << "\", "
+                   << pyfmt::printDouble(data.real()) << ", " << pyfmt::printDouble(data.imag())
+                   << ")\n";
         } else {
             kvector_t magnetic_field = s->magnetization();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ")\n";
-            result << indent() << key << " = ba."
-                   << factory_name << "(\"" << s->getName();
+            result << indent() << key << " = ba." << factory_name << "(\"" << s->getName();
             result << "\", " << pyfmt::printDouble(data.real()) << ", "
                    << pyfmt::printDouble(data.imag()) << ", "
                    << "magnetic_field)\n";
@@ -192,8 +190,7 @@ std::string SampleToPython::defineLayers() const {
             result << ", " << pyfmt::printNm(s->thickness());
         result << ")\n";
         if (s->numberOfSlices() != 1)
-            result << indent() << key << ".setNumberOfSlices(" << s->numberOfSlices()
-                   << ")\n";
+            result << indent() << key << ".setNumberOfSlices(" << s->numberOfSlices() << ")\n";
         for (const auto* layout : s->layouts())
             result << indent() << key << ".addLayout(" << m_objs->obj2key(layout) << ")\n";
     }
@@ -209,8 +206,7 @@ std::string SampleToPython::defineRoughnesses() const {
     result << "\n" << indent() << "# Define roughness\n";
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
-        result << indent() << key << " = ba.LayerRoughness("
-               << pyfmt2::argumentList(s) << ")\n";
+        result << indent() << key << " = ba.LayerRoughness(" << pyfmt2::argumentList(s) << ")\n";
     }
     return result.str();
 }
@@ -243,8 +239,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
         if (dynamic_cast<const InterferenceFunctionNone*>(s))
             result << indent() << key << " = ba.InterferenceFunctionNone()\n";
 
-        else if (const auto* iff =
-                     dynamic_cast<const InterferenceFunction1DLattice*>(s)) {
+        else if (const auto* iff = dynamic_cast<const InterferenceFunction1DLattice*>(s)) {
             result << indent() << key << " = ba.InterferenceFunction1DLattice("
                    << pyfmt::printNm(iff->getLength()) << ", " << pyfmt::printDegrees(iff->getXi())
                    << ")\n";
@@ -275,11 +270,9 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             if (pdf->omega() != 0.0)
                 result << indent() << key << "_pdf  = ba." << pdf->getName() << "("
                        << pyfmt2::argumentList(pdf) << ")\n"
-                       << indent() << key << ".setProbabilityDistribution(" << key
-                       << "_pdf)\n";
+                       << indent() << key << ".setProbabilityDistribution(" << key << "_pdf)\n";
 
-        } else if (const auto* iff =
-                       dynamic_cast<const InterferenceFunction2DLattice*>(s)) {
+        } else if (const auto* iff = dynamic_cast<const InterferenceFunction2DLattice*>(s)) {
             const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
 
             result << indent() << key << " = ba.InterferenceFunction2DLattice("
@@ -294,8 +287,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             if (iff->integrationOverXi() == true)
                 result << indent() << key << ".setIntegrationOverXi(True)\n";
 
-        } else if (const auto* iff =
-                       dynamic_cast<const InterferenceFunctionFinite2DLattice*>(s)) {
+        } else if (const auto* iff = dynamic_cast<const InterferenceFunctionFinite2DLattice*>(s)) {
             const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
 
             result << indent() << key << " = ba.InterferenceFunctionFinite2DLattice("
@@ -305,15 +297,14 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             if (iff->integrationOverXi() == true)
                 result << indent() << key << ".setIntegrationOverXi(True)\n";
 
-        } else if (const auto* iff =
-                       dynamic_cast<const InterferenceFunction2DParaCrystal*>(s)) {
+        } else if (const auto* iff = dynamic_cast<const InterferenceFunction2DParaCrystal*>(s)) {
             const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
             std::vector<double> domainSize = iff->domainSizes();
 
             result << indent() << key << " = ba.InterferenceFunction2DParaCrystal("
-                   << m_objs->obj2key(lattice) << ", "
-                   << pyfmt::printNm(iff->dampingLength()) << ", " << pyfmt::printNm(domainSize[0])
-                   << ", " << pyfmt::printNm(domainSize[1]) << ")\n";
+                   << m_objs->obj2key(lattice) << ", " << pyfmt::printNm(iff->dampingLength())
+                   << ", " << pyfmt::printNm(domainSize[0]) << ", " << pyfmt::printNm(domainSize[1])
+                   << ")\n";
 
             if (iff->integrationOverXi() == true)
                 result << indent() << key << ".setIntegrationOverXi(True)\n";
@@ -330,11 +321,10 @@ std::string SampleToPython::defineInterferenceFunctions() const {
 
             result << indent() << key << "_pdf_2  = ba." << pdf->getName() << "("
                    << pyfmt2::argumentList(pdf) << ")\n";
-            result << indent() << key << ".setProbabilityDistributions(" << key
-                   << "_pdf_1, " << key << "_pdf_2)\n";
+            result << indent() << key << ".setProbabilityDistributions(" << key << "_pdf_1, " << key
+                   << "_pdf_2)\n";
 
-        } else if (const auto* lattice_hd =
-                       dynamic_cast<const InterferenceFunctionHardDisk*>(s)) {
+        } else if (const auto* lattice_hd = dynamic_cast<const InterferenceFunctionHardDisk*>(s)) {
             result << indent() << key << " = ba.InterferenceFunctionHardDisk("
                    << pyfmt::printNm(lattice_hd->radius()) << ", "
                    << pyfmt::printDouble(lattice_hd->density()) << ")\n";
@@ -366,14 +356,12 @@ std::string SampleToPython::defineParticleLayouts() const {
         const auto particles = INodeUtils::ChildNodesOfType<IAbstractParticle>(*s);
         for (const auto* particle : particles) {
             double abundance = particle->abundance();
-            result << indent() << key << ".addParticle("
-                   << m_objs->obj2key(particle) << ", " << pyfmt::printDouble(abundance)
-                   << ")\n";
+            result << indent() << key << ".addParticle(" << m_objs->obj2key(particle) << ", "
+                   << pyfmt::printDouble(abundance) << ")\n";
         }
-        if (const auto* iff =
-            INodeUtils::OnlyChildOfType<IInterferenceFunction>(*s))
-            result << indent() << key << ".setInterferenceFunction("
-                   << m_objs->obj2key(iff) << ")\n";
+        if (const auto* iff = INodeUtils::OnlyChildOfType<IInterferenceFunction>(*s))
+            result << indent() << key << ".setInterferenceFunction(" << m_objs->obj2key(iff)
+                   << ")\n";
         result << indent() << key << ".setWeight(" << s->weight() << ")\n";
         result << indent() << key << ".setTotalParticleSurfaceDensity("
                << s->totalParticleSurfaceDensity() << ")\n";
@@ -392,8 +380,7 @@ std::string SampleToPython::defineParticles() const {
         const std::string& key = m_objs->obj2key(s);
         const auto* ff = INodeUtils::OnlyChildOfType<IFormFactor>(*s);
         ASSERT(ff);
-        result << indent() << key << " = ba.Particle("
-               << m_objs->obj2key(s->material()) << ", "
+        result << indent() << key << " = ba.Particle(" << m_objs->obj2key(s->material()) << ", "
                << m_objs->obj2key(ff) << ")\n";
         setRotationInformation(s, key, result);
         setPositionInformation(s, key, result);
@@ -411,8 +398,8 @@ std::string SampleToPython::defineCoreShellParticles() const {
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.ParticleCoreShell("
-               << m_objs->obj2key(s->shellParticle()) << ", "
-               << m_objs->obj2key(s->coreParticle()) << ")\n";
+               << m_objs->obj2key(s->shellParticle()) << ", " << m_objs->obj2key(s->coreParticle())
+               << ")\n";
         setRotationInformation(s, key, result);
         setPositionInformation(s, key, result);
     }
@@ -454,8 +441,8 @@ std::string SampleToPython::defineParticleDistributions() const {
         auto particle = INodeUtils::OnlyChildOfType<IParticle>(*s);
         if (!particle)
             continue;
-        result << indent() << key << " = ba.ParticleDistribution("
-               << m_objs->obj2key(particle) << ", " << s_par_distr << ")\n";
+        result << indent() << key << " = ba.ParticleDistribution(" << m_objs->obj2key(particle)
+               << ", " << s_par_distr << ")\n";
         index++;
     }
     return result.str();
@@ -473,8 +460,7 @@ std::string SampleToPython::defineParticleCompositions() const {
         result << indent() << key << " = ba.ParticleComposition()\n";
         const auto particle_list = INodeUtils::ChildNodesOfType<IParticle>(*s);
         for (const auto* particle : particle_list) {
-            result << indent() << key << ".addParticle("
-                   << m_objs->obj2key(particle) << ")\n";
+            result << indent() << key << ".addParticle(" << m_objs->obj2key(particle) << ")\n";
         }
         setRotationInformation(s, key, result);
         setPositionInformation(s, key, result);
@@ -515,9 +501,8 @@ std::string SampleToPython::defineLattices2D() const {
         const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.BasicLattice2D(\n";
         result << indent() << indent() << pyfmt::printNm(s->length1()) << ", "
-               << pyfmt::printNm(s->length2()) << ", "
-               << pyfmt::printDegrees(s->latticeAngle()) << ", "
-               << pyfmt::printDegrees(s->rotationAngle()) << ")\n";
+               << pyfmt::printNm(s->length2()) << ", " << pyfmt::printDegrees(s->latticeAngle())
+               << ", " << pyfmt::printDegrees(s->rotationAngle()) << ")\n";
     }
     return result.str();
 }
@@ -571,7 +556,7 @@ std::string SampleToPython::defineMultiLayers() const {
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    ASSERT(v.size()==1); // as long as there is exactly one sample, we shall use the singular
+    ASSERT(v.size() == 1); // as long as there is exactly one sample, we shall use the singular
     result << "\n" << indent() << "# Define sample\n";
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
@@ -590,21 +575,18 @@ std::string SampleToPython::defineMultiLayers() const {
         }
         size_t numberOfLayers = s->numberOfLayers();
         if (numberOfLayers) {
-            result << indent() << key << ".addLayer("
-                   << m_objs->obj2key(s->layer(0)) << ")\n";
+            result << indent() << key << ".addLayer(" << m_objs->obj2key(s->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
                 const LayerInterface* layerInterface = s->layerInterface(layerIndex - 1);
                 if (const LayerRoughness* rough = layerInterface->getRoughness())
                     result << indent() << key << ".addLayerWithTopRoughness("
-                           << m_objs->obj2key(s->layer(layerIndex))
-                           << ", " << m_objs->obj2key(rough)
-                           << ")\n";
+                           << m_objs->obj2key(s->layer(layerIndex)) << ", "
+                           << m_objs->obj2key(rough) << ")\n";
                 else
                     result << indent() << key << ".addLayer("
-                           << m_objs->obj2key(s->layer(layerIndex))
-                           << ")\n";
+                           << m_objs->obj2key(s->layer(layerIndex)) << ")\n";
                 layerIndex++;
             }
         }

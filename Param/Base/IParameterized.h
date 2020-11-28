@@ -15,8 +15,8 @@
 #ifndef BORNAGAIN_PARAM_BASE_IPARAMETERIZED_H
 #define BORNAGAIN_PARAM_BASE_IPARAMETERIZED_H
 
-#include "Param/Base/IModel.h"
 #include "Base/Vector/Vectors3D.h"
+#include "Param/Base/IModel.h"
 #include <memory>
 
 class RealLimits;

@@ -22,7 +22,7 @@ void ModelKeyHandler::insertModel(const std::string& tag, const IModel* s) {
 }
 
 std::string ModelKeyHandler::obj2key(const IModel* s) const {
-    for (auto it: m_objects) {
+    for (auto it : m_objects) {
         const std::vector<const IModel*>& v = it.second;
         const auto vpos = std::find(v.begin(), v.end(), s);
         if (vpos == std::end(v))

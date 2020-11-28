@@ -1757,100 +1757,40 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::SampleLabelHandler "SampleLabelHandler::SampleLabelHandler()
 ";
 
-%feature("docstring")  SampleLabelHandler::crystalMap "crystals_t* SampleLabelHandler::crystalMap()
-";
-
 %feature("docstring")  SampleLabelHandler::materialMap "materials_t* SampleLabelHandler::materialMap()
-";
-
-%feature("docstring")  SampleLabelHandler::lattice2DMap "lattices2D_t* SampleLabelHandler::lattice2DMap()
-";
-
-%feature("docstring")  SampleLabelHandler::lattice3DMap "lattices3D_t* SampleLabelHandler::lattice3DMap()
-";
-
-%feature("docstring")  SampleLabelHandler::mesocrystalMap "mesocrystals_t* SampleLabelHandler::mesocrystalMap()
 ";
 
 %feature("docstring")  SampleLabelHandler::multiLayerMap "multilayers_t* SampleLabelHandler::multiLayerMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::particleCompositionMap "particlecompositions_t* SampleLabelHandler::particleCompositionMap()
-";
-
-%feature("docstring")  SampleLabelHandler::particleDistributionsMap "particledistributions_t* SampleLabelHandler::particleDistributionsMap()
-";
-
-%feature("docstring")  SampleLabelHandler::particleCoreShellMap "particlescoreshell_t* SampleLabelHandler::particleCoreShellMap()
-";
-
 %feature("docstring")  SampleLabelHandler::rotationsMap "rotations_t* SampleLabelHandler::rotationsMap()
-";
-
-%feature("docstring")  SampleLabelHandler::particleMap "particles_t* SampleLabelHandler::particleMap()
-";
-
-%feature("docstring")  SampleLabelHandler::labelCrystal "std::string SampleLabelHandler::labelCrystal(const Crystal *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::labelMaterial "std::string SampleLabelHandler::labelMaterial(const Material *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::labelLattice2D "std::string SampleLabelHandler::labelLattice2D(const Lattice2D *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelLattice3D "std::string SampleLabelHandler::labelLattice3D(const Lattice3D *sample)
-";
-
 %feature("docstring")  SampleLabelHandler::labelMultiLayer "std::string SampleLabelHandler::labelMultiLayer(const MultiLayer *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelParticle "std::string SampleLabelHandler::labelParticle(const IAbstractParticle *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::labelRotation "std::string SampleLabelHandler::labelRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertCrystal "void SampleLabelHandler::insertCrystal(const Crystal *sample)
-";
-
 %feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const Material *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertLattice2D "void SampleLabelHandler::insertLattice2D(const Lattice2D *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertLattice3D "void SampleLabelHandler::insertLattice3D(const Lattice3D *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertMesoCrystal "void SampleLabelHandler::insertMesoCrystal(const MesoCrystal *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertMultiLayer "void SampleLabelHandler::insertMultiLayer(const MultiLayer *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertParticleComposition "void SampleLabelHandler::insertParticleComposition(const ParticleComposition *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertParticleDistribution "void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertParticle "void SampleLabelHandler::insertParticle(const Particle *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertParticleCoreShell "void SampleLabelHandler::insertParticleCoreShell(const ParticleCoreShell *sample)
-";
-
 %feature("docstring")  SampleLabelHandler::insertRotation "void SampleLabelHandler::insertRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertKeyedObject "void SampleLabelHandler::insertKeyedObject(const std::string &key, const ISample *s)
+%feature("docstring")  SampleLabelHandler::insertKeyedObject "void SampleLabelHandler::insertKeyedObject(const std::string &key, const INode *s)
 ";
 
 %feature("docstring")  SampleLabelHandler::objectsOfType "std::vector< const T * > SampleLabelHandler::objectsOfType() const
 ";
 
-%feature("docstring")  SampleLabelHandler::obj2key "std::string SampleLabelHandler::obj2key(const ISample *s) const
+%feature("docstring")  SampleLabelHandler::obj2key "std::string SampleLabelHandler::obj2key(const INode *s) const
 ";
 
 

@@ -14,64 +14,18 @@
 
 #include "Core/Export/SampleLabelHandler.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/Particle/MesoCrystal.h"
-#include "Sample/Particle/Particle.h"
-#include "Sample/Particle/ParticleComposition.h"
-#include "Sample/Particle/ParticleCoreShell.h"
-#include "Sample/Particle/ParticleDistribution.h"
 #include <set>
-
-std::string SampleLabelHandler::labelCrystal(const Crystal* cr) {
-    return m_CrystalLabel[cr];
-}
 
 std::string SampleLabelHandler::labelMaterial(const Material* mat) {
     return m_MaterialLabel[mat];
-}
-
-std::string SampleLabelHandler::labelLattice2D(const Lattice2D* lat) {
-    return m_Lattice2DLabel[lat];
-}
-
-std::string SampleLabelHandler::labelLattice3D(const Lattice3D* lat) {
-    return m_Lattice3DLabel[lat];
 }
 
 std::string SampleLabelHandler::labelMultiLayer(const MultiLayer* ml) {
     return m_MultiLayerLabel[ml];
 }
 
-std::string SampleLabelHandler::labelParticle(const IAbstractParticle* absparticle) {
-    if (const auto core_shell_particle = dynamic_cast<const ParticleCoreShell*>(absparticle))
-        return m_ParticleCoreShellLabel[core_shell_particle];
-    if (const auto particle = dynamic_cast<const Particle*>(absparticle))
-        return m_ParticleLabel[particle];
-    if (const auto particle = dynamic_cast<const ParticleDistribution*>(absparticle))
-        return m_ParticleDistributionLabel[particle];
-    if (const auto lattice_basis = dynamic_cast<const ParticleComposition*>(absparticle))
-        return m_ParticleCompositionLabel[lattice_basis];
-    if (const auto mesocrystal = dynamic_cast<const MesoCrystal*>(absparticle))
-        return m_MesoCrystalLabel[mesocrystal];
-    throw std::runtime_error("SampleLabelHandler::getLabel: called for unknown IParticle type");
-}
-
 std::string SampleLabelHandler::labelRotation(const IRotation* rot) {
     return m_RotationsLabel[rot];
-}
-
-void SampleLabelHandler::insertCrystal(const Crystal* sample) {
-    std::string label = "crystal_" + std::to_string(m_CrystalLabel.size() + 1);
-    m_CrystalLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertLattice2D(const Lattice2D* sample) {
-    std::string label = "lattice2D_" + std::to_string(m_Lattice2DLabel.size() + 1);
-    m_Lattice2DLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertLattice3D(const Lattice3D* sample) {
-    std::string label = "lattice3D_" + std::to_string(m_Lattice3DLabel.size() + 1);
-    m_Lattice3DLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertMaterial(const Material* mat) {
@@ -79,36 +33,9 @@ void SampleLabelHandler::insertMaterial(const Material* mat) {
     m_MaterialLabel.insert(mat, label);
 }
 
-void SampleLabelHandler::insertMesoCrystal(const MesoCrystal* sample) {
-    std::string label = "mesocrystal_" + std::to_string(m_MesoCrystalLabel.size() + 1);
-    m_MesoCrystalLabel.insert(sample, label);
-}
-
 void SampleLabelHandler::insertMultiLayer(const MultiLayer* sample) {
     std::string label = "multiLayer_" + std::to_string(m_MultiLayerLabel.size() + 1);
     m_MultiLayerLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertParticleComposition(const ParticleComposition* sample) {
-    std::string label =
-        "particleComposition_" + std::to_string(m_ParticleCompositionLabel.size() + 1);
-    m_ParticleCompositionLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution* sample) {
-    std::string label =
-        "particleDistribution_" + std::to_string(m_ParticleDistributionLabel.size() + 1);
-    m_ParticleDistributionLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertParticle(const Particle* sample) {
-    std::string label = "particle_" + std::to_string(m_ParticleLabel.size() + 1);
-    m_ParticleLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertParticleCoreShell(const ParticleCoreShell* sample) {
-    std::string label = "particleCoreShell_" + std::to_string(m_ParticleCoreShellLabel.size() + 1);
-    m_ParticleCoreShellLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertRotation(const IRotation* sample) {
@@ -118,13 +45,13 @@ void SampleLabelHandler::insertRotation(const IRotation* sample) {
 
 
 
-void SampleLabelHandler::insertKeyedObject(const std::string& key, const ISample* s) {
+void SampleLabelHandler::insertKeyedObject(const std::string& key, const INode* s) {
     m_objects[key].emplace_back(s);
 }
 
-std::string SampleLabelHandler::obj2key(const ISample* s) const {
+std::string SampleLabelHandler::obj2key(const INode* s) const {
     for (auto it: m_objects) {
-        const std::vector<const ISample*>& v = it.second;
+        const std::vector<const INode*>& v = it.second;
         const auto vpos = std::find(v.begin(), v.end(), s);
         if (vpos == std::end(v))
             continue;

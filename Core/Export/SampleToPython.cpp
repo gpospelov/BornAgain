@@ -21,6 +21,8 @@
 #include "Param/Varia/ParameterUtils.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Aggregate/ParticleLayout.h"
+#include "Sample/Lattice/Lattice2D.h"
+#include "Sample/Lattice/Lattice3D.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Crystal.h"
@@ -115,21 +117,21 @@ void SampleToPython::initLabels(const MultiLayer& multilayer) {
     for (const auto* x : INodeUtils::AllDescendantsOfType<IInterferenceFunction>(multilayer))
         m_objs->insertKeyedObject("iff", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Particle>(multilayer))
-        m_objs->insertParticle(x);
-    for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleCoreShell>(multilayer))
-        m_objs->insertParticleCoreShell(x);
+        m_objs->insertKeyedObject("particle", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleComposition>(multilayer))
-        m_objs->insertParticleComposition(x);
-    for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleDistribution>(multilayer))
-        m_objs->insertParticleDistribution(x);
-    for (const auto* x : INodeUtils::AllDescendantsOfType<Lattice2D>(multilayer))
-        m_objs->insertLattice2D(x);
-    for (const auto* x : INodeUtils::AllDescendantsOfType<Lattice3D>(multilayer))
-        m_objs->insertLattice3D(x);
-    for (const auto* x : INodeUtils::AllDescendantsOfType<Crystal>(multilayer))
-        m_objs->insertCrystal(x);
+        m_objs->insertKeyedObject("particle", x);
+    for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleCoreShell>(multilayer))
+        m_objs->insertKeyedObject("particle", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<MesoCrystal>(multilayer))
-        m_objs->insertMesoCrystal(x);
+        m_objs->insertKeyedObject("particle", x);
+    for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleDistribution>(multilayer))
+        m_objs->insertKeyedObject("particle_distrib", x);
+    for (const auto* x : INodeUtils::AllDescendantsOfType<Lattice2D>(multilayer))
+        m_objs->insertKeyedObject("lattice", x);
+    for (const auto* x : INodeUtils::AllDescendantsOfType<Lattice3D>(multilayer))
+        m_objs->insertKeyedObject("lattice", x);
+    for (const auto* x : INodeUtils::AllDescendantsOfType<Crystal>(multilayer))
+        m_objs->insertKeyedObject("crystal", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IRotation>(multilayer))
         m_objs->insertRotation(x);
 }
@@ -292,7 +294,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
 
             result << indent() << key << " = ba.InterferenceFunction2DLattice("
-                   << m_objs->labelLattice2D(lattice) << ")\n";
+                   << m_objs->obj2key(lattice) << ")\n";
 
             const auto* pdf = INodeUtils::OnlyChildOfType<IFTDecayFunction2D>(*iff);
 
@@ -308,7 +310,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             const auto* lattice = INodeUtils::OnlyChildOfType<Lattice2D>(*iff);
 
             result << indent() << key << " = ba.InterferenceFunctionFinite2DLattice("
-                   << m_objs->labelLattice2D(lattice) << ", " << iff->numberUnitCells1() << ", "
+                   << m_objs->obj2key(lattice) << ", " << iff->numberUnitCells1() << ", "
                    << iff->numberUnitCells2() << ")\n";
 
             if (iff->integrationOverXi() == true)
@@ -320,7 +322,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             std::vector<double> domainSize = iff->domainSizes();
 
             result << indent() << key << " = ba.InterferenceFunction2DParaCrystal("
-                   << m_objs->labelLattice2D(lattice) << ", "
+                   << m_objs->obj2key(lattice) << ", "
                    << pyfmt::printNm(iff->dampingLength()) << ", " << pyfmt::printNm(domainSize[0])
                    << ", " << pyfmt::printNm(domainSize[1]) << ")\n";
 
@@ -376,7 +378,7 @@ std::string SampleToPython::defineParticleLayouts() const {
         for (const auto* particle : particles) {
             double abundance = particle->abundance();
             result << indent() << key << ".addParticle("
-                   << m_objs->labelParticle(particle) << ", " << pyfmt::printDouble(abundance)
+                   << m_objs->obj2key(particle) << ", " << pyfmt::printDouble(abundance)
                    << ")\n";
         }
         if (const auto* iff =
@@ -391,18 +393,16 @@ std::string SampleToPython::defineParticleLayouts() const {
 }
 
 std::string SampleToPython::defineParticles() const {
-    const auto* themap = m_objs->particleMap();
-    if (themap->empty())
+    std::vector<const Particle*> v = m_objs->objectsOfType<Particle>();
+    if (v.empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define particles\n";
-    for (auto it: *themap) {
-        const Particle* s = it.first;
-        const std::string& key = it.second;
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
         const auto* ff = INodeUtils::OnlyChildOfType<IFormFactor>(*s);
-        if (!ff)
-            continue;
+        ASSERT(ff);
         result << indent() << key << " = ba.Particle("
                << m_objs->labelMaterial(s->material()) << ", "
                << m_objs->obj2key(ff) << ")\n";
@@ -413,18 +413,17 @@ std::string SampleToPython::defineParticles() const {
 }
 
 std::string SampleToPython::defineCoreShellParticles() const {
-    const auto* themap = m_objs->particleCoreShellMap();
-    if (themap->empty())
+    std::vector<const ParticleCoreShell*> v = m_objs->objectsOfType<ParticleCoreShell>();
+    if (v.empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define core shell particles\n";
-    for (auto it: *themap) {
-        const ParticleCoreShell* s = it.first;
-        const std::string& key = it.second;
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.ParticleCoreShell("
-               << m_objs->labelParticle(s->shellParticle()) << ", "
-               << m_objs->labelParticle(s->coreParticle()) << ")\n";
+               << m_objs->obj2key(s->shellParticle()) << ", "
+               << m_objs->obj2key(s->coreParticle()) << ")\n";
         setRotationInformation(s, key, result);
         setPositionInformation(s, key, result);
     }
@@ -432,23 +431,18 @@ std::string SampleToPython::defineCoreShellParticles() const {
 }
 
 std::string SampleToPython::defineParticleDistributions() const {
-    const auto* themap = m_objs->particleDistributionsMap();
-    if (themap->empty())
+    std::vector<const ParticleDistribution*> v = m_objs->objectsOfType<ParticleDistribution>();
+    if (v.empty())
         return "";
-
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define particles with parameter following a distribution\n";
 
     int index(1);
-    for (auto it: *themap) {
-        const ParticleDistribution* particle_distr = it.first;
-        const std::string& key = it.second;
-
-        const std::string units = particle_distr->mainUnits();
-
-        ParameterDistribution par_distr = particle_distr->parameterDistribution();
-
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
+        const std::string units = s->mainUnits();
+        ParameterDistribution par_distr = s->parameterDistribution();
         // building distribution functions
         std::string s_distr = "distr_" + std::to_string(index);
         result << indent() << s_distr << " = "
@@ -469,31 +463,30 @@ std::string SampleToPython::defineParticleDistributions() const {
             result << "\n";
         }
 
-        auto particle = INodeUtils::OnlyChildOfType<IParticle>(*particle_distr);
+        auto particle = INodeUtils::OnlyChildOfType<IParticle>(*s);
         if (!particle)
             continue;
         result << indent() << key << " = ba.ParticleDistribution("
-               << m_objs->labelParticle(particle) << ", " << s_par_distr << ")\n";
+               << m_objs->obj2key(particle) << ", " << s_par_distr << ")\n";
         index++;
     }
     return result.str();
 }
 
 std::string SampleToPython::defineParticleCompositions() const {
-    const auto* themap = m_objs->particleCompositionMap();
-    if (themap->empty())
+    std::vector<const ParticleComposition*> v = m_objs->objectsOfType<ParticleComposition>();
+    if (v.empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define composition of particles at specific positions\n";
-    for (auto it: *themap) {
-        const ParticleComposition* s = it.first;
-        const std::string& key = it.second;
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.ParticleComposition()\n";
         const auto particle_list = INodeUtils::ChildNodesOfType<IParticle>(*s);
         for (const auto* particle : particle_list) {
             result << indent() << key << ".addParticle("
-                   << m_objs->labelParticle(particle) << ")\n";
+                   << m_objs->obj2key(particle) << ")\n";
         }
         setRotationInformation(s, key, result);
         setPositionInformation(s, key, result);
@@ -501,16 +494,37 @@ std::string SampleToPython::defineParticleCompositions() const {
     return result.str();
 }
 
+std::string SampleToPython::defineMesoCrystals() const {
+    std::vector<const MesoCrystal*> v = m_objs->objectsOfType<MesoCrystal>();
+    if (v.empty())
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Define mesocrystals\n";
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
+        auto crystal = INodeUtils::OnlyChildOfType<Crystal>(*s);
+        auto outer_shape = INodeUtils::OnlyChildOfType<IFormFactor>(*s);
+        if (!crystal || !outer_shape)
+            continue;
+        result << indent() << key << " = ba.MesoCrystal(";
+        result << m_objs->obj2key(crystal) << ", ";
+        result << m_objs->obj2key(outer_shape) << ")\n";
+        setRotationInformation(s, key, result);
+        setPositionInformation(s, key, result);
+    }
+    return result.str();
+}
+
 std::string SampleToPython::defineLattices2D() const {
-    const auto* themap = m_objs->lattice2DMap();
-    if (themap->empty())
+    std::vector<const Lattice2D*> v = m_objs->objectsOfType<Lattice2D>();
+    if (v.empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define 2D lattices\n";
-    for (auto it: *themap) {
-        const Lattice2D* s = it.first;
-        const std::string& key = it.second;
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.BasicLattice2D(\n";
         result << indent() << indent() << pyfmt::printNm(s->length1()) << ", "
                << pyfmt::printNm(s->length2()) << ", "
@@ -521,15 +535,14 @@ std::string SampleToPython::defineLattices2D() const {
 }
 
 std::string SampleToPython::defineLattices3D() const {
-    const auto* themap = m_objs->lattice3DMap();
-    if (themap->empty())
+    std::vector<const Lattice3D*> v = m_objs->objectsOfType<Lattice3D>();
+    if (v.empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define 3D lattices\n";
-    for (auto it: *themap) {
-        const Lattice3D* s = it.first;
-        const std::string& key = it.second;
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
         kvector_t bas_a = s->getBasisVectorA();
         kvector_t bas_b = s->getBasisVectorB();
         kvector_t bas_c = s->getBasisVectorC();
@@ -545,45 +558,21 @@ std::string SampleToPython::defineLattices3D() const {
 }
 
 std::string SampleToPython::defineCrystals() const {
-    const auto* themap = m_objs->crystalMap();
-    if (themap->empty())
+    std::vector<const Crystal*> v = m_objs->objectsOfType<Crystal>();
+    if (v.empty())
         return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Define crystals: basis particle + lattice\n";
-    for (auto it: *themap) {
-        const Crystal* s = it.first;
-        const std::string& key = it.second;
+    result << "\n" << indent() << "# Define crystals\n";
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
         const auto* lattice = INodeUtils::OnlyChildOfType<Lattice3D>(*s);
         const auto* basis = INodeUtils::OnlyChildOfType<IParticle>(*s);
         if (!lattice || !basis)
             continue;
         result << indent() << key << " = ba.Crystal(";
-        result << m_objs->labelParticle(basis) << ", ";
-        result << m_objs->labelLattice3D(lattice) << ")\n";
-    }
-    return result.str();
-}
-
-std::string SampleToPython::defineMesoCrystals() const {
-    const auto* themap = m_objs->mesocrystalMap();
-    if (themap->empty())
-        return "";
-    std::ostringstream result;
-    result << std::setprecision(12);
-    result << "\n" << indent() << "# Define mesocrystals\n";
-    for (auto it: *themap) {
-        const MesoCrystal* s = it.first;
-        const std::string& key = it.second;
-        auto crystal = INodeUtils::OnlyChildOfType<Crystal>(*s);
-        auto outer_shape = INodeUtils::OnlyChildOfType<IFormFactor>(*s);
-        if (!crystal || !outer_shape)
-            continue;
-        result << indent() << key << " = ba.MesoCrystal(";
-        result << m_objs->labelCrystal(crystal) << ", ";
-        result << m_objs->obj2key(outer_shape) << ")\n";
-        setRotationInformation(s, key, result);
-        setPositionInformation(s, key, result);
+        result << m_objs->obj2key(basis) << ", ";
+        result << m_objs->obj2key(lattice) << ")\n";
     }
     return result.str();
 }

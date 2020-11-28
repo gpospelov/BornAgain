@@ -102,10 +102,6 @@ void SampleLabelHandler::insertLattice3D(const Lattice3D* sample) {
     m_Lattice3DLabel.insert(sample, label);
 }
 
-void SampleLabelHandler::insertLayer(const Layer* sample) {
-    m_objects.push_back((const ISample*)(sample));
-}
-
 void SampleLabelHandler::insertLayout(const ParticleLayout* sample) {
     std::string label = "layout_" + std::to_string(m_ParticleLayoutLabel.size() + 1);
     m_ParticleLayoutLabel.insert(sample, label);
@@ -159,4 +155,24 @@ void SampleLabelHandler::insertRoughness(const LayerRoughness* sample) {
         std::string label = "layerRoughness_" + std::to_string(m_LayerRoughnessLabel.size() + 1);
         m_LayerRoughnessLabel.insert(sample, label);
     }
+}
+
+
+
+void SampleLabelHandler::insertKeyedObject(const std::string& key, const ISample* s) {
+    m_objects[key].emplace_back(s);
+}
+
+std::string SampleLabelHandler::obj2label(const ISample* s) const {
+    for (auto it: m_objects) {
+        const std::vector<const ISample*>& v = it.second;
+        const auto vpos = std::find(v.begin(), v.end(), s);
+        if (vpos == std::end(v))
+            continue;
+        const std::string& key = it.first;
+        if (v.size() == 1)
+            return key;
+        return key + "_" + std::to_string(vpos - v.begin() + 1);
+    }
+    throw std::runtime_error("BUG: object not found in SampleLabelHandler");
 }

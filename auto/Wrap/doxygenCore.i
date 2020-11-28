@@ -1886,10 +1886,13 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::insertRoughness "void SampleLabelHandler::insertRoughness(const LayerRoughness *sample)
 ";
 
+%feature("docstring")  SampleLabelHandler::insertKeyedObject "void SampleLabelHandler::insertKeyedObject(const std::string &key, const ISample *s)
+";
+
 %feature("docstring")  SampleLabelHandler::objectsOfType "std::vector< const T * > SampleLabelHandler::objectsOfType() const
 ";
 
-%feature("docstring")  SampleLabelHandler::labelOfType "std::string SampleLabelHandler::labelOfType(const T *s) const
+%feature("docstring")  SampleLabelHandler::obj2label "std::string SampleLabelHandler::obj2label(const ISample *s) const
 ";
 
 

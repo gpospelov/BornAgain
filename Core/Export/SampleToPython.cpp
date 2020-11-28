@@ -40,8 +40,6 @@ using pyfmt::indent;
 
 namespace {
 
-static const char layerName[] = "layer";
-
 void setRotationInformation(const IParticle* particle, std::string name,
                             std::ostringstream& result) {
     if (particle->rotation()) {
@@ -107,7 +105,7 @@ void SampleToPython::initLabels(const MultiLayer& multilayer) {
     for (const auto* x : multilayer.containedMaterials())
         m_label->insertMaterial(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Layer>(multilayer))
-        m_label->insertLayer(x);
+        m_label->insertKeyedObject("layer", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<LayerRoughness>(multilayer))
         m_label->insertRoughness(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IFormFactor>(multilayer))
@@ -197,7 +195,7 @@ std::string SampleToPython::defineLayers() const {
     result << "\n" << indent() << "# Define layers\n";
     result << std::setprecision(12);
     for (const Layer* layer : v) {
-        const std::string& label = m_label->labelOfType<Layer, layerName>(layer);
+        const std::string& label = m_label->obj2label(layer);
         result << indent() << label << " = ba.Layer(" << m_label->labelMaterial(layer->material());
         if (layer->thickness() != 0)
             result << ", " << pyfmt::printNm(layer->thickness());
@@ -614,7 +612,7 @@ std::string SampleToPython::defineMultiLayers() const {
         size_t numberOfLayers = it->first->numberOfLayers();
         if (numberOfLayers) {
             result << indent() << it->second << ".addLayer("
-                   << m_label->labelOfType<Layer, layerName>(it->first->layer(0)) << ")\n";
+                   << m_label->obj2label(it->first->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
@@ -622,11 +620,11 @@ std::string SampleToPython::defineMultiLayers() const {
                 if (m_label->layerRoughnessMap()->find(layerInterface->getRoughness())
                     == m_label->layerRoughnessMap()->end())
                     result << indent() << it->second << ".addLayer("
-                           << m_label->labelOfType<Layer, layerName>(it->first->layer(layerIndex))
+                           << m_label->obj2label(it->first->layer(layerIndex))
                            << ")\n";
                 else
                     result << indent() << it->second << ".addLayerWithTopRoughness("
-                           << m_label->labelOfType<Layer, layerName>(it->first->layer(layerIndex))
+                           << m_label->obj2label(it->first->layer(layerIndex))
                            << ", " << m_label->labelRoughness(layerInterface->getRoughness())
                            << ")\n";
                 layerIndex++;

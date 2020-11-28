@@ -16,6 +16,7 @@
 #define BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
 
 #include "Core/Export/OrderedMap.h"
+#include <map>
 #include <vector>
 
 class Crystal;
@@ -108,9 +109,10 @@ public:
     void insertRotation(const IRotation* sample);
     void insertRoughness(const LayerRoughness* sample);
 
-    template <class T> std::vector<const T*> objectsOfType() const;
+    void insertKeyedObject(const std::string& key, const ISample* s);
 
-    template <class T, const char* S> std::string labelOfType(const T* s) const;
+    template <class T> std::vector<const T*> objectsOfType() const;
+    std::string obj2label(const ISample* s) const;
 
 private:
     crystals_t m_CrystalLabel;
@@ -130,25 +132,16 @@ private:
     rotations_t m_RotationsLabel;
     roughnesses_t m_LayerRoughnessLabel;
 
-    std::vector<const ISample*> m_objects;
+    std::map<std::string, std::vector<const ISample*>> m_objects;
 };
+
 
 template <class T> std::vector<const T*> SampleLabelHandler::objectsOfType() const {
     std::vector<const T*> ret;
-    for (const ISample* s : m_objects)
-        if (const auto* c = dynamic_cast<const T*>(s); c)
-            ret.emplace_back(c);
-    return ret;
-}
-
-template <class T, const char* S> std::string SampleLabelHandler::labelOfType(const T* s) const {
-    std::vector<const T*> v = objectsOfType<T>();
-    const auto vpos = std::find(v.begin(), v.end(), s);
-    if (vpos == std::end(v))
-        throw std::runtime_error("BUG: object not found in SampleLabelHandler");
-    std::string ret = S;
-    if (v.size() > 1)
-        ret += "_" + std::to_string(vpos - v.begin() + 1);
+    for (auto it: m_objects)
+        for (const ISample* s : it.second)
+            if (const auto* c = dynamic_cast<const T*>(s); c)
+                ret.emplace_back(c);
     return ret;
 }
 

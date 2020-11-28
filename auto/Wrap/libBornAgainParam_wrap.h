@@ -15,6 +15,26 @@
 #include <string>
 
 
+class SwigDirector_IModel : public IModel, public Swig::Director {
+
+public:
+    SwigDirector_IModel(PyObject *self);
+    virtual ~SwigDirector_IModel();
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+};
+
+
 class SwigDirector_IParameterized : public IParameterized, public Swig::Director {
 
 public:

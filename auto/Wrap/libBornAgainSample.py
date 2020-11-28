@@ -2747,7 +2747,7 @@ class SampleBuilderFactoryTemp(object):
 # Register SampleBuilderFactoryTemp in _libBornAgainSample:
 _libBornAgainSample.SampleBuilderFactoryTemp_swigregister(SampleBuilderFactoryTemp)
 
-class Material(object):
+class Material(libBornAgainParam.IModel):
     r"""
 
 

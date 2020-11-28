@@ -15,6 +15,7 @@
 #ifndef BORNAGAIN_PARAM_BASE_IPARAMETERIZED_H
 #define BORNAGAIN_PARAM_BASE_IPARAMETERIZED_H
 
+#include "Param/Base/IModel.h"
 #include "Base/Vector/Vectors3D.h"
 #include <memory>
 
@@ -25,7 +26,7 @@ class RealParameter;
 //! Manages a local parameter pool, and a tree of child pools.
 //! @ingroup tools_internal
 
-class IParameterized {
+class IParameterized : public IModel {
 public:
     IParameterized(const std::string& name = "");
     IParameterized(const IParameterized& other);

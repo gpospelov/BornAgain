@@ -19,7 +19,7 @@
 #include <map>
 #include <vector>
 
-class INode;
+class IModel;
 
 class Material;
 class IRotation;
@@ -49,24 +49,24 @@ public:
     void insertMultiLayer(const MultiLayer* sample);
     void insertRotation(const IRotation* sample);
 
-    void insertKeyedObject(const std::string& key, const INode* s);
+    void insertKeyedObject(const std::string& key, const IModel* s);
 
     template <class T> std::vector<const T*> objectsOfType() const;
-    std::string obj2key(const INode* s) const;
+    std::string obj2key(const IModel* s) const;
 
 private:
     materials_t m_MaterialLabel;
     multilayers_t m_MultiLayerLabel;
     rotations_t m_RotationsLabel;
 
-    std::map<std::string, std::vector<const INode*>> m_objects;
+    std::map<std::string, std::vector<const IModel*>> m_objects;
 };
 
 
 template <class T> std::vector<const T*> SampleLabelHandler::objectsOfType() const {
     std::vector<const T*> ret;
     for (auto it: m_objects)
-        for (const INode* s : it.second)
+        for (const IModel* s : it.second)
             if (const auto* c = dynamic_cast<const T*>(s); c)
                 ret.emplace_back(c);
     return ret;

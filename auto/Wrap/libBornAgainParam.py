@@ -2898,7 +2898,44 @@ class ParameterPool(libBornAgainBase.ICloneable):
 # Register ParameterPool in _libBornAgainParam:
 _libBornAgainParam.ParameterPool_swigregister(ParameterPool)
 
-class IParameterized(object):
+class IModel(object):
+    r"""
+
+
+    Root of class hierarchy for sample and instrument model.
+
+    C++ includes: IModel.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainParam.delete_IModel
+
+    def __init__(self):
+        r"""
+        __init__(IModel self) -> IModel
+
+
+        Root of class hierarchy for sample and instrument model.
+
+        C++ includes: IModel.h
+
+        """
+        if self.__class__ == IModel:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainParam.IModel_swiginit(self, _libBornAgainParam.new_IModel(_self, ))
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainParam.disown_IModel(self)
+        return weakref.proxy(self)
+
+# Register IModel in _libBornAgainParam:
+_libBornAgainParam.IModel_swigregister(IModel)
+
+class IParameterized(IModel):
     r"""
 
 

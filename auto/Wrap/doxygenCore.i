@@ -1784,13 +1784,13 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::insertRotation "void SampleLabelHandler::insertRotation(const IRotation *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::insertKeyedObject "void SampleLabelHandler::insertKeyedObject(const std::string &key, const INode *s)
+%feature("docstring")  SampleLabelHandler::insertKeyedObject "void SampleLabelHandler::insertKeyedObject(const std::string &key, const IModel *s)
 ";
 
 %feature("docstring")  SampleLabelHandler::objectsOfType "std::vector< const T * > SampleLabelHandler::objectsOfType() const
 ";
 
-%feature("docstring")  SampleLabelHandler::obj2key "std::string SampleLabelHandler::obj2key(const INode *s) const
+%feature("docstring")  SampleLabelHandler::obj2key "std::string SampleLabelHandler::obj2key(const IModel *s) const
 ";
 
 

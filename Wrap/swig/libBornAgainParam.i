@@ -23,14 +23,12 @@
 
 %include "ignoreBase.i"
 
-%feature("director") IParameterized;     // needed by ISampleBuilder
-%feature("director") INode;              // needed by ISample
-
 %nodefaultctor ParameterPool;
 
 %{
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
+#include "Param/Base/IModel.h"
 #include "Param/Base/IParameterized.h"
 
 #include "Param/Node/INode.h"
@@ -60,9 +58,14 @@
 
 %include "Param/Base/RealParameter.h"
 %include "Param/Base/ParameterPool.h"
-%include "Param/Base/IParameterized.h"
 
+%feature("director") IModel;             // needed by IParameterized
+%include "Param/Base/IModel.h"
+%feature("director") IParameterized;     // needed by ISampleBuilder
+%include "Param/Base/IParameterized.h"
+%feature("director") INode;              // needed by ISample
 %include "Param/Node/INode.h"
+
 %include "Param/Node/INodeVisitor.h"
 
 %include "Param/Distrib/Distributions.h"

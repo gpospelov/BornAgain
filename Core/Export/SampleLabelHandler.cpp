@@ -45,13 +45,13 @@ void SampleLabelHandler::insertRotation(const IRotation* sample) {
 
 
 
-void SampleLabelHandler::insertKeyedObject(const std::string& key, const INode* s) {
+void SampleLabelHandler::insertKeyedObject(const std::string& key, const IModel* s) {
     m_objects[key].emplace_back(s);
 }
 
-std::string SampleLabelHandler::obj2key(const INode* s) const {
+std::string SampleLabelHandler::obj2key(const IModel* s) const {
     for (auto it: m_objects) {
-        const std::vector<const INode*>& v = it.second;
+        const std::vector<const IModel*>& v = it.second;
         const auto vpos = std::find(v.begin(), v.end(), s);
         if (vpos == std::end(v))
             continue;

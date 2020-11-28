@@ -408,6 +408,18 @@ Sets distribution units.
 ";
 
 
+// File: classIModel.xml
+%feature("docstring") IModel "
+
+Root of class hierarchy for sample and instrument model.
+
+C++ includes: IModel.h
+";
+
+%feature("docstring")  IModel::~IModel "virtual IModel::~IModel()
+";
+
+
 // File: classINode.xml
 %feature("docstring") INode "
 
@@ -1607,16 +1619,16 @@ C++ includes: Unit.h
 ";
 
 
-// File: namespace_0d10.xml
+// File: namespace_0d11.xml
 
 
-// File: namespace_0d14.xml
+// File: namespace_0d15.xml
 
 
-// File: namespace_0d24.xml
+// File: namespace_0d25.xml
 
 
-// File: namespace_0d29.xml
+// File: namespace_0d30.xml
 
 
 // File: namespaceNodeUtils.xml
@@ -1641,6 +1653,9 @@ Returns true if given parameter name is related to angles.
 
 Returns units of main parameter. 
 ";
+
+
+// File: IModel_8h.xml
 
 
 // File: IParameter_8h.xml

@@ -117,18 +117,7 @@ void SampleLabelHandler::insertLayout(const ParticleLayout* sample) {
 }
 
 void SampleLabelHandler::insertMaterial(const Material* mat) {
-    for (auto it = m_MaterialLabel.begin(); it != m_MaterialLabel.end(); ++it) {
-        if (*(it->first) == *mat) {
-            m_MaterialLabel.insert(mat, it->second);
-            return;
-        }
-    }
-    // material not found => create new label
-    std::set<std::string> unique_labels;
-    for (auto it = m_MaterialLabel.begin(); it != m_MaterialLabel.end(); ++it)
-        unique_labels.insert(it->second);
-
-    std::string label = "material_" + std::to_string(unique_labels.size() + 1);
+    std::string label = "material_" + std::to_string(m_MaterialLabel.size() + 1);
     m_MaterialLabel.insert(mat, label);
 }
 

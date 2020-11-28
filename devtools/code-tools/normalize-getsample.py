@@ -15,22 +15,22 @@ def substitute_sample(ti, tc):
     Returns script ti, except for the get_sample function which is taken from script tc.
     """
     pat = re.compile(
-        r'(\ndef get_sample\(.+?:\n)(\s*""".+?"""\n)?\n*(((\s{4}.*?)?\n)+?\n)(\w|$)',
+        r'(\ndef get_sample\(\):\n)(\s*""".+?"""\n)?\n*(((\s{4}.*?)?\n)+?)(\w|$)',
         flags=re.S)
 
     mi = re.search(pat, ti)
     if not mi:
-        raise Exception("Input code has no function get_sample")
-    header = mi.group(1)
-
-    mn = re.search(pat, tc)
+        raise Exception("Input code has no function get_sample()")
+    mn = re.search(pat, '\n'+tc)
     if not mn:
-        raise Exception("Normalized code has no function get_sample")
-    if mn.group(1) != header:
-        raise Exception(
-            f'Signature of function get_sample has changed from "{header}" to "{mn.group(1)}"'
-        )
+        raise Exception(f'Normalized code has no function get_sample(): "{tc}"')
 
+    # forbidden cases:
+    if re.search(r'\n\s{4,}(for|if|while) ', mi.group(3)):
+        # expansion of for loops in sample construction is undesirable
+        raise Exception(f'Input get_sample contains control structure')
+
+    header = mi.group(1)
     if mi.group(2):
         header += mi.group(2) + '\n'
 
@@ -41,31 +41,34 @@ def substitute_sample(ti, tc):
     return t
 
 
-def retrieve_simulation(ti, fname):
+def retrieve_sample(ti, fname):
     c = compile(ti, fname, 'exec')
+    if verbose:
+        print(f'.. compiled sample code')
     ns = {}
     exec(c, ns)
+    if verbose:
+        print(f'.. executed sample code')
     globals().update(ns)
-    s = get_simulation()
-    s.setSample(get_sample())
-    return s
+    return get_sample()
 
 
-def cycle_text(ti, fname):
+def cycle_sample(ti, fname):
     """
     Returns normalized version of script ti as obtained from BornAgain's export-to-Python function.
     """
-    s = retrieve_simulation(ti, fname)
-    return ba.generateSimulationCode(s)
+    sam = retrieve_sample(ti, fname)
+    if verbose:
+        print(f'.. retrieved sample')
+    res = ba.generateSampleCode(sam)
+    if verbose:
+        print(f'.. cycled get_sample, {len(res.split())} lines')
+    return res
 
 
 def normalize_text(ti, fname):
-    tc = cycle_text(ti, fname)
-    if verbose:
-        print(
-            f'.. cycled through BA, {len(ti.split())} -> {len(tc.split())} lines'
-        )
-    tf = substitute_sample(ti, tc)
+    tsam = cycle_sample(ti, fname)
+    tf = substitute_sample(ti, tsam)
     if verbose:
         print(f'.. normalized, {len(ti.split())} -> {len(tf.split())} lines')
     # YAPF formatting
@@ -105,29 +108,10 @@ def normalize_file(fname, inplace):
         if t2 != tf:
             with open('out2.py', 'w') as f:
                 f.write(t2)
-            exit(
+            print(
                 f'=> BUG - changed under second normalization, see out2.py vs out1.py'
             )
-
-        # check invariance of simulation result:
-        si = retrieve_simulation(ti, fname + ".old")
-        sf = retrieve_simulation(tf, fname + ".new")
-        if verbose:
-            print(f'.. running old simulation ..')
-        si.runSimulation()
-        ri = si.result()
-        if verbose:
-            print(f'.. running new simulation ..')
-        sf.runSimulation()
-        rf = sf.result()
-        if verbose:
-            print(f'.. done with simulations')
-        diff = ba.getRelativeDifference(ba.importArrayToOutputData(ri.array()),
-                                        ba.importArrayToOutputData(rf.array()))
-        if verbose:
-            print(f'.. relative difference {diff}')
-        if diff > 1e-10:
-            exit(f'=> BUG - simulation result changed')
+            return 2
 
         # output
         if inplace:

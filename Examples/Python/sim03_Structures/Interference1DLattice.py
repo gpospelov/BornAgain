@@ -7,7 +7,7 @@ import bornagain as ba
 from bornagain import deg, angstrom, nm
 
 
-def get_sample(lattice_rotation_angle=45*deg):
+def get_sample():
     """
     Returns a sample with a grating on a substrate,
     modelled by very long boxes forming a 1D lattice with Cauchy correlations.
@@ -21,8 +21,7 @@ def get_sample(lattice_rotation_angle=45*deg):
     lattice_length = 30*nm
 
     # collection of particles
-    interference = ba.InterferenceFunction1DLattice(lattice_length,
-                                                    lattice_rotation_angle)
+    interference = ba.InterferenceFunction1DLattice(lattice_length, 45*deg)
     pdf = ba.FTDecayFunction1DCauchy(1000.0)
     interference.setDecayFunction(pdf)
 
@@ -31,7 +30,7 @@ def get_sample(lattice_rotation_angle=45*deg):
 
     particle_layout = ba.ParticleLayout()
     particle_layout.addParticle(box, 1.0, ba.kvector_t(0.0, 0.0, 0.0),
-                                ba.RotationZ(lattice_rotation_angle))
+                                ba.RotationZ(45*deg))
     particle_layout.setInterferenceFunction(interference)
 
     # assembling the sample
@@ -50,7 +49,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -1.0*deg, 1.0*deg, 200, 0.0*deg, 2.0*deg)
+    simulation.setDetectorParameters(200, -1.0*deg, 1.0*deg, 200, 0.0*deg,
+                                     2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
     return simulation
@@ -70,4 +70,7 @@ def run_simulation():
 
 if __name__ == '__main__':
     result = run_simulation()
-    ba.plot_simulation_result(result, intensity_min=1e-03, cmap='jet', aspect='auto')
+    ba.plot_simulation_result(result,
+                              intensity_min=1e-03,
+                              cmap='jet',
+                              aspect='auto')

@@ -1,10 +1,10 @@
 """
-This fitting and simulation example demonstrates how to replicate 
+This fitting and simulation example demonstrates how to replicate
 the fitting example "Magnetically Dead Layers in Spinel Films"
 given at the Nist website:
 https://www.nist.gov/ncnr/magnetically-dead-layers-spinel-films
 
-For simplicity, here we only reproduce the first part of that 
+For simplicity, here we only reproduce the first part of that
 demonstration without the magnetically dead layer.
 """
 
@@ -47,9 +47,9 @@ def get_sample(params):
     """
     magnetizationMagnitude = params["rhoM_Mafo"]*1e-6/RhoMconst
     angle = 0
-    magnetizationVector = ba.kvector_t(magnetizationMagnitude*numpy.sin(angle*deg),
-                                       magnetizationMagnitude*numpy.cos(angle*deg),
-                                       0)
+    magnetizationVector = ba.kvector_t(
+        magnetizationMagnitude*numpy.sin(angle*deg),
+        magnetizationMagnitude*numpy.cos(angle*deg), 0)
 
     mat_vacuum = ba.MaterialBySLD("Vacuum", 0.0, 0.0)
     mat_layer = ba.MaterialBySLD("(Mg,Al,Fe)3O4", params["rho_Mafo"]*1e-6, 0,
@@ -100,7 +100,7 @@ def get_simulation(q_axis, parameters, polarization, analyzer):
 
 def run_simulation(q_axis, fitParams, *, polarization, analyzer):
     """
-    Run a simulation on the given q-axis, where the sample is constructed 
+    Run a simulation on the given q-axis, where the sample is constructed
     with the given parameters.
     Vectors for polarization and analyzer need to be provided
     """
@@ -161,7 +161,7 @@ def plot(qs, rs, exps, labels, filename):
 
 def plotSpinAsymmetry(data_pp, data_mm, q, r_pp, r_mm, filename):
     """
-    Plot the simulated spin asymmetry as well its 
+    Plot the simulated spin asymmetry as well its
     experimental counterpart with errorbars
     """
 
@@ -246,10 +246,12 @@ def downloadAndExtractData():
 
     rawdata = zipfile.open("MAFO_Saturated.refl").read().decode("utf-8")
 
-    table_pp = match(r'.*# "polarization": "\+\+"\n#.*?\n# "units".*?\n(.*?)#.*',
-                     rawdata, DOTALL).group(1)
-    table_mm = match(r'.*# "polarization": "\-\-"\n#.*?\n# "units".*?\n(.*?)#.*',
-                     rawdata, DOTALL).group(1)
+    table_pp = match(
+        r'.*# "polarization": "\+\+"\n#.*?\n# "units".*?\n(.*?)#.*', rawdata,
+        DOTALL).group(1)
+    table_mm = match(
+        r'.*# "polarization": "\-\-"\n#.*?\n# "units".*?\n(.*?)#.*', rawdata,
+        DOTALL).group(1)
 
     data_pp = numpy.genfromtxt(BytesIO(table_pp.encode()), unpack=True)
     data_mm = numpy.genfromtxt(BytesIO(table_mm.encode()), unpack=True)
@@ -354,9 +356,11 @@ if __name__ == '__main__':
                       "MAFO_Saturated_spin_asymmetry_initial.pdf")
 
     if fit:
-        fitResult = run_fit_ba([data_pp[0], data_mm[0]], [data_pp[1], data_mm[1]],
+        fitResult = run_fit_ba([data_pp[0], data_mm[0]],
+                               [data_pp[1], data_mm[1]],
                                [data_pp[2], data_mm[2]],
-                               [run_Simulation_pp, run_Simulation_mm], startParams)
+                               [run_Simulation_pp, run_Simulation_mm],
+                               startParams)
         print("Fit Result:")
         print(fitResult)
 

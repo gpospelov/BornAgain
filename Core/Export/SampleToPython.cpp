@@ -38,6 +38,60 @@
 
 using pyfmt::indent;
 
+namespace {
+
+void setRotationInformation(const IParticle* particle, std::string name,
+                                            std::ostringstream& result) {
+    if (particle->rotation()) {
+        switch (particle->rotation()->getTransform3D().getRotationType()) {
+        case Transform3D::EULER: {
+            double alpha, beta, gamma;
+            particle->rotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
+            result << indent() << name << "_rotation = ba.RotationEuler("
+                   << pyfmt::printDegrees(alpha) << ", " << pyfmt::printDegrees(beta) << ", "
+                   << pyfmt::printDegrees(gamma) << ")\n";
+            break;
+        }
+        case Transform3D::XAXIS: {
+            double alpha = particle->rotation()->getTransform3D().calculateRotateXAngle();
+            result << indent() << name << "_rotation = ba.RotationX(" << pyfmt::printDegrees(alpha)
+                   << ")\n";
+            break;
+        }
+        case Transform3D::YAXIS: {
+            double alpha = particle->rotation()->getTransform3D().calculateRotateYAngle();
+            result << indent() << name << "_rotation = ba.RotationY(" << pyfmt::printDegrees(alpha)
+                   << ")\n";
+            break;
+        }
+        case Transform3D::ZAXIS: {
+            double alpha = particle->rotation()->getTransform3D().calculateRotateZAngle();
+            result << indent() << name << "_rotation = ba.RotationZ(" << pyfmt::printDegrees(alpha)
+                   << ")\n";
+            break;
+        }
+        }
+        result << indent() << name << ".setRotation(" << name << "_rotation)\n";
+    }
+}
+
+void setPositionInformation(const IParticle* particle, std::string name,
+                                            std::ostringstream& result) {
+    kvector_t pos = particle->position();
+    if (pos == kvector_t())
+        return;
+
+    result << indent() << name << "_position = kvector_t(" << pyfmt::printNm(pos.x()) << ", "
+           << pyfmt::printNm(pos.y()) << ", " << pyfmt::printNm(pos.z()) << ")\n";
+    result << indent() << name << ".setPosition(" << name << "_position)\n";
+}
+
+} // namespace
+
+//  ************************************************************************************************
+//  class SampleToPython
+//  ************************************************************************************************
+
 std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer) {
     initLabels(multilayer);
     return defineGetSample();
@@ -85,11 +139,11 @@ SampleToPython::SampleToPython() = default;
 SampleToPython::~SampleToPython() = default;
 
 std::string SampleToPython::defineGetSample() const {
-    return "def get_sample():\n" + defineMaterials() + defineLayers() + defineFormFactors()
+    return "def get_sample():\n" + defineMaterials() + defineFormFactors()
            + defineParticles() + defineCoreShellParticles() + defineParticleCompositions()
            + defineLattices2D() + defineLattices3D() + defineCrystals() + defineMesoCrystals()
            + defineParticleDistributions() + defineInterferenceFunctions() + defineParticleLayouts()
-           + defineRoughnesses() + addLayoutsToLayers() + defineMultiLayers() + "\n\n";
+           + defineRoughnesses() + defineLayers() + defineMultiLayers() + "\n\n";
 }
 
 const std::map<MATERIAL_TYPES, std::string> factory_names{
@@ -145,10 +199,18 @@ std::string SampleToPython::defineLayers() const {
         result << indent() << it->second << " = ba.Layer("
                << m_label->labelMaterial(layer->material());
         if (layer->thickness() != 0)
-            result << ", " << layer->thickness();
+            result << ", " << pyfmt::printNm(layer->thickness());
         result << ")\n";
         if (layer->numberOfSlices() != 1)
             result << indent() << it->second << ".setNumberOfSlices(" << layer->numberOfSlices()
+                   << ")\n";
+    }
+    result << std::setprecision(12);
+    const auto layermap = m_label->layerMap();
+    for (auto it = layermap->begin(); it != layermap->end(); ++it) {
+        const Layer* layer = it->first;
+        for (const auto* layout : layer->layouts())
+            result << indent() << it->second << ".addLayout(" << m_label->labelLayout(layout)
                    << ")\n";
     }
     return result.str();
@@ -534,23 +596,6 @@ std::string SampleToPython::defineRoughnesses() const {
     return result.str();
 }
 
-std::string SampleToPython::addLayoutsToLayers() const {
-    if (m_label->particleLayoutMap()->empty())
-        return "";
-    std::ostringstream result;
-    result << std::setprecision(12);
-    result << "\n" << indent() << "# Add layouts to layers";
-    const auto layermap = m_label->layerMap();
-    for (auto it = layermap->begin(); it != layermap->end(); ++it) {
-        const Layer* layer = it->first;
-        for (const auto* layout : layer->layouts())
-            result << "\n"
-                   << indent() << it->second << ".addLayout(" << m_label->labelLayout(layout)
-                   << ")\n";
-    }
-    return result.str();
-}
-
 std::string SampleToPython::defineMultiLayers() const {
     const auto* themap = m_label->multiLayerMap();
     if (themap->empty())
@@ -591,53 +636,7 @@ std::string SampleToPython::defineMultiLayers() const {
                 layerIndex++;
             }
         }
-        result << indent() << "return " << it->second << "\n";
+        result << "\n" << indent() << "return " << it->second << "\n";
     }
     return result.str();
-}
-
-void SampleToPython::setRotationInformation(const IParticle* particle, std::string name,
-                                            std::ostringstream& result) const {
-    if (particle->rotation()) {
-        switch (particle->rotation()->getTransform3D().getRotationType()) {
-        case Transform3D::EULER: {
-            double alpha, beta, gamma;
-            particle->rotation()->getTransform3D().calculateEulerAngles(&alpha, &beta, &gamma);
-            result << indent() << name << "_rotation = ba.RotationEuler("
-                   << pyfmt::printDegrees(alpha) << ", " << pyfmt::printDegrees(beta) << ", "
-                   << pyfmt::printDegrees(gamma) << ")\n";
-            break;
-        }
-        case Transform3D::XAXIS: {
-            double alpha = particle->rotation()->getTransform3D().calculateRotateXAngle();
-            result << indent() << name << "_rotation = ba.RotationX(" << pyfmt::printDegrees(alpha)
-                   << ")\n";
-            break;
-        }
-        case Transform3D::YAXIS: {
-            double alpha = particle->rotation()->getTransform3D().calculateRotateYAngle();
-            result << indent() << name << "_rotation = ba.RotationY(" << pyfmt::printDegrees(alpha)
-                   << ")\n";
-            break;
-        }
-        case Transform3D::ZAXIS: {
-            double alpha = particle->rotation()->getTransform3D().calculateRotateZAngle();
-            result << indent() << name << "_rotation = ba.RotationZ(" << pyfmt::printDegrees(alpha)
-                   << ")\n";
-            break;
-        }
-        }
-        result << indent() << name << ".setRotation(" << name << "_rotation)\n";
-    }
-}
-
-void SampleToPython::setPositionInformation(const IParticle* particle, std::string name,
-                                            std::ostringstream& result) const {
-    kvector_t pos = particle->position();
-    if (pos == kvector_t())
-        return;
-
-    result << indent() << name << "_position = kvector_t(" << pyfmt::printNm(pos.x()) << ", "
-           << pyfmt::printNm(pos.y()) << ", " << pyfmt::printNm(pos.z()) << ")\n";
-    result << indent() << name << ".setPosition(" << name << "_position)\n";
 }

@@ -23,7 +23,6 @@ class IModel;
 
 class Material;
 class IRotation;
-class MultiLayer;
 
 template <class Key> class LabelMap : public OrderedMap<Key, std::string> {};
 
@@ -33,20 +32,16 @@ template <class Key> class LabelMap : public OrderedMap<Key, std::string> {};
 class SampleLabelHandler {
 public:
     typedef LabelMap<const Material*> materials_t;
-    typedef LabelMap<const MultiLayer*> multilayers_t;
     typedef LabelMap<const IRotation*> rotations_t;
 
     SampleLabelHandler() {}
     materials_t* materialMap() { return &m_MaterialLabel; }
-    multilayers_t* multiLayerMap() { return &m_MultiLayerLabel; }
     rotations_t* rotationsMap() { return &m_RotationsLabel; }
 
     std::string labelMaterial(const Material* sample);
-    std::string labelMultiLayer(const MultiLayer* sample);
     std::string labelRotation(const IRotation* sample);
 
     void insertMaterial(const Material* sample);
-    void insertMultiLayer(const MultiLayer* sample);
     void insertRotation(const IRotation* sample);
 
     void insertKeyedObject(const std::string& key, const IModel* s);
@@ -56,7 +51,6 @@ public:
 
 private:
     materials_t m_MaterialLabel;
-    multilayers_t m_MultiLayerLabel;
     rotations_t m_RotationsLabel;
 
     std::map<std::string, std::vector<const IModel*>> m_objects;

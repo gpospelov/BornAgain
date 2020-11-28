@@ -102,8 +102,7 @@ std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer) {
 void SampleToPython::initLabels(const MultiLayer& multilayer) {
     m_objs.reset(new SampleLabelHandler());
 
-    m_objs->insertMultiLayer(&multilayer);
-
+    m_objs->insertKeyedObject("sample", &multilayer);
     for (const auto* x : multilayer.containedMaterials())
         m_objs->insertMaterial(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Layer>(multilayer))
@@ -578,15 +577,15 @@ std::string SampleToPython::defineCrystals() const {
 }
 
 std::string SampleToPython::defineMultiLayers() const {
-    const auto* themap = m_objs->multiLayerMap();
-    if (themap->empty())
-        return "# No MultiLayers.\n\n";
+    std::vector<const MultiLayer*> v = m_objs->objectsOfType<MultiLayer>();
+    if (v.empty())
+        return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << "\n" << indent() << "# Define multilayers\n";
-    for (auto it: *themap) {
-        const MultiLayer* s = it.first;
-        const std::string& key = it.second;
+    ASSERT(v.size()==1); // as long as there is exactly one sample, we shall use the singular
+    result << "\n" << indent() << "# Define sample\n";
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.MultiLayer()\n";
         double ccl = s->crossCorrLength();
         if (ccl > 0.0)

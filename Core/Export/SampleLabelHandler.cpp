@@ -13,15 +13,11 @@
 //  ************************************************************************************************
 
 #include "Core/Export/SampleLabelHandler.h"
-#include "Sample/Multilayer/MultiLayer.h"
+#include <algorithm>
 #include <set>
 
 std::string SampleLabelHandler::labelMaterial(const Material* mat) {
     return m_MaterialLabel[mat];
-}
-
-std::string SampleLabelHandler::labelMultiLayer(const MultiLayer* ml) {
-    return m_MultiLayerLabel[ml];
 }
 
 std::string SampleLabelHandler::labelRotation(const IRotation* rot) {
@@ -31,11 +27,6 @@ std::string SampleLabelHandler::labelRotation(const IRotation* rot) {
 void SampleLabelHandler::insertMaterial(const Material* mat) {
     std::string label = "material_" + std::to_string(m_MaterialLabel.size() + 1);
     m_MaterialLabel.insert(mat, label);
-}
-
-void SampleLabelHandler::insertMultiLayer(const MultiLayer* sample) {
-    std::string label = "multiLayer_" + std::to_string(m_MultiLayerLabel.size() + 1);
-    m_MultiLayerLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertRotation(const IRotation* sample) {

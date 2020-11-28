@@ -21,7 +21,6 @@
 
 class Crystal;
 class IAbstractParticle;
-class ParticleLayout;
 class Material;
 class ISample;
 class IRotation;
@@ -42,7 +41,6 @@ template <class Key> class LabelMap : public OrderedMap<Key, std::string> {};
 class SampleLabelHandler {
 public:
     typedef LabelMap<const Crystal*> crystals_t;
-    typedef LabelMap<const ParticleLayout*> layouts_t;
     typedef LabelMap<const Material*> materials_t;
     typedef LabelMap<const Lattice2D*> lattices2D_t;
     typedef LabelMap<const Lattice3D*> lattices3D_t;
@@ -56,7 +54,6 @@ public:
 
     SampleLabelHandler() {}
     crystals_t* crystalMap() { return &m_CrystalLabel; }
-    layouts_t* particleLayoutMap() { return &m_ParticleLayoutLabel; }
     materials_t* materialMap() { return &m_MaterialLabel; }
     lattices2D_t* lattice2DMap() { return &m_Lattice2DLabel; }
     lattices3D_t* lattice3DMap() { return &m_Lattice3DLabel; }
@@ -64,12 +61,11 @@ public:
     multilayers_t* multiLayerMap() { return &m_MultiLayerLabel; }
     particlecompositions_t* particleCompositionMap() { return &m_ParticleCompositionLabel; }
     particledistributions_t* particleDistributionsMap() { return &m_ParticleDistributionLabel; }
-    particles_t* particleMap() { return &m_ParticleLabel; }
     particlescoreshell_t* particleCoreShellMap() { return &m_ParticleCoreShellLabel; }
     rotations_t* rotationsMap() { return &m_RotationsLabel; }
+    particles_t* particleMap() { return &m_ParticleLabel; }
 
     std::string labelCrystal(const Crystal* sample);
-    std::string labelLayout(const ParticleLayout* sample);
     std::string labelMaterial(const Material* sample);
     std::string labelLattice2D(const Lattice2D* sample);
     std::string labelLattice3D(const Lattice3D* sample);
@@ -78,7 +74,6 @@ public:
     std::string labelRotation(const IRotation* sample);
 
     void insertCrystal(const Crystal* sample);
-    void insertLayout(const ParticleLayout* sample);
     void insertMaterial(const Material* sample);
     void insertLattice2D(const Lattice2D* sample);
     void insertLattice3D(const Lattice3D* sample);
@@ -97,7 +92,6 @@ public:
 
 private:
     crystals_t m_CrystalLabel;
-    layouts_t m_ParticleLayoutLabel;
     materials_t m_MaterialLabel;
     lattices2D_t m_Lattice2DLabel;
     lattices3D_t m_Lattice3DLabel;

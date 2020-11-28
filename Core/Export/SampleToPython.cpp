@@ -108,12 +108,12 @@ void SampleToPython::initLabels(const MultiLayer& multilayer) {
         m_objs->insertKeyedObject("layer", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<LayerRoughness>(multilayer))
         m_objs->insertKeyedObject("roughness", x);
+    for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleLayout>(multilayer))
+        m_objs->insertKeyedObject("layout", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IFormFactor>(multilayer))
         m_objs->insertKeyedObject("ff", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IInterferenceFunction>(multilayer))
         m_objs->insertKeyedObject("iff", x);
-    for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleLayout>(multilayer))
-        m_objs->insertLayout(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Particle>(multilayer))
         m_objs->insertParticle(x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleCoreShell>(multilayer))
@@ -204,7 +204,7 @@ std::string SampleToPython::defineLayers() const {
             result << indent() << key << ".setNumberOfSlices(" << s->numberOfSlices()
                    << ")\n";
         for (const auto* layout : s->layouts())
-            result << indent() << key << ".addLayout(" << m_objs->labelLayout(layout) << ")\n";
+            result << indent() << key << ".addLayout(" << m_objs->obj2key(layout) << ")\n";
     }
     return result.str();
 }
@@ -358,6 +358,34 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             result << indent() << key << ".setPositionVariance("
                    << pyfmt::printNm2(s->positionVariance()) << ")\n";
         }
+    }
+    return result.str();
+}
+
+std::string SampleToPython::defineParticleLayouts() const {
+    std::vector<const ParticleLayout*> v = m_objs->objectsOfType<ParticleLayout>();
+    if (v.empty())
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Define particle layouts\n";
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
+        result << indent() << key << " = ba.ParticleLayout()\n";
+        const auto particles = INodeUtils::ChildNodesOfType<IAbstractParticle>(*s);
+        for (const auto* particle : particles) {
+            double abundance = particle->abundance();
+            result << indent() << key << ".addParticle("
+                   << m_objs->labelParticle(particle) << ", " << pyfmt::printDouble(abundance)
+                   << ")\n";
+        }
+        if (const auto* iff =
+            INodeUtils::OnlyChildOfType<IInterferenceFunction>(*s))
+            result << indent() << key << ".setInterferenceFunction("
+                   << m_objs->obj2key(iff) << ")\n";
+        result << indent() << key << ".setWeight(" << s->weight() << ")\n";
+        result << indent() << key << ".setTotalParticleSurfaceDensity("
+               << s->totalParticleSurfaceDensity() << ")\n";
     }
     return result.str();
 }
@@ -556,35 +584,6 @@ std::string SampleToPython::defineMesoCrystals() const {
         result << m_objs->obj2key(outer_shape) << ")\n";
         setRotationInformation(s, key, result);
         setPositionInformation(s, key, result);
-    }
-    return result.str();
-}
-
-std::string SampleToPython::defineParticleLayouts() const {
-    const auto* themap = m_objs->particleLayoutMap();
-    if (themap->empty())
-        return "";
-    std::ostringstream result;
-    result << std::setprecision(12);
-    result << "\n" << indent() << "# Define particle layouts and adding particles\n";
-    for (auto it: *themap) {
-        const ParticleLayout* s = it.first;
-        const std::string& key = it.second;
-        result << indent() << key << " = ba.ParticleLayout()\n";
-        const auto particles = INodeUtils::ChildNodesOfType<IAbstractParticle>(*s);
-        for (const auto* particle : particles) {
-            double abundance = particle->abundance();
-            result << indent() << key << ".addParticle("
-                   << m_objs->labelParticle(particle) << ", " << pyfmt::printDouble(abundance)
-                   << ")\n";
-        }
-        if (const auto* iff =
-            INodeUtils::OnlyChildOfType<IInterferenceFunction>(*s))
-            result << indent() << key << ".setInterferenceFunction("
-                   << m_objs->obj2key(iff) << ")\n";
-        result << indent() << key << ".setWeight(" << s->weight() << ")\n";
-        result << indent() << key << ".setTotalParticleSurfaceDensity("
-               << s->totalParticleSurfaceDensity() << ")\n";
     }
     return result.str();
 }

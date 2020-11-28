@@ -1760,9 +1760,6 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::crystalMap "crystals_t* SampleLabelHandler::crystalMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::particleLayoutMap "layouts_t* SampleLabelHandler::particleLayoutMap()
-";
-
 %feature("docstring")  SampleLabelHandler::materialMap "materials_t* SampleLabelHandler::materialMap()
 ";
 
@@ -1784,19 +1781,16 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::particleDistributionsMap "particledistributions_t* SampleLabelHandler::particleDistributionsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::particleMap "particles_t* SampleLabelHandler::particleMap()
-";
-
 %feature("docstring")  SampleLabelHandler::particleCoreShellMap "particlescoreshell_t* SampleLabelHandler::particleCoreShellMap()
 ";
 
 %feature("docstring")  SampleLabelHandler::rotationsMap "rotations_t* SampleLabelHandler::rotationsMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::labelCrystal "std::string SampleLabelHandler::labelCrystal(const Crystal *sample)
+%feature("docstring")  SampleLabelHandler::particleMap "particles_t* SampleLabelHandler::particleMap()
 ";
 
-%feature("docstring")  SampleLabelHandler::labelLayout "std::string SampleLabelHandler::labelLayout(const ParticleLayout *sample)
+%feature("docstring")  SampleLabelHandler::labelCrystal "std::string SampleLabelHandler::labelCrystal(const Crystal *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::labelMaterial "std::string SampleLabelHandler::labelMaterial(const Material *sample)
@@ -1818,9 +1812,6 @@ C++ includes: SampleLabelHandler.h
 ";
 
 %feature("docstring")  SampleLabelHandler::insertCrystal "void SampleLabelHandler::insertCrystal(const Crystal *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertLayout "void SampleLabelHandler::insertLayout(const ParticleLayout *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const Material *sample)

@@ -25,10 +25,6 @@ std::string SampleLabelHandler::labelCrystal(const Crystal* cr) {
     return m_CrystalLabel[cr];
 }
 
-std::string SampleLabelHandler::labelLayout(const ParticleLayout* layout) {
-    return m_ParticleLayoutLabel[layout];
-}
-
 std::string SampleLabelHandler::labelMaterial(const Material* mat) {
     return m_MaterialLabel[mat];
 }
@@ -76,11 +72,6 @@ void SampleLabelHandler::insertLattice2D(const Lattice2D* sample) {
 void SampleLabelHandler::insertLattice3D(const Lattice3D* sample) {
     std::string label = "lattice3D_" + std::to_string(m_Lattice3DLabel.size() + 1);
     m_Lattice3DLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertLayout(const ParticleLayout* sample) {
-    std::string label = "layout_" + std::to_string(m_ParticleLayoutLabel.size() + 1);
-    m_ParticleLayoutLabel.insert(sample, label);
 }
 
 void SampleLabelHandler::insertMaterial(const Material* mat) {

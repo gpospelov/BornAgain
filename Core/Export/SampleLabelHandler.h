@@ -29,7 +29,6 @@ class IRotation;
 class Lattice2D;
 class Lattice3D;
 class Layer;
-class LayerRoughness;
 class MultiLayer;
 class Particle;
 class ParticleComposition;
@@ -58,7 +57,6 @@ public:
     typedef LabelMap<const Particle*> particles_t;
     typedef LabelMap<const ParticleCoreShell*> particlescoreshell_t;
     typedef LabelMap<const IRotation*> rotations_t;
-    typedef LabelMap<const LayerRoughness*> roughnesses_t;
 
     SampleLabelHandler() {}
     crystals_t* crystalMap() { return &m_CrystalLabel; }
@@ -74,7 +72,6 @@ public:
     particles_t* particleMap() { return &m_ParticleLabel; }
     particlescoreshell_t* particleCoreShellMap() { return &m_ParticleCoreShellLabel; }
     rotations_t* rotationsMap() { return &m_RotationsLabel; }
-    roughnesses_t* layerRoughnessMap() { return &m_LayerRoughnessLabel; }
 
     std::string labelCrystal(const Crystal* sample);
     std::string labelInterferenceFunction(const IInterferenceFunction* sample);
@@ -86,7 +83,6 @@ public:
     std::string labelMultiLayer(const MultiLayer* sample);
     std::string labelParticle(const IAbstractParticle* sample);
     std::string labelRotation(const IRotation* sample);
-    std::string labelRoughness(const LayerRoughness* sample);
 
     void insertCrystal(const Crystal* sample);
     void insertInterferenceFunction(const IInterferenceFunction* sample);
@@ -102,7 +98,6 @@ public:
     void insertParticle(const Particle* sample);
     void insertParticleCoreShell(const ParticleCoreShell* sample);
     void insertRotation(const IRotation* sample);
-    void insertRoughness(const LayerRoughness* sample);
 
     void insertKeyedObject(const std::string& key, const ISample* s);
 
@@ -124,7 +119,6 @@ private:
     particles_t m_ParticleLabel;
     particlescoreshell_t m_ParticleCoreShellLabel;
     rotations_t m_RotationsLabel;
-    roughnesses_t m_LayerRoughnessLabel;
 
     std::map<std::string, std::vector<const ISample*>> m_objects;
 };

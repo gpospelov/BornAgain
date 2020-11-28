@@ -20,7 +20,6 @@
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Particle/ParticleDistribution.h"
-#include "Sample/Slice/LayerRoughness.h"
 #include <set>
 
 std::string SampleLabelHandler::labelCrystal(const Crystal* cr) {
@@ -67,10 +66,6 @@ std::string SampleLabelHandler::labelParticle(const IAbstractParticle* abspartic
 
 std::string SampleLabelHandler::labelRotation(const IRotation* rot) {
     return m_RotationsLabel[rot];
-}
-
-std::string SampleLabelHandler::labelRoughness(const LayerRoughness* roughness) {
-    return m_LayerRoughnessLabel[roughness];
 }
 
 void SampleLabelHandler::insertCrystal(const Crystal* sample) {
@@ -138,14 +133,6 @@ void SampleLabelHandler::insertParticleCoreShell(const ParticleCoreShell* sample
 void SampleLabelHandler::insertRotation(const IRotation* sample) {
     std::string label = "rotation_" + std::to_string(m_RotationsLabel.size() + 1);
     m_RotationsLabel.insert(sample, label);
-}
-
-void SampleLabelHandler::insertRoughness(const LayerRoughness* sample) {
-    if (sample->getSigma() != 0 && sample->getHurstParameter() != 0
-        && sample->getLatteralCorrLength() != 0) {
-        std::string label = "layerRoughness_" + std::to_string(m_LayerRoughnessLabel.size() + 1);
-        m_LayerRoughnessLabel.insert(sample, label);
-    }
 }
 
 

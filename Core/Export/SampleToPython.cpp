@@ -107,7 +107,7 @@ void SampleToPython::initLabels(const MultiLayer& multilayer) {
     for (const auto* x : INodeUtils::AllDescendantsOfType<Layer>(multilayer))
         m_objs->insertKeyedObject("layer", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<LayerRoughness>(multilayer))
-        m_objs->insertRoughness(x);
+        m_objs->insertKeyedObject("roughness", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<IFormFactor>(multilayer))
         m_objs->insertKeyedObject("ff", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<ParticleLayout>(multilayer))
@@ -205,6 +205,21 @@ std::string SampleToPython::defineLayers() const {
                    << ")\n";
         for (const auto* layout : s->layouts())
             result << indent() << label << ".addLayout(" << m_objs->labelLayout(layout) << ")\n";
+    }
+    return result.str();
+}
+
+std::string SampleToPython::defineRoughnesses() const {
+    std::vector<const LayerRoughness*> v = m_objs->objectsOfType<LayerRoughness>();
+    if (v.empty())
+        return "";
+    std::ostringstream result;
+    result << std::setprecision(12);
+    result << "\n" << indent() << "# Define roughness\n";
+    for (const auto* s : v) {
+        const std::string& label = m_objs->obj2label(s);
+        result << indent() << label << " = ba.LayerRoughness("
+               << pyfmt2::argumentList(s) << ")\n";
     }
     return result.str();
 }
@@ -575,19 +590,6 @@ std::string SampleToPython::defineParticleLayouts() const {
     return result.str();
 }
 
-std::string SampleToPython::defineRoughnesses() const {
-    const auto* themap = m_objs->layerRoughnessMap();
-    if (themap->empty())
-        return "";
-    std::ostringstream result;
-    result << std::setprecision(12);
-    result << "\n" << indent() << "# Define roughness parameters\n";
-    for (auto it = themap->begin(); it != themap->end(); ++it)
-        result << indent() << it->second << " = ba.LayerRoughness("
-               << pyfmt2::argumentList(it->first) << ")\n";
-    return result.str();
-}
-
 std::string SampleToPython::defineMultiLayers() const {
     const auto* themap = m_objs->multiLayerMap();
     if (themap->empty())
@@ -617,15 +619,14 @@ std::string SampleToPython::defineMultiLayers() const {
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
                 const LayerInterface* layerInterface = it->first->layerInterface(layerIndex - 1);
-                if (m_objs->layerRoughnessMap()->find(layerInterface->getRoughness())
-                    == m_objs->layerRoughnessMap()->end())
-                    result << indent() << it->second << ".addLayer("
-                           << m_objs->obj2label(it->first->layer(layerIndex))
-                           << ")\n";
-                else
+                if (const LayerRoughness* rough = layerInterface->getRoughness(); rough)
                     result << indent() << it->second << ".addLayerWithTopRoughness("
                            << m_objs->obj2label(it->first->layer(layerIndex))
-                           << ", " << m_objs->labelRoughness(layerInterface->getRoughness())
+                           << ", " << m_objs->obj2label(rough)
+                           << ")\n";
+                else
+                    result << indent() << it->second << ".addLayer("
+                           << m_objs->obj2label(it->first->layer(layerIndex))
                            << ")\n";
                 layerIndex++;
             }

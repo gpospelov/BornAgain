@@ -196,7 +196,7 @@ std::string SampleToPython::defineLayers() const {
     result << "\n" << indent() << "# Define layers\n";
     result << std::setprecision(12);
     for (const auto* s : v) {
-        const std::string& key = m_objs->obj2label(s);
+        const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.Layer(" << m_objs->labelMaterial(s->material());
         if (s->thickness() != 0)
             result << ", " << pyfmt::printNm(s->thickness());
@@ -218,7 +218,7 @@ std::string SampleToPython::defineRoughnesses() const {
     result << std::setprecision(12);
     result << "\n" << indent() << "# Define roughness\n";
     for (const auto* s : v) {
-        const std::string& key = m_objs->obj2label(s);
+        const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.LayerRoughness("
                << pyfmt2::argumentList(s) << ")\n";
     }
@@ -233,7 +233,7 @@ std::string SampleToPython::defineFormFactors() const {
     result << "\n" << indent() << "# Define form factors\n";
     result << std::setprecision(12);
     for (const auto* s : v) {
-        const std::string& key = m_objs->obj2label(s);
+        const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.FormFactor" << s->getName() << "("
                << pyfmt2::argumentList(s) << ")\n";
     }
@@ -379,7 +379,7 @@ std::string SampleToPython::defineParticles() const {
             continue;
         result << indent() << key << " = ba.Particle("
                << m_objs->labelMaterial(s->material()) << ", "
-               << m_objs->obj2label(ff) << ")\n";
+               << m_objs->obj2key(ff) << ")\n";
         setRotationInformation(s, key, result);
         setPositionInformation(s, key, result);
     }
@@ -555,7 +555,7 @@ std::string SampleToPython::defineMesoCrystals() const {
             continue;
         result << indent() << key << " = ba.MesoCrystal(";
         result << m_objs->labelCrystal(crystal) << ", ";
-        result << m_objs->obj2label(outer_shape) << ")\n";
+        result << m_objs->obj2key(outer_shape) << ")\n";
         setRotationInformation(s, key, result);
         setPositionInformation(s, key, result);
     }
@@ -617,19 +617,19 @@ std::string SampleToPython::defineMultiLayers() const {
         size_t numberOfLayers = s->numberOfLayers();
         if (numberOfLayers) {
             result << indent() << key << ".addLayer("
-                   << m_objs->obj2label(s->layer(0)) << ")\n";
+                   << m_objs->obj2key(s->layer(0)) << ")\n";
 
             size_t layerIndex = 1;
             while (layerIndex != numberOfLayers) {
                 const LayerInterface* layerInterface = s->layerInterface(layerIndex - 1);
                 if (const LayerRoughness* rough = layerInterface->getRoughness())
                     result << indent() << key << ".addLayerWithTopRoughness("
-                           << m_objs->obj2label(s->layer(layerIndex))
-                           << ", " << m_objs->obj2label(rough)
+                           << m_objs->obj2key(s->layer(layerIndex))
+                           << ", " << m_objs->obj2key(rough)
                            << ")\n";
                 else
                     result << indent() << key << ".addLayer("
-                           << m_objs->obj2label(s->layer(layerIndex))
+                           << m_objs->obj2key(s->layer(layerIndex))
                            << ")\n";
                 layerIndex++;
             }

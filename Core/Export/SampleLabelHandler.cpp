@@ -141,7 +141,7 @@ void SampleLabelHandler::insertKeyedObject(const std::string& key, const ISample
     m_objects[key].emplace_back(s);
 }
 
-std::string SampleLabelHandler::obj2label(const ISample* s) const {
+std::string SampleLabelHandler::obj2key(const ISample* s) const {
     for (auto it: m_objects) {
         const std::vector<const ISample*>& v = it.second;
         const auto vpos = std::find(v.begin(), v.end(), s);

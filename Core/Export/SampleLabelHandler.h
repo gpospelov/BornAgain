@@ -28,7 +28,6 @@ class ISample;
 class IRotation;
 class Lattice2D;
 class Lattice3D;
-class Layer;
 class MultiLayer;
 class Particle;
 class ParticleComposition;
@@ -45,7 +44,6 @@ class SampleLabelHandler {
 public:
     typedef LabelMap<const Crystal*> crystals_t;
     typedef LabelMap<const IInterferenceFunction*> interferences_t;
-    typedef LabelMap<const Layer*> layers_t;
     typedef LabelMap<const ParticleLayout*> layouts_t;
     typedef LabelMap<const Material*> materials_t;
     typedef LabelMap<const Lattice2D*> lattices2D_t;
@@ -75,7 +73,6 @@ public:
 
     std::string labelCrystal(const Crystal* sample);
     std::string labelInterferenceFunction(const IInterferenceFunction* sample);
-    std::string labelLayer(const Layer* sample);
     std::string labelLayout(const ParticleLayout* sample);
     std::string labelMaterial(const Material* sample);
     std::string labelLattice2D(const Lattice2D* sample);
@@ -86,7 +83,6 @@ public:
 
     void insertCrystal(const Crystal* sample);
     void insertInterferenceFunction(const IInterferenceFunction* sample);
-    void insertLayer(const Layer* sample);
     void insertLayout(const ParticleLayout* sample);
     void insertMaterial(const Material* sample);
     void insertLattice2D(const Lattice2D* sample);
@@ -102,12 +98,11 @@ public:
     void insertKeyedObject(const std::string& key, const ISample* s);
 
     template <class T> std::vector<const T*> objectsOfType() const;
-    std::string obj2label(const ISample* s) const;
+    std::string obj2key(const ISample* s) const;
 
 private:
     crystals_t m_CrystalLabel;
     interferences_t m_InterferenceFunctionLabel;
-    layers_t m_LayerLabel;
     layouts_t m_ParticleLayoutLabel;
     materials_t m_MaterialLabel;
     lattices2D_t m_Lattice2DLabel;

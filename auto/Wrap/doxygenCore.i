@@ -1802,9 +1802,6 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::labelInterferenceFunction "std::string SampleLabelHandler::labelInterferenceFunction(const IInterferenceFunction *sample)
 ";
 
-%feature("docstring")  SampleLabelHandler::labelLayer "std::string SampleLabelHandler::labelLayer(const Layer *sample)
-";
-
 %feature("docstring")  SampleLabelHandler::labelLayout "std::string SampleLabelHandler::labelLayout(const ParticleLayout *sample)
 ";
 
@@ -1830,9 +1827,6 @@ C++ includes: SampleLabelHandler.h
 ";
 
 %feature("docstring")  SampleLabelHandler::insertInterferenceFunction "void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertLayer "void SampleLabelHandler::insertLayer(const Layer *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertLayout "void SampleLabelHandler::insertLayout(const ParticleLayout *sample)
@@ -1874,7 +1868,7 @@ C++ includes: SampleLabelHandler.h
 %feature("docstring")  SampleLabelHandler::objectsOfType "std::vector< const T * > SampleLabelHandler::objectsOfType() const
 ";
 
-%feature("docstring")  SampleLabelHandler::obj2label "std::string SampleLabelHandler::obj2label(const ISample *s) const
+%feature("docstring")  SampleLabelHandler::obj2key "std::string SampleLabelHandler::obj2key(const ISample *s) const
 ";
 
 

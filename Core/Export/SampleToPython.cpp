@@ -104,7 +104,7 @@ void SampleToPython::initLabels(const MultiLayer& multilayer) {
 
     m_objs->insertKeyedObject("sample", &multilayer);
     for (const auto* x : multilayer.containedMaterials())
-        m_objs->insertMaterial(x);
+        m_objs->insertKeyedObject("mat_"+x->getName(), x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Layer>(multilayer))
         m_objs->insertKeyedObject("layer", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<LayerRoughness>(multilayer))
@@ -152,36 +152,32 @@ const std::map<MATERIAL_TYPES, std::string> factory_names{
     {MATERIAL_TYPES::MaterialBySLD, "MaterialBySLD"}};
 
 std::string SampleToPython::defineMaterials() const {
-    const LabelMap<const Material*>* themap = m_objs->materialMap();
-    if (themap->empty())
-        return "# No materials.\n\n";
+    std::vector<const Material*> v = m_objs->objectsOfType<Material>();
+    if (v.empty())
+        return "";
     std::ostringstream result;
     result << std::setprecision(12);
     result << indent() << "# Define materials\n";
-    std::set<std::string> visitedMaterials;
-    for (auto it = themap->begin(); it != themap->end(); ++it) {
-        if (visitedMaterials.find(it->second) != visitedMaterials.end())
-            continue;
-        visitedMaterials.insert(it->second);
-        const Material* material = it->first;
-        const auto factory_name = factory_names.find(material->typeID());
+    for (const auto* s : v) {
+        const std::string& key = m_objs->obj2key(s);
+        const auto factory_name = factory_names.find(s->typeID());
         if (factory_name == factory_names.cend())
             throw std::runtime_error(
                 "Error in ExportToPython::defineMaterials(): unknown material type");
-        const complex_t& material_data = material->materialData();
-        if (material->isScalarMaterial()) {
-            result << indent() << m_objs->labelMaterial(material) << " = ba."
-                   << factory_name->second << "(\"" << material->getName() << "\", "
-                   << pyfmt::printDouble(material_data.real()) << ", "
-                   << pyfmt::printDouble(material_data.imag()) << ")\n";
+        const complex_t& data = s->materialData();
+        if (s->isScalarMaterial()) {
+            result << indent() << key << " = ba."
+                   << factory_name->second << "(\"" << s->getName() << "\", "
+                   << pyfmt::printDouble(data.real()) << ", "
+                   << pyfmt::printDouble(data.imag()) << ")\n";
         } else {
-            kvector_t magnetic_field = material->magnetization();
+            kvector_t magnetic_field = s->magnetization();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ")\n";
-            result << indent() << m_objs->labelMaterial(material) << " = ba."
-                   << factory_name->second << "(\"" << material->getName();
-            result << "\", " << pyfmt::printDouble(material_data.real()) << ", "
-                   << pyfmt::printDouble(material_data.imag()) << ", "
+            result << indent() << key << " = ba."
+                   << factory_name->second << "(\"" << s->getName();
+            result << "\", " << pyfmt::printDouble(data.real()) << ", "
+                   << pyfmt::printDouble(data.imag()) << ", "
                    << "magnetic_field)\n";
         }
     }
@@ -197,7 +193,7 @@ std::string SampleToPython::defineLayers() const {
     result << std::setprecision(12);
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
-        result << indent() << key << " = ba.Layer(" << m_objs->labelMaterial(s->material());
+        result << indent() << key << " = ba.Layer(" << m_objs->obj2key(s->material());
         if (s->thickness() != 0)
             result << ", " << pyfmt::printNm(s->thickness());
         result << ")\n";
@@ -403,7 +399,7 @@ std::string SampleToPython::defineParticles() const {
         const auto* ff = INodeUtils::OnlyChildOfType<IFormFactor>(*s);
         ASSERT(ff);
         result << indent() << key << " = ba.Particle("
-               << m_objs->labelMaterial(s->material()) << ", "
+               << m_objs->obj2key(s->material()) << ", "
                << m_objs->obj2key(ff) << ")\n";
         setRotationInformation(s, key, result);
         setPositionInformation(s, key, result);

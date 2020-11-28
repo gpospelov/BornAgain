@@ -16,17 +16,8 @@
 #include <algorithm>
 #include <set>
 
-std::string SampleLabelHandler::labelMaterial(const Material* mat) {
-    return m_MaterialLabel[mat];
-}
-
 std::string SampleLabelHandler::labelRotation(const IRotation* rot) {
     return m_RotationsLabel[rot];
-}
-
-void SampleLabelHandler::insertMaterial(const Material* mat) {
-    std::string label = "material_" + std::to_string(m_MaterialLabel.size() + 1);
-    m_MaterialLabel.insert(mat, label);
 }
 
 void SampleLabelHandler::insertRotation(const IRotation* sample) {

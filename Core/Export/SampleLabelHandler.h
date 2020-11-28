@@ -21,7 +21,6 @@
 
 class IModel;
 
-class Material;
 class IRotation;
 
 template <class Key> class LabelMap : public OrderedMap<Key, std::string> {};
@@ -31,17 +30,13 @@ template <class Key> class LabelMap : public OrderedMap<Key, std::string> {};
 
 class SampleLabelHandler {
 public:
-    typedef LabelMap<const Material*> materials_t;
     typedef LabelMap<const IRotation*> rotations_t;
 
     SampleLabelHandler() {}
-    materials_t* materialMap() { return &m_MaterialLabel; }
     rotations_t* rotationsMap() { return &m_RotationsLabel; }
 
-    std::string labelMaterial(const Material* sample);
     std::string labelRotation(const IRotation* sample);
 
-    void insertMaterial(const Material* sample);
     void insertRotation(const IRotation* sample);
 
     void insertKeyedObject(const std::string& key, const IModel* s);
@@ -50,7 +45,6 @@ public:
     std::string obj2key(const IModel* s) const;
 
 private:
-    materials_t m_MaterialLabel;
     rotations_t m_RotationsLabel;
 
     std::map<std::string, std::vector<const IModel*>> m_objects;

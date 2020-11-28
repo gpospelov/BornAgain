@@ -274,17 +274,15 @@ if __name__ == '__main__':
 
     fixedParams = {
         # parameters from our own fit run
-        'q_res': (0.01027065792503683, ),
-        'q_offset': (8.977754679340925e-05, ),
-        'rho_Mafo': (6.373962950920891, ),
-        'rhoM_Mafo': (0.2383070807371731, ),
-        't_Mafo': (137.73795730237237, ),
-        'r_Mao': (7.004715629445297, ),
-        'r_Mafo': (3.8860835236521702, ),
+        'q_res': 0.010542945012551425, 
+        'q_offset': 7.971243487467318e-05, 
+        'rho_Mafo': 6.370140108715461, 
+        'rhoM_Mafo': 0.27399566816062926, 
+        't_Mafo': 137.46913056084736, 
+        'r_Mao': 8.60487712674644, 
+        'r_Mafo': 3.7844265311293483
     }
-
-    fixedParams = {d: v[0] for d, v in fixedParams.items()}
-
+    
     def run_Simulation_pp(qzs, params):
         return run_simulation(qzs,
                               params,

@@ -227,18 +227,9 @@ def filterData(data, qmin, qmax):
 
 
 def get_Experimental_data(qmin, qmax):
-    if hasattr(get_Experimental_data, "raw_data"):
-        data_pp = get_Experimental_data.raw_data_pp
-        data_mm = get_Experimental_data.raw_data_mm
-
-    else:
-        input_Data = downloadAndExtractData()
-        data_pp = normalizeData(input_Data[0])
-        data_mm = normalizeData(input_Data[1])
-
-        get_Experimental_data.data_pp = data_pp
-        get_Experimental_data.data_mm = data_mm
-        get_Experimental_data.raw_data = True
+    input_Data = downloadAndExtractData()
+    data_pp = normalizeData(input_Data[0])
+    data_mm = normalizeData(input_Data[1])
 
     return (filterData(data_pp, qmin, qmax), filterData(data_mm, qmin, qmax))
 
@@ -271,15 +262,17 @@ def downloadAndExtractData():
 ####################################################################
 
 
-def run_fit_ba(q_axis, rdata, simulationFactory, startParams):
+def run_fit_ba(q_axis, r_data, r_uncertainty, simulationFactory, startParams):
 
     fit_objective = ba.FitObjective()
-    fit_objective.setObjectiveMetric("reldiff")
+    fit_objective.setObjectiveMetric("chi2")
 
     fit_objective.addSimulationAndData(
-        lambda params: simulationFactory[0](q_axis[0], params), rdata[0], 1.0)
+        lambda params: simulationFactory[0](q_axis[0], params), r_data[0],
+        r_uncertainty[0], 1.0)
     fit_objective.addSimulationAndData(
-        lambda params: simulationFactory[1](q_axis[1], params), rdata[1], 1.0)
+        lambda params: simulationFactory[1](q_axis[1], params), r_data[1],
+        r_uncertainty[1], 1.0)
 
     fit_objective.initPrint(10)
 
@@ -305,6 +298,7 @@ if __name__ == '__main__':
         fixedParams = {
             # parameters can be moved here to keep them fixed
         }
+        fixedParams = {d: v[0] for d, v in fixedParams.items()}
 
         startParams = {
             # own starting values
@@ -322,17 +316,17 @@ if __name__ == '__main__':
         startParams = {}
         fixedParams = {
             # parameters from our own fit run
-            'q_res': (0.01027065792503683, ),
-            'q_offset': (8.977754679340925e-05, ),
-            'rho_Mafo': (6.373962950920891, ),
-            'rhoM_Mafo': (0.2383070807371731, ),
-            't_Mafo': (137.73795730237237, ),
-            'r_Mao': (7.004715629445297, ),
-            'r_Mafo': (3.8860835236521702, ),
+            'q_res': 0.010542945012551425,
+            'q_offset': 7.971243487467318e-05,
+            'rho_Mafo': 6.370140108715461,
+            'rhoM_Mafo': 0.27399566816062926,
+            't_Mafo': 137.46913056084736,
+            'r_Mao': 8.60487712674644,
+            'r_Mafo': 3.7844265311293483
         }
+
         fit = False
 
-    fixedParams = {d: v[0] for d, v in fixedParams.items()}
     paramsInitial = {d: v[0] for d, v in startParams.items()}
 
     def run_Simulation_pp(qzs, params):
@@ -361,6 +355,7 @@ if __name__ == '__main__':
 
     if fit:
         fitResult = run_fit_ba([data_pp[0], data_mm[0]], [data_pp[1], data_mm[1]],
+                               [data_pp[2], data_mm[2]],
                                [run_Simulation_pp, run_Simulation_mm], startParams)
         print("Fit Result:")
         print(fitResult)

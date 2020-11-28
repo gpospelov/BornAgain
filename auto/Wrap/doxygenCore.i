@@ -1148,10 +1148,6 @@ Returns map of fit parameter names and its current values.
 ";
 
 
-// File: classLabelMap.xml
-%feature("docstring") LabelMap "";
-
-
 // File: classLogMetric.xml
 %feature("docstring") LogMetric "
 
@@ -1755,15 +1751,6 @@ C++ includes: SampleLabelHandler.h
 ";
 
 %feature("docstring")  SampleLabelHandler::SampleLabelHandler "SampleLabelHandler::SampleLabelHandler()
-";
-
-%feature("docstring")  SampleLabelHandler::rotationsMap "rotations_t* SampleLabelHandler::rotationsMap()
-";
-
-%feature("docstring")  SampleLabelHandler::labelRotation "std::string SampleLabelHandler::labelRotation(const IRotation *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertRotation "void SampleLabelHandler::insertRotation(const IRotation *sample)
 ";
 
 %feature("docstring")  SampleLabelHandler::insertKeyedObject "void SampleLabelHandler::insertKeyedObject(const std::string &key, const IModel *s)

@@ -15,17 +15,7 @@
 #include "Core/Export/SampleLabelHandler.h"
 #include <algorithm>
 #include <set>
-
-std::string SampleLabelHandler::labelRotation(const IRotation* rot) {
-    return m_RotationsLabel[rot];
-}
-
-void SampleLabelHandler::insertRotation(const IRotation* sample) {
-    std::string label = "rotation_" + std::to_string(m_RotationsLabel.size() + 1);
-    m_RotationsLabel.insert(sample, label);
-}
-
-
+#include <stdexcept>
 
 void SampleLabelHandler::insertKeyedObject(const std::string& key, const IModel* s) {
     m_objects[key].emplace_back(s);

@@ -15,29 +15,18 @@
 #ifndef BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
 #define BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
 
-#include "Core/Export/OrderedMap.h"
 #include <map>
+#include <string>
 #include <vector>
 
 class IModel;
-
-class IRotation;
-
-template <class Key> class LabelMap : public OrderedMap<Key, std::string> {};
 
 //! The handler which construct labels for sample variables during python script generation.
 //! @ingroup tools_internal
 
 class SampleLabelHandler {
 public:
-    typedef LabelMap<const IRotation*> rotations_t;
-
     SampleLabelHandler() {}
-    rotations_t* rotationsMap() { return &m_RotationsLabel; }
-
-    std::string labelRotation(const IRotation* sample);
-
-    void insertRotation(const IRotation* sample);
 
     void insertKeyedObject(const std::string& key, const IModel* s);
 
@@ -45,8 +34,6 @@ public:
     std::string obj2key(const IModel* s) const;
 
 private:
-    rotations_t m_RotationsLabel;
-
     std::map<std::string, std::vector<const IModel*>> m_objects;
 };
 

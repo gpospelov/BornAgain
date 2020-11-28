@@ -132,8 +132,6 @@ void SampleToPython::initLabels(const MultiLayer& multilayer) {
         m_objs->insertModel("lattice", x);
     for (const auto* x : INodeUtils::AllDescendantsOfType<Crystal>(multilayer))
         m_objs->insertModel("crystal", x);
-    for (const auto* x : INodeUtils::AllDescendantsOfType<IRotation>(multilayer))
-        m_objs->insertModel("rotation", x);
 }
 
 SampleToPython::SampleToPython() = default;

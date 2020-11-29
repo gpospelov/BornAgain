@@ -35,7 +35,7 @@ ParameterItem::ParameterItem() : SessionItem("Parameter") {
     addProperty(P_LINK, "");
     // The back up value of PropertyItem to be able to reset parameter tuning tree to initial state
     addProperty(P_BACKUP, 0.0);
-    // The domain name of corresponding ISample's registered parameter
+    // The domain name of corresponding ISampleNode's registered parameter
     addProperty(P_DOMAIN, "");
 }
 

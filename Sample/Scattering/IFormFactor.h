@@ -16,7 +16,7 @@
 #define BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTOR_H
 
 #include "Base/Types/Complex.h"
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 #include "Sample/Scattering/ZLimits.h"
 #include <Eigen/Core>
 
@@ -33,7 +33,7 @@ class WavevectorInfo;
 
 //! @ingroup formfactors_internal
 
-class IFormFactor : public ISample {
+class IFormFactor : public ISampleNode {
 public:
     IFormFactor() = default;
     IFormFactor(const NodeMeta& meta, const std::vector<double>& PValues);

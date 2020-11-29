@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_IABSTRACTPARTICLE_H
 #define BORNAGAIN_SAMPLE_PARTICLE_IABSTRACTPARTICLE_H
 
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 
 class IRotation;
 
@@ -25,7 +25,7 @@ class IRotation;
 
 //! @ingroup samples
 
-class IAbstractParticle : public ISample {
+class IAbstractParticle : public ISampleNode {
 public:
     IAbstractParticle() = default;
     IAbstractParticle(const NodeMeta& meta, const std::vector<double>& PValues);

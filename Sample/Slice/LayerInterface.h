@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_SAMPLE_SLICE_LAYERINTERFACE_H
 #define BORNAGAIN_SAMPLE_SLICE_LAYERINTERFACE_H
 
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 #include <memory>
 
 class LayerRoughness;
@@ -23,7 +23,7 @@ class LayerRoughness;
 //! Interface between two layers, possibly with roughness.
 //! @ingroup samples_internal
 
-class LayerInterface : public ISample {
+class LayerInterface : public ISampleNode {
 public:
     virtual ~LayerInterface();
 

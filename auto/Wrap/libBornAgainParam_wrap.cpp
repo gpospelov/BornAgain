@@ -3192,7 +3192,7 @@ namespace Swig {
 #define SWIGTYPE_p_IPeakShape swig_types[92]
 #define SWIGTYPE_p_IRangedDistribution swig_types[93]
 #define SWIGTYPE_p_IRotation swig_types[94]
-#define SWIGTYPE_p_ISample swig_types[95]
+#define SWIGTYPE_p_ISampleNode swig_types[95]
 #define SWIGTYPE_p_IdentityRotation swig_types[96]
 #define SWIGTYPE_p_Instrument swig_types[97]
 #define SWIGTYPE_p_InterferenceFunction1DLattice swig_types[98]
@@ -39728,7 +39728,7 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_98(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  ISample *arg2 = (ISample *) 0 ;
+  ISampleNode *arg2 = (ISampleNode *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -39740,12 +39740,12 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_98(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
   }
   arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_ISample, 0 |  0 );
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_ISampleNode, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "ISample const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "ISampleNode const *""'"); 
   }
-  arg2 = reinterpret_cast< ISample * >(argp2);
-  (arg1)->visit((ISample const *)arg2);
+  arg2 = reinterpret_cast< ISampleNode * >(argp2);
+  (arg1)->visit((ISampleNode const *)arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -41756,7 +41756,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ISample, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ISampleNode, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_98(self, argc, argv);
@@ -42173,7 +42173,7 @@ fail:
     "    INodeVisitor::visit(IParticle const *)\n"
     "    INodeVisitor::visit(IPeakShape const *)\n"
     "    INodeVisitor::visit(IRotation const *)\n"
-    "    INodeVisitor::visit(ISample const *)\n"
+    "    INodeVisitor::visit(ISampleNode const *)\n"
     "    INodeVisitor::visit(IsGISAXSDetector const *)\n"
     "    INodeVisitor::visit(Layer const *)\n"
     "    INodeVisitor::visit(LayerInterface const *)\n"
@@ -51383,7 +51383,7 @@ static PyMethodDef SwigMethods[] = {
 		"INodeVisitor_visit(INodeVisitor self, IParticle const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IPeakShape const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IRotation const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, ISample const * arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, ISampleNode const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, IsGISAXSDetector const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, Layer const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, LayerInterface const * arg2)\n"
@@ -52399,7 +52399,7 @@ static swig_type_info _swigt__p_IParticle = {"_p_IParticle", "IParticle *", 0, 0
 static swig_type_info _swigt__p_IPeakShape = {"_p_IPeakShape", "IPeakShape *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IRangedDistribution = {"_p_IRangedDistribution", "IRangedDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IRotation = {"_p_IRotation", "IRotation *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ISample = {"_p_ISample", "ISample *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ISampleNode = {"_p_ISampleNode", "ISampleNode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IdentityRotation = {"_p_IdentityRotation", "IdentityRotation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Instrument = {"_p_Instrument", "Instrument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_InterferenceFunction1DLattice = {"_p_InterferenceFunction1DLattice", "InterferenceFunction1DLattice *", 0, 0, (void*)0, 0};
@@ -52600,7 +52600,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IPeakShape,
   &_swigt__p_IRangedDistribution,
   &_swigt__p_IRotation,
-  &_swigt__p_ISample,
+  &_swigt__p_ISampleNode,
   &_swigt__p_IdentityRotation,
   &_swigt__p_Instrument,
   &_swigt__p_InterferenceFunction1DLattice,
@@ -52801,7 +52801,7 @@ static swig_cast_info _swigc__p_IParticle[] = {  {&_swigt__p_IParticle, 0, 0, 0}
 static swig_cast_info _swigc__p_IPeakShape[] = {  {&_swigt__p_IPeakShape, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRangedDistribution[] = {  {&_swigt__p_RangedDistributionCosine, _p_RangedDistributionCosineTo_p_IRangedDistribution, 0, 0},  {&_swigt__p_IRangedDistribution, 0, 0, 0},  {&_swigt__p_RangedDistributionLorentz, _p_RangedDistributionLorentzTo_p_IRangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionGaussian, _p_RangedDistributionGaussianTo_p_IRangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionGate, _p_RangedDistributionGateTo_p_IRangedDistribution, 0, 0},  {&_swigt__p_RangedDistributionLogNormal, _p_RangedDistributionLogNormalTo_p_IRangedDistribution, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRotation[] = {  {&_swigt__p_IRotation, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ISample[] = {  {&_swigt__p_ISample, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ISampleNode[] = {  {&_swigt__p_ISampleNode, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IdentityRotation[] = {  {&_swigt__p_IdentityRotation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Instrument[] = {  {&_swigt__p_Instrument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_InterferenceFunction1DLattice[] = {  {&_swigt__p_InterferenceFunction1DLattice, 0, 0, 0},{0, 0, 0, 0}};
@@ -53002,7 +53002,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IPeakShape,
   _swigc__p_IRangedDistribution,
   _swigc__p_IRotation,
-  _swigc__p_ISample,
+  _swigc__p_ISampleNode,
   _swigc__p_IdentityRotation,
   _swigc__p_Instrument,
   _swigc__p_InterferenceFunction1DLattice,

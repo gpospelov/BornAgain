@@ -3312,7 +3312,7 @@ class INodeVisitor(object):
 
     From visitor pattern to achieve double dispatch.
 
-    Visitor interface to visit ISample objects.
+    Visitor interface to visit ISampleNode objects.
 
     C++ includes: INodeVisitor.h
 
@@ -3430,7 +3430,7 @@ class INodeVisitor(object):
         visit(INodeVisitor self, IParticle const * arg2)
         visit(INodeVisitor self, IPeakShape const * arg2)
         visit(INodeVisitor self, IRotation const * arg2)
-        visit(INodeVisitor self, ISample const * arg2)
+        visit(INodeVisitor self, ISampleNode const * arg2)
         visit(INodeVisitor self, IsGISAXSDetector const * arg2)
         visit(INodeVisitor self, Layer const * arg2)
         visit(INodeVisitor self, LayerInterface const * arg2)

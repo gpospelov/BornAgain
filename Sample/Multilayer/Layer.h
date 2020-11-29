@@ -17,14 +17,14 @@
 
 #include "Base/Types/SafePointerVector.h"
 #include "Sample/Material/Material.h"
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 
 class ParticleLayout;
 
 //! A layer, with thickness (in nanometer) and material.
 //! @ingroup samples
 
-class Layer : public ISample {
+class Layer : public ISampleNode {
 public:
     Layer(Material material, double thickness = 0);
 

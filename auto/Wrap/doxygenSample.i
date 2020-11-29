@@ -443,7 +443,7 @@ C++ includes: Crystal.h
 
 %feature("docstring")  Crystal::clone "Crystal * Crystal::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  Crystal::accept "void Crystal::accept(INodeVisitor *visitor) const final
@@ -740,7 +740,7 @@ C++ includes: FormFactorAnisoPyramid.h
 
 %feature("docstring")  FormFactorAnisoPyramid::clone "FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorAnisoPyramid::accept "void FormFactorAnisoPyramid::accept(INodeVisitor *visitor) const final
@@ -775,7 +775,7 @@ C++ includes: FormFactorBar.h
 
 %feature("docstring")  FormFactorBarGauss::clone "FormFactorBarGauss * FormFactorBarGauss::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorBarGauss::accept "void FormFactorBarGauss::accept(INodeVisitor *visitor) const final
@@ -798,7 +798,7 @@ C++ includes: FormFactorBar.h
 
 %feature("docstring")  FormFactorBarLorentz::clone "FormFactorBarLorentz * FormFactorBarLorentz::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorBarLorentz::accept "void FormFactorBarLorentz::accept(INodeVisitor *visitor) const final
@@ -821,7 +821,7 @@ C++ includes: FormFactorBox.h
 
 %feature("docstring")  FormFactorBox::clone "FormFactorBox* FormFactorBox::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorBox::accept "void FormFactorBox::accept(INodeVisitor *visitor) const final
@@ -865,7 +865,7 @@ C++ includes: FormFactorCantellatedCube.h
 
 %feature("docstring")  FormFactorCantellatedCube::clone "FormFactorCantellatedCube* FormFactorCantellatedCube::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorCantellatedCube::accept "void FormFactorCantellatedCube::accept(INodeVisitor *visitor) const final
@@ -969,7 +969,7 @@ C++ includes: FormFactorCone.h
 
 %feature("docstring")  FormFactorCone::clone "FormFactorCone* FormFactorCone::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorCone::accept "void FormFactorCone::accept(INodeVisitor *visitor) const final
@@ -1011,7 +1011,7 @@ C++ includes: FormFactorCone6.h
 
 %feature("docstring")  FormFactorCone6::clone "FormFactorCone6* FormFactorCone6::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorCone6::accept "void FormFactorCone6::accept(INodeVisitor *visitor) const final
@@ -1045,7 +1045,7 @@ C++ includes: FormFactorCoreShell.h
 
 %feature("docstring")  FormFactorCoreShell::clone "FormFactorCoreShell * FormFactorCoreShell::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorCoreShell::accept "void FormFactorCoreShell::accept(INodeVisitor *visitor) const override
@@ -1098,7 +1098,7 @@ C++ includes: FormFactorCosineRipple.h
 
 %feature("docstring")  FormFactorCosineRippleBox::clone "FormFactorCosineRippleBox * FormFactorCosineRippleBox::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorCosineRippleBox::accept "void FormFactorCosineRippleBox::accept(INodeVisitor *visitor) const final
@@ -1121,7 +1121,7 @@ C++ includes: FormFactorCosineRipple.h
 
 %feature("docstring")  FormFactorCosineRippleGauss::clone "FormFactorCosineRippleGauss * FormFactorCosineRippleGauss::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorCosineRippleGauss::accept "void FormFactorCosineRippleGauss::accept(INodeVisitor *visitor) const final
@@ -1144,7 +1144,7 @@ C++ includes: FormFactorCosineRipple.h
 
 %feature("docstring")  FormFactorCosineRippleLorentz::clone "FormFactorCosineRippleLorentz * FormFactorCosineRippleLorentz::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorCosineRippleLorentz::accept "void FormFactorCosineRippleLorentz::accept(INodeVisitor *visitor) const final
@@ -1167,7 +1167,7 @@ C++ includes: FormFactorCrystal.h
 
 %feature("docstring")  FormFactorCrystal::clone "FormFactorCrystal* FormFactorCrystal::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorCrystal::accept "void FormFactorCrystal::accept(INodeVisitor *visitor) const override
@@ -1225,7 +1225,7 @@ C++ includes: FormFactorCuboctahedron.h
 
 %feature("docstring")  FormFactorCuboctahedron::clone "FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorCuboctahedron::accept "void FormFactorCuboctahedron::accept(INodeVisitor *visitor) const final
@@ -1260,7 +1260,7 @@ C++ includes: FormFactorCylinder.h
 
 %feature("docstring")  FormFactorCylinder::clone "FormFactorCylinder* FormFactorCylinder::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorCylinder::accept "void FormFactorCylinder::accept(INodeVisitor *visitor) const final
@@ -1299,7 +1299,7 @@ C++ includes: FormFactorDecoratorMaterial.h
 
 %feature("docstring")  FormFactorDecoratorMaterial::clone "FormFactorDecoratorMaterial * FormFactorDecoratorMaterial::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorDecoratorMaterial::accept "void FormFactorDecoratorMaterial::accept(INodeVisitor *visitor) const override
@@ -1339,7 +1339,7 @@ C++ includes: FormFactorDecoratorPositionFactor.h
 
 %feature("docstring")  FormFactorDecoratorPositionFactor::clone "FormFactorDecoratorPositionFactor* FormFactorDecoratorPositionFactor::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorDecoratorPositionFactor::accept "void FormFactorDecoratorPositionFactor::accept(INodeVisitor *visitor) const final
@@ -1381,7 +1381,7 @@ Constructor, setting form factor and rotation.
 
 %feature("docstring")  FormFactorDecoratorRotation::clone "FormFactorDecoratorRotation * FormFactorDecoratorRotation::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorDecoratorRotation::accept "void FormFactorDecoratorRotation::accept(INodeVisitor *visitor) const final
@@ -1424,7 +1424,7 @@ C++ includes: FormFactorDodecahedron.h
 
 %feature("docstring")  FormFactorDodecahedron::clone "FormFactorDodecahedron* FormFactorDodecahedron::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorDodecahedron::accept "void FormFactorDodecahedron::accept(INodeVisitor *visitor) const final
@@ -1450,7 +1450,7 @@ C++ includes: FormFactorDot.h
 
 %feature("docstring")  FormFactorDot::clone "FormFactorDot* FormFactorDot::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorDot::accept "void FormFactorDot::accept(INodeVisitor *visitor) const final
@@ -1496,7 +1496,7 @@ C++ includes: FormFactorEllipsoidalCylinder.h
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::clone "FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorEllipsoidalCylinder::accept "void FormFactorEllipsoidalCylinder::accept(INodeVisitor *visitor) const final
@@ -1538,7 +1538,7 @@ C++ includes: FormFactorFullSphere.h
 
 %feature("docstring")  FormFactorFullSphere::clone "FormFactorFullSphere* FormFactorFullSphere::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorFullSphere::accept "void FormFactorFullSphere::accept(INodeVisitor *visitor) const final
@@ -1584,7 +1584,7 @@ C++ includes: FormFactorFullSpheroid.h
 
 %feature("docstring")  FormFactorFullSpheroid::clone "FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorFullSpheroid::accept "void FormFactorFullSpheroid::accept(INodeVisitor *visitor) const final
@@ -1623,7 +1623,7 @@ C++ includes: FormFactorGauss.h
 
 %feature("docstring")  FormFactorGaussSphere::clone "FormFactorGaussSphere* FormFactorGaussSphere::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorGaussSphere::accept "void FormFactorGaussSphere::accept(INodeVisitor *visitor) const final
@@ -1662,7 +1662,7 @@ C++ includes: FormFactorHemiEllipsoid.h
 
 %feature("docstring")  FormFactorHemiEllipsoid::clone "FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorHemiEllipsoid::accept "void FormFactorHemiEllipsoid::accept(INodeVisitor *visitor) const final
@@ -1704,7 +1704,7 @@ C++ includes: FormFactorHollowSphere.h
 
 %feature("docstring")  FormFactorHollowSphere::clone "FormFactorHollowSphere* FormFactorHollowSphere::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorHollowSphere::accept "void FormFactorHollowSphere::accept(INodeVisitor *visitor) const final
@@ -1737,7 +1737,7 @@ C++ includes: FormFactorIcosahedron.h
 
 %feature("docstring")  FormFactorIcosahedron::clone "FormFactorIcosahedron* FormFactorIcosahedron::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorIcosahedron::accept "void FormFactorIcosahedron::accept(INodeVisitor *visitor) const final
@@ -1763,7 +1763,7 @@ C++ includes: FormFactorLongBoxGauss.h
 
 %feature("docstring")  FormFactorLongBoxGauss::clone "FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorLongBoxGauss::accept "void FormFactorLongBoxGauss::accept(INodeVisitor *visitor) const final
@@ -1805,7 +1805,7 @@ C++ includes: FormFactorLongBoxLorentz.h
 
 %feature("docstring")  FormFactorLongBoxLorentz::clone "FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorLongBoxLorentz::accept "void FormFactorLongBoxLorentz::accept(INodeVisitor *visitor) const final
@@ -1847,7 +1847,7 @@ C++ includes: FormFactorPrism3.h
 
 %feature("docstring")  FormFactorPrism3::clone "FormFactorPrism3* FormFactorPrism3::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorPrism3::accept "void FormFactorPrism3::accept(INodeVisitor *visitor) const final
@@ -1873,7 +1873,7 @@ C++ includes: FormFactorPrism6.h
 
 %feature("docstring")  FormFactorPrism6::clone "FormFactorPrism6* FormFactorPrism6::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorPrism6::accept "void FormFactorPrism6::accept(INodeVisitor *visitor) const final
@@ -1899,7 +1899,7 @@ C++ includes: FormFactorPyramid.h
 
 %feature("docstring")  FormFactorPyramid::clone "FormFactorPyramid* FormFactorPyramid::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorPyramid::accept "void FormFactorPyramid::accept(INodeVisitor *visitor) const final
@@ -1931,7 +1931,7 @@ C++ includes: FormFactorSawtoothRipple.h
 
 %feature("docstring")  FormFactorSawtoothRippleBox::clone "FormFactorSawtoothRippleBox * FormFactorSawtoothRippleBox::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorSawtoothRippleBox::accept "void FormFactorSawtoothRippleBox::accept(INodeVisitor *visitor) const final
@@ -1954,7 +1954,7 @@ C++ includes: FormFactorSawtoothRipple.h
 
 %feature("docstring")  FormFactorSawtoothRippleGauss::clone "FormFactorSawtoothRippleGauss * FormFactorSawtoothRippleGauss::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorSawtoothRippleGauss::accept "void FormFactorSawtoothRippleGauss::accept(INodeVisitor *visitor) const final
@@ -1977,7 +1977,7 @@ C++ includes: FormFactorSawtoothRipple.h
 
 %feature("docstring")  FormFactorSawtoothRippleLorentz::clone "FormFactorSawtoothRippleLorentz * FormFactorSawtoothRippleLorentz::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorSawtoothRippleLorentz::accept "void FormFactorSawtoothRippleLorentz::accept(INodeVisitor *visitor) const final
@@ -2000,7 +2000,7 @@ C++ includes: FormFactorSphereGaussianRadius.h
 
 %feature("docstring")  FormFactorSphereGaussianRadius::clone "FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorSphereGaussianRadius::accept "void FormFactorSphereGaussianRadius::accept(INodeVisitor *visitor) const final
@@ -2033,7 +2033,7 @@ C++ includes: FormFactorSphereLogNormalRadius.h
 
 %feature("docstring")  FormFactorSphereLogNormalRadius::clone "FormFactorSphereLogNormalRadius * FormFactorSphereLogNormalRadius::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorSphereLogNormalRadius::accept "void FormFactorSphereLogNormalRadius::accept(INodeVisitor *visitor) const final
@@ -2066,7 +2066,7 @@ C++ includes: FormFactorTetrahedron.h
 
 %feature("docstring")  FormFactorTetrahedron::clone "FormFactorTetrahedron* FormFactorTetrahedron::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorTetrahedron::accept "void FormFactorTetrahedron::accept(INodeVisitor *visitor) const final
@@ -2098,7 +2098,7 @@ C++ includes: FormFactorTruncatedCube.h
 
 %feature("docstring")  FormFactorTruncatedCube::clone "FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorTruncatedCube::accept "void FormFactorTruncatedCube::accept(INodeVisitor *visitor) const final
@@ -2127,7 +2127,7 @@ C++ includes: FormFactorTruncatedSphere.h
 
 %feature("docstring")  FormFactorTruncatedSphere::clone "FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorTruncatedSphere::accept "void FormFactorTruncatedSphere::accept(INodeVisitor *visitor) const final
@@ -2169,7 +2169,7 @@ C++ includes: FormFactorTruncatedSpheroid.h
 
 %feature("docstring")  FormFactorTruncatedSpheroid::clone "FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorTruncatedSpheroid::accept "void FormFactorTruncatedSpheroid::accept(INodeVisitor *visitor) const final
@@ -2216,7 +2216,7 @@ C++ includes: FormFactorWeighted.h
 
 %feature("docstring")  FormFactorWeighted::clone "FormFactorWeighted * FormFactorWeighted::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  FormFactorWeighted::accept "void FormFactorWeighted::accept(INodeVisitor *visitor) const override
@@ -2819,7 +2819,7 @@ C++ includes: IPeakShape.h
 
 %feature("docstring")  GaussFisherPeakShape::clone "GaussFisherPeakShape * GaussFisherPeakShape::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  GaussFisherPeakShape::accept "void GaussFisherPeakShape::accept(INodeVisitor *visitor) const override
@@ -2933,7 +2933,7 @@ C++ includes: IAbstractParticle.h
 
 %feature("docstring")  IAbstractParticle::clone "virtual IAbstractParticle* IAbstractParticle::clone() const =0
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  IAbstractParticle::accept "void IAbstractParticle::accept(INodeVisitor *visitor) const
@@ -2985,7 +2985,7 @@ C++ includes: IBornFF.h
 
 %feature("docstring")  IBornFF::clone "IBornFF* IBornFF::clone() const override=0
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  IBornFF::setAmbientMaterial "void IBornFF::setAmbientMaterial(const Material &) override
@@ -3159,7 +3159,7 @@ C++ includes: IFormFactor.h
 
 %feature("docstring")  IFormFactor::clone "IFormFactor* IFormFactor::clone() const override=0
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  IFormFactor::createSlicedFormFactor "IFormFactor * IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation &rot, kvector_t translation) const
@@ -3226,7 +3226,7 @@ C++ includes: IFormFactorDecorator.h
 
 %feature("docstring")  IFormFactorDecorator::clone "IFormFactorDecorator* IFormFactorDecorator::clone() const override=0
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  IFormFactorDecorator::setAmbientMaterial "void IFormFactorDecorator::setAmbientMaterial(const Material &material) override
@@ -3537,7 +3537,7 @@ C++ includes: IInterferenceFunction.h
 
 %feature("docstring")  IInterferenceFunction::clone "virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  IInterferenceFunction::evaluate "double IInterferenceFunction::evaluate(const kvector_t q, double outer_iff=1.0) const
@@ -3684,7 +3684,7 @@ rotation of lattice with respect to x-axis in radians
 
 %feature("docstring")  InterferenceFunction1DLattice::clone "InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunction1DLattice::accept "void InterferenceFunction1DLattice::accept(INodeVisitor *visitor) const override
@@ -3727,7 +3727,7 @@ C++ includes: InterferenceFunction2DLattice.h
 
 %feature("docstring")  InterferenceFunction2DLattice::clone "InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunction2DLattice::accept "void InterferenceFunction2DLattice::accept(INodeVisitor *visitor) const override
@@ -3781,7 +3781,7 @@ C++ includes: InterferenceFunction2DParaCrystal.h
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::clone "InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunction2DParaCrystal::accept "void InterferenceFunction2DParaCrystal::accept(INodeVisitor *visitor) const override
@@ -3906,7 +3906,7 @@ correlation length in direction 2
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::clone "InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunction2DSuperLattice::accept "void InterferenceFunction2DSuperLattice::accept(INodeVisitor *visitor) const override
@@ -3958,7 +3958,7 @@ C++ includes: InterferenceFunction3DLattice.h
 
 %feature("docstring")  InterferenceFunction3DLattice::clone "InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunction3DLattice::accept "void InterferenceFunction3DLattice::accept(INodeVisitor *visitor) const override
@@ -4012,7 +4012,7 @@ number of lattice cells in the second lattice direction
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::clone "InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite2DLattice::accept "void InterferenceFunctionFinite2DLattice::accept(INodeVisitor *visitor) const override
@@ -4058,7 +4058,7 @@ C++ includes: InterferenceFunctionFinite3DLattice.h
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::clone "InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunctionFinite3DLattice::accept "void InterferenceFunctionFinite3DLattice::accept(INodeVisitor *visitor) const override
@@ -4103,7 +4103,7 @@ C++ includes: InterferenceFunctionHardDisk.h
 
 %feature("docstring")  InterferenceFunctionHardDisk::clone "InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunctionHardDisk::accept "void InterferenceFunctionHardDisk::accept(INodeVisitor *visitor) const override
@@ -4134,7 +4134,7 @@ C++ includes: InterferenceFunctionNone.h
 
 %feature("docstring")  InterferenceFunctionNone::clone "InterferenceFunctionNone * InterferenceFunctionNone::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunctionNone::accept "void InterferenceFunctionNone::accept(INodeVisitor *visitor) const final
@@ -4165,7 +4165,7 @@ the damping (coherence) length of the paracrystal in nanometers
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::clone "InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunctionRadialParaCrystal::accept "void InterferenceFunctionRadialParaCrystal::accept(INodeVisitor *visitor) const final
@@ -4233,7 +4233,7 @@ C++ includes: InterferenceFunctionTwin.h
 
 %feature("docstring")  InterferenceFunctionTwin::clone "InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  InterferenceFunctionTwin::accept "void InterferenceFunctionTwin::accept(INodeVisitor *visitor) const final
@@ -4262,7 +4262,7 @@ C++ includes: IParticle.h
 
 %feature("docstring")  IParticle::clone "IParticle* IParticle::clone() const override=0
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  IParticle::createFormFactor "IFormFactor * IParticle::createFormFactor() const
@@ -4369,7 +4369,7 @@ C++ includes: IPeakShape.h
 
 %feature("docstring")  IPeakShape::clone "virtual IPeakShape* IPeakShape::clone() const =0
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  IPeakShape::evaluate "virtual double IPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const =0
@@ -4480,41 +4480,6 @@ Returns true if rotation matrix is identity matrix (no rotations)
 ";
 
 
-// File: classISample.xml
-%feature("docstring") ISample "
-
-Abstract base class for sample components and properties related to scattering.
-
-C++ includes: ISample.h
-";
-
-%feature("docstring")  ISample::ISample "ISample::ISample()=default
-";
-
-%feature("docstring")  ISample::ISample "ISample::ISample(const NodeMeta &meta, const std::vector< double > &PValues)
-";
-
-%feature("docstring")  ISample::clone "ISample* ISample::clone() const override=0
-
-Returns a clone of this  ISample object. 
-";
-
-%feature("docstring")  ISample::material "virtual const Material* ISample::material() const
-
-Returns nullptr, unless overwritten to return a specific material. 
-";
-
-%feature("docstring")  ISample::containedMaterials "std::vector< const Material * > ISample::containedMaterials() const
-
-Returns set of unique materials contained in this  ISample. 
-";
-
-%feature("docstring")  ISample::isMagnetic "bool ISample::isMagnetic() const
-
-Returns true if there is any magnetic material in this  ISample. 
-";
-
-
 // File: classISampleBuilder.xml
 %feature("docstring") ISampleBuilder "
 
@@ -4536,6 +4501,41 @@ C++ includes: ISampleBuilder.h
 ";
 
 %feature("docstring")  ISampleBuilder::size "virtual size_t ISampleBuilder::size()
+";
+
+
+// File: classISampleNode.xml
+%feature("docstring") ISampleNode "
+
+Abstract base class for sample components and properties related to scattering.
+
+C++ includes: ISampleNode.h
+";
+
+%feature("docstring")  ISampleNode::ISampleNode "ISampleNode::ISampleNode()=default
+";
+
+%feature("docstring")  ISampleNode::ISampleNode "ISampleNode::ISampleNode(const NodeMeta &meta, const std::vector< double > &PValues)
+";
+
+%feature("docstring")  ISampleNode::clone "ISampleNode* ISampleNode::clone() const override=0
+
+Returns a clone of this  ISampleNode object. 
+";
+
+%feature("docstring")  ISampleNode::material "virtual const Material* ISampleNode::material() const
+
+Returns nullptr, unless overwritten to return a specific material. 
+";
+
+%feature("docstring")  ISampleNode::containedMaterials "std::vector< const Material * > ISampleNode::containedMaterials() const
+
+Returns set of unique materials contained in this  ISampleNode. 
+";
+
+%feature("docstring")  ISampleNode::isMagnetic "bool ISampleNode::isMagnetic() const
+
+Returns true if there is any magnetic material in this  ISampleNode. 
 ";
 
 
@@ -4610,7 +4610,7 @@ C++ includes: IPeakShape.h
 
 %feature("docstring")  IsotropicGaussPeakShape::clone "IsotropicGaussPeakShape * IsotropicGaussPeakShape::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  IsotropicGaussPeakShape::accept "void IsotropicGaussPeakShape::accept(INodeVisitor *visitor) const override
@@ -4638,7 +4638,7 @@ C++ includes: IPeakShape.h
 
 %feature("docstring")  IsotropicLorentzPeakShape::clone "IsotropicLorentzPeakShape * IsotropicLorentzPeakShape::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  IsotropicLorentzPeakShape::accept "void IsotropicLorentzPeakShape::accept(INodeVisitor *visitor) const override
@@ -4847,7 +4847,7 @@ thickness of a layer in nanometers
 
 %feature("docstring")  Layer::clone "Layer * Layer::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  Layer::accept "void Layer::accept(INodeVisitor *visitor) const final
@@ -4928,7 +4928,7 @@ C++ includes: LayerInterface.h
 
 %feature("docstring")  LayerInterface::clone "LayerInterface * LayerInterface::clone() const
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  LayerInterface::accept "virtual void LayerInterface::accept(INodeVisitor *visitor) const
@@ -4986,7 +4986,7 @@ lateral correlation length of the roughness in nanometers
 
 %feature("docstring")  LayerRoughness::clone "LayerRoughness* LayerRoughness::clone() const
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  LayerRoughness::accept "virtual void LayerRoughness::accept(INodeVisitor *visitor) const
@@ -5104,7 +5104,7 @@ C++ includes: IPeakShape.h
 
 %feature("docstring")  LorentzFisherPeakShape::clone "LorentzFisherPeakShape * LorentzFisherPeakShape::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  LorentzFisherPeakShape::accept "void LorentzFisherPeakShape::accept(INodeVisitor *visitor) const override
@@ -5599,7 +5599,7 @@ C++ includes: MesoCrystal.h
 
 %feature("docstring")  MesoCrystal::clone "MesoCrystal * MesoCrystal::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  MesoCrystal::accept "void MesoCrystal::accept(INodeVisitor *visitor) const final
@@ -5642,7 +5642,7 @@ C++ includes: IPeakShape.h
 
 %feature("docstring")  MisesFisherGaussPeakShape::clone "MisesFisherGaussPeakShape * MisesFisherGaussPeakShape::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  MisesFisherGaussPeakShape::accept "void MisesFisherGaussPeakShape::accept(INodeVisitor *visitor) const override
@@ -5675,7 +5675,7 @@ C++ includes: IPeakShape.h
 
 %feature("docstring")  MisesGaussPeakShape::clone "MisesGaussPeakShape * MisesGaussPeakShape::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  MisesGaussPeakShape::accept "void MisesGaussPeakShape::accept(INodeVisitor *visitor) const override
@@ -5841,7 +5841,7 @@ C++ includes: Particle.h
 
 %feature("docstring")  Particle::clone "Particle * Particle::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  Particle::accept "void Particle::accept(INodeVisitor *visitor) const final
@@ -5883,7 +5883,7 @@ C++ includes: ParticleComposition.h
 
 %feature("docstring")  ParticleComposition::clone "ParticleComposition * ParticleComposition::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  ParticleComposition::accept "void ParticleComposition::accept(INodeVisitor *visitor) const final
@@ -5950,7 +5950,7 @@ C++ includes: ParticleCoreShell.h
 
 %feature("docstring")  ParticleCoreShell::clone "ParticleCoreShell * ParticleCoreShell::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  ParticleCoreShell::accept "void ParticleCoreShell::accept(INodeVisitor *visitor) const final
@@ -5984,7 +5984,7 @@ C++ includes: ParticleDistribution.h
 
 %feature("docstring")  ParticleDistribution::clone "ParticleDistribution * ParticleDistribution::clone() const final
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  ParticleDistribution::accept "void ParticleDistribution::accept(INodeVisitor *visitor) const final
@@ -6048,7 +6048,7 @@ C++ includes: ParticleInVacuumBuilder.h
 // File: classParticleLayout.xml
 %feature("docstring") ParticleLayout "
 
-Decorator class that adds particles to  ISample objects.
+Decorator class that adds particles to  ISampleNode objects.
 
 C++ includes: ParticleLayout.h
 ";
@@ -6064,7 +6064,7 @@ C++ includes: ParticleLayout.h
 
 %feature("docstring")  ParticleLayout::clone "ParticleLayout * ParticleLayout::clone() const override
 
-Returns a clone of this  ISample object. 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  ParticleLayout::accept "void ParticleLayout::accept(INodeVisitor *visitor) const override
@@ -8741,10 +8741,10 @@ Generate z values (equidistant) for use in materialProfileSLD.
 // File: IFormFactorDecorator_8h.xml
 
 
-// File: ISample_8cpp.xml
+// File: ISampleNode_8cpp.xml
 
 
-// File: ISample_8h.xml
+// File: ISampleNode_8h.xml
 
 
 // File: LayerFillLimits_8cpp.xml

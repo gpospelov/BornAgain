@@ -3157,13 +3157,13 @@ class SimulationOptions(object):
 # Register SimulationOptions in _libBornAgainSample:
 _libBornAgainSample.SimulationOptions_swigregister(SimulationOptions)
 
-class ISample(libBornAgainBase.ICloneable, libBornAgainParam.INode):
+class ISampleNode(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
     Abstract base class for sample components and properties related to scattering.
 
-    C++ includes: ISample.h
+    C++ includes: ISampleNode.h
 
     """
 
@@ -3172,66 +3172,66 @@ class ISample(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 
     def __init__(self, *args):
         r"""
-        __init__(ISample self) -> ISample
-        __init__(ISample self, NodeMeta meta, vdouble1d_t PValues) -> ISample
-        ISample::ISample(const NodeMeta &meta, const std::vector< double > &PValues)
+        __init__(ISampleNode self) -> ISampleNode
+        __init__(ISampleNode self, NodeMeta meta, vdouble1d_t PValues) -> ISampleNode
+        ISampleNode::ISampleNode(const NodeMeta &meta, const std::vector< double > &PValues)
 
         """
-        if self.__class__ == ISample:
+        if self.__class__ == ISampleNode:
             _self = None
         else:
             _self = self
-        _libBornAgainSample.ISample_swiginit(self, _libBornAgainSample.new_ISample(_self, *args))
+        _libBornAgainSample.ISampleNode_swiginit(self, _libBornAgainSample.new_ISampleNode(_self, *args))
 
     def clone(self):
         r"""
-        clone(ISample self) -> ISample
-        ISample* ISample::clone() const override=0
+        clone(ISampleNode self) -> ISampleNode
+        ISampleNode* ISampleNode::clone() const override=0
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
-        return _libBornAgainSample.ISample_clone(self)
+        return _libBornAgainSample.ISampleNode_clone(self)
 
     def material(self):
         r"""
-        material(ISample self) -> Material
-        virtual const Material* ISample::material() const
+        material(ISampleNode self) -> Material
+        virtual const Material* ISampleNode::material() const
 
         Returns nullptr, unless overwritten to return a specific material. 
 
         """
-        return _libBornAgainSample.ISample_material(self)
+        return _libBornAgainSample.ISampleNode_material(self)
 
     def containedMaterials(self):
         r"""
-        containedMaterials(ISample self) -> std::vector< Material const *,std::allocator< Material const * > >
-        std::vector< const Material * > ISample::containedMaterials() const
+        containedMaterials(ISampleNode self) -> std::vector< Material const *,std::allocator< Material const * > >
+        std::vector< const Material * > ISampleNode::containedMaterials() const
 
-        Returns set of unique materials contained in this  ISample. 
+        Returns set of unique materials contained in this  ISampleNode. 
 
         """
-        return _libBornAgainSample.ISample_containedMaterials(self)
+        return _libBornAgainSample.ISampleNode_containedMaterials(self)
 
     def isMagnetic(self):
         r"""
-        isMagnetic(ISample self) -> bool
-        bool ISample::isMagnetic() const
+        isMagnetic(ISampleNode self) -> bool
+        bool ISampleNode::isMagnetic() const
 
-        Returns true if there is any magnetic material in this  ISample. 
+        Returns true if there is any magnetic material in this  ISampleNode. 
 
         """
-        return _libBornAgainSample.ISample_isMagnetic(self)
-    __swig_destroy__ = _libBornAgainSample.delete_ISample
+        return _libBornAgainSample.ISampleNode_isMagnetic(self)
+    __swig_destroy__ = _libBornAgainSample.delete_ISampleNode
     def __disown__(self):
         self.this.disown()
-        _libBornAgainSample.disown_ISample(self)
+        _libBornAgainSample.disown_ISampleNode(self)
         return weakref.proxy(self)
 
-# Register ISample in _libBornAgainSample:
-_libBornAgainSample.ISample_swigregister(ISample)
+# Register ISampleNode in _libBornAgainSample:
+_libBornAgainSample.ISampleNode_swigregister(ISampleNode)
 
-class IFormFactor(ISample):
+class IFormFactor(ISampleNode):
     r"""
 
 
@@ -3265,7 +3265,7 @@ class IFormFactor(ISample):
         clone(IFormFactor self) -> IFormFactor
         IFormFactor* IFormFactor::clone() const override=0
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.IFormFactor_clone(self)
@@ -3421,7 +3421,7 @@ class IBornFF(IFormFactor):
         clone(IBornFF self) -> IBornFF
         IBornFF* IBornFF::clone() const override=0
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.IBornFF_clone(self)
@@ -3515,7 +3515,7 @@ class IFormFactorDecorator(IFormFactor):
         clone(IFormFactorDecorator self) -> IFormFactorDecorator
         IFormFactorDecorator* IFormFactorDecorator::clone() const override=0
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.IFormFactorDecorator_clone(self)
@@ -4068,7 +4068,7 @@ class FormFactorCrystal(IFormFactor):
         clone(FormFactorCrystal self) -> FormFactorCrystal
         FormFactorCrystal* FormFactorCrystal::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorCrystal_clone(self)
@@ -4173,7 +4173,7 @@ class FormFactorWeighted(IFormFactor):
         clone(FormFactorWeighted self) -> FormFactorWeighted
         FormFactorWeighted * FormFactorWeighted::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorWeighted_clone(self)
@@ -4247,7 +4247,7 @@ class FormFactorWeighted(IFormFactor):
 # Register FormFactorWeighted in _libBornAgainSample:
 _libBornAgainSample.FormFactorWeighted_swigregister(FormFactorWeighted)
 
-class IAbstractParticle(ISample):
+class IAbstractParticle(ISampleNode):
     r"""
 
 
@@ -4271,7 +4271,7 @@ class IAbstractParticle(ISample):
         clone(IAbstractParticle self) -> IAbstractParticle
         virtual IAbstractParticle* IAbstractParticle::clone() const =0
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.IAbstractParticle_clone(self)
@@ -4331,7 +4331,7 @@ class IAbstractParticle(ISample):
 # Register IAbstractParticle in _libBornAgainSample:
 _libBornAgainSample.IAbstractParticle_swigregister(IAbstractParticle)
 
-class Crystal(ISample):
+class Crystal(ISampleNode):
     r"""
 
 
@@ -4364,7 +4364,7 @@ class Crystal(ISample):
         clone(Crystal self) -> Crystal
         Crystal * Crystal::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.Crystal_clone(self)
@@ -4434,7 +4434,7 @@ class IParticle(IAbstractParticle):
         clone(IParticle self) -> IParticle
         IParticle* IParticle::clone() const override=0
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.IParticle_clone(self)
@@ -4608,7 +4608,7 @@ class MesoCrystal(IParticle):
         clone(MesoCrystal self) -> MesoCrystal
         MesoCrystal * MesoCrystal::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.MesoCrystal_clone(self)
@@ -4671,7 +4671,7 @@ class Particle(IParticle):
         clone(Particle self) -> Particle
         Particle * Particle::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.Particle_clone(self)
@@ -4751,7 +4751,7 @@ class ParticleComposition(IParticle):
         clone(ParticleComposition self) -> ParticleComposition
         ParticleComposition * ParticleComposition::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.ParticleComposition_clone(self)
@@ -4859,7 +4859,7 @@ class ParticleCoreShell(IParticle):
         clone(ParticleCoreShell self) -> ParticleCoreShell
         ParticleCoreShell * ParticleCoreShell::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.ParticleCoreShell_clone(self)
@@ -4935,7 +4935,7 @@ class ParticleDistribution(IAbstractParticle):
         clone(ParticleDistribution self) -> ParticleDistribution
         ParticleDistribution * ParticleDistribution::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.ParticleDistribution_clone(self)
@@ -6292,7 +6292,7 @@ class FTDistribution2DVoigt(IFTDistribution2D):
 # Register FTDistribution2DVoigt in _libBornAgainSample:
 _libBornAgainSample.FTDistribution2DVoigt_swigregister(FTDistribution2DVoigt)
 
-class IPeakShape(ISample):
+class IPeakShape(ISampleNode):
     r"""
 
 
@@ -6314,7 +6314,7 @@ class IPeakShape(ISample):
         clone(IPeakShape self) -> IPeakShape
         virtual IPeakShape* IPeakShape::clone() const =0
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.IPeakShape_clone(self)
@@ -6369,7 +6369,7 @@ class IsotropicGaussPeakShape(IPeakShape):
         clone(IsotropicGaussPeakShape self) -> IsotropicGaussPeakShape
         IsotropicGaussPeakShape * IsotropicGaussPeakShape::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.IsotropicGaussPeakShape_clone(self)
@@ -6422,7 +6422,7 @@ class IsotropicLorentzPeakShape(IPeakShape):
         clone(IsotropicLorentzPeakShape self) -> IsotropicLorentzPeakShape
         IsotropicLorentzPeakShape * IsotropicLorentzPeakShape::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.IsotropicLorentzPeakShape_clone(self)
@@ -6475,7 +6475,7 @@ class GaussFisherPeakShape(IPeakShape):
         clone(GaussFisherPeakShape self) -> GaussFisherPeakShape
         GaussFisherPeakShape * GaussFisherPeakShape::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.GaussFisherPeakShape_clone(self)
@@ -6538,7 +6538,7 @@ class LorentzFisherPeakShape(IPeakShape):
         clone(LorentzFisherPeakShape self) -> LorentzFisherPeakShape
         LorentzFisherPeakShape * LorentzFisherPeakShape::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.LorentzFisherPeakShape_clone(self)
@@ -6601,7 +6601,7 @@ class MisesFisherGaussPeakShape(IPeakShape):
         clone(MisesFisherGaussPeakShape self) -> MisesFisherGaussPeakShape
         MisesFisherGaussPeakShape * MisesFisherGaussPeakShape::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.MisesFisherGaussPeakShape_clone(self)
@@ -6664,7 +6664,7 @@ class MisesGaussPeakShape(IPeakShape):
         clone(MisesGaussPeakShape self) -> MisesGaussPeakShape
         MisesGaussPeakShape * MisesGaussPeakShape::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.MisesGaussPeakShape_clone(self)
@@ -6700,7 +6700,7 @@ class MisesGaussPeakShape(IPeakShape):
 # Register MisesGaussPeakShape in _libBornAgainSample:
 _libBornAgainSample.MisesGaussPeakShape_swigregister(MisesGaussPeakShape)
 
-class IInterferenceFunction(ISample):
+class IInterferenceFunction(ISampleNode):
     r"""
 
 
@@ -6721,7 +6721,7 @@ class IInterferenceFunction(ISample):
         clone(IInterferenceFunction self) -> IInterferenceFunction
         virtual IInterferenceFunction* IInterferenceFunction::clone() const =0
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.IInterferenceFunction_clone(self)
@@ -6828,7 +6828,7 @@ class InterferenceFunction1DLattice(IInterferenceFunction):
         clone(InterferenceFunction1DLattice self) -> InterferenceFunction1DLattice
         InterferenceFunction1DLattice * InterferenceFunction1DLattice::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunction1DLattice_clone(self)
@@ -6911,7 +6911,7 @@ class InterferenceFunction2DLattice(IInterferenceFunction):
         clone(InterferenceFunction2DLattice self) -> InterferenceFunction2DLattice
         InterferenceFunction2DLattice * InterferenceFunction2DLattice::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunction2DLattice_clone(self)
@@ -7020,7 +7020,7 @@ class InterferenceFunction2DParaCrystal(IInterferenceFunction):
         clone(InterferenceFunction2DParaCrystal self) -> InterferenceFunction2DParaCrystal
         InterferenceFunction2DParaCrystal * InterferenceFunction2DParaCrystal::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunction2DParaCrystal_clone(self)
@@ -7223,7 +7223,7 @@ class InterferenceFunction2DSuperLattice(IInterferenceFunction):
         clone(InterferenceFunction2DSuperLattice self) -> InterferenceFunction2DSuperLattice
         InterferenceFunction2DSuperLattice * InterferenceFunction2DSuperLattice::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunction2DSuperLattice_clone(self)
@@ -7340,7 +7340,7 @@ class InterferenceFunction3DLattice(IInterferenceFunction):
         clone(InterferenceFunction3DLattice self) -> InterferenceFunction3DLattice
         InterferenceFunction3DLattice * InterferenceFunction3DLattice::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunction3DLattice_clone(self)
@@ -7439,7 +7439,7 @@ class InterferenceFunctionFinite2DLattice(IInterferenceFunction):
         clone(InterferenceFunctionFinite2DLattice self) -> InterferenceFunctionFinite2DLattice
         InterferenceFunctionFinite2DLattice * InterferenceFunctionFinite2DLattice::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunctionFinite2DLattice_clone(self)
@@ -7540,7 +7540,7 @@ class InterferenceFunctionFinite3DLattice(IInterferenceFunction):
         clone(InterferenceFunctionFinite3DLattice self) -> InterferenceFunctionFinite3DLattice
         InterferenceFunctionFinite3DLattice * InterferenceFunctionFinite3DLattice::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunctionFinite3DLattice_clone(self)
@@ -7635,7 +7635,7 @@ class InterferenceFunctionHardDisk(IInterferenceFunction):
         clone(InterferenceFunctionHardDisk self) -> InterferenceFunctionHardDisk
         InterferenceFunctionHardDisk * InterferenceFunctionHardDisk::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunctionHardDisk_clone(self)
@@ -7703,7 +7703,7 @@ class InterferenceFunctionNone(IInterferenceFunction):
         clone(InterferenceFunctionNone self) -> InterferenceFunctionNone
         InterferenceFunctionNone * InterferenceFunctionNone::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunctionNone_clone(self)
@@ -7757,7 +7757,7 @@ class InterferenceFunctionRadialParaCrystal(IInterferenceFunction):
         clone(InterferenceFunctionRadialParaCrystal self) -> InterferenceFunctionRadialParaCrystal
         InterferenceFunctionRadialParaCrystal * InterferenceFunctionRadialParaCrystal::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunctionRadialParaCrystal_clone(self)
@@ -7898,7 +7898,7 @@ class InterferenceFunctionTwin(IInterferenceFunction):
         clone(InterferenceFunctionTwin self) -> InterferenceFunctionTwin
         InterferenceFunctionTwin * InterferenceFunctionTwin::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.InterferenceFunctionTwin_clone(self)
@@ -7939,11 +7939,11 @@ class InterferenceFunctionTwin(IInterferenceFunction):
 # Register InterferenceFunctionTwin in _libBornAgainSample:
 _libBornAgainSample.InterferenceFunctionTwin_swigregister(InterferenceFunctionTwin)
 
-class ParticleLayout(ISample):
+class ParticleLayout(ISampleNode):
     r"""
 
 
-    Decorator class that adds particles to  ISample objects.
+    Decorator class that adds particles to  ISampleNode objects.
 
     C++ includes: ParticleLayout.h
 
@@ -7967,7 +7967,7 @@ class ParticleLayout(ISample):
         clone(ParticleLayout self) -> ParticleLayout
         ParticleLayout * ParticleLayout::clone() const override
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.ParticleLayout_clone(self)
@@ -8096,7 +8096,7 @@ class ParticleLayout(ISample):
 # Register ParticleLayout in _libBornAgainSample:
 _libBornAgainSample.ParticleLayout_swigregister(ParticleLayout)
 
-class LayerRoughness(ISample):
+class LayerRoughness(ISampleNode):
     r"""
 
 
@@ -8125,7 +8125,7 @@ class LayerRoughness(ISample):
         clone(LayerRoughness self) -> LayerRoughness
         LayerRoughness* LayerRoughness::clone() const
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.LayerRoughness_clone(self)
@@ -8256,7 +8256,7 @@ def generateZValues(n_points, z_min, z_max):
 
     """
     return _libBornAgainSample.generateZValues(n_points, z_min, z_max)
-class Layer(ISample):
+class Layer(ISampleNode):
     r"""
 
 
@@ -8294,7 +8294,7 @@ class Layer(ISample):
         clone(Layer self) -> Layer
         Layer * Layer::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.Layer_clone(self)
@@ -8402,7 +8402,7 @@ class Layer(ISample):
 # Register Layer in _libBornAgainSample:
 _libBornAgainSample.Layer_swigregister(Layer)
 
-class MultiLayer(ISample):
+class MultiLayer(ISampleNode):
     r"""
 
 
@@ -8905,7 +8905,7 @@ class FormFactorAnisoPyramid(IFormFactorPolyhedron):
         clone(FormFactorAnisoPyramid self) -> FormFactorAnisoPyramid
         FormFactorAnisoPyramid* FormFactorAnisoPyramid::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorAnisoPyramid_clone(self)
@@ -8981,7 +8981,7 @@ class FormFactorBox(IFormFactorPrism):
         clone(FormFactorBox self) -> FormFactorBox
         FormFactorBox* FormFactorBox::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorBox_clone(self)
@@ -9071,7 +9071,7 @@ class FormFactorCantellatedCube(IFormFactorPolyhedron):
         clone(FormFactorCantellatedCube self) -> FormFactorCantellatedCube
         FormFactorCantellatedCube* FormFactorCantellatedCube::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorCantellatedCube_clone(self)
@@ -9131,7 +9131,7 @@ class FormFactorCone(IBornFF):
         clone(FormFactorCone self) -> FormFactorCone
         FormFactorCone* FormFactorCone::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorCone_clone(self)
@@ -9219,7 +9219,7 @@ class FormFactorCone6(IFormFactorPolyhedron):
         clone(FormFactorCone6 self) -> FormFactorCone6
         FormFactorCone6* FormFactorCone6::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorCone6_clone(self)
@@ -9287,7 +9287,7 @@ class FormFactorCosineRippleBox(ICosineRipple):
         clone(FormFactorCosineRippleBox self) -> FormFactorCosineRippleBox
         FormFactorCosineRippleBox * FormFactorCosineRippleBox::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorCosineRippleBox_clone(self)
@@ -9331,7 +9331,7 @@ class FormFactorCosineRippleGauss(ICosineRipple):
         clone(FormFactorCosineRippleGauss self) -> FormFactorCosineRippleGauss
         FormFactorCosineRippleGauss * FormFactorCosineRippleGauss::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorCosineRippleGauss_clone(self)
@@ -9375,7 +9375,7 @@ class FormFactorCosineRippleLorentz(ICosineRipple):
         clone(FormFactorCosineRippleLorentz self) -> FormFactorCosineRippleLorentz
         FormFactorCosineRippleLorentz * FormFactorCosineRippleLorentz::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorCosineRippleLorentz_clone(self)
@@ -9419,7 +9419,7 @@ class FormFactorCuboctahedron(IFormFactorPolyhedron):
         clone(FormFactorCuboctahedron self) -> FormFactorCuboctahedron
         FormFactorCuboctahedron* FormFactorCuboctahedron::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorCuboctahedron_clone(self)
@@ -9495,7 +9495,7 @@ class FormFactorCylinder(IBornFF):
         clone(FormFactorCylinder self) -> FormFactorCylinder
         FormFactorCylinder* FormFactorCylinder::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorCylinder_clone(self)
@@ -9575,7 +9575,7 @@ class FormFactorDodecahedron(IFormFactorPolyhedron):
         clone(FormFactorDodecahedron self) -> FormFactorDodecahedron
         FormFactorDodecahedron* FormFactorDodecahedron::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorDodecahedron_clone(self)
@@ -9627,7 +9627,7 @@ class FormFactorDot(IBornFF):
         clone(FormFactorDot self) -> FormFactorDot
         FormFactorDot* FormFactorDot::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorDot_clone(self)
@@ -9719,7 +9719,7 @@ class FormFactorEllipsoidalCylinder(IBornFF):
         clone(FormFactorEllipsoidalCylinder self) -> FormFactorEllipsoidalCylinder
         FormFactorEllipsoidalCylinder* FormFactorEllipsoidalCylinder::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorEllipsoidalCylinder_clone(self)
@@ -9807,7 +9807,7 @@ class FormFactorFullSphere(IBornFF):
         clone(FormFactorFullSphere self) -> FormFactorFullSphere
         FormFactorFullSphere* FormFactorFullSphere::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorFullSphere_clone(self)
@@ -9899,7 +9899,7 @@ class FormFactorFullSpheroid(IBornFF):
         clone(FormFactorFullSpheroid self) -> FormFactorFullSpheroid
         FormFactorFullSpheroid* FormFactorFullSpheroid::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorFullSpheroid_clone(self)
@@ -9980,7 +9980,7 @@ class FormFactorHemiEllipsoid(IBornFF):
         clone(FormFactorHemiEllipsoid self) -> FormFactorHemiEllipsoid
         FormFactorHemiEllipsoid* FormFactorHemiEllipsoid::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorHemiEllipsoid_clone(self)
@@ -10067,7 +10067,7 @@ class FormFactorHollowSphere(IBornFF):
         clone(FormFactorHollowSphere self) -> FormFactorHollowSphere
         FormFactorHollowSphere* FormFactorHollowSphere::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorHollowSphere_clone(self)
@@ -10131,7 +10131,7 @@ class FormFactorIcosahedron(IFormFactorPolyhedron):
         clone(FormFactorIcosahedron self) -> FormFactorIcosahedron
         FormFactorIcosahedron* FormFactorIcosahedron::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorIcosahedron_clone(self)
@@ -10183,7 +10183,7 @@ class FormFactorLongBoxGauss(IBornFF):
         clone(FormFactorLongBoxGauss self) -> FormFactorLongBoxGauss
         FormFactorLongBoxGauss* FormFactorLongBoxGauss::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorLongBoxGauss_clone(self)
@@ -10271,7 +10271,7 @@ class FormFactorLongBoxLorentz(IBornFF):
         clone(FormFactorLongBoxLorentz self) -> FormFactorLongBoxLorentz
         FormFactorLongBoxLorentz* FormFactorLongBoxLorentz::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorLongBoxLorentz_clone(self)
@@ -10359,7 +10359,7 @@ class FormFactorPrism3(IFormFactorPrism):
         clone(FormFactorPrism3 self) -> FormFactorPrism3
         FormFactorPrism3* FormFactorPrism3::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorPrism3_clone(self)
@@ -10411,7 +10411,7 @@ class FormFactorPrism6(IFormFactorPrism):
         clone(FormFactorPrism6 self) -> FormFactorPrism6
         FormFactorPrism6* FormFactorPrism6::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorPrism6_clone(self)
@@ -10463,7 +10463,7 @@ class FormFactorPyramid(IFormFactorPolyhedron):
         clone(FormFactorPyramid self) -> FormFactorPyramid
         FormFactorPyramid* FormFactorPyramid::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorPyramid_clone(self)
@@ -10531,7 +10531,7 @@ class FormFactorSawtoothRippleBox(ISawtoothRipple):
         clone(FormFactorSawtoothRippleBox self) -> FormFactorSawtoothRippleBox
         FormFactorSawtoothRippleBox * FormFactorSawtoothRippleBox::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorSawtoothRippleBox_clone(self)
@@ -10575,7 +10575,7 @@ class FormFactorSawtoothRippleGauss(ISawtoothRipple):
         clone(FormFactorSawtoothRippleGauss self) -> FormFactorSawtoothRippleGauss
         FormFactorSawtoothRippleGauss * FormFactorSawtoothRippleGauss::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorSawtoothRippleGauss_clone(self)
@@ -10619,7 +10619,7 @@ class FormFactorSawtoothRippleLorentz(ISawtoothRipple):
         clone(FormFactorSawtoothRippleLorentz self) -> FormFactorSawtoothRippleLorentz
         FormFactorSawtoothRippleLorentz * FormFactorSawtoothRippleLorentz::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorSawtoothRippleLorentz_clone(self)
@@ -10663,7 +10663,7 @@ class FormFactorTetrahedron(IFormFactorPolyhedron):
         clone(FormFactorTetrahedron self) -> FormFactorTetrahedron
         FormFactorTetrahedron* FormFactorTetrahedron::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorTetrahedron_clone(self)
@@ -10731,7 +10731,7 @@ class FormFactorTruncatedCube(IFormFactorPolyhedron):
         clone(FormFactorTruncatedCube self) -> FormFactorTruncatedCube
         FormFactorTruncatedCube* FormFactorTruncatedCube::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorTruncatedCube_clone(self)
@@ -10791,7 +10791,7 @@ class FormFactorTruncatedSphere(IBornFF):
         clone(FormFactorTruncatedSphere self) -> FormFactorTruncatedSphere
         FormFactorTruncatedSphere* FormFactorTruncatedSphere::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorTruncatedSphere_clone(self)
@@ -10879,7 +10879,7 @@ class FormFactorTruncatedSpheroid(IBornFF):
         clone(FormFactorTruncatedSpheroid self) -> FormFactorTruncatedSpheroid
         FormFactorTruncatedSpheroid* FormFactorTruncatedSpheroid::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorTruncatedSpheroid_clone(self)
@@ -10975,7 +10975,7 @@ class FormFactorGaussSphere(IBornFF):
         clone(FormFactorGaussSphere self) -> FormFactorGaussSphere
         FormFactorGaussSphere* FormFactorGaussSphere::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorGaussSphere_clone(self)
@@ -11047,7 +11047,7 @@ class FormFactorSphereGaussianRadius(IBornFF):
         clone(FormFactorSphereGaussianRadius self) -> FormFactorSphereGaussianRadius
         FormFactorSphereGaussianRadius* FormFactorSphereGaussianRadius::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorSphereGaussianRadius_clone(self)
@@ -11111,7 +11111,7 @@ class FormFactorSphereLogNormalRadius(IBornFF):
         clone(FormFactorSphereLogNormalRadius self) -> FormFactorSphereLogNormalRadius
         FormFactorSphereLogNormalRadius * FormFactorSphereLogNormalRadius::clone() const final
 
-        Returns a clone of this  ISample object. 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.FormFactorSphereLogNormalRadius_clone(self)

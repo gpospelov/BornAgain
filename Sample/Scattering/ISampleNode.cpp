@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/ISample.cpp
-//! @brief     Implements interface ISample.
+//! @file      Sample/Scattering/ISampleNode.cpp
+//! @brief     Implements interface ISampleNode.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,20 +12,21 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 #include "Param/Base/ParameterPool.h"
 #include "Sample/Material/Material.h"
 #include <algorithm>
 #include <sstream>
 
-ISample::ISample(const NodeMeta& meta, const std::vector<double>& PValues) : INode(meta, PValues) {}
+ISampleNode::ISampleNode(const NodeMeta& meta, const std::vector<double>& PValues)
+    : INode(meta, PValues) {}
 
-std::vector<const Material*> ISample::containedMaterials() const {
+std::vector<const Material*> ISampleNode::containedMaterials() const {
     std::vector<const Material*> result;
     if (const Material* p_material = material())
         result.push_back(p_material);
     for (auto child : getChildren()) {
-        if (const ISample* sample = dynamic_cast<const ISample*>(child)) {
+        if (const ISampleNode* sample = dynamic_cast<const ISampleNode*>(child)) {
             for (const Material* p_material : sample->containedMaterials())
                 result.push_back(p_material);
         }
@@ -33,7 +34,7 @@ std::vector<const Material*> ISample::containedMaterials() const {
     return result;
 }
 
-bool ISample::isMagnetic() const {
+bool ISampleNode::isMagnetic() const {
     const auto materials = containedMaterials();
     return std::any_of(materials.cbegin(), materials.cend(),
                        [](const Material* mat) { return mat->isMagneticMaterial(); });

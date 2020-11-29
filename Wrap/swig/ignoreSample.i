@@ -17,8 +17,8 @@
 %ignore DecoratedLayerComputation;
 %ignore ComputeDWBA;
 %ignore ComputeDWBAPol;
-%ignore ISampleVisitor::visit(const ComputeDWBA*);
-%ignore ISampleVisitor::visit(const ComputeDWBAPol*);
+%ignore ISampleNodeVisitor::visit(const ComputeDWBA*);
+%ignore ISampleNodeVisitor::visit(const ComputeDWBAPol*);
 %ignore Lattice2D::ReciprocalBases;
 %ignore Lattice2D::reciprocalBases();
 %ignore RoughMultiLayerComputation;

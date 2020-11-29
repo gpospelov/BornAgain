@@ -485,7 +485,7 @@ Creates new parameter pool, with all local parameters and those of its children.
 
 From visitor pattern to achieve double dispatch.
 
-Visitor interface to visit ISample objects.
+Visitor interface to visit ISampleNode objects.
 
 C++ includes: INodeVisitor.h
 ";
@@ -790,7 +790,7 @@ C++ includes: INodeVisitor.h
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IRotation *)
 ";
 
-%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ISample *)
+%feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const ISampleNode *)
 ";
 
 %feature("docstring")  INodeVisitor::visit "virtual void INodeVisitor::visit(const IsGISAXSDetector *)

@@ -20,7 +20,7 @@
 #include <stdexcept>
 #include <filesystem>
 
-namespace fs = std::filesystem;	// make the code more readable
+namespace fs = std::filesystem;   // make the code more readable
 
 std::string FileSystemUtils::extension(const std::string& path) {
     return fs::path(path).extension().string();
@@ -31,7 +31,7 @@ std::string FileSystemUtils::extensions(const std::string& path) {
     if (name == "..")
         return {};
 
-    const auto pos = name.find_first_of('.', 1);	// 1: ignore any file-is-hidden dot
+    const auto pos = name.find_first_of('.', 1);   // 1: ignore any file-is-hidden dot
     return pos != std::string::npos ? name.substr(pos, name.size() - pos) : std::string();
 }
 
@@ -92,7 +92,7 @@ std::string FileSystemUtils::stem_ext(const std::string& path) {
     if (name == "..")
         return name;
 
-    const auto pos = name.find_first_of('.', 1);	// // 1: ignore any file-is-hidden dot
+    const auto pos = name.find_first_of('.', 1);    // 1: ignore any file-is-hidden dot
     return pos != std::string::npos ? name.substr(0, pos) : name;
 }
 

@@ -5710,7 +5710,7 @@ C++ includes: MultiLayer.h
 
 %feature("docstring")  MultiLayer::clone "MultiLayer * MultiLayer::clone() const final
 
-Returns a clone of multilayer with clones of all layers and interfaces between layers 
+Returns a clone of this  ISampleNode object. 
 ";
 
 %feature("docstring")  MultiLayer::accept "void MultiLayer::accept(INodeVisitor *visitor) const final
@@ -5721,14 +5721,25 @@ Returns a clone of multilayer with clones of all layers and interfaces between l
 
 %feature("docstring")  MultiLayer::addLayer "void MultiLayer::addLayer(const Layer &layer)
 
-Adds object to multilayer.
-
 Adds layer with default (zero) roughness. 
 ";
 
 %feature("docstring")  MultiLayer::addLayerWithTopRoughness "void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)
 
 Adds layer with top roughness. 
+";
+
+%feature("docstring")  MultiLayer::setRoughnessModel "void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
+";
+
+%feature("docstring")  MultiLayer::setCrossCorrLength "void MultiLayer::setCrossCorrLength(double crossCorrLength)
+
+Sets cross correlation length of roughnesses between interfaces. 
+";
+
+%feature("docstring")  MultiLayer::setExternalField "void MultiLayer::setExternalField(kvector_t ext_field)
+
+Sets the external field applied to the multilayer (units: A/m) 
 ";
 
 %feature("docstring")  MultiLayer::layer "const Layer * MultiLayer::layer(size_t i_layer) const
@@ -5741,19 +5752,12 @@ Returns layer with given index.
 Returns interface with given index. 
 ";
 
-%feature("docstring")  MultiLayer::setCrossCorrLength "void MultiLayer::setCrossCorrLength(double crossCorrLength)
-
-Sets cross correlation length of roughnesses between interfaces. 
+%feature("docstring")  MultiLayer::roughnessModel "RoughnessModel MultiLayer::roughnessModel() const
 ";
 
 %feature("docstring")  MultiLayer::crossCorrLength "double MultiLayer::crossCorrLength() const
 
 Returns cross correlation length of roughnesses between interfaces. 
-";
-
-%feature("docstring")  MultiLayer::setExternalField "void MultiLayer::setExternalField(kvector_t ext_field)
-
-Sets the external field applied to the multilayer (units: A/m) 
 ";
 
 %feature("docstring")  MultiLayer::externalField "kvector_t MultiLayer::externalField() const
@@ -5762,12 +5766,6 @@ Returns the external field applied to the multilayer (units: A/m)
 ";
 
 %feature("docstring")  MultiLayer::getChildren "std::vector< const INode * > MultiLayer::getChildren() const final
-";
-
-%feature("docstring")  MultiLayer::setRoughnessModel "void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
-";
-
-%feature("docstring")  MultiLayer::roughnessModel "RoughnessModel MultiLayer::roughnessModel() const
 ";
 
 

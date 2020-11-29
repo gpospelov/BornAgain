@@ -108,15 +108,15 @@ void GUIDomainSampleVisitor::visit(const Layer* p_sample) {
     auto p_multilayer = dynamic_cast<const MultiLayer*>(m_itemToSample[p_parent]);
     ASSERT(p_multilayer);
     size_t layer_index = MultiLayerUtils::IndexOfLayer(*p_multilayer, p_sample);
-    const LayerInterface* p_interface =
-        MultiLayerUtils::LayerTopInterface(*p_multilayer, layer_index);
+    const LayerInterface* top_interface =
+        layer_index==0 ? nullptr : p_multilayer->layerInterface(layer_index - 1);
 
     SessionItem* p_layer_item =
         m_sampleModel->insertNewItem("Layer", m_sampleModel->indexOfItem(p_parent));
     p_layer_item->setItemValue(LayerItem::P_MATERIAL,
                                createMaterialFromDomain(p_sample->material()).variant());
 
-    TransformFromDomain::setLayerItem(p_layer_item, p_sample, p_interface);
+    TransformFromDomain::setLayerItem(p_layer_item, p_sample, top_interface);
 
     m_levelToParentItem[depth()] = p_layer_item;
 }

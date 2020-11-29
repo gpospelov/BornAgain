@@ -7636,9 +7636,6 @@ C++ includes: ZLimits.h
 // File: namespace_0d16.xml
 
 
-// File: namespace_0d167.xml
-
-
 // File: namespace_0d169.xml
 
 
@@ -7838,11 +7835,6 @@ Returns the index of the given layer.
 %feature("docstring")  MultiLayerUtils::ContainsCompatibleMaterials "bool MultiLayerUtils::ContainsCompatibleMaterials(const MultiLayer &multilayer)
 
 Returns true if the multilayer contains non-default materials of one type only. 
-";
-
-%feature("docstring")  MultiLayerUtils::ParticleRegions "std::vector< ZLimits > MultiLayerUtils::ParticleRegions(const MultiLayer &multilayer, bool use_slicing)
-
-Calculate z-regions occupied by particles. 
 ";
 
 %feature("docstring")  MultiLayerUtils::hasRoughness "bool MultiLayerUtils::hasRoughness(const MultiLayer &sample)

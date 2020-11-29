@@ -22,7 +22,6 @@ class Layer;
 class LayerInterface;
 class LayerRoughness;
 class MultiLayer;
-class ZLimits;
 
 namespace MultiLayerUtils {
 //! Returns thickness of layer
@@ -42,9 +41,6 @@ size_t IndexOfLayer(const MultiLayer& multilayer, const Layer* p_layer);
 
 //! Returns true if the multilayer contains non-default materials of one type only
 bool ContainsCompatibleMaterials(const MultiLayer& multilayer);
-
-//! Calculate z-regions occupied by particles
-std::vector<ZLimits> ParticleRegions(const MultiLayer& multilayer, bool use_slicing);
 
 bool hasRoughness(const MultiLayer& sample);
 } // namespace MultiLayerUtils

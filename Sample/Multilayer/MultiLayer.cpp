@@ -109,9 +109,9 @@ std::vector<const INode*> MultiLayer::getChildren() const {
 
     for (size_t i = 0; i < N; ++i) {
         ret.push_back(m_layers[i]);
-        const LayerInterface* interface = MultiLayerUtils::LayerBottomInterface(*this, i);
-        if (interface)
-            ret.push_back(interface);
+        if (i == N - 1)
+            break;
+        ret.push_back(layerInterface(i));
     }
     return ret;
 }

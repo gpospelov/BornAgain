@@ -24,13 +24,6 @@ const LayerInterface* MultiLayerUtils::LayerTopInterface(const MultiLayer& multi
     return multilayer.layerInterface(i - 1);
 }
 
-const LayerInterface* MultiLayerUtils::LayerBottomInterface(const MultiLayer& multilayer,
-                                                            size_t i) {
-    if (i + 1 < multilayer.numberOfLayers())
-        return multilayer.layerInterface(i);
-    return nullptr;
-}
-
 const LayerRoughness* MultiLayerUtils::LayerTopRoughness(const MultiLayer& multilayer, size_t i) {
     if (i == 0)
         return nullptr;

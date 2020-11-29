@@ -9,9 +9,6 @@
 #include "Sample/Slice/LayerRoughness.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-using MultiLayerUtils::LayerBottomInterface;
-using MultiLayerUtils::LayerTopInterface;
-
 class MultiLayerTest : public ::testing::Test {
 protected:
     MultiLayerTest()
@@ -97,23 +94,6 @@ TEST_F(MultiLayerTest, LayerInterfaces) {
     const LayerInterface* interface2 = mLayer.layerInterface(2);
     EXPECT_TRUE(nullptr != interface2);
     EXPECT_EQ(nullptr, interface2->getRoughness());
-
-    // bottom interface
-    const LayerInterface* interfaceBottom = LayerBottomInterface(mLayer, 0);
-    EXPECT_TRUE(nullptr != interfaceBottom);
-    EXPECT_EQ(nullptr, interfaceBottom->getRoughness());
-
-    // top interface
-    const LayerInterface* interfaceTop = LayerTopInterface(mLayer, 3);
-    EXPECT_TRUE(nullptr != interfaceTop);
-    EXPECT_EQ(nullptr, interfaceTop->getRoughness());
-
-    // null interface
-    const LayerInterface* interfaceTopNull = LayerTopInterface(mLayer, 0);
-    EXPECT_TRUE(nullptr == interfaceTopNull);
-
-    const LayerInterface* interfaceBottomNull = LayerBottomInterface(mLayer, 3);
-    EXPECT_TRUE(nullptr == interfaceBottomNull);
 }
 
 TEST_F(MultiLayerTest, Clone) {
@@ -143,23 +123,6 @@ TEST_F(MultiLayerTest, Clone) {
     const LayerInterface* interface2 = mLayerClone->layerInterface(2);
     EXPECT_TRUE(nullptr != interface2);
     EXPECT_EQ(nullptr, interface2->getRoughness());
-
-    // top interface
-    const LayerInterface* interfaceBottom = LayerTopInterface(*mLayerClone, 1);
-    EXPECT_TRUE(nullptr != interfaceBottom);
-    EXPECT_EQ(nullptr, interfaceBottom->getRoughness());
-
-    // Bottom interface
-    const LayerInterface* interfaceTop = LayerBottomInterface(*mLayerClone, 2);
-    EXPECT_TRUE(nullptr != interfaceTop);
-    EXPECT_EQ(nullptr, interfaceTop->getRoughness());
-
-    // null interface
-    const LayerInterface* interfaceTopNull = LayerTopInterface(*mLayerClone, 0);
-    EXPECT_TRUE(nullptr == interfaceTopNull);
-
-    const LayerInterface* interfaceBottomNull = LayerBottomInterface(*mLayerClone, 3);
-    EXPECT_TRUE(nullptr == interfaceBottomNull);
 
     delete mLayerClone;
 }

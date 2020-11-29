@@ -7812,11 +7812,6 @@ Checks if all non-default materials in  materials are of the same type and retur
 Returns top interface of layer. 
 ";
 
-%feature("docstring")  MultiLayerUtils::LayerBottomInterface "const LayerInterface * MultiLayerUtils::LayerBottomInterface(const MultiLayer &multilayer, size_t i)
-
-Returns bottom interface of layer. 
-";
-
 %feature("docstring")  MultiLayerUtils::LayerTopRoughness "const LayerRoughness * MultiLayerUtils::LayerTopRoughness(const MultiLayer &multilayer, size_t i)
 
 Returns top roughness of layer. 

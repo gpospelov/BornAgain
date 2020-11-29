@@ -93,7 +93,7 @@ void GUIDomainSampleVisitor::visit(const ParticleLayout* sample) {
     else
         layout_item = m_sampleModel->insertNewItem("ParticleLayout");
     layout_item->setItemValue(ParticleLayoutItem::P_TOTAL_DENSITY,
-                                sample->totalParticleSurfaceDensity());
+                              sample->totalParticleSurfaceDensity());
     layout_item->setItemValue(ParticleLayoutItem::P_WEIGHT, sample->weight());
     m_levelToParentItem[depth()] = layout_item;
 }
@@ -106,12 +106,12 @@ void GUIDomainSampleVisitor::visit(const Layer* sample) {
     ASSERT(multilayer);
     size_t layer_index = MultiLayerUtils::IndexOfLayer(*multilayer, sample);
     const LayerInterface* top_interface =
-        layer_index==0 ? nullptr : multilayer->layerInterface(layer_index - 1);
+        layer_index == 0 ? nullptr : multilayer->layerInterface(layer_index - 1);
 
     SessionItem* layer_item =
         m_sampleModel->insertNewItem("Layer", m_sampleModel->indexOfItem(parent));
     layer_item->setItemValue(LayerItem::P_MATERIAL,
-                               createMaterialFromDomain(sample->material()).variant());
+                             createMaterialFromDomain(sample->material()).variant());
 
     TransformFromDomain::setLayerItem(layer_item, sample, top_interface);
 
@@ -121,8 +121,7 @@ void GUIDomainSampleVisitor::visit(const Layer* sample) {
 void GUIDomainSampleVisitor::visit(const MultiLayer* sample) {
     SessionItem* multilayer_item = m_sampleModel->insertNewItem("MultiLayer");
     multilayer_item->setItemName(sample->getName().c_str());
-    multilayer_item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH,
-                                    sample->crossCorrLength());
+    multilayer_item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, sample->crossCorrLength());
     SetVectorItem(*multilayer_item, MultiLayerItem::P_EXTERNAL_FIELD, sample->externalField());
     m_levelToParentItem[depth()] = multilayer_item;
     m_itemToSample[multilayer_item] = sample;
@@ -131,7 +130,7 @@ void GUIDomainSampleVisitor::visit(const MultiLayer* sample) {
 void GUIDomainSampleVisitor::visit(const Particle* sample) {
     auto particle_item = InsertIParticle(sample, "Particle");
     particle_item->setItemValue(ParticleItem::P_MATERIAL,
-                                  createMaterialFromDomain(sample->material()).variant());
+                                createMaterialFromDomain(sample->material()).variant());
 }
 
 void GUIDomainSampleVisitor::visit(const ParticleDistribution* sample) {

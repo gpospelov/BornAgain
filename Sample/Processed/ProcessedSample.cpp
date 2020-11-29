@@ -13,13 +13,13 @@
 //  ************************************************************************************************
 
 #include "Sample/Processed/ProcessedSample.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Fresnel/MatrixFresnelMap.h"
 #include "Sample/Fresnel/ScalarFresnelMap.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/Particle/HomogeneousRegion.h"
 #include "Sample/Particle/IParticle.h"
-#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Processed/ProcessedLayout.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/Scattering/LayerFillLimits.h"
@@ -83,8 +83,7 @@ std::vector<double> bottomLayerCoordinates(const MultiLayer& multilayer) {
 }
 
 //! Calculate z-regions occupied by particles
-std::vector<ZLimits> particleRegions(const MultiLayer& multilayer,
-                                                      bool use_slicing) {
+std::vector<ZLimits> particleRegions(const MultiLayer& multilayer, bool use_slicing) {
     const std::vector<double> bottom_coords = bottomLayerCoordinates(multilayer);
     LayerFillLimits layer_fill_limits(bottom_coords);
     if (use_slicing) {

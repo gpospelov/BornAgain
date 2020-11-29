@@ -77,9 +77,8 @@ std::vector<double> bottomLayerCoordinates(const MultiLayer& multilayer) {
         return {};
     std::vector<double> result(n_layers - 1);
     result[0] = 0.0;
-    for (size_t i = 1; i < n_layers - 1; ++i) {
-        result[i] = result[i - 1] - MultiLayerUtils::LayerThickness(multilayer, i);
-    }
+    for (size_t i = 1; i < n_layers - 1; ++i)
+        result[i] = result[i - 1] - multilayer.layer(i)->thickness();
     return result;
 }
 
@@ -92,10 +91,9 @@ std::vector<ZLimits> particleRegions(const MultiLayer& multilayer,
         for (size_t i = 0; i < multilayer.numberOfLayers(); ++i) {
             auto p_layer = multilayer.layer(i);
             double offset = (i == 0) ? 0 : bottom_coords[i - 1];
-            for (auto p_layout : p_layer->layouts()) {
+            for (auto p_layout : p_layer->layouts())
                 for (auto p_particle : p_layout->particles())
                     layer_fill_limits.update(p_particle->bottomTopZ(), offset);
-            }
         }
     }
     return layer_fill_limits.layerZLimits();
@@ -264,7 +262,7 @@ void ProcessedSample::initLayouts(const MultiLayer& sample) {
     m_polarized = sample.isMagnetic();
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
         if (i > 1)
-            z_ref -= MultiLayerUtils::LayerThickness(sample, i - 1);
+            z_ref -= sample.layer(i - 1)->thickness();
         auto layer = sample.layer(i);
         for (auto layout : layer->layouts()) {
             m_layouts.emplace_back(*layout, m_slices, z_ref, m_fresnel_map.get(), m_polarized);

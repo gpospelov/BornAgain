@@ -10,7 +10,6 @@
 #include "Tests/GTestWrapper/google_test.h"
 
 using MultiLayerUtils::LayerBottomInterface;
-using MultiLayerUtils::LayerThickness;
 using MultiLayerUtils::LayerTopInterface;
 
 class MultiLayerTest : public ::testing::Test {
@@ -60,10 +59,10 @@ TEST_F(MultiLayerTest, LayerThicknesses) {
     set_four();
 
     // check layer thickness
-    EXPECT_EQ(0.0, LayerThickness(mLayer, 0));
-    EXPECT_EQ(20.0, LayerThickness(mLayer, 1));
-    EXPECT_EQ(40.0, LayerThickness(mLayer, 2));
-    EXPECT_EQ(0.0, LayerThickness(mLayer, 3));
+    EXPECT_EQ(mLayer.layer(0)->thickness(), 0);
+    EXPECT_EQ(mLayer.layer(1)->thickness(), 20);
+    EXPECT_EQ(mLayer.layer(2)->thickness(), 40);
+    EXPECT_EQ(mLayer.layer(3)->thickness(), 0);
 }
 
 TEST_F(MultiLayerTest, CheckAllLayers) {
@@ -127,23 +126,10 @@ TEST_F(MultiLayerTest, Clone) {
     EXPECT_EQ(size_t(4), mLayerClone->numberOfLayers());
 
     // check layer thickness
-    EXPECT_EQ(topLayer.thickness(), LayerThickness(*mLayerClone, 0));
-    EXPECT_EQ(layer1.thickness(), LayerThickness(*mLayerClone, 1));
-    EXPECT_EQ(layer2.thickness(), LayerThickness(*mLayerClone, 2));
-    EXPECT_EQ(substrate.thickness(), LayerThickness(*mLayerClone, 3));
-
-    // check individual layer
-    const Layer* layerCopy0 = mLayerClone->layer(0);
-    EXPECT_EQ(topLayer.thickness(), layerCopy0->thickness());
-
-    const Layer* layerCopy1 = mLayerClone->layer(1);
-    EXPECT_EQ(layer1.thickness(), layerCopy1->thickness());
-
-    const Layer* layerCopy2 = mLayerClone->layer(2);
-    EXPECT_EQ(layer2.thickness(), layerCopy2->thickness());
-
-    const Layer* layerCopy3 = mLayerClone->layer(3);
-    EXPECT_EQ(substrate.thickness(), layerCopy3->thickness());
+    EXPECT_EQ(topLayer.thickness(), mLayerClone->layer(0)->thickness());
+    EXPECT_EQ(layer1.thickness(), mLayerClone->layer(1)->thickness());
+    EXPECT_EQ(layer2.thickness(), mLayerClone->layer(2)->thickness());
+    EXPECT_EQ(substrate.thickness(), mLayerClone->layer(3)->thickness());
 
     // check interfaces
     const LayerInterface* interface0 = mLayerClone->layerInterface(0);

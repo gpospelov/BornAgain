@@ -18,10 +18,6 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Slice/LayerInterface.h"
 
-double MultiLayerUtils::LayerThickness(const MultiLayer& multilayer, size_t i) {
-    return multilayer.layer(i)->thickness();
-}
-
 const LayerInterface* MultiLayerUtils::LayerTopInterface(const MultiLayer& multilayer, size_t i) {
     if (i == 0)
         return nullptr;

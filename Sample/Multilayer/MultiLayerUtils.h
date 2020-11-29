@@ -24,8 +24,6 @@ class LayerRoughness;
 class MultiLayer;
 
 namespace MultiLayerUtils {
-//! Returns thickness of layer
-double LayerThickness(const MultiLayer& multilayer, size_t i);
 
 //! Returns top interface of layer
 const LayerInterface* LayerTopInterface(const MultiLayer& multilayer, size_t i);

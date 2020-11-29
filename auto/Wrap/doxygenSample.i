@@ -7807,11 +7807,6 @@ Checks if all non-default materials in  materials are of the same type and retur
 
 
 // File: namespaceMultiLayerUtils.xml
-%feature("docstring")  MultiLayerUtils::LayerThickness "double MultiLayerUtils::LayerThickness(const MultiLayer &multilayer, size_t i)
-
-Returns thickness of layer. 
-";
-
 %feature("docstring")  MultiLayerUtils::LayerTopInterface "const LayerInterface * MultiLayerUtils::LayerTopInterface(const MultiLayer &multilayer, size_t i)
 
 Returns top interface of layer. 

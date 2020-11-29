@@ -28,8 +28,8 @@
 %{
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
-#include "Param/Base/IModel.h"
-#include "Param/Base/IParameterized.h"
+#include "Param/Base/IComponent.h"
+#include "Param/Base/IParametricComponent.h"
 
 #include "Param/Node/INode.h"
 #include "Param/Node/INodeVisitor.h"
@@ -46,8 +46,8 @@
 %import(module="libBornAgainBase") "Base/Vector/Vectors3D.h"
 %include "fromBase.i"
 
-%ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
-%ignore IParameterized::addParametersToExternalPool(const std::string&, ParameterPool*) const;
+%ignore IParametricComponent::addParametersToExternalPool(const std::string&, ParameterPool*, int) const;
+%ignore IParametricComponent::addParametersToExternalPool(const std::string&, ParameterPool*) const;
 %ignore IRangedDistribution;
 
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
@@ -59,10 +59,10 @@
 %include "Param/Base/RealParameter.h"
 %include "Param/Base/ParameterPool.h"
 
-%feature("director") IModel;             // needed by IParameterized
-%include "Param/Base/IModel.h"
-%feature("director") IParameterized;     // needed by ISampleBuilder
-%include "Param/Base/IParameterized.h"
+%feature("director") IComponent;             // needed by IParametricComponent
+%include "Param/Base/IComponent.h"
+%feature("director") IParametricComponent;     // needed by ISampleBuilder
+%include "Param/Base/IParametricComponent.h"
 %feature("director") INode;              // needed by ISample
 %include "Param/Node/INode.h"
 

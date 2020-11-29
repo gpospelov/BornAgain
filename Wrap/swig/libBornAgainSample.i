@@ -256,25 +256,25 @@
 
 %extend ISampleBuilder {
     virtual RealParameter* registerParameter(const std::string& name, int64_t parpointer) {
-        return &(($self)->IParameterized::registerParameter(name, (double*)parpointer)); }
+        return &(($self)->IParametricComponent::registerParameter(name, (double*)parpointer)); }
 
     virtual void setParameterValue(const std::string& name, double value) {
-        ($self)->IParameterized::setParameterValue(name, value); }
+        ($self)->IParametricComponent::setParameterValue(name, value); }
 
     virtual std::string parametersToString() const {
-        return ($self)->IParameterized::parametersToString();
+        return ($self)->IParametricComponent::parametersToString();
         }
 
     virtual ParameterPool* createParameterTree() const {
-        return ($self)->IParameterized::createParameterTree();
+        return ($self)->IParametricComponent::createParameterTree();
         }
 
     virtual ParameterPool* parameterPool() const {
-        return ($self)->IParameterized::parameterPool();
+        return ($self)->IParametricComponent::parameterPool();
     }
 
     virtual void onChange() {
-        return ($self)->IParameterized::onChange();
+        return ($self)->IParametricComponent::onChange();
     }
 
 };

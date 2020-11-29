@@ -16,7 +16,7 @@
 #define BORNAGAIN_PARAM_DISTRIB_PARAMETERDISTRIBUTION_H
 
 #include "Fit/Param/RealLimits.h"
-#include "Param/Base/IParameterized.h"
+#include "Param/Base/IParametricComponent.h"
 #include "Param/Varia/ParameterSample.h"
 #include <memory>
 #include <vector>
@@ -25,7 +25,7 @@ class IDistribution1D;
 
 //! A parametric distribution function, for use with any model parameter.
 
-class ParameterDistribution : public IParameterized {
+class ParameterDistribution : public IParametricComponent {
 public:
     ParameterDistribution(const std::string& par_name, const IDistribution1D& distribution,
                           size_t nbr_samples, double sigma_factor = 0.0,

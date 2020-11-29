@@ -15,8 +15,8 @@
 #include "Core/Export/SampleToPython.h"
 #include "Base/Utils/Assert.h"
 #include "Base/Vector/Transform3D.h"
+#include "Core/Export/ComponentKeyHandler.h"
 #include "Core/Export/INodeUtils.h"
-#include "Core/Export/ModelKeyHandler.h"
 #include "Core/Export/PyFmt.h"
 #include "Core/Export/PyFmt2.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
@@ -99,7 +99,7 @@ std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer) {
 }
 
 void SampleToPython::initLabels(const MultiLayer& multilayer) {
-    m_objs.reset(new ModelKeyHandler());
+    m_objs.reset(new ComponentKeyHandler());
 
     m_objs->insertModel("sample", &multilayer);
     for (const auto* x : multilayer.containedMaterials())

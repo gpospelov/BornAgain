@@ -353,6 +353,18 @@ Calls the  INodeVisitor's visit method.
 ";
 
 
+// File: classIComponent.xml
+%feature("docstring") IComponent "
+
+Root of class hierarchy for sample and instrument model.
+
+C++ includes: IComponent.h
+";
+
+%feature("docstring")  IComponent::~IComponent "virtual IComponent::~IComponent()
+";
+
+
 // File: classIDistribution1D.xml
 %feature("docstring") IDistribution1D "
 
@@ -405,18 +417,6 @@ Returns true if the distribution is in the limit case of a Dirac delta distribut
 %feature("docstring")  IDistribution1D::setUnits "void IDistribution1D::setUnits(const std::string &units)
 
 Sets distribution units. 
-";
-
-
-// File: classIModel.xml
-%feature("docstring") IModel "
-
-Root of class hierarchy for sample and instrument model.
-
-C++ includes: IModel.h
-";
-
-%feature("docstring")  IModel::~IModel "virtual IModel::~IModel()
 ";
 
 
@@ -910,70 +910,70 @@ Returns true if two parameters are pointing to the same raw data.
 ";
 
 
-// File: classIParameterized.xml
-%feature("docstring") IParameterized "
+// File: classIParametricComponent.xml
+%feature("docstring") IParametricComponent "
 
 Manages a local parameter pool, and a tree of child pools.
 
-C++ includes: IParameterized.h
+C++ includes: IParametricComponent.h
 ";
 
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const std::string &name=\"\")
+%feature("docstring")  IParametricComponent::IParametricComponent "IParametricComponent::IParametricComponent(const std::string &name=\"\")
 ";
 
-%feature("docstring")  IParameterized::IParameterized "IParameterized::IParameterized(const IParameterized &other)
+%feature("docstring")  IParametricComponent::IParametricComponent "IParametricComponent::IParametricComponent(const IParametricComponent &other)
 ";
 
-%feature("docstring")  IParameterized::~IParameterized "IParameterized::~IParameterized()
+%feature("docstring")  IParametricComponent::~IParametricComponent "IParametricComponent::~IParametricComponent()
 ";
 
-%feature("docstring")  IParameterized::parameterPool "ParameterPool* IParameterized::parameterPool() const
+%feature("docstring")  IParametricComponent::parameterPool "ParameterPool* IParametricComponent::parameterPool() const
 
 Returns pointer to the parameter pool. 
 ";
 
-%feature("docstring")  IParameterized::createParameterTree "ParameterPool * IParameterized::createParameterTree() const
+%feature("docstring")  IParametricComponent::createParameterTree "ParameterPool * IParametricComponent::createParameterTree() const
 
 Creates new parameter pool, with all local parameters and those of its children. 
 ";
 
-%feature("docstring")  IParameterized::parametersToString "std::string IParameterized::parametersToString() const
+%feature("docstring")  IParametricComponent::parametersToString "std::string IParametricComponent::parametersToString() const
 
 Returns multiline string representing available parameters. 
 ";
 
-%feature("docstring")  IParameterized::registerParameter "RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
+%feature("docstring")  IParametricComponent::registerParameter "RealParameter & IParametricComponent::registerParameter(const std::string &name, double *parpointer)
 ";
 
-%feature("docstring")  IParameterized::registerVector "void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units=\"nm\")
+%feature("docstring")  IParametricComponent::registerVector "void IParametricComponent::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units=\"nm\")
 ";
 
-%feature("docstring")  IParameterized::setParameterValue "void IParameterized::setParameterValue(const std::string &name, double value)
+%feature("docstring")  IParametricComponent::setParameterValue "void IParametricComponent::setParameterValue(const std::string &name, double value)
 ";
 
-%feature("docstring")  IParameterized::setVectorValue "void IParameterized::setVectorValue(const std::string &base_name, kvector_t value)
+%feature("docstring")  IParametricComponent::setVectorValue "void IParametricComponent::setVectorValue(const std::string &base_name, kvector_t value)
 ";
 
-%feature("docstring")  IParameterized::parameter "RealParameter * IParameterized::parameter(const std::string &name) const
+%feature("docstring")  IParametricComponent::parameter "RealParameter * IParametricComponent::parameter(const std::string &name) const
 
 Returns parameter with given 'name'. 
 ";
 
-%feature("docstring")  IParameterized::onChange "virtual void IParameterized::onChange()
+%feature("docstring")  IParametricComponent::onChange "virtual void IParametricComponent::onChange()
 
 Action to be taken in inherited class when a parameter has changed. 
 ";
 
-%feature("docstring")  IParameterized::removeParameter "void IParameterized::removeParameter(const std::string &name)
+%feature("docstring")  IParametricComponent::removeParameter "void IParametricComponent::removeParameter(const std::string &name)
 ";
 
-%feature("docstring")  IParameterized::removeVector "void IParameterized::removeVector(const std::string &base_name)
+%feature("docstring")  IParametricComponent::removeVector "void IParametricComponent::removeVector(const std::string &base_name)
 ";
 
-%feature("docstring")  IParameterized::setName "void IParameterized::setName(const std::string &name)
+%feature("docstring")  IParametricComponent::setName "void IParametricComponent::setName(const std::string &name)
 ";
 
-%feature("docstring")  IParameterized::getName "const std::string& IParameterized::getName() const
+%feature("docstring")  IParametricComponent::getName "const std::string& IParametricComponent::getName() const
 ";
 
 
@@ -1269,7 +1269,7 @@ C++ includes: ParameterPattern.h
 // File: classParameterPool.xml
 %feature("docstring") ParameterPool "
 
-Container with parameters for  IParameterized object.
+Container with parameters for  IParametricComponent object.
 
 C++ includes: ParameterPool.h
 ";
@@ -1649,22 +1649,22 @@ Returns path composed of node's displayName, with respect to root node.
 Returns true if given parameter name is related to angles. 
 ";
 
-%feature("docstring")  ParameterUtils::poolParameterUnits "std::string ParameterUtils::poolParameterUnits(const IParameterized &node, const std::string &parName)
+%feature("docstring")  ParameterUtils::poolParameterUnits "std::string ParameterUtils::poolParameterUnits(const IParametricComponent &node, const std::string &parName)
 
 Returns units of main parameter. 
 ";
 
 
-// File: IModel_8h.xml
+// File: IComponent_8h.xml
 
 
 // File: IParameter_8h.xml
 
 
-// File: IParameterized_8cpp.xml
+// File: IParametricComponent_8cpp.xml
 
 
-// File: IParameterized_8h.xml
+// File: IParametricComponent_8h.xml
 
 
 // File: ParameterPool_8cpp.xml

@@ -21,7 +21,7 @@
 //! Provides the functionality to average over parameter distributions with weights.
 
 //! @ingroup algorithms_internal
-class DistributionHandler : public IParameterized {
+class DistributionHandler : public IParametricComponent {
 public:
     typedef std::vector<ParameterDistribution> Distributions_t;
     DistributionHandler();

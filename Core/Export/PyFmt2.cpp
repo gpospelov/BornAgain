@@ -103,7 +103,7 @@ std::string valueTimesUnit(const RealParameter* par) {
 
 //! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").
 
-std::string argumentList(const IParameterized* ip) {
+std::string argumentList(const IParametricComponent* ip) {
     std::vector<std::string> args;
     for (const auto* par : ip->parameterPool()->parameters())
         args.push_back(valueTimesUnit(par));

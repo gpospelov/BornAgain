@@ -2747,7 +2747,7 @@ class SampleBuilderFactoryTemp(object):
 # Register SampleBuilderFactoryTemp in _libBornAgainSample:
 _libBornAgainSample.SampleBuilderFactoryTemp_swigregister(SampleBuilderFactoryTemp)
 
-class Material(libBornAgainParam.IModel):
+class Material(libBornAgainParam.IComponent):
     r"""
 
 
@@ -11708,7 +11708,7 @@ def BCTLattice(a, c):
 
     """
     return _libBornAgainSample.BCTLattice(a, c)
-class ISampleBuilder(libBornAgainParam.IParameterized):
+class ISampleBuilder(libBornAgainParam.IParametricComponent):
     r"""
 
 

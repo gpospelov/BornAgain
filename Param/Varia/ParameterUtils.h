@@ -17,7 +17,7 @@
 
 #include <string>
 
-class IParameterized;
+class IParametricComponent;
 
 namespace ParameterUtils {
 
@@ -25,7 +25,7 @@ namespace ParameterUtils {
 bool isAngleRelated(const std::string& par_name);
 
 //! Returns units of main parameter.
-std::string poolParameterUnits(const IParameterized& node, const std::string& parName);
+std::string poolParameterUnits(const IParametricComponent& node, const std::string& parName);
 
 } // namespace ParameterUtils
 

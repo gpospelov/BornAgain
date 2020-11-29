@@ -178,6 +178,24 @@ Metric wrapper for back-compaptibility with old scripts.
 ";
 
 
+// File: classComponentKeyHandler.xml
+%feature("docstring") ComponentKeyHandler "
+
+Stores IComponent instances, associates them with given tag, and provides unique keys.
+
+C++ includes: ComponentKeyHandler.h
+";
+
+%feature("docstring")  ComponentKeyHandler::insertModel "void ComponentKeyHandler::insertModel(const std::string &tag, const IComponent *s)
+";
+
+%feature("docstring")  ComponentKeyHandler::objectsOfType "std::vector< const T * > ComponentKeyHandler::objectsOfType() const
+";
+
+%feature("docstring")  ComponentKeyHandler::obj2key "std::string ComponentKeyHandler::obj2key(const IComponent *s) const
+";
+
+
 // File: classComputationStatus.xml
 %feature("docstring") ComputationStatus "
 
@@ -1197,24 +1215,6 @@ array with intensity values obtained from an experiment.
 
 weight_factors: 
 user-defined weighting factors. Used linearly, no matter which norm is chosen. 
-";
-
-
-// File: classModelKeyHandler.xml
-%feature("docstring") ModelKeyHandler "
-
-Stores IModel instances, associates them with given tag, and provides unique keys.
-
-C++ includes: ModelKeyHandler.h
-";
-
-%feature("docstring")  ModelKeyHandler::insertModel "void ModelKeyHandler::insertModel(const std::string &tag, const IModel *s)
-";
-
-%feature("docstring")  ModelKeyHandler::objectsOfType "std::vector< const T * > ModelKeyHandler::objectsOfType() const
-";
-
-%feature("docstring")  ModelKeyHandler::obj2key "std::string ModelKeyHandler::obj2key(const IModel *s) const
 ";
 
 
@@ -2295,7 +2295,7 @@ Returns fixed Python code snippet that defines the function \"runSimulation\".
 Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
 ";
 
-%feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParameterized *ip)
+%feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParametricComponent *ip)
 
 Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
 ";
@@ -2596,6 +2596,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: SpecularSimulationElement_8h.xml
 
 
+// File: ComponentKeyHandler_8cpp.xml
+
+
+// File: ComponentKeyHandler_8h.xml
+
+
 // File: ExportToPython_8cpp.xml
 
 
@@ -2603,12 +2609,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: INodeUtils_8h.xml
-
-
-// File: ModelKeyHandler_8cpp.xml
-
-
-// File: ModelKeyHandler_8h.xml
 
 
 // File: PyFmt_8cpp.xml

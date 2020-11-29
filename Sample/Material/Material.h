@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_SAMPLE_MATERIAL_MATERIAL_H
 #define BORNAGAIN_SAMPLE_MATERIAL_MATERIAL_H
 
-#include "Param/Base/IModel.h"
+#include "Param/Base/IComponent.h"
 #include "Sample/Material/BaseMaterialImpl.h"
 #include <memory>
 #include <vector>
@@ -26,7 +26,7 @@ class WavevectorInfo;
 //! A wrapper for underlying material implementation
 //! @ingroup materials
 
-class Material : public IModel {
+class Material : public IComponent {
 public:
 #ifndef SWIG
     //! Creates material with particular material implementation

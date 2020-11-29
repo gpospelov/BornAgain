@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Export/ModelKeyHandler.h
-//! @brief     Defines classes LabelMap and ModelKeyHandler.
+//! @file      Core/Export/ComponentKeyHandler.h
+//! @brief     Defines classes LabelMap and ComponentKeyHandler.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,36 +12,36 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
-#define BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
+#ifndef BORNAGAIN_CORE_EXPORT_COMPONENTKEYHANDLER_H
+#define BORNAGAIN_CORE_EXPORT_COMPONENTKEYHANDLER_H
 
 #include <map>
 #include <string>
 #include <vector>
 
-class IModel;
+class IComponent;
 
-//! Stores IModel instances, associates them with given tag, and provides unique keys.
+//! Stores IComponent instances, associates them with given tag, and provides unique keys.
 //! @ingroup tools_internal
 
-class ModelKeyHandler {
+class ComponentKeyHandler {
 public:
-    void insertModel(const std::string& tag, const IModel* s);
+    void insertModel(const std::string& tag, const IComponent* s);
 
     template <class T> std::vector<const T*> objectsOfType() const;
-    std::string obj2key(const IModel* s) const;
+    std::string obj2key(const IComponent* s) const;
 
 private:
-    std::map<std::string, std::vector<const IModel*>> m_objects;
+    std::map<std::string, std::vector<const IComponent*>> m_objects;
 };
 
-template <class T> std::vector<const T*> ModelKeyHandler::objectsOfType() const {
+template <class T> std::vector<const T*> ComponentKeyHandler::objectsOfType() const {
     std::vector<const T*> ret;
     for (auto it : m_objects)
-        for (const IModel* s : it.second)
+        for (const IComponent* s : it.second)
             if (const auto* c = dynamic_cast<const T*>(s); c)
                 ret.emplace_back(c);
     return ret;
 }
 
-#endif // BORNAGAIN_CORE_EXPORT_SAMPLELABELHANDLER_H
+#endif // BORNAGAIN_CORE_EXPORT_COMPONENTKEYHANDLER_H

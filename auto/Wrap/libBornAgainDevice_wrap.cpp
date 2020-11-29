@@ -3116,16 +3116,16 @@ namespace Swig {
 #define SWIGTYPE_p_IAxis swig_types[16]
 #define SWIGTYPE_p_IChiSquaredModule swig_types[17]
 #define SWIGTYPE_p_ICloneable swig_types[18]
-#define SWIGTYPE_p_IDetector swig_types[19]
-#define SWIGTYPE_p_IDetector2D swig_types[20]
-#define SWIGTYPE_p_IDetectorResolution swig_types[21]
-#define SWIGTYPE_p_IFootprintFactor swig_types[22]
-#define SWIGTYPE_p_IHistogram swig_types[23]
-#define SWIGTYPE_p_IIntensityFunction swig_types[24]
-#define SWIGTYPE_p_IModel swig_types[25]
+#define SWIGTYPE_p_IComponent swig_types[19]
+#define SWIGTYPE_p_IDetector swig_types[20]
+#define SWIGTYPE_p_IDetector2D swig_types[21]
+#define SWIGTYPE_p_IDetectorResolution swig_types[22]
+#define SWIGTYPE_p_IFootprintFactor swig_types[23]
+#define SWIGTYPE_p_IHistogram swig_types[24]
+#define SWIGTYPE_p_IIntensityFunction swig_types[25]
 #define SWIGTYPE_p_INode swig_types[26]
 #define SWIGTYPE_p_INodeVisitor swig_types[27]
-#define SWIGTYPE_p_IParameterized swig_types[28]
+#define SWIGTYPE_p_IParametricComponent swig_types[28]
 #define SWIGTYPE_p_IPixel swig_types[29]
 #define SWIGTYPE_p_IRangedDistribution swig_types[30]
 #define SWIGTYPE_p_IResolutionFunction2D swig_types[31]
@@ -48746,51 +48746,6 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static void *_p_FootprintGaussTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(IFootprintFactor *) ((FootprintGauss *) x));
-}
-static void *_p_IDetectorResolutionTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *) ((IDetectorResolution *) x));
-}
-static void *_p_IDetector2DTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(IDetector *) ((IDetector2D *) x));
-}
-static void *_p_INodeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *)  ((INode *) x));
-}
-static void *_p_ResolutionFunction2DGaussianTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(IResolutionFunction2D *) ((ResolutionFunction2DGaussian *) x));
-}
-static void *_p_IFootprintFactorTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *) ((IFootprintFactor *) x));
-}
-static void *_p_InstrumentTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *) ((Instrument *) x));
-}
-static void *_p_BeamTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *) ((Beam *) x));
-}
-static void *_p_SphericalDetectorTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(IDetector *)(IDetector2D *) ((SphericalDetector *) x));
-}
-static void *_p_RectangularDetectorTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(IDetector *)(IDetector2D *) ((RectangularDetector *) x));
-}
-static void *_p_IDetectorTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *) ((IDetector *) x));
-}
-static void *_p_IsGISAXSDetectorTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
-}
-static void *_p_ParameterDistributionTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *)  ((ParameterDistribution *) x));
-}
-static void *_p_FootprintSquareTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(IFootprintFactor *) ((FootprintSquare *) x));
-}
-static void *_p_IResolutionFunction2DTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *) ((IResolutionFunction2D *) x));
-}
 static void *_p_ChiSquaredModuleTo_p_IChiSquaredModule(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IChiSquaredModule *)  ((ChiSquaredModule *) x));
 }
@@ -48868,54 +48823,6 @@ static void *_p_IResolutionFunction2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPAR
 }
 static void *_p_LineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (IShape2D *) ((Line *) x));
-}
-static void *_p_FootprintGaussTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(IFootprintFactor *) ((FootprintGauss *) x));
-}
-static void *_p_IDetectorResolutionTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *) ((IDetectorResolution *) x));
-}
-static void *_p_IDetector2DTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(IDetector *) ((IDetector2D *) x));
-}
-static void *_p_INodeTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *) ((INode *) x));
-}
-static void *_p_ResolutionFunction2DGaussianTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(IResolutionFunction2D *) ((ResolutionFunction2DGaussian *) x));
-}
-static void *_p_IFootprintFactorTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *) ((IFootprintFactor *) x));
-}
-static void *_p_InstrumentTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *) ((Instrument *) x));
-}
-static void *_p_BeamTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *) ((Beam *) x));
-}
-static void *_p_RectangularDetectorTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(IDetector *)(IDetector2D *) ((RectangularDetector *) x));
-}
-static void *_p_IDetectorTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *) ((IDetector *) x));
-}
-static void *_p_SphericalDetectorTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(IDetector *)(IDetector2D *) ((SphericalDetector *) x));
-}
-static void *_p_IsGISAXSDetectorTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
-}
-static void *_p_ParameterDistributionTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *) ((ParameterDistribution *) x));
-}
-static void *_p_FootprintSquareTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(IFootprintFactor *) ((FootprintSquare *) x));
-}
-static void *_p_IParameterizedTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *)  ((IParameterized *) x));
-}
-static void *_p_IResolutionFunction2DTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *) ((IResolutionFunction2D *) x));
 }
 static void *_p_FootprintSquareTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (IFootprintFactor *) ((FootprintSquare *) x));
@@ -49001,6 +48908,99 @@ static void *_p_HorizontalLineTo_p_IShape2D(void *x, int *SWIGUNUSEDPARM(newmemo
 static void *_p_RectangleTo_p_IShape2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IShape2D *)  ((Rectangle *) x));
 }
+static void *_p_FootprintGaussTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IFootprintFactor *) ((FootprintGauss *) x));
+}
+static void *_p_IDetectorResolutionTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((IDetectorResolution *) x));
+}
+static void *_p_IDetector2DTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IDetector *) ((IDetector2D *) x));
+}
+static void *_p_INodeTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *)  ((INode *) x));
+}
+static void *_p_ResolutionFunction2DGaussianTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IResolutionFunction2D *) ((ResolutionFunction2DGaussian *) x));
+}
+static void *_p_IFootprintFactorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((IFootprintFactor *) x));
+}
+static void *_p_InstrumentTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((Instrument *) x));
+}
+static void *_p_BeamTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((Beam *) x));
+}
+static void *_p_SphericalDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *) ((SphericalDetector *) x));
+}
+static void *_p_RectangularDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *) ((RectangularDetector *) x));
+}
+static void *_p_IDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((IDetector *) x));
+}
+static void *_p_IsGISAXSDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
+}
+static void *_p_ParameterDistributionTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *)  ((ParameterDistribution *) x));
+}
+static void *_p_FootprintSquareTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IFootprintFactor *) ((FootprintSquare *) x));
+}
+static void *_p_IResolutionFunction2DTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((IResolutionFunction2D *) x));
+}
+static void *_p_FootprintGaussTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IFootprintFactor *) ((FootprintGauss *) x));
+}
+static void *_p_IDetectorResolutionTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *) ((IDetectorResolution *) x));
+}
+static void *_p_IDetector2DTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IDetector *) ((IDetector2D *) x));
+}
+static void *_p_IParametricComponentTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *)  ((IParametricComponent *) x));
+}
+static void *_p_INodeTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *) ((INode *) x));
+}
+static void *_p_ResolutionFunction2DGaussianTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IResolutionFunction2D *) ((ResolutionFunction2DGaussian *) x));
+}
+static void *_p_IFootprintFactorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *) ((IFootprintFactor *) x));
+}
+static void *_p_InstrumentTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *) ((Instrument *) x));
+}
+static void *_p_BeamTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *) ((Beam *) x));
+}
+static void *_p_RectangularDetectorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IDetector *)(IDetector2D *) ((RectangularDetector *) x));
+}
+static void *_p_IDetectorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *) ((IDetector *) x));
+}
+static void *_p_SphericalDetectorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IDetector *)(IDetector2D *) ((SphericalDetector *) x));
+}
+static void *_p_IsGISAXSDetectorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
+}
+static void *_p_ParameterDistributionTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *) ((ParameterDistribution *) x));
+}
+static void *_p_FootprintSquareTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IFootprintFactor *) ((FootprintSquare *) x));
+}
+static void *_p_IResolutionFunction2DTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *) ((IResolutionFunction2D *) x));
+}
 static void *_p_RectangularDetectorTo_p_IDetector2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IDetector2D *)  ((RectangularDetector *) x));
 }
@@ -49039,17 +49039,17 @@ static swig_type_info _swigt__p_IAxis = {"_p_IAxis", "IAxis *", 0, 0, (void*)0, 
 static swig_type_info _swigt__p_IChiSquaredModule = {"_p_IChiSquaredModule", "IChiSquaredModule *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICloneable = {"_p_ICloneable", "ICloneable *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParameterPool = {"_p_ParameterPool", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_IComponent = {"_p_IComponent", "IComponent *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ParameterDistribution = {"_p_ParameterDistribution", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_IDetector = {"_p_IDetector", "IDetector *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IDetector2D = {"_p_IDetector2D", "IDetector2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IDetectorResolution = {"_p_IDetectorResolution", "IDetectorResolution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFootprintFactor = {"_p_IFootprintFactor", "IFootprintFactor *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IHistogram = {"_p_IHistogram", "IHistogram *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IIntensityFunction = {"_p_IIntensityFunction", "IIntensityFunction *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IModel = {"_p_IModel", "IModel *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ParameterDistribution = {"_p_ParameterDistribution", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_INode = {"_p_INode", "INode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INodeVisitor = {"_p_INodeVisitor", "INodeVisitor *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IParameterized = {"_p_IParameterized", "IParameterized *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IParametricComponent = {"_p_IParametricComponent", "IParametricComponent *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IPixel = {"_p_IPixel", "IPixel *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IRangedDistribution = {"_p_IRangedDistribution", "IRangedDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IResolutionFunction2D = {"_p_IResolutionFunction2D", "IResolutionFunction2D *", 0, 0, (void*)0, 0};
@@ -49160,16 +49160,16 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IAxis,
   &_swigt__p_IChiSquaredModule,
   &_swigt__p_ICloneable,
+  &_swigt__p_IComponent,
   &_swigt__p_IDetector,
   &_swigt__p_IDetector2D,
   &_swigt__p_IDetectorResolution,
   &_swigt__p_IFootprintFactor,
   &_swigt__p_IHistogram,
   &_swigt__p_IIntensityFunction,
-  &_swigt__p_IModel,
   &_swigt__p_INode,
   &_swigt__p_INodeVisitor,
-  &_swigt__p_IParameterized,
+  &_swigt__p_IParametricComponent,
   &_swigt__p_IPixel,
   &_swigt__p_IRangedDistribution,
   &_swigt__p_IResolutionFunction2D,
@@ -49283,17 +49283,17 @@ static swig_cast_info _swigc__p_IAxis[] = {  {&_swigt__p_IAxis, 0, 0, 0},{0, 0, 
 static swig_cast_info _swigc__p_IChiSquaredModule[] = {  {&_swigt__p_IChiSquaredModule, 0, 0, 0},  {&_swigt__p_ChiSquaredModule, _p_ChiSquaredModuleTo_p_IChiSquaredModule, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParameterPool[] = {{&_swigt__p_ParameterPool, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_ICloneable, 0, 0},  {&_swigt__p_ScanResolution, _p_ScanResolutionTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_ICloneable, 0, 0},  {&_swigt__p_Line, _p_LineTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_Rectangle, _p_RectangleTo_p_ICloneable, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_IShape2D, _p_IShape2DTo_p_ICloneable, 0, 0},  {&_swigt__p_Ellipse, _p_EllipseTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_HorizontalLine, _p_HorizontalLineTo_p_ICloneable, 0, 0},  {&_swigt__p_VerticalLine, _p_VerticalLineTo_p_ICloneable, 0, 0},  {&_swigt__p_IChiSquaredModule, _p_IChiSquaredModuleTo_p_ICloneable, 0, 0},  {&_swigt__p_ChiSquaredModule, _p_ChiSquaredModuleTo_p_ICloneable, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_ICloneable, 0, 0},  {&_swigt__p_Polygon, _p_PolygonTo_p_ICloneable, 0, 0},  {&_swigt__p_IUnitConverter, _p_IUnitConverterTo_p_ICloneable, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ParameterDistribution[] = {{&_swigt__p_ParameterDistribution, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IComponent[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IComponent, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IComponent, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IComponent, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IComponent, 0, 0},  {&_swigt__p_IParametricComponent, _p_IParametricComponentTo_p_IComponent, 0, 0},  {&_swigt__p_IComponent, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IComponent, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IComponent, 0, 0},  {&_swigt__p_Instrument, _p_InstrumentTo_p_IComponent, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IComponent, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IComponent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector[] = {  {&_swigt__p_IDetector, 0, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IDetector, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IDetector, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IDetector, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IDetector, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector2D[] = {  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IDetector2D, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IDetector2D, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IDetector2D, 0, 0},  {&_swigt__p_IDetector2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetectorResolution[] = {  {&_swigt__p_IDetectorResolution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFootprintFactor[] = {  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IFootprintFactor, 0, 0},  {&_swigt__p_IFootprintFactor, 0, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IFootprintFactor, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IHistogram[] = {  {&_swigt__p_IHistogram, 0, 0, 0},  {&_swigt__p_Histogram2D, _p_Histogram2DTo_p_IHistogram, 0, 0},  {&_swigt__p_Histogram1D, _p_Histogram1DTo_p_IHistogram, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IIntensityFunction[] = {  {&_swigt__p_IntensityFunctionSqrt, _p_IntensityFunctionSqrtTo_p_IIntensityFunction, 0, 0},  {&_swigt__p_IIntensityFunction, 0, 0, 0},  {&_swigt__p_IntensityFunctionLog, _p_IntensityFunctionLogTo_p_IIntensityFunction, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ParameterDistribution[] = {{&_swigt__p_ParameterDistribution, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IModel[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IModel, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IModel, 0, 0},  {&_swigt__p_IModel, 0, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IModel, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IModel, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IModel, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IModel, 0, 0},  {&_swigt__p_Instrument, _p_InstrumentTo_p_IModel, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IModel, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IModel, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IModel, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IModel, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IModel, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IModel, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IModel, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IModel, 0, 0},  {&_swigt__p_IParameterized, _p_IParameterizedTo_p_IModel, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_Beam, _p_BeamTo_p_INode, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_INode, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_INode, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_INode, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_INode, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_INode, 0, 0},  {&_swigt__p_Instrument, _p_InstrumentTo_p_INode, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_INode, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_INode, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_INode, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_INode, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_INode, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_INode, 0, 0},  {&_swigt__p_INode, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IParameterized, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IParameterized, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IParameterized, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IParameterized, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IParameterized, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IParameterized, 0, 0},  {&_swigt__p_Instrument, _p_InstrumentTo_p_IParameterized, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IParameterized, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IParameterized, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IParameterized, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IParametricComponent[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IParametricComponent, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IParametricComponent, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_Instrument, _p_InstrumentTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IParametricComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IParametricComponent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IPixel[] = {  {&_swigt__p_IPixel, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRangedDistribution[] = {  {&_swigt__p_IRangedDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IResolutionFunction2D[] = {  {&_swigt__p_IResolutionFunction2D, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IResolutionFunction2D, 0, 0},{0, 0, 0, 0}};
@@ -49404,16 +49404,16 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IAxis,
   _swigc__p_IChiSquaredModule,
   _swigc__p_ICloneable,
+  _swigc__p_IComponent,
   _swigc__p_IDetector,
   _swigc__p_IDetector2D,
   _swigc__p_IDetectorResolution,
   _swigc__p_IFootprintFactor,
   _swigc__p_IHistogram,
   _swigc__p_IIntensityFunction,
-  _swigc__p_IModel,
   _swigc__p_INode,
   _swigc__p_INodeVisitor,
-  _swigc__p_IParameterized,
+  _swigc__p_IParametricComponent,
   _swigc__p_IPixel,
   _swigc__p_IRangedDistribution,
   _swigc__p_IResolutionFunction2D,

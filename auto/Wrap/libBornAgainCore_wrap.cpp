@@ -3114,17 +3114,17 @@ namespace Swig {
 #define SWIGTYPE_p_IBornFF swig_types[14]
 #define SWIGTYPE_p_IChiSquaredModule swig_types[15]
 #define SWIGTYPE_p_ICloneable swig_types[16]
-#define SWIGTYPE_p_IDetector2D swig_types[17]
-#define SWIGTYPE_p_IDistribution1D swig_types[18]
-#define SWIGTYPE_p_IFactoryT_std__string_ISimulation_t swig_types[19]
-#define SWIGTYPE_p_IFootprintFactor swig_types[20]
-#define SWIGTYPE_p_IFormFactor swig_types[21]
-#define SWIGTYPE_p_IModel swig_types[22]
+#define SWIGTYPE_p_IComponent swig_types[17]
+#define SWIGTYPE_p_IDetector2D swig_types[18]
+#define SWIGTYPE_p_IDistribution1D swig_types[19]
+#define SWIGTYPE_p_IFactoryT_std__string_ISimulation_t swig_types[20]
+#define SWIGTYPE_p_IFootprintFactor swig_types[21]
+#define SWIGTYPE_p_IFormFactor swig_types[22]
 #define SWIGTYPE_p_INode swig_types[23]
 #define SWIGTYPE_p_INodeVisitor swig_types[24]
 #define SWIGTYPE_p_IObservable swig_types[25]
 #define SWIGTYPE_p_IObserver swig_types[26]
-#define SWIGTYPE_p_IParameterized swig_types[27]
+#define SWIGTYPE_p_IParametricComponent swig_types[27]
 #define SWIGTYPE_p_IRangedDistribution swig_types[28]
 #define SWIGTYPE_p_IResolutionFunction2D swig_types[29]
 #define SWIGTYPE_p_ISample swig_types[30]
@@ -44335,51 +44335,6 @@ static void *_p_ConstantBackgroundTo_p_IBackground(void *x, int *SWIGUNUSEDPARM(
 static void *_p_PoissonNoiseBackgroundTo_p_IBackground(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IBackground *)  ((PoissonNoiseBackground *) x));
 }
-static void *_p_IFormFactorTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(ISample *) ((IFormFactor *) x));
-}
-static void *_p_OffSpecSimulationTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
-}
-static void *_p_SpecularSimulationTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(ISimulation *) ((SpecularSimulation *) x));
-}
-static void *_p_DepthProbeSimulationTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(ISimulation *) ((DepthProbeSimulation *) x));
-}
-static void *_p_GISASSimulationTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(ISimulation *)(ISimulation2D *) ((GISASSimulation *) x));
-}
-static void *_p_ISimulationTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *) ((ISimulation *) x));
-}
-static void *_p_INodeTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *) ((INode *) x));
-}
-static void *_p_ConstantBackgroundTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(IBackground *) ((ConstantBackground *) x));
-}
-static void *_p_IBackgroundTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *) ((IBackground *) x));
-}
-static void *_p_PoissonNoiseBackgroundTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(IBackground *) ((PoissonNoiseBackground *) x));
-}
-static void *_p_IBornFFTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(ISample *)(IFormFactor *) ((IBornFF *) x));
-}
-static void *_p_ISampleTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *) ((ISample *) x));
-}
-static void *_p_ParameterDistributionTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *) ((ParameterDistribution *) x));
-}
-static void *_p_IParameterizedTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *)  ((IParameterized *) x));
-}
-static void *_p_ISimulation2DTo_p_IModel(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IModel *) (IParameterized *)(INode *)(ISimulation *) ((ISimulation2D *) x));
-}
 static void *_p_SimulationFactoryTo_p_IFactoryT_std__string_ISimulation_t(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IFactory< std::string,ISimulation > *)  ((SimulationFactory *) x));
 }
@@ -44403,6 +44358,93 @@ static void *_p_AngularSpecScanTo_p_ISpecularScan(void *x, int *SWIGUNUSEDPARM(n
 }
 static void *_p_QSpecScanTo_p_ISpecularScan(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISpecularScan *)  ((QSpecScan *) x));
+}
+static void *_p_IFormFactorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISample *) ((IFormFactor *) x));
+}
+static void *_p_OffSpecSimulationTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
+}
+static void *_p_SpecularSimulationTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISimulation *) ((SpecularSimulation *) x));
+}
+static void *_p_DepthProbeSimulationTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISimulation *) ((DepthProbeSimulation *) x));
+}
+static void *_p_GISASSimulationTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISimulation *)(ISimulation2D *) ((GISASSimulation *) x));
+}
+static void *_p_ISimulationTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *) ((ISimulation *) x));
+}
+static void *_p_IParametricComponentTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *)  ((IParametricComponent *) x));
+}
+static void *_p_INodeTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *) ((INode *) x));
+}
+static void *_p_ConstantBackgroundTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IBackground *) ((ConstantBackground *) x));
+}
+static void *_p_IBackgroundTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *) ((IBackground *) x));
+}
+static void *_p_PoissonNoiseBackgroundTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IBackground *) ((PoissonNoiseBackground *) x));
+}
+static void *_p_IBornFFTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISample *)(IFormFactor *) ((IBornFF *) x));
+}
+static void *_p_ISampleTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *) ((ISample *) x));
+}
+static void *_p_ParameterDistributionTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *) ((ParameterDistribution *) x));
+}
+static void *_p_ISimulation2DTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISimulation *) ((ISimulation2D *) x));
+}
+static void *_p_IFormFactorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(ISample *) ((IFormFactor *) x));
+}
+static void *_p_OffSpecSimulationTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
+}
+static void *_p_SpecularSimulationTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(ISimulation *) ((SpecularSimulation *) x));
+}
+static void *_p_DepthProbeSimulationTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(ISimulation *) ((DepthProbeSimulation *) x));
+}
+static void *_p_GISASSimulationTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(ISimulation *)(ISimulation2D *) ((GISASSimulation *) x));
+}
+static void *_p_ISimulationTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((ISimulation *) x));
+}
+static void *_p_INodeTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *)  ((INode *) x));
+}
+static void *_p_PoissonNoiseBackgroundTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IBackground *) ((PoissonNoiseBackground *) x));
+}
+static void *_p_ConstantBackgroundTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IBackground *) ((ConstantBackground *) x));
+}
+static void *_p_IBackgroundTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((IBackground *) x));
+}
+static void *_p_IBornFFTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(ISample *)(IFormFactor *) ((IBornFF *) x));
+}
+static void *_p_ISampleTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((ISample *) x));
+}
+static void *_p_ParameterDistributionTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *)  ((ParameterDistribution *) x));
+}
+static void *_p_ISimulation2DTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(ISimulation *) ((ISimulation2D *) x));
 }
 static void *_p_IFormFactorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *) ((IFormFactor *) x));
@@ -44439,48 +44481,6 @@ static void *_p_ISampleTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
 }
 static void *_p_IBornFFTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISample *)(IFormFactor *) ((IBornFF *) x));
-}
-static void *_p_IFormFactorTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *) ((IFormFactor *) x));
-}
-static void *_p_OffSpecSimulationTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
-}
-static void *_p_SpecularSimulationTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISimulation *) ((SpecularSimulation *) x));
-}
-static void *_p_DepthProbeSimulationTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISimulation *) ((DepthProbeSimulation *) x));
-}
-static void *_p_GISASSimulationTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISimulation *)(ISimulation2D *) ((GISASSimulation *) x));
-}
-static void *_p_ISimulationTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *) ((ISimulation *) x));
-}
-static void *_p_INodeTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *)  ((INode *) x));
-}
-static void *_p_PoissonNoiseBackgroundTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(IBackground *) ((PoissonNoiseBackground *) x));
-}
-static void *_p_ConstantBackgroundTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(IBackground *) ((ConstantBackground *) x));
-}
-static void *_p_IBackgroundTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *) ((IBackground *) x));
-}
-static void *_p_IBornFFTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISample *)(IFormFactor *) ((IBornFF *) x));
-}
-static void *_p_ISampleTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *) ((ISample *) x));
-}
-static void *_p_ParameterDistributionTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *)  ((ParameterDistribution *) x));
-}
-static void *_p_ISimulation2DTo_p_IParameterized(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParameterized *) (INode *)(ISimulation *) ((ISimulation2D *) x));
 }
 static void *_p_GISASSimulationTo_p_ISimulation2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISimulation2D *)  ((GISASSimulation *) x));
@@ -44556,16 +44556,16 @@ static swig_type_info _swigt__p_IFormFactor = {"_p_IFormFactor", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_ParameterPool = {"_p_ParameterPool", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_IBornFF = {"_p_IBornFF", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_ISample = {"_p_ISample", 0, 0, 0, 0, 0};
+static swig_type_info _swigt__p_IComponent = {"_p_IComponent", "IComponent *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IDetector2D = {"_p_IDetector2D", "IDetector2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IDistribution1D = {"_p_IDistribution1D", "IDistribution1D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFactoryT_std__string_ISimulation_t = {"_p_IFactoryT_std__string_ISimulation_t", "IFactory< std::string,ISimulation > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFootprintFactor = {"_p_IFootprintFactor", "IFootprintFactor *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IModel = {"_p_IModel", "IModel *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INode = {"_p_INode", "INode *|std::vector< INode * >::value_type|std::vector< INode const * >::value_type", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INodeVisitor = {"_p_INodeVisitor", "INodeVisitor *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IObservable = {"_p_IObservable", "IObservable *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IObserver = {"_p_IObserver", "IObserver *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IParameterized = {"_p_IParameterized", "IParameterized *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IParametricComponent = {"_p_IParametricComponent", "IParametricComponent *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IRangedDistribution = {"_p_IRangedDistribution", "IRangedDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IResolutionFunction2D = {"_p_IResolutionFunction2D", "IResolutionFunction2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IShape2D = {"_p_IShape2D", "IShape2D *", 0, 0, (void*)0, 0};
@@ -44665,17 +44665,17 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IBornFF,
   &_swigt__p_IChiSquaredModule,
   &_swigt__p_ICloneable,
+  &_swigt__p_IComponent,
   &_swigt__p_IDetector2D,
   &_swigt__p_IDistribution1D,
   &_swigt__p_IFactoryT_std__string_ISimulation_t,
   &_swigt__p_IFootprintFactor,
   &_swigt__p_IFormFactor,
-  &_swigt__p_IModel,
   &_swigt__p_INode,
   &_swigt__p_INodeVisitor,
   &_swigt__p_IObservable,
   &_swigt__p_IObserver,
-  &_swigt__p_IParameterized,
+  &_swigt__p_IParametricComponent,
   &_swigt__p_IRangedDistribution,
   &_swigt__p_IResolutionFunction2D,
   &_swigt__p_ISample,
@@ -44780,16 +44780,16 @@ static swig_cast_info _swigc__p_ParameterPool[] = {{&_swigt__p_ParameterPool, 0,
 static swig_cast_info _swigc__p_IBornFF[] = {{&_swigt__p_IBornFF, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISample[] = {{&_swigt__p_ISample, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_ISpecularScan, _p_ISpecularScanTo_p_ICloneable, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_ICloneable, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_ICloneable, 0, 0},  {&_swigt__p_AngularSpecScan, _p_AngularSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_QSpecScan, _p_QSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IComponent[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IComponent, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IComponent, 0, 0},  {&_swigt__p_IParametricComponent, _p_IParametricComponentTo_p_IComponent, 0, 0},  {&_swigt__p_IComponent, 0, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IComponent, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IComponent, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IComponent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector2D[] = {  {&_swigt__p_IDetector2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDistribution1D[] = {  {&_swigt__p_IDistribution1D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFactoryT_std__string_ISimulation_t[] = {  {&_swigt__p_SimulationFactory, _p_SimulationFactoryTo_p_IFactoryT_std__string_ISimulation_t, 0, 0},  {&_swigt__p_IFactoryT_std__string_ISimulation_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFootprintFactor[] = {  {&_swigt__p_IFootprintFactor, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IModel[] = {  {&_swigt__p_IModel, 0, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IModel, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IModel, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IModel, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_IModel, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IModel, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IModel, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IModel, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IModel, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IModel, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IModel, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IModel, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IModel, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IModel, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IModel, 0, 0},  {&_swigt__p_IParameterized, _p_IParameterizedTo_p_IModel, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_INode, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_INode, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_INode, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_INode, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_INode, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_INode, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_INode, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_INode, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_INode, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IObservable[] = {  {&_swigt__p_IObservable, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IObserver[] = {  {&_swigt__p_IObserver, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IParameterized[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParameterized, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IParameterized, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IParameterized, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IParameterized, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IParameterized, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParameterized, 0, 0},  {&_swigt__p_IParameterized, 0, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IParameterized, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParameterized, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IParametricComponent[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IParametricComponent, 0, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISample, _p_ISampleTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IParametricComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParametricComponent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRangedDistribution[] = {  {&_swigt__p_IRangedDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IResolutionFunction2D[] = {  {&_swigt__p_IResolutionFunction2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IShape2D[] = {  {&_swigt__p_IShape2D, 0, 0, 0},{0, 0, 0, 0}};
@@ -44889,17 +44889,17 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IBornFF,
   _swigc__p_IChiSquaredModule,
   _swigc__p_ICloneable,
+  _swigc__p_IComponent,
   _swigc__p_IDetector2D,
   _swigc__p_IDistribution1D,
   _swigc__p_IFactoryT_std__string_ISimulation_t,
   _swigc__p_IFootprintFactor,
   _swigc__p_IFormFactor,
-  _swigc__p_IModel,
   _swigc__p_INode,
   _swigc__p_INodeVisitor,
   _swigc__p_IObservable,
   _swigc__p_IObserver,
-  _swigc__p_IParameterized,
+  _swigc__p_IParametricComponent,
   _swigc__p_IRangedDistribution,
   _swigc__p_IResolutionFunction2D,
   _swigc__p_ISample,

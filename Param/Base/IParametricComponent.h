@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Param/Base/IParameterized.h
-//! @brief     Defines interface IParameterized.
+//! @file      Param/Base/IParametricComponent.h
+//! @brief     Defines interface IParametricComponent.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,11 +12,11 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_PARAM_BASE_IPARAMETERIZED_H
-#define BORNAGAIN_PARAM_BASE_IPARAMETERIZED_H
+#ifndef BORNAGAIN_PARAM_BASE_IPARAMETRICCOMPONENT_H
+#define BORNAGAIN_PARAM_BASE_IPARAMETRICCOMPONENT_H
 
 #include "Base/Vector/Vectors3D.h"
-#include "Param/Base/IModel.h"
+#include "Param/Base/IComponent.h"
 #include <memory>
 
 class RealLimits;
@@ -26,13 +26,13 @@ class RealParameter;
 //! Manages a local parameter pool, and a tree of child pools.
 //! @ingroup tools_internal
 
-class IParameterized : public IModel {
+class IParametricComponent : public IComponent {
 public:
-    IParameterized(const std::string& name = "");
-    IParameterized(const IParameterized& other);
-    virtual ~IParameterized();
+    IParametricComponent(const std::string& name = "");
+    IParametricComponent(const IParametricComponent& other);
+    virtual ~IParametricComponent();
 
-    IParameterized& operator=(const IParameterized& other) = delete;
+    IParametricComponent& operator=(const IParametricComponent& other) = delete;
 
     //! Returns pointer to the parameter pool.
     ParameterPool* parameterPool() const { return m_pool.get(); } // has non-const usages!
@@ -73,4 +73,4 @@ private:
     std::unique_ptr<ParameterPool> m_pool; //!< parameter pool (kind of pointer-to-implementation)
 };
 
-#endif // BORNAGAIN_PARAM_BASE_IPARAMETERIZED_H
+#endif // BORNAGAIN_PARAM_BASE_IPARAMETRICCOMPONENT_H

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Param/Base/IModel.h
-//! @brief     Defines interface IModel.
+//! @file      Param/Base/IComponent.h
+//! @brief     Defines interface IComponent.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,14 +12,14 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_PARAM_BASE_IMODEL_H
-#define BORNAGAIN_PARAM_BASE_IMODEL_H
+#ifndef BORNAGAIN_PARAM_BASE_ICOMPONENT_H
+#define BORNAGAIN_PARAM_BASE_ICOMPONENT_H
 
 //! Root of class hierarchy for sample and instrument model.
 
-class IModel {
+class IComponent {
 public:
-    virtual ~IModel() {}
+    virtual ~IComponent() {}
 };
 
-#endif // BORNAGAIN_PARAM_BASE_IMODEL_H
+#endif // BORNAGAIN_PARAM_BASE_ICOMPONENT_H

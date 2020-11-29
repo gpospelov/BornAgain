@@ -102,7 +102,7 @@ private:
     QMap<int, SessionItem*> m_levelToParentItem;
     QMap<QString, double> m_propertyToValue;
     QMap<QString, bool> m_sample_encountered;
-    QMap<SessionItem*, const ISample*> m_itemToSample;
+    QMap<SessionItem*, const ISampleNode*> m_itemToSample;
     QString m_topSampleName;
 
     SampleModel* m_sampleModel;

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Scattering/ISample.h
-//! @brief     Defines interface class ISample.
+//! @file      Sample/Scattering/ISampleNode.h
+//! @brief     Defines interface class ISampleNode.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SCATTERING_ISAMPLE_H
-#define BORNAGAIN_SAMPLE_SCATTERING_ISAMPLE_H
+#ifndef BORNAGAIN_SAMPLE_SCATTERING_ISAMPLENODE_H
+#define BORNAGAIN_SAMPLE_SCATTERING_ISAMPLENODE_H
 
 #include "Base/Types/ICloneable.h"
 #include "Param/Node/INode.h"
@@ -24,22 +24,22 @@ class Material;
 //! Abstract base class for sample components and properties related to scattering.
 //! @ingroup samples_internal
 
-class ISample : public ICloneable, public INode {
+class ISampleNode : public ICloneable, public INode {
 public:
-    ISample() = default;
-    ISample(const NodeMeta& meta, const std::vector<double>& PValues);
+    ISampleNode() = default;
+    ISampleNode(const NodeMeta& meta, const std::vector<double>& PValues);
 
-    //! Returns a clone of this ISample object.
-    ISample* clone() const override = 0;
+    //! Returns a clone of this ISampleNode object.
+    ISampleNode* clone() const override = 0;
 
     //! Returns nullptr, unless overwritten to return a specific material.
     virtual const Material* material() const { return nullptr; }
 
-    //! Returns set of unique materials contained in this ISample.
+    //! Returns set of unique materials contained in this ISampleNode.
     std::vector<const Material*> containedMaterials() const;
 
-    //! Returns true if there is any magnetic material in this ISample.
+    //! Returns true if there is any magnetic material in this ISampleNode.
     bool isMagnetic() const;
 };
 
-#endif // BORNAGAIN_SAMPLE_SCATTERING_ISAMPLE_H
+#endif // BORNAGAIN_SAMPLE_SCATTERING_ISAMPLENODE_H

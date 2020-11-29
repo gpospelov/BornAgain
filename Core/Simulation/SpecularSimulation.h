@@ -21,7 +21,7 @@ class IAxis;
 class IComputation;
 class IFootprintFactor;
 class ISampleBuilder;
-class ISample;
+class ISampleNode;
 class ISpecularScan;
 class MultiLayer;
 class SpecularSimulationElement;

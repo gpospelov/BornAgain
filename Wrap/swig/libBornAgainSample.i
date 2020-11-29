@@ -32,7 +32,7 @@
 %shared_ptr(ISampleBuilder)
 
 %feature("director") ISampleBuilder;     // used in mesocrystal1.py
-%feature("director") ISample;            // needed by IFormFactor
+%feature("director") ISampleNode;            // needed by IFormFactor
 %feature("director") IFormFactor;        // needed by IBornFF
 %feature("director") IBornFF;    // used in CustomFormFactor.py
 
@@ -109,7 +109,7 @@
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Sample/Scattering/IFormFactorDecorator.h"
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 #include "Sample/Scattering/Rotations.h"
 #include "Sample/Slice/LayerInterface.h"
 #include "Sample/Slice/LayerRoughness.h"
@@ -151,7 +151,7 @@
 
 %include "Sample/RT/SimulationOptions.h"
 
-%include "Sample/Scattering/ISample.h"
+%include "Sample/Scattering/ISampleNode.h"
 %include "Sample/Scattering/IFormFactor.h"
 %include "Sample/Scattering/IBornFF.h"
 %include "Sample/Scattering/IFormFactorDecorator.h"
@@ -256,25 +256,25 @@
 
 %extend ISampleBuilder {
     virtual RealParameter* registerParameter(const std::string& name, int64_t parpointer) {
-        return &(($self)->IParameterized::registerParameter(name, (double*)parpointer)); }
+        return &(($self)->IParametricComponent::registerParameter(name, (double*)parpointer)); }
 
     virtual void setParameterValue(const std::string& name, double value) {
-        ($self)->IParameterized::setParameterValue(name, value); }
+        ($self)->IParametricComponent::setParameterValue(name, value); }
 
     virtual std::string parametersToString() const {
-        return ($self)->IParameterized::parametersToString();
+        return ($self)->IParametricComponent::parametersToString();
         }
 
     virtual ParameterPool* createParameterTree() const {
-        return ($self)->IParameterized::createParameterTree();
+        return ($self)->IParametricComponent::createParameterTree();
         }
 
     virtual ParameterPool* parameterPool() const {
-        return ($self)->IParameterized::parameterPool();
+        return ($self)->IParametricComponent::parameterPool();
     }
 
     virtual void onChange() {
-        return ($self)->IParameterized::onChange();
+        return ($self)->IParametricComponent::onChange();
     }
 
 };

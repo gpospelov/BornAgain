@@ -19,7 +19,7 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
                                              const IDistribution1D& distribution,
                                              size_t nbr_samples, double sigma_factor,
                                              const RealLimits& limits)
-    : IParameterized("ParameterDistribution")
+    : IParametricComponent("ParameterDistribution")
     , m_name(par_name)
     , m_nbr_samples(nbr_samples)
     , m_sigma_factor(sigma_factor)
@@ -38,7 +38,7 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
 ParameterDistribution::ParameterDistribution(const std::string& par_name,
                                              const IDistribution1D& distribution,
                                              size_t nbr_samples, double xmin, double xmax)
-    : IParameterized("ParameterDistribution")
+    : IParametricComponent("ParameterDistribution")
     , m_name(par_name)
     , m_nbr_samples(nbr_samples)
     , m_sigma_factor(0.0)
@@ -60,7 +60,7 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
 }
 
 ParameterDistribution::ParameterDistribution(const ParameterDistribution& other)
-    : IParameterized("ParameterDistribution")
+    : IParametricComponent("ParameterDistribution")
     , m_name(other.m_name)
     , m_nbr_samples(other.m_nbr_samples)
     , m_sigma_factor(other.m_sigma_factor)

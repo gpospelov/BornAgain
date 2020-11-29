@@ -30,8 +30,9 @@ def get_sample():
     # limits will assure, that generated Radius'es are >=0
     limits = ba.RealLimits.nonnegative()
 
-    par_distr1 = ba.ParameterDistribution("/Particle/Cylinder/Radius", gauss_distr1,
-                                          nparticles, sigma_factor, limits)
+    par_distr1 = ba.ParameterDistribution("/Particle/Cylinder/Radius",
+                                          gauss_distr1, nparticles,
+                                          sigma_factor, limits)
     part_coll1 = ba.ParticleDistribution(cylinder1, par_distr1)
 
     # collection of particles #2
@@ -44,8 +45,9 @@ def get_sample():
 
     gauss_distr2 = ba.DistributionGaussian(radius2, sigma2)
 
-    par_distr2 = ba.ParameterDistribution("/Particle/Cylinder/Radius", gauss_distr2,
-                                          nparticles, sigma_factor, limits)
+    par_distr2 = ba.ParameterDistribution("/Particle/Cylinder/Radius",
+                                          gauss_distr2, nparticles,
+                                          sigma_factor, limits)
     part_coll2 = ba.ParticleDistribution(cylinder2, par_distr2)
 
     # assembling the sample
@@ -66,7 +68,8 @@ def get_simulation():
     Create and return GISAXS simulation with beam and detector defined
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, 0.0*deg, 2.0*deg, 200, 0.0*deg, 2.0*deg)
+    simulation.setDetectorParameters(200, 0.0*deg, 2.0*deg, 200, 0.0*deg,
+                                     2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 

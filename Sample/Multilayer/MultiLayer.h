@@ -17,7 +17,7 @@
 
 #include "Base/Types/SafePointerVector.h"
 #include "Sample/Multilayer/RoughnessModels.h"
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 #include <functional>
 
 class ParticleLayout;
@@ -38,24 +38,24 @@ class LayerRoughness;
 //!  ---------   interface #2    z=-60.0
 //!  substrate   layer #3
 
-class MultiLayer : public ISample {
+class MultiLayer : public ISampleNode {
 public:
     MultiLayer();
     ~MultiLayer() override;
 
-    //! Returns a clone of multilayer with clones of all layers and
-    //! interfaces between layers
     MultiLayer* clone() const final;
 
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
     size_t numberOfLayers() const { return m_layers.size(); }
 
-    //! Adds object to multilayer
     void addLayer(const Layer& layer);
-
-    //! Adds layer with top roughness
     void addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness);
+    void setRoughnessModel(RoughnessModel roughnessModel);
+    //! Sets cross correlation length of roughnesses between interfaces
+    void setCrossCorrLength(double crossCorrLength);
+    //! Sets the external field applied to the multilayer (units: A/m)
+    void setExternalField(kvector_t ext_field);
 
     //! Returns layer with given index
     const Layer* layer(size_t i_layer) const;
@@ -63,23 +63,13 @@ public:
     //! Returns interface with given index
     const LayerInterface* layerInterface(size_t i_interface) const;
 
-    //! Sets cross correlation length of roughnesses between interfaces
-    void setCrossCorrLength(double crossCorrLength);
-
+    RoughnessModel roughnessModel() const { return m_roughness_model; }
     //! Returns cross correlation length of roughnesses between interfaces
     double crossCorrLength() const { return m_crossCorrLength; }
-
-    //! Sets the external field applied to the multilayer (units: A/m)
-    void setExternalField(kvector_t ext_field);
-
     //! Returns the external field applied to the multilayer (units: A/m)
     kvector_t externalField() const { return m_ext_field; }
 
     std::vector<const INode*> getChildren() const final;
-
-    void setRoughnessModel(RoughnessModel roughnessModel);
-
-    RoughnessModel roughnessModel() const { return m_roughness_model; }
 
 private:
     //! Adds the layer with simultaneous registration in parent class

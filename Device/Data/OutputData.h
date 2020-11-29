@@ -16,9 +16,9 @@
 #define BORNAGAIN_DEVICE_DATA_OUTPUTDATA_H
 
 #include "Base/Axis/FixedBinAxis.h"
+#include "Base/Py/PyObject.h"
 #include "Base/Types/SafePointerVector.h"
 #include "Base/Utils/Assert.h"
-#include "Base/Py/PyObject.h"
 #include "Base/Utils/ThreadInfo.h"
 #include "Device/Data/LLData.h"
 #include "Device/Data/OutputDataIterator.h"

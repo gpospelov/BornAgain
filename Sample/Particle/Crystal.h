@@ -16,7 +16,7 @@
 #define BORNAGAIN_SAMPLE_PARTICLE_CRYSTAL_H
 
 #include "Sample/Lattice/Lattice3D.h"
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 
 class IFormFactor;
 class IRotation;
@@ -32,7 +32,7 @@ struct HomogeneousRegion;
 //!
 //! @ingroup samples
 
-class Crystal : public ISample {
+class Crystal : public ISampleNode {
 public:
     Crystal(const IParticle& basis, const Lattice3D& lattice, double position_variance = 0);
     ~Crystal();

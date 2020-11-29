@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_PARAM_NODE_INODE_H
 #define BORNAGAIN_PARAM_NODE_INODE_H
 
-#include "Param/Base/IParameterized.h"
+#include "Param/Base/IParametricComponent.h"
 #include "Param/Node/INodeVisitor.h" // not forward declared because used by all children
 #include <limits>
 #include <memory>
@@ -45,7 +45,7 @@ NodeMeta nodeMetaUnion(const std::vector<ParaMeta>& base, const NodeMeta& other)
 //! Base class for tree-like structures containing parameterized objects.
 //! @ingroup tools_internal
 
-class INode : public IParameterized {
+class INode : public IParametricComponent {
 public:
     INode() : m_NP{0} {}
     INode(const NodeMeta& meta, const std::vector<double>& PValues);

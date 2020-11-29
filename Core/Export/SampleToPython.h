@@ -20,7 +20,7 @@
 
 class IParticle;
 class MultiLayer;
-class SampleLabelHandler;
+class ComponentKeyHandler;
 
 //! Generates Python code snippet from domain (C++) objects representing sample construction.
 
@@ -49,15 +49,9 @@ private:
     std::string defineInterferenceFunctions() const;
     std::string defineParticleLayouts() const;
     std::string defineRoughnesses() const;
-    std::string addLayoutsToLayers() const;
     std::string defineMultiLayers() const;
 
-    void setRotationInformation(const IParticle* particle, std::string particle_name,
-                                std::ostringstream& result) const;
-    void setPositionInformation(const IParticle* particle, std::string particle_name,
-                                std::ostringstream& result) const;
-
-    std::unique_ptr<SampleLabelHandler> m_label;
+    std::unique_ptr<ComponentKeyHandler> m_objs;
 };
 
 #endif // BORNAGAIN_CORE_EXPORT_SAMPLETOPYTHON_H

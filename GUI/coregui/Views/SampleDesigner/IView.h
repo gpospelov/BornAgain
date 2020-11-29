@@ -21,7 +21,7 @@
 
 class SessionItem;
 
-//! parent class for graphic representation of all ISample's
+//! parent class for graphic representation of all ISampleNode's
 class IView : public QGraphicsObject {
     Q_OBJECT
 public:

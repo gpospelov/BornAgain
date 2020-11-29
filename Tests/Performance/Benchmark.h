@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_TESTS_PERFORMANCE_BENCHMARK_H
 #define BORNAGAIN_TESTS_PERFORMANCE_BENCHMARK_H
 
-#include "Core/Export/OrderedMap.h"
 #include "Fit/Tools/WallclockTimer.h"
 #include <functional>
 #include <map>
@@ -43,7 +42,7 @@ private:
 //! Benchmark tool to measure duration of several processes.
 
 class Benchmark {
-    typedef OrderedMap<std::string, Duration*> BenchmarkMap;
+    typedef std::map<std::string, Duration*> BenchmarkMap;
 
 public:
     Benchmark() {}

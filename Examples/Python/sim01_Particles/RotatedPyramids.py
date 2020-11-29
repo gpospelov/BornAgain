@@ -19,7 +19,8 @@ def get_sample():
     pyramid = ba.Particle(m_particle, pyramid_ff)
     transform = ba.RotationZ(45.*deg)
     particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(pyramid, 1.0, ba.kvector_t(0.0, 0.0, 0.0), transform)
+    particle_layout.addParticle(pyramid, 1.0, ba.kvector_t(0.0, 0.0, 0.0),
+                                transform)
 
     vacuum_layer = ba.Layer(m_vacuum)
     vacuum_layer.addLayout(particle_layout)
@@ -36,7 +37,8 @@ def get_simulation():
     Returns a GISAXS simulation with beam and detector defined.
     """
     simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -2.0*deg, 2.0*deg, 200, 0.0*deg, 2.0*deg)
+    simulation.setDetectorParameters(200, -2.0*deg, 2.0*deg, 200, 0.0*deg,
+                                     2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     return simulation
 

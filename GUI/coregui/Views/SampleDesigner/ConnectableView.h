@@ -23,7 +23,7 @@ class QStyleOptionGraphicsItem;
 class QWidget;
 class NodeEditorPort;
 
-//! view of ISample's with rectangular shape and node functionality
+//! view of ISampleNode's with rectangular shape and node functionality
 class ConnectableView : public IView {
     Q_OBJECT
 public:
@@ -76,12 +76,12 @@ private:
     QString hyphenate(const QString& name) const;
 };
 
-//! default view of unimplemented ISample's
-// class ISampleDefaultView : public ConnectableView
+//! default view of unimplemented ISampleNode's
+// class ISampleNodeDefaultView : public ConnectableView
 //{
 // public:
-//    ISampleDefaultView(QGraphicsItem *parent = 0) : ConnectableView(parent){}
-//    //! сalls the ISampleViewVisitor's visit method
+//    ISampleNodeDefaultView(QGraphicsItem *parent = 0) : ConnectableView(parent){}
+//    //! сalls the ISampleNodeViewVisitor's visit method
 //};
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_CONNECTABLEVIEW_H

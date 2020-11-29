@@ -9,7 +9,7 @@
 class TestGUICoreObjectCorrespondence : public ::testing::Test {
 public:
     void GUICoreObjectCorrespondence(const SessionItem& gui_object,
-                                     const IParameterized& core_object) {
+                                     const IParametricComponent& core_object) {
         // First check if names correspond:
         EXPECT_EQ(gui_object.displayName(), QString::fromStdString(core_object.getName()));
 

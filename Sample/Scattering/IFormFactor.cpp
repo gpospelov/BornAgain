@@ -49,7 +49,7 @@ bool shapeOutsideLimits(const IFormFactor& formfactor, ZLimits limits, const IRo
 } // namespace
 
 IFormFactor::IFormFactor(const NodeMeta& meta, const std::vector<double>& PValues)
-    : ISample(meta, PValues) {}
+    : ISampleNode(meta, PValues) {}
 
 IFormFactor* IFormFactor::createSlicedFormFactor(ZLimits limits, const IRotation& rot,
                                                  kvector_t translation) const {

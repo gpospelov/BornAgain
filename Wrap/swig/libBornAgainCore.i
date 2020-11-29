@@ -82,7 +82,7 @@
 
 %include "fromParam.i"
 
-%import(module="libBornAgainSample") "Sample/Scattering/ISample.h"
+%import(module="libBornAgainSample") "Sample/Scattering/ISampleNode.h"
 %import(module="libBornAgainSample") "Sample/Scattering/IFormFactor.h"
 %import(module="libBornAgainSample") "Sample/Scattering/IBornFF.h"
 

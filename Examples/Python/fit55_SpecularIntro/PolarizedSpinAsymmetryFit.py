@@ -1,10 +1,10 @@
 """
-This fitting and simulation example demonstrates how to replicate 
+This fitting and simulation example demonstrates how to replicate
 the fitting example "Magnetically Dead Layers in Spinel Films"
 given at the Nist website:
 https://www.nist.gov/ncnr/magnetically-dead-layers-spinel-films
 
-For simplicity, here we only reproduce the first part of that 
+For simplicity, here we only reproduce the first part of that
 demonstration without the magnetically dead layer.
 """
 
@@ -47,9 +47,9 @@ def get_sample(params):
     """
     magnetizationMagnitude = params["rhoM_Mafo"]*1e-6/RhoMconst
     angle = 0
-    magnetizationVector = ba.kvector_t(magnetizationMagnitude*numpy.sin(angle*deg),
-                                       magnetizationMagnitude*numpy.cos(angle*deg),
-                                       0)
+    magnetizationVector = ba.kvector_t(
+        magnetizationMagnitude*numpy.sin(angle*deg),
+        magnetizationMagnitude*numpy.cos(angle*deg), 0)
 
     mat_vacuum = ba.MaterialBySLD("Vacuum", 0.0, 0.0)
     mat_layer = ba.MaterialBySLD("(Mg,Al,Fe)3O4", params["rho_Mafo"]*1e-6, 0,
@@ -100,7 +100,7 @@ def get_simulation(q_axis, parameters, polarization, analyzer):
 
 def run_simulation(q_axis, fitParams, *, polarization, analyzer):
     """
-    Run a simulation on the given q-axis, where the sample is constructed 
+    Run a simulation on the given q-axis, where the sample is constructed
     with the given parameters.
     Vectors for polarization and analyzer need to be provided
     """
@@ -161,7 +161,7 @@ def plot(qs, rs, exps, labels, filename):
 
 def plotSpinAsymmetry(data_pp, data_mm, q, r_pp, r_mm, filename):
     """
-    Plot the simulated spin asymmetry as well its 
+    Plot the simulated spin asymmetry as well its
     experimental counterpart with errorbars
     """
 
@@ -227,18 +227,9 @@ def filterData(data, qmin, qmax):
 
 
 def get_Experimental_data(qmin, qmax):
-    if hasattr(get_Experimental_data, "raw_data"):
-        data_pp = get_Experimental_data.raw_data_pp
-        data_mm = get_Experimental_data.raw_data_mm
-
-    else:
-        input_Data = downloadAndExtractData()
-        data_pp = normalizeData(input_Data[0])
-        data_mm = normalizeData(input_Data[1])
-
-        get_Experimental_data.data_pp = data_pp
-        get_Experimental_data.data_mm = data_mm
-        get_Experimental_data.raw_data = True
+    input_Data = downloadAndExtractData()
+    data_pp = normalizeData(input_Data[0])
+    data_mm = normalizeData(input_Data[1])
 
     return (filterData(data_pp, qmin, qmax), filterData(data_mm, qmin, qmax))
 
@@ -255,10 +246,12 @@ def downloadAndExtractData():
 
     rawdata = zipfile.open("MAFO_Saturated.refl").read().decode("utf-8")
 
-    table_pp = match(r'.*# "polarization": "\+\+"\n#.*?\n# "units".*?\n(.*?)#.*',
-                     rawdata, DOTALL).group(1)
-    table_mm = match(r'.*# "polarization": "\-\-"\n#.*?\n# "units".*?\n(.*?)#.*',
-                     rawdata, DOTALL).group(1)
+    table_pp = match(
+        r'.*# "polarization": "\+\+"\n#.*?\n# "units".*?\n(.*?)#.*', rawdata,
+        DOTALL).group(1)
+    table_mm = match(
+        r'.*# "polarization": "\-\-"\n#.*?\n# "units".*?\n(.*?)#.*', rawdata,
+        DOTALL).group(1)
 
     data_pp = numpy.genfromtxt(BytesIO(table_pp.encode()), unpack=True)
     data_mm = numpy.genfromtxt(BytesIO(table_mm.encode()), unpack=True)
@@ -271,15 +264,17 @@ def downloadAndExtractData():
 ####################################################################
 
 
-def run_fit_ba(q_axis, rdata, simulationFactory, startParams):
+def run_fit_ba(q_axis, r_data, r_uncertainty, simulationFactory, startParams):
 
     fit_objective = ba.FitObjective()
-    fit_objective.setObjectiveMetric("reldiff")
+    fit_objective.setObjectiveMetric("chi2")
 
     fit_objective.addSimulationAndData(
-        lambda params: simulationFactory[0](q_axis[0], params), rdata[0], 1.0)
+        lambda params: simulationFactory[0](q_axis[0], params), r_data[0],
+        r_uncertainty[0], 1.0)
     fit_objective.addSimulationAndData(
-        lambda params: simulationFactory[1](q_axis[1], params), rdata[1], 1.0)
+        lambda params: simulationFactory[1](q_axis[1], params), r_data[1],
+        r_uncertainty[1], 1.0)
 
     fit_objective.initPrint(10)
 
@@ -305,6 +300,7 @@ if __name__ == '__main__':
         fixedParams = {
             # parameters can be moved here to keep them fixed
         }
+        fixedParams = {d: v[0] for d, v in fixedParams.items()}
 
         startParams = {
             # own starting values
@@ -322,17 +318,17 @@ if __name__ == '__main__':
         startParams = {}
         fixedParams = {
             # parameters from our own fit run
-            'q_res': (0.01027065792503683, ),
-            'q_offset': (8.977754679340925e-05, ),
-            'rho_Mafo': (6.373962950920891, ),
-            'rhoM_Mafo': (0.2383070807371731, ),
-            't_Mafo': (137.73795730237237, ),
-            'r_Mao': (7.004715629445297, ),
-            'r_Mafo': (3.8860835236521702, ),
+            'q_res': 0.010542945012551425,
+            'q_offset': 7.971243487467318e-05,
+            'rho_Mafo': 6.370140108715461,
+            'rhoM_Mafo': 0.27399566816062926,
+            't_Mafo': 137.46913056084736,
+            'r_Mao': 8.60487712674644,
+            'r_Mafo': 3.7844265311293483
         }
+
         fit = False
 
-    fixedParams = {d: v[0] for d, v in fixedParams.items()}
     paramsInitial = {d: v[0] for d, v in startParams.items()}
 
     def run_Simulation_pp(qzs, params):
@@ -360,8 +356,11 @@ if __name__ == '__main__':
                       "MAFO_Saturated_spin_asymmetry_initial.pdf")
 
     if fit:
-        fitResult = run_fit_ba([data_pp[0], data_mm[0]], [data_pp[1], data_mm[1]],
-                               [run_Simulation_pp, run_Simulation_mm], startParams)
+        fitResult = run_fit_ba([data_pp[0], data_mm[0]],
+                               [data_pp[1], data_mm[1]],
+                               [data_pp[2], data_mm[2]],
+                               [run_Simulation_pp, run_Simulation_mm],
+                               startParams)
         print("Fit Result:")
         print(fitResult)
 

@@ -18,8 +18,8 @@
 #include "Base/Const/Units.h"
 #include "Base/Math/Constants.h"
 #include "Base/Utils/Algorithms.h"
-#include "Core/Export/PyFmt.h"
 #include "Base/Utils/StringUtils.h"
+#include "Core/Export/PyFmt.h"
 #include "Core/Export/PyFmtLimits.h"
 #include "Device/Mask/Ellipse.h"
 #include "Device/Mask/InfinitePlane.h"
@@ -103,7 +103,7 @@ std::string valueTimesUnit(const RealParameter* par) {
 
 //! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").
 
-std::string argumentList(const IParameterized* ip) {
+std::string argumentList(const IParametricComponent* ip) {
     std::vector<std::string> args;
     for (const auto* par : ip->parameterPool()->parameters())
         args.push_back(valueTimesUnit(par));

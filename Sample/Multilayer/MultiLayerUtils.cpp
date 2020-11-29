@@ -13,46 +13,10 @@
 //  ************************************************************************************************
 
 #include "Sample/Multilayer/MultiLayerUtils.h"
-#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Material/MaterialUtils.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
-#include "Sample/Particle/IParticle.h"
-#include "Sample/Scattering/LayerFillLimits.h"
 #include "Sample/Slice/LayerInterface.h"
-
-namespace {
-
-std::vector<double> BottomLayerCoordinates(const MultiLayer& multilayer) {
-    auto n_layers = multilayer.numberOfLayers();
-    if (n_layers < 2)
-        return {};
-    std::vector<double> result(n_layers - 1);
-    result[0] = 0.0;
-    for (size_t i = 1; i < n_layers - 1; ++i) {
-        result[i] = result[i - 1] - MultiLayerUtils::LayerThickness(multilayer, i);
-    }
-    return result;
-}
-
-} // namespace
-
-double MultiLayerUtils::LayerThickness(const MultiLayer& multilayer, size_t i) {
-    return multilayer.layer(i)->thickness();
-}
-
-const LayerInterface* MultiLayerUtils::LayerTopInterface(const MultiLayer& multilayer, size_t i) {
-    if (i == 0)
-        return nullptr;
-    return multilayer.layerInterface(i - 1);
-}
-
-const LayerInterface* MultiLayerUtils::LayerBottomInterface(const MultiLayer& multilayer,
-                                                            size_t i) {
-    if (i + 1 < multilayer.numberOfLayers())
-        return multilayer.layerInterface(i);
-    return nullptr;
-}
 
 const LayerRoughness* MultiLayerUtils::LayerTopRoughness(const MultiLayer& multilayer, size_t i) {
     if (i == 0)
@@ -70,23 +34,6 @@ size_t MultiLayerUtils::IndexOfLayer(const MultiLayer& multilayer, const Layer* 
 bool MultiLayerUtils::ContainsCompatibleMaterials(const MultiLayer& multilayer) {
     return MaterialUtils::checkMaterialTypes(multilayer.containedMaterials())
            != MATERIAL_TYPES::InvalidMaterialType;
-}
-
-std::vector<ZLimits> MultiLayerUtils::ParticleRegions(const MultiLayer& multilayer,
-                                                      bool use_slicing) {
-    auto bottom_coords = BottomLayerCoordinates(multilayer);
-    LayerFillLimits layer_fill_limits(bottom_coords);
-    if (use_slicing) {
-        for (size_t i = 0; i < multilayer.numberOfLayers(); ++i) {
-            auto p_layer = multilayer.layer(i);
-            double offset = (i == 0) ? 0 : bottom_coords[i - 1];
-            for (auto p_layout : p_layer->layouts()) {
-                for (auto p_particle : p_layout->particles())
-                    layer_fill_limits.update(p_particle->bottomTopZ(), offset);
-            }
-        }
-    }
-    return layer_fill_limits.layerZLimits();
 }
 
 bool MultiLayerUtils::hasRoughness(const MultiLayer& sample) {

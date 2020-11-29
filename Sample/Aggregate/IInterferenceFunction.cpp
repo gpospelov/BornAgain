@@ -19,7 +19,7 @@
 
 IInterferenceFunction::IInterferenceFunction(const NodeMeta& meta,
                                              const std::vector<double>& PValues)
-    : ISample(meta, PValues) {
+    : ISampleNode(meta, PValues) {
     registerParameter("PositionVariance", &m_position_var).setUnit("nm^2").setNonnegative();
 }
 

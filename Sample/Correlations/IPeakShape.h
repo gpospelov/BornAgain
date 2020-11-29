@@ -15,13 +15,13 @@
 #ifndef BORNAGAIN_SAMPLE_CORRELATIONS_IPEAKSHAPE_H
 #define BORNAGAIN_SAMPLE_CORRELATIONS_IPEAKSHAPE_H
 
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 
 //! Abstract base class class that defines the peak shape of a Bragg peak.
 //!
 //! @ingroup samples_internal
 
-class IPeakShape : public ISample {
+class IPeakShape : public ISampleNode {
 public:
     IPeakShape() = default;
     IPeakShape(const NodeMeta& meta, const std::vector<double>& PValues);

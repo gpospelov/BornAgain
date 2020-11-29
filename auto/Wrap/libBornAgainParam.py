@@ -2718,7 +2718,7 @@ class ParameterPool(libBornAgainBase.ICloneable):
     r"""
 
 
-    Container with parameters for  IParameterized object.
+    Container with parameters for  IParametricComponent object.
 
     C++ includes: ParameterPool.h
 
@@ -2898,13 +2898,50 @@ class ParameterPool(libBornAgainBase.ICloneable):
 # Register ParameterPool in _libBornAgainParam:
 _libBornAgainParam.ParameterPool_swigregister(ParameterPool)
 
-class IParameterized(object):
+class IComponent(object):
+    r"""
+
+
+    Root of class hierarchy for sample and instrument model.
+
+    C++ includes: IComponent.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainParam.delete_IComponent
+
+    def __init__(self):
+        r"""
+        __init__(IComponent self) -> IComponent
+
+
+        Root of class hierarchy for sample and instrument model.
+
+        C++ includes: IComponent.h
+
+        """
+        if self.__class__ == IComponent:
+            _self = None
+        else:
+            _self = self
+        _libBornAgainParam.IComponent_swiginit(self, _libBornAgainParam.new_IComponent(_self, ))
+    def __disown__(self):
+        self.this.disown()
+        _libBornAgainParam.disown_IComponent(self)
+        return weakref.proxy(self)
+
+# Register IComponent in _libBornAgainParam:
+_libBornAgainParam.IComponent_swigregister(IComponent)
+
+class IParametricComponent(IComponent):
     r"""
 
 
     Manages a local parameter pool, and a tree of child pools.
 
-    C++ includes: IParameterized.h
+    C++ includes: IParametricComponent.h
 
     """
 
@@ -2913,165 +2950,165 @@ class IParameterized(object):
 
     def __init__(self, *args):
         r"""
-        __init__(IParameterized self, std::string const & name="") -> IParameterized
-        __init__(IParameterized self, IParameterized other) -> IParameterized
-        IParameterized::IParameterized(const IParameterized &other)
+        __init__(IParametricComponent self, std::string const & name="") -> IParametricComponent
+        __init__(IParametricComponent self, IParametricComponent other) -> IParametricComponent
+        IParametricComponent::IParametricComponent(const IParametricComponent &other)
 
         """
-        if self.__class__ == IParameterized:
+        if self.__class__ == IParametricComponent:
             _self = None
         else:
             _self = self
-        _libBornAgainParam.IParameterized_swiginit(self, _libBornAgainParam.new_IParameterized(_self, *args))
-    __swig_destroy__ = _libBornAgainParam.delete_IParameterized
+        _libBornAgainParam.IParametricComponent_swiginit(self, _libBornAgainParam.new_IParametricComponent(_self, *args))
+    __swig_destroy__ = _libBornAgainParam.delete_IParametricComponent
 
     def parameterPool(self):
         r"""
-        parameterPool(IParameterized self) -> ParameterPool
-        ParameterPool* IParameterized::parameterPool() const
+        parameterPool(IParametricComponent self) -> ParameterPool
+        ParameterPool* IParametricComponent::parameterPool() const
 
         Returns pointer to the parameter pool. 
 
         """
-        return _libBornAgainParam.IParameterized_parameterPool(self)
+        return _libBornAgainParam.IParametricComponent_parameterPool(self)
 
     def createParameterTree(self):
         r"""
-        createParameterTree(IParameterized self) -> ParameterPool
-        ParameterPool * IParameterized::createParameterTree() const
+        createParameterTree(IParametricComponent self) -> ParameterPool
+        ParameterPool * IParametricComponent::createParameterTree() const
 
         Creates new parameter pool, with all local parameters and those of its children. 
 
         """
-        return _libBornAgainParam.IParameterized_createParameterTree(self)
+        return _libBornAgainParam.IParametricComponent_createParameterTree(self)
 
     def parametersToString(self):
         r"""
-        parametersToString(IParameterized self) -> std::string
-        std::string IParameterized::parametersToString() const
+        parametersToString(IParametricComponent self) -> std::string
+        std::string IParametricComponent::parametersToString() const
 
         Returns multiline string representing available parameters. 
 
         """
-        return _libBornAgainParam.IParameterized_parametersToString(self)
+        return _libBornAgainParam.IParametricComponent_parametersToString(self)
 
     def registerParameter(self, name, parpointer):
         r"""
-        registerParameter(IParameterized self, std::string const & name, double * parpointer) -> RealParameter
-        RealParameter & IParameterized::registerParameter(const std::string &name, double *parpointer)
+        registerParameter(IParametricComponent self, std::string const & name, double * parpointer) -> RealParameter
+        RealParameter & IParametricComponent::registerParameter(const std::string &name, double *parpointer)
 
         """
-        return _libBornAgainParam.IParameterized_registerParameter(self, name, parpointer)
+        return _libBornAgainParam.IParametricComponent_registerParameter(self, name, parpointer)
 
     def registerVector(self, *args):
         r"""
-        registerVector(IParameterized self, std::string const & base_name, kvector_t p_vec, std::string const & units="nm")
-        void IParameterized::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units="nm")
+        registerVector(IParametricComponent self, std::string const & base_name, kvector_t p_vec, std::string const & units="nm")
+        void IParametricComponent::registerVector(const std::string &base_name, kvector_t *p_vec, const std::string &units="nm")
 
         """
-        return _libBornAgainParam.IParameterized_registerVector(self, *args)
+        return _libBornAgainParam.IParametricComponent_registerVector(self, *args)
 
     def setParameterValue(self, name, value):
         r"""
-        setParameterValue(IParameterized self, std::string const & name, double value)
-        void IParameterized::setParameterValue(const std::string &name, double value)
+        setParameterValue(IParametricComponent self, std::string const & name, double value)
+        void IParametricComponent::setParameterValue(const std::string &name, double value)
 
         """
-        return _libBornAgainParam.IParameterized_setParameterValue(self, name, value)
+        return _libBornAgainParam.IParametricComponent_setParameterValue(self, name, value)
 
     def setVectorValue(self, base_name, value):
         r"""
-        setVectorValue(IParameterized self, std::string const & base_name, kvector_t value)
-        void IParameterized::setVectorValue(const std::string &base_name, kvector_t value)
+        setVectorValue(IParametricComponent self, std::string const & base_name, kvector_t value)
+        void IParametricComponent::setVectorValue(const std::string &base_name, kvector_t value)
 
         """
-        return _libBornAgainParam.IParameterized_setVectorValue(self, base_name, value)
+        return _libBornAgainParam.IParametricComponent_setVectorValue(self, base_name, value)
 
     def parameter(self, name):
         r"""
-        parameter(IParameterized self, std::string const & name) -> RealParameter
-        RealParameter * IParameterized::parameter(const std::string &name) const
+        parameter(IParametricComponent self, std::string const & name) -> RealParameter
+        RealParameter * IParametricComponent::parameter(const std::string &name) const
 
         Returns parameter with given 'name'. 
 
         """
-        return _libBornAgainParam.IParameterized_parameter(self, name)
+        return _libBornAgainParam.IParametricComponent_parameter(self, name)
 
     def onChange(self):
         r"""
-        onChange(IParameterized self)
-        virtual void IParameterized::onChange()
+        onChange(IParametricComponent self)
+        virtual void IParametricComponent::onChange()
 
         Action to be taken in inherited class when a parameter has changed. 
 
         """
-        return _libBornAgainParam.IParameterized_onChange(self)
+        return _libBornAgainParam.IParametricComponent_onChange(self)
 
     def removeParameter(self, name):
         r"""
-        removeParameter(IParameterized self, std::string const & name)
-        void IParameterized::removeParameter(const std::string &name)
+        removeParameter(IParametricComponent self, std::string const & name)
+        void IParametricComponent::removeParameter(const std::string &name)
 
         """
-        return _libBornAgainParam.IParameterized_removeParameter(self, name)
+        return _libBornAgainParam.IParametricComponent_removeParameter(self, name)
 
     def removeVector(self, base_name):
         r"""
-        removeVector(IParameterized self, std::string const & base_name)
-        void IParameterized::removeVector(const std::string &base_name)
+        removeVector(IParametricComponent self, std::string const & base_name)
+        void IParametricComponent::removeVector(const std::string &base_name)
 
         """
-        return _libBornAgainParam.IParameterized_removeVector(self, base_name)
+        return _libBornAgainParam.IParametricComponent_removeVector(self, base_name)
 
     @staticmethod
     def XComponentName(base_name):
         r"""XComponentName(std::string const & base_name) -> std::string"""
-        return _libBornAgainParam.IParameterized_XComponentName(base_name)
+        return _libBornAgainParam.IParametricComponent_XComponentName(base_name)
 
     @staticmethod
     def YComponentName(base_name):
         r"""YComponentName(std::string const & base_name) -> std::string"""
-        return _libBornAgainParam.IParameterized_YComponentName(base_name)
+        return _libBornAgainParam.IParametricComponent_YComponentName(base_name)
 
     @staticmethod
     def ZComponentName(base_name):
         r"""ZComponentName(std::string const & base_name) -> std::string"""
-        return _libBornAgainParam.IParameterized_ZComponentName(base_name)
+        return _libBornAgainParam.IParametricComponent_ZComponentName(base_name)
 
     def setName(self, name):
         r"""
-        setName(IParameterized self, std::string const & name)
-        void IParameterized::setName(const std::string &name)
+        setName(IParametricComponent self, std::string const & name)
+        void IParametricComponent::setName(const std::string &name)
 
         """
-        return _libBornAgainParam.IParameterized_setName(self, name)
+        return _libBornAgainParam.IParametricComponent_setName(self, name)
 
     def getName(self):
         r"""
-        getName(IParameterized self) -> std::string const &
-        const std::string& IParameterized::getName() const
+        getName(IParametricComponent self) -> std::string const &
+        const std::string& IParametricComponent::getName() const
 
         """
-        return _libBornAgainParam.IParameterized_getName(self)
+        return _libBornAgainParam.IParametricComponent_getName(self)
     def __disown__(self):
         self.this.disown()
-        _libBornAgainParam.disown_IParameterized(self)
+        _libBornAgainParam.disown_IParametricComponent(self)
         return weakref.proxy(self)
 
-# Register IParameterized in _libBornAgainParam:
-_libBornAgainParam.IParameterized_swigregister(IParameterized)
+# Register IParametricComponent in _libBornAgainParam:
+_libBornAgainParam.IParametricComponent_swigregister(IParametricComponent)
 
-def IParameterized_XComponentName(base_name):
-    r"""IParameterized_XComponentName(std::string const & base_name) -> std::string"""
-    return _libBornAgainParam.IParameterized_XComponentName(base_name)
+def IParametricComponent_XComponentName(base_name):
+    r"""IParametricComponent_XComponentName(std::string const & base_name) -> std::string"""
+    return _libBornAgainParam.IParametricComponent_XComponentName(base_name)
 
-def IParameterized_YComponentName(base_name):
-    r"""IParameterized_YComponentName(std::string const & base_name) -> std::string"""
-    return _libBornAgainParam.IParameterized_YComponentName(base_name)
+def IParametricComponent_YComponentName(base_name):
+    r"""IParametricComponent_YComponentName(std::string const & base_name) -> std::string"""
+    return _libBornAgainParam.IParametricComponent_YComponentName(base_name)
 
-def IParameterized_ZComponentName(base_name):
-    r"""IParameterized_ZComponentName(std::string const & base_name) -> std::string"""
-    return _libBornAgainParam.IParameterized_ZComponentName(base_name)
+def IParametricComponent_ZComponentName(base_name):
+    r"""IParametricComponent_ZComponentName(std::string const & base_name) -> std::string"""
+    return _libBornAgainParam.IParametricComponent_ZComponentName(base_name)
 
 class ParaMeta(object):
     r"""
@@ -3150,7 +3187,7 @@ def nodeMetaUnion(base, other):
 
     """
     return _libBornAgainParam.nodeMetaUnion(base, other)
-class INode(IParameterized):
+class INode(IParametricComponent):
     r"""
 
 
@@ -3275,7 +3312,7 @@ class INodeVisitor(object):
 
     From visitor pattern to achieve double dispatch.
 
-    Visitor interface to visit ISample objects.
+    Visitor interface to visit ISampleNode objects.
 
     C++ includes: INodeVisitor.h
 
@@ -3393,7 +3430,7 @@ class INodeVisitor(object):
         visit(INodeVisitor self, IParticle const * arg2)
         visit(INodeVisitor self, IPeakShape const * arg2)
         visit(INodeVisitor self, IRotation const * arg2)
-        visit(INodeVisitor self, ISample const * arg2)
+        visit(INodeVisitor self, ISampleNode const * arg2)
         visit(INodeVisitor self, IsGISAXSDetector const * arg2)
         visit(INodeVisitor self, Layer const * arg2)
         visit(INodeVisitor self, LayerInterface const * arg2)
@@ -4159,7 +4196,7 @@ class DistributionTrapezoid(IDistribution1D):
 # Register DistributionTrapezoid in _libBornAgainParam:
 _libBornAgainParam.DistributionTrapezoid_swigregister(DistributionTrapezoid)
 
-class ParameterDistribution(IParameterized):
+class ParameterDistribution(IParametricComponent):
     r"""
 
 

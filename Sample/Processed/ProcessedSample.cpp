@@ -13,13 +13,16 @@
 //  ************************************************************************************************
 
 #include "Sample/Processed/ProcessedSample.h"
+#include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/Fresnel/MatrixFresnelMap.h"
 #include "Sample/Fresnel/ScalarFresnelMap.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/Particle/HomogeneousRegion.h"
+#include "Sample/Particle/IParticle.h"
 #include "Sample/Processed/ProcessedLayout.h"
 #include "Sample/RT/SimulationOptions.h"
+#include "Sample/Scattering/LayerFillLimits.h"
 #include "Sample/Scattering/ZLimits.h"
 #include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Specular/SpecularStrategyBuilder.h"
@@ -67,6 +70,34 @@ createAverageMaterialSlices(const std::vector<Slice>& slices,
     }
     return result;
 }
+
+std::vector<double> bottomLayerCoordinates(const MultiLayer& multilayer) {
+    auto n_layers = multilayer.numberOfLayers();
+    if (n_layers < 2)
+        return {};
+    std::vector<double> result(n_layers - 1);
+    result[0] = 0.0;
+    for (size_t i = 1; i < n_layers - 1; ++i)
+        result[i] = result[i - 1] - multilayer.layer(i)->thickness();
+    return result;
+}
+
+//! Calculate z-regions occupied by particles
+std::vector<ZLimits> particleRegions(const MultiLayer& multilayer, bool use_slicing) {
+    const std::vector<double> bottom_coords = bottomLayerCoordinates(multilayer);
+    LayerFillLimits layer_fill_limits(bottom_coords);
+    if (use_slicing) {
+        for (size_t i = 0; i < multilayer.numberOfLayers(); ++i) {
+            auto p_layer = multilayer.layer(i);
+            double offset = (i == 0) ? 0 : bottom_coords[i - 1];
+            for (auto p_layout : p_layer->layouts())
+                for (auto p_particle : p_layout->particles())
+                    layer_fill_limits.update(p_particle->bottomTopZ(), offset);
+        }
+    }
+    return layer_fill_limits.layerZLimits();
+}
+
 } // namespace
 
 //  ************************************************************************************************
@@ -177,7 +208,7 @@ void ProcessedSample::initSlices(const MultiLayer& sample, const SimulationOptio
     if (sample.numberOfLayers() == 0)
         return;
     bool use_slicing = options.useAvgMaterials() && sample.numberOfLayers() > 1;
-    const auto layer_limits = MultiLayerUtils::ParticleRegions(sample, use_slicing);
+    const auto layer_limits = particleRegions(sample, use_slicing);
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
         const auto layer = sample.layer(i);
         const auto n_slices = layer->numberOfSlices();
@@ -230,7 +261,7 @@ void ProcessedSample::initLayouts(const MultiLayer& sample) {
     m_polarized = sample.isMagnetic();
     for (size_t i = 0; i < sample.numberOfLayers(); ++i) {
         if (i > 1)
-            z_ref -= MultiLayerUtils::LayerThickness(sample, i - 1);
+            z_ref -= sample.layer(i - 1)->thickness();
         auto layer = sample.layer(i);
         for (auto layout : layer->layouts()) {
             m_layouts.emplace_back(*layout, m_slices, z_ref, m_fresnel_map.get(), m_polarized);

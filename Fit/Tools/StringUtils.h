@@ -30,14 +30,8 @@ bool matchesPattern(const std::string& text, const std::string& wildcardPattern)
 //! Split string into vector of string using delimeter.
 std::vector<std::string> split(const std::string& text, const std::string& delimeter);
 
-//! Removes multiple occurences of given substring from a string and returns result.
-std::string removeSubstring(const std::string& text, const std::string& substr);
-
 //! Returns scientific string representing given value of any numeric type.
 template <typename T> std::string scientific(const T value, int n = 10);
-
-//! Returns new string which is lower case of text.
-std::string to_lower(std::string text);
 
 template <typename T> std::string scientific(const T value, int n) {
     std::ostringstream out;

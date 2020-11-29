@@ -15,14 +15,14 @@
 #ifndef BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_ISAMPLEBUILDER_H
 #define BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_ISAMPLEBUILDER_H
 
-#include "Param/Base/IParameterized.h"
+#include "Param/Base/IParametricComponent.h"
 
 class MultiLayer;
 
 //! Interface to the class capable to build samples to simulate.
 //! @ingroup simulation_internal
 
-class ISampleBuilder : public IParameterized {
+class ISampleBuilder : public IParametricComponent {
 public:
     ISampleBuilder();
     virtual ~ISampleBuilder();

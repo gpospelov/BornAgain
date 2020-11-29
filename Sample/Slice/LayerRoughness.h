@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_SAMPLE_SLICE_LAYERROUGHNESS_H
 #define BORNAGAIN_SAMPLE_SLICE_LAYERROUGHNESS_H
 
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 
 //! A roughness of interface between two layers.
 //!
@@ -25,7 +25,7 @@
 //!
 //! @ingroup samples
 
-class LayerRoughness : public ISample {
+class LayerRoughness : public ISampleNode {
 public:
     LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength);
     LayerRoughness();

@@ -17,7 +17,7 @@
 
 #include "Base/Types/SafePointerVector.h"
 #include "Sample/Multilayer/RoughnessModels.h"
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 #include <functional>
 
 class ParticleLayout;
@@ -38,7 +38,7 @@ class LayerRoughness;
 //!  ---------   interface #2    z=-60.0
 //!  substrate   layer #3
 
-class MultiLayer : public ISample {
+class MultiLayer : public ISampleNode {
 public:
     MultiLayer();
     ~MultiLayer() override;

@@ -15,12 +15,32 @@
 #include <string>
 
 
-class SwigDirector_IParameterized : public IParameterized, public Swig::Director {
+class SwigDirector_IComponent : public IComponent, public Swig::Director {
 
 public:
-    SwigDirector_IParameterized(PyObject *self, std::string const &name = "");
-    SwigDirector_IParameterized(PyObject *self, IParameterized const &other);
-    virtual ~SwigDirector_IParameterized();
+    SwigDirector_IComponent(PyObject *self);
+    virtual ~SwigDirector_IComponent();
+
+/* Internal director utilities */
+public:
+    bool swig_get_inner(const char *swig_protected_method_name) const {
+      std::map<std::string, bool>::const_iterator iv = swig_inner.find(swig_protected_method_name);
+      return (iv != swig_inner.end() ? iv->second : false);
+    }
+    void swig_set_inner(const char *swig_protected_method_name, bool swig_val) const {
+      swig_inner[swig_protected_method_name] = swig_val;
+    }
+private:
+    mutable std::map<std::string, bool> swig_inner;
+};
+
+
+class SwigDirector_IParametricComponent : public IParametricComponent, public Swig::Director {
+
+public:
+    SwigDirector_IParametricComponent(PyObject *self, std::string const &name = "");
+    SwigDirector_IParametricComponent(PyObject *self, IParametricComponent const &other);
+    virtual ~SwigDirector_IParametricComponent();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
 
@@ -44,7 +64,7 @@ private:
         swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
         method = PyObject_GetAttr(swig_get_self(), name);
         if (!method) {
-          std::string msg = "Method in class IParameterized doesn't exist, undefined ";
+          std::string msg = "Method in class IParametricComponent doesn't exist, undefined ";
           msg += method_name;
           Swig::DirectorMethodException::raise(msg.c_str());
         }

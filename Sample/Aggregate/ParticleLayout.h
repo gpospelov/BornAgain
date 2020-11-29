@@ -16,7 +16,7 @@
 #define BORNAGAIN_SAMPLE_AGGREGATE_PARTICLELAYOUT_H
 
 #include "Base/Types/SafePointerVector.h"
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 #include "Sample/Scattering/Rotations.h"
 #include <memory>
 
@@ -24,10 +24,10 @@ class IAbstractParticle;
 class IInterferenceFunction;
 class IParticle;
 
-//! Decorator class that adds particles to ISample objects.
+//! Decorator class that adds particles to ISampleNode objects.
 //! @ingroup samples
 
-class ParticleLayout : public ISample {
+class ParticleLayout : public ISampleNode {
 public:
     ParticleLayout();
     ParticleLayout(const IAbstractParticle& particle, double abundance = -1.0);

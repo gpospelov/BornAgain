@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Param/Varia/ParameterUtils.h"
-#include "Param/Base/IParameterized.h"
+#include "Param/Base/IParametricComponent.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include <memory>
@@ -37,7 +37,7 @@ bool ParameterUtils::isAngleRelated(const std::string& par_name) {
     return false;
 }
 
-std::string ParameterUtils::poolParameterUnits(const IParameterized& node,
+std::string ParameterUtils::poolParameterUnits(const IParametricComponent& node,
                                                const std::string& parName) {
     std::unique_ptr<ParameterPool> pool{node.createParameterTree()};
     return pool->getUniqueMatch(parName)->unit();

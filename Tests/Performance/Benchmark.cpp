@@ -27,7 +27,7 @@ Benchmark::~Benchmark() {
 void Benchmark::start(const std::string& name) {
     std::cout << "Benchmark::start() -> Starting '" << name << "'" << std::endl;
     if (m_data.find(name) == m_data.end())
-        m_data.insert(name, new Duration());
+        m_data[name] = new Duration();
 
     m_data[name]->start();
 }

@@ -139,11 +139,11 @@ QStringList VectorParameterTranslator::translate(const QStringList& list) const 
 
     QStringList result;
     if (list.front() == VectorItem::P_X) {
-        result << QString::fromStdString(IParameterized::XComponentName(m_base_name));
+        result << QString::fromStdString(IParametricComponent::XComponentName(m_base_name));
     } else if (list.front() == VectorItem::P_Y) {
-        result << QString::fromStdString(IParameterized::YComponentName(m_base_name));
+        result << QString::fromStdString(IParametricComponent::YComponentName(m_base_name));
     } else if (list.front() == VectorItem::P_Z) {
-        result << QString::fromStdString(IParameterized::ZComponentName(m_base_name));
+        result << QString::fromStdString(IParametricComponent::ZComponentName(m_base_name));
     } else {
         GUIHelpers::Error("VectorParameterTranslator::translate() -> Unexpected list structure");
     }

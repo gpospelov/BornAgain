@@ -113,7 +113,7 @@ class InterferenceFunctionNone;
 class IParticle;
 class IPeakShape;
 class IRotation;
-class ISample;
+class ISampleNode;
 class IsGISAXSDetector;
 class Layer;
 class LayerInterface;
@@ -137,7 +137,7 @@ class SpecularSimulation;
 class SphericalDetector;
 class SquareLattice2D;
 
-//! Visitor interface to visit ISample objects.
+//! Visitor interface to visit ISampleNode objects.
 //! @ingroup samples_internal
 
 //! From visitor pattern to achieve double dispatch.
@@ -245,7 +245,7 @@ public:
     virtual void visit(const IParticle*) {}
     virtual void visit(const IPeakShape*) {}
     virtual void visit(const IRotation*) {}
-    virtual void visit(const ISample*) {}
+    virtual void visit(const ISampleNode*) {}
     virtual void visit(const IsGISAXSDetector*) {}
     virtual void visit(const Layer*) {}
     virtual void visit(const LayerInterface*) {}

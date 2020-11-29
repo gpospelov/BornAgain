@@ -178,6 +178,24 @@ Metric wrapper for back-compaptibility with old scripts.
 ";
 
 
+// File: classComponentKeyHandler.xml
+%feature("docstring") ComponentKeyHandler "
+
+Stores IComponent instances, associates them with given tag, and provides unique keys.
+
+C++ includes: ComponentKeyHandler.h
+";
+
+%feature("docstring")  ComponentKeyHandler::insertModel "void ComponentKeyHandler::insertModel(const std::string &tag, const IComponent *s)
+";
+
+%feature("docstring")  ComponentKeyHandler::objectsOfType "std::vector< const T * > ComponentKeyHandler::objectsOfType() const
+";
+
+%feature("docstring")  ComponentKeyHandler::obj2key "std::string ComponentKeyHandler::obj2key(const IComponent *s) const
+";
+
+
 // File: classComputationStatus.xml
 %feature("docstring") ComputationStatus "
 
@@ -1148,10 +1166,6 @@ Returns map of fit parameter names and its current values.
 ";
 
 
-// File: classLabelMap.xml
-%feature("docstring") LabelMap "";
-
-
 // File: classLogMetric.xml
 %feature("docstring") LogMetric "
 
@@ -1344,57 +1358,6 @@ Returns axis of the beam.
 %feature("docstring")  OffSpecSimulation::intensityMapSize "size_t OffSpecSimulation::intensityMapSize() const override
 
 Returns the total number of the intensity values in the simulation result. 
-";
-
-
-// File: classOrderedMap.xml
-%feature("docstring") OrderedMap "
-
-Ordered map which saves the order of insertion.
-
-C++ includes: OrderedMap.h
-";
-
-%feature("docstring")  OrderedMap::OrderedMap "OrderedMap< Key, Object >::OrderedMap()
-";
-
-%feature("docstring")  OrderedMap::~OrderedMap "virtual OrderedMap< Key, Object >::~OrderedMap()
-";
-
-%feature("docstring")  OrderedMap::clear "void OrderedMap< Key, Object >::clear()
-";
-
-%feature("docstring")  OrderedMap::begin "const_iterator OrderedMap< Key, Object >::begin() const
-";
-
-%feature("docstring")  OrderedMap::end "const_iterator OrderedMap< Key, Object >::end() const
-";
-
-%feature("docstring")  OrderedMap::begin "iterator OrderedMap< Key, Object >::begin()
-";
-
-%feature("docstring")  OrderedMap::end "iterator OrderedMap< Key, Object >::end()
-";
-
-%feature("docstring")  OrderedMap::size "size_t OrderedMap< Key, Object >::size() const
-";
-
-%feature("docstring")  OrderedMap::empty "bool OrderedMap< Key, Object >::empty() const
-";
-
-%feature("docstring")  OrderedMap::insert "void OrderedMap< Key, Object >::insert(const Key &key, const Object &object)
-";
-
-%feature("docstring")  OrderedMap::find "iterator OrderedMap< Key, Object >::find(const Key &key)
-";
-
-%feature("docstring")  OrderedMap::find "const_iterator OrderedMap< Key, Object >::find(const Key &key) const
-";
-
-%feature("docstring")  OrderedMap::erase "size_t OrderedMap< Key, Object >::erase(const Key &key)
-";
-
-%feature("docstring")  OrderedMap::value "const Object& OrderedMap< Key, Object >::value(const Key &key) const
 ";
 
 
@@ -1743,150 +1706,6 @@ data_pair:
 
 use_weights: 
 boolean, defines if data uncertainties should be taken into account 
-";
-
-
-// File: classSampleLabelHandler.xml
-%feature("docstring") SampleLabelHandler "
-
-The handler which construct labels for sample variables during python script generation.
-
-C++ includes: SampleLabelHandler.h
-";
-
-%feature("docstring")  SampleLabelHandler::SampleLabelHandler "SampleLabelHandler::SampleLabelHandler()
-";
-
-%feature("docstring")  SampleLabelHandler::crystalMap "crystals_t* SampleLabelHandler::crystalMap()
-";
-
-%feature("docstring")  SampleLabelHandler::formFactorMap "formfactors_t* SampleLabelHandler::formFactorMap()
-";
-
-%feature("docstring")  SampleLabelHandler::interferenceFunctionMap "interferences_t* SampleLabelHandler::interferenceFunctionMap()
-";
-
-%feature("docstring")  SampleLabelHandler::layerMap "layers_t* SampleLabelHandler::layerMap()
-";
-
-%feature("docstring")  SampleLabelHandler::particleLayoutMap "layouts_t* SampleLabelHandler::particleLayoutMap()
-";
-
-%feature("docstring")  SampleLabelHandler::materialMap "materials_t* SampleLabelHandler::materialMap()
-";
-
-%feature("docstring")  SampleLabelHandler::lattice2DMap "lattices2D_t* SampleLabelHandler::lattice2DMap()
-";
-
-%feature("docstring")  SampleLabelHandler::lattice3DMap "lattices3D_t* SampleLabelHandler::lattice3DMap()
-";
-
-%feature("docstring")  SampleLabelHandler::mesocrystalMap "mesocrystals_t* SampleLabelHandler::mesocrystalMap()
-";
-
-%feature("docstring")  SampleLabelHandler::multiLayerMap "multilayers_t* SampleLabelHandler::multiLayerMap()
-";
-
-%feature("docstring")  SampleLabelHandler::particleCompositionMap "particlecompositions_t* SampleLabelHandler::particleCompositionMap()
-";
-
-%feature("docstring")  SampleLabelHandler::particleDistributionsMap "particledistributions_t* SampleLabelHandler::particleDistributionsMap()
-";
-
-%feature("docstring")  SampleLabelHandler::particleMap "particles_t* SampleLabelHandler::particleMap()
-";
-
-%feature("docstring")  SampleLabelHandler::particleCoreShellMap "particlescoreshell_t* SampleLabelHandler::particleCoreShellMap()
-";
-
-%feature("docstring")  SampleLabelHandler::rotationsMap "rotations_t* SampleLabelHandler::rotationsMap()
-";
-
-%feature("docstring")  SampleLabelHandler::layerRoughnessMap "roughnesses_t* SampleLabelHandler::layerRoughnessMap()
-";
-
-%feature("docstring")  SampleLabelHandler::labelCrystal "std::string SampleLabelHandler::labelCrystal(const Crystal *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelFormFactor "std::string SampleLabelHandler::labelFormFactor(const IFormFactor *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelInterferenceFunction "std::string SampleLabelHandler::labelInterferenceFunction(const IInterferenceFunction *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelLayer "std::string SampleLabelHandler::labelLayer(const Layer *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelLayout "std::string SampleLabelHandler::labelLayout(const ParticleLayout *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelMaterial "std::string SampleLabelHandler::labelMaterial(const Material *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelLattice2D "std::string SampleLabelHandler::labelLattice2D(const Lattice2D *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelLattice3D "std::string SampleLabelHandler::labelLattice3D(const Lattice3D *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelMultiLayer "std::string SampleLabelHandler::labelMultiLayer(const MultiLayer *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelParticle "std::string SampleLabelHandler::labelParticle(const IAbstractParticle *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelRotation "std::string SampleLabelHandler::labelRotation(const IRotation *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::labelRoughness "std::string SampleLabelHandler::labelRoughness(const LayerRoughness *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertCrystal "void SampleLabelHandler::insertCrystal(const Crystal *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertFormFactor "void SampleLabelHandler::insertFormFactor(const IFormFactor *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertInterferenceFunction "void SampleLabelHandler::insertInterferenceFunction(const IInterferenceFunction *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertLayer "void SampleLabelHandler::insertLayer(const Layer *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertLayout "void SampleLabelHandler::insertLayout(const ParticleLayout *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertMaterial "void SampleLabelHandler::insertMaterial(const Material *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertLattice2D "void SampleLabelHandler::insertLattice2D(const Lattice2D *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertLattice3D "void SampleLabelHandler::insertLattice3D(const Lattice3D *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertMesoCrystal "void SampleLabelHandler::insertMesoCrystal(const MesoCrystal *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertMultiLayer "void SampleLabelHandler::insertMultiLayer(const MultiLayer *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertParticleComposition "void SampleLabelHandler::insertParticleComposition(const ParticleComposition *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertParticleDistribution "void SampleLabelHandler::insertParticleDistribution(const ParticleDistribution *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertParticle "void SampleLabelHandler::insertParticle(const Particle *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertParticleCoreShell "void SampleLabelHandler::insertParticleCoreShell(const ParticleCoreShell *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertRotation "void SampleLabelHandler::insertRotation(const IRotation *sample)
-";
-
-%feature("docstring")  SampleLabelHandler::insertRoughness "void SampleLabelHandler::insertRoughness(const LayerRoughness *sample)
 ";
 
 
@@ -2303,43 +2122,43 @@ Returns default units to convert to.
 // File: namespace_0d19.xml
 
 
-// File: namespace_0d39.xml
+// File: namespace_0d38.xml
 
 
-// File: namespace_0d41.xml
+// File: namespace_0d40.xml
 
 
-// File: namespace_0d46.xml
+// File: namespace_0d45.xml
 
 
-// File: namespace_0d55.xml
+// File: namespace_0d54.xml
 
 
-// File: namespace_0d57.xml
+// File: namespace_0d56.xml
 
 
-// File: namespace_0d61.xml
+// File: namespace_0d60.xml
 
 
-// File: namespace_0d63.xml
+// File: namespace_0d62.xml
 
 
-// File: namespace_0d68.xml
+// File: namespace_0d67.xml
 
 
-// File: namespace_0d70.xml
+// File: namespace_0d69.xml
 
 
-// File: namespace_0d74.xml
+// File: namespace_0d73.xml
 
 
-// File: namespace_0d84.xml
+// File: namespace_0d83.xml
 
 
-// File: namespace_0d86.xml
+// File: namespace_0d85.xml
 
 
-// File: namespace_0d92.xml
+// File: namespace_0d91.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2476,7 +2295,7 @@ Returns fixed Python code snippet that defines the function \"runSimulation\".
 Returns parameter value, followed by its unit multiplicator (like \"* nm\"). 
 ";
 
-%feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParameterized *ip)
+%feature("docstring")  pyfmt2::argumentList "std::string pyfmt2::argumentList(const IParametricComponent *ip)
 
 Returns comma-separated list of parameter values, including unit multiplicator (like \"* nm\"). 
 ";
@@ -2777,6 +2596,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: SpecularSimulationElement_8h.xml
 
 
+// File: ComponentKeyHandler_8cpp.xml
+
+
+// File: ComponentKeyHandler_8h.xml
+
+
 // File: ExportToPython_8cpp.xml
 
 
@@ -2784,9 +2609,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: INodeUtils_8h.xml
-
-
-// File: OrderedMap_8h.xml
 
 
 // File: PyFmt_8cpp.xml
@@ -2805,12 +2627,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: PyFmtLimits_8h.xml
-
-
-// File: SampleLabelHandler_8cpp.xml
-
-
-// File: SampleLabelHandler_8h.xml
 
 
 // File: SampleToPython_8cpp.xml

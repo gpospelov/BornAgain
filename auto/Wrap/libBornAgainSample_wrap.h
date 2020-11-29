@@ -15,13 +15,13 @@
 #include <string>
 
 
-class SwigDirector_ISample : public ISample, public Swig::Director {
+class SwigDirector_ISampleNode : public ISampleNode, public Swig::Director {
 
 public:
-    SwigDirector_ISample(PyObject *self);
-    SwigDirector_ISample(PyObject *self, NodeMeta const &meta, std::vector< double, std::allocator< double > > const &PValues);
-    virtual ~SwigDirector_ISample();
-    virtual ISample *clone() const;
+    SwigDirector_ISampleNode(PyObject *self);
+    SwigDirector_ISampleNode(PyObject *self, NodeMeta const &meta, std::vector< double, std::allocator< double > > const &PValues);
+    virtual ~SwigDirector_ISampleNode();
+    virtual ISampleNode *clone() const;
     virtual void transferToCPP();
     virtual ParameterPool *createParameterTree() const;
     virtual void onChange();
@@ -51,7 +51,7 @@ private:
         swig::SwigVar_PyObject name = SWIG_Python_str_FromChar(method_name);
         method = PyObject_GetAttr(swig_get_self(), name);
         if (!method) {
-          std::string msg = "Method in class ISample doesn't exist, undefined ";
+          std::string msg = "Method in class ISampleNode doesn't exist, undefined ";
           msg += method_name;
           Swig::DirectorMethodException::raise(msg.c_str());
         }

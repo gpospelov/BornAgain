@@ -23,7 +23,7 @@
 class RealLimits;
 class RealParameter;
 
-//! Container with parameters for IParameterized object.
+//! Container with parameters for IParametricComponent object.
 //! @ingroup tools_internal
 
 class ParameterPool : public ICloneable {

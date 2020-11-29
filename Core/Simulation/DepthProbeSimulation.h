@@ -24,7 +24,7 @@
 class IAxis;
 class IComputation;
 class IFootprintFactor;
-class ISample;
+class ISampleNode;
 class ISampleBuilder;
 class MultiLayer;
 class Histogram1D;

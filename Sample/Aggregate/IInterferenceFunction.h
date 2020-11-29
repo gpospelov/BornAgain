@@ -15,12 +15,12 @@
 #ifndef BORNAGAIN_SAMPLE_AGGREGATE_IINTERFERENCEFUNCTION_H
 #define BORNAGAIN_SAMPLE_AGGREGATE_IINTERFERENCEFUNCTION_H
 
-#include "Sample/Scattering/ISample.h"
+#include "Sample/Scattering/ISampleNode.h"
 
 //! Abstract base class of interference functions.
 //! @ingroup distribution_internal
 
-class IInterferenceFunction : public ISample {
+class IInterferenceFunction : public ISampleNode {
 public:
     IInterferenceFunction(const NodeMeta& meta, const std::vector<double>& PValues);
     IInterferenceFunction(double position_var);

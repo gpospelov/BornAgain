@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Particle/IAbstractParticle.cpp
-//! @brief     Defines interface IAParticle.
+//! @file      Param/Base/IComponent.h
+//! @brief     Defines interface IComponent.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,11 +12,14 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Particle/IAbstractParticle.h"
+#ifndef BORNAGAIN_PARAM_BASE_ICOMPONENT_H
+#define BORNAGAIN_PARAM_BASE_ICOMPONENT_H
 
-IAbstractParticle::IAbstractParticle(const NodeMeta& meta, const std::vector<double>& PValues)
-    : ISampleNode(meta, PValues) {}
+//! Root of class hierarchy for sample and instrument model.
 
-void IAbstractParticle::accept(INodeVisitor* visitor) const {
-    visitor->visit(this);
-}
+class IComponent {
+public:
+    virtual ~IComponent() {}
+};
+
+#endif // BORNAGAIN_PARAM_BASE_ICOMPONENT_H

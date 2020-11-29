@@ -20,7 +20,7 @@
 
 class IAxis;
 class IDistribution1D;
-class IParameterized;
+class IParametricComponent;
 class IShape2D;
 class ParameterDistribution;
 class IRangedDistribution;
@@ -34,7 +34,7 @@ std::string representShape2D(const std::string& indent, const IShape2D* ishape, 
                              std::function<std::string(double)> printValueFunc);
 
 std::string valueTimesUnit(const RealParameter* par);
-std::string argumentList(const IParameterized* ip);
+std::string argumentList(const IParametricComponent* ip);
 
 std::string printAxis(const IAxis* axis, const std::string& unit);
 

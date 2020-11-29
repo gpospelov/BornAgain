@@ -281,7 +281,8 @@ class FitObjective:
         return result_metric
 
 
-def run_fit_differential_evolution(q_axis, rdata, simulationFactory, startParams):
+def run_fit_differential_evolution(q_axis, rdata, simulationFactory,
+                                   startParams):
 
     bounds = [(par[1], par[2]) for n, par in startParams.items()]
     parameters = [par[0] for n, par in startParams.items()]
@@ -404,15 +405,17 @@ if __name__ == '__main__':
     data_150_m = get_Experimental_data("honeycomb_150_m.dat", qmin, qmax)
 
     plot_sld_profile(paramsInitial, f"Honeycomb_Fit_sld_profile_initial.pdf")
-    plot([q_300_p, q_300_m, q_150_p, q_150_m], [r_300_p, r_300_m, r_150_p, r_150_m],
+    plot([q_300_p, q_300_m, q_150_p, q_150_m],
+         [r_300_p, r_300_m, r_150_p, r_150_m],
          [data_300_p, data_300_m, data_150_p, data_150_m], [1, 1, 10, 10],
          ["300K $+$", "300K $-$", "150K $+$", "150K $-$"],
          f"Honeycomb_Fit_reflectivity_initial.pdf")
 
     # fit and plot fit
     if fit:
-        dataSimTuple = [[data_300_p[0], data_300_m[0], data_150_p[0], data_150_m[0]],
-                        [data_300_p[1], data_300_m[1], data_150_p[1], data_150_m[1]],
+        dataSimTuple = [[
+            data_300_p[0], data_300_m[0], data_150_p[0], data_150_m[0]
+        ], [data_300_p[1], data_300_m[1], data_150_p[1], data_150_m[1]],
                         [
                             run_Simulation_300_p, run_Simulation_300_m,
                             run_Simulation_150_p, run_Simulation_150_m

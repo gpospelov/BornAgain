@@ -176,7 +176,8 @@ def run_fit_ba(q_axis, r_data, r_uncertainty, simulationFactory, startParams):
     fit_objective.setObjectiveMetric("chi2")
 
     fit_objective.addSimulationAndData(
-        lambda params: simulationFactory(q_axis, params), r_data, r_uncertainty, 1.0)
+        lambda params: simulationFactory(q_axis, params), r_data, r_uncertainty,
+        1.0)
 
     fit_objective.initPrint(10)
 
@@ -235,7 +236,8 @@ if __name__ == '__main__':
               dict(paramsInitial, **fixedParams)["q_offset"])
     data = get_Experimental_data(qmin, qmax)
 
-    plot(q, r, data, f'PtLayerFit_initial.pdf', dict(paramsInitial, **fixedParams))
+    plot(q, r, data, f'PtLayerFit_initial.pdf',
+         dict(paramsInitial, **fixedParams))
 
     if fit:
         fitResult = run_fit_ba(data[0], data[1], data[2], run_simulation,
@@ -244,5 +246,6 @@ if __name__ == '__main__':
         print("Fit Result:")
         print(fitResult)
 
-        q, r = qr(run_simulation(qzs, fitParams=fitResult), fitResult["q_offset"])
+        q, r = qr(run_simulation(qzs, fitParams=fitResult),
+                  fitResult["q_offset"])
         plot(q, r, data, f'PtLayerFit_fit.pdf', dict(fitResult, **fixedParams))

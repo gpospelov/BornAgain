@@ -8431,7 +8431,7 @@ class MultiLayer(ISampleNode):
         clone(MultiLayer self) -> MultiLayer
         MultiLayer * MultiLayer::clone() const final
 
-        Returns a clone of multilayer with clones of all layers and interfaces between layers 
+        Returns a clone of this  ISampleNode object. 
 
         """
         return _libBornAgainSample.MultiLayer_clone(self)
@@ -8457,8 +8457,6 @@ class MultiLayer(ISampleNode):
         addLayer(MultiLayer self, Layer layer)
         void MultiLayer::addLayer(const Layer &layer)
 
-        Adds object to multilayer.
-
         Adds layer with default (zero) roughness. 
 
         """
@@ -8473,6 +8471,34 @@ class MultiLayer(ISampleNode):
 
         """
         return _libBornAgainSample.MultiLayer_addLayerWithTopRoughness(self, layer, roughness)
+
+    def setRoughnessModel(self, roughnessModel):
+        r"""
+        setRoughnessModel(MultiLayer self, RoughnessModel roughnessModel)
+        void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
+
+        """
+        return _libBornAgainSample.MultiLayer_setRoughnessModel(self, roughnessModel)
+
+    def setCrossCorrLength(self, crossCorrLength):
+        r"""
+        setCrossCorrLength(MultiLayer self, double crossCorrLength)
+        void MultiLayer::setCrossCorrLength(double crossCorrLength)
+
+        Sets cross correlation length of roughnesses between interfaces. 
+
+        """
+        return _libBornAgainSample.MultiLayer_setCrossCorrLength(self, crossCorrLength)
+
+    def setExternalField(self, ext_field):
+        r"""
+        setExternalField(MultiLayer self, kvector_t ext_field)
+        void MultiLayer::setExternalField(kvector_t ext_field)
+
+        Sets the external field applied to the multilayer (units: A/m) 
+
+        """
+        return _libBornAgainSample.MultiLayer_setExternalField(self, ext_field)
 
     def layer(self, i_layer):
         r"""
@@ -8494,15 +8520,13 @@ class MultiLayer(ISampleNode):
         """
         return _libBornAgainSample.MultiLayer_layerInterface(self, i_interface)
 
-    def setCrossCorrLength(self, crossCorrLength):
+    def roughnessModel(self):
         r"""
-        setCrossCorrLength(MultiLayer self, double crossCorrLength)
-        void MultiLayer::setCrossCorrLength(double crossCorrLength)
-
-        Sets cross correlation length of roughnesses between interfaces. 
+        roughnessModel(MultiLayer self) -> RoughnessModel
+        RoughnessModel MultiLayer::roughnessModel() const
 
         """
-        return _libBornAgainSample.MultiLayer_setCrossCorrLength(self, crossCorrLength)
+        return _libBornAgainSample.MultiLayer_roughnessModel(self)
 
     def crossCorrLength(self):
         r"""
@@ -8513,16 +8537,6 @@ class MultiLayer(ISampleNode):
 
         """
         return _libBornAgainSample.MultiLayer_crossCorrLength(self)
-
-    def setExternalField(self, ext_field):
-        r"""
-        setExternalField(MultiLayer self, kvector_t ext_field)
-        void MultiLayer::setExternalField(kvector_t ext_field)
-
-        Sets the external field applied to the multilayer (units: A/m) 
-
-        """
-        return _libBornAgainSample.MultiLayer_setExternalField(self, ext_field)
 
     def externalField(self):
         r"""
@@ -8541,22 +8555,6 @@ class MultiLayer(ISampleNode):
 
         """
         return _libBornAgainSample.MultiLayer_getChildren(self)
-
-    def setRoughnessModel(self, roughnessModel):
-        r"""
-        setRoughnessModel(MultiLayer self, RoughnessModel roughnessModel)
-        void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
-
-        """
-        return _libBornAgainSample.MultiLayer_setRoughnessModel(self, roughnessModel)
-
-    def roughnessModel(self):
-        r"""
-        roughnessModel(MultiLayer self) -> RoughnessModel
-        RoughnessModel MultiLayer::roughnessModel() const
-
-        """
-        return _libBornAgainSample.MultiLayer_roughnessModel(self)
 
 # Register MultiLayer in _libBornAgainSample:
 _libBornAgainSample.MultiLayer_swigregister(MultiLayer)

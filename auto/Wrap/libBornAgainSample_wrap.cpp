@@ -57091,6 +57091,101 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_MultiLayer_setRoughnessModel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MultiLayer *arg1 = (MultiLayer *) 0 ;
+  RoughnessModel arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "MultiLayer_setRoughnessModel", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MultiLayer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MultiLayer_setRoughnessModel" "', argument " "1"" of type '" "MultiLayer *""'"); 
+  }
+  arg1 = reinterpret_cast< MultiLayer * >(argp1);
+  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MultiLayer_setRoughnessModel" "', argument " "2"" of type '" "RoughnessModel""'");
+  } 
+  arg2 = static_cast< RoughnessModel >(val2);
+  (arg1)->setRoughnessModel(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MultiLayer_setCrossCorrLength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MultiLayer *arg1 = (MultiLayer *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "MultiLayer_setCrossCorrLength", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MultiLayer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MultiLayer_setCrossCorrLength" "', argument " "1"" of type '" "MultiLayer *""'"); 
+  }
+  arg1 = reinterpret_cast< MultiLayer * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MultiLayer_setCrossCorrLength" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setCrossCorrLength(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MultiLayer_setExternalField(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MultiLayer *arg1 = (MultiLayer *) 0 ;
+  kvector_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "MultiLayer_setExternalField", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MultiLayer, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MultiLayer_setExternalField" "', argument " "1"" of type '" "MultiLayer *""'"); 
+  }
+  arg1 = reinterpret_cast< MultiLayer * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MultiLayer_setExternalField" "', argument " "2"" of type '" "kvector_t""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MultiLayer_setExternalField" "', argument " "2"" of type '" "kvector_t""'");
+    } else {
+      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  (arg1)->setExternalField(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_MultiLayer_layer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   MultiLayer *arg1 = (MultiLayer *) 0 ;
@@ -57151,29 +57246,23 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_MultiLayer_setCrossCorrLength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_MultiLayer_roughnessModel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   MultiLayer *arg1 = (MultiLayer *) 0 ;
-  double arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
+  PyObject *swig_obj[1] ;
+  RoughnessModel result;
   
-  if (!SWIG_Python_UnpackTuple(args, "MultiLayer_setCrossCorrLength", 2, 2, swig_obj)) SWIG_fail;
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MultiLayer, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MultiLayer_setCrossCorrLength" "', argument " "1"" of type '" "MultiLayer *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MultiLayer_roughnessModel" "', argument " "1"" of type '" "MultiLayer const *""'"); 
   }
   arg1 = reinterpret_cast< MultiLayer * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MultiLayer_setCrossCorrLength" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setCrossCorrLength(arg2);
-  resultobj = SWIG_Py_Void();
+  result = (RoughnessModel)((MultiLayer const *)arg1)->roughnessModel();
+  resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
   return NULL;
@@ -57197,43 +57286,6 @@ SWIGINTERN PyObject *_wrap_MultiLayer_crossCorrLength(PyObject *SWIGUNUSEDPARM(s
   arg1 = reinterpret_cast< MultiLayer * >(argp1);
   result = (double)((MultiLayer const *)arg1)->crossCorrLength();
   resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MultiLayer_setExternalField(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MultiLayer *arg1 = (MultiLayer *) 0 ;
-  kvector_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MultiLayer_setExternalField", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MultiLayer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MultiLayer_setExternalField" "', argument " "1"" of type '" "MultiLayer *""'"); 
-  }
-  arg1 = reinterpret_cast< MultiLayer * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MultiLayer_setExternalField" "', argument " "2"" of type '" "kvector_t""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MultiLayer_setExternalField" "', argument " "2"" of type '" "kvector_t""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  (arg1)->setExternalField(arg2);
-  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -57280,58 +57332,6 @@ SWIGINTERN PyObject *_wrap_MultiLayer_getChildren(PyObject *SWIGUNUSEDPARM(self)
   arg1 = reinterpret_cast< MultiLayer * >(argp1);
   result = ((MultiLayer const *)arg1)->getChildren();
   resultobj = swig::from(static_cast< std::vector< INode const*,std::allocator< INode const * > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MultiLayer_setRoughnessModel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MultiLayer *arg1 = (MultiLayer *) 0 ;
-  RoughnessModel arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "MultiLayer_setRoughnessModel", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MultiLayer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MultiLayer_setRoughnessModel" "', argument " "1"" of type '" "MultiLayer *""'"); 
-  }
-  arg1 = reinterpret_cast< MultiLayer * >(argp1);
-  ecode2 = SWIG_AsVal_int(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MultiLayer_setRoughnessModel" "', argument " "2"" of type '" "RoughnessModel""'");
-  } 
-  arg2 = static_cast< RoughnessModel >(val2);
-  (arg1)->setRoughnessModel(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_MultiLayer_roughnessModel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  MultiLayer *arg1 = (MultiLayer *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  RoughnessModel result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_MultiLayer, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MultiLayer_roughnessModel" "', argument " "1"" of type '" "MultiLayer const *""'"); 
-  }
-  arg1 = reinterpret_cast< MultiLayer * >(argp1);
-  result = (RoughnessModel)((MultiLayer const *)arg1)->roughnessModel();
-  resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
   return NULL;
@@ -73576,7 +73576,7 @@ static PyMethodDef SwigMethods[] = {
 		"MultiLayer_clone(MultiLayer self) -> MultiLayer\n"
 		"MultiLayer * MultiLayer::clone() const final\n"
 		"\n"
-		"Returns a clone of multilayer with clones of all layers and interfaces between layers \n"
+		"Returns a clone of this  ISampleNode object. \n"
 		"\n"
 		""},
 	 { "MultiLayer_accept", _wrap_MultiLayer_accept, METH_VARARGS, "\n"
@@ -73593,8 +73593,6 @@ static PyMethodDef SwigMethods[] = {
 		"MultiLayer_addLayer(MultiLayer self, Layer layer)\n"
 		"void MultiLayer::addLayer(const Layer &layer)\n"
 		"\n"
-		"Adds object to multilayer.\n"
-		"\n"
 		"Adds layer with default (zero) roughness. \n"
 		"\n"
 		""},
@@ -73603,6 +73601,25 @@ static PyMethodDef SwigMethods[] = {
 		"void MultiLayer::addLayerWithTopRoughness(const Layer &layer, const LayerRoughness &roughness)\n"
 		"\n"
 		"Adds layer with top roughness. \n"
+		"\n"
+		""},
+	 { "MultiLayer_setRoughnessModel", _wrap_MultiLayer_setRoughnessModel, METH_VARARGS, "\n"
+		"MultiLayer_setRoughnessModel(MultiLayer self, RoughnessModel roughnessModel)\n"
+		"void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)\n"
+		"\n"
+		""},
+	 { "MultiLayer_setCrossCorrLength", _wrap_MultiLayer_setCrossCorrLength, METH_VARARGS, "\n"
+		"MultiLayer_setCrossCorrLength(MultiLayer self, double crossCorrLength)\n"
+		"void MultiLayer::setCrossCorrLength(double crossCorrLength)\n"
+		"\n"
+		"Sets cross correlation length of roughnesses between interfaces. \n"
+		"\n"
+		""},
+	 { "MultiLayer_setExternalField", _wrap_MultiLayer_setExternalField, METH_VARARGS, "\n"
+		"MultiLayer_setExternalField(MultiLayer self, kvector_t ext_field)\n"
+		"void MultiLayer::setExternalField(kvector_t ext_field)\n"
+		"\n"
+		"Sets the external field applied to the multilayer (units: A/m) \n"
 		"\n"
 		""},
 	 { "MultiLayer_layer", _wrap_MultiLayer_layer, METH_VARARGS, "\n"
@@ -73619,11 +73636,9 @@ static PyMethodDef SwigMethods[] = {
 		"Returns interface with given index. \n"
 		"\n"
 		""},
-	 { "MultiLayer_setCrossCorrLength", _wrap_MultiLayer_setCrossCorrLength, METH_VARARGS, "\n"
-		"MultiLayer_setCrossCorrLength(MultiLayer self, double crossCorrLength)\n"
-		"void MultiLayer::setCrossCorrLength(double crossCorrLength)\n"
-		"\n"
-		"Sets cross correlation length of roughnesses between interfaces. \n"
+	 { "MultiLayer_roughnessModel", _wrap_MultiLayer_roughnessModel, METH_O, "\n"
+		"MultiLayer_roughnessModel(MultiLayer self) -> RoughnessModel\n"
+		"RoughnessModel MultiLayer::roughnessModel() const\n"
 		"\n"
 		""},
 	 { "MultiLayer_crossCorrLength", _wrap_MultiLayer_crossCorrLength, METH_O, "\n"
@@ -73631,13 +73646,6 @@ static PyMethodDef SwigMethods[] = {
 		"double MultiLayer::crossCorrLength() const\n"
 		"\n"
 		"Returns cross correlation length of roughnesses between interfaces. \n"
-		"\n"
-		""},
-	 { "MultiLayer_setExternalField", _wrap_MultiLayer_setExternalField, METH_VARARGS, "\n"
-		"MultiLayer_setExternalField(MultiLayer self, kvector_t ext_field)\n"
-		"void MultiLayer::setExternalField(kvector_t ext_field)\n"
-		"\n"
-		"Sets the external field applied to the multilayer (units: A/m) \n"
 		"\n"
 		""},
 	 { "MultiLayer_externalField", _wrap_MultiLayer_externalField, METH_O, "\n"
@@ -73650,16 +73658,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "MultiLayer_getChildren", _wrap_MultiLayer_getChildren, METH_O, "\n"
 		"MultiLayer_getChildren(MultiLayer self) -> swig_dummy_type_const_inode_vector\n"
 		"std::vector< const INode * > MultiLayer::getChildren() const final\n"
-		"\n"
-		""},
-	 { "MultiLayer_setRoughnessModel", _wrap_MultiLayer_setRoughnessModel, METH_VARARGS, "\n"
-		"MultiLayer_setRoughnessModel(MultiLayer self, RoughnessModel roughnessModel)\n"
-		"void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)\n"
-		"\n"
-		""},
-	 { "MultiLayer_roughnessModel", _wrap_MultiLayer_roughnessModel, METH_O, "\n"
-		"MultiLayer_roughnessModel(MultiLayer self) -> RoughnessModel\n"
-		"RoughnessModel MultiLayer::roughnessModel() const\n"
 		"\n"
 		""},
 	 { "MultiLayer_swigregister", MultiLayer_swigregister, METH_O, NULL},

@@ -44,8 +44,6 @@ public:
     iterator end() { return m_pointers.end(); }
     const_iterator end() const { return m_pointers.end(); }
 
-    bool deleteElement(T* pointer);
-
     T* back() { return m_pointers.back(); }
     const T* back() const { return m_pointers.back(); }
     void clear();
@@ -79,15 +77,6 @@ SafePointerVector<T>& SafePointerVector<T>::operator=(SafePointerVector<T>&& rig
     m_pointers = std::move(right.m_pointers);
     right.m_pointers.clear();
     return *this;
-}
-
-template <class T> inline bool SafePointerVector<T>::deleteElement(T* pointer) {
-    iterator it = std::find(m_pointers.begin(), m_pointers.end(), pointer);
-    if (it == m_pointers.end())
-        return false;
-    m_pointers.erase(it);
-    delete pointer;
-    return true;
 }
 
 template <class T> void SafePointerVector<T>::clear() {

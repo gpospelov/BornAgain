@@ -864,9 +864,6 @@ C++ includes: SafePointerVector.h
 %feature("docstring")  SafePointerVector::end "const_iterator SafePointerVector< T >::end() const
 ";
 
-%feature("docstring")  SafePointerVector::deleteElement "bool SafePointerVector< T >::deleteElement(T *pointer)
-";
-
 %feature("docstring")  SafePointerVector::back "T* SafePointerVector< T >::back()
 ";
 

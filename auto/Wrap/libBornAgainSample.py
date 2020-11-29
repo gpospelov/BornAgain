@@ -8227,12 +8227,20 @@ class LayerRoughness(ISampleNode):
 _libBornAgainSample.LayerRoughness_swigregister(LayerRoughness)
 
 
+def generateZValues(n_points, z_min, z_max):
+    r"""
+    generateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t
+    std::vector< double > swigAPI::generateZValues(int n_points, double z_min, double z_max)
+
+    """
+    return _libBornAgainSample.generateZValues(n_points, z_min, z_max)
+
 def materialProfileSLD(multilayer, n_points, z_min, z_max):
     r"""
     materialProfileSLD(MultiLayer multilayer, int n_points, double z_min, double z_max) -> vector_complex_t
-    std::vector<complex_t> materialProfileSLD(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+    std::vector< complex_t > swigAPI::materialProfileSLD(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
 
-    Calculate average material profile for given multilayer 
+    Calculate average material profile for given multilayer. 
 
     """
     return _libBornAgainSample.materialProfileSLD(multilayer, n_points, z_min, z_max)
@@ -8240,22 +8248,12 @@ def materialProfileSLD(multilayer, n_points, z_min, z_max):
 def defaultMaterialProfileLimits(multilayer):
     r"""
     defaultMaterialProfileLimits(MultiLayer multilayer) -> pvacuum_double_t
-    std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer &multilayer)
+    std::pair< double, double > swigAPI::defaultMaterialProfileLimits(const MultiLayer &multilayer)
 
     Get default z limits for generating a material profile. 
 
     """
     return _libBornAgainSample.defaultMaterialProfileLimits(multilayer)
-
-def generateZValues(n_points, z_min, z_max):
-    r"""
-    generateZValues(int n_points, double z_min, double z_max) -> vdouble1d_t
-    std::vector<double> generateZValues(int n_points, double z_min, double z_max)
-
-    Generate z values (equidistant) for use in materialProfileSLD. 
-
-    """
-    return _libBornAgainSample.generateZValues(n_points, z_min, z_max)
 class Layer(ISampleNode):
     r"""
 

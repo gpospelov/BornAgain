@@ -7895,6 +7895,21 @@ Used by the hard sphere and by several soft sphere classes.
 ";
 
 
+// File: namespaceswigAPI.xml
+%feature("docstring")  swigAPI::generateZValues "std::vector< double > swigAPI::generateZValues(int n_points, double z_min, double z_max)
+";
+
+%feature("docstring")  swigAPI::materialProfileSLD "std::vector< complex_t > swigAPI::materialProfileSLD(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
+
+Calculate average material profile for given multilayer. 
+";
+
+%feature("docstring")  swigAPI::defaultMaterialProfileLimits "std::pair< double, double > swigAPI::defaultMaterialProfileLimits(const MultiLayer &multilayer)
+
+Get default z limits for generating a material profile. 
+";
+
+
 // File: IInterferenceFunction_8cpp.xml
 
 
@@ -8569,37 +8584,9 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: MultiLayerFuncs_8cpp.xml
-%feature("docstring")  materialProfileSLD "std::vector<complex_t> materialProfileSLD(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
-
-Calculate average material profile for given multilayer 
-";
-
-%feature("docstring")  defaultMaterialProfileLimits "std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer &multilayer)
-
-Get default z limits for generating a material profile. 
-";
-
-%feature("docstring")  generateZValues "std::vector<double> generateZValues(int n_points, double z_min, double z_max)
-
-Generate z values (equidistant) for use in materialProfileSLD. 
-";
 
 
 // File: MultiLayerFuncs_8h.xml
-%feature("docstring")  materialProfileSLD "std::vector<complex_t> materialProfileSLD(const MultiLayer &multilayer, int n_points, double z_min, double z_max)
-
-Calculate average material profile for given multilayer 
-";
-
-%feature("docstring")  defaultMaterialProfileLimits "std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer &multilayer)
-
-Get default z limits for generating a material profile. 
-";
-
-%feature("docstring")  generateZValues "std::vector<double> generateZValues(int n_points, double z_min, double z_max)
-
-Generate z values (equidistant) for use in materialProfileSLD. 
-";
 
 
 // File: ProcessedLayout_8cpp.xml

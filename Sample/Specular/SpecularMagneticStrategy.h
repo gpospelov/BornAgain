@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticNewStrategy.h
-//! @brief     Defines class SpecularMagneticNewStrategy.
+//! @file      Sample/Specular/SpecularMagneticStrategy.h
+//! @brief     Defines class SpecularMagneticStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWSTRATEGY_H
-#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_H
+#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_H
 
 #include "Sample/RT/MatrixRTCoefficients_v3.h"
 #include "Sample/Specular/ISpecularStrategy.h"
@@ -30,7 +30,7 @@ class Slice;
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class SpecularMagneticNewStrategy : public ISpecularStrategy {
+class SpecularMagneticStrategy : public ISpecularStrategy {
 public:
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
@@ -53,4 +53,4 @@ private:
                           const std::vector<Slice>& slices) const;
 };
 
-#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_H

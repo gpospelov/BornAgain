@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticNewStrategy.cpp
-//! @brief     Implements class SpecularMagneticNewStrategy.
+//! @file      Sample/Specular/SpecularMagneticStrategy.cpp
+//! @brief     Implements class SpecularMagneticStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Specular/SpecularMagneticNewStrategy.h"
+#include "Sample/Specular/SpecularMagneticStrategy.h"
 #include "Base/Const/PhysicalConstants.h"
 #include "Sample/Slice/KzComputation.h"
 #include "Sample/Slice/LayerRoughness.h"
@@ -31,13 +31,13 @@ const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices,
                                          const size_t slice_index);
 } // namespace
 
-ISpecularStrategy::coeffs_t SpecularMagneticNewStrategy::Execute(const std::vector<Slice>& slices,
+ISpecularStrategy::coeffs_t SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
                                                                  const kvector_t& k) const {
     return Execute(slices, KzComputation::computeReducedKz(slices, k));
 }
 
 ISpecularStrategy::coeffs_t
-SpecularMagneticNewStrategy::Execute(const std::vector<Slice>& slices,
+SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
                                      const std::vector<complex_t>& kz) const {
     if (slices.size() != kz.size())
         throw std::runtime_error("Number of slices does not match the size of the kz-vector");
@@ -50,7 +50,7 @@ SpecularMagneticNewStrategy::Execute(const std::vector<Slice>& slices,
 }
 
 std::vector<MatrixRTCoefficients_v3>
-SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
+SpecularMagneticStrategy::computeTR(const std::vector<Slice>& slices,
                                        const std::vector<complex_t>& kzs) const {
     const size_t N = slices.size();
 
@@ -94,7 +94,7 @@ SpecularMagneticNewStrategy::computeTR(const std::vector<Slice>& slices,
     return result;
 }
 
-void SpecularMagneticNewStrategy::calculateUpwards(std::vector<MatrixRTCoefficients_v3>& coeff,
+void SpecularMagneticStrategy::calculateUpwards(std::vector<MatrixRTCoefficients_v3>& coeff,
                                                    const std::vector<Slice>& slices) const {
     const auto N = slices.size();
     std::vector<Eigen::Matrix2cd> SMatrices(N - 1);

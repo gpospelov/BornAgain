@@ -5,7 +5,7 @@
 #include "Sample/Processed/ProcessedSample.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/Slice/KzComputation.h"
-#include "Sample/Specular/SpecularMagneticNewTanhStrategy.h"
+#include "Sample/Specular/SpecularMagneticTanhStrategy.h"
 #include "Tests/UnitTests/Core/Legacy/SpecularMagneticStrategy_v2.h"
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
@@ -24,7 +24,7 @@ protected:
     template <typename Strategy> void testcase_zerofield(std::vector<double>&& angles);
 };
 
-template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhStrategy>() {
+template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticTanhStrategy>() {
     kvector_t v;
 
     Eigen::Vector2cd T1p{0.0, 0.0};
@@ -37,7 +37,7 @@ template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhSt
     Eigen::Vector2cd R2m{0.0, 0.0};
 
     auto sample = sample_degenerate();
-    auto result = std::make_unique<SpecularMagneticNewTanhStrategy>()->Execute(sample->slices(), v);
+    auto result = std::make_unique<SpecularMagneticTanhStrategy>()->Execute(sample->slices(), v);
     for (auto& coeff : result) {
         EXPECT_NEAR_VECTOR2CD(coeff->T1plus(), T1p, eps);
         EXPECT_NEAR_VECTOR2CD(coeff->T2plus(), T2p, eps);
@@ -85,8 +85,8 @@ std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_degenerate() {
     return std::make_unique<ProcessedSample>(mLayer, SimulationOptions());
 }
 
-TEST_F(SpecularMagneticTest, degenerate_new) {
-    test_degenerate<SpecularMagneticNewTanhStrategy>();
+TEST_F(SpecularMagneticTest, degenerate_) {
+    test_degenerate<SpecularMagneticTanhStrategy>();
 }
 
 std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_zerofield() {
@@ -117,5 +117,5 @@ TEST_F(SpecularMagneticTest, zerofield) {
 }
 
 TEST_F(SpecularMagneticTest, zerofield_new) {
-    testcase_zerofield<SpecularMagneticNewTanhStrategy>({-0.0, -1.e-9, -1.e-5, -0.1, -2.0, -10.0});
+    testcase_zerofield<SpecularMagneticTanhStrategy>({-0.0, -1.e-9, -1.e-5, -0.1, -2.0, -10.0});
 }

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticNewNCStrategy.h
-//! @brief     Defines class SpecularMagneticNewNCStrategy.
+//! @file      Sample/Specular/SpecularMagneticTanhStrategy.h
+//! @brief     Defines class SpecularMagneticTanhStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,14 +12,12 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWNCSTRATEGY_H
-#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWNCSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICTANHSTRATEGY_H
+#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICTANHSTRATEGY_H
 
-#include "Sample/Specular/SpecularMagneticNewStrategy.h"
-#include <memory>
-#include <vector>
+#include "Sample/Specular/SpecularMagneticStrategy.h"
 
-//! Implements the magnetic Fresnel computation with Nevot-Croce roughness
+//! Implements the magnetic Fresnel computation with the analytical Tanh roughness
 //!
 //! Implements the transfer matrix formalism for the calculation of wave
 //! amplitudes of the coherent wave solution in a multilayer with magnetization.
@@ -27,15 +25,14 @@
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class SpecularMagneticNewNCStrategy : public SpecularMagneticNewStrategy {
+class SpecularMagneticTanhStrategy : public SpecularMagneticStrategy {
 private:
-    std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-    computeRoughnessMatrices(const MatrixRTCoefficients_v3& coeff_i,
-                             const MatrixRTCoefficients_v3& coeff_i1, double sigma) const;
-
     virtual std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
     computeBackwardsSubmatrices(const MatrixRTCoefficients_v3& coeff_i,
                                 const MatrixRTCoefficients_v3& coeff_i1, double sigma) const;
+
+    Eigen::Matrix2cd computeRoughnessMatrix(const MatrixRTCoefficients_v3& coeff, double sigma,
+                                            bool inverse = false) const;
 };
 
-#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWNCSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICTANHSTRATEGY_H

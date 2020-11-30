@@ -25,14 +25,10 @@
 
 class MatrixRTCoefficients_v3 : public ILayerRTCoefficients {
 public:
-    friend class SpecularMagneticNewStrategy;
-    friend class SpecularMagneticNewNCStrategy;
-    friend class SpecularMagneticNewNCTestingStrategy;
-    friend class SpecularMagneticNewTanhStrategy;
-    friend class SpecularMagnetic_v3ConsistencyTest;
-    friend class SpecularMagnetic_v3ConsistencyTest_ScalarMagneticAmplitudes_Test;
-    friend class SpecularMagnetic_v3ConsistencyTest_AmplitudesBackwardsBackwards_Test;
-    template <class sampleClass> friend class TestSimulation;
+    friend class SpecularMagneticStrategy;
+    friend class SpecularMagneticNCStrategy;
+    friend class SpecularMagneticNCTestingStrategy;
+    friend class SpecularMagneticTanhStrategy;
 
     MatrixRTCoefficients_v3(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b,
                             double magnetic_SLD);

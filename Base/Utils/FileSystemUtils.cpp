@@ -15,12 +15,12 @@
 #include "Base/Utils/FileSystemUtils.h"
 #include "Base/Utils/Assert.h"
 #include <codecvt>
+#include <filesystem>
 #include <locale>
 #include <regex>
 #include <stdexcept>
-#include <filesystem>
 
-namespace fs = std::filesystem;   // make the code more readable
+namespace fs = std::filesystem; // make the code more readable
 
 std::string FileSystemUtils::extension(const std::string& path) {
     return fs::path(path).extension().string();
@@ -31,7 +31,7 @@ std::string FileSystemUtils::extensions(const std::string& path) {
     if (name == "..")
         return {};
 
-    const auto pos = name.find_first_of('.', 1);   // 1: ignore any file-is-hidden dot
+    const auto pos = name.find_first_of('.', 1); // 1: ignore any file-is-hidden dot
     return pos != std::string::npos ? name.substr(pos, name.size() - pos) : std::string();
 }
 
@@ -67,7 +67,7 @@ std::vector<std::string> FileSystemUtils::filesInDirectory(const std::string& di
 std::string FileSystemUtils::jointPath(const std::string& path1, const std::string& path2) {
     ASSERT(path1 != "");
     ASSERT(path2 != "");
-    
+
     return (fs::path(path1) / fs::path(path2)).string();
 }
 
@@ -92,7 +92,7 @@ std::string FileSystemUtils::stem_ext(const std::string& path) {
     if (name == "..")
         return name;
 
-    const auto pos = name.find_first_of('.', 1);    // 1: ignore any file-is-hidden dot
+    const auto pos = name.find_first_of('.', 1); // 1: ignore any file-is-hidden dot
     return pos != std::string::npos ? name.substr(0, pos) : name;
 }
 

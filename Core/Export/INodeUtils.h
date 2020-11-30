@@ -18,6 +18,7 @@
 #include "Param/Node/INode.h"
 
 namespace INodeUtils {
+
 template <typename T> std::vector<const T*> ChildNodesOfType(const INode& node) {
     std::vector<const T*> result;
     for (const auto& p_child : node.getChildren()) {
@@ -44,6 +45,7 @@ template <typename T> std::vector<const T*> AllDescendantsOfType(const INode& no
     }
     return result;
 }
+
 } // namespace INodeUtils
 
 #endif // BORNAGAIN_CORE_EXPORT_INODEUTILS_H

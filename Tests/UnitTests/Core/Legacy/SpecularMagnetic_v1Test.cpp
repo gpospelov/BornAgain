@@ -4,7 +4,7 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Processed/ProcessedSample.h"
 #include "Sample/RT/SimulationOptions.h"
-#include "SpecularMagneticOldStrategy.h"
+#include "SpecularMagneticStrategy_v1.h"
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 
@@ -22,7 +22,7 @@ TEST_F(SpecularMagneticOldTest, initial) {
     mLayer.addLayer(layer0);
     SimulationOptions options;
     ProcessedSample sample(mLayer, options);
-    std::make_unique<SpecularMagneticOldStrategy>()->Execute(sample.slices(), v);
+    std::make_unique<SpecularMagneticStrategy_v1>()->Execute(sample.slices(), v);
 }
 
 TEST_F(SpecularMagneticOldTest, zerofield) {
@@ -61,7 +61,7 @@ TEST_F(SpecularMagneticOldTest, zerofield) {
     Eigen::Vector2cd RMS = RTScalar.R1min() + RTScalar.R2min();
 
     auto coeffs_zerofield =
-        std::make_unique<SpecularMagneticOldStrategy>()->Execute(sample_zerofield.slices(), k1);
+        std::make_unique<SpecularMagneticStrategy_v1>()->Execute(sample_zerofield.slices(), k1);
     MatrixRTCoefficients_v1 RTMatrix =
         *dynamic_cast<const MatrixRTCoefficients_v1*>(coeffs_zerofield[1].get());
     Eigen::Vector2cd TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
@@ -88,7 +88,7 @@ TEST_F(SpecularMagneticOldTest, zerofield) {
     RMS = RTScalar.R1min() + RTScalar.R2min();
 
     coeffs_zerofield =
-        std::make_unique<SpecularMagneticOldStrategy>()->Execute(sample_zerofield.slices(), k2);
+        std::make_unique<SpecularMagneticStrategy_v1>()->Execute(sample_zerofield.slices(), k2);
     RTMatrix = *dynamic_cast<const MatrixRTCoefficients_v1*>(coeffs_zerofield[1].get());
     TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
     RPM = RTMatrix.R1plus() + RTMatrix.R2plus();
@@ -114,7 +114,7 @@ TEST_F(SpecularMagneticOldTest, zerofield) {
     RMS = RTScalar.R1min() + RTScalar.R2min();
 
     coeffs_zerofield =
-        std::make_unique<SpecularMagneticOldStrategy>()->Execute(sample_zerofield.slices(), k3);
+        std::make_unique<SpecularMagneticStrategy_v1>()->Execute(sample_zerofield.slices(), k3);
     RTMatrix = *dynamic_cast<const MatrixRTCoefficients_v1*>(coeffs_zerofield[1].get());
     TPM = RTMatrix.T1plus() + RTMatrix.T2plus();
     RPM = RTMatrix.R1plus() + RTMatrix.R2plus();

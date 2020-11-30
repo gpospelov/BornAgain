@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticOldStrategy.cpp
-//! @brief     Implements class SpecularMagneticOldStrategy.
+//! @file      Sample/Specular/SpecularMagneticStrategy_v1.cpp
+//! @brief     Implements class SpecularMagneticStrategy_v1.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "SpecularMagneticOldStrategy.h"
+#include "SpecularMagneticStrategy_v1.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
@@ -29,7 +29,7 @@ void SetForNoTransmission(std::vector<MatrixRTCoefficients_v1>& coeff);
 complex_t GetImExponential(complex_t exponent);
 } // namespace
 
-ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
+ISpecularStrategy::coeffs_t SpecularMagneticStrategy_v1::Execute(const std::vector<Slice>& slices,
                                                                  const kvector_t& k) const {
     std::vector<MatrixRTCoefficients_v1> result(slices.size());
     CalculateEigenvalues(slices, k, result);
@@ -43,7 +43,7 @@ ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vect
 }
 
 ISpecularStrategy::coeffs_t
-SpecularMagneticOldStrategy::Execute(const std::vector<Slice>&,
+SpecularMagneticStrategy_v1::Execute(const std::vector<Slice>&,
                                      const std::vector<complex_t>&) const {
     throw std::runtime_error("Not implemented");
 }

@@ -40,12 +40,12 @@ bool createDirectories(const std::string& dir_name);
 std::vector<std::string> filesInDirectory(const std::string& dir_name);
 
 //! Returns joint path name.
-std::string jointPath(const std::string& spath1, const std::string& spath2);
+std::string jointPath(const std::string& path1, const std::string& path2);
 
 //! Returns path without directory part ("Foo/Bar/Doz.int.gz" -> "Doz.int.gz")
 std::string filename(const std::string& path);
 
-//! Returns filename without extension.
+//! Returns filename without (last) extension.
 //! "/home/user/filename.int" -> "filename", "/home/user/filename.int.gz" -> "filename.int"
 std::string stem(const std::string& path);
 
@@ -60,7 +60,7 @@ std::vector<std::string> glob(const std::string& dir, const std::string& pattern
 std::wstring convert_utf8_to_utf16(const std::string& str);
 
 //! Returns true if file with given name exists on disk.
-bool IsFileExists(const std::string& str);
+bool IsFileExists(const std::string& path);
 
 } // namespace FileSystemUtils
 

@@ -32,7 +32,7 @@ add_definitions(-DBOOST_ALL_DYN_LINK) # line is needed for MSVC
 add_definitions(-DBOOST_UUID_FORCE_AUTO_LINK) # line is needed to link bcrypt for MSVC
 
 # Boost component libraries (do not list headers here)
-set(boost_libraries_required filesystem iostreams program_options)
+set(boost_libraries_required iostreams program_options)
 if(WIN32)
     # system seems to be indirectly required
     list(APPEND boost_libraries_required system)

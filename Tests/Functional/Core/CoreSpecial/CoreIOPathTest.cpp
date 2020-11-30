@@ -17,7 +17,7 @@
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
 #include "Tests/GTestWrapper/google_test.h"
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <iostream>
 #include <memory>
 
@@ -46,16 +46,16 @@ TEST_F(CoreIOPathTest, CoreIOPath) {
     const char dirname_rus[] =
         "\xd0\xb4\xd0\xb8\xd1\x80\xd0\xb5\xd0\xba\xd1\x82\xd0\xbe\xd1\x80\xd0\xb8\xd1\x8f";
 
-    const boost::filesystem::path test_dir(BATesting::TestOutDir_Core());
+    const std::filesystem::path test_dir(BATesting::TestOutDir_Core());
 
     FileSystemUtils::createDirectories(test_dir.string());
 
     // tests file writing when file name contains cyrillic characters
-    boost::filesystem::path test_file(filename_rus);
+    std::filesystem::path test_file(filename_rus);
     EXPECT_TRUE(test_io(data.get(), (test_dir / test_file).string()));
 
     // tests file writing and directory creation when dirname contains cyrillic characters
-    boost::filesystem::path test_subdir_rus(dirname_rus);
+    std::filesystem::path test_subdir_rus(dirname_rus);
     FileSystemUtils::createDirectories((test_dir / test_subdir_rus).string());
     EXPECT_TRUE(test_io(data.get(), (test_dir / test_subdir_rus / test_file).string()));
 }

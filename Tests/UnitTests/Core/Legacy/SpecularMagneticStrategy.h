@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_H
 #define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_H
 
-#include "Sample/RT/MatrixRTCoefficients_v2.h"
+#include "MatrixRTCoefficients_v2.h"
 #include "Sample/Specular/ISpecularStrategy.h"
 #include <memory>
 #include <vector>

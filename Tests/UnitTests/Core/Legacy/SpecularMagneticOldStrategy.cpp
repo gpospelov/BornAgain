@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Specular/SpecularMagneticOldStrategy.h"
+#include "SpecularMagneticOldStrategy.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"

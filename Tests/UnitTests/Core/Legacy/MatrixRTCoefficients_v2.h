@@ -25,7 +25,7 @@
 
 class MatrixRTCoefficients_v2 : public ILayerRTCoefficients {
 public:
-    friend class SpecularMagneticStrategy;
+    friend class SpecularMagneticStrategy_v2;
 
     MatrixRTCoefficients_v2(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b);
     MatrixRTCoefficients_v2(const MatrixRTCoefficients_v2& other);

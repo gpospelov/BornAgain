@@ -6,7 +6,7 @@
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/Slice/KzComputation.h"
 #include "Sample/Specular/SpecularMagneticNewTanhStrategy.h"
-#include "Tests/UnitTests/Core/Legacy/SpecularMagneticStrategy.h"
+#include "Tests/UnitTests/Core/Legacy/SpecularMagneticStrategy_v2.h"
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <utility>
@@ -113,7 +113,7 @@ void SpecularMagneticTest::testcase_zerofield(std::vector<double>&& angles) {
 }
 
 TEST_F(SpecularMagneticTest, zerofield) {
-    testcase_zerofield<SpecularMagneticStrategy>({-0.1, -2.0, -10.0});
+    testcase_zerofield<SpecularMagneticStrategy_v2>({-0.1, -2.0, -10.0});
 }
 
 TEST_F(SpecularMagneticTest, zerofield_new) {

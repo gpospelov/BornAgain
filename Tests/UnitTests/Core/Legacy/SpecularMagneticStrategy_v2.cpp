@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticStrategy.cpp
-//! @brief     Implements class SpecularMagneticStrategy.
+//! @file      Sample/Specular/SpecularMagneticStrategy_v2.cpp
+//! @brief     Implements class SpecularMagneticStrategy_v2.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "SpecularMagneticStrategy.h"
+#include "SpecularMagneticStrategy_v2.h"
 #include "Base/Const/PhysicalConstants.h"
 #include "Sample/Slice/KzComputation.h"
 #include "Sample/Slice/Slice.h"
@@ -28,13 +28,13 @@ constexpr double magnetic_prefactor = PhysConsts::m_n * PhysConsts::g_factor_n *
                                       / PhysConsts::h_bar / PhysConsts::h_bar * 1e-18;
 } // namespace
 
-ISpecularStrategy::coeffs_t SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
+ISpecularStrategy::coeffs_t SpecularMagneticStrategy_v2::Execute(const std::vector<Slice>& slices,
                                                               const kvector_t& k) const {
     return Execute(slices, KzComputation::computeReducedKz(slices, k));
 }
 
 ISpecularStrategy::coeffs_t
-SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
+SpecularMagneticStrategy_v2::Execute(const std::vector<Slice>& slices,
                                   const std::vector<complex_t>& kz) const {
     if (slices.size() != kz.size())
         throw std::runtime_error("Number of slices does not match the size of the kz-vector");
@@ -47,7 +47,7 @@ SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
 }
 
 std::vector<MatrixRTCoefficients_v2>
-SpecularMagneticStrategy::computeTR(const std::vector<Slice>& slices,
+SpecularMagneticStrategy_v2::computeTR(const std::vector<Slice>& slices,
                                     const std::vector<complex_t>& kzs) {
     if (kzs[0] == 0.)
         throw std::runtime_error("Edge case k_z = 0 not implemented");
@@ -81,7 +81,7 @@ SpecularMagneticStrategy::computeTR(const std::vector<Slice>& slices,
     return result;
 }
 
-void SpecularMagneticStrategy::calculateTR(MatrixRTCoefficients_v2& coeff) {
+void SpecularMagneticStrategy_v2::calculateTR(MatrixRTCoefficients_v2& coeff) {
     const double b = coeff.m_b.mag();
     if (b == 0.0) {
         calculateZeroFieldTR(coeff);
@@ -114,7 +114,7 @@ void SpecularMagneticStrategy::calculateTR(MatrixRTCoefficients_v2& coeff) {
         -T2(2, 0), -T2(2, 1), T2(2, 2), T2(2, 3), -T2(3, 0), -T2(3, 1), T2(3, 2), T2(3, 3);
 }
 
-void SpecularMagneticStrategy::calculateZeroFieldTR(MatrixRTCoefficients_v2& coeff) {
+void SpecularMagneticStrategy_v2::calculateZeroFieldTR(MatrixRTCoefficients_v2& coeff) {
     coeff.T1 = Eigen::Matrix4cd::Zero();
     coeff.R1 = Eigen::Matrix4cd::Zero();
     coeff.T2 = Eigen::Matrix4cd::Zero();
@@ -135,7 +135,7 @@ void SpecularMagneticStrategy::calculateZeroFieldTR(MatrixRTCoefficients_v2& coe
     coeff.R2.block<3, 3>(0, 0) = Rblock;
 }
 
-void SpecularMagneticStrategy::setNoTransmission(MatrixRTCoefficients_v2& coeff) {
+void SpecularMagneticStrategy_v2::setNoTransmission(MatrixRTCoefficients_v2& coeff) {
     coeff.m_w_plus = Eigen::Vector4cd::Zero();
     coeff.m_w_min = Eigen::Vector4cd::Zero();
     coeff.T1 = Eigen::Matrix4cd::Identity() / 4.0;
@@ -144,7 +144,7 @@ void SpecularMagneticStrategy::setNoTransmission(MatrixRTCoefficients_v2& coeff)
     coeff.R2 = coeff.T1;
 }
 
-void SpecularMagneticStrategy::nullifyBottomReflection(MatrixRTCoefficients_v2& coeff) {
+void SpecularMagneticStrategy_v2::nullifyBottomReflection(MatrixRTCoefficients_v2& coeff) {
     const complex_t l_1 = coeff.m_lambda(0);
     const complex_t l_2 = coeff.m_lambda(1);
     const double b_mag = coeff.m_b.mag();
@@ -170,7 +170,7 @@ void SpecularMagneticStrategy::nullifyBottomReflection(MatrixRTCoefficients_v2& 
     coeff.m_w_plus(3) = 0.0;
 }
 
-void SpecularMagneticStrategy::propagateBackwardsForwards(
+void SpecularMagneticStrategy_v2::propagateBackwardsForwards(
     std::vector<MatrixRTCoefficients_v2>& coeff, const std::vector<Slice>& slices) {
     const int size = static_cast<int>(coeff.size());
     std::vector<Eigen::Matrix2cd> SMatrices(coeff.size());
@@ -234,7 +234,7 @@ void SpecularMagneticStrategy::propagateBackwardsForwards(
 }
 
 std::pair<Eigen::Matrix2cd, complex_t>
-SpecularMagneticStrategy::findNormalizationCoefficients(const MatrixRTCoefficients_v2& coeff) {
+SpecularMagneticStrategy_v2::findNormalizationCoefficients(const MatrixRTCoefficients_v2& coeff) {
     const Eigen::Vector2cd Ta = coeff.T1plus() + coeff.T2plus();
     const Eigen::Vector2cd Tb = coeff.T1min() + coeff.T2min();
 

@@ -25,7 +25,7 @@ std::vector<const Material*> ISampleNode::containedMaterials() const {
     std::vector<const Material*> result;
     if (const Material* p_material = material())
         result.push_back(p_material);
-    for (auto child : getChildren()) {
+    for (const auto* child : getChildren()) {
         if (const ISampleNode* sample = dynamic_cast<const ISampleNode*>(child)) {
             for (const Material* p_material : sample->containedMaterials())
                 result.push_back(p_material);

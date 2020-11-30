@@ -30,14 +30,14 @@ ParticleComposition::ParticleComposition(const IParticle& particle,
 ParticleComposition::~ParticleComposition() = default;
 
 ParticleComposition* ParticleComposition::clone() const {
-    ParticleComposition* p_result = new ParticleComposition();
-    p_result->setAbundance(m_abundance);
+    ParticleComposition* result = new ParticleComposition();
+    result->setAbundance(m_abundance);
     for (size_t index = 0; index < m_particles.size(); ++index)
-        p_result->addParticle(*m_particles[index]);
+        result->addParticle(*m_particles[index]);
     if (m_rotation)
-        p_result->setRotation(*m_rotation);
-    p_result->setPosition(m_position);
-    return p_result;
+        result->setRotation(*m_rotation);
+    result->setPosition(m_position);
+    return result;
 }
 
 IFormFactor* ParticleComposition::createFormFactor() const {
@@ -45,8 +45,8 @@ IFormFactor* ParticleComposition::createFormFactor() const {
         return {};
     auto* result = new FormFactorWeighted;
     auto particles = decompose();
-    for (auto p_particle : particles) {
-        std::unique_ptr<IFormFactor> P_particle_ff{p_particle->createFormFactor()};
+    for (const auto* particle : particles) {
+        std::unique_ptr<IFormFactor> P_particle_ff(particle->createFormFactor());
         result->addFormFactor(*P_particle_ff);
     }
     return result;
@@ -80,25 +80,25 @@ std::vector<const INode*> ParticleComposition::getChildren() const {
 
 SafePointerVector<IParticle> ParticleComposition::decompose() const {
     SafePointerVector<IParticle> result;
-    auto p_rotation = rotation();
+    auto* rot = rotation();
     auto translation = position();
-    for (auto& P_particle : m_particles) {
-        auto sublist = P_particle->decompose();
-        for (auto p_subparticle : sublist) {
-            if (p_rotation)
-                p_subparticle->rotate(*p_rotation);
-            p_subparticle->translate(translation);
-            result.push_back(p_subparticle->clone());
+    for (const auto& particle : m_particles) {
+        const auto sublist = particle->decompose();
+        for (auto* subparticle : sublist) {
+            if (rot)
+                subparticle->rotate(*rot);
+            subparticle->translate(translation);
+            result.push_back(subparticle->clone());
         }
     }
     return result;
 }
 
 ParticleLimits ParticleComposition::bottomTopZ() const {
-    auto particles = decompose();
+    const auto particles = decompose();
     ParticleLimits result = particles[check_index(0)]->bottomTopZ();
-    for (auto& P_particle : particles) {
-        ParticleLimits limits = P_particle->bottomTopZ();
+    for (const auto& particle : particles) {
+        ParticleLimits limits = particle->bottomTopZ();
         result.m_bottom = std::min(result.m_bottom, limits.m_bottom);
         result.m_top = std::max(result.m_top, limits.m_top);
     }

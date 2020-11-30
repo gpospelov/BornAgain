@@ -29,13 +29,13 @@ Layer::Layer(Material material, double thickness)
 Layer::~Layer() = default;
 
 Layer* Layer::clone() const {
-    Layer* p_result = new Layer(m_material, m_thickness);
-    p_result->setName(getName());
-    p_result->m_B_field = m_B_field;
-    p_result->m_n_slices = m_n_slices;
-    for (auto p_layout : layouts())
-        p_result->addLayout(*p_layout);
-    return p_result;
+    Layer* result = new Layer(m_material, m_thickness);
+    result->setName(getName());
+    result->m_B_field = m_B_field;
+    result->m_n_slices = m_n_slices;
+    for (const auto* layout : layouts())
+        result->addLayout(*layout);
+    return result;
 }
 
 //! Sets layer thickness in nanometers.
@@ -57,8 +57,8 @@ void Layer::addLayout(const ParticleLayout& layout) {
 
 std::vector<const ParticleLayout*> Layer::layouts() const {
     std::vector<const ParticleLayout*> result;
-    for (auto p_layout : m_layouts)
-        result.push_back(p_layout);
+    for (const auto* layout : m_layouts)
+        result.push_back(layout);
     return result;
 }
 

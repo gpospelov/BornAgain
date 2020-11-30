@@ -49,18 +49,18 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundan
 ParticleLayout::~ParticleLayout() = default; // needs member class definitions => don't move to .h
 
 ParticleLayout* ParticleLayout::clone() const {
-    ParticleLayout* p_result = new ParticleLayout();
+    ParticleLayout* result = new ParticleLayout();
 
-    for (auto p_particle : m_particles)
-        p_result->addAndRegisterAbstractParticle(p_particle->clone());
+    for (const auto* particle : m_particles)
+        result->addAndRegisterAbstractParticle(particle->clone());
 
     if (m_interference_function)
-        p_result->setAndRegisterInterferenceFunction(m_interference_function->clone());
+        result->setAndRegisterInterferenceFunction(m_interference_function->clone());
 
-    p_result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
-    p_result->setWeight(weight());
+    result->setTotalParticleSurfaceDensity(totalParticleSurfaceDensity());
+    result->setWeight(weight());
 
-    return p_result;
+    return result;
 }
 
 //! Adds particle to the layout with abundance, position and the rotation defined.
@@ -84,7 +84,7 @@ void ParticleLayout::addParticle(const IAbstractParticle& particle, double abund
 //! and generates new particles if an IAbstractParticle denotes a collection
 SafePointerVector<IParticle> ParticleLayout::particles() const {
     SafePointerVector<IParticle> particle_vector;
-    for (auto particle : m_particles) {
+    for (const auto* particle : m_particles) {
         if (const auto* p_part_distr = dynamic_cast<const ParticleDistribution*>(particle)) {
             SafePointerVector<IParticle> generated_particles = p_part_distr->generateParticles();
             for (const IParticle* particle : generated_particles)
@@ -102,8 +102,8 @@ const IInterferenceFunction* ParticleLayout::interferenceFunction() const {
 
 double ParticleLayout::getTotalAbundance() const {
     double result = 0.0;
-    for (auto p_particle : m_particles)
-        result += p_particle->abundance();
+    for (const auto* particle : m_particles)
+        result += particle->abundance();
     return result;
 }
 
@@ -126,7 +126,7 @@ void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) {
 
 std::vector<const INode*> ParticleLayout::getChildren() const {
     std::vector<const INode*> result;
-    for (auto particle : m_particles)
+    for (const auto* particle : m_particles)
         result.push_back(particle);
     result << m_interference_function;
     return result;

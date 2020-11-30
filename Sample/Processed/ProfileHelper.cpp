@@ -40,8 +40,8 @@ ProfileHelper::ProfileHelper(const ProcessedSample& sample) {
         m_materialdata.push_back(slices[i].material().materialData());
         if (i + 1 < N) {
             m_zlimits.push_back(sample.sliceBottomZ(i));
-            if (auto p_roughness = sample.bottomRoughness(i)) {
-                m_sigmas.push_back(p_roughness->getSigma());
+            if (const auto* roughness = sample.bottomRoughness(i)) {
+                m_sigmas.push_back(roughness->getSigma());
             } else {
                 m_sigmas.push_back(0.0);
             }

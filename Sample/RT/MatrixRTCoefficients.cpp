@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file     Sample/RT/MatrixRTCoefficients_v3.cpp
-//! @brief    Implements class MatrixRTCoefficients_v3.
+//! @file     Sample/RT/MatrixRTCoefficients.cpp
+//! @brief    Implements class MatrixRTCoefficients.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/RT/MatrixRTCoefficients_v3.h"
+#include "Sample/RT/MatrixRTCoefficients.h"
 #include "Base/Utils/Assert.h"
 
 namespace {
@@ -20,7 +20,7 @@ complex_t GetImExponential(complex_t exponent);
 const auto eps = std::numeric_limits<double>::epsilon() * 10.;
 } // namespace
 
-MatrixRTCoefficients_v3::MatrixRTCoefficients_v3(double kz_sign, Eigen::Vector2cd eigenvalues,
+MatrixRTCoefficients::MatrixRTCoefficients(double kz_sign, Eigen::Vector2cd eigenvalues,
                                                  kvector_t b, double magnetic_SLD)
     : m_kz_sign(kz_sign)
     , m_lambda(std::move(eigenvalues))
@@ -32,15 +32,15 @@ MatrixRTCoefficients_v3::MatrixRTCoefficients_v3(double kz_sign, Eigen::Vector2c
     m_R << -1, 0, 0, -1;
 }
 
-MatrixRTCoefficients_v3::MatrixRTCoefficients_v3(const MatrixRTCoefficients_v3& other) = default;
+MatrixRTCoefficients::MatrixRTCoefficients(const MatrixRTCoefficients& other) = default;
 
-MatrixRTCoefficients_v3::~MatrixRTCoefficients_v3() = default;
+MatrixRTCoefficients::~MatrixRTCoefficients() = default;
 
-MatrixRTCoefficients_v3* MatrixRTCoefficients_v3::clone() const {
-    return new MatrixRTCoefficients_v3(*this);
+MatrixRTCoefficients* MatrixRTCoefficients::clone() const {
+    return new MatrixRTCoefficients(*this);
 }
 
-Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(Eigen::Vector2d selection) const {
+Eigen::Matrix2cd MatrixRTCoefficients::TransformationMatrix(Eigen::Vector2d selection) const {
     const Eigen::Matrix2cd exp2 = Eigen::DiagonalMatrix<complex_t, 2>(selection);
 
     if (std::abs(m_b.mag() - 1.) < eps) {
@@ -55,51 +55,51 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::TransformationMatrix(Eigen::Vector2d s
     throw std::runtime_error("Broken magnetic field vector");
 }
 
-Eigen::Matrix2cd MatrixRTCoefficients_v3::T1Matrix() const {
+Eigen::Matrix2cd MatrixRTCoefficients::T1Matrix() const {
     return TransformationMatrix({0., 1.});
 }
 
-Eigen::Matrix2cd MatrixRTCoefficients_v3::T2Matrix() const {
+Eigen::Matrix2cd MatrixRTCoefficients::T2Matrix() const {
     return TransformationMatrix({1., 0.});
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v3::T1plus() const {
+Eigen::Vector2cd MatrixRTCoefficients::T1plus() const {
     return T1Matrix() * m_T.col(0);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v3::R1plus() const {
+Eigen::Vector2cd MatrixRTCoefficients::R1plus() const {
     return T1Matrix() * m_R.col(0);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v3::T2plus() const {
+Eigen::Vector2cd MatrixRTCoefficients::T2plus() const {
     return T2Matrix() * m_T.col(0);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v3::R2plus() const {
+Eigen::Vector2cd MatrixRTCoefficients::R2plus() const {
     return T2Matrix() * m_R.col(0);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v3::T1min() const {
+Eigen::Vector2cd MatrixRTCoefficients::T1min() const {
     return T1Matrix() * m_T.col(1);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v3::R1min() const {
+Eigen::Vector2cd MatrixRTCoefficients::R1min() const {
     return T1Matrix() * m_R.col(1);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v3::T2min() const {
+Eigen::Vector2cd MatrixRTCoefficients::T2min() const {
     return T2Matrix() * m_T.col(1);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v3::R2min() const {
+Eigen::Vector2cd MatrixRTCoefficients::R2min() const {
     return T2Matrix() * m_R.col(1);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v3::getKz() const {
+Eigen::Vector2cd MatrixRTCoefficients::getKz() const {
     return m_kz_sign * m_lambda;
 }
 
-Eigen::Matrix2cd MatrixRTCoefficients_v3::pMatrixHelper(double sign) const {
+Eigen::Matrix2cd MatrixRTCoefficients::pMatrixHelper(double sign) const {
     const complex_t alpha = m_lambda(1) + m_lambda(0);
     const complex_t beta = m_lambda(1) - m_lambda(0);
 
@@ -113,14 +113,14 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::pMatrixHelper(double sign) const {
     return result;
 }
 
-Eigen::Matrix2cd MatrixRTCoefficients_v3::computeP() const {
+Eigen::Matrix2cd MatrixRTCoefficients::computeP() const {
     Eigen::Matrix2cd result = pMatrixHelper(1.);
     result *= 0.5;
 
     return result;
 }
 
-Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const {
+Eigen::Matrix2cd MatrixRTCoefficients::computeInverseP() const {
     const complex_t alpha = m_lambda(1) + m_lambda(0);
     const complex_t beta = m_lambda(1) - m_lambda(0);
 
@@ -133,7 +133,7 @@ Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const {
     return result;
 }
 
-Eigen::Matrix2cd MatrixRTCoefficients_v3::computeDeltaMatrix(double thickness) {
+Eigen::Matrix2cd MatrixRTCoefficients::computeDeltaMatrix(double thickness) {
     Eigen::Matrix2cd result;
     const complex_t alpha = 0.5 * thickness * (m_lambda(1) + m_lambda(0));
 

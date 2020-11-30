@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file     Sample/RT/MatrixRTCoefficients_v3.h
-//! @brief    Defines class MatrixRTCoefficients_v3.
+//! @file     Sample/RT/MatrixRTCoefficients.h
+//! @brief    Defines class MatrixRTCoefficients.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V3_H
-#define BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V3_H
+#ifndef BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_H
+#define BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_H
 
 #include "Base/Vector/Vectors3D.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
@@ -23,19 +23,19 @@
 //! of magnetic interactions between the scattered particle and the layer.
 //! @ingroup algorithms_internal
 
-class MatrixRTCoefficients_v3 : public ILayerRTCoefficients {
+class MatrixRTCoefficients : public ILayerRTCoefficients {
 public:
     friend class SpecularMagneticStrategy;
     friend class SpecularMagneticNCStrategy;
     friend class SpecularMagneticNCTestingStrategy;
     friend class SpecularMagneticTanhStrategy;
 
-    MatrixRTCoefficients_v3(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b,
+    MatrixRTCoefficients(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b,
                             double magnetic_SLD);
-    MatrixRTCoefficients_v3(const MatrixRTCoefficients_v3& other);
-    ~MatrixRTCoefficients_v3() override;
+    MatrixRTCoefficients(const MatrixRTCoefficients& other);
+    ~MatrixRTCoefficients() override;
 
-    MatrixRTCoefficients_v3* clone() const override;
+    MatrixRTCoefficients* clone() const override;
 
     //! The following functions return the transmitted and reflected amplitudes
     //! for different incoming beam polarizations and eigenmodes
@@ -75,4 +75,4 @@ private:
     Eigen::Matrix2cd pMatrixHelper(double sign) const;
 };
 
-#endif // BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V3_H
+#endif // BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_H

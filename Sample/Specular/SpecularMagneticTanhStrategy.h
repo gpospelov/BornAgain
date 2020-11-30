@@ -28,10 +28,10 @@
 class SpecularMagneticTanhStrategy : public SpecularMagneticStrategy {
 private:
     virtual std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-    computeBackwardsSubmatrices(const MatrixRTCoefficients_v3& coeff_i,
-                                const MatrixRTCoefficients_v3& coeff_i1, double sigma) const;
+    computeBackwardsSubmatrices(const MatrixRTCoefficients& coeff_i,
+                                const MatrixRTCoefficients& coeff_i1, double sigma) const;
 
-    Eigen::Matrix2cd computeRoughnessMatrix(const MatrixRTCoefficients_v3& coeff, double sigma,
+    Eigen::Matrix2cd computeRoughnessMatrix(const MatrixRTCoefficients& coeff, double sigma,
                                             bool inverse = false) const;
 };
 

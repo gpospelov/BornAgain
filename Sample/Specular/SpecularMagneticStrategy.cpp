@@ -44,12 +44,12 @@ SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
 
     ISpecularStrategy::coeffs_t result;
     for (auto& coeff : computeTR(slices, kz))
-        result.push_back(std::make_unique<MatrixRTCoefficients_v3>(coeff));
+        result.push_back(std::make_unique<MatrixRTCoefficients>(coeff));
 
     return result;
 }
 
-std::vector<MatrixRTCoefficients_v3>
+std::vector<MatrixRTCoefficients>
 SpecularMagneticStrategy::computeTR(const std::vector<Slice>& slices,
                                        const std::vector<complex_t>& kzs) const {
     const size_t N = slices.size();
@@ -60,7 +60,7 @@ SpecularMagneticStrategy::computeTR(const std::vector<Slice>& slices,
     if (slices.empty())
         return {};
 
-    std::vector<MatrixRTCoefficients_v3> result;
+    std::vector<MatrixRTCoefficients> result;
     result.reserve(N);
 
     const double kz_sign = kzs.front().real() >= 0.0 ? 1.0 : -1.0; // save sign to restore it later
@@ -94,7 +94,7 @@ SpecularMagneticStrategy::computeTR(const std::vector<Slice>& slices,
     return result;
 }
 
-void SpecularMagneticStrategy::calculateUpwards(std::vector<MatrixRTCoefficients_v3>& coeff,
+void SpecularMagneticStrategy::calculateUpwards(std::vector<MatrixRTCoefficients>& coeff,
                                                    const std::vector<Slice>& slices) const {
     const auto N = slices.size();
     std::vector<Eigen::Matrix2cd> SMatrices(N - 1);

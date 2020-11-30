@@ -21,7 +21,7 @@ const double pi2_15 = std::pow(M_PI_2, 1.5);
 } // namespace
 
 Eigen::Matrix2cd
-SpecularMagneticTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficients_v3& coeff,
+SpecularMagneticTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficients& coeff,
                                                         double sigma, bool inverse) const {
     if (sigma < 10 * std::numeric_limits<double>::epsilon())
         return Eigen::Matrix2cd{Eigen::Matrix2cd::Identity()};
@@ -61,7 +61,7 @@ SpecularMagneticTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficients_
 
 std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
 SpecularMagneticTanhStrategy::computeBackwardsSubmatrices(
-    const MatrixRTCoefficients_v3& coeff_i, const MatrixRTCoefficients_v3& coeff_i1,
+    const MatrixRTCoefficients& coeff_i, const MatrixRTCoefficients& coeff_i1,
     double sigma) const {
     Eigen::Matrix2cd R{Eigen::Matrix2cd::Identity()};
     Eigen::Matrix2cd RInv{Eigen::Matrix2cd::Identity()};

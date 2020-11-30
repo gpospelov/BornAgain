@@ -16,7 +16,7 @@
 #include "Base/Const/Units.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
-#include "Core/Export/INodeUtils.h"
+#include "Core/Export/NodeProgenity.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/OffSpecSimulation.h"
@@ -63,7 +63,7 @@
 #include "Sample/Slice/LayerInterface.h"
 #include "Sample/Slice/LayerRoughness.h"
 
-using namespace INodeUtils;
+using namespace node_progenity;
 using SessionItemUtils::SetVectorItem;
 
 namespace {

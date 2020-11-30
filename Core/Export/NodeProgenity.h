@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Export/INodeUtils.h
-//! @brief     Defines namespace INodeUtils.
+//! @file      Core/Export/NodeProgenity.h
+//! @brief     Defines namespace node_progenity.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,12 +12,13 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_EXPORT_INODEUTILS_H
-#define BORNAGAIN_CORE_EXPORT_INODEUTILS_H
+#ifndef BORNAGAIN_CORE_EXPORT_NODEPROGENITY_H
+#define BORNAGAIN_CORE_EXPORT_NODEPROGENITY_H
 
 #include "Param/Node/INode.h"
 
-namespace INodeUtils {
+namespace node_progenity {
+
 template <typename T> std::vector<const T*> ChildNodesOfType(const INode& node) {
     std::vector<const T*> result;
     for (const auto& p_child : node.getChildren()) {
@@ -44,6 +45,7 @@ template <typename T> std::vector<const T*> AllDescendantsOfType(const INode& no
     }
     return result;
 }
-} // namespace INodeUtils
 
-#endif // BORNAGAIN_CORE_EXPORT_INODEUTILS_H
+} // namespace node_progenity
+
+#endif // BORNAGAIN_CORE_EXPORT_NODEPROGENITY_H

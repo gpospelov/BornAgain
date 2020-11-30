@@ -1,9 +1,9 @@
-#include "Tests/UnitTests/Core/Legacy/MatrixRTCoefficients.h"
+#include "Tests/UnitTests/Core/Legacy/MatrixRTCoefficients_v1.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class MatrixRTCoefficientsTest : public ::testing::Test {
 protected:
-    MatrixRTCoefficients mrtcDefault;
+    MatrixRTCoefficients_v1 mrtcDefault;
 };
 
 TEST_F(MatrixRTCoefficientsTest, T1plus) {

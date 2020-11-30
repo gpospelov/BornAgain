@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/RT/MatrixRTCoefficients.h
-//! @brief    Defines class MatrixRTCoefficients.
+//! @file      Sample/RT/MatrixRTCoefficients_v1.h
+//! @brief    Defines class MatrixRTCoefficients_v1.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_H
-#define BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_H
+#ifndef BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V1_H
+#define BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V1_H
 
 #include "Sample/RT/ILayerRTCoefficients.h"
 
@@ -21,12 +21,12 @@
 //! of 2x2 matrix interactions between the layers and the scattered particle.
 //! @ingroup algorithms_internal
 
-class MatrixRTCoefficients : public ILayerRTCoefficients {
+class MatrixRTCoefficients_v1 : public ILayerRTCoefficients {
 public:
-    MatrixRTCoefficients() : m_kt(0.0) {}
-    virtual ~MatrixRTCoefficients() {}
+    MatrixRTCoefficients_v1() : m_kt(0.0) {}
+    virtual ~MatrixRTCoefficients_v1() {}
 
-    virtual MatrixRTCoefficients* clone() const;
+    virtual MatrixRTCoefficients_v1* clone() const;
 
     //! The following functions return the transmitted and reflected amplitudes
     //! for different incoming beam polarizations and eigenmodes
@@ -66,4 +66,4 @@ public:
                                      //!< lambda=0
 };
 
-#endif // BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_H
+#endif // BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V1_H

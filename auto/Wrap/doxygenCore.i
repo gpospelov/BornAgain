@@ -1218,6 +1218,24 @@ user-defined weighting factors. Used linearly, no matter which norm is chosen.
 ";
 
 
+// File: classMaterialKeyHandler.xml
+%feature("docstring") MaterialKeyHandler "
+
+Stores Material instances, associates them with given tag, and provides unique keys.
+
+C++ includes: MaterialKeyHandler.h
+";
+
+%feature("docstring")  MaterialKeyHandler::insertMaterial "void MaterialKeyHandler::insertMaterial(const Material *sample)
+";
+
+%feature("docstring")  MaterialKeyHandler::materialMap "const std::map< const std::string, const Material * > & MaterialKeyHandler::materialMap() const
+";
+
+%feature("docstring")  MaterialKeyHandler::mat2key "const std::string & MaterialKeyHandler::mat2key(const Material *sample) const
+";
+
+
 // File: classMPISimulation.xml
 %feature("docstring") MPISimulation "";
 
@@ -2122,43 +2140,43 @@ Returns default units to convert to.
 // File: namespace_0d19.xml
 
 
-// File: namespace_0d38.xml
-
-
 // File: namespace_0d40.xml
 
 
-// File: namespace_0d45.xml
+// File: namespace_0d42.xml
 
 
-// File: namespace_0d54.xml
+// File: namespace_0d47.xml
 
 
 // File: namespace_0d56.xml
 
 
-// File: namespace_0d60.xml
+// File: namespace_0d58.xml
 
 
 // File: namespace_0d62.xml
 
 
-// File: namespace_0d67.xml
+// File: namespace_0d64.xml
 
 
 // File: namespace_0d69.xml
 
 
-// File: namespace_0d73.xml
+// File: namespace_0d71.xml
 
 
-// File: namespace_0d83.xml
+// File: namespace_0d75.xml
 
 
 // File: namespace_0d85.xml
 
 
-// File: namespace_0d91.xml
+// File: namespace_0d87.xml
+
+
+// File: namespace_0d93.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2606,6 +2624,12 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: ExportToPython_8h.xml
+
+
+// File: MaterialKeyHandler_8cpp.xml
+
+
+// File: MaterialKeyHandler_8h.xml
 
 
 // File: NodeProgenity_8h.xml

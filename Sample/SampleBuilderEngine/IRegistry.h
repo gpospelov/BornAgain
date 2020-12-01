@@ -36,7 +36,7 @@ public:
 
     std::vector<std::string> keys() const {
         std::vector<std::string> result;
-        for (const auto& it: m_data)
+        for (const auto& it : m_data)
             result.push_back(it.first);
         return result;
     }

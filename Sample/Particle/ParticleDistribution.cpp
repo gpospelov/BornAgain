@@ -66,7 +66,7 @@ SafePointerVector<IParticle> ParticleDistribution::generateParticles() const {
         IParticle* particle_clone = m_particle->clone();
         std::unique_ptr<ParameterPool> new_pool{particle_clone->createParameterTree()};
         new_pool->setUniqueMatchValue(main_par_name, main_sample.value);
-        for (const auto& it: linked_ratios)
+        for (const auto& it : linked_ratios)
             new_pool->setUniqueMatchValue(it.first, main_sample.value * it.second);
         particle_clone->setAbundance(abundance() * main_sample.weight);
         result.push_back(particle_clone);

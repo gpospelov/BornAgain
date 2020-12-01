@@ -16,6 +16,7 @@
 #include "Base/Utils/Assert.h"
 #include "Base/Vector/Transform3D.h"
 #include "Core/Export/ComponentKeyHandler.h"
+#include "Core/Export/MaterialKeyHandler.h"
 #include "Core/Export/NodeProgenity.h"
 #include "Core/Export/PyFmt.h"
 #include "Core/Export/PyFmt2.h"
@@ -36,6 +37,7 @@
 #include "Sample/Slice/LayerRoughness.h"
 #include <iomanip>
 #include <map>
+#include <set>
 
 using pyfmt::indent;
 
@@ -100,10 +102,12 @@ std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer) {
 
 void SampleToPython::initLabels(const MultiLayer& multilayer) {
     m_objs.reset(new ComponentKeyHandler());
+    m_materials.reset(new MaterialKeyHandler());
+
+    for (auto x : multilayer.containedMaterials())
+        m_materials->insertMaterial(x);
 
     m_objs->insertModel("sample", &multilayer);
-    for (const auto* x : multilayer.containedMaterials())
-        m_objs->insertModel("mat_" + x->getName(), x);
     for (const auto* x : node_progenity::AllDescendantsOfType<Layer>(multilayer))
         m_objs->insertModel("layer", x);
     for (const auto* x : node_progenity::AllDescendantsOfType<LayerRoughness>(multilayer))
@@ -149,27 +153,37 @@ const std::map<MATERIAL_TYPES, std::string> factory_names{
     {MATERIAL_TYPES::MaterialBySLD, "MaterialBySLD"}};
 
 std::string SampleToPython::defineMaterials() const {
-    std::vector<const Material*> v = m_objs->objectsOfType<Material>();
-    if (v.empty())
-        return "";
+    const auto themap = m_materials->materialMap();
+    if (themap.empty())
+        return "# No Materials.\n\n";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << indent() << "# Define materials\n";
-    for (const auto* s : v) {
-        const std::string& key = m_objs->obj2key(s);
-        const std::string& factory_name = factory_names.at(s->typeID());
-        const complex_t& data = s->materialData();
-        if (s->isScalarMaterial()) {
-            result << indent() << key << " = ba." << factory_name << "(\"" << s->getName() << "\", "
-                   << pyfmt::printDouble(data.real()) << ", " << pyfmt::printDouble(data.imag())
-                   << ")\n";
+    result << indent() << "# Define Materials\n";
+    std::set<std::string> visitedMaterials;
+    for (auto it : themap) {
+        const std::string& key = it.first;
+        if (visitedMaterials.find(key) != visitedMaterials.end())
+            continue;
+        visitedMaterials.insert(key);
+        const Material* p_material = it.second;
+        const auto factory_name = factory_names.find(p_material->typeID());
+        if (factory_name == factory_names.cend())
+            throw std::runtime_error(
+                "Error in ExportToPython::defineMaterials(): unknown material type");
+        const complex_t& material_data = p_material->materialData();
+        if (p_material->isScalarMaterial()) {
+            result << indent() << m_materials->mat2key(p_material) << " = ba."
+                   << factory_name->second << "(\"" << p_material->getName() << "\", "
+                   << pyfmt::printDouble(material_data.real()) << ", "
+                   << pyfmt::printDouble(material_data.imag()) << ")\n";
         } else {
-            kvector_t magnetic_field = s->magnetization();
+            kvector_t magnetic_field = p_material->magnetization();
             result << indent() << "magnetic_field = kvector_t(" << magnetic_field.x() << ", "
                    << magnetic_field.y() << ", " << magnetic_field.z() << ")\n";
-            result << indent() << key << " = ba." << factory_name << "(\"" << s->getName();
-            result << "\", " << pyfmt::printDouble(data.real()) << ", "
-                   << pyfmt::printDouble(data.imag()) << ", "
+            result << indent() << m_materials->mat2key(p_material) << " = ba."
+                   << factory_name->second << "(\"" << p_material->getName();
+            result << "\", " << pyfmt::printDouble(material_data.real()) << ", "
+                   << pyfmt::printDouble(material_data.imag()) << ", "
                    << "magnetic_field)\n";
         }
     }
@@ -185,7 +199,7 @@ std::string SampleToPython::defineLayers() const {
     result << std::setprecision(12);
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
-        result << indent() << key << " = ba.Layer(" << m_objs->obj2key(s->material());
+        result << indent() << key << " = ba.Layer(" << m_materials->mat2key(s->material());
         if (s->thickness() != 0)
             result << ", " << pyfmt::printNm(s->thickness());
         result << ")\n";
@@ -380,8 +394,8 @@ std::string SampleToPython::defineParticles() const {
         const std::string& key = m_objs->obj2key(s);
         const auto* ff = node_progenity::OnlyChildOfType<IFormFactor>(*s);
         ASSERT(ff);
-        result << indent() << key << " = ba.Particle(" << m_objs->obj2key(s->material()) << ", "
-               << m_objs->obj2key(ff) << ")\n";
+        result << indent() << key << " = ba.Particle(" << m_materials->mat2key(s->material())
+               << ", " << m_objs->obj2key(ff) << ")\n";
         setRotationInformation(s, key, result);
         setPositionInformation(s, key, result);
     }

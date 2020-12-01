@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Export/ComponentKeyHandler.h
-//! @brief     Defines classes LabelMap and ComponentKeyHandler.
+//! @brief     Defines class ComponentKeyHandler.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

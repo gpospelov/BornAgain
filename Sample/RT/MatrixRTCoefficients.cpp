@@ -110,7 +110,7 @@ Eigen::Matrix2cd MatrixRTCoefficients::pMatrixHelper(double sign) const {
     result << alpha + sign * beta * b.z(), sign * beta * (b.x() - I * b.y()),
         sign * beta * (b.x() + I * b.y()), alpha - sign * beta * b.z();
 
-    return result;
+    return m_kz_sign * result;
 }
 
 Eigen::Matrix2cd MatrixRTCoefficients::computeP() const {
@@ -138,7 +138,8 @@ Eigen::Matrix2cd MatrixRTCoefficients::computeDeltaMatrix(double thickness) {
     const complex_t alpha = 0.5 * thickness * (m_lambda(1) + m_lambda(0));
 
     const Eigen::Matrix2cd exp2 = Eigen::DiagonalMatrix<complex_t, 2>(
-        {GetImExponential(thickness * m_lambda(1)), GetImExponential(thickness * m_lambda(0))});
+        {GetImExponential(m_kz_sign * thickness * m_lambda(1)),
+         GetImExponential(m_kz_sign * thickness * m_lambda(0))});
 
     // Compute resulting phase matrix according to exp(i p_m d_m) = exp1 * Q * exp2 * Q.adjoint();
     if (std::abs(m_b.mag() - 1.) < eps) {
@@ -149,7 +150,7 @@ Eigen::Matrix2cd MatrixRTCoefficients::computeDeltaMatrix(double thickness) {
         return Q * exp2 * Q.adjoint() / factor1;
 
     } else if (m_b.mag() < eps)
-        return Eigen::Matrix2cd::Identity() * GetImExponential(alpha);
+        return Eigen::Matrix2cd::Identity() * GetImExponential(m_kz_sign * alpha);
 
     throw std::runtime_error("Broken magnetic field vector");
 }

@@ -26,12 +26,14 @@ class Material;
 
 class MaterialKeyHandler {
 public:
-    std::map<const std::string, const Material*> materialMap() const;
-    std::string mat2key(const Material* sample) const;
     void insertMaterial(const Material* sample);
 
+    const std::map<const std::string, const Material*>& materialMap() const;
+    const std::string& mat2key(const Material* sample) const;
+
 private:
-    std::map<const Material*, const std::string> m_MatMap;
+    std::map<const Material*, const Material*> m_Mat2Unique;
+    std::map<const std::string, const Material*> m_Key2Mat;
 };
 
 #endif // BORNAGAIN_CORE_EXPORT_MATERIALKEYHANDLER_H

@@ -21,6 +21,7 @@
 class IParticle;
 class MultiLayer;
 class ComponentKeyHandler;
+class MaterialKeyHandler;
 
 //! Generates Python code snippet from domain (C++) objects representing sample construction.
 
@@ -52,6 +53,7 @@ private:
     std::string defineMultiLayers() const;
 
     std::unique_ptr<ComponentKeyHandler> m_objs;
+    std::unique_ptr<MaterialKeyHandler> m_materials;
 };
 
 #endif // BORNAGAIN_CORE_EXPORT_SAMPLETOPYTHON_H

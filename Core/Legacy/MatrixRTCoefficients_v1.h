@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V1_H
-#define BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V1_H
+#ifndef BORNAGAIN_CORE_LEGACY_MATRIXRTCOEFFICIENTS_V1_H
+#define BORNAGAIN_CORE_LEGACY_MATRIXRTCOEFFICIENTS_V1_H
 
 #include "Sample/RT/ILayerRTCoefficients.h"
 
@@ -66,4 +66,4 @@ public:
                                      //!< lambda=0
 };
 
-#endif // BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V1_H
+#endif // BORNAGAIN_CORE_LEGACY_MATRIXRTCOEFFICIENTS_V1_H

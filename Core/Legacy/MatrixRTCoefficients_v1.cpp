@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Tests/UnitTests/Core/Legacy/MatrixRTCoefficients_v1.h"
+#include "Core/Legacy/MatrixRTCoefficients_v1.h"
 
 MatrixRTCoefficients_v1* MatrixRTCoefficients_v1::clone() const {
     return new MatrixRTCoefficients_v1(*this);

@@ -6,7 +6,7 @@
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/Slice/KzComputation.h"
 #include "Sample/Specular/SpecularMagneticTanhStrategy.h"
-#include "Tests/UnitTests/Core/Legacy/SpecularMagneticStrategy_v2.h"
+#include "Core/Legacy/SpecularMagneticStrategy_v2.h"
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <utility>

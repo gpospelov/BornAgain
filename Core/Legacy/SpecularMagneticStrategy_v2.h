@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_V2_H
-#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_V2_H
+#ifndef BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V2_H
+#define BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V2_H
 
 #include "MatrixRTCoefficients_v2.h"
 #include "Sample/Specular/ISpecularStrategy.h"
@@ -67,4 +67,4 @@ private:
     findNormalizationCoefficients(const MatrixRTCoefficients_v2& coeff);
 };
 
-#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_V2_H
+#endif // BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V2_H

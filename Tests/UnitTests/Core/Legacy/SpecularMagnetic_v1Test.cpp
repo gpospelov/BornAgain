@@ -4,7 +4,7 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Processed/ProcessedSample.h"
 #include "Sample/RT/SimulationOptions.h"
-#include "SpecularMagneticStrategy_v1.h"
+#include "Core/Legacy/SpecularMagneticStrategy_v1.h"
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 

@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_V1_H
-#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_V1_H
+#ifndef BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V1_H
+#define BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V1_H
 
 #include "MatrixRTCoefficients_v1.h"
 #include "Sample/Specular/ISpecularStrategy.h"
@@ -36,4 +36,4 @@ public:
 
 }; // class SpecularMagneticStrategy_v1
 
-#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICSTRATEGY_V1_H
+#endif // BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V1_H

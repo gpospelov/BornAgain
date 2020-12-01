@@ -160,7 +160,7 @@ std::string SampleToPython::defineMaterials() const {
     result << std::setprecision(12);
     result << indent() << "# Define Materials\n";
     std::set<std::string> visitedMaterials;
-    for (auto it: themap) {
+    for (auto it : themap) {
         const std::string& key = it.first;
         if (visitedMaterials.find(key) != visitedMaterials.end())
             continue;

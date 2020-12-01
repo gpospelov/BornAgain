@@ -97,8 +97,8 @@ MultiLayer* MagneticLayerBuilder::buildSample() const {
 
     kvector_t layer_field = kvector_t(0.0, 0.0, 1e6);
     kvector_t particle_field(1e6, 0.0, 0.0);
-    Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
-    Material layer_material = HomogeneousMaterial("Vacuum", 0.0, 0.0, layer_field);
+    Material vacuum_material = HomogeneousMaterial("Vacuum0", 0.0, 0.0);
+    Material layer_material = HomogeneousMaterial("Vacuum1", 0.0, 0.0, layer_field);
     Material substrate_material = HomogeneousMaterial("Substrate", 7e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("MagParticle", 6e-4, 2e-8, particle_field);
 

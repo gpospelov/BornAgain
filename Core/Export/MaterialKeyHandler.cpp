@@ -20,20 +20,24 @@
 #include <stdexcept>
 
 void MaterialKeyHandler::insertMaterial(const Material* mat) {
-    for (const auto& it: m_Mat2Unique)
+    for (const auto& it : m_Mat2Unique)
         if (*it.first == *mat) {
             m_Mat2Unique.emplace(mat, it.first);
             return;
         }
     m_Mat2Unique.emplace(mat, mat);
 
-    const std::string key = "material_" + std::to_string(m_Key2Mat.size() + 1);
+    const std::string key = "material_" + mat->getName();
+    if (m_Key2Mat.count(key))
+        throw std::runtime_error(
+            "Material name " + mat->getName()
+            + " used more than once, which is not supported by Python exporter");
     m_Key2Mat.emplace(key, mat);
 }
 
 const std::string& MaterialKeyHandler::mat2key(const Material* mat) const {
     const Material* unique_mat = m_Mat2Unique.at(mat);
-    for (const auto& it: m_Key2Mat)
+    for (const auto& it : m_Key2Mat)
         if (it.second == unique_mat)
             return it.first;
     ASSERT(0);

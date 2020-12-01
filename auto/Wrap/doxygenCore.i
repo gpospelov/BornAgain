@@ -2169,18 +2169,18 @@ Returns default units to convert to.
 ";
 
 
-// File: namespaceINodeUtils.xml
-%feature("docstring")  INodeUtils::ChildNodesOfType "std::vector<const T*> INodeUtils::ChildNodesOfType(const INode &node)
-";
-
-%feature("docstring")  INodeUtils::OnlyChildOfType "const T* INodeUtils::OnlyChildOfType(const INode &node)
-";
-
-%feature("docstring")  INodeUtils::AllDescendantsOfType "std::vector<const T*> INodeUtils::AllDescendantsOfType(const INode &node)
-";
-
-
 // File: namespacemumufit.xml
+
+
+// File: namespacenode__progenity.xml
+%feature("docstring")  node_progenity::ChildNodesOfType "std::vector<const T*> node_progenity::ChildNodesOfType(const INode &node)
+";
+
+%feature("docstring")  node_progenity::OnlyChildOfType "const T* node_progenity::OnlyChildOfType(const INode &node)
+";
+
+%feature("docstring")  node_progenity::AllDescendantsOfType "std::vector<const T*> node_progenity::AllDescendantsOfType(const INode &node)
+";
 
 
 // File: namespaceObjectiveMetricUtils.xml
@@ -2608,7 +2608,7 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: ExportToPython_8h.xml
 
 
-// File: INodeUtils_8h.xml
+// File: NodeProgenity_8h.xml
 
 
 // File: PyFmt_8cpp.xml

@@ -37,9 +37,8 @@ bool MultiLayerUtils::ContainsCompatibleMaterials(const MultiLayer& multilayer) 
 }
 
 bool MultiLayerUtils::hasRoughness(const MultiLayer& sample) {
-    for (size_t i = 0; i < sample.numberOfLayers() - 1; i++) {
+    for (size_t i = 0; i < sample.numberOfLayers() - 1; i++)
         if (sample.layerInterface(i)->getRoughness())
             return true;
-    }
     return false;
 }

@@ -47,7 +47,7 @@ std::unique_ptr<IFresnelMap> createFresnelMap(const MultiLayer& sample,
 
 bool checkRegions(const std::vector<HomogeneousRegion>& regions) {
     double total_fraction = 0.0;
-    for (auto& region : regions)
+    for (const auto& region : regions)
         total_fraction += region.m_volume;
     return (total_fraction >= 0 && total_fraction <= 1);
 }
@@ -88,11 +88,11 @@ std::vector<ZLimits> particleRegions(const MultiLayer& multilayer, bool use_slic
     LayerFillLimits layer_fill_limits(bottom_coords);
     if (use_slicing) {
         for (size_t i = 0; i < multilayer.numberOfLayers(); ++i) {
-            auto p_layer = multilayer.layer(i);
+            auto layer = multilayer.layer(i);
             double offset = (i == 0) ? 0 : bottom_coords[i - 1];
-            for (auto p_layout : p_layer->layouts())
-                for (auto p_particle : p_layout->particles())
-                    layer_fill_limits.update(p_particle->bottomTopZ(), offset);
+            for (const auto* layout : layer->layouts())
+                for (const auto* particle : layout->particles())
+                    layer_fill_limits.update(particle->bottomTopZ(), offset);
         }
     }
     return layer_fill_limits.layerZLimits();
@@ -177,7 +177,7 @@ bool ProcessedSample::containsMagneticMaterial() const {
 }
 
 bool ProcessedSample::hasRoughness() const {
-    for (auto& slice : m_slices) {
+    for (const auto& slice : m_slices) {
         if (slice.topRoughness())
             return true;
     }
@@ -263,7 +263,7 @@ void ProcessedSample::initLayouts(const MultiLayer& sample) {
         if (i > 1)
             z_ref -= sample.layer(i - 1)->thickness();
         auto layer = sample.layer(i);
-        for (auto layout : layer->layouts()) {
+        for (const auto* layout : layer->layouts()) {
             m_layouts.emplace_back(*layout, m_slices, z_ref, m_fresnel_map.get(), m_polarized);
             mergeRegionMap(m_layouts.back().regionMap());
         }

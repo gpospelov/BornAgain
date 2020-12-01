@@ -23,14 +23,14 @@ void FormFactorCoherentSum::addCoherentPart(const FormFactorCoherentPart& part) 
 
 complex_t FormFactorCoherentSum::evaluate(const SimulationElement& sim_element) const {
     complex_t result{};
-    for (auto& part : m_parts)
+    for (const auto& part : m_parts)
         result += part.evaluate(sim_element);
     return result;
 }
 
 Eigen::Matrix2cd FormFactorCoherentSum::evaluatePol(const SimulationElement& sim_element) const {
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
-    for (auto& part : m_parts)
+    for (const auto& part : m_parts)
         result += part.evaluatePol(sim_element);
     return result;
 }

@@ -53,17 +53,4 @@ std::vector<std::string> stringUtils::split(const std::string& text, const std::
     return tokens;
 }
 
-std::string stringUtils::removeSubstring(const std::string& text, const std::string& substr) {
-    std::string result = text;
-    for (std::string::size_type i = result.find(substr); i != std::string::npos;
-         i = result.find(substr))
-        result.erase(i, substr.length());
-    return result;
-}
-
-std::string stringUtils::to_lower(std::string text) {
-    boost::to_lower(text);
-    return text;
-}
-
 } // namespace mumufit

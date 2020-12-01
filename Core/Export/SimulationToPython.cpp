@@ -16,7 +16,7 @@
 #include "Base/Utils/Algorithms.h"
 #include "Core/Computation/ConstantBackground.h"
 #include "Core/Computation/PoissonNoiseBackground.h"
-#include "Core/Export/INodeUtils.h"
+#include "Core/Export/NodeProgenity.h"
 #include "Core/Export/PyFmt.h"
 #include "Core/Export/PyFmt2.h"
 #include "Core/Export/PyFmtLimits.h"
@@ -456,11 +456,7 @@ const std::string defineMain =
 
 std::string SimulationToPython::generateSimulationCode(const ISimulation& simulation) {
     if (simulation.sample() == nullptr)
-        throw std::runtime_error("SimulationToPython::generateSimulationCode() -> Error. "
-                                 "ISimulation is not initialized.");
-
-    SampleToPython sampleGenerator;
-
-    return pyfmt::scriptPreamble() + sampleGenerator.generateSampleCode(*simulation.sample())
+        throw std::runtime_error("Cannot export: Simulation has no sample");
+    return pyfmt::scriptPreamble() + SampleToPython().generateSampleCode(*simulation.sample())
            + defineGetSimulation(&simulation) + defineSimulate + defineMain;
 }

@@ -44,15 +44,15 @@ Crystal* Crystal::clone() const {
 }
 
 IFormFactor* Crystal::createTotalFormFactor(const IFormFactor& meso_crystal_form_factor,
-                                            const IRotation* p_rotation,
+                                            const IRotation* rot,
                                             const kvector_t& translation) const {
-    Lattice3D transformed_lattice = transformedLattice(p_rotation);
-    std::unique_ptr<IParticle> P_basis_clone{m_basis->clone()};
-    if (p_rotation)
-        P_basis_clone->rotate(*p_rotation);
-    P_basis_clone->translate(translation);
-    const std::unique_ptr<IFormFactor> P_basis_ff(P_basis_clone->createFormFactor());
-    return new FormFactorCrystal(transformed_lattice, *P_basis_ff, meso_crystal_form_factor,
+    Lattice3D transformed_lattice = transformedLattice(rot);
+    std::unique_ptr<IParticle> basis_clone{m_basis->clone()};
+    if (rot)
+        basis_clone->rotate(*rot);
+    basis_clone->translate(translation);
+    const std::unique_ptr<IFormFactor> basis_ff(basis_clone->createFormFactor());
+    return new FormFactorCrystal(transformed_lattice, *basis_ff, meso_crystal_form_factor,
                                  m_position_variance);
 }
 
@@ -63,8 +63,8 @@ std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const {
         return {};
     auto particles = m_basis->decompose();
     ZLimits limits;
-    for (auto p_particle : particles) {
-        auto sliced_particle = p_particle->createSlicedParticle(limits);
+    for (const auto* particle : particles) {
+        auto sliced_particle = particle->createSlicedParticle(limits);
         result.insert(result.end(), sliced_particle.m_regions.begin(),
                       sliced_particle.m_regions.end());
     }
@@ -73,10 +73,10 @@ std::vector<HomogeneousRegion> Crystal::homogeneousRegions() const {
     return result;
 }
 
-Lattice3D Crystal::transformedLattice(const IRotation* p_rotation) const {
-    if (!p_rotation)
+Lattice3D Crystal::transformedLattice(const IRotation* rot) const {
+    if (!rot)
         return m_lattice;
-    return m_lattice.transformed(p_rotation->getTransform3D());
+    return m_lattice.transformed(rot->getTransform3D());
 }
 
 std::vector<const INode*> Crystal::getChildren() const {

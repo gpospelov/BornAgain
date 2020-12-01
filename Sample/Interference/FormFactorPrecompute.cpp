@@ -19,9 +19,8 @@ std::vector<complex_t>
 FormFactorPrecompute::scalar(const SimulationElement& sim_element,
                              const std::vector<FormFactorCoherentSum>& ff_wrappers) {
     std::vector<complex_t> result;
-    for (auto& ffw : ff_wrappers) {
+    for (const auto& ffw : ff_wrappers)
         result.push_back(ffw.evaluate(sim_element));
-    }
     return result;
 }
 
@@ -29,8 +28,7 @@ FormFactorPrecompute::matrixFFVector_t
 FormFactorPrecompute::polarized(const SimulationElement& sim_element,
                                 const std::vector<FormFactorCoherentSum>& ff_wrappers) {
     FormFactorPrecompute::matrixFFVector_t result;
-    for (auto& ffw : ff_wrappers) {
+    for (const auto& ffw : ff_wrappers)
         result.push_back(ffw.evaluatePol(sim_element));
-    }
     return result;
 }

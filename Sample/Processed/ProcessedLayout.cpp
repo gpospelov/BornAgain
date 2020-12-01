@@ -43,8 +43,8 @@ ProcessedLayout::ProcessedLayout(const ParticleLayout& layout, const std::vector
     : m_fresnel_map(p_fresnel_map), m_polarized(polarized) {
     m_n_slices = slices.size();
     collectFormFactors(layout, slices, z_ref);
-    if (auto p_iff = layout.interferenceFunction())
-        m_iff.reset(p_iff->clone());
+    if (const auto* iff = layout.interferenceFunction())
+        m_iff.reset(iff->clone());
 }
 
 ProcessedLayout::ProcessedLayout(ProcessedLayout&& other) {
@@ -131,7 +131,7 @@ FormFactorCoherentSum ProcessedLayout::processParticle(const IParticle& particle
 
 void ProcessedLayout::mergeRegionMap(
     const std::map<size_t, std::vector<HomogeneousRegion>>& region_map) {
-    for (auto& entry : region_map) {
+    for (const auto& entry : region_map) {
         size_t layer_index = entry.first;
         auto regions = entry.second;
         m_region_map[layer_index].insert(m_region_map[layer_index].begin(), regions.begin(),

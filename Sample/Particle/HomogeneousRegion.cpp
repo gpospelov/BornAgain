@@ -26,7 +26,7 @@ T averageData(const Material& layer_mat, const std::vector<HomogeneousRegion>& r
               std::function<T(const Material&)> average) {
     const T layer_data = average(layer_mat);
     T averaged_data = layer_data;
-    for (auto& region : regions)
+    for (const auto& region : regions)
         averaged_data += region.m_volume * (average(region.m_material) - layer_data);
     return averaged_data;
 }

@@ -23,6 +23,11 @@ class MultiLayer;
 
 //! @ingroup materials
 
+//! Functions that are only used in the swig *.i files
+namespace swigAPI {
+
+std::vector<double> generateZValues(int n_points, double z_min, double z_max);
+
 //! Calculate average material profile for given multilayer
 std::vector<complex_t> materialProfileSLD(const MultiLayer& multilayer, int n_points, double z_min,
                                           double z_max);
@@ -30,7 +35,6 @@ std::vector<complex_t> materialProfileSLD(const MultiLayer& multilayer, int n_po
 //! Get default z limits for generating a material profile
 std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer& multilayer);
 
-//! Generate z values (equidistant) for use in materialProfileSLD
-std::vector<double> generateZValues(int n_points, double z_min, double z_max);
+} // namespace swigAPI
 
 #endif // BORNAGAIN_SAMPLE_PROCESSED_MULTILAYERFUNCS_H

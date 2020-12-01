@@ -34,8 +34,8 @@ SlicedFormFactorList SlicedFormFactorList::createSlicedFormFactors(const IPartic
                                                                    double z_ref) {
     SlicedFormFactorList result;
     auto particles = particle.decompose();
-    for (auto p_particle : particles) {
-        result.addParticle(*p_particle, slices, z_ref);
+    for (auto* particle : particles) {
+        result.addParticle(*particle, slices, z_ref);
     }
     return result;
 }

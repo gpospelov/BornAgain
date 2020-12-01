@@ -26,7 +26,7 @@ class Material;
 
 class MaterialKeyHandler {
 public:
-    std::map<const Material*, const std::string> materialMap() const;
+    std::map<const std::string, const Material*> materialMap() const;
     std::string mat2key(const Material* sample) const;
     void insertMaterial(const Material* sample);
 

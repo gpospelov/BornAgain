@@ -1226,7 +1226,7 @@ Stores Material instances, associates them with given tag, and provides unique k
 C++ includes: MaterialKeyHandler.h
 ";
 
-%feature("docstring")  MaterialKeyHandler::materialMap "std::map< const Material *, const std::string > MaterialKeyHandler::materialMap() const
+%feature("docstring")  MaterialKeyHandler::materialMap "std::map< const std::string, const Material * > MaterialKeyHandler::materialMap() const
 ";
 
 %feature("docstring")  MaterialKeyHandler::mat2key "std::string MaterialKeyHandler::mat2key(const Material *sample) const

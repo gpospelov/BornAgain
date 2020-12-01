@@ -160,11 +160,12 @@ std::string SampleToPython::defineMaterials() const {
     result << std::setprecision(12);
     result << indent() << "# Define Materials\n";
     std::set<std::string> visitedMaterials;
-    for (auto it = themap.begin(); it != themap.end(); ++it) {
-        if (visitedMaterials.find(it->second) != visitedMaterials.end())
+    for (auto it: themap) {
+        const std::string& key = it.first;
+        if (visitedMaterials.find(key) != visitedMaterials.end())
             continue;
-        visitedMaterials.insert(it->second);
-        const Material* p_material = it->first;
+        visitedMaterials.insert(key);
+        const Material* p_material = it.second;
         const auto factory_name = factory_names.find(p_material->typeID());
         if (factory_name == factory_names.cend())
             throw std::runtime_error(

@@ -22,7 +22,7 @@ std::string MaterialKeyHandler::mat2key(const Material* mat) const {
     return m_MatMap.at(mat);
 }
 
-std::map<const Material*, const std::string> MaterialKeyHandler::materialMap() const {
+std::map<const std::string, const Material*> MaterialKeyHandler::materialMap() const {
     return {};
 }
 

@@ -456,11 +456,7 @@ const std::string defineMain =
 
 std::string SimulationToPython::generateSimulationCode(const ISimulation& simulation) {
     if (simulation.sample() == nullptr)
-        throw std::runtime_error("SimulationToPython::generateSimulationCode() -> Error. "
-                                 "ISimulation is not initialized.");
-
-    SampleToPython sampleGenerator;
-
-    return pyfmt::scriptPreamble() + sampleGenerator.generateSampleCode(*simulation.sample())
+        throw std::runtime_error("Cannot export: Simulation has no sample");
+    return pyfmt::scriptPreamble() + SampleToPython().generateSampleCode(*simulation.sample())
            + defineGetSimulation(&simulation) + defineSimulate + defineMain;
 }

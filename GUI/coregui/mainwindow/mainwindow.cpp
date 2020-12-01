@@ -208,7 +208,7 @@ void MainWindow::initViews() {
     m_tabWidget->setTabToolTip(IMPORT, "Import intensity data to fit");
 
     m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulationview.svg"),
-                           "ISimulation");
+                           "Simulation");
     m_tabWidget->setTabToolTip(SIMULATION, "Run simulation");
 
     m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobview.svg"), "Jobs");

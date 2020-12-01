@@ -191,7 +191,7 @@ GroupInfoCatalog::GroupInfoCatalog() {
     addInfo(info);
 
     info = GroupInfo("Variance group");
-    info.add("VarianceSimFunction", "ISimulation value based");
+    info.add("VarianceSimFunction", "Simulation value based");
     info.add("VarianceConstantFunction", "Constant");
     info.setDefaultType("VarianceSimFunction");
     addInfo(info);

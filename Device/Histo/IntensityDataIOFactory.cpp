@@ -48,7 +48,7 @@ OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& fi
     // Try to read ASCII by default. Binary maps to ASCII.
     // If the file is not actually a matrix of numbers,
     // the error will be thrown during the reading.
-    readOutputData(file_name,
+    return readOutputData(file_name,
                    [](std::istream& s) { return OutputDataReadWriteNumpyTXT().readOutputData(s); });
 }
 
@@ -133,13 +133,10 @@ void IntensityDataIOFactory::writeSimulationResult(const SimulationResult& resul
 OutputData<double>*
 IntensityDataIOFactory::readOutputData(const std::string& file_name,
                                        std::function<OutputData<double>*(std::istream&)> readData) {
+
     if (!FileSystemUtils::IsFileExists(file_name))
         return nullptr;
 
-    return readData(getFromFilteredStream(file_name));
-}
-
-std::stringstream IntensityDataIOFactory::getFromFilteredStream(const std::string& file_name) {
     using namespace DataFormatUtils;
     std::ifstream input_stream;
     std::ios_base::openmode openmode = std::ios::in;
@@ -167,7 +164,8 @@ std::stringstream IntensityDataIOFactory::getFromFilteredStream(const std::strin
         input_filtered.push(boost::iostreams::bzip2_decompressor());
     input_filtered.push(input_stream);
     // we use stringstream since it provides random access which is important for tiff files
-    std::stringstream ret;
-    boost::iostreams::copy(input_filtered, ret);
-    return ret;
+    std::stringstream str;
+    boost::iostreams::copy(input_filtered, str);
+
+    return readData(str);
 }

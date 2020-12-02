@@ -63,8 +63,6 @@ public:
     static void writeSimulationResult(const SimulationResult& result, const std::string& file_name);
 
 private:
-    static std::stringstream getFromFilteredStream(const std::string& file_name);
-    
     static OutputData<double>* readOutputData(const std::string& file_name,
         std::function<OutputData<double>* (std::istream&)> readData);
 

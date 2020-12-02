@@ -49,7 +49,7 @@ template <typename T> std::string scientific(const T value, int n = 10);
 std::string to_lower(std::string text);
 
 //! Cuts any of the chars given in whitespace from start and end of str.
-inline std::string trim(const std::string& str, const std::string& whitespace = " \t");
+std::string trim(const std::string& str, const std::string& whitespace = " \t");
 
 } // namespace StringUtils
 

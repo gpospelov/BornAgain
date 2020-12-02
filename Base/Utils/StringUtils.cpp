@@ -88,7 +88,7 @@ std::string StringUtils::to_lower(std::string text) {
     return text;
 }
 
-std::string trim(const std::string& str, const std::string& whitespace = " \t") {
+std::string StringUtils::trim(const std::string& str, const std::string& whitespace) {
     const auto strBegin = str.find_first_not_of(whitespace);
 
     if (strBegin == std::string::npos)

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H
 #define BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H
 
-#include <fancymainwindow.h>
+#include <qt-manhattan-style/fancymainwindow.h>
 
 namespace Manhattan {
 class FancyTabWidget;

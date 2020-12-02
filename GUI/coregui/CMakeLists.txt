@@ -93,7 +93,7 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 # --- dependencies ---------
 target_include_directories(${library_name} PUBLIC
-    ${ManhattanStyle_INCLUDE_DIRS}
+    ${CMAKE_SOURCE_DIR}/ThirdParty/GUI # for qt-manhattan-style
     ${qcustomplot_INCLUDE_DIRS}
     ${CMAKE_SOURCE_DIR})
 target_link_libraries(${library_name}

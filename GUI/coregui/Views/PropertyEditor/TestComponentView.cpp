@@ -32,7 +32,7 @@
 #include <QPushButton>
 #include <QTreeView>
 #include <limits>
-#include <minisplitter.h>
+#include <qt-manhattan-style/minisplitter.h>
 
 TestComponentView::TestComponentView(MainWindow* mainWindow)
     : m_mainWindow(mainWindow)

@@ -19,7 +19,7 @@
 #include <QAction>
 #include <QDockWidget>
 #include <QTimer>
-#include <fancymainwindow.h>
+#include <qt-manhattan-style/fancymainwindow.h>
 
 DocksController::DocksController(Manhattan::FancyMainWindow* mainWindow)
     : QObject(mainWindow), m_mainWindow(mainWindow) {

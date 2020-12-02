@@ -4,7 +4,7 @@ simulated with BornAgain.
 """
 
 import bornagain as ba
-from bornagain import deg, nm, kvector_t
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 # Magnetization of the particle's core material (A/m)
 magnetization_core = kvector_t(0.0, 0.0, 1e7)
@@ -14,31 +14,41 @@ def get_sample():
     """
     Returns a sample with a magnetic core-shell particle in a solvent.
     """
-    # Defining Materials
-    mat_solvent = ba.HomogeneousMaterial("Solvent", 5e-6, 0.0)
-    mat_core = ba.HomogeneousMaterial("Core", 6e-6, 2e-8, magnetization_core)
-    mat_shell = ba.HomogeneousMaterial("Shell", 1e-7, 2e-8)
 
-    # Defining Layer
-    solvent_layer = ba.Layer(mat_solvent)
+    # Define Materials
+    magnetic_field = kvector_t(0, 0, 10000000)
+    material_Core = ba.HomogeneousMaterial("Core", 6e-06, 2e-08, magnetic_field)
+    material_Shell = ba.HomogeneousMaterial("Shell", 1e-07, 2e-08)
+    material_Solvent = ba.HomogeneousMaterial("Solvent", 5e-06, 0.0)
 
-    # Defining particle layout with a core-shell particle
+    # Define form factors
+    ff_1 = ba.FormFactorFullSphere(10.0*nm)
+    ff_2 = ba.FormFactorFullSphere(12.0*nm)
+
+    # Define particles
+    particle_1 = ba.Particle(material_Core, ff_1)
+    particle_1_position = kvector_t(0.0*nm, 0.0*nm, 2.0*nm)
+    particle_1.setPosition(particle_1_position)
+    particle_2 = ba.Particle(material_Shell, ff_2)
+
+    # Define core shell particles
+    particle_3 = ba.ParticleCoreShell(particle_2, particle_1)
+
+    # Define particle layouts
     layout = ba.ParticleLayout()
-    core_sphere_ff = ba.FormFactorFullSphere(10*nm)
-    shell_sphere_ff = ba.FormFactorFullSphere(12*nm)
-    core = ba.Particle(mat_core, core_sphere_ff)
-    shell = ba.Particle(mat_shell, shell_sphere_ff)
-    position = kvector_t(0.0, 0.0, 2.0)
-    particleCoreShell = ba.ParticleCoreShell(shell, core, position)
-    layout.addParticle(particleCoreShell)
+    layout.addParticle(particle_3, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
 
-    # Adding layout to layer
-    solvent_layer.addLayout(layout)
+    # Define layers
+    layer = ba.Layer(material_Solvent)
+    layer.addLayout(layout)
 
-    # Defining Multilayer with single layer
-    multiLayer = ba.MultiLayer()
-    multiLayer.addLayer(solvent_layer)
-    return multiLayer
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer)
+
+    return sample
 
 
 def get_simulation():

@@ -2,7 +2,7 @@
 radial paracrystal
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 phi_min, phi_max = -2.0, 2.0
 alpha_min, alpha_max = 0.0, 2.0
@@ -12,33 +12,41 @@ def get_sample():
     """
     Returns a sample with cylinders on a substrate that form a radial paracrystal.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
-    cylinder = ba.Particle(m_particle, cylinder_ff)
+    # Define Materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    interference = ba.InterferenceFunctionRadialParaCrystal(20.0*nm, 1e3*nm)
-    pdf = ba.FTDistribution1DGauss(7*nm)
-    interference.setProbabilityDistribution(pdf)
+    # Define form factors
+    ff = ba.FormFactorCylinder(5.0*nm, 5.0*nm)
 
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder, 1.0)
-    particle_layout.setInterferenceFunction(interference)
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
 
-    # assembling the sample
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-    substrate_layer = ba.Layer(m_substrate)
+    # Define interference functions
+    iff = ba.InterferenceFunctionRadialParaCrystal(20.0*nm, 1000.0*nm)
+    iff_pdf = ba.FTDistribution1DGauss(7.0*nm)
+    iff.setProbabilityDistribution(iff_pdf)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    # print(multi_layer.treeToString())
-    return multi_layer
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setInterferenceFunction(iff)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
 def get_simulation():

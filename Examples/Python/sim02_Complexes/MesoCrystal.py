@@ -2,46 +2,54 @@
 Cylindrical mesocrystal on a substrate
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
     """
     Returns a sample with a cylindrically shaped mesocrystal on a substrate.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # mesocrystal lattice
-    lattice_basis_1 = ba.kvector_t(5.0, 0.0, 0.0)
-    lattice_basis_2 = ba.kvector_t(0.0, 5.0, 0.0)
-    lattice_basis_3 = ba.kvector_t(0.0, 0.0, 5.0)
-    lattice = ba.Lattice3D(lattice_basis_1, lattice_basis_2, lattice_basis_3)
+    # Define Materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    # spherical particle that forms the base of the mesocrystal
-    sphere_ff = ba.FormFactorFullSphere(2*nm)
-    sphere = ba.Particle(m_particle, sphere_ff)
+    # Define form factors
+    ff_1 = ba.FormFactorFullSphere(2.0*nm)
+    ff_2 = ba.FormFactorCylinder(20.0*nm, 50.0*nm)
 
-    # crystal structure
-    crystal = ba.Crystal(sphere, lattice)
+    # Define particles
+    particle_1 = ba.Particle(material_Particle, ff_1)
 
-    # mesocrystal
-    meso_ff = ba.FormFactorCylinder(20*nm, 50*nm)
-    meso = ba.MesoCrystal(crystal, meso_ff)
+    # Define 3D lattices
+    lattice = ba.Lattice3D(ba.kvector_t(5.0*nm, 0.0*nm, 0.0*nm),
+                           ba.kvector_t(0.0*nm, 5.0*nm, 0.0*nm),
+                           ba.kvector_t(0.0*nm, 0.0*nm, 5.0*nm))
 
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(meso)
+    # Define crystals
+    crystal = ba.Crystal(particle_1, lattice)
 
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-    substrate_layer = ba.Layer(m_substrate)
+    # Define mesocrystals
+    particle_2 = ba.MesoCrystal(crystal, ff_2)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    return multi_layer
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle_2, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
 def get_simulation():

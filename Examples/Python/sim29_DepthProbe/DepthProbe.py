@@ -24,7 +24,7 @@ to the sample, z = 0 corresponding to the sample
 surface
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 # layer thicknesses in angstroms
 t_Ti = 130.0*angstrom
@@ -55,31 +55,29 @@ def get_sample():
     Constructs a sample with one resonating Ti/Pt layer
     """
 
-    # define materials
-    m_Si = ba.HomogeneousMaterial("Si", 3.3009e-05, 0.0)
-    m_Ti = ba.HomogeneousMaterial("Ti", -3.0637e-05, 1.5278e-08)
-    m_TiO2 = ba.HomogeneousMaterial("TiO2", 4.1921e-05, 8.1293e-09)
-    m_Pt = ba.HomogeneousMaterial("Pt", 1.0117e-04, 3.01822e-08)
-    m_D2O = ba.HomogeneousMaterial("D2O", 1.0116e-04, 1.8090e-12)
+    # Define Materials
+    material_D2O = ba.HomogeneousMaterial("D2O", 0.00010116, 1.809e-12)
+    material_Pt = ba.HomogeneousMaterial("Pt", 0.00010117, 3.01822e-08)
+    material_Si = ba.HomogeneousMaterial("Si", 3.3009e-05, 0.0)
+    material_Ti = ba.HomogeneousMaterial("Ti", -3.0637e-05, 1.5278e-08)
+    material_TiO2 = ba.HomogeneousMaterial("TiO2", 4.1921e-05, 8.1293e-09)
 
-    # create layers
-    l_Si = ba.Layer(m_Si)
-    l_Ti = ba.Layer(m_Ti, 130.0*angstrom)
-    l_Pt = ba.Layer(m_Pt, 320.0*angstrom)
-    l_Ti_top = ba.Layer(m_Ti, 100.0*angstrom)
-    l_TiO2 = ba.Layer(m_TiO2, 30.0*angstrom)
-    l_D2O = ba.Layer(m_D2O)
+    # Define layers
+    layer_1 = ba.Layer(material_Si)
+    layer_2 = ba.Layer(material_Ti, 13.0*nm)
+    layer_3 = ba.Layer(material_Pt, 32.0*nm)
+    layer_4 = ba.Layer(material_Ti, 10.0*nm)
+    layer_5 = ba.Layer(material_TiO2, 3.0*nm)
+    layer_6 = ba.Layer(material_D2O)
 
-    # construct sample
+    # Define sample
     sample = ba.MultiLayer()
-    sample.addLayer(l_Si)
-
-    sample.addLayer(l_Ti)
-    sample.addLayer(l_Pt)
-
-    sample.addLayer(l_Ti_top)
-    sample.addLayer(l_TiO2)
-    sample.addLayer(l_D2O)
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+    sample.addLayer(layer_3)
+    sample.addLayer(layer_4)
+    sample.addLayer(layer_5)
+    sample.addLayer(layer_6)
 
     return sample
 

@@ -2,7 +2,7 @@
 Spheres on a hexagonal lattice
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -10,29 +10,44 @@ def get_sample():
     Returns a sample with spherical particles on a substrate,
     forming a hexagonal 2D lattice.
     """
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    sphere_ff = ba.FormFactorFullSphere(10.0*nm)
-    sphere = ba.Particle(m_particle, sphere_ff)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(sphere)
+    # Define Materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    interference = ba.InterferenceFunction2DLattice(
-        ba.HexagonalLattice2D(20.0*nm, 0*deg))
-    pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm, 0)
-    interference.setDecayFunction(pdf)
+    # Define form factors
+    ff = ba.FormFactorFullSphere(10.0*nm)
 
-    particle_layout.setInterferenceFunction(interference)
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
 
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-    substrate_layer = ba.Layer(m_substrate, 0)
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    return multi_layer
+    # Define 2D lattices
+    lattice = ba.BasicLattice2D(20.0*nm, 20.0*nm, 120.0*deg, 0.0*deg)
+
+    # Define interference functions
+    iff = ba.InterferenceFunction2DLattice(lattice)
+    iff_pdf = ba.FTDecayFunction2DCauchy(10.0*nm, 10.0*nm, 0.0*deg)
+    iff.setDecayFunction(iff_pdf)
+
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setInterferenceFunction(iff)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.00288675134595)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
 def get_simulation():

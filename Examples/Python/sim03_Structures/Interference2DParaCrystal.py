@@ -2,43 +2,54 @@
 2D paracrystal
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm, micrometer
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
     """
     Returns a sample with cylinders on a substrate, forming a 2D paracrystal
     """
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(4*nm, 5*nm)
-    cylinder = ba.Particle(m_particle, cylinder_ff)
+    # Define Materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    interference = ba.InterferenceFunction2DParaCrystal(
-        ba.SquareLattice2D(10.0*nm), 0.0, 20.0*micrometer, 20.0*micrometer)
-    interference.setIntegrationOverXi(True)
-    pdf = ba.FTDistribution2DCauchy(1.0*nm, 1.0*nm, 0)
-    interference.setProbabilityDistributions(pdf, pdf)
+    # Define form factors
+    ff = ba.FormFactorCylinder(4.0*nm, 5.0*nm)
 
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder, 1.0)
-    particle_layout.setInterferenceFunction(interference)
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
 
-    # assembling the sample
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
+    # Define 2D lattices
+    lattice = ba.BasicLattice2D(10.0*nm, 10.0*nm, 90.0*deg, 0.0*deg)
 
-    substrate_layer = ba.Layer(m_substrate)
+    # Define interference functions
+    iff = ba.InterferenceFunction2DParaCrystal(lattice, 0.0*nm, 20000.0*nm,
+                                               20000.0*nm)
+    iff.setIntegrationOverXi(True)
+    iff_pdf_1 = ba.FTDistribution2DCauchy(1.0*nm, 1.0*nm, 0.0*deg)
+    iff_pdf_2 = ba.FTDistribution2DCauchy(1.0*nm, 1.0*nm, 0.0*deg)
+    iff.setProbabilityDistributions(iff_pdf_1, iff_pdf_2)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    print(multi_layer.parametersToString())
-    print(multi_layer.treeToString())
-    return multi_layer
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setInterferenceFunction(iff)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
 def get_simulation():

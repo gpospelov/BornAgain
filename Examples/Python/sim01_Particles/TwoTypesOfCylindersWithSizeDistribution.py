@@ -2,7 +2,7 @@
 Mixture cylinder particles with different size distribution
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -10,57 +10,47 @@ def get_sample():
     Returns a sample with cylinders in a homogeneous medium ("Vacuum").
     The cylinders are a 95:5 mixture of two different size distributions.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles #1
-    radius1 = 5.0*nm
-    height1 = radius1
-    sigma1 = radius1*0.2
+    # Define Materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    cylinder_ff1 = ba.FormFactorCylinder(radius1, height1)
-    cylinder1 = ba.Particle(m_particle, cylinder_ff1)
+    # Define form factors
+    ff_1 = ba.FormFactorCylinder(5.0*nm, 5.0*nm)
+    ff_2 = ba.FormFactorCylinder(10.0*nm, 10.0*nm)
 
-    gauss_distr1 = ba.DistributionGaussian(radius1, sigma1)
+    # Define particles
+    particle_1 = ba.Particle(material_Particle, ff_1)
+    particle_2 = ba.Particle(material_Particle, ff_2)
 
-    nparticles = 150
-    sigma_factor = 3.0
+    # Define particles with parameter following a distribution
+    distr_1 = ba.DistributionGaussian(5.0*nm, 1.0*nm)
+    par_distr_1 = ba.ParameterDistribution("/Particle/Cylinder/Radius",
+                                           distr_1, 150, 3.0,
+                                           ba.RealLimits.nonnegative())
+    particle_distrib_1 = ba.ParticleDistribution(particle_1, par_distr_1)
+    distr_2 = ba.DistributionGaussian(10.0*nm, 0.2*nm)
+    par_distr_2 = ba.ParameterDistribution("/Particle/Cylinder/Radius",
+                                           distr_2, 150, 3.0,
+                                           ba.RealLimits.nonnegative())
+    particle_distrib_2 = ba.ParticleDistribution(particle_2, par_distr_2)
 
-    # limits will assure, that generated Radius'es are >=0
-    limits = ba.RealLimits.nonnegative()
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle_distrib_1, 0.95)
+    layout.addParticle(particle_distrib_2, 0.05)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
 
-    par_distr1 = ba.ParameterDistribution("/Particle/Cylinder/Radius",
-                                          gauss_distr1, nparticles,
-                                          sigma_factor, limits)
-    part_coll1 = ba.ParticleDistribution(cylinder1, par_distr1)
+    # Define layers
+    layer = ba.Layer(material_Vacuum)
+    layer.addLayout(layout)
 
-    # collection of particles #2
-    radius2 = 10.0*nm
-    height2 = radius2
-    sigma2 = radius2*0.02
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer)
 
-    cylinder_ff2 = ba.FormFactorCylinder(radius2, height2)
-    cylinder2 = ba.Particle(m_particle, cylinder_ff2)
-
-    gauss_distr2 = ba.DistributionGaussian(radius2, sigma2)
-
-    par_distr2 = ba.ParameterDistribution("/Particle/Cylinder/Radius",
-                                          gauss_distr2, nparticles,
-                                          sigma_factor, limits)
-    part_coll2 = ba.ParticleDistribution(cylinder2, par_distr2)
-
-    # assembling the sample
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(part_coll1, 0.95)
-    particle_layout.addParticle(part_coll2, 0.05)
-
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    return multi_layer
+    return sample
 
 
 def get_simulation():

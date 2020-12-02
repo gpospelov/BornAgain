@@ -2,7 +2,7 @@
 Cylinders with size distribution
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -10,38 +10,38 @@ def get_sample():
     Return a sample with cylinders on a substrate.
     The cylinders have a Gaussian size distribution.
     """
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # cylindrical particle
-    radius = 5*nm
-    height = radius
-    cylinder_ff = ba.FormFactorCylinder(radius, height)
-    cylinder = ba.Particle(m_particle, cylinder_ff)
+    # Define Materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    # collection of particles with size distribution
-    nparticles = 100
-    sigma = 0.2*radius
+    # Define form factors
+    ff = ba.FormFactorCylinder(5.0*nm, 5.0*nm)
 
-    gauss_distr = ba.DistributionGaussian(radius, sigma)
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
 
-    sigma_factor = 2.0
-    par_distr = ba.ParameterDistribution("/Particle/Cylinder/Radius",
-                                         gauss_distr, nparticles, sigma_factor)
-    # by uncommenting the line below, the height of the cylinders
-    #   can be scaled proportionally to the radius:
-    # par_distr.linkParameter("/Particle/Cylinder/Height")
-    part_coll = ba.ParticleDistribution(cylinder, par_distr)
+    # Define particles with parameter following a distribution
+    distr_1 = ba.DistributionGaussian(5.0*nm, 1.0*nm)
+    par_distr_1 = ba.ParameterDistribution("/Particle/Cylinder/Radius", distr_1,
+                                           100, 2.0)
+    particle_distrib = ba.ParticleDistribution(particle, par_distr_1)
 
-    # assembling the sample
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(part_coll)
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle_distrib, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
 
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    return multi_layer
+    # Define layers
+    layer = ba.Layer(material_Vacuum)
+    layer.addLayout(layout)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer)
+
+    return sample
 
 
 def get_simulation():

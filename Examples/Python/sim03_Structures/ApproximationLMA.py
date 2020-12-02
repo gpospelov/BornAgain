@@ -2,7 +2,7 @@
 Cylinders of two different sizes in Local Monodisperse Approximation
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -10,48 +10,52 @@ def get_sample():
     Returns a sample with cylinders of two different sizes on a substrate.
     The cylinder positions are modelled in Local Monodisperse Approximation.
     """
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # cylindrical particle 1
-    radius1 = 5*nm
-    height1 = radius1
-    cylinder_ff1 = ba.FormFactorCylinder(radius1, height1)
-    cylinder1 = ba.Particle(m_particle, cylinder_ff1)
+    # Define Materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    # cylindrical particle 2
-    radius2 = 8*nm
-    height2 = radius2
-    cylinder_ff2 = ba.FormFactorCylinder(radius2, height2)
-    cylinder2 = ba.Particle(m_particle, cylinder_ff2)
+    # Define form factors
+    ff_1 = ba.FormFactorCylinder(5.0*nm, 5.0*nm)
+    ff_2 = ba.FormFactorCylinder(8.0*nm, 8.0*nm)
 
-    # interference function1
-    interference1 = ba.InterferenceFunctionRadialParaCrystal(16.8*nm, 1e3*nm)
-    pdf = ba.FTDistribution1DGauss(3*nm)
-    interference1.setProbabilityDistribution(pdf)
+    # Define particles
+    particle_1 = ba.Particle(material_Particle, ff_1)
+    particle_2 = ba.Particle(material_Particle, ff_2)
 
-    # interference function2
-    interference2 = ba.InterferenceFunctionRadialParaCrystal(22.8*nm, 1e3*nm)
-    interference2.setProbabilityDistribution(pdf)
+    # Define interference functions
+    iff_1 = ba.InterferenceFunctionRadialParaCrystal(16.8*nm, 1000.0*nm)
+    iff_1_pdf = ba.FTDistribution1DGauss(3.0*nm)
+    iff_1.setProbabilityDistribution(iff_1_pdf)
+    iff_2 = ba.InterferenceFunctionRadialParaCrystal(22.8*nm, 1000.0*nm)
+    iff_2_pdf = ba.FTDistribution1DGauss(3.0*nm)
+    iff_2.setProbabilityDistribution(iff_2_pdf)
 
-    # assembling the sample
-    particle_layout1 = ba.ParticleLayout()
-    particle_layout1.addParticle(cylinder1, 0.8)
-    particle_layout1.setInterferenceFunction(interference1)
+    # Define particle layouts
+    layout_1 = ba.ParticleLayout()
+    layout_1.addParticle(particle_1, 0.8)
+    layout_1.setInterferenceFunction(iff_1)
+    layout_1.setWeight(1)
+    layout_1.setTotalParticleSurfaceDensity(0.01)
+    layout_2 = ba.ParticleLayout()
+    layout_2.addParticle(particle_2, 0.2)
+    layout_2.setInterferenceFunction(iff_2)
+    layout_2.setWeight(1)
+    layout_2.setTotalParticleSurfaceDensity(0.01)
 
-    particle_layout2 = ba.ParticleLayout()
-    particle_layout2.addParticle(cylinder2, 0.2)
-    particle_layout2.setInterferenceFunction(interference2)
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout_1)
+    layer_1.addLayout(layout_2)
+    layer_2 = ba.Layer(material_Substrate)
 
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout1)
-    vacuum_layer.addLayout(particle_layout2)
-    substrate_layer = ba.Layer(m_substrate)
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    return multi_layer
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
 def get_simulation():

@@ -48,8 +48,8 @@ OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& fi
     // Try to read ASCII by default. Binary maps to ASCII.
     // If the file is not actually a matrix of numbers,
     // the error will be thrown during the reading.
-    return readOutputData(file_name,
-                   [](std::istream& s) { return OutputDataReadWriteNumpyTXT().readOutputData(s); });
+    return readOutputData(
+        file_name, [](std::istream& s) { return OutputDataReadWriteNumpyTXT().readOutputData(s); });
 }
 
 OutputData<double>* IntensityDataIOFactory::readReflectometryData(const std::string& file_name) {
@@ -93,7 +93,7 @@ void IntensityDataIOFactory::writeOutputData(const std::string& file_name,
 #ifdef _WIN32
     fout.open(FileSystemUtils::convert_utf8_to_utf16(file_name), openmode);
 #else
-    fout.open(m_file_name, openmode);
+    fout.open(file_name, openmode);
 #endif
 
     if (!fout.is_open())
@@ -146,7 +146,7 @@ IntensityDataIOFactory::readOutputData(const std::string& file_name,
 #ifdef _WIN32
     input_stream.open(FileSystemUtils::convert_utf8_to_utf16(file_name), openmode);
 #else
-    fin.open(m_file_name, openmode);
+    fin.open(file_name, openmode);
 #endif
 
     if (!input_stream.is_open())

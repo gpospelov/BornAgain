@@ -92,10 +92,15 @@ set(${library_name}_LIBRARY ${library_name} PARENT_SCOPE)
 
 
 # --- dependencies ---------
-target_include_directories(${library_name} PUBLIC ${QtAddOn_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR})
-target_include_directories(${library_name} PUBLIC ${include_dirs})
-target_link_libraries(${library_name} ${QtAddOn_LIBRARIES} ${BornAgainCore_LIBRARY} ${ba3d_LIBRARY})
+target_include_directories(${library_name} PUBLIC
+    ${ManhattanStyle_INCLUDE_DIRS}
+    ${qcustomplot_INCLUDE_DIRS}
+    ${CMAKE_SOURCE_DIR})
 target_link_libraries(${library_name}
+    ${ManhattanStyle_LIBRARY}
+    ${qcustomplot_LIBRARY}
+    ${BornAgainCore_LIBRARY}
+    ${ba3d_LIBRARY}
     Qt5::Widgets
     Qt5::Core
     Qt5::Gui

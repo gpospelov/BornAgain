@@ -15,6 +15,7 @@
 #ifndef BORNAGAIN_DEVICE_HISTO_INTENSITYDATAIOFACTORY_H
 #define BORNAGAIN_DEVICE_HISTO_INTENSITYDATAIOFACTORY_H
 
+#include <functional>
 #include <string>
 
 template <class T> class OutputData;
@@ -26,7 +27,7 @@ class SimulationResult;
 //! *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy.
 //! *.int - BornAgain internal ASCII format.
 //! *.tif - 32-bits tiff file.
-//! If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using
+//! If file name ends with "*.gz" or "*.bz2" the file will be zipped on the fly using
 //! appropriate algorithm.
 
 //! @ingroup input_output
@@ -60,6 +61,15 @@ public:
 
     //! Writes OutputData contained in the given SimulationResult object
     static void writeSimulationResult(const SimulationResult& result, const std::string& file_name);
+
+private:
+    static std::stringstream getFromFilteredStream(const std::string& file_name);
+    
+    static OutputData<double>* readOutputData(const std::string& file_name,
+        std::function<OutputData<double>* (std::istream&)> readData);
+
+    static void writeOutputData(const std::string& file_name, 
+        std::function<void(std::ostream&)> writeData);
 };
 
 #endif // BORNAGAIN_DEVICE_HISTO_INTENSITYDATAIOFACTORY_H

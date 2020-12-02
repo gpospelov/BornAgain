@@ -28,11 +28,17 @@ class Slice;
 
 class SpecularMagneticStrategy_v1 : public ISpecularStrategy {
 public:
+    // TODO remove once external test code is not needed anmyore
+    // for the moment i need them!
+    using coefficient_type         = MatrixRTCoefficients_v1;
+    using coefficient_pointer_type = std::unique_ptr<const coefficient_type>;
+    using coeffs_t                 = std::vector<coefficient_pointer_type>;
+
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
-    coeffs_t Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
+    ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
 
-    coeffs_t Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz) const;
+    ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz) const;
 
 }; // class SpecularMagneticStrategy_v1
 

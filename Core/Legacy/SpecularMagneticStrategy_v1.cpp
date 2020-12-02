@@ -35,7 +35,7 @@ ISpecularStrategy::coeffs_t SpecularMagneticStrategy_v1::Execute(const std::vect
     CalculateEigenvalues(slices, k, result);
     CalculateTransferAndBoundary(slices, result);
 
-    coeffs_t resultConvert;
+    ISpecularStrategy::coeffs_t resultConvert;
     for (auto& coeff : result)
         resultConvert.push_back(std::make_unique<MatrixRTCoefficients_v1>(coeff));
 

@@ -63,12 +63,11 @@ public:
     static void writeSimulationResult(const SimulationResult& result, const std::string& file_name);
 
 private:
-    static OutputData<double>*
-    readOutputData(const std::string& file_name,
-                   std::function<OutputData<double>*(std::istream&)> readData);
+    static OutputData<double>* readOutputData(const std::string& file_name,
+        std::function<OutputData<double>* (std::istream&)> readData);
 
-    static void writeOutputData(const std::string& file_name,
-                                std::function<void(std::ostream&)> writeData);
+    static void writeOutputData(const std::string& file_name, 
+        std::function<void(std::ostream&)> writeData);
 };
 
 #endif // BORNAGAIN_DEVICE_HISTO_INTENSITYDATAIOFACTORY_H

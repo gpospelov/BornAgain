@@ -14,7 +14,6 @@
 
 #include "Tests/Performance/GUI/CsvImportAssistantPerformanceTest.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/InputOutput/OutputDataWriteFactory.h"
 #include "Device/Intensity/ArrayUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
 #include <ctime>
@@ -22,9 +21,8 @@
 
 void CsvImportAssistantPerformanceTest::writeTestFile() {
     remove(m_testFilename.c_str());
-    OutputDataWriter* writer = OutputDataWriteFactory::getWriter(m_testFilename);
     OutputData<double>* data = ArrayUtils::createData(m_testVector).release();
-    writer->writeOutputData(*data);
+    IntensityDataIOFactory::writeOutputData(*data, m_testFilename);
 }
 
 void CsvImportAssistantPerformanceTest::writeTestFile(size_t nRows, size_t nCols) {

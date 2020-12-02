@@ -11,7 +11,7 @@ def get_sample():
     between vacuum and substrate.
     """
 
-    # Define Materials
+    # Define materials
     material_IntermLayer = ba.HomogeneousMaterial("IntermLayer", 3.45e-06,
                                                   5.24e-09)
     material_Particle = ba.HomogeneousMaterial("Particle", 0.0, 0.0)

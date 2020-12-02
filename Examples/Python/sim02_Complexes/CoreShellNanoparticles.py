@@ -10,7 +10,7 @@ def get_sample():
     Returns a sample with box-shaped core-shell particles on a substrate.
     """
 
-    # Define Materials
+    # Define materials
     material_Core = ba.HomogeneousMaterial("Core", 6e-05, 2e-08)
     material_Shell = ba.HomogeneousMaterial("Shell", 0.0001, 2e-08)
     material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)

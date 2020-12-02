@@ -13,7 +13,7 @@ def get_sample():
     Returns a sample with magnetic spheres in the substrate.
     """
 
-    # Define Materials
+    # Define materials
     magnetic_field = kvector_t(0, 0, 10000000)
     material_Particle = ba.HomogeneousMaterial("Particle", 2e-05, 4e-07,
                                                magnetic_field)

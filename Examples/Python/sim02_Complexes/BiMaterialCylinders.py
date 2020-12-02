@@ -35,7 +35,7 @@ def get_sample():
     Particle shifted down to cross interface.
     """
 
-    # Define Materials
+    # Define materials
     material_Ag = ba.HomogeneousMaterial("Ag", 1.245e-05, 5.419e-07)
     material_Substrate = ba.HomogeneousMaterial("Substrate", 3.212e-06,
                                                 3.244e-08)

@@ -14,7 +14,7 @@ def get_sample():
     Returns a sample with cylinders on a substrate.
     """
 
-    # Define Materials
+    # Define materials
     material_Particle = ba.HomogeneousMaterial("Particle", 3e-05, 2e-08)
     material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
     material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)

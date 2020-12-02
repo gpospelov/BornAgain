@@ -14,7 +14,7 @@ def get_sample():
     Defines sample and returns it
     """
 
-    # Define Materials
+    # Define materials
     material_Ambient = ba.MaterialBySLD("Ambient", 0.0, 0.0)
     magnetic_field = kvector_t(0, 100000000, 0)
     material_Layer = ba.MaterialBySLD("Layer", 0.0001, 1e-08, magnetic_field)

@@ -55,7 +55,7 @@ def get_sample():
     Constructs a sample with one resonating Ti/Pt layer
     """
 
-    # Define Materials
+    # Define materials
     material_D2O = ba.HomogeneousMaterial("D2O", 0.00010116, 1.809e-12)
     material_Pt = ba.HomogeneousMaterial("Pt", 0.00010117, 3.01822e-08)
     material_Si = ba.HomogeneousMaterial("Si", 3.3009e-05, 0.0)

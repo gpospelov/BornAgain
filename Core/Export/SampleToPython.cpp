@@ -155,10 +155,10 @@ const std::map<MATERIAL_TYPES, std::string> factory_names{
 std::string SampleToPython::defineMaterials() const {
     const auto themap = m_materials->materialMap();
     if (themap.empty())
-        return "# No Materials.\n\n";
+        return "";
     std::ostringstream result;
     result << std::setprecision(12);
-    result << indent() << "# Define Materials\n";
+    result << indent() << "# Define materials\n";
     std::set<std::string> visitedMaterials;
     for (auto it : themap) {
         const std::string& key = it.first;

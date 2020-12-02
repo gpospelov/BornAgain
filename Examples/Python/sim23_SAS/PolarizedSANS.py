@@ -15,7 +15,7 @@ def get_sample():
     Returns a sample with a magnetic core-shell particle in a solvent.
     """
 
-    # Define Materials
+    # Define materials
     magnetic_field = kvector_t(0, 0, 10000000)
     material_Core = ba.HomogeneousMaterial("Core", 6e-06, 2e-08, magnetic_field)
     material_Shell = ba.HomogeneousMaterial("Shell", 1e-07, 2e-08)

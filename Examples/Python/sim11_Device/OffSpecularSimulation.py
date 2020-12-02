@@ -15,7 +15,7 @@ def get_sample():
     modelled by infinitely long boxes forming a 1D lattice.
     """
 
-    # Define Materials
+    # Define materials
     material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
     material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
     material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)

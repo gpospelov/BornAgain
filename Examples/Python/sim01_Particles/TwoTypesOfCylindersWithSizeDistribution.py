@@ -11,7 +11,7 @@ def get_sample():
     The cylinders are a 95:5 mixture of two different size distributions.
     """
 
-    # Define Materials
+    # Define materials
     material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
     material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 

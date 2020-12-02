@@ -146,7 +146,7 @@ IntensityDataIOFactory::readOutputData(const std::string& file_name,
 #ifdef _WIN32
     input_stream.open(FileSystemUtils::convert_utf8_to_utf16(file_name), openmode);
 #else
-    fin.open(file_name, openmode);
+    input_stream.open(file_name, openmode);
 #endif
 
     if (!input_stream.is_open())

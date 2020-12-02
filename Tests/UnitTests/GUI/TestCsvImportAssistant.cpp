@@ -1,4 +1,4 @@
-#include "Device/InputOutput/OutputDataReadFactory.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/InputOutput/OutputDataWriteFactory.h"
 #include "Device/Intensity/ArrayUtils.h"
 #include "Device/Unit/AxisNames.h"
@@ -38,9 +38,7 @@ protected:
     }
 
     OutputData<double>* readTestFile() {
-        OutputDataReader* reader = OutputDataReadFactory::getReader(m_testFilename);
-        OutputData<double>* data = reader->getOutputData();
-        return data;
+        return IntensityDataIOFactory::readOutputData(m_testFilename);
     }
 };
 

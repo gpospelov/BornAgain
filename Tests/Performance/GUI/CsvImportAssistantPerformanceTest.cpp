@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Tests/Performance/GUI/CsvImportAssistantPerformanceTest.h"
-#include "Device/InputOutput/OutputDataReadFactory.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/InputOutput/OutputDataWriteFactory.h"
 #include "Device/Intensity/ArrayUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
@@ -41,9 +41,7 @@ void CsvImportAssistantPerformanceTest::writeTestFile(size_t nRows, size_t nCols
 }
 
 OutputData<double>* CsvImportAssistantPerformanceTest::readTestFile() {
-    OutputDataReader* reader = OutputDataReadFactory::getReader(m_testFilename);
-    OutputData<double>* data = reader->getOutputData();
-    return data;
+    return IntensityDataIOFactory::readOutputData(m_testFilename);
 }
 
 bool CsvImportAssistantPerformanceTest::runTest() {

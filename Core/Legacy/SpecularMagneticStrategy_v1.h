@@ -36,9 +36,11 @@ public:
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
-    ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
+    ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices,
+                                        const kvector_t& k) const;
 
-    ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices, const std::vector<complex_t>& kz) const;
+    ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices,
+                                        const std::vector<complex_t>& kz) const;
 
 }; // class SpecularMagneticStrategy_v1
 

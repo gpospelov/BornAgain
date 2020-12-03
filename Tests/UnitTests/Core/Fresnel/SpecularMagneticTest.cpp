@@ -1,4 +1,5 @@
 #include "Base/Const/Units.h"
+#include "Core/Legacy/SpecularMagneticStrategy_v2.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
@@ -6,15 +7,15 @@
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/Slice/KzComputation.h"
 #include "Sample/Specular/SpecularMagneticTanhStrategy.h"
-#include "Core/Legacy/SpecularMagneticStrategy_v2.h"
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <utility>
 
-constexpr double eps = 1e-10;
 
 class SpecularMagneticTest : public ::testing::Test {
 protected:
+    auto static constexpr eps = 1.e-10;
+
     std::unique_ptr<ProcessedSample> sample_zerofield(bool slab);
     std::unique_ptr<ProcessedSample> sample_degenerate();
 

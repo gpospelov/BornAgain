@@ -16,7 +16,7 @@ protected:
     std::unique_ptr<ProcessedSample> sample_1();
 
     template<typename Strategy1, typename Strategy2>
-    void testcase(const auto & slices, double k);
+    void testcase(const std::vector<Slice> & slices, double k);
 };
 
 std::unique_ptr<ProcessedSample>
@@ -41,7 +41,7 @@ SpecularMagneticConsistencyTest::sample_1() {
 }
 
 template<typename Strategy1, typename Strategy2>
-void SpecularMagneticConsistencyTest::testcase(const auto & slices, double k){
+void SpecularMagneticConsistencyTest::testcase(const std::vector<Slice> & slices, double k){
 
     const auto kz = kvector_t{0., 0., k};
     const auto coeffs1 = std::make_unique<Strategy1>()->Execute(

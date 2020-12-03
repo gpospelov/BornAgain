@@ -55,7 +55,7 @@ void SpecularMagneticConsistencyTest::testcase(const std::vector<Slice>& slices,
     }
 }
 
-TEST_F(SpecularMagneticConsistencyTest, z_direction)
+TEST_F(SpecularMagneticConsistencyTest, NewOld)
 {
     using Strategy1 = SpecularMagneticTanhStrategy;
     using Strategy2 = SpecularMagneticStrategy_v2;

@@ -198,6 +198,7 @@ void ISimulation::runSimulation() {
         return;
 
     std::unique_ptr<ParameterPool> param_pool(createParameterTree());
+    std::cout << "DEBUG #par_combi = " << param_combinations << std::endl;
     for (size_t index = 0; index < param_combinations; ++index) {
         double weight = m_distribution_handler.setParameterValues(param_pool.get(), index);
         runSingleSimulation(batch_start, batch_size, weight);
@@ -252,6 +253,7 @@ void ISimulation::addParameterDistribution(const std::string& param_name,
 }
 
 void ISimulation::addParameterDistribution(const ParameterDistribution& par_distr) {
+    std::cout << "DEBUG ISimulation::addParameterDistribution" << std::endl;
     validateParametrization(par_distr);
     m_distribution_handler.addParameterDistribution(par_distr);
 }

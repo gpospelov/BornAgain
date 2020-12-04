@@ -61,7 +61,7 @@ private:
     void createNewProject();
     void deleteCurrentProject();
     void loadProject(const QString& projectFileName);
-    QString acquireProjectFileName();
+    QString acquireProjectFileName(bool forSaveAs);
     void addToRecentProjects();
 
     QString workingDirectory();

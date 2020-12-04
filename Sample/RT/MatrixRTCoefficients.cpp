@@ -21,7 +21,7 @@ const auto eps = std::numeric_limits<double>::epsilon() * 10.;
 } // namespace
 
 MatrixRTCoefficients::MatrixRTCoefficients(double kz_sign, Eigen::Vector2cd eigenvalues,
-                                                 kvector_t b, double magnetic_SLD)
+                                           kvector_t b, double magnetic_SLD)
     : m_kz_sign(kz_sign)
     , m_lambda(std::move(eigenvalues))
     , m_b(std::move(b))

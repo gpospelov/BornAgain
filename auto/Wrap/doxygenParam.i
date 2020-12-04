@@ -1642,6 +1642,11 @@ C++ includes: Unit.h
 
 
 // File: namespaceNodeUtils.xml
+%feature("docstring")  NodeUtils::progenyPlus "std::vector< std::tuple< const INode *, int, const INode * > > NodeUtils::progenyPlus(const INode *node, int level=0)
+
+Returns a vector of triples (descendent, depth, parent) 
+";
+
 %feature("docstring")  NodeUtils::nodeToString "std::string NodeUtils::nodeToString(const INode &node)
 
 Returns multiline string representing tree structure starting from given node. 

@@ -70,12 +70,12 @@ std::vector<const INode*> INode::progeny() const {
     return result;
 }
 
-std::vector<std::pair<const INode*,const INode*>> INode::progenyWithParent() const {
-    std::vector<std::pair<const INode*,const INode*>> result;
+std::vector<std::pair<const INode*, const INode*>> INode::progenyWithParent() const {
+    std::vector<std::pair<const INode*, const INode*>> result;
     result.push_back({this, nullptr});
     for (const auto* child : getChildren()) {
         for (const auto* p : child->progeny())
-            result.push_back({p,child});
+            result.push_back({p, child});
     }
     return result;
 }

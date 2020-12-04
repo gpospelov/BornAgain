@@ -13,10 +13,10 @@
 //  ************************************************************************************************
 
 #include "Param/Node/NodeUtils.h"
+#include "Base/Utils/Assert.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
-#include "Param/Node/IterationStrategy.h"
-#include "Param/Node/NodeIterator.h"
+#include "Param/Node/INode.h"
 #include <algorithm>
 #include <functional>
 #include <iterator>
@@ -59,17 +59,21 @@ std::string nodeString(const INode& node, int depth) {
 }
 } // namespace
 
+std::vector<std::tuple<const INode*, int, const INode*>> NodeUtils::progenyPlus(const INode* node,
+                                                                                int level) {
+    std::vector<std::tuple<const INode*, int, const INode*>> result;
+    result.push_back({node, level, nullptr});
+    for (const auto* child : node->getChildren()) {
+        for (const auto [subchild, sublevel, subparent] : progenyPlus(child, level + 1))
+            result.push_back({subchild, sublevel, child});
+    }
+    return result;
+}
+
 std::string NodeUtils::nodeToString(const INode& node) {
     std::ostringstream result;
-
-    NodeIterator<PreorderStrategy> it(&node);
-    it.first();
-    while (!it.isDone()) {
-        const INode* child = it.getCurrent();
-        result << nodeString(*child, it.depth() - 1);
-        it.next();
-    }
-
+    for (const auto [child, depth, parent] : progenyPlus(&node))
+        result << nodeString(*child, depth);
     return result.str();
 }
 
@@ -81,12 +85,9 @@ std::string NodeUtils::nodePath(const INode& node, const INode* root) {
         pathElements.push_back("/");
         current = current->parent();
     }
-
-    if (root != nullptr && current != root) {
+    if (root != nullptr && current != root)
         throw std::runtime_error("NodeUtils::nodePath() -> Error. Node doesn't "
                                  "belong to root's branch");
-    }
-
     std::reverse(pathElements.begin(), pathElements.end());
     std::ostringstream result;
     std::copy(pathElements.begin(), pathElements.end(), std::ostream_iterator<std::string>(result));

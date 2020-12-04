@@ -65,7 +65,7 @@ public:
     //! Returns a vector of all descendents
     std::vector<const INode*> progeny() const;
     //! Returns a vector of pairs (descendent, its parent)
-    std::vector<std::pair<const INode*,const INode*>> progenyWithParent() const;
+    std::vector<std::pair<const INode*, const INode*>> progenyWithParent() const;
 
     virtual void setParent(const INode* newParent);
     const INode* parent() const;

@@ -78,6 +78,10 @@ SessionItem* GUIDomainSampleVisitor::populateSampleModel(SampleModel* sampleMode
         m_topSampleName = sample.getName().c_str();
 
     VisitNodesPreorder(sample, *this);
+    //    for (const auto [child, depth, parent]: sample.progenyPlus()) {
+    //        setDepth(depth);
+    //        child->accept(this);
+    //    }
     SessionItem* result = m_levelToParentItem[1];
 
     result->setItemName(m_topSampleName);

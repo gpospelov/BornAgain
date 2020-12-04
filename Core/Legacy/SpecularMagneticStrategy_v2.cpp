@@ -29,13 +29,13 @@ constexpr double magnetic_prefactor = PhysConsts::m_n * PhysConsts::g_factor_n *
 } // namespace
 
 ISpecularStrategy::coeffs_t SpecularMagneticStrategy_v2::Execute(const std::vector<Slice>& slices,
-                                                              const kvector_t& k) const {
+                                                                 const kvector_t& k) const {
     return Execute(slices, KzComputation::computeReducedKz(slices, k));
 }
 
 ISpecularStrategy::coeffs_t
 SpecularMagneticStrategy_v2::Execute(const std::vector<Slice>& slices,
-                                  const std::vector<complex_t>& kz) const {
+                                     const std::vector<complex_t>& kz) const {
     if (slices.size() != kz.size())
         throw std::runtime_error("Number of slices does not match the size of the kz-vector");
 
@@ -48,7 +48,7 @@ SpecularMagneticStrategy_v2::Execute(const std::vector<Slice>& slices,
 
 std::vector<MatrixRTCoefficients_v2>
 SpecularMagneticStrategy_v2::computeTR(const std::vector<Slice>& slices,
-                                    const std::vector<complex_t>& kzs) {
+                                       const std::vector<complex_t>& kzs) {
     if (kzs[0] == 0.)
         throw std::runtime_error("Edge case k_z = 0 not implemented");
 

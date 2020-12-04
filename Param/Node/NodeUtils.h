@@ -20,10 +20,15 @@
 #define BORNAGAIN_PARAM_NODE_NODEUTILS_H
 
 #include <string>
+#include <vector>
 
 class INode;
 
 namespace NodeUtils {
+
+//! Returns a vector of triples (descendent, depth, parent)
+std::vector<std::tuple<const INode*, int, const INode*>> progenyPlus(const INode* node,
+                                                                     int level = 0);
 
 //! Returns multiline string representing tree structure starting from given node.
 std::string nodeToString(const INode& node);

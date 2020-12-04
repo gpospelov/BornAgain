@@ -2,39 +2,49 @@
 Core shell nanoparticles
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
     """
     Returns a sample with box-shaped core-shell particles on a substrate.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_shell = ba.HomogeneousMaterial("Shell", 1e-4, 2e-8)
-    m_core = ba.HomogeneousMaterial("Core", 6e-5, 2e-8)
 
-    # collection of particles
-    parallelepiped1_ff = ba.FormFactorBox(16*nm, 16*nm, 8*nm)
-    parallelepiped2_ff = ba.FormFactorBox(12*nm, 12*nm, 7*nm)
-    shell_particle = ba.Particle(m_shell, parallelepiped1_ff)
-    core_particle = ba.Particle(m_core, parallelepiped2_ff)
-    core_position = ba.kvector_t(0.0, 0.0, 0.0)
+    # Define materials
+    material_Core = ba.HomogeneousMaterial("Core", 6e-05, 2e-08)
+    material_Shell = ba.HomogeneousMaterial("Shell", 0.0001, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    particle = ba.ParticleCoreShell(shell_particle, core_particle,
-                                    core_position)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(particle)
-    interference = ba.InterferenceFunctionNone()
-    particle_layout.setInterferenceFunction(interference)
+    # Define form factors
+    ff_1 = ba.FormFactorBox(12.0*nm, 12.0*nm, 7.0*nm)
+    ff_2 = ba.FormFactorBox(16.0*nm, 16.0*nm, 8.0*nm)
 
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
+    # Define particles
+    particle_1 = ba.Particle(material_Core, ff_1)
+    particle_2 = ba.Particle(material_Shell, ff_2)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
+    # Define core shell particles
+    particle_3 = ba.ParticleCoreShell(particle_2, particle_1)
 
-    return multi_layer
+    # Define interference functions
+    iff = ba.InterferenceFunctionNone()
+
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle_3, 1.0)
+    layout.setInterferenceFunction(iff)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer = ba.Layer(material_Vacuum)
+    layer.addLayout(layout)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer)
+
+    return sample
 
 
 def get_simulation():

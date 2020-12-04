@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticNewTanhStrategy.h
-//! @brief     Defines class SpecularMagneticNewTanhStrategy.
+//! @file      Sample/Specular/SpecularMagneticTanhStrategy.h
+//! @brief     Defines class SpecularMagneticTanhStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,10 +12,10 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWTANHSTRATEGY_H
-#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWTANHSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICTANHSTRATEGY_H
+#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICTANHSTRATEGY_H
 
-#include "Sample/Specular/SpecularMagneticNewStrategy.h"
+#include "Sample/Specular/SpecularMagneticStrategy.h"
 
 //! Implements the magnetic Fresnel computation with the analytical Tanh roughness
 //!
@@ -25,14 +25,14 @@
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class SpecularMagneticNewTanhStrategy : public SpecularMagneticNewStrategy {
+class SpecularMagneticTanhStrategy : public SpecularMagneticStrategy {
 private:
     virtual std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-    computeBackwardsSubmatrices(const MatrixRTCoefficients_v3& coeff_i,
-                                const MatrixRTCoefficients_v3& coeff_i1, double sigma) const;
+    computeBackwardsSubmatrices(const MatrixRTCoefficients& coeff_i,
+                                const MatrixRTCoefficients& coeff_i1, double sigma) const;
 
-    Eigen::Matrix2cd computeRoughnessMatrix(const MatrixRTCoefficients_v3& coeff, double sigma,
+    Eigen::Matrix2cd computeRoughnessMatrix(const MatrixRTCoefficients& coeff, double sigma,
                                             bool inverse = false) const;
 };
 
-#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWTANHSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICTANHSTRATEGY_H

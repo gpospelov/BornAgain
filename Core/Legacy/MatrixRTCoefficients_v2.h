@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V2_H
-#define BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V2_H
+#ifndef BORNAGAIN_CORE_LEGACY_MATRIXRTCOEFFICIENTS_V2_H
+#define BORNAGAIN_CORE_LEGACY_MATRIXRTCOEFFICIENTS_V2_H
 
 #include "Base/Vector/Vectors3D.h"
 #include "Sample/RT/ILayerRTCoefficients.h"
@@ -25,7 +25,8 @@
 
 class MatrixRTCoefficients_v2 : public ILayerRTCoefficients {
 public:
-    friend class SpecularMagneticStrategy;
+    friend class SpecularMagneticStrategy_v2;
+    friend class SpecularMagneticOriginalStrategy;
 
     MatrixRTCoefficients_v2(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b);
     MatrixRTCoefficients_v2(const MatrixRTCoefficients_v2& other);
@@ -66,4 +67,4 @@ private:
                          //!< the second eigenmode
 };
 
-#endif // BORNAGAIN_SAMPLE_RT_MATRIXRTCOEFFICIENTS_V2_H
+#endif // BORNAGAIN_CORE_LEGACY_MATRIXRTCOEFFICIENTS_V2_H

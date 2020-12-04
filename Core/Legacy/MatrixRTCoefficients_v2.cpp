@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/RT/MatrixRTCoefficients_v2.h"
+#include "Core/Legacy/MatrixRTCoefficients_v2.h"
 
 namespace {
 Eigen::Vector2cd waveVector(const Eigen::Matrix4cd& frob_matrix,

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticOldStrategy.cpp
-//! @brief     Implements class SpecularMagneticOldStrategy.
+//! @file      Sample/Specular/SpecularMagneticStrategy_v1.cpp
+//! @brief     Implements class SpecularMagneticStrategy_v1.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Specular/SpecularMagneticOldStrategy.h"
+#include "SpecularMagneticStrategy_v1.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
@@ -22,35 +22,35 @@
 
 namespace {
 void CalculateEigenvalues(const std::vector<Slice>& slices, const kvector_t k,
-                          std::vector<MatrixRTCoefficients>& coeff);
+                          std::vector<MatrixRTCoefficients_v1>& coeff);
 void CalculateTransferAndBoundary(const std::vector<Slice>& slices,
-                                  std::vector<MatrixRTCoefficients>& coeff);
-void SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff);
+                                  std::vector<MatrixRTCoefficients_v1>& coeff);
+void SetForNoTransmission(std::vector<MatrixRTCoefficients_v1>& coeff);
 complex_t GetImExponential(complex_t exponent);
 } // namespace
 
-ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vector<Slice>& slices,
+ISpecularStrategy::coeffs_t SpecularMagneticStrategy_v1::Execute(const std::vector<Slice>& slices,
                                                                  const kvector_t& k) const {
-    std::vector<MatrixRTCoefficients> result(slices.size());
+    std::vector<MatrixRTCoefficients_v1> result(slices.size());
     CalculateEigenvalues(slices, k, result);
     CalculateTransferAndBoundary(slices, result);
 
-    coeffs_t resultConvert;
+    ISpecularStrategy::coeffs_t resultConvert;
     for (auto& coeff : result)
-        resultConvert.push_back(std::make_unique<MatrixRTCoefficients>(coeff));
+        resultConvert.push_back(std::make_unique<MatrixRTCoefficients_v1>(coeff));
 
     return resultConvert;
 }
 
 ISpecularStrategy::coeffs_t
-SpecularMagneticOldStrategy::Execute(const std::vector<Slice>&,
+SpecularMagneticStrategy_v1::Execute(const std::vector<Slice>&,
                                      const std::vector<complex_t>&) const {
     throw std::runtime_error("Not implemented");
 }
 
 namespace {
 void CalculateEigenvalues(const std::vector<Slice>& slices, const kvector_t k,
-                          std::vector<MatrixRTCoefficients>& coeff) {
+                          std::vector<MatrixRTCoefficients_v1>& coeff) {
     double mag_k = k.mag();
     double n_ref = slices[0].material().refractiveIndex(2 * M_PI / mag_k).real();
     double sign_kz = k.z() > 0.0 ? -1.0 : 1.0;
@@ -78,7 +78,7 @@ void CalculateEigenvalues(const std::vector<Slice>& slices, const kvector_t k,
 
 // todo: avoid overflows (see SpecularMatrix.cpp)
 void CalculateTransferAndBoundary(const std::vector<Slice>& slices,
-                                  std::vector<MatrixRTCoefficients>& coeff) {
+                                  std::vector<MatrixRTCoefficients_v1>& coeff) {
     size_t N = coeff.size();
     if (coeff[0].lambda == Eigen::Vector2cd::Zero() && N > 1) {
         SetForNoTransmission(coeff);
@@ -136,7 +136,7 @@ void CalculateTransferAndBoundary(const std::vector<Slice>& slices,
     }
 }
 
-void SetForNoTransmission(std::vector<MatrixRTCoefficients>& coeff) {
+void SetForNoTransmission(std::vector<MatrixRTCoefficients_v1>& coeff) {
     size_t N = coeff.size();
     for (size_t i = 0; i < N; ++i) {
         coeff[i].phi_psi_plus.setZero();

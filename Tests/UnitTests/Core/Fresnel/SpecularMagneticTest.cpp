@@ -1,30 +1,31 @@
 #include "Base/Const/Units.h"
+#include "Core/Legacy/SpecularMagneticStrategy_v2.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Processed/ProcessedSample.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/Slice/KzComputation.h"
-#include "Sample/Specular/SpecularMagneticNewTanhStrategy.h"
-#include "Sample/Specular/SpecularMagneticStrategy.h"
+#include "Sample/Specular/SpecularMagneticTanhStrategy.h"
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <utility>
 
-constexpr double eps = 1e-10;
 
 class SpecularMagneticTest : public ::testing::Test {
 protected:
-    std::unique_ptr<ProcessedSample> sample_zerofield();
+    auto static constexpr eps = 1.e-10;
+
+    std::unique_ptr<ProcessedSample> sample_zerofield(bool slab);
     std::unique_ptr<ProcessedSample> sample_degenerate();
 
     template <typename Strategy> void test_degenerate();
     template <typename Strategy>
     void testZeroField(const kvector_t& k, const ProcessedSample& sample);
-    template <typename Strategy> void testcase_zerofield(std::vector<double>&& angles);
+    template <typename Strategy> void testcase_zerofield(std::vector<double>&& angles, bool slab=false);
 };
 
-template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhStrategy>() {
+template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticTanhStrategy>() {
     kvector_t v;
 
     Eigen::Vector2cd T1p{0.0, 0.0};
@@ -37,7 +38,7 @@ template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticNewTanhSt
     Eigen::Vector2cd R2m{0.0, 0.0};
 
     auto sample = sample_degenerate();
-    auto result = std::make_unique<SpecularMagneticNewTanhStrategy>()->Execute(sample->slices(), v);
+    auto result = std::make_unique<SpecularMagneticTanhStrategy>()->Execute(sample->slices(), v);
     for (auto& coeff : result) {
         EXPECT_NEAR_VECTOR2CD(coeff->T1plus(), T1p, eps);
         EXPECT_NEAR_VECTOR2CD(coeff->T2plus(), T2p, eps);
@@ -85,16 +86,23 @@ std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_degenerate() {
     return std::make_unique<ProcessedSample>(mLayer, SimulationOptions());
 }
 
-TEST_F(SpecularMagneticTest, degenerate_new) {
-    test_degenerate<SpecularMagneticNewTanhStrategy>();
+TEST_F(SpecularMagneticTest, degenerate_) {
+    test_degenerate<SpecularMagneticTanhStrategy>();
 }
 
-std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_zerofield() {
+std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_zerofield(bool slab) {
     MultiLayer multi_layer_scalar;
     Material substr_material_scalar = HomogeneousMaterial("Substrate", 7e-6, 2e-8);
     Layer vacuum_layer(HomogeneousMaterial("Vacuum", 0.0, 0.0));
     Layer substr_layer_scalar(substr_material_scalar);
     multi_layer_scalar.addLayer(vacuum_layer);
+
+    if(slab) {
+        Material layer_material = HomogeneousMaterial("Layer", 3e-6, 1e-8);
+        Layer layer(layer_material, 10. * Units::nm);
+        multi_layer_scalar.addLayer(layer);
+    }
+
     multi_layer_scalar.addLayer(substr_layer_scalar);
 
     SimulationOptions options;
@@ -104,18 +112,43 @@ std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_zerofield() {
 }
 
 template <typename Strategy>
-void SpecularMagneticTest::testcase_zerofield(std::vector<double>&& angles) {
+void SpecularMagneticTest::testcase_zerofield(std::vector<double>&& angles, bool slab) {
     for (auto& angle : angles) {
-        auto sample = sample_zerofield();
+        auto sample = sample_zerofield(slab);
         kvector_t k = vecOfLambdaAlphaPhi(1.0, angle * Units::deg, 0.0);
         testZeroField<Strategy>(k, *sample);
     }
 }
 
-TEST_F(SpecularMagneticTest, zerofield) {
-    testcase_zerofield<SpecularMagneticStrategy>({-0.1, -2.0, -10.0});
+TEST_F(SpecularMagneticTest, zerofield_v2_negative_k) {
+    testcase_zerofield<SpecularMagneticStrategy_v2>({-0.1, -2.0, -10.0});
 }
 
-TEST_F(SpecularMagneticTest, zerofield_new) {
-    testcase_zerofield<SpecularMagneticNewTanhStrategy>({-0.0, -1.e-9, -1.e-5, -0.1, -2.0, -10.0});
+TEST_F(SpecularMagneticTest, zerofield_v2_positive_k) {
+    testcase_zerofield<SpecularMagneticStrategy_v2>({0.1, 2.0, 10.0});
+}
+
+TEST_F(SpecularMagneticTest, zerofield2_v2_negative_k) {
+    testcase_zerofield<SpecularMagneticStrategy_v2>({-0.1, -2.0, -10.0}, true);
+}
+
+TEST_F(SpecularMagneticTest, zerofield2_v2_positive_k) {
+    testcase_zerofield<SpecularMagneticStrategy_v2>({0.1, 2.0, 10.0}, true);
+}
+
+
+TEST_F(SpecularMagneticTest, zerofield_positive_k) {
+    testcase_zerofield<SpecularMagneticTanhStrategy>({0.0, 1.e-9, 1.e-5, 0.1, 2.0, 10.0});
+}
+
+TEST_F(SpecularMagneticTest, zerofield_negative_k) {
+    testcase_zerofield<SpecularMagneticTanhStrategy>({-0.0, -1.e-9, -1.e-5, -0.1, -2.0, -10.0});
+}
+
+TEST_F(SpecularMagneticTest, zerofield2_positive_k) {
+    testcase_zerofield<SpecularMagneticTanhStrategy>({0.0, 1.e-9, 1.e-5, 0.1, 2.0, 10.0}, true);
+}
+
+TEST_F(SpecularMagneticTest, zerofield2_negative_k) {
+    testcase_zerofield<SpecularMagneticTanhStrategy>({-0.0, -1.e-9, -1.e-5, -0.1, -2.0, -10.0}, true);
 }

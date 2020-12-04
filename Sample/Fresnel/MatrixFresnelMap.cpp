@@ -13,9 +13,9 @@
 //  ************************************************************************************************
 
 #include "Sample/Fresnel/MatrixFresnelMap.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 #include "Base/Pixel/SimulationElement.h"
 #include "Sample/Slice/Slice.h"
-#include "Sample/Specular/SpecularMagneticOldStrategy.h"
 #include <functional>
 
 MatrixFresnelMap::MatrixFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)

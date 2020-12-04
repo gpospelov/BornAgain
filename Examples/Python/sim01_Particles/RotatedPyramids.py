@@ -2,34 +2,44 @@
 Rotated pyramids on top of substrate
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
     """
     Returns a sample with rotated pyramids on top of a substrate.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_substrate = ba.HomogeneousMaterial("Substrate", 6e-6, 2e-8)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
-    pyramid_ff = ba.FormFactorPyramid(10*nm, 5*nm, 54.73*deg)
-    pyramid = ba.Particle(m_particle, pyramid_ff)
-    transform = ba.RotationZ(45.*deg)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(pyramid, 1.0, ba.kvector_t(0.0, 0.0, 0.0),
-                                transform)
+    # Define materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Substrate = ba.HomogeneousMaterial("Substrate", 6e-06, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
-    substrate_layer = ba.Layer(m_substrate)
+    # Define form factors
+    ff = ba.FormFactorPyramid(10.0*nm, 5.0*nm, 54.73*deg)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    multi_layer.addLayer(substrate_layer)
-    return multi_layer
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
+    particle_rotation = ba.RotationZ(45.0*deg)
+    particle.setRotation(particle_rotation)
+
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer_1 = ba.Layer(material_Vacuum)
+    layer_1.addLayout(layout)
+    layer_2 = ba.Layer(material_Substrate)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer_1)
+    sample.addLayer(layer_2)
+
+    return sample
 
 
 def get_simulation():

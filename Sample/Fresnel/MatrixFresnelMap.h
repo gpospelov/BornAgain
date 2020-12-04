@@ -16,8 +16,6 @@
 #define BORNAGAIN_SAMPLE_FRESNEL_MATRIXFRESNELMAP_H
 
 #include "Sample/Fresnel/IFresnelMap.h"
-#include "Sample/RT/MatrixRTCoefficients.h"
-#include "Sample/Specular/SpecularMagneticStrategy.h"
 #include <cstddef>
 #include <memory>
 #include <unordered_map>

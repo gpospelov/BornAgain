@@ -2,7 +2,7 @@
 Cylinder form factor in Born approximation
 """
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -10,22 +10,32 @@ def get_sample():
     Returns a sample with cylinders in a homogeneous environment ("Vacuum"),
     implying a simulation in plain Born approximation.
     """
-    # defining materials
-    m_vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
-    m_particle = ba.HomogeneousMaterial("Particle", 6e-4, 2e-8)
 
-    # collection of particles
-    cylinder_ff = ba.FormFactorCylinder(5*nm, 5*nm)
-    cylinder = ba.Particle(m_particle, cylinder_ff)
-    particle_layout = ba.ParticleLayout()
-    particle_layout.addParticle(cylinder, 1.0)
+    # Define materials
+    material_Particle = ba.HomogeneousMaterial("Particle", 0.0006, 2e-08)
+    material_Vacuum = ba.HomogeneousMaterial("Vacuum", 0.0, 0.0)
 
-    vacuum_layer = ba.Layer(m_vacuum)
-    vacuum_layer.addLayout(particle_layout)
+    # Define form factors
+    ff = ba.FormFactorCylinder(5.0*nm, 5.0*nm)
 
-    multi_layer = ba.MultiLayer()
-    multi_layer.addLayer(vacuum_layer)
-    return multi_layer
+    # Define particles
+    particle = ba.Particle(material_Particle, ff)
+
+    # Define particle layouts
+    layout = ba.ParticleLayout()
+    layout.addParticle(particle, 1.0)
+    layout.setWeight(1)
+    layout.setTotalParticleSurfaceDensity(0.01)
+
+    # Define layers
+    layer = ba.Layer(material_Vacuum)
+    layer.addLayout(layout)
+
+    # Define sample
+    sample = ba.MultiLayer()
+    sample.addLayer(layer)
+
+    return sample
 
 
 def get_simulation():

@@ -268,6 +268,8 @@ void ProjectManager::openProject(QString fileName) {
     if (!closeCurrentProject())
         return;
 
+    createNewProject();
+
     if (fileName.isEmpty()) {
         fileName =
             QFileDialog::getOpenFileName(m_mainWindow, "Open project file", workingDirectory(),
@@ -275,7 +277,7 @@ void ProjectManager::openProject(QString fileName) {
         if (fileName.isEmpty())
             return;
     }
-    createNewProject();
+
     loadProject(fileName);
 
     if (m_project_document->isReady()) {

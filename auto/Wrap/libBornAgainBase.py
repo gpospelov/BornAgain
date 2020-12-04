@@ -1678,6 +1678,26 @@ class vector_pvacuum_double_t(object):
 # Register vector_pvacuum_double_t in _libBornAgainBase:
 _libBornAgainBase.vector_pvacuum_double_t_swigregister(vector_pvacuum_double_t)
 
+
+def mul_I(z):
+    r"""
+    mul_I(complex_t z) -> complex_t
+    complex_t mul_I(complex_t z)
+
+    Returns product I*z, where I is the imaginary unit. 
+
+    """
+    return _libBornAgainBase.mul_I(z)
+
+def exp_I(z):
+    r"""
+    exp_I(complex_t z) -> complex_t
+    complex_t exp_I(complex_t z)
+
+    Returns exp(I*z), where I is the imaginary unit. 
+
+    """
+    return _libBornAgainBase.exp_I(z)
 class ICloneable(object):
     r"""
 
@@ -1717,82 +1737,9 @@ class ICloneable(object):
 
 # Register ICloneable in _libBornAgainBase:
 _libBornAgainBase.ICloneable_swigregister(ICloneable)
+cvar = _libBornAgainBase.cvar
+I = cvar.I
 
-
-def mul_I(z):
-    r"""
-    mul_I(complex_t z) -> complex_t
-    complex_t mul_I(complex_t z)
-
-    Returns product I*z, where I is the imaginary unit. 
-
-    """
-    return _libBornAgainBase.mul_I(z)
-
-def exp_I(z):
-    r"""
-    exp_I(complex_t z) -> complex_t
-    complex_t exp_I(complex_t z)
-
-    Returns exp(I*z), where I is the imaginary unit. 
-
-    """
-    return _libBornAgainBase.exp_I(z)
-
-def rad2deg(angle):
-    r"""
-    rad2deg(double angle) -> double
-    double Units::rad2deg(double angle)
-
-    """
-    return _libBornAgainBase.rad2deg(angle)
-
-def deg2rad(angle):
-    r"""
-    deg2rad(double angle) -> double
-    double Units::deg2rad(double angle)
-
-    """
-    return _libBornAgainBase.deg2rad(angle)
-
-def StandardNormal(x):
-    r"""StandardNormal(double x) -> double"""
-    return _libBornAgainBase.StandardNormal(x)
-
-def Gaussian(x, average, std_dev):
-    r"""Gaussian(double x, double average, double std_dev) -> double"""
-    return _libBornAgainBase.Gaussian(x, average, std_dev)
-
-def IntegratedGaussian(x, average, std_dev):
-    r"""IntegratedGaussian(double x, double average, double std_dev) -> double"""
-    return _libBornAgainBase.IntegratedGaussian(x, average, std_dev)
-
-def cot(x):
-    r"""cot(double x) -> double"""
-    return _libBornAgainBase.cot(x)
-
-def sinc(*args):
-    r"""
-    sinc(double x) -> double
-    sinc(complex_t const z) -> complex_t
-    """
-    return _libBornAgainBase.sinc(*args)
-
-def tanhc(z):
-    r"""tanhc(complex_t const z) -> complex_t"""
-    return _libBornAgainBase.tanhc(z)
-
-def Laue(x, N):
-    r"""Laue(double const x, size_t N) -> double"""
-    return _libBornAgainBase.Laue(x, N)
-
-def erf(arg):
-    r"""erf(double arg) -> double"""
-    return _libBornAgainBase.erf(arg)
-
-def GeneratePoissonRandom(average):
-    r"""GeneratePoissonRandom(double average) -> double"""
-    return _libBornAgainBase.GeneratePoissonRandom(average)
 class ThreadInfo(object):
     r"""
 
@@ -1820,27 +1767,23 @@ class ThreadInfo(object):
 
 # Register ThreadInfo in _libBornAgainBase:
 _libBornAgainBase.ThreadInfo_swigregister(ThreadInfo)
-cvar = _libBornAgainBase.cvar
-I = cvar.I
-nanometer = cvar.nanometer
-angstrom = cvar.angstrom
-micrometer = cvar.micrometer
-millimeter = cvar.millimeter
-meter = cvar.meter
-nm = cvar.nm
-nm2 = cvar.nm2
-barn = cvar.barn
-radian = cvar.radian
-milliradian = cvar.milliradian
-degree = cvar.degree
-steradian = cvar.steradian
-rad = cvar.rad
-mrad = cvar.mrad
-sr = cvar.sr
-deg = cvar.deg
-tesla = cvar.tesla
-gauss = cvar.gauss
 
+
+def rad2deg(angle):
+    r"""
+    rad2deg(double angle) -> double
+    double Units::rad2deg(double angle)
+
+    """
+    return _libBornAgainBase.rad2deg(angle)
+
+def deg2rad(angle):
+    r"""
+    deg2rad(double angle) -> double
+    double Units::deg2rad(double angle)
+
+    """
+    return _libBornAgainBase.deg2rad(angle)
 
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     r"""
@@ -1887,6 +1830,24 @@ class Bin1D(object):
 
 # Register Bin1D in _libBornAgainBase:
 _libBornAgainBase.Bin1D_swigregister(Bin1D)
+nanometer = cvar.nanometer
+angstrom = cvar.angstrom
+micrometer = cvar.micrometer
+millimeter = cvar.millimeter
+meter = cvar.meter
+nm = cvar.nm
+nm2 = cvar.nm2
+barn = cvar.barn
+radian = cvar.radian
+milliradian = cvar.milliradian
+degree = cvar.degree
+steradian = cvar.steradian
+rad = cvar.rad
+mrad = cvar.mrad
+sr = cvar.sr
+deg = cvar.deg
+tesla = cvar.tesla
+gauss = cvar.gauss
 
 
 def BinContains(bin, value):

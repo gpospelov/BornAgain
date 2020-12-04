@@ -1387,7 +1387,7 @@ Returns token vector obtained by splitting string at delimiters.
 
 %feature("docstring")  StringUtils::replaceItemsFromString "void StringUtils::replaceItemsFromString(std::string &text, const std::vector< std::string > &items, const std::string &replacement=\"\")
 
-Replaces all occurences of items from string text with delimiter. 
+Replaces all occurrences of items from string text with delimiter. 
 ";
 
 %feature("docstring")  StringUtils::join "std::string StringUtils::join(const std::vector< std::string > &joinable, const std::string &joint)
@@ -1397,7 +1397,7 @@ Returns string obtain by joining vector elements.
 
 %feature("docstring")  StringUtils::removeSubstring "std::string StringUtils::removeSubstring(const std::string &text, const std::string &substr)
 
-Removes multiple occurences of given substring from a string and returns result. 
+Removes multiple occurrences of given substring from a string and returns result. 
 ";
 
 %feature("docstring")  StringUtils::scientific "std::string StringUtils::scientific(const T value, int n=10)
@@ -1408,6 +1408,11 @@ Returns scientific string representing given value of any numeric type.
 %feature("docstring")  StringUtils::to_lower "std::string StringUtils::to_lower(std::string text)
 
 Returns new string which is lower case of text. 
+";
+
+%feature("docstring")  StringUtils::trim "std::string StringUtils::trim(const std::string &str, const std::string &whitespace=\" \\\\t\")
+
+Cuts any of the chars given in whitespace from start and end of str. 
 ";
 
 

@@ -3262,16 +3262,6 @@ class INode(IParametricComponent):
         """
         return _libBornAgainParam.INode_progeny(self)
 
-    def progenyWithParent(self):
-        r"""
-        progenyWithParent(INode self) -> std::vector< std::pair< INode const *,INode const * >,std::allocator< std::pair< INode const *,INode const * > > >
-        std::vector< std::pair< const INode *, const INode * > > INode::progenyWithParent() const
-
-        Returns a vector of pairs (descendent, its parent) 
-
-        """
-        return _libBornAgainParam.INode_progenyWithParent(self)
-
     def setParent(self, newParent):
         r"""
         setParent(INode self, INode newParent)

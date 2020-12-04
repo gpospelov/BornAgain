@@ -48,7 +48,7 @@ INode::INode(const NodeMeta& meta, const std::vector<double>& PValues)
 }
 
 std::string INode::treeToString() const {
-    return NodeUtils::nodeToString(*this);
+    return NodeUtils::nodeToString(this);
 }
 
 void INode::registerChild(INode* node) {
@@ -66,16 +66,6 @@ std::vector<const INode*> INode::progeny() const {
     for (const auto* child : getChildren()) {
         for (const auto* p : child->progeny())
             result.push_back(p);
-    }
-    return result;
-}
-
-std::vector<std::pair<const INode*, const INode*>> INode::progenyWithParent() const {
-    std::vector<std::pair<const INode*, const INode*>> result;
-    result.push_back({this, nullptr});
-    for (const auto* child : getChildren()) {
-        for (const auto* p : child->progeny())
-            result.push_back({p, child});
     }
     return result;
 }
@@ -126,7 +116,7 @@ ParameterPool* INode::createParameterTree() const {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
 
     for (const INode* child : progeny()) {
-        const std::string path = NodeUtils::nodePath(*child, this->parent()) + "/";
+        const std::string path = NodeUtils::nodePath(child, this->parent()) + "/";
         child->parameterPool()->copyToExternalPool(path, result.get());
     }
 

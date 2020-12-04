@@ -31,10 +31,10 @@ std::vector<std::tuple<const INode*, int, const INode*>> progenyPlus(const INode
                                                                      int level = 0);
 
 //! Returns multiline string representing tree structure starting from given node.
-std::string nodeToString(const INode& node);
+std::string nodeToString(const INode* node);
 
 //! Returns path composed of node's displayName, with respect to root node
-std::string nodePath(const INode& node, const INode* root = nullptr);
+std::string nodePath(const INode* node, const INode* root = nullptr);
 
 } // namespace NodeUtils
 

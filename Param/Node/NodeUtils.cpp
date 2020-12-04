@@ -70,16 +70,16 @@ std::vector<std::tuple<const INode*, int, const INode*>> NodeUtils::progenyPlus(
     return result;
 }
 
-std::string NodeUtils::nodeToString(const INode& node) {
+std::string NodeUtils::nodeToString(const INode* node) {
     std::ostringstream result;
-    for (const auto [child, depth, parent] : progenyPlus(&node))
+    for (const auto [child, depth, parent] : progenyPlus(node))
         result << nodeString(*child, depth);
     return result.str();
 }
 
-std::string NodeUtils::nodePath(const INode& node, const INode* root) {
+std::string NodeUtils::nodePath(const INode* node, const INode* root) {
     std::vector<std::string> pathElements;
-    const INode* current = &node;
+    const INode* current = node;
     while (current && current != root) {
         pathElements.push_back(current->displayName());
         pathElements.push_back("/");

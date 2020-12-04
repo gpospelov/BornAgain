@@ -460,11 +460,6 @@ Returns a vector of children.
 Returns a vector of all descendents. 
 ";
 
-%feature("docstring")  INode::progenyWithParent "std::vector< std::pair< const INode *, const INode * > > INode::progenyWithParent() const
-
-Returns a vector of pairs (descendent, its parent) 
-";
-
 %feature("docstring")  INode::setParent "void INode::setParent(const INode *newParent)
 ";
 
@@ -1647,12 +1642,12 @@ C++ includes: Unit.h
 Returns a vector of triples (descendent, depth, parent) 
 ";
 
-%feature("docstring")  NodeUtils::nodeToString "std::string NodeUtils::nodeToString(const INode &node)
+%feature("docstring")  NodeUtils::nodeToString "std::string NodeUtils::nodeToString(const INode *node)
 
 Returns multiline string representing tree structure starting from given node. 
 ";
 
-%feature("docstring")  NodeUtils::nodePath "std::string NodeUtils::nodePath(const INode &node, const INode *root=nullptr)
+%feature("docstring")  NodeUtils::nodePath "std::string NodeUtils::nodePath(const INode *node, const INode *root=nullptr)
 
 Returns path composed of node's displayName, with respect to root node. 
 ";

@@ -1630,10 +1630,10 @@ C++ includes: Unit.h
 // File: namespace_0d15.xml
 
 
-// File: namespace_0d25.xml
+// File: namespace_0d24.xml
 
 
-// File: namespace_0d30.xml
+// File: namespace_0d29.xml
 
 
 // File: namespaceNodeUtils.xml
@@ -1726,14 +1726,7 @@ Returns units of main parameter.
 ";
 
 
-// File: INodeVisitor_8cpp.xml
-%feature("docstring")  VisitNodesPreorder "void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
-";
-
-
 // File: INodeVisitor_8h.xml
-%feature("docstring")  VisitNodesPreorder "void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
-";
 
 
 // File: IterationStrategy_8cpp.xml

@@ -3491,14 +3491,6 @@ class INodeVisitor(object):
 # Register INodeVisitor in _libBornAgainParam:
 _libBornAgainParam.INodeVisitor_swigregister(INodeVisitor)
 
-
-def VisitNodesPreorder(node, visitor):
-    r"""
-    VisitNodesPreorder(INode node, INodeVisitor visitor)
-    void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
-
-    """
-    return _libBornAgainParam.VisitNodesPreorder(node, visitor)
 class IDistribution1D(libBornAgainBase.ICloneable, INode):
     r"""
 

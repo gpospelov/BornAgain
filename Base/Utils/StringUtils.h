@@ -32,14 +32,14 @@ std::string padRight(const std::string& name, size_t length);
 //! Split string into vector of string using delimeter.
 std::vector<std::string> split(const std::string& text, const std::string& delimeter);
 
-//! Replaces all occurences of items from string text with delimiter
+//! Replaces all occurrences of items from string text with delimiter
 void replaceItemsFromString(std::string& text, const std::vector<std::string>& items,
                             const std::string& replacement = "");
 
 //! Returns string obtain by joining vector elements
 std::string join(const std::vector<std::string>& joinable, const std::string& joint);
 
-//! Removes multiple occurences of given substring from a string and returns result.
+//! Removes multiple occurrences of given substring from a string and returns result.
 std::string removeSubstring(const std::string& text, const std::string& substr);
 
 //! Returns scientific string representing given value of any numeric type.
@@ -47,6 +47,9 @@ template <typename T> std::string scientific(const T value, int n = 10);
 
 //! Returns new string which is lower case of text.
 std::string to_lower(std::string text);
+
+//! Cuts any of the chars given in whitespace from start and end of str.
+std::string trim(const std::string& str, const std::string& whitespace = " \t");
 
 } // namespace StringUtils
 

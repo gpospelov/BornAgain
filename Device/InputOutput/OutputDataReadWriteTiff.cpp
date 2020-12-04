@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/InputOutput/TiffHandler.cpp
-//! @brief     Implements class TiffReadStrategy.
+//! @file      Device/InputOutput/OutputDataReadWriteTiff.cpp
+//! @brief     Implements class OutputDataReadWriteTiff
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,40 +14,42 @@
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-#include "Device/InputOutput/TiffHandler.h"
+#include "Device/InputOutput/OutputDataReadWriteTiff.h"
 #include "Base/Utils/SysUtils.h"
 #include <tiffio.hxx>
 
-TiffHandler::TiffHandler()
-    : m_tiff(0)
+OutputDataReadWriteTiff::OutputDataReadWriteTiff()
+    : m_tiff(nullptr)
     , m_width(0)
     , m_height(0)
     , m_bitsPerSample(0)
     , m_samplesPerPixel(0)
     , m_sampleFormat(0) {}
 
-TiffHandler::~TiffHandler() {
+OutputDataReadWriteTiff::~OutputDataReadWriteTiff() {
     close();
 }
 
-void TiffHandler::read(std::istream& input_stream) {
+void OutputDataReadWriteTiff::read(std::istream& input_stream) {
     m_tiff = TIFFStreamOpen("MemTIFF", &input_stream);
-    if (!m_tiff) {
-        throw std::runtime_error("TiffHandler::read() -> Can't open the file.");
-    }
+    if (!m_tiff)
+        throw std::runtime_error("OutputDataReadWriteTiff::read() -> Can't open the file.");
+
     read_header();
     read_data();
     close();
 }
 
-const OutputData<double>* TiffHandler::getOutputData() const {
-    return m_data.get();
+OutputData<double>* OutputDataReadWriteTiff::readOutputData(std::istream& input_stream) {
+    read(input_stream);
+    return m_data->clone();
 }
 
-void TiffHandler::write(const OutputData<double>& data, std::ostream& output_stream) {
+void OutputDataReadWriteTiff::writeOutputData(const OutputData<double>& data,
+                                              std::ostream& output_stream) {
     m_data.reset(data.clone());
     if (m_data->rank() != 2)
-        throw std::runtime_error("TiffHandler::write -> Error. "
+        throw std::runtime_error("OutputDataReadWriteTiff::write -> Error. "
                                  "Only 2-dim arrays supported");
     m_tiff = TIFFStreamOpen("MemTIFF", &output_stream);
     m_width = m_data->axis(0).size();
@@ -57,13 +59,13 @@ void TiffHandler::write(const OutputData<double>& data, std::ostream& output_str
     close();
 }
 
-void TiffHandler::read_header() {
+void OutputDataReadWriteTiff::read_header() {
     ASSERT(m_tiff);
     uint32 width(0);
     uint32 height(0);
     if (!TIFFGetField(m_tiff, TIFFTAG_IMAGEWIDTH, &width)
         || !TIFFGetField(m_tiff, TIFFTAG_IMAGELENGTH, &height)) {
-        throw std::runtime_error("TiffHandler::read_header() -> Error. "
+        throw std::runtime_error("OutputDataReadWriteTiff::read_header() -> Error. "
                                  "Can't read width/height.");
     }
 
@@ -104,7 +106,7 @@ void TiffHandler::read_header() {
 
     if (!good) {
         std::ostringstream message;
-        message << "TiffHandler::read_header() -> Error. "
+        message << "OutputDataReadWriteTiff::read_header() -> Error. "
                 << "Can't read tiff image with following parameters:" << std::endl
                 << "    TIFFTAG_BITSPERSAMPLE: " << m_bitsPerSample << std::endl
                 << "    TIFFTAG_SAMPLESPERPIXEL: " << m_samplesPerPixel << std::endl
@@ -113,7 +115,7 @@ void TiffHandler::read_header() {
     }
 }
 
-void TiffHandler::read_data() {
+void OutputDataReadWriteTiff::read_data() {
     ASSERT(m_tiff);
 
     ASSERT(0 == m_bitsPerSample % 8);
@@ -121,11 +123,13 @@ void TiffHandler::read_data() {
     tmsize_t buf_size = TIFFScanlineSize(m_tiff);
     tmsize_t expected_size = bytesPerSample * m_width;
     if (buf_size != expected_size)
-        throw std::runtime_error("TiffHandler::read_data() -> Error. Wrong scanline size.");
+        throw std::runtime_error(
+            "OutputDataReadWriteTiff::read_data() -> Error. Wrong scanline size.");
 
     tdata_t buf = _TIFFmalloc(buf_size);
     if (!buf)
-        throw std::runtime_error("TiffHandler::read_data() -> Error. Can't allocate buffer.");
+        throw std::runtime_error(
+            "OutputDataReadWriteTiff::read_data() -> Error. Can't allocate buffer.");
 
     create_output_data();
 
@@ -136,7 +140,8 @@ void TiffHandler::read_data() {
 
     for (uint32 row = 0; row < (uint32)m_height; row++) {
         if (TIFFReadScanline(m_tiff, buf, row) < 0)
-            throw std::runtime_error("TiffHandler::read_data() -> Error. Error in scanline.");
+            throw std::runtime_error(
+                "OutputDataReadWriteTiff::read_data() -> Error. Error in scanline.");
 
         memcpy(&line_buf[0], buf, buf_size);
 
@@ -179,7 +184,7 @@ void TiffHandler::read_data() {
                 sample = double(*reinterpret_cast<float*>(incoming));
                 break;
             default:
-                throw std::runtime_error("TiffHandler: unexpected sample format");
+                throw std::runtime_error("OutputDataReadWriteTiff: unexpected sample format");
             }
 
             (*m_data)[global_index] = sample;
@@ -188,7 +193,7 @@ void TiffHandler::read_data() {
     _TIFFfree(buf);
 }
 
-void TiffHandler::write_header() {
+void OutputDataReadWriteTiff::write_header() {
     ASSERT(m_tiff);
     TIFFSetField(m_tiff, TIFFTAG_ARTIST, "BornAgain.IOFactory");
     TIFFSetField(m_tiff, TIFFTAG_DATETIME, SysUtils::getCurrentDateAndTime().c_str());
@@ -209,12 +214,13 @@ void TiffHandler::write_header() {
     TIFFSetField(m_tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISWHITE);
 }
 
-void TiffHandler::write_data() {
+void OutputDataReadWriteTiff::write_data() {
     typedef int sample_t;
     tmsize_t buf_size = sizeof(sample_t) * m_width;
     tdata_t buf = _TIFFmalloc(buf_size);
     if (!buf)
-        throw std::runtime_error("TiffHandler::write_data() -> Error. Can't allocate buffer.");
+        throw std::runtime_error(
+            "OutputDataReadWriteTiff::write_data() -> Error. Can't allocate buffer.");
 
     std::vector<sample_t> line_buf;
     line_buf.resize(m_width, 0);
@@ -230,22 +236,22 @@ void TiffHandler::write_data() {
 
         if (TIFFWriteScanline(m_tiff, buf, row) < 0)
             throw std::runtime_error(
-                "TiffHandler::write_data() -> Error. Error in TIFFWriteScanline.");
+                "OutputDataReadWriteTiff::write_data() -> Error. Error in TIFFWriteScanline.");
     }
     _TIFFfree(buf);
     TIFFFlush(m_tiff);
 }
 
-void TiffHandler::close() {
+void OutputDataReadWriteTiff::close() {
     if (m_tiff) {
         TIFFClose(m_tiff);
-        m_tiff = 0;
+        m_tiff = nullptr;
         m_width = 0;
         m_height = 0;
     }
 }
 
-void TiffHandler::create_output_data() {
+void OutputDataReadWriteTiff::create_output_data() {
     ASSERT(m_tiff);
     m_data.reset(new OutputData<double>);
     m_data->addAxis("x", m_width, 0.0, double(m_width));

@@ -1,5 +1,4 @@
-#include "Device/InputOutput/OutputDataReadFactory.h"
-#include "Device/InputOutput/OutputDataWriteFactory.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Intensity/ArrayUtils.h"
 #include "Device/Unit/AxisNames.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
@@ -19,9 +18,8 @@ protected:
 
     void writeTestFile() {
         remove(m_testFilename.c_str());
-        OutputDataWriter* writer = OutputDataWriteFactory::getWriter(m_testFilename);
         OutputData<double>* data = ArrayUtils::createData(m_testVector).release();
-        writer->writeOutputData(*data);
+        IntensityDataIOFactory::writeOutputData(*data, m_testFilename);
     }
 
     void writeTestFile(size_t nRows, size_t nCols) {
@@ -38,9 +36,7 @@ protected:
     }
 
     OutputData<double>* readTestFile() {
-        OutputDataReader* reader = OutputDataReadFactory::getReader(m_testFilename);
-        OutputData<double>* data = reader->getOutputData();
-        return data;
+        return IntensityDataIOFactory::readOutputData(m_testFilename);
     }
 };
 

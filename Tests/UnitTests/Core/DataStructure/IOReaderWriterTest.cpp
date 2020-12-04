@@ -1,16 +1,17 @@
 #include "Device/Data/OutputData.h"
-#include "Device/InputOutput/OutputDataReadStrategy.h"
-#include "Device/InputOutput/OutputDataWriteStrategy.h"
+#include "Device/InputOutput/OutputDataReadWriteINT.h"
+#include "Device/InputOutput/OutputDataReadWriteNumpyTXT.h"
+#include "Device/InputOutput/OutputDataReadWriteTiff.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class IOStrategyTest : public ::testing::Test {
+class IOReaderWriterTest : public ::testing::Test {
 protected:
-    IOStrategyTest();
+    IOReaderWriterTest();
 
     OutputData<double> m_model_data;
 };
 
-IOStrategyTest::IOStrategyTest() {
+IOReaderWriterTest::IOReaderWriterTest() {
     FixedBinAxis axis1("x", 5, 1.0, 5.0);
     FixedBinAxis axis2("y", 10, 6.0, 7.0);
     m_model_data.addAxis(axis1);
@@ -19,12 +20,12 @@ IOStrategyTest::IOStrategyTest() {
         m_model_data[i] = static_cast<double>(i);
 }
 
-TEST_F(IOStrategyTest, TestINTStrategies) {
+TEST_F(IOReaderWriterTest, TestOutputDataReadWriteINT) {
     std::stringstream ss;
-    OutputDataWriteINTStrategy write_int_strategy;
-    write_int_strategy.writeOutputData(m_model_data, ss);
-    OutputDataReadINTStrategy read_int_strategy;
-    auto result = std::unique_ptr<OutputData<double>>(read_int_strategy.readOutputData(ss));
+    OutputDataReadWriteINT write_int;
+    write_int.writeOutputData(m_model_data, ss);
+    OutputDataReadWriteINT read_int;
+    auto result = std::unique_ptr<OutputData<double>>(read_int.readOutputData(ss));
 
     auto compare_axis = [this, &result](size_t index) {
         EXPECT_EQ(m_model_data.axis(index).size(), result->axis(index).size());
@@ -40,13 +41,13 @@ TEST_F(IOStrategyTest, TestINTStrategies) {
         EXPECT_EQ(m_model_data[i], (*result)[i]);
 }
 
-TEST_F(IOStrategyTest, TestNumpyTXTStrategies) {
+TEST_F(IOReaderWriterTest, TestOutputDataReadWriteNumpyTXT) {
     std::stringstream ss;
-    OutputDataWriteNumpyTXTStrategy write_txt_strategy;
-    write_txt_strategy.writeOutputData(m_model_data, ss);
+    OutputDataReadWriteNumpyTXT write_txt;
+    write_txt.writeOutputData(m_model_data, ss);
 
-    OutputDataReadNumpyTXTStrategy read_txt_strategy;
-    auto result = std::unique_ptr<OutputData<double>>(read_txt_strategy.readOutputData(ss));
+    OutputDataReadWriteNumpyTXT read_txt;
+    auto result = std::unique_ptr<OutputData<double>>(read_txt.readOutputData(ss));
     EXPECT_EQ(m_model_data.rank(), result->rank());
     EXPECT_EQ(m_model_data.getAllSizes(), result->getAllSizes());
     for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size; ++i)
@@ -55,13 +56,13 @@ TEST_F(IOStrategyTest, TestNumpyTXTStrategies) {
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-TEST_F(IOStrategyTest, TestTIFFStrategies) {
+TEST_F(IOReaderWriterTest, TestOutputDataReadWriteTiff) {
     std::stringstream ss;
-    OutputDataWriteTiffStrategy write_tiff_strategy;
-    write_tiff_strategy.writeOutputData(m_model_data, ss);
+    OutputDataReadWriteTiff write_tiff;
+    write_tiff.writeOutputData(m_model_data, ss);
 
-    OutputDataReadTiffStrategy read_tiff_strategy;
-    auto result = std::unique_ptr<OutputData<double>>(read_tiff_strategy.readOutputData(ss));
+    OutputDataReadWriteTiff read_tiff;
+    auto result = std::unique_ptr<OutputData<double>>(read_tiff.readOutputData(ss));
     EXPECT_EQ(m_model_data.rank(), result->rank());
     EXPECT_EQ(m_model_data.getAllSizes(), result->getAllSizes());
     for (size_t i = 0, size = m_model_data.getAllocatedSize(); i < size; ++i)

@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/InputOutput/TiffHandler.h
-//! @brief     Defines class TiffHandler.
+//! @file      Device/InputOutput/OutputDataReadWriteTiff.h
+//! @brief     Defines class OutputDataReadWriteTiff
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_DEVICE_INPUTOUTPUT_TIFFHANDLER_H
-#define BORNAGAIN_DEVICE_INPUTOUTPUT_TIFFHANDLER_H
+#ifndef BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADWRITETIFF_H
+#define BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADWRITETIFF_H
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
@@ -21,21 +21,19 @@
 #include <memory>
 #include <tiffio.h>
 
-//! Reads/write tiff files, should be used through TiffReadStrategy.
+//! Reads/write tiff files.
 //! @ingroup input_output_internal
 
-class TiffHandler {
+class OutputDataReadWriteTiff {
 public:
-    TiffHandler();
-    ~TiffHandler();
+    OutputDataReadWriteTiff();
+    ~OutputDataReadWriteTiff();
 
-    void read(std::istream& input_stream);
-
-    const OutputData<double>* getOutputData() const;
-
-    void write(const OutputData<double>& data, std::ostream& output_stream);
+    OutputData<double>* readOutputData(std::istream& input_stream);
+    void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
 
 private:
+    void read(std::istream& input_stream);
     void read_header();
     void read_data();
     void write_header();
@@ -51,4 +49,4 @@ private:
 
 #endif // BORNAGAIN_TIFF_SUPPORT
 
-#endif // BORNAGAIN_DEVICE_INPUTOUTPUT_TIFFHANDLER_H
+#endif // BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADWRITETIFF_H

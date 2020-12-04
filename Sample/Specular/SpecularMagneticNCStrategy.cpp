@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticNewNCStrategy.cpp
-//! @brief     Implements class SpecularMagneticNewNCStrategy.
+//! @file      Sample/Specular/SpecularMagneticNCStrategy.cpp
+//! @brief     Implements class SpecularMagneticNCStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,15 +12,15 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Specular/SpecularMagneticNewNCStrategy.h"
+#include "Sample/Specular/SpecularMagneticNCStrategy.h"
 
 namespace {
 complex_t checkForUnderflow(complex_t val);
 }
 
 std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-SpecularMagneticNewNCStrategy::computeRoughnessMatrices(const MatrixRTCoefficients_v3& coeff_i,
-                                                        const MatrixRTCoefficients_v3& coeff_i1,
+SpecularMagneticNCStrategy::computeRoughnessMatrices(const MatrixRTCoefficients& coeff_i,
+                                                        const MatrixRTCoefficients& coeff_i1,
                                                         double sigma) const {
     complex_t beta_i = coeff_i.m_lambda(1) - coeff_i.m_lambda(0);
     complex_t beta_i1 = coeff_i1.m_lambda(1) - coeff_i1.m_lambda(0);
@@ -65,8 +65,8 @@ SpecularMagneticNewNCStrategy::computeRoughnessMatrices(const MatrixRTCoefficien
 }
 
 std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-SpecularMagneticNewNCStrategy::computeBackwardsSubmatrices(const MatrixRTCoefficients_v3& coeff_i,
-                                                           const MatrixRTCoefficients_v3& coeff_i1,
+SpecularMagneticNCStrategy::computeBackwardsSubmatrices(const MatrixRTCoefficients& coeff_i,
+                                                           const MatrixRTCoefficients& coeff_i1,
                                                            double sigma) const {
     Eigen::Matrix2cd roughness_sum{Eigen::Matrix2cd::Identity()};
     Eigen::Matrix2cd roughness_diff{Eigen::Matrix2cd::Identity()};

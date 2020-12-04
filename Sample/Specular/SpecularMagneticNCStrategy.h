@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticNewNCStrategy.h
-//! @brief     Defines class SpecularMagneticNewNCStrategy.
+//! @file      Sample/Specular/SpecularMagneticNCStrategy.h
+//! @brief     Defines class SpecularMagneticNCStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,10 +12,10 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWNCSTRATEGY_H
-#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWNCSTRATEGY_H
+#ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNCSTRATEGY_H
+#define BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNCSTRATEGY_H
 
-#include "Sample/Specular/SpecularMagneticNewStrategy.h"
+#include "Sample/Specular/SpecularMagneticStrategy.h"
 #include <memory>
 #include <vector>
 
@@ -27,15 +27,15 @@
 //! document "Polarized Implementation of the Transfer Matrix Method"
 //!
 //! @ingroup algorithms_internal
-class SpecularMagneticNewNCStrategy : public SpecularMagneticNewStrategy {
+class SpecularMagneticNCStrategy : public SpecularMagneticStrategy {
 private:
     std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-    computeRoughnessMatrices(const MatrixRTCoefficients_v3& coeff_i,
-                             const MatrixRTCoefficients_v3& coeff_i1, double sigma) const;
+    computeRoughnessMatrices(const MatrixRTCoefficients& coeff_i,
+                             const MatrixRTCoefficients& coeff_i1, double sigma) const;
 
     virtual std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-    computeBackwardsSubmatrices(const MatrixRTCoefficients_v3& coeff_i,
-                                const MatrixRTCoefficients_v3& coeff_i1, double sigma) const;
+    computeBackwardsSubmatrices(const MatrixRTCoefficients& coeff_i,
+                                const MatrixRTCoefficients& coeff_i1, double sigma) const;
 };
 
-#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNEWNCSTRATEGY_H
+#endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARMAGNETICNCSTRATEGY_H

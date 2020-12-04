@@ -14,8 +14,8 @@
 
 #include "Sample/Specular/SpecularStrategyBuilder.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
-#include "Sample/Specular/SpecularMagneticNewNCStrategy.h"
-#include "Sample/Specular/SpecularMagneticNewTanhStrategy.h"
+#include "Sample/Specular/SpecularMagneticNCStrategy.h"
+#include "Sample/Specular/SpecularMagneticTanhStrategy.h"
 #include "Sample/Specular/SpecularScalarNCStrategy.h"
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 
@@ -26,11 +26,11 @@ std::unique_ptr<ISpecularStrategy> SpecularStrategyBuilder::build(const MultiLay
     if (magnetic) {
         if (roughnessModel == RoughnessModel::TANH || roughnessModel == RoughnessModel::DEFAULT) {
 
-            return std::make_unique<SpecularMagneticNewTanhStrategy>();
+            return std::make_unique<SpecularMagneticTanhStrategy>();
 
         } else if (roughnessModel == RoughnessModel::NEVOT_CROCE) {
 
-            return std::make_unique<SpecularMagneticNewNCStrategy>();
+            return std::make_unique<SpecularMagneticNCStrategy>();
 
         } else
             throw std::logic_error("Invalid roughness model");

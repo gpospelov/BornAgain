@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticNewTanhStrategy.cpp
-//! @brief     Implements class SpecularMagneticNewTanhStrategy.
+//! @file      Sample/Specular/SpecularMagneticTanhStrategy.cpp
+//! @brief     Implements class SpecularMagneticTanhStrategy.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Specular/SpecularMagneticNewTanhStrategy.h"
+#include "Sample/Specular/SpecularMagneticTanhStrategy.h"
 #include "Base/Math/Constants.h"
 #include "Base/Math/Functions.h"
 
@@ -21,7 +21,7 @@ const double pi2_15 = std::pow(M_PI_2, 1.5);
 } // namespace
 
 Eigen::Matrix2cd
-SpecularMagneticNewTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficients_v3& coeff,
+SpecularMagneticTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficients& coeff,
                                                         double sigma, bool inverse) const {
     if (sigma < 10 * std::numeric_limits<double>::epsilon())
         return Eigen::Matrix2cd{Eigen::Matrix2cd::Identity()};
@@ -60,8 +60,8 @@ SpecularMagneticNewTanhStrategy::computeRoughnessMatrix(const MatrixRTCoefficien
 }
 
 std::pair<Eigen::Matrix2cd, Eigen::Matrix2cd>
-SpecularMagneticNewTanhStrategy::computeBackwardsSubmatrices(
-    const MatrixRTCoefficients_v3& coeff_i, const MatrixRTCoefficients_v3& coeff_i1,
+SpecularMagneticTanhStrategy::computeBackwardsSubmatrices(
+    const MatrixRTCoefficients& coeff_i, const MatrixRTCoefficients& coeff_i1,
     double sigma) const {
     Eigen::Matrix2cd R{Eigen::Matrix2cd::Identity()};
     Eigen::Matrix2cd RInv{Eigen::Matrix2cd::Identity()};

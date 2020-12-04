@@ -2,302 +2,163 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/RT/MatrixRTCoefficients.cpp
-//! @brief     Implements class MatrixRTCoefficients.
+//! @file     Sample/RT/MatrixRTCoefficients.cpp
+//! @brief    Implements class MatrixRTCoefficients.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @copyright Forschungszentrum Jülich GmbH 2018
+//! @copyright Forschungszentrum Jülich GmbH 2020
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
 //  ************************************************************************************************
 
 #include "Sample/RT/MatrixRTCoefficients.h"
+#include "Base/Utils/Assert.h"
+
+namespace {
+complex_t GetImExponential(complex_t exponent);
+const auto eps = std::numeric_limits<double>::epsilon() * 10.;
+} // namespace
+
+MatrixRTCoefficients::MatrixRTCoefficients(double kz_sign, Eigen::Vector2cd eigenvalues,
+                                                 kvector_t b, double magnetic_SLD)
+    : m_kz_sign(kz_sign)
+    , m_lambda(std::move(eigenvalues))
+    , m_b(std::move(b))
+    , m_magnetic_SLD(magnetic_SLD) {
+    ASSERT(std::abs(m_b.mag() - 1) < eps || (m_b.mag() < eps && magnetic_SLD < eps));
+
+    m_T << 1, 0, 0, 1;
+    m_R << -1, 0, 0, -1;
+}
+
+MatrixRTCoefficients::MatrixRTCoefficients(const MatrixRTCoefficients& other) = default;
+
+MatrixRTCoefficients::~MatrixRTCoefficients() = default;
 
 MatrixRTCoefficients* MatrixRTCoefficients::clone() const {
     return new MatrixRTCoefficients(*this);
 }
 
+Eigen::Matrix2cd MatrixRTCoefficients::TransformationMatrix(Eigen::Vector2d selection) const {
+    const Eigen::Matrix2cd exp2 = Eigen::DiagonalMatrix<complex_t, 2>(selection);
+
+    if (std::abs(m_b.mag() - 1.) < eps) {
+        Eigen::Matrix2cd Q;
+        const double factor1 = 2. * (1. + m_b.z());
+        Q << (1. + m_b.z()), (I * m_b.y() - m_b.x()), (m_b.x() + I * m_b.y()), (m_b.z() + 1.);
+        return Q * exp2 * Q.adjoint() / factor1;
+
+    } else if (m_b.mag() < eps)
+        return exp2;
+
+    throw std::runtime_error("Broken magnetic field vector");
+}
+
+Eigen::Matrix2cd MatrixRTCoefficients::T1Matrix() const {
+    return TransformationMatrix({0., 1.});
+}
+
+Eigen::Matrix2cd MatrixRTCoefficients::T2Matrix() const {
+    return TransformationMatrix({1., 0.});
+}
+
 Eigen::Vector2cd MatrixRTCoefficients::T1plus() const {
-    Eigen::Vector2cd result;
-    Eigen::Matrix<complex_t, 4, 1> m = T1m * phi_psi_plus;
-    result(0) = m(2);
-    result(1) = m(3);
-    if (lambda(0) == 0.0 && result == Eigen::Vector2cd::Zero())
-        result(0) = 0.5;
-    return result;
+    return T1Matrix() * m_T.col(0);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients::R1plus() const {
-    Eigen::Vector2cd result;
-    Eigen::Matrix<complex_t, 4, 1> m = R1m * phi_psi_plus;
-    result(0) = m(2);
-    result(1) = m(3);
-    Eigen::Matrix<complex_t, 4, 1> mT = T1m * phi_psi_plus;
-    if (lambda(0) == 0.0 && mT(2) == 0.0 && mT(3) == 0.0)
-        result(0) = -0.5;
-    return result;
+    return T1Matrix() * m_R.col(0);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients::T2plus() const {
-    Eigen::Vector2cd result;
-    Eigen::Matrix<complex_t, 4, 1> m = T2m * phi_psi_plus;
-    result(0) = m(2);
-    result(1) = m(3);
-    if (lambda(1) == 0.0 && result == Eigen::Vector2cd::Zero())
-        result(0) = 0.5;
-    return result;
+    return T2Matrix() * m_T.col(0);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients::R2plus() const {
-    Eigen::Vector2cd result;
-    Eigen::Matrix<complex_t, 4, 1> m = R2m * phi_psi_plus;
-    result(0) = m(2);
-    result(1) = m(3);
-    Eigen::Matrix<complex_t, 4, 1> mT = T2m * phi_psi_plus;
-    if (lambda(1) == 0.0 && mT(2) == 0.0 && mT(3) == 0.0)
-        result(0) = -0.5;
-    return result;
+    return T2Matrix() * m_R.col(0);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients::T1min() const {
-    Eigen::Vector2cd result;
-    Eigen::Matrix<complex_t, 4, 1> m = T1m * phi_psi_min;
-    result(0) = m(2);
-    result(1) = m(3);
-    if (lambda(0) == 0.0 && result == Eigen::Vector2cd::Zero())
-        result(1) = 0.5;
-    return result;
+    return T1Matrix() * m_T.col(1);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients::R1min() const {
-    Eigen::Vector2cd result;
-    Eigen::Matrix<complex_t, 4, 1> m = R1m * phi_psi_min;
-    result(0) = m(2);
-    result(1) = m(3);
-    Eigen::Matrix<complex_t, 4, 1> mT = T1m * phi_psi_min;
-    if (lambda(0) == 0.0 && mT(2) == 0.0 && mT(3) == 0.0)
-        result(1) = -0.5;
-    return result;
+    return T1Matrix() * m_R.col(1);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients::T2min() const {
-    Eigen::Vector2cd result;
-    Eigen::Matrix<complex_t, 4, 1> m = T2m * phi_psi_min;
-    result(0) = m(2);
-    result(1) = m(3);
-    if (lambda(1) == 0.0 && result == Eigen::Vector2cd::Zero())
-        result(1) = 0.5;
-    return result;
+    return T2Matrix() * m_T.col(1);
 }
 
 Eigen::Vector2cd MatrixRTCoefficients::R2min() const {
-    Eigen::Vector2cd result;
-    Eigen::Matrix<complex_t, 4, 1> m = R2m * phi_psi_min;
-    result(0) = m(2);
-    result(1) = m(3);
-    Eigen::Matrix<complex_t, 4, 1> mT = T2m * phi_psi_min;
-    if (lambda(1) == 0.0 && mT(2) == 0.0 && mT(3) == 0.0)
-        result(1) = -0.5;
+    return T2Matrix() * m_R.col(1);
+}
+
+Eigen::Vector2cd MatrixRTCoefficients::getKz() const {
+    return m_kz_sign * m_lambda;
+}
+
+Eigen::Matrix2cd MatrixRTCoefficients::pMatrixHelper(double sign) const {
+    const complex_t alpha = m_lambda(1) + m_lambda(0);
+    const complex_t beta = m_lambda(1) - m_lambda(0);
+
+    Eigen::Matrix2cd result;
+
+    kvector_t b = m_b;
+
+    result << alpha + sign * beta * b.z(), sign * beta * (b.x() - I * b.y()),
+        sign * beta * (b.x() + I * b.y()), alpha - sign * beta * b.z();
+
+    return m_kz_sign * result;
+}
+
+Eigen::Matrix2cd MatrixRTCoefficients::computeP() const {
+    Eigen::Matrix2cd result = pMatrixHelper(1.);
+    result *= 0.5;
+
     return result;
 }
 
-void MatrixRTCoefficients::calculateTRMatrices() {
-    if (m_b_mag == 0.0) {
-        calculateTRWithoutMagnetization();
-        return;
-    }
+Eigen::Matrix2cd MatrixRTCoefficients::computeInverseP() const {
+    const complex_t alpha = m_lambda(1) + m_lambda(0);
+    const complex_t beta = m_lambda(1) - m_lambda(0);
 
-    if (lambda(0) == 0.0) {
-        complex_t ikt = mul_I(m_kt);
-        // Lambda1 component contained only in T1m (R1m=0)
-        // row 0:
-        T1m(0, 0) = (1.0 - m_bz / m_b_mag) / 2.0;
-        T1m(0, 1) = -m_scatt_matrix(0, 1) / 2.0 / m_b_mag;
-        // row 1:
-        T1m(1, 0) = -m_scatt_matrix(1, 0) / 2.0 / m_b_mag;
-        T1m(1, 1) = (1.0 + m_bz / m_b_mag) / 2.0;
-        // row 2:
-        T1m(2, 0) = ikt * (1.0 - m_bz / m_b_mag) / 2.0;
-        T1m(2, 1) = -ikt * m_scatt_matrix(0, 1) / 2.0 / m_b_mag;
-        T1m(2, 2) = T1m(0, 0);
-        T1m(2, 3) = T1m(0, 1);
-        // row 3:
-        T1m(3, 0) = -ikt * m_scatt_matrix(1, 0) / 2.0 / m_b_mag;
-        T1m(3, 1) = ikt * (1.0 + m_bz / m_b_mag) / 2.0;
-        T1m(3, 2) = T1m(1, 0);
-        T1m(3, 3) = T1m(1, 1);
-    } else {
-        // T1m:
-        // row 0:
-        T1m(0, 0) = (1.0 - m_bz / m_b_mag) / 4.0;
-        T1m(0, 1) = -m_scatt_matrix(0, 1) / 4.0 / m_b_mag;
-        T1m(0, 2) = lambda(0) * (m_bz / m_b_mag - 1.0) / 4.0;
-        T1m(0, 3) = m_scatt_matrix(0, 1) * lambda(0) / 4.0 / m_b_mag;
-        // row 1:
-        T1m(1, 0) = -m_scatt_matrix(1, 0) / 4.0 / m_b_mag;
-        T1m(1, 1) = (1.0 + m_bz / m_b_mag) / 4.0;
-        T1m(1, 2) = m_scatt_matrix(1, 0) * lambda(0) / 4.0 / m_b_mag;
-        T1m(1, 3) = -lambda(0) * (m_bz / m_b_mag + 1.0) / 4.0;
-        // row 2:
-        T1m(2, 0) = -(1.0 - m_bz / m_b_mag) / 4.0 / lambda(0);
-        T1m(2, 1) = m_scatt_matrix(0, 1) / 4.0 / m_b_mag / lambda(0);
-        T1m(2, 2) = -(m_bz / m_b_mag - 1.0) / 4.0;
-        T1m(2, 3) = -m_scatt_matrix(0, 1) / 4.0 / m_b_mag;
-        // row 3:
-        T1m(3, 0) = m_scatt_matrix(1, 0) / 4.0 / m_b_mag / lambda(0);
-        T1m(3, 1) = -(1.0 + m_bz / m_b_mag) / 4.0 / lambda(0);
-        T1m(3, 2) = -m_scatt_matrix(1, 0) / 4.0 / m_b_mag;
-        T1m(3, 3) = (m_bz / m_b_mag + 1.0) / 4.0;
+    if (std::abs(alpha * alpha - beta * beta) == 0.)
+        return Eigen::Matrix2cd::Zero();
 
-        // R1m:
-        // row 0:
-        R1m(0, 0) = T1m(0, 0);
-        R1m(0, 1) = T1m(0, 1);
-        R1m(0, 2) = -T1m(0, 2);
-        R1m(0, 3) = -T1m(0, 3);
-        // row 1:
-        R1m(1, 0) = T1m(1, 0);
-        R1m(1, 1) = T1m(1, 1);
-        R1m(1, 2) = -T1m(1, 2);
-        R1m(1, 3) = -T1m(1, 3);
-        // row 2:
-        R1m(2, 0) = -T1m(2, 0);
-        R1m(2, 1) = -T1m(2, 1);
-        R1m(2, 2) = T1m(2, 2);
-        R1m(2, 3) = T1m(2, 3);
-        // row 3:
-        R1m(3, 0) = -T1m(3, 0);
-        R1m(3, 1) = -T1m(3, 1);
-        R1m(3, 2) = T1m(3, 2);
-        R1m(3, 3) = T1m(3, 3);
-    }
+    Eigen::Matrix2cd result = pMatrixHelper(-1.);
+    result *= 2. / (alpha * alpha - beta * beta);
 
-    if (lambda(1) == 0.0) {
-        complex_t ikt = mul_I(m_kt);
-        // Lambda2 component contained only in T2m (R2m=0)
-        // row 0:
-        T2m(0, 0) = (1.0 + m_bz / m_b_mag) / 2.0;
-        T2m(0, 1) = m_scatt_matrix(0, 1) / 2.0 / m_b_mag;
-        // row 1:
-        T2m(1, 0) = m_scatt_matrix(1, 0) / 2.0 / m_b_mag;
-        T2m(1, 1) = (1.0 - m_bz / m_b_mag) / 2.0;
-        // row 2:
-        T2m(2, 0) = ikt * (1.0 + m_bz / m_b_mag) / 2.0;
-        T2m(2, 1) = ikt * m_scatt_matrix(0, 1) / 2.0 / m_b_mag;
-        T2m(2, 2) = T2m(0, 0);
-        T2m(2, 3) = T2m(0, 1);
-        // row 3:
-        T2m(3, 0) = ikt * m_scatt_matrix(1, 0) / 2.0 / m_b_mag;
-        T2m(3, 1) = ikt * (1.0 - m_bz / m_b_mag) / 2.0;
-        T2m(3, 2) = T2m(1, 0);
-        T2m(3, 3) = T2m(1, 1);
-    } else {
-        // T2m:
-        // row 0:
-        T2m(0, 0) = (1.0 + m_bz / m_b_mag) / 4.0;
-        T2m(0, 1) = m_scatt_matrix(0, 1) / 4.0 / m_b_mag;
-        T2m(0, 2) = -lambda(1) * (m_bz / m_b_mag + 1.0) / 4.0;
-        T2m(0, 3) = -m_scatt_matrix(0, 1) * lambda(1) / 4.0 / m_b_mag;
-        // row 1:
-        T2m(1, 0) = m_scatt_matrix(1, 0) / 4.0 / m_b_mag;
-        T2m(1, 1) = (1.0 - m_bz / m_b_mag) / 4.0;
-        T2m(1, 2) = -m_scatt_matrix(1, 0) * lambda(1) / 4.0 / m_b_mag;
-        T2m(1, 3) = lambda(1) * (m_bz / m_b_mag - 1.0) / 4.0;
-        // row 2:
-        T2m(2, 0) = -(1.0 + m_bz / m_b_mag) / 4.0 / lambda(1);
-        T2m(2, 1) = -m_scatt_matrix(0, 1) / 4.0 / m_b_mag / lambda(1);
-        T2m(2, 2) = (m_bz / m_b_mag + 1.0) / 4.0;
-        T2m(2, 3) = m_scatt_matrix(0, 1) / 4.0 / m_b_mag;
-        // row 3:
-        T2m(3, 0) = -m_scatt_matrix(1, 0) / 4.0 / m_b_mag / lambda(1);
-        T2m(3, 1) = -(1.0 - m_bz / m_b_mag) / 4.0 / lambda(1);
-        T2m(3, 2) = m_scatt_matrix(1, 0) / 4.0 / m_b_mag;
-        T2m(3, 3) = (1.0 - m_bz / m_b_mag) / 4.0;
-
-        // R2m:
-        // row 0:
-        R2m(0, 0) = T2m(0, 0);
-        R2m(0, 1) = T2m(0, 1);
-        R2m(0, 2) = -T2m(0, 2);
-        R2m(0, 3) = -T2m(0, 3);
-        // row 1:
-        R2m(1, 0) = T2m(1, 0);
-        R2m(1, 1) = T2m(1, 1);
-        R2m(1, 2) = -T2m(1, 2);
-        R2m(1, 3) = -T2m(1, 3);
-        // row 2:
-        R2m(2, 0) = -T2m(2, 0);
-        R2m(2, 1) = -T2m(2, 1);
-        R2m(2, 2) = T2m(2, 2);
-        R2m(2, 3) = T2m(2, 3);
-        // row 3:
-        R2m(3, 0) = -T2m(3, 0);
-        R2m(3, 1) = -T2m(3, 1);
-        R2m(3, 2) = T2m(3, 2);
-        R2m(3, 3) = T2m(3, 3);
-    }
+    return result;
 }
 
-void MatrixRTCoefficients::calculateTRWithoutMagnetization() {
-    T1m.setZero();
-    R1m.setZero();
-    T2m.setZero();
-    R2m.setZero();
+Eigen::Matrix2cd MatrixRTCoefficients::computeDeltaMatrix(double thickness) {
+    Eigen::Matrix2cd result;
+    const complex_t alpha = 0.5 * thickness * (m_lambda(1) + m_lambda(0));
 
-    if (m_a == 0.0) {
-        // Spin down component contained only in T1 (R1=0)
-        T1m(1, 1) = 1.0;
-        T1m(3, 1) = mul_I(m_kt);
-        T1m(3, 3) = 1.0;
+    const Eigen::Matrix2cd exp2 = Eigen::DiagonalMatrix<complex_t, 2>(
+        {GetImExponential(m_kz_sign * thickness * m_lambda(1)),
+         GetImExponential(m_kz_sign * thickness * m_lambda(0))});
 
-        // Spin up component contained only in T2 (R2=0)
-        T2m(0, 0) = 1.0;
-        T2m(2, 0) = mul_I(m_kt);
-        T2m(2, 2) = 1.0;
-        return;
-    }
+    // Compute resulting phase matrix according to exp(i p_m d_m) = exp1 * Q * exp2 * Q.adjoint();
+    if (std::abs(m_b.mag() - 1.) < eps) {
+        Eigen::Matrix2cd Q;
+        const double factor1 = 2. * (1. + m_b.z());
+        Q << (1. + m_b.z()), (I * m_b.y() - m_b.x()), (m_b.x() + I * m_b.y()), (m_b.z() + 1.);
 
-    // T1m:
-    T1m(1, 1) = 0.5;
-    T1m(1, 3) = -std::sqrt(m_a) / 2.0;
-    T1m(3, 1) = -1.0 / (2.0 * std::sqrt(m_a));
-    T1m(3, 3) = 0.5;
+        return Q * exp2 * Q.adjoint() / factor1;
 
-    // R1m:
-    R1m(1, 1) = 0.5;
-    R1m(1, 3) = std::sqrt(m_a) / 2.0;
-    R1m(3, 1) = 1.0 / (2.0 * std::sqrt(m_a));
-    R1m(3, 3) = 0.5;
+    } else if (m_b.mag() < eps)
+        return Eigen::Matrix2cd::Identity() * GetImExponential(m_kz_sign * alpha);
 
-    // T2m:
-    T2m(0, 0) = 0.5;
-    T2m(0, 2) = -std::sqrt(m_a) / 2.0;
-    T2m(2, 0) = -1.0 / (2.0 * std::sqrt(m_a));
-    T2m(2, 2) = 0.5;
-
-    // R2m:
-    R2m(0, 0) = 0.5;
-    R2m(0, 2) = std::sqrt(m_a) / 2.0;
-    R2m(2, 0) = 1.0 / (2.0 * std::sqrt(m_a));
-    R2m(2, 2) = 0.5;
+    throw std::runtime_error("Broken magnetic field vector");
 }
 
-void MatrixRTCoefficients::initializeBottomLayerPhiPsi() {
-    if (m_b_mag == 0.0) {
-        phi_psi_min << 0.0, -std::sqrt(m_a), 0.0, 1.0;
-        phi_psi_plus << -std::sqrt(m_a), 0.0, 1.0, 0.0;
-        return;
-    }
-    // First basis vector that has no upward going wave amplitude
-    phi_psi_min(0) = m_scatt_matrix(0, 1) * (lambda(0) - lambda(1)) / 2.0 / m_b_mag;
-    phi_psi_min(1) = (m_bz * (lambda(1) - lambda(0)) / m_b_mag - lambda(1) - lambda(0)) / 2.0;
-    phi_psi_min(2) = 0.0;
-    phi_psi_min(3) = 1.0;
-
-    // Second basis vector that has no upward going wave amplitude
-    phi_psi_plus(0) = -(m_scatt_matrix(0, 0) + lambda(0) * lambda(1)) / (lambda(0) + lambda(1));
-    phi_psi_plus(1) = m_scatt_matrix(1, 0) * (lambda(0) - lambda(1)) / 2.0 / m_b_mag;
-    phi_psi_plus(2) = 1.0;
-    phi_psi_plus(3) = 0.0;
+namespace {
+complex_t GetImExponential(complex_t exponent) {
+    if (exponent.imag() > -std::log(std::numeric_limits<double>::min()))
+        return 0.0;
+    return std::exp(I * exponent);
 }
+} // namespace

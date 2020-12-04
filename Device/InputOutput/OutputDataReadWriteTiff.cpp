@@ -32,9 +32,9 @@ OutputDataReadWriteTiff::~OutputDataReadWriteTiff() {
 
 void OutputDataReadWriteTiff::read(std::istream& input_stream) {
     m_tiff = TIFFStreamOpen("MemTIFF", &input_stream);
-    if (!m_tiff) {
+    if (!m_tiff)
         throw std::runtime_error("OutputDataReadWriteTiff::read() -> Can't open the file.");
-    }
+
     read_header();
     read_data();
     close();

@@ -59,18 +59,18 @@ OutputData<double>* OutputDataReadWriteNumpyTXT::readOutputData(std::istream& in
                                      "Number of elements is different from row to row.");
     }
 
-    if (nrows < 2) {
+    if (nrows < 2)
         return ArrayUtils::createData(std::move(data[0])).release();
-    } else if (ncols < 2) {
+
+    if (ncols < 2) {
         const size_t size = data.size();
         std::vector<double> vector1d(size);
-        for (size_t i = 0; i < size; ++i) {
+        for (size_t i = 0; i < size; ++i)
             vector1d[i] = data[i][0];
-        }
         return ArrayUtils::createData(std::move(vector1d)).release();
-    } else {
-        return ArrayUtils::createData(data).release();
     }
+
+    return ArrayUtils::createData(data).release();
 }
 
 void OutputDataReadWriteNumpyTXT::writeOutputData(const OutputData<double>& data,
@@ -96,7 +96,7 @@ void OutputDataReadWriteNumpyTXT::write1DRepresentation(const OutputData<double>
                                                         std::ostream& output_stream) {
     output_stream << "# coordinates         intensities" << std::endl;
     output_stream.imbue(std::locale::classic());
-    output_stream << std::scientific << std::setprecision(m_precision);
+    output_stream << std::scientific << std::setprecision(12);
 
     const std::vector<double> axis_values = data.axis(0).binCenters();
 
@@ -114,7 +114,7 @@ void OutputDataReadWriteNumpyTXT::write2DRepresentation(const OutputData<double>
 
     std::vector<std::vector<double>> dataArray = ArrayUtils::createVector2D(data);
     output_stream.imbue(std::locale::classic());
-    output_stream << std::scientific << std::setprecision(m_precision);
+    output_stream << std::scientific << std::setprecision(12);
 
     for (size_t i = 0; i < nrows; i++) {
         for (size_t j = 0; j < ncols; j++) {
@@ -125,6 +125,6 @@ void OutputDataReadWriteNumpyTXT::write2DRepresentation(const OutputData<double>
     }
 }
 
-double OutputDataReadWriteNumpyTXT::ignoreDenormalized(double value) const {
+double OutputDataReadWriteNumpyTXT::ignoreDenormalized(double value) {
     return (std::fpclassify(value) == FP_SUBNORMAL) ? 0.0 : value;
 }

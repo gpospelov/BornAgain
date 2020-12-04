@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Device/InputOutput/OutputDataReadReflectometry.h
-//! @brief     Declares OutputDataReadReflectometry
+//! @brief     Defines OutputDataReadReflectometry
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Device/InputOutput/OutputDataReadWriteNumpyTXT.h
-//! @brief     Declares OutputDataReadWriteNumpyTXT
+//! @brief     Defines OutputDataReadWriteNumpyTXT
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -29,11 +29,9 @@ public:
     void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
 
 private:
-    void write1DRepresentation(const OutputData<double>& data, std::ostream& output_stream);
-    void write2DRepresentation(const OutputData<double>& data, std::ostream& output_stream);
-    double ignoreDenormalized(double value) const;
-
-    const int m_precision = 12;
+    static void write1DRepresentation(const OutputData<double>& data, std::ostream& output_stream);
+    static void write2DRepresentation(const OutputData<double>& data, std::ostream& output_stream);
+    static double ignoreDenormalized(double value);
 };
 
 #endif // BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADWRITENUMPYTXT_H

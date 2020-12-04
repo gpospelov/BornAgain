@@ -17,12 +17,6 @@
 #include "Device/InputOutput/DataFormatUtils.h"
 #include "Device/Intensity/ArrayUtils.h"
 
-namespace {
-inline bool isDoubleStartChar(char c) {
-    return isdigit(c) || c == '-' || c == '+';
-}
-} // namespace
-
 OutputData<double>* OutputDataReadWriteINT::readOutputData(std::istream& input_stream) {
     OutputData<double>* result = new OutputData<double>;
     std::string line;
@@ -34,9 +28,8 @@ OutputData<double>* OutputDataReadWriteINT::readOutputData(std::istream& input_s
             result->addAxis(*axis);
         }
 
-        if (line.find("data") != std::string::npos) {
+        if (line.find("data") != std::string::npos)
             DataFormatUtils::fillOutputData(result, input_stream);
-        }
     }
     return result;
 }
@@ -65,7 +58,7 @@ void OutputDataReadWriteINT::writeOutputDataDoubles(const OutputData<double>& da
 
     OutputData<double>::const_iterator it = data.begin();
     output_stream.imbue(std::locale::classic());
-    output_stream << std::scientific << std::setprecision(m_precision);
+    output_stream << std::scientific << std::setprecision(12);
     size_t ncol(0);
     while (it != data.end()) {
         ncol++;
@@ -78,6 +71,6 @@ void OutputDataReadWriteINT::writeOutputDataDoubles(const OutputData<double>& da
     }
 }
 
-double OutputDataReadWriteINT::ignoreDenormalized(double value) const {
+double OutputDataReadWriteINT::ignoreDenormalized(double value) {
     return (std::fpclassify(value) == FP_SUBNORMAL) ? 0.0 : value;
 }

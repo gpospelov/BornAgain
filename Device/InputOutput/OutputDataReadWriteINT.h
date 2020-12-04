@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Device/InputOutput/OutputDataReadWriteINT.h
-//! @brief     Declares OutputDataReadWriteINT
+//! @brief     Defines OutputDataReadWriteINT
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -28,11 +28,9 @@ public:
     void writeOutputData(const OutputData<double>& data, std::ostream& output_stream);
 
 private:
-    void writeOutputDataDoubles(const OutputData<double>& data, std::ostream& output_stream,
-                                size_t n_columns);
-    double ignoreDenormalized(double value) const;
-
-    const int m_precision = 12;
+    static void writeOutputDataDoubles(const OutputData<double>& data, std::ostream& output_stream,
+                                       size_t n_columns);
+    static double ignoreDenormalized(double value);
 };
 
 #endif // BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADWRITEINT_H

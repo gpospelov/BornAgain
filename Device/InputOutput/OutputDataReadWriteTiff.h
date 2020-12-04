@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Device/InputOutput/OutputDataReadWriteTiff.h
-//! @brief     Declares class OutputDataReadWriteTiff
+//! @brief     Defines class OutputDataReadWriteTiff
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)

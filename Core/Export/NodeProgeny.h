@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_EXPORT_NODEPROGENITY_H
-#define BORNAGAIN_CORE_EXPORT_NODEPROGENITY_H
+#ifndef BORNAGAIN_CORE_EXPORT_NODEPROGENY_H
+#define BORNAGAIN_CORE_EXPORT_NODEPROGENY_H
 
 #include "Param/Node/INode.h"
 
@@ -48,4 +48,4 @@ template <typename T> std::vector<const T*> AllDescendantsOfType(const INode& no
 
 } // namespace node_progeny
 
-#endif // BORNAGAIN_CORE_EXPORT_NODEPROGENITY_H
+#endif // BORNAGAIN_CORE_EXPORT_NODEPROGENY_H

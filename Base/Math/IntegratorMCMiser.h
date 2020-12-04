@@ -12,11 +12,11 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_BASE_MATH_INTEGRATORMCMISER_H
 #ifdef SWIG
 #error no need to expose this header to Swig
 #endif
 
+#ifndef BORNAGAIN_BASE_MATH_INTEGRATORMCMISER_H
 #define BORNAGAIN_BASE_MATH_INTEGRATORMCMISER_H
 
 #include <gsl/gsl_monte_miser.h>

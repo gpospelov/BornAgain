@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_PARAM_NODE_NODEUTILS_H
 #define BORNAGAIN_PARAM_NODE_NODEUTILS_H
 

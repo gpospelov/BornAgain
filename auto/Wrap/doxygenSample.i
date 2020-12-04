@@ -4655,7 +4655,7 @@ Evaluates the peak shape at q from a reciprocal lattice point at q_lattice_point
 
 Interface for the Fresnel computations, both in the scalar and magnetic case
 
-Inherited by  SpecularScalarStrategy,  SpecularMagneticOldStrategy,  SpecularMagneticStrategy,  SpecularMagneticNewStrategy
+Inherited by  SpecularScalarStrategy, SpecularMagneticOldStrategy,  SpecularMagneticStrategy, SpecularMagneticNewStrategy
 
 C++ includes: ISpecularStrategy.h
 ";
@@ -5406,180 +5406,67 @@ Retrieves the amplitude coefficients for a (time-reversed) outgoing wavevector.
 // File: classMatrixRTCoefficients.xml
 %feature("docstring") MatrixRTCoefficients "
 
-Specular reflection and transmission coefficients in a layer in case of 2x2 matrix interactions between the layers and the scattered particle.
+Specular reflection and transmission coefficients in a layer in case of magnetic interactions between the scattered particle and the layer.
 
 C++ includes: MatrixRTCoefficients.h
 ";
 
-%feature("docstring")  MatrixRTCoefficients::MatrixRTCoefficients "MatrixRTCoefficients::MatrixRTCoefficients()
+%feature("docstring")  MatrixRTCoefficients::MatrixRTCoefficients "MatrixRTCoefficients::MatrixRTCoefficients(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b, double magnetic_SLD)
 ";
 
-%feature("docstring")  MatrixRTCoefficients::~MatrixRTCoefficients "virtual MatrixRTCoefficients::~MatrixRTCoefficients()
+%feature("docstring")  MatrixRTCoefficients::MatrixRTCoefficients "MatrixRTCoefficients::MatrixRTCoefficients(const MatrixRTCoefficients &other)
 ";
 
-%feature("docstring")  MatrixRTCoefficients::clone "MatrixRTCoefficients * MatrixRTCoefficients::clone() const
+%feature("docstring")  MatrixRTCoefficients::~MatrixRTCoefficients "MatrixRTCoefficients::~MatrixRTCoefficients() override
 ";
 
-%feature("docstring")  MatrixRTCoefficients::T1plus "Eigen::Vector2cd MatrixRTCoefficients::T1plus() const
+%feature("docstring")  MatrixRTCoefficients::clone "MatrixRTCoefficients * MatrixRTCoefficients::clone() const override
+";
+
+%feature("docstring")  MatrixRTCoefficients::T1plus "Eigen::Vector2cd MatrixRTCoefficients::T1plus() const override
 
 The following functions return the transmitted and reflected amplitudes for different incoming beam polarizations and eigenmodes 
 ";
 
-%feature("docstring")  MatrixRTCoefficients::R1plus "Eigen::Vector2cd MatrixRTCoefficients::R1plus() const
+%feature("docstring")  MatrixRTCoefficients::R1plus "Eigen::Vector2cd MatrixRTCoefficients::R1plus() const override
 ";
 
-%feature("docstring")  MatrixRTCoefficients::T2plus "Eigen::Vector2cd MatrixRTCoefficients::T2plus() const
+%feature("docstring")  MatrixRTCoefficients::T2plus "Eigen::Vector2cd MatrixRTCoefficients::T2plus() const override
 ";
 
-%feature("docstring")  MatrixRTCoefficients::R2plus "Eigen::Vector2cd MatrixRTCoefficients::R2plus() const
+%feature("docstring")  MatrixRTCoefficients::R2plus "Eigen::Vector2cd MatrixRTCoefficients::R2plus() const override
 ";
 
-%feature("docstring")  MatrixRTCoefficients::T1min "Eigen::Vector2cd MatrixRTCoefficients::T1min() const
+%feature("docstring")  MatrixRTCoefficients::T1min "Eigen::Vector2cd MatrixRTCoefficients::T1min() const override
 ";
 
-%feature("docstring")  MatrixRTCoefficients::R1min "Eigen::Vector2cd MatrixRTCoefficients::R1min() const
+%feature("docstring")  MatrixRTCoefficients::R1min "Eigen::Vector2cd MatrixRTCoefficients::R1min() const override
 ";
 
-%feature("docstring")  MatrixRTCoefficients::T2min "Eigen::Vector2cd MatrixRTCoefficients::T2min() const
+%feature("docstring")  MatrixRTCoefficients::T2min "Eigen::Vector2cd MatrixRTCoefficients::T2min() const override
 ";
 
-%feature("docstring")  MatrixRTCoefficients::R2min "Eigen::Vector2cd MatrixRTCoefficients::R2min() const
+%feature("docstring")  MatrixRTCoefficients::R2min "Eigen::Vector2cd MatrixRTCoefficients::R2min() const override
 ";
 
-%feature("docstring")  MatrixRTCoefficients::getKz "virtual Eigen::Vector2cd MatrixRTCoefficients::getKz() const
+%feature("docstring")  MatrixRTCoefficients::getKz "Eigen::Vector2cd MatrixRTCoefficients::getKz() const override
 
 Returns z-part of the two wavevector eigenmodes. 
 ";
 
-%feature("docstring")  MatrixRTCoefficients::calculateTRMatrices "void MatrixRTCoefficients::calculateTRMatrices()
+%feature("docstring")  MatrixRTCoefficients::magneticSLD "double MatrixRTCoefficients::magneticSLD() const
 ";
 
-%feature("docstring")  MatrixRTCoefficients::calculateTRWithoutMagnetization "void MatrixRTCoefficients::calculateTRWithoutMagnetization()
+%feature("docstring")  MatrixRTCoefficients::computeP "Eigen::Matrix2cd MatrixRTCoefficients::computeP() const
 ";
 
-%feature("docstring")  MatrixRTCoefficients::initializeBottomLayerPhiPsi "void MatrixRTCoefficients::initializeBottomLayerPhiPsi()
+%feature("docstring")  MatrixRTCoefficients::computeInverseP "Eigen::Matrix2cd MatrixRTCoefficients::computeInverseP() const
 ";
 
-
-// File: classMatrixRTCoefficients__v2.xml
-%feature("docstring") MatrixRTCoefficients_v2 "
-
-Specular reflection and transmission coefficients in a layer in case of magnetic interactions between the scattered particle and the layer.
-
-C++ includes: MatrixRTCoefficients_v2.h
+%feature("docstring")  MatrixRTCoefficients::computeDeltaMatrix "Eigen::Matrix2cd MatrixRTCoefficients::computeDeltaMatrix(double thickness)
 ";
 
-%feature("docstring")  MatrixRTCoefficients_v2::MatrixRTCoefficients_v2 "MatrixRTCoefficients_v2::MatrixRTCoefficients_v2(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b)
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::MatrixRTCoefficients_v2 "MatrixRTCoefficients_v2::MatrixRTCoefficients_v2(const MatrixRTCoefficients_v2 &other)
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::~MatrixRTCoefficients_v2 "MatrixRTCoefficients_v2::~MatrixRTCoefficients_v2() override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::clone "MatrixRTCoefficients_v2 * MatrixRTCoefficients_v2::clone() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::T1plus "Eigen::Vector2cd MatrixRTCoefficients_v2::T1plus() const override
-
-The following functions return the transmitted and reflected amplitudes for different incoming beam polarizations and eigenmodes 
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::R1plus "Eigen::Vector2cd MatrixRTCoefficients_v2::R1plus() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::T2plus "Eigen::Vector2cd MatrixRTCoefficients_v2::T2plus() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::R2plus "Eigen::Vector2cd MatrixRTCoefficients_v2::R2plus() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::T1min "Eigen::Vector2cd MatrixRTCoefficients_v2::T1min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::R1min "Eigen::Vector2cd MatrixRTCoefficients_v2::R1min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::T2min "Eigen::Vector2cd MatrixRTCoefficients_v2::T2min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::R2min "Eigen::Vector2cd MatrixRTCoefficients_v2::R2min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::getKz "Eigen::Vector2cd MatrixRTCoefficients_v2::getKz() const override
-
-Returns z-part of the two wavevector eigenmodes. 
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::getReflectionMatrix "Eigen::Matrix2cd MatrixRTCoefficients_v2::getReflectionMatrix() const override
-";
-
-
-// File: classMatrixRTCoefficients__v3.xml
-%feature("docstring") MatrixRTCoefficients_v3 "
-
-Specular reflection and transmission coefficients in a layer in case of magnetic interactions between the scattered particle and the layer.
-
-C++ includes: MatrixRTCoefficients_v3.h
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::MatrixRTCoefficients_v3 "MatrixRTCoefficients_v3::MatrixRTCoefficients_v3(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b, double magnetic_SLD)
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::MatrixRTCoefficients_v3 "MatrixRTCoefficients_v3::MatrixRTCoefficients_v3(const MatrixRTCoefficients_v3 &other)
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::~MatrixRTCoefficients_v3 "MatrixRTCoefficients_v3::~MatrixRTCoefficients_v3() override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::clone "MatrixRTCoefficients_v3 * MatrixRTCoefficients_v3::clone() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::T1plus "Eigen::Vector2cd MatrixRTCoefficients_v3::T1plus() const override
-
-The following functions return the transmitted and reflected amplitudes for different incoming beam polarizations and eigenmodes 
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::R1plus "Eigen::Vector2cd MatrixRTCoefficients_v3::R1plus() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::T2plus "Eigen::Vector2cd MatrixRTCoefficients_v3::T2plus() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::R2plus "Eigen::Vector2cd MatrixRTCoefficients_v3::R2plus() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::T1min "Eigen::Vector2cd MatrixRTCoefficients_v3::T1min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::R1min "Eigen::Vector2cd MatrixRTCoefficients_v3::R1min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::T2min "Eigen::Vector2cd MatrixRTCoefficients_v3::T2min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::R2min "Eigen::Vector2cd MatrixRTCoefficients_v3::R2min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::getKz "Eigen::Vector2cd MatrixRTCoefficients_v3::getKz() const override
-
-Returns z-part of the two wavevector eigenmodes. 
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::magneticSLD "double MatrixRTCoefficients_v3::magneticSLD() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::computeP "Eigen::Matrix2cd MatrixRTCoefficients_v3::computeP() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::computeInverseP "Eigen::Matrix2cd MatrixRTCoefficients_v3::computeInverseP() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::computeDeltaMatrix "Eigen::Matrix2cd MatrixRTCoefficients_v3::computeDeltaMatrix(double thickness)
-";
-
-%feature("docstring")  MatrixRTCoefficients_v3::getReflectionMatrix "Eigen::Matrix2cd MatrixRTCoefficients_v3::getReflectionMatrix() const override
+%feature("docstring")  MatrixRTCoefficients::getReflectionMatrix "Eigen::Matrix2cd MatrixRTCoefficients::getReflectionMatrix() const override
 ";
 
 
@@ -7239,72 +7126,23 @@ C++ includes: IBornFF.h
 ";
 
 
-// File: classSpecularMagneticNewNCStrategy.xml
-%feature("docstring") SpecularMagneticNewNCStrategy "
+// File: classSpecularMagneticNCStrategy.xml
+%feature("docstring") SpecularMagneticNCStrategy "
 
 Implements the magnetic Fresnel computation with Nevot-Croce roughness
 
 Implements the transfer matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a description, see internal document \"Polarized Implementation of the Transfer Matrix Method\"
 
-C++ includes: SpecularMagneticNewNCStrategy.h
-";
-
-
-// File: classSpecularMagneticNewStrategy.xml
-%feature("docstring") SpecularMagneticNewStrategy "
-
-Implements the magnetic Fresnel computation with Nevot-Croce roughness
-
-Implements the transfer matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a description, see internal document \"Polarized Implementation of the Transfer Matrix Method\"
-
-C++ includes: SpecularMagneticNewStrategy.h
-";
-
-%feature("docstring")  SpecularMagneticNewStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticNewStrategy::Execute(const std::vector< Slice > &slices, const kvector_t &k) const
-
-Computes refraction angle reflection/transmission coefficients for given sliced multilayer and wavevector k 
-";
-
-%feature("docstring")  SpecularMagneticNewStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticNewStrategy::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz) const
-
-Computes refraction angle reflection/transmission coefficients for given sliced multilayer and a set of kz projections corresponding to each slice 
-";
-
-
-// File: classSpecularMagneticNewTanhStrategy.xml
-%feature("docstring") SpecularMagneticNewTanhStrategy "
-
-Implements the magnetic Fresnel computation with the analytical Tanh roughness
-
-Implements the transfer matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a description, see internal document \"Polarized Implementation of the Transfer Matrix Method\"
-
-C++ includes: SpecularMagneticNewTanhStrategy.h
-";
-
-
-// File: classSpecularMagneticOldStrategy.xml
-%feature("docstring") SpecularMagneticOldStrategy "
-
-Implements the matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization.
-
-C++ includes: SpecularMagneticOldStrategy.h
-";
-
-%feature("docstring")  SpecularMagneticOldStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vector< Slice > &slices, const kvector_t &k) const
-
-Computes refraction angle reflection/transmission coefficients for given sliced multilayer and wavevector k 
-";
-
-%feature("docstring")  SpecularMagneticOldStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticOldStrategy::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz) const
+C++ includes: SpecularMagneticNCStrategy.h
 ";
 
 
 // File: classSpecularMagneticStrategy.xml
 %feature("docstring") SpecularMagneticStrategy "
 
-Implements the magnetic Fresnel computation without roughness
+Implements the magnetic Fresnel computation with Nevot-Croce roughness
 
-Implements the matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a detailed description see internal document \"Polarized Specular Reflectometry\"
+Implements the transfer matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a description, see internal document \"Polarized Implementation of the Transfer Matrix Method\"
 
 C++ includes: SpecularMagneticStrategy.h
 ";
@@ -7317,6 +7155,17 @@ Computes refraction angle reflection/transmission coefficients for given sliced 
 %feature("docstring")  SpecularMagneticStrategy::Execute "ISpecularStrategy::coeffs_t SpecularMagneticStrategy::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz) const
 
 Computes refraction angle reflection/transmission coefficients for given sliced multilayer and a set of kz projections corresponding to each slice 
+";
+
+
+// File: classSpecularMagneticTanhStrategy.xml
+%feature("docstring") SpecularMagneticTanhStrategy "
+
+Implements the magnetic Fresnel computation with the analytical Tanh roughness
+
+Implements the transfer matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a description, see internal document \"Polarized Implementation of the Transfer Matrix Method\"
+
+C++ includes: SpecularMagneticTanhStrategy.h
 ";
 
 
@@ -7655,34 +7504,34 @@ C++ includes: ZLimits.h
 // File: namespace_0d205.xml
 
 
-// File: namespace_0d210.xml
+// File: namespace_0d208.xml
 
 
-// File: namespace_0d212.xml
+// File: namespace_0d218.xml
 
 
-// File: namespace_0d222.xml
+// File: namespace_0d232.xml
 
 
-// File: namespace_0d236.xml
-
-
-// File: namespace_0d241.xml
+// File: namespace_0d237.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d259.xml
+// File: namespace_0d255.xml
 
 
-// File: namespace_0d267.xml
+// File: namespace_0d263.xml
+
+
+// File: namespace_0d273.xml
+
+
+// File: namespace_0d275.xml
 
 
 // File: namespace_0d277.xml
-
-
-// File: namespace_0d279.xml
 
 
 // File: namespace_0d281.xml
@@ -7691,34 +7540,25 @@ C++ includes: ZLimits.h
 // File: namespace_0d283.xml
 
 
-// File: namespace_0d285.xml
+// File: namespace_0d287.xml
 
 
-// File: namespace_0d289.xml
+// File: namespace_0d299.xml
 
 
-// File: namespace_0d291.xml
+// File: namespace_0d305.xml
 
 
-// File: namespace_0d295.xml
-
-
-// File: namespace_0d307.xml
+// File: namespace_0d309.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d313.xml
+// File: namespace_0d327.xml
 
 
-// File: namespace_0d317.xml
-
-
-// File: namespace_0d335.xml
-
-
-// File: namespace_0d354.xml
+// File: namespace_0d346.xml
 
 
 // File: namespace_0d37.xml
@@ -8616,18 +8456,6 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: MatrixRTCoefficients_8h.xml
 
 
-// File: MatrixRTCoefficients__v2_8cpp.xml
-
-
-// File: MatrixRTCoefficients__v2_8h.xml
-
-
-// File: MatrixRTCoefficients__v3_8cpp.xml
-
-
-// File: MatrixRTCoefficients__v3_8h.xml
-
-
 // File: ScalarRTCoefficients_8h.xml
 
 
@@ -8863,34 +8691,22 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 // File: ISpecularStrategy_8h.xml
 
 
-// File: SpecularMagneticNewNCStrategy_8cpp.xml
+// File: SpecularMagneticNCStrategy_8cpp.xml
 
 
-// File: SpecularMagneticNewNCStrategy_8h.xml
-
-
-// File: SpecularMagneticNewStrategy_8cpp.xml
-
-
-// File: SpecularMagneticNewStrategy_8h.xml
-
-
-// File: SpecularMagneticNewTanhStrategy_8cpp.xml
-
-
-// File: SpecularMagneticNewTanhStrategy_8h.xml
-
-
-// File: SpecularMagneticOldStrategy_8cpp.xml
-
-
-// File: SpecularMagneticOldStrategy_8h.xml
+// File: SpecularMagneticNCStrategy_8h.xml
 
 
 // File: SpecularMagneticStrategy_8cpp.xml
 
 
 // File: SpecularMagneticStrategy_8h.xml
+
+
+// File: SpecularMagneticTanhStrategy_8cpp.xml
+
+
+// File: SpecularMagneticTanhStrategy_8h.xml
 
 
 // File: SpecularScalarNCStrategy_8cpp.xml

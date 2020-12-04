@@ -65,7 +65,6 @@
 %include "Param/Base/IParametricComponent.h"
 %feature("director") INode;              // needed by ISampleNode
 %include "Param/Node/INode.h"
-
 %include "Param/Node/INodeVisitor.h"
 
 %include "Param/Distrib/Distributions.h"

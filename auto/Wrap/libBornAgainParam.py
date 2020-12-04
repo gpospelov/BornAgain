@@ -3247,10 +3247,30 @@ class INode(IParametricComponent):
         getChildren(INode self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children (const). 
+        Returns a vector of children. 
 
         """
         return _libBornAgainParam.INode_getChildren(self)
+
+    def progeny(self):
+        r"""
+        progeny(INode self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > INode::progeny() const
+
+        Returns a vector of all descendents. 
+
+        """
+        return _libBornAgainParam.INode_progeny(self)
+
+    def progenyWithParent(self):
+        r"""
+        progenyWithParent(INode self) -> std::vector< std::pair< INode const *,INode const * >,std::allocator< std::pair< INode const *,INode const * > > >
+        std::vector< std::pair< const INode *, const INode * > > INode::progenyWithParent() const
+
+        Returns a vector of pairs (descendent, its parent) 
+
+        """
+        return _libBornAgainParam.INode_progenyWithParent(self)
 
     def setParent(self, newParent):
         r"""

@@ -33,14 +33,14 @@ public:
     // Constructors and other set functions
     // -------------------------------------------------------------------------
 
-    //! Default constructor.
+    //! Constructs the null vector.
     BasicVector3D() {
         v_[0] = 0.0;
         v_[1] = 0.0;
         v_[2] = 0.0;
     }
 
-    //! Constructor from cartesian components.
+    //! Constructs a vector from cartesian components.
     BasicVector3D(const T x1, const T y1, const T z1) {
         v_[0] = x1;
         v_[1] = y1;

@@ -452,7 +452,17 @@ Returns multiline string representing tree structure below the node.
 
 %feature("docstring")  INode::getChildren "std::vector< const INode * > INode::getChildren() const
 
-Returns a vector of children (const). 
+Returns a vector of children. 
+";
+
+%feature("docstring")  INode::progeny "std::vector< const INode * > INode::progeny() const
+
+Returns a vector of all descendents. 
+";
+
+%feature("docstring")  INode::progenyWithParent "std::vector< std::pair< const INode *, const INode * > > INode::progenyWithParent() const
+
+Returns a vector of pairs (descendent, its parent) 
 ";
 
 %feature("docstring")  INode::setParent "void INode::setParent(const INode *newParent)

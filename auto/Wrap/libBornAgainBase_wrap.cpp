@@ -33706,7 +33706,7 @@ static PyMethodDef SwigMethods[] = {
 		"new_kvector_t(double const x1, double const y1, double const z1) -> kvector_t\n"
 		"BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)\n"
 		"\n"
-		"Constructor from cartesian components. \n"
+		"Constructs a vector from cartesian components. \n"
 		"\n"
 		""},
 	 { "kvector_t_x", _wrap_kvector_t_x, METH_O, "\n"
@@ -33915,7 +33915,7 @@ static PyMethodDef SwigMethods[] = {
 		"new_cvector_t(std::complex< double > const x1, std::complex< double > const y1, std::complex< double > const z1) -> cvector_t\n"
 		"BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)\n"
 		"\n"
-		"Constructor from cartesian components. \n"
+		"Constructs a vector from cartesian components. \n"
 		"\n"
 		""},
 	 { "cvector_t_x", _wrap_cvector_t_x, METH_O, "\n"

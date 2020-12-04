@@ -46,7 +46,7 @@ private:
     double iff_without_dw(const kvector_t q) const override;
     void initRecRadius();
 
-    Lattice3D m_lattice; // TODO ASAP unique_ptr as in otehr InterferenceFunction%s
+    Lattice3D m_lattice; // TODO unique_ptr as in other InterferenceFunction%s
     std::unique_ptr<IPeakShape> m_peak_shape;
     double m_rec_radius; //!< radius in reciprocal space defining the nearest q vectors to use
 };

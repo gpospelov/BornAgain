@@ -11,12 +11,12 @@ C++ includes: BasicVector3D.h
 
 %feature("docstring")  BasicVector3D::BasicVector3D "BasicVector3D< T >::BasicVector3D()
 
-Default constructor. 
+Constructs the null vector. 
 ";
 
 %feature("docstring")  BasicVector3D::BasicVector3D "BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
 
-Constructor from cartesian components. 
+Constructs a vector from cartesian components. 
 ";
 
 %feature("docstring")  BasicVector3D::x "T BasicVector3D< T >::x() const
@@ -1185,7 +1185,7 @@ Creates directories in current directory for any element of dir_name which doesn
 Returns filenames of files in directory. 
 ";
 
-%feature("docstring")  FileSystemUtils::jointPath "std::string FileSystemUtils::jointPath(const std::string &spath1, const std::string &spath2)
+%feature("docstring")  FileSystemUtils::jointPath "std::string FileSystemUtils::jointPath(const std::string &path1, const std::string &path2)
 
 Returns joint path name. 
 ";
@@ -1197,7 +1197,7 @@ Returns path without directory part (\"Foo/Bar/Doz.int.gz\" -> \"Doz.int.gz\")
 
 %feature("docstring")  FileSystemUtils::stem "std::string FileSystemUtils::stem(const std::string &path)
 
-Returns filename without extension. \"/home/user/filename.int\" -> \"filename\", \"/home/user/filename.int.gz\" -> \"filename.int\" 
+Returns filename without (last) extension. \"/home/user/filename.int\" -> \"filename\", \"/home/user/filename.int.gz\" -> \"filename.int\" 
 ";
 
 %feature("docstring")  FileSystemUtils::stem_ext "std::string FileSystemUtils::stem_ext(const std::string &path)
@@ -1215,7 +1215,7 @@ Returns file names that agree with a regex glob pattern.
 Converts utf8 string represented by std::string to utf16 string represented by std::wstring. 
 ";
 
-%feature("docstring")  FileSystemUtils::IsFileExists "bool FileSystemUtils::IsFileExists(const std::string &str)
+%feature("docstring")  FileSystemUtils::IsFileExists "bool FileSystemUtils::IsFileExists(const std::string &path)
 
 Returns true if file with given name exists on disk. 
 ";

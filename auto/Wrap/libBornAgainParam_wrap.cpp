@@ -3285,19 +3285,20 @@ namespace Swig {
 #define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[185]
 #define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[186]
 #define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[187]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[188]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[189]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[190]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[191]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[192]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[193]
-#define SWIGTYPE_p_unsigned_char swig_types[194]
-#define SWIGTYPE_p_unsigned_int swig_types[195]
-#define SWIGTYPE_p_unsigned_long_long swig_types[196]
-#define SWIGTYPE_p_unsigned_short swig_types[197]
-#define SWIGTYPE_p_value_type swig_types[198]
-static swig_type_info *swig_types[200];
-static swig_module_info swig_module = {swig_types, 199, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__vectorT_std__pairT_INode_const_p_INode_const_p_t_std__allocatorT_std__pairT_INode_const_p_INode_const_p_t_t_t swig_types[188]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[189]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[190]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[191]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[192]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[193]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[194]
+#define SWIGTYPE_p_unsigned_char swig_types[195]
+#define SWIGTYPE_p_unsigned_int swig_types[196]
+#define SWIGTYPE_p_unsigned_long_long swig_types[197]
+#define SWIGTYPE_p_unsigned_short swig_types[198]
+#define SWIGTYPE_p_value_type swig_types[199]
+static swig_type_info *swig_types[201];
+static swig_module_info swig_module = {swig_types, 200, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -36685,6 +36686,52 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_INode_progeny(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  INode *arg1 = (INode *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< INode const *,std::allocator< INode const * > > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_INode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INode_progeny" "', argument " "1"" of type '" "INode const *""'"); 
+  }
+  arg1 = reinterpret_cast< INode * >(argp1);
+  result = ((INode const *)arg1)->progeny();
+  resultobj = swig::from(static_cast< std::vector< INode const*,std::allocator< INode const * > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_INode_progenyWithParent(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  INode *arg1 = (INode *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< std::vector< std::pair< INode const *,INode const * >,std::allocator< std::pair< INode const *,INode const * > > > > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_INode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INode_progenyWithParent" "', argument " "1"" of type '" "INode const *""'"); 
+  }
+  arg1 = reinterpret_cast< INode * >(argp1);
+  result = ((INode const *)arg1)->progenyWithParent();
+  resultobj = SWIG_NewPointerObj((new std::vector< std::pair< INode const *,INode const * >,std::allocator< std::pair< INode const *,INode const * > > >(static_cast< const std::vector< std::pair< INode const *,INode const * >,std::allocator< std::pair< INode const *,INode const * > > >& >(result))), SWIGTYPE_p_std__vectorT_std__pairT_INode_const_p_INode_const_p_t_std__allocatorT_std__pairT_INode_const_p_INode_const_p_t_t_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_INode_setParent(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   INode *arg1 = (INode *) 0 ;
@@ -51236,7 +51283,21 @@ static PyMethodDef SwigMethods[] = {
 		"INode_getChildren(INode self) -> swig_dummy_type_const_inode_vector\n"
 		"std::vector< const INode * > INode::getChildren() const\n"
 		"\n"
-		"Returns a vector of children (const). \n"
+		"Returns a vector of children. \n"
+		"\n"
+		""},
+	 { "INode_progeny", _wrap_INode_progeny, METH_O, "\n"
+		"INode_progeny(INode self) -> swig_dummy_type_const_inode_vector\n"
+		"std::vector< const INode * > INode::progeny() const\n"
+		"\n"
+		"Returns a vector of all descendents. \n"
+		"\n"
+		""},
+	 { "INode_progenyWithParent", _wrap_INode_progenyWithParent, METH_O, "\n"
+		"INode_progenyWithParent(INode self) -> std::vector< std::pair< INode const *,INode const * >,std::allocator< std::pair< INode const *,INode const * > > >\n"
+		"std::vector< std::pair< const INode *, const INode * > > INode::progenyWithParent() const\n"
+		"\n"
+		"Returns a vector of pairs (descendent, its parent) \n"
 		"\n"
 		""},
 	 { "INode_setParent", _wrap_INode_setParent, METH_VARARGS, "\n"
@@ -52492,6 +52553,7 @@ static swig_type_info _swigt__p_std__vectorT_RealParameter_p_std__allocatorT_Rea
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t = {"_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t", "std::vector< std::complex< double > > *|std::vector< std::complex< double >,std::allocator< std::complex< double > > > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_std__pairT_INode_const_p_INode_const_p_t_std__allocatorT_std__pairT_INode_const_p_INode_const_p_t_t_t = {"_p_std__vectorT_std__pairT_INode_const_p_INode_const_p_t_std__allocatorT_std__pairT_INode_const_p_INode_const_p_t_t_t", "std::vector< std::pair< INode const *,INode const * >,std::allocator< std::pair< INode const *,INode const * > > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t = {"_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t", "std::vector< std::pair< double,double > > *|std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__string_std__allocatorT_std__string_t_t = {"_p_std__vectorT_std__string_std__allocatorT_std__string_t_t", "std::vector< std::string,std::allocator< std::string > > *|std::vector< std::string > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t = {"_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t", "std::vector< std::vector< double > > *|std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *|std::vector< std::vector< double,std::allocator< double > > > *", 0, 0, (void*)0, 0};
@@ -52693,6 +52755,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
   &_swigt__p_std__vectorT_int_std__allocatorT_int_t_t,
   &_swigt__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t,
+  &_swigt__p_std__vectorT_std__pairT_INode_const_p_INode_const_p_t_std__allocatorT_std__pairT_INode_const_p_INode_const_p_t_t_t,
   &_swigt__p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t,
   &_swigt__p_std__vectorT_std__string_std__allocatorT_std__string_t_t,
   &_swigt__p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t,
@@ -52894,6 +52957,7 @@ static swig_cast_info _swigc__p_std__vectorT_RealParameter_p_std__allocatorT_Rea
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_int_std__allocatorT_int_t_t[] = {  {&_swigt__p_std__vectorT_int_std__allocatorT_int_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t[] = {  {&_swigt__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__vectorT_std__pairT_INode_const_p_INode_const_p_t_std__allocatorT_std__pairT_INode_const_p_INode_const_p_t_t_t[] = {  {&_swigt__p_std__vectorT_std__pairT_INode_const_p_INode_const_p_t_std__allocatorT_std__pairT_INode_const_p_INode_const_p_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t[] = {  {&_swigt__p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_std__string_std__allocatorT_std__string_t_t[] = {  {&_swigt__p_std__vectorT_std__string_std__allocatorT_std__string_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t[] = {  {&_swigt__p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -53095,6 +53159,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,
   _swigc__p_std__vectorT_int_std__allocatorT_int_t_t,
   _swigc__p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t,
+  _swigc__p_std__vectorT_std__pairT_INode_const_p_INode_const_p_t_std__allocatorT_std__pairT_INode_const_p_INode_const_p_t_t_t,
   _swigc__p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t,
   _swigc__p_std__vectorT_std__string_std__allocatorT_std__string_t_t,
   _swigc__p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t,

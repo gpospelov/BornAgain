@@ -2190,14 +2190,14 @@ Returns default units to convert to.
 // File: namespacemumufit.xml
 
 
-// File: namespacenode__progenity.xml
-%feature("docstring")  node_progenity::ChildNodesOfType "std::vector<const T*> node_progenity::ChildNodesOfType(const INode &node)
+// File: namespacenode__progeny.xml
+%feature("docstring")  node_progeny::ChildNodesOfType "std::vector<const T*> node_progeny::ChildNodesOfType(const INode &node)
 ";
 
-%feature("docstring")  node_progenity::OnlyChildOfType "const T* node_progenity::OnlyChildOfType(const INode &node)
+%feature("docstring")  node_progeny::OnlyChildOfType "const T* node_progeny::OnlyChildOfType(const INode &node)
 ";
 
-%feature("docstring")  node_progenity::AllDescendantsOfType "std::vector<const T*> node_progenity::AllDescendantsOfType(const INode &node)
+%feature("docstring")  node_progeny::AllDescendantsOfType "std::vector<const T*> node_progeny::AllDescendantsOfType(const INode &node)
 ";
 
 
@@ -2632,7 +2632,7 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: MaterialKeyHandler_8h.xml
 
 
-// File: NodeProgenity_8h.xml
+// File: NodeProgeny_8h.xml
 
 
 // File: PyFmt_8cpp.xml

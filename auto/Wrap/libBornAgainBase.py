@@ -2662,7 +2662,7 @@ class kvector_t(object):
         __init__(kvector_t self, double const x1, double const y1, double const z1) -> kvector_t
         BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
 
-        Constructor from cartesian components. 
+        Constructs a vector from cartesian components. 
 
         """
         _libBornAgainBase.kvector_t_swiginit(self, _libBornAgainBase.new_kvector_t(*args))
@@ -3059,7 +3059,7 @@ class cvector_t(object):
         __init__(cvector_t self, std::complex< double > const x1, std::complex< double > const y1, std::complex< double > const z1) -> cvector_t
         BasicVector3D< T >::BasicVector3D(const T x1, const T y1, const T z1)
 
-        Constructor from cartesian components. 
+        Constructs a vector from cartesian components. 
 
         """
         _libBornAgainBase.cvector_t_swiginit(self, _libBornAgainBase.new_cvector_t(*args))

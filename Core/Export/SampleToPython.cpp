@@ -22,8 +22,6 @@
 #include "Core/Export/PyFmt2.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Aggregate/ParticleLayout.h"
-#include "Sample/Lattice/Lattice2D.h"
-#include "Sample/Lattice/Lattice3D.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Crystal.h"

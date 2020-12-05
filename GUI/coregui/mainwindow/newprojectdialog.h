@@ -24,7 +24,9 @@ class QLabel;
 class NewProjectDialog : public QDialog {
     Q_OBJECT
 public:
-    NewProjectDialog(QWidget* parent = 0, const QString& workingDirectory = "",
+    enum Mode { CREATE, SAVE };
+
+    NewProjectDialog(QWidget* parent, Mode mode, const QString& workingDirectory = "",
                      const QString& projectName = "");
 
     QString getWorkingDirectory() const;

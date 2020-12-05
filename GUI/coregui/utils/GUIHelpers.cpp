@@ -188,11 +188,12 @@ QString baseName(const QString& fileName) {
 
 void createSubdir(const QString& parentName, const QString& subdirName) {
     QDir projectDir(parentName);
-    if (!projectDir.exists(subdirName)) {
-        if (!projectDir.mkdir(subdirName))
-            throw GUIHelpers::Error("GUIHelpers::createSubdir() -> Error. Can't create '"
-                                    + subdirName + "' in parent directory '" + parentName + "'.");
-    }
+    if (projectDir.exists())
+        if (!projectDir.exists(subdirName))
+            if (!projectDir.mkdir(subdirName))
+                throw GUIHelpers::Error("GUIHelpers::createSubdir() -> Error. Can't create '"
+                                        + subdirName + "' in parent directory '" + parentName
+                                        + "'.");
 }
 
 QString currentDateTime() {

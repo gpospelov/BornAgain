@@ -94,10 +94,15 @@ void AutosaveController::onDocumentModified() {
 }
 
 void AutosaveController::autosave() {
-    QString name = autosaveName();
-    if (!name.isEmpty()) {
-        GUIHelpers::createSubdir(m_document->projectDir(), ProjectUtils::autosaveSubdir());
-        emit autosaveRequest();
+    try {
+        QString name = autosaveName();
+        if (!name.isEmpty()) {
+            GUIHelpers::createSubdir(m_document->projectDir(), ProjectUtils::autosaveSubdir());
+            emit autosaveRequest();
+        }
+    } catch (...) {
+        // catch any exception - autosave itself never should cause a crash by an unhandled
+        // exception
     }
 }
 

@@ -20,7 +20,7 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
                                              size_t nbr_samples, double sigma_factor,
                                              const RealLimits& limits)
     : IParametricComponent("ParameterDistribution")
-    , m_name(par_name)
+    , m_parname(par_name)
     , m_nbr_samples(nbr_samples)
     , m_sigma_factor(sigma_factor)
     , m_limits(limits)
@@ -39,7 +39,7 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
                                              const IDistribution1D& distribution,
                                              size_t nbr_samples, double xmin, double xmax)
     : IParametricComponent("ParameterDistribution")
-    , m_name(par_name)
+    , m_parname(par_name)
     , m_nbr_samples(nbr_samples)
     , m_sigma_factor(0.0)
     , m_xmin(xmin)
@@ -58,7 +58,7 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
 
 ParameterDistribution::ParameterDistribution(const ParameterDistribution& other)
     : IParametricComponent("ParameterDistribution")
-    , m_name(other.m_name)
+    , m_parname(other.m_parname)
     , m_nbr_samples(other.m_nbr_samples)
     , m_sigma_factor(other.m_sigma_factor)
     , m_linked_par_names(other.m_linked_par_names)
@@ -72,7 +72,7 @@ ParameterDistribution::~ParameterDistribution() = default;
 
 ParameterDistribution& ParameterDistribution::operator=(const ParameterDistribution& other) {
     if (this != &other) {
-        this->m_name = other.m_name;
+        this->m_parname = other.m_parname;
         m_nbr_samples = other.m_nbr_samples;
         m_sigma_factor = other.m_sigma_factor;
         m_distribution.reset(other.m_distribution->clone());

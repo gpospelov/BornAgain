@@ -43,7 +43,7 @@ public:
     ParameterDistribution& linkParameter(std::string par_name);
 
     //! get the main parameter's name
-    std::string getMainParameterName() const { return m_name; }
+    std::string getMainParameterName() const { return m_parname; }
 
     //! get number of samples for this distribution
     size_t getNbrSamples() const;
@@ -66,7 +66,7 @@ public:
     double getMaxValue() const { return m_xmax; }
 
 private:
-    std::string m_name;
+    std::string m_parname;
     std::unique_ptr<IDistribution1D> m_distribution;
     size_t m_nbr_samples;
     double m_sigma_factor;

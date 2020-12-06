@@ -67,14 +67,6 @@ void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D& p_re
     m_detector->setResolutionFunction(p_resolution_function);
 }
 
-void Instrument::removeDetectorResolution() {
-    m_detector->removeDetectorResolution();
-}
-
-void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) const {
-    m_detector->applyDetectorResolution(p_intensity_map);
-}
-
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i) {
     m_beam.setCentralK(wavelength, alpha_i, phi_i);
     if (m_detector)

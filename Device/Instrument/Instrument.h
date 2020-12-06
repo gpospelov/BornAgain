@@ -73,15 +73,9 @@ public:
     //! Sets detector resolution function
     void setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function);
 
-    //! Removes detector resolution function.
-    void removeDetectorResolution();
-
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission);
-
-    //! apply the detector resolution to the given intensity map
-    void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
     //! init detector with beam settings
     void initDetector();

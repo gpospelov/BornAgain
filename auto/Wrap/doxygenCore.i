@@ -929,6 +929,18 @@ Run a simulation in a MPI environment.
 %feature("docstring")  ISimulation::instrument "Instrument& ISimulation::instrument()
 ";
 
+%feature("docstring")  ISimulation::beam "Beam& ISimulation::beam()
+";
+
+%feature("docstring")  ISimulation::beam "const Beam& ISimulation::beam() const
+";
+
+%feature("docstring")  ISimulation::detector "IDetector& ISimulation::detector()
+";
+
+%feature("docstring")  ISimulation::detector "const IDetector& ISimulation::detector() const
+";
+
 %feature("docstring")  ISimulation::setBeamIntensity "void ISimulation::setBeamIntensity(double intensity)
 ";
 

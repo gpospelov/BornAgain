@@ -1527,19 +1527,9 @@ Sets the detector (axes can be overwritten later)
 Sets detector resolution function. 
 ";
 
-%feature("docstring")  Instrument::removeDetectorResolution "void Instrument::removeDetectorResolution()
-
-Removes detector resolution function. 
-";
-
 %feature("docstring")  Instrument::setAnalyzerProperties "void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
 
 Sets the polarization analyzer characteristics of the detector. 
-";
-
-%feature("docstring")  Instrument::applyDetectorResolution "void Instrument::applyDetectorResolution(OutputData< double > *p_intensity_map) const
-
-apply the detector resolution to the given intensity map 
 ";
 
 %feature("docstring")  Instrument::initDetector "void Instrument::initDetector()
@@ -1554,7 +1544,7 @@ init detector with beam settings
 // File: classIntensityDataIOFactory.xml
 %feature("docstring") IntensityDataIOFactory "
 
-Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
+Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends with \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
 
 Usage:
 
@@ -1589,36 +1579,6 @@ C++ includes: IIntensityFunction.h
 ";
 
 %feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const
-";
-
-
-// File: classIOutputDataReadStrategy.xml
-%feature("docstring") IOutputDataReadStrategy "
-
-Interface for reading strategy of  OutputData from file.
-
-C++ includes: OutputDataReadStrategy.h
-";
-
-%feature("docstring")  IOutputDataReadStrategy::~IOutputDataReadStrategy "virtual IOutputDataReadStrategy::~IOutputDataReadStrategy()=default
-";
-
-%feature("docstring")  IOutputDataReadStrategy::readOutputData "virtual OutputData<double>* IOutputDataReadStrategy::readOutputData(std::istream &input_stream)=0
-";
-
-
-// File: classIOutputDataWriteStrategy.xml
-%feature("docstring") IOutputDataWriteStrategy "
-
-Strategy interface to write OututData in file
-
-C++ includes: OutputDataWriteStrategy.h
-";
-
-%feature("docstring")  IOutputDataWriteStrategy::~IOutputDataWriteStrategy "virtual IOutputDataWriteStrategy::~IOutputDataWriteStrategy()=default
-";
-
-%feature("docstring")  IOutputDataWriteStrategy::writeOutputData "virtual void IOutputDataWriteStrategy::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)=0
 ";
 
 
@@ -2224,125 +2184,45 @@ Swaps iterators.
 ";
 
 
-// File: classOutputDataReader.xml
-%feature("docstring") OutputDataReader "
+// File: classOutputDataReadReflectometry.xml
+%feature("docstring") OutputDataReadReflectometry "
 
-Reads  OutputData from file using different reading strategies.
+Class for reading reflectometry data from ASCII file.
 
-C++ includes: OutputDataReader.h
+C++ includes: OutputDataReadReflectometry.h
 ";
 
-%feature("docstring")  OutputDataReader::OutputDataReader "OutputDataReader::OutputDataReader(const std::string &file_name)
-";
-
-%feature("docstring")  OutputDataReader::getOutputData "OutputData< double > * OutputDataReader::getOutputData()
-
-read output data from file (file name was set already from OutputDataIOFactory) 
-";
-
-%feature("docstring")  OutputDataReader::setStrategy "void OutputDataReader::setStrategy(IOutputDataReadStrategy *read_strategy)
-
-Sets concrete reading strategy. 
+%feature("docstring")  OutputDataReadReflectometry::readOutputData "OutputData< double > * OutputDataReadReflectometry::readOutputData(std::istream &input_stream)
 ";
 
 
-// File: classOutputDataReadFactory.xml
-%feature("docstring") OutputDataReadFactory "
+// File: classOutputDataReadWriteINT.xml
+%feature("docstring") OutputDataReadWriteINT "
 
-Creates reader appropariate for given type of files.
+Class for reading and writing BornAgain native IntensityData from ASCII file.
 
-C++ includes: OutputDataReadFactory.h
+C++ includes: OutputDataReadWriteINT.h
+";
+
+%feature("docstring")  OutputDataReadWriteINT::readOutputData "OutputData< double > * OutputDataReadWriteINT::readOutputData(std::istream &input_stream)
+";
+
+%feature("docstring")  OutputDataReadWriteINT::writeOutputData "void OutputDataReadWriteINT::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)
 ";
 
 
-// File: classOutputDataReadINTStrategy.xml
-%feature("docstring") OutputDataReadINTStrategy "
+// File: classOutputDataReadWriteNumpyTXT.xml
+%feature("docstring") OutputDataReadWriteNumpyTXT "
 
-Strategy to read BornAgain native IntensityData from ASCII file.
+Class for reading and writing  OutputData from simple ASCII file with the layout as in numpy.savetxt.
 
-C++ includes: OutputDataReadStrategy.h
+C++ includes: OutputDataReadWriteNumpyTXT.h
 ";
 
-%feature("docstring")  OutputDataReadINTStrategy::readOutputData "OutputData< double > * OutputDataReadINTStrategy::readOutputData(std::istream &input_stream)
+%feature("docstring")  OutputDataReadWriteNumpyTXT::readOutputData "OutputData< double > * OutputDataReadWriteNumpyTXT::readOutputData(std::istream &input_stream)
 ";
 
-
-// File: classOutputDataReadNumpyTXTStrategy.xml
-%feature("docstring") OutputDataReadNumpyTXTStrategy "
-
-Strategy to read  OutputData from simple ASCII file with the layout as in numpy.savetxt.
-
-C++ includes: OutputDataReadStrategy.h
-";
-
-%feature("docstring")  OutputDataReadNumpyTXTStrategy::readOutputData "OutputData< double > * OutputDataReadNumpyTXTStrategy::readOutputData(std::istream &input_stream)
-";
-
-
-// File: classOutputDataReadReflectometryStrategy.xml
-%feature("docstring") OutputDataReadReflectometryStrategy "
-
-Strategy to read Reflectometry data from ASCII file.
-
-C++ includes: OutputDataReadStrategy.h
-";
-
-%feature("docstring")  OutputDataReadReflectometryStrategy::readOutputData "OutputData< double > * OutputDataReadReflectometryStrategy::readOutputData(std::istream &input_stream)
-";
-
-
-// File: classOutputDataWriteFactory.xml
-%feature("docstring") OutputDataWriteFactory "
-
-Creates writer appropariate for given type of files.
-
-C++ includes: OutputDataWriteFactory.h
-";
-
-
-// File: classOutputDataWriteINTStrategy.xml
-%feature("docstring") OutputDataWriteINTStrategy "
-
-Strategy to write  OutputData to special BornAgain ASCII format
-
-C++ includes: OutputDataWriteStrategy.h
-";
-
-%feature("docstring")  OutputDataWriteINTStrategy::writeOutputData "void OutputDataWriteINTStrategy::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)
-";
-
-
-// File: classOutputDataWriteNumpyTXTStrategy.xml
-%feature("docstring") OutputDataWriteNumpyTXTStrategy "
-
-Strategy to write  OutputData to simple ASCII file with the layout as in numpy.savetxt
-
-C++ includes: OutputDataWriteStrategy.h
-";
-
-%feature("docstring")  OutputDataWriteNumpyTXTStrategy::writeOutputData "void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)
-";
-
-
-// File: classOutputDataWriter.xml
-%feature("docstring") OutputDataWriter "
-
-Write  OutputData to file using different witing strategies.
-
-C++ includes: OutputDataWriter.h
-";
-
-%feature("docstring")  OutputDataWriter::OutputDataWriter "OutputDataWriter::OutputDataWriter(const std::string &file_name)
-";
-
-%feature("docstring")  OutputDataWriter::writeOutputData "void OutputDataWriter::writeOutputData(const OutputData< double > &data)
-
-Writes output data to file. 
-";
-
-%feature("docstring")  OutputDataWriter::setStrategy "void OutputDataWriter::setStrategy(IOutputDataWriteStrategy *write_strategy)
-
-Sets concrete writing strategy. 
+%feature("docstring")  OutputDataReadWriteNumpyTXT::writeOutputData "void OutputDataReadWriteNumpyTXT::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)
 ";
 
 
@@ -3156,7 +3036,7 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0d111.xml
+// File: namespace_0d105.xml
 
 
 // File: namespace_0d33.xml
@@ -3165,13 +3045,7 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: namespace_0d56.xml
 
 
-// File: namespace_0d58.xml
-
-
 // File: namespace_0d62.xml
-
-
-// File: namespace_0d68.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3557,46 +3431,28 @@ make Swappable
 // File: DataFormatUtils_8h.xml
 
 
-// File: OutputDataReader_8cpp.xml
+// File: OutputDataReadReflectometry_8cpp.xml
 
 
-// File: OutputDataReader_8h.xml
+// File: OutputDataReadReflectometry_8h.xml
 
 
-// File: OutputDataReadFactory_8cpp.xml
+// File: OutputDataReadWriteINT_8cpp.xml
 
 
-// File: OutputDataReadFactory_8h.xml
+// File: OutputDataReadWriteINT_8h.xml
 
 
-// File: OutputDataReadStrategy_8cpp.xml
+// File: OutputDataReadWriteNumpyTXT_8cpp.xml
 
 
-// File: OutputDataReadStrategy_8h.xml
+// File: OutputDataReadWriteNumpyTXT_8h.xml
 
 
-// File: OutputDataWriteFactory_8cpp.xml
+// File: OutputDataReadWriteTiff_8cpp.xml
 
 
-// File: OutputDataWriteFactory_8h.xml
-
-
-// File: OutputDataWriter_8cpp.xml
-
-
-// File: OutputDataWriter_8h.xml
-
-
-// File: OutputDataWriteStrategy_8cpp.xml
-
-
-// File: OutputDataWriteStrategy_8h.xml
-
-
-// File: TiffHandler_8cpp.xml
-
-
-// File: TiffHandler_8h.xml
+// File: OutputDataReadWriteTiff_8h.xml
 
 
 // File: ChiSquaredModule_8cpp.xml

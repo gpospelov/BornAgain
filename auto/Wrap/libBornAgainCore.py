@@ -3603,6 +3603,24 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainCore.ISimulation_instrument(self, *args)
 
+    def beam(self, *args):
+        r"""
+        beam(ISimulation self) -> Beam
+        beam(ISimulation self) -> Beam const &
+        const Beam& ISimulation::beam() const
+
+        """
+        return _libBornAgainCore.ISimulation_beam(self, *args)
+
+    def detector(self, *args):
+        r"""
+        detector(ISimulation self) -> IDetector
+        detector(ISimulation self) -> IDetector const &
+        const IDetector& ISimulation::detector() const
+
+        """
+        return _libBornAgainCore.ISimulation_detector(self, *args)
+
     def setBeamIntensity(self, intensity):
         r"""
         setBeamIntensity(ISimulation self, double intensity)

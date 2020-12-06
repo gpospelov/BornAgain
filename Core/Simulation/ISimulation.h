@@ -54,6 +54,12 @@ public:
     const Instrument& instrument() const { return m_instrument; }
     Instrument& instrument() { return m_instrument; }
 
+    Beam& beam() { return m_instrument.beam(); }
+    const Beam& beam() const { return m_instrument.beam(); }
+
+    IDetector& detector() { return m_instrument.detector(); }
+    const IDetector& detector() const { return m_instrument.detector(); }
+
     void setBeamIntensity(double intensity);
     double getBeamIntensity() const;
 

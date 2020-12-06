@@ -35806,28 +35806,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Instrument_removeDetectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_removeDetectorResolution" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  (arg1)->removeDetectorResolution();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Instrument_setAnalyzerProperties(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Instrument *arg1 = (Instrument *) 0 ;
@@ -35874,35 +35852,6 @@ SWIGINTERN PyObject *_wrap_Instrument_setAnalyzerProperties(PyObject *SWIGUNUSED
   } 
   arg4 = static_cast< double >(val4);
   (arg1)->setAnalyzerProperties(arg2,arg3,arg4);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_applyDetectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  OutputData< double > *arg2 = (OutputData< double > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_applyDetectorResolution", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_applyDetectorResolution" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Instrument_applyDetectorResolution" "', argument " "2"" of type '" "OutputData< double > *""'"); 
-  }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  ((Instrument const *)arg1)->applyDetectorResolution(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -47461,25 +47410,11 @@ static PyMethodDef SwigMethods[] = {
 		"Sets detector resolution function. \n"
 		"\n"
 		""},
-	 { "Instrument_removeDetectorResolution", _wrap_Instrument_removeDetectorResolution, METH_O, "\n"
-		"Instrument_removeDetectorResolution(Instrument self)\n"
-		"void Instrument::removeDetectorResolution()\n"
-		"\n"
-		"Removes detector resolution function. \n"
-		"\n"
-		""},
 	 { "Instrument_setAnalyzerProperties", _wrap_Instrument_setAnalyzerProperties, METH_VARARGS, "\n"
 		"Instrument_setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)\n"
 		"void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)\n"
 		"\n"
 		"Sets the polarization analyzer characteristics of the detector. \n"
-		"\n"
-		""},
-	 { "Instrument_applyDetectorResolution", _wrap_Instrument_applyDetectorResolution, METH_VARARGS, "\n"
-		"Instrument_applyDetectorResolution(Instrument self, IntensityData p_intensity_map)\n"
-		"void Instrument::applyDetectorResolution(OutputData< double > *p_intensity_map) const\n"
-		"\n"
-		"apply the detector resolution to the given intensity map \n"
 		"\n"
 		""},
 	 { "Instrument_initDetector", _wrap_Instrument_initDetector, METH_O, "\n"
@@ -48646,7 +48581,7 @@ static PyMethodDef SwigMethods[] = {
 		"new_IntensityDataIOFactory() -> IntensityDataIOFactory\n"
 		"\n"
 		"\n"
-		"Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.\n"
+		"Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends with \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.\n"
 		"\n"
 		"Usage:\n"
 		"\n"

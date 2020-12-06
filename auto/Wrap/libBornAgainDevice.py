@@ -4014,16 +4014,6 @@ class Instrument(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Instrument_setDetectorResolutionFunction(self, p_resolution_function)
 
-    def removeDetectorResolution(self):
-        r"""
-        removeDetectorResolution(Instrument self)
-        void Instrument::removeDetectorResolution()
-
-        Removes detector resolution function. 
-
-        """
-        return _libBornAgainDevice.Instrument_removeDetectorResolution(self)
-
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         r"""
         setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)
@@ -4033,16 +4023,6 @@ class Instrument(libBornAgainParam.INode):
 
         """
         return _libBornAgainDevice.Instrument_setAnalyzerProperties(self, direction, efficiency, total_transmission)
-
-    def applyDetectorResolution(self, p_intensity_map):
-        r"""
-        applyDetectorResolution(Instrument self, IntensityData p_intensity_map)
-        void Instrument::applyDetectorResolution(OutputData< double > *p_intensity_map) const
-
-        apply the detector resolution to the given intensity map 
-
-        """
-        return _libBornAgainDevice.Instrument_applyDetectorResolution(self, p_intensity_map)
 
     def initDetector(self):
         r"""
@@ -5943,7 +5923,7 @@ class IntensityDataIOFactory(object):
     r"""
 
 
-    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends with "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
 
     Usage:
 
@@ -5989,7 +5969,7 @@ class IntensityDataIOFactory(object):
         __init__(IntensityDataIOFactory self) -> IntensityDataIOFactory
 
 
-        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends with "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
 
         Usage:
 

@@ -3102,108 +3102,110 @@ namespace Swig {
 #define SWIGTYPE_p_BasicVector3DT_double_t swig_types[2]
 #define SWIGTYPE_p_BasicVector3DT_int_t swig_types[3]
 #define SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t swig_types[4]
-#define SWIGTYPE_p_ConstantBackground swig_types[5]
-#define SWIGTYPE_p_DepthProbeSimulation swig_types[6]
-#define SWIGTYPE_p_DistributionHandler swig_types[7]
-#define SWIGTYPE_p_FitObjective swig_types[8]
-#define SWIGTYPE_p_GISASSimulation swig_types[9]
-#define SWIGTYPE_p_IAxis swig_types[10]
-#define SWIGTYPE_p_IBackground swig_types[11]
-#define SWIGTYPE_p_IBornFF swig_types[12]
-#define SWIGTYPE_p_IChiSquaredModule swig_types[13]
-#define SWIGTYPE_p_ICloneable swig_types[14]
-#define SWIGTYPE_p_IComponent swig_types[15]
-#define SWIGTYPE_p_IDetector2D swig_types[16]
-#define SWIGTYPE_p_IDistribution1D swig_types[17]
-#define SWIGTYPE_p_IFootprintFactor swig_types[18]
-#define SWIGTYPE_p_IFormFactor swig_types[19]
-#define SWIGTYPE_p_INode swig_types[20]
-#define SWIGTYPE_p_INodeVisitor swig_types[21]
-#define SWIGTYPE_p_IObservable swig_types[22]
-#define SWIGTYPE_p_IObserver swig_types[23]
-#define SWIGTYPE_p_IParametricComponent swig_types[24]
-#define SWIGTYPE_p_IRangedDistribution swig_types[25]
-#define SWIGTYPE_p_IResolutionFunction2D swig_types[26]
-#define SWIGTYPE_p_ISampleNode swig_types[27]
-#define SWIGTYPE_p_IShape2D swig_types[28]
-#define SWIGTYPE_p_ISimulation swig_types[29]
-#define SWIGTYPE_p_ISimulation2D swig_types[30]
-#define SWIGTYPE_p_ISpecularScan swig_types[31]
-#define SWIGTYPE_p_Instrument swig_types[32]
-#define SWIGTYPE_p_IterationInfo swig_types[33]
-#define SWIGTYPE_p_MultiLayer swig_types[34]
-#define SWIGTYPE_p_OffSpecSimulation swig_types[35]
-#define SWIGTYPE_p_OutputDataT_double_t swig_types[36]
-#define SWIGTYPE_p_ParameterDistribution swig_types[37]
-#define SWIGTYPE_p_ParameterPool swig_types[38]
-#define SWIGTYPE_p_PoissonNoiseBackground swig_types[39]
-#define SWIGTYPE_p_ProgressHandler__Callback_t swig_types[40]
-#define SWIGTYPE_p_PyBuilderCallback swig_types[41]
-#define SWIGTYPE_p_PyObserverCallback swig_types[42]
-#define SWIGTYPE_p_QSpecScan swig_types[43]
-#define SWIGTYPE_p_RealLimits swig_types[44]
-#define SWIGTYPE_p_ScanResolution swig_types[45]
-#define SWIGTYPE_p_SimulationOptions swig_types[46]
-#define SWIGTYPE_p_SimulationResult swig_types[47]
-#define SWIGTYPE_p_SpecularSimulation swig_types[48]
-#define SWIGTYPE_p_allocator_type swig_types[49]
-#define SWIGTYPE_p_char swig_types[50]
-#define SWIGTYPE_p_difference_type swig_types[51]
-#define SWIGTYPE_p_first_type swig_types[52]
-#define SWIGTYPE_p_int swig_types[53]
-#define SWIGTYPE_p_key_type swig_types[54]
-#define SWIGTYPE_p_long_long swig_types[55]
-#define SWIGTYPE_p_mapped_type swig_types[56]
-#define SWIGTYPE_p_mumufit__MinimizerResult swig_types[57]
-#define SWIGTYPE_p_mumufit__Parameters swig_types[58]
-#define SWIGTYPE_p_observer_t swig_types[59]
-#define SWIGTYPE_p_p_PyObject swig_types[60]
-#define SWIGTYPE_p_second_type swig_types[61]
-#define SWIGTYPE_p_short swig_types[62]
-#define SWIGTYPE_p_signed_char swig_types[63]
-#define SWIGTYPE_p_size_type swig_types[64]
-#define SWIGTYPE_p_std__allocatorT_AxisInfo_t swig_types[65]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[66]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[67]
-#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[68]
-#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[69]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[70]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[71]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[72]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[73]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[74]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[75]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[76]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[77]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[78]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[79]
-#define SWIGTYPE_p_std__invalid_argument swig_types[80]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[81]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[82]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[83]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[84]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[85]
-#define SWIGTYPE_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t swig_types[86]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[87]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[88]
-#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[89]
-#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[90]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[91]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[92]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[93]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[94]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[95]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[96]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[97]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[98]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[99]
-#define SWIGTYPE_p_unsigned_char swig_types[100]
-#define SWIGTYPE_p_unsigned_int swig_types[101]
-#define SWIGTYPE_p_unsigned_long_long swig_types[102]
-#define SWIGTYPE_p_unsigned_short swig_types[103]
-#define SWIGTYPE_p_value_type swig_types[104]
-static swig_type_info *swig_types[106];
-static swig_module_info swig_module = {swig_types, 105, 0, 0, 0, 0};
+#define SWIGTYPE_p_Beam swig_types[5]
+#define SWIGTYPE_p_ConstantBackground swig_types[6]
+#define SWIGTYPE_p_DepthProbeSimulation swig_types[7]
+#define SWIGTYPE_p_DistributionHandler swig_types[8]
+#define SWIGTYPE_p_FitObjective swig_types[9]
+#define SWIGTYPE_p_GISASSimulation swig_types[10]
+#define SWIGTYPE_p_IAxis swig_types[11]
+#define SWIGTYPE_p_IBackground swig_types[12]
+#define SWIGTYPE_p_IBornFF swig_types[13]
+#define SWIGTYPE_p_IChiSquaredModule swig_types[14]
+#define SWIGTYPE_p_ICloneable swig_types[15]
+#define SWIGTYPE_p_IComponent swig_types[16]
+#define SWIGTYPE_p_IDetector swig_types[17]
+#define SWIGTYPE_p_IDetector2D swig_types[18]
+#define SWIGTYPE_p_IDistribution1D swig_types[19]
+#define SWIGTYPE_p_IFootprintFactor swig_types[20]
+#define SWIGTYPE_p_IFormFactor swig_types[21]
+#define SWIGTYPE_p_INode swig_types[22]
+#define SWIGTYPE_p_INodeVisitor swig_types[23]
+#define SWIGTYPE_p_IObservable swig_types[24]
+#define SWIGTYPE_p_IObserver swig_types[25]
+#define SWIGTYPE_p_IParametricComponent swig_types[26]
+#define SWIGTYPE_p_IRangedDistribution swig_types[27]
+#define SWIGTYPE_p_IResolutionFunction2D swig_types[28]
+#define SWIGTYPE_p_ISampleNode swig_types[29]
+#define SWIGTYPE_p_IShape2D swig_types[30]
+#define SWIGTYPE_p_ISimulation swig_types[31]
+#define SWIGTYPE_p_ISimulation2D swig_types[32]
+#define SWIGTYPE_p_ISpecularScan swig_types[33]
+#define SWIGTYPE_p_Instrument swig_types[34]
+#define SWIGTYPE_p_IterationInfo swig_types[35]
+#define SWIGTYPE_p_MultiLayer swig_types[36]
+#define SWIGTYPE_p_OffSpecSimulation swig_types[37]
+#define SWIGTYPE_p_OutputDataT_double_t swig_types[38]
+#define SWIGTYPE_p_ParameterDistribution swig_types[39]
+#define SWIGTYPE_p_ParameterPool swig_types[40]
+#define SWIGTYPE_p_PoissonNoiseBackground swig_types[41]
+#define SWIGTYPE_p_ProgressHandler__Callback_t swig_types[42]
+#define SWIGTYPE_p_PyBuilderCallback swig_types[43]
+#define SWIGTYPE_p_PyObserverCallback swig_types[44]
+#define SWIGTYPE_p_QSpecScan swig_types[45]
+#define SWIGTYPE_p_RealLimits swig_types[46]
+#define SWIGTYPE_p_ScanResolution swig_types[47]
+#define SWIGTYPE_p_SimulationOptions swig_types[48]
+#define SWIGTYPE_p_SimulationResult swig_types[49]
+#define SWIGTYPE_p_SpecularSimulation swig_types[50]
+#define SWIGTYPE_p_allocator_type swig_types[51]
+#define SWIGTYPE_p_char swig_types[52]
+#define SWIGTYPE_p_difference_type swig_types[53]
+#define SWIGTYPE_p_first_type swig_types[54]
+#define SWIGTYPE_p_int swig_types[55]
+#define SWIGTYPE_p_key_type swig_types[56]
+#define SWIGTYPE_p_long_long swig_types[57]
+#define SWIGTYPE_p_mapped_type swig_types[58]
+#define SWIGTYPE_p_mumufit__MinimizerResult swig_types[59]
+#define SWIGTYPE_p_mumufit__Parameters swig_types[60]
+#define SWIGTYPE_p_observer_t swig_types[61]
+#define SWIGTYPE_p_p_PyObject swig_types[62]
+#define SWIGTYPE_p_second_type swig_types[63]
+#define SWIGTYPE_p_short swig_types[64]
+#define SWIGTYPE_p_signed_char swig_types[65]
+#define SWIGTYPE_p_size_type swig_types[66]
+#define SWIGTYPE_p_std__allocatorT_AxisInfo_t swig_types[67]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[68]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[69]
+#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[70]
+#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[71]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[72]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[73]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[74]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[75]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[76]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[77]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[78]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[79]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[80]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[81]
+#define SWIGTYPE_p_std__invalid_argument swig_types[82]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[83]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[84]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[85]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[86]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[87]
+#define SWIGTYPE_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t swig_types[88]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[89]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[90]
+#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[91]
+#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[92]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[93]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[94]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[95]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[96]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[97]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[98]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[99]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[100]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[101]
+#define SWIGTYPE_p_unsigned_char swig_types[102]
+#define SWIGTYPE_p_unsigned_int swig_types[103]
+#define SWIGTYPE_p_unsigned_long_long swig_types[104]
+#define SWIGTYPE_p_unsigned_short swig_types[105]
+#define SWIGTYPE_p_value_type swig_types[106]
+static swig_type_info *swig_types[108];
+static swig_module_info swig_module = {swig_types, 107, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -39082,6 +39084,162 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_ISimulation_beam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ISimulation *arg1 = (ISimulation *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Beam *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_beam" "', argument " "1"" of type '" "ISimulation *""'"); 
+  }
+  arg1 = reinterpret_cast< ISimulation * >(argp1);
+  result = (Beam *) &(arg1)->beam();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Beam, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation_beam__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ISimulation *arg1 = (ISimulation *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Beam *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_beam" "', argument " "1"" of type '" "ISimulation const *""'"); 
+  }
+  arg1 = reinterpret_cast< ISimulation * >(argp1);
+  result = (Beam *) &((ISimulation const *)arg1)->beam();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Beam, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation_beam(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ISimulation_beam", 0, 1, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ISimulation, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_ISimulation_beam__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ISimulation, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_ISimulation_beam__SWIG_1(self, argc, argv);
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ISimulation_beam'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    ISimulation::beam()\n"
+    "    ISimulation::beam() const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation_detector__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ISimulation *arg1 = (ISimulation *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  IDetector *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_detector" "', argument " "1"" of type '" "ISimulation *""'"); 
+  }
+  arg1 = reinterpret_cast< ISimulation * >(argp1);
+  result = (IDetector *) &(arg1)->detector();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation_detector__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ISimulation *arg1 = (ISimulation *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  IDetector *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_detector" "', argument " "1"" of type '" "ISimulation const *""'"); 
+  }
+  arg1 = reinterpret_cast< ISimulation * >(argp1);
+  result = (IDetector *) &((ISimulation const *)arg1)->detector();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation_detector(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ISimulation_detector", 0, 1, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ISimulation, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_ISimulation_detector__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ISimulation, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_ISimulation_detector__SWIG_1(self, argc, argv);
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ISimulation_detector'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    ISimulation::detector()\n"
+    "    ISimulation::detector() const\n");
+  return 0;
+}
+
+
 SWIGINTERN PyObject *_wrap_ISimulation_setBeamIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ISimulation *arg1 = (ISimulation *) 0 ;
@@ -43536,6 +43694,18 @@ static PyMethodDef SwigMethods[] = {
 		"Instrument& ISimulation::instrument()\n"
 		"\n"
 		""},
+	 { "ISimulation_beam", _wrap_ISimulation_beam, METH_VARARGS, "\n"
+		"ISimulation_beam(ISimulation self) -> Beam\n"
+		"ISimulation_beam(ISimulation self) -> Beam const &\n"
+		"const Beam& ISimulation::beam() const\n"
+		"\n"
+		""},
+	 { "ISimulation_detector", _wrap_ISimulation_detector, METH_VARARGS, "\n"
+		"ISimulation_detector(ISimulation self) -> IDetector\n"
+		"ISimulation_detector(ISimulation self) -> IDetector const &\n"
+		"const IDetector& ISimulation::detector() const\n"
+		"\n"
+		""},
 	 { "ISimulation_setBeamIntensity", _wrap_ISimulation_setBeamIntensity, METH_VARARGS, "\n"
 		"ISimulation_setBeamIntensity(ISimulation self, double intensity)\n"
 		"void ISimulation::setBeamIntensity(double intensity)\n"
@@ -44275,6 +44445,7 @@ static swig_type_info _swigt__p_AxisInfo = {"_p_AxisInfo", "std::vector< AxisInf
 static swig_type_info _swigt__p_BasicVector3DT_double_t = {"_p_BasicVector3DT_double_t", "std::vector< BasicVector3D< double > >::value_type *|kvector_t *|BasicVector3D< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t", "ivector_t *|BasicVector3D< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Beam = {"_p_Beam", "Beam *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ConstantBackground = {"_p_ConstantBackground", "ConstantBackground *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_DepthProbeSimulation = {"_p_DepthProbeSimulation", "DepthProbeSimulation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_DistributionHandler = {"_p_DistributionHandler", "DistributionHandler *", 0, 0, (void*)0, 0};
@@ -44289,6 +44460,7 @@ static swig_type_info _swigt__p_ParameterPool = {"_p_ParameterPool", 0, 0, 0, 0,
 static swig_type_info _swigt__p_IBornFF = {"_p_IBornFF", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_ISampleNode = {"_p_ISampleNode", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_IComponent = {"_p_IComponent", "IComponent *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_IDetector = {"_p_IDetector", "IDetector *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IDetector2D = {"_p_IDetector2D", "IDetector2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IDistribution1D = {"_p_IDistribution1D", "IDistribution1D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFootprintFactor = {"_p_IFootprintFactor", "IFootprintFactor *", 0, 0, (void*)0, 0};
@@ -44382,6 +44554,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_BasicVector3DT_double_t,
   &_swigt__p_BasicVector3DT_int_t,
   &_swigt__p_BasicVector3DT_std__complexT_double_t_t,
+  &_swigt__p_Beam,
   &_swigt__p_ConstantBackground,
   &_swigt__p_DepthProbeSimulation,
   &_swigt__p_DistributionHandler,
@@ -44393,6 +44566,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IChiSquaredModule,
   &_swigt__p_ICloneable,
   &_swigt__p_IComponent,
+  &_swigt__p_IDetector,
   &_swigt__p_IDetector2D,
   &_swigt__p_IDistribution1D,
   &_swigt__p_IFootprintFactor,
@@ -44489,6 +44663,7 @@ static swig_cast_info _swigc__p_AxisInfo[] = {  {&_swigt__p_AxisInfo, 0, 0, 0},{
 static swig_cast_info _swigc__p_BasicVector3DT_double_t[] = {  {&_swigt__p_BasicVector3DT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicVector3DT_int_t[] = {  {&_swigt__p_BasicVector3DT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_BasicVector3DT_std__complexT_double_t_t[] = {  {&_swigt__p_BasicVector3DT_std__complexT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Beam[] = {  {&_swigt__p_Beam, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ConstantBackground[] = {  {&_swigt__p_ConstantBackground, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_DepthProbeSimulation[] = {  {&_swigt__p_DepthProbeSimulation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_DistributionHandler[] = {  {&_swigt__p_DistributionHandler, 0, 0, 0},{0, 0, 0, 0}};
@@ -44503,6 +44678,7 @@ static swig_cast_info _swigc__p_IBornFF[] = {{&_swigt__p_IBornFF, 0, 0, 0},{0, 0
 static swig_cast_info _swigc__p_ISampleNode[] = {{&_swigt__p_ISampleNode, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_ISpecularScan, _p_ISpecularScanTo_p_ICloneable, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_ICloneable, 0, 0},  {&_swigt__p_AngularSpecScan, _p_AngularSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_QSpecScan, _p_QSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IComponent[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IComponent, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IComponent, 0, 0},  {&_swigt__p_IParametricComponent, _p_IParametricComponentTo_p_IComponent, 0, 0},  {&_swigt__p_IComponent, 0, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IComponent, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_IComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IComponent, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IComponent, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IDetector[] = {  {&_swigt__p_IDetector, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector2D[] = {  {&_swigt__p_IDetector2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDistribution1D[] = {  {&_swigt__p_IDistribution1D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFootprintFactor[] = {  {&_swigt__p_IFootprintFactor, 0, 0, 0},{0, 0, 0, 0}};
@@ -44596,6 +44772,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_BasicVector3DT_double_t,
   _swigc__p_BasicVector3DT_int_t,
   _swigc__p_BasicVector3DT_std__complexT_double_t_t,
+  _swigc__p_Beam,
   _swigc__p_ConstantBackground,
   _swigc__p_DepthProbeSimulation,
   _swigc__p_DistributionHandler,
@@ -44607,6 +44784,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IChiSquaredModule,
   _swigc__p_ICloneable,
   _swigc__p_IComponent,
+  _swigc__p_IDetector,
   _swigc__p_IDetector2D,
   _swigc__p_IDistribution1D,
   _swigc__p_IFootprintFactor,

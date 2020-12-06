@@ -2,6 +2,9 @@
 """
 Reads a BornAgain simulation script, and converts into normal form.
 
+Does not touch function get_sample, for which there is the dedicated
+script normalize-getsample.py.
+
 Export to normal form is done by BornAgain's ExportToPython function.
 """
 
@@ -10,34 +13,29 @@ from yapf.yapflib.yapf_api import FormatCode
 import bornagain as ba
 
 
-def substitute_sample(ti, tc):
+def restitute_sample(ti, tc):
     """
-    Returns script ti, except for the get_sample function which is taken from script tc.
+    Returns script tc, except for the get_sample function which is taken from script ti.
     """
     pat = re.compile(
-        r'(\ndef get_sample\(.+?:\n)(\s*""".+?"""\n)?\n*(((\s{4}.*?)?\n)+?\n)(\w|$)',
+        r'((\ndef get_sample\(.+?:\n)(\s*""".+?"""\n)?\n*(((\s{4}.*?)?\n)+?\n)(\w|$))',
         flags=re.S)
 
     mi = re.search(pat, ti)
     if not mi:
         raise Exception("Input code has no function get_sample")
-    header = mi.group(1)
+    header = mi.group(2)
 
     mn = re.search(pat, tc)
     if not mn:
         raise Exception("Normalized code has no function get_sample")
-    if mn.group(1) != header:
+    if mn.group(2) != header:
         raise Exception(
             f'Signature of function get_sample has changed from "{header}" to "{mn.group(1)}"'
         )
 
-    if mi.group(2):
-        header += mi.group(2) + '\n'
+    t = re.sub(pat, mi.group(1), tc)
 
-    t = re.sub(pat, header + mn.group(3) + mi.group(6), ti)
-
-    t = re.sub(r'\nfrom bornagain import.+',
-               '\nfrom bornagain import angstrom, deg, nm, nm2, kvector_t', t)
     return t
 
 
@@ -60,12 +58,18 @@ def cycle_text(ti, fname):
 
 
 def normalize_text(ti, fname):
-    tc = cycle_text(ti, fname)
+    filecomment = ""
+    m = re.match(r'""".*?"""\n', ti, flags=re.S)
+    if m:
+        filecomment = m.group(0)
+
+    tc = filecomment + cycle_text(ti, fname)
+
     if verbose:
         print(
             f'.. cycled through BA, {len(ti.split())} -> {len(tc.split())} lines'
         )
-    tf = substitute_sample(ti, tc)
+    tf = restitute_sample(ti, tc)
     if verbose:
         print(f'.. normalized, {len(ti.split())} -> {len(tf.split())} lines')
     # YAPF formatting

@@ -18,14 +18,8 @@
 #include "Device/Beam/Beam.h"
 #include <memory>
 
-template <class T> class OutputData;
-class Histogram2D;
-class DetectorMask;
-class IAxis;
 class IDetector;
 class IDetector2D;
-class IResolutionFunction2D;
-class SimulationElement;
 
 //! Assembles beam, detector and their relative positions with respect to the sample.
 //! @ingroup simulation_internal

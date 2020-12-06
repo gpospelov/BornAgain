@@ -3972,16 +3972,6 @@ class Instrument(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Instrument_setDetector(self, detector)
 
-    def setDetectorResolutionFunction(self, p_resolution_function):
-        r"""
-        setDetectorResolutionFunction(Instrument self, IResolutionFunction2D p_resolution_function)
-        void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)
-
-        Sets detector resolution function. 
-
-        """
-        return _libBornAgainDevice.Instrument_setDetectorResolutionFunction(self, p_resolution_function)
-
     def setAnalyzerProperties(self, direction, efficiency, total_transmission):
         r"""
         setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)

@@ -147,22 +147,22 @@ void ISimulation::setTerminalProgressMonitor() {
 }
 
 void ISimulation::setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function) {
-    instrument().setDetectorResolutionFunction(resolution_function);
+    detector().setResolutionFunction(resolution_function);
 }
 
 //! Sets the polarization analyzer characteristics of the detector
 void ISimulation::setAnalyzerProperties(const kvector_t direction, double efficiency,
                                         double total_transmission) {
-    instrument().setAnalyzerProperties(direction, efficiency, total_transmission);
+    detector().setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
 void ISimulation::setBeamIntensity(double intensity) {
-    instrument().setBeamIntensity(intensity);
+    beam().setIntensity(intensity);
 }
 
 //! Sets the beam polarization according to the given Bloch vector
 void ISimulation::setBeamPolarization(const kvector_t bloch_vector) {
-    instrument().setBeamPolarization(bloch_vector);
+    beam().setPolarization(bloch_vector);
 }
 
 void ISimulation::prepareSimulation() {

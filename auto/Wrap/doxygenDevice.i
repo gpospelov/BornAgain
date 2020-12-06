@@ -1510,11 +1510,6 @@ Sets the beam's polarization according to the given Bloch vector.
 Sets the detector (axes can be overwritten later) 
 ";
 
-%feature("docstring")  Instrument::setDetectorResolutionFunction "void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)
-
-Sets detector resolution function. 
-";
-
 %feature("docstring")  Instrument::setAnalyzerProperties "void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
 
 Sets the polarization analyzer characteristics of the detector. 

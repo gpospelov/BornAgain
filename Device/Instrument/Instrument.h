@@ -62,9 +62,6 @@ public:
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector& detector);
 
-    //! Sets detector resolution function
-    void setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function);
-
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission);

@@ -35675,38 +35675,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Instrument_setDetectorResolutionFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  IResolutionFunction2D *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_setDetectorResolutionFunction", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_setDetectorResolutionFunction" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IResolutionFunction2D,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Instrument_setDetectorResolutionFunction" "', argument " "2"" of type '" "IResolutionFunction2D const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Instrument_setDetectorResolutionFunction" "', argument " "2"" of type '" "IResolutionFunction2D const &""'"); 
-  }
-  arg2 = reinterpret_cast< IResolutionFunction2D * >(argp2);
-  (arg1)->setDetectorResolutionFunction((IResolutionFunction2D const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Instrument_setAnalyzerProperties(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Instrument *arg1 = (Instrument *) 0 ;
@@ -47282,13 +47250,6 @@ static PyMethodDef SwigMethods[] = {
 		"void Instrument::setDetector(const IDetector &detector)\n"
 		"\n"
 		"Sets the detector (axes can be overwritten later) \n"
-		"\n"
-		""},
-	 { "Instrument_setDetectorResolutionFunction", _wrap_Instrument_setDetectorResolutionFunction, METH_VARARGS, "\n"
-		"Instrument_setDetectorResolutionFunction(Instrument self, IResolutionFunction2D p_resolution_function)\n"
-		"void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)\n"
-		"\n"
-		"Sets detector resolution function. \n"
 		"\n"
 		""},
 	 { "Instrument_setAnalyzerProperties", _wrap_Instrument_setAnalyzerProperties, METH_VARARGS, "\n"

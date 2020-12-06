@@ -63,10 +63,6 @@ std::vector<const INode*> Instrument::getChildren() const {
     return result;
 }
 
-void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function) {
-    m_detector->setResolutionFunction(p_resolution_function);
-}
-
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i) {
     m_beam.setCentralK(wavelength, alpha_i, phi_i);
     if (m_detector)

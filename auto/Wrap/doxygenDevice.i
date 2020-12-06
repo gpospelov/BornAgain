@@ -1505,15 +1505,6 @@ Sets the beam's polarization according to the given Bloch vector.
 %feature("docstring")  Instrument::detector2D "const IDetector2D & Instrument::detector2D() const
 ";
 
-%feature("docstring")  Instrument::getDetectorMask "const DetectorMask * Instrument::getDetectorMask() const
-";
-
-%feature("docstring")  Instrument::getDetectorAxis "const IAxis & Instrument::getDetectorAxis(size_t index) const
-";
-
-%feature("docstring")  Instrument::getDetectorDimension "size_t Instrument::getDetectorDimension() const
-";
-
 %feature("docstring")  Instrument::setDetector "void Instrument::setDetector(const IDetector &detector)
 
 Sets the detector (axes can be overwritten later) 

@@ -73,10 +73,6 @@ void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi
         initDetector();
 }
 
-const DetectorMask* Instrument::getDetectorMask() const {
-    return m_detector->detectorMask();
-}
-
 void Instrument::setBeam(const Beam& beam) {
     m_beam = beam;
     if (m_detector)
@@ -120,14 +116,6 @@ const IDetector2D& Instrument::detector2D() const {
     if (!p)
         throw std::runtime_error("Error: Detector is not twodimensional");
     return *p;
-}
-
-const IAxis& Instrument::getDetectorAxis(size_t index) const {
-    return m_detector->axis(index);
-}
-
-size_t Instrument::getDetectorDimension() const {
-    return m_detector->dimension();
 }
 
 void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency,

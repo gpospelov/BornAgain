@@ -25,7 +25,7 @@ GISASSimulation::GISASSimulation() {
 }
 
 void GISASSimulation::prepareSimulation() {
-    if (instrument().getDetectorDimension() != 2)
+    if (detector().dimension() != 2)
         throw std::runtime_error("GISASSimulation::prepareSimulation() "
                                  "-> Error. The detector was not properly configured.");
     instrument().initDetector();

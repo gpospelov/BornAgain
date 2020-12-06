@@ -68,7 +68,7 @@ std::unique_ptr<IUnitConverter> OffSpecSimulation::createUnitConverter() const {
 
 size_t OffSpecSimulation::intensityMapSize() const {
     checkInitialization();
-    return m_alpha_i_axis->size() * instrument().getDetectorAxis(1).size();
+    return m_alpha_i_axis->size() * detector().axis(1).size();
 }
 
 OffSpecSimulation::OffSpecSimulation(const OffSpecSimulation& other) : ISimulation2D(other) {
@@ -113,7 +113,7 @@ void OffSpecSimulation::validateParametrization(const ParameterDistribution& par
 
 void OffSpecSimulation::transferResultsToIntensityMap() {
     checkInitialization();
-    const IAxis& phi_axis = instrument().getDetectorAxis(0);
+    const IAxis& phi_axis = detector().axis(0);
     size_t phi_f_size = phi_axis.size();
     if (phi_f_size * m_intensity_map.getAllocatedSize() != m_sim_elements.size())
         throw std::runtime_error(
@@ -127,22 +127,22 @@ void OffSpecSimulation::updateIntensityMap() {
     m_intensity_map.clear();
     if (m_alpha_i_axis)
         m_intensity_map.addAxis(*m_alpha_i_axis);
-    size_t detector_dimension = instrument().getDetectorDimension();
+    size_t detector_dimension = detector().dimension();
     if (detector_dimension == 2)
-        m_intensity_map.addAxis(instrument().getDetectorAxis(1));
+        m_intensity_map.addAxis(detector().axis(1));
     m_intensity_map.setAllTo(0.);
 }
 
 void OffSpecSimulation::transferDetectorImage(size_t index) {
     OutputData<double> detector_image;
-    size_t detector_dimension = instrument().getDetectorDimension();
+    size_t detector_dimension = detector().dimension();
     for (size_t dim = 0; dim < detector_dimension; ++dim)
-        detector_image.addAxis(instrument().getDetectorAxis(dim));
+        detector_image.addAxis(detector().axis(dim));
     size_t detector_size = detector_image.getAllocatedSize();
     for (size_t i = 0; i < detector_size; ++i)
         detector_image[i] = m_sim_elements[index * detector_size + i].getIntensity();
     detector().applyDetectorResolution(&detector_image);
-    size_t y_axis_size = instrument().getDetectorAxis(1).size();
+    size_t y_axis_size = detector().axis(1).size();
     for (size_t i = 0; i < detector_size; ++i)
         m_intensity_map[index * y_axis_size + i % y_axis_size] += detector_image[i];
 }
@@ -151,7 +151,7 @@ void OffSpecSimulation::checkInitialization() const {
     if (!m_alpha_i_axis || m_alpha_i_axis->size() < 1)
         throw std::runtime_error("OffSpecSimulation::checkInitialization() "
                                  "Incoming alpha range not configured.");
-    if (instrument().getDetectorDimension() != 2)
+    if (detector().dimension() != 2)
         throw std::runtime_error(
             "OffSpecSimulation::checkInitialization: detector is not two-dimensional");
 }

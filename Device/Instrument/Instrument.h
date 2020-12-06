@@ -59,12 +59,6 @@ public:
     IDetector2D& detector2D();
     const IDetector2D& detector2D() const;
 
-    const DetectorMask* getDetectorMask() const;
-
-    const IAxis& getDetectorAxis(size_t index) const;
-
-    size_t getDetectorDimension() const;
-
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector& detector);
 

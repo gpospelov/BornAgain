@@ -3962,30 +3962,6 @@ class Instrument(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Instrument_detector2D(self, *args)
 
-    def getDetectorMask(self):
-        r"""
-        getDetectorMask(Instrument self) -> DetectorMask
-        const DetectorMask * Instrument::getDetectorMask() const
-
-        """
-        return _libBornAgainDevice.Instrument_getDetectorMask(self)
-
-    def getDetectorAxis(self, index):
-        r"""
-        getDetectorAxis(Instrument self, size_t index) -> IAxis
-        const IAxis & Instrument::getDetectorAxis(size_t index) const
-
-        """
-        return _libBornAgainDevice.Instrument_getDetectorAxis(self, index)
-
-    def getDetectorDimension(self):
-        r"""
-        getDetectorDimension(Instrument self) -> size_t
-        size_t Instrument::getDetectorDimension() const
-
-        """
-        return _libBornAgainDevice.Instrument_getDetectorDimension(self)
-
     def setDetector(self, detector):
         r"""
         setDetector(Instrument self, IDetector detector)

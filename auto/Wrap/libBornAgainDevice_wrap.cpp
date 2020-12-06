@@ -35643,82 +35643,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Instrument_getDetectorMask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  DetectorMask *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getDetectorMask" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (DetectorMask *)((Instrument const *)arg1)->getDetectorMask();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DetectorMask, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_getDetectorAxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  IAxis *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_getDetectorAxis", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getDetectorAxis" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Instrument_getDetectorAxis" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  result = (IAxis *) &((Instrument const *)arg1)->getDetectorAxis(arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_getDetectorDimension(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  size_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getDetectorDimension" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = ((Instrument const *)arg1)->getDetectorDimension();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Instrument_setDetector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Instrument *arg1 = (Instrument *) 0 ;
@@ -47351,21 +47275,6 @@ static PyMethodDef SwigMethods[] = {
 		"Instrument_detector2D(Instrument self) -> IDetector2D\n"
 		"Instrument_detector2D(Instrument self) -> IDetector2D\n"
 		"const IDetector2D & Instrument::detector2D() const\n"
-		"\n"
-		""},
-	 { "Instrument_getDetectorMask", _wrap_Instrument_getDetectorMask, METH_O, "\n"
-		"Instrument_getDetectorMask(Instrument self) -> DetectorMask\n"
-		"const DetectorMask * Instrument::getDetectorMask() const\n"
-		"\n"
-		""},
-	 { "Instrument_getDetectorAxis", _wrap_Instrument_getDetectorAxis, METH_VARARGS, "\n"
-		"Instrument_getDetectorAxis(Instrument self, size_t index) -> IAxis\n"
-		"const IAxis & Instrument::getDetectorAxis(size_t index) const\n"
-		"\n"
-		""},
-	 { "Instrument_getDetectorDimension", _wrap_Instrument_getDetectorDimension, METH_O, "\n"
-		"Instrument_getDetectorDimension(Instrument self) -> size_t\n"
-		"size_t Instrument::getDetectorDimension() const\n"
 		"\n"
 		""},
 	 { "Instrument_setDetector", _wrap_Instrument_setDetector, METH_VARARGS, "\n"

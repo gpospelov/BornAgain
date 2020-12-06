@@ -97,7 +97,7 @@ std::vector<SimulationElement> ISimulation2D::generateSimulationElements(const B
 }
 
 void ISimulation2D::normalize(size_t start_ind, size_t n_elements) {
-    const double beam_intensity = getBeamIntensity();
+    const double beam_intensity = beam().getIntensity();
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         SimulationElement& element = m_sim_elements[i];
         double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));

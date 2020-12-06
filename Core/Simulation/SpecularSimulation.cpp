@@ -181,7 +181,7 @@ void SpecularSimulation::initialize() {
 }
 
 void SpecularSimulation::normalize(size_t start_ind, size_t n_elements) {
-    const double beam_intensity = getBeamIntensity();
+    const double beam_intensity = beam().getIntensity();
 
     std::vector<double> footprints;
     // TODO: use just m_scan when pointwise resolution is implemented

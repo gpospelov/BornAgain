@@ -52,8 +52,6 @@ public:
     //! Sets the beam's polarization according to the given Bloch vector
     void setBeamPolarization(const kvector_t bloch_vector);
 
-    double getBeamIntensity() const;
-
     const IDetector* getDetector() const;
     IDetector& detector();
     const IDetector& detector() const;

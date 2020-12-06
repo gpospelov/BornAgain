@@ -3936,14 +3936,6 @@ class Instrument(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Instrument_setBeamPolarization(self, bloch_vector)
 
-    def getBeamIntensity(self):
-        r"""
-        getBeamIntensity(Instrument self) -> double
-        double Instrument::getBeamIntensity() const
-
-        """
-        return _libBornAgainDevice.Instrument_getBeamIntensity(self)
-
     def getDetector(self):
         r"""
         getDetector(Instrument self) -> IDetector

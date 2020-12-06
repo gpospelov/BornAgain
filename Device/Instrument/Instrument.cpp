@@ -91,10 +91,6 @@ void Instrument::setBeamPolarization(const kvector_t bloch_vector) {
     m_beam.setPolarization(bloch_vector);
 }
 
-double Instrument::getBeamIntensity() const {
-    return m_beam.getIntensity();
-}
-
 const IDetector* Instrument::getDetector() const {
     ASSERT(m_detector);
     return m_detector.get();

@@ -944,9 +944,6 @@ Run a simulation in a MPI environment.
 %feature("docstring")  ISimulation::setBeamIntensity "void ISimulation::setBeamIntensity(double intensity)
 ";
 
-%feature("docstring")  ISimulation::getBeamIntensity "double ISimulation::getBeamIntensity() const
-";
-
 %feature("docstring")  ISimulation::setBeamPolarization "void ISimulation::setBeamPolarization(const kvector_t bloch_vector)
 
 Sets the beam polarization according to the given Bloch vector. 

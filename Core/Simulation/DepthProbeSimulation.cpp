@@ -209,7 +209,7 @@ void DepthProbeSimulation::initialize() {
 }
 
 void DepthProbeSimulation::normalize(size_t start_ind, size_t n_elements) {
-    const double beam_intensity = getBeamIntensity();
+    const double beam_intensity = beam().getIntensity();
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         auto& element = m_sim_elements[i];
         const double alpha_i = -element.getAlphaI();

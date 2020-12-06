@@ -39269,29 +39269,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ISimulation_getBeamIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ISimulation *arg1 = (ISimulation *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_getBeamIntensity" "', argument " "1"" of type '" "ISimulation const *""'"); 
-  }
-  arg1 = reinterpret_cast< ISimulation * >(argp1);
-  result = (double)((ISimulation const *)arg1)->getBeamIntensity();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ISimulation_setBeamPolarization(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ISimulation *arg1 = (ISimulation *) 0 ;
@@ -43709,11 +43686,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "ISimulation_setBeamIntensity", _wrap_ISimulation_setBeamIntensity, METH_VARARGS, "\n"
 		"ISimulation_setBeamIntensity(ISimulation self, double intensity)\n"
 		"void ISimulation::setBeamIntensity(double intensity)\n"
-		"\n"
-		""},
-	 { "ISimulation_getBeamIntensity", _wrap_ISimulation_getBeamIntensity, METH_O, "\n"
-		"ISimulation_getBeamIntensity(ISimulation self) -> double\n"
-		"double ISimulation::getBeamIntensity() const\n"
 		"\n"
 		""},
 	 { "ISimulation_setBeamPolarization", _wrap_ISimulation_setBeamPolarization, METH_VARARGS, "\n"

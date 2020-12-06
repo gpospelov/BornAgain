@@ -35464,29 +35464,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Instrument_getBeamIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getBeamIntensity" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (double)((Instrument const *)arg1)->getBeamIntensity();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Instrument_getDetector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Instrument *arg1 = (Instrument *) 0 ;
@@ -47357,11 +47334,6 @@ static PyMethodDef SwigMethods[] = {
 		"void Instrument::setBeamPolarization(const kvector_t bloch_vector)\n"
 		"\n"
 		"Sets the beam's polarization according to the given Bloch vector. \n"
-		"\n"
-		""},
-	 { "Instrument_getBeamIntensity", _wrap_Instrument_getBeamIntensity, METH_O, "\n"
-		"Instrument_getBeamIntensity(Instrument self) -> double\n"
-		"double Instrument::getBeamIntensity() const\n"
 		"\n"
 		""},
 	 { "Instrument_getDetector", _wrap_Instrument_getDetector, METH_O, "\n"

@@ -61,7 +61,6 @@ public:
     const IDetector& detector() const { return m_instrument.detector(); }
 
     void setBeamIntensity(double intensity);
-    double getBeamIntensity() const;
 
     void setBeamPolarization(const kvector_t bloch_vector);
 

@@ -160,10 +160,6 @@ void ISimulation::setBeamIntensity(double intensity) {
     instrument().setBeamIntensity(intensity);
 }
 
-double ISimulation::getBeamIntensity() const {
-    return instrument().getBeamIntensity();
-}
-
 //! Sets the beam polarization according to the given Bloch vector
 void ISimulation::setBeamPolarization(const kvector_t bloch_vector) {
     instrument().setBeamPolarization(bloch_vector);

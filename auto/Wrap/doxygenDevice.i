@@ -1490,9 +1490,6 @@ Sets the beam wavelength and incoming angles.
 Sets the beam's polarization according to the given Bloch vector. 
 ";
 
-%feature("docstring")  Instrument::getBeamIntensity "double Instrument::getBeamIntensity() const
-";
-
 %feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
 ";
 

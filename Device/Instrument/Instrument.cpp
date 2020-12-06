@@ -113,8 +113,3 @@ const IDetector2D& Instrument::detector2D() const {
         throw std::runtime_error("Error: Detector is not twodimensional");
     return *p;
 }
-
-void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                       double total_transmission) {
-    m_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
-}

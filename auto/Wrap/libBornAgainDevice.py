@@ -3972,16 +3972,6 @@ class Instrument(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Instrument_setDetector(self, detector)
 
-    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
-        r"""
-        setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)
-        void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
-
-        Sets the polarization analyzer characteristics of the detector. 
-
-        """
-        return _libBornAgainDevice.Instrument_setAnalyzerProperties(self, direction, efficiency, total_transmission)
-
     def initDetector(self):
         r"""
         initDetector(Instrument self)

@@ -62,10 +62,6 @@ public:
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector& detector);
 
-    //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t direction, double efficiency,
-                               double total_transmission);
-
     //! init detector with beam settings
     void initDetector();
 

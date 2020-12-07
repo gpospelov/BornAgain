@@ -122,10 +122,6 @@ void IDetector::applyDetectorResolution(OutputData<double>* p_intensity_map) con
     }
 }
 
-void IDetector::removeDetectorResolution() {
-    m_detector_resolution.reset();
-}
-
 const IDetectorResolution* IDetector::detectorResolution() const {
     return m_detector_resolution.get();
 }

@@ -37930,143 +37930,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IDetector_axis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  IAxis *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IDetector_axis", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_axis" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_axis" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  result = (IAxis *) &((IDetector const *)arg1)->axis(arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_dimension(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  size_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_dimension" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = ((IDetector const *)arg1)->dimension();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_axisBinIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  size_t arg2 ;
-  size_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  size_t val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  size_t result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IDetector_axisBinIndex", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_axisBinIndex" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_axisBinIndex" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IDetector_axisBinIndex" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
-  result = ((IDetector const *)arg1)->axisBinIndex(arg2,arg3);
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_totalSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  size_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_totalSize" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = ((IDetector const *)arg1)->totalSize();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_detectorMask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  DetectorMask *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectorMask" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = (DetectorMask *)((IDetector const *)arg1)->detectorMask();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DetectorMask, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_IDetector_setAnalyzerProperties(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IDetector *arg1 = (IDetector *) 0 ;
@@ -38184,103 +38047,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IDetector_applyDetectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  OutputData< double > *arg2 = (OutputData< double > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IDetector_applyDetectorResolution", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_applyDetectorResolution" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IDetector_applyDetectorResolution" "', argument " "2"" of type '" "OutputData< double > *""'"); 
-  }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  ((IDetector const *)arg1)->applyDetectorResolution(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_removeDetectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_removeDetectorResolution" "', argument " "1"" of type '" "IDetector *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  (arg1)->removeDetectorResolution();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_detectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IDetectorResolution *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectorResolution" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = (IDetectorResolution *)((IDetector const *)arg1)->detectorResolution();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetectorResolution, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_regionOfInterest(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  RegionOfInterest *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_regionOfInterest" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = (RegionOfInterest *)((IDetector const *)arg1)->regionOfInterest();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RegionOfInterest, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_IDetector_resetRegionOfInterest(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IDetector *arg1 = (IDetector *) 0 ;
@@ -38303,102 +38069,23 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IDetector_detectionProperties(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IDetector_detectorMask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IDetector *arg1 = (IDetector *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  DetectionProperties *result = 0 ;
+  DetectorMask *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectionProperties" "', argument " "1"" of type '" "IDetector const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectorMask" "', argument " "1"" of type '" "IDetector const *""'"); 
   }
   arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = (DetectionProperties *) &((IDetector const *)arg1)->detectionProperties();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DetectionProperties, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_createDetectorIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  std::vector< SimulationElement,std::allocator< SimulationElement > > *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  OutputData< double > *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IDetector_createDetectorIntensity", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_createDetectorIntensity" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__vectorT_SimulationElement_std__allocatorT_SimulationElement_t_t,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IDetector_createDetectorIntensity" "', argument " "2"" of type '" "std::vector< SimulationElement,std::allocator< SimulationElement > > const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IDetector_createDetectorIntensity" "', argument " "2"" of type '" "std::vector< SimulationElement,std::allocator< SimulationElement > > const &""'"); 
-  }
-  arg2 = reinterpret_cast< std::vector< SimulationElement,std::allocator< SimulationElement > > * >(argp2);
-  result = (OutputData< double > *)((IDetector const *)arg1)->createDetectorIntensity((std::vector< SimulationElement,std::allocator< SimulationElement > > const &)*arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_defaultAxesUnits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Axes::Units result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_defaultAxesUnits" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = (Axes::Units)((IDetector const *)arg1)->defaultAxesUnits();
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_numberOfSimulationElements(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  size_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_numberOfSimulationElements" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = ((IDetector const *)arg1)->numberOfSimulationElements();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  result = (DetectorMask *)((IDetector const *)arg1)->detectorMask();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DetectorMask, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -38555,6 +38242,297 @@ fail:
     "    IDetector::iterate(std::function< void (IDetector::const_iterator) >,bool) const\n"
     "    IDetector::iterate(std::function< void (IDetector::const_iterator) >) const\n");
   return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_axis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  IAxis *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDetector_axis", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_axis" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_axis" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  result = (IAxis *) &((IDetector const *)arg1)->axis(arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_dimension(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  size_t result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_dimension" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = ((IDetector const *)arg1)->dimension();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_axisBinIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  size_t arg2 ;
+  size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  size_t result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDetector_axisBinIndex", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_axisBinIndex" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_axisBinIndex" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IDetector_axisBinIndex" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  result = ((IDetector const *)arg1)->axisBinIndex(arg2,arg3);
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_totalSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  size_t result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_totalSize" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = ((IDetector const *)arg1)->totalSize();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_applyDetectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  OutputData< double > *arg2 = (OutputData< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDetector_applyDetectorResolution", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_applyDetectorResolution" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IDetector_applyDetectorResolution" "', argument " "2"" of type '" "OutputData< double > *""'"); 
+  }
+  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
+  ((IDetector const *)arg1)->applyDetectorResolution(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_detectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  IDetectorResolution *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectorResolution" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = (IDetectorResolution *)((IDetector const *)arg1)->detectorResolution();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetectorResolution, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_detectionProperties(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  DetectionProperties *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectionProperties" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = (DetectionProperties *) &((IDetector const *)arg1)->detectionProperties();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DetectionProperties, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_createDetectorIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  std::vector< SimulationElement,std::allocator< SimulationElement > > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  OutputData< double > *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDetector_createDetectorIntensity", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_createDetectorIntensity" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__vectorT_SimulationElement_std__allocatorT_SimulationElement_t_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IDetector_createDetectorIntensity" "', argument " "2"" of type '" "std::vector< SimulationElement,std::allocator< SimulationElement > > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IDetector_createDetectorIntensity" "', argument " "2"" of type '" "std::vector< SimulationElement,std::allocator< SimulationElement > > const &""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< SimulationElement,std::allocator< SimulationElement > > * >(argp2);
+  result = (OutputData< double > *)((IDetector const *)arg1)->createDetectorIntensity((std::vector< SimulationElement,std::allocator< SimulationElement > > const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_defaultAxesUnits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Axes::Units result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_defaultAxesUnits" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = (Axes::Units)((IDetector const *)arg1)->defaultAxesUnits();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_numberOfSimulationElements(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  size_t result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_numberOfSimulationElements" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = ((IDetector const *)arg1)->numberOfSimulationElements();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_regionOfInterest(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  RegionOfInterest *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_regionOfInterest" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = (RegionOfInterest *)((IDetector const *)arg1)->regionOfInterest();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RegionOfInterest, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
 }
 
 
@@ -47507,6 +47485,49 @@ static PyMethodDef SwigMethods[] = {
 		"void IDetector::addAxis(const IAxis &axis)\n"
 		"\n"
 		""},
+	 { "IDetector_setAnalyzerProperties", _wrap_IDetector_setAnalyzerProperties, METH_VARARGS, "\n"
+		"IDetector_setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)\n"
+		"void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)\n"
+		"\n"
+		"Sets the polarization analyzer characteristics of the detector. \n"
+		"\n"
+		""},
+	 { "IDetector_setDetectorResolution", _wrap_IDetector_setDetectorResolution, METH_VARARGS, "\n"
+		"IDetector_setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)\n"
+		"void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)\n"
+		"\n"
+		"Sets the detector resolution. \n"
+		"\n"
+		""},
+	 { "IDetector_setResolutionFunction", _wrap_IDetector_setResolutionFunction, METH_VARARGS, "\n"
+		"IDetector_setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)\n"
+		"void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)\n"
+		"\n"
+		""},
+	 { "IDetector_resetRegionOfInterest", _wrap_IDetector_resetRegionOfInterest, METH_O, "\n"
+		"IDetector_resetRegionOfInterest(IDetector self)\n"
+		"virtual void IDetector::resetRegionOfInterest()=0\n"
+		"\n"
+		"Resets region of interest making whole detector plane available for the simulation. \n"
+		"\n"
+		""},
+	 { "IDetector_detectorMask", _wrap_IDetector_detectorMask, METH_O, "\n"
+		"IDetector_detectorMask(IDetector self) -> DetectorMask\n"
+		"virtual const DetectorMask* IDetector::detectorMask() const =0\n"
+		"\n"
+		"Returns detector masks container. \n"
+		"\n"
+		""},
+	 { "IDetector_getChildren", _wrap_IDetector_getChildren, METH_O, "\n"
+		"IDetector_getChildren(IDetector self) -> std::vector< INode const *,std::allocator< INode const * > >\n"
+		"std::vector< const INode * > IDetector::getChildren() const override\n"
+		"\n"
+		""},
+	 { "IDetector_iterate", _wrap_IDetector_iterate, METH_VARARGS, "\n"
+		"IDetector_iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)\n"
+		"void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const\n"
+		"\n"
+		""},
 	 { "IDetector_axis", _wrap_IDetector_axis, METH_VARARGS, "\n"
 		"IDetector_axis(IDetector self, size_t index) -> IAxis\n"
 		"const IAxis & IDetector::axis(size_t index) const\n"
@@ -47533,32 +47554,6 @@ static PyMethodDef SwigMethods[] = {
 		"Returns total number of pixels. \n"
 		"\n"
 		""},
-	 { "IDetector_detectorMask", _wrap_IDetector_detectorMask, METH_O, "\n"
-		"IDetector_detectorMask(IDetector self) -> DetectorMask\n"
-		"virtual const DetectorMask* IDetector::detectorMask() const =0\n"
-		"\n"
-		"Returns detector masks container. \n"
-		"\n"
-		""},
-	 { "IDetector_setAnalyzerProperties", _wrap_IDetector_setAnalyzerProperties, METH_VARARGS, "\n"
-		"IDetector_setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)\n"
-		"void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)\n"
-		"\n"
-		"Sets the polarization analyzer characteristics of the detector. \n"
-		"\n"
-		""},
-	 { "IDetector_setDetectorResolution", _wrap_IDetector_setDetectorResolution, METH_VARARGS, "\n"
-		"IDetector_setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)\n"
-		"void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)\n"
-		"\n"
-		"Sets the detector resolution. \n"
-		"\n"
-		""},
-	 { "IDetector_setResolutionFunction", _wrap_IDetector_setResolutionFunction, METH_VARARGS, "\n"
-		"IDetector_setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)\n"
-		"void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)\n"
-		"\n"
-		""},
 	 { "IDetector_applyDetectorResolution", _wrap_IDetector_applyDetectorResolution, METH_VARARGS, "\n"
 		"IDetector_applyDetectorResolution(IDetector self, IntensityData p_intensity_map)\n"
 		"void IDetector::applyDetectorResolution(OutputData< double > *p_intensity_map) const\n"
@@ -47566,32 +47561,11 @@ static PyMethodDef SwigMethods[] = {
 		"Applies the detector resolution to the given intensity maps. \n"
 		"\n"
 		""},
-	 { "IDetector_removeDetectorResolution", _wrap_IDetector_removeDetectorResolution, METH_O, "\n"
-		"IDetector_removeDetectorResolution(IDetector self)\n"
-		"void IDetector::removeDetectorResolution()\n"
-		"\n"
-		"Removes detector resolution function. \n"
-		"\n"
-		""},
 	 { "IDetector_detectorResolution", _wrap_IDetector_detectorResolution, METH_O, "\n"
 		"IDetector_detectorResolution(IDetector self) -> IDetectorResolution\n"
 		"const IDetectorResolution * IDetector::detectorResolution() const\n"
 		"\n"
 		"Returns a pointer to detector resolution object. \n"
-		"\n"
-		""},
-	 { "IDetector_regionOfInterest", _wrap_IDetector_regionOfInterest, METH_O, "\n"
-		"IDetector_regionOfInterest(IDetector self) -> RegionOfInterest const *\n"
-		"virtual const RegionOfInterest* IDetector::regionOfInterest() const =0\n"
-		"\n"
-		"Returns region of interest if exists. \n"
-		"\n"
-		""},
-	 { "IDetector_resetRegionOfInterest", _wrap_IDetector_resetRegionOfInterest, METH_O, "\n"
-		"IDetector_resetRegionOfInterest(IDetector self)\n"
-		"virtual void IDetector::resetRegionOfInterest()=0\n"
-		"\n"
-		"Resets region of interest making whole detector plane available for the simulation. \n"
 		"\n"
 		""},
 	 { "IDetector_detectionProperties", _wrap_IDetector_detectionProperties, METH_O, "\n"
@@ -47622,14 +47596,11 @@ static PyMethodDef SwigMethods[] = {
 		"Returns number of simulation elements. \n"
 		"\n"
 		""},
-	 { "IDetector_getChildren", _wrap_IDetector_getChildren, METH_O, "\n"
-		"IDetector_getChildren(IDetector self) -> std::vector< INode const *,std::allocator< INode const * > >\n"
-		"std::vector< const INode * > IDetector::getChildren() const override\n"
+	 { "IDetector_regionOfInterest", _wrap_IDetector_regionOfInterest, METH_O, "\n"
+		"IDetector_regionOfInterest(IDetector self) -> RegionOfInterest const *\n"
+		"virtual const RegionOfInterest* IDetector::regionOfInterest() const =0\n"
 		"\n"
-		""},
-	 { "IDetector_iterate", _wrap_IDetector_iterate, METH_VARARGS, "\n"
-		"IDetector_iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)\n"
-		"void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const\n"
+		"Returns region of interest if exists. \n"
 		"\n"
 		""},
 	 { "IDetector_swigregister", IDetector_swigregister, METH_O, NULL},

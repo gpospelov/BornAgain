@@ -67,6 +67,7 @@ public:
     void setPolarization(const kvector_t bloch_vector);
 
 private:
+    Beam(); // needed by Swig
     double m_intensity; //!< beam intensity (neutrons/sec)
     double m_wavelength;
     // Direction m_direction; TODO

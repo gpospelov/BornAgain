@@ -4517,6 +4517,70 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IDetector_addAxis(self, axis)
 
+    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
+        r"""
+        setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)
+        void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
+
+        Sets the polarization analyzer characteristics of the detector. 
+
+        """
+        return _libBornAgainDevice.IDetector_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+
+    def setDetectorResolution(self, p_detector_resolution):
+        r"""
+        setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)
+        void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
+
+        Sets the detector resolution. 
+
+        """
+        return _libBornAgainDevice.IDetector_setDetectorResolution(self, p_detector_resolution)
+
+    def setResolutionFunction(self, resFunc):
+        r"""
+        setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)
+        void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
+
+        """
+        return _libBornAgainDevice.IDetector_setResolutionFunction(self, resFunc)
+
+    def resetRegionOfInterest(self):
+        r"""
+        resetRegionOfInterest(IDetector self)
+        virtual void IDetector::resetRegionOfInterest()=0
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
+        return _libBornAgainDevice.IDetector_resetRegionOfInterest(self)
+
+    def detectorMask(self):
+        r"""
+        detectorMask(IDetector self) -> DetectorMask
+        virtual const DetectorMask* IDetector::detectorMask() const =0
+
+        Returns detector masks container. 
+
+        """
+        return _libBornAgainDevice.IDetector_detectorMask(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(IDetector self) -> std::vector< INode const *,std::allocator< INode const * > >
+        std::vector< const INode * > IDetector::getChildren() const override
+
+        """
+        return _libBornAgainDevice.IDetector_getChildren(self)
+
+    def iterate(self, func, visit_masks=False):
+        r"""
+        iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)
+        void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
+
+        """
+        return _libBornAgainDevice.IDetector_iterate(self, func, visit_masks)
+
     def axis(self, index):
         r"""
         axis(IDetector self, size_t index) -> IAxis
@@ -4555,44 +4619,6 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IDetector_totalSize(self)
 
-    def detectorMask(self):
-        r"""
-        detectorMask(IDetector self) -> DetectorMask
-        virtual const DetectorMask* IDetector::detectorMask() const =0
-
-        Returns detector masks container. 
-
-        """
-        return _libBornAgainDevice.IDetector_detectorMask(self)
-
-    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
-        r"""
-        setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)
-        void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
-
-        Sets the polarization analyzer characteristics of the detector. 
-
-        """
-        return _libBornAgainDevice.IDetector_setAnalyzerProperties(self, direction, efficiency, total_transmission)
-
-    def setDetectorResolution(self, p_detector_resolution):
-        r"""
-        setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)
-        void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
-
-        Sets the detector resolution. 
-
-        """
-        return _libBornAgainDevice.IDetector_setDetectorResolution(self, p_detector_resolution)
-
-    def setResolutionFunction(self, resFunc):
-        r"""
-        setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)
-        void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
-
-        """
-        return _libBornAgainDevice.IDetector_setResolutionFunction(self, resFunc)
-
     def applyDetectorResolution(self, p_intensity_map):
         r"""
         applyDetectorResolution(IDetector self, IntensityData p_intensity_map)
@@ -4603,16 +4629,6 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IDetector_applyDetectorResolution(self, p_intensity_map)
 
-    def removeDetectorResolution(self):
-        r"""
-        removeDetectorResolution(IDetector self)
-        void IDetector::removeDetectorResolution()
-
-        Removes detector resolution function. 
-
-        """
-        return _libBornAgainDevice.IDetector_removeDetectorResolution(self)
-
     def detectorResolution(self):
         r"""
         detectorResolution(IDetector self) -> IDetectorResolution
@@ -4622,26 +4638,6 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 
         """
         return _libBornAgainDevice.IDetector_detectorResolution(self)
-
-    def regionOfInterest(self):
-        r"""
-        regionOfInterest(IDetector self) -> RegionOfInterest const *
-        virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
-
-        Returns region of interest if exists. 
-
-        """
-        return _libBornAgainDevice.IDetector_regionOfInterest(self)
-
-    def resetRegionOfInterest(self):
-        r"""
-        resetRegionOfInterest(IDetector self)
-        virtual void IDetector::resetRegionOfInterest()=0
-
-        Resets region of interest making whole detector plane available for the simulation. 
-
-        """
-        return _libBornAgainDevice.IDetector_resetRegionOfInterest(self)
 
     def detectionProperties(self):
         r"""
@@ -4683,21 +4679,15 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IDetector_numberOfSimulationElements(self)
 
-    def getChildren(self):
+    def regionOfInterest(self):
         r"""
-        getChildren(IDetector self) -> std::vector< INode const *,std::allocator< INode const * > >
-        std::vector< const INode * > IDetector::getChildren() const override
+        regionOfInterest(IDetector self) -> RegionOfInterest const *
+        virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
+
+        Returns region of interest if exists. 
 
         """
-        return _libBornAgainDevice.IDetector_getChildren(self)
-
-    def iterate(self, func, visit_masks=False):
-        r"""
-        iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)
-        void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
-
-        """
-        return _libBornAgainDevice.IDetector_iterate(self, func, visit_masks)
+        return _libBornAgainDevice.IDetector_regionOfInterest(self)
 
 # Register IDetector in _libBornAgainDevice:
 _libBornAgainDevice.IDetector_swigregister(IDetector)

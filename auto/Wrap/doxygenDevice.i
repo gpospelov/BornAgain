@@ -927,6 +927,35 @@ Inits detector with the beam settings.
 %feature("docstring")  IDetector::addAxis "void IDetector::addAxis(const IAxis &axis)
 ";
 
+%feature("docstring")  IDetector::setAnalyzerProperties "void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
+
+Sets the polarization analyzer characteristics of the detector. 
+";
+
+%feature("docstring")  IDetector::setDetectorResolution "void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
+
+Sets the detector resolution. 
+";
+
+%feature("docstring")  IDetector::setResolutionFunction "void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
+";
+
+%feature("docstring")  IDetector::resetRegionOfInterest "virtual void IDetector::resetRegionOfInterest()=0
+
+Resets region of interest making whole detector plane available for the simulation. 
+";
+
+%feature("docstring")  IDetector::detectorMask "virtual const DetectorMask* IDetector::detectorMask() const =0
+
+Returns detector masks container. 
+";
+
+%feature("docstring")  IDetector::getChildren "std::vector< const INode * > IDetector::getChildren() const override
+";
+
+%feature("docstring")  IDetector::iterate "void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
+";
+
 %feature("docstring")  IDetector::axis "const IAxis & IDetector::axis(size_t index) const
 ";
 
@@ -945,32 +974,9 @@ Calculate axis index for given global index.
 Returns total number of pixels. 
 ";
 
-%feature("docstring")  IDetector::detectorMask "virtual const DetectorMask* IDetector::detectorMask() const =0
-
-Returns detector masks container. 
-";
-
-%feature("docstring")  IDetector::setAnalyzerProperties "void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
-
-Sets the polarization analyzer characteristics of the detector. 
-";
-
-%feature("docstring")  IDetector::setDetectorResolution "void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
-
-Sets the detector resolution. 
-";
-
-%feature("docstring")  IDetector::setResolutionFunction "void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
-";
-
 %feature("docstring")  IDetector::applyDetectorResolution "void IDetector::applyDetectorResolution(OutputData< double > *p_intensity_map) const
 
 Applies the detector resolution to the given intensity maps. 
-";
-
-%feature("docstring")  IDetector::removeDetectorResolution "void IDetector::removeDetectorResolution()
-
-Removes detector resolution function. 
 ";
 
 %feature("docstring")  IDetector::detectorResolution "const IDetectorResolution * IDetector::detectorResolution() const
@@ -981,16 +987,6 @@ Returns a pointer to detector resolution object.
 %feature("docstring")  IDetector::createDetectorMap "std::unique_ptr< OutputData< double > > IDetector::createDetectorMap() const
 
 Returns empty detector map in given axes units. 
-";
-
-%feature("docstring")  IDetector::regionOfInterest "virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
-
-Returns region of interest if exists. 
-";
-
-%feature("docstring")  IDetector::resetRegionOfInterest "virtual void IDetector::resetRegionOfInterest()=0
-
-Resets region of interest making whole detector plane available for the simulation. 
 ";
 
 %feature("docstring")  IDetector::detectionProperties "const DetectionProperties& IDetector::detectionProperties() const
@@ -1013,10 +1009,9 @@ Return default axes units.
 Returns number of simulation elements. 
 ";
 
-%feature("docstring")  IDetector::getChildren "std::vector< const INode * > IDetector::getChildren() const override
-";
+%feature("docstring")  IDetector::regionOfInterest "virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
 
-%feature("docstring")  IDetector::iterate "void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
+Returns region of interest if exists. 
 ";
 
 

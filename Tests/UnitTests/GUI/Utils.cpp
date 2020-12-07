@@ -20,6 +20,7 @@
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include <QDir>
 
 namespace {
 const int nxsize = 5;
@@ -30,7 +31,9 @@ void GuiUnittestUtils::create_dir(const QString& dir_name) {
     if (ProjectUtils::exists(dir_name))
         ProjectUtils::removeRecursively(dir_name);
 
-    GUIHelpers::createSubdir(".", dir_name);
+    if (!QDir(".").mkdir(dir_name))
+        throw GUIHelpers::Error("GuiUnittestUtils::create_dir() -> Error. Can't create '" + dir_name
+                                + "' in parent directory '.'.");
 }
 
 std::unique_ptr<OutputData<double>> GuiUnittestUtils::createData(double value, DIM n_dim) {

@@ -77,7 +77,7 @@ def run_simulation():
     return simulation.result()
 
 
-if __name__ == '__main__':
+def simulate_and_plot():
     result = run_simulation().histogram2d()
     ba.plot_histogram(result, cmap='jet', aspect='auto')
 
@@ -92,3 +92,7 @@ if __name__ == '__main__':
              color='white',
              markersize=10)
     plt.show()
+
+
+if __name__ == '__main__':
+    simulate_and_plot()

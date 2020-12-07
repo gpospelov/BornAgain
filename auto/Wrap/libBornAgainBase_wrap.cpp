@@ -24537,44 +24537,6 @@ SWIGINTERN PyObject *Swig_var_gauss_get(void) {
 }
 
 
-SWIGINTERN PyObject *_wrap_vecOfLambdaAlphaPhi(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double arg2 ;
-  double arg3 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  BasicVector3D< double > result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "vecOfLambdaAlphaPhi", 3, 3, swig_obj)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "vecOfLambdaAlphaPhi" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "vecOfLambdaAlphaPhi" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "vecOfLambdaAlphaPhi" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = vecOfLambdaAlphaPhi(arg1,arg2,arg3);
-  resultobj = SWIG_NewPointerObj((new BasicVector3D< double >(static_cast< const BasicVector3D< double >& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_new_Bin1D__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   Bin1D *result = 0 ;
@@ -32874,13 +32836,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "deg2rad", _wrap_deg2rad, METH_O, "\n"
 		"deg2rad(double angle) -> double\n"
 		"double Units::deg2rad(double angle)\n"
-		"\n"
-		""},
-	 { "vecOfLambdaAlphaPhi", _wrap_vecOfLambdaAlphaPhi, METH_VARARGS, "\n"
-		"vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t\n"
-		"BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)\n"
-		"\n"
-		"Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. \n"
 		"\n"
 		""},
 	 { "new_Bin1D", _wrap_new_Bin1D, METH_VARARGS, "\n"

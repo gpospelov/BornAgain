@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "Base/Axis/Bin.h"
+#include "Base/Vector/Direction.h"
 
 bool BinContains(const Bin1D& bin, double value) {
     if (bin.binSize() == 0.0)

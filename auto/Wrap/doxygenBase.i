@@ -1667,23 +1667,19 @@ This templated function is used in catalogs in form of a function pointer 'creat
 
 
 // File: BasicVector3D_8cpp.xml
-%feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
-
-Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
-";
 
 
 // File: BasicVector3D_8h.xml
-%feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
-
-Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
-";
 
 
 // File: Direction_8cpp.xml
+%feature("docstring")  vecOfLambdaAlphaPhi "kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
+";
 
 
 // File: Direction_8h.xml
+%feature("docstring")  vecOfLambdaAlphaPhi "kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
+";
 
 
 // File: EigenCore_8h.xml

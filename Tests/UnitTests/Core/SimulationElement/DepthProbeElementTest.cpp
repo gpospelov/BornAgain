@@ -1,3 +1,4 @@
+#include "Base/Vector/Direction.h"
 #include "Core/Element/DepthProbeElement.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Tests/GTestWrapper/google_test.h"

@@ -17,6 +17,8 @@
 
 #include "Base/Vector/Vectors3D.h"
 
+kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi);
+
 class Direction {
 public:
     Direction(double alpha, double phi) : m_alpha(alpha), m_phi(phi) {}

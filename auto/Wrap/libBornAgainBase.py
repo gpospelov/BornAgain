@@ -1784,16 +1784,6 @@ def deg2rad(angle):
 
     """
     return _libBornAgainBase.deg2rad(angle)
-
-def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
-    r"""
-    vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t
-    BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
-
-    Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
-
-    """
-    return _libBornAgainBase.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
 class Bin1D(object):
     r"""Proxy of C++ Bin1D class."""
 

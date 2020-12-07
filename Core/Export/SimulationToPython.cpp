@@ -418,8 +418,7 @@ std::string defineSpecularSimulation(const SpecularSimulation* simulation) {
 
 std::string defineSimulate(const ISimulation* simulation) {
     std::ostringstream result;
-    result << "def run_simulation():\n";
-
+    result << "def get_simulation():\n";
     if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
         result << defineGISASSimulation(gisas);
     else if (auto offspec = dynamic_cast<const OffSpecSimulation*>(simulation))
@@ -428,11 +427,13 @@ std::string defineSimulate(const ISimulation* simulation) {
         result << defineSpecularSimulation(spec);
     else
         ASSERT(0);
+    result << "    return simulation\n\n\n";
 
-    result <<
+    result << "def run_simulation():\n"
+        "    simulation = get_simulation()\n"
         "    simulation.runSimulation()\n"
-        "    return simulation.result()\n"
-        "\n\n";
+        "    return simulation.result()\n\n\n";
+
     return result.str();
 }
 

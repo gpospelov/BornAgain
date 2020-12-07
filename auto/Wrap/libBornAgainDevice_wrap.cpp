@@ -35151,6 +35151,38 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_Instrument__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
+  Beam *arg1 = 0 ;
+  IDetector *arg2 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  Instrument *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Beam,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Instrument" "', argument " "1"" of type '" "Beam const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Instrument" "', argument " "1"" of type '" "Beam const &""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_Instrument" "', argument " "2"" of type '" "IDetector *""'"); 
+  }
+  arg2 = reinterpret_cast< IDetector * >(argp2);
+  result = (Instrument *)new Instrument((Beam const &)*arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Instrument, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Instrument__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
   Instrument *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -35175,11 +35207,11 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_Instrument(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[2] = {
+  PyObject *argv[3] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_Instrument", 0, 1, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_Instrument", 0, 2, argv))) SWIG_fail;
   --argc;
   if (argc == 0) {
     return _wrap_new_Instrument__SWIG_0(self, argc, argv);
@@ -35189,7 +35221,20 @@ SWIGINTERN PyObject *_wrap_new_Instrument(PyObject *self, PyObject *args) {
     int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Instrument, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_new_Instrument__SWIG_1(self, argc, argv);
+      return _wrap_new_Instrument__SWIG_2(self, argc, argv);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Beam, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IDetector, 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_new_Instrument__SWIG_1(self, argc, argv);
+      }
     }
   }
   
@@ -35197,6 +35242,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Instrument'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Instrument::Instrument()\n"
+    "    Instrument::Instrument(Beam const &,IDetector *)\n"
     "    Instrument::Instrument(Instrument const &)\n");
   return 0;
 }
@@ -47078,6 +47124,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "ChiSquaredModule_swiginit", ChiSquaredModule_swiginit, METH_VARARGS, NULL},
 	 { "new_Instrument", _wrap_new_Instrument, METH_VARARGS, "\n"
 		"Instrument()\n"
+		"Instrument(Beam beam, IDetector detector)\n"
 		"new_Instrument(Instrument other) -> Instrument\n"
 		"Instrument::Instrument(const Instrument &other)\n"
 		"\n"

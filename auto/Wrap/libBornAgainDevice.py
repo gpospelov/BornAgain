@@ -3882,6 +3882,7 @@ class Instrument(libBornAgainParam.INode):
     def __init__(self, *args):
         r"""
         __init__(Instrument self) -> Instrument
+        __init__(Instrument self, Beam beam, IDetector detector) -> Instrument
         __init__(Instrument self, Instrument other) -> Instrument
         Instrument::Instrument(const Instrument &other)
 

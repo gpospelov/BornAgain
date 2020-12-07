@@ -27,6 +27,7 @@ class IDetector2D;
 class Instrument : public INode {
 public:
     Instrument();
+    Instrument(const Beam& beam, IDetector* detector);
     Instrument(const Instrument& other);
     Instrument& operator=(const Instrument& other);
 
@@ -62,8 +63,8 @@ public:
     std::vector<const INode*> getChildren() const;
 
 protected:
-    std::unique_ptr<IDetector> m_detector;
     Beam m_beam;
+    std::unique_ptr<IDetector> m_detector;
 };
 
 #endif // BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H

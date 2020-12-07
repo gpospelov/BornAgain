@@ -1445,6 +1445,9 @@ C++ includes: Instrument.h
 %feature("docstring")  Instrument::Instrument "Instrument::Instrument()
 ";
 
+%feature("docstring")  Instrument::Instrument "Instrument::Instrument(const Beam &beam, IDetector *detector)
+";
+
 %feature("docstring")  Instrument::Instrument "Instrument::Instrument(const Instrument &other)
 ";
 

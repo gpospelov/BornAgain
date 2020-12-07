@@ -386,6 +386,7 @@ std::string defineGISASSimulation(const GISASSimulation* simulation) {
     result << defineMasks(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
+    result << "    simulation.setSample(get_sample())\n";
     return result.str();
 }
 
@@ -400,6 +401,7 @@ std::string defineOffSpecSimulation(const OffSpecSimulation* simulation) {
     result << defineMasks(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
+    result << "    simulation.setSample(get_sample())\n";
     return result.str();
 }
 
@@ -411,6 +413,7 @@ std::string defineSpecularSimulation(const SpecularSimulation* simulation) {
     result << defineParameterDistributions(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
+    result << "    simulation.setSample(get_sample())\n";
     return result.str();
 }
 
@@ -425,11 +428,9 @@ std::string defineSimulate(const ISimulation* simulation) {
     else if (auto spec = dynamic_cast<const SpecularSimulation*>(simulation))
         result << defineSpecularSimulation(spec);
     else
-        throw std::runtime_error("defineGetSimulation() -> Error. "
-                                 "Wrong simulation type");
+        ASSERT(0);
 
     result <<
-        "    simulation.setSample(get_sample())\n"
         "    simulation.runSimulation()\n"
         "    return simulation.result()\n"
         "\n\n";

@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_FIT_MINIMIZER_MINIMIZEROPTIONS_H
 #define BORNAGAIN_FIT_MINIMIZER_MINIMIZEROPTIONS_H
 

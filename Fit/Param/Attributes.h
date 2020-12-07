@@ -12,6 +12,8 @@
 //
 //  ************************************************************************************************
 
+// Not exposed to Swig, but #include'd
+
 #ifndef BORNAGAIN_FIT_PARAM_ATTRIBUTES_H
 #define BORNAGAIN_FIT_PARAM_ATTRIBUTES_H
 

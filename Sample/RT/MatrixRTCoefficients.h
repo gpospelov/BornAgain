@@ -30,7 +30,7 @@ public:
     friend class SpecularMagneticTanhStrategy;
 
     MatrixRTCoefficients(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b,
-                            double magnetic_SLD);
+                         double magnetic_SLD);
     MatrixRTCoefficients(const MatrixRTCoefficients& other);
     ~MatrixRTCoefficients() override;
 

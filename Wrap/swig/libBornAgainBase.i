@@ -24,13 +24,13 @@
 %{
 #include "Base/Types/Complex.h"
 #include "Base/Types/ICloneable.h"
-#include "Base/Const/Units.h"
+
 #include "Base/Utils/ThreadInfo.h"
+
+#include "Base/Const/Units.h"
 
 #include "Base/Vector/BasicVector3D.h"
 #include "Base/Vector/Vectors3D.h"
-
-#include "Base/Math/Functions.h"
 
 #include "Base/Axis/Bin.h"
 #include "Base/Axis/ConstKBinAxis.h"
@@ -42,12 +42,12 @@
 
 %}
 
-%include "Base/Types/ICloneable.h"
 %include "Base/Types/Complex.h"
-%include "Base/Const/Units.h"
+%include "Base/Types/ICloneable.h"
 
-%include "Base/Math/Functions.h"
 %include "Base/Utils/ThreadInfo.h"
+
+%include "Base/Const/Units.h"
 
 %include "Base/Vector/BasicVector3D.h"
 %include "Base/Vector/Vectors3D.h"

@@ -99,29 +99,29 @@ TEST_F(INodeTest, displayName) {
 
 TEST_F(INodeTest, nodePath) {
     INodeTest::TestClass root("root");
-    EXPECT_EQ(NodeUtils::nodePath(root), "/root");
+    EXPECT_EQ(NodeUtils::nodePath(&root), "/root");
 
     // adding first child
     INodeTest::TestClass* child0 = new INodeTest::TestClass("child");
     root.appendChild(child0);
-    EXPECT_EQ(NodeUtils::nodePath(*child0), "/root/child");
+    EXPECT_EQ(NodeUtils::nodePath(child0), "/root/child");
 
     // adding second child with the same name
     INodeTest::TestClass* child1 = new INodeTest::TestClass("child");
     root.appendChild(child1);
-    EXPECT_EQ(NodeUtils::nodePath(*child0), "/root/child0");
-    EXPECT_EQ(NodeUtils::nodePath(*child1), "/root/child1");
+    EXPECT_EQ(NodeUtils::nodePath(child0), "/root/child0");
+    EXPECT_EQ(NodeUtils::nodePath(child1), "/root/child1");
 
     // adding grandchild
     INodeTest::TestClass* grandchild = new INodeTest::TestClass("grandchild");
     child0->appendChild(grandchild);
-    EXPECT_EQ(NodeUtils::nodePath(*grandchild), "/root/child0/grandchild");
+    EXPECT_EQ(NodeUtils::nodePath(grandchild), "/root/child0/grandchild");
 
     // Now check path of grandchild wrt it's direct parent
-    EXPECT_EQ(NodeUtils::nodePath(*grandchild, child0), "/grandchild");
+    EXPECT_EQ(NodeUtils::nodePath(grandchild, child0), "/grandchild");
 
     // Check if exception is thrown when grandchild doesn't belong to child's branch
-    EXPECT_THROW(NodeUtils::nodePath(*grandchild, child1), std::runtime_error);
+    EXPECT_THROW(NodeUtils::nodePath(grandchild, child1), std::runtime_error);
 }
 
 //! Checking parameter tree for INode structure.

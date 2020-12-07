@@ -11,7 +11,6 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <utility>
 
-
 class SpecularMagneticTest : public ::testing::Test {
 protected:
     auto static constexpr eps = 1.e-10;
@@ -22,7 +21,8 @@ protected:
     template <typename Strategy> void test_degenerate();
     template <typename Strategy>
     void testZeroField(const kvector_t& k, const ProcessedSample& sample);
-    template <typename Strategy> void testcase_zerofield(std::vector<double>&& angles, bool slab=false);
+    template <typename Strategy>
+    void testcase_zerofield(std::vector<double>&& angles, bool slab = false);
 };
 
 template <> void SpecularMagneticTest::test_degenerate<SpecularMagneticTanhStrategy>() {
@@ -97,7 +97,7 @@ std::unique_ptr<ProcessedSample> SpecularMagneticTest::sample_zerofield(bool sla
     Layer substr_layer_scalar(substr_material_scalar);
     multi_layer_scalar.addLayer(vacuum_layer);
 
-    if(slab) {
+    if (slab) {
         Material layer_material = HomogeneousMaterial("Layer", 3e-6, 1e-8);
         Layer layer(layer_material, 10. * Units::nm);
         multi_layer_scalar.addLayer(layer);
@@ -136,7 +136,6 @@ TEST_F(SpecularMagneticTest, zerofield2_v2_positive_k) {
     testcase_zerofield<SpecularMagneticStrategy_v2>({0.1, 2.0, 10.0}, true);
 }
 
-
 TEST_F(SpecularMagneticTest, zerofield_positive_k) {
     testcase_zerofield<SpecularMagneticTanhStrategy>({0.0, 1.e-9, 1.e-5, 0.1, 2.0, 10.0});
 }
@@ -150,5 +149,6 @@ TEST_F(SpecularMagneticTest, zerofield2_positive_k) {
 }
 
 TEST_F(SpecularMagneticTest, zerofield2_negative_k) {
-    testcase_zerofield<SpecularMagneticTanhStrategy>({-0.0, -1.e-9, -1.e-5, -0.1, -2.0, -10.0}, true);
+    testcase_zerofield<SpecularMagneticTanhStrategy>({-0.0, -1.e-9, -1.e-5, -0.1, -2.0, -10.0},
+                                                     true);
 }

@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Sample/Fresnel/MatrixFresnelMap.h"
-#include "Sample/RT/ILayerRTCoefficients.h"
 #include "Base/Pixel/SimulationElement.h"
+#include "Sample/RT/ILayerRTCoefficients.h"
 #include "Sample/Slice/Slice.h"
 #include <functional>
 

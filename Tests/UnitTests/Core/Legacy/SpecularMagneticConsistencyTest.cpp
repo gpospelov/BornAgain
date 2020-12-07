@@ -9,8 +9,7 @@
 #include "Sample/Specular/SpecularMagneticTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class SpecularMagneticConsistencyTest : public ::testing::Test
-{
+class SpecularMagneticConsistencyTest : public ::testing::Test {
 protected:
     auto static constexpr eps = 1.e-10;
 
@@ -20,8 +19,7 @@ protected:
     void testcase(const std::vector<Slice>& slices, double k);
 };
 
-std::unique_ptr<ProcessedSample> SpecularMagneticConsistencyTest::sample_1()
-{
+std::unique_ptr<ProcessedSample> SpecularMagneticConsistencyTest::sample_1() {
     MultiLayer multi_layer_scalar;
     Material substr_material_scalar = HomogeneousMaterial("Substrate", 7e-6, 2e-8);
     Material layer_material = HomogeneousMaterial("Layer", 3e-6, 1e-8, kvector_t{1.e7, 0, 1.e7});
@@ -41,8 +39,7 @@ std::unique_ptr<ProcessedSample> SpecularMagneticConsistencyTest::sample_1()
 }
 
 template <typename Strategy1, typename Strategy2>
-void SpecularMagneticConsistencyTest::testcase(const std::vector<Slice>& slices, double k)
-{
+void SpecularMagneticConsistencyTest::testcase(const std::vector<Slice>& slices, double k) {
 
     const auto kz = kvector_t{0., 0., k};
     const auto coeffs1 = std::make_unique<Strategy1>()->Execute(
@@ -55,8 +52,7 @@ void SpecularMagneticConsistencyTest::testcase(const std::vector<Slice>& slices,
     }
 }
 
-TEST_F(SpecularMagneticConsistencyTest, NewOld)
-{
+TEST_F(SpecularMagneticConsistencyTest, NewOld) {
     using Strategy1 = SpecularMagneticTanhStrategy;
     using Strategy2 = SpecularMagneticStrategy_v2;
 

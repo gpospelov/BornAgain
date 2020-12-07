@@ -1,10 +1,10 @@
 #include "Base/Const/Units.h"
+#include "Core/Legacy/SpecularMagneticStrategy_v1.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Processed/ProcessedSample.h"
 #include "Sample/RT/SimulationOptions.h"
-#include "Core/Legacy/SpecularMagneticStrategy_v1.h"
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 

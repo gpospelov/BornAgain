@@ -22,7 +22,7 @@
 #include "GUI/coregui/Views/JobWidgets/ProjectionsWidget.h"
 #include <QItemSelectionModel>
 #include <QSplitter>
-#include <minisplitter.h>
+#include <qt-manhattan-style/minisplitter.h>
 
 ProjectionsEditor::ProjectionsEditor(QWidget* parent)
     : QMainWindow(parent)

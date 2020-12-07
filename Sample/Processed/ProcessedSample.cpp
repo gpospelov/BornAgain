@@ -177,10 +177,9 @@ bool ProcessedSample::containsMagneticMaterial() const {
 }
 
 bool ProcessedSample::hasRoughness() const {
-    for (const auto& slice : m_slices) {
+    for (const auto& slice : m_slices)
         if (slice.topRoughness())
             return true;
-    }
     return false;
 }
 
@@ -287,9 +286,8 @@ void ProcessedSample::addNSlices(size_t n, double thickness, const Material& mat
                                  "bigger than zero.");
     const double slice_thickness = thickness / n;
     addSlice(slice_thickness, material, roughness);
-    for (size_t i = 1; i < n; ++i) {
+    for (size_t i = 1; i < n; ++i)
         addSlice(slice_thickness, material);
-    }
 }
 
 void ProcessedSample::initBFields() {

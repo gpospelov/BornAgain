@@ -34,9 +34,9 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QSettings>
-#include <fancytabwidget.h>
-#include <progressbar.h>
-#include <stylehelper.h>
+#include <qt-manhattan-style/fancytabwidget.h>
+#include <qt-manhattan-style/progressbar.h>
+#include <qt-manhattan-style/stylehelper.h>
 
 MainWindow::MainWindow()
     : Manhattan::FancyMainWindow(nullptr)

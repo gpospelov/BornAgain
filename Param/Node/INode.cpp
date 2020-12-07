@@ -12,11 +12,10 @@
 //
 //  ************************************************************************************************
 
+#include "Param/Node/INode.h"
 #include "Base/Utils/Algorithms.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
-#include "Param/Node/IterationStrategy.h"
-#include "Param/Node/NodeIterator.h"
 #include "Param/Node/NodeUtils.h"
 #include <algorithm>
 #include <exception>
@@ -49,7 +48,7 @@ INode::INode(const NodeMeta& meta, const std::vector<double>& PValues)
 }
 
 std::string INode::treeToString() const {
-    return NodeUtils::nodeToString(*this);
+    return NodeUtils::nodeToString(this);
 }
 
 void INode::registerChild(INode* node) {
@@ -59,6 +58,16 @@ void INode::registerChild(INode* node) {
 
 std::vector<const INode*> INode::getChildren() const {
     return {};
+}
+
+std::vector<const INode*> INode::progeny() const {
+    std::vector<const INode*> result;
+    result.push_back(this);
+    for (const auto* child : getChildren()) {
+        for (const auto* p : child->progeny())
+            result.push_back(p);
+    }
+    return result;
 }
 
 void INode::setParent(const INode* newParent) {
@@ -106,13 +115,9 @@ std::string INode::displayName() const {
 ParameterPool* INode::createParameterTree() const {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
 
-    NodeIterator<PreorderStrategy> it(this);
-    it.first();
-    while (!it.isDone()) {
-        const INode* child = it.getCurrent();
-        const std::string path = NodeUtils::nodePath(*child, this->parent()) + "/";
+    for (const INode* child : progeny()) {
+        const std::string path = NodeUtils::nodePath(child, this->parent()) + "/";
         child->parameterPool()->copyToExternalPool(path, result.get());
-        it.next();
     }
 
     return result.release();

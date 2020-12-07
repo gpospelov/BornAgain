@@ -36685,6 +36685,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_INode_progeny(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  INode *arg1 = (INode *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< INode const *,std::allocator< INode const * > > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_INode, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INode_progeny" "', argument " "1"" of type '" "INode const *""'"); 
+  }
+  arg1 = reinterpret_cast< INode * >(argp1);
+  result = ((INode const *)arg1)->progeny();
+  resultobj = swig::from(static_cast< std::vector< INode const*,std::allocator< INode const * > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_INode_setParent(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   INode *arg1 = (INode *) 0 ;
@@ -42262,41 +42285,6 @@ SWIGINTERN PyObject *INodeVisitor_swigregister(PyObject *SWIGUNUSEDPARM(self), P
 SWIGINTERN PyObject *INodeVisitor_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
-
-SWIGINTERN PyObject *_wrap_VisitNodesPreorder(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  INode *arg1 = 0 ;
-  INodeVisitor *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "VisitNodesPreorder", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_INode,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VisitNodesPreorder" "', argument " "1"" of type '" "INode const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "VisitNodesPreorder" "', argument " "1"" of type '" "INode const &""'"); 
-  }
-  arg1 = reinterpret_cast< INode * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_INodeVisitor,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "VisitNodesPreorder" "', argument " "2"" of type '" "INodeVisitor &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "VisitNodesPreorder" "', argument " "2"" of type '" "INodeVisitor &""'"); 
-  }
-  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
-  VisitNodesPreorder((INode const &)*arg1,*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
 
 SWIGINTERN PyObject *_wrap_IDistribution1D_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -51236,7 +51224,14 @@ static PyMethodDef SwigMethods[] = {
 		"INode_getChildren(INode self) -> swig_dummy_type_const_inode_vector\n"
 		"std::vector< const INode * > INode::getChildren() const\n"
 		"\n"
-		"Returns a vector of children (const). \n"
+		"Returns a vector of children. \n"
+		"\n"
+		""},
+	 { "INode_progeny", _wrap_INode_progeny, METH_O, "\n"
+		"INode_progeny(INode self) -> swig_dummy_type_const_inode_vector\n"
+		"std::vector< const INode * > INode::progeny() const\n"
+		"\n"
+		"Returns a vector of all descendents. \n"
 		"\n"
 		""},
 	 { "INode_setParent", _wrap_INode_setParent, METH_VARARGS, "\n"
@@ -51425,11 +51420,6 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "INodeVisitor_swigregister", INodeVisitor_swigregister, METH_O, NULL},
 	 { "INodeVisitor_swiginit", INodeVisitor_swiginit, METH_VARARGS, NULL},
-	 { "VisitNodesPreorder", _wrap_VisitNodesPreorder, METH_VARARGS, "\n"
-		"VisitNodesPreorder(INode node, INodeVisitor visitor)\n"
-		"void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)\n"
-		"\n"
-		""},
 	 { "IDistribution1D_clone", _wrap_IDistribution1D_clone, METH_O, "\n"
 		"IDistribution1D_clone(IDistribution1D self) -> IDistribution1D\n"
 		"virtual IDistribution1D* IDistribution1D::clone() const =0\n"

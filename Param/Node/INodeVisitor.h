@@ -279,6 +279,4 @@ private:
     int m_depth;
 };
 
-void VisitNodesPreorder(const INode& node, INodeVisitor& visitor);
-
 #endif // BORNAGAIN_PARAM_NODE_INODEVISITOR_H

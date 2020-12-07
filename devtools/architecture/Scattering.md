@@ -1,6 +1,7 @@
 ## How does BornAgain compute scattering?
 
-Code analysis per 18nov, after merge of https://github.com/scgmlz/BornAgain/pull/1105.
+Analysis of BornAgain develop, per 18nov,
+after merge of https://github.com/scgmlz/BornAgain/pull/1105.
 
 ### Simulation computes an incoherent sum
 

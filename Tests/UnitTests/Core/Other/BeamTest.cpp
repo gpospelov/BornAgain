@@ -28,7 +28,7 @@ TEST_F(BeamTest, BeamInitialState) {
 TEST_F(BeamTest, BeamAssignment) {
     kvector_t polarization(0.0, 0.0, 0.2);
 
-    std::unique_ptr<Beam> P_beam{new Beam(1.0, 1.0, 1.0, 2.0)};
+    std::unique_ptr<Beam> P_beam{new Beam(2.0, 1.0, {1.0, 1.0})};
     P_beam->setPolarization(polarization);
 
     Beam beam_copy = *P_beam;

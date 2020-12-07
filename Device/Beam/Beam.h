@@ -27,7 +27,6 @@ class IFootprintFactor;
 class Beam : public INode {
 public:
     Beam(double intensity, double wavelength, const Direction& direction);
-    Beam(double wavelength, double alpha, double phi, double intensity);
 
     Beam(const Beam& other);
     Beam& operator=(const Beam& other);

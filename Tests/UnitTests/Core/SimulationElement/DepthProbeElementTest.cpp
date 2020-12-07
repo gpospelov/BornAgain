@@ -1,6 +1,6 @@
-#include "Base/Vector/Direction.h"
 #include "Core/Element/DepthProbeElement.h"
 #include "Base/Axis/FixedBinAxis.h"
+#include "Base/Vector/Direction.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class DepthProbeElementTest : public ::testing::Test {

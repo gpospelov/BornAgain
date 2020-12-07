@@ -39,9 +39,6 @@ C++ includes: Beam.h
 %feature("docstring")  Beam::Beam "Beam::Beam(double intensity, double wavelength, const Direction &direction)
 ";
 
-%feature("docstring")  Beam::Beam "Beam::Beam(double wavelength, double alpha, double phi, double intensity)
-";
-
 %feature("docstring")  Beam::Beam "Beam::Beam(const Beam &other)
 ";
 

@@ -36,9 +36,6 @@ Beam::Beam(double intensity, double wavelength, const Direction& direction)
     registerVector("BlochVector", &m_bloch_vector, "");
 }
 
-Beam::Beam(double wavelength, double alpha, double phi, double intensity)
-    : Beam(intensity, wavelength, Direction(alpha, phi)) {}
-
 Beam Beam::horizontalBeam() {
     return Beam(1.0, 1.0, {0, 0});
 }

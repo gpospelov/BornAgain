@@ -20,9 +20,9 @@
 #include <string>
 
 namespace BornAgain {
-const int major_version_number = @BornAgain_VERSION_MAJOR @;
-const int minor_version_number = @BornAgain_VERSION_MINOR @;
-const int patch_version_number = @BornAgain_VERSION_PATCH @;
+const int major_version_number = @BornAgain_VERSION_MAJOR@;
+const int minor_version_number = @BornAgain_VERSION_MINOR@;
+const int patch_version_number = @BornAgain_VERSION_PATCH@;
 
 inline int GetMajorVersionNumber() {
     return major_version_number;

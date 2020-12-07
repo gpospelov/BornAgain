@@ -71,7 +71,7 @@ Beam& Beam::operator=(const Beam& other) {
 Beam::~Beam() = default;
 
 kvector_t Beam::getCentralK() const {
-    return M_TWOPI / _lambda * Direction(-alpha(), phi()).vector();
+    return M_TWOPI / m_wavelength * Direction(-direction().alpha(), direction().phi()).vector();
 }
 
 void Beam::setWavelength(double wavelength) {

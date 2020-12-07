@@ -31,7 +31,7 @@ def restitute_sample(ti, tc):
         raise Exception("Normalized code has no function get_sample")
     if mn.group(2) != header:
         print(f'WARNING: Signature of function get_sample has changed from "{header}" to '
-              '"{mn.group(1)}"')
+              f'"{mn.group(2)}"')
 
     t = re.sub(pat, mi.group(1), tc)
 

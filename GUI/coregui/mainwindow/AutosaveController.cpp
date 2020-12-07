@@ -16,7 +16,6 @@
 #include "GUI/coregui/Views/CommonWidgets/UpdateTimer.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/mainwindow/projectdocument.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include <QDir>
 
 namespace {
@@ -93,11 +92,25 @@ void AutosaveController::onDocumentModified() {
         m_timer->scheduleUpdate();
 }
 
+bool AutosaveController::assureAutoSaveDirExists() const {
+    if (m_document && m_document->hasValidNameAndPath()) {
+        const QDir projectDir = m_document->projectDir();
+        if (projectDir.exists() && !projectDir.exists(ProjectUtils::autosaveSubdir()))
+            projectDir.mkdir(ProjectUtils::autosaveSubdir());
+
+        return QDir(autosaveDir()).exists();
+    }
+
+    return false;
+}
+
 void AutosaveController::autosave() {
-    QString name = autosaveName();
-    if (!name.isEmpty()) {
-        GUIHelpers::createSubdir(m_document->projectDir(), ProjectUtils::autosaveSubdir());
-        emit autosaveRequest();
+    try {
+        if (!autosaveName().isEmpty() && assureAutoSaveDirExists())
+            emit autosaveRequest();
+    } catch (...) {
+        // catch any exception - autosave itself never should cause a crash by an unhandled
+        // exception
     }
 }
 

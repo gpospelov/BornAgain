@@ -57,8 +57,6 @@ QString getValidFileName(const QString& proposed_name);
 QString fileDir(const QString& fileName);
 QString baseName(const QString& fileName);
 
-void createSubdir(const QString& parentName, const QString& subdirName);
-
 bool parseVersion(const QString& version, int& major_num, int& minor_num, int& patch_num);
 
 int versionCode(const QString& version);

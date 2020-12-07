@@ -30717,6 +30717,127 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Beam_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Beam_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_accept" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Beam_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+  }
+  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
+  ((Beam const *)arg1)->accept(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_getChildren(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< std::vector< INode const *,std::allocator< INode const * > > > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getChildren" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = ((Beam const *)arg1)->getChildren();
+  resultobj = SWIG_NewPointerObj((new std::vector< INode const *,std::allocator< INode const * > >(static_cast< const std::vector< INode const *,std::allocator< INode const * > >& >(result))), SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_intensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_intensity" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = (double)((Beam const *)arg1)->intensity();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_wavelength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_wavelength" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = (double)((Beam const *)arg1)->wavelength();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_direction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Direction result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_direction" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = ((Beam const *)arg1)->direction();
+  resultobj = SWIG_NewPointerObj((new Direction(static_cast< const Direction& >(result))), SWIGTYPE_p_Direction, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Beam_getCentralK(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Beam *arg1 = (Beam *) 0 ;
@@ -30734,6 +30855,52 @@ SWIGINTERN PyObject *_wrap_Beam_getCentralK(PyObject *SWIGUNUSEDPARM(self), PyOb
   arg1 = reinterpret_cast< Beam * >(argp1);
   result = ((Beam const *)arg1)->getCentralK();
   resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_getBlochVector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  kvector_t result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getBlochVector" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = ((Beam const *)arg1)->getBlochVector();
+  resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_footprintFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  IFootprintFactor *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_footprintFactor" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = (IFootprintFactor *)((Beam const *)arg1)->footprintFactor();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFootprintFactor, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -30830,29 +30997,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Beam_getIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getIntensity" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = (double)((Beam const *)arg1)->getIntensity();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Beam_setIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Beam *arg1 = (Beam *) 0 ;
@@ -30876,29 +31020,6 @@ SWIGINTERN PyObject *_wrap_Beam_setIntensity(PyObject *SWIGUNUSEDPARM(self), PyO
   arg2 = static_cast< double >(val2);
   (arg1)->setIntensity(arg2);
   resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_footprintFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IFootprintFactor *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_footprintFactor" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = (IFootprintFactor *)((Beam const *)arg1)->footprintFactor();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFootprintFactor, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -30997,127 +31118,6 @@ SWIGINTERN PyObject *_wrap_Beam_setPolarization(PyObject *SWIGUNUSEDPARM(self), 
   }
   (arg1)->setPolarization(arg2);
   resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_getBlochVector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  kvector_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getBlochVector" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = ((Beam const *)arg1)->getBlochVector();
-  resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_getWavelength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getWavelength" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = (double)((Beam const *)arg1)->getWavelength();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_direction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Direction result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_direction" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = ((Beam const *)arg1)->direction();
-  resultobj = SWIG_NewPointerObj((new Direction(static_cast< const Direction& >(result))), SWIGTYPE_p_Direction, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Beam_accept", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_accept" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Beam_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
-  }
-  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
-  ((Beam const *)arg1)->accept(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_getChildren(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::vector< INode const *,std::allocator< INode const * > > > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getChildren" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = ((Beam const *)arg1)->getChildren();
-  resultobj = SWIG_NewPointerObj((new std::vector< INode const *,std::allocator< INode const * > >(static_cast< const std::vector< INode const *,std::allocator< INode const * > >& >(result))), SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -46482,11 +46482,50 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "Beam_horizontalBeam", _wrap_Beam_horizontalBeam, METH_NOARGS, "Beam_horizontalBeam() -> Beam"},
+	 { "Beam_accept", _wrap_Beam_accept, METH_VARARGS, "\n"
+		"Beam_accept(Beam self, INodeVisitor * visitor)\n"
+		"void Beam::accept(INodeVisitor *visitor) const override\n"
+		"\n"
+		""},
+	 { "Beam_getChildren", _wrap_Beam_getChildren, METH_O, "\n"
+		"Beam_getChildren(Beam self) -> std::vector< INode const *,std::allocator< INode const * > >\n"
+		"std::vector< const INode * > Beam::getChildren() const override\n"
+		"\n"
+		""},
+	 { "Beam_intensity", _wrap_Beam_intensity, METH_O, "\n"
+		"Beam_intensity(Beam self) -> double\n"
+		"double Beam::intensity() const\n"
+		"\n"
+		"Returns the beam intensity in neutrons/sec. \n"
+		"\n"
+		""},
+	 { "Beam_wavelength", _wrap_Beam_wavelength, METH_O, "\n"
+		"Beam_wavelength(Beam self) -> double\n"
+		"double Beam::wavelength() const\n"
+		"\n"
+		""},
+	 { "Beam_direction", _wrap_Beam_direction, METH_O, "\n"
+		"Beam_direction(Beam self) -> Direction\n"
+		"Direction Beam::direction() const\n"
+		"\n"
+		""},
 	 { "Beam_getCentralK", _wrap_Beam_getCentralK, METH_O, "\n"
 		"Beam_getCentralK(Beam self) -> kvector_t\n"
 		"kvector_t Beam::getCentralK() const\n"
 		"\n"
 		"Returns the wavevector. \n"
+		"\n"
+		""},
+	 { "Beam_getBlochVector", _wrap_Beam_getBlochVector, METH_O, "\n"
+		"Beam_getBlochVector(Beam self) -> kvector_t\n"
+		"kvector_t Beam::getBlochVector() const\n"
+		"\n"
+		""},
+	 { "Beam_footprintFactor", _wrap_Beam_footprintFactor, METH_O, "\n"
+		"Beam_footprintFactor(Beam self) -> IFootprintFactor\n"
+		"const IFootprintFactor * Beam::footprintFactor() const\n"
+		"\n"
+		"Returns footprint factor. \n"
 		"\n"
 		""},
 	 { "Beam_setWavelength", _wrap_Beam_setWavelength, METH_VARARGS, "\n"
@@ -46504,25 +46543,11 @@ static PyMethodDef SwigMethods[] = {
 		"void Beam::setInclination(const double alpha)\n"
 		"\n"
 		""},
-	 { "Beam_getIntensity", _wrap_Beam_getIntensity, METH_O, "\n"
-		"Beam_getIntensity(Beam self) -> double\n"
-		"double Beam::getIntensity() const\n"
-		"\n"
-		"Returns the beam intensity in neutrons/sec. \n"
-		"\n"
-		""},
 	 { "Beam_setIntensity", _wrap_Beam_setIntensity, METH_VARARGS, "\n"
 		"Beam_setIntensity(Beam self, double intensity)\n"
 		"void Beam::setIntensity(double intensity)\n"
 		"\n"
 		"Sets the beam intensity in neutrons/sec. \n"
-		"\n"
-		""},
-	 { "Beam_footprintFactor", _wrap_Beam_footprintFactor, METH_O, "\n"
-		"Beam_footprintFactor(Beam self) -> IFootprintFactor\n"
-		"const IFootprintFactor * Beam::footprintFactor() const\n"
-		"\n"
-		"Returns footprint factor. \n"
 		"\n"
 		""},
 	 { "Beam_setFootprintFactor", _wrap_Beam_setFootprintFactor, METH_VARARGS, "\n"
@@ -46544,31 +46569,6 @@ static PyMethodDef SwigMethods[] = {
 		"void Beam::setPolarization(const kvector_t bloch_vector)\n"
 		"\n"
 		"Sets the polarization density matrix according to the given Bloch vector. \n"
-		"\n"
-		""},
-	 { "Beam_getBlochVector", _wrap_Beam_getBlochVector, METH_O, "\n"
-		"Beam_getBlochVector(Beam self) -> kvector_t\n"
-		"kvector_t Beam::getBlochVector() const\n"
-		"\n"
-		""},
-	 { "Beam_getWavelength", _wrap_Beam_getWavelength, METH_O, "\n"
-		"Beam_getWavelength(Beam self) -> double\n"
-		"double Beam::getWavelength() const\n"
-		"\n"
-		""},
-	 { "Beam_direction", _wrap_Beam_direction, METH_O, "\n"
-		"Beam_direction(Beam self) -> Direction\n"
-		"Direction Beam::direction() const\n"
-		"\n"
-		""},
-	 { "Beam_accept", _wrap_Beam_accept, METH_VARARGS, "\n"
-		"Beam_accept(Beam self, INodeVisitor * visitor)\n"
-		"void Beam::accept(INodeVisitor *visitor) const override\n"
-		"\n"
-		""},
-	 { "Beam_getChildren", _wrap_Beam_getChildren, METH_O, "\n"
-		"Beam_getChildren(Beam self) -> std::vector< INode const *,std::allocator< INode const * > >\n"
-		"std::vector< const INode * > Beam::getChildren() const override\n"
 		"\n"
 		""},
 	 { "Beam_swigregister", Beam_swigregister, METH_O, NULL},

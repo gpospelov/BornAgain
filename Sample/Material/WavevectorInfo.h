@@ -34,7 +34,7 @@ public:
     cvector_t getKi() const { return m_ki; }
     cvector_t getKf() const { return m_kf; }
     cvector_t getQ() const { return m_ki - m_kf; }
-    double getWavelength() const { return m_vacuum_wavelength; }
+    double wavelength() const { return m_vacuum_wavelength; }
 
 private:
     WavevectorInfo();

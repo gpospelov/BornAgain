@@ -45,9 +45,39 @@ C++ includes: Beam.h
 %feature("docstring")  Beam::~Beam "Beam::~Beam()
 ";
 
+%feature("docstring")  Beam::accept "void Beam::accept(INodeVisitor *visitor) const override
+";
+
+%feature("docstring")  Beam::getChildren "std::vector< const INode * > Beam::getChildren() const override
+";
+
+%feature("docstring")  Beam::intensity "double Beam::intensity() const
+
+Returns the beam intensity in neutrons/sec. 
+";
+
+%feature("docstring")  Beam::wavelength "double Beam::wavelength() const
+";
+
+%feature("docstring")  Beam::direction "Direction Beam::direction() const
+";
+
 %feature("docstring")  Beam::getCentralK "kvector_t Beam::getCentralK() const
 
 Returns the wavevector. 
+";
+
+%feature("docstring")  Beam::getBlochVector "kvector_t Beam::getBlochVector() const
+";
+
+%feature("docstring")  Beam::footprintFactor "const IFootprintFactor * Beam::footprintFactor() const
+
+Returns footprint factor. 
+";
+
+%feature("docstring")  Beam::getPolarization "Eigen::Matrix2cd Beam::getPolarization() const
+
+Returns the polarization density matrix (in spin basis along z-axis) 
 ";
 
 %feature("docstring")  Beam::setWavelength "void Beam::setWavelength(double wavelength)
@@ -59,19 +89,9 @@ Returns the wavevector.
 %feature("docstring")  Beam::setInclination "void Beam::setInclination(const double alpha)
 ";
 
-%feature("docstring")  Beam::getIntensity "double Beam::getIntensity() const
-
-Returns the beam intensity in neutrons/sec. 
-";
-
 %feature("docstring")  Beam::setIntensity "void Beam::setIntensity(double intensity)
 
 Sets the beam intensity in neutrons/sec. 
-";
-
-%feature("docstring")  Beam::footprintFactor "const IFootprintFactor * Beam::footprintFactor() const
-
-Returns footprint factor. 
 ";
 
 %feature("docstring")  Beam::setFootprintFactor "void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)
@@ -87,26 +107,6 @@ Sets beam to sample width ratio in footprint factor.
 %feature("docstring")  Beam::setPolarization "void Beam::setPolarization(const kvector_t bloch_vector)
 
 Sets the polarization density matrix according to the given Bloch vector. 
-";
-
-%feature("docstring")  Beam::getBlochVector "kvector_t Beam::getBlochVector() const
-";
-
-%feature("docstring")  Beam::getPolarization "Eigen::Matrix2cd Beam::getPolarization() const
-
-Returns the polarization density matrix (in spin basis along z-axis) 
-";
-
-%feature("docstring")  Beam::getWavelength "double Beam::getWavelength() const
-";
-
-%feature("docstring")  Beam::direction "Direction Beam::direction() const
-";
-
-%feature("docstring")  Beam::accept "void Beam::accept(INodeVisitor *visitor) const override
-";
-
-%feature("docstring")  Beam::getChildren "std::vector< const INode * > Beam::getChildren() const override
 ";
 
 

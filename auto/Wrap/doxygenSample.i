@@ -7434,7 +7434,7 @@ C++ includes: WavevectorInfo.h
 %feature("docstring")  WavevectorInfo::getQ "cvector_t WavevectorInfo::getQ() const
 ";
 
-%feature("docstring")  WavevectorInfo::getWavelength "double WavevectorInfo::getWavelength() const
+%feature("docstring")  WavevectorInfo::wavelength "double WavevectorInfo::wavelength() const
 ";
 
 

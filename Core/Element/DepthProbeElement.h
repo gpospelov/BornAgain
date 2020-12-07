@@ -31,7 +31,7 @@ public:
 
     DepthProbeElement& operator=(const DepthProbeElement& other);
 
-    double getWavelength() const { return m_wavelength; }
+    double wavelength() const { return m_wavelength; }
     double getAlphaI() const { return m_alpha_i; }
     kvector_t getKi() const;
 

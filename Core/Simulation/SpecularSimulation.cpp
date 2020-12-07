@@ -30,7 +30,7 @@ namespace {
 
 // TODO: remove when pointwise resolution is implemented
 std::unique_ptr<AngularSpecScan> mangledScan(const AngularSpecScan& scan, const Beam& beam) {
-    const double wl = beam.getWavelength();
+    const double wl = beam.wavelength();
     const double angle_shift = beam.direction().alpha();
     std::vector<double> angles = scan.coordinateAxis()->binCenters();
     for (auto& val : angles)
@@ -181,7 +181,7 @@ void SpecularSimulation::initialize() {
 }
 
 void SpecularSimulation::normalize(size_t start_ind, size_t n_elements) {
-    const double beam_intensity = beam().getIntensity();
+    const double beam_intensity = beam().intensity();
 
     std::vector<double> footprints;
     // TODO: use just m_scan when pointwise resolution is implemented
@@ -192,7 +192,7 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements) {
 
     for (size_t i = start_ind, k = 0; i < start_ind + n_elements; ++i, ++k) {
         auto& element = m_sim_elements[i];
-        element.setIntensity(element.getIntensity() * beam_intensity * footprints[k]);
+        element.setIntensity(element.intensity() * beam_intensity * footprints[k]);
     }
 }
 
@@ -201,14 +201,14 @@ void SpecularSimulation::addBackgroundIntensity(size_t start_ind, size_t n_eleme
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         auto& element = m_sim_elements[i];
-        element.setIntensity(background()->addBackground(element.getIntensity()));
+        element.setIntensity(background()->addBackground(element.intensity()));
     }
 }
 
 void SpecularSimulation::addDataToCache(double weight) {
     checkCache();
     for (size_t i = 0, size = m_sim_elements.size(); i < size; ++i)
-        m_cache[i] += m_sim_elements[i].getIntensity() * weight;
+        m_cache[i] += m_sim_elements[i].intensity() * weight;
 }
 
 void SpecularSimulation::moveDataFromCache() {
@@ -223,7 +223,7 @@ std::vector<double> SpecularSimulation::rawResults() const {
     std::vector<double> result;
     result.resize(m_sim_elements.size());
     for (unsigned i = 0; i < m_sim_elements.size(); ++i)
-        result[i] = m_sim_elements[i].getIntensity();
+        result[i] = m_sim_elements[i].intensity();
     return result;
 }
 

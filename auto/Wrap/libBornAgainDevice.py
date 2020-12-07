@@ -2644,6 +2644,48 @@ class Beam(libBornAgainParam.INode):
         r"""horizontalBeam() -> Beam"""
         return _libBornAgainDevice.Beam_horizontalBeam()
 
+    def accept(self, visitor):
+        r"""
+        accept(Beam self, INodeVisitor * visitor)
+        void Beam::accept(INodeVisitor *visitor) const override
+
+        """
+        return _libBornAgainDevice.Beam_accept(self, visitor)
+
+    def getChildren(self):
+        r"""
+        getChildren(Beam self) -> std::vector< INode const *,std::allocator< INode const * > >
+        std::vector< const INode * > Beam::getChildren() const override
+
+        """
+        return _libBornAgainDevice.Beam_getChildren(self)
+
+    def intensity(self):
+        r"""
+        intensity(Beam self) -> double
+        double Beam::intensity() const
+
+        Returns the beam intensity in neutrons/sec. 
+
+        """
+        return _libBornAgainDevice.Beam_intensity(self)
+
+    def wavelength(self):
+        r"""
+        wavelength(Beam self) -> double
+        double Beam::wavelength() const
+
+        """
+        return _libBornAgainDevice.Beam_wavelength(self)
+
+    def direction(self):
+        r"""
+        direction(Beam self) -> Direction
+        Direction Beam::direction() const
+
+        """
+        return _libBornAgainDevice.Beam_direction(self)
+
     def getCentralK(self):
         r"""
         getCentralK(Beam self) -> kvector_t
@@ -2653,6 +2695,24 @@ class Beam(libBornAgainParam.INode):
 
         """
         return _libBornAgainDevice.Beam_getCentralK(self)
+
+    def getBlochVector(self):
+        r"""
+        getBlochVector(Beam self) -> kvector_t
+        kvector_t Beam::getBlochVector() const
+
+        """
+        return _libBornAgainDevice.Beam_getBlochVector(self)
+
+    def footprintFactor(self):
+        r"""
+        footprintFactor(Beam self) -> IFootprintFactor
+        const IFootprintFactor * Beam::footprintFactor() const
+
+        Returns footprint factor. 
+
+        """
+        return _libBornAgainDevice.Beam_footprintFactor(self)
 
     def setWavelength(self, wavelength):
         r"""
@@ -2678,16 +2738,6 @@ class Beam(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Beam_setInclination(self, alpha)
 
-    def getIntensity(self):
-        r"""
-        getIntensity(Beam self) -> double
-        double Beam::getIntensity() const
-
-        Returns the beam intensity in neutrons/sec. 
-
-        """
-        return _libBornAgainDevice.Beam_getIntensity(self)
-
     def setIntensity(self, intensity):
         r"""
         setIntensity(Beam self, double intensity)
@@ -2697,16 +2747,6 @@ class Beam(libBornAgainParam.INode):
 
         """
         return _libBornAgainDevice.Beam_setIntensity(self, intensity)
-
-    def footprintFactor(self):
-        r"""
-        footprintFactor(Beam self) -> IFootprintFactor
-        const IFootprintFactor * Beam::footprintFactor() const
-
-        Returns footprint factor. 
-
-        """
-        return _libBornAgainDevice.Beam_footprintFactor(self)
 
     def setFootprintFactor(self, shape_factor):
         r"""
@@ -2737,46 +2777,6 @@ class Beam(libBornAgainParam.INode):
 
         """
         return _libBornAgainDevice.Beam_setPolarization(self, bloch_vector)
-
-    def getBlochVector(self):
-        r"""
-        getBlochVector(Beam self) -> kvector_t
-        kvector_t Beam::getBlochVector() const
-
-        """
-        return _libBornAgainDevice.Beam_getBlochVector(self)
-
-    def getWavelength(self):
-        r"""
-        getWavelength(Beam self) -> double
-        double Beam::getWavelength() const
-
-        """
-        return _libBornAgainDevice.Beam_getWavelength(self)
-
-    def direction(self):
-        r"""
-        direction(Beam self) -> Direction
-        Direction Beam::direction() const
-
-        """
-        return _libBornAgainDevice.Beam_direction(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(Beam self, INodeVisitor * visitor)
-        void Beam::accept(INodeVisitor *visitor) const override
-
-        """
-        return _libBornAgainDevice.Beam_accept(self, visitor)
-
-    def getChildren(self):
-        r"""
-        getChildren(Beam self) -> std::vector< INode const *,std::allocator< INode const * > >
-        std::vector< const INode * > Beam::getChildren() const override
-
-        """
-        return _libBornAgainDevice.Beam_getChildren(self)
 
 # Register Beam in _libBornAgainDevice:
 _libBornAgainDevice.Beam_swigregister(Beam)

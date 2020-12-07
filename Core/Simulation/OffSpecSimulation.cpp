@@ -134,7 +134,7 @@ void OffSpecSimulation::transferDetectorImage(size_t index) {
         detector_image.addAxis(detector().axis(dim));
     size_t detector_size = detector_image.getAllocatedSize();
     for (size_t i = 0; i < detector_size; ++i)
-        detector_image[i] = m_sim_elements[index * detector_size + i].getIntensity();
+        detector_image[i] = m_sim_elements[index * detector_size + i].intensity();
     detector().applyDetectorResolution(&detector_image);
     size_t y_axis_size = detector().axis(1).size();
     for (size_t i = 0; i < detector_size; ++i)

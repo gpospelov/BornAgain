@@ -224,7 +224,7 @@ std::vector<double> AngularSpecScan::createIntensities(
         for (size_t k = 0, size_incs = inc_weights[i].size(); k < size_incs; ++k) {
             const double inc_weight = inc_weights[i][k];
             for (size_t j = 0, size_wls = wl_weights[i].size(); j < size_wls; ++j) {
-                current += sim_elements[elem_pos].getIntensity() * inc_weight * wl_weights[i][j];
+                current += sim_elements[elem_pos].intensity() * inc_weight * wl_weights[i][j];
                 ++elem_pos;
             }
         }

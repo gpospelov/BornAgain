@@ -199,7 +199,7 @@ size_t RectangularDetector::indexOfSpecular(const Beam& beam) const {
         return totalSize();
     const double alpha = beam.direction().alpha();
     const double phi = beam.direction().phi();
-    const kvector_t k_spec = vecOfLambdaAlphaPhi(beam.getWavelength(), alpha, phi);
+    const kvector_t k_spec = vecOfLambdaAlphaPhi(beam.wavelength(), alpha, phi);
     const kvector_t normal_unit = m_normal_to_detector.unit();
     const double kd = k_spec.dot(normal_unit);
     if (kd <= 0.0)

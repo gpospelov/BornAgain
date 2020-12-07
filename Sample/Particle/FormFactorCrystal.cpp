@@ -50,10 +50,10 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const {
     complex_t result(0.0, 0.0);
     for (const auto& rec : rec_vectors) {
         auto dw_factor = debyeWallerFactor(rec);
-        WavevectorInfo basis_wavevectors(kvector_t(), -rec, wavevectors.getWavelength());
+        WavevectorInfo basis_wavevectors(kvector_t(), -rec, wavevectors.wavelength());
         complex_t basis_factor = m_basis_form_factor->evaluate(basis_wavevectors);
         WavevectorInfo meso_wavevectors(cvector_t(), rec.complex() - q,
-                                        wavevectors.getWavelength());
+                                        wavevectors.wavelength());
         complex_t meso_factor = m_meso_form_factor->evaluate(meso_wavevectors);
         result += dw_factor * basis_factor * meso_factor;
     }
@@ -73,10 +73,10 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (const auto& rec : rec_vectors) {
         auto dw_factor = debyeWallerFactor(rec);
-        WavevectorInfo basis_wavevectors(kvector_t(), -rec, wavevectors.getWavelength());
+        WavevectorInfo basis_wavevectors(kvector_t(), -rec, wavevectors.wavelength());
         Eigen::Matrix2cd basis_factor = m_basis_form_factor->evaluatePol(basis_wavevectors);
         WavevectorInfo meso_wavevectors(cvector_t(), rec.complex() - q,
-                                        wavevectors.getWavelength());
+                                        wavevectors.wavelength());
         complex_t meso_factor = m_meso_form_factor->evaluate(meso_wavevectors);
         result += dw_factor * basis_factor * meso_factor;
     }

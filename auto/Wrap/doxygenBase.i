@@ -934,7 +934,7 @@ Returns copy of this  SimulationElement with k_f given by in-pixel coordinate x,
 Returns assigned  PolarizationHandler. 
 ";
 
-%feature("docstring")  SimulationElement::getWavelength "double SimulationElement::getWavelength() const
+%feature("docstring")  SimulationElement::wavelength "double SimulationElement::wavelength() const
 ";
 
 %feature("docstring")  SimulationElement::getAlphaI "double SimulationElement::getAlphaI() const
@@ -955,7 +955,7 @@ Returns assigned  PolarizationHandler.
 %feature("docstring")  SimulationElement::addIntensity "void SimulationElement::addIntensity(double intensity)
 ";
 
-%feature("docstring")  SimulationElement::getIntensity "double SimulationElement::getIntensity() const
+%feature("docstring")  SimulationElement::intensity "double SimulationElement::intensity() const
 ";
 
 %feature("docstring")  SimulationElement::getKi "kvector_t SimulationElement::getKi() const

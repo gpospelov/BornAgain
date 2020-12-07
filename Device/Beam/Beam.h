@@ -35,44 +35,36 @@ public:
 
     static Beam horizontalBeam();
 
+    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
+    std::vector<const INode*> getChildren() const override;
+
+    //! Returns the beam intensity in neutrons/sec
+    double intensity() const { return m_intensity; }
+    double wavelength() const { return m_wavelength; }
+    // Direction& direction() { return m_direction; }
+    Direction direction() const { return {m_alpha, m_phi}; } // TODO -> const .. &
     //! Returns the wavevector
     kvector_t getCentralK() const;
 
-    void setWavelength(double wavelength);
-    void setDirection(const Direction& direction);
-    void setInclination(const double alpha);
-
-    //! Returns the beam intensity in neutrons/sec
-    double getIntensity() const { return m_intensity; }
-
-    //! Sets the beam intensity in neutrons/sec
-    void setIntensity(double intensity) { m_intensity = intensity; }
-
+    kvector_t getBlochVector() const;
     //! Returns footprint factor.
     const IFootprintFactor* footprintFactor() const;
-
-    //! Sets footprint factor to the beam.
-    void setFootprintFactor(const IFootprintFactor& shape_factor);
-
-    //! Sets beam to sample width ratio in footprint factor.
-    void setWidthRatio(double width_ratio);
-
-    //! Sets the polarization density matrix according to the given Bloch vector
-    void setPolarization(const kvector_t bloch_vector);
-
-    kvector_t getBlochVector() const;
-
 #ifndef SWIG
     //! Returns the polarization density matrix (in spin basis along z-axis)
     Eigen::Matrix2cd getPolarization() const;
 #endif
 
-    double getWavelength() const { return m_wavelength; }
-    // Direction& direction() { return m_direction; }
-    Direction direction() const { return {m_alpha, m_phi}; } // TODO -> const .. &
-
-    void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
-    std::vector<const INode*> getChildren() const override;
+    void setWavelength(double wavelength);
+    void setDirection(const Direction& direction);
+    void setInclination(const double alpha);
+    //! Sets the beam intensity in neutrons/sec
+    void setIntensity(double intensity) { m_intensity = intensity; }
+    //! Sets footprint factor to the beam.
+    void setFootprintFactor(const IFootprintFactor& shape_factor);
+    //! Sets beam to sample width ratio in footprint factor.
+    void setWidthRatio(double width_ratio);
+    //! Sets the polarization density matrix according to the given Bloch vector
+    void setPolarization(const kvector_t bloch_vector);
 
 private:
     double m_intensity; //!< beam intensity (neutrons/sec)

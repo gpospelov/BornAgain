@@ -36,7 +36,7 @@ double getQ(double wavelength, double angle) {
 //  ************************************************************************************************
 
 UnitConverterSimple::UnitConverterSimple(const Beam& beam)
-    : m_wavelength(beam.getWavelength())
+    : m_wavelength(beam.wavelength())
     , m_alpha_i(-beam.direction().alpha())
     , m_phi_i(beam.direction().phi()) {}
 

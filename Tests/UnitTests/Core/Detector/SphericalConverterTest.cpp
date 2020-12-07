@@ -19,7 +19,7 @@ SphericalConverterTest::SphericalConverterTest()
     , m_beam(1.0, 1.0, {1 * Units::deg, 0}) {
     const auto k_i = m_beam.getCentralK();
     m_kiz = k_i.z();
-    const double K = 2.0 * M_PI / m_beam.getWavelength();
+    const double K = 2.0 * M_PI / m_beam.wavelength();
     m_kfy = K * std::sin(5.0 * Units::deg);
     m_kfz1 = K * std::sin(-2.0 * Units::deg);
     m_kfz2 = K * std::sin(1.5);

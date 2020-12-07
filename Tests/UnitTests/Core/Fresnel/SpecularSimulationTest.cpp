@@ -84,23 +84,23 @@ TEST_F(SpecularSimulationTest, SetAngularScan) {
     EXPECT_EQ(2u, sim.coordinateAxis()->size());
     EXPECT_EQ(1.0 * Units::deg, sim.coordinateAxis()->lowerBound());
     EXPECT_EQ(3.0 * Units::deg, sim.coordinateAxis()->upperBound());
-    EXPECT_EQ(1.0, beam.getIntensity());
-    EXPECT_EQ(1.0, beam.getWavelength());
+    EXPECT_EQ(1.0, beam.intensity());
+    EXPECT_EQ(1.0, beam.wavelength());
     EXPECT_EQ(0.0, beam.direction().alpha());
     EXPECT_EQ(0.0, beam.direction().phi());
 
     checkBeamState(sim);
 
     sim.setBeamIntensity(2.0);
-    EXPECT_EQ(2.0, beam.getIntensity());
+    EXPECT_EQ(2.0, beam.intensity());
 
     AngularSpecScan scan2(1.0, 10, 1.0 * Units::deg, 10.0 * Units::deg);
     sim.setScan(scan2);
     EXPECT_EQ(10u, sim.coordinateAxis()->size());
     EXPECT_EQ(1.0 * Units::deg, sim.coordinateAxis()->lowerBound());
     EXPECT_EQ(10.0 * Units::deg, sim.coordinateAxis()->upperBound());
-    EXPECT_EQ(2.0, beam.getIntensity());
-    EXPECT_EQ(1.0, beam.getWavelength());
+    EXPECT_EQ(2.0, beam.intensity());
+    EXPECT_EQ(1.0, beam.wavelength());
     EXPECT_EQ(0.0, beam.direction().alpha());
     EXPECT_EQ(0.0, beam.direction().phi());
     checkBeamState(sim);
@@ -111,8 +111,8 @@ TEST_F(SpecularSimulationTest, SetAngularScan) {
     EXPECT_EQ(10u, sim.coordinateAxis()->size());
     EXPECT_EQ(1.0 * Units::deg, sim.coordinateAxis()->lowerBound());
     EXPECT_EQ(10.0 * Units::deg, sim.coordinateAxis()->upperBound());
-    EXPECT_EQ(2.0, beam.getIntensity());
-    EXPECT_EQ(1.0, beam.getWavelength());
+    EXPECT_EQ(2.0, beam.intensity());
+    EXPECT_EQ(1.0, beam.wavelength());
     EXPECT_EQ(0.0, beam.direction().alpha());
     EXPECT_EQ(0.0, beam.direction().phi());
     checkBeamState(sim);
@@ -132,23 +132,23 @@ TEST_F(SpecularSimulationTest, SetQScan) {
     EXPECT_EQ(2u, sim.coordinateAxis()->size());
     EXPECT_EQ(1.0, sim.coordinateAxis()->lowerBound());
     EXPECT_EQ(3.0, sim.coordinateAxis()->upperBound());
-    EXPECT_EQ(1.0, beam.getIntensity());
-    EXPECT_EQ(1.0, beam.getWavelength());
+    EXPECT_EQ(1.0, beam.intensity());
+    EXPECT_EQ(1.0, beam.wavelength());
     EXPECT_EQ(0.0, beam.direction().alpha());
     EXPECT_EQ(0.0, beam.direction().phi());
 
     checkBeamState(sim);
 
     sim.setBeamIntensity(2.0);
-    EXPECT_EQ(2.0, beam.getIntensity());
+    EXPECT_EQ(2.0, beam.intensity());
 
     QSpecScan scan2(10, 1.0, 10.0);
     sim.setScan(scan2);
     EXPECT_EQ(10u, sim.coordinateAxis()->size());
     EXPECT_EQ(1.0, sim.coordinateAxis()->lowerBound());
     EXPECT_EQ(10.0, sim.coordinateAxis()->upperBound());
-    EXPECT_EQ(2.0, beam.getIntensity());
-    EXPECT_EQ(1.0, beam.getWavelength());
+    EXPECT_EQ(2.0, beam.intensity());
+    EXPECT_EQ(1.0, beam.wavelength());
     EXPECT_EQ(0.0, beam.direction().alpha());
     EXPECT_EQ(0.0, beam.direction().phi());
     checkBeamState(sim);

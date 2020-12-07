@@ -45,7 +45,7 @@ complex_t ComputeDWBA::evaluate(const WavevectorInfo& wavevectors) const {
     k_f_R.setZ(-k_f_T.z());
 
     // Construct the four different scattering contributions wavevector infos
-    double wavelength = wavevectors.getWavelength();
+    double wavelength = wavevectors.wavelength();
     WavevectorInfo k_TT(k_i_T, k_f_T, wavelength);
     WavevectorInfo k_RT(k_i_R, k_f_T, wavelength);
     WavevectorInfo k_TR(k_i_T, k_f_R, wavelength);

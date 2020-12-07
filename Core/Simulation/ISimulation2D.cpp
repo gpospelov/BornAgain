@@ -73,7 +73,7 @@ std::unique_ptr<IComputation> ISimulation2D::generateSingleThreadedComputation(s
 }
 
 std::vector<SimulationElement> ISimulation2D::generateSimulationElements(const Beam& beam) {
-    const double wavelength = beam.getWavelength();
+    const double wavelength = beam.wavelength();
     const double alpha_i = -beam.direction().alpha(); // Defined to be always positive in Beam
     const double phi_i = beam.direction().phi();
     const Eigen::Matrix2cd beam_polarization = beam.getPolarization();
@@ -97,7 +97,7 @@ std::vector<SimulationElement> ISimulation2D::generateSimulationElements(const B
 }
 
 void ISimulation2D::normalize(size_t start_ind, size_t n_elements) {
-    const double beam_intensity = beam().getIntensity();
+    const double beam_intensity = beam().intensity();
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         SimulationElement& element = m_sim_elements[i];
         double sin_alpha_i = std::abs(std::sin(element.getAlphaI()));
@@ -106,7 +106,7 @@ void ISimulation2D::normalize(size_t start_ind, size_t n_elements) {
             continue;
         }
         const double solid_angle = element.solidAngle();
-        element.setIntensity(element.getIntensity() * beam_intensity * solid_angle / sin_alpha_i);
+        element.setIntensity(element.intensity() * beam_intensity * solid_angle / sin_alpha_i);
     }
 }
 
@@ -115,7 +115,7 @@ void ISimulation2D::addBackgroundIntensity(size_t start_ind, size_t n_elements) 
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         SimulationElement& element = m_sim_elements[i];
-        element.setIntensity(background()->addBackground(element.getIntensity()));
+        element.setIntensity(background()->addBackground(element.intensity()));
     }
 }
 
@@ -124,7 +124,7 @@ void ISimulation2D::addDataToCache(double weight) {
         throw std::runtime_error("Error in ISimulation2D::addDataToCache(double): cache size"
                                  " not the same as element size");
     for (unsigned i = 0; i < m_sim_elements.size(); i++)
-        m_cache[i] += m_sim_elements[i].getIntensity() * weight;
+        m_cache[i] += m_sim_elements[i].intensity() * weight;
 }
 
 void ISimulation2D::moveDataFromCache() {
@@ -140,7 +140,7 @@ std::vector<double> ISimulation2D::rawResults() const {
     std::vector<double> result;
     result.resize(m_sim_elements.size());
     for (unsigned i = 0; i < m_sim_elements.size(); ++i)
-        result[i] = m_sim_elements[i].getIntensity();
+        result[i] = m_sim_elements[i].intensity();
     return result;
 }
 

@@ -24,7 +24,7 @@ DepthProbeElement DepthProbeElementTest::createDefaultElement() {
 
 void DepthProbeElementTest::compareEqualElements(const DepthProbeElement& lhs,
                                                  const DepthProbeElement& rhs) {
-    EXPECT_EQ(lhs.getWavelength(), rhs.getWavelength());
+    EXPECT_EQ(lhs.wavelength(), rhs.wavelength());
     EXPECT_EQ(lhs.getAlphaI(), rhs.getAlphaI());
     bool intensity_comparison_result = (lhs.getIntensities() == rhs.getIntensities()).min();
     EXPECT_TRUE(intensity_comparison_result);
@@ -39,7 +39,7 @@ TEST_F(DepthProbeElementTest, InitialState) {
     const kvector_t k_i = vecOfLambdaAlphaPhi(wavelength, angle, phi);
     const DepthProbeElement& element = createDefaultElement();
 
-    EXPECT_EQ(wavelength, element.getWavelength());
+    EXPECT_EQ(wavelength, element.wavelength());
     EXPECT_EQ(angle, element.getAlphaI());
     bool intensity_comparison_result = (element.getIntensities() == 0.0).min();
     EXPECT_TRUE(intensity_comparison_result);

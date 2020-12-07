@@ -43,7 +43,7 @@ public:
     //! Returns assigned PolarizationHandler.
     const PolarizationHandler& polarizationHandler() const { return m_polarization; }
 
-    double getIntensity() const { return m_intensity; }
+    double intensity() const { return m_intensity; }
     void setIntensity(double intensity) { m_intensity = intensity; }
 
     //! Returns calculation flag (if it's false, zero intensity is assigned to the element)

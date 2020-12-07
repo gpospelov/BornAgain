@@ -68,7 +68,7 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation
 
     auto axis = axis_item->createAxis(Units::deg);
 
-    simulation->setBeamParameters(beamItem()->getWavelength(), static_cast<int>(axis->size()),
+    simulation->setBeamParameters(beamItem()->wavelength(), static_cast<int>(axis->size()),
                                   axis->lowerBound(), axis->upperBound());
 
     auto depthAxisItem = dynamic_cast<BasicAxisItem*>(getItem(P_Z_AXIS));

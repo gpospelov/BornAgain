@@ -298,7 +298,7 @@ C++ includes: DepthProbeComputation.h
 %feature("docstring")  DepthProbeElement::~DepthProbeElement "DepthProbeElement::~DepthProbeElement()
 ";
 
-%feature("docstring")  DepthProbeElement::getWavelength "double DepthProbeElement::getWavelength() const
+%feature("docstring")  DepthProbeElement::wavelength "double DepthProbeElement::wavelength() const
 ";
 
 %feature("docstring")  DepthProbeElement::getAlphaI "double DepthProbeElement::getAlphaI() const
@@ -2166,7 +2166,7 @@ C++ includes: SpecularSimulationElement.h
 Returns assigned PolarizationHandler. 
 ";
 
-%feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
+%feature("docstring")  SpecularSimulationElement::intensity "double SpecularSimulationElement::intensity() const
 ";
 
 %feature("docstring")  SpecularSimulationElement::setIntensity "void SpecularSimulationElement::setIntensity(double intensity)

@@ -256,7 +256,7 @@ std::string defineBeamPolarization(const Beam& beam) {
 
 std::string defineBeamIntensity(const Beam& beam) {
     std::ostringstream result;
-    double beam_intensity = beam.getIntensity();
+    double beam_intensity = beam.intensity();
     if (beam_intensity > 0.0)
         result << indent() << "simulation.setBeamIntensity("
                << pyfmt::printScientificDouble(beam_intensity) << ")\n";
@@ -267,7 +267,7 @@ std::string defineGISASBeam(const GISASSimulation& simulation) {
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
-    result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.getWavelength())
+    result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.wavelength())
            << ", " << pyfmt::printDegrees(beam.direction().alpha()) << ", "
            << pyfmt::printDegrees(beam.direction().phi()) << ")\n";
 
@@ -284,7 +284,7 @@ std::string defineOffSpecBeam(const OffSpecSimulation& simulation) {
     const std::string axidef = indent() + "alpha_i_axis = ";
     result << axidef << pyfmt2::printAxis(simulation.beamAxis(), "rad") << "\n";
 
-    result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.getWavelength())
+    result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.wavelength())
            << ", "
            << "alpha_i_axis, " << pyfmt::printDegrees(beam.direction().phi()) << ")\n";
 

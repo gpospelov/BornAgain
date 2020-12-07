@@ -56,7 +56,7 @@ BeamItem::BeamItem(const QString& beam_model) : SessionItem(beam_model) {
 
 BeamItem::~BeamItem() = default;
 
-double BeamItem::getIntensity() const {
+double BeamItem::intensity() const {
     return getItemValue(P_INTENSITY).toDouble();
 }
 
@@ -64,7 +64,7 @@ void BeamItem::setIntensity(double value) {
     setItemValue(P_INTENSITY, value);
 }
 
-double BeamItem::getWavelength() const {
+double BeamItem::wavelength() const {
     BeamWavelengthItem* beamWavelength = dynamic_cast<BeamWavelengthItem*>(getItem(P_WAVELENGTH));
     return beamWavelength->wavelength();
 }
@@ -94,11 +94,11 @@ void BeamItem::setAzimuthalAngle(double value) {
 }
 
 std::unique_ptr<Beam> BeamItem::createBeam() const {
-    double lambda = getWavelength();
+    double lambda = wavelength();
     double inclination_angle = Units::deg2rad(getInclinationAngle());
     double azimuthal_angle = Units::deg2rad(getAzimuthalAngle());
 
-    auto result = std::make_unique<Beam>(getIntensity(), lambda,
+    auto result = std::make_unique<Beam>(intensity(), lambda,
                                          Direction(inclination_angle, azimuthal_angle));
 
     result->setPolarization(GetVectorItem(*this, P_POLARIZATION));

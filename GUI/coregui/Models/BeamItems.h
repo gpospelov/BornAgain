@@ -33,10 +33,10 @@ public:
 
     ~BeamItem() override;
 
-    double getIntensity() const;
+    double intensity() const;
     void setIntensity(double value);
 
-    double getWavelength() const;
+    double wavelength() const;
     void setWavelength(double value);
 
     virtual double getInclinationAngle() const = 0;

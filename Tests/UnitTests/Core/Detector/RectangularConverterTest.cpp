@@ -32,7 +32,7 @@ RectangularConverterTest::RectangularConverterTest()
     m_alpha = std::atan2(det_height, det_distance / std::cos(m_phi));
     auto k_i = m_beam.getCentralK();
     m_kiz = k_i.z();
-    double K = 2.0 * M_PI / m_beam.getWavelength();
+    double K = 2.0 * M_PI / m_beam.wavelength();
     m_kfy = K * std::sin(m_phi);
     m_kfz = K * std::sin(m_alpha);
 }

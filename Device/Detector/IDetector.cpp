@@ -165,7 +165,7 @@ void IDetector::setDataToDetectorMap(OutputData<double>& detectorMap,
     if (elements.empty())
         return;
     iterate([&](const_iterator it) {
-        detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
+        detectorMap[it.roiIndex()] = elements[it.elementIndex()].intensity();
     });
 }
 

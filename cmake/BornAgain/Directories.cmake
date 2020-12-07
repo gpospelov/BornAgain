@@ -3,6 +3,7 @@
 # -----------------------------------------------------------------------------
 
 set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
+set(SWIG_DIR ${WRAP_DIR}/Swig)
 set(PY_EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples/Python)
 
 set(TEST_REFERENCE_DIR            ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)

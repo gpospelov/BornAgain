@@ -144,8 +144,8 @@ void DepthProbeSimulation::initSimulationElementVector() {
 std::vector<DepthProbeElement> DepthProbeSimulation::generateSimulationElements(const Beam& beam) {
     std::vector<DepthProbeElement> result;
 
-    const double wavelength = beam.getWavelength();
-    const double angle_shift = beam.getAlpha();
+    const double wavelength = beam.wavelength();
+    const double angle_shift = beam.direction().alpha();
 
     const size_t axis_size = getAlphaAxis()->size();
     result.reserve(axis_size);
@@ -209,7 +209,7 @@ void DepthProbeSimulation::initialize() {
 }
 
 void DepthProbeSimulation::normalize(size_t start_ind, size_t n_elements) {
-    const double beam_intensity = getBeamIntensity();
+    const double beam_intensity = beam().intensity();
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         auto& element = m_sim_elements[i];
         const double alpha_i = -element.getAlphaI();

@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_SAMPLE_STANDARDSAMPLES_PARTICLEINVACUUMBUILDER_H
 #define BORNAGAIN_SAMPLE_STANDARDSAMPLES_PARTICLEINVACUUMBUILDER_H
 

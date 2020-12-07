@@ -25,6 +25,7 @@ class Histogram2D;
 
 class OffSpecSimulation : public ISimulation2D {
 public:
+    OffSpecSimulation(const Beam& beam, const MultiLayer& sample, const IDetector& detector);
     OffSpecSimulation();
     ~OffSpecSimulation() override {}
 

@@ -53,7 +53,7 @@ def get_simulation():
     simulation.setDetectorParameters(201, -2.0*deg, 2.0*deg, 201, 0.0*deg,
                                      2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e+05)
+    simulation.beam().setIntensity(1e+05)
     return simulation
 
 

@@ -2631,7 +2631,7 @@ class Beam(libBornAgainParam.INode):
 
     def __init__(self, *args):
         r"""
-        __init__(Beam self, double wavelength, double alpha, double phi, double intensity) -> Beam
+        __init__(Beam self, double intensity, double wavelength, Direction const & direction) -> Beam
         __init__(Beam self, Beam other) -> Beam
         Beam::Beam(const Beam &other)
 
@@ -2644,6 +2644,48 @@ class Beam(libBornAgainParam.INode):
         r"""horizontalBeam() -> Beam"""
         return _libBornAgainDevice.Beam_horizontalBeam()
 
+    def accept(self, visitor):
+        r"""
+        accept(Beam self, INodeVisitor * visitor)
+        void Beam::accept(INodeVisitor *visitor) const override
+
+        """
+        return _libBornAgainDevice.Beam_accept(self, visitor)
+
+    def getChildren(self):
+        r"""
+        getChildren(Beam self) -> std::vector< INode const *,std::allocator< INode const * > >
+        std::vector< const INode * > Beam::getChildren() const override
+
+        """
+        return _libBornAgainDevice.Beam_getChildren(self)
+
+    def intensity(self):
+        r"""
+        intensity(Beam self) -> double
+        double Beam::intensity() const
+
+        Returns the beam intensity in neutrons/sec. 
+
+        """
+        return _libBornAgainDevice.Beam_intensity(self)
+
+    def wavelength(self):
+        r"""
+        wavelength(Beam self) -> double
+        double Beam::wavelength() const
+
+        """
+        return _libBornAgainDevice.Beam_wavelength(self)
+
+    def direction(self):
+        r"""
+        direction(Beam self) -> Direction
+        Direction Beam::direction() const
+
+        """
+        return _libBornAgainDevice.Beam_direction(self)
+
     def getCentralK(self):
         r"""
         getCentralK(Beam self) -> kvector_t
@@ -2654,35 +2696,13 @@ class Beam(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Beam_getCentralK(self)
 
-    def setCentralK(self, wavelength, alpha_i, phi_i):
+    def getBlochVector(self):
         r"""
-        setCentralK(Beam self, double wavelength, double alpha_i, double phi_i)
-        void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
-
-        Sets the wavevector in terms of wavelength and incoming angles. 
+        getBlochVector(Beam self) -> kvector_t
+        kvector_t Beam::getBlochVector() const
 
         """
-        return _libBornAgainDevice.Beam_setCentralK(self, wavelength, alpha_i, phi_i)
-
-    def getIntensity(self):
-        r"""
-        getIntensity(Beam self) -> double
-        double Beam::getIntensity() const
-
-        Returns the beam intensity in neutrons/sec. 
-
-        """
-        return _libBornAgainDevice.Beam_getIntensity(self)
-
-    def setIntensity(self, intensity):
-        r"""
-        setIntensity(Beam self, double intensity)
-        void Beam::setIntensity(double intensity)
-
-        Sets the beam intensity in neutrons/sec. 
-
-        """
-        return _libBornAgainDevice.Beam_setIntensity(self, intensity)
+        return _libBornAgainDevice.Beam_getBlochVector(self)
 
     def footprintFactor(self):
         r"""
@@ -2693,6 +2713,40 @@ class Beam(libBornAgainParam.INode):
 
         """
         return _libBornAgainDevice.Beam_footprintFactor(self)
+
+    def setWavelength(self, wavelength):
+        r"""
+        setWavelength(Beam self, double wavelength)
+        void Beam::setWavelength(double wavelength)
+
+        """
+        return _libBornAgainDevice.Beam_setWavelength(self, wavelength)
+
+    def setDirection(self, direction):
+        r"""
+        setDirection(Beam self, Direction const & direction)
+        void Beam::setDirection(const Direction &direction)
+
+        """
+        return _libBornAgainDevice.Beam_setDirection(self, direction)
+
+    def setInclination(self, alpha):
+        r"""
+        setInclination(Beam self, double const alpha)
+        void Beam::setInclination(const double alpha)
+
+        """
+        return _libBornAgainDevice.Beam_setInclination(self, alpha)
+
+    def setIntensity(self, intensity):
+        r"""
+        setIntensity(Beam self, double intensity)
+        void Beam::setIntensity(double intensity)
+
+        Sets the beam intensity in neutrons/sec. 
+
+        """
+        return _libBornAgainDevice.Beam_setIntensity(self, intensity)
 
     def setFootprintFactor(self, shape_factor):
         r"""
@@ -2723,54 +2777,6 @@ class Beam(libBornAgainParam.INode):
 
         """
         return _libBornAgainDevice.Beam_setPolarization(self, bloch_vector)
-
-    def getBlochVector(self):
-        r"""
-        getBlochVector(Beam self) -> kvector_t
-        kvector_t Beam::getBlochVector() const
-
-        """
-        return _libBornAgainDevice.Beam_getBlochVector(self)
-
-    def getWavelength(self):
-        r"""
-        getWavelength(Beam self) -> double
-        double Beam::getWavelength() const
-
-        """
-        return _libBornAgainDevice.Beam_getWavelength(self)
-
-    def getAlpha(self):
-        r"""
-        getAlpha(Beam self) -> double
-        double Beam::getAlpha() const
-
-        """
-        return _libBornAgainDevice.Beam_getAlpha(self)
-
-    def getPhi(self):
-        r"""
-        getPhi(Beam self) -> double
-        double Beam::getPhi() const
-
-        """
-        return _libBornAgainDevice.Beam_getPhi(self)
-
-    def accept(self, visitor):
-        r"""
-        accept(Beam self, INodeVisitor * visitor)
-        void Beam::accept(INodeVisitor *visitor) const override
-
-        """
-        return _libBornAgainDevice.Beam_accept(self, visitor)
-
-    def getChildren(self):
-        r"""
-        getChildren(Beam self) -> std::vector< INode const *,std::allocator< INode const * > >
-        std::vector< const INode * > Beam::getChildren() const override
-
-        """
-        return _libBornAgainDevice.Beam_getChildren(self)
 
 # Register Beam in _libBornAgainDevice:
 _libBornAgainDevice.Beam_swigregister(Beam)
@@ -3860,211 +3866,6 @@ class ChiSquaredModule(IChiSquaredModule):
 # Register ChiSquaredModule in _libBornAgainDevice:
 _libBornAgainDevice.ChiSquaredModule_swigregister(ChiSquaredModule)
 
-class Instrument(libBornAgainParam.INode):
-    r"""
-
-
-    Assembles beam, detector and their relative positions with respect to the sample.
-
-    C++ includes: Instrument.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(Instrument self) -> Instrument
-        __init__(Instrument self, Instrument other) -> Instrument
-        Instrument::Instrument(const Instrument &other)
-
-        """
-        _libBornAgainDevice.Instrument_swiginit(self, _libBornAgainDevice.new_Instrument(*args))
-    __swig_destroy__ = _libBornAgainDevice.delete_Instrument
-
-    def accept(self, visitor):
-        r"""
-        accept(Instrument self, INodeVisitor * visitor)
-        void Instrument::accept(INodeVisitor *visitor) const final
-
-        """
-        return _libBornAgainDevice.Instrument_accept(self, visitor)
-
-    def beam(self, *args):
-        r"""
-        beam(Instrument self) -> Beam
-        beam(Instrument self) -> Beam
-        const Beam& Instrument::beam() const
-
-        """
-        return _libBornAgainDevice.Instrument_beam(self, *args)
-
-    def setBeam(self, beam):
-        r"""
-        setBeam(Instrument self, Beam beam)
-        void Instrument::setBeam(const Beam &beam)
-
-        """
-        return _libBornAgainDevice.Instrument_setBeam(self, beam)
-
-    def setBeamParameters(self, wavelength, alpha_i, phi_i):
-        r"""
-        setBeamParameters(Instrument self, double wavelength, double alpha_i, double phi_i)
-        void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)
-
-        Sets the beam wavelength and incoming angles. 
-
-        """
-        return _libBornAgainDevice.Instrument_setBeamParameters(self, wavelength, alpha_i, phi_i)
-
-    def setBeamIntensity(self, intensity):
-        r"""
-        setBeamIntensity(Instrument self, double intensity)
-        void Instrument::setBeamIntensity(double intensity)
-
-        """
-        return _libBornAgainDevice.Instrument_setBeamIntensity(self, intensity)
-
-    def setBeamPolarization(self, bloch_vector):
-        r"""
-        setBeamPolarization(Instrument self, kvector_t bloch_vector)
-        void Instrument::setBeamPolarization(const kvector_t bloch_vector)
-
-        Sets the beam's polarization according to the given Bloch vector. 
-
-        """
-        return _libBornAgainDevice.Instrument_setBeamPolarization(self, bloch_vector)
-
-    def getBeamIntensity(self):
-        r"""
-        getBeamIntensity(Instrument self) -> double
-        double Instrument::getBeamIntensity() const
-
-        """
-        return _libBornAgainDevice.Instrument_getBeamIntensity(self)
-
-    def getDetector(self):
-        r"""
-        getDetector(Instrument self) -> IDetector
-        const IDetector * Instrument::getDetector() const
-
-        """
-        return _libBornAgainDevice.Instrument_getDetector(self)
-
-    def detector(self, *args):
-        r"""
-        detector(Instrument self) -> IDetector
-        detector(Instrument self) -> IDetector
-        const IDetector & Instrument::detector() const
-
-        """
-        return _libBornAgainDevice.Instrument_detector(self, *args)
-
-    def detector2D(self, *args):
-        r"""
-        detector2D(Instrument self) -> IDetector2D
-        detector2D(Instrument self) -> IDetector2D
-        const IDetector2D & Instrument::detector2D() const
-
-        """
-        return _libBornAgainDevice.Instrument_detector2D(self, *args)
-
-    def getDetectorMask(self):
-        r"""
-        getDetectorMask(Instrument self) -> DetectorMask
-        const DetectorMask * Instrument::getDetectorMask() const
-
-        """
-        return _libBornAgainDevice.Instrument_getDetectorMask(self)
-
-    def getDetectorAxis(self, index):
-        r"""
-        getDetectorAxis(Instrument self, size_t index) -> IAxis
-        const IAxis & Instrument::getDetectorAxis(size_t index) const
-
-        """
-        return _libBornAgainDevice.Instrument_getDetectorAxis(self, index)
-
-    def getDetectorDimension(self):
-        r"""
-        getDetectorDimension(Instrument self) -> size_t
-        size_t Instrument::getDetectorDimension() const
-
-        """
-        return _libBornAgainDevice.Instrument_getDetectorDimension(self)
-
-    def setDetector(self, detector):
-        r"""
-        setDetector(Instrument self, IDetector detector)
-        void Instrument::setDetector(const IDetector &detector)
-
-        Sets the detector (axes can be overwritten later) 
-
-        """
-        return _libBornAgainDevice.Instrument_setDetector(self, detector)
-
-    def setDetectorResolutionFunction(self, p_resolution_function):
-        r"""
-        setDetectorResolutionFunction(Instrument self, IResolutionFunction2D p_resolution_function)
-        void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)
-
-        Sets detector resolution function. 
-
-        """
-        return _libBornAgainDevice.Instrument_setDetectorResolutionFunction(self, p_resolution_function)
-
-    def removeDetectorResolution(self):
-        r"""
-        removeDetectorResolution(Instrument self)
-        void Instrument::removeDetectorResolution()
-
-        Removes detector resolution function. 
-
-        """
-        return _libBornAgainDevice.Instrument_removeDetectorResolution(self)
-
-    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
-        r"""
-        setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)
-        void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
-
-        Sets the polarization analyzer characteristics of the detector. 
-
-        """
-        return _libBornAgainDevice.Instrument_setAnalyzerProperties(self, direction, efficiency, total_transmission)
-
-    def applyDetectorResolution(self, p_intensity_map):
-        r"""
-        applyDetectorResolution(Instrument self, IntensityData p_intensity_map)
-        void Instrument::applyDetectorResolution(OutputData< double > *p_intensity_map) const
-
-        apply the detector resolution to the given intensity map 
-
-        """
-        return _libBornAgainDevice.Instrument_applyDetectorResolution(self, p_intensity_map)
-
-    def initDetector(self):
-        r"""
-        initDetector(Instrument self)
-        void Instrument::initDetector()
-
-        init detector with beam settings 
-
-        """
-        return _libBornAgainDevice.Instrument_initDetector(self)
-
-    def getChildren(self):
-        r"""
-        getChildren(Instrument self) -> std::vector< INode const *,std::allocator< INode const * > >
-        std::vector< const INode * > Instrument::getChildren() const
-
-        """
-        return _libBornAgainDevice.Instrument_getChildren(self)
-
-# Register Instrument in _libBornAgainDevice:
-_libBornAgainDevice.Instrument_swigregister(Instrument)
-
 
 def RelativeDifference(dat, ref):
     r"""
@@ -4492,16 +4293,6 @@ class DetectorMask(object):
         """
         return _libBornAgainDevice.DetectorMask_createHistogram(self)
 
-    def removeMasks(self):
-        r"""
-        removeMasks(DetectorMask self)
-        void DetectorMask::removeMasks()
-
-        remove all masks and return object to initial state 
-
-        """
-        return _libBornAgainDevice.DetectorMask_removeMasks(self)
-
     def hasMasks(self):
         r"""
         hasMasks(DetectorMask self) -> bool
@@ -4583,6 +4374,70 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IDetector_addAxis(self, axis)
 
+    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
+        r"""
+        setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)
+        void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
+
+        Sets the polarization analyzer characteristics of the detector. 
+
+        """
+        return _libBornAgainDevice.IDetector_setAnalyzerProperties(self, direction, efficiency, total_transmission)
+
+    def setDetectorResolution(self, p_detector_resolution):
+        r"""
+        setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)
+        void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
+
+        Sets the detector resolution. 
+
+        """
+        return _libBornAgainDevice.IDetector_setDetectorResolution(self, p_detector_resolution)
+
+    def setResolutionFunction(self, resFunc):
+        r"""
+        setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)
+        void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
+
+        """
+        return _libBornAgainDevice.IDetector_setResolutionFunction(self, resFunc)
+
+    def resetRegionOfInterest(self):
+        r"""
+        resetRegionOfInterest(IDetector self)
+        virtual void IDetector::resetRegionOfInterest()=0
+
+        Resets region of interest making whole detector plane available for the simulation. 
+
+        """
+        return _libBornAgainDevice.IDetector_resetRegionOfInterest(self)
+
+    def detectorMask(self):
+        r"""
+        detectorMask(IDetector self) -> DetectorMask
+        virtual const DetectorMask* IDetector::detectorMask() const =0
+
+        Returns detector masks container. 
+
+        """
+        return _libBornAgainDevice.IDetector_detectorMask(self)
+
+    def getChildren(self):
+        r"""
+        getChildren(IDetector self) -> std::vector< INode const *,std::allocator< INode const * > >
+        std::vector< const INode * > IDetector::getChildren() const override
+
+        """
+        return _libBornAgainDevice.IDetector_getChildren(self)
+
+    def iterate(self, func, visit_masks=False):
+        r"""
+        iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)
+        void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
+
+        """
+        return _libBornAgainDevice.IDetector_iterate(self, func, visit_masks)
+
     def axis(self, index):
         r"""
         axis(IDetector self, size_t index) -> IAxis
@@ -4621,44 +4476,6 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IDetector_totalSize(self)
 
-    def detectorMask(self):
-        r"""
-        detectorMask(IDetector self) -> DetectorMask
-        virtual const DetectorMask* IDetector::detectorMask() const =0
-
-        Returns detector masks container. 
-
-        """
-        return _libBornAgainDevice.IDetector_detectorMask(self)
-
-    def setAnalyzerProperties(self, direction, efficiency, total_transmission):
-        r"""
-        setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)
-        void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
-
-        Sets the polarization analyzer characteristics of the detector. 
-
-        """
-        return _libBornAgainDevice.IDetector_setAnalyzerProperties(self, direction, efficiency, total_transmission)
-
-    def setDetectorResolution(self, p_detector_resolution):
-        r"""
-        setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)
-        void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
-
-        Sets the detector resolution. 
-
-        """
-        return _libBornAgainDevice.IDetector_setDetectorResolution(self, p_detector_resolution)
-
-    def setResolutionFunction(self, resFunc):
-        r"""
-        setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)
-        void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
-
-        """
-        return _libBornAgainDevice.IDetector_setResolutionFunction(self, resFunc)
-
     def applyDetectorResolution(self, p_intensity_map):
         r"""
         applyDetectorResolution(IDetector self, IntensityData p_intensity_map)
@@ -4669,16 +4486,6 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IDetector_applyDetectorResolution(self, p_intensity_map)
 
-    def removeDetectorResolution(self):
-        r"""
-        removeDetectorResolution(IDetector self)
-        void IDetector::removeDetectorResolution()
-
-        Removes detector resolution function. 
-
-        """
-        return _libBornAgainDevice.IDetector_removeDetectorResolution(self)
-
     def detectorResolution(self):
         r"""
         detectorResolution(IDetector self) -> IDetectorResolution
@@ -4688,26 +4495,6 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 
         """
         return _libBornAgainDevice.IDetector_detectorResolution(self)
-
-    def regionOfInterest(self):
-        r"""
-        regionOfInterest(IDetector self) -> RegionOfInterest const *
-        virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
-
-        Returns region of interest if exists. 
-
-        """
-        return _libBornAgainDevice.IDetector_regionOfInterest(self)
-
-    def resetRegionOfInterest(self):
-        r"""
-        resetRegionOfInterest(IDetector self)
-        virtual void IDetector::resetRegionOfInterest()=0
-
-        Resets region of interest making whole detector plane available for the simulation. 
-
-        """
-        return _libBornAgainDevice.IDetector_resetRegionOfInterest(self)
 
     def detectionProperties(self):
         r"""
@@ -4749,21 +4536,15 @@ class IDetector(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainDevice.IDetector_numberOfSimulationElements(self)
 
-    def getChildren(self):
+    def regionOfInterest(self):
         r"""
-        getChildren(IDetector self) -> std::vector< INode const *,std::allocator< INode const * > >
-        std::vector< const INode * > IDetector::getChildren() const override
+        regionOfInterest(IDetector self) -> RegionOfInterest const *
+        virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
+
+        Returns region of interest if exists. 
 
         """
-        return _libBornAgainDevice.IDetector_getChildren(self)
-
-    def iterate(self, func, visit_masks=False):
-        r"""
-        iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)
-        void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
-
-        """
-        return _libBornAgainDevice.IDetector_iterate(self, func, visit_masks)
+        return _libBornAgainDevice.IDetector_regionOfInterest(self)
 
 # Register IDetector in _libBornAgainDevice:
 _libBornAgainDevice.IDetector_swigregister(IDetector)
@@ -4802,16 +4583,6 @@ class IDetector2D(IDetector):
 
         """
         return _libBornAgainDevice.IDetector2D_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
-
-    def removeMasks(self):
-        r"""
-        removeMasks(IDetector2D self)
-        void IDetector2D::removeMasks()
-
-        Removes all masks from the detector. 
-
-        """
-        return _libBornAgainDevice.IDetector2D_removeMasks(self)
 
     def detectorMask(self):
         r"""
@@ -5943,7 +5714,7 @@ class IntensityDataIOFactory(object):
     r"""
 
 
-    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+    Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends with "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
 
     Usage:
 
@@ -5989,7 +5760,7 @@ class IntensityDataIOFactory(object):
         __init__(IntensityDataIOFactory self) -> IntensityDataIOFactory
 
 
-        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
+        Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends with "*.gz" or "*.bz2" the file will be zipped on the fly using appropriate algorithm.
 
         Usage:
 

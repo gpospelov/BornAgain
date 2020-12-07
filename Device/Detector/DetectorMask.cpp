@@ -82,12 +82,6 @@ Histogram2D* DetectorMask::createHistogram() const {
     return dynamic_cast<Histogram2D*>(IHistogram::createHistogram(data));
 }
 
-void DetectorMask::removeMasks() {
-    m_shapes.clear();
-    m_mask_of_shape.clear();
-    m_mask_data.clear();
-}
-
 size_t DetectorMask::numberOfMasks() const {
     return m_shapes.size();
 }

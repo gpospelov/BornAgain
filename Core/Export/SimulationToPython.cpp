@@ -56,14 +56,6 @@ bool isDefaultDirection(const kvector_t direction) {
            && algo::almostEqual(direction.z(), 0.0);
 }
 
-const std::string defineSimulate = "def run_simulation():\n"
-                                   "    sample = get_sample()\n"
-                                   "    simulation = get_simulation()\n"
-                                   "    simulation.setSample(sample)\n"
-                                   "    simulation.runSimulation()\n"
-                                   "    return simulation.result()\n"
-                                   "\n\n";
-
 std::string defineFootprintFactor(const IFootprintFactor& foot) {
     std::ostringstream result;
     result << indent() << "footprint = ba." << foot.name();
@@ -135,7 +127,7 @@ std::string defineDetector(const ISimulation* simulation) {
     result << std::setprecision(12);
 
     if (const auto* const det = dynamic_cast<const SphericalDetector*>(detector)) {
-        result << indent() << "simulation.setDetectorParameters(";
+        result << indent() << "detector = ba.SphericalDetector(";
         for (size_t index = 0; index < det->dimension(); ++index) {
             if (index != 0)
                 result << ", ";
@@ -182,12 +174,10 @@ std::string defineDetector(const ISimulation* simulation) {
                    << pyfmt::printDouble(det->getDirectBeamV0()) << ")\n";
         } else
             throw std::runtime_error("defineDetector() -> Error. Unknown alignment.");
-
-        result << indent() << "simulation.setDetector(detector)\n";
     } else
         throw std::runtime_error("defineDetector() -> Error. Unknown detector");
     if (detector->regionOfInterest()) {
-        result << indent() << "simulation.setRegionOfInterest("
+        result << indent() << "detector.setRegionOfInterest("
                << printFunc(detector)(detector->regionOfInterest()->getXlow()) << ", "
                << printFunc(detector)(detector->regionOfInterest()->getYlow()) << ", "
                << printFunc(detector)(detector->regionOfInterest()->getXup()) << ", "
@@ -249,14 +239,14 @@ std::string defineBeamPolarization(const Beam& beam) {
                << pyfmt::printDouble(bloch_vector.x()) << ", "
                << pyfmt::printDouble(bloch_vector.y()) << ", "
                << pyfmt::printDouble(bloch_vector.z()) << ")\n";
-        result << indent() << "simulation.setBeamPolarization(" << beam_polarization << ")\n";
+        result << indent() << "beam.setPolarization(" << beam_polarization << ")\n";
     }
     return result.str();
 }
 
 std::string defineBeamIntensity(const Beam& beam) {
     std::ostringstream result;
-    double beam_intensity = beam.getIntensity();
+    double beam_intensity = beam.intensity();
     if (beam_intensity > 0.0)
         result << indent() << "simulation.setBeamIntensity("
                << pyfmt::printScientificDouble(beam_intensity) << ")\n";
@@ -267,12 +257,12 @@ std::string defineGISASBeam(const GISASSimulation& simulation) {
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
-    result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.getWavelength())
-           << ", " << pyfmt::printDegrees(beam.getAlpha()) << ", "
-           << pyfmt::printDegrees(beam.getPhi()) << ")\n";
+    result << indent() << "beam = ba.Beam(" << pyfmt::printDouble(beam.intensity()) << ", "
+           << pyfmt::printNm(beam.wavelength()) << ", ba.Direction("
+           << pyfmt::printDegrees(beam.direction().alpha()) << ", "
+           << pyfmt::printDegrees(beam.direction().phi()) << "))\n";
 
     result << defineBeamPolarization(beam);
-    result << defineBeamIntensity(beam);
 
     return result.str();
 }
@@ -284,9 +274,9 @@ std::string defineOffSpecBeam(const OffSpecSimulation& simulation) {
     const std::string axidef = indent() + "alpha_i_axis = ";
     result << axidef << pyfmt2::printAxis(simulation.beamAxis(), "rad") << "\n";
 
-    result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.getWavelength())
+    result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.wavelength())
            << ", "
-           << "alpha_i_axis, " << pyfmt::printDegrees(beam.getPhi()) << ")\n";
+           << "alpha_i_axis, " << pyfmt::printDegrees(beam.direction().phi()) << ")\n";
 
     result << defineBeamPolarization(beam);
     result << defineBeamIntensity(beam);
@@ -386,11 +376,11 @@ std::string defineBackground(const ISimulation* simulation) {
 
 std::string defineGISASSimulation(const GISASSimulation* simulation) {
     std::ostringstream result;
-    result << indent() << "simulation = ba.GISASSimulation()\n";
+    result << defineGISASBeam(*simulation);
     result << defineDetector(simulation);
+    result << indent() << "simulation = ba.GISASSimulation(beam, get_sample(), detector)\n";
     result << defineDetectorResolutionFunction(simulation);
     result << defineDetectorPolarizationAnalysis(simulation);
-    result << defineGISASBeam(*simulation);
     result << defineParameterDistributions(simulation);
     result << defineMasks(simulation);
     result << defineSimulationOptions(simulation);
@@ -409,6 +399,7 @@ std::string defineOffSpecSimulation(const OffSpecSimulation* simulation) {
     result << defineMasks(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
+    result << "    simulation.setSample(get_sample())\n";
     return result.str();
 }
 
@@ -420,13 +411,13 @@ std::string defineSpecularSimulation(const SpecularSimulation* simulation) {
     result << defineParameterDistributions(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
+    result << "    simulation.setSample(get_sample())\n";
     return result.str();
 }
 
-std::string defineGetSimulation(const ISimulation* simulation) {
+std::string defineSimulate(const ISimulation* simulation) {
     std::ostringstream result;
     result << "def get_simulation():\n";
-
     if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
         result << defineGISASSimulation(gisas);
     else if (auto offspec = dynamic_cast<const OffSpecSimulation*>(simulation))
@@ -434,17 +425,20 @@ std::string defineGetSimulation(const ISimulation* simulation) {
     else if (auto spec = dynamic_cast<const SpecularSimulation*>(simulation))
         result << defineSpecularSimulation(spec);
     else
-        throw std::runtime_error("defineGetSimulation() -> Error. "
-                                 "Wrong simulation type");
+        ASSERT(0);
+    result << "    return simulation\n\n\n";
 
-    result << indent() << "return simulation\n\n\n";
+    result << "def run_simulation():\n"
+              "    simulation = get_simulation()\n"
+              "    simulation.runSimulation()\n"
+              "    return simulation.result()\n\n\n";
+
     return result.str();
 }
 
 const std::string defineMain =
     "if __name__ == '__main__':\n"
     "    result = run_simulation()\n"
-    "    import sys\n"
     "    if len(sys.argv)>=2:\n"
     "        ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n"
     "    else:\n"
@@ -452,11 +446,13 @@ const std::string defineMain =
 
 } // namespace
 
-//! Returns a Python script that sets up a simulation and runs it if invoked as main program.
+//  ************************************************************************************************
+//  class SimulationToPython
+//  ************************************************************************************************
 
 std::string SimulationToPython::generateSimulationCode(const ISimulation& simulation) {
     if (simulation.sample() == nullptr)
         throw std::runtime_error("Cannot export: Simulation has no sample");
     return pyfmt::scriptPreamble() + SampleToPython().generateSampleCode(*simulation.sample())
-           + defineGetSimulation(&simulation) + defineSimulate + defineMain;
+           + defineSimulate(&simulation) + defineMain;
 }

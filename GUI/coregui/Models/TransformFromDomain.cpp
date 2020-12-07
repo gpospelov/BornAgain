@@ -230,10 +230,10 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
     ASSERT(beam_item);
     Beam beam = simulation.instrument().beam();
 
-    beam_item->setIntensity(beam.getIntensity());
-    beam_item->setWavelength(beam.getWavelength());
-    beam_item->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
-    beam_item->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
+    beam_item->setIntensity(beam.intensity());
+    beam_item->setWavelength(beam.wavelength());
+    beam_item->setInclinationAngle(Units::rad2deg(beam.direction().alpha()));
+    beam_item->setAzimuthalAngle(Units::rad2deg(beam.direction().phi()));
 
     // distribution parameters
     const DistributionHandler::Distributions_t distributions =
@@ -255,10 +255,10 @@ void TransformFromDomain::setOffSpecBeamItem(BeamItem* beam_item,
                                              const OffSpecSimulation& simulation) {
     Beam beam = simulation.instrument().beam();
 
-    beam_item->setIntensity(beam.getIntensity());
-    beam_item->setWavelength(beam.getWavelength());
-    beam_item->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
-    beam_item->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
+    beam_item->setIntensity(beam.intensity());
+    beam_item->setWavelength(beam.wavelength());
+    beam_item->setInclinationAngle(Units::rad2deg(beam.direction().alpha()));
+    beam_item->setAzimuthalAngle(Units::rad2deg(beam.direction().phi()));
     // TODO implement beam divergence
 }
 
@@ -266,8 +266,8 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
                                               const SpecularSimulation& simulation) {
     const Beam& beam = simulation.instrument().beam();
 
-    beam_item->setIntensity(beam.getIntensity());
-    beam_item->setWavelength(beam.getWavelength());
+    beam_item->setIntensity(beam.intensity());
+    beam_item->setWavelength(beam.wavelength());
     beam_item->setInclinationAngle(0.0); // inclination angle is hardcoded
     beam_item->setAzimuthalAngle(0.0);   // azimuthal angle is hardcoded
 

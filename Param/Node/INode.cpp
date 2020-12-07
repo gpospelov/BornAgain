@@ -116,7 +116,7 @@ ParameterPool* INode::createParameterTree() const {
     std::unique_ptr<ParameterPool> result(new ParameterPool);
 
     for (const INode* child : progeny()) {
-        const std::string path = NodeUtils::nodePath(child, this->parent()) + "/";
+        const std::string path = NodeUtils::nodePath(child, parent()) + "/";
         child->parameterPool()->copyToExternalPool(path, result.get());
     }
 

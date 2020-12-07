@@ -272,14 +272,6 @@ template <class T> inline bool operator!=(const BasicVector3D<T>& a, const Basic
     return (a.x() != b.x() || a.y() != b.y() || a.z() != b.z());
 }
 
-// -----------------------------------------------------------------------------
-// Quasi constructor
-// -----------------------------------------------------------------------------
-
-//! Creates a vector<double> as a wavevector with given wavelength and angles.
-//! Specifically needed for grazing-incidence scattering.
-BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi);
-
 // =============================================================================
 // ?? for API generation ??
 // =============================================================================

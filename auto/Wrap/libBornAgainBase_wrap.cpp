@@ -3105,59 +3105,60 @@ namespace Swig {
 #define SWIGTYPE_p_Bin1DKVector swig_types[5]
 #define SWIGTYPE_p_ConstKBinAxis swig_types[6]
 #define SWIGTYPE_p_CustomBinAxis swig_types[7]
-#define SWIGTYPE_p_FixedBinAxis swig_types[8]
-#define SWIGTYPE_p_IAxis swig_types[9]
-#define SWIGTYPE_p_ICloneable swig_types[10]
-#define SWIGTYPE_p_IPixel swig_types[11]
-#define SWIGTYPE_p_ThreadInfo swig_types[12]
-#define SWIGTYPE_p_VariableBinAxis swig_types[13]
-#define SWIGTYPE_p_allocator_type swig_types[14]
-#define SWIGTYPE_p_char swig_types[15]
-#define SWIGTYPE_p_difference_type swig_types[16]
-#define SWIGTYPE_p_first_type swig_types[17]
-#define SWIGTYPE_p_int swig_types[18]
-#define SWIGTYPE_p_key_type swig_types[19]
-#define SWIGTYPE_p_long_long swig_types[20]
-#define SWIGTYPE_p_mapped_type swig_types[21]
-#define SWIGTYPE_p_p_PyObject swig_types[22]
-#define SWIGTYPE_p_second_type swig_types[23]
-#define SWIGTYPE_p_short swig_types[24]
-#define SWIGTYPE_p_signed_char swig_types[25]
-#define SWIGTYPE_p_size_type swig_types[26]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[27]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[28]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[29]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[30]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[31]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[32]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[33]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[34]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[35]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[36]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[37]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[38]
-#define SWIGTYPE_p_std__invalid_argument swig_types[39]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[40]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[41]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[42]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[43]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[44]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[45]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[46]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[47]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[48]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[49]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[50]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[51]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[52]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[53]
-#define SWIGTYPE_p_unsigned_char swig_types[54]
-#define SWIGTYPE_p_unsigned_int swig_types[55]
-#define SWIGTYPE_p_unsigned_long_long swig_types[56]
-#define SWIGTYPE_p_unsigned_short swig_types[57]
-#define SWIGTYPE_p_value_type swig_types[58]
-static swig_type_info *swig_types[60];
-static swig_module_info swig_module = {swig_types, 59, 0, 0, 0, 0};
+#define SWIGTYPE_p_Direction swig_types[8]
+#define SWIGTYPE_p_FixedBinAxis swig_types[9]
+#define SWIGTYPE_p_IAxis swig_types[10]
+#define SWIGTYPE_p_ICloneable swig_types[11]
+#define SWIGTYPE_p_IPixel swig_types[12]
+#define SWIGTYPE_p_ThreadInfo swig_types[13]
+#define SWIGTYPE_p_VariableBinAxis swig_types[14]
+#define SWIGTYPE_p_allocator_type swig_types[15]
+#define SWIGTYPE_p_char swig_types[16]
+#define SWIGTYPE_p_difference_type swig_types[17]
+#define SWIGTYPE_p_first_type swig_types[18]
+#define SWIGTYPE_p_int swig_types[19]
+#define SWIGTYPE_p_key_type swig_types[20]
+#define SWIGTYPE_p_long_long swig_types[21]
+#define SWIGTYPE_p_mapped_type swig_types[22]
+#define SWIGTYPE_p_p_PyObject swig_types[23]
+#define SWIGTYPE_p_second_type swig_types[24]
+#define SWIGTYPE_p_short swig_types[25]
+#define SWIGTYPE_p_signed_char swig_types[26]
+#define SWIGTYPE_p_size_type swig_types[27]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[28]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[29]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[30]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[31]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[32]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[33]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[34]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[35]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[36]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[37]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[38]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[39]
+#define SWIGTYPE_p_std__invalid_argument swig_types[40]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[41]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[42]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[43]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[44]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[45]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[46]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[47]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[48]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[49]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[50]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[51]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[52]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[53]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[54]
+#define SWIGTYPE_p_unsigned_char swig_types[55]
+#define SWIGTYPE_p_unsigned_int swig_types[56]
+#define SWIGTYPE_p_unsigned_long_long swig_types[57]
+#define SWIGTYPE_p_unsigned_short swig_types[58]
+#define SWIGTYPE_p_value_type swig_types[59]
+static swig_type_info *swig_types[61];
+static swig_module_info swig_module = {swig_types, 60, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6659,6 +6660,7 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 
 #include "Base/Vector/BasicVector3D.h"
 #include "Base/Vector/Vectors3D.h"
+#include "Base/Vector/Direction.h"
 
 #include "Base/Axis/Bin.h"
 #include "Base/Axis/ConstKBinAxis.h"
@@ -24549,7 +24551,7 @@ SWIGINTERN PyObject *_wrap_vecOfLambdaAlphaPhi(PyObject *SWIGUNUSEDPARM(self), P
   double val3 ;
   int ecode3 = 0 ;
   PyObject *swig_obj[3] ;
-  BasicVector3D< double > result;
+  kvector_t result;
   
   if (!SWIG_Python_UnpackTuple(args, "vecOfLambdaAlphaPhi", 3, 3, swig_obj)) SWIG_fail;
   ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
@@ -24568,12 +24570,251 @@ SWIGINTERN PyObject *_wrap_vecOfLambdaAlphaPhi(PyObject *SWIGUNUSEDPARM(self), P
   } 
   arg3 = static_cast< double >(val3);
   result = vecOfLambdaAlphaPhi(arg1,arg2,arg3);
-  resultobj = SWIG_NewPointerObj((new BasicVector3D< double >(static_cast< const BasicVector3D< double >& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
+
+SWIGINTERN PyObject *_wrap_new_Direction__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  Direction *result = 0 ;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_Direction" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_Direction" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = (Direction *)new Direction(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Direction, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Direction__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  Direction *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (Direction *)new Direction();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Direction, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Direction(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[3] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_Direction", 0, 2, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_Direction__SWIG_1(self, argc, argv);
+  }
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_new_Direction__SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Direction'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Direction::Direction(double,double)\n"
+    "    Direction::Direction()\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Direction_setAlpha(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Direction *arg1 = (Direction *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Direction_setAlpha", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Direction, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Direction_setAlpha" "', argument " "1"" of type '" "Direction *""'"); 
+  }
+  arg1 = reinterpret_cast< Direction * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Direction_setAlpha" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setAlpha(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Direction_setPhi(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Direction *arg1 = (Direction *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Direction_setPhi", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Direction, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Direction_setPhi" "', argument " "1"" of type '" "Direction *""'"); 
+  }
+  arg1 = reinterpret_cast< Direction * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Direction_setPhi" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setPhi(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Direction_alpha(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Direction *arg1 = (Direction *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Direction, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Direction_alpha" "', argument " "1"" of type '" "Direction const *""'"); 
+  }
+  arg1 = reinterpret_cast< Direction * >(argp1);
+  result = (double)((Direction const *)arg1)->alpha();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Direction_phi(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Direction *arg1 = (Direction *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Direction, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Direction_phi" "', argument " "1"" of type '" "Direction const *""'"); 
+  }
+  arg1 = reinterpret_cast< Direction * >(argp1);
+  result = (double)((Direction const *)arg1)->phi();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Direction_vector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Direction *arg1 = (Direction *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  kvector_t result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Direction, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Direction_vector" "', argument " "1"" of type '" "Direction const *""'"); 
+  }
+  arg1 = reinterpret_cast< Direction * >(argp1);
+  result = ((Direction const *)arg1)->vector();
+  resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_Direction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Direction *arg1 = (Direction *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Direction, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Direction" "', argument " "1"" of type '" "Direction *""'"); 
+  }
+  arg1 = reinterpret_cast< Direction * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Direction_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Direction, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *Direction_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
 
 SWIGINTERN PyObject *_wrap_new_Bin1D__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
@@ -32878,11 +33119,45 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "vecOfLambdaAlphaPhi", _wrap_vecOfLambdaAlphaPhi, METH_VARARGS, "\n"
 		"vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t\n"
-		"BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)\n"
-		"\n"
-		"Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. \n"
+		"kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)\n"
 		"\n"
 		""},
+	 { "new_Direction", _wrap_new_Direction, METH_VARARGS, "\n"
+		"Direction(double alpha, double phi)\n"
+		"new_Direction() -> Direction\n"
+		"Direction::Direction()\n"
+		"\n"
+		""},
+	 { "Direction_setAlpha", _wrap_Direction_setAlpha, METH_VARARGS, "\n"
+		"Direction_setAlpha(Direction self, double alpha)\n"
+		"void Direction::setAlpha(double alpha)\n"
+		"\n"
+		""},
+	 { "Direction_setPhi", _wrap_Direction_setPhi, METH_VARARGS, "\n"
+		"Direction_setPhi(Direction self, double phi)\n"
+		"void Direction::setPhi(double phi)\n"
+		"\n"
+		""},
+	 { "Direction_alpha", _wrap_Direction_alpha, METH_O, "\n"
+		"Direction_alpha(Direction self) -> double\n"
+		"double Direction::alpha() const\n"
+		"\n"
+		""},
+	 { "Direction_phi", _wrap_Direction_phi, METH_O, "\n"
+		"Direction_phi(Direction self) -> double\n"
+		"double Direction::phi() const\n"
+		"\n"
+		""},
+	 { "Direction_vector", _wrap_Direction_vector, METH_O, "\n"
+		"Direction_vector(Direction self) -> kvector_t\n"
+		"kvector_t Direction::vector() const\n"
+		"\n"
+		"Returns Cartesian 3D vector. \n"
+		"\n"
+		""},
+	 { "delete_Direction", _wrap_delete_Direction, METH_O, "delete_Direction(Direction self)"},
+	 { "Direction_swigregister", Direction_swigregister, METH_O, NULL},
+	 { "Direction_swiginit", Direction_swiginit, METH_VARARGS, NULL},
 	 { "new_Bin1D", _wrap_new_Bin1D, METH_VARARGS, "\n"
 		"Bin1D()\n"
 		"new_Bin1D(double lower, double upper) -> Bin1D\n"
@@ -33800,6 +34075,7 @@ static swig_type_info _swigt__p_Bin1DCVector = {"_p_Bin1DCVector", "Bin1DCVector
 static swig_type_info _swigt__p_Bin1DKVector = {"_p_Bin1DKVector", "Bin1DKVector *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ConstKBinAxis = {"_p_ConstKBinAxis", "ConstKBinAxis *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_CustomBinAxis = {"_p_CustomBinAxis", "CustomBinAxis *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Direction = {"_p_Direction", "Direction *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FixedBinAxis = {"_p_FixedBinAxis", "FixedBinAxis *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IAxis = {"_p_IAxis", "IAxis *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICloneable = {"_p_ICloneable", "ICloneable *", 0, 0, (void*)0, 0};
@@ -33861,6 +34137,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Bin1DKVector,
   &_swigt__p_ConstKBinAxis,
   &_swigt__p_CustomBinAxis,
+  &_swigt__p_Direction,
   &_swigt__p_FixedBinAxis,
   &_swigt__p_IAxis,
   &_swigt__p_ICloneable,
@@ -33922,6 +34199,7 @@ static swig_cast_info _swigc__p_Bin1DCVector[] = {  {&_swigt__p_Bin1DCVector, 0,
 static swig_cast_info _swigc__p_Bin1DKVector[] = {  {&_swigt__p_Bin1DKVector, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ConstKBinAxis[] = {  {&_swigt__p_ConstKBinAxis, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_CustomBinAxis[] = {  {&_swigt__p_CustomBinAxis, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Direction[] = {  {&_swigt__p_Direction, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FixedBinAxis[] = {  {&_swigt__p_FixedBinAxis, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IAxis[] = {  {&_swigt__p_IAxis, 0, 0, 0},  {&_swigt__p_VariableBinAxis, _p_VariableBinAxisTo_p_IAxis, 0, 0},  {&_swigt__p_ConstKBinAxis, _p_ConstKBinAxisTo_p_IAxis, 0, 0},  {&_swigt__p_CustomBinAxis, _p_CustomBinAxisTo_p_IAxis, 0, 0},  {&_swigt__p_FixedBinAxis, _p_FixedBinAxisTo_p_IAxis, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_ICloneable, 0, 0, 0},{0, 0, 0, 0}};
@@ -33983,6 +34261,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Bin1DKVector,
   _swigc__p_ConstKBinAxis,
   _swigc__p_CustomBinAxis,
+  _swigc__p_Direction,
   _swigc__p_FixedBinAxis,
   _swigc__p_IAxis,
   _swigc__p_ICloneable,

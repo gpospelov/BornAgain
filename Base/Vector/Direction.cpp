@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Shapes/RippleSawtooth.h
-//! @brief     Defines class RippleSawtooth.
+//! @file      Base/Vector/Direction.cpp
+//! @brief     Implements class Direction.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,19 +12,15 @@
 //
 //  ************************************************************************************************
 
-#ifdef SWIG
-#error no need to expose this header to Swig
-#endif
+#include "Base/Vector/Direction.h"
+#include "Base/Math/Constants.h"
+#include <cmath>
 
-#ifndef BORNAGAIN_SAMPLE_SHAPES_RIPPLESAWTOOTH_H
-#define BORNAGAIN_SAMPLE_SHAPES_RIPPLESAWTOOTH_H
+kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) {
+    return M_TWOPI / _lambda * Direction(_alpha, _phi).vector();
+}
 
-#include "Sample/Shapes/IShape.h"
-
-class RippleSawtooth : public IShape {
-public:
-    RippleSawtooth(double length, double width, double height, double asymmetry);
-    ~RippleSawtooth();
-};
-
-#endif // BORNAGAIN_SAMPLE_SHAPES_RIPPLESAWTOOTH_H
+kvector_t Direction::vector() const {
+    return {std::cos(m_alpha) * std::cos(m_phi), -std::cos(m_alpha) * std::sin(m_phi),
+            std::sin(m_alpha)};
+}

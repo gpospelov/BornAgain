@@ -36,7 +36,7 @@ Beam defined by wavelength, direction and intensity.
 C++ includes: Beam.h
 ";
 
-%feature("docstring")  Beam::Beam "Beam::Beam(double wavelength, double alpha, double phi, double intensity)
+%feature("docstring")  Beam::Beam "Beam::Beam(double intensity, double wavelength, const Direction &direction)
 ";
 
 %feature("docstring")  Beam::Beam "Beam::Beam(const Beam &other)
@@ -45,29 +45,53 @@ C++ includes: Beam.h
 %feature("docstring")  Beam::~Beam "Beam::~Beam()
 ";
 
+%feature("docstring")  Beam::accept "void Beam::accept(INodeVisitor *visitor) const override
+";
+
+%feature("docstring")  Beam::getChildren "std::vector< const INode * > Beam::getChildren() const override
+";
+
+%feature("docstring")  Beam::intensity "double Beam::intensity() const
+
+Returns the beam intensity in neutrons/sec. 
+";
+
+%feature("docstring")  Beam::wavelength "double Beam::wavelength() const
+";
+
+%feature("docstring")  Beam::direction "Direction Beam::direction() const
+";
+
 %feature("docstring")  Beam::getCentralK "kvector_t Beam::getCentralK() const
 
 Returns the wavevector. 
 ";
 
-%feature("docstring")  Beam::setCentralK "void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
-
-Sets the wavevector in terms of wavelength and incoming angles. 
-";
-
-%feature("docstring")  Beam::getIntensity "double Beam::getIntensity() const
-
-Returns the beam intensity in neutrons/sec. 
-";
-
-%feature("docstring")  Beam::setIntensity "void Beam::setIntensity(double intensity)
-
-Sets the beam intensity in neutrons/sec. 
+%feature("docstring")  Beam::getBlochVector "kvector_t Beam::getBlochVector() const
 ";
 
 %feature("docstring")  Beam::footprintFactor "const IFootprintFactor * Beam::footprintFactor() const
 
 Returns footprint factor. 
+";
+
+%feature("docstring")  Beam::getPolarization "Eigen::Matrix2cd Beam::getPolarization() const
+
+Returns the polarization density matrix (in spin basis along z-axis) 
+";
+
+%feature("docstring")  Beam::setWavelength "void Beam::setWavelength(double wavelength)
+";
+
+%feature("docstring")  Beam::setDirection "void Beam::setDirection(const Direction &direction)
+";
+
+%feature("docstring")  Beam::setInclination "void Beam::setInclination(const double alpha)
+";
+
+%feature("docstring")  Beam::setIntensity "void Beam::setIntensity(double intensity)
+
+Sets the beam intensity in neutrons/sec. 
 ";
 
 %feature("docstring")  Beam::setFootprintFactor "void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)
@@ -83,29 +107,6 @@ Sets beam to sample width ratio in footprint factor.
 %feature("docstring")  Beam::setPolarization "void Beam::setPolarization(const kvector_t bloch_vector)
 
 Sets the polarization density matrix according to the given Bloch vector. 
-";
-
-%feature("docstring")  Beam::getBlochVector "kvector_t Beam::getBlochVector() const
-";
-
-%feature("docstring")  Beam::getPolarization "Eigen::Matrix2cd Beam::getPolarization() const
-
-Returns the polarization density matrix (in spin basis along z-axis) 
-";
-
-%feature("docstring")  Beam::getWavelength "double Beam::getWavelength() const
-";
-
-%feature("docstring")  Beam::getAlpha "double Beam::getAlpha() const
-";
-
-%feature("docstring")  Beam::getPhi "double Beam::getPhi() const
-";
-
-%feature("docstring")  Beam::accept "void Beam::accept(INodeVisitor *visitor) const override
-";
-
-%feature("docstring")  Beam::getChildren "std::vector< const INode * > Beam::getChildren() const override
 ";
 
 
@@ -391,11 +392,6 @@ Init the map of masks for the given detector plane.
 ";
 
 %feature("docstring")  DetectorMask::createHistogram "Histogram2D * DetectorMask::createHistogram() const
-";
-
-%feature("docstring")  DetectorMask::removeMasks "void DetectorMask::removeMasks()
-
-remove all masks and return object to initial state 
 ";
 
 %feature("docstring")  DetectorMask::hasMasks "bool DetectorMask::hasMasks() const
@@ -926,6 +922,35 @@ Inits detector with the beam settings.
 %feature("docstring")  IDetector::addAxis "void IDetector::addAxis(const IAxis &axis)
 ";
 
+%feature("docstring")  IDetector::setAnalyzerProperties "void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
+
+Sets the polarization analyzer characteristics of the detector. 
+";
+
+%feature("docstring")  IDetector::setDetectorResolution "void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
+
+Sets the detector resolution. 
+";
+
+%feature("docstring")  IDetector::setResolutionFunction "void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
+";
+
+%feature("docstring")  IDetector::resetRegionOfInterest "virtual void IDetector::resetRegionOfInterest()=0
+
+Resets region of interest making whole detector plane available for the simulation. 
+";
+
+%feature("docstring")  IDetector::detectorMask "virtual const DetectorMask* IDetector::detectorMask() const =0
+
+Returns detector masks container. 
+";
+
+%feature("docstring")  IDetector::getChildren "std::vector< const INode * > IDetector::getChildren() const override
+";
+
+%feature("docstring")  IDetector::iterate "void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
+";
+
 %feature("docstring")  IDetector::axis "const IAxis & IDetector::axis(size_t index) const
 ";
 
@@ -944,32 +969,9 @@ Calculate axis index for given global index.
 Returns total number of pixels. 
 ";
 
-%feature("docstring")  IDetector::detectorMask "virtual const DetectorMask* IDetector::detectorMask() const =0
-
-Returns detector masks container. 
-";
-
-%feature("docstring")  IDetector::setAnalyzerProperties "void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
-
-Sets the polarization analyzer characteristics of the detector. 
-";
-
-%feature("docstring")  IDetector::setDetectorResolution "void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)
-
-Sets the detector resolution. 
-";
-
-%feature("docstring")  IDetector::setResolutionFunction "void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)
-";
-
 %feature("docstring")  IDetector::applyDetectorResolution "void IDetector::applyDetectorResolution(OutputData< double > *p_intensity_map) const
 
 Applies the detector resolution to the given intensity maps. 
-";
-
-%feature("docstring")  IDetector::removeDetectorResolution "void IDetector::removeDetectorResolution()
-
-Removes detector resolution function. 
 ";
 
 %feature("docstring")  IDetector::detectorResolution "const IDetectorResolution * IDetector::detectorResolution() const
@@ -980,16 +982,6 @@ Returns a pointer to detector resolution object.
 %feature("docstring")  IDetector::createDetectorMap "std::unique_ptr< OutputData< double > > IDetector::createDetectorMap() const
 
 Returns empty detector map in given axes units. 
-";
-
-%feature("docstring")  IDetector::regionOfInterest "virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
-
-Returns region of interest if exists. 
-";
-
-%feature("docstring")  IDetector::resetRegionOfInterest "virtual void IDetector::resetRegionOfInterest()=0
-
-Resets region of interest making whole detector plane available for the simulation. 
 ";
 
 %feature("docstring")  IDetector::detectionProperties "const DetectionProperties& IDetector::detectionProperties() const
@@ -1012,10 +1004,9 @@ Return default axes units.
 Returns number of simulation elements. 
 ";
 
-%feature("docstring")  IDetector::getChildren "std::vector< const INode * > IDetector::getChildren() const override
-";
+%feature("docstring")  IDetector::regionOfInterest "virtual const RegionOfInterest* IDetector::regionOfInterest() const =0
 
-%feature("docstring")  IDetector::iterate "void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const
+Returns region of interest if exists. 
 ";
 
 
@@ -1039,11 +1030,6 @@ C++ includes: IDetector2D.h
 %feature("docstring")  IDetector2D::setDetectorParameters "void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
 
 Sets detector parameters using angle ranges. 
-";
-
-%feature("docstring")  IDetector2D::removeMasks "void IDetector2D::removeMasks()
-
-Removes all masks from the detector. 
 ";
 
 %feature("docstring")  IDetector2D::detectorMask "const DetectorMask * IDetector2D::detectorMask() const override
@@ -1459,6 +1445,9 @@ C++ includes: Instrument.h
 %feature("docstring")  Instrument::Instrument "Instrument::Instrument()
 ";
 
+%feature("docstring")  Instrument::Instrument "Instrument::Instrument(const Beam &beam, const IDetector &detector)
+";
+
 %feature("docstring")  Instrument::Instrument "Instrument::Instrument(const Instrument &other)
 ";
 
@@ -1490,9 +1479,6 @@ Sets the beam wavelength and incoming angles.
 Sets the beam's polarization according to the given Bloch vector. 
 ";
 
-%feature("docstring")  Instrument::getBeamIntensity "double Instrument::getBeamIntensity() const
-";
-
 %feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
 ";
 
@@ -1508,38 +1494,9 @@ Sets the beam's polarization according to the given Bloch vector.
 %feature("docstring")  Instrument::detector2D "const IDetector2D & Instrument::detector2D() const
 ";
 
-%feature("docstring")  Instrument::getDetectorMask "const DetectorMask * Instrument::getDetectorMask() const
-";
-
-%feature("docstring")  Instrument::getDetectorAxis "const IAxis & Instrument::getDetectorAxis(size_t index) const
-";
-
-%feature("docstring")  Instrument::getDetectorDimension "size_t Instrument::getDetectorDimension() const
-";
-
 %feature("docstring")  Instrument::setDetector "void Instrument::setDetector(const IDetector &detector)
 
 Sets the detector (axes can be overwritten later) 
-";
-
-%feature("docstring")  Instrument::setDetectorResolutionFunction "void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)
-
-Sets detector resolution function. 
-";
-
-%feature("docstring")  Instrument::removeDetectorResolution "void Instrument::removeDetectorResolution()
-
-Removes detector resolution function. 
-";
-
-%feature("docstring")  Instrument::setAnalyzerProperties "void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)
-
-Sets the polarization analyzer characteristics of the detector. 
-";
-
-%feature("docstring")  Instrument::applyDetectorResolution "void Instrument::applyDetectorResolution(OutputData< double > *p_intensity_map) const
-
-apply the detector resolution to the given intensity map 
 ";
 
 %feature("docstring")  Instrument::initDetector "void Instrument::initDetector()
@@ -1554,7 +1511,7 @@ init detector with beam settings
 // File: classIntensityDataIOFactory.xml
 %feature("docstring") IntensityDataIOFactory "
 
-Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
+Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends with \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.
 
 Usage:
 
@@ -1589,36 +1546,6 @@ C++ includes: IIntensityFunction.h
 ";
 
 %feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const
-";
-
-
-// File: classIOutputDataReadStrategy.xml
-%feature("docstring") IOutputDataReadStrategy "
-
-Interface for reading strategy of  OutputData from file.
-
-C++ includes: OutputDataReadStrategy.h
-";
-
-%feature("docstring")  IOutputDataReadStrategy::~IOutputDataReadStrategy "virtual IOutputDataReadStrategy::~IOutputDataReadStrategy()=default
-";
-
-%feature("docstring")  IOutputDataReadStrategy::readOutputData "virtual OutputData<double>* IOutputDataReadStrategy::readOutputData(std::istream &input_stream)=0
-";
-
-
-// File: classIOutputDataWriteStrategy.xml
-%feature("docstring") IOutputDataWriteStrategy "
-
-Strategy interface to write OututData in file
-
-C++ includes: OutputDataWriteStrategy.h
-";
-
-%feature("docstring")  IOutputDataWriteStrategy::~IOutputDataWriteStrategy "virtual IOutputDataWriteStrategy::~IOutputDataWriteStrategy()=default
-";
-
-%feature("docstring")  IOutputDataWriteStrategy::writeOutputData "virtual void IOutputDataWriteStrategy::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)=0
 ";
 
 
@@ -2224,125 +2151,45 @@ Swaps iterators.
 ";
 
 
-// File: classOutputDataReader.xml
-%feature("docstring") OutputDataReader "
+// File: classOutputDataReadReflectometry.xml
+%feature("docstring") OutputDataReadReflectometry "
 
-Reads  OutputData from file using different reading strategies.
+Class for reading reflectometry data from ASCII file.
 
-C++ includes: OutputDataReader.h
+C++ includes: OutputDataReadReflectometry.h
 ";
 
-%feature("docstring")  OutputDataReader::OutputDataReader "OutputDataReader::OutputDataReader(const std::string &file_name)
-";
-
-%feature("docstring")  OutputDataReader::getOutputData "OutputData< double > * OutputDataReader::getOutputData()
-
-read output data from file (file name was set already from OutputDataIOFactory) 
-";
-
-%feature("docstring")  OutputDataReader::setStrategy "void OutputDataReader::setStrategy(IOutputDataReadStrategy *read_strategy)
-
-Sets concrete reading strategy. 
+%feature("docstring")  OutputDataReadReflectometry::readOutputData "OutputData< double > * OutputDataReadReflectometry::readOutputData(std::istream &input_stream)
 ";
 
 
-// File: classOutputDataReadFactory.xml
-%feature("docstring") OutputDataReadFactory "
+// File: classOutputDataReadWriteINT.xml
+%feature("docstring") OutputDataReadWriteINT "
 
-Creates reader appropariate for given type of files.
+Class for reading and writing BornAgain native IntensityData from ASCII file.
 
-C++ includes: OutputDataReadFactory.h
+C++ includes: OutputDataReadWriteINT.h
+";
+
+%feature("docstring")  OutputDataReadWriteINT::readOutputData "OutputData< double > * OutputDataReadWriteINT::readOutputData(std::istream &input_stream)
+";
+
+%feature("docstring")  OutputDataReadWriteINT::writeOutputData "void OutputDataReadWriteINT::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)
 ";
 
 
-// File: classOutputDataReadINTStrategy.xml
-%feature("docstring") OutputDataReadINTStrategy "
+// File: classOutputDataReadWriteNumpyTXT.xml
+%feature("docstring") OutputDataReadWriteNumpyTXT "
 
-Strategy to read BornAgain native IntensityData from ASCII file.
+Class for reading and writing  OutputData from simple ASCII file with the layout as in numpy.savetxt.
 
-C++ includes: OutputDataReadStrategy.h
+C++ includes: OutputDataReadWriteNumpyTXT.h
 ";
 
-%feature("docstring")  OutputDataReadINTStrategy::readOutputData "OutputData< double > * OutputDataReadINTStrategy::readOutputData(std::istream &input_stream)
+%feature("docstring")  OutputDataReadWriteNumpyTXT::readOutputData "OutputData< double > * OutputDataReadWriteNumpyTXT::readOutputData(std::istream &input_stream)
 ";
 
-
-// File: classOutputDataReadNumpyTXTStrategy.xml
-%feature("docstring") OutputDataReadNumpyTXTStrategy "
-
-Strategy to read  OutputData from simple ASCII file with the layout as in numpy.savetxt.
-
-C++ includes: OutputDataReadStrategy.h
-";
-
-%feature("docstring")  OutputDataReadNumpyTXTStrategy::readOutputData "OutputData< double > * OutputDataReadNumpyTXTStrategy::readOutputData(std::istream &input_stream)
-";
-
-
-// File: classOutputDataReadReflectometryStrategy.xml
-%feature("docstring") OutputDataReadReflectometryStrategy "
-
-Strategy to read Reflectometry data from ASCII file.
-
-C++ includes: OutputDataReadStrategy.h
-";
-
-%feature("docstring")  OutputDataReadReflectometryStrategy::readOutputData "OutputData< double > * OutputDataReadReflectometryStrategy::readOutputData(std::istream &input_stream)
-";
-
-
-// File: classOutputDataWriteFactory.xml
-%feature("docstring") OutputDataWriteFactory "
-
-Creates writer appropariate for given type of files.
-
-C++ includes: OutputDataWriteFactory.h
-";
-
-
-// File: classOutputDataWriteINTStrategy.xml
-%feature("docstring") OutputDataWriteINTStrategy "
-
-Strategy to write  OutputData to special BornAgain ASCII format
-
-C++ includes: OutputDataWriteStrategy.h
-";
-
-%feature("docstring")  OutputDataWriteINTStrategy::writeOutputData "void OutputDataWriteINTStrategy::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)
-";
-
-
-// File: classOutputDataWriteNumpyTXTStrategy.xml
-%feature("docstring") OutputDataWriteNumpyTXTStrategy "
-
-Strategy to write  OutputData to simple ASCII file with the layout as in numpy.savetxt
-
-C++ includes: OutputDataWriteStrategy.h
-";
-
-%feature("docstring")  OutputDataWriteNumpyTXTStrategy::writeOutputData "void OutputDataWriteNumpyTXTStrategy::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)
-";
-
-
-// File: classOutputDataWriter.xml
-%feature("docstring") OutputDataWriter "
-
-Write  OutputData to file using different witing strategies.
-
-C++ includes: OutputDataWriter.h
-";
-
-%feature("docstring")  OutputDataWriter::OutputDataWriter "OutputDataWriter::OutputDataWriter(const std::string &file_name)
-";
-
-%feature("docstring")  OutputDataWriter::writeOutputData "void OutputDataWriter::writeOutputData(const OutputData< double > &data)
-
-Writes output data to file. 
-";
-
-%feature("docstring")  OutputDataWriter::setStrategy "void OutputDataWriter::setStrategy(IOutputDataWriteStrategy *write_strategy)
-
-Sets concrete writing strategy. 
+%feature("docstring")  OutputDataReadWriteNumpyTXT::writeOutputData "void OutputDataReadWriteNumpyTXT::writeOutputData(const OutputData< double > &data, std::ostream &output_stream)
 ";
 
 
@@ -3156,7 +3003,7 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0d111.xml
+// File: namespace_0d105.xml
 
 
 // File: namespace_0d33.xml
@@ -3165,13 +3012,7 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: namespace_0d56.xml
 
 
-// File: namespace_0d58.xml
-
-
 // File: namespace_0d62.xml
-
-
-// File: namespace_0d68.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3557,46 +3398,28 @@ make Swappable
 // File: DataFormatUtils_8h.xml
 
 
-// File: OutputDataReader_8cpp.xml
+// File: OutputDataReadReflectometry_8cpp.xml
 
 
-// File: OutputDataReader_8h.xml
+// File: OutputDataReadReflectometry_8h.xml
 
 
-// File: OutputDataReadFactory_8cpp.xml
+// File: OutputDataReadWriteINT_8cpp.xml
 
 
-// File: OutputDataReadFactory_8h.xml
+// File: OutputDataReadWriteINT_8h.xml
 
 
-// File: OutputDataReadStrategy_8cpp.xml
+// File: OutputDataReadWriteNumpyTXT_8cpp.xml
 
 
-// File: OutputDataReadStrategy_8h.xml
+// File: OutputDataReadWriteNumpyTXT_8h.xml
 
 
-// File: OutputDataWriteFactory_8cpp.xml
+// File: OutputDataReadWriteTiff_8cpp.xml
 
 
-// File: OutputDataWriteFactory_8h.xml
-
-
-// File: OutputDataWriter_8cpp.xml
-
-
-// File: OutputDataWriter_8h.xml
-
-
-// File: OutputDataWriteStrategy_8cpp.xml
-
-
-// File: OutputDataWriteStrategy_8h.xml
-
-
-// File: TiffHandler_8cpp.xml
-
-
-// File: TiffHandler_8h.xml
+// File: OutputDataReadWriteTiff_8h.xml
 
 
 // File: ChiSquaredModule_8cpp.xml

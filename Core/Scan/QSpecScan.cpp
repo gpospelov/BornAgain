@@ -79,7 +79,7 @@ QSpecScan::createIntensities(const std::vector<SpecularSimulationElement>& sim_e
     for (size_t i = 0; i < axis_size; ++i) {
         double& current = result[i];
         for (size_t j = 0, size = samples[i].size(); j < size; ++j) {
-            current += sim_elements[elem_pos].getIntensity() * samples[i][j].weight;
+            current += sim_elements[elem_pos].intensity() * samples[i][j].weight;
             ++elem_pos;
         }
     }

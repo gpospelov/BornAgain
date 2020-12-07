@@ -31,6 +31,7 @@
 
 #include "Base/Vector/BasicVector3D.h"
 #include "Base/Vector/Vectors3D.h"
+#include "Base/Vector/Direction.h"
 
 #include "Base/Axis/Bin.h"
 #include "Base/Axis/ConstKBinAxis.h"
@@ -51,6 +52,7 @@
 
 %include "Base/Vector/BasicVector3D.h"
 %include "Base/Vector/Vectors3D.h"
+%include "Base/Vector/Direction.h"
 
 %include "Base/Axis/Bin.h"
 %include "Base/Axis/IAxis.h"

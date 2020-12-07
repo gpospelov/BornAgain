@@ -68,8 +68,8 @@ std::string SphericalDetector::axisName(size_t index) const {
 size_t SphericalDetector::indexOfSpecular(const Beam& beam) const {
     if (dimension() != 2)
         return totalSize();
-    double alpha = beam.getAlpha();
-    double phi = beam.getPhi();
+    double alpha = beam.direction().alpha();
+    double phi = beam.direction().phi();
     const IAxis& phi_axis = axis(0);
     const IAxis& alpha_axis = axis(1);
     if (phi_axis.contains(phi) && alpha_axis.contains(alpha))

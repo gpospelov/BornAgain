@@ -39,9 +39,6 @@ public:
     void setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min,
                                double y_max);
 
-    //! Removes all masks from the detector
-    void removeMasks();
-
     const DetectorMask* detectorMask() const override;
 
     //! Adds mask of given shape to the stack of detector masks. The mask value 'true' means

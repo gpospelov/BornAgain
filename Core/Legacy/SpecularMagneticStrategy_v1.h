@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V1_H
 #define BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V1_H
 

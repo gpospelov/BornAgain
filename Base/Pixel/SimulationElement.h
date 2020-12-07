@@ -46,14 +46,14 @@ public:
     //! Returns assigned PolarizationHandler
     const PolarizationHandler& polarizationHandler() const { return m_polarization; }
 
-    double getWavelength() const { return m_wavelength; }
+    double wavelength() const { return m_wavelength; }
     double getAlphaI() const { return m_alpha_i; }
     double getPhiI() const { return m_phi_i; }
     double getAlphaMean() const { return getAlpha(0.5, 0.5); }
     double getPhiMean() const { return getPhi(0.5, 0.5); }
     void setIntensity(double intensity) { m_intensity = intensity; }
     void addIntensity(double intensity) { m_intensity += intensity; }
-    double getIntensity() const { return m_intensity; }
+    double intensity() const { return m_intensity; }
     kvector_t getKi() const;
     kvector_t getMeanKf() const;
     kvector_t meanQ() const;

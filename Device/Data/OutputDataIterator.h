@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_DEVICE_DATA_OUTPUTDATAITERATOR_H
 #define BORNAGAIN_DEVICE_DATA_OUTPUTDATAITERATOR_H
 

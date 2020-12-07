@@ -130,7 +130,7 @@ void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QStrin
                 if (!newItem) {
                     QString message = QString("Error while parsing XML. Can't create item of "
                                               "modelType '%1' for tag '%2', parent '%3'")
-                        .arg(model_type, tag, parent->P_NAME);
+                                          .arg(model_type, tag, parent->P_NAME);
                     report_error(messageService, parent, message);
                     // risky attempt to recover the rest of the project
                     reader->skipCurrentElement();

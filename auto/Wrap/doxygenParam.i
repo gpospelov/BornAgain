@@ -1044,127 +1044,6 @@ Returns distribution name for python-formatted text.
 ";
 
 
-// File: classIterationStrategy.xml
-%feature("docstring") IterationStrategy "
-
-Abstract base class for tree traversal strategies, for use in  INodeVisitor.
-
-For definition of different strategies see https://en.wikipedia.org/wiki/Tree_traversal.
-
-C++ includes: IterationStrategy.h
-";
-
-%feature("docstring")  IterationStrategy::clone "virtual IterationStrategy* IterationStrategy::clone() const =0
-";
-
-%feature("docstring")  IterationStrategy::first "virtual IteratorMemento IterationStrategy::first(const INode *p_root)=0
-";
-
-%feature("docstring")  IterationStrategy::next "virtual void IterationStrategy::next(IteratorMemento &iterator_stack) const =0
-";
-
-%feature("docstring")  IterationStrategy::isDone "virtual bool IterationStrategy::isDone(IteratorMemento &iterator_stack) const =0
-";
-
-
-// File: classIteratorMemento.xml
-%feature("docstring") IteratorMemento "
-
-Holds all iterator states encountered for SampleTreeIterator.
-
-C++ includes: NodeIterator.h
-";
-
-%feature("docstring")  IteratorMemento::IteratorMemento "IteratorMemento::IteratorMemento()
-";
-
-%feature("docstring")  IteratorMemento::~IteratorMemento "virtual IteratorMemento::~IteratorMemento()
-";
-
-%feature("docstring")  IteratorMemento::push_state "void IteratorMemento::push_state(const IteratorState &state)
-";
-
-%feature("docstring")  IteratorMemento::pop_state "void IteratorMemento::pop_state()
-";
-
-%feature("docstring")  IteratorMemento::get_state "IteratorState& IteratorMemento::get_state()
-";
-
-%feature("docstring")  IteratorMemento::empty "bool IteratorMemento::empty() const
-";
-
-%feature("docstring")  IteratorMemento::reset "void IteratorMemento::reset()
-";
-
-%feature("docstring")  IteratorMemento::getCurrent "const INode* IteratorMemento::getCurrent()
-";
-
-%feature("docstring")  IteratorMemento::next "void IteratorMemento::next()
-";
-
-%feature("docstring")  IteratorMemento::size "size_t IteratorMemento::size() const
-";
-
-
-// File: classIteratorState.xml
-%feature("docstring") IteratorState "
-
-Holds state of iterator at single level for SampleTreeIterator.
-
-C++ includes: NodeIterator.h
-";
-
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(const INode *single_element)
-";
-
-%feature("docstring")  IteratorState::IteratorState "IteratorState::IteratorState(std::vector< const INode * > samples)
-";
-
-%feature("docstring")  IteratorState::~IteratorState "virtual IteratorState::~IteratorState()
-";
-
-%feature("docstring")  IteratorState::getCurrent "const INode* IteratorState::getCurrent() const
-";
-
-%feature("docstring")  IteratorState::isEnd "bool IteratorState::isEnd() const
-";
-
-%feature("docstring")  IteratorState::next "void IteratorState::next()
-";
-
-
-// File: classNodeIterator.xml
-%feature("docstring") NodeIterator "
-
-Iterator through  INode tree of objects.
-
-Usage example: SampleTreeIterator<Strategy> it(&sample); it.first(); while( !it.is_done() ) {  INode *p_sample = it.get_current(); it.next(); }
-
-C++ includes: NodeIterator.h
-";
-
-%feature("docstring")  NodeIterator::NodeIterator "NodeIterator< Strategy >::NodeIterator(const INode *root)
-";
-
-%feature("docstring")  NodeIterator::~NodeIterator "virtual NodeIterator< Strategy >::~NodeIterator()
-";
-
-%feature("docstring")  NodeIterator::first "void NodeIterator< Strategy >::first()
-";
-
-%feature("docstring")  NodeIterator::next "void NodeIterator< Strategy >::next()
-";
-
-%feature("docstring")  NodeIterator::getCurrent "const INode * NodeIterator< Strategy >::getCurrent()
-";
-
-%feature("docstring")  NodeIterator::isDone "bool NodeIterator< Strategy >::isDone() const
-";
-
-%feature("docstring")  NodeIterator::depth "int NodeIterator< Strategy >::depth() const
-";
-
-
 // File: structNodeMeta.xml
 %feature("docstring") NodeMeta "
 
@@ -1375,30 +1254,6 @@ C++ includes: ParameterSample.h
 ";
 
 %feature("docstring")  ParameterSample::ParameterSample "ParameterSample::ParameterSample(double _value=0., double _weight=1.)
-";
-
-
-// File: classPreorderStrategy.xml
-%feature("docstring") PreorderStrategy "
-
-Traverse tree; visit parents before their children.
-
-C++ includes: IterationStrategy.h
-";
-
-%feature("docstring")  PreorderStrategy::PreorderStrategy "PreorderStrategy::PreorderStrategy()
-";
-
-%feature("docstring")  PreorderStrategy::clone "PreorderStrategy * PreorderStrategy::clone() const
-";
-
-%feature("docstring")  PreorderStrategy::first "IteratorMemento PreorderStrategy::first(const INode *p_root)
-";
-
-%feature("docstring")  PreorderStrategy::next "void PreorderStrategy::next(IteratorMemento &iterator_stack) const
-";
-
-%feature("docstring")  PreorderStrategy::isDone "bool PreorderStrategy::isDone(IteratorMemento &iterator_stack) const
 ";
 
 
@@ -1630,10 +1485,10 @@ C++ includes: Unit.h
 // File: namespace_0d15.xml
 
 
-// File: namespace_0d24.xml
+// File: namespace_0d20.xml
 
 
-// File: namespace_0d29.xml
+// File: namespace_0d25.xml
 
 
 // File: namespaceNodeUtils.xml
@@ -1727,18 +1582,6 @@ Returns units of main parameter.
 
 
 // File: INodeVisitor_8h.xml
-
-
-// File: IterationStrategy_8cpp.xml
-
-
-// File: IterationStrategy_8h.xml
-
-
-// File: NodeIterator_8cpp.xml
-
-
-// File: NodeIterator_8h.xml
 
 
 // File: NodeUtils_8cpp.xml

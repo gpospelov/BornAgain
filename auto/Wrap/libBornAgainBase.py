@@ -1788,12 +1788,89 @@ def deg2rad(angle):
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     r"""
     vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t
-    BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
-
-    Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
+    kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
 
     """
     return _libBornAgainBase.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
+class Direction(object):
+    r"""Proxy of C++ Direction class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(Direction self, double alpha, double phi) -> Direction
+        __init__(Direction self) -> Direction
+        Direction::Direction()
+
+        """
+        _libBornAgainBase.Direction_swiginit(self, _libBornAgainBase.new_Direction(*args))
+
+    def setAlpha(self, alpha):
+        r"""
+        setAlpha(Direction self, double alpha)
+        void Direction::setAlpha(double alpha)
+
+        """
+        return _libBornAgainBase.Direction_setAlpha(self, alpha)
+
+    def setPhi(self, phi):
+        r"""
+        setPhi(Direction self, double phi)
+        void Direction::setPhi(double phi)
+
+        """
+        return _libBornAgainBase.Direction_setPhi(self, phi)
+
+    def alpha(self):
+        r"""
+        alpha(Direction self) -> double
+        double Direction::alpha() const
+
+        """
+        return _libBornAgainBase.Direction_alpha(self)
+
+    def phi(self):
+        r"""
+        phi(Direction self) -> double
+        double Direction::phi() const
+
+        """
+        return _libBornAgainBase.Direction_phi(self)
+
+    def vector(self):
+        r"""
+        vector(Direction self) -> kvector_t
+        kvector_t Direction::vector() const
+
+        Returns Cartesian 3D vector. 
+
+        """
+        return _libBornAgainBase.Direction_vector(self)
+    __swig_destroy__ = _libBornAgainBase.delete_Direction
+
+# Register Direction in _libBornAgainBase:
+_libBornAgainBase.Direction_swigregister(Direction)
+nanometer = cvar.nanometer
+angstrom = cvar.angstrom
+micrometer = cvar.micrometer
+millimeter = cvar.millimeter
+meter = cvar.meter
+nm = cvar.nm
+nm2 = cvar.nm2
+barn = cvar.barn
+radian = cvar.radian
+milliradian = cvar.milliradian
+degree = cvar.degree
+steradian = cvar.steradian
+rad = cvar.rad
+mrad = cvar.mrad
+sr = cvar.sr
+deg = cvar.deg
+tesla = cvar.tesla
+gauss = cvar.gauss
+
 class Bin1D(object):
     r"""Proxy of C++ Bin1D class."""
 
@@ -1830,24 +1907,6 @@ class Bin1D(object):
 
 # Register Bin1D in _libBornAgainBase:
 _libBornAgainBase.Bin1D_swigregister(Bin1D)
-nanometer = cvar.nanometer
-angstrom = cvar.angstrom
-micrometer = cvar.micrometer
-millimeter = cvar.millimeter
-meter = cvar.meter
-nm = cvar.nm
-nm2 = cvar.nm2
-barn = cvar.barn
-radian = cvar.radian
-milliradian = cvar.milliradian
-degree = cvar.degree
-steradian = cvar.steradian
-rad = cvar.rad
-mrad = cvar.mrad
-sr = cvar.sr
-deg = cvar.deg
-tesla = cvar.tesla
-gauss = cvar.gauss
 
 
 def BinContains(bin, value):

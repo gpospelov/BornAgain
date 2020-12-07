@@ -46,48 +46,37 @@ public:
 
     void addAxis(const IAxis& axis);
 
-    const IAxis& axis(size_t index) const;
-
-    //! Returns actual dimensionality of the detector (number of defined axes)
-    size_t dimension() const;
-
-    //! Calculate axis index for given global index
-    size_t axisBinIndex(size_t index, size_t selected_axis) const;
-
-    //! Returns total number of pixels
-    size_t totalSize() const;
-
-    //! Returns detector masks container
-    virtual const DetectorMask* detectorMask() const = 0;
-
     //! Sets the polarization analyzer characteristics of the detector
     void setAnalyzerProperties(const kvector_t direction, double efficiency,
                                double total_transmission);
-
     //! Sets the detector resolution
     void setDetectorResolution(const IDetectorResolution& p_detector_resolution);
     void setResolutionFunction(const IResolutionFunction2D& resFunc);
 
+    //! Resets region of interest making whole detector plane available for the simulation.
+    virtual void resetRegionOfInterest() = 0;
+    //! Returns detector masks container
+    virtual const DetectorMask* detectorMask() const = 0;
+
+    std::vector<const INode*> getChildren() const override;
+
+    void iterate(std::function<void(const_iterator)> func, bool visit_masks = false) const;
+
+    const IAxis& axis(size_t index) const;
+    //! Returns actual dimensionality of the detector (number of defined axes)
+    size_t dimension() const;
+    //! Calculate axis index for given global index
+    size_t axisBinIndex(size_t index, size_t selected_axis) const;
+    //! Returns total number of pixels
+    size_t totalSize() const;
     //! Applies the detector resolution to the given intensity maps
     void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
-
-    //! Removes detector resolution function.
-    void removeDetectorResolution();
-
     //! Returns a pointer to detector resolution object
     const IDetectorResolution* detectorResolution() const;
-
 #ifndef SWIG
     //! Returns empty detector map in given axes units.
     std::unique_ptr<OutputData<double>> createDetectorMap() const;
 #endif // SWIG
-
-    //! Returns region of  interest if exists.
-    virtual const RegionOfInterest* regionOfInterest() const = 0;
-
-    //! Resets region of interest making whole detector plane available for the simulation.
-    virtual void resetRegionOfInterest() = 0;
-
     //! Returns detection properties
     const DetectionProperties& detectionProperties() const { return m_detection_properties; }
 
@@ -102,9 +91,8 @@ public:
     //! Returns number of simulation elements.
     size_t numberOfSimulationElements() const;
 
-    std::vector<const INode*> getChildren() const override;
-
-    void iterate(std::function<void(const_iterator)> func, bool visit_masks = false) const;
+    //! Returns region of  interest if exists.
+    virtual const RegionOfInterest* regionOfInterest() const = 0;
 
 protected:
     IDetector(const IDetector& other);

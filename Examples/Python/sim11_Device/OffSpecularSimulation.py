@@ -64,7 +64,7 @@ def get_simulation():
     alpha_i_axis = ba.FixedBinAxis("alpha_i", 200, alpha_i_min*deg,
                                    alpha_i_max*deg)
     simulation.setBeamParameters(1.0*angstrom, alpha_i_axis, 0.0*deg)
-    simulation.setBeamIntensity(1e9)
+    simulation.beam().setIntensity(1e9)
     return simulation
 
 

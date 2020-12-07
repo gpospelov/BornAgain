@@ -19,31 +19,25 @@
 #include <sstream>
 #include <string>
 
-namespace BornAgain
-{
+namespace BornAgain {
 const int major_version_number = @BornAgain_VERSION_MAJOR@;
 const int minor_version_number = @BornAgain_VERSION_MINOR@;
 const int patch_version_number = @BornAgain_VERSION_PATCH@;
 
-inline int GetMajorVersionNumber()
-{
+inline int GetMajorVersionNumber() {
     return major_version_number;
 }
-inline int GetMinorVersionNumber()
-{
+inline int GetMinorVersionNumber() {
     return minor_version_number;
 }
-inline int GetPatchVersionNumber()
-{
+inline int GetPatchVersionNumber() {
     return patch_version_number;
 }
-inline std::string GetName()
-{
+inline std::string GetName() {
     return std::string("BornAgain");
 }
 
-inline std::string GetVersionNumber()
-{
+inline std::string GetVersionNumber() {
     std::ostringstream ostr;
     ostr << major_version_number << "." << minor_version_number << "." << patch_version_number;
 

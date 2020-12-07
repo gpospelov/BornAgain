@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
 #define BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
 
@@ -23,6 +27,7 @@ class ISimulation;
 
 class SimulationToPython {
 public:
+    //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
     std::string generateSimulationCode(const ISimulation& simulation);
 };
 

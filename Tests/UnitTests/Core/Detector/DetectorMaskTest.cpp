@@ -79,13 +79,6 @@ TEST_F(DetectorMaskTest, AddMask) {
             EXPECT_FALSE(detectorMask.isMasked(index));
         }
     }
-
-    // clearing all masks
-    detectorMask.removeMasks();
-    detectorMask.initMaskData(detector);
-    for (size_t index = 0; index < detectorMask.getMaskData()->getAllocatedSize(); ++index) {
-        EXPECT_FALSE(detectorMask.isMasked(index));
-    }
 }
 
 TEST_F(DetectorMaskTest, AssignmentOperator) {

@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_CORE_ELEMENT_DEPTHPROBEELEMENT_H
 #define BORNAGAIN_CORE_ELEMENT_DEPTHPROBEELEMENT_H
 
@@ -31,7 +35,7 @@ public:
 
     DepthProbeElement& operator=(const DepthProbeElement& other);
 
-    double getWavelength() const { return m_wavelength; }
+    double wavelength() const { return m_wavelength; }
     double getAlphaI() const { return m_alpha_i; }
     kvector_t getKi() const;
 

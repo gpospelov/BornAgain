@@ -25,6 +25,7 @@ class DetectorContext;
 
 class ISimulation2D : public ISimulation {
 public:
+    ISimulation2D(const Beam& beam, const MultiLayer& sample, const IDetector& detector);
     ISimulation2D();
     ~ISimulation2D() override;
 
@@ -45,9 +46,6 @@ public:
 
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector2D& detector);
-
-    //! removes all masks from the detector
-    void removeMasks();
 
     //! Adds mask of given shape to the stack of detector masks. The mask value 'true' means
     //! that the channel will be excluded from the simulation. The mask which is added last

@@ -298,7 +298,7 @@ C++ includes: DepthProbeComputation.h
 %feature("docstring")  DepthProbeElement::~DepthProbeElement "DepthProbeElement::~DepthProbeElement()
 ";
 
-%feature("docstring")  DepthProbeElement::getWavelength "double DepthProbeElement::getWavelength() const
+%feature("docstring")  DepthProbeElement::wavelength "double DepthProbeElement::wavelength() const
 ";
 
 %feature("docstring")  DepthProbeElement::getAlphaI "double DepthProbeElement::getAlphaI() const
@@ -742,6 +742,9 @@ Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 C++ includes: GISASSimulation.h
 ";
 
+%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
+";
+
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation()
 ";
 
@@ -894,6 +897,9 @@ Abstract base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimu
 C++ includes: ISimulation.h
 ";
 
+%feature("docstring")  ISimulation::ISimulation "ISimulation::ISimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
+";
+
 %feature("docstring")  ISimulation::ISimulation "ISimulation::ISimulation()
 ";
 
@@ -929,10 +935,19 @@ Run a simulation in a MPI environment.
 %feature("docstring")  ISimulation::instrument "Instrument& ISimulation::instrument()
 ";
 
-%feature("docstring")  ISimulation::setBeamIntensity "void ISimulation::setBeamIntensity(double intensity)
+%feature("docstring")  ISimulation::beam "Beam& ISimulation::beam()
 ";
 
-%feature("docstring")  ISimulation::getBeamIntensity "double ISimulation::getBeamIntensity() const
+%feature("docstring")  ISimulation::beam "const Beam& ISimulation::beam() const
+";
+
+%feature("docstring")  ISimulation::detector "IDetector& ISimulation::detector()
+";
+
+%feature("docstring")  ISimulation::detector "const IDetector& ISimulation::detector() const
+";
+
+%feature("docstring")  ISimulation::setBeamIntensity "void ISimulation::setBeamIntensity(double intensity)
 ";
 
 %feature("docstring")  ISimulation::setBeamPolarization "void ISimulation::setBeamPolarization(const kvector_t bloch_vector)
@@ -1018,6 +1033,9 @@ Abstract base class of OffSpecularSimulation and  GISASSimulation. Holds the com
 C++ includes: ISimulation2D.h
 ";
 
+%feature("docstring")  ISimulation2D::ISimulation2D "ISimulation2D::ISimulation2D(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
+";
+
 %feature("docstring")  ISimulation2D::ISimulation2D "ISimulation2D::ISimulation2D()
 ";
 
@@ -1061,11 +1079,6 @@ upper edge of last alpha-bin
 %feature("docstring")  ISimulation2D::setDetector "void ISimulation2D::setDetector(const IDetector2D &detector)
 
 Sets the detector (axes can be overwritten later) 
-";
-
-%feature("docstring")  ISimulation2D::removeMasks "void ISimulation2D::removeMasks()
-
-removes all masks from the detector 
 ";
 
 %feature("docstring")  ISimulation2D::addMask "void ISimulation2D::addMask(const IShape2D &shape, bool mask_value=true)
@@ -1449,6 +1462,9 @@ Returns a copy of the normalization function used.
 Main class to run an off-specular simulation.
 
 C++ includes: OffSpecSimulation.h
+";
+
+%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
 ";
 
 %feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation()
@@ -2157,7 +2173,7 @@ C++ includes: SpecularSimulationElement.h
 Returns assigned PolarizationHandler. 
 ";
 
-%feature("docstring")  SpecularSimulationElement::getIntensity "double SpecularSimulationElement::getIntensity() const
+%feature("docstring")  SpecularSimulationElement::intensity "double SpecularSimulationElement::intensity() const
 ";
 
 %feature("docstring")  SpecularSimulationElement::setIntensity "void SpecularSimulationElement::setIntensity(double intensity)

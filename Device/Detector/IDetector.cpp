@@ -122,10 +122,6 @@ void IDetector::applyDetectorResolution(OutputData<double>* p_intensity_map) con
     }
 }
 
-void IDetector::removeDetectorResolution() {
-    m_detector_resolution.reset();
-}
-
 const IDetectorResolution* IDetector::detectorResolution() const {
     return m_detector_resolution.get();
 }
@@ -165,7 +161,7 @@ void IDetector::setDataToDetectorMap(OutputData<double>& detectorMap,
     if (elements.empty())
         return;
     iterate([&](const_iterator it) {
-        detectorMap[it.roiIndex()] = elements[it.elementIndex()].getIntensity();
+        detectorMap[it.roiIndex()] = elements[it.elementIndex()].intensity();
     });
 }
 

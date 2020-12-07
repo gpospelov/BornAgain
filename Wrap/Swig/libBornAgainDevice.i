@@ -51,7 +51,6 @@
 #include "Device/Histo/SimulationResult.h"
 #include "Device/Instrument/ChiSquaredModule.h"
 #include "Device/Instrument/IChiSquaredModule.h"
-#include "Device/Instrument/Instrument.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
 #include "Device/Instrument/PyArrayImportUtils.h"
 #include "Device/Instrument/SpectrumUtils.h"
@@ -113,7 +112,6 @@
 
 %include "Device/Instrument/IChiSquaredModule.h"
 %include "Device/Instrument/ChiSquaredModule.h"
-%include "Device/Instrument/Instrument.h"
 %include "Device/Instrument/IntensityDataFunctions.h"
 %include "Device/Instrument/PyArrayImportUtils.h"
 %include "Device/Instrument/SpectrumUtils.h"

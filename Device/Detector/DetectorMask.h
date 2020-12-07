@@ -48,9 +48,6 @@ public:
 
     Histogram2D* createHistogram() const;
 
-    //! remove all masks and return object to initial state
-    void removeMasks();
-
     //! returns true if has masks
     bool hasMasks() const { return !m_shapes.empty(); }
 

@@ -49,7 +49,7 @@ complex_t MaterialBySLDImpl::materialData() const {
 }
 
 complex_t MaterialBySLDImpl::scalarSubtrSLD(const WavevectorInfo& wavevectors) const {
-    double wavelength = wavevectors.getWavelength();
+    double wavelength = wavevectors.wavelength();
     return 1.0 / getWlPrefactor(wavelength) - sld();
 }
 

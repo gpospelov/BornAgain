@@ -2985,13 +2985,13 @@ class WavevectorInfo(object):
         """
         return _libBornAgainSample.WavevectorInfo_getQ(self)
 
-    def getWavelength(self):
+    def wavelength(self):
         r"""
-        getWavelength(WavevectorInfo self) -> double
-        double WavevectorInfo::getWavelength() const
+        wavelength(WavevectorInfo self) -> double
+        double WavevectorInfo::wavelength() const
 
         """
-        return _libBornAgainSample.WavevectorInfo_getWavelength(self)
+        return _libBornAgainSample.WavevectorInfo_wavelength(self)
     __swig_destroy__ = _libBornAgainSample.delete_WavevectorInfo
 
 # Register WavevectorInfo in _libBornAgainSample:

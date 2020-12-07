@@ -35,6 +35,8 @@
 #include "gsl/gsl_multifit_nlin.h" // patch JWu dec20
 
 #include "GSLMultiFitFunctionAdapter.h"
+
+
 #include <cassert>
 
 namespace ROOT {

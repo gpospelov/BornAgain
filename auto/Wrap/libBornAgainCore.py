@@ -3928,13 +3928,14 @@ class GISASSimulation(ISimulation2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, *args):
         r"""
+        __init__(GISASSimulation self, Beam const & beam, MultiLayer const & sample, IDetector const & detector) -> GISASSimulation
         __init__(GISASSimulation self) -> GISASSimulation
         GISASSimulation::GISASSimulation()
 
         """
-        _libBornAgainCore.GISASSimulation_swiginit(self, _libBornAgainCore.new_GISASSimulation())
+        _libBornAgainCore.GISASSimulation_swiginit(self, _libBornAgainCore.new_GISASSimulation(*args))
     __swig_destroy__ = _libBornAgainCore.delete_GISASSimulation
 
     def clone(self):
@@ -4209,13 +4210,14 @@ class OffSpecSimulation(ISimulation2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, *args):
         r"""
+        __init__(OffSpecSimulation self, Beam const & beam, MultiLayer const & sample, IDetector const & detector) -> OffSpecSimulation
         __init__(OffSpecSimulation self) -> OffSpecSimulation
         OffSpecSimulation::OffSpecSimulation()
 
         """
-        _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation())
+        _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation(*args))
     __swig_destroy__ = _libBornAgainCore.delete_OffSpecSimulation
 
     def clone(self):

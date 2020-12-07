@@ -22,6 +22,11 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
+OffSpecSimulation::OffSpecSimulation(
+    const Beam& beam, const MultiLayer& sample, const IDetector& detector)
+    : ISimulation2D(beam, sample, detector) {
+}
+
 OffSpecSimulation::OffSpecSimulation() {
     initialize();
 }

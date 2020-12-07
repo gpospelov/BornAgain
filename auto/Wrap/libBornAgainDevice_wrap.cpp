@@ -35152,7 +35152,7 @@ fail:
 SWIGINTERN PyObject *_wrap_new_Instrument__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Beam *arg1 = 0 ;
-  IDetector *arg2 = (IDetector *) 0 ;
+  IDetector *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -35168,12 +35168,15 @@ SWIGINTERN PyObject *_wrap_new_Instrument__SWIG_1(PyObject *SWIGUNUSEDPARM(self)
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Instrument" "', argument " "1"" of type '" "Beam const &""'"); 
   }
   arg1 = reinterpret_cast< Beam * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_IDetector, 0 |  0 );
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IDetector,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_Instrument" "', argument " "2"" of type '" "IDetector *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_Instrument" "', argument " "2"" of type '" "IDetector const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Instrument" "', argument " "2"" of type '" "IDetector const &""'"); 
   }
   arg2 = reinterpret_cast< IDetector * >(argp2);
-  result = (Instrument *)new Instrument((Beam const &)*arg1,arg2);
+  result = (Instrument *)new Instrument((Beam const &)*arg1,(IDetector const &)*arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Instrument, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -35229,8 +35232,7 @@ SWIGINTERN PyObject *_wrap_new_Instrument(PyObject *self, PyObject *args) {
     int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Beam, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_IDetector, 0);
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IDetector, SWIG_POINTER_NO_NULL | 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_new_Instrument__SWIG_1(self, argc, argv);
@@ -35242,7 +35244,7 @@ fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Instrument'.\n"
     "  Possible C/C++ prototypes are:\n"
     "    Instrument::Instrument()\n"
-    "    Instrument::Instrument(Beam const &,IDetector *)\n"
+    "    Instrument::Instrument(Beam const &,IDetector const &)\n"
     "    Instrument::Instrument(Instrument const &)\n");
   return 0;
 }

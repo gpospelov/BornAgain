@@ -17,15 +17,15 @@
 #include "Device/Histo/Histogram2D.h"
 #include "Device/Resolution/IResolutionFunction2D.h"
 
-Instrument::Instrument(const Beam& beam, IDetector* detector)
-    : m_beam(beam), m_detector(detector) {
+Instrument::Instrument(const Beam& beam, const IDetector& detector)
+    : m_beam(beam), m_detector(detector.clone()) {
     setName("Instrument");
     registerChild(m_detector.get());
     registerChild(&m_beam);
     initDetector();
 }
 
-Instrument::Instrument() : Instrument(Beam::horizontalBeam(), new SphericalDetector()) {
+Instrument::Instrument() : Instrument(Beam::horizontalBeam(), SphericalDetector()) {
 }
 
 Instrument::Instrument(const Instrument& other) : INode(), m_beam(other.m_beam) {

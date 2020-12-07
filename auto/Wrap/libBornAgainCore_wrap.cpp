@@ -40631,16 +40631,99 @@ SWIGINTERN PyObject *ISimulation2D_swigregister(PyObject *SWIGUNUSEDPARM(self), 
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_new_GISASSimulation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_GISASSimulation__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = 0 ;
+  MultiLayer *arg2 = 0 ;
+  IDetector *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  GISASSimulation *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Beam,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_GISASSimulation" "', argument " "1"" of type '" "Beam const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_GISASSimulation" "', argument " "1"" of type '" "Beam const &""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_MultiLayer,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_GISASSimulation" "', argument " "2"" of type '" "MultiLayer const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_GISASSimulation" "', argument " "2"" of type '" "MultiLayer const &""'"); 
+  }
+  arg2 = reinterpret_cast< MultiLayer * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_IDetector,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_GISASSimulation" "', argument " "3"" of type '" "IDetector const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_GISASSimulation" "', argument " "3"" of type '" "IDetector const &""'"); 
+  }
+  arg3 = reinterpret_cast< IDetector * >(argp3);
+  result = (GISASSimulation *)new GISASSimulation((Beam const &)*arg1,(MultiLayer const &)*arg2,(IDetector const &)*arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_GISASSimulation, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_GISASSimulation__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   GISASSimulation *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "new_GISASSimulation", 0, 0, 0)) SWIG_fail;
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
   result = (GISASSimulation *)new GISASSimulation();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_GISASSimulation, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_GISASSimulation(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_GISASSimulation", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_GISASSimulation__SWIG_1(self, argc, argv);
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Beam, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_MultiLayer, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_IDetector, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_new_GISASSimulation__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_GISASSimulation'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    GISASSimulation::GISASSimulation(Beam const &,MultiLayer const &,IDetector const &)\n"
+    "    GISASSimulation::GISASSimulation()\n");
+  return 0;
 }
 
 
@@ -41522,16 +41605,99 @@ SWIGINTERN PyObject *SpecularSimulation_swiginit(PyObject *SWIGUNUSEDPARM(self),
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_new_OffSpecSimulation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_OffSpecSimulation__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = 0 ;
+  MultiLayer *arg2 = 0 ;
+  IDetector *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  OffSpecSimulation *result = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Beam,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_OffSpecSimulation" "', argument " "1"" of type '" "Beam const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_OffSpecSimulation" "', argument " "1"" of type '" "Beam const &""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_MultiLayer,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_OffSpecSimulation" "', argument " "2"" of type '" "MultiLayer const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_OffSpecSimulation" "', argument " "2"" of type '" "MultiLayer const &""'"); 
+  }
+  arg2 = reinterpret_cast< MultiLayer * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_IDetector,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_OffSpecSimulation" "', argument " "3"" of type '" "IDetector const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_OffSpecSimulation" "', argument " "3"" of type '" "IDetector const &""'"); 
+  }
+  arg3 = reinterpret_cast< IDetector * >(argp3);
+  result = (OffSpecSimulation *)new OffSpecSimulation((Beam const &)*arg1,(MultiLayer const &)*arg2,(IDetector const &)*arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OffSpecSimulation, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_OffSpecSimulation__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
   OffSpecSimulation *result = 0 ;
   
-  if (!SWIG_Python_UnpackTuple(args, "new_OffSpecSimulation", 0, 0, 0)) SWIG_fail;
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
   result = (OffSpecSimulation *)new OffSpecSimulation();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OffSpecSimulation, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_OffSpecSimulation(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_OffSpecSimulation", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_OffSpecSimulation__SWIG_1(self, argc, argv);
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Beam, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_MultiLayer, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_IDetector, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_new_OffSpecSimulation__SWIG_0(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_OffSpecSimulation'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    OffSpecSimulation::OffSpecSimulation(Beam const &,MultiLayer const &,IDetector const &)\n"
+    "    OffSpecSimulation::OffSpecSimulation()\n");
+  return 0;
 }
 
 
@@ -43856,7 +44022,8 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "ISimulation2D_swigregister", ISimulation2D_swigregister, METH_O, NULL},
-	 { "new_GISASSimulation", _wrap_new_GISASSimulation, METH_NOARGS, "\n"
+	 { "new_GISASSimulation", _wrap_new_GISASSimulation, METH_VARARGS, "\n"
+		"GISASSimulation(Beam const & beam, MultiLayer const & sample, IDetector const & detector)\n"
 		"new_GISASSimulation() -> GISASSimulation\n"
 		"GISASSimulation::GISASSimulation()\n"
 		"\n"
@@ -44034,7 +44201,8 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "SpecularSimulation_swigregister", SpecularSimulation_swigregister, METH_O, NULL},
 	 { "SpecularSimulation_swiginit", SpecularSimulation_swiginit, METH_VARARGS, NULL},
-	 { "new_OffSpecSimulation", _wrap_new_OffSpecSimulation, METH_NOARGS, "\n"
+	 { "new_OffSpecSimulation", _wrap_new_OffSpecSimulation, METH_VARARGS, "\n"
+		"OffSpecSimulation(Beam const & beam, MultiLayer const & sample, IDetector const & detector)\n"
 		"new_OffSpecSimulation() -> OffSpecSimulation\n"
 		"OffSpecSimulation::OffSpecSimulation()\n"
 		"\n"

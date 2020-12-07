@@ -36,6 +36,7 @@ class MultiLayer;
 
 class ISimulation : public ICloneable, public INode {
 public:
+    ISimulation(const Beam& beam, const MultiLayer& sample, const IDetector& detector);
     ISimulation();
     virtual ~ISimulation();
 

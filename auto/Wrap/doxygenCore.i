@@ -742,6 +742,9 @@ Main class to run a Grazing-Incidence Small-Angle Scattering simulation.
 C++ includes: GISASSimulation.h
 ";
 
+%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
+";
+
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation()
 ";
 
@@ -894,6 +897,9 @@ Abstract base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimu
 C++ includes: ISimulation.h
 ";
 
+%feature("docstring")  ISimulation::ISimulation "ISimulation::ISimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
+";
+
 %feature("docstring")  ISimulation::ISimulation "ISimulation::ISimulation()
 ";
 
@@ -1025,6 +1031,9 @@ Convert user data to SimulationResult object for later drawing in various axes u
 Abstract base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
 
 C++ includes: ISimulation2D.h
+";
+
+%feature("docstring")  ISimulation2D::ISimulation2D "ISimulation2D::ISimulation2D(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
 ";
 
 %feature("docstring")  ISimulation2D::ISimulation2D "ISimulation2D::ISimulation2D()
@@ -1453,6 +1462,9 @@ Returns a copy of the normalization function used.
 Main class to run an off-specular simulation.
 
 C++ includes: OffSpecSimulation.h
+";
+
+%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
 ";
 
 %feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation()

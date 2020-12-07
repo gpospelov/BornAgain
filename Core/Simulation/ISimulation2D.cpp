@@ -19,6 +19,11 @@
 #include "Device/Detector/DetectorContext.h"
 #include "Device/Histo/Histogram2D.h"
 
+ISimulation2D::ISimulation2D(
+    const Beam& beam, const MultiLayer& sample, const IDetector& detector)
+    : ISimulation(beam, sample, detector) {
+}
+
 ISimulation2D::ISimulation2D() = default;
 
 ISimulation2D::~ISimulation2D() = default;

@@ -27,7 +27,7 @@ class IDetector2D;
 class Instrument : public INode {
 public:
     Instrument();
-    Instrument(const Beam& beam, IDetector* detector);
+    Instrument(const Beam& beam, const IDetector& detector);
     Instrument(const Instrument& other);
     Instrument& operator=(const Instrument& other);
 

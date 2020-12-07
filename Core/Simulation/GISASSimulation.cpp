@@ -20,6 +20,10 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
+GISASSimulation::GISASSimulation(const Beam& beam, const MultiLayer& sample, const IDetector& detector)
+    : ISimulation2D(beam, sample, detector) {
+}
+
 GISASSimulation::GISASSimulation() {
     initialize();
 }

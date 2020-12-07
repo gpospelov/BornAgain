@@ -64,10 +64,6 @@ std::unique_ptr<DetectorContext> IDetector2D::createContext() const {
     return std::make_unique<DetectorContext>(this);
 }
 
-void IDetector2D::removeMasks() {
-    m_detector_mask.removeMasks();
-}
-
 void IDetector2D::addMask(const IShape2D& shape, bool mask_value) {
     m_detector_mask.addMask(shape, mask_value);
     m_detector_mask.initMaskData(*this);
@@ -76,7 +72,6 @@ void IDetector2D::addMask(const IShape2D& shape, bool mask_value) {
 void IDetector2D::maskAll() {
     if (dimension() != 2)
         return;
-    m_detector_mask.removeMasks();
     addMask(InfinitePlane(), true);
 }
 

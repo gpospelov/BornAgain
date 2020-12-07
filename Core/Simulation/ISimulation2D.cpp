@@ -28,10 +28,6 @@ void ISimulation2D::prepareSimulation() {
     m_detector_context = instrument().detector2D().createContext();
 }
 
-void ISimulation2D::removeMasks() {
-    instrument().detector2D().removeMasks();
-}
-
 void ISimulation2D::addMask(const IShape2D& shape, bool mask_value) {
     instrument().detector2D().addMask(shape, mask_value);
 }

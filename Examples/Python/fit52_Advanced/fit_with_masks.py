@@ -107,15 +107,6 @@ def add_mask_to_simulation(simulation):
     simulation.addMask(ba.Rectangle(0.75*deg, 0.95*deg, 0.85*deg, 1.05*deg),
                        False)
 
-    # other mask's shapes are possible too
-    # simulation.removeMasks()
-    # # rotated ellipse:
-    # simulation.addMask(ba.Ellipse(0.11*deg, 1.25*deg,
-    #                    1.0*deg, 0.5*deg, 45.0*deg), True)
-    # simulation.addMask(Line(-1.0*deg, 0.0*deg, 1.0*deg, 2.0*deg), True)
-    # simulation.addMask(ba.HorizontalLine(1.0*deg), False)
-    # simulation.addMask(ba.VerticalLine(0.0*deg), False)
-
 
 def run_fitting():
     """

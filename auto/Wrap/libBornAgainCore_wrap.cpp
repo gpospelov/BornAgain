@@ -40429,28 +40429,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ISimulation2D_removeMasks(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_removeMasks" "', argument " "1"" of type '" "ISimulation2D *""'"); 
-  }
-  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
-  (arg1)->removeMasks();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ISimulation2D_addMask__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   ISimulation2D *arg1 = (ISimulation2D *) 0 ;
@@ -43845,13 +43823,6 @@ static PyMethodDef SwigMethods[] = {
 		"void ISimulation2D::setDetector(const IDetector2D &detector)\n"
 		"\n"
 		"Sets the detector (axes can be overwritten later) \n"
-		"\n"
-		""},
-	 { "ISimulation2D_removeMasks", _wrap_ISimulation2D_removeMasks, METH_O, "\n"
-		"ISimulation2D_removeMasks(ISimulation2D self)\n"
-		"void ISimulation2D::removeMasks()\n"
-		"\n"
-		"removes all masks from the detector \n"
 		"\n"
 		""},
 	 { "ISimulation2D_addMask", _wrap_ISimulation2D_addMask, METH_VARARGS, "\n"

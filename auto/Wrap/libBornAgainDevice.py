@@ -4426,16 +4426,6 @@ class DetectorMask(object):
         """
         return _libBornAgainDevice.DetectorMask_createHistogram(self)
 
-    def removeMasks(self):
-        r"""
-        removeMasks(DetectorMask self)
-        void DetectorMask::removeMasks()
-
-        remove all masks and return object to initial state 
-
-        """
-        return _libBornAgainDevice.DetectorMask_removeMasks(self)
-
     def hasMasks(self):
         r"""
         hasMasks(DetectorMask self) -> bool
@@ -4726,16 +4716,6 @@ class IDetector2D(IDetector):
 
         """
         return _libBornAgainDevice.IDetector2D_setDetectorParameters(self, n_x, x_min, x_max, n_y, y_min, y_max)
-
-    def removeMasks(self):
-        r"""
-        removeMasks(IDetector2D self)
-        void IDetector2D::removeMasks()
-
-        Removes all masks from the detector. 
-
-        """
-        return _libBornAgainDevice.IDetector2D_removeMasks(self)
 
     def detectorMask(self):
         r"""

@@ -394,11 +394,6 @@ Init the map of masks for the given detector plane.
 %feature("docstring")  DetectorMask::createHistogram "Histogram2D * DetectorMask::createHistogram() const
 ";
 
-%feature("docstring")  DetectorMask::removeMasks "void DetectorMask::removeMasks()
-
-remove all masks and return object to initial state 
-";
-
 %feature("docstring")  DetectorMask::hasMasks "bool DetectorMask::hasMasks() const
 
 returns true if has masks 
@@ -1035,11 +1030,6 @@ C++ includes: IDetector2D.h
 %feature("docstring")  IDetector2D::setDetectorParameters "void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)
 
 Sets detector parameters using angle ranges. 
-";
-
-%feature("docstring")  IDetector2D::removeMasks "void IDetector2D::removeMasks()
-
-Removes all masks from the detector. 
 ";
 
 %feature("docstring")  IDetector2D::detectorMask "const DetectorMask * IDetector2D::detectorMask() const override

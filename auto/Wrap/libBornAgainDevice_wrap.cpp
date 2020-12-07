@@ -37656,28 +37656,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_DetectorMask_removeMasks(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  DetectorMask *arg1 = (DetectorMask *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DetectorMask, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DetectorMask_removeMasks" "', argument " "1"" of type '" "DetectorMask *""'"); 
-  }
-  arg1 = reinterpret_cast< DetectorMask * >(argp1);
-  (arg1)->removeMasks();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_DetectorMask_hasMasks(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   DetectorMask *arg1 = (DetectorMask *) 0 ;
@@ -38650,28 +38628,6 @@ SWIGINTERN PyObject *_wrap_IDetector2D_setDetectorParameters(PyObject *SWIGUNUSE
   } 
   arg7 = static_cast< double >(val7);
   (arg1)->setDetectorParameters(arg2,arg3,arg4,arg5,arg6,arg7);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector2D_removeMasks(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector2D *arg1 = (IDetector2D *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector2D, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector2D_removeMasks" "', argument " "1"" of type '" "IDetector2D *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector2D * >(argp1);
-  (arg1)->removeMasks();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -47431,13 +47387,6 @@ static PyMethodDef SwigMethods[] = {
 		"Histogram2D * DetectorMask::createHistogram() const\n"
 		"\n"
 		""},
-	 { "DetectorMask_removeMasks", _wrap_DetectorMask_removeMasks, METH_O, "\n"
-		"DetectorMask_removeMasks(DetectorMask self)\n"
-		"void DetectorMask::removeMasks()\n"
-		"\n"
-		"remove all masks and return object to initial state \n"
-		"\n"
-		""},
 	 { "DetectorMask_hasMasks", _wrap_DetectorMask_hasMasks, METH_O, "\n"
 		"DetectorMask_hasMasks(DetectorMask self) -> bool\n"
 		"bool DetectorMask::hasMasks() const\n"
@@ -47619,13 +47568,6 @@ static PyMethodDef SwigMethods[] = {
 		"void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)\n"
 		"\n"
 		"Sets detector parameters using angle ranges. \n"
-		"\n"
-		""},
-	 { "IDetector2D_removeMasks", _wrap_IDetector2D_removeMasks, METH_O, "\n"
-		"IDetector2D_removeMasks(IDetector2D self)\n"
-		"void IDetector2D::removeMasks()\n"
-		"\n"
-		"Removes all masks from the detector. \n"
 		"\n"
 		""},
 	 { "IDetector2D_detectorMask", _wrap_IDetector2D_detectorMask, METH_O, "\n"

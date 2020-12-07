@@ -3873,16 +3873,6 @@ class ISimulation2D(ISimulation):
         """
         return _libBornAgainCore.ISimulation2D_setDetector(self, detector)
 
-    def removeMasks(self):
-        r"""
-        removeMasks(ISimulation2D self)
-        void ISimulation2D::removeMasks()
-
-        removes all masks from the detector 
-
-        """
-        return _libBornAgainCore.ISimulation2D_removeMasks(self)
-
     def addMask(self, shape, mask_value=True):
         r"""
         addMask(ISimulation2D self, IShape2D const & shape, bool mask_value=True)

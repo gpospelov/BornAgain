@@ -1072,11 +1072,6 @@ upper edge of last alpha-bin
 Sets the detector (axes can be overwritten later) 
 ";
 
-%feature("docstring")  ISimulation2D::removeMasks "void ISimulation2D::removeMasks()
-
-removes all masks from the detector 
-";
-
 %feature("docstring")  ISimulation2D::addMask "void ISimulation2D::addMask(const IShape2D &shape, bool mask_value=true)
 
 Adds mask of given shape to the stack of detector masks. The mask value 'true' means that the channel will be excluded from the simulation. The mask which is added last has priority.

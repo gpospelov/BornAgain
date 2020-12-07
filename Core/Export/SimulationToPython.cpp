@@ -176,9 +176,8 @@ std::string defineDetector(const ISimulation* simulation) {
             throw std::runtime_error("defineDetector() -> Error. Unknown alignment.");
     } else
         throw std::runtime_error("defineDetector() -> Error. Unknown detector");
-    result << indent() << "simulation.setDetector(detector)\n";
     if (detector->regionOfInterest()) {
-        result << indent() << "simulation.setRegionOfInterest("
+        result << indent() << "detector.setRegionOfInterest("
                << printFunc(detector)(detector->regionOfInterest()->getXlow()) << ", "
                << printFunc(detector)(detector->regionOfInterest()->getYlow()) << ", "
                << printFunc(detector)(detector->regionOfInterest()->getXup()) << ", "
@@ -240,7 +239,7 @@ std::string defineBeamPolarization(const Beam& beam) {
                << pyfmt::printDouble(bloch_vector.x()) << ", "
                << pyfmt::printDouble(bloch_vector.y()) << ", "
                << pyfmt::printDouble(bloch_vector.z()) << ")\n";
-        result << indent() << "simulation.setBeamPolarization(" << beam_polarization << ")\n";
+        result << indent() << "beam.setPolarization(" << beam_polarization << ")\n";
     }
     return result.str();
 }
@@ -258,12 +257,13 @@ std::string defineGISASBeam(const GISASSimulation& simulation) {
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
-    result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.wavelength())
-           << ", " << pyfmt::printDegrees(beam.direction().alpha()) << ", "
-           << pyfmt::printDegrees(beam.direction().phi()) << ")\n";
+    result << indent() << "beam = ba.Beam(" <<
+        pyfmt::printDouble(beam.intensity()) << ", " <<
+        pyfmt::printNm(beam.wavelength())
+           << ", ba.Direction(" << pyfmt::printDegrees(beam.direction().alpha()) << ", "
+           << pyfmt::printDegrees(beam.direction().phi()) << "))\n";
 
     result << defineBeamPolarization(beam);
-    result << defineBeamIntensity(beam);
 
     return result.str();
 }
@@ -377,16 +377,15 @@ std::string defineBackground(const ISimulation* simulation) {
 
 std::string defineGISASSimulation(const GISASSimulation* simulation) {
     std::ostringstream result;
-    result << indent() << "simulation = ba.GISASSimulation()\n";
+    result << defineGISASBeam(*simulation);
     result << defineDetector(simulation);
+    result << indent() << "simulation = ba.GISASSimulation(beam, get_sample(), detector)\n";
     result << defineDetectorResolutionFunction(simulation);
     result << defineDetectorPolarizationAnalysis(simulation);
-    result << defineGISASBeam(*simulation);
     result << defineParameterDistributions(simulation);
     result << defineMasks(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
-    result << "    simulation.setSample(get_sample())\n";
     return result.str();
 }
 

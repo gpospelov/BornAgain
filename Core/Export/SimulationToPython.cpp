@@ -416,7 +416,7 @@ std::string defineSpecularSimulation(const SpecularSimulation* simulation) {
 
 std::string defineSimulate(const ISimulation* simulation) {
     std::ostringstream result;
-    result << "def get_simulation():\n";
+    result << "def run_simulation():\n";
 
     if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
         result << defineGISASSimulation(gisas);
@@ -428,11 +428,8 @@ std::string defineSimulate(const ISimulation* simulation) {
         throw std::runtime_error("defineGetSimulation() -> Error. "
                                  "Wrong simulation type");
 
-    result << indent() << "return simulation\n\n\n";
-    result << "def run_simulation():\n"
-        "    sample = get_sample()\n"
-        "    simulation = get_simulation()\n"
-        "    simulation.setSample(sample)\n"
+    result <<
+        "    simulation.setSample(get_sample())\n"
         "    simulation.runSimulation()\n"
         "    return simulation.result()\n"
         "\n\n";

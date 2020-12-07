@@ -135,7 +135,7 @@ std::string defineDetector(const ISimulation* simulation) {
     result << std::setprecision(12);
 
     if (const auto* const det = dynamic_cast<const SphericalDetector*>(detector)) {
-        result << indent() << "simulation.setDetectorParameters(";
+        result << indent() << "detector = ba.SphericalDetector(";
         for (size_t index = 0; index < det->dimension(); ++index) {
             if (index != 0)
                 result << ", ";
@@ -182,10 +182,9 @@ std::string defineDetector(const ISimulation* simulation) {
                    << pyfmt::printDouble(det->getDirectBeamV0()) << ")\n";
         } else
             throw std::runtime_error("defineDetector() -> Error. Unknown alignment.");
-
-        result << indent() << "simulation.setDetector(detector)\n";
     } else
         throw std::runtime_error("defineDetector() -> Error. Unknown detector");
+    result << indent() << "simulation.setDetector(detector)\n";
     if (detector->regionOfInterest()) {
         result << indent() << "simulation.setRegionOfInterest("
                << printFunc(detector)(detector->regionOfInterest()->getXlow()) << ", "

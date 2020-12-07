@@ -97,7 +97,7 @@ def get_simulation(q_axis, fitParams, sign, ms150=False):
 
     simulation = ba.SpecularSimulation()
     simulation.setScan(scan)
-    simulation.setBeamIntensity(parameters["intensity"])
+    simulation.beam().setIntensity(parameters["intensity"])
 
     if ms150:
         sample = get_sample(parameters=parameters,

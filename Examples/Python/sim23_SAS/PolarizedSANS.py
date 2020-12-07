@@ -63,7 +63,7 @@ def get_simulation():
 
     # Defining beam parameters
     simulation.setBeamParameters(0.5*nm, 0.0*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e12)
+    simulation.beam().setIntensity(1e12)
 
     # Defining beam polarization and polarization analysis for spin-flip channel
     analyzer_dir = kvector_t(0.0, 0.0, -1.0)

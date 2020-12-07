@@ -176,7 +176,7 @@ def runTest():
 def createSimulation():
     simulation = GISASSimulation()
     simulation.setBeamParameters(1.77*angstrom, 0.4*deg, 0.0*deg)
-    simulation.setBeamIntensity(5.0090e+12)
+    simulation.beam().setIntensity(5.0090e+12)
     simulation.setDetectorParameters(50, 0.2*deg, 2.5*deg, 50, 0.0*deg, 2.5*deg)
     return simulation
 

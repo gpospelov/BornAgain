@@ -59,7 +59,7 @@ def get_simulation():
     simulation.setDetectorParameters(200, -0.5*deg, 0.5*deg, 200, 0.0*deg,
                                      0.6*deg)
     simulation.setBeamParameters(1.34*angstrom, 0.4*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e+08)
+    simulation.beam().setIntensity(1e+08)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
     return simulation
 

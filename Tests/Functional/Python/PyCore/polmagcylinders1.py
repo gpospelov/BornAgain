@@ -40,7 +40,7 @@ def runSimulation():
     simulation.setDetectorParameters(100, 0*deg, 2.0*deg, 100, 0.0*deg, 2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
     simulation.setSample(multi_layer)
-    simulation.setBeamIntensity(1e2)
+    simulation.beam().setIntensity(1e2)
     simulation.runSimulation()
     ## intensity data
     return simulation.result()

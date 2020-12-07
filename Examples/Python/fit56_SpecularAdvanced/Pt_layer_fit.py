@@ -67,7 +67,7 @@ def get_simulation(q_axis, parameters):
     scan.setAbsoluteQResolution(distr, parameters["q_res/q"])
 
     simulation = ba.SpecularSimulation()
-    simulation.setBeamIntensity(parameters["intensity"])
+    simulation.beam().setIntensity(parameters["intensity"])
 
     simulation.setScan(scan)
     return simulation

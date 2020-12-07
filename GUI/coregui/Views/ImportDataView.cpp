@@ -19,7 +19,7 @@
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include <QVBoxLayout>
-#include <minisplitter.h>
+#include <qt-manhattan-style/minisplitter.h>
 
 namespace {
 const bool reuse_widget = true;

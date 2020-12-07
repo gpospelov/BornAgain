@@ -252,6 +252,7 @@ void ISimulation::addParameterDistribution(const std::string& param_name,
 }
 
 void ISimulation::addParameterDistribution(const ParameterDistribution& par_distr) {
+    std::cout << "DEBUG ISimulation::addParameterDistribution" << std::endl;
     validateParametrization(par_distr);
     m_distribution_handler.addParameterDistribution(par_distr);
 }

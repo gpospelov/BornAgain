@@ -17,13 +17,11 @@
 #include "Base/Vector/Transform3D.h"
 #include "Core/Export/ComponentKeyHandler.h"
 #include "Core/Export/MaterialKeyHandler.h"
-#include "Core/Export/NodeProgenity.h"
+#include "Core/Export/NodeProgeny.h"
 #include "Core/Export/PyFmt.h"
 #include "Core/Export/PyFmt2.h"
 #include "Sample/Aggregate/InterferenceFunctions.h"
 #include "Sample/Aggregate/ParticleLayout.h"
-#include "Sample/Lattice/Lattice2D.h"
-#include "Sample/Lattice/Lattice3D.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Crystal.h"
@@ -108,31 +106,31 @@ void SampleToPython::initLabels(const MultiLayer& multilayer) {
         m_materials->insertMaterial(x);
 
     m_objs->insertModel("sample", &multilayer);
-    for (const auto* x : node_progenity::AllDescendantsOfType<Layer>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<Layer>(multilayer))
         m_objs->insertModel("layer", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<LayerRoughness>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<LayerRoughness>(multilayer))
         m_objs->insertModel("roughness", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<ParticleLayout>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<ParticleLayout>(multilayer))
         m_objs->insertModel("layout", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<IFormFactor>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<IFormFactor>(multilayer))
         m_objs->insertModel("ff", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<IInterferenceFunction>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<IInterferenceFunction>(multilayer))
         m_objs->insertModel("iff", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<Particle>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<Particle>(multilayer))
         m_objs->insertModel("particle", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<ParticleComposition>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<ParticleComposition>(multilayer))
         m_objs->insertModel("particle", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<ParticleCoreShell>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<ParticleCoreShell>(multilayer))
         m_objs->insertModel("particle", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<MesoCrystal>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<MesoCrystal>(multilayer))
         m_objs->insertModel("particle", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<ParticleDistribution>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<ParticleDistribution>(multilayer))
         m_objs->insertModel("particle_distrib", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<Lattice2D>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<Lattice2D>(multilayer))
         m_objs->insertModel("lattice", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<Lattice3D>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<Lattice3D>(multilayer))
         m_objs->insertModel("lattice", x);
-    for (const auto* x : node_progenity::AllDescendantsOfType<Crystal>(multilayer))
+    for (const auto* x : node_progeny::AllDescendantsOfType<Crystal>(multilayer))
         m_objs->insertModel("crystal", x);
 }
 
@@ -258,7 +256,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
                    << pyfmt::printNm(iff->getLength()) << ", " << pyfmt::printDegrees(iff->getXi())
                    << ")\n";
 
-            const auto* pdf = node_progenity::OnlyChildOfType<IFTDecayFunction1D>(*iff);
+            const auto* pdf = node_progeny::OnlyChildOfType<IFTDecayFunction1D>(*iff);
 
             if (pdf->decayLength() != 0.0)
                 result << indent() << key << "_pdf  = ba." << pdf->getName() << "("
@@ -279,7 +277,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
                 result << indent() << key << ".setDomainSize("
                        << pyfmt::printDouble(iff->domainSize()) << ")\n";
 
-            const auto* pdf = node_progenity::OnlyChildOfType<IFTDistribution1D>(*iff);
+            const auto* pdf = node_progeny::OnlyChildOfType<IFTDistribution1D>(*iff);
 
             if (pdf->omega() != 0.0)
                 result << indent() << key << "_pdf  = ba." << pdf->getName() << "("
@@ -287,12 +285,12 @@ std::string SampleToPython::defineInterferenceFunctions() const {
                        << indent() << key << ".setProbabilityDistribution(" << key << "_pdf)\n";
 
         } else if (const auto* iff = dynamic_cast<const InterferenceFunction2DLattice*>(s)) {
-            const auto* lattice = node_progenity::OnlyChildOfType<Lattice2D>(*iff);
+            const auto* lattice = node_progeny::OnlyChildOfType<Lattice2D>(*iff);
 
             result << indent() << key << " = ba.InterferenceFunction2DLattice("
                    << m_objs->obj2key(lattice) << ")\n";
 
-            const auto* pdf = node_progenity::OnlyChildOfType<IFTDecayFunction2D>(*iff);
+            const auto* pdf = node_progeny::OnlyChildOfType<IFTDecayFunction2D>(*iff);
 
             result << indent() << key << "_pdf  = ba." << pdf->getName() << "("
                    << pyfmt2::argumentList(pdf) << ")\n"
@@ -302,7 +300,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
                 result << indent() << key << ".setIntegrationOverXi(True)\n";
 
         } else if (const auto* iff = dynamic_cast<const InterferenceFunctionFinite2DLattice*>(s)) {
-            const auto* lattice = node_progenity::OnlyChildOfType<Lattice2D>(*iff);
+            const auto* lattice = node_progeny::OnlyChildOfType<Lattice2D>(*iff);
 
             result << indent() << key << " = ba.InterferenceFunctionFinite2DLattice("
                    << m_objs->obj2key(lattice) << ", " << iff->numberUnitCells1() << ", "
@@ -312,7 +310,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
                 result << indent() << key << ".setIntegrationOverXi(True)\n";
 
         } else if (const auto* iff = dynamic_cast<const InterferenceFunction2DParaCrystal*>(s)) {
-            const auto* lattice = node_progenity::OnlyChildOfType<Lattice2D>(*iff);
+            const auto* lattice = node_progeny::OnlyChildOfType<Lattice2D>(*iff);
             std::vector<double> domainSize = iff->domainSizes();
 
             result << indent() << key << " = ba.InterferenceFunction2DParaCrystal("
@@ -323,7 +321,7 @@ std::string SampleToPython::defineInterferenceFunctions() const {
             if (iff->integrationOverXi() == true)
                 result << indent() << key << ".setIntegrationOverXi(True)\n";
 
-            const auto pdf_vector = node_progenity::ChildNodesOfType<IFTDistribution2D>(*iff);
+            const auto pdf_vector = node_progeny::ChildNodesOfType<IFTDistribution2D>(*iff);
             if (pdf_vector.size() != 2)
                 continue;
             const IFTDistribution2D* pdf = pdf_vector[0];
@@ -367,13 +365,13 @@ std::string SampleToPython::defineParticleLayouts() const {
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.ParticleLayout()\n";
-        const auto particles = node_progenity::ChildNodesOfType<IAbstractParticle>(*s);
+        const auto particles = node_progeny::ChildNodesOfType<IAbstractParticle>(*s);
         for (const auto* particle : particles) {
             double abundance = particle->abundance();
             result << indent() << key << ".addParticle(" << m_objs->obj2key(particle) << ", "
                    << pyfmt::printDouble(abundance) << ")\n";
         }
-        if (const auto* iff = node_progenity::OnlyChildOfType<IInterferenceFunction>(*s))
+        if (const auto* iff = node_progeny::OnlyChildOfType<IInterferenceFunction>(*s))
             result << indent() << key << ".setInterferenceFunction(" << m_objs->obj2key(iff)
                    << ")\n";
         result << indent() << key << ".setWeight(" << s->weight() << ")\n";
@@ -392,7 +390,7 @@ std::string SampleToPython::defineParticles() const {
     result << "\n" << indent() << "# Define particles\n";
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
-        const auto* ff = node_progenity::OnlyChildOfType<IFormFactor>(*s);
+        const auto* ff = node_progeny::OnlyChildOfType<IFormFactor>(*s);
         ASSERT(ff);
         result << indent() << key << " = ba.Particle(" << m_materials->mat2key(s->material())
                << ", " << m_objs->obj2key(ff) << ")\n";
@@ -452,7 +450,7 @@ std::string SampleToPython::defineParticleDistributions() const {
             result << "\n";
         }
 
-        auto particle = node_progenity::OnlyChildOfType<IParticle>(*s);
+        auto particle = node_progeny::OnlyChildOfType<IParticle>(*s);
         if (!particle)
             continue;
         result << indent() << key << " = ba.ParticleDistribution(" << m_objs->obj2key(particle)
@@ -472,7 +470,7 @@ std::string SampleToPython::defineParticleCompositions() const {
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
         result << indent() << key << " = ba.ParticleComposition()\n";
-        const auto particle_list = node_progenity::ChildNodesOfType<IParticle>(*s);
+        const auto particle_list = node_progeny::ChildNodesOfType<IParticle>(*s);
         for (const auto* particle : particle_list) {
             result << indent() << key << ".addParticle(" << m_objs->obj2key(particle) << ")\n";
         }
@@ -491,8 +489,8 @@ std::string SampleToPython::defineMesoCrystals() const {
     result << "\n" << indent() << "# Define mesocrystals\n";
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
-        auto crystal = node_progenity::OnlyChildOfType<Crystal>(*s);
-        auto outer_shape = node_progenity::OnlyChildOfType<IFormFactor>(*s);
+        auto crystal = node_progeny::OnlyChildOfType<Crystal>(*s);
+        auto outer_shape = node_progeny::OnlyChildOfType<IFormFactor>(*s);
         if (!crystal || !outer_shape)
             continue;
         result << indent() << key << " = ba.MesoCrystal(";
@@ -553,8 +551,8 @@ std::string SampleToPython::defineCrystals() const {
     result << "\n" << indent() << "# Define crystals\n";
     for (const auto* s : v) {
         const std::string& key = m_objs->obj2key(s);
-        const auto* lattice = node_progenity::OnlyChildOfType<Lattice3D>(*s);
-        const auto* basis = node_progenity::OnlyChildOfType<IParticle>(*s);
+        const auto* lattice = node_progeny::OnlyChildOfType<Lattice3D>(*s);
+        const auto* basis = node_progeny::OnlyChildOfType<IParticle>(*s);
         if (!lattice || !basis)
             continue;
         result << indent() << key << " = ba.Crystal(";

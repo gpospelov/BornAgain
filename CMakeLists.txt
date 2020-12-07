@@ -135,7 +135,8 @@ endif()
 add_subdirectory(ThirdParty/common)
 add_subdirectory(ThirdParty/Core)
 if(BORNAGAIN_GUI)
-    add_subdirectory(ThirdParty/GUI)
+    add_subdirectory(ThirdParty/GUI/qt-manhattan-style)
+    add_subdirectory(ThirdParty/GUI/qcustomplot)
 endif()
 
 # from here on our own code, occasionally scrutinized by clang-tidy

@@ -22,7 +22,7 @@
 #include "GUI/coregui/mainwindow/mainwindow_constants.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 #include <QHBoxLayout>
-#include <minisplitter.h>
+#include <qt-manhattan-style/minisplitter.h>
 
 JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
     : QWidget(parent)

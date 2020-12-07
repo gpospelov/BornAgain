@@ -60,8 +60,10 @@ public:
 
     void registerChild(INode* node);
 
-    //! Returns a vector of children (const).
+    //! Returns a vector of children
     virtual std::vector<const INode*> getChildren() const;
+    //! Returns a vector of all descendents
+    std::vector<const INode*> progeny() const;
 
     virtual void setParent(const INode* newParent);
     const INode* parent() const;

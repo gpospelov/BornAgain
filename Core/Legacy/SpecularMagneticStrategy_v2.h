@@ -33,14 +33,13 @@ class SpecularMagneticStrategy_v2 : public ISpecularStrategy {
 public:
     // TODO remove once external test code is not needed anmyore
     // for the moment i need them!
-    using coefficient_type         = MatrixRTCoefficients_v2;
+    using coefficient_type = MatrixRTCoefficients_v2;
     using coefficient_pointer_type = std::unique_ptr<const coefficient_type>;
-    using coeffs_t                 = std::vector<coefficient_pointer_type>;
+    using coeffs_t = std::vector<coefficient_pointer_type>;
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and wavevector k
-    ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices,
-                                        const kvector_t& k) const;
+    ISpecularStrategy::coeffs_t Execute(const std::vector<Slice>& slices, const kvector_t& k) const;
 
     //! Computes refraction angle reflection/transmission coefficients
     //! for given sliced multilayer and a set of kz projections corresponding to each slice

@@ -91,9 +91,6 @@
 %template(swig_dummy_type_inode_vector) std::vector<INode*>;
 %template(swig_dummy_type_const_inode_vector) std::vector<const INode*>;
 
-%include "Base/Utils/IFactory.h"
-%template(SimulationFactoryTemp) IFactory<std::string, ISimulation>;
-
 %include "Core/Fitting/FitObjective.h"
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<double>>;
 %template(addSimulationAndData) FitObjective::addSimulationAndData<std::vector<std::vector<double>>>;
@@ -118,8 +115,6 @@
 %include "Core/Computation/IBackground.h"
 %include "Core/Computation/ConstantBackground.h"
 %include "Core/Computation/PoissonNoiseBackground.h"
-
-%include "Core/Simulation/SimulationFactory.h"
 
 %include "Core/Export/ExportToPython.h"
 

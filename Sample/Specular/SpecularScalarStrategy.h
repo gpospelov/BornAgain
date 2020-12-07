@@ -34,9 +34,9 @@ class SpecularScalarStrategy : public ISpecularStrategy {
 public:
     // TODO remove once external test code is not needed anmyore
     // for the moment i need them!
-    using coefficient_type         = ScalarRTCoefficients;
+    using coefficient_type = ScalarRTCoefficients;
     using coefficient_pointer_type = std::unique_ptr<const coefficient_type>;
-    using coeffs_t                 = std::vector<coefficient_pointer_type>;
+    using coeffs_t = std::vector<coefficient_pointer_type>;
 
     //! Computes refraction angles and transmission/reflection coefficients
     //! for given coherent wave propagation in a multilayer.

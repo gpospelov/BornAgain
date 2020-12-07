@@ -38,16 +38,15 @@
     EXPECT_NEAR_COMPLEX(v1(0), v2(0), eps);                                                        \
     EXPECT_NEAR_COMPLEX(v1(1), v2(1), eps);
 
-#define EXPECT_NEAR_MATRIXCOEFF(c1, c2, eps) \
-    EXPECT_NEAR_VECTOR2CD(c1->T1plus(), c2->T1plus(), eps); \
-    EXPECT_NEAR_VECTOR2CD(c1->R1plus(), c2->R1plus(), eps); \
-    EXPECT_NEAR_VECTOR2CD(c1->T2plus(), c2->T2plus(), eps); \
-    EXPECT_NEAR_VECTOR2CD(c1->R2plus(), c2->R2plus(), eps); \
-    EXPECT_NEAR_VECTOR2CD(c1->T1min(), c2->T1min(), eps); \
-    EXPECT_NEAR_VECTOR2CD(c1->R1min(), c2->R1min(), eps); \
-    EXPECT_NEAR_VECTOR2CD(c1->T2min(), c2->T2min(), eps); \
-    EXPECT_NEAR_VECTOR2CD(c1->R2min(), c2->R2min(), eps); \
+#define EXPECT_NEAR_MATRIXCOEFF(c1, c2, eps)                                                       \
+    EXPECT_NEAR_VECTOR2CD(c1->T1plus(), c2->T1plus(), eps);                                        \
+    EXPECT_NEAR_VECTOR2CD(c1->R1plus(), c2->R1plus(), eps);                                        \
+    EXPECT_NEAR_VECTOR2CD(c1->T2plus(), c2->T2plus(), eps);                                        \
+    EXPECT_NEAR_VECTOR2CD(c1->R2plus(), c2->R2plus(), eps);                                        \
+    EXPECT_NEAR_VECTOR2CD(c1->T1min(), c2->T1min(), eps);                                          \
+    EXPECT_NEAR_VECTOR2CD(c1->R1min(), c2->R1min(), eps);                                          \
+    EXPECT_NEAR_VECTOR2CD(c1->T2min(), c2->T2min(), eps);                                          \
+    EXPECT_NEAR_VECTOR2CD(c1->R2min(), c2->R2min(), eps);                                          \
     EXPECT_NEAR_VECTOR2CD(c1->getKz(), c2->getKz(), eps)
-
 
 #endif // BORNAGAIN_TESTS_GTESTWRAPPER_GOOGLE_TEST_H

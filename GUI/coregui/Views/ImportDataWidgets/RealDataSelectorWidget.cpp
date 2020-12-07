@@ -21,7 +21,7 @@
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorToolBar.h"
 #include <QItemSelectionModel>
 #include <QVBoxLayout>
-#include <minisplitter.h>
+#include <qt-manhattan-style/minisplitter.h>
 
 RealDataSelectorWidget::RealDataSelectorWidget(QWidget* parent)
     : QWidget(parent)

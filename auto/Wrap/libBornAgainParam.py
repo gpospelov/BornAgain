@@ -3247,10 +3247,20 @@ class INode(IParametricComponent):
         getChildren(INode self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > INode::getChildren() const
 
-        Returns a vector of children (const). 
+        Returns a vector of children. 
 
         """
         return _libBornAgainParam.INode_getChildren(self)
+
+    def progeny(self):
+        r"""
+        progeny(INode self) -> swig_dummy_type_const_inode_vector
+        std::vector< const INode * > INode::progeny() const
+
+        Returns a vector of all descendents. 
+
+        """
+        return _libBornAgainParam.INode_progeny(self)
 
     def setParent(self, newParent):
         r"""
@@ -3481,14 +3491,6 @@ class INodeVisitor(object):
 # Register INodeVisitor in _libBornAgainParam:
 _libBornAgainParam.INodeVisitor_swigregister(INodeVisitor)
 
-
-def VisitNodesPreorder(node, visitor):
-    r"""
-    VisitNodesPreorder(INode node, INodeVisitor visitor)
-    void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
-
-    """
-    return _libBornAgainParam.VisitNodesPreorder(node, visitor)
 class IDistribution1D(libBornAgainBase.ICloneable, INode):
     r"""
 

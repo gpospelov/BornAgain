@@ -45,18 +45,15 @@ ParameterDistribution::ParameterDistribution(const std::string& par_name,
     , m_xmin(xmin)
     , m_xmax(xmax) {
     m_distribution.reset(distribution.clone());
-    if (m_sigma_factor < 0.0) {
+    if (m_sigma_factor < 0.0)
         throw std::runtime_error("ParameterDistribution::ParameterDistribution() -> Error."
                                  "sigma factor cannot be negative");
-    }
-    if (nbr_samples == 0) {
+    if (nbr_samples == 0)
         throw std::runtime_error("ParameterDistribution::ParameterDistribution() -> Error."
                                  "Number of samples can't be zero.");
-    }
-    if (xmin >= xmax) {
+    if (xmin >= xmax)
         throw std::runtime_error("ParameterDistribution::ParameterDistribution() -> Error."
                                  "xmin>=xmax");
-    }
 }
 
 ParameterDistribution::ParameterDistribution(const ParameterDistribution& other)
@@ -101,8 +98,7 @@ size_t ParameterDistribution::getNbrSamples() const {
 std::vector<ParameterSample> ParameterDistribution::generateSamples() const {
     if (m_xmin < m_xmax)
         return m_distribution->equidistantSamplesInRange(m_nbr_samples, m_xmin, m_xmax);
-    else
-        return m_distribution->equidistantSamples(m_nbr_samples, m_sigma_factor, m_limits);
+    return m_distribution->equidistantSamples(m_nbr_samples, m_sigma_factor, m_limits);
 }
 
 const IDistribution1D* ParameterDistribution::getDistribution() const {

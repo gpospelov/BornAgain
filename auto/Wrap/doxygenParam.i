@@ -452,7 +452,12 @@ Returns multiline string representing tree structure below the node.
 
 %feature("docstring")  INode::getChildren "std::vector< const INode * > INode::getChildren() const
 
-Returns a vector of children (const). 
+Returns a vector of children. 
+";
+
+%feature("docstring")  INode::progeny "std::vector< const INode * > INode::progeny() const
+
+Returns a vector of all descendents. 
 ";
 
 %feature("docstring")  INode::setParent "void INode::setParent(const INode *newParent)
@@ -1625,19 +1630,24 @@ C++ includes: Unit.h
 // File: namespace_0d15.xml
 
 
-// File: namespace_0d25.xml
+// File: namespace_0d24.xml
 
 
-// File: namespace_0d30.xml
+// File: namespace_0d29.xml
 
 
 // File: namespaceNodeUtils.xml
-%feature("docstring")  NodeUtils::nodeToString "std::string NodeUtils::nodeToString(const INode &node)
+%feature("docstring")  NodeUtils::progenyPlus "std::vector< std::tuple< const INode *, int, const INode * > > NodeUtils::progenyPlus(const INode *node, int level=0)
+
+Returns a vector of triples (descendent, depth, parent) 
+";
+
+%feature("docstring")  NodeUtils::nodeToString "std::string NodeUtils::nodeToString(const INode *node)
 
 Returns multiline string representing tree structure starting from given node. 
 ";
 
-%feature("docstring")  NodeUtils::nodePath "std::string NodeUtils::nodePath(const INode &node, const INode *root=nullptr)
+%feature("docstring")  NodeUtils::nodePath "std::string NodeUtils::nodePath(const INode *node, const INode *root=nullptr)
 
 Returns path composed of node's displayName, with respect to root node. 
 ";
@@ -1716,14 +1726,7 @@ Returns units of main parameter.
 ";
 
 
-// File: INodeVisitor_8cpp.xml
-%feature("docstring")  VisitNodesPreorder "void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
-";
-
-
 // File: INodeVisitor_8h.xml
-%feature("docstring")  VisitNodesPreorder "void VisitNodesPreorder(const INode &node, INodeVisitor &visitor)
-";
 
 
 // File: IterationStrategy_8cpp.xml

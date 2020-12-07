@@ -2718,36 +2718,6 @@ class swig_dummy_type_const_inode_vector(object):
 # Register swig_dummy_type_const_inode_vector in _libBornAgainCore:
 _libBornAgainCore.swig_dummy_type_const_inode_vector_swigregister(swig_dummy_type_const_inode_vector)
 
-class SimulationFactoryTemp(object):
-    r"""Proxy of C++ IFactory< std::string,ISimulation > class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def createItem(self, item_key):
-        r"""createItem(SimulationFactoryTemp self, std::string const & item_key) -> ISimulation"""
-        return _libBornAgainCore.SimulationFactoryTemp_createItem(self, item_key)
-
-    def registerItem(self, item_key, CreateFn):
-        r"""registerItem(SimulationFactoryTemp self, std::string const & item_key, IFactory< std::string,ISimulation >::CreateItemCallback CreateFn) -> bool"""
-        return _libBornAgainCore.SimulationFactoryTemp_registerItem(self, item_key, CreateFn)
-
-    def contains(self, item_key):
-        r"""contains(SimulationFactoryTemp self, std::string const & item_key) -> bool"""
-        return _libBornAgainCore.SimulationFactoryTemp_contains(self, item_key)
-
-    def size(self):
-        r"""size(SimulationFactoryTemp self) -> size_t"""
-        return _libBornAgainCore.SimulationFactoryTemp_size(self)
-
-    def __init__(self):
-        r"""__init__(SimulationFactoryTemp self) -> SimulationFactoryTemp"""
-        _libBornAgainCore.SimulationFactoryTemp_swiginit(self, _libBornAgainCore.new_SimulationFactoryTemp())
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactoryTemp
-
-# Register SimulationFactoryTemp in _libBornAgainCore:
-_libBornAgainCore.SimulationFactoryTemp_swigregister(SimulationFactoryTemp)
-
 class FitObjective(object):
     r"""
 
@@ -4459,31 +4429,6 @@ class PoissonNoiseBackground(IBackground):
 
 # Register PoissonNoiseBackground in _libBornAgainCore:
 _libBornAgainCore.PoissonNoiseBackground_swigregister(PoissonNoiseBackground)
-
-class SimulationFactory(SimulationFactoryTemp):
-    r"""
-
-
-    Registry to create standard pre-defined simulations. Used in functional tests, performance measurements, etc.
-
-    C++ includes: SimulationFactory.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self):
-        r"""
-        __init__(SimulationFactory self) -> SimulationFactory
-        SimulationFactory::SimulationFactory()
-
-        """
-        _libBornAgainCore.SimulationFactory_swiginit(self, _libBornAgainCore.new_SimulationFactory())
-    __swig_destroy__ = _libBornAgainCore.delete_SimulationFactory
-
-# Register SimulationFactory in _libBornAgainCore:
-_libBornAgainCore.SimulationFactory_swigregister(SimulationFactory)
 
 
 def generateSampleCode(multilayer):

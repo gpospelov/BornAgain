@@ -30,6 +30,7 @@
 #include "GUI/coregui/Models/TransformationItem.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "Param/Node/NodeUtils.h"
 #include "Sample/Aggregate/ParticleLayout.h"
 #include "Sample/HardParticle/HardParticles.h"
 #include "Sample/Multilayer/Layer.h"
@@ -77,7 +78,10 @@ SessionItem* GUIDomainSampleVisitor::populateSampleModel(SampleModel* sampleMode
     if (m_topSampleName.isEmpty())
         m_topSampleName = sample.getName().c_str();
 
-    VisitNodesPreorder(sample, *this);
+    for (const auto [child, depth, parent]: NodeUtils::progenyPlus(&sample)) {
+        setDepth(depth+1);
+        child->accept(this);
+    }
     SessionItem* result = m_levelToParentItem[1];
 
     result->setItemName(m_topSampleName);

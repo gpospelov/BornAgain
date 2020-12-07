@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H
 #define BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H
 

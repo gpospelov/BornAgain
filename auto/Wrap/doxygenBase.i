@@ -410,6 +410,11 @@ Increments inner counter; at regular intervals updates progress handler.
 %feature("docstring")  Direction::phi "double Direction::phi() const
 ";
 
+%feature("docstring")  Direction::vector "kvector_t Direction::vector() const
+
+Returns Cartesian 3D vector. 
+";
+
 
 // File: classFixedBinAxis.xml
 %feature("docstring") FixedBinAxis "
@@ -1673,6 +1678,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
 ";
+
+
+// File: Direction_8cpp.xml
 
 
 // File: Direction_8h.xml

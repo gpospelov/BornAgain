@@ -15,6 +15,8 @@
 #ifndef BORNAGAIN_BASE_VECTOR_DIRECTION_H
 #define BORNAGAIN_BASE_VECTOR_DIRECTION_H
 
+#include "Base/Vector/Vectors3D.h"
+
 class Direction {
 public:
     Direction(double alpha, double phi) : m_alpha(alpha), m_phi(phi) {}
@@ -25,6 +27,9 @@ public:
 
     double alpha() const { return m_alpha; }
     double phi() const { return m_phi; }
+
+    //! Returns Cartesian 3D vector
+    kvector_t vector() const;
 
 private:
     double m_alpha;

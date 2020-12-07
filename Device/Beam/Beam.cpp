@@ -23,11 +23,11 @@
 static constexpr double INCLINATION_LIMIT = M_PI_2 + 1e-10;
 
 Beam::Beam(double intensity, double wavelength, const Direction& direction)
-    :  m_intensity(intensity), m_wavelength(wavelength)
-       // , m_direction(direction)
+    : m_intensity(intensity)
+    , m_wavelength(wavelength)
+    // , m_direction(direction)
     , m_alpha(direction.alpha())
-    , m_phi(direction.phi())
-{
+    , m_phi(direction.phi()) {
     setName("Beam");
     registerParameter("Intensity", &m_intensity).setNonnegative();
     registerParameter("Wavelength", &m_wavelength).setUnit("nm").setNonnegative();
@@ -37,15 +37,13 @@ Beam::Beam(double intensity, double wavelength, const Direction& direction)
 }
 
 Beam::Beam(double wavelength, double alpha, double phi, double intensity)
-    : Beam(intensity, wavelength, Direction(alpha, phi)) {
-}
+    : Beam(intensity, wavelength, Direction(alpha, phi)) {}
 
 Beam Beam::horizontalBeam() {
-    return Beam(1.0, 1.0, {0,0});
+    return Beam(1.0, 1.0, {0, 0});
 }
 
-Beam::Beam(const Beam& other)
-    : Beam(other.m_intensity, other.m_wavelength, other.direction()) {
+Beam::Beam(const Beam& other) : Beam(other.m_intensity, other.m_wavelength, other.direction()) {
     m_bloch_vector = other.m_bloch_vector;
     setName(other.getName());
     if (other.m_shape_factor) {
@@ -76,8 +74,7 @@ kvector_t Beam::getCentralK() const {
     return vecOfLambdaAlphaPhi(m_wavelength, -direction().alpha(), direction().phi());
 }
 
-void Beam::setWavelength(double wavelength)
-{
+void Beam::setWavelength(double wavelength) {
     if (wavelength <= 0.0)
         throw std::runtime_error(
             "Beam::setCentralK() -> Error. Wavelength can't be negative or zero.");

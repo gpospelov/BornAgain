@@ -36,7 +36,9 @@ double getQ(double wavelength, double angle) {
 //  ************************************************************************************************
 
 UnitConverterSimple::UnitConverterSimple(const Beam& beam)
-    : m_wavelength(beam.getWavelength()), m_alpha_i(-beam.direction().alpha()), m_phi_i(beam.direction().phi()) {}
+    : m_wavelength(beam.getWavelength())
+    , m_alpha_i(-beam.direction().alpha())
+    , m_phi_i(beam.direction().phi()) {}
 
 size_t UnitConverterSimple::dimension() const {
     return m_axis_data_table.size();

@@ -175,12 +175,11 @@ void ProjectManager::newProject() {
     if (!closeCurrentProject())
         return;
 
-    QString projectFileName = acquireProjectFileName();
+    createNewProject();
 
-    if (!projectFileName.isEmpty()) {
-        createNewProject();
+    QString projectFileName = acquireProjectFileName(false);
+    if (!projectFileName.isEmpty())
         saveProject(projectFileName);
-    }
 }
 
 //! Processes close current project request. Call save/discard/cancel dialog, if necessary.
@@ -228,7 +227,7 @@ bool ProjectManager::saveProject(QString projectFileName) {
         if (m_project_document->hasValidNameAndPath())
             projectFileName = m_project_document->projectFileName();
         else
-            projectFileName = acquireProjectFileName();
+            projectFileName = acquireProjectFileName(true);
     }
 
     if (projectFileName.isEmpty())
@@ -255,7 +254,7 @@ bool ProjectManager::saveProject(QString projectFileName) {
 //! Processes 'save project as' request.
 
 bool ProjectManager::saveProjectAs() {
-    QString projectFileName = acquireProjectFileName();
+    QString projectFileName = acquireProjectFileName(true);
 
     if (projectFileName.isEmpty())
         return false;
@@ -269,6 +268,8 @@ void ProjectManager::openProject(QString fileName) {
     if (!closeCurrentProject())
         return;
 
+    createNewProject();
+
     if (fileName.isEmpty()) {
         fileName =
             QFileDialog::getOpenFileName(m_mainWindow, "Open project file", workingDirectory(),
@@ -276,7 +277,7 @@ void ProjectManager::openProject(QString fileName) {
         if (fileName.isEmpty())
             return;
     }
-    createNewProject();
+
     loadProject(fileName);
 
     if (m_project_document->isReady()) {
@@ -334,10 +335,12 @@ void ProjectManager::loadProject(const QString& projectFileName) {
     QApplication::restoreOverrideCursor();
 }
 
-//! Returns project file name from dialog.
+//! Returns project file name from dialog. Returns empty string if dialog was canceled.
 
-QString ProjectManager::acquireProjectFileName() {
-    NewProjectDialog dialog(m_mainWindow, workingDirectory(), untitledProjectName());
+QString ProjectManager::acquireProjectFileName(bool forSaveAs) {
+    NewProjectDialog dialog(m_mainWindow,
+                            forSaveAs ? NewProjectDialog::SAVE : NewProjectDialog::CREATE,
+                            workingDirectory(), untitledProjectName());
 
     if (dialog.exec() != QDialog::Accepted)
         return "";

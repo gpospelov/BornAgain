@@ -20,7 +20,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-NewProjectDialog::NewProjectDialog(QWidget* parent, const QString& workingDirectory,
+NewProjectDialog::NewProjectDialog(QWidget* parent, Mode mode, const QString& workingDirectory,
                                    const QString& projectName)
     : QDialog(parent)
     , m_projectNameEdit(0)
@@ -34,7 +34,7 @@ NewProjectDialog::NewProjectDialog(QWidget* parent, const QString& workingDirect
 
 {
     setMinimumSize(480, 280);
-    setWindowTitle("New project");
+    setWindowTitle(mode == CREATE ? "New project" : "Save project");
 
     QLabel* nameLabel = new QLabel("Project name:");
     m_projectNameEdit = new QLineEdit;
@@ -43,7 +43,7 @@ NewProjectDialog::NewProjectDialog(QWidget* parent, const QString& workingDirect
             SLOT(checkIfProjectNameIsValid(QString)));
     nameLabel->setBuddy(m_projectNameEdit);
 
-    QLabel* parentDirLabel = new QLabel("Create in:");
+    QLabel* parentDirLabel = new QLabel(mode == CREATE ? "Create in:" : "Save in:");
     m_workDirEdit = new QLineEdit;
     m_workDirEdit->setText(QDir::homePath());
     connect(m_workDirEdit, SIGNAL(textEdited(QString)), this,
@@ -55,7 +55,7 @@ NewProjectDialog::NewProjectDialog(QWidget* parent, const QString& workingDirect
 
     m_warningLabel = new QLabel();
 
-    m_createButton = new QPushButton("Create");
+    m_createButton = new QPushButton(mode == CREATE ? "Create" : "Save");
     connect(m_createButton, SIGNAL(clicked()), this, SLOT(createProjectDir()));
     m_createButton->setDefault(true);
     m_cancelButton = new QPushButton("Cancel");

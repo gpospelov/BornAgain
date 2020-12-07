@@ -25,8 +25,7 @@ Instrument::Instrument(const Beam& beam, const IDetector& detector)
     initDetector();
 }
 
-Instrument::Instrument() : Instrument(Beam::horizontalBeam(), SphericalDetector()) {
-}
+Instrument::Instrument() : Instrument(Beam::horizontalBeam(), SphericalDetector()) {}
 
 Instrument::Instrument(const Instrument& other) : INode(), m_beam(other.m_beam) {
     if (other.m_detector)

@@ -257,10 +257,9 @@ std::string defineGISASBeam(const GISASSimulation& simulation) {
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
-    result << indent() << "beam = ba.Beam(" <<
-        pyfmt::printDouble(beam.intensity()) << ", " <<
-        pyfmt::printNm(beam.wavelength())
-           << ", ba.Direction(" << pyfmt::printDegrees(beam.direction().alpha()) << ", "
+    result << indent() << "beam = ba.Beam(" << pyfmt::printDouble(beam.intensity()) << ", "
+           << pyfmt::printNm(beam.wavelength()) << ", ba.Direction("
+           << pyfmt::printDegrees(beam.direction().alpha()) << ", "
            << pyfmt::printDegrees(beam.direction().phi()) << "))\n";
 
     result << defineBeamPolarization(beam);
@@ -430,9 +429,9 @@ std::string defineSimulate(const ISimulation* simulation) {
     result << "    return simulation\n\n\n";
 
     result << "def run_simulation():\n"
-        "    simulation = get_simulation()\n"
-        "    simulation.runSimulation()\n"
-        "    return simulation.result()\n\n\n";
+              "    simulation = get_simulation()\n"
+              "    simulation.runSimulation()\n"
+              "    return simulation.result()\n\n\n";
 
     return result.str();
 }

@@ -111,8 +111,7 @@ void runComputations(std::vector<std::unique_ptr<IComputation>>& computations) {
 //  class ISimulation
 //  ************************************************************************************************
 
-ISimulation::ISimulation(
-    const Beam& beam, const MultiLayer& sample, const IDetector& detector)
+ISimulation::ISimulation(const Beam& beam, const MultiLayer& sample, const IDetector& detector)
     : m_instrument(beam, detector) {
     setSample(sample);
     initialize();

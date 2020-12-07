@@ -23,6 +23,7 @@ class ISimulation;
 
 class SimulationToPython {
 public:
+    //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
     std::string generateSimulationCode(const ISimulation& simulation);
 };
 

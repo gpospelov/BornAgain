@@ -56,14 +56,6 @@ bool isDefaultDirection(const kvector_t direction) {
            && algo::almostEqual(direction.z(), 0.0);
 }
 
-const std::string defineSimulate = "def run_simulation():\n"
-                                   "    sample = get_sample()\n"
-                                   "    simulation = get_simulation()\n"
-                                   "    simulation.setSample(sample)\n"
-                                   "    simulation.runSimulation()\n"
-                                   "    return simulation.result()\n"
-                                   "\n\n";
-
 std::string defineFootprintFactor(const IFootprintFactor& foot) {
     std::ostringstream result;
     result << indent() << "footprint = ba." << foot.name();
@@ -422,7 +414,7 @@ std::string defineSpecularSimulation(const SpecularSimulation* simulation) {
     return result.str();
 }
 
-std::string defineGetSimulation(const ISimulation* simulation) {
+std::string defineSimulate(const ISimulation* simulation) {
     std::ostringstream result;
     result << "def get_simulation():\n";
 
@@ -437,6 +429,13 @@ std::string defineGetSimulation(const ISimulation* simulation) {
                                  "Wrong simulation type");
 
     result << indent() << "return simulation\n\n\n";
+    result << "def run_simulation():\n"
+        "    sample = get_sample()\n"
+        "    simulation = get_simulation()\n"
+        "    simulation.setSample(sample)\n"
+        "    simulation.runSimulation()\n"
+        "    return simulation.result()\n"
+        "\n\n";
     return result.str();
 }
 
@@ -451,11 +450,13 @@ const std::string defineMain =
 
 } // namespace
 
-//! Returns a Python script that sets up a simulation and runs it if invoked as main program.
+//  ************************************************************************************************
+//  class SimulationToPython
+//  ************************************************************************************************
 
 std::string SimulationToPython::generateSimulationCode(const ISimulation& simulation) {
     if (simulation.sample() == nullptr)
         throw std::runtime_error("Cannot export: Simulation has no sample");
     return pyfmt::scriptPreamble() + SampleToPython().generateSampleCode(*simulation.sample())
-           + defineGetSimulation(&simulation) + defineSimulate + defineMain;
+           + defineSimulate(&simulation) + defineMain;
 }

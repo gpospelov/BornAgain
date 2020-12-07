@@ -32,10 +32,9 @@
 #define ROOT_Math_GSLMultiFitFunctionWrapper
 
 #include "gsl/gsl_multifit.h"
+#include "gsl/gsl_multifit_nlin.h" // patch JWu dec20
 
 #include "GSLMultiFitFunctionAdapter.h"
-
-
 #include <cassert>
 
 namespace ROOT {

@@ -1,6 +1,7 @@
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Tests/GTestWrapper/google_test.h"
+#include "Utils.h"
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
@@ -32,7 +33,7 @@ TEST_F(TestProjectUtils, test_nonXMLDataInDir) {
         EXPECT_FALSE(dir.exists());
     }
 
-    GUIHelpers::createSubdir(".", projectDir);
+    GuiUnittestUtils::create_dir(projectDir);
     EXPECT_TRUE(ProjectUtils::exists(projectDir));
 
     EXPECT_EQ(1, 1);

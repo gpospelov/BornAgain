@@ -32,6 +32,7 @@ public:
     //! Sets autosave time (in msec)
     void setAutosaveTime(int timerInterval);
 
+    //! The complete path to the autosave dir (e.g. '/projects/Untitled2/autosave').
     QString autosaveDir() const;
     QString autosaveName() const;
 
@@ -49,6 +50,11 @@ private slots:
 private:
     void autosave();
     void setDocumentConnected(bool set_connected);
+
+    //! Tries to make sure that the directory for auto saving exists. Tries to create it if not
+    //! existing so far. No creation, if project directory itself doesn't exist at all.
+    //! Returns true, if the directory finally exists.
+    bool assureAutoSaveDirExists() const;
 
     ProjectDocument* m_document;
     UpdateTimer* m_timer;

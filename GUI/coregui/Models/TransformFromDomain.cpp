@@ -232,8 +232,8 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
 
     beam_item->setIntensity(beam.getIntensity());
     beam_item->setWavelength(beam.getWavelength());
-    beam_item->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
-    beam_item->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
+    beam_item->setInclinationAngle(Units::rad2deg(beam.direction().alpha()));
+    beam_item->setAzimuthalAngle(Units::rad2deg(beam.direction().phi()));
 
     // distribution parameters
     const DistributionHandler::Distributions_t distributions =
@@ -257,8 +257,8 @@ void TransformFromDomain::setOffSpecBeamItem(BeamItem* beam_item,
 
     beam_item->setIntensity(beam.getIntensity());
     beam_item->setWavelength(beam.getWavelength());
-    beam_item->setInclinationAngle(Units::rad2deg(beam.getAlpha()));
-    beam_item->setAzimuthalAngle(Units::rad2deg(beam.getPhi()));
+    beam_item->setInclinationAngle(Units::rad2deg(beam.direction().alpha()));
+    beam_item->setAzimuthalAngle(Units::rad2deg(beam.direction().phi()));
     // TODO implement beam divergence
 }
 

@@ -55,7 +55,7 @@ RectangularDetector* RectangularDetector::clone() const {
 }
 
 void RectangularDetector::init(const Beam& beam) {
-    double alpha_i = beam.getAlpha();
+    double alpha_i = beam.direction().alpha();
     kvector_t central_k = beam.getCentralK();
     initNormalVector(central_k);
     initUandV(alpha_i);
@@ -197,8 +197,8 @@ std::string RectangularDetector::axisName(size_t index) const {
 size_t RectangularDetector::indexOfSpecular(const Beam& beam) const {
     if (dimension() != 2)
         return totalSize();
-    const double alpha = beam.getAlpha();
-    const double phi = beam.getPhi();
+    const double alpha = beam.direction().alpha();
+    const double phi = beam.direction().phi();
     const kvector_t k_spec = vecOfLambdaAlphaPhi(beam.getWavelength(), alpha, phi);
     const kvector_t normal_unit = m_normal_to_detector.unit();
     const double kd = k_spec.dot(normal_unit);

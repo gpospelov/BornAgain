@@ -389,6 +389,28 @@ Increments inner counter; at regular intervals updates progress handler.
 ";
 
 
+// File: classDirection.xml
+%feature("docstring") Direction "";
+
+%feature("docstring")  Direction::Direction "Direction::Direction(double alpha, double phi)
+";
+
+%feature("docstring")  Direction::Direction "Direction::Direction()
+";
+
+%feature("docstring")  Direction::setAlpha "void Direction::setAlpha(double alpha)
+";
+
+%feature("docstring")  Direction::setPhi "void Direction::setPhi(double phi)
+";
+
+%feature("docstring")  Direction::alpha "double Direction::alpha() const
+";
+
+%feature("docstring")  Direction::phi "double Direction::phi() const
+";
+
+
 // File: classFixedBinAxis.xml
 %feature("docstring") FixedBinAxis "
 
@@ -1651,6 +1673,9 @@ Creates a vector<double> as a wavevector with given wavelength and angles. Speci
 
 Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
 ";
+
+
+// File: Direction_8h.xml
 
 
 // File: EigenCore_8h.xml

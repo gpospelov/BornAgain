@@ -36,6 +36,9 @@ Beam defined by wavelength, direction and intensity.
 C++ includes: Beam.h
 ";
 
+%feature("docstring")  Beam::Beam "Beam::Beam(double intensity, double wavelength, const Direction &direction)
+";
+
 %feature("docstring")  Beam::Beam "Beam::Beam(double wavelength, double alpha, double phi, double intensity)
 ";
 
@@ -50,9 +53,13 @@ C++ includes: Beam.h
 Returns the wavevector. 
 ";
 
-%feature("docstring")  Beam::setCentralK "void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
+%feature("docstring")  Beam::setWavelength "void Beam::setWavelength(double wavelength)
+";
 
-Sets the wavevector in terms of wavelength and incoming angles. 
+%feature("docstring")  Beam::setDirection "void Beam::setDirection(const Direction &direction)
+";
+
+%feature("docstring")  Beam::setInclination "void Beam::setInclination(const double alpha)
 ";
 
 %feature("docstring")  Beam::getIntensity "double Beam::getIntensity() const
@@ -96,10 +103,7 @@ Returns the polarization density matrix (in spin basis along z-axis)
 %feature("docstring")  Beam::getWavelength "double Beam::getWavelength() const
 ";
 
-%feature("docstring")  Beam::getAlpha "double Beam::getAlpha() const
-";
-
-%feature("docstring")  Beam::getPhi "double Beam::getPhi() const
+%feature("docstring")  Beam::direction "Direction Beam::direction() const
 ";
 
 %feature("docstring")  Beam::accept "void Beam::accept(INodeVisitor *visitor) const override

@@ -74,8 +74,8 @@ std::unique_ptr<IComputation> ISimulation2D::generateSingleThreadedComputation(s
 
 std::vector<SimulationElement> ISimulation2D::generateSimulationElements(const Beam& beam) {
     const double wavelength = beam.getWavelength();
-    const double alpha_i = -beam.getAlpha(); // Defined to be always positive in Beam
-    const double phi_i = beam.getPhi();
+    const double alpha_i = -beam.direction().alpha(); // Defined to be always positive in Beam
+    const double phi_i = beam.direction().phi();
     const Eigen::Matrix2cd beam_polarization = beam.getPolarization();
 
     const IDetector2D& detector = instrument().detector2D();

@@ -15,6 +15,7 @@
 #ifndef BORNAGAIN_DEVICE_BEAM_BEAM_H
 #define BORNAGAIN_DEVICE_BEAM_BEAM_H
 
+#include "Base/Vector/Direction.h"
 #include "Base/Vector/EigenCore.h"
 #include "Param/Node/INode.h"
 
@@ -25,6 +26,7 @@ class IFootprintFactor;
 
 class Beam : public INode {
 public:
+    Beam(double intensity, double wavelength, const Direction& direction);
     Beam(double wavelength, double alpha, double phi, double intensity);
 
     Beam(const Beam& other);
@@ -37,8 +39,9 @@ public:
     //! Returns the wavevector
     kvector_t getCentralK() const;
 
-    //! Sets the wavevector in terms of wavelength and incoming angles
-    void setCentralK(double wavelength, double alpha_i, double phi_i);
+    void setWavelength(double wavelength);
+    void setDirection(const Direction& direction);
+    void setInclination(const double alpha);
 
     //! Returns the beam intensity in neutrons/sec
     double getIntensity() const { return m_intensity; }
@@ -66,17 +69,18 @@ public:
 #endif
 
     double getWavelength() const { return m_wavelength; }
-    double getAlpha() const { return m_alpha; }
-    double getPhi() const { return m_phi; }
+    // Direction& direction() { return m_direction; }
+    Direction direction() const { return {m_alpha, m_phi}; } // TODO -> const .. &
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
     std::vector<const INode*> getChildren() const override;
 
 private:
+    double m_intensity; //!< beam intensity (neutrons/sec)
     double m_wavelength;
+    // Direction m_direction; TODO
     double m_alpha;
     double m_phi;
-    double m_intensity;                               //!< beam intensity (neutrons/sec)
     std::unique_ptr<IFootprintFactor> m_shape_factor; //!< footprint correction handler
     kvector_t m_bloch_vector; //!< Bloch vector encoding the beam's polarization
 };

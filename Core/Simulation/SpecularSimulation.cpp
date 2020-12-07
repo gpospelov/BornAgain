@@ -31,7 +31,7 @@ namespace {
 // TODO: remove when pointwise resolution is implemented
 std::unique_ptr<AngularSpecScan> mangledScan(const AngularSpecScan& scan, const Beam& beam) {
     const double wl = beam.getWavelength();
-    const double angle_shift = beam.getAlpha();
+    const double angle_shift = beam.direction().alpha();
     std::vector<double> angles = scan.coordinateAxis()->binCenters();
     for (auto& val : angles)
         val += angle_shift;

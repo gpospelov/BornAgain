@@ -99,8 +99,8 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters) {
     EXPECT_EQ(10.0 * Units::deg, sim.getAlphaAxis()->upperBound());
     EXPECT_EQ(1.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
-    EXPECT_EQ(0.0, beam.getAlpha());
-    EXPECT_EQ(0.0, beam.getPhi());
+    EXPECT_EQ(0.0, beam.direction().alpha());
+    EXPECT_EQ(0.0, beam.direction().phi());
 
     checkBeamState(sim);
 
@@ -117,8 +117,8 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters) {
     EXPECT_EQ(10.0 * Units::deg, sim.getAlphaAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
-    EXPECT_EQ(0.0, beam.getAlpha());
-    EXPECT_EQ(0.0, beam.getPhi());
+    EXPECT_EQ(0.0, beam.direction().alpha());
+    EXPECT_EQ(0.0, beam.direction().phi());
 
     checkBeamState(sim);
 

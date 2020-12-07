@@ -22,22 +22,30 @@
 // Allow for 90 degrees by adding a relatively small constant to pi/2
 static constexpr double INCLINATION_LIMIT = M_PI_2 + 1e-10;
 
-Beam::Beam(double wavelength, double alpha, double phi, double intensity)
-    : m_wavelength(wavelength), m_alpha(alpha), m_phi(phi), m_intensity(intensity) {
+Beam::Beam(double intensity, double wavelength, const Direction& direction)
+    :  m_intensity(intensity), m_wavelength(wavelength)
+       // , m_direction(direction)
+    , m_alpha(direction.alpha())
+    , m_phi(direction.phi())
+{
     setName("Beam");
+    registerParameter("Intensity", &m_intensity).setNonnegative();
     registerParameter("Wavelength", &m_wavelength).setUnit("nm").setNonnegative();
     registerParameter("InclinationAngle", &m_alpha).setUnit("rad").setLimited(0, INCLINATION_LIMIT);
     registerParameter("AzimuthalAngle", &m_phi).setUnit("rad").setLimited(-M_PI_2, M_PI_2);
-    registerParameter("Intensity", &m_intensity).setNonnegative();
     registerVector("BlochVector", &m_bloch_vector, "");
 }
 
+Beam::Beam(double wavelength, double alpha, double phi, double intensity)
+    : Beam(intensity, wavelength, Direction(alpha, phi)) {
+}
+
 Beam Beam::horizontalBeam() {
-    return Beam(1.0, 0.0, 0.0, 1.0);
+    return Beam(1.0, 1.0, {0,0});
 }
 
 Beam::Beam(const Beam& other)
-    : Beam(other.m_wavelength, other.m_alpha, other.m_phi, other.m_intensity) {
+    : Beam(other.m_intensity, other.m_wavelength, other.direction()) {
     m_bloch_vector = other.m_bloch_vector;
     setName(other.getName());
     if (other.m_shape_factor) {
@@ -47,10 +55,11 @@ Beam::Beam(const Beam& other)
 }
 
 Beam& Beam::operator=(const Beam& other) {
+    m_intensity = other.m_intensity;
     m_wavelength = other.m_wavelength;
+    // m_direction = other.m_direction;
     m_alpha = other.m_alpha;
     m_phi = other.m_phi;
-    m_intensity = other.m_intensity;
     m_bloch_vector = other.m_bloch_vector;
     setName(other.getName());
     if (other.m_shape_factor) {
@@ -64,19 +73,28 @@ Beam& Beam::operator=(const Beam& other) {
 Beam::~Beam() = default;
 
 kvector_t Beam::getCentralK() const {
-    return vecOfLambdaAlphaPhi(m_wavelength, -m_alpha, m_phi);
+    return vecOfLambdaAlphaPhi(m_wavelength, -direction().alpha(), direction().phi());
 }
 
-void Beam::setCentralK(double wavelength, double alpha_i, double phi_i) {
+void Beam::setWavelength(double wavelength)
+{
     if (wavelength <= 0.0)
         throw std::runtime_error(
             "Beam::setCentralK() -> Error. Wavelength can't be negative or zero.");
-    if (alpha_i < 0.0)
+    m_wavelength = wavelength;
+}
+
+void Beam::setDirection(const Direction& direction) {
+    if (direction.alpha() < 0.0)
         throw std::runtime_error(
             "Beam::setCentralK() -> Error. Inclination angle alpha_i can't be negative.");
-    m_wavelength = wavelength;
-    m_alpha = alpha_i;
-    m_phi = phi_i;
+    // m_direction = direction;
+    m_alpha = direction.alpha();
+    m_phi = direction.phi();
+}
+
+void Beam::setInclination(const double alpha) {
+    m_alpha = alpha;
 }
 
 const IFootprintFactor* Beam::footprintFactor() const {

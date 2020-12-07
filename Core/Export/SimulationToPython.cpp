@@ -268,8 +268,8 @@ std::string defineGISASBeam(const GISASSimulation& simulation) {
     const Beam& beam = simulation.instrument().beam();
 
     result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.getWavelength())
-           << ", " << pyfmt::printDegrees(beam.getAlpha()) << ", "
-           << pyfmt::printDegrees(beam.getPhi()) << ")\n";
+           << ", " << pyfmt::printDegrees(beam.direction().alpha()) << ", "
+           << pyfmt::printDegrees(beam.direction().phi()) << ")\n";
 
     result << defineBeamPolarization(beam);
     result << defineBeamIntensity(beam);
@@ -286,7 +286,7 @@ std::string defineOffSpecBeam(const OffSpecSimulation& simulation) {
 
     result << indent() << "simulation.setBeamParameters(" << pyfmt::printNm(beam.getWavelength())
            << ", "
-           << "alpha_i_axis, " << pyfmt::printDegrees(beam.getPhi()) << ")\n";
+           << "alpha_i_axis, " << pyfmt::printDegrees(beam.direction().phi()) << ")\n";
 
     result << defineBeamPolarization(beam);
     result << defineBeamIntensity(beam);

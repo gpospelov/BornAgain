@@ -2631,6 +2631,7 @@ class Beam(libBornAgainParam.INode):
 
     def __init__(self, *args):
         r"""
+        __init__(Beam self, double intensity, double wavelength, Direction const & direction) -> Beam
         __init__(Beam self, double wavelength, double alpha, double phi, double intensity) -> Beam
         __init__(Beam self, Beam other) -> Beam
         Beam::Beam(const Beam &other)
@@ -2654,15 +2655,29 @@ class Beam(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Beam_getCentralK(self)
 
-    def setCentralK(self, wavelength, alpha_i, phi_i):
+    def setWavelength(self, wavelength):
         r"""
-        setCentralK(Beam self, double wavelength, double alpha_i, double phi_i)
-        void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)
-
-        Sets the wavevector in terms of wavelength and incoming angles. 
+        setWavelength(Beam self, double wavelength)
+        void Beam::setWavelength(double wavelength)
 
         """
-        return _libBornAgainDevice.Beam_setCentralK(self, wavelength, alpha_i, phi_i)
+        return _libBornAgainDevice.Beam_setWavelength(self, wavelength)
+
+    def setDirection(self, direction):
+        r"""
+        setDirection(Beam self, Direction const & direction)
+        void Beam::setDirection(const Direction &direction)
+
+        """
+        return _libBornAgainDevice.Beam_setDirection(self, direction)
+
+    def setInclination(self, alpha):
+        r"""
+        setInclination(Beam self, double const alpha)
+        void Beam::setInclination(const double alpha)
+
+        """
+        return _libBornAgainDevice.Beam_setInclination(self, alpha)
 
     def getIntensity(self):
         r"""
@@ -2740,21 +2755,13 @@ class Beam(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Beam_getWavelength(self)
 
-    def getAlpha(self):
+    def direction(self):
         r"""
-        getAlpha(Beam self) -> double
-        double Beam::getAlpha() const
+        direction(Beam self) -> Direction
+        Direction Beam::direction() const
 
         """
-        return _libBornAgainDevice.Beam_getAlpha(self)
-
-    def getPhi(self):
-        r"""
-        getPhi(Beam self) -> double
-        double Beam::getPhi() const
-
-        """
-        return _libBornAgainDevice.Beam_getPhi(self)
+        return _libBornAgainDevice.Beam_direction(self)
 
     def accept(self, visitor):
         r"""

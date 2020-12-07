@@ -86,8 +86,8 @@ TEST_F(SpecularSimulationTest, SetAngularScan) {
     EXPECT_EQ(3.0 * Units::deg, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(1.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
-    EXPECT_EQ(0.0, beam.getAlpha());
-    EXPECT_EQ(0.0, beam.getPhi());
+    EXPECT_EQ(0.0, beam.direction().alpha());
+    EXPECT_EQ(0.0, beam.direction().phi());
 
     checkBeamState(sim);
 
@@ -101,8 +101,8 @@ TEST_F(SpecularSimulationTest, SetAngularScan) {
     EXPECT_EQ(10.0 * Units::deg, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
-    EXPECT_EQ(0.0, beam.getAlpha());
-    EXPECT_EQ(0.0, beam.getPhi());
+    EXPECT_EQ(0.0, beam.direction().alpha());
+    EXPECT_EQ(0.0, beam.direction().phi());
     checkBeamState(sim);
 
     AngularSpecScan scan3(1.0, 10, -1.0 * Units::deg, 2.0 * Units::deg);
@@ -113,8 +113,8 @@ TEST_F(SpecularSimulationTest, SetAngularScan) {
     EXPECT_EQ(10.0 * Units::deg, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
-    EXPECT_EQ(0.0, beam.getAlpha());
-    EXPECT_EQ(0.0, beam.getPhi());
+    EXPECT_EQ(0.0, beam.direction().alpha());
+    EXPECT_EQ(0.0, beam.direction().phi());
     checkBeamState(sim);
 
     sim.setInstrument(Instrument());
@@ -134,8 +134,8 @@ TEST_F(SpecularSimulationTest, SetQScan) {
     EXPECT_EQ(3.0, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(1.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
-    EXPECT_EQ(0.0, beam.getAlpha());
-    EXPECT_EQ(0.0, beam.getPhi());
+    EXPECT_EQ(0.0, beam.direction().alpha());
+    EXPECT_EQ(0.0, beam.direction().phi());
 
     checkBeamState(sim);
 
@@ -149,8 +149,8 @@ TEST_F(SpecularSimulationTest, SetQScan) {
     EXPECT_EQ(10.0, sim.coordinateAxis()->upperBound());
     EXPECT_EQ(2.0, beam.getIntensity());
     EXPECT_EQ(1.0, beam.getWavelength());
-    EXPECT_EQ(0.0, beam.getAlpha());
-    EXPECT_EQ(0.0, beam.getPhi());
+    EXPECT_EQ(0.0, beam.direction().alpha());
+    EXPECT_EQ(0.0, beam.direction().phi());
     checkBeamState(sim);
 }
 

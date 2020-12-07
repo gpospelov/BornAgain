@@ -145,7 +145,7 @@ std::vector<DepthProbeElement> DepthProbeSimulation::generateSimulationElements(
     std::vector<DepthProbeElement> result;
 
     const double wavelength = beam.getWavelength();
-    const double angle_shift = beam.getAlpha();
+    const double angle_shift = beam.direction().alpha();
 
     const size_t axis_size = getAlphaAxis()->size();
     result.reserve(axis_size);

@@ -64,7 +64,8 @@ std::vector<const INode*> Instrument::getChildren() const {
 }
 
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i) {
-    m_beam.setCentralK(wavelength, alpha_i, phi_i);
+    m_beam.setWavelength(wavelength);
+    m_beam.setDirection({alpha_i, phi_i});
     if (m_detector)
         initDetector();
 }

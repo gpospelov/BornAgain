@@ -439,7 +439,6 @@ std::string defineSimulate(const ISimulation* simulation) {
 const std::string defineMain =
     "if __name__ == '__main__':\n"
     "    result = run_simulation()\n"
-    "    import sys\n"
     "    if len(sys.argv)>=2:\n"
     "        ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n"
     "    else:\n"

@@ -18,20 +18,19 @@ def get_figure(figsize):
     return plt.figure(figsize=(figsize[0]/dpi, figsize[1]/dpi))
 
 
-def exec_full(filepath):
+def exec_full(script, filename):
     """
     Executes embedded python script.
     http://stackoverflow.com/questions/436198/what-is-an-alternative-to-execfile-in-python-3
     """
     import os
     global_namespace = {
-        "__file__": filepath,
+        "__file__": filename,
         "__name__": "__main__",
         "__no_terminal__": True
     }
-    sys.argv = []  # TODO: FIXME after cleanup in plot_utils
-    with open(filepath, 'rb') as file:
-        exec(compile(file.read(), filepath, 'exec'), global_namespace)
+    sys.argv = []
+    exec(compile(script, filename, 'exec'), global_namespace)
 
 
 def run_example(filename, output_dir):
@@ -40,8 +39,9 @@ def run_example(filename, output_dir):
     """
     if not os.path.exists(filename):
         raise Exception("Example script '" + filename + "' not found")
-
     print("Input script: " + filename, flush=True)
+    with open(filename, 'rb') as file:
+        script = file.read()
 
     if "AllFormFactorsAvailable" in filename:
         figsize = (1024, 768)
@@ -49,7 +49,7 @@ def run_example(filename, output_dir):
         figsize = (640, 480)
     fig = get_figure(figsize)
 
-    exec_full(filename)
+    exec_full(script, filename)
     print("Input script completed.", flush=True)
 
     plot_file_name = os.path.join(

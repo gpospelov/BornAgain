@@ -18,7 +18,7 @@ endif()
 file(GLOB fit_examples ${PY_EXAMPLES_DIR}/fit55_Specular/FitSpecularBasics.py)
 set(examples ${sim_examples} ${fit_examples})
 
-set(test_script ${CMAKE_CURRENT_SOURCE_DIR}/check_functionality.py)
+set(test_script ${TOOL_DIR}/code-tools/batch-plot.py)
 
 foreach(example_path ${examples})
     get_filename_component(example_name ${example_path} NAME_WE)

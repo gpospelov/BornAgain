@@ -44,8 +44,9 @@ def get_sample(cyl_height=5*nm):
 
 def get_simulation():
     beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
-    detector = ba.SphericalDetector(100, -2.0*deg, 2.0*deg, 100, 0.0*deg,
-                                    2.0*deg)
+    nx = 100
+    ny = 100
+    detector = ba.SphericalDetector(nx, -2.0*deg, 2.0*deg, ny, 0.0*deg, 2.0*deg)
 
     simulation = ba.GISASSimulation(beam, get_sample(), detector)
     simulation.getOptions().setUseAvgMaterials(True)

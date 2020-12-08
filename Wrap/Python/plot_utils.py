@@ -262,5 +262,5 @@ def plot_simulation_result(result,
                       title=title,
                       **kwargs)
     plt.tight_layout()
-    if not postpone_show:
+    if not (postpone_show):
         plt.show()

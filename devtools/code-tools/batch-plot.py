@@ -1,8 +1,10 @@
+#!/usr/bin/env python3
 """
-Checks functionality of BornAgain Python example by running it in 'embedded' way.
+Run plotting code in batch mode: generate figure, but don't plot to terminal.
 
-The check passes successfully if the example runs without exceptions thrown and
-generates non-zero-size intensity image.
+This script is used in BornAgain:
+- with option -s in PyExamples tests, to check functionality of Python examples;
+- with option -l to remake full-size images.
 """
 
 import matplotlib, os, re, sys
@@ -24,17 +26,36 @@ def exec_full(script, filename):
     sys.argv = []
     exec(compile(script, filename, 'exec'), global_namespace)
 
+def reduce_nbin(t):
+    """
+    Overwrites script lines that set nbin, nx, ny
+    """
+    pat = re.compile(r'(^\s+(nbin|nx|ny) = )(\d+)$')
+    ret = []
+    for l in t.split('\n'):
+        m = re.match(pat, l)
+        if m:
+            oldsize = int(m.group(3))
+            newsize = max(7, oldsize//20)
+            lout = re.sub(pat, m.group(1)+f'{newsize}', l)
+        else:
+            lout = l
+        ret.append(lout)
+    return '\n'.join(ret)
+
 
 def run_example(filename, output_dir):
     """
     Tries to run python example and produce a *.png image
     """
+    # Read script from file.
     if not os.path.exists(filename):
         raise Exception("Example script '" + filename + "' not found")
     print("Input script: " + filename, flush=True)
     with open(filename, 'r') as file:
         script = file.read()
 
+    # Detect or impose figure size.
     m = re.search(r'plt\.figure\(.+?figsize=\((.+?),(.+?)\)', script)
     if m: # set figure size as in script
         figsize = (float(m.group(1)), float(m.group(2)))
@@ -42,9 +63,15 @@ def run_example(filename, output_dir):
         figsize = (640/72, 480/72)
     fig = plt.figure(figsize=(figsize[0], figsize[1]))
 
+    # In -s mode, reduce detector size.
+    if True:
+        script = reduce_nbin(script)
+
+    # Run modified script.
     exec_full(script, filename)
     print("Input script completed.", flush=True)
 
+    # Generate output figure.
     plot_file_name = os.path.join(
         output_dir,
         os.path.splitext(os.path.basename(filename))[0] + ".png")
@@ -52,6 +79,7 @@ def run_example(filename, output_dir):
     plt.savefig(plot_file_name, bbox_inches='tight')
     plt.close(fig)
 
+    # Check obtained figure.
     imgSize = os.path.getsize(plot_file_name)
     if imgSize == 0:
         raise Exception("Image file is empty")

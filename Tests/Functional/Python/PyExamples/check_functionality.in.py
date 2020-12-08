@@ -13,8 +13,6 @@ import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 
-sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
-
 output_dir = "@output_dir@"
 
 

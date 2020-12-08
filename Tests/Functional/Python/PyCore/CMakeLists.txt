@@ -11,7 +11,7 @@ if(NOT BORNAGAIN_TIFF_SUPPORT)
     list(REMOVE_ITEM tests "intensitydata_io_tiff.py")
 endif()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/utils.py ${OUTPUT_DIR}/utils.py)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/utils.py ${OUTPUT_DIR}/utils.py @ONLY)
 
 foreach(_test ${tests})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/${_test} ${OUTPUT_DIR}/${_test} COPYONLY)

@@ -19,7 +19,8 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_functionality.in.py ${test_scri
 foreach(example_path ${examples})
     get_filename_component(example_name ${example_path} NAME_WE)
     set(test_name PyExamples.${example_name})
-
-    add_test(${test_name} ${Python3_EXECUTABLE} ${test_script} ${example_path})
+    add_test(${test_name}
+        env PYTHONPATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+        ${Python3_EXECUTABLE} ${test_script} ${example_path})
     set_tests_properties(${test_name} PROPERTIES LABELS Fullcheck)
 endforeach()

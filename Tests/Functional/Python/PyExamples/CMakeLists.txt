@@ -12,13 +12,12 @@ file(GLOB sim_examples ${PY_EXAMPLES_DIR}/sim*/*.py)
 file(GLOB fit_examples ${PY_EXAMPLES_DIR}/fit55_Specular/FitSpecularBasics.py)
 set(examples ${sim_examples} ${fit_examples})
 
-set(test_script ${output_dir}/check_functionality.py)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_functionality.in.py ${test_script} @ONLY)
+set(test_script ${CMAKE_CURRENT_SOURCE_DIR}/check_functionality.py)
 
 foreach(example_path ${examples})
     get_filename_component(example_name ${example_path} NAME_WE)
     set(test_name PyExamples.${example_name})
     add_test(${test_name}
         env PYTHONPATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
-        ${Python3_EXECUTABLE} ${test_script} ${example_path})
+        ${Python3_EXECUTABLE} ${test_script} ${example_path} ${output_dir})
 endforeach()

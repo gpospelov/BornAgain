@@ -13,8 +13,6 @@ import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 
-output_dir = "@output_dir@"
-
 
 def get_figure(filename):
     """
@@ -45,7 +43,7 @@ def exec_full(filepath):
         exec(compile(file.read(), filepath, 'exec'), global_namespace)
 
 
-def run_example(filename):
+def run_example(filename, output_dir):
     """
     Tries to run python example and produce a *.png image
     """
@@ -75,7 +73,7 @@ def run_example(filename):
 
 if __name__ == '__main__':
 
-    if len(sys.argv) != 2:
-        exit("check_functionality called with wrong number of arguments")
+    if len(sys.argv) != 3:
+        exit("Usage: check_functionality <script_to_test> <output_dir>")
 
-    run_example(sys.argv[1])
+    run_example(sys.argv[1], sys.argv[2])

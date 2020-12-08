@@ -73,8 +73,8 @@ def normalize_text(ti, fname):
         # restitute main
     tf = re.sub(r"if __name__ == '__main__':.+",
                 """if __name__ == '__main__':
-    result = run_simulation\(\)
-    ba.plot_simulation_result\(result, cmap='jet', aspect='auto'\)""",
+    result = run_simulation()
+    ba.plot_simulation_result(result, cmap='jet', aspect='auto')""",
                 tf, flags=re.S)
 
     if verbose:

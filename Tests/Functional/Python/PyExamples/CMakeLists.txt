@@ -9,8 +9,7 @@ set(output_dir ${TEST_OUTPUT_DIR_PY_EXAMPLES})
 file(MAKE_DIRECTORY ${output_dir})
 
 file(GLOB sim_examples ${PY_EXAMPLES_DIR}/sim*/*.py)
-file(GLOB fit_examples
-    ${PY_EXAMPLES_DIR}/fit55_Specular/FitSpecularBasics.py)
+file(GLOB fit_examples ${PY_EXAMPLES_DIR}/fit55_Specular/FitSpecularBasics.py)
 set(examples ${sim_examples} ${fit_examples})
 
 set(test_script ${output_dir}/check_functionality.py)
@@ -22,5 +21,4 @@ foreach(example_path ${examples})
     add_test(${test_name}
         env PYTHONPATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
         ${Python3_EXECUTABLE} ${test_script} ${example_path})
-    set_tests_properties(${test_name} PROPERTIES LABELS Fullcheck)
 endforeach()

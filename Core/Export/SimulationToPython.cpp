@@ -129,17 +129,19 @@ std::string defineDetector(const ISimulation* simulation) {
 
     if (const auto* const det = dynamic_cast<const SphericalDetector*>(detector)) {
         ASSERT(det->dimension()==2);
-        result << indent() << "detector = ba.SphericalDetector(";
         if (DetectorUtils::isQuadratic(*det)) {
-            result << det->axis(0).size() << ", "
+            result << indent() << "nbin = " << det->axis(0).size() << "\n";
+            result << indent() << "detector = ba.SphericalDetector(nbin, "
                    << pyfmt::printDegrees(det->axis(0).span()) << ", "
                    << pyfmt::printDegrees(det->axis(0).center()) << ", "
                    << pyfmt::printDegrees(det->axis(1).center());
         } else {
-            result << det->axis(0).size() << ", "
+            result << indent() << "nx = " << det->axis(0).size() << "\n";
+            result << indent() << "ny = " << det->axis(1).size() << "\n";
+            result << indent() << "detector = ba.SphericalDetector(nx, "
                    << pyfmt::printDegrees(det->axis(0).lowerBound()) << ", "
                    << pyfmt::printDegrees(det->axis(0).upperBound()) << ", "
-                   << det->axis(1).size() << ", "
+                   << "ny , "
                    << pyfmt::printDegrees(det->axis(1).lowerBound()) << ", "
                    << pyfmt::printDegrees(det->axis(1).upperBound());
         }

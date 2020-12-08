@@ -10,14 +10,6 @@ matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 
 
-def get_figure(figsize):
-    """
-    Returns pyplot figure of appropriate size
-    """
-    dpi = 72.
-    return plt.figure(figsize=(figsize[0]/dpi, figsize[1]/dpi))
-
-
 def exec_full(script, filename):
     """
     Executes embedded python script.
@@ -47,8 +39,8 @@ def run_example(filename, output_dir):
     if m: # set figure size as in script
         figsize = (float(m.group(1)), float(m.group(2)))
     else: # script does not specify figure size
-        figsize = (640, 480)
-    fig = get_figure(figsize)
+        figsize = (640/72, 480/72)
+    fig = plt.figure(figsize=(figsize[0], figsize[1]))
 
     exec_full(script, filename)
     print("Input script completed.", flush=True)

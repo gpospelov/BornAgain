@@ -78,7 +78,7 @@ SessionItem* GUIDomainSampleVisitor::populateSampleModel(SampleModel* sampleMode
     if (m_topSampleName.isEmpty())
         m_topSampleName = sample.getName().c_str();
 
-    for (const auto [child, depth, parent] : NodeUtils::progenyPlus(&sample)) {
+    for (const auto& [child, depth, parent] : NodeUtils::progenyPlus(&sample)) {
         setDepth(depth + 1);
         child->accept(this);
     }
@@ -106,7 +106,7 @@ void GUIDomainSampleVisitor::visit(const Layer* sample) {
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
 
-    auto multilayer = dynamic_cast<const MultiLayer*>(m_itemToSample[parent]);
+    const auto* multilayer = dynamic_cast<const MultiLayer*>(m_itemToSample[parent]);
     ASSERT(multilayer);
     size_t layer_index = MultiLayerUtils::IndexOfLayer(*multilayer, sample);
     const LayerInterface* top_interface =

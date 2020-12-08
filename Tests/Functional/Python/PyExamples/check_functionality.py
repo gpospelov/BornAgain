@@ -1,30 +1,21 @@
 """
-Usage: python check_functionality.py <path-to-example>/<example>.py
-
 Checks functionality of BornAgain Python example by running it in 'embedded' way.
 
 The check passes successfully if the example runs without exceptions thrown and
 generates non-zero-size intensity image.
 """
 
-import sys
-import os
-import matplotlib
+import matplotlib, os, sys
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 
 
-def get_figure(filename):
+def get_figure(figsize):
     """
     Returns pyplot figure of appropriate size
     """
-    if "AllFormFactorsAvailable" in filename:
-        xsize, ysize = 1024, 768
-    else:
-        xsize, ysize = 640, 480
-
     dpi = 72.
-    return plt.figure(figsize=(xsize/dpi, ysize/dpi))
+    return plt.figure(figsize=(figsize[0]/dpi, figsize[1]/dpi))
 
 
 def exec_full(filepath):
@@ -52,7 +43,11 @@ def run_example(filename, output_dir):
 
     print("Input script: " + filename, flush=True)
 
-    fig = get_figure(filename)
+    if "AllFormFactorsAvailable" in filename:
+        figsize = (1024, 768)
+    else:
+        figsize = (640, 480)
+    fig = get_figure(figsize)
 
     exec_full(filename)
     print("Input script completed.", flush=True)

@@ -36,7 +36,7 @@ def reduce_nbin(t):
         m = re.match(pat, l)
         if m:
             oldsize = int(m.group(3))
-            newsize = max(7, oldsize//20)
+            newsize = min(10, oldsize)
             lout = re.sub(pat, m.group(1)+f'{newsize}', l)
         else:
             lout = l
@@ -44,7 +44,7 @@ def reduce_nbin(t):
     return '\n'.join(ret)
 
 
-def run_example(filename, output_dir):
+def run_example(mode_short, filename, output_dir):
     """
     Tries to run python example and produce a *.png image
     """
@@ -63,8 +63,7 @@ def run_example(filename, output_dir):
         figsize = (640/72, 480/72)
     fig = plt.figure(figsize=(figsize[0], figsize[1]))
 
-    # In -s mode, reduce detector size.
-    if True:
+    if mode_short:
         script = reduce_nbin(script)
 
     # Run modified script.
@@ -89,7 +88,13 @@ def run_example(filename, output_dir):
 
 if __name__ == '__main__':
 
-    if len(sys.argv) != 3:
-        exit("Usage: check_functionality <script_to_test> <output_dir>")
+    if len(sys.argv) != 4:
+        exit("Usage: check_functionality -s|-f <script_to_test> <output_dir>")
+    if sys.argv[1]=='-s':
+        mode_short = True
+    elif sys.argv[1]=='-f':
+        mode_short = False
+    else:
+        exit("Use flag -s|-f for short or long runs")
 
-    run_example(sys.argv[1], sys.argv[2])
+    run_example(mode_short, sys.argv[2], sys.argv[3])

@@ -25,5 +25,5 @@ foreach(example_path ${examples})
     set(test_name PyExamples.${example_name})
     add_test(${test_name}
         env PYTHONPATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
-        ${Python3_EXECUTABLE} ${test_script} ${example_path} ${output_dir})
+        ${Python3_EXECUTABLE} ${test_script} -s ${example_path} ${output_dir})
 endforeach()

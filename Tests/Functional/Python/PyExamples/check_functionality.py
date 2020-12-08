@@ -5,7 +5,7 @@ The check passes successfully if the example runs without exceptions thrown and
 generates non-zero-size intensity image.
 """
 
-import matplotlib, os, sys
+import matplotlib, os, re, sys
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 
@@ -40,12 +40,13 @@ def run_example(filename, output_dir):
     if not os.path.exists(filename):
         raise Exception("Example script '" + filename + "' not found")
     print("Input script: " + filename, flush=True)
-    with open(filename, 'rb') as file:
+    with open(filename, 'r') as file:
         script = file.read()
 
-    if "AllFormFactorsAvailable" in filename:
-        figsize = (1024, 768)
-    else:
+    m = re.search(r'plt\.figure\(.+?figsize=\((.+?),(.+?)\)', script)
+    if m: # set figure size as in script
+        figsize = (float(m.group(1)), float(m.group(2)))
+    else: # script does not specify figure size
         figsize = (640, 480)
     fig = get_figure(figsize)
 

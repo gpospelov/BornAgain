@@ -118,10 +118,42 @@ TEST_F(TestSaveService, test_saveService) {
 
     EXPECT_EQ(spySaveService.count(), 1);
     EXPECT_TRUE(ProjectUtils::exists(projectFileName));
+    EXPECT_FALSE(service.isSaving());
 
     // after save, document should be in non-modified state, project file name should be updated
     EXPECT_EQ(document->projectFileName(), projectFileName);
     EXPECT_FALSE(document->isModified());
+}
+
+//! Testing SaveService on simple documents (no heavy data).
+//! SaveService should not be able to save project file; state of service has to be !isSaving()
+//! Regression test for issue #1136 ("After a failed project saving, no saving takes place any more;
+//! crash when changing projects")
+
+TEST_F(TestSaveService, test_failingSaveService) {
+    const QString projectDir("test_failingSaveService");
+    // do NOT create dir in order to force saving to fail
+    const QString projectFileName(projectDir + "/document.pro");
+
+    ApplicationModels models;
+    std::unique_ptr<ProjectDocument> document(new ProjectDocument);
+    document->setApplicationModels(&models);
+    modify_models(&models);
+
+    EXPECT_FALSE(ProjectUtils::exists(projectFileName));
+
+    SaveService service;
+    QSignalSpy spySaveService(&service, SIGNAL(projectSaved()));
+
+    service.setDocument(document.get());
+    EXPECT_THROW(service.save(projectFileName), GUIHelpers::Error);
+
+    EXPECT_EQ(spySaveService.count(), 0);
+    EXPECT_FALSE(ProjectUtils::exists(projectFileName));
+    EXPECT_FALSE(service.isSaving());
+
+    // after failed save, document should still be in modified state
+    EXPECT_TRUE(document->isModified());
 }
 
 //! Testing SaveService on documents having nonXML data.

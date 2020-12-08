@@ -8,7 +8,7 @@ find_package(Threads REQUIRED)
 find_package(FFTW3 REQUIRED)
 
 find_package(GSL REQUIRED)
-message(STATUS "GSL found=${GSL_FOUND} libs=${GSL_LIBRARIES} inc=${GSL_INCLUDE_DIR} version={GSL_VERSION}")
+message(STATUS "GSL found=${GSL_FOUND} libs=${GSL_LIBRARIES} inc=${GSL_INCLUDE_DIR} version=${GSL_VERSION}")
 
 if(WIN32)
     set(EIGEN3_INCLUDE_DIR ${CMAKE_INCLUDE_PATH})

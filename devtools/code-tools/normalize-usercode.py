@@ -69,6 +69,14 @@ def normalize_text(ti, fname):
             f'.. cycled through BA, {len(ti.split())} -> {len(tc.split())} lines'
         )
     tf = restitute_sample(ti, tc)
+
+        # restitute main
+    tf = re.sub(r"if __name__ == '__main__':.+",
+                """if __name__ == '__main__':
+    result = run_simulation\(\)
+    ba.plot_simulation_result\(result, cmap='jet', aspect='auto'\)""",
+                tf, flags=re.S)
+
     if verbose:
         print(f'.. normalized, {len(ti.split())} -> {len(tf.split())} lines')
     # YAPF formatting
@@ -87,6 +95,12 @@ def normalize_file(fname, inplace):
             ti = f.read()
             if verbose:
                 print(f'.. read {len(ti.split())} lines')
+
+        m = re.search(r"""if __name__ == '__main__':
+    result = run_simulation\(\)
+    ba.plot_simulation_result\(result, cmap='jet', aspect='auto'\)""", ti)
+        if not m:
+            return 3
 
         # normalize
         tf = normalize_text(ti, fname)
@@ -156,7 +170,7 @@ if __name__ == '__main__':
     verbose = args.verbose
     files = args.input_files
 
-    count = [0, 0, 0]
+    count = [0, 0, 0, 0]
     for f in files:
         ret = normalize_file(f, args.in_place)
         count[ret] += 1
@@ -171,4 +185,6 @@ if __name__ == '__main__':
         out.append(f'{count[1]} normalized')
     if count[2] > 0:
         out.append(f'{count[2]} failed')
+    if count[2] > 0:
+        out.append(f'{count[3]} skipped')
     print(f'TOTAL of {len(args.input_files)} files: {", ".join(out)}')

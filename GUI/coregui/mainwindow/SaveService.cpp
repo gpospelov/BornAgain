@@ -24,6 +24,20 @@
 #include <QCoreApplication>
 #include <QTime>
 
+namespace {
+
+//! Class to reset flag in the destructor (to ensure resetting even if an exception occurs)
+class AutoSetResetFlag {
+public:
+    AutoSetResetFlag(bool* flag) : m_flag(flag) { *flag = true; }
+    ~AutoSetResetFlag() { *m_flag = false; }
+
+private:
+    bool* m_flag = nullptr;
+};
+
+} // namespace
+
 SaveService::SaveService(QObject* parent)
     : QObject(parent), m_is_saving(false), m_autosave(nullptr), m_document(nullptr) {}
 
@@ -100,7 +114,6 @@ void SaveService::onAutosaveRequest() {
 
 void SaveService::onProjectSaved() {
     ASSERT(m_document);
-    ASSERT(m_is_saving);
 
     m_is_saving = false;
     emit projectSaved();
@@ -116,7 +129,8 @@ void SaveService::process_queue() {
         return;
 
     if (!m_save_queue.isEmpty()) {
-        m_is_saving = true;
+        // use set/reset class to ensure correct resetting even in case of an exception
+        AutoSetResetFlag autoSetReset(&m_is_saving);
 
         QString project_file_name = m_save_queue.dequeue();
 

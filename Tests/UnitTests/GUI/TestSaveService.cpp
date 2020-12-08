@@ -126,7 +126,7 @@ TEST_F(TestSaveService, test_saveService) {
 }
 
 //! Testing SaveService on simple documents (no heavy data).
-//! SaveService should be not be able to save project file; state of service has to be !isSaving()
+//! SaveService should not be able to save project file; state of service has to be !isSaving()
 //! Regression test for issue #1136 ("After a failed project saving, no saving takes place any more;
 //! crash when changing projects")
 

@@ -12,7 +12,15 @@
 """
 #  **************************************************************************  #
 
-import plot_utils
+import bornagain as ba
+try:  # workaround for build servers
+    import numpy as np
+    from matplotlib import pyplot as plt
+    from matplotlib import gridspec, colors
+except Exception as e:
+    print("In plot_utils.py: {:s}".format(str(e)))
+
+label_fontsize = 16
 
 class Plotter:
     """
@@ -232,7 +240,7 @@ class PlotterSpecular(Plotter):
                          alpha=0.6)
         plt.ylim((0.5*np.min(real_values), 5*np.max(real_values)))
 
-        xlabel = get_axes_labels(real_data, self.units)[0]
+        xlabel = ba.plot_utils.get_axes_labels(real_data, self.units)[0]
         legend = ['BornAgain', 'Data']
         if unc_values is not None:
             legend = ['BornAgain', 'Data', r'Data $\pm \sigma$']

@@ -26,6 +26,8 @@
 
 %ignore ISpecularScan;
 
+%import(module="libBornAgainFit") ""
+
 %rename(setSampleBuilderCpp) ISimulation::setSampleBuilder;
 %rename(setSampleBuilderCpp) SpecularSimulation::setSampleBuilder;
 %rename(addSimulationAndData_cpp) FitObjective::addSimulationAndData;

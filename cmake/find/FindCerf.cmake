@@ -32,32 +32,57 @@ find_package_handle_standard_args(Cerf
     REQUIRED_VARS Cerf_LIBRARIES Cerf_INCLUDE_DIR
     VERSION_VAR Cerf_VERSION)
 
-if(NOT Cerf_FOUND)
+# If CERF was found, then either it has been found because the C version is present and was freshly 
+# found, or because the variables have been found in the cache (which then can be because of
+# a formerly found C or C++ version)
+# If not found at this point, the C version has not been found and no cache variables exist
+# => Search for the C++ version
+
+if(Cerf_FOUND)
+	# Either we freshly found the C version, which also means Cerf_IS_CPP is not present in the 
+	# cache and we set it. Or we found any formerly found version (C or C++) from the cache, then 
+	# Cerf_IS_CPP is also already in the cache and will not be changed by the following command
+	set(Cerf_IS_CPP OFF CACHE BOOL "Define whether CERF shall be used as C++")
+else()
+    # C version not found and cache is empty => search for C++ version
     unset(Cerf_FOUND)
     unset(Cerf_LIBRARIES)
     find_library(Cerf_LIBRARIES NAMES cerfcpp)
     find_package_handle_standard_args(Cerf
         REQUIRED_VARS Cerf_LIBRARIES Cerf_INCLUDE_DIR
         VERSION_VAR Cerf_VERSION)
-    if(NOT Cerf_FOUND)
-        message(STATUS "libcerf: FOUND=${Cerf_FOUND}, VERSION=${Cerf_VERSION}, "
-            "LIB=${Cerf_LIBRARIES}, IS_CPP=${Cerf_IS_CPP}")
-        if(${Cerf_ULTIMATELY_REQUIRED})
-            message(FATAL_ERROR "Found neither libcerf nor libcerfcpp")
-        endif()
-        message(STATUS "Found neither libcerf nor libcerfcpp")
-        return()
-    endif()
-    message(STATUS "Found libcerf, language=CPP, version=${Cerf_VERSION}, lib=${Cerf_LIBRARIES},"
+		
+    if(Cerf_FOUND)
+		set(Cerf_IS_CPP ON CACHE BOOL "Define whether CERF shall be used as C++")
+	endif()
+endif()
+
+
+# If still not found, then check whether it is ultimately required or not.
+if(NOT Cerf_FOUND)
+	message(STATUS "libcerf: FOUND=${Cerf_FOUND}, VERSION=${Cerf_VERSION}, "
+		"LIB=${Cerf_LIBRARIES}, IS_CPP=${Cerf_IS_CPP}")
+		
+	if(${Cerf_ULTIMATELY_REQUIRED})
+		message(FATAL_ERROR "Found neither C nor C++ version of cerf")
+	else()
+		message(STATUS "Found neither C nor C++ version of cerf")
+	endif()
+	
+	return()
+endif()
+
+
+
+if(Cerf_IS_CPP)
+	message(STATUS "Found libcerf, language=CPP, version=${Cerf_VERSION}, lib=${Cerf_LIBRARIES},"
         " include_dir=${Cerf_INCLUDE_DIR}.")
-    set(Cerf_IS_CPP ON)
 else()
     message(STATUS "Found libcerf, language=C, version=${Cerf_VERSION}, lib=${Cerf_LIBRARIES},"
         " include_dir=${Cerf_INCLUDE_DIR}.")
-    set(Cerf_IS_CPP OFF)
 endif()
-
-mark_as_advanced(Cerf_INCLUDE_DIR Cerf_LIBRARIES)
+		
+mark_as_advanced(Cerf_INCLUDE_DIR Cerf_LIBRARIES Cerf_IS_CPP)
 
 include(AssertLibraryFunction)
 assert_library_function(Cerf cerf "")

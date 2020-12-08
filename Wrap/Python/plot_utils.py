@@ -85,8 +85,6 @@ def get_axes_labels(result, units):
 
 
 def plot_array(array,
-               zmin=None,
-               zmax=None,
                xlabel=None,
                ylabel=None,
                zlabel=None,
@@ -99,8 +97,8 @@ def plot_array(array,
 
     zlabel = "Intensity" if zlabel is None else zlabel
 
-    zmax = np.amax(array) if zmax is None else zmax
-    zmin = 1e-6*zmax if zmin is None else zmin
+    zmax = kwargs.pop('intensity_max', np.amax(array))
+    zmin = kwargs.pop('intensity_min', 1e-6*zmax)
 
     if zmin == zmax == 0.0:
         norm = colors.Normalize(0, 1)
@@ -124,8 +122,6 @@ def plot_array(array,
 
 
 def plot_histogram(hist,
-                   zmin=None,
-                   zmax=None,
                    xlabel=None,
                    ylabel=None,
                    zlabel=None,
@@ -152,8 +148,6 @@ def plot_histogram(hist,
     ]
 
     plot_array(hist.array(),
-               zmin=zmin,
-               zmax=zmax,
                xlabel=xlabel,
                ylabel=ylabel,
                zlabel=zlabel,
@@ -163,8 +157,6 @@ def plot_histogram(hist,
 
 
 def plot_colormap(result,
-                  zmin=None,
-                  zmax=None,
                   units=ba.Axes.DEFAULT,
                   xlabel=None,
                   ylabel=None,
@@ -184,8 +176,6 @@ def plot_colormap(result,
     ylabel = axes_labels[1] if ylabel is None else ylabel
 
     plot_array(result.array(),
-               zmin=zmin,
-               zmax=zmax,
                xlabel=xlabel,
                ylabel=ylabel,
                zlabel=zlabel,
@@ -212,8 +202,9 @@ def plot_specular_simulation_result(result,
 
     intensity = result.array(units)
     x_axis = result.axis(units)
-    ymax = np.amax(intensity)*2.0 if ymax is None else ymax
-    ymin = max(np.amin(intensity)*0.5, 1e-18*ymax) if ymin is None else ymin
+
+    ymax = kwargs.pop('intensity_max', np.amax(np.amax(intensity)*2))
+    ymin = kwargs.pop('intensity_min', max(np.amin(intensity)*0.5, 1e-18*ymax))
 
     xlabel = get_axes_labels(result, units)[0] if xlabel is None else xlabel
     ylabel = "Intensity" if ylabel is None else ylabel
@@ -233,8 +224,6 @@ def plot_specular_simulation_result(result,
 
 
 def plot_simulation_result(result,
-                           intensity_min=None,
-                           intensity_max=None,
                            units=ba.Axes.DEFAULT,
                            xlabel=None,
                            ylabel=None,
@@ -250,12 +239,10 @@ def plot_simulation_result(result,
     :param postpone_show: postpone showing the plot for later tuning (False by default)
     """
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
-        plot_specular_simulation_result(result, intensity_min, intensity_max,
+        plot_specular_simulation_result(result,
                                         units, **kwargs)
     else:
         plot_colormap(result,
-                      intensity_min,
-                      intensity_max,
                       units,
                       xlabel,
                       ylabel,

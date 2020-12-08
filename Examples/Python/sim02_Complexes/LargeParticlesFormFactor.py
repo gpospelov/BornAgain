@@ -108,8 +108,8 @@ def simulate_and_plot():
         zmin = condition['zmin']
         zmax = condition['zmax']
         ba.plot_colormap(result,
-                         zmin=zmin,
-                         zmax=zmax,
+                         intensity_min=zmin,
+                         intensity_max=zmax,
                          cmap='jet',
                          aspect='auto')
 

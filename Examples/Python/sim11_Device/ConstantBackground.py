@@ -1,8 +1,9 @@
 """
 Cylinder form factor in DWBA with constant background
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -41,26 +42,18 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Returns a GISAXS simulation with a constant backround.
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*deg, 2.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.beam().setIntensity(1e6)
-    bg = ba.ConstantBackground(1e3)
-    simulation.setBackground(bg)
+    beam = ba.Beam(1000000.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
+    detector = ba.SphericalDetector(100, 0.0*deg, 2.0*deg, 100, 0.0*deg,
+                                    2.0*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
+    background = ba.ConstantBackground(1.0e+03)
+    simulation.setBackground(background)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
     simulation = get_simulation()
-    simulation.setSample(get_sample())
-    print(simulation.parametersToString())
     simulation.runSimulation()
     return simulation.result()
 

@@ -1,8 +1,9 @@
 """
 Spherical particles embedded in the middle of the layer on top of substrate.
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -48,22 +49,16 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Returns a GISAXS simulation.
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setSample(get_sample())
-    simulation.setDetectorParameters(200, -1*deg, +1*deg, 200, 0*deg, +2*deg)
-    simulation.setBeamParameters(1.5*angstrom, 0.15*deg, 0.0*deg)
+    beam = ba.Beam(1.0, 0.15*nm, ba.Direction(0.15*deg, 0.0*deg))
+    detector = ba.SphericalDetector(200, -1.0*deg, 1.0*deg, 200, 0.0*deg,
+                                    2.0*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
     simulation = get_simulation()
-    simulation.setSample(get_sample())
     simulation.runSimulation()
     return simulation.result()
 

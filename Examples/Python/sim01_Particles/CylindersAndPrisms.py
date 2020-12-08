@@ -1,8 +1,9 @@
 """
 Mixture of cylinders and prisms without interference
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -48,22 +49,16 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined.
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
+    detector = ba.SphericalDetector(100, -1.0*deg, 1.0*deg, 100, 0.0*deg,
+                                    2.0*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns resulting intensity map.
-    """
     simulation = get_simulation()
-    simulation.setSample(get_sample())
     simulation.runSimulation()
     return simulation.result()
 

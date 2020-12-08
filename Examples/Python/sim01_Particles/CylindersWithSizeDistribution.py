@@ -1,8 +1,9 @@
 """
 Cylinders with size distribution
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -45,22 +46,16 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Create and return GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, 0.0*deg, 2.0*deg, 200, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
+    detector = ba.SphericalDetector(200, 0.0*deg, 2.0*deg, 200, 0.0*deg,
+                                    2.0*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
     simulation = get_simulation()
-    simulation.setSample(get_sample())
     simulation.runSimulation()
     return simulation.result()
 

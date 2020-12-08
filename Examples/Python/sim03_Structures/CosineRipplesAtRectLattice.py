@@ -1,9 +1,9 @@
 """
 Cosine ripple on a 2D lattice
 """
-import numpy
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -52,22 +52,16 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    characterizing the input beam and output detector
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.5*deg, 1.5*deg, 100, 0.0*deg,
-                                     2.5*deg)
-    simulation.setBeamParameters(1.6*angstrom, 0.3*deg, 0.0*deg)
+    beam = ba.Beam(1.0, 0.16*nm, ba.Direction(0.3*deg, 0.0*deg))
+    detector = ba.SphericalDetector(100, -1.5*deg, 1.5*deg, 100, 0.0*deg,
+                                    2.5*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
     simulation = get_simulation()
-    simulation.setSample(get_sample())
     simulation.runSimulation()
     return simulation.result()
 

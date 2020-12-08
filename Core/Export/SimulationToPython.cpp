@@ -28,6 +28,7 @@
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
+#include "Device/Detector/DetectorUtils.h"
 #include "Device/Detector/RectangularDetector.h"
 #include "Device/Detector/RegionOfInterest.h"
 #include "Device/Detector/SphericalDetector.h"
@@ -127,13 +128,20 @@ std::string defineDetector(const ISimulation* simulation) {
     result << std::setprecision(12);
 
     if (const auto* const det = dynamic_cast<const SphericalDetector*>(detector)) {
+        ASSERT(det->dimension()==2);
         result << indent() << "detector = ba.SphericalDetector(";
-        for (size_t index = 0; index < det->dimension(); ++index) {
-            if (index != 0)
-                result << ", ";
-            result << det->axis(index).size() << ", "
-                   << pyfmt::printDegrees(det->axis(index).lowerBound()) << ", "
-                   << pyfmt::printDegrees(det->axis(index).upperBound());
+        if (DetectorUtils::isQuadratic(*det)) {
+            result << det->axis(0).size() << ", "
+                   << pyfmt::printDegrees(det->axis(0).span()) << ", "
+                   << pyfmt::printDegrees(det->axis(0).center()) << ", "
+                   << pyfmt::printDegrees(det->axis(1).center());
+        } else {
+            result << det->axis(0).size() << ", "
+                   << pyfmt::printDegrees(det->axis(0).lowerBound()) << ", "
+                   << pyfmt::printDegrees(det->axis(0).upperBound()) << ", "
+                   << det->axis(1).size() << ", "
+                   << pyfmt::printDegrees(det->axis(1).lowerBound()) << ", "
+                   << pyfmt::printDegrees(det->axis(1).upperBound());
         }
         result << ")\n";
     } else if (const auto* const det = dynamic_cast<const RectangularDetector*>(detector)) {

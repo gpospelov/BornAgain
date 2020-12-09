@@ -3146,7 +3146,7 @@ class IObservable(object):
     r"""
 
 
-    Observable interface from Observer pattern
+    Observable interface from Observer pattern. Shared pointer is used when passing these objects from Python to C++.
 
     C++ includes: IObserver.h
 
@@ -3158,8 +3158,8 @@ class IObservable(object):
 
     def attachObserver(self, obj):
         r"""
-        attachObserver(IObservable self, IObservable::observer_t obj)
-        void IObservable::attachObserver(observer_t obj)
+        attachObserver(IObservable self, std::shared_ptr< IObserver > obj)
+        virtual void IObservable::attachObserver(std::shared_ptr< IObserver > obj)
 
         attach observer to the list of observers 
 
@@ -3169,7 +3169,7 @@ class IObservable(object):
     def notifyObservers(self):
         r"""
         notifyObservers(IObservable self)
-        void IObservable::notifyObservers()
+        virtual void IObservable::notifyObservers()
 
         notify observers about change in status 
 
@@ -3181,7 +3181,7 @@ class IObservable(object):
         __init__(IObservable self) -> IObservable
 
 
-        Observable interface from Observer pattern
+        Observable interface from Observer pattern. Shared pointer is used when passing these objects from Python to C++.
 
         C++ includes: IObserver.h
 

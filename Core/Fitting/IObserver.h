@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Core/Fitting/IObserver.h
-//! @brief     Defines classes IObserver and IObservable (Observer pattern).
+//! @brief     Defines and implements classes IObserver and IObservable (Observer pattern).
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -25,30 +25,33 @@ class IObservable;
 
 class IObserver {
 public:
-    virtual ~IObserver();
+    virtual ~IObserver() = default;
 
     //! method which is used by observable subject to notify change in status
     virtual void notify(IObservable* subject) = 0;
 };
 
-//! Observable interface from %Observer pattern
+//! Observable interface from %Observer pattern.
+//! Shared pointer is used when passing these objects from Python to C++.
 //! @ingroup tools_internal
 
 class IObservable {
 public:
-    //! Shared pointer is used when passing these objects from Python to C++
-    typedef std::shared_ptr<IObserver> observer_t;
-
-    virtual ~IObservable();
+    virtual ~IObservable() = default;
 
     //! attach observer to the list of observers
-    virtual void attachObserver(observer_t obj);
+    virtual void attachObserver(std::shared_ptr<IObserver> obj) {
+        m_observers.push_back(obj);
+    }
 
     //! notify observers about change in status
-    virtual void notifyObservers();
+    virtual void notifyObservers() {
+        for (auto it : m_observers)
+            it->notify(this);
+    }
 
 private:
-    std::list<observer_t> m_observers;
+    std::list<std::shared_ptr<IObserver>> m_observers;
 };
 
 #endif // BORNAGAIN_CORE_FITTING_IOBSERVER_H

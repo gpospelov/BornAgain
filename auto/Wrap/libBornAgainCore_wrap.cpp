@@ -3158,54 +3158,53 @@ namespace Swig {
 #define SWIGTYPE_p_mapped_type swig_types[58]
 #define SWIGTYPE_p_mumufit__MinimizerResult swig_types[59]
 #define SWIGTYPE_p_mumufit__Parameters swig_types[60]
-#define SWIGTYPE_p_observer_t swig_types[61]
-#define SWIGTYPE_p_p_PyObject swig_types[62]
-#define SWIGTYPE_p_second_type swig_types[63]
-#define SWIGTYPE_p_short swig_types[64]
-#define SWIGTYPE_p_signed_char swig_types[65]
-#define SWIGTYPE_p_size_type swig_types[66]
-#define SWIGTYPE_p_std__allocatorT_AxisInfo_t swig_types[67]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[68]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[69]
-#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[70]
-#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[71]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[72]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[73]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[74]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[75]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[76]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[77]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[78]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[79]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[80]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[81]
-#define SWIGTYPE_p_std__invalid_argument swig_types[82]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[83]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[84]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[85]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[86]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[87]
-#define SWIGTYPE_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t swig_types[88]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[89]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[90]
-#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[91]
-#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[92]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[93]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[94]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[95]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[96]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[97]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[98]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[99]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[100]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[101]
-#define SWIGTYPE_p_unsigned_char swig_types[102]
-#define SWIGTYPE_p_unsigned_int swig_types[103]
-#define SWIGTYPE_p_unsigned_long_long swig_types[104]
-#define SWIGTYPE_p_unsigned_short swig_types[105]
-#define SWIGTYPE_p_value_type swig_types[106]
-static swig_type_info *swig_types[108];
-static swig_module_info swig_module = {swig_types, 107, 0, 0, 0, 0};
+#define SWIGTYPE_p_p_PyObject swig_types[61]
+#define SWIGTYPE_p_second_type swig_types[62]
+#define SWIGTYPE_p_short swig_types[63]
+#define SWIGTYPE_p_signed_char swig_types[64]
+#define SWIGTYPE_p_size_type swig_types[65]
+#define SWIGTYPE_p_std__allocatorT_AxisInfo_t swig_types[66]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[67]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[68]
+#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[69]
+#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[70]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[71]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[72]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[73]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[74]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[75]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[76]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[77]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[78]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[79]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[80]
+#define SWIGTYPE_p_std__invalid_argument swig_types[81]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[82]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[83]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[84]
+#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[85]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[86]
+#define SWIGTYPE_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t swig_types[87]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[88]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[89]
+#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[90]
+#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[91]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[92]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[93]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[94]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[95]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[96]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[97]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[98]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[99]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[100]
+#define SWIGTYPE_p_unsigned_char swig_types[101]
+#define SWIGTYPE_p_unsigned_int swig_types[102]
+#define SWIGTYPE_p_unsigned_long_long swig_types[103]
+#define SWIGTYPE_p_unsigned_short swig_types[104]
+#define SWIGTYPE_p_value_type swig_types[105]
+static swig_type_info *swig_types[107];
+static swig_module_info swig_module = {swig_types, 106, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -36942,12 +36941,12 @@ SWIGINTERN PyObject *_wrap_IObservable_attachObserver(PyObject *SWIGUNUSEDPARM(s
   {
     res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__shared_ptrT_IObserver_t,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IObservable_attachObserver" "', argument " "2"" of type '" "IObservable::observer_t""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IObservable_attachObserver" "', argument " "2"" of type '" "std::shared_ptr< IObserver >""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IObservable_attachObserver" "', argument " "2"" of type '" "IObservable::observer_t""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IObservable_attachObserver" "', argument " "2"" of type '" "std::shared_ptr< IObserver >""'");
     } else {
-      IObservable::observer_t * temp = reinterpret_cast< IObservable::observer_t * >(argp2);
+      std::shared_ptr< IObserver > * temp = reinterpret_cast< std::shared_ptr< IObserver > * >(argp2);
       arg2 = *temp;
       if (SWIG_IsNewObj(res2)) delete temp;
     }
@@ -43468,7 +43467,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "GetVersionNumber", _wrap_GetVersionNumber, METH_NOARGS, "GetVersionNumber() -> std::string"},
 	 { "delete_IObserver", _wrap_delete_IObserver, METH_O, "\n"
 		"delete_IObserver(IObserver self)\n"
-		"IObserver::~IObserver()\n"
+		"virtual IObserver::~IObserver()=default\n"
 		"\n"
 		""},
 	 { "IObserver_notify", _wrap_IObserver_notify, METH_VARARGS, "\n"
@@ -43481,19 +43480,19 @@ static PyMethodDef SwigMethods[] = {
 	 { "IObserver_swigregister", IObserver_swigregister, METH_O, NULL},
 	 { "delete_IObservable", _wrap_delete_IObservable, METH_O, "\n"
 		"delete_IObservable(IObservable self)\n"
-		"IObservable::~IObservable()\n"
+		"virtual IObservable::~IObservable()=default\n"
 		"\n"
 		""},
 	 { "IObservable_attachObserver", _wrap_IObservable_attachObserver, METH_VARARGS, "\n"
-		"IObservable_attachObserver(IObservable self, IObservable::observer_t obj)\n"
-		"void IObservable::attachObserver(observer_t obj)\n"
+		"IObservable_attachObserver(IObservable self, std::shared_ptr< IObserver > obj)\n"
+		"virtual void IObservable::attachObserver(std::shared_ptr< IObserver > obj)\n"
 		"\n"
 		"attach observer to the list of observers \n"
 		"\n"
 		""},
 	 { "IObservable_notifyObservers", _wrap_IObservable_notifyObservers, METH_O, "\n"
 		"IObservable_notifyObservers(IObservable self)\n"
-		"void IObservable::notifyObservers()\n"
+		"virtual void IObservable::notifyObservers()\n"
 		"\n"
 		"notify observers about change in status \n"
 		"\n"
@@ -43502,7 +43501,7 @@ static PyMethodDef SwigMethods[] = {
 		"new_IObservable() -> IObservable\n"
 		"\n"
 		"\n"
-		"Observable interface from Observer pattern\n"
+		"Observable interface from Observer pattern. Shared pointer is used when passing these objects from Python to C++.\n"
 		"\n"
 		"C++ includes: IObserver.h\n"
 		"\n"
@@ -44534,7 +44533,6 @@ static swig_type_info _swigt__p_long_long = {"_p_long_long", "int_least64_t *|in
 static swig_type_info _swigt__p_mapped_type = {"_p_mapped_type", "mapped_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_mumufit__MinimizerResult = {"_p_mumufit__MinimizerResult", "mumufit::MinimizerResult *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_mumufit__Parameters = {"_p_mumufit__Parameters", "mumufit::Parameters *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_observer_t = {"_p_observer_t", "observer_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_p_PyObject = {"_p_p_PyObject", "PyObject **", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_second_type = {"_p_second_type", "second_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_short = {"_p_short", "short *|int_least16_t *|int16_t *", 0, 0, (void*)0, 0};
@@ -44559,7 +44557,7 @@ static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argume
 static swig_type_info _swigt__p_std__lessT_std__string_t = {"_p_std__lessT_std__string_t", "std::less< std::string > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t = {"_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t", "std::map< std::string,double,std::less< std::string >,std::allocator< std::pair< std::string const,double > > > *|std::map< std::string,double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_double_double_t = {"_p_std__pairT_double_double_t", "std::pair< double,double > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *|IObservable::observer_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_ISampleBuilder_t = {"_p_std__shared_ptrT_ISampleBuilder_t", "std::shared_ptr< ISampleBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t = {"_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t", "std::vector< AxisInfo,std::allocator< AxisInfo > > *|std::vector< AxisInfo > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t = {"_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t", "std::vector< BasicVector3D< double > > *|std::vector< BasicVector3D< double >,std::allocator< BasicVector3D< double > > > *", 0, 0, (void*)0, 0};
@@ -44643,7 +44641,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_mapped_type,
   &_swigt__p_mumufit__MinimizerResult,
   &_swigt__p_mumufit__Parameters,
-  &_swigt__p_observer_t,
   &_swigt__p_p_PyObject,
   &_swigt__p_second_type,
   &_swigt__p_short,
@@ -44752,7 +44749,6 @@ static swig_cast_info _swigc__p_long_long[] = {  {&_swigt__p_long_long, 0, 0, 0}
 static swig_cast_info _swigc__p_mapped_type[] = {  {&_swigt__p_mapped_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_mumufit__MinimizerResult[] = {  {&_swigt__p_mumufit__MinimizerResult, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_mumufit__Parameters[] = {  {&_swigt__p_mumufit__Parameters, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_observer_t[] = {  {&_swigt__p_observer_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_p_PyObject[] = {  {&_swigt__p_p_PyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_second_type[] = {  {&_swigt__p_second_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_short[] = {  {&_swigt__p_short, 0, 0, 0},{0, 0, 0, 0}};
@@ -44861,7 +44857,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_mapped_type,
   _swigc__p_mumufit__MinimizerResult,
   _swigc__p_mumufit__Parameters,
-  _swigc__p_observer_t,
   _swigc__p_p_PyObject,
   _swigc__p_second_type,
   _swigc__p_short,

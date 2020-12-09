@@ -853,20 +853,20 @@ C++ includes: IComputation.h
 // File: classIObservable.xml
 %feature("docstring") IObservable "
 
-Observable interface from Observer pattern
+Observable interface from Observer pattern. Shared pointer is used when passing these objects from Python to C++.
 
 C++ includes: IObserver.h
 ";
 
-%feature("docstring")  IObservable::~IObservable "IObservable::~IObservable()
+%feature("docstring")  IObservable::~IObservable "virtual IObservable::~IObservable()=default
 ";
 
-%feature("docstring")  IObservable::attachObserver "void IObservable::attachObserver(observer_t obj)
+%feature("docstring")  IObservable::attachObserver "virtual void IObservable::attachObserver(std::shared_ptr< IObserver > obj)
 
 attach observer to the list of observers 
 ";
 
-%feature("docstring")  IObservable::notifyObservers "void IObservable::notifyObservers()
+%feature("docstring")  IObservable::notifyObservers "virtual void IObservable::notifyObservers()
 
 notify observers about change in status 
 ";
@@ -880,7 +880,7 @@ Observer interface from Observer pattern.
 C++ includes: IObserver.h
 ";
 
-%feature("docstring")  IObserver::~IObserver "IObserver::~IObserver()
+%feature("docstring")  IObserver::~IObserver "virtual IObserver::~IObserver()=default
 ";
 
 %feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=0
@@ -2293,7 +2293,7 @@ Returns default units to convert to.
 ";
 
 
-// File: namespace_0d101.xml
+// File: namespace_0d100.xml
 
 
 // File: namespace_0d15.xml
@@ -2311,40 +2311,40 @@ Returns default units to convert to.
 // File: namespace_0d47.xml
 
 
-// File: namespace_0d56.xml
+// File: namespace_0d55.xml
 
 
-// File: namespace_0d58.xml
+// File: namespace_0d57.xml
 
 
-// File: namespace_0d62.xml
+// File: namespace_0d61.xml
 
 
-// File: namespace_0d66.xml
+// File: namespace_0d65.xml
 
 
-// File: namespace_0d68.xml
+// File: namespace_0d67.xml
 
 
-// File: namespace_0d70.xml
+// File: namespace_0d69.xml
 
 
-// File: namespace_0d72.xml
+// File: namespace_0d71.xml
 
 
-// File: namespace_0d77.xml
+// File: namespace_0d76.xml
 
 
-// File: namespace_0d79.xml
+// File: namespace_0d78.xml
 
 
-// File: namespace_0d83.xml
+// File: namespace_0d82.xml
 
 
-// File: namespace_0d93.xml
+// File: namespace_0d92.xml
 
 
-// File: namespace_0d95.xml
+// File: namespace_0d94.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2855,9 +2855,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: FitTypes_8h.xml
-
-
-// File: IObserver_8cpp.xml
 
 
 // File: IObserver_8h.xml

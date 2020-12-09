@@ -19,7 +19,7 @@
 #ifndef BORNAGAIN_BASE_VECTOR_BASICVECTOR3D_H
 #define BORNAGAIN_BASE_VECTOR_BASICVECTOR3D_H
 
-#include <complex>
+#include "Base/Types/Complex.h"
 
 //! Three-dimensional vector template, for use with integer, double, or complex components.
 //! @ingroup tools_internal
@@ -146,7 +146,7 @@ public:
     BasicVector3D<T> unit() const;
 
     //! Returns this, trivially converted to complex type.
-    BasicVector3D<std::complex<double>> complex() const;
+    BasicVector3D<complex_t> complex() const;
 
     //! Returns real parts.
     BasicVector3D<double> real() const;
@@ -298,7 +298,7 @@ inline auto BasicVector3D<T>::cross(const BasicVector3D<U>& v) const {
 
 template <> BasicVector3D<double> BasicVector3D<double>::conj() const;
 
-template <> BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::conj() const;
+template <> BasicVector3D<complex_t> BasicVector3D<complex_t>::conj() const;
 
 template <> double BasicVector3D<double>::phi() const;
 
@@ -308,15 +308,15 @@ template <> double BasicVector3D<double>::cosTheta() const;
 
 template <> double BasicVector3D<double>::sin2Theta() const;
 
-template <> BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const;
+template <> BasicVector3D<complex_t> BasicVector3D<double>::complex() const;
 
 template <> BasicVector3D<double> BasicVector3D<double>::real() const;
 
-template <> BasicVector3D<double> BasicVector3D<std::complex<double>>::real() const;
+template <> BasicVector3D<double> BasicVector3D<complex_t>::real() const;
 
 template <> BasicVector3D<double> BasicVector3D<double>::unit() const;
 
-template <> BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::unit() const;
+template <> BasicVector3D<complex_t> BasicVector3D<complex_t>::unit() const;
 
 template <> double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const;
 

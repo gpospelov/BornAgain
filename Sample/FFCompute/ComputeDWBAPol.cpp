@@ -18,7 +18,7 @@
 #include "Sample/Scattering/IFormFactor.h"
 
 namespace {
-std::complex<double> VecMatVecProduct(const Eigen::Vector2cd& vec1, const Eigen::Matrix2cd& ff,
+complex_t VecMatVecProduct(const Eigen::Vector2cd& vec1, const Eigen::Matrix2cd& ff,
                                       const Eigen::Vector2cd& vec2) {
     return vec1.transpose() * ff * vec2;
 }

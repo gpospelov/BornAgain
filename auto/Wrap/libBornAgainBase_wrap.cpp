@@ -28178,7 +28178,7 @@ SWIGINTERN PyObject *_wrap_kvector_t_complex(PyObject *SWIGUNUSEDPARM(self), PyO
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  BasicVector3D< std::complex< double > > result;
+  BasicVector3D< complex_t > result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -28188,7 +28188,7 @@ SWIGINTERN PyObject *_wrap_kvector_t_complex(PyObject *SWIGUNUSEDPARM(self), PyO
   }
   arg1 = reinterpret_cast< BasicVector3D< double > * >(argp1);
   result = ((BasicVector3D< double > const *)arg1)->complex();
-  resultobj = SWIG_NewPointerObj((new BasicVector3D< std::complex< double > >(static_cast< const BasicVector3D< std::complex< double > >& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new BasicVector3D< complex_t >(static_cast< const BasicVector3D< complex_t >& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -33747,7 +33747,9 @@ static PyMethodDef SwigMethods[] = {
 	 { "kvector_t___isub__", _wrap_kvector_t___isub__, METH_VARARGS, "kvector_t___isub__(kvector_t self, kvector_t v) -> kvector_t"},
 	 { "kvector_t_conj", _wrap_kvector_t_conj, METH_O, "\n"
 		"kvector_t_conj(kvector_t self) -> kvector_t\n"
-		"BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const\n"
+		"BasicVector3D<T> BasicVector3D< T >::conj() const\n"
+		"\n"
+		"Returns complex conjugate vector. \n"
 		"\n"
 		""},
 	 { "kvector_t_mag2", _wrap_kvector_t_mag2, METH_O, "\n"
@@ -33808,19 +33810,23 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "kvector_t_unit", _wrap_kvector_t_unit, METH_O, "\n"
 		"kvector_t_unit(kvector_t self) -> kvector_t\n"
-		"BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const\n"
+		"BasicVector3D<T> BasicVector3D< T >::unit() const\n"
+		"\n"
+		"Returns unit vector in direction of this. Throws for null vector. \n"
 		"\n"
 		""},
 	 { "kvector_t_complex", _wrap_kvector_t_complex, METH_O, "\n"
 		"kvector_t_complex(kvector_t self) -> cvector_t\n"
-		"BasicVector3D<std::complex<double> > BasicVector3D< T >::complex() const\n"
+		"BasicVector3D<complex_t> BasicVector3D< T >::complex() const\n"
 		"\n"
 		"Returns this, trivially converted to complex type. \n"
 		"\n"
 		""},
 	 { "kvector_t_real", _wrap_kvector_t_real, METH_O, "\n"
 		"kvector_t_real(kvector_t self) -> kvector_t\n"
-		"BasicVector3D< double > BasicVector3D< complex_t >::real() const\n"
+		"BasicVector3D<double> BasicVector3D< T >::real() const\n"
+		"\n"
+		"Returns real parts. \n"
 		"\n"
 		""},
 	 { "kvector_t_angle", _wrap_kvector_t_angle, METH_VARARGS, "\n"
@@ -33956,7 +33962,9 @@ static PyMethodDef SwigMethods[] = {
 	 { "cvector_t___isub__", _wrap_cvector_t___isub__, METH_VARARGS, "cvector_t___isub__(cvector_t self, cvector_t v) -> cvector_t"},
 	 { "cvector_t_conj", _wrap_cvector_t_conj, METH_O, "\n"
 		"cvector_t_conj(cvector_t self) -> cvector_t\n"
-		"BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const\n"
+		"BasicVector3D<T> BasicVector3D< T >::conj() const\n"
+		"\n"
+		"Returns complex conjugate vector. \n"
 		"\n"
 		""},
 	 { "cvector_t_mag2", _wrap_cvector_t_mag2, METH_O, "\n"
@@ -33989,12 +33997,16 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "cvector_t_unit", _wrap_cvector_t_unit, METH_O, "\n"
 		"cvector_t_unit(cvector_t self) -> cvector_t\n"
-		"BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const\n"
+		"BasicVector3D<T> BasicVector3D< T >::unit() const\n"
+		"\n"
+		"Returns unit vector in direction of this. Throws for null vector. \n"
 		"\n"
 		""},
 	 { "cvector_t_real", _wrap_cvector_t_real, METH_O, "\n"
 		"cvector_t_real(cvector_t self) -> kvector_t\n"
-		"BasicVector3D< double > BasicVector3D< complex_t >::real() const\n"
+		"BasicVector3D<double> BasicVector3D< T >::real() const\n"
+		"\n"
+		"Returns real parts. \n"
 		"\n"
 		""},
 	 { "cvector_t_project", _wrap_cvector_t_project, METH_VARARGS, "\n"
@@ -34099,7 +34111,7 @@ static void *_p_FixedBinAxisTo_p_IAxis(void *x, int *SWIGUNUSEDPARM(newmemory)) 
 }
 static swig_type_info _swigt__p_BasicVector3DT_double_t = {"_p_BasicVector3DT_double_t", "std::vector< BasicVector3D< double > >::value_type *|kvector_t *|BasicVector3D< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t", "ivector_t *|BasicVector3D< int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *|BasicVector3D< complex_t > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Bin1D = {"_p_Bin1D", "Bin1D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Bin1DCVector = {"_p_Bin1DCVector", "Bin1DCVector *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Bin1DKVector = {"_p_Bin1DKVector", "Bin1DKVector *", 0, 0, (void*)0, 0};

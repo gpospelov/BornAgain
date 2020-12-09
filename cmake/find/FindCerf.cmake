@@ -57,7 +57,6 @@ else()
 	endif()
 endif()
 
-
 # If still not found, then check whether it is ultimately required or not.
 if(NOT Cerf_FOUND)
 	message(STATUS "libcerf: FOUND=${Cerf_FOUND}, VERSION=${Cerf_VERSION}, "
@@ -65,14 +64,11 @@ if(NOT Cerf_FOUND)
 		
 	if(${Cerf_ULTIMATELY_REQUIRED})
 		message(FATAL_ERROR "Found neither C nor C++ version of cerf")
-	else()
-		message(STATUS "Found neither C nor C++ version of cerf")
 	endif()
-	
+
+	message(STATUS "Found neither C nor C++ version of cerf")
 	return()
 endif()
-
-
 
 if(Cerf_IS_CPP)
 	message(STATUS "Found libcerf, language=CPP, version=${Cerf_VERSION}, lib=${Cerf_LIBRARIES},"

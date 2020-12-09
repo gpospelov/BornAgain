@@ -20,7 +20,10 @@
 template <class T> class OutputData;
 
 //! Functions for numpy array import to OutputData.
-//! Required solely as a shortcut to produce OutputData from numpy arrays of doubles.
+//!
+//! A shortcut to produce OutputData from numpy arrays of doubles.
+//!
+//! Used only in PyPersistence.py.in
 
 namespace PyArrayImport {
 

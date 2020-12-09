@@ -28,13 +28,13 @@ const bool use_job_last_presentation = true;
 const std::map<QString, QString> instrument_to_default_presentaion{
     {"SpecularInstrument", "Reflectometry"},
     {"GISASInstrument", "Color Map"},
-    {"OffSpecInstrument", "Color Map"},
+    {"OffSpecularInstrument", "Color Map"},
     {"DepthProbeInstrument", "Color Map"}};
 
 const std::map<QString, QString> instrument_to_fit_presentaion{
     {"SpecularInstrument", "Fit 1D Data"},
     {"GISASInstrument", "Fit 2D Data"},
-    {"OffSpecInstrument", "Fit 2D Data"}};
+    {"OffSpecularInstrument", "Fit 2D Data"}};
 
 const std::map<JobViewFlags::EActivities, std::map<QString, QString>> activity_to_presentation{
     {JobViewFlags::FITTING_ACTIVITY, instrument_to_fit_presentaion},
@@ -44,7 +44,7 @@ const std::map<JobViewFlags::EActivities, std::map<QString, QString>> activity_t
 const std::map<QString, QStringList> default_active_presentation_list{
     {"SpecularInstrument", {"Reflectometry"}},
     {{"GISASInstrument"}, {"Color Map", "Projections"}},
-    {{"OffSpecInstrument"}, {"Color Map", "Projections"}},
+    {{"OffSpecularInstrument"}, {"Color Map", "Projections"}},
     {{"DepthProbeInstrument"}, {"Color Map", "Projections"}}};
 
 template <class QStringObj>

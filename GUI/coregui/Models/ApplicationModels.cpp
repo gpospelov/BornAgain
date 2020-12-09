@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Models/ApplicationModels.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/StandardSimulations.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/DocumentModel.h"
@@ -154,7 +154,7 @@ void ApplicationModels::createTestSample() {
     GUIObjectBuilder::populateSampleModel(m_sampleModel, m_materialModel, *P_sample);
 
     // to populate InstrumentView with predefined instrument
-    const std::unique_ptr<OffSpecSimulation> simulation(StandardSimulations::MiniOffSpec());
+    const std::unique_ptr<OffSpecularSimulation> simulation(StandardSimulations::MiniOffSpecular());
     GUIObjectBuilder::populateInstrumentModel(m_instrumentModel, *simulation);
 }
 

@@ -56,7 +56,6 @@ Here is a list of additional classes from internal API.
 <li> \ref formfactors_internal "Form factors internals" <br>
 <li> \ref distribution_internal "Distribution function internals"
 <li> \ref tools_internal "Tools internals" <br>
-<li> \ref input_output_internal "Input/output internals" <br>
 <li> \ref fitting_internal "Fitting internals" <br>
 </ul>
 

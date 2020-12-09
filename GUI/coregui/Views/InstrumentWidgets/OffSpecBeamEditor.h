@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InstrumentWidgets/OffSpecBeamEditor.h
-//! @brief     Defines class OffSpecBeamEditor
+//! @file      GUI/coregui/Views/InstrumentWidgets/OffSpecularBeamEditor.h
+//! @brief     Defines class OffSpecularBeamEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -19,24 +19,24 @@
 
 class ComponentEditor;
 class QGridLayout;
-class OffSpecInstrumentItem;
+class OffSpecularInstrumentItem;
 class BeamItem;
 class ColumnResizer;
 
 //! GISAS beam editor. Operates on GISASInstrumentItem.
 
-class OffSpecBeamEditor : public SessionItemWidget {
+class OffSpecularBeamEditor : public SessionItemWidget {
     Q_OBJECT
 
 public:
-    explicit OffSpecBeamEditor(ColumnResizer* columnResizer, QWidget* parent = nullptr);
+    explicit OffSpecularBeamEditor(ColumnResizer* columnResizer, QWidget* parent = nullptr);
 
 protected:
     void subscribeToItem();
     void unsubscribeFromItem();
 
 private:
-    OffSpecInstrumentItem* instrumentItem();
+    OffSpecularInstrumentItem* instrumentItem();
     BeamItem* beamItem();
     void onDialogRequest(SessionItem* item, const QString& name);
 

@@ -47,7 +47,7 @@ class GISASInstrumentItem;
 class Instrument2DItem;
 class InstrumentItem;
 class ISimulation2D;
-class OffSpecSimulation;
+class OffSpecularSimulation;
 class IAxis;
 
 namespace TransformFromDomain {
@@ -74,7 +74,7 @@ bool isValidRoughness(const LayerRoughness* roughness);
 
 void setGISASBeamItem(BeamItem* beam_item, const GISASSimulation& simulation);
 
-void setOffSpecBeamItem(BeamItem* beam_item, const OffSpecSimulation& simulation);
+void setOffSpecularBeamItem(BeamItem* beam_item, const OffSpecularSimulation& simulation);
 
 void setSpecularBeamItem(SpecularBeamItem* beam_item, const SpecularSimulation& simulation);
 

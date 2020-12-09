@@ -22,7 +22,7 @@
 class DepthProbeSimulation;
 class GISASSimulation;
 class SpecularSimulation;
-class OffSpecSimulation;
+class OffSpecularSimulation;
 
 //! Standard pre-defined simulations.
 
@@ -79,8 +79,8 @@ SpecularSimulation* BasicSpecularQMM();
 SpecularSimulation* BasicSpecularQPM();
 SpecularSimulation* BasicSpecularQMP();
 
-// OffSpec simulations
-OffSpecSimulation* MiniOffSpec();
+// OffSpecular simulations
+OffSpecularSimulation* MiniOffSpecular();
 
 // Depth probe simulations
 DepthProbeSimulation* BasicDepthProbe();

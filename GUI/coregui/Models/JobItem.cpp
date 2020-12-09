@@ -73,7 +73,7 @@ JobItem::JobItem() : SessionItem("JobItem") {
     registerTag(T_MATERIAL_CONTAINER, 1, 1, QStringList{"MaterialContainer"});
     registerTag(T_INSTRUMENT, 1, 1,
                 QStringList() << "GISASInstrument"
-                              << "OffSpecInstrument"
+                              << "OffSpecularInstrument"
                               << "SpecularInstrument"
                               << "DepthProbeInstrument");
     registerTag(T_OUTPUT, 1, 1,

@@ -18,7 +18,7 @@
 #include "GUI/coregui/Views/CommonWidgets/ItemComboWidget.h"
 
 //! Contains stack of instrument editors and the logic to show proper editor for certain type
-//! of instrument (GISAS, OffSpec and Specular). Main component of InstrumentEditorWidget.
+//! of instrument (GISAS, OffSpecular and Specular). Main component of InstrumentEditorWidget.
 
 class InstrumentPresenter : public ItemComboWidget {
     Q_OBJECT

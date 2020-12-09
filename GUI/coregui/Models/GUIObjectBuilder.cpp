@@ -15,7 +15,7 @@
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
 #include "Base/Const/Units.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/GUIDomainSampleVisitor.h"
@@ -32,8 +32,8 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
                                                const GISASSimulation& simulation,
                                                const QString& name);
 
-OffSpecInstrumentItem* createOffSpecInstrumentItem(InstrumentModel* model,
-                                                   const OffSpecSimulation& simulation,
+OffSpecularInstrumentItem* createOffSpecularInstrumentItem(InstrumentModel* model,
+                                                   const OffSpecularSimulation& simulation,
                                                    const QString& name);
 
 SpecularInstrumentItem* createSpecularInstrumentItem(InstrumentModel* model,
@@ -69,8 +69,8 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
 
     if (auto gisasSimulation = dynamic_cast<const GISASSimulation*>(&simulation)) {
         return createGISASInstrumentItem(p_instrument_model, *gisasSimulation, name);
-    } else if (auto offSpecSimulation = dynamic_cast<const OffSpecSimulation*>(&simulation)) {
-        return createOffSpecInstrumentItem(p_instrument_model, *offSpecSimulation, name);
+    } else if (auto offSpecSimulation = dynamic_cast<const OffSpecularSimulation*>(&simulation)) {
+        return createOffSpecularInstrumentItem(p_instrument_model, *offSpecSimulation, name);
     } else if (auto spec_simulation = dynamic_cast<const SpecularSimulation*>(&simulation)) {
         return createSpecularInstrumentItem(p_instrument_model, *spec_simulation, name);
     }
@@ -112,17 +112,17 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
     return result;
 }
 
-OffSpecInstrumentItem* createOffSpecInstrumentItem(InstrumentModel* model,
-                                                   const OffSpecSimulation& simulation,
+OffSpecularInstrumentItem* createOffSpecularInstrumentItem(InstrumentModel* model,
+                                                   const OffSpecularSimulation& simulation,
                                                    const QString& name) {
-    auto result = dynamic_cast<OffSpecInstrumentItem*>(model->insertNewItem("OffSpecInstrument"));
+    auto result = dynamic_cast<OffSpecularInstrumentItem*>(model->insertNewItem("OffSpecularInstrument"));
 
     result->setItemName(name);
-    TransformFromDomain::setOffSpecBeamItem(result->beamItem(), simulation);
+    TransformFromDomain::setOffSpecularBeamItem(result->beamItem(), simulation);
     TransformFromDomain::setDetector(result, simulation);
     TransformFromDomain::setBackground(result, simulation);
 
-    auto axisItem = result->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS);
+    auto axisItem = result->getItem(OffSpecularInstrumentItem::P_ALPHA_AXIS);
     TransformFromDomain::setAxisItem(axisItem, *simulation.beamAxis(), 1. / Units::deg);
 
     return result;

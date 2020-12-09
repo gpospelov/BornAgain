@@ -127,9 +127,9 @@ std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const {
 
 // ----------------------------------------------------------------------------
 
-OffSpecPlan::OffSpecPlan() : Plan("OffSpecPlan") {
+OffSpecularPlan::OffSpecularPlan() : Plan("OffSpecularPlan") {
     setBuilderName("ResonatorBuilder");
-    setSimulationName("OffSpecMini");
+    setSimulationName("OffSpecularMini");
     addParameter(
         Parameter("ti_thickness", 12.0 * nm, AttLimits::limited(11.5 * nm, 14.0 * nm), 0.1 * nm),
         13.0 * nm);

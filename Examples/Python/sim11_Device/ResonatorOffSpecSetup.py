@@ -56,7 +56,7 @@ def get_offspec_simulation():
     """
 
     # create OffSpecular simulation
-    simulation = ba.OffSpecSimulation()
+    simulation = ba.OffSpecularSimulation()
     if not "__no_terminal__" in globals():
         simulation.setTerminalProgressMonitor()
 

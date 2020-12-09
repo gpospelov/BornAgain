@@ -79,7 +79,7 @@ ItemCatalog::ItemCatalog() {
     add("InterferenceHardDisk", create_new<InterferenceFunctionHardDiskItem>);
     add("InterferenceRadialParaCrystal", create_new<InterferenceFunctionRadialParaCrystalItem>);
     add("GISASInstrument", create_new<GISASInstrumentItem>);
-    add("OffSpecInstrument", create_new<OffSpecInstrumentItem>);
+    add("OffSpecularInstrument", create_new<OffSpecularInstrumentItem>);
     add("SpecularInstrument", create_new<SpecularInstrumentItem>);
     add("GISASBeam", create_new<GISASBeamItem>);
     add("SpecularBeam", create_new<SpecularBeamItem>);

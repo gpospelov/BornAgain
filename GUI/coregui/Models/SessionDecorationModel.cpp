@@ -62,7 +62,7 @@ QVariant itemIcon(const SessionItem* item) {
     if (modelType == "GISASInstrument") {
         return QVariant(icons.gisasIcon);
 
-    } else if (modelType == "OffSpecInstrument") {
+    } else if (modelType == "OffSpecularInstrument") {
         return QVariant(icons.offspecIcon);
 
     } else if (modelType == "SpecularInstrument") {

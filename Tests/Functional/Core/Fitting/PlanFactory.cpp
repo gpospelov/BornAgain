@@ -25,5 +25,5 @@ PlanFactory::PlanFactory() {
     registerItem("SpecularPlan", create_new<SpecularPlan>);
     registerItem("SpecularPlanQ", create_new<SpecularPlanQ>);
     registerItem("MultipleSpecPlan", create_new<MultipleSpecPlan>);
-    registerItem("OffSpecPlan", create_new<OffSpecPlan>);
+    registerItem("OffSpecularPlan", create_new<OffSpecularPlan>);
 }

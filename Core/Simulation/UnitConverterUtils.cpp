@@ -16,7 +16,7 @@
 #include "Core/Scan/UnitConverter1D.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Device/Detector/RectangularDetector.h"
 #include "Device/Detector/SimpleUnitConverters.h"
@@ -53,7 +53,7 @@ std::unique_ptr<IUnitConverter> UnitConverterUtils::createConverter(const ISimul
     } else if (auto probe = dynamic_cast<const DepthProbeSimulation*>(&simulation)) {
         return probe->createUnitConverter();
 
-    } else if (auto off_spec = dynamic_cast<const OffSpecSimulation*>(&simulation)) {
+    } else if (auto off_spec = dynamic_cast<const OffSpecularSimulation*>(&simulation)) {
         return off_spec->createUnitConverter();
 
     } else {

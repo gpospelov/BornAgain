@@ -72,7 +72,7 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/ISimulation2D.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
 %}
@@ -112,7 +112,7 @@
 %include "Core/Simulation/GISASSimulation.h"
 %include "Core/Simulation/DepthProbeSimulation.h"
 %include "Core/Simulation/SpecularSimulation.h"
-%include "Core/Simulation/OffSpecSimulation.h"
+%include "Core/Simulation/OffSpecularSimulation.h"
 
 %include "Core/Computation/IBackground.h"
 %include "Core/Computation/ConstantBackground.h"

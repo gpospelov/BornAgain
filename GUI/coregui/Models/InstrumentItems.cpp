@@ -30,7 +30,7 @@
 
 namespace {
 const QString background_group_label = "Type";
-const QStringList instrument_names{"GISASInstrument", "OffSpecInstrument", "SpecularInstrument"};
+const QStringList instrument_names{"GISASInstrument", "OffSpecularInstrument", "SpecularInstrument"};
 void addAxisGroupProperty(SessionItem* parent, const QString& tag);
 } // namespace
 
@@ -219,9 +219,9 @@ void GISASInstrumentItem::updateToRealData(const RealDataItem* item) {
     detectorItem()->setYSize(data_shape[1]);
 }
 
-const QString OffSpecInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
+const QString OffSpecularInstrumentItem::P_ALPHA_AXIS = "Alpha axis";
 
-OffSpecInstrumentItem::OffSpecInstrumentItem() : Instrument2DItem("OffSpecInstrument") {
+OffSpecularInstrumentItem::OffSpecularInstrumentItem() : Instrument2DItem("OffSpecularInstrument") {
     addAxisGroupProperty(this, P_ALPHA_AXIS);
     auto inclination_item = getItem(P_ALPHA_AXIS)->getItem(BasicAxisItem::P_MIN_DEG);
     auto beam_item = beamItem();
@@ -232,21 +232,21 @@ OffSpecInstrumentItem::OffSpecInstrumentItem() : Instrument2DItem("OffSpecInstru
     });
 }
 
-std::vector<int> OffSpecInstrumentItem::shape() const {
+std::vector<int> OffSpecularInstrumentItem::shape() const {
     const int x_size = getItem(P_ALPHA_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
     auto detector_item = detectorItem();
     return {x_size, detector_item->ySize()};
 }
 
-void OffSpecInstrumentItem::updateToRealData(const RealDataItem* item) {
+void OffSpecularInstrumentItem::updateToRealData(const RealDataItem* item) {
     if (!item)
         return;
 
     const auto data_shape = item->shape();
     if (shape().size() != data_shape.size())
-        throw GUIHelpers::Error("Error in OffSpecInstrumentItem::updateToRealData: The type of "
+        throw GUIHelpers::Error("Error in OffSpecularInstrumentItem::updateToRealData: The type of "
                                 "instrument is incompatible with passed data shape.");
-    getItem(OffSpecInstrumentItem::P_ALPHA_AXIS)
+    getItem(OffSpecularInstrumentItem::P_ALPHA_AXIS)
         ->setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);
     detectorItem()->setYSize(data_shape[1]);
 }

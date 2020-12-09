@@ -57,7 +57,7 @@ def get_simulation():
     """
     Returns an off-specular simulation with beam and detector defined.
     """
-    simulation = ba.OffSpecSimulation()
+    simulation = ba.OffSpecularSimulation()
     simulation.setDetectorParameters(20, phi_f_min*deg, phi_f_max*deg, 200,
                                      alpha_f_min*deg, alpha_f_max*deg)
     # define the beam with alpha_i varied between alpha_i_min and alpha_i_max

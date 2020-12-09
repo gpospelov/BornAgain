@@ -19,7 +19,7 @@
 #include "Core/Scan/QSpecScan.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
@@ -551,9 +551,9 @@ SpecularSimulation* StandardSimulations::BasicSpecularQMP() {
 
 // ----------------------- off-spec simulations ------------------
 
-// OffSpec simulation used in ResonatorOffSpecSetup.py
-OffSpecSimulation* StandardSimulations::MiniOffSpec() {
-    auto* result = new OffSpecSimulation;
+// OffSpecular simulation used in ResonatorOffSpecularSetup.py
+OffSpecularSimulation* StandardSimulations::MiniOffSpecular() {
+    auto* result = new OffSpecularSimulation;
 
     const int n_alpha(19);
     const double alpha_min(0.0 * Units::deg);

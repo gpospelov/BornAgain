@@ -84,7 +84,7 @@ def get_axes_labels(result, units):
     return labels
 
 
-def plot_array(array, title=None, axes_limits=None, **kwargs):
+def plot_array(array, axes_limits=None, **kwargs):
     """
     Plots numpy array as a colormap in log scale.
     """
@@ -101,6 +101,8 @@ def plot_array(array, title=None, axes_limits=None, **kwargs):
     ylabel = kwargs.pop('ylabel', None)
     zlabel = kwargs.pop('zlabel', "Intensity")
 
+    title = kwargs.pop('title', None)
+
     im = plt.imshow(array, norm=norm, extent=axes_limits, **kwargs)
     cb = plt.colorbar(im, pad=0.025)
 
@@ -115,7 +117,7 @@ def plot_array(array, title=None, axes_limits=None, **kwargs):
         plt.title(title)
 
 
-def plot_histogram(hist, title=None, **kwargs):
+def plot_histogram(hist, **kwargs):
     """
     Plots intensity data as color map
     :param intensity: Histogram2D object obtained from GISASSimulation
@@ -135,10 +137,12 @@ def plot_histogram(hist, title=None, **kwargs):
         hist.getYmax()
     ]
 
+    title = kwargs.pop('title', None)
+
     plot_array(hist.array(), title=title, axes_limits=axes_limits, **kwargs)
 
 
-def plot_colormap(result, units=ba.Axes.DEFAULT, title=None, **kwargs):
+def plot_colormap(result, units=ba.Axes.DEFAULT, **kwargs):
     """
     Plots intensity data as color map
     :param result: SimulationResult from GISAS/OffSpecSimulation
@@ -154,14 +158,13 @@ def plot_colormap(result, units=ba.Axes.DEFAULT, title=None, **kwargs):
     if not 'ylabel' in kwargs:
         kwargs['ylabel'] = axes_labels[1]
 
-    plot_array(result.array(), title=title, axes_limits=axes_limits, **kwargs)
+    plot_array(result.array(), axes_limits=axes_limits, **kwargs)
 
 
 def plot_specular_simulation_result(result,
                                     ymin=None,
                                     ymax=None,
                                     units=ba.Axes.DEFAULT,
-                                    title=None,
                                     **kwargs):
     """
     Plots intensity data for specular simulation result
@@ -179,6 +182,7 @@ def plot_specular_simulation_result(result,
 
     xlabel = kwargs.pop('xlabel', get_axes_labels(result, units)[0])
     ylabel = kwargs.pop('ylabel', "Intensity")
+    title = kwargs.pop('title', None)
 
     plt.semilogy(x_axis, intensity, **kwargs)
 
@@ -196,7 +200,6 @@ def plot_specular_simulation_result(result,
 def plot_simulation_result(result,
                            units=ba.Axes.DEFAULT,
                            postpone_show=False,
-                           title=None,
                            **kwargs):
     """
     Draws simulation result and (optionally) shows the plot.
@@ -209,7 +212,7 @@ def plot_simulation_result(result,
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
         plot_specular_simulation_result(result, units, **kwargs)
     else:
-        plot_colormap(result, units, title=title, **kwargs)
+        plot_colormap(result, units, **kwargs)
     plt.tight_layout()
     if not (postpone_show):
         plt.show()

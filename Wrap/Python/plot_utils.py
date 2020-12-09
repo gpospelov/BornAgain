@@ -161,9 +161,7 @@ def plot_colormap(result, units=ba.Axes.DEFAULT, **kwargs):
     plot_array(result.array(), axes_limits=axes_limits, **kwargs)
 
 
-def plot_specular_simulation_result(result,
-                                    units=ba.Axes.DEFAULT,
-                                    **kwargs):
+def plot_specular_simulation_result(result, units=ba.Axes.DEFAULT, **kwargs):
     """
     Plots intensity data for specular simulation result
     :param result: SimulationResult from SpecularSimulation
@@ -195,10 +193,7 @@ def plot_specular_simulation_result(result,
         plt.title(title)
 
 
-def plot_simulation_result(result,
-                           units=ba.Axes.DEFAULT,
-                           postpone_show=False,
-                           **kwargs):
+def plot_simulation_result(result, units=ba.Axes.DEFAULT, **kwargs):
     """
     Draws simulation result and (optionally) shows the plot.
     :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation
@@ -207,6 +202,8 @@ def plot_simulation_result(result,
     :param units: units for plot axes
     :param postpone_show: postpone showing the plot for later tuning (False by default)
     """
+    postpone_show = kwargs.pop('postpone_show', False)
+
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
         plot_specular_simulation_result(result, units, **kwargs)
     else:

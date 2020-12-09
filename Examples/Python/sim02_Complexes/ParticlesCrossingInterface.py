@@ -16,11 +16,9 @@ adjusts calculations accordingly.
 For example, X or Y rotated particles can not yet cross interfaces (exception
 will be thrown when trying to simulate such geometries).
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
-
-phi_min, phi_max = -1.0, 1.0
-alpha_min, alpha_max = 0.0, 2.0
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -70,23 +68,16 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined.
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, phi_min*deg, phi_max*deg, 100,
-                                     alpha_min*deg, alpha_max*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
+    nbin = 100
+    detector = ba.SphericalDetector(nbin, 2.0*deg, 0.0*deg, 1.0*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns resulting intensity map.
-    """
-    sample = get_sample()
     simulation = get_simulation()
-    simulation.setSample(sample)
     simulation.runSimulation()
     return simulation.result()
 

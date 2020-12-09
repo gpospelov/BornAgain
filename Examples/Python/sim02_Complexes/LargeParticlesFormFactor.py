@@ -54,7 +54,7 @@ def get_simulation(integration_flag):
     return simulation
 
 
-def run_simulation():
+def simulate_and_plot():
     """
     Run simulation and plot results 4 times: for small and large cylinders,
     with and without integration
@@ -108,8 +108,8 @@ def run_simulation():
         zmin = condition['zmin']
         zmax = condition['zmax']
         ba.plot_colormap(result,
-                         zmin=zmin,
-                         zmax=zmax,
+                         intensity_min=zmin,
+                         intensity_max=zmax,
                          cmap='jet',
                          aspect='auto')
 
@@ -119,8 +119,8 @@ def run_simulation():
                  horizontalalignment='center',
                  verticalalignment='center',
                  fontsize=12)
+    plt.show()
 
 
 if __name__ == '__main__':
-    run_simulation()
-    plt.show()
+    simulate_and_plot()

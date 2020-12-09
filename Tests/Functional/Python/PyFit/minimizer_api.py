@@ -4,8 +4,6 @@ Testing python specific API for Minimizer related classes.
 import sys
 import os
 import unittest
-
-sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 
 

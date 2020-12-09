@@ -2850,6 +2850,26 @@ alpha_max:
 upper edge of last alpha-bin 
 ";
 
+%feature("docstring")  SphericalDetector::SphericalDetector "SphericalDetector::SphericalDetector(size_t n_bin, double width, double phi, double alpha)
+
+Spherical detector constructor with quadratic angle ranges
+
+Parameters:
+-----------
+
+n_bin: 
+number of bins per direction
+
+width: 
+angular width
+
+phi: 
+central phi angle
+
+alpha: 
+central alpha angle 
+";
+
 %feature("docstring")  SphericalDetector::SphericalDetector "SphericalDetector::SphericalDetector(const SphericalDetector &other)
 ";
 
@@ -3003,16 +3023,16 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0d105.xml
+// File: namespace_0d107.xml
 
 
-// File: namespace_0d33.xml
+// File: namespace_0d35.xml
 
 
-// File: namespace_0d56.xml
+// File: namespace_0d58.xml
 
 
-// File: namespace_0d62.xml
+// File: namespace_0d64.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3123,6 +3143,11 @@ Parse double values from string to vector of double.
 ";
 
 %feature("docstring")  DataFormatUtils::readLineOfDoubles "void DataFormatUtils::readLineOfDoubles(std::vector< double > &buffer, std::istringstream &iss)
+";
+
+
+// File: namespaceDetectorUtils.xml
+%feature("docstring")  DetectorUtils::isQuadratic "bool DetectorUtils::isQuadratic(const IDetector2D &det)
 ";
 
 
@@ -3285,6 +3310,12 @@ make Swappable
 
 
 // File: DetectorMask_8h.xml
+
+
+// File: DetectorUtils_8cpp.xml
+
+
+// File: DetectorUtils_8h.xml
 
 
 // File: IDetector_8cpp.xml

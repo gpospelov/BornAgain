@@ -78,7 +78,7 @@ def simulate(ff):
     return simulation.result()
 
 
-def run_simulation():
+def simulate_and_plot():
     """
     Run simulation one by one for every form factor from the list and plot results
     on a single canvas
@@ -113,8 +113,8 @@ def run_simulation():
                  horizontalalignment='center',
                  verticalalignment='center',
                  fontsize=9)
+    plt.show()
 
 
 if __name__ == '__main__':
-    run_simulation()
-    plt.show()
+    simulate_and_plot()

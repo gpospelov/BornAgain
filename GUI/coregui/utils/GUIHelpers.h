@@ -26,7 +26,7 @@ class RealDataItem;
 namespace GUIHelpers {
 class Error : public std::exception {
 public:
-    explicit Error(const QString& message) noexcept : message(message) {}
+    explicit Error(const QString& message) noexcept : m_messageAsLatin1(message.toLatin1()) {}
     virtual ~Error() noexcept;
 
     Error(const Error&) = default;
@@ -37,7 +37,7 @@ public:
     const char* what() const noexcept override;
 
 private:
-    QString message;
+    QByteArray m_messageAsLatin1;
 };
 
 void information(QWidget* parent, const QString& title, const QString& text,

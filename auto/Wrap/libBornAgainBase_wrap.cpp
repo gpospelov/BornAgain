@@ -26004,6 +26004,29 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IAxis_center(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IAxis *arg1 = (IAxis *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IAxis, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IAxis_center" "', argument " "1"" of type '" "IAxis const *""'"); 
+  }
+  arg1 = reinterpret_cast< IAxis * >(argp1);
+  result = (double)((IAxis const *)arg1)->center();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_IAxis_binCenter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IAxis *arg1 = (IAxis *) 0 ;
@@ -33301,6 +33324,13 @@ static PyMethodDef SwigMethods[] = {
 		"double IAxis::span() const\n"
 		"\n"
 		"Returns distance from first to last point. \n"
+		"\n"
+		""},
+	 { "IAxis_center", _wrap_IAxis_center, METH_O, "\n"
+		"IAxis_center(IAxis self) -> double\n"
+		"double IAxis::center() const\n"
+		"\n"
+		"Returns midpoint of axis. \n"
 		"\n"
 		""},
 	 { "IAxis_binCenter", _wrap_IAxis_binCenter, METH_VARARGS, "\n"

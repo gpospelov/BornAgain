@@ -4,9 +4,6 @@ if(NOT BORNAGAIN_PYTHON)
     message(FATAL_ERROR PythonAPI included though BORNAGAIN_PYTHON=false)
 endif()
 
-configure_file(${WRAP_DIR}/Python/plot_utils.py
-    ${CMAKE_BINARY_DIR}/lib/bornagain/plot_utils.py COPYONLY)
-
 if(WIN32)
     set(BA_MODULES_IMPORT_PATH ../../bin)
 else()
@@ -16,8 +13,12 @@ if(BORNAGAIN_APPLE_BUNDLE)
     set(BA_MODULES_IMPORT_PATH
         lib/BornAgain-${BornAgain_VERSION_MAJOR}.${BornAgain_VERSION_MINOR})
 endif()
+
 configure_file(${WRAP_DIR}/Python/__init__.py.in
     ${CMAKE_BINARY_DIR}/lib/bornagain/__init__.py @ONLY)
+foreach(mod plot_utils.py fit_monitor.py)
+    configure_file(${WRAP_DIR}/Python/${mod} ${CMAKE_BINARY_DIR}/lib/bornagain/${mod} COPYONLY)
+endforeach()
 
 if(CONFIGURE_BINDINGS)
     add_custom_command(

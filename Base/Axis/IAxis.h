@@ -56,6 +56,9 @@ public:
     //! Returns distance from first to last point
     double span() const;
 
+    //! Returns midpoint of axis
+    double center() const;
+
     virtual double binCenter(size_t index) const = 0;
 
     //! find bin index which is best match for given value

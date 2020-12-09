@@ -37,3 +37,7 @@ bool IAxis::contains(double value) const {
 double IAxis::span() const {
     return upperBound() - lowerBound();
 }
+
+double IAxis::center() const {
+    return (upperBound() + lowerBound())/2;
+}

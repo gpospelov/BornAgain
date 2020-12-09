@@ -1,11 +1,9 @@
 """
 Simulation demo: magnetic spheres in substrate
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
-
-# Magnetization of the particle's material (A/m)
-magnetization_particle = ba.kvector_t(0.0, 0.0, 1e7)
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -48,29 +46,20 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -3.0*deg, 3.0*deg, 200, 0.0*deg,
-                                     6.0*deg)
-    simulation.setBeamParameters(1.*angstrom, 0.5*deg, 0.0*deg)
-    simulation.beam().setIntensity(1e12)
+    beam = ba.Beam(1e+12, 0.1*nm, ba.Direction(0.5*deg, 0.0*deg))
+    beam_polarization = kvector_t(0.0, 0.0, 1.0)
+    beam.setPolarization(beam_polarization)
+    nbin = 200
+    detector = ba.SphericalDetector(nbin, 6.0*deg, 0.0*deg, 3.0*deg)
 
-    analyzer_dir = ba.kvector_t(0.0, 0.0, -1.0)
-    beampol = ba.kvector_t(0.0, 0.0, 1.0)
-    simulation.setBeamPolarization(beampol)
-    simulation.setAnalyzerProperties(analyzer_dir, 1.0, 0.5)
-
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
+    analyzer_direction = kvector_t(0.0, 0.0, -1.0)
+    simulation.setAnalyzerProperties(analyzer_direction, 1.0, 0.5)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
     simulation = get_simulation()
-    simulation.setSample(get_sample())
     simulation.runSimulation()
     return simulation.result()
 

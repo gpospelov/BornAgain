@@ -1678,6 +1678,7 @@ class vector_pvacuum_double_t(object):
 # Register vector_pvacuum_double_t in _libBornAgainCore:
 _libBornAgainCore.vector_pvacuum_double_t_swigregister(vector_pvacuum_double_t)
 
+import libBornAgainFit
 import libBornAgainBase
 class kvector_t(object):
     r"""Proxy of C++ BasicVector3D< double > class."""

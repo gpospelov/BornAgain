@@ -45,7 +45,7 @@ namespace GUIHelpers {
 Error::~Error() noexcept = default;
 
 const char* Error::what() const noexcept {
-    return message.toLatin1().data();
+    return m_messageAsLatin1.data();
 }
 
 void information(QWidget* parent, const QString& title, const QString& text,

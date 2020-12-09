@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_ZLIMITS_H
 #define BORNAGAIN_SAMPLE_SCATTERING_ZLIMITS_H
 
@@ -71,4 +72,4 @@ bool operator!=(const ZLimits& left, const ZLimits& right);
 std::ostream& operator<<(std::ostream& ostr, const ZLimits& limits);
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_ZLIMITS_H
-#endif // SWIG
+#endif // USER_API

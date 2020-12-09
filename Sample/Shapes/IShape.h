@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SHAPES_ISHAPE_H
 #define BORNAGAIN_SAMPLE_SHAPES_ISHAPE_H
 
@@ -52,4 +53,4 @@ std::vector<kvector_t> RectangleVertices(double length, double width, double z);
 std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z);
 
 #endif // BORNAGAIN_SAMPLE_SHAPES_ISHAPE_H
-#endif // SWIG
+#endif // USER_API

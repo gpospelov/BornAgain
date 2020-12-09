@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_DETECTOR_SPECULARDETECTOR1D_H
 #define BORNAGAIN_DEVICE_DETECTOR_SPECULARDETECTOR1D_H
 
@@ -56,4 +57,4 @@ protected:
 };
 
 #endif // BORNAGAIN_DEVICE_DETECTOR_SPECULARDETECTOR1D_H
-#endif // SWIG
+#endif // USER_API

@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_PY_PYOBJECT_H
 #define BORNAGAIN_BASE_PY_PYOBJECT_H
 
@@ -27,4 +28,4 @@ typedef _object PyObject;
 #endif
 
 #endif // BORNAGAIN_BASE_PY_PYOBJECT_H
-#endif // SWIG
+#endif // USER_API

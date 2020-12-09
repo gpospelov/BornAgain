@@ -4186,7 +4186,7 @@ class OffSpecularSimulation(ISimulation2D):
 
     Main class to run an off-specular simulation.
 
-    C++ includes: OffSpecSimulation.h
+    C++ includes: OffSpecularSimulation.h
 
     """
 

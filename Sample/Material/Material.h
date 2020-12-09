@@ -31,17 +31,17 @@ public:
 #ifndef SWIG
     //! Creates material with particular material implementation
     Material(std::unique_ptr<BaseMaterialImpl> material_impl);
-#endif // SWIG
+#endif // USER_API
 
     Material(const Material& material);
 #ifndef SWIG
     Material(Material&& material) = default;
-#endif // SWIG
+#endif // USER_API
 
     Material& operator=(const Material& other);
 #ifndef SWIG
     Material& operator=(Material&& other) = default;
-#endif // SWIG
+#endif // USER_API
 
     //! Constructs a material with inverted magnetization
     Material inverted() const;
@@ -64,7 +64,7 @@ public:
 #ifndef SWIG
     //! Returns the type of underlying material implementation
     MATERIAL_TYPES typeID() const;
-#endif // SWIG
+#endif // USER_API
 
     //! Get the magnetization (in A/m)
     kvector_t magnetization() const;

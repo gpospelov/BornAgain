@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_TESTENGINE_IFACTORY_H
 #define BORNAGAIN_FIT_TESTENGINE_IFACTORY_H
 
@@ -82,4 +83,4 @@ template <class T> T* create_new() {
 } // namespace mumufit::test
 
 #endif // BORNAGAIN_FIT_TESTENGINE_IFACTORY_H
-#endif // SWIG
+#endif // USER_API

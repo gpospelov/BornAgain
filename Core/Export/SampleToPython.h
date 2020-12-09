@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_EXPORT_SAMPLETOPYTHON_H
 #define BORNAGAIN_CORE_EXPORT_SAMPLETOPYTHON_H
 
@@ -61,4 +62,4 @@ private:
 };
 
 #endif // BORNAGAIN_CORE_EXPORT_SAMPLETOPYTHON_H
-#endif // SWIG
+#endif // USER_API

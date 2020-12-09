@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_SIMULATION_SIMULATIONFACTORY_H
 #define BORNAGAIN_CORE_SIMULATION_SIMULATIONFACTORY_H
 
@@ -33,4 +34,4 @@ public:
 };
 
 #endif // BORNAGAIN_CORE_SIMULATION_SIMULATIONFACTORY_H
-#endif // SWIG
+#endif // USER_API

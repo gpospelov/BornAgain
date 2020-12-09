@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_ADAPTER_OBJECTIVEFUNCTIONADAPTER_H
 #define BORNAGAIN_FIT_ADAPTER_OBJECTIVEFUNCTIONADAPTER_H
 
@@ -53,4 +54,4 @@ private:
 } // namespace mumufit
 
 #endif // BORNAGAIN_FIT_ADAPTER_OBJECTIVEFUNCTIONADAPTER_H
-#endif // SWIG
+#endif // USER_API

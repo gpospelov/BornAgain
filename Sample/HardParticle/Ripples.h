@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_RIPPLES_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_RIPPLES_H
 
@@ -36,4 +37,4 @@ complex_t profile_yz_triangular(complex_t qy, complex_t qz, double width, double
 } // namespace ripples
 
 #endif // BORNAGAIN_SAMPLE_HARDPARTICLE_RIPPLES_H
-#endif // SWIG
+#endif // USER_API

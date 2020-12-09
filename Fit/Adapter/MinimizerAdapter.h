@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_ADAPTER_MINIMIZERADAPTER_H
 #define BORNAGAIN_FIT_ADAPTER_MINIMIZERADAPTER_H
 
@@ -121,4 +122,4 @@ template <class T> T MinimizerAdapter::optionValue(const std::string& optionName
 }
 
 #endif // BORNAGAIN_FIT_ADAPTER_MINIMIZERADAPTER_H
-#endif // SWIG
+#endif // USER_API

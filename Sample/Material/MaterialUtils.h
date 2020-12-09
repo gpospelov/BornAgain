@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_MATERIAL_MATERIALUTILS_H
 #define BORNAGAIN_SAMPLE_MATERIAL_MATERIALUTILS_H
 
@@ -52,4 +53,4 @@ MATERIAL_TYPES checkMaterialTypes(const std::vector<const Material*>& materials)
 } // namespace MaterialUtils
 
 #endif // BORNAGAIN_SAMPLE_MATERIAL_MATERIALUTILS_H
-#endif // SWIG
+#endif // USER_API

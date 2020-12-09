@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_KERNEL_KERNEL_H
 #define BORNAGAIN_FIT_KERNEL_KERNEL_H
 
@@ -57,4 +58,4 @@ private:
 } // namespace mumufit
 
 #endif // BORNAGAIN_FIT_KERNEL_KERNEL_H
-#endif // SWIG
+#endif // USER_API

@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_RT_ILAYERRTCOEFFICIENTS_H
 #define BORNAGAIN_SAMPLE_RT_ILAYERRTCOEFFICIENTS_H
 
@@ -66,4 +67,4 @@ public:
 };
 
 #endif // BORNAGAIN_SAMPLE_RT_ILAYERRTCOEFFICIENTS_H
-#endif // SWIG
+#endif // USER_API

@@ -54,7 +54,7 @@ public:
     virtual std::vector<double>
     createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const = 0;
 
-#endif // SWIG
+#endif // USER_API
 };
 
 #endif // BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H

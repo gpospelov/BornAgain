@@ -126,7 +126,7 @@ public:
     bool isFirstIteration() const;
 
     void setObjectiveMetric(std::unique_ptr<ObjectiveMetric> metric);
-#endif // SWIG
+#endif // USER_API
 
 private:
     typedef std::vector<double> (SimDataPair::*DataPairAccessor)() const;

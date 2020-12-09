@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_EXPORT_PYFMT2_H
 #define BORNAGAIN_CORE_EXPORT_PYFMT2_H
 
@@ -53,4 +54,4 @@ std::string printRangedDistribution(const IRangedDistribution& distr);
 } // namespace pyfmt2
 
 #endif // BORNAGAIN_CORE_EXPORT_PYFMT2_H
-#endif // SWIG
+#endif // USER_API

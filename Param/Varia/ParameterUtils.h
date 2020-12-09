@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_PARAM_VARIA_PARAMETERUTILS_H
 #define BORNAGAIN_PARAM_VARIA_PARAMETERUTILS_H
 
@@ -34,4 +35,4 @@ std::string poolParameterUnits(const IParametricComponent& node, const std::stri
 } // namespace ParameterUtils
 
 #endif // BORNAGAIN_PARAM_VARIA_PARAMETERUTILS_H
-#endif // SWIG
+#endif // USER_API

@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_MATH_NUMERIC_H
 #define BORNAGAIN_BASE_MATH_NUMERIC_H
 
@@ -34,4 +35,4 @@ double GetLogDifference(double a, double b);
 } // namespace Numeric
 
 #endif // BORNAGAIN_BASE_MATH_NUMERIC_H
-#endif // SWIG
+#endif // USER_API

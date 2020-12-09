@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V1_H
 #define BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V1_H
 
@@ -48,4 +49,4 @@ public:
 }; // class SpecularMagneticStrategy_v1
 
 #endif // BORNAGAIN_CORE_LEGACY_SPECULARMAGNETICSTRATEGY_V1_H
-#endif // SWIG
+#endif // USER_API

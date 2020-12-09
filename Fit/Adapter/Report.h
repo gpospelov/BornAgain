@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_ADAPTER_REPORT_H
 #define BORNAGAIN_FIT_ADAPTER_REPORT_H
 
@@ -33,4 +34,4 @@ std::string reportToString(const MinimizerAdapter& minimizer);
 }; // namespace mumufit::internal
 
 #endif // BORNAGAIN_FIT_ADAPTER_REPORT_H
-#endif // SWIG
+#endif // USER_API

@@ -56,7 +56,7 @@ public:
 #ifndef SWIG
     //! Returns true if minimizer computations are residual-based, false otherwise
     virtual bool requiresResiduals() { return false; }
-#endif // SWIG
+#endif // USER_API
 };
 
 #endif // BORNAGAIN_FIT_MINIMIZER_IMINIMIZER_H

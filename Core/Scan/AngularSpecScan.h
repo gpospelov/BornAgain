@@ -64,7 +64,7 @@ public:
     // TODO: remove these getters after transition to the new resolution machinery is finished
     const ScanResolution* wavelengthResolution() const { return m_wl_resolution.get(); }
     const ScanResolution* angleResolution() const { return m_inc_resolution.get(); }
-#endif // SWIG
+#endif // USER_API
 
     //! Sets footprint correction factor
     void setFootprintFactor(const IFootprintFactor* f_factor);

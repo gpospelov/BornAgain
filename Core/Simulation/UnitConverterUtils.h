@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_SIMULATION_UNITCONVERTERUTILS_H
 #define BORNAGAIN_CORE_SIMULATION_UNITCONVERTERUTILS_H
 
@@ -41,4 +42,4 @@ std::unique_ptr<IUnitConverter> createConverter(const ISimulation& simulation);
 } // namespace UnitConverterUtils
 
 #endif // BORNAGAIN_CORE_SIMULATION_UNITCONVERTERUTILS_H
-#endif // SWIG
+#endif // USER_API

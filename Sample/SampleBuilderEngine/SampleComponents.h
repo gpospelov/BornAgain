@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H
 #define BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H
 
@@ -39,4 +40,4 @@ public:
 };
 
 #endif // BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H
-#endif // SWIG
+#endif // USER_API

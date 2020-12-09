@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_MATH_PRECOMPUTED_H
 #define BORNAGAIN_BASE_MATH_PRECOMPUTED_H
 
@@ -48,4 +49,4 @@ constexpr std::array<double, N> generateReciprocalFactorialArray() {
 } // namespace Math
 
 #endif // BORNAGAIN_BASE_MATH_PRECOMPUTED_H
-#endif // SWIG
+#endif // USER_API

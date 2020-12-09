@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_FFCOMPUTE_ICOMPUTEFF_H
 #define BORNAGAIN_SAMPLE_FFCOMPUTE_ICOMPUTEFF_H
 
@@ -64,4 +65,4 @@ protected:
 };
 
 #endif // BORNAGAIN_SAMPLE_FFCOMPUTE_ICOMPUTEFF_H
-#endif // SWIG
+#endif // USER_API

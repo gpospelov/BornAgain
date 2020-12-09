@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H
 #define BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H
 
@@ -67,4 +68,4 @@ protected:
 };
 
 #endif // BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H
-#endif // SWIG
+#endif // USER_API

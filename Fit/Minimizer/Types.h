@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_MINIMIZER_TYPES_H
 #define BORNAGAIN_FIT_MINIMIZER_TYPES_H
 
@@ -39,4 +40,4 @@ using fcn_scalar_t = std::function<double(const mumufit::Parameters&)>;
 using fcn_residual_t = std::function<std::vector<double>(const mumufit::Parameters&)>;
 
 #endif // BORNAGAIN_FIT_MINIMIZER_TYPES_H
-#endif // SWIG
+#endif // USER_API

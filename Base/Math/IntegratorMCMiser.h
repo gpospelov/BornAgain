@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_MATH_INTEGRATORMCMISER_H
 #define BORNAGAIN_BASE_MATH_INTEGRATORMCMISER_H
 
@@ -119,4 +120,4 @@ double IntegratorMCMiser<T>::integrate(double* min_array, double* max_array, voi
 }
 
 #endif // BORNAGAIN_BASE_MATH_INTEGRATORMCMISER_H
-#endif // SWIG
+#endif // USER_API

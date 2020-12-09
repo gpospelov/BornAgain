@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_FRESNEL_FORMFACTORCOHERENTSUM_H
 #define BORNAGAIN_SAMPLE_FRESNEL_FORMFACTORCOHERENTSUM_H
 
@@ -50,4 +51,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_FRESNEL_FORMFACTORCOHERENTSUM_H
-#endif // SWIG
+#endif // USER_API

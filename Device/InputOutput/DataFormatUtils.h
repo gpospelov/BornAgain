@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_INPUTOUTPUT_DATAFORMATUTILS_H
 #define BORNAGAIN_DEVICE_INPUTOUTPUT_DATAFORMATUTILS_H
 
@@ -57,4 +58,4 @@ void readLineOfDoubles(std::vector<double>& buffer, std::istringstream& iss);
 } // namespace DataFormatUtils
 
 #endif // BORNAGAIN_DEVICE_INPUTOUTPUT_DATAFORMATUTILS_H
-#endif // SWIG
+#endif // USER_API

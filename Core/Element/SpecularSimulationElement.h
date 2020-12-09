@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_ELEMENT_SPECULARSIMULATIONELEMENT_H
 #define BORNAGAIN_CORE_ELEMENT_SPECULARSIMULATIONELEMENT_H
 
@@ -64,4 +65,4 @@ private:
 };
 
 #endif // BORNAGAIN_CORE_ELEMENT_SPECULARSIMULATIONELEMENT_H
-#endif // SWIG
+#endif // USER_API

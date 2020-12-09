@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_DATA_LLDATA_H
 #define BORNAGAIN_DEVICE_DATA_LLDATA_H
 
@@ -285,4 +286,4 @@ template <class T> bool HaveSameDimensions(const LLData<T>& left, const LLData<T
 }
 
 #endif // BORNAGAIN_DEVICE_DATA_LLDATA_H
-#endif // SWIG
+#endif // USER_API

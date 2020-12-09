@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_MULTILAYER_PYIMPORT_H
 #define BORNAGAIN_SAMPLE_MULTILAYER_PYIMPORT_H
 
@@ -49,4 +50,4 @@ std::vector<std::string> listOfFunctions(const std::string& script, const std::s
 #endif // BORNAGAIN_PYTHON
 
 #endif // BORNAGAIN_SAMPLE_MULTILAYER_PYIMPORT_H
-#endif // SWIG
+#endif // USER_API

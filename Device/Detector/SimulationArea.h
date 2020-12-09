@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_DETECTOR_SIMULATIONAREA_H
 #define BORNAGAIN_DEVICE_DETECTOR_SIMULATIONAREA_H
 
@@ -68,4 +69,4 @@ public:
 };
 
 #endif // BORNAGAIN_DEVICE_DETECTOR_SIMULATIONAREA_H
-#endif // SWIG
+#endif // USER_API

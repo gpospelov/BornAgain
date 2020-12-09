@@ -58,7 +58,7 @@ inline double rad2deg(double angle) {
 inline double deg2rad(double angle) {
     return angle * deg;
 }
-#endif // SWIG
+#endif // USER_API
 
 } // namespace Units
 

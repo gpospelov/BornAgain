@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_TOOLS_STRINGUTILS_H
 #define BORNAGAIN_FIT_TOOLS_STRINGUTILS_H
 
@@ -46,4 +47,4 @@ template <typename T> std::string scientific(const T value, int n) {
 } // namespace mumufit::stringUtils
 
 #endif // BORNAGAIN_FIT_TOOLS_STRINGUTILS_H
-#endif // SWIG
+#endif // USER_API

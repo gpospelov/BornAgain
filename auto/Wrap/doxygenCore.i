@@ -1453,7 +1453,7 @@ Returns a copy of the normalization function used.
 
 Main class to run an off-specular simulation.
 
-C++ includes: OffSpecSimulation.h
+C++ includes: OffSpecularSimulation.h
 ";
 
 %feature("docstring")  OffSpecularSimulation::OffSpecularSimulation "OffSpecularSimulation::OffSpecularSimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
@@ -2968,10 +2968,10 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: MPISimulation_8h.xml
 
 
-// File: OffSpecSimulation_8cpp.xml
+// File: OffSpecularSimulation_8cpp.xml
 
 
-// File: OffSpecSimulation_8h.xml
+// File: OffSpecularSimulation_8h.xml
 
 
 // File: SimulationFactory_8cpp.xml

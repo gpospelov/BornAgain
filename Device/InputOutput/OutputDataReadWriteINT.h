@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADWRITEINT_H
 #define BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADWRITEINT_H
 
@@ -38,4 +39,4 @@ private:
 };
 
 #endif // BORNAGAIN_DEVICE_INPUTOUTPUT_OUTPUTDATAREADWRITEINT_H
-#endif // SWIG
+#endif // USER_API

@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_UTILS_ALGORITHMS_H
 #define BORNAGAIN_BASE_UTILS_ALGORITHMS_H
 
@@ -79,4 +80,4 @@ template <class T> std::vector<T> algo::concat(const std::vector<T>& v1, const s
 }
 
 #endif // BORNAGAIN_BASE_UTILS_ALGORITHMS_H
-#endif // SWIG
+#endif // USER_API

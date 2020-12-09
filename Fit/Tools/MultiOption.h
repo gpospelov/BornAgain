@@ -14,8 +14,9 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#else
+#endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_TOOLS_MULTIOPTION_H
 #define BORNAGAIN_FIT_TOOLS_MULTIOPTION_H
 
@@ -75,4 +76,4 @@ template <typename T> T MultiOption::getDefault() const {
 }
 
 #endif // BORNAGAIN_FIT_TOOLS_MULTIOPTION_H
-#endif // SWIG
+#endif // USER_API

@@ -1785,7 +1785,7 @@ C++ includes: SimpleUnitConverters.h
 // File: classOutputData.xml
 %feature("docstring") OutputData "
 
-Template class to store data of any type in multi-dimensional space.
+Templated class to store data of type double or  CumulativeValue in multi-dimensional space.
 
 C++ includes: OutputData.h
 ";

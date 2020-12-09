@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_PROCESSED_PROCESSEDSAMPLE_H
 #define BORNAGAIN_SAMPLE_PROCESSED_PROCESSEDSAMPLE_H
@@ -82,3 +82,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_PROCESSED_PROCESSEDSAMPLE_H
+#endif // SWIG

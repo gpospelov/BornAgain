@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_LAYERFILLLIMITS_H
 #define BORNAGAIN_SAMPLE_SCATTERING_LAYERFILLLIMITS_H
@@ -50,3 +50,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_LAYERFILLLIMITS_H
+#endif // SWIG

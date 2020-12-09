@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_DEVICE_INPUTOUTPUT_BOOST_STREAMS_H
 #define BORNAGAIN_DEVICE_INPUTOUTPUT_BOOST_STREAMS_H
@@ -32,3 +32,4 @@
 #endif
 
 #endif // BORNAGAIN_DEVICE_INPUTOUTPUT_BOOST_STREAMS_H
+#endif // SWIG

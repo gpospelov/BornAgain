@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_UTILS_STRINGUTILS_H
 #define BORNAGAIN_BASE_UTILS_STRINGUTILS_H
@@ -64,3 +64,4 @@ template <typename T> std::string StringUtils::scientific(const T value, int n) 
 }
 
 #endif // BORNAGAIN_BASE_UTILS_STRINGUTILS_H
+#endif // SWIG

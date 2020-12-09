@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_MATH_BESSEL_H
 #define BORNAGAIN_BASE_MATH_BESSEL_H
@@ -52,3 +52,4 @@ complex_t J1c(const complex_t z);
 } // namespace Math
 
 #endif // BORNAGAIN_BASE_MATH_BESSEL_H
+#endif // SWIG

@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_FIT_MINIMIZER_TESTMINIMIZER_H
 #define BORNAGAIN_FIT_MINIMIZER_TESTMINIMIZER_H
@@ -40,3 +40,4 @@ private:
 };
 
 #endif // BORNAGAIN_FIT_MINIMIZER_TESTMINIMIZER_H
+#endif // SWIG

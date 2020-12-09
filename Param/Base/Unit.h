@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_PARAM_BASE_UNIT_H
 #define BORNAGAIN_PARAM_BASE_UNIT_H
@@ -34,3 +34,4 @@ private:
 };
 
 #endif // BORNAGAIN_PARAM_BASE_UNIT_H
+#endif // SWIG

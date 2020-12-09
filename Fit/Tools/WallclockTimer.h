@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_FIT_TOOLS_WALLCLOCKTIMER_H
 #define BORNAGAIN_FIT_TOOLS_WALLCLOCKTIMER_H
@@ -41,3 +41,4 @@ private:
 };
 
 #endif // BORNAGAIN_FIT_TOOLS_WALLCLOCKTIMER_H
+#endif // SWIG

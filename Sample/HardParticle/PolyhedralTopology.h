@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_POLYHEDRALTOPOLOGY_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_POLYHEDRALTOPOLOGY_H
@@ -36,3 +36,4 @@ public:
 };
 
 #endif // BORNAGAIN_SAMPLE_HARDPARTICLE_POLYHEDRALTOPOLOGY_H
+#endif // SWIG

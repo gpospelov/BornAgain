@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_UTILS_FILESYSTEMUTILS_H
 #define BORNAGAIN_BASE_UTILS_FILESYSTEMUTILS_H
@@ -69,3 +69,4 @@ bool IsFileExists(const std::string& path);
 } // namespace FileSystemUtils
 
 #endif // BORNAGAIN_BASE_UTILS_FILESYSTEMUTILS_H
+#endif // SWIG

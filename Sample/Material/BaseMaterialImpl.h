@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_MATERIAL_BASEMATERIALIMPL_H
 #define BORNAGAIN_SAMPLE_MATERIAL_BASEMATERIALIMPL_H
@@ -85,3 +85,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_MATERIAL_BASEMATERIALIMPL_H
+#endif // SWIG

@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
 #define BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
@@ -32,3 +32,4 @@ public:
 };
 
 #endif // BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
+#endif // SWIG

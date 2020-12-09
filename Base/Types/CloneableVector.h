@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_TYPES_CLONEABLEVECTOR_H
 #define BORNAGAIN_BASE_TYPES_CLONEABLEVECTOR_H
@@ -46,3 +46,4 @@ public:
 };
 
 #endif // BORNAGAIN_BASE_TYPES_CLONEABLEVECTOR_H
+#endif // SWIG

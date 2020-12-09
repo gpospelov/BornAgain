@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBAPOL_H
 #define BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBAPOL_H
@@ -42,3 +42,4 @@ public:
 };
 
 #endif // BORNAGAIN_SAMPLE_FFCOMPUTE_COMPUTEBAPOL_H
+#endif // SWIG

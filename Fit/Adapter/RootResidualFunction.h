@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_FIT_ADAPTER_ROOTRESIDUALFUNCTION_H
 #define BORNAGAIN_FIT_ADAPTER_ROOTRESIDUALFUNCTION_H
@@ -60,3 +60,4 @@ private:
 };
 
 #endif // BORNAGAIN_FIT_ADAPTER_ROOTRESIDUALFUNCTION_H
+#endif // SWIG

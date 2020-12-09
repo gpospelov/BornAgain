@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_PIXEL_POLARIZATIONHANDLER_H
 #define BORNAGAIN_BASE_PIXEL_POLARIZATIONHANDLER_H
@@ -49,3 +49,4 @@ private:
 };
 
 #endif // BORNAGAIN_BASE_PIXEL_POLARIZATIONHANDLER_H
+#endif // SWIG

@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H
 #define BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H
@@ -88,3 +88,4 @@ DepthProbeSimulation* BasicDepthProbe();
 } // namespace StandardSimulations
 
 #endif // BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H
+#endif // SWIG

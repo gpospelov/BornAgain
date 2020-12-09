@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_CORE_EXPORT_PYFMTLIMITS_H
 #define BORNAGAIN_CORE_EXPORT_PYFMTLIMITS_H
@@ -31,3 +31,4 @@ std::string printRealLimitsArg(const RealLimits& limits, const std::string& unit
 } // namespace pyfmt
 
 #endif // BORNAGAIN_CORE_EXPORT_PYFMTLIMITS_H
+#endif // SWIG

@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_PRISM_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_PRISM_H
@@ -39,3 +39,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_HARDPARTICLE_PRISM_H
+#endif // SWIG

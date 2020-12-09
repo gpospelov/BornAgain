@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_CORE_EXPORT_NODEPROGENY_H
 #define BORNAGAIN_CORE_EXPORT_NODEPROGENY_H
@@ -53,3 +53,4 @@ template <typename T> std::vector<const T*> AllDescendantsOfType(const INode& no
 } // namespace node_progeny
 
 #endif // BORNAGAIN_CORE_EXPORT_NODEPROGENY_H
+#endif // SWIG

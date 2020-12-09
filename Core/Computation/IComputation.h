@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_CORE_COMPUTATION_ICOMPUTATION_H
 #define BORNAGAIN_CORE_COMPUTATION_ICOMPUTATION_H
@@ -57,3 +57,4 @@ private:
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_ICOMPUTATION_H
+#endif // SWIG

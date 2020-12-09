@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_CORE_EXPORT_COMPONENTKEYHANDLER_H
 #define BORNAGAIN_CORE_EXPORT_COMPONENTKEYHANDLER_H
@@ -49,3 +49,4 @@ template <class T> std::vector<const T*> ComponentKeyHandler::objectsOfType() co
 }
 
 #endif // BORNAGAIN_CORE_EXPORT_COMPONENTKEYHANDLER_H
+#endif // SWIG

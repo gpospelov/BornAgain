@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_STANDARDSAMPLES_LATTICEBUILDER_H
 #define BORNAGAIN_SAMPLE_STANDARDSAMPLES_LATTICEBUILDER_H
@@ -30,3 +30,4 @@ public:
 };
 
 #endif // BORNAGAIN_SAMPLE_STANDARDSAMPLES_LATTICEBUILDER_H
+#endif // SWIG

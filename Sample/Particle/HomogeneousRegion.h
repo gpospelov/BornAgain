@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_HOMOGENEOUSREGION_H
 #define BORNAGAIN_SAMPLE_PARTICLE_HOMOGENEOUSREGION_H
@@ -45,3 +45,4 @@ Material createAveragedMaterial(const Material& layer_mat,
 #endif // SWIG
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_HOMOGENEOUSREGION_H
+#endif // SWIG

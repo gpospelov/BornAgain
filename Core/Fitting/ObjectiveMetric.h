@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_CORE_FITTING_OBJECTIVEMETRIC_H
 #define BORNAGAIN_CORE_FITTING_OBJECTIVEMETRIC_H
@@ -198,3 +198,4 @@ public:
 };
 
 #endif // BORNAGAIN_CORE_FITTING_OBJECTIVEMETRIC_H
+#endif // SWIG

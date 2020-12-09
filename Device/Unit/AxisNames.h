@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_DEVICE_UNIT_AXISNAMES_H
 #define BORNAGAIN_DEVICE_UNIT_AXISNAMES_H
@@ -39,3 +39,4 @@ std::map<Axes::Units, std::string> InitSampleDepthAxis();
 } // namespace AxisNames
 
 #endif // BORNAGAIN_DEVICE_UNIT_AXISNAMES_H
+#endif // SWIG

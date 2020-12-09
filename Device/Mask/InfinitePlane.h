@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_DEVICE_MASK_INFINITEPLANE_H
 #define BORNAGAIN_DEVICE_MASK_INFINITEPLANE_H
@@ -34,3 +34,4 @@ public:
 };
 
 #endif // BORNAGAIN_DEVICE_MASK_INFINITEPLANE_H
+#endif // SWIG

@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_PARAM_VARIA_PARAMETERPATTERN_H
 #define BORNAGAIN_PARAM_VARIA_PARAMETERPATTERN_H
@@ -39,3 +39,4 @@ private:
 };
 
 #endif // BORNAGAIN_PARAM_VARIA_PARAMETERPATTERN_H
+#endif // SWIG

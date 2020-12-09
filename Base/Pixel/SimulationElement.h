@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_PIXEL_SIMULATIONELEMENT_H
 #define BORNAGAIN_BASE_PIXEL_SIMULATIONELEMENT_H
@@ -84,3 +84,4 @@ private:
 };
 
 #endif // BORNAGAIN_BASE_PIXEL_SIMULATIONELEMENT_H
+#endif // SWIG

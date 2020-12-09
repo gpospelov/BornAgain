@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_VECTOR_EIGENCORE_H
 #define BORNAGAIN_BASE_VECTOR_EIGENCORE_H
@@ -34,3 +34,4 @@
 #endif
 
 #endif // BORNAGAIN_BASE_VECTOR_EIGENCORE_H
+#endif // SWIG

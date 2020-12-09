@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_PARAM_NODE_NODEUTILS_H
 #define BORNAGAIN_PARAM_NODE_NODEUTILS_H
@@ -39,3 +39,4 @@ std::string nodePath(const INode* node, const INode* root = nullptr);
 } // namespace NodeUtils
 
 #endif // BORNAGAIN_PARAM_NODE_NODEUTILS_H
+#endif // SWIG

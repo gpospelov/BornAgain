@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_FIT_ADAPTER_ROOTSCALARFUNCTION_H
 #define BORNAGAIN_FIT_ADAPTER_ROOTSCALARFUNCTION_H
@@ -39,3 +39,4 @@ public:
 };
 
 #endif // BORNAGAIN_FIT_ADAPTER_ROOTSCALARFUNCTION_H
+#endif // SWIG

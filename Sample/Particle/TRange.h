@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_TRANGE_H
 #define BORNAGAIN_SAMPLE_PARTICLE_TRANGE_H
@@ -53,3 +53,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_TRANGE_H
+#endif // SWIG

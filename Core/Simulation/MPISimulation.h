@@ -15,7 +15,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_CORE_SIMULATION_MPISIMULATION_H
 #define BORNAGAIN_CORE_SIMULATION_MPISIMULATION_H
@@ -28,3 +28,4 @@ public:
 };
 
 #endif // BORNAGAIN_CORE_SIMULATION_MPISIMULATION_H
+#endif // SWIG

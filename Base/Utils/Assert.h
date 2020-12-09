@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_UTILS_ASSERT_H
 #define BORNAGAIN_BASE_UTILS_ASSERT_H
@@ -35,3 +35,4 @@
     }
 
 #endif // BORNAGAIN_BASE_UTILS_ASSERT_H
+#endif // SWIG

@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_SLICE_KZCOMPUTATION_H
 #define BORNAGAIN_SAMPLE_SLICE_KZCOMPUTATION_H
@@ -52,3 +52,4 @@ std::vector<complex_t> computeKzFromRefIndices(const std::vector<Slice>& slices,
 } // namespace KzComputation
 
 #endif // BORNAGAIN_SAMPLE_SLICE_KZCOMPUTATION_H
+#endif // SWIG

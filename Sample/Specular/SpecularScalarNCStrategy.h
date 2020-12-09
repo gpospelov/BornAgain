@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_SPECULAR_SPECULARSCALARNCSTRATEGY_H
 #define BORNAGAIN_SAMPLE_SPECULAR_SPECULARSCALARNCSTRATEGY_H
@@ -42,3 +42,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_SPECULAR_SPECULARSCALARNCSTRATEGY_H
+#endif // SWIG

@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_DEVICE_DETECTOR_REGIONOFINTEREST_H
 #define BORNAGAIN_DEVICE_DETECTOR_REGIONOFINTEREST_H
@@ -89,3 +89,4 @@ inline size_t RegionOfInterest::ycoord(size_t index, const std::vector<size_t>& 
 }
 
 #endif // BORNAGAIN_DEVICE_DETECTOR_REGIONOFINTEREST_H
+#endif // SWIG

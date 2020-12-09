@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_PROGRESS_DELAYEDPROGRESSCOUNTER_H
 #define BORNAGAIN_BASE_PROGRESS_DELAYEDPROGRESSCOUNTER_H
@@ -40,3 +40,4 @@ private:
 };
 
 #endif // BORNAGAIN_BASE_PROGRESS_DELAYEDPROGRESSCOUNTER_H
+#endif // SWIG

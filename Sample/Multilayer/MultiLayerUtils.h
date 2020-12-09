@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_MULTILAYER_MULTILAYERUTILS_H
 #define BORNAGAIN_SAMPLE_MULTILAYER_MULTILAYERUTILS_H
@@ -42,3 +42,4 @@ bool hasRoughness(const MultiLayer& sample);
 } // namespace MultiLayerUtils
 
 #endif // BORNAGAIN_SAMPLE_MULTILAYER_MULTILAYERUTILS_H
+#endif // SWIG

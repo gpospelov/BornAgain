@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_CORE_FITTING_FITOBSERVER_H
 #define BORNAGAIN_CORE_FITTING_FITOBSERVER_H
@@ -86,3 +86,4 @@ template <class T> bool FitObserver<T>::need_notify(int every_nth) {
 }
 
 #endif // BORNAGAIN_CORE_FITTING_FITOBSERVER_H
+#endif // SWIG

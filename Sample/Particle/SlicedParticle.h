@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_SLICEDPARTICLE_H
 #define BORNAGAIN_SAMPLE_PARTICLE_SLICEDPARTICLE_H
@@ -35,3 +35,4 @@ struct SlicedParticle {
 };
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_SLICEDPARTICLE_H
+#endif // SWIG

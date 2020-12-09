@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_DEVICE_RESOLUTION_CONVOLUTIONDETECTORRESOLUTION_H
 #define BORNAGAIN_DEVICE_RESOLUTION_CONVOLUTIONDETECTORRESOLUTION_H
@@ -70,3 +70,4 @@ inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolution
 }
 
 #endif // BORNAGAIN_DEVICE_RESOLUTION_CONVOLUTIONDETECTORRESOLUTION_H
+#endif // SWIG

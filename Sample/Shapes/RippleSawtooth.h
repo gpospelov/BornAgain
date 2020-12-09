@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_SHAPES_RIPPLESAWTOOTH_H
 #define BORNAGAIN_SAMPLE_SHAPES_RIPPLESAWTOOTH_H
@@ -28,3 +28,4 @@ public:
 };
 
 #endif // BORNAGAIN_SAMPLE_SHAPES_RIPPLESAWTOOTH_H
+#endif // SWIG

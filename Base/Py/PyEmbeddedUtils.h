@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H
 #define BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H
@@ -53,3 +53,4 @@ std::string pythonStackTrace();
 #endif // BORNAGAIN_PYTHON
 
 #endif // BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H
+#endif // SWIG

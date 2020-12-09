@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_CORE_SCAN_UNITCONVERTER1D_H
 #define BORNAGAIN_CORE_SCAN_UNITCONVERTER1D_H
@@ -131,3 +131,4 @@ protected:
     std::unique_ptr<IAxis> m_axis; //!< qz values (in inv. nm).
 };
 #endif // BORNAGAIN_CORE_SCAN_UNITCONVERTER1D_H
+#endif // SWIG

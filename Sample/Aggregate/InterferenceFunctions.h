@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONS_H
 #define BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONS_H
@@ -32,3 +32,4 @@
 #include "Sample/Aggregate/InterferenceFunctionTwin.h"
 
 #endif // BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONS_H
+#endif // SWIG

@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_DEVICE_DETECTOR_SIMPLEUNITCONVERTERS_H
 #define BORNAGAIN_DEVICE_DETECTOR_SIMPLEUNITCONVERTERS_H
@@ -165,3 +165,4 @@ private:
 };
 
 #endif // BORNAGAIN_DEVICE_DETECTOR_SIMPLEUNITCONVERTERS_H
+#endif // SWIG

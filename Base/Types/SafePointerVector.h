@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_BASE_TYPES_SAFEPOINTERVECTOR_H
 #define BORNAGAIN_BASE_TYPES_SAFEPOINTERVECTOR_H
@@ -90,3 +90,4 @@ template <class T> void SafePointerVector<T>::clear() {
 }
 
 #endif // BORNAGAIN_BASE_TYPES_SAFEPOINTERVECTOR_H
+#endif // SWIG

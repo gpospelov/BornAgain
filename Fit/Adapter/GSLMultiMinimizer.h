@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_FIT_ADAPTER_GSLMULTIMINIMIZER_H
 #define BORNAGAIN_FIT_ADAPTER_GSLMULTIMINIMIZER_H
@@ -54,3 +54,4 @@ private:
 };
 
 #endif // BORNAGAIN_FIT_ADAPTER_GSLMULTIMINIMIZER_H
+#endif // SWIG

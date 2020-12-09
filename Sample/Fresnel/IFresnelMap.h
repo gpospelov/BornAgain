@@ -14,7 +14,7 @@
 
 #ifdef SWIG
 #error no need to expose this header to Swig
-#endif
+#else
 
 #ifndef BORNAGAIN_SAMPLE_FRESNEL_IFRESNELMAP_H
 #define BORNAGAIN_SAMPLE_FRESNEL_IFRESNELMAP_H
@@ -63,3 +63,4 @@ protected:
 };
 
 #endif // BORNAGAIN_SAMPLE_FRESNEL_IFRESNELMAP_H
+#endif // SWIG

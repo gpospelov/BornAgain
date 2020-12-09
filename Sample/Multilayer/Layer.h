@@ -21,7 +21,7 @@
 
 class ParticleLayout;
 
-//! A layer, with thickness (in nanometer) and material.
+//! A layer in a MultiLayer sample.
 //! @ingroup samples
 
 class Layer : public ISampleNode {

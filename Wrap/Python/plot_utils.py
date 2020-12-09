@@ -162,8 +162,6 @@ def plot_colormap(result, units=ba.Axes.DEFAULT, **kwargs):
 
 
 def plot_specular_simulation_result(result,
-                                    ymin=None,
-                                    ymax=None,
                                     units=ba.Axes.DEFAULT,
                                     **kwargs):
     """

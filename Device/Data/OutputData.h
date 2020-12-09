@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Device/Data/OutputData.h
-//! @brief     Defines and implements template class OutputData.
+//! @brief     Defines and implements templated class OutputData.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,7 +26,7 @@
 
 using std::size_t;
 
-//! Template class to store data of any type in multi-dimensional space.
+//! Templated class to store data of type double or CumulativeValue in multi-dimensional space.
 //! @ingroup tools
 
 template <class T> class OutputData {

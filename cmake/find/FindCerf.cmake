@@ -51,7 +51,6 @@ else()
     find_package_handle_standard_args(Cerf
         REQUIRED_VARS Cerf_LIBRARIES Cerf_INCLUDE_DIR
         VERSION_VAR Cerf_VERSION)
-		
     if(Cerf_FOUND)
 		set(Cerf_IS_CPP ON CACHE BOOL "Define whether CERF shall be used as C++")
 	endif()
@@ -61,11 +60,9 @@ endif()
 if(NOT Cerf_FOUND)
 	message(STATUS "libcerf: FOUND=${Cerf_FOUND}, VERSION=${Cerf_VERSION}, "
 		"LIB=${Cerf_LIBRARIES}, IS_CPP=${Cerf_IS_CPP}")
-		
 	if(${Cerf_ULTIMATELY_REQUIRED})
 		message(FATAL_ERROR "Found neither C nor C++ version of cerf")
 	endif()
-
 	message(STATUS "Found neither C nor C++ version of cerf")
 	return()
 endif()

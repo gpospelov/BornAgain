@@ -5,8 +5,6 @@ import sys
 import os
 import unittest
 import numpy as np
-
-sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 
 

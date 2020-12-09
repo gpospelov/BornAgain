@@ -4919,6 +4919,7 @@ class SphericalDetector(IDetector2D):
         r"""
         __init__(SphericalDetector self) -> SphericalDetector
         __init__(SphericalDetector self, size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max) -> SphericalDetector
+        __init__(SphericalDetector self, size_t n_bin, double width, double phi, double alpha) -> SphericalDetector
         __init__(SphericalDetector self, SphericalDetector other) -> SphericalDetector
         SphericalDetector::SphericalDetector(const SphericalDetector &other)
 

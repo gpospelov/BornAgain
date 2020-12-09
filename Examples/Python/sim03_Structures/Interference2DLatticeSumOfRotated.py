@@ -1,7 +1,6 @@
-# 2D lattice with different disorder (IsGISAXS example #6), sum of rotated lattices
-import numpy
+import numpy, sys
 import bornagain as ba
-from bornagain import deg, angstrom, nm
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -38,32 +37,17 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined.
-    Assigns additional distribution to lattice rotation angle.
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*deg, 2.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
+    nbin = 100
+    detector = ba.SphericalDetector(nbin, 2.0*deg, 1.0*deg, 1.0*deg)
 
-    simulation.setSample(get_sample())
-
-    xi_min = 0.0*deg
-    xi_max = 240.0*deg
-    xi_distr = ba.DistributionGate(xi_min, xi_max)
-
-    # assigns distribution with 3 equidistant points to lattice rotation angle
-    simulation.addParameterDistribution("*/SquareLattice2D/Xi", xi_distr, 3)
-
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
+    distr_1 = ba.DistributionGate(0.0*deg, 240.0*deg)
+    simulation.addParameterDistribution("*/SquareLattice2D/Xi", distr_1, 3, 0.0)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-
     simulation = get_simulation()
     simulation.runSimulation()
     return simulation.result()

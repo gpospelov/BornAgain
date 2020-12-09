@@ -1,8 +1,9 @@
 """
 2D paracrystal
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -53,25 +54,17 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined.
-    """
-    simulation = ba.GISASSimulation()
-    # coarse grid because this simulation takes rather long
-    simulation.setDetectorParameters(200, -2.0*deg, 2.0*deg, 200, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
+    nx = 200
+    ny = 200
+    detector = ba.SphericalDetector(nx, -2.0*deg, 2.0*deg, ny, 0.0*deg, 2.0*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
     simulation = get_simulation()
-    simulation.setSample(get_sample())
-    if not "__no_terminal__" in globals():
-        simulation.setTerminalProgressMonitor()
     simulation.runSimulation()
     return simulation.result()
 

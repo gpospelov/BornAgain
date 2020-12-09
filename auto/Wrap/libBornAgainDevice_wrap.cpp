@@ -39531,6 +39531,51 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_SphericalDetector__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  SphericalDetector *result = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_SphericalDetector" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_SphericalDetector" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_SphericalDetector" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_SphericalDetector" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (SphericalDetector *)new SphericalDetector(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SphericalDetector, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_SphericalDetector__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
   SphericalDetector *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -39569,7 +39614,35 @@ SWIGINTERN PyObject *_wrap_new_SphericalDetector(PyObject *self, PyObject *args)
     int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_SphericalDetector, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_new_SphericalDetector__SWIG_2(self, argc, argv);
+      return _wrap_new_SphericalDetector__SWIG_3(self, argc, argv);
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_SphericalDetector__SWIG_2(self, argc, argv);
+          }
+        }
+      }
     }
   }
   if (argc == 6) {
@@ -39618,6 +39691,7 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    SphericalDetector::SphericalDetector()\n"
     "    SphericalDetector::SphericalDetector(size_t,double,double,size_t,double,double)\n"
+    "    SphericalDetector::SphericalDetector(size_t,double,double,double)\n"
     "    SphericalDetector::SphericalDetector(SphericalDetector const &)\n");
   return 0;
 }
@@ -47082,6 +47156,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "new_SphericalDetector", _wrap_new_SphericalDetector, METH_VARARGS, "\n"
 		"SphericalDetector()\n"
 		"SphericalDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)\n"
+		"SphericalDetector(size_t n_bin, double width, double phi, double alpha)\n"
 		"new_SphericalDetector(SphericalDetector other) -> SphericalDetector\n"
 		"SphericalDetector::SphericalDetector(const SphericalDetector &other)\n"
 		"\n"

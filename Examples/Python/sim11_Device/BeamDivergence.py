@@ -1,8 +1,9 @@
 """
 Cylinder form factor in DWBA with beam divergence
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -41,32 +42,24 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Returns a GISAXS simulation with beam (+ divergence) and detector defined.
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*deg, 2.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    wavelength_distr = ba.DistributionLogNormal(1.0*angstrom, 0.1)
-    alpha_distr = ba.DistributionGaussian(0.2*deg, 0.1*deg)
-    phi_distr = ba.DistributionGaussian(0.0*deg, 0.1*deg)
-    simulation.addParameterDistribution("*/Beam/Wavelength", wavelength_distr,
-                                        5)
-    simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr,
-                                        5)
-    simulation.addParameterDistribution("*/Beam/AzimuthalAngle", phi_distr, 5)
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
+    nbin = 100
+    detector = ba.SphericalDetector(nbin, 2.0*deg, 1.0*deg, 1.0*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
+    distr_1 = ba.DistributionLogNormal(0.1*nm, 0.1)
+    simulation.addParameterDistribution("*/Beam/Wavelength", distr_1, 5, 0.0)
+    distr_2 = ba.DistributionGaussian(0.2*deg, 0.1*deg)
+    simulation.addParameterDistribution("*/Beam/InclinationAngle", distr_2, 5,
+                                        0.0)
+    distr_3 = ba.DistributionGaussian(0.0*deg, 0.1*deg)
+    simulation.addParameterDistribution("*/Beam/AzimuthalAngle", distr_3, 5,
+                                        0.0)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
     simulation = get_simulation()
-    simulation.setSample(get_sample())
-    print(simulation.treeToString())
-    print(simulation.parametersToString())
     simulation.runSimulation()
     return simulation.result()
 

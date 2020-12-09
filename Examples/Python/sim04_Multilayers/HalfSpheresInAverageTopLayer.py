@@ -2,11 +2,9 @@
 Square lattice of half spheres on substrate with usage of average material
 and slicing
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
-
-sphere_radius = 5*nm
-n_slices = 10
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -55,24 +53,18 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -2.0*deg, 2.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
+    nx = 100
+    ny = 100
+    detector = ba.SphericalDetector(nx, -2.0*deg, 2.0*deg, ny, 0.0*deg, 2.0*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
     simulation.getOptions().setUseAvgMaterials(True)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    sample = get_sample()
     simulation = get_simulation()
-    simulation.setSample(sample)
     simulation.runSimulation()
     return simulation.result()
 

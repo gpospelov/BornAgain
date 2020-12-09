@@ -2109,6 +2109,16 @@ class IAxis(object):
         """
         return _libBornAgainBase.IAxis_span(self)
 
+    def center(self):
+        r"""
+        center(IAxis self) -> double
+        double IAxis::center() const
+
+        Returns midpoint of axis. 
+
+        """
+        return _libBornAgainBase.IAxis_center(self)
+
     def binCenter(self, index):
         r"""
         binCenter(IAxis self, size_t index) -> double

@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_DEVICE_RESOLUTION_CONVOLUTIONDETECTORRESOLUTION_H
 #define BORNAGAIN_DEVICE_RESOLUTION_CONVOLUTIONDETECTORRESOLUTION_H
 

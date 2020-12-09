@@ -24,8 +24,6 @@ class MaterialModel;
 class SessionItem;
 class ExternalProperty;
 class Material;
-class ISimulation;
-class MultiLayer;
 
 //! Visits domain sample tree to build GUI presentation.
 

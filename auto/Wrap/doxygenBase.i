@@ -389,6 +389,33 @@ Increments inner counter; at regular intervals updates progress handler.
 ";
 
 
+// File: classDirection.xml
+%feature("docstring") Direction "";
+
+%feature("docstring")  Direction::Direction "Direction::Direction(double alpha, double phi)
+";
+
+%feature("docstring")  Direction::Direction "Direction::Direction()
+";
+
+%feature("docstring")  Direction::setAlpha "void Direction::setAlpha(double alpha)
+";
+
+%feature("docstring")  Direction::setPhi "void Direction::setPhi(double phi)
+";
+
+%feature("docstring")  Direction::alpha "double Direction::alpha() const
+";
+
+%feature("docstring")  Direction::phi "double Direction::phi() const
+";
+
+%feature("docstring")  Direction::vector "kvector_t Direction::vector() const
+
+Returns Cartesian 3D vector. 
+";
+
+
 // File: classFixedBinAxis.xml
 %feature("docstring") FixedBinAxis "
 
@@ -521,6 +548,11 @@ Returns value of last point of axis.
 %feature("docstring")  IAxis::span "double IAxis::span() const
 
 Returns distance from first to last point. 
+";
+
+%feature("docstring")  IAxis::center "double IAxis::center() const
+
+Returns midpoint of axis. 
 ";
 
 %feature("docstring")  IAxis::binCenter "virtual double IAxis::binCenter(size_t index) const =0
@@ -907,7 +939,7 @@ Returns copy of this  SimulationElement with k_f given by in-pixel coordinate x,
 Returns assigned  PolarizationHandler. 
 ";
 
-%feature("docstring")  SimulationElement::getWavelength "double SimulationElement::getWavelength() const
+%feature("docstring")  SimulationElement::wavelength "double SimulationElement::wavelength() const
 ";
 
 %feature("docstring")  SimulationElement::getAlphaI "double SimulationElement::getAlphaI() const
@@ -928,7 +960,7 @@ Returns assigned  PolarizationHandler.
 %feature("docstring")  SimulationElement::addIntensity "void SimulationElement::addIntensity(double intensity)
 ";
 
-%feature("docstring")  SimulationElement::getIntensity "double SimulationElement::getIntensity() const
+%feature("docstring")  SimulationElement::intensity "double SimulationElement::intensity() const
 ";
 
 %feature("docstring")  SimulationElement::getKi "kvector_t SimulationElement::getKi() const
@@ -1387,7 +1419,7 @@ Returns token vector obtained by splitting string at delimiters.
 
 %feature("docstring")  StringUtils::replaceItemsFromString "void StringUtils::replaceItemsFromString(std::string &text, const std::vector< std::string > &items, const std::string &replacement=\"\")
 
-Replaces all occurences of items from string text with delimiter. 
+Replaces all occurrences of items from string text with delimiter. 
 ";
 
 %feature("docstring")  StringUtils::join "std::string StringUtils::join(const std::vector< std::string > &joinable, const std::string &joint)
@@ -1397,7 +1429,7 @@ Returns string obtain by joining vector elements.
 
 %feature("docstring")  StringUtils::removeSubstring "std::string StringUtils::removeSubstring(const std::string &text, const std::string &substr)
 
-Removes multiple occurences of given substring from a string and returns result. 
+Removes multiple occurrences of given substring from a string and returns result. 
 ";
 
 %feature("docstring")  StringUtils::scientific "std::string StringUtils::scientific(const T value, int n=10)
@@ -1408,6 +1440,11 @@ Returns scientific string representing given value of any numeric type.
 %feature("docstring")  StringUtils::to_lower "std::string StringUtils::to_lower(std::string text)
 
 Returns new string which is lower case of text. 
+";
+
+%feature("docstring")  StringUtils::trim "std::string StringUtils::trim(const std::string &str, const std::string &whitespace=\" \\\\t\")
+
+Cuts any of the chars given in whitespace from start and end of str. 
 ";
 
 
@@ -1635,16 +1672,18 @@ This templated function is used in catalogs in form of a function pointer 'creat
 
 
 // File: BasicVector3D_8cpp.xml
-%feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
-
-Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
-";
 
 
 // File: BasicVector3D_8h.xml
-%feature("docstring")  vecOfLambdaAlphaPhi "BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
 
-Creates a vector<double> as a wavevector with given wavelength and angles. Specifically needed for grazing-incidence scattering. 
+
+// File: Direction_8cpp.xml
+%feature("docstring")  vecOfLambdaAlphaPhi "kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
+";
+
+
+// File: Direction_8h.xml
+%feature("docstring")  vecOfLambdaAlphaPhi "kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
 ";
 
 

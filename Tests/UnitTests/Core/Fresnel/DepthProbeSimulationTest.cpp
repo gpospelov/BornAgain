@@ -97,15 +97,15 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters) {
     EXPECT_EQ(10u, sim.getAlphaAxis()->size());
     EXPECT_EQ(1.0 * Units::deg, sim.getAlphaAxis()->lowerBound());
     EXPECT_EQ(10.0 * Units::deg, sim.getAlphaAxis()->upperBound());
-    EXPECT_EQ(1.0, beam.getIntensity());
-    EXPECT_EQ(1.0, beam.getWavelength());
-    EXPECT_EQ(0.0, beam.getAlpha());
-    EXPECT_EQ(0.0, beam.getPhi());
+    EXPECT_EQ(1.0, beam.intensity());
+    EXPECT_EQ(1.0, beam.wavelength());
+    EXPECT_EQ(0.0, beam.direction().alpha());
+    EXPECT_EQ(0.0, beam.direction().phi());
 
     checkBeamState(sim);
 
     sim.setBeamIntensity(2.0);
-    EXPECT_EQ(2.0, beam.getIntensity());
+    EXPECT_EQ(2.0, beam.intensity());
 
     EXPECT_THROW(sim.setBeamParameters(1.0, 10, -2.0, 3.0), std::runtime_error);
     EXPECT_THROW(sim.setBeamParameters(1.0, 10, 2.0, 1.0), std::runtime_error);
@@ -115,10 +115,10 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters) {
     EXPECT_EQ(10u, sim.getAlphaAxis()->size());
     EXPECT_EQ(1.0 * Units::deg, sim.getAlphaAxis()->lowerBound());
     EXPECT_EQ(10.0 * Units::deg, sim.getAlphaAxis()->upperBound());
-    EXPECT_EQ(2.0, beam.getIntensity());
-    EXPECT_EQ(1.0, beam.getWavelength());
-    EXPECT_EQ(0.0, beam.getAlpha());
-    EXPECT_EQ(0.0, beam.getPhi());
+    EXPECT_EQ(2.0, beam.intensity());
+    EXPECT_EQ(1.0, beam.wavelength());
+    EXPECT_EQ(0.0, beam.direction().alpha());
+    EXPECT_EQ(0.0, beam.direction().phi());
 
     checkBeamState(sim);
 

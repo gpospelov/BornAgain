@@ -10,14 +10,14 @@ function(SwigLib name lib TMP_DIR)
 
         file(MAKE_DIRECTORY ${TMP_DIR})
 
-        GeneratePythonDocs(${AUTO_DIR}/doxygen${name}.i ${WRAP_DIR}/swig)
+        GeneratePythonDocs(${AUTO_DIR}/doxygen${name}.i ${SWIG_DIR})
 
         set(swig_dependencies
-            ${WRAP_DIR}/swig/lib${lib}.i
-            ${WRAP_DIR}/swig/deprecation.i
-            ${WRAP_DIR}/swig/warnings.i
-            ${WRAP_DIR}/swig/ignoreBase.i
-            ${WRAP_DIR}/swig/ignoreSample.i
+            ${SWIG_DIR}/lib${lib}.i
+            ${SWIG_DIR}/deprecation.i
+            ${SWIG_DIR}/warnings.i
+            ${SWIG_DIR}/ignoreBase.i
+            ${SWIG_DIR}/ignoreSample.i
             )
         foreach(FNAM ${swig_dependencies})
             if(NOT EXISTS ${FNAM})
@@ -35,7 +35,7 @@ function(SwigLib name lib TMP_DIR)
 
         add_custom_command(
             OUTPUT ${AUTO_DIR}/lib${lib}.py
-            COMMAND ${Python3_EXECUTABLE} ${WRAP_DIR}/swig/tweaks.py
+            COMMAND ${Python3_EXECUTABLE} ${SWIG_DIR}/tweaks.py
                    ${TMP_DIR}/lib${lib}.py
                    ${AUTO_DIR}/lib${lib}.py
             DEPENDS ${TMP_DIR}/lib${lib}.py
@@ -44,7 +44,7 @@ function(SwigLib name lib TMP_DIR)
             OUTPUT ${TMP_DIR}/lib${lib}.py
                    ${AUTO_DIR}/lib${lib}_wrap.h
                    ${AUTO_DIR}/lib${lib}_wrap.cpp
-            COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${WRAP_DIR}/swig/lib${lib}.i
+            COMMAND ${SWIG_EXECUTABLE} ${SWIG_FLAGS} ${SWIG_DIR}/lib${lib}.i
             DEPENDS ${swig_dependencies} ${include_files}
             )
 

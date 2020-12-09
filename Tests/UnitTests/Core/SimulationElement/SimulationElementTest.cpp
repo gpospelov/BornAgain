@@ -1,6 +1,7 @@
 #include "Base/Pixel/SimulationElement.h"
 #include "Base/Axis/Bin.h"
 #include "Base/Const/Units.h"
+#include "Base/Vector/Direction.h"
 #include "Device/Detector/SphericalPixel.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
@@ -27,10 +28,10 @@ public:
 
 TEST_F(SimulationElementTest, basicConstructor) {
     SimulationElement element(wavelength, alpha_i, phi_i, createPixel(), {}, {}, false);
-    EXPECT_EQ(element.getWavelength(), wavelength);
+    EXPECT_EQ(element.wavelength(), wavelength);
     EXPECT_EQ(element.getAlphaI(), alpha_i);
     EXPECT_EQ(element.getPhiI(), phi_i);
-    EXPECT_EQ(element.getIntensity(), 0.0);
+    EXPECT_EQ(element.intensity(), 0.0);
     EXPECT_NEAR(element.getAlphaMean(), 0.5 * Units::deg, 1e-14);
     EXPECT_NEAR(element.getPhiMean(), 0.0 * Units::deg, 1e-14);
     EXPECT_EQ(element.getKi(), vecOfLambdaAlphaPhi(wavelength, alpha_i, phi_i));
@@ -40,22 +41,22 @@ TEST_F(SimulationElementTest, basicConstructor) {
 
 TEST_F(SimulationElementTest, setIntensity) {
     auto element = createElement();
-    EXPECT_EQ(element->getIntensity(), 0.0);
+    EXPECT_EQ(element->intensity(), 0.0);
     element->addIntensity(1.0);
-    EXPECT_EQ(element->getIntensity(), 1.0);
+    EXPECT_EQ(element->intensity(), 1.0);
     element->setIntensity(42.0);
-    EXPECT_EQ(element->getIntensity(), 42.0);
+    EXPECT_EQ(element->intensity(), 42.0);
 }
 
 TEST_F(SimulationElementTest, copyConstructor) {
     auto orig = createElement();
     SimulationElement element(*orig);
-    EXPECT_EQ(orig->getWavelength(), element.getWavelength());
+    EXPECT_EQ(orig->wavelength(), element.wavelength());
     EXPECT_EQ(orig->getAlphaI(), element.getAlphaI());
     EXPECT_EQ(orig->getPhiI(), element.getPhiI());
     EXPECT_EQ(orig->getAlphaMean(), element.getAlphaMean());
     EXPECT_EQ(orig->getPhiMean(), element.getPhiMean());
-    EXPECT_EQ(orig->getIntensity(), element.getIntensity());
+    EXPECT_EQ(orig->intensity(), element.intensity());
     EXPECT_EQ(orig->getKi(), element.getKi());
     EXPECT_EQ(orig->getMeanKf(), element.getMeanKf());
     EXPECT_EQ(orig->getQ(0.5, 0.5), element.getQ(0.5, 0.5));
@@ -71,12 +72,12 @@ TEST_F(SimulationElementTest, moveConstruction) {
     SimulationElement orig(1.0, 2.0, 3.0, createPixel(), {}, {}, false);
     SimulationElement element(std::move(for_move));
 
-    EXPECT_EQ(orig.getWavelength(), element.getWavelength());
+    EXPECT_EQ(orig.wavelength(), element.wavelength());
     EXPECT_EQ(orig.getAlphaI(), element.getAlphaI());
     EXPECT_EQ(orig.getPhiI(), element.getPhiI());
     EXPECT_EQ(orig.getAlphaMean(), element.getAlphaMean());
     EXPECT_EQ(orig.getPhiMean(), element.getPhiMean());
-    EXPECT_EQ(orig.getIntensity(), element.getIntensity());
+    EXPECT_EQ(orig.intensity(), element.intensity());
     EXPECT_EQ(orig.getKi(), element.getKi());
     EXPECT_EQ(orig.getMeanKf(), element.getMeanKf());
     EXPECT_EQ(orig.getQ(0.5, 0.5), element.getQ(0.5, 0.5));

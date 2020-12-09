@@ -37784,7 +37784,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_WavevectorInfo_getWavelength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_WavevectorInfo_wavelength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   WavevectorInfo *arg1 = (WavevectorInfo *) 0 ;
   void *argp1 = 0 ;
@@ -37796,10 +37796,10 @@ SWIGINTERN PyObject *_wrap_WavevectorInfo_getWavelength(PyObject *SWIGUNUSEDPARM
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_WavevectorInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "WavevectorInfo_getWavelength" "', argument " "1"" of type '" "WavevectorInfo const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "WavevectorInfo_wavelength" "', argument " "1"" of type '" "WavevectorInfo const *""'"); 
   }
   arg1 = reinterpret_cast< WavevectorInfo * >(argp1);
-  result = (double)((WavevectorInfo const *)arg1)->getWavelength();
+  result = (double)((WavevectorInfo const *)arg1)->wavelength();
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -70399,9 +70399,9 @@ static PyMethodDef SwigMethods[] = {
 		"cvector_t WavevectorInfo::getQ() const\n"
 		"\n"
 		""},
-	 { "WavevectorInfo_getWavelength", _wrap_WavevectorInfo_getWavelength, METH_O, "\n"
-		"WavevectorInfo_getWavelength(WavevectorInfo self) -> double\n"
-		"double WavevectorInfo::getWavelength() const\n"
+	 { "WavevectorInfo_wavelength", _wrap_WavevectorInfo_wavelength, METH_O, "\n"
+		"WavevectorInfo_wavelength(WavevectorInfo self) -> double\n"
+		"double WavevectorInfo::wavelength() const\n"
 		"\n"
 		""},
 	 { "delete_WavevectorInfo", _wrap_delete_WavevectorInfo, METH_O, "delete_WavevectorInfo(WavevectorInfo self)"},

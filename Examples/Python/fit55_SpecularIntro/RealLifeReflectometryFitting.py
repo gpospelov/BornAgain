@@ -100,7 +100,7 @@ def create_simulation(arg_dict, bin_start, bin_end):
 
     simulation = ba.SpecularSimulation()
     simulation.setScan(scan)
-    simulation.setBeamIntensity(arg_dict["intensity"])
+    simulation.beam().setIntensity(arg_dict["intensity"])
     return simulation
 
 

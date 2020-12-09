@@ -53,7 +53,7 @@ def get_simulation():
     simulation.setDetectorParameters(201, -2.0*deg, 2.0*deg, 201, 0.0*deg,
                                      2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e+05)
+    simulation.beam().setIntensity(1e+05)
     return simulation
 
 
@@ -71,15 +71,13 @@ def get_noisy_image(hist):
     return result
 
 
-def plot_histogram(hist, zmin=None, zmax=None):
+def plot_histogram(hist, **kwargs):
     ba.plot_histogram(hist,
                       xlabel=r'$\varphi_f ^{\circ}$',
                       ylabel=r'$\alpha_f ^{\circ}$',
                       zlabel="",
-                      zmin=zmin,
-                      zmax=zmax,
                       cmap='jet',
-                      aspect='auto')
+                      aspect='auto', **kwargs)
 
 
 def get_relative_difference(hist):
@@ -140,7 +138,7 @@ def plot(hist):
 
     plt.subplot(2, 2, 3)
     reldiff = get_relative_difference(hist)
-    plot_histogram(reldiff, zmin=1e-03, zmax=10)
+    plot_histogram(reldiff, intensity_min=1e-03, intensity_max=10)
     plt.title("Relative difference")
 
     plt.subplot(2, 2, 4)

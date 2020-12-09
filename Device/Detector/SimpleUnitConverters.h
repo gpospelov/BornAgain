@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_DEVICE_DETECTOR_SIMPLEUNITCONVERTERS_H
 #define BORNAGAIN_DEVICE_DETECTOR_SIMPLEUNITCONVERTERS_H
 

@@ -12,7 +12,7 @@ class UnitConverter1DTest : public ::testing::Test {
 public:
     UnitConverter1DTest();
 
-    double getQ(double angle) { return 4.0 * M_PI * std::sin(angle) / m_beam.getWavelength(); }
+    double getQ(double angle) { return 4.0 * M_PI * std::sin(angle) / m_beam.wavelength(); }
 
 protected:
     void checkConventionalConverter(const UnitConverter1D& test_object);

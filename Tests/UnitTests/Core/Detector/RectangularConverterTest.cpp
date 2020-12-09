@@ -25,14 +25,14 @@ protected:
 };
 
 RectangularConverterTest::RectangularConverterTest()
-    : m_detector(det_nx, det_width, det_ny, det_height), m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0) {
+    : m_detector(det_nx, det_width, det_ny, det_height), m_beam(1.0, 1.0, {1 * Units::deg, 0}) {
     m_detector.setPerpendicularToSampleX(det_distance, det_width / 2.0, 0.0);
     m_detector.init(m_beam);
     m_phi = std::atan2(det_width / 2.0, det_distance);
     m_alpha = std::atan2(det_height, det_distance / std::cos(m_phi));
     auto k_i = m_beam.getCentralK();
     m_kiz = k_i.z();
-    double K = 2.0 * M_PI / m_beam.getWavelength();
+    double K = 2.0 * M_PI / m_beam.wavelength();
     m_kfy = K * std::sin(m_phi);
     m_kfz = K * std::sin(m_alpha);
 }

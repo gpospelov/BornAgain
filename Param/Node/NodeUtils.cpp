@@ -59,12 +59,16 @@ std::string nodeString(const INode& node, int depth) {
 }
 } // namespace
 
+//  ************************************************************************************************
+//  namespace NodeUtils
+//  ************************************************************************************************
+
 std::vector<std::tuple<const INode*, int, const INode*>> NodeUtils::progenyPlus(const INode* node,
                                                                                 int level) {
     std::vector<std::tuple<const INode*, int, const INode*>> result;
     result.push_back({node, level, nullptr});
     for (const auto* child : node->getChildren()) {
-        for (const auto [subchild, sublevel, subparent] : progenyPlus(child, level + 1))
+        for (const auto& [subchild, sublevel, subparent] : progenyPlus(child, level + 1))
             result.push_back({subchild, sublevel, child});
     }
     return result;
@@ -72,7 +76,7 @@ std::vector<std::tuple<const INode*, int, const INode*>> NodeUtils::progenyPlus(
 
 std::string NodeUtils::nodeToString(const INode* node) {
     std::ostringstream result;
-    for (const auto [child, depth, parent] : progenyPlus(node))
+    for (const auto& [child, depth, parent] : progenyPlus(node))
         result << nodeString(*child, depth);
     return result.str();
 }

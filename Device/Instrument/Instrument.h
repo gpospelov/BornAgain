@@ -12,20 +12,18 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H
 #define BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H
 
 #include "Device/Beam/Beam.h"
 #include <memory>
 
-template <class T> class OutputData;
-class Histogram2D;
-class DetectorMask;
-class IAxis;
 class IDetector;
 class IDetector2D;
-class IResolutionFunction2D;
-class SimulationElement;
 
 //! Assembles beam, detector and their relative positions with respect to the sample.
 //! @ingroup simulation_internal
@@ -33,6 +31,7 @@ class SimulationElement;
 class Instrument : public INode {
 public:
     Instrument();
+    Instrument(const Beam& beam, const IDetector& detector);
     Instrument(const Instrument& other);
     Instrument& operator=(const Instrument& other);
 
@@ -52,8 +51,6 @@ public:
     //! Sets the beam's polarization according to the given Bloch vector
     void setBeamPolarization(const kvector_t bloch_vector);
 
-    double getBeamIntensity() const;
-
     const IDetector* getDetector() const;
     IDetector& detector();
     const IDetector& detector() const;
@@ -61,27 +58,8 @@ public:
     IDetector2D& detector2D();
     const IDetector2D& detector2D() const;
 
-    const DetectorMask* getDetectorMask() const;
-
-    const IAxis& getDetectorAxis(size_t index) const;
-
-    size_t getDetectorDimension() const;
-
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector& detector);
-
-    //! Sets detector resolution function
-    void setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function);
-
-    //! Removes detector resolution function.
-    void removeDetectorResolution();
-
-    //! Sets the polarization analyzer characteristics of the detector
-    void setAnalyzerProperties(const kvector_t direction, double efficiency,
-                               double total_transmission);
-
-    //! apply the detector resolution to the given intensity map
-    void applyDetectorResolution(OutputData<double>* p_intensity_map) const;
 
     //! init detector with beam settings
     void initDetector();
@@ -89,8 +67,8 @@ public:
     std::vector<const INode*> getChildren() const;
 
 protected:
-    std::unique_ptr<IDetector> m_detector;
     Beam m_beam;
+    std::unique_ptr<IDetector> m_detector;
 };
 
 #endif // BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H

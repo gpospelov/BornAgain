@@ -13,20 +13,9 @@
 //  ************************************************************************************************
 
 #include "Base/Vector/BasicVector3D.h"
-#include "Base/Math/Constants.h"
 #include <stdexcept>
 
 typedef std::complex<double> complex_t;
-
-// -----------------------------------------------------------------------------
-// Quasi constructor
-// -----------------------------------------------------------------------------
-
-BasicVector3D<double> vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) {
-    double k = M_TWOPI / _lambda;
-    return BasicVector3D<double>(k * std::cos(_alpha) * std::cos(_phi),
-                                 -k * std::cos(_alpha) * std::sin(_phi), k * std::sin(_alpha));
-}
 
 // -----------------------------------------------------------------------------
 // Functions of this (with no further argument)

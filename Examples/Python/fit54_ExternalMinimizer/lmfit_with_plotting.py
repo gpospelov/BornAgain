@@ -27,7 +27,7 @@ def get_sample(params):
     particle_layout.addParticle(sphere)
 
     interference = ba.InterferenceFunction2DLattice(
-        ba.HexagonalLattice2D(lattice_length))
+        ba.HexagonalLattice2D(lattice_length, 0*deg))
     pdf = ba.FTDecayFunction2DCauchy(10*nm, 10*nm, 0)
     interference.setDecayFunction(pdf)
 
@@ -50,7 +50,7 @@ def get_simulation(params):
     simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg, 100, 0.0*deg,
                                      2.0*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e+08)
+    simulation.beam().setIntensity(1e+08)
     simulation.setSample(get_sample(params))
     return simulation
 
@@ -74,13 +74,13 @@ def create_real_data():
     return noisy
 
 
-class Plotter:
+class LMFITPlotter:
     """
     Adapts standard plotter for lmfit minimizer.
     """
     def __init__(self, fit_objective, every_nth=10):
         self.fit_objective = fit_objective
-        self.plotter_gisas = ba.PlotterGISAS()
+        self.plotter_gisas = ba.fit_monitor.PlotterGISAS()
         self.every_nth = every_nth
 
     def __call__(self, params, iter, resid):
@@ -102,7 +102,7 @@ def run_fitting():
     params.add('radius', value=7*nm, min=5*nm, max=8*nm)
     params.add('length', value=10*nm, min=8*nm, max=14*nm)
 
-    plotter = Plotter(fit_objective)
+    plotter = LMFITPlotter(fit_objective)
     result = lmfit.minimize(fit_objective.evaluate_residuals,
                             params,
                             iter_cb=plotter)

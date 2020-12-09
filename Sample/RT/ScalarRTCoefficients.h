@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_SAMPLE_RT_SCALARRTCOEFFICIENTS_H
 #define BORNAGAIN_SAMPLE_RT_SCALARRTCOEFFICIENTS_H
 
@@ -66,6 +70,10 @@ private:
 //  ************************************************************************************************
 //  implementation
 //  ************************************************************************************************
+
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
 
 inline ScalarRTCoefficients::ScalarRTCoefficients() : kz(0) {
     m_plus(0) = 1.0;

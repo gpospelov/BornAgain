@@ -72,7 +72,7 @@ def get_offspec_simulation():
                                    alpha_i_max)
     simulation.setBeamParameters(5.0*angstrom, alpha_i_axis, 0.0)
 
-    simulation.setBeamIntensity(1e9)
+    simulation.beam().setIntensity(1e9)
     simulation.getOptions().setIncludeSpecular(True)
 
     # define detector resolution function with smearing depending on bin size

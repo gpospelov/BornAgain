@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_CORE_FITTING_FITTYPES_H
 #define BORNAGAIN_CORE_FITTING_FITTYPES_H
 

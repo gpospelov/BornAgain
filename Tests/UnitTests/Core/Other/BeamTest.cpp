@@ -15,7 +15,7 @@ TEST_F(BeamTest, BeamInitialState) {
     EXPECT_DOUBLE_EQ(M_TWOPI, beam.getCentralK()[0]);
     EXPECT_EQ(0.0, beam.getCentralK()[1]);
     EXPECT_EQ(0.0, beam.getCentralK()[2]);
-    EXPECT_EQ(1.0, beam.getIntensity());
+    EXPECT_EQ(1.0, beam.intensity());
     // EXPECT_EQ(size_t(4), beam.parameterPool()->size());
     //    EXPECT_EQ(1.0, beam.parameterPool()->parameter("Intensity")->value());
     //    EXPECT_EQ(1.0, beam.parameterPool()->parameter("Wavelength")->value());
@@ -28,14 +28,14 @@ TEST_F(BeamTest, BeamInitialState) {
 TEST_F(BeamTest, BeamAssignment) {
     kvector_t polarization(0.0, 0.0, 0.2);
 
-    std::unique_ptr<Beam> P_beam{new Beam(1.0, 1.0, 1.0, 2.0)};
+    std::unique_ptr<Beam> P_beam{new Beam(2.0, 1.0, {1.0, 1.0})};
     P_beam->setPolarization(polarization);
 
     Beam beam_copy = *P_beam;
     EXPECT_NEAR(1.83423, beam_copy.getCentralK()[0], 0.00001);
     EXPECT_NEAR(-2.85664, beam_copy.getCentralK()[1], 0.00001);
     EXPECT_NEAR(-5.28712, beam_copy.getCentralK()[2], 0.00001);
-    EXPECT_EQ(double(2.0), beam_copy.getIntensity());
+    EXPECT_EQ(double(2.0), beam_copy.intensity());
     /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ(size_t(4), beam_copy.getParameterPool()->size());
     EXPECT_EQ(double(2.0),

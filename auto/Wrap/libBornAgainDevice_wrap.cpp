@@ -3107,32 +3107,32 @@ namespace Swig {
 #define SWIGTYPE_p_ChiSquaredModule swig_types[7]
 #define SWIGTYPE_p_DetectionProperties swig_types[8]
 #define SWIGTYPE_p_DetectorMask swig_types[9]
-#define SWIGTYPE_p_Ellipse swig_types[10]
-#define SWIGTYPE_p_FootprintGauss swig_types[11]
-#define SWIGTYPE_p_FootprintSquare swig_types[12]
-#define SWIGTYPE_p_Histogram1D swig_types[13]
-#define SWIGTYPE_p_Histogram2D swig_types[14]
-#define SWIGTYPE_p_HorizontalLine swig_types[15]
-#define SWIGTYPE_p_IAxis swig_types[16]
-#define SWIGTYPE_p_IChiSquaredModule swig_types[17]
-#define SWIGTYPE_p_ICloneable swig_types[18]
-#define SWIGTYPE_p_IComponent swig_types[19]
-#define SWIGTYPE_p_IDetector swig_types[20]
-#define SWIGTYPE_p_IDetector2D swig_types[21]
-#define SWIGTYPE_p_IDetectorResolution swig_types[22]
-#define SWIGTYPE_p_IFootprintFactor swig_types[23]
-#define SWIGTYPE_p_IHistogram swig_types[24]
-#define SWIGTYPE_p_IIntensityFunction swig_types[25]
-#define SWIGTYPE_p_INode swig_types[26]
-#define SWIGTYPE_p_INodeVisitor swig_types[27]
-#define SWIGTYPE_p_IParametricComponent swig_types[28]
-#define SWIGTYPE_p_IPixel swig_types[29]
-#define SWIGTYPE_p_IRangedDistribution swig_types[30]
-#define SWIGTYPE_p_IResolutionFunction2D swig_types[31]
-#define SWIGTYPE_p_IShape2D swig_types[32]
-#define SWIGTYPE_p_IUnitConverter swig_types[33]
-#define SWIGTYPE_p_IVarianceFunction swig_types[34]
-#define SWIGTYPE_p_Instrument swig_types[35]
+#define SWIGTYPE_p_Direction swig_types[10]
+#define SWIGTYPE_p_Ellipse swig_types[11]
+#define SWIGTYPE_p_FootprintGauss swig_types[12]
+#define SWIGTYPE_p_FootprintSquare swig_types[13]
+#define SWIGTYPE_p_Histogram1D swig_types[14]
+#define SWIGTYPE_p_Histogram2D swig_types[15]
+#define SWIGTYPE_p_HorizontalLine swig_types[16]
+#define SWIGTYPE_p_IAxis swig_types[17]
+#define SWIGTYPE_p_IChiSquaredModule swig_types[18]
+#define SWIGTYPE_p_ICloneable swig_types[19]
+#define SWIGTYPE_p_IComponent swig_types[20]
+#define SWIGTYPE_p_IDetector swig_types[21]
+#define SWIGTYPE_p_IDetector2D swig_types[22]
+#define SWIGTYPE_p_IDetectorResolution swig_types[23]
+#define SWIGTYPE_p_IFootprintFactor swig_types[24]
+#define SWIGTYPE_p_IHistogram swig_types[25]
+#define SWIGTYPE_p_IIntensityFunction swig_types[26]
+#define SWIGTYPE_p_INode swig_types[27]
+#define SWIGTYPE_p_INodeVisitor swig_types[28]
+#define SWIGTYPE_p_IParametricComponent swig_types[29]
+#define SWIGTYPE_p_IPixel swig_types[30]
+#define SWIGTYPE_p_IRangedDistribution swig_types[31]
+#define SWIGTYPE_p_IResolutionFunction2D swig_types[32]
+#define SWIGTYPE_p_IShape2D swig_types[33]
+#define SWIGTYPE_p_IUnitConverter swig_types[34]
+#define SWIGTYPE_p_IVarianceFunction swig_types[35]
 #define SWIGTYPE_p_IntensityDataIOFactory swig_types[36]
 #define SWIGTYPE_p_IntensityFunctionLog swig_types[37]
 #define SWIGTYPE_p_IntensityFunctionSqrt swig_types[38]
@@ -6728,7 +6728,6 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Device/Histo/SimulationResult.h"
 #include "Device/Instrument/ChiSquaredModule.h"
 #include "Device/Instrument/IChiSquaredModule.h"
-#include "Device/Instrument/Instrument.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
 #include "Device/Instrument/PyArrayImportUtils.h"
 #include "Device/Instrument/SpectrumUtils.h"
@@ -30575,19 +30574,16 @@ SWIGINTERN PyObject *_wrap_new_Beam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_s
   PyObject *resultobj = 0;
   double arg1 ;
   double arg2 ;
-  double arg3 ;
-  double arg4 ;
+  Direction *arg3 = 0 ;
   double val1 ;
   int ecode1 = 0 ;
   double val2 ;
   int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
   Beam *result = 0 ;
   
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
   if (!SWIG_IsOK(ecode1)) {
     SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_Beam" "', argument " "1"" of type '" "double""'");
@@ -30598,17 +30594,15 @@ SWIGINTERN PyObject *_wrap_new_Beam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_s
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_Beam" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_Beam" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_Beam" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  result = (Beam *)new Beam(arg1,arg2,arg3,arg4);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_Direction,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_Beam" "', argument " "3"" of type '" "Direction const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Beam" "', argument " "3"" of type '" "Direction const &""'"); 
+  }
+  arg3 = reinterpret_cast< Direction * >(argp3);
+  result = (Beam *)new Beam(arg1,arg2,(Direction const &)*arg3);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Beam, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -30642,11 +30636,11 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_Beam(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
-  PyObject *argv[5] = {
+  PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_Beam", 0, 4, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_Beam", 0, 3, argv))) SWIG_fail;
   --argc;
   if (argc == 1) {
     int _v;
@@ -30656,7 +30650,7 @@ SWIGINTERN PyObject *_wrap_new_Beam(PyObject *self, PyObject *args) {
       return _wrap_new_Beam__SWIG_1(self, argc, argv);
     }
   }
-  if (argc == 4) {
+  if (argc == 3) {
     int _v;
     {
       int res = SWIG_AsVal_double(argv[0], NULL);
@@ -30668,18 +30662,10 @@ SWIGINTERN PyObject *_wrap_new_Beam(PyObject *self, PyObject *args) {
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        {
-          int res = SWIG_AsVal_double(argv[2], NULL);
-          _v = SWIG_CheckState(res);
-        }
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_Direction, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
         if (_v) {
-          {
-            int res = SWIG_AsVal_double(argv[3], NULL);
-            _v = SWIG_CheckState(res);
-          }
-          if (_v) {
-            return _wrap_new_Beam__SWIG_0(self, argc, argv);
-          }
+          return _wrap_new_Beam__SWIG_0(self, argc, argv);
         }
       }
     }
@@ -30688,7 +30674,7 @@ SWIGINTERN PyObject *_wrap_new_Beam(PyObject *self, PyObject *args) {
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Beam'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Beam::Beam(double,double,double,double)\n"
+    "    Beam::Beam(double,double,Direction const &)\n"
     "    Beam::Beam(Beam const &)\n");
   return 0;
 }
@@ -30729,6 +30715,127 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_Beam_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Beam_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_accept" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Beam_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+  }
+  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
+  ((Beam const *)arg1)->accept(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_getChildren(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  SwigValueWrapper< std::vector< INode const *,std::allocator< INode const * > > > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getChildren" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = ((Beam const *)arg1)->getChildren();
+  resultobj = SWIG_NewPointerObj((new std::vector< INode const *,std::allocator< INode const * > >(static_cast< const std::vector< INode const *,std::allocator< INode const * > >& >(result))), SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_intensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_intensity" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = (double)((Beam const *)arg1)->intensity();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_wavelength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_wavelength" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = (double)((Beam const *)arg1)->wavelength();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_direction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Direction result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_direction" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = ((Beam const *)arg1)->direction();
+  resultobj = SWIG_NewPointerObj((new Direction(static_cast< const Direction& >(result))), SWIGTYPE_p_Direction, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_Beam_getCentralK(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Beam *arg1 = (Beam *) 0 ;
@@ -30752,44 +30859,74 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Beam_setCentralK(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Beam_getBlochVector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  kvector_t result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getBlochVector" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = ((Beam const *)arg1)->getBlochVector();
+  resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_footprintFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  IFootprintFactor *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_footprintFactor" "', argument " "1"" of type '" "Beam const *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  result = (IFootprintFactor *)((Beam const *)arg1)->footprintFactor();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFootprintFactor, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_setWavelength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Beam *arg1 = (Beam *) 0 ;
   double arg2 ;
-  double arg3 ;
-  double arg4 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   double val2 ;
   int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
+  PyObject *swig_obj[2] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "Beam_setCentralK", 4, 4, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "Beam_setWavelength", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_setCentralK" "', argument " "1"" of type '" "Beam *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_setWavelength" "', argument " "1"" of type '" "Beam *""'"); 
   }
   arg1 = reinterpret_cast< Beam * >(argp1);
   ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Beam_setCentralK" "', argument " "2"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Beam_setWavelength" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Beam_setCentralK" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Beam_setCentralK" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  (arg1)->setCentralK(arg2,arg3,arg4);
+  (arg1)->setWavelength(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -30797,23 +30934,61 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Beam_getIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Beam_setDirection(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Beam *arg1 = (Beam *) 0 ;
+  Direction *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
   
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
+  if (!SWIG_Python_UnpackTuple(args, "Beam_setDirection", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getIntensity" "', argument " "1"" of type '" "Beam const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_setDirection" "', argument " "1"" of type '" "Beam *""'"); 
   }
   arg1 = reinterpret_cast< Beam * >(argp1);
-  result = (double)((Beam const *)arg1)->getIntensity();
-  resultobj = SWIG_From_double(static_cast< double >(result));
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Direction,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Beam_setDirection" "', argument " "2"" of type '" "Direction const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Beam_setDirection" "', argument " "2"" of type '" "Direction const &""'"); 
+  }
+  arg2 = reinterpret_cast< Direction * >(argp2);
+  (arg1)->setDirection((Direction const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Beam_setInclination(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Beam *arg1 = (Beam *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Beam_setInclination", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_setInclination" "', argument " "1"" of type '" "Beam *""'"); 
+  }
+  arg1 = reinterpret_cast< Beam * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Beam_setInclination" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setInclination(arg2);
+  resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
   return NULL;
@@ -30843,29 +31018,6 @@ SWIGINTERN PyObject *_wrap_Beam_setIntensity(PyObject *SWIGUNUSEDPARM(self), PyO
   arg2 = static_cast< double >(val2);
   (arg1)->setIntensity(arg2);
   resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_footprintFactor(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IFootprintFactor *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_footprintFactor" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = (IFootprintFactor *)((Beam const *)arg1)->footprintFactor();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IFootprintFactor, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -30964,150 +31116,6 @@ SWIGINTERN PyObject *_wrap_Beam_setPolarization(PyObject *SWIGUNUSEDPARM(self), 
   }
   (arg1)->setPolarization(arg2);
   resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_getBlochVector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  kvector_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getBlochVector" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = ((Beam const *)arg1)->getBlochVector();
-  resultobj = SWIG_NewPointerObj((new kvector_t(static_cast< const kvector_t& >(result))), SWIGTYPE_p_BasicVector3DT_double_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_getWavelength(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getWavelength" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = (double)((Beam const *)arg1)->getWavelength();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_getAlpha(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getAlpha" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = (double)((Beam const *)arg1)->getAlpha();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_getPhi(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getPhi" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = (double)((Beam const *)arg1)->getPhi();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Beam_accept", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_accept" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Beam_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
-  }
-  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
-  ((Beam const *)arg1)->accept(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Beam_getChildren(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::vector< INode const *,std::allocator< INode const * > > > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_getChildren" "', argument " "1"" of type '" "Beam const *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  result = ((Beam const *)arg1)->getChildren();
-  resultobj = SWIG_NewPointerObj((new std::vector< INode const *,std::allocator< INode const * > >(static_cast< const std::vector< INode const *,std::allocator< INode const * > >& >(result))), SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -35126,846 +35134,6 @@ SWIGINTERN PyObject *ChiSquaredModule_swiginit(PyObject *SWIGUNUSEDPARM(self), P
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_new_Instrument__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  Instrument *result = 0 ;
-  
-  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
-  result = (Instrument *)new Instrument();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Instrument, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_Instrument__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Instrument *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Instrument,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Instrument" "', argument " "1"" of type '" "Instrument const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Instrument" "', argument " "1"" of type '" "Instrument const &""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (Instrument *)new Instrument((Instrument const &)*arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Instrument, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_Instrument(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_Instrument", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 0) {
-    return _wrap_new_Instrument__SWIG_0(self, argc, argv);
-  }
-  if (argc == 1) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Instrument, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_new_Instrument__SWIG_1(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_Instrument'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Instrument::Instrument()\n"
-    "    Instrument::Instrument(Instrument const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_Instrument(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Instrument" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  INodeVisitor *arg2 = (INodeVisitor *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_accept", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_accept" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Instrument_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
-  }
-  arg2 = reinterpret_cast< INodeVisitor * >(argp2);
-  ((Instrument const *)arg1)->accept(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_beam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Beam *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_beam" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (Beam *) &(arg1)->beam();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Beam, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_beam__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  Beam *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_beam" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (Beam *) &((Instrument const *)arg1)->beam();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Beam, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_beam(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Instrument_beam", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Instrument, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_Instrument_beam__SWIG_0(self, argc, argv);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Instrument, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_Instrument_beam__SWIG_1(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Instrument_beam'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Instrument::beam()\n"
-    "    Instrument::beam() const\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_setBeam(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  Beam *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_setBeam", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_setBeam" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Beam,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Instrument_setBeam" "', argument " "2"" of type '" "Beam const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Instrument_setBeam" "', argument " "2"" of type '" "Beam const &""'"); 
-  }
-  arg2 = reinterpret_cast< Beam * >(argp2);
-  (arg1)->setBeam((Beam const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_setBeamParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  double arg2 ;
-  double arg3 ;
-  double arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_setBeamParameters", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_setBeamParameters" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Instrument_setBeamParameters" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Instrument_setBeamParameters" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Instrument_setBeamParameters" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  (arg1)->setBeamParameters(arg2,arg3,arg4);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_setBeamIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_setBeamIntensity", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_setBeamIntensity" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Instrument_setBeamIntensity" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setBeamIntensity(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_setBeamPolarization(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  kvector_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_setBeamPolarization", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_setBeamPolarization" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Instrument_setBeamPolarization" "', argument " "2"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Instrument_setBeamPolarization" "', argument " "2"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  (arg1)->setBeamPolarization(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_getBeamIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getBeamIntensity" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (double)((Instrument const *)arg1)->getBeamIntensity();
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_getDetector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IDetector *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getDetector" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (IDetector *)((Instrument const *)arg1)->getDetector();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_detector__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  IDetector *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_detector" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (IDetector *) &(arg1)->detector();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_detector__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  IDetector *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_detector" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (IDetector *) &((Instrument const *)arg1)->detector();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_detector(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Instrument_detector", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Instrument, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_Instrument_detector__SWIG_0(self, argc, argv);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Instrument, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_Instrument_detector__SWIG_1(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Instrument_detector'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Instrument::detector()\n"
-    "    Instrument::detector() const\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_detector2D__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  IDetector2D *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_detector2D" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (IDetector2D *) &(arg1)->detector2D();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector2D, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_detector2D__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  IDetector2D *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_detector2D" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (IDetector2D *) &((Instrument const *)arg1)->detector2D();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector2D, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_detector2D(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "Instrument_detector2D", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Instrument, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_Instrument_detector2D__SWIG_0(self, argc, argv);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_Instrument, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_Instrument_detector2D__SWIG_1(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'Instrument_detector2D'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    Instrument::detector2D()\n"
-    "    Instrument::detector2D() const\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_getDetectorMask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  DetectorMask *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getDetectorMask" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = (DetectorMask *)((Instrument const *)arg1)->getDetectorMask();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DetectorMask, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_getDetectorAxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  IAxis *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_getDetectorAxis", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getDetectorAxis" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Instrument_getDetectorAxis" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  result = (IAxis *) &((Instrument const *)arg1)->getDetectorAxis(arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_getDetectorDimension(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  size_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getDetectorDimension" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = ((Instrument const *)arg1)->getDetectorDimension();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_setDetector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  IDetector *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_setDetector", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_setDetector" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IDetector,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Instrument_setDetector" "', argument " "2"" of type '" "IDetector const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Instrument_setDetector" "', argument " "2"" of type '" "IDetector const &""'"); 
-  }
-  arg2 = reinterpret_cast< IDetector * >(argp2);
-  (arg1)->setDetector((IDetector const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_setDetectorResolutionFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  IResolutionFunction2D *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_setDetectorResolutionFunction", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_setDetectorResolutionFunction" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IResolutionFunction2D,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Instrument_setDetectorResolutionFunction" "', argument " "2"" of type '" "IResolutionFunction2D const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Instrument_setDetectorResolutionFunction" "', argument " "2"" of type '" "IResolutionFunction2D const &""'"); 
-  }
-  arg2 = reinterpret_cast< IResolutionFunction2D * >(argp2);
-  (arg1)->setDetectorResolutionFunction((IResolutionFunction2D const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_removeDetectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_removeDetectorResolution" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  (arg1)->removeDetectorResolution();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_setAnalyzerProperties(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  kvector_t arg2 ;
-  double arg3 ;
-  double arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_setAnalyzerProperties", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_setAnalyzerProperties" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Instrument_setAnalyzerProperties" "', argument " "2"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Instrument_setAnalyzerProperties" "', argument " "2"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Instrument_setAnalyzerProperties" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "Instrument_setAnalyzerProperties" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  (arg1)->setAnalyzerProperties(arg2,arg3,arg4);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_applyDetectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  OutputData< double > *arg2 = (OutputData< double > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Instrument_applyDetectorResolution", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_applyDetectorResolution" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Instrument_applyDetectorResolution" "', argument " "2"" of type '" "OutputData< double > *""'"); 
-  }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  ((Instrument const *)arg1)->applyDetectorResolution(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_initDetector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_initDetector" "', argument " "1"" of type '" "Instrument *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  (arg1)->initDetector();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Instrument_getChildren(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Instrument *arg1 = (Instrument *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  SwigValueWrapper< std::vector< INode const *,std::allocator< INode const * > > > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Instrument, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Instrument_getChildren" "', argument " "1"" of type '" "Instrument const *""'"); 
-  }
-  arg1 = reinterpret_cast< Instrument * >(argp1);
-  result = ((Instrument const *)arg1)->getChildren();
-  resultobj = SWIG_NewPointerObj((new std::vector< INode const *,std::allocator< INode const * > >(static_cast< const std::vector< INode const *,std::allocator< INode const * > >& >(result))), SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *Instrument_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_Instrument, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *Instrument_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
 SWIGINTERN PyObject *_wrap_RelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SimulationResult *arg1 = 0 ;
@@ -37881,28 +37049,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_DetectorMask_removeMasks(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  DetectorMask *arg1 = (DetectorMask *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_DetectorMask, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DetectorMask_removeMasks" "', argument " "1"" of type '" "DetectorMask *""'"); 
-  }
-  arg1 = reinterpret_cast< DetectorMask * >(argp1);
-  (arg1)->removeMasks();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_DetectorMask_hasMasks(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   DetectorMask *arg1 = (DetectorMask *) 0 ;
@@ -38155,143 +37301,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IDetector_axis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  size_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  IAxis *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IDetector_axis", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_axis" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_axis" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  result = (IAxis *) &((IDetector const *)arg1)->axis(arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_dimension(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  size_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_dimension" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = ((IDetector const *)arg1)->dimension();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_axisBinIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  size_t arg2 ;
-  size_t arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  size_t val2 ;
-  int ecode2 = 0 ;
-  size_t val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  size_t result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IDetector_axisBinIndex", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_axisBinIndex" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_axisBinIndex" "', argument " "2"" of type '" "size_t""'");
-  } 
-  arg2 = static_cast< size_t >(val2);
-  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IDetector_axisBinIndex" "', argument " "3"" of type '" "size_t""'");
-  } 
-  arg3 = static_cast< size_t >(val3);
-  result = ((IDetector const *)arg1)->axisBinIndex(arg2,arg3);
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_totalSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  size_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_totalSize" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = ((IDetector const *)arg1)->totalSize();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_detectorMask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  DetectorMask *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectorMask" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = (DetectorMask *)((IDetector const *)arg1)->detectorMask();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DetectorMask, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_IDetector_setAnalyzerProperties(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IDetector *arg1 = (IDetector *) 0 ;
@@ -38409,103 +37418,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IDetector_applyDetectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  OutputData< double > *arg2 = (OutputData< double > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IDetector_applyDetectorResolution", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_applyDetectorResolution" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IDetector_applyDetectorResolution" "', argument " "2"" of type '" "OutputData< double > *""'"); 
-  }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  ((IDetector const *)arg1)->applyDetectorResolution(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_removeDetectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_removeDetectorResolution" "', argument " "1"" of type '" "IDetector *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  (arg1)->removeDetectorResolution();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_detectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IDetectorResolution *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectorResolution" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = (IDetectorResolution *)((IDetector const *)arg1)->detectorResolution();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetectorResolution, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_regionOfInterest(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  RegionOfInterest *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_regionOfInterest" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = (RegionOfInterest *)((IDetector const *)arg1)->regionOfInterest();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RegionOfInterest, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_IDetector_resetRegionOfInterest(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IDetector *arg1 = (IDetector *) 0 ;
@@ -38528,102 +37440,23 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IDetector_detectionProperties(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_IDetector_detectorMask(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IDetector *arg1 = (IDetector *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  DetectionProperties *result = 0 ;
+  DetectorMask *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectionProperties" "', argument " "1"" of type '" "IDetector const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectorMask" "', argument " "1"" of type '" "IDetector const *""'"); 
   }
   arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = (DetectionProperties *) &((IDetector const *)arg1)->detectionProperties();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DetectionProperties, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_createDetectorIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  std::vector< SimulationElement,std::allocator< SimulationElement > > *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  OutputData< double > *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IDetector_createDetectorIntensity", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_createDetectorIntensity" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__vectorT_SimulationElement_std__allocatorT_SimulationElement_t_t,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IDetector_createDetectorIntensity" "', argument " "2"" of type '" "std::vector< SimulationElement,std::allocator< SimulationElement > > const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IDetector_createDetectorIntensity" "', argument " "2"" of type '" "std::vector< SimulationElement,std::allocator< SimulationElement > > const &""'"); 
-  }
-  arg2 = reinterpret_cast< std::vector< SimulationElement,std::allocator< SimulationElement > > * >(argp2);
-  result = (OutputData< double > *)((IDetector const *)arg1)->createDetectorIntensity((std::vector< SimulationElement,std::allocator< SimulationElement > > const &)*arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_defaultAxesUnits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  Axes::Units result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_defaultAxesUnits" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = (Axes::Units)((IDetector const *)arg1)->defaultAxesUnits();
-  resultobj = SWIG_From_int(static_cast< int >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector_numberOfSimulationElements(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector *arg1 = (IDetector *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  size_t result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_numberOfSimulationElements" "', argument " "1"" of type '" "IDetector const *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector * >(argp1);
-  result = ((IDetector const *)arg1)->numberOfSimulationElements();
-  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  result = (DetectorMask *)((IDetector const *)arg1)->detectorMask();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DetectorMask, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -38783,6 +37616,297 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_IDetector_axis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  size_t arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  IAxis *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDetector_axis", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_axis" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_axis" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  result = (IAxis *) &((IDetector const *)arg1)->axis(arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_dimension(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  size_t result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_dimension" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = ((IDetector const *)arg1)->dimension();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_axisBinIndex(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  size_t arg2 ;
+  size_t arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  size_t val2 ;
+  int ecode2 = 0 ;
+  size_t val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  size_t result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDetector_axisBinIndex", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_axisBinIndex" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  ecode2 = SWIG_AsVal_size_t(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IDetector_axisBinIndex" "', argument " "2"" of type '" "size_t""'");
+  } 
+  arg2 = static_cast< size_t >(val2);
+  ecode3 = SWIG_AsVal_size_t(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IDetector_axisBinIndex" "', argument " "3"" of type '" "size_t""'");
+  } 
+  arg3 = static_cast< size_t >(val3);
+  result = ((IDetector const *)arg1)->axisBinIndex(arg2,arg3);
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_totalSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  size_t result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_totalSize" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = ((IDetector const *)arg1)->totalSize();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_applyDetectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  OutputData< double > *arg2 = (OutputData< double > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDetector_applyDetectorResolution", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_applyDetectorResolution" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IDetector_applyDetectorResolution" "', argument " "2"" of type '" "OutputData< double > *""'"); 
+  }
+  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
+  ((IDetector const *)arg1)->applyDetectorResolution(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_detectorResolution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  IDetectorResolution *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectorResolution" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = (IDetectorResolution *)((IDetector const *)arg1)->detectorResolution();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetectorResolution, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_detectionProperties(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  DetectionProperties *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_detectionProperties" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = (DetectionProperties *) &((IDetector const *)arg1)->detectionProperties();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_DetectionProperties, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_createDetectorIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  std::vector< SimulationElement,std::allocator< SimulationElement > > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  OutputData< double > *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "IDetector_createDetectorIntensity", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_createDetectorIntensity" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__vectorT_SimulationElement_std__allocatorT_SimulationElement_t_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IDetector_createDetectorIntensity" "', argument " "2"" of type '" "std::vector< SimulationElement,std::allocator< SimulationElement > > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IDetector_createDetectorIntensity" "', argument " "2"" of type '" "std::vector< SimulationElement,std::allocator< SimulationElement > > const &""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< SimulationElement,std::allocator< SimulationElement > > * >(argp2);
+  result = (OutputData< double > *)((IDetector const *)arg1)->createDetectorIntensity((std::vector< SimulationElement,std::allocator< SimulationElement > > const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_defaultAxesUnits(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Axes::Units result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_defaultAxesUnits" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = (Axes::Units)((IDetector const *)arg1)->defaultAxesUnits();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_numberOfSimulationElements(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  size_t result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_numberOfSimulationElements" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = ((IDetector const *)arg1)->numberOfSimulationElements();
+  resultobj = SWIG_From_size_t(static_cast< size_t >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_IDetector_regionOfInterest(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IDetector *arg1 = (IDetector *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  RegionOfInterest *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector_regionOfInterest" "', argument " "1"" of type '" "IDetector const *""'"); 
+  }
+  arg1 = reinterpret_cast< IDetector * >(argp1);
+  result = (RegionOfInterest *)((IDetector const *)arg1)->regionOfInterest();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_RegionOfInterest, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *IDetector_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -38897,28 +38021,6 @@ SWIGINTERN PyObject *_wrap_IDetector2D_setDetectorParameters(PyObject *SWIGUNUSE
   } 
   arg7 = static_cast< double >(val7);
   (arg1)->setDetectorParameters(arg2,arg3,arg4,arg5,arg6,arg7);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IDetector2D_removeMasks(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IDetector2D *arg1 = (IDetector2D *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IDetector2D, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IDetector2D_removeMasks" "', argument " "1"" of type '" "IDetector2D *""'"); 
-  }
-  arg1 = reinterpret_cast< IDetector2D * >(argp1);
-  (arg1)->removeMasks();
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -40429,6 +39531,51 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_SphericalDetector__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
+  size_t arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  size_t val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  double val4 ;
+  int ecode4 = 0 ;
+  SphericalDetector *result = 0 ;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  ecode1 = SWIG_AsVal_size_t(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_SphericalDetector" "', argument " "1"" of type '" "size_t""'");
+  } 
+  arg1 = static_cast< size_t >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_SphericalDetector" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_SphericalDetector" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "new_SphericalDetector" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = (SphericalDetector *)new SphericalDetector(arg1,arg2,arg3,arg4);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SphericalDetector, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_SphericalDetector__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
   SphericalDetector *arg1 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -40467,7 +39614,35 @@ SWIGINTERN PyObject *_wrap_new_SphericalDetector(PyObject *self, PyObject *args)
     int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_SphericalDetector, SWIG_POINTER_NO_NULL | 0);
     _v = SWIG_CheckState(res);
     if (_v) {
-      return _wrap_new_SphericalDetector__SWIG_2(self, argc, argv);
+      return _wrap_new_SphericalDetector__SWIG_3(self, argc, argv);
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    {
+      int res = SWIG_AsVal_size_t(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        {
+          int res = SWIG_AsVal_double(argv[2], NULL);
+          _v = SWIG_CheckState(res);
+        }
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_new_SphericalDetector__SWIG_2(self, argc, argv);
+          }
+        }
+      }
     }
   }
   if (argc == 6) {
@@ -40516,6 +39691,7 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    SphericalDetector::SphericalDetector()\n"
     "    SphericalDetector::SphericalDetector(size_t,double,double,size_t,double,double)\n"
+    "    SphericalDetector::SphericalDetector(size_t,double,double,double)\n"
     "    SphericalDetector::SphericalDetector(SphericalDetector const &)\n");
   return 0;
 }
@@ -46696,7 +45872,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "IntensityData_swigregister", IntensityData_swigregister, METH_O, NULL},
 	 { "IntensityData_swiginit", IntensityData_swiginit, METH_VARARGS, NULL},
 	 { "new_Beam", _wrap_new_Beam, METH_VARARGS, "\n"
-		"Beam(double wavelength, double alpha, double phi, double intensity)\n"
+		"Beam(double intensity, double wavelength, Direction const & direction)\n"
 		"new_Beam(Beam other) -> Beam\n"
 		"Beam::Beam(const Beam &other)\n"
 		"\n"
@@ -46707,6 +45883,33 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "Beam_horizontalBeam", _wrap_Beam_horizontalBeam, METH_NOARGS, "Beam_horizontalBeam() -> Beam"},
+	 { "Beam_accept", _wrap_Beam_accept, METH_VARARGS, "\n"
+		"Beam_accept(Beam self, INodeVisitor * visitor)\n"
+		"void Beam::accept(INodeVisitor *visitor) const override\n"
+		"\n"
+		""},
+	 { "Beam_getChildren", _wrap_Beam_getChildren, METH_O, "\n"
+		"Beam_getChildren(Beam self) -> std::vector< INode const *,std::allocator< INode const * > >\n"
+		"std::vector< const INode * > Beam::getChildren() const override\n"
+		"\n"
+		""},
+	 { "Beam_intensity", _wrap_Beam_intensity, METH_O, "\n"
+		"Beam_intensity(Beam self) -> double\n"
+		"double Beam::intensity() const\n"
+		"\n"
+		"Returns the beam intensity in neutrons/sec. \n"
+		"\n"
+		""},
+	 { "Beam_wavelength", _wrap_Beam_wavelength, METH_O, "\n"
+		"Beam_wavelength(Beam self) -> double\n"
+		"double Beam::wavelength() const\n"
+		"\n"
+		""},
+	 { "Beam_direction", _wrap_Beam_direction, METH_O, "\n"
+		"Beam_direction(Beam self) -> Direction\n"
+		"Direction Beam::direction() const\n"
+		"\n"
+		""},
 	 { "Beam_getCentralK", _wrap_Beam_getCentralK, METH_O, "\n"
 		"Beam_getCentralK(Beam self) -> kvector_t\n"
 		"kvector_t Beam::getCentralK() const\n"
@@ -46714,25 +45917,9 @@ static PyMethodDef SwigMethods[] = {
 		"Returns the wavevector. \n"
 		"\n"
 		""},
-	 { "Beam_setCentralK", _wrap_Beam_setCentralK, METH_VARARGS, "\n"
-		"Beam_setCentralK(Beam self, double wavelength, double alpha_i, double phi_i)\n"
-		"void Beam::setCentralK(double wavelength, double alpha_i, double phi_i)\n"
-		"\n"
-		"Sets the wavevector in terms of wavelength and incoming angles. \n"
-		"\n"
-		""},
-	 { "Beam_getIntensity", _wrap_Beam_getIntensity, METH_O, "\n"
-		"Beam_getIntensity(Beam self) -> double\n"
-		"double Beam::getIntensity() const\n"
-		"\n"
-		"Returns the beam intensity in neutrons/sec. \n"
-		"\n"
-		""},
-	 { "Beam_setIntensity", _wrap_Beam_setIntensity, METH_VARARGS, "\n"
-		"Beam_setIntensity(Beam self, double intensity)\n"
-		"void Beam::setIntensity(double intensity)\n"
-		"\n"
-		"Sets the beam intensity in neutrons/sec. \n"
+	 { "Beam_getBlochVector", _wrap_Beam_getBlochVector, METH_O, "\n"
+		"Beam_getBlochVector(Beam self) -> kvector_t\n"
+		"kvector_t Beam::getBlochVector() const\n"
 		"\n"
 		""},
 	 { "Beam_footprintFactor", _wrap_Beam_footprintFactor, METH_O, "\n"
@@ -46740,6 +45927,28 @@ static PyMethodDef SwigMethods[] = {
 		"const IFootprintFactor * Beam::footprintFactor() const\n"
 		"\n"
 		"Returns footprint factor. \n"
+		"\n"
+		""},
+	 { "Beam_setWavelength", _wrap_Beam_setWavelength, METH_VARARGS, "\n"
+		"Beam_setWavelength(Beam self, double wavelength)\n"
+		"void Beam::setWavelength(double wavelength)\n"
+		"\n"
+		""},
+	 { "Beam_setDirection", _wrap_Beam_setDirection, METH_VARARGS, "\n"
+		"Beam_setDirection(Beam self, Direction const & direction)\n"
+		"void Beam::setDirection(const Direction &direction)\n"
+		"\n"
+		""},
+	 { "Beam_setInclination", _wrap_Beam_setInclination, METH_VARARGS, "\n"
+		"Beam_setInclination(Beam self, double const alpha)\n"
+		"void Beam::setInclination(const double alpha)\n"
+		"\n"
+		""},
+	 { "Beam_setIntensity", _wrap_Beam_setIntensity, METH_VARARGS, "\n"
+		"Beam_setIntensity(Beam self, double intensity)\n"
+		"void Beam::setIntensity(double intensity)\n"
+		"\n"
+		"Sets the beam intensity in neutrons/sec. \n"
 		"\n"
 		""},
 	 { "Beam_setFootprintFactor", _wrap_Beam_setFootprintFactor, METH_VARARGS, "\n"
@@ -46761,36 +45970,6 @@ static PyMethodDef SwigMethods[] = {
 		"void Beam::setPolarization(const kvector_t bloch_vector)\n"
 		"\n"
 		"Sets the polarization density matrix according to the given Bloch vector. \n"
-		"\n"
-		""},
-	 { "Beam_getBlochVector", _wrap_Beam_getBlochVector, METH_O, "\n"
-		"Beam_getBlochVector(Beam self) -> kvector_t\n"
-		"kvector_t Beam::getBlochVector() const\n"
-		"\n"
-		""},
-	 { "Beam_getWavelength", _wrap_Beam_getWavelength, METH_O, "\n"
-		"Beam_getWavelength(Beam self) -> double\n"
-		"double Beam::getWavelength() const\n"
-		"\n"
-		""},
-	 { "Beam_getAlpha", _wrap_Beam_getAlpha, METH_O, "\n"
-		"Beam_getAlpha(Beam self) -> double\n"
-		"double Beam::getAlpha() const\n"
-		"\n"
-		""},
-	 { "Beam_getPhi", _wrap_Beam_getPhi, METH_O, "\n"
-		"Beam_getPhi(Beam self) -> double\n"
-		"double Beam::getPhi() const\n"
-		"\n"
-		""},
-	 { "Beam_accept", _wrap_Beam_accept, METH_VARARGS, "\n"
-		"Beam_accept(Beam self, INodeVisitor * visitor)\n"
-		"void Beam::accept(INodeVisitor *visitor) const override\n"
-		"\n"
-		""},
-	 { "Beam_getChildren", _wrap_Beam_getChildren, METH_O, "\n"
-		"Beam_getChildren(Beam self) -> std::vector< INode const *,std::allocator< INode const * > >\n"
-		"std::vector< const INode * > Beam::getChildren() const override\n"
 		"\n"
 		""},
 	 { "Beam_swigregister", Beam_swigregister, METH_O, NULL},
@@ -47364,138 +46543,6 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ChiSquaredModule_swigregister", ChiSquaredModule_swigregister, METH_O, NULL},
 	 { "ChiSquaredModule_swiginit", ChiSquaredModule_swiginit, METH_VARARGS, NULL},
-	 { "new_Instrument", _wrap_new_Instrument, METH_VARARGS, "\n"
-		"Instrument()\n"
-		"new_Instrument(Instrument other) -> Instrument\n"
-		"Instrument::Instrument(const Instrument &other)\n"
-		"\n"
-		""},
-	 { "delete_Instrument", _wrap_delete_Instrument, METH_O, "\n"
-		"delete_Instrument(Instrument self)\n"
-		"Instrument::~Instrument()\n"
-		"\n"
-		""},
-	 { "Instrument_accept", _wrap_Instrument_accept, METH_VARARGS, "\n"
-		"Instrument_accept(Instrument self, INodeVisitor * visitor)\n"
-		"void Instrument::accept(INodeVisitor *visitor) const final\n"
-		"\n"
-		""},
-	 { "Instrument_beam", _wrap_Instrument_beam, METH_VARARGS, "\n"
-		"Instrument_beam(Instrument self) -> Beam\n"
-		"Instrument_beam(Instrument self) -> Beam\n"
-		"const Beam& Instrument::beam() const\n"
-		"\n"
-		""},
-	 { "Instrument_setBeam", _wrap_Instrument_setBeam, METH_VARARGS, "\n"
-		"Instrument_setBeam(Instrument self, Beam beam)\n"
-		"void Instrument::setBeam(const Beam &beam)\n"
-		"\n"
-		""},
-	 { "Instrument_setBeamParameters", _wrap_Instrument_setBeamParameters, METH_VARARGS, "\n"
-		"Instrument_setBeamParameters(Instrument self, double wavelength, double alpha_i, double phi_i)\n"
-		"void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i)\n"
-		"\n"
-		"Sets the beam wavelength and incoming angles. \n"
-		"\n"
-		""},
-	 { "Instrument_setBeamIntensity", _wrap_Instrument_setBeamIntensity, METH_VARARGS, "\n"
-		"Instrument_setBeamIntensity(Instrument self, double intensity)\n"
-		"void Instrument::setBeamIntensity(double intensity)\n"
-		"\n"
-		""},
-	 { "Instrument_setBeamPolarization", _wrap_Instrument_setBeamPolarization, METH_VARARGS, "\n"
-		"Instrument_setBeamPolarization(Instrument self, kvector_t bloch_vector)\n"
-		"void Instrument::setBeamPolarization(const kvector_t bloch_vector)\n"
-		"\n"
-		"Sets the beam's polarization according to the given Bloch vector. \n"
-		"\n"
-		""},
-	 { "Instrument_getBeamIntensity", _wrap_Instrument_getBeamIntensity, METH_O, "\n"
-		"Instrument_getBeamIntensity(Instrument self) -> double\n"
-		"double Instrument::getBeamIntensity() const\n"
-		"\n"
-		""},
-	 { "Instrument_getDetector", _wrap_Instrument_getDetector, METH_O, "\n"
-		"Instrument_getDetector(Instrument self) -> IDetector\n"
-		"const IDetector * Instrument::getDetector() const\n"
-		"\n"
-		""},
-	 { "Instrument_detector", _wrap_Instrument_detector, METH_VARARGS, "\n"
-		"Instrument_detector(Instrument self) -> IDetector\n"
-		"Instrument_detector(Instrument self) -> IDetector\n"
-		"const IDetector & Instrument::detector() const\n"
-		"\n"
-		""},
-	 { "Instrument_detector2D", _wrap_Instrument_detector2D, METH_VARARGS, "\n"
-		"Instrument_detector2D(Instrument self) -> IDetector2D\n"
-		"Instrument_detector2D(Instrument self) -> IDetector2D\n"
-		"const IDetector2D & Instrument::detector2D() const\n"
-		"\n"
-		""},
-	 { "Instrument_getDetectorMask", _wrap_Instrument_getDetectorMask, METH_O, "\n"
-		"Instrument_getDetectorMask(Instrument self) -> DetectorMask\n"
-		"const DetectorMask * Instrument::getDetectorMask() const\n"
-		"\n"
-		""},
-	 { "Instrument_getDetectorAxis", _wrap_Instrument_getDetectorAxis, METH_VARARGS, "\n"
-		"Instrument_getDetectorAxis(Instrument self, size_t index) -> IAxis\n"
-		"const IAxis & Instrument::getDetectorAxis(size_t index) const\n"
-		"\n"
-		""},
-	 { "Instrument_getDetectorDimension", _wrap_Instrument_getDetectorDimension, METH_O, "\n"
-		"Instrument_getDetectorDimension(Instrument self) -> size_t\n"
-		"size_t Instrument::getDetectorDimension() const\n"
-		"\n"
-		""},
-	 { "Instrument_setDetector", _wrap_Instrument_setDetector, METH_VARARGS, "\n"
-		"Instrument_setDetector(Instrument self, IDetector detector)\n"
-		"void Instrument::setDetector(const IDetector &detector)\n"
-		"\n"
-		"Sets the detector (axes can be overwritten later) \n"
-		"\n"
-		""},
-	 { "Instrument_setDetectorResolutionFunction", _wrap_Instrument_setDetectorResolutionFunction, METH_VARARGS, "\n"
-		"Instrument_setDetectorResolutionFunction(Instrument self, IResolutionFunction2D p_resolution_function)\n"
-		"void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D &p_resolution_function)\n"
-		"\n"
-		"Sets detector resolution function. \n"
-		"\n"
-		""},
-	 { "Instrument_removeDetectorResolution", _wrap_Instrument_removeDetectorResolution, METH_O, "\n"
-		"Instrument_removeDetectorResolution(Instrument self)\n"
-		"void Instrument::removeDetectorResolution()\n"
-		"\n"
-		"Removes detector resolution function. \n"
-		"\n"
-		""},
-	 { "Instrument_setAnalyzerProperties", _wrap_Instrument_setAnalyzerProperties, METH_VARARGS, "\n"
-		"Instrument_setAnalyzerProperties(Instrument self, kvector_t direction, double efficiency, double total_transmission)\n"
-		"void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)\n"
-		"\n"
-		"Sets the polarization analyzer characteristics of the detector. \n"
-		"\n"
-		""},
-	 { "Instrument_applyDetectorResolution", _wrap_Instrument_applyDetectorResolution, METH_VARARGS, "\n"
-		"Instrument_applyDetectorResolution(Instrument self, IntensityData p_intensity_map)\n"
-		"void Instrument::applyDetectorResolution(OutputData< double > *p_intensity_map) const\n"
-		"\n"
-		"apply the detector resolution to the given intensity map \n"
-		"\n"
-		""},
-	 { "Instrument_initDetector", _wrap_Instrument_initDetector, METH_O, "\n"
-		"Instrument_initDetector(Instrument self)\n"
-		"void Instrument::initDetector()\n"
-		"\n"
-		"init detector with beam settings \n"
-		"\n"
-		""},
-	 { "Instrument_getChildren", _wrap_Instrument_getChildren, METH_O, "\n"
-		"Instrument_getChildren(Instrument self) -> std::vector< INode const *,std::allocator< INode const * > >\n"
-		"std::vector< const INode * > Instrument::getChildren() const\n"
-		"\n"
-		""},
-	 { "Instrument_swigregister", Instrument_swigregister, METH_O, NULL},
-	 { "Instrument_swiginit", Instrument_swiginit, METH_VARARGS, NULL},
 	 { "RelativeDifference", _wrap_RelativeDifference, METH_VARARGS, "\n"
 		"RelativeDifference(SimulationResult dat, SimulationResult ref) -> double\n"
 		"double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)\n"
@@ -47723,13 +46770,6 @@ static PyMethodDef SwigMethods[] = {
 		"Histogram2D * DetectorMask::createHistogram() const\n"
 		"\n"
 		""},
-	 { "DetectorMask_removeMasks", _wrap_DetectorMask_removeMasks, METH_O, "\n"
-		"DetectorMask_removeMasks(DetectorMask self)\n"
-		"void DetectorMask::removeMasks()\n"
-		"\n"
-		"remove all masks and return object to initial state \n"
-		"\n"
-		""},
 	 { "DetectorMask_hasMasks", _wrap_DetectorMask_hasMasks, METH_O, "\n"
 		"DetectorMask_hasMasks(DetectorMask self) -> bool\n"
 		"bool DetectorMask::hasMasks() const\n"
@@ -47777,6 +46817,49 @@ static PyMethodDef SwigMethods[] = {
 		"void IDetector::addAxis(const IAxis &axis)\n"
 		"\n"
 		""},
+	 { "IDetector_setAnalyzerProperties", _wrap_IDetector_setAnalyzerProperties, METH_VARARGS, "\n"
+		"IDetector_setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)\n"
+		"void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)\n"
+		"\n"
+		"Sets the polarization analyzer characteristics of the detector. \n"
+		"\n"
+		""},
+	 { "IDetector_setDetectorResolution", _wrap_IDetector_setDetectorResolution, METH_VARARGS, "\n"
+		"IDetector_setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)\n"
+		"void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)\n"
+		"\n"
+		"Sets the detector resolution. \n"
+		"\n"
+		""},
+	 { "IDetector_setResolutionFunction", _wrap_IDetector_setResolutionFunction, METH_VARARGS, "\n"
+		"IDetector_setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)\n"
+		"void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)\n"
+		"\n"
+		""},
+	 { "IDetector_resetRegionOfInterest", _wrap_IDetector_resetRegionOfInterest, METH_O, "\n"
+		"IDetector_resetRegionOfInterest(IDetector self)\n"
+		"virtual void IDetector::resetRegionOfInterest()=0\n"
+		"\n"
+		"Resets region of interest making whole detector plane available for the simulation. \n"
+		"\n"
+		""},
+	 { "IDetector_detectorMask", _wrap_IDetector_detectorMask, METH_O, "\n"
+		"IDetector_detectorMask(IDetector self) -> DetectorMask\n"
+		"virtual const DetectorMask* IDetector::detectorMask() const =0\n"
+		"\n"
+		"Returns detector masks container. \n"
+		"\n"
+		""},
+	 { "IDetector_getChildren", _wrap_IDetector_getChildren, METH_O, "\n"
+		"IDetector_getChildren(IDetector self) -> std::vector< INode const *,std::allocator< INode const * > >\n"
+		"std::vector< const INode * > IDetector::getChildren() const override\n"
+		"\n"
+		""},
+	 { "IDetector_iterate", _wrap_IDetector_iterate, METH_VARARGS, "\n"
+		"IDetector_iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)\n"
+		"void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const\n"
+		"\n"
+		""},
 	 { "IDetector_axis", _wrap_IDetector_axis, METH_VARARGS, "\n"
 		"IDetector_axis(IDetector self, size_t index) -> IAxis\n"
 		"const IAxis & IDetector::axis(size_t index) const\n"
@@ -47803,32 +46886,6 @@ static PyMethodDef SwigMethods[] = {
 		"Returns total number of pixels. \n"
 		"\n"
 		""},
-	 { "IDetector_detectorMask", _wrap_IDetector_detectorMask, METH_O, "\n"
-		"IDetector_detectorMask(IDetector self) -> DetectorMask\n"
-		"virtual const DetectorMask* IDetector::detectorMask() const =0\n"
-		"\n"
-		"Returns detector masks container. \n"
-		"\n"
-		""},
-	 { "IDetector_setAnalyzerProperties", _wrap_IDetector_setAnalyzerProperties, METH_VARARGS, "\n"
-		"IDetector_setAnalyzerProperties(IDetector self, kvector_t direction, double efficiency, double total_transmission)\n"
-		"void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency, double total_transmission)\n"
-		"\n"
-		"Sets the polarization analyzer characteristics of the detector. \n"
-		"\n"
-		""},
-	 { "IDetector_setDetectorResolution", _wrap_IDetector_setDetectorResolution, METH_VARARGS, "\n"
-		"IDetector_setDetectorResolution(IDetector self, IDetectorResolution p_detector_resolution)\n"
-		"void IDetector::setDetectorResolution(const IDetectorResolution &p_detector_resolution)\n"
-		"\n"
-		"Sets the detector resolution. \n"
-		"\n"
-		""},
-	 { "IDetector_setResolutionFunction", _wrap_IDetector_setResolutionFunction, METH_VARARGS, "\n"
-		"IDetector_setResolutionFunction(IDetector self, IResolutionFunction2D resFunc)\n"
-		"void IDetector::setResolutionFunction(const IResolutionFunction2D &resFunc)\n"
-		"\n"
-		""},
 	 { "IDetector_applyDetectorResolution", _wrap_IDetector_applyDetectorResolution, METH_VARARGS, "\n"
 		"IDetector_applyDetectorResolution(IDetector self, IntensityData p_intensity_map)\n"
 		"void IDetector::applyDetectorResolution(OutputData< double > *p_intensity_map) const\n"
@@ -47836,32 +46893,11 @@ static PyMethodDef SwigMethods[] = {
 		"Applies the detector resolution to the given intensity maps. \n"
 		"\n"
 		""},
-	 { "IDetector_removeDetectorResolution", _wrap_IDetector_removeDetectorResolution, METH_O, "\n"
-		"IDetector_removeDetectorResolution(IDetector self)\n"
-		"void IDetector::removeDetectorResolution()\n"
-		"\n"
-		"Removes detector resolution function. \n"
-		"\n"
-		""},
 	 { "IDetector_detectorResolution", _wrap_IDetector_detectorResolution, METH_O, "\n"
 		"IDetector_detectorResolution(IDetector self) -> IDetectorResolution\n"
 		"const IDetectorResolution * IDetector::detectorResolution() const\n"
 		"\n"
 		"Returns a pointer to detector resolution object. \n"
-		"\n"
-		""},
-	 { "IDetector_regionOfInterest", _wrap_IDetector_regionOfInterest, METH_O, "\n"
-		"IDetector_regionOfInterest(IDetector self) -> RegionOfInterest const *\n"
-		"virtual const RegionOfInterest* IDetector::regionOfInterest() const =0\n"
-		"\n"
-		"Returns region of interest if exists. \n"
-		"\n"
-		""},
-	 { "IDetector_resetRegionOfInterest", _wrap_IDetector_resetRegionOfInterest, METH_O, "\n"
-		"IDetector_resetRegionOfInterest(IDetector self)\n"
-		"virtual void IDetector::resetRegionOfInterest()=0\n"
-		"\n"
-		"Resets region of interest making whole detector plane available for the simulation. \n"
 		"\n"
 		""},
 	 { "IDetector_detectionProperties", _wrap_IDetector_detectionProperties, METH_O, "\n"
@@ -47892,14 +46928,11 @@ static PyMethodDef SwigMethods[] = {
 		"Returns number of simulation elements. \n"
 		"\n"
 		""},
-	 { "IDetector_getChildren", _wrap_IDetector_getChildren, METH_O, "\n"
-		"IDetector_getChildren(IDetector self) -> std::vector< INode const *,std::allocator< INode const * > >\n"
-		"std::vector< const INode * > IDetector::getChildren() const override\n"
+	 { "IDetector_regionOfInterest", _wrap_IDetector_regionOfInterest, METH_O, "\n"
+		"IDetector_regionOfInterest(IDetector self) -> RegionOfInterest const *\n"
+		"virtual const RegionOfInterest* IDetector::regionOfInterest() const =0\n"
 		"\n"
-		""},
-	 { "IDetector_iterate", _wrap_IDetector_iterate, METH_VARARGS, "\n"
-		"IDetector_iterate(IDetector self, std::function< void (IDetector::const_iterator) > func, bool visit_masks=False)\n"
-		"void IDetector::iterate(std::function< void(const_iterator)> func, bool visit_masks=false) const\n"
+		"Returns region of interest if exists. \n"
 		"\n"
 		""},
 	 { "IDetector_swigregister", IDetector_swigregister, METH_O, NULL},
@@ -47918,13 +46951,6 @@ static PyMethodDef SwigMethods[] = {
 		"void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y, double y_min, double y_max)\n"
 		"\n"
 		"Sets detector parameters using angle ranges. \n"
-		"\n"
-		""},
-	 { "IDetector2D_removeMasks", _wrap_IDetector2D_removeMasks, METH_O, "\n"
-		"IDetector2D_removeMasks(IDetector2D self)\n"
-		"void IDetector2D::removeMasks()\n"
-		"\n"
-		"Removes all masks from the detector. \n"
 		"\n"
 		""},
 	 { "IDetector2D_detectorMask", _wrap_IDetector2D_detectorMask, METH_O, "\n"
@@ -48130,6 +47156,7 @@ static PyMethodDef SwigMethods[] = {
 	 { "new_SphericalDetector", _wrap_new_SphericalDetector, METH_VARARGS, "\n"
 		"SphericalDetector()\n"
 		"SphericalDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)\n"
+		"SphericalDetector(size_t n_bin, double width, double phi, double alpha)\n"
 		"new_SphericalDetector(SphericalDetector other) -> SphericalDetector\n"
 		"SphericalDetector::SphericalDetector(const SphericalDetector &other)\n"
 		"\n"
@@ -48646,7 +47673,7 @@ static PyMethodDef SwigMethods[] = {
 		"new_IntensityDataIOFactory() -> IntensityDataIOFactory\n"
 		"\n"
 		"\n"
-		"Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends woth \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.\n"
+		"Provides users with possibility to read and write IntensityData from/to files in different format. Type of the file will be deduced from file name. *.txt - ASCII file with 2D array [nrow][ncol], layout as in numpy. *.int - BornAgain internal ASCII format. *.tif - 32-bits tiff file. If file name ends with \"*.gz\" or \"*.bz2\" the file will be zipped on the fly using appropriate algorithm.\n"
 		"\n"
 		"Usage:\n"
 		"\n"
@@ -48830,9 +47857,6 @@ static void *_p_FootprintSquareTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory
 static void *_p_IDetectorResolutionTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *)  ((IDetectorResolution *) x));
 }
-static void *_p_InstrumentTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *)  ((Instrument *) x));
-}
 static void *_p_IFootprintFactorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *)  ((IFootprintFactor *) x));
 }
@@ -48926,11 +47950,11 @@ static void *_p_ResolutionFunction2DGaussianTo_p_IParametricComponent(void *x, i
 static void *_p_IFootprintFactorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParametricComponent *) (INode *) ((IFootprintFactor *) x));
 }
-static void *_p_InstrumentTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *) ((Instrument *) x));
-}
 static void *_p_BeamTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParametricComponent *) (INode *) ((Beam *) x));
+}
+static void *_p_IsGISAXSDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
 }
 static void *_p_SphericalDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *) ((SphericalDetector *) x));
@@ -48940,9 +47964,6 @@ static void *_p_RectangularDetectorTo_p_IParametricComponent(void *x, int *SWIGU
 }
 static void *_p_IDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParametricComponent *) (INode *) ((IDetector *) x));
-}
-static void *_p_IsGISAXSDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
 }
 static void *_p_ParameterDistributionTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParametricComponent *)  ((ParameterDistribution *) x));
@@ -48974,20 +47995,17 @@ static void *_p_ResolutionFunction2DGaussianTo_p_IComponent(void *x, int *SWIGUN
 static void *_p_IFootprintFactorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IComponent *) (IParametricComponent *)(INode *) ((IFootprintFactor *) x));
 }
-static void *_p_InstrumentTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IComponent *) (IParametricComponent *)(INode *) ((Instrument *) x));
-}
 static void *_p_BeamTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IComponent *) (IParametricComponent *)(INode *) ((Beam *) x));
+}
+static void *_p_SphericalDetectorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IDetector *)(IDetector2D *) ((SphericalDetector *) x));
 }
 static void *_p_RectangularDetectorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IComponent *) (IParametricComponent *)(INode *)(IDetector *)(IDetector2D *) ((RectangularDetector *) x));
 }
 static void *_p_IDetectorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IComponent *) (IParametricComponent *)(INode *) ((IDetector *) x));
-}
-static void *_p_SphericalDetectorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IComponent *) (IParametricComponent *)(INode *)(IDetector *)(IDetector2D *) ((SphericalDetector *) x));
 }
 static void *_p_IsGISAXSDetectorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IComponent *) (IParametricComponent *)(INode *)(IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
@@ -49029,6 +48047,7 @@ static swig_type_info _swigt__p_Bin1D = {"_p_Bin1D", "Bin1D *", 0, 0, (void*)0, 
 static swig_type_info _swigt__p_ChiSquaredModule = {"_p_ChiSquaredModule", "ChiSquaredModule *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_DetectionProperties = {"_p_DetectionProperties", "DetectionProperties *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_DetectorMask = {"_p_DetectorMask", "DetectorMask *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Direction = {"_p_Direction", "Direction *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Ellipse = {"_p_Ellipse", "Ellipse *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FootprintGauss = {"_p_FootprintGauss", "FootprintGauss *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_FootprintSquare = {"_p_FootprintSquare", "FootprintSquare *", 0, 0, (void*)0, 0};
@@ -49056,7 +48075,6 @@ static swig_type_info _swigt__p_IResolutionFunction2D = {"_p_IResolutionFunction
 static swig_type_info _swigt__p_IShape2D = {"_p_IShape2D", "IShape2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IUnitConverter = {"_p_IUnitConverter", "IUnitConverter *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IVarianceFunction = {"_p_IVarianceFunction", "IVarianceFunction *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Instrument = {"_p_Instrument", "Instrument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IntensityDataIOFactory = {"_p_IntensityDataIOFactory", "IntensityDataIOFactory *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IntensityFunctionLog = {"_p_IntensityFunctionLog", "IntensityFunctionLog *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IntensityFunctionSqrt = {"_p_IntensityFunctionSqrt", "IntensityFunctionSqrt *", 0, 0, (void*)0, 0};
@@ -49151,6 +48169,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ChiSquaredModule,
   &_swigt__p_DetectionProperties,
   &_swigt__p_DetectorMask,
+  &_swigt__p_Direction,
   &_swigt__p_Ellipse,
   &_swigt__p_FootprintGauss,
   &_swigt__p_FootprintSquare,
@@ -49176,7 +48195,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IShape2D,
   &_swigt__p_IUnitConverter,
   &_swigt__p_IVarianceFunction,
-  &_swigt__p_Instrument,
   &_swigt__p_IntensityDataIOFactory,
   &_swigt__p_IntensityFunctionLog,
   &_swigt__p_IntensityFunctionSqrt,
@@ -49273,6 +48291,7 @@ static swig_cast_info _swigc__p_Bin1D[] = {  {&_swigt__p_Bin1D, 0, 0, 0},{0, 0, 
 static swig_cast_info _swigc__p_ChiSquaredModule[] = {  {&_swigt__p_ChiSquaredModule, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_DetectionProperties[] = {  {&_swigt__p_DetectionProperties, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_DetectorMask[] = {  {&_swigt__p_DetectorMask, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Direction[] = {  {&_swigt__p_Direction, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Ellipse[] = {  {&_swigt__p_Ellipse, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FootprintGauss[] = {  {&_swigt__p_FootprintGauss, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_FootprintSquare[] = {  {&_swigt__p_FootprintSquare, 0, 0, 0},{0, 0, 0, 0}};
@@ -49284,23 +48303,22 @@ static swig_cast_info _swigc__p_IChiSquaredModule[] = {  {&_swigt__p_IChiSquared
 static swig_cast_info _swigc__p_ParameterPool[] = {{&_swigt__p_ParameterPool, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_ICloneable, 0, 0},  {&_swigt__p_ScanResolution, _p_ScanResolutionTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_ICloneable, 0, 0},  {&_swigt__p_Line, _p_LineTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_Rectangle, _p_RectangleTo_p_ICloneable, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_IShape2D, _p_IShape2DTo_p_ICloneable, 0, 0},  {&_swigt__p_Ellipse, _p_EllipseTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_HorizontalLine, _p_HorizontalLineTo_p_ICloneable, 0, 0},  {&_swigt__p_VerticalLine, _p_VerticalLineTo_p_ICloneable, 0, 0},  {&_swigt__p_IChiSquaredModule, _p_IChiSquaredModuleTo_p_ICloneable, 0, 0},  {&_swigt__p_ChiSquaredModule, _p_ChiSquaredModuleTo_p_ICloneable, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_ICloneable, 0, 0},  {&_swigt__p_Polygon, _p_PolygonTo_p_ICloneable, 0, 0},  {&_swigt__p_IUnitConverter, _p_IUnitConverterTo_p_ICloneable, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParameterDistribution[] = {{&_swigt__p_ParameterDistribution, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IComponent[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IComponent, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IComponent, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IComponent, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IComponent, 0, 0},  {&_swigt__p_IParametricComponent, _p_IParametricComponentTo_p_IComponent, 0, 0},  {&_swigt__p_IComponent, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IComponent, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IComponent, 0, 0},  {&_swigt__p_Instrument, _p_InstrumentTo_p_IComponent, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IComponent, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IComponent, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IComponent[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IComponent, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IComponent, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IComponent, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IComponent, 0, 0},  {&_swigt__p_IParametricComponent, _p_IParametricComponentTo_p_IComponent, 0, 0},  {&_swigt__p_IComponent, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IComponent, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IComponent, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IComponent, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IComponent, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IComponent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector[] = {  {&_swigt__p_IDetector, 0, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IDetector, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IDetector, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IDetector, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IDetector, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector2D[] = {  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IDetector2D, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IDetector2D, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IDetector2D, 0, 0},  {&_swigt__p_IDetector2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetectorResolution[] = {  {&_swigt__p_IDetectorResolution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFootprintFactor[] = {  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IFootprintFactor, 0, 0},  {&_swigt__p_IFootprintFactor, 0, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IFootprintFactor, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IHistogram[] = {  {&_swigt__p_IHistogram, 0, 0, 0},  {&_swigt__p_Histogram2D, _p_Histogram2DTo_p_IHistogram, 0, 0},  {&_swigt__p_Histogram1D, _p_Histogram1DTo_p_IHistogram, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IIntensityFunction[] = {  {&_swigt__p_IntensityFunctionSqrt, _p_IntensityFunctionSqrtTo_p_IIntensityFunction, 0, 0},  {&_swigt__p_IIntensityFunction, 0, 0, 0},  {&_swigt__p_IntensityFunctionLog, _p_IntensityFunctionLogTo_p_IIntensityFunction, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_Beam, _p_BeamTo_p_INode, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_INode, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_INode, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_INode, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_INode, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_INode, 0, 0},  {&_swigt__p_Instrument, _p_InstrumentTo_p_INode, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_INode, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_INode, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_INode, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_INode, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_INode, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_INode, 0, 0},  {&_swigt__p_INode, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_INode, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_INode, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_INode, 0, 0},  {&_swigt__p_Beam, _p_BeamTo_p_INode, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_INode, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_INode, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_INode, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_INode, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_INode, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_INode, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_INode, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IParametricComponent[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IParametricComponent, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IParametricComponent, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_Instrument, _p_InstrumentTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IParametricComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IParametricComponent, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IParametricComponent[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IParametricComponent, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IParametricComponent, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IParametricComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IParametricComponent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IPixel[] = {  {&_swigt__p_IPixel, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRangedDistribution[] = {  {&_swigt__p_IRangedDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IResolutionFunction2D[] = {  {&_swigt__p_IResolutionFunction2D, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IResolutionFunction2D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IShape2D[] = {  {&_swigt__p_Polygon, _p_PolygonTo_p_IShape2D, 0, 0},  {&_swigt__p_Line, _p_LineTo_p_IShape2D, 0, 0},  {&_swigt__p_VerticalLine, _p_VerticalLineTo_p_IShape2D, 0, 0},  {&_swigt__p_Ellipse, _p_EllipseTo_p_IShape2D, 0, 0},  {&_swigt__p_HorizontalLine, _p_HorizontalLineTo_p_IShape2D, 0, 0},  {&_swigt__p_Rectangle, _p_RectangleTo_p_IShape2D, 0, 0},  {&_swigt__p_IShape2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IUnitConverter[] = {  {&_swigt__p_IUnitConverter, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IVarianceFunction[] = {  {&_swigt__p_IVarianceFunction, 0, 0, 0},  {&_swigt__p_VarianceConstantFunction, _p_VarianceConstantFunctionTo_p_IVarianceFunction, 0, 0},  {&_swigt__p_VarianceSimFunction, _p_VarianceSimFunctionTo_p_IVarianceFunction, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Instrument[] = {  {&_swigt__p_Instrument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IntensityDataIOFactory[] = {  {&_swigt__p_IntensityDataIOFactory, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IntensityFunctionLog[] = {  {&_swigt__p_IntensityFunctionLog, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IntensityFunctionSqrt[] = {  {&_swigt__p_IntensityFunctionSqrt, 0, 0, 0},{0, 0, 0, 0}};
@@ -49395,6 +48413,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ChiSquaredModule,
   _swigc__p_DetectionProperties,
   _swigc__p_DetectorMask,
+  _swigc__p_Direction,
   _swigc__p_Ellipse,
   _swigc__p_FootprintGauss,
   _swigc__p_FootprintSquare,
@@ -49420,7 +48439,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IShape2D,
   _swigc__p_IUnitConverter,
   _swigc__p_IVarianceFunction,
-  _swigc__p_Instrument,
   _swigc__p_IntensityDataIOFactory,
   _swigc__p_IntensityFunctionLog,
   _swigc__p_IntensityFunctionSqrt,

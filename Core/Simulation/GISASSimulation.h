@@ -26,6 +26,7 @@ class ISampleBuilder;
 
 class GISASSimulation : public ISimulation2D {
 public:
+    GISASSimulation(const Beam& beam, const MultiLayer& sample, const IDetector& detector);
     GISASSimulation();
     ~GISASSimulation() {}
 

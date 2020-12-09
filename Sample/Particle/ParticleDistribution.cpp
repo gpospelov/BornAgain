@@ -16,6 +16,7 @@
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"
+#include "Param/Node/NodeUtils.h"
 #include "Param/Varia/ParameterUtils.h"
 #include "Sample/Particle/IParticle.h"
 #include <map>
@@ -49,25 +50,34 @@ void ParticleDistribution::rotate(const IRotation& rotation) {
 //! Returns particle clones with parameter values drawn from distribution.
 
 SafePointerVector<IParticle> ParticleDistribution::generateParticles() const {
-    std::unique_ptr<ParameterPool> pool{m_particle->createParameterTree()};
+    // createParameterTree
+    ParameterPool pool;
+    for (const INode* child : m_particle->progeny()) {
+        const std::string path = NodeUtils::nodePath(child, m_particle->parent()) + "/";
+        child->parameterPool()->copyToExternalPool(path, &pool);
+    }
     std::string main_par_name = m_par_distribution.getMainParameterName();
-    double main_par_value = pool->getUniqueMatch(main_par_name)->value();
+    double main_par_value = pool.getUniqueMatch(main_par_name)->value();
 
     // Preset link ratios:
     std::map<std::string, double> linked_ratios;
     for (const std::string& name : m_par_distribution.getLinkedParameterNames())
         linked_ratios[name] =
-            main_par_value == 0 ? 1.0 : pool->getUniqueMatch(name)->value() / main_par_value;
+            main_par_value == 0 ? 1.0 : pool.getUniqueMatch(name)->value() / main_par_value;
 
     // Draw distribution samples; for each sample, create one particle clone:
     std::vector<ParameterSample> main_par_samples = m_par_distribution.generateSamples();
     SafePointerVector<IParticle> result;
     for (const ParameterSample& main_sample : main_par_samples) {
         IParticle* particle_clone = m_particle->clone();
-        std::unique_ptr<ParameterPool> new_pool{particle_clone->createParameterTree()};
-        new_pool->setUniqueMatchValue(main_par_name, main_sample.value);
+        ParameterPool pool2;
+        for (const INode* child : particle_clone->progeny()) {
+            const std::string path = NodeUtils::nodePath(child, particle_clone->parent()) + "/";
+            child->parameterPool()->copyToExternalPool(path, &pool2);
+        }
+        pool2.setUniqueMatchValue(main_par_name, main_sample.value);
         for (const auto& it : linked_ratios)
-            new_pool->setUniqueMatchValue(it.first, main_sample.value * it.second);
+            pool2.setUniqueMatchValue(it.first, main_sample.value * it.second);
         particle_clone->setAbundance(abundance() * main_sample.weight);
         result.push_back(particle_clone);
     }

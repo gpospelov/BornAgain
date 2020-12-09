@@ -1678,6 +1678,7 @@ class vector_pvacuum_double_t(object):
 # Register vector_pvacuum_double_t in _libBornAgainCore:
 _libBornAgainCore.vector_pvacuum_double_t_swigregister(vector_pvacuum_double_t)
 
+import libBornAgainFit
 import libBornAgainBase
 class kvector_t(object):
     r"""Proxy of C++ BasicVector3D< double > class."""
@@ -3603,6 +3604,24 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainCore.ISimulation_instrument(self, *args)
 
+    def beam(self, *args):
+        r"""
+        beam(ISimulation self) -> Beam
+        beam(ISimulation self) -> Beam const &
+        const Beam& ISimulation::beam() const
+
+        """
+        return _libBornAgainCore.ISimulation_beam(self, *args)
+
+    def detector(self, *args):
+        r"""
+        detector(ISimulation self) -> IDetector
+        detector(ISimulation self) -> IDetector const &
+        const IDetector& ISimulation::detector() const
+
+        """
+        return _libBornAgainCore.ISimulation_detector(self, *args)
+
     def setBeamIntensity(self, intensity):
         r"""
         setBeamIntensity(ISimulation self, double intensity)
@@ -3610,14 +3629,6 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 
         """
         return _libBornAgainCore.ISimulation_setBeamIntensity(self, intensity)
-
-    def getBeamIntensity(self):
-        r"""
-        getBeamIntensity(ISimulation self) -> double
-        double ISimulation::getBeamIntensity() const
-
-        """
-        return _libBornAgainCore.ISimulation_getBeamIntensity(self)
 
     def setBeamPolarization(self, bloch_vector):
         r"""
@@ -3863,16 +3874,6 @@ class ISimulation2D(ISimulation):
         """
         return _libBornAgainCore.ISimulation2D_setDetector(self, detector)
 
-    def removeMasks(self):
-        r"""
-        removeMasks(ISimulation2D self)
-        void ISimulation2D::removeMasks()
-
-        removes all masks from the detector 
-
-        """
-        return _libBornAgainCore.ISimulation2D_removeMasks(self)
-
     def addMask(self, shape, mask_value=True):
         r"""
         addMask(ISimulation2D self, IShape2D const & shape, bool mask_value=True)
@@ -3928,13 +3929,14 @@ class GISASSimulation(ISimulation2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, *args):
         r"""
+        __init__(GISASSimulation self, Beam const & beam, MultiLayer const & sample, IDetector const & detector) -> GISASSimulation
         __init__(GISASSimulation self) -> GISASSimulation
         GISASSimulation::GISASSimulation()
 
         """
-        _libBornAgainCore.GISASSimulation_swiginit(self, _libBornAgainCore.new_GISASSimulation())
+        _libBornAgainCore.GISASSimulation_swiginit(self, _libBornAgainCore.new_GISASSimulation(*args))
     __swig_destroy__ = _libBornAgainCore.delete_GISASSimulation
 
     def clone(self):
@@ -4209,13 +4211,14 @@ class OffSpecSimulation(ISimulation2D):
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
-    def __init__(self):
+    def __init__(self, *args):
         r"""
+        __init__(OffSpecSimulation self, Beam const & beam, MultiLayer const & sample, IDetector const & detector) -> OffSpecSimulation
         __init__(OffSpecSimulation self) -> OffSpecSimulation
         OffSpecSimulation::OffSpecSimulation()
 
         """
-        _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation())
+        _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation(*args))
     __swig_destroy__ = _libBornAgainCore.delete_OffSpecSimulation
 
     def clone(self):

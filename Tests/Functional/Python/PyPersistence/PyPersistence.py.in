@@ -34,8 +34,8 @@ def get_simulation_DepthProbe():
     Returns custom simulation in the case of depth probe.
     """
     simulation = example.get_simulation()
-    beam = simulation.instrument().beam()
-    wavelength = beam.getWavelength()
+    beam = simulation.beam()
+    wavelength = beam.wavelength()
     incl_axis = simulation.getAlphaAxis()
     z_axis = simulation.getZAxis()
     footprint = beam.footprintFactor()
@@ -62,7 +62,7 @@ def get_simulation_GenericExample():
     threads settings etc) remains intact.
     """
     simulation = example.get_simulation()
-    detector = simulation.instrument().getDetector()
+    detector = simulation.detector()
 
     # preserving axes range, making less bins
     ax = detector.axis(0)

@@ -71,7 +71,7 @@ Eigen::Matrix2cd ComputeDWBAPol::evaluatePol(const WavevectorInfo& wavevectors) 
     // since both eigenvalues are identical, this does not influence the result.
     Eigen::Matrix2cd ff_BA;
 
-    double wavelength = wavevectors.getWavelength();
+    double wavelength = wavevectors.wavelength();
 
     // The following matrices each contain the four polarization conditions
     // (p->p, p->m, m->p, m->m)

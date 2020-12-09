@@ -1,5 +1,6 @@
 #include "Sample/Slice/KzComputation.h"
 #include "Base/Const/Units.h"
+#include "Base/Vector/Direction.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"

@@ -17,7 +17,7 @@ protected:
 OffSpecularConverterTest::OffSpecularConverterTest()
     : m_detector(100, 0.0, 5.0 * Units::deg, 70, -2.0 * Units::deg, 1.5)
     , m_alpha_i_axis("alpha_i", 51, 0.0, 7.0 * Units::deg)
-    , m_beam(1.0, 1.0 * Units::deg, 0.0, 1.0) {}
+    , m_beam(1.0, 1.0, {1.0 * Units::deg, 0.0}) {}
 
 TEST_F(OffSpecularConverterTest, OffSpecularConverter) {
     OffSpecularConverter converter(m_detector, m_beam, m_alpha_i_axis);

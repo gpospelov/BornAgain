@@ -14,6 +14,7 @@
 
 #include "Device/Detector/SphericalPixel.h"
 #include "Base/Axis/Bin.h"
+#include "Base/Vector/Direction.h"
 
 SphericalPixel::SphericalPixel(const Bin1D& alpha_bin, const Bin1D& phi_bin)
     : m_alpha(alpha_bin.m_lower)

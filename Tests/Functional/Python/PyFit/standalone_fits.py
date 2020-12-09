@@ -4,8 +4,6 @@ Fitting scalar and residual based objective functions
 import sys
 import os
 import unittest
-
-sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 import numpy as np
 

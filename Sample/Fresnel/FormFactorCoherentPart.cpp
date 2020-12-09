@@ -41,7 +41,7 @@ FormFactorCoherentPart::~FormFactorCoherentPart() = default;
 
 complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element) const {
     WavevectorInfo wavevectors(sim_element.getKi(), sim_element.getMeanKf(),
-                               sim_element.getWavelength());
+                               sim_element.wavelength());
 
     auto in_coeffs = m_fresnel_map->getInCoefficients(sim_element, m_layer_index);
     auto out_coeffs = m_fresnel_map->getOutCoefficients(sim_element, m_layer_index);
@@ -51,7 +51,7 @@ complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element)
 
 Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& sim_element) const {
     WavevectorInfo wavevectors(sim_element.getKi(), sim_element.getMeanKf(),
-                               sim_element.getWavelength());
+                               sim_element.wavelength());
 
     auto in_coeffs = m_fresnel_map->getInCoefficients(sim_element, m_layer_index);
     auto out_coeffs = m_fresnel_map->getOutCoefficients(sim_element, m_layer_index);

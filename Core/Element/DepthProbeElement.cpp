@@ -14,6 +14,7 @@
 
 #include "Core/Element/DepthProbeElement.h"
 #include "Base/Axis/IAxis.h"
+#include "Base/Vector/Direction.h"
 
 const double phi_i_0 = 0.0;
 

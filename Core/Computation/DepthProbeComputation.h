@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_CORE_COMPUTATION_DEPTHPROBECOMPUTATION_H
 #define BORNAGAIN_CORE_COMPUTATION_DEPTHPROBECOMPUTATION_H
 

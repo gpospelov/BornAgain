@@ -20,12 +20,16 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
+GISASSimulation::GISASSimulation(const Beam& beam, const MultiLayer& sample,
+                                 const IDetector& detector)
+    : ISimulation2D(beam, sample, detector) {}
+
 GISASSimulation::GISASSimulation() {
     initialize();
 }
 
 void GISASSimulation::prepareSimulation() {
-    if (instrument().getDetectorDimension() != 2)
+    if (detector().dimension() != 2)
         throw std::runtime_error("GISASSimulation::prepareSimulation() "
                                  "-> Error. The detector was not properly configured.");
     instrument().initDetector();

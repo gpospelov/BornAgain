@@ -41,7 +41,7 @@ complex_t RefractiveMaterialImpl::materialData() const {
 }
 
 complex_t RefractiveMaterialImpl::scalarSubtrSLD(const WavevectorInfo& wavevectors) const {
-    double wavelength = wavevectors.getWavelength();
+    double wavelength = wavevectors.wavelength();
     return M_PI / wavelength / wavelength * refractiveIndex2(wavelength);
 }
 

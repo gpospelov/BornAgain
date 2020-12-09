@@ -1,8 +1,9 @@
 """
 Square lattice of boxes on substrate (including the specular peak)
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, nm, nm2, kvector_t
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample():
@@ -50,25 +51,19 @@ def get_sample():
 
 
 def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(101, -2.0*deg, 2.0*deg, 101, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
+    nx = 101
+    ny = 101
+    detector = ba.SphericalDetector(nx, -2.0*deg, 2.0*deg, ny, 0.0*deg, 2.0*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
     simulation.getOptions().setUseAvgMaterials(True)
     simulation.getOptions().setIncludeSpecular(True)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    sample = get_sample()
     simulation = get_simulation()
-    simulation.setSample(sample)
     simulation.runSimulation()
     return simulation.result()
 

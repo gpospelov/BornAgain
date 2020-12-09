@@ -17,11 +17,15 @@
 #include "Device/Histo/Histogram2D.h"
 #include "Device/Resolution/IResolutionFunction2D.h"
 
-Instrument::Instrument() : m_detector(new SphericalDetector), m_beam(Beam::horizontalBeam()) {
+Instrument::Instrument(const Beam& beam, const IDetector& detector)
+    : m_beam(beam), m_detector(detector.clone()) {
     setName("Instrument");
     registerChild(m_detector.get());
     registerChild(&m_beam);
+    initDetector();
 }
+
+Instrument::Instrument() : Instrument(Beam::horizontalBeam(), SphericalDetector()) {}
 
 Instrument::Instrument(const Instrument& other) : INode(), m_beam(other.m_beam) {
     if (other.m_detector)
@@ -63,26 +67,11 @@ std::vector<const INode*> Instrument::getChildren() const {
     return result;
 }
 
-void Instrument::setDetectorResolutionFunction(const IResolutionFunction2D& p_resolution_function) {
-    m_detector->setResolutionFunction(p_resolution_function);
-}
-
-void Instrument::removeDetectorResolution() {
-    m_detector->removeDetectorResolution();
-}
-
-void Instrument::applyDetectorResolution(OutputData<double>* p_intensity_map) const {
-    m_detector->applyDetectorResolution(p_intensity_map);
-}
-
 void Instrument::setBeamParameters(double wavelength, double alpha_i, double phi_i) {
-    m_beam.setCentralK(wavelength, alpha_i, phi_i);
+    m_beam.setWavelength(wavelength);
+    m_beam.setDirection({alpha_i, phi_i});
     if (m_detector)
         initDetector();
-}
-
-const DetectorMask* Instrument::getDetectorMask() const {
-    return m_detector->detectorMask();
 }
 
 void Instrument::setBeam(const Beam& beam) {
@@ -97,10 +86,6 @@ void Instrument::setBeamIntensity(double intensity) {
 
 void Instrument::setBeamPolarization(const kvector_t bloch_vector) {
     m_beam.setPolarization(bloch_vector);
-}
-
-double Instrument::getBeamIntensity() const {
-    return m_beam.getIntensity();
 }
 
 const IDetector* Instrument::getDetector() const {
@@ -132,17 +117,4 @@ const IDetector2D& Instrument::detector2D() const {
     if (!p)
         throw std::runtime_error("Error: Detector is not twodimensional");
     return *p;
-}
-
-const IAxis& Instrument::getDetectorAxis(size_t index) const {
-    return m_detector->axis(index);
-}
-
-size_t Instrument::getDetectorDimension() const {
-    return m_detector->dimension();
-}
-
-void Instrument::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                       double total_transmission) {
-    m_detector->setAnalyzerProperties(direction, efficiency, total_transmission);
 }

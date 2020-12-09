@@ -3,8 +3,9 @@ Simulation of grating using very long boxes and 1D lattice.
 Monte-carlo integration is used to get rid of
 large-particle form factor oscillations.
 """
+import numpy, sys
 import bornagain as ba
-from bornagain import deg, angstrom, nm, micrometer
+from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
 
 
 def get_sample(lattice_rotation_angle=0.0*deg):
@@ -52,26 +53,18 @@ def get_sample(lattice_rotation_angle=0.0*deg):
 
 
 def get_simulation():
-    """
-    Create and return GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -0.5*deg, 0.5*deg, 200, 0.0*deg,
-                                     0.6*deg)
-    simulation.setBeamParameters(1.34*angstrom, 0.4*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e+08)
+    beam = ba.Beam(100000000.0, 0.134*nm, ba.Direction(0.4*deg, 0.0*deg))
+    nx = 200
+    ny = 200
+    detector = ba.SphericalDetector(nx, -0.5*deg, 0.5*deg, ny, 0.0*deg, 0.6*deg)
+
+    simulation = ba.GISASSimulation(beam, get_sample(), detector)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
     return simulation
 
 
 def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
     simulation = get_simulation()
-    simulation.setSample(get_sample())
-    if not "__no_terminal__" in globals():
-        simulation.setTerminalProgressMonitor()
     simulation.runSimulation()
     return simulation.result()
 

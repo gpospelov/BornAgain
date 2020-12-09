@@ -60,7 +60,7 @@ def get_simulation():
     simulation.setDetectorParameters(200, -0.5*deg, 0.5*deg, 200, 0.0*deg,
                                      0.6*deg)
     simulation.setBeamParameters(1.34*angstrom, 0.4*deg, 0.0*deg)
-    simulation.setBeamIntensity(1e+08)
+    simulation.beam().setIntensity(1e+08)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
     return simulation
 
@@ -77,7 +77,7 @@ def run_simulation():
     return simulation.result()
 
 
-if __name__ == '__main__':
+def simulate_and_plot():
     interactive = True
     result = run_simulation().histogram2d()
     ba.plot_histogram(result, cmap='jet', aspect='auto')
@@ -93,3 +93,7 @@ if __name__ == '__main__':
              color='white',
              markersize=10)
     plt.show()
+
+
+if __name__ == '__main__':
+    simulate_and_plot()

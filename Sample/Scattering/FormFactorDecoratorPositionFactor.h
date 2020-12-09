@@ -12,6 +12,10 @@
 //
 //  ************************************************************************************************
 
+#ifdef SWIG
+#error no need to expose this header to Swig
+#endif
+
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDECORATORPOSITIONFACTOR_H
 #define BORNAGAIN_SAMPLE_SCATTERING_FORMFACTORDECORATORPOSITIONFACTOR_H
 

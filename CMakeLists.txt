@@ -120,7 +120,7 @@ add_subdirectory(Fit/Test/Minimizer)
 
 ## recurse into the given subdirectories
 
-# BornAgain components are build as separate shared libraries
+# BornAgain components are built as separate shared libraries
 set(CoreComponents "Base;Param;Sample;Device;Core")
 set(AllComponents "${CoreComponents};GUI")
 

@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_FITTING_FITTYPES_H
 #define BORNAGAIN_CORE_FITTING_FITTYPES_H
 
@@ -34,3 +35,4 @@ using simulation_builder_t =
 using fit_observer_t = std::function<void(const FitObjective&)>;
 
 #endif // BORNAGAIN_CORE_FITTING_FITTYPES_H
+#endif // USER_API

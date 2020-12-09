@@ -142,7 +142,7 @@ void JobModelFunctions::setupJobItemOutput(JobItem* jobItem) {
     if (instrumentType == "SpecularInstrument") {
         model->insertNewItem("SpecularData", model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
 
-    } else if (instrumentType == "GISASInstrument" || instrumentType == "OffSpecInstrument"
+    } else if (instrumentType == "GISASInstrument" || instrumentType == "OffSpecularInstrument"
                || instrumentType == "DepthProbeInstrument") {
         model->insertNewItem("IntensityData", model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
 

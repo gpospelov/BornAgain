@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_FRESNEL_IFRESNELMAP_H
 #define BORNAGAIN_SAMPLE_FRESNEL_IFRESNELMAP_H
 
@@ -63,3 +64,4 @@ protected:
 };
 
 #endif // BORNAGAIN_SAMPLE_FRESNEL_IFRESNELMAP_H
+#endif // USER_API

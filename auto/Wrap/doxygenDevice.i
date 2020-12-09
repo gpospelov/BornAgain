@@ -1471,14 +1471,6 @@ C++ includes: Instrument.h
 Sets the beam wavelength and incoming angles. 
 ";
 
-%feature("docstring")  Instrument::setBeamIntensity "void Instrument::setBeamIntensity(double intensity)
-";
-
-%feature("docstring")  Instrument::setBeamPolarization "void Instrument::setBeamPolarization(const kvector_t bloch_vector)
-
-Sets the beam's polarization according to the given Bloch vector. 
-";
-
 %feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
 ";
 
@@ -1793,7 +1785,7 @@ C++ includes: SimpleUnitConverters.h
 // File: classOutputData.xml
 %feature("docstring") OutputData "
 
-Template class to store data of any type in multi-dimensional space.
+Templated class to store data of type double or  CumulativeValue in multi-dimensional space.
 
 C++ includes: OutputData.h
 ";
@@ -1828,11 +1820,6 @@ C++ includes: OutputData.h
 %feature("docstring")  OutputData::axis "const IAxis & OutputData< T >::axis(size_t serial_number) const
 
 returns axis with given serial number 
-";
-
-%feature("docstring")  OutputData::axis "const IAxis & OutputData< T >::axis(const std::string &axis_name) const
-
-returns axis with given name 
 ";
 
 %feature("docstring")  OutputData::rank "size_t OutputData< T >::rank() const
@@ -3029,10 +3016,10 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: namespace_0d35.xml
 
 
-// File: namespace_0d58.xml
+// File: namespace_0d60.xml
 
 
-// File: namespace_0d64.xml
+// File: namespace_0d66.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3073,10 +3060,10 @@ Creates 2D vector from  OutputData.
 %feature("docstring")  AxisNames::InitRectangularAxis1 "std::map< Axes::Units, std::string > AxisNames::InitRectangularAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitOffSpecAxis0 "std::map< Axes::Units, std::string > AxisNames::InitOffSpecAxis0()
+%feature("docstring")  AxisNames::InitOffSpecularAxis0 "std::map< Axes::Units, std::string > AxisNames::InitOffSpecularAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitOffSpecAxis1 "std::map< Axes::Units, std::string > AxisNames::InitOffSpecAxis1()
+%feature("docstring")  AxisNames::InitOffSpecularAxis1 "std::map< Axes::Units, std::string > AxisNames::InitOffSpecularAxis1()
 ";
 
 %feature("docstring")  AxisNames::InitSpecAxis "std::map< Axes::Units, std::string > AxisNames::InitSpecAxis()
@@ -3148,6 +3135,13 @@ Parse double values from string to vector of double.
 
 // File: namespaceDetectorUtils.xml
 %feature("docstring")  DetectorUtils::isQuadratic "bool DetectorUtils::isQuadratic(const IDetector2D &det)
+";
+
+
+// File: namespaceImageUtils.xml
+%feature("docstring")  ImageUtils::FindPeaks "std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+
+Returns vector of peak center coordinates, for peaks in given histogram. 
 ";
 
 
@@ -3235,11 +3229,6 @@ for importing 1D array of doubles from python into  OutputData
 %feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
 
 for importing 2D array of doubles from python into  OutputData
-";
-
-
-// File: namespaceSpectrumUtils.xml
-%feature("docstring")  SpectrumUtils::FindPeaks "std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
 ";
 
 
@@ -3408,6 +3397,12 @@ make Swappable
 // File: IHistogram_8h.xml
 
 
+// File: ImageUtils_8cpp.xml
+
+
+// File: ImageUtils_8h.xml
+
+
 // File: IntensityDataIOFactory_8cpp.xml
 
 
@@ -3487,12 +3482,6 @@ make Swappable
 
 
 // File: PyArrayImportUtils_8h.xml
-
-
-// File: SpectrumUtils_8cpp.xml
-
-
-// File: SpectrumUtils_8h.xml
 
 
 // File: VarianceFunctions_8cpp.xml

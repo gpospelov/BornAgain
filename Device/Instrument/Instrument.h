@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H
 #define BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H
 
@@ -46,11 +47,6 @@ public:
     //! Sets the beam wavelength and incoming angles
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
-    void setBeamIntensity(double intensity);
-
-    //! Sets the beam's polarization according to the given Bloch vector
-    void setBeamPolarization(const kvector_t bloch_vector);
-
     const IDetector* getDetector() const;
     IDetector& detector();
     const IDetector& detector() const;
@@ -72,3 +68,4 @@ protected:
 };
 
 #endif // BORNAGAIN_DEVICE_INSTRUMENT_INSTRUMENT_H
+#endif // USER_API

@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_HOMOGENEOUSREGION_H
 #define BORNAGAIN_SAMPLE_PARTICLE_HOMOGENEOUSREGION_H
 
@@ -42,6 +43,7 @@ struct HomogeneousRegion {
 Material createAveragedMaterial(const Material& layer_mat,
                                 const std::vector<HomogeneousRegion>& regions);
 
-#endif // SWIG
+#endif // USER_API
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_HOMOGENEOUSREGION_H
+#endif // USER_API

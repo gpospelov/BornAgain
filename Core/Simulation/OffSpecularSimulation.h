@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Core/Simulation/OffSpecSimulation.h
-//! @brief     Defines class OffSpecSimulation.
+//! @file      Core/Simulation/OffSpecularSimulation.h
+//! @brief     Defines class OffSpecularSimulation.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -23,13 +23,13 @@ class Histogram2D;
 //! Main class to run an off-specular simulation.
 //! @ingroup simulation
 
-class OffSpecSimulation : public ISimulation2D {
+class OffSpecularSimulation : public ISimulation2D {
 public:
-    OffSpecSimulation(const Beam& beam, const MultiLayer& sample, const IDetector& detector);
-    OffSpecSimulation();
-    ~OffSpecSimulation() override {}
+    OffSpecularSimulation(const Beam& beam, const MultiLayer& sample, const IDetector& detector);
+    OffSpecularSimulation();
+    ~OffSpecularSimulation() override {}
 
-    OffSpecSimulation* clone() const override { return new OffSpecSimulation(*this); }
+    OffSpecularSimulation* clone() const override { return new OffSpecularSimulation(*this); }
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
@@ -54,7 +54,7 @@ public:
     size_t intensityMapSize() const override;
 
 private:
-    OffSpecSimulation(const OffSpecSimulation& other);
+    OffSpecularSimulation(const OffSpecularSimulation& other);
 
     //! Initializes the vector of ISimulation elements
     void initSimulationElementVector() override;

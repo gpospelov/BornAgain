@@ -18,6 +18,8 @@
 #include "Base/Types/ICloneable.h"
 #include "Param/Node/INode.h"
 
+//! A two-dimensional Bravais lattice.
+
 class Lattice2D : public ICloneable, public INode {
 public:
     Lattice2D(const NodeMeta& meta, const std::vector<double>& PValues);
@@ -46,6 +48,8 @@ protected:
     double m_xi;
 };
 
+//! A two-dimensional Bravais lattice with no special symmetry.
+
 class BasicLattice2D : public Lattice2D {
 public:
     BasicLattice2D(double length1, double length2, double angle, double xi);
@@ -64,6 +68,8 @@ private:
     double m_angle;
 };
 
+//! A two-dimensional Bravais lattice with square unit cell.
+
 class SquareLattice2D : public Lattice2D {
 public:
     SquareLattice2D(double length, double xi = 0.0);
@@ -80,6 +86,8 @@ public:
 private:
     double m_length;
 };
+
+//! A two-dimensional Bravais lattice with hexagonal symmetry.
 
 class HexagonalLattice2D : public Lattice2D {
 public:

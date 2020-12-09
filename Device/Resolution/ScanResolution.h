@@ -53,7 +53,7 @@ public:
     virtual std::string name() const = 0;
     virtual double delta() const = 0;
 
-#endif // SWIG
+#endif // USER_API
 protected:
     ScanResolution();
     ScanResolution(const IRangedDistribution& distr);

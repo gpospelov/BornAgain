@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_LIBFF_SOMEFORMFACTORS_H
 #define BORNAGAIN_SAMPLE_LIBFF_SOMEFORMFACTORS_H
 
@@ -31,3 +32,4 @@ complex_t ffSphere(cvector_t q, double R);
 } // namespace someff
 
 #endif // BORNAGAIN_SAMPLE_LIBFF_SOMEFORMFACTORS_H
+#endif // USER_API

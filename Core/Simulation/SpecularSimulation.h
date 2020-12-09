@@ -61,7 +61,7 @@ public:
 #ifndef SWIG
     //! Returns internal data handler
     const ISpecularScan* dataHandler() const { return m_scan.get(); }
-#endif // SWIG
+#endif // USER_API
 
 private:
     SpecularSimulation(const SpecularSimulation& other); // used by clone()

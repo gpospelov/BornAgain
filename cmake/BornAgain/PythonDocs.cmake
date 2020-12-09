@@ -1,4 +1,5 @@
 # Autogenerate a .i file from doxygen comments, provided -DCONFIGURE_PYTHON_DOCS=ON.
+# Called from function SwigLib.
 
 function(GeneratePythonDocs PD_TARGET SWIG_DIR)
     if(CONFIGURE_PYTHON_DOCS)

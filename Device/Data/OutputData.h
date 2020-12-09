@@ -3,7 +3,7 @@
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
 //! @file      Device/Data/OutputData.h
-//! @brief     Defines and implements template class OutputData.
+//! @brief     Defines and implements templated class OutputData.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -26,7 +26,7 @@
 
 using std::size_t;
 
-//! Template class to store data of any type in multi-dimensional space.
+//! Templated class to store data of type double or CumulativeValue in multi-dimensional space.
 //! @ingroup tools
 
 template <class T> class OutputData {
@@ -48,9 +48,6 @@ public:
 
     //! returns axis with given serial number
     const IAxis& axis(size_t serial_number) const;
-
-    //! returns axis with given name
-    const IAxis& axis(const std::string& axis_name) const;
 
     // retrieve basic info
 
@@ -301,10 +298,6 @@ void OutputData<T>::addAxis(const std::string& name, size_t size, double start, 
 
 template <class T> const IAxis& OutputData<T>::axis(size_t serial_number) const {
     return *m_value_axes[serial_number];
-}
-
-template <class T> const IAxis& OutputData<T>::axis(const std::string& axis_name) const {
-    return axis(getAxisIndex(axis_name));
 }
 
 template <class T> inline std::vector<size_t> OutputData<T>::getAllSizes() const {

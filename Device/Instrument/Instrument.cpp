@@ -80,14 +80,6 @@ void Instrument::setBeam(const Beam& beam) {
         initDetector();
 }
 
-void Instrument::setBeamIntensity(double intensity) {
-    m_beam.setIntensity(intensity);
-}
-
-void Instrument::setBeamPolarization(const kvector_t bloch_vector) {
-    m_beam.setPolarization(bloch_vector);
-}
-
 const IDetector* Instrument::getDetector() const {
     ASSERT(m_detector);
     return m_detector.get();

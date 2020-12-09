@@ -853,20 +853,20 @@ C++ includes: IComputation.h
 // File: classIObservable.xml
 %feature("docstring") IObservable "
 
-Observable interface from Observer pattern
+Observable interface from Observer pattern. Shared pointer is used when passing these objects from Python to C++.
 
 C++ includes: IObserver.h
 ";
 
-%feature("docstring")  IObservable::~IObservable "IObservable::~IObservable()
+%feature("docstring")  IObservable::~IObservable "virtual IObservable::~IObservable()=default
 ";
 
-%feature("docstring")  IObservable::attachObserver "void IObservable::attachObserver(observer_t obj)
+%feature("docstring")  IObservable::attachObserver "virtual void IObservable::attachObserver(std::shared_ptr< IObserver > obj)
 
 attach observer to the list of observers 
 ";
 
-%feature("docstring")  IObservable::notifyObservers "void IObservable::notifyObservers()
+%feature("docstring")  IObservable::notifyObservers "virtual void IObservable::notifyObservers()
 
 notify observers about change in status 
 ";
@@ -880,7 +880,7 @@ Observer interface from Observer pattern.
 C++ includes: IObserver.h
 ";
 
-%feature("docstring")  IObserver::~IObserver "IObserver::~IObserver()
+%feature("docstring")  IObserver::~IObserver "virtual IObserver::~IObserver()=default
 ";
 
 %feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=0
@@ -892,7 +892,7 @@ method which is used by observable subject to notify change in status
 // File: classISimulation.xml
 %feature("docstring") ISimulation "
 
-Abstract base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
+Abstract base class of  OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
 
 C++ includes: ISimulation.h
 ";
@@ -945,14 +945,6 @@ Run a simulation in a MPI environment.
 ";
 
 %feature("docstring")  ISimulation::detector "const IDetector& ISimulation::detector() const
-";
-
-%feature("docstring")  ISimulation::setBeamIntensity "void ISimulation::setBeamIntensity(double intensity)
-";
-
-%feature("docstring")  ISimulation::setBeamPolarization "void ISimulation::setBeamPolarization(const kvector_t bloch_vector)
-
-Sets the beam polarization according to the given Bloch vector. 
 ";
 
 %feature("docstring")  ISimulation::setDetectorResolutionFunction "void ISimulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)
@@ -1028,7 +1020,7 @@ Convert user data to SimulationResult object for later drawing in various axes u
 // File: classISimulation2D.xml
 %feature("docstring") ISimulation2D "
 
-Abstract base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+Abstract base class of  OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
 
 C++ includes: ISimulation2D.h
 ";
@@ -1456,53 +1448,53 @@ Returns a copy of the normalization function used.
 // File: classFitObserver_1_1ObserverData.xml
 
 
-// File: classOffSpecSimulation.xml
-%feature("docstring") OffSpecSimulation "
+// File: classOffSpecularSimulation.xml
+%feature("docstring") OffSpecularSimulation "
 
 Main class to run an off-specular simulation.
 
-C++ includes: OffSpecSimulation.h
+C++ includes: OffSpecularSimulation.h
 ";
 
-%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
+%feature("docstring")  OffSpecularSimulation::OffSpecularSimulation "OffSpecularSimulation::OffSpecularSimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
 ";
 
-%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation()
+%feature("docstring")  OffSpecularSimulation::OffSpecularSimulation "OffSpecularSimulation::OffSpecularSimulation()
 ";
 
-%feature("docstring")  OffSpecSimulation::~OffSpecSimulation "OffSpecSimulation::~OffSpecSimulation() override
+%feature("docstring")  OffSpecularSimulation::~OffSpecularSimulation "OffSpecularSimulation::~OffSpecularSimulation() override
 ";
 
-%feature("docstring")  OffSpecSimulation::clone "OffSpecSimulation* OffSpecSimulation::clone() const override
+%feature("docstring")  OffSpecularSimulation::clone "OffSpecularSimulation* OffSpecularSimulation::clone() const override
 ";
 
-%feature("docstring")  OffSpecSimulation::accept "void OffSpecSimulation::accept(INodeVisitor *visitor) const override
+%feature("docstring")  OffSpecularSimulation::accept "void OffSpecularSimulation::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  OffSpecSimulation::prepareSimulation "void OffSpecSimulation::prepareSimulation() override
+%feature("docstring")  OffSpecularSimulation::prepareSimulation "void OffSpecularSimulation::prepareSimulation() override
 
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  OffSpecSimulation::result "SimulationResult OffSpecSimulation::result() const override
+%feature("docstring")  OffSpecularSimulation::result "SimulationResult OffSpecularSimulation::result() const override
 
 Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 ";
 
-%feature("docstring")  OffSpecSimulation::setBeamParameters "void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
+%feature("docstring")  OffSpecularSimulation::setBeamParameters "void OffSpecularSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
 
 Sets beam parameters from here (forwarded to Instrument) 
 ";
 
-%feature("docstring")  OffSpecSimulation::beamAxis "const IAxis * OffSpecSimulation::beamAxis() const
+%feature("docstring")  OffSpecularSimulation::beamAxis "const IAxis * OffSpecularSimulation::beamAxis() const
 
 Returns axis of the beam. 
 ";
 
-%feature("docstring")  OffSpecSimulation::createUnitConverter "std::unique_ptr< IUnitConverter > OffSpecSimulation::createUnitConverter() const
+%feature("docstring")  OffSpecularSimulation::createUnitConverter "std::unique_ptr< IUnitConverter > OffSpecularSimulation::createUnitConverter() const
 ";
 
-%feature("docstring")  OffSpecSimulation::intensityMapSize "size_t OffSpecSimulation::intensityMapSize() const override
+%feature("docstring")  OffSpecularSimulation::intensityMapSize "size_t OffSpecularSimulation::intensityMapSize() const override
 
 Returns the total number of the intensity values in the simulation result. 
 ";
@@ -2301,7 +2293,7 @@ Returns default units to convert to.
 ";
 
 
-// File: namespace_0d101.xml
+// File: namespace_0d100.xml
 
 
 // File: namespace_0d15.xml
@@ -2319,40 +2311,40 @@ Returns default units to convert to.
 // File: namespace_0d47.xml
 
 
-// File: namespace_0d56.xml
+// File: namespace_0d55.xml
 
 
-// File: namespace_0d58.xml
+// File: namespace_0d57.xml
 
 
-// File: namespace_0d62.xml
+// File: namespace_0d61.xml
 
 
-// File: namespace_0d66.xml
+// File: namespace_0d65.xml
 
 
-// File: namespace_0d68.xml
+// File: namespace_0d67.xml
 
 
-// File: namespace_0d70.xml
+// File: namespace_0d69.xml
 
 
-// File: namespace_0d72.xml
+// File: namespace_0d71.xml
 
 
-// File: namespace_0d77.xml
+// File: namespace_0d76.xml
 
 
-// File: namespace_0d79.xml
+// File: namespace_0d78.xml
 
 
-// File: namespace_0d83.xml
+// File: namespace_0d82.xml
 
 
-// File: namespace_0d93.xml
+// File: namespace_0d92.xml
 
 
-// File: namespace_0d95.xml
+// File: namespace_0d94.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2687,7 +2679,7 @@ GISAS simulation with an extra long wavelength.
 %feature("docstring")  StandardSimulations::BasicSpecularQMP "SpecularSimulation * StandardSimulations::BasicSpecularQMP()
 ";
 
-%feature("docstring")  StandardSimulations::MiniOffSpec "OffSpecSimulation * StandardSimulations::MiniOffSpec()
+%feature("docstring")  StandardSimulations::MiniOffSpecular "OffSpecularSimulation * StandardSimulations::MiniOffSpecular()
 ";
 
 %feature("docstring")  StandardSimulations::BasicDepthProbe "DepthProbeSimulation * StandardSimulations::BasicDepthProbe()
@@ -2865,9 +2857,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: FitTypes_8h.xml
 
 
-// File: IObserver_8cpp.xml
-
-
 // File: IObserver_8h.xml
 
 
@@ -2976,10 +2965,10 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: MPISimulation_8h.xml
 
 
-// File: OffSpecSimulation_8cpp.xml
+// File: OffSpecularSimulation_8cpp.xml
 
 
-// File: OffSpecSimulation_8h.xml
+// File: OffSpecularSimulation_8h.xml
 
 
 // File: SimulationFactory_8cpp.xml

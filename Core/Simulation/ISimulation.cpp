@@ -162,15 +162,6 @@ void ISimulation::setAnalyzerProperties(const kvector_t direction, double effici
     detector().setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-void ISimulation::setBeamIntensity(double intensity) {
-    beam().setIntensity(intensity);
-}
-
-//! Sets the beam polarization according to the given Bloch vector
-void ISimulation::setBeamPolarization(const kvector_t bloch_vector) {
-    beam().setPolarization(bloch_vector);
-}
-
 void ISimulation::prepareSimulation() {
     m_sample_provider.updateSample();
     if (!MultiLayerUtils::ContainsCompatibleMaterials(*m_sample_provider.sample()))

@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_UNIT_AXISNAMES_H
 #define BORNAGAIN_DEVICE_UNIT_AXISNAMES_H
 
@@ -31,11 +32,12 @@ std::map<Axes::Units, std::string> InitSphericalAxis0();
 std::map<Axes::Units, std::string> InitSphericalAxis1();
 std::map<Axes::Units, std::string> InitRectangularAxis0();
 std::map<Axes::Units, std::string> InitRectangularAxis1();
-std::map<Axes::Units, std::string> InitOffSpecAxis0();
-std::map<Axes::Units, std::string> InitOffSpecAxis1();
+std::map<Axes::Units, std::string> InitOffSpecularAxis0();
+std::map<Axes::Units, std::string> InitOffSpecularAxis1();
 std::map<Axes::Units, std::string> InitSpecAxis();
 std::map<Axes::Units, std::string> InitSpecAxisQ();
 std::map<Axes::Units, std::string> InitSampleDepthAxis();
 } // namespace AxisNames
 
 #endif // BORNAGAIN_DEVICE_UNIT_AXISNAMES_H
+#endif // USER_API

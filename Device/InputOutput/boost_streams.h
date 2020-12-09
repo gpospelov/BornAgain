@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_INPUTOUTPUT_BOOST_STREAMS_H
 #define BORNAGAIN_DEVICE_INPUTOUTPUT_BOOST_STREAMS_H
 
@@ -32,3 +33,4 @@
 #endif
 
 #endif // BORNAGAIN_DEVICE_INPUTOUTPUT_BOOST_STREAMS_H
+#endif // USER_API

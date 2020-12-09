@@ -4,7 +4,7 @@ file(MAKE_DIRECTORY ${AUTO_DOX_DIR})
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/html)
 add_custom_target(doxy) # this target builds _all_ documentation flavors
 foreach(flavor user long)
-    configure_file(Doxyfile.${flavor}.in
+    configure_file(${flavor}/Doxyfile.in
         ${AUTO_DOX_DIR}/Doxyfile.${flavor} @ONLY)
     add_custom_target(doxy${flavor}
         COMMAND doxygen ${AUTO_DOX_DIR}/Doxyfile.${flavor} )

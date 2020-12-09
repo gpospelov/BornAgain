@@ -104,7 +104,7 @@ TEST_F(DepthProbeSimulationTest, SetBeamParameters) {
 
     checkBeamState(sim);
 
-    sim.setBeamIntensity(2.0);
+    sim.beam().setIntensity(2.0);
     EXPECT_EQ(2.0, beam.intensity());
 
     EXPECT_THROW(sim.setBeamParameters(1.0, 10, -2.0, 3.0), std::runtime_error);

@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_MATH_CONSTANTS_H
 #define BORNAGAIN_BASE_MATH_CONSTANTS_H
 
@@ -53,3 +54,4 @@
 #define M_TWOPI 6.28318530717958647693
 
 #endif // BORNAGAIN_BASE_MATH_CONSTANTS_H
+#endif // USER_API

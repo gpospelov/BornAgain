@@ -2217,7 +2217,7 @@ class IntensityData(object):
     r"""
 
 
-    Template class to store data of any type in multi-dimensional space.
+    Templated class to store data of type double or  CumulativeValue in multi-dimensional space.
 
     C++ includes: OutputData.h
 
@@ -2268,16 +2268,15 @@ class IntensityData(object):
         """
         return _libBornAgainDevice.IntensityData_addAxis(self, *args)
 
-    def axis(self, *args):
+    def axis(self, serial_number):
         r"""
         axis(IntensityData self, size_t serial_number) -> IAxis
-        axis(IntensityData self, std::string const & axis_name) -> IAxis
-        const IAxis & OutputData< T >::axis(const std::string &axis_name) const
+        const IAxis & OutputData< T >::axis(size_t serial_number) const
 
-        returns axis with given name 
+        returns axis with given serial number 
 
         """
-        return _libBornAgainDevice.IntensityData_axis(self, *args)
+        return _libBornAgainDevice.IntensityData_axis(self, serial_number)
 
     def rank(self):
         r"""
@@ -3954,7 +3953,9 @@ def importArrayToOutputData(*args):
 def FindPeaks(*args):
     r"""
     FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t
-    std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+    std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+
+    Returns vector of peak center coordinates, for peaks in given histogram. 
 
     """
     return _libBornAgainDevice.FindPeaks(*args)

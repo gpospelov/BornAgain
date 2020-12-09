@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_DETECTOR_DETECTIONPROPERTIES_H
 #define BORNAGAIN_DEVICE_DETECTOR_DETECTIONPROPERTIES_H
 
@@ -58,3 +59,4 @@ private:
 };
 
 #endif // BORNAGAIN_DEVICE_DETECTOR_DETECTIONPROPERTIES_H
+#endif // USER_API

@@ -6730,7 +6730,7 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Device/Instrument/IChiSquaredModule.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
 #include "Device/Instrument/PyArrayImportUtils.h"
-#include "Device/Instrument/SpectrumUtils.h"
+#include "Device/Histo/ImageUtils.h"
 #include "Device/Instrument/VarianceFunctions.h"
 #include "Device/Intensity/IIntensityFunction.h"
 #include "Device/Intensity/IIntensityFunction.h"
@@ -24550,7 +24550,7 @@ SWIGINTERN PyObject *_wrap_kvector_t_complex(PyObject *SWIGUNUSEDPARM(self), PyO
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  BasicVector3D< std::complex< double > > result;
+  BasicVector3D< complex_t > result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -24560,7 +24560,7 @@ SWIGINTERN PyObject *_wrap_kvector_t_complex(PyObject *SWIGUNUSEDPARM(self), PyO
   }
   arg1 = reinterpret_cast< BasicVector3D< double > * >(argp1);
   result = ((BasicVector3D< double > const *)arg1)->complex();
-  resultobj = SWIG_NewPointerObj((new BasicVector3D< std::complex< double > >(static_cast< const BasicVector3D< std::complex< double > >& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new BasicVector3D< complex_t >(static_cast< const BasicVector3D< complex_t >& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -29146,7 +29146,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_IntensityData_axis__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_IntensityData_axis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   OutputData< double > *arg1 = (OutputData< double > *) 0 ;
   size_t arg2 ;
@@ -29154,9 +29154,10 @@ SWIGINTERN PyObject *_wrap_IntensityData_axis__SWIG_0(PyObject *SWIGUNUSEDPARM(s
   int res1 = 0 ;
   size_t val2 ;
   int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
   IAxis *result = 0 ;
   
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "IntensityData_axis", 2, 2, swig_obj)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_axis" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
@@ -29172,88 +29173,6 @@ SWIGINTERN PyObject *_wrap_IntensityData_axis__SWIG_0(PyObject *SWIGUNUSEDPARM(s
   return resultobj;
 fail:
   return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IntensityData_axis__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  OutputData< double > *arg1 = (OutputData< double > *) 0 ;
-  std::string *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int res2 = SWIG_OLDOBJ ;
-  IAxis *result = 0 ;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityData_axis" "', argument " "1"" of type '" "OutputData< double > const *""'"); 
-  }
-  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
-  {
-    std::string *ptr = (std::string *)0;
-    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IntensityData_axis" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IntensityData_axis" "', argument " "2"" of type '" "std::string const &""'"); 
-    }
-    arg2 = ptr;
-  }
-  result = (IAxis *) &((OutputData< double > const *)arg1)->axis((std::string const &)*arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res2)) delete arg2;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IntensityData_axis(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "IntensityData_axis", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OutputDataT_double_t, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_size_t(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        return _wrap_IntensityData_axis__SWIG_0(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_OutputDataT_double_t, 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_AsPtr_std_string(argv[1], (std::string**)(0));
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_IntensityData_axis__SWIG_1(self, argc, argv);
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'IntensityData_axis'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    OutputData< double >::axis(size_t) const\n"
-    "    OutputData< double >::axis(std::string const &) const\n");
-  return 0;
 }
 
 
@@ -35771,7 +35690,7 @@ SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "FindPeaks" "', argument " "4"" of type '" "double""'");
   } 
   arg4 = static_cast< double >(val4);
-  result = SpectrumUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3,arg4);
+  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3,arg4);
   resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -35818,7 +35737,7 @@ SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_
     }
     arg3 = ptr;
   }
-  result = SpectrumUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3);
+  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3);
   resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -35852,7 +35771,7 @@ SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FindPeaks" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = SpectrumUtils::FindPeaks((Histogram2D const &)*arg1,arg2);
+  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1,arg2);
   resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
   return resultobj;
 fail:
@@ -35876,7 +35795,7 @@ SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
   }
   arg1 = reinterpret_cast< Histogram2D * >(argp1);
-  result = SpectrumUtils::FindPeaks((Histogram2D const &)*arg1);
+  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1);
   resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
   return resultobj;
 fail:
@@ -35960,10 +35879,10 @@ SWIGINTERN PyObject *_wrap_FindPeaks(PyObject *self, PyObject *args) {
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'FindPeaks'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    SpectrumUtils::FindPeaks(Histogram2D const &,double,std::string const &,double)\n"
-    "    SpectrumUtils::FindPeaks(Histogram2D const &,double,std::string const &)\n"
-    "    SpectrumUtils::FindPeaks(Histogram2D const &,double)\n"
-    "    SpectrumUtils::FindPeaks(Histogram2D const &)\n");
+    "    ImageUtils::FindPeaks(Histogram2D const &,double,std::string const &,double)\n"
+    "    ImageUtils::FindPeaks(Histogram2D const &,double,std::string const &)\n"
+    "    ImageUtils::FindPeaks(Histogram2D const &,double)\n"
+    "    ImageUtils::FindPeaks(Histogram2D const &)\n");
   return 0;
 }
 
@@ -45621,10 +45540,9 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "IntensityData_axis", _wrap_IntensityData_axis, METH_VARARGS, "\n"
 		"IntensityData_axis(IntensityData self, size_t serial_number) -> IAxis\n"
-		"IntensityData_axis(IntensityData self, std::string const & axis_name) -> IAxis\n"
-		"const IAxis & OutputData< T >::axis(const std::string &axis_name) const\n"
+		"const IAxis & OutputData< T >::axis(size_t serial_number) const\n"
 		"\n"
-		"returns axis with given name \n"
+		"returns axis with given serial number \n"
 		"\n"
 		""},
 	 { "IntensityData_rank", _wrap_IntensityData_rank, METH_O, "\n"
@@ -46605,7 +46523,9 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FindPeaks", _wrap_FindPeaks, METH_VARARGS, "\n"
 		"FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t\n"
-		"std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)\n"
+		"std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)\n"
+		"\n"
+		"Returns vector of peak center coordinates, for peaks in given histogram. \n"
 		"\n"
 		""},
 	 { "delete_IVarianceFunction", _wrap_delete_IVarianceFunction, METH_O, "\n"
@@ -48041,7 +47961,7 @@ static swig_type_info _swigt__p_Axes = {"_p_Axes", "Axes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_AxisInfo = {"_p_AxisInfo", "AxisInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_double_t = {"_p_BasicVector3DT_double_t", "std::vector< BasicVector3D< double > >::value_type *|kvector_t *|BasicVector3D< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t", "ivector_t *|BasicVector3D< int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *|BasicVector3D< complex_t > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Beam = {"_p_Beam", "Beam *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Bin1D = {"_p_Bin1D", "Bin1D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ChiSquaredModule = {"_p_ChiSquaredModule", "ChiSquaredModule *", 0, 0, (void*)0, 0};

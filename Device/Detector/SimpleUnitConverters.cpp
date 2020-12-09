@@ -325,8 +325,8 @@ double OffSpecularConverter::calculateValue(size_t, Axes::Units units_type, doub
 
 std::vector<std::map<Axes::Units, std::string>> OffSpecularConverter::createNameMaps() const {
     std::vector<std::map<Axes::Units, std::string>> result;
-    result.push_back(AxisNames::InitOffSpecAxis0());
-    result.push_back(AxisNames::InitOffSpecAxis1());
+    result.push_back(AxisNames::InitOffSpecularAxis0());
+    result.push_back(AxisNames::InitOffSpecularAxis1());
     return result;
 }
 

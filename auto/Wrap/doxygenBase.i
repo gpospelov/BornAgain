@@ -4,7 +4,7 @@
 // File: classBasicVector3D.xml
 %feature("docstring") BasicVector3D "
 
-Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recognition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
+Three-dimensional vector template, for use with integer, double, or complex components.
 
 C++ includes: BasicVector3D.h
 ";
@@ -99,7 +99,7 @@ Returns squared sine of polar angle.
 Returns unit vector in direction of this. Throws for null vector. 
 ";
 
-%feature("docstring")  BasicVector3D::complex "BasicVector3D<std::complex<double> > BasicVector3D< T >::complex() const
+%feature("docstring")  BasicVector3D::complex "BasicVector3D<complex_t> BasicVector3D< T >::complex() const
 
 Returns this, trivially converted to complex type. 
 ";
@@ -151,15 +151,6 @@ Returns result of rotation around z-axis.
 %feature("docstring")  BasicVector3D::rotated "BasicVector3D<T> BasicVector3D< T >::rotated(double a, const BasicVector3D< T > &v) const
 
 Returns result of rotation around the axis specified by another vector. 
-";
-
-%feature("docstring")  BasicVector3D::conj "BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
-";
-
-%feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< complex_t >::real() const
-";
-
-%feature("docstring")  BasicVector3D::unit "BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
 ";
 
 
@@ -390,7 +381,12 @@ Increments inner counter; at regular intervals updates progress handler.
 
 
 // File: classDirection.xml
-%feature("docstring") Direction "";
+%feature("docstring") Direction "
+
+A direction in three-dimensional space.
+
+C++ includes: Direction.h
+";
 
 %feature("docstring")  Direction::Direction "Direction::Direction(double alpha, double phi)
 ";

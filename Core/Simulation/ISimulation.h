@@ -61,10 +61,6 @@ public:
     IDetector& detector() { return m_instrument.detector(); }
     const IDetector& detector() const { return m_instrument.detector(); }
 
-    void setBeamIntensity(double intensity);
-
-    void setBeamPolarization(const kvector_t bloch_vector);
-
     void setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function);
 
     void setAnalyzerProperties(const kvector_t direction, double efficiency,

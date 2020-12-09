@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_MATH_FUNCTIONS_H
 #define BORNAGAIN_BASE_MATH_FUNCTIONS_H
 
@@ -64,3 +65,4 @@ double GeneratePoissonRandom(double average);
 } // Namespace Math
 
 #endif // BORNAGAIN_BASE_MATH_FUNCTIONS_H
+#endif // USER_API

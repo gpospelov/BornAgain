@@ -94,11 +94,11 @@ public:
     void updateToRealData(const RealDataItem* item) override;
 };
 
-class BA_CORE_API_ OffSpecInstrumentItem : public Instrument2DItem {
+class BA_CORE_API_ OffSpecularInstrumentItem : public Instrument2DItem {
 public:
     static const QString P_ALPHA_AXIS;
 
-    OffSpecInstrumentItem();
+    OffSpecularInstrumentItem();
     std::vector<int> shape() const override;
     void updateToRealData(const RealDataItem* item) override;
 };

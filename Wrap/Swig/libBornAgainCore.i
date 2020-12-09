@@ -63,7 +63,6 @@
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/Fitting/FitObjective.h"
-#include "Core/Fitting/IObserver.h"
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
 #include "Core/Scan/AngularSpecScan.h"
@@ -72,7 +71,7 @@
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/ISimulation2D.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
 %}
@@ -99,7 +98,6 @@
 
 %include "BAVersion.h"
 
-%include "Core/Fitting/IObserver.h"
 %include "Core/Fitting/IterationInfo.h"
 %include "Core/Fitting/PyFittingCallbacks.h"
 
@@ -112,7 +110,7 @@
 %include "Core/Simulation/GISASSimulation.h"
 %include "Core/Simulation/DepthProbeSimulation.h"
 %include "Core/Simulation/SpecularSimulation.h"
-%include "Core/Simulation/OffSpecSimulation.h"
+%include "Core/Simulation/OffSpecularSimulation.h"
 
 %include "Core/Computation/IBackground.h"
 %include "Core/Computation/ConstantBackground.h"

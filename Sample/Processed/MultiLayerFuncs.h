@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_PROCESSED_MULTILAYERFUNCS_H
 #define BORNAGAIN_SAMPLE_PROCESSED_MULTILAYERFUNCS_H
 
@@ -38,3 +39,4 @@ std::pair<double, double> defaultMaterialProfileLimits(const MultiLayer& multila
 } // namespace swigAPI
 
 #endif // BORNAGAIN_SAMPLE_PROCESSED_MULTILAYERFUNCS_H
+#endif // USER_API

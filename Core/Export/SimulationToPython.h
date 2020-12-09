@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
 #define BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
 
@@ -32,3 +33,4 @@ public:
 };
 
 #endif // BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H
+#endif // USER_API

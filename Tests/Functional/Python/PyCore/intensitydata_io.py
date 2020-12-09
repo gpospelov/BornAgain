@@ -2,7 +2,7 @@
 
 import math, numpy, os, sys, time, unittest
 import bornagain as ba
-from bornagain import deg, deg2rad, rad2deg
+from bornagain import deg
 
 
 def fill_data(data):
@@ -35,11 +35,11 @@ def get_boundaries_flat_in_sin(nbins, start, end):
     Returns flat_in_sin binning of angle axis
     """
     result = []
-    start_sin = math.sin(deg2rad(start))
-    end_sin = math.sin(deg2rad(end))
+    start_sin = math.sin(start)
+    end_sin = math.sin(end)
     step = (end_sin - start_sin)/nbins
     for i in range(0, nbins + 1):
-        result.append(rad2deg(math.asin(start_sin + step*i)))
+        result.append(math.degrees(math.asin(start_sin + step*i)))
     return result
 
 
@@ -78,7 +78,7 @@ class OutputDataIOTest(unittest.TestCase):
         data = ba.IntensityData()
         data.addAxis(
             ba.VariableBinAxis("axis0", 10,
-                               get_boundaries_flat_in_sin(10, -5.0, 5.0)))
+                               get_boundaries_flat_in_sin(10, -5*deg, 5*deg)))
         fill_data(data)
         ba.IntensityDataIOFactory.writeOutputData(data, "tmp.int")
         newdata = ba.IntensityDataIOFactory.readOutputData("tmp.int")
@@ -88,10 +88,10 @@ class OutputDataIOTest(unittest.TestCase):
         data = ba.IntensityData()
         data.addAxis(
             ba.VariableBinAxis("axis0", 10,
-                               get_boundaries_flat_in_sin(10, -5.0, 5.0)))
+                               get_boundaries_flat_in_sin(10, -5*deg, 5*deg)))
         data.addAxis(
             ba.VariableBinAxis("axis1", 3,
-                               get_boundaries_flat_in_sin(3, 0.0, 2.0)))
+                               get_boundaries_flat_in_sin(3, 0*deg, 2*deg)))
         fill_data(data)
         ba.IntensityDataIOFactory.writeOutputData(data, "tmp.int")
         newdata = ba.IntensityDataIOFactory.readOutputData("tmp.int")
@@ -102,7 +102,7 @@ class OutputDataIOTest(unittest.TestCase):
         data.addAxis(ba.FixedBinAxis("axis0", 10, -5.0, 5.0))
         data.addAxis(
             ba.VariableBinAxis("axis1", 3,
-                               get_boundaries_flat_in_sin(3, 0.0, 2.0)))
+                               get_boundaries_flat_in_sin(3, 0*deg, 2*deg)))
         fill_data(data)
         ba.IntensityDataIOFactory.writeOutputData(data, "tmp.int")
         newdata = ba.IntensityDataIOFactory.readOutputData("tmp.int")

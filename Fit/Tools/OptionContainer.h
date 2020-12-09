@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_TOOLS_OPTIONCONTAINER_H
 #define BORNAGAIN_FIT_TOOLS_OPTIONCONTAINER_H
 
@@ -91,3 +92,4 @@ template <class T> void OptionContainer::setOptionValue(const std::string& optio
 }
 
 #endif // BORNAGAIN_FIT_TOOLS_OPTIONCONTAINER_H
+#endif // USER_API

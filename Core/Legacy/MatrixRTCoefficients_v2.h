@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_LEGACY_MATRIXRTCOEFFICIENTS_V2_H
 #define BORNAGAIN_CORE_LEGACY_MATRIXRTCOEFFICIENTS_V2_H
 
@@ -72,3 +73,4 @@ private:
 };
 
 #endif // BORNAGAIN_CORE_LEGACY_MATRIXRTCOEFFICIENTS_V2_H
+#endif // USER_API

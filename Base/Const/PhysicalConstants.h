@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_CONST_PHYSICALCONSTANTS_H
 #define BORNAGAIN_BASE_CONST_PHYSICALCONSTANTS_H
 
@@ -35,3 +36,4 @@ constexpr double g_factor_n = -3.82608545; //!< neutron g-factor
 } // namespace PhysConsts
 
 #endif // BORNAGAIN_BASE_CONST_PHYSICALCONSTANTS_H
+#endif // USER_API

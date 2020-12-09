@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_PARAM_DISTRIB_DISTRIBUTIONHANDLER_H
 #define BORNAGAIN_PARAM_DISTRIB_DISTRIBUTIONHANDLER_H
 
@@ -61,3 +62,4 @@ private:
 };
 
 #endif // BORNAGAIN_PARAM_DISTRIB_DISTRIBUTIONHANDLER_H
+#endif // USER_API

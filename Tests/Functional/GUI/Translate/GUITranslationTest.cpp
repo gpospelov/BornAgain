@@ -51,7 +51,7 @@ const QVector<QPair<QStringList, QStringList>> black_list{
      {""},
      {"Sigma factor", "MaterialRefractiveData", "MaterialSLDData", MaterialItem::P_MAGNETIZATION}},
     {// Instrument scope
-     {"GISASInstrument", "OffSpecInstrument", "SpecularInstrument"},
+     {"GISASInstrument", "OffSpecularInstrument", "SpecularInstrument"},
      {// Distribution types
       "DistributionGate", "DistributionLorentz", "DistributionGaussian", "DistributionLogNormal",
       "DistributionCosine", "DistributionTrapezoid",
@@ -59,7 +59,7 @@ const QVector<QPair<QStringList, QStringList>> black_list{
       // Detector axes
       SphericalDetectorItem::P_PHI_AXIS, SphericalDetectorItem::P_ALPHA_AXIS,
       RectangularDetectorItem::P_X_AXIS, RectangularDetectorItem::P_Y_AXIS,
-      OffSpecInstrumentItem::P_ALPHA_AXIS,
+      OffSpecularInstrumentItem::P_ALPHA_AXIS,
 
       // Rectangular detector positioning
       RectangularDetectorItem::P_ALIGNMENT, RectangularDetectorItem::P_NORMAL,

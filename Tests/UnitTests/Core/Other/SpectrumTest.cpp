@@ -1,4 +1,4 @@
-#include "Device/Instrument/SpectrumUtils.h"
+#include "Device/Histo/ImageUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <tspectrum.h>
@@ -33,7 +33,7 @@ TEST_F(SpectrumTest, histogramPeaks) {
 
     EXPECT_EQ(hist.binContent(4, 2), 10.0);
 
-    auto peaks = SpectrumUtils::FindPeaks(hist, 3, "nomarkov", 0.1);
+    auto peaks = ImageUtils::FindPeaks(hist, 3, "nomarkov", 0.1);
     EXPECT_NEAR(peaks[0].first, 55.0, 0.01);  // center of histogram x-axis bin with index=4
     EXPECT_NEAR(peaks[0].second, 25.0, 0.01); // center of histogram y-axis bin with index=2
 }

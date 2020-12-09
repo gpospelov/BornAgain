@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_INTENSITY_ARRAYUTILS_H
 #define BORNAGAIN_DEVICE_INTENSITY_ARRAYUTILS_H
 
@@ -160,3 +161,4 @@ template <class T> decltype(auto) ArrayUtils::createVector2D(const T& data) {
 }
 
 #endif // BORNAGAIN_DEVICE_INTENSITY_ARRAYUTILS_H
+#endif // USER_API

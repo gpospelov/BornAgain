@@ -4,14 +4,16 @@ BornAgain-1.18.99, ongoing development
     * Removed "get" from several accessor functions
     * Class Instrument removed  from Python API (instead use simulation.beam() etc)
     * Lattice has been renamed to Lattice3D, for clearer disambuation from Lattice2D
+    * "OffSpecular" instead of "OffSpec"
     * Removed some interference functions constructors
     * Remove old R&T computations from API (now in Code/Legacy and Tests)
     * Python plot API entirely keyword based
   > Fixes of unreported bugs:
     * Several GUI bugs that caused crashes
     * For alpha_i=0, set scattered intensity to 0
-  > Examples:
-    * Uniform API usage in line with exported Python code
+  > Documentation:
+    * Unified API usage in many examples, using BornAgain's Python exporter
+    * Removed many entries from Doxygen user API
   > Internal refactoring:
     * Moved code to break directory include cycles
     * Renamed a few classes (ISimulation)

@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SHAPES_DOUBLEELLIPSE_H
 #define BORNAGAIN_SAMPLE_SHAPES_DOUBLEELLIPSE_H
 
@@ -28,3 +29,4 @@ public:
 };
 
 #endif // BORNAGAIN_SAMPLE_SHAPES_DOUBLEELLIPSE_H
+#endif // USER_API

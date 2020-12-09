@@ -8258,7 +8258,7 @@ class Layer(ISampleNode):
     r"""
 
 
-    A layer, with thickness (in nanometer) and material.
+    A layer in a  MultiLayer sample.
 
     C++ includes: Layer.h
 
@@ -11370,7 +11370,14 @@ class Lattice3D(libBornAgainParam.INode):
 _libBornAgainSample.Lattice3D_swigregister(Lattice3D)
 
 class Lattice2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
-    r"""Proxy of C++ Lattice2D class."""
+    r"""
+
+
+    A two-dimensional Bravais lattice.
+
+    C++ includes: Lattice2D.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -11447,7 +11454,14 @@ class Lattice2D(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 _libBornAgainSample.Lattice2D_swigregister(Lattice2D)
 
 class BasicLattice2D(Lattice2D):
-    r"""Proxy of C++ BasicLattice2D class."""
+    r"""
+
+
+    A two-dimensional Bravais lattice with no special symmetry.
+
+    C++ includes: Lattice2D.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11513,7 +11527,14 @@ class BasicLattice2D(Lattice2D):
 _libBornAgainSample.BasicLattice2D_swigregister(BasicLattice2D)
 
 class SquareLattice2D(Lattice2D):
-    r"""Proxy of C++ SquareLattice2D class."""
+    r"""
+
+
+    A two-dimensional Bravais lattice with square unit cell.
+
+    C++ includes: Lattice2D.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -11579,7 +11600,14 @@ class SquareLattice2D(Lattice2D):
 _libBornAgainSample.SquareLattice2D_swigregister(SquareLattice2D)
 
 class HexagonalLattice2D(Lattice2D):
-    r"""Proxy of C++ HexagonalLattice2D class."""
+    r"""
+
+
+    A two-dimensional Bravais lattice with hexagonal symmetry.
+
+    C++ includes: Lattice2D.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr

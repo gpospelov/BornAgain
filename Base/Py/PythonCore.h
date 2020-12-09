@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_PY_PYTHONCORE_H
 #define BORNAGAIN_BASE_PY_PYTHONCORE_H
 
@@ -46,3 +47,4 @@
 #endif // BORNAGAIN_PYTHON
 
 #endif // BORNAGAIN_BASE_PY_PYTHONCORE_H
+#endif // USER_API

@@ -63,7 +63,7 @@ public:
     std::vector<double>
     createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const override;
 
-#endif // SWIG
+#endif // USER_API
 
     //! Sets q resolution values via ScanResolution object.
     void setQResolution(const ScanResolution& resolution);

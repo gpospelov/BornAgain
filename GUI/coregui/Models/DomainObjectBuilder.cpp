@@ -139,9 +139,9 @@ DomainObjectBuilder::createUnitConverter(const InstrumentItem* instrumentItem) {
     if (instrumentItem->modelType() == "GISASInstrument")
         return UnitConverterUtils::createConverterForGISAS(*instrument);
 
-    if (instrumentItem->modelType() == "OffSpecInstrument") {
+    if (instrumentItem->modelType() == "OffSpecularInstrument") {
         auto axis_item = dynamic_cast<BasicAxisItem*>(
-            instrumentItem->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
+            instrumentItem->getItem(OffSpecularInstrumentItem::P_ALPHA_AXIS));
         const auto detector2d = dynamic_cast<const IDetector2D*>(instrument->getDetector());
         return std::make_unique<OffSpecularConverter>(*detector2d, instrument->beam(),
                                                       *axis_item->createAxis(Units::deg));

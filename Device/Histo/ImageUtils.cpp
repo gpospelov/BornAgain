@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Instrument/SpectrumUtils.cpp
+//! @file      Device/Histo/ImageUtils.cpp
 //! @brief     PyObvject forward declaration.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,11 +12,11 @@
 //
 //  ************************************************************************************************
 
-#include "Device/Instrument/SpectrumUtils.h"
+#include "Device/Histo/ImageUtils.h"
 #include <cmath>
-#include <tspectrum.h>
+#include <tspectrum.h> // third-party code, extracted from CERN ROOT (class TSpectrum2)
 
-std::vector<std::pair<double, double>> SpectrumUtils::FindPeaks(const Histogram2D& hist,
+std::vector<std::pair<double, double>> ImageUtils::FindPeaks(const Histogram2D& hist,
                                                                 double sigma,
                                                                 const std::string& option,
                                                                 double threshold) {

@@ -19,6 +19,8 @@
 
 kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi);
 
+//! A direction in three-dimensional space.
+
 class Direction {
 public:
     Direction(double alpha, double phi) : m_alpha(alpha), m_phi(phi) {}

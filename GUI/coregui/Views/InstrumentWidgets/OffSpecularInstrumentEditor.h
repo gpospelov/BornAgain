@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      GUI/coregui/Views/InstrumentWidgets/OffSpecInstrumentEditor.h
-//! @brief     Defines class OffSpecInstrumentEditor
+//! @file      GUI/coregui/Views/InstrumentWidgets/OffSpecularInstrumentEditor.h
+//! @brief     Defines class OffSpecularInstrumentEditor
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -17,26 +17,26 @@
 
 #include "GUI/coregui/Views/CommonWidgets/SessionItemWidget.h"
 
-class OffSpecInstrumentItem;
-class OffSpecBeamEditor;
+class OffSpecularInstrumentItem;
+class OffSpecularBeamEditor;
 class GISASDetectorEditor;
 class EnvironmentEditor;
 class PolarizationAnalysisEditor;
 class ColumnResizer;
 
-class OffSpecInstrumentEditor : public SessionItemWidget {
+class OffSpecularInstrumentEditor : public SessionItemWidget {
     Q_OBJECT
 
 public:
-    OffSpecInstrumentEditor(QWidget* parent = nullptr);
+    OffSpecularInstrumentEditor(QWidget* parent = nullptr);
 
 protected:
     void subscribeToItem();
 
 private:
-    OffSpecInstrumentItem* instrumentItem();
+    OffSpecularInstrumentItem* instrumentItem();
     ColumnResizer* m_columnResizer;
-    OffSpecBeamEditor* m_beamEditor;
+    OffSpecularBeamEditor* m_beamEditor;
     GISASDetectorEditor* m_detectorEditor;
     EnvironmentEditor* m_environmentEditor;
     PolarizationAnalysisEditor* m_polarizationAnalysisEditor;

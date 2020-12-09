@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SLICE_SLICEDFORMFACTORLIST_H
 #define BORNAGAIN_SAMPLE_SLICE_SLICEDFORMFACTORLIST_H
 
@@ -56,3 +57,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_SLICE_SLICEDFORMFACTORLIST_H
+#endif // USER_API

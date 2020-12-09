@@ -75,9 +75,9 @@ void InstrumentViewActions::onAddInstrument() {
     if (instrumentType == "GISASInstrument") {
         auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("GISAS"));
-    } else if (instrumentType == "OffSpecInstrument") {
+    } else if (instrumentType == "OffSpecularInstrument") {
         auto instrument = m_model->insertNewItem(instrumentType);
-        instrument->setItemName(suggestInstrumentName("OffSpec"));
+        instrument->setItemName(suggestInstrumentName("OffSpecular"));
     } else if (instrumentType == "SpecularInstrument") {
         auto instrument = m_model->insertNewItem(instrumentType);
         instrument->setItemName(suggestInstrumentName("Specular"));
@@ -211,9 +211,9 @@ void InstrumentViewActions::initAddInstrumentMenu() {
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
     m_addInstrumentMenu->setDefaultAction(action);
 
-    action = m_addInstrumentMenu->addAction("OffSpec");
-    action->setData(QVariant::fromValue(QString{"OffSpecInstrument"}));
-    action->setToolTip("Add OffSpec instrument with default settings");
+    action = m_addInstrumentMenu->addAction("OffSpecular");
+    action->setData(QVariant::fromValue(QString{"OffSpecularInstrument"}));
+    action->setToolTip("Add OffSpecular instrument with default settings");
     connect(action, &QAction::triggered, this, &InstrumentViewActions::onAddInstrument);
 
     action = m_addInstrumentMenu->addAction("Specular");

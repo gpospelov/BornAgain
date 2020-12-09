@@ -17,6 +17,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_INSTRUMENT_FOURIERTRANSFORM_H
 #define BORNAGAIN_DEVICE_INSTRUMENT_FOURIERTRANSFORM_H
 
@@ -94,3 +95,4 @@ private:
 };
 
 #endif // BORNAGAIN_DEVICE_INSTRUMENT_FOURIERTRANSFORM_H
+#endif // USER_API

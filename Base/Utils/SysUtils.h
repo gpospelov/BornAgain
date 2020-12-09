@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_UTILS_SYSUTILS_H
 #define BORNAGAIN_BASE_UTILS_SYSUTILS_H
 
@@ -39,3 +40,4 @@ bool isWindowsHost();
 } // namespace SysUtils
 
 #endif // BORNAGAIN_BASE_UTILS_SYSUTILS_H
+#endif // USER_API

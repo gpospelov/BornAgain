@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_RESOLUTION_CONVOLVE_H
 #define BORNAGAIN_DEVICE_RESOLUTION_CONVOLVE_H
 
@@ -122,3 +123,4 @@ private:
 };
 
 #endif // BORNAGAIN_DEVICE_RESOLUTION_CONVOLVE_H
+#endif // USER_API

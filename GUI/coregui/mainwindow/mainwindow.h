@@ -48,6 +48,10 @@ public:
     enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, IMPORT, SIMULATION, JOB, MAXVIEWCOUNT };
 
     explicit MainWindow();
+    ~MainWindow();
+
+    //! Returns the one and only instance of this class
+    static MainWindow* instance();
 
     MaterialModel* materialModel();
     InstrumentModel* instrumentModel();
@@ -96,6 +100,9 @@ private:
     SimulationView* m_simulationView;
     JobView* m_jobView;
     SessionModelView* m_sessionModelView;
+
+    //! Holds the one and only instance of this class
+    static MainWindow* s_instance;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H

@@ -38,6 +38,8 @@
 #include <qt-manhattan-style/progressbar.h>
 #include <qt-manhattan-style/stylehelper.h>
 
+MainWindow* MainWindow::s_instance = nullptr;
+
 MainWindow::MainWindow()
     : Manhattan::FancyMainWindow(nullptr)
     , m_tabWidget(new Manhattan::FancyTabWidget(this))
@@ -54,6 +56,7 @@ MainWindow::MainWindow()
     , m_simulationView(0)
     , m_jobView(0)
     , m_sessionModelView(0) {
+    s_instance = this;
     initApplication();
     readSettings();
     initProgressBar();
@@ -63,6 +66,14 @@ MainWindow::MainWindow()
     //    m_applicationModels->createTestSample();
     //    m_applicationModels->createTestJob();
     //    m_applicationModels->createTestRealData();
+}
+
+MainWindow::~MainWindow() {
+    s_instance = nullptr;
+}
+
+MainWindow* MainWindow::instance() {
+    return s_instance;
 }
 
 MaterialModel* MainWindow::materialModel() {

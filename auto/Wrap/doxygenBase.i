@@ -381,7 +381,12 @@ Increments inner counter; at regular intervals updates progress handler.
 
 
 // File: classDirection.xml
-%feature("docstring") Direction "";
+%feature("docstring") Direction "
+
+A direction in three-dimensional space.
+
+C++ includes: Direction.h
+";
 
 %feature("docstring")  Direction::Direction "Direction::Direction(double alpha, double phi)
 ";

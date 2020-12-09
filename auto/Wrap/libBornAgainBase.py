@@ -1793,7 +1793,14 @@ def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     """
     return _libBornAgainBase.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
 class Direction(object):
-    r"""Proxy of C++ Direction class."""
+    r"""
+
+
+    A direction in three-dimensional space.
+
+    C++ includes: Direction.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr

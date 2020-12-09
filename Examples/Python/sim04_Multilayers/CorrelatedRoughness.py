@@ -40,8 +40,6 @@ def get_sample():
     my_sample.addLayerWithTopRoughness(l_substrate, roughness)
     my_sample.setCrossCorrLength(10*nm)
 
-    print(my_sample.treeToString())
-
     return my_sample
 
 

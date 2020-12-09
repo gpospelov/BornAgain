@@ -6654,9 +6654,9 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Base/Types/Complex.h"
 #include "Base/Types/ICloneable.h"
 
-#include "Base/Utils/ThreadInfo.h"
-
 #include "Base/Const/Units.h"
+
+#include "Base/Utils/ThreadInfo.h"
 
 #include "Base/Vector/BasicVector3D.h"
 #include "Base/Vector/Vectors3D.h"
@@ -24353,108 +24353,6 @@ SWIGINTERN PyObject *Swig_var_barn_get(void) {
 }
 
 
-SWIGINTERN int Swig_var_radian_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable radian is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_radian_get(void) {
-  PyObject *pyobj = 0;
-  
-  pyobj = SWIG_From_double(static_cast< double >(Units::radian));
-  return pyobj;
-}
-
-
-SWIGINTERN int Swig_var_milliradian_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable milliradian is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_milliradian_get(void) {
-  PyObject *pyobj = 0;
-  
-  pyobj = SWIG_From_double(static_cast< double >(Units::milliradian));
-  return pyobj;
-}
-
-
-SWIGINTERN int Swig_var_degree_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable degree is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_degree_get(void) {
-  PyObject *pyobj = 0;
-  
-  pyobj = SWIG_From_double(static_cast< double >(Units::degree));
-  return pyobj;
-}
-
-
-SWIGINTERN int Swig_var_steradian_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable steradian is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_steradian_get(void) {
-  PyObject *pyobj = 0;
-  
-  pyobj = SWIG_From_double(static_cast< double >(Units::steradian));
-  return pyobj;
-}
-
-
-SWIGINTERN PyObject *_wrap_rad2deg(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "rad2deg" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = (double)Units::rad2deg(arg1);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_deg2rad(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  PyObject *swig_obj[1] ;
-  double result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "deg2rad" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = (double)Units::deg2rad(arg1);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN int Swig_var_rad_set(PyObject *) {
   SWIG_Error(SWIG_AttributeError,"Variable rad is read-only.");
   return 1;
@@ -24465,34 +24363,6 @@ SWIGINTERN PyObject *Swig_var_rad_get(void) {
   PyObject *pyobj = 0;
   
   pyobj = SWIG_From_double(static_cast< double >(Units::rad));
-  return pyobj;
-}
-
-
-SWIGINTERN int Swig_var_mrad_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable mrad is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_mrad_get(void) {
-  PyObject *pyobj = 0;
-  
-  pyobj = SWIG_From_double(static_cast< double >(Units::mrad));
-  return pyobj;
-}
-
-
-SWIGINTERN int Swig_var_sr_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable sr is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_sr_get(void) {
-  PyObject *pyobj = 0;
-  
-  pyobj = SWIG_From_double(static_cast< double >(Units::sr));
   return pyobj;
 }
 
@@ -33130,16 +33000,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_ThreadInfo", _wrap_delete_ThreadInfo, METH_O, "delete_ThreadInfo(ThreadInfo self)"},
 	 { "ThreadInfo_swigregister", ThreadInfo_swigregister, METH_O, NULL},
 	 { "ThreadInfo_swiginit", ThreadInfo_swiginit, METH_VARARGS, NULL},
-	 { "rad2deg", _wrap_rad2deg, METH_O, "\n"
-		"rad2deg(double angle) -> double\n"
-		"double Units::rad2deg(double angle)\n"
-		"\n"
-		""},
-	 { "deg2rad", _wrap_deg2rad, METH_O, "\n"
-		"deg2rad(double angle) -> double\n"
-		"double Units::deg2rad(double angle)\n"
-		"\n"
-		""},
 	 { "vecOfLambdaAlphaPhi", _wrap_vecOfLambdaAlphaPhi, METH_VARARGS, "\n"
 		"vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t\n"
 		"kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)\n"
@@ -35118,13 +34978,7 @@ SWIG_init(void) {
   SWIG_addvarlink(globals, "nm", Swig_var_nm_get, Swig_var_nm_set);
   SWIG_addvarlink(globals, "nm2", Swig_var_nm2_get, Swig_var_nm2_set);
   SWIG_addvarlink(globals, "barn", Swig_var_barn_get, Swig_var_barn_set);
-  SWIG_addvarlink(globals, "radian", Swig_var_radian_get, Swig_var_radian_set);
-  SWIG_addvarlink(globals, "milliradian", Swig_var_milliradian_get, Swig_var_milliradian_set);
-  SWIG_addvarlink(globals, "degree", Swig_var_degree_get, Swig_var_degree_set);
-  SWIG_addvarlink(globals, "steradian", Swig_var_steradian_get, Swig_var_steradian_set);
   SWIG_addvarlink(globals, "rad", Swig_var_rad_get, Swig_var_rad_set);
-  SWIG_addvarlink(globals, "mrad", Swig_var_mrad_get, Swig_var_mrad_set);
-  SWIG_addvarlink(globals, "sr", Swig_var_sr_get, Swig_var_sr_set);
   SWIG_addvarlink(globals, "deg", Swig_var_deg_get, Swig_var_deg_set);
   SWIG_addvarlink(globals, "tesla", Swig_var_tesla_get, Swig_var_tesla_set);
   SWIG_addvarlink(globals, "gauss", Swig_var_gauss_get, Swig_var_gauss_set);

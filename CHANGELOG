@@ -10,8 +10,9 @@ BornAgain-1.18.99, ongoing development
   > Fixes of unreported bugs:
     * Several GUI bugs that caused crashes
     * For alpha_i=0, set scattered intensity to 0
-  > Examples:
-    * Uniform API usage in line with exported Python code
+  > Documentation:
+    * Unified API usage in many examples, using BornAgain's Python exporter
+    * Removed many entries from Doxygen user API
   > Internal refactoring:
     * Moved code to break directory include cycles
     * Renamed a few classes (ISimulation)

@@ -1769,22 +1769,6 @@ class ThreadInfo(object):
 _libBornAgainBase.ThreadInfo_swigregister(ThreadInfo)
 
 
-def rad2deg(angle):
-    r"""
-    rad2deg(double angle) -> double
-    double Units::rad2deg(double angle)
-
-    """
-    return _libBornAgainBase.rad2deg(angle)
-
-def deg2rad(angle):
-    r"""
-    deg2rad(double angle) -> double
-    double Units::deg2rad(double angle)
-
-    """
-    return _libBornAgainBase.deg2rad(angle)
-
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     r"""
     vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t
@@ -1867,13 +1851,7 @@ meter = cvar.meter
 nm = cvar.nm
 nm2 = cvar.nm2
 barn = cvar.barn
-radian = cvar.radian
-milliradian = cvar.milliradian
-degree = cvar.degree
-steradian = cvar.steradian
 rad = cvar.rad
-mrad = cvar.mrad
-sr = cvar.sr
 deg = cvar.deg
 tesla = cvar.tesla
 gauss = cvar.gauss

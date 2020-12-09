@@ -63,7 +63,6 @@
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/Fitting/FitObjective.h"
-#include "Core/Fitting/IObserver.h"
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
 #include "Core/Scan/AngularSpecScan.h"
@@ -99,7 +98,6 @@
 
 %include "BAVersion.h"
 
-%include "Core/Fitting/IObserver.h"
 %include "Core/Fitting/IterationInfo.h"
 %include "Core/Fitting/PyFittingCallbacks.h"
 

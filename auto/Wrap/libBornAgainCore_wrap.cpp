@@ -3121,90 +3121,87 @@ namespace Swig {
 #define SWIGTYPE_p_IFormFactor swig_types[21]
 #define SWIGTYPE_p_INode swig_types[22]
 #define SWIGTYPE_p_INodeVisitor swig_types[23]
-#define SWIGTYPE_p_IObservable swig_types[24]
-#define SWIGTYPE_p_IObserver swig_types[25]
-#define SWIGTYPE_p_IParametricComponent swig_types[26]
-#define SWIGTYPE_p_IRangedDistribution swig_types[27]
-#define SWIGTYPE_p_IResolutionFunction2D swig_types[28]
-#define SWIGTYPE_p_ISampleNode swig_types[29]
-#define SWIGTYPE_p_IShape2D swig_types[30]
-#define SWIGTYPE_p_ISimulation swig_types[31]
-#define SWIGTYPE_p_ISimulation2D swig_types[32]
-#define SWIGTYPE_p_ISpecularScan swig_types[33]
-#define SWIGTYPE_p_Instrument swig_types[34]
-#define SWIGTYPE_p_IterationInfo swig_types[35]
-#define SWIGTYPE_p_MultiLayer swig_types[36]
-#define SWIGTYPE_p_OffSpecularSimulation swig_types[37]
-#define SWIGTYPE_p_OutputDataT_double_t swig_types[38]
-#define SWIGTYPE_p_ParameterDistribution swig_types[39]
-#define SWIGTYPE_p_ParameterPool swig_types[40]
-#define SWIGTYPE_p_PoissonNoiseBackground swig_types[41]
-#define SWIGTYPE_p_ProgressHandler__Callback_t swig_types[42]
-#define SWIGTYPE_p_PyBuilderCallback swig_types[43]
-#define SWIGTYPE_p_PyObserverCallback swig_types[44]
-#define SWIGTYPE_p_QSpecScan swig_types[45]
-#define SWIGTYPE_p_RealLimits swig_types[46]
-#define SWIGTYPE_p_ScanResolution swig_types[47]
-#define SWIGTYPE_p_SimulationOptions swig_types[48]
-#define SWIGTYPE_p_SimulationResult swig_types[49]
-#define SWIGTYPE_p_SpecularSimulation swig_types[50]
-#define SWIGTYPE_p_allocator_type swig_types[51]
-#define SWIGTYPE_p_char swig_types[52]
-#define SWIGTYPE_p_difference_type swig_types[53]
-#define SWIGTYPE_p_first_type swig_types[54]
-#define SWIGTYPE_p_int swig_types[55]
-#define SWIGTYPE_p_key_type swig_types[56]
-#define SWIGTYPE_p_long_long swig_types[57]
-#define SWIGTYPE_p_mapped_type swig_types[58]
-#define SWIGTYPE_p_mumufit__MinimizerResult swig_types[59]
-#define SWIGTYPE_p_mumufit__Parameters swig_types[60]
-#define SWIGTYPE_p_p_PyObject swig_types[61]
-#define SWIGTYPE_p_second_type swig_types[62]
-#define SWIGTYPE_p_short swig_types[63]
-#define SWIGTYPE_p_signed_char swig_types[64]
-#define SWIGTYPE_p_size_type swig_types[65]
-#define SWIGTYPE_p_std__allocatorT_AxisInfo_t swig_types[66]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[67]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[68]
-#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[69]
-#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[70]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[71]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[72]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[73]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[74]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[75]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[76]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[77]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[78]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[79]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[80]
-#define SWIGTYPE_p_std__invalid_argument swig_types[81]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[82]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[83]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[84]
-#define SWIGTYPE_p_std__shared_ptrT_IObserver_t swig_types[85]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[86]
-#define SWIGTYPE_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t swig_types[87]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[88]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[89]
-#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[90]
-#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[91]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[92]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[93]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[94]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[95]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[96]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[97]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[98]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[99]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[100]
-#define SWIGTYPE_p_unsigned_char swig_types[101]
-#define SWIGTYPE_p_unsigned_int swig_types[102]
-#define SWIGTYPE_p_unsigned_long_long swig_types[103]
-#define SWIGTYPE_p_unsigned_short swig_types[104]
-#define SWIGTYPE_p_value_type swig_types[105]
-static swig_type_info *swig_types[107];
-static swig_module_info swig_module = {swig_types, 106, 0, 0, 0, 0};
+#define SWIGTYPE_p_IParametricComponent swig_types[24]
+#define SWIGTYPE_p_IRangedDistribution swig_types[25]
+#define SWIGTYPE_p_IResolutionFunction2D swig_types[26]
+#define SWIGTYPE_p_ISampleNode swig_types[27]
+#define SWIGTYPE_p_IShape2D swig_types[28]
+#define SWIGTYPE_p_ISimulation swig_types[29]
+#define SWIGTYPE_p_ISimulation2D swig_types[30]
+#define SWIGTYPE_p_ISpecularScan swig_types[31]
+#define SWIGTYPE_p_Instrument swig_types[32]
+#define SWIGTYPE_p_IterationInfo swig_types[33]
+#define SWIGTYPE_p_MultiLayer swig_types[34]
+#define SWIGTYPE_p_OffSpecularSimulation swig_types[35]
+#define SWIGTYPE_p_OutputDataT_double_t swig_types[36]
+#define SWIGTYPE_p_ParameterDistribution swig_types[37]
+#define SWIGTYPE_p_ParameterPool swig_types[38]
+#define SWIGTYPE_p_PoissonNoiseBackground swig_types[39]
+#define SWIGTYPE_p_ProgressHandler__Callback_t swig_types[40]
+#define SWIGTYPE_p_PyBuilderCallback swig_types[41]
+#define SWIGTYPE_p_PyObserverCallback swig_types[42]
+#define SWIGTYPE_p_QSpecScan swig_types[43]
+#define SWIGTYPE_p_RealLimits swig_types[44]
+#define SWIGTYPE_p_ScanResolution swig_types[45]
+#define SWIGTYPE_p_SimulationOptions swig_types[46]
+#define SWIGTYPE_p_SimulationResult swig_types[47]
+#define SWIGTYPE_p_SpecularSimulation swig_types[48]
+#define SWIGTYPE_p_allocator_type swig_types[49]
+#define SWIGTYPE_p_char swig_types[50]
+#define SWIGTYPE_p_difference_type swig_types[51]
+#define SWIGTYPE_p_first_type swig_types[52]
+#define SWIGTYPE_p_int swig_types[53]
+#define SWIGTYPE_p_key_type swig_types[54]
+#define SWIGTYPE_p_long_long swig_types[55]
+#define SWIGTYPE_p_mapped_type swig_types[56]
+#define SWIGTYPE_p_mumufit__MinimizerResult swig_types[57]
+#define SWIGTYPE_p_mumufit__Parameters swig_types[58]
+#define SWIGTYPE_p_p_PyObject swig_types[59]
+#define SWIGTYPE_p_second_type swig_types[60]
+#define SWIGTYPE_p_short swig_types[61]
+#define SWIGTYPE_p_signed_char swig_types[62]
+#define SWIGTYPE_p_size_type swig_types[63]
+#define SWIGTYPE_p_std__allocatorT_AxisInfo_t swig_types[64]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[65]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[66]
+#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[67]
+#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[68]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[69]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[70]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[71]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[72]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[73]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[74]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[75]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[76]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[77]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[78]
+#define SWIGTYPE_p_std__invalid_argument swig_types[79]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[80]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[81]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[82]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[83]
+#define SWIGTYPE_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t swig_types[84]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[85]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[86]
+#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[87]
+#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[88]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[89]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[90]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[91]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[92]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[93]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[94]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[95]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[96]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[97]
+#define SWIGTYPE_p_unsigned_char swig_types[98]
+#define SWIGTYPE_p_unsigned_int swig_types[99]
+#define SWIGTYPE_p_unsigned_long_long swig_types[100]
+#define SWIGTYPE_p_unsigned_short swig_types[101]
+#define SWIGTYPE_p_value_type swig_types[102]
+static swig_type_info *swig_types[104];
+static swig_module_info swig_module = {swig_types, 103, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6703,7 +6700,6 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Core/Computation/PoissonNoiseBackground.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/Fitting/FitObjective.h"
-#include "Core/Fitting/IObserver.h"
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
 #include "Core/Scan/AngularSpecScan.h"
@@ -36842,169 +36838,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_IObserver(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IObserver *arg1 = (IObserver *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IObserver, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IObserver" "', argument " "1"" of type '" "IObserver *""'"); 
-  }
-  arg1 = reinterpret_cast< IObserver * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IObserver_notify(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IObserver *arg1 = (IObserver *) 0 ;
-  IObservable *arg2 = (IObservable *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IObserver_notify", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IObserver, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IObserver_notify" "', argument " "1"" of type '" "IObserver *""'"); 
-  }
-  arg1 = reinterpret_cast< IObserver * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_IObservable, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IObserver_notify" "', argument " "2"" of type '" "IObservable *""'"); 
-  }
-  arg2 = reinterpret_cast< IObservable * >(argp2);
-  (arg1)->notify(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *IObserver_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IObserver, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_delete_IObservable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IObservable *arg1 = (IObservable *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IObservable, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IObservable" "', argument " "1"" of type '" "IObservable *""'"); 
-  }
-  arg1 = reinterpret_cast< IObservable * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IObservable_attachObserver(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IObservable *arg1 = (IObservable *) 0 ;
-  SwigValueWrapper< std::shared_ptr< IObserver > > arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IObservable_attachObserver", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IObservable, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IObservable_attachObserver" "', argument " "1"" of type '" "IObservable *""'"); 
-  }
-  arg1 = reinterpret_cast< IObservable * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__shared_ptrT_IObserver_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IObservable_attachObserver" "', argument " "2"" of type '" "std::shared_ptr< IObserver >""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IObservable_attachObserver" "', argument " "2"" of type '" "std::shared_ptr< IObserver >""'");
-    } else {
-      std::shared_ptr< IObserver > * temp = reinterpret_cast< std::shared_ptr< IObserver > * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  (arg1)->attachObserver(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IObservable_notifyObservers(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IObservable *arg1 = (IObservable *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IObservable, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IObservable_notifyObservers" "', argument " "1"" of type '" "IObservable *""'"); 
-  }
-  arg1 = reinterpret_cast< IObservable * >(argp1);
-  (arg1)->notifyObservers();
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_IObservable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IObservable *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "new_IObservable", 0, 0, 0)) SWIG_fail;
-  result = (IObservable *)new IObservable();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IObservable, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *IObservable_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IObservable, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *IObservable_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
 SWIGINTERN PyObject *_wrap_new_IterationInfo(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IterationInfo *result = 0 ;
@@ -43465,49 +43298,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "GetPatchVersionNumber", _wrap_GetPatchVersionNumber, METH_NOARGS, "GetPatchVersionNumber() -> int"},
 	 { "GetName", _wrap_GetName, METH_NOARGS, "GetName() -> std::string"},
 	 { "GetVersionNumber", _wrap_GetVersionNumber, METH_NOARGS, "GetVersionNumber() -> std::string"},
-	 { "delete_IObserver", _wrap_delete_IObserver, METH_O, "\n"
-		"delete_IObserver(IObserver self)\n"
-		"virtual IObserver::~IObserver()=default\n"
-		"\n"
-		""},
-	 { "IObserver_notify", _wrap_IObserver_notify, METH_VARARGS, "\n"
-		"IObserver_notify(IObserver self, IObservable subject)\n"
-		"virtual void IObserver::notify(IObservable *subject)=0\n"
-		"\n"
-		"method which is used by observable subject to notify change in status \n"
-		"\n"
-		""},
-	 { "IObserver_swigregister", IObserver_swigregister, METH_O, NULL},
-	 { "delete_IObservable", _wrap_delete_IObservable, METH_O, "\n"
-		"delete_IObservable(IObservable self)\n"
-		"virtual IObservable::~IObservable()=default\n"
-		"\n"
-		""},
-	 { "IObservable_attachObserver", _wrap_IObservable_attachObserver, METH_VARARGS, "\n"
-		"IObservable_attachObserver(IObservable self, std::shared_ptr< IObserver > obj)\n"
-		"virtual void IObservable::attachObserver(std::shared_ptr< IObserver > obj)\n"
-		"\n"
-		"attach observer to the list of observers \n"
-		"\n"
-		""},
-	 { "IObservable_notifyObservers", _wrap_IObservable_notifyObservers, METH_O, "\n"
-		"IObservable_notifyObservers(IObservable self)\n"
-		"virtual void IObservable::notifyObservers()\n"
-		"\n"
-		"notify observers about change in status \n"
-		"\n"
-		""},
-	 { "new_IObservable", _wrap_new_IObservable, METH_NOARGS, "\n"
-		"new_IObservable() -> IObservable\n"
-		"\n"
-		"\n"
-		"Observable interface from Observer pattern. Shared pointer is used when passing these objects from Python to C++.\n"
-		"\n"
-		"C++ includes: IObserver.h\n"
-		"\n"
-		""},
-	 { "IObservable_swigregister", IObservable_swigregister, METH_O, NULL},
-	 { "IObservable_swiginit", IObservable_swiginit, METH_VARARGS, NULL},
 	 { "new_IterationInfo", _wrap_new_IterationInfo, METH_NOARGS, "\n"
 		"new_IterationInfo() -> IterationInfo\n"
 		"IterationInfo::IterationInfo()\n"
@@ -44498,8 +44288,6 @@ static swig_type_info _swigt__p_IDistribution1D = {"_p_IDistribution1D", "IDistr
 static swig_type_info _swigt__p_IFootprintFactor = {"_p_IFootprintFactor", "IFootprintFactor *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INode = {"_p_INode", "INode *|std::vector< INode * >::value_type|std::vector< INode const * >::value_type", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INodeVisitor = {"_p_INodeVisitor", "INodeVisitor *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IObservable = {"_p_IObservable", "IObservable *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IObserver = {"_p_IObserver", "IObserver *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IParametricComponent = {"_p_IParametricComponent", "IParametricComponent *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IRangedDistribution = {"_p_IRangedDistribution", "IRangedDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IResolutionFunction2D = {"_p_IResolutionFunction2D", "IResolutionFunction2D *", 0, 0, (void*)0, 0};
@@ -44557,7 +44345,6 @@ static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argume
 static swig_type_info _swigt__p_std__lessT_std__string_t = {"_p_std__lessT_std__string_t", "std::less< std::string > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t = {"_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t", "std::map< std::string,double,std::less< std::string >,std::allocator< std::pair< std::string const,double > > > *|std::map< std::string,double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_double_double_t = {"_p_std__pairT_double_double_t", "std::pair< double,double > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__shared_ptrT_IObserver_t = {"_p_std__shared_ptrT_IObserver_t", "std::shared_ptr< IObserver > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_ISampleBuilder_t = {"_p_std__shared_ptrT_ISampleBuilder_t", "std::shared_ptr< ISampleBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t = {"_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t", "std::vector< AxisInfo,std::allocator< AxisInfo > > *|std::vector< AxisInfo > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t = {"_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t", "std::vector< BasicVector3D< double > > *|std::vector< BasicVector3D< double >,std::allocator< BasicVector3D< double > > > *", 0, 0, (void*)0, 0};
@@ -44604,8 +44391,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IFormFactor,
   &_swigt__p_INode,
   &_swigt__p_INodeVisitor,
-  &_swigt__p_IObservable,
-  &_swigt__p_IObserver,
   &_swigt__p_IParametricComponent,
   &_swigt__p_IRangedDistribution,
   &_swigt__p_IResolutionFunction2D,
@@ -44665,7 +44450,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__lessT_std__string_t,
   &_swigt__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t,
   &_swigt__p_std__pairT_double_double_t,
-  &_swigt__p_std__shared_ptrT_IObserver_t,
   &_swigt__p_std__shared_ptrT_ISampleBuilder_t,
   &_swigt__p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t,
   &_swigt__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t,
@@ -44714,8 +44498,6 @@ static swig_cast_info _swigc__p_IDistribution1D[] = {  {&_swigt__p_IDistribution
 static swig_cast_info _swigc__p_IFootprintFactor[] = {  {&_swigt__p_IFootprintFactor, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_INode, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_INode, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_INode, 0, 0},  {&_swigt__p_OffSpecularSimulation, _p_OffSpecularSimulationTo_p_INode, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_INode, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_INode, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_INode, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_INode, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_INode, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IObservable[] = {  {&_swigt__p_IObservable, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IObserver[] = {  {&_swigt__p_IObserver, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IParametricComponent[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_OffSpecularSimulation, _p_OffSpecularSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IParametricComponent, 0, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IParametricComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParametricComponent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRangedDistribution[] = {  {&_swigt__p_IRangedDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IResolutionFunction2D[] = {  {&_swigt__p_IResolutionFunction2D, 0, 0, 0},{0, 0, 0, 0}};
@@ -44773,7 +44555,6 @@ static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__in
 static swig_cast_info _swigc__p_std__lessT_std__string_t[] = {  {&_swigt__p_std__lessT_std__string_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t[] = {  {&_swigt__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_double_double_t[] = {  {&_swigt__p_std__pairT_double_double_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__shared_ptrT_IObserver_t[] = {  {&_swigt__p_std__shared_ptrT_IObserver_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_ISampleBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_ISampleBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t[] = {  {&_swigt__p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t[] = {  {&_swigt__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -44820,8 +44601,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IFormFactor,
   _swigc__p_INode,
   _swigc__p_INodeVisitor,
-  _swigc__p_IObservable,
-  _swigc__p_IObserver,
   _swigc__p_IParametricComponent,
   _swigc__p_IRangedDistribution,
   _swigc__p_IResolutionFunction2D,
@@ -44881,7 +44660,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__lessT_std__string_t,
   _swigc__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t,
   _swigc__p_std__pairT_double_double_t,
-  _swigc__p_std__shared_ptrT_IObserver_t,
   _swigc__p_std__shared_ptrT_ISampleBuilder_t,
   _swigc__p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t,
   _swigc__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t,

@@ -3108,89 +3108,6 @@ def GetName():
 def GetVersionNumber():
     r"""GetVersionNumber() -> std::string"""
     return _libBornAgainCore.GetVersionNumber()
-class IObserver(object):
-    r"""
-
-
-    Observer interface from Observer pattern.
-
-    C++ includes: IObserver.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IObserver
-
-    def notify(self, subject):
-        r"""
-        notify(IObserver self, IObservable subject)
-        virtual void IObserver::notify(IObservable *subject)=0
-
-        method which is used by observable subject to notify change in status 
-
-        """
-        return _libBornAgainCore.IObserver_notify(self, subject)
-
-# Register IObserver in _libBornAgainCore:
-_libBornAgainCore.IObserver_swigregister(IObserver)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-
-class IObservable(object):
-    r"""
-
-
-    Observable interface from Observer pattern. Shared pointer is used when passing these objects from Python to C++.
-
-    C++ includes: IObserver.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IObservable
-
-    def attachObserver(self, obj):
-        r"""
-        attachObserver(IObservable self, std::shared_ptr< IObserver > obj)
-        virtual void IObservable::attachObserver(std::shared_ptr< IObserver > obj)
-
-        attach observer to the list of observers 
-
-        """
-        return _libBornAgainCore.IObservable_attachObserver(self, obj)
-
-    def notifyObservers(self):
-        r"""
-        notifyObservers(IObservable self)
-        virtual void IObservable::notifyObservers()
-
-        notify observers about change in status 
-
-        """
-        return _libBornAgainCore.IObservable_notifyObservers(self)
-
-    def __init__(self):
-        r"""
-        __init__(IObservable self) -> IObservable
-
-
-        Observable interface from Observer pattern. Shared pointer is used when passing these objects from Python to C++.
-
-        C++ includes: IObserver.h
-
-        """
-        _libBornAgainCore.IObservable_swiginit(self, _libBornAgainCore.new_IObservable())
-
-# Register IObservable in _libBornAgainCore:
-_libBornAgainCore.IObservable_swigregister(IObservable)
-
 class IterationInfo(object):
     r"""
 
@@ -3259,6 +3176,10 @@ class IterationInfo(object):
 
 # Register IterationInfo in _libBornAgainCore:
 _libBornAgainCore.IterationInfo_swigregister(IterationInfo)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
 
 class PyBuilderCallback(object):
     r"""

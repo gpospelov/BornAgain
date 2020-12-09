@@ -142,7 +142,7 @@ def plot_histogram(hist, **kwargs):
     plot_array(hist.array(), title=title, axes_limits=axes_limits, **kwargs)
 
 
-def plot_colormap(result, units=ba.Axes.DEFAULT, **kwargs):
+def plot_colormap(result, **kwargs):
     """
     Plots intensity data as color map
     :param result: SimulationResult from GISAS/OffSpecSimulation
@@ -150,6 +150,7 @@ def plot_colormap(result, units=ba.Axes.DEFAULT, **kwargs):
     :param zmax: Max value on amplitude's color bar
     """
 
+    units = kwargs.pop('units', ba.Axes.DEFAULT)
     axes_limits = get_axes_limits(result, units)
     axes_labels = get_axes_labels(result, units)
 
@@ -161,7 +162,7 @@ def plot_colormap(result, units=ba.Axes.DEFAULT, **kwargs):
     plot_array(result.array(), axes_limits=axes_limits, **kwargs)
 
 
-def plot_specular_simulation_result(result, units=ba.Axes.DEFAULT, **kwargs):
+def plot_specular_simulation_result(result, **kwargs):
     """
     Plots intensity data for specular simulation result
     :param result: SimulationResult from SpecularSimulation
@@ -170,6 +171,7 @@ def plot_specular_simulation_result(result, units=ba.Axes.DEFAULT, **kwargs):
     :param units: units on the x-axis
     """
 
+    units = kwargs.pop('units', ba.Axes.DEFAULT)
     intensity = result.array(units)
     x_axis = result.axis(units)
 
@@ -193,7 +195,7 @@ def plot_specular_simulation_result(result, units=ba.Axes.DEFAULT, **kwargs):
         plt.title(title)
 
 
-def plot_simulation_result(result, units=ba.Axes.DEFAULT, **kwargs):
+def plot_simulation_result(result, **kwargs):
     """
     Draws simulation result and (optionally) shows the plot.
     :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation
@@ -205,9 +207,9 @@ def plot_simulation_result(result, units=ba.Axes.DEFAULT, **kwargs):
     postpone_show = kwargs.pop('postpone_show', False)
 
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
-        plot_specular_simulation_result(result, units, **kwargs)
+        plot_specular_simulation_result(result, **kwargs)
     else:
-        plot_colormap(result, units, **kwargs)
+        plot_colormap(result, **kwargs)
     plt.tight_layout()
     if not (postpone_show):
         plt.show()

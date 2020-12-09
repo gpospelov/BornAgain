@@ -49,9 +49,6 @@ public:
     //! returns axis with given serial number
     const IAxis& axis(size_t serial_number) const;
 
-    //! returns axis with given name
-    const IAxis& axis(const std::string& axis_name) const;
-
     // retrieve basic info
 
     //! Returns number of dimensions.
@@ -301,10 +298,6 @@ void OutputData<T>::addAxis(const std::string& name, size_t size, double start, 
 
 template <class T> const IAxis& OutputData<T>::axis(size_t serial_number) const {
     return *m_value_axes[serial_number];
-}
-
-template <class T> const IAxis& OutputData<T>::axis(const std::string& axis_name) const {
-    return axis(getAxisIndex(axis_name));
 }
 
 template <class T> inline std::vector<size_t> OutputData<T>::getAllSizes() const {

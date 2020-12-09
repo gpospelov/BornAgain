@@ -140,7 +140,12 @@ C++ includes: ParaCrystalBuilder.h
 
 
 // File: classBasicLattice2D.xml
-%feature("docstring") BasicLattice2D "";
+%feature("docstring") BasicLattice2D "
+
+A two-dimensional Bravais lattice with no special symmetry.
+
+C++ includes: Lattice2D.h
+";
 
 %feature("docstring")  BasicLattice2D::BasicLattice2D "BasicLattice2D::BasicLattice2D(double length1, double length2, double angle, double xi)
 ";
@@ -2855,7 +2860,12 @@ C++ includes: PercusYevickBuilder.h
 
 
 // File: classHexagonalLattice2D.xml
-%feature("docstring") HexagonalLattice2D "";
+%feature("docstring") HexagonalLattice2D "
+
+A two-dimensional Bravais lattice with hexagonal symmetry.
+
+C++ includes: Lattice2D.h
+";
 
 %feature("docstring")  HexagonalLattice2D::HexagonalLattice2D "HexagonalLattice2D::HexagonalLattice2D(double length, double xi)
 ";
@@ -4704,7 +4714,12 @@ C++ includes: LatticeBuilder.h
 
 
 // File: classLattice2D.xml
-%feature("docstring") Lattice2D "";
+%feature("docstring") Lattice2D "
+
+A two-dimensional Bravais lattice.
+
+C++ includes: Lattice2D.h
+";
 
 %feature("docstring")  Lattice2D::Lattice2D "Lattice2D::Lattice2D(const NodeMeta &meta, const std::vector< double > &PValues)
 ";
@@ -4823,7 +4838,7 @@ Sets a selection rule for the reciprocal vectors.
 // File: classLayer.xml
 %feature("docstring") Layer "
 
-A layer, with thickness (in nanometer) and material.
+A layer in a  MultiLayer sample.
 
 C++ includes: Layer.h
 ";
@@ -7232,7 +7247,12 @@ C++ includes: ParticleDistributionsBuilder.h
 
 
 // File: classSquareLattice2D.xml
-%feature("docstring") SquareLattice2D "";
+%feature("docstring") SquareLattice2D "
+
+A two-dimensional Bravais lattice with square unit cell.
+
+C++ includes: Lattice2D.h
+";
 
 %feature("docstring")  SquareLattice2D::SquareLattice2D "SquareLattice2D::SquareLattice2D(double length, double xi=0.0)
 ";

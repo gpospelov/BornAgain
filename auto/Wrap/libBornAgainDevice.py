@@ -2268,16 +2268,15 @@ class IntensityData(object):
         """
         return _libBornAgainDevice.IntensityData_addAxis(self, *args)
 
-    def axis(self, *args):
+    def axis(self, serial_number):
         r"""
         axis(IntensityData self, size_t serial_number) -> IAxis
-        axis(IntensityData self, std::string const & axis_name) -> IAxis
-        const IAxis & OutputData< T >::axis(const std::string &axis_name) const
+        const IAxis & OutputData< T >::axis(size_t serial_number) const
 
-        returns axis with given name 
+        returns axis with given serial number 
 
         """
-        return _libBornAgainDevice.IntensityData_axis(self, *args)
+        return _libBornAgainDevice.IntensityData_axis(self, serial_number)
 
     def rank(self):
         r"""

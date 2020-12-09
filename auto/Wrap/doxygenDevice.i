@@ -1822,11 +1822,6 @@ C++ includes: OutputData.h
 returns axis with given serial number 
 ";
 
-%feature("docstring")  OutputData::axis "const IAxis & OutputData< T >::axis(const std::string &axis_name) const
-
-returns axis with given name 
-";
-
 %feature("docstring")  OutputData::rank "size_t OutputData< T >::rank() const
 
 Returns number of dimensions. 

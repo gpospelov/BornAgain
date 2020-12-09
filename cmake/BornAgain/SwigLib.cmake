@@ -1,3 +1,6 @@
+# Configure Python bindings for one component library.
+# Called from function MakeLib.
+
 function(SwigLib name lib TMP_DIR)
 
     if(NOT BORNAGAIN_PYTHON)

@@ -1,3 +1,5 @@
+# Configure one component library.
+
 function(MakeLib name lib tmpdir)
 
     if(BORNAGAIN_PYTHON)

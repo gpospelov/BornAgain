@@ -73,8 +73,8 @@ endif()
 
 # function definitions
 include(commons/GetFilenameComponent) # overwrite CMake command
-include(BornAgain/MakeLib)
 include(BornAgain/SwigLib)
+include(BornAgain/MakeLib)
 
 # main settings
 

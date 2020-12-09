@@ -9,15 +9,15 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//!
+//! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
+//! then reworked beyond recognition. Removed split of point and vector semantics.
+//! Transforms are relegated to a separate class Transform3D.
 //
 //  ************************************************************************************************
 
 #ifndef BORNAGAIN_BASE_VECTOR_BASICVECTOR3D_H
 #define BORNAGAIN_BASE_VECTOR_BASICVECTOR3D_H
-
-//! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
-//! then reworked beyond recognition. Removed split of point and vector semantics.
-//! Transforms are relegated to a separate class Transform3D.
 
 #include <complex>
 

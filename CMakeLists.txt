@@ -72,9 +72,10 @@ endif()
 ## Various CMake settings (include order is of critical importance)
 
 # function definitions
-include(commons/GetFilenameComponent) # overwrite CMake command
-include(BornAgain/SwigLib)
-include(BornAgain/MakeLib)
+include(commons/GetFilenameComponent) # fct get_filename_component (overwrites CMake's built-in)
+include(BornAgain/PythonDocs) # fct GeneratePythonDocs
+include(BornAgain/SwigLib) # fct SwigLib
+include(BornAgain/MakeLib) # fct MakeLib
 
 # main settings
 
@@ -104,7 +105,6 @@ include(BornAgain/Config)
 if(BORNAGAIN_PYTHON)
     include(BornAgain/PythonAPI)
 endif()
-include(BornAgain/PythonDocs)
 
 # debug optimization
 if(BORNAGAIN_DEBUG_OPTIMIZATION)

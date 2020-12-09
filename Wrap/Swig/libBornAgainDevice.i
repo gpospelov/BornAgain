@@ -53,7 +53,7 @@
 #include "Device/Instrument/IChiSquaredModule.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
 #include "Device/Instrument/PyArrayImportUtils.h"
-#include "Device/Instrument/SpectrumUtils.h"
+#include "Device/Histo/ImageUtils.h"
 #include "Device/Instrument/VarianceFunctions.h"
 #include "Device/Intensity/IIntensityFunction.h"
 #include "Device/Intensity/IIntensityFunction.h"
@@ -114,7 +114,7 @@
 %include "Device/Instrument/ChiSquaredModule.h"
 %include "Device/Instrument/IntensityDataFunctions.h"
 %include "Device/Instrument/PyArrayImportUtils.h"
-%include "Device/Instrument/SpectrumUtils.h"
+%include "Device/Histo/ImageUtils.h"
 %include "Device/Instrument/VarianceFunctions.h"
 
 %include "Device/Unit/IUnitConverter.h"

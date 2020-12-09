@@ -3953,7 +3953,9 @@ def importArrayToOutputData(*args):
 def FindPeaks(*args):
     r"""
     FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t
-    std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+    std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+
+    Returns vector of peak center coordinates, for peaks in given histogram. 
 
     """
     return _libBornAgainDevice.FindPeaks(*args)

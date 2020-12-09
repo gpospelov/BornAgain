@@ -6730,7 +6730,7 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Device/Instrument/IChiSquaredModule.h"
 #include "Device/Instrument/IntensityDataFunctions.h"
 #include "Device/Instrument/PyArrayImportUtils.h"
-#include "Device/Instrument/SpectrumUtils.h"
+#include "Device/Histo/ImageUtils.h"
 #include "Device/Instrument/VarianceFunctions.h"
 #include "Device/Intensity/IIntensityFunction.h"
 #include "Device/Intensity/IIntensityFunction.h"
@@ -35690,7 +35690,7 @@ SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_
     SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "FindPeaks" "', argument " "4"" of type '" "double""'");
   } 
   arg4 = static_cast< double >(val4);
-  result = SpectrumUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3,arg4);
+  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3,arg4);
   resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -35737,7 +35737,7 @@ SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_
     }
     arg3 = ptr;
   }
-  result = SpectrumUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3);
+  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3);
   resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
   if (SWIG_IsNewObj(res3)) delete arg3;
   return resultobj;
@@ -35771,7 +35771,7 @@ SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FindPeaks" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = SpectrumUtils::FindPeaks((Histogram2D const &)*arg1,arg2);
+  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1,arg2);
   resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
   return resultobj;
 fail:
@@ -35795,7 +35795,7 @@ SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_
     SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
   }
   arg1 = reinterpret_cast< Histogram2D * >(argp1);
-  result = SpectrumUtils::FindPeaks((Histogram2D const &)*arg1);
+  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1);
   resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
   return resultobj;
 fail:
@@ -35879,10 +35879,10 @@ SWIGINTERN PyObject *_wrap_FindPeaks(PyObject *self, PyObject *args) {
 fail:
   SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'FindPeaks'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    SpectrumUtils::FindPeaks(Histogram2D const &,double,std::string const &,double)\n"
-    "    SpectrumUtils::FindPeaks(Histogram2D const &,double,std::string const &)\n"
-    "    SpectrumUtils::FindPeaks(Histogram2D const &,double)\n"
-    "    SpectrumUtils::FindPeaks(Histogram2D const &)\n");
+    "    ImageUtils::FindPeaks(Histogram2D const &,double,std::string const &,double)\n"
+    "    ImageUtils::FindPeaks(Histogram2D const &,double,std::string const &)\n"
+    "    ImageUtils::FindPeaks(Histogram2D const &,double)\n"
+    "    ImageUtils::FindPeaks(Histogram2D const &)\n");
   return 0;
 }
 
@@ -46523,7 +46523,9 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "FindPeaks", _wrap_FindPeaks, METH_VARARGS, "\n"
 		"FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t\n"
-		"std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)\n"
+		"std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)\n"
+		"\n"
+		"Returns vector of peak center coordinates, for peaks in given histogram. \n"
 		"\n"
 		""},
 	 { "delete_IVarianceFunction", _wrap_delete_IVarianceFunction, METH_O, "\n"

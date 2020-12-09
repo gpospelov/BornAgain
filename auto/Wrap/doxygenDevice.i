@@ -3016,10 +3016,10 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: namespace_0d35.xml
 
 
-// File: namespace_0d58.xml
+// File: namespace_0d60.xml
 
 
-// File: namespace_0d64.xml
+// File: namespace_0d66.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3138,6 +3138,13 @@ Parse double values from string to vector of double.
 ";
 
 
+// File: namespaceImageUtils.xml
+%feature("docstring")  ImageUtils::FindPeaks "std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+
+Returns vector of peak center coordinates, for peaks in given histogram. 
+";
+
+
 // File: namespaceIntensityDataFunctions.xml
 %feature("docstring")  IntensityDataFunctions::RelativeDifference "double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
 
@@ -3222,11 +3229,6 @@ for importing 1D array of doubles from python into  OutputData
 %feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
 
 for importing 2D array of doubles from python into  OutputData
-";
-
-
-// File: namespaceSpectrumUtils.xml
-%feature("docstring")  SpectrumUtils::FindPeaks "std::vector< std::pair< double, double > > SpectrumUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
 ";
 
 
@@ -3395,6 +3397,12 @@ make Swappable
 // File: IHistogram_8h.xml
 
 
+// File: ImageUtils_8cpp.xml
+
+
+// File: ImageUtils_8h.xml
+
+
 // File: IntensityDataIOFactory_8cpp.xml
 
 
@@ -3474,12 +3482,6 @@ make Swappable
 
 
 // File: PyArrayImportUtils_8h.xml
-
-
-// File: SpectrumUtils_8cpp.xml
-
-
-// File: SpectrumUtils_8h.xml
 
 
 // File: VarianceFunctions_8cpp.xml

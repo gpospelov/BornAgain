@@ -3213,7 +3213,7 @@ namespace Swig {
 #define SWIGTYPE_p_MesoCrystal swig_types[113]
 #define SWIGTYPE_p_MultiLayer swig_types[114]
 #define SWIGTYPE_p_NodeMeta swig_types[115]
-#define SWIGTYPE_p_OffSpecSimulation swig_types[116]
+#define SWIGTYPE_p_OffSpecularSimulation swig_types[116]
 #define SWIGTYPE_p_ParaMeta swig_types[117]
 #define SWIGTYPE_p_ParameterDistribution swig_types[118]
 #define SWIGTYPE_p_ParameterPool swig_types[119]
@@ -39947,7 +39947,7 @@ fail:
 SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_105(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   INodeVisitor *arg1 = (INodeVisitor *) 0 ;
-  OffSpecSimulation *arg2 = (OffSpecSimulation *) 0 ;
+  OffSpecularSimulation *arg2 = (OffSpecularSimulation *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -39959,12 +39959,12 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit__SWIG_105(PyObject *SWIGUNUSEDPARM
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "INodeVisitor_visit" "', argument " "1"" of type '" "INodeVisitor *""'"); 
   }
   arg1 = reinterpret_cast< INodeVisitor * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_OffSpecSimulation, 0 |  0 );
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_OffSpecularSimulation, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "OffSpecSimulation const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "INodeVisitor_visit" "', argument " "2"" of type '" "OffSpecularSimulation const *""'"); 
   }
-  arg2 = reinterpret_cast< OffSpecSimulation * >(argp2);
-  (arg1)->visit((OffSpecSimulation const *)arg2);
+  arg2 = reinterpret_cast< OffSpecularSimulation * >(argp2);
+  (arg1)->visit((OffSpecularSimulation const *)arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -41877,7 +41877,7 @@ SWIGINTERN PyObject *_wrap_INodeVisitor_visit(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_OffSpecSimulation, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_OffSpecularSimulation, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_INodeVisitor_visit__SWIG_105(self, argc, argv);
@@ -42203,7 +42203,7 @@ fail:
     "    INodeVisitor::visit(LayerRoughness const *)\n"
     "    INodeVisitor::visit(MesoCrystal const *)\n"
     "    INodeVisitor::visit(MultiLayer const *)\n"
-    "    INodeVisitor::visit(OffSpecSimulation const *)\n"
+    "    INodeVisitor::visit(OffSpecularSimulation const *)\n"
     "    INodeVisitor::visit(Particle const *)\n"
     "    INodeVisitor::visit(ParticleComposition const *)\n"
     "    INodeVisitor::visit(ParticleCoreShell const *)\n"
@@ -51385,7 +51385,7 @@ static PyMethodDef SwigMethods[] = {
 		"INodeVisitor_visit(INodeVisitor self, LayerRoughness const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, MesoCrystal const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, MultiLayer const * arg2)\n"
-		"INodeVisitor_visit(INodeVisitor self, OffSpecSimulation const * arg2)\n"
+		"INodeVisitor_visit(INodeVisitor self, OffSpecularSimulation const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, Particle const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, ParticleComposition const * arg2)\n"
 		"INodeVisitor_visit(INodeVisitor self, ParticleCoreShell const * arg2)\n"
@@ -52410,7 +52410,7 @@ static swig_type_info _swigt__p_LayerRoughness = {"_p_LayerRoughness", "LayerRou
 static swig_type_info _swigt__p_MesoCrystal = {"_p_MesoCrystal", "MesoCrystal *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MultiLayer = {"_p_MultiLayer", "MultiLayer *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_NodeMeta = {"_p_NodeMeta", "NodeMeta *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_OffSpecSimulation = {"_p_OffSpecSimulation", "OffSpecSimulation *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OffSpecularSimulation = {"_p_OffSpecularSimulation", "OffSpecularSimulation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParaMeta = {"_p_ParaMeta", "ParaMeta *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParameterDistribution = {"_p_ParameterDistribution", "ParameterDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParameterPool = {"_p_ParameterPool", "ParameterPool *", 0, 0, (void*)0, 0};
@@ -52611,7 +52611,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_MesoCrystal,
   &_swigt__p_MultiLayer,
   &_swigt__p_NodeMeta,
-  &_swigt__p_OffSpecSimulation,
+  &_swigt__p_OffSpecularSimulation,
   &_swigt__p_ParaMeta,
   &_swigt__p_ParameterDistribution,
   &_swigt__p_ParameterPool,
@@ -52812,7 +52812,7 @@ static swig_cast_info _swigc__p_LayerRoughness[] = {  {&_swigt__p_LayerRoughness
 static swig_cast_info _swigc__p_MesoCrystal[] = {  {&_swigt__p_MesoCrystal, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MultiLayer[] = {  {&_swigt__p_MultiLayer, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_NodeMeta[] = {  {&_swigt__p_NodeMeta, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_OffSpecSimulation[] = {  {&_swigt__p_OffSpecSimulation, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_OffSpecularSimulation[] = {  {&_swigt__p_OffSpecularSimulation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParaMeta[] = {  {&_swigt__p_ParaMeta, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParameterDistribution[] = {  {&_swigt__p_ParameterDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParameterPool[] = {  {&_swigt__p_ParameterPool, 0, 0, 0},{0, 0, 0, 0}};
@@ -53013,7 +53013,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_MesoCrystal,
   _swigc__p_MultiLayer,
   _swigc__p_NodeMeta,
-  _swigc__p_OffSpecSimulation,
+  _swigc__p_OffSpecularSimulation,
   _swigc__p_ParaMeta,
   _swigc__p_ParameterDistribution,
   _swigc__p_ParameterPool,

@@ -892,7 +892,7 @@ method which is used by observable subject to notify change in status
 // File: classISimulation.xml
 %feature("docstring") ISimulation "
 
-Abstract base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
+Abstract base class of  OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
 
 C++ includes: ISimulation.h
 ";
@@ -1020,7 +1020,7 @@ Convert user data to SimulationResult object for later drawing in various axes u
 // File: classISimulation2D.xml
 %feature("docstring") ISimulation2D "
 
-Abstract base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+Abstract base class of  OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
 
 C++ includes: ISimulation2D.h
 ";
@@ -1448,53 +1448,53 @@ Returns a copy of the normalization function used.
 // File: classFitObserver_1_1ObserverData.xml
 
 
-// File: classOffSpecSimulation.xml
-%feature("docstring") OffSpecSimulation "
+// File: classOffSpecularSimulation.xml
+%feature("docstring") OffSpecularSimulation "
 
 Main class to run an off-specular simulation.
 
 C++ includes: OffSpecSimulation.h
 ";
 
-%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
+%feature("docstring")  OffSpecularSimulation::OffSpecularSimulation "OffSpecularSimulation::OffSpecularSimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
 ";
 
-%feature("docstring")  OffSpecSimulation::OffSpecSimulation "OffSpecSimulation::OffSpecSimulation()
+%feature("docstring")  OffSpecularSimulation::OffSpecularSimulation "OffSpecularSimulation::OffSpecularSimulation()
 ";
 
-%feature("docstring")  OffSpecSimulation::~OffSpecSimulation "OffSpecSimulation::~OffSpecSimulation() override
+%feature("docstring")  OffSpecularSimulation::~OffSpecularSimulation "OffSpecularSimulation::~OffSpecularSimulation() override
 ";
 
-%feature("docstring")  OffSpecSimulation::clone "OffSpecSimulation* OffSpecSimulation::clone() const override
+%feature("docstring")  OffSpecularSimulation::clone "OffSpecularSimulation* OffSpecularSimulation::clone() const override
 ";
 
-%feature("docstring")  OffSpecSimulation::accept "void OffSpecSimulation::accept(INodeVisitor *visitor) const override
+%feature("docstring")  OffSpecularSimulation::accept "void OffSpecularSimulation::accept(INodeVisitor *visitor) const override
 ";
 
-%feature("docstring")  OffSpecSimulation::prepareSimulation "void OffSpecSimulation::prepareSimulation() override
+%feature("docstring")  OffSpecularSimulation::prepareSimulation "void OffSpecularSimulation::prepareSimulation() override
 
 Put into a clean state for running a simulation. 
 ";
 
-%feature("docstring")  OffSpecSimulation::result "SimulationResult OffSpecSimulation::result() const override
+%feature("docstring")  OffSpecularSimulation::result "SimulationResult OffSpecularSimulation::result() const override
 
 Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 ";
 
-%feature("docstring")  OffSpecSimulation::setBeamParameters "void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
+%feature("docstring")  OffSpecularSimulation::setBeamParameters "void OffSpecularSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
 
 Sets beam parameters from here (forwarded to Instrument) 
 ";
 
-%feature("docstring")  OffSpecSimulation::beamAxis "const IAxis * OffSpecSimulation::beamAxis() const
+%feature("docstring")  OffSpecularSimulation::beamAxis "const IAxis * OffSpecularSimulation::beamAxis() const
 
 Returns axis of the beam. 
 ";
 
-%feature("docstring")  OffSpecSimulation::createUnitConverter "std::unique_ptr< IUnitConverter > OffSpecSimulation::createUnitConverter() const
+%feature("docstring")  OffSpecularSimulation::createUnitConverter "std::unique_ptr< IUnitConverter > OffSpecularSimulation::createUnitConverter() const
 ";
 
-%feature("docstring")  OffSpecSimulation::intensityMapSize "size_t OffSpecSimulation::intensityMapSize() const override
+%feature("docstring")  OffSpecularSimulation::intensityMapSize "size_t OffSpecularSimulation::intensityMapSize() const override
 
 Returns the total number of the intensity values in the simulation result. 
 ";
@@ -2679,7 +2679,7 @@ GISAS simulation with an extra long wavelength.
 %feature("docstring")  StandardSimulations::BasicSpecularQMP "SpecularSimulation * StandardSimulations::BasicSpecularQMP()
 ";
 
-%feature("docstring")  StandardSimulations::MiniOffSpec "OffSpecSimulation * StandardSimulations::MiniOffSpec()
+%feature("docstring")  StandardSimulations::MiniOffSpecular "OffSpecularSimulation * StandardSimulations::MiniOffSpecular()
 ";
 
 %feature("docstring")  StandardSimulations::BasicDepthProbe "DepthProbeSimulation * StandardSimulations::BasicDepthProbe()

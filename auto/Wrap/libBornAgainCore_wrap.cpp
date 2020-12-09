@@ -3134,7 +3134,7 @@ namespace Swig {
 #define SWIGTYPE_p_Instrument swig_types[34]
 #define SWIGTYPE_p_IterationInfo swig_types[35]
 #define SWIGTYPE_p_MultiLayer swig_types[36]
-#define SWIGTYPE_p_OffSpecSimulation swig_types[37]
+#define SWIGTYPE_p_OffSpecularSimulation swig_types[37]
 #define SWIGTYPE_p_OutputDataT_double_t swig_types[38]
 #define SWIGTYPE_p_ParameterDistribution swig_types[39]
 #define SWIGTYPE_p_ParameterPool swig_types[40]
@@ -6713,7 +6713,7 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Core/Simulation/GISASSimulation.h"
 #include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/ISimulation2D.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/SpecularSimulation.h"
 
@@ -41539,7 +41539,7 @@ SWIGINTERN PyObject *SpecularSimulation_swiginit(PyObject *SWIGUNUSEDPARM(self),
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_new_OffSpecSimulation__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+SWIGINTERN PyObject *_wrap_new_OffSpecularSimulation__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   Beam *arg1 = 0 ;
   MultiLayer *arg2 = 0 ;
@@ -41550,64 +41550,64 @@ SWIGINTERN PyObject *_wrap_new_OffSpecSimulation__SWIG_0(PyObject *SWIGUNUSEDPAR
   int res2 = 0 ;
   void *argp3 = 0 ;
   int res3 = 0 ;
-  OffSpecSimulation *result = 0 ;
+  OffSpecularSimulation *result = 0 ;
   
   if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Beam,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_OffSpecSimulation" "', argument " "1"" of type '" "Beam const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_OffSpecularSimulation" "', argument " "1"" of type '" "Beam const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_OffSpecSimulation" "', argument " "1"" of type '" "Beam const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_OffSpecularSimulation" "', argument " "1"" of type '" "Beam const &""'"); 
   }
   arg1 = reinterpret_cast< Beam * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_MultiLayer,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_OffSpecSimulation" "', argument " "2"" of type '" "MultiLayer const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_OffSpecularSimulation" "', argument " "2"" of type '" "MultiLayer const &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_OffSpecSimulation" "', argument " "2"" of type '" "MultiLayer const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_OffSpecularSimulation" "', argument " "2"" of type '" "MultiLayer const &""'"); 
   }
   arg2 = reinterpret_cast< MultiLayer * >(argp2);
   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_IDetector,  0  | 0);
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_OffSpecSimulation" "', argument " "3"" of type '" "IDetector const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "new_OffSpecularSimulation" "', argument " "3"" of type '" "IDetector const &""'"); 
   }
   if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_OffSpecSimulation" "', argument " "3"" of type '" "IDetector const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_OffSpecularSimulation" "', argument " "3"" of type '" "IDetector const &""'"); 
   }
   arg3 = reinterpret_cast< IDetector * >(argp3);
-  result = (OffSpecSimulation *)new OffSpecSimulation((Beam const &)*arg1,(MultiLayer const &)*arg2,(IDetector const &)*arg3);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OffSpecSimulation, SWIG_POINTER_NEW |  0 );
+  result = (OffSpecularSimulation *)new OffSpecularSimulation((Beam const &)*arg1,(MultiLayer const &)*arg2,(IDetector const &)*arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OffSpecularSimulation, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_new_OffSpecSimulation__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+SWIGINTERN PyObject *_wrap_new_OffSpecularSimulation__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
   PyObject *resultobj = 0;
-  OffSpecSimulation *result = 0 ;
+  OffSpecularSimulation *result = 0 ;
   
   if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
-  result = (OffSpecSimulation *)new OffSpecSimulation();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OffSpecSimulation, SWIG_POINTER_NEW |  0 );
+  result = (OffSpecularSimulation *)new OffSpecularSimulation();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OffSpecularSimulation, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_new_OffSpecSimulation(PyObject *self, PyObject *args) {
+SWIGINTERN PyObject *_wrap_new_OffSpecularSimulation(PyObject *self, PyObject *args) {
   Py_ssize_t argc;
   PyObject *argv[4] = {
     0
   };
   
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_OffSpecSimulation", 0, 3, argv))) SWIG_fail;
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_OffSpecularSimulation", 0, 3, argv))) SWIG_fail;
   --argc;
   if (argc == 0) {
-    return _wrap_new_OffSpecSimulation__SWIG_1(self, argc, argv);
+    return _wrap_new_OffSpecularSimulation__SWIG_1(self, argc, argv);
   }
   if (argc == 3) {
     int _v;
@@ -41620,35 +41620,35 @@ SWIGINTERN PyObject *_wrap_new_OffSpecSimulation(PyObject *self, PyObject *args)
         int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_IDetector, SWIG_POINTER_NO_NULL | 0);
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_new_OffSpecSimulation__SWIG_0(self, argc, argv);
+          return _wrap_new_OffSpecularSimulation__SWIG_0(self, argc, argv);
         }
       }
     }
   }
   
 fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_OffSpecSimulation'.\n"
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_OffSpecularSimulation'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    OffSpecSimulation::OffSpecSimulation(Beam const &,MultiLayer const &,IDetector const &)\n"
-    "    OffSpecSimulation::OffSpecSimulation()\n");
+    "    OffSpecularSimulation::OffSpecularSimulation(Beam const &,MultiLayer const &,IDetector const &)\n"
+    "    OffSpecularSimulation::OffSpecularSimulation()\n");
   return 0;
 }
 
 
-SWIGINTERN PyObject *_wrap_delete_OffSpecSimulation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_delete_OffSpecularSimulation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  OffSpecSimulation *arg1 = (OffSpecSimulation *) 0 ;
+  OffSpecularSimulation *arg1 = (OffSpecularSimulation *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecSimulation, SWIG_POINTER_DISOWN |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecularSimulation, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_OffSpecSimulation" "', argument " "1"" of type '" "OffSpecSimulation *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_OffSpecularSimulation" "', argument " "1"" of type '" "OffSpecularSimulation *""'"); 
   }
-  arg1 = reinterpret_cast< OffSpecSimulation * >(argp1);
+  arg1 = reinterpret_cast< OffSpecularSimulation * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -41657,32 +41657,32 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_OffSpecSimulation_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_OffSpecularSimulation_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  OffSpecSimulation *arg1 = (OffSpecSimulation *) 0 ;
+  OffSpecularSimulation *arg1 = (OffSpecularSimulation *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  OffSpecSimulation *result = 0 ;
+  OffSpecularSimulation *result = 0 ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecSimulation, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecularSimulation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecSimulation_clone" "', argument " "1"" of type '" "OffSpecSimulation const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecularSimulation_clone" "', argument " "1"" of type '" "OffSpecularSimulation const *""'"); 
   }
-  arg1 = reinterpret_cast< OffSpecSimulation * >(argp1);
-  result = (OffSpecSimulation *)((OffSpecSimulation const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OffSpecSimulation, 0 |  0 );
+  arg1 = reinterpret_cast< OffSpecularSimulation * >(argp1);
+  result = (OffSpecularSimulation *)((OffSpecularSimulation const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OffSpecularSimulation, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
 }
 
 
-SWIGINTERN PyObject *_wrap_OffSpecSimulation_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_OffSpecularSimulation_accept(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  OffSpecSimulation *arg1 = (OffSpecSimulation *) 0 ;
+  OffSpecularSimulation *arg1 = (OffSpecularSimulation *) 0 ;
   INodeVisitor *arg2 = (INodeVisitor *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -41690,18 +41690,18 @@ SWIGINTERN PyObject *_wrap_OffSpecSimulation_accept(PyObject *SWIGUNUSEDPARM(sel
   int res2 = 0 ;
   PyObject *swig_obj[2] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "OffSpecSimulation_accept", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecSimulation, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "OffSpecularSimulation_accept", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecularSimulation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecSimulation_accept" "', argument " "1"" of type '" "OffSpecSimulation const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecularSimulation_accept" "', argument " "1"" of type '" "OffSpecularSimulation const *""'"); 
   }
-  arg1 = reinterpret_cast< OffSpecSimulation * >(argp1);
+  arg1 = reinterpret_cast< OffSpecularSimulation * >(argp1);
   res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_INodeVisitor, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "OffSpecSimulation_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "OffSpecularSimulation_accept" "', argument " "2"" of type '" "INodeVisitor *""'"); 
   }
   arg2 = reinterpret_cast< INodeVisitor * >(argp2);
-  ((OffSpecSimulation const *)arg1)->accept(arg2);
+  ((OffSpecularSimulation const *)arg1)->accept(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -41709,20 +41709,20 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_OffSpecSimulation_prepareSimulation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_OffSpecularSimulation_prepareSimulation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  OffSpecSimulation *arg1 = (OffSpecSimulation *) 0 ;
+  OffSpecularSimulation *arg1 = (OffSpecularSimulation *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecSimulation, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecularSimulation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecSimulation_prepareSimulation" "', argument " "1"" of type '" "OffSpecSimulation *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecularSimulation_prepareSimulation" "', argument " "1"" of type '" "OffSpecularSimulation *""'"); 
   }
-  arg1 = reinterpret_cast< OffSpecSimulation * >(argp1);
+  arg1 = reinterpret_cast< OffSpecularSimulation * >(argp1);
   (arg1)->prepareSimulation();
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -41731,9 +41731,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_OffSpecSimulation_result(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_OffSpecularSimulation_result(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  OffSpecSimulation *arg1 = (OffSpecSimulation *) 0 ;
+  OffSpecularSimulation *arg1 = (OffSpecularSimulation *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
@@ -41741,12 +41741,12 @@ SWIGINTERN PyObject *_wrap_OffSpecSimulation_result(PyObject *SWIGUNUSEDPARM(sel
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecSimulation, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecularSimulation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecSimulation_result" "', argument " "1"" of type '" "OffSpecSimulation const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecularSimulation_result" "', argument " "1"" of type '" "OffSpecularSimulation const *""'"); 
   }
-  arg1 = reinterpret_cast< OffSpecSimulation * >(argp1);
-  result = ((OffSpecSimulation const *)arg1)->result();
+  arg1 = reinterpret_cast< OffSpecularSimulation * >(argp1);
+  result = ((OffSpecularSimulation const *)arg1)->result();
   resultobj = SWIG_NewPointerObj((new SimulationResult(static_cast< const SimulationResult& >(result))), SWIGTYPE_p_SimulationResult, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -41754,9 +41754,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_OffSpecSimulation_setBeamParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_OffSpecularSimulation_setBeamParameters(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  OffSpecSimulation *arg1 = (OffSpecSimulation *) 0 ;
+  OffSpecularSimulation *arg1 = (OffSpecularSimulation *) 0 ;
   double arg2 ;
   IAxis *arg3 = 0 ;
   double arg4 ;
@@ -41770,28 +41770,28 @@ SWIGINTERN PyObject *_wrap_OffSpecSimulation_setBeamParameters(PyObject *SWIGUNU
   int ecode4 = 0 ;
   PyObject *swig_obj[4] ;
   
-  if (!SWIG_Python_UnpackTuple(args, "OffSpecSimulation_setBeamParameters", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecSimulation, 0 |  0 );
+  if (!SWIG_Python_UnpackTuple(args, "OffSpecularSimulation_setBeamParameters", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecularSimulation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecSimulation_setBeamParameters" "', argument " "1"" of type '" "OffSpecSimulation *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecularSimulation_setBeamParameters" "', argument " "1"" of type '" "OffSpecularSimulation *""'"); 
   }
-  arg1 = reinterpret_cast< OffSpecSimulation * >(argp1);
+  arg1 = reinterpret_cast< OffSpecularSimulation * >(argp1);
   ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "OffSpecSimulation_setBeamParameters" "', argument " "2"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "OffSpecularSimulation_setBeamParameters" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
   res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_IAxis,  0  | 0);
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "OffSpecSimulation_setBeamParameters" "', argument " "3"" of type '" "IAxis const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "OffSpecularSimulation_setBeamParameters" "', argument " "3"" of type '" "IAxis const &""'"); 
   }
   if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "OffSpecSimulation_setBeamParameters" "', argument " "3"" of type '" "IAxis const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "OffSpecularSimulation_setBeamParameters" "', argument " "3"" of type '" "IAxis const &""'"); 
   }
   arg3 = reinterpret_cast< IAxis * >(argp3);
   ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
   if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "OffSpecSimulation_setBeamParameters" "', argument " "4"" of type '" "double""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "OffSpecularSimulation_setBeamParameters" "', argument " "4"" of type '" "double""'");
   } 
   arg4 = static_cast< double >(val4);
   (arg1)->setBeamParameters(arg2,(IAxis const &)*arg3,arg4);
@@ -41802,9 +41802,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_OffSpecSimulation_beamAxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_OffSpecularSimulation_beamAxis(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  OffSpecSimulation *arg1 = (OffSpecSimulation *) 0 ;
+  OffSpecularSimulation *arg1 = (OffSpecularSimulation *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
@@ -41812,12 +41812,12 @@ SWIGINTERN PyObject *_wrap_OffSpecSimulation_beamAxis(PyObject *SWIGUNUSEDPARM(s
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecSimulation, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecularSimulation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecSimulation_beamAxis" "', argument " "1"" of type '" "OffSpecSimulation const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecularSimulation_beamAxis" "', argument " "1"" of type '" "OffSpecularSimulation const *""'"); 
   }
-  arg1 = reinterpret_cast< OffSpecSimulation * >(argp1);
-  result = (IAxis *)((OffSpecSimulation const *)arg1)->beamAxis();
+  arg1 = reinterpret_cast< OffSpecularSimulation * >(argp1);
+  result = (IAxis *)((OffSpecularSimulation const *)arg1)->beamAxis();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IAxis, 0 |  0 );
   return resultobj;
 fail:
@@ -41825,9 +41825,9 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_OffSpecSimulation_intensityMapSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_OffSpecularSimulation_intensityMapSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  OffSpecSimulation *arg1 = (OffSpecSimulation *) 0 ;
+  OffSpecularSimulation *arg1 = (OffSpecularSimulation *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
@@ -41835,12 +41835,12 @@ SWIGINTERN PyObject *_wrap_OffSpecSimulation_intensityMapSize(PyObject *SWIGUNUS
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecSimulation, 0 |  0 );
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_OffSpecularSimulation, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecSimulation_intensityMapSize" "', argument " "1"" of type '" "OffSpecSimulation const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "OffSpecularSimulation_intensityMapSize" "', argument " "1"" of type '" "OffSpecularSimulation const *""'"); 
   }
-  arg1 = reinterpret_cast< OffSpecSimulation * >(argp1);
-  result = ((OffSpecSimulation const *)arg1)->intensityMapSize();
+  arg1 = reinterpret_cast< OffSpecularSimulation * >(argp1);
+  result = ((OffSpecularSimulation const *)arg1)->intensityMapSize();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -41848,14 +41848,14 @@ fail:
 }
 
 
-SWIGINTERN PyObject *OffSpecSimulation_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *OffSpecularSimulation_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_OffSpecSimulation, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_OffSpecularSimulation, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *OffSpecSimulation_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *OffSpecularSimulation_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
 
@@ -44123,64 +44123,64 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "SpecularSimulation_swigregister", SpecularSimulation_swigregister, METH_O, NULL},
 	 { "SpecularSimulation_swiginit", SpecularSimulation_swiginit, METH_VARARGS, NULL},
-	 { "new_OffSpecSimulation", _wrap_new_OffSpecSimulation, METH_VARARGS, "\n"
-		"OffSpecSimulation(Beam const & beam, MultiLayer const & sample, IDetector const & detector)\n"
-		"new_OffSpecSimulation() -> OffSpecSimulation\n"
-		"OffSpecSimulation::OffSpecSimulation()\n"
+	 { "new_OffSpecularSimulation", _wrap_new_OffSpecularSimulation, METH_VARARGS, "\n"
+		"OffSpecularSimulation(Beam const & beam, MultiLayer const & sample, IDetector const & detector)\n"
+		"new_OffSpecularSimulation() -> OffSpecularSimulation\n"
+		"OffSpecularSimulation::OffSpecularSimulation()\n"
 		"\n"
 		""},
-	 { "delete_OffSpecSimulation", _wrap_delete_OffSpecSimulation, METH_O, "\n"
-		"delete_OffSpecSimulation(OffSpecSimulation self)\n"
-		"OffSpecSimulation::~OffSpecSimulation() override\n"
+	 { "delete_OffSpecularSimulation", _wrap_delete_OffSpecularSimulation, METH_O, "\n"
+		"delete_OffSpecularSimulation(OffSpecularSimulation self)\n"
+		"OffSpecularSimulation::~OffSpecularSimulation() override\n"
 		"\n"
 		""},
-	 { "OffSpecSimulation_clone", _wrap_OffSpecSimulation_clone, METH_O, "\n"
-		"OffSpecSimulation_clone(OffSpecSimulation self) -> OffSpecSimulation\n"
-		"OffSpecSimulation* OffSpecSimulation::clone() const override\n"
+	 { "OffSpecularSimulation_clone", _wrap_OffSpecularSimulation_clone, METH_O, "\n"
+		"OffSpecularSimulation_clone(OffSpecularSimulation self) -> OffSpecularSimulation\n"
+		"OffSpecularSimulation* OffSpecularSimulation::clone() const override\n"
 		"\n"
 		""},
-	 { "OffSpecSimulation_accept", _wrap_OffSpecSimulation_accept, METH_VARARGS, "\n"
-		"OffSpecSimulation_accept(OffSpecSimulation self, INodeVisitor * visitor)\n"
-		"void OffSpecSimulation::accept(INodeVisitor *visitor) const override\n"
+	 { "OffSpecularSimulation_accept", _wrap_OffSpecularSimulation_accept, METH_VARARGS, "\n"
+		"OffSpecularSimulation_accept(OffSpecularSimulation self, INodeVisitor * visitor)\n"
+		"void OffSpecularSimulation::accept(INodeVisitor *visitor) const override\n"
 		"\n"
 		""},
-	 { "OffSpecSimulation_prepareSimulation", _wrap_OffSpecSimulation_prepareSimulation, METH_O, "\n"
-		"OffSpecSimulation_prepareSimulation(OffSpecSimulation self)\n"
-		"void OffSpecSimulation::prepareSimulation() override\n"
+	 { "OffSpecularSimulation_prepareSimulation", _wrap_OffSpecularSimulation_prepareSimulation, METH_O, "\n"
+		"OffSpecularSimulation_prepareSimulation(OffSpecularSimulation self)\n"
+		"void OffSpecularSimulation::prepareSimulation() override\n"
 		"\n"
 		"Put into a clean state for running a simulation. \n"
 		"\n"
 		""},
-	 { "OffSpecSimulation_result", _wrap_OffSpecSimulation_result, METH_O, "\n"
-		"OffSpecSimulation_result(OffSpecSimulation self) -> SimulationResult\n"
-		"SimulationResult OffSpecSimulation::result() const override\n"
+	 { "OffSpecularSimulation_result", _wrap_OffSpecularSimulation_result, METH_O, "\n"
+		"OffSpecularSimulation_result(OffSpecularSimulation self) -> SimulationResult\n"
+		"SimulationResult OffSpecularSimulation::result() const override\n"
 		"\n"
 		"Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays \n"
 		"\n"
 		""},
-	 { "OffSpecSimulation_setBeamParameters", _wrap_OffSpecSimulation_setBeamParameters, METH_VARARGS, "\n"
-		"OffSpecSimulation_setBeamParameters(OffSpecSimulation self, double wavelength, IAxis alpha_axis, double phi_i)\n"
-		"void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)\n"
+	 { "OffSpecularSimulation_setBeamParameters", _wrap_OffSpecularSimulation_setBeamParameters, METH_VARARGS, "\n"
+		"OffSpecularSimulation_setBeamParameters(OffSpecularSimulation self, double wavelength, IAxis alpha_axis, double phi_i)\n"
+		"void OffSpecularSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)\n"
 		"\n"
 		"Sets beam parameters from here (forwarded to Instrument) \n"
 		"\n"
 		""},
-	 { "OffSpecSimulation_beamAxis", _wrap_OffSpecSimulation_beamAxis, METH_O, "\n"
-		"OffSpecSimulation_beamAxis(OffSpecSimulation self) -> IAxis\n"
-		"const IAxis * OffSpecSimulation::beamAxis() const\n"
+	 { "OffSpecularSimulation_beamAxis", _wrap_OffSpecularSimulation_beamAxis, METH_O, "\n"
+		"OffSpecularSimulation_beamAxis(OffSpecularSimulation self) -> IAxis\n"
+		"const IAxis * OffSpecularSimulation::beamAxis() const\n"
 		"\n"
 		"Returns axis of the beam. \n"
 		"\n"
 		""},
-	 { "OffSpecSimulation_intensityMapSize", _wrap_OffSpecSimulation_intensityMapSize, METH_O, "\n"
-		"OffSpecSimulation_intensityMapSize(OffSpecSimulation self) -> size_t\n"
-		"size_t OffSpecSimulation::intensityMapSize() const override\n"
+	 { "OffSpecularSimulation_intensityMapSize", _wrap_OffSpecularSimulation_intensityMapSize, METH_O, "\n"
+		"OffSpecularSimulation_intensityMapSize(OffSpecularSimulation self) -> size_t\n"
+		"size_t OffSpecularSimulation::intensityMapSize() const override\n"
 		"\n"
 		"Returns the total number of the intensity values in the simulation result. \n"
 		"\n"
 		""},
-	 { "OffSpecSimulation_swigregister", OffSpecSimulation_swigregister, METH_O, NULL},
-	 { "OffSpecSimulation_swiginit", OffSpecSimulation_swiginit, METH_VARARGS, NULL},
+	 { "OffSpecularSimulation_swigregister", OffSpecularSimulation_swigregister, METH_O, NULL},
+	 { "OffSpecularSimulation_swiginit", OffSpecularSimulation_swiginit, METH_VARARGS, NULL},
 	 { "delete_IBackground", _wrap_delete_IBackground, METH_O, "\n"
 		"delete_IBackground(IBackground self)\n"
 		"IBackground::~IBackground()\n"
@@ -44287,8 +44287,8 @@ static void *_p_DepthProbeSimulationTo_p_ISimulation(void *x, int *SWIGUNUSEDPAR
 static void *_p_SpecularSimulationTo_p_ISimulation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISimulation *)  ((SpecularSimulation *) x));
 }
-static void *_p_OffSpecSimulationTo_p_ISimulation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISimulation *) (ISimulation2D *) ((OffSpecSimulation *) x));
+static void *_p_OffSpecularSimulationTo_p_ISimulation(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ISimulation *) (ISimulation2D *) ((OffSpecularSimulation *) x));
 }
 static void *_p_AngularSpecScanTo_p_ISpecularScan(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISpecularScan *)  ((AngularSpecScan *) x));
@@ -44299,8 +44299,8 @@ static void *_p_QSpecScanTo_p_ISpecularScan(void *x, int *SWIGUNUSEDPARM(newmemo
 static void *_p_IFormFactorTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISampleNode *) ((IFormFactor *) x));
 }
-static void *_p_OffSpecSimulationTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
+static void *_p_OffSpecularSimulationTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISimulation *)(ISimulation2D *) ((OffSpecularSimulation *) x));
 }
 static void *_p_SpecularSimulationTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IComponent *) (IParametricComponent *)(INode *)(ISimulation *) ((SpecularSimulation *) x));
@@ -44344,8 +44344,8 @@ static void *_p_ISimulation2DTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmem
 static void *_p_IFormFactorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParametricComponent *) (INode *)(ISampleNode *) ((IFormFactor *) x));
 }
-static void *_p_OffSpecSimulationTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *)(ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
+static void *_p_OffSpecularSimulationTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(ISimulation *)(ISimulation2D *) ((OffSpecularSimulation *) x));
 }
 static void *_p_SpecularSimulationTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IParametricComponent *) (INode *)(ISimulation *) ((SpecularSimulation *) x));
@@ -44401,8 +44401,8 @@ static void *_p_DepthProbeSimulationTo_p_INode(void *x, int *SWIGUNUSEDPARM(newm
 static void *_p_SpecularSimulationTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *) (ISimulation *) ((SpecularSimulation *) x));
 }
-static void *_p_OffSpecSimulationTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
+static void *_p_OffSpecularSimulationTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (ISimulation *)(ISimulation2D *) ((OffSpecularSimulation *) x));
 }
 static void *_p_IBackgroundTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((INode *)  ((IBackground *) x));
@@ -44422,14 +44422,14 @@ static void *_p_IBornFFTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
 static void *_p_GISASSimulationTo_p_ISimulation2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ISimulation2D *)  ((GISASSimulation *) x));
 }
-static void *_p_OffSpecSimulationTo_p_ISimulation2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ISimulation2D *)  ((OffSpecSimulation *) x));
+static void *_p_OffSpecularSimulationTo_p_ISimulation2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ISimulation2D *)  ((OffSpecularSimulation *) x));
 }
 static void *_p_IFormFactorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISampleNode *) ((IFormFactor *) x));
 }
-static void *_p_OffSpecSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (ISimulation *)(ISimulation2D *) ((OffSpecSimulation *) x));
+static void *_p_OffSpecularSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (ISimulation *)(ISimulation2D *) ((OffSpecularSimulation *) x));
 }
 static void *_p_SpecularSimulationTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ICloneable *) (ISimulation *) ((SpecularSimulation *) x));
@@ -44511,7 +44511,7 @@ static swig_type_info _swigt__p_ISpecularScan = {"_p_ISpecularScan", "ISpecularS
 static swig_type_info _swigt__p_Instrument = {"_p_Instrument", "Instrument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IterationInfo = {"_p_IterationInfo", "IterationInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MultiLayer = {"_p_MultiLayer", "MultiLayer *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_OffSpecSimulation = {"_p_OffSpecSimulation", "OffSpecSimulation *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_OffSpecularSimulation = {"_p_OffSpecularSimulation", "OffSpecularSimulation *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OutputDataT_double_t = {"_p_OutputDataT_double_t", "OutputData< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParameterDistribution = {"_p_ParameterDistribution", "ParameterDistribution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_PoissonNoiseBackground = {"_p_PoissonNoiseBackground", "PoissonNoiseBackground *", 0, 0, (void*)0, 0};
@@ -44619,7 +44619,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Instrument,
   &_swigt__p_IterationInfo,
   &_swigt__p_MultiLayer,
-  &_swigt__p_OffSpecSimulation,
+  &_swigt__p_OffSpecularSimulation,
   &_swigt__p_OutputDataT_double_t,
   &_swigt__p_ParameterDistribution,
   &_swigt__p_ParameterPool,
@@ -44709,27 +44709,27 @@ static swig_cast_info _swigc__p_IFormFactor[] = {{&_swigt__p_IFormFactor, 0, 0, 
 static swig_cast_info _swigc__p_ParameterPool[] = {{&_swigt__p_ParameterPool, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IBornFF[] = {{&_swigt__p_IBornFF, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISampleNode[] = {{&_swigt__p_ISampleNode, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_ISpecularScan, _p_ISpecularScanTo_p_ICloneable, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_ICloneable, 0, 0},  {&_swigt__p_AngularSpecScan, _p_AngularSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_QSpecScan, _p_QSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IComponent[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IComponent, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IComponent, 0, 0},  {&_swigt__p_IParametricComponent, _p_IParametricComponentTo_p_IComponent, 0, 0},  {&_swigt__p_IComponent, 0, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IComponent, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_IComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IComponent, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IComponent, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_OffSpecularSimulation, _p_OffSpecularSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_ISpecularScan, _p_ISpecularScanTo_p_ICloneable, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_ICloneable, 0, 0},  {&_swigt__p_AngularSpecScan, _p_AngularSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_QSpecScan, _p_QSpecScanTo_p_ICloneable, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_ICloneable, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IComponent[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IComponent, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_OffSpecularSimulation, _p_OffSpecularSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IComponent, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IComponent, 0, 0},  {&_swigt__p_IParametricComponent, _p_IParametricComponentTo_p_IComponent, 0, 0},  {&_swigt__p_IComponent, 0, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IComponent, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IComponent, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_IComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IComponent, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IComponent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector[] = {  {&_swigt__p_IDetector, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector2D[] = {  {&_swigt__p_IDetector2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDistribution1D[] = {  {&_swigt__p_IDistribution1D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFootprintFactor[] = {  {&_swigt__p_IFootprintFactor, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_INode, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_INode, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_INode, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_INode, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_INode, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_INode, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_INode, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_INode, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_INode, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_INode, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_INode, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_INode, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_INode, 0, 0},  {&_swigt__p_OffSpecularSimulation, _p_OffSpecularSimulationTo_p_INode, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_INode, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_INode, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_INode, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_INode, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_INode, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_INode, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IObservable[] = {  {&_swigt__p_IObservable, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IObserver[] = {  {&_swigt__p_IObserver, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IParametricComponent[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IParametricComponent, 0, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IParametricComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParametricComponent, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_IParametricComponent[] = {  {&_swigt__p_IFormFactor, _p_IFormFactorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_OffSpecularSimulation, _p_OffSpecularSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISimulation, _p_ISimulationTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IParametricComponent, 0, 0, 0},  {&_swigt__p_PoissonNoiseBackground, _p_PoissonNoiseBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ConstantBackground, _p_ConstantBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IBackground, _p_IBackgroundTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IBornFF, _p_IBornFFTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISampleNode, _p_ISampleNodeTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_IParametricComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParametricComponent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IRangedDistribution[] = {  {&_swigt__p_IRangedDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IResolutionFunction2D[] = {  {&_swigt__p_IResolutionFunction2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IShape2D[] = {  {&_swigt__p_IShape2D, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ISimulation[] = {  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_ISimulation, 0, 0},  {&_swigt__p_ISimulation, 0, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ISimulation, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ISimulation2D[] = {  {&_swigt__p_ISimulation2D, 0, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ISimulation2D, 0, 0},  {&_swigt__p_OffSpecSimulation, _p_OffSpecSimulationTo_p_ISimulation2D, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ISimulation[] = {  {&_swigt__p_ISimulation2D, _p_ISimulation2DTo_p_ISimulation, 0, 0},  {&_swigt__p_ISimulation, 0, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_OffSpecularSimulation, _p_OffSpecularSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_DepthProbeSimulation, _p_DepthProbeSimulationTo_p_ISimulation, 0, 0},  {&_swigt__p_SpecularSimulation, _p_SpecularSimulationTo_p_ISimulation, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ISimulation2D[] = {  {&_swigt__p_ISimulation2D, 0, 0, 0},  {&_swigt__p_GISASSimulation, _p_GISASSimulationTo_p_ISimulation2D, 0, 0},  {&_swigt__p_OffSpecularSimulation, _p_OffSpecularSimulationTo_p_ISimulation2D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ISpecularScan[] = {  {&_swigt__p_AngularSpecScan, _p_AngularSpecScanTo_p_ISpecularScan, 0, 0},  {&_swigt__p_QSpecScan, _p_QSpecScanTo_p_ISpecularScan, 0, 0},  {&_swigt__p_ISpecularScan, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Instrument[] = {  {&_swigt__p_Instrument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IterationInfo[] = {  {&_swigt__p_IterationInfo, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MultiLayer[] = {  {&_swigt__p_MultiLayer, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_OffSpecSimulation[] = {  {&_swigt__p_OffSpecSimulation, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_OffSpecularSimulation[] = {  {&_swigt__p_OffSpecularSimulation, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OutputDataT_double_t[] = {  {&_swigt__p_OutputDataT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParameterDistribution[] = {  {&_swigt__p_ParameterDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_PoissonNoiseBackground[] = {  {&_swigt__p_PoissonNoiseBackground, 0, 0, 0},{0, 0, 0, 0}};
@@ -44837,7 +44837,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Instrument,
   _swigc__p_IterationInfo,
   _swigc__p_MultiLayer,
-  _swigc__p_OffSpecSimulation,
+  _swigc__p_OffSpecularSimulation,
   _swigc__p_OutputDataT_double_t,
   _swigc__p_ParameterDistribution,
   _swigc__p_ParameterPool,

@@ -3065,10 +3065,10 @@ Creates 2D vector from  OutputData.
 %feature("docstring")  AxisNames::InitRectangularAxis1 "std::map< Axes::Units, std::string > AxisNames::InitRectangularAxis1()
 ";
 
-%feature("docstring")  AxisNames::InitOffSpecAxis0 "std::map< Axes::Units, std::string > AxisNames::InitOffSpecAxis0()
+%feature("docstring")  AxisNames::InitOffSpecularAxis0 "std::map< Axes::Units, std::string > AxisNames::InitOffSpecularAxis0()
 ";
 
-%feature("docstring")  AxisNames::InitOffSpecAxis1 "std::map< Axes::Units, std::string > AxisNames::InitOffSpecAxis1()
+%feature("docstring")  AxisNames::InitOffSpecularAxis1 "std::map< Axes::Units, std::string > AxisNames::InitOffSpecularAxis1()
 ";
 
 %feature("docstring")  AxisNames::InitSpecAxis "std::map< Axes::Units, std::string > AxisNames::InitSpecAxis()

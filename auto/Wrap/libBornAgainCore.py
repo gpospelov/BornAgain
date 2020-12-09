@@ -3534,7 +3534,7 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
-    Abstract base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
+    Abstract base class of  OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
 
     C++ includes: ISimulation.h
 
@@ -3784,7 +3784,7 @@ class ISimulation2D(ISimulation):
     r"""
 
 
-    Abstract base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+    Abstract base class of  OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
 
     C++ includes: ISimulation2D.h
 
@@ -4180,7 +4180,7 @@ class SpecularSimulation(ISimulation):
 # Register SpecularSimulation in _libBornAgainCore:
 _libBornAgainCore.SpecularSimulation_swigregister(SpecularSimulation)
 
-class OffSpecSimulation(ISimulation2D):
+class OffSpecularSimulation(ISimulation2D):
     r"""
 
 
@@ -4195,82 +4195,82 @@ class OffSpecSimulation(ISimulation2D):
 
     def __init__(self, *args):
         r"""
-        __init__(OffSpecSimulation self, Beam const & beam, MultiLayer const & sample, IDetector const & detector) -> OffSpecSimulation
-        __init__(OffSpecSimulation self) -> OffSpecSimulation
-        OffSpecSimulation::OffSpecSimulation()
+        __init__(OffSpecularSimulation self, Beam const & beam, MultiLayer const & sample, IDetector const & detector) -> OffSpecularSimulation
+        __init__(OffSpecularSimulation self) -> OffSpecularSimulation
+        OffSpecularSimulation::OffSpecularSimulation()
 
         """
-        _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_OffSpecSimulation
+        _libBornAgainCore.OffSpecularSimulation_swiginit(self, _libBornAgainCore.new_OffSpecularSimulation(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_OffSpecularSimulation
 
     def clone(self):
         r"""
-        clone(OffSpecSimulation self) -> OffSpecSimulation
-        OffSpecSimulation* OffSpecSimulation::clone() const override
+        clone(OffSpecularSimulation self) -> OffSpecularSimulation
+        OffSpecularSimulation* OffSpecularSimulation::clone() const override
 
         """
-        return _libBornAgainCore.OffSpecSimulation_clone(self)
+        return _libBornAgainCore.OffSpecularSimulation_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(OffSpecSimulation self, INodeVisitor * visitor)
-        void OffSpecSimulation::accept(INodeVisitor *visitor) const override
+        accept(OffSpecularSimulation self, INodeVisitor * visitor)
+        void OffSpecularSimulation::accept(INodeVisitor *visitor) const override
 
         """
-        return _libBornAgainCore.OffSpecSimulation_accept(self, visitor)
+        return _libBornAgainCore.OffSpecularSimulation_accept(self, visitor)
 
     def prepareSimulation(self):
         r"""
-        prepareSimulation(OffSpecSimulation self)
-        void OffSpecSimulation::prepareSimulation() override
+        prepareSimulation(OffSpecularSimulation self)
+        void OffSpecularSimulation::prepareSimulation() override
 
         Put into a clean state for running a simulation. 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_prepareSimulation(self)
+        return _libBornAgainCore.OffSpecularSimulation_prepareSimulation(self)
 
     def result(self):
         r"""
-        result(OffSpecSimulation self) -> SimulationResult
-        SimulationResult OffSpecSimulation::result() const override
+        result(OffSpecularSimulation self) -> SimulationResult
+        SimulationResult OffSpecularSimulation::result() const override
 
         Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_result(self)
+        return _libBornAgainCore.OffSpecularSimulation_result(self)
 
     def setBeamParameters(self, wavelength, alpha_axis, phi_i):
         r"""
-        setBeamParameters(OffSpecSimulation self, double wavelength, IAxis alpha_axis, double phi_i)
-        void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
+        setBeamParameters(OffSpecularSimulation self, double wavelength, IAxis alpha_axis, double phi_i)
+        void OffSpecularSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
 
         Sets beam parameters from here (forwarded to Instrument) 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, wavelength, alpha_axis, phi_i)
+        return _libBornAgainCore.OffSpecularSimulation_setBeamParameters(self, wavelength, alpha_axis, phi_i)
 
     def beamAxis(self):
         r"""
-        beamAxis(OffSpecSimulation self) -> IAxis
-        const IAxis * OffSpecSimulation::beamAxis() const
+        beamAxis(OffSpecularSimulation self) -> IAxis
+        const IAxis * OffSpecularSimulation::beamAxis() const
 
         Returns axis of the beam. 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_beamAxis(self)
+        return _libBornAgainCore.OffSpecularSimulation_beamAxis(self)
 
     def intensityMapSize(self):
         r"""
-        intensityMapSize(OffSpecSimulation self) -> size_t
-        size_t OffSpecSimulation::intensityMapSize() const override
+        intensityMapSize(OffSpecularSimulation self) -> size_t
+        size_t OffSpecularSimulation::intensityMapSize() const override
 
         Returns the total number of the intensity values in the simulation result. 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_intensityMapSize(self)
+        return _libBornAgainCore.OffSpecularSimulation_intensityMapSize(self)
 
-# Register OffSpecSimulation in _libBornAgainCore:
-_libBornAgainCore.OffSpecSimulation_swigregister(OffSpecSimulation)
+# Register OffSpecularSimulation in _libBornAgainCore:
+_libBornAgainCore.OffSpecularSimulation_swigregister(OffSpecularSimulation)
 
 class IBackground(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""

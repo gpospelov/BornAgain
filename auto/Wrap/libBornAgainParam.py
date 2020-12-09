@@ -3447,7 +3447,7 @@ class INodeVisitor(object):
         visit(INodeVisitor self, LayerRoughness const * arg2)
         visit(INodeVisitor self, MesoCrystal const * arg2)
         visit(INodeVisitor self, MultiLayer const * arg2)
-        visit(INodeVisitor self, OffSpecSimulation const * arg2)
+        visit(INodeVisitor self, OffSpecularSimulation const * arg2)
         visit(INodeVisitor self, Particle const * arg2)
         visit(INodeVisitor self, ParticleComposition const * arg2)
         visit(INodeVisitor self, ParticleCoreShell const * arg2)

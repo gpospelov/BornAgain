@@ -1,8 +1,6 @@
 # Functional test: tests of IO operations with the IntensityData object
 
 import math, numpy, os, sys, time, unittest
-
-sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 
 

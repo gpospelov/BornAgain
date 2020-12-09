@@ -1,10 +1,26 @@
 BornAgain-1.18.99, ongoing development
   > API changes:
-    1) Lattice has been renamed to Lattice3D, for clearer disambuation from Lattice2D.
-    2) Retain only those interference functions constructors that take a Lattice2D
-       or Lattice3D parameter.
+    * Compact constructors like GISASimulation(beam, sample, detector)
+    * Removed "get" from several accessor functions
+    * Class Instrument removed  from Python API (instead use simulation.beam() etc)
+    * Lattice has been renamed to Lattice3D, for clearer disambuation from Lattice2D
+    * Removed some interference functions constructors
+    * Remove old R&T computations from API (now in Code/Legacy and Tests)
+    * Python plot API entirely keyword based
   > Fixes of unreported bugs:
-    * For alpha_i, set scattered intensity to 0 (incorrect, but everything else would be worse)
+    * Several GUI bugs that caused crashes
+    * For alpha_i=0, set scattered intensity to 0
+  > Examples:
+    * Uniform API usage in line with exported Python code
+  > Internal refactoring:
+    * Moved code to break directory include cycles
+    * Renamed a few classes (ISimulation)
+    * Simplified and commented std test machinery
+    * Simplified iteration over INode children
+    * Simplified export of get_sample function
+    * Simplified data read/write wrapper
+    * Replaced boost::filesystem by C++17 std
+    * IComputeFF and children drawn out of IFormFactor inheritance tree
 
 BornAgain-1.18.0, released 2020.10.30
   > API changes:
@@ -33,6 +49,7 @@ BornAgain-1.18.0, released 2020.10.30
     6) Scalar Fresnel computation unified with polarized implementation
     7) Directory Core broken into a hierarchy: Core, Device, Sample, Param, Base
     8) Request C++17
+    9) Error handling: core decoupled from Qt
   > Issues from external (GitHub) tracker:
     * #918:  Specular peak location wrong when using flat detector
     * #946:  CTest points to broken visualization scripts

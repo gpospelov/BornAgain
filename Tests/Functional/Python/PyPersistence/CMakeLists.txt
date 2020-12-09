@@ -66,6 +66,6 @@ test_example(sim21_Reflectometry/BeamFullDivergence 2e-10)
 test_example(sim21_Reflectometry/TimeOfFlightReflectometry 2e-10)
 test_example(sim21_Reflectometry/TOFRWithResolution 2e-10)
 
-test_example(sim29_DepthProbe/DepthProbe 2e-10)
+test_example(special40_DepthProbe/DepthProbe 2e-10)
 
 test_example(sim31_Parameterization/SimulationParameters 2e-10)

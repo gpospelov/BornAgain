@@ -37,6 +37,13 @@ public:
     SphericalDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha,
                       double alpha_min, double alpha_max);
 
+    //! Spherical detector constructor with quadratic angle ranges
+    //! @param n_bin number of bins per direction
+    //! @param width angular width
+    //! @param phi   central phi angle
+    //! @param alpha central alpha angle
+    SphericalDetector(size_t n_bin, double width, double phi, double alpha);
+
     SphericalDetector(const SphericalDetector& other);
 
     SphericalDetector* clone() const override;

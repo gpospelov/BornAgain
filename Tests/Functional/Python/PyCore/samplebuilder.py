@@ -1,7 +1,5 @@
 import sys, unittest, ctypes
 import inspect
-
-sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 
 initial_width = 42

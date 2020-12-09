@@ -3,8 +3,6 @@ Collection of utils for testing
 """
 
 import gzip, numpy, sys, os
-
-sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 from bornagain import deg, angstrom
 
@@ -42,39 +40,7 @@ def get_reference_data(filename):
         os.path.join(REFERENCE_DIR, filename))
 
 
-def get_simulation_MiniGISAS(sample=None):
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(25, -2.0*deg, 2.0*deg, 25, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    if sample:
-        simulation.setSample(sample)
-    return simulation
-
-
-def get_simulation_BasicGISAS(sample=None):
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, 0.0*deg, 2.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    if sample:
-        simulation.setSample(sample)
-    return simulation
-
-
-def plot_int(intensity):
-    import matplotlib, pylab
-    data = intensity.getArray() + 1
-    # data = numpy.abs(intensity.getArray())
-    phi_min = rad2deg(intensity.axis(0).lowerBound())
-    phi_max = rad2deg(intensity.axis(0).upperBound())
-    alpha_min = rad2deg(intensity.axis(1).lowerBound())
-    alpha_max = rad2deg(intensity.axis(1).upperBound())
-    im = pylab.imshow(data,
-                      norm=matplotlib.colors.LogNorm(),
-                      extent=[phi_min, phi_max, alpha_min, alpha_max])
-    cb = pylab.colorbar(im)
-    cb.set_label(r'Intensity (arb. u.)', size=16)
-    pylab.xlabel(r'$\phi_f (^{\circ})$', fontsize=16)
-    pylab.ylabel(r'$\alpha_f (^{\circ})$', fontsize=16)
-    pylab.show()
+def get_simulation_MiniGISAS(sample):
+    detector = ba.SphericalDetector(25, -2*deg, 2*deg, 25, 0*deg, 2*deg)
+    beam = ba.Beam(1., 1*angstrom, ba.Direction(0.2*deg, 0))
+    return ba.GISASSimulation(beam, sample, detector)

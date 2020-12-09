@@ -1,8 +1,6 @@
 # Functional test: tests of IntensityData object
 
 import numpy, os, sys, unittest
-
-sys.path.append("@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
 import bornagain as ba
 
 

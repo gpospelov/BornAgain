@@ -550,6 +550,11 @@ Returns value of last point of axis.
 Returns distance from first to last point. 
 ";
 
+%feature("docstring")  IAxis::center "double IAxis::center() const
+
+Returns midpoint of axis. 
+";
+
 %feature("docstring")  IAxis::binCenter "virtual double IAxis::binCenter(size_t index) const =0
 ";
 

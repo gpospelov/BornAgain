@@ -23,7 +23,7 @@
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
 OffSpecularSimulation::OffSpecularSimulation(const Beam& beam, const MultiLayer& sample,
-                                     const IDetector& detector)
+                                             const IDetector& detector)
     : ISimulation2D(beam, sample, detector) {}
 
 OffSpecularSimulation::OffSpecularSimulation() {
@@ -47,7 +47,7 @@ SimulationResult OffSpecularSimulation::result() const {
 }
 
 void OffSpecularSimulation::setBeamParameters(double wavelength, const IAxis& alpha_axis,
-                                          double phi_i) {
+                                              double phi_i) {
     m_alpha_i_axis.reset(alpha_axis.clone());
     if (alpha_axis.size() < 1)
         throw std::runtime_error("OffSpecularSimulation::prepareSimulation() "
@@ -75,7 +75,8 @@ size_t OffSpecularSimulation::intensityMapSize() const {
     return m_alpha_i_axis->size() * detector().axis(1).size();
 }
 
-OffSpecularSimulation::OffSpecularSimulation(const OffSpecularSimulation& other) : ISimulation2D(other) {
+OffSpecularSimulation::OffSpecularSimulation(const OffSpecularSimulation& other)
+    : ISimulation2D(other) {
     if (other.m_alpha_i_axis)
         m_alpha_i_axis.reset(other.m_alpha_i_axis->clone());
     m_intensity_map.copyFrom(other.m_intensity_map);

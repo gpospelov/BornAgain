@@ -42,8 +42,8 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
 
 std::unique_ptr<OffSpecularSimulation>
 createOffSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
-                        const OffSpecularInstrumentItem* offspecInstrument,
-                        const SimulationOptionsItem* optionsItem);
+                            const OffSpecularInstrumentItem* offspecInstrument,
+                            const SimulationOptionsItem* optionsItem);
 
 std::unique_ptr<SpecularSimulation>
 createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
@@ -71,7 +71,8 @@ DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
 
     if (auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(instrumentItem))
         return createGISASSimulation(std::move(P_multilayer), gisasInstrument, optionsItem);
-    else if (auto offspecInstrument = dynamic_cast<const OffSpecularInstrumentItem*>(instrumentItem))
+    else if (auto offspecInstrument =
+                 dynamic_cast<const OffSpecularInstrumentItem*>(instrumentItem))
         return createOffSpecularSimulation(std::move(P_multilayer), offspecInstrument, optionsItem);
     else if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
         return createSpecularSimulation(std::move(P_multilayer), specular_instrument, optionsItem);
@@ -109,8 +110,8 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
 
 std::unique_ptr<OffSpecularSimulation>
 createOffSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
-                        const OffSpecularInstrumentItem* instrument,
-                        const SimulationOptionsItem* optionsItem) {
+                            const OffSpecularInstrumentItem* instrument,
+                            const SimulationOptionsItem* optionsItem) {
     std::unique_ptr<OffSpecularSimulation> ret(new OffSpecularSimulation);
     auto P_instrument = DomainObjectBuilder::buildInstrument(*instrument);
     ret->setSample(*P_multilayer);

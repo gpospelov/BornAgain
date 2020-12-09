@@ -33,8 +33,8 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
                                                const QString& name);
 
 OffSpecularInstrumentItem* createOffSpecularInstrumentItem(InstrumentModel* model,
-                                                   const OffSpecularSimulation& simulation,
-                                                   const QString& name);
+                                                           const OffSpecularSimulation& simulation,
+                                                           const QString& name);
 
 SpecularInstrumentItem* createSpecularInstrumentItem(InstrumentModel* model,
                                                      const SpecularSimulation& simulation,
@@ -113,9 +113,10 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
 }
 
 OffSpecularInstrumentItem* createOffSpecularInstrumentItem(InstrumentModel* model,
-                                                   const OffSpecularSimulation& simulation,
-                                                   const QString& name) {
-    auto result = dynamic_cast<OffSpecularInstrumentItem*>(model->insertNewItem("OffSpecularInstrument"));
+                                                           const OffSpecularSimulation& simulation,
+                                                           const QString& name) {
+    auto result =
+        dynamic_cast<OffSpecularInstrumentItem*>(model->insertNewItem("OffSpecularInstrument"));
 
     result->setItemName(name);
     TransformFromDomain::setOffSpecularBeamItem(result->beamItem(), simulation);

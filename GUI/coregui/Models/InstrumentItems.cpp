@@ -30,7 +30,8 @@
 
 namespace {
 const QString background_group_label = "Type";
-const QStringList instrument_names{"GISASInstrument", "OffSpecularInstrument", "SpecularInstrument"};
+const QStringList instrument_names{"GISASInstrument", "OffSpecularInstrument",
+                                   "SpecularInstrument"};
 void addAxisGroupProperty(SessionItem* parent, const QString& tag);
 } // namespace
 

@@ -252,7 +252,7 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
 }
 
 void TransformFromDomain::setOffSpecularBeamItem(BeamItem* beam_item,
-                                             const OffSpecularSimulation& simulation) {
+                                                 const OffSpecularSimulation& simulation) {
     Beam beam = simulation.instrument().beam();
 
     beam_item->setIntensity(beam.intensity());

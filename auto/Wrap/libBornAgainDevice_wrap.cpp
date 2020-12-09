@@ -24550,7 +24550,7 @@ SWIGINTERN PyObject *_wrap_kvector_t_complex(PyObject *SWIGUNUSEDPARM(self), PyO
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  BasicVector3D< std::complex< double > > result;
+  BasicVector3D< complex_t > result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -24560,7 +24560,7 @@ SWIGINTERN PyObject *_wrap_kvector_t_complex(PyObject *SWIGUNUSEDPARM(self), PyO
   }
   arg1 = reinterpret_cast< BasicVector3D< double > * >(argp1);
   result = ((BasicVector3D< double > const *)arg1)->complex();
-  resultobj = SWIG_NewPointerObj((new BasicVector3D< std::complex< double > >(static_cast< const BasicVector3D< std::complex< double > >& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new BasicVector3D< complex_t >(static_cast< const BasicVector3D< complex_t >& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -48041,7 +48041,7 @@ static swig_type_info _swigt__p_Axes = {"_p_Axes", "Axes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_AxisInfo = {"_p_AxisInfo", "AxisInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_double_t = {"_p_BasicVector3DT_double_t", "std::vector< BasicVector3D< double > >::value_type *|kvector_t *|BasicVector3D< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t", "ivector_t *|BasicVector3D< int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *|BasicVector3D< complex_t > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Beam = {"_p_Beam", "Beam *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Bin1D = {"_p_Bin1D", "Bin1D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ChiSquaredModule = {"_p_ChiSquaredModule", "ChiSquaredModule *", 0, 0, (void*)0, 0};

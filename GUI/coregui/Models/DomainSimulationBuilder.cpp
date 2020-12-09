@@ -151,7 +151,7 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
 
     TransformToDomain::addBeamDivergencesToScan(*beam_item, scan);
 
-    ret->setBeamIntensity(beam_item->intensity());
+    ret->beam().setIntensity(beam_item->intensity());
     ret->setScan(scan);
 
     // ISimulation options

@@ -91,7 +91,7 @@ TEST_F(SpecularSimulationTest, SetAngularScan) {
 
     checkBeamState(sim);
 
-    sim.setBeamIntensity(2.0);
+    sim.beam().setIntensity(2.0);
     EXPECT_EQ(2.0, beam.intensity());
 
     AngularSpecScan scan2(1.0, 10, 1.0 * Units::deg, 10.0 * Units::deg);
@@ -139,7 +139,7 @@ TEST_F(SpecularSimulationTest, SetQScan) {
 
     checkBeamState(sim);
 
-    sim.setBeamIntensity(2.0);
+    sim.beam().setIntensity(2.0);
     EXPECT_EQ(2.0, beam.intensity());
 
     QSpecScan scan2(10, 1.0, 10.0);

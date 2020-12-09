@@ -1471,14 +1471,6 @@ C++ includes: Instrument.h
 Sets the beam wavelength and incoming angles. 
 ";
 
-%feature("docstring")  Instrument::setBeamIntensity "void Instrument::setBeamIntensity(double intensity)
-";
-
-%feature("docstring")  Instrument::setBeamPolarization "void Instrument::setBeamPolarization(const kvector_t bloch_vector)
-
-Sets the beam's polarization according to the given Bloch vector. 
-";
-
 %feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
 ";
 

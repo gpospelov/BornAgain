@@ -45,7 +45,7 @@ def getSimulationIntensity(rho_beam, efficiency):
     zplus = kvector_t(0.0, 0.0, 1.0)
     simulation.setAnalyzerProperties(zplus, efficiency, 0.5)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setBeamPolarization(rho_beam)
+    simulation.beam().setPolarization(rho_beam)
     simulation.setSample(multi_layer)
     simulation.beam().setIntensity(1e9)
     simulation.runSimulation()

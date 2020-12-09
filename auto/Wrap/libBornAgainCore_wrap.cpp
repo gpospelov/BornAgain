@@ -25011,7 +25011,7 @@ SWIGINTERN PyObject *_wrap_kvector_t_complex(PyObject *SWIGUNUSEDPARM(self), PyO
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject *swig_obj[1] ;
-  BasicVector3D< std::complex< double > > result;
+  BasicVector3D< complex_t > result;
   
   if (!args) SWIG_fail;
   swig_obj[0] = args;
@@ -25021,7 +25021,7 @@ SWIGINTERN PyObject *_wrap_kvector_t_complex(PyObject *SWIGUNUSEDPARM(self), PyO
   }
   arg1 = reinterpret_cast< BasicVector3D< double > * >(argp1);
   result = ((BasicVector3D< double > const *)arg1)->complex();
-  resultobj = SWIG_NewPointerObj((new BasicVector3D< std::complex< double > >(static_cast< const BasicVector3D< std::complex< double > >& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new BasicVector3D< complex_t >(static_cast< const BasicVector3D< complex_t >& >(result))), SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -39240,72 +39240,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ISimulation_setBeamIntensity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ISimulation *arg1 = (ISimulation *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ISimulation_setBeamIntensity", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_setBeamIntensity" "', argument " "1"" of type '" "ISimulation *""'"); 
-  }
-  arg1 = reinterpret_cast< ISimulation * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ISimulation_setBeamIntensity" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setBeamIntensity(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ISimulation_setBeamPolarization(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ISimulation *arg1 = (ISimulation *) 0 ;
-  kvector_t arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ISimulation_setBeamPolarization", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_setBeamPolarization" "', argument " "1"" of type '" "ISimulation *""'"); 
-  }
-  arg1 = reinterpret_cast< ISimulation * >(argp1);
-  {
-    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_BasicVector3DT_double_t,  0  | 0);
-    if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ISimulation_setBeamPolarization" "', argument " "2"" of type '" "kvector_t const""'"); 
-    }  
-    if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ISimulation_setBeamPolarization" "', argument " "2"" of type '" "kvector_t const""'");
-    } else {
-      kvector_t * temp = reinterpret_cast< kvector_t * >(argp2);
-      arg2 = *temp;
-      if (SWIG_IsNewObj(res2)) delete temp;
-    }
-  }
-  (arg1)->setBeamPolarization(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ISimulation_setDetectorResolutionFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ISimulation *arg1 = (ISimulation *) 0 ;
@@ -43827,18 +43761,6 @@ static PyMethodDef SwigMethods[] = {
 		"const IDetector& ISimulation::detector() const\n"
 		"\n"
 		""},
-	 { "ISimulation_setBeamIntensity", _wrap_ISimulation_setBeamIntensity, METH_VARARGS, "\n"
-		"ISimulation_setBeamIntensity(ISimulation self, double intensity)\n"
-		"void ISimulation::setBeamIntensity(double intensity)\n"
-		"\n"
-		""},
-	 { "ISimulation_setBeamPolarization", _wrap_ISimulation_setBeamPolarization, METH_VARARGS, "\n"
-		"ISimulation_setBeamPolarization(ISimulation self, kvector_t bloch_vector)\n"
-		"void ISimulation::setBeamPolarization(const kvector_t bloch_vector)\n"
-		"\n"
-		"Sets the beam polarization according to the given Bloch vector. \n"
-		"\n"
-		""},
 	 { "ISimulation_setDetectorResolutionFunction", _wrap_ISimulation_setDetectorResolutionFunction, METH_VARARGS, "\n"
 		"ISimulation_setDetectorResolutionFunction(ISimulation self, IResolutionFunction2D const & resolution_function)\n"
 		"void ISimulation::setDetectorResolutionFunction(const IResolutionFunction2D &resolution_function)\n"
@@ -44555,7 +44477,7 @@ static swig_type_info _swigt__p_AngularSpecScan = {"_p_AngularSpecScan", "Angula
 static swig_type_info _swigt__p_AxisInfo = {"_p_AxisInfo", "std::vector< AxisInfo >::value_type *|AxisInfo *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_double_t = {"_p_BasicVector3DT_double_t", "std::vector< BasicVector3D< double > >::value_type *|kvector_t *|BasicVector3D< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t", "ivector_t *|BasicVector3D< int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *|BasicVector3D< complex_t > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Beam = {"_p_Beam", "Beam *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ConstantBackground = {"_p_ConstantBackground", "ConstantBackground *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_DepthProbeSimulation = {"_p_DepthProbeSimulation", "DepthProbeSimulation *", 0, 0, (void*)0, 0};

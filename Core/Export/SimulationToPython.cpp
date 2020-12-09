@@ -258,7 +258,7 @@ std::string defineBeamIntensity(const Beam& beam) {
     std::ostringstream result;
     double beam_intensity = beam.intensity();
     if (beam_intensity > 0.0)
-        result << indent() << "simulation.setBeamIntensity("
+        result << indent() << "simulation.beam().setIntensity("
                << pyfmt::printScientificDouble(beam_intensity) << ")\n";
     return result.str();
 }

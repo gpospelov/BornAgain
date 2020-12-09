@@ -3622,24 +3622,6 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainCore.ISimulation_detector(self, *args)
 
-    def setBeamIntensity(self, intensity):
-        r"""
-        setBeamIntensity(ISimulation self, double intensity)
-        void ISimulation::setBeamIntensity(double intensity)
-
-        """
-        return _libBornAgainCore.ISimulation_setBeamIntensity(self, intensity)
-
-    def setBeamPolarization(self, bloch_vector):
-        r"""
-        setBeamPolarization(ISimulation self, kvector_t bloch_vector)
-        void ISimulation::setBeamPolarization(const kvector_t bloch_vector)
-
-        Sets the beam polarization according to the given Bloch vector. 
-
-        """
-        return _libBornAgainCore.ISimulation_setBeamPolarization(self, bloch_vector)
-
     def setDetectorResolutionFunction(self, resolution_function):
         r"""
         setDetectorResolutionFunction(ISimulation self, IResolutionFunction2D const & resolution_function)

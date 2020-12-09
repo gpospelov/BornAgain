@@ -81,7 +81,7 @@ def run_simulation(*,
 
     simulation = get_simulation()
 
-    simulation.setBeamPolarization(polarization*polarizer_efficiency)
+    simulation.beam().setPolarization(polarization*polarizer_efficiency)
     simulation.setAnalyzerProperties(analyzer, analyzer_efficiency, 0.5)
 
     simulation.setBackground(ba.ConstantBackground(1e-7))

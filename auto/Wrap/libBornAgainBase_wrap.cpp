@@ -24297,20 +24297,6 @@ SWIGINTERN PyObject *Swig_var_millimeter_get(void) {
 }
 
 
-SWIGINTERN int Swig_var_meter_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable meter is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_meter_get(void) {
-  PyObject *pyobj = 0;
-  
-  pyobj = SWIG_From_double(static_cast< double >(Units::meter));
-  return pyobj;
-}
-
-
 SWIGINTERN int Swig_var_nm_set(PyObject *) {
   SWIG_Error(SWIG_AttributeError,"Variable nm is read-only.");
   return 1;
@@ -24335,20 +24321,6 @@ SWIGINTERN PyObject *Swig_var_nm2_get(void) {
   PyObject *pyobj = 0;
   
   pyobj = SWIG_From_double(static_cast< double >(Units::nm2));
-  return pyobj;
-}
-
-
-SWIGINTERN int Swig_var_barn_set(PyObject *) {
-  SWIG_Error(SWIG_AttributeError,"Variable barn is read-only.");
-  return 1;
-}
-
-
-SWIGINTERN PyObject *Swig_var_barn_get(void) {
-  PyObject *pyobj = 0;
-  
-  pyobj = SWIG_From_double(static_cast< double >(Units::barn));
   return pyobj;
 }
 
@@ -34974,10 +34946,8 @@ SWIG_init(void) {
   SWIG_addvarlink(globals, "angstrom", Swig_var_angstrom_get, Swig_var_angstrom_set);
   SWIG_addvarlink(globals, "micrometer", Swig_var_micrometer_get, Swig_var_micrometer_set);
   SWIG_addvarlink(globals, "millimeter", Swig_var_millimeter_get, Swig_var_millimeter_set);
-  SWIG_addvarlink(globals, "meter", Swig_var_meter_get, Swig_var_meter_set);
   SWIG_addvarlink(globals, "nm", Swig_var_nm_get, Swig_var_nm_set);
   SWIG_addvarlink(globals, "nm2", Swig_var_nm2_get, Swig_var_nm2_set);
-  SWIG_addvarlink(globals, "barn", Swig_var_barn_get, Swig_var_barn_set);
   SWIG_addvarlink(globals, "rad", Swig_var_rad_get, Swig_var_rad_set);
   SWIG_addvarlink(globals, "deg", Swig_var_deg_get, Swig_var_deg_set);
   SWIG_addvarlink(globals, "tesla", Swig_var_tesla_get, Swig_var_tesla_set);

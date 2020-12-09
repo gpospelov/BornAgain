@@ -1,5 +1,5 @@
 /*!
-\page userapi User API
+\mainpage
 
 Here is a list of classes grouped in several categories to create the sample, describe scattering geometry, run the simulation and perform fitting.
 

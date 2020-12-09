@@ -1,20 +1,16 @@
 /*!
 \mainpage
 
-C++ API Reference of <a href="http://www.bornagainproject.org">BornAgain Project</a>,
+C++ developer reference of <a href="http://www.bornagainproject.org">BornAgain Project</a>,
  an open-source software to simulate and fit
  neutron and x-ray reflectometry and grazing-incidence small-angle scattering.
 
+<b> See also: </b>
 <ul>
-<li> Section <a href="userapi.html">User API</a>
-  contains list of main classes to run the simulation.
-<li> Section <a href="annotated.html">Full C++ API</a>
-  contains a full list of classes belonging to the %BornAgain framework.
-<li> Section <a href="namespace.html">Namespace List</a>
-  contains a full list of namespaces belonging to the %BornAgain framework.
-<li> Section <a href="files.html">File List</a>
-  lets you browse the C++ source code.
-
+<li> <a href="https://bornagainproject.org">https://bornagainproject.org</a>,
+     project homepage;
+<li> <a href="https://github.com/scgmlz/BornAgain/">https://github.com/scgmlz/BornAgain</a>,
+     source repository;
 </ul>
 
 

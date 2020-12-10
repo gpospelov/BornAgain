@@ -14,7 +14,7 @@
 #include "BABuild.h"
 #include "BAVersion.h"
 #include "Base/Py/PyEmbeddedUtils.h"
-#include "Base/Py/PythonCore.h"
+#include "Base/Py/PyCore.h"
 #include "Base/Utils/SysUtils.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/Export/PyFmt.h"

@@ -1648,6 +1648,9 @@ Template function to create an integrator object
 // File: ProgressHandler_8h.xml
 
 
+// File: PyCore_8h.xml
+
+
 // File: PyEmbeddedUtils_8cpp.xml
 
 
@@ -1655,9 +1658,6 @@ Template function to create an integrator object
 
 
 // File: PyObject_8h.xml
-
-
-// File: PythonCore_8h.xml
 
 
 // File: CloneableVector_8h.xml

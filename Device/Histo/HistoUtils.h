@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_DEVICE_HISTO_IMAGEUTILS_H
-#define BORNAGAIN_DEVICE_HISTO_IMAGEUTILS_H
+#ifndef BORNAGAIN_DEVICE_HISTO_HISTOUTILS_H
+#define BORNAGAIN_DEVICE_HISTO_HISTOUTILS_H
 
 #include "Device/Data/OutputData.h"
 #include <string>
@@ -41,4 +41,4 @@ double getRelativeDifference(const IHistogram& dat, const IHistogram& ref);
 
 } // namespace HistoUtils
 
-#endif // BORNAGAIN_DEVICE_HISTO_IMAGEUTILS_H
+#endif // BORNAGAIN_DEVICE_HISTO_HISTOUTILS_H

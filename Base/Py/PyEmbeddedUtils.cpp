@@ -15,7 +15,7 @@
 #ifdef BORNAGAIN_PYTHON
 
 #include "Base/Py/PyEmbeddedUtils.h"
-#include "Base/Py/PythonCore.h"
+#include "Base/Py/PyCore.h"
 #include "Base/Utils/SysUtils.h"
 #include <iostream>
 #include <sstream>
@@ -23,14 +23,9 @@
 
 std::string PyEmbeddedUtils::toString(PyObject* obj) {
     std::string result;
-#if PY_MAJOR_VERSION >= 3
     PyObject* pyStr = PyUnicode_AsEncodedString(obj, "utf-8", "Error ~");
     result = std::string(PyBytes_AsString(pyStr));
     Py_DecRef(pyStr);
-#else
-    result = std::string(PyString_AsString(obj));
-#endif
-
     return result;
 }
 
@@ -49,9 +44,8 @@ std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj) {
             result.push_back(toString(value));
         }
 
-    } else {
+    } else
         throw std::runtime_error("PyEmbeddedUtils::toVectorString() -> Error. Unexpected object.");
-    }
 
     return result;
 }
@@ -64,13 +58,10 @@ std::string PyEmbeddedUtils::toString(char* c) {
 }
 
 std::string PyEmbeddedUtils::toString(wchar_t* c) {
-    if (c) {
-        std::wstring wstr(c);
-        std::string result(wstr.begin(), wstr.end());
-        return result;
-    } else {
+    if (!c)
         return "";
-    }
+    std::wstring wstr(c);
+    return std::string(wstr.begin(), wstr.end());
 }
 
 void PyEmbeddedUtils::import_bornagain(const std::string& path) {

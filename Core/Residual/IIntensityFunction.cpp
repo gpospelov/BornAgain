@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Intensity/IIntensityFunction.cpp
+//! @file      Core/Residual/IIntensityFunction.cpp
 //! @brief     Implements the classes IntensityFunctionLog, IntensityFunctionSqrt
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Device/Intensity/IIntensityFunction.h"
+#include "Core/Residual/IIntensityFunction.h"
 #include <cmath>
 #include <limits>
 

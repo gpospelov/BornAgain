@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Intensity/VarianceFunctions.cpp
+//! @file      Core/Residual/VarianceFunctions.cpp
 //! @brief     Implements IVarianceFunction classes
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Device/Intensity/VarianceFunctions.h"
+#include "Core/Residual/VarianceFunctions.h"
 #include <algorithm>
 
 //  ************************************************************************************************

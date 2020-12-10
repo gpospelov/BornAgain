@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Intensity/IChiSquaredModule.cpp
+//! @file      Core/Residual/IChiSquaredModule.cpp
 //! @brief     Implements interface IChiSquaredModule.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,9 +12,9 @@
 //
 //  ************************************************************************************************
 
-#include "Device/Intensity/IChiSquaredModule.h"
-#include "Device/Intensity/VarianceFunctions.h"
-#include "Device/Intensity/IIntensityFunction.h"
+#include "Core/Residual/IChiSquaredModule.h"
+#include "Core/Residual/VarianceFunctions.h"
+#include "Core/Residual/IIntensityFunction.h"
 
 IChiSquaredModule::IChiSquaredModule() : m_variance_function(new VarianceSimFunction) {}
 

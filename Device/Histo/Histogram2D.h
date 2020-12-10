@@ -16,7 +16,7 @@
 #define BORNAGAIN_DEVICE_HISTO_HISTOGRAM2D_H
 
 #include "Device/Histo/IHistogram.h"
-#include "Device/Intensity/ArrayUtils.h"
+#include "Device/Data/ArrayUtils.h"
 
 //! Two dimensional histogram.
 //! @ingroup tools

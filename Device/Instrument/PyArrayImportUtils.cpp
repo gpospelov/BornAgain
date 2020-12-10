@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Device/Instrument/PyArrayImportUtils.h"
-#include "Device/Intensity/ArrayUtils.h"
+#include "Device/Data/ArrayUtils.h"
 
 OutputData<double>* PyArrayImport::importArrayToOutputData(const std::vector<double>& vec) {
     return ArrayUtils::createData(vec).release();

@@ -2966,19 +2966,19 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0d10.xml
-
-
 // File: namespace_0d104.xml
 
 
-// File: namespace_0d37.xml
+// File: namespace_0d11.xml
 
 
-// File: namespace_0d62.xml
+// File: namespace_0d38.xml
 
 
-// File: namespace_0d68.xml
+// File: namespace_0d63.xml
+
+
+// File: namespace_0d69.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3207,6 +3207,9 @@ for importing 2D array of doubles from python into  OutputData
 // File: IFootprintFactor_8h.xml
 
 
+// File: ArrayUtils_8h.xml
+
+
 // File: CumulativeValue_8cpp.xml
 
 
@@ -3433,9 +3436,6 @@ make Swappable
 
 
 // File: VarianceFunctions_8h.xml
-
-
-// File: ArrayUtils_8h.xml
 
 
 // File: IIntensityFunction_8cpp.xml

@@ -62,7 +62,7 @@ public:
 
     //! Returns a vector of children
     virtual std::vector<const INode*> getChildren() const;
-    //! Returns a vector of all descendents
+    //! Returns a vector of all descendants
     std::vector<const INode*> progeny() const;
 
     virtual void setParent(const INode* newParent);

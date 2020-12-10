@@ -2969,16 +2969,16 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: namespace_0d10.xml
 
 
-// File: namespace_0d107.xml
+// File: namespace_0d105.xml
 
 
 // File: namespace_0d37.xml
 
 
-// File: namespace_0d64.xml
+// File: namespace_0d62.xml
 
 
-// File: namespace_0d70.xml
+// File: namespace_0d68.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3157,20 +3157,20 @@ Creates Fourier Transform ( OutputData format) of intensity map ( OutputData for
 ";
 
 
-// File: namespaceImageUtils.xml
-%feature("docstring")  ImageUtils::FindPeaks "std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+// File: namespaceHistoUtils.xml
+%feature("docstring")  HistoUtils::FindPeaks "std::vector< std::pair< double, double > > HistoUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
 
 Returns vector of peak center coordinates, for peaks in given histogram. 
 ";
 
-%feature("docstring")  ImageUtils::RelativeDifference "double ImageUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+%feature("docstring")  HistoUtils::RelativeDifference "double HistoUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
 
 Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
 
 Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
 ";
 
-%feature("docstring")  ImageUtils::getRelativeDifference "double ImageUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+%feature("docstring")  HistoUtils::getRelativeDifference "double HistoUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
 ";
 
 
@@ -3351,22 +3351,16 @@ make Swappable
 // File: Histogram2D_8h.xml
 
 
+// File: HistoUtils_8cpp.xml
+
+
+// File: HistoUtils_8h.xml
+
+
 // File: IHistogram_8cpp.xml
 
 
 // File: IHistogram_8h.xml
-
-
-// File: ImageUtils_8cpp.xml
-
-
-// File: ImageUtils_8h.xml
-
-
-// File: IntensityDataFunctions_8cpp.xml
-
-
-// File: IntensityDataFunctions_8h.xml
 
 
 // File: IntensityDataIOFactory_8cpp.xml

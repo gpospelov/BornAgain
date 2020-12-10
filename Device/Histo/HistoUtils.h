@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Histo/ImageUtils.h
+//! @file      Device/Histo/HistoUtils.h
 //! @brief     PyObvject forward declaration.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -25,7 +25,7 @@ class SimulationResult;
 
 //! Collection of utils for 1D and 2D image processing (background, peaks, ets).
 
-namespace ImageUtils {
+namespace HistoUtils {
 
 //! Returns vector of peak center coordinates, for peaks in given histogram.
 
@@ -39,6 +39,6 @@ double RelativeDifference(const SimulationResult& dat, const SimulationResult& r
 
 double getRelativeDifference(const IHistogram& dat, const IHistogram& ref);
 
-} // namespace ImageUtils
+} // namespace HistoUtils
 
 #endif // BORNAGAIN_DEVICE_HISTO_IMAGEUTILS_H

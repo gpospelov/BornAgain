@@ -3922,7 +3922,7 @@ def importArrayToOutputData(*args):
 def FindPeaks(*args):
     r"""
     FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t
-    std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+    std::vector< std::pair< double, double > > HistoUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
 
     Returns vector of peak center coordinates, for peaks in given histogram. 
 
@@ -3932,7 +3932,7 @@ def FindPeaks(*args):
 def RelativeDifference(dat, ref):
     r"""
     RelativeDifference(SimulationResult dat, SimulationResult ref) -> double
-    double ImageUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+    double HistoUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
 
     Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
 
@@ -3944,7 +3944,7 @@ def RelativeDifference(dat, ref):
 def getRelativeDifference(dat, ref):
     r"""
     getRelativeDifference(IHistogram dat, IHistogram ref) -> double
-    double ImageUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+    double HistoUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
 
     """
     return _libBornAgainDevice.getRelativeDifference(dat, ref)

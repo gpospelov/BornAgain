@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Histo/ImageUtils.cpp
+//! @file      Device/Histo/HistoUtils.cpp
 //! @brief     PyObvject forward declaration.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Device/Histo/ImageUtils.h"
+#include "Device/Histo/HistoUtils.h"
 #include "Base/Math/Numeric.h"
 #include "Device/Data/DataUtils.h"
 #include "Device/Histo/Histogram2D.h"
@@ -20,7 +20,7 @@
 #include <cmath>
 #include <tspectrum.h> // third-party code, extracted from CERN ROOT (class TSpectrum2)
 
-std::vector<std::pair<double, double>> ImageUtils::FindPeaks(const Histogram2D& hist, double sigma,
+std::vector<std::pair<double, double>> HistoUtils::FindPeaks(const Histogram2D& hist, double sigma,
                                                              const std::string& option,
                                                              double threshold) {
     std::unique_ptr<OutputData<double>> data(hist.createOutputData());
@@ -54,9 +54,9 @@ std::vector<std::pair<double, double>> ImageUtils::FindPeaks(const Histogram2D& 
 
 //! Returns sum of relative differences between each pair of elements:
 //! (a, b) -> 2*abs(a - b)/(|a| + |b|)      ( and zero if  a=b=0 within epsilon )
-double ImageUtils::RelativeDifference(const SimulationResult& dat, const SimulationResult& ref) {
+double HistoUtils::RelativeDifference(const SimulationResult& dat, const SimulationResult& ref) {
     if (dat.size() != ref.size())
-        throw std::runtime_error("Error in ImageUtils::RelativeDifference: "
+        throw std::runtime_error("Error in HistoUtils::RelativeDifference: "
                                  "different number of elements");
     if (dat.empty())
         return 0.0;
@@ -66,7 +66,7 @@ double ImageUtils::RelativeDifference(const SimulationResult& dat, const Simulat
     return sum_of_diff / dat.size();
 }
 
-double ImageUtils::getRelativeDifference(const IHistogram& dat, const IHistogram& ref) {
+double HistoUtils::getRelativeDifference(const IHistogram& dat, const IHistogram& ref) {
     return DataUtils::getRelativeDifference(
         *std::unique_ptr<OutputData<double>>(dat.getData().meanValues()),
         *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()));

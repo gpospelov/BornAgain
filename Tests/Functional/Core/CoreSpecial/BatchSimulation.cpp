@@ -49,7 +49,7 @@ TEST_F(BatchSimulation, BatchSimulation) {
         *result += *batchResult;
     }
 
-    double diff = DataUtils::getRelativeDifference(*result, *reference);
+    double diff = DataUtils::relativeDataDifference(*result, *reference);
 
     EXPECT_LE(diff, threshold);
 }

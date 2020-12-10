@@ -67,7 +67,7 @@ double HistoUtils::RelativeDifference(const SimulationResult& dat, const Simulat
 }
 
 double HistoUtils::getRelativeDifference(const IHistogram& dat, const IHistogram& ref) {
-    return DataUtils::getRelativeDifference(
+    return DataUtils::relativeDataDifference(
         *std::unique_ptr<OutputData<double>>(dat.getData().meanValues()),
         *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()));
 }

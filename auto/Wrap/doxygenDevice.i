@@ -3093,6 +3093,11 @@ Parse double values from string to vector of double.
 
 
 // File: namespaceDataUtils.xml
+%feature("docstring")  DataUtils::relativeDataDifference "double DataUtils::relativeDataDifference(const OutputData< double > &dat, const OutputData< double > &ref)
+
+Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). 
+";
+
 %feature("docstring")  DataUtils::checkRelativeDifference "bool DataUtils::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
 
 Returns true is relative difference is below threshold; prints informative output. 
@@ -3121,11 +3126,6 @@ Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes co
 %feature("docstring")  DataUtils::create2DArrayfromOutputData "std::vector< std::vector< double > > DataUtils::create2DArrayfromOutputData(const OutputData< double > &data)
 
 Creates a vector of vectors of double (2D Array) from  OutputData. 
-";
-
-%feature("docstring")  DataUtils::getRelativeDifference "double DataUtils::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
-
-Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). 
 ";
 
 %feature("docstring")  DataUtils::createRelativeDifferenceData "std::unique_ptr< OutputData< double > > DataUtils::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)

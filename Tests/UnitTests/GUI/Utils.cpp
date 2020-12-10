@@ -54,7 +54,7 @@ RealDataItem* GuiUnittestUtils::createRealData(const QString& name, SessionModel
 }
 
 bool GuiUnittestUtils::isTheSame(const OutputData<double>& data1, const OutputData<double>& data2) {
-    double diff = DataUtils::getRelativeDifference(data1, data2);
+    double diff = DataUtils::relativeDataDifference(data1, data2);
     return diff < 1e-10;
 }
 

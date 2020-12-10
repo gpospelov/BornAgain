@@ -20,6 +20,9 @@
 
 namespace DataUtils {
 
+//! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
+double relativeDataDifference(const OutputData<double>& dat, const OutputData<double>& ref);
+
 //! Returns true is relative difference is below threshold; prints informative output
 bool checkRelativeDifference(const OutputData<double>& dat, const OutputData<double>& ref,
                              const double threshold);
@@ -40,9 +43,6 @@ void coordinateFromBinf(double& x, double& y, const OutputData<double>& data);
 std::vector<std::vector<double>> create2DArrayfromOutputData(const OutputData<double>& data);
 
 #ifndef SWIG
-
-//! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
-double getRelativeDifference(const OutputData<double>& dat, const OutputData<double>& ref);
 
 std::unique_ptr<OutputData<double>>
 createRelativeDifferenceData(const OutputData<double>& data, const OutputData<double>& reference);

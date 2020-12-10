@@ -30489,6 +30489,42 @@ SWIGINTERN PyObject *IntensityData_swiginit(PyObject *SWIGUNUSEDPARM(self), PyOb
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_relativeDataDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  OutputData< double > *arg1 = 0 ;
+  OutputData< double > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "relativeDataDifference", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "relativeDataDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "relativeDataDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "relativeDataDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "relativeDataDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
+  result = (double)DataUtils::relativeDataDifference((OutputData< double > const &)*arg1,(OutputData< double > const &)*arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_checkRelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   OutputData< double > *arg1 = 0 ;
@@ -45683,6 +45719,13 @@ static PyMethodDef SwigMethods[] = {
 	 { "IntensityData___setitem__", _wrap_IntensityData___setitem__, METH_VARARGS, "IntensityData___setitem__(IntensityData self, unsigned int i, double value) -> double"},
 	 { "IntensityData_swigregister", IntensityData_swigregister, METH_O, NULL},
 	 { "IntensityData_swiginit", IntensityData_swiginit, METH_VARARGS, NULL},
+	 { "relativeDataDifference", _wrap_relativeDataDifference, METH_VARARGS, "\n"
+		"relativeDataDifference(IntensityData dat, IntensityData ref) -> double\n"
+		"double DataUtils::relativeDataDifference(const OutputData< double > &dat, const OutputData< double > &ref)\n"
+		"\n"
+		"Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). \n"
+		"\n"
+		""},
 	 { "checkRelativeDifference", _wrap_checkRelativeDifference, METH_VARARGS, "\n"
 		"checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool\n"
 		"bool DataUtils::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)\n"

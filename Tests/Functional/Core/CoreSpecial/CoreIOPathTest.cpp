@@ -33,7 +33,7 @@ std::unique_ptr<OutputData<double>> createTestData() {
 bool test_io(const OutputData<double>* data, const std::string& file_name) {
     IntensityDataIOFactory::writeOutputData(*data, file_name);
     std::unique_ptr<OutputData<double>> loaded(IntensityDataIOFactory::readOutputData(file_name));
-    return DataUtils::getRelativeDifference(*data, *loaded) <= 1e-06;
+    return DataUtils::relativeDataDifference(*data, *loaded) <= 1e-06;
 }
 
 } // namespace

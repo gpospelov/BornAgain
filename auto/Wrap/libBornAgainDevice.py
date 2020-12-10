@@ -2616,6 +2616,16 @@ class IntensityData(object):
 _libBornAgainDevice.IntensityData_swigregister(IntensityData)
 
 
+def relativeDataDifference(dat, ref):
+    r"""
+    relativeDataDifference(IntensityData dat, IntensityData ref) -> double
+    double DataUtils::relativeDataDifference(const OutputData< double > &dat, const OutputData< double > &ref)
+
+    Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). 
+
+    """
+    return _libBornAgainDevice.relativeDataDifference(dat, ref)
+
 def checkRelativeDifference(dat, ref, threshold):
     r"""
     checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool

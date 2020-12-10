@@ -62,7 +62,7 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
     std::cout << "comparing" << std::endl;
     bool success(false);
     if (reference_fft)
-        success = DataUtils::getRelativeDifference(*fft, *reference_fft) <= threshold;
+        success = DataUtils::relativeDataDifference(*fft, *reference_fft) <= threshold;
 
     if (!success) {
         FileSystemUtils::createDirectory(BATesting::TestOutDir_Core());

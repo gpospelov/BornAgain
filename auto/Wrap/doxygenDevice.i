@@ -2972,6 +2972,9 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: namespace_0d35.xml
 
 
+// File: namespace_0d55.xml
+
+
 // File: namespace_0d62.xml
 
 
@@ -3145,11 +3148,6 @@ Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes co
 %feature("docstring")  IntensityDataFunctions::create2DArrayfromOutputData "std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)
 
 Creates a vector of vectors of double (2D Array) from  OutputData. 
-";
-
-%feature("docstring")  IntensityDataFunctions::FT2DArray "std::vector< std::vector< double > > IntensityDataFunctions::FT2DArray(const std::vector< std::vector< double >> &signal)
-
-Creates a Fourier Transform of a 2D Array (vector of vectors). 
 ";
 
 %feature("docstring")  IntensityDataFunctions::createRelativeDifferenceData "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)

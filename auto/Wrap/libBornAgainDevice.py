@@ -3929,16 +3929,6 @@ def create2DArrayfromOutputData(data):
     """
     return _libBornAgainDevice.create2DArrayfromOutputData(data)
 
-def FT2DArray(signal):
-    r"""
-    FT2DArray(vdouble2d_t signal) -> vdouble2d_t
-    std::vector< std::vector< double > > IntensityDataFunctions::FT2DArray(const std::vector< std::vector< double >> &signal)
-
-    Creates a Fourier Transform of a 2D Array (vector of vectors). 
-
-    """
-    return _libBornAgainDevice.FT2DArray(signal)
-
 def importArrayToOutputData(*args):
     r"""
     importArrayToOutputData(vdouble1d_t vec) -> IntensityData

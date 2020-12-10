@@ -22,6 +22,19 @@
 #include <cmath>
 #include <iostream>
 
+namespace {
+
+std::vector<std::vector<double>> FT2DArray(const std::vector<std::vector<double>>& signal) {
+    FourierTransform ft;
+    std::vector<std::vector<double>> ret;
+    ft.fft(signal, ret);
+    ft.fftshift(ret); // low frequency to center of array
+    return ret;
+}
+
+} // namespace
+
+
 //! Returns sum of relative differences between each pair of elements:
 //! (a, b) -> 2*abs(a - b)/(|a| + |b|)      ( and zero if  a=b=0 within epsilon )
 double IntensityDataFunctions::RelativeDifference(const SimulationResult& dat,
@@ -238,17 +251,6 @@ IntensityDataFunctions::create2DArrayfromOutputData(const OutputData<double>& da
     return array_2d;
 }
 
-std::vector<std::vector<double>>
-IntensityDataFunctions::FT2DArray(const std::vector<std::vector<double>>& signal) {
-    FourierTransform ft;
-    std::vector<std::vector<double>> fft_array;
-    ft.fft(signal, fft_array);
-    // shifting low frequency to center of array
-    ft.fftshift(fft_array);
-
-    return fft_array;
-}
-
 std::unique_ptr<OutputData<double>> IntensityDataFunctions::createOutputDatafrom2DArray(
     const std::vector<std::vector<double>>& array_2d) {
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
@@ -273,6 +275,6 @@ std::unique_ptr<OutputData<double>> IntensityDataFunctions::createOutputDatafrom
 std::unique_ptr<OutputData<double>>
 IntensityDataFunctions::createFFT(const OutputData<double>& data) {
     auto array_2d = IntensityDataFunctions::create2DArrayfromOutputData(data);
-    auto fft_array_2d = IntensityDataFunctions::FT2DArray(array_2d);
+    auto fft_array_2d = FT2DArray(array_2d);
     return IntensityDataFunctions::createOutputDatafrom2DArray(fft_array_2d);
 }

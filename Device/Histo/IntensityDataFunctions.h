@@ -54,9 +54,6 @@ void coordinateFromBinf(double& x, double& y, const OutputData<double>& data);
 //! Creates a vector of vectors of double (2D Array) from OutputData.
 std::vector<std::vector<double>> create2DArrayfromOutputData(const OutputData<double>& data);
 
-//! Creates a Fourier Transform of a 2D Array (vector of vectors).
-std::vector<std::vector<double>> FT2DArray(const std::vector<std::vector<double>>& signal);
-
 #ifndef SWIG
 
 std::unique_ptr<OutputData<double>>

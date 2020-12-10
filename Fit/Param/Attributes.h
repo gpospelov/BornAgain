@@ -19,7 +19,7 @@
 
 #include <ostream>
 
-//! Attributes for a fit parameter. Currently, the only attribute is fixed/free.
+//! %Attributes for a fit parameter. Currently, the only attribute is fixed/free.
 //! @ingroup fitting
 
 class Attributes {

@@ -20,7 +20,7 @@
 
 class PolygonPrivate;
 
-//! A polygon in 2D space.
+//! A polygon, for use in detector masks.
 //! @ingroup mask
 
 //! Polygon defined by two arrays with x and y coordinates of points.

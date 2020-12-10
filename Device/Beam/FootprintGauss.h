@@ -17,9 +17,9 @@
 
 #include "Device/Beam/IFootprintFactor.h"
 
-//! Calculates footprint coefficient for a gaussian beam
-//! Beam width is interpreted as the full width on the level
-//! of \f[ \exp{-1/2} \f] from the peak intensity.
+//! Gaussian beam footprint.
+//!
+//! Beam width is the full width at half maximum.
 //! @ingroup beam
 
 class FootprintGauss : public IFootprintFactor {

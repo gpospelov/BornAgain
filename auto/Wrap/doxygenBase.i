@@ -1438,7 +1438,7 @@ Returns multi-line string representing PATH, PYTHONPATH, sys.path and other info
 Returns string representing python stack trace. 
 ";
 
-%feature("docstring")  PyUtils::createNumpyArray "PyObject* PyUtils::createNumpyArray(const std::vector< double > &data)
+%feature("docstring")  PyUtils::createNumpyArray "PyObject * PyUtils::createNumpyArray(const std::vector< double > &data)
 ";
 
 

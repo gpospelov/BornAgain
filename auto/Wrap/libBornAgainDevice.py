@@ -3029,71 +3029,6 @@ class FootprintSquare(IFootprintFactor):
 # Register FootprintSquare in _libBornAgainDevice:
 _libBornAgainDevice.FootprintSquare_swigregister(FootprintSquare)
 
-class IIntensityFunction(object):
-    r"""Proxy of C++ IIntensityFunction class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainDevice.delete_IIntensityFunction
-
-    def clone(self):
-        r"""clone(IIntensityFunction self) -> IIntensityFunction"""
-        return _libBornAgainDevice.IIntensityFunction_clone(self)
-
-    def evaluate(self, value):
-        r"""evaluate(IIntensityFunction self, double value) -> double"""
-        return _libBornAgainDevice.IIntensityFunction_evaluate(self, value)
-
-# Register IIntensityFunction in _libBornAgainDevice:
-_libBornAgainDevice.IIntensityFunction_swigregister(IIntensityFunction)
-
-class IntensityFunctionLog(IIntensityFunction):
-    r"""Proxy of C++ IntensityFunctionLog class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""clone(IntensityFunctionLog self) -> IntensityFunctionLog"""
-        return _libBornAgainDevice.IntensityFunctionLog_clone(self)
-
-    def evaluate(self, value):
-        r"""evaluate(IntensityFunctionLog self, double value) -> double"""
-        return _libBornAgainDevice.IntensityFunctionLog_evaluate(self, value)
-
-    def __init__(self):
-        r"""__init__(IntensityFunctionLog self) -> IntensityFunctionLog"""
-        _libBornAgainDevice.IntensityFunctionLog_swiginit(self, _libBornAgainDevice.new_IntensityFunctionLog())
-    __swig_destroy__ = _libBornAgainDevice.delete_IntensityFunctionLog
-
-# Register IntensityFunctionLog in _libBornAgainDevice:
-_libBornAgainDevice.IntensityFunctionLog_swigregister(IntensityFunctionLog)
-
-class IntensityFunctionSqrt(IIntensityFunction):
-    r"""Proxy of C++ IntensityFunctionSqrt class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt"""
-        return _libBornAgainDevice.IntensityFunctionSqrt_clone(self)
-
-    def evaluate(self, value):
-        r"""evaluate(IntensityFunctionSqrt self, double value) -> double"""
-        return _libBornAgainDevice.IntensityFunctionSqrt_evaluate(self, value)
-
-    def __init__(self):
-        r"""__init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt"""
-        _libBornAgainDevice.IntensityFunctionSqrt_swiginit(self, _libBornAgainDevice.new_IntensityFunctionSqrt())
-    __swig_destroy__ = _libBornAgainDevice.delete_IntensityFunctionSqrt
-
-# Register IntensityFunctionSqrt in _libBornAgainDevice:
-_libBornAgainDevice.IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
-
 class IShape2D(libBornAgainBase.ICloneable):
     r"""
 
@@ -3744,163 +3679,6 @@ def ScanResolution_scanAbsoluteResolution(*args):
     ScanResolution_scanAbsoluteResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution
     """
     return _libBornAgainDevice.ScanResolution_scanAbsoluteResolution(*args)
-
-class IChiSquaredModule(libBornAgainBase.ICloneable):
-    r"""Proxy of C++ IChiSquaredModule class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainDevice.delete_IChiSquaredModule
-
-    def clone(self):
-        r"""clone(IChiSquaredModule self) -> IChiSquaredModule"""
-        return _libBornAgainDevice.IChiSquaredModule_clone(self)
-
-    def varianceFunction(self):
-        r"""varianceFunction(IChiSquaredModule self) -> IVarianceFunction"""
-        return _libBornAgainDevice.IChiSquaredModule_varianceFunction(self)
-
-    def setVarianceFunction(self, variance_function):
-        r"""setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)"""
-        return _libBornAgainDevice.IChiSquaredModule_setVarianceFunction(self, variance_function)
-
-    def getIntensityFunction(self):
-        r"""getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction"""
-        return _libBornAgainDevice.IChiSquaredModule_getIntensityFunction(self)
-
-    def setIntensityFunction(self, intensity_function):
-        r"""setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)"""
-        return _libBornAgainDevice.IChiSquaredModule_setIntensityFunction(self, intensity_function)
-
-    def residual(self, a, b, weight):
-        r"""residual(IChiSquaredModule self, double a, double b, double weight) -> double"""
-        return _libBornAgainDevice.IChiSquaredModule_residual(self, a, b, weight)
-
-# Register IChiSquaredModule in _libBornAgainDevice:
-_libBornAgainDevice.IChiSquaredModule_swigregister(IChiSquaredModule)
-
-class ChiSquaredModule(IChiSquaredModule):
-    r"""Proxy of C++ ChiSquaredModule class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        r"""
-        __init__(ChiSquaredModule self) -> ChiSquaredModule
-        __init__(ChiSquaredModule self, ChiSquaredModule other) -> ChiSquaredModule
-        """
-        _libBornAgainDevice.ChiSquaredModule_swiginit(self, _libBornAgainDevice.new_ChiSquaredModule(*args))
-    __swig_destroy__ = _libBornAgainDevice.delete_ChiSquaredModule
-
-    def clone(self):
-        r"""clone(ChiSquaredModule self) -> ChiSquaredModule"""
-        return _libBornAgainDevice.ChiSquaredModule_clone(self)
-
-    def residual(self, a, b, weight):
-        r"""residual(ChiSquaredModule self, double a, double b, double weight) -> double"""
-        return _libBornAgainDevice.ChiSquaredModule_residual(self, a, b, weight)
-
-# Register ChiSquaredModule in _libBornAgainDevice:
-_libBornAgainDevice.ChiSquaredModule_swigregister(ChiSquaredModule)
-
-
-def FindPeaks(*args):
-    r"""
-    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t
-    std::vector< std::pair< double, double > > HistoUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
-
-    Returns vector of peak center coordinates, for peaks in given histogram. 
-
-    """
-    return _libBornAgainDevice.FindPeaks(*args)
-
-def RelativeDifference(dat, ref):
-    r"""
-    RelativeDifference(SimulationResult dat, SimulationResult ref) -> double
-    double HistoUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
-
-    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
-
-    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
-
-    """
-    return _libBornAgainDevice.RelativeDifference(dat, ref)
-
-def getRelativeDifference(dat, ref):
-    r"""
-    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
-    double HistoUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
-
-    """
-    return _libBornAgainDevice.getRelativeDifference(dat, ref)
-class IVarianceFunction(object):
-    r"""Proxy of C++ IVarianceFunction class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainDevice.delete_IVarianceFunction
-
-    def clone(self):
-        r"""clone(IVarianceFunction self) -> IVarianceFunction"""
-        return _libBornAgainDevice.IVarianceFunction_clone(self)
-
-    def variance(self, real_value, simulated_value):
-        r"""variance(IVarianceFunction self, double real_value, double simulated_value) -> double"""
-        return _libBornAgainDevice.IVarianceFunction_variance(self, real_value, simulated_value)
-
-# Register IVarianceFunction in _libBornAgainDevice:
-_libBornAgainDevice.IVarianceFunction_swigregister(IVarianceFunction)
-
-class VarianceConstantFunction(IVarianceFunction):
-    r"""Proxy of C++ VarianceConstantFunction class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def clone(self):
-        r"""clone(VarianceConstantFunction self) -> VarianceConstantFunction"""
-        return _libBornAgainDevice.VarianceConstantFunction_clone(self)
-
-    def variance(self, arg2, arg3):
-        r"""variance(VarianceConstantFunction self, double arg2, double arg3) -> double"""
-        return _libBornAgainDevice.VarianceConstantFunction_variance(self, arg2, arg3)
-
-    def __init__(self):
-        r"""__init__(VarianceConstantFunction self) -> VarianceConstantFunction"""
-        _libBornAgainDevice.VarianceConstantFunction_swiginit(self, _libBornAgainDevice.new_VarianceConstantFunction())
-    __swig_destroy__ = _libBornAgainDevice.delete_VarianceConstantFunction
-
-# Register VarianceConstantFunction in _libBornAgainDevice:
-_libBornAgainDevice.VarianceConstantFunction_swigregister(VarianceConstantFunction)
-
-class VarianceSimFunction(IVarianceFunction):
-    r"""Proxy of C++ VarianceSimFunction class."""
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-
-    def __init__(self, epsilon=1.0):
-        r"""__init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction"""
-        _libBornAgainDevice.VarianceSimFunction_swiginit(self, _libBornAgainDevice.new_VarianceSimFunction(epsilon))
-
-    def clone(self):
-        r"""clone(VarianceSimFunction self) -> VarianceSimFunction"""
-        return _libBornAgainDevice.VarianceSimFunction_clone(self)
-
-    def variance(self, exp, sim):
-        r"""variance(VarianceSimFunction self, double exp, double sim) -> double"""
-        return _libBornAgainDevice.VarianceSimFunction_variance(self, exp, sim)
-    __swig_destroy__ = _libBornAgainDevice.delete_VarianceSimFunction
-
-# Register VarianceSimFunction in _libBornAgainDevice:
-_libBornAgainDevice.VarianceSimFunction_swigregister(VarianceSimFunction)
 
 class Axes(object):
     r"""
@@ -4821,6 +4599,36 @@ class IsGISAXSDetector(SphericalDetector):
 # Register IsGISAXSDetector in _libBornAgainDevice:
 _libBornAgainDevice.IsGISAXSDetector_swigregister(IsGISAXSDetector)
 
+
+def FindPeaks(*args):
+    r"""
+    FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t
+    std::vector< std::pair< double, double > > HistoUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+
+    Returns vector of peak center coordinates, for peaks in given histogram. 
+
+    """
+    return _libBornAgainDevice.FindPeaks(*args)
+
+def RelativeDifference(dat, ref):
+    r"""
+    RelativeDifference(SimulationResult dat, SimulationResult ref) -> double
+    double HistoUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+
+    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
+
+    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
+
+    """
+    return _libBornAgainDevice.RelativeDifference(dat, ref)
+
+def getRelativeDifference(dat, ref):
+    r"""
+    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+    double HistoUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+
+    """
+    return _libBornAgainDevice.getRelativeDifference(dat, ref)
 class IHistogram(object):
     r"""
 

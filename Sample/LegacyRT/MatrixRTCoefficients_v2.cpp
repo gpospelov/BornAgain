@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file     Core/Legacy/MatrixRTCoefficients_v2.cpp
+//! @file     Sample/LegacyRT/MatrixRTCoefficients_v2.cpp
 //! @brief    Implements class MatrixRTCoefficients_v2.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,7 +12,7 @@
 //
 //  ************************************************************************************************
 
-#include "Core/Legacy/MatrixRTCoefficients_v2.h"
+#include "Sample/LegacyRT/MatrixRTCoefficients_v2.h"
 
 namespace {
 Eigen::Vector2cd waveVector(const Eigen::Matrix4cd& frob_matrix,

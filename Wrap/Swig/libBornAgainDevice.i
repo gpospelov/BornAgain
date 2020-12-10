@@ -45,17 +45,12 @@
 #include "Device/Detector/IsGISAXSDetector.h"
 #include "Device/Detector/RectangularDetector.h"
 #include "Device/Detector/SphericalDetector.h"
+#include "Device/Histo/HistoUtils.h"
 #include "Device/Histo/Histogram1D.h"
 #include "Device/Histo/Histogram2D.h"
 #include "Device/Histo/IHistogram.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Histo/SimulationResult.h"
-#include "Core/Residual/ChiSquaredModule.h"
-#include "Core/Residual/IChiSquaredModule.h"
-#include "Device/Histo/HistoUtils.h"
-#include "Core/Residual/VarianceFunctions.h"
-#include "Core/Residual/IIntensityFunction.h"
-#include "Core/Residual/IIntensityFunction.h"
 #include "Device/Mask/Ellipse.h"
 #include "Device/Mask/IShape2D.h"
 #include "Device/Mask/Line.h"
@@ -87,7 +82,7 @@
 
 %newobject DetectorMask::createHistogram() const;
 
-%newobject PyArrayImport::importArrayToOutputData;
+%newobject DataUtils::importArrayToOutputData;
 %newobject IHistogram::createFrom(const std::string& filename);
 %newobject IHistogram::createFrom(const std::vector<std::vector<double>>& data);
 
@@ -99,7 +94,6 @@
 %include "Device/Beam/IFootprintFactor.h"
 %include "Device/Beam/FootprintGauss.h"
 %include "Device/Beam/FootprintSquare.h"
-%include "Core/Residual/IIntensityFunction.h"
 %include "Device/Mask/IShape2D.h"
 %include "Device/Mask/Ellipse.h"
 %include "Device/Mask/Line.h"
@@ -110,11 +104,6 @@
 %include "Device/Resolution/ResolutionFunction2DGaussian.h"
 %include "Device/Resolution/ScanResolution.h"
 
-%include "Core/Residual/IChiSquaredModule.h"
-%include "Core/Residual/ChiSquaredModule.h"
-%include "Device/Histo/HistoUtils.h"
-%include "Core/Residual/VarianceFunctions.h"
-
 %include "Device/Unit/IUnitConverter.h"
 
 %include "Device/Detector/DetectorMask.h"
@@ -124,6 +113,7 @@
 %include "Device/Detector/SphericalDetector.h"
 %include "Device/Detector/IsGISAXSDetector.h"
 
+%include "Device/Histo/HistoUtils.h"
 %include "Device/Histo/IHistogram.h"
 %include "Device/Histo/Histogram1D.h"
 %include "Device/Histo/Histogram2D.h"

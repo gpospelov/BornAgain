@@ -10,11 +10,12 @@ file(MAKE_DIRECTORY ${output_dir})
 
 file(GLOB examples
     ${PY_EXAMPLES_DIR}/scatter2d/*.py
+    ${PY_EXAMPLES_DIR}/specular/*.py
     ${PY_EXAMPLES_DIR}/varia/*.py
     ${PY_EXAMPLES_DIR}/fit55_Specular/FitSpecularBasics.py)
 if (WIN32)
     # Convergence problem in Gauss-Kronrod integration
-    list(REMOVE_ITEM examples ${PY_EXAMPLES_DIR}/sim03_Structures/Interference2DParaCrystal.py)
+    list(REMOVE_ITEM examples ${PY_EXAMPLES_DIR}/scatter2d/Interference2DParaCrystal.py)
 endif()
 
 set(test_script ${TOOL_DIR}/code-tools/batch-plot.py)

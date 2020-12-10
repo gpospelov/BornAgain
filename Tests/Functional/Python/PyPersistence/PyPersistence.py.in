@@ -78,7 +78,7 @@ def get_minified_simulation():
     """
     Returns a simulation constructed from example simulation with smaller detector.
     """
-    if "sim21_Reflectometry" in EXAMPLE_DIR:
+    if "specular" in EXAMPLE_DIR:
         return get_simulation_SpecularSimulation()
 
     elif EXAMPLE_NAME == "RectangularGrating":

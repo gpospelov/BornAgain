@@ -2969,7 +2969,7 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: namespace_0d10.xml
 
 
-// File: namespace_0d105.xml
+// File: namespace_0d104.xml
 
 
 // File: namespace_0d37.xml
@@ -2990,9 +2990,6 @@ Returns shape nrows, ncols of 2D array.
 %feature("docstring")  ArrayUtils::createData "CreateDataImpl::ReturnType<T> ArrayUtils::createData(const T &vec)
 
 Creates  OutputData array from input vector. 
-";
-
-%feature("docstring")  ArrayUtils::createNumpyArray "PyObject * ArrayUtils::createNumpyArray(const std::vector< double > &data)
 ";
 
 %feature("docstring")  ArrayUtils::createVector1D "decltype(auto) ArrayUtils::createVector1D(const T &data)
@@ -3436,9 +3433,6 @@ make Swappable
 
 
 // File: VarianceFunctions_8h.xml
-
-
-// File: ArrayUtils_8cpp.xml
 
 
 // File: ArrayUtils_8h.xml

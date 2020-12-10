@@ -105,8 +105,7 @@ std::string PyUtils::pythonRuntimeInfo() {
 
     // Embedded Python details
     result << "Py_GetProgramName(): " << PyUtils::toString(Py_GetProgramName()) << "\n";
-    result << "Py_GetProgramFullPath(): " << PyUtils::toString(Py_GetProgramFullPath())
-           << "\n";
+    result << "Py_GetProgramFullPath(): " << PyUtils::toString(Py_GetProgramFullPath()) << "\n";
     result << "Py_GetPath(): " << PyUtils::toString(Py_GetPath()) << "\n";
     result << "Py_GetPythonHome(): " << PyUtils::toString(Py_GetPythonHome()) << "\n";
 
@@ -161,6 +160,27 @@ std::string PyUtils::pythonStackTrace() {
     result << "\n";
 
     return result.str();
+}
+
+PyObject* PyUtils::createNumpyArray(const std::vector<double>& data) {
+    const size_t ndim(1);
+    npy_int ndim_numpy = ndim;
+    npy_intp* ndimsizes_numpy = new npy_intp[ndim];
+    ndimsizes_numpy[0] = data.size();
+
+    // creating standalone numpy array
+    PyObject* pyarray = PyArray_SimpleNew(ndim_numpy, ndimsizes_numpy, NPY_DOUBLE);
+    delete[] ndimsizes_numpy;
+    if (pyarray == nullptr)
+        throw std::runtime_error("ExportOutputData() -> Panic in PyArray_SimpleNew");
+
+    // getting pointer to data buffer of numpy array
+    double* array_buffer = (double*)PyArray_DATA((PyArrayObject*)pyarray);
+
+    for (size_t index = 0; index < data.size(); ++index)
+        *array_buffer++ = data[index];
+
+    return pyarray;
 }
 
 #endif // BORNAGAIN_PYTHON

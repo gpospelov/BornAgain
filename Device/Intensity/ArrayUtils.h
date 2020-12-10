@@ -25,9 +25,10 @@
 #include <stdexcept>
 #include <vector>
 
-//! Array and Numpy utility functions getShape, createNumpyArray.
+//! Array utility functions getShape
 
 namespace ArrayUtils {
+
 //! Returns shape nrows, ncols of 2D array.
 template <class T> std::pair<size_t, size_t> getShape(const T& data);
 
@@ -70,10 +71,6 @@ template <class T> CreateDataImpl::ReturnType<T> createData(const T& vec) {
     return CreateDataImpl::createDataImpl(vec);
 }
 
-#ifdef BORNAGAIN_PYTHON
-PyObject* createNumpyArray(const std::vector<double>& data);
-#endif // BORNAGAIN_PYTHON
-
 //! Creates 1D vector from OutputData.
 template <class T> decltype(auto) createVector1D(const T& data);
 
@@ -81,6 +78,11 @@ template <class T> decltype(auto) createVector1D(const T& data);
 template <class T> decltype(auto) createVector2D(const T& data);
 
 } // namespace ArrayUtils
+
+
+//  ************************************************************************************************
+//  implementation
+//  ************************************************************************************************
 
 template <class T>
 std::unique_ptr<OutputData<T>>

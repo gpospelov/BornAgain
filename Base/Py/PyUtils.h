@@ -49,6 +49,9 @@ std::string pythonRuntimeInfo();
 
 //! Returns string representing python stack trace.
 std::string pythonStackTrace();
+
+PyObject* createNumpyArray(const std::vector<double>& data);
+
 } // namespace PyUtils
 
 #endif // BORNAGAIN_PYTHON

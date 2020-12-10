@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H
 #define BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H
 
@@ -58,3 +59,4 @@ public:
 };
 
 #endif // BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H
+#endif // USER_API

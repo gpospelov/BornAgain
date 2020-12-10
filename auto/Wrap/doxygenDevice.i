@@ -2804,7 +2804,7 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: namespace_0d69.xml
 
 
-// File: namespace_0d96.xml
+// File: namespace_0d94.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3005,9 +3005,6 @@ Returns sum of relative differences between each pair of elements: (a, b) -> 2*a
 
 %feature("docstring")  HistoUtils::getRelativeDifference "double HistoUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
 ";
-
-
-// File: namespacePyArrayImport.xml
 
 
 // File: Beam_8cpp.xml
@@ -3239,12 +3236,6 @@ make Swappable
 
 
 // File: Instrument_8h.xml
-
-
-// File: PyArrayImportUtils_8cpp.xml
-
-
-// File: PyArrayImportUtils_8h.xml
 
 
 // File: Ellipse_8cpp.xml

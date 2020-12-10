@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H
 #define BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H
 
@@ -32,3 +33,4 @@ public:
 };
 
 #endif // BORNAGAIN_CORE_COMPUTATION_IBACKGROUND_H
+#endif // USER_API

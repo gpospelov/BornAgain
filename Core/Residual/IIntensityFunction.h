@@ -13,6 +13,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_INTENSITY_IINTENSITYFUNCTION_H
 #define BORNAGAIN_DEVICE_INTENSITY_IINTENSITYFUNCTION_H
 
@@ -45,3 +46,4 @@ public:
 };
 
 #endif // BORNAGAIN_DEVICE_INTENSITY_IINTENSITYFUNCTION_H
+#endif // USER_API

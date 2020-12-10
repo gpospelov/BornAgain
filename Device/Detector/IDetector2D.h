@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_DETECTOR_IDETECTOR2D_H
 #define BORNAGAIN_DEVICE_DETECTOR_IDETECTOR2D_H
 
@@ -87,3 +88,4 @@ private:
 };
 
 #endif // BORNAGAIN_DEVICE_DETECTOR_IDETECTOR2D_H
+#endif // USER_API

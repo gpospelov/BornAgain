@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_HISTO_IHISTOGRAM_H
 #define BORNAGAIN_DEVICE_HISTO_IHISTOGRAM_H
 
@@ -193,3 +194,4 @@ protected:
 };
 
 #endif // BORNAGAIN_DEVICE_HISTO_IHISTOGRAM_H
+#endif // USER_API

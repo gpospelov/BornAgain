@@ -51231,7 +51231,7 @@ static PyMethodDef SwigMethods[] = {
 		"INode_progeny(INode self) -> swig_dummy_type_const_inode_vector\n"
 		"std::vector< const INode * > INode::progeny() const\n"
 		"\n"
-		"Returns a vector of all descendents. \n"
+		"Returns a vector of all descendants. \n"
 		"\n"
 		""},
 	 { "INode_setParent", _wrap_INode_setParent, METH_VARARGS, "\n"

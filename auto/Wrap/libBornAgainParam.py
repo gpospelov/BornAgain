@@ -3257,7 +3257,7 @@ class INode(IParametricComponent):
         progeny(INode self) -> swig_dummy_type_const_inode_vector
         std::vector< const INode * > INode::progeny() const
 
-        Returns a vector of all descendents. 
+        Returns a vector of all descendants. 
 
         """
         return _libBornAgainParam.INode_progeny(self)

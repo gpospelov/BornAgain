@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_PARAM_NODE_INODEVISITOR_H
 #define BORNAGAIN_PARAM_NODE_INODEVISITOR_H
 
@@ -280,3 +281,4 @@ private:
 };
 
 #endif // BORNAGAIN_PARAM_NODE_INODEVISITOR_H
+#endif // USER_API

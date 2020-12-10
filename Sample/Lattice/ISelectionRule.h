@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_LATTICE_ISELECTIONRULE_H
 #define BORNAGAIN_SAMPLE_LATTICE_ISELECTIONRULE_H
 
@@ -58,3 +59,4 @@ inline bool SimpleSelectionRule::coordinateSelected(const ivector_t& coordinate)
 }
 
 #endif // BORNAGAIN_SAMPLE_LATTICE_ISELECTIONRULE_H
+#endif // USER_API

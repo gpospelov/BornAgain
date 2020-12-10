@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_PARAM_BASE_IPARAMETER_H
 #define BORNAGAIN_PARAM_BASE_IPARAMETER_H
 
@@ -71,3 +72,4 @@ template <class T> bool IParameter<T>::hasSameData(const IParameter<T>& other) {
 }
 
 #endif // BORNAGAIN_PARAM_BASE_IPARAMETER_H
+#endif // USER_API

@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_UTILS_IFACTORY_H
 #define BORNAGAIN_BASE_UTILS_IFACTORY_H
 
@@ -74,3 +75,4 @@ template <class T> T* create_new() {
 }
 
 #endif // BORNAGAIN_BASE_UTILS_IFACTORY_H
+#endif // USER_API

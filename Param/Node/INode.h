@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_PARAM_NODE_INODE_H
 #define BORNAGAIN_PARAM_NODE_INODE_H
 
@@ -128,3 +129,4 @@ inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
 }
 
 #endif // BORNAGAIN_PARAM_NODE_INODE_H
+#endif // USER_API

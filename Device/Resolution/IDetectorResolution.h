@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_RESOLUTION_IDETECTORRESOLUTION_H
 #define BORNAGAIN_DEVICE_RESOLUTION_IDETECTORRESOLUTION_H
 
@@ -35,3 +36,4 @@ public:
 };
 
 #endif // BORNAGAIN_DEVICE_RESOLUTION_IDETECTORRESOLUTION_H
+#endif // USER_API

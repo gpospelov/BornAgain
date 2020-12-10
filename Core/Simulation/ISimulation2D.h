@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_SIMULATION_ISIMULATION2D_H
 #define BORNAGAIN_CORE_SIMULATION_ISIMULATION2D_H
 
@@ -98,3 +99,4 @@ private:
 };
 
 #endif // BORNAGAIN_CORE_SIMULATION_ISIMULATION2D_H
+#endif // USER_API

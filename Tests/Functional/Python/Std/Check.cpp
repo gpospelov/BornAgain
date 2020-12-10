@@ -18,7 +18,7 @@
 #include "Core/Export/ExportToPython.h"
 #include "Core/Simulation/ISimulation.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Histo/IntensityDataFunctions.h"
 #include <fstream>
 #include <iostream>
 

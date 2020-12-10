@@ -2972,10 +2972,10 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: namespace_0d35.xml
 
 
-// File: namespace_0d60.xml
+// File: namespace_0d62.xml
 
 
-// File: namespace_0d66.xml
+// File: namespace_0d68.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3359,6 +3359,12 @@ make Swappable
 // File: ImageUtils_8h.xml
 
 
+// File: IntensityDataFunctions_8cpp.xml
+
+
+// File: IntensityDataFunctions_8h.xml
+
+
 // File: IntensityDataIOFactory_8cpp.xml
 
 
@@ -3420,12 +3426,6 @@ make Swappable
 
 
 // File: Instrument_8h.xml
-
-
-// File: IntensityDataFunctions_8cpp.xml
-
-
-// File: IntensityDataFunctions_8h.xml
 
 
 // File: PyArrayImportUtils_8cpp.xml

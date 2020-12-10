@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Histo/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ProjectionItems.h"

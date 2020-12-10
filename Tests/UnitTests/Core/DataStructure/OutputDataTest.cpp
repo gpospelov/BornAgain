@@ -1,5 +1,5 @@
 #include "Base/Axis/VariableBinAxis.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Histo/IntensityDataFunctions.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <algorithm>
 

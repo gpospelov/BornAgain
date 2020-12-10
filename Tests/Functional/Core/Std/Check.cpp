@@ -17,7 +17,7 @@
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Simulation/SimulationFactory.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Histo/IntensityDataFunctions.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <iostream>

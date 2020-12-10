@@ -51,7 +51,7 @@
 #include "Device/Histo/SimulationResult.h"
 #include "Device/Instrument/ChiSquaredModule.h"
 #include "Device/Instrument/IChiSquaredModule.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Histo/IntensityDataFunctions.h"
 #include "Device/Instrument/PyArrayImportUtils.h"
 #include "Device/Histo/ImageUtils.h"
 #include "Device/Instrument/VarianceFunctions.h"
@@ -112,7 +112,7 @@
 
 %include "Device/Instrument/IChiSquaredModule.h"
 %include "Device/Instrument/ChiSquaredModule.h"
-%include "Device/Instrument/IntensityDataFunctions.h"
+%include "Device/Histo/IntensityDataFunctions.h"
 %include "Device/Instrument/PyArrayImportUtils.h"
 %include "Device/Histo/ImageUtils.h"
 %include "Device/Instrument/VarianceFunctions.h"

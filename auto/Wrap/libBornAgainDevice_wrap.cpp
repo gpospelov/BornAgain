@@ -6728,7 +6728,7 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Device/Histo/SimulationResult.h"
 #include "Device/Instrument/ChiSquaredModule.h"
 #include "Device/Instrument/IChiSquaredModule.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Histo/IntensityDataFunctions.h"
 #include "Device/Instrument/PyArrayImportUtils.h"
 #include "Device/Histo/ImageUtils.h"
 #include "Device/Instrument/VarianceFunctions.h"

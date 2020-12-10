@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Views/FitWidgets/FitComparisonController.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Histo/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/JobItem.h"

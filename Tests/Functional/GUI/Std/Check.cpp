@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "Core/Simulation/ISimulation.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Histo/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/DomainSimulationBuilder.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"

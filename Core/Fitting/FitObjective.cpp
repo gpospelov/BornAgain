@@ -18,7 +18,7 @@
 #include "Core/Fitting/ObjectiveMetricUtils.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
 #include "Core/Simulation/ISimulation.h"
-#include "Device/Instrument/ChiSquaredModule.h"
+#include "Device/Intensity/ChiSquaredModule.h"
 #include <stdexcept>
 
 class IMetricWrapper {

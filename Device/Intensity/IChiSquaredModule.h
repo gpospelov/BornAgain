@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Instrument/IChiSquaredModule.h
+//! @file      Device/Intensity/IChiSquaredModule.h
 //! @brief     Defines interface IChiSquaredModule.
 //!
 //! @homepage  http://www.bornagainproject.org

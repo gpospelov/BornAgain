@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Instrument/ChiSquaredModule.h
+//! @file      Device/Intensity/ChiSquaredModule.h
 //! @brief     Defines class ChiSquaredModule.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_DEVICE_INSTRUMENT_CHISQUAREDMODULE_H
 #define BORNAGAIN_DEVICE_INSTRUMENT_CHISQUAREDMODULE_H
 
-#include "Device/Instrument/IChiSquaredModule.h"
+#include "Device/Intensity/IChiSquaredModule.h"
 
 //! Calculation of chi2 between two data sets.
 //! @ingroup fitting

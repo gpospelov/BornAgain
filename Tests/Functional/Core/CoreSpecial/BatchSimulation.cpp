@@ -12,7 +12,7 @@
 //  ************************************************************************************************
 
 #include "Core/Simulation/SimulationFactory.h"
-#include "Device/Histo/IntensityDataFunctions.h"
+#include "Device/Data/DataUtils.h"
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
@@ -49,7 +49,7 @@ TEST_F(BatchSimulation, BatchSimulation) {
         *result += *batchResult;
     }
 
-    double diff = IntensityDataFunctions::getRelativeDifference(*result, *reference);
+    double diff = DataUtils::getRelativeDifference(*result, *reference);
 
     EXPECT_LE(diff, threshold);
 }

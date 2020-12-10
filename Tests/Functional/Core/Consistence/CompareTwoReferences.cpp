@@ -14,8 +14,8 @@
 
 #include "BATesting.h"
 #include "Base/Utils/FileSystemUtils.h"
+#include "Device/Data/DataUtils.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Histo/IntensityDataFunctions.h"
 #include <iostream>
 
 namespace {
@@ -42,5 +42,5 @@ int compareTwoReferences(const std::string& name0, const std::string& name1, con
     std::unique_ptr<OutputData<double>> data0 = load(name0);
     std::unique_ptr<OutputData<double>> data1 = load(name1);
 
-    return IntensityDataFunctions::checkRelativeDifference(*data0, *data1, limit);
+    return DataUtils::checkRelativeDifference(*data0, *data1, limit);
 }

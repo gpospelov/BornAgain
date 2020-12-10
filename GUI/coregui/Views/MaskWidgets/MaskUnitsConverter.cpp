@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
-#include "Device/Histo/IntensityDataFunctions.h"
+#include "Device/Data/DataUtils.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ProjectionItems.h"
@@ -76,11 +76,11 @@ void MaskUnitsConverter::convertMask(SessionItem* maskItem) {
         double y2 = yc + yR;
 
         if (m_direction == TO_NBINS) {
-            IntensityDataFunctions::coordinateToBinf(xc, yc, *m_data);
-            IntensityDataFunctions::coordinateToBinf(x2, y2, *m_data);
+            DataUtils::coordinateToBinf(xc, yc, *m_data);
+            DataUtils::coordinateToBinf(x2, y2, *m_data);
         } else {
-            IntensityDataFunctions::coordinateFromBinf(xc, yc, *m_data);
-            IntensityDataFunctions::coordinateFromBinf(x2, y2, *m_data);
+            DataUtils::coordinateFromBinf(xc, yc, *m_data);
+            DataUtils::coordinateFromBinf(x2, y2, *m_data);
         }
         maskItem->setItemValue(EllipseItem::P_XCENTER, xc);
         maskItem->setItemValue(EllipseItem::P_YCENTER, yc);
@@ -111,9 +111,9 @@ double MaskUnitsConverter::convert(double value, int axis_index) {
     ASSERT(axis_index == 0 || axis_index == 1);
 
     if (m_direction == TO_NBINS) {
-        return IntensityDataFunctions::coordinateToBinf(value, m_data->axis(axis_index));
+        return DataUtils::coordinateToBinf(value, m_data->axis(axis_index));
     } else if (m_direction == FROM_NBINS) {
-        return IntensityDataFunctions::coordinateFromBinf(value, m_data->axis(axis_index));
+        return DataUtils::coordinateFromBinf(value, m_data->axis(axis_index));
     }
     throw GUIHelpers::Error("MaskUnitsConverter::convertX() -> Error. Unknown conversion");
 }

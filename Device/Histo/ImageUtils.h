@@ -15,11 +15,13 @@
 #ifndef BORNAGAIN_DEVICE_HISTO_IMAGEUTILS_H
 #define BORNAGAIN_DEVICE_HISTO_IMAGEUTILS_H
 
-#include "Device/Histo/Histogram2D.h"
+#include "Device/Data/OutputData.h"
 #include <string>
 #include <vector>
 
 class Histogram2D;
+class IHistogram;
+class SimulationResult;
 
 //! Collection of utils for 1D and 2D image processing (background, peaks, ets).
 
@@ -30,6 +32,13 @@ namespace ImageUtils {
 std::vector<std::pair<double, double>> FindPeaks(const Histogram2D& hist, double sigma = 2,
                                                  const std::string& option = {},
                                                  double threshold = 0.05);
-}
+
+//! Returns sum of relative differences between each pair of elements:
+//! (a, b) -> 2*abs(a - b)/(a + b)      ( and zero if  a-b=0 )
+double RelativeDifference(const SimulationResult& dat, const SimulationResult& ref);
+
+double getRelativeDifference(const IHistogram& dat, const IHistogram& ref);
+
+} // namespace ImageUtils
 
 #endif // BORNAGAIN_DEVICE_HISTO_IMAGEUTILS_H

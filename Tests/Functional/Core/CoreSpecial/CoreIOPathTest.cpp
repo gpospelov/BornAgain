@@ -14,8 +14,8 @@
 
 #include "BATesting.h"
 #include "Base/Utils/FileSystemUtils.h"
+#include "Device/Data/DataUtils.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Histo/IntensityDataFunctions.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <filesystem>
 #include <iostream>
@@ -33,7 +33,7 @@ std::unique_ptr<OutputData<double>> createTestData() {
 bool test_io(const OutputData<double>* data, const std::string& file_name) {
     IntensityDataIOFactory::writeOutputData(*data, file_name);
     std::unique_ptr<OutputData<double>> loaded(IntensityDataIOFactory::readOutputData(file_name));
-    return IntensityDataFunctions::getRelativeDifference(*data, *loaded) <= 1e-06;
+    return DataUtils::getRelativeDifference(*data, *loaded) <= 1e-06;
 }
 
 } // namespace

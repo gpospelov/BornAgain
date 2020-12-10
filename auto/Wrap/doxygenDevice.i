@@ -2966,19 +2966,19 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0d105.xml
+// File: namespace_0d10.xml
 
 
-// File: namespace_0d35.xml
+// File: namespace_0d107.xml
 
 
-// File: namespace_0d55.xml
+// File: namespace_0d37.xml
 
 
-// File: namespace_0d62.xml
+// File: namespace_0d64.xml
 
 
-// File: namespace_0d68.xml
+// File: namespace_0d70.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3092,6 +3092,66 @@ Parse double values from string to vector of double.
 ";
 
 
+// File: namespaceDataUtils.xml
+%feature("docstring")  DataUtils::checkRelativeDifference "bool DataUtils::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
+
+Returns true is relative difference is below threshold; prints informative output. 
+";
+
+%feature("docstring")  DataUtils::coordinateToBinf "double DataUtils::coordinateToBinf(double coordinate, const IAxis &axis)
+
+Transforms coordinate on axis into the bin-fraction-coordinate. 
+";
+
+%feature("docstring")  DataUtils::coordinateFromBinf "double DataUtils::coordinateFromBinf(double value, const IAxis &axis)
+
+Transforms bin-fraction-coordinate into axis coordinate. 
+";
+
+%feature("docstring")  DataUtils::coordinateToBinf "void DataUtils::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+
+Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
+";
+
+%feature("docstring")  DataUtils::coordinateFromBinf "void DataUtils::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+
+Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
+";
+
+%feature("docstring")  DataUtils::create2DArrayfromOutputData "std::vector< std::vector< double > > DataUtils::create2DArrayfromOutputData(const OutputData< double > &data)
+
+Creates a vector of vectors of double (2D Array) from  OutputData. 
+";
+
+%feature("docstring")  DataUtils::getRelativeDifference "double DataUtils::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
+
+Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). 
+";
+
+%feature("docstring")  DataUtils::createRelativeDifferenceData "std::unique_ptr< OutputData< double > > DataUtils::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
+";
+
+%feature("docstring")  DataUtils::createRearrangedDataSet "std::unique_ptr< OutputData< double > > DataUtils::createRearrangedDataSet(const OutputData< double > &data, int n)
+
+Returns new object with input data rotated by n*90 deg counterclockwise (n > 0) or clockwise (n < 0)  Axes are swapped if the data is effectively rotated by 90 or 270 degrees Applicable to 2D arrays only 
+";
+
+%feature("docstring")  DataUtils::createClippedDataSet "std::unique_ptr< OutputData< double > > DataUtils::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
+
+Returns new IntensityData objects which axes clipped to represent the specified rectangle. 
+";
+
+%feature("docstring")  DataUtils::createOutputDatafrom2DArray "std::unique_ptr< OutputData< double > > DataUtils::createOutputDatafrom2DArray(const std::vector< std::vector< double >> &array_2d)
+
+Creates  OutputData from a 2D Array. 
+";
+
+%feature("docstring")  DataUtils::createFFT "std::unique_ptr< OutputData< double > > DataUtils::createFFT(const OutputData< double > &data)
+
+Creates Fourier Transform ( OutputData format) of intensity map ( OutputData format). 
+";
+
+
 // File: namespaceDetectorUtils.xml
 %feature("docstring")  DetectorUtils::isQuadratic "bool DetectorUtils::isQuadratic(const IDetector2D &det)
 ";
@@ -3103,74 +3163,14 @@ Parse double values from string to vector of double.
 Returns vector of peak center coordinates, for peaks in given histogram. 
 ";
 
-
-// File: namespaceIntensityDataFunctions.xml
-%feature("docstring")  IntensityDataFunctions::RelativeDifference "double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+%feature("docstring")  ImageUtils::RelativeDifference "double ImageUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
 
 Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
 
 Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
 ";
 
-%feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
-
-Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). 
-";
-
-%feature("docstring")  IntensityDataFunctions::checkRelativeDifference "bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
-
-Returns true is relative difference is below threshold; prints informative output. 
-";
-
-%feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
-";
-
-%feature("docstring")  IntensityDataFunctions::coordinateToBinf "double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis &axis)
-
-Transforms coordinate on axis into the bin-fraction-coordinate. 
-";
-
-%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis &axis)
-
-Transforms bin-fraction-coordinate into axis coordinate. 
-";
-
-%feature("docstring")  IntensityDataFunctions::coordinateToBinf "void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
-
-Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
-";
-
-%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
-
-Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
-";
-
-%feature("docstring")  IntensityDataFunctions::create2DArrayfromOutputData "std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)
-
-Creates a vector of vectors of double (2D Array) from  OutputData. 
-";
-
-%feature("docstring")  IntensityDataFunctions::createRelativeDifferenceData "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
-";
-
-%feature("docstring")  IntensityDataFunctions::createRearrangedDataSet "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createRearrangedDataSet(const OutputData< double > &data, int n)
-
-Returns new object with input data rotated by n*90 deg counterclockwise (n > 0) or clockwise (n < 0)  Axes are swapped if the data is effectively rotated by 90 or 270 degrees Applicable to 2D arrays only 
-";
-
-%feature("docstring")  IntensityDataFunctions::createClippedDataSet "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
-
-Returns new IntensityData objects which axes clipped to represent the specified rectangle. 
-";
-
-%feature("docstring")  IntensityDataFunctions::createOutputDatafrom2DArray "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createOutputDatafrom2DArray(const std::vector< std::vector< double >> &array_2d)
-
-Creates  OutputData from a 2D Array. 
-";
-
-%feature("docstring")  IntensityDataFunctions::createFFT "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createFFT(const OutputData< double > &data)
-
-Creates Fourier Transform ( OutputData format) of intensity map ( OutputData format). 
+%feature("docstring")  ImageUtils::getRelativeDifference "double ImageUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
 ";
 
 
@@ -3214,6 +3214,12 @@ for importing 2D array of doubles from python into  OutputData
 
 
 // File: CumulativeValue_8h.xml
+
+
+// File: DataUtils_8cpp.xml
+
+
+// File: DataUtils_8h.xml
 
 
 // File: LLData_8cpp.xml

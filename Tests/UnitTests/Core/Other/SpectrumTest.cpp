@@ -1,4 +1,5 @@
 #include "Device/Histo/ImageUtils.h"
+#include "Device/Histo/Histogram2D.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <tspectrum.h>

@@ -2615,6 +2615,48 @@ class IntensityData(object):
 # Register IntensityData in _libBornAgainDevice:
 _libBornAgainDevice.IntensityData_swigregister(IntensityData)
 
+
+def checkRelativeDifference(dat, ref, threshold):
+    r"""
+    checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool
+    bool DataUtils::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
+
+    Returns true is relative difference is below threshold; prints informative output. 
+
+    """
+    return _libBornAgainDevice.checkRelativeDifference(dat, ref, threshold)
+
+def coordinateToBinf(*args):
+    r"""
+    coordinateToBinf(double coordinate, IAxis axis) -> double
+    coordinateToBinf(double & x, double & y, IntensityData data)
+    void DataUtils::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
+
+    """
+    return _libBornAgainDevice.coordinateToBinf(*args)
+
+def coordinateFromBinf(*args):
+    r"""
+    coordinateFromBinf(double value, IAxis axis) -> double
+    coordinateFromBinf(double & x, double & y, IntensityData data)
+    void DataUtils::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+
+    Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
+
+    """
+    return _libBornAgainDevice.coordinateFromBinf(*args)
+
+def create2DArrayfromOutputData(data):
+    r"""
+    create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t
+    std::vector< std::vector< double > > DataUtils::create2DArrayfromOutputData(const OutputData< double > &data)
+
+    Creates a vector of vectors of double (2D Array) from  OutputData. 
+
+    """
+    return _libBornAgainDevice.create2DArrayfromOutputData(data)
 class Beam(libBornAgainParam.INode):
     r"""
 
@@ -3866,69 +3908,6 @@ class ChiSquaredModule(IChiSquaredModule):
 _libBornAgainDevice.ChiSquaredModule_swigregister(ChiSquaredModule)
 
 
-def RelativeDifference(dat, ref):
-    r"""
-    RelativeDifference(SimulationResult dat, SimulationResult ref) -> double
-    double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
-
-    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
-
-    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
-
-    """
-    return _libBornAgainDevice.RelativeDifference(dat, ref)
-
-def checkRelativeDifference(dat, ref, threshold):
-    r"""
-    checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool
-    bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
-
-    Returns true is relative difference is below threshold; prints informative output. 
-
-    """
-    return _libBornAgainDevice.checkRelativeDifference(dat, ref, threshold)
-
-def getRelativeDifference(*args):
-    r"""
-    getRelativeDifference(IntensityData dat, IntensityData ref) -> double
-    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
-    double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
-
-    """
-    return _libBornAgainDevice.getRelativeDifference(*args)
-
-def coordinateToBinf(*args):
-    r"""
-    coordinateToBinf(double coordinate, IAxis axis) -> double
-    coordinateToBinf(double & x, double & y, IntensityData data)
-    void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
-
-    Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
-
-    """
-    return _libBornAgainDevice.coordinateToBinf(*args)
-
-def coordinateFromBinf(*args):
-    r"""
-    coordinateFromBinf(double value, IAxis axis) -> double
-    coordinateFromBinf(double & x, double & y, IntensityData data)
-    void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
-
-    Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
-
-    """
-    return _libBornAgainDevice.coordinateFromBinf(*args)
-
-def create2DArrayfromOutputData(data):
-    r"""
-    create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t
-    std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)
-
-    Creates a vector of vectors of double (2D Array) from  OutputData. 
-
-    """
-    return _libBornAgainDevice.create2DArrayfromOutputData(data)
-
 def importArrayToOutputData(*args):
     r"""
     importArrayToOutputData(vdouble1d_t vec) -> IntensityData
@@ -3949,6 +3928,26 @@ def FindPeaks(*args):
 
     """
     return _libBornAgainDevice.FindPeaks(*args)
+
+def RelativeDifference(dat, ref):
+    r"""
+    RelativeDifference(SimulationResult dat, SimulationResult ref) -> double
+    double ImageUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+
+    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
+
+    Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
+
+    """
+    return _libBornAgainDevice.RelativeDifference(dat, ref)
+
+def getRelativeDifference(dat, ref):
+    r"""
+    getRelativeDifference(IHistogram dat, IHistogram ref) -> double
+    double ImageUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
+
+    """
+    return _libBornAgainDevice.getRelativeDifference(dat, ref)
 class IVarianceFunction(object):
     r"""
 

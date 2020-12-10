@@ -14,8 +14,8 @@
 //  ************************************************************************************************
 
 #include "Tests/UnitTests/GUI/Utils.h"
+#include "Device/Data/DataUtils.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Histo/IntensityDataFunctions.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/mainwindow/ProjectUtils.h"
@@ -54,7 +54,7 @@ RealDataItem* GuiUnittestUtils::createRealData(const QString& name, SessionModel
 }
 
 bool GuiUnittestUtils::isTheSame(const OutputData<double>& data1, const OutputData<double>& data2) {
-    double diff = IntensityDataFunctions::getRelativeDifference(data1, data2);
+    double diff = DataUtils::getRelativeDifference(data1, data2);
     return diff < 1e-10;
 }
 

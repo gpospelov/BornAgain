@@ -38,6 +38,7 @@
 #include "Device/Beam/Beam.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
+#include "Device/Data/DataUtils.h"
 #include "Device/Data/OutputData.h"
 #include "Device/Detector/DetectorMask.h"
 #include "Device/Detector/IDetector2D.h"
@@ -51,7 +52,6 @@
 #include "Device/Histo/SimulationResult.h"
 #include "Device/Instrument/ChiSquaredModule.h"
 #include "Device/Instrument/IChiSquaredModule.h"
-#include "Device/Histo/IntensityDataFunctions.h"
 #include "Device/Instrument/PyArrayImportUtils.h"
 #include "Device/Histo/ImageUtils.h"
 #include "Device/Instrument/VarianceFunctions.h"
@@ -94,6 +94,7 @@
 
 %include "Device/Data/OutputData.h"
 %template(IntensityData) OutputData<double>;
+%include "Device/Data/DataUtils.h"
 
 %include "Device/Beam/Beam.h"
 %include "Device/Beam/IFootprintFactor.h"
@@ -112,7 +113,6 @@
 
 %include "Device/Instrument/IChiSquaredModule.h"
 %include "Device/Instrument/ChiSquaredModule.h"
-%include "Device/Histo/IntensityDataFunctions.h"
 %include "Device/Instrument/PyArrayImportUtils.h"
 %include "Device/Histo/ImageUtils.h"
 %include "Device/Instrument/VarianceFunctions.h"

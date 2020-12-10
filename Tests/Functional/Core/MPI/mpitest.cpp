@@ -1,8 +1,8 @@
 #include <mpi.h>
 
 #include "Core/Simulation/SimulationFactory.h"
+#include "Device/Data/DataUtils.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Histo/IntensityDataFunctions.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
 
@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
         p_simulation->runSimulation();
         auto reference = p_simulation->result();
 
-        double diff = IntensityDataFunctions::RelativeDifference(result, reference);
+        double diff = DataUtils::RelativeDifference(result, reference);
         std::cout << "Difference: " << diff << std::endl;
     }
     MPI_Finalize();

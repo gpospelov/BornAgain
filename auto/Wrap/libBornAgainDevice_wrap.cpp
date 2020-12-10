@@ -6715,6 +6715,7 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Device/Beam/Beam.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
+#include "Device/Data/DataUtils.h"
 #include "Device/Data/OutputData.h"
 #include "Device/Detector/DetectorMask.h"
 #include "Device/Detector/IDetector2D.h"
@@ -6728,7 +6729,6 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Device/Histo/SimulationResult.h"
 #include "Device/Instrument/ChiSquaredModule.h"
 #include "Device/Instrument/IChiSquaredModule.h"
-#include "Device/Histo/IntensityDataFunctions.h"
 #include "Device/Instrument/PyArrayImportUtils.h"
 #include "Device/Histo/ImageUtils.h"
 #include "Device/Instrument/VarianceFunctions.h"
@@ -30489,6 +30489,330 @@ SWIGINTERN PyObject *IntensityData_swiginit(PyObject *SWIGUNUSEDPARM(self), PyOb
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_checkRelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  OutputData< double > *arg1 = 0 ;
+  OutputData< double > *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  bool result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "checkRelativeDifference", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "checkRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "checkRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "checkRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "checkRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "checkRelativeDifference" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (bool)DataUtils::checkRelativeDifference((OutputData< double > const &)*arg1,(OutputData< double > const &)*arg2,arg3);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateToBinf__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  IAxis *arg2 = 0 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IAxis,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateToBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
+  }
+  arg2 = reinterpret_cast< IAxis * >(argp2);
+  result = (double)DataUtils::coordinateToBinf(arg1,(IAxis const &)*arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateFromBinf__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  IAxis *arg2 = 0 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IAxis,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
+  }
+  arg2 = reinterpret_cast< IAxis * >(argp2);
+  result = (double)DataUtils::coordinateFromBinf(arg1,(IAxis const &)*arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateToBinf__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double *arg1 = 0 ;
+  double *arg2 = 0 ;
+  OutputData< double > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double &""'"); 
+  }
+  arg1 = reinterpret_cast< double * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateToBinf" "', argument " "2"" of type '" "double &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "2"" of type '" "double &""'"); 
+  }
+  arg2 = reinterpret_cast< double * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "coordinateToBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
+  DataUtils::coordinateToBinf(*arg1,*arg2,(OutputData< double > const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateToBinf(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "coordinateToBinf", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IAxis, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_coordinateToBinf__SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_coordinateToBinf__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'coordinateToBinf'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DataUtils::coordinateToBinf(double,IAxis const &)\n"
+    "    DataUtils::coordinateToBinf(double &,double &,OutputData< double > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateFromBinf__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double *arg1 = 0 ;
+  double *arg2 = 0 ;
+  OutputData< double > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double &""'"); 
+  }
+  arg1 = reinterpret_cast< double * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "double &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "double &""'"); 
+  }
+  arg2 = reinterpret_cast< double * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "coordinateFromBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
+  DataUtils::coordinateFromBinf(*arg1,*arg2,(OutputData< double > const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateFromBinf(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "coordinateFromBinf", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IAxis, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_coordinateFromBinf__SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_coordinateFromBinf__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'coordinateFromBinf'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DataUtils::coordinateFromBinf(double,IAxis const &)\n"
+    "    DataUtils::coordinateFromBinf(double &,double &,OutputData< double > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_create2DArrayfromOutputData(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  OutputData< double > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create2DArrayfromOutputData" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create2DArrayfromOutputData" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
+  result = DataUtils::create2DArrayfromOutputData((OutputData< double > const &)*arg1);
+  resultobj = swig::from(static_cast< std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_new_Beam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   double arg1 ;
@@ -35053,478 +35377,6 @@ SWIGINTERN PyObject *ChiSquaredModule_swiginit(PyObject *SWIGUNUSEDPARM(self), P
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_RelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SimulationResult *arg1 = 0 ;
-  SimulationResult *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "RelativeDifference", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_SimulationResult,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RelativeDifference" "', argument " "1"" of type '" "SimulationResult const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RelativeDifference" "', argument " "1"" of type '" "SimulationResult const &""'"); 
-  }
-  arg1 = reinterpret_cast< SimulationResult * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_SimulationResult,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RelativeDifference" "', argument " "2"" of type '" "SimulationResult const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RelativeDifference" "', argument " "2"" of type '" "SimulationResult const &""'"); 
-  }
-  arg2 = reinterpret_cast< SimulationResult * >(argp2);
-  result = (double)IntensityDataFunctions::RelativeDifference((SimulationResult const &)*arg1,(SimulationResult const &)*arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getRelativeDifference__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  OutputData< double > *arg1 = 0 ;
-  OutputData< double > *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "getRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  result = (double)IntensityDataFunctions::getRelativeDifference((OutputData< double > const &)*arg1,(OutputData< double > const &)*arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_checkRelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  OutputData< double > *arg1 = 0 ;
-  OutputData< double > *arg2 = 0 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  bool result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "checkRelativeDifference", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "checkRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "checkRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "checkRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "checkRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "checkRelativeDifference" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (bool)IntensityDataFunctions::checkRelativeDifference((OutputData< double > const &)*arg1,(OutputData< double > const &)*arg2,arg3);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getRelativeDifference__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  IHistogram *arg1 = 0 ;
-  IHistogram *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IHistogram,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getRelativeDifference" "', argument " "1"" of type '" "IHistogram const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "1"" of type '" "IHistogram const &""'"); 
-  }
-  arg1 = reinterpret_cast< IHistogram * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IHistogram,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "getRelativeDifference" "', argument " "2"" of type '" "IHistogram const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "2"" of type '" "IHistogram const &""'"); 
-  }
-  arg2 = reinterpret_cast< IHistogram * >(argp2);
-  result = (double)IntensityDataFunctions::getRelativeDifference((IHistogram const &)*arg1,(IHistogram const &)*arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getRelativeDifference(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "getRelativeDifference", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_getRelativeDifference__SWIG_0(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IHistogram, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IHistogram, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_getRelativeDifference__SWIG_1(self, argc, argv);
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'getRelativeDifference'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    IntensityDataFunctions::getRelativeDifference(OutputData< double > const &,OutputData< double > const &)\n"
-    "    IntensityDataFunctions::getRelativeDifference(IHistogram const &,IHistogram const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateToBinf__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  IAxis *arg2 = 0 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IAxis,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateToBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
-  }
-  arg2 = reinterpret_cast< IAxis * >(argp2);
-  result = (double)IntensityDataFunctions::coordinateToBinf(arg1,(IAxis const &)*arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateFromBinf__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  IAxis *arg2 = 0 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IAxis,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
-  }
-  arg2 = reinterpret_cast< IAxis * >(argp2);
-  result = (double)IntensityDataFunctions::coordinateFromBinf(arg1,(IAxis const &)*arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateToBinf__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double *arg1 = 0 ;
-  double *arg2 = 0 ;
-  OutputData< double > *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_double,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double &""'"); 
-  }
-  arg1 = reinterpret_cast< double * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_double,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateToBinf" "', argument " "2"" of type '" "double &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "2"" of type '" "double &""'"); 
-  }
-  arg2 = reinterpret_cast< double * >(argp2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "coordinateToBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
-  IntensityDataFunctions::coordinateToBinf(*arg1,*arg2,(OutputData< double > const &)*arg3);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateToBinf(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "coordinateToBinf", 0, 3, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IAxis, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_coordinateToBinf__SWIG_0(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          return _wrap_coordinateToBinf__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'coordinateToBinf'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    IntensityDataFunctions::coordinateToBinf(double,IAxis const &)\n"
-    "    IntensityDataFunctions::coordinateToBinf(double &,double &,OutputData< double > const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateFromBinf__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double *arg1 = 0 ;
-  double *arg2 = 0 ;
-  OutputData< double > *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_double,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double &""'"); 
-  }
-  arg1 = reinterpret_cast< double * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_double,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "double &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "double &""'"); 
-  }
-  arg2 = reinterpret_cast< double * >(argp2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "coordinateFromBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
-  IntensityDataFunctions::coordinateFromBinf(*arg1,*arg2,(OutputData< double > const &)*arg3);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateFromBinf(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "coordinateFromBinf", 0, 3, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IAxis, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_coordinateFromBinf__SWIG_0(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          return _wrap_coordinateFromBinf__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'coordinateFromBinf'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    IntensityDataFunctions::coordinateFromBinf(double,IAxis const &)\n"
-    "    IntensityDataFunctions::coordinateFromBinf(double &,double &,OutputData< double > const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_create2DArrayfromOutputData(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  OutputData< double > *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create2DArrayfromOutputData" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create2DArrayfromOutputData" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
-  result = IntensityDataFunctions::create2DArrayfromOutputData((OutputData< double > const &)*arg1);
-  resultobj = swig::from(static_cast< std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_importArrayToOutputData__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   std::vector< double,std::allocator< double > > *arg1 = 0 ;
@@ -35854,6 +35706,78 @@ fail:
     "    ImageUtils::FindPeaks(Histogram2D const &,double)\n"
     "    ImageUtils::FindPeaks(Histogram2D const &)\n");
   return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_RelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SimulationResult *arg1 = 0 ;
+  SimulationResult *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "RelativeDifference", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_SimulationResult,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RelativeDifference" "', argument " "1"" of type '" "SimulationResult const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RelativeDifference" "', argument " "1"" of type '" "SimulationResult const &""'"); 
+  }
+  arg1 = reinterpret_cast< SimulationResult * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_SimulationResult,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RelativeDifference" "', argument " "2"" of type '" "SimulationResult const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RelativeDifference" "', argument " "2"" of type '" "SimulationResult const &""'"); 
+  }
+  arg2 = reinterpret_cast< SimulationResult * >(argp2);
+  result = (double)ImageUtils::RelativeDifference((SimulationResult const &)*arg1,(SimulationResult const &)*arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getRelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IHistogram *arg1 = 0 ;
+  IHistogram *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "getRelativeDifference", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IHistogram,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getRelativeDifference" "', argument " "1"" of type '" "IHistogram const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "1"" of type '" "IHistogram const &""'"); 
+  }
+  arg1 = reinterpret_cast< IHistogram * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IHistogram,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "getRelativeDifference" "', argument " "2"" of type '" "IHistogram const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "2"" of type '" "IHistogram const &""'"); 
+  }
+  arg2 = reinterpret_cast< IHistogram * >(argp2);
+  result = (double)ImageUtils::getRelativeDifference((IHistogram const &)*arg1,(IHistogram const &)*arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
 }
 
 
@@ -45759,6 +45683,36 @@ static PyMethodDef SwigMethods[] = {
 	 { "IntensityData___setitem__", _wrap_IntensityData___setitem__, METH_VARARGS, "IntensityData___setitem__(IntensityData self, unsigned int i, double value) -> double"},
 	 { "IntensityData_swigregister", IntensityData_swigregister, METH_O, NULL},
 	 { "IntensityData_swiginit", IntensityData_swiginit, METH_VARARGS, NULL},
+	 { "checkRelativeDifference", _wrap_checkRelativeDifference, METH_VARARGS, "\n"
+		"checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool\n"
+		"bool DataUtils::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)\n"
+		"\n"
+		"Returns true is relative difference is below threshold; prints informative output. \n"
+		"\n"
+		""},
+	 { "coordinateToBinf", _wrap_coordinateToBinf, METH_VARARGS, "\n"
+		"coordinateToBinf(double coordinate, IAxis axis) -> double\n"
+		"coordinateToBinf(double & x, double & y, IntensityData data)\n"
+		"void DataUtils::coordinateToBinf(double &x, double &y, const OutputData< double > &data)\n"
+		"\n"
+		"Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. \n"
+		"\n"
+		""},
+	 { "coordinateFromBinf", _wrap_coordinateFromBinf, METH_VARARGS, "\n"
+		"coordinateFromBinf(double value, IAxis axis) -> double\n"
+		"coordinateFromBinf(double & x, double & y, IntensityData data)\n"
+		"void DataUtils::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)\n"
+		"\n"
+		"Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. \n"
+		"\n"
+		""},
+	 { "create2DArrayfromOutputData", _wrap_create2DArrayfromOutputData, METH_O, "\n"
+		"create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t\n"
+		"std::vector< std::vector< double > > DataUtils::create2DArrayfromOutputData(const OutputData< double > &data)\n"
+		"\n"
+		"Creates a vector of vectors of double (2D Array) from  OutputData. \n"
+		"\n"
+		""},
 	 { "new_Beam", _wrap_new_Beam, METH_VARARGS, "\n"
 		"Beam(double intensity, double wavelength, Direction const & direction)\n"
 		"new_Beam(Beam other) -> Beam\n"
@@ -46431,51 +46385,6 @@ static PyMethodDef SwigMethods[] = {
 		""},
 	 { "ChiSquaredModule_swigregister", ChiSquaredModule_swigregister, METH_O, NULL},
 	 { "ChiSquaredModule_swiginit", ChiSquaredModule_swiginit, METH_VARARGS, NULL},
-	 { "RelativeDifference", _wrap_RelativeDifference, METH_VARARGS, "\n"
-		"RelativeDifference(SimulationResult dat, SimulationResult ref) -> double\n"
-		"double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)\n"
-		"\n"
-		"Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )\n"
-		"\n"
-		"Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) \n"
-		"\n"
-		""},
-	 { "checkRelativeDifference", _wrap_checkRelativeDifference, METH_VARARGS, "\n"
-		"checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool\n"
-		"bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)\n"
-		"\n"
-		"Returns true is relative difference is below threshold; prints informative output. \n"
-		"\n"
-		""},
-	 { "getRelativeDifference", _wrap_getRelativeDifference, METH_VARARGS, "\n"
-		"getRelativeDifference(IntensityData dat, IntensityData ref) -> double\n"
-		"getRelativeDifference(IHistogram dat, IHistogram ref) -> double\n"
-		"double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)\n"
-		"\n"
-		""},
-	 { "coordinateToBinf", _wrap_coordinateToBinf, METH_VARARGS, "\n"
-		"coordinateToBinf(double coordinate, IAxis axis) -> double\n"
-		"coordinateToBinf(double & x, double & y, IntensityData data)\n"
-		"void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)\n"
-		"\n"
-		"Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. \n"
-		"\n"
-		""},
-	 { "coordinateFromBinf", _wrap_coordinateFromBinf, METH_VARARGS, "\n"
-		"coordinateFromBinf(double value, IAxis axis) -> double\n"
-		"coordinateFromBinf(double & x, double & y, IntensityData data)\n"
-		"void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)\n"
-		"\n"
-		"Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. \n"
-		"\n"
-		""},
-	 { "create2DArrayfromOutputData", _wrap_create2DArrayfromOutputData, METH_O, "\n"
-		"create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t\n"
-		"std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)\n"
-		"\n"
-		"Creates a vector of vectors of double (2D Array) from  OutputData. \n"
-		"\n"
-		""},
 	 { "importArrayToOutputData", _wrap_importArrayToOutputData, METH_VARARGS, "\n"
 		"importArrayToOutputData(vdouble1d_t vec) -> IntensityData\n"
 		"importArrayToOutputData(vdouble2d_t vec) -> IntensityData\n"
@@ -46489,6 +46398,20 @@ static PyMethodDef SwigMethods[] = {
 		"std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)\n"
 		"\n"
 		"Returns vector of peak center coordinates, for peaks in given histogram. \n"
+		"\n"
+		""},
+	 { "RelativeDifference", _wrap_RelativeDifference, METH_VARARGS, "\n"
+		"RelativeDifference(SimulationResult dat, SimulationResult ref) -> double\n"
+		"double ImageUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)\n"
+		"\n"
+		"Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )\n"
+		"\n"
+		"Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) \n"
+		"\n"
+		""},
+	 { "getRelativeDifference", _wrap_getRelativeDifference, METH_VARARGS, "\n"
+		"getRelativeDifference(IHistogram dat, IHistogram ref) -> double\n"
+		"double ImageUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)\n"
 		"\n"
 		""},
 	 { "delete_IVarianceFunction", _wrap_delete_IVarianceFunction, METH_O, "\n"

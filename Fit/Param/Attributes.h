@@ -12,8 +12,9 @@
 //
 //  ************************************************************************************************
 
-// Not exposed to Swig, but #include'd
+// Swig: not %include'd, but #include'd
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_PARAM_ATTRIBUTES_H
 #define BORNAGAIN_FIT_PARAM_ATTRIBUTES_H
 
@@ -58,3 +59,4 @@ inline void Attributes::print(std::ostream& ostr) const {
 }
 
 #endif // BORNAGAIN_FIT_PARAM_ATTRIBUTES_H
+#endif // USER_API

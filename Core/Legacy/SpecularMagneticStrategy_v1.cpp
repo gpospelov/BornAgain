@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/Specular/SpecularMagneticStrategy_v1.cpp
+//! @file      Core/Legacy/SpecularMagneticStrategy_v1.cpp
 //! @brief     Implements class SpecularMagneticStrategy_v1.
 //!
 //! @homepage  http://www.bornagainproject.org

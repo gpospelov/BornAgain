@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/InputOutput/OutputDataReadWriteReflectometry.cpp
+//! @file      Device/InputOutput/OutputDataReadReflectometry.cpp
 //! @brief     Implements class OutputDataReadWriteReflectometry.
 //!
 //! @homepage  http://www.bornagainproject.org

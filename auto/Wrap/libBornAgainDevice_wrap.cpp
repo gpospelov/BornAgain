@@ -6727,13 +6727,12 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Device/Histo/IHistogram.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Histo/SimulationResult.h"
-#include "Device/Instrument/ChiSquaredModule.h"
-#include "Device/Instrument/IChiSquaredModule.h"
-#include "Device/Instrument/PyArrayImportUtils.h"
+#include "Core/Residual/ChiSquaredModule.h"
+#include "Core/Residual/IChiSquaredModule.h"
 #include "Device/Histo/HistoUtils.h"
-#include "Device/Instrument/VarianceFunctions.h"
-#include "Device/Intensity/IIntensityFunction.h"
-#include "Device/Intensity/IIntensityFunction.h"
+#include "Core/Residual/VarianceFunctions.h"
+#include "Core/Residual/IIntensityFunction.h"
+#include "Core/Residual/IIntensityFunction.h"
 #include "Device/Mask/Ellipse.h"
 #include "Device/Mask/IShape2D.h"
 #include "Device/Mask/Line.h"
@@ -30849,6 +30848,96 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_importArrayToOutputData__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< double,std::allocator< double > > *arg1 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  OutputData< double > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res1 = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  result = (OutputData< double > *)DataUtils::importArrayToOutputData((std::vector< double,std::allocator< double > > const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_importArrayToOutputData__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *arg1 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  OutputData< double > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *ptr = (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *)0;
+    res1 = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  result = (OutputData< double > *)DataUtils::importArrayToOutputData((std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, 0 |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_importArrayToOutputData(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "importArrayToOutputData", 0, 1, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_importArrayToOutputData__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_importArrayToOutputData__SWIG_1(self, argc, argv);
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'importArrayToOutputData'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DataUtils::importArrayToOutputData(std::vector< double,std::allocator< double > > const &)\n"
+    "    DataUtils::importArrayToOutputData(std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &)\n");
+  return 0;
+}
+
+
 SWIGINTERN PyObject *_wrap_new_Beam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   double arg1 ;
@@ -35412,96 +35501,6 @@ SWIGINTERN PyObject *ChiSquaredModule_swigregister(PyObject *SWIGUNUSEDPARM(self
 SWIGINTERN PyObject *ChiSquaredModule_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
-
-SWIGINTERN PyObject *_wrap_importArrayToOutputData__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::vector< double,std::allocator< double > > *arg1 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  OutputData< double > *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  result = (OutputData< double > *)PyArrayImport::importArrayToOutputData((std::vector< double,std::allocator< double > > const &)*arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_OWN |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_importArrayToOutputData__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *arg1 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  OutputData< double > *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *ptr = (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  result = (OutputData< double > *)PyArrayImport::importArrayToOutputData((std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &)*arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_OWN |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_importArrayToOutputData(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "importArrayToOutputData", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_importArrayToOutputData__SWIG_0(self, argc, argv);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    int res = swig::asptr(argv[0], (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > >**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_importArrayToOutputData__SWIG_1(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'importArrayToOutputData'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    PyArrayImport::importArrayToOutputData(std::vector< double,std::allocator< double > > const &)\n"
-    "    PyArrayImport::importArrayToOutputData(std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &)\n");
-  return 0;
-}
-
 
 SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
@@ -45756,6 +45755,14 @@ static PyMethodDef SwigMethods[] = {
 		"Creates a vector of vectors of double (2D Array) from  OutputData. \n"
 		"\n"
 		""},
+	 { "importArrayToOutputData", _wrap_importArrayToOutputData, METH_VARARGS, "\n"
+		"importArrayToOutputData(vdouble1d_t vec) -> IntensityData\n"
+		"importArrayToOutputData(vdouble2d_t vec) -> IntensityData\n"
+		"OutputData< double > * DataUtils::importArrayToOutputData(const std::vector< std::vector< double >> &vec)\n"
+		"\n"
+		"Reads 2D array of doubles to Python, for use in persistence test. \n"
+		"\n"
+		""},
 	 { "new_Beam", _wrap_new_Beam, METH_VARARGS, "\n"
 		"Beam(double intensity, double wavelength, Direction const & direction)\n"
 		"new_Beam(Beam other) -> Beam\n"
@@ -45954,63 +45961,19 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_FootprintSquare", _wrap_delete_FootprintSquare, METH_O, "delete_FootprintSquare(FootprintSquare self)"},
 	 { "FootprintSquare_swigregister", FootprintSquare_swigregister, METH_O, NULL},
 	 { "FootprintSquare_swiginit", FootprintSquare_swiginit, METH_VARARGS, NULL},
-	 { "delete_IIntensityFunction", _wrap_delete_IIntensityFunction, METH_O, "\n"
-		"delete_IIntensityFunction(IIntensityFunction self)\n"
-		"IIntensityFunction::~IIntensityFunction()\n"
-		"\n"
-		""},
-	 { "IIntensityFunction_clone", _wrap_IIntensityFunction_clone, METH_O, "\n"
-		"IIntensityFunction_clone(IIntensityFunction self) -> IIntensityFunction\n"
-		"virtual IIntensityFunction* IIntensityFunction::clone() const =0\n"
-		"\n"
-		""},
-	 { "IIntensityFunction_evaluate", _wrap_IIntensityFunction_evaluate, METH_VARARGS, "\n"
-		"IIntensityFunction_evaluate(IIntensityFunction self, double value) -> double\n"
-		"virtual double IIntensityFunction::evaluate(double value) const =0\n"
-		"\n"
-		""},
+	 { "delete_IIntensityFunction", _wrap_delete_IIntensityFunction, METH_O, "delete_IIntensityFunction(IIntensityFunction self)"},
+	 { "IIntensityFunction_clone", _wrap_IIntensityFunction_clone, METH_O, "IIntensityFunction_clone(IIntensityFunction self) -> IIntensityFunction"},
+	 { "IIntensityFunction_evaluate", _wrap_IIntensityFunction_evaluate, METH_VARARGS, "IIntensityFunction_evaluate(IIntensityFunction self, double value) -> double"},
 	 { "IIntensityFunction_swigregister", IIntensityFunction_swigregister, METH_O, NULL},
-	 { "IntensityFunctionLog_clone", _wrap_IntensityFunctionLog_clone, METH_O, "\n"
-		"IntensityFunctionLog_clone(IntensityFunctionLog self) -> IntensityFunctionLog\n"
-		"IntensityFunctionLog * IntensityFunctionLog::clone() const\n"
-		"\n"
-		""},
-	 { "IntensityFunctionLog_evaluate", _wrap_IntensityFunctionLog_evaluate, METH_VARARGS, "\n"
-		"IntensityFunctionLog_evaluate(IntensityFunctionLog self, double value) -> double\n"
-		"double IntensityFunctionLog::evaluate(double value) const\n"
-		"\n"
-		""},
-	 { "new_IntensityFunctionLog", _wrap_new_IntensityFunctionLog, METH_NOARGS, "\n"
-		"new_IntensityFunctionLog() -> IntensityFunctionLog\n"
-		"\n"
-		"\n"
-		"Algorithm for applying log function to the measured intensity.\n"
-		"\n"
-		"C++ includes: IIntensityFunction.h\n"
-		"\n"
-		""},
+	 { "IntensityFunctionLog_clone", _wrap_IntensityFunctionLog_clone, METH_O, "IntensityFunctionLog_clone(IntensityFunctionLog self) -> IntensityFunctionLog"},
+	 { "IntensityFunctionLog_evaluate", _wrap_IntensityFunctionLog_evaluate, METH_VARARGS, "IntensityFunctionLog_evaluate(IntensityFunctionLog self, double value) -> double"},
+	 { "new_IntensityFunctionLog", _wrap_new_IntensityFunctionLog, METH_NOARGS, "new_IntensityFunctionLog() -> IntensityFunctionLog"},
 	 { "delete_IntensityFunctionLog", _wrap_delete_IntensityFunctionLog, METH_O, "delete_IntensityFunctionLog(IntensityFunctionLog self)"},
 	 { "IntensityFunctionLog_swigregister", IntensityFunctionLog_swigregister, METH_O, NULL},
 	 { "IntensityFunctionLog_swiginit", IntensityFunctionLog_swiginit, METH_VARARGS, NULL},
-	 { "IntensityFunctionSqrt_clone", _wrap_IntensityFunctionSqrt_clone, METH_O, "\n"
-		"IntensityFunctionSqrt_clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt\n"
-		"IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const\n"
-		"\n"
-		""},
-	 { "IntensityFunctionSqrt_evaluate", _wrap_IntensityFunctionSqrt_evaluate, METH_VARARGS, "\n"
-		"IntensityFunctionSqrt_evaluate(IntensityFunctionSqrt self, double value) -> double\n"
-		"double IntensityFunctionSqrt::evaluate(double value) const\n"
-		"\n"
-		""},
-	 { "new_IntensityFunctionSqrt", _wrap_new_IntensityFunctionSqrt, METH_NOARGS, "\n"
-		"new_IntensityFunctionSqrt() -> IntensityFunctionSqrt\n"
-		"\n"
-		"\n"
-		"Algorithm for applying sqrt function to the measured intensity.\n"
-		"\n"
-		"C++ includes: IIntensityFunction.h\n"
-		"\n"
-		""},
+	 { "IntensityFunctionSqrt_clone", _wrap_IntensityFunctionSqrt_clone, METH_O, "IntensityFunctionSqrt_clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt"},
+	 { "IntensityFunctionSqrt_evaluate", _wrap_IntensityFunctionSqrt_evaluate, METH_VARARGS, "IntensityFunctionSqrt_evaluate(IntensityFunctionSqrt self, double value) -> double"},
+	 { "new_IntensityFunctionSqrt", _wrap_new_IntensityFunctionSqrt, METH_NOARGS, "new_IntensityFunctionSqrt() -> IntensityFunctionSqrt"},
 	 { "delete_IntensityFunctionSqrt", _wrap_delete_IntensityFunctionSqrt, METH_O, "delete_IntensityFunctionSqrt(IntensityFunctionSqrt self)"},
 	 { "IntensityFunctionSqrt_swigregister", IntensityFunctionSqrt_swigregister, METH_O, NULL},
 	 { "IntensityFunctionSqrt_swiginit", IntensityFunctionSqrt_swiginit, METH_VARARGS, NULL},
@@ -46357,85 +46320,23 @@ static PyMethodDef SwigMethods[] = {
 		"ScanResolution_scanAbsoluteResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution\n"
 		""},
 	 { "ScanResolution_swigregister", ScanResolution_swigregister, METH_O, NULL},
-	 { "delete_IChiSquaredModule", _wrap_delete_IChiSquaredModule, METH_O, "\n"
-		"delete_IChiSquaredModule(IChiSquaredModule self)\n"
-		"IChiSquaredModule::~IChiSquaredModule()\n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_clone", _wrap_IChiSquaredModule_clone, METH_O, "\n"
-		"IChiSquaredModule_clone(IChiSquaredModule self) -> IChiSquaredModule\n"
-		"virtual IChiSquaredModule* IChiSquaredModule::clone() const =0\n"
-		"\n"
-		"clone method \n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_varianceFunction", _wrap_IChiSquaredModule_varianceFunction, METH_O, "\n"
-		"IChiSquaredModule_varianceFunction(IChiSquaredModule self) -> IVarianceFunction\n"
-		"const IVarianceFunction * IChiSquaredModule::varianceFunction() const\n"
-		"\n"
-		"Returns squared function. \n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_setVarianceFunction", _wrap_IChiSquaredModule_setVarianceFunction, METH_VARARGS, "\n"
-		"IChiSquaredModule_setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)\n"
-		"void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)\n"
-		"\n"
-		"Sets squared function. \n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_getIntensityFunction", _wrap_IChiSquaredModule_getIntensityFunction, METH_O, "\n"
-		"IChiSquaredModule_getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction\n"
-		"const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const\n"
-		"\n"
-		"Returns data rescaler. \n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_setIntensityFunction", _wrap_IChiSquaredModule_setIntensityFunction, METH_VARARGS, "\n"
-		"IChiSquaredModule_setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)\n"
-		"void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)\n"
-		"\n"
-		"Sets data rescaler. \n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_residual", _wrap_IChiSquaredModule_residual, METH_VARARGS, "\n"
-		"IChiSquaredModule_residual(IChiSquaredModule self, double a, double b, double weight) -> double\n"
-		"virtual double IChiSquaredModule::residual(double a, double b, double weight)=0\n"
-		"\n"
-		""},
+	 { "delete_IChiSquaredModule", _wrap_delete_IChiSquaredModule, METH_O, "delete_IChiSquaredModule(IChiSquaredModule self)"},
+	 { "IChiSquaredModule_clone", _wrap_IChiSquaredModule_clone, METH_O, "IChiSquaredModule_clone(IChiSquaredModule self) -> IChiSquaredModule"},
+	 { "IChiSquaredModule_varianceFunction", _wrap_IChiSquaredModule_varianceFunction, METH_O, "IChiSquaredModule_varianceFunction(IChiSquaredModule self) -> IVarianceFunction"},
+	 { "IChiSquaredModule_setVarianceFunction", _wrap_IChiSquaredModule_setVarianceFunction, METH_VARARGS, "IChiSquaredModule_setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)"},
+	 { "IChiSquaredModule_getIntensityFunction", _wrap_IChiSquaredModule_getIntensityFunction, METH_O, "IChiSquaredModule_getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction"},
+	 { "IChiSquaredModule_setIntensityFunction", _wrap_IChiSquaredModule_setIntensityFunction, METH_VARARGS, "IChiSquaredModule_setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)"},
+	 { "IChiSquaredModule_residual", _wrap_IChiSquaredModule_residual, METH_VARARGS, "IChiSquaredModule_residual(IChiSquaredModule self, double a, double b, double weight) -> double"},
 	 { "IChiSquaredModule_swigregister", IChiSquaredModule_swigregister, METH_O, NULL},
 	 { "new_ChiSquaredModule", _wrap_new_ChiSquaredModule, METH_VARARGS, "\n"
 		"ChiSquaredModule()\n"
 		"new_ChiSquaredModule(ChiSquaredModule other) -> ChiSquaredModule\n"
-		"ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)\n"
-		"\n"
 		""},
-	 { "delete_ChiSquaredModule", _wrap_delete_ChiSquaredModule, METH_O, "\n"
-		"delete_ChiSquaredModule(ChiSquaredModule self)\n"
-		"virtual ChiSquaredModule::~ChiSquaredModule()\n"
-		"\n"
-		""},
-	 { "ChiSquaredModule_clone", _wrap_ChiSquaredModule_clone, METH_O, "\n"
-		"ChiSquaredModule_clone(ChiSquaredModule self) -> ChiSquaredModule\n"
-		"virtual ChiSquaredModule* ChiSquaredModule::clone() const\n"
-		"\n"
-		"clone method \n"
-		"\n"
-		""},
-	 { "ChiSquaredModule_residual", _wrap_ChiSquaredModule_residual, METH_VARARGS, "\n"
-		"ChiSquaredModule_residual(ChiSquaredModule self, double a, double b, double weight) -> double\n"
-		"double ChiSquaredModule::residual(double a, double b, double weight)\n"
-		"\n"
-		""},
+	 { "delete_ChiSquaredModule", _wrap_delete_ChiSquaredModule, METH_O, "delete_ChiSquaredModule(ChiSquaredModule self)"},
+	 { "ChiSquaredModule_clone", _wrap_ChiSquaredModule_clone, METH_O, "ChiSquaredModule_clone(ChiSquaredModule self) -> ChiSquaredModule"},
+	 { "ChiSquaredModule_residual", _wrap_ChiSquaredModule_residual, METH_VARARGS, "ChiSquaredModule_residual(ChiSquaredModule self, double a, double b, double weight) -> double"},
 	 { "ChiSquaredModule_swigregister", ChiSquaredModule_swigregister, METH_O, NULL},
 	 { "ChiSquaredModule_swiginit", ChiSquaredModule_swiginit, METH_VARARGS, NULL},
-	 { "importArrayToOutputData", _wrap_importArrayToOutputData, METH_VARARGS, "\n"
-		"importArrayToOutputData(vdouble1d_t vec) -> IntensityData\n"
-		"importArrayToOutputData(vdouble2d_t vec) -> IntensityData\n"
-		"OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)\n"
-		"\n"
-		"for importing 2D array of doubles from python into  OutputData\n"
-		"\n"
-		""},
 	 { "FindPeaks", _wrap_FindPeaks, METH_VARARGS, "\n"
 		"FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t\n"
 		"std::vector< std::pair< double, double > > HistoUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)\n"
@@ -46457,59 +46358,19 @@ static PyMethodDef SwigMethods[] = {
 		"double HistoUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)\n"
 		"\n"
 		""},
-	 { "delete_IVarianceFunction", _wrap_delete_IVarianceFunction, METH_O, "\n"
-		"delete_IVarianceFunction(IVarianceFunction self)\n"
-		"virtual IVarianceFunction::~IVarianceFunction()=default\n"
-		"\n"
-		""},
-	 { "IVarianceFunction_clone", _wrap_IVarianceFunction_clone, METH_O, "\n"
-		"IVarianceFunction_clone(IVarianceFunction self) -> IVarianceFunction\n"
-		"virtual IVarianceFunction* IVarianceFunction::clone() const =0\n"
-		"\n"
-		""},
-	 { "IVarianceFunction_variance", _wrap_IVarianceFunction_variance, METH_VARARGS, "\n"
-		"IVarianceFunction_variance(IVarianceFunction self, double real_value, double simulated_value) -> double\n"
-		"virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0\n"
-		"\n"
-		""},
+	 { "delete_IVarianceFunction", _wrap_delete_IVarianceFunction, METH_O, "delete_IVarianceFunction(IVarianceFunction self)"},
+	 { "IVarianceFunction_clone", _wrap_IVarianceFunction_clone, METH_O, "IVarianceFunction_clone(IVarianceFunction self) -> IVarianceFunction"},
+	 { "IVarianceFunction_variance", _wrap_IVarianceFunction_variance, METH_VARARGS, "IVarianceFunction_variance(IVarianceFunction self, double real_value, double simulated_value) -> double"},
 	 { "IVarianceFunction_swigregister", IVarianceFunction_swigregister, METH_O, NULL},
-	 { "VarianceConstantFunction_clone", _wrap_VarianceConstantFunction_clone, METH_O, "\n"
-		"VarianceConstantFunction_clone(VarianceConstantFunction self) -> VarianceConstantFunction\n"
-		"VarianceConstantFunction * VarianceConstantFunction::clone() const override\n"
-		"\n"
-		""},
-	 { "VarianceConstantFunction_variance", _wrap_VarianceConstantFunction_variance, METH_VARARGS, "\n"
-		"VarianceConstantFunction_variance(VarianceConstantFunction self, double arg2, double arg3) -> double\n"
-		"double VarianceConstantFunction::variance(double, double) const override\n"
-		"\n"
-		""},
-	 { "new_VarianceConstantFunction", _wrap_new_VarianceConstantFunction, METH_NOARGS, "\n"
-		"new_VarianceConstantFunction() -> VarianceConstantFunction\n"
-		"\n"
-		"\n"
-		"Returns 1.0 as variance value\n"
-		"\n"
-		"C++ includes: VarianceFunctions.h\n"
-		"\n"
-		""},
+	 { "VarianceConstantFunction_clone", _wrap_VarianceConstantFunction_clone, METH_O, "VarianceConstantFunction_clone(VarianceConstantFunction self) -> VarianceConstantFunction"},
+	 { "VarianceConstantFunction_variance", _wrap_VarianceConstantFunction_variance, METH_VARARGS, "VarianceConstantFunction_variance(VarianceConstantFunction self, double arg2, double arg3) -> double"},
+	 { "new_VarianceConstantFunction", _wrap_new_VarianceConstantFunction, METH_NOARGS, "new_VarianceConstantFunction() -> VarianceConstantFunction"},
 	 { "delete_VarianceConstantFunction", _wrap_delete_VarianceConstantFunction, METH_O, "delete_VarianceConstantFunction(VarianceConstantFunction self)"},
 	 { "VarianceConstantFunction_swigregister", VarianceConstantFunction_swigregister, METH_O, NULL},
 	 { "VarianceConstantFunction_swiginit", VarianceConstantFunction_swiginit, METH_VARARGS, NULL},
-	 { "new_VarianceSimFunction", _wrap_new_VarianceSimFunction, METH_VARARGS, "\n"
-		"VarianceSimFunction(double epsilon=1.0)\n"
-		"VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)\n"
-		"\n"
-		""},
-	 { "VarianceSimFunction_clone", _wrap_VarianceSimFunction_clone, METH_O, "\n"
-		"VarianceSimFunction_clone(VarianceSimFunction self) -> VarianceSimFunction\n"
-		"VarianceSimFunction * VarianceSimFunction::clone() const override\n"
-		"\n"
-		""},
-	 { "VarianceSimFunction_variance", _wrap_VarianceSimFunction_variance, METH_VARARGS, "\n"
-		"VarianceSimFunction_variance(VarianceSimFunction self, double exp, double sim) -> double\n"
-		"double VarianceSimFunction::variance(double exp, double sim) const override\n"
-		"\n"
-		""},
+	 { "new_VarianceSimFunction", _wrap_new_VarianceSimFunction, METH_VARARGS, "VarianceSimFunction(double epsilon=1.0)"},
+	 { "VarianceSimFunction_clone", _wrap_VarianceSimFunction_clone, METH_O, "VarianceSimFunction_clone(VarianceSimFunction self) -> VarianceSimFunction"},
+	 { "VarianceSimFunction_variance", _wrap_VarianceSimFunction_variance, METH_VARARGS, "VarianceSimFunction_variance(VarianceSimFunction self, double exp, double sim) -> double"},
 	 { "delete_VarianceSimFunction", _wrap_delete_VarianceSimFunction, METH_O, "delete_VarianceSimFunction(VarianceSimFunction self)"},
 	 { "VarianceSimFunction_swigregister", VarianceSimFunction_swigregister, METH_O, NULL},
 	 { "VarianceSimFunction_swiginit", VarianceSimFunction_swiginit, METH_VARARGS, NULL},

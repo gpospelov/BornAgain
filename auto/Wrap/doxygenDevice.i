@@ -110,32 +110,6 @@ Sets the polarization density matrix according to the given Bloch vector.
 ";
 
 
-// File: classChiSquaredModule.xml
-%feature("docstring") ChiSquaredModule "
-
-Calculation of chi2 between two data sets.
-
-C++ includes: ChiSquaredModule.h
-";
-
-%feature("docstring")  ChiSquaredModule::ChiSquaredModule "ChiSquaredModule::ChiSquaredModule()
-";
-
-%feature("docstring")  ChiSquaredModule::ChiSquaredModule "ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
-";
-
-%feature("docstring")  ChiSquaredModule::~ChiSquaredModule "virtual ChiSquaredModule::~ChiSquaredModule()
-";
-
-%feature("docstring")  ChiSquaredModule::clone "virtual ChiSquaredModule* ChiSquaredModule::clone() const
-
-clone method 
-";
-
-%feature("docstring")  ChiSquaredModule::residual "double ChiSquaredModule::residual(double a, double b, double weight)
-";
-
-
 // File: classConvolutionDetectorResolution.xml
 %feature("docstring") ConvolutionDetectorResolution "
 
@@ -813,49 +787,6 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 
-// File: classIChiSquaredModule.xml
-%feature("docstring") IChiSquaredModule "
-
-Interface residual calculations.
-
-C++ includes: IChiSquaredModule.h
-";
-
-%feature("docstring")  IChiSquaredModule::IChiSquaredModule "IChiSquaredModule::IChiSquaredModule()
-";
-
-%feature("docstring")  IChiSquaredModule::~IChiSquaredModule "IChiSquaredModule::~IChiSquaredModule()
-";
-
-%feature("docstring")  IChiSquaredModule::clone "virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
-
-clone method 
-";
-
-%feature("docstring")  IChiSquaredModule::varianceFunction "const IVarianceFunction * IChiSquaredModule::varianceFunction() const
-
-Returns squared function. 
-";
-
-%feature("docstring")  IChiSquaredModule::setVarianceFunction "void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
-
-Sets squared function. 
-";
-
-%feature("docstring")  IChiSquaredModule::getIntensityFunction "const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
-
-Returns data rescaler. 
-";
-
-%feature("docstring")  IChiSquaredModule::setIntensityFunction "void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
-
-Sets data rescaler. 
-";
-
-%feature("docstring")  IChiSquaredModule::residual "virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
-";
-
-
 // File: classIDetector.xml
 %feature("docstring") IDetector "
 
@@ -1350,24 +1281,6 @@ Loads histogram from file, the shape of array in file should match Following for
 ";
 
 
-// File: classIIntensityFunction.xml
-%feature("docstring") IIntensityFunction "
-
-Interface for applying arbitrary function to the measured intensity.
-
-C++ includes: IIntensityFunction.h
-";
-
-%feature("docstring")  IIntensityFunction::~IIntensityFunction "IIntensityFunction::~IIntensityFunction()
-";
-
-%feature("docstring")  IIntensityFunction::clone "virtual IIntensityFunction* IIntensityFunction::clone() const =0
-";
-
-%feature("docstring")  IIntensityFunction::evaluate "virtual double IIntensityFunction::evaluate(double value) const =0
-";
-
-
 // File: classInfinitePlane.xml
 %feature("docstring") InfinitePlane "
 
@@ -1467,36 +1380,6 @@ Provides users with possibility to read and write IntensityData from/to files in
 Usage:
 
 C++ includes: IntensityDataIOFactory.h
-";
-
-
-// File: classIntensityFunctionLog.xml
-%feature("docstring") IntensityFunctionLog "
-
-Algorithm for applying log function to the measured intensity.
-
-C++ includes: IIntensityFunction.h
-";
-
-%feature("docstring")  IntensityFunctionLog::clone "IntensityFunctionLog * IntensityFunctionLog::clone() const
-";
-
-%feature("docstring")  IntensityFunctionLog::evaluate "double IntensityFunctionLog::evaluate(double value) const
-";
-
-
-// File: classIntensityFunctionSqrt.xml
-%feature("docstring") IntensityFunctionSqrt "
-
-Algorithm for applying sqrt function to the measured intensity.
-
-C++ includes: IIntensityFunction.h
-";
-
-%feature("docstring")  IntensityFunctionSqrt::clone "IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
-";
-
-%feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const
 ";
 
 
@@ -1617,30 +1500,6 @@ C++ includes: IUnitConverter.h
 %feature("docstring")  IUnitConverter::createConvertedData "std::unique_ptr< OutputData< double > > IUnitConverter::createConvertedData(const OutputData< double > &data, Axes::Units units) const
 
 Creates  OutputData array in converter units. 
-";
-
-
-// File: classIVarianceFunction.xml
-%feature("docstring") IVarianceFunction "
-
-Variance function interface.
-
-C++ includes: VarianceFunctions.h
-";
-
-%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction()=default
-";
-
-%feature("docstring")  IVarianceFunction::~IVarianceFunction "virtual IVarianceFunction::~IVarianceFunction()=default
-";
-
-%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction(const IVarianceFunction &)=delete
-";
-
-%feature("docstring")  IVarianceFunction::clone "virtual IVarianceFunction* IVarianceFunction::clone() const =0
-";
-
-%feature("docstring")  IVarianceFunction::variance "virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
 ";
 
 
@@ -2896,39 +2755,6 @@ Returns the list of all available units.
 ";
 
 
-// File: classVarianceConstantFunction.xml
-%feature("docstring") VarianceConstantFunction "
-
-Returns 1.0 as variance value
-
-C++ includes: VarianceFunctions.h
-";
-
-%feature("docstring")  VarianceConstantFunction::clone "VarianceConstantFunction * VarianceConstantFunction::clone() const override
-";
-
-%feature("docstring")  VarianceConstantFunction::variance "double VarianceConstantFunction::variance(double, double) const override
-";
-
-
-// File: classVarianceSimFunction.xml
-%feature("docstring") VarianceSimFunction "
-
-Returns max(sim, epsilon)
-
-C++ includes: VarianceFunctions.h
-";
-
-%feature("docstring")  VarianceSimFunction::VarianceSimFunction "VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
-";
-
-%feature("docstring")  VarianceSimFunction::clone "VarianceSimFunction * VarianceSimFunction::clone() const override
-";
-
-%feature("docstring")  VarianceSimFunction::variance "double VarianceSimFunction::variance(double exp, double sim) const override
-";
-
-
 // File: classVerticalLine.xml
 %feature("docstring") VerticalLine "
 
@@ -2966,9 +2792,6 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0d104.xml
-
-
 // File: namespace_0d11.xml
 
 
@@ -2979,6 +2802,9 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 
 
 // File: namespace_0d69.xml
+
+
+// File: namespace_0d96.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3125,6 +2951,16 @@ Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes co
 Creates a vector of vectors of double (2D Array) from  OutputData. 
 ";
 
+%feature("docstring")  DataUtils::importArrayToOutputData "OutputData< double > * DataUtils::importArrayToOutputData(const std::vector< double > &vec)
+
+Reads 1D array of doubles to Python, for use in persistence test. 
+";
+
+%feature("docstring")  DataUtils::importArrayToOutputData "OutputData< double > * DataUtils::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
+
+Reads 2D array of doubles to Python, for use in persistence test. 
+";
+
 %feature("docstring")  DataUtils::createRelativeDifferenceData "std::unique_ptr< OutputData< double > > DataUtils::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
 ";
 
@@ -3172,15 +3008,6 @@ Returns sum of relative differences between each pair of elements: (a, b) -> 2*a
 
 
 // File: namespacePyArrayImport.xml
-%feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< double > &vec)
-
-for importing 1D array of doubles from python into  OutputData
-";
-
-%feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
-
-for importing 2D array of doubles from python into  OutputData
-";
 
 
 // File: Beam_8cpp.xml
@@ -3408,18 +3235,6 @@ make Swappable
 // File: OutputDataReadWriteTiff_8h.xml
 
 
-// File: ChiSquaredModule_8cpp.xml
-
-
-// File: ChiSquaredModule_8h.xml
-
-
-// File: IChiSquaredModule_8cpp.xml
-
-
-// File: IChiSquaredModule_8h.xml
-
-
 // File: Instrument_8cpp.xml
 
 
@@ -3430,18 +3245,6 @@ make Swappable
 
 
 // File: PyArrayImportUtils_8h.xml
-
-
-// File: VarianceFunctions_8cpp.xml
-
-
-// File: VarianceFunctions_8h.xml
-
-
-// File: IIntensityFunction_8cpp.xml
-
-
-// File: IIntensityFunction_8h.xml
 
 
 // File: Ellipse_8cpp.xml
@@ -3541,9 +3344,6 @@ make Swappable
 
 
 // File: dir_550e786a97bd4c801929243ea9773c04.xml
-
-
-// File: dir_401915efc9e4b0dfad0f4a62e1092d10.xml
 
 
 // File: dir_4866552d576e04b61ad8ade47c8db877.xml

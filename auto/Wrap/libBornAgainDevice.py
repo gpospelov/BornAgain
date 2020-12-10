@@ -2667,6 +2667,17 @@ def create2DArrayfromOutputData(data):
 
     """
     return _libBornAgainDevice.create2DArrayfromOutputData(data)
+
+def importArrayToOutputData(*args):
+    r"""
+    importArrayToOutputData(vdouble1d_t vec) -> IntensityData
+    importArrayToOutputData(vdouble2d_t vec) -> IntensityData
+    OutputData< double > * DataUtils::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
+
+    Reads 2D array of doubles to Python, for use in persistence test. 
+
+    """
+    return _libBornAgainDevice.importArrayToOutputData(*args)
 class Beam(libBornAgainParam.INode):
     r"""
 
@@ -3019,14 +3030,7 @@ class FootprintSquare(IFootprintFactor):
 _libBornAgainDevice.FootprintSquare_swigregister(FootprintSquare)
 
 class IIntensityFunction(object):
-    r"""
-
-
-    Interface for applying arbitrary function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
+    r"""Proxy of C++ IIntensityFunction class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -3036,63 +3040,32 @@ class IIntensityFunction(object):
     __swig_destroy__ = _libBornAgainDevice.delete_IIntensityFunction
 
     def clone(self):
-        r"""
-        clone(IIntensityFunction self) -> IIntensityFunction
-        virtual IIntensityFunction* IIntensityFunction::clone() const =0
-
-        """
+        r"""clone(IIntensityFunction self) -> IIntensityFunction"""
         return _libBornAgainDevice.IIntensityFunction_clone(self)
 
     def evaluate(self, value):
-        r"""
-        evaluate(IIntensityFunction self, double value) -> double
-        virtual double IIntensityFunction::evaluate(double value) const =0
-
-        """
+        r"""evaluate(IIntensityFunction self, double value) -> double"""
         return _libBornAgainDevice.IIntensityFunction_evaluate(self, value)
 
 # Register IIntensityFunction in _libBornAgainDevice:
 _libBornAgainDevice.IIntensityFunction_swigregister(IIntensityFunction)
 
 class IntensityFunctionLog(IIntensityFunction):
-    r"""
-
-
-    Algorithm for applying log function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
+    r"""Proxy of C++ IntensityFunctionLog class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def clone(self):
-        r"""
-        clone(IntensityFunctionLog self) -> IntensityFunctionLog
-        IntensityFunctionLog * IntensityFunctionLog::clone() const
-
-        """
+        r"""clone(IntensityFunctionLog self) -> IntensityFunctionLog"""
         return _libBornAgainDevice.IntensityFunctionLog_clone(self)
 
     def evaluate(self, value):
-        r"""
-        evaluate(IntensityFunctionLog self, double value) -> double
-        double IntensityFunctionLog::evaluate(double value) const
-
-        """
+        r"""evaluate(IntensityFunctionLog self, double value) -> double"""
         return _libBornAgainDevice.IntensityFunctionLog_evaluate(self, value)
 
     def __init__(self):
-        r"""
-        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
-
-
-        Algorithm for applying log function to the measured intensity.
-
-        C++ includes: IIntensityFunction.h
-
-        """
+        r"""__init__(IntensityFunctionLog self) -> IntensityFunctionLog"""
         _libBornAgainDevice.IntensityFunctionLog_swiginit(self, _libBornAgainDevice.new_IntensityFunctionLog())
     __swig_destroy__ = _libBornAgainDevice.delete_IntensityFunctionLog
 
@@ -3100,44 +3073,21 @@ class IntensityFunctionLog(IIntensityFunction):
 _libBornAgainDevice.IntensityFunctionLog_swigregister(IntensityFunctionLog)
 
 class IntensityFunctionSqrt(IIntensityFunction):
-    r"""
-
-
-    Algorithm for applying sqrt function to the measured intensity.
-
-    C++ includes: IIntensityFunction.h
-
-    """
+    r"""Proxy of C++ IntensityFunctionSqrt class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def clone(self):
-        r"""
-        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
-        IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
-
-        """
+        r"""clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt"""
         return _libBornAgainDevice.IntensityFunctionSqrt_clone(self)
 
     def evaluate(self, value):
-        r"""
-        evaluate(IntensityFunctionSqrt self, double value) -> double
-        double IntensityFunctionSqrt::evaluate(double value) const
-
-        """
+        r"""evaluate(IntensityFunctionSqrt self, double value) -> double"""
         return _libBornAgainDevice.IntensityFunctionSqrt_evaluate(self, value)
 
     def __init__(self):
-        r"""
-        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
-
-
-        Algorithm for applying sqrt function to the measured intensity.
-
-        C++ includes: IIntensityFunction.h
-
-        """
+        r"""__init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt"""
         _libBornAgainDevice.IntensityFunctionSqrt_swiginit(self, _libBornAgainDevice.new_IntensityFunctionSqrt())
     __swig_destroy__ = _libBornAgainDevice.delete_IntensityFunctionSqrt
 
@@ -3796,14 +3746,7 @@ def ScanResolution_scanAbsoluteResolution(*args):
     return _libBornAgainDevice.ScanResolution_scanAbsoluteResolution(*args)
 
 class IChiSquaredModule(libBornAgainBase.ICloneable):
-    r"""
-
-
-    Interface residual calculations.
-
-    C++ includes: IChiSquaredModule.h
-
-    """
+    r"""Proxy of C++ IChiSquaredModule class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -3813,75 +3756,34 @@ class IChiSquaredModule(libBornAgainBase.ICloneable):
     __swig_destroy__ = _libBornAgainDevice.delete_IChiSquaredModule
 
     def clone(self):
-        r"""
-        clone(IChiSquaredModule self) -> IChiSquaredModule
-        virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
-
-        clone method 
-
-        """
+        r"""clone(IChiSquaredModule self) -> IChiSquaredModule"""
         return _libBornAgainDevice.IChiSquaredModule_clone(self)
 
     def varianceFunction(self):
-        r"""
-        varianceFunction(IChiSquaredModule self) -> IVarianceFunction
-        const IVarianceFunction * IChiSquaredModule::varianceFunction() const
-
-        Returns squared function. 
-
-        """
+        r"""varianceFunction(IChiSquaredModule self) -> IVarianceFunction"""
         return _libBornAgainDevice.IChiSquaredModule_varianceFunction(self)
 
     def setVarianceFunction(self, variance_function):
-        r"""
-        setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)
-        void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
-
-        Sets squared function. 
-
-        """
+        r"""setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)"""
         return _libBornAgainDevice.IChiSquaredModule_setVarianceFunction(self, variance_function)
 
     def getIntensityFunction(self):
-        r"""
-        getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction
-        const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
-
-        Returns data rescaler. 
-
-        """
+        r"""getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction"""
         return _libBornAgainDevice.IChiSquaredModule_getIntensityFunction(self)
 
     def setIntensityFunction(self, intensity_function):
-        r"""
-        setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)
-        void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
-
-        Sets data rescaler. 
-
-        """
+        r"""setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)"""
         return _libBornAgainDevice.IChiSquaredModule_setIntensityFunction(self, intensity_function)
 
     def residual(self, a, b, weight):
-        r"""
-        residual(IChiSquaredModule self, double a, double b, double weight) -> double
-        virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
-
-        """
+        r"""residual(IChiSquaredModule self, double a, double b, double weight) -> double"""
         return _libBornAgainDevice.IChiSquaredModule_residual(self, a, b, weight)
 
 # Register IChiSquaredModule in _libBornAgainDevice:
 _libBornAgainDevice.IChiSquaredModule_swigregister(IChiSquaredModule)
 
 class ChiSquaredModule(IChiSquaredModule):
-    r"""
-
-
-    Calculation of chi2 between two data sets.
-
-    C++ includes: ChiSquaredModule.h
-
-    """
+    r"""Proxy of C++ ChiSquaredModule class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -3890,44 +3792,21 @@ class ChiSquaredModule(IChiSquaredModule):
         r"""
         __init__(ChiSquaredModule self) -> ChiSquaredModule
         __init__(ChiSquaredModule self, ChiSquaredModule other) -> ChiSquaredModule
-        ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
-
         """
         _libBornAgainDevice.ChiSquaredModule_swiginit(self, _libBornAgainDevice.new_ChiSquaredModule(*args))
     __swig_destroy__ = _libBornAgainDevice.delete_ChiSquaredModule
 
     def clone(self):
-        r"""
-        clone(ChiSquaredModule self) -> ChiSquaredModule
-        virtual ChiSquaredModule* ChiSquaredModule::clone() const
-
-        clone method 
-
-        """
+        r"""clone(ChiSquaredModule self) -> ChiSquaredModule"""
         return _libBornAgainDevice.ChiSquaredModule_clone(self)
 
     def residual(self, a, b, weight):
-        r"""
-        residual(ChiSquaredModule self, double a, double b, double weight) -> double
-        double ChiSquaredModule::residual(double a, double b, double weight)
-
-        """
+        r"""residual(ChiSquaredModule self, double a, double b, double weight) -> double"""
         return _libBornAgainDevice.ChiSquaredModule_residual(self, a, b, weight)
 
 # Register ChiSquaredModule in _libBornAgainDevice:
 _libBornAgainDevice.ChiSquaredModule_swigregister(ChiSquaredModule)
 
-
-def importArrayToOutputData(*args):
-    r"""
-    importArrayToOutputData(vdouble1d_t vec) -> IntensityData
-    importArrayToOutputData(vdouble2d_t vec) -> IntensityData
-    OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
-
-    for importing 2D array of doubles from python into  OutputData
-
-    """
-    return _libBornAgainDevice.importArrayToOutputData(*args)
 
 def FindPeaks(*args):
     r"""
@@ -3959,14 +3838,7 @@ def getRelativeDifference(dat, ref):
     """
     return _libBornAgainDevice.getRelativeDifference(dat, ref)
 class IVarianceFunction(object):
-    r"""
-
-
-    Variance function interface.
-
-    C++ includes: VarianceFunctions.h
-
-    """
+    r"""Proxy of C++ IVarianceFunction class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
 
@@ -3976,63 +3848,32 @@ class IVarianceFunction(object):
     __swig_destroy__ = _libBornAgainDevice.delete_IVarianceFunction
 
     def clone(self):
-        r"""
-        clone(IVarianceFunction self) -> IVarianceFunction
-        virtual IVarianceFunction* IVarianceFunction::clone() const =0
-
-        """
+        r"""clone(IVarianceFunction self) -> IVarianceFunction"""
         return _libBornAgainDevice.IVarianceFunction_clone(self)
 
     def variance(self, real_value, simulated_value):
-        r"""
-        variance(IVarianceFunction self, double real_value, double simulated_value) -> double
-        virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
-
-        """
+        r"""variance(IVarianceFunction self, double real_value, double simulated_value) -> double"""
         return _libBornAgainDevice.IVarianceFunction_variance(self, real_value, simulated_value)
 
 # Register IVarianceFunction in _libBornAgainDevice:
 _libBornAgainDevice.IVarianceFunction_swigregister(IVarianceFunction)
 
 class VarianceConstantFunction(IVarianceFunction):
-    r"""
-
-
-    Returns 1.0 as variance value
-
-    C++ includes: VarianceFunctions.h
-
-    """
+    r"""Proxy of C++ VarianceConstantFunction class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def clone(self):
-        r"""
-        clone(VarianceConstantFunction self) -> VarianceConstantFunction
-        VarianceConstantFunction * VarianceConstantFunction::clone() const override
-
-        """
+        r"""clone(VarianceConstantFunction self) -> VarianceConstantFunction"""
         return _libBornAgainDevice.VarianceConstantFunction_clone(self)
 
     def variance(self, arg2, arg3):
-        r"""
-        variance(VarianceConstantFunction self, double arg2, double arg3) -> double
-        double VarianceConstantFunction::variance(double, double) const override
-
-        """
+        r"""variance(VarianceConstantFunction self, double arg2, double arg3) -> double"""
         return _libBornAgainDevice.VarianceConstantFunction_variance(self, arg2, arg3)
 
     def __init__(self):
-        r"""
-        __init__(VarianceConstantFunction self) -> VarianceConstantFunction
-
-
-        Returns 1.0 as variance value
-
-        C++ includes: VarianceFunctions.h
-
-        """
+        r"""__init__(VarianceConstantFunction self) -> VarianceConstantFunction"""
         _libBornAgainDevice.VarianceConstantFunction_swiginit(self, _libBornAgainDevice.new_VarianceConstantFunction())
     __swig_destroy__ = _libBornAgainDevice.delete_VarianceConstantFunction
 
@@ -4040,40 +3881,21 @@ class VarianceConstantFunction(IVarianceFunction):
 _libBornAgainDevice.VarianceConstantFunction_swigregister(VarianceConstantFunction)
 
 class VarianceSimFunction(IVarianceFunction):
-    r"""
-
-
-    Returns max(sim, epsilon)
-
-    C++ includes: VarianceFunctions.h
-
-    """
+    r"""Proxy of C++ VarianceSimFunction class."""
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
 
     def __init__(self, epsilon=1.0):
-        r"""
-        __init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction
-        VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
-
-        """
+        r"""__init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction"""
         _libBornAgainDevice.VarianceSimFunction_swiginit(self, _libBornAgainDevice.new_VarianceSimFunction(epsilon))
 
     def clone(self):
-        r"""
-        clone(VarianceSimFunction self) -> VarianceSimFunction
-        VarianceSimFunction * VarianceSimFunction::clone() const override
-
-        """
+        r"""clone(VarianceSimFunction self) -> VarianceSimFunction"""
         return _libBornAgainDevice.VarianceSimFunction_clone(self)
 
     def variance(self, exp, sim):
-        r"""
-        variance(VarianceSimFunction self, double exp, double sim) -> double
-        double VarianceSimFunction::variance(double exp, double sim) const override
-
-        """
+        r"""variance(VarianceSimFunction self, double exp, double sim) -> double"""
         return _libBornAgainDevice.VarianceSimFunction_variance(self, exp, sim)
     __swig_destroy__ = _libBornAgainDevice.delete_VarianceSimFunction
 

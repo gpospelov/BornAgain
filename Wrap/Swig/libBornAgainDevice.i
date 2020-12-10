@@ -52,7 +52,6 @@
 #include "Device/Histo/SimulationResult.h"
 #include "Core/Residual/ChiSquaredModule.h"
 #include "Core/Residual/IChiSquaredModule.h"
-#include "Device/Instrument/PyArrayImportUtils.h"
 #include "Device/Histo/HistoUtils.h"
 #include "Core/Residual/VarianceFunctions.h"
 #include "Core/Residual/IIntensityFunction.h"
@@ -113,7 +112,6 @@
 
 %include "Core/Residual/IChiSquaredModule.h"
 %include "Core/Residual/ChiSquaredModule.h"
-%include "Device/Instrument/PyArrayImportUtils.h"
 %include "Device/Histo/HistoUtils.h"
 %include "Core/Residual/VarianceFunctions.h"
 

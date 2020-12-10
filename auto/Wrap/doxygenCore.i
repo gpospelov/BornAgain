@@ -178,6 +178,32 @@ Metric wrapper for back-compaptibility with old scripts.
 ";
 
 
+// File: classChiSquaredModule.xml
+%feature("docstring") ChiSquaredModule "
+
+Calculation of chi2 between two data sets.
+
+C++ includes: ChiSquaredModule.h
+";
+
+%feature("docstring")  ChiSquaredModule::ChiSquaredModule "ChiSquaredModule::ChiSquaredModule()
+";
+
+%feature("docstring")  ChiSquaredModule::ChiSquaredModule "ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
+";
+
+%feature("docstring")  ChiSquaredModule::~ChiSquaredModule "virtual ChiSquaredModule::~ChiSquaredModule()
+";
+
+%feature("docstring")  ChiSquaredModule::clone "virtual ChiSquaredModule* ChiSquaredModule::clone() const
+
+clone method 
+";
+
+%feature("docstring")  ChiSquaredModule::residual "double ChiSquaredModule::residual(double a, double b, double weight)
+";
+
+
 // File: classComponentKeyHandler.xml
 %feature("docstring") ComponentKeyHandler "
 
@@ -814,6 +840,49 @@ C++ includes: IBackground.h
 ";
 
 
+// File: classIChiSquaredModule.xml
+%feature("docstring") IChiSquaredModule "
+
+Interface residual calculations.
+
+C++ includes: IChiSquaredModule.h
+";
+
+%feature("docstring")  IChiSquaredModule::IChiSquaredModule "IChiSquaredModule::IChiSquaredModule()
+";
+
+%feature("docstring")  IChiSquaredModule::~IChiSquaredModule "IChiSquaredModule::~IChiSquaredModule()
+";
+
+%feature("docstring")  IChiSquaredModule::clone "virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
+
+clone method 
+";
+
+%feature("docstring")  IChiSquaredModule::varianceFunction "const IVarianceFunction * IChiSquaredModule::varianceFunction() const
+
+Returns squared function. 
+";
+
+%feature("docstring")  IChiSquaredModule::setVarianceFunction "void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
+
+Sets squared function. 
+";
+
+%feature("docstring")  IChiSquaredModule::getIntensityFunction "const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
+
+Returns data rescaler. 
+";
+
+%feature("docstring")  IChiSquaredModule::setIntensityFunction "void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
+
+Sets data rescaler. 
+";
+
+%feature("docstring")  IChiSquaredModule::residual "virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
+";
+
+
 // File: classIComputation.xml
 %feature("docstring") IComputation "
 
@@ -840,6 +909,24 @@ C++ includes: IComputation.h
 ";
 
 
+// File: classIIntensityFunction.xml
+%feature("docstring") IIntensityFunction "
+
+Interface for applying arbitrary function to the measured intensity.
+
+C++ includes: IIntensityFunction.h
+";
+
+%feature("docstring")  IIntensityFunction::~IIntensityFunction "IIntensityFunction::~IIntensityFunction()
+";
+
+%feature("docstring")  IIntensityFunction::clone "virtual IIntensityFunction* IIntensityFunction::clone() const =0
+";
+
+%feature("docstring")  IIntensityFunction::evaluate "virtual double IIntensityFunction::evaluate(double value) const =0
+";
+
+
 // File: classIMetricWrapper.xml
 %feature("docstring") IMetricWrapper "";
 
@@ -847,6 +934,36 @@ C++ includes: IComputation.h
 ";
 
 %feature("docstring")  IMetricWrapper::compute "virtual double IMetricWrapper::compute(const std::vector< SimDataPair > &fit_objects, size_t n_pars) const =0
+";
+
+
+// File: classIntensityFunctionLog.xml
+%feature("docstring") IntensityFunctionLog "
+
+Algorithm for applying log function to the measured intensity.
+
+C++ includes: IIntensityFunction.h
+";
+
+%feature("docstring")  IntensityFunctionLog::clone "IntensityFunctionLog * IntensityFunctionLog::clone() const
+";
+
+%feature("docstring")  IntensityFunctionLog::evaluate "double IntensityFunctionLog::evaluate(double value) const
+";
+
+
+// File: classIntensityFunctionSqrt.xml
+%feature("docstring") IntensityFunctionSqrt "
+
+Algorithm for applying sqrt function to the measured intensity.
+
+C++ includes: IIntensityFunction.h
+";
+
+%feature("docstring")  IntensityFunctionSqrt::clone "IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
+";
+
+%feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const
 ";
 
 
@@ -1129,6 +1246,30 @@ Returns current number of minimizer iterations.
 %feature("docstring")  IterationInfo::parameterMap "std::map< std::string, double > IterationInfo::parameterMap() const
 
 Returns map of fit parameter names and its current values. 
+";
+
+
+// File: classIVarianceFunction.xml
+%feature("docstring") IVarianceFunction "
+
+Variance function interface.
+
+C++ includes: VarianceFunctions.h
+";
+
+%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction()=default
+";
+
+%feature("docstring")  IVarianceFunction::~IVarianceFunction "virtual IVarianceFunction::~IVarianceFunction()=default
+";
+
+%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction(const IVarianceFunction &)=delete
+";
+
+%feature("docstring")  IVarianceFunction::clone "virtual IVarianceFunction* IVarianceFunction::clone() const =0
+";
+
+%feature("docstring")  IVarianceFunction::variance "virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
 ";
 
 
@@ -2254,6 +2395,45 @@ Returns default units to convert to.
 ";
 
 
+// File: classVarianceConstantFunction.xml
+%feature("docstring") VarianceConstantFunction "
+
+Returns 1.0 as variance value
+
+C++ includes: VarianceFunctions.h
+";
+
+%feature("docstring")  VarianceConstantFunction::clone "VarianceConstantFunction * VarianceConstantFunction::clone() const override
+";
+
+%feature("docstring")  VarianceConstantFunction::variance "double VarianceConstantFunction::variance(double, double) const override
+";
+
+
+// File: classVarianceSimFunction.xml
+%feature("docstring") VarianceSimFunction "
+
+Returns max(sim, epsilon)
+
+C++ includes: VarianceFunctions.h
+";
+
+%feature("docstring")  VarianceSimFunction::VarianceSimFunction "VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
+";
+
+%feature("docstring")  VarianceSimFunction::clone "VarianceSimFunction * VarianceSimFunction::clone() const override
+";
+
+%feature("docstring")  VarianceSimFunction::variance "double VarianceSimFunction::variance(double exp, double sim) const override
+";
+
+
+// File: namespace_0d101.xml
+
+
+// File: namespace_0d107.xml
+
+
 // File: namespace_0d15.xml
 
 
@@ -2287,22 +2467,16 @@ Returns default units to convert to.
 // File: namespace_0d68.xml
 
 
-// File: namespace_0d70.xml
+// File: namespace_0d78.xml
 
 
-// File: namespace_0d75.xml
+// File: namespace_0d83.xml
 
 
-// File: namespace_0d77.xml
+// File: namespace_0d85.xml
 
 
-// File: namespace_0d81.xml
-
-
-// File: namespace_0d91.xml
-
-
-// File: namespace_0d93.xml
+// File: namespace_0d89.xml
 
 
 // File: namespace_0d99.xml
@@ -2872,6 +3046,30 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: SpecularMagneticStrategy__v2_8h.xml
 
 
+// File: ChiSquaredModule_8cpp.xml
+
+
+// File: ChiSquaredModule_8h.xml
+
+
+// File: IChiSquaredModule_8cpp.xml
+
+
+// File: IChiSquaredModule_8h.xml
+
+
+// File: IIntensityFunction_8cpp.xml
+
+
+// File: IIntensityFunction_8h.xml
+
+
+// File: VarianceFunctions_8cpp.xml
+
+
+// File: VarianceFunctions_8h.xml
+
+
 // File: AngularSpecScan_8cpp.xml
 
 
@@ -2981,6 +3179,9 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 
 
 // File: dir_bd39ec89b96ad8d1385770847b662047.xml
+
+
+// File: dir_bfeb1e458a74587b0ec5055179ee8176.xml
 
 
 // File: dir_6de83e740cfcd9d0abfe8dffab2832a5.xml

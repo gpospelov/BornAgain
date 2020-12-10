@@ -42,6 +42,11 @@ void coordinateFromBinf(double& x, double& y, const OutputData<double>& data);
 //! Creates a vector of vectors of double (2D Array) from OutputData.
 std::vector<std::vector<double>> create2DArrayfromOutputData(const OutputData<double>& data);
 
+//! Reads 1D array of doubles to Python, for use in persistence test
+OutputData<double>* importArrayToOutputData(const std::vector<double>& vec);
+//! Reads 2D array of doubles to Python, for use in persistence test
+OutputData<double>* importArrayToOutputData(const std::vector<std::vector<double>>& vec);
+
 #ifndef SWIG
 
 std::unique_ptr<OutputData<double>>

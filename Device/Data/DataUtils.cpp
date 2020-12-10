@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "Device/Data/DataUtils.h"
+#include "Device/Data/ArrayUtils.h"
 #include "Base/Math/FourierTransform.h"
 #include "Base/Math/Numeric.h"
 #include <iostream>
@@ -244,4 +245,13 @@ std::unique_ptr<OutputData<double>> DataUtils::createFFT(const OutputData<double
     auto array_2d = DataUtils::create2DArrayfromOutputData(data);
     auto fft_array_2d = FT2DArray(array_2d);
     return DataUtils::createOutputDatafrom2DArray(fft_array_2d);
+}
+
+OutputData<double>* DataUtils::importArrayToOutputData(const std::vector<double>& vec) {
+    return ArrayUtils::createData(vec).release();
+}
+
+OutputData<double>*
+DataUtils::importArrayToOutputData(const std::vector<std::vector<double>>& vec) {
+    return ArrayUtils::createData(vec).release();
 }

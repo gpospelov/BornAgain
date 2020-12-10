@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_DEVICE_INSTRUMENT_SPECTRUMUTILS_H
-#define BORNAGAIN_DEVICE_INSTRUMENT_SPECTRUMUTILS_H
+#ifndef BORNAGAIN_DEVICE_HISTO_IMAGEUTILS_H
+#define BORNAGAIN_DEVICE_HISTO_IMAGEUTILS_H
 
 #include "Device/Histo/Histogram2D.h"
 #include <string>
@@ -32,4 +32,4 @@ std::vector<std::pair<double, double>> FindPeaks(const Histogram2D& hist, double
                                                  double threshold = 0.05);
 }
 
-#endif // BORNAGAIN_DEVICE_INSTRUMENT_SPECTRUMUTILS_H
+#endif // BORNAGAIN_DEVICE_HISTO_IMAGEUTILS_H

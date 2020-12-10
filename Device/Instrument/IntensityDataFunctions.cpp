@@ -16,7 +16,7 @@
 #include "Base/Math/Numeric.h"
 #include "Device/Histo/IHistogram.h"
 #include "Device/Histo/SimulationResult.h"
-#include "Device/Instrument/FourierTransform.h"
+#include "Base/Math/FourierTransform.h"
 #include "Device/Intensity/ArrayUtils.h"
 #include "Device/Resolution/ConvolutionDetectorResolution.h"
 #include <cmath>

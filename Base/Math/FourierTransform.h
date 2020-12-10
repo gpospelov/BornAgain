@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Instrument/FourierTransform.h
+//! @file      Base/Math/FourierTransform.h
 //! @brief     Defines class Math::FourierTransform.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -18,8 +18,8 @@
 #endif
 
 #ifndef USER_API
-#ifndef BORNAGAIN_DEVICE_INSTRUMENT_FOURIERTRANSFORM_H
-#define BORNAGAIN_DEVICE_INSTRUMENT_FOURIERTRANSFORM_H
+#ifndef BORNAGAIN_BASE_MATH_FOURIERTRANSFORM_H
+#define BORNAGAIN_BASE_MATH_FOURIERTRANSFORM_H
 
 #include <fftw3.h>
 #include <vector>
@@ -94,5 +94,5 @@ private:
     Workspace ws;
 };
 
-#endif // BORNAGAIN_DEVICE_INSTRUMENT_FOURIERTRANSFORM_H
+#endif // BORNAGAIN_BASE_MATH_FOURIERTRANSFORM_H
 #endif // USER_API

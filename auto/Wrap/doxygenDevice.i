@@ -525,47 +525,6 @@ Calculate footprint correction coefficient from the beam incident angle  alpha.
 ";
 
 
-// File: classFourierTransform.xml
-%feature("docstring") FourierTransform "
-
-Fourier transform of vectors (in 1D or 2D) using Fast Fourier Transform (fftw package).
-
-Usage: std::vector<double> signal, result;  FourierTransform ft; ft.fft(signal, result)
-
-Given code rely on code from Jeremy Fix page, http://jeremy.fix.free.fr/spip.php?article15, see also \"Efficient convolution using the Fast Fourier Transform, Application in C++\" by Jeremy Fix, May 30, 2011
-
-C++ includes: FourierTransform.h
-";
-
-%feature("docstring")  FourierTransform::FourierTransform "FourierTransform::FourierTransform()
-";
-
-%feature("docstring")  FourierTransform::fft "void FourierTransform::fft(const double1d_t &source, double1d_t &result)
-
-FT in 1D. 
-";
-
-%feature("docstring")  FourierTransform::fftshift "void FourierTransform::fftshift(double1d_t &result)
-
-Shift low frequency to the center of 1D FT array. 
-";
-
-%feature("docstring")  FourierTransform::fft "void FourierTransform::fft(const double2d_t &source, double2d_t &result)
-
-FT in 2D. 
-";
-
-%feature("docstring")  FourierTransform::fftshift "void FourierTransform::fftshift(double2d_t &result)
-
-Shift low frequency to the center of 2D FT array. 
-";
-
-%feature("docstring")  FourierTransform::init "void FourierTransform::init(int h_src, int w_src)
-
-prepare arrays for 2D Fourier Transformation (FT) of the given vector 
-";
-
-
 // File: classHistogram1D.xml
 %feature("docstring") Histogram1D "
 
@@ -3004,13 +2963,10 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0d107.xml
+// File: namespace_0d105.xml
 
 
 // File: namespace_0d35.xml
@@ -3452,12 +3408,6 @@ make Swappable
 
 
 // File: ChiSquaredModule_8h.xml
-
-
-// File: FourierTransform_8cpp.xml
-
-
-// File: FourierTransform_8h.xml
 
 
 // File: IChiSquaredModule_8cpp.xml

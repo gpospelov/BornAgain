@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Device/Instrument/FourierTransform.cpp
+//! @file      Base/Math/FourierTransform.cpp
 //! @brief     Implements class FourierTransform.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -13,7 +13,7 @@
 //
 //  ************************************************************************************************
 
-#include "Device/Instrument/FourierTransform.h"
+#include "Base/Math/FourierTransform.h"
 #include <algorithm>
 #include <cmath>
 #include <iostream>

@@ -17,7 +17,7 @@
 
 #include "Device/Mask/IShape2D.h"
 
-//! A line segment.
+//! A line segment, for use in detector masks.
 //! @ingroup mask
 
 class Line : public IShape2D {

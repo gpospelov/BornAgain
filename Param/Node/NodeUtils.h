@@ -27,7 +27,7 @@ class INode;
 
 namespace NodeUtils {
 
-//! Returns a vector of triples (descendent, depth, parent)
+//! Returns a vector of triples (descendant, depth, parent)
 std::vector<std::tuple<const INode*, int, const INode*>> progenyPlus(const INode* node,
                                                                      int level = 0);
 

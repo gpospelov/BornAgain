@@ -457,7 +457,7 @@ Returns a vector of children.
 
 %feature("docstring")  INode::progeny "std::vector< const INode * > INode::progeny() const
 
-Returns a vector of all descendents. 
+Returns a vector of all descendants. 
 ";
 
 %feature("docstring")  INode::setParent "void INode::setParent(const INode *newParent)
@@ -1494,7 +1494,7 @@ C++ includes: Unit.h
 // File: namespaceNodeUtils.xml
 %feature("docstring")  NodeUtils::progenyPlus "std::vector< std::tuple< const INode *, int, const INode * > > NodeUtils::progenyPlus(const INode *node, int level=0)
 
-Returns a vector of triples (descendent, depth, parent) 
+Returns a vector of triples (descendant, depth, parent) 
 ";
 
 %feature("docstring")  NodeUtils::nodeToString "std::string NodeUtils::nodeToString(const INode *node)

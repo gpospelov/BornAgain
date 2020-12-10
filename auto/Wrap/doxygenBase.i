@@ -488,6 +488,47 @@ Creates a new clipped axis.
 ";
 
 
+// File: classFourierTransform.xml
+%feature("docstring") FourierTransform "
+
+Fourier transform of vectors (in 1D or 2D) using Fast Fourier Transform (fftw package).
+
+Usage: std::vector<double> signal, result;  FourierTransform ft; ft.fft(signal, result)
+
+Given code rely on code from Jeremy Fix page, http://jeremy.fix.free.fr/spip.php?article15, see also \"Efficient convolution using the Fast Fourier Transform, Application in C++\" by Jeremy Fix, May 30, 2011
+
+C++ includes: FourierTransform.h
+";
+
+%feature("docstring")  FourierTransform::FourierTransform "FourierTransform::FourierTransform()
+";
+
+%feature("docstring")  FourierTransform::fft "void FourierTransform::fft(const double1d_t &source, double1d_t &result)
+
+FT in 1D. 
+";
+
+%feature("docstring")  FourierTransform::fftshift "void FourierTransform::fftshift(double1d_t &result)
+
+Shift low frequency to the center of 1D FT array. 
+";
+
+%feature("docstring")  FourierTransform::fft "void FourierTransform::fft(const double2d_t &source, double2d_t &result)
+
+FT in 2D. 
+";
+
+%feature("docstring")  FourierTransform::fftshift "void FourierTransform::fftshift(double2d_t &result)
+
+Shift low frequency to the center of 2D FT array. 
+";
+
+%feature("docstring")  FourierTransform::init "void FourierTransform::init(int h_src, int w_src)
+
+prepare arrays for 2D Fourier Transformation (FT) of the given vector 
+";
+
+
 // File: classIAxis.xml
 %feature("docstring") IAxis "
 
@@ -1162,6 +1203,9 @@ Creates a new clipped axis.
 ";
 
 
+// File: classFourierTransform_1_1Workspace.xml
+
+
 // File: namespace_0d16.xml
 
 
@@ -1360,38 +1404,41 @@ Returns the difference of the logarithm; input values are truncated at the minim
 // File: namespacePhysConsts.xml
 
 
-// File: namespacePyEmbeddedUtils.xml
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(PyObject *obj)
+// File: namespacePyUtils.xml
+%feature("docstring")  PyUtils::toString "std::string PyUtils::toString(PyObject *obj)
 
 Converts PyObject into string, if possible, or throws exception. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::toVectorString "std::vector< std::string > PyEmbeddedUtils::toVectorString(PyObject *obj)
+%feature("docstring")  PyUtils::toVectorString "std::vector< std::string > PyUtils::toVectorString(PyObject *obj)
 
 Converts PyObject into vector of strings, if possible, or throws exception. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(char *c)
+%feature("docstring")  PyUtils::toString "std::string PyUtils::toString(char *c)
 
 Converts char to string. In the case of nullptr will return an empty string. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(wchar_t *c)
+%feature("docstring")  PyUtils::toString "std::string PyUtils::toString(wchar_t *c)
 ";
 
-%feature("docstring")  PyEmbeddedUtils::import_bornagain "void PyEmbeddedUtils::import_bornagain(const std::string &path=\"\")
+%feature("docstring")  PyUtils::import_bornagain "void PyUtils::import_bornagain(const std::string &path=\"\")
 
 Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::pythonRuntimeInfo "std::string PyEmbeddedUtils::pythonRuntimeInfo()
+%feature("docstring")  PyUtils::pythonRuntimeInfo "std::string PyUtils::pythonRuntimeInfo()
 
 Returns multi-line string representing PATH, PYTHONPATH, sys.path and other info. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::pythonStackTrace "std::string PyEmbeddedUtils::pythonStackTrace()
+%feature("docstring")  PyUtils::pythonStackTrace "std::string PyUtils::pythonStackTrace()
 
 Returns string representing python stack trace. 
+";
+
+%feature("docstring")  PyUtils::createNumpyArray "PyObject * PyUtils::createNumpyArray(const std::vector< double > &data)
 ";
 
 
@@ -1543,6 +1590,12 @@ global helper function for comparison of axes
 // File: Constants_8h.xml
 
 
+// File: FourierTransform_8cpp.xml
+
+
+// File: FourierTransform_8h.xml
+
+
 // File: Functions_8cpp.xml
 
 
@@ -1598,16 +1651,16 @@ Template function to create an integrator object
 // File: ProgressHandler_8h.xml
 
 
-// File: PyEmbeddedUtils_8cpp.xml
-
-
-// File: PyEmbeddedUtils_8h.xml
+// File: PyCore_8h.xml
 
 
 // File: PyObject_8h.xml
 
 
-// File: PythonCore_8h.xml
+// File: PyUtils_8cpp.xml
+
+
+// File: PyUtils_8h.xml
 
 
 // File: CloneableVector_8h.xml

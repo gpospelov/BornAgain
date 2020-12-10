@@ -2921,7 +2921,7 @@ class FitObjective(object):
 
     def setChiSquaredModule(self, module):
         r"""
-        setChiSquaredModule(FitObjective self, IChiSquaredModule const & module)
+        setChiSquaredModule(FitObjective self, IChiSquaredModule module)
         void FitObjective::setChiSquaredModule(const IChiSquaredModule &module)
 
         """
@@ -4352,6 +4352,376 @@ def generateSimulationCode(simulation):
 
     """
     return _libBornAgainCore.generateSimulationCode(simulation)
+class IIntensityFunction(object):
+    r"""
+
+
+    Interface for applying arbitrary function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IIntensityFunction
+
+    def clone(self):
+        r"""
+        clone(IIntensityFunction self) -> IIntensityFunction
+        virtual IIntensityFunction* IIntensityFunction::clone() const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IIntensityFunction self, double value) -> double
+        virtual double IIntensityFunction::evaluate(double value) const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_evaluate(self, value)
+
+# Register IIntensityFunction in _libBornAgainCore:
+_libBornAgainCore.IIntensityFunction_swigregister(IIntensityFunction)
+
+class IntensityFunctionLog(IIntensityFunction):
+    r"""
+
+
+    Algorithm for applying log function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IntensityFunctionLog self) -> IntensityFunctionLog
+        IntensityFunctionLog * IntensityFunctionLog::clone() const
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IntensityFunctionLog self, double value) -> double
+        double IntensityFunctionLog::evaluate(double value) const
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
+
+
+        Algorithm for applying log function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        _libBornAgainCore.IntensityFunctionLog_swiginit(self, _libBornAgainCore.new_IntensityFunctionLog())
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
+
+# Register IntensityFunctionLog in _libBornAgainCore:
+_libBornAgainCore.IntensityFunctionLog_swigregister(IntensityFunctionLog)
+
+class IntensityFunctionSqrt(IIntensityFunction):
+    r"""
+
+
+    Algorithm for applying sqrt function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+        IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IntensityFunctionSqrt self, double value) -> double
+        double IntensityFunctionSqrt::evaluate(double value) const
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+
+
+        Algorithm for applying sqrt function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        _libBornAgainCore.IntensityFunctionSqrt_swiginit(self, _libBornAgainCore.new_IntensityFunctionSqrt())
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
+
+# Register IntensityFunctionSqrt in _libBornAgainCore:
+_libBornAgainCore.IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
+
+class IChiSquaredModule(libBornAgainBase.ICloneable):
+    r"""
+
+
+    Interface residual calculations.
+
+    C++ includes: IChiSquaredModule.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IChiSquaredModule
+
+    def clone(self):
+        r"""
+        clone(IChiSquaredModule self) -> IChiSquaredModule
+        virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
+
+        clone method 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_clone(self)
+
+    def varianceFunction(self):
+        r"""
+        varianceFunction(IChiSquaredModule self) -> IVarianceFunction
+        const IVarianceFunction * IChiSquaredModule::varianceFunction() const
+
+        Returns squared function. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_varianceFunction(self)
+
+    def setVarianceFunction(self, variance_function):
+        r"""
+        setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)
+        void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
+
+        Sets squared function. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_setVarianceFunction(self, variance_function)
+
+    def getIntensityFunction(self):
+        r"""
+        getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction
+        const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
+
+        Returns data rescaler. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_getIntensityFunction(self)
+
+    def setIntensityFunction(self, intensity_function):
+        r"""
+        setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)
+        void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
+
+        Sets data rescaler. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_setIntensityFunction(self, intensity_function)
+
+    def residual(self, a, b, weight):
+        r"""
+        residual(IChiSquaredModule self, double a, double b, double weight) -> double
+        virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_residual(self, a, b, weight)
+
+# Register IChiSquaredModule in _libBornAgainCore:
+_libBornAgainCore.IChiSquaredModule_swigregister(IChiSquaredModule)
+
+class ChiSquaredModule(IChiSquaredModule):
+    r"""
+
+
+    Calculation of chi2 between two data sets.
+
+    C++ includes: ChiSquaredModule.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(ChiSquaredModule self) -> ChiSquaredModule
+        __init__(ChiSquaredModule self, ChiSquaredModule other) -> ChiSquaredModule
+        ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
+
+        """
+        _libBornAgainCore.ChiSquaredModule_swiginit(self, _libBornAgainCore.new_ChiSquaredModule(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_ChiSquaredModule
+
+    def clone(self):
+        r"""
+        clone(ChiSquaredModule self) -> ChiSquaredModule
+        virtual ChiSquaredModule* ChiSquaredModule::clone() const
+
+        clone method 
+
+        """
+        return _libBornAgainCore.ChiSquaredModule_clone(self)
+
+    def residual(self, a, b, weight):
+        r"""
+        residual(ChiSquaredModule self, double a, double b, double weight) -> double
+        double ChiSquaredModule::residual(double a, double b, double weight)
+
+        """
+        return _libBornAgainCore.ChiSquaredModule_residual(self, a, b, weight)
+
+# Register ChiSquaredModule in _libBornAgainCore:
+_libBornAgainCore.ChiSquaredModule_swigregister(ChiSquaredModule)
+
+class IVarianceFunction(object):
+    r"""
+
+
+    Variance function interface.
+
+    C++ includes: VarianceFunctions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IVarianceFunction
+
+    def clone(self):
+        r"""
+        clone(IVarianceFunction self) -> IVarianceFunction
+        virtual IVarianceFunction* IVarianceFunction::clone() const =0
+
+        """
+        return _libBornAgainCore.IVarianceFunction_clone(self)
+
+    def variance(self, real_value, simulated_value):
+        r"""
+        variance(IVarianceFunction self, double real_value, double simulated_value) -> double
+        virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
+
+        """
+        return _libBornAgainCore.IVarianceFunction_variance(self, real_value, simulated_value)
+
+# Register IVarianceFunction in _libBornAgainCore:
+_libBornAgainCore.IVarianceFunction_swigregister(IVarianceFunction)
+
+class VarianceConstantFunction(IVarianceFunction):
+    r"""
+
+
+    Returns 1.0 as variance value
+
+    C++ includes: VarianceFunctions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(VarianceConstantFunction self) -> VarianceConstantFunction
+        VarianceConstantFunction * VarianceConstantFunction::clone() const override
+
+        """
+        return _libBornAgainCore.VarianceConstantFunction_clone(self)
+
+    def variance(self, arg2, arg3):
+        r"""
+        variance(VarianceConstantFunction self, double arg2, double arg3) -> double
+        double VarianceConstantFunction::variance(double, double) const override
+
+        """
+        return _libBornAgainCore.VarianceConstantFunction_variance(self, arg2, arg3)
+
+    def __init__(self):
+        r"""
+        __init__(VarianceConstantFunction self) -> VarianceConstantFunction
+
+
+        Returns 1.0 as variance value
+
+        C++ includes: VarianceFunctions.h
+
+        """
+        _libBornAgainCore.VarianceConstantFunction_swiginit(self, _libBornAgainCore.new_VarianceConstantFunction())
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceConstantFunction
+
+# Register VarianceConstantFunction in _libBornAgainCore:
+_libBornAgainCore.VarianceConstantFunction_swigregister(VarianceConstantFunction)
+
+class VarianceSimFunction(IVarianceFunction):
+    r"""
+
+
+    Returns max(sim, epsilon)
+
+    C++ includes: VarianceFunctions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, epsilon=1.0):
+        r"""
+        __init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction
+        VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
+
+        """
+        _libBornAgainCore.VarianceSimFunction_swiginit(self, _libBornAgainCore.new_VarianceSimFunction(epsilon))
+
+    def clone(self):
+        r"""
+        clone(VarianceSimFunction self) -> VarianceSimFunction
+        VarianceSimFunction * VarianceSimFunction::clone() const override
+
+        """
+        return _libBornAgainCore.VarianceSimFunction_clone(self)
+
+    def variance(self, exp, sim):
+        r"""
+        variance(VarianceSimFunction self, double exp, double sim) -> double
+        double VarianceSimFunction::variance(double exp, double sim) const override
+
+        """
+        return _libBornAgainCore.VarianceSimFunction_variance(self, exp, sim)
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceSimFunction
+
+# Register VarianceSimFunction in _libBornAgainCore:
+_libBornAgainCore.VarianceSimFunction_swigregister(VarianceSimFunction)
+
 
 class SimulationBuilderWrapper(PyBuilderCallback):
     def __init__(self, f):

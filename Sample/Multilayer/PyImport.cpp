@@ -15,8 +15,8 @@
 #ifdef BORNAGAIN_PYTHON
 
 #include "Sample/Multilayer/PyImport.h"
-#include "Base/Py/PyEmbeddedUtils.h"
-#include "Base/Py/PythonCore.h"
+#include "Base/Py/PyCore.h"
+#include "Base/Py/PyUtils.h"
 #include "Sample/Multilayer/MultiLayer.h"
 
 namespace {
@@ -24,7 +24,7 @@ namespace {
 std::string error_description(const std::string& title) {
     std::stringstream buf;
     buf << title << "\n";
-    buf << PyEmbeddedUtils::pythonStackTrace() << "\n";
+    buf << PyUtils::pythonStackTrace() << "\n";
     return buf.str();
 }
 
@@ -33,7 +33,7 @@ std::string error_description(const std::string& title) {
 std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script,
                                                        const std::string& functionName,
                                                        const std::string& path) {
-    PyEmbeddedUtils::import_bornagain(path);
+    PyUtils::import_bornagain(path);
 
     PyObject* pCompiledFn = Py_CompileString(script.c_str(), "", Py_file_input);
     if (!pCompiledFn)
@@ -83,7 +83,7 @@ std::unique_ptr<MultiLayer> PyImport::createFromPython(const std::string& script
 
 std::vector<std::string> PyImport::listOfFunctions(const std::string& script,
                                                    const std::string& path) {
-    PyEmbeddedUtils::import_bornagain(path);
+    PyUtils::import_bornagain(path);
 
     PyObject* pCompiledFn = Py_CompileString(script.c_str(), "", Py_file_input);
     if (!pCompiledFn)
@@ -105,7 +105,7 @@ std::vector<std::string> PyImport::listOfFunctions(const std::string& script,
     Py_ssize_t pos = 0;
     while (PyDict_Next(dict, &pos, &key, &value)) {
         if (PyCallable_Check(value)) {
-            std::string func_name = PyEmbeddedUtils::toString(key);
+            std::string func_name = PyUtils::toString(key);
             if (func_name.find("__") == std::string::npos)
                 result.push_back(func_name);
         }

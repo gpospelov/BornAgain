@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Views/ImportDataWidgets/RealDataSelectorActions.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Data/DataUtils.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/ProjectionItems.h"
@@ -202,8 +202,7 @@ void RealDataSelectorActions::onRotateDataRequest() {
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
     const auto input = intensityItem->getOutputData();
-    intensityItem->setOutputData(
-        IntensityDataFunctions::createRearrangedDataSet(*input, 1).release());
+    intensityItem->setOutputData(DataUtils::createRearrangedDataSet(*input, 1).release());
     intensityItem->setAxesRangeToData();
 
     m_selectionModel->select(currentIndex, QItemSelectionModel::Select);

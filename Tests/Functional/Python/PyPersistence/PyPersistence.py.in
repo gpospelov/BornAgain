@@ -78,7 +78,7 @@ def get_minified_simulation():
     """
     Returns a simulation constructed from example simulation with smaller detector.
     """
-    if "sim21_Reflectometry" in EXAMPLE_DIR:
+    if "specular" in EXAMPLE_DIR:
         return get_simulation_SpecularSimulation()
 
     elif EXAMPLE_NAME == "RectangularGrating":
@@ -149,7 +149,7 @@ def check_result(result, example_name):
     print("Loading reference file '{}'".format(reffile))
     reference = ba.IntensityDataIOFactory.readOutputData(reffile)
 
-    diff = ba.getRelativeDifference(ba.importArrayToOutputData(result.array()), reference)
+    diff = ba.relativeDataDifference(ba.importArrayToOutputData(result.array()), reference)
 
     if diff > TOLERANCE:
         print("Failure - Difference {0} is above tolerance level {1}".format(diff, TOLERANCE))

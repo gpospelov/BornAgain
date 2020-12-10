@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTORDECORATOR_H
 #define BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTORDECORATOR_H
 
@@ -50,3 +51,4 @@ protected:
 };
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTORDECORATOR_H
+#endif // USER_API

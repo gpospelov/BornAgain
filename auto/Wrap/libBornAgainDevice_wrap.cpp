@@ -3104,121 +3104,113 @@ namespace Swig {
 #define SWIGTYPE_p_BasicVector3DT_std__complexT_double_t_t swig_types[4]
 #define SWIGTYPE_p_Beam swig_types[5]
 #define SWIGTYPE_p_Bin1D swig_types[6]
-#define SWIGTYPE_p_ChiSquaredModule swig_types[7]
-#define SWIGTYPE_p_DetectionProperties swig_types[8]
-#define SWIGTYPE_p_DetectorMask swig_types[9]
-#define SWIGTYPE_p_Direction swig_types[10]
-#define SWIGTYPE_p_Ellipse swig_types[11]
-#define SWIGTYPE_p_FootprintGauss swig_types[12]
-#define SWIGTYPE_p_FootprintSquare swig_types[13]
-#define SWIGTYPE_p_Histogram1D swig_types[14]
-#define SWIGTYPE_p_Histogram2D swig_types[15]
-#define SWIGTYPE_p_HorizontalLine swig_types[16]
-#define SWIGTYPE_p_IAxis swig_types[17]
-#define SWIGTYPE_p_IChiSquaredModule swig_types[18]
-#define SWIGTYPE_p_ICloneable swig_types[19]
-#define SWIGTYPE_p_IComponent swig_types[20]
-#define SWIGTYPE_p_IDetector swig_types[21]
-#define SWIGTYPE_p_IDetector2D swig_types[22]
-#define SWIGTYPE_p_IDetectorResolution swig_types[23]
-#define SWIGTYPE_p_IFootprintFactor swig_types[24]
-#define SWIGTYPE_p_IHistogram swig_types[25]
-#define SWIGTYPE_p_IIntensityFunction swig_types[26]
-#define SWIGTYPE_p_INode swig_types[27]
-#define SWIGTYPE_p_INodeVisitor swig_types[28]
-#define SWIGTYPE_p_IParametricComponent swig_types[29]
-#define SWIGTYPE_p_IPixel swig_types[30]
-#define SWIGTYPE_p_IRangedDistribution swig_types[31]
-#define SWIGTYPE_p_IResolutionFunction2D swig_types[32]
-#define SWIGTYPE_p_IShape2D swig_types[33]
-#define SWIGTYPE_p_IUnitConverter swig_types[34]
-#define SWIGTYPE_p_IVarianceFunction swig_types[35]
-#define SWIGTYPE_p_IntensityDataIOFactory swig_types[36]
-#define SWIGTYPE_p_IntensityFunctionLog swig_types[37]
-#define SWIGTYPE_p_IntensityFunctionSqrt swig_types[38]
-#define SWIGTYPE_p_IsGISAXSDetector swig_types[39]
-#define SWIGTYPE_p_Line swig_types[40]
-#define SWIGTYPE_p_OutputDataIteratorT_double_OutputDataT_double_t_t swig_types[41]
-#define SWIGTYPE_p_OutputDataIteratorT_double_const_OutputDataT_double_t_const_t swig_types[42]
-#define SWIGTYPE_p_OutputDataT_CumulativeValue_t swig_types[43]
-#define SWIGTYPE_p_OutputDataT_bool_t swig_types[44]
-#define SWIGTYPE_p_OutputDataT_double_t swig_types[45]
-#define SWIGTYPE_p_ParameterDistribution swig_types[46]
-#define SWIGTYPE_p_ParameterPool swig_types[47]
-#define SWIGTYPE_p_Polygon swig_types[48]
-#define SWIGTYPE_p_PolygonPrivate swig_types[49]
-#define SWIGTYPE_p_Rectangle swig_types[50]
-#define SWIGTYPE_p_RectangularDetector swig_types[51]
-#define SWIGTYPE_p_RectangularPixel swig_types[52]
-#define SWIGTYPE_p_RegionOfInterest swig_types[53]
-#define SWIGTYPE_p_ResolutionFunction2DGaussian swig_types[54]
-#define SWIGTYPE_p_ScanResolution swig_types[55]
-#define SWIGTYPE_p_SimulationResult swig_types[56]
-#define SWIGTYPE_p_SphericalDetector swig_types[57]
-#define SWIGTYPE_p_VarianceConstantFunction swig_types[58]
-#define SWIGTYPE_p_VarianceSimFunction swig_types[59]
-#define SWIGTYPE_p_VerticalLine swig_types[60]
-#define SWIGTYPE_p_allocator_type swig_types[61]
-#define SWIGTYPE_p_bool swig_types[62]
-#define SWIGTYPE_p_char swig_types[63]
-#define SWIGTYPE_p_const_iterator swig_types[64]
-#define SWIGTYPE_p_corr_matrix_t swig_types[65]
-#define SWIGTYPE_p_difference_type swig_types[66]
-#define SWIGTYPE_p_double swig_types[67]
-#define SWIGTYPE_p_first_type swig_types[68]
-#define SWIGTYPE_p_int swig_types[69]
-#define SWIGTYPE_p_iterator swig_types[70]
-#define SWIGTYPE_p_key_type swig_types[71]
-#define SWIGTYPE_p_long_long swig_types[72]
-#define SWIGTYPE_p_mapped_type swig_types[73]
-#define SWIGTYPE_p_p_PyObject swig_types[74]
-#define SWIGTYPE_p_parameters_t swig_types[75]
-#define SWIGTYPE_p_second_type swig_types[76]
-#define SWIGTYPE_p_short swig_types[77]
-#define SWIGTYPE_p_signed_char swig_types[78]
-#define SWIGTYPE_p_size_type swig_types[79]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[80]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[81]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[82]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[83]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[84]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[85]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[86]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[87]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[88]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[89]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[90]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[91]
-#define SWIGTYPE_p_std__functionT_void_fSimulationAreaIterator_const_RF_t swig_types[92]
-#define SWIGTYPE_p_std__invalid_argument swig_types[93]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[94]
-#define SWIGTYPE_p_std__mapT_Axes__Units_char_const_p_std__lessT_Axes__Units_t_std__allocatorT_std__pairT_Axes__Units_const_char_const_p_t_t_t swig_types[95]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[96]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[97]
-#define SWIGTYPE_p_std__vectorT_Axes__Units_std__allocatorT_Axes__Units_t_t swig_types[98]
-#define SWIGTYPE_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t swig_types[99]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[100]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[101]
-#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[102]
-#define SWIGTYPE_p_std__vectorT_SimulationElement_std__allocatorT_SimulationElement_t_t swig_types[103]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[104]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[105]
-#define SWIGTYPE_p_std__vectorT_size_t_std__allocatorT_size_t_t_t swig_types[106]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[107]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[108]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[109]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[110]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[111]
-#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[112]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[113]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[114]
-#define SWIGTYPE_p_unsigned_char swig_types[115]
-#define SWIGTYPE_p_unsigned_int swig_types[116]
-#define SWIGTYPE_p_unsigned_long_long swig_types[117]
-#define SWIGTYPE_p_unsigned_short swig_types[118]
-#define SWIGTYPE_p_value_type swig_types[119]
-static swig_type_info *swig_types[121];
-static swig_module_info swig_module = {swig_types, 120, 0, 0, 0, 0};
+#define SWIGTYPE_p_DetectionProperties swig_types[7]
+#define SWIGTYPE_p_DetectorMask swig_types[8]
+#define SWIGTYPE_p_Direction swig_types[9]
+#define SWIGTYPE_p_Ellipse swig_types[10]
+#define SWIGTYPE_p_FootprintGauss swig_types[11]
+#define SWIGTYPE_p_FootprintSquare swig_types[12]
+#define SWIGTYPE_p_Histogram1D swig_types[13]
+#define SWIGTYPE_p_Histogram2D swig_types[14]
+#define SWIGTYPE_p_HorizontalLine swig_types[15]
+#define SWIGTYPE_p_IAxis swig_types[16]
+#define SWIGTYPE_p_ICloneable swig_types[17]
+#define SWIGTYPE_p_IComponent swig_types[18]
+#define SWIGTYPE_p_IDetector swig_types[19]
+#define SWIGTYPE_p_IDetector2D swig_types[20]
+#define SWIGTYPE_p_IDetectorResolution swig_types[21]
+#define SWIGTYPE_p_IFootprintFactor swig_types[22]
+#define SWIGTYPE_p_IHistogram swig_types[23]
+#define SWIGTYPE_p_INode swig_types[24]
+#define SWIGTYPE_p_INodeVisitor swig_types[25]
+#define SWIGTYPE_p_IParametricComponent swig_types[26]
+#define SWIGTYPE_p_IPixel swig_types[27]
+#define SWIGTYPE_p_IRangedDistribution swig_types[28]
+#define SWIGTYPE_p_IResolutionFunction2D swig_types[29]
+#define SWIGTYPE_p_IShape2D swig_types[30]
+#define SWIGTYPE_p_IUnitConverter swig_types[31]
+#define SWIGTYPE_p_IntensityDataIOFactory swig_types[32]
+#define SWIGTYPE_p_IsGISAXSDetector swig_types[33]
+#define SWIGTYPE_p_Line swig_types[34]
+#define SWIGTYPE_p_OutputDataIteratorT_double_OutputDataT_double_t_t swig_types[35]
+#define SWIGTYPE_p_OutputDataIteratorT_double_const_OutputDataT_double_t_const_t swig_types[36]
+#define SWIGTYPE_p_OutputDataT_CumulativeValue_t swig_types[37]
+#define SWIGTYPE_p_OutputDataT_bool_t swig_types[38]
+#define SWIGTYPE_p_OutputDataT_double_t swig_types[39]
+#define SWIGTYPE_p_ParameterDistribution swig_types[40]
+#define SWIGTYPE_p_ParameterPool swig_types[41]
+#define SWIGTYPE_p_Polygon swig_types[42]
+#define SWIGTYPE_p_PolygonPrivate swig_types[43]
+#define SWIGTYPE_p_Rectangle swig_types[44]
+#define SWIGTYPE_p_RectangularDetector swig_types[45]
+#define SWIGTYPE_p_RectangularPixel swig_types[46]
+#define SWIGTYPE_p_RegionOfInterest swig_types[47]
+#define SWIGTYPE_p_ResolutionFunction2DGaussian swig_types[48]
+#define SWIGTYPE_p_ScanResolution swig_types[49]
+#define SWIGTYPE_p_SimulationResult swig_types[50]
+#define SWIGTYPE_p_SphericalDetector swig_types[51]
+#define SWIGTYPE_p_VerticalLine swig_types[52]
+#define SWIGTYPE_p_allocator_type swig_types[53]
+#define SWIGTYPE_p_bool swig_types[54]
+#define SWIGTYPE_p_char swig_types[55]
+#define SWIGTYPE_p_const_iterator swig_types[56]
+#define SWIGTYPE_p_corr_matrix_t swig_types[57]
+#define SWIGTYPE_p_difference_type swig_types[58]
+#define SWIGTYPE_p_double swig_types[59]
+#define SWIGTYPE_p_first_type swig_types[60]
+#define SWIGTYPE_p_int swig_types[61]
+#define SWIGTYPE_p_iterator swig_types[62]
+#define SWIGTYPE_p_key_type swig_types[63]
+#define SWIGTYPE_p_long_long swig_types[64]
+#define SWIGTYPE_p_mapped_type swig_types[65]
+#define SWIGTYPE_p_p_PyObject swig_types[66]
+#define SWIGTYPE_p_parameters_t swig_types[67]
+#define SWIGTYPE_p_second_type swig_types[68]
+#define SWIGTYPE_p_short swig_types[69]
+#define SWIGTYPE_p_signed_char swig_types[70]
+#define SWIGTYPE_p_size_type swig_types[71]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[72]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[73]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[74]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[75]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[76]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[77]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[78]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[79]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[80]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[81]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[82]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[83]
+#define SWIGTYPE_p_std__functionT_void_fSimulationAreaIterator_const_RF_t swig_types[84]
+#define SWIGTYPE_p_std__invalid_argument swig_types[85]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[86]
+#define SWIGTYPE_p_std__mapT_Axes__Units_char_const_p_std__lessT_Axes__Units_t_std__allocatorT_std__pairT_Axes__Units_const_char_const_p_t_t_t swig_types[87]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[88]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[89]
+#define SWIGTYPE_p_std__vectorT_Axes__Units_std__allocatorT_Axes__Units_t_t swig_types[90]
+#define SWIGTYPE_p_std__vectorT_AxisInfo_std__allocatorT_AxisInfo_t_t swig_types[91]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[92]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[93]
+#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[94]
+#define SWIGTYPE_p_std__vectorT_SimulationElement_std__allocatorT_SimulationElement_t_t swig_types[95]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[96]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[97]
+#define SWIGTYPE_p_std__vectorT_size_t_std__allocatorT_size_t_t_t swig_types[98]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[99]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[100]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[101]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[102]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[103]
+#define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[104]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[105]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[106]
+#define SWIGTYPE_p_unsigned_char swig_types[107]
+#define SWIGTYPE_p_unsigned_int swig_types[108]
+#define SWIGTYPE_p_unsigned_long_long swig_types[109]
+#define SWIGTYPE_p_unsigned_short swig_types[110]
+#define SWIGTYPE_p_value_type swig_types[111]
+static swig_type_info *swig_types[113];
+static swig_module_info swig_module = {swig_types, 112, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -6715,25 +6707,19 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Device/Beam/Beam.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
+#include "Device/Data/DataUtils.h"
 #include "Device/Data/OutputData.h"
 #include "Device/Detector/DetectorMask.h"
 #include "Device/Detector/IDetector2D.h"
 #include "Device/Detector/IsGISAXSDetector.h"
 #include "Device/Detector/RectangularDetector.h"
 #include "Device/Detector/SphericalDetector.h"
+#include "Device/Histo/HistoUtils.h"
 #include "Device/Histo/Histogram1D.h"
 #include "Device/Histo/Histogram2D.h"
 #include "Device/Histo/IHistogram.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Histo/SimulationResult.h"
-#include "Device/Instrument/ChiSquaredModule.h"
-#include "Device/Instrument/IChiSquaredModule.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
-#include "Device/Instrument/PyArrayImportUtils.h"
-#include "Device/Histo/ImageUtils.h"
-#include "Device/Instrument/VarianceFunctions.h"
-#include "Device/Intensity/IIntensityFunction.h"
-#include "Device/Intensity/IIntensityFunction.h"
 #include "Device/Mask/Ellipse.h"
 #include "Device/Mask/IShape2D.h"
 #include "Device/Mask/Line.h"
@@ -30489,6 +30475,456 @@ SWIGINTERN PyObject *IntensityData_swiginit(PyObject *SWIGUNUSEDPARM(self), PyOb
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_relativeDataDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  OutputData< double > *arg1 = 0 ;
+  OutputData< double > *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "relativeDataDifference", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "relativeDataDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "relativeDataDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "relativeDataDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "relativeDataDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
+  result = (double)DataUtils::relativeDataDifference((OutputData< double > const &)*arg1,(OutputData< double > const &)*arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_checkRelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  OutputData< double > *arg1 = 0 ;
+  OutputData< double > *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  bool result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "checkRelativeDifference", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "checkRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "checkRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "checkRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "checkRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "checkRelativeDifference" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (bool)DataUtils::checkRelativeDifference((OutputData< double > const &)*arg1,(OutputData< double > const &)*arg2,arg3);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateToBinf__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  IAxis *arg2 = 0 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IAxis,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateToBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
+  }
+  arg2 = reinterpret_cast< IAxis * >(argp2);
+  result = (double)DataUtils::coordinateToBinf(arg1,(IAxis const &)*arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateFromBinf__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  IAxis *arg2 = 0 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  double result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IAxis,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
+  }
+  arg2 = reinterpret_cast< IAxis * >(argp2);
+  result = (double)DataUtils::coordinateFromBinf(arg1,(IAxis const &)*arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateToBinf__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double *arg1 = 0 ;
+  double *arg2 = 0 ;
+  OutputData< double > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double &""'"); 
+  }
+  arg1 = reinterpret_cast< double * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateToBinf" "', argument " "2"" of type '" "double &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "2"" of type '" "double &""'"); 
+  }
+  arg2 = reinterpret_cast< double * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "coordinateToBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
+  DataUtils::coordinateToBinf(*arg1,*arg2,(OutputData< double > const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateToBinf(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "coordinateToBinf", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IAxis, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_coordinateToBinf__SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_coordinateToBinf__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'coordinateToBinf'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DataUtils::coordinateToBinf(double,IAxis const &)\n"
+    "    DataUtils::coordinateToBinf(double &,double &,OutputData< double > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateFromBinf__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  double *arg1 = 0 ;
+  double *arg2 = 0 ;
+  OutputData< double > *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double &""'"); 
+  }
+  arg1 = reinterpret_cast< double * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_double,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "double &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "double &""'"); 
+  }
+  arg2 = reinterpret_cast< double * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "coordinateFromBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
+  DataUtils::coordinateFromBinf(*arg1,*arg2,(OutputData< double > const &)*arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_coordinateFromBinf(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[4] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "coordinateFromBinf", 0, 3, argv))) SWIG_fail;
+  --argc;
+  if (argc == 2) {
+    int _v;
+    {
+      int res = SWIG_AsVal_double(argv[0], NULL);
+      _v = SWIG_CheckState(res);
+    }
+    if (_v) {
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IAxis, SWIG_POINTER_NO_NULL | 0);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        return _wrap_coordinateFromBinf__SWIG_0(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      void *vptr = 0;
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
+      _v = SWIG_CheckState(res);
+      if (_v) {
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_coordinateFromBinf__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'coordinateFromBinf'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DataUtils::coordinateFromBinf(double,IAxis const &)\n"
+    "    DataUtils::coordinateFromBinf(double &,double &,OutputData< double > const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_create2DArrayfromOutputData(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  OutputData< double > *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create2DArrayfromOutputData" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create2DArrayfromOutputData" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
+  }
+  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
+  result = DataUtils::create2DArrayfromOutputData((OutputData< double > const &)*arg1);
+  resultobj = swig::from(static_cast< std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_importArrayToOutputData__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< double,std::allocator< double > > *arg1 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  OutputData< double > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    res1 = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  result = (OutputData< double > *)DataUtils::importArrayToOutputData((std::vector< double,std::allocator< double > > const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_OWN |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_importArrayToOutputData__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *arg1 = 0 ;
+  int res1 = SWIG_OLDOBJ ;
+  OutputData< double > *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  {
+    std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *ptr = (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *)0;
+    res1 = swig::asptr(swig_obj[0], &ptr);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &""'"); 
+    }
+    arg1 = ptr;
+  }
+  result = (OutputData< double > *)DataUtils::importArrayToOutputData((std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_OWN |  0 );
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res1)) delete arg1;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_importArrayToOutputData(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "importArrayToOutputData", 0, 1, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_importArrayToOutputData__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    int res = swig::asptr(argv[0], (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > >**)(0));
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_importArrayToOutputData__SWIG_1(self, argc, argv);
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'importArrayToOutputData'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    DataUtils::importArrayToOutputData(std::vector< double,std::allocator< double > > const &)\n"
+    "    DataUtils::importArrayToOutputData(std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &)\n");
+  return 0;
+}
+
+
 SWIGINTERN PyObject *_wrap_new_Beam__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   double arg1 ;
@@ -31642,286 +32078,6 @@ SWIGINTERN PyObject *FootprintSquare_swigregister(PyObject *SWIGUNUSEDPARM(self)
 }
 
 SWIGINTERN PyObject *FootprintSquare_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
-SWIGINTERN PyObject *_wrap_delete_IIntensityFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IIntensityFunction *arg1 = (IIntensityFunction *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IIntensityFunction, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IIntensityFunction" "', argument " "1"" of type '" "IIntensityFunction *""'"); 
-  }
-  arg1 = reinterpret_cast< IIntensityFunction * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IIntensityFunction_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IIntensityFunction *arg1 = (IIntensityFunction *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IIntensityFunction *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IIntensityFunction, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IIntensityFunction_clone" "', argument " "1"" of type '" "IIntensityFunction const *""'"); 
-  }
-  arg1 = reinterpret_cast< IIntensityFunction * >(argp1);
-  result = (IIntensityFunction *)((IIntensityFunction const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityFunction, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IIntensityFunction_evaluate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IIntensityFunction *arg1 = (IIntensityFunction *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IIntensityFunction_evaluate", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IIntensityFunction, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IIntensityFunction_evaluate" "', argument " "1"" of type '" "IIntensityFunction const *""'"); 
-  }
-  arg1 = reinterpret_cast< IIntensityFunction * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IIntensityFunction_evaluate" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (double)((IIntensityFunction const *)arg1)->evaluate(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *IIntensityFunction_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IIntensityFunction, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_IntensityFunctionLog_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntensityFunctionLog *arg1 = (IntensityFunctionLog *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IntensityFunctionLog *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IntensityFunctionLog, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityFunctionLog_clone" "', argument " "1"" of type '" "IntensityFunctionLog const *""'"); 
-  }
-  arg1 = reinterpret_cast< IntensityFunctionLog * >(argp1);
-  result = (IntensityFunctionLog *)((IntensityFunctionLog const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityFunctionLog, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IntensityFunctionLog_evaluate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntensityFunctionLog *arg1 = (IntensityFunctionLog *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IntensityFunctionLog_evaluate", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IntensityFunctionLog, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityFunctionLog_evaluate" "', argument " "1"" of type '" "IntensityFunctionLog const *""'"); 
-  }
-  arg1 = reinterpret_cast< IntensityFunctionLog * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntensityFunctionLog_evaluate" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (double)((IntensityFunctionLog const *)arg1)->evaluate(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_IntensityFunctionLog(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntensityFunctionLog *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "new_IntensityFunctionLog", 0, 0, 0)) SWIG_fail;
-  result = (IntensityFunctionLog *)new IntensityFunctionLog();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityFunctionLog, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_IntensityFunctionLog(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntensityFunctionLog *arg1 = (IntensityFunctionLog *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IntensityFunctionLog, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IntensityFunctionLog" "', argument " "1"" of type '" "IntensityFunctionLog *""'"); 
-  }
-  arg1 = reinterpret_cast< IntensityFunctionLog * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *IntensityFunctionLog_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IntensityFunctionLog, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *IntensityFunctionLog_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
-SWIGINTERN PyObject *_wrap_IntensityFunctionSqrt_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntensityFunctionSqrt *arg1 = (IntensityFunctionSqrt *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IntensityFunctionSqrt *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IntensityFunctionSqrt, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityFunctionSqrt_clone" "', argument " "1"" of type '" "IntensityFunctionSqrt const *""'"); 
-  }
-  arg1 = reinterpret_cast< IntensityFunctionSqrt * >(argp1);
-  result = (IntensityFunctionSqrt *)((IntensityFunctionSqrt const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityFunctionSqrt, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IntensityFunctionSqrt_evaluate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntensityFunctionSqrt *arg1 = (IntensityFunctionSqrt *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IntensityFunctionSqrt_evaluate", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IntensityFunctionSqrt, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IntensityFunctionSqrt_evaluate" "', argument " "1"" of type '" "IntensityFunctionSqrt const *""'"); 
-  }
-  arg1 = reinterpret_cast< IntensityFunctionSqrt * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IntensityFunctionSqrt_evaluate" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = (double)((IntensityFunctionSqrt const *)arg1)->evaluate(arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_IntensityFunctionSqrt(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntensityFunctionSqrt *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "new_IntensityFunctionSqrt", 0, 0, 0)) SWIG_fail;
-  result = (IntensityFunctionSqrt *)new IntensityFunctionSqrt();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IntensityFunctionSqrt, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_IntensityFunctionSqrt(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IntensityFunctionSqrt *arg1 = (IntensityFunctionSqrt *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IntensityFunctionSqrt, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IntensityFunctionSqrt" "', argument " "1"" of type '" "IntensityFunctionSqrt *""'"); 
-  }
-  arg1 = reinterpret_cast< IntensityFunctionSqrt * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *IntensityFunctionSqrt_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IntensityFunctionSqrt, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *IntensityFunctionSqrt_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
 
@@ -34675,1572 +34831,6 @@ SWIGINTERN PyObject *ScanResolution_swigregister(PyObject *SWIGUNUSEDPARM(self),
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
   SWIG_TypeNewClientData(SWIGTYPE_p_ScanResolution, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_delete_IChiSquaredModule(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IChiSquaredModule, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IChiSquaredModule" "', argument " "1"" of type '" "IChiSquaredModule *""'"); 
-  }
-  arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IChiSquaredModule_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IChiSquaredModule *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IChiSquaredModule_clone" "', argument " "1"" of type '" "IChiSquaredModule const *""'"); 
-  }
-  arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  result = (IChiSquaredModule *)((IChiSquaredModule const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IChiSquaredModule_varianceFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IVarianceFunction *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IChiSquaredModule_varianceFunction" "', argument " "1"" of type '" "IChiSquaredModule const *""'"); 
-  }
-  arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  result = (IVarianceFunction *)((IChiSquaredModule const *)arg1)->varianceFunction();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IVarianceFunction, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IChiSquaredModule_setVarianceFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
-  IVarianceFunction *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IChiSquaredModule_setVarianceFunction", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IChiSquaredModule_setVarianceFunction" "', argument " "1"" of type '" "IChiSquaredModule *""'"); 
-  }
-  arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IVarianceFunction,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IChiSquaredModule_setVarianceFunction" "', argument " "2"" of type '" "IVarianceFunction const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IChiSquaredModule_setVarianceFunction" "', argument " "2"" of type '" "IVarianceFunction const &""'"); 
-  }
-  arg2 = reinterpret_cast< IVarianceFunction * >(argp2);
-  (arg1)->setVarianceFunction((IVarianceFunction const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IChiSquaredModule_getIntensityFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IIntensityFunction *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IChiSquaredModule_getIntensityFunction" "', argument " "1"" of type '" "IChiSquaredModule const *""'"); 
-  }
-  arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  result = (IIntensityFunction *)((IChiSquaredModule const *)arg1)->getIntensityFunction();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IIntensityFunction, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IChiSquaredModule_setIntensityFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
-  IIntensityFunction *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IChiSquaredModule_setIntensityFunction", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IChiSquaredModule_setIntensityFunction" "', argument " "1"" of type '" "IChiSquaredModule *""'"); 
-  }
-  arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IIntensityFunction,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "IChiSquaredModule_setIntensityFunction" "', argument " "2"" of type '" "IIntensityFunction const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "IChiSquaredModule_setIntensityFunction" "', argument " "2"" of type '" "IIntensityFunction const &""'"); 
-  }
-  arg2 = reinterpret_cast< IIntensityFunction * >(argp2);
-  (arg1)->setIntensityFunction((IIntensityFunction const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IChiSquaredModule_residual(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IChiSquaredModule *arg1 = (IChiSquaredModule *) 0 ;
-  double arg2 ;
-  double arg3 ;
-  double arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IChiSquaredModule_residual", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IChiSquaredModule, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IChiSquaredModule_residual" "', argument " "1"" of type '" "IChiSquaredModule *""'"); 
-  }
-  arg1 = reinterpret_cast< IChiSquaredModule * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IChiSquaredModule_residual" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IChiSquaredModule_residual" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "IChiSquaredModule_residual" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  result = (double)(arg1)->residual(arg2,arg3,arg4);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *IChiSquaredModule_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IChiSquaredModule, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_new_ChiSquaredModule__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  ChiSquaredModule *result = 0 ;
-  
-  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
-  result = (ChiSquaredModule *)new ChiSquaredModule();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ChiSquaredModule, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_ChiSquaredModule__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  ChiSquaredModule *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  ChiSquaredModule *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_ChiSquaredModule,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ChiSquaredModule" "', argument " "1"" of type '" "ChiSquaredModule const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ChiSquaredModule" "', argument " "1"" of type '" "ChiSquaredModule const &""'"); 
-  }
-  arg1 = reinterpret_cast< ChiSquaredModule * >(argp1);
-  result = (ChiSquaredModule *)new ChiSquaredModule((ChiSquaredModule const &)*arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ChiSquaredModule, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_ChiSquaredModule(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_ChiSquaredModule", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 0) {
-    return _wrap_new_ChiSquaredModule__SWIG_0(self, argc, argv);
-  }
-  if (argc == 1) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_ChiSquaredModule, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_new_ChiSquaredModule__SWIG_1(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_ChiSquaredModule'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    ChiSquaredModule::ChiSquaredModule()\n"
-    "    ChiSquaredModule::ChiSquaredModule(ChiSquaredModule const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_ChiSquaredModule(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ChiSquaredModule *arg1 = (ChiSquaredModule *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ChiSquaredModule, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ChiSquaredModule" "', argument " "1"" of type '" "ChiSquaredModule *""'"); 
-  }
-  arg1 = reinterpret_cast< ChiSquaredModule * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ChiSquaredModule_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ChiSquaredModule *arg1 = (ChiSquaredModule *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  ChiSquaredModule *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ChiSquaredModule, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ChiSquaredModule_clone" "', argument " "1"" of type '" "ChiSquaredModule const *""'"); 
-  }
-  arg1 = reinterpret_cast< ChiSquaredModule * >(argp1);
-  result = (ChiSquaredModule *)((ChiSquaredModule const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ChiSquaredModule, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_ChiSquaredModule_residual(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ChiSquaredModule *arg1 = (ChiSquaredModule *) 0 ;
-  double arg2 ;
-  double arg3 ;
-  double arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  double val4 ;
-  int ecode4 = 0 ;
-  PyObject *swig_obj[4] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ChiSquaredModule_residual", 4, 4, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ChiSquaredModule, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ChiSquaredModule_residual" "', argument " "1"" of type '" "ChiSquaredModule *""'"); 
-  }
-  arg1 = reinterpret_cast< ChiSquaredModule * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ChiSquaredModule_residual" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ChiSquaredModule_residual" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "ChiSquaredModule_residual" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  result = (double)(arg1)->residual(arg2,arg3,arg4);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *ChiSquaredModule_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_ChiSquaredModule, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *ChiSquaredModule_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
-SWIGINTERN PyObject *_wrap_RelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  SimulationResult *arg1 = 0 ;
-  SimulationResult *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "RelativeDifference", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_SimulationResult,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RelativeDifference" "', argument " "1"" of type '" "SimulationResult const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RelativeDifference" "', argument " "1"" of type '" "SimulationResult const &""'"); 
-  }
-  arg1 = reinterpret_cast< SimulationResult * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_SimulationResult,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RelativeDifference" "', argument " "2"" of type '" "SimulationResult const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RelativeDifference" "', argument " "2"" of type '" "SimulationResult const &""'"); 
-  }
-  arg2 = reinterpret_cast< SimulationResult * >(argp2);
-  result = (double)IntensityDataFunctions::RelativeDifference((SimulationResult const &)*arg1,(SimulationResult const &)*arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getRelativeDifference__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  OutputData< double > *arg1 = 0 ;
-  OutputData< double > *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "getRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  result = (double)IntensityDataFunctions::getRelativeDifference((OutputData< double > const &)*arg1,(OutputData< double > const &)*arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_checkRelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  OutputData< double > *arg1 = 0 ;
-  OutputData< double > *arg2 = 0 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  bool result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "checkRelativeDifference", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "checkRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "checkRelativeDifference" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "checkRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "checkRelativeDifference" "', argument " "2"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg2 = reinterpret_cast< OutputData< double > * >(argp2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "checkRelativeDifference" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (bool)IntensityDataFunctions::checkRelativeDifference((OutputData< double > const &)*arg1,(OutputData< double > const &)*arg2,arg3);
-  resultobj = SWIG_From_bool(static_cast< bool >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getRelativeDifference__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  IHistogram *arg1 = 0 ;
-  IHistogram *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IHistogram,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getRelativeDifference" "', argument " "1"" of type '" "IHistogram const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "1"" of type '" "IHistogram const &""'"); 
-  }
-  arg1 = reinterpret_cast< IHistogram * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IHistogram,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "getRelativeDifference" "', argument " "2"" of type '" "IHistogram const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "2"" of type '" "IHistogram const &""'"); 
-  }
-  arg2 = reinterpret_cast< IHistogram * >(argp2);
-  result = (double)IntensityDataFunctions::getRelativeDifference((IHistogram const &)*arg1,(IHistogram const &)*arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_getRelativeDifference(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[3] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "getRelativeDifference", 0, 2, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_getRelativeDifference__SWIG_0(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_IHistogram, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IHistogram, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_getRelativeDifference__SWIG_1(self, argc, argv);
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'getRelativeDifference'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    IntensityDataFunctions::getRelativeDifference(OutputData< double > const &,OutputData< double > const &)\n"
-    "    IntensityDataFunctions::getRelativeDifference(IHistogram const &,IHistogram const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateToBinf__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  IAxis *arg2 = 0 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IAxis,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateToBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
-  }
-  arg2 = reinterpret_cast< IAxis * >(argp2);
-  result = (double)IntensityDataFunctions::coordinateToBinf(arg1,(IAxis const &)*arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateFromBinf__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  IAxis *arg2 = 0 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  double result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IAxis,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "IAxis const &""'"); 
-  }
-  arg2 = reinterpret_cast< IAxis * >(argp2);
-  result = (double)IntensityDataFunctions::coordinateFromBinf(arg1,(IAxis const &)*arg2);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateToBinf__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double *arg1 = 0 ;
-  double *arg2 = 0 ;
-  OutputData< double > *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_double,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "1"" of type '" "double &""'"); 
-  }
-  arg1 = reinterpret_cast< double * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_double,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateToBinf" "', argument " "2"" of type '" "double &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "2"" of type '" "double &""'"); 
-  }
-  arg2 = reinterpret_cast< double * >(argp2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "coordinateToBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateToBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
-  IntensityDataFunctions::coordinateToBinf(*arg1,*arg2,(OutputData< double > const &)*arg3);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateToBinf(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "coordinateToBinf", 0, 3, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IAxis, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_coordinateToBinf__SWIG_0(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          return _wrap_coordinateToBinf__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'coordinateToBinf'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    IntensityDataFunctions::coordinateToBinf(double,IAxis const &)\n"
-    "    IntensityDataFunctions::coordinateToBinf(double &,double &,OutputData< double > const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateFromBinf__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double *arg1 = 0 ;
-  double *arg2 = 0 ;
-  OutputData< double > *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_double,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "1"" of type '" "double &""'"); 
-  }
-  arg1 = reinterpret_cast< double * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_double,  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "double &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "2"" of type '" "double &""'"); 
-  }
-  arg2 = reinterpret_cast< double * >(argp2);
-  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "coordinateFromBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp3) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "coordinateFromBinf" "', argument " "3"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg3 = reinterpret_cast< OutputData< double > * >(argp3);
-  IntensityDataFunctions::coordinateFromBinf(*arg1,*arg2,(OutputData< double > const &)*arg3);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_coordinateFromBinf(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[4] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "coordinateFromBinf", 0, 3, argv))) SWIG_fail;
-  --argc;
-  if (argc == 2) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_IAxis, SWIG_POINTER_NO_NULL | 0);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        return _wrap_coordinateFromBinf__SWIG_0(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    void *vptr = 0;
-    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_double, SWIG_POINTER_NO_NULL);
-      _v = SWIG_CheckState(res);
-      if (_v) {
-        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_NO_NULL | 0);
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          return _wrap_coordinateFromBinf__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'coordinateFromBinf'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    IntensityDataFunctions::coordinateFromBinf(double,IAxis const &)\n"
-    "    IntensityDataFunctions::coordinateFromBinf(double &,double &,OutputData< double > const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_create2DArrayfromOutputData(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  OutputData< double > *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_OutputDataT_double_t,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "create2DArrayfromOutputData" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "create2DArrayfromOutputData" "', argument " "1"" of type '" "OutputData< double > const &""'"); 
-  }
-  arg1 = reinterpret_cast< OutputData< double > * >(argp1);
-  result = IntensityDataFunctions::create2DArrayfromOutputData((OutputData< double > const &)*arg1);
-  resultobj = swig::from(static_cast< std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FT2DArray(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *arg1 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  PyObject *swig_obj[1] ;
-  std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > result;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  {
-    std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *ptr = (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FT2DArray" "', argument " "1"" of type '" "std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FT2DArray" "', argument " "1"" of type '" "std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  result = IntensityDataFunctions::FT2DArray((std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &)*arg1);
-  resultobj = swig::from(static_cast< std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > >(result));
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_importArrayToOutputData__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::vector< double,std::allocator< double > > *arg1 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  OutputData< double > *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< double,std::allocator< double > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  result = (OutputData< double > *)PyArrayImport::importArrayToOutputData((std::vector< double,std::allocator< double > > const &)*arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_OWN |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_importArrayToOutputData__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *arg1 = 0 ;
-  int res1 = SWIG_OLDOBJ ;
-  OutputData< double > *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  {
-    std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *ptr = (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > *)0;
-    res1 = swig::asptr(swig_obj[0], &ptr);
-    if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "importArrayToOutputData" "', argument " "1"" of type '" "std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &""'"); 
-    }
-    arg1 = ptr;
-  }
-  result = (OutputData< double > *)PyArrayImport::importArrayToOutputData((std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &)*arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_OutputDataT_double_t, SWIG_POINTER_OWN |  0 );
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res1)) delete arg1;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_importArrayToOutputData(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "importArrayToOutputData", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    int res = swig::asptr(argv[0], (std::vector< double,std::allocator< double > >**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_importArrayToOutputData__SWIG_0(self, argc, argv);
-    }
-  }
-  if (argc == 1) {
-    int _v;
-    int res = swig::asptr(argv[0], (std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > >**)(0));
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_importArrayToOutputData__SWIG_1(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'importArrayToOutputData'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    PyArrayImport::importArrayToOutputData(std::vector< double,std::allocator< double > > const &)\n"
-    "    PyArrayImport::importArrayToOutputData(std::vector< std::vector< double,std::allocator< double > >,std::allocator< std::vector< double,std::allocator< double > > > > const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Histogram2D *arg1 = 0 ;
-  double arg2 ;
-  std::string *arg3 = 0 ;
-  double arg4 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  int res3 = SWIG_OLDOBJ ;
-  double val4 ;
-  int ecode4 = 0 ;
-  std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > result;
-  
-  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Histogram2D,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
-  }
-  arg1 = reinterpret_cast< Histogram2D * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FindPeaks" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "FindPeaks" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
-  if (!SWIG_IsOK(ecode4)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "FindPeaks" "', argument " "4"" of type '" "double""'");
-  } 
-  arg4 = static_cast< double >(val4);
-  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3,arg4);
-  resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Histogram2D *arg1 = 0 ;
-  double arg2 ;
-  std::string *arg3 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  int res3 = SWIG_OLDOBJ ;
-  std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > result;
-  
-  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Histogram2D,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
-  }
-  arg1 = reinterpret_cast< Histogram2D * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FindPeaks" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  {
-    std::string *ptr = (std::string *)0;
-    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
-    if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "FindPeaks" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "3"" of type '" "std::string const &""'"); 
-    }
-    arg3 = ptr;
-  }
-  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3);
-  resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return resultobj;
-fail:
-  if (SWIG_IsNewObj(res3)) delete arg3;
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Histogram2D *arg1 = 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > result;
-  
-  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Histogram2D,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
-  }
-  arg1 = reinterpret_cast< Histogram2D * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FindPeaks" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1,arg2);
-  resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  Histogram2D *arg1 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > result;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Histogram2D,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
-  }
-  arg1 = reinterpret_cast< Histogram2D * >(argp1);
-  result = ImageUtils::FindPeaks((Histogram2D const &)*arg1);
-  resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_FindPeaks(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[5] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "FindPeaks", 0, 4, argv))) SWIG_fail;
-  --argc;
-  if (argc == 1) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Histogram2D, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      return _wrap_FindPeaks__SWIG_3(self, argc, argv);
-    }
-  }
-  if (argc == 2) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Histogram2D, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        return _wrap_FindPeaks__SWIG_2(self, argc, argv);
-      }
-    }
-  }
-  if (argc == 3) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Histogram2D, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          return _wrap_FindPeaks__SWIG_1(self, argc, argv);
-        }
-      }
-    }
-  }
-  if (argc == 4) {
-    int _v;
-    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Histogram2D, SWIG_POINTER_NO_NULL | 0);
-    _v = SWIG_CheckState(res);
-    if (_v) {
-      {
-        int res = SWIG_AsVal_double(argv[1], NULL);
-        _v = SWIG_CheckState(res);
-      }
-      if (_v) {
-        int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
-        _v = SWIG_CheckState(res);
-        if (_v) {
-          {
-            int res = SWIG_AsVal_double(argv[3], NULL);
-            _v = SWIG_CheckState(res);
-          }
-          if (_v) {
-            return _wrap_FindPeaks__SWIG_0(self, argc, argv);
-          }
-        }
-      }
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'FindPeaks'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    ImageUtils::FindPeaks(Histogram2D const &,double,std::string const &,double)\n"
-    "    ImageUtils::FindPeaks(Histogram2D const &,double,std::string const &)\n"
-    "    ImageUtils::FindPeaks(Histogram2D const &,double)\n"
-    "    ImageUtils::FindPeaks(Histogram2D const &)\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_IVarianceFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IVarianceFunction *arg1 = (IVarianceFunction *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IVarianceFunction, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_IVarianceFunction" "', argument " "1"" of type '" "IVarianceFunction *""'"); 
-  }
-  arg1 = reinterpret_cast< IVarianceFunction * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IVarianceFunction_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IVarianceFunction *arg1 = (IVarianceFunction *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  IVarianceFunction *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IVarianceFunction, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IVarianceFunction_clone" "', argument " "1"" of type '" "IVarianceFunction const *""'"); 
-  }
-  arg1 = reinterpret_cast< IVarianceFunction * >(argp1);
-  result = (IVarianceFunction *)((IVarianceFunction const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IVarianceFunction, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_IVarianceFunction_variance(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  IVarianceFunction *arg1 = (IVarianceFunction *) 0 ;
-  double arg2 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "IVarianceFunction_variance", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_IVarianceFunction, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "IVarianceFunction_variance" "', argument " "1"" of type '" "IVarianceFunction const *""'"); 
-  }
-  arg1 = reinterpret_cast< IVarianceFunction * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "IVarianceFunction_variance" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "IVarianceFunction_variance" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (double)((IVarianceFunction const *)arg1)->variance(arg2,arg3);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *IVarianceFunction_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_IVarianceFunction, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_VarianceConstantFunction_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  VarianceConstantFunction *arg1 = (VarianceConstantFunction *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  VarianceConstantFunction *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VarianceConstantFunction, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VarianceConstantFunction_clone" "', argument " "1"" of type '" "VarianceConstantFunction const *""'"); 
-  }
-  arg1 = reinterpret_cast< VarianceConstantFunction * >(argp1);
-  result = (VarianceConstantFunction *)((VarianceConstantFunction const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_VarianceConstantFunction, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_VarianceConstantFunction_variance(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  VarianceConstantFunction *arg1 = (VarianceConstantFunction *) 0 ;
-  double arg2 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "VarianceConstantFunction_variance", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VarianceConstantFunction, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VarianceConstantFunction_variance" "', argument " "1"" of type '" "VarianceConstantFunction const *""'"); 
-  }
-  arg1 = reinterpret_cast< VarianceConstantFunction * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "VarianceConstantFunction_variance" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "VarianceConstantFunction_variance" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (double)((VarianceConstantFunction const *)arg1)->variance(arg2,arg3);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_VarianceConstantFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  VarianceConstantFunction *result = 0 ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "new_VarianceConstantFunction", 0, 0, 0)) SWIG_fail;
-  result = (VarianceConstantFunction *)new VarianceConstantFunction();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_VarianceConstantFunction, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_VarianceConstantFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  VarianceConstantFunction *arg1 = (VarianceConstantFunction *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VarianceConstantFunction, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_VarianceConstantFunction" "', argument " "1"" of type '" "VarianceConstantFunction *""'"); 
-  }
-  arg1 = reinterpret_cast< VarianceConstantFunction * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *VarianceConstantFunction_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_VarianceConstantFunction, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *VarianceConstantFunction_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
-}
-
-SWIGINTERN PyObject *_wrap_new_VarianceSimFunction__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
-  PyObject *resultobj = 0;
-  double arg1 ;
-  double val1 ;
-  int ecode1 = 0 ;
-  VarianceSimFunction *result = 0 ;
-  
-  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
-  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
-  if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_VarianceSimFunction" "', argument " "1"" of type '" "double""'");
-  } 
-  arg1 = static_cast< double >(val1);
-  result = (VarianceSimFunction *)new VarianceSimFunction(arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_VarianceSimFunction, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_VarianceSimFunction__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
-  PyObject *resultobj = 0;
-  VarianceSimFunction *result = 0 ;
-  
-  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
-  result = (VarianceSimFunction *)new VarianceSimFunction();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_VarianceSimFunction, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_VarianceSimFunction(PyObject *self, PyObject *args) {
-  Py_ssize_t argc;
-  PyObject *argv[2] = {
-    0
-  };
-  
-  if (!(argc = SWIG_Python_UnpackTuple(args, "new_VarianceSimFunction", 0, 1, argv))) SWIG_fail;
-  --argc;
-  if (argc == 0) {
-    return _wrap_new_VarianceSimFunction__SWIG_1(self, argc, argv);
-  }
-  if (argc == 1) {
-    int _v;
-    {
-      int res = SWIG_AsVal_double(argv[0], NULL);
-      _v = SWIG_CheckState(res);
-    }
-    if (_v) {
-      return _wrap_new_VarianceSimFunction__SWIG_0(self, argc, argv);
-    }
-  }
-  
-fail:
-  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_VarianceSimFunction'.\n"
-    "  Possible C/C++ prototypes are:\n"
-    "    VarianceSimFunction::VarianceSimFunction(double)\n"
-    "    VarianceSimFunction::VarianceSimFunction()\n");
-  return 0;
-}
-
-
-SWIGINTERN PyObject *_wrap_VarianceSimFunction_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  VarianceSimFunction *arg1 = (VarianceSimFunction *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  VarianceSimFunction *result = 0 ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VarianceSimFunction, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VarianceSimFunction_clone" "', argument " "1"" of type '" "VarianceSimFunction const *""'"); 
-  }
-  arg1 = reinterpret_cast< VarianceSimFunction * >(argp1);
-  result = (VarianceSimFunction *)((VarianceSimFunction const *)arg1)->clone();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_VarianceSimFunction, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_VarianceSimFunction_variance(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  VarianceSimFunction *arg1 = (VarianceSimFunction *) 0 ;
-  double arg2 ;
-  double arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  double val3 ;
-  int ecode3 = 0 ;
-  PyObject *swig_obj[3] ;
-  double result;
-  
-  if (!SWIG_Python_UnpackTuple(args, "VarianceSimFunction_variance", 3, 3, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VarianceSimFunction, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VarianceSimFunction_variance" "', argument " "1"" of type '" "VarianceSimFunction const *""'"); 
-  }
-  arg1 = reinterpret_cast< VarianceSimFunction * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "VarianceSimFunction_variance" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "VarianceSimFunction_variance" "', argument " "3"" of type '" "double""'");
-  } 
-  arg3 = static_cast< double >(val3);
-  result = (double)((VarianceSimFunction const *)arg1)->variance(arg2,arg3);
-  resultobj = SWIG_From_double(static_cast< double >(result));
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_VarianceSimFunction(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  VarianceSimFunction *arg1 = (VarianceSimFunction *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject *swig_obj[1] ;
-  
-  if (!args) SWIG_fail;
-  swig_obj[0] = args;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_VarianceSimFunction, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_VarianceSimFunction" "', argument " "1"" of type '" "VarianceSimFunction *""'"); 
-  }
-  arg1 = reinterpret_cast< VarianceSimFunction * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *VarianceSimFunction_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_VarianceSimFunction, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *VarianceSimFunction_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  return SWIG_Python_InitShadowInstance(args);
 }
 
 SWIGINTERN PyObject *_wrap_new_Axes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
@@ -39976,6 +38566,320 @@ SWIGINTERN PyObject *IsGISAXSDetector_swigregister(PyObject *SWIGUNUSEDPARM(self
 SWIGINTERN PyObject *IsGISAXSDetector_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
+
+SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Histogram2D *arg1 = 0 ;
+  double arg2 ;
+  std::string *arg3 = 0 ;
+  double arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  double val4 ;
+  int ecode4 = 0 ;
+  std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > result;
+  
+  if ((nobjs < 4) || (nobjs > 4)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Histogram2D,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
+  }
+  arg1 = reinterpret_cast< Histogram2D * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FindPeaks" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "FindPeaks" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  ecode4 = SWIG_AsVal_double(swig_obj[3], &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "FindPeaks" "', argument " "4"" of type '" "double""'");
+  } 
+  arg4 = static_cast< double >(val4);
+  result = HistoUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3,arg4);
+  resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Histogram2D *arg1 = 0 ;
+  double arg2 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  int res3 = SWIG_OLDOBJ ;
+  std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > result;
+  
+  if ((nobjs < 3) || (nobjs > 3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Histogram2D,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
+  }
+  arg1 = reinterpret_cast< Histogram2D * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FindPeaks" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  {
+    std::string *ptr = (std::string *)0;
+    res3 = SWIG_AsPtr_std_string(swig_obj[2], &ptr);
+    if (!SWIG_IsOK(res3)) {
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "FindPeaks" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "3"" of type '" "std::string const &""'"); 
+    }
+    arg3 = ptr;
+  }
+  result = HistoUtils::FindPeaks((Histogram2D const &)*arg1,arg2,(std::string const &)*arg3);
+  resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res3)) delete arg3;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_2(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Histogram2D *arg1 = 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > result;
+  
+  if ((nobjs < 2) || (nobjs > 2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Histogram2D,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
+  }
+  arg1 = reinterpret_cast< Histogram2D * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FindPeaks" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  result = HistoUtils::FindPeaks((Histogram2D const &)*arg1,arg2);
+  resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FindPeaks__SWIG_3(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  Histogram2D *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > result;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Histogram2D,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FindPeaks" "', argument " "1"" of type '" "Histogram2D const &""'"); 
+  }
+  arg1 = reinterpret_cast< Histogram2D * >(argp1);
+  result = HistoUtils::FindPeaks((Histogram2D const &)*arg1);
+  resultobj = swig::from(static_cast< std::vector< std::pair< double,double >,std::allocator< std::pair< double,double > > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_FindPeaks(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[5] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "FindPeaks", 0, 4, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Histogram2D, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_FindPeaks__SWIG_3(self, argc, argv);
+    }
+  }
+  if (argc == 2) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Histogram2D, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        return _wrap_FindPeaks__SWIG_2(self, argc, argv);
+      }
+    }
+  }
+  if (argc == 3) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Histogram2D, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          return _wrap_FindPeaks__SWIG_1(self, argc, argv);
+        }
+      }
+    }
+  }
+  if (argc == 4) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_Histogram2D, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      {
+        int res = SWIG_AsVal_double(argv[1], NULL);
+        _v = SWIG_CheckState(res);
+      }
+      if (_v) {
+        int res = SWIG_AsPtr_std_string(argv[2], (std::string**)(0));
+        _v = SWIG_CheckState(res);
+        if (_v) {
+          {
+            int res = SWIG_AsVal_double(argv[3], NULL);
+            _v = SWIG_CheckState(res);
+          }
+          if (_v) {
+            return _wrap_FindPeaks__SWIG_0(self, argc, argv);
+          }
+        }
+      }
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'FindPeaks'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    HistoUtils::FindPeaks(Histogram2D const &,double,std::string const &,double)\n"
+    "    HistoUtils::FindPeaks(Histogram2D const &,double,std::string const &)\n"
+    "    HistoUtils::FindPeaks(Histogram2D const &,double)\n"
+    "    HistoUtils::FindPeaks(Histogram2D const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_RelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SimulationResult *arg1 = 0 ;
+  SimulationResult *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "RelativeDifference", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_SimulationResult,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "RelativeDifference" "', argument " "1"" of type '" "SimulationResult const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RelativeDifference" "', argument " "1"" of type '" "SimulationResult const &""'"); 
+  }
+  arg1 = reinterpret_cast< SimulationResult * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_SimulationResult,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "RelativeDifference" "', argument " "2"" of type '" "SimulationResult const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "RelativeDifference" "', argument " "2"" of type '" "SimulationResult const &""'"); 
+  }
+  arg2 = reinterpret_cast< SimulationResult * >(argp2);
+  result = (double)HistoUtils::RelativeDifference((SimulationResult const &)*arg1,(SimulationResult const &)*arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_getRelativeDifference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  IHistogram *arg1 = 0 ;
+  IHistogram *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  double result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "getRelativeDifference", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_IHistogram,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "getRelativeDifference" "', argument " "1"" of type '" "IHistogram const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "1"" of type '" "IHistogram const &""'"); 
+  }
+  arg1 = reinterpret_cast< IHistogram * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_IHistogram,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "getRelativeDifference" "', argument " "2"" of type '" "IHistogram const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "getRelativeDifference" "', argument " "2"" of type '" "IHistogram const &""'"); 
+  }
+  arg2 = reinterpret_cast< IHistogram * >(argp2);
+  result = (double)HistoUtils::getRelativeDifference((IHistogram const &)*arg1,(IHistogram const &)*arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGINTERN PyObject *_wrap_delete_IHistogram(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -45789,6 +44693,51 @@ static PyMethodDef SwigMethods[] = {
 	 { "IntensityData___setitem__", _wrap_IntensityData___setitem__, METH_VARARGS, "IntensityData___setitem__(IntensityData self, unsigned int i, double value) -> double"},
 	 { "IntensityData_swigregister", IntensityData_swigregister, METH_O, NULL},
 	 { "IntensityData_swiginit", IntensityData_swiginit, METH_VARARGS, NULL},
+	 { "relativeDataDifference", _wrap_relativeDataDifference, METH_VARARGS, "\n"
+		"relativeDataDifference(IntensityData dat, IntensityData ref) -> double\n"
+		"double DataUtils::relativeDataDifference(const OutputData< double > &dat, const OutputData< double > &ref)\n"
+		"\n"
+		"Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). \n"
+		"\n"
+		""},
+	 { "checkRelativeDifference", _wrap_checkRelativeDifference, METH_VARARGS, "\n"
+		"checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool\n"
+		"bool DataUtils::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)\n"
+		"\n"
+		"Returns true is relative difference is below threshold; prints informative output. \n"
+		"\n"
+		""},
+	 { "coordinateToBinf", _wrap_coordinateToBinf, METH_VARARGS, "\n"
+		"coordinateToBinf(double coordinate, IAxis axis) -> double\n"
+		"coordinateToBinf(double & x, double & y, IntensityData data)\n"
+		"void DataUtils::coordinateToBinf(double &x, double &y, const OutputData< double > &data)\n"
+		"\n"
+		"Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. \n"
+		"\n"
+		""},
+	 { "coordinateFromBinf", _wrap_coordinateFromBinf, METH_VARARGS, "\n"
+		"coordinateFromBinf(double value, IAxis axis) -> double\n"
+		"coordinateFromBinf(double & x, double & y, IntensityData data)\n"
+		"void DataUtils::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)\n"
+		"\n"
+		"Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. \n"
+		"\n"
+		""},
+	 { "create2DArrayfromOutputData", _wrap_create2DArrayfromOutputData, METH_O, "\n"
+		"create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t\n"
+		"std::vector< std::vector< double > > DataUtils::create2DArrayfromOutputData(const OutputData< double > &data)\n"
+		"\n"
+		"Creates a vector of vectors of double (2D Array) from  OutputData. \n"
+		"\n"
+		""},
+	 { "importArrayToOutputData", _wrap_importArrayToOutputData, METH_VARARGS, "\n"
+		"importArrayToOutputData(vdouble1d_t vec) -> IntensityData\n"
+		"importArrayToOutputData(vdouble2d_t vec) -> IntensityData\n"
+		"OutputData< double > * DataUtils::importArrayToOutputData(const std::vector< std::vector< double >> &vec)\n"
+		"\n"
+		"Reads 2D array of doubles to Python, for use in persistence test. \n"
+		"\n"
+		""},
 	 { "new_Beam", _wrap_new_Beam, METH_VARARGS, "\n"
 		"Beam(double intensity, double wavelength, Direction const & direction)\n"
 		"new_Beam(Beam other) -> Beam\n"
@@ -45987,66 +44936,6 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_FootprintSquare", _wrap_delete_FootprintSquare, METH_O, "delete_FootprintSquare(FootprintSquare self)"},
 	 { "FootprintSquare_swigregister", FootprintSquare_swigregister, METH_O, NULL},
 	 { "FootprintSquare_swiginit", FootprintSquare_swiginit, METH_VARARGS, NULL},
-	 { "delete_IIntensityFunction", _wrap_delete_IIntensityFunction, METH_O, "\n"
-		"delete_IIntensityFunction(IIntensityFunction self)\n"
-		"IIntensityFunction::~IIntensityFunction()\n"
-		"\n"
-		""},
-	 { "IIntensityFunction_clone", _wrap_IIntensityFunction_clone, METH_O, "\n"
-		"IIntensityFunction_clone(IIntensityFunction self) -> IIntensityFunction\n"
-		"virtual IIntensityFunction* IIntensityFunction::clone() const =0\n"
-		"\n"
-		""},
-	 { "IIntensityFunction_evaluate", _wrap_IIntensityFunction_evaluate, METH_VARARGS, "\n"
-		"IIntensityFunction_evaluate(IIntensityFunction self, double value) -> double\n"
-		"virtual double IIntensityFunction::evaluate(double value) const =0\n"
-		"\n"
-		""},
-	 { "IIntensityFunction_swigregister", IIntensityFunction_swigregister, METH_O, NULL},
-	 { "IntensityFunctionLog_clone", _wrap_IntensityFunctionLog_clone, METH_O, "\n"
-		"IntensityFunctionLog_clone(IntensityFunctionLog self) -> IntensityFunctionLog\n"
-		"IntensityFunctionLog * IntensityFunctionLog::clone() const\n"
-		"\n"
-		""},
-	 { "IntensityFunctionLog_evaluate", _wrap_IntensityFunctionLog_evaluate, METH_VARARGS, "\n"
-		"IntensityFunctionLog_evaluate(IntensityFunctionLog self, double value) -> double\n"
-		"double IntensityFunctionLog::evaluate(double value) const\n"
-		"\n"
-		""},
-	 { "new_IntensityFunctionLog", _wrap_new_IntensityFunctionLog, METH_NOARGS, "\n"
-		"new_IntensityFunctionLog() -> IntensityFunctionLog\n"
-		"\n"
-		"\n"
-		"Algorithm for applying log function to the measured intensity.\n"
-		"\n"
-		"C++ includes: IIntensityFunction.h\n"
-		"\n"
-		""},
-	 { "delete_IntensityFunctionLog", _wrap_delete_IntensityFunctionLog, METH_O, "delete_IntensityFunctionLog(IntensityFunctionLog self)"},
-	 { "IntensityFunctionLog_swigregister", IntensityFunctionLog_swigregister, METH_O, NULL},
-	 { "IntensityFunctionLog_swiginit", IntensityFunctionLog_swiginit, METH_VARARGS, NULL},
-	 { "IntensityFunctionSqrt_clone", _wrap_IntensityFunctionSqrt_clone, METH_O, "\n"
-		"IntensityFunctionSqrt_clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt\n"
-		"IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const\n"
-		"\n"
-		""},
-	 { "IntensityFunctionSqrt_evaluate", _wrap_IntensityFunctionSqrt_evaluate, METH_VARARGS, "\n"
-		"IntensityFunctionSqrt_evaluate(IntensityFunctionSqrt self, double value) -> double\n"
-		"double IntensityFunctionSqrt::evaluate(double value) const\n"
-		"\n"
-		""},
-	 { "new_IntensityFunctionSqrt", _wrap_new_IntensityFunctionSqrt, METH_NOARGS, "\n"
-		"new_IntensityFunctionSqrt() -> IntensityFunctionSqrt\n"
-		"\n"
-		"\n"
-		"Algorithm for applying sqrt function to the measured intensity.\n"
-		"\n"
-		"C++ includes: IIntensityFunction.h\n"
-		"\n"
-		""},
-	 { "delete_IntensityFunctionSqrt", _wrap_delete_IntensityFunctionSqrt, METH_O, "delete_IntensityFunctionSqrt(IntensityFunctionSqrt self)"},
-	 { "IntensityFunctionSqrt_swigregister", IntensityFunctionSqrt_swigregister, METH_O, NULL},
-	 { "IntensityFunctionSqrt_swiginit", IntensityFunctionSqrt_swiginit, METH_VARARGS, NULL},
 	 { "IShape2D_clone", _wrap_IShape2D_clone, METH_O, "\n"
 		"IShape2D_clone(IShape2D self) -> IShape2D\n"
 		"virtual IShape2D* IShape2D::clone() const =0\n"
@@ -46390,200 +45279,6 @@ static PyMethodDef SwigMethods[] = {
 		"ScanResolution_scanAbsoluteResolution(IRangedDistribution const & distr, vdouble1d_t stddevs) -> ScanResolution\n"
 		""},
 	 { "ScanResolution_swigregister", ScanResolution_swigregister, METH_O, NULL},
-	 { "delete_IChiSquaredModule", _wrap_delete_IChiSquaredModule, METH_O, "\n"
-		"delete_IChiSquaredModule(IChiSquaredModule self)\n"
-		"IChiSquaredModule::~IChiSquaredModule()\n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_clone", _wrap_IChiSquaredModule_clone, METH_O, "\n"
-		"IChiSquaredModule_clone(IChiSquaredModule self) -> IChiSquaredModule\n"
-		"virtual IChiSquaredModule* IChiSquaredModule::clone() const =0\n"
-		"\n"
-		"clone method \n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_varianceFunction", _wrap_IChiSquaredModule_varianceFunction, METH_O, "\n"
-		"IChiSquaredModule_varianceFunction(IChiSquaredModule self) -> IVarianceFunction\n"
-		"const IVarianceFunction * IChiSquaredModule::varianceFunction() const\n"
-		"\n"
-		"Returns squared function. \n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_setVarianceFunction", _wrap_IChiSquaredModule_setVarianceFunction, METH_VARARGS, "\n"
-		"IChiSquaredModule_setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)\n"
-		"void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)\n"
-		"\n"
-		"Sets squared function. \n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_getIntensityFunction", _wrap_IChiSquaredModule_getIntensityFunction, METH_O, "\n"
-		"IChiSquaredModule_getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction\n"
-		"const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const\n"
-		"\n"
-		"Returns data rescaler. \n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_setIntensityFunction", _wrap_IChiSquaredModule_setIntensityFunction, METH_VARARGS, "\n"
-		"IChiSquaredModule_setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)\n"
-		"void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)\n"
-		"\n"
-		"Sets data rescaler. \n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_residual", _wrap_IChiSquaredModule_residual, METH_VARARGS, "\n"
-		"IChiSquaredModule_residual(IChiSquaredModule self, double a, double b, double weight) -> double\n"
-		"virtual double IChiSquaredModule::residual(double a, double b, double weight)=0\n"
-		"\n"
-		""},
-	 { "IChiSquaredModule_swigregister", IChiSquaredModule_swigregister, METH_O, NULL},
-	 { "new_ChiSquaredModule", _wrap_new_ChiSquaredModule, METH_VARARGS, "\n"
-		"ChiSquaredModule()\n"
-		"new_ChiSquaredModule(ChiSquaredModule other) -> ChiSquaredModule\n"
-		"ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)\n"
-		"\n"
-		""},
-	 { "delete_ChiSquaredModule", _wrap_delete_ChiSquaredModule, METH_O, "\n"
-		"delete_ChiSquaredModule(ChiSquaredModule self)\n"
-		"virtual ChiSquaredModule::~ChiSquaredModule()\n"
-		"\n"
-		""},
-	 { "ChiSquaredModule_clone", _wrap_ChiSquaredModule_clone, METH_O, "\n"
-		"ChiSquaredModule_clone(ChiSquaredModule self) -> ChiSquaredModule\n"
-		"virtual ChiSquaredModule* ChiSquaredModule::clone() const\n"
-		"\n"
-		"clone method \n"
-		"\n"
-		""},
-	 { "ChiSquaredModule_residual", _wrap_ChiSquaredModule_residual, METH_VARARGS, "\n"
-		"ChiSquaredModule_residual(ChiSquaredModule self, double a, double b, double weight) -> double\n"
-		"double ChiSquaredModule::residual(double a, double b, double weight)\n"
-		"\n"
-		""},
-	 { "ChiSquaredModule_swigregister", ChiSquaredModule_swigregister, METH_O, NULL},
-	 { "ChiSquaredModule_swiginit", ChiSquaredModule_swiginit, METH_VARARGS, NULL},
-	 { "RelativeDifference", _wrap_RelativeDifference, METH_VARARGS, "\n"
-		"RelativeDifference(SimulationResult dat, SimulationResult ref) -> double\n"
-		"double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)\n"
-		"\n"
-		"Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )\n"
-		"\n"
-		"Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) \n"
-		"\n"
-		""},
-	 { "checkRelativeDifference", _wrap_checkRelativeDifference, METH_VARARGS, "\n"
-		"checkRelativeDifference(IntensityData dat, IntensityData ref, double const threshold) -> bool\n"
-		"bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)\n"
-		"\n"
-		"Returns true is relative difference is below threshold; prints informative output. \n"
-		"\n"
-		""},
-	 { "getRelativeDifference", _wrap_getRelativeDifference, METH_VARARGS, "\n"
-		"getRelativeDifference(IntensityData dat, IntensityData ref) -> double\n"
-		"getRelativeDifference(IHistogram dat, IHistogram ref) -> double\n"
-		"double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)\n"
-		"\n"
-		""},
-	 { "coordinateToBinf", _wrap_coordinateToBinf, METH_VARARGS, "\n"
-		"coordinateToBinf(double coordinate, IAxis axis) -> double\n"
-		"coordinateToBinf(double & x, double & y, IntensityData data)\n"
-		"void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)\n"
-		"\n"
-		"Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. \n"
-		"\n"
-		""},
-	 { "coordinateFromBinf", _wrap_coordinateFromBinf, METH_VARARGS, "\n"
-		"coordinateFromBinf(double value, IAxis axis) -> double\n"
-		"coordinateFromBinf(double & x, double & y, IntensityData data)\n"
-		"void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)\n"
-		"\n"
-		"Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. \n"
-		"\n"
-		""},
-	 { "create2DArrayfromOutputData", _wrap_create2DArrayfromOutputData, METH_O, "\n"
-		"create2DArrayfromOutputData(IntensityData data) -> vdouble2d_t\n"
-		"std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)\n"
-		"\n"
-		"Creates a vector of vectors of double (2D Array) from  OutputData. \n"
-		"\n"
-		""},
-	 { "FT2DArray", _wrap_FT2DArray, METH_O, "\n"
-		"FT2DArray(vdouble2d_t signal) -> vdouble2d_t\n"
-		"std::vector< std::vector< double > > IntensityDataFunctions::FT2DArray(const std::vector< std::vector< double >> &signal)\n"
-		"\n"
-		"Creates a Fourier Transform of a 2D Array (vector of vectors). \n"
-		"\n"
-		""},
-	 { "importArrayToOutputData", _wrap_importArrayToOutputData, METH_VARARGS, "\n"
-		"importArrayToOutputData(vdouble1d_t vec) -> IntensityData\n"
-		"importArrayToOutputData(vdouble2d_t vec) -> IntensityData\n"
-		"OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)\n"
-		"\n"
-		"for importing 2D array of doubles from python into  OutputData\n"
-		"\n"
-		""},
-	 { "FindPeaks", _wrap_FindPeaks, METH_VARARGS, "\n"
-		"FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t\n"
-		"std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)\n"
-		"\n"
-		"Returns vector of peak center coordinates, for peaks in given histogram. \n"
-		"\n"
-		""},
-	 { "delete_IVarianceFunction", _wrap_delete_IVarianceFunction, METH_O, "\n"
-		"delete_IVarianceFunction(IVarianceFunction self)\n"
-		"virtual IVarianceFunction::~IVarianceFunction()=default\n"
-		"\n"
-		""},
-	 { "IVarianceFunction_clone", _wrap_IVarianceFunction_clone, METH_O, "\n"
-		"IVarianceFunction_clone(IVarianceFunction self) -> IVarianceFunction\n"
-		"virtual IVarianceFunction* IVarianceFunction::clone() const =0\n"
-		"\n"
-		""},
-	 { "IVarianceFunction_variance", _wrap_IVarianceFunction_variance, METH_VARARGS, "\n"
-		"IVarianceFunction_variance(IVarianceFunction self, double real_value, double simulated_value) -> double\n"
-		"virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0\n"
-		"\n"
-		""},
-	 { "IVarianceFunction_swigregister", IVarianceFunction_swigregister, METH_O, NULL},
-	 { "VarianceConstantFunction_clone", _wrap_VarianceConstantFunction_clone, METH_O, "\n"
-		"VarianceConstantFunction_clone(VarianceConstantFunction self) -> VarianceConstantFunction\n"
-		"VarianceConstantFunction * VarianceConstantFunction::clone() const override\n"
-		"\n"
-		""},
-	 { "VarianceConstantFunction_variance", _wrap_VarianceConstantFunction_variance, METH_VARARGS, "\n"
-		"VarianceConstantFunction_variance(VarianceConstantFunction self, double arg2, double arg3) -> double\n"
-		"double VarianceConstantFunction::variance(double, double) const override\n"
-		"\n"
-		""},
-	 { "new_VarianceConstantFunction", _wrap_new_VarianceConstantFunction, METH_NOARGS, "\n"
-		"new_VarianceConstantFunction() -> VarianceConstantFunction\n"
-		"\n"
-		"\n"
-		"Returns 1.0 as variance value\n"
-		"\n"
-		"C++ includes: VarianceFunctions.h\n"
-		"\n"
-		""},
-	 { "delete_VarianceConstantFunction", _wrap_delete_VarianceConstantFunction, METH_O, "delete_VarianceConstantFunction(VarianceConstantFunction self)"},
-	 { "VarianceConstantFunction_swigregister", VarianceConstantFunction_swigregister, METH_O, NULL},
-	 { "VarianceConstantFunction_swiginit", VarianceConstantFunction_swiginit, METH_VARARGS, NULL},
-	 { "new_VarianceSimFunction", _wrap_new_VarianceSimFunction, METH_VARARGS, "\n"
-		"VarianceSimFunction(double epsilon=1.0)\n"
-		"VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)\n"
-		"\n"
-		""},
-	 { "VarianceSimFunction_clone", _wrap_VarianceSimFunction_clone, METH_O, "\n"
-		"VarianceSimFunction_clone(VarianceSimFunction self) -> VarianceSimFunction\n"
-		"VarianceSimFunction * VarianceSimFunction::clone() const override\n"
-		"\n"
-		""},
-	 { "VarianceSimFunction_variance", _wrap_VarianceSimFunction_variance, METH_VARARGS, "\n"
-		"VarianceSimFunction_variance(VarianceSimFunction self, double exp, double sim) -> double\n"
-		"double VarianceSimFunction::variance(double exp, double sim) const override\n"
-		"\n"
-		""},
-	 { "delete_VarianceSimFunction", _wrap_delete_VarianceSimFunction, METH_O, "delete_VarianceSimFunction(VarianceSimFunction self)"},
-	 { "VarianceSimFunction_swigregister", VarianceSimFunction_swigregister, METH_O, NULL},
-	 { "VarianceSimFunction_swiginit", VarianceSimFunction_swiginit, METH_VARARGS, NULL},
 	 { "new_Axes", _wrap_new_Axes, METH_NOARGS, "\n"
 		"new_Axes() -> Axes\n"
 		"\n"
@@ -47125,6 +45820,27 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_IsGISAXSDetector", _wrap_delete_IsGISAXSDetector, METH_O, "delete_IsGISAXSDetector(IsGISAXSDetector self)"},
 	 { "IsGISAXSDetector_swigregister", IsGISAXSDetector_swigregister, METH_O, NULL},
 	 { "IsGISAXSDetector_swiginit", IsGISAXSDetector_swiginit, METH_VARARGS, NULL},
+	 { "FindPeaks", _wrap_FindPeaks, METH_VARARGS, "\n"
+		"FindPeaks(Histogram2D hist, double sigma=2, std::string const & option={}, double threshold=0.05) -> vector_pvacuum_double_t\n"
+		"std::vector< std::pair< double, double > > HistoUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)\n"
+		"\n"
+		"Returns vector of peak center coordinates, for peaks in given histogram. \n"
+		"\n"
+		""},
+	 { "RelativeDifference", _wrap_RelativeDifference, METH_VARARGS, "\n"
+		"RelativeDifference(SimulationResult dat, SimulationResult ref) -> double\n"
+		"double HistoUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)\n"
+		"\n"
+		"Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )\n"
+		"\n"
+		"Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) \n"
+		"\n"
+		""},
+	 { "getRelativeDifference", _wrap_getRelativeDifference, METH_VARARGS, "\n"
+		"getRelativeDifference(IHistogram dat, IHistogram ref) -> double\n"
+		"double HistoUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)\n"
+		"\n"
+		""},
 	 { "delete_IHistogram", _wrap_delete_IHistogram, METH_O, "\n"
 		"delete_IHistogram(IHistogram self)\n"
 		"virtual IHistogram::~IHistogram()=default\n"
@@ -47693,131 +46409,14 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static void *_p_ChiSquaredModuleTo_p_IChiSquaredModule(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IChiSquaredModule *)  ((ChiSquaredModule *) x));
+static void *_p_RectangularDetectorTo_p_IDetector2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IDetector2D *)  ((RectangularDetector *) x));
 }
-static void *_p_Histogram2DTo_p_IHistogram(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IHistogram *)  ((Histogram2D *) x));
+static void *_p_SphericalDetectorTo_p_IDetector2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IDetector2D *)  ((SphericalDetector *) x));
 }
-static void *_p_Histogram1DTo_p_IHistogram(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IHistogram *)  ((Histogram1D *) x));
-}
-static void *_p_FootprintGaussTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IFootprintFactor *) ((FootprintGauss *) x));
-}
-static void *_p_IDetectorResolutionTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((IDetectorResolution *) x));
-}
-static void *_p_ScanResolutionTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((ScanResolution *) x));
-}
-static void *_p_IDetector2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IDetector *) ((IDetector2D *) x));
-}
-static void *_p_RectangleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IShape2D *) ((Rectangle *) x));
-}
-static void *_p_ResolutionFunction2DGaussianTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IResolutionFunction2D *) ((ResolutionFunction2DGaussian *) x));
-}
-static void *_p_IFootprintFactorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((IFootprintFactor *) x));
-}
-static void *_p_IShape2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((IShape2D *) x));
-}
-static void *_p_ParameterPoolTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((ParameterPool *) x));
-}
-static void *_p_EllipseTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IShape2D *) ((Ellipse *) x));
-}
-static void *_p_HorizontalLineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IShape2D *) ((HorizontalLine *) x));
-}
-static void *_p_VerticalLineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IShape2D *) ((VerticalLine *) x));
-}
-static void *_p_IChiSquaredModuleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((IChiSquaredModule *) x));
-}
-static void *_p_ChiSquaredModuleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IChiSquaredModule *) ((ChiSquaredModule *) x));
-}
-static void *_p_IDetectorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((IDetector *) x));
-}
-static void *_p_RectangularDetectorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IDetector *)(IDetector2D *) ((RectangularDetector *) x));
-}
-static void *_p_SphericalDetectorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IDetector *)(IDetector2D *) ((SphericalDetector *) x));
-}
-static void *_p_IsGISAXSDetectorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
-}
-static void *_p_PolygonTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IShape2D *) ((Polygon *) x));
-}
-static void *_p_FootprintSquareTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IFootprintFactor *) ((FootprintSquare *) x));
-}
-static void *_p_IUnitConverterTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((IUnitConverter *) x));
-}
-static void *_p_IResolutionFunction2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *)  ((IResolutionFunction2D *) x));
-}
-static void *_p_LineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((ICloneable *) (IShape2D *) ((Line *) x));
-}
-static void *_p_FootprintSquareTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (IFootprintFactor *) ((FootprintSquare *) x));
-}
-static void *_p_IDetectorResolutionTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *)  ((IDetectorResolution *) x));
-}
-static void *_p_IFootprintFactorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *)  ((IFootprintFactor *) x));
-}
-static void *_p_BeamTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *)  ((Beam *) x));
-}
-static void *_p_IResolutionFunction2DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *)  ((IResolutionFunction2D *) x));
-}
-static void *_p_ResolutionFunction2DGaussianTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (IResolutionFunction2D *) ((ResolutionFunction2DGaussian *) x));
-}
-static void *_p_IDetectorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *)  ((IDetector *) x));
-}
-static void *_p_RectangularDetectorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (IDetector *)(IDetector2D *) ((RectangularDetector *) x));
-}
-static void *_p_SphericalDetectorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (IDetector *)(IDetector2D *) ((SphericalDetector *) x));
-}
-static void *_p_IsGISAXSDetectorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
-}
-static void *_p_FootprintGaussTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (IFootprintFactor *) ((FootprintGauss *) x));
-}
-static void *_p_IDetector2DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((INode *) (IDetector *) ((IDetector2D *) x));
-}
-static void *_p_IntensityFunctionSqrtTo_p_IIntensityFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IIntensityFunction *)  ((IntensityFunctionSqrt *) x));
-}
-static void *_p_IntensityFunctionLogTo_p_IIntensityFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IIntensityFunction *)  ((IntensityFunctionLog *) x));
-}
-static void *_p_VarianceConstantFunctionTo_p_IVarianceFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IVarianceFunction *)  ((VarianceConstantFunction *) x));
-}
-static void *_p_VarianceSimFunctionTo_p_IVarianceFunction(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IVarianceFunction *)  ((VarianceSimFunction *) x));
+static void *_p_IsGISAXSDetectorTo_p_IDetector2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IDetector2D *) (SphericalDetector *) ((IsGISAXSDetector *) x));
 }
 static void *_p_IsGISAXSDetectorTo_p_SphericalDetector(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((SphericalDetector *)  ((IsGISAXSDetector *) x));
@@ -47851,48 +46450,6 @@ static void *_p_HorizontalLineTo_p_IShape2D(void *x, int *SWIGUNUSEDPARM(newmemo
 }
 static void *_p_RectangleTo_p_IShape2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IShape2D *)  ((Rectangle *) x));
-}
-static void *_p_FootprintGaussTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *)(IFootprintFactor *) ((FootprintGauss *) x));
-}
-static void *_p_IDetectorResolutionTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *) ((IDetectorResolution *) x));
-}
-static void *_p_IDetector2DTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *)(IDetector *) ((IDetector2D *) x));
-}
-static void *_p_INodeTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *)  ((INode *) x));
-}
-static void *_p_ResolutionFunction2DGaussianTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *)(IResolutionFunction2D *) ((ResolutionFunction2DGaussian *) x));
-}
-static void *_p_IFootprintFactorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *) ((IFootprintFactor *) x));
-}
-static void *_p_BeamTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *) ((Beam *) x));
-}
-static void *_p_IsGISAXSDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
-}
-static void *_p_SphericalDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *) ((SphericalDetector *) x));
-}
-static void *_p_RectangularDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *) ((RectangularDetector *) x));
-}
-static void *_p_IDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *) ((IDetector *) x));
-}
-static void *_p_ParameterDistributionTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *)  ((ParameterDistribution *) x));
-}
-static void *_p_FootprintSquareTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *)(IFootprintFactor *) ((FootprintSquare *) x));
-}
-static void *_p_IResolutionFunction2DTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IParametricComponent *) (INode *) ((IResolutionFunction2D *) x));
 }
 static void *_p_FootprintGaussTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IComponent *) (IParametricComponent *)(INode *)(IFootprintFactor *) ((FootprintGauss *) x));
@@ -47939,14 +46496,47 @@ static void *_p_FootprintSquareTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newm
 static void *_p_IResolutionFunction2DTo_p_IComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IComponent *) (IParametricComponent *)(INode *) ((IResolutionFunction2D *) x));
 }
-static void *_p_RectangularDetectorTo_p_IDetector2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IDetector2D *)  ((RectangularDetector *) x));
+static void *_p_FootprintGaussTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IFootprintFactor *) ((FootprintGauss *) x));
 }
-static void *_p_SphericalDetectorTo_p_IDetector2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IDetector2D *)  ((SphericalDetector *) x));
+static void *_p_IDetectorResolutionTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((IDetectorResolution *) x));
 }
-static void *_p_IsGISAXSDetectorTo_p_IDetector2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
-    return (void *)((IDetector2D *) (SphericalDetector *) ((IsGISAXSDetector *) x));
+static void *_p_IDetector2DTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IDetector *) ((IDetector2D *) x));
+}
+static void *_p_INodeTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *)  ((INode *) x));
+}
+static void *_p_ResolutionFunction2DGaussianTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IResolutionFunction2D *) ((ResolutionFunction2DGaussian *) x));
+}
+static void *_p_IFootprintFactorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((IFootprintFactor *) x));
+}
+static void *_p_BeamTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((Beam *) x));
+}
+static void *_p_IsGISAXSDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
+}
+static void *_p_SphericalDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *) ((SphericalDetector *) x));
+}
+static void *_p_RectangularDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IDetector *)(IDetector2D *) ((RectangularDetector *) x));
+}
+static void *_p_IDetectorTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((IDetector *) x));
+}
+static void *_p_ParameterDistributionTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *)  ((ParameterDistribution *) x));
+}
+static void *_p_FootprintSquareTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *)(IFootprintFactor *) ((FootprintSquare *) x));
+}
+static void *_p_IResolutionFunction2DTo_p_IParametricComponent(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IParametricComponent *) (INode *) ((IResolutionFunction2D *) x));
 }
 static void *_p_FootprintSquareTo_p_IFootprintFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IFootprintFactor *)  ((FootprintSquare *) x));
@@ -47954,8 +46544,113 @@ static void *_p_FootprintSquareTo_p_IFootprintFactor(void *x, int *SWIGUNUSEDPAR
 static void *_p_FootprintGaussTo_p_IFootprintFactor(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IFootprintFactor *)  ((FootprintGauss *) x));
 }
+static void *_p_Histogram2DTo_p_IHistogram(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IHistogram *)  ((Histogram2D *) x));
+}
+static void *_p_Histogram1DTo_p_IHistogram(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((IHistogram *)  ((Histogram1D *) x));
+}
+static void *_p_FootprintSquareTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IFootprintFactor *) ((FootprintSquare *) x));
+}
+static void *_p_IDetectorResolutionTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *)  ((IDetectorResolution *) x));
+}
+static void *_p_IFootprintFactorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *)  ((IFootprintFactor *) x));
+}
+static void *_p_BeamTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *)  ((Beam *) x));
+}
+static void *_p_IResolutionFunction2DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *)  ((IResolutionFunction2D *) x));
+}
+static void *_p_ResolutionFunction2DGaussianTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IResolutionFunction2D *) ((ResolutionFunction2DGaussian *) x));
+}
+static void *_p_IDetectorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *)  ((IDetector *) x));
+}
+static void *_p_RectangularDetectorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IDetector *)(IDetector2D *) ((RectangularDetector *) x));
+}
+static void *_p_SphericalDetectorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IDetector *)(IDetector2D *) ((SphericalDetector *) x));
+}
+static void *_p_IsGISAXSDetectorTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
+}
+static void *_p_FootprintGaussTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IFootprintFactor *) ((FootprintGauss *) x));
+}
+static void *_p_IDetector2DTo_p_INode(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((INode *) (IDetector *) ((IDetector2D *) x));
+}
 static void *_p_ResolutionFunction2DGaussianTo_p_IResolutionFunction2D(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((IResolutionFunction2D *)  ((ResolutionFunction2DGaussian *) x));
+}
+static void *_p_FootprintGaussTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IFootprintFactor *) ((FootprintGauss *) x));
+}
+static void *_p_IDetectorResolutionTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((IDetectorResolution *) x));
+}
+static void *_p_ScanResolutionTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((ScanResolution *) x));
+}
+static void *_p_IDetector2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IDetector *) ((IDetector2D *) x));
+}
+static void *_p_RectangleTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IShape2D *) ((Rectangle *) x));
+}
+static void *_p_ResolutionFunction2DGaussianTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IResolutionFunction2D *) ((ResolutionFunction2DGaussian *) x));
+}
+static void *_p_IFootprintFactorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((IFootprintFactor *) x));
+}
+static void *_p_IShape2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((IShape2D *) x));
+}
+static void *_p_ParameterPoolTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((ParameterPool *) x));
+}
+static void *_p_EllipseTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IShape2D *) ((Ellipse *) x));
+}
+static void *_p_HorizontalLineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IShape2D *) ((HorizontalLine *) x));
+}
+static void *_p_VerticalLineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IShape2D *) ((VerticalLine *) x));
+}
+static void *_p_IDetectorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((IDetector *) x));
+}
+static void *_p_RectangularDetectorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IDetector *)(IDetector2D *) ((RectangularDetector *) x));
+}
+static void *_p_SphericalDetectorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IDetector *)(IDetector2D *) ((SphericalDetector *) x));
+}
+static void *_p_IsGISAXSDetectorTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IDetector *)(IDetector2D *)(SphericalDetector *) ((IsGISAXSDetector *) x));
+}
+static void *_p_PolygonTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IShape2D *) ((Polygon *) x));
+}
+static void *_p_FootprintSquareTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IFootprintFactor *) ((FootprintSquare *) x));
+}
+static void *_p_IUnitConverterTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((IUnitConverter *) x));
+}
+static void *_p_IResolutionFunction2DTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *)  ((IResolutionFunction2D *) x));
+}
+static void *_p_LineTo_p_ICloneable(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ICloneable *) (IShape2D *) ((Line *) x));
 }
 static swig_type_info _swigt__p_Axes = {"_p_Axes", "Axes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_AxisInfo = {"_p_AxisInfo", "AxisInfo *", 0, 0, (void*)0, 0};
@@ -47964,7 +46659,6 @@ static swig_type_info _swigt__p_BasicVector3DT_int_t = {"_p_BasicVector3DT_int_t
 static swig_type_info _swigt__p_BasicVector3DT_std__complexT_double_t_t = {"_p_BasicVector3DT_std__complexT_double_t_t", "BasicVector3D< std::complex< double > > *|std::vector< BasicVector3D< std::complex< double > > >::value_type *|cvector_t *|BasicVector3D< complex_t > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Beam = {"_p_Beam", "Beam *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Bin1D = {"_p_Bin1D", "Bin1D *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_ChiSquaredModule = {"_p_ChiSquaredModule", "ChiSquaredModule *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_DetectionProperties = {"_p_DetectionProperties", "DetectionProperties *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_DetectorMask = {"_p_DetectorMask", "DetectorMask *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Direction = {"_p_Direction", "Direction *", 0, 0, (void*)0, 0};
@@ -47975,7 +46669,6 @@ static swig_type_info _swigt__p_Histogram1D = {"_p_Histogram1D", "Histogram1D *"
 static swig_type_info _swigt__p_Histogram2D = {"_p_Histogram2D", "Histogram2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_HorizontalLine = {"_p_HorizontalLine", "HorizontalLine *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IAxis = {"_p_IAxis", "IAxis *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IChiSquaredModule = {"_p_IChiSquaredModule", "IChiSquaredModule *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ICloneable = {"_p_ICloneable", "ICloneable *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ParameterPool = {"_p_ParameterPool", 0, 0, 0, 0, 0};
 static swig_type_info _swigt__p_IComponent = {"_p_IComponent", "IComponent *", 0, 0, (void*)0, 0};
@@ -47985,7 +46678,6 @@ static swig_type_info _swigt__p_IDetector2D = {"_p_IDetector2D", "IDetector2D *"
 static swig_type_info _swigt__p_IDetectorResolution = {"_p_IDetectorResolution", "IDetectorResolution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IFootprintFactor = {"_p_IFootprintFactor", "IFootprintFactor *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IHistogram = {"_p_IHistogram", "IHistogram *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IIntensityFunction = {"_p_IIntensityFunction", "IIntensityFunction *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INode = {"_p_INode", "INode *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_INodeVisitor = {"_p_INodeVisitor", "INodeVisitor *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IParametricComponent = {"_p_IParametricComponent", "IParametricComponent *", 0, 0, (void*)0, 0};
@@ -47994,10 +46686,7 @@ static swig_type_info _swigt__p_IRangedDistribution = {"_p_IRangedDistribution",
 static swig_type_info _swigt__p_IResolutionFunction2D = {"_p_IResolutionFunction2D", "IResolutionFunction2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IShape2D = {"_p_IShape2D", "IShape2D *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IUnitConverter = {"_p_IUnitConverter", "IUnitConverter *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IVarianceFunction = {"_p_IVarianceFunction", "IVarianceFunction *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IntensityDataIOFactory = {"_p_IntensityDataIOFactory", "IntensityDataIOFactory *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IntensityFunctionLog = {"_p_IntensityFunctionLog", "IntensityFunctionLog *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_IntensityFunctionSqrt = {"_p_IntensityFunctionSqrt", "IntensityFunctionSqrt *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IsGISAXSDetector = {"_p_IsGISAXSDetector", "IsGISAXSDetector *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Line = {"_p_Line", "Line *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_OutputDataIteratorT_double_OutputDataT_double_t_t = {"_p_OutputDataIteratorT_double_OutputDataT_double_t_t", "OutputData< double >::iterator *|OutputDataIterator< double,OutputData< double > > *", 0, 0, (void*)0, 0};
@@ -48015,8 +46704,6 @@ static swig_type_info _swigt__p_ResolutionFunction2DGaussian = {"_p_ResolutionFu
 static swig_type_info _swigt__p_ScanResolution = {"_p_ScanResolution", "ScanResolution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SimulationResult = {"_p_SimulationResult", "SimulationResult *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SphericalDetector = {"_p_SphericalDetector", "SphericalDetector *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_VarianceConstantFunction = {"_p_VarianceConstantFunction", "VarianceConstantFunction *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_VarianceSimFunction = {"_p_VarianceSimFunction", "VarianceSimFunction *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_VerticalLine = {"_p_VerticalLine", "VerticalLine *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_bool = {"_p_bool", "bool *", 0, 0, (void*)0, 0};
@@ -48086,7 +46773,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_BasicVector3DT_std__complexT_double_t_t,
   &_swigt__p_Beam,
   &_swigt__p_Bin1D,
-  &_swigt__p_ChiSquaredModule,
   &_swigt__p_DetectionProperties,
   &_swigt__p_DetectorMask,
   &_swigt__p_Direction,
@@ -48097,7 +46783,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Histogram2D,
   &_swigt__p_HorizontalLine,
   &_swigt__p_IAxis,
-  &_swigt__p_IChiSquaredModule,
   &_swigt__p_ICloneable,
   &_swigt__p_IComponent,
   &_swigt__p_IDetector,
@@ -48105,7 +46790,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IDetectorResolution,
   &_swigt__p_IFootprintFactor,
   &_swigt__p_IHistogram,
-  &_swigt__p_IIntensityFunction,
   &_swigt__p_INode,
   &_swigt__p_INodeVisitor,
   &_swigt__p_IParametricComponent,
@@ -48114,10 +46798,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_IResolutionFunction2D,
   &_swigt__p_IShape2D,
   &_swigt__p_IUnitConverter,
-  &_swigt__p_IVarianceFunction,
   &_swigt__p_IntensityDataIOFactory,
-  &_swigt__p_IntensityFunctionLog,
-  &_swigt__p_IntensityFunctionSqrt,
   &_swigt__p_IsGISAXSDetector,
   &_swigt__p_Line,
   &_swigt__p_OutputDataIteratorT_double_OutputDataT_double_t_t,
@@ -48137,8 +46818,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ScanResolution,
   &_swigt__p_SimulationResult,
   &_swigt__p_SphericalDetector,
-  &_swigt__p_VarianceConstantFunction,
-  &_swigt__p_VarianceSimFunction,
   &_swigt__p_VerticalLine,
   &_swigt__p_allocator_type,
   &_swigt__p_bool,
@@ -48208,7 +46887,6 @@ static swig_cast_info _swigc__p_BasicVector3DT_int_t[] = {  {&_swigt__p_BasicVec
 static swig_cast_info _swigc__p_BasicVector3DT_std__complexT_double_t_t[] = {  {&_swigt__p_BasicVector3DT_std__complexT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Beam[] = {  {&_swigt__p_Beam, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Bin1D[] = {  {&_swigt__p_Bin1D, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ChiSquaredModule[] = {  {&_swigt__p_ChiSquaredModule, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_DetectionProperties[] = {  {&_swigt__p_DetectionProperties, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_DetectorMask[] = {  {&_swigt__p_DetectorMask, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Direction[] = {  {&_swigt__p_Direction, 0, 0, 0},{0, 0, 0, 0}};
@@ -48219,9 +46897,8 @@ static swig_cast_info _swigc__p_Histogram1D[] = {  {&_swigt__p_Histogram1D, 0, 0
 static swig_cast_info _swigc__p_Histogram2D[] = {  {&_swigt__p_Histogram2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_HorizontalLine[] = {  {&_swigt__p_HorizontalLine, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IAxis[] = {  {&_swigt__p_IAxis, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IChiSquaredModule[] = {  {&_swigt__p_IChiSquaredModule, 0, 0, 0},  {&_swigt__p_ChiSquaredModule, _p_ChiSquaredModuleTo_p_IChiSquaredModule, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParameterPool[] = {{&_swigt__p_ParameterPool, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_ICloneable, 0, 0},  {&_swigt__p_ScanResolution, _p_ScanResolutionTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_ICloneable, 0, 0},  {&_swigt__p_Line, _p_LineTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_Rectangle, _p_RectangleTo_p_ICloneable, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_IShape2D, _p_IShape2DTo_p_ICloneable, 0, 0},  {&_swigt__p_Ellipse, _p_EllipseTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_HorizontalLine, _p_HorizontalLineTo_p_ICloneable, 0, 0},  {&_swigt__p_VerticalLine, _p_VerticalLineTo_p_ICloneable, 0, 0},  {&_swigt__p_IChiSquaredModule, _p_IChiSquaredModuleTo_p_ICloneable, 0, 0},  {&_swigt__p_ChiSquaredModule, _p_ChiSquaredModuleTo_p_ICloneable, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_ICloneable, 0, 0},  {&_swigt__p_Polygon, _p_PolygonTo_p_ICloneable, 0, 0},  {&_swigt__p_IUnitConverter, _p_IUnitConverterTo_p_ICloneable, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ICloneable[] = {  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_ICloneable, 0, 0},  {&_swigt__p_ScanResolution, _p_ScanResolutionTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_ICloneable, 0, 0},  {&_swigt__p_Line, _p_LineTo_p_ICloneable, 0, 0},  {&_swigt__p_ICloneable, 0, 0, 0},  {&_swigt__p_Rectangle, _p_RectangleTo_p_ICloneable, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_ICloneable, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_ICloneable, 0, 0},  {&_swigt__p_IShape2D, _p_IShape2DTo_p_ICloneable, 0, 0},  {&_swigt__p_Ellipse, _p_EllipseTo_p_ICloneable, 0, 0},  {&_swigt__p_ParameterPool, _p_ParameterPoolTo_p_ICloneable, 0, 0},  {&_swigt__p_HorizontalLine, _p_HorizontalLineTo_p_ICloneable, 0, 0},  {&_swigt__p_VerticalLine, _p_VerticalLineTo_p_ICloneable, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_ICloneable, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_ICloneable, 0, 0},  {&_swigt__p_Polygon, _p_PolygonTo_p_ICloneable, 0, 0},  {&_swigt__p_IUnitConverter, _p_IUnitConverterTo_p_ICloneable, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_ICloneable, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ParameterDistribution[] = {{&_swigt__p_ParameterDistribution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IComponent[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IComponent, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IComponent, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IComponent, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IComponent, 0, 0},  {&_swigt__p_IParametricComponent, _p_IParametricComponentTo_p_IComponent, 0, 0},  {&_swigt__p_IComponent, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IComponent, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IComponent, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IComponent, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IComponent, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IComponent, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IDetector[] = {  {&_swigt__p_IDetector, 0, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IDetector, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IDetector, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IDetector, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IDetector, 0, 0},{0, 0, 0, 0}};
@@ -48229,7 +46906,6 @@ static swig_cast_info _swigc__p_IDetector2D[] = {  {&_swigt__p_RectangularDetect
 static swig_cast_info _swigc__p_IDetectorResolution[] = {  {&_swigt__p_IDetectorResolution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IFootprintFactor[] = {  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IFootprintFactor, 0, 0},  {&_swigt__p_IFootprintFactor, 0, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IFootprintFactor, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IHistogram[] = {  {&_swigt__p_IHistogram, 0, 0, 0},  {&_swigt__p_Histogram2D, _p_Histogram2DTo_p_IHistogram, 0, 0},  {&_swigt__p_Histogram1D, _p_Histogram1DTo_p_IHistogram, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IIntensityFunction[] = {  {&_swigt__p_IntensityFunctionSqrt, _p_IntensityFunctionSqrtTo_p_IIntensityFunction, 0, 0},  {&_swigt__p_IIntensityFunction, 0, 0, 0},  {&_swigt__p_IntensityFunctionLog, _p_IntensityFunctionLogTo_p_IIntensityFunction, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INode[] = {  {&_swigt__p_INode, 0, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_INode, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_INode, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_INode, 0, 0},  {&_swigt__p_Beam, _p_BeamTo_p_INode, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_INode, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_INode, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_INode, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_INode, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_INode, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_INode, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_INode, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_INode, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_INodeVisitor[] = {  {&_swigt__p_INodeVisitor, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IParametricComponent[] = {  {&_swigt__p_Beam, _p_BeamTo_p_IParametricComponent, 0, 0},  {&_swigt__p_FootprintGauss, _p_FootprintGaussTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetectorResolution, _p_IDetectorResolutionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetector2D, _p_IDetector2DTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IParametricComponent, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IFootprintFactor, _p_IFootprintFactorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IDetector, _p_IDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_SphericalDetector, _p_SphericalDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_RectangularDetector, _p_RectangularDetectorTo_p_IParametricComponent, 0, 0},  {&_swigt__p_ParameterDistribution, _p_ParameterDistributionTo_p_IParametricComponent, 0, 0},  {&_swigt__p_FootprintSquare, _p_FootprintSquareTo_p_IParametricComponent, 0, 0},  {&_swigt__p_INode, _p_INodeTo_p_IParametricComponent, 0, 0},  {&_swigt__p_IResolutionFunction2D, _p_IResolutionFunction2DTo_p_IParametricComponent, 0, 0},{0, 0, 0, 0}};
@@ -48238,10 +46914,7 @@ static swig_cast_info _swigc__p_IRangedDistribution[] = {  {&_swigt__p_IRangedDi
 static swig_cast_info _swigc__p_IResolutionFunction2D[] = {  {&_swigt__p_IResolutionFunction2D, 0, 0, 0},  {&_swigt__p_ResolutionFunction2DGaussian, _p_ResolutionFunction2DGaussianTo_p_IResolutionFunction2D, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IShape2D[] = {  {&_swigt__p_Polygon, _p_PolygonTo_p_IShape2D, 0, 0},  {&_swigt__p_Line, _p_LineTo_p_IShape2D, 0, 0},  {&_swigt__p_VerticalLine, _p_VerticalLineTo_p_IShape2D, 0, 0},  {&_swigt__p_Ellipse, _p_EllipseTo_p_IShape2D, 0, 0},  {&_swigt__p_HorizontalLine, _p_HorizontalLineTo_p_IShape2D, 0, 0},  {&_swigt__p_Rectangle, _p_RectangleTo_p_IShape2D, 0, 0},  {&_swigt__p_IShape2D, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IUnitConverter[] = {  {&_swigt__p_IUnitConverter, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IVarianceFunction[] = {  {&_swigt__p_IVarianceFunction, 0, 0, 0},  {&_swigt__p_VarianceConstantFunction, _p_VarianceConstantFunctionTo_p_IVarianceFunction, 0, 0},  {&_swigt__p_VarianceSimFunction, _p_VarianceSimFunctionTo_p_IVarianceFunction, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IntensityDataIOFactory[] = {  {&_swigt__p_IntensityDataIOFactory, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IntensityFunctionLog[] = {  {&_swigt__p_IntensityFunctionLog, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_IntensityFunctionSqrt[] = {  {&_swigt__p_IntensityFunctionSqrt, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IsGISAXSDetector[] = {  {&_swigt__p_IsGISAXSDetector, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Line[] = {  {&_swigt__p_Line, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_OutputDataIteratorT_double_OutputDataT_double_t_t[] = {  {&_swigt__p_OutputDataIteratorT_double_OutputDataT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -48259,8 +46932,6 @@ static swig_cast_info _swigc__p_ResolutionFunction2DGaussian[] = {  {&_swigt__p_
 static swig_cast_info _swigc__p_ScanResolution[] = {  {&_swigt__p_ScanResolution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SimulationResult[] = {  {&_swigt__p_SimulationResult, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SphericalDetector[] = {  {&_swigt__p_SphericalDetector, 0, 0, 0},  {&_swigt__p_IsGISAXSDetector, _p_IsGISAXSDetectorTo_p_SphericalDetector, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_VarianceConstantFunction[] = {  {&_swigt__p_VarianceConstantFunction, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_VarianceSimFunction[] = {  {&_swigt__p_VarianceSimFunction, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_VerticalLine[] = {  {&_swigt__p_VerticalLine, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_bool[] = {  {&_swigt__p_bool, 0, 0, 0},{0, 0, 0, 0}};
@@ -48330,7 +47001,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_BasicVector3DT_std__complexT_double_t_t,
   _swigc__p_Beam,
   _swigc__p_Bin1D,
-  _swigc__p_ChiSquaredModule,
   _swigc__p_DetectionProperties,
   _swigc__p_DetectorMask,
   _swigc__p_Direction,
@@ -48341,7 +47011,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Histogram2D,
   _swigc__p_HorizontalLine,
   _swigc__p_IAxis,
-  _swigc__p_IChiSquaredModule,
   _swigc__p_ICloneable,
   _swigc__p_IComponent,
   _swigc__p_IDetector,
@@ -48349,7 +47018,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IDetectorResolution,
   _swigc__p_IFootprintFactor,
   _swigc__p_IHistogram,
-  _swigc__p_IIntensityFunction,
   _swigc__p_INode,
   _swigc__p_INodeVisitor,
   _swigc__p_IParametricComponent,
@@ -48358,10 +47026,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_IResolutionFunction2D,
   _swigc__p_IShape2D,
   _swigc__p_IUnitConverter,
-  _swigc__p_IVarianceFunction,
   _swigc__p_IntensityDataIOFactory,
-  _swigc__p_IntensityFunctionLog,
-  _swigc__p_IntensityFunctionSqrt,
   _swigc__p_IsGISAXSDetector,
   _swigc__p_Line,
   _swigc__p_OutputDataIteratorT_double_OutputDataT_double_t_t,
@@ -48381,8 +47046,6 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ScanResolution,
   _swigc__p_SimulationResult,
   _swigc__p_SphericalDetector,
-  _swigc__p_VarianceConstantFunction,
-  _swigc__p_VarianceSimFunction,
   _swigc__p_VerticalLine,
   _swigc__p_allocator_type,
   _swigc__p_bool,

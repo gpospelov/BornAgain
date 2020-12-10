@@ -110,32 +110,6 @@ Sets the polarization density matrix according to the given Bloch vector.
 ";
 
 
-// File: classChiSquaredModule.xml
-%feature("docstring") ChiSquaredModule "
-
-Calculation of chi2 between two data sets.
-
-C++ includes: ChiSquaredModule.h
-";
-
-%feature("docstring")  ChiSquaredModule::ChiSquaredModule "ChiSquaredModule::ChiSquaredModule()
-";
-
-%feature("docstring")  ChiSquaredModule::ChiSquaredModule "ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
-";
-
-%feature("docstring")  ChiSquaredModule::~ChiSquaredModule "virtual ChiSquaredModule::~ChiSquaredModule()
-";
-
-%feature("docstring")  ChiSquaredModule::clone "virtual ChiSquaredModule* ChiSquaredModule::clone() const
-
-clone method 
-";
-
-%feature("docstring")  ChiSquaredModule::residual "double ChiSquaredModule::residual(double a, double b, double weight)
-";
-
-
 // File: classConvolutionDetectorResolution.xml
 %feature("docstring") ConvolutionDetectorResolution "
 
@@ -525,47 +499,6 @@ Calculate footprint correction coefficient from the beam incident angle  alpha.
 ";
 
 
-// File: classFourierTransform.xml
-%feature("docstring") FourierTransform "
-
-Fourier transform of vectors (in 1D or 2D) using Fast Fourier Transform (fftw package).
-
-Usage: std::vector<double> signal, result;  FourierTransform ft; ft.fft(signal, result)
-
-Given code rely on code from Jeremy Fix page, http://jeremy.fix.free.fr/spip.php?article15, see also \"Efficient convolution using the Fast Fourier Transform, Application in C++\" by Jeremy Fix, May 30, 2011
-
-C++ includes: FourierTransform.h
-";
-
-%feature("docstring")  FourierTransform::FourierTransform "FourierTransform::FourierTransform()
-";
-
-%feature("docstring")  FourierTransform::fft "void FourierTransform::fft(const double1d_t &source, double1d_t &result)
-
-FT in 1D. 
-";
-
-%feature("docstring")  FourierTransform::fftshift "void FourierTransform::fftshift(double1d_t &result)
-
-Shift low frequency to the center of 1D FT array. 
-";
-
-%feature("docstring")  FourierTransform::fft "void FourierTransform::fft(const double2d_t &source, double2d_t &result)
-
-FT in 2D. 
-";
-
-%feature("docstring")  FourierTransform::fftshift "void FourierTransform::fftshift(double2d_t &result)
-
-Shift low frequency to the center of 2D FT array. 
-";
-
-%feature("docstring")  FourierTransform::init "void FourierTransform::init(int h_src, int w_src)
-
-prepare arrays for 2D Fourier Transformation (FT) of the given vector 
-";
-
-
 // File: classHistogram1D.xml
 %feature("docstring") Histogram1D "
 
@@ -851,49 +784,6 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 %feature("docstring")  HorizontalLine::getYpos "double HorizontalLine::getYpos() const
-";
-
-
-// File: classIChiSquaredModule.xml
-%feature("docstring") IChiSquaredModule "
-
-Interface residual calculations.
-
-C++ includes: IChiSquaredModule.h
-";
-
-%feature("docstring")  IChiSquaredModule::IChiSquaredModule "IChiSquaredModule::IChiSquaredModule()
-";
-
-%feature("docstring")  IChiSquaredModule::~IChiSquaredModule "IChiSquaredModule::~IChiSquaredModule()
-";
-
-%feature("docstring")  IChiSquaredModule::clone "virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
-
-clone method 
-";
-
-%feature("docstring")  IChiSquaredModule::varianceFunction "const IVarianceFunction * IChiSquaredModule::varianceFunction() const
-
-Returns squared function. 
-";
-
-%feature("docstring")  IChiSquaredModule::setVarianceFunction "void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
-
-Sets squared function. 
-";
-
-%feature("docstring")  IChiSquaredModule::getIntensityFunction "const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
-
-Returns data rescaler. 
-";
-
-%feature("docstring")  IChiSquaredModule::setIntensityFunction "void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
-
-Sets data rescaler. 
-";
-
-%feature("docstring")  IChiSquaredModule::residual "virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
 ";
 
 
@@ -1391,24 +1281,6 @@ Loads histogram from file, the shape of array in file should match Following for
 ";
 
 
-// File: classIIntensityFunction.xml
-%feature("docstring") IIntensityFunction "
-
-Interface for applying arbitrary function to the measured intensity.
-
-C++ includes: IIntensityFunction.h
-";
-
-%feature("docstring")  IIntensityFunction::~IIntensityFunction "IIntensityFunction::~IIntensityFunction()
-";
-
-%feature("docstring")  IIntensityFunction::clone "virtual IIntensityFunction* IIntensityFunction::clone() const =0
-";
-
-%feature("docstring")  IIntensityFunction::evaluate "virtual double IIntensityFunction::evaluate(double value) const =0
-";
-
-
 // File: classInfinitePlane.xml
 %feature("docstring") InfinitePlane "
 
@@ -1508,36 +1380,6 @@ Provides users with possibility to read and write IntensityData from/to files in
 Usage:
 
 C++ includes: IntensityDataIOFactory.h
-";
-
-
-// File: classIntensityFunctionLog.xml
-%feature("docstring") IntensityFunctionLog "
-
-Algorithm for applying log function to the measured intensity.
-
-C++ includes: IIntensityFunction.h
-";
-
-%feature("docstring")  IntensityFunctionLog::clone "IntensityFunctionLog * IntensityFunctionLog::clone() const
-";
-
-%feature("docstring")  IntensityFunctionLog::evaluate "double IntensityFunctionLog::evaluate(double value) const
-";
-
-
-// File: classIntensityFunctionSqrt.xml
-%feature("docstring") IntensityFunctionSqrt "
-
-Algorithm for applying sqrt function to the measured intensity.
-
-C++ includes: IIntensityFunction.h
-";
-
-%feature("docstring")  IntensityFunctionSqrt::clone "IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
-";
-
-%feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const
 ";
 
 
@@ -1658,30 +1500,6 @@ C++ includes: IUnitConverter.h
 %feature("docstring")  IUnitConverter::createConvertedData "std::unique_ptr< OutputData< double > > IUnitConverter::createConvertedData(const OutputData< double > &data, Axes::Units units) const
 
 Creates  OutputData array in converter units. 
-";
-
-
-// File: classIVarianceFunction.xml
-%feature("docstring") IVarianceFunction "
-
-Variance function interface.
-
-C++ includes: VarianceFunctions.h
-";
-
-%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction()=default
-";
-
-%feature("docstring")  IVarianceFunction::~IVarianceFunction "virtual IVarianceFunction::~IVarianceFunction()=default
-";
-
-%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction(const IVarianceFunction &)=delete
-";
-
-%feature("docstring")  IVarianceFunction::clone "virtual IVarianceFunction* IVarianceFunction::clone() const =0
-";
-
-%feature("docstring")  IVarianceFunction::variance "virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
 ";
 
 
@@ -2937,39 +2755,6 @@ Returns the list of all available units.
 ";
 
 
-// File: classVarianceConstantFunction.xml
-%feature("docstring") VarianceConstantFunction "
-
-Returns 1.0 as variance value
-
-C++ includes: VarianceFunctions.h
-";
-
-%feature("docstring")  VarianceConstantFunction::clone "VarianceConstantFunction * VarianceConstantFunction::clone() const override
-";
-
-%feature("docstring")  VarianceConstantFunction::variance "double VarianceConstantFunction::variance(double, double) const override
-";
-
-
-// File: classVarianceSimFunction.xml
-%feature("docstring") VarianceSimFunction "
-
-Returns max(sim, epsilon)
-
-C++ includes: VarianceFunctions.h
-";
-
-%feature("docstring")  VarianceSimFunction::VarianceSimFunction "VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
-";
-
-%feature("docstring")  VarianceSimFunction::clone "VarianceSimFunction * VarianceSimFunction::clone() const override
-";
-
-%feature("docstring")  VarianceSimFunction::variance "double VarianceSimFunction::variance(double exp, double sim) const override
-";
-
-
 // File: classVerticalLine.xml
 %feature("docstring") VerticalLine "
 
@@ -3004,22 +2789,22 @@ Returns true if area defined by two bins is inside or on border of polygon (more
 ";
 
 
-// File: classFourierTransform_1_1Workspace.xml
-
-
 // File: classConvolve_1_1Workspace.xml
 
 
-// File: namespace_0d107.xml
+// File: namespace_0d11.xml
 
 
-// File: namespace_0d35.xml
+// File: namespace_0d38.xml
 
 
-// File: namespace_0d60.xml
+// File: namespace_0d63.xml
 
 
-// File: namespace_0d66.xml
+// File: namespace_0d69.xml
+
+
+// File: namespace_0d94.xml
 
 
 // File: namespaceArrayUtils.xml
@@ -3031,9 +2816,6 @@ Returns shape nrows, ncols of 2D array.
 %feature("docstring")  ArrayUtils::createData "CreateDataImpl::ReturnType<T> ArrayUtils::createData(const T &vec)
 
 Creates  OutputData array from input vector. 
-";
-
-%feature("docstring")  ArrayUtils::createNumpyArray "PyObject * ArrayUtils::createNumpyArray(const std::vector< double > &data)
 ";
 
 %feature("docstring")  ArrayUtils::createVector1D "decltype(auto) ArrayUtils::createVector1D(const T &data)
@@ -3133,102 +2915,95 @@ Parse double values from string to vector of double.
 ";
 
 
+// File: namespaceDataUtils.xml
+%feature("docstring")  DataUtils::relativeDataDifference "double DataUtils::relativeDataDifference(const OutputData< double > &dat, const OutputData< double > &ref)
+
+Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). 
+";
+
+%feature("docstring")  DataUtils::checkRelativeDifference "bool DataUtils::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
+
+Returns true is relative difference is below threshold; prints informative output. 
+";
+
+%feature("docstring")  DataUtils::coordinateToBinf "double DataUtils::coordinateToBinf(double coordinate, const IAxis &axis)
+
+Transforms coordinate on axis into the bin-fraction-coordinate. 
+";
+
+%feature("docstring")  DataUtils::coordinateFromBinf "double DataUtils::coordinateFromBinf(double value, const IAxis &axis)
+
+Transforms bin-fraction-coordinate into axis coordinate. 
+";
+
+%feature("docstring")  DataUtils::coordinateToBinf "void DataUtils::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
+
+Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
+";
+
+%feature("docstring")  DataUtils::coordinateFromBinf "void DataUtils::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
+
+Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
+";
+
+%feature("docstring")  DataUtils::create2DArrayfromOutputData "std::vector< std::vector< double > > DataUtils::create2DArrayfromOutputData(const OutputData< double > &data)
+
+Creates a vector of vectors of double (2D Array) from  OutputData. 
+";
+
+%feature("docstring")  DataUtils::importArrayToOutputData "OutputData< double > * DataUtils::importArrayToOutputData(const std::vector< double > &vec)
+
+Reads 1D array of doubles to Python, for use in persistence test. 
+";
+
+%feature("docstring")  DataUtils::importArrayToOutputData "OutputData< double > * DataUtils::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
+
+Reads 2D array of doubles to Python, for use in persistence test. 
+";
+
+%feature("docstring")  DataUtils::createRelativeDifferenceData "std::unique_ptr< OutputData< double > > DataUtils::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
+";
+
+%feature("docstring")  DataUtils::createRearrangedDataSet "std::unique_ptr< OutputData< double > > DataUtils::createRearrangedDataSet(const OutputData< double > &data, int n)
+
+Returns new object with input data rotated by n*90 deg counterclockwise (n > 0) or clockwise (n < 0)  Axes are swapped if the data is effectively rotated by 90 or 270 degrees Applicable to 2D arrays only 
+";
+
+%feature("docstring")  DataUtils::createClippedDataSet "std::unique_ptr< OutputData< double > > DataUtils::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
+
+Returns new IntensityData objects which axes clipped to represent the specified rectangle. 
+";
+
+%feature("docstring")  DataUtils::createOutputDatafrom2DArray "std::unique_ptr< OutputData< double > > DataUtils::createOutputDatafrom2DArray(const std::vector< std::vector< double >> &array_2d)
+
+Creates  OutputData from a 2D Array. 
+";
+
+%feature("docstring")  DataUtils::createFFT "std::unique_ptr< OutputData< double > > DataUtils::createFFT(const OutputData< double > &data)
+
+Creates Fourier Transform ( OutputData format) of intensity map ( OutputData format). 
+";
+
+
 // File: namespaceDetectorUtils.xml
 %feature("docstring")  DetectorUtils::isQuadratic "bool DetectorUtils::isQuadratic(const IDetector2D &det)
 ";
 
 
-// File: namespaceImageUtils.xml
-%feature("docstring")  ImageUtils::FindPeaks "std::vector< std::pair< double, double > > ImageUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
+// File: namespaceHistoUtils.xml
+%feature("docstring")  HistoUtils::FindPeaks "std::vector< std::pair< double, double > > HistoUtils::FindPeaks(const Histogram2D &hist, double sigma=2, const std::string &option={}, double threshold=0.05)
 
 Returns vector of peak center coordinates, for peaks in given histogram. 
 ";
 
-
-// File: namespaceIntensityDataFunctions.xml
-%feature("docstring")  IntensityDataFunctions::RelativeDifference "double IntensityDataFunctions::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
+%feature("docstring")  HistoUtils::RelativeDifference "double HistoUtils::RelativeDifference(const SimulationResult &dat, const SimulationResult &ref)
 
 Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(a + b) ( and zero if a-b=0 )
 
 Returns sum of relative differences between each pair of elements: (a, b) -> 2*abs(a - b)/(|a| + |b|) ( and zero if a=b=0 within epsilon ) 
 ";
 
-%feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref)
-
-Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]). 
-";
-
-%feature("docstring")  IntensityDataFunctions::checkRelativeDifference "bool IntensityDataFunctions::checkRelativeDifference(const OutputData< double > &dat, const OutputData< double > &ref, const double threshold)
-
-Returns true is relative difference is below threshold; prints informative output. 
-";
-
-%feature("docstring")  IntensityDataFunctions::getRelativeDifference "double IntensityDataFunctions::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
-";
-
-%feature("docstring")  IntensityDataFunctions::coordinateToBinf "double IntensityDataFunctions::coordinateToBinf(double coordinate, const IAxis &axis)
-
-Transforms coordinate on axis into the bin-fraction-coordinate. 
-";
-
-%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "double IntensityDataFunctions::coordinateFromBinf(double value, const IAxis &axis)
-
-Transforms bin-fraction-coordinate into axis coordinate. 
-";
-
-%feature("docstring")  IntensityDataFunctions::coordinateToBinf "void IntensityDataFunctions::coordinateToBinf(double &x, double &y, const OutputData< double > &data)
-
-Transforms x,y coordinate from  OutputData axes coordinates to bin-fraction-coordinates. 
-";
-
-%feature("docstring")  IntensityDataFunctions::coordinateFromBinf "void IntensityDataFunctions::coordinateFromBinf(double &x, double &y, const OutputData< double > &data)
-
-Transforms x,y coordinate from bin-fraction-coordinates to  OutputData's axes coordinates. 
-";
-
-%feature("docstring")  IntensityDataFunctions::create2DArrayfromOutputData "std::vector< std::vector< double > > IntensityDataFunctions::create2DArrayfromOutputData(const OutputData< double > &data)
-
-Creates a vector of vectors of double (2D Array) from  OutputData. 
-";
-
-%feature("docstring")  IntensityDataFunctions::FT2DArray "std::vector< std::vector< double > > IntensityDataFunctions::FT2DArray(const std::vector< std::vector< double >> &signal)
-
-Creates a Fourier Transform of a 2D Array (vector of vectors). 
-";
-
-%feature("docstring")  IntensityDataFunctions::createRelativeDifferenceData "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createRelativeDifferenceData(const OutputData< double > &data, const OutputData< double > &reference)
-";
-
-%feature("docstring")  IntensityDataFunctions::createRearrangedDataSet "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createRearrangedDataSet(const OutputData< double > &data, int n)
-
-Returns new object with input data rotated by n*90 deg counterclockwise (n > 0) or clockwise (n < 0)  Axes are swapped if the data is effectively rotated by 90 or 270 degrees Applicable to 2D arrays only 
-";
-
-%feature("docstring")  IntensityDataFunctions::createClippedDataSet "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createClippedDataSet(const OutputData< double > &origin, double x1, double y1, double x2, double y2)
-
-Returns new IntensityData objects which axes clipped to represent the specified rectangle. 
-";
-
-%feature("docstring")  IntensityDataFunctions::createOutputDatafrom2DArray "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createOutputDatafrom2DArray(const std::vector< std::vector< double >> &array_2d)
-
-Creates  OutputData from a 2D Array. 
-";
-
-%feature("docstring")  IntensityDataFunctions::createFFT "std::unique_ptr< OutputData< double > > IntensityDataFunctions::createFFT(const OutputData< double > &data)
-
-Creates Fourier Transform ( OutputData format) of intensity map ( OutputData format). 
-";
-
-
-// File: namespacePyArrayImport.xml
-%feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< double > &vec)
-
-for importing 1D array of doubles from python into  OutputData
-";
-
-%feature("docstring")  PyArrayImport::importArrayToOutputData "OutputData< double > * PyArrayImport::importArrayToOutputData(const std::vector< std::vector< double >> &vec)
-
-for importing 2D array of doubles from python into  OutputData
+%feature("docstring")  HistoUtils::getRelativeDifference "double HistoUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
 ";
 
 
@@ -3256,10 +3031,19 @@ for importing 2D array of doubles from python into  OutputData
 // File: IFootprintFactor_8h.xml
 
 
+// File: ArrayUtils_8h.xml
+
+
 // File: CumulativeValue_8cpp.xml
 
 
 // File: CumulativeValue_8h.xml
+
+
+// File: DataUtils_8cpp.xml
+
+
+// File: DataUtils_8h.xml
 
 
 // File: LLData_8cpp.xml
@@ -3391,16 +3175,16 @@ make Swappable
 // File: Histogram2D_8h.xml
 
 
+// File: HistoUtils_8cpp.xml
+
+
+// File: HistoUtils_8h.xml
+
+
 // File: IHistogram_8cpp.xml
 
 
 // File: IHistogram_8h.xml
-
-
-// File: ImageUtils_8cpp.xml
-
-
-// File: ImageUtils_8h.xml
 
 
 // File: IntensityDataIOFactory_8cpp.xml
@@ -3448,58 +3232,10 @@ make Swappable
 // File: OutputDataReadWriteTiff_8h.xml
 
 
-// File: ChiSquaredModule_8cpp.xml
-
-
-// File: ChiSquaredModule_8h.xml
-
-
-// File: FourierTransform_8cpp.xml
-
-
-// File: FourierTransform_8h.xml
-
-
-// File: IChiSquaredModule_8cpp.xml
-
-
-// File: IChiSquaredModule_8h.xml
-
-
 // File: Instrument_8cpp.xml
 
 
 // File: Instrument_8h.xml
-
-
-// File: IntensityDataFunctions_8cpp.xml
-
-
-// File: IntensityDataFunctions_8h.xml
-
-
-// File: PyArrayImportUtils_8cpp.xml
-
-
-// File: PyArrayImportUtils_8h.xml
-
-
-// File: VarianceFunctions_8cpp.xml
-
-
-// File: VarianceFunctions_8h.xml
-
-
-// File: ArrayUtils_8cpp.xml
-
-
-// File: ArrayUtils_8h.xml
-
-
-// File: IIntensityFunction_8cpp.xml
-
-
-// File: IIntensityFunction_8h.xml
 
 
 // File: Ellipse_8cpp.xml
@@ -3599,9 +3335,6 @@ make Swappable
 
 
 // File: dir_550e786a97bd4c801929243ea9773c04.xml
-
-
-// File: dir_401915efc9e4b0dfad0f4a62e1092d10.xml
 
 
 // File: dir_4866552d576e04b61ad8ade47c8db877.xml

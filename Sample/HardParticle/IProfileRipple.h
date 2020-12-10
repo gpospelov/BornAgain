@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_IPROFILERIPPLE_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_IPROFILERIPPLE_H
 
@@ -80,3 +81,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_HARDPARTICLE_IPROFILERIPPLE_H
+#endif // USER_API

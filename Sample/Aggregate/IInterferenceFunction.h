@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_AGGREGATE_IINTERFERENCEFUNCTION_H
 #define BORNAGAIN_SAMPLE_AGGREGATE_IINTERFERENCEFUNCTION_H
 
@@ -58,3 +59,4 @@ protected:
 };
 
 #endif // BORNAGAIN_SAMPLE_AGGREGATE_IINTERFERENCEFUNCTION_H
+#endif // USER_API

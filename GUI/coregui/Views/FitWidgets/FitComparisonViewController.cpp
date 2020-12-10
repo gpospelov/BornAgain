@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Views/FitWidgets/FitComparisonViewController.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Data/DataUtils.h"
 #include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Models/Data1DViewItem.h"
 #include "GUI/coregui/Models/DataItem.h"
@@ -132,8 +132,8 @@ void DiffItemController::updateDiffData() {
     if (!sim_data->getOutputData()) // job failed
         return;
 
-    m_diff_item->setOutputData(IntensityDataFunctions::createRelativeDifferenceData(
-                                   *sim_data->getOutputData(), *real_data->getOutputData())
+    m_diff_item->setOutputData(DataUtils::createRelativeDifferenceData(*sim_data->getOutputData(),
+                                                                       *real_data->getOutputData())
                                    .release());
 }
 

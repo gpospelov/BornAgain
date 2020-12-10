@@ -178,6 +178,32 @@ Metric wrapper for back-compaptibility with old scripts.
 ";
 
 
+// File: classChiSquaredModule.xml
+%feature("docstring") ChiSquaredModule "
+
+Calculation of chi2 between two data sets.
+
+C++ includes: ChiSquaredModule.h
+";
+
+%feature("docstring")  ChiSquaredModule::ChiSquaredModule "ChiSquaredModule::ChiSquaredModule()
+";
+
+%feature("docstring")  ChiSquaredModule::ChiSquaredModule "ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
+";
+
+%feature("docstring")  ChiSquaredModule::~ChiSquaredModule "virtual ChiSquaredModule::~ChiSquaredModule()
+";
+
+%feature("docstring")  ChiSquaredModule::clone "virtual ChiSquaredModule* ChiSquaredModule::clone() const
+
+clone method 
+";
+
+%feature("docstring")  ChiSquaredModule::residual "double ChiSquaredModule::residual(double a, double b, double weight)
+";
+
+
 // File: classComponentKeyHandler.xml
 %feature("docstring") ComponentKeyHandler "
 
@@ -814,6 +840,49 @@ C++ includes: IBackground.h
 ";
 
 
+// File: classIChiSquaredModule.xml
+%feature("docstring") IChiSquaredModule "
+
+Interface residual calculations.
+
+C++ includes: IChiSquaredModule.h
+";
+
+%feature("docstring")  IChiSquaredModule::IChiSquaredModule "IChiSquaredModule::IChiSquaredModule()
+";
+
+%feature("docstring")  IChiSquaredModule::~IChiSquaredModule "IChiSquaredModule::~IChiSquaredModule()
+";
+
+%feature("docstring")  IChiSquaredModule::clone "virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
+
+clone method 
+";
+
+%feature("docstring")  IChiSquaredModule::varianceFunction "const IVarianceFunction * IChiSquaredModule::varianceFunction() const
+
+Returns squared function. 
+";
+
+%feature("docstring")  IChiSquaredModule::setVarianceFunction "void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
+
+Sets squared function. 
+";
+
+%feature("docstring")  IChiSquaredModule::getIntensityFunction "const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
+
+Returns data rescaler. 
+";
+
+%feature("docstring")  IChiSquaredModule::setIntensityFunction "void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
+
+Sets data rescaler. 
+";
+
+%feature("docstring")  IChiSquaredModule::residual "virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
+";
+
+
 // File: classIComputation.xml
 %feature("docstring") IComputation "
 
@@ -840,6 +909,24 @@ C++ includes: IComputation.h
 ";
 
 
+// File: classIIntensityFunction.xml
+%feature("docstring") IIntensityFunction "
+
+Interface for applying arbitrary function to the measured intensity.
+
+C++ includes: IIntensityFunction.h
+";
+
+%feature("docstring")  IIntensityFunction::~IIntensityFunction "IIntensityFunction::~IIntensityFunction()
+";
+
+%feature("docstring")  IIntensityFunction::clone "virtual IIntensityFunction* IIntensityFunction::clone() const =0
+";
+
+%feature("docstring")  IIntensityFunction::evaluate "virtual double IIntensityFunction::evaluate(double value) const =0
+";
+
+
 // File: classIMetricWrapper.xml
 %feature("docstring") IMetricWrapper "";
 
@@ -850,42 +937,33 @@ C++ includes: IComputation.h
 ";
 
 
-// File: classIObservable.xml
-%feature("docstring") IObservable "
+// File: classIntensityFunctionLog.xml
+%feature("docstring") IntensityFunctionLog "
 
-Observable interface from Observer pattern. Shared pointer is used when passing these objects from Python to C++.
+Algorithm for applying log function to the measured intensity.
 
-C++ includes: IObserver.h
+C++ includes: IIntensityFunction.h
 ";
 
-%feature("docstring")  IObservable::~IObservable "virtual IObservable::~IObservable()=default
+%feature("docstring")  IntensityFunctionLog::clone "IntensityFunctionLog * IntensityFunctionLog::clone() const
 ";
 
-%feature("docstring")  IObservable::attachObserver "virtual void IObservable::attachObserver(std::shared_ptr< IObserver > obj)
-
-attach observer to the list of observers 
-";
-
-%feature("docstring")  IObservable::notifyObservers "virtual void IObservable::notifyObservers()
-
-notify observers about change in status 
+%feature("docstring")  IntensityFunctionLog::evaluate "double IntensityFunctionLog::evaluate(double value) const
 ";
 
 
-// File: classIObserver.xml
-%feature("docstring") IObserver "
+// File: classIntensityFunctionSqrt.xml
+%feature("docstring") IntensityFunctionSqrt "
 
-Observer interface from Observer pattern.
+Algorithm for applying sqrt function to the measured intensity.
 
-C++ includes: IObserver.h
+C++ includes: IIntensityFunction.h
 ";
 
-%feature("docstring")  IObserver::~IObserver "virtual IObserver::~IObserver()=default
+%feature("docstring")  IntensityFunctionSqrt::clone "IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
 ";
 
-%feature("docstring")  IObserver::notify "virtual void IObserver::notify(IObservable *subject)=0
-
-method which is used by observable subject to notify change in status 
+%feature("docstring")  IntensityFunctionSqrt::evaluate "double IntensityFunctionSqrt::evaluate(double value) const
 ";
 
 
@@ -1171,6 +1249,30 @@ Returns map of fit parameter names and its current values.
 ";
 
 
+// File: classIVarianceFunction.xml
+%feature("docstring") IVarianceFunction "
+
+Variance function interface.
+
+C++ includes: VarianceFunctions.h
+";
+
+%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction()=default
+";
+
+%feature("docstring")  IVarianceFunction::~IVarianceFunction "virtual IVarianceFunction::~IVarianceFunction()=default
+";
+
+%feature("docstring")  IVarianceFunction::IVarianceFunction "IVarianceFunction::IVarianceFunction(const IVarianceFunction &)=delete
+";
+
+%feature("docstring")  IVarianceFunction::clone "virtual IVarianceFunction* IVarianceFunction::clone() const =0
+";
+
+%feature("docstring")  IVarianceFunction::variance "virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
+";
+
+
 // File: classLogMetric.xml
 %feature("docstring") LogMetric "
 
@@ -1238,119 +1340,6 @@ C++ includes: MaterialKeyHandler.h
 ";
 
 %feature("docstring")  MaterialKeyHandler::mat2key "const std::string & MaterialKeyHandler::mat2key(const Material *sample) const
-";
-
-
-// File: classMatrixRTCoefficients__v1.xml
-%feature("docstring") MatrixRTCoefficients_v1 "
-
-Specular reflection and transmission coefficients in a layer in case of 2x2 matrix interactions between the layers and the scattered particle.
-
-C++ includes: MatrixRTCoefficients_v1.h
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::MatrixRTCoefficients_v1 "MatrixRTCoefficients_v1::MatrixRTCoefficients_v1()
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::~MatrixRTCoefficients_v1 "virtual MatrixRTCoefficients_v1::~MatrixRTCoefficients_v1()
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::clone "MatrixRTCoefficients_v1 * MatrixRTCoefficients_v1::clone() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::T1plus "Eigen::Vector2cd MatrixRTCoefficients_v1::T1plus() const
-
-The following functions return the transmitted and reflected amplitudes for different incoming beam polarizations and eigenmodes 
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::R1plus "Eigen::Vector2cd MatrixRTCoefficients_v1::R1plus() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::T2plus "Eigen::Vector2cd MatrixRTCoefficients_v1::T2plus() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::R2plus "Eigen::Vector2cd MatrixRTCoefficients_v1::R2plus() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::T1min "Eigen::Vector2cd MatrixRTCoefficients_v1::T1min() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::R1min "Eigen::Vector2cd MatrixRTCoefficients_v1::R1min() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::T2min "Eigen::Vector2cd MatrixRTCoefficients_v1::T2min() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::R2min "Eigen::Vector2cd MatrixRTCoefficients_v1::R2min() const
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::getKz "virtual Eigen::Vector2cd MatrixRTCoefficients_v1::getKz() const
-
-Returns z-part of the two wavevector eigenmodes. 
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::calculateTRMatrices "void MatrixRTCoefficients_v1::calculateTRMatrices()
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::calculateTRWithoutMagnetization "void MatrixRTCoefficients_v1::calculateTRWithoutMagnetization()
-";
-
-%feature("docstring")  MatrixRTCoefficients_v1::initializeBottomLayerPhiPsi "void MatrixRTCoefficients_v1::initializeBottomLayerPhiPsi()
-";
-
-
-// File: classMatrixRTCoefficients__v2.xml
-%feature("docstring") MatrixRTCoefficients_v2 "
-
-Specular reflection and transmission coefficients in a layer in case of magnetic interactions between the scattered particle and the layer.
-
-C++ includes: MatrixRTCoefficients_v2.h
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::MatrixRTCoefficients_v2 "MatrixRTCoefficients_v2::MatrixRTCoefficients_v2(double kz_sign, Eigen::Vector2cd eigenvalues, kvector_t b)
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::MatrixRTCoefficients_v2 "MatrixRTCoefficients_v2::MatrixRTCoefficients_v2(const MatrixRTCoefficients_v2 &other)
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::~MatrixRTCoefficients_v2 "MatrixRTCoefficients_v2::~MatrixRTCoefficients_v2() override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::clone "MatrixRTCoefficients_v2 * MatrixRTCoefficients_v2::clone() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::T1plus "Eigen::Vector2cd MatrixRTCoefficients_v2::T1plus() const override
-
-The following functions return the transmitted and reflected amplitudes for different incoming beam polarizations and eigenmodes 
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::R1plus "Eigen::Vector2cd MatrixRTCoefficients_v2::R1plus() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::T2plus "Eigen::Vector2cd MatrixRTCoefficients_v2::T2plus() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::R2plus "Eigen::Vector2cd MatrixRTCoefficients_v2::R2plus() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::T1min "Eigen::Vector2cd MatrixRTCoefficients_v2::T1min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::R1min "Eigen::Vector2cd MatrixRTCoefficients_v2::R1min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::T2min "Eigen::Vector2cd MatrixRTCoefficients_v2::T2min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::R2min "Eigen::Vector2cd MatrixRTCoefficients_v2::R2min() const override
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::getKz "Eigen::Vector2cd MatrixRTCoefficients_v2::getKz() const override
-
-Returns z-part of the two wavevector eigenmodes. 
-";
-
-%feature("docstring")  MatrixRTCoefficients_v2::getReflectionMatrix "Eigen::Matrix2cd MatrixRTCoefficients_v2::getReflectionMatrix() const override
 ";
 
 
@@ -2019,44 +2008,6 @@ C++ includes: SpecularComputationTerm.h
 ";
 
 
-// File: classSpecularMagneticStrategy__v1.xml
-%feature("docstring") SpecularMagneticStrategy_v1 "
-
-Implements the matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization.
-
-C++ includes: SpecularMagneticStrategy_v1.h
-";
-
-%feature("docstring")  SpecularMagneticStrategy_v1::Execute "ISpecularStrategy::coeffs_t SpecularMagneticStrategy_v1::Execute(const std::vector< Slice > &slices, const kvector_t &k) const
-
-Computes refraction angle reflection/transmission coefficients for given sliced multilayer and wavevector k 
-";
-
-%feature("docstring")  SpecularMagneticStrategy_v1::Execute "ISpecularStrategy::coeffs_t SpecularMagneticStrategy_v1::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz) const
-";
-
-
-// File: classSpecularMagneticStrategy__v2.xml
-%feature("docstring") SpecularMagneticStrategy_v2 "
-
-Implements the magnetic Fresnel computation without roughness
-
-Implements the matrix formalism for the calculation of wave amplitudes of the coherent wave solution in a multilayer with magnetization. For a detailed description see internal document \"Polarized Specular Reflectometry\"
-
-C++ includes: SpecularMagneticStrategy_v2.h
-";
-
-%feature("docstring")  SpecularMagneticStrategy_v2::Execute "ISpecularStrategy::coeffs_t SpecularMagneticStrategy_v2::Execute(const std::vector< Slice > &slices, const kvector_t &k) const
-
-Computes refraction angle reflection/transmission coefficients for given sliced multilayer and wavevector k 
-";
-
-%feature("docstring")  SpecularMagneticStrategy_v2::Execute "ISpecularStrategy::coeffs_t SpecularMagneticStrategy_v2::Execute(const std::vector< Slice > &slices, const std::vector< complex_t > &kz) const
-
-Computes refraction angle reflection/transmission coefficients for given sliced multilayer and a set of kz projections corresponding to each slice 
-";
-
-
 // File: classSpecularMatrixTerm.xml
 %feature("docstring") SpecularMatrixTerm "
 
@@ -2293,7 +2244,37 @@ Returns default units to convert to.
 ";
 
 
-// File: namespace_0d100.xml
+// File: classVarianceConstantFunction.xml
+%feature("docstring") VarianceConstantFunction "
+
+Returns 1.0 as variance value
+
+C++ includes: VarianceFunctions.h
+";
+
+%feature("docstring")  VarianceConstantFunction::clone "VarianceConstantFunction * VarianceConstantFunction::clone() const override
+";
+
+%feature("docstring")  VarianceConstantFunction::variance "double VarianceConstantFunction::variance(double, double) const override
+";
+
+
+// File: classVarianceSimFunction.xml
+%feature("docstring") VarianceSimFunction "
+
+Returns max(sim, epsilon)
+
+C++ includes: VarianceFunctions.h
+";
+
+%feature("docstring")  VarianceSimFunction::VarianceSimFunction "VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
+";
+
+%feature("docstring")  VarianceSimFunction::clone "VarianceSimFunction * VarianceSimFunction::clone() const override
+";
+
+%feature("docstring")  VarianceSimFunction::variance "double VarianceSimFunction::variance(double exp, double sim) const override
+";
 
 
 // File: namespace_0d15.xml
@@ -2311,40 +2292,34 @@ Returns default units to convert to.
 // File: namespace_0d47.xml
 
 
-// File: namespace_0d55.xml
+// File: namespace_0d54.xml
 
 
-// File: namespace_0d57.xml
+// File: namespace_0d56.xml
 
 
-// File: namespace_0d61.xml
+// File: namespace_0d60.xml
 
 
-// File: namespace_0d65.xml
+// File: namespace_0d70.xml
 
 
-// File: namespace_0d67.xml
+// File: namespace_0d75.xml
 
 
-// File: namespace_0d69.xml
+// File: namespace_0d77.xml
 
 
-// File: namespace_0d71.xml
+// File: namespace_0d81.xml
 
 
-// File: namespace_0d76.xml
+// File: namespace_0d91.xml
 
 
-// File: namespace_0d78.xml
+// File: namespace_0d93.xml
 
 
-// File: namespace_0d82.xml
-
-
-// File: namespace_0d92.xml
-
-
-// File: namespace_0d94.xml
+// File: namespace_0d99.xml
 
 
 // File: namespaceExportToPython.xml
@@ -2857,9 +2832,6 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: FitTypes_8h.xml
 
 
-// File: IObserver_8h.xml
-
-
 // File: IterationInfo_8cpp.xml
 
 
@@ -2890,28 +2862,28 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: SimDataPair_8h.xml
 
 
-// File: MatrixRTCoefficients__v1_8cpp.xml
+// File: ChiSquaredModule_8cpp.xml
 
 
-// File: MatrixRTCoefficients__v1_8h.xml
+// File: ChiSquaredModule_8h.xml
 
 
-// File: MatrixRTCoefficients__v2_8cpp.xml
+// File: IChiSquaredModule_8cpp.xml
 
 
-// File: MatrixRTCoefficients__v2_8h.xml
+// File: IChiSquaredModule_8h.xml
 
 
-// File: SpecularMagneticStrategy__v1_8cpp.xml
+// File: IIntensityFunction_8cpp.xml
 
 
-// File: SpecularMagneticStrategy__v1_8h.xml
+// File: IIntensityFunction_8h.xml
 
 
-// File: SpecularMagneticStrategy__v2_8cpp.xml
+// File: VarianceFunctions_8cpp.xml
 
 
-// File: SpecularMagneticStrategy__v2_8h.xml
+// File: VarianceFunctions_8h.xml
 
 
 // File: AngularSpecScan_8cpp.xml
@@ -3022,7 +2994,7 @@ Helper factory function to use in  GISASSimulation. Depending on the type of det
 // File: dir_4470199ae7eb44153ffe31d163ed0f28.xml
 
 
-// File: dir_bd39ec89b96ad8d1385770847b662047.xml
+// File: dir_bfeb1e458a74587b0ec5055179ee8176.xml
 
 
 // File: dir_6de83e740cfcd9d0abfe8dffab2832a5.xml

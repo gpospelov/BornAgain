@@ -17,7 +17,9 @@
 
 #include "Device/Mask/IShape2D.h"
 
-//! The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
+//! A rectangle, for use in detector masks.
+//!
+//! Edges are along the coordinate axes.
 //! @ingroup mask
 
 class Rectangle : public IShape2D {

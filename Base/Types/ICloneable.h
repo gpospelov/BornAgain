@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_TYPES_ICLONEABLE_H
 #define BORNAGAIN_BASE_TYPES_ICLONEABLE_H
 
@@ -34,3 +35,4 @@ public:
 };
 
 #endif // BORNAGAIN_BASE_TYPES_ICLONEABLE_H
+#endif // USER_API

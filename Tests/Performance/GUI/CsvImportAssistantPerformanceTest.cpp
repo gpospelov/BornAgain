@@ -14,7 +14,7 @@
 
 #include "Tests/Performance/GUI/CsvImportAssistantPerformanceTest.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Intensity/ArrayUtils.h"
+#include "Device/Data/ArrayUtils.h"
 #include "GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h"
 #include <ctime>
 #include <iostream>

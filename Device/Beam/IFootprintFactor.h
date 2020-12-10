@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_BEAM_IFOOTPRINTFACTOR_H
 #define BORNAGAIN_DEVICE_BEAM_IFOOTPRINTFACTOR_H
 
@@ -48,3 +49,4 @@ private:
 };
 
 #endif // BORNAGAIN_DEVICE_BEAM_IFOOTPRINTFACTOR_H
+#endif // USER_API

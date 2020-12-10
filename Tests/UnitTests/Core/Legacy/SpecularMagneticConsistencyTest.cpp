@@ -1,5 +1,5 @@
 #include "Base/Const/Units.h"
-#include "Core/Legacy/SpecularMagneticStrategy_v2.h"
+#include "Sample/LegacyRT/SpecularMagneticStrategy_v2.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"

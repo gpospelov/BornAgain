@@ -22,7 +22,7 @@
 
 #include "Device/Mask/IShape2D.h"
 
-//! The infinite plane is used for masking everything once and forever.
+//! The infinite plane is used for masking the entire detector.
 //! @ingroup tools
 
 class InfinitePlane : public IShape2D {

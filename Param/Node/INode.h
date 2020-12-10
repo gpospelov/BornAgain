@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_PARAM_NODE_INODE_H
 #define BORNAGAIN_PARAM_NODE_INODE_H
 
@@ -62,7 +63,7 @@ public:
 
     //! Returns a vector of children
     virtual std::vector<const INode*> getChildren() const;
-    //! Returns a vector of all descendents
+    //! Returns a vector of all descendants
     std::vector<const INode*> progeny() const;
 
     virtual void setParent(const INode* newParent);
@@ -128,3 +129,4 @@ inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
 }
 
 #endif // BORNAGAIN_PARAM_NODE_INODE_H
+#endif // USER_API

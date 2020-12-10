@@ -16,8 +16,8 @@
 #include "BATesting.h"
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Simulation/SimulationFactory.h"
+#include "Device/Data/DataUtils.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <iostream>
@@ -46,7 +46,7 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
     // Compare with reference if available.
     if (reference) {
         std::cout << "- check diff" << std::endl;
-        if (IntensityDataFunctions::checkRelativeDifference(*reference, *result_data, limit)) {
+        if (DataUtils::checkRelativeDifference(*reference, *result_data, limit)) {
             std::cout << "- success" << std::endl;
             return true; // regular exit
         }

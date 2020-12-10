@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_ISAMPLEBUILDER_H
 #define BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_ISAMPLEBUILDER_H
 
@@ -34,3 +35,4 @@ public:
 };
 
 #endif // BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_ISAMPLEBUILDER_H
+#endif // USER_API

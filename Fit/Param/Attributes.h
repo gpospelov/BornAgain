@@ -12,14 +12,15 @@
 //
 //  ************************************************************************************************
 
-// Not exposed to Swig, but #include'd
+// Swig: not %include'd, but #include'd
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_PARAM_ATTRIBUTES_H
 #define BORNAGAIN_FIT_PARAM_ATTRIBUTES_H
 
 #include <ostream>
 
-//! Attributes for a fit parameter. Currently, the only attribute is fixed/free.
+//! %Attributes for a fit parameter. Currently, the only attribute is fixed/free.
 //! @ingroup fitting
 
 class Attributes {
@@ -58,3 +59,4 @@ inline void Attributes::print(std::ostream& ostr) const {
 }
 
 #endif // BORNAGAIN_FIT_PARAM_ATTRIBUTES_H
+#endif // USER_API

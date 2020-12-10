@@ -15,7 +15,7 @@
 #include "Device/InputOutput/OutputDataReadWriteINT.h"
 #include "Base/Utils/StringUtils.h"
 #include "Device/InputOutput/DataFormatUtils.h"
-#include "Device/Intensity/ArrayUtils.h"
+#include "Device/Data/ArrayUtils.h"
 
 OutputData<double>* OutputDataReadWriteINT::readOutputData(std::istream& input_stream) {
     OutputData<double>* result = new OutputData<double>;

@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_CORRELATIONS_IPEAKSHAPE_H
 #define BORNAGAIN_SAMPLE_CORRELATIONS_IPEAKSHAPE_H
 
@@ -187,3 +188,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_CORRELATIONS_IPEAKSHAPE_H
+#endif // USER_API

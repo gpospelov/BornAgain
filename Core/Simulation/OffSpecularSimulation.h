@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_CORE_SIMULATION_OFFSPECSIMULATION_H
-#define BORNAGAIN_CORE_SIMULATION_OFFSPECSIMULATION_H
+#ifndef BORNAGAIN_CORE_SIMULATION_OFFSPECULARSIMULATION_H
+#define BORNAGAIN_CORE_SIMULATION_OFFSPECULARSIMULATION_H
 
 #include "Base/Pixel/SimulationElement.h"
 #include "Core/Simulation/ISimulation2D.h"
@@ -85,4 +85,4 @@ private:
     OutputData<double> m_intensity_map;
 };
 
-#endif // BORNAGAIN_CORE_SIMULATION_OFFSPECSIMULATION_H
+#endif // BORNAGAIN_CORE_SIMULATION_OFFSPECULARSIMULATION_H

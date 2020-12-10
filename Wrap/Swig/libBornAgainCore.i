@@ -65,6 +65,11 @@
 #include "Core/Fitting/FitObjective.h"
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/PyFittingCallbacks.h"
+#include "Core/Residual/ChiSquaredModule.h"
+#include "Core/Residual/IChiSquaredModule.h"
+#include "Core/Residual/IIntensityFunction.h"
+#include "Core/Residual/IIntensityFunction.h"
+#include "Core/Residual/VarianceFunctions.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
@@ -117,6 +122,11 @@
 %include "Core/Computation/PoissonNoiseBackground.h"
 
 %include "Core/Export/ExportToPython.h"
+
+%include "Core/Residual/IIntensityFunction.h"
+%include "Core/Residual/IChiSquaredModule.h"
+%include "Core/Residual/ChiSquaredModule.h"
+%include "Core/Residual/VarianceFunctions.h"
 
 %extend BasicVector3D<double> {
     BasicVector3D<double> __add__(const BasicVector3D<double>& rhs) const {

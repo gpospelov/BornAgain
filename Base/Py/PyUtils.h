@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Py/PyEmbeddedUtils.h
-//! @brief     Defines PyEmbeddedUtils namespace
+//! @file      Base/Py/PyUtils.h
+//! @brief     Defines PyUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -29,7 +29,7 @@
 
 class MultiLayer;
 
-namespace PyEmbeddedUtils {
+namespace PyUtils {
 
 //! Converts PyObject into string, if possible, or throws exception.
 std::string toString(PyObject* obj);
@@ -49,7 +49,7 @@ std::string pythonRuntimeInfo();
 
 //! Returns string representing python stack trace.
 std::string pythonStackTrace();
-} // namespace PyEmbeddedUtils
+} // namespace PyUtils
 
 #endif // BORNAGAIN_PYTHON
 

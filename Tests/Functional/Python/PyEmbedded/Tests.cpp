@@ -13,7 +13,7 @@
 
 #include "BABuild.h"
 #include "BAVersion.h"
-#include "Base/Py/PyEmbeddedUtils.h"
+#include "Base/Py/PyUtils.h"
 #include "Base/Py/PyCore.h"
 #include "Base/Utils/SysUtils.h"
 #include "Core/Export/ExportToPython.h"
@@ -44,7 +44,7 @@ TEST_F(PyEmbedded, SysPath) {
     std::cout << "buildLibDir(): " << BABuild::buildLibDir() << std::endl;
 
     // Runtime info
-    auto content = PyEmbeddedUtils::pythonRuntimeInfo();
+    auto content = PyUtils::pythonRuntimeInfo();
 
     EXPECT_TRUE(!content.empty());
 }
@@ -63,7 +63,7 @@ TEST_F(PyEmbedded, ImportNumpy) {
     if (!pvar)
         throw std::runtime_error("Can't get a variable");
 
-    auto version_string = PyEmbeddedUtils::toString(pvar);
+    auto version_string = PyUtils::toString(pvar);
     Py_DecRef(pvar);
     std::cout << "numpy_version_string=" << version_string << std::endl;
 
@@ -102,7 +102,7 @@ TEST_F(PyEmbedded, FunctionCall) {
     if (!result)
         throw std::runtime_error("Error while calling function");
 
-    auto str = PyEmbeddedUtils::toString(result);
+    auto str = PyUtils::toString(result);
     Py_DecRef(result);
 
     Py_Finalize();
@@ -242,7 +242,7 @@ TEST_F(PyEmbedded, CompiledFunction) {
 
     // convert the result to a string
     PyObject* pResultRepr = PyObject_Repr(pResult);
-    std::string result = PyEmbeddedUtils::toString(pResultRepr);
+    std::string result = PyUtils::toString(pResultRepr);
     Py_DecRef(pResultRepr);
 
     Py_Finalize();

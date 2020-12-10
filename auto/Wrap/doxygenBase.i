@@ -1404,36 +1404,36 @@ Returns the difference of the logarithm; input values are truncated at the minim
 // File: namespacePhysConsts.xml
 
 
-// File: namespacePyEmbeddedUtils.xml
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(PyObject *obj)
+// File: namespacePyUtils.xml
+%feature("docstring")  PyUtils::toString "std::string PyUtils::toString(PyObject *obj)
 
 Converts PyObject into string, if possible, or throws exception. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::toVectorString "std::vector< std::string > PyEmbeddedUtils::toVectorString(PyObject *obj)
+%feature("docstring")  PyUtils::toVectorString "std::vector< std::string > PyUtils::toVectorString(PyObject *obj)
 
 Converts PyObject into vector of strings, if possible, or throws exception. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(char *c)
+%feature("docstring")  PyUtils::toString "std::string PyUtils::toString(char *c)
 
 Converts char to string. In the case of nullptr will return an empty string. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(wchar_t *c)
+%feature("docstring")  PyUtils::toString "std::string PyUtils::toString(wchar_t *c)
 ";
 
-%feature("docstring")  PyEmbeddedUtils::import_bornagain "void PyEmbeddedUtils::import_bornagain(const std::string &path=\"\")
+%feature("docstring")  PyUtils::import_bornagain "void PyUtils::import_bornagain(const std::string &path=\"\")
 
 Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::pythonRuntimeInfo "std::string PyEmbeddedUtils::pythonRuntimeInfo()
+%feature("docstring")  PyUtils::pythonRuntimeInfo "std::string PyUtils::pythonRuntimeInfo()
 
 Returns multi-line string representing PATH, PYTHONPATH, sys.path and other info. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::pythonStackTrace "std::string PyEmbeddedUtils::pythonStackTrace()
+%feature("docstring")  PyUtils::pythonStackTrace "std::string PyUtils::pythonStackTrace()
 
 Returns string representing python stack trace. 
 ";
@@ -1651,13 +1651,13 @@ Template function to create an integrator object
 // File: PyCore_8h.xml
 
 
-// File: PyEmbeddedUtils_8cpp.xml
-
-
-// File: PyEmbeddedUtils_8h.xml
-
-
 // File: PyObject_8h.xml
+
+
+// File: PyUtils_8cpp.xml
+
+
+// File: PyUtils_8h.xml
 
 
 // File: CloneableVector_8h.xml

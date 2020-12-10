@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Base/Py/PyEmbeddedUtils.cpp
-//! @brief     IOmplements various functions from PyEmbeddedUtils namespace
+//! @file      Base/Py/PyUtils.cpp
+//! @brief     IOmplements various functions from PyUtils namespace
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -14,14 +14,14 @@
 
 #ifdef BORNAGAIN_PYTHON
 
-#include "Base/Py/PyEmbeddedUtils.h"
+#include "Base/Py/PyUtils.h"
 #include "Base/Py/PyCore.h"
 #include "Base/Utils/SysUtils.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 
-std::string PyEmbeddedUtils::toString(PyObject* obj) {
+std::string PyUtils::toString(PyObject* obj) {
     std::string result;
     PyObject* pyStr = PyUnicode_AsEncodedString(obj, "utf-8", "Error ~");
     result = std::string(PyBytes_AsString(pyStr));
@@ -29,7 +29,7 @@ std::string PyEmbeddedUtils::toString(PyObject* obj) {
     return result;
 }
 
-std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj) {
+std::vector<std::string> PyUtils::toVectorString(PyObject* obj) {
     std::vector<std::string> result;
 
     if (PyTuple_Check(obj)) {
@@ -45,26 +45,26 @@ std::vector<std::string> PyEmbeddedUtils::toVectorString(PyObject* obj) {
         }
 
     } else
-        throw std::runtime_error("PyEmbeddedUtils::toVectorString() -> Error. Unexpected object.");
+        throw std::runtime_error("PyUtils::toVectorString() -> Error. Unexpected object.");
 
     return result;
 }
 
-std::string PyEmbeddedUtils::toString(char* c) {
+std::string PyUtils::toString(char* c) {
     if (c)
         return c;
     else
         return "";
 }
 
-std::string PyEmbeddedUtils::toString(wchar_t* c) {
+std::string PyUtils::toString(wchar_t* c) {
     if (!c)
         return "";
     std::wstring wstr(c);
     return std::string(wstr.begin(), wstr.end());
 }
 
-void PyEmbeddedUtils::import_bornagain(const std::string& path) {
+void PyUtils::import_bornagain(const std::string& path) {
     if (!Py_IsInitialized()) {
         Py_InitializeEx(0);
 
@@ -92,7 +92,7 @@ void PyEmbeddedUtils::import_bornagain(const std::string& path) {
     }
 }
 
-std::string PyEmbeddedUtils::pythonRuntimeInfo() {
+std::string PyUtils::pythonRuntimeInfo() {
     Py_InitializeEx(0);
 
     std::stringstream result;
@@ -104,15 +104,15 @@ std::string PyEmbeddedUtils::pythonRuntimeInfo() {
     result << "PYTHONHOME: " << SysUtils::getenv("PYTHONHOME") << "\n";
 
     // Embedded Python details
-    result << "Py_GetProgramName(): " << PyEmbeddedUtils::toString(Py_GetProgramName()) << "\n";
-    result << "Py_GetProgramFullPath(): " << PyEmbeddedUtils::toString(Py_GetProgramFullPath())
+    result << "Py_GetProgramName(): " << PyUtils::toString(Py_GetProgramName()) << "\n";
+    result << "Py_GetProgramFullPath(): " << PyUtils::toString(Py_GetProgramFullPath())
            << "\n";
-    result << "Py_GetPath(): " << PyEmbeddedUtils::toString(Py_GetPath()) << "\n";
-    result << "Py_GetPythonHome(): " << PyEmbeddedUtils::toString(Py_GetPythonHome()) << "\n";
+    result << "Py_GetPath(): " << PyUtils::toString(Py_GetPath()) << "\n";
+    result << "Py_GetPythonHome(): " << PyUtils::toString(Py_GetPythonHome()) << "\n";
 
     // Runtime Python's sys.path
     PyObject* sysPath = PySys_GetObject((char*)"path");
-    auto content = PyEmbeddedUtils::toVectorString(sysPath);
+    auto content = PyUtils::toVectorString(sysPath);
     result << "sys.path: ";
     for (auto s : content)
         result << s << ",";
@@ -124,7 +124,7 @@ std::string PyEmbeddedUtils::pythonRuntimeInfo() {
 // Attempt to retrieve Python stack trace
 // https://stackoverflow.com/questions/1796510/accessing-a-python-traceback-from-the-c-api
 
-std::string PyEmbeddedUtils::pythonStackTrace() {
+std::string PyUtils::pythonStackTrace() {
     std::stringstream result;
 
     if (PyErr_Occurred()) {

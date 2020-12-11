@@ -20,14 +20,14 @@
 class IPixel;
 class SphericalPixel;
 
-//! A spherical detector with axes and resolution function.
+//! A detector with coordinate axes along angles phi and alpha.
 //! @ingroup detector
 
 class SphericalDetector : public IDetector2D {
 public:
     SphericalDetector();
 
-    //! Spherical detector constructor using angle ranges
+    //! Returns a detector with given phi and alpha axes.
     //! @param n_phi number of phi-axis bins
     //! @param phi_min low edge of first phi-bin
     //! @param phi_max upper edge of last phi-bin
@@ -37,9 +37,9 @@ public:
     SphericalDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha,
                       double alpha_min, double alpha_max);
 
-    //! Spherical detector constructor with quadratic angle ranges
+    //! Returns a detector with phi and alpha axes that have equal width and binning.
     //! @param n_bin number of bins per direction
-    //! @param width angular width
+    //! @param width full width of angular range in phi or alpha
     //! @param phi   central phi angle
     //! @param alpha central alpha angle
     SphericalDetector(size_t n_bin, double width, double phi, double alpha);

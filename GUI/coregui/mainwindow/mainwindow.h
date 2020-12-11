@@ -19,7 +19,6 @@
 
 namespace Manhattan {
 class FancyTabWidget;
-class ProgressBar;
 } // namespace Manhattan
 
 class WelcomeView;
@@ -40,6 +39,7 @@ class ProjectManager;
 class ActionManager;
 class ToolTipDataBase;
 class UpdateNotifier;
+class QProgressBar;
 
 class MainWindow : public Manhattan::FancyMainWindow {
     Q_OBJECT
@@ -60,7 +60,7 @@ public:
     JobModel* jobModel();
     ApplicationModels* models();
 
-    Manhattan::ProgressBar* progressBar();
+    QProgressBar* progressBar();
     QStatusBar* statusBar();
 
     ProjectManager* projectManager();
@@ -85,7 +85,7 @@ private:
     void initConnections();
 
     Manhattan::FancyTabWidget* m_tabWidget;
-    Manhattan::ProgressBar* m_progressBar;
+    QProgressBar* m_progressBar;
 
     ApplicationModels* m_applicationModels;
     ProjectManager* m_projectManager;

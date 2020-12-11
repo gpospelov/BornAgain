@@ -33,9 +33,9 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QMessageBox>
+#include <QProgressBar>
 #include <QSettings>
 #include <qt-manhattan-style/fancytabwidget.h>
-#include <qt-manhattan-style/progressbar.h>
 #include <qt-manhattan-style/stylehelper.h>
 
 MainWindow* MainWindow::s_instance = nullptr;
@@ -43,7 +43,7 @@ MainWindow* MainWindow::s_instance = nullptr;
 MainWindow::MainWindow()
     : Manhattan::FancyMainWindow(nullptr)
     , m_tabWidget(new Manhattan::FancyTabWidget(this))
-    , m_progressBar(new Manhattan::ProgressBar(this))
+    , m_progressBar(new QProgressBar)
     , m_applicationModels(new ApplicationModels(this))
     , m_projectManager(new ProjectManager(this))
     , m_actionManager(new ActionManager(this))
@@ -100,7 +100,7 @@ ApplicationModels* MainWindow::models() {
     return m_applicationModels;
 }
 
-Manhattan::ProgressBar* MainWindow::progressBar() {
+QProgressBar* MainWindow::progressBar() {
     return m_progressBar;
 }
 
@@ -192,8 +192,11 @@ void MainWindow::initApplication() {
 }
 
 void MainWindow::initProgressBar() {
-    m_tabWidget->addBottomCornerWidget(m_progressBar);
     m_progressBar->hide();
+    m_progressBar->setTextVisible(false);
+    m_progressBar->setFixedHeight(10);
+    m_progressBar->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+    m_tabWidget->addBottomCornerWidget(m_progressBar);
 }
 
 void MainWindow::initViews() {

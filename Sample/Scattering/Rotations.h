@@ -20,6 +20,8 @@
 
 class Transform3D;
 
+#ifndef USER_API
+
 //! Abstract base class for rotations.
 //! @ingroup samples
 
@@ -46,6 +48,8 @@ public:
 };
 
 IRotation* createProduct(const IRotation& left, const IRotation& right);
+
+#endif // USER_API
 
 //! The identity rotation, which leaves everything in place.
 

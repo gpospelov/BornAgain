@@ -20,6 +20,8 @@
 #include "Param/Node/INode.h"
 #include <utility>
 
+#ifndef USER_API
+
 //! Interface for a one-dimensional decay function,
 //!   with evaluate(q) returning the Fourier transform,
 //!   normalized to \f$\int dq\; {\rm evaluate}(q) = 1\f$.
@@ -35,6 +37,8 @@ public:
 protected:
     const double& m_decay_length;
 };
+
+#endif // USER_API
 
 //! One-dimensional Cauchy decay function in reciprocal space;
 //! corresponds to exp(-|x|/decay_length) in real space.

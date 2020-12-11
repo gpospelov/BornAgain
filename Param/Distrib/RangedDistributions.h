@@ -27,6 +27,8 @@ class ParameterSample;
 //  interface class IDistribution1D
 //  ************************************************************************************************
 
+#ifndef USER_API
+
 //! Interface for one-dimensional ranged distributions.
 //! All derived distributions
 //! allow for generating samples in-place for known mean and standard deviation
@@ -84,6 +86,8 @@ private:
     double m_sigma_factor;
     RealLimits m_limits;
 };
+
+#endif // USER_API
 
 //  ************************************************************************************************
 //  specific distribution classes

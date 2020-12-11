@@ -74,8 +74,8 @@ MainWindow::MainWindow()
     m_viewSelectionButtonsLayout->setSpacing(0);
 
     auto fillerButton = createViewSelectionButton();
-    fillerButton->setMinimumSize(70, 5); // #TODO: High-DPI?
-    fillerButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding);
+    fillerButton->setMinimumSize(5, 5);
+    fillerButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     fillerButton->setEnabled(false);
     m_viewSelectionButtonsLayout->insertWidget(-1, fillerButton);
 

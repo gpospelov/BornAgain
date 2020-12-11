@@ -14,7 +14,6 @@
 
 #include "Device/Beam/Beam.h"
 #include "Base/Math/Constants.h"
-#include "Base/Types/Complex.h"
 #include "Base/Utils/Assert.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Param/Base/RealParameter.h"

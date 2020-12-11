@@ -4500,7 +4500,7 @@ class SphericalDetector(IDetector2D):
     r"""
 
 
-    A spherical detector with axes and resolution function.
+    A detector with coordinate axes along angles phi and alpha.
 
     C++ includes: SphericalDetector.h
 

@@ -20,7 +20,6 @@
 #ifndef BORNAGAIN_SAMPLE_MATERIAL_BASEMATERIALIMPL_H
 #define BORNAGAIN_SAMPLE_MATERIAL_BASEMATERIALIMPL_H
 
-#include "Base/Types/Complex.h"
 #include "Base/Vector/EigenCore.h"
 #include "Base/Vector/Vectors3D.h"
 

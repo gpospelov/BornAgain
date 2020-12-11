@@ -2620,7 +2620,7 @@ Returns the list of all available units.
 // File: classSphericalDetector.xml
 %feature("docstring") SphericalDetector "
 
-A spherical detector with axes and resolution function.
+A detector with coordinate axes along angles phi and alpha.
 
 C++ includes: SphericalDetector.h
 ";
@@ -2630,7 +2630,7 @@ C++ includes: SphericalDetector.h
 
 %feature("docstring")  SphericalDetector::SphericalDetector "SphericalDetector::SphericalDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
 
-Spherical detector constructor using angle ranges
+Returns a detector with given phi and alpha axes.
 
 Parameters:
 -----------
@@ -2656,7 +2656,7 @@ upper edge of last alpha-bin
 
 %feature("docstring")  SphericalDetector::SphericalDetector "SphericalDetector::SphericalDetector(size_t n_bin, double width, double phi, double alpha)
 
-Spherical detector constructor with quadratic angle ranges
+Returns a detector with phi and alpha axes that have equal width and binning.
 
 Parameters:
 -----------
@@ -2665,7 +2665,7 @@ n_bin:
 number of bins per direction
 
 width: 
-angular width
+full width of angular range in phi or alpha
 
 phi: 
 central phi angle

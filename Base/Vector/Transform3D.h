@@ -20,7 +20,6 @@
 #ifndef BORNAGAIN_BASE_VECTOR_TRANSFORM3D_H
 #define BORNAGAIN_BASE_VECTOR_TRANSFORM3D_H
 
-#include "Base/Types/Complex.h"
 #include "Base/Vector/EigenCore.h"
 #include "Base/Vector/Vectors3D.h"
 

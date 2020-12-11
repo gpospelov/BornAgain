@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 #define BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONRADIALPARACRYSTAL_H
 
-#include "Base/Types/Complex.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Correlations/FTDistributions1D.h"
 #include <memory>

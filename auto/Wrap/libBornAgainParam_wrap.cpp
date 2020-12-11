@@ -6792,15 +6792,8 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
-#include "Param/Base/IComponent.h"
-#include "Param/Base/IParametricComponent.h"
-
-#include "Param/Node/INode.h"
-#include "Param/Node/INodeVisitor.h"
-
 #include "Param/Distrib/Distributions.h"
 #include "Param/Distrib/ParameterDistribution.h"
-#include "Param/Varia/ParameterSample.h"
 #include "Param/Distrib/RangedDistributions.h"
 
 

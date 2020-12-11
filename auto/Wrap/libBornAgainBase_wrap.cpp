@@ -6651,25 +6651,15 @@ SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std
 SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_0(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::value_type const &x){ return self->insert(pos, x); }
 SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_1(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::size_type n,std::vector< std::pair< double,double > >::value_type const &x){ self->insert(pos, n, x); }
 
-#include "Base/Types/Complex.h"
 #include "Base/Types/ICloneable.h"
-
 #include "Base/Const/Units.h"
-
 #include "Base/Utils/ThreadInfo.h"
-
-#include "Base/Vector/BasicVector3D.h"
-#include "Base/Vector/Vectors3D.h"
 #include "Base/Vector/Direction.h"
-
-#include "Base/Axis/Bin.h"
 #include "Base/Axis/ConstKBinAxis.h"
 #include "Base/Axis/CustomBinAxis.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/VariableBinAxis.h"
-
 #include "Base/Pixel/IPixel.h"
-
 
 
 SWIGINTERN int

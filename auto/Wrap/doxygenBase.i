@@ -394,12 +394,6 @@ C++ includes: Direction.h
 %feature("docstring")  Direction::Direction "Direction::Direction()
 ";
 
-%feature("docstring")  Direction::setAlpha "void Direction::setAlpha(double alpha)
-";
-
-%feature("docstring")  Direction::setPhi "void Direction::setPhi(double phi)
-";
-
 %feature("docstring")  Direction::alpha "double Direction::alpha() const
 ";
 

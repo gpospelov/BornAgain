@@ -1798,22 +1798,6 @@ class Direction(object):
         """
         _libBornAgainBase.Direction_swiginit(self, _libBornAgainBase.new_Direction(*args))
 
-    def setAlpha(self, alpha):
-        r"""
-        setAlpha(Direction self, double alpha)
-        void Direction::setAlpha(double alpha)
-
-        """
-        return _libBornAgainBase.Direction_setAlpha(self, alpha)
-
-    def setPhi(self, phi):
-        r"""
-        setPhi(Direction self, double phi)
-        void Direction::setPhi(double phi)
-
-        """
-        return _libBornAgainBase.Direction_setPhi(self, phi)
-
     def alpha(self):
         r"""
         alpha(Direction self) -> double

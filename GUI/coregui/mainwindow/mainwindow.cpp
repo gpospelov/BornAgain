@@ -29,21 +29,29 @@
 #include "GUI/coregui/mainwindow/tooltipdatabase.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/utils/hostosinfo.h"
+#include "QBoxLayout"
+#include "QButtonGroup"
+#include "QPushButton"
+#include "QStackedLayout"
+#include "QStatusBar"
+#include "QToolButton"
 #include <QAction>
 #include <QApplication>
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QSettings>
-#include <qt-manhattan-style/fancytabwidget.h>
 #include <qt-manhattan-style/stylehelper.h>
 
 MainWindow* MainWindow::s_instance = nullptr;
 
 MainWindow::MainWindow()
     : Manhattan::FancyMainWindow(nullptr)
-    , m_tabWidget(new Manhattan::FancyTabWidget(this))
     , m_progressBar(new QProgressBar)
+    , m_viewSelectionButtons(new QButtonGroup(this))
+    , m_viewSelectionButtonsLayout(new QVBoxLayout)
+    , m_viewsStack(new QStackedLayout)
+    , m_statusBar(new QStatusBar)
     , m_applicationModels(new ApplicationModels(this))
     , m_projectManager(new ProjectManager(this))
     , m_actionManager(new ActionManager(this))
@@ -56,12 +64,45 @@ MainWindow::MainWindow()
     , m_simulationView(0)
     , m_jobView(0)
     , m_sessionModelView(0) {
+
     s_instance = this;
+
+    QWidget* centralWidget = new QWidget(this);
+    QHBoxLayout* mainLayout = new QHBoxLayout(centralWidget);
+
+    m_viewSelectionButtonsLayout->setMargin(0);
+    m_viewSelectionButtonsLayout->setSpacing(0);
+
+    auto fillerButton = createViewSelectionButton();
+    fillerButton->setMinimumSize(5, 5);
+    fillerButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+    fillerButton->setEnabled(false);
+    m_viewSelectionButtonsLayout->insertWidget(-1, fillerButton);
+
+    connect(m_viewSelectionButtons, QOverload<int>::of(&QButtonGroup::buttonClicked),
+            [&](int index) { m_viewsStack->setCurrentIndex(index); });
+
+    m_statusBar->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+
+    QVBoxLayout* vlayout = new QVBoxLayout;
+    vlayout->setMargin(0);
+    vlayout->setSpacing(0);
+    vlayout->addLayout(m_viewsStack);
+    vlayout->addWidget(m_statusBar);
+
+    mainLayout->addLayout(m_viewSelectionButtonsLayout);
+    mainLayout->addLayout(vlayout);
+
+    setCentralWidget(centralWidget);
+
     initApplication();
     readSettings();
     initProgressBar();
     initViews();
     initConnections();
+
+    ASSERT(m_viewSelectionButtons->button(ViewId::WELCOME) != nullptr);
+    m_viewSelectionButtons->button(ViewId::WELCOME)->setChecked(true);
 
     //    m_applicationModels->createTestSample();
     //    m_applicationModels->createTestJob();
@@ -105,7 +146,7 @@ QProgressBar* MainWindow::progressBar() {
 }
 
 QStatusBar* MainWindow::statusBar() {
-    return m_tabWidget->statusBar();
+    return m_statusBar;
 }
 
 ProjectManager* MainWindow::projectManager() {
@@ -117,7 +158,7 @@ UpdateNotifier* MainWindow::updateNotifier() {
 }
 
 void MainWindow::onFocusRequest(int index) {
-    m_tabWidget->setCurrentIndex(index);
+    m_viewSelectionButtons->button(index)->click();
 }
 
 void MainWindow::openRecentProject() {
@@ -135,27 +176,18 @@ void MainWindow::onRunSimulationShortcut() {
     m_simulationView->onRunSimulationShortcut();
 }
 
-//! Inserts/removes developers SessionModelView on the left fancy tabbar.
-//! This SessionModelView will be known for the tab under MAXVIEWCOUNT id (so it is the last one)
+//! Inserts/removes developers SessionModelView on the left tabbar.
 void MainWindow::onSessionModelViewActive(bool isActive) {
-    if (isActive) {
-        if (m_sessionModelView)
-            return;
-        m_sessionModelView = new SessionModelView(this);
-        m_tabWidget->insertTab(MAXVIEWCOUNT, m_sessionModelView,
-                               QIcon(":/images/main_sessionmodel.svg"), "Models");
-    } else {
-        if (!m_sessionModelView)
-            return;
+    auto btn = m_viewSelectionButtons->button(ViewId::SESSIONMODEL);
+    ASSERT(btn != nullptr);
+    if (btn == nullptr)
+        return;
 
-        if (m_tabWidget->currentIndex() == MAXVIEWCOUNT)
-            m_tabWidget->setCurrentIndex(WELCOME);
+    if (!isActive && m_viewsStack->currentIndex() == SESSIONMODEL)
+        m_viewSelectionButtons->buttons().first()->click();
 
-        m_tabWidget->removeTab(MAXVIEWCOUNT);
-        delete m_sessionModelView;
-        m_sessionModelView = 0;
-        m_tabWidget->update();
-    }
+    btn->setEnabled(isActive);
+    btn->setVisible(isActive);
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
@@ -196,7 +228,7 @@ void MainWindow::initProgressBar() {
     m_progressBar->setTextVisible(false);
     m_progressBar->setFixedHeight(10);
     m_progressBar->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
-    m_tabWidget->addBottomCornerWidget(m_progressBar);
+    m_viewSelectionButtonsLayout->addWidget(m_progressBar);
 }
 
 void MainWindow::initViews() {
@@ -206,38 +238,34 @@ void MainWindow::initViews() {
     m_importDataView = new ImportDataView(this);
     m_simulationView = new SimulationView(this);
     m_jobView = new JobView(this);
+    m_sessionModelView = new SessionModelView(this);
 
-    m_tabWidget->insertTab(WELCOME, m_welcomeView, QIcon(":/images/main_welcomeview.svg"),
-                           "Welcome");
-    m_tabWidget->setTabToolTip(WELCOME, "Switch to Welcome View");
+    addView(ViewId::WELCOME, QIcon(":/images/main_welcomeview.svg"), "Welcome",
+            "Switch to Welcome View", m_welcomeView);
 
-    m_tabWidget->insertTab(INSTRUMENT, m_instrumentView, QIcon(":/images/main_instrumentview.svg"),
-                           "Instrument");
-    m_tabWidget->setTabToolTip(INSTRUMENT, "Define the beam and the detector");
+    addView(ViewId::INSTRUMENT, QIcon(":/images/main_instrumentview.svg"), "Instrument",
+            "Define the beam and the  detector", m_instrumentView);
 
-    m_tabWidget->insertTab(SAMPLE, m_sampleView, QIcon(":/images/main_sampleview.svg"), "Sample");
-    m_tabWidget->setTabToolTip(SAMPLE, "Build the sample");
+    addView(ViewId::SAMPLE, QIcon(":/images/main_sampleview.svg"), "Sample", "Build the sample",
+            m_sampleView);
 
-    m_tabWidget->insertTab(IMPORT, m_importDataView, QIcon(":/images/main_importview.svg"), "Data");
-    m_tabWidget->setTabToolTip(IMPORT, "Import intensity data to fit");
+    addView(ViewId::IMPORT, QIcon(":/images/main_importview.svg"), "Data",
+            "Import intensity data to fit", m_importDataView);
 
-    m_tabWidget->insertTab(SIMULATION, m_simulationView, QIcon(":/images/main_simulationview.svg"),
-                           "Simulation");
-    m_tabWidget->setTabToolTip(SIMULATION, "Run simulation");
+    addView(ViewId::SIMULATION, QIcon(":/images/main_simulationview.svg"), "Simulation",
+            "Run simulation", m_simulationView);
 
-    m_tabWidget->insertTab(JOB, m_jobView, QIcon(":/images/main_jobview.svg"), "Jobs");
-    m_tabWidget->setTabToolTip(
-        JOB, "Switch to see job results, tune parameters real time,\nfit the data");
+    addView(ViewId::JOB, QIcon(":/images/main_jobview.svg"), "Jobs",
+            "Switch to see job results, tune parameters real time,\nfit the data", m_jobView);
 
-    m_tabWidget->setCurrentIndex(WELCOME);
+    addView(ViewId::SESSIONMODEL, QIcon(":/images/main_sessionmodel.svg"), "Models", "",
+            m_sessionModelView);
 
     // enabling technical view
     QSettings settings;
     settings.beginGroup(Constants::S_SESSIONMODELVIEW);
     onSessionModelViewActive(settings.value(Constants::S_VIEWISACTIVE, false).toBool());
     settings.endGroup();
-
-    setCentralWidget(m_tabWidget);
 }
 
 void MainWindow::readSettings() {
@@ -263,4 +291,46 @@ void MainWindow::writeSettings() {
 
 void MainWindow::initConnections() {
     connect(m_jobView, &JobView::focusRequest, this, &MainWindow::onFocusRequest);
+}
+
+void MainWindow::addView(ViewId id, const QIcon& icon, const QString& title, const QString& tooltip,
+                         QWidget* view) {
+    QToolButton* btn = createViewSelectionButton();
+    m_viewSelectionButtonsLayout->insertWidget(id, btn);
+
+    btn->setFixedSize(70, 70); // TODO: check with High-DPI devices!
+    btn->setText(title);
+    btn->setToolTip(tooltip);
+    btn->setIcon(icon);
+    m_viewSelectionButtons->addButton(btn, id);
+
+    m_viewsStack->insertWidget(id, view);
+}
+
+QToolButton* MainWindow::createViewSelectionButton() const {
+
+    const QString viewSelectionButtonStyle =
+        "QToolButton { border: none; color: white; background-color: qlineargradient(x1: 0, "
+        "y1: 0, x2: 1, y2: 0, stop : 0 #153b4c, stop : 1 #347a9c);}        "
+        "QToolButton:pressed { "
+        " color: black; background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 "
+        "#97a8b0, stop: "
+        "1 #dae7ed); }"
+        "QToolButton:hover { "
+        " color: white; background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 "
+        "#254b5c, stop: 1 #448aac); }"
+        "QToolButton:checked { "
+        " color: black; background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 "
+        "#97a8b0, stop: "
+        "1 #dae7ed);"
+        "} ";
+
+    QToolButton* btn = new QToolButton;
+
+    btn->setCheckable(true);
+    btn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    btn->setIconSize({50, 50}); // TODO: check with High-DPI devices!
+    btn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    btn->setStyleSheet(viewSelectionButtonStyle);
+    return btn;
 }

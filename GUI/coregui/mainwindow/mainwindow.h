@@ -17,10 +17,6 @@
 
 #include <qt-manhattan-style/fancymainwindow.h>
 
-namespace Manhattan {
-class FancyTabWidget;
-} // namespace Manhattan
-
 class WelcomeView;
 class InstrumentView;
 class SampleView;
@@ -39,13 +35,19 @@ class ProjectManager;
 class ActionManager;
 class ToolTipDataBase;
 class UpdateNotifier;
+
 class QProgressBar;
+class QButtonGroup;
+class QStackedLayout;
+class QStatusBar;
+class QToolButton;
+class QVBoxLayout;
 
 class MainWindow : public Manhattan::FancyMainWindow {
     Q_OBJECT
 
 public:
-    enum ETabViewId { WELCOME, INSTRUMENT, SAMPLE, IMPORT, SIMULATION, JOB, MAXVIEWCOUNT };
+    enum ViewId { WELCOME, INSTRUMENT, SAMPLE, IMPORT, SIMULATION, JOB, SESSIONMODEL };
 
     explicit MainWindow();
     ~MainWindow();
@@ -83,9 +85,15 @@ private:
     void readSettings();
     void writeSettings();
     void initConnections();
+    void addView(ViewId id, const QIcon& icon, const QString& title, const QString& tooltip,
+                 QWidget* view);
+    QToolButton* createViewSelectionButton() const;
 
-    Manhattan::FancyTabWidget* m_tabWidget;
     QProgressBar* m_progressBar;
+    QButtonGroup* m_viewSelectionButtons;
+    QStackedLayout* m_viewsStack;
+    QVBoxLayout* m_viewSelectionButtonsLayout;
+    QStatusBar* m_statusBar;
 
     ApplicationModels* m_applicationModels;
     ProjectManager* m_projectManager;

@@ -298,7 +298,7 @@ void MainWindow::addView(ViewId id, const QIcon& icon, const QString& title, con
     QToolButton* btn = createViewSelectionButton();
     m_viewSelectionButtonsLayout->insertWidget(id, btn);
 
-    btn->setFixedSize(70, 70); // #TODO: High-DPI?
+    btn->setFixedSize(70, 70); // TODO: check with High-DPI devices!
     btn->setText(title);
     btn->setToolTip(tooltip);
     btn->setIcon(icon);
@@ -329,7 +329,7 @@ QToolButton* MainWindow::createViewSelectionButton() const {
 
     btn->setCheckable(true);
     btn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn->setIconSize({50, 50}); // #TODO: High-DPI?
+    btn->setIconSize({50, 50}); // TODO: check with High-DPI devices!
     btn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     btn->setStyleSheet(viewSelectionButtonStyle);
     return btn;

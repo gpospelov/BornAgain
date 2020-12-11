@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_AXIS_POINTWISEAXIS_H
 #define BORNAGAIN_BASE_AXIS_POINTWISEAXIS_H
 
@@ -89,3 +90,4 @@ private:
 };
 
 #endif // BORNAGAIN_BASE_AXIS_POINTWISEAXIS_H
+#endif // USER_API

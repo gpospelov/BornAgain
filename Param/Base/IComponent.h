@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_PARAM_BASE_ICOMPONENT_H
 #define BORNAGAIN_PARAM_BASE_ICOMPONENT_H
 
@@ -23,3 +24,4 @@ public:
 };
 
 #endif // BORNAGAIN_PARAM_BASE_ICOMPONENT_H
+#endif // USER_API

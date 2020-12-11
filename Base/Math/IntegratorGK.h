@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_MATH_INTEGRATORGK_H
 #define BORNAGAIN_BASE_MATH_INTEGRATORGK_H
 
@@ -49,3 +50,4 @@ private:
 };
 
 #endif // BORNAGAIN_BASE_MATH_INTEGRATORGK_H
+#endif // USER_API

@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_FITTING_FITPRINTSERVICE_H
 #define BORNAGAIN_CORE_FITTING_FITPRINTSERVICE_H
 
@@ -43,3 +44,4 @@ private:
 };
 
 #endif // BORNAGAIN_CORE_FITTING_FITPRINTSERVICE_H
+#endif // USER_API

@@ -9,17 +9,17 @@
 //! @license   GNU General Public License v3 or higher (see COPYING)
 //! @copyright Forschungszentrum Jülich GmbH 2018
 //! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
+//!
+//! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
+//! then reworked beyond recognition. Removed split of point and vector semantics.
+//! Transforms are relegated to a separate class Transform3D.
 //
 //  ************************************************************************************************
 
 #ifndef BORNAGAIN_BASE_VECTOR_BASICVECTOR3D_H
 #define BORNAGAIN_BASE_VECTOR_BASICVECTOR3D_H
 
-//! Forked from CLHEP/Geometry by E. Chernyaev <Evgueni.Tcherniaev@cern.ch>,
-//! then reworked beyond recognition. Removed split of point and vector semantics.
-//! Transforms are relegated to a separate class Transform3D.
-
-#include <complex>
+#include "Base/Types/Complex.h"
 
 //! Three-dimensional vector template, for use with integer, double, or complex components.
 //! @ingroup tools_internal
@@ -99,7 +99,7 @@ public:
         v_[2] *= a;
         return *this;
     }
-#endif // SWIG
+#endif // USER_API
 
     //! Divides this by a scalar, and returns result.
 #ifndef SWIG
@@ -109,7 +109,7 @@ public:
         v_[2] /= a;
         return *this;
     }
-#endif // SWIG
+#endif // USER_API
 
     // -------------------------------------------------------------------------
     // Functions of this (with no further argument)
@@ -146,7 +146,7 @@ public:
     BasicVector3D<T> unit() const;
 
     //! Returns this, trivially converted to complex type.
-    BasicVector3D<std::complex<double>> complex() const;
+    BasicVector3D<complex_t> complex() const;
 
     //! Returns real parts.
     BasicVector3D<double> real() const;
@@ -158,12 +158,12 @@ public:
     //! Returns dot product of vectors (antilinear in the first [=self] argument).
 #ifndef SWIG
     template <class U> auto dot(const BasicVector3D<U>& v) const;
-#endif // SWIG
+#endif // USER_API
 
     //! Returns cross product of vectors (linear in both arguments).
 #ifndef SWIG
     template <class U> auto cross(const BasicVector3D<U>& v) const;
-#endif // SWIG
+#endif // USER_API
 
     //! Returns angle with respect to another vector.
     double angle(const BasicVector3D<T>& v) const;
@@ -239,7 +239,7 @@ inline BasicVector3D<T> operator-(const BasicVector3D<T>& a, const BasicVector3D
 template <class T, class U> inline auto operator*(const BasicVector3D<T>& v, const U a) {
     return BasicVector3D<decltype(v.x() * a)>(v.x() * a, v.y() * a, v.z() * a);
 }
-#endif // SWIG
+#endif // USER_API
 
 //! Multiplication scalar by vector.
 //! @relates BasicVector3D
@@ -247,7 +247,7 @@ template <class T, class U> inline auto operator*(const BasicVector3D<T>& v, con
 template <class T, class U> inline auto operator*(const U a, const BasicVector3D<T>& v) {
     return BasicVector3D<decltype(a * v.x())>(a * v.x(), a * v.y(), a * v.z());
 }
-#endif // SWIG
+#endif // USER_API
 
 // vector*vector not supported
 //    (We do not provide the operator form a*b of the dot product:
@@ -284,7 +284,7 @@ inline auto BasicVector3D<T>::dot(const BasicVector3D<U>& v) const {
     BasicVector3D<T> left_star = this->conj();
     return left_star.x() * v.x() + left_star.y() * v.y() + left_star.z() * v.z();
 }
-#endif // SWIG
+#endif // USER_API
 
 //! Returns cross product of (complex) vectors.
 #ifndef SWIG
@@ -294,11 +294,11 @@ inline auto BasicVector3D<T>::cross(const BasicVector3D<U>& v) const {
     return BasicVector3D<decltype(this->x() * v.x())>(
         y() * v.z() - v.y() * z(), z() * v.x() - v.z() * x(), x() * v.y() - v.x() * y());
 }
-#endif // SWIG
+#endif // USER_API
 
 template <> BasicVector3D<double> BasicVector3D<double>::conj() const;
 
-template <> BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::conj() const;
+template <> BasicVector3D<complex_t> BasicVector3D<complex_t>::conj() const;
 
 template <> double BasicVector3D<double>::phi() const;
 
@@ -308,15 +308,15 @@ template <> double BasicVector3D<double>::cosTheta() const;
 
 template <> double BasicVector3D<double>::sin2Theta() const;
 
-template <> BasicVector3D<std::complex<double>> BasicVector3D<double>::complex() const;
+template <> BasicVector3D<complex_t> BasicVector3D<double>::complex() const;
 
 template <> BasicVector3D<double> BasicVector3D<double>::real() const;
 
-template <> BasicVector3D<double> BasicVector3D<std::complex<double>>::real() const;
+template <> BasicVector3D<double> BasicVector3D<complex_t>::real() const;
 
 template <> BasicVector3D<double> BasicVector3D<double>::unit() const;
 
-template <> BasicVector3D<std::complex<double>> BasicVector3D<std::complex<double>>::unit() const;
+template <> BasicVector3D<complex_t> BasicVector3D<complex_t>::unit() const;
 
 template <> double BasicVector3D<double>::angle(const BasicVector3D<double>& v) const;
 

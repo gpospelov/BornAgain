@@ -2921,7 +2921,7 @@ class FitObjective(object):
 
     def setChiSquaredModule(self, module):
         r"""
-        setChiSquaredModule(FitObjective self, IChiSquaredModule const & module)
+        setChiSquaredModule(FitObjective self, IChiSquaredModule module)
         void FitObjective::setChiSquaredModule(const IChiSquaredModule &module)
 
         """
@@ -3108,89 +3108,6 @@ def GetName():
 def GetVersionNumber():
     r"""GetVersionNumber() -> std::string"""
     return _libBornAgainCore.GetVersionNumber()
-class IObserver(object):
-    r"""
-
-
-    Observer interface from Observer pattern.
-
-    C++ includes: IObserver.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-
-    def __init__(self, *args, **kwargs):
-        raise AttributeError("No constructor defined - class is abstract")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IObserver
-
-    def notify(self, subject):
-        r"""
-        notify(IObserver self, IObservable subject)
-        virtual void IObserver::notify(IObservable *subject)=0
-
-        method which is used by observable subject to notify change in status 
-
-        """
-        return _libBornAgainCore.IObserver_notify(self, subject)
-
-# Register IObserver in _libBornAgainCore:
-_libBornAgainCore.IObserver_swigregister(IObserver)
-cvar = _libBornAgainCore.cvar
-major_version_number = cvar.major_version_number
-minor_version_number = cvar.minor_version_number
-patch_version_number = cvar.patch_version_number
-
-class IObservable(object):
-    r"""
-
-
-    Observable interface from Observer pattern
-
-    C++ includes: IObserver.h
-
-    """
-
-    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
-    __repr__ = _swig_repr
-    __swig_destroy__ = _libBornAgainCore.delete_IObservable
-
-    def attachObserver(self, obj):
-        r"""
-        attachObserver(IObservable self, IObservable::observer_t obj)
-        void IObservable::attachObserver(observer_t obj)
-
-        attach observer to the list of observers 
-
-        """
-        return _libBornAgainCore.IObservable_attachObserver(self, obj)
-
-    def notifyObservers(self):
-        r"""
-        notifyObservers(IObservable self)
-        void IObservable::notifyObservers()
-
-        notify observers about change in status 
-
-        """
-        return _libBornAgainCore.IObservable_notifyObservers(self)
-
-    def __init__(self):
-        r"""
-        __init__(IObservable self) -> IObservable
-
-
-        Observable interface from Observer pattern
-
-        C++ includes: IObserver.h
-
-        """
-        _libBornAgainCore.IObservable_swiginit(self, _libBornAgainCore.new_IObservable())
-
-# Register IObservable in _libBornAgainCore:
-_libBornAgainCore.IObservable_swigregister(IObservable)
-
 class IterationInfo(object):
     r"""
 
@@ -3259,6 +3176,10 @@ class IterationInfo(object):
 
 # Register IterationInfo in _libBornAgainCore:
 _libBornAgainCore.IterationInfo_swigregister(IterationInfo)
+cvar = _libBornAgainCore.cvar
+major_version_number = cvar.major_version_number
+minor_version_number = cvar.minor_version_number
+patch_version_number = cvar.patch_version_number
 
 class PyBuilderCallback(object):
     r"""
@@ -3534,7 +3455,7 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
 
 
-    Abstract base class of OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
+    Abstract base class of  OffSpecularSimulation,  GISASSimulation and  SpecularSimulation. Holds the common infrastructure to run a simulation: multithreading, batch processing, weighting over parameter distributions, ...
 
     C++ includes: ISimulation.h
 
@@ -3621,24 +3542,6 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 
         """
         return _libBornAgainCore.ISimulation_detector(self, *args)
-
-    def setBeamIntensity(self, intensity):
-        r"""
-        setBeamIntensity(ISimulation self, double intensity)
-        void ISimulation::setBeamIntensity(double intensity)
-
-        """
-        return _libBornAgainCore.ISimulation_setBeamIntensity(self, intensity)
-
-    def setBeamPolarization(self, bloch_vector):
-        r"""
-        setBeamPolarization(ISimulation self, kvector_t bloch_vector)
-        void ISimulation::setBeamPolarization(const kvector_t bloch_vector)
-
-        Sets the beam polarization according to the given Bloch vector. 
-
-        """
-        return _libBornAgainCore.ISimulation_setBeamPolarization(self, bloch_vector)
 
     def setDetectorResolutionFunction(self, resolution_function):
         r"""
@@ -3802,7 +3705,7 @@ class ISimulation2D(ISimulation):
     r"""
 
 
-    Abstract base class of OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
+    Abstract base class of  OffSpecularSimulation and  GISASSimulation. Holds the common implementations for simulations with a 2D detector
 
     C++ includes: ISimulation2D.h
 
@@ -4198,13 +4101,13 @@ class SpecularSimulation(ISimulation):
 # Register SpecularSimulation in _libBornAgainCore:
 _libBornAgainCore.SpecularSimulation_swigregister(SpecularSimulation)
 
-class OffSpecSimulation(ISimulation2D):
+class OffSpecularSimulation(ISimulation2D):
     r"""
 
 
     Main class to run an off-specular simulation.
 
-    C++ includes: OffSpecSimulation.h
+    C++ includes: OffSpecularSimulation.h
 
     """
 
@@ -4213,82 +4116,82 @@ class OffSpecSimulation(ISimulation2D):
 
     def __init__(self, *args):
         r"""
-        __init__(OffSpecSimulation self, Beam const & beam, MultiLayer const & sample, IDetector const & detector) -> OffSpecSimulation
-        __init__(OffSpecSimulation self) -> OffSpecSimulation
-        OffSpecSimulation::OffSpecSimulation()
+        __init__(OffSpecularSimulation self, Beam const & beam, MultiLayer const & sample, IDetector const & detector) -> OffSpecularSimulation
+        __init__(OffSpecularSimulation self) -> OffSpecularSimulation
+        OffSpecularSimulation::OffSpecularSimulation()
 
         """
-        _libBornAgainCore.OffSpecSimulation_swiginit(self, _libBornAgainCore.new_OffSpecSimulation(*args))
-    __swig_destroy__ = _libBornAgainCore.delete_OffSpecSimulation
+        _libBornAgainCore.OffSpecularSimulation_swiginit(self, _libBornAgainCore.new_OffSpecularSimulation(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_OffSpecularSimulation
 
     def clone(self):
         r"""
-        clone(OffSpecSimulation self) -> OffSpecSimulation
-        OffSpecSimulation* OffSpecSimulation::clone() const override
+        clone(OffSpecularSimulation self) -> OffSpecularSimulation
+        OffSpecularSimulation* OffSpecularSimulation::clone() const override
 
         """
-        return _libBornAgainCore.OffSpecSimulation_clone(self)
+        return _libBornAgainCore.OffSpecularSimulation_clone(self)
 
     def accept(self, visitor):
         r"""
-        accept(OffSpecSimulation self, INodeVisitor * visitor)
-        void OffSpecSimulation::accept(INodeVisitor *visitor) const override
+        accept(OffSpecularSimulation self, INodeVisitor * visitor)
+        void OffSpecularSimulation::accept(INodeVisitor *visitor) const override
 
         """
-        return _libBornAgainCore.OffSpecSimulation_accept(self, visitor)
+        return _libBornAgainCore.OffSpecularSimulation_accept(self, visitor)
 
     def prepareSimulation(self):
         r"""
-        prepareSimulation(OffSpecSimulation self)
-        void OffSpecSimulation::prepareSimulation() override
+        prepareSimulation(OffSpecularSimulation self)
+        void OffSpecularSimulation::prepareSimulation() override
 
         Put into a clean state for running a simulation. 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_prepareSimulation(self)
+        return _libBornAgainCore.OffSpecularSimulation_prepareSimulation(self)
 
     def result(self):
         r"""
-        result(OffSpecSimulation self) -> SimulationResult
-        SimulationResult OffSpecSimulation::result() const override
+        result(OffSpecularSimulation self) -> SimulationResult
+        SimulationResult OffSpecularSimulation::result() const override
 
         Returns the results of the simulation in a format that supports unit conversion and export to numpy arrays 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_result(self)
+        return _libBornAgainCore.OffSpecularSimulation_result(self)
 
     def setBeamParameters(self, wavelength, alpha_axis, phi_i):
         r"""
-        setBeamParameters(OffSpecSimulation self, double wavelength, IAxis alpha_axis, double phi_i)
-        void OffSpecSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
+        setBeamParameters(OffSpecularSimulation self, double wavelength, IAxis alpha_axis, double phi_i)
+        void OffSpecularSimulation::setBeamParameters(double wavelength, const IAxis &alpha_axis, double phi_i)
 
         Sets beam parameters from here (forwarded to Instrument) 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_setBeamParameters(self, wavelength, alpha_axis, phi_i)
+        return _libBornAgainCore.OffSpecularSimulation_setBeamParameters(self, wavelength, alpha_axis, phi_i)
 
     def beamAxis(self):
         r"""
-        beamAxis(OffSpecSimulation self) -> IAxis
-        const IAxis * OffSpecSimulation::beamAxis() const
+        beamAxis(OffSpecularSimulation self) -> IAxis
+        const IAxis * OffSpecularSimulation::beamAxis() const
 
         Returns axis of the beam. 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_beamAxis(self)
+        return _libBornAgainCore.OffSpecularSimulation_beamAxis(self)
 
     def intensityMapSize(self):
         r"""
-        intensityMapSize(OffSpecSimulation self) -> size_t
-        size_t OffSpecSimulation::intensityMapSize() const override
+        intensityMapSize(OffSpecularSimulation self) -> size_t
+        size_t OffSpecularSimulation::intensityMapSize() const override
 
         Returns the total number of the intensity values in the simulation result. 
 
         """
-        return _libBornAgainCore.OffSpecSimulation_intensityMapSize(self)
+        return _libBornAgainCore.OffSpecularSimulation_intensityMapSize(self)
 
-# Register OffSpecSimulation in _libBornAgainCore:
-_libBornAgainCore.OffSpecSimulation_swigregister(OffSpecSimulation)
+# Register OffSpecularSimulation in _libBornAgainCore:
+_libBornAgainCore.OffSpecularSimulation_swigregister(OffSpecularSimulation)
 
 class IBackground(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
@@ -4449,6 +4352,376 @@ def generateSimulationCode(simulation):
 
     """
     return _libBornAgainCore.generateSimulationCode(simulation)
+class IIntensityFunction(object):
+    r"""
+
+
+    Interface for applying arbitrary function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IIntensityFunction
+
+    def clone(self):
+        r"""
+        clone(IIntensityFunction self) -> IIntensityFunction
+        virtual IIntensityFunction* IIntensityFunction::clone() const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IIntensityFunction self, double value) -> double
+        virtual double IIntensityFunction::evaluate(double value) const =0
+
+        """
+        return _libBornAgainCore.IIntensityFunction_evaluate(self, value)
+
+# Register IIntensityFunction in _libBornAgainCore:
+_libBornAgainCore.IIntensityFunction_swigregister(IIntensityFunction)
+
+class IntensityFunctionLog(IIntensityFunction):
+    r"""
+
+
+    Algorithm for applying log function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IntensityFunctionLog self) -> IntensityFunctionLog
+        IntensityFunctionLog * IntensityFunctionLog::clone() const
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IntensityFunctionLog self, double value) -> double
+        double IntensityFunctionLog::evaluate(double value) const
+
+        """
+        return _libBornAgainCore.IntensityFunctionLog_evaluate(self, value)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityFunctionLog self) -> IntensityFunctionLog
+
+
+        Algorithm for applying log function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        _libBornAgainCore.IntensityFunctionLog_swiginit(self, _libBornAgainCore.new_IntensityFunctionLog())
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionLog
+
+# Register IntensityFunctionLog in _libBornAgainCore:
+_libBornAgainCore.IntensityFunctionLog_swigregister(IntensityFunctionLog)
+
+class IntensityFunctionSqrt(IIntensityFunction):
+    r"""
+
+
+    Algorithm for applying sqrt function to the measured intensity.
+
+    C++ includes: IIntensityFunction.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+        IntensityFunctionSqrt * IntensityFunctionSqrt::clone() const
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_clone(self)
+
+    def evaluate(self, value):
+        r"""
+        evaluate(IntensityFunctionSqrt self, double value) -> double
+        double IntensityFunctionSqrt::evaluate(double value) const
+
+        """
+        return _libBornAgainCore.IntensityFunctionSqrt_evaluate(self, value)
+
+    def __init__(self):
+        r"""
+        __init__(IntensityFunctionSqrt self) -> IntensityFunctionSqrt
+
+
+        Algorithm for applying sqrt function to the measured intensity.
+
+        C++ includes: IIntensityFunction.h
+
+        """
+        _libBornAgainCore.IntensityFunctionSqrt_swiginit(self, _libBornAgainCore.new_IntensityFunctionSqrt())
+    __swig_destroy__ = _libBornAgainCore.delete_IntensityFunctionSqrt
+
+# Register IntensityFunctionSqrt in _libBornAgainCore:
+_libBornAgainCore.IntensityFunctionSqrt_swigregister(IntensityFunctionSqrt)
+
+class IChiSquaredModule(libBornAgainBase.ICloneable):
+    r"""
+
+
+    Interface residual calculations.
+
+    C++ includes: IChiSquaredModule.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IChiSquaredModule
+
+    def clone(self):
+        r"""
+        clone(IChiSquaredModule self) -> IChiSquaredModule
+        virtual IChiSquaredModule* IChiSquaredModule::clone() const =0
+
+        clone method 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_clone(self)
+
+    def varianceFunction(self):
+        r"""
+        varianceFunction(IChiSquaredModule self) -> IVarianceFunction
+        const IVarianceFunction * IChiSquaredModule::varianceFunction() const
+
+        Returns squared function. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_varianceFunction(self)
+
+    def setVarianceFunction(self, variance_function):
+        r"""
+        setVarianceFunction(IChiSquaredModule self, IVarianceFunction variance_function)
+        void IChiSquaredModule::setVarianceFunction(const IVarianceFunction &variance_function)
+
+        Sets squared function. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_setVarianceFunction(self, variance_function)
+
+    def getIntensityFunction(self):
+        r"""
+        getIntensityFunction(IChiSquaredModule self) -> IIntensityFunction
+        const IIntensityFunction * IChiSquaredModule::getIntensityFunction() const
+
+        Returns data rescaler. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_getIntensityFunction(self)
+
+    def setIntensityFunction(self, intensity_function):
+        r"""
+        setIntensityFunction(IChiSquaredModule self, IIntensityFunction intensity_function)
+        void IChiSquaredModule::setIntensityFunction(const IIntensityFunction &intensity_function)
+
+        Sets data rescaler. 
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_setIntensityFunction(self, intensity_function)
+
+    def residual(self, a, b, weight):
+        r"""
+        residual(IChiSquaredModule self, double a, double b, double weight) -> double
+        virtual double IChiSquaredModule::residual(double a, double b, double weight)=0
+
+        """
+        return _libBornAgainCore.IChiSquaredModule_residual(self, a, b, weight)
+
+# Register IChiSquaredModule in _libBornAgainCore:
+_libBornAgainCore.IChiSquaredModule_swigregister(IChiSquaredModule)
+
+class ChiSquaredModule(IChiSquaredModule):
+    r"""
+
+
+    Calculation of chi2 between two data sets.
+
+    C++ includes: ChiSquaredModule.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        r"""
+        __init__(ChiSquaredModule self) -> ChiSquaredModule
+        __init__(ChiSquaredModule self, ChiSquaredModule other) -> ChiSquaredModule
+        ChiSquaredModule::ChiSquaredModule(const ChiSquaredModule &other)
+
+        """
+        _libBornAgainCore.ChiSquaredModule_swiginit(self, _libBornAgainCore.new_ChiSquaredModule(*args))
+    __swig_destroy__ = _libBornAgainCore.delete_ChiSquaredModule
+
+    def clone(self):
+        r"""
+        clone(ChiSquaredModule self) -> ChiSquaredModule
+        virtual ChiSquaredModule* ChiSquaredModule::clone() const
+
+        clone method 
+
+        """
+        return _libBornAgainCore.ChiSquaredModule_clone(self)
+
+    def residual(self, a, b, weight):
+        r"""
+        residual(ChiSquaredModule self, double a, double b, double weight) -> double
+        double ChiSquaredModule::residual(double a, double b, double weight)
+
+        """
+        return _libBornAgainCore.ChiSquaredModule_residual(self, a, b, weight)
+
+# Register ChiSquaredModule in _libBornAgainCore:
+_libBornAgainCore.ChiSquaredModule_swigregister(ChiSquaredModule)
+
+class IVarianceFunction(object):
+    r"""
+
+
+    Variance function interface.
+
+    C++ includes: VarianceFunctions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _libBornAgainCore.delete_IVarianceFunction
+
+    def clone(self):
+        r"""
+        clone(IVarianceFunction self) -> IVarianceFunction
+        virtual IVarianceFunction* IVarianceFunction::clone() const =0
+
+        """
+        return _libBornAgainCore.IVarianceFunction_clone(self)
+
+    def variance(self, real_value, simulated_value):
+        r"""
+        variance(IVarianceFunction self, double real_value, double simulated_value) -> double
+        virtual double IVarianceFunction::variance(double real_value, double simulated_value) const =0
+
+        """
+        return _libBornAgainCore.IVarianceFunction_variance(self, real_value, simulated_value)
+
+# Register IVarianceFunction in _libBornAgainCore:
+_libBornAgainCore.IVarianceFunction_swigregister(IVarianceFunction)
+
+class VarianceConstantFunction(IVarianceFunction):
+    r"""
+
+
+    Returns 1.0 as variance value
+
+    C++ includes: VarianceFunctions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def clone(self):
+        r"""
+        clone(VarianceConstantFunction self) -> VarianceConstantFunction
+        VarianceConstantFunction * VarianceConstantFunction::clone() const override
+
+        """
+        return _libBornAgainCore.VarianceConstantFunction_clone(self)
+
+    def variance(self, arg2, arg3):
+        r"""
+        variance(VarianceConstantFunction self, double arg2, double arg3) -> double
+        double VarianceConstantFunction::variance(double, double) const override
+
+        """
+        return _libBornAgainCore.VarianceConstantFunction_variance(self, arg2, arg3)
+
+    def __init__(self):
+        r"""
+        __init__(VarianceConstantFunction self) -> VarianceConstantFunction
+
+
+        Returns 1.0 as variance value
+
+        C++ includes: VarianceFunctions.h
+
+        """
+        _libBornAgainCore.VarianceConstantFunction_swiginit(self, _libBornAgainCore.new_VarianceConstantFunction())
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceConstantFunction
+
+# Register VarianceConstantFunction in _libBornAgainCore:
+_libBornAgainCore.VarianceConstantFunction_swigregister(VarianceConstantFunction)
+
+class VarianceSimFunction(IVarianceFunction):
+    r"""
+
+
+    Returns max(sim, epsilon)
+
+    C++ includes: VarianceFunctions.h
+
+    """
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, epsilon=1.0):
+        r"""
+        __init__(VarianceSimFunction self, double epsilon=1.0) -> VarianceSimFunction
+        VarianceSimFunction::VarianceSimFunction(double epsilon=1.0)
+
+        """
+        _libBornAgainCore.VarianceSimFunction_swiginit(self, _libBornAgainCore.new_VarianceSimFunction(epsilon))
+
+    def clone(self):
+        r"""
+        clone(VarianceSimFunction self) -> VarianceSimFunction
+        VarianceSimFunction * VarianceSimFunction::clone() const override
+
+        """
+        return _libBornAgainCore.VarianceSimFunction_clone(self)
+
+    def variance(self, exp, sim):
+        r"""
+        variance(VarianceSimFunction self, double exp, double sim) -> double
+        double VarianceSimFunction::variance(double exp, double sim) const override
+
+        """
+        return _libBornAgainCore.VarianceSimFunction_variance(self, exp, sim)
+    __swig_destroy__ = _libBornAgainCore.delete_VarianceSimFunction
+
+# Register VarianceSimFunction in _libBornAgainCore:
+_libBornAgainCore.VarianceSimFunction_swigregister(VarianceSimFunction)
+
 
 class SimulationBuilderWrapper(PyBuilderCallback):
     def __init__(self, f):

@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_ISAMPLENODE_H
 #define BORNAGAIN_SAMPLE_SCATTERING_ISAMPLENODE_H
 
@@ -43,3 +44,4 @@ public:
 };
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_ISAMPLENODE_H
+#endif // USER_API

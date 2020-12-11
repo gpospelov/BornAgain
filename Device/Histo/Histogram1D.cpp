@@ -14,7 +14,7 @@
 
 #include "Device/Histo/Histogram1D.h"
 #include "Base/Axis/VariableBinAxis.h"
-#include "Device/Intensity/ArrayUtils.h"
+#include "Base/Py/PyUtils.h"
 #include <memory>
 
 Histogram1D::Histogram1D(int nbinsx, double xlow, double xup) {
@@ -59,15 +59,15 @@ std::vector<double> Histogram1D::binErrors() const {
 #ifdef BORNAGAIN_PYTHON
 
 PyObject* Histogram1D::binCentersNumpy() const {
-    return ArrayUtils::createNumpyArray(binCenters());
+    return PyUtils::createNumpyArray(binCenters());
 }
 
 PyObject* Histogram1D::binValuesNumpy() const {
-    return ArrayUtils::createNumpyArray(binValues());
+    return PyUtils::createNumpyArray(binValues());
 }
 
 PyObject* Histogram1D::binErrorsNumpy() const {
-    return ArrayUtils::createNumpyArray(binErrors());
+    return PyUtils::createNumpyArray(binErrors());
 }
 
 #endif // BORNAGAIN_PYTHON

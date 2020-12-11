@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_DATA_CUMULATIVEVALUE_H
 #define BORNAGAIN_DEVICE_DATA_CUMULATIVEVALUE_H
 
@@ -47,3 +48,4 @@ bool operator<(const CumulativeValue& lhs, const CumulativeValue& rhs);
 bool operator>(const CumulativeValue& lhs, const CumulativeValue& rhs);
 
 #endif // BORNAGAIN_DEVICE_DATA_CUMULATIVEVALUE_H
+#endif // USER_API

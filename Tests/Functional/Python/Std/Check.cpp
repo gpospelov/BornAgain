@@ -17,8 +17,8 @@
 #include "Base/Utils/FileSystemUtils.h"
 #include "Core/Export/ExportToPython.h"
 #include "Core/Simulation/ISimulation.h"
+#include "Device/Data/DataUtils.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
 #include <fstream>
 #include <iostream>
 
@@ -71,5 +71,5 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
 
     const std::unique_ptr<OutputData<double>> ref_data = direct_simulation.result().data();
 
-    return IntensityDataFunctions::checkRelativeDifference(*domain_data, *ref_data, limit);
+    return DataUtils::checkRelativeDifference(*domain_data, *ref_data, limit);
 }

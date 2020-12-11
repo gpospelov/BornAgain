@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_PARTICLE_IABSTRACTPARTICLE_H
 #define BORNAGAIN_SAMPLE_PARTICLE_IABSTRACTPARTICLE_H
 
@@ -53,3 +54,4 @@ protected:
 };
 
 #endif // BORNAGAIN_SAMPLE_PARTICLE_IABSTRACTPARTICLE_H
+#endif // USER_API

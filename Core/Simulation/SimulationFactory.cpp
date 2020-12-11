@@ -14,7 +14,7 @@
 
 #include "Core/Simulation/SimulationFactory.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Core/Simulation/StandardSimulations.h"
 #include "Param/Base/RealParameter.h"
@@ -100,7 +100,7 @@ SimulationFactory::SimulationFactory() {
 
     registerItem("TOFRWithPointwiseResolution", StandardSimulations::TOFRWithPointwiseResolution);
 
-    registerItem("OffSpecMini", StandardSimulations::MiniOffSpec);
+    registerItem("OffSpecularMini", StandardSimulations::MiniOffSpecular);
 
     // polarized specular
 

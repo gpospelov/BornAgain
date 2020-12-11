@@ -1,4 +1,4 @@
-#include "Core/Legacy/MatrixRTCoefficients_v1.h"
+#include "Sample/LegacyRT/MatrixRTCoefficients_v1.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class MatrixRTCoefficients_v1Test : public ::testing::Test {

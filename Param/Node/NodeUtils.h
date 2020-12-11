@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_PARAM_NODE_NODEUTILS_H
 #define BORNAGAIN_PARAM_NODE_NODEUTILS_H
 
@@ -26,7 +27,7 @@ class INode;
 
 namespace NodeUtils {
 
-//! Returns a vector of triples (descendent, depth, parent)
+//! Returns a vector of triples (descendant, depth, parent)
 std::vector<std::tuple<const INode*, int, const INode*>> progenyPlus(const INode* node,
                                                                      int level = 0);
 
@@ -39,3 +40,4 @@ std::string nodePath(const INode* node, const INode* root = nullptr);
 } // namespace NodeUtils
 
 #endif // BORNAGAIN_PARAM_NODE_NODEUTILS_H
+#endif // USER_API

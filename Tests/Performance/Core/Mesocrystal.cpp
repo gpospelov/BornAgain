@@ -195,7 +195,7 @@ int main() {
     simulation.setDetector(*detector);
 
     simulation.setBeamParameters(1.77 * Units::angstrom, 0.4 * Units::deg, 0.0);
-    simulation.setBeamIntensity(6.1e+12);
+    simulation.beam().setIntensity(6.1e+12);
 
     std::shared_ptr<ISampleBuilder> builder(new MesoCrystalPerformanceBuilder);
     simulation.setSampleBuilder(builder);

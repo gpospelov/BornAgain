@@ -10,7 +10,7 @@ rc('text', usetex=True)
 rc('image', cmap='inferno')
 
 import bornagain as ba
-from bornagain import nm, deg, angstrom, deg2rad
+from bornagain import deg, angstrom
 
 
 class BinRange:

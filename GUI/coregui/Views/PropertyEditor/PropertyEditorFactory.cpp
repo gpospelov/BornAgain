@@ -82,9 +82,9 @@ QString PropertyEditorFactory::toString(const QModelIndex& index) {
         auto item = static_cast<SessionItem*>(index.internalPointer());
         return item->editorType() == "ScientificDouble"
                    ? QString::number(item->value().toDouble(), 'g')
-                   : item->editorType() == "ScientificSpinBox"
-                         ? ScientificSpinBox::toString(item->value().toDouble(), item->decimals())
-                         : QString::number(item->value().toDouble(), 'f', item->decimals());
+               : item->editorType() == "ScientificSpinBox"
+                   ? ScientificSpinBox::toString(item->value().toDouble(), item->decimals())
+                   : QString::number(item->value().toDouble(), 'f', item->decimals());
     }
 
     return "";

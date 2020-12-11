@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_MASK_ISHAPE2D_H
 #define BORNAGAIN_DEVICE_MASK_ISHAPE2D_H
 
@@ -48,3 +49,4 @@ private:
 };
 
 #endif // BORNAGAIN_DEVICE_MASK_ISHAPE2D_H
+#endif // USER_API

@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_EXPORT_PYFMT_H
 #define BORNAGAIN_CORE_EXPORT_PYFMT_H
 
@@ -51,3 +52,4 @@ std::string indent(size_t width = 4u);
 } // namespace pyfmt
 
 #endif // BORNAGAIN_CORE_EXPORT_PYFMT_H
+#endif // USER_API

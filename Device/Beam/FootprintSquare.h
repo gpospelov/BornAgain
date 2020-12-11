@@ -17,7 +17,7 @@
 
 #include "Device/Beam/IFootprintFactor.h"
 
-//! Calculates footprint coefficient for a square beam
+//! Rectangular beam footprint.
 //! @ingroup beam
 
 class FootprintSquare : public IFootprintFactor {

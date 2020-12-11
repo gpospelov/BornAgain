@@ -18,7 +18,7 @@
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Device/Beam/IFootprintFactor.h"
 #include "GUI/coregui/Models/AxesItems.h"
@@ -40,10 +40,10 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
                                                        const GISASInstrumentItem* gisasInstrument,
                                                        const SimulationOptionsItem* optionsItem);
 
-std::unique_ptr<OffSpecSimulation>
-createOffSpecSimulation(std::unique_ptr<MultiLayer> P_multilayer,
-                        const OffSpecInstrumentItem* offspecInstrument,
-                        const SimulationOptionsItem* optionsItem);
+std::unique_ptr<OffSpecularSimulation>
+createOffSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                            const OffSpecularInstrumentItem* offspecInstrument,
+                            const SimulationOptionsItem* optionsItem);
 
 std::unique_ptr<SpecularSimulation>
 createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
@@ -71,8 +71,9 @@ DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
 
     if (auto gisasInstrument = dynamic_cast<const GISASInstrumentItem*>(instrumentItem))
         return createGISASSimulation(std::move(P_multilayer), gisasInstrument, optionsItem);
-    else if (auto offspecInstrument = dynamic_cast<const OffSpecInstrumentItem*>(instrumentItem))
-        return createOffSpecSimulation(std::move(P_multilayer), offspecInstrument, optionsItem);
+    else if (auto offspecInstrument =
+                 dynamic_cast<const OffSpecularInstrumentItem*>(instrumentItem))
+        return createOffSpecularSimulation(std::move(P_multilayer), offspecInstrument, optionsItem);
     else if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
         return createSpecularSimulation(std::move(P_multilayer), specular_instrument, optionsItem);
     else if (auto penetrator = dynamic_cast<const DepthProbeInstrumentItem*>(instrumentItem))
@@ -107,18 +108,18 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
     return ret;
 }
 
-std::unique_ptr<OffSpecSimulation>
-createOffSpecSimulation(std::unique_ptr<MultiLayer> P_multilayer,
-                        const OffSpecInstrumentItem* instrument,
-                        const SimulationOptionsItem* optionsItem) {
-    std::unique_ptr<OffSpecSimulation> ret(new OffSpecSimulation);
+std::unique_ptr<OffSpecularSimulation>
+createOffSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
+                            const OffSpecularInstrumentItem* instrument,
+                            const SimulationOptionsItem* optionsItem) {
+    std::unique_ptr<OffSpecularSimulation> ret(new OffSpecularSimulation);
     auto P_instrument = DomainObjectBuilder::buildInstrument(*instrument);
     ret->setSample(*P_multilayer);
     ret->setInstrument(*P_instrument);
 
     auto beamItem = instrument->beamItem();
     auto axisItem =
-        dynamic_cast<BasicAxisItem*>(instrument->getItem(OffSpecInstrumentItem::P_ALPHA_AXIS));
+        dynamic_cast<BasicAxisItem*>(instrument->getItem(OffSpecularInstrumentItem::P_ALPHA_AXIS));
     ret->setBeamParameters(beamItem->wavelength(), *axisItem->createAxis(Units::deg),
                            beamItem->getAzimuthalAngle());
 
@@ -151,7 +152,7 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
 
     TransformToDomain::addBeamDivergencesToScan(*beam_item, scan);
 
-    ret->setBeamIntensity(beam_item->intensity());
+    ret->beam().setIntensity(beam_item->intensity());
     ret->setScan(scan);
 
     // ISimulation options

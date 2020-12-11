@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_DATA_OUTPUTDATAITERATOR_H
 #define BORNAGAIN_DEVICE_DATA_OUTPUTDATAITERATOR_H
 
@@ -199,3 +200,4 @@ bool operator!=(const OutputDataIterator<TValue1, TContainer1>& left,
 }
 
 #endif // BORNAGAIN_DEVICE_DATA_OUTPUTDATAITERATOR_H
+#endif // USER_API

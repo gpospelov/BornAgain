@@ -16,11 +16,11 @@
 #include "Device/Detector/IDetector2D.h"
 
 bool DetectorUtils::isQuadratic(const IDetector2D& det) {
-    ASSERT(det.dimension()==2);
-    if (det.axis(0).size()!=det.axis(1).size())
+    ASSERT(det.dimension() == 2);
+    if (det.axis(0).size() != det.axis(1).size())
         return false;
-    if (std::abs(det.axis(0).span() - det.axis(1).span()) >
-        1e-12*(det.axis(0).span() + det.axis(1).span()))
+    if (std::abs(det.axis(0).span() - det.axis(1).span())
+        > 1e-12 * (det.axis(0).span() + det.axis(1).span()))
         return false;
     return true;
 }

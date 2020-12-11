@@ -17,7 +17,7 @@
 
 #include "Core/Fitting/IterationInfo.h"
 #include "Core/Fitting/SimDataPair.h"
-#include "Device/Intensity/ArrayUtils.h"
+#include "Device/Data/ArrayUtils.h"
 #include "Fit/Minimizer/MinimizerResult.h"
 
 class FitStatus;
@@ -126,7 +126,7 @@ public:
     bool isFirstIteration() const;
 
     void setObjectiveMetric(std::unique_ptr<ObjectiveMetric> metric);
-#endif // SWIG
+#endif // USER_API
 
 private:
     typedef std::vector<double> (SimDataPair::*DataPairAccessor)() const;

@@ -39,5 +39,5 @@ double IAxis::span() const {
 }
 
 double IAxis::center() const {
-    return (upperBound() + lowerBound())/2;
+    return (upperBound() + lowerBound()) / 2;
 }

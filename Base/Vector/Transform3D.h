@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_VECTOR_TRANSFORM3D_H
 #define BORNAGAIN_BASE_VECTOR_TRANSFORM3D_H
 
@@ -113,3 +114,4 @@ private:
 };
 
 #endif // BORNAGAIN_BASE_VECTOR_TRANSFORM3D_H
+#endif // USER_API

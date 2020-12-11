@@ -13,7 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Views/IntensityDataWidgets/IntensityDataFFTPresenter.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Data/DataUtils.h"
 #include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
@@ -46,8 +46,7 @@ IntensityDataItem* IntensityDataFFTPresenter::fftItem(IntensityDataItem* origIte
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
-    m_fftItem->setOutputData(
-        IntensityDataFunctions::createFFT(*origItem->getOutputData()).release());
+    m_fftItem->setOutputData(DataUtils::createFFT(*origItem->getOutputData()).release());
 
     QApplication::restoreOverrideCursor();
 

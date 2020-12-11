@@ -4,7 +4,7 @@
 // File: classBasicVector3D.xml
 %feature("docstring") BasicVector3D "
 
-Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recognition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
+Three-dimensional vector template, for use with integer, double, or complex components.
 
 C++ includes: BasicVector3D.h
 ";
@@ -99,7 +99,7 @@ Returns squared sine of polar angle.
 Returns unit vector in direction of this. Throws for null vector. 
 ";
 
-%feature("docstring")  BasicVector3D::complex "BasicVector3D<std::complex<double> > BasicVector3D< T >::complex() const
+%feature("docstring")  BasicVector3D::complex "BasicVector3D<complex_t> BasicVector3D< T >::complex() const
 
 Returns this, trivially converted to complex type. 
 ";
@@ -151,15 +151,6 @@ Returns result of rotation around z-axis.
 %feature("docstring")  BasicVector3D::rotated "BasicVector3D<T> BasicVector3D< T >::rotated(double a, const BasicVector3D< T > &v) const
 
 Returns result of rotation around the axis specified by another vector. 
-";
-
-%feature("docstring")  BasicVector3D::conj "BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
-";
-
-%feature("docstring")  BasicVector3D::real "BasicVector3D< double > BasicVector3D< complex_t >::real() const
-";
-
-%feature("docstring")  BasicVector3D::unit "BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
 ";
 
 
@@ -390,7 +381,12 @@ Increments inner counter; at regular intervals updates progress handler.
 
 
 // File: classDirection.xml
-%feature("docstring") Direction "";
+%feature("docstring") Direction "
+
+A direction in three-dimensional space.
+
+C++ includes: Direction.h
+";
 
 %feature("docstring")  Direction::Direction "Direction::Direction(double alpha, double phi)
 ";
@@ -489,6 +485,47 @@ find bin index which is best match for given value
 %feature("docstring")  FixedBinAxis::createClippedAxis "FixedBinAxis * FixedBinAxis::createClippedAxis(double left, double right) const
 
 Creates a new clipped axis. 
+";
+
+
+// File: classFourierTransform.xml
+%feature("docstring") FourierTransform "
+
+Fourier transform of vectors (in 1D or 2D) using Fast Fourier Transform (fftw package).
+
+Usage: std::vector<double> signal, result;  FourierTransform ft; ft.fft(signal, result)
+
+Given code rely on code from Jeremy Fix page, http://jeremy.fix.free.fr/spip.php?article15, see also \"Efficient convolution using the Fast Fourier Transform, Application in C++\" by Jeremy Fix, May 30, 2011
+
+C++ includes: FourierTransform.h
+";
+
+%feature("docstring")  FourierTransform::FourierTransform "FourierTransform::FourierTransform()
+";
+
+%feature("docstring")  FourierTransform::fft "void FourierTransform::fft(const double1d_t &source, double1d_t &result)
+
+FT in 1D. 
+";
+
+%feature("docstring")  FourierTransform::fftshift "void FourierTransform::fftshift(double1d_t &result)
+
+Shift low frequency to the center of 1D FT array. 
+";
+
+%feature("docstring")  FourierTransform::fft "void FourierTransform::fft(const double2d_t &source, double2d_t &result)
+
+FT in 2D. 
+";
+
+%feature("docstring")  FourierTransform::fftshift "void FourierTransform::fftshift(double2d_t &result)
+
+Shift low frequency to the center of 2D FT array. 
+";
+
+%feature("docstring")  FourierTransform::init "void FourierTransform::init(int h_src, int w_src)
+
+prepare arrays for 2D Fourier Transformation (FT) of the given vector 
 ";
 
 
@@ -1166,6 +1203,9 @@ Creates a new clipped axis.
 ";
 
 
+// File: classFourierTransform_1_1Workspace.xml
+
+
 // File: namespace_0d16.xml
 
 
@@ -1364,38 +1404,41 @@ Returns the difference of the logarithm; input values are truncated at the minim
 // File: namespacePhysConsts.xml
 
 
-// File: namespacePyEmbeddedUtils.xml
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(PyObject *obj)
+// File: namespacePyUtils.xml
+%feature("docstring")  PyUtils::toString "std::string PyUtils::toString(PyObject *obj)
 
 Converts PyObject into string, if possible, or throws exception. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::toVectorString "std::vector< std::string > PyEmbeddedUtils::toVectorString(PyObject *obj)
+%feature("docstring")  PyUtils::toVectorString "std::vector< std::string > PyUtils::toVectorString(PyObject *obj)
 
 Converts PyObject into vector of strings, if possible, or throws exception. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(char *c)
+%feature("docstring")  PyUtils::toString "std::string PyUtils::toString(char *c)
 
 Converts char to string. In the case of nullptr will return an empty string. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::toString "std::string PyEmbeddedUtils::toString(wchar_t *c)
+%feature("docstring")  PyUtils::toString "std::string PyUtils::toString(wchar_t *c)
 ";
 
-%feature("docstring")  PyEmbeddedUtils::import_bornagain "void PyEmbeddedUtils::import_bornagain(const std::string &path=\"\")
+%feature("docstring")  PyUtils::import_bornagain "void PyUtils::import_bornagain(const std::string &path=\"\")
 
 Imports BornAgain from given location. If path is empty, tries to rely on PYTHONPATH. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::pythonRuntimeInfo "std::string PyEmbeddedUtils::pythonRuntimeInfo()
+%feature("docstring")  PyUtils::pythonRuntimeInfo "std::string PyUtils::pythonRuntimeInfo()
 
 Returns multi-line string representing PATH, PYTHONPATH, sys.path and other info. 
 ";
 
-%feature("docstring")  PyEmbeddedUtils::pythonStackTrace "std::string PyEmbeddedUtils::pythonStackTrace()
+%feature("docstring")  PyUtils::pythonStackTrace "std::string PyUtils::pythonStackTrace()
 
 Returns string representing python stack trace. 
+";
+
+%feature("docstring")  PyUtils::createNumpyArray "PyObject * PyUtils::createNumpyArray(const std::vector< double > &data)
 ";
 
 
@@ -1547,6 +1590,12 @@ global helper function for comparison of axes
 // File: Constants_8h.xml
 
 
+// File: FourierTransform_8cpp.xml
+
+
+// File: FourierTransform_8h.xml
+
+
 // File: Functions_8cpp.xml
 
 
@@ -1602,16 +1651,16 @@ Template function to create an integrator object
 // File: ProgressHandler_8h.xml
 
 
-// File: PyEmbeddedUtils_8cpp.xml
-
-
-// File: PyEmbeddedUtils_8h.xml
+// File: PyCore_8h.xml
 
 
 // File: PyObject_8h.xml
 
 
-// File: PythonCore_8h.xml
+// File: PyUtils_8cpp.xml
+
+
+// File: PyUtils_8h.xml
 
 
 // File: CloneableVector_8h.xml

@@ -17,7 +17,7 @@
 
 #include "Device/Mask/IShape2D.h"
 
-//! Ellipse shape.
+//! An ellipse, for use in detector masks.
 //! @ingroup tools
 
 class Ellipse : public IShape2D {

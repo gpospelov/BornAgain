@@ -79,10 +79,10 @@ protected:
 
 //! Fit for off-specular experiment
 
-class OffSpecPlan : public Plan {
+class OffSpecularPlan : public Plan {
 public:
-    OffSpecPlan();
-    ~OffSpecPlan() override = default;
+    OffSpecularPlan();
+    ~OffSpecularPlan() override = default;
 };
 
 #endif // BORNAGAIN_TESTS_FUNCTIONAL_CORE_FITTING_PLANCASES_H

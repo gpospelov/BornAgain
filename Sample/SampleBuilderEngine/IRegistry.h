@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_IREGISTRY_H
 #define BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_IREGISTRY_H
 
@@ -59,3 +60,4 @@ private:
 };
 
 #endif // BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_IREGISTRY_H
+#endif // USER_API

@@ -25,9 +25,9 @@
 #include "Base/Types/Complex.h"
 #include "Base/Types/ICloneable.h"
 
-#include "Base/Utils/ThreadInfo.h"
-
 #include "Base/Const/Units.h"
+
+#include "Base/Utils/ThreadInfo.h"
 
 #include "Base/Vector/BasicVector3D.h"
 #include "Base/Vector/Vectors3D.h"

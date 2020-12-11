@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_IBORNFF_H
 #define BORNAGAIN_SAMPLE_SCATTERING_IBORNFF_H
 
@@ -87,3 +88,4 @@ protected:
 };
 
 #endif // BORNAGAIN_SAMPLE_SCATTERING_IBORNFF_H
+#endif // USER_API

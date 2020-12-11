@@ -16,12 +16,13 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_MASK_INFINITEPLANE_H
 #define BORNAGAIN_DEVICE_MASK_INFINITEPLANE_H
 
 #include "Device/Mask/IShape2D.h"
 
-//! The infinite plane is used for masking everything once and forever.
+//! The infinite plane is used for masking the entire detector.
 //! @ingroup tools
 
 class InfinitePlane : public IShape2D {
@@ -34,3 +35,4 @@ public:
 };
 
 #endif // BORNAGAIN_DEVICE_MASK_INFINITEPLANE_H
+#endif // USER_API

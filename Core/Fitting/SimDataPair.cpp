@@ -16,7 +16,7 @@
 #include "Base/Math/Numeric.h"
 #include "Core/Simulation/ISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
+#include "Device/Data/DataUtils.h"
 
 namespace {
 [[noreturn]] void throwInitializationException(std::string method) {

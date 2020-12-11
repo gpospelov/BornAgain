@@ -24,7 +24,7 @@
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Scan/QSpecScan.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
@@ -128,7 +128,7 @@ std::string defineDetector(const ISimulation* simulation) {
     result << std::setprecision(12);
 
     if (const auto* const det = dynamic_cast<const SphericalDetector*>(detector)) {
-        ASSERT(det->dimension()==2);
+        ASSERT(det->dimension() == 2);
         if (DetectorUtils::isQuadratic(*det)) {
             result << indent() << "nbin = " << det->axis(0).size() << "\n";
             result << indent() << "detector = ba.SphericalDetector(nbin, "
@@ -141,8 +141,7 @@ std::string defineDetector(const ISimulation* simulation) {
             result << indent() << "detector = ba.SphericalDetector(nx, "
                    << pyfmt::printDegrees(det->axis(0).lowerBound()) << ", "
                    << pyfmt::printDegrees(det->axis(0).upperBound()) << ", "
-                   << "ny , "
-                   << pyfmt::printDegrees(det->axis(1).lowerBound()) << ", "
+                   << "ny , " << pyfmt::printDegrees(det->axis(1).lowerBound()) << ", "
                    << pyfmt::printDegrees(det->axis(1).upperBound());
         }
         result << ")\n";
@@ -258,7 +257,7 @@ std::string defineBeamIntensity(const Beam& beam) {
     std::ostringstream result;
     double beam_intensity = beam.intensity();
     if (beam_intensity > 0.0)
-        result << indent() << "simulation.setBeamIntensity("
+        result << indent() << "simulation.beam().setIntensity("
                << pyfmt::printScientificDouble(beam_intensity) << ")\n";
     return result.str();
 }
@@ -277,7 +276,7 @@ std::string defineGISASBeam(const GISASSimulation& simulation) {
     return result.str();
 }
 
-std::string defineOffSpecBeam(const OffSpecSimulation& simulation) {
+std::string defineOffSpecularBeam(const OffSpecularSimulation& simulation) {
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
@@ -398,13 +397,13 @@ std::string defineGISASSimulation(const GISASSimulation* simulation) {
     return result.str();
 }
 
-std::string defineOffSpecSimulation(const OffSpecSimulation* simulation) {
+std::string defineOffSpecularSimulation(const OffSpecularSimulation* simulation) {
     std::ostringstream result;
-    result << indent() << "simulation = ba.OffSpecSimulation()\n";
+    result << indent() << "simulation = ba.OffSpecularSimulation()\n";
     result << defineDetector(simulation);
     result << defineDetectorResolutionFunction(simulation);
     result << defineDetectorPolarizationAnalysis(simulation);
-    result << defineOffSpecBeam(*simulation);
+    result << defineOffSpecularBeam(*simulation);
     result << defineParameterDistributions(simulation);
     result << defineMasks(simulation);
     result << defineSimulationOptions(simulation);
@@ -430,8 +429,8 @@ std::string defineSimulate(const ISimulation* simulation) {
     result << "def get_simulation():\n";
     if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
         result << defineGISASSimulation(gisas);
-    else if (auto offspec = dynamic_cast<const OffSpecSimulation*>(simulation))
-        result << defineOffSpecSimulation(offspec);
+    else if (auto offspec = dynamic_cast<const OffSpecularSimulation*>(simulation))
+        result << defineOffSpecularSimulation(offspec);
     else if (auto spec = dynamic_cast<const SpecularSimulation*>(simulation))
         result << defineSpecularSimulation(spec);
     else

@@ -19,6 +19,6 @@
 
 using ivector_t = BasicVector3D<int>;
 using kvector_t = BasicVector3D<double>;
-using cvector_t = BasicVector3D<std::complex<double>>;
+using cvector_t = BasicVector3D<complex_t>;
 
 #endif // BORNAGAIN_BASE_VECTOR_VECTORS3D_H

@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_PARAM_BASE_IPARAMETRICCOMPONENT_H
 #define BORNAGAIN_PARAM_BASE_IPARAMETRICCOMPONENT_H
 
@@ -74,3 +75,4 @@ private:
 };
 
 #endif // BORNAGAIN_PARAM_BASE_IPARAMETRICCOMPONENT_H
+#endif // USER_API

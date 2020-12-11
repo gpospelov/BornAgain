@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_PARAM_NODE_INODEVISITOR_H
 #define BORNAGAIN_PARAM_NODE_INODEVISITOR_H
 
@@ -120,7 +121,7 @@ class LayerInterface;
 class LayerRoughness;
 class MesoCrystal;
 class MultiLayer;
-class OffSpecSimulation;
+class OffSpecularSimulation;
 class Particle;
 class ParticleComposition;
 class ParticleCoreShell;
@@ -252,7 +253,7 @@ public:
     virtual void visit(const LayerRoughness*) {}
     virtual void visit(const MesoCrystal*) {}
     virtual void visit(const MultiLayer*) {}
-    virtual void visit(const OffSpecSimulation*) {}
+    virtual void visit(const OffSpecularSimulation*) {}
     virtual void visit(const Particle*) {}
     virtual void visit(const ParticleComposition*) {}
     virtual void visit(const ParticleCoreShell*) {}
@@ -280,3 +281,4 @@ private:
 };
 
 #endif // BORNAGAIN_PARAM_NODE_INODEVISITOR_H
+#endif // USER_API

@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_PIXEL_IPIXEL_H
 #define BORNAGAIN_BASE_PIXEL_IPIXEL_H
 
@@ -33,3 +34,4 @@ public:
 };
 
 #endif // BORNAGAIN_BASE_PIXEL_IPIXEL_H
+#endif // USER_API

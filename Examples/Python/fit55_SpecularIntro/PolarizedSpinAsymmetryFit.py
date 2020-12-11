@@ -91,7 +91,7 @@ def get_simulation(q_axis, parameters, polarization, analyzer):
     distr = ba.RangedDistributionGaussian(n_samples, n_sig)
     scan.setAbsoluteQResolution(distr, parameters["q_res"])
 
-    simulation.setBeamPolarization(polarization)
+    simulation.beam().setPolarization(polarization)
     simulation.setAnalyzerProperties(analyzer, 1.0, 0.5)
 
     simulation.setScan(scan)

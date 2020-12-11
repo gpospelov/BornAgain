@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_FITTING_FITSTATUS_H
 #define BORNAGAIN_CORE_FITTING_FITSTATUS_H
 
@@ -67,3 +68,4 @@ private:
 };
 
 #endif // BORNAGAIN_CORE_FITTING_FITSTATUS_H
+#endif // USER_API

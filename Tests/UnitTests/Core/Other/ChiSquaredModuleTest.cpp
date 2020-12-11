@@ -1,6 +1,6 @@
-#include "Device/Instrument/ChiSquaredModule.h"
+#include "Core/Residual/ChiSquaredModule.h"
 #include "Device/Data/OutputData.h"
-#include "Device/Instrument/VarianceFunctions.h"
+#include "Core/Residual/VarianceFunctions.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 // TODO revise test

@@ -145,7 +145,7 @@ def plot_histogram(hist, **kwargs):
 def plot_colormap(result, **kwargs):
     """
     Plots intensity data as color map
-    :param result: SimulationResult from GISAS/OffSpecSimulation
+    :param result: SimulationResult from GISAS/OffSpecularSimulation
     :param zmin: Min value on amplitude's color bar
     :param zmax: Max value on amplitude's color bar
     """
@@ -198,7 +198,7 @@ def plot_specular_simulation_result(result, **kwargs):
 def plot_simulation_result(result, **kwargs):
     """
     Draws simulation result and (optionally) shows the plot.
-    :param result_: SimulationResult object obtained from GISAS/OffSpec/SpecularSimulation
+    :param result_: SimulationResult object obtained from GISAS/OffSpecular/SpecularSimulation
     :param intensity_min: Min value on amplitude's axis or color bar
     :param intensity_max: Max value on amplitude's axis or color bar
     :param units: units for plot axes

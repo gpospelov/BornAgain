@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_RT_SCALARRTCOEFFICIENTS_H
 #define BORNAGAIN_SAMPLE_RT_SCALARRTCOEFFICIENTS_H
 
@@ -132,3 +133,4 @@ inline complex_t ScalarRTCoefficients::getScalarT() const {
 }
 
 #endif // BORNAGAIN_SAMPLE_RT_SCALARRTCOEFFICIENTS_H
+#endif // USER_API

@@ -100,6 +100,7 @@ def normalize_file(fname, inplace):
     result = run_simulation\(\)
     ba.plot_simulation_result\(result, cmap='jet', aspect='auto'\)""", ti)
         if not m:
+            print('=> non-standard => SKIPPED')
             return 3
 
         # normalize
@@ -107,8 +108,7 @@ def normalize_file(fname, inplace):
         if verbose:
             print(f'.. obtained normalized text')
         if tf == ti:
-            if verbose:
-                print(f'.. nothing changed')
+            print(f'=> OK (nothing to change)')
             return 0
         with open('out1.py', 'w') as f:
             f.write(tf)

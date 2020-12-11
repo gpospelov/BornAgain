@@ -1769,22 +1769,6 @@ class ThreadInfo(object):
 _libBornAgainBase.ThreadInfo_swigregister(ThreadInfo)
 
 
-def rad2deg(angle):
-    r"""
-    rad2deg(double angle) -> double
-    double Units::rad2deg(double angle)
-
-    """
-    return _libBornAgainBase.rad2deg(angle)
-
-def deg2rad(angle):
-    r"""
-    deg2rad(double angle) -> double
-    double Units::deg2rad(double angle)
-
-    """
-    return _libBornAgainBase.deg2rad(angle)
-
 def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     r"""
     vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) -> kvector_t
@@ -1793,7 +1777,14 @@ def vecOfLambdaAlphaPhi(_lambda, _alpha, _phi):
     """
     return _libBornAgainBase.vecOfLambdaAlphaPhi(_lambda, _alpha, _phi)
 class Direction(object):
-    r"""Proxy of C++ Direction class."""
+    r"""
+
+
+    A direction in three-dimensional space.
+
+    C++ includes: Direction.h
+
+    """
 
     thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
     __repr__ = _swig_repr
@@ -1856,17 +1847,9 @@ nanometer = cvar.nanometer
 angstrom = cvar.angstrom
 micrometer = cvar.micrometer
 millimeter = cvar.millimeter
-meter = cvar.meter
 nm = cvar.nm
 nm2 = cvar.nm2
-barn = cvar.barn
-radian = cvar.radian
-milliradian = cvar.milliradian
-degree = cvar.degree
-steradian = cvar.steradian
 rad = cvar.rad
-mrad = cvar.mrad
-sr = cvar.sr
 deg = cvar.deg
 tesla = cvar.tesla
 gauss = cvar.gauss
@@ -2677,7 +2660,7 @@ class kvector_t(object):
     r"""
 
 
-    Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recognition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
+    Three-dimensional vector template, for use with integer, double, or complex components.
 
     C++ includes: BasicVector3D.h
 
@@ -2768,7 +2751,9 @@ class kvector_t(object):
     def conj(self):
         r"""
         conj(kvector_t self) -> kvector_t
-        BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
+        BasicVector3D<T> BasicVector3D< T >::conj() const
+
+        Returns complex conjugate vector. 
 
         """
         return _libBornAgainBase.kvector_t_conj(self)
@@ -2856,7 +2841,9 @@ class kvector_t(object):
     def unit(self):
         r"""
         unit(kvector_t self) -> kvector_t
-        BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
+        BasicVector3D<T> BasicVector3D< T >::unit() const
+
+        Returns unit vector in direction of this. Throws for null vector. 
 
         """
         return _libBornAgainBase.kvector_t_unit(self)
@@ -2864,7 +2851,7 @@ class kvector_t(object):
     def complex(self):
         r"""
         complex(kvector_t self) -> cvector_t
-        BasicVector3D<std::complex<double> > BasicVector3D< T >::complex() const
+        BasicVector3D<complex_t> BasicVector3D< T >::complex() const
 
         Returns this, trivially converted to complex type. 
 
@@ -2874,7 +2861,9 @@ class kvector_t(object):
     def real(self):
         r"""
         real(kvector_t self) -> kvector_t
-        BasicVector3D< double > BasicVector3D< complex_t >::real() const
+        BasicVector3D<double> BasicVector3D< T >::real() const
+
+        Returns real parts. 
 
         """
         return _libBornAgainBase.kvector_t_real(self)
@@ -3074,7 +3063,7 @@ class cvector_t(object):
     r"""
 
 
-    Forked from CLHEP/Geometry by E. Chernyaev Evgueni.Tcherniaev@cern.ch, then reworked beyond recognition. Removed split of point and vector semantics. Transforms are relegated to a separate class  Transform3D. Three-dimensional vector template, for use with integer, double, or complex components.
+    Three-dimensional vector template, for use with integer, double, or complex components.
 
     C++ includes: BasicVector3D.h
 
@@ -3165,7 +3154,9 @@ class cvector_t(object):
     def conj(self):
         r"""
         conj(cvector_t self) -> cvector_t
-        BasicVector3D< complex_t > BasicVector3D< complex_t >::conj() const
+        BasicVector3D<T> BasicVector3D< T >::conj() const
+
+        Returns complex conjugate vector. 
 
         """
         return _libBornAgainBase.cvector_t_conj(self)
@@ -3213,7 +3204,9 @@ class cvector_t(object):
     def unit(self):
         r"""
         unit(cvector_t self) -> cvector_t
-        BasicVector3D< complex_t > BasicVector3D< complex_t >::unit() const
+        BasicVector3D<T> BasicVector3D< T >::unit() const
+
+        Returns unit vector in direction of this. Throws for null vector. 
 
         """
         return _libBornAgainBase.cvector_t_unit(self)
@@ -3221,7 +3214,9 @@ class cvector_t(object):
     def real(self):
         r"""
         real(cvector_t self) -> kvector_t
-        BasicVector3D< double > BasicVector3D< complex_t >::real() const
+        BasicVector3D<double> BasicVector3D< T >::real() const
+
+        Returns real parts. 
 
         """
         return _libBornAgainBase.cvector_t_real(self)

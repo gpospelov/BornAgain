@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_STANDARDSAMPLES_REFERENCEMATERIALS_H
 #define BORNAGAIN_SAMPLE_STANDARDSAMPLES_REFERENCEMATERIALS_H
 
@@ -38,3 +39,4 @@ static const Material Substrate2 = HomogeneousMaterial("Substrate2", 3.212e-6, 3
 } // namespace refMat
 
 #endif // BORNAGAIN_SAMPLE_STANDARDSAMPLES_REFERENCEMATERIALS_H
+#endif // USER_API

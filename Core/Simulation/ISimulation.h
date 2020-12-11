@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_SIMULATION_ISIMULATION_H
 #define BORNAGAIN_CORE_SIMULATION_ISIMULATION_H
 
@@ -60,10 +61,6 @@ public:
 
     IDetector& detector() { return m_instrument.detector(); }
     const IDetector& detector() const { return m_instrument.detector(); }
-
-    void setBeamIntensity(double intensity);
-
-    void setBeamPolarization(const kvector_t bloch_vector);
 
     void setDetectorResolutionFunction(const IResolutionFunction2D& resolution_function);
 
@@ -162,3 +159,4 @@ private:
 };
 
 #endif // BORNAGAIN_CORE_SIMULATION_ISIMULATION_H
+#endif // USER_API

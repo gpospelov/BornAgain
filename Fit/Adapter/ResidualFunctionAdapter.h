@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_ADAPTER_RESIDUALFUNCTIONADAPTER_H
 #define BORNAGAIN_FIT_ADAPTER_RESIDUALFUNCTIONADAPTER_H
 
@@ -61,3 +62,4 @@ private:
 } //  namespace mumufit
 
 #endif // BORNAGAIN_FIT_ADAPTER_RESIDUALFUNCTIONADAPTER_H
+#endif // USER_API

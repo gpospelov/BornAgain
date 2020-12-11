@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H
 #define BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H
 
@@ -54,7 +55,8 @@ public:
     virtual std::vector<double>
     createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const = 0;
 
-#endif // SWIG
+#endif // USER_API
 };
 
 #endif // BORNAGAIN_CORE_SCAN_ISPECULARSCAN_H
+#endif // USER_API

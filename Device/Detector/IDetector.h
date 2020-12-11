@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_DEVICE_DETECTOR_IDETECTOR_H
 #define BORNAGAIN_DEVICE_DETECTOR_IDETECTOR_H
 
@@ -76,7 +77,7 @@ public:
 #ifndef SWIG
     //! Returns empty detector map in given axes units.
     std::unique_ptr<OutputData<double>> createDetectorMap() const;
-#endif // SWIG
+#endif // USER_API
     //! Returns detection properties
     const DetectionProperties& detectionProperties() const { return m_detection_properties; }
 
@@ -116,3 +117,4 @@ private:
 };
 
 #endif // BORNAGAIN_DEVICE_DETECTOR_IDETECTOR_H
+#endif // USER_API

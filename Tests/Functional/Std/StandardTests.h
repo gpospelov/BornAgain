@@ -367,7 +367,7 @@ TEST_F(Std, RelativeResolutionTOF) {
 #ifndef PYTHON_STD_TEST
 
 TEST_F(Std, OffSpecularResonator) {
-    EXPECT_TRUE(run("OffSpecularResonator", "OffSpecMini", "ResonatorBuilder", 1e-10));
+    EXPECT_TRUE(run("OffSpecularResonator", "OffSpecularMini", "ResonatorBuilder", 1e-10));
 }
 
 TEST_F(Std, FormFactorsWithAbsorption) {

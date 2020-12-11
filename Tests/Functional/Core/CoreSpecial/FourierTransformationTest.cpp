@@ -14,8 +14,8 @@
 
 #include "BATesting.h"
 #include "Base/Utils/FileSystemUtils.h"
+#include "Device/Data/DataUtils.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
-#include "Device/Instrument/IntensityDataFunctions.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 #include <memory>
@@ -49,7 +49,7 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
     }
 
     std::cout << "transforming" << std::endl;
-    std::unique_ptr<OutputData<double>> fft = IntensityDataFunctions::createFFT(*input_image);
+    std::unique_ptr<OutputData<double>> fft = DataUtils::createFFT(*input_image);
 
     std::cout << "loading reference" << std::endl;
     std::unique_ptr<OutputData<double>> reference_fft;
@@ -62,7 +62,7 @@ bool test_fft(const std::string& input_image_name, const std::string& reference_
     std::cout << "comparing" << std::endl;
     bool success(false);
     if (reference_fft)
-        success = IntensityDataFunctions::getRelativeDifference(*fft, *reference_fft) <= threshold;
+        success = DataUtils::relativeDataDifference(*fft, *reference_fft) <= threshold;
 
     if (!success) {
         FileSystemUtils::createDirectory(BATesting::TestOutDir_Core());

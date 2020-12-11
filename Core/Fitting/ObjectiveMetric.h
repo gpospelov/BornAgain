@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_FITTING_OBJECTIVEMETRIC_H
 #define BORNAGAIN_CORE_FITTING_OBJECTIVEMETRIC_H
 
@@ -198,3 +199,4 @@ public:
 };
 
 #endif // BORNAGAIN_CORE_FITTING_OBJECTIVEMETRIC_H
+#endif // USER_API

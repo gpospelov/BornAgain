@@ -85,6 +85,6 @@ TEST_F(Fitting, MultipleSpecFittingTest) {
     EXPECT_TRUE(run("Minuit2", "Migrad", "MultipleSpecPlan"));
 }
 
-TEST_F(Fitting, OffSpecFitTest) {
-    EXPECT_TRUE(run("Minuit2", "Migrad", "OffSpecPlan"));
+TEST_F(Fitting, OffSpecularFitTest) {
+    EXPECT_TRUE(run("Minuit2", "Migrad", "OffSpecularPlan"));
 }

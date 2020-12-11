@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_SLICE_LAYERINTERFACE_H
 #define BORNAGAIN_SAMPLE_SLICE_LAYERINTERFACE_H
 
@@ -76,3 +77,4 @@ inline const Layer* LayerInterface::bottomLayer() const {
 }
 
 #endif // BORNAGAIN_SAMPLE_SLICE_LAYERINTERFACE_H
+#endif // USER_API

@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_UTILS_ASSERT_H
 #define BORNAGAIN_BASE_UTILS_ASSERT_H
 
@@ -35,3 +36,4 @@
     }
 
 #endif // BORNAGAIN_BASE_UTILS_ASSERT_H
+#endif // USER_API

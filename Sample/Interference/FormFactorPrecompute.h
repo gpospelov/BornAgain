@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_INTERFERENCE_FORMFACTORPRECOMPUTE_H
 #define BORNAGAIN_SAMPLE_INTERFERENCE_FORMFACTORPRECOMPUTE_H
 
@@ -37,3 +38,4 @@ matrixFFVector_t polarized(const SimulationElement& sim_element,
 } // namespace FormFactorPrecompute
 
 #endif // BORNAGAIN_SAMPLE_INTERFERENCE_FORMFACTORPRECOMPUTE_H
+#endif // USER_API

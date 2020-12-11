@@ -65,13 +65,13 @@ public:
     //! Creates OutputData array in converter units.
     virtual std::unique_ptr<OutputData<double>> createConvertedData(const OutputData<double>& data,
                                                                     Axes::Units units) const;
-#endif // SWIG
+#endif // USER_API
 
 protected:
     void checkIndex(size_t i_axis) const;
 #ifndef SWIG
     [[noreturn]] void throwUnitsError(std::string method, std::vector<Axes::Units> available) const;
-#endif // SWIG
+#endif // USER_API
 
 private:
     virtual std::vector<std::map<Axes::Units, std::string>> createNameMaps() const = 0;

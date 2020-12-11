@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_BASE_AXIS_IAXIS_H
 #define BORNAGAIN_BASE_AXIS_IAXIS_H
 
@@ -100,3 +101,4 @@ inline bool HaveSameNameAndShape(const IAxis& left, const IAxis& right) {
 }
 
 #endif // BORNAGAIN_BASE_AXIS_IAXIS_H
+#endif // USER_API

@@ -16,13 +16,14 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H
 #define BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H
 
 class DepthProbeSimulation;
 class GISASSimulation;
 class SpecularSimulation;
-class OffSpecSimulation;
+class OffSpecularSimulation;
 
 //! Standard pre-defined simulations.
 
@@ -79,8 +80,8 @@ SpecularSimulation* BasicSpecularQMM();
 SpecularSimulation* BasicSpecularQPM();
 SpecularSimulation* BasicSpecularQMP();
 
-// OffSpec simulations
-OffSpecSimulation* MiniOffSpec();
+// OffSpecular simulations
+OffSpecularSimulation* MiniOffSpecular();
 
 // Depth probe simulations
 DepthProbeSimulation* BasicDepthProbe();
@@ -88,3 +89,4 @@ DepthProbeSimulation* BasicDepthProbe();
 } // namespace StandardSimulations
 
 #endif // BORNAGAIN_CORE_SIMULATION_STANDARDSIMULATIONS_H
+#endif // USER_API

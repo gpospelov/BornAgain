@@ -19,7 +19,7 @@
 #include "Core/Export/NodeProgeny.h"
 #include "Core/Scan/AngularSpecScan.h"
 #include "Core/Simulation/GISASSimulation.h"
-#include "Core/Simulation/OffSpecSimulation.h"
+#include "Core/Simulation/OffSpecularSimulation.h"
 #include "Core/Simulation/SpecularSimulation.h"
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
@@ -251,8 +251,8 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
     SetVectorItem(*beam_item, BeamItem::P_POLARIZATION, beam.getBlochVector());
 }
 
-void TransformFromDomain::setOffSpecBeamItem(BeamItem* beam_item,
-                                             const OffSpecSimulation& simulation) {
+void TransformFromDomain::setOffSpecularBeamItem(BeamItem* beam_item,
+                                                 const OffSpecularSimulation& simulation) {
     Beam beam = simulation.instrument().beam();
 
     beam_item->setIntensity(beam.intensity());

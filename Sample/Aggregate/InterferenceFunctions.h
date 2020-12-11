@@ -16,6 +16,7 @@
 #error no need to expose this header to Swig
 #endif
 
+#ifndef USER_API
 #ifndef BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONS_H
 #define BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONS_H
 
@@ -32,3 +33,4 @@
 #include "Sample/Aggregate/InterferenceFunctionTwin.h"
 
 #endif // BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTIONS_H
+#endif // USER_API

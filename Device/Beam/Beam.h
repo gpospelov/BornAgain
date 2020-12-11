@@ -21,7 +21,7 @@
 
 class IFootprintFactor;
 
-//! Beam defined by wavelength, direction and intensity.
+//! An incident neutron or x-ray beam.
 //! @ingroup beam
 
 class Beam : public INode {

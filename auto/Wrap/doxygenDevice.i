@@ -99,11 +99,6 @@ Sets the beam intensity in neutrons/sec.
 Sets footprint factor to the beam. 
 ";
 
-%feature("docstring")  Beam::setWidthRatio "void Beam::setWidthRatio(double width_ratio)
-
-Sets beam to sample width ratio in footprint factor. 
-";
-
 %feature("docstring")  Beam::setPolarization "void Beam::setPolarization(const kvector_t bloch_vector)
 
 Sets the polarization density matrix according to the given Bloch vector. 

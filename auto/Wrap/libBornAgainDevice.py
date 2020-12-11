@@ -2820,16 +2820,6 @@ class Beam(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Beam_setFootprintFactor(self, shape_factor)
 
-    def setWidthRatio(self, width_ratio):
-        r"""
-        setWidthRatio(Beam self, double width_ratio)
-        void Beam::setWidthRatio(double width_ratio)
-
-        Sets beam to sample width ratio in footprint factor. 
-
-        """
-        return _libBornAgainDevice.Beam_setWidthRatio(self, width_ratio)
-
     def setPolarization(self, bloch_vector):
         r"""
         setPolarization(Beam self, kvector_t bloch_vector)

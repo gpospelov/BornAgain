@@ -100,13 +100,6 @@ void Beam::setFootprintFactor(const IFootprintFactor& shape_factor) {
     registerChild(m_shape_factor.get());
 }
 
-void Beam::setWidthRatio(double width_ratio) {
-    if (!m_shape_factor)
-        throw std::runtime_error("Error in Beam::setWidthRatio: footprint factor is nullptr. "
-                                 "Probably, you have forgotten to initialize it.");
-    m_shape_factor->setWidthRatio(width_ratio);
-}
-
 void Beam::setPolarization(const kvector_t bloch_vector) {
     if (bloch_vector.mag() > 1.0) {
         throw std::runtime_error(

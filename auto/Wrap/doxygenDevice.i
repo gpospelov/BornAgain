@@ -31,7 +31,7 @@ C++ includes: SimulationResult.h
 // File: classBeam.xml
 %feature("docstring") Beam "
 
-Beam defined by wavelength, direction and intensity.
+An incident neutron or x-ray beam.
 
 C++ includes: Beam.h
 ";
@@ -97,11 +97,6 @@ Sets the beam intensity in neutrons/sec.
 %feature("docstring")  Beam::setFootprintFactor "void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)
 
 Sets footprint factor to the beam. 
-";
-
-%feature("docstring")  Beam::setWidthRatio "void Beam::setWidthRatio(double width_ratio)
-
-Sets beam to sample width ratio in footprint factor. 
 ";
 
 %feature("docstring")  Beam::setPolarization "void Beam::setPolarization(const kvector_t bloch_vector)
@@ -386,7 +381,7 @@ returns true if has masks
 // File: classEllipse.xml
 %feature("docstring") Ellipse "
 
-Ellipse shape.
+An ellipse, for use in detector masks.
 
 C++ includes: Ellipse.h
 ";
@@ -444,7 +439,9 @@ Returns true if area defined by two bins is inside or on border of ellipse; more
 // File: classFootprintGauss.xml
 %feature("docstring") FootprintGauss "
 
-Calculates footprint coefficient for a gaussian beam  Beam width is interpreted as the full width on the level of  \\\\[ \\\\exp{-1/2} \\\\] from the peak intensity.
+Gaussian beam footprint.
+
+Beam width is the full width at half maximum.
 
 C++ includes: FootprintGauss.h
 ";
@@ -473,7 +470,7 @@ Calculate footprint correction coefficient from the beam incident angle  alpha.
 // File: classFootprintSquare.xml
 %feature("docstring") FootprintSquare "
 
-Calculates footprint coefficient for a square beam
+Rectangular beam footprint.
 
 C++ includes: FootprintSquare.h
 ";
@@ -1284,7 +1281,7 @@ Loads histogram from file, the shape of array in file should match Following for
 // File: classInfinitePlane.xml
 %feature("docstring") InfinitePlane "
 
-The infinite plane is used for masking everything once and forever.
+The infinite plane is used for masking the entire detector.
 
 C++ includes: InfinitePlane.h
 ";
@@ -1506,7 +1503,7 @@ Creates  OutputData array in converter units.
 // File: classLine.xml
 %feature("docstring") Line "
 
-A line segment.
+A line segment, for use in detector masks.
 
 C++ includes: Line.h
 ";
@@ -2001,7 +1998,7 @@ C++ includes: OutputDataReadWriteNumpyTXT.h
 // File: classPolygon.xml
 %feature("docstring") Polygon "
 
-A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+A polygon, for use in detector masks.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
 C++ includes: Polygon.h
 ";
@@ -2071,7 +2068,9 @@ The private data for polygons to hide boost dependency from the header.
 // File: classRectangle.xml
 %feature("docstring") Rectangle "
 
-The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
+A rectangle, for use in detector masks.
+
+Edges are along the coordinate axes.
 
 C++ includes: Rectangle.h
 ";
@@ -2621,7 +2620,7 @@ Returns the list of all available units.
 // File: classSphericalDetector.xml
 %feature("docstring") SphericalDetector "
 
-A spherical detector with axes and resolution function.
+A detector with coordinate axes along angles phi and alpha.
 
 C++ includes: SphericalDetector.h
 ";
@@ -2631,7 +2630,7 @@ C++ includes: SphericalDetector.h
 
 %feature("docstring")  SphericalDetector::SphericalDetector "SphericalDetector::SphericalDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha, double alpha_min, double alpha_max)
 
-Spherical detector constructor using angle ranges
+Returns a detector with given phi and alpha axes.
 
 Parameters:
 -----------
@@ -2657,7 +2656,7 @@ upper edge of last alpha-bin
 
 %feature("docstring")  SphericalDetector::SphericalDetector "SphericalDetector::SphericalDetector(size_t n_bin, double width, double phi, double alpha)
 
-Spherical detector constructor with quadratic angle ranges
+Returns a detector with phi and alpha axes that have equal width and binning.
 
 Parameters:
 -----------
@@ -2666,7 +2665,7 @@ n_bin:
 number of bins per direction
 
 width: 
-angular width
+full width of angular range in phi or alpha
 
 phi: 
 central phi angle

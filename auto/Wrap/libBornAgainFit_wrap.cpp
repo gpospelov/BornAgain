@@ -6656,12 +6656,6 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Fit/Kernel/MinimizerFactory.h"
 #include "Fit/Kernel/PyCallback.h"
 #include "Fit/Minimizer/IMinimizer.h"
-#include "Fit/Minimizer/MinimizerCatalog.h"
-#include "Fit/Minimizer/MinimizerResult.h"
-#include "Fit/Param/AttLimits.h"
-#include "Fit/Param/Parameter.h"
-#include "Fit/Param/Parameters.h"
-#include "Fit/Param/RealLimits.h"
 
 
 SWIGINTERN int

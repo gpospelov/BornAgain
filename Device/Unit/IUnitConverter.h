@@ -38,6 +38,8 @@ const std::map<Axes::Units, const char*> axisUnitLabel = {
     {Axes::Units::DEGREES, "deg"},       {Axes::Units::MM, "mm"},     {Axes::Units::QSPACE, "1/nm"},
     {Axes::Units::QXQY, "1/nm"},         {Axes::Units::RQ4, "nm^-4?"}};
 
+#ifndef USER_API
+
 //! Interface to provide axis translations to different units for simulation output
 //! @ingroup simulation_internal
 
@@ -65,16 +67,18 @@ public:
     //! Creates OutputData array in converter units.
     virtual std::unique_ptr<OutputData<double>> createConvertedData(const OutputData<double>& data,
                                                                     Axes::Units units) const;
-#endif // USER_API
+#endif // SWIG
 
 protected:
     void checkIndex(size_t i_axis) const;
 #ifndef SWIG
     [[noreturn]] void throwUnitsError(std::string method, std::vector<Axes::Units> available) const;
-#endif // USER_API
+#endif // SWIG
 
 private:
     virtual std::vector<std::map<Axes::Units, std::string>> createNameMaps() const = 0;
 };
+
+#endif // USER_API
 
 #endif // BORNAGAIN_DEVICE_UNIT_IUNITCONVERTER_H

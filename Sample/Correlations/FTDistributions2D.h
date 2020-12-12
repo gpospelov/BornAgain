@@ -20,6 +20,8 @@
 #include "Param/Node/INode.h"
 #include "Sample/Correlations/IDistribution2DSampler.h"
 
+#ifndef USER_API
+
 //! Interface for two-dimensional distributions in Fourier space.
 //! @ingroup distribution_internal
 
@@ -52,6 +54,8 @@ protected:
     const double& m_omega_y;
     const double& m_gamma;
 };
+
+#endif // USER_API
 
 //! Two-dimensional Cauchy distribution in Fourier space;
 //! corresponds to a normalized exp(-r) in real space,

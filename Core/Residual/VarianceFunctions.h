@@ -15,6 +15,8 @@
 #ifndef BORNAGAIN_DEVICE_INSTRUMENT_VARIANCEFUNCTIONS_H
 #define BORNAGAIN_DEVICE_INSTRUMENT_VARIANCEFUNCTIONS_H
 
+#ifndef USER_API
+
 //! Variance function interface.
 //! @ingroup fitting_internal
 
@@ -28,6 +30,7 @@ public:
     virtual IVarianceFunction* clone() const = 0;
     virtual double variance(double real_value, double simulated_value) const = 0;
 };
+#endif // USER_API
 
 //! Returns 1.0 as variance value
 //! @ingroup fitting

@@ -20,7 +20,6 @@
 #ifndef BORNAGAIN_SAMPLE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
 
-#include "Base/Types/Complex.h"
 #include "Base/Vector/Vectors3D.h"
 #include <vector>
 

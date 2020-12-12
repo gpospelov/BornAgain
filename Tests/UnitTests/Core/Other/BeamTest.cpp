@@ -55,25 +55,3 @@ TEST_F(BeamTest, BeamPolarization) {
     EXPECT_NEAR(-0.2, bloch_vector.y(), 1e-8);
     EXPECT_NEAR(0.4, bloch_vector.z(), 1e-8);
 }
-
-TEST_F(BeamTest, FootprintBehaviour) {
-    Beam beam = Beam::horizontalBeam();
-    EXPECT_EQ(nullptr, beam.footprintFactor());
-    EXPECT_THROW(beam.setWidthRatio(1.0), std::runtime_error);
-
-    FootprintSquare square_ff(0.0);
-    beam.setFootprintFactor(square_ff);
-    beam.setWidthRatio(1.0);
-    EXPECT_EQ(1.0, beam.footprintFactor()->widthRatio());
-
-    Beam beam4 = beam;
-    FootprintGauss gaussian_ff(1.0);
-    beam4.setFootprintFactor(gaussian_ff);
-
-    const double r0 = beam.footprintFactor()->widthRatio();
-    const double r4 = beam4.footprintFactor()->widthRatio();
-    EXPECT_EQ(r0, r4);
-
-    EXPECT_EQ(beam.footprintFactor()->parent(), static_cast<INode*>(&beam));
-    EXPECT_EQ(beam4.footprintFactor()->parent(), static_cast<INode*>(&beam4));
-}

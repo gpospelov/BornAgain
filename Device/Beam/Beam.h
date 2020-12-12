@@ -61,8 +61,6 @@ public:
     void setIntensity(double intensity) { m_intensity = intensity; }
     //! Sets footprint factor to the beam.
     void setFootprintFactor(const IFootprintFactor& shape_factor);
-    //! Sets beam to sample width ratio in footprint factor.
-    void setWidthRatio(double width_ratio);
     //! Sets the polarization density matrix according to the given Bloch vector
     void setPolarization(const kvector_t bloch_vector);
 

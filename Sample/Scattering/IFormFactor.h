@@ -16,7 +16,6 @@
 #ifndef BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTOR_H
 #define BORNAGAIN_SAMPLE_SCATTERING_IFORMFACTOR_H
 
-#include "Base/Types/Complex.h"
 #include "Sample/Scattering/ISampleNode.h"
 #include "Sample/Scattering/ZLimits.h"
 #include <Eigen/Core>

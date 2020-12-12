@@ -7473,33 +7473,6 @@ C++ includes: TwoDimLatticeBuilder.h
 ";
 
 
-// File: classTRange.xml
-%feature("docstring") TRange "
-
-An interval [lowerBound..upperBound[.
-
-C++ includes: TRange.h
-";
-
-%feature("docstring")  TRange::TRange "TRange< T >::TRange(T lowerBound, T upperBound)
-";
-
-%feature("docstring")  TRange::~TRange "virtual TRange< T >::~TRange()
-";
-
-%feature("docstring")  TRange::getLowerBound "T TRange< T >::getLowerBound() const
-";
-
-%feature("docstring")  TRange::getUpperBound "T TRange< T >::getUpperBound() const
-";
-
-%feature("docstring")  TRange::getDifference "T TRange< T >::getDifference() const
-";
-
-%feature("docstring")  TRange::inRange "bool TRange< T >::inRange(T value) const
-";
-
-
 // File: classTransformBoxBuilder.xml
 %feature("docstring") TransformBoxBuilder "
 
@@ -7534,21 +7507,6 @@ C++ includes: RipplesBuilder.h
 ";
 
 %feature("docstring")  TruncatedEllipsoid::~TruncatedEllipsoid "TruncatedEllipsoid::~TruncatedEllipsoid()
-";
-
-
-// File: classTSampledRange.xml
-%feature("docstring") TSampledRange "
-
-An interval [lowerBound..upperBound[, and a number of samples.
-
-C++ includes: TRange.h
-";
-
-%feature("docstring")  TSampledRange::TSampledRange "TSampledRange< T >::TSampledRange(size_t n_samples, T lowerBound, T upperBound)
-";
-
-%feature("docstring")  TSampledRange::getNSamples "size_t TSampledRange< T >::getNSamples() const
 ";
 
 
@@ -7675,70 +7633,70 @@ C++ includes: ZLimits.h
 // File: namespace_0d2.xml
 
 
-// File: namespace_0d209.xml
+// File: namespace_0d208.xml
 
 
-// File: namespace_0d211.xml
+// File: namespace_0d210.xml
 
 
-// File: namespace_0d213.xml
+// File: namespace_0d212.xml
 
 
-// File: namespace_0d216.xml
+// File: namespace_0d215.xml
 
 
-// File: namespace_0d226.xml
+// File: namespace_0d225.xml
 
 
-// File: namespace_0d240.xml
+// File: namespace_0d239.xml
 
 
-// File: namespace_0d245.xml
+// File: namespace_0d244.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d263.xml
+// File: namespace_0d262.xml
 
 
-// File: namespace_0d271.xml
+// File: namespace_0d270.xml
 
 
-// File: namespace_0d281.xml
+// File: namespace_0d280.xml
 
 
-// File: namespace_0d283.xml
+// File: namespace_0d282.xml
 
 
-// File: namespace_0d285.xml
+// File: namespace_0d284.xml
 
 
-// File: namespace_0d289.xml
+// File: namespace_0d288.xml
 
 
-// File: namespace_0d291.xml
+// File: namespace_0d290.xml
 
 
-// File: namespace_0d295.xml
+// File: namespace_0d294.xml
 
 
-// File: namespace_0d307.xml
+// File: namespace_0d306.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d313.xml
+// File: namespace_0d312.xml
 
 
-// File: namespace_0d317.xml
+// File: namespace_0d316.xml
 
 
-// File: namespace_0d335.xml
+// File: namespace_0d334.xml
 
 
-// File: namespace_0d354.xml
+// File: namespace_0d353.xml
 
 
 // File: namespace_0d37.xml
@@ -8622,9 +8580,6 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: SlicedParticle_8h.xml
-
-
-// File: TRange_8h.xml
 
 
 // File: MultiLayerFuncs_8cpp.xml

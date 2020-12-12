@@ -15,7 +15,6 @@
 #ifndef BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTION2DPARACRYSTAL_H
 #define BORNAGAIN_SAMPLE_AGGREGATE_INTERFERENCEFUNCTION2DPARACRYSTAL_H
 
-#include "Base/Types/Complex.h"
 #include "Sample/Aggregate/IInterferenceFunction.h"
 #include "Sample/Correlations/FTDistributions2D.h"
 #include "Sample/Lattice/Lattice2D.h"

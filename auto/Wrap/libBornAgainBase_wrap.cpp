@@ -6651,25 +6651,15 @@ SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std
 SWIGINTERN std::vector< std::pair< double,double > >::iterator std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_0(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::value_type const &x){ return self->insert(pos, x); }
 SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_1(std::vector< std::pair< double,double > > *self,std::vector< std::pair< double,double > >::iterator pos,std::vector< std::pair< double,double > >::size_type n,std::vector< std::pair< double,double > >::value_type const &x){ self->insert(pos, n, x); }
 
-#include "Base/Types/Complex.h"
 #include "Base/Types/ICloneable.h"
-
 #include "Base/Const/Units.h"
-
 #include "Base/Utils/ThreadInfo.h"
-
-#include "Base/Vector/BasicVector3D.h"
-#include "Base/Vector/Vectors3D.h"
 #include "Base/Vector/Direction.h"
-
-#include "Base/Axis/Bin.h"
 #include "Base/Axis/ConstKBinAxis.h"
 #include "Base/Axis/CustomBinAxis.h"
 #include "Base/Axis/FixedBinAxis.h"
 #include "Base/Axis/VariableBinAxis.h"
-
 #include "Base/Pixel/IPixel.h"
-
 
 
 SWIGINTERN int
@@ -24498,64 +24488,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Direction_setAlpha(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Direction *arg1 = (Direction *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Direction_setAlpha", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Direction, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Direction_setAlpha" "', argument " "1"" of type '" "Direction *""'"); 
-  }
-  arg1 = reinterpret_cast< Direction * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Direction_setAlpha" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setAlpha(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Direction_setPhi(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Direction *arg1 = (Direction *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Direction_setPhi", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Direction, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Direction_setPhi" "', argument " "1"" of type '" "Direction *""'"); 
-  }
-  arg1 = reinterpret_cast< Direction * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Direction_setPhi" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setPhi(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Direction_alpha(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Direction *arg1 = (Direction *) 0 ;
@@ -32981,16 +32913,6 @@ static PyMethodDef SwigMethods[] = {
 		"Direction(double alpha, double phi)\n"
 		"new_Direction() -> Direction\n"
 		"Direction::Direction()\n"
-		"\n"
-		""},
-	 { "Direction_setAlpha", _wrap_Direction_setAlpha, METH_VARARGS, "\n"
-		"Direction_setAlpha(Direction self, double alpha)\n"
-		"void Direction::setAlpha(double alpha)\n"
-		"\n"
-		""},
-	 { "Direction_setPhi", _wrap_Direction_setPhi, METH_VARARGS, "\n"
-		"Direction_setPhi(Direction self, double phi)\n"
-		"void Direction::setPhi(double phi)\n"
 		"\n"
 		""},
 	 { "Direction_alpha", _wrap_Direction_alpha, METH_O, "\n"

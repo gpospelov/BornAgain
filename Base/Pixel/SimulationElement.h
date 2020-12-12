@@ -21,7 +21,6 @@
 #define BORNAGAIN_BASE_PIXEL_SIMULATIONELEMENT_H
 
 #include "Base/Pixel/PolarizationHandler.h"
-#include "Base/Types/Complex.h"
 #include "Base/Vector/Vectors3D.h"
 #include <memory>
 

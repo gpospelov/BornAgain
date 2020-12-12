@@ -2682,7 +2682,7 @@ class Beam(libBornAgainParam.INode):
     r"""
 
 
-    Beam defined by wavelength, direction and intensity.
+    An incident neutron or x-ray beam.
 
     C++ includes: Beam.h
 
@@ -2820,16 +2820,6 @@ class Beam(libBornAgainParam.INode):
         """
         return _libBornAgainDevice.Beam_setFootprintFactor(self, shape_factor)
 
-    def setWidthRatio(self, width_ratio):
-        r"""
-        setWidthRatio(Beam self, double width_ratio)
-        void Beam::setWidthRatio(double width_ratio)
-
-        Sets beam to sample width ratio in footprint factor. 
-
-        """
-        return _libBornAgainDevice.Beam_setWidthRatio(self, width_ratio)
-
     def setPolarization(self, bloch_vector):
         r"""
         setPolarization(Beam self, kvector_t bloch_vector)
@@ -2913,7 +2903,9 @@ class FootprintGauss(IFootprintFactor):
     r"""
 
 
-    Calculates footprint coefficient for a gaussian beam  Beam width is interpreted as the full width on the level of  \\[ \\exp{-1/2} \\] from the peak intensity.
+    Gaussian beam footprint.
+
+    Beam width is the full width at half maximum.
 
     C++ includes: FootprintGauss.h
 
@@ -2973,7 +2965,7 @@ class FootprintSquare(IFootprintFactor):
     r"""
 
 
-    Calculates footprint coefficient for a square beam
+    Rectangular beam footprint.
 
     C++ includes: FootprintSquare.h
 
@@ -3072,7 +3064,7 @@ class Ellipse(IShape2D):
     r"""
 
 
-    Ellipse shape.
+    An ellipse, for use in detector masks.
 
     C++ includes: Ellipse.h
 
@@ -3174,7 +3166,7 @@ class Line(IShape2D):
     r"""
 
 
-    A line segment.
+    A line segment, for use in detector masks.
 
     C++ includes: Line.h
 
@@ -3334,7 +3326,7 @@ class Polygon(IShape2D):
     r"""
 
 
-    A polygon in 2D space.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
+    A polygon, for use in detector masks.  Polygon defined by two arrays with x and y coordinates of points. Sizes of arrays should coincide. If polygon is unclosed (the last point doesn't repeat the first one), it will be closed automatically.
 
     C++ includes: Polygon.h
 
@@ -3396,7 +3388,9 @@ class Rectangle(IShape2D):
     r"""
 
 
-    The rectangle shape having its axis aligned to the (non-rotated) coordinate system.
+    A rectangle, for use in detector masks.
+
+    Edges are along the coordinate axes.
 
     C++ includes: Rectangle.h
 
@@ -4506,7 +4500,7 @@ class SphericalDetector(IDetector2D):
     r"""
 
 
-    A spherical detector with axes and resolution function.
+    A detector with coordinate axes along angles phi and alpha.
 
     C++ includes: SphericalDetector.h
 

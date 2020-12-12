@@ -26,9 +26,6 @@ public:
     Direction(double alpha, double phi) : m_alpha(alpha), m_phi(phi) {}
     Direction() : Direction(0, 0) {} // needed by Swig
 
-    void setAlpha(double alpha) { m_alpha = alpha; }
-    void setPhi(double phi) { m_phi = phi; }
-
     double alpha() const { return m_alpha; }
     double phi() const { return m_phi; }
 

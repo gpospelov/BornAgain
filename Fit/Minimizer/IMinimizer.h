@@ -12,6 +12,7 @@
 //
 //  ************************************************************************************************
 
+#ifndef USER_API
 #ifndef BORNAGAIN_FIT_MINIMIZER_IMINIMIZER_H
 #define BORNAGAIN_FIT_MINIMIZER_IMINIMIZER_H
 
@@ -60,3 +61,4 @@ public:
 };
 
 #endif // BORNAGAIN_FIT_MINIMIZER_IMINIMIZER_H
+#endif // USER_API

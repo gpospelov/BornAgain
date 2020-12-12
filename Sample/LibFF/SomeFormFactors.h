@@ -20,7 +20,6 @@
 #ifndef BORNAGAIN_SAMPLE_LIBFF_SOMEFORMFACTORS_H
 #define BORNAGAIN_SAMPLE_LIBFF_SOMEFORMFACTORS_H
 
-#include "Base/Types/Complex.h"
 #include "Base/Vector/Vectors3D.h"
 
 //! Some form factor functions.

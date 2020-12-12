@@ -19,6 +19,8 @@
 #include "Param/Node/INode.h"
 #include "Sample/Correlations/IDistribution1DSampler.h"
 
+#ifndef USER_API
+
 //! Interface for a one-dimensional distribution, with normalization adjusted so that
 //! the Fourier transform evaluate(q) is a decay function that starts at evaluate(0)=1.
 //! @ingroup distribution_internal
@@ -45,6 +47,8 @@ public:
 protected:
     const double& m_omega;
 };
+
+#endif // USER_API
 
 //! Exponential IFTDistribution1D exp(-|omega*x|);
 //! its Fourier transform evaluate(q) is a Cauchy-Lorentzian starting at evaluate(0)=1.

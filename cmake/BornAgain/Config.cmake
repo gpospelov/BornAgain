@@ -23,11 +23,6 @@ configure_file(${CONFIGURABLES_DIR}/BABuild.h.in  ${BUILD_INC_DIR}/BABuild.h @ON
 configure_file(${CONFIGURABLES_DIR}/BATesting.h.in  ${BUILD_INC_DIR}/BATesting.h @ONLY)
 string(APPEND CMAKE_CXX_FLAGS " -I${BUILD_INC_DIR}")
 
-configure_file(${CMAKE_SOURCE_DIR}/Examples/Python/utils/plot_int.py
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/plot_int.py COPYONLY)
-configure_file(${CMAKE_SOURCE_DIR}/Examples/Python/utils/plot_diff_int.py
-    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/plot_diff_int.py COPYONLY)
-
 # -----------------------------------------------------------------------------
 # configure BornAgain launch scripts
 # -----------------------------------------------------------------------------

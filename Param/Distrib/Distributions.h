@@ -26,6 +26,8 @@ class ParameterSample;
 //  interface IDistribution1D
 //  ************************************************************************************************
 
+#ifndef USER_API
+
 //! Interface for one-dimensional distributions.
 //! @ingroup distribution_internal
 
@@ -73,6 +75,8 @@ protected:
     std::vector<ParameterSample>
     generateSamplesFromValues(const std::vector<double>& sample_values) const;
 };
+
+#endif // USER_API
 
 //  ************************************************************************************************
 //  class DistributionGate

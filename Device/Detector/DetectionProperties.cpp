@@ -13,7 +13,6 @@
 //  ************************************************************************************************
 
 #include "Device/Detector/DetectionProperties.h"
-#include "Base/Types/Complex.h"
 #include "Param/Base/RealParameter.h"
 
 DetectionProperties::DetectionProperties(kvector_t direction, double efficiency,

@@ -20,6 +20,8 @@
 #include "Param/Node/INode.h"
 #include <utility>
 
+#ifndef USER_API
+
 //! Interface for two-dimensional decay function in reciprocal space.
 //! @ingroup decayFT_internal
 class IFTDecayFunction2D : public ICloneable, public INode {
@@ -53,6 +55,8 @@ private:
     std::pair<double, double> transformToRecLatticeCoordinates(double qX, double qY, double a,
                                                                double b, double alpha) const;
 };
+
+#endif // USER_API
 
 //! Two-dimensional Cauchy decay function in reciprocal space;
 //! corresponds to exp(-r) in real space,

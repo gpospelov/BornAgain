@@ -59,10 +59,10 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
     std::string out_fname =
         FileSystemUtils::jointPath(BATesting::TestOutDir_Std(), name + ".int.gz");
     IntensityDataIOFactory::writeOutputData(*result_data, out_fname);
-    std::cout << "Notes:\n- to visualize an intensity map, use " << BABuild::buildBinDir()
-              << "/plot_int.py\n"
+    std::cout << "Notes:\n- to visualize an intensity map, use "
+              << "devtools/view/plot_int.py\n"
               << "- to plot a difference image, use " << BABuild::buildBinDir()
-              << "/plot_diff_int.py\n"
+              << "devtools/view/plot_diff_int.py\n"
               << "- if the new simulation result\n"
               << out_fname << "\n"
               << "  is correct, then move it to the reference directory\n"

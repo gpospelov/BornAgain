@@ -6708,25 +6708,19 @@ SWIGINTERN void std_vector_Sl_std_pair_Sl_double_Sc_double_Sg__Sg__insert__SWIG_
 #include "Device/Beam/FootprintGauss.h"
 #include "Device/Beam/FootprintSquare.h"
 #include "Device/Data/DataUtils.h"
-#include "Device/Data/OutputData.h"
-#include "Device/Detector/DetectorMask.h"
-#include "Device/Detector/IDetector2D.h"
 #include "Device/Detector/IsGISAXSDetector.h"
 #include "Device/Detector/RectangularDetector.h"
 #include "Device/Detector/SphericalDetector.h"
 #include "Device/Histo/HistoUtils.h"
 #include "Device/Histo/Histogram1D.h"
 #include "Device/Histo/Histogram2D.h"
-#include "Device/Histo/IHistogram.h"
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Histo/SimulationResult.h"
 #include "Device/Mask/Ellipse.h"
-#include "Device/Mask/IShape2D.h"
 #include "Device/Mask/Line.h"
 #include "Device/Mask/Polygon.h"
 #include "Device/Mask/Rectangle.h"
 #include "Device/Resolution/IDetectorResolution.h"
-#include "Device/Resolution/IResolutionFunction2D.h"
 #include "Device/Resolution/ResolutionFunction2DGaussian.h"
 #include "Device/Resolution/ScanResolution.h"
 
@@ -31411,35 +31405,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_Beam_setWidthRatio(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Beam *arg1 = (Beam *) 0 ;
-  double arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  double val2 ;
-  int ecode2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "Beam_setWidthRatio", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Beam, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Beam_setWidthRatio" "', argument " "1"" of type '" "Beam *""'"); 
-  }
-  arg1 = reinterpret_cast< Beam * >(argp1);
-  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Beam_setWidthRatio" "', argument " "2"" of type '" "double""'");
-  } 
-  arg2 = static_cast< double >(val2);
-  (arg1)->setWidthRatio(arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_Beam_setPolarization(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Beam *arg1 = (Beam *) 0 ;
@@ -44823,13 +44788,6 @@ static PyMethodDef SwigMethods[] = {
 		"void Beam::setFootprintFactor(const IFootprintFactor &shape_factor)\n"
 		"\n"
 		"Sets footprint factor to the beam. \n"
-		"\n"
-		""},
-	 { "Beam_setWidthRatio", _wrap_Beam_setWidthRatio, METH_VARARGS, "\n"
-		"Beam_setWidthRatio(Beam self, double width_ratio)\n"
-		"void Beam::setWidthRatio(double width_ratio)\n"
-		"\n"
-		"Sets beam to sample width ratio in footprint factor. \n"
 		"\n"
 		""},
 	 { "Beam_setPolarization", _wrap_Beam_setPolarization, METH_VARARGS, "\n"

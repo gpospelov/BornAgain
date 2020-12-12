@@ -23,7 +23,6 @@
 #include "Sample/Processed/ProcessedLayout.h"
 #include "Sample/RT/SimulationOptions.h"
 #include "Sample/Scattering/LayerFillLimits.h"
-#include "Sample/Scattering/ZLimits.h"
 #include "Sample/Slice/LayerRoughness.h"
 #include "Sample/Specular/SpecularStrategyBuilder.h"
 

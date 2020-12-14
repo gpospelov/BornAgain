@@ -212,3 +212,7 @@ def plot_simulation_result(result, **kwargs):
     plt.tight_layout()
     if not (postpone_show):
         plt.show()
+
+def run_and_plot(simulation):
+    simulation.runSimulation()
+    ba.plot_simulation_result(simulation.result())

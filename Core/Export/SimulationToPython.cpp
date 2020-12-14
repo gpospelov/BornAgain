@@ -385,7 +385,7 @@ std::string defineGISASSimulation(const GISASSimulation* simulation) {
     std::ostringstream result;
     result << defineGISASBeam(*simulation);
     result << defineDetector(simulation);
-    result << indent() << "simulation = ba.GISASSimulation(beam, get_sample(), detector)\n";
+    result << indent() << "simulation = ba.GISASSimulation(beam, sample, detector)\n";
     result << defineDetectorResolutionFunction(simulation);
     result << defineDetectorPolarizationAnalysis(simulation);
     result << defineParameterDistributions(simulation);
@@ -424,7 +424,7 @@ std::string defineSpecularSimulation(const SpecularSimulation* simulation) {
 
 std::string defineSimulate(const ISimulation* simulation) {
     std::ostringstream result;
-    result << "def get_simulation(sample=get_sample()):\n";
+    result << "def get_simulation(sample):\n";
     if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
         result << defineGISASSimulation(gisas);
     else if (auto offspec = dynamic_cast<const OffSpecularSimulation*>(simulation))
@@ -435,21 +435,12 @@ std::string defineSimulate(const ISimulation* simulation) {
         ASSERT(0);
     result << "    return simulation\n\n\n";
 
-    result << "def run_simulation():\n"
-              "    simulation = get_simulation()\n"
-              "    simulation.runSimulation()\n"
-              "    return simulation.result()\n\n\n";
-
     return result.str();
 }
 
 const std::string defineMain =
     "if __name__ == '__main__':\n"
-    "    result = run_simulation()\n"
-    "    if len(sys.argv)>=2:\n"
-    "        ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n"
-    "    else:\n"
-    "        ba.plot_simulation_result(result)\n";
+    "    ba.run_and_plot(get_simulation(get_sample()))\n";
 
 } // namespace
 

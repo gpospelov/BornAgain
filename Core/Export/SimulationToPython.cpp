@@ -191,7 +191,6 @@ std::string defineDetector(const ISimulation* simulation) {
                << printFunc(detector)(detector->regionOfInterest()->getXup()) << ", "
                << printFunc(detector)(detector->regionOfInterest()->getYup()) << ")\n";
     }
-    result << "\n";
     return result.str();
 }
 
@@ -407,7 +406,7 @@ std::string defineOffSpecularSimulation(const OffSpecularSimulation* simulation)
     result << defineMasks(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
-    result << "    simulation.setSample(get_sample())\n";
+    result << "    simulation.setSample(sample)\n";
     return result.str();
 }
 
@@ -419,13 +418,13 @@ std::string defineSpecularSimulation(const SpecularSimulation* simulation) {
     result << defineParameterDistributions(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
-    result << "    simulation.setSample(get_sample())\n";
+    result << "    simulation.setSample(sample)\n";
     return result.str();
 }
 
 std::string defineSimulate(const ISimulation* simulation) {
     std::ostringstream result;
-    result << "def get_simulation():\n";
+    result << "def get_simulation(sample=get_sample()):\n";
     if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
         result << defineGISASSimulation(gisas);
     else if (auto offspec = dynamic_cast<const OffSpecularSimulation*>(simulation))

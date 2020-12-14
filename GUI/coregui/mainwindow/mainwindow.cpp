@@ -226,7 +226,7 @@ void MainWindow::initApplication() {
 void MainWindow::initProgressBar() {
     m_progressBar->hide();
     m_progressBar->setTextVisible(false);
-    m_progressBar->setFixedHeight(10);
+    m_progressBar->setFixedHeight(QApplication::fontMetrics().boundingRect("M").height());
     m_progressBar->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
     m_viewSelectionButtonsLayout->addWidget(m_progressBar);
 }
@@ -298,13 +298,44 @@ void MainWindow::addView(ViewId id, const QIcon& icon, const QString& title, con
     QToolButton* btn = createViewSelectionButton();
     m_viewSelectionButtonsLayout->insertWidget(id, btn);
 
-    btn->setFixedSize(70, 70); // TODO: check with High-DPI devices!
     btn->setText(title);
     btn->setToolTip(tooltip);
     btn->setIcon(icon);
     m_viewSelectionButtons->addButton(btn, id);
 
+    updateViewSelectionButtonsGeometry();
+
     m_viewsStack->insertWidget(id, view);
+}
+
+void MainWindow::updateViewSelectionButtonsGeometry() const {
+    if (m_viewSelectionButtons->buttons().isEmpty())
+        return;
+
+    const QFontMetrics fontMetrics = m_viewSelectionButtons->buttons().first()->fontMetrics();
+
+    // Find the maximum text extents
+    int maxTextWidth = 0;
+    int maxTextHeight = 0;
+    for (auto b : m_viewSelectionButtons->buttons()) {
+        const auto r = fontMetrics.boundingRect(b->text());
+        maxTextWidth = std::max(maxTextWidth, r.width());
+        maxTextHeight = std::max(maxTextHeight, r.height());
+    }
+
+    // calculate the button extent by width (width == height!). Ensure an extent of 70 for normal
+    // DPI devices (legacy value)
+    const int margin = fontMetrics.boundingRect("M").width();
+    const int buttonExtent = std::max(70, maxTextWidth + 2 * margin);
+
+    // calculate the icon extent by height (width == height!)
+    const int iconExtent = buttonExtent - margin - maxTextHeight;
+
+    // set new values in all buttons
+    for (auto b : m_viewSelectionButtons->buttons()) {
+        b->setFixedSize(buttonExtent, buttonExtent);
+        b->setIconSize({iconExtent, iconExtent});
+    }
 }
 
 QToolButton* MainWindow::createViewSelectionButton() const {
@@ -326,10 +357,7 @@ QToolButton* MainWindow::createViewSelectionButton() const {
         "} ";
 
     QToolButton* btn = new QToolButton;
-
     btn->setCheckable(true);
-    btn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn->setIconSize({50, 50}); // TODO: check with High-DPI devices!
     btn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     btn->setStyleSheet(viewSelectionButtonStyle);
     return btn;

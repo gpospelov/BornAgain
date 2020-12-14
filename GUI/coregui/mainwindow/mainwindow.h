@@ -89,6 +89,9 @@ private:
                  QWidget* view);
     QToolButton* createViewSelectionButton() const;
 
+    //! Recalculate the size of the view selection buttons to show complete button text
+    void updateViewSelectionButtonsGeometry() const;
+
     QProgressBar* m_progressBar;
     QButtonGroup* m_viewSelectionButtons;
     QStackedLayout* m_viewsStack;

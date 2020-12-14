@@ -35,9 +35,10 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
     // Generate Python script
     const std::string pyscript_filename =
         FileSystemUtils::jointPath(BATesting::TestOutDir_PyStd(), test_name + ".py");
-    std::ofstream pythonFile(pyscript_filename);
-    pythonFile << ExportToPython::generateSimulationCode(direct_simulation);
-    pythonFile.close();
+    std::ofstream f(pyscript_filename);
+    f << ExportToPython::generateSimulationCode(direct_simulation);
+    f.close();
+    std::cout << "- wrote Python script " << pyscript_filename << std::endl;
 
     // Run Python script
     const std::string py_command = pyscript_filename + " " + output_path;
@@ -51,14 +52,16 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
                                     + BABuild::pythonExecutable() + "\" -B " + py_command;
 #endif
     std::cout << "- system call: " << sys_command << std::endl;
-    int ret = std::system(sys_command.c_str());
-    if (ret != 0) {
-        std::stringstream msg;
-        msg << "System call returned non-zero value " << ret;
-        throw std::runtime_error(msg.str());
-    }
+    int err = std::system(sys_command.c_str());
+    std::cout << "- system call returned " << err << std::endl;
+    if (err)
+        throw std::runtime_error("Exported Python script did not execute properly");
 
-    return std::unique_ptr<OutputData<double>>(IntensityDataIOFactory::readOutputData(output_path));
+    auto ret = std::unique_ptr<OutputData<double>>(
+        IntensityDataIOFactory::readOutputData(output_path));
+    if (!ret)
+        throw std::runtime_error("Could not read back simulation output from file " + output_path);
+    return ret;
 }
 
 } // namespace
@@ -70,7 +73,9 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
     std::cout << "PyStd test: checkSimulation(" << name << ")" << std::endl;
 
     const std::unique_ptr<OutputData<double>> domain_data = domainData(name, direct_simulation);
+    std::cout << "- got domain data" << std::endl;
     const std::unique_ptr<OutputData<double>> ref_data = direct_simulation.result().data();
+    std::cout << "- ran simulation" << std::endl;
 
     return DataUtils::checkRelativeDifference(*domain_data, *ref_data, limit);
 }

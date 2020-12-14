@@ -4,7 +4,7 @@ set(WEB_LEN_LIM 85) # maximum line length of code for display in web docs
 if(NOT MSVC)
 
     set(LINECOUNT
-        ${Python3_EXECUTABLE} ${TOOL_DIR}/line-count/check-line-length.py)
+        ${Python3_EXECUTABLE} ${TOOL_DIR}/linecount/check-line-length.py)
 
     foreach(dir ${AllComponents})
         file(GLOB_RECURSE src1 ${dir}/*.cpp)

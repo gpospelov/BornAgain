@@ -18,7 +18,7 @@ if (WIN32)
     list(REMOVE_ITEM examples ${EXAMPLES_DIR}/scatter2d/Interference2DParaCrystal.py)
 endif()
 
-set(test_script ${TOOL_DIR}/code-tools/batch-plot.py)
+set(test_script ${TOOL_DIR}/code/batch-plot.py)
 
 foreach(example_path ${examples})
     get_filename_component(example_name ${example_path} NAME_WE)

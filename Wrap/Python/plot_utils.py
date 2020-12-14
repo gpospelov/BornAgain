@@ -213,6 +213,6 @@ def plot_simulation_result(result, **kwargs):
     if not (postpone_show):
         plt.show()
 
-def run_and_plot(simulation):
+def run_and_plot(simulation, **kwargs):
     simulation.runSimulation()
-    ba.plot_simulation_result(simulation.result())
+    plot_simulation_result(simulation.result(), **kwargs)

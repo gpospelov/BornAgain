@@ -43,17 +43,35 @@ std::string printDouble(double input) {
     return inter.str();
 }
 
+//! prints double as an integer, if possible within standard accuracy
+std::string printLightDouble(double input) {
+    std::ostringstream inter;
+    int ival = std::lround(input);
+    if (std::abs(input-ival)<1e-11)
+        inter << ival;
+    else {
+        inter << std::setprecision(12);
+        if (std::abs(input) < std::numeric_limits<double>::epsilon())
+            return "0.0";
+        inter << input;
+        if (inter.str().find('e') == std::string::npos &&
+            inter.str().find('.') == std::string::npos)
+            inter << ".0";
+    }
+    return inter.str();
+}
+
 std::string printNm(double input) {
     std::ostringstream inter;
     inter << std::setprecision(12);
-    inter << printDouble(input) << "*nm";
+    inter << printLightDouble(input) << "*nm";
     return inter.str();
 }
 
 std::string printNm2(double input) {
     std::ostringstream inter;
     inter << std::setprecision(12);
-    inter << printDouble(input) << "*nm2";
+    inter << printLightDouble(input) << "*nm2";
     return inter.str();
 }
 
@@ -79,10 +97,7 @@ std::string printScientificDouble(double input) {
 
 std::string printDegrees(double input) {
     std::ostringstream inter;
-    inter << std::setprecision(11) << Units::rad2deg(input);
-    if (inter.str().find('e') == std::string::npos && inter.str().find('.') == std::string::npos)
-        inter << ".0";
-    inter << "*deg";
+    inter << printLightDouble(Units::rad2deg(input)) << "*deg";
     return inter.str();
 }
 

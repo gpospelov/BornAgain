@@ -2401,6 +2401,11 @@ Returns default metric name.
 %feature("docstring")  pyfmt::printDouble "std::string pyfmt::printDouble(double input)
 ";
 
+%feature("docstring")  pyfmt::printLightDouble "std::string pyfmt::printLightDouble(double input)
+
+prints double as an integer, if possible within standard accuracy 
+";
+
 %feature("docstring")  pyfmt::printNm "std::string pyfmt::printNm(double input)
 ";
 

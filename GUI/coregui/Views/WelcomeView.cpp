@@ -25,6 +25,7 @@
 #include "GUI/coregui/utils/qstringutils.h"
 #include <QCommandLinkButton>
 #include <QDesktopServices>
+#include <QDir>
 #include <QUrl>
 #include <QVBoxLayout>
 
@@ -93,7 +94,7 @@ void WelcomeView::generateRecentProjectList() {
         palette.setColor(QPalette::ButtonText, QColor(41, 73, 150));
 
         auto button = new QCommandLinkButton;
-        button->setText(GUI_StringUtils::withTildeHomePath(file));
+        button->setText(GUI_StringUtils::withTildeHomePath(QDir::toNativeSeparators(file)));
         button->setFont(StyleUtils::labelFont());
         button->setPalette(palette);
         button->setFixedHeight(30);
@@ -108,7 +109,8 @@ QString WelcomeView::currentProjectFancyName() {
     QString result("Untitled");
     if (auto projectDocument = projectManager()->document()) {
         if (projectDocument->hasValidNameAndPath())
-            result = GUI_StringUtils::withTildeHomePath(projectDocument->projectFileName());
+            result = GUI_StringUtils::withTildeHomePath(
+                QDir::toNativeSeparators(projectDocument->projectFileName()));
         else
             result = projectDocument->projectName();
     }

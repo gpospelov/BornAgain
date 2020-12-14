@@ -104,7 +104,7 @@ void ActionManager::createMenus() {
     m_fileMenu->addAction(m_openAction);
     connect(m_fileMenu, &QMenu::aboutToShow, this, &ActionManager::aboutToShowFileMenu);
 
-    m_recentProjectsMenu = m_fileMenu->addMenu("Recent Projects");
+    m_recentProjectsMenu = m_fileMenu->addMenu("&Recent Projects");
 
     m_fileMenu->addSeparator();
     m_fileMenu->addAction(m_saveAction);
@@ -112,9 +112,9 @@ void ActionManager::createMenus() {
 
     // Import submenu
     m_fileMenu->addSeparator();
-    m_importMenu = m_fileMenu->addMenu("Import");
+    m_importMenu = m_fileMenu->addMenu("&Import");
     m_importMenu->setToolTipsVisible(true);
-    QAction* action = m_importMenu->addAction("Import from Python script (experimental)");
+    QAction* action = m_importMenu->addAction("&Import from Python script (experimental)");
     action->setToolTip("Import sample from Python script.\n The script should contain a function "
                        "returning a valid multi-layer.");
 
@@ -129,7 +129,7 @@ void ActionManager::createMenus() {
     m_fileMenu->addAction(m_exitAction);
 
     // Settings Menu
-    m_settingsMenu = new QMenu("Settings", m_mainWindow);
+    m_settingsMenu = new QMenu("&Settings", m_mainWindow);
     aboutToShowSettings(); // MacOS feature: action should exist already, otherwise menuBar will not
                            // add menu
     connect(m_settingsMenu, &QMenu::aboutToShow, this, &ActionManager::aboutToShowSettings);
@@ -151,18 +151,22 @@ void ActionManager::aboutToShowFileMenu() {
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
+    int orderNr = 1;
     for (QString file : m_mainWindow->projectManager()->recentProjects()) {
         hasRecentProjects = true;
-        QAction* action = m_recentProjectsMenu->addAction(QDir::toNativeSeparators(
-            GUI_StringUtils::withTildeHomePath(QDir::toNativeSeparators(file))));
+        QString actionText = GUI_StringUtils::withTildeHomePath(QDir::toNativeSeparators(file));
+        if (orderNr < 10)
+            actionText = QString("&%1 ").arg(orderNr) + actionText;
+        QAction* action = m_recentProjectsMenu->addAction(actionText);
         action->setData(QVariant::fromValue(file));
         connect(action, &QAction::triggered, m_mainWindow, &MainWindow::openRecentProject);
+        orderNr++;
     }
     m_recentProjectsMenu->setEnabled(hasRecentProjects);
 
     if (hasRecentProjects) {
         m_recentProjectsMenu->addSeparator();
-        QAction* action = m_recentProjectsMenu->addAction("Clear Menu");
+        QAction* action = m_recentProjectsMenu->addAction("&Clear Menu");
         connect(action, &QAction::triggered, m_mainWindow->projectManager(),
                 &ProjectManager::clearRecentProjects);
     }
@@ -173,7 +177,7 @@ void ActionManager::aboutToShowSettings() {
     QSettings settings;
 
     settings.beginGroup(Constants::S_UPDATES);
-    QAction* action = m_settingsMenu->addAction("Check for Updates");
+    QAction* action = m_settingsMenu->addAction("&Check for Updates");
     action->setToolTip("Checks for updates available on GUI startup.");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_CHECKFORUPDATES, false).toBool());
@@ -181,14 +185,14 @@ void ActionManager::aboutToShowSettings() {
     settings.endGroup();
 
     settings.beginGroup(Constants::S_SESSIONMODELVIEW);
-    action = m_settingsMenu->addAction("Model tech view");
+    action = m_settingsMenu->addAction("&Model tech view");
     action->setToolTip("Additional developer's view will appear in left control tab bar");
     action->setCheckable(true);
     action->setChecked(settings.value(Constants::S_VIEWISACTIVE, false).toBool());
     connect(action, &QAction::toggled, this, &ActionManager::setSessionModelViewActive);
     settings.endGroup();
 
-    action = m_settingsMenu->addAction("Enable autosave");
+    action = m_settingsMenu->addAction("&Enable autosave");
     action->setToolTip("Project will be saved periodically in project's autosave directory.\n"
                        "When opening project, recover option will be suggested, if possible.");
     action->setCheckable(true);

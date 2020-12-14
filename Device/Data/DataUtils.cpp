@@ -13,9 +13,9 @@
 //  ************************************************************************************************
 
 #include "Device/Data/DataUtils.h"
-#include "Device/Data/ArrayUtils.h"
 #include "Base/Math/FourierTransform.h"
 #include "Base/Math/Numeric.h"
+#include "Device/Data/ArrayUtils.h"
 #include <iostream>
 
 namespace {
@@ -33,9 +33,6 @@ std::vector<std::vector<double>> FT2DArray(const std::vector<std::vector<double>
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double DataUtils::relativeDataDifference(const OutputData<double>& dat,
                                          const OutputData<double>& ref) {
-    std::cerr << "DEBUG rDD" << std::endl;
-    std::cerr << "DEBUG rDD ref rank=" << ref.rank() << ", size=" << ref.getAllocatedSize() << std::endl;
-    std::cerr << "DEBUG rDD dat rank=" << dat.rank() << ", size=" << dat.getAllocatedSize() << std::endl;
     if (!dat.hasSameDimensions(ref))
         throw std::runtime_error("OutputData dimension differs from reference");
 
@@ -51,9 +48,7 @@ double DataUtils::relativeDataDifference(const OutputData<double>& dat,
 //! Returns true is relative difference is below threshold; prints informative output
 bool DataUtils::checkRelativeDifference(const OutputData<double>& dat,
                                         const OutputData<double>& ref, const double threshold) {
-    std::cerr << "DEBUG cRD" << std::endl;
     const double diff = relativeDataDifference(dat, ref);
-    std::cerr << "DEBUG cRD -> " << diff << std::endl;
     if (diff > threshold) {
         std::cerr << "FAILED: relative deviation of dat from ref is " << diff
                   << ", above given threshold " << threshold << std::endl;

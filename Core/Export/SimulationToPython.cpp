@@ -131,17 +131,14 @@ std::string defineDetector(const ISimulation* simulation) {
         ASSERT(det->dimension() == 2);
         result << indent() << "detector = ba.SphericalDetector(";
         if (DetectorUtils::isQuadratic(*det)) {
-            result << det->axis(0).size() << ", "
-                   << pyfmt::printDegrees(det->axis(0).span()) << ", "
-                   << pyfmt::printDegrees(det->axis(0).center()) << ", "
+            result << det->axis(0).size() << ", " << pyfmt::printDegrees(det->axis(0).span())
+                   << ", " << pyfmt::printDegrees(det->axis(0).center()) << ", "
                    << pyfmt::printDegrees(det->axis(1).center());
         } else {
-            result << det->axis(0).size() << ", "
-                   << pyfmt::printDegrees(det->axis(0).lowerBound()) << ", "
-                   << pyfmt::printDegrees(det->axis(0).upperBound()) << ", "
-                   << det->axis(1).size() << ", "
-                   << pyfmt::printDegrees(det->axis(1).lowerBound()) << ", "
-                   << pyfmt::printDegrees(det->axis(1).upperBound());
+            result << det->axis(0).size() << ", " << pyfmt::printDegrees(det->axis(0).lowerBound())
+                   << ", " << pyfmt::printDegrees(det->axis(0).upperBound()) << ", "
+                   << det->axis(1).size() << ", " << pyfmt::printDegrees(det->axis(1).lowerBound())
+                   << ", " << pyfmt::printDegrees(det->axis(1).upperBound());
         }
         result << ")\n";
     } else if (const auto* const det = dynamic_cast<const RectangularDetector*>(detector)) {
@@ -438,12 +435,11 @@ std::string defineSimulate(const ISimulation* simulation) {
     return result.str();
 }
 
-
 std::string simulationCode(const ISimulation& simulation) {
     if (simulation.sample() == nullptr)
         throw std::runtime_error("Cannot export: Simulation has no sample");
     return pyfmt::scriptPreamble() + SampleToPython().sampleCode(*simulation.sample())
-        + defineSimulate(&simulation);
+           + defineSimulate(&simulation);
 }
 
 } // namespace
@@ -453,14 +449,15 @@ std::string simulationCode(const ISimulation& simulation) {
 //  ************************************************************************************************
 
 std::string SimulationToPython::simulationPlotCode(const ISimulation& simulation) {
-    return simulationCode(simulation) +
-        "if __name__ == '__main__':\n"
-        "    ba.run_and_plot(get_simulation(get_sample()))\n";
+    return simulationCode(simulation)
+           + "if __name__ == '__main__':\n"
+             "    ba.run_and_plot(get_simulation(get_sample()))\n";
 }
 
-std::string SimulationToPython::simulationSaveCode(
-    const ISimulation& simulation, const std::string& fname) {
-    return simulationCode(simulation) +
-        "if __name__ == '__main__':\n"
-        "    ba.run_and_save(get_simulation(get_sample()), \"" + fname + "\")\n";
+std::string SimulationToPython::simulationSaveCode(const ISimulation& simulation,
+                                                   const std::string& fname) {
+    return simulationCode(simulation)
+           + "if __name__ == '__main__':\n"
+             "    ba.run_and_save(get_simulation(get_sample()), \""
+           + fname + "\")\n";
 }

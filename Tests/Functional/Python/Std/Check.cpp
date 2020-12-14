@@ -56,8 +56,8 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
     if (err)
         throw std::runtime_error("Exported Python script did not execute properly");
 
-    auto ret = std::unique_ptr<OutputData<double>>(
-        IntensityDataIOFactory::readOutputData(output_path));
+    auto ret =
+        std::unique_ptr<OutputData<double>>(IntensityDataIOFactory::readOutputData(output_path));
     if (!ret)
         throw std::runtime_error("Could not read back simulation output from file " + output_path);
     return ret;

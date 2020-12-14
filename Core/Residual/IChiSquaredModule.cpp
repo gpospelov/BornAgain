@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "Core/Residual/IChiSquaredModule.h"
-#include "Core/Residual/VarianceFunctions.h"
 #include "Core/Residual/IIntensityFunction.h"
+#include "Core/Residual/VarianceFunctions.h"
 
 IChiSquaredModule::IChiSquaredModule() : m_variance_function(new VarianceSimFunction) {}
 

@@ -47,15 +47,15 @@ std::string printDouble(double input) {
 std::string printLightDouble(double input) {
     std::ostringstream inter;
     int ival = std::lround(input);
-    if (std::abs(input-ival)<1e-11)
+    if (std::abs(input - ival) < 1e-11)
         inter << ival;
     else {
         inter << std::setprecision(12);
         if (std::abs(input) < std::numeric_limits<double>::epsilon())
             return "0.0";
         inter << input;
-        if (inter.str().find('e') == std::string::npos &&
-            inter.str().find('.') == std::string::npos)
+        if (inter.str().find('e') == std::string::npos
+            && inter.str().find('.') == std::string::npos)
             inter << ".0";
     }
     return inter.str();

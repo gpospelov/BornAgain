@@ -72,13 +72,6 @@ def normalize_text(ti, fname):
         )
     tf = restitute_sample(ti, tc)
 
-        # restitute main
-    tf = re.sub(r"if __name__ == '__main__':.+",
-                """if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result, cmap='jet', aspect='auto')""",
-                tf, flags=re.S)
-
     if verbose:
         print(f'.. normalized, {len(ti.split())} -> {len(tf.split())} lines')
     # YAPF formatting
@@ -100,7 +93,7 @@ def normalize_file(fname, inplace):
 
         m = re.search(r"""if __name__ == '__main__':
     result = run_simulation\(\)
-    ba.plot_simulation_result\(result\)""", ti)
+    ba.plot_simulation_result\(result.*?\)""", ti)
         if not m:
             print('=> non-standard => SKIPPED')
             return 3

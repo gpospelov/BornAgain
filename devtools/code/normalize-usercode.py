@@ -98,7 +98,7 @@ def normalize_file(fname, inplace):
 
         m = re.search(r"""if __name__ == '__main__':
     result = run_simulation\(\)
-    ba.plot_simulation_result\(result, cmap='jet', aspect='auto'\)""", ti)
+    ba.plot_simulation_result\(result\)""", ti)
         if not m:
             print('=> non-standard => SKIPPED')
             return 3

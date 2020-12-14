@@ -13,7 +13,6 @@
 #  **************************************************************************  #
 
 import bornagain as ba
-from bornagain import deg as deg
 try:  # workaround for build servers
     import numpy as np
     from matplotlib import pyplot as plt

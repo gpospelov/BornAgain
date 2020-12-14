@@ -30,19 +30,19 @@ def reduce_nbin(t):
     """
     Overwrites script lines that set nbin, nx, ny
     """
-    pat = re.compile(r'(^\s+(nbin|nx|ny) = )(\d+)$')
-    ret = []
-    for l in t.split('\n'):
-        m = re.match(pat, l)
-        if m:
-            oldsize = int(m.group(3))
-            newsize = min(10, oldsize)
-            lout = re.sub(pat, m.group(1)+f'{newsize}', l)
-        else:
-            lout = l
-        ret.append(lout)
-    return '\n'.join(ret)
-
+#    pat = re.compile(r'(^\s+(nbin|nx|ny) = )(\d+)$')
+#    ret = []
+#    for l in t.split('\n'):
+#        m = re.match(pat, l)
+#        if m:
+#            oldsize = int(m.group(3))
+#            newsize = min(10, oldsize)
+#            lout = re.sub(pat, m.group(1)+f'{newsize}', l)
+#        else:
+#            lout = l
+#        ret.append(lout)
+#    return '\n'.join(ret)
+    return t
 
 def run_example(mode_short, filename, output_dir):
     """

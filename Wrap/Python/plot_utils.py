@@ -12,6 +12,7 @@
 """
 #  **************************************************************************  #
 
+import os
 import bornagain as ba
 try:  # workaround for build servers
     import numpy as np
@@ -201,16 +202,18 @@ def plot_simulation_result(result, **kwargs):
     :param intensity_min: Min value on amplitude's axis or color bar
     :param intensity_max: Max value on amplitude's axis or color bar
     :param units: units for plot axes
-    :param postpone_show: postpone showing the plot for later tuning (False by default)
+    :param noshow: don't plot to interactive device
     """
-    postpone_show = kwargs.pop('postpone_show', False)
+    ns = "NOSHOW" in os.environ
+    noshow = kwargs.pop('noshow', ns)
+    print(f'DEBUG ns={ns}, noshow={noshow}, kwargs={kwargs}')
 
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
         plot_specular_simulation_result(result, **kwargs)
     else:
         plot_colormap(result, **kwargs)
     plt.tight_layout()
-    if not (postpone_show):
+    if not (noshow):
         plt.show()
 
 def run_and_plot(simulation, **kwargs):

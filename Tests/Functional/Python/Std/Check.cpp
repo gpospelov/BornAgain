@@ -43,11 +43,11 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
     const std::string py_command = pyscript_filename + " " + output_path;
 #ifndef _WIN32
     const std::string sys_command = std::string("PYTHONPATH=") + BABuild::buildLibDir() + " "
-                                    + std::string("NOPLOT=TRUE") + " " + BABuild::pythonExecutable()
+                                    + std::string("NOSHOW=TRUE") + " " + BABuild::pythonExecutable()
                                     + " -B " + py_command;
 #else
     const std::string sys_command = std::string("set PYTHONPATH=") + BABuild::buildLibDir() + " & "
-                                    + std::string("set NOPLOT=TRUE") + " & \""
+                                    + std::string("set NOSHOW=TRUE") + " & \""
                                     + BABuild::pythonExecutable() + "\" -B " + py_command;
 #endif
     std::cout << "- system call: " << sys_command << std::endl;

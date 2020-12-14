@@ -42,9 +42,8 @@ def get_sample():
 
 
 def get_simulation():
-    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0.0*deg))
-    nbin = 100
-    detector = ba.SphericalDetector(nbin, 2.0*deg, 1.0*deg, 1.0*deg)
+    beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0*deg))
+    detector = ba.SphericalDetector(100, 2*deg, 1*deg, 1*deg)
 
     simulation = ba.GISASSimulation(beam, get_sample(), detector)
     distr_1 = ba.DistributionLogNormal(0.1*nm, 0.1)
@@ -52,7 +51,7 @@ def get_simulation():
     distr_2 = ba.DistributionGaussian(0.2*deg, 0.1*deg)
     simulation.addParameterDistribution("*/Beam/InclinationAngle", distr_2, 5,
                                         0.0)
-    distr_3 = ba.DistributionGaussian(0.0*deg, 0.1*deg)
+    distr_3 = ba.DistributionGaussian(0*deg, 0.1*deg)
     simulation.addParameterDistribution("*/Beam/AzimuthalAngle", distr_3, 5,
                                         0.0)
     return simulation

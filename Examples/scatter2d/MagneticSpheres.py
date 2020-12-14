@@ -46,11 +46,10 @@ def get_sample():
 
 
 def get_simulation():
-    beam = ba.Beam(1e+12, 0.1*nm, ba.Direction(0.5*deg, 0.0*deg))
+    beam = ba.Beam(1e+12, 0.1*nm, ba.Direction(0.5*deg, 0*deg))
     beam_polarization = kvector_t(0.0, 0.0, 1.0)
     beam.setPolarization(beam_polarization)
-    nbin = 200
-    detector = ba.SphericalDetector(nbin, 6.0*deg, 0.0*deg, 3.0*deg)
+    detector = ba.SphericalDetector(200, 6*deg, 0*deg, 3*deg)
 
     simulation = ba.GISASSimulation(beam, get_sample(), detector)
     analyzer_direction = kvector_t(0.0, 0.0, -1.0)

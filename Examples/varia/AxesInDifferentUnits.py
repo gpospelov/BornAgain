@@ -43,44 +43,26 @@ def get_sample():
     return sample
 
 
-def get_rectangular_detector():
-    """
-    Returns rectangular detector representing our PILATUS detector
-    """
+def get_simulation(sample):
+    beam = ba.Beam(1.0, 1.0*angstrom, ba.Direction(0.2*deg, 0.0*deg))
 
+    # PILATUS detector
     detector_distance = 2000.0  # in mm
     pilatus_pixel_size = 0.172  # in mm
     pilatus_npx, pilatus_npy = 981, 1043  # number of pixels
-
     width = pilatus_npx*pilatus_pixel_size
     height = pilatus_npy*pilatus_pixel_size
     detector = ba.RectangularDetector(pilatus_npx, width, pilatus_npy, height)
     detector.setPerpendicularToSampleX(detector_distance, width/2., 0.0)
-    return detector
 
-
-def get_simulation():
-    """
-    Returns a GISAXS simulation with beam defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.setDetector(get_rectangular_detector())
+    simulation = ba.GISASSimulation(beam, sample, detector)
     return simulation
 
 
 def run_simulation():
-    """
-    Run simulation and returns results for different detector units.
-    """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(get_sample())
     simulation.runSimulation()
-
-    result = simulation.result()
-
-    return result
+    return simulation.result()
 
 
 def plot(result):

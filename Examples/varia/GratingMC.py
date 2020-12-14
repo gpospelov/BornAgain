@@ -52,15 +52,13 @@ def get_sample(lattice_rotation_angle=0.0*deg):
     return multi_layer
 
 
-def get_simulation():
+def get_simulation(sample):
     """
     Create and return GISAXS simulation with beam and detector defined
     """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -0.5*deg, 0.5*deg, 200, 0.0*deg,
-                                     0.6*deg)
-    simulation.setBeamParameters(1.34*angstrom, 0.4*deg, 0.0*deg)
-    simulation.beam().setIntensity(1e+08)
+    beam = ba.Beam(1e8, 1.34*angstrom, ba.Direction(0.4*deg, 0.0*deg))
+    det = ba.SphericalDetector(200, -0.5*deg, 0.5*deg, 200, 0*deg, 0.6*deg)
+    simulation = ba.GISASSimulation(beam, sample, det)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
     return simulation
 
@@ -69,8 +67,7 @@ def run_simulation():
     """
     Runs simulation and returns intensity map.
     """
-    simulation = get_simulation()
-    simulation.setSample(get_sample())
+    simulation = get_simulation(get_sample())
     if not "__no_terminal__" in globals():
         simulation.setTerminalProgressMonitor()
     simulation.runSimulation()

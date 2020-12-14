@@ -45,14 +45,5 @@ def get_simulation(sample, scan_size=500):
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns its result.
-    """
-    simulation = get_simulation(get_sample())
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
     ba.run_and_plot(get_simulation(get_sample()), c='k')

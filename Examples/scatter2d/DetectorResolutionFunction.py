@@ -41,22 +41,14 @@ def get_sample():
     return sample
 
 
-def get_simulation():
+def get_simulation(sample):
     beam = ba.Beam(1.0, 0.1*nm, ba.Direction(0.2*deg, 0*deg))
     detector = ba.SphericalDetector(100, 2*deg, 1*deg, 1*deg)
-
-    simulation = ba.GISASSimulation(beam, get_sample(), detector)
+    simulation = ba.GISASSimulation(beam, sample, detector)
     simulation.setDetectorResolutionFunction(
         ba.ResolutionFunction2DGaussian(0.02*deg, 0.02*deg))
     return simulation
 
 
-def run_simulation():
-    simulation = get_simulation()
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result)
+    ba.run_and_plot(get_simulation(get_sample()))

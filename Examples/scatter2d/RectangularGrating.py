@@ -52,21 +52,13 @@ def get_sample(lattice_rotation_angle=0.0*deg):
     return multi_layer
 
 
-def get_simulation():
+def get_simulation(sample):
     beam = ba.Beam(100000000.0, 0.134*nm, ba.Direction(0.4*deg, 0*deg))
     detector = ba.SphericalDetector(200, -0.5*deg, 0.5*deg, 200, 0*deg, 0.6*deg)
-
-    simulation = ba.GISASSimulation(beam, get_sample(), detector)
+    simulation = ba.GISASSimulation(beam, sample, detector)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
     return simulation
 
 
-def run_simulation():
-    simulation = get_simulation()
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result)
+    ba.run_and_plot(get_simulation(get_sample()))

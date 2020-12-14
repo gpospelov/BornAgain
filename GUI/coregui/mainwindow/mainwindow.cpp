@@ -69,6 +69,8 @@ MainWindow::MainWindow()
 
     QWidget* centralWidget = new QWidget(this);
     QHBoxLayout* mainLayout = new QHBoxLayout(centralWidget);
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
 
     m_viewSelectionButtonsLayout->setMargin(0);
     m_viewSelectionButtonsLayout->setSpacing(0);

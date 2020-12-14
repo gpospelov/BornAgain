@@ -53,14 +53,10 @@ def get_sample():
     return sample
 
 
-def get_simulation():
-    """
-    Create and return GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+def get_simulation(sample):
+    beam = ba.Beam(1.0, 1.0*angstrom, ba.Direction(0.2*deg, 0.0*deg))
+    det = ba.SphericalDetector(100, -1*deg, 1*deg, 100, 0*deg, 2*deg)
+    simulation = ba.GISASSimulation(beam, sample, det)
     return simulation
 
 
@@ -69,9 +65,7 @@ def run_simulation():
     Runs simulations for the sample with different sample parameters.
     """
 
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(get_sample())
 
     print("The tree structure of the simulation")
     print(simulation.treeToString())

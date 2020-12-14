@@ -51,31 +51,15 @@ def get_sample():
     return sample
 
 
-def get_simulation():
-    """
-    Create and return GISAXS simulation with beam and detector defined
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -1.0*deg, 1.0*deg, 200, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+def get_simulation(sample):
+    beam = ba.Beam(1.0, 1.0*angstrom, ba.Direction(0.2*deg, 0.0*deg))
+    det = ba.SphericalDetector(200, -1*deg, 1*deg, 200, 0*deg, 2*deg)
+    simulation = ba.GISASSimulation(beam, sample, det)
     simulation.getOptions().setMonteCarloIntegration(True, 100)
+    if not "__no_terminal__" in globals():
+        simulation.setTerminalProgressMonitor()
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    simulation = get_simulation()
-    simulation.setSample(get_sample())
-    if not "__no_terminal__" in globals():
-        simulation.setTerminalProgressMonitor()
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result,
-                              intensity_min=1e-03)
+    ba.run_and_plot(get_simulation(get_sample()), intensity_min=1e-03)

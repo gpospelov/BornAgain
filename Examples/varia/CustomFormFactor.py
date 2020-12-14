@@ -69,30 +69,13 @@ def get_sample():
     return multi_layer
 
 
-def get_simulation():
-    """
-    Returns a GISAXS simulation with beam and detector defined.
-    IMPORTANT NOTE:
-    Multithreading should be deactivated by invoking setNumberOfThreads(-1)
-    """
-    simulation = ba.GISASSimulation()
-    simulation.getOptions().setNumberOfThreads(-1)
-    simulation.setDetectorParameters(100, -1.0*deg, 1.0*deg, 100, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+def get_simulation(sample):
+    beam = ba.Beam(1.0, 1.0*angstrom, ba.Direction(0.2*deg, 0.0*deg))
+    det = ba.SphericalDetector(100, -1*deg, 1*deg, 100, 0*deg, 2*deg)
+    simulation = ba.GISASSimulation(beam, sample, det)
+    simulation.getOptions().setNumberOfThreads(-1) # deactivate multithreading (why?)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    simulation = get_simulation()
-    simulation.setSample(get_sample())
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result)
+    ba.run_and_plot(get_simulation(get_sample()))

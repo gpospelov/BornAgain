@@ -53,7 +53,7 @@ def get_sample():
     return sample
 
 
-def get_simulation():
+def get_simulation(sample):
     """
     Returns an off-specular simulation with beam and detector defined.
     """
@@ -65,21 +65,9 @@ def get_simulation():
                                    alpha_i_max*deg)
     simulation.setBeamParameters(1.0*angstrom, alpha_i_axis, 0.0*deg)
     simulation.beam().setIntensity(1e9)
+    simulation.setSample(sample)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result,
-                              intensity_min=1.0)
+    ba.run_and_plot(get_simulation(get_sample()), intensity_min=1.0)

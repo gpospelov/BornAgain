@@ -82,7 +82,7 @@ def get_sample():
     return sample
 
 
-def get_simulation():
+def get_simulation(sample):
     """
     Returns a depth-probe simulation.
     """
@@ -93,20 +93,9 @@ def get_simulation():
     simulation.setZSpan(n_z_bins, z_min, z_max)
     simulation.addParameterDistribution("*/Beam/InclinationAngle", alpha_distr,
                                         n_points, n_sig)
+    simulation.setSample(sample)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns its result.
-    """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result)
+    ba.run_and_plot(get_simulation(get_sample()))

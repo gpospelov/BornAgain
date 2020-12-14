@@ -7,6 +7,7 @@ with BornAgain.
 import numpy as np
 import bornagain as ba
 from os import path
+from matplotlib import pyplot as plt
 
 # input parameters
 wavelength = 1.54*ba.angstrom
@@ -68,7 +69,7 @@ def create_real_data():
     return ax_values, real_data
 
 
-def get_simulation(scan_size=500):
+def get_simulation(sample, scan_size=500):
     """
     Returns a specular simulation with beam and detector defined.
     """
@@ -81,39 +82,14 @@ def get_simulation(scan_size=500):
 
     simulation = ba.SpecularSimulation()
     simulation.setScan(scan)
+    simulation.setSample(sample)
 
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns it.
-    """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
-    simulation.runSimulation()
-    return simulation.result()
-
-
-def plot(results):
-    """
-
-    :param results:
-    :return:
-    """
-    from matplotlib import pyplot as plt
-
-    ba.plot_simulation_result(results, noshow=True)
-
+if __name__ == '__main__':
+    ba.run_and_plot(get_simulation(get_sample()), noshow=True)
     genx_axis, genx_values = create_real_data()
-
     plt.semilogy(genx_axis, genx_values, 'ko', markevery=300)
     plt.legend(['BornAgain', 'GenX'], loc='upper right')
-
     plt.show()
-
-
-if __name__ == '__main__':
-    results = run_simulation()
-    plot(results)

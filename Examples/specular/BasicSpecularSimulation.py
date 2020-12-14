@@ -34,13 +34,14 @@ def get_sample():
     return multi_layer
 
 
-def get_simulation(scan_size=500):
+def get_simulation(sample, scan_size=500):
     """
     Defines and returns a specular simulation.
     """
     simulation = ba.SpecularSimulation()
     scan = ba.AngularSpecScan(1.54*angstrom, scan_size, 0.0*deg, 2.0*deg)
     simulation.setScan(scan)
+    simulation.setSample(sample)
     return simulation
 
 
@@ -48,13 +49,10 @@ def run_simulation():
     """
     Runs simulation and returns its result.
     """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(get_sample())
     simulation.runSimulation()
     return simulation.result()
 
 
 if __name__ == '__main__':
-    results = run_simulation()
-    ba.plot_simulation_result(results, c='k')
+    ba.run_and_plot(get_simulation(get_sample()), c='k')

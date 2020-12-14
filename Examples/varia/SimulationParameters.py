@@ -116,7 +116,8 @@ def plot(results):
         plt.subplot(2, 2, nplot + 1)
         ba.plot_colormap(hist, zlabel="")
     plt.tight_layout()
-    plt.show()
+    if not "NOSHOW" in os.environ:
+        plt.show()
 
 
 if __name__ == '__main__':

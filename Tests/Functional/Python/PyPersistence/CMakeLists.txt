@@ -62,4 +62,6 @@ test_example(varia/CustomFormFactor 2e-10)
 test_example(varia/DepthProbe 2e-10)
 test_example(varia/Interference1DLattice 1.5)
 test_example(varia/OffSpecularSimulation 2e-10)
-test_example(varia/SimulationParameters 2e-10)
+
+# TODO replace after revision of parameter machinery
+# test_example(varia/SimulationParameters 2e-10)

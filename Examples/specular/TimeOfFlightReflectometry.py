@@ -40,7 +40,7 @@ def get_sample():
     return multi_layer
 
 
-def get_simulation(scan_size=500):
+def get_simulation(sample, scan_size=500):
     """
     Defines and returns specular simulation
     with a qz-defined beam
@@ -49,20 +49,9 @@ def get_simulation(scan_size=500):
     scan = ba.QSpecScan(qzs)
     simulation = ba.SpecularSimulation()
     simulation.setScan(scan)
+    simulation.setSample(sample)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns its result.
-    """
-    sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result)
+    ba.run_and_plot(get_simulation(get_sample()))

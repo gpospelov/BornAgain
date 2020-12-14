@@ -97,9 +97,7 @@ def plot(results):
                      title="Spherical detector",
                      xlabel=r'$\phi_f ^{\circ}$',
                      ylabel=r'$\alpha_f ^{\circ}$',
-                     zlabel="",
-                     cmap='jet',
-                     aspect='auto')
+                     zlabel="")
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)
@@ -107,9 +105,7 @@ def plot(results):
                      title="Rectangular detector",
                      xlabel='X, mm',
                      ylabel='Y, mm',
-                     zlabel="",
-                     cmap='jet',
-                     aspect='auto')
+                     zlabel="")
 
     # show relative difference between two plots (sph[i]-rect[i])/rect[i]
     # for every detector pixel

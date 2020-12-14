@@ -100,9 +100,7 @@ def simulate_and_plot():
         ba.plot_colormap(result,
                          xlabel="",
                          ylabel="",
-                         zlabel="",
-                         cmap='jet',
-                         aspect='auto')
+                         zlabel="")
 
         plt.tick_params(axis='both', which='major', labelsize=8)
         plt.tick_params(axis='both', which='minor', labelsize=6)

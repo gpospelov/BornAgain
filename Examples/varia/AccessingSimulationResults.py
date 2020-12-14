@@ -75,9 +75,7 @@ def plot_histogram(hist, **kwargs):
     ba.plot_histogram(hist,
                       xlabel=r'$\varphi_f ^{\circ}$',
                       ylabel=r'$\alpha_f ^{\circ}$',
-                      zlabel="",
-                      cmap='jet',
-                      aspect='auto', **kwargs)
+                      zlabel="", **kwargs)
 
 
 def get_relative_difference(hist):

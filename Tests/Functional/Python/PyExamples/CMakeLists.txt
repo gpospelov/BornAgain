@@ -17,6 +17,7 @@ if (WIN32)
     # Convergence problem in Gauss-Kronrod integration
     list(REMOVE_ITEM examples ${EXAMPLES_DIR}/scatter2d/Interference2DParaCrystal.py)
 endif()
+list(REMOVE_ITEM examples ${EXAMPLES_DIR}/varia/SimulationParameters.py)
 
 set(test_script ${TOOL_DIR}/code/batch-plot.py)
 

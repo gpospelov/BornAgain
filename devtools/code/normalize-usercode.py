@@ -43,7 +43,10 @@ def retrieve_simulation(ti, fname):
     ns = {}
     exec(c, ns)
     globals().update(ns)
-    s = get_simulation(get_sample())
+    try:
+        s = get_simulation(get_sample())
+    except:
+        s = get_simulation()
     return s
 
 

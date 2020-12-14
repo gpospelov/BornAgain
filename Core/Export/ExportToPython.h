@@ -24,8 +24,9 @@ class ISimulation;
 
 namespace ExportToPython {
 
-std::string generateSampleCode(const MultiLayer& multilayer);
-std::string generateSimulationCode(const ISimulation& simulation);
+std::string sampleCode(const MultiLayer& multilayer);
+std::string simulationPlotCode(const ISimulation& simulation);
+std::string simulationSaveCode(const ISimulation& simulation, const std::string& fname);
 
 } // namespace ExportToPython
 

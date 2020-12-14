@@ -35,7 +35,7 @@ public:
     SampleToPython();
     ~SampleToPython();
 
-    std::string generateSampleCode(const MultiLayer& multilayer);
+    std::string sampleCode(const MultiLayer& multilayer);
 
 private:
     void initLabels(const MultiLayer& multilayer);

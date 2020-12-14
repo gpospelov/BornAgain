@@ -33,23 +33,22 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
     std::cout << "- removed old output " << output_path << std::endl;
 
     // Generate Python script
-    const std::string pyscript_filename =
+    const std::string pyscript =
         FileSystemUtils::jointPath(BATesting::TestOutDir_PyStd(), test_name + ".py");
-    std::ofstream f(pyscript_filename);
-    f << ExportToPython::generateSimulationCode(direct_simulation);
+    std::ofstream f(pyscript);
+    f << ExportToPython::simulationSaveCode(direct_simulation, output_path);
     f.close();
-    std::cout << "- wrote Python script " << pyscript_filename << std::endl;
+    std::cout << "- wrote Python script " << pyscript << std::endl;
 
     // Run Python script
-    const std::string py_command = pyscript_filename + " " + output_path;
 #ifndef _WIN32
     const std::string sys_command = std::string("PYTHONPATH=") + BABuild::buildLibDir() + " "
                                     + std::string("NOSHOW=TRUE") + " " + BABuild::pythonExecutable()
-                                    + " -B " + py_command;
+                                    + " -B " + pyscript;
 #else
     const std::string sys_command = std::string("set PYTHONPATH=") + BABuild::buildLibDir() + " & "
                                     + std::string("set NOSHOW=TRUE") + " & \""
-                                    + BABuild::pythonExecutable() + "\" -B " + py_command;
+                                    + BABuild::pythonExecutable() + "\" -B " + pyscript;
 #endif
     std::cout << "- system call: " << sys_command << std::endl;
     int err = std::system(sys_command.c_str());

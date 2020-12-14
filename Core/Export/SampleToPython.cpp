@@ -93,7 +93,7 @@ void setPositionInformation(const IParticle* particle, std::string name,
 //  class SampleToPython
 //  ************************************************************************************************
 
-std::string SampleToPython::generateSampleCode(const MultiLayer& multilayer) {
+std::string SampleToPython::sampleCode(const MultiLayer& multilayer) {
     initLabels(multilayer);
     return defineGetSample();
 }

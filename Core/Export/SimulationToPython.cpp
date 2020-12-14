@@ -438,9 +438,13 @@ std::string defineSimulate(const ISimulation* simulation) {
     return result.str();
 }
 
-const std::string defineMain =
-    "if __name__ == '__main__':\n"
-    "    ba.run_and_plot(get_simulation(get_sample()))\n";
+
+std::string simulationCode(const ISimulation& simulation) {
+    if (simulation.sample() == nullptr)
+        throw std::runtime_error("Cannot export: Simulation has no sample");
+    return pyfmt::scriptPreamble() + SampleToPython().sampleCode(*simulation.sample())
+        + defineSimulate(&simulation);
+}
 
 } // namespace
 
@@ -448,9 +452,15 @@ const std::string defineMain =
 //  class SimulationToPython
 //  ************************************************************************************************
 
-std::string SimulationToPython::generateSimulationCode(const ISimulation& simulation) {
-    if (simulation.sample() == nullptr)
-        throw std::runtime_error("Cannot export: Simulation has no sample");
-    return pyfmt::scriptPreamble() + SampleToPython().generateSampleCode(*simulation.sample())
-           + defineSimulate(&simulation) + defineMain;
+std::string SimulationToPython::simulationPlotCode(const ISimulation& simulation) {
+    return simulationCode(simulation) +
+        "if __name__ == '__main__':\n"
+        "    ba.run_and_plot(get_simulation(get_sample()))\n";
+}
+
+std::string SimulationToPython::simulationSaveCode(
+    const ISimulation& simulation, const std::string& fname) {
+    return simulationCode(simulation) +
+        "if __name__ == '__main__':\n"
+        "    ba.run_and_save(get_simulation(get_sample()), \"" + fname + "\")\n";
 }

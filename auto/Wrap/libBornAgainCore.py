@@ -4337,21 +4337,29 @@ class PoissonNoiseBackground(IBackground):
 _libBornAgainCore.PoissonNoiseBackground_swigregister(PoissonNoiseBackground)
 
 
-def generateSampleCode(multilayer):
+def sampleCode(multilayer):
     r"""
-    generateSampleCode(MultiLayer const & multilayer) -> std::string
-    std::string ExportToPython::generateSampleCode(const MultiLayer &multilayer)
+    sampleCode(MultiLayer const & multilayer) -> std::string
+    std::string ExportToPython::sampleCode(const MultiLayer &multilayer)
 
     """
-    return _libBornAgainCore.generateSampleCode(multilayer)
+    return _libBornAgainCore.sampleCode(multilayer)
 
-def generateSimulationCode(simulation):
+def simulationPlotCode(simulation):
     r"""
-    generateSimulationCode(ISimulation simulation) -> std::string
-    std::string ExportToPython::generateSimulationCode(const ISimulation &simulation)
+    simulationPlotCode(ISimulation simulation) -> std::string
+    std::string ExportToPython::simulationPlotCode(const ISimulation &simulation)
 
     """
-    return _libBornAgainCore.generateSimulationCode(simulation)
+    return _libBornAgainCore.simulationPlotCode(simulation)
+
+def simulationSaveCode(simulation, fname):
+    r"""
+    simulationSaveCode(ISimulation simulation, std::string const & fname) -> std::string
+    std::string ExportToPython::simulationSaveCode(const ISimulation &simulation, const std::string &fname)
+
+    """
+    return _libBornAgainCore.simulationSaveCode(simulation, fname)
 class IIntensityFunction(object):
     r"""
 

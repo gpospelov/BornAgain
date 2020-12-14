@@ -1851,7 +1851,7 @@ C++ includes: SampleToPython.h
 %feature("docstring")  SampleToPython::~SampleToPython "SampleToPython::~SampleToPython()
 ";
 
-%feature("docstring")  SampleToPython::generateSampleCode "std::string SampleToPython::generateSampleCode(const MultiLayer &multilayer)
+%feature("docstring")  SampleToPython::sampleCode "std::string SampleToPython::sampleCode(const MultiLayer &multilayer)
 ";
 
 
@@ -1959,9 +1959,14 @@ Write a Python script that allows to run the current simulation.
 C++ includes: SimulationToPython.h
 ";
 
-%feature("docstring")  SimulationToPython::generateSimulationCode "std::string SimulationToPython::generateSimulationCode(const ISimulation &simulation)
+%feature("docstring")  SimulationToPython::simulationPlotCode "std::string SimulationToPython::simulationPlotCode(const ISimulation &simulation)
 
-Returns a Python script that sets up a simulation and runs it if invoked as main program. 
+Returns a Python script that runs a simulation and plots the result. 
+";
+
+%feature("docstring")  SimulationToPython::simulationSaveCode "std::string SimulationToPython::simulationSaveCode(const ISimulation &simulation, const std::string &fname)
+
+Returns a Python script that runs a simulation and saves the result to a file. 
 ";
 
 
@@ -2323,10 +2328,13 @@ C++ includes: VarianceFunctions.h
 
 
 // File: namespaceExportToPython.xml
-%feature("docstring")  ExportToPython::generateSampleCode "std::string ExportToPython::generateSampleCode(const MultiLayer &multilayer)
+%feature("docstring")  ExportToPython::sampleCode "std::string ExportToPython::sampleCode(const MultiLayer &multilayer)
 ";
 
-%feature("docstring")  ExportToPython::generateSimulationCode "std::string ExportToPython::generateSimulationCode(const ISimulation &simulation)
+%feature("docstring")  ExportToPython::simulationPlotCode "std::string ExportToPython::simulationPlotCode(const ISimulation &simulation)
+";
+
+%feature("docstring")  ExportToPython::simulationSaveCode "std::string ExportToPython::simulationSaveCode(const ISimulation &simulation, const std::string &fname)
 ";
 
 

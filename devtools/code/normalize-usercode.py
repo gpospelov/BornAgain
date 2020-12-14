@@ -139,8 +139,8 @@ def normalize_file(fname, inplace):
         rf = sf.result()
         if verbose:
             print(f'.. done with simulations')
-        diff = ba.getRelativeDifference(ba.importArrayToOutputData(ri.array()),
-                                        ba.importArrayToOutputData(rf.array()))
+            diff = ba.relativeDataDifference(ba.importArrayToOutputData(ri.array()),
+                                             ba.importArrayToOutputData(rf.array()))
         if verbose:
             print(f'.. relative difference {diff}')
         if diff > 1e-10:

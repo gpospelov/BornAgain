@@ -438,10 +438,9 @@ std::string defineSimulate(const ISimulation* simulation) {
 std::string simulationCode(const ISimulation& simulation) {
     if (simulation.sample() == nullptr)
         throw std::runtime_error("Cannot export: Simulation has no sample");
-    std::string code = SampleToPython().sampleCode(*simulation.sample())
-        + defineSimulate(&simulation);
-
-    return pyfmt::scriptPreamble() + code;
+    std::string code =
+        SampleToPython().sampleCode(*simulation.sample()) + defineSimulate(&simulation);
+    return pyfmt::preambled(code);
 }
 
 } // namespace

@@ -16,14 +16,23 @@
 #include "Base/Const/Units.h" // printDegrees
 #include "Base/Math/Constants.h"
 #include "Base/Utils/Algorithms.h"
+#include "Base/Utils/StringUtils.h"
 #include <iomanip>
 
 namespace pyfmt {
 
-std::string scriptPreamble() {
+std::string preambled(const std::string& code) {
+    std::vector<std::string> to_declare;
+    for (const std::string& key : {"angstrom", "deg", "nm", "nm2", "micrometer"})
+        if (code.find("*" + key) != std::string::npos)
+            to_declare.push_back(key);
+    for (const std::string& key : {"kvector_t"})
+        if (code.find(key) != std::string::npos)
+            to_declare.push_back(key);
     return "import numpy, sys\n"
            "import bornagain as ba\n"
-           "from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t\n\n\n";
+           "from bornagain import "
+           + StringUtils::join(to_declare, ", ") + "\n\n\n" + code;
 }
 
 std::string printBool(double value) {

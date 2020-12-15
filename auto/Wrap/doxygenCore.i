@@ -2400,7 +2400,7 @@ Returns default metric name.
 
 
 // File: namespacepyfmt.xml
-%feature("docstring")  pyfmt::scriptPreamble "std::string pyfmt::scriptPreamble()
+%feature("docstring")  pyfmt::preambled "std::string pyfmt::preambled(const std::string &code)
 ";
 
 %feature("docstring")  pyfmt::printBool "std::string pyfmt::printBool(double value)

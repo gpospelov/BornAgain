@@ -53,7 +53,7 @@ jobs:
         sudo apt-get install -y build-essential\
           gfortran cmake ccache \
           libgsl-dev libboost-all-dev libfftw3-dev libtiff5-dev libcerf-dev libeigen3-dev \
-          qt5-default libqt5designercomponents5 qttools5-dev libqt5svg5-dev
+          qt5-default libqt5designercomponents5 qttools5-dev libqt5svg5-dev libx11-xcb1
     - name: Install Python packages
       run: |
         python3 -m pip install --upgrade pip
@@ -81,6 +81,7 @@ jobs:
         CCACHE_COMPRESS: "true"
         CCACHE_COMPRESSLEVEL: "6"
         CCACHE_MAXSIZE: "400M"
+        QT_QPA_PLATFORM: offscreen        
       run: |
         cd $GITHUB_WORKSPACE && pwd && ls
         mkdir build && cd build
@@ -97,6 +98,8 @@ jobs:
          path: ./build/BornAgain-*.tar.gz
 
     - name: Testing
+      env:
+        QT_QPA_PLATFORM: offscreen        
       run: |
         cd $GITHUB_WORKSPACE/build
         ccache -s

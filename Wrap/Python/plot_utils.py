@@ -12,8 +12,8 @@
 """
 #  **************************************************************************  #
 
+import os
 import bornagain as ba
-from bornagain import deg as deg
 try:  # workaround for build servers
     import numpy as np
     from matplotlib import pyplot as plt
@@ -202,14 +202,24 @@ def plot_simulation_result(result, **kwargs):
     :param intensity_min: Min value on amplitude's axis or color bar
     :param intensity_max: Max value on amplitude's axis or color bar
     :param units: units for plot axes
-    :param postpone_show: postpone showing the plot for later tuning (False by default)
+    :param noshow: don't plot to interactive device
     """
-    postpone_show = kwargs.pop('postpone_show', False)
+    noshow = kwargs.pop('noshow', "NOSHOW" in os.environ)
 
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
         plot_specular_simulation_result(result, **kwargs)
     else:
         plot_colormap(result, **kwargs)
     plt.tight_layout()
-    if not (postpone_show):
+    if not (noshow):
         plt.show()
+    else:
+        print("plot_simulation_result: noshow")
+
+def run_and_plot(simulation, **kwargs):
+    simulation.runSimulation()
+    plot_simulation_result(simulation.result(), **kwargs)
+
+def run_and_save(simulation, fname):
+    simulation.runSimulation()
+    ba.IntensityDataIOFactory.writeSimulationResult(simulation.result(), fname)

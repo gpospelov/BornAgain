@@ -129,20 +129,16 @@ std::string defineDetector(const ISimulation* simulation) {
 
     if (const auto* const det = dynamic_cast<const SphericalDetector*>(detector)) {
         ASSERT(det->dimension() == 2);
+        result << indent() << "detector = ba.SphericalDetector(";
         if (DetectorUtils::isQuadratic(*det)) {
-            result << indent() << "nbin = " << det->axis(0).size() << "\n";
-            result << indent() << "detector = ba.SphericalDetector(nbin, "
-                   << pyfmt::printDegrees(det->axis(0).span()) << ", "
-                   << pyfmt::printDegrees(det->axis(0).center()) << ", "
+            result << det->axis(0).size() << ", " << pyfmt::printDegrees(det->axis(0).span())
+                   << ", " << pyfmt::printDegrees(det->axis(0).center()) << ", "
                    << pyfmt::printDegrees(det->axis(1).center());
         } else {
-            result << indent() << "nx = " << det->axis(0).size() << "\n";
-            result << indent() << "ny = " << det->axis(1).size() << "\n";
-            result << indent() << "detector = ba.SphericalDetector(nx, "
-                   << pyfmt::printDegrees(det->axis(0).lowerBound()) << ", "
-                   << pyfmt::printDegrees(det->axis(0).upperBound()) << ", "
-                   << "ny , " << pyfmt::printDegrees(det->axis(1).lowerBound()) << ", "
-                   << pyfmt::printDegrees(det->axis(1).upperBound());
+            result << det->axis(0).size() << ", " << pyfmt::printDegrees(det->axis(0).lowerBound())
+                   << ", " << pyfmt::printDegrees(det->axis(0).upperBound()) << ", "
+                   << det->axis(1).size() << ", " << pyfmt::printDegrees(det->axis(1).lowerBound())
+                   << ", " << pyfmt::printDegrees(det->axis(1).upperBound());
         }
         result << ")\n";
     } else if (const auto* const det = dynamic_cast<const RectangularDetector*>(detector)) {
@@ -192,7 +188,6 @@ std::string defineDetector(const ISimulation* simulation) {
                << printFunc(detector)(detector->regionOfInterest()->getXup()) << ", "
                << printFunc(detector)(detector->regionOfInterest()->getYup()) << ")\n";
     }
-    result << "\n";
     return result.str();
 }
 
@@ -387,7 +382,7 @@ std::string defineGISASSimulation(const GISASSimulation* simulation) {
     std::ostringstream result;
     result << defineGISASBeam(*simulation);
     result << defineDetector(simulation);
-    result << indent() << "simulation = ba.GISASSimulation(beam, get_sample(), detector)\n";
+    result << indent() << "simulation = ba.GISASSimulation(beam, sample, detector)\n";
     result << defineDetectorResolutionFunction(simulation);
     result << defineDetectorPolarizationAnalysis(simulation);
     result << defineParameterDistributions(simulation);
@@ -408,7 +403,7 @@ std::string defineOffSpecularSimulation(const OffSpecularSimulation* simulation)
     result << defineMasks(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
-    result << "    simulation.setSample(get_sample())\n";
+    result << "    simulation.setSample(sample)\n";
     return result.str();
 }
 
@@ -420,13 +415,13 @@ std::string defineSpecularSimulation(const SpecularSimulation* simulation) {
     result << defineParameterDistributions(simulation);
     result << defineSimulationOptions(simulation);
     result << defineBackground(simulation);
-    result << "    simulation.setSample(get_sample())\n";
+    result << "    simulation.setSample(sample)\n";
     return result.str();
 }
 
 std::string defineSimulate(const ISimulation* simulation) {
     std::ostringstream result;
-    result << "def get_simulation():\n";
+    result << "def get_simulation(sample):\n";
     if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
         result << defineGISASSimulation(gisas);
     else if (auto offspec = dynamic_cast<const OffSpecularSimulation*>(simulation))
@@ -437,21 +432,15 @@ std::string defineSimulate(const ISimulation* simulation) {
         ASSERT(0);
     result << "    return simulation\n\n\n";
 
-    result << "def run_simulation():\n"
-              "    simulation = get_simulation()\n"
-              "    simulation.runSimulation()\n"
-              "    return simulation.result()\n\n\n";
-
     return result.str();
 }
 
-const std::string defineMain =
-    "if __name__ == '__main__':\n"
-    "    result = run_simulation()\n"
-    "    if len(sys.argv)>=2:\n"
-    "        ba.IntensityDataIOFactory.writeSimulationResult(result, sys.argv[1])\n"
-    "    else:\n"
-    "        ba.plot_simulation_result(result, cmap='jet', aspect='auto')\n";
+std::string simulationCode(const ISimulation& simulation) {
+    if (simulation.sample() == nullptr)
+        throw std::runtime_error("Cannot export: Simulation has no sample");
+    return pyfmt::scriptPreamble() + SampleToPython().sampleCode(*simulation.sample())
+           + defineSimulate(&simulation);
+}
 
 } // namespace
 
@@ -459,9 +448,16 @@ const std::string defineMain =
 //  class SimulationToPython
 //  ************************************************************************************************
 
-std::string SimulationToPython::generateSimulationCode(const ISimulation& simulation) {
-    if (simulation.sample() == nullptr)
-        throw std::runtime_error("Cannot export: Simulation has no sample");
-    return pyfmt::scriptPreamble() + SampleToPython().generateSampleCode(*simulation.sample())
-           + defineSimulate(&simulation) + defineMain;
+std::string SimulationToPython::simulationPlotCode(const ISimulation& simulation) {
+    return simulationCode(simulation)
+           + "if __name__ == '__main__':\n"
+             "    ba.run_and_plot(get_simulation(get_sample()))\n";
+}
+
+std::string SimulationToPython::simulationSaveCode(const ISimulation& simulation,
+                                                   const std::string& fname) {
+    return simulationCode(simulation)
+           + "if __name__ == '__main__':\n"
+             "    ba.run_and_save(get_simulation(get_sample()), \""
+           + fname + "\")\n";
 }

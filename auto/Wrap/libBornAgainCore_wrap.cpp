@@ -42125,7 +42125,7 @@ SWIGINTERN PyObject *PoissonNoiseBackground_swiginit(PyObject *SWIGUNUSEDPARM(se
   return SWIG_Python_InitShadowInstance(args);
 }
 
-SWIGINTERN PyObject *_wrap_generateSampleCode(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_sampleCode(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   MultiLayer *arg1 = 0 ;
   void *argp1 = 0 ;
@@ -42137,13 +42137,13 @@ SWIGINTERN PyObject *_wrap_generateSampleCode(PyObject *SWIGUNUSEDPARM(self), Py
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_MultiLayer,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "generateSampleCode" "', argument " "1"" of type '" "MultiLayer const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "sampleCode" "', argument " "1"" of type '" "MultiLayer const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "generateSampleCode" "', argument " "1"" of type '" "MultiLayer const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "sampleCode" "', argument " "1"" of type '" "MultiLayer const &""'"); 
   }
   arg1 = reinterpret_cast< MultiLayer * >(argp1);
-  result = ExportToPython::generateSampleCode((MultiLayer const &)*arg1);
+  result = ExportToPython::sampleCode((MultiLayer const &)*arg1);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
@@ -42151,7 +42151,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_generateSimulationCode(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_simulationPlotCode(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ISimulation *arg1 = 0 ;
   void *argp1 = 0 ;
@@ -42163,16 +42163,56 @@ SWIGINTERN PyObject *_wrap_generateSimulationCode(PyObject *SWIGUNUSEDPARM(self)
   swig_obj[0] = args;
   res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_ISimulation,  0  | 0);
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "generateSimulationCode" "', argument " "1"" of type '" "ISimulation const &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "simulationPlotCode" "', argument " "1"" of type '" "ISimulation const &""'"); 
   }
   if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "generateSimulationCode" "', argument " "1"" of type '" "ISimulation const &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "simulationPlotCode" "', argument " "1"" of type '" "ISimulation const &""'"); 
   }
   arg1 = reinterpret_cast< ISimulation * >(argp1);
-  result = ExportToPython::generateSimulationCode((ISimulation const &)*arg1);
+  result = ExportToPython::simulationPlotCode((ISimulation const &)*arg1);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
 fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_simulationSaveCode(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ISimulation *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  PyObject *swig_obj[2] ;
+  std::string result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "simulationSaveCode", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_ISimulation,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "simulationSaveCode" "', argument " "1"" of type '" "ISimulation const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "simulationSaveCode" "', argument " "1"" of type '" "ISimulation const &""'"); 
+  }
+  arg1 = reinterpret_cast< ISimulation * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "simulationSaveCode" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "simulationSaveCode" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  result = ExportToPython::simulationSaveCode((ISimulation const &)*arg1,(std::string const &)*arg2);
+  resultobj = SWIG_From_std_string(static_cast< std::string >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
   return NULL;
 }
 
@@ -45056,14 +45096,19 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_PoissonNoiseBackground", _wrap_delete_PoissonNoiseBackground, METH_O, "delete_PoissonNoiseBackground(PoissonNoiseBackground self)"},
 	 { "PoissonNoiseBackground_swigregister", PoissonNoiseBackground_swigregister, METH_O, NULL},
 	 { "PoissonNoiseBackground_swiginit", PoissonNoiseBackground_swiginit, METH_VARARGS, NULL},
-	 { "generateSampleCode", _wrap_generateSampleCode, METH_O, "\n"
-		"generateSampleCode(MultiLayer const & multilayer) -> std::string\n"
-		"std::string ExportToPython::generateSampleCode(const MultiLayer &multilayer)\n"
+	 { "sampleCode", _wrap_sampleCode, METH_O, "\n"
+		"sampleCode(MultiLayer const & multilayer) -> std::string\n"
+		"std::string ExportToPython::sampleCode(const MultiLayer &multilayer)\n"
 		"\n"
 		""},
-	 { "generateSimulationCode", _wrap_generateSimulationCode, METH_O, "\n"
-		"generateSimulationCode(ISimulation simulation) -> std::string\n"
-		"std::string ExportToPython::generateSimulationCode(const ISimulation &simulation)\n"
+	 { "simulationPlotCode", _wrap_simulationPlotCode, METH_O, "\n"
+		"simulationPlotCode(ISimulation simulation) -> std::string\n"
+		"std::string ExportToPython::simulationPlotCode(const ISimulation &simulation)\n"
+		"\n"
+		""},
+	 { "simulationSaveCode", _wrap_simulationSaveCode, METH_VARARGS, "\n"
+		"simulationSaveCode(ISimulation simulation, std::string const & fname) -> std::string\n"
+		"std::string ExportToPython::simulationSaveCode(const ISimulation &simulation, const std::string &fname)\n"
 		"\n"
 		""},
 	 { "delete_IIntensityFunction", _wrap_delete_IIntensityFunction, METH_O, "\n"

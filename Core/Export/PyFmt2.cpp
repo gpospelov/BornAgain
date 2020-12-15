@@ -96,9 +96,7 @@ std::string representShape2D(const std::string& indent, const IShape2D* ishape, 
 //! Returns parameter value, followed by its unit multiplicator (like "* nm").
 
 std::string valueTimesUnit(const RealParameter* par) {
-    if (par->unit() == "rad")
-        return pyfmt::printDegrees(par->value());
-    return pyfmt::printDouble(par->value()) + (par->unit() == "" ? "" : ("*" + par->unit()));
+    return pyfmt::printValue(par->value(), par->unit());
 }
 
 //! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").

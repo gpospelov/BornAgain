@@ -1,5 +1,4 @@
-import sys
-import os
+import sys, os
 
 sys.path.append(os.path.abspath(
                 os.path.join(os.path.split(__file__)[0], '@BA_MODULES_IMPORT_PATH@')))
@@ -22,8 +21,5 @@ from libBornAgainSample import *
 from libBornAgainDevice import *
 from libBornAgainCore import *
 
-
-# To prevent inclusion of plotting tools during functional tests:
-if not "NOPLOT" in os.environ:
-    from .plot_utils import *
-    import fit_monitor
+from .plot_utils import *
+import fit_monitor

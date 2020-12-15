@@ -13,9 +13,9 @@
 //  ************************************************************************************************
 
 #include "Device/Data/DataUtils.h"
-#include "Device/Data/ArrayUtils.h"
 #include "Base/Math/FourierTransform.h"
 #include "Base/Math/Numeric.h"
+#include "Device/Data/ArrayUtils.h"
 #include <iostream>
 
 namespace {
@@ -51,12 +51,12 @@ bool DataUtils::checkRelativeDifference(const OutputData<double>& dat,
     const double diff = relativeDataDifference(dat, ref);
     if (diff > threshold) {
         std::cerr << "FAILED: relative deviation of dat from ref is " << diff
-                  << ", above given threshold " << threshold << "\n";
+                  << ", above given threshold " << threshold << std::endl;
         return false;
     }
     if (diff)
         std::cerr << "- OK: relative deviation of dat from ref is " << diff
-                  << ", within given threshold " << threshold << "\n";
+                  << ", within given threshold " << threshold << std::endl;
     else
         std::cout << "- OK: dat = ref\n";
     return true;

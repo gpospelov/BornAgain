@@ -28,8 +28,10 @@ class ISimulation;
 
 class SimulationToPython {
 public:
-    //! Returns a Python script that sets up a simulation and runs it if invoked as main program.
-    std::string generateSimulationCode(const ISimulation& simulation);
+    //! Returns a Python script that runs a simulation and plots the result
+    std::string simulationPlotCode(const ISimulation& simulation);
+    //! Returns a Python script that runs a simulation and saves the result to a file
+    std::string simulationSaveCode(const ISimulation& simulation, const std::string& fname);
 };
 
 #endif // BORNAGAIN_CORE_EXPORT_SIMULATIONTOPYTHON_H

@@ -142,7 +142,7 @@ QString PySampleWidget::generateCodeSnippet() {
             auto multilayer = DomainObjectBuilder::buildMultiLayer(*sampleItem);
             if (!result.isEmpty())
                 result.append("\n");
-            result.append(QString::fromStdString(ExportToPython::generateSampleCode(*multilayer)));
+            result.append(QString::fromStdString(ExportToPython::sampleCode(*multilayer)));
         } catch (const std::exception& ex) {
             QString message =
                 QString("Generation of Python Script failed. Code is not complete.\n\n"

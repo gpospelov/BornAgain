@@ -4,7 +4,7 @@ set(WEB_LEN_LIM 85) # maximum line length of code for display in web docs
 if(NOT MSVC)
 
     set(LINECOUNT
-        ${Python3_EXECUTABLE} ${TOOL_DIR}/line-count/check-line-length.py)
+        ${Python3_EXECUTABLE} ${TOOL_DIR}/linecount/check-line-length.py)
 
     foreach(dir ${AllComponents})
         file(GLOB_RECURSE src1 ${dir}/*.cpp)
@@ -19,7 +19,7 @@ if(NOT MSVC)
             COMMAND ${LINECOUNT} ${SRC_LEN_LIM} ${src1})
     endforeach()
 
-    file(GLOB_RECURSE sources ${PY_EXAMPLES_DIR}/*.py)
+    file(GLOB_RECURSE sources ${EXAMPLES_DIR}/*.py)
     add_test(NAME LineLength.PyExamples
         COMMAND ${LINECOUNT} ${WEB_LEN_LIM} ${sources})
 

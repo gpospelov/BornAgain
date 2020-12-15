@@ -40,11 +40,10 @@ OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& fi
         return readOutputData(
             file_name, [](std::istream& s) { return OutputDataReadWriteINT().readOutputData(s); });
 #ifdef BORNAGAIN_TIFF_SUPPORT
-    else if (DataFormatUtils::isTiffFile(file_name))
+    if (DataFormatUtils::isTiffFile(file_name))
         return readOutputData(
             file_name, [](std::istream& s) { return OutputDataReadWriteTiff().readOutputData(s); });
-#endif // BORNAGAIN_TIFF_SUPPORT
-
+#endif
     // Try to read ASCII by default. Binary maps to ASCII.
     // If the file is not actually a matrix of numbers,
     // the error will be thrown during the reading.
@@ -74,7 +73,7 @@ void IntensityDataIOFactory::writeOutputData(const OutputData<double>& data,
         writeOutputData(file_name, [&](std::ostream& s) {
             OutputDataReadWriteTiff().writeOutputData(data, s);
         });
-#endif // BORNAGAIN_TIFF_SUPPORT
+#endif
     else
         writeOutputData(file_name, [&](std::ostream& s) {
             OutputDataReadWriteNumpyTXT().writeOutputData(data, s);

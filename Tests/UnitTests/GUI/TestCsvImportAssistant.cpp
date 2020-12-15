@@ -1,5 +1,5 @@
-#include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Data/ArrayUtils.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Unit/AxisNames.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
 #include "GUI/coregui/Models/SpecularDataItem.h"

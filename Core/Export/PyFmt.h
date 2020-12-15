@@ -23,8 +23,6 @@
 #include "Base/Vector/Vectors3D.h"
 #include <string>
 
-class RealLimits;
-
 //! Utility functions for writing Python code snippets.
 
 namespace pyfmt {
@@ -34,6 +32,7 @@ std::string scriptPreamble();
 std::string printInt(int value);
 std::string printBool(double value);
 std::string printDouble(double input);
+std::string printLightDouble(double input);
 std::string printNm(double input);
 std::string printNm2(double input);
 std::string printScientificDouble(double input);

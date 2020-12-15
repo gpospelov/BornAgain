@@ -7,7 +7,7 @@ file(MAKE_DIRECTORY ${OUTPUT_DIR})
 
 # Python persistence test
 function(test_example example tolerance)
-    set(script_path ${PY_EXAMPLES_DIR}/${example}.py)
+    set(script_path ${EXAMPLES_DIR}/${example}.py)
     get_filename_component(EXAMPLE_NAME ${script_path} NAME_WE)
     get_filename_component(EXAMPLE_DIR ${script_path} DIRECTORY)
 
@@ -62,4 +62,6 @@ test_example(varia/CustomFormFactor 2e-10)
 test_example(varia/DepthProbe 2e-10)
 test_example(varia/Interference1DLattice 1.5)
 test_example(varia/OffSpecularSimulation 2e-10)
-test_example(varia/SimulationParameters 2e-10)
+
+# TODO replace after revision of parameter machinery
+# test_example(varia/SimulationParameters 2e-10)

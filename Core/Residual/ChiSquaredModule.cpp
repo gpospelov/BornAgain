@@ -14,8 +14,8 @@
 
 #include "Core/Residual/ChiSquaredModule.h"
 #include "Base/Utils/Assert.h"
-#include "Core/Residual/VarianceFunctions.h"
 #include "Core/Residual/IIntensityFunction.h"
+#include "Core/Residual/VarianceFunctions.h"
 #include <cmath>
 #include <limits>
 

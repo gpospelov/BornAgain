@@ -52,6 +52,7 @@ option(ZERO_TOLERANCE "Terminate compilation on warnings" OFF)
 option(BORNAGAIN_COVERAGE "Build with test coverage information" OFF)
 option(BORNAGAIN_DEBUG_OPTIMIZATION "Build with debug optimization (gcc only)" OFF)
 option(BORNAGAIN_TIDY "Invokes clang-tidy" OFF)
+option(BORNAGAIN_NEWREFL "Compile reflectometry GUI prototype" ON)
 
 if(BORNAGAIN_TIDY AND BORNAGAIN_PYTHON)
     message(FATAL_ERROR "BORNAGAIN_TIDY is incompatible with BORNAGAIN_PYTHON")
@@ -137,6 +138,9 @@ add_subdirectory(ThirdParty/Core)
 if(BORNAGAIN_GUI)
     add_subdirectory(ThirdParty/GUI/qt-manhattan-style)
     add_subdirectory(ThirdParty/GUI/qcustomplot)
+endif()
+if(BORNAGAIN_NEWREFL)
+    add_subdirectory(ThirdParty/GUI/qt-mvvm)
 endif()
 
 # from here on our own code, occasionally scrutinized by clang-tidy

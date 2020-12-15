@@ -81,6 +81,7 @@ jobs:
         CCACHE_COMPRESS: "true"
         CCACHE_COMPRESSLEVEL: "6"
         CCACHE_MAXSIZE: "400M"
+        QT_QPA_PLATFORM: offscreen        
       run: |
         cd $GITHUB_WORKSPACE && pwd && ls
         mkdir build && cd build

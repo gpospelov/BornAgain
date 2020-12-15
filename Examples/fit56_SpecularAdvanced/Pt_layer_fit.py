@@ -57,9 +57,9 @@ def get_sample(params):
 
 def get_simulation(q_axis, parameters):
 
-    q_axis = q_axis + parameters["q_offset"]
     scan = ba.QSpecScan(q_axis)
-
+    scan.setOffset( parameters["q_offset"] )
+    
     n_sig = 4.0
     n_samples = 25
 
@@ -84,12 +84,12 @@ def run_simulation(q_axis, fitParams):
     return simulation  #.result()
 
 
-def qr(result, q_offset=0):
+def qr(result):
     """
     helper function to return the q axis and 
     reflectivity from simulation result
     """
-    q = numpy.array(result.result().axis(ba.Axes.QSPACE)) - q_offset
+    q = numpy.array(result.result().axis(ba.Axes.QSPACE))
     r = numpy.array(result.result().array(ba.Axes.QSPACE))
 
     return q, r
@@ -232,8 +232,7 @@ if __name__ == '__main__':
     paramsInitial = {d: v[0] for d, v in startParams.items()}
 
     qzs = numpy.linspace(qmin, qmax, scan_size)
-    q, r = qr(run_simulation(qzs, paramsInitial),
-              dict(paramsInitial, **fixedParams)["q_offset"])
+    q, r = qr(run_simulation(qzs, paramsInitial))
     data = get_Experimental_data(qmin, qmax)
 
     plot(q, r, data, f'PtLayerFit_initial.pdf',
@@ -246,6 +245,5 @@ if __name__ == '__main__':
         print("Fit Result:")
         print(fitResult)
 
-        q, r = qr(run_simulation(qzs, fitParams=fitResult),
-                  fitResult["q_offset"])
+        q, r = qr(run_simulation(qzs, fitParams=fitResult))
         plot(q, r, data, f'PtLayerFit_fit.pdf', dict(fitResult, **fixedParams))

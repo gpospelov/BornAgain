@@ -191,7 +191,7 @@ TEST_F(SpecularScanTest, GenerateSimElements) {
     const auto scan2_qvector = std::vector<double>{0.0, 0.2, 0.3};
     QSpecScan scan2(scan2_qvector);
     std::vector<SpecularSimulationElement> sim_elements2 =
-        scan.generateSimulationElements(instrument);
+        scan2.generateSimulationElements(instrument);
     EXPECT_EQ(sim_elements2.size(), scan2.numberOfSimulationElements());
     EXPECT_EQ(scan2.numberOfSimulationElements(), 3u);
     for (size_t i = 0; i < sim_elements2.size(); ++i)

@@ -5,6 +5,14 @@
 #
 ###############################################################################
 
+function(run_example example_path)
+    get_filename_component(example_name ${example_path} NAME_WE)
+    set(test_name Example.run.${example_name})
+    add_test(${test_name}
+        env PYTHONPATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY} NOSHOW=TRUE
+        ${Python3_EXECUTABLE} ${test_script} -s ${example_path} ${output_dir})
+endfunction()
+
 set(output_dir ${TEST_OUTPUT_DIR_PY_EXAMPLES})
 file(MAKE_DIRECTORY ${output_dir})
 
@@ -22,11 +30,7 @@ list(REMOVE_ITEM examples ${EXAMPLES_DIR}/varia/SimulationParameters.py)
 set(test_script ${TOOL_DIR}/code/batch-plot.py)
 
 foreach(example_path ${examples})
-    get_filename_component(example_name ${example_path} NAME_WE)
-    set(test_name Example.run.${example_name})
-    add_test(${test_name}
-        env PYTHONPATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
-        ${Python3_EXECUTABLE} ${test_script} -s ${example_path} ${output_dir})
+    run_example(${example_path})
 endforeach()
 
 ############################################################################

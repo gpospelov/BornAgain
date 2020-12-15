@@ -3448,6 +3448,14 @@ class QSpecScan(object):
         """
         return _libBornAgainCore.QSpecScan_setAbsoluteQResolution(self, *args)
 
+    def setOffset(self, offset):
+        r"""setOffset(QSpecScan self, double offset)"""
+        return _libBornAgainCore.QSpecScan_setOffset(self, offset)
+
+    def offset(self):
+        r"""offset(QSpecScan self) -> double"""
+        return _libBornAgainCore.QSpecScan_offset(self)
+
 # Register QSpecScan in _libBornAgainCore:
 _libBornAgainCore.QSpecScan_swigregister(QSpecScan)
 

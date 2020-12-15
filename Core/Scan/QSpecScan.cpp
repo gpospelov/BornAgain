@@ -41,6 +41,7 @@ QSpecScan::~QSpecScan() = default;
 QSpecScan* QSpecScan::clone() const {
     auto* result = new QSpecScan(*m_qs);
     result->setQResolution(*m_resolution);
+    result->setOffset(m_offset);
     return result;
 }
 
@@ -52,7 +53,9 @@ QSpecScan::generateSimulationElements(const Instrument& instrument) const {
     std::vector<SpecularSimulationElement> result;
     result.reserve(qz.size());
     for (size_t i = 0, size = qz.size(); i < size; ++i)
-        result.emplace_back(SpecularSimulationElement(-qz[i] / 2.0, instrument, qz[i] >= 0));
+        result.emplace_back(
+            SpecularSimulationElement(-(qz[i] + m_offset) / 2.0, instrument, qz[i] >= 0));
+
     return result;
 }
 

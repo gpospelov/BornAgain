@@ -1,0 +1,169 @@
+./Core/Computation/RoughMultiLayerComputation.h:    complex_t get_refractive_term(size_t ilayer, double wavelength) const;
+./Core/Computation/RoughMultiLayerComputation.h:    complex_t get_sum8terms(size_t ilayer, const SimulationElement& sim_element) const;
+./Core/Element/SpecularSimulationElement.h:    std::vector<complex_t> produceKz(const std::vector<Slice>& slices);
+./Core/Element/SpecularSimulationElement.h:    const std::function<std::vector<complex_t>(const std::vector<Slice>&)> m_kz_computation;
+./GUI/refl/source/darefl/quicksimeditor/materialprofile.h:DAREFLCORE_EXPORT std::vector<complex_t> CalculateProfile(const multislice_t& multilayer,
+./GUI/refl/source/darefl/quicksimeditor/quicksim_types.h:using complex_t = std::complex<double>;
+./GUI/refl/source/darefl/quicksimeditor/quicksim_types.h:    complex_t material;
+./GUI/refl/source/darefl/quicksimeditor/profilehelper.h:    std::vector<complex_t> calculateProfile(const std::vector<double>& z_values) const;
+./GUI/refl/source/darefl/quicksimeditor/profilehelper.h:    std::vector<complex_t> m_materialdata;
+./auto/Wrap/libBornAgainSample_wrap.h:    virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
+./auto/Wrap/libBornAgainSample_wrap.h:    virtual complex_t evaluate(WavevectorInfo const &wavevectors) const;
+./auto/Wrap/libBornAgainSample_wrap.h:    virtual complex_t evaluate_for_q(cvector_t q) const;
+./Base/Math/Bessel.h:complex_t J0(const complex_t z);
+./Base/Math/Bessel.h:complex_t J1(const complex_t z);
+./Base/Math/Bessel.h:complex_t J1c(const complex_t z);
+./Base/Math/Functions.h:complex_t sinc(const complex_t z);
+./Base/Math/Functions.h:complex_t tanhc(const complex_t z);
+./Base/Math/IntegratorGK.h:    complex_t integrate(const std::function<complex_t(double)>& f, double lmin, double lmax);
+./Base/Types/Complex.h://! @brief     Defines complex_t, and a few elementary functions
+./Base/Types/Complex.h:using complex_t = std::complex<double>;
+./Base/Types/Complex.h:constexpr complex_t I = complex_t(0.0, 1.0);
+./Base/Types/Complex.h:inline complex_t mul_I(complex_t z) {
+./Base/Types/Complex.h:    return complex_t(-z.imag(), z.real());
+./Base/Types/Complex.h:inline complex_t exp_I(complex_t z) {
+./Base/Types/Complex.h:    return std::exp(complex_t(-z.imag(), z.real()));
+./Base/Vector/BasicVector3D.h:    BasicVector3D<complex_t> complex() const;
+./Base/Vector/BasicVector3D.h:template <> BasicVector3D<complex_t> BasicVector3D<complex_t>::conj() const;
+./Base/Vector/BasicVector3D.h:template <> BasicVector3D<complex_t> BasicVector3D<double>::complex() const;
+./Base/Vector/BasicVector3D.h:template <> BasicVector3D<double> BasicVector3D<complex_t>::real() const;
+./Base/Vector/BasicVector3D.h:template <> BasicVector3D<complex_t> BasicVector3D<complex_t>::unit() const;
+./Base/Vector/Vectors3D.h:using cvector_t = BasicVector3D<complex_t>;
+./Sample/Aggregate/InterferenceFunction2DParaCrystal.h:    complex_t FTPDF(double qx, double qy, double xi, size_t index) const;
+./Sample/Aggregate/InterferenceFunctionRadialParaCrystal.h:    complex_t FTPDF(double qpar) const;
+./Sample/FFCompute/ComputeBA.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+./Sample/FFCompute/ComputeBAPol.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+./Sample/FFCompute/ComputeDWBA.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+./Sample/FFCompute/ComputeDWBAPol.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+./Sample/FFCompute/IComputeFF.h:    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const = 0;
+./Sample/Fresnel/FormFactorCoherentPart.h:    complex_t evaluate(const SimulationElement& sim_element) const;
+./Sample/Fresnel/FormFactorCoherentSum.h:    complex_t evaluate(const SimulationElement& sim_element) const;
+./Sample/HardParticle/FormFactorBar.h:    complex_t factor_x(complex_t qx) const final;
+./Sample/HardParticle/FormFactorBar.h:    complex_t factor_x(complex_t qx) const final;
+./Sample/HardParticle/FormFactorBox.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorCone.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorCone.h:    complex_t Integrand(double Z) const;
+./Sample/HardParticle/FormFactorCosineRipple.h:    complex_t factor_x(complex_t qx) const final;
+./Sample/HardParticle/FormFactorCosineRipple.h:    complex_t factor_x(complex_t qx) const final;
+./Sample/HardParticle/FormFactorCosineRipple.h:    complex_t factor_x(complex_t qx) const final;
+./Sample/HardParticle/FormFactorCylinder.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorDot.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorEllipsoidalCylinder.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorFullSphere.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorFullSpheroid.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorHemiEllipsoid.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorHemiEllipsoid.h:    complex_t Integrand(double Z) const;
+./Sample/HardParticle/FormFactorHollowSphere.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorLongBoxGauss.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorLongBoxLorentz.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorSawtoothRipple.h:    complex_t factor_x(complex_t qx) const final;
+./Sample/HardParticle/FormFactorSawtoothRipple.h:    complex_t factor_x(complex_t qx) const final;
+./Sample/HardParticle/FormFactorSawtoothRipple.h:    complex_t factor_x(complex_t qx) const final;
+./Sample/HardParticle/FormFactorTruncatedSphere.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorTruncatedSphere.h:    complex_t Integrand(double Z) const;
+./Sample/HardParticle/FormFactorTruncatedSpheroid.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/FormFactorTruncatedSpheroid.h:    complex_t Integrand(double Z) const;
+./Sample/HardParticle/IFormFactorPolyhedron.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/IFormFactorPolyhedron.h:    complex_t evaluate_centered(cvector_t q) const;
+./Sample/HardParticle/IFormFactorPrism.h:    complex_t evaluate_for_q(cvector_t q) const override;
+./Sample/HardParticle/IProfileRipple.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/HardParticle/IProfileRipple.h:    virtual complex_t factor_x(complex_t qx) const = 0;
+./Sample/HardParticle/IProfileRipple.h:    virtual complex_t factor_yz(complex_t qy, complex_t qz) const = 0;
+./Sample/HardParticle/IProfileRipple.h:    complex_t factor_yz(complex_t qy, complex_t qz) const final;
+./Sample/HardParticle/IProfileRipple.h:    complex_t factor_yz(complex_t qy, complex_t qz) const final;
+./Sample/HardParticle/IProfileRipple.h:    complex_t factor_yz(complex_t qy, complex_t qz) const final;
+./Sample/HardParticle/Polyhedron.h:    complex_t evaluate_for_q(const cvector_t& q) const;
+./Sample/HardParticle/Polyhedron.h:    complex_t evaluate_centered(const cvector_t& q) const;
+./Sample/HardParticle/Prism.h:    complex_t evaluate_for_q(const cvector_t& q) const;
+./Sample/HardParticle/Prism.h:    // complex_t evaluate_centered(const cvector_t& q) const;
+./Sample/HardParticle/Ripples.h:complex_t factor_x_box(complex_t q, double l);
+./Sample/HardParticle/Ripples.h:complex_t factor_x_Gauss(complex_t q, double l);
+./Sample/HardParticle/Ripples.h:complex_t factor_x_Lorentz(complex_t q, double l);
+./Sample/HardParticle/Ripples.h:complex_t profile_yz_bar(complex_t qy, complex_t qz, double width, double height);
+./Sample/HardParticle/Ripples.h:complex_t profile_yz_cosine(complex_t qy, complex_t qz, double width, double height);
+./Sample/HardParticle/Ripples.h:complex_t profile_yz_triangular(complex_t qy, complex_t qz, double width, double height,
+./Sample/HardParticle/PolyhedralComponents.h:    complex_t qE(cvector_t q) const { return m_E.dot(q); }
+./Sample/HardParticle/PolyhedralComponents.h:    complex_t qR(cvector_t q) const { return m_R.dot(q); }
+./Sample/HardParticle/PolyhedralComponents.h:    complex_t contrib(int m, cvector_t qpa, complex_t qrperp) const;
+./Sample/HardParticle/PolyhedralComponents.h:    complex_t normalProjectionConj(cvector_t q) const { return q.dot(m_normal); }
+./Sample/HardParticle/PolyhedralComponents.h:    complex_t ff_n(int m, cvector_t q) const;
+./Sample/HardParticle/PolyhedralComponents.h:    complex_t ff(cvector_t q, bool sym_Ci) const;
+./Sample/HardParticle/PolyhedralComponents.h:    complex_t ff_2D(cvector_t qpa) const;
+./Sample/HardParticle/PolyhedralComponents.h:    void decompose_q(cvector_t q, complex_t& qperp, cvector_t& qpa) const;
+./Sample/HardParticle/PolyhedralComponents.h:    complex_t ff_n_core(int m, cvector_t qpa, complex_t qperp) const;
+./Sample/HardParticle/PolyhedralComponents.h:    complex_t edge_sum_ff(cvector_t q, cvector_t qpa, bool sym_Ci) const;
+./Sample/HardParticle/PolyhedralComponents.h:    complex_t expansion(complex_t fac_even, complex_t fac_odd, cvector_t qpa,
+./Sample/Interference/FormFactorPrecompute.h:std::vector<complex_t> scalar(const SimulationElement& sim_element,
+./Sample/Interference/SSCApproximationStrategy.h:    complex_t
+./Sample/Interference/SSCApproximationStrategy.h:    complex_t calculatePositionOffsetPhase(double qp, double radial_extension) const;
+./Sample/LegacyRT/MatrixRTCoefficients_v1.h:    complex_t m_a;                   //!< polarization independent part of scattering matrix
+./Sample/LegacyRT/MatrixRTCoefficients_v1.h:    complex_t m_b_mag;               //!< magnitude of magnetic interaction term
+./Sample/LegacyRT/MatrixRTCoefficients_v1.h:    complex_t m_bz;                  //!< z-part of magnetic interaction term
+./Sample/LegacyRT/SpecularMagneticStrategy_v1.h:                                        const std::vector<complex_t>& kz) const;
+./Sample/LegacyRT/SpecularMagneticStrategy_v2.h:                                        const std::vector<complex_t>& kz) const;
+./Sample/LegacyRT/SpecularMagneticStrategy_v2.h:                                                          const std::vector<complex_t>& kzs);
+./Sample/LegacyRT/SpecularMagneticStrategy_v2.h:    static std::pair<Eigen::Matrix2cd, complex_t>
+./Sample/LibFF/SomeFormFactors.h:complex_t ffSphere(cvector_t q, double R);
+./Sample/Material/Material.h:    complex_t refractiveIndex(double wavelength) const;
+./Sample/Material/Material.h:    complex_t refractiveIndex2(double wavelength) const;
+./Sample/Material/Material.h:    complex_t materialData() const;
+./Sample/Material/Material.h:    complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const;
+./Sample/Material/MaterialBySLDImpl.h:    complex_t refractiveIndex(double wavelength) const override;
+./Sample/Material/MaterialBySLDImpl.h:    complex_t refractiveIndex2(double wavelength) const override;
+./Sample/Material/MaterialBySLDImpl.h:    complex_t materialData() const override;
+./Sample/Material/MaterialBySLDImpl.h:    complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const override;
+./Sample/Material/MaterialBySLDImpl.h:    complex_t sld() const;
+./Sample/Material/MaterialFactoryFuncs.h:Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
+./Sample/Material/MaterialUtils.h:complex_t ScalarReducedPotential(complex_t n, kvector_t k, double n_ref);
+./Sample/Material/MaterialUtils.h:Eigen::Matrix2cd PolarizedReducedPotential(complex_t n, kvector_t b_field, kvector_t k,
+./Sample/Material/MaterialUtils.h:// Used with T = double, complex_t.
+./Sample/Material/MaterialUtils.h:Eigen::Matrix2cd MagnetizationCorrection(complex_t unit_factor, double magnetic_factor,
+./Sample/Material/RefractiveMaterialImpl.h:    complex_t refractiveIndex(double wavelength) const override;
+./Sample/Material/RefractiveMaterialImpl.h:    complex_t refractiveIndex2(double wavelength) const override;
+./Sample/Material/RefractiveMaterialImpl.h:    complex_t materialData() const override;
+./Sample/Material/RefractiveMaterialImpl.h:    complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const override;
+./Sample/Material/BaseMaterialImpl.h:    virtual complex_t refractiveIndex(double wavelength) const = 0;
+./Sample/Material/BaseMaterialImpl.h:    virtual complex_t refractiveIndex2(double wavelength) const = 0;
+./Sample/Material/BaseMaterialImpl.h:    virtual complex_t materialData() const = 0;
+./Sample/Material/BaseMaterialImpl.h:    virtual complex_t scalarSubtrSLD(const WavevectorInfo& wavevectors) const = 0;
+./Sample/Particle/FormFactorCoreShell.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+./Sample/Particle/FormFactorCrystal.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+./Sample/Particle/FormFactorCrystal.h:    complex_t debyeWallerFactor(const kvector_t& q_i) const;
+./Sample/Particle/FormFactorWeighted.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+./Sample/Processed/MultiLayerFuncs.h:std::vector<complex_t> materialProfileSLD(const MultiLayer& multilayer, int n_points, double z_min,
+./Sample/Processed/ProfileHelper.h:    std::vector<complex_t> calculateProfile(const std::vector<double>& z_values) const;
+./Sample/Processed/ProfileHelper.h:    std::vector<complex_t> m_materialdata;
+./Sample/RT/ILayerRTCoefficients.h:    virtual complex_t getScalarT() const {
+./Sample/RT/ILayerRTCoefficients.h:    virtual complex_t getScalarR() const {
+./Sample/RT/ILayerRTCoefficients.h:    virtual complex_t getScalarKz() const {
+./Sample/RT/ScalarRTCoefficients.h:    virtual complex_t getScalarT() const;
+./Sample/RT/ScalarRTCoefficients.h:    virtual complex_t getScalarR() const;
+./Sample/RT/ScalarRTCoefficients.h:    virtual complex_t getScalarKz() const { return kz; }
+./Sample/RT/ScalarRTCoefficients.h:    complex_t kz;
+./Sample/RT/ScalarRTCoefficients.h:    t_r << complex_t(1.0, 0.0), complex_t(0.0, 0.0);
+./Sample/RT/ScalarRTCoefficients.h:inline complex_t ScalarRTCoefficients::getScalarR() const {
+./Sample/RT/ScalarRTCoefficients.h:inline complex_t ScalarRTCoefficients::getScalarT() const {
+./Sample/Scattering/FormFactorDecoratorMaterial.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+./Sample/Scattering/FormFactorDecoratorMaterial.h:    complex_t getRefractiveIndexFactor(const WavevectorInfo& wavevectors) const;
+./Sample/Scattering/FormFactorDecoratorPositionFactor.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
+./Sample/Scattering/FormFactorDecoratorPositionFactor.h:    complex_t getPositionFactor(const WavevectorInfo& wavevectors) const;
+./Sample/Scattering/FormFactorDecoratorRotation.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const final;
+./Sample/Scattering/IBornFF.h:    complex_t evaluate(const WavevectorInfo& wavevectors) const override;
+./Sample/Scattering/IBornFF.h:    virtual complex_t evaluate_for_q(cvector_t q) const = 0;
+./Sample/Scattering/IFormFactor.h:    virtual complex_t evaluate(const WavevectorInfo& wavevectors) const = 0;
+./Sample/Slice/Slice.h:    complex_t scalarReducedPotential(kvector_t k, double n_ref) const;
+./Sample/Slice/KzComputation.h:std::vector<complex_t> computeReducedKz(const std::vector<Slice>& slices, kvector_t k);
+./Sample/Slice/KzComputation.h:std::vector<complex_t> computeKzFromSLDs(const std::vector<Slice>& slices, double kz);
+./Sample/Slice/KzComputation.h:std::vector<complex_t> computeKzFromRefIndices(const std::vector<Slice>& slices, kvector_t k);
+./Sample/SoftParticle/FormFactorGauss.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/SoftParticle/FormFactorSphereGaussianRadius.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/SoftParticle/FormFactorSphereLogNormalRadius.h:    complex_t evaluate_for_q(cvector_t q) const final;
+./Sample/Specular/SpecularMagneticStrategy.h:                                        const std::vector<complex_t>& kz) const;
+./Sample/Specular/SpecularMagneticStrategy.h:                                                const std::vector<complex_t>& kzs) const;
+./Sample/Specular/SpecularScalarNCStrategy.h:    virtual std::pair<complex_t, complex_t> transition(complex_t kzi, complex_t kzi1,
+./Sample/Specular/SpecularScalarStrategy.h:                                                const std::vector<complex_t>& kz) const override;
+./Sample/Specular/SpecularScalarStrategy.h:    virtual std::pair<complex_t, complex_t> transition(complex_t kzi, complex_t kzi1,
+./Sample/Specular/SpecularScalarStrategy.h:                                                const std::vector<complex_t>& kz) const;
+./Sample/Specular/SpecularScalarStrategy.h:                              const std::vector<complex_t>& kz) const;
+./Sample/Specular/SpecularScalarTanhStrategy.h:    virtual std::pair<complex_t, complex_t> transition(complex_t kzi, complex_t kzi1,
+./Sample/Specular/ISpecularStrategy.h:                             const std::vector<complex_t>& kz) const = 0;

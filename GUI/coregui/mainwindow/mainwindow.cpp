@@ -338,6 +338,13 @@ void MainWindow::updateViewSelectionButtonsGeometry() const {
         b->setFixedSize(buttonExtent, buttonExtent);
         b->setIconSize({iconExtent, iconExtent});
     }
+    // set fixed width in filler and progress bar
+    auto filler = m_viewSelectionButtonsLayout->itemAt(m_viewSelectionButtons->buttons().size());
+    if (filler != nullptr)
+        if (auto fillerBtn = dynamic_cast<QToolButton*>(filler->widget()); fillerBtn != nullptr)
+            fillerBtn->setFixedWidth(buttonExtent);
+
+    m_progressBar->setFixedWidth(buttonExtent);
 }
 
 QToolButton* MainWindow::createViewSelectionButton() const {

@@ -45,9 +45,6 @@ set(CMAKE_AUTORCC ON)
 
 find_package(Qt5 5.12 COMPONENTS Widgets Core Gui PrintSupport REQUIRED)
 find_package(Threads)
-find_package(Eigen3 3.3 REQUIRED)
-
-message(STATUS "Eigen3 include_dir=${EIGEN3_INCLUDE_DIR} version=${EIGEN3_VERSION_STRING}")
 
 get_target_property(Qt5Widgets_location Qt5::Widgets LOCATION_Release)
 message(STATUS " Qt5 libraries : ${Qt5Widgets_LIBRARIES} ${Qt5Widgets_location}")

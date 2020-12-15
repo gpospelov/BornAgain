@@ -14,14 +14,12 @@
 #include <darefl/darefl_export.h>
 #include <vector>
 
-namespace ModelView
-{
+namespace ModelView {
 class ViewModel;
 class SessionItem;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class MaterialEditorActions;
 class MaterialBaseItem;
@@ -30,8 +28,7 @@ class MaterialBaseItem;
 //! Reports clients about selected MaterialItem in material table and hides
 //! QModelIndex related machinery.
 
-class DAREFLCORE_EXPORT MaterialSelectionModel : public QItemSelectionModel
-{
+class DAREFLCORE_EXPORT MaterialSelectionModel : public QItemSelectionModel {
     Q_OBJECT
 
 public:

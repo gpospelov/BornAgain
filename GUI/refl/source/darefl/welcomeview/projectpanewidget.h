@@ -15,14 +15,12 @@
 
 class QLabel;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Panel with labels to hold project name and project dir. When user clicks on it,
 //! sends the request to open corresponding project. Part of RecentProjectsWidget.
 
-class DAREFLCORE_EXPORT ProjectPaneWidget : public QWidget
-{
+class DAREFLCORE_EXPORT ProjectPaneWidget : public QWidget {
     Q_OBJECT
 
 public:

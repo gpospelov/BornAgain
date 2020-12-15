@@ -13,15 +13,13 @@
 #include <QTableView>
 #include <darefl/darefl_export.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Extension of QTableView for material editing.
 //! Provide better user experinece while navigating between cells.
 //! Part of MaterialTableWidget.
 
-class DAREFLCORE_EXPORT MaterialTableView : public QTableView
-{
+class DAREFLCORE_EXPORT MaterialTableView : public QTableView {
 public:
     using QTableView::QTableView;
     ~MaterialTableView() override;

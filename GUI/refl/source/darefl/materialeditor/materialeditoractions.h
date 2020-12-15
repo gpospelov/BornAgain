@@ -14,8 +14,7 @@
 #include <darefl/darefl_export.h>
 #include <memory>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class MaterialModel;
 class MaterialSelectionModel;
@@ -23,8 +22,7 @@ class MaterialSelectionModel;
 //! Handles user actions applied to material table.
 //! Belongs to MaterialEditor.
 
-class DAREFLCORE_EXPORT MaterialEditorActions : public QObject
-{
+class DAREFLCORE_EXPORT MaterialEditorActions : public QObject {
     Q_OBJECT
 
 public:

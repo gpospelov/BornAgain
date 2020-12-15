@@ -22,15 +22,13 @@ class QResizeEvent;
 class QSize;
 class QWidget;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class LineNumberArea;
 
 //! Text view to show imported data.
 
-class DAREFLCORE_EXPORT ImportTextView : public QPlainTextEdit
-{
+class DAREFLCORE_EXPORT ImportTextView : public QPlainTextEdit {
     Q_OBJECT
 
 public:
@@ -53,8 +51,7 @@ private:
 
 //! Area with line numbers.
 
-class DAREFLCORE_EXPORT LineNumberArea : public QWidget
-{
+class DAREFLCORE_EXPORT LineNumberArea : public QWidget {
 public:
     LineNumberArea(ImportTextView* editor) : QWidget(editor), codeEditor(editor) {}
 

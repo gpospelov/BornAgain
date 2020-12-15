@@ -17,8 +17,7 @@ class ImportTextView;
 class ImportTableWidget;
 class QTabWidget;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ParserInterface;
 struct ColumnInfo;
@@ -26,8 +25,7 @@ struct ColumnInfo;
 //! Panel with settings for DataLoaderDialog.
 //! Located on its right side, contains text and table views.
 
-class DAREFLCORE_EXPORT LoaderPreviewPanel : public QWidget
-{
+class DAREFLCORE_EXPORT LoaderPreviewPanel : public QWidget {
     Q_OBJECT
 
 public:

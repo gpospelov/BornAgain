@@ -14,20 +14,17 @@
 #include <string>
 #include <vector>
 
-namespace ModelView
-{
+namespace ModelView {
 class GraphItem;
 class Data1DItem;
 class ExternalProperty;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ExperimentalDataModel;
 
-namespace Utils
-{
+namespace Utils {
 
 //! Returns property representing given graph.
 //! Used to link with the graph from various editors.

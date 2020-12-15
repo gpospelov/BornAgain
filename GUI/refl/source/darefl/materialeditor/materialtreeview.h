@@ -13,15 +13,13 @@
 #include <QTreeView>
 #include <darefl/darefl_export.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Extension of QTreeView for material editing.
 //! Provide better user experinece while navigating between cells.
 //! Part of MaterialTableWidget.
 
-class DAREFLCORE_EXPORT MaterialTreeView : public QTreeView
-{
+class DAREFLCORE_EXPORT MaterialTreeView : public QTreeView {
 public:
     using QTreeView::QTreeView;
 

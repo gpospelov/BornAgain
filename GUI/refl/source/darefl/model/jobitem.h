@@ -14,23 +14,20 @@
 #include <mvvm/model/compounditem.h>
 #include <mvvm/standarditems/graphviewportitem.h>
 
-namespace ModelView
-{
+namespace ModelView {
 class Data1DItem;
 class GraphViewportItem;
 class GraphItem;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class CanvasItem;
 
 //! Viewport intended for showing SLD profile.
 //! Provides custom y-axis range.
 
-class DAREFLCORE_EXPORT SLDCanvasItem : public ModelView::GraphViewportItem
-{
+class DAREFLCORE_EXPORT SLDCanvasItem : public ModelView::GraphViewportItem {
 public:
     SLDCanvasItem();
 
@@ -41,8 +38,7 @@ protected:
 //! Represents state of QuickSimEditor.
 //! Holds results of realtime simulation, SLD profiles and difference plot.
 
-class DAREFLCORE_EXPORT JobItem : public ModelView::CompoundItem
-{
+class DAREFLCORE_EXPORT JobItem : public ModelView::CompoundItem {
 public:
     static inline const std::string P_SLD_DATA = "P_SLD_DATA";
     static inline const std::string P_SLD_VIEWPORT = "P_SLD_VIEWPORT";

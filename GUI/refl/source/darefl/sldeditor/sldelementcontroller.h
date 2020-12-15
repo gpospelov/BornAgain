@@ -17,8 +17,7 @@
 #include <mvvm/model/sessionmodel.h>
 #include <vector>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class MaterialModel;
 class SampleModel;
@@ -26,8 +25,7 @@ class SLDElementModel;
 class GraphicsScene;
 
 //! The controller of the sld layer visual representation
-class DAREFLCORE_EXPORT SLDElementController : public QObject
-{
+class DAREFLCORE_EXPORT SLDElementController : public QObject {
     Q_OBJECT
 
 public:

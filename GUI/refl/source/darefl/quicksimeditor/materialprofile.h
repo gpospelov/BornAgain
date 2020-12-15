@@ -13,13 +13,11 @@
 #include <darefl/darefl_export.h>
 #include <darefl/quicksimeditor/quicksim_types.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Collection of methods borrowed from BornAgain for material profile calculations.
 
-namespace MaterialProfile
-{
+namespace MaterialProfile {
 
 //! Calculate average material profile for given multilayer
 DAREFLCORE_EXPORT std::vector<complex_t> CalculateProfile(const multislice_t& multilayer,

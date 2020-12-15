@@ -14,21 +14,18 @@
 #include <darefl/darefl_export.h>
 #include <memory>
 
-namespace ModelView
-{
+namespace ModelView {
 class CollapsibleListWidget;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 class QuickSimEditor;
 
 //! Main simulation window with all components for quick sample editing and simulations.
 
-class DAREFLCORE_EXPORT SimulationView : public QMainWindow
-{
+class DAREFLCORE_EXPORT SimulationView : public QMainWindow {
     Q_OBJECT
 
 public:

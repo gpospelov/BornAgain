@@ -23,12 +23,10 @@
 #include <darefl/dataloader/parserpropertywidget.h>
 #include <mvvm/widgets/widgetutils.h>
 
-namespace
-{
+namespace {
 
 //! Creates widget with label and little space above. Intended for grid layouts.
-QWidget* createSectionWidget(const QString& text)
-{
+QWidget* createSectionWidget(const QString& text) {
     auto widget = new QWidget;
     auto layout = new QVBoxLayout(widget);
     layout->addSpacing(10);
@@ -40,25 +38,21 @@ QWidget* createSectionWidget(const QString& text)
     return widget;
 }
 
-const QString separatorgroupid_setting_name()
-{
+const QString separatorgroupid_setting_name() {
     const QString key = "separatorgroup_id";
     return DaRefl::Constants::ParserPropertyGroupKey + "/" + key;
 }
 
-const QString customseparatortext_setting_name()
-{
+const QString customseparatortext_setting_name() {
     const QString key = "customseparator_text";
     return DaRefl::Constants::ParserPropertyGroupKey + "/" + key;
 }
 
 } // namespace
 
-namespace DaRefl
-{
+namespace DaRefl {
 
-ParserPropertyWidget::ParserPropertyWidget(QWidget* parent) : QWidget(parent)
-{
+ParserPropertyWidget::ParserPropertyWidget(QWidget* parent) : QWidget(parent) {
     auto layout = new QVBoxLayout(this);
     layout->addLayout(createGridLayout());
     layout->addStretch(1);
@@ -66,15 +60,13 @@ ParserPropertyWidget::ParserPropertyWidget(QWidget* parent) : QWidget(parent)
     readSettings();
 }
 
-ParserPropertyWidget::~ParserPropertyWidget()
-{
+ParserPropertyWidget::~ParserPropertyWidget() {
     writeSettings();
 }
 
 //! Creates parser from parser properties.
 
-std::unique_ptr<ParserInterface> ParserPropertyWidget::createParser() const
-{
+std::unique_ptr<ParserInterface> ParserPropertyWidget::createParser() const {
     ParserOptions options = m_options;
 
     // sanity check for empty separator
@@ -84,14 +76,12 @@ std::unique_ptr<ParserInterface> ParserPropertyWidget::createParser() const
 
 //! Sets list of canvas names as possible import targets.
 
-void ParserPropertyWidget::setTargetCanvas(const QStringList& canvas_names, int current_index)
-{
+void ParserPropertyWidget::setTargetCanvas(const QStringList& canvas_names, int current_index) {
     m_targetCanvasCombo->insertItems(0, canvas_names);
     m_targetCanvasCombo->setCurrentIndex(current_index);
 }
 
-void ParserPropertyWidget::onParserPropertyChange()
-{
+void ParserPropertyWidget::onParserPropertyChange() {
     qDebug() << "option"
              << "header:" << QString::fromStdString(m_options.m_header_prefix)
              << "separator:" << QString::fromStdString(m_options.m_separator) << "pattern"
@@ -101,8 +91,7 @@ void ParserPropertyWidget::onParserPropertyChange()
 
 //! Reads widget settings.
 
-void ParserPropertyWidget::readSettings()
-{
+void ParserPropertyWidget::readSettings() {
     QSettings settings;
 
     if (settings.contains(separatorgroupid_setting_name())) {
@@ -119,16 +108,14 @@ void ParserPropertyWidget::readSettings()
 
 //! Writes widget settings.
 
-void ParserPropertyWidget::writeSettings()
-{
+void ParserPropertyWidget::writeSettings() {
     QSettings settings;
 
     settings.setValue(separatorgroupid_setting_name(), m_separatorButtonGroup->checkedId());
     settings.setValue(customseparatortext_setting_name(), m_customSeparatorLineEdit->text());
 }
 
-QGridLayout* ParserPropertyWidget::createGridLayout()
-{
+QGridLayout* ParserPropertyWidget::createGridLayout() {
     auto grid_layout = new QGridLayout;
 
     addSectionLabel("Separator", grid_layout);
@@ -151,16 +138,14 @@ QGridLayout* ParserPropertyWidget::createGridLayout()
     return grid_layout;
 }
 
-void ParserPropertyWidget::addSectionLabel(const QString& text, QGridLayout* layout)
-{
+void ParserPropertyWidget::addSectionLabel(const QString& text, QGridLayout* layout) {
     int row = layout->rowCount();
     layout->addWidget(createSectionWidget(text), row, 0, 1, 3, Qt::AlignLeft);
 }
 
 //! Adds row to the grid: elements with standard separator settings.
 
-void ParserPropertyWidget::addStandardSeparatorRow(QGridLayout* layout, QButtonGroup* group)
-{
+void ParserPropertyWidget::addStandardSeparatorRow(QGridLayout* layout, QButtonGroup* group) {
     // automatic separator
     int row = layout->rowCount();
     auto automaticRadio = new QRadioButton;
@@ -202,8 +187,7 @@ void ParserPropertyWidget::addStandardSeparatorRow(QGridLayout* layout, QButtonG
 
 //! Adds row to the grid: elements with custom separator settings.
 
-void ParserPropertyWidget::addCustomSeparatorRow(QGridLayout* layout, QButtonGroup* group)
-{
+void ParserPropertyWidget::addCustomSeparatorRow(QGridLayout* layout, QButtonGroup* group) {
     int row = layout->rowCount();
     m_customSeparatorLineEdit = new QLineEdit;
     auto customRadio = new QRadioButton;
@@ -236,8 +220,7 @@ void ParserPropertyWidget::addCustomSeparatorRow(QGridLayout* layout, QButtonGro
 
 //! Adds row to the grid: elements with pattern to ignore lines.
 
-void ParserPropertyWidget::addIgnoreStringPatternRow(QGridLayout* layout)
-{
+void ParserPropertyWidget::addIgnoreStringPatternRow(QGridLayout* layout) {
     auto startingWithRadio = new QRadioButton;
     auto startingFromLineEdit = new QLineEdit;
 
@@ -272,8 +255,7 @@ void ParserPropertyWidget::addIgnoreStringPatternRow(QGridLayout* layout)
 
 //! Adds row to the grid: elements with pattern to ignore line numbers.
 
-void ParserPropertyWidget::addIgnoreNumbersPatternRow(QGridLayout* layout)
-{
+void ParserPropertyWidget::addIgnoreNumbersPatternRow(QGridLayout* layout) {
     auto lineNumbersRadio = new QRadioButton;
     auto lineNumbersLineEdit = new QLineEdit;
 
@@ -311,8 +293,7 @@ void ParserPropertyWidget::addIgnoreNumbersPatternRow(QGridLayout* layout)
 
 //! Adds row to the grid: elements related to the import target.
 
-void ParserPropertyWidget::addImportToBlock(QGridLayout* layout)
-{
+void ParserPropertyWidget::addImportToBlock(QGridLayout* layout) {
     auto newCanvasRadio = new QRadioButton;
     auto existingCanvasRadio = new QRadioButton;
     m_targetCanvasCombo = new QComboBox;

@@ -13,15 +13,13 @@
 #include <QWidget>
 #include <darefl/darefl_export.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 
 //! Main window to import user data.
 
-class DAREFLCORE_EXPORT ImportDataView : public QWidget
-{
+class DAREFLCORE_EXPORT ImportDataView : public QWidget {
     Q_OBJECT
 
 public:

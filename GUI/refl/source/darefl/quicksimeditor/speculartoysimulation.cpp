@@ -11,27 +11,23 @@
 #include <darefl/quicksimeditor/materialprofile.h>
 #include <darefl/quicksimeditor/quicksimutils.h>
 #include <darefl/quicksimeditor/speculartoysimulation.h>
-#include <Sample/Slice/Slice.h>
-#include <Sample/Slice/KzComputation.h>
-#include <Sample/Specular/SpecularScalarTanhStrategy.h>
+#include <minikernel/Computation/Slice.h>
+#include <minikernel/MultiLayer/KzComputation.h>
+#include <minikernel/MultiLayer/SpecularScalarTanhStrategy.h>
 #include <mvvm/standarditems/axisitems.h>
 #include <mvvm/utils/containerutils.h>
 #include <stdexcept>
 
 using namespace ModelView;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 SpecularToySimulation::~SpecularToySimulation() = default;
 
 SpecularToySimulation::SpecularToySimulation(const SimulationInput& input_data)
-    : m_inputData(input_data), m_strategy(std::make_unique<SpecularScalarTanhStrategy>())
-{
-}
+    : m_inputData(input_data), m_strategy(std::make_unique<SpecularScalarTanhStrategy>()) {}
 
-void SpecularToySimulation::runSimulation()
-{
+void SpecularToySimulation::runSimulation() {
     auto slices = Utils::createBornAgainSlices(m_inputData.slice_data);
 
     m_specularResult.amplitudes.reserve(scanPointsCount());
@@ -52,26 +48,22 @@ void SpecularToySimulation::runSimulation()
     m_specularResult.qvalues = m_inputData.qvalues;
 }
 
-void SpecularToySimulation::setProgressCallback(ModelView::ProgressHandler::callback_t callback)
-{
+void SpecularToySimulation::setProgressCallback(ModelView::ProgressHandler::callback_t callback) {
     m_progressHandler.setMaxTicksCount(scanPointsCount());
     m_progressHandler.subscribe(callback);
 }
 
-SimulationResult SpecularToySimulation::simulationResult() const
-{
+SimulationResult SpecularToySimulation::simulationResult() const {
     return m_specularResult;
 }
 
-SLDProfile SpecularToySimulation::sld_profile(const multislice_t& multislice, int n_points)
-{
+SLDProfile SpecularToySimulation::sld_profile(const multislice_t& multislice, int n_points) {
     auto [xmin, xmax] = MaterialProfile::DefaultMaterialProfileLimits(multislice);
     auto profile = MaterialProfile::CalculateProfile(multislice, n_points, xmin, xmax);
     return {xmin, xmax, ModelView::Utils::Real(profile)};
 }
 
-size_t SpecularToySimulation::scanPointsCount() const
-{
+size_t SpecularToySimulation::scanPointsCount() const {
     return m_inputData.qvalues.size();
 }
 

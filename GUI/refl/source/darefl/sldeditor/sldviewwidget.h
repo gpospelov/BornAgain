@@ -14,15 +14,13 @@
 #include <darefl/darefl_export.h>
 #include <memory>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 class SLDElementController;
 
 //! The segment QGraphicsViewItem on the Graphicsscene
-class DAREFLCORE_EXPORT SLDViewWidget : public QGraphicsView
-{
+class DAREFLCORE_EXPORT SLDViewWidget : public QGraphicsView {
     Q_OBJECT
 
 public:

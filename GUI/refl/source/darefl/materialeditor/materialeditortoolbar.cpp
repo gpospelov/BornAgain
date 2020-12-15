@@ -13,12 +13,10 @@
 #include <darefl/materialeditor/materialeditoractions.h>
 #include <darefl/materialeditor/materialeditortoolbar.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 MaterialEditorToolBar::MaterialEditorToolBar(MaterialEditorActions* actions, QWidget* parent)
-    : QToolBar(parent)
-{
+    : QToolBar(parent) {
     StyleUtils::SetToolBarStyleTextBesides(this);
 
     auto action = new QAction("Add material", this);

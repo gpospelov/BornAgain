@@ -14,13 +14,11 @@
 #include <memory>
 #include <mvvm/interfaces/applicationmodelsinterface.h>
 
-namespace ModelView
-{
+namespace ModelView {
 class SessionModel;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class MaterialModel;
 class SampleModel;
@@ -32,8 +30,7 @@ class InstrumentModel;
 
 //!  Main class to holds all models of GUI session.
 
-class DAREFLCORE_EXPORT ApplicationModels : public ModelView::ApplicationModelsInterface
-{
+class DAREFLCORE_EXPORT ApplicationModels : public ModelView::ApplicationModelsInterface {
 public:
     ApplicationModels();
     ~ApplicationModels();

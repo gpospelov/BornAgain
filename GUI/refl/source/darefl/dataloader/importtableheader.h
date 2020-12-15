@@ -14,15 +14,13 @@
 #include <darefl/darefl_export.h>
 #include <vector>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 struct ColumnInfo;
 
 //! Holds all data related to the content of utility rows in ImportTableModel.
 
-class DAREFLCORE_EXPORT ImportTableHeader
-{
+class DAREFLCORE_EXPORT ImportTableHeader {
 public:
     enum RowTypes { TYPE, UNITS, MULTIPLIER, MAX };
     using header_data_t = std::vector<std::vector<QVariant>>;

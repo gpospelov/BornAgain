@@ -13,13 +13,11 @@
 #include <QTreeView>
 #include <darefl/darefl_export.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Extension of QTreeView for layer editing.
 
-class DAREFLCORE_EXPORT LayerTreeView : public QTreeView
-{
+class DAREFLCORE_EXPORT LayerTreeView : public QTreeView {
 public:
     using QTreeView::QTreeView;
 

@@ -14,8 +14,7 @@
 #include <QPainter>
 #include <QStyleOption>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! The constructor
 SegmentElementView::SegmentElementView()
@@ -23,15 +22,13 @@ SegmentElementView::SegmentElementView()
     , m_pos(QPointF(0, 0))
     , m_rectangle(QRectF(0, 0, 0, 0))
     , m_brush(QBrush())
-    , m_pen(QPen())
-{
+    , m_pen(QPen()) {
     setFlag(QGraphicsItem::ItemIsMovable);
     setZValue(1);
 }
 
 //! The overriden paint method
-void SegmentElementView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
-{
+void SegmentElementView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*) {
     painter->setClipRect(sceneAdapter()->viewportRectangle());
     painter->setPen(m_pen);
     painter->setBrush(m_brush);
@@ -39,54 +36,46 @@ void SegmentElementView::paint(QPainter* painter, const QStyleOptionGraphicsItem
 }
 
 //! The shape
-QPainterPath SegmentElementView::shape() const
-{
+QPainterPath SegmentElementView::shape() const {
     QPainterPath path;
     path.addRect(displayRect(m_rectangle));
     return path;
 }
 
 //! The bounding rectangle of the handle
-QRectF SegmentElementView::boundingRect() const
-{
+QRectF SegmentElementView::boundingRect() const {
     return displayRect(m_rectangle);
 }
 
 //! On move save the new position and notify the controller
-void SegmentElementView::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
-{
+void SegmentElementView::mouseMoveEvent(QGraphicsSceneMouseEvent* event) {
     m_pos = scenePos(event->pos());
     p_controller->segmentViewMoved(this);
 }
 
 //! Set the controller to report back the move
-void SegmentElementView::setLayerElementController(LayerElementController* controller)
-{
+void SegmentElementView::setLayerElementController(LayerElementController* controller) {
     p_controller = controller;
 }
 
 //! Set the draw rectangle
-void SegmentElementView::setRectangle(QRectF rectangle)
-{
+void SegmentElementView::setRectangle(QRectF rectangle) {
     prepareGeometryChange();
     m_rectangle = rectangle;
 }
 
 //! Set the brush
-void SegmentElementView::setBrush(QBrush brush)
-{
+void SegmentElementView::setBrush(QBrush brush) {
     m_brush = brush;
 }
 
 //! Set the pen
-void SegmentElementView::setPen(QPen pen)
-{
+void SegmentElementView::setPen(QPen pen) {
     m_pen = pen;
 }
 
 //! Get the last position of the item
-QPointF SegmentElementView::getLastPos() const
-{
+QPointF SegmentElementView::getLastPos() const {
     return m_pos;
 }
 

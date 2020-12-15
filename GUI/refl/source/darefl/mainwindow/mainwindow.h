@@ -14,8 +14,7 @@
 #include <darefl/darefl_export.h>
 #include <memory>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class WelcomeView;
 class ImportDataView;
@@ -27,8 +26,7 @@ class SettingsView;
 
 //! Application main window.
 
-class DAREFLCORE_EXPORT MainWindow : public QMainWindow
-{
+class DAREFLCORE_EXPORT MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:

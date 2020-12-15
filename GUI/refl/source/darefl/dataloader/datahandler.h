@@ -15,14 +15,12 @@
 #include <string>
 #include <vector>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Handles raw data during the life time of DataHandlerDialog.
 //! Loads the data from multiple ASCII files and stores in a buffer of strings.
 
-class DAREFLCORE_EXPORT DataHandler
-{
+class DAREFLCORE_EXPORT DataHandler {
 public:
     DataHandler() = default;
 

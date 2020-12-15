@@ -15,21 +15,18 @@
 
 class QItemSelection;
 
-namespace ModelView
-{
+namespace ModelView {
 class UndoStackInterface;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ExperimentalDataModel;
 class DataSelectionModel;
 
 //! Actions for ImportDataEditor.
 
-class DAREFLCORE_EXPORT ImportDataEditorActions : public QObject
-{
+class DAREFLCORE_EXPORT ImportDataEditorActions : public QObject {
     Q_OBJECT
 
 public:

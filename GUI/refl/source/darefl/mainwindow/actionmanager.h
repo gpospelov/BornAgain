@@ -18,14 +18,12 @@ class QAction;
 class QMenuBar;
 class QMenu;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Actions for MainWindow. Equips toolbar and menubar with actions to create, open, save,
 //! and save-as projects. It doesn't have logic and simply forwards requests further.
 
-class DAREFLCORE_EXPORT ActionManager : public QObject
-{
+class DAREFLCORE_EXPORT ActionManager : public QObject {
     Q_OBJECT
 
 public:

@@ -13,13 +13,11 @@
 #include <QToolBar>
 #include <darefl/darefl_export.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Tool bar for DataLoaderDialog.
 
-class DAREFLCORE_EXPORT DataLoaderToolBar : public QToolBar
-{
+class DAREFLCORE_EXPORT DataLoaderToolBar : public QToolBar {
     Q_OBJECT
 
 public:

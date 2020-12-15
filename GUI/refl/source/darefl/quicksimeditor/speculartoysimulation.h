@@ -18,14 +18,12 @@
 
 class SpecularScalarTanhStrategy;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Toy simulation to calculate "specular reflectivity.
 //! Used by JobManager to run simulation in mylti-threaded mode.
 
-class DAREFLCORE_EXPORT SpecularToySimulation
-{
+class DAREFLCORE_EXPORT SpecularToySimulation {
 public:
     ~SpecularToySimulation();
 

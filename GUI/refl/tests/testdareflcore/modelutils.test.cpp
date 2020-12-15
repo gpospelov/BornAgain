@@ -16,8 +16,7 @@ using namespace ModelView;
 
 //! Tests of Utils namespace functions.
 
-class ModelUtilsTest : public ::testing::Test
-{
+class ModelUtilsTest : public ::testing::Test {
 public:
     ~ModelUtilsTest();
 };
@@ -26,8 +25,7 @@ ModelUtilsTest::~ModelUtilsTest() = default;
 
 //! Testing CreateDiffVector helper method.
 
-TEST_F(ModelUtilsTest, CreateDiffVector)
-{
+TEST_F(ModelUtilsTest, CreateDiffVector) {
     std::vector<double> a{1.0, 2.0};
     std::vector<double> b{1.0, 4.0, 3.0};
 
@@ -39,8 +37,7 @@ TEST_F(ModelUtilsTest, CreateDiffVector)
 
 //! Testing SetDifference helper method.
 
-TEST_F(ModelUtilsTest, SetDifference)
-{
+TEST_F(ModelUtilsTest, SetDifference) {
     Data1DItem item1;
     item1.setAxis<FixedBinAxisItem>(3, 0.0, 3.0);
     Data1DItem item2;

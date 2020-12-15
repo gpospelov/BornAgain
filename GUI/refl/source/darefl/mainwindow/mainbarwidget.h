@@ -18,16 +18,14 @@ class QStackedWidget;
 class QHBoxLayout;
 class QPushButton;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class FancyTab;
 
 //! Widget container with functionality similar to QTabWidget. Has large button bar on top,
 //! and stacked widget at bottom.
 
-class DAREFLCORE_EXPORT MainBarWidget : public QWidget
-{
+class DAREFLCORE_EXPORT MainBarWidget : public QWidget {
     Q_OBJECT
 
 public:

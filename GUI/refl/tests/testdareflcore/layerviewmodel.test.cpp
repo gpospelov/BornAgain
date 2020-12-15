@@ -20,16 +20,14 @@ using namespace ModelView;
 
 //! Tests of LayerViewModel.
 
-class LayerViewModelTest : public ::testing::Test
-{
+class LayerViewModelTest : public ::testing::Test {
 public:
     ~LayerViewModelTest();
 };
 
 LayerViewModelTest::~LayerViewModelTest() = default;
 
-TEST_F(LayerViewModelTest, initialState)
-{
+TEST_F(LayerViewModelTest, initialState) {
     SampleModel model;
     LayerViewModel viewmodel(&model);
 
@@ -39,8 +37,7 @@ TEST_F(LayerViewModelTest, initialState)
 
 //! Checks signals while inserting LayerItem in empty model
 
-TEST_F(LayerViewModelTest, insertLayer)
-{
+TEST_F(LayerViewModelTest, insertLayer) {
     SampleModel model;
     LayerViewModel viewmodel(&model);
 
@@ -82,8 +79,7 @@ TEST_F(LayerViewModelTest, insertLayer)
 
 //! Checks signals while inserting MultiLayerItem in empty model.
 
-TEST_F(LayerViewModelTest, inserMultitLayer)
-{
+TEST_F(LayerViewModelTest, inserMultitLayer) {
     SampleModel model;
     LayerViewModel viewmodel(&model);
 
@@ -131,8 +127,7 @@ TEST_F(LayerViewModelTest, inserMultitLayer)
 
 //! Layout of LayerViewModel for two layer system.
 
-TEST_F(LayerViewModelTest, twoLayerSystem)
-{
+TEST_F(LayerViewModelTest, twoLayerSystem) {
     SampleModel model;
     auto multilayer = model.insertItem<MultiLayerItem>();
     auto top = model.insertItem<LayerItem>(multilayer);

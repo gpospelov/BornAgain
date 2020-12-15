@@ -17,11 +17,9 @@
 class QLabel;
 class QString;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
-class DAREFLCORE_EXPORT FancyTab : public QWidget
-{
+class DAREFLCORE_EXPORT FancyTab : public QWidget {
     Q_OBJECT
 
 public:

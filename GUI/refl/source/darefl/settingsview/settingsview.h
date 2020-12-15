@@ -17,8 +17,7 @@ class QTabWidget;
 class QStackedWidget;
 class QListWidget;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 
@@ -26,8 +25,7 @@ class ApplicationModels;
 //! For the moment contains QTabWidget with trees representating all application models.
 //! In the future, might be extended to have any type of settings.
 
-class DAREFLCORE_EXPORT SettingsView : public QWidget
-{
+class DAREFLCORE_EXPORT SettingsView : public QWidget {
     Q_OBJECT
 
 public:

@@ -19,14 +19,12 @@
 #include <mvvm/model/modelutils.h>
 #include <mvvm/viewmodel/viewmodeldelegate.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 MaterialEditorWidget::MaterialEditorWidget(QWidget* parent)
     : QWidget(parent)
     , m_materialView(new MaterialTreeView)
-    , m_delegate(std::make_unique<ModelView::ViewModelDelegate>())
-{
+    , m_delegate(std::make_unique<ModelView::ViewModelDelegate>()) {
     auto layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_materialView);
@@ -36,8 +34,7 @@ MaterialEditorWidget::MaterialEditorWidget(QWidget* parent)
 
 MaterialEditorWidget::~MaterialEditorWidget() = default;
 
-void MaterialEditorWidget::setModels(ApplicationModels* models)
-{
+void MaterialEditorWidget::setModels(ApplicationModels* models) {
     m_materialModel = models->materialModel();
     m_viewModel = ModelView::Factory::CreatePropertyTableViewModel(m_materialModel);
     m_selectionModel = new MaterialSelectionModel(m_viewModel.get(), this);
@@ -47,8 +44,7 @@ void MaterialEditorWidget::setModels(ApplicationModels* models)
     m_materialView->setSelectionModel(m_selectionModel);
 }
 
-MaterialSelectionModel* MaterialEditorWidget::selectionModel() const
-{
+MaterialSelectionModel* MaterialEditorWidget::selectionModel() const {
     return m_selectionModel;
 }
 

@@ -13,15 +13,13 @@
 #include <QToolBar>
 #include <darefl/darefl_export.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class MaterialEditorActions;
 
 //! Material editor toolbar.
 
-class DAREFLCORE_EXPORT MaterialEditorToolBar : public QToolBar
-{
+class DAREFLCORE_EXPORT MaterialEditorToolBar : public QToolBar {
     Q_OBJECT
 
 public:

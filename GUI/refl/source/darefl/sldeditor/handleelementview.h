@@ -17,14 +17,12 @@
 #include <QPen>
 #include <QRectF>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class LayerElementController;
 
 //! The handle QGraphicsViewItem on GraphicsScene
-class DAREFLCORE_EXPORT HandleElementView : public ElementView
-{
+class DAREFLCORE_EXPORT HandleElementView : public ElementView {
 public:
     HandleElementView();
     QRectF boundingRect() const override;

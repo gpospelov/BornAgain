@@ -16,13 +16,11 @@
 #include <darefl/darefl_export.h>
 #include <mvvm/model/compounditem.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Item to represent the roughness of the layer.
 
-class DAREFLCORE_EXPORT RoughnessItem : public ModelView::CompoundItem
-{
+class DAREFLCORE_EXPORT RoughnessItem : public ModelView::CompoundItem {
 public:
     static inline const std::string P_SIGMA = "P_SIGMA";
     static inline const std::string P_HURST = "P_HURST";
@@ -33,8 +31,7 @@ public:
 
 //! Layer with name, thickness and reference to material.
 
-class DAREFLCORE_EXPORT LayerItem : public ModelView::CompoundItem
-{
+class DAREFLCORE_EXPORT LayerItem : public ModelView::CompoundItem {
 public:
     static inline const std::string P_NAME = "P_NAME";
     static inline const std::string P_MATERIAL = "P_MATERIAL";
@@ -46,8 +43,7 @@ public:
 
 //! Multi layer capable of holding layers and other multi-layers.
 
-class DAREFLCORE_EXPORT MultiLayerItem : public ModelView::CompoundItem
-{
+class DAREFLCORE_EXPORT MultiLayerItem : public ModelView::CompoundItem {
 public:
     static inline const std::string P_NAME = "P_NAME";
     static inline const std::string T_LAYERS = "T_LAYERS";

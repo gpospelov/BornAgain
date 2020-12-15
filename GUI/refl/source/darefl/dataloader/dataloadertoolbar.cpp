@@ -11,11 +11,9 @@
 #include <darefl/dataloader/dataloadertoolbar.h>
 #include <darefl/mainwindow/styleutils.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
-DataLoaderToolBar::DataLoaderToolBar(QWidget* parent) : QToolBar(parent)
-{
+DataLoaderToolBar::DataLoaderToolBar(QWidget* parent) : QToolBar(parent) {
     StyleUtils::SetToolBarStyleTextBesides(this);
 
     // add files

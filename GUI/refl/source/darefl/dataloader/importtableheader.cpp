@@ -14,11 +14,9 @@
 
 using ModelView::ComboProperty;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
-namespace
-{
+namespace {
 const std::vector<std::string> utilityRowNames = {"Type", "Unit", "Multiplier"};
 
 const std::vector<std::string> typeNames = {Constants::AxisType, Constants::IntensityType,
@@ -27,65 +25,55 @@ const std::vector<std::string> typeNames = {Constants::AxisType, Constants::Inte
 const std::vector<std::string> unitNames = {"a.u.", "counts", "1/nm", "Angstrom"};
 
 //! Returns column type from column index.
-std::string suggestColumnTypeFromColumnIndex(int col)
-{
+std::string suggestColumnTypeFromColumnIndex(int col) {
     return col < static_cast<int>(typeNames.size()) ? typeNames[col] : Constants::IgnoreType;
 }
 
-QVariant CreateTypeVariant(int col = 0)
-{
+QVariant CreateTypeVariant(int col = 0) {
     auto combo = ComboProperty::createFrom(typeNames);
     auto selected_value = suggestColumnTypeFromColumnIndex(col);
     combo.setValue(selected_value);
     return QVariant::fromValue<ComboProperty>(combo);
 }
 
-std::vector<QVariant> CreateTypeVariants(int maxColumnCount)
-{
+std::vector<QVariant> CreateTypeVariants(int maxColumnCount) {
     std::vector<QVariant> result;
     for (int i = 0; i < maxColumnCount; ++i)
         result.push_back(CreateTypeVariant(i));
     return result;
 }
 
-std::vector<QVariant> CreateUnitVariants(int maxColumnCount)
-{
+std::vector<QVariant> CreateUnitVariants(int maxColumnCount) {
     std::vector<QVariant> result;
     for (int i = 0; i < maxColumnCount; ++i)
         result.push_back(QVariant::fromValue<ComboProperty>(ComboProperty::createFrom(unitNames)));
     return result;
 }
 
-std::vector<QVariant> CreateMultiplierVariants(int maxColumnCount)
-{
+std::vector<QVariant> CreateMultiplierVariants(int maxColumnCount) {
     std::vector<QVariant> result(maxColumnCount, 1.0);
     return result;
 }
 
 } // namespace
 
-ImportTableHeader::ImportTableHeader(int max_column_count) : m_maxColumnCount(max_column_count)
-{
+ImportTableHeader::ImportTableHeader(int max_column_count) : m_maxColumnCount(max_column_count) {
     init_data();
 }
 
-int ImportTableHeader::rowCount() const
-{
+int ImportTableHeader::rowCount() const {
     return utilityRowNames.size();
 }
 
-int ImportTableHeader::columnCount() const
-{
+int ImportTableHeader::columnCount() const {
     return m_maxColumnCount;
 }
 
-QVariant ImportTableHeader::data(int row, int column) const
-{
+QVariant ImportTableHeader::data(int row, int column) const {
     return isValid(row, column) ? m_data[row][column] : QVariant();
 }
 
-bool ImportTableHeader::setData(int row, int column, const QVariant& variant)
-{
+bool ImportTableHeader::setData(int row, int column, const QVariant& variant) {
     if (isValid(row, column)) {
         m_data[row][column] = variant;
         return true;
@@ -94,13 +82,11 @@ bool ImportTableHeader::setData(int row, int column, const QVariant& variant)
     return false;
 }
 
-std::string ImportTableHeader::rowName(int row) const
-{
+std::string ImportTableHeader::rowName(int row) const {
     return utilityRowNames[row];
 }
 
-std::vector<ColumnInfo> ImportTableHeader::columnInfo() const
-{
+std::vector<ColumnInfo> ImportTableHeader::columnInfo() const {
     std::vector<ColumnInfo> result;
     for (int column = 0; column < columnCount(); ++column) {
         ColumnInfo info;
@@ -114,8 +100,7 @@ std::vector<ColumnInfo> ImportTableHeader::columnInfo() const
     return result;
 }
 
-void ImportTableHeader::init_data()
-{
+void ImportTableHeader::init_data() {
     m_data.resize(MAX);
     m_data[TYPE] = CreateTypeVariants(columnCount());
     m_data[UNITS] = CreateUnitVariants(columnCount());
@@ -124,8 +109,7 @@ void ImportTableHeader::init_data()
 
 //! Returns true if given pair of indices are valid for data array.
 
-bool ImportTableHeader::isValid(int row, int column) const
-{
+bool ImportTableHeader::isValid(int row, int column) const {
     return (row >= 0 && row < static_cast<int>(m_data.size()))
            && (column >= 0 && column < static_cast<int>(m_data[row].size()));
 }

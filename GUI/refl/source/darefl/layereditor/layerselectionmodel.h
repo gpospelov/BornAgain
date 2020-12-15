@@ -14,21 +14,18 @@
 #include <darefl/darefl_export.h>
 #include <vector>
 
-namespace ModelView
-{
+namespace ModelView {
 class ViewModel;
 class SessionItem;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class LayerEditorActions;
 
 //! Custom selection model for layer view model (AbstractViewModel).
 
-class DAREFLCORE_EXPORT LayerSelectionModel : public QItemSelectionModel
-{
+class DAREFLCORE_EXPORT LayerSelectionModel : public QItemSelectionModel {
     Q_OBJECT
 
 public:

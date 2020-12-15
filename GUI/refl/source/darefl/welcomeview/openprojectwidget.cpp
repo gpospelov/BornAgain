@@ -17,10 +17,8 @@
 #include <mvvm/core/version.h>
 #include <mvvm/widgets/widgetutils.h>
 
-namespace
-{
-int logo_width()
-{
+namespace {
+int logo_width() {
     return ModelView::Utils::SizeOfLetterM().height() * 40;
 }
 
@@ -29,11 +27,9 @@ const QString str_new = "New";
 
 } // namespace
 
-namespace DaRefl
-{
+namespace DaRefl {
 
-OpenProjectWidget::OpenProjectWidget(QWidget* parent) : QWidget(parent)
-{
+OpenProjectWidget::OpenProjectWidget(QWidget* parent) : QWidget(parent) {
     auto layout = new QVBoxLayout(this);
 
     QPixmap logo(":/icons/F-letter_1000x.png");
@@ -49,18 +45,15 @@ OpenProjectWidget::OpenProjectWidget(QWidget* parent) : QWidget(parent)
     layout->addStretch();
 }
 
-QSize OpenProjectWidget::sizeHint() const
-{
+QSize OpenProjectWidget::sizeHint() const {
     return StyleUtils::DockSizeHint();
 }
 
-QSize OpenProjectWidget::minimumSizeHint() const
-{
+QSize OpenProjectWidget::minimumSizeHint() const {
     return StyleUtils::DockMinimumSizeHint();
 }
 
-QBoxLayout* OpenProjectWidget::createProjectTitleLayout()
-{
+QBoxLayout* OpenProjectWidget::createProjectTitleLayout() {
     auto result = new QHBoxLayout;
     QString title =
         QString("DaRefl version %1").arg(QString::fromStdString(DaRefl::ProjectVersion()));
@@ -71,8 +64,7 @@ QBoxLayout* OpenProjectWidget::createProjectTitleLayout()
     return result;
 }
 
-QBoxLayout* OpenProjectWidget::createLinkedLabelLayout()
-{
+QBoxLayout* OpenProjectWidget::createLinkedLabelLayout() {
     auto result = new QHBoxLayout;
 
     m_newProjectLabel = new QLabel(ModelView::Utils::ClickableText(str_new));

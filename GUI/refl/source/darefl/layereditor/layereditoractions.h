@@ -14,8 +14,7 @@
 #include <darefl/darefl_export.h>
 #include <memory>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class SampleModel;
 class LayerSelectionModel;
@@ -23,8 +22,7 @@ class LayerSelectionModel;
 //! Handles user actions applied to layer tree.
 //! Belongs to LayerEditor.
 
-class DAREFLCORE_EXPORT LayerEditorActions : public QObject
-{
+class DAREFLCORE_EXPORT LayerEditorActions : public QObject {
     Q_OBJECT
 
 public:

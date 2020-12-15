@@ -13,16 +13,14 @@
 #include <QWidget>
 #include <darefl/darefl_export.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 class SLDEditorActions;
 class SLDEditorToolBar;
 class SLDViewWidget;
 class ApplicationModels;
 
 //! The SLD editor QWidget
-class DAREFLCORE_EXPORT SLDEditor : public QWidget
-{
+class DAREFLCORE_EXPORT SLDEditor : public QWidget {
     Q_OBJECT
 
 public:

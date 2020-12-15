@@ -15,13 +15,11 @@
 #include <mvvm/model/tagrow.h>
 #include <vector>
 
-namespace ModelView
-{
+namespace ModelView {
 class ExternalProperty;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class MaterialBaseItem;
 class MaterialContainerItem;
@@ -29,8 +27,7 @@ class SLDMaterialItem;
 
 //! Model to hold MaterialItems.
 
-class DAREFLCORE_EXPORT MaterialModel : public ModelView::SessionModel
-{
+class DAREFLCORE_EXPORT MaterialModel : public ModelView::SessionModel {
 public:
     MaterialModel(std::shared_ptr<ModelView::ItemPool> pool = {});
 

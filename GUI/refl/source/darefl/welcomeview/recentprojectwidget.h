@@ -17,16 +17,14 @@
 
 class QBoxLayout;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ProjectPaneWidget;
 
 //! Widget with the name of current project and collection of recent projects.
 //! Occupies left part of WelcomeView.
 
-class DAREFLCORE_EXPORT RecentProjectWidget : public QWidget
-{
+class DAREFLCORE_EXPORT RecentProjectWidget : public QWidget {
     Q_OBJECT
 
 public:

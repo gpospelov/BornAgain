@@ -13,19 +13,16 @@
 #include <darefl/darefl_export.h>
 #include <mvvm/viewmodel/viewmodelcontroller.h>
 
-namespace ModelView
-{
+namespace ModelView {
 class ViewModel;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Controller for LayerViewModel to show MultiLayerItem in a tree with custom layout.
 //! Will iterate through all top level items and creates rows with layer properties.
 
-class DAREFLCORE_EXPORT LayerViewModelController : public ModelView::ViewModelController
-{
+class DAREFLCORE_EXPORT LayerViewModelController : public ModelView::ViewModelController {
 public:
     LayerViewModelController(ModelView::SessionModel* model, ModelView::ViewModel* view_model);
 };

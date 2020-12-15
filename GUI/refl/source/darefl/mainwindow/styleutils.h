@@ -16,13 +16,11 @@ class QSize;
 class QFont;
 class QToolBar;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Namespace for central access to all theme styling.
 
-namespace StyleUtils
-{
+namespace StyleUtils {
 
 //! Size of tolbar icons for LayerEditor, MaterialEditor and similar.
 DAREFLCORE_EXPORT QSize ToolBarIconSize();

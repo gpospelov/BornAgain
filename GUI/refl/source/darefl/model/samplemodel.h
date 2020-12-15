@@ -13,12 +13,10 @@
 #include <darefl/darefl_export.h>
 #include <mvvm/model/sessionmodel.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Model to hold layers and multi-layers.
-class DAREFLCORE_EXPORT SampleModel : public ModelView::SessionModel
-{
+class DAREFLCORE_EXPORT SampleModel : public ModelView::SessionModel {
 public:
     SampleModel(std::shared_ptr<ModelView::ItemPool> pool = {});
 

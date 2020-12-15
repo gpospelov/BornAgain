@@ -14,8 +14,7 @@
 #include <darefl/darefl_export.h>
 #include <memory>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 class ProjectHandler;
@@ -25,8 +24,7 @@ class RecentProjectSettings;
 
 //! Welcome view. Main widget on first tab of MainWindow.
 
-class DAREFLCORE_EXPORT WelcomeView : public QWidget
-{
+class DAREFLCORE_EXPORT WelcomeView : public QWidget {
     Q_OBJECT
 
 public:

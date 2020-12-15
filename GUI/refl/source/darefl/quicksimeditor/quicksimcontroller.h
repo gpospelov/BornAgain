@@ -15,13 +15,11 @@
 #include <darefl/quicksimeditor/quicksim_types.h>
 #include <memory>
 
-namespace ModelView
-{
+namespace ModelView {
 class ModelHasChangedController;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 class JobManager;
@@ -33,8 +31,7 @@ class InstrumentModel;
 //! the simulation, and then submit simulation request to JobManager. As soon as JobManager reports
 //! about completed simulations, extract results from there and put them into JobModel.
 
-class DAREFLCORE_EXPORT QuickSimController : public QObject
-{
+class DAREFLCORE_EXPORT QuickSimController : public QObject {
     Q_OBJECT
 
 public:

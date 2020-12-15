@@ -16,15 +16,13 @@
 #include <darefl/model/applicationmodels.h>
 #include <darefl/model/materialmodel.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 MaterialEditor::MaterialEditor(QWidget* parent)
     : QWidget(parent)
     , m_actions(new MaterialEditorActions(this))
     , m_editorWidget(new MaterialEditorWidget)
-    , m_toolBar(new MaterialEditorToolBar(m_actions))
-{
+    , m_toolBar(new MaterialEditorToolBar(m_actions)) {
     setWindowTitle("Material editor");
     auto layout = new QVBoxLayout;
     layout->addWidget(m_toolBar);
@@ -35,20 +33,17 @@ MaterialEditor::MaterialEditor(QWidget* parent)
 }
 
 //! Set the mododel for the different items
-void MaterialEditor::setModels(ApplicationModels* models)
-{
+void MaterialEditor::setModels(ApplicationModels* models) {
     m_editorWidget->setModels(models);
     m_actions->setModel(models->materialModel());
     m_actions->setMaterialSelectionModel(m_editorWidget->selectionModel());
 }
 
-QSize MaterialEditor::sizeHint() const
-{
+QSize MaterialEditor::sizeHint() const {
     return StyleUtils::DockSizeHint();
 }
 
-QSize MaterialEditor::minimumSizeHint() const
-{
+QSize MaterialEditor::minimumSizeHint() const {
     return StyleUtils::DockMinimumSizeHint();
 }
 

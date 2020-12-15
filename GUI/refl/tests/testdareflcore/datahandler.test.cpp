@@ -15,8 +15,7 @@
 using TestUtils::toStringVector;
 using namespace DaRefl;
 
-class DataHandlerTest : public FolderBasedTest
-{
+class DataHandlerTest : public FolderBasedTest {
 public:
     DataHandlerTest() : FolderBasedTest("test_DataHandlerTest") {}
     ~DataHandlerTest();
@@ -26,8 +25,7 @@ DataHandlerTest::~DataHandlerTest() = default;
 
 //! Testing function TrimWhitespace
 
-TEST_F(DataHandlerTest, updateRawData)
-{
+TEST_F(DataHandlerTest, updateRawData) {
     auto file_name1 = TestUtils::CreateTestFile(testPath(), "a.txt", {"aaa bbb\nccc ddd\n"});
 
     DataHandler handler;

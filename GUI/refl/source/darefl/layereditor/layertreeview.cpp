@@ -11,13 +11,11 @@
 #include <QMouseEvent>
 #include <darefl/layereditor/layertreeview.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 LayerTreeView::~LayerTreeView() = default;
 
-LayerTreeView::LayerTreeView(QWidget* parent) : QTreeView(parent)
-{
+LayerTreeView::LayerTreeView(QWidget* parent) : QTreeView(parent) {
     setAlternatingRowColors(true);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -25,8 +23,7 @@ LayerTreeView::LayerTreeView(QWidget* parent) : QTreeView(parent)
     header()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
-void LayerTreeView::setModel(QAbstractItemModel* model)
-{
+void LayerTreeView::setModel(QAbstractItemModel* model) {
     QTreeView::setModel(model);
     expandAll();
 }

@@ -14,8 +14,7 @@
 #include <string>
 #include <vector>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Raw data to construct GraphItem and Data1DItem's.
 

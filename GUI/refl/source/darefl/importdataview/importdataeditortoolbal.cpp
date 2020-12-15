@@ -12,13 +12,11 @@
 #include <darefl/importdataview/importdataeditortoolbal.h>
 #include <darefl/mainwindow/styleutils.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 ImportDataEditorToolBar::ImportDataEditorToolBar(ImportDataEditorActions* editorActions,
                                                  QWidget* parent)
-    : QToolBar(parent), m_editorActions(editorActions)
-{
+    : QToolBar(parent), m_editorActions(editorActions) {
     StyleUtils::SetToolBarStyleTextBesides(this);
 
     auto action = new QAction("Import", this);

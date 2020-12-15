@@ -15,13 +15,11 @@
 #include <darefl/quicksimeditor/quicksim_types.h>
 #include <mvvm/utils/threadsafestack.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Handles all thread activity for running job simulation in the background.
 
-class DAREFLCORE_EXPORT JobManager : public QObject
-{
+class DAREFLCORE_EXPORT JobManager : public QObject {
     Q_OBJECT
 
 public:

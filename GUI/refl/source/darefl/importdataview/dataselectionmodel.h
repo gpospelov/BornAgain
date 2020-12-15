@@ -14,22 +14,19 @@
 #include <darefl/darefl_export.h>
 #include <vector>
 
-namespace ModelView
-{
+namespace ModelView {
 class ViewModel;
 class SessionItem;
 class GraphItem;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class CanvasItem;
 
 //! Custom selection model for data view model (AbstractViewModel).
 
-class DAREFLCORE_EXPORT DataSelectionModel : public QItemSelectionModel
-{
+class DAREFLCORE_EXPORT DataSelectionModel : public QItemSelectionModel {
     Q_OBJECT
 
 public:

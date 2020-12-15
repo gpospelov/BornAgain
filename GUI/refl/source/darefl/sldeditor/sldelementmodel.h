@@ -14,19 +14,16 @@
 #include <mvvm/model/sessionmodel.h>
 #include <vector>
 
-namespace ModelView
-{
+namespace ModelView {
 class ExternalProperty;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class LayerElementItem;
 
 //! The model of the sld layer visual representation
-class DAREFLCORE_EXPORT SLDElementModel : public ModelView::SessionModel
-{
+class DAREFLCORE_EXPORT SLDElementModel : public ModelView::SessionModel {
 public:
     SLDElementModel();
 

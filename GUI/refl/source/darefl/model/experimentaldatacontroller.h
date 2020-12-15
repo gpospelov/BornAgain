@@ -14,8 +14,7 @@
 #include <mvvm/model/sessionmodel.h>
 #include <mvvm/signals/modellistener.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class InstrumentModel;
 class ExperimentalDataModel;
@@ -25,8 +24,7 @@ class ExperimentalDataModel;
 //! ExperimentalDataModel is changing.
 
 class DAREFLCORE_EXPORT ExperimentalDataController
-    : public ModelView::ModelListener<ExperimentalDataModel>
-{
+    : public ModelView::ModelListener<ExperimentalDataModel> {
 public:
     ExperimentalDataController(ExperimentalDataModel* data_model,
                                InstrumentModel* instrument_model);

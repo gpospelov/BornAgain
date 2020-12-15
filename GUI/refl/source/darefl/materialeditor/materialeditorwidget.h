@@ -14,14 +14,12 @@
 #include <darefl/darefl_export.h>
 #include <memory>
 
-namespace ModelView
-{
+namespace ModelView {
 class ViewModel;
 class ViewModelDelegate;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 class MaterialModel;
@@ -32,8 +30,7 @@ class MaterialSelectionModel;
 //! Widget to hold material table (MaterialTreeView) and all corresponding models and delegates.
 //! Belongs to MaterialEditor.
 
-class DAREFLCORE_EXPORT MaterialEditorWidget : public QWidget
-{
+class DAREFLCORE_EXPORT MaterialEditorWidget : public QWidget {
     Q_OBJECT
 
 public:

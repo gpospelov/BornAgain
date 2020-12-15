@@ -17,12 +17,10 @@
 #include <QPainterPath>
 #include <QPen>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! The roughness QGraphicsViewItem
-class DAREFLCORE_EXPORT RoughnessElementView : public ElementView
-{
+class DAREFLCORE_EXPORT RoughnessElementView : public ElementView {
 public:
     RoughnessElementView();
     QRectF boundingRect() const override;

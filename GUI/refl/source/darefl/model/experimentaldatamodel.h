@@ -14,15 +14,13 @@
 #include <mvvm/model/sessionmodel.h>
 #include <vector>
 
-namespace ModelView
-{
+namespace ModelView {
 class SessionItem;
 class GraphItem;
 class GraphViewportItem;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class CanvasContainerItem;
 class ExperimentalDataContainerItem;
@@ -31,8 +29,7 @@ struct GraphImportData;
 
 //! The model to store imported reflectometry data.
 
-class DAREFLCORE_EXPORT ExperimentalDataModel : public ModelView::SessionModel
-{
+class DAREFLCORE_EXPORT ExperimentalDataModel : public ModelView::SessionModel {
 public:
     ExperimentalDataModel(std::shared_ptr<ModelView::ItemPool> pool = {});
 

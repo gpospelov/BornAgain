@@ -15,21 +15,18 @@
 
 class QWidget;
 
-namespace ModelView
-{
+namespace ModelView {
 enum class SaveChangesAnswer;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class RecentProjectSettings;
 
 //! Provide save/discard/cancel and similar dialogs on user request.
 //! Intended to work in pair with ProjectManagerDecorator.
 
-class DAREFLCORE_EXPORT UserInteractor
-{
+class DAREFLCORE_EXPORT UserInteractor {
 public:
     UserInteractor(RecentProjectSettings* settings, QWidget* parent);
 

@@ -17,14 +17,12 @@
 #include <QPen>
 #include <QRectF>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class LayerElementController;
 
 //! The segment QGraphicsViewItem on the Graphicsscene
-class DAREFLCORE_EXPORT SegmentElementView : public ElementView
-{
+class DAREFLCORE_EXPORT SegmentElementView : public ElementView {
 public:
     SegmentElementView();
     QRectF boundingRect() const override;

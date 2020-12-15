@@ -10,17 +10,14 @@
 #include <darefl/quicksimeditor/jobmanager.h>
 #include <darefl/quicksimeditor/speculartoysimulation.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
-JobManager::JobManager(QObject* parent) : QObject(parent), m_isRunning(true)
-{
+JobManager::JobManager(QObject* parent) : QObject(parent), m_isRunning(true) {
     // starting thread to run consequent simulations
     m_simThread = std::thread{&JobManager::wait_and_run, this};
 }
 
-JobManager::~JobManager()
-{
+JobManager::~JobManager() {
     m_isRunning = false;
     // making stack throw to stops waiting in JobManager::wait_and_run
     m_requestedInputValues.stop();
@@ -29,8 +26,7 @@ JobManager::~JobManager()
 
 //! Returns vector representing results of a simulation.
 
-SimulationResult JobManager::simulationResult()
-{
+SimulationResult JobManager::simulationResult() {
     auto result = m_simulationResult.try_pop();
     return result ? *result.get() : SimulationResult();
 }
@@ -39,8 +35,7 @@ SimulationResult JobManager::simulationResult()
 //! a waiting thread.
 
 void JobManager::requestSimulation(const multislice_t& multislice,
-                                   const std::vector<double>& qvalues, double intensity)
-{
+                                   const std::vector<double>& qvalues, double intensity) {
     // At this point, non-empty stack means that currently simulation thread is busy.
     // Replacing top value in a stack, meaning that we are droping previous request.
     SimulationInput input_data;
@@ -52,8 +47,7 @@ void JobManager::requestSimulation(const multislice_t& multislice,
 
 //! Processes interrupt request by setting corresponding flag.
 
-void JobManager::onInterruptRequest()
-{
+void JobManager::onInterruptRequest() {
     m_interruptRequest = true;
 }
 
@@ -61,8 +55,7 @@ void JobManager::onInterruptRequest()
 //! parameter to appear in a stack, starts new simulation as soon as input data is ready.
 //! Method is intended for execution in a thread.
 
-void JobManager::wait_and_run()
-{
+void JobManager::wait_and_run() {
     while (m_isRunning) {
         try {
             // Waiting here for the value which we will use as simulation input parameter.

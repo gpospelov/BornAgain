@@ -14,16 +14,14 @@ using namespace DaRefl;
 
 //! Tests utility functions from MaterialProfile namespace.
 
-class MaterialProfileTest : public ::testing::Test
-{
+class MaterialProfileTest : public ::testing::Test {
 public:
     ~MaterialProfileTest();
 };
 
 MaterialProfileTest::~MaterialProfileTest() = default;
 
-TEST_F(MaterialProfileTest, GenerateZValues)
-{
+TEST_F(MaterialProfileTest, GenerateZValues) {
     auto values = MaterialProfile::GenerateZValues(0, -2.0, 4.0);
     EXPECT_EQ(values.size(), 0);
 
@@ -40,8 +38,7 @@ TEST_F(MaterialProfileTest, GenerateZValues)
     EXPECT_EQ(values, (std::vector<double>{-15.0, -5.0, 5.0}));
 }
 
-TEST_F(MaterialProfileTest, DefaultMaterialProfileLimits)
-{
+TEST_F(MaterialProfileTest, DefaultMaterialProfileLimits) {
     SliceData air{{0.0, 0.0}, 0.0, 0.0};
     SliceData substrate{{2e-06, 0.0}, 0.0, 0.0};
     multislice_t multislice = {air, substrate};
@@ -51,8 +48,7 @@ TEST_F(MaterialProfileTest, DefaultMaterialProfileLimits)
     EXPECT_EQ(xmax, 10.0);
 }
 
-TEST_F(MaterialProfileTest, TwoLayersProfile)
-{
+TEST_F(MaterialProfileTest, TwoLayersProfile) {
     SliceData air{{0.0, 0.0}, 0.0, 0.0};
     SliceData substrate{{2e-06, 0.0}, 0.0, 0.0};
     multislice_t multislice = {air, substrate};
@@ -63,8 +59,7 @@ TEST_F(MaterialProfileTest, TwoLayersProfile)
     EXPECT_DOUBLE_EQ(values[1].real(), air.material.real());
 }
 
-TEST_F(MaterialProfileTest, ThreeLayersProfile)
-{
+TEST_F(MaterialProfileTest, ThreeLayersProfile) {
     SliceData air{{0.0, 0.0}, 0.0, 0.0};
     SliceData ni{{9e-06, 0.0}, 10.0, 0.0};
     SliceData substrate{{2e-06, 0.0}, 0.0, 0.0};

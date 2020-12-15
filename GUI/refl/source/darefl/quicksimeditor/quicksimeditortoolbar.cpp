@@ -15,12 +15,10 @@
 #include <darefl/core/app_constants.h>
 #include <darefl/quicksimeditor/quicksimeditortoolbar.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 QuickSimEditorToolBar::QuickSimEditorToolBar(QWidget* parent)
-    : QToolBar(parent), m_liveCheckbox(new QCheckBox), m_progressBar(new QProgressBar)
-{
+    : QToolBar(parent), m_liveCheckbox(new QCheckBox), m_progressBar(new QProgressBar) {
     const int toolbar_icon_size = 24;
     setIconSize(QSize(toolbar_icon_size, toolbar_icon_size));
     setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -33,13 +31,11 @@ QuickSimEditorToolBar::QuickSimEditorToolBar(QWidget* parent)
 
 //! Set progress bar to given value.
 
-void QuickSimEditorToolBar::onProgressChanged(int value)
-{
+void QuickSimEditorToolBar::onProgressChanged(int value) {
     m_progressBar->setValue(value);
 }
 
-void QuickSimEditorToolBar::add_wide_separator()
-{
+void QuickSimEditorToolBar::add_wide_separator() {
     addWidget(new QLabel(" "));
     addSeparator();
     addWidget(new QLabel(" "));
@@ -47,8 +43,7 @@ void QuickSimEditorToolBar::add_wide_separator()
 
 //! Setups elements to run simulation.
 
-void QuickSimEditorToolBar::setup_simulation_elements()
-{
+void QuickSimEditorToolBar::setup_simulation_elements() {
     // live check box and label
     const QString live_tooltip = "Automatically run simulation and update plot\n"
                                  "on any multilayer change.";
@@ -84,8 +79,7 @@ void QuickSimEditorToolBar::setup_simulation_elements()
 
 //! Setups actions to reset plot and access its settings.
 
-void QuickSimEditorToolBar::setup_plot_elements()
-{
+void QuickSimEditorToolBar::setup_plot_elements() {
     auto reset_view = new QAction("Replot", this);
     reset_view->setToolTip("Set plot axes to default range");
     reset_view->setIcon(QIcon(":/icons/aspect-ratio.svg"));

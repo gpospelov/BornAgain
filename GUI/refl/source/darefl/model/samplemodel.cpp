@@ -13,13 +13,10 @@
 
 using namespace ModelView;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
-namespace
-{
-std::unique_ptr<ItemCatalogue> CreateItemCatalogue()
-{
+namespace {
+std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
     auto result = std::make_unique<ItemCatalogue>();
     result->registerItem<MultiLayerItem>();
     result->registerItem<LayerItem>();
@@ -29,15 +26,13 @@ std::unique_ptr<ItemCatalogue> CreateItemCatalogue()
 } // namespace
 
 SampleModel::SampleModel(std::shared_ptr<ModelView::ItemPool> pool)
-    : SessionModel("SampleModel", pool)
-{
+    : SessionModel("SampleModel", pool) {
     setItemCatalogue(CreateItemCatalogue());
 }
 
 //! Populate the model with default MultiLayer with 3 layers.
 
-void SampleModel::create_default_multilayer()
-{
+void SampleModel::create_default_multilayer() {
     auto multilayer = insertItem<MultiLayerItem>();
 
     auto top = insertItem<LayerItem>(multilayer);

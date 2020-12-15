@@ -14,20 +14,17 @@
 #include <mvvm/standarditems/containeritem.h>
 #include <mvvm/standarditems/graphviewportitem.h>
 
-namespace ModelView
-{
+namespace ModelView {
 class Data1DItem;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Holds a collection of GraphItem's for simultaneous plotting, as well as all information
 //! related to plotting properties. Used in the context of importing of 1D data. Serves as an input
 //! for GraphCanvas widget.
 
-class DAREFLCORE_EXPORT CanvasItem : public ModelView::GraphViewportItem
-{
+class DAREFLCORE_EXPORT CanvasItem : public ModelView::GraphViewportItem {
 public:
     CanvasItem();
 
@@ -39,8 +36,7 @@ protected:
 //! Used in the context of importing of 1D data, when user groups different GraphItem's
 //! on different canvas for later plotting.
 
-class DAREFLCORE_EXPORT CanvasContainerItem : public ModelView::ContainerItem
-{
+class DAREFLCORE_EXPORT CanvasContainerItem : public ModelView::ContainerItem {
 public:
     CanvasContainerItem();
 
@@ -51,8 +47,7 @@ public:
 //! The order of items in the collection chronologically corresponds to user activity.
 //! All other plotting entities (GraphItems) are linked to data items in this container.
 
-class DAREFLCORE_EXPORT ExperimentalDataContainerItem : public ModelView::ContainerItem
-{
+class DAREFLCORE_EXPORT ExperimentalDataContainerItem : public ModelView::ContainerItem {
 public:
     ExperimentalDataContainerItem();
 

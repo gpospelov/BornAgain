@@ -14,15 +14,12 @@
 #include <fstream>
 #include <mvvm/utils/stringutils.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
-namespace
-{
+namespace {
 
 //! Returns true if given pair of values can represent range
-bool isRepresentRange(const std::optional<int>& v0, const std::optional<int>& v1)
-{
+bool isRepresentRange(const std::optional<int>& v0, const std::optional<int>& v1) {
     if (v0.has_value() && v1.has_value())
         return v0.value() > 0 && v1.value() > 0 && v0.value() <= v1.value();
     return false;
@@ -30,8 +27,7 @@ bool isRepresentRange(const std::optional<int>& v0, const std::optional<int>& v1
 
 //! Finds in vector of ColumnInfo all columns of given type and returns it as a new vector.
 std::vector<ColumnInfo> columnsForType(const std::vector<ColumnInfo>& input,
-                                       const std::string& columnType)
-{
+                                       const std::string& columnType) {
     std::vector<ColumnInfo> result;
     std::copy_if(input.begin(), input.end(), std::back_inserter(result),
                  [columnType](auto x) { return x.type_name == columnType; });
@@ -40,8 +36,7 @@ std::vector<ColumnInfo> columnsForType(const std::vector<ColumnInfo>& input,
 
 } // namespace
 
-std::vector<std::string> Utils::LoadASCIIFile(const std::string& file_name)
-{
+std::vector<std::string> Utils::LoadASCIIFile(const std::string& file_name) {
     std::vector<std::string> result;
 
     std::ifstream file(file_name);
@@ -52,8 +47,7 @@ std::vector<std::string> Utils::LoadASCIIFile(const std::string& file_name)
     return result;
 }
 
-std::vector<std::pair<int, int>> Utils::ExpandLineNumberPattern(const std::string& pattern)
-{
+std::vector<std::pair<int, int>> Utils::ExpandLineNumberPattern(const std::string& pattern) {
     std::vector<std::pair<int, int>> result;
 
     // splitting "1, 2-3" first on comma-separated tokens
@@ -73,8 +67,7 @@ std::vector<std::pair<int, int>> Utils::ExpandLineNumberPattern(const std::strin
     return result;
 }
 
-accept_int_t Utils::CreateLineNumberPatternValidator(const std::string& pattern)
-{
+accept_int_t Utils::CreateLineNumberPatternValidator(const std::string& pattern) {
     std::vector<std::pair<int, int>> expanded_pattern = Utils::ExpandLineNumberPattern(pattern);
     auto result = [expanded_pattern](int line_number) {
         for (auto pair : expanded_pattern) {
@@ -86,8 +79,7 @@ accept_int_t Utils::CreateLineNumberPatternValidator(const std::string& pattern)
     return result;
 }
 
-accept_string_t Utils::CreateLinePrefixValidator(const std::string& prefix_to_exclude)
-{
+accept_string_t Utils::CreateLinePrefixValidator(const std::string& prefix_to_exclude) {
     auto result = [prefix_to_exclude](const std::string& line) {
         // line contains spaces only
         if (line.empty() || line.find_first_not_of(' ') == std::string::npos)
@@ -98,8 +90,7 @@ accept_string_t Utils::CreateLinePrefixValidator(const std::string& prefix_to_ex
     return result;
 }
 
-line_splitter_t Utils::CreateSeparatorBasedSplitter(const std::string& separator)
-{
+line_splitter_t Utils::CreateSeparatorBasedSplitter(const std::string& separator) {
     if (separator.empty())
         throw std::runtime_error("Error, empty separator.");
 
@@ -114,24 +105,21 @@ line_splitter_t Utils::CreateSeparatorBasedSplitter(const std::string& separator
     return result;
 }
 
-std::string Utils::AddHtmlDivTag(const std::string& line)
-{
+std::string Utils::AddHtmlDivTag(const std::string& line) {
     const std::string open_div = "<div>";
     const std::string close_div = "</div>";
     std::string result;
     return open_div + line + close_div;
 }
 
-std::string Utils::AddHtmlColorTag(const std::string& line, const std::string& color)
-{
+std::string Utils::AddHtmlColorTag(const std::string& line, const std::string& color) {
     const std::string open_tag = "<font color=\"" + color + "\">";
     const std::string close_tag = "</font>";
     std::string result;
     return open_tag + line + close_tag;
 }
 
-std::string Utils::AddHtmlBackgroundTag(const std::string& line, const std::string& color)
-{
+std::string Utils::AddHtmlBackgroundTag(const std::string& line, const std::string& color) {
     const std::string open_tag = "<span style=\"background-color:" + color + "\">";
     const std::string close_tag = "</span>";
     std::string result;
@@ -141,8 +129,7 @@ std::string Utils::AddHtmlBackgroundTag(const std::string& line, const std::stri
 std::string Utils::AddHtmlColorTagToParts(const std::string& line,
                                           const std::vector<std::string>& parts,
                                           const std::string& color_parts,
-                                          const std::string& color_rest)
-{
+                                          const std::string& color_rest) {
     std::string result;
     std::string_view view(line);
 
@@ -161,8 +148,7 @@ std::string Utils::AddHtmlColorTagToParts(const std::string& line,
 
 std::pair<std::vector<double>, std::vector<double>>
 Utils::ExtractTwoColumns(const std::vector<std::vector<std::string>>& text_data, size_t col1,
-                         size_t col2)
-{
+                         size_t col2) {
     std::vector<double> vec1, vec2;
     for (const auto& row : text_data) {
         if (col1 < row.size() && col2 < row.size()) {
@@ -179,8 +165,7 @@ Utils::ExtractTwoColumns(const std::vector<std::vector<std::string>>& text_data,
 }
 
 std::vector<std::pair<ColumnInfo, ColumnInfo>>
-Utils::CreateGraphInfoPairs(const std::vector<ColumnInfo>& column_info)
-{
+Utils::CreateGraphInfoPairs(const std::vector<ColumnInfo>& column_info) {
     std::vector<std::pair<ColumnInfo, ColumnInfo>> result;
 
     auto axis_columns = columnsForType(column_info, Constants::AxisType);
@@ -196,8 +181,7 @@ Utils::CreateGraphInfoPairs(const std::vector<ColumnInfo>& column_info)
 }
 
 GraphImportData Utils::CreateData(const std::vector<std::vector<std::string>>& text_data,
-                                  const ColumnInfo& axis, const ColumnInfo& intensity)
-{
+                                  const ColumnInfo& axis, const ColumnInfo& intensity) {
     GraphImportData result;
 
     auto [axis_values, intensity_values] =

@@ -13,21 +13,18 @@
 #include <QWidget>
 #include <darefl/darefl_export.h>
 
-namespace ModelView
-{
+namespace ModelView {
 class GraphCanvas;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 
 //! Presents simulation results together with reference experimental data on two canvas.
 //! The top canvas contains graphs itself, bottom canvas their relative difference.
 
-class DAREFLCORE_EXPORT SimPlotWidget : public QWidget
-{
+class DAREFLCORE_EXPORT SimPlotWidget : public QWidget {
     Q_OBJECT
 
 public:

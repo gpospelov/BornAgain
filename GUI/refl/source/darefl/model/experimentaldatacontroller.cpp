@@ -16,13 +16,11 @@
 #include <mvvm/model/externalproperty.h>
 #include <mvvm/model/modelutils.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 ExperimentalDataController::ExperimentalDataController(ExperimentalDataModel* data_model,
                                                        InstrumentModel* instrument_model)
-    : ModelListener(data_model), m_instrument_model(instrument_model)
-{
+    : ModelListener(data_model), m_instrument_model(instrument_model) {
     setOnDataChange([this](auto, auto) { update_all(); });
     setOnItemInserted([this](auto, auto) { update_all(); });
     setOnItemRemoved([this](auto, auto) { update_all(); });
@@ -33,8 +31,7 @@ ExperimentalDataController::ExperimentalDataController(ExperimentalDataModel* da
 
 //! Updates all material properties in LayerItems to get new material colors and labels.
 
-void ExperimentalDataController::update_all()
-{
+void ExperimentalDataController::update_all() {
     for (auto scan : ModelView::Utils::FindItems<ExperimentalScanItem>(m_instrument_model)) {
         auto property =
             scan->property<ModelView::ExternalProperty>(ExperimentalScanItem::P_IMPORTED_DATA);

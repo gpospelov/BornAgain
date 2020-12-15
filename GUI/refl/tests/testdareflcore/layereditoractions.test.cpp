@@ -24,8 +24,7 @@ using namespace ModelView;
 
 //! Tests of LayerEditorActions.
 
-class LayerEditorActionsTest : public ::testing::Test
-{
+class LayerEditorActionsTest : public ::testing::Test {
 public:
     ~LayerEditorActionsTest();
 
@@ -40,8 +39,7 @@ public:
         SessionItem* multilayer{nullptr};
         SessionItem* top{nullptr};
         SessionItem* bottom{nullptr};
-        TestData()
-        {
+        TestData() {
             actions.setModel(&sample_model);
             actions.setSelectionModel(&selection_model);
             multilayer = sample_model.insertItem<MultiLayerItem>();
@@ -56,8 +54,7 @@ LayerEditorActionsTest::~LayerEditorActionsTest() = default;
 
 //! Checking initial data for testing.
 
-TEST_F(LayerEditorActionsTest, initialState)
-{
+TEST_F(LayerEditorActionsTest, initialState) {
     TestData test_data;
 
     // checking layout of multilayer
@@ -72,8 +69,7 @@ TEST_F(LayerEditorActionsTest, initialState)
 
 //! Adds new layer after selected layer.
 
-TEST_F(LayerEditorActionsTest, addNewLayerAfterSelection)
-{
+TEST_F(LayerEditorActionsTest, addNewLayerAfterSelection) {
     TestData test_data;
 
     // selecting top layer
@@ -116,8 +112,7 @@ TEST_F(LayerEditorActionsTest, addNewLayerAfterSelection)
 
 //! Adds new multi-layer after selected layer.
 
-TEST_F(LayerEditorActionsTest, addNewMultiLayerAfterSelection)
-{
+TEST_F(LayerEditorActionsTest, addNewMultiLayerAfterSelection) {
     TestData test_data;
 
     // selecting top layer
@@ -144,8 +139,7 @@ TEST_F(LayerEditorActionsTest, addNewMultiLayerAfterSelection)
 
 //! Adds new layer when no selection exists.
 
-TEST_F(LayerEditorActionsTest, addNewLayerNoSelection)
-{
+TEST_F(LayerEditorActionsTest, addNewLayerNoSelection) {
     TestData test_data;
 
     // adding new layer when no selection exist
@@ -164,8 +158,7 @@ TEST_F(LayerEditorActionsTest, addNewLayerNoSelection)
 
 //! Adds new layer after selected layer.
 
-TEST_F(LayerEditorActionsTest, onRemoveLayer)
-{
+TEST_F(LayerEditorActionsTest, onRemoveLayer) {
     TestData test_data;
 
     // selecting top layer
@@ -186,8 +179,7 @@ TEST_F(LayerEditorActionsTest, onRemoveLayer)
 
 //! Move one layer up.
 
-TEST_F(LayerEditorActionsTest, onMoveUp)
-{
+TEST_F(LayerEditorActionsTest, onMoveUp) {
     TestData test_data;
 
     // selecting bottom layer
@@ -215,8 +207,7 @@ TEST_F(LayerEditorActionsTest, onMoveUp)
 
 //! Move one layer up.
 
-TEST_F(LayerEditorActionsTest, onMoveDown)
-{
+TEST_F(LayerEditorActionsTest, onMoveDown) {
     TestData test_data;
 
     // selecting top layer

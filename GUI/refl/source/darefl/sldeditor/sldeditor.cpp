@@ -17,16 +17,14 @@
 #include <darefl/sldeditor/sldviewwidget.h>
 #include <mvvm/plotting/graphcanvas.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! The constructor
 SLDEditor::SLDEditor(QWidget* parent)
     : QWidget(parent)
     , m_editorActions(new SLDEditorActions(this))
     , m_viewWidget(new SLDViewWidget(this))
-    , m_toolBar(new SLDEditorToolBar(m_editorActions))
-{
+    , m_toolBar(new SLDEditorToolBar(m_editorActions)) {
     setWindowTitle("SLD editor");
     auto layout = new QVBoxLayout;
     layout->addWidget(m_toolBar);
@@ -46,19 +44,16 @@ SLDEditor::SLDEditor(QWidget* parent)
 //! The destructor
 SLDEditor::~SLDEditor() = default;
 
-void SLDEditor::setModels(ApplicationModels* models)
-{
+void SLDEditor::setModels(ApplicationModels* models) {
     m_viewWidget->setModels(models);
     m_editorActions->setModel(models->sldViewModel());
 }
 
-QSize SLDEditor::sizeHint() const
-{
+QSize SLDEditor::sizeHint() const {
     return StyleUtils::DockSizeHint();
 }
 
-QSize SLDEditor::minimumSizeHint() const
-{
+QSize SLDEditor::minimumSizeHint() const {
     return StyleUtils::DockMinimumSizeHint();
 }
 

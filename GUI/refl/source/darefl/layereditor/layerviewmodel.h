@@ -13,18 +13,15 @@
 #include <darefl/darefl_export.h>
 #include <mvvm/viewmodel/viewmodel.h>
 
-namespace ModelView
-{
+namespace ModelView {
 class SessionModel;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! View model to display content of MultiLayerItem in table like views.
 
-class DAREFLCORE_EXPORT LayerViewModel : public ModelView::ViewModel
-{
+class DAREFLCORE_EXPORT LayerViewModel : public ModelView::ViewModel {
     Q_OBJECT
 
 public:

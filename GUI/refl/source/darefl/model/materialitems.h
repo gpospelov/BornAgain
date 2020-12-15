@@ -16,18 +16,15 @@
 #include <darefl/darefl_export.h>
 #include <mvvm/model/compounditem.h>
 
-namespace ModelView
-{
+namespace ModelView {
 class ExternalProperty;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Container to hold MaterialItems.
 
-class DAREFLCORE_EXPORT MaterialContainerItem : public ModelView::CompoundItem
-{
+class DAREFLCORE_EXPORT MaterialContainerItem : public ModelView::CompoundItem {
 public:
     static inline const std::string T_MATERIALS = "T_MATERIALS";
     MaterialContainerItem();
@@ -35,8 +32,7 @@ public:
 
 //! Base class with all materials with name and color defined.
 
-class DAREFLCORE_EXPORT MaterialBaseItem : public ModelView::CompoundItem
-{
+class DAREFLCORE_EXPORT MaterialBaseItem : public ModelView::CompoundItem {
 public:
     static inline const std::string P_COLOR = "P_COLOR";
     static inline const std::string P_NAME = "P_NAME";
@@ -53,8 +49,7 @@ protected:
 
 //! Represents material based on scattering length density.
 
-class DAREFLCORE_EXPORT SLDMaterialItem : public MaterialBaseItem
-{
+class DAREFLCORE_EXPORT SLDMaterialItem : public MaterialBaseItem {
 public:
     static inline const std::string P_SLD_REAL = "P_SLD_REAL";
     static inline const std::string P_SLD_IMAG = "P_SLD_IMAG";

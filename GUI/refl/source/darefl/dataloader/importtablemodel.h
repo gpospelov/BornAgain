@@ -16,8 +16,7 @@
 #include <string>
 #include <vector>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 struct ColumnInfo;
 
@@ -25,8 +24,7 @@ class ImportTableHeader;
 
 //! Table model to hold imported ASCII data after parsing it to multi-column presentation.
 
-class DAREFLCORE_EXPORT ImportTableModel : public QAbstractTableModel
-{
+class DAREFLCORE_EXPORT ImportTableModel : public QAbstractTableModel {
     Q_OBJECT
 
 public:

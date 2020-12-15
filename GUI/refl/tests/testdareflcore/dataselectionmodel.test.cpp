@@ -22,8 +22,7 @@ using namespace ModelView;
 
 //! Tests of DataSelectionModel.
 
-class DataSelectionModelTest : public ::testing::Test
-{
+class DataSelectionModelTest : public ::testing::Test {
 public:
     ~DataSelectionModelTest();
 
@@ -37,8 +36,7 @@ public:
         GraphItem* graph_c0_b{nullptr};
         CanvasItem* canvas1{nullptr};
         GraphItem* graph_c1_a{nullptr};
-        TestData()
-        {
+        TestData() {
             container = Utils::TopItem<CanvasContainerItem>(&data_model);
             canvas0 = data_model.insertItem<CanvasItem>(container);
             graph_c0_a = data_model.insertItem<GraphItem>(canvas0);
@@ -54,8 +52,7 @@ DataSelectionModelTest::~DataSelectionModelTest() = default;
 
 //! Initial state of selection model.
 
-TEST_F(DataSelectionModelTest, initialState)
-{
+TEST_F(DataSelectionModelTest, initialState) {
     TestData test_data;
     // checking layout of container with test data
     EXPECT_EQ(test_data.container->size(), 2);
@@ -70,8 +67,7 @@ TEST_F(DataSelectionModelTest, initialState)
 
 //! Select single canvas and check that it was actually selected.
 
-TEST_F(DataSelectionModelTest, selectCanvasItem)
-{
+TEST_F(DataSelectionModelTest, selectCanvasItem) {
     TestData test_data;
     EXPECT_FALSE(test_data.selection_model.hasSelection());
 
@@ -96,8 +92,7 @@ TEST_F(DataSelectionModelTest, selectCanvasItem)
 
 //! Select single graph and check reported selection.
 
-TEST_F(DataSelectionModelTest, selectGraph)
-{
+TEST_F(DataSelectionModelTest, selectGraph) {
     TestData test_data;
     EXPECT_FALSE(test_data.selection_model.hasSelection());
 
@@ -124,8 +119,7 @@ TEST_F(DataSelectionModelTest, selectGraph)
 
 //! Select two graphs and check reported selection.
 
-TEST_F(DataSelectionModelTest, selectTwoGraphs)
-{
+TEST_F(DataSelectionModelTest, selectTwoGraphs) {
     TestData test_data;
     EXPECT_FALSE(test_data.selection_model.hasSelection());
 

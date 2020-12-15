@@ -20,8 +20,7 @@ using namespace ModelView;
 
 //! Tests of LayerSelectionModel.
 
-class LayerSelectionModelTest : public ::testing::Test
-{
+class LayerSelectionModelTest : public ::testing::Test {
 public:
     ~LayerSelectionModelTest();
 
@@ -32,8 +31,7 @@ public:
         SessionItem* multilayer{nullptr};
         SessionItem* top{nullptr};
         SessionItem* bottom{nullptr};
-        TestData()
-        {
+        TestData() {
             multilayer = sample_model.insertItem<MultiLayerItem>();
             top = sample_model.insertItem<LayerItem>(multilayer);
             bottom = sample_model.insertItem<LayerItem>(multilayer);
@@ -46,8 +44,7 @@ LayerSelectionModelTest::~LayerSelectionModelTest() = default;
 
 //! Layout of LayerViewModel for two layer system.
 
-TEST_F(LayerSelectionModelTest, initialState)
-{
+TEST_F(LayerSelectionModelTest, initialState) {
     TestData test_data;
     EXPECT_FALSE(test_data.selection_model.hasSelection());
 
@@ -58,8 +55,7 @@ TEST_F(LayerSelectionModelTest, initialState)
     EXPECT_EQ(layers.at(1), test_data.bottom);
 }
 
-TEST_F(LayerSelectionModelTest, selectLayerItem)
-{
+TEST_F(LayerSelectionModelTest, selectLayerItem) {
     TestData test_data;
 
     // selecting top layer
@@ -83,8 +79,7 @@ TEST_F(LayerSelectionModelTest, selectLayerItem)
     EXPECT_EQ(test_data.selection_model.selectedItems(), expected);
 }
 
-TEST_F(LayerSelectionModelTest, selectLayerItems)
-{
+TEST_F(LayerSelectionModelTest, selectLayerItems) {
     TestData test_data;
 
     std::vector<ModelView::SessionItem*> to_select{test_data.top, test_data.bottom};
@@ -102,8 +97,7 @@ TEST_F(LayerSelectionModelTest, selectLayerItems)
 
 //! Checking selection of MultiLayer items
 
-TEST_F(LayerSelectionModelTest, selectMultiLayerItem)
-{
+TEST_F(LayerSelectionModelTest, selectMultiLayerItem) {
     TestData test_data;
 
     // adding new MultiLayer between top and bottom layer

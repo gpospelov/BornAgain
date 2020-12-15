@@ -13,8 +13,7 @@
 #include <mvvm/model/comparators.h>
 #include <string>
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
     QApplication app(argc, argv);
     Q_UNUSED(app)
 

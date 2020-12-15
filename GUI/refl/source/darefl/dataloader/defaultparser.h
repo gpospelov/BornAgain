@@ -15,8 +15,7 @@
 #include <darefl/dataloader/parserinterface.h>
 #include <map>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Provides basic algorirthm for parsing multi-string data representing content
 //! of multi-column ASCII file.
@@ -24,8 +23,7 @@ namespace DaRefl
 //! + Skips lines matching given line number pattern.
 //! + Parse data in columns of basing on given separator value.
 
-class DAREFLCORE_EXPORT DefaultParser : public ParserInterface
-{
+class DAREFLCORE_EXPORT DefaultParser : public ParserInterface {
 public:
     DefaultParser(const ParserOptions& options);
 

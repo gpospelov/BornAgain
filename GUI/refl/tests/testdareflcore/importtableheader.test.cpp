@@ -17,16 +17,14 @@
 using namespace DaRefl;
 
 //! Test the data column item
-class ImportTableHeaderTest : public ::testing::Test
-{
+class ImportTableHeaderTest : public ::testing::Test {
 public:
     ~ImportTableHeaderTest();
 };
 
 ImportTableHeaderTest::~ImportTableHeaderTest() = default;
 
-TEST_F(ImportTableHeaderTest, initialStateTwoColumn)
-{
+TEST_F(ImportTableHeaderTest, initialStateTwoColumn) {
     const int column_count{2};
     ImportTableHeader header(column_count);
 
@@ -47,8 +45,7 @@ TEST_F(ImportTableHeaderTest, initialStateTwoColumn)
     EXPECT_EQ(header.columnInfo()[1].multiplier, 1.0);
 }
 
-TEST_F(ImportTableHeaderTest, initialStateThreeColumn)
-{
+TEST_F(ImportTableHeaderTest, initialStateThreeColumn) {
     const int column_count{3};
     ImportTableHeader header(column_count);
 
@@ -75,8 +72,7 @@ TEST_F(ImportTableHeaderTest, initialStateThreeColumn)
     EXPECT_EQ(header.columnInfo()[2].multiplier, 1.0);
 }
 
-TEST_F(ImportTableHeaderTest, rowName)
-{
+TEST_F(ImportTableHeaderTest, rowName) {
     const int column_count{2};
     ImportTableHeader header(column_count);
 
@@ -86,8 +82,7 @@ TEST_F(ImportTableHeaderTest, rowName)
     EXPECT_EQ(header.rowName(2), "Multiplier");
 }
 
-TEST_F(ImportTableHeaderTest, setData)
-{
+TEST_F(ImportTableHeaderTest, setData) {
     const int column_count{2};
     ImportTableHeader header(column_count);
 

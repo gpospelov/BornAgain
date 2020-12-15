@@ -16,8 +16,7 @@
 
 class QSplitter;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ParserInterface;
 class ImportFileWidget;
@@ -26,8 +25,7 @@ class ParserPropertyWidget;
 //! Panel with settings for DataLoaderDialog.
 //! Located on its left side, contains file selection dialog and parser property widget.
 
-class DAREFLCORE_EXPORT LoaderSelectorPanel : public QWidget
-{
+class DAREFLCORE_EXPORT LoaderSelectorPanel : public QWidget {
     Q_OBJECT
 
 public:

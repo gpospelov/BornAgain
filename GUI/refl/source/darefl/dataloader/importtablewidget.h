@@ -18,13 +18,11 @@
 
 class QTableView;
 
-namespace ModelView
-{
+namespace ModelView {
 class ViewModelDelegate;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 struct ColumnInfo;
 
@@ -33,8 +31,7 @@ class ImportTableModel;
 //! Contains table with imported data.
 //! Belongs to LoaderPreviewPanel.
 
-class DAREFLCORE_EXPORT ImportTableWidget : public QWidget
-{
+class DAREFLCORE_EXPORT ImportTableWidget : public QWidget {
     Q_OBJECT
 
 public:

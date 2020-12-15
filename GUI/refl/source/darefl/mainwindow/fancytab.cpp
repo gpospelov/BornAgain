@@ -14,21 +14,17 @@
 #include <darefl/mainwindow/fancytab.h>
 #include <mvvm/widgets/widgetutils.h>
 
-namespace
-{
-QColor defaultColor()
-{
+namespace {
+QColor defaultColor() {
     static QWidget tmpWidget;
     return tmpWidget.palette().color(QPalette::Window);
 }
 } // namespace
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 FancyTab::FancyTab(const QString& title, QWidget* parent)
-    : QWidget(parent), m_label(new QLabel(title))
-{
+    : QWidget(parent), m_label(new QLabel(title)) {
     ModelView::Utils::ScaleLabelFont(m_label, 1.25);
     setFixedHeight(ModelView::Utils::HeightOfLetterM() * 2.5);
 
@@ -39,14 +35,12 @@ FancyTab::FancyTab(const QString& title, QWidget* parent)
     setMouseTracking(true);
 }
 
-void FancyTab::setSelected(bool value)
-{
+void FancyTab::setSelected(bool value) {
     m_isSelected = value;
     update();
 }
 
-void FancyTab::paintEvent(QPaintEvent*)
-{
+void FancyTab::paintEvent(QPaintEvent*) {
     QPainter painter(this);
 
     if (m_widgetColor.isValid())
@@ -58,21 +52,18 @@ void FancyTab::paintEvent(QPaintEvent*)
             QColor("#0d4283"));
 }
 
-void FancyTab::mousePressEvent(QMouseEvent* event)
-{
+void FancyTab::mousePressEvent(QMouseEvent* event) {
     if (isEnabled() && event->button() == Qt::LeftButton)
         clicked();
 }
 
-void FancyTab::enterEvent(QEvent*)
-{
+void FancyTab::enterEvent(QEvent*) {
     if (isEnabled())
         m_widgetColor = QColor(Qt::lightGray);
     update();
 }
 
-void FancyTab::leaveEvent(QEvent*)
-{
+void FancyTab::leaveEvent(QEvent*) {
     if (isEnabled())
         m_widgetColor = defaultColor();
     update();

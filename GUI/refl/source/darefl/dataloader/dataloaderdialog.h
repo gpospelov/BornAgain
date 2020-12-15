@@ -18,8 +18,7 @@
 
 class QSplitter;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class DataLoaderToolBar;
 class LoaderSelectorPanel;
@@ -28,8 +27,7 @@ class DataHandler;
 
 //! This is the main dialog for the data loader.
 
-class DAREFLCORE_EXPORT DataLoaderDialog : public QDialog
-{
+class DAREFLCORE_EXPORT DataLoaderDialog : public QDialog {
     Q_OBJECT
 
 public:

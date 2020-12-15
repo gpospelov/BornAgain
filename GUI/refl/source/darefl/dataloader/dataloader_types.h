@@ -15,8 +15,7 @@
 #include <string>
 #include <vector>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Parser options to process multi column ASCII files.
 

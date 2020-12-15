@@ -14,13 +14,11 @@
 #include <darefl/darefl_export.h>
 #include <memory>
 
-namespace ModelView
-{
+namespace ModelView {
 class ViewModelDelegate;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 class LayerTreeView;
@@ -30,8 +28,7 @@ class LayerViewModel;
 //! Widget to hold layer tree (LayerTreeView) and all corresponding models and delegates.
 //! Belongs to LayerEditor.
 
-class DAREFLCORE_EXPORT LayerEditorWidget : public QWidget
-{
+class DAREFLCORE_EXPORT LayerEditorWidget : public QWidget {
     Q_OBJECT
 
 public:

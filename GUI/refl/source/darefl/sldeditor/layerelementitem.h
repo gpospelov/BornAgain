@@ -14,12 +14,10 @@
 #include <mvvm/model/compounditem.h>
 #include <mvvm/model/sessionmodel.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! The mvvm session item associated to a layer
-class DAREFLCORE_EXPORT LayerElementItem : public ModelView::CompoundItem
-{
+class DAREFLCORE_EXPORT LayerElementItem : public ModelView::CompoundItem {
 public:
     static inline const std::string P_X_POS = "P_X_POS";
     static inline const std::string P_WIDTH = "P_WIDTH";

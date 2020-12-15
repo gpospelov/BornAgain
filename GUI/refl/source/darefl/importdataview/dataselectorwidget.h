@@ -15,14 +15,12 @@
 
 class QTreeView;
 
-namespace ModelView
-{
+namespace ModelView {
 class PropertyTreeView;
 class CollapsibleListWidget;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class DataSelectionModel;
 class DataViewModel;
@@ -30,8 +28,7 @@ class DataViewModel;
 //! Widget to select graphs and look at their properties.
 //! Occupies the left part of ImportDataEditor.
 
-class DAREFLCORE_EXPORT DataSelectorWidget : public QWidget
-{
+class DAREFLCORE_EXPORT DataSelectorWidget : public QWidget {
     Q_OBJECT
 
 public:

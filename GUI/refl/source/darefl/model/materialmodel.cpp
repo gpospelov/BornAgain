@@ -17,11 +17,9 @@
 
 using namespace ModelView;
 
-namespace
-{
+namespace {
 
-std::unique_ptr<ItemCatalogue> CreateItemCatalogue()
-{
+std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
     auto result = std::make_unique<ModelView::ItemCatalogue>();
     result->registerItem<DaRefl::MaterialContainerItem>();
     result->registerItem<DaRefl::SLDMaterialItem>();
@@ -40,16 +38,14 @@ const std::string default_material_name = "Default";
 
 //! Returns map of good looking colors for standard material names.
 
-std::map<std::string, QColor> name_to_color_map()
-{
+std::map<std::string, QColor> name_to_color_map() {
     std::map<std::string, QColor> result = {{air_material_name, QColor(179, 242, 255)},
                                             {substrate_material_name, QColor(205, 102, 0)},
                                             {default_material_name, QColor(Qt::green)}};
     return result;
 }
 
-QColor suggestMaterialColor(const std::string& name)
-{
+QColor suggestMaterialColor(const std::string& name) {
     static auto color_map = name_to_color_map();
     auto it = color_map.find(name);
     return it != color_map.end() ? it->second : Utils::RandomColor();
@@ -57,12 +53,10 @@ QColor suggestMaterialColor(const std::string& name)
 
 } // namespace
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 MaterialModel::MaterialModel(std::shared_ptr<ModelView::ItemPool> pool)
-    : SessionModel("MaterialModel", pool)
-{
+    : SessionModel("MaterialModel", pool) {
     init_model();
 }
 
@@ -72,8 +66,7 @@ MaterialModel::MaterialModel(std::shared_ptr<ModelView::ItemPool> pool)
 
 // TODO Simplify and cover with unit tests.
 
-std::vector<ExternalProperty> MaterialModel::material_data(std::string container_id) const
-{
+std::vector<ExternalProperty> MaterialModel::material_data(std::string container_id) const {
     std::vector<ExternalProperty> result;
     const auto containers = rootItem()->children();
     if (!containers.empty() && container_id.empty())
@@ -92,8 +85,7 @@ std::vector<ExternalProperty> MaterialModel::material_data(std::string container
 
 //! Returns property from given material id.
 
-ExternalProperty MaterialModel::material_property(const std::string& id)
-{
+ExternalProperty MaterialModel::material_property(const std::string& id) {
     for (const auto& prop : material_data())
         if (prop.identifier() == id)
             return prop;
@@ -103,16 +95,14 @@ ExternalProperty MaterialModel::material_property(const std::string& id)
 
 //! Clones material and adds it at the bottom of MaterialContainerItem.
 
-MaterialBaseItem* MaterialModel::cloneMaterial(const MaterialBaseItem* item)
-{
+MaterialBaseItem* MaterialModel::cloneMaterial(const MaterialBaseItem* item) {
     auto tagrow = item->tagRow().next();
     return static_cast<MaterialBaseItem*>(SessionModel::copyItem(item, item->parent(), tagrow));
 }
 
 //! Adds default material.
 
-SLDMaterialItem* MaterialModel::addDefaultMaterial(const ModelView::TagRow& tagrow)
-{
+SLDMaterialItem* MaterialModel::addDefaultMaterial(const ModelView::TagRow& tagrow) {
     auto material = insertItem<SLDMaterialItem>(materialContainer(), tagrow);
     material->set_properties("Default", QColor(Qt::green), rho_default, mu_default);
     return material;
@@ -120,8 +110,7 @@ SLDMaterialItem* MaterialModel::addDefaultMaterial(const ModelView::TagRow& tagr
 
 //! Populates the model with some default content.
 
-void MaterialModel::init_model()
-{
+void MaterialModel::init_model() {
     setItemCatalogue(CreateItemCatalogue());
 
     auto container = insertItem<MaterialContainerItem>();
@@ -135,8 +124,7 @@ void MaterialModel::init_model()
                              rho_si, mu_si);
 }
 
-MaterialContainerItem* MaterialModel::materialContainer()
-{
+MaterialContainerItem* MaterialModel::materialContainer() {
     return topItem<MaterialContainerItem>();
 }
 

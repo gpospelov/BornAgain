@@ -21,11 +21,9 @@
 using namespace DaRefl;
 using namespace ModelView;
 
-namespace
-{
+namespace {
 //! Helper function to set layer's parameters.
-void setup_layer(LayerItem* layer, double thickness, double sigma, SLDMaterialItem* material)
-{
+void setup_layer(LayerItem* layer, double thickness, double sigma, SLDMaterialItem* material) {
     layer->setProperty(LayerItem::P_THICKNESS, thickness);
     auto roughness = layer->item<RoughnessItem>(LayerItem::P_ROUGHNESS);
     roughness->setProperty(RoughnessItem::P_SIGMA, sigma);
@@ -36,8 +34,7 @@ void setup_layer(LayerItem* layer, double thickness, double sigma, SLDMaterialIt
 
 //! Tests of QuickSimUtils namespace functions.
 
-class QuickSimUtilsTest : public ::testing::Test
-{
+class QuickSimUtilsTest : public ::testing::Test {
 public:
     //! Helper container with testing data.
     struct TestData {
@@ -48,16 +45,14 @@ public:
         TestData()
             : item_pool(std::make_shared<ItemPool>())
             , sample_model(item_pool)
-            , material_model(item_pool)
-        {
+            , material_model(item_pool) {
             multilayer = sample_model.insertItem<DaRefl::MultiLayerItem>();
         }
 
         //! Add layer to given multilayer models. At the same time corresponding material will
         //! be added to MaterialModel and the Layer will be linked to it.
         void addLayer(DaRefl::MultiLayerItem* _multilayer, double thickness, double sigma,
-                      complex_t sld)
-        {
+                      complex_t sld) {
             auto material = material_model.insertItem<SLDMaterialItem>();
             material->set_properties("gold", QColor(), sld.real(), sld.imag());
             auto layer = sample_model.insertItem<LayerItem>(_multilayer);
@@ -65,8 +60,7 @@ public:
         }
 
         void addLayer(DaRefl::MultiLayerItem* _multilayer,
-                      const std::tuple<double, double, complex_t>& info)
-        {
+                      const std::tuple<double, double, complex_t>& info) {
             auto [thickness, sigma, sld] = info;
             addLayer(_multilayer, thickness, sigma, sld);
         }
@@ -79,8 +73,7 @@ QuickSimUtilsTest::~QuickSimUtilsTest() = default;
 
 //! Testing helper structure.
 
-TEST_F(QuickSimUtilsTest, testData)
-{
+TEST_F(QuickSimUtilsTest, testData) {
     TestData test_data;
 
     // creating single layer
@@ -104,8 +97,7 @@ TEST_F(QuickSimUtilsTest, testData)
 
 //! Multi-slice of empty MultiLayer.
 
-TEST_F(QuickSimUtilsTest, emptySlice)
-{
+TEST_F(QuickSimUtilsTest, emptySlice) {
     SampleModel model;
     auto multilayer = model.insertItem<DaRefl::MultiLayerItem>();
     auto multislice = DaRefl::Utils::CreateMultiSlice(*multilayer);
@@ -114,8 +106,7 @@ TEST_F(QuickSimUtilsTest, emptySlice)
 
 //! Multi-slice of MultiLayer with single layer without material.
 
-TEST_F(QuickSimUtilsTest, layerSlice)
-{
+TEST_F(QuickSimUtilsTest, layerSlice) {
     SampleModel model;
     auto multilayer = model.insertItem<DaRefl::MultiLayerItem>();
     model.insertItem<LayerItem>(multilayer);
@@ -130,8 +121,7 @@ TEST_F(QuickSimUtilsTest, layerSlice)
 
 //! Multi-slice of MultiLayer with single layer with defined material and roughness.
 
-TEST_F(QuickSimUtilsTest, definedLayerSlice)
-{
+TEST_F(QuickSimUtilsTest, definedLayerSlice) {
     TestData test_data;
 
     // initializing MaterialModel with single material
@@ -154,8 +144,7 @@ TEST_F(QuickSimUtilsTest, definedLayerSlice)
 
 //! Multi-slice of MultiLayer with three layers.
 
-TEST_F(QuickSimUtilsTest, threeLayerSlices)
-{
+TEST_F(QuickSimUtilsTest, threeLayerSlices) {
     TestData test_data;
 
     // initializing MaterialModel with single material
@@ -180,8 +169,7 @@ TEST_F(QuickSimUtilsTest, threeLayerSlices)
 
 //! Slice for MultiLayer containing air, repeated bi-layer and substrate.
 
-TEST_F(QuickSimUtilsTest, nestedMultiLayerSlice)
-{
+TEST_F(QuickSimUtilsTest, nestedMultiLayerSlice) {
     TestData test_data;
 
     // preparing layer data

@@ -17,13 +17,11 @@
 
 class QWidget;
 
-namespace ModelView
-{
+namespace ModelView {
 class ProjectManagerInterface;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class RecentProjectSettings;
 class UserInteractor;
@@ -33,8 +31,7 @@ class RecentProjectWidget;
 //! Main class to coordinate all activity on user's request to create new project,
 //! open existing one, or choose one of recent projects on disk.
 
-class DAREFLCORE_EXPORT ProjectHandler : public QObject
-{
+class DAREFLCORE_EXPORT ProjectHandler : public QObject {
     Q_OBJECT
 
 public:

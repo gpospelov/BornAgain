@@ -14,22 +14,19 @@
 #include <darefl/darefl_export.h>
 #include <memory>
 
-namespace ModelView
-{
+namespace ModelView {
 class GraphCanvas;
 class SceneAdapterInterface;
 class GraphViewportItem;
 class CustomPlotProxyWidget;
 } // namespace ModelView
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class RegionOfInterestItem;
 
 //! Custom graphics scene to show QCustomPlot with additional elements on top.
-class DAREFLCORE_EXPORT GraphicsScene : public QGraphicsScene
-{
+class DAREFLCORE_EXPORT GraphicsScene : public QGraphicsScene {
     Q_OBJECT
 
 public:

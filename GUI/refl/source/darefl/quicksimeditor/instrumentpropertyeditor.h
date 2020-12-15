@@ -12,13 +12,11 @@
 
 #include <darefl/darefl_export.h>
 
-namespace ModelView
-{
+namespace ModelView {
 class PropertyTreeView;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 
@@ -27,8 +25,7 @@ class ApplicationModels;
 //! Widget with InstrumentItem properties.
 //! Used to modify q-scan parameters, located under QuickSimEditor.
 
-class DAREFLCORE_EXPORT InstrumentPropertyEditor : public QWidget
-{
+class DAREFLCORE_EXPORT InstrumentPropertyEditor : public QWidget {
     Q_OBJECT
 
 public:

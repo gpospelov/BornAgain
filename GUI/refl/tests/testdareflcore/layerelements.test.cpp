@@ -28,8 +28,7 @@
 using namespace DaRefl;
 using namespace ModelView;
 
-class LayerElementControllerFriend : public LayerElementController
-{
+class LayerElementControllerFriend : public LayerElementController {
 public:
     LayerElementControllerFriend(LayerElementItem* item) : LayerElementController(item){};
     QRectF pubSideSegmentRect() const { return sideSegmentRect(); };
@@ -42,8 +41,7 @@ public:
     QRectF pubRightRoughnessHandleRect() const { return rightRoughnessHandleRect(); };
 };
 
-class SegmentElementViewFriend : public SegmentElementView
-{
+class SegmentElementViewFriend : public SegmentElementView {
 public:
     SegmentElementViewFriend() : SegmentElementView(){};
     QRectF rectangle() const { return m_rectangle; };
@@ -51,8 +49,7 @@ public:
     QBrush brush() const { return m_brush; };
 };
 
-class HandleElementViewFriend : public HandleElementView
-{
+class HandleElementViewFriend : public HandleElementView {
 public:
     HandleElementViewFriend() : HandleElementView(){};
     QRectF rectangle() const { return m_rectangle; };
@@ -60,8 +57,7 @@ public:
     QBrush brush() const { return m_brush; };
 };
 
-class RoughnessElementViewFriend : public RoughnessElementView
-{
+class RoughnessElementViewFriend : public RoughnessElementView {
 public:
     RoughnessElementViewFriend() : RoughnessElementView(){};
     QPainterPath leftPath() const { return m_left_path; };
@@ -71,8 +67,7 @@ public:
 };
 
 //! Tests of LayerViewController.
-class LayerElementTest : public ::testing::Test
-{
+class LayerElementTest : public ::testing::Test {
 public:
     ~LayerElementTest();
     struct TestData {
@@ -93,8 +88,7 @@ public:
 
         GraphicsScene* scene{nullptr};
 
-        TestData()
-        {
+        TestData() {
             exposed_layer_item = new LayerElementItem();
             exposed_controller = new LayerElementControllerFriend(exposed_layer_item);
 
@@ -118,8 +112,7 @@ LayerElementTest::~LayerElementTest() = default;
 
 //! Test the creation of the controller
 
-TEST_F(LayerElementTest, initialstate)
-{
+TEST_F(LayerElementTest, initialstate) {
     TestData test_data;
 
     //! Check the layer item system init
@@ -148,8 +141,7 @@ TEST_F(LayerElementTest, initialstate)
     EXPECT_EQ(nullptr, test_data.middle_controller->rightRoughnessHandle());
 }
 
-TEST_F(LayerElementTest, autopopulate)
-{
+TEST_F(LayerElementTest, autopopulate) {
     TestData test_data;
     test_data.middle_controller->autoPopulate();
 
@@ -179,8 +171,7 @@ TEST_F(LayerElementTest, autopopulate)
     EXPECT_NE(nullptr, test_data.middle_controller->rightRoughnessHandle());
 }
 
-TEST_F(LayerElementTest, addremoveabovebelow)
-{
+TEST_F(LayerElementTest, addremoveabovebelow) {
     TestData test_data;
 
     EXPECT_EQ(nullptr, test_data.above_controller->layerAbove());
@@ -223,8 +214,7 @@ TEST_F(LayerElementTest, addremoveabovebelow)
     EXPECT_EQ(nullptr, test_data.below_controller->layerBelow());
 }
 
-TEST_F(LayerElementTest, testgeometriesupdate)
-{
+TEST_F(LayerElementTest, testgeometriesupdate) {
     TestData test_data;
 
     // Grab the item to change the properties
@@ -469,8 +459,7 @@ TEST_F(LayerElementTest, testgeometriesupdate)
     EXPECT_DOUBLE_EQ(2 * r_handle_radius, right_roughness_handle_rec.height());
 }
 
-TEST_F(LayerElementTest, testviewsupdate)
-{
+TEST_F(LayerElementTest, testviewsupdate) {
     TestData test_data;
 
     // Connect the controller to the model
@@ -738,8 +727,7 @@ TEST_F(LayerElementTest, testviewsupdate)
     EXPECT_DOUBLE_EQ(2 * r_handle_radius, right_roughness_handle_rec.height());
 }
 
-TEST_F(LayerElementTest, testscene)
-{
+TEST_F(LayerElementTest, testscene) {
     TestData test_data;
 
     // Set and test the scene
@@ -775,8 +763,7 @@ TEST_F(LayerElementTest, testscene)
     EXPECT_EQ(test_data.scene, top_segment_middle->scene());
 }
 
-TEST_F(LayerElementTest, testpropagation)
-{
+TEST_F(LayerElementTest, testpropagation) {
     TestData test_data;
 
     auto adapter = test_data.scene->sceneAdapter();
@@ -1008,8 +995,7 @@ TEST_F(LayerElementTest, testpropagation)
     EXPECT_DOUBLE_EQ(move_arguments.at(1).value<double>(), 3);
     EXPECT_DOUBLE_EQ(3, item_middle->property<double>(LayerElementItem::P_ROUGHNESS));
 }
-TEST_F(LayerElementTest, moveelements)
-{
+TEST_F(LayerElementTest, moveelements) {
     TestData test_data;
     test_data.middle_controller->setLayerAbove(test_data.above_controller);
     test_data.middle_controller->setLayerBelow(test_data.below_controller);

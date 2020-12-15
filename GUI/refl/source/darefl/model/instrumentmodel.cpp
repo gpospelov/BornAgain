@@ -13,11 +13,9 @@
 
 using namespace ModelView;
 
-namespace
-{
+namespace {
 
-std::unique_ptr<ItemCatalogue> CreateItemCatalogue()
-{
+std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
     auto result = std::make_unique<ModelView::ItemCatalogue>();
     result->registerItem<DaRefl::SpecularInstrumentItem>();
     result->registerItem<DaRefl::SpecularBeamItem>();
@@ -29,12 +27,10 @@ std::unique_ptr<ItemCatalogue> CreateItemCatalogue()
 
 } // namespace
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 InstrumentModel::InstrumentModel(std::shared_ptr<ItemPool> pool)
-    : ModelView::SessionModel("InstrumentModel", pool)
-{
+    : ModelView::SessionModel("InstrumentModel", pool) {
     setItemCatalogue(CreateItemCatalogue());
     insertItem<SpecularInstrumentItem>();
 }

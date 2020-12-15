@@ -19,16 +19,14 @@
 #include <mvvm/widgets/allitemstreeview.h>
 #include <mvvm/widgets/widgetutils.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 SettingsView::SettingsView(ApplicationModels* models, QWidget* parent)
     : QWidget(parent)
     , m_listWidget(new QListWidget)
     , m_stackedWidget(new QStackedWidget)
     , m_tabWidget(new QTabWidget)
-    , m_models(models)
-{
+    , m_models(models) {
     init_list_selector();
     init_model_settings();
     init_other_settings();
@@ -44,8 +42,7 @@ SettingsView::SettingsView(ApplicationModels* models, QWidget* parent)
 //! Initialize tabs with model content.
 //! Each model will be represented by a single tree (with all items shown) in a tab.
 
-void SettingsView::init_model_settings()
-{
+void SettingsView::init_model_settings() {
     for (auto model : m_models->application_models()) {
         auto view = new ModelView::AllItemsTreeView(model);
         view->treeView()->setAlternatingRowColors(true);
@@ -54,8 +51,7 @@ void SettingsView::init_model_settings()
     m_stackedWidget->addWidget(m_tabWidget);
 }
 
-void SettingsView::init_list_selector()
-{
+void SettingsView::init_list_selector() {
     const int width = ModelView::Utils::WidthOfLetterM() * 10;
     m_listWidget->setFixedWidth(width);
     m_listWidget->setIconSize(
@@ -71,8 +67,7 @@ void SettingsView::init_list_selector()
             [this](int row) { m_stackedWidget->setCurrentIndex(row); });
 }
 
-void SettingsView::init_other_settings()
-{
+void SettingsView::init_other_settings() {
     m_stackedWidget->addWidget(new QWidget);
 }
 

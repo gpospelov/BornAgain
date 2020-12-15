@@ -19,16 +19,14 @@
 #include <mvvm/project/projectutils.h>
 #include <mvvm/widgets/widgetutils.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 WelcomeView::WelcomeView(ApplicationModels* models, QWidget* parent)
     : QWidget(parent)
     , m_models(models)
     , m_projectHandler(new ProjectHandler(models, this))
     , m_recentProjectWidget(new RecentProjectWidget)
-    , m_openProjectWidget(new OpenProjectWidget)
-{
+    , m_openProjectWidget(new OpenProjectWidget) {
     QPalette palette;
     palette.setColor(QPalette::Window, Qt::white);
     setAutoFillBackground(true);
@@ -48,43 +46,35 @@ WelcomeView::~WelcomeView() = default;
 //! Returns 'true' if current project can be closed.
 //! Internally will perform check for unsaved data, and proceed via save/discard/cancel dialog.
 
-bool WelcomeView::canCloseProject() const
-{
+bool WelcomeView::canCloseProject() const {
     return m_projectHandler->canCloseProject();
 }
 
-void WelcomeView::updateNames()
-{
+void WelcomeView::updateNames() {
     m_projectHandler->updateNames();
 }
 
-void WelcomeView::onCreateNewProject()
-{
+void WelcomeView::onCreateNewProject() {
     m_projectHandler->onCreateNewProject();
 }
 
-void WelcomeView::onOpenExistingProject(const QString& dirname)
-{
+void WelcomeView::onOpenExistingProject(const QString& dirname) {
     return m_projectHandler->onOpenExistingProject(dirname);
 }
 
-void WelcomeView::onSaveCurrentProject()
-{
+void WelcomeView::onSaveCurrentProject() {
     return m_projectHandler->onSaveCurrentProject();
 }
 
-void WelcomeView::onSaveProjectAs()
-{
+void WelcomeView::onSaveProjectAs() {
     return m_projectHandler->onSaveProjectAs();
 }
 
-void WelcomeView::onClearRecentProjectsList()
-{
+void WelcomeView::onClearRecentProjectsList() {
     m_projectHandler->clearRecentProjectsList();
 }
 
-void WelcomeView::setup_connections()
-{
+void WelcomeView::setup_connections() {
     // connect buttons of OpenProjectWidget with this slots.
     auto open_existing_project = [this]() { onOpenExistingProject(); };
     connect(m_openProjectWidget, &OpenProjectWidget::openExistingProjectRequest,

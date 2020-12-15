@@ -11,13 +11,11 @@
 #include <QMouseEvent>
 #include <darefl/materialeditor/materialtreeview.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 MaterialTreeView::~MaterialTreeView() = default;
 
-MaterialTreeView::MaterialTreeView(QWidget* parent) : QTreeView(parent)
-{
+MaterialTreeView::MaterialTreeView(QWidget* parent) : QTreeView(parent) {
     setAlternatingRowColors(true);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -25,14 +23,12 @@ MaterialTreeView::MaterialTreeView(QWidget* parent) : QTreeView(parent)
     header()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
-void MaterialTreeView::setModel(QAbstractItemModel* model)
-{
+void MaterialTreeView::setModel(QAbstractItemModel* model) {
     QTreeView::setModel(model);
     expandAll();
 }
 
-void MaterialTreeView::keyPressEvent(QKeyEvent* event)
-{
+void MaterialTreeView::keyPressEvent(QKeyEvent* event) {
     if (!event || event->key() != Qt::Key_Return || state() == QAbstractItemView::EditingState)
         return QTreeView::keyPressEvent(event);
 
@@ -42,8 +38,7 @@ void MaterialTreeView::keyPressEvent(QKeyEvent* event)
 }
 
 QModelIndex MaterialTreeView::moveCursor(QAbstractItemView::CursorAction cursorAction,
-                                         Qt::KeyboardModifiers modifiers)
-{
+                                         Qt::KeyboardModifiers modifiers) {
     const QModelIndex current_index = currentIndex();
     bool filtered_action = cursorAction == QAbstractItemView::MoveNext
                            || cursorAction == QAbstractItemView::MovePrevious;
@@ -59,13 +54,11 @@ QModelIndex MaterialTreeView::moveCursor(QAbstractItemView::CursorAction cursorA
     return next;
 }
 
-bool MaterialTreeView::isTextField(const QModelIndex& index) const
-{
+bool MaterialTreeView::isTextField(const QModelIndex& index) const {
     return index.isValid() && index.column() > 0; // color is not keyboard editable
 }
 
-bool MaterialTreeView::isKeyboardEditable(const QModelIndex& index) const
-{
+bool MaterialTreeView::isKeyboardEditable(const QModelIndex& index) const {
     return index.isValid();
 }
 

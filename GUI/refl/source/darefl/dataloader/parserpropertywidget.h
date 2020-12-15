@@ -20,16 +20,14 @@ class QButtonGroup;
 class QComboBox;
 class QLineEdit;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ParserInterface;
 
 //! Panel to setup ASCII parser. Intended for concrete class DefaultParser.
 //! Contains selection of separator symbols, patterns to ignore lines, and import target settings.
 
-class DAREFLCORE_EXPORT ParserPropertyWidget : public QWidget
-{
+class DAREFLCORE_EXPORT ParserPropertyWidget : public QWidget {
     Q_OBJECT
 
 public:

@@ -13,15 +13,13 @@
 #include <QToolBar>
 #include <darefl/darefl_export.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ImportDataEditorActions;
 
 //! Toolbar for ImportDataEditor.
 
-class DAREFLCORE_EXPORT ImportDataEditorToolBar : public QToolBar
-{
+class DAREFLCORE_EXPORT ImportDataEditorToolBar : public QToolBar {
     Q_OBJECT
 
 public:

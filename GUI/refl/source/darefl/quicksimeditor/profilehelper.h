@@ -10,21 +10,17 @@
 #ifndef DAREFL_QUICKSIMEDITOR_PROFILEHELPER_H
 #define DAREFL_QUICKSIMEDITOR_PROFILEHELPER_H
 
-#include <Base/Types/Complex.h>
 #include <darefl/darefl_export.h>
+#include <minikernel/Computation/Slice.h>
 #include <utility>
 #include <vector>
 
-class Slice;
-
 //! Object that can generate the material profile of a sample as a function of depth.
-namespace DaRefl
-{
+namespace DaRefl {
 
-class DAREFLCORE_EXPORT ProfileHelper
-{
+class DAREFLCORE_EXPORT ProfileHelper {
 public:
-    ProfileHelper(const std::vector<Slice>& sample);
+    ProfileHelper(const std::vector<BornAgain::Slice>& sample);
     ~ProfileHelper();
 
     std::vector<complex_t> calculateProfile(const std::vector<double>& z_values) const;

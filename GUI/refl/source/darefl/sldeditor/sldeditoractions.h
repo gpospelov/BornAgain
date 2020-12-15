@@ -14,16 +14,14 @@
 #include <darefl/darefl_export.h>
 #include <memory>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class SLDElementModel;
 
 //! Handles user actions applied to SLDEditor.
 //! Belongs to SLDEditor.
 
-class DAREFLCORE_EXPORT SLDEditorActions : public QObject
-{
+class DAREFLCORE_EXPORT SLDEditorActions : public QObject {
     Q_OBJECT
 
 public:

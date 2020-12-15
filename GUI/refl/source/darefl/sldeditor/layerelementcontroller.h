@@ -16,8 +16,7 @@
 #include <darefl/darefl_export.h>
 #include <vector>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 // The mvvm item associated to this layer
 class LayerElementItem;
@@ -31,8 +30,7 @@ class SegmentElementView;
 class RoughnessElementView;
 
 //! Manages the whole appearance of a layer on the graphicsscene
-class DAREFLCORE_EXPORT LayerElementController : public QObject
-{
+class DAREFLCORE_EXPORT LayerElementController : public QObject {
     Q_OBJECT
 
 public:

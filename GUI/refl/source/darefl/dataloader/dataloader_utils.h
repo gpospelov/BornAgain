@@ -12,13 +12,11 @@
 
 #include <darefl/dataloader/dataloader_types.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 struct GraphImportData;
 
-namespace Utils
-{
+namespace Utils {
 
 //! Loads ASCII file, returns it in the form of vector of strings.
 DAREFLCORE_EXPORT std::vector<std::string> LoadASCIIFile(const std::string& file_name);

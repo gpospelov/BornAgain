@@ -16,16 +16,13 @@
 #include <QPainter>
 #include <QTextBlock>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
-namespace
-{
+namespace {
 const int line_number_gap = 4;
 }
 
-ImportTextView::ImportTextView(QWidget* parent) : QPlainTextEdit(parent)
-{
+ImportTextView::ImportTextView(QWidget* parent) : QPlainTextEdit(parent) {
     lineNumberArea = new LineNumberArea(this);
 
     connect(this, &ImportTextView::blockCountChanged, this,
@@ -43,8 +40,7 @@ ImportTextView::ImportTextView(QWidget* parent) : QPlainTextEdit(parent)
     setFont(QFont("Monospace", ModelView::Utils::SystemPointSize() * 0.8, QFont::Light));
 }
 
-int ImportTextView::lineNumberAreaWidth()
-{
+int ImportTextView::lineNumberAreaWidth() {
     int digits = 1;
     int max = qMax(1, blockCount());
     while (max >= 10) {
@@ -57,13 +53,11 @@ int ImportTextView::lineNumberAreaWidth()
     return space;
 }
 
-void ImportTextView::updateLineNumberAreaWidth(int /* newBlockCount */)
-{
+void ImportTextView::updateLineNumberAreaWidth(int /* newBlockCount */) {
     setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
 }
 
-void ImportTextView::updateLineNumberArea(const QRect& rect, int dy)
-{
+void ImportTextView::updateLineNumberArea(const QRect& rect, int dy) {
     if (dy)
         lineNumberArea->scroll(0, dy);
     else
@@ -73,16 +67,14 @@ void ImportTextView::updateLineNumberArea(const QRect& rect, int dy)
         updateLineNumberAreaWidth(0);
 }
 
-void ImportTextView::resizeEvent(QResizeEvent* e)
-{
+void ImportTextView::resizeEvent(QResizeEvent* e) {
     QPlainTextEdit::resizeEvent(e);
 
     QRect cr = contentsRect();
     lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
 }
 
-void ImportTextView::highlightCurrentLine()
-{
+void ImportTextView::highlightCurrentLine() {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
     if (!isReadOnly()) {
@@ -100,8 +92,7 @@ void ImportTextView::highlightCurrentLine()
     setExtraSelections(extraSelections);
 }
 
-void ImportTextView::lineNumberAreaPaintEvent(QPaintEvent* event)
-{
+void ImportTextView::lineNumberAreaPaintEvent(QPaintEvent* event) {
     QPainter painter(lineNumberArea);
     painter.fillRect(event->rect(), Qt::lightGray);
 

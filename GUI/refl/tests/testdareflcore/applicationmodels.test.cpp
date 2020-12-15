@@ -18,8 +18,7 @@ using namespace ModelView;
 
 //! Tests of ApplicationModels
 
-class ApplicationModelsTest : public FolderBasedTest
-{
+class ApplicationModelsTest : public FolderBasedTest {
 public:
     ApplicationModelsTest() : FolderBasedTest("test_ApplicationModelsTest") {}
 
@@ -30,8 +29,7 @@ ApplicationModelsTest::~ApplicationModelsTest() = default;
 
 //! Testing that nothing is crashing on project save and load.
 
-TEST_F(ApplicationModelsTest, saveLoad)
-{
+TEST_F(ApplicationModelsTest, saveLoad) {
     auto project_dir = createEmptyDir("Untitled1");
 
     DaRefl::ApplicationModels models, loadedModels;

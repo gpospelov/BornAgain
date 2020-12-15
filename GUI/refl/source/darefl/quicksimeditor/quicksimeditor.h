@@ -13,8 +13,7 @@
 #include <QWidget>
 #include <darefl/darefl_export.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class JobModel;
 class ApplicationModels;
@@ -25,8 +24,7 @@ class SimPlotWidget;
 
 //! Quick reflectivity simulations.
 
-class DAREFLCORE_EXPORT QuickSimEditor : public QWidget
-{
+class DAREFLCORE_EXPORT QuickSimEditor : public QWidget {
     Q_OBJECT
 
 public:

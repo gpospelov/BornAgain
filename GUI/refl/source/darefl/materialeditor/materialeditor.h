@@ -13,8 +13,7 @@
 #include <QWidget>
 #include <darefl/darefl_export.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 class MaterialEditorActions;
@@ -23,8 +22,7 @@ class MaterialEditorWidget;
 
 //! Material editor.
 
-class DAREFLCORE_EXPORT MaterialEditor : public QWidget
-{
+class DAREFLCORE_EXPORT MaterialEditor : public QWidget {
     Q_OBJECT
 
 public:

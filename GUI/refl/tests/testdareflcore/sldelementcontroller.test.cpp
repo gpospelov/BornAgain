@@ -22,8 +22,7 @@
 using namespace DaRefl;
 using namespace ModelView;
 
-class SLDElementControllerTest : public ::testing::Test
-{
+class SLDElementControllerTest : public ::testing::Test {
 public:
     ~SLDElementControllerTest();
 
@@ -38,8 +37,7 @@ public:
         LayerItem* middle{nullptr};
         LayerItem* bottom{nullptr};
 
-        TestData()
-        {
+        TestData() {
             p_material_model = new MaterialModel();
             p_sample_model = new SampleModel();
             p_sld_model = new SLDElementModel();
@@ -58,8 +56,7 @@ public:
 
 SLDElementControllerTest::~SLDElementControllerTest() = default;
 
-TEST_F(SLDElementControllerTest, testInit)
-{
+TEST_F(SLDElementControllerTest, testInit) {
     TestData test_data;
 
     EXPECT_EQ(1, test_data.p_sample_model->rootItem()->childrenCount());
@@ -67,8 +64,7 @@ TEST_F(SLDElementControllerTest, testInit)
     EXPECT_EQ(3, test_data.p_sld_model->rootItem()->childrenCount());
 }
 
-TEST_F(SLDElementControllerTest, testInsertRemoveLayer)
-{
+TEST_F(SLDElementControllerTest, testInsertRemoveLayer) {
     TestData test_data;
 
     auto new_item = test_data.p_sample_model->insertItem<LayerItem>(
@@ -85,8 +81,7 @@ TEST_F(SLDElementControllerTest, testInsertRemoveLayer)
     EXPECT_EQ(3, test_data.p_sld_model->rootItem()->childrenCount());
 }
 
-TEST_F(SLDElementControllerTest, testClearAllLayer)
-{
+TEST_F(SLDElementControllerTest, testClearAllLayer) {
     TestData test_data;
 
     test_data.p_sample_model->removeItem(test_data.top->parent(),

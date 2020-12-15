@@ -13,16 +13,15 @@
 #include <darefl/darefl_export.h>
 #include <mvvm/signals/modellistener.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class SampleModel;
 class MaterialModel;
 
 //! Listens for all changes in material model and updates properties in SampleModel.
 
-class DAREFLCORE_EXPORT MaterialPropertyController : public ModelView::ModelListener<MaterialModel>
-{
+class DAREFLCORE_EXPORT MaterialPropertyController
+    : public ModelView::ModelListener<MaterialModel> {
 public:
     MaterialPropertyController(MaterialModel* material_model, SampleModel* sample_model);
 

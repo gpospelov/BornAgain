@@ -14,13 +14,11 @@
 #include <string>
 #include <vector>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Interface for all classes capable of parsing ASCII data into multicolumn presentation.
 
-class DAREFLCORE_EXPORT ParserInterface
-{
+class DAREFLCORE_EXPORT ParserInterface {
 public:
     virtual ~ParserInterface() = default;
 

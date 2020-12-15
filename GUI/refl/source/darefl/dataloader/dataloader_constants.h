@@ -13,8 +13,7 @@
 #include <string>
 #include <vector>
 
-namespace DaRefl::Constants
-{
+namespace DaRefl::Constants {
 
 const std::string AxisType = "Axis";
 const std::string IntensityType = "Intensity";

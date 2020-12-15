@@ -14,8 +14,7 @@
 #include <darefl/darefl_export.h>
 #include <string>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ExperimentalDataModel;
 struct GraphImportData;
@@ -29,8 +28,7 @@ class CanvasItem;
 
 //! Main editor to import user data.
 
-class DAREFLCORE_EXPORT ImportDataEditor : public QWidget
-{
+class DAREFLCORE_EXPORT ImportDataEditor : public QWidget {
     Q_OBJECT
 
 public:

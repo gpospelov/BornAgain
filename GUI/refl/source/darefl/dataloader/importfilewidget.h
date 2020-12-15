@@ -16,15 +16,13 @@
 class QListView;
 class QStringListModel;
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! Provides the possibility to select file names on disk and add them to list view.
 //! List represents names of ASCII files which will be later imported and parsed.
 //! Part of LoaderPreviewPanel.
 
-class DAREFLCORE_EXPORT ImportFileWidget : public QWidget
-{
+class DAREFLCORE_EXPORT ImportFileWidget : public QWidget {
     Q_OBJECT
 
 public:

@@ -14,8 +14,7 @@
 #include <darefl/darefl_export.h>
 #include <vector>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 using complex_t = std::complex<double>;
 

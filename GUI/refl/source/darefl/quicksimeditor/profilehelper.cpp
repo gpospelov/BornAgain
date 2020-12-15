@@ -8,18 +8,16 @@
 // ************************************************************************** //
 
 #include <darefl/quicksimeditor/profilehelper.h>
-#include <Sample/Slice/LayerRoughness.h>
-#include <Sample/Slice/Slice.h>
+#include <minikernel/Basics/MathConstants.h>
+#include <minikernel/MultiLayer/LayerRoughness.h>
 
-namespace
-{
+namespace {
 const double prefactor = std::sqrt(2.0 / M_PI);
 double Transition(double x, double sigma);
 double TransitionTanh(double x);
 } // namespace
 
-DaRefl::ProfileHelper::ProfileHelper(const std::vector<Slice>& sample)
-{
+DaRefl::ProfileHelper::ProfileHelper(const std::vector<BornAgain::Slice>& sample) {
     auto N = sample.size();
     m_materialdata.reserve(N);
     if (N > 1) {
@@ -33,7 +31,7 @@ DaRefl::ProfileHelper::ProfileHelper(const std::vector<Slice>& sample)
         if (i + 1 < N) {
             m_zlimits.push_back(bottom_z);
             auto sigma = 0.;
-            if(auto roughness = sample[i + 1].topRoughness())
+            if (auto roughness = sample[i + 1].topRoughness())
                 sigma = roughness->getSigma();
 
             m_sigmas.push_back(sigma);
@@ -44,8 +42,8 @@ DaRefl::ProfileHelper::ProfileHelper(const std::vector<Slice>& sample)
 // Note: for refractive index materials, the material interpolation actually happens at the level
 // of n^2. To first order in delta and beta, this implies the same smooth interpolation of delta
 // and beta, as is done here.
-std::vector<complex_t> DaRefl::ProfileHelper::calculateProfile(const std::vector<double>& z_values) const
-{
+std::vector<complex_t>
+DaRefl::ProfileHelper::calculateProfile(const std::vector<double>& z_values) const {
     complex_t top_value = m_materialdata.size() ? m_materialdata[0] : 0.0;
     std::vector<complex_t> result(z_values.size(), top_value);
     for (size_t i = 0; i < m_zlimits.size(); ++i) {
@@ -59,8 +57,7 @@ std::vector<complex_t> DaRefl::ProfileHelper::calculateProfile(const std::vector
     return result;
 }
 
-std::pair<double, double> DaRefl::ProfileHelper::defaultLimits() const
-{
+std::pair<double, double> DaRefl::ProfileHelper::defaultLimits() const {
     if (m_zlimits.size() < 1)
         return {0.0, 0.0};
     double interface_span = m_zlimits.front() - m_zlimits.back();
@@ -74,16 +71,13 @@ std::pair<double, double> DaRefl::ProfileHelper::defaultLimits() const
 
 DaRefl::ProfileHelper::~ProfileHelper() = default;
 
-namespace
-{
-double Transition(double x, double sigma)
-{
+namespace {
+double Transition(double x, double sigma) {
     if (sigma <= 0.0)
         return x < 0.0 ? 1.0 : 0.0;
     return TransitionTanh(x / sigma);
 }
-double TransitionTanh(double x)
-{
+double TransitionTanh(double x) {
     return (1.0 - std::tanh(prefactor * x)) / 2.0;
 }
 } // namespace

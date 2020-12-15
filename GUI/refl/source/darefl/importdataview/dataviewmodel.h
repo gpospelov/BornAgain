@@ -13,20 +13,17 @@
 #include <darefl/darefl_export.h>
 #include <mvvm/viewmodel/topitemsviewmodel.h>
 
-namespace ModelView
-{
+namespace ModelView {
 class SessionModel;
 }
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ExperimentalDataModel;
 
 //! View model for ExperimentalDataModel with drag-and-drop support.
 
-class DAREFLCORE_EXPORT DataViewModel : public ModelView::TopItemsViewModel
-{
+class DAREFLCORE_EXPORT DataViewModel : public ModelView::TopItemsViewModel {
     Q_OBJECT
 
 public:

@@ -13,16 +13,14 @@
 #include <darefl/darefl_export.h>
 #include <mvvm/editors/defaulteditorfactory.h>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class ApplicationModels;
 
 //! Custom editor factory for LayerTreeView. Substitutes default ExternalProperty editor
 //! with custom one, which will offer the choice between all defined materials.
 
-class DAREFLCORE_EXPORT CustomLayerTreeEditorFactory : public ModelView::DefaultEditorFactory
-{
+class DAREFLCORE_EXPORT CustomLayerTreeEditorFactory : public ModelView::DefaultEditorFactory {
 public:
     CustomLayerTreeEditorFactory(ApplicationModels* models);
     ~CustomLayerTreeEditorFactory();

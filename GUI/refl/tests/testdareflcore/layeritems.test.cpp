@@ -17,8 +17,7 @@ using namespace ModelView;
 
 //! Test layer items.
 
-class LayerItemsTest : public ::testing::Test
-{
+class LayerItemsTest : public ::testing::Test {
 public:
     ~LayerItemsTest();
 };
@@ -31,8 +30,7 @@ LayerItemsTest::~LayerItemsTest() = default;
 // FIXME restore testing of thickness and roughness appearance for top and bottom layers
 // FIXME together with  layeritems.cpp
 
-TEST_F(LayerItemsTest, layerAppearanceTwoLayerSystem)
-{
+TEST_F(LayerItemsTest, layerAppearanceTwoLayerSystem) {
     SampleModel model;
 
     auto multilayer = model.insertItem<MultiLayerItem>();
@@ -49,8 +47,7 @@ TEST_F(LayerItemsTest, layerAppearanceTwoLayerSystem)
     EXPECT_EQ(bottom->property<double>(LayerItem::P_THICKNESS), 0.0);
 }
 
-TEST_F(LayerItemsTest, layerAppearanceThreeLayerSystem)
-{
+TEST_F(LayerItemsTest, layerAppearanceThreeLayerSystem) {
     SampleModel model;
 
     auto multilayer = model.insertItem<MultiLayerItem>();

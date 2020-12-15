@@ -15,12 +15,10 @@
 
 #include <QGraphicsObject>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 //! The interface of any QGraphicsViewItem on GraphicsScene to the Sceneadapter
-class DAREFLCORE_EXPORT ElementView : public QGraphicsObject
-{
+class DAREFLCORE_EXPORT ElementView : public QGraphicsObject {
     Q_OBJECT
 
 public:

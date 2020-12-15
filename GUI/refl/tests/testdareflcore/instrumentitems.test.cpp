@@ -21,23 +21,20 @@ using namespace ModelView;
 
 //! Tests of ExperimentalDataModel.
 
-class InstrumentItemsTest : public ::testing::Test
-{
+class InstrumentItemsTest : public ::testing::Test {
 public:
     ~InstrumentItemsTest();
 };
 
 InstrumentItemsTest::~InstrumentItemsTest() = default;
 
-TEST_F(InstrumentItemsTest, experimentalScanItemInitialState)
-{
+TEST_F(InstrumentItemsTest, experimentalScanItemInitialState) {
     ExperimentalScanItem item;
     EXPECT_EQ(item.graphItem(), nullptr);
     EXPECT_TRUE(item.qScanValues().empty());
 }
 
-TEST_F(InstrumentItemsTest, experimentalScanGetValues)
-{
+TEST_F(InstrumentItemsTest, experimentalScanGetValues) {
     InstrumentModel model;
 
     // preparing DataItem

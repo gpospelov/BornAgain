@@ -16,15 +16,13 @@
 #include <map>
 #include <string>
 
-namespace DaRefl
-{
+namespace DaRefl {
 
 class LayerEditorActions;
 
 //! Layer editor toolbar.
 
-class DAREFLCORE_EXPORT LayerEditorToolBar : public QToolBar
-{
+class DAREFLCORE_EXPORT LayerEditorToolBar : public QToolBar {
     Q_OBJECT
 
 public:

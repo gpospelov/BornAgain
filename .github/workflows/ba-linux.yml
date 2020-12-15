@@ -97,6 +97,8 @@ jobs:
          path: ./build/BornAgain-*.tar.gz
 
     - name: Testing
+      env:
+        QT_QPA_PLATFORM: offscreen        
       run: |
         cd $GITHUB_WORKSPACE/build
         ccache -s

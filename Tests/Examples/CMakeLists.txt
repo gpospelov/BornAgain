@@ -23,7 +23,7 @@ set(test_script ${TOOL_DIR}/code/batch-plot.py)
 
 foreach(example_path ${examples})
     get_filename_component(example_name ${example_path} NAME_WE)
-    set(test_name PyExamples.${example_name})
+    set(test_name Example.run.${example_name})
     add_test(${test_name}
         env PYTHONPATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
         ${Python3_EXECUTABLE} ${test_script} -s ${example_path} ${output_dir})
@@ -42,7 +42,7 @@ function(test_example example tolerance)
     get_filename_component(EXAMPLE_NAME ${script_path} NAME_WE)
     get_filename_component(EXAMPLE_DIR ${script_path} DIRECTORY)
 
-    set(test_name PyPersistence.${EXAMPLE_NAME})
+    set(test_name Example.persist.${EXAMPLE_NAME})
 
     set(PYPERSIST_TOLERANCE ${tolerance})
 

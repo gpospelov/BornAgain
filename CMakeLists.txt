@@ -156,6 +156,7 @@ endif()
 add_subdirectory(Tests/UnitTests/Core)
 add_subdirectory(Tests/UnitTests/Numeric)
 add_subdirectory(Tests/Performance/Core)
+add_subdirectory(Tests/Examples)
 
 # GUI
 if(BORNAGAIN_GUI)

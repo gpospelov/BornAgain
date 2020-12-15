@@ -52,7 +52,7 @@ option(ZERO_TOLERANCE "Terminate compilation on warnings" OFF)
 option(BORNAGAIN_COVERAGE "Build with test coverage information" OFF)
 option(BORNAGAIN_DEBUG_OPTIMIZATION "Build with debug optimization (gcc only)" OFF)
 option(BORNAGAIN_TIDY "Invokes clang-tidy" OFF)
-option(BORNAGAIN_NEWREFL "Compile reflectometry GUI prototype" ON)
+option(BORNAGAIN_NEWREFL "Compile reflectometry GUI prototype" OFF)
 
 if(BORNAGAIN_TIDY AND BORNAGAIN_PYTHON)
     message(FATAL_ERROR "BORNAGAIN_TIDY is incompatible with BORNAGAIN_PYTHON")

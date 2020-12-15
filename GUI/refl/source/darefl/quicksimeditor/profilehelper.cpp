@@ -8,8 +8,8 @@
 // ************************************************************************** //
 
 #include <darefl/quicksimeditor/profilehelper.h>
-#include <minikernel/Basics/MathConstants.h>
-#include <minikernel/MultiLayer/LayerRoughness.h>
+#include <Sample/Slice/LayerRoughness.h>
+#include <Sample/Slice/Slice.h>
 
 namespace {
 const double prefactor = std::sqrt(2.0 / M_PI);
@@ -17,7 +17,7 @@ double Transition(double x, double sigma);
 double TransitionTanh(double x);
 } // namespace
 
-DaRefl::ProfileHelper::ProfileHelper(const std::vector<BornAgain::Slice>& sample) {
+DaRefl::ProfileHelper::ProfileHelper(const std::vector<Slice>& sample) {
     auto N = sample.size();
     m_materialdata.reserve(N);
     if (N > 1) {

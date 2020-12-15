@@ -11,7 +11,7 @@
 #define DAREFL_QUICKSIMEDITOR_PROFILEHELPER_H
 
 #include <darefl/darefl_export.h>
-#include <minikernel/Computation/Slice.h>
+#include <Sample/Slice/Slice.h>
 #include <utility>
 #include <vector>
 
@@ -20,7 +20,7 @@ namespace DaRefl {
 
 class DAREFLCORE_EXPORT ProfileHelper {
 public:
-    ProfileHelper(const std::vector<BornAgain::Slice>& sample);
+    ProfileHelper(const std::vector<Slice>& sample);
     ~ProfileHelper();
 
     std::vector<complex_t> calculateProfile(const std::vector<double>& z_values) const;

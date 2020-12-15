@@ -7,6 +7,7 @@
 //
 // ************************************************************************** //
 
+#include <Sample/Slice/Slice.h>
 #include <darefl/quicksimeditor/materialprofile.h>
 #include <darefl/quicksimeditor/profilehelper.h>
 #include <darefl/quicksimeditor/quicksimutils.h>

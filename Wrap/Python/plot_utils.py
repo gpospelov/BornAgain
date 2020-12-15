@@ -23,6 +23,8 @@ except Exception as e:
 
 label_fontsize = 16
 
+CMAP = "CMAP" in os.environ and os.environ["CMAP"] or 'inferno'
+
 
 def get_axes_limits(result, units):
     """
@@ -100,10 +102,10 @@ def plot_array(array, axes_limits=None, **kwargs):
     xlabel = kwargs.pop('xlabel', None)
     ylabel = kwargs.pop('ylabel', None)
     zlabel = kwargs.pop('zlabel', "Intensity")
-
     title = kwargs.pop('title', None)
+    cmap = kwargs.pop('cmap', CMAP)
 
-    im = plt.imshow(array, norm=norm, extent=axes_limits, **kwargs)
+    im = plt.imshow(array, cmap=cmap, norm=norm, extent=axes_limits, **kwargs)
     cb = plt.colorbar(im, pad=0.025)
 
     if xlabel:

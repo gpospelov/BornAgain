@@ -13,82 +13,104 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Views/SampleView.h"
+#include "Base/Utils/Assert.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
+#include "GUI/coregui/Models/FilterPropertyProxy.h"
+#include "GUI/coregui/Views/CommonWidgets/DocksController.h"
+#include "GUI/coregui/Views/SampleDesigner/RealSpacePanel.h"
 #include "GUI/coregui/Views/SampleDesigner/SampleDesigner.h"
+#include "GUI/coregui/Views/SampleDesigner/SamplePropertyWidget.h"
 #include "GUI/coregui/Views/SampleDesigner/SampleToolBar.h"
 #include "GUI/coregui/Views/SampleDesigner/SampleTreeWidget.h"
-#include "GUI/coregui/Views/SampleDesigner/SampleViewActions.h"
-#include "GUI/coregui/Views/SampleDesigner/SampleViewDocks.h"
-#include "GUI/coregui/Views/SampleDesigner/SampleViewStatusBar.h"
+#include "GUI/coregui/Views/SampleDesigner/SampleWidgetBox.h"
+#include "GUI/coregui/Views/SampleDesigner/ScriptPanel.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
+#include <QDockWidget>
 #include <QMenu>
 #include <memory>
 
 SampleView::SampleView(MainWindow* mainWindow)
-    : Manhattan::FancyMainWindow(mainWindow)
-    , m_models(mainWindow->models())
-    , m_docks(new SampleViewDocks(this))
-    , m_actions(new SampleViewActions(mainWindow->models()->sampleModel(), this))
-    , m_toolBar(nullptr)
-    , m_statusBar(new SampleViewStatusBar(mainWindow)) {
-    setObjectName("SampleView");
-    m_actions->setSelectionModel(selectionModel());
+    : QMainWindow(mainWindow), m_docks(new DocksController(this)) {
 
+    setObjectName("SampleView");
+    createSubWindows();
     connectSignals();
 }
 
 ApplicationModels* SampleView::models() {
-    return m_models;
+    return MainWindow::instance()->models();
 }
 
-SampleViewDocks* SampleView::docks() {
-    return m_docks;
+void SampleView::toggleRealSpaceView() {
+    m_docks->toggleDock(REALSPACEPANEL);
 }
 
-void SampleView::onDockMenuRequest() {
-    std::unique_ptr<QMenu> menu(createPopupMenu());
-    menu->exec(QCursor::pos());
+void SampleView::fillViewMenu(QMenu* menu) {
+    m_docks->addDockActionsToMenu(menu);
+
+    menu->addSeparator();
+
+    QAction* action = new QAction(menu);
+    action->setText("Reset to default layout");
+    connect(action, &QAction::triggered, this, &SampleView::resetLayout);
+    menu->addAction(action);
 }
 
-void SampleView::showEvent(QShowEvent* event) {
-    if (isVisible())
-        m_statusBar->show();
-    Manhattan::FancyMainWindow::showEvent(event);
-}
+void SampleView::createSubWindows() {
+    m_sampleDesigner = new SampleDesigner(this);
+    m_widgetBox = new SampleWidgetBox(m_sampleDesigner, this);
+    m_treeWidget = new SampleTreeWidget(this, models()->sampleModel());
+    m_propertyWidget = new SamplePropertyWidget(m_treeWidget->treeView()->selectionModel(), this);
+    m_scriptPanel = new ScriptPanel(this);
+    m_realSpacePanel = new RealSpacePanel(models()->sampleModel(),
+                                          m_treeWidget->treeView()->selectionModel(), this);
 
-void SampleView::hideEvent(QHideEvent* event) {
-    if (isHidden())
-        m_statusBar->hide();
-    Manhattan::FancyMainWindow::hideEvent(event);
+    m_docks->addWidget(WIDGET_BOX, m_widgetBox, Qt::LeftDockWidgetArea);
+    m_docks->addWidget(SAMPLE_TREE, m_treeWidget, Qt::RightDockWidgetArea);
+    m_docks->addWidget(PROPERTY_EDITOR, m_propertyWidget, Qt::RightDockWidgetArea);
+    m_docks->addWidget(INFO, m_scriptPanel, Qt::BottomDockWidgetArea);
+    m_docks->addWidget(REALSPACEPANEL, m_realSpacePanel, Qt::BottomDockWidgetArea);
+
+    connect(m_scriptPanel, &ScriptPanel::widgetHeightRequest, m_docks,
+            &DocksController::setDockHeightForWidget);
+
+    m_scriptPanel->setSampleModel(models()->sampleModel());
+    m_scriptPanel->setInstrumentModel(models()->instrumentModel());
+
+    m_sampleDesigner->setModels(models());
+    m_sampleDesigner->setSelectionModel(
+        m_treeWidget->treeView()->selectionModel(),
+        dynamic_cast<FilterPropertyProxy*>(
+            const_cast<QAbstractItemModel*>(m_treeWidget->treeView()->model())));
+
+    setCentralWidget(m_sampleDesigner->getCentralWidget());
+    resetLayout();
 }
 
 void SampleView::connectSignals() {
-    connect(this, &SampleView::resetLayout, m_docks, &SampleViewDocks::onResetLayout);
-    connect(m_statusBar, &SampleViewStatusBar::dockMenuRequest, this,
-            &SampleView::onDockMenuRequest);
-
     // toolBar should be initialized after MaterialBrowser
-    m_toolBar = new SampleToolBar(m_actions, this);
-    connect(m_toolBar, SIGNAL(deleteItems()), sampleDesigner()->getView(),
-            SLOT(deleteSelectedItems()));
-    connect(m_toolBar, SIGNAL(selectionMode(int)), sampleDesigner()->getView(),
-            SLOT(onSelectionMode(int)));
-    connect(sampleDesigner()->getView(), SIGNAL(selectionModeChanged(int)), m_toolBar,
-            SLOT(onViewSelectionMode(int)));
-    connect(m_toolBar, SIGNAL(centerView()), sampleDesigner()->getView(), SLOT(onCenterView()));
-    connect(m_toolBar, SIGNAL(changeScale(double)), sampleDesigner()->getView(),
-            SLOT(onChangeScale(double)));
-
-    connect(sampleDesigner()->getScene(), SIGNAL(selectionModeChangeRequest(int)),
-            sampleDesigner()->getView(), SLOT(onSelectionMode(int)));
+    m_toolBar = new SampleToolBar(this);
+    connect(m_toolBar, &SampleToolBar::deleteItems, m_sampleDesigner->getView(),
+            &DesignerView::deleteSelectedItems);
+    connect(m_toolBar, &SampleToolBar::selectionMode, m_sampleDesigner->getView(),
+            &DesignerView::onSelectionMode);
+    connect(m_sampleDesigner->getView(), &DesignerView::selectionModeChanged, m_toolBar,
+            &SampleToolBar::onViewSelectionMode);
+    connect(m_toolBar, &SampleToolBar::centerView, m_sampleDesigner->getView(),
+            &DesignerView::onCenterView);
+    connect(m_toolBar, &SampleToolBar::changeScale, m_sampleDesigner->getView(),
+            &DesignerView::onChangeScale);
+    connect(m_sampleDesigner->getScene(), &DesignerScene::selectionModeChangeRequest,
+            m_sampleDesigner->getView(), &DesignerView::onSelectionMode);
 
     addToolBar(m_toolBar);
 }
 
-QItemSelectionModel* SampleView::selectionModel() {
-    return m_docks->treeWidget()->treeView()->selectionModel();
-}
+void SampleView::resetLayout() {
+    m_docks->resetLayout();
+    tabifyDockWidget(m_docks->findDock(REALSPACEPANEL), m_docks->findDock(INFO));
+    m_docks->findDock(REALSPACEPANEL)->raise(); // makes first tab active
 
-SampleDesigner* SampleView::sampleDesigner() {
-    return m_docks->sampleDesigner();
+    m_docks->findDock(REALSPACEPANEL)->hide();
+    m_docks->findDock(INFO)->hide();
 }

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H
 #define BORNAGAIN_GUI_COREGUI_MAINWINDOW_MAINWINDOW_H
 
-#include <qt-manhattan-style/fancymainwindow.h>
+#include <QMainWindow>
 
 class WelcomeView;
 class InstrumentView;
@@ -43,7 +43,7 @@ class QStatusBar;
 class QToolButton;
 class QVBoxLayout;
 
-class MainWindow : public Manhattan::FancyMainWindow {
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -68,11 +68,17 @@ public:
     ProjectManager* projectManager();
     UpdateNotifier* updateNotifier();
 
+    QWidget* currentView() const;
+    void setCurrentView(int viewId);
+
 public slots:
     void onFocusRequest(int index);
     void openRecentProject();
     void onRunSimulationShortcut();
     void onSessionModelViewActive(bool isActive);
+
+signals:
+    void currentViewChanged(ViewId newView);
 
 protected:
     void closeEvent(QCloseEvent* event);

@@ -15,22 +15,25 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H
 
-#include <qt-manhattan-style/fancymainwindow.h>
+#include <QMainWindow>
 
 class MainWindow;
 class JobViewDocks;
 class JobViewStatusBar;
 class JobProgressAssistant;
 class JobItem;
+class DocksController;
 
 //! The JobView class is a main view to show list of jobs, job results and widgets for real time
 //! and fitting activities.
 
-class JobView : public Manhattan::FancyMainWindow {
+class JobView : public QMainWindow {
     Q_OBJECT
 
 public:
     JobView(MainWindow* mainWindow);
+
+    DocksController* docks();
 
 signals:
     void focusRequest(int);
@@ -39,7 +42,6 @@ signals:
 public slots:
     void onFocusRequest(JobItem* jobItem);
     void setActivity(int activity);
-    void onDockMenuRequest();
     void onSelectionChanged(JobItem* jobItem);
 
 protected:
@@ -49,7 +51,6 @@ protected:
 private:
     void connectSignals();
     void connectActivityRelated();
-    void connectLayoutRelated();
     void connectJobRelated();
 
     void setAppropriateActivityForJob(JobItem* jobItem);

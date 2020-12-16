@@ -19,18 +19,16 @@
 #include "GUI/coregui/Views/SampleDesigner/SampleTreeWidget.h"
 #include "GUI/coregui/Views/SampleDesigner/SampleViewActions.h"
 #include "GUI/coregui/Views/SampleDesigner/SampleViewDocks.h"
-#include "GUI/coregui/Views/SampleDesigner/SampleViewStatusBar.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include <QMenu>
 #include <memory>
 
 SampleView::SampleView(MainWindow* mainWindow)
-    : Manhattan::FancyMainWindow(mainWindow)
+    : QMainWindow(mainWindow)
     , m_models(mainWindow->models())
     , m_docks(new SampleViewDocks(this))
     , m_actions(new SampleViewActions(mainWindow->models()->sampleModel(), this))
-    , m_toolBar(nullptr)
-    , m_statusBar(new SampleViewStatusBar(mainWindow)) {
+    , m_toolBar(nullptr) {
     setObjectName("SampleView");
     m_actions->setSelectionModel(selectionModel());
 
@@ -41,32 +39,11 @@ ApplicationModels* SampleView::models() {
     return m_models;
 }
 
-SampleViewDocks* SampleView::docks() {
+DocksController* SampleView::docks() {
     return m_docks;
 }
 
-void SampleView::onDockMenuRequest() {
-    std::unique_ptr<QMenu> menu(createPopupMenu());
-    menu->exec(QCursor::pos());
-}
-
-void SampleView::showEvent(QShowEvent* event) {
-    if (isVisible())
-        m_statusBar->show();
-    Manhattan::FancyMainWindow::showEvent(event);
-}
-
-void SampleView::hideEvent(QHideEvent* event) {
-    if (isHidden())
-        m_statusBar->hide();
-    Manhattan::FancyMainWindow::hideEvent(event);
-}
-
 void SampleView::connectSignals() {
-    connect(this, &SampleView::resetLayout, m_docks, &SampleViewDocks::onResetLayout);
-    connect(m_statusBar, &SampleViewStatusBar::dockMenuRequest, this,
-            &SampleView::onDockMenuRequest);
-
     // toolBar should be initialized after MaterialBrowser
     m_toolBar = new SampleToolBar(m_actions, this);
     connect(m_toolBar, SIGNAL(deleteItems()), sampleDesigner()->getView(),

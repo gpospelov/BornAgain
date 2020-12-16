@@ -94,7 +94,7 @@ void JobViewDocks::setActivity(int activity) {
     for (auto x : docksToShow)
         docks_id.push_back(static_cast<int>(x));
 
-    show_docks(docks_id);
+    setVisibleDocks(docks_id);
 }
 
 void JobViewDocks::setItem(JobItem* jobItem) {

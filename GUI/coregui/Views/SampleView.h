@@ -15,20 +15,20 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEVIEW_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEVIEW_H
 
-#include <qt-manhattan-style/fancymainwindow.h>
+#include <QMainWindow>
 
 class MainWindow;
 class SampleViewDocks;
+class DocksController;
 class SampleDesigner;
 class SampleToolBar;
 class ApplicationModels;
 class QItemSelectionModel;
-class SampleViewStatusBar;
 class QShowEvent;
 class QHideEvent;
 class SampleViewActions;
 
-class SampleView : public Manhattan::FancyMainWindow {
+class SampleView : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -36,14 +36,7 @@ public:
 
     ApplicationModels* models();
 
-    SampleViewDocks* docks();
-
-public slots:
-    void onDockMenuRequest();
-
-protected:
-    virtual void showEvent(QShowEvent* event);
-    virtual void hideEvent(QHideEvent* event);
+    DocksController* docks();
 
 private:
     void connectSignals();
@@ -59,8 +52,6 @@ private:
     SampleViewActions* m_actions;
 
     SampleToolBar* m_toolBar;
-
-    SampleViewStatusBar* m_statusBar;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEVIEW_H

@@ -31,11 +31,13 @@ public:
     ActionManager(MainWindow* parent);
 
 private slots:
-    void aboutToShowFileMenu();
-    void aboutToShowSettings();
+    void onAboutToShowFileMenu();
+    void onAboutToShowSettingsMenu();
+    void onAboutToShowViewMenu();
     void toggleCheckForUpdates(bool status);
     void setSessionModelViewActive(bool status);
     void onAboutApplication();
+    void onCurrentViewChanged();
 #ifdef BORNAGAIN_PYTHON
     void onImportFromPythonScript();
 #endif // BORNAGAIN_PYTHON
@@ -53,6 +55,7 @@ private:
     QMenuBar* m_menuBar;
     QMenu* m_fileMenu;
     QMenu* m_settingsMenu;
+    QMenu* m_viewMenu;
     QMenu* m_recentProjectsMenu;
     QMenu* m_helpMenu;
     QMenu* m_importMenu;

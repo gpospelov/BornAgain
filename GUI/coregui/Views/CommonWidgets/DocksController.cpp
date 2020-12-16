@@ -18,15 +18,60 @@
 #include <QAbstractItemView>
 #include <QAction>
 #include <QDockWidget>
+#include <QEvent>
+#include <QMainWindow>
+#include <QMenu>
+#include <QSettings>
 #include <QTimer>
-#include <qt-manhattan-style/fancymainwindow.h>
 
-DocksController::DocksController(Manhattan::FancyMainWindow* mainWindow)
-    : QObject(mainWindow), m_mainWindow(mainWindow) {
+namespace {
+static const char dockWidgetActiveState[] = "DockWidgetActiveState";
+static const char StateKey[] = "State";
+static const int settingsVersion = 2;
+
+QString stripAccelerator(const QString& text) {
+    QString res = text;
+    for (int index = res.indexOf('&'); index != -1; index = res.indexOf('&', index + 1))
+        res.remove(index, 1);
+    return res;
+}
+
+} // namespace
+
+DocksController::DocksController(QMainWindow* mainWindow)
+    : QObject(mainWindow), m_handleDockVisibilityChanges(true), m_mainWindow(mainWindow) {
     m_mainWindow->setDocumentMode(true);
     m_mainWindow->setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
     m_mainWindow->setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
     m_mainWindow->setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
+    m_mainWindow->installEventFilter(this);
+}
+
+QDockWidget* DocksController::addDockForWidget(QWidget* widget) {
+    auto dockWidget = new QDockWidget(m_mainWindow);
+    dockWidget->setWidget(widget);
+    dockWidget->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetClosable
+                            | QDockWidget::DockWidgetFloatable);
+    dockWidget->setObjectName(widget->objectName() + QLatin1String("DockWidget"));
+
+    QString title = widget->windowTitle();
+    dockWidget->toggleViewAction()->setProperty("original_title", title);
+    title = stripAccelerator(title);
+    dockWidget->setWindowTitle(title);
+
+    connect(dockWidget->toggleViewAction(), &QAction::triggered, [=]() {
+        if (dockWidget->isVisible())
+            dockWidget->raise();
+    });
+
+    connect(dockWidget, &QDockWidget::visibilityChanged, [this, dockWidget](bool visible) {
+        if (m_handleDockVisibilityChanges)
+            dockWidget->setProperty(dockWidgetActiveState, visible);
+    });
+
+    dockWidget->setProperty(dockWidgetActiveState, true);
+
+    return dockWidget;
 }
 
 void DocksController::addWidget(int id, QWidget* widget, Qt::DockWidgetArea area) {
@@ -34,7 +79,7 @@ void DocksController::addWidget(int id, QWidget* widget, Qt::DockWidgetArea area
         throw GUIHelpers::Error("DocksController::addWidget() -> Error. "
                                 "Attempt to add widget id twice");
 
-    auto dock = m_mainWindow->addDockForWidget(widget);
+    auto dock = addDockForWidget(widget);
     m_docks[id] = DockWidgetInfo(dock, widget, area);
 
     QList<QAbstractItemView*> frames = widget->findChildren<QAbstractItemView*>();
@@ -43,9 +88,8 @@ void DocksController::addWidget(int id, QWidget* widget, Qt::DockWidgetArea area
 }
 
 void DocksController::onResetLayout() {
-    m_mainWindow->setTrackingEnabled(false);
-    QList<QDockWidget*> dockWidgetList = m_mainWindow->dockWidgets();
-    for (QDockWidget* dockWidget : dockWidgetList) {
+    setTrackingEnabled(false);
+    for (QDockWidget* dockWidget : dockWidgets()) {
         dockWidget->setFloating(false);
         m_mainWindow->removeDockWidget(dockWidget);
     }
@@ -55,15 +99,19 @@ void DocksController::onResetLayout() {
 
         // Fixes issue: https://bugreports.qt.io/browse/QTBUG-65592
 #if QT_VERSION >= 0x050600
-    dockWidgetList = m_mainWindow->dockWidgets();
-    if (dockWidgetList.size() > 0)
-        m_mainWindow->resizeDocks({dockWidgetList.first()}, {10}, Qt::Horizontal);
+    if (dockWidgets().size() > 0)
+        m_mainWindow->resizeDocks({dockWidgets().first()}, {10}, Qt::Horizontal);
 #endif
 
-    for (QDockWidget* dockWidget : dockWidgetList)
+    for (QDockWidget* dockWidget : dockWidgets())
         dockWidget->show();
 
-    m_mainWindow->setTrackingEnabled(true);
+    setTrackingEnabled(true);
+}
+
+void DocksController::toggleDock(int id) {
+    auto dock = findDock(id);
+    dock->setHidden(!dock->isHidden());
 }
 
 QDockWidget* DocksController::findDock(int id) {
@@ -78,11 +126,15 @@ QDockWidget* DocksController::findDock(QWidget* widget) {
     throw GUIHelpers::Error("DocksController::findDock() -> Can't find dock for widget");
 }
 
+const QList<QDockWidget*> DocksController::dockWidgets() const {
+    return m_mainWindow->findChildren<QDockWidget*>();
+}
+
 //! Show docks with id's from the list. Other docks will be hidden.
 
-void DocksController::show_docks(const std::vector<int>& docks_to_show) {
+void DocksController::setVisibleDocks(const std::vector<int>& visibleDocks) {
     for (auto& it : m_docks) {
-        if (std::find(docks_to_show.begin(), docks_to_show.end(), it.first) != docks_to_show.end())
+        if (std::find(visibleDocks.begin(), visibleDocks.end(), it.first) != visibleDocks.end())
             it.second.dock()->show();
         else
             it.second.dock()->hide();
@@ -124,7 +176,7 @@ void DocksController::dockToMinMaxSizes() {
     m_dock_info.m_dock = nullptr;
 }
 
-void DocksController::onWidgetCloseRequest() {
+void DocksController::onWidgetCloseRequest() { // #TODO refactor this. Using sender is not OOD
     QWidget* widget = qobject_cast<QWidget*>(sender());
     ASSERT(widget);
     QDockWidget* dock = findDock(widget);
@@ -133,7 +185,7 @@ void DocksController::onWidgetCloseRequest() {
     dock->toggleViewAction()->trigger();
 }
 
-Manhattan::FancyMainWindow* DocksController::mainWindow() {
+QMainWindow* DocksController::mainWindow() {
     return m_mainWindow;
 }
 
@@ -142,4 +194,93 @@ DockWidgetInfo DocksController::get_info(int id) {
         throw GUIHelpers::Error("DocksController::addWidget() -> Error. Non existing id.");
 
     return m_docks[id];
+}
+
+void DocksController::setTrackingEnabled(bool enabled) {
+    if (enabled) {
+        m_handleDockVisibilityChanges = true;
+        for (QDockWidget* dockWidget : dockWidgets())
+            dockWidget->setProperty(dockWidgetActiveState, dockWidget->isVisible());
+    } else {
+        m_handleDockVisibilityChanges = false;
+    }
+}
+
+void DocksController::handleWindowVisibilityChanged(bool visible) {
+    m_handleDockVisibilityChanges = false;
+    for (QDockWidget* dockWidget : dockWidgets()) {
+        if (dockWidget->isFloating()) {
+            dockWidget->setVisible(visible && dockWidget->property(dockWidgetActiveState).toBool());
+        }
+    }
+    if (visible)
+        m_handleDockVisibilityChanges = true;
+}
+
+bool DocksController::eventFilter(QObject* obj, QEvent* event) {
+    if (event->type() == QEvent::Show)
+        handleWindowVisibilityChanged(true);
+    else if (event->type() == QEvent::Hide)
+        handleWindowVisibilityChanged(false);
+
+    return QObject::eventFilter(obj, event);
+}
+
+void DocksController::addDockActionsToMenu(QMenu* menu) {
+    QList<QAction*> actions;
+    for (auto dockWidget : dockWidgets()) {
+        if (dockWidget->property("managed_dockwidget").isNull()
+            && dockWidget->parentWidget() == m_mainWindow) {
+            QAction* action = dockWidget->toggleViewAction();
+            action->setText(action->property("original_title").toString());
+            actions.append(action);
+        }
+    }
+    std::sort(actions.begin(), actions.end(), [](const QAction* action1, const QAction* action2) {
+        return stripAccelerator(action1->text()).toLower()
+               < stripAccelerator(action2->text()).toLower();
+    });
+
+    foreach (QAction* action, actions)
+        menu->addAction(action);
+
+    menu->addSeparator();
+
+    QAction* action = new QAction(menu);
+    action->setText("Reset to default layout");
+    connect(action, &QAction::triggered, this, &DocksController::onResetLayout);
+    menu->addAction(action);
+}
+
+void DocksController::saveSettings(QSettings* settings) const {
+    QHash<QString, QVariant> hash = saveSettings();
+    QHashIterator<QString, QVariant> it(hash);
+    while (it.hasNext()) {
+        it.next();
+        settings->setValue(it.key(), it.value());
+    }
+}
+
+void DocksController::restoreSettings(const QSettings* settings) {
+    QHash<QString, QVariant> hash;
+    foreach (const QString& key, settings->childKeys()) { hash.insert(key, settings->value(key)); }
+    restoreSettings(hash);
+}
+
+QHash<QString, QVariant> DocksController::saveSettings() const {
+    QHash<QString, QVariant> settings;
+    settings.insert(QLatin1String(StateKey), m_mainWindow->saveState(settingsVersion));
+    for (QDockWidget* dockWidget : dockWidgets()) {
+        settings.insert(dockWidget->objectName(), dockWidget->property(dockWidgetActiveState));
+    }
+    return settings;
+}
+
+void DocksController::restoreSettings(const QHash<QString, QVariant>& settings) {
+    QByteArray ba = settings.value(QLatin1String(StateKey), QByteArray()).toByteArray();
+    if (!ba.isEmpty())
+        m_mainWindow->restoreState(ba, settingsVersion);
+    for (QDockWidget* widget : dockWidgets()) {
+        widget->setProperty(dockWidgetActiveState, settings.value(widget->objectName(), false));
+    }
 }

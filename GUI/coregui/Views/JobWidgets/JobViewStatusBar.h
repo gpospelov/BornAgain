@@ -30,9 +30,7 @@ public:
     JobViewStatusBar(MainWindow* mainWindow);
 
 signals:
-    void toggleJobSelectorRequest();
     void changeActivityRequest(int);
-    void dockMenuRequest();
 
 public slots:
     void onActivityChanged(int activity);
@@ -40,9 +38,7 @@ public slots:
 private:
     void initAppearance();
 
-    QToolButton* m_toggleJobListButton;
     QComboBox* m_activityCombo;
-    QToolButton* m_dockMenuButton;
     MainWindow* m_mainWindow;
 };
 

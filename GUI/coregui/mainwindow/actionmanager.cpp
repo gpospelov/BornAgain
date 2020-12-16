@@ -15,6 +15,7 @@
 #include "GUI/coregui/mainwindow/actionmanager.h"
 #include "Base/Utils/Assert.h"
 #include "Base/Utils/SysUtils.h"
+#include "GUI/coregui/Views/CommonWidgets/DocksController.h"
 #include "GUI/coregui/mainwindow/PyImportAssistant.h"
 #include "GUI/coregui/mainwindow/UpdateNotifier.h"
 #include "GUI/coregui/mainwindow/aboutapplicationdialog.h"
@@ -23,6 +24,8 @@
 #include "GUI/coregui/mainwindow/projectmanager.h"
 #include "GUI/coregui/utils/hostosinfo.h"
 #include "GUI/coregui/utils/qstringutils.h"
+#include "Views/JobView.h"
+#include "Views/SampleView.h"
 #include <QDir>
 #include <QMenuBar>
 #include <QSettings>
@@ -40,6 +43,7 @@ ActionManager::ActionManager(MainWindow* parent)
     , m_menuBar(nullptr)
     , m_fileMenu(nullptr)
     , m_settingsMenu(nullptr)
+    , m_viewMenu(nullptr)
     , m_recentProjectsMenu(nullptr)
     , m_helpMenu(nullptr)
     , m_importMenu(nullptr)
@@ -47,6 +51,9 @@ ActionManager::ActionManager(MainWindow* parent)
     createActions();
     createMenus();
     createGlobalShortcuts();
+
+    connect(m_mainWindow, &MainWindow::currentViewChanged, this,
+            &ActionManager::onCurrentViewChanged);
 }
 
 void ActionManager::createActions() {
@@ -102,7 +109,7 @@ void ActionManager::createMenus() {
     m_fileMenu = m_menuBar->addMenu("&File");
     m_fileMenu->addAction(m_newAction);
     m_fileMenu->addAction(m_openAction);
-    connect(m_fileMenu, &QMenu::aboutToShow, this, &ActionManager::aboutToShowFileMenu);
+    connect(m_fileMenu, &QMenu::aboutToShow, this, &ActionManager::onAboutToShowFileMenu);
 
     m_recentProjectsMenu = m_fileMenu->addMenu("&Recent Projects");
 
@@ -130,14 +137,23 @@ void ActionManager::createMenus() {
 
     // Settings Menu
     m_settingsMenu = new QMenu("&Settings", m_mainWindow);
-    aboutToShowSettings(); // MacOS feature: action should exist already, otherwise menuBar will not
-                           // add menu
-    connect(m_settingsMenu, &QMenu::aboutToShow, this, &ActionManager::aboutToShowSettings);
+    onAboutToShowSettingsMenu(); // MacOS feature: action should exist already, otherwise menuBar
+                                 // will not add menu
+    connect(m_settingsMenu, &QMenu::aboutToShow, this, &ActionManager::onAboutToShowSettingsMenu);
     m_menuBar->addMenu(m_settingsMenu);
+
+    // View menu
+    m_viewMenu = new QMenu("&View", m_mainWindow);
+    onAboutToShowViewMenu(); // MacOS feature: action should exist already, otherwise menuBar will
+                             // not add menu
+    connect(m_viewMenu, &QMenu::aboutToShow, this, &ActionManager::onAboutToShowViewMenu);
+    m_menuBar->addMenu(m_viewMenu);
 
     // Help Menu
     m_helpMenu = m_menuBar->addMenu("&Help");
     m_helpMenu->addAction(m_aboutAction);
+
+    onCurrentViewChanged();
 }
 
 void ActionManager::createGlobalShortcuts() {
@@ -147,7 +163,7 @@ void ActionManager::createGlobalShortcuts() {
             &MainWindow::onRunSimulationShortcut);
 }
 
-void ActionManager::aboutToShowFileMenu() {
+void ActionManager::onAboutToShowFileMenu() {
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
@@ -172,7 +188,7 @@ void ActionManager::aboutToShowFileMenu() {
     }
 }
 
-void ActionManager::aboutToShowSettings() {
+void ActionManager::onAboutToShowSettingsMenu() {
     m_settingsMenu->clear();
     QSettings settings;
 
@@ -203,6 +219,16 @@ void ActionManager::aboutToShowSettings() {
     m_settingsMenu->setToolTipsVisible(true);
 }
 
+void ActionManager::onAboutToShowViewMenu() {
+    m_viewMenu->clear();
+
+    auto view = m_mainWindow->currentView();
+    if (auto sampleView = dynamic_cast<SampleView*>(view); sampleView != nullptr)
+        sampleView->docks()->addDockActionsToMenu(m_viewMenu);
+    if (auto jobView = dynamic_cast<JobView*>(view); jobView != nullptr)
+        jobView->docks()->addDockActionsToMenu(m_viewMenu);
+}
+
 void ActionManager::toggleCheckForUpdates(bool status) {
     m_mainWindow->updateNotifier()->setCheckUpdatesFlag(status);
     m_mainWindow->updateNotifier()->checkForUpdates();
@@ -219,6 +245,13 @@ void ActionManager::setSessionModelViewActive(bool status) {
 void ActionManager::onAboutApplication() {
     AboutApplicationDialog dialog(m_mainWindow);
     dialog.exec();
+}
+
+void ActionManager::onCurrentViewChanged() {
+    // not every view support view menu entries -> hide it, if empty
+    onAboutToShowViewMenu();
+    const bool isEmpty = m_viewMenu->actions().isEmpty();
+    m_viewMenu->menuAction()->setVisible(!m_viewMenu->actions().isEmpty());
 }
 
 #ifdef BORNAGAIN_PYTHON

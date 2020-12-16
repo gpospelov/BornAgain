@@ -36,6 +36,10 @@ JobView::JobView(MainWindow* mainWindow)
     connectSignals();
 }
 
+DocksController* JobView::docks() {
+    return m_docks;
+}
+
 void JobView::onFocusRequest(JobItem* jobItem) {
     if (jobItem->runInBackground())
         return;
@@ -55,13 +59,6 @@ void JobView::setActivity(int activity) {
     emit activityChanged(activity);
 }
 
-//! Creates global dock menu at cursor position.
-
-void JobView::onDockMenuRequest() {
-    std::unique_ptr<QMenu> menu(createPopupMenu());
-    menu->exec(QCursor::pos());
-}
-
 //! Propagates change in JobItem's selection down into main widgets.
 
 void JobView::onSelectionChanged(JobItem* jobItem) {
@@ -69,22 +66,22 @@ void JobView::onSelectionChanged(JobItem* jobItem) {
 }
 
 void JobView::showEvent(QShowEvent* event) {
+    // #TODO refactor this after status bar is empty
     if (isVisible())
         m_statusBar->show();
 
-    Manhattan::FancyMainWindow::showEvent(event);
+    QMainWindow::showEvent(event);
 }
 
 void JobView::hideEvent(QHideEvent* event) {
     if (isHidden())
         m_statusBar->hide();
 
-    Manhattan::FancyMainWindow::hideEvent(event);
+    QMainWindow::hideEvent(event);
 }
 
 void JobView::connectSignals() {
     connectActivityRelated();
-    connectLayoutRelated();
     connectJobRelated();
 }
 
@@ -100,19 +97,6 @@ void JobView::connectActivityRelated() {
     // Activity was changed: this -> JobOutputDataWidget
     connect(this, &JobView::activityChanged, m_docks->jobOutputDataWidget(),
             &JobOutputDataWidget::onActivityChanged);
-}
-
-//! Connects signals related to dock layout.
-
-void JobView::connectLayoutRelated() {
-    connect(this, &JobView::resetLayout, m_docks, &JobViewDocks::onResetLayout);
-
-    // Toggling of JobSelector request: JobViewStatusBar -> this
-    connect(m_statusBar, &JobViewStatusBar::toggleJobSelectorRequest, m_docks,
-            &JobViewDocks::onToggleJobSelector);
-
-    // Dock menu request: JobViewStatusBar -> this
-    connect(m_statusBar, &JobViewStatusBar::dockMenuRequest, this, &JobView::onDockMenuRequest);
 }
 
 //! Connects signals related to JobItem

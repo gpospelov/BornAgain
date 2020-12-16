@@ -22,7 +22,6 @@
 #include <QPainter>
 #include <QStyleOptionProgressBarV2>
 #include <QWidget>
-#include <qt-manhattan-style/progressbar.h>
 
 JobListViewDelegate::JobListViewDelegate(QWidget* parent) : QItemDelegate(parent) {
     m_buttonState = QStyle::State_Enabled;

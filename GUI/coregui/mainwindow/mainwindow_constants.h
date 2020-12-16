@@ -45,11 +45,6 @@ const int MAX_RECENT_PROJECTS = 10;
 
 const char MIME_JOBQUEUE[] = "application/org.bornagainproject.jobqueue";
 
-// Colors
-const unsigned int MAIN_THEME_COLOR = 0x086FA1;
-const unsigned int BUTTON_COLOR = 0x044362;
-const unsigned int BUTTON_TEXT_COLOR = 0xFFFFFF;
-
 // Hints
 
 const unsigned int REALTIME_WIDGET_WIDTH_HINT = 480;

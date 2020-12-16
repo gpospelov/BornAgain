@@ -48,9 +48,8 @@ public:
     SampleTreeWidget* treeWidget();
     SamplePropertyWidget* propertyWidget();
 
-    void onResetLayout() override;
-
-    void toggleDock(int id);
+    void onResetLayout() override; // #TODO: Replace by setDefault after creation, which stores
+                                   // default internally, no onResetLayout then anymore
 
 private:
     SampleDesigner* m_sampleDesigner;

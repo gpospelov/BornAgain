@@ -23,6 +23,7 @@ class SampleView;
 
 //! Holds all actions of SampleView.
 
+// #TODO refactor this mini class
 class SampleViewActions : public QObject {
     Q_OBJECT
 public:

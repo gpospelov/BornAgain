@@ -80,11 +80,6 @@ void SampleViewDocks::onResetLayout() {
     findDock(INFO)->hide();
 }
 
-void SampleViewDocks::toggleDock(int id) {
-    auto dock = findDock(id);
-    dock->setHidden(!dock->isHidden());
-}
-
 SampleDesigner* SampleViewDocks::sampleDesigner() {
     return m_sampleDesigner;
 }

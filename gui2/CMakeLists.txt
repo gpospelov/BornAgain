@@ -35,6 +35,6 @@ target_include_directories(${library_name} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/..>
     $<BUILD_INTERFACE:${DAREFL_AUTOGEN_DIR}>)
 
-set(executable_name darefl)
+set(executable_name bornagain2)
 add_executable(${executable_name} main.cpp)
 target_link_libraries(${executable_name} PRIVATE dareflcore)

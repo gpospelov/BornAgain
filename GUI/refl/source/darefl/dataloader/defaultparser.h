@@ -42,7 +42,7 @@ private:
     accept_string_t m_isValidLineContent;
     line_splitter_t m_line_splitter;
     std::vector<std::string> m_rawData;
-    //!< correspondance of parsed data to original line index
+    //!< correspondence of parsed data to original line index
     std::map<size_t, std::vector<std::string>> m_parsedData;
 };
 

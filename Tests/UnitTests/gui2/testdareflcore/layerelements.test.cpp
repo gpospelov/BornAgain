@@ -10,15 +10,15 @@
 #include "google_test.h"
 
 #include "test_utils.h"
-#include <darefl/model/materialmodel.h>
-#include <darefl/model/samplemodel.h>
-#include <darefl/sldeditor/graphicsscene.h>
-#include <darefl/sldeditor/handleelementview.h>
-#include <darefl/sldeditor/layerelementcontroller.h>
-#include <darefl/sldeditor/layerelementitem.h>
-#include <darefl/sldeditor/roughnesselementview.h>
-#include <darefl/sldeditor/segmentelementview.h>
-#include <darefl/sldeditor/sldelementmodel.h>
+#include "gui2/model/materialmodel.h"
+#include "gui2/model/samplemodel.h"
+#include "gui2/sldeditor/graphicsscene.h"
+#include "gui2/sldeditor/handleelementview.h"
+#include "gui2/sldeditor/layerelementcontroller.h"
+#include "gui2/sldeditor/layerelementitem.h"
+#include "gui2/sldeditor/roughnesselementview.h"
+#include "gui2/sldeditor/segmentelementview.h"
+#include "gui2/sldeditor/sldelementmodel.h"
 #include "mvvm/viewmodel/viewmodelutils.h"
 
 #include <QColor>

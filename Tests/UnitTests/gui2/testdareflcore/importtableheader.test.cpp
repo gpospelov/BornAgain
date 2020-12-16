@@ -9,9 +9,9 @@
 
 #include "google_test.h"
 #include "test_utils.h"
-#include <darefl/dataloader/dataloader_constants.h>
-#include <darefl/dataloader/dataloader_types.h>
-#include <darefl/dataloader/importtableheader.h>
+#include "gui2/dataloader/dataloader_constants.h"
+#include "gui2/dataloader/dataloader_types.h"
+#include "gui2/dataloader/importtableheader.h"
 #include "mvvm/model/comboproperty.h"
 
 using namespace DaRefl;

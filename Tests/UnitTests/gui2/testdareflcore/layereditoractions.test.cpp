@@ -10,12 +10,12 @@
 #include "google_test.h"
 #include "test_utils.h"
 #include <QDebug>
-#include <darefl/layereditor/layereditoractions.h>
-#include <darefl/layereditor/layerselectionmodel.h>
-#include <darefl/layereditor/layerviewmodel.h>
-#include <darefl/model/item_constants.h>
-#include <darefl/model/sampleitems.h>
-#include <darefl/model/samplemodel.h>
+#include "gui2/layereditor/layereditoractions.h"
+#include "gui2/layereditor/layerselectionmodel.h"
+#include "gui2/layereditor/layerviewmodel.h"
+#include "gui2/model/item_constants.h"
+#include "gui2/model/sampleitems.h"
+#include "gui2/model/samplemodel.h"
 #include "mvvm/viewmodel/standardviewitems.h"
 #include "mvvm/viewmodel/viewmodelutils.h"
 

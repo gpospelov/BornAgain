@@ -9,10 +9,10 @@
 
 #include "google_test.h"
 #include "test_utils.h"
-#include <darefl/layereditor/layerselectionmodel.h>
-#include <darefl/layereditor/layerviewmodel.h>
-#include <darefl/model/sampleitems.h>
-#include <darefl/model/samplemodel.h>
+#include "gui2/layereditor/layerselectionmodel.h"
+#include "gui2/layereditor/layerviewmodel.h"
+#include "gui2/model/sampleitems.h"
+#include "gui2/model/samplemodel.h"
 #include "mvvm/viewmodel/viewmodelutils.h"
 
 using namespace DaRefl;

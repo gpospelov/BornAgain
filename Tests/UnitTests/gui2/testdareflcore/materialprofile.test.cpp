@@ -8,7 +8,7 @@
 // ************************************************************************** //
 
 #include "google_test.h"
-#include <darefl/quicksimeditor/materialprofile.h>
+#include "gui2/quicksimeditor/materialprofile.h"
 
 using namespace DaRefl;
 

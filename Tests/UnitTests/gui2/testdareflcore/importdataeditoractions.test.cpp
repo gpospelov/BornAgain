@@ -9,12 +9,12 @@
 
 #include "google_test.h"
 #include "test_utils.h"
-#include <darefl/importdataview/dataselectionmodel.h>
-#include <darefl/importdataview/dataviewmodel.h>
-#include <darefl/importdataview/graphimportdata.h>
-#include <darefl/importdataview/importdataeditoractions.h>
-#include <darefl/model/experimentaldataitems.h>
-#include <darefl/model/experimentaldatamodel.h>
+#include "gui2/importdataview/dataselectionmodel.h"
+#include "gui2/importdataview/dataviewmodel.h"
+#include "gui2/importdataview/graphimportdata.h"
+#include "gui2/importdataview/importdataeditoractions.h"
+#include "gui2/model/experimentaldataitems.h"
+#include "gui2/model/experimentaldatamodel.h"
 #include "mvvm/model/comboproperty.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/standarditems/graphitem.h"

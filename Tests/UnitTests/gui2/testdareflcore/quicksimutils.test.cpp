@@ -9,11 +9,11 @@
 
 #include "google_test.h"
 #include <QColor>
-#include <darefl/model/materialitems.h>
-#include <darefl/model/materialmodel.h>
-#include <darefl/model/sampleitems.h>
-#include <darefl/model/samplemodel.h>
-#include <darefl/quicksimeditor/quicksimutils.h>
+#include "gui2/model/materialitems.h"
+#include "gui2/model/materialmodel.h"
+#include "gui2/model/sampleitems.h"
+#include "gui2/model/samplemodel.h"
+#include "gui2/quicksimeditor/quicksimutils.h"
 #include "mvvm/model/externalproperty.h"
 #include "mvvm/model/itempool.h"
 #include <tuple>

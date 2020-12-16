@@ -9,10 +9,10 @@
 
 #include "google_test.h"
 
-#include <darefl/importdataview/graphimportdata.h>
-#include <darefl/model/experimentaldataitems.h>
-#include <darefl/model/experimentaldatamodel.h>
-#include <darefl/model/item_constants.h>
+#include "gui2/importdataview/graphimportdata.h"
+#include "gui2/model/experimentaldataitems.h"
+#include "gui2/model/experimentaldatamodel.h"
+#include "gui2/model/item_constants.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/standarditems/data1ditem.h"
 #include "mvvm/standarditems/graphitem.h"

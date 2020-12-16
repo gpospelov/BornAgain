@@ -9,9 +9,9 @@
 
 #include "folderbasedtest.h"
 #include "test_utils.h"
-#include <darefl/dataloader/dataloader_constants.h>
-#include <darefl/dataloader/dataloader_utils.h>
-#include <darefl/importdataview/graphimportdata.h>
+#include "gui2/dataloader/dataloader_constants.h"
+#include "gui2/dataloader/dataloader_utils.h"
+#include "gui2/importdataview/graphimportdata.h"
 #include <initializer_list>
 #include <vector>
 

@@ -11,13 +11,13 @@
 
 #include "test_utils.h"
 #include <QGraphicsScene>
-#include <darefl/model/materialmodel.h>
-#include <darefl/model/sampleitems.h>
-#include <darefl/model/samplemodel.h>
-#include <darefl/sldeditor/graphicsscene.h>
-#include <darefl/sldeditor/layerelementcontroller.h>
-#include <darefl/sldeditor/sldelementcontroller.cpp>
-#include <darefl/sldeditor/sldelementmodel.h>
+#include "gui2/model/materialmodel.h"
+#include "gui2/model/sampleitems.h"
+#include "gui2/model/samplemodel.h"
+#include "gui2/sldeditor/graphicsscene.h"
+#include "gui2/sldeditor/layerelementcontroller.h"
+#include "gui2/sldeditor/sldelementcontroller.cpp"
+#include "gui2/sldeditor/sldelementmodel.h"
 
 using namespace DaRefl;
 using namespace ModelView;

@@ -1,5 +1,54 @@
+###############################################################################
+# Run unmodified examples
+###############################################################################
+
+set(test_script ${TOOL_DIR}/code/batch-plot.py)
+
+set(output_dir ${TEST_OUTPUT_DIR_PY_EXAMPLES})
+file(MAKE_DIRECTORY ${output_dir})
+
+# Run one Python example.
+# Check whether the example passes.
+# Don't check results.
+# If there are matplotlib commands, skip plt.show().
+function(run_example example label)
+    get_filename_component(name ${example} NAME_WE)
+    set(test_name Example.run.${name})
+    add_test(${test_name}
+        env PYTHONPATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY} NOSHOW=TRUE
+        ${Python3_EXECUTABLE} ${test_script} -s ${example} ${output_dir})
+    if(NOT label STREQUAL "")
+        set_tests_properties(${test_name} PROPERTIES LABELS ${label})
+    endif()
+endfunction()
+
+function(run_examples examples label)
+    foreach(example ${examples})
+        run_example(${example} ${label})
+    endforeach()
+endfunction()
+
+# Examples from scatter2d; all but one prototype get the label XL
+set(prototype ${EXAMPLES_DIR}/scatter2d/CylindersInDWBA.py)
+file(GLOB examples ${EXAMPLES_DIR}/scatter2d/*.py)
+list(REMOVE_ITEM examples ${prototype})
+run_example(${prototype} "")
+run_examples(${examples} "XL")
+
+# Examples from other directories
+file(GLOB examples
+    ${EXAMPLES_DIR}/specular/*.py
+    ${EXAMPLES_DIR}/varia/*.py
+    ${EXAMPLES_DIR}/fit55_Specular/FitSpecularBasics.py)
+if (WIN32)
+    # Convergence problem in Gauss-Kronrod integration
+    list(REMOVE_ITEM examples ${EXAMPLES_DIR}/scatter2d/Interference2DParaCrystal.py)
+endif()
+list(REMOVE_ITEM examples ${EXAMPLES_DIR}/varia/SimulationParameters.py)
+run_examples(${examples} "")
+
 ############################################################################
-# Tests/Functional/PyCore/persistence/CMakeLists.txt
+# Check results of modified examples
 ############################################################################
 
 set(OUTPUT_DIR ${TEST_OUTPUT_DIR_PY_PERSIST})
@@ -11,7 +60,7 @@ function(test_example example tolerance)
     get_filename_component(EXAMPLE_NAME ${script_path} NAME_WE)
     get_filename_component(EXAMPLE_DIR ${script_path} DIRECTORY)
 
-    set(test_name PyPersistence.${EXAMPLE_NAME})
+    set(test_name Example.persist.${EXAMPLE_NAME})
 
     set(PYPERSIST_TOLERANCE ${tolerance})
 

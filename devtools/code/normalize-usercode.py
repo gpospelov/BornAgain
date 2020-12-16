@@ -55,7 +55,7 @@ def cycle_text(ti, fname):
     Returns normalized version of script ti as obtained from BornAgain's export-to-Python function.
     """
     s = retrieve_simulation(ti, fname)
-    return ba.generateSimulationCode(s)
+    return ba.simulationPlotCode(s)
 
 
 def normalize_text(ti, fname):
@@ -92,10 +92,9 @@ def normalize_file(fname, inplace):
                 print(f'.. read {len(ti.split())} lines')
 
         m = re.search(r"""if __name__ == '__main__':
-    result = run_simulation\(\)
-    ba.plot_simulation_result\(result.*?\)""", ti)
+    ba.run_and_plot\(get_simulation\(get_sample\(\)\)\)""", ti)
         if not m:
-            print('=> non-standard => SKIPPED')
+            print('=> main is not run_and_plot => SKIPPED')
             return 3
 
         # normalize

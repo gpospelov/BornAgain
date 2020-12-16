@@ -3,7 +3,7 @@ Cosine ripple on a 2D lattice
 """
 import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
+from bornagain import deg, nm
 
 
 def get_sample():

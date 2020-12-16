@@ -27,7 +27,7 @@
 
 namespace pyfmt {
 
-std::string scriptPreamble();
+std::string preambled(const std::string& code);
 
 std::string printInt(int value);
 std::string printBool(double value);

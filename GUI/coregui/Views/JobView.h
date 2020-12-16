@@ -18,7 +18,12 @@
 #include <QMainWindow>
 
 class MainWindow;
-class JobViewDocks;
+class JobView;
+class JobSelectorWidget;
+class JobOutputDataWidget;
+class JobRealTimeWidget;
+class FitActivityPanel;
+class JobMessagePanel;
 class JobViewStatusBar;
 class JobProgressAssistant;
 class JobItem;
@@ -34,6 +39,7 @@ public:
     JobView(MainWindow* mainWindow);
 
     DocksController* docks();
+    void addDockActionsToMenu(QMenu* menu);
 
 signals:
     void focusRequest(int);
@@ -49,17 +55,25 @@ protected:
     virtual void hideEvent(QHideEvent* event);
 
 private:
+    void createSubWindows();
     void connectSignals();
     void connectActivityRelated();
     void connectJobRelated();
 
     void setAppropriateActivityForJob(JobItem* jobItem);
+    void resetLayout();
 
-    JobViewDocks* m_docks;
+    DocksController* m_docks;
     JobViewStatusBar* m_statusBar;
     JobProgressAssistant* m_progressAssistant;
     JobItem* m_currentItem;
     MainWindow* m_mainWindow;
+
+    JobSelectorWidget* m_jobSelector = nullptr;
+    JobOutputDataWidget* m_jobOutputDataWidget = nullptr;
+    JobRealTimeWidget* m_jobRealTimeWidget = nullptr;
+    FitActivityPanel* m_fitActivityPanel = nullptr;
+    JobMessagePanel* m_jobMessagePanel = nullptr;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H

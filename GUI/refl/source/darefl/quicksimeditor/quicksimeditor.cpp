@@ -18,9 +18,9 @@
 #include <darefl/quicksimeditor/quicksimeditortoolbar.h>
 #include <darefl/quicksimeditor/simplotcontroller.h>
 #include <darefl/quicksimeditor/simplotwidget.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/plotting/graphcanvas.h>
-#include <mvvm/standarditems/graphviewportitem.h>
+#include "mvvm/model/modelutils.h"
+#include "mvvm/plotting/graphcanvas.h"
+#include "mvvm/standarditems/graphviewportitem.h"
 
 using namespace ModelView;
 

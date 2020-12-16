@@ -17,10 +17,10 @@
 #include <darefl/model/sampleitems.h>
 #include <darefl/model/samplemodel.h>
 #include <darefl/sldeditor/sldelementmodel.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/itempool.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/model/sessionitem.h>
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/itempool.h"
+#include "mvvm/model/modelutils.h"
+#include "mvvm/model/sessionitem.h"
 
 namespace DaRefl {
 

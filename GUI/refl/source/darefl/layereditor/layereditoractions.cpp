@@ -13,9 +13,9 @@
 #include <darefl/model/item_constants.h>
 #include <darefl/model/sampleitems.h>
 #include <darefl/model/samplemodel.h>
-#include <mvvm/model/itemutils.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/viewmodel/viewmodel.h>
+#include "mvvm/model/itemutils.h"
+#include "mvvm/model/modelutils.h"
+#include "mvvm/viewmodel/viewmodel.h"
 
 using namespace ModelView;
 

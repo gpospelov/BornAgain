@@ -13,7 +13,7 @@
 #include <darefl/dataloader/dataloader_types.h>
 #include <darefl/dataloader/importtablemodel.h>
 #include <darefl/dataloader/importtablewidget.h>
-#include <mvvm/viewmodel/viewmodeldelegate.h>
+#include "mvvm/viewmodel/viewmodeldelegate.h"
 
 namespace DaRefl {
 

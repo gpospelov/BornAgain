@@ -12,7 +12,7 @@
 #include <darefl/dataloader/dataloader_utils.h>
 #include <darefl/importdataview/graphimportdata.h>
 #include <fstream>
-#include <mvvm/utils/stringutils.h>
+#include "mvvm/utils/stringutils.h"
 
 namespace DaRefl {
 

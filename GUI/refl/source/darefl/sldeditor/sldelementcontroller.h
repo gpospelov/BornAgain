@@ -13,8 +13,8 @@
 #include <QObject>
 #include <darefl/darefl_export.h>
 #include <darefl/sldeditor/layerelementcontroller.h>
-#include <mvvm/model/sessionitem.h>
-#include <mvvm/model/sessionmodel.h>
+#include "mvvm/model/sessionitem.h"
+#include "mvvm/model/sessionmodel.h"
 #include <vector>
 
 namespace DaRefl {

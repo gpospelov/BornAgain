@@ -8,7 +8,7 @@
 // ************************************************************************** //
 
 #include <darefl/dataloader/importtextview.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/widgets/widgetutils.h"
 
 //! Based on Qt example "codeeditor"
 //! Copyright (C) 2016 The Qt Company Ltd.

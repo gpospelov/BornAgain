@@ -16,8 +16,8 @@
 #include <darefl/welcomeview/recentprojectsettings.h>
 #include <darefl/welcomeview/recentprojectwidget.h>
 #include <darefl/welcomeview/welcomeview.h>
-#include <mvvm/project/projectutils.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/project/projectutils.h"
+#include "mvvm/widgets/widgetutils.h"
 
 namespace DaRefl {
 

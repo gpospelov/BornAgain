@@ -18,10 +18,10 @@
 #include <darefl/sldeditor/sldelementcontroller.h>
 #include <darefl/sldeditor/sldelementmodel.h>
 #include <iostream>
-#include <mvvm/model/compounditem.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/signals/modelmapper.h>
+#include "mvvm/model/compounditem.h"
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/modelutils.h"
+#include "mvvm/signals/modelmapper.h"
 
 using namespace ModelView;
 

@@ -9,10 +9,10 @@
 
 #include <darefl/layereditor/layerviewmodelcontroller.h>
 #include <darefl/model/sampleitems.h>
-#include <mvvm/interfaces/rowstrategyinterface.h>
-#include <mvvm/viewmodel/standardchildrenstrategies.h>
-#include <mvvm/viewmodel/standardviewitems.h>
-#include <mvvm/viewmodel/viewmodel.h>
+#include "mvvm/interfaces/rowstrategyinterface.h"
+#include "mvvm/viewmodel/standardchildrenstrategies.h"
+#include "mvvm/viewmodel/standardviewitems.h"
+#include "mvvm/viewmodel/viewmodel.h"
 
 using namespace ModelView;
 

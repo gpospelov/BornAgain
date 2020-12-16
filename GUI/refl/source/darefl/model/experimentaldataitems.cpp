@@ -9,8 +9,8 @@
 
 #include <darefl/model/experimentaldataitems.h>
 #include <darefl/model/item_constants.h>
-#include <mvvm/standarditems/axisitems.h>
-#include <mvvm/standarditems/data1ditem.h>
+#include "mvvm/standarditems/axisitems.h"
+#include "mvvm/standarditems/data1ditem.h"
 
 using namespace ModelView;
 

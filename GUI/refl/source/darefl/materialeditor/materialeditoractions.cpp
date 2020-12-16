@@ -13,9 +13,9 @@
 #include <darefl/materialeditor/materialselectionmodel.h>
 #include <darefl/model/materialitems.h>
 #include <darefl/model/materialmodel.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/model/sessionitemdata.h>
-#include <mvvm/viewmodel/viewmodel.h>
+#include "mvvm/model/modelutils.h"
+#include "mvvm/model/sessionitemdata.h"
+#include "mvvm/viewmodel/viewmodel.h"
 
 using namespace ModelView;
 

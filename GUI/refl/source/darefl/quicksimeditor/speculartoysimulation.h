@@ -13,7 +13,7 @@
 #include <darefl/darefl_export.h>
 #include <darefl/quicksimeditor/quicksim_types.h>
 #include <memory>
-#include <mvvm/utils/progresshandler.h>
+#include "mvvm/utils/progresshandler.h"
 #include <vector>
 
 class SpecularScalarTanhStrategy;

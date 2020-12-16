@@ -13,7 +13,7 @@
 #include <QObject>
 #include <darefl/darefl_export.h>
 #include <darefl/quicksimeditor/quicksim_types.h>
-#include <mvvm/utils/threadsafestack.h>
+#include "mvvm/utils/threadsafestack.h"
 
 namespace DaRefl {
 

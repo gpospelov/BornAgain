@@ -16,7 +16,7 @@
 #include <darefl/model/applicationmodels.h>
 #include <darefl/model/sampleitems.h>
 #include <darefl/model/samplemodel.h>
-#include <mvvm/viewmodel/viewmodeldelegate.h>
+#include "mvvm/viewmodel/viewmodeldelegate.h"
 
 namespace DaRefl {
 

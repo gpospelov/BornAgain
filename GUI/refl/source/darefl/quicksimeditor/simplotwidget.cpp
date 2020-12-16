@@ -14,8 +14,8 @@
 #include <darefl/model/experimentaldataitems.h>
 #include <darefl/model/jobmodel.h>
 #include <darefl/quicksimeditor/simplotwidget.h>
-#include <mvvm/plotting/graphcanvas.h>
-#include <mvvm/standarditems/graphviewportitem.h>
+#include "mvvm/plotting/graphcanvas.h"
+#include "mvvm/standarditems/graphviewportitem.h"
 
 namespace DaRefl {
 

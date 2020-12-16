@@ -12,9 +12,9 @@
 #include <darefl/welcomeview/recentprojectsettings.h>
 #include <darefl/welcomeview/userinteractor.h>
 #include <map>
-#include <mvvm/project/project_types.h>
-#include <mvvm/project/projectutils.h>
-#include <mvvm/utils/fileutils.h>
+#include "mvvm/project/project_types.h"
+#include "mvvm/project/projectutils.h"
+#include "mvvm/utils/fileutils.h"
 
 using namespace ModelView;
 

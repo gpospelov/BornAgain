@@ -10,7 +10,7 @@
 #include <QVBoxLayout>
 #include <darefl/importdataview/graphcanvaswidget.h>
 #include <darefl/model/experimentaldataitems.h>
-#include <mvvm/plotting/graphcanvas.h>
+#include "mvvm/plotting/graphcanvas.h"
 
 namespace DaRefl {
 

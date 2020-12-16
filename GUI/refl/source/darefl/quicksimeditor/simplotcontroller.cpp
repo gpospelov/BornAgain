@@ -13,7 +13,7 @@
 #include <darefl/model/jobitem.h>
 #include <darefl/model/jobmodel.h>
 #include <darefl/quicksimeditor/simplotcontroller.h>
-#include <mvvm/project/modelhaschangedcontroller.h>
+#include "mvvm/project/modelhaschangedcontroller.h"
 
 namespace DaRefl {
 

@@ -15,7 +15,7 @@
 #include <darefl/sldeditor/sldeditoractions.h>
 #include <darefl/sldeditor/sldeditortoolbar.h>
 #include <darefl/sldeditor/sldviewwidget.h>
-#include <mvvm/plotting/graphcanvas.h>
+#include "mvvm/plotting/graphcanvas.h"
 
 namespace DaRefl {
 

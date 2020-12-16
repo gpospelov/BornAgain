@@ -9,7 +9,7 @@
 
 #include <darefl/model/instrumentitems.h>
 #include <darefl/model/instrumentmodel.h>
-#include <mvvm/model/itemcatalogue.h>
+#include "mvvm/model/itemcatalogue.h"
 
 using namespace ModelView;
 

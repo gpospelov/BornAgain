@@ -13,9 +13,9 @@
 #include <darefl/model/experimentaldataitems.h>
 #include <darefl/model/experimentaldatamodel.h>
 #include <darefl/model/item_constants.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/standarditems/data1ditem.h>
-#include <mvvm/standarditems/graphitem.h>
+#include "mvvm/model/modelutils.h"
+#include "mvvm/standarditems/data1ditem.h"
+#include "mvvm/standarditems/graphitem.h"
 
 using namespace DaRefl;
 using namespace ModelView;

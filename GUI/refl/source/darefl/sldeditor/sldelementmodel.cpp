@@ -10,9 +10,9 @@
 #include <darefl/sldeditor/layerelementitem.h>
 #include <darefl/sldeditor/sldelementmodel.h>
 
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/itemcatalogue.h>
-#include <mvvm/utils/reallimits.h>
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/itemcatalogue.h"
+#include "mvvm/utils/reallimits.h"
 
 using namespace ModelView;
 

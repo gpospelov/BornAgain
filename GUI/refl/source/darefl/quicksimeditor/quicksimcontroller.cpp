@@ -20,9 +20,9 @@
 #include <darefl/quicksimeditor/quicksimcontroller.h>
 #include <darefl/quicksimeditor/quicksimutils.h>
 #include <darefl/quicksimeditor/speculartoysimulation.h>
-#include <mvvm/project/modelhaschangedcontroller.h>
-#include <mvvm/standarditems/axisitems.h>
-#include <mvvm/standarditems/data1ditem.h>
+#include "mvvm/project/modelhaschangedcontroller.h"
+#include "mvvm/standarditems/axisitems.h"
+#include "mvvm/standarditems/data1ditem.h"
 
 namespace {
 const int profile_points_count = 1000;

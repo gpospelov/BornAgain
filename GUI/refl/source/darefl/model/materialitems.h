@@ -14,7 +14,7 @@
 //! Collection of materials to populate MaterialModel.
 
 #include <darefl/darefl_export.h>
-#include <mvvm/model/compounditem.h>
+#include "mvvm/model/compounditem.h"
 
 namespace ModelView {
 class ExternalProperty;

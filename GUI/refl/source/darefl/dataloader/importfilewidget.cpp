@@ -16,8 +16,8 @@
 #include <QVBoxLayout>
 #include <darefl/core/app_constants.h>
 #include <darefl/dataloader/importfilewidget.h>
-#include <mvvm/utils/binutils.h>
-#include <mvvm/utils/fileutils.h>
+#include "mvvm/utils/binutils.h"
+#include "mvvm/utils/fileutils.h"
 
 namespace DaRefl {
 

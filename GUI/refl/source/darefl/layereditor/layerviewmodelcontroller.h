@@ -11,7 +11,7 @@
 #define DAREFL_LAYEREDITOR_LAYERVIEWMODELCONTROLLER_H
 
 #include <darefl/darefl_export.h>
-#include <mvvm/viewmodel/viewmodelcontroller.h>
+#include "mvvm/viewmodel/viewmodelcontroller.h"
 
 namespace ModelView {
 class ViewModel;

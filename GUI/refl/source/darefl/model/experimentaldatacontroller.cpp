@@ -13,8 +13,8 @@
 #include <darefl/model/instrumentitems.h>
 #include <darefl/model/instrumentmodel.h>
 #include <darefl/model/modelutils.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/modelutils.h>
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/modelutils.h"
 
 namespace DaRefl {
 

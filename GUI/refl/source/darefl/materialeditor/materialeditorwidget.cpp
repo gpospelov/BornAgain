@@ -15,9 +15,9 @@
 #include <darefl/model/applicationmodels.h>
 #include <darefl/model/materialitems.h>
 #include <darefl/model/materialmodel.h>
-#include <mvvm/factories/viewmodelfactory.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/viewmodel/viewmodeldelegate.h>
+#include "mvvm/factories/viewmodelfactory.h"
+#include "mvvm/model/modelutils.h"
+#include "mvvm/viewmodel/viewmodeldelegate.h"
 
 namespace DaRefl {
 

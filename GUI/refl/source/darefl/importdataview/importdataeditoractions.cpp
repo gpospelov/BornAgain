@@ -12,12 +12,12 @@
 #include <darefl/importdataview/importdataeditoractions.h>
 #include <darefl/model/experimentaldataitems.h>
 #include <darefl/model/experimentaldatamodel.h>
-#include <mvvm/interfaces/undostackinterface.h>
-#include <mvvm/model/comboproperty.h>
-#include <mvvm/model/itemutils.h>
-#include <mvvm/standarditems/graphitem.h>
-#include <mvvm/standarditems/plottableitems.h>
-#include <mvvm/viewmodel/viewmodelutils.h>
+#include "mvvm/interfaces/undostackinterface.h"
+#include "mvvm/model/comboproperty.h"
+#include "mvvm/model/itemutils.h"
+#include "mvvm/standarditems/graphitem.h"
+#include "mvvm/standarditems/plottableitems.h"
+#include "mvvm/viewmodel/viewmodelutils.h"
 
 namespace {
 template <typename T> std::vector<T*> itemsFromIndexList(const QModelIndexList& indices) {

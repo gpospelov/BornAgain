@@ -10,12 +10,12 @@
 #include <darefl/importdataview/dataselectionmodel.h>
 #include <darefl/model/experimentaldataitems.h>
 #include <darefl/model/item_constants.h>
-#include <mvvm/model/itemutils.h>
-#include <mvvm/model/mvvm_types.h>
-#include <mvvm/model/sessionitem.h>
-#include <mvvm/standarditems/graphitem.h>
-#include <mvvm/viewmodel/viewmodel.h>
-#include <mvvm/viewmodel/viewmodelutils.h>
+#include "mvvm/model/itemutils.h"
+#include "mvvm/model/mvvm_types.h"
+#include "mvvm/model/sessionitem.h"
+#include "mvvm/standarditems/graphitem.h"
+#include "mvvm/viewmodel/viewmodel.h"
+#include "mvvm/viewmodel/viewmodelutils.h"
 
 namespace DaRefl {
 

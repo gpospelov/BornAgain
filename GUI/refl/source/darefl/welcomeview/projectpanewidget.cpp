@@ -12,7 +12,7 @@
 #include <QPainter>
 #include <QVBoxLayout>
 #include <darefl/welcomeview/projectpanewidget.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/widgets/widgetutils.h"
 
 namespace {
 int widget_height() {

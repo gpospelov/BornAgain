@@ -8,10 +8,10 @@
 // ************************************************************************** //
 
 #include <darefl/sldeditor/layerelementitem.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/itemcatalogue.h>
-#include <mvvm/utils/numericutils.h>
-#include <mvvm/utils/reallimits.h>
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/itemcatalogue.h"
+#include "mvvm/utils/numericutils.h"
+#include "mvvm/utils/reallimits.h"
 
 namespace DaRefl {
 

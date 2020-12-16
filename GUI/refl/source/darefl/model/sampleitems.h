@@ -14,7 +14,7 @@
 //! Collection of layer and multi-layer items to populate SampleModel.
 
 #include <darefl/darefl_export.h>
-#include <mvvm/model/compounditem.h>
+#include "mvvm/model/compounditem.h"
 
 namespace DaRefl {
 

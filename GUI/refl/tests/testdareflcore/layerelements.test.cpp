@@ -19,7 +19,7 @@
 #include <darefl/sldeditor/roughnesselementview.h>
 #include <darefl/sldeditor/segmentelementview.h>
 #include <darefl/sldeditor/sldelementmodel.h>
-#include <mvvm/viewmodel/viewmodelutils.h>
+#include "mvvm/viewmodel/viewmodelutils.h"
 
 #include <QColor>
 #include <QGraphicsSceneMouseEvent>

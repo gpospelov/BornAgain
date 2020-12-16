@@ -15,7 +15,7 @@
 #include <darefl/quicksimeditor/instrumentpropertyeditor.h>
 #include <darefl/quicksimeditor/quicksimeditor.h>
 #include <darefl/sldeditor/sldeditor.h>
-#include <mvvm/widgets/collapsiblelistwidget.h>
+#include "mvvm/widgets/collapsiblelistwidget.h"
 
 using namespace ModelView;
 

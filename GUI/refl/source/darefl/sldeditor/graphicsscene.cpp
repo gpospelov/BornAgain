@@ -9,11 +9,11 @@
 
 #include <darefl/sldeditor/graphicsscene.h>
 
-#include <mvvm/model/modelutils.h>
-#include <mvvm/plotting/customplotproxywidget.h>
-#include <mvvm/plotting/graphcanvas.h>
-#include <mvvm/plotting/sceneadapterinterface.h>
-#include <mvvm/standarditems/graphviewportitem.h>
+#include "mvvm/model/modelutils.h"
+#include "mvvm/plotting/customplotproxywidget.h"
+#include "mvvm/plotting/graphcanvas.h"
+#include "mvvm/plotting/sceneadapterinterface.h"
+#include "mvvm/standarditems/graphviewportitem.h"
 
 namespace {
 const double scene_origin_x{0.0};

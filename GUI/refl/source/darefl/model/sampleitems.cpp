@@ -12,8 +12,8 @@
 #include <darefl/model/materialitems.h>
 #include <darefl/model/materialmodel.h>
 #include <darefl/model/sampleitems.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/signals/itemmapper.h>
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/signals/itemmapper.h"
 
 namespace DaRefl {
 

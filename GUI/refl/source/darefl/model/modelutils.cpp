@@ -9,11 +9,11 @@
 
 #include <darefl/model/experimentaldatamodel.h>
 #include <darefl/model/modelutils.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/standarditems/axisitems.h>
-#include <mvvm/standarditems/data1ditem.h>
-#include <mvvm/standarditems/graphitem.h>
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/modelutils.h"
+#include "mvvm/standarditems/axisitems.h"
+#include "mvvm/standarditems/data1ditem.h"
+#include "mvvm/standarditems/graphitem.h"
 
 namespace DaRefl {
 

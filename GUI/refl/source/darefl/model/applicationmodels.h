@@ -12,7 +12,7 @@
 
 #include <darefl/darefl_export.h>
 #include <memory>
-#include <mvvm/interfaces/applicationmodelsinterface.h>
+#include "mvvm/interfaces/applicationmodelsinterface.h"
 
 namespace ModelView {
 class SessionModel;

@@ -16,10 +16,10 @@
 #include <darefl/importdataview/dataselectorwidget.h>
 #include <darefl/importdataview/dataviewmodel.h>
 #include <darefl/model/experimentaldataitems.h>
-#include <mvvm/standarditems/graphitem.h>
-#include <mvvm/widgets/collapsiblelistwidget.h>
-#include <mvvm/widgets/standardtreeviews.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/standarditems/graphitem.h"
+#include "mvvm/widgets/collapsiblelistwidget.h"
+#include "mvvm/widgets/standardtreeviews.h"
+#include "mvvm/widgets/widgetutils.h"
 
 namespace DaRefl {
 

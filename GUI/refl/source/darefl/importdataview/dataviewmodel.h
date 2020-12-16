@@ -11,7 +11,7 @@
 #define DAREFL_IMPORTDATAVIEW_DATAVIEWMODEL_H
 
 #include <darefl/darefl_export.h>
-#include <mvvm/viewmodel/topitemsviewmodel.h>
+#include "mvvm/viewmodel/topitemsviewmodel.h"
 
 namespace ModelView {
 class SessionModel;

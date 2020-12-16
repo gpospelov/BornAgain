@@ -12,8 +12,8 @@
 #include <darefl/layereditor/customlayertreeeditorfactory.h>
 #include <darefl/model/applicationmodels.h>
 #include <darefl/model/materialmodel.h>
-#include <mvvm/editors/externalpropertycomboeditor.h>
-#include <mvvm/model/externalproperty.h>
+#include "mvvm/editors/externalpropertycomboeditor.h"
+#include "mvvm/model/externalproperty.h"
 
 using namespace ModelView;
 

@@ -21,7 +21,7 @@
 #include <darefl/core/app_constants.h>
 #include <darefl/dataloader/defaultparser.h>
 #include <darefl/dataloader/parserpropertywidget.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/widgets/widgetutils.h"
 
 namespace {
 

@@ -11,13 +11,13 @@
 #include <darefl/model/experimentaldataitems.h>
 #include <darefl/model/experimentaldatamodel.h>
 
-#include <mvvm/model/itemcatalogue.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/standarditems/axisitems.h>
-#include <mvvm/standarditems/containeritem.h>
-#include <mvvm/standarditems/data1ditem.h>
-#include <mvvm/standarditems/graphitem.h>
-#include <mvvm/standarditems/graphviewportitem.h>
+#include "mvvm/model/itemcatalogue.h"
+#include "mvvm/model/modelutils.h"
+#include "mvvm/standarditems/axisitems.h"
+#include "mvvm/standarditems/containeritem.h"
+#include "mvvm/standarditems/data1ditem.h"
+#include "mvvm/standarditems/graphitem.h"
+#include "mvvm/standarditems/graphviewportitem.h"
 
 #include <algorithm>
 #include <cmath>

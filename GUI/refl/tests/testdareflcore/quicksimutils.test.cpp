@@ -14,8 +14,8 @@
 #include <darefl/model/sampleitems.h>
 #include <darefl/model/samplemodel.h>
 #include <darefl/quicksimeditor/quicksimutils.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/itempool.h>
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/itempool.h"
 #include <tuple>
 
 using namespace DaRefl;

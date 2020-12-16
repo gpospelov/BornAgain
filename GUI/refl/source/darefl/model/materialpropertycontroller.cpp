@@ -11,8 +11,8 @@
 #include <darefl/model/materialpropertycontroller.h>
 #include <darefl/model/sampleitems.h>
 #include <darefl/model/samplemodel.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/modelutils.h>
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/modelutils.h"
 
 using namespace ModelView;
 

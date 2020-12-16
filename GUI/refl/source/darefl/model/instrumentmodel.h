@@ -11,7 +11,7 @@
 #define DAREFL_MODEL_INSTRUMENTMODEL_H
 
 #include <darefl/darefl_export.h>
-#include <mvvm/model/sessionmodel.h>
+#include "mvvm/model/sessionmodel.h"
 
 namespace DaRefl {
 

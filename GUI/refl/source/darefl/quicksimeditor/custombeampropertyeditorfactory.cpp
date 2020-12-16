@@ -15,10 +15,10 @@
 #include <darefl/model/materialmodel.h>
 #include <darefl/model/modelutils.h>
 #include <darefl/quicksimeditor/custombeampropertyeditorfactory.h>
-#include <mvvm/editors/externalpropertycomboeditor.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/standarditems/graphitem.h>
+#include "mvvm/editors/externalpropertycomboeditor.h"
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/modelutils.h"
+#include "mvvm/standarditems/graphitem.h"
 
 using namespace ModelView;
 

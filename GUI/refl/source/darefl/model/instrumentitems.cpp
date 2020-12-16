@@ -11,10 +11,10 @@
 #include <darefl/model/instrumentitems.h>
 #include <darefl/model/item_constants.h>
 #include <darefl/model/modelutils.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/sessionmodel.h>
-#include <mvvm/standarditems/axisitems.h>
-#include <mvvm/standarditems/graphitem.h>
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/sessionmodel.h"
+#include "mvvm/standarditems/axisitems.h"
+#include "mvvm/standarditems/graphitem.h"
 
 using namespace ModelView;
 

@@ -11,8 +11,8 @@
 #define DAREFL_MODEL_EXPERIMENTALDATACONTROLLER_H
 
 #include <darefl/darefl_export.h>
-#include <mvvm/model/sessionmodel.h>
-#include <mvvm/signals/modellistener.h>
+#include "mvvm/model/sessionmodel.h"
+#include "mvvm/signals/modellistener.h"
 
 namespace DaRefl {
 

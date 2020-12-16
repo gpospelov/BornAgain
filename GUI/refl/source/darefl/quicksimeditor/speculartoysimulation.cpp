@@ -14,8 +14,8 @@
 #include <Sample/Slice/Slice.h>
 #include <Sample/Slice/KzComputation.h>
 #include <Sample/Specular/SpecularScalarTanhStrategy.h>
-#include <mvvm/standarditems/axisitems.h>
-#include <mvvm/utils/containerutils.h>
+#include "mvvm/standarditems/axisitems.h"
+#include "mvvm/utils/containerutils.h"
 #include <stdexcept>
 
 using namespace ModelView;

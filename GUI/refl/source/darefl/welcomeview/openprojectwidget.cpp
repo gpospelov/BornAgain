@@ -14,8 +14,8 @@
 #include <darefl/core/version.h>
 #include <darefl/mainwindow/styleutils.h>
 #include <darefl/welcomeview/openprojectwidget.h>
-#include <mvvm/core/version.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/core/version.h"
+#include "mvvm/widgets/widgetutils.h"
 
 namespace {
 int logo_width() {

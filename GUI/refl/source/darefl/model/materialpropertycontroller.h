@@ -11,7 +11,7 @@
 #define DAREFL_MODEL_MATERIALPROPERTYCONTROLLER_H
 
 #include <darefl/darefl_export.h>
-#include <mvvm/signals/modellistener.h>
+#include "mvvm/signals/modellistener.h"
 
 namespace DaRefl {
 

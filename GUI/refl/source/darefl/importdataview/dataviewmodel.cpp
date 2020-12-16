@@ -13,9 +13,9 @@
 #include <darefl/importdataview/dataviewmodel.h>
 #include <darefl/model/experimentaldatamodel.h>
 #include <darefl/model/item_constants.h>
-#include <mvvm/model/sessionmodel.h>
-#include <mvvm/viewmodel/viewmodelutils.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/model/sessionmodel.h"
+#include "mvvm/viewmodel/viewmodelutils.h"
+#include "mvvm/widgets/widgetutils.h"
 
 using namespace ModelView;
 

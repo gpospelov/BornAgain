@@ -11,12 +11,12 @@
 #include <darefl/model/jobitem.h>
 #include <darefl/model/jobmodel.h>
 #include <darefl/quicksimeditor/quicksim_types.h>
-#include <mvvm/model/itemcatalogue.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/standarditems/axisitems.h>
-#include <mvvm/standarditems/data1ditem.h>
-#include <mvvm/standarditems/graphitem.h>
-#include <mvvm/standarditems/graphviewportitem.h>
+#include "mvvm/model/itemcatalogue.h"
+#include "mvvm/model/modelutils.h"
+#include "mvvm/standarditems/axisitems.h"
+#include "mvvm/standarditems/data1ditem.h"
+#include "mvvm/standarditems/graphitem.h"
+#include "mvvm/standarditems/graphviewportitem.h"
 
 using namespace ModelView;
 

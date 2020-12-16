@@ -14,8 +14,8 @@
 #include <Sample/Material/MaterialFactoryFuncs.h>
 #include <Sample/Slice/LayerRoughness.h>
 #include <Sample/Slice/Slice.h>
-#include <mvvm/model/externalproperty.h>
-#include <mvvm/model/sessionmodel.h>
+#include "mvvm/model/externalproperty.h"
+#include "mvvm/model/sessionmodel.h"
 #include <stdexcept>
 
 namespace DaRefl {

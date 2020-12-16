@@ -15,7 +15,7 @@
 #include <darefl/sldeditor/roughnesselementview.h>
 #include <darefl/sldeditor/segmentelementview.h>
 
-#include <mvvm/signals/itemmapper.h>
+#include "mvvm/signals/itemmapper.h"
 #include <stdexcept>
 #include <string>
 

@@ -15,8 +15,8 @@
 #include <darefl/model/instrumentmodel.h>
 #include <darefl/quicksimeditor/custombeampropertyeditorfactory.h>
 #include <darefl/quicksimeditor/instrumentpropertyeditor.h>
-#include <mvvm/viewmodel/viewmodeldelegate.h>
-#include <mvvm/widgets/propertytreeview.h>
+#include "mvvm/viewmodel/viewmodeldelegate.h"
+#include "mvvm/widgets/propertytreeview.h"
 
 using namespace ModelView;
 

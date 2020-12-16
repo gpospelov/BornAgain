@@ -11,7 +11,7 @@
 #define DAREFL_LAYEREDITOR_LAYERVIEWMODEL_H
 
 #include <darefl/darefl_export.h>
-#include <mvvm/viewmodel/viewmodel.h>
+#include "mvvm/viewmodel/viewmodel.h"
 
 namespace ModelView {
 class SessionModel;

@@ -25,8 +25,8 @@
 #include <darefl/dataloader/loaderpreviewpanel.h>
 #include <darefl/dataloader/loaderselectorpanel.h>
 #include <darefl/dataloader/parserinterface.h>
-#include <mvvm/utils/fileutils.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/utils/fileutils.h"
+#include "mvvm/widgets/widgetutils.h"
 #include <sstream>
 
 namespace DaRefl {

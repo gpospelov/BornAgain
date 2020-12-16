@@ -11,8 +11,8 @@
 #define DAREFL_SLDEDITOR_LAYERELEMENTITEM_H
 
 #include <darefl/darefl_export.h>
-#include <mvvm/model/compounditem.h>
-#include <mvvm/model/sessionmodel.h>
+#include "mvvm/model/compounditem.h"
+#include "mvvm/model/sessionmodel.h"
 
 namespace DaRefl {
 

@@ -14,8 +14,8 @@
 //! Collection of items to construct specular instrument.
 
 #include <darefl/darefl_export.h>
-#include <mvvm/model/compounditem.h>
-#include <mvvm/model/groupitem.h>
+#include "mvvm/model/compounditem.h"
+#include "mvvm/model/groupitem.h"
 
 namespace ModelView {
 class GraphItem;

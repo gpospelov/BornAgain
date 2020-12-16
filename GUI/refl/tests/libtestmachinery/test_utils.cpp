@@ -12,7 +12,7 @@
 #include <QFile>
 #include <QString>
 #include <QTextStream>
-#include <mvvm/utils/fileutils.h>
+#include "mvvm/utils/fileutils.h"
 #include <stdexcept>
 #include <string>
 

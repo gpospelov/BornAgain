@@ -15,9 +15,9 @@
 #include <QTreeView>
 #include <darefl/model/applicationmodels.h>
 #include <darefl/settingsview/settingsview.h>
-#include <mvvm/model/sessionmodel.h>
-#include <mvvm/widgets/allitemstreeview.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/model/sessionmodel.h"
+#include "mvvm/widgets/allitemstreeview.h"
+#include "mvvm/widgets/widgetutils.h"
 
 namespace DaRefl {
 

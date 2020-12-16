@@ -11,8 +11,8 @@
 #define DAREFL_MODEL_EXPERIMENTALDATAITEMS_H
 
 #include <darefl/darefl_export.h>
-#include <mvvm/standarditems/containeritem.h>
-#include <mvvm/standarditems/graphviewportitem.h>
+#include "mvvm/standarditems/containeritem.h"
+#include "mvvm/standarditems/graphviewportitem.h"
 
 namespace ModelView {
 class Data1DItem;

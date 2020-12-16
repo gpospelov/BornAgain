@@ -12,7 +12,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <darefl/mainwindow/fancytab.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/widgets/widgetutils.h"
 
 namespace {
 QColor defaultColor() {

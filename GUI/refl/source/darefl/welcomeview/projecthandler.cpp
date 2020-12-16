@@ -13,9 +13,9 @@
 #include <darefl/welcomeview/recentprojectsettings.h>
 #include <darefl/welcomeview/recentprojectwidget.h>
 #include <darefl/welcomeview/userinteractor.h>
-#include <mvvm/factories/projectmanagerfactory.h>
-#include <mvvm/project/project_types.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/factories/projectmanagerfactory.h"
+#include "mvvm/project/project_types.h"
+#include "mvvm/widgets/widgetutils.h"
 
 using namespace ModelView;
 

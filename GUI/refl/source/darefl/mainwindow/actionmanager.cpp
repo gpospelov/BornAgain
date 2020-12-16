@@ -12,7 +12,7 @@
 #include <QMenuBar>
 #include <QToolBar>
 #include <darefl/mainwindow/actionmanager.h>
-#include <mvvm/widgets/widgetutils.h>
+#include "mvvm/widgets/widgetutils.h"
 
 namespace DaRefl {
 

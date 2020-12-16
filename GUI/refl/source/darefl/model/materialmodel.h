@@ -11,8 +11,8 @@
 #define DAREFL_MODEL_MATERIALMODEL_H
 
 #include <darefl/darefl_export.h>
-#include <mvvm/model/sessionmodel.h>
-#include <mvvm/model/tagrow.h>
+#include "mvvm/model/sessionmodel.h"
+#include "mvvm/model/tagrow.h"
 #include <vector>
 
 namespace ModelView {

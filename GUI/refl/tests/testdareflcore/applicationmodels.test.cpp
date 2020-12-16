@@ -10,9 +10,9 @@
 #include "folderbasedtest.h"
 #include "google_test.h"
 #include <darefl/model/applicationmodels.h>
-#include <mvvm/factories/modeldocumentfactory.h>
-#include <mvvm/project/project.h>
-#include <mvvm/project/project_types.h>
+#include "mvvm/factories/modeldocumentfactory.h"
+#include "mvvm/project/project.h"
+#include "mvvm/project/project_types.h"
 
 using namespace ModelView;
 

@@ -10,8 +10,8 @@
 #include <darefl/sldeditor/layerelementitem.h>
 #include <darefl/sldeditor/sldeditoractions.h>
 #include <darefl/sldeditor/sldelementmodel.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/viewmodel/viewmodel.h>
+#include "mvvm/model/modelutils.h"
+#include "mvvm/viewmodel/viewmodel.h"
 
 using namespace ModelView;
 

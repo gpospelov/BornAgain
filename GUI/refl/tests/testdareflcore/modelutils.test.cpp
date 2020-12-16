@@ -9,8 +9,8 @@
 
 #include "google_test.h"
 #include <darefl/model/modelutils.h>
-#include <mvvm/standarditems/axisitems.h>
-#include <mvvm/standarditems/data1ditem.h>
+#include "mvvm/standarditems/axisitems.h"
+#include "mvvm/standarditems/data1ditem.h"
 
 using namespace ModelView;
 

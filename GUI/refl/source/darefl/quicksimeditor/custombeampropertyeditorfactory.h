@@ -11,7 +11,7 @@
 #define DAREFL_QUICKSIMEDITOR_CUSTOMBEAMPROPERTYEDITORFACTORY_H
 
 #include <darefl/darefl_export.h>
-#include <mvvm/editors/defaulteditorfactory.h>
+#include "mvvm/editors/defaulteditorfactory.h"
 
 namespace DaRefl {
 

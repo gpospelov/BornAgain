@@ -15,10 +15,10 @@
 #include <darefl/importdataview/importdataeditoractions.h>
 #include <darefl/model/experimentaldataitems.h>
 #include <darefl/model/experimentaldatamodel.h>
-#include <mvvm/model/comboproperty.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/standarditems/graphitem.h>
-#include <mvvm/standarditems/plottableitems.h>
+#include "mvvm/model/comboproperty.h"
+#include "mvvm/model/modelutils.h"
+#include "mvvm/standarditems/graphitem.h"
+#include "mvvm/standarditems/plottableitems.h"
 
 using namespace DaRefl;
 using namespace ModelView;

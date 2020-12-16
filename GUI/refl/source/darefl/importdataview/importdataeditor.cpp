@@ -19,8 +19,8 @@
 #include <darefl/importdataview/importdataeditortoolbal.h>
 #include <darefl/model/experimentaldataitems.h>
 #include <darefl/model/experimentaldatamodel.h>
-#include <mvvm/model/modelutils.h>
-#include <mvvm/utils/containerutils.h>
+#include "mvvm/model/modelutils.h"
+#include "mvvm/utils/containerutils.h"
 
 using namespace ModelView;
 

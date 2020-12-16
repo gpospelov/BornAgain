@@ -14,4 +14,4 @@
 #include "mvvm/model/customvariants.h"
 #include <gtest/gtest.h>
 
-#endif
+#endif // GOOGLETEST_H

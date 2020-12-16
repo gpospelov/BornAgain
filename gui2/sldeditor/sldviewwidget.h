@@ -38,4 +38,4 @@ private:
 
 } // namespace gui2
 
-#endif
+#endif // DAREFL_SLDEDITOR_SLDVIEWWIDGET_H

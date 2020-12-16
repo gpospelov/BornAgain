@@ -49,4 +49,4 @@ template <typename T> T* GetPlottable(QCustomPlot* custom_plot) {
 
 Q_DECLARE_METATYPE(QCPRange)
 
-#endif
+#endif // CUSTOMPLOT_TEST_UTILS_H

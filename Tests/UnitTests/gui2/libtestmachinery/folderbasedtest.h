@@ -30,4 +30,4 @@ protected:
     std::string m_test_dir; //! main directory of given test
 };
 
-#endif //  FOLDERBASEDTEST_H
+#endif // FOLDERBASEDTEST_H

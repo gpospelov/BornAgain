@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MOCKINTERFACES_h
-#define MOCKINTERFACES_h
+#ifndef MOCKINTERFACES_H
+#define MOCKINTERFACES_H
 
 #include "mvvm/model/tagrow.h"
 #include <string>
@@ -48,4 +48,4 @@ public:
     virtual void onAboutToRemoveItem(ModelView::SessionItem*, ModelView::TagRow) = 0;
 };
 
-#endif // MOCKINTERFACES_h
+#endif // MOCKINTERFACES_H

@@ -97,4 +97,4 @@ template <typename T, typename... Args> std::vector<T> toVector(Args&&... args) 
 
 } // namespace TestUtils
 
-#endif
+#endif // TESTUTILS_H

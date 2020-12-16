@@ -28,4 +28,4 @@ protected:
     static QApplication* m_app;
 };
 
-#endif //  WIDGETBASEDTEST_H
+#endif // WIDGETBASEDTEST_H

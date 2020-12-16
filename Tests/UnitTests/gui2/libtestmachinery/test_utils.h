@@ -29,7 +29,7 @@ class SessionModel;
 namespace TestUtils {
 
 //! Returns full path to the main test folder, as defined by CMake at compile time.
-//! Shoud point to CMAKE_BINARY_DIR/test_output
+//! Should point to CMAKE_BINARY_DIR/test_output
 std::string TestOutputDir();
 
 //! Creates test directory in main test folder and returns full path.
@@ -60,4 +60,4 @@ std::vector<T> toStringVector(Args&&... args) {
 
 } // namespace TestUtils
 
-#endif
+#endif // TESTUTILS_H

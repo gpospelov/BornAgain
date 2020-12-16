@@ -9,4 +9,3 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake/modules)
 include(configuration)
 
 add_subdirectory(source)
-add_subdirectory(tests)

@@ -21,7 +21,7 @@ namespace ModelView {
 class ProjectManagerInterface;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class RecentProjectSettings;
 class UserInteractor;
@@ -63,6 +63,6 @@ private:
     ApplicationModels* m_models{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_WELCOMEVIEW_PROJECTHANDLER_H

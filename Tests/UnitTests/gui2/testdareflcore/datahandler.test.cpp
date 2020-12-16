@@ -13,7 +13,7 @@
 #include "test_utils.h"
 
 using TestUtils::toStringVector;
-using namespace DaRefl;
+using namespace gui2;
 
 class DataHandlerTest : public FolderBasedTest {
 public:

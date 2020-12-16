@@ -22,7 +22,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 
@@ -55,4 +55,4 @@ CustomBeamPropertyEditorFactory::createEditor(const QModelIndex& index) const {
     }
 }
 
-} // namespace DaRefl
+} // namespace gui2

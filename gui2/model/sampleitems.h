@@ -16,7 +16,7 @@
 #include "darefl_export.h"
 #include "mvvm/model/compounditem.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Item to represent the roughness of the layer.
 
@@ -57,6 +57,6 @@ private:
     void update_layer_appearance();
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_SAMPLEITEMS_H

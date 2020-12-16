@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include <QTreeView>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Extension of QTreeView for layer editing.
 
@@ -27,6 +27,6 @@ public:
     void setModel(QAbstractItemModel* model) override;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_LAYEREDITOR_LAYERTREEVIEW_H

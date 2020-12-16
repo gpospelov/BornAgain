@@ -16,7 +16,7 @@
 #include "gui2/model/materialmodel.h"
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 MaterialEditor::MaterialEditor(QWidget* parent)
     : QWidget(parent)
@@ -49,4 +49,4 @@ QSize MaterialEditor::minimumSizeHint() const {
 
 MaterialEditor::~MaterialEditor() = default;
 
-} // namespace DaRefl
+} // namespace gui2

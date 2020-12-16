@@ -15,7 +15,7 @@
 
 class QTabWidget;
 
-namespace DaRefl {
+namespace gui2 {
 
 class ImportTextView;
 class ImportTableWidget;
@@ -44,6 +44,6 @@ private:
     QTabWidget* m_tabWidget{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_LOADERPREVIEWPANEL_H

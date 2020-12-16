@@ -18,7 +18,7 @@
 
 class QSplitter;
 
-namespace DaRefl {
+namespace gui2 {
 
 class DataLoaderToolBar;
 class LoaderSelectorPanel;
@@ -67,6 +67,6 @@ private:
     std::vector<GraphImportData> m_graphImportData;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_DATALOADERDIALOG_H

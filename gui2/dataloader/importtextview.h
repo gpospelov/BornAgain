@@ -22,7 +22,7 @@ class QResizeEvent;
 class QSize;
 class QWidget;
 
-namespace DaRefl {
+namespace gui2 {
 
 class LineNumberArea;
 
@@ -64,6 +64,6 @@ private:
     ImportTextView* codeEditor;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_IMPORTTEXTVIEW_H

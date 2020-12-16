@@ -12,7 +12,7 @@
 
 #include <string>
 
-namespace DaRefl::Constants {
+namespace gui2::Constants {
 
 const std::string CanvasContainerItemType = "CanvasContainer";
 const std::string CanvasItemType = "Canvas";
@@ -30,6 +30,6 @@ const std::string SpecularBeamItemType = "SpecularBeam";
 const std::string SpecularInstrumentItemType = "SpecularInstrument";
 const std::string SpecularScanGroupItemType = "SpecularScanGroup";
 
-} // namespace DaRefl::Constants
+} // namespace gui2::Constants
 
 #endif // DAREFL_MODEL_ITEM_CONSTANTS_H

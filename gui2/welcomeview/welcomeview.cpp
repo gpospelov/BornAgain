@@ -19,7 +19,7 @@
 #include <QHBoxLayout>
 #include <QMainWindow>
 
-namespace DaRefl {
+namespace gui2 {
 
 WelcomeView::WelcomeView(ApplicationModels* models, QWidget* parent)
     : QWidget(parent)
@@ -95,4 +95,4 @@ void WelcomeView::setup_connections() {
             &WelcomeView::recentProjectsListModified);
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -17,7 +17,7 @@
 class QLabel;
 class QString;
 
-namespace DaRefl {
+namespace gui2 {
 
 class DAREFLCORE_EXPORT FancyTab : public QWidget {
     Q_OBJECT
@@ -42,6 +42,6 @@ private:
     QColor m_widgetColor;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MAINWINDOW_FANCYTAB_H

@@ -15,7 +15,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 struct SLDEditorActions::SLDEditorActionsImpl {
     SLDElementModel* sld_element_model{nullptr};
@@ -31,4 +31,4 @@ void SLDEditorActions::setModel(SLDElementModel* model) {
 
 SLDEditorActions::~SLDEditorActions() = default;
 
-} // namespace DaRefl
+} // namespace gui2

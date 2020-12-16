@@ -17,7 +17,7 @@ class QTabWidget;
 class QStackedWidget;
 class QListWidget;
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 
@@ -43,6 +43,6 @@ private:
     ApplicationModels* m_models{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SETTINGSVIEW_SETTINGSVIEW_H

@@ -13,7 +13,7 @@
 #include <QPainter>
 #include <QStyleOption>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! The constructor
 RoughnessElementView::RoughnessElementView()
@@ -72,4 +72,4 @@ void RoughnessElementView::setPen(QPen pen) {
     m_pen = pen;
 }
 
-} // namespace DaRefl
+} // namespace gui2

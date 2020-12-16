@@ -14,7 +14,7 @@
 #include "mvvm/model/sessionmodel.h"
 #include "mvvm/signals/modellistener.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 class InstrumentModel;
 class ExperimentalDataModel;
@@ -35,6 +35,6 @@ private:
     InstrumentModel* m_instrument_model{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_EXPERIMENTALDATACONTROLLER_H

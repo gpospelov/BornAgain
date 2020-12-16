@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
 
     QApplication app(argc, argv);
 
-    DaRefl::MainWindow win;
+    gui2::MainWindow win;
     win.show();
 
     return app.exec();

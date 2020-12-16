@@ -15,7 +15,7 @@
 #include <QProgressBar>
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 QuickSimEditorToolBar::QuickSimEditorToolBar(QWidget* parent)
     : QToolBar(parent), m_liveCheckbox(new QCheckBox), m_progressBar(new QProgressBar) {
@@ -87,4 +87,4 @@ void QuickSimEditorToolBar::setup_plot_elements() {
     addAction(reset_view);
 }
 
-} // namespace DaRefl
+} // namespace gui2

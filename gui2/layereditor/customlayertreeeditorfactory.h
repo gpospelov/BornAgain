@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include "mvvm/editors/defaulteditorfactory.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 
@@ -31,6 +31,6 @@ private:
     ApplicationModels* m_models;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_LAYEREDITOR_CUSTOMLAYERTREEEDITORFACTORY_H

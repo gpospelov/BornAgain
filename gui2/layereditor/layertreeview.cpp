@@ -11,7 +11,7 @@
 #include <QHeaderView>
 #include <QMouseEvent>
 
-namespace DaRefl {
+namespace gui2 {
 
 LayerTreeView::~LayerTreeView() = default;
 
@@ -28,4 +28,4 @@ void LayerTreeView::setModel(QAbstractItemModel* model) {
     expandAll();
 }
 
-} // namespace DaRefl
+} // namespace gui2

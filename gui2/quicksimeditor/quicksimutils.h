@@ -15,7 +15,7 @@
 
 class Slice;
 
-namespace DaRefl {
+namespace gui2 {
 
 class MultiLayerItem;
 
@@ -29,6 +29,6 @@ DAREFLCORE_EXPORT std::vector<Slice> createBornAgainSlices(const multislice_t& m
 
 } // namespace Utils
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_QUICKSIMEDITOR_QUICKSIMUTILS_H

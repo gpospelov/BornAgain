@@ -14,7 +14,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 CanvasItem::CanvasItem() : GraphViewportItem(Constants::CanvasItemType) {
     yAxis()->setProperty(ViewportAxisItem::P_IS_LOG, true);
@@ -39,4 +39,4 @@ std::vector<Data1DItem*> ExperimentalDataContainerItem::dataItems() const {
     return items<ModelView::Data1DItem>(T_ITEMS);
 }
 
-} // namespace DaRefl
+} // namespace gui2

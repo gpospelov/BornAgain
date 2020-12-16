@@ -19,7 +19,7 @@
 #include "test_utils.h"
 #include <QDebug>
 
-using namespace DaRefl;
+using namespace gui2;
 using namespace ModelView;
 
 //! Tests of LayerEditorActions.
@@ -128,7 +128,7 @@ TEST_F(LayerEditorActionsTest, addNewMultiLayerAfterSelection) {
     EXPECT_EQ(layers.at(2), test_data.bottom);
 
     // checking that layer was added
-    EXPECT_EQ(layers.at(1)->modelType(), DaRefl::Constants::MultiLayerItemType);
+    EXPECT_EQ(layers.at(1)->modelType(), gui2::Constants::MultiLayerItemType);
     auto sublayers = layers.at(1)->getItems(MultiLayerItem::T_LAYERS);
     EXPECT_EQ(sublayers.size(), 2);
 

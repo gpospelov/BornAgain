@@ -11,7 +11,7 @@
 #include <QHeaderView>
 #include <QMouseEvent>
 
-namespace DaRefl {
+namespace gui2 {
 
 MaterialTableView::~MaterialTableView() = default;
 
@@ -56,4 +56,4 @@ bool MaterialTableView::isKeyboardEditable(const QModelIndex& index) const {
     return index.isValid();
 }
 
-} // namespace DaRefl
+} // namespace gui2

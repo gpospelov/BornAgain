@@ -19,7 +19,7 @@
 #include <QStringListModel>
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 const QString current_workdir_key = "currentworkdir";
@@ -163,4 +163,4 @@ void ImportFileWidget::makeLastSelected() {
     }
 }
 
-} // namespace DaRefl
+} // namespace gui2

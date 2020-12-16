@@ -19,7 +19,7 @@ class ViewModel;
 class SessionItem;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 class LayerEditorActions;
 
@@ -42,6 +42,6 @@ public:
     const ModelView::ViewModel* viewModel() const;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_LAYEREDITOR_LAYERSELECTIONMODEL_H

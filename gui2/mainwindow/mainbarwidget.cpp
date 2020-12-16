@@ -15,7 +15,7 @@
 #include <QStackedWidget>
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 MainBarWidget::MainBarWidget(QWidget* parent)
     : QWidget(parent), m_stackedWidget(new QStackedWidget), m_labelLayout(new QHBoxLayout) {
@@ -48,4 +48,4 @@ void MainBarWidget::setCurrentIndex(int index) {
     m_stackedWidget->setCurrentIndex(index);
 }
 
-} // namespace DaRefl
+} // namespace gui2

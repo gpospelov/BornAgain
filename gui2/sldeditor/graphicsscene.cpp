@@ -21,7 +21,7 @@ const double scene_origin_y{0.0};
 const QRectF default_scene_rect{QPointF{scene_origin_x, scene_origin_y}, QSizeF{800, 600}};
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 //! The contructor
 GraphicsScene::GraphicsScene(QObject* parent) : QGraphicsScene(parent) {
@@ -72,4 +72,4 @@ ModelView::SceneAdapterInterface* GraphicsScene::sceneAdapter() const {
     return scene_adapter.get();
 }
 
-} // namespace DaRefl
+} // namespace gui2

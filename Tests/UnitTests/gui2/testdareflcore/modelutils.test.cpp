@@ -29,7 +29,7 @@ TEST_F(ModelUtilsTest, CreateDiffVector) {
     std::vector<double> a{1.0, 2.0};
     std::vector<double> b{1.0, 4.0, 3.0};
 
-    auto result = DaRefl::Utils::CreateDiffVector(a, b);
+    auto result = gui2::Utils::CreateDiffVector(a, b);
     EXPECT_EQ(result.size(), 2u);
     EXPECT_DOUBLE_EQ(result[0], 0.0);
     EXPECT_DOUBLE_EQ(result[1], 2.0 * (2.0 - 4.0) / (2.0 + 4.0));
@@ -50,7 +50,7 @@ TEST_F(ModelUtilsTest, SetDifference) {
 
     Data1DItem diff;
     diff.setAxis<FixedBinAxisItem>(3, 0.0, 3.0);
-    DaRefl::Utils::SetDifference(&item1, &item2, &diff);
+    gui2::Utils::SetDifference(&item1, &item2, &diff);
 
     std::vector<double> expected_centers = {0.5, 1.5, 2.5};
     EXPECT_EQ(diff.binCenters(), expected_centers);

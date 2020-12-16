@@ -17,7 +17,7 @@
 #include <QPen>
 #include <QRectF>
 
-namespace DaRefl {
+namespace gui2 {
 
 class LayerElementController;
 
@@ -46,6 +46,6 @@ protected:
     QPen m_pen;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_HANDLEELEMENTVIEW_H

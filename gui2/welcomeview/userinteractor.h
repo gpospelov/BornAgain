@@ -19,7 +19,7 @@ namespace ModelView {
 enum class SaveChangesAnswer;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class RecentProjectSettings;
 
@@ -43,6 +43,6 @@ private:
     QWidget* m_parent{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_WELCOMEVIEW_USERINTERACTOR_H

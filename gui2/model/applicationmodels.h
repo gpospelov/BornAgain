@@ -18,7 +18,7 @@ namespace ModelView {
 class SessionModel;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class MaterialModel;
 class SampleModel;
@@ -51,6 +51,6 @@ private:
     std::unique_ptr<ApplicationModelsImpl> p_impl;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_APPLICATIONMODELS_H

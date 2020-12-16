@@ -20,7 +20,7 @@ class SessionItem;
 class GraphItem;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 class CanvasItem;
 
@@ -48,6 +48,6 @@ public:
     std::vector<ModelView::GraphItem*> selectedGraphs() const;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_IMPORTDATAVIEW_DATASELECTIONMODEL_H

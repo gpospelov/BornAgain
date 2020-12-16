@@ -19,7 +19,7 @@
 #include "mvvm/viewmodel/viewmodeldelegate.h"
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 MaterialEditorWidget::MaterialEditorWidget(QWidget* parent)
     : QWidget(parent)
@@ -48,4 +48,4 @@ MaterialSelectionModel* MaterialEditorWidget::selectionModel() const {
     return m_selectionModel;
 }
 
-} // namespace DaRefl
+} // namespace gui2

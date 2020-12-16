@@ -14,7 +14,7 @@
 #include <QWidget>
 #include <string>
 
-namespace DaRefl {
+namespace gui2 {
 
 class ExperimentalDataModel;
 struct GraphImportData;
@@ -50,6 +50,6 @@ private:
     GraphCanvasWidget* m_graphCanvasWidget{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_IMPORTDATAVIEW_IMPORTDATAEDITOR_H

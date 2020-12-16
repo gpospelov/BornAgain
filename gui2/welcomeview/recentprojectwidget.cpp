@@ -21,7 +21,7 @@ const int max_recent_project_count = 10;
 const double section_label_scale = 1.25;
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 RecentProjectWidget::RecentProjectWidget(QWidget* parent)
     : QWidget(parent), m_currentProjectPane(new ProjectPaneWidget) {
@@ -98,4 +98,4 @@ QWidget* RecentProjectWidget::createRecentProjectScrollArea() {
     return result;
 }
 
-} // namespace DaRefl
+} // namespace gui2

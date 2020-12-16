@@ -20,7 +20,7 @@ class GraphViewportItem;
 class GraphItem;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 class CanvasItem;
 
@@ -77,6 +77,6 @@ private:
     void setup_diff_viewport();
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_JOBITEM_H

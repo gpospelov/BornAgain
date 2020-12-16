@@ -12,9 +12,9 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 LayerViewModel::LayerViewModel(SessionModel* model, QObject* parent)
     : ViewModel(std::make_unique<LayerViewModelController>(model, this), parent) {}
 
-} // namespace DaRefl
+} // namespace gui2

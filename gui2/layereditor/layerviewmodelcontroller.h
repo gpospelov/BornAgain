@@ -17,7 +17,7 @@ namespace ModelView {
 class ViewModel;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Controller for LayerViewModel to show MultiLayerItem in a tree with custom layout.
 //! Will iterate through all top level items and creates rows with layer properties.
@@ -27,6 +27,6 @@ public:
     LayerViewModelController(ModelView::SessionModel* model, ModelView::ViewModel* view_model);
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_LAYEREDITOR_LAYERVIEWMODELCONTROLLER_H

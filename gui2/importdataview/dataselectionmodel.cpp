@@ -17,7 +17,7 @@
 #include "mvvm/viewmodel/viewmodel.h"
 #include "mvvm/viewmodel/viewmodelutils.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 //! The constructor
 DataSelectionModel::DataSelectionModel(ModelView::ViewModel* view_model, QObject* parent)
@@ -87,4 +87,4 @@ std::vector<ModelView::GraphItem*> DataSelectionModel::selectedGraphs() const {
     return ModelView::Utils::CastedItems<ModelView::GraphItem>(selectedItems());
 }
 
-} // namespace DaRefl
+} // namespace gui2

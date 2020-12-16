@@ -18,7 +18,7 @@
 
 class SpecularScalarTanhStrategy;
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Toy simulation to calculate "specular reflectivity.
 //! Used by JobManager to run simulation in mylti-threaded mode.
@@ -47,6 +47,6 @@ private:
     std::unique_ptr<SpecularScalarTanhStrategy> m_strategy;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_QUICKSIMEDITOR_SPECULARTOYSIMULATION_H

@@ -19,7 +19,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 ProjectHandler::ProjectHandler(ApplicationModels* models, QWidget* parent)
     : QObject(parent)
@@ -106,4 +106,4 @@ void ProjectHandler::updateRecentProjectNames() {
     recentProjectsListModified(m_recentProjectSettings->recentProjects());
 }
 
-} // namespace DaRefl
+} // namespace gui2

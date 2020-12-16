@@ -14,7 +14,7 @@
 #include <QMenu>
 #include <QToolButton>
 
-namespace DaRefl {
+namespace gui2 {
 
 LayerEditorToolBar::LayerEditorToolBar(LayerEditorActions* actions, QWidget* parent)
     : QToolBar(parent) {
@@ -108,4 +108,4 @@ void LayerEditorToolBar::updateToolButtonStates(bool first_present, bool last_pr
     m_toolbarWidgets["Down"]->setEnabled((!last_present) ? (true) : (false));
 }
 
-} // namespace DaRefl
+} // namespace gui2

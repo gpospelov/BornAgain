@@ -14,7 +14,7 @@
 #include <QGraphicsView>
 #include <memory>
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 class SLDElementController;
@@ -36,6 +36,6 @@ private:
     std::unique_ptr<SLDElementController> m_sld_controller;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif

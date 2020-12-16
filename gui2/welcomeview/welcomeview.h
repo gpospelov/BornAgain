@@ -14,7 +14,7 @@
 #include <QWidget>
 #include <memory>
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 class ProjectHandler;
@@ -56,6 +56,6 @@ private:
     OpenProjectWidget* m_openProjectWidget{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_WELCOMEVIEW_WELCOMEVIEW_H

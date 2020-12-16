@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 
-namespace DaRefl {
+namespace gui2 {
 
 struct ColumnInfo;
 
@@ -59,6 +59,6 @@ private:
     int m_maxColumnCount{0};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_IMPORTTABLEMODEL_H

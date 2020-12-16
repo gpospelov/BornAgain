@@ -15,7 +15,7 @@
 #include "mvvm/standarditems/data1ditem.h"
 #include "mvvm/standarditems/graphitem.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 ModelView::ExternalProperty Utils::CreateProperty(const ModelView::GraphItem* graph) {
     std::string name = graph->parent()->displayName() + "/" + graph->displayName();
@@ -59,4 +59,4 @@ void Utils::SetDifference(const ModelView::Data1DItem* data1, const ModelView::D
     target->setValues(CreateDiffVector(data1->binValues(), data2->binValues()));
 }
 
-} // namespace DaRefl
+} // namespace gui2

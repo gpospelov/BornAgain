@@ -19,7 +19,7 @@
 #include "test_utils.h"
 #include <QGraphicsScene>
 
-using namespace DaRefl;
+using namespace gui2;
 using namespace ModelView;
 
 class SLDElementControllerTest : public ::testing::Test {

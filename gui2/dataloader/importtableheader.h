@@ -14,7 +14,7 @@
 #include <QVariant>
 #include <vector>
 
-namespace DaRefl {
+namespace gui2 {
 
 struct ColumnInfo;
 
@@ -47,6 +47,6 @@ private:
     int m_maxColumnCount;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_IMPORTTABLEHEADER_H

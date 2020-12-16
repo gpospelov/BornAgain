@@ -17,7 +17,7 @@
 #include "mvvm/plotting/graphcanvas.h"
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! The constructor
 SLDEditor::SLDEditor(QWidget* parent)
@@ -57,4 +57,4 @@ QSize SLDEditor::minimumSizeHint() const {
     return StyleUtils::DockMinimumSizeHint();
 }
 
-} // namespace DaRefl
+} // namespace gui2

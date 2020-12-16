@@ -20,7 +20,7 @@ class PropertyTreeView;
 class CollapsibleListWidget;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 class DataSelectionModel;
 class DataViewModel;
@@ -51,6 +51,6 @@ private:
     ModelView::CollapsibleListWidget* m_collapsibleWidget{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_IMPORTDATAVIEW_DATASELECTORWIDGET_H

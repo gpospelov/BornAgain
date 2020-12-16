@@ -14,7 +14,7 @@
 #include <QAction>
 #include <QToolButton>
 
-namespace DaRefl {
+namespace gui2 {
 
 SLDEditorToolBar::SLDEditorToolBar(SLDEditorActions*, QWidget* parent) : QToolBar(parent) {
     StyleUtils::SetToolBarStyleTextBesides(this);
@@ -26,4 +26,4 @@ SLDEditorToolBar::SLDEditorToolBar(SLDEditorActions*, QWidget* parent) : QToolBa
     connect(reset_view, &QToolButton::clicked, [this]() { resetViewport(); });
 }
 
-} // namespace DaRefl
+} // namespace gui2

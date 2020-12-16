@@ -21,8 +21,8 @@ namespace {
 
 std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
     auto result = std::make_unique<ModelView::ItemCatalogue>();
-    result->registerItem<DaRefl::MaterialContainerItem>();
-    result->registerItem<DaRefl::SLDMaterialItem>();
+    result->registerItem<gui2::MaterialContainerItem>();
+    result->registerItem<gui2::SLDMaterialItem>();
     return result;
 }
 
@@ -53,7 +53,7 @@ QColor suggestMaterialColor(const std::string& name) {
 
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 MaterialModel::MaterialModel(std::shared_ptr<ModelView::ItemPool> pool)
     : SessionModel("MaterialModel", pool) {
@@ -128,4 +128,4 @@ MaterialContainerItem* MaterialModel::materialContainer() {
     return topItem<MaterialContainerItem>();
 }
 
-} // namespace DaRefl
+} // namespace gui2

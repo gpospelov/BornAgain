@@ -14,7 +14,7 @@
 #include <QObject>
 #include <memory>
 
-namespace DaRefl {
+namespace gui2 {
 
 class SLDElementModel;
 
@@ -35,6 +35,6 @@ private:
     std::unique_ptr<SLDEditorActionsImpl> p_impl;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_SLDEDITORACTIONS_H

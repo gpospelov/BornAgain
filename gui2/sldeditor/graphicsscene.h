@@ -21,7 +21,7 @@ class GraphViewportItem;
 class CustomPlotProxyWidget;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 class RegionOfInterestItem;
 
@@ -46,6 +46,6 @@ private:
     ModelView::GraphCanvas* graph_canvas{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_GRAPHICSSCENE_H

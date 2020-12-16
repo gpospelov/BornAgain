@@ -12,7 +12,7 @@
 #include "gui2/mainwindow/styleutils.h"
 #include <QAction>
 
-namespace DaRefl {
+namespace gui2 {
 
 ImportDataEditorToolBar::ImportDataEditorToolBar(ImportDataEditorActions* editorActions,
                                                  QWidget* parent)
@@ -79,4 +79,4 @@ ImportDataEditorToolBar::ImportDataEditorToolBar(ImportDataEditorActions* editor
     addAction(reset_graph_action);
 }
 
-} // namespace DaRefl
+} // namespace gui2

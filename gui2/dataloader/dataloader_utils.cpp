@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <fstream>
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 
@@ -199,4 +199,4 @@ GraphImportData Utils::CreateData(const std::vector<std::vector<std::string>>& t
     return result;
 }
 
-} // namespace DaRefl
+} // namespace gui2

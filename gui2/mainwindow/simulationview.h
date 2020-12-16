@@ -18,7 +18,7 @@ namespace ModelView {
 class CollapsibleListWidget;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 class QuickSimEditor;
@@ -39,6 +39,6 @@ private:
     ApplicationModels* m_models{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MAINWINDOW_SIMULATIONVIEW_H

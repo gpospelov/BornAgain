@@ -18,7 +18,7 @@
 #include "mvvm/viewmodel/viewmodeldelegate.h"
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 LayerEditorWidget::LayerEditorWidget(QWidget* parent)
     : QWidget(parent)
@@ -47,4 +47,4 @@ LayerSelectionModel* LayerEditorWidget::selectionModel() const {
     return m_selectionModel;
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include "gui2/quicksimeditor/quicksim_types.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Collection of methods borrowed from BornAgain for material profile calculations.
 
@@ -32,6 +32,6 @@ DAREFLCORE_EXPORT std::vector<double> GenerateZValues(int n_points, double z_min
 
 } // namespace MaterialProfile
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_QUICKSIMEDITOR_MATERIALPROFILE_H

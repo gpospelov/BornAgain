@@ -18,7 +18,7 @@ class GraphViewportItem;
 class GraphItem;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 class JobItem;
 class CanvasItem;
@@ -48,6 +48,6 @@ private:
     JobItem* jobItem() const;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_JOBMODEL_H

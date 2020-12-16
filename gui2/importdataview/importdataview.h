@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include <QWidget>
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 
@@ -29,6 +29,6 @@ private:
     ApplicationModels* m_models{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_IMPORTDATAVIEW_IMPORTDATAVIEW_H

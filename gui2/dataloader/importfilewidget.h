@@ -16,7 +16,7 @@
 class QListView;
 class QStringListModel;
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Provides the possibility to select file names on disk and add them to list view.
 //! List represents names of ASCII files which will be later imported and parsed.
@@ -57,6 +57,6 @@ private:
     QString m_currentWorkdir;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_IMPORTFILEWIDGET_H

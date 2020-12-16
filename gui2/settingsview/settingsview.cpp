@@ -19,7 +19,7 @@
 #include <QTabWidget>
 #include <QTreeView>
 
-namespace DaRefl {
+namespace gui2 {
 
 SettingsView::SettingsView(ApplicationModels* models, QWidget* parent)
     : QWidget(parent)
@@ -71,4 +71,4 @@ void SettingsView::init_other_settings() {
     m_stackedWidget->addWidget(new QWidget);
 }
 
-} // namespace DaRefl
+} // namespace gui2

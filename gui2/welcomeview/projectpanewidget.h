@@ -15,7 +15,7 @@
 
 class QLabel;
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Panel with labels to hold project name and project dir. When user clicks on it,
 //! sends the request to open corresponding project. Part of RecentProjectsWidget.
@@ -49,6 +49,6 @@ private:
     QString m_projectDir;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_WELCOMEVIEW_PROJECTPANEWIDGET_H

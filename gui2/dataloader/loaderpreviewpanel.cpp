@@ -16,7 +16,7 @@
 #include <QTabWidget>
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 const std::string gray{"#aab7b8"};
@@ -62,4 +62,4 @@ void LoaderPreviewPanel::clearPanel() {
     m_tableWidget->setRawData({});
 }
 
-} // namespace DaRefl
+} // namespace gui2

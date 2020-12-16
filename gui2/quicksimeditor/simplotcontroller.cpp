@@ -15,7 +15,7 @@
 #include "gui2/model/jobmodel.h"
 #include "mvvm/project/modelhaschangedcontroller.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 SimPlotController::SimPlotController(QObject* parent) : QObject(parent) {}
 
@@ -35,4 +35,4 @@ void SimPlotController::onInstrumentChange() {
 
 SimPlotController::~SimPlotController() = default;
 
-} // namespace DaRefl
+} // namespace gui2

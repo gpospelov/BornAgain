@@ -22,7 +22,7 @@ namespace ModelView {
 class ViewModelDelegate;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 struct ColumnInfo;
 
@@ -48,6 +48,6 @@ private:
     std::unique_ptr<ModelView::ViewModelDelegate> m_delegate;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_IMPORTTABLEWIDGET_H

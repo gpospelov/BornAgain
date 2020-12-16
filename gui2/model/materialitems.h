@@ -20,7 +20,7 @@ namespace ModelView {
 class ExternalProperty;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Container to hold MaterialItems.
 
@@ -59,6 +59,6 @@ public:
     void set_properties(const std::string& name, const QColor& color, double real, double imag);
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_MATERIALITEMS_H

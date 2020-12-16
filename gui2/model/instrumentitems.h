@@ -21,7 +21,7 @@ namespace ModelView {
 class GraphItem;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Represents base type for beam scan parameters.
 
@@ -91,6 +91,6 @@ public:
     SpecularBeamItem* beamItem() const;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_INSTRUMENTITEMS_H

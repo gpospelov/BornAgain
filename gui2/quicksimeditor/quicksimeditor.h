@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include <QWidget>
 
-namespace DaRefl {
+namespace gui2 {
 
 class JobModel;
 class ApplicationModels;
@@ -47,6 +47,6 @@ private:
     QuickSimEditorToolBar* m_toolBar{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_QUICKSIMEDITOR_QUICKSIMEDITOR_H

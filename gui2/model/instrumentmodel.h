@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include "mvvm/model/sessionmodel.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Model to store specular instruments settings.
 
@@ -22,6 +22,6 @@ public:
     InstrumentModel(std::shared_ptr<ModelView::ItemPool> pool = {});
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_INSTRUMENTMODEL_H

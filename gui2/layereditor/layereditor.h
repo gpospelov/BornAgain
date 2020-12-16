@@ -17,7 +17,7 @@ namespace ModelView {
 class AbstractViewModel;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 class LayerEditorActions;
@@ -45,6 +45,6 @@ private:
     LayerEditorToolBar* m_toolBar{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_LAYEREDITOR_LAYEREDITOR_H

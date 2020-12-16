@@ -16,7 +16,7 @@
 #include "mvvm/model/externalproperty.h"
 #include "mvvm/model/modelutils.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 ExperimentalDataController::ExperimentalDataController(ExperimentalDataModel* data_model,
                                                        InstrumentModel* instrument_model)
@@ -42,4 +42,4 @@ void ExperimentalDataController::update_all() {
     }
 }
 
-} // namespace DaRefl
+} // namespace gui2

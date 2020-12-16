@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include <QToolBar>
 
-namespace DaRefl {
+namespace gui2 {
 
 class MaterialEditorActions;
 
@@ -27,6 +27,6 @@ public:
     ~MaterialEditorToolBar() = default;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MATERIALEDITOR_MATERIALEDITORTOOLBAR_H

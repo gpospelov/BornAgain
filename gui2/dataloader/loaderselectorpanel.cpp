@@ -14,7 +14,7 @@
 #include <QSplitter>
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 LoaderSelectorPanel::LoaderSelectorPanel(QWidget* parent)
     : QWidget(parent)
@@ -81,4 +81,4 @@ void LoaderSelectorPanel::init_connections() {
     connect(m_propertyWidget, &ParserPropertyWidget::targetCanvasChanged, on_target_changed);
 }
 
-} // namespace DaRefl
+} // namespace gui2

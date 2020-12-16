@@ -14,7 +14,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 MaterialContainerItem::MaterialContainerItem()
     : ModelView::CompoundItem(Constants::MaterialContainerItemType) {
@@ -67,4 +67,4 @@ void SLDMaterialItem::set_properties(const std::string& name, const QColor& colo
     setProperty(P_SLD_IMAG, imag);
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -13,7 +13,7 @@
 #include "mvvm/utils/numericutils.h"
 #include "mvvm/utils/reallimits.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 LayerElementItem::LayerElementItem() : ModelView::CompoundItem("LayerElement") {
     addProperty(P_X_POS, 0.)->setDisplayName("Position");
@@ -48,4 +48,4 @@ LayerElementItem::LayerElementItem() : ModelView::CompoundItem("LayerElement") {
         ->setDisplayName("Roughness handle pen color");
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -13,7 +13,7 @@
 #include <QAction>
 #include <QToolButton>
 
-namespace DaRefl {
+namespace gui2 {
 
 MaterialEditorToolBar::MaterialEditorToolBar(MaterialEditorActions* actions, QWidget* parent)
     : QToolBar(parent) {
@@ -66,4 +66,4 @@ MaterialEditorToolBar::MaterialEditorToolBar(MaterialEditorActions* actions, QWi
     addAction(action);
 }
 
-} // namespace DaRefl
+} // namespace gui2

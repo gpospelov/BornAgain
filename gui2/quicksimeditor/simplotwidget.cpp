@@ -17,7 +17,7 @@
 #include <QSplitter>
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 SimPlotWidget::SimPlotWidget(QWidget* parent)
     : QWidget(parent)
@@ -57,4 +57,4 @@ void SimPlotWidget::updateViewport() {
     m_diffCanvas->setViewportToContent();
 }
 
-} // namespace DaRefl
+} // namespace gui2

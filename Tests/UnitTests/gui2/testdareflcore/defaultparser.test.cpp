@@ -12,7 +12,7 @@
 #include "gui2/dataloader/defaultparser.h"
 #include "test_utils.h"
 
-using namespace DaRefl;
+using namespace gui2;
 using TestUtils::toStringVector;
 
 //! Test DefaultParser.

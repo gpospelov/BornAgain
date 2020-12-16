@@ -16,7 +16,7 @@
 #include <map>
 #include <string>
 
-namespace DaRefl {
+namespace gui2 {
 
 class LayerEditorActions;
 
@@ -36,6 +36,6 @@ private:
     std::map<std::string, QWidget*> m_toolbarWidgets;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_LAYEREDITOR_LAYEREDITORTOOLBAR_H

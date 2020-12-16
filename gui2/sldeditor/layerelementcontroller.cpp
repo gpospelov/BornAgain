@@ -21,7 +21,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Constructor
 LayerElementController::LayerElementController(LayerElementItem* layer_view_item)
@@ -840,4 +840,4 @@ void LayerElementController::setRoughnessInLimits(double roughness, bool active)
         layerElementItem()->setProperty(LayerElementItem::P_ROUGHNESS, roughness);
 }
 
-} // namespace DaRefl
+} // namespace gui2

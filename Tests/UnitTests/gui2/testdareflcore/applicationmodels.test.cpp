@@ -32,7 +32,7 @@ ApplicationModelsTest::~ApplicationModelsTest() = default;
 TEST_F(ApplicationModelsTest, saveLoad) {
     auto project_dir = createEmptyDir("Untitled1");
 
-    DaRefl::ApplicationModels models, loadedModels;
+    gui2::ApplicationModels models, loadedModels;
 
     {
         ProjectContext context1;

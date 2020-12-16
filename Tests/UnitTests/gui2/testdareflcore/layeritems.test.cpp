@@ -12,7 +12,7 @@
 #include "gui2/model/samplemodel.h"
 #include "test_utils.h"
 
-using namespace DaRefl;
+using namespace gui2;
 using namespace ModelView;
 
 //! Test layer items.

@@ -11,7 +11,7 @@
 #include "gui2/dataloader/dataloader_utils.h"
 #include <stdexcept>
 
-namespace DaRefl {
+namespace gui2 {
 
 DefaultParser::DefaultParser(const ParserOptions& options) {
     m_isSkipLineNumber = Utils::CreateLineNumberPatternValidator(options.m_skip_index_pattern);
@@ -66,4 +66,4 @@ std::vector<std::vector<std::string>> DefaultParser::parsedData() const {
     return result;
 }
 
-} // namespace DaRefl
+} // namespace gui2

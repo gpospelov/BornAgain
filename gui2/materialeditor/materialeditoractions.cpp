@@ -19,7 +19,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 struct MaterialEditorActions::MaterialEditorActionsImpl {
     MaterialModel* material_model{nullptr};
@@ -160,4 +160,4 @@ void MaterialEditorActions::onImport() {}
 
 MaterialEditorActions::~MaterialEditorActions() = default;
 
-} // namespace DaRefl
+} // namespace gui2

@@ -16,7 +16,7 @@ class QSize;
 class QFont;
 class QToolBar;
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Namespace for central access to all theme styling.
 
@@ -36,6 +36,6 @@ DAREFLCORE_EXPORT void SetToolBarStyleTextBesides(QToolBar* toolbar);
 
 }; // namespace StyleUtils
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MAINWINDOW_STYLEUTILS_H

@@ -22,7 +22,7 @@
 #include "mvvm/model/modelutils.h"
 #include "mvvm/model/sessionitem.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 using namespace ModelView;
 
@@ -118,4 +118,4 @@ std::vector<SessionModel*> ApplicationModels::application_models() const {
     return p_impl->application_models();
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -14,7 +14,7 @@
 #include <QToolBar>
 #include <QWidget>
 
-namespace DaRefl {
+namespace gui2 {
 
 QSize StyleUtils::ToolBarIconSize() {
     return QSize(24, 24);
@@ -34,4 +34,4 @@ void StyleUtils::SetToolBarStyleTextBesides(QToolBar* toolbar) {
     toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 }
 
-} // namespace DaRefl
+} // namespace gui2

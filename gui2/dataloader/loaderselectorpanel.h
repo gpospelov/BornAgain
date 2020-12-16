@@ -16,7 +16,7 @@
 
 class QSplitter;
 
-namespace DaRefl {
+namespace gui2 {
 
 class ParserInterface;
 class ImportFileWidget;
@@ -58,6 +58,6 @@ private:
     QSplitter* m_splitter{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_LOADERSELECTORPANEL_H

@@ -13,12 +13,12 @@
 #include <string>
 #include <vector>
 
-namespace DaRefl::Constants {
+namespace gui2::Constants {
 
 const std::string AxisType = "Axis";
 const std::string IntensityType = "Intensity";
 const std::string IgnoreType = "Ignore";
 
-} // namespace DaRefl::Constants
+} // namespace gui2::Constants
 
 #endif // DAREFL_DATALOADER_DATALOADER_CONSTANTS_H

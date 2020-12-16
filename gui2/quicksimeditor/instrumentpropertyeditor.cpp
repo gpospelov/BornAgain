@@ -20,7 +20,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 InstrumentPropertyEditor::InstrumentPropertyEditor(QWidget* parent)
     : QWidget(parent)
@@ -55,4 +55,4 @@ QSize InstrumentPropertyEditor::minimumSizeHint() const {
     return StyleUtils::DockMinimumSizeHint();
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -11,7 +11,7 @@
 #include <QHeaderView>
 #include <QMouseEvent>
 
-namespace DaRefl {
+namespace gui2 {
 
 MaterialTreeView::~MaterialTreeView() = default;
 
@@ -62,4 +62,4 @@ bool MaterialTreeView::isKeyboardEditable(const QModelIndex& index) const {
     return index.isValid();
 }
 
-} // namespace DaRefl
+} // namespace gui2

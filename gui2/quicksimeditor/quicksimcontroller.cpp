@@ -28,7 +28,7 @@ namespace {
 const int profile_points_count = 1000;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 QuickSimController::QuickSimController(QObject* parent)
     : QObject(parent)
@@ -129,4 +129,4 @@ InstrumentModel* QuickSimController::instrumentModel() const {
     return m_models->instrumentModel();
 }
 
-} // namespace DaRefl
+} // namespace gui2

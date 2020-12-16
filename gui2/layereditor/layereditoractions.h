@@ -14,7 +14,7 @@
 #include <QObject>
 #include <memory>
 
-namespace DaRefl {
+namespace gui2 {
 
 class SampleModel;
 class LayerSelectionModel;
@@ -45,6 +45,6 @@ private:
     std::unique_ptr<LayerEditorActionsImpl> p_impl;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_LAYEREDITOR_LAYEREDITORACTIONS_H

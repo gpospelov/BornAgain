@@ -19,7 +19,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 struct LayerEditorActions::LayerEditorActionsImpl {
     SampleModel* sample_model{nullptr};
@@ -129,4 +129,4 @@ void LayerEditorActions::setSelectionModel(LayerSelectionModel* selection_model)
 
 LayerEditorActions::~LayerEditorActions() = default;
 
-} // namespace DaRefl
+} // namespace gui2

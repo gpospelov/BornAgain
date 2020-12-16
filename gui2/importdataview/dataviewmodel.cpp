@@ -24,7 +24,7 @@ const std::string ExperimentalDataMimeType = "darefl/ExperimentalDataMime";
 
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 DataViewModel::DataViewModel(ExperimentalDataModel* model, QObject* parent)
     : ModelView::TopItemsViewModel(model, parent) {}
@@ -105,4 +105,4 @@ bool DataViewModel::dropMimeData(const QMimeData* data, Qt::DropAction action, i
     return true;
 }
 
-} // namespace DaRefl
+} // namespace gui2

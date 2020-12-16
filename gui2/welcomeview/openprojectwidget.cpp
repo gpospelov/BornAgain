@@ -27,7 +27,7 @@ const QString str_new = "New";
 
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 OpenProjectWidget::OpenProjectWidget(QWidget* parent) : QWidget(parent) {
     auto layout = new QVBoxLayout(this);
@@ -56,7 +56,7 @@ QSize OpenProjectWidget::minimumSizeHint() const {
 QBoxLayout* OpenProjectWidget::createProjectTitleLayout() {
     auto result = new QHBoxLayout;
     QString title =
-        QString("DaRefl version %1").arg(QString::fromStdString(DaRefl::ProjectVersion()));
+        QString("DaRefl version %1").arg(QString::fromStdString(gui2::ProjectVersion()));
     auto label = new QLabel(title);
     ModelView::Utils::ScaleLabelFont(label, 1.25);
 
@@ -87,4 +87,4 @@ QBoxLayout* OpenProjectWidget::createLinkedLabelLayout() {
     return result;
 }
 
-} // namespace DaRefl
+} // namespace gui2

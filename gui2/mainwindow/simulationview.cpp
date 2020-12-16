@@ -19,7 +19,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 SimulationView::SimulationView(ApplicationModels* models, QWidget* parent)
     : QMainWindow(parent)
@@ -55,4 +55,4 @@ void SimulationView::initEditorList() {
     instrument_editor->setModels(m_models);
 }
 
-} // namespace DaRefl
+} // namespace gui2

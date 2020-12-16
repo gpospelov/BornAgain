@@ -16,7 +16,7 @@
 #include <vector>
 
 //! Object that can generate the material profile of a sample as a function of depth.
-namespace DaRefl {
+namespace gui2 {
 
 class DAREFLCORE_EXPORT ProfileHelper {
 public:
@@ -32,6 +32,6 @@ private:
     std::vector<double> m_sigmas;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_QUICKSIMEDITOR_PROFILEHELPER_H

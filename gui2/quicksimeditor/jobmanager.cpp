@@ -10,7 +10,7 @@
 #include "gui2/quicksimeditor/jobmanager.h"
 #include "gui2/quicksimeditor/speculartoysimulation.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 JobManager::JobManager(QObject* parent) : QObject(parent), m_isRunning(true) {
     // starting thread to run consequent simulations
@@ -87,4 +87,4 @@ void JobManager::wait_and_run() {
     }
 }
 
-} // namespace DaRefl
+} // namespace gui2

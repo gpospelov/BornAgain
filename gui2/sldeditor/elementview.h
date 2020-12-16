@@ -15,7 +15,7 @@
 
 #include <QGraphicsObject>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! The interface of any QGraphicsViewItem on GraphicsScene to the Sceneadapter
 class DAREFLCORE_EXPORT ElementView : public QGraphicsObject {
@@ -64,6 +64,6 @@ private:
     bool m_stretch_right = false;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_ELEMENTVIEW_H

@@ -21,7 +21,7 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 DataSelectorWidget::DataSelectorWidget(DataViewModel* view_model, QWidget* parent)
     : QWidget(parent)
@@ -62,4 +62,4 @@ void DataSelectorWidget::onSelectionChanged() {
     selectionChanged(); // emmit further
 }
 
-} // namespace DaRefl
+} // namespace gui2

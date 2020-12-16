@@ -19,7 +19,7 @@ namespace ModelView {
 class UndoStackInterface;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class ExperimentalDataModel;
 class DataSelectionModel;
@@ -57,6 +57,6 @@ private:
     DataSelectionModel* m_selectionModel{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_IMPORTDATAVIEW_IMPORTDATAEDITORACTIONS_H

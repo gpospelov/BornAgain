@@ -21,7 +21,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 const int row_sim_graph = 0;
@@ -196,4 +196,4 @@ void JobItem::setup_diff_viewport() {
     differenceData()->setAxis<PointwiseAxisItem>(std::vector<double>());
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -20,7 +20,7 @@ class QButtonGroup;
 class QComboBox;
 class QLineEdit;
 
-namespace DaRefl {
+namespace gui2 {
 
 class ParserInterface;
 
@@ -65,6 +65,6 @@ private:
     QLineEdit* m_customSeparatorLineEdit{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_PARSERPROPERTYWIDGET_H

@@ -18,7 +18,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 BasicSpecularScanItem::BasicSpecularScanItem(const std::string& model_type)
     : CompoundItem(model_type) {}
@@ -110,4 +110,4 @@ SpecularBeamItem* SpecularInstrumentItem::beamItem() const {
     return item<SpecularBeamItem>(P_BEAM);
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -19,7 +19,7 @@ class ViewModel;
 class ViewModelDelegate;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 class MaterialModel;
@@ -49,6 +49,6 @@ private:
     std::unique_ptr<ModelView::ViewModelDelegate> m_delegate;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MATERIALEDITOR_MATERIALEDITORWIDGET_H

@@ -17,7 +17,7 @@
 
 class QBoxLayout;
 
-namespace DaRefl {
+namespace gui2 {
 
 class ProjectPaneWidget;
 
@@ -49,6 +49,6 @@ private:
     std::vector<ProjectPaneWidget*> m_recentProjectPanes;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_WELCOMEVIEW_RECENTPROJECTWIDGET_H

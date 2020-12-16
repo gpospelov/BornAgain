@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Raw data to construct GraphItem and Data1DItem's.
 
@@ -28,6 +28,6 @@ struct DAREFLCORE_EXPORT GraphImportData {
     std::string signal_units;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_IMPORTDATAVIEW_GRAPHIMPORTDATA_H

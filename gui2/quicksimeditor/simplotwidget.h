@@ -17,7 +17,7 @@ namespace ModelView {
 class GraphCanvas;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 
@@ -43,6 +43,6 @@ private:
     ModelView::GraphCanvas* m_diffCanvas{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_QUICKSIMEDITOR_SIMPLOTWIDGET_H

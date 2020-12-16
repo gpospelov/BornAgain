@@ -16,7 +16,7 @@
 #include <QPainterPath>
 #include <vector>
 
-namespace DaRefl {
+namespace gui2 {
 
 // The mvvm item associated to this layer
 class LayerElementItem;
@@ -150,6 +150,6 @@ private:
     LayerElementController* p_controller_below = nullptr;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_LAYERELEMENTCONTROLLER_H

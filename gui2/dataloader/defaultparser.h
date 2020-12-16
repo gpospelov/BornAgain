@@ -15,7 +15,7 @@
 #include "gui2/dataloader/parserinterface.h"
 #include <map>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Provides basic algorirthm for parsing multi-string data representing content
 //! of multi-column ASCII file.
@@ -46,6 +46,6 @@ private:
     std::map<size_t, std::vector<std::string>> m_parsedData;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_DEFAULTPARSER_H

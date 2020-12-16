@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include "mvvm/signals/modellistener.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 class SampleModel;
 class MaterialModel;
@@ -31,6 +31,6 @@ private:
     SampleModel* m_sample_model{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_MATERIALPROPERTYCONTROLLER_H

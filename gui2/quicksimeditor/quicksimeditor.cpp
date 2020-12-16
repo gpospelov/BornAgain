@@ -24,7 +24,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 QuickSimEditor::QuickSimEditor(QWidget* parent)
     : QWidget(parent)
@@ -93,4 +93,4 @@ void QuickSimEditor::setup_controller_connections() {
             &QuickSimEditorToolBar::onProgressChanged);
 }
 
-} // namespace DaRefl
+} // namespace gui2

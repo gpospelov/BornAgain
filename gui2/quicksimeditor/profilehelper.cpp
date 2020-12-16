@@ -17,7 +17,7 @@ double Transition(double x, double sigma);
 double TransitionTanh(double x);
 } // namespace
 
-DaRefl::ProfileHelper::ProfileHelper(const std::vector<Slice>& sample) {
+gui2::ProfileHelper::ProfileHelper(const std::vector<Slice>& sample) {
     auto N = sample.size();
     m_materialdata.reserve(N);
     if (N > 1) {
@@ -43,7 +43,7 @@ DaRefl::ProfileHelper::ProfileHelper(const std::vector<Slice>& sample) {
 // of n^2. To first order in delta and beta, this implies the same smooth interpolation of delta
 // and beta, as is done here.
 std::vector<complex_t>
-DaRefl::ProfileHelper::calculateProfile(const std::vector<double>& z_values) const {
+gui2::ProfileHelper::calculateProfile(const std::vector<double>& z_values) const {
     complex_t top_value = m_materialdata.size() ? m_materialdata[0] : 0.0;
     std::vector<complex_t> result(z_values.size(), top_value);
     for (size_t i = 0; i < m_zlimits.size(); ++i) {
@@ -57,7 +57,7 @@ DaRefl::ProfileHelper::calculateProfile(const std::vector<double>& z_values) con
     return result;
 }
 
-std::pair<double, double> DaRefl::ProfileHelper::defaultLimits() const {
+std::pair<double, double> gui2::ProfileHelper::defaultLimits() const {
     if (m_zlimits.size() < 1)
         return {0.0, 0.0};
     double interface_span = m_zlimits.front() - m_zlimits.back();
@@ -69,7 +69,7 @@ std::pair<double, double> DaRefl::ProfileHelper::defaultLimits() const {
     return {z_min, z_max};
 }
 
-DaRefl::ProfileHelper::~ProfileHelper() = default;
+gui2::ProfileHelper::~ProfileHelper() = default;
 
 namespace {
 double Transition(double x, double sigma) {

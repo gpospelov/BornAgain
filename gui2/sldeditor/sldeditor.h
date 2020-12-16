@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include <QWidget>
 
-namespace DaRefl {
+namespace gui2 {
 class SLDEditorActions;
 class SLDEditorToolBar;
 class SLDViewWidget;
@@ -38,6 +38,6 @@ private:
     SLDEditorToolBar* m_toolBar{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_SLDEDITOR_H

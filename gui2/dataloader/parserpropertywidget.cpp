@@ -40,17 +40,17 @@ QWidget* createSectionWidget(const QString& text) {
 
 const QString separatorgroupid_setting_name() {
     const QString key = "separatorgroup_id";
-    return DaRefl::Constants::ParserPropertyGroupKey + "/" + key;
+    return gui2::Constants::ParserPropertyGroupKey + "/" + key;
 }
 
 const QString customseparatortext_setting_name() {
     const QString key = "customseparator_text";
-    return DaRefl::Constants::ParserPropertyGroupKey + "/" + key;
+    return gui2::Constants::ParserPropertyGroupKey + "/" + key;
 }
 
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 ParserPropertyWidget::ParserPropertyWidget(QWidget* parent) : QWidget(parent) {
     auto layout = new QVBoxLayout(this);
@@ -339,4 +339,4 @@ void ParserPropertyWidget::addImportToBlock(QGridLayout* layout) {
     buttonGroup->addButton(existingCanvasRadio);
 }
 
-} // namespace DaRefl
+} // namespace gui2

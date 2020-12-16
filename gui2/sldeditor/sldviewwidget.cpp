@@ -14,7 +14,7 @@
 #include "gui2/sldeditor/sldelementcontroller.h"
 #include <QResizeEvent>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! The constructor
 SLDViewWidget::SLDViewWidget(QWidget* parent) : QGraphicsView(parent) {
@@ -44,4 +44,4 @@ void SLDViewWidget::resizeEvent(QResizeEvent* event) {
     scene_item->update_size(event->size());
 }
 
-} // namespace DaRefl
+} // namespace gui2

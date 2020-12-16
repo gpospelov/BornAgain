@@ -14,7 +14,7 @@
 #include "mvvm/model/compounditem.h"
 #include "mvvm/model/sessionmodel.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 //! The mvvm session item associated to a layer
 class DAREFLCORE_EXPORT LayerElementItem : public ModelView::CompoundItem {
@@ -51,6 +51,6 @@ public:
     LayerElementItem();
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_LAYERELEMENTITEM_H

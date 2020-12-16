@@ -26,7 +26,7 @@ template <typename T> std::vector<T*> itemsFromIndexList(const QModelIndexList& 
 
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 ImportDataEditorActions::ImportDataEditorActions(ExperimentalDataModel* model, QObject* parent)
     : QObject(parent), m_dataModel(model) {}
@@ -123,4 +123,4 @@ ModelView::UndoStackInterface* ImportDataEditorActions::undoStack() const {
     return m_dataModel->undoStack();
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -15,7 +15,7 @@
 #include <QTableView>
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 ImportTableWidget::ImportTableWidget(QWidget* parent)
     : QWidget(parent)
@@ -40,4 +40,4 @@ std::vector<ColumnInfo> ImportTableWidget::columnInfo() const {
     return m_tableModel->columnInfo();
 }
 
-} // namespace DaRefl
+} // namespace gui2

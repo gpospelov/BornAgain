@@ -20,7 +20,7 @@
 #include "mvvm/standarditems/plottableitems.h"
 #include "test_utils.h"
 
-using namespace DaRefl;
+using namespace gui2;
 using namespace ModelView;
 
 //! Tests of ImportDataEditorActions.

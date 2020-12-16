@@ -17,7 +17,7 @@ namespace ModelView {
 class SessionModel;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 //! View model to display content of MultiLayerItem in table like views.
 
@@ -28,6 +28,6 @@ public:
     LayerViewModel(ModelView::SessionModel* model, QObject* parent = nullptr);
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_LAYEREDITOR_LAYERVIEWMODEL_H

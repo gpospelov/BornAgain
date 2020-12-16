@@ -17,7 +17,7 @@
 #include <QObject>
 #include <vector>
 
-namespace DaRefl {
+namespace gui2 {
 
 class MaterialModel;
 class SampleModel;
@@ -65,6 +65,6 @@ private:
     layer_ctrl_vec m_layer_controllers;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_SLDELEMENTCONTROLLER_H

@@ -15,7 +15,7 @@
 #include "mvvm/signals/itemmapper.h"
 #include <QVariant>
 
-namespace DaRefl {
+namespace gui2 {
 
 RoughnessItem::RoughnessItem() : ModelView::CompoundItem(Constants::RoughnessItemType) {
     addProperty(P_SIGMA, 0.0)->setDisplayName("Sigma");
@@ -85,4 +85,4 @@ void MultiLayerItem::update_layer_appearance() {
     }
 }
 
-} // namespace DaRefl
+} // namespace gui2

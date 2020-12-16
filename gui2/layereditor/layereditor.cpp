@@ -16,7 +16,7 @@
 #include "gui2/model/applicationmodels.h"
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 LayerEditor::LayerEditor(QWidget* parent)
     : QWidget(parent)
@@ -59,4 +59,4 @@ void LayerEditor::selectionChanged() {
 
 LayerEditor::~LayerEditor() = default;
 
-} // namespace DaRefl
+} // namespace gui2

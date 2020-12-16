@@ -14,7 +14,7 @@
 #include <complex>
 #include <vector>
 
-namespace DaRefl {
+namespace gui2 {
 
 using complex_t = std::complex<double>;
 
@@ -46,6 +46,6 @@ struct DAREFLCORE_EXPORT SLDProfile {
     std::vector<double> sld_real_values;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_QUICKSIMEDITOR_QUICKSIM_TYPES_H

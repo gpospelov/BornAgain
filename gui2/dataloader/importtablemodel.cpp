@@ -12,7 +12,7 @@
 #include "gui2/dataloader/importtableheader.h"
 #include <QBrush>
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 //! Returns maximum number of columns in 2D data vector.
@@ -120,4 +120,4 @@ QVariant ImportTableModel::dataFromIndex(const QModelIndex& index) const {
     return QVariant();
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -27,7 +27,7 @@ const QString size_key = "size";
 const QString pos_key = "pos";
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 MainWindow::MainWindow()
     : m_models(std::make_unique<ApplicationModels>()), m_actionManager(new ActionManager(this)) {
@@ -107,4 +107,4 @@ void MainWindow::write_settings() {
     settings.endGroup();
 }
 
-} // namespace DaRefl
+} // namespace gui2

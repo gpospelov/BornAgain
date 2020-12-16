@@ -11,7 +11,7 @@
 #include "gui2/mainwindow/styleutils.h"
 #include <QAction>
 
-namespace DaRefl {
+namespace gui2 {
 
 DataLoaderToolBar::DataLoaderToolBar(QWidget* parent) : QToolBar(parent) {
     StyleUtils::SetToolBarStyleTextBesides(this);
@@ -32,4 +32,4 @@ DataLoaderToolBar::DataLoaderToolBar(QWidget* parent) : QToolBar(parent) {
     addAction(action);
 }
 
-} // namespace DaRefl
+} // namespace gui2

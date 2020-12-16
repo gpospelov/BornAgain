@@ -18,7 +18,7 @@ namespace ModelView {
 class ExternalProperty;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class LayerElementItem;
 
@@ -31,6 +31,6 @@ public:
     LayerElementItem* addLayer();
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_SLDELEMENTMODEL_H

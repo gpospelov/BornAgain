@@ -17,7 +17,7 @@
 #include <QPainterPath>
 #include <QPen>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! The roughness QGraphicsViewItem
 class DAREFLCORE_EXPORT RoughnessElementView : public ElementView {
@@ -39,6 +39,6 @@ protected:
     QPen m_pen;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_ROUGHNESSELEMENTVIEW_H

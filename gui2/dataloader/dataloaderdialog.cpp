@@ -29,7 +29,7 @@
 #include <QVBoxLayout>
 #include <sstream>
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 
@@ -259,4 +259,4 @@ void DataLoaderDialog::initConnections() {
             &DataLoaderDialog::onShowFilePreviewRequest);
 }
 
-} // namespace DaRefl
+} // namespace gui2

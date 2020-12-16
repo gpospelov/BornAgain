@@ -15,7 +15,7 @@
 #include "mvvm/utils/threadsafestack.h"
 #include <QObject>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Handles all thread activity for running job simulation in the background.
 
@@ -47,6 +47,6 @@ private:
     bool m_interruptRequest{false};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_QUICKSIMEDITOR_JOBMANAGER_H

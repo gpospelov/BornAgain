@@ -17,7 +17,7 @@
 #include "test_utils.h"
 #include <QDebug>
 
-using namespace DaRefl;
+using namespace gui2;
 using namespace ModelView;
 
 //! Tests of DataSelectionModel.

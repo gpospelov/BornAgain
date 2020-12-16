@@ -20,7 +20,7 @@ class GraphItem;
 class GraphViewportItem;
 } // namespace ModelView
 
-namespace DaRefl {
+namespace gui2 {
 
 class CanvasContainerItem;
 class ExperimentalDataContainerItem;
@@ -51,6 +51,6 @@ private:
     void init_model();
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_EXPERIMENTALDATAMODEL_H

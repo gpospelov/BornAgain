@@ -14,7 +14,7 @@
 #include "mvvm/model/comboproperty.h"
 #include "test_utils.h"
 
-using namespace DaRefl;
+using namespace gui2;
 
 //! Test the data column item
 class ImportTableHeaderTest : public ::testing::Test {

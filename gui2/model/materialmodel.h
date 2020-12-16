@@ -19,7 +19,7 @@ namespace ModelView {
 class ExternalProperty;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class MaterialBaseItem;
 class MaterialContainerItem;
@@ -45,6 +45,6 @@ private:
     MaterialContainerItem* materialContainer();
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_MATERIALMODEL_H

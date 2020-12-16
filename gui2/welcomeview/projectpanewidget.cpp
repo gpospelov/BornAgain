@@ -20,7 +20,7 @@ int widget_height() {
 }
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 ProjectPaneWidget::ProjectPaneWidget(QWidget* parent)
     : QWidget(parent)
@@ -88,4 +88,4 @@ void ProjectPaneWidget::mousePressEvent(QMouseEvent* event) {
         projectSelected(m_projectDir);
 }
 
-} // namespace DaRefl
+} // namespace gui2

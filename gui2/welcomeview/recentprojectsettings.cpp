@@ -29,7 +29,7 @@ const QString recent_projects_setting_name() {
 
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 RecentProjectSettings::RecentProjectSettings() {
     readSettings();
@@ -95,4 +95,4 @@ void RecentProjectSettings::readSettings() {
         m_recentProjects = settings.value(recent_projects_setting_name()).toStringList();
 }
 
-} // namespace DaRefl
+} // namespace gui2

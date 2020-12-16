@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include <QTableView>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Extension of QTableView for material editing.
 //! Provide better user experinece while navigating between cells.
@@ -36,6 +36,6 @@ private:
     bool isKeyboardEditable(const QModelIndex& index) const;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MATERIALEDITOR_MATERIALTABLEVIEW_H

@@ -12,7 +12,7 @@
 #include "mvvm/plotting/graphcanvas.h"
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 GraphCanvasWidget::GraphCanvasWidget(QWidget* parent)
     : QWidget(parent), m_graphCanvas(new ModelView::GraphCanvas) {
@@ -29,4 +29,4 @@ void GraphCanvasWidget::updateViewport() {
     m_graphCanvas->setViewportToContent();
 }
 
-} // namespace DaRefl
+} // namespace gui2

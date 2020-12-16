@@ -20,7 +20,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 
@@ -81,4 +81,4 @@ JobItem* JobModel::jobItem() const {
     return Utils::TopItem<JobItem>(this);
 }
 
-} // namespace DaRefl
+} // namespace gui2

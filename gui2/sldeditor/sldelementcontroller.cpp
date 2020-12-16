@@ -25,7 +25,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Contructor
 SLDElementController::SLDElementController(MaterialModel* material_model, SampleModel* sample_model,
@@ -282,4 +282,4 @@ void SLDElementController::updateRoughnessFromView(std::string identifier, doubl
     roughness_item->setProperty(RoughnessItem::P_SIGMA, value);
 }
 
-} // namespace DaRefl
+} // namespace gui2

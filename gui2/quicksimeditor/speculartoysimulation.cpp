@@ -20,7 +20,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 SpecularToySimulation::~SpecularToySimulation() = default;
 
@@ -67,4 +67,4 @@ size_t SpecularToySimulation::scanPointsCount() const {
     return m_inputData.qvalues.size();
 }
 
-} // namespace DaRefl
+} // namespace gui2

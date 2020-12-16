@@ -18,7 +18,7 @@ class QStackedWidget;
 class QHBoxLayout;
 class QPushButton;
 
-namespace DaRefl {
+namespace gui2 {
 
 class FancyTab;
 
@@ -42,6 +42,6 @@ private:
     std::map<int, FancyTab*> m_indexToTab;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MAINWINDOW_MAINBARWIDGET_H

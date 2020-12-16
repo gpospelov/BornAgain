@@ -14,7 +14,7 @@
 
 using ModelView::ComboProperty;
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 const std::vector<std::string> utilityRowNames = {"Type", "Unit", "Multiplier"};
@@ -114,4 +114,4 @@ bool ImportTableHeader::isValid(int row, int column) const {
            && (column >= 0 && column < static_cast<int>(m_data[row].size()));
 }
 
-} // namespace DaRefl
+} // namespace gui2

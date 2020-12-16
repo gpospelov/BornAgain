@@ -12,7 +12,7 @@
 #include "gui2/model/applicationmodels.h"
 #include <QVBoxLayout>
 
-namespace DaRefl {
+namespace gui2 {
 
 ImportDataView::ImportDataView(ApplicationModels* models, QWidget* parent)
     : QWidget(parent), m_models(models) {
@@ -21,4 +21,4 @@ ImportDataView::ImportDataView(ApplicationModels* models, QWidget* parent)
     layout->setContentsMargins(0, 0, 0, 0);
 }
 
-} // namespace DaRefl
+} // namespace gui2

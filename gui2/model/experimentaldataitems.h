@@ -18,7 +18,7 @@ namespace ModelView {
 class Data1DItem;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Holds a collection of GraphItem's for simultaneous plotting, as well as all information
 //! related to plotting properties. Used in the context of importing of 1D data. Serves as an input
@@ -54,6 +54,6 @@ public:
     std::vector<ModelView::Data1DItem*> dataItems() const;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MODEL_EXPERIMENTALDATAITEMS_H

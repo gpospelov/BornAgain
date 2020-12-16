@@ -17,7 +17,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 //! Return list of possible choices for material properties in MaterialModel.
@@ -48,4 +48,4 @@ CustomLayerTreeEditorFactory::createEditor(const QModelIndex& index) const {
     }
 }
 
-} // namespace DaRefl
+} // namespace gui2

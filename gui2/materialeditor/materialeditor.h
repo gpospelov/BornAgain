@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include <QWidget>
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 class MaterialEditorActions;
@@ -40,6 +40,6 @@ private:
     MaterialEditorToolBar* m_toolBar{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MATERIALEDITOR_MATERIALEDITOR_H

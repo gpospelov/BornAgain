@@ -17,17 +17,17 @@ namespace {
 
 std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
     auto result = std::make_unique<ModelView::ItemCatalogue>();
-    result->registerItem<DaRefl::SpecularInstrumentItem>();
-    result->registerItem<DaRefl::SpecularBeamItem>();
-    result->registerItem<DaRefl::SpecularScanGroupItem>();
-    result->registerItem<DaRefl::QSpecScanItem>();
-    result->registerItem<DaRefl::ExperimentalScanItem>();
+    result->registerItem<gui2::SpecularInstrumentItem>();
+    result->registerItem<gui2::SpecularBeamItem>();
+    result->registerItem<gui2::SpecularScanGroupItem>();
+    result->registerItem<gui2::QSpecScanItem>();
+    result->registerItem<gui2::ExperimentalScanItem>();
     return result;
 }
 
 } // namespace
 
-namespace DaRefl {
+namespace gui2 {
 
 InstrumentModel::InstrumentModel(std::shared_ptr<ItemPool> pool)
     : ModelView::SessionModel("InstrumentModel", pool) {
@@ -35,4 +35,4 @@ InstrumentModel::InstrumentModel(std::shared_ptr<ItemPool> pool)
     insertItem<SpecularInstrumentItem>();
 }
 
-} // namespace DaRefl
+} // namespace gui2

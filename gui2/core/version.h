@@ -15,7 +15,7 @@
 
 #include <string>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Returns major project version.
 inline int ProjectVersionMajor() {
@@ -41,6 +41,6 @@ inline std::string ProjectVersion() {
     return project_version;
 }
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_CORE_VERSION_H

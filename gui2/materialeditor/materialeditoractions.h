@@ -14,7 +14,7 @@
 #include <QObject>
 #include <memory>
 
-namespace DaRefl {
+namespace gui2 {
 
 class MaterialModel;
 class MaterialSelectionModel;
@@ -46,6 +46,6 @@ private:
     std::unique_ptr<MaterialEditorActionsImpl> p_impl;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MATERIALEDITOR_MATERIALEDITORACTIONS_H

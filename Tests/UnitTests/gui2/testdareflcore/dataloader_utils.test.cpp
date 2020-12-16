@@ -15,7 +15,7 @@
 #include <initializer_list>
 #include <vector>
 
-using namespace DaRefl;
+using namespace gui2;
 using TestUtils::toStringVector;
 
 //! Tests of ParseUtils.

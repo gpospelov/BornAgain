@@ -12,7 +12,7 @@
 #include "gui2/quicksimeditor/quicksimutils.h"
 #include <Sample/Slice/Slice.h>
 
-namespace DaRefl {
+namespace gui2 {
 
 std::vector<complex_t> MaterialProfile::CalculateProfile(const multislice_t& multilayer,
                                                          int n_points, double z_min, double z_max) {
@@ -40,4 +40,4 @@ std::vector<double> MaterialProfile::GenerateZValues(int n_points, double z_min,
     return result;
 }
 
-} // namespace DaRefl
+} // namespace gui2

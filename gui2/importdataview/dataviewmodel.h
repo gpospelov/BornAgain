@@ -17,7 +17,7 @@ namespace ModelView {
 class SessionModel;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class ExperimentalDataModel;
 
@@ -39,6 +39,6 @@ public:
                       const QModelIndex& parent) override;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_IMPORTDATAVIEW_DATAVIEWMODEL_H

@@ -17,7 +17,7 @@ namespace ModelView {
 class GraphCanvas;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class CanvasItem;
 
@@ -38,6 +38,6 @@ private:
     ModelView::GraphCanvas* m_graphCanvas{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_IMPORTDATAVIEW_GRAPHCANVASWIDGET_H

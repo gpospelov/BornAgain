@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Interface for all classes capable of parsing ASCII data into multicolumn presentation.
 
@@ -39,6 +39,6 @@ public:
     virtual std::vector<std::vector<std::string>> parsedData() const = 0;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_PARSERINTERFACE_H

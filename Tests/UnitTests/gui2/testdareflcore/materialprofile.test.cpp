@@ -10,7 +10,7 @@
 #include "google_test.h"
 #include "gui2/quicksimeditor/materialprofile.h"
 
-using namespace DaRefl;
+using namespace gui2;
 
 //! Tests utility functions from MaterialProfile namespace.
 

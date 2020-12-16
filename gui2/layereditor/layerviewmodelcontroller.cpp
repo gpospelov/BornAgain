@@ -16,7 +16,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Custom strategy to form table rows for nested multilayers and layers.
 
@@ -69,4 +69,4 @@ LayerViewModelController::LayerViewModelController(SessionModel* model, ViewMode
     setChildrenStrategy(std::make_unique<TopItemsStrategy>());
 }
 
-} // namespace DaRefl
+} // namespace gui2

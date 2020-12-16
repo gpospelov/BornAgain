@@ -16,7 +16,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 MaterialPropertyController::MaterialPropertyController(MaterialModel* material_model,
                                                        SampleModel* sample_model)
@@ -40,4 +40,4 @@ void MaterialPropertyController::update_all() {
     }
 }
 
-} // namespace DaRefl
+} // namespace gui2

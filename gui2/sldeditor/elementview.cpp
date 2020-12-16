@@ -15,7 +15,7 @@
 #include <QPainter>
 #include <QPainterPath>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! The constructor
 ElementView::ElementView() : QGraphicsObject() {
@@ -235,4 +235,4 @@ void ElementView::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-} // namespace DaRefl
+} // namespace gui2

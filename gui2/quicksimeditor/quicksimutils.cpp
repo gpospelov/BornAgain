@@ -18,7 +18,7 @@
 #include <Sample/Slice/Slice.h>
 #include <stdexcept>
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 
@@ -77,4 +77,4 @@ std::vector<Slice> Utils::createBornAgainSlices(const multislice_t& multislice) 
     return result;
 }
 
-} // namespace DaRefl
+} // namespace gui2

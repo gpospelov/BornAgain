@@ -18,7 +18,7 @@ namespace ModelView {
 class ModelHasChangedController;
 }
 
-namespace DaRefl {
+namespace gui2 {
 
 class ApplicationModels;
 
@@ -40,6 +40,6 @@ private:
     std::unique_ptr<ModelView::ModelHasChangedController> m_instrumentChangedController;
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_QUICKSIMEDITOR_SIMPLOTCONTROLLER_H

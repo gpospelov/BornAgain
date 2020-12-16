@@ -14,7 +14,7 @@
 #include <QMainWindow>
 #include <memory>
 
-namespace DaRefl {
+namespace gui2 {
 
 class WelcomeView;
 class ImportDataView;
@@ -51,6 +51,6 @@ private:
     MainBarWidget* m_barWidget{nullptr};
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_MAINWINDOW_MAINWINDOW_H

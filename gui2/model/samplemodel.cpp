@@ -13,7 +13,7 @@
 
 using namespace ModelView;
 
-namespace DaRefl {
+namespace gui2 {
 
 namespace {
 std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
@@ -45,4 +45,4 @@ void SampleModel::create_default_multilayer() {
     middle->setProperty(LayerItem::P_THICKNESS, 42.0);
 }
 
-} // namespace DaRefl
+} // namespace gui2

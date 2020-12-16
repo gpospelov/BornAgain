@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include <QToolBar>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! Tool bar for DataLoaderDialog.
 
@@ -28,6 +28,6 @@ signals:
     void removeFilesRequest();
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_DATALOADERTOOLBAR_H

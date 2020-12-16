@@ -13,7 +13,7 @@
 #include "darefl_export.h"
 #include <QToolBar>
 
-namespace DaRefl {
+namespace gui2 {
 
 class SLDEditorActions;
 
@@ -30,6 +30,6 @@ signals:
     void resetViewport();
 };
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_SLDEDITOR_SLDEDITORTOOLBAR_H

@@ -14,7 +14,7 @@
 #include <QMenuBar>
 #include <QToolBar>
 
-namespace DaRefl {
+namespace gui2 {
 
 ActionManager::ActionManager(QMainWindow* mainwindow)
     : QObject(mainwindow), m_mainWindow(mainwindow) {
@@ -97,4 +97,4 @@ void ActionManager::setupMenus(QMenuBar* menubar) {
     fileMenu->addAction(m_exitAction);
 }
 
-} // namespace DaRefl
+} // namespace gui2

@@ -12,7 +12,7 @@
 
 #include "gui2/dataloader/dataloader_types.h"
 
-namespace DaRefl {
+namespace gui2 {
 
 struct GraphImportData;
 
@@ -75,6 +75,6 @@ DAREFLCORE_EXPORT GraphImportData CreateData(const std::vector<std::vector<std::
 
 } // namespace Utils
 
-} // namespace DaRefl
+} // namespace gui2
 
 #endif // DAREFL_DATALOADER_PARSEUTILS_H

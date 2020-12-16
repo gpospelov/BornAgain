@@ -14,7 +14,7 @@
 #include <QPainter>
 #include <QStyleOption>
 
-namespace DaRefl {
+namespace gui2 {
 
 //! The constructor
 HandleElementView::HandleElementView()
@@ -80,4 +80,4 @@ QPointF HandleElementView::getLastPos() const {
     return m_pos;
 }
 
-} // namespace DaRefl
+} // namespace gui2

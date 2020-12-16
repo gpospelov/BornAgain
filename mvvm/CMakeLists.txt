@@ -11,7 +11,13 @@ option(MVVM_BUILD_EXAMPLES "Build user examples" ON)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake/modules)
 include(configuration)
 
-add_subdirectory(source)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+
+add_subdirectory(source/libmvvm_model)
+add_subdirectory(source/libmvvm_viewmodel)
+add_subdirectory(source/libmvvm_view)
+
 add_subdirectory(tests)
 
 include(installation)

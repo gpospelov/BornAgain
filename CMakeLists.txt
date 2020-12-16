@@ -168,6 +168,9 @@ if(BORNAGAIN_GUI)
     add_subdirectory(Tests/UnitTests/GUI)
     add_subdirectory(Tests/Performance/GUI)
 endif()
+if(BORNAGAIN_NEWREFL)
+    add_subdirectory(gui2)
+endif()
 
 # TODO: split Core / GUI
 add_subdirectory(Tests/Functional)

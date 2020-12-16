@@ -1,23 +1,42 @@
 ###############################################################################
-# Tests/Functional/PyExamples/CMakeLists.txt
-#
-# Runs check_functionality.py over example scripts found in PY_EXAMPLES_DIR
-#
+# Run unmodified examples
 ###############################################################################
 
-function(run_example example_path)
-    get_filename_component(example_name ${example_path} NAME_WE)
-    set(test_name Example.run.${example_name})
-    add_test(${test_name}
-        env PYTHONPATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY} NOSHOW=TRUE
-        ${Python3_EXECUTABLE} ${test_script} -s ${example_path} ${output_dir})
-endfunction()
+set(test_script ${TOOL_DIR}/code/batch-plot.py)
 
 set(output_dir ${TEST_OUTPUT_DIR_PY_EXAMPLES})
 file(MAKE_DIRECTORY ${output_dir})
 
+# Run one Python example.
+# Check whether the example passes.
+# Don't check results.
+# If there are matplotlib commands, skip plt.show().
+function(run_example example label)
+    get_filename_component(name ${example} NAME_WE)
+    set(test_name Example.run.${name})
+    add_test(${test_name}
+        env PYTHONPATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY} NOSHOW=TRUE
+        ${Python3_EXECUTABLE} ${test_script} -s ${example} ${output_dir})
+    if(NOT label STREQUAL "")
+        set_tests_properties(${test_name} PROPERTIES LABELS ${label})
+    endif()
+endfunction()
+
+function(run_examples examples label)
+    foreach(example ${examples})
+        run_example(${example} ${label})
+    endforeach()
+endfunction()
+
+# Examples from scatter2d; all but one prototype get the label XL
+set(prototype ${EXAMPLES_DIR}/scatter2d/CylindersInDWBA.py)
+file(GLOB examples ${EXAMPLES_DIR}/scatter2d/*.py)
+list(REMOVE_ITEM examples ${prototype})
+run_example(${prototype} "")
+run_examples(${examples} "XL")
+
+# Examples from other directories
 file(GLOB examples
-    ${EXAMPLES_DIR}/scatter2d/*.py
     ${EXAMPLES_DIR}/specular/*.py
     ${EXAMPLES_DIR}/varia/*.py
     ${EXAMPLES_DIR}/fit55_Specular/FitSpecularBasics.py)
@@ -26,15 +45,10 @@ if (WIN32)
     list(REMOVE_ITEM examples ${EXAMPLES_DIR}/scatter2d/Interference2DParaCrystal.py)
 endif()
 list(REMOVE_ITEM examples ${EXAMPLES_DIR}/varia/SimulationParameters.py)
-
-set(test_script ${TOOL_DIR}/code/batch-plot.py)
-
-foreach(example_path ${examples})
-    run_example(${example_path})
-endforeach()
+run_examples(${examples} "")
 
 ############################################################################
-# Tests/Functional/PyCore/persistence/CMakeLists.txt
+# Check results of modified examples
 ############################################################################
 
 set(OUTPUT_DIR ${TEST_OUTPUT_DIR_PY_PERSIST})

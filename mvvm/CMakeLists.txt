@@ -14,9 +14,9 @@ include(configuration)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
-add_subdirectory(source/libmvvm_model)
-add_subdirectory(source/libmvvm_viewmodel)
-add_subdirectory(source/libmvvm_view)
+add_subdirectory(model)
+add_subdirectory(viewmodel)
+add_subdirectory(view)
 
 add_subdirectory(tests)
 

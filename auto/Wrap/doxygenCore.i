@@ -1723,6 +1723,12 @@ Sets qz resolution values via IRangedDistribution and values of relative deviati
 Sets qz resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. 
 ";
 
+%feature("docstring")  QSpecScan::setOffset "void QSpecScan::setOffset(double offset)
+";
+
+%feature("docstring")  QSpecScan::offset "double QSpecScan::offset() const
+";
+
 
 // File: classRelativeDifferenceMetric.xml
 %feature("docstring") RelativeDifferenceMetric "
@@ -2400,7 +2406,7 @@ Returns default metric name.
 
 
 // File: namespacepyfmt.xml
-%feature("docstring")  pyfmt::scriptPreamble "std::string pyfmt::scriptPreamble()
+%feature("docstring")  pyfmt::preambled "std::string pyfmt::preambled(const std::string &code)
 ";
 
 %feature("docstring")  pyfmt::printBool "std::string pyfmt::printBool(double value)

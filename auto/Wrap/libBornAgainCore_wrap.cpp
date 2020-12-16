@@ -44602,8 +44602,16 @@ static PyMethodDef SwigMethods[] = {
 		"Sets qz resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. \n"
 		"\n"
 		""},
-	 { "QSpecScan_setOffset", _wrap_QSpecScan_setOffset, METH_VARARGS, "QSpecScan_setOffset(QSpecScan self, double offset)"},
-	 { "QSpecScan_offset", _wrap_QSpecScan_offset, METH_O, "QSpecScan_offset(QSpecScan self) -> double"},
+	 { "QSpecScan_setOffset", _wrap_QSpecScan_setOffset, METH_VARARGS, "\n"
+		"QSpecScan_setOffset(QSpecScan self, double offset)\n"
+		"void QSpecScan::setOffset(double offset)\n"
+		"\n"
+		""},
+	 { "QSpecScan_offset", _wrap_QSpecScan_offset, METH_O, "\n"
+		"QSpecScan_offset(QSpecScan self) -> double\n"
+		"double QSpecScan::offset() const\n"
+		"\n"
+		""},
 	 { "QSpecScan_swigregister", QSpecScan_swigregister, METH_O, NULL},
 	 { "QSpecScan_swiginit", QSpecScan_swiginit, METH_VARARGS, NULL},
 	 { "delete_ISimulation", _wrap_delete_ISimulation, METH_O, "\n"

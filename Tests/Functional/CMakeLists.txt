@@ -7,7 +7,10 @@ include_directories(${CMAKE_SOURCE_DIR}/Tests/Functional/TestMachinery)
 add_subdirectory(Core)
 
 if(BORNAGAIN_PYTHON)
-    add_subdirectory(Python)
+    add_subdirectory(PyStd)
+    add_subdirectory(PyCore)
+    add_subdirectory(PyFit)
+    add_subdirectory(PyEmbedded)
 endif()
 
 if(BORNAGAIN_GUI)

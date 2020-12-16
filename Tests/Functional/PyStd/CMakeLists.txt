@@ -23,7 +23,7 @@ include(GoogleTest) # provides gtest_discover_tests
 
 set(test TestPyStd)
 
-set(source_files Check.cpp ../../Std/Run.cpp ${CMAKE_SOURCE_DIR}/Tests/GTestWrapper/TestAll.cpp)
+set(source_files Check.cpp ../Std/Run.cpp ${CMAKE_SOURCE_DIR}/Tests/GTestWrapper/TestAll.cpp)
 
 add_executable(${test} ${source_files})
 target_compile_options(${test} PUBLIC -DPYTHON_STD_TEST)

@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/SampleBuilderEngine/SampleComponents.h
+//! @file      Sample/SampleBuilderEngine/FormFactorComponents.h
 //! @brief     Defines sample components for complex sample builders.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -17,19 +17,11 @@
 #endif
 
 #ifndef USER_API
-#ifndef BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H
-#define BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H
+#ifndef BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_FORMFACTORCOMPONENTS_H
+#define BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_FORMFACTORCOMPONENTS_H
 
-#include "Sample/Correlations/FTDistributions2D.h"
 #include "Sample/SampleBuilderEngine/IRegistry.h"
-
-//! @class FTDistribution2DComponents
-//! @brief Predefined Fourier transformed distributions for functional tests.
-
-class FTDistribution2DComponents : public IRegistry<IFTDistribution2D> {
-public:
-    FTDistribution2DComponents();
-};
+#include "Sample/HardParticle/HardParticles.h"
 
 //! @class FormFactorComponents
 //! @brief Predefined form factors for functional tests.
@@ -39,5 +31,5 @@ public:
     FormFactorComponents();
 };
 
-#endif // BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_SAMPLECOMPONENTS_H
+#endif // BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_FORMFACTORCOMPONENTS_H
 #endif // USER_API

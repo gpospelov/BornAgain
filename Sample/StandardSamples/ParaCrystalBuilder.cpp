@@ -22,7 +22,7 @@
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Particle/Particle.h"
-#include "Sample/SampleBuilderEngine/SampleComponents.h"
+#include "Sample/SampleBuilderEngine/FTDistribution2DComponents.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
 MultiLayer* RadialParaCrystalBuilder::buildSample() const {

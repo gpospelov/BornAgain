@@ -951,7 +951,7 @@ C++ includes: FormFactorCoherentSum.h
 
 Predefined form factors for functional tests.
 
-C++ includes: SampleComponents.h
+C++ includes: FormFactorComponents.h
 ";
 
 %feature("docstring")  FormFactorComponents::FormFactorComponents "FormFactorComponents::FormFactorComponents()
@@ -2682,7 +2682,7 @@ evaluate Fourier transformed distribution for q in X,Y coordinates the original 
 
 Predefined Fourier transformed distributions for functional tests.
 
-C++ includes: SampleComponents.h
+C++ includes: FTDistribution2DComponents.h
 ";
 
 %feature("docstring")  FTDistribution2DComponents::FTDistribution2DComponents "FTDistribution2DComponents::FTDistribution2DComponents()
@@ -5055,7 +5055,9 @@ Returns lateral correlation length.
 // File: classLayersWithAbsorptionBuilder.xml
 %feature("docstring") LayersWithAbsorptionBuilder "
 
-The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part). The middle layer is populated with particles. Requires IComponentService which generates form factors, used for bulk form factors testing.
+The  LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with absorption (refractive index has imaginary part).
+
+The middle layer is populated with particles.
 
 C++ includes: LayersWithAbsorptionBuilder.h
 ";
@@ -6040,7 +6042,7 @@ Returns the distributed parameter data.
 // File: classParticleInVacuumBuilder.xml
 %feature("docstring") ParticleInVacuumBuilder "
 
-The  ParticleInVacuumBuilder class generates a multilayer with single vacuum layer populated with particles of certain types. Requires IComponentService which generates form factors, used for bulk form factors testing.
+The  ParticleInVacuumBuilder class generates a multilayer with single vacuum layer populated with particles of certain types.
 
 C++ includes: ParticleInVacuumBuilder.h
 ";
@@ -7645,25 +7647,22 @@ C++ includes: ZLimits.h
 // File: namespace_0d215.xml
 
 
-// File: namespace_0d225.xml
+// File: namespace_0d229.xml
 
 
-// File: namespace_0d239.xml
+// File: namespace_0d241.xml
 
 
-// File: namespace_0d244.xml
+// File: namespace_0d246.xml
 
 
 // File: namespace_0d25.xml
 
 
-// File: namespace_0d262.xml
+// File: namespace_0d264.xml
 
 
-// File: namespace_0d270.xml
-
-
-// File: namespace_0d280.xml
+// File: namespace_0d272.xml
 
 
 // File: namespace_0d282.xml
@@ -7672,31 +7671,34 @@ C++ includes: ZLimits.h
 // File: namespace_0d284.xml
 
 
-// File: namespace_0d288.xml
+// File: namespace_0d286.xml
 
 
 // File: namespace_0d290.xml
 
 
-// File: namespace_0d294.xml
+// File: namespace_0d292.xml
 
 
-// File: namespace_0d306.xml
+// File: namespace_0d296.xml
+
+
+// File: namespace_0d308.xml
 
 
 // File: namespace_0d31.xml
 
 
-// File: namespace_0d312.xml
+// File: namespace_0d314.xml
 
 
-// File: namespace_0d316.xml
+// File: namespace_0d318.xml
 
 
-// File: namespace_0d334.xml
+// File: namespace_0d336.xml
 
 
-// File: namespace_0d353.xml
+// File: namespace_0d355.xml
 
 
 // File: namespace_0d37.xml
@@ -8630,6 +8632,18 @@ Creates averaged material. Square refractive index of returned material is arith
 // File: FixedBuilder_8h.xml
 
 
+// File: FormFactorComponents_8cpp.xml
+
+
+// File: FormFactorComponents_8h.xml
+
+
+// File: FTDistribution2DComponents_8cpp.xml
+
+
+// File: FTDistribution2DComponents_8h.xml
+
+
 // File: IRegistry_8h.xml
 
 
@@ -8643,12 +8657,6 @@ Creates averaged material. Square refractive index of returned material is arith
 
 
 // File: SampleBuilderNode_8h.xml
-
-
-// File: SampleComponents_8cpp.xml
-
-
-// File: SampleComponents_8h.xml
 
 
 // File: SampleProvider_8cpp.xml

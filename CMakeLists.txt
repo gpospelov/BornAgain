@@ -34,6 +34,7 @@ add_custom_target(fullcheck COMMAND ${CMAKE_CTEST_COMMAND})
 option(BORNAGAIN_PYTHON "Build with python support" ON)
 option(BORNAGAIN_GUI "Build a graphical user interface" ON)
 option(BORNAGAIN_TIFF_SUPPORT "Tiff files read/write support" ON)
+option(BORNAGAIN_NEWREFL "Compile reflectometry GUI prototype" ON)
 
 # options that are off by default (switch on for additional functionality)
 option(BORNAGAIN_MPI "Build with MPI support" OFF)
@@ -136,6 +137,9 @@ add_subdirectory(ThirdParty/common)
 add_subdirectory(ThirdParty/Core)
 if(BORNAGAIN_GUI)
     add_subdirectory(ThirdParty/GUI/qcustomplot)
+endif()
+if(BORNAGAIN_NEWREFL)
+    add_subdirectory(ThirdParty/GUI/qt-mvvm)
 endif()
 
 # from here on our own code, occasionally scrutinized by clang-tidy

@@ -1,0 +1,20 @@
+target_sources(${library_name} PRIVATE
+    customlayertreeeditorfactory.cpp
+    customlayertreeeditorfactory.h
+    layereditor.cpp
+    layereditor.h
+    layereditoractions.cpp
+    layereditoractions.h
+    layereditortoolbar.cpp
+    layereditortoolbar.h
+    layereditorwidget.cpp
+    layereditorwidget.h
+    layerselectionmodel.cpp
+    layerselectionmodel.h
+    layertreeview.cpp
+    layertreeview.h
+    layerviewmodel.cpp
+    layerviewmodel.h
+    layerviewmodelcontroller.cpp
+    layerviewmodelcontroller.h
+)

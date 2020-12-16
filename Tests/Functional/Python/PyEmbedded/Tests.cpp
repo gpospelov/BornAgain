@@ -362,14 +362,12 @@ TEST_F(PyEmbedded, ExportToPythonAndBack) {
     SampleBuilderFactory factory;
     std::unique_ptr<MultiLayer> sample(factory.createSampleByName("CylindersAndPrismsBuilder"));
 
-    auto code = ExportToPython::sampleCode(*sample);
+    const std::string code = ExportToPython::sampleCode(*sample);
+    const std::string snippet = pyfmt::preambled(code);
 
-    std::stringstream snippet;
-    snippet << pyfmt::scriptPreamble() << code;
-
-    auto multilayer =
-        PyImport::createFromPython(snippet.str(), "get_sample", BABuild::buildLibDir());
-    auto new_code = ExportToPython::sampleCode(*multilayer);
+    const auto multilayer =
+        PyImport::createFromPython(snippet, "get_sample", BABuild::buildLibDir());
+    const std::string new_code = ExportToPython::sampleCode(*multilayer);
 
     EXPECT_TRUE(code == new_code);
 }

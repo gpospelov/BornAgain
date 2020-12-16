@@ -3,7 +3,7 @@ Square lattice of cylinders inside finite layer with usage of average material
 """
 import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
+from bornagain import deg, nm, kvector_t
 
 
 def get_sample(cyl_height=5*nm):

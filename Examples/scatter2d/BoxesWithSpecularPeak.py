@@ -3,7 +3,7 @@ Square lattice of boxes on substrate (including the specular peak)
 """
 import numpy, sys
 import bornagain as ba
-from bornagain import angstrom, deg, micrometer, nm, nm2, kvector_t
+from bornagain import deg, nm
 
 
 def get_sample():

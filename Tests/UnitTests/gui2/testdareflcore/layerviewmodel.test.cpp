@@ -8,12 +8,12 @@
 // ************************************************************************** //
 
 #include "google_test.h"
-#include "test_utils.h"
-#include <QSignalSpy>
 #include "gui2/layereditor/layerviewmodel.h"
 #include "gui2/model/sampleitems.h"
 #include "gui2/model/samplemodel.h"
 #include "mvvm/viewmodel/viewmodelutils.h"
+#include "test_utils.h"
+#include <QSignalSpy>
 
 using namespace DaRefl;
 using namespace ModelView;

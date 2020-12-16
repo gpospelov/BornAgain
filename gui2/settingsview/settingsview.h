@@ -10,8 +10,8 @@
 #ifndef DAREFL_SETTINGSVIEW_SETTINGSVIEW_H
 #define DAREFL_SETTINGSVIEW_SETTINGSVIEW_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 
 class QTabWidget;
 class QStackedWidget;

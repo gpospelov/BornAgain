@@ -10,8 +10,8 @@
 #ifndef DAREFL_IMPORTDATAVIEW_DATASELECTIONMODEL_H
 #define DAREFL_IMPORTDATAVIEW_DATASELECTIONMODEL_H
 
-#include <QItemSelectionModel>
 #include "darefl_export.h"
+#include <QItemSelectionModel>
 #include <vector>
 
 namespace ModelView {

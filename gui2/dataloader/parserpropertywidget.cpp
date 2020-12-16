@@ -7,6 +7,10 @@
 //
 // ************************************************************************** //
 
+#include "gui2/dataloader/parserpropertywidget.h"
+#include "gui2/core/app_constants.h"
+#include "gui2/dataloader/defaultparser.h"
+#include "mvvm/widgets/widgetutils.h"
 #include <QButtonGroup>
 #include <QComboBox>
 #include <QDebug>
@@ -18,10 +22,6 @@
 #include <QRegExpValidator>
 #include <QSettings>
 #include <QVBoxLayout>
-#include "gui2/core/app_constants.h"
-#include "gui2/dataloader/defaultparser.h"
-#include "gui2/dataloader/parserpropertywidget.h"
-#include "mvvm/widgets/widgetutils.h"
 
 namespace {
 

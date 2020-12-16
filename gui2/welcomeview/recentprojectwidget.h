@@ -10,8 +10,8 @@
 #ifndef DAREFL_WELCOMEVIEW_RECENTPROJECTWIDGET_H
 #define DAREFL_WELCOMEVIEW_RECENTPROJECTWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 #include <memory>
 #include <vector>
 

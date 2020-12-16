@@ -23,8 +23,7 @@ namespace DaRefl::Utils {
 //! Creates multi-slice presentation of internal multilayer structure.
 DAREFLCORE_EXPORT multislice_t CreateMultiSlice(const MultiLayerItem& multilayer);
 
-DAREFLCORE_EXPORT std::vector<Slice>
-createBornAgainSlices(const multislice_t& multislice);
+DAREFLCORE_EXPORT std::vector<Slice> createBornAgainSlices(const multislice_t& multislice);
 
 } // namespace DaRefl::Utils
 

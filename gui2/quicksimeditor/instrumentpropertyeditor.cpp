@@ -7,16 +7,16 @@
 //
 // ************************************************************************** //
 
-#include <QTreeView>
-#include <QVBoxLayout>
+#include "gui2/quicksimeditor/instrumentpropertyeditor.h"
 #include "gui2/mainwindow/styleutils.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/model/instrumentitems.h"
 #include "gui2/model/instrumentmodel.h"
 #include "gui2/quicksimeditor/custombeampropertyeditorfactory.h"
-#include "gui2/quicksimeditor/instrumentpropertyeditor.h"
 #include "mvvm/viewmodel/viewmodeldelegate.h"
 #include "mvvm/widgets/propertytreeview.h"
+#include <QTreeView>
+#include <QVBoxLayout>
 
 using namespace ModelView;
 

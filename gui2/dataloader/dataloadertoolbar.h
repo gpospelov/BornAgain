@@ -10,8 +10,8 @@
 #ifndef DAREFL_DATALOADER_DATALOADERTOOLBAR_H
 #define DAREFL_DATALOADER_DATALOADERTOOLBAR_H
 
-#include <QToolBar>
 #include "darefl_export.h"
+#include <QToolBar>
 
 namespace DaRefl {
 

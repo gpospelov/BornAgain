@@ -7,9 +7,9 @@
 //
 // ************************************************************************** //
 
+#include "gui2/materialeditor/materialtableview.h"
 #include <QHeaderView>
 #include <QMouseEvent>
-#include "gui2/materialeditor/materialtableview.h"
 
 namespace DaRefl {
 

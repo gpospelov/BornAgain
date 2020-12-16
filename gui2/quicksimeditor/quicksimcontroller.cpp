@@ -7,6 +7,7 @@
 //
 // ************************************************************************** //
 
+#include "gui2/quicksimeditor/quicksimcontroller.h"
 #include "gui2/core/app_constants.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/model/instrumentitems.h"
@@ -17,7 +18,6 @@
 #include "gui2/model/sampleitems.h"
 #include "gui2/model/samplemodel.h"
 #include "gui2/quicksimeditor/jobmanager.h"
-#include "gui2/quicksimeditor/quicksimcontroller.h"
 #include "gui2/quicksimeditor/quicksimutils.h"
 #include "gui2/quicksimeditor/speculartoysimulation.h"
 #include "mvvm/project/modelhaschangedcontroller.h"

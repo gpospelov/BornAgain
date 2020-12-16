@@ -7,8 +7,6 @@
 //
 // ************************************************************************** //
 
-#include <QFile>
-#include <QTextStream>
 #include "gui2/materialeditor/materialeditoractions.h"
 #include "gui2/materialeditor/materialselectionmodel.h"
 #include "gui2/model/materialitems.h"
@@ -16,6 +14,8 @@
 #include "mvvm/model/modelutils.h"
 #include "mvvm/model/sessionitemdata.h"
 #include "mvvm/viewmodel/viewmodel.h"
+#include <QFile>
+#include <QTextStream>
 
 using namespace ModelView;
 

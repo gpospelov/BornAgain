@@ -7,9 +7,9 @@
 //
 // ************************************************************************** //
 
+#include "gui2/model/experimentaldatamodel.h"
 #include "gui2/importdataview/graphimportdata.h"
 #include "gui2/model/experimentaldataitems.h"
-#include "gui2/model/experimentaldatamodel.h"
 
 #include "mvvm/model/itemcatalogue.h"
 #include "mvvm/model/modelutils.h"

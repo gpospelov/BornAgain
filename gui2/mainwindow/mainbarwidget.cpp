@@ -7,13 +7,13 @@
 //
 // ************************************************************************** //
 
+#include "gui2/mainwindow/mainbarwidget.h"
+#include "gui2/mainwindow/fancytab.h"
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QStackedWidget>
 #include <QVBoxLayout>
-#include "gui2/mainwindow/fancytab.h"
-#include "gui2/mainwindow/mainbarwidget.h"
 
 namespace DaRefl {
 

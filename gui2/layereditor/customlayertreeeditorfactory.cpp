@@ -7,13 +7,13 @@
 //
 // ************************************************************************** //
 
-#include <QModelIndex>
-#include <algorithm>
 #include "gui2/layereditor/customlayertreeeditorfactory.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/model/materialmodel.h"
 #include "mvvm/editors/externalpropertycomboeditor.h"
 #include "mvvm/model/externalproperty.h"
+#include <QModelIndex>
+#include <algorithm>
 
 using namespace ModelView;
 

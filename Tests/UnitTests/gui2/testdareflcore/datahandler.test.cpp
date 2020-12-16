@@ -8,9 +8,9 @@
 // ************************************************************************** //
 
 #include "folderbasedtest.h"
-#include "test_utils.h"
 #include "gui2/dataloader/datahandler.h"
 #include "mvvm/utils/fileutils.h"
+#include "test_utils.h"
 
 using TestUtils::toStringVector;
 using namespace DaRefl;

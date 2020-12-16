@@ -7,6 +7,7 @@
 //
 // ************************************************************************** //
 
+#include "gui2/sldeditor/sldelementcontroller.h"
 #include "gui2/model/materialitems.h"
 #include "gui2/model/materialmodel.h"
 #include "gui2/model/sampleitems.h"
@@ -15,13 +16,12 @@
 #include "gui2/sldeditor/layerelementcontroller.h"
 #include "gui2/sldeditor/layerelementitem.h"
 #include "gui2/sldeditor/segmentelementview.h"
-#include "gui2/sldeditor/sldelementcontroller.h"
 #include "gui2/sldeditor/sldelementmodel.h"
-#include <iostream>
 #include "mvvm/model/compounditem.h"
 #include "mvvm/model/externalproperty.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/signals/modelmapper.h"
+#include <iostream>
 
 using namespace ModelView;
 

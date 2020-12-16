@@ -10,8 +10,8 @@
 #ifndef DAREFL_SLDEDITOR_SLDEDITORACTIONS_H
 #define DAREFL_SLDEDITOR_SLDEDITORACTIONS_H
 
-#include <QObject>
 #include "darefl_export.h"
+#include <QObject>
 #include <memory>
 
 namespace DaRefl {

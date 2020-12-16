@@ -10,8 +10,8 @@
 #ifndef DAREFL_IMPORTDATAVIEW_DATASELECTORWIDGET_H
 #define DAREFL_IMPORTDATAVIEW_DATASELECTORWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 
 class QTreeView;
 

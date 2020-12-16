@@ -8,18 +8,17 @@
 // ************************************************************************** //
 
 #include "google_test.h"
-#include "qcustomplot.h"
 #include "mvvm/interfaces/undostackinterface.h"
 #include "mvvm/model/sessionmodel.h"
 #include "mvvm/plotting/viewportaxisplotcontroller.h"
 #include "mvvm/standarditems/axisitems.h"
+#include "qcustomplot.h"
 
 using namespace ModelView;
 
 //! Testing various undo/redo scenario.
 
-class UndoScenarioTest : public ::testing::Test
-{
+class UndoScenarioTest : public ::testing::Test {
 public:
     ~UndoScenarioTest();
 };
@@ -29,8 +28,7 @@ UndoScenarioTest::~UndoScenarioTest() = default;
 //! Check undo/redo of ViewportAxisItem range, when it is listened by the controller.
 //! Real-life bug.
 
-TEST_F(UndoScenarioTest, undoViewportSetRange)
-{
+TEST_F(UndoScenarioTest, undoViewportSetRange) {
     // initialzing model, custom plot and controller
     SessionModel model;
     auto axisItem = model.insertItem<ViewportAxisItem>();

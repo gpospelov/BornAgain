@@ -8,19 +8,18 @@
 // ************************************************************************** //
 
 #include "google_test.h"
+#include "mvvm/model/modelutils.h"
+#include "mvvm/serialization/jsonmodelconverter.h"
 #include "toyitems.h"
 #include "toymodel.h"
 #include <QJsonObject>
-#include "mvvm/model/modelutils.h"
-#include "mvvm/serialization/jsonmodelconverter.h"
 
 using namespace ModelView;
 using namespace ToyItems;
 
 //! Testing serialization of ToyItems using json converters.
 
-class ToyItemsSerializationTest : public ::testing::Test
-{
+class ToyItemsSerializationTest : public ::testing::Test {
 public:
     ~ToyItemsSerializationTest();
 };
@@ -30,8 +29,7 @@ ToyItemsSerializationTest::~ToyItemsSerializationTest() = default;
 //! Checking ShapeGroupItem in a model.
 //! Serialization/deserelization should give an item identical to original.
 
-TEST_F(ToyItemsSerializationTest, defaultShapeGroupItemInModel)
-{
+TEST_F(ToyItemsSerializationTest, defaultShapeGroupItemInModel) {
     // model with single group item
     SampleModel model;
     auto group = model.insertItem<ShapeGroupItem>();
@@ -48,8 +46,7 @@ TEST_F(ToyItemsSerializationTest, defaultShapeGroupItemInModel)
 //! Checking ShapeGroupItem in a model.
 //! Serialization/deserelization should give an item identical to original.
 
-TEST_F(ToyItemsSerializationTest, modifiedShapeGroupItemInModel)
-{
+TEST_F(ToyItemsSerializationTest, modifiedShapeGroupItemInModel) {
     SampleModel model;
     auto group = model.insertItem<ShapeGroupItem>();
 
@@ -73,8 +70,7 @@ TEST_F(ToyItemsSerializationTest, modifiedShapeGroupItemInModel)
 
 //! Insert all supported items in a model and check that after serialization
 
-TEST_F(ToyItemsSerializationTest, allItemsInAModel)
-{
+TEST_F(ToyItemsSerializationTest, allItemsInAModel) {
     SampleModel model;
     model.insertItem<ToyItems::MultiLayerItem>();
     model.insertItem<ToyItems::LayerItem>();

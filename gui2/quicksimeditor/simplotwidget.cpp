@@ -7,15 +7,15 @@
 //
 // ************************************************************************** //
 
-#include <QList>
-#include <QSplitter>
-#include <QVBoxLayout>
+#include "gui2/quicksimeditor/simplotwidget.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/model/experimentaldataitems.h"
 #include "gui2/model/jobmodel.h"
-#include "gui2/quicksimeditor/simplotwidget.h"
 #include "mvvm/plotting/graphcanvas.h"
 #include "mvvm/standarditems/graphviewportitem.h"
+#include <QList>
+#include <QSplitter>
+#include <QVBoxLayout>
 
 namespace DaRefl {
 

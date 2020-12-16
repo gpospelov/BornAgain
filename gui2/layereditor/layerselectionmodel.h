@@ -10,8 +10,8 @@
 #ifndef DAREFL_LAYEREDITOR_LAYERSELECTIONMODEL_H
 #define DAREFL_LAYEREDITOR_LAYERSELECTIONMODEL_H
 
-#include <QItemSelectionModel>
 #include "darefl_export.h"
+#include <QItemSelectionModel>
 #include <vector>
 
 namespace ModelView {

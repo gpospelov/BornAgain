@@ -7,10 +7,10 @@
 //
 // ************************************************************************** //
 
-#include <QVBoxLayout>
-#include "gui2/importdataview/importdataeditor.h"
 #include "gui2/importdataview/importdataview.h"
+#include "gui2/importdataview/importdataeditor.h"
 #include "gui2/model/applicationmodels.h"
+#include <QVBoxLayout>
 
 namespace DaRefl {
 

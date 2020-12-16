@@ -10,9 +10,9 @@
 #ifndef TESTUTILS_H
 #define TESTUTILS_H
 
+#include "mvvm/model/customvariants.h"
 #include <QString>
 #include <memory>
-#include "mvvm/model/customvariants.h"
 
 //! @file test_utils.h
 //! @brief Collection of utility functions for various unit tests.
@@ -20,15 +20,13 @@
 class QJsonObject;
 class QJsonArray;
 
-namespace ModelView
-{
+namespace ModelView {
 class SessionModel;
 }
 
 //! Various common utils for unit tests.
 
-namespace TestUtils
-{
+namespace TestUtils {
 
 //! Returns full path to the main test folder, as defined by CMake at compile time.
 //! Shoud point to CMAKE_BINARY_DIR/test_output
@@ -54,8 +52,7 @@ std::string CreateTestFile(const std::string& dirname, const std::string& fileNa
 std::string CreateEmptyFile(const std::string& dirname, const std::string& fileName);
 
 template <typename T = std::string, typename... Args>
-std::vector<T> toStringVector(Args&&... args)
-{
+std::vector<T> toStringVector(Args&&... args) {
     std::vector<T> v;
     (v.push_back(std::string(args)), ...);
     return v;

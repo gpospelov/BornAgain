@@ -8,7 +8,6 @@
 // ************************************************************************** //
 
 #include "google_test.h"
-#include <QColor>
 #include "gui2/model/materialitems.h"
 #include "gui2/model/materialmodel.h"
 #include "gui2/model/sampleitems.h"
@@ -16,6 +15,7 @@
 #include "gui2/quicksimeditor/quicksimutils.h"
 #include "mvvm/model/externalproperty.h"
 #include "mvvm/model/itempool.h"
+#include <QColor>
 #include <tuple>
 
 using namespace DaRefl;

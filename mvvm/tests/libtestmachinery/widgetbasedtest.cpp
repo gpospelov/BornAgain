@@ -12,8 +12,7 @@
 
 QApplication* WidgetBasedTest::m_app = nullptr;
 
-namespace
-{
+namespace {
 // faking argc and argv
 char progname[] = "testview";
 char* argv[] = {&progname[0], nullptr};
@@ -22,13 +21,11 @@ int argc = 1;
 
 WidgetBasedTest::WidgetBasedTest() {}
 
-void WidgetBasedTest::SetUpTestSuite()
-{
+void WidgetBasedTest::SetUpTestSuite() {
     m_app = new QApplication(argc, argv);
 }
 
-void WidgetBasedTest::TearDownTestSuite()
-{
+void WidgetBasedTest::TearDownTestSuite() {
     delete m_app;
     m_app = 0;
 }

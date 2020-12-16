@@ -10,8 +10,8 @@
 #ifndef DAREFL_WELCOMEVIEW_OPENPROJECTWIDGET_H
 #define DAREFL_WELCOMEVIEW_OPENPROJECTWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 #include <memory>
 
 class QBoxLayout;

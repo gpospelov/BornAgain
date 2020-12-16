@@ -10,8 +10,8 @@
 #ifndef DAREFL_MATERIALEDITOR_MATERIALEDITORWIDGET_H
 #define DAREFL_MATERIALEDITOR_MATERIALEDITORWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 #include <memory>
 
 namespace ModelView {

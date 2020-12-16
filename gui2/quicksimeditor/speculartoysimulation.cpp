@@ -7,15 +7,15 @@
 //
 // ************************************************************************** //
 
-#include <algorithm>
+#include "gui2/quicksimeditor/speculartoysimulation.h"
 #include "gui2/quicksimeditor/materialprofile.h"
 #include "gui2/quicksimeditor/quicksimutils.h"
-#include "gui2/quicksimeditor/speculartoysimulation.h"
-#include <Sample/Slice/Slice.h>
-#include <Sample/Slice/KzComputation.h>
-#include <Sample/Specular/SpecularScalarTanhStrategy.h>
 #include "mvvm/standarditems/axisitems.h"
 #include "mvvm/utils/containerutils.h"
+#include <Sample/Slice/KzComputation.h>
+#include <Sample/Slice/Slice.h>
+#include <Sample/Specular/SpecularScalarTanhStrategy.h>
+#include <algorithm>
 #include <stdexcept>
 
 using namespace ModelView;

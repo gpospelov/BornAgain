@@ -10,8 +10,8 @@
 #ifndef DAREFL_IMPORTDATAVIEW_GRAPHCANVASWIDGET_H
 #define DAREFL_IMPORTDATAVIEW_GRAPHCANVASWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 
 namespace ModelView {
 class GraphCanvas;

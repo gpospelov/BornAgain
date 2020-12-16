@@ -10,10 +10,10 @@
 #ifndef DAREFL_QUICKSIMEDITOR_JOBMANAGER_H
 #define DAREFL_QUICKSIMEDITOR_JOBMANAGER_H
 
-#include <QObject>
 #include "darefl_export.h"
 #include "gui2/quicksimeditor/quicksim_types.h"
 #include "mvvm/utils/threadsafestack.h"
+#include <QObject>
 
 namespace DaRefl {
 

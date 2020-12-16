@@ -196,14 +196,14 @@ TEST_F(SpecularScanTest, GenerateSimElements) {
     EXPECT_EQ(scan2.numberOfSimulationElements(), 3u);
     for (size_t i = 0; i < sim_elements2.size(); ++i)
         EXPECT_TRUE(sim_elements2[i].isCalculated());
-    
+
     const double offset = 1.;
     scan2.setOffset(offset);
     std::vector<SpecularSimulationElement> sim_elements3 =
         scan2.generateSimulationElements(instrument);
     std::vector<Slice> slices;
     slices.emplace_back(0., MaterialBySLD());
-    for (size_t i = 0; i < sim_elements3.size(); ++i){
+    for (size_t i = 0; i < sim_elements3.size(); ++i) {
         const auto generatedKzs = sim_elements3[i].produceKz(slices);
         EXPECT_EQ(generatedKzs[0].imag(), 0.);
         EXPECT_EQ(2. * generatedKzs[0].real(), scan2_qvector[i] + offset);

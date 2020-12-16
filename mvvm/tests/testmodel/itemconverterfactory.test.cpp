@@ -8,14 +8,14 @@
 // ************************************************************************** //
 
 #include "google_test.h"
-#include "test_utils.h"
-#include <QJsonObject>
 #include "mvvm/factories/itemconverterfactory.h"
 #include "mvvm/model/compounditem.h"
 #include "mvvm/model/itemcatalogue.h"
 #include "mvvm/model/propertyitem.h"
 #include "mvvm/model/sessionitem.h"
 #include "mvvm/model/sessionmodel.h"
+#include "test_utils.h"
+#include <QJsonObject>
 
 using namespace ModelView;
 

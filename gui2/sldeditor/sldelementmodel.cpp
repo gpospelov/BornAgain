@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#include "gui2/sldeditor/layerelementitem.h"
 #include "gui2/sldeditor/sldelementmodel.h"
+#include "gui2/sldeditor/layerelementitem.h"
 
 #include "mvvm/model/externalproperty.h"
 #include "mvvm/model/itemcatalogue.h"

@@ -12,8 +12,7 @@
 
 #include <QString>
 
-namespace DaRefl::Constants
-{
+namespace DaRefl::Constants {
 
 //! Constants for QSettings.
 

@@ -10,8 +10,8 @@
 #ifndef DAREFL_LAYEREDITOR_LAYEREDITORACTIONS_H
 #define DAREFL_LAYEREDITOR_LAYEREDITORACTIONS_H
 
-#include <QObject>
 #include "darefl_export.h"
+#include <QObject>
 #include <memory>
 
 namespace DaRefl {

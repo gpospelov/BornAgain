@@ -9,7 +9,6 @@
 
 #include "google_test.h"
 
-#include "test_utils.h"
 #include "gui2/model/materialmodel.h"
 #include "gui2/model/samplemodel.h"
 #include "gui2/sldeditor/graphicsscene.h"
@@ -20,6 +19,7 @@
 #include "gui2/sldeditor/segmentelementview.h"
 #include "gui2/sldeditor/sldelementmodel.h"
 #include "mvvm/viewmodel/viewmodelutils.h"
+#include "test_utils.h"
 
 #include <QColor>
 #include <QGraphicsSceneMouseEvent>

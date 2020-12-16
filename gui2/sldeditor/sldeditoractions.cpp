@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#include "gui2/sldeditor/layerelementitem.h"
 #include "gui2/sldeditor/sldeditoractions.h"
+#include "gui2/sldeditor/layerelementitem.h"
 #include "gui2/sldeditor/sldelementmodel.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/viewmodel/viewmodel.h"

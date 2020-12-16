@@ -9,8 +9,6 @@
 
 #include "google_test.h"
 
-#include "test_utils.h"
-#include <QGraphicsScene>
 #include "gui2/model/materialmodel.h"
 #include "gui2/model/sampleitems.h"
 #include "gui2/model/samplemodel.h"
@@ -18,6 +16,8 @@
 #include "gui2/sldeditor/layerelementcontroller.h"
 #include "gui2/sldeditor/sldelementcontroller.cpp"
 #include "gui2/sldeditor/sldelementmodel.h"
+#include "test_utils.h"
+#include <QGraphicsScene>
 
 using namespace DaRefl;
 using namespace ModelView;

@@ -7,6 +7,17 @@
 //
 // ************************************************************************** //
 
+#include "gui2/dataloader/dataloaderdialog.h"
+#include "gui2/core/app_constants.h"
+#include "gui2/dataloader/datahandler.h"
+#include "gui2/dataloader/dataloader_types.h"
+#include "gui2/dataloader/dataloader_utils.h"
+#include "gui2/dataloader/dataloadertoolbar.h"
+#include "gui2/dataloader/loaderpreviewpanel.h"
+#include "gui2/dataloader/loaderselectorpanel.h"
+#include "gui2/dataloader/parserinterface.h"
+#include "mvvm/utils/fileutils.h"
+#include "mvvm/widgets/widgetutils.h"
 #include <QApplication>
 #include <QDebug>
 #include <QDialogButtonBox>
@@ -16,17 +27,6 @@
 #include <QSettings>
 #include <QSplitter>
 #include <QVBoxLayout>
-#include "gui2/core/app_constants.h"
-#include "gui2/dataloader/datahandler.h"
-#include "gui2/dataloader/dataloader_types.h"
-#include "gui2/dataloader/dataloader_utils.h"
-#include "gui2/dataloader/dataloaderdialog.h"
-#include "gui2/dataloader/dataloadertoolbar.h"
-#include "gui2/dataloader/loaderpreviewpanel.h"
-#include "gui2/dataloader/loaderselectorpanel.h"
-#include "gui2/dataloader/parserinterface.h"
-#include "mvvm/utils/fileutils.h"
-#include "mvvm/widgets/widgetutils.h"
 #include <sstream>
 
 namespace DaRefl {

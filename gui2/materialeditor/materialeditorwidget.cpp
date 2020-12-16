@@ -7,7 +7,6 @@
 //
 // ************************************************************************** //
 
-#include <QVBoxLayout>
 #include "gui2/materialeditor/materialeditorwidget.h"
 #include "gui2/materialeditor/materialselectionmodel.h"
 #include "gui2/materialeditor/materialtableview.h"
@@ -18,6 +17,7 @@
 #include "mvvm/factories/viewmodelfactory.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/viewmodel/viewmodeldelegate.h"
+#include <QVBoxLayout>
 
 namespace DaRefl {
 

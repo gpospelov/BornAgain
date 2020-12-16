@@ -10,8 +10,8 @@
 #ifndef DAREFL_MATERIALEDITOR_MATERIALSELECTIONMODEL_H
 #define DAREFL_MATERIALEDITOR_MATERIALSELECTIONMODEL_H
 
-#include <QItemSelectionModel>
 #include "darefl_export.h"
+#include <QItemSelectionModel>
 #include <vector>
 
 namespace ModelView {

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#include "gui2/sldeditor/layerelementcontroller.h"
 #include "gui2/sldeditor/roughnesselementview.h"
+#include "gui2/sldeditor/layerelementcontroller.h"
 
 #include <QPainter>
 #include <QStyleOption>

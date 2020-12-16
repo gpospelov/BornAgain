@@ -7,9 +7,9 @@
 //
 // ************************************************************************** //
 
-#include <QAction>
 #include "gui2/dataloader/dataloadertoolbar.h"
 #include "gui2/mainwindow/styleutils.h"
+#include <QAction>
 
 namespace DaRefl {
 

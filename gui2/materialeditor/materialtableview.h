@@ -10,8 +10,8 @@
 #ifndef DAREFL_MATERIALEDITOR_MATERIALTABLEVIEW_H
 #define DAREFL_MATERIALEDITOR_MATERIALTABLEVIEW_H
 
-#include <QTableView>
 #include "darefl_export.h"
+#include <QTableView>
 
 namespace DaRefl {
 

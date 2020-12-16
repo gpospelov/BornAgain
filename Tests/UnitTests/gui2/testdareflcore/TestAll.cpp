@@ -8,9 +8,9 @@
 // ************************************************************************** //
 
 #include "google_test.h"
+#include "mvvm/model/comparators.h"
 #include <QApplication>
 #include <QStandardItem>
-#include "mvvm/model/comparators.h"
 #include <string>
 
 int main(int argc, char** argv) {

@@ -7,15 +7,15 @@
 //
 // ************************************************************************** //
 
+#include "gui2/welcomeview/openprojectwidget.h"
+#include "gui2/core/version.h"
+#include "gui2/mainwindow/styleutils.h"
+#include "mvvm/core/version.h"
+#include "mvvm/widgets/widgetutils.h"
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "gui2/core/version.h"
-#include "gui2/mainwindow/styleutils.h"
-#include "gui2/welcomeview/openprojectwidget.h"
-#include "mvvm/core/version.h"
-#include "mvvm/widgets/widgetutils.h"
 
 namespace {
 int logo_width() {

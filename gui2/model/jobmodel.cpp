@@ -7,9 +7,9 @@
 //
 // ************************************************************************** //
 
+#include "gui2/model/jobmodel.h"
 #include "gui2/model/experimentaldataitems.h"
 #include "gui2/model/jobitem.h"
-#include "gui2/model/jobmodel.h"
 #include "gui2/quicksimeditor/quicksim_types.h"
 #include "mvvm/model/itemcatalogue.h"
 #include "mvvm/model/modelutils.h"

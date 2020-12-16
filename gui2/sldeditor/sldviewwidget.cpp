@@ -7,12 +7,12 @@
 //
 // ************************************************************************** //
 
-#include <QResizeEvent>
+#include "gui2/sldeditor/sldviewwidget.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/model/jobmodel.h"
 #include "gui2/sldeditor/graphicsscene.h"
 #include "gui2/sldeditor/sldelementcontroller.h"
-#include "gui2/sldeditor/sldviewwidget.h"
+#include <QResizeEvent>
 
 namespace DaRefl {
 

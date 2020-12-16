@@ -9,8 +9,8 @@
 
 #include "gui2/dataloader/datahandler.h"
 #include "gui2/dataloader/dataloader_utils.h"
-#include <iostream>
 #include "mvvm/utils/containerutils.h"
+#include <iostream>
 
 namespace DaRefl {
 

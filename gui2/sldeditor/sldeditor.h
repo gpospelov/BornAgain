@@ -10,8 +10,8 @@
 #ifndef DAREFL_SLDEDITOR_SLDEDITOR_H
 #define DAREFL_SLDEDITOR_SLDEDITOR_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 
 namespace DaRefl {
 class SLDEditorActions;

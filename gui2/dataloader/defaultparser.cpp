@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#include "gui2/dataloader/dataloader_utils.h"
 #include "gui2/dataloader/defaultparser.h"
+#include "gui2/dataloader/dataloader_utils.h"
 #include <stdexcept>
 
 namespace DaRefl {

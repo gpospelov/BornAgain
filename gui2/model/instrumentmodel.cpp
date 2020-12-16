@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#include "gui2/model/instrumentitems.h"
 #include "gui2/model/instrumentmodel.h"
+#include "gui2/model/instrumentitems.h"
 #include "mvvm/model/itemcatalogue.h"
 
 using namespace ModelView;

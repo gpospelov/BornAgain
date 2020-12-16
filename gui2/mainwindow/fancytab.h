@@ -10,9 +10,9 @@
 #ifndef DAREFL_MAINWINDOW_FANCYTAB_H
 #define DAREFL_MAINWINDOW_FANCYTAB_H
 
+#include "darefl_export.h"
 #include <QColor>
 #include <QWidget>
-#include "darefl_export.h"
 
 class QLabel;
 class QString;

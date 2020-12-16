@@ -7,15 +7,15 @@
 //
 // ************************************************************************** //
 
-#include <QByteArray>
-#include <QDataStream>
-#include <QMimeData>
 #include "gui2/importdataview/dataviewmodel.h"
 #include "gui2/model/experimentaldatamodel.h"
 #include "gui2/model/item_constants.h"
 #include "mvvm/model/sessionmodel.h"
 #include "mvvm/viewmodel/viewmodelutils.h"
 #include "mvvm/widgets/widgetutils.h"
+#include <QByteArray>
+#include <QDataStream>
+#include <QMimeData>
 
 using namespace ModelView;
 

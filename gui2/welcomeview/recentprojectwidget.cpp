@@ -7,14 +7,14 @@
 //
 // ************************************************************************** //
 
+#include "gui2/welcomeview/recentprojectwidget.h"
+#include "gui2/mainwindow/styleutils.h"
+#include "gui2/welcomeview/projectpanewidget.h"
+#include "mvvm/widgets/adjustingscrollarea.h"
+#include "mvvm/widgets/widgetutils.h"
 #include <QLabel>
 #include <QScrollArea>
 #include <QVBoxLayout>
-#include "gui2/mainwindow/styleutils.h"
-#include "gui2/welcomeview/projectpanewidget.h"
-#include "gui2/welcomeview/recentprojectwidget.h"
-#include "mvvm/widgets/adjustingscrollarea.h"
-#include "mvvm/widgets/widgetutils.h"
 
 namespace {
 const int max_recent_project_count = 10;

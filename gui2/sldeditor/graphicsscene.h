@@ -10,8 +10,8 @@
 #ifndef DAREFL_SLDEDITOR_GRAPHICSSCENE_H
 #define DAREFL_SLDEDITOR_GRAPHICSSCENE_H
 
-#include <QGraphicsScene>
 #include "darefl_export.h"
+#include <QGraphicsScene>
 #include <memory>
 
 namespace ModelView {

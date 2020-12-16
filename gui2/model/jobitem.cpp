@@ -7,10 +7,9 @@
 //
 // ************************************************************************** //
 
-#include <QColor>
+#include "gui2/model/jobitem.h"
 #include "gui2/model/experimentaldataitems.h"
 #include "gui2/model/item_constants.h"
-#include "gui2/model/jobitem.h"
 #include "gui2/model/jobmodel.h"
 #include "gui2/model/modelutils.h"
 #include "mvvm/model/modelutils.h"
@@ -18,6 +17,7 @@
 #include "mvvm/standarditems/data1ditem.h"
 #include "mvvm/standarditems/graphitem.h"
 #include "mvvm/standarditems/graphviewportitem.h"
+#include <QColor>
 
 using namespace ModelView;
 

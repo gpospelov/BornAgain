@@ -7,13 +7,13 @@
 //
 // ************************************************************************** //
 
+#include "gui2/dataloader/importtablewidget.h"
+#include "gui2/dataloader/dataloader_types.h"
+#include "gui2/dataloader/importtablemodel.h"
+#include "mvvm/viewmodel/viewmodeldelegate.h"
 #include <QStandardItemModel>
 #include <QTableView>
 #include <QVBoxLayout>
-#include "gui2/dataloader/dataloader_types.h"
-#include "gui2/dataloader/importtablemodel.h"
-#include "gui2/dataloader/importtablewidget.h"
-#include "mvvm/viewmodel/viewmodeldelegate.h"
 
 namespace DaRefl {
 

@@ -7,20 +7,20 @@
 //
 // ************************************************************************** //
 
-#include <QTabWidget>
-#include <QVBoxLayout>
+#include "gui2/quicksimeditor/quicksimeditor.h"
 #include "gui2/mainwindow/styleutils.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/model/experimentaldataitems.h"
 #include "gui2/model/jobmodel.h"
 #include "gui2/quicksimeditor/quicksimcontroller.h"
-#include "gui2/quicksimeditor/quicksimeditor.h"
 #include "gui2/quicksimeditor/quicksimeditortoolbar.h"
 #include "gui2/quicksimeditor/simplotcontroller.h"
 #include "gui2/quicksimeditor/simplotwidget.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/plotting/graphcanvas.h"
 #include "mvvm/standarditems/graphviewportitem.h"
+#include <QTabWidget>
+#include <QVBoxLayout>
 
 using namespace ModelView;
 

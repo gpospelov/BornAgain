@@ -7,6 +7,10 @@
 //
 // ************************************************************************** //
 
+#include "gui2/dataloader/importfilewidget.h"
+#include "gui2/core/app_constants.h"
+#include "mvvm/utils/binutils.h"
+#include "mvvm/utils/fileutils.h"
 #include <QFileDialog>
 #include <QItemSelectionModel>
 #include <QListView>
@@ -14,10 +18,6 @@
 #include <QSettings>
 #include <QStringListModel>
 #include <QVBoxLayout>
-#include "gui2/core/app_constants.h"
-#include "gui2/dataloader/importfilewidget.h"
-#include "mvvm/utils/binutils.h"
-#include "mvvm/utils/fileutils.h"
 
 namespace DaRefl {
 

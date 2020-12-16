@@ -10,8 +10,8 @@
 #ifndef DAREFL_MAINWINDOW_MAINBARWIDGET_H
 #define DAREFL_MAINWINDOW_MAINBARWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 #include <map>
 
 class QStackedWidget;

@@ -7,10 +7,10 @@
 //
 // ************************************************************************** //
 
-#include <Sample/Slice/Slice.h>
 #include "gui2/quicksimeditor/materialprofile.h"
 #include "gui2/quicksimeditor/profilehelper.h"
 #include "gui2/quicksimeditor/quicksimutils.h"
+#include <Sample/Slice/Slice.h>
 
 namespace DaRefl {
 

@@ -7,20 +7,20 @@
 //
 // ************************************************************************** //
 
-#include <QSplitter>
-#include <QVBoxLayout>
+#include "gui2/importdataview/importdataeditor.h"
 #include "gui2/dataloader/dataloaderdialog.h"
 #include "gui2/importdataview/dataselectionmodel.h"
 #include "gui2/importdataview/dataselectorwidget.h"
 #include "gui2/importdataview/dataviewmodel.h"
 #include "gui2/importdataview/graphcanvaswidget.h"
-#include "gui2/importdataview/importdataeditor.h"
 #include "gui2/importdataview/importdataeditoractions.h"
 #include "gui2/importdataview/importdataeditortoolbal.h"
 #include "gui2/model/experimentaldataitems.h"
 #include "gui2/model/experimentaldatamodel.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/utils/containerutils.h"
+#include <QSplitter>
+#include <QVBoxLayout>
 
 using namespace ModelView;
 

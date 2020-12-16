@@ -16,8 +16,7 @@ using namespace ToyItems;
 
 //! Test toy LatticeItem.
 
-class ToyItemsLatticeTest : public ::testing::Test
-{
+class ToyItemsLatticeTest : public ::testing::Test {
 public:
     ~ToyItemsLatticeTest();
 };
@@ -26,8 +25,7 @@ ToyItemsLatticeTest::~ToyItemsLatticeTest() = default;
 
 //! Business logice (enabled/disabled).
 
-TEST_F(ToyItemsLatticeTest, ToyItemsLatticeTest)
-{
+TEST_F(ToyItemsLatticeTest, ToyItemsLatticeTest) {
     ToyItems::SampleModel model;
     auto lattice = model.insertItem<LatticeItem>();
 

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#include "gui2/model/sampleitems.h"
 #include "gui2/model/samplemodel.h"
+#include "gui2/model/sampleitems.h"
 #include "mvvm/model/itemcatalogue.h"
 
 using namespace ModelView;

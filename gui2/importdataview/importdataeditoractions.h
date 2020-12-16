@@ -10,8 +10,8 @@
 #ifndef DAREFL_IMPORTDATAVIEW_IMPORTDATAEDITORACTIONS_H
 #define DAREFL_IMPORTDATAVIEW_IMPORTDATAEDITORACTIONS_H
 
-#include <QObject>
 #include "darefl_export.h"
+#include <QObject>
 
 class QItemSelection;
 

@@ -10,8 +10,8 @@
 #ifndef DAREFL_QUICKSIMEDITOR_QUICKSIM_TYPES_H
 #define DAREFL_QUICKSIMEDITOR_QUICKSIM_TYPES_H
 
-#include <complex>
 #include "darefl_export.h"
+#include <complex>
 #include <vector>
 
 namespace DaRefl {

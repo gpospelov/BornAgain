@@ -8,14 +8,14 @@
 // ************************************************************************** //
 
 #include "google_test.h"
-#include "test_utils.h"
-#include <QDebug>
 #include "gui2/importdataview/dataselectionmodel.h"
 #include "gui2/importdataview/dataviewmodel.h"
 #include "gui2/model/experimentaldataitems.h"
 #include "gui2/model/experimentaldatamodel.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/standarditems/graphitem.h"
+#include "test_utils.h"
+#include <QDebug>
 
 using namespace DaRefl;
 using namespace ModelView;

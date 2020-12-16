@@ -10,8 +10,8 @@
 #ifndef DAREFL_WELCOMEVIEW_PROJECTHANDLER_H
 #define DAREFL_WELCOMEVIEW_PROJECTHANDLER_H
 
-#include <QObject>
 #include "darefl_export.h"
+#include <QObject>
 #include <memory>
 #include <vector>
 

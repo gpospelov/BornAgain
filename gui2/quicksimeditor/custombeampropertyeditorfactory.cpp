@@ -7,18 +7,18 @@
 //
 // ************************************************************************** //
 
-#include <QModelIndex>
-#include <algorithm>
+#include "gui2/quicksimeditor/custombeampropertyeditorfactory.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/model/experimentaldataitems.h"
 #include "gui2/model/experimentaldatamodel.h"
 #include "gui2/model/materialmodel.h"
 #include "gui2/model/modelutils.h"
-#include "gui2/quicksimeditor/custombeampropertyeditorfactory.h"
 #include "mvvm/editors/externalpropertycomboeditor.h"
 #include "mvvm/model/externalproperty.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/standarditems/graphitem.h"
+#include <QModelIndex>
+#include <algorithm>
 
 using namespace ModelView;
 

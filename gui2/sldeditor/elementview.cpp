@@ -7,9 +7,9 @@
 //
 // ************************************************************************** //
 
-#include "mvvm/plotting/sceneadapterinterface.h"
 #include "gui2/sldeditor/elementview.h"
 #include "gui2/sldeditor/graphicsscene.h"
+#include "mvvm/plotting/sceneadapterinterface.h"
 
 #include <QCursor>
 #include <QPainter>

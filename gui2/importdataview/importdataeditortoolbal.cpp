@@ -7,10 +7,10 @@
 //
 // ************************************************************************** //
 
-#include <QAction>
-#include "gui2/importdataview/importdataeditoractions.h"
 #include "gui2/importdataview/importdataeditortoolbal.h"
+#include "gui2/importdataview/importdataeditoractions.h"
 #include "gui2/mainwindow/styleutils.h"
+#include <QAction>
 
 namespace DaRefl {
 

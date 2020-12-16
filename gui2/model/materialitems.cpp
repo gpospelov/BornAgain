@@ -7,10 +7,10 @@
 //
 // ************************************************************************** //
 
-#include <QColor>
-#include "gui2/model/item_constants.h"
 #include "gui2/model/materialitems.h"
+#include "gui2/model/item_constants.h"
 #include "mvvm/model/externalproperty.h"
+#include <QColor>
 
 using namespace ModelView;
 

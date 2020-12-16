@@ -10,9 +10,9 @@
 #ifndef DAREFL_DATALOADER_PARSERPROPERTYWIDGET_H
 #define DAREFL_DATALOADER_PARSERPROPERTYWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
 #include "gui2/dataloader/dataloader_types.h"
+#include <QWidget>
 #include <memory>
 
 class QGridLayout;

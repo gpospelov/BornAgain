@@ -7,15 +7,15 @@
 //
 // ************************************************************************** //
 
-#include <QVBoxLayout>
+#include "gui2/sldeditor/sldeditor.h"
 #include "gui2/mainwindow/styleutils.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/sldeditor/graphicsscene.h"
-#include "gui2/sldeditor/sldeditor.h"
 #include "gui2/sldeditor/sldeditoractions.h"
 #include "gui2/sldeditor/sldeditortoolbar.h"
 #include "gui2/sldeditor/sldviewwidget.h"
 #include "mvvm/plotting/graphcanvas.h"
+#include <QVBoxLayout>
 
 namespace DaRefl {
 

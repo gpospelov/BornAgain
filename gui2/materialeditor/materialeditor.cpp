@@ -7,14 +7,14 @@
 //
 // ************************************************************************** //
 
-#include <QVBoxLayout>
-#include "gui2/mainwindow/styleutils.h"
 #include "gui2/materialeditor/materialeditor.h"
+#include "gui2/mainwindow/styleutils.h"
 #include "gui2/materialeditor/materialeditoractions.h"
 #include "gui2/materialeditor/materialeditortoolbar.h"
 #include "gui2/materialeditor/materialeditorwidget.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/model/materialmodel.h"
+#include <QVBoxLayout>
 
 namespace DaRefl {
 

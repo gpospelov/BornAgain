@@ -7,7 +7,6 @@
 //
 // ************************************************************************** //
 
-#include <QAction>
 #include "gui2/layereditor/layereditoractions.h"
 #include "gui2/layereditor/layerselectionmodel.h"
 #include "gui2/model/item_constants.h"
@@ -16,6 +15,7 @@
 #include "mvvm/model/itemutils.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/viewmodel/viewmodel.h"
+#include <QAction>
 
 using namespace ModelView;
 

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#include "gui2/sldeditor/layerelementcontroller.h"
 #include "gui2/sldeditor/segmentelementview.h"
+#include "gui2/sldeditor/layerelementcontroller.h"
 
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>

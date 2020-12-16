@@ -7,13 +7,13 @@
 //
 // ************************************************************************** //
 
-#include <QVariant>
+#include "gui2/model/sampleitems.h"
 #include "gui2/model/item_constants.h"
 #include "gui2/model/materialitems.h"
 #include "gui2/model/materialmodel.h"
-#include "gui2/model/sampleitems.h"
 #include "mvvm/model/externalproperty.h"
 #include "mvvm/signals/itemmapper.h"
+#include <QVariant>
 
 namespace DaRefl {
 

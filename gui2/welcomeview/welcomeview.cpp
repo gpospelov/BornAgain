@@ -7,17 +7,17 @@
 //
 // ************************************************************************** //
 
-#include <QApplication>
-#include <QHBoxLayout>
-#include <QMainWindow>
+#include "gui2/welcomeview/welcomeview.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/welcomeview/openprojectwidget.h"
 #include "gui2/welcomeview/projecthandler.h"
 #include "gui2/welcomeview/recentprojectsettings.h"
 #include "gui2/welcomeview/recentprojectwidget.h"
-#include "gui2/welcomeview/welcomeview.h"
 #include "mvvm/project/projectutils.h"
 #include "mvvm/widgets/widgetutils.h"
+#include <QApplication>
+#include <QHBoxLayout>
+#include <QMainWindow>
 
 namespace DaRefl {
 

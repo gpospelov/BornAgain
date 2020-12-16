@@ -10,9 +10,9 @@
 #ifndef DAREFL_LAYEREDITOR_LAYEREDITORTOOLBAR_H
 #define DAREFL_LAYEREDITOR_LAYEREDITORTOOLBAR_H
 
+#include "darefl_export.h"
 #include <QToolBar>
 #include <QWidget>
-#include "darefl_export.h"
 #include <map>
 #include <string>
 

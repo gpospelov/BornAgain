@@ -7,17 +7,17 @@
 //
 // ************************************************************************** //
 
+#include "gui2/settingsview/settingsview.h"
+#include "gui2/model/applicationmodels.h"
+#include "mvvm/model/sessionmodel.h"
+#include "mvvm/widgets/allitemstreeview.h"
+#include "mvvm/widgets/widgetutils.h"
 #include <QHBoxLayout>
 #include <QListView>
 #include <QListWidget>
 #include <QStackedWidget>
 #include <QTabWidget>
 #include <QTreeView>
-#include "gui2/model/applicationmodels.h"
-#include "gui2/settingsview/settingsview.h"
-#include "mvvm/model/sessionmodel.h"
-#include "mvvm/widgets/allitemstreeview.h"
-#include "mvvm/widgets/widgetutils.h"
 
 namespace DaRefl {
 

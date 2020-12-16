@@ -11,8 +11,8 @@
 #define DAREFL_MODEL_APPLICATIONMODELS_H
 
 #include "darefl_export.h"
-#include <memory>
 #include "mvvm/interfaces/applicationmodelsinterface.h"
+#include <memory>
 
 namespace ModelView {
 class SessionModel;

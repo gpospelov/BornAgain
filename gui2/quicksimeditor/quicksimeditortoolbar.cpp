@@ -7,13 +7,13 @@
 //
 // ************************************************************************** //
 
+#include "gui2/quicksimeditor/quicksimeditortoolbar.h"
+#include "gui2/core/app_constants.h"
 #include <QAction>
 #include <QCheckBox>
 #include <QLabel>
 #include <QProgressBar>
 #include <QVBoxLayout>
-#include "gui2/core/app_constants.h"
-#include "gui2/quicksimeditor/quicksimeditortoolbar.h"
 
 namespace DaRefl {
 

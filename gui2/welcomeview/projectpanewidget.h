@@ -10,8 +10,8 @@
 #ifndef DAREFL_WELCOMEVIEW_PROJECTPANEWIDGET_H
 #define DAREFL_WELCOMEVIEW_PROJECTPANEWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 
 class QLabel;
 

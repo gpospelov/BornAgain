@@ -7,12 +7,12 @@
 //
 // ************************************************************************** //
 
-#include <QAction>
-#include <QToolButton>
+#include "gui2/sldeditor/sldeditortoolbar.h"
 #include "gui2/mainwindow/styleutils.h"
 #include "gui2/resources/resources.h"
 #include "gui2/sldeditor/sldeditoractions.h"
-#include "gui2/sldeditor/sldeditortoolbar.h"
+#include <QAction>
+#include <QToolButton>
 
 namespace DaRefl {
 

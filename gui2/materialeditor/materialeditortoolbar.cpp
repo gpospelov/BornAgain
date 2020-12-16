@@ -7,11 +7,11 @@
 //
 // ************************************************************************** //
 
-#include <QAction>
-#include <QToolButton>
+#include "gui2/materialeditor/materialeditortoolbar.h"
 #include "gui2/mainwindow/styleutils.h"
 #include "gui2/materialeditor/materialeditoractions.h"
-#include "gui2/materialeditor/materialeditortoolbar.h"
+#include <QAction>
+#include <QToolButton>
 
 namespace DaRefl {
 

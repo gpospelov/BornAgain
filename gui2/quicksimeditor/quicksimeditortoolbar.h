@@ -10,8 +10,8 @@
 #ifndef DAREFL_QUICKSIMEDITOR_QUICKSIMEDITORTOOLBAR_H
 #define DAREFL_QUICKSIMEDITOR_QUICKSIMEDITORTOOLBAR_H
 
-#include <QToolBar>
 #include "darefl_export.h"
+#include <QToolBar>
 
 class QProgressBar;
 class QCheckBox;

@@ -10,8 +10,8 @@
 #ifndef DAREFL_DATALOADER_LOADERPREVIEWPANEL_H
 #define DAREFL_DATALOADER_LOADERPREVIEWPANEL_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 
 class ImportTextView;
 class ImportTableWidget;

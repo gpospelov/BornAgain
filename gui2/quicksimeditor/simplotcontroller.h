@@ -10,8 +10,8 @@
 #ifndef DAREFL_QUICKSIMEDITOR_SIMPLOTCONTROLLER_H
 #define DAREFL_QUICKSIMEDITOR_SIMPLOTCONTROLLER_H
 
-#include <QObject>
 #include "darefl_export.h"
+#include <QObject>
 #include <memory>
 
 namespace ModelView {

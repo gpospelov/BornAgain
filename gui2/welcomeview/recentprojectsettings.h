@@ -10,8 +10,8 @@
 #ifndef DAREFL_WELCOMEVIEW_RECENTPROJECTSETTINGS_H
 #define DAREFL_WELCOMEVIEW_RECENTPROJECTSETTINGS_H
 
-#include <QStringList>
 #include "darefl_export.h"
+#include <QStringList>
 
 namespace DaRefl {
 

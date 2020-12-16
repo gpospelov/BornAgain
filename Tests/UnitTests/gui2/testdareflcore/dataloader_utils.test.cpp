@@ -8,10 +8,10 @@
 // ************************************************************************** //
 
 #include "folderbasedtest.h"
-#include "test_utils.h"
 #include "gui2/dataloader/dataloader_constants.h"
 #include "gui2/dataloader/dataloader_utils.h"
 #include "gui2/importdataview/graphimportdata.h"
+#include "test_utils.h"
 #include <initializer_list>
 #include <vector>
 

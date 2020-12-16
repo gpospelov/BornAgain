@@ -7,15 +7,15 @@
 //
 // ************************************************************************** //
 
-#include <QSplitter>
-#include <QVBoxLayout>
-#include "gui2/layereditor/layereditor.h"
 #include "gui2/mainwindow/simulationview.h"
+#include "gui2/layereditor/layereditor.h"
 #include "gui2/materialeditor/materialeditor.h"
 #include "gui2/quicksimeditor/instrumentpropertyeditor.h"
 #include "gui2/quicksimeditor/quicksimeditor.h"
 #include "gui2/sldeditor/sldeditor.h"
 #include "mvvm/widgets/collapsiblelistwidget.h"
+#include <QSplitter>
+#include <QVBoxLayout>
 
 using namespace ModelView;
 

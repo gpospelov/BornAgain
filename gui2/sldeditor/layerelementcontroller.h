@@ -10,10 +10,10 @@
 #ifndef DAREFL_SLDEDITOR_LAYERELEMENTCONTROLLER_H
 #define DAREFL_SLDEDITOR_LAYERELEMENTCONTROLLER_H
 
+#include "darefl_export.h"
 #include "mvvm/plotting/sceneadapterinterface.h"
 #include <QObject>
 #include <QPainterPath>
-#include "darefl_export.h"
 #include <vector>
 
 namespace DaRefl {

@@ -10,8 +10,8 @@
 #ifndef DAREFL_LAYEREDITOR_LAYEREDITORWIDGET_H
 #define DAREFL_LAYEREDITOR_LAYEREDITORWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 #include <memory>
 
 namespace ModelView {

@@ -7,12 +7,12 @@
 //
 // ************************************************************************** //
 
+#include "gui2/mainwindow/fancytab.h"
+#include "mvvm/widgets/widgetutils.h"
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMouseEvent>
 #include <QPainter>
-#include "gui2/mainwindow/fancytab.h"
-#include "mvvm/widgets/widgetutils.h"
 
 namespace {
 QColor defaultColor() {

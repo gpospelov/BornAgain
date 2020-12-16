@@ -7,9 +7,9 @@
 //
 // ************************************************************************** //
 
+#include "gui2/importdataview/importdataeditoractions.h"
 #include "gui2/importdataview/dataselectionmodel.h"
 #include "gui2/importdataview/graphimportdata.h"
-#include "gui2/importdataview/importdataeditoractions.h"
 #include "gui2/model/experimentaldataitems.h"
 #include "gui2/model/experimentaldatamodel.h"
 #include "mvvm/interfaces/undostackinterface.h"

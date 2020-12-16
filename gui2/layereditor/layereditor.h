@@ -10,8 +10,8 @@
 #ifndef DAREFL_LAYEREDITOR_LAYEREDITOR_H
 #define DAREFL_LAYEREDITOR_LAYEREDITOR_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 
 namespace ModelView {
 class AbstractViewModel;

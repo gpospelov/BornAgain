@@ -7,12 +7,12 @@
 //
 // ************************************************************************** //
 
+#include "gui2/layereditor/layereditortoolbar.h"
+#include "gui2/layereditor/layereditoractions.h"
+#include "gui2/mainwindow/styleutils.h"
 #include <QAction>
 #include <QMenu>
 #include <QToolButton>
-#include "gui2/layereditor/layereditoractions.h"
-#include "gui2/layereditor/layereditortoolbar.h"
-#include "gui2/mainwindow/styleutils.h"
 
 namespace DaRefl {
 

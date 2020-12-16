@@ -7,7 +7,6 @@
 //
 // ************************************************************************** //
 
-#include <QVBoxLayout>
 #include "gui2/layereditor/layereditor.h"
 #include "gui2/layereditor/layereditoractions.h"
 #include "gui2/layereditor/layereditortoolbar.h"
@@ -15,6 +14,7 @@
 #include "gui2/layereditor/layerselectionmodel.h"
 #include "gui2/mainwindow/styleutils.h"
 #include "gui2/model/applicationmodels.h"
+#include <QVBoxLayout>
 
 namespace DaRefl {
 

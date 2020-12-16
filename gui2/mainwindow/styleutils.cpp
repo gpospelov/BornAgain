@@ -7,12 +7,12 @@
 //
 // ************************************************************************** //
 
+#include "gui2/mainwindow/styleutils.h"
+#include "gui2/resources/resources.h"
 #include <QFontMetrics>
 #include <QSize>
 #include <QToolBar>
 #include <QWidget>
-#include "gui2/mainwindow/styleutils.h"
-#include "gui2/resources/resources.h"
 
 namespace DaRefl {
 

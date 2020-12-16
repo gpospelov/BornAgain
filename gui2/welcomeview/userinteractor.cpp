@@ -7,14 +7,14 @@
 //
 // ************************************************************************** //
 
-#include <QFileDialog>
-#include <QMessageBox>
-#include "gui2/welcomeview/recentprojectsettings.h"
 #include "gui2/welcomeview/userinteractor.h"
-#include <map>
+#include "gui2/welcomeview/recentprojectsettings.h"
 #include "mvvm/project/project_types.h"
 #include "mvvm/project/projectutils.h"
 #include "mvvm/utils/fileutils.h"
+#include <QFileDialog>
+#include <QMessageBox>
+#include <map>
 
 using namespace ModelView;
 

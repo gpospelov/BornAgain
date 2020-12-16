@@ -10,8 +10,8 @@
 #ifndef DAREFL_SLDEDITOR_SLDEDITORTOOLBAR_H
 #define DAREFL_SLDEDITOR_SLDEDITORTOOLBAR_H
 
-#include <QToolBar>
 #include "darefl_export.h"
+#include <QToolBar>
 
 namespace DaRefl {
 

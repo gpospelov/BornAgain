@@ -10,8 +10,8 @@
 #ifndef DAREFL_MAINWINDOW_MAINWINDOW_H
 #define DAREFL_MAINWINDOW_MAINWINDOW_H
 
-#include <QMainWindow>
 #include "darefl_export.h"
+#include <QMainWindow>
 #include <memory>
 
 namespace DaRefl {

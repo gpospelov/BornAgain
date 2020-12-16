@@ -10,8 +10,8 @@
 #ifndef DAREFL_IMPORTDATAVIEW_IMPORTDATAEDITOR_H
 #define DAREFL_IMPORTDATAVIEW_IMPORTDATAEDITOR_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 #include <string>
 
 namespace DaRefl {

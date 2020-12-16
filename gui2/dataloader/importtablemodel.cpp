@@ -7,10 +7,10 @@
 //
 // ************************************************************************** //
 
-#include <QBrush>
+#include "gui2/dataloader/importtablemodel.h"
 #include "gui2/dataloader/dataloader_types.h"
 #include "gui2/dataloader/importtableheader.h"
-#include "gui2/dataloader/importtablemodel.h"
+#include <QBrush>
 
 namespace DaRefl {
 

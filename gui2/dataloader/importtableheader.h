@@ -10,8 +10,8 @@
 #ifndef DAREFL_DATALOADER_IMPORTTABLEHEADER_H
 #define DAREFL_DATALOADER_IMPORTTABLEHEADER_H
 
-#include <QVariant>
 #include "darefl_export.h"
+#include <QVariant>
 #include <vector>
 
 namespace DaRefl {

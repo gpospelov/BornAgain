@@ -7,19 +7,19 @@
 //
 // ************************************************************************** //
 
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QSplitter>
-#include <QTreeView>
-#include <QVBoxLayout>
-#include "gui2/importdataview/dataselectionmodel.h"
 #include "gui2/importdataview/dataselectorwidget.h"
+#include "gui2/importdataview/dataselectionmodel.h"
 #include "gui2/importdataview/dataviewmodel.h"
 #include "gui2/model/experimentaldataitems.h"
 #include "mvvm/standarditems/graphitem.h"
 #include "mvvm/widgets/collapsiblelistwidget.h"
 #include "mvvm/widgets/standardtreeviews.h"
 #include "mvvm/widgets/widgetutils.h"
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QSplitter>
+#include <QTreeView>
+#include <QVBoxLayout>
 
 namespace DaRefl {
 

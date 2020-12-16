@@ -10,11 +10,11 @@
 #ifndef DAREFL_SLDEDITOR_SLDELEMENTCONTROLLER_H
 #define DAREFL_SLDEDITOR_SLDELEMENTCONTROLLER_H
 
-#include <QObject>
 #include "darefl_export.h"
 #include "gui2/sldeditor/layerelementcontroller.h"
 #include "mvvm/model/sessionitem.h"
 #include "mvvm/model/sessionmodel.h"
+#include <QObject>
 #include <vector>
 
 namespace DaRefl {

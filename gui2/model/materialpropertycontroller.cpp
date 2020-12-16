@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#include "gui2/model/materialmodel.h"
 #include "gui2/model/materialpropertycontroller.h"
+#include "gui2/model/materialmodel.h"
 #include "gui2/model/sampleitems.h"
 #include "gui2/model/samplemodel.h"
 #include "mvvm/model/externalproperty.h"

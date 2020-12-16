@@ -7,12 +7,12 @@
 //
 // ************************************************************************** //
 
+#include "gui2/quicksimeditor/simplotcontroller.h"
 #include "gui2/model/applicationmodels.h"
 #include "gui2/model/instrumentitems.h"
 #include "gui2/model/instrumentmodel.h"
 #include "gui2/model/jobitem.h"
 #include "gui2/model/jobmodel.h"
-#include "gui2/quicksimeditor/simplotcontroller.h"
 #include "mvvm/project/modelhaschangedcontroller.h"
 
 namespace DaRefl {

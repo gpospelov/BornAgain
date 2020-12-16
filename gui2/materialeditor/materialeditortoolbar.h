@@ -10,8 +10,8 @@
 #ifndef DAREFL_MATERIALEDITOR_MATERIALEDITORTOOLBAR_H
 #define DAREFL_MATERIALEDITOR_MATERIALEDITORTOOLBAR_H
 
-#include <QToolBar>
 #include "darefl_export.h"
+#include <QToolBar>
 
 namespace DaRefl {
 

@@ -10,8 +10,8 @@
 #ifndef DAREFL_MAINWINDOW_ACTIONMANAGER_H
 #define DAREFL_MAINWINDOW_ACTIONMANAGER_H
 
-#include <QObject>
 #include "darefl_export.h"
+#include <QObject>
 
 class QMainWindow;
 class QAction;

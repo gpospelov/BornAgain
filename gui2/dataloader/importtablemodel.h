@@ -10,8 +10,8 @@
 #ifndef DAREFL_DATALOADER_IMPORTTABLEMODEL_H
 #define DAREFL_DATALOADER_IMPORTTABLEMODEL_H
 
-#include <QAbstractTableModel>
 #include "darefl_export.h"
+#include <QAbstractTableModel>
 #include <memory>
 #include <string>
 #include <vector>

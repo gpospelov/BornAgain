@@ -7,15 +7,15 @@
 //
 // ************************************************************************** //
 
-#include <QMainWindow>
-#include "gui2/model/applicationmodels.h"
 #include "gui2/welcomeview/projecthandler.h"
+#include "gui2/model/applicationmodels.h"
 #include "gui2/welcomeview/recentprojectsettings.h"
 #include "gui2/welcomeview/recentprojectwidget.h"
 #include "gui2/welcomeview/userinteractor.h"
 #include "mvvm/factories/projectmanagerfactory.h"
 #include "mvvm/project/project_types.h"
 #include "mvvm/widgets/widgetutils.h"
+#include <QMainWindow>
 
 using namespace ModelView;
 

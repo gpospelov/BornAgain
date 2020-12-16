@@ -10,8 +10,8 @@
 #ifndef DAREFL_SLDEDITOR_SLDVIEWWIDGET_H
 #define DAREFL_SLDEDITOR_SLDVIEWWIDGET_H
 
-#include <QGraphicsView>
 #include "darefl_export.h"
+#include <QGraphicsView>
 #include <memory>
 
 namespace DaRefl {

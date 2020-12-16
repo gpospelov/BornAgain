@@ -7,10 +7,10 @@
 //
 // ************************************************************************** //
 
-#include <QVBoxLayout>
 #include "gui2/importdataview/graphcanvaswidget.h"
 #include "gui2/model/experimentaldataitems.h"
 #include "mvvm/plotting/graphcanvas.h"
+#include <QVBoxLayout>
 
 namespace DaRefl {
 

@@ -7,12 +7,12 @@
 //
 // ************************************************************************** //
 
-#include <algorithm>
-#include "gui2/dataloader/dataloader_constants.h"
 #include "gui2/dataloader/dataloader_utils.h"
+#include "gui2/dataloader/dataloader_constants.h"
 #include "gui2/importdataview/graphimportdata.h"
-#include <fstream>
 #include "mvvm/utils/stringutils.h"
+#include <algorithm>
+#include <fstream>
 
 namespace DaRefl {
 

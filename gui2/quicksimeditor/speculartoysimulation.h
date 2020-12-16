@@ -12,8 +12,8 @@
 
 #include "darefl_export.h"
 #include "gui2/quicksimeditor/quicksim_types.h"
-#include <memory>
 #include "mvvm/utils/progresshandler.h"
+#include <memory>
 #include <vector>
 
 class SpecularScalarTanhStrategy;

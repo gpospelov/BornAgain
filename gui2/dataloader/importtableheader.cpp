@@ -7,9 +7,9 @@
 //
 // ************************************************************************** //
 
+#include "gui2/dataloader/importtableheader.h"
 #include "gui2/dataloader/dataloader_constants.h"
 #include "gui2/dataloader/dataloader_types.h"
-#include "gui2/dataloader/importtableheader.h"
 #include "mvvm/model/comboproperty.h"
 
 using ModelView::ComboProperty;

@@ -8,7 +8,6 @@
 // ************************************************************************** //
 
 #include "google_test.h"
-#include "test_utils.h"
 #include "gui2/importdataview/dataselectionmodel.h"
 #include "gui2/importdataview/dataviewmodel.h"
 #include "gui2/importdataview/graphimportdata.h"
@@ -19,6 +18,7 @@
 #include "mvvm/model/modelutils.h"
 #include "mvvm/standarditems/graphitem.h"
 #include "mvvm/standarditems/plottableitems.h"
+#include "test_utils.h"
 
 using namespace DaRefl;
 using namespace ModelView;

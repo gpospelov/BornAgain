@@ -10,8 +10,8 @@
 #ifndef DAREFL_MATERIALEDITOR_MATERIALEDITORACTIONS_H
 #define DAREFL_MATERIALEDITOR_MATERIALEDITORACTIONS_H
 
-#include <QObject>
 #include "darefl_export.h"
+#include <QObject>
 #include <memory>
 
 namespace DaRefl {

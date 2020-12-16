@@ -11,8 +11,7 @@
 #include <QApplication>
 #include <QLocale>
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
     QLocale::setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

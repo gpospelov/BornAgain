@@ -8,9 +8,9 @@
 // ************************************************************************** //
 
 #include "google_test.h"
-#include "test_utils.h"
 #include "gui2/model/sampleitems.h"
 #include "gui2/model/samplemodel.h"
+#include "test_utils.h"
 
 using namespace DaRefl;
 using namespace ModelView;

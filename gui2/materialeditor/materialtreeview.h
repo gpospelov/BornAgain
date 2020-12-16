@@ -10,8 +10,8 @@
 #ifndef DAREFL_MATERIALEDITOR_MATERIALTREEVIEW_H
 #define DAREFL_MATERIALEDITOR_MATERIALTREEVIEW_H
 
-#include <QTreeView>
 #include "darefl_export.h"
+#include <QTreeView>
 
 namespace DaRefl {
 

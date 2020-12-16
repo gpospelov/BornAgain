@@ -7,12 +7,12 @@
 //
 // ************************************************************************** //
 
-#include <QSplitter>
-#include <QVBoxLayout>
+#include "gui2/dataloader/loaderselectorpanel.h"
 #include "gui2/dataloader/defaultparser.h"
 #include "gui2/dataloader/importfilewidget.h"
-#include "gui2/dataloader/loaderselectorpanel.h"
 #include "gui2/dataloader/parserpropertywidget.h"
+#include <QSplitter>
+#include <QVBoxLayout>
 
 namespace DaRefl {
 

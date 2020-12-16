@@ -7,11 +7,11 @@
 //
 // ************************************************************************** //
 
-#include <QItemSelection>
 #include "gui2/layereditor/layerselectionmodel.h"
 #include "gui2/model/sampleitems.h"
 #include "mvvm/viewmodel/viewmodel.h"
 #include "mvvm/viewmodel/viewmodelutils.h"
+#include <QItemSelection>
 
 namespace DaRefl {
 

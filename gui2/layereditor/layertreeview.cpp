@@ -7,9 +7,9 @@
 //
 // ************************************************************************** //
 
+#include "gui2/layereditor/layertreeview.h"
 #include <QHeaderView>
 #include <QMouseEvent>
-#include "gui2/layereditor/layertreeview.h"
 
 namespace DaRefl {
 

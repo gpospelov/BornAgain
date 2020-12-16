@@ -10,9 +10,9 @@
 #ifndef DAREFL_DATALOADER_DATALOADERDIALOG_H
 #define DAREFL_DATALOADER_DATALOADERDIALOG_H
 
-#include <QDialog>
 #include "darefl_export.h"
 #include "gui2/importdataview/graphimportdata.h"
+#include <QDialog>
 #include <memory>
 #include <vector>
 

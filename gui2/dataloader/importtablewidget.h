@@ -10,8 +10,8 @@
 #ifndef DAREFL_DATALOADER_IMPORTTABLEWIDGET_H
 #define DAREFL_DATALOADER_IMPORTTABLEWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 #include <memory>
 #include <string>
 #include <vector>

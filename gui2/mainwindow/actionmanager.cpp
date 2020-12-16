@@ -7,12 +7,12 @@
 //
 // ************************************************************************** //
 
+#include "gui2/mainwindow/actionmanager.h"
+#include "mvvm/widgets/widgetutils.h"
 #include <QAction>
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QToolBar>
-#include "gui2/mainwindow/actionmanager.h"
-#include "mvvm/widgets/widgetutils.h"
 
 namespace DaRefl {
 

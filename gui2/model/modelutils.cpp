@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#include "gui2/model/experimentaldatamodel.h"
 #include "gui2/model/modelutils.h"
+#include "gui2/model/experimentaldatamodel.h"
 #include "mvvm/model/externalproperty.h"
 #include "mvvm/model/modelutils.h"
 #include "mvvm/standarditems/axisitems.h"

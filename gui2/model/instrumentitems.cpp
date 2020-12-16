@@ -7,7 +7,6 @@
 //
 // ************************************************************************** //
 
-#include <QColor>
 #include "gui2/model/instrumentitems.h"
 #include "gui2/model/item_constants.h"
 #include "gui2/model/modelutils.h"
@@ -15,6 +14,7 @@
 #include "mvvm/model/sessionmodel.h"
 #include "mvvm/standarditems/axisitems.h"
 #include "mvvm/standarditems/graphitem.h"
+#include <QColor>
 
 using namespace ModelView;
 

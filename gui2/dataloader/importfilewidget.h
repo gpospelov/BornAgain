@@ -10,8 +10,8 @@
 #ifndef DAREFL_DATALOADER_IMPORTFILEWIDGET_H
 #define DAREFL_DATALOADER_IMPORTFILEWIDGET_H
 
-#include <QWidget>
 #include "darefl_export.h"
+#include <QWidget>
 
 class QListView;
 class QStringListModel;

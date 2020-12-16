@@ -10,9 +10,9 @@
 #ifndef DAREFL_QUICKSIMEDITOR_QUICKSIMCONTROLLER_H
 #define DAREFL_QUICKSIMEDITOR_QUICKSIMCONTROLLER_H
 
-#include <QObject>
 #include "darefl_export.h"
 #include "gui2/quicksimeditor/quicksim_types.h"
+#include <QObject>
 #include <memory>
 
 namespace ModelView {

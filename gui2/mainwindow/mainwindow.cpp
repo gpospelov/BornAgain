@@ -7,19 +7,19 @@
 //
 // ************************************************************************** //
 
+#include "gui2/mainwindow/mainwindow.h"
+#include "gui2/importdataview/importdataview.h"
+#include "gui2/mainwindow/actionmanager.h"
+#include "gui2/mainwindow/mainbarwidget.h"
+#include "gui2/mainwindow/simulationview.h"
+#include "gui2/model/applicationmodels.h"
+#include "gui2/settingsview/settingsview.h"
+#include "gui2/welcomeview/welcomeview.h"
 #include <QCloseEvent>
 #include <QCoreApplication>
 #include <QFileDialog>
 #include <QMenuBar>
 #include <QSettings>
-#include "gui2/importdataview/importdataview.h"
-#include "gui2/mainwindow/actionmanager.h"
-#include "gui2/mainwindow/mainbarwidget.h"
-#include "gui2/mainwindow/mainwindow.h"
-#include "gui2/mainwindow/simulationview.h"
-#include "gui2/model/applicationmodels.h"
-#include "gui2/settingsview/settingsview.h"
-#include "gui2/welcomeview/welcomeview.h"
 
 namespace {
 const QString main_window_group = "MainWindow";

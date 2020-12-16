@@ -10,8 +10,8 @@
 #ifndef DAREFL_IMPORTDATAVIEW_IMPORTDATAEDITORTOOLBAL_H
 #define DAREFL_IMPORTDATAVIEW_IMPORTDATAEDITORTOOLBAL_H
 
-#include <QToolBar>
 #include "darefl_export.h"
+#include <QToolBar>
 
 namespace DaRefl {
 

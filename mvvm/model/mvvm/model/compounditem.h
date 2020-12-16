@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_COMPOUNDITEM_H
-#define MVVM_MODEL_COMPOUNDITEM_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_COMPOUNDITEM_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_COMPOUNDITEM_H
 
 #include "mvvm/model/customvariants.h"
 #include "mvvm/model/propertyitem.h"
@@ -65,4 +65,4 @@ PropertyItem* CompoundItem::addProperty(const std::string& name, const V& value)
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_COMPOUNDITEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_COMPOUNDITEM_H

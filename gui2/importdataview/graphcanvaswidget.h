@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_IMPORTDATAVIEW_GRAPHCANVASWIDGET_H
-#define DAREFL_IMPORTDATAVIEW_GRAPHCANVASWIDGET_H
+#ifndef BORNAGAIN_GUI2_IMPORTDATAVIEW_GRAPHCANVASWIDGET_H
+#define BORNAGAIN_GUI2_IMPORTDATAVIEW_GRAPHCANVASWIDGET_H
 
 #include "darefl_export.h"
 #include <QWidget>
@@ -40,4 +40,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_IMPORTDATAVIEW_GRAPHCANVASWIDGET_H
+#endif // BORNAGAIN_GUI2_IMPORTDATAVIEW_GRAPHCANVASWIDGET_H

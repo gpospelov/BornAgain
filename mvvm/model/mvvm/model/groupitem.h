@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_GROUPITEM_H
-#define MVVM_MODEL_GROUPITEM_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_GROUPITEM_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_GROUPITEM_H
 
 #include "mvvm/model/itemcatalogue.h"
 #include "mvvm/model/sessionitem.h"
@@ -52,4 +52,4 @@ template <typename T> void GroupItem::registerItem(const std::string& text, bool
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_GROUPITEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_GROUPITEM_H

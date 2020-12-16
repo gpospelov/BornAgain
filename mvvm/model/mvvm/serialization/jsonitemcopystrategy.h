@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SERIALIZATION_JSONITEMCOPYSTRATEGY_H
-#define MVVM_SERIALIZATION_JSONITEMCOPYSTRATEGY_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEMCOPYSTRATEGY_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEMCOPYSTRATEGY_H
 
 #include "mvvm/interfaces/itemcopystrategy.h"
 #include <memory>
@@ -34,4 +34,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_SERIALIZATION_JSONITEMCOPYSTRATEGY_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEMCOPYSTRATEGY_H

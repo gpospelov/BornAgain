@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_VARIANT_H
-#define MVVM_MODEL_VARIANT_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_CORE_VARIANT_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_CORE_VARIANT_H
 
 //! @file variant.h
 //! Defines variant type (intermediate step toward migration from QVariant to std::variant).
@@ -17,4 +17,4 @@
 
 using Variant = QVariant;
 
-#endif // MVVM_MODEL_VARIANT_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_CORE_VARIANT_H

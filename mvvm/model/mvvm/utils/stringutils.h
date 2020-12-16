@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_UTILS_STRINGUTILS_H
-#define MVVM_UTILS_STRINGUTILS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_UTILS_STRINGUTILS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_UTILS_STRINGUTILS_H
 
 #include "mvvm/model_export.h"
 #include <optional>
@@ -56,4 +56,4 @@ MVVM_MODEL_EXPORT void ParseSpaceSeparatedDoubles(const std::string& str,
 
 } // namespace ModelView::Utils
 
-#endif // MVVM_UTILS_STRINGUTILS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_UTILS_STRINGUTILS_H

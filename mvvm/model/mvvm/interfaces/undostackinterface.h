@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_INTERFACES_UNDDOSTACKINTERFACE_H
-#define MVVM_INTERFACES_UNDDOSTACKINTERFACE_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_UNDOSTACKINTERFACE_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_UNDOSTACKINTERFACE_H
 
 #include <memory>
 #include <string>
@@ -48,4 +48,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_INTERFACES_UNDDOSTACKINTERFACE_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_UNDOSTACKINTERFACE_H

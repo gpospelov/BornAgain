@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_SAMPLEMODEL_H
-#define DAREFL_MODEL_SAMPLEMODEL_H
+#ifndef BORNAGAIN_GUI2_MODEL_SAMPLEMODEL_H
+#define BORNAGAIN_GUI2_MODEL_SAMPLEMODEL_H
 
 #include "darefl_export.h"
 #include "mvvm/model/sessionmodel.h"
@@ -25,4 +25,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_MODEL_SAMPLEMODEL_H
+#endif // BORNAGAIN_GUI2_MODEL_SAMPLEMODEL_H

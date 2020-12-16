@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PLOTTING_CUSTOMPLOTPROXYWIDGET_H
-#define MVVM_PLOTTING_CUSTOMPLOTPROXYWIDGET_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_CUSTOMPLOTPROXYWIDGET_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_CUSTOMPLOTPROXYWIDGET_H
 
 #include "mvvm/view_export.h"
 #include <QGraphicsProxyWidget>
@@ -41,4 +41,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_PLOTTING_CUSTOMPLOTPROXYWIDGET_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_CUSTOMPLOTPROXYWIDGET_H

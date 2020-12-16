@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MATERIALEDITOR_MATERIALEDITOR_H
-#define DAREFL_MATERIALEDITOR_MATERIALEDITOR_H
+#ifndef BORNAGAIN_GUI2_MATERIALEDITOR_MATERIALEDITOR_H
+#define BORNAGAIN_GUI2_MATERIALEDITOR_MATERIALEDITOR_H
 
 #include "darefl_export.h"
 #include <QWidget>
@@ -42,4 +42,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MATERIALEDITOR_MATERIALEDITOR_H
+#endif // BORNAGAIN_GUI2_MATERIALEDITOR_MATERIALEDITOR_H

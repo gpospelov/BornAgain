@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PROJECT_MODELHASCHANGEDCONTROLLER_H
-#define MVVM_PROJECT_MODELHASCHANGEDCONTROLLER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_MODELHASCHANGEDCONTROLLER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_MODELHASCHANGEDCONTROLLER_H
 
 #include "mvvm/signals/modellistener.h"
 #include <functional>
@@ -36,4 +36,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_PROJECT_MODELHASCHANGEDCONTROLLER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_MODELHASCHANGEDCONTROLLER_H

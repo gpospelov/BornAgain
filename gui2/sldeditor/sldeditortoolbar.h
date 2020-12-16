@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_SLDEDITOR_SLDEDITORTOOLBAR_H
-#define DAREFL_SLDEDITOR_SLDEDITORTOOLBAR_H
+#ifndef BORNAGAIN_GUI2_SLDEDITOR_SLDEDITORTOOLBAR_H
+#define BORNAGAIN_GUI2_SLDEDITOR_SLDEDITORTOOLBAR_H
 
 #include "darefl_export.h"
 #include <QToolBar>
@@ -32,4 +32,4 @@ signals:
 
 } // namespace gui2
 
-#endif // DAREFL_SLDEDITOR_SLDEDITORTOOLBAR_H
+#endif // BORNAGAIN_GUI2_SLDEDITOR_SLDEDITORTOOLBAR_H

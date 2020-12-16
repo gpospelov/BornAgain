@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_INTERFACES_ROWSTRATEGYINTERFACE_H
-#define MVVM_INTERFACES_ROWSTRATEGYINTERFACE_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_INTERFACES_ROWSTRATEGYINTERFACE_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_INTERFACES_ROWSTRATEGYINTERFACE_H
 
 #include "mvvm/viewmodel_export.h"
 #include <QStringList>
@@ -34,4 +34,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_INTERFACES_ROWSTRATEGYINTERFACE_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_INTERFACES_ROWSTRATEGYINTERFACE_H

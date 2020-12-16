@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_ITEMUTILS_H
-#define MVVM_MODEL_ITEMUTILS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMUTILS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMUTILS_H
 
 #include "mvvm/model_export.h"
 #include <functional>
@@ -81,4 +81,4 @@ template <typename T> std::vector<T*> CastedItems(const std::vector<SessionItem*
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_ITEMUTILS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMUTILS_H

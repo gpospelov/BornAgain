@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_COMMANDS_SETVALUECOMMAND_H
-#define MVVM_COMMANDS_SETVALUECOMMAND_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_SETVALUECOMMAND_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_SETVALUECOMMAND_H
 
 #include "mvvm/commands/abstractitemcommand.h"
 #include "mvvm/core/variant.h"
@@ -35,4 +35,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_COMMANDS_SETVALUECOMMAND_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_SETVALUECOMMAND_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_WELCOMEVIEW_PROJECTHANDLER_H
-#define DAREFL_WELCOMEVIEW_PROJECTHANDLER_H
+#ifndef BORNAGAIN_GUI2_WELCOMEVIEW_PROJECTHANDLER_H
+#define BORNAGAIN_GUI2_WELCOMEVIEW_PROJECTHANDLER_H
 
 #include "darefl_export.h"
 #include <QObject>
@@ -65,4 +65,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_WELCOMEVIEW_PROJECTHANDLER_H
+#endif // BORNAGAIN_GUI2_WELCOMEVIEW_PROJECTHANDLER_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_PATH_H
-#define MVVM_MODEL_PATH_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_PATH_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_PATH_H
 
 #include "mvvm/model_export.h"
 #include <string>
@@ -57,4 +57,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_PATH_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_PATH_H

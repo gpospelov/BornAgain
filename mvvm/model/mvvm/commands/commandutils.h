@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_COMMANDS_COMMANDUTILS_H
-#define MVVM_COMMANDS_COMMANDUTILS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDUTILS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDUTILS_H
 
 //! @file commandutils.h
 //! Collection of various utility functions for command service.
@@ -35,4 +35,4 @@ CreateItemCopyStrategy(const SessionModel* model);
 
 } // namespace ModelView
 
-#endif // MVVM_COMMANDS_COMMANDUTILS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDUTILS_H

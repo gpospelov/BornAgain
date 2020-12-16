@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_DATALOADER_IMPORTTEXTVIEW_H
-#define DAREFL_DATALOADER_IMPORTTEXTVIEW_H
+#ifndef BORNAGAIN_GUI2_DATALOADER_IMPORTTEXTVIEW_H
+#define BORNAGAIN_GUI2_DATALOADER_IMPORTTEXTVIEW_H
 
 #include "darefl_export.h"
 
@@ -66,4 +66,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_DATALOADER_IMPORTTEXTVIEW_H
+#endif // BORNAGAIN_GUI2_DATALOADER_IMPORTTEXTVIEW_H

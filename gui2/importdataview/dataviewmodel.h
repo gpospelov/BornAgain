@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_IMPORTDATAVIEW_DATAVIEWMODEL_H
-#define DAREFL_IMPORTDATAVIEW_DATAVIEWMODEL_H
+#ifndef BORNAGAIN_GUI2_IMPORTDATAVIEW_DATAVIEWMODEL_H
+#define BORNAGAIN_GUI2_IMPORTDATAVIEW_DATAVIEWMODEL_H
 
 #include "darefl_export.h"
 #include "mvvm/viewmodel/topitemsviewmodel.h"
@@ -41,4 +41,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_IMPORTDATAVIEW_DATAVIEWMODEL_H
+#endif // BORNAGAIN_GUI2_IMPORTDATAVIEW_DATAVIEWMODEL_H

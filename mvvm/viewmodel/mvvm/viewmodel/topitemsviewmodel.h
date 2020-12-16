@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_TOPITEMSVIEWMODEL_H
-#define MVVM_VIEWMODEL_TOPITEMSVIEWMODEL_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_TOPITEMSVIEWMODEL_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_TOPITEMSVIEWMODEL_H
 
 #include "mvvm/viewmodel/viewmodel.h"
 
@@ -26,4 +26,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_TOPITEMSVIEWMODEL_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_TOPITEMSVIEWMODEL_H

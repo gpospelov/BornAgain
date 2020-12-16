@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_WELCOMEVIEW_RECENTPROJECTSETTINGS_H
-#define DAREFL_WELCOMEVIEW_RECENTPROJECTSETTINGS_H
+#ifndef BORNAGAIN_GUI2_WELCOMEVIEW_RECENTPROJECTSETTINGS_H
+#define BORNAGAIN_GUI2_WELCOMEVIEW_RECENTPROJECTSETTINGS_H
 
 #include "darefl_export.h"
 #include <QStringList>
@@ -43,4 +43,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_WELCOMEVIEW_RECENTPROJECTSETTINGS_H
+#endif // BORNAGAIN_GUI2_WELCOMEVIEW_RECENTPROJECTSETTINGS_H

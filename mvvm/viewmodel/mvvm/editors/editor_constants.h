@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_EDITORS_EDITORCONSTANTS_H
-#define MVVM_EDITORS_EDITORCONSTANTS_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EDITOR_CONSTANTS_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EDITOR_CONSTANTS_H
 
 //! @file editor_constants.h
 //! Collection of constants specific for cell editing.
@@ -35,4 +35,4 @@ const int default_double_decimals = 4; //! number of digits after decimal points
 
 } // namespace ModelView
 
-#endif // MVVM_EDITORS_EDITORCONSTANTS_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EDITOR_CONSTANTS_H

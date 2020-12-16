@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_WIDGETS_PROPERTYFLATVIEW_H
-#define MVVM_WIDGETS_PROPERTYFLATVIEW_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_PROPERTYFLATVIEW_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_PROPERTYFLATVIEW_H
 
 #include "mvvm/view_export.h"
 #include <QWidget>
@@ -37,4 +37,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_WIDGETS_PROPERTYFLATVIEW_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_PROPERTYFLATVIEW_H

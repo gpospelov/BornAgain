@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_TAGROW_H
-#define MVVM_MODEL_TAGROW_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_TAGROW_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_TAGROW_H
 
 #include "mvvm/model_export.h"
 #include <string>
@@ -41,4 +41,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_TAGROW_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_TAGROW_H

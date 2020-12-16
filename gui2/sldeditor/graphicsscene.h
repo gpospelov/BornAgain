@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_SLDEDITOR_GRAPHICSSCENE_H
-#define DAREFL_SLDEDITOR_GRAPHICSSCENE_H
+#ifndef BORNAGAIN_GUI2_SLDEDITOR_GRAPHICSSCENE_H
+#define BORNAGAIN_GUI2_SLDEDITOR_GRAPHICSSCENE_H
 
 #include "darefl_export.h"
 #include <QGraphicsScene>
@@ -48,4 +48,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_SLDEDITOR_GRAPHICSSCENE_H
+#endif // BORNAGAIN_GUI2_SLDEDITOR_GRAPHICSSCENE_H

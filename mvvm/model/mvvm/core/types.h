@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_CORE_TYPES_H
-#define MVVM_CORE_TYPES_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_CORE_TYPES_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_CORE_TYPES_H
 
 #include <string>
 
@@ -19,4 +19,4 @@ using model_type = std::string;
 
 } // namespace ModelView
 
-#endif // MVVM_CORE_TYPES_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_CORE_TYPES_H

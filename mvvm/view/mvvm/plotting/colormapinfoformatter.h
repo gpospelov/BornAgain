@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PLOTTING_COLORMAPINFOFORMATTER_H
-#define MVVM_PLOTTING_COLORMAPINFOFORMATTER_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_COLORMAPINFOFORMATTER_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_COLORMAPINFOFORMATTER_H
 
 #include "mvvm/plotting/statusstringformatterinterface.h"
 
@@ -30,4 +30,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_PLOTTING_COLORMAPINFOFORMATTER_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_COLORMAPINFOFORMATTER_H

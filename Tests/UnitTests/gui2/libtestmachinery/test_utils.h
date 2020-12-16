@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTUTILS_H
-#define TESTUTILS_H
+#ifndef BORNAGAIN_TESTS_UNITTESTS_GUI2_LIBTESTMACHINERY_TEST_UTILS_H
+#define BORNAGAIN_TESTS_UNITTESTS_GUI2_LIBTESTMACHINERY_TEST_UTILS_H
 
 #include "mvvm/model/customvariants.h"
 #include <QString>
@@ -60,4 +60,4 @@ std::vector<T> toStringVector(Args&&... args) {
 
 } // namespace TestUtils
 
-#endif // TESTUTILS_H
+#endif // BORNAGAIN_TESTS_UNITTESTS_GUI2_LIBTESTMACHINERY_TEST_UTILS_H

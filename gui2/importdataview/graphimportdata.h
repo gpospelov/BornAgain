@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_IMPORTDATAVIEW_GRAPHIMPORTDATA_H
-#define DAREFL_IMPORTDATAVIEW_GRAPHIMPORTDATA_H
+#ifndef BORNAGAIN_GUI2_IMPORTDATAVIEW_GRAPHIMPORTDATA_H
+#define BORNAGAIN_GUI2_IMPORTDATAVIEW_GRAPHIMPORTDATA_H
 
 #include "darefl_export.h"
 #include <string>
@@ -30,4 +30,4 @@ struct DAREFLCORE_EXPORT GraphImportData {
 
 } // namespace gui2
 
-#endif // DAREFL_IMPORTDATAVIEW_GRAPHIMPORTDATA_H
+#endif // BORNAGAIN_GUI2_IMPORTDATAVIEW_GRAPHIMPORTDATA_H

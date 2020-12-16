@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_SESSIONITEMDATA_H
-#define MVVM_MODEL_SESSIONITEMDATA_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONITEMDATA_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONITEMDATA_H
 
 #include "mvvm/model/datarole.h"
 #include "mvvm/model_export.h"
@@ -41,4 +41,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_SESSIONITEMDATA_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONITEMDATA_H

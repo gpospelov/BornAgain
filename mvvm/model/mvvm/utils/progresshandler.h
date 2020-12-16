@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_UTILS_PROGRESSHANDLER_H
-#define MVVM_UTILS_PROGRESSHANDLER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_UTILS_PROGRESSHANDLER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_UTILS_PROGRESSHANDLER_H
 
 #include "mvvm/model_export.h"
 #include <functional>
@@ -49,4 +49,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_UTILS_PROGRESSHANDLER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_UTILS_PROGRESSHANDLER_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_APPLICATIONMODELS_H
-#define DAREFL_MODEL_APPLICATIONMODELS_H
+#ifndef BORNAGAIN_GUI2_MODEL_APPLICATIONMODELS_H
+#define BORNAGAIN_GUI2_MODEL_APPLICATIONMODELS_H
 
 #include "darefl_export.h"
 #include "mvvm/interfaces/applicationmodelsinterface.h"
@@ -53,4 +53,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MODEL_APPLICATIONMODELS_H
+#endif // BORNAGAIN_GUI2_MODEL_APPLICATIONMODELS_H

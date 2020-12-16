@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SIGNALS_MODELMAPPER_H
-#define MVVM_SIGNALS_MODELMAPPER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_MODELMAPPER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_MODELMAPPER_H
 
 #include "mvvm/interfaces/modellistenerinterface.h"
 #include <memory>
@@ -59,4 +59,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_SIGNALS_MODELMAPPER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_MODELMAPPER_H

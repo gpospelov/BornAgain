@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PLOTTING_DATA2DPLOTCONTROLLER_H
-#define MVVM_PLOTTING_DATA2DPLOTCONTROLLER_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_DATA2DPLOTCONTROLLER_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_DATA2DPLOTCONTROLLER_H
 
 #include "mvvm/signals/itemlistener.h"
 #include "mvvm/view_export.h"
@@ -39,4 +39,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_PLOTTING_DATA2DPLOTCONTROLLER_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_DATA2DPLOTCONTROLLER_H

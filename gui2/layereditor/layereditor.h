@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_LAYEREDITOR_LAYEREDITOR_H
-#define DAREFL_LAYEREDITOR_LAYEREDITOR_H
+#ifndef BORNAGAIN_GUI2_LAYEREDITOR_LAYEREDITOR_H
+#define BORNAGAIN_GUI2_LAYEREDITOR_LAYEREDITOR_H
 
 #include "darefl_export.h"
 #include <QWidget>
@@ -47,4 +47,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_LAYEREDITOR_LAYEREDITOR_H
+#endif // BORNAGAIN_GUI2_LAYEREDITOR_LAYEREDITOR_H

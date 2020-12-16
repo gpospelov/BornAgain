@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_SESSIONMODEL_H
-#define MVVM_MODEL_SESSIONMODEL_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONMODEL_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONMODEL_H
 
 #include "mvvm/core/types.h"
 #include "mvvm/core/variant.h"
@@ -130,4 +130,4 @@ template <typename T> void SessionModel::registerItem(const std::string& label) 
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_SESSIONMODEL_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONMODEL_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_DATALOADER_DEFAULTPARSER_H
-#define DAREFL_DATALOADER_DEFAULTPARSER_H
+#ifndef BORNAGAIN_GUI2_DATALOADER_DEFAULTPARSER_H
+#define BORNAGAIN_GUI2_DATALOADER_DEFAULTPARSER_H
 
 #include "darefl_export.h"
 #include "gui2/dataloader/dataloader_types.h"
@@ -48,4 +48,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_DATALOADER_DEFAULTPARSER_H
+#endif // BORNAGAIN_GUI2_DATALOADER_DEFAULTPARSER_H

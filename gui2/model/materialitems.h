@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_MATERIALITEMS_H
-#define DAREFL_MODEL_MATERIALITEMS_H
+#ifndef BORNAGAIN_GUI2_MODEL_MATERIALITEMS_H
+#define BORNAGAIN_GUI2_MODEL_MATERIALITEMS_H
 
 //! materialitems.h
 //! Collection of materials to populate MaterialModel.
@@ -61,4 +61,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_MODEL_MATERIALITEMS_H
+#endif // BORNAGAIN_GUI2_MODEL_MATERIALITEMS_H

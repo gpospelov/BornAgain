@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_UTILS_IFACTORY_H
-#define MVVM_UTILS_IFACTORY_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_UTILS_IFACTORY_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_UTILS_IFACTORY_H
 
 #include <functional>
 #include <map>
@@ -57,4 +57,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_UTILS_IFACTORY_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_UTILS_IFACTORY_H

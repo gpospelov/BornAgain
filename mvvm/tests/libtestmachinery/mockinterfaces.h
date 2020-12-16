@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MOCKINTERFACES_H
-#define MOCKINTERFACES_H
+#ifndef BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_MOCKINTERFACES_H
+#define BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_MOCKINTERFACES_H
 
 #include "mvvm/model/tagrow.h"
 #include <string>
@@ -48,4 +48,4 @@ public:
     virtual void onAboutToRemoveItem(ModelView::SessionItem*, ModelView::TagRow) = 0;
 };
 
-#endif // MOCKINTERFACES_H
+#endif // BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_MOCKINTERFACES_H

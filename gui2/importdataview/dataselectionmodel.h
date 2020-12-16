@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_IMPORTDATAVIEW_DATASELECTIONMODEL_H
-#define DAREFL_IMPORTDATAVIEW_DATASELECTIONMODEL_H
+#ifndef BORNAGAIN_GUI2_IMPORTDATAVIEW_DATASELECTIONMODEL_H
+#define BORNAGAIN_GUI2_IMPORTDATAVIEW_DATASELECTIONMODEL_H
 
 #include "darefl_export.h"
 #include <QItemSelectionModel>
@@ -50,4 +50,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_IMPORTDATAVIEW_DATASELECTIONMODEL_H
+#endif // BORNAGAIN_GUI2_IMPORTDATAVIEW_DATASELECTIONMODEL_H

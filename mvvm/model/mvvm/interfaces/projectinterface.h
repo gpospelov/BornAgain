@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_INTERFACES_PROJECTINTERFACE_H
-#define MVVM_INTERFACES_PROJECTINTERFACE_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_PROJECTINTERFACE_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_PROJECTINTERFACE_H
 
 #include "mvvm/model_export.h"
 #include <string>
@@ -29,4 +29,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_INTERFACES_PROJECTINTERFACE_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_PROJECTINTERFACE_H

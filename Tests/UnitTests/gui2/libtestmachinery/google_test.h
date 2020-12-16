@@ -7,9 +7,9 @@
 //
 // ************************************************************************** //
 
-#ifndef GOOGLETEST_H
-#define GOOGLETEST_H
+#ifndef BORNAGAIN_TESTS_UNITTESTS_GUI2_LIBTESTMACHINERY_GOOGLE_TEST_H
+#define BORNAGAIN_TESTS_UNITTESTS_GUI2_LIBTESTMACHINERY_GOOGLE_TEST_H
 
 #include <gtest/gtest.h>
 
-#endif // GOOGLETEST_H
+#endif // BORNAGAIN_TESTS_UNITTESTS_GUI2_LIBTESTMACHINERY_GOOGLE_TEST_H

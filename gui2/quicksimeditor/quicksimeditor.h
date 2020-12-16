@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_QUICKSIMEDITOR_QUICKSIMEDITOR_H
-#define DAREFL_QUICKSIMEDITOR_QUICKSIMEDITOR_H
+#ifndef BORNAGAIN_GUI2_QUICKSIMEDITOR_QUICKSIMEDITOR_H
+#define BORNAGAIN_GUI2_QUICKSIMEDITOR_QUICKSIMEDITOR_H
 
 #include "darefl_export.h"
 #include <QWidget>
@@ -49,4 +49,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_QUICKSIMEDITOR_QUICKSIMEDITOR_H
+#endif // BORNAGAIN_GUI2_QUICKSIMEDITOR_QUICKSIMEDITOR_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_PROPERTIESROWSTRATEGY_H
-#define MVVM_VIEWMODEL_PROPERTIESROWSTRATEGY_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_PROPERTIESROWSTRATEGY_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_PROPERTIESROWSTRATEGY_H
 
 #include "mvvm/interfaces/rowstrategyinterface.h"
 
@@ -37,4 +37,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_PROPERTIESROWSTRATEGY_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_PROPERTIESROWSTRATEGY_H

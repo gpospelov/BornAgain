@@ -14,8 +14,8 @@
 //  ************************************************************************************************
 
 #ifndef USER_API
-#ifndef BORNAGAIN_DEVICE_INTENSITY_IINTENSITYFUNCTION_H
-#define BORNAGAIN_DEVICE_INTENSITY_IINTENSITYFUNCTION_H
+#ifndef BORNAGAIN_CORE_RESIDUAL_IINTENSITYFUNCTION_H
+#define BORNAGAIN_CORE_RESIDUAL_IINTENSITYFUNCTION_H
 
 //! Interface for applying arbitrary function to the measured intensity.
 //! @ingroup algorithms_internal
@@ -45,5 +45,5 @@ public:
     virtual double evaluate(double value) const;
 };
 
-#endif // BORNAGAIN_DEVICE_INTENSITY_IINTENSITYFUNCTION_H
+#endif // BORNAGAIN_CORE_RESIDUAL_IINTENSITYFUNCTION_H
 #endif // USER_API

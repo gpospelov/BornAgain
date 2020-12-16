@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_FACTORIES_MODELDOCUMENTFACTORY_H
-#define MVVM_FACTORIES_MODELDOCUMENTFACTORY_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_MODELDOCUMENTFACTORY_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_MODELDOCUMENTFACTORY_H
 
 #include "mvvm/interfaces/modeldocumentinterface.h"
 #include <memory>
@@ -24,4 +24,4 @@ CreateJsonDocument(const std::vector<SessionModel*>& models);
 
 } // namespace ModelView
 
-#endif // MVVM_FACTORIES_MODELDOCUMENTFACTORY_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_MODELDOCUMENTFACTORY_H

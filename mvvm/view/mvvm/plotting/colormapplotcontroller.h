@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PLOTTING_COLORMAPPLOTCONTROLLER_H
-#define MVVM_PLOTTING_COLORMAPPLOTCONTROLLER_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_COLORMAPPLOTCONTROLLER_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_COLORMAPPLOTCONTROLLER_H
 
 #include "mvvm/signals/itemlistener.h"
 #include "mvvm/view_export.h"
@@ -42,4 +42,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_PLOTTING_COLORMAPPLOTCONTROLLER_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_COLORMAPPLOTCONTROLLER_H

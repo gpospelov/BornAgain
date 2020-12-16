@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_STANDARDCHILDRENSTRATEGIES_H
-#define MVVM_VIEWMODEL_STANDARDCHILDRENSTRATEGIES_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_STANDARDCHILDRENSTRATEGIES_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_STANDARDCHILDRENSTRATEGIES_H
 
 //! @file childrenstrategies.h
 //! @brief Collection of strategies to find children, actual of fictional, of given SessionItem.
@@ -55,4 +55,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_STANDARDCHILDRENSTRATEGIES_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_STANDARDCHILDRENSTRATEGIES_H

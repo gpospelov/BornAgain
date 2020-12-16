@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_SETTINGSVIEW_SETTINGSVIEW_H
-#define DAREFL_SETTINGSVIEW_SETTINGSVIEW_H
+#ifndef BORNAGAIN_GUI2_SETTINGSVIEW_SETTINGSVIEW_H
+#define BORNAGAIN_GUI2_SETTINGSVIEW_SETTINGSVIEW_H
 
 #include "darefl_export.h"
 #include <QWidget>
@@ -45,4 +45,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_SETTINGSVIEW_SETTINGSVIEW_H
+#endif // BORNAGAIN_GUI2_SETTINGSVIEW_SETTINGSVIEW_H

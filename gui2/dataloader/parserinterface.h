@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_DATALOADER_PARSERINTERFACE_H
-#define DAREFL_DATALOADER_PARSERINTERFACE_H
+#ifndef BORNAGAIN_GUI2_DATALOADER_PARSERINTERFACE_H
+#define BORNAGAIN_GUI2_DATALOADER_PARSERINTERFACE_H
 
 #include "darefl_export.h"
 #include <string>
@@ -41,4 +41,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_DATALOADER_PARSERINTERFACE_H
+#endif // BORNAGAIN_GUI2_DATALOADER_PARSERINTERFACE_H

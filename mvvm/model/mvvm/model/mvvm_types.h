@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_MVVM_TYPES_H
-#define MVVM_MODEL_MVVM_TYPES_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_MVVM_TYPES_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_MVVM_TYPES_H
 
 #include "mvvm/core/types.h"
 #include <string>
@@ -59,4 +59,4 @@ const model_type ViewportAxisItemType = "ViewportAxis";
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_MVVM_TYPES_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_MVVM_TYPES_H

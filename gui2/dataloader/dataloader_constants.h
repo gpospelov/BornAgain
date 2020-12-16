@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_DATALOADER_DATALOADER_CONSTANTS_H
-#define DAREFL_DATALOADER_DATALOADER_CONSTANTS_H
+#ifndef BORNAGAIN_GUI2_DATALOADER_DATALOADER_CONSTANTS_H
+#define BORNAGAIN_GUI2_DATALOADER_DATALOADER_CONSTANTS_H
 
 #include <string>
 #include <vector>
@@ -21,4 +21,4 @@ const std::string IgnoreType = "Ignore";
 
 } // namespace gui2::Constants
 
-#endif // DAREFL_DATALOADER_DATALOADER_CONSTANTS_H
+#endif // BORNAGAIN_GUI2_DATALOADER_DATALOADER_CONSTANTS_H

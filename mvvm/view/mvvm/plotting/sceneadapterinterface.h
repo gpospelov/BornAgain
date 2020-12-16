@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PLOTTING_SCENEADAPTERINTERFACE_H
-#define MVVM_PLOTTING_SCENEADAPTERINTERFACE_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_SCENEADAPTERINTERFACE_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_SCENEADAPTERINTERFACE_H
 
 #include "mvvm/view_export.h"
 
@@ -42,4 +42,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_PLOTTING_SCENEADAPTERINTERFACE_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_SCENEADAPTERINTERFACE_H

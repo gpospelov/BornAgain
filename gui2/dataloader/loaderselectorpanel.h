@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_DATALOADER_LOADERSELECTORPANEL_H
-#define DAREFL_DATALOADER_LOADERSELECTORPANEL_H
+#ifndef BORNAGAIN_GUI2_DATALOADER_LOADERSELECTORPANEL_H
+#define BORNAGAIN_GUI2_DATALOADER_LOADERSELECTORPANEL_H
 
 #include "darefl_export.h"
 #include <QWidget>
@@ -60,4 +60,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_DATALOADER_LOADERSELECTORPANEL_H
+#endif // BORNAGAIN_GUI2_DATALOADER_LOADERSELECTORPANEL_H

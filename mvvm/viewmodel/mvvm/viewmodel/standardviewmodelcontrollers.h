@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_STANDARDVIEWMODELCONTROLLERS_H
-#define MVVM_VIEWMODEL_STANDARDVIEWMODELCONTROLLERS_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_STANDARDVIEWMODELCONTROLLERS_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_STANDARDVIEWMODELCONTROLLERS_H
 
 #include "mvvm/viewmodel/viewmodel.h"
 #include "mvvm/viewmodel/viewmodelcontroller.h"
@@ -71,4 +71,4 @@ protected:
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_STANDARDVIEWMODELCONTROLLERS_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_STANDARDVIEWMODELCONTROLLERS_H

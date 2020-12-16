@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MAINWINDOW_FANCYTAB_H
-#define DAREFL_MAINWINDOW_FANCYTAB_H
+#ifndef BORNAGAIN_GUI2_MAINWINDOW_FANCYTAB_H
+#define BORNAGAIN_GUI2_MAINWINDOW_FANCYTAB_H
 
 #include "darefl_export.h"
 #include <QColor>
@@ -44,4 +44,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MAINWINDOW_FANCYTAB_H
+#endif // BORNAGAIN_GUI2_MAINWINDOW_FANCYTAB_H

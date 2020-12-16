@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SIGNALS_CALLBACKCONTAINER_H
-#define MVVM_SIGNALS_CALLBACKCONTAINER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_CALLBACKCONTAINER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_CALLBACKCONTAINER_H
 
 #include "mvvm/model_export.h"
 #include "mvvm/signals/callback_types.h"
@@ -63,4 +63,4 @@ template <typename T> class Signal : public SignalBase<T, Callbacks::slot_t> {};
 
 } // namespace ModelView
 
-#endif // MVVM_SIGNALS_CALLBACKCONTAINER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_CALLBACKCONTAINER_H

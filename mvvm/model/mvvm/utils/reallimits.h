@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_UTILS_REALLIMITS_H
-#define MVVM_UTILS_REALLIMITS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_UTILS_REALLIMITS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_UTILS_REALLIMITS_H
 
 #include "mvvm/model_export.h"
 
@@ -79,4 +79,4 @@ protected:
 
 } // namespace ModelView
 
-#endif // MVVM_UTILS_REALLIMITS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_UTILS_REALLIMITS_H

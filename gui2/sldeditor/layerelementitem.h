@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_SLDEDITOR_LAYERELEMENTITEM_H
-#define DAREFL_SLDEDITOR_LAYERELEMENTITEM_H
+#ifndef BORNAGAIN_GUI2_SLDEDITOR_LAYERELEMENTITEM_H
+#define BORNAGAIN_GUI2_SLDEDITOR_LAYERELEMENTITEM_H
 
 #include "darefl_export.h"
 #include "mvvm/model/compounditem.h"
@@ -53,4 +53,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_SLDEDITOR_LAYERELEMENTITEM_H
+#endif // BORNAGAIN_GUI2_SLDEDITOR_LAYERELEMENTITEM_H

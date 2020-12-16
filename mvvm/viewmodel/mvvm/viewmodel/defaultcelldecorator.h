@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_DEFAULTCELLDECORATOR_H
-#define MVVM_VIEWMODEL_DEFAULTCELLDECORATOR_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_DEFAULTCELLDECORATOR_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_DEFAULTCELLDECORATOR_H
 
 #include "mvvm/interfaces/celldecoratorinterface.h"
 #include <optional>
@@ -28,4 +28,4 @@ protected:
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_DEFAULTCELLDECORATOR_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_DEFAULTCELLDECORATOR_H

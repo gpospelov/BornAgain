@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_WELCOMEVIEW_USERINTERACTOR_H
-#define DAREFL_WELCOMEVIEW_USERINTERACTOR_H
+#ifndef BORNAGAIN_GUI2_WELCOMEVIEW_USERINTERACTOR_H
+#define BORNAGAIN_GUI2_WELCOMEVIEW_USERINTERACTOR_H
 
 #include "darefl_export.h"
 #include <string>
@@ -45,4 +45,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_WELCOMEVIEW_USERINTERACTOR_H
+#endif // BORNAGAIN_GUI2_WELCOMEVIEW_USERINTERACTOR_H

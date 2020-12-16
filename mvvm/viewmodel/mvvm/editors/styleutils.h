@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_EDITORS_STYLEUTILS_H
-#define MVVM_EDITORS_STYLEUTILS_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_STYLEUTILS_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_STYLEUTILS_H
 
 #include "mvvm/viewmodel_export.h"
 
@@ -29,4 +29,4 @@ MVVM_VIEWMODEL_EXPORT int DefaultInfoBarTextSize();
 
 } // namespace ModelView
 
-#endif // MVVM_EDITORS_STYLEUTILS_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_STYLEUTILS_H

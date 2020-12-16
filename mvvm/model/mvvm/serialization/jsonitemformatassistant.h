@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SERIALIZATION_JSONITEMFORMATASSISTANT_H
-#define MVVM_SERIALIZATION_JSONITEMFORMATASSISTANT_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEMFORMATASSISTANT_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEMFORMATASSISTANT_H
 
 #include "mvvm/serialization/jsonitemconverterinterface.h"
 #include <QString>
@@ -45,4 +45,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_SERIALIZATION_JSONITEMFORMATASSISTANT_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEMFORMATASSISTANT_H

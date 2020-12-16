@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_WIDGETS_ADJUSTINGSCROLLAREA_H
-#define MVVM_WIDGETS_ADJUSTINGSCROLLAREA_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_ADJUSTINGSCROLLAREA_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_ADJUSTINGSCROLLAREA_H
 
 #include "mvvm/view_export.h"
 #include <QScrollArea>
@@ -33,4 +33,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_WIDGETS_ADJUSTINGSCROLLAREA_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_ADJUSTINGSCROLLAREA_H

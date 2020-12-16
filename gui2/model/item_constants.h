@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_ITEM_CONSTANTS_H
-#define DAREFL_MODEL_ITEM_CONSTANTS_H
+#ifndef BORNAGAIN_GUI2_MODEL_ITEM_CONSTANTS_H
+#define BORNAGAIN_GUI2_MODEL_ITEM_CONSTANTS_H
 
 #include <string>
 
@@ -32,4 +32,4 @@ const std::string SpecularScanGroupItemType = "SpecularScanGroup";
 
 } // namespace gui2::Constants
 
-#endif // DAREFL_MODEL_ITEM_CONSTANTS_H
+#endif // BORNAGAIN_GUI2_MODEL_ITEM_CONSTANTS_H

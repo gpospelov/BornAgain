@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_SESSIONITEM_H
-#define MVVM_MODEL_SESSIONITEM_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONITEM_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONITEM_H
 
 #include "mvvm/core/variant.h"
 #include "mvvm/model/customvariants.h"
@@ -193,4 +193,4 @@ template <typename T> std::vector<T*> SessionItem::items(const std::string& tag)
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_SESSIONITEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONITEM_H

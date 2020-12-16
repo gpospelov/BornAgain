@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PLOTTING_CUSTOMPLOTUTILS_H
-#define MVVM_PLOTTING_CUSTOMPLOTUTILS_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_CUSTOMPLOTUTILS_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_CUSTOMPLOTUTILS_H
 
 #include "mvvm/view_export.h"
 
@@ -31,4 +31,4 @@ MVVM_VIEW_EXPORT void SetLogarithmicScale(QCPAxis* axis, bool is_log_scale);
 
 } // namespace ModelView
 
-#endif // MVVM_PLOTTING_CUSTOMPLOTUTILS_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_CUSTOMPLOTUTILS_H

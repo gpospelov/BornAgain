@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MOCKWIDGETS_H
-#define MOCKWIDGETS_H
+#ifndef BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_MOCKWIDGETS_H
+#define BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_MOCKWIDGETS_H
 
 #include "mockinterfaces.h"
 #include <gmock/gmock.h>
@@ -68,4 +68,4 @@ private:
     ModelView::SessionModel* m_model;
 };
 
-#endif //  MOCKWIDGETS_H
+#endif // BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_MOCKWIDGETS_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_LAYEREDITOR_CUSTOMLAYERTREEEDITORFACTORY_H
-#define DAREFL_LAYEREDITOR_CUSTOMLAYERTREEEDITORFACTORY_H
+#ifndef BORNAGAIN_GUI2_LAYEREDITOR_CUSTOMLAYERTREEEDITORFACTORY_H
+#define BORNAGAIN_GUI2_LAYEREDITOR_CUSTOMLAYERTREEEDITORFACTORY_H
 
 #include "darefl_export.h"
 #include "mvvm/editors/defaulteditorfactory.h"
@@ -33,4 +33,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_LAYEREDITOR_CUSTOMLAYERTREEEDITORFACTORY_H
+#endif // BORNAGAIN_GUI2_LAYEREDITOR_CUSTOMLAYERTREEEDITORFACTORY_H

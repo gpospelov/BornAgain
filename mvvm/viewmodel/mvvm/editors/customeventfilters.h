@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_EDITORS_CUSTOMEVENTFILTERS_H
-#define MVVM_EDITORS_CUSTOMEVENTFILTERS_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_CUSTOMEVENTFILTERS_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_CUSTOMEVENTFILTERS_H
 
 #include "mvvm/viewmodel_export.h"
 #include <QObject>
@@ -45,4 +45,4 @@ protected:
 
 } // namespace ModelView
 
-#endif // MVVM_EDITORS_CUSTOMEVENTFILTERS_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_CUSTOMEVENTFILTERS_H

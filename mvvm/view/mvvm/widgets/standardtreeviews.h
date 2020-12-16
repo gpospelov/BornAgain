@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_WIDGETS_STANDARDTREEVIEWS_H
-#define MVVM_WIDGETS_STANDARDTREEVIEWS_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_STANDARDTREEVIEWS_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_STANDARDTREEVIEWS_H
 
 //! @file standardtreeviews.h
 //! @brief Collection of includes to get all standard tree views.
@@ -17,4 +17,4 @@
 #include "mvvm/widgets/propertytreeview.h"
 #include "mvvm/widgets/topitemstreeview.h"
 
-#endif // MVVM_WIDGETS_STANDARDTREEVIEWS_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_STANDARDTREEVIEWS_H

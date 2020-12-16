@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_UTILS_THREADSAFESTACK_H
-#define MVVM_UTILS_THREADSAFESTACK_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_UTILS_THREADSAFESTACK_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_UTILS_THREADSAFESTACK_H
 
 #include "mvvm/model_export.h"
 #include <atomic>
@@ -118,4 +118,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_UTILS_THREADSAFESTACK_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_UTILS_THREADSAFESTACK_H

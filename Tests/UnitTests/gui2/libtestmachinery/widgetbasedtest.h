@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef WIDGETBASEDTEST_H
-#define WIDGETBASEDTEST_H
+#ifndef BORNAGAIN_TESTS_UNITTESTS_GUI2_LIBTESTMACHINERY_WIDGETBASEDTEST_H
+#define BORNAGAIN_TESTS_UNITTESTS_GUI2_LIBTESTMACHINERY_WIDGETBASEDTEST_H
 
 #include <gtest/gtest.h>
 
@@ -28,4 +28,4 @@ protected:
     static QApplication* m_app;
 };
 
-#endif // WIDGETBASEDTEST_H
+#endif // BORNAGAIN_TESTS_UNITTESTS_GUI2_LIBTESTMACHINERY_WIDGETBASEDTEST_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_EXPERIMENTALDATAITEMS_H
-#define DAREFL_MODEL_EXPERIMENTALDATAITEMS_H
+#ifndef BORNAGAIN_GUI2_MODEL_EXPERIMENTALDATAITEMS_H
+#define BORNAGAIN_GUI2_MODEL_EXPERIMENTALDATAITEMS_H
 
 #include "darefl_export.h"
 #include "mvvm/standarditems/containeritem.h"
@@ -56,4 +56,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_MODEL_EXPERIMENTALDATAITEMS_H
+#endif // BORNAGAIN_GUI2_MODEL_EXPERIMENTALDATAITEMS_H

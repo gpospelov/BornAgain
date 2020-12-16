@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SERIALIZATION_JSONCONVERTERINTERFACES_H
-#define MVVM_SERIALIZATION_JSONCONVERTERINTERFACES_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONCONVERTERINTERFACES_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONCONVERTERINTERFACES_H
 
 #include "mvvm/serialization/jsonitemconverterinterface.h"
 #include "mvvm/serialization/jsonitemdataconverterinterface.h"
@@ -16,4 +16,4 @@
 #include "mvvm/serialization/jsontaginfoconverterinterface.h"
 #include "mvvm/serialization/jsonvariantconverterinterface.h"
 
-#endif // MVVM_SERIALIZATION_JSONCONVERTERINTERFACES_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONCONVERTERINTERFACES_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_SLDEDITOR_ROUGHNESSELEMENTVIEW_H
-#define DAREFL_SLDEDITOR_ROUGHNESSELEMENTVIEW_H
+#ifndef BORNAGAIN_GUI2_SLDEDITOR_ROUGHNESSELEMENTVIEW_H
+#define BORNAGAIN_GUI2_SLDEDITOR_ROUGHNESSELEMENTVIEW_H
 
 #include "darefl_export.h"
 #include "gui2/sldeditor/elementview.h"
@@ -41,4 +41,4 @@ protected:
 
 } // namespace gui2
 
-#endif // DAREFL_SLDEDITOR_ROUGHNESSELEMENTVIEW_H
+#endif // BORNAGAIN_GUI2_SLDEDITOR_ROUGHNESSELEMENTVIEW_H

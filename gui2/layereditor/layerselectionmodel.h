@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_LAYEREDITOR_LAYERSELECTIONMODEL_H
-#define DAREFL_LAYEREDITOR_LAYERSELECTIONMODEL_H
+#ifndef BORNAGAIN_GUI2_LAYEREDITOR_LAYERSELECTIONMODEL_H
+#define BORNAGAIN_GUI2_LAYEREDITOR_LAYERSELECTIONMODEL_H
 
 #include "darefl_export.h"
 #include <QItemSelectionModel>
@@ -44,4 +44,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_LAYEREDITOR_LAYERSELECTIONMODEL_H
+#endif // BORNAGAIN_GUI2_LAYEREDITOR_LAYERSELECTIONMODEL_H

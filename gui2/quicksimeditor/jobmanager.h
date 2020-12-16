@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_QUICKSIMEDITOR_JOBMANAGER_H
-#define DAREFL_QUICKSIMEDITOR_JOBMANAGER_H
+#ifndef BORNAGAIN_GUI2_QUICKSIMEDITOR_JOBMANAGER_H
+#define BORNAGAIN_GUI2_QUICKSIMEDITOR_JOBMANAGER_H
 
 #include "darefl_export.h"
 #include "gui2/quicksimeditor/quicksim_types.h"
@@ -49,4 +49,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_QUICKSIMEDITOR_JOBMANAGER_H
+#endif // BORNAGAIN_GUI2_QUICKSIMEDITOR_JOBMANAGER_H

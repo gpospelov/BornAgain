@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SERIALIZATION_JSONTAGINFOCONVERTER_H
-#define MVVM_SERIALIZATION_JSONTAGINFOCONVERTER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONTAGINFOCONVERTER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONTAGINFOCONVERTER_H
 
 #include "mvvm/serialization/jsontaginfoconverterinterface.h"
 #include <QString>
@@ -33,4 +33,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_SERIALIZATION_JSONTAGINFOCONVERTER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONTAGINFOCONVERTER_H

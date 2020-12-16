@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_FACTORIES_ITEMCONVERTERFACTORY_H
-#define MVVM_FACTORIES_ITEMCONVERTERFACTORY_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_ITEMCONVERTERFACTORY_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_ITEMCONVERTERFACTORY_H
 
 //! @file itemconverterfactory.h
 //! Collection of factory functions to create SessionItem converters to/from serialized content.
@@ -37,4 +37,4 @@ CreateItemProjectConverter(const ItemFactoryInterface* item_factory);
 
 } // namespace ModelView
 
-#endif // MVVM_FACTORIES_ITEMCONVERTERFACTORY_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_ITEMCONVERTERFACTORY_H

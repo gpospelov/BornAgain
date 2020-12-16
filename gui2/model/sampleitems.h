@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_SAMPLEITEMS_H
-#define DAREFL_MODEL_SAMPLEITEMS_H
+#ifndef BORNAGAIN_GUI2_MODEL_SAMPLEITEMS_H
+#define BORNAGAIN_GUI2_MODEL_SAMPLEITEMS_H
 
 //! @file sampleitems.h
 //! Collection of layer and multi-layer items to populate SampleModel.
@@ -59,4 +59,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MODEL_SAMPLEITEMS_H
+#endif // BORNAGAIN_GUI2_MODEL_SAMPLEITEMS_H

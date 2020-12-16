@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MATERIALEDITOR_MATERIALTABLEVIEW_H
-#define DAREFL_MATERIALEDITOR_MATERIALTABLEVIEW_H
+#ifndef BORNAGAIN_GUI2_MATERIALEDITOR_MATERIALTABLEVIEW_H
+#define BORNAGAIN_GUI2_MATERIALEDITOR_MATERIALTABLEVIEW_H
 
 #include "darefl_export.h"
 #include <QTableView>
@@ -38,4 +38,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MATERIALEDITOR_MATERIALTABLEVIEW_H
+#endif // BORNAGAIN_GUI2_MATERIALEDITOR_MATERIALTABLEVIEW_H

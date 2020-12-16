@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_FACTORIES_MODELCONVERTERFACTORY_H
-#define MVVM_FACTORIES_MODELCONVERTERFACTORY_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_MODELCONVERTERFACTORY_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_MODELCONVERTERFACTORY_H
 
 //! @file modelconverterfactory.h
 //! Collection of factory functions to create SessionModel converters to/from serialized content.
@@ -29,4 +29,4 @@ MVVM_MODEL_EXPORT std::unique_ptr<JsonModelConverterInterface> CreateModelProjec
 
 } // namespace ModelView
 
-#endif // MVVM_FACTORIES_MODELCONVERTERFACTORY_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_MODELCONVERTERFACTORY_H

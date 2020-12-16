@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef EXTERNALPROPERTYCOMBOEDITOR_H
-#define EXTERNALPROPERTYCOMBOEDITOR_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EXTERNALPROPERTYCOMBOEDITOR_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EXTERNALPROPERTYCOMBOEDITOR_H
 
 #include "mvvm/editors/customeditor.h"
 #include <functional>
@@ -50,4 +50,4 @@ private:
 
 } // namespace ModelView
 
-#endif // EXTERNALPROPERTYCOMBOEDITOR_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EXTERNALPROPERTYCOMBOEDITOR_H

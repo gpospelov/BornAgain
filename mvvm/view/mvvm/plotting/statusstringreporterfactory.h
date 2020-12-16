@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PLOTTING_STATUSSTRINGREPORTERFACTORY_H
-#define MVVM_PLOTTING_STATUSSTRINGREPORTERFACTORY_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_STATUSSTRINGREPORTERFACTORY_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_STATUSSTRINGREPORTERFACTORY_H
 
 //! Contains factory methods to create StatusStringReporter
 
@@ -32,4 +32,4 @@ CreateColorMapReporter(QCustomPlot* custom_plot, std::function<void(const std::s
 
 } // namespace ModelView
 
-#endif // MVVM_PLOTTING_STATUSSTRINGREPORTERFACTORY_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_STATUSSTRINGREPORTERFACTORY_H

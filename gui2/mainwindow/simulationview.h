@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MAINWINDOW_SIMULATIONVIEW_H
-#define DAREFL_MAINWINDOW_SIMULATIONVIEW_H
+#ifndef BORNAGAIN_GUI2_MAINWINDOW_SIMULATIONVIEW_H
+#define BORNAGAIN_GUI2_MAINWINDOW_SIMULATIONVIEW_H
 
 #include "darefl_export.h"
 #include <QMainWindow>
@@ -41,4 +41,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MAINWINDOW_SIMULATIONVIEW_H
+#endif // BORNAGAIN_GUI2_MAINWINDOW_SIMULATIONVIEW_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SIGNALS_CALLBACK_TYPES_H
-#define MVVM_SIGNALS_CALLBACK_TYPES_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_CALLBACK_TYPES_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_CALLBACK_TYPES_H
 
 #include "mvvm/model/tagrow.h"
 #include <functional>
@@ -30,4 +30,4 @@ using model_t = std::function<void(SessionModel*)>;
 
 } // namespace ModelView
 
-#endif // MVVM_SIGNALS_CALLBACK_TYPES_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_CALLBACK_TYPES_H

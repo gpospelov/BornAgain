@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_COMMANDS_COMMANDADAPTER_H
-#define MVVM_COMMANDS_COMMANDADAPTER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDADAPTER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDADAPTER_H
 
 #include "mvvm/model_export.h"
 #include <QUndoCommand>
@@ -34,4 +34,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_COMMANDS_COMMANDADAPTER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDADAPTER_H

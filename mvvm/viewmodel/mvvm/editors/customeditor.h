@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_EDITORS_CUSTOMEDITOR_H
-#define MVVM_EDITORS_CUSTOMEDITOR_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_CUSTOMEDITOR_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_CUSTOMEDITOR_H
 
 #include "mvvm/core/variant.h"
 #include "mvvm/viewmodel_export.h"
@@ -45,4 +45,4 @@ protected:
 
 } // namespace ModelView
 
-#endif // MVVM_EDITORS_CUSTOMEDITOR_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_CUSTOMEDITOR_H

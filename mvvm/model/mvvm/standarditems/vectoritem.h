@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_STANDARDITEMS_VECTORITEM_H
-#define MVVM_STANDARDITEMS_VECTORITEM_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_VECTORITEM_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_VECTORITEM_H
 
 #include "mvvm/model/compounditem.h"
 
@@ -32,4 +32,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_STANDARDITEMS_VECTORITEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_VECTORITEM_H

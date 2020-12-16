@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_QUICKSIMEDITOR_PROFILEHELPER_H
-#define DAREFL_QUICKSIMEDITOR_PROFILEHELPER_H
+#ifndef BORNAGAIN_GUI2_QUICKSIMEDITOR_PROFILEHELPER_H
+#define BORNAGAIN_GUI2_QUICKSIMEDITOR_PROFILEHELPER_H
 
 #include "darefl_export.h"
 #include <Sample/Slice/Slice.h>
@@ -34,4 +34,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_QUICKSIMEDITOR_PROFILEHELPER_H
+#endif // BORNAGAIN_GUI2_QUICKSIMEDITOR_PROFILEHELPER_H

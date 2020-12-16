@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_QUICKSIMEDITOR_QUICKSIM_TYPES_H
-#define DAREFL_QUICKSIMEDITOR_QUICKSIM_TYPES_H
+#ifndef BORNAGAIN_GUI2_QUICKSIMEDITOR_QUICKSIM_TYPES_H
+#define BORNAGAIN_GUI2_QUICKSIMEDITOR_QUICKSIM_TYPES_H
 
 #include "darefl_export.h"
 #include <complex>
@@ -48,4 +48,4 @@ struct DAREFLCORE_EXPORT SLDProfile {
 
 } // namespace gui2
 
-#endif // DAREFL_QUICKSIMEDITOR_QUICKSIM_TYPES_H
+#endif // BORNAGAIN_GUI2_QUICKSIMEDITOR_QUICKSIM_TYPES_H

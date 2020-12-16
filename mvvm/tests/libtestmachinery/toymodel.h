@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TOYMODEL_H
-#define TOYMODEL_H
+#ifndef BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_TOYMODEL_H
+#define BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_TOYMODEL_H
 
 #include "mvvm/model/itempool.h"
 #include "mvvm/model/sessionmodel.h"
@@ -25,4 +25,4 @@ public:
 
 } // namespace ToyItems
 
-#endif // TOYMODEL_H
+#endif // BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_TOYMODEL_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_SLDEDITOR_SLDELEMENTMODEL_H
-#define DAREFL_SLDEDITOR_SLDELEMENTMODEL_H
+#ifndef BORNAGAIN_GUI2_SLDEDITOR_SLDELEMENTMODEL_H
+#define BORNAGAIN_GUI2_SLDEDITOR_SLDELEMENTMODEL_H
 
 #include "darefl_export.h"
 #include "mvvm/model/sessionmodel.h"
@@ -33,4 +33,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_SLDEDITOR_SLDELEMENTMODEL_H
+#endif // BORNAGAIN_GUI2_SLDEDITOR_SLDELEMENTMODEL_H

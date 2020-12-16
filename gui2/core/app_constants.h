@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_CORE_APP_CONSTANTS_H
-#define DAREFL_CORE_APP_CONSTANTS_H
+#ifndef BORNAGAIN_GUI2_CORE_APP_CONSTANTS_H
+#define BORNAGAIN_GUI2_CORE_APP_CONSTANTS_H
 
 #include <QString>
 
@@ -25,4 +25,4 @@ const inline bool live_simulation_default_on = false;
 
 } // namespace gui2::Constants
 
-#endif // DAREFL_CORE_APP_CONSTANTS_H
+#endif // BORNAGAIN_GUI2_CORE_APP_CONSTANTS_H

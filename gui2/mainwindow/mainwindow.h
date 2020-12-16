@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MAINWINDOW_MAINWINDOW_H
-#define DAREFL_MAINWINDOW_MAINWINDOW_H
+#ifndef BORNAGAIN_GUI2_MAINWINDOW_MAINWINDOW_H
+#define BORNAGAIN_GUI2_MAINWINDOW_MAINWINDOW_H
 
 #include "darefl_export.h"
 #include <QMainWindow>
@@ -53,4 +53,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MAINWINDOW_MAINWINDOW_H
+#endif // BORNAGAIN_GUI2_MAINWINDOW_MAINWINDOW_H

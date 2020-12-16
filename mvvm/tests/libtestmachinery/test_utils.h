@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TESTUTILS_H
-#define TESTUTILS_H
+#ifndef BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_TEST_UTILS_H
+#define BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_TEST_UTILS_H
 
 #include "mvvm/model/customvariants.h"
 #include <QString>
@@ -97,4 +97,4 @@ template <typename T, typename... Args> std::vector<T> toVector(Args&&... args) 
 
 } // namespace TestUtils
 
-#endif // TESTUTILS_H
+#endif // BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_TEST_UTILS_H

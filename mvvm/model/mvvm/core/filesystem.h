@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_CORE_FILESYSTEM_H
-#define MVVM_CORE_FILESYSTEM_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_CORE_FILESYSTEM_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_CORE_FILESYSTEM_H
 
 //! @file Include of <filesystem> library for older compilers (<gcc8.0)
 //! See
@@ -85,4 +85,4 @@ namespace filesystem = experimental::filesystem;
 
 #endif // #ifndef INCLUDE_STD_FILESYSTEM_EXPERIMENTAL
 
-#endif // MVVM_CORE_FILESYSTEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_CORE_FILESYSTEM_H

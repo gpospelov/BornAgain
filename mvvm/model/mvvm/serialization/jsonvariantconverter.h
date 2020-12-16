@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SERIALIZATION_JSONVARIANTCONVERTER_H
-#define MVVM_SERIALIZATION_JSONVARIANTCONVERTER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONVARIANTCONVERTER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONVARIANTCONVERTER_H
 
 #include "mvvm/core/variant.h"
 #include "mvvm/serialization/jsonvariantconverterinterface.h"
@@ -44,4 +44,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_SERIALIZATION_JSONVARIANTCONVERTER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONVARIANTCONVERTER_H

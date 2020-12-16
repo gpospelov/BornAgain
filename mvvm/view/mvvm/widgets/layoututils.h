@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_WIDGETS_LAYOUTUTILS_H
-#define MVVM_WIDGETS_LAYOUTUTILS_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_LAYOUTUTILS_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_LAYOUTUTILS_H
 
 #include "mvvm/view_export.h"
 
@@ -40,4 +40,4 @@ MVVM_VIEW_EXPORT QWidget* placeHolder();
 
 } // namespace LayoutUtils
 
-#endif // MVVM_WIDGETS_LAYOUTUTILS_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_LAYOUTUTILS_H

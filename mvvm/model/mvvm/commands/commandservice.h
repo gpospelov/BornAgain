@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_COMMANDS_COMMANDSERVICE_H
-#define MVVM_COMMANDS_COMMANDSERVICE_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDSERVICE_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDSERVICE_H
 
 #include "mvvm/commands/commandresult.h"
 #include "mvvm/commands/undostack.h"
@@ -76,4 +76,4 @@ CommandResult CommandService::process_command(Args&&... args) {
 
 } // namespace ModelView
 
-#endif // MVVM_COMMANDS_COMMANDSERVICE_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDSERVICE_H

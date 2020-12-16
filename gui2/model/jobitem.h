@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_JOBITEM_H
-#define DAREFL_MODEL_JOBITEM_H
+#ifndef BORNAGAIN_GUI2_MODEL_JOBITEM_H
+#define BORNAGAIN_GUI2_MODEL_JOBITEM_H
 
 #include "darefl_export.h"
 #include "mvvm/model/compounditem.h"
@@ -79,4 +79,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MODEL_JOBITEM_H
+#endif // BORNAGAIN_GUI2_MODEL_JOBITEM_H

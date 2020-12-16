@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_EXPERIMENTALDATACONTROLLER_H
-#define DAREFL_MODEL_EXPERIMENTALDATACONTROLLER_H
+#ifndef BORNAGAIN_GUI2_MODEL_EXPERIMENTALDATACONTROLLER_H
+#define BORNAGAIN_GUI2_MODEL_EXPERIMENTALDATACONTROLLER_H
 
 #include "darefl_export.h"
 #include "mvvm/model/sessionmodel.h"
@@ -37,4 +37,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MODEL_EXPERIMENTALDATACONTROLLER_H
+#endif // BORNAGAIN_GUI2_MODEL_EXPERIMENTALDATACONTROLLER_H

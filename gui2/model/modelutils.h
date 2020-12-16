@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_MODELUTILS_H
-#define DAREFL_MODEL_MODELUTILS_H
+#ifndef BORNAGAIN_GUI2_MODEL_MODELUTILS_H
+#define BORNAGAIN_GUI2_MODEL_MODELUTILS_H
 
 #include "darefl_export.h"
 #include <string>
@@ -51,4 +51,4 @@ DAREFLCORE_EXPORT void SetDifference(const ModelView::Data1DItem* data1,
 
 } // namespace gui2
 
-#endif // DAREFL_MODEL_MODELUTILS_H
+#endif // BORNAGAIN_GUI2_MODEL_MODELUTILS_H

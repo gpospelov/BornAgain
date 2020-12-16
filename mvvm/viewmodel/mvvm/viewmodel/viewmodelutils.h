@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_VIEWMODELUTILS_H
-#define MVVM_VIEWMODEL_VIEWMODELUTILS_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWMODELUTILS_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWMODELUTILS_H
 
 #include "mvvm/viewmodel_export.h"
 #include <QModelIndex>
@@ -65,4 +65,4 @@ ParentItemsFromIndex(const QModelIndexList& index_list);
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_VIEWMODELUTILS_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWMODELUTILS_H

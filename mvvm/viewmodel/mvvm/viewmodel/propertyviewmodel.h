@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_PROPERTYVIEWMODEL_H
-#define MVVM_VIEWMODEL_PROPERTYVIEWMODEL_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_PROPERTYVIEWMODEL_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_PROPERTYVIEWMODEL_H
 
 #include "mvvm/viewmodel/viewmodel.h"
 
@@ -25,4 +25,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_PROPERTYVIEWMODEL_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_PROPERTYVIEWMODEL_H

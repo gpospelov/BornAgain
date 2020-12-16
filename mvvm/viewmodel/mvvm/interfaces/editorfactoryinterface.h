@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_EDITORS_EDITORFACTORYINTERFACE_H
-#define MVVM_EDITORS_EDITORFACTORYINTERFACE_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_INTERFACES_EDITORFACTORYINTERFACE_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_INTERFACES_EDITORFACTORYINTERFACE_H
 
 #include "mvvm/viewmodel_export.h"
 #include <memory>
@@ -33,4 +33,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_EDITORS_EDITORFACTORYINTERFACE_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_INTERFACES_EDITORFACTORYINTERFACE_H

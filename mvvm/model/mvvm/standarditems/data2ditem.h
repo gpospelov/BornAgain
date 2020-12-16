@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_STANDARDITEMS_DATA2DITEM_H
-#define MVVM_STANDARDITEMS_DATA2DITEM_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_DATA2DITEM_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_DATA2DITEM_H
 
 #include "mvvm/model/compounditem.h"
 #include <vector>
@@ -44,4 +44,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_STANDARDITEMS_DATA2DITEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_DATA2DITEM_H

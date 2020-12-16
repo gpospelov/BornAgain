@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PLOTTING_GRAPHCANVAS_H
-#define MVVM_PLOTTING_GRAPHCANVAS_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_GRAPHCANVAS_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_GRAPHCANVAS_H
 
 #include "mvvm/view_export.h"
 #include <QWidget>
@@ -49,4 +49,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_PLOTTING_GRAPHCANVAS_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_GRAPHCANVAS_H

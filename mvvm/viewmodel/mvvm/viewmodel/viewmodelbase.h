@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_VIEWMODELBASE_H
-#define MVVM_VIEWMODEL_VIEWMODELBASE_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWMODELBASE_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWMODELBASE_H
 
 #include "mvvm/viewmodel_export.h"
 #include <QAbstractItemModel>
@@ -67,4 +67,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_VIEWMODELBASE_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWMODELBASE_H

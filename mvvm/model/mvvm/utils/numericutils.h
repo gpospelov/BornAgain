@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_UTILS_NUMERICUTILS_H
-#define MVVM_UTILS_NUMERICUTILS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_UTILS_NUMERICUTILS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_UTILS_NUMERICUTILS_H
 
 #include "mvvm/model_export.h"
 
@@ -29,4 +29,4 @@ MVVM_MODEL_EXPORT double RandDouble(double low, double high);
 
 } // namespace ModelView
 
-#endif // MVVM_UTILS_NUMERICUTILS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_UTILS_NUMERICUTILS_H

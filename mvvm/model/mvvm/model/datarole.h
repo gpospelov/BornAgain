@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_DATAROLE_H
-#define MVVM_MODEL_DATAROLE_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_DATAROLE_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_DATAROLE_H
 
 #include "mvvm/core/variant.h"
 #include "mvvm/model_export.h"
@@ -27,4 +27,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_DATAROLE_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_DATAROLE_H

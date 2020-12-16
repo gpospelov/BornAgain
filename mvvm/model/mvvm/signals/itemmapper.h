@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SIGNALS_ITEMMAPPER_H
-#define MVVM_SIGNALS_ITEMMAPPER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_ITEMMAPPER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_ITEMMAPPER_H
 
 #include "mvvm/interfaces/itemlistenerinterface.h"
 #include "mvvm/signals/modellistener.h"
@@ -51,4 +51,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_SIGNALS_ITEMMAPPER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_ITEMMAPPER_H

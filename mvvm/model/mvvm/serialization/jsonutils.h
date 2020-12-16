@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SERIALIZATION_JSONUTILS_H
-#define MVVM_SERIALIZATION_JSONUTILS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONUTILS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONUTILS_H
 
 #include "mvvm/model_export.h"
 #include <string>
@@ -33,4 +33,4 @@ MVVM_MODEL_EXPORT RealLimits CreateLimits(const std::string& text, double min = 
 
 } // namespace ModelView
 
-#endif // MVVM_SERIALIZATION_JSONUTILS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONUTILS_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_WIDGETS_ITEMSTREEVIEWINTERFACE_H
-#define MVVM_WIDGETS_ITEMSTREEVIEWINTERFACE_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_ITEMSTREEVIEWINTERFACE_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_ITEMSTREEVIEWINTERFACE_H
 
 #include "mvvm/view_export.h"
 #include <QWidget>
@@ -32,4 +32,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_WIDGETS_ITEMSTREEVIEWINTERFACE_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_ITEMSTREEVIEWINTERFACE_H

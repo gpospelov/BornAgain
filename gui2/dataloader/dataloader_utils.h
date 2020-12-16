@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_DATALOADER_PARSEUTILS_H
-#define DAREFL_DATALOADER_PARSEUTILS_H
+#ifndef BORNAGAIN_GUI2_DATALOADER_DATALOADER_UTILS_H
+#define BORNAGAIN_GUI2_DATALOADER_DATALOADER_UTILS_H
 
 #include "gui2/dataloader/dataloader_types.h"
 
@@ -77,4 +77,4 @@ DAREFLCORE_EXPORT GraphImportData CreateData(const std::vector<std::vector<std::
 
 } // namespace gui2
 
-#endif // DAREFL_DATALOADER_PARSEUTILS_H
+#endif // BORNAGAIN_GUI2_DATALOADER_DATALOADER_UTILS_H

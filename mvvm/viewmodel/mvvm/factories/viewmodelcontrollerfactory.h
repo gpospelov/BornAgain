@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_FACTORIES_VIEWMODELCONTROLLERFACTORY_H
-#define MVVM_FACTORIES_VIEWMODELCONTROLLERFACTORY_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_FACTORIES_VIEWMODELCONTROLLERFACTORY_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_FACTORIES_VIEWMODELCONTROLLERFACTORY_H
 
 #include "mvvm/factories/viewmodelcontrollerbuilder.h"
 #include "mvvm/viewmodel_export.h"
@@ -38,4 +38,4 @@ std::unique_ptr<ViewModelController> CreateController(SessionModel* session_mode
 
 } // namespace ModelView
 
-#endif // MVVM_FACTORIES_VIEWMODELCONTROLLERFACTORY_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_FACTORIES_VIEWMODELCONTROLLERFACTORY_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_LAYEREDITOR_LAYEREDITORTOOLBAR_H
-#define DAREFL_LAYEREDITOR_LAYEREDITORTOOLBAR_H
+#ifndef BORNAGAIN_GUI2_LAYEREDITOR_LAYEREDITORTOOLBAR_H
+#define BORNAGAIN_GUI2_LAYEREDITOR_LAYEREDITORTOOLBAR_H
 
 #include "darefl_export.h"
 #include <QToolBar>
@@ -38,4 +38,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_LAYEREDITOR_LAYEREDITORTOOLBAR_H
+#endif // BORNAGAIN_GUI2_LAYEREDITOR_LAYEREDITORTOOLBAR_H

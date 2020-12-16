@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_COMPARATORS_H
-#define MVVM_MODEL_COMPARATORS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_COMPARATORS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_COMPARATORS_H
 
 #include "mvvm/model_export.h"
 
@@ -27,4 +27,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_COMPARATORS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_COMPARATORS_H

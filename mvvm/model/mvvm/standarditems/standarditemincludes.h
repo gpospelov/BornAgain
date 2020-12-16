@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_STANDARDITEMS_STANDARDITEMINCLUDES_H
-#define MVVM_STANDARDITEMS_STANDARDITEMINCLUDES_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_STANDARDITEMINCLUDES_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_STANDARDITEMINCLUDES_H
 
 //! @file standarditemincludes.h
 //! Collection of all includes with items supported by the model out-of-the-box.
@@ -27,4 +27,4 @@
 #include "mvvm/standarditems/plottableitems.h"
 #include "mvvm/standarditems/vectoritem.h"
 
-#endif // MVVM_STANDARDITEMS_STANDARDITEMINCLUDES_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_STANDARDITEMINCLUDES_H

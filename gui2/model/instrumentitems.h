@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_INSTRUMENTITEMS_H
-#define DAREFL_MODEL_INSTRUMENTITEMS_H
+#ifndef BORNAGAIN_GUI2_MODEL_INSTRUMENTITEMS_H
+#define BORNAGAIN_GUI2_MODEL_INSTRUMENTITEMS_H
 
 //! @file instrumentitems.h
 //! Collection of items to construct specular instrument.
@@ -93,4 +93,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_MODEL_INSTRUMENTITEMS_H
+#endif // BORNAGAIN_GUI2_MODEL_INSTRUMENTITEMS_H

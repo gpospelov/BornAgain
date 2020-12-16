@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef TOYITEMS_H
-#define TOYITEMS_H
+#ifndef BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_TOYITEMS_H
+#define BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_TOYITEMS_H
 
 #include "mvvm/model/compounditem.h"
 #include "mvvm/model/groupitem.h"
@@ -118,4 +118,4 @@ public:
 
 } // namespace ToyItems
 
-#endif // TOYITEMS_H
+#endif // BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_TOYITEMS_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PROJECT_PROJECTCHANGECONTROLLER_H
-#define MVVM_PROJECT_PROJECTCHANGECONTROLLER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECTCHANGECONTROLLER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECTCHANGECONTROLLER_H
 
 #include "mvvm/model_export.h"
 #include <functional>
@@ -46,4 +46,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_PROJECT_PROJECTCHANGECONTROLLER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECTCHANGECONTROLLER_H

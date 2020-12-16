@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef CUSTOMPLOT_TEST_UTILS_H
-#define CUSTOMPLOT_TEST_UTILS_H
+#ifndef BORNAGAIN_MVVM_TESTS_TESTVIEW_CUSTOMPLOT_TEST_UTILS_H
+#define BORNAGAIN_MVVM_TESTS_TESTVIEW_CUSTOMPLOT_TEST_UTILS_H
 
 #include <algorithm>
 #include <qcustomplot.h>
@@ -49,4 +49,4 @@ template <typename T> T* GetPlottable(QCustomPlot* custom_plot) {
 
 Q_DECLARE_METATYPE(QCPRange)
 
-#endif // CUSTOMPLOT_TEST_UTILS_H
+#endif // BORNAGAIN_MVVM_TESTS_TESTVIEW_CUSTOMPLOT_TEST_UTILS_H

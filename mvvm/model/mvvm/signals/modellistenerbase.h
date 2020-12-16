@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SIGNALS_MODELLISTENERBASE_H
-#define MVVM_SIGNALS_MODELLISTENERBASE_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_MODELLISTENERBASE_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_MODELLISTENERBASE_H
 
 #include "mvvm/interfaces/modellistenerinterface.h"
 
@@ -43,4 +43,4 @@ protected:
 
 } // namespace ModelView
 
-#endif // MVVM_SIGNALS_MODELLISTENERBASE_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_MODELLISTENERBASE_H

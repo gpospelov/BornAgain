@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_CORE_VERSION_H
-#define DAREFL_CORE_VERSION_H
+#ifndef BORNAGAIN_GUI2_CORE_VERSION_H
+#define BORNAGAIN_GUI2_CORE_VERSION_H
 
 //! @file version.h
 //! Automatically generated from darefl_version.h.in
@@ -43,4 +43,4 @@ inline std::string ProjectVersion() {
 
 } // namespace gui2
 
-#endif // DAREFL_CORE_VERSION_H
+#endif // BORNAGAIN_GUI2_CORE_VERSION_H

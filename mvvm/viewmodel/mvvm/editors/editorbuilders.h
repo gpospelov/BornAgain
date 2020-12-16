@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_EDITORS_EDITORBUILDERS_H
-#define MVVM_EDITORS_EDITORBUILDERS_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EDITORBUILDERS_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EDITORBUILDERS_H
 
 #include "mvvm/viewmodel_export.h"
 #include <functional>
@@ -58,4 +58,4 @@ MVVM_VIEWMODEL_EXPORT builder_t SelectableComboPropertyEditorBuilder();
 
 } // namespace ModelView
 
-#endif // MVVM_EDITORS_EDITORBUILDERS_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EDITORBUILDERS_H

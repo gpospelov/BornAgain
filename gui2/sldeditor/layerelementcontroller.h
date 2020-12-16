@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_SLDEDITOR_LAYERELEMENTCONTROLLER_H
-#define DAREFL_SLDEDITOR_LAYERELEMENTCONTROLLER_H
+#ifndef BORNAGAIN_GUI2_SLDEDITOR_LAYERELEMENTCONTROLLER_H
+#define BORNAGAIN_GUI2_SLDEDITOR_LAYERELEMENTCONTROLLER_H
 
 #include "darefl_export.h"
 #include "mvvm/plotting/sceneadapterinterface.h"
@@ -152,4 +152,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_SLDEDITOR_LAYERELEMENTCONTROLLER_H
+#endif // BORNAGAIN_GUI2_SLDEDITOR_LAYERELEMENTCONTROLLER_H

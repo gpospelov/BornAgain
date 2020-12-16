@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_SLDEDITOR_SLDEDITOR_H
-#define DAREFL_SLDEDITOR_SLDEDITOR_H
+#ifndef BORNAGAIN_GUI2_SLDEDITOR_SLDEDITOR_H
+#define BORNAGAIN_GUI2_SLDEDITOR_SLDEDITOR_H
 
 #include "darefl_export.h"
 #include <QWidget>
@@ -40,4 +40,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_SLDEDITOR_SLDEDITOR_H
+#endif // BORNAGAIN_GUI2_SLDEDITOR_SLDEDITOR_H

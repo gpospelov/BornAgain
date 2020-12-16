@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_WIDGETS_PROPERTYTREEVIEW_H
-#define MVVM_WIDGETS_PROPERTYTREEVIEW_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_PROPERTYTREEVIEW_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_PROPERTYTREEVIEW_H
 
 #include "mvvm/widgets/itemstreeview.h"
 
@@ -29,4 +29,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_WIDGETS_PROPERTYTREEVIEW_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_PROPERTYTREEVIEW_H

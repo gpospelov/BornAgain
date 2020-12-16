@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_UNIQUEIDGENERATOR_H
-#define MVVM_MODEL_UNIQUEIDGENERATOR_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_CORE_UNIQUEIDGENERATOR_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_CORE_UNIQUEIDGENERATOR_H
 
 #include "mvvm/core/types.h"
 #include "mvvm/model_export.h"
@@ -32,4 +32,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_UNIQUEIDGENERATOR_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_CORE_UNIQUEIDGENERATOR_H

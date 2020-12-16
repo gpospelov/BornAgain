@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_DATALOADER_DATAHANDLER_H
-#define DAREFL_DATALOADER_DATAHANDLER_H
+#ifndef BORNAGAIN_GUI2_DATALOADER_DATAHANDLER_H
+#define BORNAGAIN_GUI2_DATALOADER_DATAHANDLER_H
 
 #include "darefl_export.h"
 #include <map>
@@ -37,4 +37,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_DATALOADER_DATAHANDLER_H
+#endif // BORNAGAIN_GUI2_DATALOADER_DATAHANDLER_H

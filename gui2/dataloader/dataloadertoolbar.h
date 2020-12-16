@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_DATALOADER_DATALOADERTOOLBAR_H
-#define DAREFL_DATALOADER_DATALOADERTOOLBAR_H
+#ifndef BORNAGAIN_GUI2_DATALOADER_DATALOADERTOOLBAR_H
+#define BORNAGAIN_GUI2_DATALOADER_DATALOADERTOOLBAR_H
 
 #include "darefl_export.h"
 #include <QToolBar>
@@ -30,4 +30,4 @@ signals:
 
 } // namespace gui2
 
-#endif // DAREFL_DATALOADER_DATALOADERTOOLBAR_H
+#endif // BORNAGAIN_GUI2_DATALOADER_DATALOADERTOOLBAR_H

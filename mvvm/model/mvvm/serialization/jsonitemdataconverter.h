@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SERIALIZATION_JSONITEMDATACONVERTER_H
-#define MVVM_SERIALIZATION_JSONITEMDATACONVERTER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEMDATACONVERTER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEMDATACONVERTER_H
 
 #include "mvvm/serialization/jsonitemdataconverterinterface.h"
 #include <QString>
@@ -51,4 +51,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_SERIALIZATION_JSONITEMDATACONVERTER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEMDATACONVERTER_H

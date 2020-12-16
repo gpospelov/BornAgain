@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_STANDARDITEMS_VIEWPORTITEM_H
-#define MVVM_STANDARDITEMS_VIEWPORTITEM_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_VIEWPORTITEM_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_VIEWPORTITEM_H
 
 #include "mvvm/model/compounditem.h"
 
@@ -45,4 +45,4 @@ protected:
 
 } // namespace ModelView
 
-#endif // MVVM_STANDARDITEMS_VIEWPORTITEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_VIEWPORTITEM_H

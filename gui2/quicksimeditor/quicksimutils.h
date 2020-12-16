@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_QUICKSIMEDITOR_QUICKSIMUTILS_H
-#define DAREFL_QUICKSIMEDITOR_QUICKSIMUTILS_H
+#ifndef BORNAGAIN_GUI2_QUICKSIMEDITOR_QUICKSIMUTILS_H
+#define BORNAGAIN_GUI2_QUICKSIMEDITOR_QUICKSIMUTILS_H
 
 #include "darefl_export.h"
 #include "gui2/quicksimeditor/quicksim_types.h"
@@ -31,4 +31,4 @@ DAREFLCORE_EXPORT std::vector<Slice> createBornAgainSlices(const multislice_t& m
 
 } // namespace gui2
 
-#endif // DAREFL_QUICKSIMEDITOR_QUICKSIMUTILS_H
+#endif // BORNAGAIN_GUI2_QUICKSIMEDITOR_QUICKSIMUTILS_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_VIEWITEM_H
-#define MVVM_VIEWMODEL_VIEWITEM_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWITEM_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWITEM_H
 
 #include "mvvm/core/variant.h"
 #include "mvvm/viewmodel_export.h"
@@ -68,4 +68,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_VIEWITEM_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWITEM_H

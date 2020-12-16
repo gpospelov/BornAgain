@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_LAYEREDITOR_LAYERVIEWMODEL_H
-#define DAREFL_LAYEREDITOR_LAYERVIEWMODEL_H
+#ifndef BORNAGAIN_GUI2_LAYEREDITOR_LAYERVIEWMODEL_H
+#define BORNAGAIN_GUI2_LAYEREDITOR_LAYERVIEWMODEL_H
 
 #include "darefl_export.h"
 #include "mvvm/viewmodel/viewmodel.h"
@@ -30,4 +30,4 @@ public:
 
 } // namespace gui2
 
-#endif // DAREFL_LAYEREDITOR_LAYERVIEWMODEL_H
+#endif // BORNAGAIN_GUI2_LAYEREDITOR_LAYERVIEWMODEL_H

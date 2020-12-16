@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_WIDGETS_COLLAPSIBLEBAR_H
-#define MVVM_WIDGETS_COLLAPSIBLEBAR_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_COLLAPSIBLEBAR_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_COLLAPSIBLEBAR_H
 
 #include "mvvm/view_export.h"
 #include <QFrame>
@@ -43,4 +43,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_WIDGETS_COLLAPSIBLEBAR_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_COLLAPSIBLEBAR_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_STANDARDITEMS_GRAPHVIEWPORTITEM_H
-#define MVVM_STANDARDITEMS_GRAPHVIEWPORTITEM_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_GRAPHVIEWPORTITEM_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_GRAPHVIEWPORTITEM_H
 
 #include "mvvm/standarditems/viewportitem.h"
 
@@ -39,4 +39,4 @@ protected:
 
 } // namespace ModelView
 
-#endif // MVVM_STANDARDITEMS_GRAPHVIEWPORTITEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_GRAPHVIEWPORTITEM_H

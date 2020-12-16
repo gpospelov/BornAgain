@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_QUICKSIMEDITOR_SPECULARTOYSIMULATION_H
-#define DAREFL_QUICKSIMEDITOR_SPECULARTOYSIMULATION_H
+#ifndef BORNAGAIN_GUI2_QUICKSIMEDITOR_SPECULARTOYSIMULATION_H
+#define BORNAGAIN_GUI2_QUICKSIMEDITOR_SPECULARTOYSIMULATION_H
 
 #include "darefl_export.h"
 #include "gui2/quicksimeditor/quicksim_types.h"
@@ -49,4 +49,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_QUICKSIMEDITOR_SPECULARTOYSIMULATION_H
+#endif // BORNAGAIN_GUI2_QUICKSIMEDITOR_SPECULARTOYSIMULATION_H

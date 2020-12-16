@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_SLDEDITOR_HANDLEELEMENTVIEW_H
-#define DAREFL_SLDEDITOR_HANDLEELEMENTVIEW_H
+#ifndef BORNAGAIN_GUI2_SLDEDITOR_HANDLEELEMENTVIEW_H
+#define BORNAGAIN_GUI2_SLDEDITOR_HANDLEELEMENTVIEW_H
 
 #include "darefl_export.h"
 #include "gui2/sldeditor/elementview.h"
@@ -48,4 +48,4 @@ protected:
 
 } // namespace gui2
 
-#endif // DAREFL_SLDEDITOR_HANDLEELEMENTVIEW_H
+#endif // BORNAGAIN_GUI2_SLDEDITOR_HANDLEELEMENTVIEW_H

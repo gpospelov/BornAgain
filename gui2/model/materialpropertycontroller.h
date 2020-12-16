@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MODEL_MATERIALPROPERTYCONTROLLER_H
-#define DAREFL_MODEL_MATERIALPROPERTYCONTROLLER_H
+#ifndef BORNAGAIN_GUI2_MODEL_MATERIALPROPERTYCONTROLLER_H
+#define BORNAGAIN_GUI2_MODEL_MATERIALPROPERTYCONTROLLER_H
 
 #include "darefl_export.h"
 #include "mvvm/signals/modellistener.h"
@@ -33,4 +33,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MODEL_MATERIALPROPERTYCONTROLLER_H
+#endif // BORNAGAIN_GUI2_MODEL_MATERIALPROPERTYCONTROLLER_H

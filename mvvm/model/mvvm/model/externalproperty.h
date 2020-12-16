@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_EXTERNALPROPERTY_H
-#define MVVM_MODEL_EXTERNALPROPERTY_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_EXTERNALPROPERTY_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_EXTERNALPROPERTY_H
 
 #include "mvvm/core/variant.h"
 #include "mvvm/model_export.h"
@@ -49,4 +49,4 @@ private:
 
 Q_DECLARE_METATYPE(ModelView::ExternalProperty)
 
-#endif // MVVM_MODEL_EXTERNALPROPERTY_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_EXTERNALPROPERTY_H

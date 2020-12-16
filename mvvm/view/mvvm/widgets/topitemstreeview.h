@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_WIDGETS_TOPITEMSTREEVIEW_H
-#define MVVM_WIDGETS_TOPITEMSTREEVIEW_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_TOPITEMSTREEVIEW_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_TOPITEMSTREEVIEW_H
 
 #include "mvvm/widgets/itemstreeview.h"
 
@@ -32,4 +32,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_WIDGETS_TOPITEMSTREEVIEW_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_TOPITEMSTREEVIEW_H

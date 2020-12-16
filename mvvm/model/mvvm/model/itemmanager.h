@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_ITEMMANAGER_H
-#define MVVM_MODEL_ITEMMANAGER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMMANAGER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMMANAGER_H
 
 #include "mvvm/model/mvvm_types.h"
 #include "mvvm/model_export.h"
@@ -55,4 +55,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_ITEMMANAGER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMMANAGER_H

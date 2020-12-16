@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_UTILS_FILEUTILS_H
-#define MVVM_UTILS_FILEUTILS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_UTILS_FILEUTILS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_UTILS_FILEUTILS_H
 
 #include "mvvm/model_export.h"
 #include <string>
@@ -51,4 +51,4 @@ MVVM_MODEL_EXPORT bool is_empty(const std::string& path);
 
 } // namespace ModelView
 
-#endif // MVVM_UTILS_FILEUTILS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_UTILS_FILEUTILS_H

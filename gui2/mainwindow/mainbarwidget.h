@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MAINWINDOW_MAINBARWIDGET_H
-#define DAREFL_MAINWINDOW_MAINBARWIDGET_H
+#ifndef BORNAGAIN_GUI2_MAINWINDOW_MAINBARWIDGET_H
+#define BORNAGAIN_GUI2_MAINWINDOW_MAINBARWIDGET_H
 
 #include "darefl_export.h"
 #include <QWidget>
@@ -44,4 +44,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_MAINWINDOW_MAINBARWIDGET_H
+#endif // BORNAGAIN_GUI2_MAINWINDOW_MAINBARWIDGET_H

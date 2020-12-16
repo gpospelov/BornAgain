@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef FOLDERBASEDTEST_H
-#define FOLDERBASEDTEST_H
+#ifndef BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_FOLDERBASEDTEST_H
+#define BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_FOLDERBASEDTEST_H
 
 #include <gtest/gtest.h>
 #include <string>
@@ -30,4 +30,4 @@ protected:
     std::string m_test_dir; //! main directory of given test
 };
 
-#endif // FOLDERBASEDTEST_H
+#endif // BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_FOLDERBASEDTEST_H

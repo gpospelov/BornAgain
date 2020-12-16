@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_EDITORS_DEFAULTEDITORFACTORY_H
-#define MVVM_EDITORS_DEFAULTEDITORFACTORY_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_DEFAULTEDITORFACTORY_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_DEFAULTEDITORFACTORY_H
 
 //! @file defaulteditorfactory.h
 //! Defines DefaultEditorFactory and auxiliary classes for custom view model delegates.
@@ -71,4 +71,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_EDITORS_DEFAULTEDITORFACTORY_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_DEFAULTEDITORFACTORY_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SERIALIZATION_COMPATIBILITYUTILS_H
-#define MVVM_SERIALIZATION_COMPATIBILITYUTILS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_COMPATIBILITYUTILS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_COMPATIBILITYUTILS_H
 
 //! @file compatibilityutils.h
 //! @brief Place for utils to fix back compatibility of serialized projects.
@@ -46,4 +46,4 @@ MVVM_MODEL_EXPORT bool IsCompatibleGroupTag(const SessionItemContainer& containe
 
 } // namespace ModelView
 
-#endif // MVVM_SERIALIZATION_COMPATIBILITYUTILS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_COMPATIBILITYUTILS_H

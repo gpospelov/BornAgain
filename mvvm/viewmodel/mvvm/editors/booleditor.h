@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_EDITORS_BOOLEDITOR_H
-#define MVVM_EDITORS_BOOLEDITOR_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_BOOLEDITOR_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_BOOLEDITOR_H
 
 #include "mvvm/editors/customeditor.h"
 
@@ -36,4 +36,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_EDITORS_BOOLEDITOR_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_BOOLEDITOR_H

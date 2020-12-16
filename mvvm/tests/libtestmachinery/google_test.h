@@ -7,11 +7,11 @@
 //
 // ************************************************************************** //
 
-#ifndef GOOGLETEST_H
-#define GOOGLETEST_H
+#ifndef BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_GOOGLE_TEST_H
+#define BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_GOOGLE_TEST_H
 
 #include "mvvm/model/comparators.h"
 #include "mvvm/model/customvariants.h"
 #include <gtest/gtest.h>
 
-#endif // GOOGLETEST_H
+#endif // BORNAGAIN_MVVM_TESTS_LIBTESTMACHINERY_GOOGLE_TEST_H

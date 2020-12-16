@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PLOTTING_CUSTOMPLOTSCENEADAPTER_H
-#define MVVM_PLOTTING_CUSTOMPLOTSCENEADAPTER_H
+#ifndef BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_CUSTOMPLOTSCENEADAPTER_H
+#define BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_CUSTOMPLOTSCENEADAPTER_H
 
 #include "mvvm/plotting/sceneadapterinterface.h"
 #include <memory>
@@ -42,4 +42,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_PLOTTING_CUSTOMPLOTSCENEADAPTER_H
+#endif // BORNAGAIN_MVVM_VIEW_MVVM_PLOTTING_CUSTOMPLOTSCENEADAPTER_H

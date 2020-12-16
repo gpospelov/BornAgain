@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_COMMANDS_COMMANDRESULT_H
-#define MVVM_COMMANDS_COMMANDRESULT_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDRESULT_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDRESULT_H
 
 #include <variant>
 
@@ -21,4 +21,4 @@ using CommandResult = std::variant<bool, ModelView::SessionItem*>;
 
 } // namespace ModelView
 
-#endif // MVVM_COMMANDS_COMMANDRESULT_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDRESULT_H

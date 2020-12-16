@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_LABELDATAROWSTRATEGY_H
-#define MVVM_VIEWMODEL_LABELDATAROWSTRATEGY_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_LABELDATAROWSTRATEGY_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_LABELDATAROWSTRATEGY_H
 
 #include "mvvm/interfaces/rowstrategyinterface.h"
 
@@ -31,4 +31,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_LABELDATAROWSTRATEGY_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_LABELDATAROWSTRATEGY_H

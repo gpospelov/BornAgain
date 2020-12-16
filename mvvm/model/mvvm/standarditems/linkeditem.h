@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_STANDARDITEMS_LINKEDITEM_H
-#define MVVM_STANDARDITEMS_LINKEDITEM_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_LINKEDITEM_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_LINKEDITEM_H
 
 #include "mvvm/model/sessionitem.h"
 #include "mvvm/model/sessionmodel.h"
@@ -39,4 +39,4 @@ template <typename T> T* LinkedItem::get() const {
 
 } // namespace ModelView
 
-#endif // MVVM_STANDARDITEMS_LINKEDITEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_LINKEDITEM_H

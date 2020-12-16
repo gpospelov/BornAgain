@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_PROPERTYITEM_H
-#define MVVM_MODEL_PROPERTYITEM_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_PROPERTYITEM_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_PROPERTYITEM_H
 
 #include "mvvm/model/sessionitem.h"
 
@@ -30,4 +30,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_PROPERTYITEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_PROPERTYITEM_H

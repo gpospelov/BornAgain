@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_DATALOADER_DATALOADERDIALOG_H
-#define DAREFL_DATALOADER_DATALOADERDIALOG_H
+#ifndef BORNAGAIN_GUI2_DATALOADER_DATALOADERDIALOG_H
+#define BORNAGAIN_GUI2_DATALOADER_DATALOADERDIALOG_H
 
 #include "darefl_export.h"
 #include "gui2/importdataview/graphimportdata.h"
@@ -69,4 +69,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_DATALOADER_DATALOADERDIALOG_H
+#endif // BORNAGAIN_GUI2_DATALOADER_DATALOADERDIALOG_H

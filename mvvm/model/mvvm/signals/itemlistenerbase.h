@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SIGNALS_ITEMLISTENERBASE_H
-#define MVVM_SIGNALS_ITEMLISTENERBASE_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_ITEMLISTENERBASE_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_ITEMLISTENERBASE_H
 
 #include "mvvm/model_export.h"
 #include "mvvm/signals/callback_types.h"
@@ -53,4 +53,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_SIGNALS_ITEMLISTENERBASE_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_ITEMLISTENERBASE_H

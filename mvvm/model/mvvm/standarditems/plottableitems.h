@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_STANDARDITEMS_PLOTTABLEITEMS_H
-#define MVVM_STANDARDITEMS_PLOTTABLEITEMS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_PLOTTABLEITEMS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_PLOTTABLEITEMS_H
 
 //! @file plottableitems.h
 //! Collection of items to plot in QCustomPlot context.
@@ -46,4 +46,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_STANDARDITEMS_PLOTTABLEITEMS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_PLOTTABLEITEMS_H

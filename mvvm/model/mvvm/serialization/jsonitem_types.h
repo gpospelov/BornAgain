@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_SERIALIZATION_JSONITEM_TYPES_H
-#define MVVM_SERIALIZATION_JSONITEM_TYPES_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEM_TYPES_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEM_TYPES_H
 
 //! @file jsonitem_types.h
 //! Collection of custom types involved into SessionItem and JSON mutual convertion.
@@ -66,4 +66,4 @@ struct MVVM_MODEL_EXPORT ConverterContext {
 
 } // namespace ModelView
 
-#endif // MVVM_SERIALIZATION_JSONITEM_TYPES_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEM_TYPES_H

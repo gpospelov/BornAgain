@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PROJECT_PROJECTUTILS_H
-#define MVVM_PROJECT_PROJECTUTILS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECTUTILS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECTUTILS_H
 
 #include "mvvm/model_export.h"
 #include <memory>
@@ -40,4 +40,4 @@ MVVM_MODEL_EXPORT std::string ProjectWindowTitle(const std::string& project_dir,
 
 } // namespace ModelView
 
-#endif // MVVM_PROJECT_PROJECTUTILS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECTUTILS_H

@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_MAINWINDOW_STYLEUTILS_H
-#define DAREFL_MAINWINDOW_STYLEUTILS_H
+#ifndef BORNAGAIN_GUI2_MAINWINDOW_STYLEUTILS_H
+#define BORNAGAIN_GUI2_MAINWINDOW_STYLEUTILS_H
 
 #include "darefl_export.h"
 
@@ -38,4 +38,4 @@ DAREFLCORE_EXPORT void SetToolBarStyleTextBesides(QToolBar* toolbar);
 
 } // namespace gui2
 
-#endif // DAREFL_MAINWINDOW_STYLEUTILS_H
+#endif // BORNAGAIN_GUI2_MAINWINDOW_STYLEUTILS_H

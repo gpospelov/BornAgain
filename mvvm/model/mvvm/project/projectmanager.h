@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PROJECT_PROJECTMANAGER_H
-#define MVVM_PROJECT_PROJECTMANAGER_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECTMANAGER_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECTMANAGER_H
 
 #include "mvvm/interfaces/projectmanagerinterface.h"
 #include <memory>
@@ -53,4 +53,4 @@ private:
 
 } // namespace ModelView
 
-#endif // MVVM_PROJECT_PROJECTMANAGER_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECTMANAGER_H

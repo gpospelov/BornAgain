@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_VIEWMODEL_VIEWMODELDELEGATE_H
-#define MVVM_VIEWMODEL_VIEWMODELDELEGATE_H
+#ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWMODELDELEGATE_H
+#define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWMODELDELEGATE_H
 
 #include "mvvm/viewmodel_export.h"
 #include <QStyledItemDelegate>
@@ -55,4 +55,4 @@ protected:
 
 } // namespace ModelView
 
-#endif // MVVM_VIEWMODEL_VIEWMODELDELEGATE_H
+#endif // BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_VIEWMODELDELEGATE_H

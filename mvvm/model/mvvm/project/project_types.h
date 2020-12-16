@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_PROJECT_PROJECT_TYPES_H
-#define MVVM_PROJECT_PROJECT_TYPES_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECT_TYPES_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECT_TYPES_H
 
 #include "mvvm/model_export.h"
 #include <functional>
@@ -57,4 +57,4 @@ struct MVVM_MODEL_EXPORT UserInteractionContext {
 
 } // namespace ModelView
 
-#endif // MVVM_PROJECT_PROJECT_TYPES_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_PROJECT_PROJECT_TYPES_H

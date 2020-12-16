@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_CORE_VERSION_H
-#define MVVM_CORE_VERSION_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_CORE_VERSION_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_CORE_VERSION_H
 
 //! @file version.h
 //! Automatically generated from mvvm_version.h.in
@@ -43,4 +43,4 @@ inline std::string ProjectVersion() {
 
 } // namespace ModelView
 
-#endif // MVVM_CORE_VERSION_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_CORE_VERSION_H

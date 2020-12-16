@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_IMPORTDATAVIEW_DATASELECTORWIDGET_H
-#define DAREFL_IMPORTDATAVIEW_DATASELECTORWIDGET_H
+#ifndef BORNAGAIN_GUI2_IMPORTDATAVIEW_DATASELECTORWIDGET_H
+#define BORNAGAIN_GUI2_IMPORTDATAVIEW_DATASELECTORWIDGET_H
 
 #include "darefl_export.h"
 #include <QWidget>
@@ -53,4 +53,4 @@ private:
 
 } // namespace gui2
 
-#endif // DAREFL_IMPORTDATAVIEW_DATASELECTORWIDGET_H
+#endif // BORNAGAIN_GUI2_IMPORTDATAVIEW_DATASELECTORWIDGET_H

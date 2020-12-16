@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef DAREFL_DATALOADER_DATALOADER_TYPES_H
-#define DAREFL_DATALOADER_DATALOADER_TYPES_H
+#ifndef BORNAGAIN_GUI2_DATALOADER_DATALOADER_TYPES_H
+#define BORNAGAIN_GUI2_DATALOADER_DATALOADER_TYPES_H
 
 #include "darefl_export.h"
 #include <functional>
@@ -45,4 +45,4 @@ using line_splitter_t = std::function<std::vector<std::string>(const std::string
 
 } // namespace gui2
 
-#endif // DAREFL_DATALOADER_DATALOADER_TYPES_H
+#endif // BORNAGAIN_GUI2_DATALOADER_DATALOADER_TYPES_H

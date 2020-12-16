@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_FACTORIES_PROJECTMANAGERFACTORY_H
-#define MVVM_FACTORIES_PROJECTMANAGERFACTORY_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_PROJECTMANAGERFACTORY_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_PROJECTMANAGERFACTORY_H
 
 #include "mvvm/interfaces/projectmanagerinterface.h"
 #include <memory>
@@ -25,4 +25,4 @@ CreateProjectManager(const ProjectContext& project_context,
 
 } // namespace ModelView
 
-#endif // MVVM_FACTORIES_PROJECTMANAGERFACTORY_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_PROJECTMANAGERFACTORY_H

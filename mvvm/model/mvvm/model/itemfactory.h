@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_ITEMFACTORY_H
-#define MVVM_MODEL_ITEMFACTORY_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMFACTORY_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMFACTORY_H
 
 #include "mvvm/interfaces/itemfactoryinterface.h"
 #include "mvvm/model_export.h"
@@ -36,4 +36,4 @@ protected:
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_ITEMFACTORY_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMFACTORY_H

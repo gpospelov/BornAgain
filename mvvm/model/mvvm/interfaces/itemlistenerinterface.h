@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_INTERFACES_ITEMLISTENERINTERFACE_H
-#define MVVM_INTERFACES_ITEMLISTENERINTERFACE_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_ITEMLISTENERINTERFACE_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_ITEMLISTENERINTERFACE_H
 
 #include "mvvm/signals/callback_types.h"
 
@@ -66,4 +66,4 @@ public:
 
 } // namespace ModelView
 
-#endif // MVVM_INTERFACES_ITEMLISTENERINTERFACE_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_ITEMLISTENERINTERFACE_H

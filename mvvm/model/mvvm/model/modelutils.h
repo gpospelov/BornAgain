@@ -7,8 +7,8 @@
 //
 // ************************************************************************** //
 
-#ifndef MVVM_MODEL_MODELUTILS_H
-#define MVVM_MODEL_MODELUTILS_H
+#ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_MODELUTILS_H
+#define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_MODELUTILS_H
 
 #include "mvvm/factories/modelconverterfactory.h"
 #include "mvvm/model/itemutils.h"
@@ -111,4 +111,4 @@ MVVM_MODEL_EXPORT void EndMacros(const SessionItem* item);
 } // namespace Utils
 } // namespace ModelView
 
-#endif // MVVM_MODEL_MODELUTILS_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_MODELUTILS_H

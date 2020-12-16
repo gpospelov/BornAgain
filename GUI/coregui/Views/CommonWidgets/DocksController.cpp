@@ -115,7 +115,8 @@ void DocksController::toggleDock(int id) {
 }
 
 QDockWidget* DocksController::findDock(int id) {
-    return get_info(id).dock();
+    ASSERT(m_docks.find(id) != m_docks.end());
+    return m_docks[id].dock();
 }
 
 QDockWidget* DocksController::findDock(QWidget* widget) {
@@ -185,17 +186,6 @@ void DocksController::onWidgetCloseRequest() { // #TODO refactor this. Using sen
     dock->toggleViewAction()->trigger();
 }
 
-QMainWindow* DocksController::mainWindow() {
-    return m_mainWindow;
-}
-
-DockWidgetInfo DocksController::get_info(int id) {
-    if (m_docks.find(id) == m_docks.end())
-        throw GUIHelpers::Error("DocksController::addWidget() -> Error. Non existing id.");
-
-    return m_docks[id];
-}
-
 void DocksController::setTrackingEnabled(bool enabled) {
     if (enabled) {
         m_handleDockVisibilityChanges = true;
@@ -243,13 +233,6 @@ void DocksController::addDockActionsToMenu(QMenu* menu) {
 
     foreach (QAction* action, actions)
         menu->addAction(action);
-
-    menu->addSeparator();
-
-    QAction* action = new QAction(menu);
-    action->setText("Reset to default layout");
-    connect(action, &QAction::triggered, this, &DocksController::onResetLayout);
-    menu->addAction(action);
 }
 
 void DocksController::saveSettings(QSettings* settings) const {

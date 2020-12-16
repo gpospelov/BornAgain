@@ -224,7 +224,7 @@ void ActionManager::onAboutToShowViewMenu() {
 
     auto view = m_mainWindow->currentView();
     if (auto sampleView = dynamic_cast<SampleView*>(view); sampleView != nullptr)
-        sampleView->docks()->addDockActionsToMenu(m_viewMenu);
+        sampleView->addDockActionsToMenu(m_viewMenu);
     if (auto jobView = dynamic_cast<JobView*>(view); jobView != nullptr)
         jobView->docks()->addDockActionsToMenu(m_viewMenu);
 }

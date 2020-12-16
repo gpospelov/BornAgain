@@ -15,7 +15,7 @@
 #include "GUI/coregui/Views/SampleDesigner/SampleToolBar.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerView.h"
-#include "GUI/coregui/Views/SampleDesigner/SampleViewActions.h"
+#include "GUI/coregui/Views/SampleView.h"
 #include <QAction>
 #include <QButtonGroup>
 #include <QComboBox>
@@ -26,8 +26,7 @@
 #include <QToolButton>
 
 //! main tool bar on top of SampleView window
-SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
-    : StyledToolBar(parent), m_sampleViewActions(sampleActions) {
+SampleToolBar::SampleToolBar(SampleView* parent) : StyledToolBar(parent), m_sampleView(parent) {
     // Select & Pan
     auto selectionPointerButton = new QToolButton;
     selectionPointerButton->setCheckable(true);
@@ -118,8 +117,8 @@ SampleToolBar::SampleToolBar(SampleViewActions* sampleActions, QWidget* parent)
     m_RealSpaceViewerButton->setText("3D Viewer");
     m_RealSpaceViewerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_RealSpaceViewerButton->setToolTip("Open real space 3D viewer.");
-    connect(m_RealSpaceViewerButton, &QToolButton::clicked, m_sampleViewActions,
-            &SampleViewActions::onToggleRealSpaceView);
+    connect(m_RealSpaceViewerButton, &QToolButton::clicked, m_sampleView,
+            &SampleView::toggleRealSpaceView);
     addWidget(m_RealSpaceViewerButton);
 }
 

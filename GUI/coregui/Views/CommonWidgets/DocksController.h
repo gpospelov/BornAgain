@@ -55,9 +55,6 @@ public slots:
     void dockToMinMaxSizes();
     void onWidgetCloseRequest();
 
-protected:
-    QMainWindow* mainWindow(); // #TODO may become obsolete after onResetLayout refactor
-
 private:
     struct DockSizeInfo {
         QDockWidget* m_dock = nullptr;
@@ -66,7 +63,6 @@ private:
     };
 
     QDockWidget* addDockForWidget(QWidget* widget);
-    DockWidgetInfo get_info(int id); // #TODO refactor this in findDock
     void setTrackingEnabled(bool enabled);
     void handleWindowVisibilityChanged(bool visible);
     virtual bool eventFilter(QObject*, QEvent* event);

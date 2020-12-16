@@ -25,7 +25,7 @@ class QComboBox;
 class QString;
 class QButtonGroup;
 class SampleModel;
-class SampleViewActions;
+class SampleView;
 
 //! The SampleToolBar class represents a main toolbar on top of SampleView window
 
@@ -33,7 +33,7 @@ class SampleToolBar : public StyledToolBar {
     Q_OBJECT
 
 public:
-    explicit SampleToolBar(SampleViewActions* sampleActions = nullptr, QWidget* parent = nullptr);
+    explicit SampleToolBar(SampleView* parent);
 
 signals:
     void deleteItems();
@@ -54,7 +54,7 @@ private:
     QComboBox* m_scaleCombo;
     QToolButton* m_materialEditorButton;
     QToolButton* m_RealSpaceViewerButton;
-    SampleViewActions* m_sampleViewActions;
+    SampleView* m_sampleView;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEDESIGNER_SAMPLETOOLBAR_H

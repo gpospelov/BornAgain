@@ -27,10 +27,9 @@ class IFormFactor;
 
 //! The LayersWithAbsorptionBuilder class generates a multilayer with 3 layers with
 //! absorption (refractive index has imaginary part).
-//! @ingroup standard_samples
-
+//!
 //! The middle layer is populated with particles.
-//! Requires IComponentService which generates form factors, used for bulk form factors testing.
+//! @ingroup standard_samples
 
 class LayersWithAbsorptionBuilder : public ISampleBuilder {
 public:

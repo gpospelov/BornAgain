@@ -27,7 +27,6 @@ class IFormFactor;
 
 //! The ParticleInVacuumBuilder class generates a multilayer with single vacuum layer
 //! populated with particles of certain types.
-//! Requires IComponentService which generates form factors, used for bulk form factors testing.
 //! @ingroup standard_samples
 
 class ParticleInVacuumBuilder : public ISampleBuilder {

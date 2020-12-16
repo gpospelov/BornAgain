@@ -13,11 +13,12 @@
 #include "darefl_export.h"
 #include <QWidget>
 
-class ImportTextView;
-class ImportTableWidget;
 class QTabWidget;
 
 namespace DaRefl {
+
+class ImportTextView;
+class ImportTableWidget;
 
 class ParserInterface;
 struct ColumnInfo;

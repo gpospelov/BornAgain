@@ -16,7 +16,7 @@
 
 namespace DaRefl {
 
-SLDEditorToolBar::SLDEditorToolBar(SLDEditorActions* actions, QWidget* parent) : QToolBar(parent) {
+SLDEditorToolBar::SLDEditorToolBar(SLDEditorActions*, QWidget* parent) : QToolBar(parent) {
     StyleUtils::SetToolBarStyleTextBesides(this);
 
     auto reset_view = new QToolButton;

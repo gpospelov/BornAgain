@@ -35,7 +35,7 @@ public:
 
     void addWidget(int id, QWidget* widget, Qt::DockWidgetArea area);
 
-    virtual void onResetLayout(); // #TODO: better name
+    void resetLayout();
     void toggleDock(int id);
     void setVisibleDocks(const std::vector<int>& visibleDocks);
 
@@ -53,7 +53,6 @@ public:
 public slots:
     void setDockHeightForWidget(int height);
     void dockToMinMaxSizes();
-    void onWidgetCloseRequest();
 
 private:
     struct DockSizeInfo {

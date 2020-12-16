@@ -41,8 +41,6 @@ InfoPanel::InfoPanel(QWidget* parent)
 
     connect(m_toolBar, &InfoPanelToolBar::expandButtonClicked, this,
             &InfoPanel::onExpandButtonClicked);
-    connect(m_toolBar, &InfoPanelToolBar::closeButtonClicked, this,
-            &InfoPanel::onCloseButtonClicked);
 }
 
 QSize InfoPanel::sizeHint() const {
@@ -64,10 +62,6 @@ QSize InfoPanel::minimumSizeHint() const {
 
 void InfoPanel::onExpandButtonClicked() {
     setContentVisible(!isContentVisible(), true);
-}
-
-void InfoPanel::onCloseButtonClicked() {
-    emit widgetCloseRequest();
 }
 
 void InfoPanel::setContentVisible(bool editor_status, bool dock_notify) {

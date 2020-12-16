@@ -87,7 +87,7 @@ void DocksController::addWidget(int id, QWidget* widget, Qt::DockWidgetArea area
         frames[i]->setFrameStyle(QFrame::NoFrame);
 }
 
-void DocksController::onResetLayout() {
+void DocksController::resetLayout() {
     setTrackingEnabled(false);
     for (QDockWidget* dockWidget : dockWidgets()) {
         dockWidget->setFloating(false);
@@ -175,15 +175,6 @@ void DocksController::dockToMinMaxSizes() {
     m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
     m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
     m_dock_info.m_dock = nullptr;
-}
-
-void DocksController::onWidgetCloseRequest() { // #TODO refactor this. Using sender is not OOD
-    QWidget* widget = qobject_cast<QWidget*>(sender());
-    ASSERT(widget);
-    QDockWidget* dock = findDock(widget);
-    ASSERT(dock);
-
-    dock->toggleViewAction()->trigger();
 }
 
 void DocksController::setTrackingEnabled(bool enabled) {

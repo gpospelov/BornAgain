@@ -21,16 +21,11 @@ namespace {
 const int minimum_size = 25;
 const QString icon_up = ":/images/dark-angle-up.svg";
 const QString icon_down = ":/images/dark-angle-down.svg";
-const QString icon_close = ":/images/dark-close.svg";
 const QString expand_text = "Collapse/expand view";
-const QString close_text = "Close view";
 } // namespace
 
 InfoPanelToolBar::InfoPanelToolBar(QWidget* parent)
-    : QToolBar(parent)
-    , m_expandAction(new QAction(expand_text, this))
-    , m_closeAction(new QAction(close_text, this))
-    , m_expanded(false) {
+    : QToolBar(parent), m_expandAction(new QAction(expand_text, this)), m_expanded(false) {
     setMinimumSize(minimum_size, minimum_size);
     setProperty("_q_custom_style_disabled", QVariant(true));
 
@@ -38,16 +33,11 @@ InfoPanelToolBar::InfoPanelToolBar(QWidget* parent)
     m_expandAction->setToolTip(expand_text);
     connect(m_expandAction, &QAction::triggered, this, &InfoPanelToolBar::onExpandButtonClicked);
 
-    m_closeAction->setIcon(QIcon(icon_close));
-    m_closeAction->setToolTip(close_text);
-    connect(m_closeAction, &QAction::triggered, this, &InfoPanelToolBar::closeButtonClicked);
-
     auto empty = new QWidget();
     empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     addWidget(empty);
 
     addAction(m_expandAction);
-    addAction(m_closeAction);
 }
 
 void InfoPanelToolBar::setExpandStatus(bool status) {

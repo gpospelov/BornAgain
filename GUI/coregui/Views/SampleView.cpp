@@ -73,8 +73,6 @@ void SampleView::createSubWindows() {
 
     connect(m_scriptPanel, &ScriptPanel::widgetHeightRequest, m_docks,
             &DocksController::setDockHeightForWidget);
-    connect(m_scriptPanel, &ScriptPanel::widgetCloseRequest, m_docks,
-            &DocksController::onWidgetCloseRequest);
 
     m_scriptPanel->setSampleModel(models()->sampleModel());
     m_scriptPanel->setInstrumentModel(models()->instrumentModel());
@@ -109,7 +107,7 @@ void SampleView::connectSignals() {
 }
 
 void SampleView::resetLayout() {
-    m_docks->onResetLayout();
+    m_docks->resetLayout();
     tabifyDockWidget(m_docks->findDock(REALSPACEPANEL), m_docks->findDock(INFO));
     m_docks->findDock(REALSPACEPANEL)->raise(); // makes first tab active
 

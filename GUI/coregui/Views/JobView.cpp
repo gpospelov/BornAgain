@@ -119,8 +119,6 @@ void JobView::createSubWindows() {
 
     connect(m_jobMessagePanel, &JobMessagePanel::widgetHeightRequest, m_docks,
             &DocksController::setDockHeightForWidget);
-    connect(m_jobMessagePanel, &JobMessagePanel::widgetCloseRequest, m_docks,
-            &DocksController::onWidgetCloseRequest);
 
     m_fitActivityPanel->setRealTimeWidget(m_jobRealTimeWidget);
     m_fitActivityPanel->setJobMessagePanel(m_jobMessagePanel);
@@ -171,6 +169,6 @@ void JobView::setAppropriateActivityForJob(JobItem* jobItem) {
 }
 
 void JobView::resetLayout() {
-    m_docks->onResetLayout();
+    m_docks->resetLayout();
     setActivity(static_cast<int>(JobViewFlags::JOB_VIEW_ACTIVITY));
 }

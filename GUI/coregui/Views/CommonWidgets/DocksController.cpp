@@ -25,9 +25,9 @@
 #include <QTimer>
 
 namespace {
-static const char dockWidgetActiveState[] = "DockWidgetActiveState";
-static const char StateKey[] = "State";
-static const int settingsVersion = 2;
+const char dockWidgetActiveState[] = "DockWidgetActiveState";
+const char StateKey[] = "State";
+const int settingsVersion = 2;
 
 QString stripAccelerator(const QString& text) {
     QString res = text;
@@ -39,7 +39,7 @@ QString stripAccelerator(const QString& text) {
 } // namespace
 
 DocksController::DocksController(QMainWindow* mainWindow)
-    : QObject(mainWindow), m_handleDockVisibilityChanges(true), m_mainWindow(mainWindow) {
+    : QObject(mainWindow), m_mainWindow(mainWindow) {
     m_mainWindow->setDocumentMode(true);
     m_mainWindow->setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
     m_mainWindow->setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
@@ -89,7 +89,7 @@ void DocksController::addWidget(int id, QWidget* widget, Qt::DockWidgetArea area
 
 void DocksController::resetLayout() {
     setTrackingEnabled(false);
-    for (QDockWidget* dockWidget : dockWidgets()) {
+    for (auto dockWidget : dockWidgets()) {
         dockWidget->setFloating(false);
         m_mainWindow->removeDockWidget(dockWidget);
     }
@@ -103,7 +103,7 @@ void DocksController::resetLayout() {
         m_mainWindow->resizeDocks({dockWidgets().first()}, {10}, Qt::Horizontal);
 #endif
 
-    for (QDockWidget* dockWidget : dockWidgets())
+    for (auto dockWidget : dockWidgets())
         dockWidget->show();
 
     setTrackingEnabled(true);
@@ -180,7 +180,7 @@ void DocksController::dockToMinMaxSizes() {
 void DocksController::setTrackingEnabled(bool enabled) {
     if (enabled) {
         m_handleDockVisibilityChanges = true;
-        for (QDockWidget* dockWidget : dockWidgets())
+        for (auto dockWidget : dockWidgets())
             dockWidget->setProperty(dockWidgetActiveState, dockWidget->isVisible());
     } else {
         m_handleDockVisibilityChanges = false;
@@ -189,7 +189,7 @@ void DocksController::setTrackingEnabled(bool enabled) {
 
 void DocksController::handleWindowVisibilityChanged(bool visible) {
     m_handleDockVisibilityChanges = false;
-    for (QDockWidget* dockWidget : dockWidgets()) {
+    for (auto dockWidget : dockWidgets()) {
         if (dockWidget->isFloating()) {
             dockWidget->setVisible(visible && dockWidget->property(dockWidgetActiveState).toBool());
         }
@@ -244,7 +244,7 @@ void DocksController::restoreSettings(const QSettings* settings) {
 QHash<QString, QVariant> DocksController::saveSettings() const {
     QHash<QString, QVariant> settings;
     settings.insert(QLatin1String(StateKey), m_mainWindow->saveState(settingsVersion));
-    for (QDockWidget* dockWidget : dockWidgets()) {
+    for (auto dockWidget : dockWidgets()) {
         settings.insert(dockWidget->objectName(), dockWidget->property(dockWidgetActiveState));
     }
     return settings;
@@ -254,7 +254,7 @@ void DocksController::restoreSettings(const QHash<QString, QVariant>& settings) 
     QByteArray ba = settings.value(QLatin1String(StateKey), QByteArray()).toByteArray();
     if (!ba.isEmpty())
         m_mainWindow->restoreState(ba, settingsVersion);
-    for (QDockWidget* widget : dockWidgets()) {
+    for (auto widget : dockWidgets()) {
         widget->setProperty(dockWidgetActiveState, settings.value(widget->objectName(), false));
     }
 }

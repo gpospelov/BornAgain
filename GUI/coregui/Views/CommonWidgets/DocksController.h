@@ -69,7 +69,7 @@ private:
     QMainWindow* m_mainWindow;
     std::map<int, DockWidgetInfo> m_docks;
     DockSizeInfo m_dock_info;
-    bool m_handleDockVisibilityChanges;
+    bool m_handleDockVisibilityChanges = true;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_DOCKSCONTROLLER_H

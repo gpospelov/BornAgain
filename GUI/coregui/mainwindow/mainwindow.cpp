@@ -350,8 +350,8 @@ void MainWindow::updateViewSelectionButtonsGeometry() const {
     }
     // set fixed width in filler and progress bar
     auto filler = m_viewSelectionButtonsLayout->itemAt(m_viewSelectionButtons->buttons().size());
-    if (filler != nullptr)
-        if (auto fillerBtn = dynamic_cast<QToolButton*>(filler->widget()); fillerBtn != nullptr)
+    if (filler)
+        if (auto fillerBtn = dynamic_cast<QToolButton*>(filler->widget()); fillerBtn)
             fillerBtn->setFixedWidth(buttonExtent);
 
     m_progressBar->setFixedWidth(buttonExtent);

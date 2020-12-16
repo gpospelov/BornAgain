@@ -20,49 +20,56 @@
 #include <QSize>
 #include <map>
 
-namespace Manhattan {
-class FancyMainWindow;
-}
+class QMainWindow;
+class QMenu;
+class QSettings;
 
-//! Handles appearance of docked widgets in the context of FancyMainWindow.
+//! Handles creation and appearance of docked widgets in the context of QMainWindow. It is used for
+//! SampleView and JobView which are based on QMainWindow.
 
 class DocksController : public QObject {
     Q_OBJECT
 
 public:
-    DocksController(Manhattan::FancyMainWindow* mainWindow);
+    DocksController(QMainWindow* mainWindow);
 
     void addWidget(int id, QWidget* widget, Qt::DockWidgetArea area);
 
-    virtual void onResetLayout();
+    void resetLayout();
+    void toggleDock(int id);
+    void setVisibleDocks(const std::vector<int>& visibleDocks);
 
     QDockWidget* findDock(int id);
-
     QDockWidget* findDock(QWidget* widget);
+    const QList<QDockWidget*> dockWidgets() const;
 
-    void show_docks(const std::vector<int>& docks_to_show);
+    void addDockActionsToMenu(QMenu* menu);
+
+    QHash<QString, QVariant> saveSettings() const;
+    void saveSettings(QSettings* settings) const;
+    void restoreSettings(const QHash<QString, QVariant>& settings);
+    void restoreSettings(const QSettings* settings);
 
 public slots:
     void setDockHeightForWidget(int height);
     void dockToMinMaxSizes();
-    void onWidgetCloseRequest();
-
-protected:
-    Manhattan::FancyMainWindow* mainWindow();
 
 private:
     struct DockSizeInfo {
-        DockSizeInfo() : m_dock(nullptr) {}
-        QDockWidget* m_dock;
+        QDockWidget* m_dock = nullptr;
         QSize m_min_size;
         QSize m_max_size;
     };
 
-    DockWidgetInfo get_info(int id);
+    QDockWidget* addDockForWidget(QWidget* widget);
+    void setTrackingEnabled(bool enabled);
+    void handleWindowVisibilityChanged(bool visible);
+    virtual bool eventFilter(QObject*, QEvent* event);
 
-    Manhattan::FancyMainWindow* m_mainWindow;
+    QMainWindow* m_mainWindow;
     std::map<int, DockWidgetInfo> m_docks;
     DockSizeInfo m_dock_info;
+    bool m_handleDockVisibilityChanges = true;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_COMMONWIDGETS_DOCKSCONTROLLER_H

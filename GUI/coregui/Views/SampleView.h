@@ -15,52 +15,45 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEVIEW_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEVIEW_H
 
-#include <qt-manhattan-style/fancymainwindow.h>
+#include <QMainWindow>
 
 class MainWindow;
-class SampleViewDocks;
+class DocksController;
 class SampleDesigner;
 class SampleToolBar;
 class ApplicationModels;
 class QItemSelectionModel;
-class SampleViewStatusBar;
-class QShowEvent;
-class QHideEvent;
-class SampleViewActions;
+class SampleWidgetBox;
+class SampleTreeWidget;
+class SamplePropertyWidget;
+class ScriptPanel;
+class RealSpacePanel;
 
-class SampleView : public Manhattan::FancyMainWindow {
+class SampleView : public QMainWindow {
     Q_OBJECT
-
 public:
+    enum ESubWindows { WIDGET_BOX, SAMPLE_TREE, PROPERTY_EDITOR, INFO, REALSPACEPANEL };
+
     SampleView(MainWindow* mainWindow);
 
     ApplicationModels* models();
-
-    SampleViewDocks* docks();
-
-public slots:
-    void onDockMenuRequest();
-
-protected:
-    virtual void showEvent(QShowEvent* event);
-    virtual void hideEvent(QHideEvent* event);
+    void toggleRealSpaceView();
+    void fillViewMenu(QMenu* menu);
 
 private:
+    void createSubWindows();
     void connectSignals();
+    void resetLayout();
 
-    QItemSelectionModel* selectionModel();
+    DocksController* m_docks = nullptr;
+    SampleToolBar* m_toolBar = nullptr;
 
-    ApplicationModels* m_models;
-
-    SampleViewDocks* m_docks;
-
-    SampleDesigner* sampleDesigner();
-
-    SampleViewActions* m_actions;
-
-    SampleToolBar* m_toolBar;
-
-    SampleViewStatusBar* m_statusBar;
+    SampleDesigner* m_sampleDesigner = nullptr;
+    SampleWidgetBox* m_widgetBox = nullptr;
+    SampleTreeWidget* m_treeWidget = nullptr;
+    SamplePropertyWidget* m_propertyWidget = nullptr;
+    ScriptPanel* m_scriptPanel = nullptr;
+    RealSpacePanel* m_realSpacePanel = nullptr;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_SAMPLEVIEW_H

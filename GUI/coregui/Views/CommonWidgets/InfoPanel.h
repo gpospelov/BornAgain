@@ -36,11 +36,9 @@ public:
 
 signals:
     void widgetHeightRequest(int);
-    void widgetCloseRequest();
 
 protected slots:
     void onExpandButtonClicked();
-    void onCloseButtonClicked();
     void setContentVisible(bool editor_status, bool dock_notify = false);
 
 protected:

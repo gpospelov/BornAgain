@@ -29,7 +29,6 @@ public:
 
 signals:
     void expandButtonClicked();
-    void closeButtonClicked();
 
 public slots:
     void setExpandStatus(bool status);
@@ -39,7 +38,6 @@ protected slots:
 
 private:
     QAction* m_expandAction;
-    QAction* m_closeAction;
     bool m_expanded;
 };
 

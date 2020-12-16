@@ -41,12 +41,11 @@
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QSettings>
-#include <qt-manhattan-style/stylehelper.h>
 
 MainWindow* MainWindow::s_instance = nullptr;
 
 MainWindow::MainWindow()
-    : Manhattan::FancyMainWindow(nullptr)
+    : QMainWindow(nullptr)
     , m_progressBar(new QProgressBar)
     , m_viewSelectionButtons(new QButtonGroup(this))
     , m_viewSelectionButtonsLayout(new QVBoxLayout)
@@ -81,8 +80,8 @@ MainWindow::MainWindow()
     fillerButton->setEnabled(false);
     m_viewSelectionButtonsLayout->insertWidget(-1, fillerButton);
 
-    connect(m_viewSelectionButtons, QOverload<int>::of(&QButtonGroup::buttonClicked),
-            [&](int index) { m_viewsStack->setCurrentIndex(index); });
+    connect(m_viewSelectionButtons, QOverload<int>::of(&QButtonGroup::buttonClicked), this,
+            &MainWindow::setCurrentView);
 
     m_statusBar->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 
@@ -96,6 +95,8 @@ MainWindow::MainWindow()
     mainLayout->addLayout(vlayout);
 
     setCentralWidget(centralWidget);
+
+    m_statusBar->hide();
 
     initApplication();
     readSettings();
@@ -159,6 +160,17 @@ UpdateNotifier* MainWindow::updateNotifier() {
     return m_updateNotifier;
 }
 
+QWidget* MainWindow::currentView() const {
+    return m_viewsStack->currentWidget();
+}
+
+void MainWindow::setCurrentView(int viewId) {
+    if (m_viewsStack->currentIndex() != viewId) {
+        m_viewsStack->setCurrentIndex(viewId);
+        emit currentViewChanged(ViewId(viewId));
+    }
+}
+
 void MainWindow::onFocusRequest(int index) {
     m_viewSelectionButtons->button(index)->click();
 }
@@ -215,8 +227,6 @@ void MainWindow::initApplication() {
 
     if (!GUI_OS_Utils::HostOsInfo::isMacHost())
         QApplication::setWindowIcon(QIcon(":/images/BornAgain.ico"));
-
-    Manhattan::Utils::StyleHelper::setBaseColor(QColor(Constants::MAIN_THEME_COLOR));
 
     setDockNestingEnabled(true);
     setAcceptDrops(true);
@@ -338,6 +348,13 @@ void MainWindow::updateViewSelectionButtonsGeometry() const {
         b->setFixedSize(buttonExtent, buttonExtent);
         b->setIconSize({iconExtent, iconExtent});
     }
+    // set fixed width in filler and progress bar
+    auto filler = m_viewSelectionButtonsLayout->itemAt(m_viewSelectionButtons->buttons().size());
+    if (filler)
+        if (auto fillerBtn = dynamic_cast<QToolButton*>(filler->widget()); fillerBtn)
+            fillerBtn->setFixedWidth(buttonExtent);
+
+    m_progressBar->setFixedWidth(buttonExtent);
 }
 
 QToolButton* MainWindow::createViewSelectionButton() const {

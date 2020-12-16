@@ -15,22 +15,30 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H
 
-#include <qt-manhattan-style/fancymainwindow.h>
+#include <QActionGroup>
+#include <QMainWindow>
 
 class MainWindow;
-class JobViewDocks;
-class JobViewStatusBar;
+class JobView;
+class JobSelectorWidget;
+class JobOutputDataWidget;
+class JobRealTimeWidget;
+class FitActivityPanel;
+class JobMessagePanel;
 class JobProgressAssistant;
 class JobItem;
+class DocksController;
 
 //! The JobView class is a main view to show list of jobs, job results and widgets for real time
 //! and fitting activities.
 
-class JobView : public Manhattan::FancyMainWindow {
+class JobView : public QMainWindow {
     Q_OBJECT
 
 public:
     JobView(MainWindow* mainWindow);
+
+    void fillViewMenu(QMenu* menu);
 
 signals:
     void focusRequest(int);
@@ -39,26 +47,30 @@ signals:
 public slots:
     void onFocusRequest(JobItem* jobItem);
     void setActivity(int activity);
-    void onDockMenuRequest();
     void onSelectionChanged(JobItem* jobItem);
 
-protected:
-    virtual void showEvent(QShowEvent* event);
-    virtual void hideEvent(QHideEvent* event);
-
 private:
+    void createSubWindows();
+    void createActions();
     void connectSignals();
     void connectActivityRelated();
-    void connectLayoutRelated();
     void connectJobRelated();
 
     void setAppropriateActivityForJob(JobItem* jobItem);
+    void resetLayout();
 
-    JobViewDocks* m_docks;
-    JobViewStatusBar* m_statusBar;
+    DocksController* m_docks;
     JobProgressAssistant* m_progressAssistant;
     JobItem* m_currentItem;
     MainWindow* m_mainWindow;
+
+    JobSelectorWidget* m_jobSelector = nullptr;
+    JobOutputDataWidget* m_jobOutputDataWidget = nullptr;
+    JobRealTimeWidget* m_jobRealTimeWidget = nullptr;
+    FitActivityPanel* m_fitActivityPanel = nullptr;
+    JobMessagePanel* m_jobMessagePanel = nullptr;
+
+    QActionGroup m_activityActions;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H

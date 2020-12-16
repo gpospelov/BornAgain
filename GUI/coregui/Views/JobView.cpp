@@ -15,33 +15,52 @@
 #include "GUI/coregui/Views/JobView.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/JobModel.h"
+#include "GUI/coregui/Views/CommonWidgets/DocksController.h"
+#include "GUI/coregui/Views/FitWidgets/FitActivityPanel.h"
+#include "GUI/coregui/Views/JobView.h"
+#include "GUI/coregui/Views/JobWidgets/JobMessagePanel.h"
 #include "GUI/coregui/Views/JobWidgets/JobOutputDataWidget.h"
 #include "GUI/coregui/Views/JobWidgets/JobProgressAssistant.h"
+#include "GUI/coregui/Views/JobWidgets/JobRealTimeWidget.h"
 #include "GUI/coregui/Views/JobWidgets/JobSelectorWidget.h"
-#include "GUI/coregui/Views/JobWidgets/JobViewDocks.h"
+#include "GUI/coregui/Views/JobWidgets/JobViewActivities.h"
 #include "GUI/coregui/Views/JobWidgets/JobViewFlags.h"
-#include "GUI/coregui/Views/JobWidgets/JobViewStatusBar.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include <QMenu>
 
 JobView::JobView(MainWindow* mainWindow)
-    : m_docks(new JobViewDocks(this))
-    , m_statusBar(new JobViewStatusBar(mainWindow))
+    : m_docks(new DocksController(this))
     , m_progressAssistant(new JobProgressAssistant(mainWindow))
     , m_currentItem(nullptr)
-    , m_mainWindow(mainWindow) {
-    setObjectName("JobView");
-    m_docks->initViews(mainWindow->jobModel());
+    , m_mainWindow(mainWindow)
+    , m_activityActions(this) {
 
+    setObjectName("JobView");
+    createActions();
+    createSubWindows();
     connectSignals();
+}
+
+void JobView::fillViewMenu(QMenu* menu) {
+    menu->addActions(m_activityActions.actions());
+    menu->addSeparator();
+
+    m_docks->addDockActionsToMenu(menu);
+
+    menu->addSeparator();
+
+    QAction* action = new QAction(menu);
+    action->setText("Reset to default layout");
+    connect(action, &QAction::triggered, this, &JobView::resetLayout);
+    menu->addAction(action);
 }
 
 void JobView::onFocusRequest(JobItem* jobItem) {
     if (jobItem->runInBackground())
         return;
 
-    if (jobItem != m_docks->jobSelector()->currentJobItem()) {
-        m_docks->jobSelector()->makeJobItemSelected(jobItem);
+    if (jobItem != m_jobSelector->currentJobItem()) {
+        m_jobSelector->makeJobItemSelected(jobItem);
         setAppropriateActivityForJob(jobItem);
     }
 
@@ -51,68 +70,72 @@ void JobView::onFocusRequest(JobItem* jobItem) {
 //! Sets docks visibility in accordance with required activity.
 
 void JobView::setActivity(int activity) {
-    m_docks->setActivity(activity);
+    QVector<JobViewFlags::Dock> docksToShow =
+        JobViewActivities::activeDocks(JobViewFlags::Activity(activity));
+
+    std::vector<int> docks_id;
+    for (auto x : docksToShow)
+        docks_id.push_back(static_cast<int>(x));
+
+    m_docks->setVisibleDocks(docks_id);
+    m_activityActions.actions()[activity]->setChecked(true);
     emit activityChanged(activity);
-}
-
-//! Creates global dock menu at cursor position.
-
-void JobView::onDockMenuRequest() {
-    std::unique_ptr<QMenu> menu(createPopupMenu());
-    menu->exec(QCursor::pos());
 }
 
 //! Propagates change in JobItem's selection down into main widgets.
 
 void JobView::onSelectionChanged(JobItem* jobItem) {
-    m_docks->setItem(jobItem);
+    m_jobOutputDataWidget->setItem(jobItem);
+    m_jobRealTimeWidget->setItem(jobItem);
+    m_fitActivityPanel->setItem(jobItem);
 }
 
-void JobView::showEvent(QShowEvent* event) {
-    if (isVisible())
-        m_statusBar->show();
+void JobView::createSubWindows() {
+    m_jobOutputDataWidget = new JobOutputDataWidget(m_mainWindow->jobModel(), this);
+    m_jobSelector = new JobSelectorWidget(m_mainWindow->jobModel(), this);
+    m_jobRealTimeWidget = new JobRealTimeWidget(m_mainWindow->jobModel(), this);
+    m_fitActivityPanel = new FitActivityPanel(m_mainWindow->jobModel(), this);
+    m_jobMessagePanel = new JobMessagePanel(this);
 
-    Manhattan::FancyMainWindow::showEvent(event);
+    m_docks->addWidget(JobViewFlags::JOB_LIST_DOCK, m_jobSelector, Qt::LeftDockWidgetArea);
+    m_docks->addWidget(JobViewFlags::REAL_TIME_DOCK, m_jobRealTimeWidget, Qt::RightDockWidgetArea);
+    m_docks->addWidget(JobViewFlags::FIT_PANEL_DOCK, m_fitActivityPanel, Qt::RightDockWidgetArea);
+    m_docks->addWidget(JobViewFlags::JOB_MESSAGE_DOCK, m_jobMessagePanel, Qt::BottomDockWidgetArea);
+
+    connect(m_jobMessagePanel, &JobMessagePanel::widgetHeightRequest, m_docks,
+            &DocksController::setDockHeightForWidget);
+
+    m_fitActivityPanel->setRealTimeWidget(m_jobRealTimeWidget);
+    m_fitActivityPanel->setJobMessagePanel(m_jobMessagePanel);
+
+    setCentralWidget(m_jobOutputDataWidget);
+
+    resetLayout();
 }
 
-void JobView::hideEvent(QHideEvent* event) {
-    if (isHidden())
-        m_statusBar->hide();
-
-    Manhattan::FancyMainWindow::hideEvent(event);
+void JobView::createActions() {
+    int activity = 0;
+    for (auto activityName : JobViewActivities::activityList()) {
+        QAction* action = new QAction(this);
+        action->setText(activityName);
+        action->setCheckable(true);
+        connect(action, &QAction::triggered, [=]() { setActivity(activity); });
+        m_activityActions.addAction(action);
+        activity++;
+    }
 }
 
 void JobView::connectSignals() {
     connectActivityRelated();
-    connectLayoutRelated();
     connectJobRelated();
 }
 
 //! Connects signal related to activity change.
 
 void JobView::connectActivityRelated() {
-    // Change activity requests: JobViewStatusBar -> this
-    connect(m_statusBar, &JobViewStatusBar::changeActivityRequest, this, &JobView::setActivity);
-
-    // Activity was changed: this -> JobViewStatusBar
-    connect(this, &JobView::activityChanged, m_statusBar, &JobViewStatusBar::onActivityChanged);
-
     // Activity was changed: this -> JobOutputDataWidget
-    connect(this, &JobView::activityChanged, m_docks->jobOutputDataWidget(),
+    connect(this, &JobView::activityChanged, m_jobOutputDataWidget,
             &JobOutputDataWidget::onActivityChanged);
-}
-
-//! Connects signals related to dock layout.
-
-void JobView::connectLayoutRelated() {
-    connect(this, &JobView::resetLayout, m_docks, &JobViewDocks::onResetLayout);
-
-    // Toggling of JobSelector request: JobViewStatusBar -> this
-    connect(m_statusBar, &JobViewStatusBar::toggleJobSelectorRequest, m_docks,
-            &JobViewDocks::onToggleJobSelector);
-
-    // Dock menu request: JobViewStatusBar -> this
-    connect(m_statusBar, &JobViewStatusBar::dockMenuRequest, this, &JobView::onDockMenuRequest);
 }
 
 //! Connects signals related to JobItem
@@ -122,7 +145,7 @@ void JobView::connectJobRelated() {
     connect(m_mainWindow->jobModel(), &JobModel::focusRequest, this, &JobView::onFocusRequest);
 
     // JobItem selection: JobSelectorWidget -> this
-    connect(m_docks->jobSelector(), &JobSelectorWidget::selectionChanged, this,
+    connect(m_jobSelector, &JobSelectorWidget::selectionChanged, this,
             &JobView::onSelectionChanged);
 }
 
@@ -134,4 +157,9 @@ void JobView::setAppropriateActivityForJob(JobItem* jobItem) {
 
     if (jobItem->isValidForFitting())
         setActivity(JobViewFlags::FITTING_ACTIVITY);
+}
+
+void JobView::resetLayout() {
+    m_docks->resetLayout();
+    setActivity(static_cast<int>(JobViewFlags::JOB_VIEW_ACTIVITY));
 }

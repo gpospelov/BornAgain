@@ -25,7 +25,7 @@ class LoaderSelectorPanel;
 class LoaderPreviewPanel;
 class DataHandler;
 
-//! This is the main dialog for the data loader.
+//! Main dialog for the data loader.
 
 class DAREFLCORE_EXPORT DataLoaderDialog : public QDialog {
     Q_OBJECT

@@ -45,7 +45,7 @@ void SampleView::toggleRealSpaceView() {
     m_docks->toggleDock(REALSPACEPANEL);
 }
 
-void SampleView::addDockActionsToMenu(QMenu* menu) {
+void SampleView::fillViewMenu(QMenu* menu) {
     m_docks->addDockActionsToMenu(menu);
 
     menu->addSeparator();

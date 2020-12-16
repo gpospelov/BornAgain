@@ -38,7 +38,7 @@ public:
 
     ApplicationModels* models();
     void toggleRealSpaceView();
-    void addDockActionsToMenu(QMenu* menu);
+    void fillViewMenu(QMenu* menu);
 
 private:
     void createSubWindows();

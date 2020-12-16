@@ -224,9 +224,9 @@ void ActionManager::onAboutToShowViewMenu() {
 
     auto view = m_mainWindow->currentView();
     if (auto sampleView = dynamic_cast<SampleView*>(view); sampleView != nullptr)
-        sampleView->addDockActionsToMenu(m_viewMenu);
+        sampleView->fillViewMenu(m_viewMenu);
     if (auto jobView = dynamic_cast<JobView*>(view); jobView != nullptr)
-        jobView->addDockActionsToMenu(m_viewMenu);
+        jobView->fillViewMenu(m_viewMenu);
 }
 
 void ActionManager::toggleCheckForUpdates(bool status) {

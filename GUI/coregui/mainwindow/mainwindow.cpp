@@ -96,6 +96,8 @@ MainWindow::MainWindow()
 
     setCentralWidget(centralWidget);
 
+    m_statusBar->hide();
+
     initApplication();
     readSettings();
     initProgressBar();

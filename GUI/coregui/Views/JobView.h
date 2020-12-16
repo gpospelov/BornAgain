@@ -15,6 +15,7 @@
 #ifndef BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H
 #define BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H
 
+#include <QActionGroup>
 #include <QMainWindow>
 
 class MainWindow;
@@ -24,7 +25,6 @@ class JobOutputDataWidget;
 class JobRealTimeWidget;
 class FitActivityPanel;
 class JobMessagePanel;
-class JobViewStatusBar;
 class JobProgressAssistant;
 class JobItem;
 class DocksController;
@@ -38,8 +38,7 @@ class JobView : public QMainWindow {
 public:
     JobView(MainWindow* mainWindow);
 
-    DocksController* docks();
-    void addDockActionsToMenu(QMenu* menu);
+    void fillViewMenu(QMenu* menu);
 
 signals:
     void focusRequest(int);
@@ -50,12 +49,9 @@ public slots:
     void setActivity(int activity);
     void onSelectionChanged(JobItem* jobItem);
 
-protected:
-    virtual void showEvent(QShowEvent* event);
-    virtual void hideEvent(QHideEvent* event);
-
 private:
     void createSubWindows();
+    void createActions();
     void connectSignals();
     void connectActivityRelated();
     void connectJobRelated();
@@ -64,7 +60,6 @@ private:
     void resetLayout();
 
     DocksController* m_docks;
-    JobViewStatusBar* m_statusBar;
     JobProgressAssistant* m_progressAssistant;
     JobItem* m_currentItem;
     MainWindow* m_mainWindow;
@@ -74,6 +69,8 @@ private:
     JobRealTimeWidget* m_jobRealTimeWidget = nullptr;
     FitActivityPanel* m_fitActivityPanel = nullptr;
     JobMessagePanel* m_jobMessagePanel = nullptr;
+
+    QActionGroup m_activityActions;
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_JOBVIEW_H

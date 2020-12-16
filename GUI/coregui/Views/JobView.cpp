@@ -25,27 +25,26 @@
 #include "GUI/coregui/Views/JobWidgets/JobSelectorWidget.h"
 #include "GUI/coregui/Views/JobWidgets/JobViewActivities.h"
 #include "GUI/coregui/Views/JobWidgets/JobViewFlags.h"
-#include "GUI/coregui/Views/JobWidgets/JobViewStatusBar.h"
 #include "GUI/coregui/mainwindow/mainwindow.h"
 #include <QMenu>
 
 JobView::JobView(MainWindow* mainWindow)
     : m_docks(new DocksController(this))
-    , m_statusBar(new JobViewStatusBar(mainWindow))
     , m_progressAssistant(new JobProgressAssistant(mainWindow))
     , m_currentItem(nullptr)
-    , m_mainWindow(mainWindow) {
+    , m_mainWindow(mainWindow)
+    , m_activityActions(this) {
 
     setObjectName("JobView");
+    createActions();
     createSubWindows();
     connectSignals();
 }
 
-DocksController* JobView::docks() {
-    return m_docks;
-}
+void JobView::fillViewMenu(QMenu* menu) {
+    menu->addActions(m_activityActions.actions());
+    menu->addSeparator();
 
-void JobView::addDockActionsToMenu(QMenu* menu) {
     m_docks->addDockActionsToMenu(menu);
 
     menu->addSeparator();
@@ -79,6 +78,7 @@ void JobView::setActivity(int activity) {
         docks_id.push_back(static_cast<int>(x));
 
     m_docks->setVisibleDocks(docks_id);
+    m_activityActions.actions()[activity]->setChecked(true);
     emit activityChanged(activity);
 }
 
@@ -88,21 +88,6 @@ void JobView::onSelectionChanged(JobItem* jobItem) {
     m_jobOutputDataWidget->setItem(jobItem);
     m_jobRealTimeWidget->setItem(jobItem);
     m_fitActivityPanel->setItem(jobItem);
-}
-
-void JobView::showEvent(QShowEvent* event) {
-    // #TODO refactor this after status bar is empty
-    if (isVisible())
-        m_statusBar->show();
-
-    QMainWindow::showEvent(event);
-}
-
-void JobView::hideEvent(QHideEvent* event) {
-    if (isHidden())
-        m_statusBar->hide();
-
-    QMainWindow::hideEvent(event);
 }
 
 void JobView::createSubWindows() {
@@ -128,6 +113,18 @@ void JobView::createSubWindows() {
     resetLayout();
 }
 
+void JobView::createActions() {
+    int activity = 0;
+    for (auto activityName : JobViewActivities::activityList()) {
+        QAction* action = new QAction(this);
+        action->setText(activityName);
+        action->setCheckable(true);
+        connect(action, &QAction::triggered, [=]() { setActivity(activity); });
+        m_activityActions.addAction(action);
+        activity++;
+    }
+}
+
 void JobView::connectSignals() {
     connectActivityRelated();
     connectJobRelated();
@@ -136,12 +133,6 @@ void JobView::connectSignals() {
 //! Connects signal related to activity change.
 
 void JobView::connectActivityRelated() {
-    // Change activity requests: JobViewStatusBar -> this
-    connect(m_statusBar, &JobViewStatusBar::changeActivityRequest, this, &JobView::setActivity);
-
-    // Activity was changed: this -> JobViewStatusBar
-    connect(this, &JobView::activityChanged, m_statusBar, &JobViewStatusBar::onActivityChanged);
-
     // Activity was changed: this -> JobOutputDataWidget
     connect(this, &JobView::activityChanged, m_jobOutputDataWidget,
             &JobOutputDataWidget::onActivityChanged);

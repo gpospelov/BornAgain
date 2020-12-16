@@ -83,6 +83,9 @@ public:
     void setAbsoluteQResolution(const IRangedDistribution& distr,
                                 const std::vector<double>& std_dev);
 
+    void setOffset(double offset) { m_offset = offset; }
+    double offset() const { return m_offset; }
+
 private:
     void checkInitialization();
     std::vector<double> generateQzVector() const;
@@ -91,6 +94,8 @@ private:
     const std::unique_ptr<IAxis> m_qs;
     std::unique_ptr<ScanResolution> m_resolution;
     mutable std::vector<std::vector<ParameterSample>> m_q_res_cache;
+
+    double m_offset = 0.;
 };
 
 #endif // BORNAGAIN_CORE_SCAN_QSPECSCAN_H

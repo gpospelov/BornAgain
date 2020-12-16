@@ -38690,6 +38690,58 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_QSpecScan_setOffset(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  QSpecScan *arg1 = (QSpecScan *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "QSpecScan_setOffset", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_QSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "QSpecScan_setOffset" "', argument " "1"" of type '" "QSpecScan *""'"); 
+  }
+  arg1 = reinterpret_cast< QSpecScan * >(argp1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "QSpecScan_setOffset" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  (arg1)->setOffset(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_QSpecScan_offset(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  QSpecScan *arg1 = (QSpecScan *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_QSpecScan, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "QSpecScan_offset" "', argument " "1"" of type '" "QSpecScan const *""'"); 
+  }
+  arg1 = reinterpret_cast< QSpecScan * >(argp1);
+  result = (double)((QSpecScan const *)arg1)->offset();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *QSpecScan_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
@@ -44550,6 +44602,8 @@ static PyMethodDef SwigMethods[] = {
 		"Sets qz resolution values via IRangedDistribution and values of standard deviations.  std_dev can be either single-valued or a numpy array. In the latter case the length of the array should coinside with the length of the qz-axis. \n"
 		"\n"
 		""},
+	 { "QSpecScan_setOffset", _wrap_QSpecScan_setOffset, METH_VARARGS, "QSpecScan_setOffset(QSpecScan self, double offset)"},
+	 { "QSpecScan_offset", _wrap_QSpecScan_offset, METH_O, "QSpecScan_offset(QSpecScan self) -> double"},
 	 { "QSpecScan_swigregister", QSpecScan_swigregister, METH_O, NULL},
 	 { "QSpecScan_swiginit", QSpecScan_swiginit, METH_VARARGS, NULL},
 	 { "delete_ISimulation", _wrap_delete_ISimulation, METH_O, "\n"

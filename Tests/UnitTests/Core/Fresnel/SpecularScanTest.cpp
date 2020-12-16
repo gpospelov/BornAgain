@@ -7,6 +7,8 @@
 #include "Device/Instrument/Instrument.h"
 #include "Device/Resolution/ScanResolution.h"
 #include "Param/Distrib/RangedDistributions.h"
+#include "Sample/Material/MaterialFactoryFuncs.h"
+#include "Sample/Slice/Slice.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 class SpecularScanTest : public ::testing::Test {};
@@ -123,6 +125,7 @@ TEST_F(SpecularScanTest, QScanInit) {
         EXPECT_EQ(scan.numberOfSimulationElements(), axis.size());
         EXPECT_EQ(scan.footprintFactor(), nullptr);
         EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{1.0});
+        EXPECT_EQ(scan.offset(), 0.);
         EXPECT_THROW(scan.footprint(1, axis.size()), std::runtime_error);
         EXPECT_NO_THROW(scan.footprint(0, axis.size()));
     };
@@ -166,11 +169,13 @@ TEST_F(SpecularScanTest, AngularScanClone) {
 
 TEST_F(SpecularScanTest, QScanClone) {
     QSpecScan scan(std::vector<double>{0.1, 0.2, 0.3});
+    scan.setOffset(2.22);
 
     std::unique_ptr<QSpecScan> scan_clone(scan.clone());
     EXPECT_EQ(*scan_clone->coordinateAxis(), *scan.coordinateAxis());
     EXPECT_NE(scan_clone->coordinateAxis(), scan.coordinateAxis());
     EXPECT_EQ(scan_clone->footprintFactor(), nullptr);
+    EXPECT_EQ(scan_clone->offset(), scan.offset());
 }
 
 TEST_F(SpecularScanTest, GenerateSimElements) {
@@ -183,13 +188,26 @@ TEST_F(SpecularScanTest, GenerateSimElements) {
     for (size_t i = 0; i < sim_elements.size(); ++i)
         EXPECT_TRUE(sim_elements[i].isCalculated());
 
-    QSpecScan scan2(std::vector<double>{0.0, 0.2, 0.3});
+    const auto scan2_qvector = std::vector<double>{0.0, 0.2, 0.3};
+    QSpecScan scan2(scan2_qvector);
     std::vector<SpecularSimulationElement> sim_elements2 =
-        scan.generateSimulationElements(instrument);
+        scan2.generateSimulationElements(instrument);
     EXPECT_EQ(sim_elements2.size(), scan2.numberOfSimulationElements());
     EXPECT_EQ(scan2.numberOfSimulationElements(), 3u);
     for (size_t i = 0; i < sim_elements2.size(); ++i)
         EXPECT_TRUE(sim_elements2[i].isCalculated());
+    
+    const double offset = 1.;
+    scan2.setOffset(offset);
+    std::vector<SpecularSimulationElement> sim_elements3 =
+        scan2.generateSimulationElements(instrument);
+    std::vector<Slice> slices;
+    slices.emplace_back(0., MaterialBySLD());
+    for (size_t i = 0; i < sim_elements3.size(); ++i){
+        const auto generatedKzs = sim_elements3[i].produceKz(slices);
+        EXPECT_EQ(generatedKzs[0].imag(), 0.);
+        EXPECT_EQ(2. * generatedKzs[0].real(), scan2_qvector[i] + offset);
+    }
 }
 
 TEST_F(SpecularScanTest, ErrorInput) {

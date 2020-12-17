@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorPyramid.h
 //! @brief     Defines class FormFactorPyramid
@@ -25,7 +25,8 @@ public:
     FormFactorPyramid(const std::vector<double> P);
     FormFactorPyramid(double base_edge, double height, double alpha);
 
-    FormFactorPyramid* clone() const final {
+    FormFactorPyramid* clone() const final
+    {
         return new FormFactorPyramid(m_base_edge, m_height, m_alpha);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

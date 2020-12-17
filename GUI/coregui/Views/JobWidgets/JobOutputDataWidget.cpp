@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobOutputDataWidget.cpp
 //! @brief     Implements class JobOutputDataWidget
@@ -24,7 +24,8 @@ const bool reuse_widget = true;
 }
 
 JobOutputDataWidget::JobOutputDataWidget(JobModel* jobModel, QWidget* parent)
-    : QWidget(parent), m_stackedWidget(new ItemStackPresenter<JobResultsPresenter>(reuse_widget)) {
+    : QWidget(parent), m_stackedWidget(new ItemStackPresenter<JobResultsPresenter>(reuse_widget))
+{
     setWindowTitle(QLatin1String("Job OutputData"));
     setObjectName("JobOutputDataWidget");
 
@@ -43,7 +44,8 @@ JobOutputDataWidget::JobOutputDataWidget(JobModel* jobModel, QWidget* parent)
     setLayout(mainLayout);
 }
 
-void JobOutputDataWidget::setItem(JobItem* jobItem) {
+void JobOutputDataWidget::setItem(JobItem* jobItem)
+{
     if (!isValidJobItem(jobItem)) {
         m_stackedWidget->hideWidgets();
         return;
@@ -52,12 +54,14 @@ void JobOutputDataWidget::setItem(JobItem* jobItem) {
     m_stackedWidget->setItem(jobItem);
 }
 
-void JobOutputDataWidget::onActivityChanged(int activity) {
+void JobOutputDataWidget::onActivityChanged(int activity)
+{
     if (auto widget = m_stackedWidget->currentWidget())
         widget->setPresentation(static_cast<JobViewFlags::EActivities>(activity));
 }
 
-bool JobOutputDataWidget::isValidJobItem(JobItem* item) {
+bool JobOutputDataWidget::isValidJobItem(JobItem* item)
+{
     if (!item)
         return false;
 

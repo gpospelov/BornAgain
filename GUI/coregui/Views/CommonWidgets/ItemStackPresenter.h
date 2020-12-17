@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/CommonWidgets/ItemStackPresenter.h
 //! @brief     Defines class ItemStackPresenter
@@ -47,7 +47,8 @@ private:
     bool m_single_widget; //!< Different items will be served by same widget
 };
 
-template <class T> template <class U> void ItemStackPresenter<T>::setItem(U* item, bool* isNew) {
+template <class T> template <class U> void ItemStackPresenter<T>::setItem(U* item, bool* isNew)
+{
     validateItem(item);
 
     if (isNew)
@@ -75,11 +76,13 @@ template <class T> template <class U> void ItemStackPresenter<T>::setItem(U* ite
     widget->setItem(item);
 }
 
-template <class T> T* ItemStackPresenter<T>::currentWidget() {
+template <class T> T* ItemStackPresenter<T>::currentWidget()
+{
     return dynamic_cast<T*>(m_stackedWidget->currentWidget());
 }
 
-template <class T> T* ItemStackPresenter<T>::itemWidget(SessionItem* item) {
+template <class T> T* ItemStackPresenter<T>::itemWidget(SessionItem* item)
+{
     if (m_single_widget) {
         if (!m_itemToWidget.empty())
             return m_itemToWidget.first();
@@ -90,12 +93,14 @@ template <class T> T* ItemStackPresenter<T>::itemWidget(SessionItem* item) {
     return nullptr;
 }
 
-template <class T> void ItemStackPresenter<T>::hideWidgets() {
+template <class T> void ItemStackPresenter<T>::hideWidgets()
+{
     if (m_stackedWidget->currentWidget())
         m_stackedWidget->currentWidget()->hide();
 }
 
-template <class T> void ItemStackPresenter<T>::removeWidgetForItem(SessionItem* item) {
+template <class T> void ItemStackPresenter<T>::removeWidgetForItem(SessionItem* item)
+{
     ASSERT(item);
 
     if (m_single_widget)
@@ -117,7 +122,8 @@ template <class T> void ItemStackPresenter<T>::removeWidgetForItem(SessionItem* 
     delete widget;
 }
 
-template <class T> void ItemStackPresenter<T>::removeWidgets() {
+template <class T> void ItemStackPresenter<T>::removeWidgets()
+{
     typename QMap<SessionItem*, T*>::iterator it = m_itemToWidget.begin();
     while (it != m_itemToWidget.end()) {
         m_stackedWidget->removeWidget(it.value());

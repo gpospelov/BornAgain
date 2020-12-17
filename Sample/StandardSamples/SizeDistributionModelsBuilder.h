@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/SizeDistributionModelsBuilder.h
 //! @brief     Defines various sample builder classes to test DA, LMA, SSCA approximations

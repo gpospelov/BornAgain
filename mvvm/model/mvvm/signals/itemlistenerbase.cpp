@@ -1,26 +1,34 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/signals/itemlistenerbase.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "itemlistenerbase.h"
 #include "mvvm/model/sessionitem.h"
 #include "mvvm/signals/itemmapper.h"
 
-ModelView::ItemListenerBase::ItemListenerBase(ModelView::SessionItem* item) {
+ModelView::ItemListenerBase::ItemListenerBase(ModelView::SessionItem* item)
+{
     setItem(item);
 }
 
-ModelView::ItemListenerBase::~ItemListenerBase() {
+ModelView::ItemListenerBase::~ItemListenerBase()
+{
     if (m_item)
         m_item->mapper()->unsubscribe(this);
 }
 
-void ModelView::ItemListenerBase::setItem(ModelView::SessionItem* item) {
+void ModelView::ItemListenerBase::setItem(ModelView::SessionItem* item)
+{
     if (m_item == item)
         return;
 
@@ -40,21 +48,24 @@ void ModelView::ItemListenerBase::setItem(ModelView::SessionItem* item) {
     subscribe();
 }
 
-void ModelView::ItemListenerBase::setOnItemDestroy(ModelView::Callbacks::item_t f) {
+void ModelView::ItemListenerBase::setOnItemDestroy(ModelView::Callbacks::item_t f)
+{
     item()->mapper()->setOnItemDestroy(f, this);
 }
 
 //! Sets callback to be notified on item's data change.
 //! Callback will be called with (SessionItem*, data_role).
 
-void ModelView::ItemListenerBase::setOnDataChange(ModelView::Callbacks::item_int_t f) {
+void ModelView::ItemListenerBase::setOnDataChange(ModelView::Callbacks::item_int_t f)
+{
     item()->mapper()->setOnDataChange(f, this);
 }
 
 //! Sets callback to be notified on item's property change.
 //! Callback will be called with (compound_item, property_name).
 
-void ModelView::ItemListenerBase::setOnPropertyChange(ModelView::Callbacks::item_str_t f) {
+void ModelView::ItemListenerBase::setOnPropertyChange(ModelView::Callbacks::item_str_t f)
+{
     item()->mapper()->setOnPropertyChange(f, this);
 }
 
@@ -63,7 +74,8 @@ void ModelView::ItemListenerBase::setOnPropertyChange(ModelView::Callbacks::item
 //! layer with "thickness" property, the signal will be triggered on thickness change using
 //! (layeritem*, "thickness") as callback parameters.
 
-void ModelView::ItemListenerBase::setOnChildPropertyChange(ModelView::Callbacks::item_str_t f) {
+void ModelView::ItemListenerBase::setOnChildPropertyChange(ModelView::Callbacks::item_str_t f)
+{
     item()->mapper()->setOnChildPropertyChange(f, this);
 }
 
@@ -72,7 +84,8 @@ void ModelView::ItemListenerBase::setOnChildPropertyChange(ModelView::Callbacks:
 //! tag, the signal will be triggered on layer insertion with
 //! (multilayer*, {T_LAYER, row}) as callback parameters.
 
-void ModelView::ItemListenerBase::setOnItemInserted(ModelView::Callbacks::item_tagrow_t f) {
+void ModelView::ItemListenerBase::setOnItemInserted(ModelView::Callbacks::item_tagrow_t f)
+{
     item()->mapper()->setOnItemInserted(f, this);
 }
 
@@ -81,11 +94,13 @@ void ModelView::ItemListenerBase::setOnItemInserted(ModelView::Callbacks::item_t
 //! tag, the signal will be triggered on layer removal with
 //! (multilayer*, {T_LAYER, oldrow}) as callback parameters.
 
-void ModelView::ItemListenerBase::setOnItemRemoved(ModelView::Callbacks::item_tagrow_t f) {
+void ModelView::ItemListenerBase::setOnItemRemoved(ModelView::Callbacks::item_tagrow_t f)
+{
     item()->mapper()->setOnItemRemoved(f, this);
 }
 
-void ModelView::ItemListenerBase::setOnAboutToRemoveItem(ModelView::Callbacks::item_tagrow_t f) {
+void ModelView::ItemListenerBase::setOnAboutToRemoveItem(ModelView::Callbacks::item_tagrow_t f)
+{
     item()->mapper()->setOnAboutToRemoveItem(f, this);
 }
 
@@ -94,11 +109,13 @@ void ModelView::ItemListenerBase::setOnAboutToRemoveItem(ModelView::Callbacks::i
 //! tag, the signal will be triggered on layer deletion with
 //! (multilayer*, {T_LAYER, row}) as callback parameters.
 
-ModelView::SessionItem* ModelView::ItemListenerBase::item() const {
+ModelView::SessionItem* ModelView::ItemListenerBase::item() const
+{
     return m_item;
 }
 
-void ModelView::ItemListenerBase::unsubscribe_from_current() {
+void ModelView::ItemListenerBase::unsubscribe_from_current()
+{
     if (!m_item)
         return;
 

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/FitWidgets/FitResultsWidget.cpp
 //! @brief     Implements class FitResultsWidget
@@ -14,6 +14,7 @@
 
 #include "GUI/coregui/Views/FitWidgets/FitResultsWidget.h"
 
-FitResultsWidget::FitResultsWidget(QWidget* parent) : QWidget(parent) {
+FitResultsWidget::FitResultsWidget(QWidget* parent) : QWidget(parent)
+{
     setWindowTitle(QLatin1String("Fit Results"));
 }

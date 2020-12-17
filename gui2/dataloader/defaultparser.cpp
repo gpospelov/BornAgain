@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/dataloader/defaultparser.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/dataloader/defaultparser.h"
 #include "gui2/dataloader/dataloader_utils.h"
@@ -13,7 +18,8 @@
 
 namespace gui2 {
 
-DefaultParser::DefaultParser(const ParserOptions& options) {
+DefaultParser::DefaultParser(const ParserOptions& options)
+{
     m_isSkipLineNumber = Utils::CreateLineNumberPatternValidator(options.m_skip_index_pattern);
     m_isValidLineContent = Utils::CreateLinePrefixValidator(options.m_header_prefix);
     m_line_splitter = Utils::CreateSeparatorBasedSplitter(options.m_separator);
@@ -21,7 +27,8 @@ DefaultParser::DefaultParser(const ParserOptions& options) {
 
 //! Parse data representing content of ASCII file.
 
-void DefaultParser::process(const std::vector<std::string>& raw_data) {
+void DefaultParser::process(const std::vector<std::string>& raw_data)
+{
     m_rawData = raw_data;
     m_parsedData.clear();
 
@@ -38,25 +45,29 @@ void DefaultParser::process(const std::vector<std::string>& raw_data) {
 
 //! Returns total number of lines in raw data.
 
-size_t DefaultParser::totalLineCount() const {
+size_t DefaultParser::totalLineCount() const
+{
     return m_rawData.size();
 }
 
 //! Returns a pair representing raw line and flag describing parsing results.
 
-std::string DefaultParser::getLine(size_t index) const {
+std::string DefaultParser::getLine(size_t index) const
+{
     if (index >= m_rawData.size())
         throw std::runtime_error("Error in DefaultParser: out of bounds.");
 
     return m_rawData[index];
 }
 
-std::vector<std::string> DefaultParser::parseResults(size_t index) const {
+std::vector<std::string> DefaultParser::parseResults(size_t index) const
+{
     auto it = m_parsedData.find(index);
     return it == m_parsedData.end() ? std::vector<std::string>() : it->second;
 }
 
-std::vector<std::vector<std::string>> DefaultParser::parsedData() const {
+std::vector<std::vector<std::string>> DefaultParser::parsedData() const
+{
     std::vector<std::vector<std::string>> result;
     for (size_t index = 0; index < totalLineCount(); ++index) {
         if (auto it = m_parsedData.find(index); it != m_parsedData.end())

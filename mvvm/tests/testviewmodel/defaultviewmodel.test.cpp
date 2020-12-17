@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/defaultviewmodel.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "folderbasedtest.h"
 #include "google_test.h"
@@ -39,7 +44,8 @@ public:
 
 DefaultViewModelTest::~DefaultViewModelTest() = default;
 
-TEST_F(DefaultViewModelTest, initialState) {
+TEST_F(DefaultViewModelTest, initialState)
+{
     SessionModel model;
     DefaultViewModel viewModel(&model);
     EXPECT_EQ(viewModel.rowCount(), 0);
@@ -49,7 +55,8 @@ TEST_F(DefaultViewModelTest, initialState) {
 
 //! Single property item in a model.
 
-TEST_F(DefaultViewModelTest, fromPropertyItem) {
+TEST_F(DefaultViewModelTest, fromPropertyItem)
+{
     SessionModel model;
     auto propertyItem = model.insertItem<PropertyItem>();
     propertyItem->setData(42.0);
@@ -74,7 +81,8 @@ TEST_F(DefaultViewModelTest, fromPropertyItem) {
 
 //! Single property item in a model, inserted after DefaultViewModel was setup.
 
-TEST_F(DefaultViewModelTest, initThenInsert) {
+TEST_F(DefaultViewModelTest, initThenInsert)
+{
     SessionModel model;
     DefaultViewModel viewModel(&model);
 
@@ -101,7 +109,8 @@ TEST_F(DefaultViewModelTest, initThenInsert) {
 
 //! Single property item in a model.
 
-TEST_F(DefaultViewModelTest, sessionItemFromIndex) {
+TEST_F(DefaultViewModelTest, sessionItemFromIndex)
+{
     SessionModel model;
     auto propertyItem = model.insertItem<PropertyItem>();
     propertyItem->setData(42.0);
@@ -121,7 +130,8 @@ TEST_F(DefaultViewModelTest, sessionItemFromIndex) {
 
 //! Index from single property item.
 
-TEST_F(DefaultViewModelTest, indexFromSessionItem) {
+TEST_F(DefaultViewModelTest, indexFromSessionItem)
+{
     SessionModel model;
     auto propertyItem = model.insertItem<PropertyItem>();
     propertyItem->setData(42.0);
@@ -140,7 +150,8 @@ TEST_F(DefaultViewModelTest, indexFromSessionItem) {
 
 //! Find ViewItem's corresponding to given PropertyItem.
 
-TEST_F(DefaultViewModelTest, findPropertyItemView) {
+TEST_F(DefaultViewModelTest, findPropertyItemView)
+{
     SessionModel model;
     auto propertyItem = model.insertItem<PropertyItem>();
     propertyItem->setData(42.0);
@@ -152,7 +163,8 @@ TEST_F(DefaultViewModelTest, findPropertyItemView) {
 //! Constructing ViewModel from single PropertyItem.
 //! Change thickness property in SessionItem, control dataChanged signals from ViewModel.
 
-TEST_F(DefaultViewModelTest, propertyItemDataChanged) {
+TEST_F(DefaultViewModelTest, propertyItemDataChanged)
+{
     SessionModel model;
     auto propertyItem = model.insertItem<PropertyItem>();
     propertyItem->setData(42.0);
@@ -178,7 +190,8 @@ TEST_F(DefaultViewModelTest, propertyItemDataChanged) {
 
 //! Inserting single top level item.
 
-TEST_F(DefaultViewModelTest, insertSingleTopItem) {
+TEST_F(DefaultViewModelTest, insertSingleTopItem)
+{
     SessionModel model;
     DefaultViewModel viewModel(&model);
 
@@ -206,7 +219,8 @@ TEST_F(DefaultViewModelTest, insertSingleTopItem) {
 
 //! Removing single top level item.
 
-TEST_F(DefaultViewModelTest, removeSingleTopItem) {
+TEST_F(DefaultViewModelTest, removeSingleTopItem)
+{
     SessionModel model;
 
     // inserting single item
@@ -236,7 +250,8 @@ TEST_F(DefaultViewModelTest, removeSingleTopItem) {
 
 //! Remove one of two top level items.
 
-TEST_F(DefaultViewModelTest, removeOneOfTopItems) {
+TEST_F(DefaultViewModelTest, removeOneOfTopItems)
+{
     SessionModel model;
 
     // inserting single item
@@ -273,7 +288,8 @@ TEST_F(DefaultViewModelTest, removeOneOfTopItems) {
 
 //! Single property item in ViewModel with various appearance flags.
 
-TEST_F(DefaultViewModelTest, propertyItemAppearance) {
+TEST_F(DefaultViewModelTest, propertyItemAppearance)
+{
     SessionModel model;
 
     // default item
@@ -312,7 +328,8 @@ TEST_F(DefaultViewModelTest, propertyItemAppearance) {
 
 //! Signals in ViewModel when property item changes its appearance.
 
-TEST_F(DefaultViewModelTest, propertyItemAppearanceChanged) {
+TEST_F(DefaultViewModelTest, propertyItemAppearanceChanged)
+{
     SessionModel model;
 
     // default item
@@ -364,7 +381,8 @@ TEST_F(DefaultViewModelTest, propertyItemAppearanceChanged) {
 
 //! Signals in ViewModel when property item changes its tooltips.
 
-TEST_F(DefaultViewModelTest, tooltipChanged) {
+TEST_F(DefaultViewModelTest, tooltipChanged)
+{
     SessionModel model;
 
     // default item
@@ -412,7 +430,8 @@ TEST_F(DefaultViewModelTest, tooltipChanged) {
 
 //! Setting property item as ROOT item.
 
-TEST_F(DefaultViewModelTest, setPropertyItemAsRoot) {
+TEST_F(DefaultViewModelTest, setPropertyItemAsRoot)
+{
     SessionModel model;
     DefaultViewModel viewModel(&model);
 
@@ -440,7 +459,8 @@ TEST_F(DefaultViewModelTest, setPropertyItemAsRoot) {
 //! Setting property item as ROOT item.
 //! Same as above, only view model was initialized after.
 
-TEST_F(DefaultViewModelTest, setPropertyItemAsRootAfter) {
+TEST_F(DefaultViewModelTest, setPropertyItemAsRootAfter)
+{
     SessionModel model;
     auto item = model.insertItem<PropertyItem>();
 
@@ -469,7 +489,8 @@ TEST_F(DefaultViewModelTest, setPropertyItemAsRootAfter) {
 
 //! Setting top level item as ROOT item (case parent and children).
 
-TEST_F(DefaultViewModelTest, setCompoundAsRootItem) {
+TEST_F(DefaultViewModelTest, setCompoundAsRootItem)
+{
     SessionModel model;
     DefaultViewModel viewModel(&model);
 
@@ -491,7 +512,8 @@ TEST_F(DefaultViewModelTest, setCompoundAsRootItem) {
 
 //! Setting vector item as ROOT item.
 
-TEST_F(DefaultViewModelTest, setVectorItemAsRoot) {
+TEST_F(DefaultViewModelTest, setVectorItemAsRoot)
+{
     SessionModel model;
     auto vectorItem = model.insertItem<VectorItem>();
 
@@ -504,7 +526,8 @@ TEST_F(DefaultViewModelTest, setVectorItemAsRoot) {
 
 //! On model destroyed.
 
-TEST_F(DefaultViewModelTest, onModelReset) {
+TEST_F(DefaultViewModelTest, onModelReset)
+{
     auto model = std::make_unique<SessionModel>();
     model->insertItem<SessionItem>();
     model->insertItem<SessionItem>();
@@ -525,7 +548,8 @@ TEST_F(DefaultViewModelTest, onModelReset) {
 
 //! On model destroyed.
 
-TEST_F(DefaultViewModelTest, onModelDestroyed) {
+TEST_F(DefaultViewModelTest, onModelDestroyed)
+{
     auto model = std::make_unique<SessionModel>();
     model->insertItem<SessionItem>();
 
@@ -538,7 +562,8 @@ TEST_F(DefaultViewModelTest, onModelDestroyed) {
     EXPECT_EQ(viewModel.columnCount(), 0);
 }
 
-TEST_F(DefaultViewModelTest, fromVector) {
+TEST_F(DefaultViewModelTest, fromVector)
+{
     SessionModel model;
     auto vectorItem = model.insertItem<VectorItem>();
 
@@ -581,7 +606,8 @@ TEST_F(DefaultViewModelTest, fromVector) {
     EXPECT_EQ(pxData->item(), vectorItem->getItem(VectorItem::P_Z));
 }
 
-TEST_F(DefaultViewModelTest, horizontalLabels) {
+TEST_F(DefaultViewModelTest, horizontalLabels)
+{
     SessionModel model;
     model.insertItem<VectorItem>();
 
@@ -595,7 +621,8 @@ TEST_F(DefaultViewModelTest, horizontalLabels) {
 
 //! Testing ViewModel signals while loading data with the help of json loader.
 
-TEST_F(DefaultViewModelTest, jsonConverterLoadModel) {
+TEST_F(DefaultViewModelTest, jsonConverterLoadModel)
+{
     JsonModelConverter converter(ConverterMode::project);
     QJsonObject object;
 
@@ -633,7 +660,8 @@ TEST_F(DefaultViewModelTest, jsonConverterLoadModel) {
 //! Testing ViewModel signals while loading data with the help of json document.
 //! Model is empty.
 
-TEST_F(DefaultViewModelTest, jsonDocumentLoadEmptyModel) {
+TEST_F(DefaultViewModelTest, jsonDocumentLoadEmptyModel)
+{
     auto fileName = TestUtils::TestFileName(testDir(), "jsonDocumentLoadEmptyModel.json");
 
     // preparing jsob object
@@ -670,7 +698,8 @@ TEST_F(DefaultViewModelTest, jsonDocumentLoadEmptyModel) {
 //! Testing ViewModel signals while loading data with the help of json document.
 //! Model is empty.
 
-TEST_F(DefaultViewModelTest, jsonDocumentLoadModel) {
+TEST_F(DefaultViewModelTest, jsonDocumentLoadModel)
+{
     auto fileName = TestUtils::TestFileName(testDir(), "jsonDocumentLoadModel.json");
 
     // preparing jsob object
@@ -707,7 +736,8 @@ TEST_F(DefaultViewModelTest, jsonDocumentLoadModel) {
 
 //! Testing view model after restoring from json document.
 
-TEST_F(DefaultViewModelTest, vectorItemInJsonDocument) {
+TEST_F(DefaultViewModelTest, vectorItemInJsonDocument)
+{
     auto fileName = TestUtils::TestFileName(testDir(), "vectorItemInJsonDocument.json");
 
     SessionModel model;
@@ -746,7 +776,8 @@ TEST_F(DefaultViewModelTest, vectorItemInJsonDocument) {
 //! VectorItem is made root item. Test demonstrates that controller is capable
 //! to restore old rootSessionItem on onModelReset signal
 
-TEST_F(DefaultViewModelTest, vectorItemAsRootInJsonDocument) {
+TEST_F(DefaultViewModelTest, vectorItemAsRootInJsonDocument)
+{
     auto fileName = TestUtils::TestFileName(testDir(), "vectorItemAsRootInJsonDocument.json");
 
     SessionModel model;
@@ -787,7 +818,8 @@ TEST_F(DefaultViewModelTest, vectorItemAsRootInJsonDocument) {
 //! Real life bug. One container with Data1DItem's, one ViewportItem with single graph.
 //! DefaultViewModel is looking on ViewPortItem. Graph is deleted first.
 
-TEST_F(DefaultViewModelTest, deleteGraphVromViewport) {
+TEST_F(DefaultViewModelTest, deleteGraphVromViewport)
+{
     SessionModel model;
 
     // creating data container and single Data1DItem in it

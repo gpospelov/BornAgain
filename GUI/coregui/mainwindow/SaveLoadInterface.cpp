@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/mainwindow/SaveLoadInterface.cpp
 //! @brief     Impelments save/load interface.
@@ -16,7 +16,8 @@
 
 SaveLoadInterface::~SaveLoadInterface() = default;
 
-QString SaveLoadInterface::fileName(const QString& projectDir) const {
+QString SaveLoadInterface::fileName(const QString& projectDir) const
+{
     const auto filename = fileName();
     return projectDir.isEmpty() ? filename : projectDir + "/" + filename;
 }

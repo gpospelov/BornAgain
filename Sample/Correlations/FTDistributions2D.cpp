@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Correlations/FTDistributions2D.cpp
 //! @brief     Implements interface class IFTDistribution2D and children thereof.
@@ -31,9 +31,12 @@ IFTDistribution2D::IFTDistribution2D(const NodeMeta& meta, const std::vector<dou
             PValues)
     , m_omega_x(m_P[0])
     , m_omega_y(m_P[1])
-    , m_gamma(m_P[2]) {}
+    , m_gamma(m_P[2])
+{
+}
 
-double IFTDistribution2D::sumsq(double qx, double qy) const {
+double IFTDistribution2D::sumsq(double qx, double qy) const
+{
     return qx * qx * m_omega_x * m_omega_x + qy * qy * m_omega_y * m_omega_y;
 }
 
@@ -42,20 +45,27 @@ double IFTDistribution2D::sumsq(double qx, double qy) const {
 //  ************************************************************************************************
 
 FTDistribution2DCauchy::FTDistribution2DCauchy(const std::vector<double> P)
-    : IFTDistribution2D({"FTDistribution2DCauchy", "class_tooltip", {}}, P) {}
+    : IFTDistribution2D({"FTDistribution2DCauchy", "class_tooltip", {}}, P)
+{
+}
 
 FTDistribution2DCauchy::FTDistribution2DCauchy(double omega_x, double omega_y, double gamma)
-    : FTDistribution2DCauchy(std::vector<double>{omega_x, omega_y, gamma}) {}
+    : FTDistribution2DCauchy(std::vector<double>{omega_x, omega_y, gamma})
+{
+}
 
-FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const {
+FTDistribution2DCauchy* FTDistribution2DCauchy::clone() const
+{
     return new FTDistribution2DCauchy(m_omega_x, m_omega_y, m_gamma);
 }
 
-double FTDistribution2DCauchy::evaluate(double qx, double qy) const {
+double FTDistribution2DCauchy::evaluate(double qx, double qy) const
+{
     return std::pow(1.0 + sumsq(qx, qy), -1.5);
 }
 
-std::unique_ptr<IDistribution2DSampler> FTDistribution2DCauchy::createSampler() const {
+std::unique_ptr<IDistribution2DSampler> FTDistribution2DCauchy::createSampler() const
+{
     return std::make_unique<Distribution2DCauchySampler>(m_omega_x, m_omega_y);
 }
 
@@ -64,20 +74,27 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DCauchy::createSampler() 
 //  ************************************************************************************************
 
 FTDistribution2DGauss::FTDistribution2DGauss(const std::vector<double> P)
-    : IFTDistribution2D({"FTDistribution2DGauss", "class_tooltip", {}}, P) {}
+    : IFTDistribution2D({"FTDistribution2DGauss", "class_tooltip", {}}, P)
+{
+}
 
 FTDistribution2DGauss::FTDistribution2DGauss(double omega_x, double omega_y, double gamma)
-    : FTDistribution2DGauss(std::vector<double>{omega_x, omega_y, gamma}) {}
+    : FTDistribution2DGauss(std::vector<double>{omega_x, omega_y, gamma})
+{
+}
 
-FTDistribution2DGauss* FTDistribution2DGauss::clone() const {
+FTDistribution2DGauss* FTDistribution2DGauss::clone() const
+{
     return new FTDistribution2DGauss(m_omega_x, m_omega_y, m_gamma);
 }
 
-double FTDistribution2DGauss::evaluate(double qx, double qy) const {
+double FTDistribution2DGauss::evaluate(double qx, double qy) const
+{
     return std::exp(-sumsq(qx, qy) / 2);
 }
 
-std::unique_ptr<IDistribution2DSampler> FTDistribution2DGauss::createSampler() const {
+std::unique_ptr<IDistribution2DSampler> FTDistribution2DGauss::createSampler() const
+{
     return std::make_unique<Distribution2DGaussSampler>(m_omega_x, m_omega_y);
 }
 
@@ -86,21 +103,28 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGauss::createSampler() c
 //  ************************************************************************************************
 
 FTDistribution2DGate::FTDistribution2DGate(const std::vector<double> P)
-    : IFTDistribution2D({"FTDistribution2DGate", "class_tooltip", {}}, P) {}
+    : IFTDistribution2D({"FTDistribution2DGate", "class_tooltip", {}}, P)
+{
+}
 
 FTDistribution2DGate::FTDistribution2DGate(double omega_x, double omega_y, double gamma)
-    : FTDistribution2DGate(std::vector<double>{omega_x, omega_y, gamma}) {}
+    : FTDistribution2DGate(std::vector<double>{omega_x, omega_y, gamma})
+{
+}
 
-FTDistribution2DGate* FTDistribution2DGate::clone() const {
+FTDistribution2DGate* FTDistribution2DGate::clone() const
+{
     return new FTDistribution2DGate(m_omega_x, m_omega_y, m_gamma);
 }
 
-double FTDistribution2DGate::evaluate(double qx, double qy) const {
+double FTDistribution2DGate::evaluate(double qx, double qy) const
+{
     double scaled_q = std::sqrt(sumsq(qx, qy));
     return Math::Bessel::J1c(scaled_q) * 2.0;
 }
 
-std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() const {
+std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() const
+{
     return std::make_unique<Distribution2DGateSampler>(m_omega_x, m_omega_y);
 }
 
@@ -109,16 +133,22 @@ std::unique_ptr<IDistribution2DSampler> FTDistribution2DGate::createSampler() co
 //  ************************************************************************************************
 
 FTDistribution2DCone::FTDistribution2DCone(const std::vector<double> P)
-    : IFTDistribution2D({"FTDistribution2DCone", "class_tooltip", {}}, P) {}
+    : IFTDistribution2D({"FTDistribution2DCone", "class_tooltip", {}}, P)
+{
+}
 
 FTDistribution2DCone::FTDistribution2DCone(double omega_x, double omega_y, double gamma)
-    : FTDistribution2DCone(std::vector<double>{omega_x, omega_y, gamma}) {}
+    : FTDistribution2DCone(std::vector<double>{omega_x, omega_y, gamma})
+{
+}
 
-FTDistribution2DCone* FTDistribution2DCone::clone() const {
+FTDistribution2DCone* FTDistribution2DCone::clone() const
+{
     return new FTDistribution2DCone(m_omega_x, m_omega_y, m_gamma);
 }
 
-double FTDistribution2DCone::evaluate(double qx, double qy) const {
+double FTDistribution2DCone::evaluate(double qx, double qy) const
+{
     double scaled_q = std::sqrt(sumsq(qx, qy));
     if (scaled_q < std::numeric_limits<double>::epsilon())
         return 1.0 - 3.0 * scaled_q * scaled_q / 40.0;
@@ -128,7 +158,8 @@ double FTDistribution2DCone::evaluate(double qx, double qy) const {
     return 6.0 * (Math::Bessel::J1c(scaled_q) - integral / scaled_q / scaled_q / scaled_q);
 }
 
-std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() const {
+std::unique_ptr<IDistribution2DSampler> FTDistribution2DCone::createSampler() const
+{
     return std::make_unique<Distribution2DConeSampler>(m_omega_x, m_omega_y);
 }
 
@@ -143,22 +174,29 @@ FTDistribution2DVoigt::FTDistribution2DVoigt(const std::vector<double> P)
          {{"Eta", "", "balances between Gauss (eta=0) and Cauchy (eta=1) limiting cases", -INF,
            +INF, 0}}},
         P)
-    , m_eta(m_P[3]) {}
+    , m_eta(m_P[3])
+{
+}
 
 FTDistribution2DVoigt::FTDistribution2DVoigt(double omega_x, double omega_y, double gamma,
                                              double eta)
-    : FTDistribution2DVoigt(std::vector<double>{omega_x, omega_y, gamma, eta}) {}
+    : FTDistribution2DVoigt(std::vector<double>{omega_x, omega_y, gamma, eta})
+{
+}
 
-FTDistribution2DVoigt* FTDistribution2DVoigt::clone() const {
+FTDistribution2DVoigt* FTDistribution2DVoigt::clone() const
+{
     return new FTDistribution2DVoigt(m_omega_x, m_omega_y, m_gamma, m_eta);
 }
 
-double FTDistribution2DVoigt::evaluate(double qx, double qy) const {
+double FTDistribution2DVoigt::evaluate(double qx, double qy) const
+{
     double sum_sq = sumsq(qx, qy);
     return m_eta * std::exp(-sum_sq / 2) + (1.0 - m_eta) * std::pow(1.0 + sum_sq, -1.5);
 }
 
-std::unique_ptr<IDistribution2DSampler> FTDistribution2DVoigt::createSampler() const {
+std::unique_ptr<IDistribution2DSampler> FTDistribution2DVoigt::createSampler() const
+{
     // TODO Need to implement 2D Voigt
 
     std::ostringstream ostr;

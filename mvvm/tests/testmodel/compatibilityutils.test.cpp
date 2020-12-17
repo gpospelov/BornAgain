@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/compatibilityutils.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/groupitem.h"
@@ -28,7 +33,8 @@ CompatibilityUtilsTest::~CompatibilityUtilsTest() = default;
 
 //! Testing IsCompatibleSingleProperty.
 
-TEST_F(CompatibilityUtilsTest, IsCompatibleSinglePropertyTag) {
+TEST_F(CompatibilityUtilsTest, IsCompatibleSinglePropertyTag)
+{
     TagInfo tag = TagInfo::propertyTag("thickness", Constants::PropertyType);
     SessionItemContainer container(tag);
 
@@ -41,7 +47,8 @@ TEST_F(CompatibilityUtilsTest, IsCompatibleSinglePropertyTag) {
 
 //! Testing IsCompatibleSingleProperty.
 
-TEST_F(CompatibilityUtilsTest, IsCompatibleUniversalTag) {
+TEST_F(CompatibilityUtilsTest, IsCompatibleUniversalTag)
+{
     TagInfo tag = TagInfo::universalTag("layers");
     SessionItemContainer container(tag);
 
@@ -54,7 +61,8 @@ TEST_F(CompatibilityUtilsTest, IsCompatibleUniversalTag) {
 
 //! Testing IsCompatibleSingleProperty.
 
-TEST_F(CompatibilityUtilsTest, IsCompatibleGroupTag) {
+TEST_F(CompatibilityUtilsTest, IsCompatibleGroupTag)
+{
     TagInfo tag = TagInfo::universalTag(GroupItem::T_GROUP_ITEMS);
     SessionItemContainer container(tag);
 

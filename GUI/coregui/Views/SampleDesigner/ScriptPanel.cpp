@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SampleDesigner/ScriptPanel.cpp
 //! @brief     Implements class ScriptPanel
@@ -19,7 +19,8 @@
 #include <QStackedWidget>
 
 ScriptPanel::ScriptPanel(QWidget* parent)
-    : InfoPanel(parent), m_pySampleWidget(new PySampleWidget(this)) {
+    : InfoPanel(parent), m_pySampleWidget(new PySampleWidget(this))
+{
     setWindowTitle("Python Script");
     setObjectName("ScriptPanel");
 
@@ -29,10 +30,12 @@ ScriptPanel::ScriptPanel(QWidget* parent)
     m_toolBar->hide();
 }
 
-void ScriptPanel::setSampleModel(SampleModel* sampleModel) {
+void ScriptPanel::setSampleModel(SampleModel* sampleModel)
+{
     m_pySampleWidget->setSampleModel(sampleModel);
 }
 
-void ScriptPanel::setInstrumentModel(InstrumentModel* instrumentModel) {
+void ScriptPanel::setInstrumentModel(InstrumentModel* instrumentModel)
+{
     m_pySampleWidget->setInstrumentModel(instrumentModel);
 }

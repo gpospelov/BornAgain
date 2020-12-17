@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorCone6.cpp
 //! @brief     Implements class FormFactorCone6.
@@ -36,15 +36,19 @@ FormFactorCone6::FormFactorCone6(const std::vector<double> P)
         P)
     , m_base_edge(m_P[0])
     , m_height(m_P[1])
-    , m_alpha(m_P[2]) {
+    , m_alpha(m_P[2])
+{
     onChange();
 }
 
 FormFactorCone6::FormFactorCone6(double base_edge, double height, double alpha)
-    : FormFactorCone6(std::vector<double>{base_edge, height, alpha}) {}
+    : FormFactorCone6(std::vector<double>{base_edge, height, alpha})
+{
+}
 
 IFormFactor* FormFactorCone6::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                              kvector_t translation) const {
+                                              kvector_t translation) const
+{
     auto effects = computeSlicingEffects(limits, translation, m_height);
     double dbase_edge = effects.dz_bottom * Math::cot(m_alpha);
     FormFactorCone6 slicedff(m_base_edge - dbase_edge,
@@ -52,7 +56,8 @@ IFormFactor* FormFactorCone6::sliceFormFactor(ZLimits limits, const IRotation& r
     return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
-void FormFactorCone6::onChange() {
+void FormFactorCone6::onChange()
+{
     double cot_alpha = Math::cot(m_alpha);
     if (!std::isfinite(cot_alpha) || cot_alpha < 0)
         throw std::runtime_error("pyramid angle alpha out of bounds");

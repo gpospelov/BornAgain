@@ -3,9 +3,11 @@
 #include "Sample/HardParticle/FormFactorDot.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class FormFactorCoherentSumTest : public ::testing::Test {};
+class FormFactorCoherentSumTest : public ::testing::Test {
+};
 
-TEST_F(FormFactorCoherentSumTest, RelAbundance) {
+TEST_F(FormFactorCoherentSumTest, RelAbundance)
+{
     const double epsilon = 1e-12;
     FormFactorDot ff(5.0);
     FormFactorCoherentSum ffw(1.0);

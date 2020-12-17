@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testview/colormapviewportplotcontroller.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "customplot_test_utils.h"
 #include "google_test.h"
@@ -32,7 +37,8 @@ ColorMapViewportPlotControllerTest::~ColorMapViewportPlotControllerTest() = defa
 
 //! Initial state.
 
-TEST_F(ColorMapViewportPlotControllerTest, initialState) {
+TEST_F(ColorMapViewportPlotControllerTest, initialState)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     ColorMapViewportPlotController controller(custom_plot.get());
     EXPECT_EQ(controller.currentItem(), nullptr);
@@ -47,7 +53,8 @@ TEST_F(ColorMapViewportPlotControllerTest, initialState) {
 
 //! Check ::setItem() method when no colormaps exist.
 
-TEST_F(ColorMapViewportPlotControllerTest, setEmptyViewport) {
+TEST_F(ColorMapViewportPlotControllerTest, setEmptyViewport)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     ColorMapViewportPlotController controller(custom_plot.get());
 
@@ -72,7 +79,8 @@ TEST_F(ColorMapViewportPlotControllerTest, setEmptyViewport) {
 
 //! Check ::setItem() method when data 2d is fully set up.
 
-TEST_F(ColorMapViewportPlotControllerTest, setItem) {
+TEST_F(ColorMapViewportPlotControllerTest, setItem)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     ColorMapViewportPlotController controller(custom_plot.get());
 
@@ -101,7 +109,8 @@ TEST_F(ColorMapViewportPlotControllerTest, setItem) {
 
 //! Consequitive setup.
 
-TEST_F(ColorMapViewportPlotControllerTest, setupConsequitive) {
+TEST_F(ColorMapViewportPlotControllerTest, setupConsequitive)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     ColorMapViewportPlotController controller(custom_plot.get());
 

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Param/Attributes.h
 //! @brief     Defines and implements class Attributes.
@@ -34,7 +34,8 @@ public:
     bool isFixed() const { return m_is_fixed; }
     bool isFree() const { return !isFixed(); }
 
-    friend std::ostream& operator<<(std::ostream& ostr, const Attributes& m) {
+    friend std::ostream& operator<<(std::ostream& ostr, const Attributes& m)
+    {
         m.print(ostr);
         return ostr;
     }
@@ -51,7 +52,8 @@ protected:
 };
 
 //! Prints class
-inline void Attributes::print(std::ostream& ostr) const {
+inline void Attributes::print(std::ostream& ostr) const
+{
     if (isFixed())
         ostr << "fixed";
     else

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/RealDataModel.cpp
 //! @brief     Implements class RealDataModel
@@ -16,7 +16,8 @@
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/RealDataItem.h"
 
-RealDataModel::RealDataModel(QObject* parent) : SessionModel(SessionXML::RealDataModelTag, parent) {
+RealDataModel::RealDataModel(QObject* parent) : SessionModel(SessionXML::RealDataModelTag, parent)
+{
     setObjectName(SessionXML::RealDataModelTag);
 }
 
@@ -27,7 +28,8 @@ RealDataModel::RealDataModel(QObject* parent) : SessionModel(SessionXML::RealDat
 //    return result_flags;
 //}
 
-QVector<SessionItem*> RealDataModel::nonXMLData() const {
+QVector<SessionItem*> RealDataModel::nonXMLData() const
+{
     QVector<SessionItem*> result;
 
     for (auto realData : topItems<RealDataItem>()) {

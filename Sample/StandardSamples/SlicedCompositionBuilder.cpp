@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/SlicedCompositionBuilder.cpp
 //! @brief     Defines classes to build various particles crossing interfaces.
@@ -22,7 +22,8 @@
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* SlicedCompositionBuilder::buildSample() const {
+MultiLayer* SlicedCompositionBuilder::buildSample() const
+{
     const double sphere_radius = 10.0;
     const double bottom_cup_height = 4.0;
     const double composition_shift = bottom_cup_height;

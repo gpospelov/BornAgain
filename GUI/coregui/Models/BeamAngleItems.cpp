@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/BeamAngleItems.cpp
 //! @brief     Implements class BeamAngleItems
@@ -16,7 +16,8 @@
 #include "Base/Const/Units.h"
 
 BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
-    : BeamDistributionItem("BeamAzimuthalAngle", m_show_mean) {
+    : BeamDistributionItem("BeamAzimuthalAngle", m_show_mean)
+{
     register_distribution_group("Distribution extended group");
 
     SessionItem* valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_MEAN);
@@ -29,18 +30,21 @@ BeamAzimuthalAngleItem::BeamAzimuthalAngleItem()
 
 //! Returns beam azimuthal angle. In the case of distribution applied, returns its mean.
 
-double BeamAzimuthalAngleItem::azimuthalAngle() const {
+double BeamAzimuthalAngleItem::azimuthalAngle() const
+{
     return BeamDistributionItem::meanValue();
 }
 
-double BeamAzimuthalAngleItem::scaleFactor() const {
+double BeamAzimuthalAngleItem::scaleFactor() const
+{
     return Units::deg;
 }
 
 // ------------------------------------------------------------------------------------------------
 
 BeamInclinationAngleItem::BeamInclinationAngleItem()
-    : BeamDistributionItem("BeamInclinationAngle", m_show_mean) {
+    : BeamDistributionItem("BeamInclinationAngle", m_show_mean)
+{
     register_distribution_group("Distribution extended group");
 
     SessionItem* valueItem = getGroupItem(P_DISTRIBUTION)->getItem(DistributionNoneItem::P_MEAN);
@@ -53,10 +57,12 @@ BeamInclinationAngleItem::BeamInclinationAngleItem()
 
 //! Returns beam inclination angle. In the case of distribution applied, returns its mean.
 
-double BeamInclinationAngleItem::inclinationAngle() const {
+double BeamInclinationAngleItem::inclinationAngle() const
+{
     return BeamDistributionItem::meanValue();
 }
 
-double BeamInclinationAngleItem::scaleFactor() const {
+double BeamInclinationAngleItem::scaleFactor() const
+{
     return Units::deg;
 }

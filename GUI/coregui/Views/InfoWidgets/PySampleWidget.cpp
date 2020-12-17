@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/InfoWidgets/PySampleWidget.cpp
 //! @brief     Implements class PySampleWidget
@@ -38,7 +38,8 @@ PySampleWidget::PySampleWidget(QWidget* parent)
     , m_instrumentModel(nullptr)
     , m_highlighter(nullptr)
     , m_updateTimer(new UpdateTimer(accumulate_updates_during_msec, this))
-    , m_warningSign(new WarningSign(m_textEdit)) {
+    , m_warningSign(new WarningSign(m_textEdit))
+{
     m_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     auto mainLayout = new QVBoxLayout;
@@ -53,7 +54,8 @@ PySampleWidget::PySampleWidget(QWidget* parent)
     m_textEdit->setFontPointSize(DesignerHelper::getPythonEditorFontSize());
 }
 
-void PySampleWidget::setSampleModel(SampleModel* sampleModel) {
+void PySampleWidget::setSampleModel(SampleModel* sampleModel)
+{
     if (sampleModel != m_sampleModel) {
         if (m_sampleModel)
             setEditorConnected(false);
@@ -61,15 +63,18 @@ void PySampleWidget::setSampleModel(SampleModel* sampleModel) {
     }
 }
 
-void PySampleWidget::setInstrumentModel(InstrumentModel* instrumentModel) {
+void PySampleWidget::setInstrumentModel(InstrumentModel* instrumentModel)
+{
     m_instrumentModel = instrumentModel;
 }
 
-void PySampleWidget::onModifiedRow(const QModelIndex&, int, int) {
+void PySampleWidget::onModifiedRow(const QModelIndex&, int, int)
+{
     m_updateTimer->scheduleUpdate();
 }
 
-void PySampleWidget::onDataChanged(const QModelIndex& index, const QModelIndex&) {
+void PySampleWidget::onDataChanged(const QModelIndex& index, const QModelIndex&)
+{
     auto item = m_sampleModel->itemForIndex(index);
     if (!item)
         return;
@@ -79,7 +84,8 @@ void PySampleWidget::onDataChanged(const QModelIndex& index, const QModelIndex&)
 }
 
 //! Update the editor with the script content
-void PySampleWidget::updateEditor() {
+void PySampleWidget::updateEditor()
+{
     if (!m_highlighter) {
         m_highlighter = new PythonSyntaxHighlighter(m_textEdit->document());
         m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
@@ -97,7 +103,8 @@ void PySampleWidget::updateEditor() {
     m_textEdit->verticalScrollBar()->setValue(old_scrollbar_value);
 }
 
-void PySampleWidget::setEditorConnected(bool isConnected) {
+void PySampleWidget::setEditorConnected(bool isConnected)
+{
     if (isConnected) {
         connect(m_sampleModel, &SampleModel::rowsInserted, this, &PySampleWidget::onModifiedRow,
                 Qt::UniqueConnection);
@@ -123,17 +130,20 @@ void PySampleWidget::setEditorConnected(bool isConnected) {
     }
 }
 
-void PySampleWidget::showEvent(QShowEvent*) {
+void PySampleWidget::showEvent(QShowEvent*)
+{
     setEditorConnected(isVisible());
 }
 
-void PySampleWidget::hideEvent(QHideEvent*) {
+void PySampleWidget::hideEvent(QHideEvent*)
+{
     setEditorConnected(isVisible());
 }
 
 //! generates string representing code snippet for all multi layers in the model
 
-QString PySampleWidget::generateCodeSnippet() {
+QString PySampleWidget::generateCodeSnippet()
+{
     m_warningSign->clear();
     QString result;
 

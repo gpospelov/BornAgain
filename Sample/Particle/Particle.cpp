@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Particle/Particle.cpp
 //! @brief     Implements class Particle.
@@ -22,24 +22,28 @@
 
 Particle::~Particle() = default;
 
-Particle::Particle(Material material) : m_material(std::move(material)) {
+Particle::Particle(Material material) : m_material(std::move(material))
+{
     initialize();
 }
 
 Particle::Particle(Material material, const IFormFactor& form_factor)
-    : m_material(std::move(material)), m_form_factor(form_factor.clone()) {
+    : m_material(std::move(material)), m_form_factor(form_factor.clone())
+{
     initialize();
     registerChild(m_form_factor.get());
 }
 
 Particle::Particle(Material material, const IFormFactor& form_factor, const IRotation& rotation)
-    : m_material(std::move(material)), m_form_factor(form_factor.clone()) {
+    : m_material(std::move(material)), m_form_factor(form_factor.clone())
+{
     initialize();
     setRotation(rotation);
     registerChild(m_form_factor.get());
 }
 
-Particle* Particle::clone() const {
+Particle* Particle::clone() const
+{
     Particle* p_result = new Particle(m_material);
     p_result->setAbundance(m_abundance);
     if (m_form_factor)
@@ -51,7 +55,8 @@ Particle* Particle::clone() const {
     return p_result;
 }
 
-SlicedParticle Particle::createSlicedParticle(ZLimits limits) const {
+SlicedParticle Particle::createSlicedParticle(ZLimits limits) const
+{
     if (!m_form_factor)
         return {};
     std::unique_ptr<IRotation> P_rotation(new IdentityRotation);
@@ -71,22 +76,26 @@ SlicedParticle Particle::createSlicedParticle(ZLimits limits) const {
     return result;
 }
 
-void Particle::setMaterial(Material material) {
+void Particle::setMaterial(Material material)
+{
     m_material = std::move(material);
 }
 
-void Particle::setFormFactor(const IFormFactor& form_factor) {
+void Particle::setFormFactor(const IFormFactor& form_factor)
+{
     if (&form_factor != m_form_factor.get()) {
         m_form_factor.reset(form_factor.clone());
         registerChild(m_form_factor.get());
     }
 }
 
-std::vector<const INode*> Particle::getChildren() const {
+std::vector<const INode*> Particle::getChildren() const
+{
     return std::vector<const INode*>() << IParticle::getChildren() << m_form_factor;
 }
 
-void Particle::initialize() {
+void Particle::initialize()
+{
     setName("Particle");
     registerParticleProperties();
 }

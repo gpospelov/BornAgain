@@ -3,9 +3,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
-class DetectorMaskTest : public ::testing::Test {};
+class DetectorMaskTest : public ::testing::Test {
+};
 
-TEST_F(DetectorMaskTest, InitialState) {
+TEST_F(DetectorMaskTest, InitialState)
+{
     DetectorMask test;
     EXPECT_FALSE(test.isMasked(0));
     EXPECT_FALSE(test.getMaskData()->isInitialized());
@@ -26,7 +28,8 @@ TEST_F(DetectorMaskTest, InitialState) {
 // -2.0  -------------------------------------------------------------------------
 //     -4.0  -3.0  -2.0  -1.0   0.0   1.0   2.0   3.0   4.0   5.0   6.0   7.0   8.0
 
-TEST_F(DetectorMaskTest, AddMask) {
+TEST_F(DetectorMaskTest, AddMask)
+{
     DetectorMask detectorMask;
 
     std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};
@@ -81,7 +84,8 @@ TEST_F(DetectorMaskTest, AddMask) {
     }
 }
 
-TEST_F(DetectorMaskTest, AssignmentOperator) {
+TEST_F(DetectorMaskTest, AssignmentOperator)
+{
     DetectorMask detectorMask;
 
     std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};
@@ -112,7 +116,8 @@ TEST_F(DetectorMaskTest, AssignmentOperator) {
     EXPECT_EQ(mask.numberOfMaskedChannels(), 32);
 }
 
-TEST_F(DetectorMaskTest, CopyConstructor) {
+TEST_F(DetectorMaskTest, CopyConstructor)
+{
     DetectorMask detectorMask;
 
     std::vector<double> x = {4.0, -4.0, -4.0, 4.0, 4.0};

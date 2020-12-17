@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Detector/RegionOfInterest.cpp
 //! @brief     Implements class RegionOfInterest.
@@ -18,13 +18,15 @@
 
 RegionOfInterest::RegionOfInterest(const IDetector2D& detector, double xlow, double ylow,
                                    double xup, double yup)
-    : RegionOfInterest(xlow, ylow, xup, yup) {
+    : RegionOfInterest(xlow, ylow, xup, yup)
+{
     initFrom(detector.axis(0), detector.axis(1));
 }
 
 RegionOfInterest::RegionOfInterest(const OutputData<double>& data, double xlow, double ylow,
                                    double xup, double yup)
-    : RegionOfInterest(xlow, ylow, xup, yup) {
+    : RegionOfInterest(xlow, ylow, xup, yup)
+{
     if (data.rank() != 2)
         throw std::runtime_error("RegionOfInterest::RegionOfInterest() -> Error. "
                                  "Data is not two-dimensional.");
@@ -38,9 +40,12 @@ RegionOfInterest::RegionOfInterest(double xlow, double ylow, double xup, double 
     , m_ay1(0)
     , m_ax2(0)
     , m_ay2(0)
-    , m_glob_index0(0) {}
+    , m_glob_index0(0)
+{
+}
 
-RegionOfInterest* RegionOfInterest::clone() const {
+RegionOfInterest* RegionOfInterest::clone() const
+{
     return new RegionOfInterest(*this);
 }
 
@@ -55,30 +60,38 @@ RegionOfInterest::RegionOfInterest(const RegionOfInterest& other)
     , m_ay2(other.m_ay2)
     , m_glob_index0(other.m_glob_index0)
     , m_detector_dims(other.m_detector_dims)
-    , m_roi_dims(other.m_roi_dims) {}
+    , m_roi_dims(other.m_roi_dims)
+{
+}
 
-double RegionOfInterest::getXlow() const {
+double RegionOfInterest::getXlow() const
+{
     return m_rectangle->getXlow();
 }
 
-double RegionOfInterest::getYlow() const {
+double RegionOfInterest::getYlow() const
+{
     return m_rectangle->getYlow();
 }
 
-double RegionOfInterest::getXup() const {
+double RegionOfInterest::getXup() const
+{
     return m_rectangle->getXup();
 }
 
-double RegionOfInterest::getYup() const {
+double RegionOfInterest::getYup() const
+{
     return m_rectangle->getYup();
 }
 
-size_t RegionOfInterest::detectorIndex(size_t roiIndex) const {
+size_t RegionOfInterest::detectorIndex(size_t roiIndex) const
+{
     return m_glob_index0 + ycoord(roiIndex, m_roi_dims)
            + xcoord(roiIndex, m_roi_dims) * m_detector_dims[1];
 }
 
-size_t RegionOfInterest::roiIndex(size_t globalIndex) const {
+size_t RegionOfInterest::roiIndex(size_t globalIndex) const
+{
     size_t ny = ycoord(globalIndex, m_detector_dims);
     if (ny < m_ay1 || ny > m_ay2)
         throw std::runtime_error("RegionOfInterest::roiIndex() -> Error.");
@@ -90,15 +103,18 @@ size_t RegionOfInterest::roiIndex(size_t globalIndex) const {
     return ny - m_ay1 + (nx - m_ax1) * m_roi_dims[1];
 }
 
-size_t RegionOfInterest::roiSize() const {
+size_t RegionOfInterest::roiSize() const
+{
     return m_roi_dims[0] * m_roi_dims[1];
 }
 
-size_t RegionOfInterest::detectorSize() const {
+size_t RegionOfInterest::detectorSize() const
+{
     return m_detector_dims[0] * m_detector_dims[1];
 }
 
-bool RegionOfInterest::isInROI(size_t detectorIndex) const {
+bool RegionOfInterest::isInROI(size_t detectorIndex) const
+{
     size_t ny = ycoord(detectorIndex, m_detector_dims);
     if (ny < m_ay1 || ny > m_ay2)
         return false;
@@ -108,14 +124,16 @@ bool RegionOfInterest::isInROI(size_t detectorIndex) const {
     return true;
 }
 
-std::unique_ptr<IAxis> RegionOfInterest::clipAxisToRoi(size_t axis_index, const IAxis& axis) const {
+std::unique_ptr<IAxis> RegionOfInterest::clipAxisToRoi(size_t axis_index, const IAxis& axis) const
+{
     size_t nbin1 = (axis_index == 0 ? m_ax1 : m_ay1);
     size_t nbin2 = (axis_index == 0 ? m_ax2 : m_ay2);
     return std::unique_ptr<IAxis>(new FixedBinAxis(
         axis.getName(), nbin2 - nbin1 + 1, axis.bin(nbin1).m_lower, axis.bin(nbin2).m_upper));
 }
 
-void RegionOfInterest::initFrom(const IAxis& x_axis, const IAxis& y_axis) {
+void RegionOfInterest::initFrom(const IAxis& x_axis, const IAxis& y_axis)
+{
     m_detector_dims.push_back(x_axis.size());
     m_detector_dims.push_back(y_axis.size());
 

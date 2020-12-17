@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/DataSelector.h
 //! @brief     Defines class DataSelector
@@ -41,12 +41,14 @@ public:
     double coordinateMultiplier() const { return m_tableWidget->coordinateMultiplier(); }
     std::set<int> rowsToDiscard() const { return m_tableWidget->rowsToDiscard(); }
     Axes::Units units() const;
-    void setDataArray(csv::DataArray csvArray) {
+    void setDataArray(csv::DataArray csvArray)
+    {
         m_data = std::move(csvArray);
         updateData();
         resetSelection();
     }
-    void setSeparator(char newSeparator) {
+    void setSeparator(char newSeparator)
+    {
         m_separatorField->setText(QString(QChar(newSeparator)));
     }
 

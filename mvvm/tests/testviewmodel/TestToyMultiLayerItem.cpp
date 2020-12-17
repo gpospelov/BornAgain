@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/TestToyMultiLayerItem.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/viewmodel/defaultviewmodel.h"
@@ -28,14 +33,16 @@ ToyMultilayerItemTest::~ToyMultilayerItemTest() = default;
 
 //! Initial state.
 
-TEST_F(ToyMultilayerItemTest, initialState) {
+TEST_F(ToyMultilayerItemTest, initialState)
+{
     ToyItems::MultiLayerItem item;
     EXPECT_FALSE(item.isSinglePropertyTag(ToyItems::MultiLayerItem::T_LAYERS));
 }
 
 //! Toy multilayer in a SampleModel.
 
-TEST_F(ToyMultilayerItemTest, multiLayer) {
+TEST_F(ToyMultilayerItemTest, multiLayer)
+{
     ToyItems::SampleModel model;
     auto multiLayer = model.insertItem<ToyItems::MultiLayerItem>();
 
@@ -46,7 +53,8 @@ TEST_F(ToyMultilayerItemTest, multiLayer) {
 //! Constructing ViewModel from a MultiLayer.
 //! Checking that view items point co correct SessionItem.
 
-TEST_F(ToyMultilayerItemTest, multiLayerView) {
+TEST_F(ToyMultilayerItemTest, multiLayerView)
+{
     ToyItems::SampleModel model;
     auto multiLayerItem = model.insertItem<ToyItems::MultiLayerItem>();
 
@@ -70,7 +78,8 @@ TEST_F(ToyMultilayerItemTest, multiLayerView) {
 
 //! Find ViewItem corresponding to given MultiLayer item.
 
-TEST_F(ToyMultilayerItemTest, findMultiLayerView) {
+TEST_F(ToyMultilayerItemTest, findMultiLayerView)
+{
     ToyItems::SampleModel model;
     auto multiLayerItem = model.insertItem<ToyItems::MultiLayerItem>();
 
@@ -83,7 +92,8 @@ TEST_F(ToyMultilayerItemTest, findMultiLayerView) {
 
 //! How ViewLabelItem sees MultiLayer
 
-TEST_F(ToyMultilayerItemTest, viewItemsForMultiLayer) {
+TEST_F(ToyMultilayerItemTest, viewItemsForMultiLayer)
+{
     ToyItems::SampleModel model;
 
     auto multiLayer = model.insertItem<ToyItems::MultiLayerItem>();

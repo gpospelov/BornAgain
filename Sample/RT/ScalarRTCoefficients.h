@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/RT/ScalarRTCoefficients.h
 //! @brief     Defines class ScalarRTCoefficients.
@@ -76,7 +76,8 @@ private:
 #error no need to expose this header to Swig
 #endif
 
-inline ScalarRTCoefficients::ScalarRTCoefficients() : kz(0) {
+inline ScalarRTCoefficients::ScalarRTCoefficients() : kz(0)
+{
     m_plus(0) = 1.0;
     m_plus(1) = 0.0;
     m_min(0) = 0.0;
@@ -84,51 +85,63 @@ inline ScalarRTCoefficients::ScalarRTCoefficients() : kz(0) {
     t_r << complex_t(1.0, 0.0), complex_t(0.0, 0.0);
 }
 
-inline ScalarRTCoefficients* ScalarRTCoefficients::clone() const {
+inline ScalarRTCoefficients* ScalarRTCoefficients::clone() const
+{
     return new ScalarRTCoefficients(*this);
 }
 
-inline Eigen::Vector2cd ScalarRTCoefficients::T1plus() const {
+inline Eigen::Vector2cd ScalarRTCoefficients::T1plus() const
+{
     return Eigen::Vector2cd::Zero();
 }
 
-inline Eigen::Vector2cd ScalarRTCoefficients::R1plus() const {
+inline Eigen::Vector2cd ScalarRTCoefficients::R1plus() const
+{
     return Eigen::Vector2cd::Zero();
 }
 
-inline Eigen::Vector2cd ScalarRTCoefficients::T2plus() const {
+inline Eigen::Vector2cd ScalarRTCoefficients::T2plus() const
+{
     return m_plus * getScalarT();
 }
 
-inline Eigen::Vector2cd ScalarRTCoefficients::R2plus() const {
+inline Eigen::Vector2cd ScalarRTCoefficients::R2plus() const
+{
     return m_plus * getScalarR();
 }
 
-inline Eigen::Vector2cd ScalarRTCoefficients::T1min() const {
+inline Eigen::Vector2cd ScalarRTCoefficients::T1min() const
+{
     return m_min * getScalarT();
 }
 
-inline Eigen::Vector2cd ScalarRTCoefficients::R1min() const {
+inline Eigen::Vector2cd ScalarRTCoefficients::R1min() const
+{
     return m_min * getScalarR();
 }
 
-inline Eigen::Vector2cd ScalarRTCoefficients::T2min() const {
+inline Eigen::Vector2cd ScalarRTCoefficients::T2min() const
+{
     return Eigen::Vector2cd::Zero();
 }
 
-inline Eigen::Vector2cd ScalarRTCoefficients::R2min() const {
+inline Eigen::Vector2cd ScalarRTCoefficients::R2min() const
+{
     return Eigen::Vector2cd::Zero();
 }
 
-inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const {
+inline Eigen::Vector2cd ScalarRTCoefficients::getKz() const
+{
     return (m_plus + m_min) * kz;
 }
 
-inline complex_t ScalarRTCoefficients::getScalarR() const {
+inline complex_t ScalarRTCoefficients::getScalarR() const
+{
     return t_r(1);
 }
 
-inline complex_t ScalarRTCoefficients::getScalarT() const {
+inline complex_t ScalarRTCoefficients::getScalarT() const
+{
     return t_r(0);
 }
 

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/welcomeview/userinteractor.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/welcomeview/userinteractor.h"
 #include "gui2/welcomeview/recentprojectsettings.h"
@@ -20,7 +25,8 @@ using namespace ModelView;
 
 namespace {
 //! Map of standard Qt answers to what ProjectManager expects.
-std::map<QMessageBox::StandardButton, SaveChangesAnswer> answer_map() {
+std::map<QMessageBox::StandardButton, SaveChangesAnswer> answer_map()
+{
     std::map<QMessageBox::StandardButton, SaveChangesAnswer> result = {
         {QMessageBox::Save, SaveChangesAnswer::SAVE},
         {QMessageBox::Discard, SaveChangesAnswer::DISCARD},
@@ -32,12 +38,15 @@ std::map<QMessageBox::StandardButton, SaveChangesAnswer> answer_map() {
 namespace gui2 {
 
 UserInteractor::UserInteractor(RecentProjectSettings* settings, QWidget* parent)
-    : m_settings(settings), m_parent(parent) {}
+    : m_settings(settings), m_parent(parent)
+{
+}
 
 //! Returns directory on disk selected by the user via QFileDialog.
 //! Checks if selected directory can be the project directory.
 
-std::string UserInteractor::onSelectDirRequest() {
+std::string UserInteractor::onSelectDirRequest()
+{
     auto dirname = selectDir();
 
     if (dirname.empty()) // no valid selection
@@ -76,7 +85,8 @@ std::string UserInteractor::onCreateDirRequest()
 
 //! Returns save/cancel/discard changes choice provided by the user.
 
-SaveChangesAnswer UserInteractor::onSaveChangesRequest() {
+SaveChangesAnswer UserInteractor::onSaveChangesRequest()
+{
     static auto translate = answer_map();
 
     QMessageBox msgBox;
@@ -91,7 +101,8 @@ SaveChangesAnswer UserInteractor::onSaveChangesRequest() {
 //! Summon dialog to select directory on disk. If selection is not empty,
 //! save parent directory for later re-use.
 
-std::string UserInteractor::selectDir() const {
+std::string UserInteractor::selectDir() const
+{
     QString dirname = QFileDialog::getExistingDirectory(
         m_parent, "Select directory", m_settings->currentWorkdir(),
         QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly);

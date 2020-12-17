@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Math/Numeric.h
 //! @brief     Defines constants and "almost equal" in namespace Numeric.

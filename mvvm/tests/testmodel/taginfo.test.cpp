@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/taginfo.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/taginfo.h"
@@ -21,7 +26,8 @@ public:
 
 TagInfoTest::~TagInfoTest() = default;
 
-TEST_F(TagInfoTest, initialState) {
+TEST_F(TagInfoTest, initialState)
+{
     TagInfo tag;
     EXPECT_EQ(tag.name(), std::string());
     EXPECT_EQ(tag.min(), 0);
@@ -33,7 +39,8 @@ TEST_F(TagInfoTest, initialState) {
 
 //! Testing default tag intended for storing unlimited amount of items of any type.
 
-TEST_F(TagInfoTest, defaultTag) {
+TEST_F(TagInfoTest, defaultTag)
+{
     // initial state
     TagInfo tag = TagInfo::universalTag("name");
     EXPECT_EQ(tag.name(), std::string("name"));
@@ -46,7 +53,8 @@ TEST_F(TagInfoTest, defaultTag) {
 
 //! Testing property tag intended for storing single PropertyItem.
 
-TEST_F(TagInfoTest, propertyTag) {
+TEST_F(TagInfoTest, propertyTag)
+{
     // initial state
     TagInfo tag = TagInfo::propertyTag("name", "model_type");
 
@@ -60,7 +68,8 @@ TEST_F(TagInfoTest, propertyTag) {
 
 //! Testing equality operators.
 
-TEST_F(TagInfoTest, equalityOperator) {
+TEST_F(TagInfoTest, equalityOperator)
+{
     // default constructor
     TagInfo tag1, tag2;
     EXPECT_TRUE(tag1 == tag2);

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/utils/ifactory.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_UTILS_IFACTORY_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_UTILS_IFACTORY_H
@@ -27,7 +32,8 @@ public:
 
     bool contains(const Key& item_key) const { return m_data.find(item_key) != m_data.end(); }
 
-    std::unique_ptr<Value> create(const Key& item_key) const {
+    std::unique_ptr<Value> create(const Key& item_key) const
+    {
         auto it = m_data.find(item_key);
         if (it == m_data.end()) {
             std::ostringstream message;
@@ -37,7 +43,8 @@ public:
         return it->second();
     }
 
-    bool add(const Key& key, function_t func) {
+    bool add(const Key& key, function_t func)
+    {
         if (m_data.find(key) != m_data.end()) {
             std::ostringstream message;
             message << "IFactory::createItem() -> Already registered item key '" << key << "'";

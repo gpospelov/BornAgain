@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobWidgets/ParameterTuningDelegate.cpp
 //! @brief     Implements class ParameterTuningDelegate
@@ -39,17 +39,22 @@ const double minimum_doublespin_value = std::numeric_limits<double>::lowest();
 } // namespace
 
 ParameterTuningDelegate::TuningData::TuningData()
-    : m_smin(0), m_smax(100), m_rmin(0.0), m_rmax(0.0), m_range_factor(100.0) {}
+    : m_smin(0), m_smax(100), m_rmin(0.0), m_rmax(0.0), m_range_factor(100.0)
+{
+}
 
-void ParameterTuningDelegate::TuningData::setRangeFactor(double range_factor) {
+void ParameterTuningDelegate::TuningData::setRangeFactor(double range_factor)
+{
     m_range_factor = range_factor;
 }
 
-void ParameterTuningDelegate::TuningData::setItemLimits(const RealLimits& item_limits) {
+void ParameterTuningDelegate::TuningData::setItemLimits(const RealLimits& item_limits)
+{
     m_item_limits = item_limits;
 }
 
-int ParameterTuningDelegate::TuningData::value_to_slider(double value) {
+int ParameterTuningDelegate::TuningData::value_to_slider(double value)
+{
     double dr(0);
     if (value == 0.0) {
         dr = 1.0 * m_range_factor / 100.;
@@ -69,11 +74,13 @@ int ParameterTuningDelegate::TuningData::value_to_slider(double value) {
     return static_cast<int>(result);
 }
 
-double ParameterTuningDelegate::TuningData::slider_to_value(int slider) {
+double ParameterTuningDelegate::TuningData::slider_to_value(int slider)
+{
     return m_rmin + (slider - m_smin) * (m_rmax - m_rmin) / (m_smax - m_smin);
 }
 
-double ParameterTuningDelegate::TuningData::step() const {
+double ParameterTuningDelegate::TuningData::step() const
+{
     return (m_rmax - m_rmin) / (m_smax - m_smin);
 }
 
@@ -85,12 +92,15 @@ ParameterTuningDelegate::ParameterTuningDelegate(QObject* parent)
     , m_contentWidget(nullptr)
     , m_contentLayout(nullptr)
     , m_currentItem(nullptr)
-    , m_isReadOnly(false) {}
+    , m_isReadOnly(false)
+{
+}
 
 ParameterTuningDelegate::~ParameterTuningDelegate() = default;
 
 void ParameterTuningDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,
-                                    const QModelIndex& index) const {
+                                    const QModelIndex& index) const
+{
     if (index.column() == m_valueColumn) {
 
         if (!index.parent().isValid())
@@ -116,7 +126,8 @@ void ParameterTuningDelegate::paint(QPainter* painter, const QStyleOptionViewIte
 }
 
 QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option,
-                                               const QModelIndex& index) const {
+                                               const QModelIndex& index) const
+{
     if (m_isReadOnly)
         return nullptr;
 
@@ -198,7 +209,8 @@ QWidget* ParameterTuningDelegate::createEditor(QWidget* parent, const QStyleOpti
     }
 }
 
-void ParameterTuningDelegate::updateSlider(double value) const {
+void ParameterTuningDelegate::updateSlider(double value) const
+{
     disconnect(m_slider, &QSlider::valueChanged, this,
                &ParameterTuningDelegate::sliderValueChanged);
 
@@ -207,7 +219,8 @@ void ParameterTuningDelegate::updateSlider(double value) const {
     connect(m_slider, &QSlider::valueChanged, this, &ParameterTuningDelegate::sliderValueChanged);
 }
 
-void ParameterTuningDelegate::sliderValueChanged(int position) {
+void ParameterTuningDelegate::sliderValueChanged(int position)
+{
     disconnect(m_valueBox, &ScientificSpinBox::valueChanged, this,
                &ParameterTuningDelegate::editorValueChanged);
 
@@ -219,7 +232,8 @@ void ParameterTuningDelegate::sliderValueChanged(int position) {
     emitSignals(value);
 }
 
-void ParameterTuningDelegate::editorValueChanged(double value) {
+void ParameterTuningDelegate::editorValueChanged(double value)
+{
     disconnect(m_slider, &QSlider::valueChanged, this,
                &ParameterTuningDelegate::sliderValueChanged);
 
@@ -229,7 +243,8 @@ void ParameterTuningDelegate::editorValueChanged(double value) {
     emitSignals(value);
 }
 
-void ParameterTuningDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const {
+void ParameterTuningDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
+{
     if (index.column() == m_valueColumn) {
         // as using custom widget, doing nothing here
     } else {
@@ -238,7 +253,8 @@ void ParameterTuningDelegate::setEditorData(QWidget* editor, const QModelIndex& 
 }
 
 void ParameterTuningDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
-                                           const QModelIndex& index) const {
+                                           const QModelIndex& index) const
+{
     if (index.column() == m_valueColumn) {
 
         model->setData(index, m_valueBox->value());
@@ -248,17 +264,20 @@ void ParameterTuningDelegate::setModelData(QWidget* editor, QAbstractItemModel* 
     }
 }
 
-void ParameterTuningDelegate::emitSignals(double value) {
+void ParameterTuningDelegate::emitSignals(double value)
+{
     if (m_currentItem) {
         m_currentItem->propagateValueToLink(value);
         emit currentLinkChanged(m_currentItem);
     }
 }
 
-void ParameterTuningDelegate::setSliderRangeFactor(double value) {
+void ParameterTuningDelegate::setSliderRangeFactor(double value)
+{
     m_tuning_info.setRangeFactor(value);
 }
 
-void ParameterTuningDelegate::setReadOnly(bool isReadOnly) {
+void ParameterTuningDelegate::setReadOnly(bool isReadOnly)
+{
     m_isReadOnly = isReadOnly;
 }

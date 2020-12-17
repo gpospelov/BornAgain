@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Tools/StringUtils.cpp
 //! @brief     Implements a few helper functions
@@ -19,7 +19,8 @@
 namespace mumufit {
 
 //! Returns true if text matches pattern with wildcards '*' and '?'.
-bool stringUtils::matchesPattern(const std::string& text, const std::string& wildcardPattern) {
+bool stringUtils::matchesPattern(const std::string& text, const std::string& wildcardPattern)
+{
     // escape all regex special characters, except '?' and '*'
     std::string mywildcardPattern = wildcardPattern;
     boost::replace_all(mywildcardPattern, "\\", "\\\\");
@@ -47,7 +48,8 @@ bool stringUtils::matchesPattern(const std::string& text, const std::string& wil
 }
 
 //! Returns token vector obtained by splitting string at delimiters.
-std::vector<std::string> stringUtils::split(const std::string& text, const std::string& delimiter) {
+std::vector<std::string> stringUtils::split(const std::string& text, const std::string& delimiter)
+{
     std::vector<std::string> tokens;
     boost::split(tokens, text, boost::is_any_of(delimiter));
     return tokens;

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Computation/ComputationStatus.h
 //! @brief     Defines and implements interface class ComputationStatus.
@@ -34,7 +34,8 @@ public:
 
     void setRunning() { m_status = RUNNING; }
     void setCompleted() { m_status = COMPLETED; }
-    void setFailed(const std::string& message) {
+    void setFailed(const std::string& message)
+    {
         m_error_message = message;
         m_status = FAILED;
     }

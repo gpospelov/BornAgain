@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SampleDesigner/DesignerScene.h
 //! @brief     Defines class DesignerScene
@@ -65,7 +65,8 @@ public slots:
     void onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int last);
     void onRowsRemoved(const QModelIndex& parent, int first, int last);
 
-    void setLayerInterfaceLine(const QLineF& line = {}) {
+    void setLayerInterfaceLine(const QLineF& line = {})
+    {
         m_layer_interface_line = line;
         invalidate();
     }

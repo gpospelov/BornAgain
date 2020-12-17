@@ -2,9 +2,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <limits>
 
-class RealLimitsTest : public ::testing::Test {};
+class RealLimitsTest : public ::testing::Test {
+};
 
-TEST_F(RealLimitsTest, LimitsInitial) {
+TEST_F(RealLimitsTest, LimitsInitial)
+{
     RealLimits limits;
 
     EXPECT_FALSE(limits.hasLowerLimit());
@@ -12,7 +14,8 @@ TEST_F(RealLimitsTest, LimitsInitial) {
     EXPECT_FALSE(limits.hasLowerAndUpperLimits());
 }
 
-TEST_F(RealLimitsTest, LimitsSetLimit) {
+TEST_F(RealLimitsTest, LimitsSetLimit)
+{
     RealLimits limits;
 
     // set limit [-1.0, 10.0[
@@ -82,7 +85,8 @@ TEST_F(RealLimitsTest, LimitsSetLimit) {
     EXPECT_TRUE(limits.isInRange(std::numeric_limits<double>::infinity()));
 }
 
-TEST_F(RealLimitsTest, LimitsLowerLimited) {
+TEST_F(RealLimitsTest, LimitsLowerLimited)
+{
     RealLimits limits = RealLimits::lowerLimited(5.0);
     EXPECT_TRUE(limits.hasLowerLimit());
     EXPECT_FALSE(limits.hasUpperLimit());
@@ -92,7 +96,8 @@ TEST_F(RealLimitsTest, LimitsLowerLimited) {
     EXPECT_EQ(0.0, limits.upperLimit());
 }
 
-TEST_F(RealLimitsTest, LimitsUpperLimited) {
+TEST_F(RealLimitsTest, LimitsUpperLimited)
+{
     RealLimits limits = RealLimits::upperLimited(5.0);
     EXPECT_FALSE(limits.hasLowerLimit());
     EXPECT_TRUE(limits.hasUpperLimit());
@@ -102,7 +107,8 @@ TEST_F(RealLimitsTest, LimitsUpperLimited) {
     EXPECT_EQ(5.0, limits.upperLimit());
 }
 
-TEST_F(RealLimitsTest, LimitsLimited) {
+TEST_F(RealLimitsTest, LimitsLimited)
+{
     RealLimits limits = RealLimits::limited(-10.0, 2.0);
     EXPECT_TRUE(limits.hasLowerLimit());
     EXPECT_TRUE(limits.hasUpperLimit());
@@ -112,7 +118,8 @@ TEST_F(RealLimitsTest, LimitsLimited) {
     EXPECT_EQ(2.0, limits.upperLimit());
 }
 
-TEST_F(RealLimitsTest, LimitsLimitless) {
+TEST_F(RealLimitsTest, LimitsLimitless)
+{
     RealLimits limits = RealLimits::limitless();
 
     EXPECT_FALSE(limits.hasLowerLimit());
@@ -120,7 +127,8 @@ TEST_F(RealLimitsTest, LimitsLimitless) {
     EXPECT_FALSE(limits.hasLowerAndUpperLimits());
 }
 
-TEST_F(RealLimitsTest, ComparisonOperators) {
+TEST_F(RealLimitsTest, ComparisonOperators)
+{
     RealLimits lim1 = RealLimits::limited(1.0, 2.0);
     RealLimits lim2 = RealLimits::limited(1.0, 2.0);
     EXPECT_TRUE(lim1 == lim2);
@@ -142,7 +150,8 @@ TEST_F(RealLimitsTest, ComparisonOperators) {
     EXPECT_FALSE(lim7 != lim8);
 }
 
-TEST_F(RealLimitsTest, CopyConstructor) {
+TEST_F(RealLimitsTest, CopyConstructor)
+{
     RealLimits lim1 = RealLimits::limited(1.0, 2.0);
     RealLimits lim2 = lim1;
     EXPECT_TRUE(lim1 == lim2);

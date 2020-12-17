@@ -29,7 +29,8 @@ ApplicationModelsTest::~ApplicationModelsTest() = default;
 
 //! Testing that nothing is crashing on project save and load.
 
-TEST_F(ApplicationModelsTest, saveLoad) {
+TEST_F(ApplicationModelsTest, saveLoad)
+{
     auto project_dir = createEmptyDir("Untitled1");
 
     gui2::ApplicationModels models, loadedModels;

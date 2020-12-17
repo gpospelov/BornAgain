@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/utils/fileutils.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/utils/fileutils.h"
 #include <QDir>
@@ -19,7 +24,8 @@
 
 using namespace ModelView;
 
-bool Utils::exists(const std::string& fileName) {
+bool Utils::exists(const std::string& fileName)
+{
 #ifdef ENABLE_FILESYSTEM
     return std::filesystem::exists(fileName);
 #else
@@ -28,7 +34,8 @@ bool Utils::exists(const std::string& fileName) {
 #endif
 }
 
-std::string Utils::join(const std::string& part1, const std::string& part2) {
+std::string Utils::join(const std::string& part1, const std::string& part2)
+{
 #ifdef ENABLE_FILESYSTEM
     auto path = std::filesystem::path(part1) / std::filesystem::path(part2);
     return path.string();
@@ -37,7 +44,8 @@ std::string Utils::join(const std::string& part1, const std::string& part2) {
 #endif
 }
 
-bool Utils::create_directory(const std::string& path) {
+bool Utils::create_directory(const std::string& path)
+{
 #ifdef ENABLE_FILESYSTEM
     return std::filesystem::create_directory(path);
 #else
@@ -46,7 +54,8 @@ bool Utils::create_directory(const std::string& path) {
 #endif
 }
 
-bool Utils::remove(const std::string& path) {
+bool Utils::remove(const std::string& path)
+{
 #ifdef ENABLE_FILESYSTEM
     return std::filesystem::remove(path);
 #else
@@ -55,7 +64,8 @@ bool Utils::remove(const std::string& path) {
 #endif
 }
 
-void Utils::remove_all(const std::string& path) {
+void Utils::remove_all(const std::string& path)
+{
 #ifdef ENABLE_FILESYSTEM
     std::filesystem::remove_all(path);
 #else
@@ -65,7 +75,8 @@ void Utils::remove_all(const std::string& path) {
 #endif
 }
 
-std::string Utils::base_name(const std::string& path) {
+std::string Utils::base_name(const std::string& path)
+{
 #ifdef ENABLE_FILESYSTEM
     return std::filesystem::path(path).stem().string();
 #else
@@ -73,7 +84,8 @@ std::string Utils::base_name(const std::string& path) {
 #endif
 }
 
-std::vector<std::string> Utils::FindFiles(const std::string& dirname, const std::string& ext) {
+std::vector<std::string> Utils::FindFiles(const std::string& dirname, const std::string& ext)
+{
 #ifdef ENABLE_FILESYSTEM
     std::vector<std::string> result;
     for (const auto& entry : std::filesystem::directory_iterator(dirname)) {
@@ -96,7 +108,8 @@ std::vector<std::string> Utils::FindFiles(const std::string& dirname, const std:
 #endif
 }
 
-std::string Utils::parent_path(const std::string& path) {
+std::string Utils::parent_path(const std::string& path)
+{
 #ifdef ENABLE_FILESYSTEM
     return std::filesystem::path(path).parent_path().string();
 #else
@@ -105,7 +118,8 @@ std::string Utils::parent_path(const std::string& path) {
 #endif
 }
 
-bool Utils::is_empty(const std::string& path) {
+bool Utils::is_empty(const std::string& path)
+{
 #ifdef ENABLE_FILESYSTEM
     return std::filesystem::is_empty(path);
 #else

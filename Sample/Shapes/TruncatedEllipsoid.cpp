@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Shapes/TruncatedEllipsoid.cpp
 //! @brief     Implements class TruncatedEllipsoid.
@@ -17,8 +17,8 @@
 #include <algorithm>
 #include <cmath>
 
-TruncatedEllipsoid::TruncatedEllipsoid(double r_x, double r_y, double r_z, double height,
-                                       double dh) {
+TruncatedEllipsoid::TruncatedEllipsoid(double r_x, double r_y, double r_z, double height, double dh)
+{
     static const int n_heights =
         std::max(2, static_cast<int>(std::round(
                         static_cast<double>(IShape::N_Circle) * height / 2.0 / r_z + 0.5)));

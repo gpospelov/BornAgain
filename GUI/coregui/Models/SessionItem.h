@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/SessionItem.h
 //! @brief     Defines class SessionItem
@@ -138,13 +138,15 @@ private:
     QVector<IPathTranslator*> m_translators;
 };
 
-template <typename T> T& SessionItem::item(const QString& tag) const {
+template <typename T> T& SessionItem::item(const QString& tag) const
+{
     T* t = dynamic_cast<T*>(getItem(tag));
     ASSERT(t);
     return *t;
 }
 
-template <typename T> T& SessionItem::groupItem(const QString& groupName) const {
+template <typename T> T& SessionItem::groupItem(const QString& groupName) const
+{
     T* t = dynamic_cast<T*>(getGroupItem(groupName));
     ASSERT(t);
     return *t;

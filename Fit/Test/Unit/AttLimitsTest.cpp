@@ -1,9 +1,11 @@
 #include "Fit/Param/AttLimits.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class AttLimitsTest : public ::testing::Test {};
+class AttLimitsTest : public ::testing::Test {
+};
 
-TEST_F(AttLimitsTest, InitialState) {
+TEST_F(AttLimitsTest, InitialState)
+{
     AttLimits limits;
     EXPECT_FALSE(limits.isFixed());
     EXPECT_FALSE(limits.isLimited());
@@ -12,7 +14,8 @@ TEST_F(AttLimitsTest, InitialState) {
     EXPECT_TRUE(limits.isLimitless());
 }
 
-TEST_F(AttLimitsTest, LowerLimited) {
+TEST_F(AttLimitsTest, LowerLimited)
+{
     AttLimits limits = AttLimits::lowerLimited(1.0);
     EXPECT_FALSE(limits.isFixed());
     EXPECT_FALSE(limits.isLimited());
@@ -23,7 +26,8 @@ TEST_F(AttLimitsTest, LowerLimited) {
     EXPECT_EQ(0.0, limits.upperLimit());
 }
 
-TEST_F(AttLimitsTest, UpperLimited) {
+TEST_F(AttLimitsTest, UpperLimited)
+{
     AttLimits limits = AttLimits::upperLimited(1.0);
     EXPECT_FALSE(limits.isFixed());
     EXPECT_FALSE(limits.isLimited());
@@ -34,7 +38,8 @@ TEST_F(AttLimitsTest, UpperLimited) {
     EXPECT_EQ(1.0, limits.upperLimit());
 }
 
-TEST_F(AttLimitsTest, Fixed) {
+TEST_F(AttLimitsTest, Fixed)
+{
     AttLimits limits = AttLimits::fixed();
     EXPECT_TRUE(limits.isFixed());
     EXPECT_FALSE(limits.isLimited());
@@ -45,7 +50,8 @@ TEST_F(AttLimitsTest, Fixed) {
     EXPECT_EQ(0.0, limits.upperLimit());
 }
 
-TEST_F(AttLimitsTest, Limited) {
+TEST_F(AttLimitsTest, Limited)
+{
     AttLimits limits = AttLimits::limited(1.0, 2.0);
     EXPECT_FALSE(limits.isFixed());
     EXPECT_TRUE(limits.isLimited());

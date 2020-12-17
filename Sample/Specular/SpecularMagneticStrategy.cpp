@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Specular/SpecularMagneticStrategy.cpp
 //! @brief     Implements class SpecularMagneticStrategy.
@@ -32,13 +32,15 @@ const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices,
 } // namespace
 
 ISpecularStrategy::coeffs_t SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
-                                                              const kvector_t& k) const {
+                                                              const kvector_t& k) const
+{
     return Execute(slices, KzComputation::computeReducedKz(slices, k));
 }
 
 ISpecularStrategy::coeffs_t
 SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
-                                  const std::vector<complex_t>& kz) const {
+                                  const std::vector<complex_t>& kz) const
+{
     if (slices.size() != kz.size())
         throw std::runtime_error("Number of slices does not match the size of the kz-vector");
 
@@ -51,7 +53,8 @@ SpecularMagneticStrategy::Execute(const std::vector<Slice>& slices,
 
 std::vector<MatrixRTCoefficients>
 SpecularMagneticStrategy::computeTR(const std::vector<Slice>& slices,
-                                    const std::vector<complex_t>& kzs) const {
+                                    const std::vector<complex_t>& kzs) const
+{
     const size_t N = slices.size();
 
     if (slices.size() != kzs.size())
@@ -95,7 +98,8 @@ SpecularMagneticStrategy::computeTR(const std::vector<Slice>& slices,
 }
 
 void SpecularMagneticStrategy::calculateUpwards(std::vector<MatrixRTCoefficients>& coeff,
-                                                const std::vector<Slice>& slices) const {
+                                                const std::vector<Slice>& slices) const
+{
     const auto N = slices.size();
     std::vector<Eigen::Matrix2cd> SMatrices(N - 1);
     std::vector<complex_t> Normalization(N - 1);
@@ -160,22 +164,25 @@ void SpecularMagneticStrategy::calculateUpwards(std::vector<MatrixRTCoefficients
 }
 
 namespace {
-double magneticSLD(kvector_t B_field) {
+double magneticSLD(kvector_t B_field)
+{
     return magnetic_prefactor * B_field.mag();
 }
 
-Eigen::Vector2cd eigenvalues(complex_t kz, double magnetic_SLD) {
+Eigen::Vector2cd eigenvalues(complex_t kz, double magnetic_SLD)
+{
     const complex_t a = kz * kz;
     return {std::sqrt(a - 4. * M_PI * magnetic_SLD), std::sqrt(a + 4. * M_PI * magnetic_SLD)};
 }
 
-Eigen::Vector2cd checkForUnderflow(const Eigen::Vector2cd& eigenvs) {
+Eigen::Vector2cd checkForUnderflow(const Eigen::Vector2cd& eigenvs)
+{
     auto lambda = [](complex_t value) { return std::abs(value) < 1e-40 ? 1e-40 : value; };
     return {lambda(eigenvs(0)), lambda(eigenvs(1))};
 }
 
-const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices,
-                                         const size_t slice_index) {
+const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices, const size_t slice_index)
+{
     if (slice_index + 1 < slices.size())
         return slices[slice_index + 1].topRoughness();
     return nullptr;

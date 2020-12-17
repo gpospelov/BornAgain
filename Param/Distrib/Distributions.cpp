@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Param/Distrib/Distributions.cpp
 //! @brief     Implements classes representing one-dimensional distributions.
@@ -31,13 +31,16 @@ bool DoubleEqual(double a, double b);
 //  ************************************************************************************************
 
 IDistribution1D::IDistribution1D(const NodeMeta& meta, const std::vector<double>& PValues)
-    : INode(meta, PValues) {}
+    : INode(meta, PValues)
+{
+}
 
 //! Returns equidistant samples, using intrinsic parameters, weighted with probabilityDensity().
 
 std::vector<ParameterSample> IDistribution1D::equidistantSamples(size_t nbr_samples,
                                                                  double sigma_factor,
-                                                                 const RealLimits& limits) const {
+                                                                 const RealLimits& limits) const
+{
     if (nbr_samples == 0)
         throw std::runtime_error("IDistribution1D::generateSamples: "
                                  "number of generated samples must be bigger than zero");
@@ -49,7 +52,8 @@ std::vector<ParameterSample> IDistribution1D::equidistantSamples(size_t nbr_samp
 //! Returns equidistant samples from xmin to xmax, weighted with probabilityDensity().
 
 std::vector<ParameterSample>
-IDistribution1D::equidistantSamplesInRange(size_t nbr_samples, double xmin, double xmax) const {
+IDistribution1D::equidistantSamplesInRange(size_t nbr_samples, double xmin, double xmax) const
+{
     if (nbr_samples == 0)
         throw std::runtime_error("IDistribution1D::generateSamples: "
                                  "number of generated samples must be bigger than zero");
@@ -61,7 +65,8 @@ IDistribution1D::equidistantSamplesInRange(size_t nbr_samples, double xmin, doub
 //! Returns equidistant interpolation points from xmin to xmax.
 
 std::vector<double> IDistribution1D::equidistantPointsInRange(size_t nbr_samples, double xmin,
-                                                              double xmax) const {
+                                                              double xmax) const
+{
     if (nbr_samples < 2 || DoubleEqual(xmin, xmax))
         return {getMean()};
     std::vector<double> result(nbr_samples);
@@ -70,13 +75,15 @@ std::vector<double> IDistribution1D::equidistantPointsInRange(size_t nbr_samples
     return result;
 }
 
-void IDistribution1D::setUnits(const std::string& units) {
+void IDistribution1D::setUnits(const std::string& units)
+{
     for (auto* par : parameterPool()->parameters())
         par->setUnit(units);
 }
 
 void IDistribution1D::adjustMinMaxForLimits(double& xmin, double& xmax,
-                                            const RealLimits& limits) const {
+                                            const RealLimits& limits) const
+{
     if (limits.hasLowerLimit() && xmin < limits.lowerLimit())
         xmin = limits.lowerLimit();
     if (limits.hasUpperLimit() && xmax > limits.upperLimit())
@@ -92,7 +99,8 @@ void IDistribution1D::adjustMinMaxForLimits(double& xmin, double& xmax,
 //! Returns weighted samples from given interpolation points and probabilityDensity().
 
 std::vector<ParameterSample>
-IDistribution1D::generateSamplesFromValues(const std::vector<double>& sample_values) const {
+IDistribution1D::generateSamplesFromValues(const std::vector<double>& sample_values) const
+{
     std::vector<ParameterSample> result;
     double norm_factor = 0.0;
     for (double value : sample_values) {
@@ -119,17 +127,21 @@ DistributionGate::DistributionGate(const std::vector<double> P)
          {{"Min", "", "para_tooltip", -INF, +INF, 0}, {"Max", "", "para_tooltip", -INF, +INF, 0}}},
         P)
     , m_min(m_P[0])
-    , m_max(m_P[1]) {
+    , m_max(m_P[1])
+{
     if (m_max < m_min)
         throw std::runtime_error("DistributionGate: max<min");
 }
 
 DistributionGate::DistributionGate(double min, double max)
-    : DistributionGate(std::vector<double>{min, max}) {}
+    : DistributionGate(std::vector<double>{min, max})
+{
+}
 
 DistributionGate::DistributionGate() : DistributionGate(0., 1.) {}
 
-double DistributionGate::probabilityDensity(double x) const {
+double DistributionGate::probabilityDensity(double x) const
+{
     if (x < m_min || x > m_max)
         return 0.0;
     if (DoubleEqual(m_min, m_max))
@@ -138,14 +150,16 @@ double DistributionGate::probabilityDensity(double x) const {
 }
 
 std::vector<double> DistributionGate::equidistantPoints(size_t nbr_samples, double /*sigma_factor*/,
-                                                        const RealLimits& limits) const {
+                                                        const RealLimits& limits) const
+{
     double xmin = m_min;
     double xmax = m_max;
     adjustMinMaxForLimits(xmin, xmax, limits);
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-bool DistributionGate::isDelta() const {
+bool DistributionGate::isDelta() const
+{
     return DoubleEqual(m_min, m_max);
 }
 
@@ -160,24 +174,29 @@ DistributionLorentz::DistributionLorentz(const std::vector<double> P)
                         {"HWHM", "", "para_tooltip", -INF, +INF, 0}}},
                       P)
     , m_mean(m_P[0])
-    , m_hwhm(m_P[1]) {
+    , m_hwhm(m_P[1])
+{
     if (m_hwhm < 0.0)
         throw std::runtime_error("DistributionLorentz: hwhm<0");
 }
 
 DistributionLorentz::DistributionLorentz(double mean, double hwhm)
-    : DistributionLorentz(std::vector<double>{mean, hwhm}) {}
+    : DistributionLorentz(std::vector<double>{mean, hwhm})
+{
+}
 
 DistributionLorentz::DistributionLorentz() : DistributionLorentz(0., 1.) {}
 
-double DistributionLorentz::probabilityDensity(double x) const {
+double DistributionLorentz::probabilityDensity(double x) const
+{
     if (m_hwhm == 0.0)
         return DoubleEqual(x, m_mean) ? 1.0 : 0.0;
     return m_hwhm / (m_hwhm * m_hwhm + (x - m_mean) * (x - m_mean)) / M_PI;
 }
 
 std::vector<double> DistributionLorentz::equidistantPoints(size_t nbr_samples, double sigma_factor,
-                                                           const RealLimits& limits) const {
+                                                           const RealLimits& limits) const
+{
     if (sigma_factor <= 0.0)
         sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor * m_hwhm;
@@ -186,7 +205,8 @@ std::vector<double> DistributionLorentz::equidistantPoints(size_t nbr_samples, d
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-bool DistributionLorentz::isDelta() const {
+bool DistributionLorentz::isDelta() const
+{
     return m_hwhm == 0.0;
 }
 
@@ -201,17 +221,21 @@ DistributionGaussian::DistributionGaussian(const std::vector<double> P)
                         {"StdDev", "", "para_tooltip", -INF, +INF, 0}}},
                       P)
     , m_mean(m_P[0])
-    , m_std_dev(m_P[1]) {
+    , m_std_dev(m_P[1])
+{
     if (m_std_dev < 0.0)
         throw std::runtime_error("DistributionGaussian: std_dev < 0");
 }
 
 DistributionGaussian::DistributionGaussian(double mean, double std_dev)
-    : DistributionGaussian(std::vector<double>{mean, std_dev}) {}
+    : DistributionGaussian(std::vector<double>{mean, std_dev})
+{
+}
 
 DistributionGaussian::DistributionGaussian() : DistributionGaussian(0., 1.) {}
 
-double DistributionGaussian::probabilityDensity(double x) const {
+double DistributionGaussian::probabilityDensity(double x) const
+{
     if (m_std_dev == 0.0)
         return DoubleEqual(x, m_mean) ? 1.0 : 0.0;
     double exponential = std::exp(-(x - m_mean) * (x - m_mean) / (2.0 * m_std_dev * m_std_dev));
@@ -219,7 +243,8 @@ double DistributionGaussian::probabilityDensity(double x) const {
 }
 
 std::vector<double> DistributionGaussian::equidistantPoints(size_t nbr_samples, double sigma_factor,
-                                                            const RealLimits& limits) const {
+                                                            const RealLimits& limits) const
+{
     if (sigma_factor <= 0.0)
         sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor * m_std_dev;
@@ -228,7 +253,8 @@ std::vector<double> DistributionGaussian::equidistantPoints(size_t nbr_samples, 
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-bool DistributionGaussian::isDelta() const {
+bool DistributionGaussian::isDelta() const
+{
     return m_std_dev == 0.0;
 }
 
@@ -243,7 +269,8 @@ DistributionLogNormal::DistributionLogNormal(const std::vector<double> P)
                         {"ScaleParameter", "", "para_tooltip", -INF, +INF, 0}}},
                       P)
     , m_median(m_P[0])
-    , m_scale_param(m_P[1]) {
+    , m_scale_param(m_P[1])
+{
     if (m_scale_param < 0.0)
         throw std::runtime_error("DistributionLogNormal: scale_param < 0");
     if (m_median <= 0.0)
@@ -251,25 +278,30 @@ DistributionLogNormal::DistributionLogNormal(const std::vector<double> P)
 }
 
 DistributionLogNormal::DistributionLogNormal(double median, double scale_param)
-    : DistributionLogNormal(std::vector<double>{median, scale_param}) {}
+    : DistributionLogNormal(std::vector<double>{median, scale_param})
+{
+}
 
 DistributionTrapezoid::DistributionTrapezoid() : DistributionTrapezoid(0., 0., 1., 0.) {}
 
-double DistributionLogNormal::probabilityDensity(double x) const {
+double DistributionLogNormal::probabilityDensity(double x) const
+{
     if (m_scale_param == 0.0)
         return DoubleEqual(x, m_median) ? 1.0 : 0.0;
     double t = std::log(x / m_median) / m_scale_param;
     return std::exp(-t * t / 2.0) / (x * m_scale_param * std::sqrt(M_TWOPI));
 }
 
-double DistributionLogNormal::getMean() const {
+double DistributionLogNormal::getMean() const
+{
     double exponent = m_scale_param * m_scale_param / 2.0;
     return m_median * std::exp(exponent);
 }
 
 std::vector<double> DistributionLogNormal::equidistantPoints(size_t nbr_samples,
                                                              double sigma_factor,
-                                                             const RealLimits& limits) const {
+                                                             const RealLimits& limits) const
+{
     if (nbr_samples < 2) {
         std::vector<double> result;
         result.push_back(m_median);
@@ -283,11 +315,13 @@ std::vector<double> DistributionLogNormal::equidistantPoints(size_t nbr_samples,
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-bool DistributionLogNormal::isDelta() const {
+bool DistributionLogNormal::isDelta() const
+{
     return m_scale_param == 0.0;
 }
 
-void DistributionLogNormal::setUnits(const std::string& units) {
+void DistributionLogNormal::setUnits(const std::string& units)
+{
     parameter("Median")->setUnit(units);
     // scale parameter remains unitless
 }
@@ -303,17 +337,21 @@ DistributionCosine::DistributionCosine(const std::vector<double> P)
                         {"Sigma", "", "para_tooltip", -INF, +INF, 0}}},
                       P)
     , m_mean(m_P[0])
-    , m_sigma(m_P[1]) {
+    , m_sigma(m_P[1])
+{
     if (m_sigma < 0.0)
         throw std::runtime_error("DistributionCosine: sigma<0");
 }
 
 DistributionCosine::DistributionCosine(double mean, double sigma)
-    : DistributionCosine(std::vector<double>{mean, sigma}) {}
+    : DistributionCosine(std::vector<double>{mean, sigma})
+{
+}
 
 DistributionCosine::DistributionCosine() : DistributionCosine(0., 1.) {}
 
-double DistributionCosine::probabilityDensity(double x) const {
+double DistributionCosine::probabilityDensity(double x) const
+{
     if (m_sigma == 0.0)
         return DoubleEqual(x, m_mean) ? 1.0 : 0.0;
     if (std::abs(x - m_mean) > M_PI * m_sigma)
@@ -322,7 +360,8 @@ double DistributionCosine::probabilityDensity(double x) const {
 }
 
 std::vector<double> DistributionCosine::equidistantPoints(size_t nbr_samples, double sigma_factor,
-                                                          const RealLimits& limits) const {
+                                                          const RealLimits& limits) const
+{
     if (sigma_factor <= 0.0 || sigma_factor > 2.0)
         sigma_factor = 2.0;
     double xmin = m_mean - sigma_factor * m_sigma * M_PI_2;
@@ -331,7 +370,8 @@ std::vector<double> DistributionCosine::equidistantPoints(size_t nbr_samples, do
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-bool DistributionCosine::isDelta() const {
+bool DistributionCosine::isDelta() const
+{
     return m_sigma == 0.0;
 }
 
@@ -350,7 +390,8 @@ DistributionTrapezoid::DistributionTrapezoid(const std::vector<double> P)
     , m_center(m_P[0])
     , m_left(m_P[1])
     , m_middle(m_P[2])
-    , m_right(m_P[3]) {
+    , m_right(m_P[3])
+{
     if (m_left < 0.0)
         throw std::runtime_error("DistributionTrapezoid: leftWidth < 0");
     if (m_middle < 0.0)
@@ -361,9 +402,12 @@ DistributionTrapezoid::DistributionTrapezoid(const std::vector<double> P)
 
 DistributionTrapezoid::DistributionTrapezoid(double center, double left, double middle,
                                              double right)
-    : DistributionTrapezoid(std::vector<double>{center, left, middle, right}) {}
+    : DistributionTrapezoid(std::vector<double>{center, left, middle, right})
+{
+}
 
-double DistributionTrapezoid::probabilityDensity(double x) const {
+double DistributionTrapezoid::probabilityDensity(double x) const
+{
     double height = 2.0 / (m_left + 2.0 * m_middle + m_right);
     double min = m_center - m_middle / 2.0 - m_left;
     if (x < min)
@@ -379,7 +423,8 @@ double DistributionTrapezoid::probabilityDensity(double x) const {
 }
 
 std::vector<double> DistributionTrapezoid::equidistantPoints(size_t nbr_samples, double,
-                                                             const RealLimits& limits) const {
+                                                             const RealLimits& limits) const
+{
     double xmin = m_center - m_middle / 2.0 - m_left;
     double xmax = xmin + m_left + m_middle + m_right;
     adjustLimitsToNonZeroSamples(xmin, xmax, nbr_samples);
@@ -387,12 +432,14 @@ std::vector<double> DistributionTrapezoid::equidistantPoints(size_t nbr_samples,
     return equidistantPointsInRange(nbr_samples, xmin, xmax);
 }
 
-bool DistributionTrapezoid::isDelta() const {
+bool DistributionTrapezoid::isDelta() const
+{
     return (m_left + m_middle + m_right) == 0.0;
 }
 
 void DistributionTrapezoid::adjustLimitsToNonZeroSamples(double& min, double& max,
-                                                         size_t nbr_samples) const {
+                                                         size_t nbr_samples) const
+{
     if (nbr_samples <= 1)
         return;
     size_t N = nbr_samples;
@@ -410,7 +457,8 @@ void DistributionTrapezoid::adjustLimitsToNonZeroSamples(double& min, double& ma
 }
 
 namespace {
-bool DoubleEqual(double a, double b) {
+bool DoubleEqual(double a, double b)
+{
     double eps = 10.0
                  * std::max(std::abs(a) * std::numeric_limits<double>::epsilon(),
                             std::numeric_limits<double>::min());

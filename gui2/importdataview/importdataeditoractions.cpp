@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/importdataview/importdataeditoractions.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/importdataview/importdataeditoractions.h"
 #include "gui2/importdataview/dataselectionmodel.h"
@@ -20,7 +25,8 @@
 #include "mvvm/viewmodel/viewmodelutils.h"
 
 namespace {
-template <typename T> std::vector<T*> itemsFromIndexList(const QModelIndexList& indices) {
+template <typename T> std::vector<T*> itemsFromIndexList(const QModelIndexList& indices)
+{
     return ModelView::Utils::CastedItems<T>(ModelView::Utils::UniqueItemsFromIndex(indices));
 }
 
@@ -29,9 +35,12 @@ template <typename T> std::vector<T*> itemsFromIndexList(const QModelIndexList& 
 namespace gui2 {
 
 ImportDataEditorActions::ImportDataEditorActions(ExperimentalDataModel* model, QObject* parent)
-    : QObject(parent), m_dataModel(model) {}
+    : QObject(parent), m_dataModel(model)
+{
+}
 
-void ImportDataEditorActions::setSelectionModel(DataSelectionModel* selection_model) {
+void ImportDataEditorActions::setSelectionModel(DataSelectionModel* selection_model)
+{
     if (m_selectionModel)
         disconnect(m_selectionModel, &DataSelectionModel::selectionChanged, this,
                    &ImportDataEditorActions::onSelectionChanged);
@@ -43,19 +52,22 @@ void ImportDataEditorActions::setSelectionModel(DataSelectionModel* selection_mo
                 &ImportDataEditorActions::onSelectionChanged);
 }
 
-bool ImportDataEditorActions::isUndoEnabled() const {
+bool ImportDataEditorActions::isUndoEnabled() const
+{
     return m_dataModel->undoStack() != nullptr;
 }
 
 //! Create new canvas and append it to the end of canvas container.
 
-void ImportDataEditorActions::onAddCanvas() {
+void ImportDataEditorActions::onAddCanvas()
+{
     m_dataModel->addCanvas();
 }
 
 //! Merge selected canvases. All graphs will appear below canvas selected first.
 
-void ImportDataEditorActions::onMergeCanvases() {
+void ImportDataEditorActions::onMergeCanvases()
+{
     if (isUndoEnabled())
         undoStack()->beginMacro("onMergeCanvases");
 
@@ -67,7 +79,8 @@ void ImportDataEditorActions::onMergeCanvases() {
 
 //! Delete currently selected items.
 
-void ImportDataEditorActions::onDeleteItem() {
+void ImportDataEditorActions::onDeleteItem()
+{
     if (isUndoEnabled())
         undoStack()->beginMacro("onDeleteItem");
 
@@ -81,21 +94,24 @@ void ImportDataEditorActions::onDeleteItem() {
         undoStack()->endMacro();
 }
 
-void ImportDataEditorActions::onUndo() {
+void ImportDataEditorActions::onUndo()
+{
     if (!isUndoEnabled())
         return;
 
     m_dataModel->undoStack()->undo();
 }
 
-void ImportDataEditorActions::onRedo() {
+void ImportDataEditorActions::onRedo()
+{
     if (!isUndoEnabled())
         return;
 
     m_dataModel->undoStack()->redo();
 }
 
-void ImportDataEditorActions::onImportDialogRequest() {
+void ImportDataEditorActions::onImportDialogRequest()
+{
     if (isUndoEnabled())
         undoStack()->beginMacro("onImportDialogRequest");
 
@@ -109,7 +125,8 @@ void ImportDataEditorActions::onImportDialogRequest() {
 //! solid to dashed line.
 
 void ImportDataEditorActions::onSelectionChanged(const QItemSelection& selected,
-                                                 const QItemSelection& deselected) {
+                                                 const QItemSelection& deselected)
+{
     auto selected_graphs = itemsFromIndexList<ModelView::GraphItem>(selected.indexes());
     for (auto graph : selected_graphs)
         graph->penItem()->setSelected(true);
@@ -119,7 +136,8 @@ void ImportDataEditorActions::onSelectionChanged(const QItemSelection& selected,
         graph->penItem()->setSelected(false);
 }
 
-ModelView::UndoStackInterface* ImportDataEditorActions::undoStack() const {
+ModelView::UndoStackInterface* ImportDataEditorActions::undoStack() const
+{
     return m_dataModel->undoStack();
 }
 

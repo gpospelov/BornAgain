@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Particle/IParticle.cpp
 //! @brief     Implements interface IParticle.
@@ -20,29 +20,35 @@
 
 IParticle::~IParticle() = default;
 
-IFormFactor* IParticle::createFormFactor() const {
+IFormFactor* IParticle::createFormFactor() const
+{
     return createSlicedParticle(ZLimits{}).m_slicedff.release();
 }
 
-SlicedParticle IParticle::createSlicedParticle(ZLimits) const {
+SlicedParticle IParticle::createSlicedParticle(ZLimits) const
+{
     throw std::runtime_error("IParticle::createSlicedParticle error: "
                              "not implemented!");
 }
 
-void IParticle::translate(kvector_t translation) {
+void IParticle::translate(kvector_t translation)
+{
     m_position += translation;
 }
 
-const IRotation* IParticle::rotation() const {
+const IRotation* IParticle::rotation() const
+{
     return m_rotation.get();
 }
 
-void IParticle::setRotation(const IRotation& rotation) {
+void IParticle::setRotation(const IRotation& rotation)
+{
     m_rotation.reset(rotation.clone());
     registerChild(m_rotation.get());
 }
 
-void IParticle::rotate(const IRotation& rotation) {
+void IParticle::rotate(const IRotation& rotation)
+{
     if (m_rotation) {
         m_rotation.reset(createProduct(rotation, *m_rotation));
     } else {
@@ -52,11 +58,13 @@ void IParticle::rotate(const IRotation& rotation) {
     registerChild(m_rotation.get());
 }
 
-std::vector<const INode*> IParticle::getChildren() const {
+std::vector<const INode*> IParticle::getChildren() const
+{
     return std::vector<const INode*>() << m_rotation;
 }
 
-void IParticle::registerAbundance(bool make_registered) {
+void IParticle::registerAbundance(bool make_registered)
+{
     if (make_registered) {
         if (!parameter("Abundance"))
             registerParameter("Abundance", &m_abundance);
@@ -65,7 +73,8 @@ void IParticle::registerAbundance(bool make_registered) {
     }
 }
 
-void IParticle::registerPosition(bool make_registered) {
+void IParticle::registerPosition(bool make_registered)
+{
     if (make_registered) {
         if (!parameter(XComponentName("Position"))) {
             registerVector("Position", &m_position, "nm");
@@ -75,19 +84,22 @@ void IParticle::registerPosition(bool make_registered) {
     }
 }
 
-SafePointerVector<IParticle> IParticle::decompose() const {
+SafePointerVector<IParticle> IParticle::decompose() const
+{
     SafePointerVector<IParticle> result;
     result.push_back(this->clone());
     return result;
 }
 
-ParticleLimits IParticle::bottomTopZ() const {
+ParticleLimits IParticle::bottomTopZ() const
+{
     std::unique_ptr<IFormFactor> P_ff(createFormFactor());
     std::unique_ptr<IRotation> P_rot(new IdentityRotation);
     return {P_ff->bottomZ(*P_rot), P_ff->topZ(*P_rot)};
 }
 
-IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const {
+IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const
+{
     if (p_rotation) {
         if (m_rotation)
             return createProduct(*p_rotation, *m_rotation);
@@ -101,7 +113,8 @@ IRotation* IParticle::createComposedRotation(const IRotation* p_rotation) const 
     }
 }
 
-kvector_t IParticle::composedTranslation(const IRotation* p_rotation, kvector_t translation) const {
+kvector_t IParticle::composedTranslation(const IRotation* p_rotation, kvector_t translation) const
+{
     if (p_rotation) {
         return translation + p_rotation->transformed(m_position);
     } else {
@@ -109,7 +122,8 @@ kvector_t IParticle::composedTranslation(const IRotation* p_rotation, kvector_t 
     }
 }
 
-void IParticle::registerParticleProperties() {
+void IParticle::registerParticleProperties()
+{
     registerAbundance();
     registerPosition();
 }

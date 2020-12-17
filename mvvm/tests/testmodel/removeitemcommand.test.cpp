@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/removeitemcommand.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/commands/removeitemcommand.h"
@@ -24,7 +29,8 @@ public:
 
 RemoveItemCommandTest::~RemoveItemCommandTest() = default;
 
-TEST_F(RemoveItemCommandTest, removeAtCommand) {
+TEST_F(RemoveItemCommandTest, removeAtCommand)
+{
     SessionModel model;
     auto item = model.insertItem<SessionItem>(model.rootItem());
 
@@ -46,7 +52,8 @@ TEST_F(RemoveItemCommandTest, removeAtCommand) {
     EXPECT_EQ(restored->identifier(), item_identifier);
 }
 
-TEST_F(RemoveItemCommandTest, removeAtCommandChild) {
+TEST_F(RemoveItemCommandTest, removeAtCommandChild)
+{
     SessionModel model;
     auto parent = model.insertItem<SessionItem>(model.rootItem());
     parent->registerTag(TagInfo::universalTag("tag1"), /*set_as_default*/ true);
@@ -77,7 +84,8 @@ TEST_F(RemoveItemCommandTest, removeAtCommandChild) {
     EXPECT_EQ(restored->data<double>(), 42.0);
 }
 
-TEST_F(RemoveItemCommandTest, removeAtCommandParentWithChild) {
+TEST_F(RemoveItemCommandTest, removeAtCommandParentWithChild)
+{
     SessionModel model;
     auto parent = model.insertItem<SessionItem>(model.rootItem());
     parent->registerTag(TagInfo::universalTag("tag1"), /*set_as_default*/ true);
@@ -113,7 +121,8 @@ TEST_F(RemoveItemCommandTest, removeAtCommandParentWithChild) {
 
 //! RemoveAtCommand in multitag context
 
-TEST_F(RemoveItemCommandTest, removeAtCommandMultitag) {
+TEST_F(RemoveItemCommandTest, removeAtCommandMultitag)
+{
     SessionModel model;
     auto parent = model.insertItem<SessionItem>(model.rootItem());
     parent->registerTag(TagInfo::universalTag("tag1"));
@@ -158,7 +167,8 @@ TEST_F(RemoveItemCommandTest, removeAtCommandMultitag) {
 
 //! Attempt to remove property item.
 
-TEST_F(RemoveItemCommandTest, attemptToRemoveItem) {
+TEST_F(RemoveItemCommandTest, attemptToRemoveItem)
+{
     SessionModel model;
     auto parent = model.insertItem<CompoundItem>(model.rootItem());
     parent->addProperty("thickness", 42.0);

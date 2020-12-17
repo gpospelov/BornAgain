@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Particle/IAbstractParticle.cpp
 //! @brief     Defines interface IAParticle.
@@ -15,8 +15,11 @@
 #include "Sample/Particle/IAbstractParticle.h"
 
 IAbstractParticle::IAbstractParticle(const NodeMeta& meta, const std::vector<double>& PValues)
-    : ISampleNode(meta, PValues) {}
+    : ISampleNode(meta, PValues)
+{
+}
 
-void IAbstractParticle::accept(INodeVisitor* visitor) const {
+void IAbstractParticle::accept(INodeVisitor* visitor) const
+{
     visitor->visit(this);
 }

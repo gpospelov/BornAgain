@@ -1,9 +1,11 @@
 #include "Device/Data/CumulativeValue.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class CumulativeValueTest : public ::testing::Test {};
+class CumulativeValueTest : public ::testing::Test {
+};
 
-TEST_F(CumulativeValueTest, InitialState) {
+TEST_F(CumulativeValueTest, InitialState)
+{
     CumulativeValue cv;
     EXPECT_EQ(0, cv.getNumberOfEntries());
     EXPECT_EQ(0.0, cv.getContent());
@@ -11,7 +13,8 @@ TEST_F(CumulativeValueTest, InitialState) {
     EXPECT_EQ(0.0, cv.getRMS());
 }
 
-TEST_F(CumulativeValueTest, AddValue) {
+TEST_F(CumulativeValueTest, AddValue)
+{
     CumulativeValue cv1;
     cv1.add(1.0);
     EXPECT_EQ(1, cv1.getNumberOfEntries());
@@ -28,7 +31,8 @@ TEST_F(CumulativeValueTest, AddValue) {
     EXPECT_EQ(0.0, cv2.getRMS());
 }
 
-TEST_F(CumulativeValueTest, AddValues) {
+TEST_F(CumulativeValueTest, AddValues)
+{
     CumulativeValue cv1;
     cv1.add(1.0);
     cv1.add(3.0);
@@ -44,7 +48,8 @@ TEST_F(CumulativeValueTest, AddValues) {
     EXPECT_EQ(0.0, cv1.getRMS());
 }
 
-TEST_F(CumulativeValueTest, AddValuesWithWeights) {
+TEST_F(CumulativeValueTest, AddValuesWithWeights)
+{
     CumulativeValue cv1;
     cv1.add(1.0, 3.0);
     cv1.add(3.0);
@@ -61,7 +66,8 @@ TEST_F(CumulativeValueTest, AddValuesWithWeights) {
     EXPECT_DOUBLE_EQ(1.0, cv1.getRMS());
 }
 
-TEST_F(CumulativeValueTest, Comparison) {
+TEST_F(CumulativeValueTest, Comparison)
+{
     CumulativeValue cv1, cv2;
     cv1.add(1.0);
     cv2.add(2.0);

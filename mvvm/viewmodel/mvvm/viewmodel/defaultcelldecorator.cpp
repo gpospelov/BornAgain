@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/viewmodel/defaultcelldecorator.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/viewmodel/defaultcelldecorator.h"
 #include "mvvm/editors/editor_constants.h"
@@ -18,11 +23,13 @@
 
 using namespace ModelView;
 
-bool DefaultCellDecorator::hasCustomDecoration(const QModelIndex& index) const {
+bool DefaultCellDecorator::hasCustomDecoration(const QModelIndex& index) const
+{
     return cellText(index).has_value();
 }
 
-std::optional<std::string> DefaultCellDecorator::cellText(const QModelIndex& index) const {
+std::optional<std::string> DefaultCellDecorator::cellText(const QModelIndex& index) const
+{
     auto variant = index.data();
 
     if (Utils::IsComboVariant(variant))
@@ -47,7 +54,8 @@ std::optional<std::string> DefaultCellDecorator::cellText(const QModelIndex& ind
     return {};
 }
 
-void DefaultCellDecorator::initStyleOption(QStyleOptionViewItem* option, const QModelIndex& index) {
+void DefaultCellDecorator::initStyleOption(QStyleOptionViewItem* option, const QModelIndex& index)
+{
     if (!hasCustomDecoration(index))
         return;
 

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Export/MaterialKeyHandler.cpp
 //! @brief     Implement class MaterialKeyHandler.
@@ -19,7 +19,8 @@
 #include <set>
 #include <stdexcept>
 
-void MaterialKeyHandler::insertMaterial(const Material* mat) {
+void MaterialKeyHandler::insertMaterial(const Material* mat)
+{
     for (const auto& it : m_Mat2Unique)
         if (*it.second == *mat) {
             m_Mat2Unique.emplace(mat, it.second);
@@ -35,7 +36,8 @@ void MaterialKeyHandler::insertMaterial(const Material* mat) {
     m_Key2Mat.emplace(key, mat);
 }
 
-const std::string& MaterialKeyHandler::mat2key(const Material* mat) const {
+const std::string& MaterialKeyHandler::mat2key(const Material* mat) const
+{
     const Material* unique_mat = m_Mat2Unique.at(mat);
     for (const auto& it : m_Key2Mat)
         if (it.second == unique_mat)
@@ -43,6 +45,7 @@ const std::string& MaterialKeyHandler::mat2key(const Material* mat) const {
     ASSERT(0);
 }
 
-const std::map<const std::string, const Material*>& MaterialKeyHandler::materialMap() const {
+const std::map<const std::string, const Material*>& MaterialKeyHandler::materialMap() const
+{
     return m_Key2Mat;
 }

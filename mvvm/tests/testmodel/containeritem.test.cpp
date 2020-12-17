@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/containeritem.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/standarditems/containeritem.h"
@@ -23,13 +28,15 @@ public:
 
 ContainerItemTest::~ContainerItemTest() = default;
 
-TEST_F(ContainerItemTest, initialState) {
+TEST_F(ContainerItemTest, initialState)
+{
     ContainerItem item;
     EXPECT_EQ(item.size(), 0);
     EXPECT_TRUE(item.empty());
 }
 
-TEST_F(ContainerItemTest, isEmpty) {
+TEST_F(ContainerItemTest, isEmpty)
+{
     ContainerItem item;
 
     // inserting two children

@@ -4,9 +4,11 @@
 
 #define EXPECT_ASSERT_TRIGGERED(condition) EXPECT_THROW((condition), std::runtime_error)
 
-class TestSessionItem : public ::testing::Test {};
+class TestSessionItem : public ::testing::Test {
+};
 
-TEST_F(TestSessionItem, initialState) {
+TEST_F(TestSessionItem, initialState)
+{
     const QString modeltype = "This is the model type";
     std::unique_ptr<SessionItem> item(new SessionItem(modeltype));
     EXPECT_TRUE(item->modelType() == modeltype);
@@ -15,7 +17,8 @@ TEST_F(TestSessionItem, initialState) {
     // TODO add some more tests for children, roles, tags ...
 }
 
-TEST_F(TestSessionItem, defaultTag) {
+TEST_F(TestSessionItem, defaultTag)
+{
     const QString modelType = "TestItem";
 
     std::unique_ptr<SessionItem> item(new SessionItem(modelType));
@@ -28,7 +31,8 @@ TEST_F(TestSessionItem, defaultTag) {
     EXPECT_EQ(item->numberOfChildren(), 0);
 }
 
-TEST_F(TestSessionItem, singleTagAndItems) {
+TEST_F(TestSessionItem, singleTagAndItems)
+{
     const QString tag1 = "TAG1";
     const QString modelType = "TestItem";
 
@@ -91,7 +95,8 @@ TEST_F(TestSessionItem, singleTagAndItems) {
     EXPECT_EQ(item->getItem(tag1, 2), child2);
 }
 
-TEST_F(TestSessionItem, insertAndTake) {
+TEST_F(TestSessionItem, insertAndTake)
+{
     const QString tag1 = "TAG1";
     const QString modelType = "TestItem";
 
@@ -115,7 +120,8 @@ TEST_F(TestSessionItem, insertAndTake) {
     delete first;
 }
 
-TEST_F(TestSessionItem, tagWithLimits) {
+TEST_F(TestSessionItem, tagWithLimits)
+{
     const QString tag1 = "TAG1";
     const QString modelType = "TestItem";
     const int maxItems(3);
@@ -133,7 +139,8 @@ TEST_F(TestSessionItem, tagWithLimits) {
     EXPECT_ASSERT_TRIGGERED(item->insertItem(-1, extra, tag1));
 }
 
-TEST_F(TestSessionItem, tagsAndModelTypes) {
+TEST_F(TestSessionItem, tagsAndModelTypes)
+{
     const QString tag1 = "tag1";
     const QString tag2 = "tag2";
     const QString modelType1 = "ModelType1";
@@ -170,7 +177,8 @@ TEST_F(TestSessionItem, tagsAndModelTypes) {
     EXPECT_EQ(item->getItems(tag2), expected2);
 }
 
-TEST_F(TestSessionItem, takeRow) {
+TEST_F(TestSessionItem, takeRow)
+{
     const QString tag1 = "tag1";
     const QString tag2 = "tag2";
     const QString modelType1 = "ModelType1";
@@ -213,7 +221,8 @@ TEST_F(TestSessionItem, takeRow) {
     EXPECT_EQ(item->getItems(tag2), expected2);
 }
 
-TEST_F(TestSessionItem, dataRoles) {
+TEST_F(TestSessionItem, dataRoles)
+{
     std::unique_ptr<SessionItem> item(new SessionItem("Some model type"));
     item->setRoleProperty(Qt::DisplayRole, 1234);
     EXPECT_TRUE(item->roleProperty(Qt::DisplayRole) == 1234);
@@ -228,7 +237,8 @@ TEST_F(TestSessionItem, dataRoles) {
     }
 }
 
-TEST_F(TestSessionItem, modelTypes) {
+TEST_F(TestSessionItem, modelTypes)
+{
     const QString model1 = "modeltype 1";
     const QString model2 = "modeltype 2";
     const QString model3 = "modeltype 3";

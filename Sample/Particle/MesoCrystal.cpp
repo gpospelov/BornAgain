@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Particle/MesoCrystal.cpp
 //! @brief     Implements class MesoCrystal.
@@ -20,13 +20,15 @@
 #include "Sample/Scattering/Rotations.h"
 
 MesoCrystal::MesoCrystal(const Crystal& particle_structure, const IFormFactor& form_factor)
-    : m_particle_structure(particle_structure.clone()), m_meso_form_factor(form_factor.clone()) {
+    : m_particle_structure(particle_structure.clone()), m_meso_form_factor(form_factor.clone())
+{
     initialize();
 }
 
 MesoCrystal::~MesoCrystal() = default;
 
-MesoCrystal* MesoCrystal::clone() const {
+MesoCrystal* MesoCrystal::clone() const
+{
     MesoCrystal* p_result =
         new MesoCrystal(m_particle_structure->clone(), m_meso_form_factor->clone());
     p_result->setAbundance(m_abundance);
@@ -36,11 +38,13 @@ MesoCrystal* MesoCrystal::clone() const {
     return p_result;
 }
 
-void MesoCrystal::accept(INodeVisitor* visitor) const {
+void MesoCrystal::accept(INodeVisitor* visitor) const
+{
     visitor->visit(this);
 }
 
-SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const {
+SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const
+{
     if (!m_particle_structure || !m_meso_form_factor)
         return {};
     std::unique_ptr<IRotation> rotation(new IdentityRotation);
@@ -60,17 +64,20 @@ SlicedParticle MesoCrystal::createSlicedParticle(ZLimits limits) const {
     return result;
 }
 
-std::vector<const INode*> MesoCrystal::getChildren() const {
+std::vector<const INode*> MesoCrystal::getChildren() const
+{
     return std::vector<const INode*>()
            << IParticle::getChildren() << m_particle_structure << m_meso_form_factor;
 }
 
 MesoCrystal::MesoCrystal(Crystal* particle_structure, IFormFactor* form_factor)
-    : m_particle_structure(particle_structure), m_meso_form_factor(form_factor) {
+    : m_particle_structure(particle_structure), m_meso_form_factor(form_factor)
+{
     initialize();
 }
 
-void MesoCrystal::initialize() {
+void MesoCrystal::initialize()
+{
     setName("MesoCrystal");
     registerParticleProperties();
     registerChild(m_particle_structure.get());

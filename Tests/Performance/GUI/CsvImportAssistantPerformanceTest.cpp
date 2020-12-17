@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Performance/GUI/CsvImportAssistantPerformanceTest.cpp
 //! @brief     Implements GUI performance functional test.
@@ -19,13 +19,15 @@
 #include <ctime>
 #include <iostream>
 
-void CsvImportAssistantPerformanceTest::writeTestFile() {
+void CsvImportAssistantPerformanceTest::writeTestFile()
+{
     remove(m_testFilename.c_str());
     OutputData<double>* data = ArrayUtils::createData(m_testVector).release();
     IntensityDataIOFactory::writeOutputData(*data, m_testFilename);
 }
 
-void CsvImportAssistantPerformanceTest::writeTestFile(size_t nRows, size_t nCols) {
+void CsvImportAssistantPerformanceTest::writeTestFile(size_t nRows, size_t nCols)
+{
     remove(m_testFilename.c_str());
     std::ofstream myfile;
     myfile.open(m_testFilename);
@@ -38,11 +40,13 @@ void CsvImportAssistantPerformanceTest::writeTestFile(size_t nRows, size_t nCols
     myfile.close();
 }
 
-OutputData<double>* CsvImportAssistantPerformanceTest::readTestFile() {
+OutputData<double>* CsvImportAssistantPerformanceTest::readTestFile()
+{
     return IntensityDataIOFactory::readOutputData(m_testFilename);
 }
 
-bool CsvImportAssistantPerformanceTest::runTest() {
+bool CsvImportAssistantPerformanceTest::runTest()
+{
     std::cout << "CsvImportAssistantPerformanceTest -> Running ..." << std::endl;
     size_t maxRows = 1000;
     size_t maxCols = 1000;
@@ -82,6 +86,7 @@ bool CsvImportAssistantPerformanceTest::runTest() {
     return true;
 }
 
-int main() {
+int main()
+{
     return !CsvImportAssistantPerformanceTest().runTest();
 }

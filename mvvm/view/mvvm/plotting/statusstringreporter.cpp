@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/view/mvvm/plotting/statusstringreporter.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/plotting/statusstringreporter.h"
 #include "mvvm/plotting/mousemovereporter.h"
@@ -29,7 +34,8 @@ struct StatusStringReporter::StatusStringReporterImpl {
         : parent(parent)
         , custom_plot(custom_plot)
         , callback(std::move(callback))
-        , fmt(std::move(formatter)) {
+        , fmt(std::move(formatter))
+    {
         if (!custom_plot)
             throw std::runtime_error("StatusStringReporter: not initialized custom plot.");
 
@@ -50,20 +56,23 @@ struct StatusStringReporter::StatusStringReporterImpl {
 
     //! Notify client about mouse move with formatted status string.
 
-    void notify_client(const MousePosInfo& pos) {
+    void notify_client(const MousePosInfo& pos)
+    {
         callback(fmt->status_string(this->custom_plot, pos.xpos, pos.ypos));
     }
 
     //! Notify client on leaving axes area.
 
-    void leaving_the_area() {
+    void leaving_the_area()
+    {
         // notifying client with empty string as a sign that we have left the area
         callback({});
     }
 
     //! Notify client on entering axes area.
 
-    void entering_the_area() {
+    void entering_the_area()
+    {
         // for future improvements
     }
 };
@@ -72,6 +81,8 @@ StatusStringReporter::StatusStringReporter(
     QCustomPlot* custom_plot, callback_t callback,
     std::unique_ptr<StatusStringFormatterInterface> formatter)
     : p_impl(std::make_unique<StatusStringReporterImpl>(this, custom_plot, callback,
-                                                        std::move(formatter))) {}
+                                                        std::move(formatter)))
+{
+}
 
 StatusStringReporter::~StatusStringReporter() = default;

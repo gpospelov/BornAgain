@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Resolution/ResolutionFunction2DGaussian.cpp
 //! @brief     Implements class ResolutionFunction2DGaussian.
@@ -17,13 +17,15 @@
 #include "Param/Base/RealParameter.h"
 
 ResolutionFunction2DGaussian::ResolutionFunction2DGaussian(double sigma_x, double sigma_y)
-    : m_sigma_x(sigma_x), m_sigma_y(sigma_y) {
+    : m_sigma_x(sigma_x), m_sigma_y(sigma_y)
+{
     setName("ResolutionFunction2D");
     registerParameter("SigmaX", &m_sigma_x).setNonnegative();
     registerParameter("SigmaY", &m_sigma_y).setNonnegative();
 }
 
-double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const {
+double ResolutionFunction2DGaussian::evaluateCDF(double x, double y) const
+{
     return Math::IntegratedGaussian(x, 0.0, m_sigma_x)
            * Math::IntegratedGaussian(y, 0.0, m_sigma_y);
 }

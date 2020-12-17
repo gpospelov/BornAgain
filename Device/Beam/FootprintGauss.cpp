@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Beam/FootprintGauss.cpp
 //! @brief     Implements class FootprintGauss.
@@ -17,16 +17,22 @@
 #include "Base/Math/Functions.h"
 
 FootprintGauss::FootprintGauss(const std::vector<double> P)
-    : IFootprintFactor({"FootprintGauss", "class_tooltip", {}}, P) {}
+    : IFootprintFactor({"FootprintGauss", "class_tooltip", {}}, P)
+{
+}
 
 FootprintGauss::FootprintGauss(double width_ratio)
-    : FootprintGauss(std::vector<double>{width_ratio}) {}
+    : FootprintGauss(std::vector<double>{width_ratio})
+{
+}
 
-FootprintGauss* FootprintGauss::clone() const {
+FootprintGauss* FootprintGauss::clone() const
+{
     return new FootprintGauss(m_width_ratio);
 }
 
-double FootprintGauss::calculate(double alpha) const {
+double FootprintGauss::calculate(double alpha) const
+{
     if (alpha < 0.0 || alpha > M_PI_2)
         return 0.0;
     if (widthRatio() == 0.0)

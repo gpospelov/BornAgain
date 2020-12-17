@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SampleDesigner/SampleTreeWidget.cpp
 //! @brief     Implements class SampleTreeWidget
@@ -22,7 +22,8 @@
 #include <QVBoxLayout>
 
 SampleTreeWidget::SampleTreeWidget(QWidget* parent, SampleModel* model)
-    : QWidget(parent), m_treeView(new ItemTreeView), m_sampleModel(model) {
+    : QWidget(parent), m_treeView(new ItemTreeView), m_sampleModel(model)
+{
     setWindowTitle("Sample Tree");
     setObjectName(QLatin1String("SampleTreeWidget"));
 
@@ -50,11 +51,13 @@ SampleTreeWidget::SampleTreeWidget(QWidget* parent, SampleModel* model)
             SLOT(expandAll()));
 }
 
-QTreeView* SampleTreeWidget::treeView() {
+QTreeView* SampleTreeWidget::treeView()
+{
     return m_treeView;
 }
 
-void SampleTreeWidget::showContextMenu(const QPoint& pnt) {
+void SampleTreeWidget::showContextMenu(const QPoint& pnt)
+{
     QMenu menu;
     QMenu add_menu("Add");
     QVector<QString> addItemNames;
@@ -87,7 +90,8 @@ void SampleTreeWidget::showContextMenu(const QPoint& pnt) {
     }
 }
 
-void SampleTreeWidget::addItem(const QString& item_name) {
+void SampleTreeWidget::addItem(const QString& item_name)
+{
     QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(treeView()->currentIndex());
 
     QModelIndex currentIndexAtColumnZero = getIndexAtColumnZero(currentIndex);
@@ -98,7 +102,8 @@ void SampleTreeWidget::addItem(const QString& item_name) {
     }
 }
 
-void SampleTreeWidget::deleteItem() {
+void SampleTreeWidget::deleteItem()
+{
     QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(treeView()->currentIndex());
 
     if (!currentIndex.isValid())
@@ -110,13 +115,15 @@ void SampleTreeWidget::deleteItem() {
     }
 }
 
-void SampleTreeWidget::scrollToIndex(const QModelIndex& index) {
+void SampleTreeWidget::scrollToIndex(const QModelIndex& index)
+{
     if (index.isValid()) {
         treeView()->scrollTo(index);
     }
 }
 
-QModelIndex SampleTreeWidget::getIndexAtColumnZero(const QModelIndex& index) {
+QModelIndex SampleTreeWidget::getIndexAtColumnZero(const QModelIndex& index)
+{
     if (index == QModelIndex() || index.column() == 0)
         return index;
     QModelIndex parent_index = m_sampleModel->parent(index);

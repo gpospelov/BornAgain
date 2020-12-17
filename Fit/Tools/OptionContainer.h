@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Tools/OptionContainer.h
 //! @brief     Declares class OptionContainer.
@@ -68,7 +68,8 @@ protected:
 
 template <class T>
 OptionContainer::option_t OptionContainer::addOption(const std::string& optionName, T value,
-                                                     const std::string& description) {
+                                                     const std::string& description)
+{
     if (exists(optionName))
         throw std::runtime_error("OptionContainer::addOption() -> Error. Option '" + optionName
                                  + "' exists.");
@@ -78,11 +79,13 @@ OptionContainer::option_t OptionContainer::addOption(const std::string& optionNa
     return result;
 }
 
-template <class T> T OptionContainer::optionValue(const std::string& optionName) const {
+template <class T> T OptionContainer::optionValue(const std::string& optionName) const
+{
     return option(optionName)->get<T>();
 }
 
-template <class T> void OptionContainer::setOptionValue(const std::string& optionName, T value) {
+template <class T> void OptionContainer::setOptionValue(const std::string& optionName, T value)
+{
     option(optionName)->value() = value;
     if (option(optionName)->value().which() != option(optionName)->defaultValue().which())
         throw std::runtime_error(

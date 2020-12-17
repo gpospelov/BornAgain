@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SampleView.cpp
 //! @brief     Implements class SampleView
@@ -30,22 +30,26 @@
 #include <memory>
 
 SampleView::SampleView(MainWindow* mainWindow)
-    : QMainWindow(mainWindow), m_docks(new DocksController(this)) {
+    : QMainWindow(mainWindow), m_docks(new DocksController(this))
+{
 
     setObjectName("SampleView");
     createSubWindows();
     connectSignals();
 }
 
-ApplicationModels* SampleView::models() {
+ApplicationModels* SampleView::models()
+{
     return MainWindow::instance()->models();
 }
 
-void SampleView::toggleRealSpaceView() {
+void SampleView::toggleRealSpaceView()
+{
     m_docks->toggleDock(REALSPACEPANEL);
 }
 
-void SampleView::fillViewMenu(QMenu* menu) {
+void SampleView::fillViewMenu(QMenu* menu)
+{
     m_docks->addDockActionsToMenu(menu);
 
     menu->addSeparator();
@@ -56,7 +60,8 @@ void SampleView::fillViewMenu(QMenu* menu) {
     menu->addAction(action);
 }
 
-void SampleView::createSubWindows() {
+void SampleView::createSubWindows()
+{
     m_sampleDesigner = new SampleDesigner(this);
     m_widgetBox = new SampleWidgetBox(m_sampleDesigner, this);
     m_treeWidget = new SampleTreeWidget(this, models()->sampleModel());
@@ -87,7 +92,8 @@ void SampleView::createSubWindows() {
     resetLayout();
 }
 
-void SampleView::connectSignals() {
+void SampleView::connectSignals()
+{
     // toolBar should be initialized after MaterialBrowser
     m_toolBar = new SampleToolBar(this);
     connect(m_toolBar, &SampleToolBar::deleteItems, m_sampleDesigner->getView(),
@@ -106,7 +112,8 @@ void SampleView::connectSignals() {
     addToolBar(m_toolBar);
 }
 
-void SampleView::resetLayout() {
+void SampleView::resetLayout()
+{
     m_docks->resetLayout();
     tabifyDockWidget(m_docks->findDock(REALSPACEPANEL), m_docks->findDock(INFO));
     m_docks->findDock(REALSPACEPANEL)->raise(); // makes first tab active

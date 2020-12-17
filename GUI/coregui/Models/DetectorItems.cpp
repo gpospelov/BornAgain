@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/DetectorItems.cpp
 //! @brief     Implements classes DetectorItems
@@ -36,7 +36,8 @@ const QString DetectorItem::P_ANALYZER_DIRECTION = "Analyzer direction";
 const QString DetectorItem::P_ANALYZER_EFFICIENCY = QString::fromStdString("Efficiency");
 const QString DetectorItem::P_ANALYZER_TOTAL_TRANSMISSION = QString::fromStdString("Transmission");
 
-DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType) {
+DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType)
+{
     registerTag(T_MASKS, 0, -1, QStringList() << "MaskContainer");
     setDefaultTag(T_MASKS);
 
@@ -57,7 +58,8 @@ DetectorItem::DetectorItem(const QString& modelType) : SessionItem(modelType) {
     });
 }
 
-std::unique_ptr<IDetector2D> DetectorItem::createDetector() const {
+std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
+{
     auto result = createDomainDetector();
     addMasksToDomain(result.get());
 
@@ -73,34 +75,40 @@ std::unique_ptr<IDetector2D> DetectorItem::createDetector() const {
     return result;
 }
 
-void DetectorItem::clearMasks() {
+void DetectorItem::clearMasks()
+{
     if (auto maskContainer = maskContainerItem())
         delete takeRow(rowOfChild(maskContainer));
 }
 
-MaskContainerItem* DetectorItem::maskContainerItem() const {
+MaskContainerItem* DetectorItem::maskContainerItem() const
+{
     return dynamic_cast<MaskContainerItem*>(getItem(T_MASKS));
 }
 
-void DetectorItem::createMaskContainer() {
+void DetectorItem::createMaskContainer()
+{
     if (!maskContainerItem())
         model()->insertNewItem("MaskContainer", this->index());
 }
 
-void DetectorItem::importMasks(const MaskContainerItem* maskContainer) {
+void DetectorItem::importMasks(const MaskContainerItem* maskContainer)
+{
     clearMasks();
 
     if (maskContainer)
         model()->copyItem(maskContainer, this, T_MASKS);
 }
 
-void DetectorItem::register_resolution_function() {
+void DetectorItem::register_resolution_function()
+{
     auto item = addGroupProperty(P_RESOLUTION_FUNCTION, "Resolution function group");
     item->setDisplayName(res_func_group_label);
     item->setToolTip("Detector resolution function");
 }
 
-void DetectorItem::update_resolution_function_tooltips() {
+void DetectorItem::update_resolution_function_tooltips()
+{
     auto& resfuncItem = groupItem<ResolutionFunctionItem>(DetectorItem::P_RESOLUTION_FUNCTION);
 
     if (resfuncItem.modelType() == "ResolutionFunction2DGaussian") {
@@ -113,12 +121,14 @@ void DetectorItem::update_resolution_function_tooltips() {
     }
 }
 
-std::unique_ptr<IResolutionFunction2D> DetectorItem::createResolutionFunction() const {
+std::unique_ptr<IResolutionFunction2D> DetectorItem::createResolutionFunction() const
+{
     auto& resfuncItem = groupItem<ResolutionFunctionItem>(DetectorItem::P_RESOLUTION_FUNCTION);
     return resfuncItem.createResolutionFunction(axesToDomainUnitsFactor());
 }
 
-void DetectorItem::addMasksToDomain(IDetector2D* detector) const {
+void DetectorItem::addMasksToDomain(IDetector2D* detector) const
+{
     auto maskContainer = maskContainerItem();
 
     if (!maskContainer)

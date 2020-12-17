@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Detector/IsGISAXSDetector.cpp
 //! @brief     Implements class IsGISAXSDetector.
@@ -15,26 +15,31 @@
 #include "Device/Detector/IsGISAXSDetector.h"
 #include "Base/Axis/CustomBinAxis.h"
 
-IsGISAXSDetector::IsGISAXSDetector() {
+IsGISAXSDetector::IsGISAXSDetector()
+{
     setName("IsGISAXSDetector");
 }
 
 IsGISAXSDetector::IsGISAXSDetector(size_t n_phi, double phi_min, double phi_max, size_t n_alpha,
-                                   double alpha_min, double alpha_max) {
+                                   double alpha_min, double alpha_max)
+{
     setName("IsGISAXSDetector");
     setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 }
 
-IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector& other) : SphericalDetector(other) {
+IsGISAXSDetector::IsGISAXSDetector(const IsGISAXSDetector& other) : SphericalDetector(other)
+{
     setName("IsGISAXSDetector");
 }
 
-IsGISAXSDetector* IsGISAXSDetector::clone() const {
+IsGISAXSDetector* IsGISAXSDetector::clone() const
+{
     return new IsGISAXSDetector(*this);
 }
 
 std::unique_ptr<IAxis> IsGISAXSDetector::createAxis(size_t index, size_t n_bins, double min,
-                                                    double max) const {
+                                                    double max) const
+{
     if (max <= min) {
         throw std::runtime_error("IsGISAXSDetector::createAxis() -> Error! max <= min");
     }
@@ -45,6 +50,7 @@ std::unique_ptr<IAxis> IsGISAXSDetector::createAxis(size_t index, size_t n_bins,
     return std::make_unique<CustomBinAxis>(axisName(index), n_bins, min, max);
 }
 
-size_t IsGISAXSDetector::indexOfSpecular(const Beam& /*beam*/) const {
+size_t IsGISAXSDetector::indexOfSpecular(const Beam& /*beam*/) const
+{
     return totalSize();
 }

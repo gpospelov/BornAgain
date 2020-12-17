@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/SampleBuilderEngine/IRegistry.h
 //! @brief     Defines templated registry for ICloneable objects
@@ -32,14 +32,16 @@
 
 template <class ValueType> class IRegistry {
 public:
-    const ValueType* getItem(const std::string& key) const {
+    const ValueType* getItem(const std::string& key) const
+    {
         auto it = m_data.find(key);
         if (it == m_data.end())
             throw std::runtime_error("Key '" + key + "' not found in registry");
         return it->second.get();
     }
 
-    std::vector<std::string> keys() const {
+    std::vector<std::string> keys() const
+    {
         std::vector<std::string> result;
         for (const auto& it : m_data)
             result.push_back(it.first);
@@ -49,7 +51,8 @@ public:
     size_t size() const { return m_data.size(); }
 
 protected:
-    void add(const std::string& key, ValueType* item) {
+    void add(const std::string& key, ValueType* item)
+    {
         if (m_data.find(key) != m_data.end())
             throw std::runtime_error("Key '" + key + "' already in registry");
         m_data[key] = std::unique_ptr<ValueType>(item);

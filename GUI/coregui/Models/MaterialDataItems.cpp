@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/MaterialDataItems.cpp
 //! @brief     Implements MaterialDataItems classes
@@ -14,7 +14,8 @@
 
 #include "GUI/coregui/Models/MaterialDataItems.h"
 
-MaterialDataItem::MaterialDataItem(const QString& modelType) : SessionItem(modelType) {
+MaterialDataItem::MaterialDataItem(const QString& modelType) : SessionItem(modelType)
+{
     setEditable(false); // empty label, non-editable
 }
 
@@ -24,7 +25,8 @@ const QString MaterialRefractiveDataItem::P_DELTA = "Delta";
 const QString MaterialRefractiveDataItem::P_BETA = "Beta";
 
 MaterialRefractiveDataItem::MaterialRefractiveDataItem()
-    : MaterialDataItem("MaterialRefractiveData") {
+    : MaterialDataItem("MaterialRefractiveData")
+{
     addProperty(P_DELTA, 0.0)
         ->setEditorType("ScientificDouble")
         .setLimits(RealLimits::limitless())
@@ -40,7 +42,8 @@ MaterialRefractiveDataItem::MaterialRefractiveDataItem()
 const QString MaterialSLDDataItem::P_SLD_REAL = "SLD, real";
 const QString MaterialSLDDataItem::P_SLD_IMAG = "SLD, imaginary";
 
-MaterialSLDDataItem::MaterialSLDDataItem() : MaterialDataItem("MaterialSLDData") {
+MaterialSLDDataItem::MaterialSLDDataItem() : MaterialDataItem("MaterialSLDData")
+{
     addProperty(P_SLD_REAL, 0.0)
         ->setEditorType("ScientificDouble")
         .setLimits(RealLimits::limitless())

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorBar.cpp
 //! @brief     Implements classes FormFactorBar*.
@@ -20,20 +20,27 @@
 //  ************************************************************************************************
 
 FormFactorBarGauss::FormFactorBarGauss(const std::vector<double> P)
-    : IProfileRectangularRipple({"BarGauss", "class_tooltip", {}}, P) {}
+    : IProfileRectangularRipple({"BarGauss", "class_tooltip", {}}, P)
+{
+}
 
 FormFactorBarGauss::FormFactorBarGauss(double length, double width, double height)
-    : FormFactorBarGauss(std::vector<double>{length, width, height}) {}
+    : FormFactorBarGauss(std::vector<double>{length, width, height})
+{
+}
 
-FormFactorBarGauss* FormFactorBarGauss::clone() const {
+FormFactorBarGauss* FormFactorBarGauss::clone() const
+{
     return new FormFactorBarGauss(m_length, m_width, m_height);
 }
 
-void FormFactorBarGauss::accept(INodeVisitor* visitor) const {
+void FormFactorBarGauss::accept(INodeVisitor* visitor) const
+{
     visitor->visit(this);
 }
 
-complex_t FormFactorBarGauss::factor_x(complex_t qx) const {
+complex_t FormFactorBarGauss::factor_x(complex_t qx) const
+{
     return ripples::factor_x_Gauss(qx, m_length);
 }
 
@@ -42,19 +49,26 @@ complex_t FormFactorBarGauss::factor_x(complex_t qx) const {
 //  ************************************************************************************************
 
 FormFactorBarLorentz::FormFactorBarLorentz(const std::vector<double> P)
-    : IProfileRectangularRipple({"BarLorentz", "class_tooltip", {}}, P) {}
+    : IProfileRectangularRipple({"BarLorentz", "class_tooltip", {}}, P)
+{
+}
 
 FormFactorBarLorentz::FormFactorBarLorentz(double length, double width, double height)
-    : FormFactorBarLorentz(std::vector<double>{length, width, height}) {}
+    : FormFactorBarLorentz(std::vector<double>{length, width, height})
+{
+}
 
-FormFactorBarLorentz* FormFactorBarLorentz::clone() const {
+FormFactorBarLorentz* FormFactorBarLorentz::clone() const
+{
     return new FormFactorBarLorentz(m_length, m_width, m_height);
 }
 
-void FormFactorBarLorentz::accept(INodeVisitor* visitor) const {
+void FormFactorBarLorentz::accept(INodeVisitor* visitor) const
+{
     visitor->visit(this);
 }
 
-complex_t FormFactorBarLorentz::factor_x(complex_t qx) const {
+complex_t FormFactorBarLorentz::factor_x(complex_t qx) const
+{
     return ripples::factor_x_Lorentz(qx, m_length);
 }

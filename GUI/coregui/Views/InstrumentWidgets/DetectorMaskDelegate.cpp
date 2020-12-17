@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/DetectorMaskDelegate.cpp
 //! @brief     Implements class DetectorMaskDelegate
@@ -28,11 +28,14 @@ DetectorMaskDelegate::DetectorMaskDelegate(QObject* parent)
     , m_tempIntensityDataModel(new SessionModel("TempIntensityDataModel", this))
     , m_instrumentModel(nullptr)
     , m_detectorItem(nullptr)
-    , m_intensityItem(nullptr) {}
+    , m_intensityItem(nullptr)
+{
+}
 
 void DetectorMaskDelegate::initMaskEditorContext(MaskEditor* maskEditor,
                                                  InstrumentModel* instrumentModel,
-                                                 DetectorItem* detectorItem) {
+                                                 DetectorItem* detectorItem)
+{
     m_instrumentModel = instrumentModel;
     m_detectorItem = detectorItem;
 
@@ -50,7 +53,8 @@ void DetectorMaskDelegate::initMaskEditorContext(MaskEditor* maskEditor,
 //! Creates IntensityDataItem from DetectorItem for later usage in MaskEditor.
 //! As amplitude, value 1.0 is set for each bin.
 //! The object additionally tuned to appear nicely on ColorMap plot.
-void DetectorMaskDelegate::createIntensityDataItem() {
+void DetectorMaskDelegate::createIntensityDataItem()
+{
     m_tempIntensityDataModel->clear();
 
     m_intensityItem =

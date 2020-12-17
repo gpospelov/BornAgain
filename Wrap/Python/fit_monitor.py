@@ -1,6 +1,6 @@
 #  **************************************************************************  #
 """
-#   BornAgain: simulate and fit scattering at grazing incidence
+#   BornAgain: simulate and fit reflection and scattering
 #
 #   @file      Wrap/Python/fit_monitor.py
 #   @brief     Plotter classes for monitoring fit progress.

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/ParticleCompositionItem.cpp
 //! @brief     Implements class ParticleCompositionItem
@@ -35,7 +35,8 @@ const QString ParticleCompositionItem::T_PARTICLES = "Particle Tag";
 
 // TODO make ParticleCoreShellItem and ParticleItem to derive from common base.
 
-ParticleCompositionItem::ParticleCompositionItem() : SessionGraphicsItem("ParticleComposition") {
+ParticleCompositionItem::ParticleCompositionItem() : SessionGraphicsItem("ParticleComposition")
+{
     setToolTip("Composition of particles with fixed positions");
 
     addProperty(ParticleItem::P_ABUNDANCE, 1.0)
@@ -66,7 +67,8 @@ ParticleCompositionItem::ParticleCompositionItem() : SessionGraphicsItem("Partic
     });
 }
 
-std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComposition() const {
+std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComposition() const
+{
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
     auto P_composition = std::make_unique<ParticleComposition>();
     P_composition->setAbundance(abundance);

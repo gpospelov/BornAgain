@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Kernel/PyCallback.cpp
 //! @brief     Implements class PyCallback.
@@ -16,16 +16,19 @@
 
 PyCallback::PyCallback(PyCallback::CallbackType callback_type) : m_callback_type(callback_type) {}
 
-PyCallback::CallbackType PyCallback::callback_type() const {
+PyCallback::CallbackType PyCallback::callback_type() const
+{
     return m_callback_type;
 }
 
 PyCallback::~PyCallback() = default;
 
-double PyCallback::call_scalar(mumufit::Parameters) {
+double PyCallback::call_scalar(mumufit::Parameters)
+{
     throw std::runtime_error("PyCallback::call_scalar() -> Error. Not implemented");
 }
 
-std::vector<double> PyCallback::call_residuals(mumufit::Parameters) {
+std::vector<double> PyCallback::call_residuals(mumufit::Parameters)
+{
     throw std::runtime_error("PyCallback::call_residuals() -> Error. Not implemented");
 }

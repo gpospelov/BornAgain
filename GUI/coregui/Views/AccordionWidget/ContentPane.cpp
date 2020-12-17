@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/AccordionWidget/ContentPane.cpp
 //! @brief     Implements ContentPane class
@@ -32,26 +32,31 @@
 
 namespace clickcon = ClickableFrame_constants;
 
-ContentPane::ContentPane(QString header, QWidget* parent) : QWidget(parent) {
+ContentPane::ContentPane(QString header, QWidget* parent) : QWidget(parent)
+{
     this->content = nullptr;
 
     this->initDefaults(std::move(header));
 }
 
 ContentPane::ContentPane(QString header, QFrame* content, QWidget* parent)
-    : QWidget(parent), content(content) {
+    : QWidget(parent), content(content)
+{
     this->initDefaults(std::move(header));
 }
 
-bool ContentPane::getActive() {
+bool ContentPane::getActive()
+{
     return this->active;
 }
 
-QFrame* ContentPane::getContentFrame() {
+QFrame* ContentPane::getContentFrame()
+{
     return this->content;
 }
 
-void ContentPane::setContentFrame(QFrame* content) {
+void ContentPane::setContentFrame(QFrame* content)
+{
     this->container->layout()->removeWidget(this->content);
     if (this->content != nullptr)
         delete (this->content);
@@ -59,11 +64,13 @@ void ContentPane::setContentFrame(QFrame* content) {
     dynamic_cast<QVBoxLayout*>(this->container->layout())->insertWidget(0, this->content);
 }
 
-int ContentPane::getMaximumHeight() {
+int ContentPane::getMaximumHeight()
+{
     return this->container->maximumHeight();
 }
 
-void ContentPane::setMaximumHeight(int maxHeight) {
+void ContentPane::setMaximumHeight(int maxHeight)
+{
     this->containerAnimationMaxHeight = maxHeight;
 
     if (this->getActive())
@@ -72,55 +79,68 @@ void ContentPane::setMaximumHeight(int maxHeight) {
     this->closeAnimation->setStartValue(this->containerAnimationMaxHeight);
 }
 
-void ContentPane::setHeader(QString header) {
+void ContentPane::setHeader(QString header)
+{
     this->header->setHeader(std::move(header));
 }
 
-QString ContentPane::getHeader() {
+QString ContentPane::getHeader()
+{
     return this->header->getHeader();
 }
 
-void ContentPane::setHeaderTooltip(QString tooltip) {
+void ContentPane::setHeaderTooltip(QString tooltip)
+{
     this->header->setToolTip(tooltip);
 }
 
-QString ContentPane::getHeaderTooltip() {
+QString ContentPane::getHeaderTooltip()
+{
     return this->header->toolTip();
 }
 
-void ContentPane::setHeaderStylesheet(QString stylesheet) {
+void ContentPane::setHeaderStylesheet(QString stylesheet)
+{
     this->header->setNormalStylesheet(std::move(stylesheet));
 }
 
-QString ContentPane::getHeaderStylesheet() {
+QString ContentPane::getHeaderStylesheet()
+{
     return this->header->getNormalStylesheet();
 }
 
-void ContentPane::setHeaderHoverStylesheet(QString stylesheet) {
+void ContentPane::setHeaderHoverStylesheet(QString stylesheet)
+{
     this->header->setHoverStylesheet(std::move(stylesheet));
 }
 
-QString ContentPane::getHeaderHoverStylesheet() {
+QString ContentPane::getHeaderHoverStylesheet()
+{
     return this->header->getHoverStylesheet();
 }
 
-void ContentPane::setHeaderFrameStyle(int style) {
+void ContentPane::setHeaderFrameStyle(int style)
+{
     this->header->setFrameStyle(style);
 }
 
-int ContentPane::getHeaderFrameStyle() {
+int ContentPane::getHeaderFrameStyle()
+{
     return this->header->frameStyle();
 }
 
-void ContentPane::setContainerFrameStyle(int style) {
+void ContentPane::setContainerFrameStyle(int style)
+{
     this->container->setFrameStyle(style);
 }
 
-int ContentPane::getContainerFrameStyle() {
+int ContentPane::getContainerFrameStyle()
+{
     return this->container->frameStyle();
 }
 
-void ContentPane::openContentPane() {
+void ContentPane::openContentPane()
+{
     if (this->getActive())
         return;
     this->openAnimation->start();
@@ -128,7 +148,8 @@ void ContentPane::openContentPane() {
     this->active = true;
 }
 
-void ContentPane::closeContentPane() {
+void ContentPane::closeContentPane()
+{
     if (!this->getActive())
         return;
     this->closeAnimation->start();
@@ -136,7 +157,8 @@ void ContentPane::closeContentPane() {
     this->active = false;
 }
 
-void ContentPane::initDefaults(QString header) {
+void ContentPane::initDefaults(QString header)
+{
     this->active = false;
 
     this->headerFrameStyle = QFrame::Shape::StyledPanel | QFrame::Shadow::Raised;
@@ -155,7 +177,8 @@ void ContentPane::initDefaults(QString header) {
     this->initAnimations();
 }
 
-void ContentPane::initHeaderFrame(QString header) {
+void ContentPane::initHeaderFrame(QString header)
+{
     this->header = new ClickableFrame(std::move(header));
     this->header->setFrameStyle(this->headerFrameStyle);
     this->layout()->addWidget(this->header);
@@ -163,7 +186,8 @@ void ContentPane::initHeaderFrame(QString header) {
     QObject::connect(this->header, &ClickableFrame::singleClick, this, &ContentPane::headerClicked);
 }
 
-void ContentPane::initContainerContentFrame() {
+void ContentPane::initContainerContentFrame()
+{
     this->container = new QFrame();
     this->container->setLayout(new QVBoxLayout());
     this->container->setFrameStyle(this->contentPaneFrameStyle);
@@ -180,7 +204,8 @@ void ContentPane::initContainerContentFrame() {
     this->container->layout()->setContentsMargins(QMargins());
 }
 
-void ContentPane::initAnimations() {
+void ContentPane::initAnimations()
+{
     this->openAnimation = std::unique_ptr<QPropertyAnimation>(new QPropertyAnimation());
     this->closeAnimation = std::unique_ptr<QPropertyAnimation>(new QPropertyAnimation());
     // TODO: Currently these animations only animate maximumHeight. This leads to
@@ -202,11 +227,13 @@ void ContentPane::initAnimations() {
     this->closeAnimation->setEasingCurve(QEasingCurve(QEasingCurve::Type::Linear));
 }
 
-void ContentPane::headerClicked() {
+void ContentPane::headerClicked()
+{
     emit this->clicked();
 }
 
-void ContentPane::paintEvent(ATTR_UNUSED QPaintEvent* event) {
+void ContentPane::paintEvent(ATTR_UNUSED QPaintEvent* event)
+{
     QStyleOption o;
     o.initFrom(this);
     QPainter p(this);

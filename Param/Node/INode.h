@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Param/Node/INode.h
 //! @brief     Defines interface INode.
@@ -91,7 +91,8 @@ protected:
 
 template <class T>
 std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,
-                                      const std::unique_ptr<T>& node) {
+                                      const std::unique_ptr<T>& node)
+{
     if (node)
         v_node.push_back(node.get());
     return v_node;
@@ -99,31 +100,35 @@ std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,
 
 template <class T>
 std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
-                                      const std::unique_ptr<T>& node) {
+                                      const std::unique_ptr<T>& node)
+{
     if (node)
         v_node.push_back(node.get());
     return v_node;
 }
 
-inline std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node, const INode* node) {
+inline std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node, const INode* node)
+{
     v_node.push_back(node);
     return v_node;
 }
 
-inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
-                                             const INode* node) {
+inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node, const INode* node)
+{
     v_node.push_back(node);
     return v_node;
 }
 
 inline std::vector<const INode*>& operator<<(std::vector<const INode*>& v_node,
-                                             const std::vector<const INode*>& other) {
+                                             const std::vector<const INode*>& other)
+{
     v_node.insert(v_node.end(), other.begin(), other.end());
     return v_node;
 }
 
 inline std::vector<const INode*>& operator<<(std::vector<const INode*>&& v_node,
-                                             const std::vector<const INode*>& other) {
+                                             const std::vector<const INode*>& other)
+{
     v_node.insert(v_node.end(), other.begin(), other.end());
     return v_node;
 }

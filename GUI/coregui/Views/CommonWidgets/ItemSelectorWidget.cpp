@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/CommonWidgets/ItemSelectorWidget.cpp
 //! @brief     Implements class ItemSelectorWidget
@@ -20,7 +20,8 @@
 #include <QVBoxLayout>
 
 ItemSelectorWidget::ItemSelectorWidget(QWidget* parent)
-    : QWidget(parent), m_listView(new QListView), m_model(nullptr) {
+    : QWidget(parent), m_listView(new QListView), m_model(nullptr)
+{
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
     QVBoxLayout* layout = new QVBoxLayout;
@@ -38,15 +39,18 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget* parent)
 
 ItemSelectorWidget::~ItemSelectorWidget() = default;
 
-QSize ItemSelectorWidget::sizeHint() const {
+QSize ItemSelectorWidget::sizeHint() const
+{
     return QSize(Constants::ITEM_SELECTOR_WIDGET_WIDTH, Constants::ITEM_SELECTOR_WIDGET_HEIGHT);
 }
 
-QSize ItemSelectorWidget::minimumSizeHint() const {
+QSize ItemSelectorWidget::minimumSizeHint() const
+{
     return QSize(25, 25);
 }
 
-void ItemSelectorWidget::setModel(SessionModel* model) {
+void ItemSelectorWidget::setModel(SessionModel* model)
+{
     if (model == m_model)
         return;
 
@@ -55,36 +59,43 @@ void ItemSelectorWidget::setModel(SessionModel* model) {
     connectModel();
 }
 
-void ItemSelectorWidget::setItemDelegate(QAbstractItemDelegate* delegate) {
+void ItemSelectorWidget::setItemDelegate(QAbstractItemDelegate* delegate)
+{
     m_listView->setItemDelegate(delegate);
 }
 
-QItemSelectionModel* ItemSelectorWidget::selectionModel() {
+QItemSelectionModel* ItemSelectorWidget::selectionModel()
+{
     return m_listView->selectionModel();
 }
 
-QListView* ItemSelectorWidget::listView() {
+QListView* ItemSelectorWidget::listView()
+{
     return m_listView;
 }
 
 void ItemSelectorWidget::select(const QModelIndex& index,
-                                QItemSelectionModel::SelectionFlags command) {
+                                QItemSelectionModel::SelectionFlags command)
+{
     selectionModel()->select(index, command);
 }
 
 //! select last item if no selection exists
 
-void ItemSelectorWidget::updateSelection() {
+void ItemSelectorWidget::updateSelection()
+{
     if (!selectionModel()->hasSelection())
         selectLast();
 }
 
-void ItemSelectorWidget::selectLast() {
+void ItemSelectorWidget::selectLast()
+{
     QModelIndex itemIndex = m_model->index(m_model->rowCount(QModelIndex()) - 1, 0, QModelIndex());
     selectionModel()->select(itemIndex, QItemSelectionModel::ClearAndSelect);
 }
 
-void ItemSelectorWidget::onSelectionChanged(const QItemSelection& selected, const QItemSelection&) {
+void ItemSelectorWidget::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)
+{
     QModelIndexList indexes = selected.indexes();
     SessionItem* selectedItem(0);
 
@@ -94,11 +105,13 @@ void ItemSelectorWidget::onSelectionChanged(const QItemSelection& selected, cons
     emit selectionChanged(selectedItem);
 }
 
-void ItemSelectorWidget::onCustomContextMenuRequested(const QPoint& point) {
+void ItemSelectorWidget::onCustomContextMenuRequested(const QPoint& point)
+{
     emit contextMenuRequest(m_listView->mapToGlobal(point), m_listView->indexAt(point));
 }
 
-void ItemSelectorWidget::connectModel() {
+void ItemSelectorWidget::connectModel()
+{
     if (!m_model)
         return;
 
@@ -111,13 +124,15 @@ void ItemSelectorWidget::connectModel() {
             Qt::UniqueConnection);
 }
 
-void ItemSelectorWidget::disconnectModel() {
+void ItemSelectorWidget::disconnectModel()
+{
     m_listView->setModel(nullptr);
     m_model = nullptr;
 }
 
 //! provide default selection when widget is shown
-void ItemSelectorWidget::showEvent(QShowEvent*) {
+void ItemSelectorWidget::showEvent(QShowEvent*)
+{
     if (!m_model || !selectionModel())
         return;
 

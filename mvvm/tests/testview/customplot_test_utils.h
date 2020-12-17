@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testview/customplot_test_utils.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_TESTS_TESTVIEW_CUSTOMPLOT_TEST_UTILS_H
 #define BORNAGAIN_MVVM_TESTS_TESTVIEW_CUSTOMPLOT_TEST_UTILS_H
@@ -20,7 +25,8 @@ namespace TestUtils {
 
 //! Returns vector representing bin centers/values on QCPGraph.
 
-template <typename G, typename T> std::vector<double> get_values(const G* graph, T operand) {
+template <typename G, typename T> std::vector<double> get_values(const G* graph, T operand)
+{
     std::vector<double> result;
     auto graph_data = *graph->data();
     std::transform(std::begin(graph_data), std::end(graph_data), std::back_inserter(result),
@@ -38,7 +44,8 @@ std::vector<double> binValues(const QCPGraph* graph);
 std::vector<double> binErrors(const QCPGraph* graph);
 
 //! Finds and returns specific plottable in QCustomPlot canvas.
-template <typename T> T* GetPlottable(QCustomPlot* custom_plot) {
+template <typename T> T* GetPlottable(QCustomPlot* custom_plot)
+{
     for (int i = 0; i < custom_plot->plottableCount(); ++i) {
         if (auto plottable = dynamic_cast<T*>(custom_plot->plottable()); plottable)
             return plottable;

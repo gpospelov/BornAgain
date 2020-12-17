@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/ParticleCompositionBuilder.cpp
 //! @brief     Implements class ParticleCompositionBuilder.
@@ -25,7 +25,8 @@
 
 // --- ParticleCompositionBuilder ---
 
-MultiLayer* ParticleCompositionBuilder::buildSample() const {
+MultiLayer* ParticleCompositionBuilder::buildSample() const
+{
     Layer vacuum_layer(refMat::Vacuum);
     Layer substrate_layer(refMat::Substrate);
 

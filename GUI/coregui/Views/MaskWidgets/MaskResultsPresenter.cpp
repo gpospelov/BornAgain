@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskResultsPresenter.cpp
 //! @brief     Implements class MaskResultsPresenter
@@ -21,21 +21,26 @@
 #include <QVBoxLayout>
 
 MaskResultsPresenter::MaskResultsPresenter(QWidget* parent)
-    : QObject(parent), m_interpolation_flag_backup(false) {}
+    : QObject(parent), m_interpolation_flag_backup(false)
+{
+}
 
 void MaskResultsPresenter::setMaskContext(SessionModel* maskModel,
                                           const QModelIndex& maskContainerIndex,
-                                          IntensityDataItem* intensityItem) {
+                                          IntensityDataItem* intensityItem)
+{
     m_maskModel = maskModel;
     m_maskContainerIndex = maskContainerIndex;
     m_intensityDataItem = intensityItem;
 }
 
-void MaskResultsPresenter::resetContext() {
+void MaskResultsPresenter::resetContext()
+{
     setMaskContext(nullptr, QModelIndex(), nullptr);
 }
 
-void MaskResultsPresenter::updatePresenter(MaskEditorFlags::PresentationType presentationType) {
+void MaskResultsPresenter::updatePresenter(MaskEditorFlags::PresentationType presentationType)
+{
     if (!m_maskContainerIndex.isValid())
         return;
 
@@ -49,7 +54,8 @@ void MaskResultsPresenter::updatePresenter(MaskEditorFlags::PresentationType pre
 //! Update IntensityDataItem in SessionModel to represent masked areas. Corresponding
 //! bins of OutputData will be put to zero.
 
-void MaskResultsPresenter::setShowMaskMode() {
+void MaskResultsPresenter::setShowMaskMode()
+{
     if (OutputData<double>* maskedData = createMaskPresentation()) {
         backup_data();
         m_intensityDataItem->setOutputData(maskedData);
@@ -61,7 +67,8 @@ void MaskResultsPresenter::setShowMaskMode() {
 
 //! Restores original state of IntensityDataItem
 
-void MaskResultsPresenter::setOriginalMode() {
+void MaskResultsPresenter::setOriginalMode()
+{
     if (m_dataBackup) {
         m_intensityDataItem->setOutputData(m_dataBackup->clone());
         m_intensityDataItem->setItemValue(IntensityDataItem::P_IS_INTERPOLATED,
@@ -69,7 +76,8 @@ void MaskResultsPresenter::setOriginalMode() {
     }
 }
 
-void MaskResultsPresenter::backup_data() {
+void MaskResultsPresenter::backup_data()
+{
     m_interpolation_flag_backup =
         m_intensityDataItem->getItemValue(IntensityDataItem::P_IS_INTERPOLATED).toBool();
     m_dataBackup.reset(m_intensityDataItem->getOutputData()->clone());
@@ -78,7 +86,8 @@ void MaskResultsPresenter::backup_data() {
 //! Constructs OutputData which contains original intensity data except masked areas,
 //! and areas outside of ROI, where bin content is set to zero.
 
-OutputData<double>* MaskResultsPresenter::createMaskPresentation() const {
+OutputData<double>* MaskResultsPresenter::createMaskPresentation() const
+{
     // Requesting mask information
     std::unique_ptr<RegionOfInterest> roi;
     DetectorMask detectorMask;

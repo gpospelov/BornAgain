@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/model/instrumentitems.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/model/instrumentitems.h"
 #include "gui2/model/item_constants.h"
@@ -21,17 +26,21 @@ using namespace ModelView;
 namespace gui2 {
 
 BasicSpecularScanItem::BasicSpecularScanItem(const std::string& model_type)
-    : CompoundItem(model_type) {}
+    : CompoundItem(model_type)
+{
+}
 
 // ----------------------------------------------------------------------------
 
-QSpecScanItem::QSpecScanItem() : BasicSpecularScanItem(Constants::QSpecScanItemType) {
+QSpecScanItem::QSpecScanItem() : BasicSpecularScanItem(Constants::QSpecScanItemType)
+{
     addProperty(P_NBINS, 500)->setDisplayName("Nbins");
     addProperty(P_QMIN, 0.0)->setDisplayName("Qmin");
     addProperty(P_QMAX, 1.0)->setDisplayName("Qmax");
 }
 
-std::vector<double> QSpecScanItem::qScanValues() const {
+std::vector<double> QSpecScanItem::qScanValues() const
+{
     int nbins = property<int>(P_NBINS);
     double qmin = property<double>(P_QMIN);
     double qmax = property<double>(P_QMAX);
@@ -41,15 +50,18 @@ std::vector<double> QSpecScanItem::qScanValues() const {
 // ----------------------------------------------------------------------------
 
 ExperimentalScanItem::ExperimentalScanItem()
-    : BasicSpecularScanItem(Constants::ExperimentalScanItemType) {
+    : BasicSpecularScanItem(Constants::ExperimentalScanItemType)
+{
     addProperty(P_IMPORTED_DATA, ExternalProperty::undefined())->setDisplayName("Graph");
 }
 
-void ExperimentalScanItem::setGraphItem(GraphItem* graph) {
+void ExperimentalScanItem::setGraphItem(GraphItem* graph)
+{
     setProperty(P_IMPORTED_DATA, Utils::CreateProperty(graph));
 }
 
-GraphItem* ExperimentalScanItem::graphItem() const {
+GraphItem* ExperimentalScanItem::graphItem() const
+{
     if (model()) {
         auto graph_id = property<ExternalProperty>(P_IMPORTED_DATA).identifier();
         return dynamic_cast<GraphItem*>(model()->findItem(graph_id));
@@ -57,13 +69,15 @@ GraphItem* ExperimentalScanItem::graphItem() const {
     return nullptr;
 }
 
-std::vector<double> ExperimentalScanItem::qScanValues() const {
+std::vector<double> ExperimentalScanItem::qScanValues() const
+{
     return graphItem() ? graphItem()->binCenters() : std::vector<double>();
 }
 
 // ----------------------------------------------------------------------------
 
-SpecularScanGroupItem::SpecularScanGroupItem() : GroupItem(Constants::SpecularScanGroupItemType) {
+SpecularScanGroupItem::SpecularScanGroupItem() : GroupItem(Constants::SpecularScanGroupItemType)
+{
     registerItem<QSpecScanItem>("Q-scan", /*make_selected*/ true);
     registerItem<ExperimentalScanItem>("Based on data");
     init_group();
@@ -71,12 +85,14 @@ SpecularScanGroupItem::SpecularScanGroupItem() : GroupItem(Constants::SpecularSc
 
 // ----------------------------------------------------------------------------
 
-SpecularBeamItem::SpecularBeamItem() : CompoundItem(Constants::SpecularBeamItemType) {
+SpecularBeamItem::SpecularBeamItem() : CompoundItem(Constants::SpecularBeamItemType)
+{
     addProperty(P_INTENSITY, 1.0)->setDisplayName("Intensity");
     addProperty<SpecularScanGroupItem>(P_SCAN_GROUP)->setDisplayName("Specular scan type");
 }
 
-std::vector<double> SpecularBeamItem::qScanValues() const {
+std::vector<double> SpecularBeamItem::qScanValues() const
+{
     auto scan_group = item<SpecularScanGroupItem>(P_SCAN_GROUP);
     if (auto scanItem = dynamic_cast<const BasicSpecularScanItem*>(scan_group->currentItem());
         scanItem)
@@ -84,14 +100,16 @@ std::vector<double> SpecularBeamItem::qScanValues() const {
     return {};
 }
 
-double SpecularBeamItem::intensity() const {
+double SpecularBeamItem::intensity() const
+{
     return property<double>(P_INTENSITY);
 }
 
 //! Returns corresponding experimental graph. If current setup is based on simple q-scan, will
 //! return nullptr.
 
-GraphItem* SpecularBeamItem::experimentalGraphItem() const {
+GraphItem* SpecularBeamItem::experimentalGraphItem() const
+{
     auto scan_group = item<SpecularScanGroupItem>(P_SCAN_GROUP);
     if (auto scanItem = dynamic_cast<const ExperimentalScanItem*>(scan_group->currentItem());
         scanItem)
@@ -102,11 +120,13 @@ GraphItem* SpecularBeamItem::experimentalGraphItem() const {
 // ----------------------------------------------------------------------------
 
 SpecularInstrumentItem::SpecularInstrumentItem()
-    : CompoundItem(Constants::SpecularInstrumentItemType) {
+    : CompoundItem(Constants::SpecularInstrumentItemType)
+{
     addProperty<SpecularBeamItem>(P_BEAM);
 }
 
-SpecularBeamItem* SpecularInstrumentItem::beamItem() const {
+SpecularBeamItem* SpecularInstrumentItem::beamItem() const
+{
     return item<SpecularBeamItem>(P_BEAM);
 }
 

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/editors/scientificspinboxeditor.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/editors/scientificspinboxeditor.h"
 #include "mvvm/editors/scientificspinbox.h"
@@ -16,7 +21,8 @@
 using namespace ModelView;
 
 ScientificSpinBoxEditor::ScientificSpinBoxEditor(QWidget* parent)
-    : CustomEditor(parent), m_doubleEditor(new ScientificSpinBox) {
+    : CustomEditor(parent), m_doubleEditor(new ScientificSpinBox)
+{
     setAutoFillBackground(true);
     setFocusPolicy(Qt::StrongFocus);
     m_doubleEditor->setFocusPolicy(Qt::StrongFocus);
@@ -35,31 +41,37 @@ ScientificSpinBoxEditor::ScientificSpinBoxEditor(QWidget* parent)
     setFocusProxy(m_doubleEditor);
 }
 
-void ScientificSpinBoxEditor::setRange(double minimum, double maximum) {
+void ScientificSpinBoxEditor::setRange(double minimum, double maximum)
+{
     m_doubleEditor->setMinimum(minimum);
     m_doubleEditor->setMaximum(maximum);
 }
 
-void ScientificSpinBoxEditor::setDecimals(int decimals) {
+void ScientificSpinBoxEditor::setDecimals(int decimals)
+{
     m_doubleEditor->setDecimals(decimals);
 }
 
-void ScientificSpinBoxEditor::setSingleStep(double step) {
+void ScientificSpinBoxEditor::setSingleStep(double step)
+{
     m_doubleEditor->setSingleStep(step);
 }
 
-bool ScientificSpinBoxEditor::is_persistent() const {
+bool ScientificSpinBoxEditor::is_persistent() const
+{
     return true;
 }
 
-void ScientificSpinBoxEditor::onEditingFinished() {
+void ScientificSpinBoxEditor::onEditingFinished()
+{
     double new_value = m_doubleEditor->value();
 
     if (!Utils::AreAlmostEqual(new_value, m_data.value<double>()))
         setDataIntern(QVariant::fromValue(new_value));
 }
 
-void ScientificSpinBoxEditor::update_components() {
+void ScientificSpinBoxEditor::update_components()
+{
     if (m_data.type() != QVariant::Double)
         throw std::runtime_error(
             "ScientificSpinBoxEditor::update_components() -> Error. Wrong variant type");

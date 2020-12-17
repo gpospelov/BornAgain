@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Functional/Core/Consistence/ConsistenceTests.cpp
 //! @brief     Implements Core consistence tests through gtest macros.
@@ -20,24 +20,29 @@
 
 int compareTwoReferences(const std::string& name0, const std::string& name1, const double limit);
 
-class Consistence : public ::testing::Test {};
+class Consistence : public ::testing::Test {
+};
 
-TEST_F(Consistence, SpecularWithSlicing) {
+TEST_F(Consistence, SpecularWithSlicing)
+{
     EXPECT_TRUE(compareTwoReferences("SpecularWithSlicing_01", "SpecularWithSlicing_02", 2e-10));
     EXPECT_TRUE(compareTwoReferences("SpecularWithSlicing_01", "SpecularWithSlicing_03", 2e-10));
 }
 
-TEST_F(Consistence, InstrumentDefinitionComparison) {
+TEST_F(Consistence, InstrumentDefinitionComparison)
+{
     EXPECT_TRUE(compareTwoReferences("InstrumentDefinitionComparison_0",
                                      "InstrumentDefinitionComparison_Q", 2e-10));
 }
 
-TEST_F(Consistence, TOFResolutionComparison) {
+TEST_F(Consistence, TOFResolutionComparison)
+{
     EXPECT_TRUE(
         compareTwoReferences("TOFResolutionComparison_TP", "TOFResolutionComparison_TR", 2e-10));
 }
 
-TEST_F(Consistence, PolarizedQAngleReflectivity) {
+TEST_F(Consistence, PolarizedQAngleReflectivity)
+{
     EXPECT_TRUE(compareTwoReferences("PolarizedQAngleReflectivityPP_0",
                                      "PolarizedQAngleReflectivityPP_Q", 2e-10));
     EXPECT_TRUE(compareTwoReferences("PolarizedQAngleReflectivityMM_0",

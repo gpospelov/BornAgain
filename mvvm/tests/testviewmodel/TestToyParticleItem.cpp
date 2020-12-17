@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/TestToyParticleItem.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/itemutils.h"
@@ -28,13 +33,15 @@ ToyParticleItemTest::~ToyParticleItemTest() = default;
 
 //! Initial state.
 
-TEST_F(ToyParticleItemTest, initialState) {
+TEST_F(ToyParticleItemTest, initialState)
+{
     ToyItems::ParticleItem item;
     EXPECT_TRUE(item.isSinglePropertyTag(ToyItems::ParticleItem::P_POSITION));
     EXPECT_TRUE(item.isSinglePropertyTag(ToyItems::ParticleItem::P_SHAPES));
 }
 
-TEST_F(ToyParticleItemTest, TopLevelItems) {
+TEST_F(ToyParticleItemTest, TopLevelItems)
+{
     ToyItems::SampleModel model;
     auto particle = model.insertItem<ToyItems::ParticleItem>();
 
@@ -42,7 +49,8 @@ TEST_F(ToyParticleItemTest, TopLevelItems) {
     EXPECT_EQ(Utils::TopLevelItems(*particle), std::vector<SessionItem*>{});
 }
 
-TEST_F(ToyParticleItemTest, SinglePropertyItems) {
+TEST_F(ToyParticleItemTest, SinglePropertyItems)
+{
     ToyItems::SampleModel model;
     auto particle = model.insertItem<ToyItems::ParticleItem>();
 

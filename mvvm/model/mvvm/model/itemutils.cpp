@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/model/itemutils.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/model/itemutils.h"
 #include "mvvm/model/sessionitem.h"
@@ -14,7 +19,8 @@
 
 using namespace ModelView;
 
-void Utils::iterate(SessionItem* item, const std::function<void(SessionItem*)>& fun) {
+void Utils::iterate(SessionItem* item, const std::function<void(SessionItem*)>& fun)
+{
     if (item)
         fun(item);
     else
@@ -24,8 +30,8 @@ void Utils::iterate(SessionItem* item, const std::function<void(SessionItem*)>& 
         iterate(child, fun);
 }
 
-void Utils::iterate_if(const SessionItem* item,
-                       const std::function<bool(const SessionItem*)>& fun) {
+void Utils::iterate_if(const SessionItem* item, const std::function<bool(const SessionItem*)>& fun)
+{
     bool proceed_with_children(true);
 
     if (item)
@@ -38,7 +44,8 @@ void Utils::iterate_if(const SessionItem* item,
         iterate_if(child, fun);
 }
 
-int Utils::CopyNumber(const SessionItem* item) {
+int Utils::CopyNumber(const SessionItem* item)
+{
     int result(-1);
 
     if (!item)
@@ -58,7 +65,8 @@ int Utils::CopyNumber(const SessionItem* item) {
     return count > 1 ? result : -1;
 }
 
-SessionItem* Utils::ChildAt(const SessionItem* parent, int index) {
+SessionItem* Utils::ChildAt(const SessionItem* parent, int index)
+{
     if (!parent)
         return nullptr;
 
@@ -68,11 +76,13 @@ SessionItem* Utils::ChildAt(const SessionItem* parent, int index) {
                : nullptr;
 }
 
-int Utils::IndexOfChild(const SessionItem* parent, const SessionItem* child) {
+int Utils::IndexOfChild(const SessionItem* parent, const SessionItem* child)
+{
     return Utils::IndexOfItem(parent->children(), child);
 }
 
-std::vector<SessionItem*> Utils::TopLevelItems(const SessionItem& item) {
+std::vector<SessionItem*> Utils::TopLevelItems(const SessionItem& item)
+{
     std::vector<SessionItem*> result;
     for (auto child : item.children())
         if (!item.isSinglePropertyTag(item.tagOfItem(child)))
@@ -80,7 +90,8 @@ std::vector<SessionItem*> Utils::TopLevelItems(const SessionItem& item) {
     return result;
 }
 
-std::vector<SessionItem*> Utils::SinglePropertyItems(const SessionItem& item) {
+std::vector<SessionItem*> Utils::SinglePropertyItems(const SessionItem& item)
+{
     std::vector<SessionItem*> result;
     for (auto child : item.children())
         if (item.isSinglePropertyTag(item.tagOfItem(child)))
@@ -88,7 +99,8 @@ std::vector<SessionItem*> Utils::SinglePropertyItems(const SessionItem& item) {
     return result;
 }
 
-SessionItem* Utils::FindNextSibling(SessionItem* item) {
+SessionItem* Utils::FindNextSibling(SessionItem* item)
+{
     auto parent = item ? item->parent() : nullptr;
     if (!parent)
         return nullptr;
@@ -96,7 +108,8 @@ SessionItem* Utils::FindNextSibling(SessionItem* item) {
     return parent->getItem(tagrow.tag, tagrow.row + 1);
 }
 
-SessionItem* Utils::FindPreviousSibling(SessionItem* item) {
+SessionItem* Utils::FindPreviousSibling(SessionItem* item)
+{
     auto parent = item ? item->parent() : nullptr;
     if (!parent)
         return nullptr;
@@ -104,13 +117,15 @@ SessionItem* Utils::FindPreviousSibling(SessionItem* item) {
     return parent->getItem(tagrow.tag, tagrow.row - 1);
 }
 
-SessionItem* Utils::FindNextItemToSelect(SessionItem* item) {
+SessionItem* Utils::FindNextItemToSelect(SessionItem* item)
+{
     auto next = FindNextSibling(item);
     auto closest = next ? next : FindPreviousSibling(item);
     return closest ? closest : item->parent();
 }
 
-bool Utils::IsItemAncestor(const SessionItem* item, const SessionItem* candidate) {
+bool Utils::IsItemAncestor(const SessionItem* item, const SessionItem* candidate)
+{
     if (!item || !candidate)
         return false;
     const SessionItem* parent = item->parent();
@@ -123,7 +138,8 @@ bool Utils::IsItemAncestor(const SessionItem* item, const SessionItem* candidate
     return false;
 }
 
-std::vector<SessionItem*> Utils::UniqueItems(const std::vector<SessionItem*>& items) {
+std::vector<SessionItem*> Utils::UniqueItems(const std::vector<SessionItem*>& items)
+{
     auto filtered = Utils::UniqueWithOrder(items);
     std::vector<SessionItem*> result;
     std::copy_if(filtered.begin(), filtered.end(), std::back_inserter(result),

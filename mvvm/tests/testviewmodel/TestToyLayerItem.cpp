@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/TestToyLayerItem.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/standarditems/vectoritem.h"
@@ -29,7 +34,8 @@ ToyLayerItemTest::~ToyLayerItemTest() = default;
 
 //! Initial state.
 
-TEST_F(ToyLayerItemTest, initialState) {
+TEST_F(ToyLayerItemTest, initialState)
+{
     ToyItems::LayerItem item;
     EXPECT_TRUE(item.isSinglePropertyTag(ToyItems::LayerItem::P_THICKNESS));
     EXPECT_TRUE(item.isSinglePropertyTag(ToyItems::LayerItem::P_COLOR));
@@ -38,7 +44,8 @@ TEST_F(ToyLayerItemTest, initialState) {
 
 //! Toy layer as prodused by toy SampleModel.
 
-TEST_F(ToyLayerItemTest, inModel) {
+TEST_F(ToyLayerItemTest, inModel)
+{
     ToyItems::SampleModel model;
     auto layer = model.insertItem<ToyItems::LayerItem>();
 
@@ -46,7 +53,8 @@ TEST_F(ToyLayerItemTest, inModel) {
     EXPECT_EQ(layer->displayName(), ToyItems::Constants::LayerItemType);
 }
 
-TEST_F(ToyLayerItemTest, inViewModel) {
+TEST_F(ToyLayerItemTest, inViewModel)
+{
     ToyItems::SampleModel model;
     auto layerItem = model.insertItem<ToyItems::LayerItem>();
 
@@ -87,7 +95,8 @@ TEST_F(ToyLayerItemTest, inViewModel) {
 //! Constructing ViewModel from a Layer with one "thickness" property.
 //! Change thickness property in SessionItem, control dataChanged signals from ViewModel.
 
-TEST_F(ToyLayerItemTest, layerItemDataChanged) {
+TEST_F(ToyLayerItemTest, layerItemDataChanged)
+{
     ToyItems::SampleModel model;
     auto layerItem = model.insertItem<ToyItems::LayerItem>();
 
@@ -113,7 +122,8 @@ TEST_F(ToyLayerItemTest, layerItemDataChanged) {
 
 //! Validates display name
 
-TEST_F(ToyLayerItemTest, displayNameInMultiLayer) {
+TEST_F(ToyLayerItemTest, displayNameInMultiLayer)
+{
     ToyItems::SampleModel model;
     auto multiLayer = model.insertItem<ToyItems::MultiLayerItem>();
 
@@ -127,7 +137,8 @@ TEST_F(ToyLayerItemTest, displayNameInMultiLayer) {
 
 //! LayerItem as rootItem.
 
-TEST_F(ToyLayerItemTest, setRootItemContext) {
+TEST_F(ToyLayerItemTest, setRootItemContext)
+{
     ToyItems::SampleModel model;
     auto layer = model.insertItem<ToyItems::LayerItem>();
     DefaultViewModel viewModel(&model);

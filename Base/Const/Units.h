@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Const/Units.h
 //! @brief     Defines some unit conversion factors and other constants in namespace Units.
@@ -52,10 +52,12 @@ static constexpr double gauss = 1e-4;
 // Converters
 
 #ifndef SWIG
-inline double rad2deg(double angle) {
+inline double rad2deg(double angle)
+{
     return angle / deg;
 }
-inline double deg2rad(double angle) {
+inline double deg2rad(double angle)
+{
     return angle * deg;
 }
 #endif // USER_API

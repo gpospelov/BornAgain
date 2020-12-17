@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/mainwindow/AutosaveController.cpp
 //! @brief     Implements class AutosaveController
@@ -23,11 +23,13 @@ const int update_every = 20000; // in msec
 }
 
 AutosaveController::AutosaveController(QObject* parent)
-    : QObject(parent), m_document(0), m_timer(new UpdateTimer(update_every, this)) {
+    : QObject(parent), m_document(0), m_timer(new UpdateTimer(update_every, this))
+{
     connect(m_timer, SIGNAL(timeToUpdate()), this, SLOT(onTimerTimeout()));
 }
 
-void AutosaveController::setDocument(ProjectDocument* document) {
+void AutosaveController::setDocument(ProjectDocument* document)
+{
     if (document == m_document)
         return;
 
@@ -44,28 +46,32 @@ void AutosaveController::setDocument(ProjectDocument* document) {
     onDocumentModified();
 }
 
-void AutosaveController::setAutosaveTime(int timerInterval) {
+void AutosaveController::setAutosaveTime(int timerInterval)
+{
     m_timer->reset();
     m_timer->setWallclockTimer(timerInterval);
 }
 
 //! Returns the name of autosave directory.
 
-QString AutosaveController::autosaveDir() const {
+QString AutosaveController::autosaveDir() const
+{
     if (m_document && m_document->hasValidNameAndPath())
         return ProjectUtils::autosaveDir(m_document->projectFileName());
 
     return "";
 }
 
-QString AutosaveController::autosaveName() const {
+QString AutosaveController::autosaveName() const
+{
     if (m_document && m_document->hasValidNameAndPath())
         return ProjectUtils::autosaveName(m_document->projectFileName());
 
     return "";
 }
 
-void AutosaveController::removeAutosaveDir() {
+void AutosaveController::removeAutosaveDir()
+{
     if (autosaveDir().isEmpty())
         return;
 
@@ -73,18 +79,21 @@ void AutosaveController::removeAutosaveDir() {
     dir.removeRecursively();
 }
 
-void AutosaveController::onTimerTimeout() {
+void AutosaveController::onTimerTimeout()
+{
     if (m_document->isModified())
         autosave();
 }
 
-void AutosaveController::onDocumentDestroyed(QObject* object) {
+void AutosaveController::onDocumentDestroyed(QObject* object)
+{
     Q_UNUSED(object);
     m_timer->reset();
     m_document = 0;
 }
 
-void AutosaveController::onDocumentModified() {
+void AutosaveController::onDocumentModified()
+{
     if (!m_document)
         return;
 
@@ -92,7 +101,8 @@ void AutosaveController::onDocumentModified() {
         m_timer->scheduleUpdate();
 }
 
-bool AutosaveController::assureAutoSaveDirExists() const {
+bool AutosaveController::assureAutoSaveDirExists() const
+{
     if (m_document && m_document->hasValidNameAndPath()) {
         const QDir projectDir = m_document->projectDir();
         if (projectDir.exists() && !projectDir.exists(ProjectUtils::autosaveSubdir()))
@@ -104,7 +114,8 @@ bool AutosaveController::assureAutoSaveDirExists() const {
     return false;
 }
 
-void AutosaveController::autosave() {
+void AutosaveController::autosave()
+{
     try {
         if (!autosaveName().isEmpty() && assureAutoSaveDirExists())
             emit autosaveRequest();
@@ -114,7 +125,8 @@ void AutosaveController::autosave() {
     }
 }
 
-void AutosaveController::setDocumentConnected(bool set_connected) {
+void AutosaveController::setDocumentConnected(bool set_connected)
+{
     if (!m_document)
         return;
 

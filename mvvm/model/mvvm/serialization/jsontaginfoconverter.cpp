@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/serialization/jsontaginfoconverter.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/serialization/jsontaginfoconverter.h"
 #include "mvvm/model/taginfo.h"
@@ -17,7 +22,8 @@
 using namespace ModelView;
 
 namespace {
-QStringList expected_taginfo_keys() {
+QStringList expected_taginfo_keys()
+{
     QStringList result = QStringList()
                          << JsonTagInfoConverter::nameKey << JsonTagInfoConverter::minKey
                          << JsonTagInfoConverter::maxKey << JsonTagInfoConverter::modelsKey;
@@ -26,7 +32,8 @@ QStringList expected_taginfo_keys() {
 }
 } // namespace
 
-QJsonObject JsonTagInfoConverter::to_json(const ModelView::TagInfo& tag) {
+QJsonObject JsonTagInfoConverter::to_json(const ModelView::TagInfo& tag)
+{
     QJsonObject result;
     result[nameKey] = QString::fromStdString(tag.name());
     result[minKey] = tag.min();
@@ -39,7 +46,8 @@ QJsonObject JsonTagInfoConverter::to_json(const ModelView::TagInfo& tag) {
     return result;
 }
 
-TagInfo JsonTagInfoConverter::from_json(const QJsonObject& object) {
+TagInfo JsonTagInfoConverter::from_json(const QJsonObject& object)
+{
     if (!isTagInfo(object))
         throw std::runtime_error("JsonTagInfo::get_tags() -> Invalid json object.");
 
@@ -55,7 +63,8 @@ TagInfo JsonTagInfoConverter::from_json(const QJsonObject& object) {
 
 //! Returns true if given json object represents TagInfo object.
 
-bool JsonTagInfoConverter::isTagInfo(const QJsonObject& object) {
+bool JsonTagInfoConverter::isTagInfo(const QJsonObject& object)
+{
     static const QStringList expected = expected_taginfo_keys();
 
     if (object.keys() != expected)

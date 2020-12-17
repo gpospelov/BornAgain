@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorHollowSphere.h
 //! @brief     Defines class FormFactorHollowSphere.
@@ -25,7 +25,8 @@ public:
     FormFactorHollowSphere(const std::vector<double> P);
     FormFactorHollowSphere(double mean, double full_width);
 
-    FormFactorHollowSphere* clone() const final {
+    FormFactorHollowSphere* clone() const final
+    {
         return new FormFactorHollowSphere(m_mean, m_full_width);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobWidgets/SliderSettingsWidget.cpp
 //! @brief     Implements class SliderSettingsWidget
@@ -26,7 +26,8 @@ SliderSettingsWidget::SliderSettingsWidget(QWidget* parent)
     , m_radio1(0)
     , m_radio2(0)
     , m_radio3(0)
-    , m_lockzCheckBox(0) {
+    , m_lockzCheckBox(0)
+{
     // tuning selectors
     QString tooltip("Allows to tune sample parameters within +/- of given range \nwith the help of "
                     "the slider.");
@@ -68,7 +69,8 @@ SliderSettingsWidget::SliderSettingsWidget(QWidget* parent)
     setLayout(hbox);
 }
 
-void SliderSettingsWidget::rangeChanged() {
+void SliderSettingsWidget::rangeChanged()
+{
     if (m_radio1->isChecked()) {
         m_currentSliderRange = 10.0;
     } else if (m_radio2->isChecked()) {
@@ -79,7 +81,8 @@ void SliderSettingsWidget::rangeChanged() {
     emit sliderRangeFactorChanged(m_currentSliderRange);
 }
 
-void SliderSettingsWidget::onLockZChanged(int state) {
+void SliderSettingsWidget::onLockZChanged(int state)
+{
     if (state == Qt::Unchecked) {
         emit lockzChanged(false);
     } else if (state == Qt::Checked) {

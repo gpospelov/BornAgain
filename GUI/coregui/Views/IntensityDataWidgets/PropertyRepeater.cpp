@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/IntensityDataWidgets/PropertyRepeater.cpp
 //! @brief     Implements class PropertyRepeater
@@ -16,16 +16,18 @@
 #include "GUI/coregui/Models/IntensityDataItem.h"
 
 PropertyRepeater::PropertyRepeater(QObject* parent, bool repeat_child_properties)
-    : QObject(parent)
-    , m_block_repeater(false)
-    , m_repeat_child_properties(repeat_child_properties) {}
+    : QObject(parent), m_block_repeater(false), m_repeat_child_properties(repeat_child_properties)
+{
+}
 
-PropertyRepeater::~PropertyRepeater() {
+PropertyRepeater::~PropertyRepeater()
+{
     for (auto item : m_dataItems)
         item->mapper()->unsubscribe(this);
 }
 
-void PropertyRepeater::addItem(SessionItem* sessionItem) {
+void PropertyRepeater::addItem(SessionItem* sessionItem)
+{
     if (!sessionItem || m_dataItems.contains(sessionItem))
         return;
 
@@ -45,18 +47,21 @@ void PropertyRepeater::addItem(SessionItem* sessionItem) {
     m_dataItems.push_back(sessionItem);
 }
 
-void PropertyRepeater::clear() {
+void PropertyRepeater::clear()
+{
     for (auto item : m_dataItems)
         item->mapper()->unsubscribe(this);
 
     m_dataItems.clear();
 }
 
-void PropertyRepeater::setActive(bool isActive) {
+void PropertyRepeater::setActive(bool isActive)
+{
     m_block_repeater = !isActive;
 }
 
-void PropertyRepeater::onPropertyChanged(SessionItem* item, const QString& propertyName) {
+void PropertyRepeater::onPropertyChanged(SessionItem* item, const QString& propertyName)
+{
     if (m_block_repeater)
         return;
 
@@ -69,7 +74,8 @@ void PropertyRepeater::onPropertyChanged(SessionItem* item, const QString& prope
     m_block_repeater = false;
 }
 
-void PropertyRepeater::setOnChildPropertyChange(SessionItem* item, const QString& propertyName) {
+void PropertyRepeater::setOnChildPropertyChange(SessionItem* item, const QString& propertyName)
+{
     if (m_block_repeater)
         return;
 
@@ -86,7 +92,8 @@ void PropertyRepeater::setOnChildPropertyChange(SessionItem* item, const QString
 
 //! Returns list of target items to update their properties.
 
-QVector<SessionItem*> PropertyRepeater::targetItems(SessionItem* sourceItem) {
+QVector<SessionItem*> PropertyRepeater::targetItems(SessionItem* sourceItem)
+{
     QVector<SessionItem*> result = m_dataItems;
     result.removeAll(sourceItem);
     return result;

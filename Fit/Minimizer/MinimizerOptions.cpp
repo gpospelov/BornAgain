@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Minimizer/MinimizerOptions.cpp
 //! @brief     Implements class MinimizerOptions.
@@ -22,7 +22,8 @@ namespace {
 const std::string delimeter = ";";
 }
 
-std::string MinimizerOptions::toOptionString() const {
+std::string MinimizerOptions::toOptionString() const
+{
     std::ostringstream result;
     for (auto option : m_options) {
         result << option->name() << "=" << option->value() << delimeter;
@@ -30,7 +31,8 @@ std::string MinimizerOptions::toOptionString() const {
     return result.str();
 }
 
-void MinimizerOptions::setOptionString(const std::string& options) {
+void MinimizerOptions::setOptionString(const std::string& options)
+{
     // splits multiple option string "Strategy=1;Tolerance=0.01;"
     std::vector<std::string> tokens = mumufit::stringUtils::split(options, delimeter);
     try {
@@ -48,7 +50,8 @@ void MinimizerOptions::setOptionString(const std::string& options) {
 //! Process single option string 'Tolerance=0.01' and sets the value
 //! to corresponding MultiOption
 
-void MinimizerOptions::processCommand(const std::string& command) {
+void MinimizerOptions::processCommand(const std::string& command)
+{
     std::vector<std::string> tokens = mumufit::stringUtils::split(command, "=");
     if (tokens.size() != 2)
         throw std::runtime_error("MinimizerOptions::processOption() -> Can't parse option '"

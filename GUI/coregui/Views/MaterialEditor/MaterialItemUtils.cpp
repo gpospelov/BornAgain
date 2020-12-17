@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/MaterialEditor/MaterialItemUtils.cpp
 //! @brief     Implements class MaterialItemUtils
@@ -34,7 +34,8 @@
 
 namespace {
 
-std::map<QString, QString> get_tag_map() {
+std::map<QString, QString> get_tag_map()
+{
     std::map<QString, QString> result = {
         {"ParticleComposition", ParticleCompositionItem::T_PARTICLES},
         {"ParticleDistribution", ParticleDistributionItem::T_PARTICLES},
@@ -44,7 +45,8 @@ std::map<QString, QString> get_tag_map() {
 }
 } // namespace
 
-QColor MaterialItemUtils::suggestMaterialColor(const QString& name) {
+QColor MaterialItemUtils::suggestMaterialColor(const QString& name)
+{
     if (name.contains("Vacuum")) {
         return QColor(179, 242, 255);
     } else if (name.contains("Substrate")) {
@@ -58,7 +60,8 @@ QColor MaterialItemUtils::suggestMaterialColor(const QString& name) {
     }
 }
 
-ExternalProperty MaterialItemUtils::defaultMaterialProperty() {
+ExternalProperty MaterialItemUtils::defaultMaterialProperty()
+{
     if (!AppSvc::materialModel())
         return ExternalProperty();
 
@@ -68,14 +71,16 @@ ExternalProperty MaterialItemUtils::defaultMaterialProperty() {
 }
 
 std::unique_ptr<Material>
-MaterialItemUtils::createDomainMaterial(const ExternalProperty& material_property) {
+MaterialItemUtils::createDomainMaterial(const ExternalProperty& material_property)
+{
     MaterialItem* materialItem = findMaterial(material_property);
     return materialItem->createMaterial();
 }
 
 std::unique_ptr<Material>
 MaterialItemUtils::createDomainMaterial(const ExternalProperty& material_property,
-                                        const MaterialItemContainer& container) {
+                                        const MaterialItemContainer& container)
+{
     const MaterialItem* material_item = container.findMaterialById(material_property.identifier());
     if (!material_item)
         throw GUIHelpers::Error("MaterialUtils::createDomainMaterial() -> Error. Can't find "
@@ -84,7 +89,8 @@ MaterialItemUtils::createDomainMaterial(const ExternalProperty& material_propert
     return material_item->createMaterial();
 }
 
-MaterialItem* MaterialItemUtils::findMaterial(const ExternalProperty& material_property) {
+MaterialItem* MaterialItemUtils::findMaterial(const ExternalProperty& material_property)
+{
     if (!AppSvc::materialModel())
         throw GUIHelpers::Error("MaterialItemUtils::findMaterial() -> Error. "
                                 "Attempt to access non-existing material model");
@@ -100,7 +106,8 @@ MaterialItem* MaterialItemUtils::findMaterial(const ExternalProperty& material_p
 
 //! Returns material tag for given item. Returns empty string, if item doesn't have materials.
 
-QString MaterialItemUtils::materialTag(const SessionItem& item) {
+QString MaterialItemUtils::materialTag(const SessionItem& item)
+{
     QString result;
     if (item.modelType() == "Particle") {
         result = ParticleItem::P_MATERIAL;
@@ -112,13 +119,15 @@ QString MaterialItemUtils::materialTag(const SessionItem& item) {
 
 //! Returns list of model types which contains registered MaterialProperty.
 
-QStringList MaterialItemUtils::materialRelatedModelTypes() {
+QStringList MaterialItemUtils::materialRelatedModelTypes()
+{
     return {"Particle", "Layer"};
 }
 
 //! Constructs material property for given material.
 
-ExternalProperty MaterialItemUtils::materialProperty(const SessionItem& materialItem) {
+ExternalProperty MaterialItemUtils::materialProperty(const SessionItem& materialItem)
+{
     ExternalProperty result;
 
     ExternalProperty colorProperty =
@@ -130,7 +139,8 @@ ExternalProperty MaterialItemUtils::materialProperty(const SessionItem& material
     return result;
 }
 
-ExternalProperty MaterialItemUtils::colorProperty(const QColor& color) {
+ExternalProperty MaterialItemUtils::colorProperty(const QColor& color)
+{
     ExternalProperty result;
     result.setColor(color);
     result.setText(QString("[%1, %2, %3] (%4)")
@@ -141,7 +151,8 @@ ExternalProperty MaterialItemUtils::colorProperty(const QColor& color) {
     return result;
 }
 
-ExternalProperty MaterialItemUtils::selectMaterialProperty(const ExternalProperty& previous) {
+ExternalProperty MaterialItemUtils::selectMaterialProperty(const ExternalProperty& previous)
+{
     MaterialEditorDialog dialog(AppSvc::materialModel(), MainWindow::instance());
     dialog.setMaterialProperty(previous);
     if (dialog.exec() == QDialog::Accepted) {
@@ -151,7 +162,8 @@ ExternalProperty MaterialItemUtils::selectMaterialProperty(const ExternalPropert
     return ExternalProperty();
 }
 
-ExternalProperty MaterialItemUtils::selectColorProperty(const ExternalProperty& previous) {
+ExternalProperty MaterialItemUtils::selectColorProperty(const ExternalProperty& previous)
+{
     ExternalProperty result;
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
@@ -170,7 +182,8 @@ ExternalProperty MaterialItemUtils::selectColorProperty(const ExternalProperty& 
     return result;
 }
 
-QVector<SessionItem*> MaterialItemUtils::materialPropertyItems(SessionItem* item) {
+QVector<SessionItem*> MaterialItemUtils::materialPropertyItems(SessionItem* item)
+{
     static const std::map<QString, QString> tag_map = get_tag_map();
     QVector<SessionItem*> materials;
     QList<SessionItem*> particle_holders{item};

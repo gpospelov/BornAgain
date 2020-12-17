@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorTruncatedCube.h
 //! @brief     Defines class FormFactorTruncatedCube.
@@ -25,7 +25,8 @@ public:
     FormFactorTruncatedCube(const std::vector<double> P);
     FormFactorTruncatedCube(double length, double removed_length);
 
-    FormFactorTruncatedCube* clone() const final {
+    FormFactorTruncatedCube* clone() const final
+    {
         return new FormFactorTruncatedCube(m_length, m_removed_length);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

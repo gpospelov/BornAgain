@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Pixel/SimulationElement.cpp
 //! @brief     Implements class SimulationElement.
@@ -28,7 +28,9 @@ SimulationElement::SimulationElement(double wavelength, double alpha_i, double p
     , m_mean_kf(pixel->getK(0.5, 0.5, m_wavelength))
     , m_pixel(std::move(pixel))
     , m_is_specular(isSpecular_)
-    , m_intensity(0.0) {}
+    , m_intensity(0.0)
+{
+}
 
 SimulationElement::SimulationElement(const SimulationElement& other)
     : m_polarization(other.m_polarization)
@@ -39,13 +41,16 @@ SimulationElement::SimulationElement(const SimulationElement& other)
     , m_mean_kf(other.m_mean_kf)
     , m_pixel(std::move(other.m_pixel->clone()))
     , m_is_specular(other.m_is_specular)
-    , m_intensity(other.m_intensity) {}
+    , m_intensity(other.m_intensity)
+{
+}
 
 SimulationElement::SimulationElement(SimulationElement&&) = default;
 
 SimulationElement::~SimulationElement() = default;
 
-SimulationElement SimulationElement::pointElement(double x, double y) const {
+SimulationElement SimulationElement::pointElement(double x, double y) const
+{
     return {m_wavelength,
             m_alpha_i,
             m_phi_i,
@@ -55,42 +60,51 @@ SimulationElement SimulationElement::pointElement(double x, double y) const {
             m_is_specular};
 }
 
-kvector_t SimulationElement::getKi() const {
+kvector_t SimulationElement::getKi() const
+{
     return m_k_i;
 }
 
-kvector_t SimulationElement::getMeanKf() const {
+kvector_t SimulationElement::getMeanKf() const
+{
     return m_mean_kf;
 }
 
 //! Returns outgoing wavevector Kf for in-pixel coordinates x,y.
 //! In-pixel coordinates take values from 0 to 1.
-kvector_t SimulationElement::getKf(double x, double y) const {
+kvector_t SimulationElement::getKf(double x, double y) const
+{
     return m_pixel->getK(x, y, m_wavelength);
 }
 
-kvector_t SimulationElement::meanQ() const {
+kvector_t SimulationElement::meanQ() const
+{
     return getKi() - getMeanKf();
 }
 
 //! Returns scattering vector Q, with Kf determined from in-pixel coordinates x,y.
 //! In-pixel coordinates take values from 0 to 1.
-kvector_t SimulationElement::getQ(double x, double y) const {
+kvector_t SimulationElement::getQ(double x, double y) const
+{
     return getKi() - m_pixel->getK(x, y, m_wavelength);
 }
 
-double SimulationElement::getAlpha(double x, double y) const {
+double SimulationElement::getAlpha(double x, double y) const
+{
     return M_PI_2 - getKf(x, y).theta();
 }
 
-double SimulationElement::getPhi(double x, double y) const {
+double SimulationElement::getPhi(double x, double y) const
+{
     return getKf(x, y).phi();
 }
 
-double SimulationElement::integrationFactor(double x, double y) const {
+double SimulationElement::integrationFactor(double x, double y) const
+{
     return m_pixel->integrationFactor(x, y);
 }
 
-double SimulationElement::solidAngle() const {
+double SimulationElement::solidAngle() const
+{
     return m_pixel->solidAngle();
 }

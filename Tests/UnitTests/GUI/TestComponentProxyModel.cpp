@@ -12,11 +12,13 @@
 #include <QDebug>
 #include <QSignalSpy>
 
-class TestComponentProxyModel : public ::testing::Test {};
+class TestComponentProxyModel : public ::testing::Test {
+};
 
 //! Empty proxy model.
 
-TEST_F(TestComponentProxyModel, test_emptyModel) {
+TEST_F(TestComponentProxyModel, test_emptyModel)
+{
     ComponentProxyModel proxy;
     EXPECT_EQ(proxy.rowCount(QModelIndex()), 0);
     EXPECT_EQ(proxy.columnCount(QModelIndex()), static_cast<int>(SessionFlags::MAX_COLUMNS));
@@ -25,7 +27,8 @@ TEST_F(TestComponentProxyModel, test_emptyModel) {
 
 //! Set empty model to proxy.
 
-TEST_F(TestComponentProxyModel, test_setModel) {
+TEST_F(TestComponentProxyModel, test_setModel)
+{
     SessionModel model("TestModel");
     ComponentProxyModel proxy;
 
@@ -40,7 +43,8 @@ TEST_F(TestComponentProxyModel, test_setModel) {
 
 //! Set model to proxy. Model already contains simple item.
 
-TEST_F(TestComponentProxyModel, test_setModelWithItem) {
+TEST_F(TestComponentProxyModel, test_setModelWithItem)
+{
     SessionModel model("TestModel");
     model.insertNewItem("Property");
 
@@ -55,7 +59,8 @@ TEST_F(TestComponentProxyModel, test_setModelWithItem) {
 
 //! Set model to proxy. Model already contains VectorItem.
 
-TEST_F(TestComponentProxyModel, test_setModelWithVector) {
+TEST_F(TestComponentProxyModel, test_setModelWithVector)
+{
     const int ncols = static_cast<int>(SessionFlags::MAX_COLUMNS);
 
     SessionModel model("TestModel");
@@ -147,7 +152,8 @@ TEST_F(TestComponentProxyModel, test_setModelWithVector) {
 
 //! Set model to proxy. Model already contains two PropertyItems. Checking data() method.
 
-TEST_F(TestComponentProxyModel, test_displayRole) {
+TEST_F(TestComponentProxyModel, test_displayRole)
+{
     SessionModel model("TestModel");
     SessionItem* item1 = model.insertNewItem("Property");
     item1->setValue(1.0);
@@ -166,7 +172,8 @@ TEST_F(TestComponentProxyModel, test_displayRole) {
 
 //! Set model with item to proxy. Changing the data on source and checking change propagation.
 
-TEST_F(TestComponentProxyModel, test_setData) {
+TEST_F(TestComponentProxyModel, test_setData)
+{
     SessionModel model("TestModel");
     SessionItem* item = model.insertNewItem("Property");
     item->setValue(1.0);
@@ -206,7 +213,8 @@ TEST_F(TestComponentProxyModel, test_setData) {
 
 //! Checks norification of proxy model then source inserts rows.
 
-TEST_F(TestComponentProxyModel, test_insertRows) {
+TEST_F(TestComponentProxyModel, test_insertRows)
+{
     SessionModel model("TestModel");
 
     ComponentProxyModel proxy;
@@ -226,7 +234,8 @@ TEST_F(TestComponentProxyModel, test_insertRows) {
 //! Checking the mapping of ComponentProxyStrategy in the case of ParticleItem inserted in
 //! the source.
 
-TEST_F(TestComponentProxyModel, test_componentStrategy) {
+TEST_F(TestComponentProxyModel, test_componentStrategy)
+{
     SessionModel model("TestModel");
 
     ComponentProxyModel proxy;
@@ -270,7 +279,8 @@ TEST_F(TestComponentProxyModel, test_componentStrategy) {
 //! the source. We are changing Particle's form factor back and forth and checking for change
 //! in GroupProperty.
 
-TEST_F(TestComponentProxyModel, test_componentStrategyFormFactorChanges) {
+TEST_F(TestComponentProxyModel, test_componentStrategyFormFactorChanges)
+{
     SessionModel model("TestModel");
 
     ComponentProxyModel proxy;
@@ -301,7 +311,8 @@ TEST_F(TestComponentProxyModel, test_componentStrategyFormFactorChanges) {
 //! Checking setRootIndex: proxy model should contain only items corresponding
 //! to rootIndex and its children. Adding simple PropertyItem.
 
-TEST_F(TestComponentProxyModel, test_setRootPropertyItem) {
+TEST_F(TestComponentProxyModel, test_setRootPropertyItem)
+{
     const int ncols = static_cast<int>(SessionFlags::MAX_COLUMNS);
     SessionModel model("TestModel");
 
@@ -337,7 +348,8 @@ TEST_F(TestComponentProxyModel, test_setRootPropertyItem) {
 //! to rootIndex and its children. Adding MultiLayer with two layers and setting rootIndex
 //! to one of the layer.
 
-TEST_F(TestComponentProxyModel, test_setRootIndexLayer) {
+TEST_F(TestComponentProxyModel, test_setRootIndexLayer)
+{
 
     SessionModel model("TestModel");
 

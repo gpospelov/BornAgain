@@ -2,9 +2,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <string>
 
-class ParameterTest : public ::testing::Test {};
+class ParameterTest : public ::testing::Test {
+};
 
-TEST_F(ParameterTest, defaultConstructor) {
+TEST_F(ParameterTest, defaultConstructor)
+{
     mumufit::Parameter par;
 
     EXPECT_EQ(par.name(), "");
@@ -16,7 +18,8 @@ TEST_F(ParameterTest, defaultConstructor) {
     EXPECT_EQ(par.limits(), expected);
 }
 
-TEST_F(ParameterTest, fullConstructor) {
+TEST_F(ParameterTest, fullConstructor)
+{
     AttLimits limits = AttLimits::limited(-10.0, 2.0);
 
     mumufit::Parameter par("par0", 2.0, limits, 0.2);
@@ -30,7 +33,8 @@ TEST_F(ParameterTest, fullConstructor) {
     EXPECT_EQ(par.limits().upperLimit(), 2.0);
 }
 
-TEST_F(ParameterTest, defaultStep) {
+TEST_F(ParameterTest, defaultStep)
+{
     const double start_value = 2.0;
     const double hardcoded_step_factor = 0.01;
     mumufit::Parameter par("par0", start_value, AttLimits::limitless());
@@ -41,7 +45,8 @@ TEST_F(ParameterTest, defaultStep) {
     EXPECT_EQ(par2.step(), hardcoded_step_factor);
 }
 
-TEST_F(ParameterTest, setters) {
+TEST_F(ParameterTest, setters)
+{
     mumufit::Parameter par("par0", 2.0, AttLimits::limitless(), 0.2);
     par.setValue(42.0);
     EXPECT_EQ(par.value(), 42.0);

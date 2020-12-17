@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Fitting/PyFittingCallbacks.cpp
 //! @brief     Implements family of PyFittingCallbacks classes.
@@ -20,7 +20,8 @@ PyBuilderCallback::PyBuilderCallback() = default;
 
 PyBuilderCallback::~PyBuilderCallback() = default;
 
-ISimulation* PyBuilderCallback::build_simulation(mumufit::Parameters) {
+ISimulation* PyBuilderCallback::build_simulation(mumufit::Parameters)
+{
     throw std::runtime_error("PyBuilderCallback::build_simulation() -> Error. Not implemented");
 }
 
@@ -30,6 +31,7 @@ PyObserverCallback::PyObserverCallback() = default;
 
 PyObserverCallback::~PyObserverCallback() = default;
 
-void PyObserverCallback::update(const FitObjective&) {
+void PyObserverCallback::update(const FitObjective&)
+{
     throw std::runtime_error("PyObserverCallback::update() -> Error. Not implemented");
 }

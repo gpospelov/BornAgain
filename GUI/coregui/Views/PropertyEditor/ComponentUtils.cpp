@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/PropertyEditor/ComponentUtils.cpp
 //! @brief     Implements ComponentUtils namespace
@@ -19,7 +19,8 @@ namespace {
 QList<const SessionItem*> groupItems(const SessionItem& item);
 }
 
-QStringList ComponentUtils::propertyRelatedTypes() {
+QStringList ComponentUtils::propertyRelatedTypes()
+{
     QStringList result = QStringList() << "Property"
                                        << "GroupProperty"
                                        << "Vector"
@@ -29,7 +30,8 @@ QStringList ComponentUtils::propertyRelatedTypes() {
     return result;
 }
 
-QList<const SessionItem*> ComponentUtils::componentItems(const SessionItem& item) {
+QList<const SessionItem*> ComponentUtils::componentItems(const SessionItem& item)
+{
     static QStringList propertyRelated = ComponentUtils::propertyRelatedTypes();
 
     QList<const SessionItem*> result;
@@ -59,7 +61,8 @@ QList<const SessionItem*> ComponentUtils::componentItems(const SessionItem& item
 }
 
 namespace {
-QList<const SessionItem*> groupItems(const SessionItem& item) {
+QList<const SessionItem*> groupItems(const SessionItem& item)
+{
     ASSERT(item.modelType() == "GroupProperty");
 
     QList<const SessionItem*> result;

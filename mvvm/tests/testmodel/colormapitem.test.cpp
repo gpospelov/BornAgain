@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/colormapitem.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mockwidgets.h"
@@ -30,7 +35,8 @@ ColorMapItemTest::~ColorMapItemTest() = default;
 
 //! Initial state.
 
-TEST_F(ColorMapItemTest, initialState) {
+TEST_F(ColorMapItemTest, initialState)
+{
     ColorMapItem item;
     EXPECT_TRUE(item.dataItem() == nullptr);
     EXPECT_TRUE(item.property<bool>(ColorMapItem::P_INTERPOLATION));
@@ -39,7 +45,8 @@ TEST_F(ColorMapItemTest, initialState) {
 
 //! Setting dataItem in model context.
 
-TEST_F(ColorMapItemTest, setDataItem) {
+TEST_F(ColorMapItemTest, setDataItem)
+{
     SessionModel model;
     auto data_item = model.insertItem<Data2DItem>();
     auto colormap_item = model.insertItem<ColorMapItem>();
@@ -51,7 +58,8 @@ TEST_F(ColorMapItemTest, setDataItem) {
 
 //! Check signaling on set data item.
 
-TEST_F(ColorMapItemTest, onSetDataItem) {
+TEST_F(ColorMapItemTest, onSetDataItem)
+{
     SessionModel model;
     auto data_item = model.insertItem<Data2DItem>();
     auto colormap_item = model.insertItem<ColorMapItem>();

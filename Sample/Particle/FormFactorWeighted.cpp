@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Particle/FormFactorWeighted.cpp
 //! @brief     Implements class FormFactorWeighted.
@@ -15,30 +15,35 @@
 #include "Sample/Particle/FormFactorWeighted.h"
 #include "Base/Utils/Algorithms.h"
 
-FormFactorWeighted::FormFactorWeighted() {
+FormFactorWeighted::FormFactorWeighted()
+{
     setName("FormFactorWeighted");
 }
 
-FormFactorWeighted::~FormFactorWeighted() {
+FormFactorWeighted::~FormFactorWeighted()
+{
     for (size_t index = 0; index < m_form_factors.size(); ++index)
         delete m_form_factors[index];
 }
 
-FormFactorWeighted* FormFactorWeighted::clone() const {
+FormFactorWeighted* FormFactorWeighted::clone() const
+{
     FormFactorWeighted* result = new FormFactorWeighted();
     for (size_t index = 0; index < m_form_factors.size(); ++index)
         result->addFormFactor(*m_form_factors[index], m_weights[index]);
     return result;
 }
 
-double FormFactorWeighted::radialExtension() const {
+double FormFactorWeighted::radialExtension() const
+{
     double result{0.0};
     for (size_t index = 0; index < m_form_factors.size(); ++index)
         result += m_weights[index] * m_form_factors[index]->radialExtension();
     return result;
 }
 
-double FormFactorWeighted::bottomZ(const IRotation& rotation) const {
+double FormFactorWeighted::bottomZ(const IRotation& rotation) const
+{
     if (m_form_factors.empty())
         throw std::runtime_error("FormFactorWeighted::bottomZ() -> Error: "
                                  "'this' contains no form factors.");
@@ -46,7 +51,8 @@ double FormFactorWeighted::bottomZ(const IRotation& rotation) const {
                            [&rotation](IFormFactor* ff) { return ff->bottomZ(rotation); });
 }
 
-double FormFactorWeighted::topZ(const IRotation& rotation) const {
+double FormFactorWeighted::topZ(const IRotation& rotation) const
+{
     if (m_form_factors.empty())
         throw std::runtime_error("FormFactorWeighted::topZ() -> Error: "
                                  "'this' contains no form factors.");
@@ -54,24 +60,28 @@ double FormFactorWeighted::topZ(const IRotation& rotation) const {
                            [&rotation](IFormFactor* ff) { return ff->topZ(rotation); });
 }
 
-void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor, double weight) {
+void FormFactorWeighted::addFormFactor(const IFormFactor& form_factor, double weight)
+{
     m_form_factors.push_back(form_factor.clone());
     m_weights.push_back(weight);
 }
 
-void FormFactorWeighted::setAmbientMaterial(const Material& material) {
+void FormFactorWeighted::setAmbientMaterial(const Material& material)
+{
     for (size_t index = 0; index < m_form_factors.size(); ++index)
         m_form_factors[index]->setAmbientMaterial(material);
 }
 
-complex_t FormFactorWeighted::evaluate(const WavevectorInfo& wavevectors) const {
+complex_t FormFactorWeighted::evaluate(const WavevectorInfo& wavevectors) const
+{
     complex_t result(0.0, 0.0);
     for (size_t index = 0; index < m_form_factors.size(); ++index)
         result += m_weights[index] * m_form_factors[index]->evaluate(wavevectors);
     return result;
 }
 
-Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo& wavevectors) const {
+Eigen::Matrix2cd FormFactorWeighted::evaluatePol(const WavevectorInfo& wavevectors) const
+{
     Eigen::Matrix2cd result = Eigen::Matrix2cd::Zero();
     for (size_t index = 0; index < m_form_factors.size(); ++index)
         result += m_weights[index] * m_form_factors[index]->evaluatePol(wavevectors);

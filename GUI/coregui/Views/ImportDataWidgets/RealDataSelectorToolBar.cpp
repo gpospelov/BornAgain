@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/ImportDataWidgets/RealDataSelectorToolBar.cpp
 //! @brief     Implements class RealDataSelectorToolBar
@@ -20,7 +20,8 @@ RealDataSelectorToolBar::RealDataSelectorToolBar(RealDataSelectorActions* action
     : StyledToolBar(parent)
     , m_import2dDataButton(new QToolButton)
     , m_import1dDataButton(new QToolButton)
-    , m_removeDataButton(new QToolButton) {
+    , m_removeDataButton(new QToolButton)
+{
     setMinimumSize(minimumHeight(), minimumHeight());
 
     m_import2dDataButton->setText("Import 2D");

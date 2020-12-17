@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/setvaluecommand.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/commands/setvaluecommand.h"
@@ -24,7 +29,8 @@ SetValueCommandTest::~SetValueCommandTest() = default;
 
 //! Set item value through SetValueCommand command.
 
-TEST_F(SetValueCommandTest, setValueCommand) {
+TEST_F(SetValueCommandTest, setValueCommand)
+{
     SessionModel model;
     const int role = ItemDataRole::DATA;
 
@@ -50,7 +56,8 @@ TEST_F(SetValueCommandTest, setValueCommand) {
 
 //! Set same item value through SetValueCommand command.
 
-TEST_F(SetValueCommandTest, setSameValueCommand) {
+TEST_F(SetValueCommandTest, setSameValueCommand)
+{
     SessionModel model;
     const int role = ItemDataRole::DATA;
 

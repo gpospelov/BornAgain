@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Minimizer/MinimizerResult.cpp
 //! @brief     Implements class MinimizerResult.
@@ -19,7 +19,8 @@
 
 namespace {
 
-std::string reportParameters(const mumufit::Parameters& parameters) {
+std::string reportParameters(const mumufit::Parameters& parameters)
+{
     std::ostringstream result;
 
     result << mumufit::utils::sectionString("FitParameters");
@@ -55,29 +56,36 @@ std::string reportParameters(const mumufit::Parameters& parameters) {
 using namespace mumufit;
 
 MinimizerResult::MinimizerResult()
-    : m_min_value(0.0), m_number_of_calls(0), m_number_of_gradient_calls(0), m_duration(0.0) {}
+    : m_min_value(0.0), m_number_of_calls(0), m_number_of_gradient_calls(0), m_duration(0.0)
+{
+}
 
-void MinimizerResult::setParameters(const Parameters& parameters) {
+void MinimizerResult::setParameters(const Parameters& parameters)
+{
     m_parameters = parameters;
 }
 
-Parameters MinimizerResult::parameters() const {
+Parameters MinimizerResult::parameters() const
+{
     return m_parameters;
 }
 
-void MinimizerResult::setMinValue(double value) {
+void MinimizerResult::setMinValue(double value)
+{
     m_min_value = value;
 }
 
 //! Minimum value of objective function found by minimizer.
 
-double MinimizerResult::minValue() const {
+double MinimizerResult::minValue() const
+{
     return m_min_value;
 }
 
 //! Returns multi-line string representing minimization results.
 
-std::string MinimizerResult::toString() const {
+std::string MinimizerResult::toString() const
+{
     std::ostringstream result;
     if (m_minimizer_report.empty()) {
         result << "Don't know anything about external minimizer. "
@@ -95,18 +103,22 @@ std::string MinimizerResult::toString() const {
     return result.str();
 }
 
-void MinimizerResult::setReport(const std::string& value) {
+void MinimizerResult::setReport(const std::string& value)
+{
     m_minimizer_report = value;
 }
 
-void MinimizerResult::setDuration(double value) {
+void MinimizerResult::setDuration(double value)
+{
     m_duration = value;
 }
 
-void MinimizerResult::setNumberOfCalls(int value) {
+void MinimizerResult::setNumberOfCalls(int value)
+{
     m_number_of_calls = value;
 }
 
-void MinimizerResult::setNumberOfGradientCalls(int value) {
+void MinimizerResult::setNumberOfGradientCalls(int value)
+{
     m_number_of_gradient_calls = value;
 }

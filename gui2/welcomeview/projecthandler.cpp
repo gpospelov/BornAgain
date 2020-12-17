@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/welcomeview/projecthandler.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/welcomeview/projecthandler.h"
 #include "gui2/model/applicationmodels.h"
@@ -25,7 +30,8 @@ ProjectHandler::ProjectHandler(ApplicationModels* models, QWidget* parent)
     : QObject(parent)
     , m_recentProjectSettings(std::make_unique<RecentProjectSettings>())
     , m_userInteractor(std::make_unique<UserInteractor>(m_recentProjectSettings.get(), parent))
-    , m_models(models) {
+    , m_models(models)
+{
     initProjectManager();
     updateRecentProjectNames();
 }
@@ -34,7 +40,8 @@ ProjectHandler::~ProjectHandler() = default;
 
 //! Update names (name of the current project, recent project name list, notifies the world).
 
-void ProjectHandler::updateNames() {
+void ProjectHandler::updateNames()
+{
     updateCurrentProjectName();
     updateRecentProjectNames();
 }
@@ -42,36 +49,43 @@ void ProjectHandler::updateNames() {
 //! Returns 'true' if current project can be closed.
 //! Internally will perform check for unsaved data, and proceed via save/discard/cancel dialog.
 
-bool ProjectHandler::canCloseProject() const {
+bool ProjectHandler::canCloseProject() const
+{
     return m_projectManager->closeCurrentProject();
 }
 
-void ProjectHandler::onCreateNewProject() {
+void ProjectHandler::onCreateNewProject()
+{
     if (m_projectManager->createNewProject())
         updateNames();
 }
 
-void ProjectHandler::onOpenExistingProject(const QString& dirname) {
+void ProjectHandler::onOpenExistingProject(const QString& dirname)
+{
     if (m_projectManager->openExistingProject(dirname.toStdString()))
         updateNames();
 }
 
-void ProjectHandler::onSaveCurrentProject() {
+void ProjectHandler::onSaveCurrentProject()
+{
     if (m_projectManager->saveCurrentProject())
         updateNames();
 }
 
-void ProjectHandler::onSaveProjectAs() {
+void ProjectHandler::onSaveProjectAs()
+{
     if (m_projectManager->saveProjectAs())
         updateNames();
 }
 
-void ProjectHandler::clearRecentProjectsList() {
+void ProjectHandler::clearRecentProjectsList()
+{
     m_recentProjectSettings->clearRecentProjectsList();
     updateNames();
 }
 
-void ProjectHandler::initProjectManager() {
+void ProjectHandler::initProjectManager()
+{
     auto modified_callback = [this]() { updateCurrentProjectName(); };
     auto models_callback = [this]() { return m_models->persistent_models(); };
     ProjectContext project_context{modified_callback, models_callback};
@@ -86,7 +100,8 @@ void ProjectHandler::initProjectManager() {
 
 //! Updates the name of the current project on main window, notifies the world.
 
-void ProjectHandler::updateCurrentProjectName() {
+void ProjectHandler::updateCurrentProjectName()
+{
     const auto current_project_dir = QString::fromStdString(m_projectManager->currentProjectDir());
     const auto is_modified = m_projectManager->isModified();
 
@@ -100,7 +115,8 @@ void ProjectHandler::updateCurrentProjectName() {
 
 //! Update recent project list in settings, notifies the world.
 
-void ProjectHandler::updateRecentProjectNames() {
+void ProjectHandler::updateRecentProjectNames()
+{
     m_recentProjectSettings->addToRecentProjects(
         QString::fromStdString(m_projectManager->currentProjectDir()));
     recentProjectsListModified(m_recentProjectSettings->recentProjects());

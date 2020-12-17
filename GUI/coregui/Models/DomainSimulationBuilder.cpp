@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/DomainSimulationBuilder.cpp
 //! @brief     Implements class DomainSimulationBuilder
@@ -60,7 +60,8 @@ createDepthProbeSimulation(std::unique_ptr<MultiLayer> P_multilayer,
 std::unique_ptr<ISimulation>
 DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
                                           const InstrumentItem* instrumentItem,
-                                          const SimulationOptionsItem* optionsItem) {
+                                          const SimulationOptionsItem* optionsItem)
+{
     if (sampleItem == nullptr || instrumentItem == nullptr) {
         QString message("DomainSimulationBuilder::getSimulation() -> Error. Either MultiLayerItem "
                         " or InstrumentItem is not defined.");
@@ -84,7 +85,8 @@ DomainSimulationBuilder::createSimulation(const MultiLayerItem* sampleItem,
 }
 
 namespace {
-void addBackgroundToSimulation(const InstrumentItem& instrument, ISimulation& simulation) {
+void addBackgroundToSimulation(const InstrumentItem& instrument, ISimulation& simulation)
+{
     auto P_background = instrument.backgroundItem()->createBackground();
     if (P_background)
         simulation.setBackground(*P_background);
@@ -92,7 +94,8 @@ void addBackgroundToSimulation(const InstrumentItem& instrument, ISimulation& si
 
 std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                                                        const GISASInstrumentItem* instrument,
-                                                       const SimulationOptionsItem* optionsItem) {
+                                                       const SimulationOptionsItem* optionsItem)
+{
     std::unique_ptr<GISASSimulation> ret(new GISASSimulation);
     auto P_instrument = DomainObjectBuilder::buildInstrument(*instrument);
     ret->setSample(*P_multilayer);
@@ -111,7 +114,8 @@ std::unique_ptr<GISASSimulation> createGISASSimulation(std::unique_ptr<MultiLaye
 std::unique_ptr<OffSpecularSimulation>
 createOffSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                             const OffSpecularInstrumentItem* instrument,
-                            const SimulationOptionsItem* optionsItem) {
+                            const SimulationOptionsItem* optionsItem)
+{
     std::unique_ptr<OffSpecularSimulation> ret(new OffSpecularSimulation);
     auto P_instrument = DomainObjectBuilder::buildInstrument(*instrument);
     ret->setSample(*P_multilayer);
@@ -139,7 +143,8 @@ createOffSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
 std::unique_ptr<SpecularSimulation>
 createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                          const SpecularInstrumentItem* instrument,
-                         const SimulationOptionsItem* options_item) {
+                         const SimulationOptionsItem* options_item)
+{
     std::unique_ptr<SpecularSimulation> ret = std::make_unique<SpecularSimulation>();
     ret->setSample(*P_multilayer);
 
@@ -167,7 +172,8 @@ createSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
 std::unique_ptr<DepthProbeSimulation>
 createDepthProbeSimulation(std::unique_ptr<MultiLayer> P_multilayer,
                            const DepthProbeInstrumentItem* instrument,
-                           const SimulationOptionsItem* options_item) {
+                           const SimulationOptionsItem* options_item)
+{
     std::unique_ptr<DepthProbeSimulation> ret = instrument->createSimulation();
     ret->setSample(*P_multilayer);
 

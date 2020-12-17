@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/InputOutput/OutputDataReadReflectometry.cpp
 //! @brief     Implements class OutputDataReadWriteReflectometry.
@@ -19,7 +19,8 @@
 #include "Device/InputOutput/DataFormatUtils.h"
 #include <map>
 
-OutputData<double>* OutputDataReadReflectometry::readOutputData(std::istream& fin) {
+OutputData<double>* OutputDataReadReflectometry::readOutputData(std::istream& fin)
+{
     OutputData<double>* oData = new OutputData<double>();
     std::string line;
     std::vector<std::vector<double>> vecVec;

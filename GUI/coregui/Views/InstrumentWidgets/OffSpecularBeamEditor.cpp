@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/OffSpecularBeamEditor.cpp
 //! @brief     Implements class OffSpecularBeamEditor
@@ -35,7 +35,8 @@ OffSpecularBeamEditor::OffSpecularBeamEditor(ColumnResizer* columnResizer, QWidg
     , m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title))
     , m_inclinationEditor(new ComponentEditor(ComponentEditor::GroupWidget, inclination_title))
     , m_azimuthalEditor(new ComponentEditor(ComponentEditor::InfoWidget, azimuthal_title))
-    , m_gridLayout(new QGridLayout) {
+    , m_gridLayout(new QGridLayout)
+{
     m_gridLayout->addWidget(m_intensityEditor, 0, 0);
     m_gridLayout->addWidget(m_wavelengthEditor, 1, 0);
     m_gridLayout->addWidget(m_inclinationEditor, 1, 1);
@@ -58,7 +59,8 @@ OffSpecularBeamEditor::OffSpecularBeamEditor(ColumnResizer* columnResizer, QWidg
     m_columnResizer->addWidgetsFromGridLayout(m_gridLayout, 2);
 }
 
-void OffSpecularBeamEditor::subscribeToItem() {
+void OffSpecularBeamEditor::subscribeToItem()
+{
     m_intensityEditor->setItem(beamItem()->getItem(BeamItem::P_INTENSITY));
 
     auto wavelengthItem = beamItem()->getItem(BeamItem::P_WAVELENGTH);
@@ -71,24 +73,28 @@ void OffSpecularBeamEditor::subscribeToItem() {
     m_azimuthalEditor->setItem(azimuthalItem->getItem(BeamDistributionItem::P_DISTRIBUTION));
 }
 
-void OffSpecularBeamEditor::unsubscribeFromItem() {
+void OffSpecularBeamEditor::unsubscribeFromItem()
+{
     m_intensityEditor->clearEditor();
     m_wavelengthEditor->clearEditor();
     m_inclinationEditor->clearEditor();
     m_azimuthalEditor->clearEditor();
 }
 
-OffSpecularInstrumentItem* OffSpecularBeamEditor::instrumentItem() {
+OffSpecularInstrumentItem* OffSpecularBeamEditor::instrumentItem()
+{
     auto result = dynamic_cast<OffSpecularInstrumentItem*>(currentItem());
     ASSERT(result);
     return result;
 }
 
-BeamItem* OffSpecularBeamEditor::beamItem() {
+BeamItem* OffSpecularBeamEditor::beamItem()
+{
     return instrumentItem()->beamItem();
 }
 
-void OffSpecularBeamEditor::onDialogRequest(SessionItem* item, const QString& name) {
+void OffSpecularBeamEditor::onDialogRequest(SessionItem* item, const QString& name)
+{
     if (!item)
         return;
 

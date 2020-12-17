@@ -16,13 +16,15 @@ protected:
 
     const QString testFilename() { return QString::fromStdString(m_testFilename); }
 
-    void writeTestFile() {
+    void writeTestFile()
+    {
         remove(m_testFilename.c_str());
         OutputData<double>* data = ArrayUtils::createData(m_testVector).release();
         IntensityDataIOFactory::writeOutputData(*data, m_testFilename);
     }
 
-    void writeTestFile(size_t nRows, size_t nCols) {
+    void writeTestFile(size_t nRows, size_t nCols)
+    {
         remove(m_testFilename.c_str());
         std::ofstream myfile;
         myfile.open(m_testFilename);
@@ -35,13 +37,15 @@ protected:
         myfile.close();
     }
 
-    OutputData<double>* readTestFile() {
+    OutputData<double>* readTestFile()
+    {
         return IntensityDataIOFactory::readOutputData(m_testFilename);
     }
 };
 
 //! Testing component items of particle item.
-TEST_F(TestCsvImportAssistant, test_readFile) {
+TEST_F(TestCsvImportAssistant, test_readFile)
+{
     /*
      * The file to read looks like this ['-' symbols added to clarify what is going on].
      * It has originaly ten columns, not four (The separator is a space).

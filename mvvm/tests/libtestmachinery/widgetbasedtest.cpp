@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/libtestmachinery/widgetbasedtest.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "widgetbasedtest.h"
 #include <QApplication>
@@ -21,11 +26,13 @@ int argc = 1;
 
 WidgetBasedTest::WidgetBasedTest() {}
 
-void WidgetBasedTest::SetUpTestSuite() {
+void WidgetBasedTest::SetUpTestSuite()
+{
     m_app = new QApplication(argc, argv);
 }
 
-void WidgetBasedTest::TearDownTestSuite() {
+void WidgetBasedTest::TearDownTestSuite()
+{
     delete m_app;
     m_app = 0;
 }

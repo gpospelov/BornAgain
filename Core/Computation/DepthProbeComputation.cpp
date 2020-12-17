@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Computation/DepthProbeComputation.cpp
 //! @brief     Implements class DepthProbeComputation.
@@ -30,11 +30,14 @@ DepthProbeComputation::DepthProbeComputation(const MultiLayer& multilayer,
     : IComputation(multilayer, options, progress)
     , m_begin_it(begin_it)
     , m_end_it(end_it)
-    , m_computation_term(m_processed_sample.get()) {}
+    , m_computation_term(m_processed_sample.get())
+{
+}
 
 DepthProbeComputation::~DepthProbeComputation() = default;
 
-void DepthProbeComputation::runProtected() {
+void DepthProbeComputation::runProtected()
+{
     if (!m_progress->alive())
         return;
     m_computation_term.setProgressHandler(m_progress);

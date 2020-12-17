@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobWidgets/ParameterTuningDelegate.h
 //! @brief     Defines class ParameterTuningDelegate
@@ -48,7 +48,8 @@ public:
     ParameterTuningDelegate(QObject* parent = 0);
     ~ParameterTuningDelegate();
 
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& /* index */) const {
+    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& /* index */) const
+    {
         return QSize(option.rect.width(), 25);
     }
 

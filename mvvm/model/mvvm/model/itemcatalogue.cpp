@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/model/itemcatalogue.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/model/itemcatalogue.h"
 #include "mvvm/model/sessionitem.h"
@@ -26,11 +31,13 @@ struct ItemCatalogue::ItemCatalogueImpl {
 
 ItemCatalogue::ItemCatalogue() : p_impl(std::make_unique<ItemCatalogueImpl>()) {}
 
-ItemCatalogue::ItemCatalogue(const ItemCatalogue& other) {
+ItemCatalogue::ItemCatalogue(const ItemCatalogue& other)
+{
     p_impl = std::make_unique<ItemCatalogueImpl>(*other.p_impl);
 }
 
-ItemCatalogue& ItemCatalogue::operator=(const ItemCatalogue& other) {
+ItemCatalogue& ItemCatalogue::operator=(const ItemCatalogue& other)
+{
     if (this != &other) {
         ItemCatalogue tmp(other);
         std::swap(this->p_impl, tmp.p_impl);
@@ -39,42 +46,49 @@ ItemCatalogue& ItemCatalogue::operator=(const ItemCatalogue& other) {
 }
 
 void ItemCatalogue::registerItem(const std::string& modelType, item_factory_func_t func,
-                                 const std::string& label) {
+                                 const std::string& label)
+{
     p_impl->factory.add(modelType, func);
     p_impl->m_info.push_back({modelType, label});
 }
 
 ItemCatalogue::~ItemCatalogue() = default;
 
-bool ItemCatalogue::contains(const std::string& modelType) const {
+bool ItemCatalogue::contains(const std::string& modelType) const
+{
     return p_impl->factory.contains(modelType);
 }
 
-std::unique_ptr<SessionItem> ItemCatalogue::create(const std::string& modelType) const {
+std::unique_ptr<SessionItem> ItemCatalogue::create(const std::string& modelType) const
+{
     return p_impl->factory.create(modelType);
 }
 
-std::vector<std::string> ItemCatalogue::modelTypes() const {
+std::vector<std::string> ItemCatalogue::modelTypes() const
+{
     std::vector<std::string> result;
     for (const auto& x : p_impl->m_info)
         result.push_back(x.item_type);
     return result;
 }
 
-std::vector<std::string> ItemCatalogue::labels() const {
+std::vector<std::string> ItemCatalogue::labels() const
+{
     std::vector<std::string> result;
     for (const auto& x : p_impl->m_info)
         result.push_back(x.item_label);
     return result;
 }
 
-int ItemCatalogue::itemCount() const {
+int ItemCatalogue::itemCount() const
+{
     return static_cast<int>(p_impl->factory.size());
 }
 
 //! Adds content of other catalogue to this.
 
-void ItemCatalogue::merge(const ItemCatalogue& other) {
+void ItemCatalogue::merge(const ItemCatalogue& other)
+{
     size_t index(0);
     for (auto it : other.p_impl->factory) {
         if (contains(it.first))

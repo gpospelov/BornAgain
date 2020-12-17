@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/mainwindow/actionmanager.cpp
 //! @brief     Implements class ActionManager
@@ -47,7 +47,8 @@ ActionManager::ActionManager(MainWindow* parent)
     , m_recentProjectsMenu(nullptr)
     , m_helpMenu(nullptr)
     , m_importMenu(nullptr)
-    , m_runSimulationShortcut(nullptr) {
+    , m_runSimulationShortcut(nullptr)
+{
     createActions();
     createMenus();
     createGlobalShortcuts();
@@ -56,7 +57,8 @@ ActionManager::ActionManager(MainWindow* parent)
             &ActionManager::onCurrentViewChanged);
 }
 
-void ActionManager::createActions() {
+void ActionManager::createActions()
+{
     ProjectManager* projectManager = m_mainWindow->projectManager();
     ASSERT(projectManager);
 
@@ -99,7 +101,8 @@ void ActionManager::createActions() {
     connect(m_aboutAction, &QAction::triggered, this, &ActionManager::onAboutApplication);
 }
 
-void ActionManager::createMenus() {
+void ActionManager::createMenus()
+{
     m_menuBar = new QMenuBar(0); // No parent (System menu bar on Mac OS X)
 
     if (!GUI_OS_Utils::HostOsInfo::isMacHost())
@@ -156,14 +159,16 @@ void ActionManager::createMenus() {
     onCurrentViewChanged();
 }
 
-void ActionManager::createGlobalShortcuts() {
+void ActionManager::createGlobalShortcuts()
+{
     m_runSimulationShortcut = new QShortcut(QKeySequence("Ctrl+r"), m_mainWindow);
     m_runSimulationShortcut->setContext((Qt::ApplicationShortcut));
     connect(m_runSimulationShortcut, &QShortcut::activated, m_mainWindow,
             &MainWindow::onRunSimulationShortcut);
 }
 
-void ActionManager::onAboutToShowFileMenu() {
+void ActionManager::onAboutToShowFileMenu()
+{
     m_recentProjectsMenu->clear();
 
     bool hasRecentProjects = false;
@@ -188,7 +193,8 @@ void ActionManager::onAboutToShowFileMenu() {
     }
 }
 
-void ActionManager::onAboutToShowSettingsMenu() {
+void ActionManager::onAboutToShowSettingsMenu()
+{
     m_settingsMenu->clear();
     QSettings settings;
 
@@ -219,7 +225,8 @@ void ActionManager::onAboutToShowSettingsMenu() {
     m_settingsMenu->setToolTipsVisible(true);
 }
 
-void ActionManager::onAboutToShowViewMenu() {
+void ActionManager::onAboutToShowViewMenu()
+{
     m_viewMenu->clear();
 
     auto view = m_mainWindow->currentView();
@@ -229,12 +236,14 @@ void ActionManager::onAboutToShowViewMenu() {
         jobView->fillViewMenu(m_viewMenu);
 }
 
-void ActionManager::toggleCheckForUpdates(bool status) {
+void ActionManager::toggleCheckForUpdates(bool status)
+{
     m_mainWindow->updateNotifier()->setCheckUpdatesFlag(status);
     m_mainWindow->updateNotifier()->checkForUpdates();
 }
 
-void ActionManager::setSessionModelViewActive(bool status) {
+void ActionManager::setSessionModelViewActive(bool status)
+{
     QSettings settings;
     settings.beginGroup(Constants::S_SESSIONMODELVIEW);
     settings.setValue(Constants::S_VIEWISACTIVE, status);
@@ -242,12 +251,14 @@ void ActionManager::setSessionModelViewActive(bool status) {
     m_mainWindow->onSessionModelViewActive(status);
 }
 
-void ActionManager::onAboutApplication() {
+void ActionManager::onAboutApplication()
+{
     AboutApplicationDialog dialog(m_mainWindow);
     dialog.exec();
 }
 
-void ActionManager::onCurrentViewChanged() {
+void ActionManager::onCurrentViewChanged()
+{
     // not every view support view menu entries -> hide it, if empty
     onAboutToShowViewMenu();
     const bool isEmpty = m_viewMenu->actions().isEmpty();
@@ -255,7 +266,8 @@ void ActionManager::onCurrentViewChanged() {
 }
 
 #ifdef BORNAGAIN_PYTHON
-void ActionManager::onImportFromPythonScript() {
+void ActionManager::onImportFromPythonScript()
+{
     PyImportAssistant assistant(m_mainWindow);
     assistant.exec();
 }

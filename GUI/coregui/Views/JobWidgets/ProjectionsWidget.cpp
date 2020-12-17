@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobWidgets/ProjectionsWidget.cpp
 //! @brief     Implements class ProjectionsWidget
@@ -26,7 +26,8 @@ ProjectionsWidget::ProjectionsWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_xProjection(new ProjectionsPlot("HorizontalLineMask"))
     , m_yProjection(new ProjectionsPlot("VerticalLineMask"))
-    , m_tabWidget(new QTabWidget) {
+    , m_tabWidget(new QTabWidget)
+{
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
@@ -41,13 +42,15 @@ ProjectionsWidget::ProjectionsWidget(QWidget* parent)
     setConnected(true);
 }
 
-void ProjectionsWidget::setItem(SessionItem* intensityItem) {
+void ProjectionsWidget::setItem(SessionItem* intensityItem)
+{
     SessionItemWidget::setItem(intensityItem);
     m_xProjection->setItem(intensityItem);
     m_yProjection->setItem(intensityItem);
 }
 
-void ProjectionsWidget::onActivityModeChanged(MaskEditorFlags::Activity value) {
+void ProjectionsWidget::onActivityModeChanged(MaskEditorFlags::Activity value)
+{
     setConnected(false);
 
     if (value == MaskEditorFlags::HORIZONTAL_LINE_MODE)
@@ -58,19 +61,22 @@ void ProjectionsWidget::onActivityModeChanged(MaskEditorFlags::Activity value) {
     setConnected(true);
 }
 
-void ProjectionsWidget::onMarginsChanged(double left, double right) {
+void ProjectionsWidget::onMarginsChanged(double left, double right)
+{
     m_xProjection->onMarginsChanged(left, right);
     m_yProjection->onMarginsChanged(left, right);
 }
 
-void ProjectionsWidget::onTabChanged(int tab_index) {
+void ProjectionsWidget::onTabChanged(int tab_index)
+{
     if (tab_index == horizontal_projection_tab)
         emit changeActivityRequest(MaskEditorFlags::HORIZONTAL_LINE_MODE);
     else if (tab_index == vertical_projection_tab)
         emit changeActivityRequest(MaskEditorFlags::VERTICAL_LINE_MODE);
 }
 
-void ProjectionsWidget::setConnected(bool isConnected) {
+void ProjectionsWidget::setConnected(bool isConnected)
+{
     if (isConnected)
         connect(m_tabWidget, &QTabWidget::currentChanged, this, &ProjectionsWidget::onTabChanged);
     else

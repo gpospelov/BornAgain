@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/MesoCrystalBuilder.cpp
 //! @brief     Implements class MesoCrystalBuilder.
@@ -24,7 +24,8 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* MesoCrystalBuilder::buildSample() const {
+MultiLayer* MesoCrystalBuilder::buildSample() const
+{
     // mesocrystal lattice
     kvector_t lattice_basis_a(5.0, 0.0, 0.0);
     kvector_t lattice_basis_b(0.0, 5.0, 0.0);

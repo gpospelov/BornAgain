@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Axis/PointwiseAxis.h
 //! @brief     Defines class PointwiseAxis.
@@ -38,8 +38,8 @@ class PointwiseAxis : public IAxis {
 public:
     template <class String, class Vector>
     PointwiseAxis(String&& name, Vector&& coordinate_values)
-        : IAxis(std::forward<String>(name))
-        , m_coordinates(std::forward<Vector>(coordinate_values)) {
+        : IAxis(std::forward<String>(name)), m_coordinates(std::forward<Vector>(coordinate_values))
+    {
         sanityCheck();
     }
 

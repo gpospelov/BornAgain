@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Param/Base/ParameterPool.h
 //! @brief     Defines class ParameterPool.
@@ -60,7 +60,8 @@ public:
 
     std::vector<std::string> parameterNames() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
+    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj)
+    {
         obj.print(ostr);
         return ostr;
     }

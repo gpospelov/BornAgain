@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/main/main.cpp
 //! @brief     Main function of the whole GUI
@@ -23,7 +23,8 @@
 
 void messageHandler(QtMsgType, const QMessageLogContext&, const QString&) {}
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     ApplicationOptions options(argc, argv);
     if (!options.isConsistent())
         return 0;

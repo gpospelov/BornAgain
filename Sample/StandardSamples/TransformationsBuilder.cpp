@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/TransformationsBuilder.cpp
 //! @brief     Implements classes to build samples with different transformations.
@@ -21,7 +21,8 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* TransformBoxBuilder::buildSample() const {
+MultiLayer* TransformBoxBuilder::buildSample() const
+{
     const double layer_thickness(100);
     const double length(50);
     const double width(20);

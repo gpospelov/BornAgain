@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testview/pencontroller.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "customplot_test_utils.h"
 #include "google_test.h"
@@ -29,7 +34,8 @@ PenControllerTest::~PenControllerTest() = default;
 
 //! Initial state.
 
-TEST_F(PenControllerTest, initialState) {
+TEST_F(PenControllerTest, initialState)
+{
     // Constructor accept valid QCPGraph
     EXPECT_THROW(PenController(nullptr), std::runtime_error);
 
@@ -40,7 +46,8 @@ TEST_F(PenControllerTest, initialState) {
     EXPECT_EQ(controller.currentItem(), nullptr);
 }
 
-TEST_F(PenControllerTest, graphItemInInitialState) {
+TEST_F(PenControllerTest, graphItemInInitialState)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto graph = custom_plot->addGraph();
 
@@ -58,7 +65,8 @@ TEST_F(PenControllerTest, graphItemInInitialState) {
     EXPECT_EQ(graph->pen().width(), 1);
 }
 
-TEST_F(PenControllerTest, setPenSelected) {
+TEST_F(PenControllerTest, setPenSelected)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto graph = custom_plot->addGraph();
 
@@ -76,7 +84,8 @@ TEST_F(PenControllerTest, setPenSelected) {
     EXPECT_EQ(graph->pen().width(), 1);
 }
 
-TEST_F(PenControllerTest, setColorAndWidth) {
+TEST_F(PenControllerTest, setColorAndWidth)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto graph = custom_plot->addGraph();
 

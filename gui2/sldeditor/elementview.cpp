@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/sldeditor/elementview.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/sldeditor/elementview.h"
 #include "gui2/sldeditor/graphicsscene.h"
@@ -18,14 +23,16 @@
 namespace gui2 {
 
 //! The constructor
-ElementView::ElementView() : QGraphicsObject() {
+ElementView::ElementView() : QGraphicsObject()
+{
     setAcceptHoverEvents(true);
 }
 
 ElementView::~ElementView() = default;
 
 //! Get the conversion axes
-ModelView::SceneAdapterInterface* ElementView::sceneAdapter() const {
+ModelView::SceneAdapterInterface* ElementView::sceneAdapter() const
+{
     GraphicsScene* scene_item = static_cast<GraphicsScene*>(scene());
     if (!scene_item)
         return nullptr;
@@ -34,7 +41,8 @@ ModelView::SceneAdapterInterface* ElementView::sceneAdapter() const {
 }
 
 //! Advance method used by the scene adapter
-void ElementView::advance(int phase) {
+void ElementView::advance(int phase)
+{
     if (!phase)
         return;
     prepareGeometryChange();
@@ -43,12 +51,14 @@ void ElementView::advance(int phase) {
 
 //! paint override
 void ElementView::paint(QPainter* painter, const QStyleOptionGraphicsItem* /*option*/,
-                        QWidget* /*widget*/) {
+                        QWidget* /*widget*/)
+{
     painter->setClipRect(sceneAdapter()->viewportRectangle());
 }
 
 //! modify the rectangle for display according to the scene adapter
-QRectF ElementView::displayRect(const QRectF& real_rect) const {
+QRectF ElementView::displayRect(const QRectF& real_rect) const
+{
     auto adapter = sceneAdapter();
     if (!adapter)
         return real_rect;
@@ -71,7 +81,8 @@ QRectF ElementView::displayRect(const QRectF& real_rect) const {
 }
 
 //! Helper function for displayRect based on the center of real_rect
-QRectF ElementView::displayRectCenterBased(const QRectF& real_rect) const {
+QRectF ElementView::displayRectCenterBased(const QRectF& real_rect) const
+{
     auto adapter = sceneAdapter();
     double x = real_rect.x();
     double y = real_rect.y();
@@ -101,7 +112,8 @@ QRectF ElementView::displayRectCenterBased(const QRectF& real_rect) const {
 }
 
 //! Helper function for displayRect based on the edge of real_rect
-QRectF ElementView::displayRectEdgeBased(const QRectF& real_rect) const {
+QRectF ElementView::displayRectEdgeBased(const QRectF& real_rect) const
+{
     auto adapter = sceneAdapter();
     double x = real_rect.x();
     double y = real_rect.y();
@@ -125,7 +137,8 @@ QRectF ElementView::displayRectEdgeBased(const QRectF& real_rect) const {
 }
 
 //! Stretch the rectangle to the left limit of the viewport
-QRectF ElementView::stretchRectLeft(const QRectF& real_rect) const {
+QRectF ElementView::stretchRectLeft(const QRectF& real_rect) const
+{
     double x_i = real_rect.x();
     double y_i = real_rect.y();
     double x_f = real_rect.x() + real_rect.width();
@@ -138,7 +151,8 @@ QRectF ElementView::stretchRectLeft(const QRectF& real_rect) const {
 }
 
 //! Stretch the rectangle to the right limit of the viewport
-QRectF ElementView::stretchRectRight(const QRectF& real_rect) const {
+QRectF ElementView::stretchRectRight(const QRectF& real_rect) const
+{
     double x_i = real_rect.x();
     double y_i = real_rect.y();
     double x_f = real_rect.x() + real_rect.width();
@@ -151,7 +165,8 @@ QRectF ElementView::stretchRectRight(const QRectF& real_rect) const {
 }
 
 //! modify the path for display according to the scene adapter
-QPainterPath ElementView::displayPath(QPainterPath real_path) const {
+QPainterPath ElementView::displayPath(QPainterPath real_path) const
+{
     auto adapter = sceneAdapter();
     if (!adapter)
         return real_path;
@@ -165,7 +180,8 @@ QPainterPath ElementView::displayPath(QPainterPath real_path) const {
 }
 
 //! modify the rectangle for display according to the scene adapter
-QPointF ElementView::scenePos(QPointF pixel_pos) const {
+QPointF ElementView::scenePos(QPointF pixel_pos) const
+{
     auto adapter = sceneAdapter();
     if (!adapter)
         return pixel_pos;
@@ -174,62 +190,73 @@ QPointF ElementView::scenePos(QPointF pixel_pos) const {
 }
 
 //! Adapt the dimensions according to the center
-void ElementView::setCenterBased(bool choice) {
+void ElementView::setCenterBased(bool choice)
+{
     m_center_based = choice;
 }
 
 //! Adapt the x position
-void ElementView::adaptX(bool choice) {
+void ElementView::adaptX(bool choice)
+{
     m_adapt_x = choice;
 }
 
 //! Adapt the y position
-void ElementView::adaptY(bool choice) {
+void ElementView::adaptY(bool choice)
+{
     m_adapt_y = choice;
 }
 
 //! Adapt the width
-void ElementView::adaptW(bool choice) {
+void ElementView::adaptW(bool choice)
+{
     m_adapt_width = choice;
 }
 
 //! Adapt the height
-void ElementView::adaptH(bool choice) {
+void ElementView::adaptH(bool choice)
+{
     m_adapt_height = choice;
 }
 
 //! Stretch the rectangle to the left limit of the viewport
-void ElementView::stretchLeft(bool choice) {
+void ElementView::stretchLeft(bool choice)
+{
     m_stretch_left = choice;
 }
 
 //! Stretch the rectangle to the right limit of the viewport
-void ElementView::stretchRight(bool choice) {
+void ElementView::stretchRight(bool choice)
+{
     m_stretch_right = choice;
 }
 
 //! The hoover enter event
-void ElementView::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
+void ElementView::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+{
     if (flags() & QGraphicsItem::ItemIsMovable)
         setCursor(QCursor(Qt::OpenHandCursor));
     QGraphicsItem::hoverEnterEvent(event);
 }
 
 //! The hoover exit event
-void ElementView::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
+void ElementView::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+{
     unsetCursor();
     QGraphicsItem::hoverLeaveEvent(event);
 }
 
 //! The mouse press event
-void ElementView::mousePressEvent(QGraphicsSceneMouseEvent* event) {
+void ElementView::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
     if (flags() & QGraphicsItem::ItemIsMovable)
         setCursor(QCursor(Qt::ClosedHandCursor));
     QGraphicsItem::mousePressEvent(event);
 }
 
 //! The mouse release event
-void ElementView::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
+void ElementView::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
     if (flags() & QGraphicsItem::ItemIsMovable)
         setCursor(QCursor(Qt::OpenHandCursor));
     QGraphicsItem::mouseReleaseEvent(event);

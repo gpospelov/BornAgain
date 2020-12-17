@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/SpecularBeamInclinationItem.cpp
 //! @brief     Implements class SpecularBeamInclinationItem
@@ -25,7 +25,8 @@ void setAxisPresentationDefaults(SessionItem* axis_item, const QString& type);
 const QString SpecularBeamInclinationItem::P_ALPHA_AXIS = "Alpha axis";
 
 SpecularBeamInclinationItem::SpecularBeamInclinationItem()
-    : BeamDistributionItem("SpecularBeamInclinationAxis", m_show_mean) {
+    : BeamDistributionItem("SpecularBeamInclinationAxis", m_show_mean)
+{
     register_distribution_group("Symmetric distribution group");
     setupAxisGroup();
     setupDistributionMean(getGroupItem(P_DISTRIBUTION));
@@ -35,17 +36,20 @@ SpecularBeamInclinationItem::SpecularBeamInclinationItem()
 
 SpecularBeamInclinationItem::~SpecularBeamInclinationItem() = default;
 
-double SpecularBeamInclinationItem::scaleFactor() const {
+double SpecularBeamInclinationItem::scaleFactor() const
+{
     return Units::deg;
 }
 
-void SpecularBeamInclinationItem::updateFileName(const QString& filename) {
+void SpecularBeamInclinationItem::updateFileName(const QString& filename)
+{
     auto& group_item = item<GroupItem>(P_ALPHA_AXIS);
     auto axis_item = group_item.getChildOfType("PointwiseAxis");
     axis_item->setItemValue(PointwiseAxisItem::P_FILE_NAME, filename);
 }
 
-void SpecularBeamInclinationItem::setupAxisGroup() {
+void SpecularBeamInclinationItem::setupAxisGroup()
+{
     auto group_item = dynamic_cast<GroupItem*>(this->addGroupProperty(P_ALPHA_AXIS, "Axes group"));
 
     // Both underlying axis items are created, since it
@@ -71,7 +75,8 @@ void SpecularBeamInclinationItem::setupAxisGroup() {
 }
 
 namespace {
-void setupDistributionMean(SessionItem* distribution) {
+void setupDistributionMean(SessionItem* distribution)
+{
     ASSERT(distribution);
 
     SessionItem* valueItem = distribution->getItem(DistributionNoneItem::P_MEAN);
@@ -82,7 +87,8 @@ void setupDistributionMean(SessionItem* distribution) {
     valueItem->setValue(0.0);
 }
 
-void setAxisPresentationDefaults(SessionItem* axis_item, const QString& type) {
+void setAxisPresentationDefaults(SessionItem* axis_item, const QString& type)
+{
     axis_item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
     axis_item->setItemValue(BasicAxisItem::P_TITLE, "alpha_i");
     axis_item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");

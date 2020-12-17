@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/GISASInstrumentEditor.cpp
 //! @brief     Implements class GISASInstrumentEditor
@@ -28,7 +28,8 @@ GISASInstrumentEditor::GISASInstrumentEditor(QWidget* parent)
     , m_beamEditor(new GISASBeamEditor(m_columnResizer))
     , m_detectorEditor(new GISASDetectorEditor)
     , m_environmentEditor(new EnvironmentEditor(m_columnResizer))
-    , m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer)) {
+    , m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
+{
     auto mainLayout = new QVBoxLayout;
 
     mainLayout->addWidget(StyleUtils::createDetailsWidget(m_beamEditor, "Beam parameters"));
@@ -42,14 +43,16 @@ GISASInstrumentEditor::GISASInstrumentEditor(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void GISASInstrumentEditor::subscribeToItem() {
+void GISASInstrumentEditor::subscribeToItem()
+{
     m_beamEditor->setItem(instrumentItem());
     m_detectorEditor->setItem(instrumentItem());
     m_environmentEditor->setItem(instrumentItem());
     m_polarizationAnalysisEditor->setItem(instrumentItem());
 }
 
-GISASInstrumentItem* GISASInstrumentEditor::instrumentItem() {
+GISASInstrumentItem* GISASInstrumentEditor::instrumentItem()
+{
     auto result = dynamic_cast<GISASInstrumentItem*>(currentItem());
     ASSERT(result);
     return result;

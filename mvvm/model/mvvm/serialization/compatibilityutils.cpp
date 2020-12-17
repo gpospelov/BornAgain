@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/serialization/compatibilityutils.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/serialization/compatibilityutils.h"
 #include "mvvm/model/groupitem.h"
@@ -22,7 +27,8 @@ Container is considered to be compatible (i.e. can be updated from serialized co
 exactly same tag, and it is empty.
 */
 
-bool IsCompatibleUniversalTag(const SessionItemContainer& container, const TagInfo& taginfo) {
+bool IsCompatibleUniversalTag(const SessionItemContainer& container, const TagInfo& taginfo)
+{
     auto container_taginfo = container.tagInfo();
 
     bool is_empty = container.empty();
@@ -40,7 +46,8 @@ Container is considered to be compatible (i.e. can be updated from serialized co
 exactly same tag, and property item ready for update.
 */
 
-bool IsCompatibleSinglePropertyTag(const SessionItemContainer& container, const TagInfo& taginfo) {
+bool IsCompatibleSinglePropertyTag(const SessionItemContainer& container, const TagInfo& taginfo)
+{
     auto container_taginfo = container.tagInfo();
 
     bool has_item = !container.empty();
@@ -58,7 +65,8 @@ Container is considered to be compatible (i.e. can be updated from serialized co
 if it has exactly same tag, and it's name corresponds to GroupItem.
 */
 
-bool IsCompatibleGroupTag(const SessionItemContainer& container, const TagInfo& taginfo) {
+bool IsCompatibleGroupTag(const SessionItemContainer& container, const TagInfo& taginfo)
+{
     auto container_taginfo = container.tagInfo();
     bool has_item = !container.empty();
     bool same_tags = container_taginfo == taginfo;

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Resolution/ResolutionFunction2DGaussian.h
 //! @brief     Defines class ResolutionFunction2DGaussian.
@@ -26,7 +26,8 @@ public:
 
     virtual double evaluateCDF(double x, double y) const;
 
-    ResolutionFunction2DGaussian* clone() const {
+    ResolutionFunction2DGaussian* clone() const
+    {
         return new ResolutionFunction2DGaussian(m_sigma_x, m_sigma_y);
     }
 

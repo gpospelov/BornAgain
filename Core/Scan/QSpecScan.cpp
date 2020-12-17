@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Scan/QSpecScan.cpp
 //! @brief     Implements QSpecScan class.
@@ -21,24 +21,28 @@
 
 QSpecScan::QSpecScan(std::vector<double> qs_nm)
     : m_qs(std::make_unique<PointwiseAxis>("qs", std::move(qs_nm)))
-    , m_resolution(ScanResolution::scanEmptyResolution()) {
+    , m_resolution(ScanResolution::scanEmptyResolution())
+{
     checkInitialization();
 }
 
 QSpecScan::QSpecScan(const IAxis& qs_nm)
-    : m_qs(qs_nm.clone()), m_resolution(ScanResolution::scanEmptyResolution()) {
+    : m_qs(qs_nm.clone()), m_resolution(ScanResolution::scanEmptyResolution())
+{
     checkInitialization();
 }
 
 QSpecScan::QSpecScan(int nbins, double qz_min, double qz_max)
     : m_qs(std::make_unique<FixedBinAxis>("qs", nbins, qz_min, qz_max))
-    , m_resolution(ScanResolution::scanEmptyResolution()) {
+    , m_resolution(ScanResolution::scanEmptyResolution())
+{
     checkInitialization();
 }
 
 QSpecScan::~QSpecScan() = default;
 
-QSpecScan* QSpecScan::clone() const {
+QSpecScan* QSpecScan::clone() const
+{
     auto* result = new QSpecScan(*m_qs);
     result->setQResolution(*m_resolution);
     result->setOffset(m_offset);
@@ -47,7 +51,8 @@ QSpecScan* QSpecScan::clone() const {
 
 //! Generates simulation elements for specular simulations
 std::vector<SpecularSimulationElement>
-QSpecScan::generateSimulationElements(const Instrument& instrument) const {
+QSpecScan::generateSimulationElements(const Instrument& instrument) const
+{
     const std::vector<double> qz = generateQzVector();
 
     std::vector<SpecularSimulationElement> result;
@@ -59,7 +64,8 @@ QSpecScan::generateSimulationElements(const Instrument& instrument) const {
     return result;
 }
 
-std::vector<double> QSpecScan::footprint(size_t i, size_t n_elements) const {
+std::vector<double> QSpecScan::footprint(size_t i, size_t n_elements) const
+{
     if (i + n_elements > numberOfSimulationElements())
         throw std::runtime_error("Error in QSpecScan::footprint: given index exceeds the "
                                  "number of simulation elements");
@@ -67,12 +73,14 @@ std::vector<double> QSpecScan::footprint(size_t i, size_t n_elements) const {
 }
 
 //! Returns the number of simulation elements
-size_t QSpecScan::numberOfSimulationElements() const {
+size_t QSpecScan::numberOfSimulationElements() const
+{
     return m_qs->size() * m_resolution->nSamples();
 }
 
 std::vector<double>
-QSpecScan::createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const {
+QSpecScan::createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const
+{
     const size_t axis_size = m_qs->size();
     std::vector<double> result(axis_size, 0.0);
 
@@ -89,39 +97,45 @@ QSpecScan::createIntensities(const std::vector<SpecularSimulationElement>& sim_e
     return result;
 }
 
-void QSpecScan::setQResolution(const ScanResolution& resolution) {
+void QSpecScan::setQResolution(const ScanResolution& resolution)
+{
     m_resolution.reset(resolution.clone());
     m_q_res_cache.clear();
     m_q_res_cache.shrink_to_fit();
 }
 
-void QSpecScan::setRelativeQResolution(const IRangedDistribution& distr, double rel_dev) {
+void QSpecScan::setRelativeQResolution(const IRangedDistribution& distr, double rel_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanRelativeResolution(distr, rel_dev));
     setQResolution(*resolution);
 }
 
 void QSpecScan::setRelativeQResolution(const IRangedDistribution& distr,
-                                       const std::vector<double>& rel_dev) {
+                                       const std::vector<double>& rel_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanRelativeResolution(distr, rel_dev));
     setQResolution(*resolution);
 }
 
-void QSpecScan::setAbsoluteQResolution(const IRangedDistribution& distr, double std_dev) {
+void QSpecScan::setAbsoluteQResolution(const IRangedDistribution& distr, double std_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanAbsoluteResolution(distr, std_dev));
     setQResolution(*resolution);
 }
 
 void QSpecScan::setAbsoluteQResolution(const IRangedDistribution& distr,
-                                       const std::vector<double>& std_dev) {
+                                       const std::vector<double>& std_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanAbsoluteResolution(distr, std_dev));
     setQResolution(*resolution);
 }
 
-void QSpecScan::checkInitialization() {
+void QSpecScan::checkInitialization()
+{
     std::vector<double> axis_values = m_qs->binCenters();
     if (!std::is_sorted(axis_values.begin(), axis_values.end()))
         throw std::runtime_error("Error in QSpecScan::checkInitialization: q-vector values shall "
@@ -132,7 +146,8 @@ void QSpecScan::checkInitialization() {
                                  "of acceptable range.");
 }
 
-std::vector<double> QSpecScan::generateQzVector() const {
+std::vector<double> QSpecScan::generateQzVector() const
+{
     const auto samples = applyQResolution();
 
     std::vector<double> result;
@@ -143,7 +158,8 @@ std::vector<double> QSpecScan::generateQzVector() const {
     return result;
 }
 
-std::vector<std::vector<ParameterSample>> QSpecScan::applyQResolution() const {
+std::vector<std::vector<ParameterSample>> QSpecScan::applyQResolution() const
+{
     if (m_q_res_cache.empty())
         m_q_res_cache = m_resolution->generateSamples(m_qs->binCenters());
     return m_q_res_cache;

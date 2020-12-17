@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/editors/coloreditor.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/editors/coloreditor.h"
 #include "mvvm/editors/customeventfilters.h"
@@ -19,9 +24,7 @@
 using namespace ModelView;
 
 ColorEditor::ColorEditor(QWidget* parent)
-    : CustomEditor(parent)
-    , m_pixmapLabel(new QLabel)
-    , m_focusFilter(new LostFocusFilter(this))
+    : CustomEditor(parent), m_pixmapLabel(new QLabel), m_focusFilter(new LostFocusFilter(this))
 
 {
     setMouseTracking(true);
@@ -39,7 +42,8 @@ ColorEditor::ColorEditor(QWidget* parent)
     setLayout(layout);
 }
 
-void ColorEditor::mousePressEvent(QMouseEvent*) {
+void ColorEditor::mousePressEvent(QMouseEvent*)
+{
     // temporarily installing filter to prevent loss of focus caused by too insistent dialog
     installEventFilter(m_focusFilter);
 
@@ -53,11 +57,13 @@ void ColorEditor::mousePressEvent(QMouseEvent*) {
     }
 }
 
-QColor ColorEditor::currentColor() const {
+QColor ColorEditor::currentColor() const
+{
     return m_data.value<QColor>();
 }
 
-void ColorEditor::update_components() {
+void ColorEditor::update_components()
+{
     if (!Utils::IsColorVariant(m_data))
         throw std::runtime_error("ColorEditor::update_components() -> Error. Wrong variant type");
 

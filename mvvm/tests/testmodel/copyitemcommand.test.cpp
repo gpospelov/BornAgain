@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/copyitemcommand.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/commands/copyitemcommand.h"
@@ -25,7 +30,8 @@ public:
 
 CopyItemCommandTest::~CopyItemCommandTest() = default;
 
-TEST_F(CopyItemCommandTest, copyChild) {
+TEST_F(CopyItemCommandTest, copyChild)
+{
     SessionModel model;
 
     // parent with children and data
@@ -59,7 +65,8 @@ TEST_F(CopyItemCommandTest, copyChild) {
 
 //! Attempt to copy item to invalid tag
 
-TEST_F(CopyItemCommandTest, invalidCopyAttempt) {
+TEST_F(CopyItemCommandTest, invalidCopyAttempt)
+{
     SessionModel model;
 
     // parent with children and data

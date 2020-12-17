@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/quicksimeditor/simplotwidget.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/quicksimeditor/simplotwidget.h"
 #include "gui2/model/applicationmodels.h"
@@ -22,7 +27,8 @@ namespace gui2 {
 SimPlotWidget::SimPlotWidget(QWidget* parent)
     : QWidget(parent)
     , m_specularCanvas(new ModelView::GraphCanvas)
-    , m_diffCanvas(new ModelView::GraphCanvas) {
+    , m_diffCanvas(new ModelView::GraphCanvas)
+{
     auto layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 5, 5, 5);
 
@@ -46,13 +52,15 @@ SimPlotWidget::SimPlotWidget(QWidget* parent)
 
 SimPlotWidget::~SimPlotWidget() = default;
 
-void SimPlotWidget::setModels(ApplicationModels* models) {
+void SimPlotWidget::setModels(ApplicationModels* models)
+{
     m_models = models;
     m_specularCanvas->setItem(m_models->jobModel()->specularViewport());
     m_diffCanvas->setItem(m_models->jobModel()->diffViewport());
 }
 
-void SimPlotWidget::updateViewport() {
+void SimPlotWidget::updateViewport()
+{
     m_specularCanvas->setViewportToContent();
     m_diffCanvas->setViewportToContent();
 }

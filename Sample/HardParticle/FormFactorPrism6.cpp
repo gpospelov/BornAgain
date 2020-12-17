@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorPrism6.cpp
 //! @brief     Implements class FormFactorPrism6.
@@ -21,21 +21,26 @@ FormFactorPrism6::FormFactorPrism6(const std::vector<double> P)
                          {"Height", "nm", "height", 0, +INF, 0}}},
                        P)
     , m_base_edge(m_P[0])
-    , m_height(m_P[1]) {
+    , m_height(m_P[1])
+{
     onChange();
 }
 
 FormFactorPrism6::FormFactorPrism6(double base_edge, double height)
-    : FormFactorPrism6(std::vector<double>{base_edge, height}) {}
+    : FormFactorPrism6(std::vector<double>{base_edge, height})
+{
+}
 
 IFormFactor* FormFactorPrism6::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                               kvector_t translation) const {
+                                               kvector_t translation) const
+{
     auto effects = computeSlicingEffects(limits, translation, m_height);
     FormFactorPrism6 slicedff(m_base_edge, m_height - effects.dz_bottom - effects.dz_top);
     return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
-void FormFactorPrism6::onChange() {
+void FormFactorPrism6::onChange()
+{
     double a = m_base_edge;
     double as = a * sqrt(3) / 2;
     double ac = a / 2;

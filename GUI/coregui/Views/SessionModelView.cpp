@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SessionModelView.cpp
 //! @brief     Implements class SessionModelView
@@ -36,7 +36,8 @@ SessionModelView::SessionModelView(MainWindow* mainWindow)
     , m_toolBar(new QToolBar)
     , m_tabs(new QTabWidget)
     , m_expandCollapseButton(new QToolButton)
-    , m_delegate(new SessionModelDelegate(this)) {
+    , m_delegate(new SessionModelDelegate(this))
+{
     auto layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
@@ -58,13 +59,15 @@ SessionModelView::SessionModelView(MainWindow* mainWindow)
         init_test_view();
 }
 
-void SessionModelView::onExpandCollapseTree() {
+void SessionModelView::onExpandCollapseTree()
+{
     m_content.at(m_tabs->currentIndex())->toggleExpanded();
 }
 
 //! Creates content for tab widget.
 
-void SessionModelView::init_tabs() {
+void SessionModelView::init_tabs()
+{
     ASSERT(m_content.empty());
 
     for (auto model : modelsForTabs()) {
@@ -77,7 +80,8 @@ void SessionModelView::init_tabs() {
 
 //! Returns list of models to show in tabs.
 
-QList<SessionModel*> SessionModelView::modelsForTabs() {
+QList<SessionModel*> SessionModelView::modelsForTabs()
+{
     QList<SessionModel*> result = QList<SessionModel*>()
                                   << m_mainWindow->instrumentModel() << m_mainWindow->sampleModel()
                                   << m_mainWindow->realDataModel() << m_mainWindow->materialModel()
@@ -85,7 +89,8 @@ QList<SessionModel*> SessionModelView::modelsForTabs() {
     return result;
 }
 
-void SessionModelView::init_test_view() {
+void SessionModelView::init_test_view()
+{
     auto view = new TestView(m_mainWindow);
     int index = m_tabs->addTab(view, "Test View");
     m_tabs->setCurrentIndex(index);

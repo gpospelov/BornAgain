@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorCuboctahedron.h
 //! @brief     Defines class FormFactorCuboctahedron
@@ -25,7 +25,8 @@ public:
     FormFactorCuboctahedron(const std::vector<double> P);
     FormFactorCuboctahedron(double length, double height, double height_ratio, double alpha);
 
-    FormFactorCuboctahedron* clone() const final {
+    FormFactorCuboctahedron* clone() const final
+    {
         return new FormFactorCuboctahedron(m_length, m_height, m_height_ratio, m_alpha);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

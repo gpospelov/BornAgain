@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SampleDesigner/RealSpacePanel.cpp
 //! @brief     Implements class RealSpacePanel
@@ -18,7 +18,8 @@
 
 RealSpacePanel::RealSpacePanel(SampleModel* sampleModel, QItemSelectionModel* selectionModel,
                                QWidget* parent)
-    : QWidget(parent), m_realSpaceWidget(nullptr) {
+    : QWidget(parent), m_realSpaceWidget(nullptr)
+{
     setWindowTitle("Real Space");
     setObjectName("Sample3DPanel");
 
@@ -32,6 +33,7 @@ RealSpacePanel::RealSpacePanel(SampleModel* sampleModel, QItemSelectionModel* se
     setLayout(layout);
 }
 
-QSize RealSpacePanel::sizeHint() const {
+QSize RealSpacePanel::sizeHint() const
+{
     return QSize(300, 300);
 }

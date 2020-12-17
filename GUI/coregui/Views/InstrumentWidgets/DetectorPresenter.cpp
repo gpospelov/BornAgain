@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/DetectorPresenter.cpp
 //! @brief     Implements class DetectorPresenter
@@ -23,13 +23,15 @@ const QString SphericalDetectorPresentation = "Spherical";
 const QString RectangularDetectorPresentation = "Rectangular";
 } // namespace
 
-DetectorPresenter::DetectorPresenter(QWidget* parent) : ItemComboWidget(parent) {
+DetectorPresenter::DetectorPresenter(QWidget* parent) : ItemComboWidget(parent)
+{
     registerWidget(SphericalDetectorPresentation, create_new<SphericalDetectorEditor>);
     registerWidget(RectangularDetectorPresentation, create_new<RectangularDetectorEditor>);
     setToolBarVisible(false);
 }
 
-QString DetectorPresenter::itemPresentation() const {
+QString DetectorPresenter::itemPresentation() const
+{
     if (!currentItem())
         return {};
 
@@ -43,7 +45,8 @@ QString DetectorPresenter::itemPresentation() const {
                                 + currentItem()->modelType() + "'");
 }
 
-QStringList DetectorPresenter::activePresentationList(SessionItem* item) {
+QStringList DetectorPresenter::activePresentationList(SessionItem* item)
+{
     Q_UNUSED(item);
     return QStringList() << SphericalDetectorPresentation << RectangularDetectorPresentation;
 }

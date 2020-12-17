@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/projectchangecontroller.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/propertyitem.h"
@@ -23,7 +28,8 @@ public:
 
 ProjectChangeControllerTest::~ProjectChangeControllerTest() = default;
 
-TEST_F(ProjectChangeControllerTest, initialState) {
+TEST_F(ProjectChangeControllerTest, initialState)
+{
     SessionModel sample_model("SampleModel");
     SessionModel material_model("MaterialModel");
     std::vector<SessionModel*> models = {&sample_model, &material_model};
@@ -32,7 +38,8 @@ TEST_F(ProjectChangeControllerTest, initialState) {
     EXPECT_FALSE(controller.hasChanged());
 }
 
-TEST_F(ProjectChangeControllerTest, twoModelsChange) {
+TEST_F(ProjectChangeControllerTest, twoModelsChange)
+{
     SessionModel sample_model("SampleModel");
     SessionModel material_model("MaterialModel");
     std::vector<SessionModel*> models = {&sample_model, &material_model};
@@ -48,7 +55,8 @@ TEST_F(ProjectChangeControllerTest, twoModelsChange) {
     EXPECT_FALSE(controller.hasChanged());
 }
 
-TEST_F(ProjectChangeControllerTest, callback) {
+TEST_F(ProjectChangeControllerTest, callback)
+{
     int model_changed_count{0};
 
     SessionModel sample_model("SampleModel");

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/view/mvvm/widgets/collapsiblelistwidget.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/widgets/collapsiblelistwidget.h"
 #include "mvvm/widgets/collapsiblebar.h"
@@ -15,7 +20,8 @@
 using namespace ModelView;
 
 CollapsibleListWidget::CollapsibleListWidget(QWidget* parent)
-    : QWidget(parent), m_splitter(new QSplitter) {
+    : QWidget(parent), m_splitter(new QSplitter)
+{
     m_splitter->setOrientation(Qt::Vertical);
 
     auto layout = new QVBoxLayout(this);
@@ -23,7 +29,8 @@ CollapsibleListWidget::CollapsibleListWidget(QWidget* parent)
     layout->addWidget(m_splitter);
 }
 
-void CollapsibleListWidget::addWidget(QWidget* widget, const QString& title, bool collapsed) {
+void CollapsibleListWidget::addWidget(QWidget* widget, const QString& title, bool collapsed)
+{
     // add bar which will be uncollapsible and will control the appearance of our widget
     auto bar = new CollapsibleBar(m_splitter);
     m_splitter->addWidget(bar);

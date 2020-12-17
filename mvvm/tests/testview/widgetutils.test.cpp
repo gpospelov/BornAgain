@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testview/widgetutils.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/widgets/widgetutils.h"
@@ -42,7 +47,8 @@ WidgetUtilsTest::~WidgetUtilsTest() = default;
 //     }
 // }
 
-TEST_F(WidgetUtilsTest, ProjectWindowTitle) {
+TEST_F(WidgetUtilsTest, ProjectWindowTitle)
+{
     // untitled and unmodified project
     EXPECT_EQ(Utils::ProjectWindowTitle(QString(""), false), "Untitled");
 
@@ -62,23 +68,27 @@ TEST_F(WidgetUtilsTest, ProjectWindowTitle) {
     EXPECT_EQ(Utils::ProjectWindowTitle(QString("/home/user/project1"), true), "*project1");
 }
 
-TEST_F(WidgetUtilsTest, ClickableText) {
+TEST_F(WidgetUtilsTest, ClickableText)
+{
     EXPECT_EQ(Utils::ClickableText("abc", "site.com"), QString("<a href=\"site.com\">abc</a>"));
 }
 
-TEST_F(WidgetUtilsTest, toStringList) {
+TEST_F(WidgetUtilsTest, toStringList)
+{
     using vec_t = std::vector<std::string>;
     EXPECT_EQ(Utils::toStringList(vec_t()), QStringList());
     EXPECT_EQ(Utils::toStringList(vec_t({"abc", "cde"})), QStringList({"abc", "cde"}));
 }
 
-TEST_F(WidgetUtilsTest, fromStringList) {
+TEST_F(WidgetUtilsTest, fromStringList)
+{
     using vec_t = std::vector<std::string>;
     EXPECT_EQ(Utils::fromStringList(QStringList()), vec_t());
     EXPECT_EQ(Utils::fromStringList(QStringList({"abc", "cde"})), vec_t({"abc", "cde"}));
 }
 
-TEST_F(WidgetUtilsTest, toFromByteArray) {
+TEST_F(WidgetUtilsTest, toFromByteArray)
+{
     QStringList expected = QStringList() << "aaa"
                                          << "bbb"
                                          << "ccc";

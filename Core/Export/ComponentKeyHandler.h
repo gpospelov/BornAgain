@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Export/ComponentKeyHandler.h
 //! @brief     Defines class ComponentKeyHandler.
@@ -40,7 +40,8 @@ private:
     std::map<std::string, std::vector<const IComponent*>> m_objects;
 };
 
-template <class T> std::vector<const T*> ComponentKeyHandler::objectsOfType() const {
+template <class T> std::vector<const T*> ComponentKeyHandler::objectsOfType() const
+{
     std::vector<const T*> ret;
     for (auto it : m_objects)
         for (const IComponent* s : it.second)

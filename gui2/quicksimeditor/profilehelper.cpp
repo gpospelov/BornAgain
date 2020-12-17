@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/quicksimeditor/profilehelper.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/quicksimeditor/profilehelper.h"
 #include <Sample/Slice/LayerRoughness.h>
@@ -17,7 +22,8 @@ double Transition(double x, double sigma);
 double TransitionTanh(double x);
 } // namespace
 
-gui2::ProfileHelper::ProfileHelper(const std::vector<Slice>& sample) {
+gui2::ProfileHelper::ProfileHelper(const std::vector<Slice>& sample)
+{
     auto N = sample.size();
     m_materialdata.reserve(N);
     if (N > 1) {
@@ -43,7 +49,8 @@ gui2::ProfileHelper::ProfileHelper(const std::vector<Slice>& sample) {
 // of n^2. To first order in delta and beta, this implies the same smooth interpolation of delta
 // and beta, as is done here.
 std::vector<complex_t>
-gui2::ProfileHelper::calculateProfile(const std::vector<double>& z_values) const {
+gui2::ProfileHelper::calculateProfile(const std::vector<double>& z_values) const
+{
     complex_t top_value = m_materialdata.size() ? m_materialdata[0] : 0.0;
     std::vector<complex_t> result(z_values.size(), top_value);
     for (size_t i = 0; i < m_zlimits.size(); ++i) {
@@ -57,7 +64,8 @@ gui2::ProfileHelper::calculateProfile(const std::vector<double>& z_values) const
     return result;
 }
 
-std::pair<double, double> gui2::ProfileHelper::defaultLimits() const {
+std::pair<double, double> gui2::ProfileHelper::defaultLimits() const
+{
     if (m_zlimits.size() < 1)
         return {0.0, 0.0};
     double interface_span = m_zlimits.front() - m_zlimits.back();
@@ -72,12 +80,14 @@ std::pair<double, double> gui2::ProfileHelper::defaultLimits() const {
 gui2::ProfileHelper::~ProfileHelper() = default;
 
 namespace {
-double Transition(double x, double sigma) {
+double Transition(double x, double sigma)
+{
     if (sigma <= 0.0)
         return x < 0.0 ? 1.0 : 0.0;
     return TransitionTanh(x / sigma);
 }
-double TransitionTanh(double x) {
+double TransitionTanh(double x)
+{
     return (1.0 - std::tanh(prefactor * x)) / 2.0;
 }
 } // namespace

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/view/mvvm/plotting/mousemovereporter.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/plotting/mousemovereporter.h"
 #include "mvvm/plotting/mouseposinfo.h"
@@ -21,7 +26,8 @@ struct MouseMoveReporter::MouseMoveReporterImpl {
     callback_t callback;
     MouseMoveReporterImpl(MouseMoveReporter* reporter, QCustomPlot* custom_plot,
                           callback_t callback)
-        : reporter(reporter), custom_plot(custom_plot), callback(std::move(callback)) {
+        : reporter(reporter), custom_plot(custom_plot), callback(std::move(callback))
+    {
         if (!custom_plot)
             throw std::runtime_error("MouseMoveReporter: not initialized custom plot.");
 
@@ -29,7 +35,8 @@ struct MouseMoveReporter::MouseMoveReporterImpl {
         set_connected();
     }
 
-    void set_connected() {
+    void set_connected()
+    {
         auto on_mouse_move = [this](QMouseEvent* event) {
             double x = pixelToXaxisCoord(event->pos().x());
             double y = pixelToYaxisCoord(event->pos().y());
@@ -44,13 +51,16 @@ struct MouseMoveReporter::MouseMoveReporterImpl {
 
     double pixelToYaxisCoord(double pixel) const { return custom_plot->yAxis->pixelToCoord(pixel); }
 
-    bool axesRangeContains(double xpos, double ypos) const {
+    bool axesRangeContains(double xpos, double ypos) const
+    {
         return custom_plot->xAxis->range().contains(xpos)
                && custom_plot->yAxis->range().contains(ypos);
     }
 };
 
 MouseMoveReporter::MouseMoveReporter(QCustomPlot* custom_plot, callback_t callback)
-    : p_impl(std::make_unique<MouseMoveReporterImpl>(this, custom_plot, callback)) {}
+    : p_impl(std::make_unique<MouseMoveReporterImpl>(this, custom_plot, callback))
+{
+}
 
 MouseMoveReporter::~MouseMoveReporter() = default;

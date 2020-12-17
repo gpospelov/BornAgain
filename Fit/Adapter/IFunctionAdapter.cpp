@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Adapter/IFunctionAdapter.cpp
 //! @brief     Implements interface IFunctionAdapter.
@@ -20,10 +20,12 @@ IFunctionAdapter::IFunctionAdapter() : m_number_of_calls(0), m_number_of_gradien
 
 IFunctionAdapter::~IFunctionAdapter() = default;
 
-int IFunctionAdapter::numberOfCalls() const {
+int IFunctionAdapter::numberOfCalls() const
+{
     return m_number_of_calls;
 }
 
-int IFunctionAdapter::numberOfGradientCalls() const {
+int IFunctionAdapter::numberOfGradientCalls() const
+{
     return m_number_of_gradient_calls;
 }

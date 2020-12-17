@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/viewmodelcontrollerbuilder.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/factories/viewmodelcontrollerbuilder.h"
@@ -29,12 +34,14 @@ ViewModelControllerBuilderTest::~ViewModelControllerBuilderTest() = default;
 //! Initial state of the builder.
 //! It can't build anything without configuration.
 
-TEST_F(ViewModelControllerBuilderTest, initialState) {
+TEST_F(ViewModelControllerBuilderTest, initialState)
+{
     EXPECT_THROW(std::unique_ptr<ViewModelController> controller = ViewModelControllerBuilder(),
                  std::runtime_error);
 }
 
-TEST_F(ViewModelControllerBuilderTest, allItemsControllerBuild) {
+TEST_F(ViewModelControllerBuilderTest, allItemsControllerBuild)
+{
     SessionModel session_model;
     ViewModelBase view_model;
 

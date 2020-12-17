@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/jsonitemdataconverter.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "folderbasedtest.h"
 #include "google_test.h"
@@ -34,7 +39,8 @@ JsonItemDataConverterTest::~JsonItemDataConverterTest() = default;
 
 //! Creating QJsonArray from SessionItemData.
 
-TEST_F(JsonItemDataConverterTest, getJson) {
+TEST_F(JsonItemDataConverterTest, getJson)
+{
     JsonItemFormatAssistant assistant;
     JsonItemDataConverter converter;
 
@@ -59,7 +65,8 @@ TEST_F(JsonItemDataConverterTest, getJson) {
 
 //! From SessionItemData to json and back.
 
-TEST_F(JsonItemDataConverterTest, fromItemToJsonAndBack) {
+TEST_F(JsonItemDataConverterTest, fromItemToJsonAndBack)
+{
     JsonItemDataConverter converter;
 
     // initial data
@@ -90,7 +97,8 @@ TEST_F(JsonItemDataConverterTest, fromItemToJsonAndBack) {
 
 //! By default tooltip role is enabled for read and write.
 
-TEST_F(JsonItemDataConverterTest, tooltipRole) {
+TEST_F(JsonItemDataConverterTest, tooltipRole)
+{
     // initial data
     SessionItemData data;
     data.setData(QVariant::fromValue(std::string("tooltip")), ItemDataRole::TOOLTIP);
@@ -108,7 +116,8 @@ TEST_F(JsonItemDataConverterTest, tooltipRole) {
 
 //! Write filtered roles, read all into empty SessionItemData.
 
-TEST_F(JsonItemDataConverterTest, writeFilteredReadAll) {
+TEST_F(JsonItemDataConverterTest, writeFilteredReadAll)
+{
     // initial data
     SessionItemData data;
     data.setData(QVariant::fromValue(std::string("abc")), ItemDataRole::IDENTIFIER);
@@ -131,7 +140,8 @@ TEST_F(JsonItemDataConverterTest, writeFilteredReadAll) {
 
 //! Write all roles, read filtered into empty SessionItemData.
 
-TEST_F(JsonItemDataConverterTest, writeAllReadFiltered) {
+TEST_F(JsonItemDataConverterTest, writeAllReadFiltered)
+{
     // initial data
     SessionItemData data;
     data.setData(QVariant::fromValue(std::string("abc")), ItemDataRole::IDENTIFIER);
@@ -157,7 +167,8 @@ TEST_F(JsonItemDataConverterTest, writeAllReadFiltered) {
 
 //! Update SessionItemData from json obtained from another JsonItemData.
 
-TEST_F(JsonItemDataConverterTest, updateFromJson) {
+TEST_F(JsonItemDataConverterTest, updateFromJson)
+{
     const std::vector<int> roles = {ItemDataRole::IDENTIFIER, ItemDataRole::DATA,
                                     ItemDataRole::TOOLTIP};
     const std::vector<QVariant> variants = {QVariant::fromValue(std::string("identifier1")),
@@ -193,7 +204,8 @@ TEST_F(JsonItemDataConverterTest, updateFromJson) {
 //! It is used normally in the situation, when the item data is fully serialized to JSON, and then
 //! desirialized into empty item data.
 
-TEST_F(JsonItemDataConverterTest, createCopyConverter) {
+TEST_F(JsonItemDataConverterTest, createCopyConverter)
+{
     auto converter = JsonItemDataConverter::createCopyConverter();
 
     SessionItemData data;
@@ -218,7 +230,8 @@ TEST_F(JsonItemDataConverterTest, createCopyConverter) {
 //! Checking factory method for typical scenario for copying whole data while writing, and updating
 //! on reading. This is a repetition of previous test.
 
-TEST_F(JsonItemDataConverterTest, createProjectConverter) {
+TEST_F(JsonItemDataConverterTest, createProjectConverter)
+{
     auto converter = JsonItemDataConverter::createProjectConverter();
 
     SessionItemData data;

@@ -8,7 +8,8 @@ public:
     void testItemClock(QString type);
 };
 
-void TestDataItems::testItemClock(QString model_type) {
+void TestDataItems::testItemClock(QString model_type)
+{
     SessionModel model("TempModel");
     DataItem* item = dynamic_cast<DataItem*>(model.insertNewItem(model_type));
 
@@ -32,10 +33,12 @@ void TestDataItems::testItemClock(QString model_type) {
     EXPECT_TRUE(time2.msecsTo(time3) > nap_time / 2);
 }
 
-TEST_F(TestDataItems, testSpecularItemClock) {
+TEST_F(TestDataItems, testSpecularItemClock)
+{
     testItemClock("SpecularData");
 }
 
-TEST_F(TestDataItems, testIntensityItemClock) {
+TEST_F(TestDataItems, testIntensityItemClock)
+{
     testItemClock("IntensityData");
 }

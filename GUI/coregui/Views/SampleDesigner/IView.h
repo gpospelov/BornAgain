@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SampleDesigner/IView.h
 //! @brief     Defines interface IView
@@ -51,11 +51,13 @@ protected:
     SessionItem* m_item;
 };
 
-inline int IView::type() const {
+inline int IView::type() const
+{
     return ViewTypes::IVIEW;
 }
 
-inline SessionItem* IView::getItem() {
+inline SessionItem* IView::getItem()
+{
     return m_item;
 }
 

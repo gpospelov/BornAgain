@@ -1,16 +1,20 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/welcomeview/openprojectwidget.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/welcomeview/openprojectwidget.h"
-#include "gui2/core/version.h"
+#include "BAVersion.h"
 #include "gui2/mainwindow/styleutils.h"
-#include "mvvm/core/version.h"
 #include "mvvm/widgets/widgetutils.h"
 #include <QHBoxLayout>
 #include <QLabel>
@@ -18,7 +22,8 @@
 #include <QVBoxLayout>
 
 namespace {
-int logo_width() {
+int logo_width()
+{
     return ModelView::Utils::SizeOfLetterM().height() * 40;
 }
 
@@ -29,7 +34,8 @@ const QString str_new = "New";
 
 namespace gui2 {
 
-OpenProjectWidget::OpenProjectWidget(QWidget* parent) : QWidget(parent) {
+OpenProjectWidget::OpenProjectWidget(QWidget* parent) : QWidget(parent)
+{
     auto layout = new QVBoxLayout(this);
 
     QPixmap logo(":/icons/F-letter_1000x.png");
@@ -45,18 +51,21 @@ OpenProjectWidget::OpenProjectWidget(QWidget* parent) : QWidget(parent) {
     layout->addStretch();
 }
 
-QSize OpenProjectWidget::sizeHint() const {
+QSize OpenProjectWidget::sizeHint() const
+{
     return StyleUtils::DockSizeHint();
 }
 
-QSize OpenProjectWidget::minimumSizeHint() const {
+QSize OpenProjectWidget::minimumSizeHint() const
+{
     return StyleUtils::DockMinimumSizeHint();
 }
 
-QBoxLayout* OpenProjectWidget::createProjectTitleLayout() {
+QBoxLayout* OpenProjectWidget::createProjectTitleLayout()
+{
     auto result = new QHBoxLayout;
     QString title =
-        QString("DaRefl version %1").arg(QString::fromStdString(gui2::ProjectVersion()));
+        "BornAgain " + QString::fromStdString(BornAgain::GetVersionNumber()) + ", gui2 preview";
     auto label = new QLabel(title);
     ModelView::Utils::ScaleLabelFont(label, 1.25);
 
@@ -64,7 +73,8 @@ QBoxLayout* OpenProjectWidget::createProjectTitleLayout() {
     return result;
 }
 
-QBoxLayout* OpenProjectWidget::createLinkedLabelLayout() {
+QBoxLayout* OpenProjectWidget::createLinkedLabelLayout()
+{
     auto result = new QHBoxLayout;
 
     m_newProjectLabel = new QLabel(ModelView::Utils::ClickableText(str_new));

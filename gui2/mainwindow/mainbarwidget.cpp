@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/mainwindow/mainbarwidget.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/mainwindow/mainbarwidget.h"
 #include "gui2/mainwindow/fancytab.h"
@@ -18,7 +23,8 @@
 namespace gui2 {
 
 MainBarWidget::MainBarWidget(QWidget* parent)
-    : QWidget(parent), m_stackedWidget(new QStackedWidget), m_labelLayout(new QHBoxLayout) {
+    : QWidget(parent), m_stackedWidget(new QStackedWidget), m_labelLayout(new QHBoxLayout)
+{
     m_labelLayout->setContentsMargins(0, 0, 0, 0);
 
     auto layout = new QVBoxLayout(this);
@@ -29,7 +35,8 @@ MainBarWidget::MainBarWidget(QWidget* parent)
 
 MainBarWidget::~MainBarWidget() = default;
 
-void MainBarWidget::addWidget(QWidget* widget, const QString& title, bool is_enabled) {
+void MainBarWidget::addWidget(QWidget* widget, const QString& title, bool is_enabled)
+{
     int index = m_stackedWidget->addWidget(widget);
 
     auto tab = new FancyTab(title);
@@ -41,7 +48,8 @@ void MainBarWidget::addWidget(QWidget* widget, const QString& title, bool is_ena
     m_labelLayout->addWidget(tab);
 }
 
-void MainBarWidget::setCurrentIndex(int index) {
+void MainBarWidget::setCurrentIndex(int index)
+{
     for (auto it : m_indexToTab)
         it.second->setSelected(it.first == index);
 

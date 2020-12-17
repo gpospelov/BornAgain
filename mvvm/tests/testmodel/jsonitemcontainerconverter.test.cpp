@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/jsonitemcontainerconverter.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "folderbasedtest.h"
 #include "google_test.h"
@@ -32,9 +37,12 @@ class JsonItemContainerConverterTest : public FolderBasedTest {
 public:
     JsonItemContainerConverterTest()
         : FolderBasedTest("test_JsonItemContainerConverterTest")
-        , m_itemdata_converter(std::make_unique<JsonItemDataConverter>()) {}
+        , m_itemdata_converter(std::make_unique<JsonItemDataConverter>())
+    {
+    }
 
-    std::unique_ptr<JsonItemContainerConverter> createConverter() const {
+    std::unique_ptr<JsonItemContainerConverter> createConverter() const
+    {
         //! Simplified method to convert SessionItem to JSON object.
         auto to_json = [this](const SessionItem& item) {
             QJsonObject result;
@@ -72,7 +80,8 @@ JsonItemContainerConverterTest::~JsonItemContainerConverterTest() = default;
 
 //! SessionItemContainer (with single property item) to json object.
 
-TEST_F(JsonItemContainerConverterTest, propertyContainerToJson) {
+TEST_F(JsonItemContainerConverterTest, propertyContainerToJson)
+{
     // creating container
     TagInfo tag = TagInfo::propertyTag("thickness", Constants::PropertyType);
     SessionItemContainer container(tag);
@@ -92,7 +101,8 @@ TEST_F(JsonItemContainerConverterTest, propertyContainerToJson) {
 
 //! SessionItemContainer (with single property item) to json object and back.
 
-TEST_F(JsonItemContainerConverterTest, propertyContainerToJsonAndBack) {
+TEST_F(JsonItemContainerConverterTest, propertyContainerToJsonAndBack)
+{
     // creating container
     TagInfo tag = TagInfo::propertyTag("thickness", Constants::PropertyType);
     SessionItemContainer container(tag);
@@ -122,7 +132,8 @@ TEST_F(JsonItemContainerConverterTest, propertyContainerToJsonAndBack) {
 
 //! SessionItemContainer (with single property item) to json file and back.
 
-TEST_F(JsonItemContainerConverterTest, propertyContainerToFileAndBack) {
+TEST_F(JsonItemContainerConverterTest, propertyContainerToFileAndBack)
+{
     // creating container
     TagInfo tag = TagInfo::propertyTag("thickness", Constants::PropertyType);
     SessionItemContainer container(tag);
@@ -159,7 +170,8 @@ TEST_F(JsonItemContainerConverterTest, propertyContainerToFileAndBack) {
 
 //! SessionItemContainer (with universal tag and several items) to json object and back.
 
-TEST_F(JsonItemContainerConverterTest, universalContainerToJsonAndBack) {
+TEST_F(JsonItemContainerConverterTest, universalContainerToJsonAndBack)
+{
     // creating container
     TagInfo tag = TagInfo::universalTag("items");
     SessionItemContainer container(tag);

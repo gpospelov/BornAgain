@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/labeldatarowstrategy.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/sessionitem.h"
@@ -28,7 +33,8 @@ public:
 
 LabelDataRowStrategyTest::~LabelDataRowStrategyTest() = default;
 
-TEST_F(LabelDataRowStrategyTest, initialState) {
+TEST_F(LabelDataRowStrategyTest, initialState)
+{
     LabelDataRowStrategy constructor;
     EXPECT_EQ(constructor.constructRow(nullptr).size(), 0);
     EXPECT_EQ(constructor.horizontalHeaderLabels(), expected_labels);
@@ -36,7 +42,8 @@ TEST_F(LabelDataRowStrategyTest, initialState) {
 
 //! Checks row construction for standard top level item, like Level, MultiLayer etc.
 
-TEST_F(LabelDataRowStrategyTest, topLevelItem) {
+TEST_F(LabelDataRowStrategyTest, topLevelItem)
+{
     SessionItem item("model_type");
 
     LabelDataRowStrategy constructor;
@@ -55,7 +62,8 @@ TEST_F(LabelDataRowStrategyTest, topLevelItem) {
 
 //! Checks row construction for property item.
 
-TEST_F(LabelDataRowStrategyTest, propertyItem) {
+TEST_F(LabelDataRowStrategyTest, propertyItem)
+{
     SessionItem item("model_type");
     item.setData(42.0);
 

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Particle/FormFactorCrystal.cpp
 //! @brief     Implements class FormFactorCrystal.
@@ -21,25 +21,30 @@ FormFactorCrystal::FormFactorCrystal(const Lattice3D& lattice, const IFormFactor
     : m_lattice(lattice)
     , m_basis_form_factor(basis_form_factor.clone())
     , m_meso_form_factor(meso_form_factor.clone())
-    , m_position_variance(position_variance) {
+    , m_position_variance(position_variance)
+{
     setName("FormFactorCrystal");
     calculateLargestReciprocalDistance();
 }
 
-FormFactorCrystal::~FormFactorCrystal() {
+FormFactorCrystal::~FormFactorCrystal()
+{
     delete m_basis_form_factor;
     delete m_meso_form_factor;
 }
 
-double FormFactorCrystal::bottomZ(const IRotation& rotation) const {
+double FormFactorCrystal::bottomZ(const IRotation& rotation) const
+{
     return m_meso_form_factor->bottomZ(rotation);
 }
 
-double FormFactorCrystal::topZ(const IRotation& rotation) const {
+double FormFactorCrystal::topZ(const IRotation& rotation) const
+{
     return m_meso_form_factor->topZ(rotation);
 }
 
-complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const {
+complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const
+{
     // retrieve reciprocal lattice vectors within reasonable radius
     cvector_t q = wavevectors.getQ();
     double radius = 2.1 * m_max_rec_length;
@@ -61,7 +66,8 @@ complex_t FormFactorCrystal::evaluate(const WavevectorInfo& wavevectors) const {
     return result / m_lattice.unitCellVolume();
 }
 
-Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevectors) const {
+Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevectors) const
+{
     // retrieve reciprocal lattice vectors within reasonable radius
     cvector_t q = wavevectors.getQ();
     double radius = 2.1 * m_max_rec_length;
@@ -83,7 +89,8 @@ Eigen::Matrix2cd FormFactorCrystal::evaluatePol(const WavevectorInfo& wavevector
     return result / m_lattice.unitCellVolume();
 }
 
-void FormFactorCrystal::calculateLargestReciprocalDistance() {
+void FormFactorCrystal::calculateLargestReciprocalDistance()
+{
     kvector_t a1 = m_lattice.getBasisVectorA();
     kvector_t a2 = m_lattice.getBasisVectorB();
     kvector_t a3 = m_lattice.getBasisVectorC();
@@ -92,7 +99,8 @@ void FormFactorCrystal::calculateLargestReciprocalDistance() {
     m_max_rec_length = std::max(m_max_rec_length, M_PI / a3.mag());
 }
 
-complex_t FormFactorCrystal::debyeWallerFactor(const kvector_t& q_i) const {
+complex_t FormFactorCrystal::debyeWallerFactor(const kvector_t& q_i) const
+{
     auto q2 = q_i.mag2();
     return std::exp(-q2 * m_position_variance / 2.0);
 }

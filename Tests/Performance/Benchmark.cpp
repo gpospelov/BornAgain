@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Performance/Benchmark.cpp
 //! @brief     Implements Benchmark class
@@ -18,13 +18,15 @@
 #include <sstream>
 #include <stdexcept>
 
-Benchmark::~Benchmark() {
+Benchmark::~Benchmark()
+{
     for (auto it = m_data.begin(); it != m_data.end(); ++it) {
         delete it->second;
     }
 }
 
-void Benchmark::start(const std::string& name) {
+void Benchmark::start(const std::string& name)
+{
     std::cout << "Benchmark::start() -> Starting '" << name << "'" << std::endl;
     if (m_data.find(name) == m_data.end())
         m_data[name] = new Duration();
@@ -32,21 +34,24 @@ void Benchmark::start(const std::string& name) {
     m_data[name]->start();
 }
 
-void Benchmark::stop(const std::string& name) {
+void Benchmark::stop(const std::string& name)
+{
     if (m_data.find(name) == m_data.end())
         throw std::runtime_error("Benchmark::stop() -> No such process '" + name + "'");
 
     m_data[name]->stop();
 }
 
-double Benchmark::runTime(const std::string& name) {
+double Benchmark::runTime(const std::string& name)
+{
     if (m_data.find(name) == m_data.end())
         throw std::runtime_error("Benchmark::stop() -> No such process '" + name + "'");
 
     return m_data[name]->runTime();
 }
 
-std::string Benchmark::report() const {
+std::string Benchmark::report() const
+{
     std::ostringstream result;
 
     for (auto it = m_data.begin(); it != m_data.end(); ++it) {
@@ -60,7 +65,8 @@ std::string Benchmark::report() const {
 
 //! Tests method by running it several times.
 
-void Benchmark::test_method(const std::string& name, std::function<void()> f, int ntries) {
+void Benchmark::test_method(const std::string& name, std::function<void()> f, int ntries)
+{
     std::cout << "   " << name << " trying " << std::to_string(ntries) << " times\n";
 
     // warming up

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Performance/Core/Threading.cpp
 //! @brief     Implements MultiThreadPerformanceTest class
@@ -97,7 +97,8 @@ std::map<std::string, builder_t> builders{
     {sim_wavelength, CreateWavelengthGISAS},   {sim_mc, CreateMCGISAS}};
 
 //! Calculates scale factor (100% means perfect scaling with number of threads).
-void normalize_to_single_thread(MultiThreadPerformanceTest::test_results_t& data) {
+void normalize_to_single_thread(MultiThreadPerformanceTest::test_results_t& data)
+{
     const double single_thread_performance = data[0].time_msec;
     for (auto& x : data)
         x.scale_par = 100.0 * single_thread_performance / (x.time_msec * x.nthreads);
@@ -106,7 +107,8 @@ void normalize_to_single_thread(MultiThreadPerformanceTest::test_results_t& data
 //! Returns list of threads to measure. For system with 8 hardware threads
 //! the list will be formed as {1, 2, 4, 6, 8},
 //! for 32 threads {1, 2, 4, 8, 10, 12, 16, 20, 24, 28, 32}
-std::vector<size_t> threads_to_measure() {
+std::vector<size_t> threads_to_measure()
+{
     std::vector<size_t> result;
     auto max_threads = std::thread::hardware_concurrency();
     for (size_t n_thread = 1; n_thread <= max_threads; ++n_thread) {
@@ -119,7 +121,8 @@ std::vector<size_t> threads_to_measure() {
 
 } // namespace
 
-bool MultiThreadPerformanceTest::runTest() {
+bool MultiThreadPerformanceTest::runTest()
+{
     std::cout << "MultiThreadPerformanceTest::runTest()" << std::endl;
 
     //    std::vector<SimData> sim_data = {{sim_realistic, 10}};
@@ -144,7 +147,8 @@ bool MultiThreadPerformanceTest::runTest() {
 }
 
 //! Warm up all cores.
-void MultiThreadPerformanceTest::warm_up() const {
+void MultiThreadPerformanceTest::warm_up() const
+{
     std::cout << "Warming up" << std::endl;
     test_case(sim_simple, 500, std::thread::hardware_concurrency());
 }
@@ -152,7 +156,8 @@ void MultiThreadPerformanceTest::warm_up() const {
 //! Runs all measurements.
 MultiThreadPerformanceTest::test_map_t
 MultiThreadPerformanceTest::run_measurements(std::vector<size_t> threads_data,
-                                             std::vector<SimData> sim_data) const {
+                                             std::vector<SimData> sim_data) const
+{
     const auto start_time = now();
 
     test_map_t results;
@@ -169,7 +174,8 @@ MultiThreadPerformanceTest::run_measurements(std::vector<size_t> threads_data,
 }
 
 //! Prints fancy table with results of measurements.
-void MultiThreadPerformanceTest::fancy_print(const test_map_t& results) const {
+void MultiThreadPerformanceTest::fancy_print(const test_map_t& results) const
+{
     // print results
     std::ostringstream ostr;
     ostr << "\nPerformance in msec and thread scaling efficiency for various simulations.\n";
@@ -215,7 +221,8 @@ void MultiThreadPerformanceTest::fancy_print(const test_map_t& results) const {
 
 MultiThreadPerformanceTest::TestResult
 MultiThreadPerformanceTest::test_case(const std::string& sim_type, size_t nrepetitions,
-                                      size_t nthreads) const {
+                                      size_t nthreads) const
+{
     auto simulation = builders[sim_type]();
     simulation->getOptions().setNumberOfThreads(nthreads);
 
@@ -226,6 +233,7 @@ MultiThreadPerformanceTest::test_case(const std::string& sim_type, size_t nrepet
     return {sim_type, nrepetitions, nthreads, static_cast<int>(duration(now() - start_time)), 0.0};
 }
 
-int main() {
+int main()
+{
     return !MultiThreadPerformanceTest().runTest();
 }

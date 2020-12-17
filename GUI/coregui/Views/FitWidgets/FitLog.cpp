@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/FitWidgets/FitLog.cpp
 //! @brief     Implements class FitLog
@@ -17,7 +17,8 @@
 
 FitLog::FitLog() : m_messagePanel(nullptr) {}
 
-void FitLog::setMessagePanel(JobMessagePanel* messagePanel) {
+void FitLog::setMessagePanel(JobMessagePanel* messagePanel)
+{
     m_messagePanel = messagePanel;
     if (!m_messagePanel)
         return;
@@ -30,14 +31,16 @@ void FitLog::setMessagePanel(JobMessagePanel* messagePanel) {
     }
 }
 
-void FitLog::append(const std::string& text, FitLogFlags::MessageType type) {
+void FitLog::append(const std::string& text, FitLogFlags::MessageType type)
+{
     m_records.push_back({text, type});
 
     if (m_messagePanel)
         m_messagePanel->onMessage(QString::fromStdString(text), QColor(FitLogFlags::color(type)));
 }
 
-void FitLog::clearLog() {
+void FitLog::clearLog()
+{
     m_records.clear();
     if (m_messagePanel)
         m_messagePanel->onClearLog();

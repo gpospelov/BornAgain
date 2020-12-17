@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/sldeditor/sldelementcontroller.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/sldeditor/sldelementcontroller.h"
 #include "gui2/model/materialitems.h"
@@ -33,19 +38,22 @@ SLDElementController::SLDElementController(MaterialModel* material_model, Sample
     : p_material_model(material_model)
     , p_sample_model(sample_model)
     , p_sld_model(sld_model)
-    , p_scene_item(scene_item) {
+    , p_scene_item(scene_item)
+{
     connectSLDElementModel();
     connectLayerModel();
     connectMaterialModel();
     buildSLD();
 }
 
-SLDElementController::~SLDElementController() {
+SLDElementController::~SLDElementController()
+{
     clearScene();
 }
 
 //! Connect with signals of MaterialModel
-void SLDElementController::connectMaterialModel() {
+void SLDElementController::connectMaterialModel()
+{
     auto on_mat_data_change = [this](SessionItem* item, int) { updateToView(item); };
     p_material_model->mapper()->setOnDataChange(on_mat_data_change, this);
 
@@ -57,7 +65,8 @@ void SLDElementController::connectMaterialModel() {
 // See quicksimcontroller.h or materialpropertycontroller.h as an example.
 
 //! Connect with signals of SampleModel
-void SLDElementController::connectLayerModel() {
+void SLDElementController::connectLayerModel()
+{
     auto on_sam_data_change = [this](SessionItem* item, int) { updateToView(item); };
     p_sample_model->mapper()->setOnDataChange(on_sam_data_change, this);
 
@@ -72,34 +81,40 @@ void SLDElementController::connectLayerModel() {
 }
 
 //! Connect with signals of SLDViewModel
-void SLDElementController::connectSLDElementModel() {
+void SLDElementController::connectSLDElementModel()
+{
     auto on_sld_model_destroyed = [this](SessionModel*) { p_sld_model = nullptr; };
     p_sld_model->mapper()->setOnModelDestroyed(on_sld_model_destroyed, this);
 }
 
 //! Disconnect with signals of MaterialModel
-void SLDElementController::disconnectMaterialModel() const {
+void SLDElementController::disconnectMaterialModel() const
+{
     p_material_model->mapper()->unsubscribe(this);
 }
 
 //! Disconnect with signals of SampleModel
-void SLDElementController::disconnectLayerModel() const {
+void SLDElementController::disconnectLayerModel() const
+{
     p_sample_model->mapper()->unsubscribe(this);
 }
 
 //! Disconnect with signals of SLDViewModel
-void SLDElementController::disconnectSLDElementModel() const {
+void SLDElementController::disconnectSLDElementModel() const
+{
     p_sld_model->mapper()->unsubscribe(this);
 }
 
 //! Set the scene of the current controller to be passed to the LayerElementControllers
-void SLDElementController::setScene(GraphicsScene* scene) {
+void SLDElementController::setScene(GraphicsScene* scene)
+{
     p_scene_item = scene;
     buildSLD();
 }
 
 //! Updates all material properties in LayerItems to get new material colors and labels
-void SLDElementController::buildSLD() {
+void SLDElementController::buildSLD()
+{
     if (!p_sld_model)
         return;
     if (!p_sample_model)
@@ -125,7 +140,8 @@ void SLDElementController::buildSLD() {
 }
 
 //! Remove all LayerElementControllers and their items from scene and memory
-void SLDElementController::clearScene() {
+void SLDElementController::clearScene()
+{
     if (!p_scene_item)
         return;
     if (!p_sld_model)
@@ -141,7 +157,8 @@ void SLDElementController::clearScene() {
 }
 
 //! Get the identifiers of all layeritems in the sample model in order of appearance
-SLDElementController::string_vec SLDElementController::getIdentifierVector(SessionItem* item) {
+SLDElementController::string_vec SLDElementController::getIdentifierVector(SessionItem* item)
+{
     string_vec output;
 
     auto children = item->children();
@@ -161,7 +178,8 @@ SLDElementController::string_vec SLDElementController::getIdentifierVector(Sessi
 }
 
 //! Build and set up the layer controllers
-void SLDElementController::buildLayerControllers(string_vec& identifiers) {
+void SLDElementController::buildLayerControllers(string_vec& identifiers)
+{
     if (!p_scene_item)
         return;
     if (!p_sld_model)
@@ -193,7 +211,8 @@ void SLDElementController::buildLayerControllers(string_vec& identifiers) {
 }
 
 //! Connect the layer controllers
-void SLDElementController::connectLayerControllers() {
+void SLDElementController::connectLayerControllers()
+{
     for (const auto& layer_controller : m_layer_controllers) {
         QObject::connect(layer_controller.get(), &LayerElementController::heightChanged, this,
                          &SLDElementController::updateSLDFromView);
@@ -205,7 +224,8 @@ void SLDElementController::connectLayerControllers() {
 }
 
 //! Disconnect the layer controllers
-void SLDElementController::disconnectLayerControllers() {
+void SLDElementController::disconnectLayerControllers()
+{
     for (const auto& layer_controller : m_layer_controllers) {
         QObject::disconnect(layer_controller.get(), &LayerElementController::heightChanged, this,
                             &SLDElementController::updateSLDFromView);
@@ -217,7 +237,8 @@ void SLDElementController::disconnectLayerControllers() {
 }
 
 //! Update the view items with the changes in the material or layer models
-void SLDElementController::updateToView(SessionItem* item) {
+void SLDElementController::updateToView(SessionItem* item)
+{
     if (item && dynamic_cast<MultiLayerItem*>(item->parent())) {
         buildSLD();
         return;
@@ -261,13 +282,15 @@ void SLDElementController::updateToView(SessionItem* item) {
 }
 
 //! Update the material and layer models from the view items
-void SLDElementController::updateThicknessFromView(std::string identifier, double value) {
+void SLDElementController::updateThicknessFromView(std::string identifier, double value)
+{
     auto layer_item = dynamic_cast<LayerItem*>(p_sample_model->findItem(identifier));
     layer_item->setProperty(LayerItem::P_THICKNESS, value);
 }
 
 //! Update the material and layer models from the view items
-void SLDElementController::updateSLDFromView(std::string identifier, double value) {
+void SLDElementController::updateSLDFromView(std::string identifier, double value)
+{
     auto layer_item = dynamic_cast<LayerItem*>(p_sample_model->findItem(identifier));
     auto material_item = dynamic_cast<SLDMaterialItem*>(p_material_model->findItem(
         layer_item->property<ExternalProperty>(LayerItem::P_MATERIAL).identifier()));
@@ -276,7 +299,8 @@ void SLDElementController::updateSLDFromView(std::string identifier, double valu
 }
 
 //! Update the material and layer models from the view items
-void SLDElementController::updateRoughnessFromView(std::string identifier, double value) {
+void SLDElementController::updateRoughnessFromView(std::string identifier, double value)
+{
     auto layer_item = dynamic_cast<LayerItem*>(p_sample_model->findItem(identifier));
     auto roughness_item = layer_item->item<RoughnessItem>(LayerItem::P_ROUGHNESS);
     roughness_item->setProperty(RoughnessItem::P_SIGMA, value);

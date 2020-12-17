@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SampleDesigner/SampleToolBar.cpp
 //! @brief     Implements class SampleToolBar
@@ -26,7 +26,8 @@
 #include <QToolButton>
 
 //! main tool bar on top of SampleView window
-SampleToolBar::SampleToolBar(SampleView* parent) : StyledToolBar(parent), m_sampleView(parent) {
+SampleToolBar::SampleToolBar(SampleView* parent) : StyledToolBar(parent), m_sampleView(parent)
+{
     // Select & Pan
     auto selectionPointerButton = new QToolButton;
     selectionPointerButton->setCheckable(true);
@@ -122,16 +123,19 @@ SampleToolBar::SampleToolBar(SampleView* parent) : StyledToolBar(parent), m_samp
     addWidget(m_RealSpaceViewerButton);
 }
 
-void SampleToolBar::onViewSelectionMode(int mode) {
+void SampleToolBar::onViewSelectionMode(int mode)
+{
     if (mode == DesignerView::RUBBER_SELECTION || mode == DesignerView::HAND_DRAG)
         m_pointerModeGroup->button(mode)->setChecked(true);
 }
 
-void SampleToolBar::onScaleComboChanged(const QString& scale_string) {
+void SampleToolBar::onScaleComboChanged(const QString& scale_string)
+{
     double scale = scale_string.left(scale_string.indexOf("%")).toDouble() / 100.0;
     emit changeScale(scale);
 }
 
-void SampleToolBar::onMaterialEditorCall() {
+void SampleToolBar::onMaterialEditorCall()
+{
     ExternalProperty mp = MaterialItemUtils::selectMaterialProperty();
 }

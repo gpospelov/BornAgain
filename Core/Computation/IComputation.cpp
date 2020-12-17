@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Computation/IComputation.cpp
 //! @brief     Implements interface IComputation.
@@ -22,11 +22,14 @@ IComputation::IComputation(const MultiLayer& sample, const SimulationOptions& op
                            ProgressHandler& progress)
     : m_sim_options(options)
     , m_progress(&progress)
-    , m_processed_sample(std::make_unique<ProcessedSample>(sample, options)) {}
+    , m_processed_sample(std::make_unique<ProcessedSample>(sample, options))
+{
+}
 
 IComputation::~IComputation() = default;
 
-void IComputation::run() {
+void IComputation::run()
+{
     m_status.setRunning();
     try {
         runProtected();

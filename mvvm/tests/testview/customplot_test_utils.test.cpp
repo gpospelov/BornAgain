@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testview/customplot_test_utils.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "customplot_test_utils.h"
 #include "google_test.h"
@@ -24,7 +29,8 @@ CustomplotTestUtilsTest::~CustomplotTestUtilsTest() = default;
 
 //! Check methods to access graph bin centers and values.
 
-TEST_F(CustomplotTestUtilsTest, binCentersbinValues) {
+TEST_F(CustomplotTestUtilsTest, binCentersbinValues)
+{
     QCustomPlot custom_plot;
 
     auto graph = custom_plot.addGraph();
@@ -36,7 +42,8 @@ TEST_F(CustomplotTestUtilsTest, binCentersbinValues) {
 
 //! Check methods to access graph errors.
 
-TEST_F(CustomplotTestUtilsTest, binErrors) {
+TEST_F(CustomplotTestUtilsTest, binErrors)
+{
     QCustomPlot custom_plot;
 
     auto graph = custom_plot.addGraph();

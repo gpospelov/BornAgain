@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorTruncatedSpheroid.h
 //! @brief     Defines class FormFactorTruncatedSpheroid.
@@ -26,7 +26,8 @@ public:
     FormFactorTruncatedSpheroid(const std::vector<double> P);
     FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh);
 
-    FormFactorTruncatedSpheroid* clone() const final {
+    FormFactorTruncatedSpheroid* clone() const final
+    {
         return new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening, m_dh);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Simulation/StandardSimulations.cpp
 //! @brief     Implements functions for standard simulations.
@@ -45,7 +45,8 @@ const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
 
 //! Basic GISAS simulation with the detector phi[0,2], theta[0,2].
 
-GISASSimulation* StandardSimulations::BasicGISAS() {
+GISASSimulation* StandardSimulations::BasicGISAS()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(100, 0.0 * Units::deg, 2.0 * Units::deg, 100, 0.0 * Units::deg,
                                   2.0 * Units::deg);
@@ -55,7 +56,8 @@ GISASSimulation* StandardSimulations::BasicGISAS() {
 
 //! Basic GISAS for polarization studies.
 
-GISASSimulation* StandardSimulations::BasicGISAS00() {
+GISASSimulation* StandardSimulations::BasicGISAS00()
+{
     GISASSimulation* result = BasicGISAS();
     kvector_t zplus(0.0, 0.0, 1.0);
     result->beam().setPolarization(zplus);
@@ -65,7 +67,8 @@ GISASSimulation* StandardSimulations::BasicGISAS00() {
 
 //! Basic GISAS simulation for spin flip channel.
 
-GISASSimulation* StandardSimulations::BasicPolarizedGISAS() {
+GISASSimulation* StandardSimulations::BasicPolarizedGISAS()
+{
     GISASSimulation* result = BasicGISAS();
     kvector_t zplus(0.0, 0.0, 1.0);
     result->beam().setPolarization(zplus);
@@ -75,7 +78,8 @@ GISASSimulation* StandardSimulations::BasicPolarizedGISAS() {
 
 //! GISAS simulation with small detector and phi[-2,2], theta[0,2].
 
-GISASSimulation* StandardSimulations::MiniGISAS() {
+GISASSimulation* StandardSimulations::MiniGISAS()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(25, -2.0 * Units::deg, 2.0 * Units::deg, 25, 0.0 * Units::deg,
                                   2.0 * Units::deg);
@@ -85,7 +89,8 @@ GISASSimulation* StandardSimulations::MiniGISAS() {
 
 //! GISAS simulation with small detector and phi[-1,1], theta[0,1].
 
-GISASSimulation* StandardSimulations::MiniGISAS_v2() {
+GISASSimulation* StandardSimulations::MiniGISAS_v2()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(25, -1.0 * Units::deg, 1.0 * Units::deg, 25, 0.0 * Units::deg,
                                   1.0 * Units::deg);
@@ -95,7 +100,8 @@ GISASSimulation* StandardSimulations::MiniGISAS_v2() {
 
 //! GISAS simulation with beam divergence applied.
 
-GISASSimulation* StandardSimulations::MiniGISASBeamDivergence() {
+GISASSimulation* StandardSimulations::MiniGISASBeamDivergence()
+{
     GISASSimulation* result = MiniGISAS();
 
     DistributionLogNormal wavelength_distr(1.0 * Units::angstrom, 0.1);
@@ -117,7 +123,8 @@ GISASSimulation* StandardSimulations::MiniGISASBeamDivergence() {
 
 //! GISAS simulation with multiple masks on the detector plane.
 
-GISASSimulation* StandardSimulations::GISASWithMasks() {
+GISASSimulation* StandardSimulations::GISASWithMasks()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(50, -1.0 * Units::deg, 1.0 * Units::deg, 50, 0.0 * Units::deg,
                                   2.0 * Units::deg);
@@ -150,14 +157,16 @@ GISASSimulation* StandardSimulations::GISASWithMasks() {
 
 //! GISAS simulation with detector resolution.
 
-GISASSimulation* StandardSimulations::MiniGISASDetectorResolution() {
+GISASSimulation* StandardSimulations::MiniGISASDetectorResolution()
+{
     GISASSimulation* result = MiniGISAS();
     ResolutionFunction2DGaussian resfunc(0.0025, 0.0025);
     result->setDetectorResolutionFunction(resfunc);
     return result;
 }
 
-GISASSimulation* StandardSimulations::MiniGISASPolarizationPP() {
+GISASSimulation* StandardSimulations::MiniGISASPolarizationPP()
+{
     GISASSimulation* result = MiniGISAS();
 
     kvector_t analyzer_dir(0.0, 0.0, 1.0);
@@ -168,7 +177,8 @@ GISASSimulation* StandardSimulations::MiniGISASPolarizationPP() {
     return result;
 }
 
-GISASSimulation* StandardSimulations::MiniGISASPolarizationPM() {
+GISASSimulation* StandardSimulations::MiniGISASPolarizationPM()
+{
     GISASSimulation* result = MiniGISAS();
 
     kvector_t analyzer_dir(0.0, 0.0, -1.0);
@@ -179,7 +189,8 @@ GISASSimulation* StandardSimulations::MiniGISASPolarizationPM() {
     return result;
 }
 
-GISASSimulation* StandardSimulations::MiniGISASPolarizationMP() {
+GISASSimulation* StandardSimulations::MiniGISASPolarizationMP()
+{
     GISASSimulation* result = MiniGISAS();
 
     kvector_t analyzer_dir(0.0, 0.0, 1.0);
@@ -190,7 +201,8 @@ GISASSimulation* StandardSimulations::MiniGISASPolarizationMP() {
     return result;
 }
 
-GISASSimulation* StandardSimulations::MiniGISASPolarizationMM() {
+GISASSimulation* StandardSimulations::MiniGISASPolarizationMM()
+{
     GISASSimulation* result = MiniGISAS();
 
     kvector_t analyzer_dir(0.0, 0.0, -1.0);
@@ -203,7 +215,8 @@ GISASSimulation* StandardSimulations::MiniGISASPolarizationMM() {
 
 //! GISAS simulation with small detector and including specular peak.
 
-GISASSimulation* StandardSimulations::MiniGISASSpecularPeak() {
+GISASSimulation* StandardSimulations::MiniGISASSpecularPeak()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(25, -2.0 * Units::deg, 2.0 * Units::deg, 25, 0.0 * Units::deg,
                                   2.0 * Units::deg);
@@ -214,7 +227,8 @@ GISASSimulation* StandardSimulations::MiniGISASSpecularPeak() {
 
 //! GISAS simulation with large detector to test performance.
 
-GISASSimulation* StandardSimulations::MaxiGISAS() {
+GISASSimulation* StandardSimulations::MaxiGISAS()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(256, -2.0 * Units::deg, 2.0 * Units::deg, 256, 0.0 * Units::deg,
                                   2.0 * Units::deg);
@@ -224,7 +238,8 @@ GISASSimulation* StandardSimulations::MaxiGISAS() {
 
 //! Basic GISAS for polarization studies.
 
-GISASSimulation* StandardSimulations::MaxiGISAS00() {
+GISASSimulation* StandardSimulations::MaxiGISAS00()
+{
     GISASSimulation* result = MaxiGISAS();
     kvector_t zplus(0.0, 0.0, 1.0);
     result->beam().setPolarization(zplus);
@@ -234,7 +249,8 @@ GISASSimulation* StandardSimulations::MaxiGISAS00() {
 
 //! Typical IsGISAXS simulation with the detector phi[-1,1], theta[0,2].
 
-GISASSimulation* StandardSimulations::IsGISAXSSimulation1() {
+GISASSimulation* StandardSimulations::IsGISAXSSimulation1()
+{
     GISASSimulation* result = new GISASSimulation();
     IsGISAXSDetector detector;
     detector.setDetectorParameters(100, -1.0 * Units::deg, 1.0 * Units::deg, 100, 0.0 * Units::deg,
@@ -246,7 +262,8 @@ GISASSimulation* StandardSimulations::IsGISAXSSimulation1() {
 
 //! Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2].
 
-GISASSimulation* StandardSimulations::IsGISAXSSimulation2() {
+GISASSimulation* StandardSimulations::IsGISAXSSimulation2()
+{
     GISASSimulation* result = new GISASSimulation();
     IsGISAXSDetector detector;
     detector.setDetectorParameters(100, 0.0 * Units::deg, 2.0 * Units::deg, 100, 0.0 * Units::deg,
@@ -258,7 +275,8 @@ GISASSimulation* StandardSimulations::IsGISAXSSimulation2() {
 
 //! GISAS simulation with generic rectangular detector.
 
-GISASSimulation* StandardSimulations::RectDetectorGeneric() {
+GISASSimulation* StandardSimulations::RectDetectorGeneric()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
 
@@ -272,7 +290,8 @@ GISASSimulation* StandardSimulations::RectDetectorGeneric() {
 
 //! GISAS simulation with the rectangular detector perpendicular to the sample.
 
-GISASSimulation* StandardSimulations::RectDetectorPerpToSample() {
+GISASSimulation* StandardSimulations::RectDetectorPerpToSample()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
 
@@ -285,7 +304,8 @@ GISASSimulation* StandardSimulations::RectDetectorPerpToSample() {
 
 //! GISAS simulation with the rectangular detector perpendicular to the direct beam.
 
-GISASSimulation* StandardSimulations::RectDetectorPerpToDirectBeam() {
+GISASSimulation* StandardSimulations::RectDetectorPerpToDirectBeam()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
 
@@ -298,7 +318,8 @@ GISASSimulation* StandardSimulations::RectDetectorPerpToDirectBeam() {
 
 //! GISAS simulation with the rectangular detector perpendicular to the reflected beam.
 
-GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeam() {
+GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeam()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
 
@@ -312,7 +333,8 @@ GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeam() {
 //! GISAS simulation with the rectangular detector perpendicular to the reflected beam when
 //! the coordinates of direct beam are known.
 
-GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeamDpos() {
+GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
 
@@ -326,7 +348,8 @@ GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeamDpos() {
 
 //! GISAS simulation with Monte-Carlo integration switched ON.
 
-GISASSimulation* StandardSimulations::MiniGISASMonteCarlo() {
+GISASSimulation* StandardSimulations::MiniGISASMonteCarlo()
+{
     GISASSimulation* result = MiniGISAS();
     result->getOptions().setMonteCarloIntegration(true, 100);
     return result;
@@ -334,7 +357,8 @@ GISASSimulation* StandardSimulations::MiniGISASMonteCarlo() {
 
 //! GISAS simulation with spherical detector, region of interest and mask.
 
-GISASSimulation* StandardSimulations::SphericalDetWithRoi() {
+GISASSimulation* StandardSimulations::SphericalDetWithRoi()
+{
     GISASSimulation* result = new GISASSimulation();
     result->setDetectorParameters(40, -2.0 * Units::deg, 2.0 * Units::deg, 30, 0.0 * Units::deg,
                                   3.0 * Units::deg);
@@ -348,14 +372,16 @@ GISASSimulation* StandardSimulations::SphericalDetWithRoi() {
 
 //! GISAS simulation with rectangular detector, region of interest and mask.
 
-GISASSimulation* StandardSimulations::RectDetWithRoi() {
+GISASSimulation* StandardSimulations::RectDetWithRoi()
+{
     GISASSimulation* result = RectDetectorPerpToDirectBeam();
     result->addMask(Rectangle(3.0, 4.0, 5.0, 7.0));
     result->setRegionOfInterest(2.0, 3.0, 18.0, 15.0);
     return result;
 }
 
-GISASSimulation* StandardSimulations::ConstantBackgroundGISAS() {
+GISASSimulation* StandardSimulations::ConstantBackgroundGISAS()
+{
     GISASSimulation* result = MiniGISAS();
     ConstantBackground bg(1e3);
     result->setBackground(bg);
@@ -364,7 +390,8 @@ GISASSimulation* StandardSimulations::ConstantBackgroundGISAS() {
 
 //! GISAS simulation with an extra long wavelength
 
-GISASSimulation* StandardSimulations::ExtraLongWavelengthGISAS() {
+GISASSimulation* StandardSimulations::ExtraLongWavelengthGISAS()
+{
     auto* simulation = new GISASSimulation;
     simulation->setDetectorParameters(100, -1.0 * Units::deg, 1.0 * Units::deg, 100, 0.0,
                                       2.0 * Units::deg);
@@ -375,7 +402,8 @@ GISASSimulation* StandardSimulations::ExtraLongWavelengthGISAS() {
     return simulation;
 }
 
-SpecularSimulation* StandardSimulations::BasicSpecular() {
+SpecularSimulation* StandardSimulations::BasicSpecular()
+{
     const double wavelength = 1.54 * Units::angstrom;
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
@@ -388,7 +416,8 @@ SpecularSimulation* StandardSimulations::BasicSpecular() {
     return result;
 }
 
-SpecularSimulation* StandardSimulations::BasicSpecularQ() {
+SpecularSimulation* StandardSimulations::BasicSpecularQ()
+{
     std::vector<double> qs;
     {
         const double wavelength_0 = 1.54 * Units::angstrom;
@@ -410,7 +439,8 @@ SpecularSimulation* StandardSimulations::BasicSpecularQ() {
     return result;
 }
 
-SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam() {
+SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
+{
     const double wavelength = 1.54 * Units::angstrom;
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
@@ -424,7 +454,8 @@ SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam() {
     return result;
 }
 
-SpecularSimulation* StandardSimulations::SpecularWithSquareBeam() {
+SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
+{
     const double wavelength = 1.54 * Units::angstrom;
     const int number_of_bins = 2000;
     const double min_angle = 0 * Units::deg;
@@ -438,7 +469,8 @@ SpecularSimulation* StandardSimulations::SpecularWithSquareBeam() {
     return result;
 }
 
-SpecularSimulation* StandardSimulations::SpecularDivergentBeam() {
+SpecularSimulation* StandardSimulations::SpecularDivergentBeam()
+{
     const double wavelength = 1.54 * Units::angstrom;
     const int number_of_bins = 20;
     const size_t n_integration_points = 10;
@@ -464,7 +496,8 @@ SpecularSimulation* StandardSimulations::SpecularDivergentBeam() {
     return result;
 }
 
-SpecularSimulation* StandardSimulations::TOFRWithRelativeResolution() {
+SpecularSimulation* StandardSimulations::TOFRWithRelativeResolution()
+{
     FixedBinAxis qs("axis", 500, 0.0, 1.0);
     QSpecScan q_scan(qs);
     q_scan.setRelativeQResolution(RangedDistributionGaussian(20, 2.0), 0.03);
@@ -475,7 +508,8 @@ SpecularSimulation* StandardSimulations::TOFRWithRelativeResolution() {
     return result;
 }
 
-SpecularSimulation* StandardSimulations::TOFRWithPointwiseResolution() {
+SpecularSimulation* StandardSimulations::TOFRWithPointwiseResolution()
+{
     FixedBinAxis qs("axis", 500, 0.0, 1.0);
     QSpecScan q_scan(qs);
 
@@ -493,56 +527,64 @@ SpecularSimulation* StandardSimulations::TOFRWithPointwiseResolution() {
 }
 
 // ------------ polarized specular ----------------
-SpecularSimulation* StandardSimulations::BasicSpecularPP() {
+SpecularSimulation* StandardSimulations::BasicSpecularPP()
+{
     auto* simulation = BasicSpecular();
     simulation->beam().setPolarization({0.0, 1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, 1.0, 0.0}, 1.0, 0.5);
     return simulation;
 }
 
-SpecularSimulation* StandardSimulations::BasicSpecularPM() {
+SpecularSimulation* StandardSimulations::BasicSpecularPM()
+{
     auto* simulation = BasicSpecular();
     simulation->beam().setPolarization({0.0, 1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, -1.0, 0.0}, 1.0, 0.5);
     return simulation;
 }
 
-SpecularSimulation* StandardSimulations::BasicSpecularMP() {
+SpecularSimulation* StandardSimulations::BasicSpecularMP()
+{
     auto* simulation = BasicSpecular();
     simulation->beam().setPolarization({0.0, -1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, 1.0, 0.0}, 1.0, 0.5);
     return simulation;
 }
 
-SpecularSimulation* StandardSimulations::BasicSpecularMM() {
+SpecularSimulation* StandardSimulations::BasicSpecularMM()
+{
     auto* simulation = BasicSpecular();
     simulation->beam().setPolarization({0.0, -1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, -1.0, 0.0}, 1.0, 0.5);
     return simulation;
 }
 
-SpecularSimulation* StandardSimulations::BasicSpecularQPP() {
+SpecularSimulation* StandardSimulations::BasicSpecularQPP()
+{
     auto* simulation = BasicSpecularQ();
     simulation->beam().setPolarization({0.0, 1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, 1.0, 0.0}, 1.0, 0.5);
     return simulation;
 }
 
-SpecularSimulation* StandardSimulations::BasicSpecularQMM() {
+SpecularSimulation* StandardSimulations::BasicSpecularQMM()
+{
     auto* simulation = BasicSpecularQ();
     simulation->beam().setPolarization({0.0, -1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, -1.0, 0.0}, 1.0, 0.5);
     return simulation;
 }
 
-SpecularSimulation* StandardSimulations::BasicSpecularQPM() {
+SpecularSimulation* StandardSimulations::BasicSpecularQPM()
+{
     auto* simulation = BasicSpecularQ();
     simulation->beam().setPolarization({0.0, 1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, -1.0, 0.0}, 1.0, 0.5);
     return simulation;
 }
 
-SpecularSimulation* StandardSimulations::BasicSpecularQMP() {
+SpecularSimulation* StandardSimulations::BasicSpecularQMP()
+{
     auto* simulation = BasicSpecularQ();
     simulation->beam().setPolarization({0.0, -1.0, 0.0});
     simulation->setAnalyzerProperties({0.0, 1.0, 0.0}, 1.0, 0.5);
@@ -552,7 +594,8 @@ SpecularSimulation* StandardSimulations::BasicSpecularQMP() {
 // ----------------------- off-spec simulations ------------------
 
 // OffSpecular simulation used in ResonatorOffSpecularSetup.py
-OffSpecularSimulation* StandardSimulations::MiniOffSpecular() {
+OffSpecularSimulation* StandardSimulations::MiniOffSpecular()
+{
     auto* result = new OffSpecularSimulation;
 
     const int n_alpha(19);
@@ -577,7 +620,8 @@ OffSpecularSimulation* StandardSimulations::MiniOffSpecular() {
     return result;
 }
 
-DepthProbeSimulation* StandardSimulations::BasicDepthProbe() {
+DepthProbeSimulation* StandardSimulations::BasicDepthProbe()
+{
     auto* result = new DepthProbeSimulation;
 
     const double wavelength = 10.0 * Units::angstrom;
@@ -596,7 +640,8 @@ DepthProbeSimulation* StandardSimulations::BasicDepthProbe() {
 
 //! ISimulation with fitting.
 //! Beam intensity set to provide reasonably large values in detector channels.
-GISASSimulation* StandardSimulations::MiniGISASFit() {
+GISASSimulation* StandardSimulations::MiniGISASFit()
+{
     auto* result = new GISASSimulation;
     result->setDetectorParameters(25, -2.0 * Units::deg, 2.0 * Units::deg, 25, 0.0 * Units::deg,
                                   2.0 * Units::deg);

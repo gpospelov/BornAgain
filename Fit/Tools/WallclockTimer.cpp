@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Tools/WallclockTimer.cpp
 //! @brief     Implements class WallclockTimer.
@@ -29,17 +29,20 @@ struct WallclockTimerState {
 WallclockTimer::WallclockTimer() : m_state(new WallclockTimerState) {}
 WallclockTimer::~WallclockTimer() = default;
 
-void WallclockTimer::start() {
+void WallclockTimer::start()
+{
     m_state->m_is_running = true;
     m_state->m_start_time = clock_used::now();
 }
 
-void WallclockTimer::stop() {
+void WallclockTimer::stop()
+{
     m_state->m_is_running = false;
     m_state->m_end_time = clock_used::now();
 }
 
-double WallclockTimer::runTime() const {
+double WallclockTimer::runTime() const
+{
     duration_unit diff =
         m_state->m_is_running
             ? std::chrono::duration_cast<duration_unit>(clock_used::now() - m_state->m_start_time)

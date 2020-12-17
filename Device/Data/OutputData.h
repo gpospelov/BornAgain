@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Data/OutputData.h
 //! @brief     Defines and implements templated class OutputData.
@@ -55,7 +55,8 @@ public:
     size_t rank() const { return m_value_axes.size(); }
 
     //! Returns total size of data buffer (product of bin number in every dimension).
-    size_t getAllocatedSize() const {
+    size_t getAllocatedSize() const
+    {
         if (m_ll_data)
             return m_ll_data->getTotalSize();
         return 0;
@@ -187,13 +188,15 @@ public:
     double getValue(size_t index) const;
 
     //! indexed accessor
-    T& operator[](size_t index) {
+    T& operator[](size_t index)
+    {
         ASSERT(m_ll_data);
         return (*m_ll_data)[index];
     }
 
     //! indexed accessor (const)
-    const T& operator[](size_t index) const {
+    const T& operator[](size_t index) const
+    {
         ASSERT(m_ll_data);
         return (*m_ll_data)[index];
     }
@@ -232,23 +235,27 @@ private:
 // Implementation
 // --------------------------------------------------------------------- //
 
-template <class T> OutputData<T>::OutputData() : m_value_axes(), m_ll_data(nullptr) {
+template <class T> OutputData<T>::OutputData() : m_value_axes(), m_ll_data(nullptr)
+{
     allocate();
 }
 
-template <class T> OutputData<T>::~OutputData() {
+template <class T> OutputData<T>::~OutputData()
+{
     clear();
     delete m_ll_data;
 }
 
-template <class T> OutputData<T>* OutputData<T>::clone() const {
+template <class T> OutputData<T>* OutputData<T>::clone() const
+{
     OutputData<T>* ret = new OutputData<T>();
     ret->m_value_axes = m_value_axes;
     (*ret->m_ll_data) = *m_ll_data;
     return ret;
 }
 
-template <class T> void OutputData<T>::copyFrom(const OutputData<T>& other) {
+template <class T> void OutputData<T>::copyFrom(const OutputData<T>& other)
+{
     clear();
     m_value_axes = other.m_value_axes;
     delete m_ll_data;
@@ -257,16 +264,16 @@ template <class T> void OutputData<T>::copyFrom(const OutputData<T>& other) {
         m_ll_data = new LLData<T>(*other.m_ll_data);
 }
 
-template <class T>
-template <class U>
-void OutputData<T>::copyShapeFrom(const OutputData<U>& other) {
+template <class T> template <class U> void OutputData<T>::copyShapeFrom(const OutputData<U>& other)
+{
     clear();
     size_t rank = other.rank();
     for (size_t i = 0; i < rank; ++i)
         addAxis(other.axis(i));
 }
 
-template <class T> OutputData<double>* OutputData<T>::meanValues() const {
+template <class T> OutputData<double>* OutputData<T>::meanValues() const
+{
     auto* ret = new OutputData<double>();
     ret->copyShapeFrom(*this);
     ret->allocate();
@@ -275,7 +282,8 @@ template <class T> OutputData<double>* OutputData<T>::meanValues() const {
     return ret;
 }
 
-template <class T> void OutputData<T>::addAxis(const IAxis& new_axis) {
+template <class T> void OutputData<T>::addAxis(const IAxis& new_axis)
+{
     if (axisNameExists(new_axis.getName()))
         throw std::runtime_error("OutputData<T>::addAxis(const IAxis& new_axis) -> "
                                  "Error! Attempt to add axis with already existing name '"
@@ -287,7 +295,8 @@ template <class T> void OutputData<T>::addAxis(const IAxis& new_axis) {
 }
 
 template <class T>
-void OutputData<T>::addAxis(const std::string& name, size_t size, double start, double end) {
+void OutputData<T>::addAxis(const std::string& name, size_t size, double start, double end)
+{
     if (axisNameExists(name))
         throw std::runtime_error("OutputData<T>::addAxis(std::string name) -> "
                                  "Error! Attempt to add axis with already existing name '"
@@ -296,11 +305,13 @@ void OutputData<T>::addAxis(const std::string& name, size_t size, double start, 
     addAxis(new_axis);
 }
 
-template <class T> const IAxis& OutputData<T>::axis(size_t serial_number) const {
+template <class T> const IAxis& OutputData<T>::axis(size_t serial_number) const
+{
     return *m_value_axes[serial_number];
 }
 
-template <class T> inline std::vector<size_t> OutputData<T>::getAllSizes() const {
+template <class T> inline std::vector<size_t> OutputData<T>::getAllSizes() const
+{
     ASSERT(m_ll_data);
     std::vector<size_t> result;
     for (size_t i = 0; i < rank(); ++i) {
@@ -310,7 +321,8 @@ template <class T> inline std::vector<size_t> OutputData<T>::getAllSizes() const
     return result;
 }
 
-template <class T> inline std::vector<T> OutputData<T>::getRawDataVector() const {
+template <class T> inline std::vector<T> OutputData<T>::getRawDataVector() const
+{
     ASSERT(m_ll_data);
     std::vector<T> result;
     for (size_t i = 0; i < getAllocatedSize(); ++i)
@@ -318,17 +330,20 @@ template <class T> inline std::vector<T> OutputData<T>::getRawDataVector() const
     return result;
 }
 
-template <class T> typename OutputData<T>::iterator OutputData<T>::begin() {
+template <class T> typename OutputData<T>::iterator OutputData<T>::begin()
+{
     typename OutputData<T>::iterator result(this);
     return result;
 }
 
-template <class T> typename OutputData<T>::const_iterator OutputData<T>::begin() const {
+template <class T> typename OutputData<T>::const_iterator OutputData<T>::begin() const
+{
     typename OutputData<T>::const_iterator result(this);
     return result;
 }
 
-template <class T> std::vector<int> OutputData<T>::getAxesBinIndices(size_t global_index) const {
+template <class T> std::vector<int> OutputData<T>::getAxesBinIndices(size_t global_index) const
+{
     ASSERT(m_ll_data);
     size_t remainder = global_index;
     std::vector<int> result;
@@ -342,7 +357,8 @@ template <class T> std::vector<int> OutputData<T>::getAxesBinIndices(size_t glob
 }
 
 template <class T>
-size_t OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) const {
+size_t OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axis) const
+{
     ASSERT(m_ll_data);
     size_t remainder(global_index);
     for (size_t i = 0; i < m_ll_data->rank(); ++i) {
@@ -357,12 +373,14 @@ size_t OutputData<T>::getAxisBinIndex(size_t global_index, size_t i_selected_axi
 }
 
 template <class T>
-size_t OutputData<T>::getAxisBinIndex(size_t global_index, const std::string& axis_name) const {
+size_t OutputData<T>::getAxisBinIndex(size_t global_index, const std::string& axis_name) const
+{
     return getAxisBinIndex(global_index, getAxisIndex(axis_name));
 }
 
 template <class T>
-size_t OutputData<T>::toGlobalIndex(const std::vector<unsigned>& axes_indices) const {
+size_t OutputData<T>::toGlobalIndex(const std::vector<unsigned>& axes_indices) const
+{
     ASSERT(m_ll_data);
     if (axes_indices.size() != m_ll_data->rank())
         throw std::runtime_error("size_t OutputData<T>::toGlobalIndex() -> "
@@ -385,7 +403,8 @@ size_t OutputData<T>::toGlobalIndex(const std::vector<unsigned>& axes_indices) c
 }
 
 template <class T>
-size_t OutputData<T>::findGlobalIndex(const std::vector<double>& coordinates) const {
+size_t OutputData<T>::findGlobalIndex(const std::vector<double>& coordinates) const
+{
     ASSERT(m_ll_data);
     if (coordinates.size() != m_ll_data->rank())
         throw std::runtime_error("OutputData<T>::findClosestIndex() -> "
@@ -398,17 +417,20 @@ size_t OutputData<T>::findGlobalIndex(const std::vector<double>& coordinates) co
 }
 
 template <class T>
-double OutputData<T>::getAxisValue(size_t global_index, size_t i_selected_axis) const {
+double OutputData<T>::getAxisValue(size_t global_index, size_t i_selected_axis) const
+{
     auto axis_index = getAxisBinIndex(global_index, i_selected_axis);
     return (*m_value_axes[i_selected_axis])[axis_index];
 }
 
 template <class T>
-double OutputData<T>::getAxisValue(size_t global_index, const std::string& axis_name) const {
+double OutputData<T>::getAxisValue(size_t global_index, const std::string& axis_name) const
+{
     return getAxisValue(global_index, getAxisIndex(axis_name));
 }
 
-template <class T> std::vector<double> OutputData<T>::getAxesValues(size_t global_index) const {
+template <class T> std::vector<double> OutputData<T>::getAxesValues(size_t global_index) const
+{
     std::vector<int> indices = getAxesBinIndices(global_index);
     std::vector<double> result;
     for (size_t i_axis = 0; i_axis < indices.size(); ++i_axis)
@@ -417,41 +439,48 @@ template <class T> std::vector<double> OutputData<T>::getAxesValues(size_t globa
 }
 
 template <class T>
-Bin1D OutputData<T>::getAxisBin(size_t global_index, size_t i_selected_axis) const {
+Bin1D OutputData<T>::getAxisBin(size_t global_index, size_t i_selected_axis) const
+{
     auto axis_index = getAxisBinIndex(global_index, i_selected_axis);
     return m_value_axes[i_selected_axis]->bin(axis_index);
 }
 
 template <class T>
-Bin1D OutputData<T>::getAxisBin(size_t global_index, const std::string& axis_name) const {
+Bin1D OutputData<T>::getAxisBin(size_t global_index, const std::string& axis_name) const
+{
     return getAxisBin(global_index, getAxisIndex(axis_name));
 }
 
-template <class T> inline T OutputData<T>::totalSum() const {
+template <class T> inline T OutputData<T>::totalSum() const
+{
     ASSERT(m_ll_data);
     return m_ll_data->getTotalSum();
 }
 
-template <class T> void OutputData<T>::clear() {
+template <class T> void OutputData<T>::clear()
+{
     m_value_axes.clear();
     allocate();
 }
 
-template <class T> void OutputData<T>::setAllTo(const T& value) {
+template <class T> void OutputData<T>::setAllTo(const T& value)
+{
     if (!m_ll_data)
         throw std::runtime_error(
             "OutputData::setAllTo() -> Error! Low-level data object was not yet initialized.");
     m_ll_data->setAll(value);
 }
 
-template <class T> void OutputData<T>::scaleAll(const T& factor) {
+template <class T> void OutputData<T>::scaleAll(const T& factor)
+{
     if (!m_ll_data)
         throw std::runtime_error(
             "OutputData::scaleAll() -> Error! Low-level data object was not yet initialized.");
     m_ll_data->scaleAll(factor);
 }
 
-template <class T> void OutputData<T>::setAxisSizes(size_t rank, int* n_dims) {
+template <class T> void OutputData<T>::setAxisSizes(size_t rank, int* n_dims)
+{
     clear();
     std::string basename("axis");
     for (size_t i = 0; i < rank; ++i) {
@@ -461,25 +490,29 @@ template <class T> void OutputData<T>::setAxisSizes(size_t rank, int* n_dims) {
     }
 }
 
-template <class T> const OutputData<T>& OutputData<T>::operator+=(const OutputData<T>& right) {
+template <class T> const OutputData<T>& OutputData<T>::operator+=(const OutputData<T>& right)
+{
     ASSERT(m_ll_data);
     *this->m_ll_data += *right.m_ll_data;
     return *this;
 }
 
-template <class T> const OutputData<T>& OutputData<T>::operator-=(const OutputData<T>& right) {
+template <class T> const OutputData<T>& OutputData<T>::operator-=(const OutputData<T>& right)
+{
     ASSERT(m_ll_data);
     *this->m_ll_data -= *right.m_ll_data;
     return *this;
 }
 
-template <class T> const OutputData<T>& OutputData<T>::operator*=(const OutputData<T>& right) {
+template <class T> const OutputData<T>& OutputData<T>::operator*=(const OutputData<T>& right)
+{
     ASSERT(m_ll_data);
     *this->m_ll_data *= *right.m_ll_data;
     return *this;
 }
 
-template <class T> bool OutputData<T>::isInitialized() const {
+template <class T> bool OutputData<T>::isInitialized() const
+{
     if (!m_ll_data)
         return false;
     if (rank() != m_ll_data->rank())
@@ -489,13 +522,15 @@ template <class T> bool OutputData<T>::isInitialized() const {
     return true;
 }
 
-template <class T> const OutputData<T>& OutputData<T>::operator/=(const OutputData<T>& right) {
+template <class T> const OutputData<T>& OutputData<T>::operator/=(const OutputData<T>& right)
+{
     ASSERT(m_ll_data);
     *this->m_ll_data /= *right.m_ll_data;
     return *this;
 }
 
-template <class T> void OutputData<T>::allocate() {
+template <class T> void OutputData<T>::allocate()
+{
     delete m_ll_data;
     size_t rank = m_value_axes.size();
     int* dims = new int[rank];
@@ -508,7 +543,8 @@ template <class T> void OutputData<T>::allocate() {
     delete[] dims;
 }
 
-template <class T> inline void OutputData<T>::setRawDataVector(const std::vector<T>& data_vector) {
+template <class T> inline void OutputData<T>::setRawDataVector(const std::vector<T>& data_vector)
+{
     if (data_vector.size() != getAllocatedSize())
         throw std::runtime_error(
             "OutputData<T>::setRawDataVector() -> Error! "
@@ -517,7 +553,8 @@ template <class T> inline void OutputData<T>::setRawDataVector(const std::vector
         (*m_ll_data)[i] = data_vector[i];
 }
 
-template <class T> inline void OutputData<T>::setRawDataArray(const T* source) {
+template <class T> inline void OutputData<T>::setRawDataArray(const T* source)
+{
     for (size_t i = 0; i < getAllocatedSize(); ++i)
         (*m_ll_data)[i] = source[i];
 }
@@ -525,7 +562,8 @@ template <class T> inline void OutputData<T>::setRawDataArray(const T* source) {
 //! Returns true if object have same dimensions
 template <class T>
 template <class U>
-inline bool OutputData<T>::hasSameDimensions(const OutputData<U>& right) const {
+inline bool OutputData<T>::hasSameDimensions(const OutputData<U>& right) const
+{
     if (!isInitialized())
         return false;
     if (!right.isInitialized())
@@ -541,7 +579,8 @@ inline bool OutputData<T>::hasSameDimensions(const OutputData<U>& right) const {
 //! Returns true if object have same dimensions and shape of axis
 template <class T>
 template <class U>
-bool OutputData<T>::hasSameShape(const OutputData<U>& right) const {
+bool OutputData<T>::hasSameShape(const OutputData<U>& right) const
+{
     if (!hasSameDimensions(right))
         return false;
 
@@ -557,7 +596,8 @@ template <> PyObject* OutputData<double>::getArray() const;
 #endif
 
 // return index of axis
-template <class T> size_t OutputData<T>::getAxisIndex(const std::string& axis_name) const {
+template <class T> size_t OutputData<T>::getAxisIndex(const std::string& axis_name) const
+{
     for (size_t i = 0; i < m_value_axes.size(); ++i)
         if (m_value_axes[i]->getName() == axis_name)
             return i;
@@ -566,7 +606,8 @@ template <class T> size_t OutputData<T>::getAxisIndex(const std::string& axis_na
                              + axis_name + "'");
 }
 
-template <class T> bool OutputData<T>::axisNameExists(const std::string& axis_name) const {
+template <class T> bool OutputData<T>::axisNameExists(const std::string& axis_name) const
+{
     for (size_t i = 0; i < m_value_axes.size(); ++i)
         if (m_value_axes[i]->getName() == axis_name)
             return true;

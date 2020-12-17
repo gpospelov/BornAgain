@@ -5,11 +5,13 @@
 #include <iostream>
 #include <memory>
 
-class SimulationAreaTest : public ::testing::Test {};
+class SimulationAreaTest : public ::testing::Test {
+};
 
 // Iterators test
 
-TEST_F(SimulationAreaTest, iteratorOperations) {
+TEST_F(SimulationAreaTest, iteratorOperations)
+{
     SphericalDetector detector(4, -1.0, 3.0, 2, 0.0, 2.0);
     SimulationArea area(&detector);
 
@@ -53,7 +55,8 @@ TEST_F(SimulationAreaTest, iteratorOperations) {
 
 //! Iteration over non-masked detector
 
-TEST_F(SimulationAreaTest, detectorIteration) {
+TEST_F(SimulationAreaTest, detectorIteration)
+{
     SphericalDetector detector(4, -1.0, 3.0, 2, 0.0, 2.0);
     SimulationArea area(&detector);
 
@@ -75,7 +78,8 @@ TEST_F(SimulationAreaTest, detectorIteration) {
 
 //! Iteration over masked detector
 
-TEST_F(SimulationAreaTest, maskedIteration) {
+TEST_F(SimulationAreaTest, maskedIteration)
+{
     SphericalDetector detector(5, -1.0, 4.0, 4, 0.0, 4.0);
     detector.addMask(Rectangle(0.1, 1.1, 2.9, 2.9), true);
     detector.addMask(Rectangle(3.1, 3.1, 3.9, 3.9), true);
@@ -95,7 +99,8 @@ TEST_F(SimulationAreaTest, maskedIteration) {
 
 //! Iteration over the detector with first and alst bin masked
 
-TEST_F(SimulationAreaTest, maskedCornerIteration) {
+TEST_F(SimulationAreaTest, maskedCornerIteration)
+{
     SphericalDetector detector(5, -1.0, 4.0, 4, 0.0, 4.0);
     detector.addMask(Rectangle(-0.9, 0.1, -0.1, 0.9), true);
     detector.addMask(Rectangle(3.1, 3.1, 3.9, 3.9), true);
@@ -117,7 +122,8 @@ TEST_F(SimulationAreaTest, maskedCornerIteration) {
 
 //! Iteration when whole detector is masked
 
-TEST_F(SimulationAreaTest, allMaskedIteration) {
+TEST_F(SimulationAreaTest, allMaskedIteration)
+{
     SphericalDetector detector(5, -1.0, 4.0, 4, 0.0, 4.0);
     detector.addMask(Rectangle(-0.9, 0.1, 3.9, 3.9), true);
     SimulationArea area(&detector);
@@ -134,7 +140,8 @@ TEST_F(SimulationAreaTest, allMaskedIteration) {
 
 //! Iteration when RegionOfInterest and masks are present
 
-TEST_F(SimulationAreaTest, maskAndRoiIteration) {
+TEST_F(SimulationAreaTest, maskAndRoiIteration)
+{
     SphericalDetector detector(5, -1.0, 4.0, 4, 0.0, 4.0);
     detector.setRegionOfInterest(0.1, 1.1, 2.9, 3.9);
     detector.addMask(Rectangle(-0.9, 0.1, 0.9, 1.9), true);
@@ -177,7 +184,8 @@ TEST_F(SimulationAreaTest, maskAndRoiIteration) {
 
 //! Iteration when RegionOfInterest and masks are present. Iteration visit masked areas too.
 
-TEST_F(SimulationAreaTest, maskAndRoiIterationVisitMasks) {
+TEST_F(SimulationAreaTest, maskAndRoiIterationVisitMasks)
+{
     SphericalDetector detector(5, -1.0, 4.0, 4, 0.0, 4.0);
     detector.setRegionOfInterest(0.1, 1.1, 2.9, 3.9);
     detector.addMask(Rectangle(-0.9, 0.1, 0.9, 1.9), true);
@@ -222,7 +230,8 @@ TEST_F(SimulationAreaTest, maskAndRoiIterationVisitMasks) {
 
 //! Checking index of ROI
 
-TEST_F(SimulationAreaTest, indexInRoi) {
+TEST_F(SimulationAreaTest, indexInRoi)
+{
     SphericalDetector detector(5, -1.0, 4.0, 4, 0.0, 4.0);
     detector.setRegionOfInterest(0.1, 1.1, 2.9, 3.9);
     detector.addMask(Rectangle(-0.9, 0.1, 0.9, 1.9), true);

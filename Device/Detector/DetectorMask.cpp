@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Detector/DetectorMask.cpp
 //! @brief     Implements class DetectorMask.
@@ -21,11 +21,13 @@ DetectorMask::DetectorMask() : m_number_of_masked_channels(0) {}
 DetectorMask::DetectorMask(const DetectorMask& other)
     : m_shapes(other.m_shapes)
     , m_mask_of_shape(other.m_mask_of_shape)
-    , m_number_of_masked_channels(other.m_number_of_masked_channels) {
+    , m_number_of_masked_channels(other.m_number_of_masked_channels)
+{
     m_mask_data.copyFrom(other.m_mask_data);
 }
 
-DetectorMask& DetectorMask::operator=(const DetectorMask& other) {
+DetectorMask& DetectorMask::operator=(const DetectorMask& other)
+{
     if (this != &other) {
         m_shapes = other.m_shapes;
         m_mask_of_shape = other.m_mask_of_shape;
@@ -37,14 +39,16 @@ DetectorMask& DetectorMask::operator=(const DetectorMask& other) {
     return *this;
 }
 
-void DetectorMask::addMask(const IShape2D& shape, bool mask_value) {
+void DetectorMask::addMask(const IShape2D& shape, bool mask_value)
+{
     m_shapes.push_back(shape.clone());
     m_mask_of_shape.push_back(mask_value);
     m_mask_data.clear();
     m_number_of_masked_channels = 0;
 }
 
-void DetectorMask::initMaskData(const IDetector2D& detector) {
+void DetectorMask::initMaskData(const IDetector2D& detector)
+{
     if (detector.dimension() != 2)
         throw std::runtime_error("DetectorMask::initMaskData() -> Error. Attempt "
                                  "to add masks to uninitialized detector.");
@@ -60,7 +64,8 @@ void DetectorMask::initMaskData(const IDetector2D& detector) {
     process_masks();
 }
 
-void DetectorMask::initMaskData(const OutputData<double>& data) {
+void DetectorMask::initMaskData(const OutputData<double>& data)
+{
     ASSERT(m_shapes.size() == m_mask_of_shape.size());
     m_mask_data.clear();
 
@@ -70,11 +75,13 @@ void DetectorMask::initMaskData(const OutputData<double>& data) {
     process_masks();
 }
 
-bool DetectorMask::isMasked(size_t index) const {
+bool DetectorMask::isMasked(size_t index) const
+{
     return m_number_of_masked_channels == 0 ? false : m_mask_data[index];
 }
 
-Histogram2D* DetectorMask::createHistogram() const {
+Histogram2D* DetectorMask::createHistogram() const
+{
     OutputData<double> data;
     data.copyShapeFrom(m_mask_data);
     for (size_t i = 0; i < m_mask_data.getAllocatedSize(); ++i)
@@ -82,18 +89,21 @@ Histogram2D* DetectorMask::createHistogram() const {
     return dynamic_cast<Histogram2D*>(IHistogram::createHistogram(data));
 }
 
-size_t DetectorMask::numberOfMasks() const {
+size_t DetectorMask::numberOfMasks() const
+{
     return m_shapes.size();
 }
 
-const IShape2D* DetectorMask::getMaskShape(size_t mask_index, bool& mask_value) const {
+const IShape2D* DetectorMask::getMaskShape(size_t mask_index, bool& mask_value) const
+{
     if (mask_index >= numberOfMasks())
         return nullptr;
     mask_value = m_mask_of_shape[mask_index];
     return m_shapes[mask_index];
 }
 
-void DetectorMask::process_masks() {
+void DetectorMask::process_masks()
+{
     m_mask_data.setAllTo(false);
     if (!!m_shapes.empty())
         return;

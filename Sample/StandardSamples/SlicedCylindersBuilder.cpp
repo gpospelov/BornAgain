@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/SlicedCylindersBuilder.cpp
 //! @brief     Implements classes for testing slicing machinery.
@@ -30,17 +30,20 @@ const int n_slices(3);
 
 //! Returns SLD input (in inverse square Angstroms) for MaterialBySLD from _delta_ and _beta_,
 //! i.e. the input for HomogeneousMaterial.
-complex_t getSLDFromN(double wavelength, double delta, double beta) {
+complex_t getSLDFromN(double wavelength, double delta, double beta)
+{
     complex_t result{2 * delta - delta * delta + beta * beta, 2 * beta - 2 * delta * beta};
     return result * M_PI / (wavelength * wavelength) * (Units::angstrom * Units::angstrom);
 }
 
-complex_t averageSLD(complex_t sld_p, complex_t sld_l, double eff_vol) {
+complex_t averageSLD(complex_t sld_p, complex_t sld_l, double eff_vol)
+{
     return sld_l + eff_vol * (sld_p - sld_l);
 }
 } // namespace
 
-MultiLayer* SlicedCylindersBuilder::buildSample() const {
+MultiLayer* SlicedCylindersBuilder::buildSample() const
+{
     Material vacuum_material = HomogeneousMaterial("Vacuum", 0.0, 0.0);
     Material substrate_material = HomogeneousMaterial("Substrate", 6e-6, 2e-8);
     Material particle_material = HomogeneousMaterial("Particle", 6e-4, 2e-8);
@@ -62,7 +65,8 @@ MultiLayer* SlicedCylindersBuilder::buildSample() const {
     return multi_layer;
 }
 
-MultiLayer* SLDSlicedCylindersBuilder::buildSample() const {
+MultiLayer* SLDSlicedCylindersBuilder::buildSample() const
+{
     Material vacuum_material = MaterialBySLD("Vacuum", 0.0, 0.0);
     complex_t sub_sld = getSLDFromN(wavelength, 6e-6, 2e-8);
     Material substrate_material = MaterialBySLD("Substrate", sub_sld.real(), sub_sld.imag());
@@ -86,7 +90,8 @@ MultiLayer* SLDSlicedCylindersBuilder::buildSample() const {
     return multi_layer;
 }
 
-MultiLayer* AveragedSlicedCylindersBuilder::buildSample() const {
+MultiLayer* AveragedSlicedCylindersBuilder::buildSample() const
+{
     const auto par_surf_density = ParticleLayout().totalParticleSurfaceDensity();
 
     complex_t vacuum_sld{0.0, 0.0};

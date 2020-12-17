@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testview/graphviewportplotcontroller.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "customplot_test_utils.h"
 #include "google_test.h"
@@ -31,7 +36,8 @@ GraphViewportPlotControllerTest::~GraphViewportPlotControllerTest() = default;
 
 //! Initial state.
 
-TEST_F(GraphViewportPlotControllerTest, initialState) {
+TEST_F(GraphViewportPlotControllerTest, initialState)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphViewportPlotController controller(custom_plot.get());
     EXPECT_EQ(custom_plot->graphCount(), 0);
@@ -39,7 +45,8 @@ TEST_F(GraphViewportPlotControllerTest, initialState) {
 
 //! Check ::setItem() method when no graphs exist.
 
-TEST_F(GraphViewportPlotControllerTest, setItem) {
+TEST_F(GraphViewportPlotControllerTest, setItem)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphViewportPlotController controller(custom_plot.get());
 
@@ -60,7 +67,8 @@ TEST_F(GraphViewportPlotControllerTest, setItem) {
 
 //! Check ::setItem() method when ViewPortItem contains graphs.
 
-TEST_F(GraphViewportPlotControllerTest, addGraphAndSetItem) {
+TEST_F(GraphViewportPlotControllerTest, addGraphAndSetItem)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphViewportPlotController controller(custom_plot.get());
 
@@ -90,7 +98,8 @@ TEST_F(GraphViewportPlotControllerTest, addGraphAndSetItem) {
 
 //! Checks consequitive graph adding/removal
 
-TEST_F(GraphViewportPlotControllerTest, addAndRemoveGraphs) {
+TEST_F(GraphViewportPlotControllerTest, addAndRemoveGraphs)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphViewportPlotController controller(custom_plot.get());
 
@@ -148,7 +157,8 @@ TEST_F(GraphViewportPlotControllerTest, addAndRemoveGraphs) {
 
 //! Checks consequitive graph adding/removal
 
-TEST_F(GraphViewportPlotControllerTest, addMoreGraphs) {
+TEST_F(GraphViewportPlotControllerTest, addMoreGraphs)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphViewportPlotController controller(custom_plot.get());
 
@@ -173,10 +183,12 @@ TEST_F(GraphViewportPlotControllerTest, addMoreGraphs) {
 
 //! Checks The fucntionality of selection in the viewport
 
-TEST_F(GraphViewportPlotControllerTest, checkVisible) {
+TEST_F(GraphViewportPlotControllerTest, checkVisible)
+{
     // Convenience
     struct FindVisible {
-        static std::vector<QCPAbstractPlottable*> findVisible(const QCustomPlot* custom_plot) {
+        static std::vector<QCPAbstractPlottable*> findVisible(const QCustomPlot* custom_plot)
+        {
             std::vector<QCPAbstractPlottable*> output;
             for (int i = 0; i < custom_plot->graphCount(); ++i) {
                 if (custom_plot->graph(i)->visible())
@@ -213,7 +225,8 @@ TEST_F(GraphViewportPlotControllerTest, checkVisible) {
 
 //! Two GraphViewportItem's and switch between them.
 
-TEST_F(GraphViewportPlotControllerTest, switchBetweenTwoViewports) {
+TEST_F(GraphViewportPlotControllerTest, switchBetweenTwoViewports)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphViewportPlotController controller(custom_plot.get());
 
@@ -242,7 +255,8 @@ TEST_F(GraphViewportPlotControllerTest, switchBetweenTwoViewports) {
 
 //! Adding graph, then undo, then redo again.
 
-TEST_F(GraphViewportPlotControllerTest, addGraphUndoRedo) {
+TEST_F(GraphViewportPlotControllerTest, addGraphUndoRedo)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphViewportPlotController controller(custom_plot.get());
 
@@ -307,7 +321,8 @@ TEST_F(GraphViewportPlotControllerTest, addGraphUndoRedo) {
 
 //! Adding graph together with data in macro, then undo, then redo again.
 
-TEST_F(GraphViewportPlotControllerTest, addGraphUndoRedoMacro) {
+TEST_F(GraphViewportPlotControllerTest, addGraphUndoRedoMacro)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphViewportPlotController controller(custom_plot.get());
 

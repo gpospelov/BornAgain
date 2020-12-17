@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/LegacyRT/MatrixRTCoefficients_v1.cpp
 //! @brief     Implements class MatrixRTCoefficients_v1.
@@ -14,11 +14,13 @@
 
 #include "Sample/LegacyRT/MatrixRTCoefficients_v1.h"
 
-MatrixRTCoefficients_v1* MatrixRTCoefficients_v1::clone() const {
+MatrixRTCoefficients_v1* MatrixRTCoefficients_v1::clone() const
+{
     return new MatrixRTCoefficients_v1(*this);
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v1::T1plus() const {
+Eigen::Vector2cd MatrixRTCoefficients_v1::T1plus() const
+{
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = T1m * phi_psi_plus;
     result(0) = m(2);
@@ -28,7 +30,8 @@ Eigen::Vector2cd MatrixRTCoefficients_v1::T1plus() const {
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v1::R1plus() const {
+Eigen::Vector2cd MatrixRTCoefficients_v1::R1plus() const
+{
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = R1m * phi_psi_plus;
     result(0) = m(2);
@@ -39,7 +42,8 @@ Eigen::Vector2cd MatrixRTCoefficients_v1::R1plus() const {
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v1::T2plus() const {
+Eigen::Vector2cd MatrixRTCoefficients_v1::T2plus() const
+{
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = T2m * phi_psi_plus;
     result(0) = m(2);
@@ -49,7 +53,8 @@ Eigen::Vector2cd MatrixRTCoefficients_v1::T2plus() const {
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v1::R2plus() const {
+Eigen::Vector2cd MatrixRTCoefficients_v1::R2plus() const
+{
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = R2m * phi_psi_plus;
     result(0) = m(2);
@@ -60,7 +65,8 @@ Eigen::Vector2cd MatrixRTCoefficients_v1::R2plus() const {
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v1::T1min() const {
+Eigen::Vector2cd MatrixRTCoefficients_v1::T1min() const
+{
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = T1m * phi_psi_min;
     result(0) = m(2);
@@ -70,7 +76,8 @@ Eigen::Vector2cd MatrixRTCoefficients_v1::T1min() const {
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v1::R1min() const {
+Eigen::Vector2cd MatrixRTCoefficients_v1::R1min() const
+{
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = R1m * phi_psi_min;
     result(0) = m(2);
@@ -81,7 +88,8 @@ Eigen::Vector2cd MatrixRTCoefficients_v1::R1min() const {
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v1::T2min() const {
+Eigen::Vector2cd MatrixRTCoefficients_v1::T2min() const
+{
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = T2m * phi_psi_min;
     result(0) = m(2);
@@ -91,7 +99,8 @@ Eigen::Vector2cd MatrixRTCoefficients_v1::T2min() const {
     return result;
 }
 
-Eigen::Vector2cd MatrixRTCoefficients_v1::R2min() const {
+Eigen::Vector2cd MatrixRTCoefficients_v1::R2min() const
+{
     Eigen::Vector2cd result;
     Eigen::Matrix<complex_t, 4, 1> m = R2m * phi_psi_min;
     result(0) = m(2);
@@ -102,7 +111,8 @@ Eigen::Vector2cd MatrixRTCoefficients_v1::R2min() const {
     return result;
 }
 
-void MatrixRTCoefficients_v1::calculateTRMatrices() {
+void MatrixRTCoefficients_v1::calculateTRMatrices()
+{
     if (m_b_mag == 0.0) {
         calculateTRWithoutMagnetization();
         return;
@@ -239,7 +249,8 @@ void MatrixRTCoefficients_v1::calculateTRMatrices() {
     }
 }
 
-void MatrixRTCoefficients_v1::calculateTRWithoutMagnetization() {
+void MatrixRTCoefficients_v1::calculateTRWithoutMagnetization()
+{
     T1m.setZero();
     R1m.setZero();
     T2m.setZero();
@@ -283,7 +294,8 @@ void MatrixRTCoefficients_v1::calculateTRWithoutMagnetization() {
     R2m(2, 2) = 0.5;
 }
 
-void MatrixRTCoefficients_v1::initializeBottomLayerPhiPsi() {
+void MatrixRTCoefficients_v1::initializeBottomLayerPhiPsi()
+{
     if (m_b_mag == 0.0) {
         phi_psi_min << 0.0, -std::sqrt(m_a), 0.0, 1.0;
         phi_psi_plus << -std::sqrt(m_a), 0.0, 1.0, 0.0;

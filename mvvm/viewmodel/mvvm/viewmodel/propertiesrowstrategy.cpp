@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/viewmodel/propertiesrowstrategy.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/viewmodel/propertiesrowstrategy.h"
 #include "mvvm/model/itemutils.h"
@@ -15,9 +20,12 @@
 using namespace ModelView;
 
 PropertiesRowStrategy::PropertiesRowStrategy(std::vector<std::string> labels)
-    : user_defined_column_labels(std::move(labels)) {}
+    : user_defined_column_labels(std::move(labels))
+{
+}
 
-QStringList PropertiesRowStrategy::horizontalHeaderLabels() const {
+QStringList PropertiesRowStrategy::horizontalHeaderLabels() const
+{
     QStringList result;
     auto labels =
         user_defined_column_labels.empty() ? current_column_labels : user_defined_column_labels;
@@ -26,7 +34,8 @@ QStringList PropertiesRowStrategy::horizontalHeaderLabels() const {
     return result;
 }
 
-std::vector<std::unique_ptr<ViewItem>> PropertiesRowStrategy::constructRow(SessionItem* item) {
+std::vector<std::unique_ptr<ViewItem>> PropertiesRowStrategy::constructRow(SessionItem* item)
+{
     std::vector<std::unique_ptr<ViewItem>> result;
 
     if (!item)
@@ -48,7 +57,8 @@ std::vector<std::unique_ptr<ViewItem>> PropertiesRowStrategy::constructRow(Sessi
 
 //! Updates current column labels.
 
-void PropertiesRowStrategy::update_column_labels(std::vector<SessionItem*> items) {
+void PropertiesRowStrategy::update_column_labels(std::vector<SessionItem*> items)
+{
     current_column_labels.clear();
     std::transform(items.begin(), items.end(), std::back_inserter(current_column_labels),
                    [](const SessionItem* item) { return item->displayName(); });

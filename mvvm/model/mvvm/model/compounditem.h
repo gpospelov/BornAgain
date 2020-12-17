@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/model/compounditem.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_COMPOUNDITEM_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_COMPOUNDITEM_H
@@ -35,7 +40,8 @@ public:
     std::string displayName() const override;
 };
 
-template <typename T> T* CompoundItem::addProperty(const std::string& name) {
+template <typename T> T* CompoundItem::addProperty(const std::string& name)
+{
     T* property = new T;
     registerTag(TagInfo::propertyTag(name, property->modelType()));
     property->setDisplayName(name);
@@ -43,12 +49,14 @@ template <typename T> T* CompoundItem::addProperty(const std::string& name) {
     return property;
 }
 
-inline PropertyItem* CompoundItem::addProperty(const std::string& name, const char* value) {
+inline PropertyItem* CompoundItem::addProperty(const std::string& name, const char* value)
+{
     return addProperty(name, std::string(value));
 }
 
 template <typename V>
-PropertyItem* CompoundItem::addProperty(const std::string& name, const V& value) {
+PropertyItem* CompoundItem::addProperty(const std::string& name, const V& value)
+{
     auto property = new PropertyItem;
     registerTag(TagInfo::propertyTag(name, property->modelType()));
     property->setDisplayName(name);

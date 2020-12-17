@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskEditor.cpp
 //! @brief     Implements class MaskEditor
@@ -28,7 +28,8 @@ MaskEditor::MaskEditor(QWidget* parent)
     , m_editorActions(new MaskEditorActions(this))
     , m_toolBar(new MaskEditorToolBar(m_editorActions))
     , m_editorPropertyPanel(new MaskEditorPropertyPanel)
-    , m_editorCanvas(new MaskEditorCanvas) {
+    , m_editorCanvas(new MaskEditorCanvas)
+{
     setObjectName("MaskEditor");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -47,7 +48,8 @@ MaskEditor::MaskEditor(QWidget* parent)
 }
 
 void MaskEditor::setMaskContext(SessionModel* model, const QModelIndex& maskContainerIndex,
-                                IntensityDataItem* intensityItem) {
+                                IntensityDataItem* intensityItem)
+{
     m_editorPropertyPanel->setMaskContext(model, maskContainerIndex, intensityItem);
 
     ASSERT(intensityItem);
@@ -61,28 +63,33 @@ void MaskEditor::setMaskContext(SessionModel* model, const QModelIndex& maskCont
     m_editorActions->setSelectionModel(m_editorPropertyPanel->selectionModel());
 }
 
-void MaskEditor::resetContext() {
+void MaskEditor::resetContext()
+{
     m_editorPropertyPanel->resetContext();
     m_editorCanvas->resetContext();
 }
 
 //! shows/hides right panel with properties
-void MaskEditor::onPropertyPanelRequest() {
+void MaskEditor::onPropertyPanelRequest()
+{
     m_editorPropertyPanel->setPanelHidden(!m_editorPropertyPanel->isHidden());
 }
 
 //! Context menu reimplemented to supress default menu
-void MaskEditor::contextMenuEvent(QContextMenuEvent* event) {
+void MaskEditor::contextMenuEvent(QContextMenuEvent* event)
+{
     Q_UNUSED(event);
 }
 
 //! Returns list of actions intended for styled toolbar (on the top).
 
-QList<QAction*> MaskEditor::topToolBarActions() {
+QList<QAction*> MaskEditor::topToolBarActions()
+{
     return m_editorActions->topToolBarActions();
 }
 
-void MaskEditor::setup_connections() {
+void MaskEditor::setup_connections()
+{
     // reset view request is propagated from editorActions to graphics view
     connect(m_editorActions, &MaskEditorActions::resetViewRequest, m_editorCanvas,
             &MaskEditorCanvas::onResetViewRequest);

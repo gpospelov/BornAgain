@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/LatticeBuilder.cpp
 //! @brief     Implements class Lattice1DBuilder.
@@ -24,7 +24,8 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* Lattice1DBuilder::buildSample() const {
+MultiLayer* Lattice1DBuilder::buildSample() const
+{
     const double length(20.0 * Units::nm);
     const double xi(10.0 * Units::deg);
     const double corr_length(1000.0 * Units::nm);

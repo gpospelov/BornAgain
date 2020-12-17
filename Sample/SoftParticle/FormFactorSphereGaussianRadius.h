@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/SoftParticle/FormFactorSphereGaussianRadius.h
 //! @brief     Defines and implements class FormFactorSphereGaussianRadius.
@@ -26,7 +26,8 @@ public:
     FormFactorSphereGaussianRadius(const std::vector<double> P);
     FormFactorSphereGaussianRadius(double mean, double sigma);
 
-    FormFactorSphereGaussianRadius* clone() const final {
+    FormFactorSphereGaussianRadius* clone() const final
+    {
         return new FormFactorSphereGaussianRadius(m_mean, m_sigma);
     }
 

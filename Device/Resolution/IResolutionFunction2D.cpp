@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Resolution/IResolutionFunction2D.cpp
 //! @brief     Defines interface class IResolutionFunction2D.
@@ -16,4 +16,6 @@
 
 IResolutionFunction2D::IResolutionFunction2D(const NodeMeta& meta,
                                              const std::vector<double>& PValues)
-    : INode(meta, PValues) {}
+    : INode(meta, PValues)
+{
+}

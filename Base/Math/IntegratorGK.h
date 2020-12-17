@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Math/IntegratorGK.h
 //! @brief     Defines classes RealIntegrator, ComplexIntegrator.
@@ -32,7 +32,8 @@ public:
     double integrate(const std::function<double(double)>& f, double lmin, double lmax);
 
 private:
-    static double m_Cfunction(double x, void* p) {
+    static double m_Cfunction(double x, void* p)
+    {
         return (*(const std::function<double(double)>*)(p))(x);
     };
     gsl_function m_gsl_f;

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/progresshandler.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/utils/progresshandler.h"
@@ -19,12 +24,14 @@ public:
 
 ProgressHandlerTest::~ProgressHandlerTest() = default;
 
-TEST_F(ProgressHandlerTest, initialState) {
+TEST_F(ProgressHandlerTest, initialState)
+{
     ProgressHandler handler;
     EXPECT_FALSE(handler.has_interrupt_request());
 }
 
-TEST_F(ProgressHandlerTest, fullConstructor) {
+TEST_F(ProgressHandlerTest, fullConstructor)
+{
     size_t max_ticks = 1000;
     int progress{0};
     auto on_progress_change = [&progress](int value) {
@@ -43,7 +50,8 @@ TEST_F(ProgressHandlerTest, fullConstructor) {
     EXPECT_EQ(progress, 100); // reports value in percents
 }
 
-TEST_F(ProgressHandlerTest, interruptRequest) {
+TEST_F(ProgressHandlerTest, interruptRequest)
+{
     size_t max_ticks = 1000;
     int progress{0};
     auto on_progress_change = [&progress](int value) {

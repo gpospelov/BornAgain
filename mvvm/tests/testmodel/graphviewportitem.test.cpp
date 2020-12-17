@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/graphviewportitem.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mockwidgets.h"
@@ -29,7 +34,8 @@ GraphViewportItemTest::~GraphViewportItemTest() = default;
 
 //! Initial state.
 
-TEST_F(GraphViewportItemTest, initialState) {
+TEST_F(GraphViewportItemTest, initialState)
+{
     GraphViewportItem item;
     EXPECT_EQ(item.xAxis()->modelType(), Constants::ViewportAxisItemType);
     EXPECT_EQ(item.yAxis()->modelType(), Constants::ViewportAxisItemType);
@@ -38,7 +44,8 @@ TEST_F(GraphViewportItemTest, initialState) {
 
 //! Add graph to viewport.
 
-TEST_F(GraphViewportItemTest, addItem) {
+TEST_F(GraphViewportItemTest, addItem)
+{
     SessionModel model;
 
     auto viewport_item = model.insertItem<GraphViewportItem>();
@@ -71,7 +78,8 @@ TEST_F(GraphViewportItemTest, addItem) {
 
 //! Check signaling on set data item.
 
-TEST_F(GraphViewportItemTest, onAddItem) {
+TEST_F(GraphViewportItemTest, onAddItem)
+{
     SessionModel model;
     auto viewport_item = model.insertItem<GraphViewportItem>();
 
@@ -90,7 +98,8 @@ TEST_F(GraphViewportItemTest, onAddItem) {
 
 //! Check signaling on set data item.
 
-TEST_F(GraphViewportItemTest, onSetDataItem) {
+TEST_F(GraphViewportItemTest, onSetDataItem)
+{
     SessionModel model;
     auto viewport_item = model.insertItem<GraphViewportItem>();
 
@@ -118,7 +127,8 @@ TEST_F(GraphViewportItemTest, onSetDataItem) {
 
 //! Add graph to viewport.
 
-TEST_F(GraphViewportItemTest, setViewportToContentWithMargins) {
+TEST_F(GraphViewportItemTest, setViewportToContentWithMargins)
+{
     SessionModel model;
 
     auto viewport_item = model.insertItem<GraphViewportItem>();

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/jsonmodelconverter.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "folderbasedtest.h"
 #include "google_test.h"
@@ -37,7 +42,8 @@ JsonModelConverterTest::~JsonModelConverterTest() = default;
 
 //! Creation of json object: empty model.
 
-TEST_F(JsonModelConverterTest, emptyModel) {
+TEST_F(JsonModelConverterTest, emptyModel)
+{
     JsonModelConverter converter(ConverterMode::project);
     SessionModel model("TestModel");
 
@@ -52,7 +58,8 @@ TEST_F(JsonModelConverterTest, emptyModel) {
 
 //! Empty model to json and back.
 
-TEST_F(JsonModelConverterTest, emptyModelToJsonAndBack) {
+TEST_F(JsonModelConverterTest, emptyModelToJsonAndBack)
+{
     JsonModelConverter converter(ConverterMode::project);
     SessionModel model("TestModel");
 
@@ -75,7 +82,8 @@ TEST_F(JsonModelConverterTest, emptyModelToJsonAndBack) {
 
 //! Creation of json object: single item in a model.
 
-TEST_F(JsonModelConverterTest, singleItemToJsonAndBack) {
+TEST_F(JsonModelConverterTest, singleItemToJsonAndBack)
+{
     JsonModelConverter converter(ConverterMode::project);
     SessionModel model("TestModel");
 
@@ -94,7 +102,8 @@ TEST_F(JsonModelConverterTest, singleItemToJsonAndBack) {
 
 //! Filling model from json: parent and child in a model to json and back.
 
-TEST_F(JsonModelConverterTest, parentAndChildToJsonAndBack) {
+TEST_F(JsonModelConverterTest, parentAndChildToJsonAndBack)
+{
     JsonModelConverter converter(ConverterMode::project);
     SessionModel model("TestModel");
 
@@ -141,7 +150,8 @@ TEST_F(JsonModelConverterTest, parentAndChildToJsonAndBack) {
 
 //! Item in a model to json and back: how persistent are identifiers.
 
-TEST_F(JsonModelConverterTest, identifiers) {
+TEST_F(JsonModelConverterTest, identifiers)
+{
     JsonModelConverter converter(ConverterMode::project);
     auto pool1 = std::make_shared<ItemPool>();
 
@@ -174,7 +184,8 @@ TEST_F(JsonModelConverterTest, identifiers) {
 
 //! Filling model from json: parent and child in a model to json and back.
 
-TEST_F(JsonModelConverterTest, parentAndChildToFileAndBack) {
+TEST_F(JsonModelConverterTest, parentAndChildToFileAndBack)
+{
     JsonModelConverter converter(ConverterMode::project);
     SessionModel model("TestModel");
 
@@ -226,7 +237,8 @@ TEST_F(JsonModelConverterTest, parentAndChildToFileAndBack) {
 //! Creation of json object (single item in a model), then writing same json object back
 //! to model without emptying it. Real bug case: check if unsubscribtion mechanism works.
 
-TEST_F(JsonModelConverterTest, singleItemToJsonAndBackToSameModel) {
+TEST_F(JsonModelConverterTest, singleItemToJsonAndBackToSameModel)
+{
     auto pool = std::make_shared<ItemPool>();
 
     JsonModelConverter converter(ConverterMode::project);

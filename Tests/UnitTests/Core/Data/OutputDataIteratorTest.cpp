@@ -8,7 +8,8 @@ protected:
     OutputData<double> _data;
 };
 
-OutputDataIteratorTest::OutputDataIteratorTest() {
+OutputDataIteratorTest::OutputDataIteratorTest()
+{
     int* dims = new int[2];
     dims[0] = 3;
     dims[1] = 5;
@@ -22,7 +23,8 @@ OutputDataIteratorTest::OutputDataIteratorTest() {
     }
 }
 
-TEST_F(OutputDataIteratorTest, Iterate) {
+TEST_F(OutputDataIteratorTest, Iterate)
+{
     OutputData<double>::iterator it = _data.begin();
     EXPECT_EQ(0.0, *it);
     for (size_t i = 0; i < 14; ++i) {
@@ -35,7 +37,8 @@ TEST_F(OutputDataIteratorTest, Iterate) {
     EXPECT_EQ(it, _data.end());
 }
 
-TEST_F(OutputDataIteratorTest, ConstIterate) {
+TEST_F(OutputDataIteratorTest, ConstIterate)
+{
     OutputData<double>::const_iterator it = _data.begin();
     EXPECT_EQ(0.0, *it);
     for (size_t i = 0; i < 14; ++i) {

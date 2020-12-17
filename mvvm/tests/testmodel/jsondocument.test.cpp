@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/jsondocument.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "folderbasedtest.h"
 #include "google_test.h"
@@ -45,7 +50,8 @@ JsonDocumentTest::TestModel2::~TestModel2() = default;
 
 //! Saving the model with content into document and restoring it after.
 
-TEST_F(JsonDocumentTest, saveLoadSingleModel) {
+TEST_F(JsonDocumentTest, saveLoadSingleModel)
+{
     auto fileName = TestUtils::TestFileName(testDir(), "saveLoadSingleModel.json");
     SessionModel model("TestModel");
     JsonDocument document({&model});
@@ -98,7 +104,8 @@ TEST_F(JsonDocumentTest, saveLoadSingleModel) {
 
 //! Saving two models with content into document and restoring it after.
 
-TEST_F(JsonDocumentTest, saveLoadTwoModels) {
+TEST_F(JsonDocumentTest, saveLoadTwoModels)
+{
     auto fileName = TestUtils::TestFileName(testDir(), "saveLoadTwoModels.json");
     TestModel1 model1;
     TestModel2 model2;
@@ -139,7 +146,8 @@ TEST_F(JsonDocumentTest, saveLoadTwoModels) {
 
 //! Attempt to restore models in wrong order.
 
-TEST_F(JsonDocumentTest, loadModelsInWrongOrder) {
+TEST_F(JsonDocumentTest, loadModelsInWrongOrder)
+{
     auto fileName = TestUtils::TestFileName(testDir(), "loadModelsInWrongOrder.json");
     TestModel1 model1;
     TestModel2 model2;

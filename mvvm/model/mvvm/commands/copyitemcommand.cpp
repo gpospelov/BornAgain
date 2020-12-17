@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/commands/copyitemcommand.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/commands/copyitemcommand.h"
 #include "mvvm/commands/commandutils.h"
@@ -30,8 +35,8 @@ struct CopyItemCommand::CopyItemCommandImpl {
 };
 
 CopyItemCommand::CopyItemCommand(const SessionItem* item, SessionItem* parent, TagRow tagrow)
-    : AbstractItemCommand(parent)
-    , p_impl(std::make_unique<CopyItemCommandImpl>(std::move(tagrow))) {
+    : AbstractItemCommand(parent), p_impl(std::make_unique<CopyItemCommandImpl>(std::move(tagrow)))
+{
     setResult(nullptr);
 
     setDescription(generate_description(item->modelType(), p_impl->tagrow));
@@ -46,13 +51,15 @@ CopyItemCommand::CopyItemCommand(const SessionItem* item, SessionItem* parent, T
 
 CopyItemCommand::~CopyItemCommand() = default;
 
-void CopyItemCommand::undo_command() {
+void CopyItemCommand::undo_command()
+{
     auto parent = itemFromPath(p_impl->item_path);
     delete parent->takeItem(p_impl->tagrow);
     setResult(nullptr);
 }
 
-void CopyItemCommand::execute_command() {
+void CopyItemCommand::execute_command()
+{
     auto parent = itemFromPath(p_impl->item_path);
     auto item = p_impl->backup_strategy->restoreItem();
     if (parent->insertItem(item.get(), p_impl->tagrow)) {
@@ -65,7 +72,8 @@ void CopyItemCommand::execute_command() {
 }
 
 namespace {
-std::string generate_description(const std::string& modelType, const TagRow& tagrow) {
+std::string generate_description(const std::string& modelType, const TagRow& tagrow)
+{
     std::ostringstream ostr;
     ostr << "Copy item'" << modelType << "' tag:'" << tagrow.tag << "', row:" << tagrow.row;
     return ostr.str();

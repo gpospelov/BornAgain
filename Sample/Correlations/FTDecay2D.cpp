@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Correlations/FTDecay2D.cpp
 //! @brief     Implements class FTDistribution2DCauchy.
@@ -29,13 +29,16 @@ IFTDecayFunction2D::IFTDecayFunction2D(const NodeMeta& meta, const std::vector<d
             PValues)
     , m_decay_length_x(m_P[0])
     , m_decay_length_y(m_P[1])
-    , m_gamma(m_P[2]) {}
+    , m_gamma(m_P[2])
+{
+}
 
 //! Calculates bounding values of reciprocal lattice coordinates that contain the centered
 //! rectangle with a corner defined by qX and qY
 std::pair<double, double>
 IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(double qX, double qY, double a, double b,
-                                                         double alpha) const {
+                                                         double alpha) const
+{
     auto q_bounds_1 = transformToRecLatticeCoordinates(qX, qY, a, b, alpha);
     auto q_bounds_2 = transformToRecLatticeCoordinates(qX, -qY, a, b, alpha);
     double qa_max = std::max(std::abs(q_bounds_1.first), std::abs(q_bounds_2.first));
@@ -45,7 +48,8 @@ IFTDecayFunction2D::boundingReciprocalLatticeCoordinates(double qX, double qY, d
 
 std::pair<double, double> IFTDecayFunction2D::transformToRecLatticeCoordinates(double qX, double qY,
                                                                                double a, double b,
-                                                                               double alpha) const {
+                                                                               double alpha) const
+{
     double qa = (a * qX * std::cos(m_gamma) - a * qY * std::sin(m_gamma)) / M_TWOPI;
     double qb = (b * qX * std::cos(alpha - m_gamma) + b * qY * std::sin(alpha - m_gamma)) / M_TWOPI;
     return {qa, qb};
@@ -56,17 +60,23 @@ std::pair<double, double> IFTDecayFunction2D::transformToRecLatticeCoordinates(d
 //  ************************************************************************************************
 
 FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(const std::vector<double> P)
-    : IFTDecayFunction2D({"FTDecayFunction2DCauchy", "class_tooltip", {}}, P) {}
+    : IFTDecayFunction2D({"FTDecayFunction2DCauchy", "class_tooltip", {}}, P)
+{
+}
 
 FTDecayFunction2DCauchy::FTDecayFunction2DCauchy(double decay_length_x, double decay_length_y,
                                                  double gamma)
-    : FTDecayFunction2DCauchy(std::vector<double>{decay_length_x, decay_length_y, gamma}) {}
+    : FTDecayFunction2DCauchy(std::vector<double>{decay_length_x, decay_length_y, gamma})
+{
+}
 
-FTDecayFunction2DCauchy* FTDecayFunction2DCauchy::clone() const {
+FTDecayFunction2DCauchy* FTDecayFunction2DCauchy::clone() const
+{
     return new FTDecayFunction2DCauchy(m_decay_length_x, m_decay_length_y, m_gamma);
 }
 
-double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const {
+double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const
+{
     double sum_sq = qx * qx * m_decay_length_x * m_decay_length_x
                     + qy * qy * m_decay_length_y * m_decay_length_y;
     return M_TWOPI * m_decay_length_x * m_decay_length_y * std::pow(1.0 + sum_sq, -1.5);
@@ -77,17 +87,23 @@ double FTDecayFunction2DCauchy::evaluate(double qx, double qy) const {
 //  ************************************************************************************************
 
 FTDecayFunction2DGauss::FTDecayFunction2DGauss(const std::vector<double> P)
-    : IFTDecayFunction2D({"FTDecayFunction2DGauss", "class_tooltip", {}}, P) {}
+    : IFTDecayFunction2D({"FTDecayFunction2DGauss", "class_tooltip", {}}, P)
+{
+}
 
 FTDecayFunction2DGauss::FTDecayFunction2DGauss(double decay_length_x, double decay_length_y,
                                                double gamma)
-    : FTDecayFunction2DGauss(std::vector<double>{decay_length_x, decay_length_y, gamma}) {}
+    : FTDecayFunction2DGauss(std::vector<double>{decay_length_x, decay_length_y, gamma})
+{
+}
 
-FTDecayFunction2DGauss* FTDecayFunction2DGauss::clone() const {
+FTDecayFunction2DGauss* FTDecayFunction2DGauss::clone() const
+{
     return new FTDecayFunction2DGauss(m_decay_length_x, m_decay_length_y, m_gamma);
 }
 
-double FTDecayFunction2DGauss::evaluate(double qx, double qy) const {
+double FTDecayFunction2DGauss::evaluate(double qx, double qy) const
+{
     double sum_sq = qx * qx * m_decay_length_x * m_decay_length_x
                     + qy * qy * m_decay_length_y * m_decay_length_y;
     return M_TWOPI * m_decay_length_x * m_decay_length_y * std::exp(-sum_sq / 2.0);
@@ -104,17 +120,23 @@ FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(const std::vector<double> P)
          {{"Eta", "", "balances between Gauss (eta=0) and Cauchy (eta=1) limiting cases", -INF,
            +INF, 0}}},
         P)
-    , m_eta(m_P[0]) {}
+    , m_eta(m_P[0])
+{
+}
 
 FTDecayFunction2DVoigt::FTDecayFunction2DVoigt(double decay_length_x, double decay_length_y,
                                                double gamma, double eta)
-    : FTDecayFunction2DVoigt(std::vector<double>{decay_length_x, decay_length_y, gamma, eta}) {}
+    : FTDecayFunction2DVoigt(std::vector<double>{decay_length_x, decay_length_y, gamma, eta})
+{
+}
 
-FTDecayFunction2DVoigt* FTDecayFunction2DVoigt::clone() const {
+FTDecayFunction2DVoigt* FTDecayFunction2DVoigt::clone() const
+{
     return new FTDecayFunction2DVoigt(m_decay_length_x, m_decay_length_y, m_eta, m_gamma);
 }
 
-double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const {
+double FTDecayFunction2DVoigt::evaluate(double qx, double qy) const
+{
     double sum_sq = qx * qx * m_decay_length_x * m_decay_length_x
                     + qy * qy * m_decay_length_y * m_decay_length_y;
     return M_TWOPI * m_decay_length_x * m_decay_length_y

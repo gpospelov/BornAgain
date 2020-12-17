@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/CoreShellParticleBuilder.cpp
 //! @brief     Implements class CoreShellParticleBuilder.
@@ -24,7 +24,8 @@
 
 // --- CoreShellParticleBuilder ---
 
-MultiLayer* CoreShellParticleBuilder::buildSample() const {
+MultiLayer* CoreShellParticleBuilder::buildSample() const
+{
     complex_t n_particle_shell(1.0 - 1e-4, 2e-8);
     complex_t n_particle_core(1.0 - 6e-5, 2e-8);
 
@@ -52,7 +53,8 @@ MultiLayer* CoreShellParticleBuilder::buildSample() const {
 
 // --- CoreShellBoxRotateZandYBuilder ---
 
-MultiLayer* CoreShellBoxRotateZandYBuilder::buildSample() const {
+MultiLayer* CoreShellBoxRotateZandYBuilder::buildSample() const
+{
     const double layer_thickness(100.0 * Units::nm);
 
     // core shell particle

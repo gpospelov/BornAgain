@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Fresnel/IFresnelMap.cpp
 //! @brief     Implements interface IFresnelMap.
@@ -16,18 +16,23 @@
 #include "Sample/Slice/Slice.h"
 
 IFresnelMap::IFresnelMap(std::unique_ptr<ISpecularStrategy> strategy)
-    : m_use_cache(true), m_Strategy(std::move(strategy)) {}
+    : m_use_cache(true), m_Strategy(std::move(strategy))
+{
+}
 
-void IFresnelMap::setSlices(const std::vector<Slice>& slices) {
+void IFresnelMap::setSlices(const std::vector<Slice>& slices)
+{
     m_slices = slices;
 }
 
-const std::vector<Slice>& IFresnelMap::slices() const {
+const std::vector<Slice>& IFresnelMap::slices() const
+{
     return m_slices;
 }
 
 IFresnelMap::~IFresnelMap() = default;
 
-void IFresnelMap::disableCaching() {
+void IFresnelMap::disableCaching()
+{
     m_use_cache = false;
 }

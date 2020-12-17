@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/standarditems/data2ditem.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/standarditems/data2ditem.h"
 #include "mvvm/standarditems/axisitems.h"
@@ -14,7 +19,8 @@
 using namespace ModelView;
 
 namespace {
-size_t total_bin_count(Data2DItem* item) {
+size_t total_bin_count(Data2DItem* item)
+{
     if (auto xaxis = item->xAxis(); xaxis)
         if (auto yaxis = item->yAxis(); yaxis)
             return static_cast<size_t>(xaxis->size() * yaxis->size());
@@ -22,7 +28,8 @@ size_t total_bin_count(Data2DItem* item) {
 }
 } // namespace
 
-Data2DItem::Data2DItem() : CompoundItem(Constants::Data2DItemType) {
+Data2DItem::Data2DItem() : CompoundItem(Constants::Data2DItemType)
+{
     registerTag(TagInfo(T_XAXIS, 0, 1, {Constants::FixedBinAxisItemType}));
     registerTag(TagInfo(T_YAXIS, 0, 1, {Constants::FixedBinAxisItemType}));
     setContent(std::vector<double>()); // prevent editing in widgets, since there is no
@@ -32,7 +39,8 @@ Data2DItem::Data2DItem() : CompoundItem(Constants::Data2DItemType) {
 //! Sets axes and put data points to zero.
 
 void Data2DItem::setAxes(std::unique_ptr<BinnedAxisItem> x_axis,
-                         std::unique_ptr<BinnedAxisItem> y_axis) {
+                         std::unique_ptr<BinnedAxisItem> y_axis)
+{
     insert_axis(std::move(x_axis), T_XAXIS);
     insert_axis(std::move(y_axis), T_YAXIS);
     setContent(std::vector<double>(total_bin_count(this), 0.0));
@@ -40,17 +48,20 @@ void Data2DItem::setAxes(std::unique_ptr<BinnedAxisItem> x_axis,
 
 //! Returns x-axis (nullptr if it doesn't exist).
 
-BinnedAxisItem* Data2DItem::xAxis() const {
+BinnedAxisItem* Data2DItem::xAxis() const
+{
     return item<BinnedAxisItem>(T_XAXIS);
 }
 
 //! Returns y-axis (nullptr if it doesn't exist).
 
-BinnedAxisItem* Data2DItem::yAxis() const {
+BinnedAxisItem* Data2DItem::yAxis() const
+{
     return item<BinnedAxisItem>(T_YAXIS);
 }
 
-void Data2DItem::setContent(const std::vector<double>& data) {
+void Data2DItem::setContent(const std::vector<double>& data)
+{
     if (total_bin_count(this) != data.size())
         throw std::runtime_error("Data1DItem::setContent() -> Data doesn't match size of axis");
 
@@ -59,13 +70,15 @@ void Data2DItem::setContent(const std::vector<double>& data) {
 
 //! Returns 2d vector representing 2d data.
 
-std::vector<double> Data2DItem::content() const {
+std::vector<double> Data2DItem::content() const
+{
     return data<std::vector<double>>();
 }
 
 //! Insert axis under given tag. Previous axis will be deleted and data points invalidated.
 
-void Data2DItem::insert_axis(std::unique_ptr<BinnedAxisItem> axis, const std::string& tag) {
+void Data2DItem::insert_axis(std::unique_ptr<BinnedAxisItem> axis, const std::string& tag)
+{
     // removing current axis
     if (getItem(tag, 0))
         delete takeItem({tag, 0});

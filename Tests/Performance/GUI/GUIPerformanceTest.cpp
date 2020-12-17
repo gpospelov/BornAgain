@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Performance/GUI/GUIPerformanceTest.cpp
 //! @brief     Implements GUI performance functional test.
@@ -45,9 +45,12 @@ std::uniform_real_distribution<double> rndm_radius(5., 6.);
 } // namespace
 
 GUIPerformanceTest::GUIPerformanceTest()
-    : m_models(new ApplicationModels(nullptr)), m_sample_name("ParticleCompositionBuilder") {}
+    : m_models(new ApplicationModels(nullptr)), m_sample_name("ParticleCompositionBuilder")
+{
+}
 
-bool GUIPerformanceTest::runTest() {
+bool GUIPerformanceTest::runTest()
+{
 #ifndef NDEBUG
     const int mult = 1;
 #else
@@ -70,7 +73,8 @@ bool GUIPerformanceTest::runTest() {
 
 //! Creates domain sample once and then populates sample model.
 
-void GUIPerformanceTest::test_domain_to_gui() {
+void GUIPerformanceTest::test_domain_to_gui()
+{
     static std::unique_ptr<MultiLayer> sample;
 
     if (!sample) {
@@ -86,7 +90,8 @@ void GUIPerformanceTest::test_domain_to_gui() {
 
 //! Creates gui sample once and then populates domain.
 
-void GUIPerformanceTest::test_gui_to_domain() {
+void GUIPerformanceTest::test_gui_to_domain()
+{
     static bool is_initialized(false);
 
     if (!is_initialized) {
@@ -106,7 +111,8 @@ void GUIPerformanceTest::test_gui_to_domain() {
         m_models->sampleModel()->multiLayerItem(), m_models->instrumentModel()->instrumentItem());
 }
 
-void GUIPerformanceTest::test_real_time() {
+void GUIPerformanceTest::test_real_time()
+{
     static JobItem* jobItem(0);
 
     if (!jobItem) {
@@ -158,6 +164,7 @@ void GUIPerformanceTest::test_real_time() {
     }
 }
 
-int main() {
+int main()
+{
     return !GUIPerformanceTest().runTest();
 }

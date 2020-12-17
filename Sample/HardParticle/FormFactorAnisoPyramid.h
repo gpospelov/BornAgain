@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorAnisoPyramid.h
 //! @brief     Defines class FormFactorAnisoPyramid
@@ -25,7 +25,8 @@ public:
     FormFactorAnisoPyramid(const std::vector<double> P);
     FormFactorAnisoPyramid(double length, double width, double height, double alpha);
 
-    FormFactorAnisoPyramid* clone() const final {
+    FormFactorAnisoPyramid* clone() const final
+    {
         return new FormFactorAnisoPyramid(m_length, m_width, m_height, m_alpha);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

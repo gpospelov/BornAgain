@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/utils/threadsafestack.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_UTILS_THREADSAFESTACK_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_UTILS_THREADSAFESTACK_H
@@ -43,13 +48,15 @@ private:
 public:
     threadsafe_stack() {}
     ~threadsafe_stack() { stop(); }
-    threadsafe_stack(const threadsafe_stack& other) {
+    threadsafe_stack(const threadsafe_stack& other)
+    {
         std::lock_guard<std::mutex> lock(m);
         data = other.data;
     }
     threadsafe_stack& operator=(const threadsafe_stack& other) = delete;
 
-    void push(T new_value) {
+    void push(T new_value)
+    {
         std::lock_guard<std::mutex> lock(m);
         data.push(std::move(new_value));
         data_condition.notify_one();
@@ -57,7 +64,8 @@ public:
 
     //! Updates top value in a stack.
 
-    void update_top(T new_value) {
+    void update_top(T new_value)
+    {
         std::lock_guard<std::mutex> lock(m);
         if (!data.empty())
             data.pop();
@@ -65,7 +73,8 @@ public:
         data_condition.notify_one();
     }
 
-    void wait_and_pop(T& value) {
+    void wait_and_pop(T& value)
+    {
         std::unique_lock<std::mutex> lock(m);
         data_condition.wait(lock, [this] { return !data.empty() || !in_waiting_state; });
         if (data.empty())
@@ -74,7 +83,8 @@ public:
         data.pop();
     }
 
-    std::shared_ptr<T> wait_and_pop() {
+    std::shared_ptr<T> wait_and_pop()
+    {
         std::unique_lock<std::mutex> lock(m);
         data_condition.wait(lock, [this] { return !data.empty() || !in_waiting_state; });
         if (data.empty())
@@ -84,7 +94,8 @@ public:
         return res;
     }
 
-    bool try_pop(T& value) {
+    bool try_pop(T& value)
+    {
         std::lock_guard<std::mutex> lock(m);
         if (data.empty())
             return false;
@@ -93,7 +104,8 @@ public:
         return true;
     }
 
-    std::shared_ptr<T> try_pop() {
+    std::shared_ptr<T> try_pop()
+    {
         std::lock_guard<std::mutex> lock(m);
         if (data.empty())
             return std::shared_ptr<T>();
@@ -102,14 +114,16 @@ public:
         return res;
     }
 
-    bool empty() const {
+    bool empty() const
+    {
         std::lock_guard<std::mutex> lock(m);
         return data.empty();
     }
 
     //! Terminates waiting in wait_and_pop methods.
 
-    void stop() {
+    void stop()
+    {
         std::lock_guard<std::mutex> lock(m);
         in_waiting_state = false;
         data_condition.notify_all();

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/BackgroundItems.cpp
 //! @brief     Implements BackgroundItem classes
@@ -23,7 +23,8 @@ BackgroundItem::BackgroundItem(const QString& model_type) : SessionItem(model_ty
 
 BackgroundNoneItem::BackgroundNoneItem() : BackgroundItem("NoBackground") {}
 
-std::unique_ptr<IBackground> BackgroundNoneItem::createBackground() const {
+std::unique_ptr<IBackground> BackgroundNoneItem::createBackground() const
+{
     return {};
 }
 
@@ -36,22 +37,26 @@ const QString constant_background_value_tooltip = "Constant background value [co
 
 const QString ConstantBackgroundItem::P_VALUE = QString::fromStdString("BackgroundValue");
 
-ConstantBackgroundItem::ConstantBackgroundItem() : BackgroundItem("ConstantBackground") {
+ConstantBackgroundItem::ConstantBackgroundItem() : BackgroundItem("ConstantBackground")
+{
     addProperty(P_VALUE, 0.0)
         ->setLimits(RealLimits::nonnegative())
         .setToolTip(constant_background_value_tooltip);
 }
 
-std::unique_ptr<IBackground> ConstantBackgroundItem::createBackground() const {
+std::unique_ptr<IBackground> ConstantBackgroundItem::createBackground() const
+{
     return std::make_unique<ConstantBackground>(getItemValue(P_VALUE).toDouble());
 }
 
 // Background consisting of Poisson noise
 /* ------------------------------------------------ */
 
-PoissonNoiseBackgroundItem::PoissonNoiseBackgroundItem()
-    : BackgroundItem("PoissonNoiseBackground") {}
+PoissonNoiseBackgroundItem::PoissonNoiseBackgroundItem() : BackgroundItem("PoissonNoiseBackground")
+{
+}
 
-std::unique_ptr<IBackground> PoissonNoiseBackgroundItem::createBackground() const {
+std::unique_ptr<IBackground> PoissonNoiseBackgroundItem::createBackground() const
+{
     return std::make_unique<PoissonNoiseBackground>();
 }

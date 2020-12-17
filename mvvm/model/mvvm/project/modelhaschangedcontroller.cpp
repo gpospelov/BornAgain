@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/project/modelhaschangedcontroller.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/project/modelhaschangedcontroller.h"
 
@@ -15,7 +20,8 @@ using namespace ModelView;
 //! Acccept 'model' to listen, and a 'callback' to report about changes in a model.
 
 ModelHasChangedController::ModelHasChangedController(SessionModel* model, callback_t callback)
-    : ModelListener(model), m_callback(callback) {
+    : ModelListener(model), m_callback(callback)
+{
     setOnDataChange([this](auto, auto) { process_change(); });
     setOnItemInserted([this](auto, auto) { process_change(); });
     setOnItemRemoved([this](auto, auto) { process_change(); });
@@ -24,19 +30,22 @@ ModelHasChangedController::ModelHasChangedController(SessionModel* model, callba
 
 //! Returns true if the model was changed since last call of resetChanged.
 
-bool ModelHasChangedController::hasChanged() const {
+bool ModelHasChangedController::hasChanged() const
+{
     return m_has_changed;
 }
 
 //! Reset has_changed flag.
 
-void ModelHasChangedController::resetChanged() {
+void ModelHasChangedController::resetChanged()
+{
     m_has_changed = false;
 }
 
 //! Sets 'has_changed' flag and reports back to client.
 
-void ModelHasChangedController::process_change() {
+void ModelHasChangedController::process_change()
+{
     m_has_changed = true;
     if (m_callback)
         m_callback();

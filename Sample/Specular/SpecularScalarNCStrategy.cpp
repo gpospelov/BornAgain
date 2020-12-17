@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Specular/SpecularScalarNCStrategy.cpp
 //! @brief     Implements class SpecularScalarNCStrategy.
@@ -16,7 +16,8 @@
 #include <Eigen/Dense>
 
 std::pair<complex_t, complex_t> SpecularScalarNCStrategy::transition(complex_t kzi, complex_t kzi1,
-                                                                     double sigma) const {
+                                                                     double sigma) const
+{
     complex_t roughness_diff = 1;
     complex_t roughness_sum = 1;
     if (sigma > 0.0) {

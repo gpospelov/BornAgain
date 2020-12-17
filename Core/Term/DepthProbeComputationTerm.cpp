@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Term/DepthProbeComputationTerm.cpp
 //! @brief     Implements functor DepthProbeComputationTerm.
@@ -21,15 +21,19 @@
 #include "Sample/RT/ILayerRTCoefficients.h"
 
 DepthProbeComputationTerm::DepthProbeComputationTerm(const ProcessedSample* p_sample)
-    : m_sample{p_sample} {}
+    : m_sample{p_sample}
+{
+}
 
 DepthProbeComputationTerm::~DepthProbeComputationTerm() = default;
 
-void DepthProbeComputationTerm::setProgressHandler(ProgressHandler* p_progress) {
+void DepthProbeComputationTerm::setProgressHandler(ProgressHandler* p_progress)
+{
     m_progress_counter = std::make_unique<DelayedProgressCounter>(p_progress, 100);
 }
 
-void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const {
+void DepthProbeComputationTerm::compute(DepthProbeElement& elem) const
+{
     if (elem.isCalculated()) {
         const IAxis& z_positions = *elem.getZPositions();
         const size_t n_z = z_positions.size();

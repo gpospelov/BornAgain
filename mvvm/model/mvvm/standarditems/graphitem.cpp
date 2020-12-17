@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/standarditems/graphitem.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/standarditems/graphitem.h"
 #include "mvvm/model/comboproperty.h"
@@ -16,7 +21,8 @@
 
 using namespace ModelView;
 
-GraphItem::GraphItem(const std::string& model_type) : CompoundItem(model_type) {
+GraphItem::GraphItem(const std::string& model_type) : CompoundItem(model_type)
+{
     addProperty<LinkedItem>(P_LINK)->setDisplayName("Link");
     addProperty<TextItem>(P_GRAPH_TITLE)->setDisplayName("Graph title");
     addProperty<PenItem>(P_PEN)->setDisplayName("Pen");
@@ -25,14 +31,16 @@ GraphItem::GraphItem(const std::string& model_type) : CompoundItem(model_type) {
 
 //! Sets link to the data item.
 
-void GraphItem::setDataItem(const Data1DItem* data_item) {
+void GraphItem::setDataItem(const Data1DItem* data_item)
+{
     item<LinkedItem>(P_LINK)->setLink(data_item);
 }
 
 //! Update item from the content of given graph. Link to the data will be set
 //! as in given item, other properties copied.
 
-void GraphItem::setFromGraphItem(const GraphItem* graph_item) {
+void GraphItem::setFromGraphItem(const GraphItem* graph_item)
+{
     setDataItem(graph_item->dataItem());
     auto pen = item<PenItem>(P_PEN);
     auto source_pen = graph_item->item<PenItem>(P_PEN);
@@ -43,35 +51,42 @@ void GraphItem::setFromGraphItem(const GraphItem* graph_item) {
 
 //! Returns data item linked to the given GraphItem.
 
-Data1DItem* GraphItem::dataItem() const {
+Data1DItem* GraphItem::dataItem() const
+{
     return item<LinkedItem>(P_LINK)->get<Data1DItem>();
 }
 
-std::vector<double> GraphItem::binCenters() const {
+std::vector<double> GraphItem::binCenters() const
+{
     return dataItem() ? dataItem()->binCenters() : std::vector<double>();
 }
 
-std::vector<double> GraphItem::binValues() const {
+std::vector<double> GraphItem::binValues() const
+{
     return dataItem() ? dataItem()->binValues() : std::vector<double>();
 }
 
-std::vector<double> GraphItem::binErrors() const {
+std::vector<double> GraphItem::binErrors() const
+{
     return dataItem() ? dataItem()->binErrors() : std::vector<double>();
 }
 
 //! Returns color name in #RRGGBB format.
 
-std::string GraphItem::colorName() const {
+std::string GraphItem::colorName() const
+{
     return penItem()->colorName();
 }
 
 //! Sets named color following schema from https://www.w3.org/TR/css-color-3/#svg-color.
 //! e.g. "mediumaquamarine"
 
-void GraphItem::setNamedColor(const std::string& named_color) {
+void GraphItem::setNamedColor(const std::string& named_color)
+{
     penItem()->setNamedColor(named_color);
 }
 
-PenItem* GraphItem::penItem() const {
+PenItem* GraphItem::penItem() const
+{
     return item<PenItem>(P_PEN);
 }

@@ -6,9 +6,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include "Tests/UnitTests/GUI/Utils.h"
 
-class TestGroupItem : public ::testing::Test {};
+class TestGroupItem : public ::testing::Test {
+};
 
-TEST_F(TestGroupItem, test_groupInfo) {
+TEST_F(TestGroupItem, test_groupInfo)
+{
     GroupInfo info("Group");
     info.add("BBB", "b_label");
     info.add("AAA", "a_label");
@@ -46,7 +48,8 @@ TEST_F(TestGroupItem, test_groupInfo) {
     EXPECT_THROW(info.add("CCC2", "c_label2"), GUIHelpers::Error);
 }
 
-TEST_F(TestGroupItem, test_CreateGroup) {
+TEST_F(TestGroupItem, test_CreateGroup)
+{
     SessionModel model("TestModel");
 
     GroupInfo groupInfo = SessionItemUtils::GetGroupInfo("Form Factor");
@@ -99,7 +102,8 @@ TEST_F(TestGroupItem, test_CreateGroup) {
 
 //! Checking that GroupProperty stays functional if displayName of currentItem is changed.
 
-TEST_F(TestGroupItem, test_groupPropertyWithDisplayNames) {
+TEST_F(TestGroupItem, test_groupPropertyWithDisplayNames)
+{
     GroupInfo groupInfo = SessionItemUtils::GetGroupInfo("Distribution group");
 
     GroupItem groupItem;

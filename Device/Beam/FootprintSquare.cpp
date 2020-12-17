@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Beam/FootprintSquare.cpp
 //! @brief     Implements class FootprintSquare.
@@ -18,16 +18,22 @@
 #include <stdexcept>
 
 FootprintSquare::FootprintSquare(const std::vector<double> P)
-    : IFootprintFactor({"FootprintSquare", "class_tooltip", {}}, P) {}
+    : IFootprintFactor({"FootprintSquare", "class_tooltip", {}}, P)
+{
+}
 
 FootprintSquare::FootprintSquare(double width_ratio)
-    : FootprintSquare(std::vector<double>{width_ratio}) {}
+    : FootprintSquare(std::vector<double>{width_ratio})
+{
+}
 
-FootprintSquare* FootprintSquare::clone() const {
+FootprintSquare* FootprintSquare::clone() const
+{
     return new FootprintSquare(m_width_ratio);
 }
 
-double FootprintSquare::calculate(double alpha) const {
+double FootprintSquare::calculate(double alpha) const
+{
     if (alpha < 0.0 || alpha > M_PI_2)
         return 0.0;
     if (widthRatio() == 0.0)

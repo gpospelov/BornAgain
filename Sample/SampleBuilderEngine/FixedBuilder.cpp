@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/SampleBuilderEngine/FixedBuilder.cpp
 //! @brief     Implements class FixedBuilder.
@@ -17,6 +17,7 @@
 
 FixedBuilder::FixedBuilder(const MultiLayer& sample) : m_sample(sample.clone()) {}
 
-MultiLayer* FixedBuilder::buildSample() const {
+MultiLayer* FixedBuilder::buildSample() const
+{
     return m_sample->clone();
 }

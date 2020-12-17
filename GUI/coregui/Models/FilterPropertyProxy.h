@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/FilterPropertyProxy.h
 //! @brief     Defines class FilterPropertyProxy
@@ -26,7 +26,9 @@ class FilterPropertyProxy : public QSortFilterProxyModel {
 
 public:
     FilterPropertyProxy(int columns, QObject* parent = 0)
-        : QSortFilterProxyModel(parent), m_columns(columns) {}
+        : QSortFilterProxyModel(parent), m_columns(columns)
+    {
+    }
     int columnCount(const QModelIndex& parent) const;
 
     static QModelIndex toSourceIndex(QModelIndex index);

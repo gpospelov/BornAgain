@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobListWidget.cpp
 //! @brief     Implements class JobListWidget
@@ -26,7 +26,8 @@ JobListWidget::JobListWidget(QWidget* parent)
     : QWidget(parent)
     , m_listViewDelegate(new JobListViewDelegate(this))
     , m_listView(new ItemSelectorWidget(this))
-    , m_jobModel(nullptr) {
+    , m_jobModel(nullptr)
+{
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     m_listView->listView()->setItemDelegate(m_listViewDelegate);
@@ -52,7 +53,8 @@ JobListWidget::JobListWidget(QWidget* parent)
             &JobListWidget::onItemSelectionChanged);
 }
 
-void JobListWidget::setModel(JobModel* model) {
+void JobListWidget::setModel(JobModel* model)
+{
     ASSERT(model);
     if (model != m_jobModel) {
         m_jobModel = model;
@@ -63,26 +65,31 @@ void JobListWidget::setModel(JobModel* model) {
     }
 }
 
-QItemSelectionModel* JobListWidget::selectionModel() {
+QItemSelectionModel* JobListWidget::selectionModel()
+{
     return m_listView->selectionModel();
 }
 
 //! Returns currently selected JobItem
 
-const JobItem* JobListWidget::currentJobItem() const {
+const JobItem* JobListWidget::currentJobItem() const
+{
     QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
     return selected.size() == 1 ? m_jobModel->getJobItemForIndex(selected.at(0)) : nullptr;
 }
 
-QSize JobListWidget::sizeHint() const {
+QSize JobListWidget::sizeHint() const
+{
     return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth() * 2);
 }
 
-QSize JobListWidget::minimumSizeHint() const {
+QSize JobListWidget::minimumSizeHint() const
+{
     return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth());
 }
 
-void JobListWidget::makeJobItemSelected(JobItem* jobItem) {
+void JobListWidget::makeJobItemSelected(JobItem* jobItem)
+{
     ASSERT(jobItem);
     QModelIndexList selected = m_listView->selectionModel()->selectedIndexes();
 
@@ -101,7 +108,8 @@ void JobListWidget::makeJobItemSelected(JobItem* jobItem) {
 //! Recieves SeesionItem from ItemSelectorWidget and emits it further as JobItem.
 //! Null item means the absence of selection.
 
-void JobListWidget::onItemSelectionChanged(SessionItem* item) {
+void JobListWidget::onItemSelectionChanged(SessionItem* item)
+{
     JobItem* jobItem(nullptr);
     if (item) {
         jobItem = dynamic_cast<JobItem*>(item);

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorFullSpheroid.h
 //! @brief     Defines class FormFactorFullSpheroid.
@@ -25,7 +25,8 @@ public:
     FormFactorFullSpheroid(const std::vector<double> P);
     FormFactorFullSpheroid(double radius, double height);
 
-    FormFactorFullSpheroid* clone() const final {
+    FormFactorFullSpheroid* clone() const final
+    {
         return new FormFactorFullSpheroid(m_radius, m_height);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

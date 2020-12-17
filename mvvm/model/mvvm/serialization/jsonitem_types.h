@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/serialization/jsonitem_types.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEM_TYPES_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEM_TYPES_H
@@ -48,12 +53,14 @@ enum class ConverterMode {
 };
 
 //! Returns true if given mode requires ID regeneration instead of using the one stored in JSON.
-inline bool isRegenerateIdWhenBackFromJson(ConverterMode mode) {
+inline bool isRegenerateIdWhenBackFromJson(ConverterMode mode)
+{
     return mode == ConverterMode::copy;
 }
 
 //! Returns true if item content should be reconstructed from JSON
-inline bool isRebuildItemDataAndTagFromJson(ConverterMode mode) {
+inline bool isRebuildItemDataAndTagFromJson(ConverterMode mode)
+{
     return mode != ConverterMode::project;
 }
 

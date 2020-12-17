@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Export/PyFmt2.cpp
 //! @brief     Implements functions from namespace pyfmt2.
@@ -38,7 +38,8 @@ namespace pyfmt2 {
 //! Returns fixed Python code snippet that defines the function "runSimulation".
 
 std::string representShape2D(const std::string& indent, const IShape2D* ishape, bool mask_value,
-                             std::function<std::string(double)> printValueFunc) {
+                             std::function<std::string(double)> printValueFunc)
+{
     std::ostringstream result;
     result << std::setprecision(12);
 
@@ -95,13 +96,15 @@ std::string representShape2D(const std::string& indent, const IShape2D* ishape, 
 
 //! Returns parameter value, followed by its unit multiplicator (like "* nm").
 
-std::string valueTimesUnit(const RealParameter* par) {
+std::string valueTimesUnit(const RealParameter* par)
+{
     return pyfmt::printValue(par->value(), par->unit());
 }
 
 //! Returns comma-separated list of parameter values, including unit multiplicator (like "* nm").
 
-std::string argumentList(const IParametricComponent* ip) {
+std::string argumentList(const IParametricComponent* ip)
+{
     std::vector<std::string> args;
     for (const auto* par : ip->parameterPool()->parameters())
         args.push_back(valueTimesUnit(par));
@@ -109,7 +112,8 @@ std::string argumentList(const IParametricComponent* ip) {
 }
 
 //! Prints an axis.
-std::string printAxis(const IAxis* axis, const std::string& unit) {
+std::string printAxis(const IAxis* axis, const std::string& unit)
+{
     std::ostringstream result;
     if (const auto* a = dynamic_cast<const FixedBinAxis*>(axis); a)
         result << "ba.FixedBinAxis(" << pyfmt::printString(a->getName()) << ", " << a->size()
@@ -130,7 +134,8 @@ std::string printAxis(const IAxis* axis, const std::string& unit) {
 //! Prints distribution with constructor parameters in given units.
 //! ba.DistributionGaussian(2.0*deg, 0.02*deg)
 
-std::string printDistribution(const IDistribution1D& par_distr, const std::string& units) {
+std::string printDistribution(const IDistribution1D& par_distr, const std::string& units)
+{
     std::unique_ptr<IDistribution1D> distr(par_distr.clone());
     distr->setUnits(units);
 
@@ -140,7 +145,8 @@ std::string printDistribution(const IDistribution1D& par_distr, const std::strin
 }
 
 std::string printParameterDistribution(const ParameterDistribution& par_distr,
-                                       const std::string& distVarName, const std::string& units) {
+                                       const std::string& distVarName, const std::string& units)
+{
     std::ostringstream result;
 
     result << "ba.ParameterDistribution("
@@ -152,7 +158,8 @@ std::string printParameterDistribution(const ParameterDistribution& par_distr,
     return result.str();
 }
 
-std::string printRangedDistribution(const IRangedDistribution& distr) {
+std::string printRangedDistribution(const IRangedDistribution& distr)
+{
     std::ostringstream result;
     result << pyfmt::indent() << "distribution = ba.";
     result << distr.name();

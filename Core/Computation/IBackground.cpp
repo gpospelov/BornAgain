@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Computation/IBackground.cpp
 //! @brief     Implements interface IBackground.
@@ -15,6 +15,8 @@
 #include "Core/Computation/IBackground.h"
 
 IBackground::IBackground(const NodeMeta& meta, const std::vector<double>& PValues)
-    : INode(meta, PValues) {}
+    : INode(meta, PValues)
+{
+}
 
 IBackground::~IBackground() = default;

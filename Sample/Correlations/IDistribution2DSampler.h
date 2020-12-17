@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Correlations/IDistribution2DSampler.h
 //! @brief     Defines interface class IFTDistribution1D, and children thereof
@@ -33,7 +33,9 @@ public:
 class Distribution2DCauchySampler : public IDistribution2DSampler {
 public:
     Distribution2DCauchySampler(double omega_x, double omega_y)
-        : m_omega_x(omega_x), m_omega_y(omega_y) {}
+        : m_omega_x(omega_x), m_omega_y(omega_y)
+    {
+    }
     std::pair<double, double> randomSample() const final;
 
 private:
@@ -43,7 +45,9 @@ private:
 class Distribution2DGaussSampler : public IDistribution2DSampler {
 public:
     Distribution2DGaussSampler(double omega_x, double omega_y)
-        : m_omega_x(omega_x), m_omega_y(omega_y) {}
+        : m_omega_x(omega_x), m_omega_y(omega_y)
+    {
+    }
     std::pair<double, double> randomSample() const final;
 
 private:
@@ -53,7 +57,9 @@ private:
 class Distribution2DGateSampler : public IDistribution2DSampler {
 public:
     Distribution2DGateSampler(double omega_x, double omega_y)
-        : m_omega_x(omega_x), m_omega_y(omega_y) {}
+        : m_omega_x(omega_x), m_omega_y(omega_y)
+    {
+    }
     std::pair<double, double> randomSample() const final;
 
 private:
@@ -63,7 +69,9 @@ private:
 class Distribution2DConeSampler : public IDistribution2DSampler {
 public:
     Distribution2DConeSampler(double omega_x, double omega_y)
-        : m_omega_x(omega_x), m_omega_y(omega_y) {}
+        : m_omega_x(omega_x), m_omega_y(omega_y)
+    {
+    }
     std::pair<double, double> randomSample() const final;
 
 private:

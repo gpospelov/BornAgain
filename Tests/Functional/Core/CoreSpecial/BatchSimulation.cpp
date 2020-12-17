@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Functional/Core/CoreSpecial/BatchSimulation.cpp
 //!
@@ -18,9 +18,11 @@
 #include <iostream>
 #include <memory>
 
-class BatchSimulation : public ::testing::Test {};
+class BatchSimulation : public ::testing::Test {
+};
 
-TEST_F(BatchSimulation, BatchSimulation) {
+TEST_F(BatchSimulation, BatchSimulation)
+{
     SimulationFactory sim_registry;
     const std::unique_ptr<ISimulation> simulation = sim_registry.createItemPtr("MiniGISAS");
 

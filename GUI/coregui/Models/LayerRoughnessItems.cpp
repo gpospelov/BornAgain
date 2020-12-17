@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/LayerRoughnessItems.cpp
 //! @brief     Implements classes LayerRoughnessItems
@@ -27,7 +27,8 @@ const QString LayerBasicRoughnessItem::P_HURST = QString::fromStdString("Hurst")
 const QString LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH =
     QString::fromStdString("CorrelationLength");
 
-LayerBasicRoughnessItem::LayerBasicRoughnessItem() : SessionItem("LayerBasicRoughness") {
+LayerBasicRoughnessItem::LayerBasicRoughnessItem() : SessionItem("LayerBasicRoughness")
+{
     setToolTip("A roughness of interface between two layers.");
     addProperty(P_SIGMA, 1.0)->setToolTip("rms of the roughness in nanometers");
     addProperty(P_HURST, 0.3)->setLimits(RealLimits::limited(0.0, 1.0)).setToolTip(hurst_tooltip);

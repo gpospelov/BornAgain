@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/InstrumentWidgets/InstrumentPresenter.cpp
 //! @brief     Implements class InstrumentPresenter
@@ -27,7 +27,8 @@ const QString SpecularPresentation = "Specular";
 const QString DepthProbePresentation = "DepthProbe";
 } // namespace
 
-InstrumentPresenter::InstrumentPresenter(QWidget* parent) : ItemComboWidget(parent) {
+InstrumentPresenter::InstrumentPresenter(QWidget* parent) : ItemComboWidget(parent)
+{
     registerWidget(GISASPresentation, create_new<GISASInstrumentEditor>);
     registerWidget(OffSpecularPresentation, create_new<OffSpecularInstrumentEditor>);
     registerWidget(SpecularPresentation, create_new<SpecularInstrumentEditor>);
@@ -35,7 +36,8 @@ InstrumentPresenter::InstrumentPresenter(QWidget* parent) : ItemComboWidget(pare
     setToolBarVisible(false);
 }
 
-QString InstrumentPresenter::itemPresentation() const {
+QString InstrumentPresenter::itemPresentation() const
+{
     if (!currentItem())
         return {};
 
@@ -53,7 +55,8 @@ QString InstrumentPresenter::itemPresentation() const {
                                 + currentItem()->modelType() + "'");
 }
 
-QStringList InstrumentPresenter::activePresentationList(SessionItem* item) {
+QStringList InstrumentPresenter::activePresentationList(SessionItem* item)
+{
     Q_UNUSED(item);
     return QStringList() << GISASPresentation << OffSpecularPresentation << SpecularPresentation
                          << DepthProbePresentation;

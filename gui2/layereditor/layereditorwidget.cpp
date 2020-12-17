@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/layereditor/layereditorwidget.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/layereditor/layereditorwidget.h"
 #include "gui2/layereditor/customlayertreeeditorfactory.h"
@@ -23,7 +28,8 @@ namespace gui2 {
 LayerEditorWidget::LayerEditorWidget(QWidget* parent)
     : QWidget(parent)
     , m_layerView(new LayerTreeView)
-    , m_delegate(std::make_unique<ModelView::ViewModelDelegate>()) {
+    , m_delegate(std::make_unique<ModelView::ViewModelDelegate>())
+{
     auto layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_layerView);
@@ -33,7 +39,8 @@ LayerEditorWidget::LayerEditorWidget(QWidget* parent)
 
 LayerEditorWidget::~LayerEditorWidget() = default;
 
-void LayerEditorWidget::setModels(ApplicationModels* models) {
+void LayerEditorWidget::setModels(ApplicationModels* models)
+{
     m_viewModel = std::make_unique<LayerViewModel>(models->sampleModel());
     m_selectionModel = new LayerSelectionModel(m_viewModel.get(), this);
 
@@ -43,7 +50,8 @@ void LayerEditorWidget::setModels(ApplicationModels* models) {
     m_layerView->setSelectionModel(m_selectionModel);
 }
 
-LayerSelectionModel* LayerEditorWidget::selectionModel() const {
+LayerSelectionModel* LayerEditorWidget::selectionModel() const
+{
     return m_selectionModel;
 }
 

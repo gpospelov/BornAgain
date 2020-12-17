@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/InfoWidgets/WarningSign.cpp
 //! @brief     Implements class WarningSign
@@ -30,13 +30,15 @@ WarningSign::WarningSign(QWidget* parent)
     , m_warning_header("Houston, we have a problem.")
     , m_warningWidget(0)
     , m_area(nullptr)
-    , m_clear_just_had_happened(false) {
+    , m_clear_just_had_happened(false)
+{
     setArea(parent);
 }
 
 //! Clears warning message;
 
-void WarningSign::clear() {
+void WarningSign::clear()
+{
     delete m_warningWidget;
     m_warningWidget = 0;
     m_warning_message.clear();
@@ -45,14 +47,16 @@ void WarningSign::clear() {
     QTimer::singleShot(10, this, [=]() { m_clear_just_had_happened = false; });
 }
 
-void WarningSign::setWarningHeader(const QString& warningHeader) {
+void WarningSign::setWarningHeader(const QString& warningHeader)
+{
     m_warning_header = warningHeader;
 }
 
 //! Shows warning sign on the screen. If clear of previous warning sign had happened just
 //! few msec ago, make a small delay, to stress its reapearance.
 
-void WarningSign::setWarningMessage(const QString& warningMessage) {
+void WarningSign::setWarningMessage(const QString& warningMessage)
+{
     ASSERT(m_area);
 
     if (m_clear_just_had_happened) {
@@ -71,23 +75,27 @@ void WarningSign::setWarningMessage(const QString& warningMessage) {
     }
 }
 
-void WarningSign::setArea(QWidget* area) {
+void WarningSign::setArea(QWidget* area)
+{
     m_area = area;
     m_area->installEventFilter(this);
 }
 
-bool WarningSign::isShown() const {
+bool WarningSign::isShown() const
+{
     return (m_warningWidget == nullptr ? false : true);
 }
 
-bool WarningSign::eventFilter(QObject* obj, QEvent* event) {
+bool WarningSign::eventFilter(QObject* obj, QEvent* event)
+{
     if (event->type() == QEvent::Resize)
         updateLabelGeometry();
 
     return QObject::eventFilter(obj, event);
 }
 
-void WarningSign::updateLabelGeometry() {
+void WarningSign::updateLabelGeometry()
+{
     if (!m_warningWidget || !m_area)
         return;
 
@@ -95,7 +103,8 @@ void WarningSign::updateLabelGeometry() {
     m_warningWidget->setPosition(pos.x(), pos.y());
 }
 
-QPoint WarningSign::positionForWarningSign() const {
+QPoint WarningSign::positionForWarningSign() const
+{
     ASSERT(m_area);
 
     int x = m_area->width() - xpos_offset;

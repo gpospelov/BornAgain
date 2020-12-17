@@ -86,7 +86,8 @@ public:
     QDesignerFormBuilder(QDesignerFormEditorInterface* core, Mode mode,
                          const DeviceProfile& deviceProfile = DeviceProfile());
 
-    virtual QWidget* createWidget(DomWidget* ui_widget, QWidget* parentWidget = 0) {
+    virtual QWidget* createWidget(DomWidget* ui_widget, QWidget* parentWidget = 0)
+    {
         return QFormBuilder::createItemPtr(ui_widget, parentWidget);
     }
 

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/serialization/jsonitemcopystrategy.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/serialization/jsonitemcopystrategy.h"
 #include "mvvm/factories/itemconverterfactory.h"
@@ -19,13 +24,15 @@ struct JsonItemCopyStrategy::JsonItemCopyStrategyImpl {
 };
 
 JsonItemCopyStrategy::JsonItemCopyStrategy(const ItemFactoryInterface* item_factory)
-    : p_impl(std::make_unique<JsonItemCopyStrategyImpl>()) {
+    : p_impl(std::make_unique<JsonItemCopyStrategyImpl>())
+{
     p_impl->m_converter = CreateItemCopyConverter(item_factory);
 }
 
 JsonItemCopyStrategy::~JsonItemCopyStrategy() = default;
 
-std::unique_ptr<SessionItem> JsonItemCopyStrategy::createCopy(const SessionItem* item) const {
+std::unique_ptr<SessionItem> JsonItemCopyStrategy::createCopy(const SessionItem* item) const
+{
     auto json = p_impl->m_converter->to_json(item);
     return p_impl->m_converter->from_json(json);
 }

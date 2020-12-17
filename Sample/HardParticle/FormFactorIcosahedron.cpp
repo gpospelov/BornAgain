@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorIcosahedron.cpp
 //! @brief     Implements class FormFactorIcosahedron.
@@ -45,14 +45,18 @@ const PolyhedralTopology FormFactorIcosahedron::topology = {{// bottom:
 FormFactorIcosahedron::FormFactorIcosahedron(const std::vector<double> P)
     : IFormFactorPolyhedron(
         {"Icosahedron", "regular icosahedron", {{"Edge", "nm", "edge length", 0, +INF, 0}}}, P)
-    , m_edge(m_P[0]) {
+    , m_edge(m_P[0])
+{
     onChange();
 }
 
 FormFactorIcosahedron::FormFactorIcosahedron(double edge)
-    : FormFactorIcosahedron(std::vector<double>{edge}) {}
+    : FormFactorIcosahedron(std::vector<double>{edge})
+{
+}
 
-void FormFactorIcosahedron::onChange() {
+void FormFactorIcosahedron::onChange()
+{
     double a = m_edge;
     setPolyhedron(topology, -0.7557613140761708 * a,
                   {{0.5773502691896258 * a, 0 * a, -0.7557613140761708 * a},

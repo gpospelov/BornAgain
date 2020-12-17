@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/mainwindow/StyledToolBar.cpp
 //! @brief     Implements class StyledToolBar
@@ -16,7 +16,8 @@
 #include <QLabel>
 #include <QStyle>
 
-StyledToolBar::StyledToolBar(QWidget* parent) : QToolBar(parent) {
+StyledToolBar::StyledToolBar(QWidget* parent) : QToolBar(parent)
+{
     setMovable(false);
     const int size = style()->pixelMetric(QStyle::PM_ToolBarIconSize);
     setIconSize(QSize(size, size));
@@ -24,7 +25,8 @@ StyledToolBar::StyledToolBar(QWidget* parent) : QToolBar(parent) {
     setContentsMargins(0, 0, 0, 0);
 }
 
-void StyledToolBar::addStyledSeparator() {
+void StyledToolBar::addStyledSeparator()
+{
     addWidget(new QLabel(" "));
     addSeparator();
     addWidget(new QLabel(" "));
@@ -32,18 +34,21 @@ void StyledToolBar::addStyledSeparator() {
 
 //! Width of the spacing between buttons
 
-void StyledToolBar::addSpacing(int width) {
+void StyledToolBar::addSpacing(int width)
+{
     QString space;
     space.fill(' ', width);
     addWidget(new QLabel(space));
 }
 
-void StyledToolBar::addStyledExpand() {
+void StyledToolBar::addStyledExpand()
+{
     QWidget* empty = new QWidget();
     empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     addWidget(empty);
 }
 
-void StyledToolBar::contextMenuEvent(QContextMenuEvent*) {
+void StyledToolBar::contextMenuEvent(QContextMenuEvent*)
+{
     // Context menu reimplemented to suppress the default one
 }

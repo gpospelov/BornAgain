@@ -37,7 +37,8 @@ public:
         ModelView::GraphItem* graph0{nullptr};
         ModelView::GraphItem* graph1{nullptr};
         ImportDataEditorActions actions{&data_model};
-        TestData() {
+        TestData()
+        {
             canvas0 = data_model.addCanvas();
 
             GraphImportData raw_data = {"", {42}, "", {42}, ""};
@@ -54,7 +55,8 @@ ImportDataEditorActionsTest::~ImportDataEditorActionsTest() = default;
 
 //! Checks onAddCanvas.
 
-TEST_F(ImportDataEditorActionsTest, onAddCanvas) {
+TEST_F(ImportDataEditorActionsTest, onAddCanvas)
+{
     ExperimentalDataModel model;
     ImportDataEditorActions actions(&model);
 
@@ -65,7 +67,8 @@ TEST_F(ImportDataEditorActionsTest, onAddCanvas) {
 
 //! Checks onAddCanvas.
 
-TEST_F(ImportDataEditorActionsTest, onDeleteItem) {
+TEST_F(ImportDataEditorActionsTest, onDeleteItem)
+{
     TestData test_data;
     EXPECT_EQ(test_data.data_model.canvasContainer()->canvasItems().size(), 1);
     EXPECT_EQ(test_data.data_model.dataContainer()->dataItems().size(), 2);
@@ -80,7 +83,8 @@ TEST_F(ImportDataEditorActionsTest, onDeleteItem) {
 
 //! Checks line style change on selection changed.
 
-TEST_F(ImportDataEditorActionsTest, onSelectionChanged) {
+TEST_F(ImportDataEditorActionsTest, onSelectionChanged)
+{
     TestData test_data;
 
     test_data.selection_model.selectItem(test_data.graph0);

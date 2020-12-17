@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/view/mvvm/plotting/data2dplotcontroller.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/plotting/data2dplotcontroller.h"
 #include "mvvm/standarditems/axisitems.h"
@@ -18,7 +23,8 @@ using namespace ModelView;
 
 namespace {
 //! Returns QCPRange of axis.
-QCPRange qcpRange(const BinnedAxisItem* axis) {
+QCPRange qcpRange(const BinnedAxisItem* axis)
+{
     auto centers = axis->binCenters(); // QCPColorMapData expects centers of bin
     return centers.empty() ? QCPRange() : QCPRange(centers.front(), centers.back());
 }
@@ -28,14 +34,16 @@ struct Data2DPlotController::Data2DPlotControllerImpl {
     Data2DPlotController* master{nullptr};
     QCPColorMap* color_map{nullptr};
     Data2DPlotControllerImpl(Data2DPlotController* master, QCPColorMap* color_map)
-        : master(master), color_map(color_map) {
+        : master(master), color_map(color_map)
+    {
         if (!color_map)
             throw std::runtime_error("Uninitialised colormap in Data2DPlotController");
     }
 
     Data2DItem* dataItem() { return master->currentItem(); }
 
-    void update_data_points() {
+    void update_data_points()
+    {
         reset_colormap();
 
         if (auto data_item = dataItem(); data_item) {
@@ -65,17 +73,21 @@ struct Data2DPlotController::Data2DPlotControllerImpl {
 };
 
 Data2DPlotController::Data2DPlotController(QCPColorMap* color_map)
-    : p_impl(std::make_unique<Data2DPlotControllerImpl>(this, color_map)) {}
+    : p_impl(std::make_unique<Data2DPlotControllerImpl>(this, color_map))
+{
+}
 
 Data2DPlotController::~Data2DPlotController() = default;
 
-void Data2DPlotController::subscribe() {
+void Data2DPlotController::subscribe()
+{
     auto on_data_change = [this](SessionItem*, int) { p_impl->update_data_points(); };
     setOnDataChange(on_data_change);
 
     p_impl->update_data_points();
 }
 
-void Data2DPlotController::unsubscribe() {
+void Data2DPlotController::unsubscribe()
+{
     p_impl->reset_colormap();
 }

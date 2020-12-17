@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/mainwindow/SaveThread.cpp
 //! @brief     Defines SaveThread classes
@@ -18,17 +18,20 @@
 
 SaveThread::SaveThread(QObject* parent) : QThread(parent), m_document(nullptr) {}
 
-SaveThread::~SaveThread() {
+SaveThread::~SaveThread()
+{
     wait();
 }
 
-void SaveThread::run() {
+void SaveThread::run()
+{
     ASSERT(m_document);
     m_document->save_project_data(m_projectFile);
     emit saveReady();
 }
 
-void SaveThread::setSaveContext(ProjectDocument* document, const QString& project_file_name) {
+void SaveThread::setSaveContext(ProjectDocument* document, const QString& project_file_name)
+{
     m_document = document;
     m_projectFile = project_file_name;
 }

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/projectutils.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "folderbasedtest.h"
 #include "google_test.h"
@@ -26,13 +31,16 @@ class ProjectUtilsTest : public FolderBasedTest {
 public:
     ProjectUtilsTest()
         : FolderBasedTest("test_ProjectUtils")
-        , sample_model(std::make_unique<SessionModel>("SampleModel")) {}
+        , sample_model(std::make_unique<SessionModel>("SampleModel"))
+    {
+    }
 
     ~ProjectUtilsTest();
 
     std::vector<SessionModel*> models() const { return {sample_model.get()}; };
 
-    ProjectContext createContext() {
+    ProjectContext createContext()
+    {
         ProjectContext result;
         result.m_models_callback = [this]() { return models(); };
         return result;
@@ -45,17 +53,20 @@ ProjectUtilsTest::~ProjectUtilsTest() = default;
 
 //! Testing helper structure.
 
-TEST_F(ProjectUtilsTest, SuggestFileName) {
+TEST_F(ProjectUtilsTest, SuggestFileName)
+{
     SessionModel model("TestModel");
     EXPECT_EQ(std::string("testmodel.json"), ProjectUtils::SuggestFileName(model));
 }
 
-TEST_F(ProjectUtilsTest, CreateUntitledProject) {
+TEST_F(ProjectUtilsTest, CreateUntitledProject)
+{
     auto project = ProjectUtils::CreateUntitledProject(createContext());
     EXPECT_TRUE(project->projectDir().empty());
 }
 
-TEST_F(ProjectUtilsTest, ProjectWindowTitle) {
+TEST_F(ProjectUtilsTest, ProjectWindowTitle)
+{
     auto project = ProjectUtils::CreateUntitledProject(createContext());
 
     // unmodified project without projectDir
@@ -73,7 +84,8 @@ TEST_F(ProjectUtilsTest, ProjectWindowTitle) {
     EXPECT_EQ(ProjectUtils::ProjectWindowTitle(*project), "*" + testDir());
 }
 
-TEST_F(ProjectUtilsTest, IsPossibleProjectDir) {
+TEST_F(ProjectUtilsTest, IsPossibleProjectDir)
+{
     auto project = ProjectUtils::CreateUntitledProject(createContext());
 
     // empty directory can't be a project directory

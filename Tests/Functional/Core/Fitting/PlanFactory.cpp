@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Functional/Core/Fitting/PlanFactory.cpp
 //! @brief     Implements class PlanFactory
@@ -16,7 +16,8 @@
 #include "Tests/Functional/Core/Fitting/AdjustMinimizerPlan.h"
 #include "Tests/Functional/Core/Fitting/PlanCases.h"
 
-PlanFactory::PlanFactory() {
+PlanFactory::PlanFactory()
+{
     registerItem("CylindersInBAPlan", create_new<CylindersInBAPlan>);
     registerItem("CylindersInBAEasyPlan", create_new<CylindersInBAEasyPlan>);
     registerItem("CylindersInBAResidualPlan", create_new<CylindersInBAResidualPlan>);

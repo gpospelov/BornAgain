@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/editors/externalpropertyeditor.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/editors/externalpropertyeditor.h"
 #include "mvvm/editors/customeventfilters.h"
@@ -48,18 +53,21 @@ ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     setLayout(layout);
 }
 
-void ExternalPropertyEditor::setCallback(std::function<void(const QVariant&)> callback) {
+void ExternalPropertyEditor::setCallback(std::function<void(const QVariant&)> callback)
+{
     m_callback = std::move(callback);
 }
 
-void ExternalPropertyEditor::buttonClicked() {
+void ExternalPropertyEditor::buttonClicked()
+{
     if (m_callback)
         m_callback(m_data);
     else
         QMessageBox::warning(nullptr, "Not configured", "No external dialog configured.");
 }
 
-void ExternalPropertyEditor::update_components() {
+void ExternalPropertyEditor::update_components()
+{
     if (!Utils::IsExtPropertyVariant(m_data))
         throw std::runtime_error("Error. Wrong variant type (ExternalProperty is required).");
 

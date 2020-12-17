@@ -26,18 +26,21 @@ public:
     ~ParseUtilsTest();
 
     std::vector<std::pair<int, int>>
-    toPairVector(std::initializer_list<std::pair<int, int>> list = {}) {
+    toPairVector(std::initializer_list<std::pair<int, int>> list = {})
+    {
         return std::vector<std::pair<int, int>>(list.begin(), list.end());
     }
 
-    std::vector<double> toVector(std::initializer_list<double> args) {
+    std::vector<double> toVector(std::initializer_list<double> args)
+    {
         return std::vector<double>(args.begin(), args.end());
     };
 };
 
 ParseUtilsTest::~ParseUtilsTest() = default;
 
-TEST_F(ParseUtilsTest, LoadASCIIFile) {
+TEST_F(ParseUtilsTest, LoadASCIIFile)
+{
     std::string content = {"abc abc\n 123 456\n"};
     auto file_name = TestUtils::CreateTestFile(testPath(), "a.txt", content);
 
@@ -49,7 +52,8 @@ TEST_F(ParseUtilsTest, LoadASCIIFile) {
 
 //! Testing local utility function.
 
-TEST_F(ParseUtilsTest, toStringVector) {
+TEST_F(ParseUtilsTest, toStringVector)
+{
     std::vector<std::string> expected;
 
     expected = {};
@@ -67,7 +71,8 @@ TEST_F(ParseUtilsTest, toStringVector) {
 
 //! Testing local utility function.
 
-TEST_F(ParseUtilsTest, toPairVector) {
+TEST_F(ParseUtilsTest, toPairVector)
+{
     std::vector<std::pair<int, int>> expected;
 
     expected = {};
@@ -81,7 +86,8 @@ TEST_F(ParseUtilsTest, toPairVector) {
 //! Checking method to expand line numbers
 //! "1, 2-4" -> {0, 0}, {1, 3}
 
-TEST_F(ParseUtilsTest, ExpandLineNumberPattern) {
+TEST_F(ParseUtilsTest, ExpandLineNumberPattern)
+{
     using Utils::ExpandLineNumberPattern;
     EXPECT_EQ(ExpandLineNumberPattern(""), toPairVector());
     EXPECT_EQ(ExpandLineNumberPattern(" "), toPairVector());
@@ -109,7 +115,8 @@ TEST_F(ParseUtilsTest, ExpandLineNumberPattern) {
     EXPECT_EQ(ExpandLineNumberPattern("6-5"), toPairVector()); // wrong order
 }
 
-TEST_F(ParseUtilsTest, CreateLineNumberPatternValidator) {
+TEST_F(ParseUtilsTest, CreateLineNumberPatternValidator)
+{
     using Utils::CreateLineNumberPatternValidator;
 
     auto is_accepted = CreateLineNumberPatternValidator("1");
@@ -138,7 +145,8 @@ TEST_F(ParseUtilsTest, CreateLineNumberPatternValidator) {
     EXPECT_FALSE(is_accepted(47));
 }
 
-TEST_F(ParseUtilsTest, CreateLinePrefixValidator) {
+TEST_F(ParseUtilsTest, CreateLinePrefixValidator)
+{
     using Utils::CreateLinePrefixValidator;
 
     auto is_accepted = CreateLinePrefixValidator("");
@@ -155,7 +163,8 @@ TEST_F(ParseUtilsTest, CreateLinePrefixValidator) {
     EXPECT_TRUE(is_accepted("42  "));
 }
 
-TEST_F(ParseUtilsTest, CreateSeparatorSplitter) {
+TEST_F(ParseUtilsTest, CreateSeparatorSplitter)
+{
     using Utils::CreateSeparatorBasedSplitter;
 
     auto parse = CreateSeparatorBasedSplitter(",");
@@ -175,15 +184,18 @@ TEST_F(ParseUtilsTest, CreateSeparatorSplitter) {
     EXPECT_EQ(parse(" a    b "), toStringVector("a", "b"));
 }
 
-TEST_F(ParseUtilsTest, AddHtmlColorTag) {
+TEST_F(ParseUtilsTest, AddHtmlColorTag)
+{
     EXPECT_EQ(Utils::AddHtmlColorTag("abc", "x"), "<font color=\"x\">abc</font>");
 }
 
-TEST_F(ParseUtilsTest, AddHtmlDivTag) {
+TEST_F(ParseUtilsTest, AddHtmlDivTag)
+{
     EXPECT_EQ(Utils::AddHtmlDivTag("abc"), "<div>abc</div>");
 }
 
-TEST_F(ParseUtilsTest, AddHtmlColorTagToParts) {
+TEST_F(ParseUtilsTest, AddHtmlColorTagToParts)
+{
     auto parse = Utils::CreateSeparatorBasedSplitter(",");
     std::string line("a,b");
     EXPECT_EQ(Utils::AddHtmlColorTagToParts(line, parse(line), "A", "B"),
@@ -197,7 +209,8 @@ TEST_F(ParseUtilsTest, AddHtmlColorTagToParts) {
               "color=\"A\">efg</font></div>");
 }
 
-TEST_F(ParseUtilsTest, ExtractTwoColumns) {
+TEST_F(ParseUtilsTest, ExtractTwoColumns)
+{
     using Utils::ExtractTwoColumns;
 
     auto result = ExtractTwoColumns({{}}, 0, 0);
@@ -226,7 +239,8 @@ TEST_F(ParseUtilsTest, ExtractTwoColumns) {
 
 //! Checks method CreateGraphInfoPairs.
 
-TEST_F(ParseUtilsTest, CreateGraphInfoPairs) {
+TEST_F(ParseUtilsTest, CreateGraphInfoPairs)
+{
     ColumnInfo col0{0, Constants::AxisType, "", 0};
     ColumnInfo col1{1, Constants::IntensityType, "", 0};
     ColumnInfo col2{2, Constants::IgnoreType, "", 0};
@@ -246,7 +260,8 @@ TEST_F(ParseUtilsTest, CreateGraphInfoPairs) {
     EXPECT_EQ(info_pairs[1].second.column, 3);
 }
 
-TEST_F(ParseUtilsTest, CreateData) {
+TEST_F(ParseUtilsTest, CreateData)
+{
     ColumnInfo col0{0, Constants::AxisType, "units0", 1.0};
     ColumnInfo col2{2, Constants::IntensityType, "units2", 2.0};
 

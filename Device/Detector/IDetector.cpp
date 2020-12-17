@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Detector/IDetector.cpp
 //! @brief     Implements common detector interface.
@@ -19,7 +19,8 @@
 #include "Device/Detector/SimulationArea.h"
 #include "Device/Resolution/ConvolutionDetectorResolution.h"
 
-IDetector::IDetector() {
+IDetector::IDetector()
+{
     registerChild(&m_detection_properties);
 }
 
@@ -27,7 +28,8 @@ IDetector::IDetector(const IDetector& other)
     : ICloneable()
     , INode()
     , m_axes(other.m_axes)
-    , m_detection_properties(other.m_detection_properties) {
+    , m_detection_properties(other.m_detection_properties)
+{
     if (other.m_detector_resolution)
         setDetectorResolution(*other.m_detector_resolution);
     setName(other.getName());
@@ -36,25 +38,30 @@ IDetector::IDetector(const IDetector& other)
 
 IDetector::~IDetector() = default;
 
-void IDetector::addAxis(const IAxis& axis) {
+void IDetector::addAxis(const IAxis& axis)
+{
     m_axes.push_back(axis.clone());
 }
 
-size_t IDetector::dimension() const {
+size_t IDetector::dimension() const
+{
     return m_axes.size();
 }
 
-void IDetector::clear() {
+void IDetector::clear()
+{
     m_axes.clear();
 }
 
-const IAxis& IDetector::axis(size_t index) const {
+const IAxis& IDetector::axis(size_t index) const
+{
     if (index < dimension())
         return *m_axes[index];
     throw std::runtime_error("Error in IDetector::getAxis: not so many axes in this detector.");
 }
 
-size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const {
+size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const
+{
     const size_t dim = dimension();
     size_t remainder(index);
     size_t i_axis = dim;
@@ -69,7 +76,8 @@ size_t IDetector::axisBinIndex(size_t index, size_t selected_axis) const {
 }
 
 std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins, double min,
-                                             double max) const {
+                                             double max) const
+{
     if (max <= min)
         throw std::runtime_error("IDetector::createAxis() -> Error! max <= min");
     if (n_bins == 0)
@@ -77,7 +85,8 @@ std::unique_ptr<IAxis> IDetector::createAxis(size_t index, size_t n_bins, double
     return std::make_unique<FixedBinAxis>(axisName(index), n_bins, min, max);
 }
 
-size_t IDetector::totalSize() const {
+size_t IDetector::totalSize() const
+{
     const size_t dim = dimension();
     if (dim == 0)
         return 0;
@@ -88,22 +97,26 @@ size_t IDetector::totalSize() const {
 }
 
 void IDetector::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                      double total_transmission) {
+                                      double total_transmission)
+{
     m_detection_properties.setAnalyzerProperties(direction, efficiency, total_transmission);
 }
 
-void IDetector::setDetectorResolution(const IDetectorResolution& p_detector_resolution) {
+void IDetector::setDetectorResolution(const IDetectorResolution& p_detector_resolution)
+{
     m_detector_resolution.reset(p_detector_resolution.clone());
     registerChild(m_detector_resolution.get());
 }
 
 // TODO: pass dimension-independent argument to this function
-void IDetector::setResolutionFunction(const IResolutionFunction2D& resFunc) {
+void IDetector::setResolutionFunction(const IResolutionFunction2D& resFunc)
+{
     ConvolutionDetectorResolution convFunc(resFunc);
     setDetectorResolution(convFunc);
 }
 
-void IDetector::applyDetectorResolution(OutputData<double>* p_intensity_map) const {
+void IDetector::applyDetectorResolution(OutputData<double>* p_intensity_map) const
+{
     if (!p_intensity_map)
         throw std::runtime_error("IDetector::applyDetectorResolution() -> "
                                  "Error! Null pointer to intensity map");
@@ -122,12 +135,14 @@ void IDetector::applyDetectorResolution(OutputData<double>* p_intensity_map) con
     }
 }
 
-const IDetectorResolution* IDetector::detectorResolution() const {
+const IDetectorResolution* IDetector::detectorResolution() const
+{
     return m_detector_resolution.get();
 }
 
 OutputData<double>*
-IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements) const {
+IDetector::createDetectorIntensity(const std::vector<SimulationElement>& elements) const
+{
     std::unique_ptr<OutputData<double>> detectorMap(createDetectorMap());
     if (!detectorMap)
         throw std::runtime_error("Instrument::createDetectorIntensity:"
@@ -140,7 +155,8 @@ IDetector::createDetectorIntensity(const std::vector<SimulationElement>& element
     return detectorMap.release();
 }
 
-std::unique_ptr<OutputData<double>> IDetector::createDetectorMap() const {
+std::unique_ptr<OutputData<double>> IDetector::createDetectorMap() const
+{
     const size_t dim = dimension();
     if (dim == 0)
         throw std::runtime_error(
@@ -157,7 +173,8 @@ std::unique_ptr<OutputData<double>> IDetector::createDetectorMap() const {
 }
 
 void IDetector::setDataToDetectorMap(OutputData<double>& detectorMap,
-                                     const std::vector<SimulationElement>& elements) const {
+                                     const std::vector<SimulationElement>& elements) const
+{
     if (elements.empty())
         return;
     iterate([&](const_iterator it) {
@@ -165,18 +182,20 @@ void IDetector::setDataToDetectorMap(OutputData<double>& detectorMap,
     });
 }
 
-size_t IDetector::numberOfSimulationElements() const {
+size_t IDetector::numberOfSimulationElements() const
+{
     size_t result(0);
     iterate([&result](const_iterator) { ++result; });
     return result;
 }
 
-std::vector<const INode*> IDetector::getChildren() const {
+std::vector<const INode*> IDetector::getChildren() const
+{
     return std::vector<const INode*>() << &m_detection_properties << m_detector_resolution;
 }
 
-void IDetector::iterate(std::function<void(IDetector::const_iterator)> func,
-                        bool visit_masks) const {
+void IDetector::iterate(std::function<void(IDetector::const_iterator)> func, bool visit_masks) const
+{
     if (this->dimension() == 0)
         return;
 

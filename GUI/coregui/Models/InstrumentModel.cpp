@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/InstrumentModel.cpp
 //! @brief     Implements class InstrumentModel
@@ -17,19 +17,22 @@
 #include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
 
 InstrumentModel::InstrumentModel(QObject* parent)
-    : SessionModel(SessionXML::InstrumentModelTag, parent) {
+    : SessionModel(SessionXML::InstrumentModelTag, parent)
+{
     setObjectName(SessionXML::InstrumentModelTag);
 }
 
 InstrumentModel::~InstrumentModel() = default;
 
-InstrumentModel* InstrumentModel::createCopy(SessionItem* parent) {
+InstrumentModel* InstrumentModel::createCopy(SessionItem* parent)
+{
     InstrumentModel* result = new InstrumentModel();
     result->initFrom(this, parent);
     return result;
 }
 
-QVector<SessionItem*> InstrumentModel::nonXMLData() const {
+QVector<SessionItem*> InstrumentModel::nonXMLData() const
+{
     QVector<SessionItem*> result;
 
     for (auto instrument_item : topItems<SpecularInstrumentItem>()) {
@@ -44,6 +47,7 @@ QVector<SessionItem*> InstrumentModel::nonXMLData() const {
     return result;
 }
 
-InstrumentItem* InstrumentModel::instrumentItem() {
+InstrumentItem* InstrumentModel::instrumentItem()
+{
     return topItem<InstrumentItem>();
 }

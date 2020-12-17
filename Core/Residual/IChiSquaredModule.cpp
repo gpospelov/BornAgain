@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Residual/IChiSquaredModule.cpp
 //! @brief     Implements interface IChiSquaredModule.
@@ -18,11 +18,13 @@
 
 IChiSquaredModule::IChiSquaredModule() : m_variance_function(new VarianceSimFunction) {}
 
-const IVarianceFunction* IChiSquaredModule::varianceFunction() const {
+const IVarianceFunction* IChiSquaredModule::varianceFunction() const
+{
     return m_variance_function.get();
 }
 
-IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other) : ICloneable() {
+IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other) : ICloneable()
+{
     if (other.m_variance_function)
         m_variance_function.reset(other.m_variance_function->clone());
 
@@ -32,14 +34,17 @@ IChiSquaredModule::IChiSquaredModule(const IChiSquaredModule& other) : ICloneabl
 
 IChiSquaredModule::~IChiSquaredModule() = default;
 
-void IChiSquaredModule::setVarianceFunction(const IVarianceFunction& variance_function) {
+void IChiSquaredModule::setVarianceFunction(const IVarianceFunction& variance_function)
+{
     m_variance_function.reset(variance_function.clone());
 }
 
-const IIntensityFunction* IChiSquaredModule::getIntensityFunction() const {
+const IIntensityFunction* IChiSquaredModule::getIntensityFunction() const
+{
     return m_intensity_function.get();
 }
 
-void IChiSquaredModule::setIntensityFunction(const IIntensityFunction& intensity_function) {
+void IChiSquaredModule::setIntensityFunction(const IIntensityFunction& intensity_function)
+{
     m_intensity_function.reset(intensity_function.clone());
 }

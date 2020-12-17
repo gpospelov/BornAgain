@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/DomainObjectBuilder.cpp
 //! @brief     Implements DomainObjectBuilder namespace
@@ -29,8 +29,8 @@
 #include "GUI/coregui/Models/TransformToDomain.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-std::unique_ptr<MultiLayer>
-DomainObjectBuilder::buildMultiLayer(const SessionItem& multilayer_item) {
+std::unique_ptr<MultiLayer> DomainObjectBuilder::buildMultiLayer(const SessionItem& multilayer_item)
+{
     auto P_multilayer = TransformToDomain::createMultiLayer(multilayer_item);
     QVector<SessionItem*> children = multilayer_item.children();
     for (int i = 0; i < children.size(); ++i) {
@@ -51,7 +51,8 @@ DomainObjectBuilder::buildMultiLayer(const SessionItem& multilayer_item) {
     return P_multilayer;
 }
 
-std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem& item) {
+std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem& item)
+{
     auto P_layer = TransformToDomain::createLayer(item);
     QVector<SessionItem*> children = item.children();
     for (int i = 0; i < children.size(); ++i) {
@@ -65,7 +66,8 @@ std::unique_ptr<Layer> DomainObjectBuilder::buildLayer(const SessionItem& item) 
     return P_layer;
 }
 
-std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(const SessionItem& item) {
+std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(const SessionItem& item)
+{
     auto P_layout = TransformToDomain::createParticleLayout(item);
     QVector<SessionItem*> children = item.getItems();
     for (int i = 0; i < children.size(); ++i) {
@@ -115,19 +117,22 @@ std::unique_ptr<ParticleLayout> DomainObjectBuilder::buildParticleLayout(const S
 }
 
 std::unique_ptr<IInterferenceFunction>
-DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item) {
+DomainObjectBuilder::buildInterferenceFunction(const SessionItem& item)
+{
     auto iffItem = dynamic_cast<const InterferenceFunctionItem*>(&item);
     ASSERT(iffItem);
     return iffItem->createInterferenceFunction();
 }
 
 std::unique_ptr<Instrument>
-DomainObjectBuilder::buildInstrument(const InstrumentItem& instrumentItem) {
+DomainObjectBuilder::buildInstrument(const InstrumentItem& instrumentItem)
+{
     return instrumentItem.createInstrument();
 }
 
 std::unique_ptr<IUnitConverter>
-DomainObjectBuilder::createUnitConverter(const InstrumentItem* instrumentItem) {
+DomainObjectBuilder::createUnitConverter(const InstrumentItem* instrumentItem)
+{
     if (auto specular_instrument = dynamic_cast<const SpecularInstrumentItem*>(instrumentItem))
         return specular_instrument->createUnitConverter();
     else if (auto depth_instrument = dynamic_cast<const DepthProbeInstrumentItem*>(instrumentItem))

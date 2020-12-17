@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Specular/SpecularScalarTanhStrategy.cpp
 //! @brief     Implements class SpecularScalarTanhStrategy.
@@ -22,7 +22,8 @@ const double pi2_15 = std::pow(M_PI_2, 1.5);
 }
 
 std::pair<complex_t, complex_t>
-SpecularScalarTanhStrategy::transition(complex_t kzi, complex_t kzi1, double sigma) const {
+SpecularScalarTanhStrategy::transition(complex_t kzi, complex_t kzi1, double sigma) const
+{
     complex_t roughness = 1;
     if (sigma > 0.0) {
         const double sigeff = pi2_15 * sigma;

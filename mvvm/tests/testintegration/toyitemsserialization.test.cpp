@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testintegration/toyitemsserialization.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/modelutils.h"
@@ -29,7 +34,8 @@ ToyItemsSerializationTest::~ToyItemsSerializationTest() = default;
 //! Checking ShapeGroupItem in a model.
 //! Serialization/deserelization should give an item identical to original.
 
-TEST_F(ToyItemsSerializationTest, defaultShapeGroupItemInModel) {
+TEST_F(ToyItemsSerializationTest, defaultShapeGroupItemInModel)
+{
     // model with single group item
     SampleModel model;
     auto group = model.insertItem<ShapeGroupItem>();
@@ -46,7 +52,8 @@ TEST_F(ToyItemsSerializationTest, defaultShapeGroupItemInModel) {
 //! Checking ShapeGroupItem in a model.
 //! Serialization/deserelization should give an item identical to original.
 
-TEST_F(ToyItemsSerializationTest, modifiedShapeGroupItemInModel) {
+TEST_F(ToyItemsSerializationTest, modifiedShapeGroupItemInModel)
+{
     SampleModel model;
     auto group = model.insertItem<ShapeGroupItem>();
 
@@ -70,7 +77,8 @@ TEST_F(ToyItemsSerializationTest, modifiedShapeGroupItemInModel) {
 
 //! Insert all supported items in a model and check that after serialization
 
-TEST_F(ToyItemsSerializationTest, allItemsInAModel) {
+TEST_F(ToyItemsSerializationTest, allItemsInAModel)
+{
     SampleModel model;
     model.insertItem<ToyItems::MultiLayerItem>();
     model.insertItem<ToyItems::LayerItem>();

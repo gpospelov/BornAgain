@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportAssistant.h
 //! @brief     Defines class CsvImportAssistant
@@ -33,7 +33,9 @@ public:
         , m_coordinateMultiplier(1.)
         , m_firstRow(-1)
         , m_lastRow(-1)
-        , m_units(Axes::Units::NBINS) {}
+        , m_units(Axes::Units::NBINS)
+    {
+    }
 
     int m_intensityColNum;
     double m_intensityMultiplier;

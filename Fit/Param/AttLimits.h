@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Param/AttLimits.h
 //! @brief     Defines and implements class AttLimits.
@@ -50,7 +50,8 @@ public:
 
     std::string toString() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m) {
+    friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m)
+    {
         ostr << m.toString();
         return ostr;
     }

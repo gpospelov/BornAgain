@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Multilayer/MultiLayer.cpp
 //! @brief     Implements class MultiLayer.
@@ -23,7 +23,8 @@
 #include "Sample/Slice/LayerInterface.h"
 #include "Sample/Slice/LayerRoughness.h"
 
-MultiLayer::MultiLayer() : m_crossCorrLength(0) {
+MultiLayer::MultiLayer() : m_crossCorrLength(0)
+{
     setName("MultiLayer");
     registerParameter("CrossCorrelationLength", &m_crossCorrLength).setUnit("nm").setNonnegative();
     registerVector("ExternalField", &m_ext_field, "");
@@ -31,7 +32,8 @@ MultiLayer::MultiLayer() : m_crossCorrLength(0) {
 
 MultiLayer::~MultiLayer() = default;
 
-MultiLayer* MultiLayer::clone() const {
+MultiLayer* MultiLayer::clone() const
+{
     auto* ret = new MultiLayer;
     ret->setCrossCorrLength(crossCorrLength());
     ret->setExternalField(externalField());
@@ -48,13 +50,15 @@ MultiLayer* MultiLayer::clone() const {
 }
 
 //! Adds layer with default (zero) roughness
-void MultiLayer::addLayer(const Layer& layer) {
+void MultiLayer::addLayer(const Layer& layer)
+{
     LayerRoughness zero_roughness;
     addLayerWithTopRoughness(layer, zero_roughness);
 }
 
 //! Adds layer with top roughness
-void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness) {
+void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughness& roughness)
+{
     Layer* new_layer = layer.clone();
     if (numberOfLayers()) {
         // not the top layer
@@ -80,29 +84,35 @@ void MultiLayer::addLayerWithTopRoughness(const Layer& layer, const LayerRoughne
     addAndRegisterLayer(new_layer);
 }
 
-const Layer* MultiLayer::layer(size_t i_layer) const {
+const Layer* MultiLayer::layer(size_t i_layer) const
+{
     return m_layers[check_layer_index(i_layer)];
 }
 
-const LayerInterface* MultiLayer::layerInterface(size_t i_interface) const {
+const LayerInterface* MultiLayer::layerInterface(size_t i_interface) const
+{
     return m_interfaces[check_interface_index(i_interface)];
 }
 
-void MultiLayer::setCrossCorrLength(double crossCorrLength) {
+void MultiLayer::setCrossCorrLength(double crossCorrLength)
+{
     if (crossCorrLength < 0.0)
         throw std::runtime_error("Attempt to set crossCorrLength to negative value");
     m_crossCorrLength = crossCorrLength;
 }
 
-void MultiLayer::setExternalField(kvector_t ext_field) {
+void MultiLayer::setExternalField(kvector_t ext_field)
+{
     m_ext_field = ext_field;
 }
 
-void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel) {
+void MultiLayer::setRoughnessModel(RoughnessModel roughnessModel)
+{
     m_roughness_model = roughnessModel;
 }
 
-std::vector<const INode*> MultiLayer::getChildren() const {
+std::vector<const INode*> MultiLayer::getChildren() const
+{
     std::vector<const INode*> ret;
     const size_t N = m_layers.size();
     ret.reserve(N + m_interfaces.size());
@@ -116,30 +126,35 @@ std::vector<const INode*> MultiLayer::getChildren() const {
     return ret;
 }
 
-void MultiLayer::addAndRegisterLayer(Layer* child) {
+void MultiLayer::addAndRegisterLayer(Layer* child)
+{
     m_layers.push_back(child);
     handleLayerThicknessRegistration();
     registerChild(child);
 }
 
-void MultiLayer::addAndRegisterInterface(LayerInterface* child) {
+void MultiLayer::addAndRegisterInterface(LayerInterface* child)
+{
     m_interfaces.push_back(child);
     registerChild(child);
 }
 
-void MultiLayer::handleLayerThicknessRegistration() {
+void MultiLayer::handleLayerThicknessRegistration()
+{
     size_t n_layers = numberOfLayers();
     for (size_t i = 0; i < numberOfLayers(); ++i)
         m_layers[i]->registerThickness(i > 0 && i < n_layers - 1);
 }
 
-size_t MultiLayer::check_layer_index(size_t i_layer) const {
+size_t MultiLayer::check_layer_index(size_t i_layer) const
+{
     if (i_layer >= m_layers.size())
         throw std::runtime_error("Layer index is out of bounds");
     return i_layer;
 }
 
-size_t MultiLayer::check_interface_index(size_t i_interface) const {
+size_t MultiLayer::check_interface_index(size_t i_interface) const
+{
     if (i_interface >= m_interfaces.size())
         throw std::runtime_error("Interface index is out of bounds");
     return i_interface;

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/binutils.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/utils/binutils.h"
@@ -24,7 +29,8 @@ BinUtilsTest::~BinUtilsTest() = default;
 
 //! Testing Binary Files
 
-TEST_F(BinUtilsTest, testBinaryFiles) {
+TEST_F(BinUtilsTest, testBinaryFiles)
+{
     std::string root_path = TestConfig::TestData();
 
     std::string binary_file1 = root_path + std::string("/") + "pdf_file";
@@ -48,7 +54,8 @@ TEST_F(BinUtilsTest, testBinaryFiles) {
 
 //! Testing text files
 
-TEST_F(BinUtilsTest, testTextFiles) {
+TEST_F(BinUtilsTest, testTextFiles)
+{
     std::string root_path = TestConfig::TestData();
 
     std::string text_file1 = root_path + std::string("/") + "text_UTF-8.txt";

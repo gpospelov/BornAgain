@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobWidgets/ProjectionsEditorCanvas.cpp
 //! @brief     Implements class ProjectionsEditorCanvas
@@ -34,7 +34,8 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     , m_model(nullptr)
     , m_intensityDataItem(nullptr)
     , m_currentActivity(MaskEditorFlags::HORIZONTAL_LINE_MODE)
-    , m_block_update(false) {
+    , m_block_update(false)
+{
     setObjectName("MaskEditorCanvas");
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -52,7 +53,8 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
 
 void ProjectionsEditorCanvas::setContext(SessionModel* model,
                                          const QModelIndex& shapeContainerIndex,
-                                         IntensityDataItem* intensityItem) {
+                                         IntensityDataItem* intensityItem)
+{
     m_model = model;
     m_scene->setMaskContext(model, shapeContainerIndex, intensityItem);
     m_view->updateSize(m_view->size());
@@ -65,7 +67,8 @@ void ProjectionsEditorCanvas::setContext(SessionModel* model,
     getScene()->onActivityModeChanged(m_currentActivity);
 }
 
-void ProjectionsEditorCanvas::resetContext() {
+void ProjectionsEditorCanvas::resetContext()
+{
     m_intensityDataItem = nullptr;
     m_containerIndex = {};
     setConnected(false);
@@ -73,11 +76,13 @@ void ProjectionsEditorCanvas::resetContext() {
     m_scene->resetContext();
 }
 
-void ProjectionsEditorCanvas::setSelectionModel(QItemSelectionModel* model) {
+void ProjectionsEditorCanvas::setSelectionModel(QItemSelectionModel* model)
+{
     getScene()->setSelectionModel(model);
 }
 
-void ProjectionsEditorCanvas::onEnteringColorMap() {
+void ProjectionsEditorCanvas::onEnteringColorMap()
+{
     if (m_liveProjection || m_block_update)
         return;
 
@@ -94,7 +99,8 @@ void ProjectionsEditorCanvas::onEnteringColorMap() {
     m_block_update = false;
 }
 
-void ProjectionsEditorCanvas::onLeavingColorMap() {
+void ProjectionsEditorCanvas::onLeavingColorMap()
+{
     if (m_block_update)
         return;
 
@@ -110,7 +116,8 @@ void ProjectionsEditorCanvas::onLeavingColorMap() {
     m_block_update = false;
 }
 
-void ProjectionsEditorCanvas::onPositionChanged(double x, double y) {
+void ProjectionsEditorCanvas::onPositionChanged(double x, double y)
+{
     if (m_block_update)
         return;
 
@@ -126,18 +133,21 @@ void ProjectionsEditorCanvas::onPositionChanged(double x, double y) {
     m_block_update = false;
 }
 
-void ProjectionsEditorCanvas::onResetViewRequest() {
+void ProjectionsEditorCanvas::onResetViewRequest()
+{
     m_view->onResetViewRequest();
     m_intensityDataItem->resetView();
 }
 
-void ProjectionsEditorCanvas::onActivityModeChanged(MaskEditorFlags::Activity value) {
+void ProjectionsEditorCanvas::onActivityModeChanged(MaskEditorFlags::Activity value)
+{
     m_currentActivity = value;
     getScene()->onActivityModeChanged(value);
     onLeavingColorMap();
 }
 
-void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap) {
+void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap)
+{
     ASSERT(colorMap);
     setConnected(false);
 
@@ -148,7 +158,8 @@ void ProjectionsEditorCanvas::setColorMap(ColorMap* colorMap) {
     m_statusLabel->addPlot(colorMap);
 }
 
-void ProjectionsEditorCanvas::setConnected(bool isConnected) {
+void ProjectionsEditorCanvas::setConnected(bool isConnected)
+{
     if (!m_colorMap)
         return;
 

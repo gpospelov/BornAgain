@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/RotatedPyramidsBuilder.cpp
 //! @brief     Implements classe RotatedPyramidsBuilder
@@ -21,7 +21,8 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* RotatedPyramidsBuilder::buildSample() const {
+MultiLayer* RotatedPyramidsBuilder::buildSample() const
+{
     const double m_length(10 * Units::nm);
     const double m_height(5 * Units::nm);
     const double m_alpha(Units::deg2rad(54.73));

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Mask/IShape2D.h
 //! @brief     Defines basic class for all 2D shapes.
@@ -36,7 +36,8 @@ public:
     //! (more precisely, if mid point of two bins satisfy this condition).
     virtual bool contains(const Bin1D& binx, const Bin1D& biny) const = 0;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IShape2D& shape) {
+    friend std::ostream& operator<<(std::ostream& ostr, const IShape2D& shape)
+    {
         shape.print(ostr);
         return ostr;
     }

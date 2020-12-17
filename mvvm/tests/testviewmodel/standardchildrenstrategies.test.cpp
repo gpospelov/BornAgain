@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/standardchildrenstrategies.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/compounditem.h"
@@ -26,7 +31,8 @@ public:
     //! Helper class with two properties and one top level item on board.
     class TestItem : public CompoundItem {
     public:
-        TestItem() : CompoundItem("test") {
+        TestItem() : CompoundItem("test")
+        {
             addProperty("length", 8.0);
             registerTag(TagInfo::universalTag("children"), /*set_as_default*/ true);
             insertItem(new SessionItem, TagRow::append());
@@ -38,12 +44,14 @@ public:
     struct ChildrenData {
         std::string model_type;
         std::string tag;
-        bool operator==(const ChildrenData& other) const {
+        bool operator==(const ChildrenData& other) const
+        {
             return model_type == other.model_type && tag == other.tag;
         }
     };
 
-    std::vector<ChildrenData> children_data(std::vector<SessionItem*> children) {
+    std::vector<ChildrenData> children_data(std::vector<SessionItem*> children)
+    {
         std::vector<ChildrenData> result;
         for (auto child : children)
             result.push_back({child->modelType(), child->tag()});
@@ -56,7 +64,8 @@ StandardChildrenStrategiesTest::TestItem::~TestItem() = default;
 
 //! Testing AllChildrenStrategy.
 
-TEST_F(StandardChildrenStrategiesTest, AllChildrenStrategy) {
+TEST_F(StandardChildrenStrategiesTest, AllChildrenStrategy)
+{
     AllChildrenStrategy strategy;
 
     // nullptr
@@ -93,7 +102,8 @@ TEST_F(StandardChildrenStrategiesTest, AllChildrenStrategy) {
 
 //! Testing TopItemsStrategy.
 
-TEST_F(StandardChildrenStrategiesTest, TopItemsStrategy) {
+TEST_F(StandardChildrenStrategiesTest, TopItemsStrategy)
+{
     TopItemsStrategy strategy;
 
     // nullptr
@@ -130,7 +140,8 @@ TEST_F(StandardChildrenStrategiesTest, TopItemsStrategy) {
 
 //! Testing PropertyItemsStrategy.
 
-TEST_F(StandardChildrenStrategiesTest, PropertyItemsStrategy) {
+TEST_F(StandardChildrenStrategiesTest, PropertyItemsStrategy)
+{
     PropertyItemsStrategy strategy;
 
     // nullptr
@@ -184,7 +195,8 @@ TEST_F(StandardChildrenStrategiesTest, PropertyItemsStrategy) {
 
 //! Testing PropertyItemsFlatStrategy.
 
-TEST_F(StandardChildrenStrategiesTest, PropertyItemsFlatStrategy) {
+TEST_F(StandardChildrenStrategiesTest, PropertyItemsFlatStrategy)
+{
     PropertyItemsFlatStrategy strategy;
 
     // nullptr

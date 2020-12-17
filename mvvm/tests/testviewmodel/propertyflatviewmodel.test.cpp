@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/propertyflatviewmodel.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/propertyitem.h"
@@ -28,7 +33,8 @@ public:
 
 PropertyFlatViewModelTest::~PropertyFlatViewModelTest() = default;
 
-TEST_F(PropertyFlatViewModelTest, initialState) {
+TEST_F(PropertyFlatViewModelTest, initialState)
+{
     SessionModel model;
     PropertyFlatViewModel viewModel(&model);
     EXPECT_EQ(viewModel.rowCount(), 0);
@@ -36,7 +42,8 @@ TEST_F(PropertyFlatViewModelTest, initialState) {
     EXPECT_EQ(viewModel.sessionItemFromIndex(QModelIndex()), model.rootItem());
 }
 
-TEST_F(PropertyFlatViewModelTest, baseItem) {
+TEST_F(PropertyFlatViewModelTest, baseItem)
+{
     SessionModel model;
     model.insertItem<SessionItem>();
 
@@ -48,7 +55,8 @@ TEST_F(PropertyFlatViewModelTest, baseItem) {
     EXPECT_EQ(viewModel.columnCount(), 0);
 }
 
-TEST_F(PropertyFlatViewModelTest, propertyItem) {
+TEST_F(PropertyFlatViewModelTest, propertyItem)
+{
     SessionModel model;
     auto parent = model.insertItem<SessionItem>();
 
@@ -69,7 +77,8 @@ TEST_F(PropertyFlatViewModelTest, propertyItem) {
 
 //! VectorItem in a model.
 
-TEST_F(PropertyFlatViewModelTest, vectorItem) {
+TEST_F(PropertyFlatViewModelTest, vectorItem)
+{
     SessionModel model;
     auto parent = model.insertItem<VectorItem>();
 
@@ -86,7 +95,8 @@ TEST_F(PropertyFlatViewModelTest, vectorItem) {
 
 //! ParticleItem in a model
 
-TEST_F(PropertyFlatViewModelTest, particleItem) {
+TEST_F(PropertyFlatViewModelTest, particleItem)
+{
     ToyItems::SampleModel model;
     auto particle = model.insertItem<ToyItems::ParticleItem>();
     auto group = dynamic_cast<GroupItem*>(particle->getItem(ToyItems::ParticleItem::P_SHAPES));

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Py/PyUtils.cpp
 //! @brief     IOmplements various functions from PyUtils namespace
@@ -21,7 +21,8 @@
 #include <sstream>
 #include <stdexcept>
 
-std::string PyUtils::toString(PyObject* obj) {
+std::string PyUtils::toString(PyObject* obj)
+{
     std::string result;
     PyObject* pyStr = PyUnicode_AsEncodedString(obj, "utf-8", "Error ~");
     result = std::string(PyBytes_AsString(pyStr));
@@ -29,7 +30,8 @@ std::string PyUtils::toString(PyObject* obj) {
     return result;
 }
 
-std::vector<std::string> PyUtils::toVectorString(PyObject* obj) {
+std::vector<std::string> PyUtils::toVectorString(PyObject* obj)
+{
     std::vector<std::string> result;
 
     if (PyTuple_Check(obj)) {
@@ -50,21 +52,24 @@ std::vector<std::string> PyUtils::toVectorString(PyObject* obj) {
     return result;
 }
 
-std::string PyUtils::toString(char* c) {
+std::string PyUtils::toString(char* c)
+{
     if (c)
         return c;
     else
         return "";
 }
 
-std::string PyUtils::toString(wchar_t* c) {
+std::string PyUtils::toString(wchar_t* c)
+{
     if (!c)
         return "";
     std::wstring wstr(c);
     return std::string(wstr.begin(), wstr.end());
 }
 
-void PyUtils::import_bornagain(const std::string& path) {
+void PyUtils::import_bornagain(const std::string& path)
+{
     if (!Py_IsInitialized()) {
         Py_InitializeEx(0);
 
@@ -92,7 +97,8 @@ void PyUtils::import_bornagain(const std::string& path) {
     }
 }
 
-std::string PyUtils::pythonRuntimeInfo() {
+std::string PyUtils::pythonRuntimeInfo()
+{
     Py_InitializeEx(0);
 
     std::stringstream result;
@@ -123,7 +129,8 @@ std::string PyUtils::pythonRuntimeInfo() {
 // Attempt to retrieve Python stack trace
 // https://stackoverflow.com/questions/1796510/accessing-a-python-traceback-from-the-c-api
 
-std::string PyUtils::pythonStackTrace() {
+std::string PyUtils::pythonStackTrace()
+{
     std::stringstream result;
 
     if (PyErr_Occurred()) {
@@ -162,7 +169,8 @@ std::string PyUtils::pythonStackTrace() {
     return result.str();
 }
 
-PyObject* PyUtils::createNumpyArray(const std::vector<double>& data) {
+PyObject* PyUtils::createNumpyArray(const std::vector<double>& data)
+{
     const size_t ndim(1);
     npy_int ndim_numpy = ndim;
     npy_intp* ndimsizes_numpy = new npy_intp[ndim];

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/standarditems/vectoritem.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/standarditems/vectoritem.h"
 #include "mvvm/model/customvariants.h"
@@ -14,7 +19,8 @@
 
 using namespace ModelView;
 
-VectorItem::VectorItem() : CompoundItem(Constants::VectorItemType) {
+VectorItem::VectorItem() : CompoundItem(Constants::VectorItemType)
+{
     addProperty(P_X, 0.0)->setDisplayName("X");
     addProperty(P_Y, 0.0)->setDisplayName("Y");
     addProperty(P_Z, 0.0)->setDisplayName("Z");
@@ -24,12 +30,14 @@ VectorItem::VectorItem() : CompoundItem(Constants::VectorItemType) {
     update_label();
 }
 
-void VectorItem::activate() {
+void VectorItem::activate()
+{
     auto on_property_change = [this](SessionItem*, const std::string&) { update_label(); };
     mapper()->setOnPropertyChange(on_property_change, this);
 }
 
-void VectorItem::update_label() {
+void VectorItem::update_label()
+{
     std::ostringstream ostr;
     ostr << "(" << property<double>(P_X) << ", " << property<double>(P_Y) << ", "
          << property<double>(P_Z) << ")";

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Param/Varia/ParameterPattern.cpp
 //! @brief     Implements class ParameterPattern
@@ -14,12 +14,14 @@
 
 #include "Param/Varia/ParameterPattern.h"
 
-ParameterPattern& ParameterPattern::beginsWith(std::string start_type) {
+ParameterPattern& ParameterPattern::beginsWith(std::string start_type)
+{
     m_pattern = start_type;
     return *this;
 }
 
-ParameterPattern& ParameterPattern::add(std::string object_type) {
+ParameterPattern& ParameterPattern::add(std::string object_type)
+{
     m_pattern = m_pattern + "/" + object_type;
     return *this;
 }

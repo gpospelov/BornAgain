@@ -32,29 +32,34 @@ protected:
 };
 
 TestSavingSpecularData::TestSavingSpecularData()
-    : m_axis(new PointwiseAxis("x", std::vector<double>{0.1, 0.2, 1.0})) {}
+    : m_axis(new PointwiseAxis("x", std::vector<double>{0.1, 0.2, 1.0}))
+{
+}
 
-SpecularInstrumentItem*
-TestSavingSpecularData::createSpecularInstrument(ApplicationModels& models) {
+SpecularInstrumentItem* TestSavingSpecularData::createSpecularInstrument(ApplicationModels& models)
+{
     return dynamic_cast<SpecularInstrumentItem*>(
         models.instrumentModel()->insertNewItem("SpecularInstrument"));
 }
 
-PointwiseAxisItem* TestSavingSpecularData::createPointwiseAxisItem(SessionModel& model) {
+PointwiseAxisItem* TestSavingSpecularData::createPointwiseAxisItem(SessionModel& model)
+{
     auto instrument_item =
         dynamic_cast<SpecularInstrumentItem*>(model.insertNewItem("SpecularInstrument"));
     return dynamic_cast<PointwiseAxisItem*>(
         getAxisGroup(instrument_item)->getChildOfType("PointwiseAxis"));
 }
 
-GroupItem* TestSavingSpecularData::getAxisGroup(SpecularInstrumentItem* instrument) {
+GroupItem* TestSavingSpecularData::getAxisGroup(SpecularInstrumentItem* instrument)
+{
     auto axis_item = instrument->getItem(SpecularInstrumentItem::P_BEAM)
                          ->getItem(BeamItem::P_INCLINATION_ANGLE)
                          ->getItem(SpecularBeamInclinationItem::P_ALPHA_AXIS);
     return dynamic_cast<GroupItem*>(axis_item);
 }
 
-bool TestSavingSpecularData::isSame(const QString& filename, const IAxis* axis) {
+bool TestSavingSpecularData::isSame(const QString& filename, const IAxis* axis)
+{
     std::unique_ptr<OutputData<double>> dataOnDisk(
         IntensityDataIOFactory::readOutputData(filename.toStdString()));
     OutputData<double> refData;
@@ -62,7 +67,8 @@ bool TestSavingSpecularData::isSame(const QString& filename, const IAxis* axis) 
     return GuiUnittestUtils::isTheSame(*dataOnDisk, refData);
 }
 
-TEST_F(TestSavingSpecularData, test_SpecularInsturment) {
+TEST_F(TestSavingSpecularData, test_SpecularInsturment)
+{
     ApplicationModels models;
 
     // initial state
@@ -93,7 +99,8 @@ TEST_F(TestSavingSpecularData, test_SpecularInsturment) {
     EXPECT_EQ(dataItems.size(), 1);
 }
 
-TEST_F(TestSavingSpecularData, test_InstrumentInJobItem) {
+TEST_F(TestSavingSpecularData, test_InstrumentInJobItem)
+{
     ApplicationModels models;
 
     // adding JobItem
@@ -129,7 +136,8 @@ TEST_F(TestSavingSpecularData, test_InstrumentInJobItem) {
     EXPECT_EQ(dataItems.indexOf(dataItem), 0);
 }
 
-TEST_F(TestSavingSpecularData, test_setLastModified) {
+TEST_F(TestSavingSpecularData, test_setLastModified)
+{
     SessionModel model("TempModel");
     auto item = createPointwiseAxisItem(model);
 
@@ -149,7 +157,8 @@ TEST_F(TestSavingSpecularData, test_setLastModified) {
     EXPECT_TRUE(info.wasModifiedSinceLastSave());
 }
 
-TEST_F(TestSavingSpecularData, test_DirHistory) {
+TEST_F(TestSavingSpecularData, test_DirHistory)
+{
     SessionModel model("TempModel");
     auto item1 = createPointwiseAxisItem(model);
     item1->init(*m_axis, "Degrees");
@@ -182,7 +191,8 @@ TEST_F(TestSavingSpecularData, test_DirHistory) {
 }
 
 //! Testing saving abilities of OutputDataIOService class.
-TEST_F(TestSavingSpecularData, test_OutputDataIOService) {
+TEST_F(TestSavingSpecularData, test_OutputDataIOService)
+{
     const QString projectDir("test_SpecularDataSave");
     GuiUnittestUtils::create_dir(projectDir);
 
@@ -241,7 +251,8 @@ TEST_F(TestSavingSpecularData, test_OutputDataIOService) {
     EXPECT_FALSE(ProjectUtils::exists(fname2));
 }
 
-TEST_F(TestSavingSpecularData, test_CopyInstrumentToJobItem) {
+TEST_F(TestSavingSpecularData, test_CopyInstrumentToJobItem)
+{
     const QString projectDir("test_SpecularDataSave2");
     GuiUnittestUtils::create_dir(projectDir);
 

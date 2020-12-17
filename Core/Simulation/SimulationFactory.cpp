@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Simulation/SimulationFactory.cpp
 //! @brief     Implement class SimulationFactory.
@@ -19,7 +19,8 @@
 #include "Core/Simulation/StandardSimulations.h"
 #include "Param/Base/RealParameter.h"
 
-SimulationFactory::SimulationFactory() {
+SimulationFactory::SimulationFactory()
+{
     registerItem("BasicGISAS", StandardSimulations::BasicGISAS);
 
     registerItem("BasicGISAS00", StandardSimulations::BasicGISAS00);

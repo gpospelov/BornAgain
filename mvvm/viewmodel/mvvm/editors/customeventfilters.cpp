@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/editors/customeventfilters.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/editors/customeventfilters.h"
 #include <QAbstractSpinBox>
@@ -16,7 +21,8 @@ using namespace ModelView;
 
 LostFocusFilter::LostFocusFilter(QObject* parent) : QObject(parent) {}
 
-bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event) {
+bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event)
+{
     if (event->type() == QEvent::FocusOut)
         return true;
 
@@ -27,7 +33,8 @@ bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event) {
 
 WheelEventFilter::WheelEventFilter(QObject* parent) : QObject(parent) {}
 
-bool WheelEventFilter::eventFilter(QObject* obj, QEvent* event) {
+bool WheelEventFilter::eventFilter(QObject* obj, QEvent* event)
+{
     if (auto spinBox = qobject_cast<QAbstractSpinBox*>(obj); spinBox) {
         if (event->type() == QEvent::Wheel) {
             if (spinBox->focusPolicy() == Qt::WheelFocus) {

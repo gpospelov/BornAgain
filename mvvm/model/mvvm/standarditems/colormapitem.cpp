@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/standarditems/colormapitem.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/standarditems/colormapitem.h"
 #include "mvvm/model/comboproperty.h"
@@ -22,7 +27,8 @@ const ComboProperty gradientCombo =
                               "Polar");
 }
 
-ColorMapItem::ColorMapItem() : CompoundItem(Constants::ColorMapItemType) {
+ColorMapItem::ColorMapItem() : CompoundItem(Constants::ColorMapItemType)
+{
     addProperty<LinkedItem>(P_LINK)->setDisplayName("Link");
     addProperty<TextItem>(P_TITLE)->setDisplayName("Title");
     addProperty(P_GRADIENT, gradientCombo)->setDisplayName("Gradient");
@@ -31,12 +37,14 @@ ColorMapItem::ColorMapItem() : CompoundItem(Constants::ColorMapItemType) {
 
 //! Sets link to the data item.
 
-void ColorMapItem::setDataItem(const Data2DItem* data_item) {
+void ColorMapItem::setDataItem(const Data2DItem* data_item)
+{
     item<LinkedItem>(P_LINK)->setLink(data_item);
 }
 
 //! Returns data item linked to the given ColorMapItem.
 
-Data2DItem* ColorMapItem::dataItem() const {
+Data2DItem* ColorMapItem::dataItem() const
+{
     return item<LinkedItem>(P_LINK)->get<Data2DItem>();
 }

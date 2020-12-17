@@ -6,9 +6,11 @@
 #include <cmath>
 #include <memory>
 
-class DistributionsTest : public ::testing::Test {};
+class DistributionsTest : public ::testing::Test {
+};
 
-TEST_F(DistributionsTest, DistributionGateDefaultConstructor) {
+TEST_F(DistributionsTest, DistributionGateDefaultConstructor)
+{
     std::unique_ptr<DistributionGate> P_distr_gate{new DistributionGate()};
     EXPECT_EQ(0.5, P_distr_gate->getMean());
     EXPECT_EQ(0.0, P_distr_gate->lowerBound());
@@ -26,7 +28,8 @@ TEST_F(DistributionsTest, DistributionGateDefaultConstructor) {
     EXPECT_EQ(1, list2[1]);
 }
 
-TEST_F(DistributionsTest, DistributionGateConstructor) {
+TEST_F(DistributionsTest, DistributionGateConstructor)
+{
     // Throw error when m_min > m_max:
     EXPECT_THROW(DistributionGate(1.1, 1.0), std::runtime_error);
 
@@ -63,7 +66,8 @@ TEST_F(DistributionsTest, DistributionGateConstructor) {
     EXPECT_EQ(samples[2].weight, 1. / 3.);
 }
 
-TEST_F(DistributionsTest, DistributionGateParameters) {
+TEST_F(DistributionsTest, DistributionGateParameters)
+{
     DistributionGate gate(2.0, 3.0);
     EXPECT_EQ(gate.lowerBound(), gate.parameter("Min")->value());
     EXPECT_EQ(gate.upperBound(), gate.parameter("Max")->value());
@@ -80,7 +84,8 @@ TEST_F(DistributionsTest, DistributionGateParameters) {
     EXPECT_EQ(gate.parameter("Max")->unit(), "");
 }
 
-TEST_F(DistributionsTest, DistributionGateClone) {
+TEST_F(DistributionsTest, DistributionGateClone)
+{
     DistributionGate gate(2.0, 3.0);
     DistributionGate* clone = gate.clone();
     EXPECT_EQ(gate.getMean(), clone->getMean());
@@ -91,7 +96,8 @@ TEST_F(DistributionsTest, DistributionGateClone) {
 
 // -------------------------------------------------------------------------- //
 
-TEST_F(DistributionsTest, DistributionLorentzDefaultConstructor) {
+TEST_F(DistributionsTest, DistributionLorentzDefaultConstructor)
+{
     std::unique_ptr<DistributionLorentz> P_distr_lorentz{new DistributionLorentz()};
     EXPECT_EQ(0.0, P_distr_lorentz->getMean());
     EXPECT_EQ(1.0, P_distr_lorentz->getHWHM());
@@ -105,7 +111,8 @@ TEST_F(DistributionsTest, DistributionLorentzDefaultConstructor) {
     EXPECT_EQ(2, list2[1]);
 }
 
-TEST_F(DistributionsTest, DistributionLorentzConstructor) {
+TEST_F(DistributionsTest, DistributionLorentzConstructor)
+{
     // When HWHM == 0.0, only one sample is generated (the mean):
     DistributionLorentz distr1(1.0, 0.0);
     std::vector<double> list1 = distr1.equidistantPoints(5, 0.0);
@@ -126,7 +133,8 @@ TEST_F(DistributionsTest, DistributionLorentzConstructor) {
     EXPECT_EQ(3, list3[1]);
 }
 
-TEST_F(DistributionsTest, DistributionLorentzParameters) {
+TEST_F(DistributionsTest, DistributionLorentzParameters)
+{
     DistributionLorentz lorentz(2.0, 3.0);
     EXPECT_EQ(lorentz.getMean(), lorentz.parameter("Mean")->value());
     EXPECT_EQ(lorentz.getHWHM(), lorentz.parameter("HWHM")->value());
@@ -139,14 +147,16 @@ TEST_F(DistributionsTest, DistributionLorentzParameters) {
     EXPECT_EQ(lorentz.parameter("HWHM")->unit(), "rad");
 }
 
-TEST_F(DistributionsTest, DistributionLorentzClone) {
+TEST_F(DistributionsTest, DistributionLorentzClone)
+{
     std::unique_ptr<DistributionLorentz> P_distr_lorentz{new DistributionLorentz(1.0, 2.0)};
     std::unique_ptr<DistributionLorentz> P_clone{P_distr_lorentz->clone()};
     EXPECT_EQ(1.0, P_clone->getMean());
     EXPECT_EQ(2.0, P_clone->getHWHM());
 }
 
-TEST_F(DistributionsTest, DistributionLorentzSamples) {
+TEST_F(DistributionsTest, DistributionLorentzSamples)
+{
     DistributionLorentz distr(1.0, 0.1);
 
     const int nbr_samples(3);
@@ -181,7 +191,8 @@ TEST_F(DistributionsTest, DistributionLorentzSamples) {
 
 // -------------------------------------------------------------------------- //
 
-TEST_F(DistributionsTest, DistributionGaussianDefaultConstructor) {
+TEST_F(DistributionsTest, DistributionGaussianDefaultConstructor)
+{
     std::unique_ptr<DistributionGaussian> P_distr_gauss{new DistributionGaussian()};
     EXPECT_EQ(0.0, P_distr_gauss->getMean());
     EXPECT_EQ(1.0, P_distr_gauss->getStdDev());
@@ -195,7 +206,8 @@ TEST_F(DistributionsTest, DistributionGaussianDefaultConstructor) {
     EXPECT_EQ(2, list2[1]);
 }
 
-TEST_F(DistributionsTest, DistributionGaussianConstructor) {
+TEST_F(DistributionsTest, DistributionGaussianConstructor)
+{
     // When std_dev == 0.0, only one sample is generated (the mean):
     DistributionGaussian distr1(1.0, 0.0);
     std::vector<double> list1 = distr1.equidistantPoints(5, 0.0);
@@ -216,7 +228,8 @@ TEST_F(DistributionsTest, DistributionGaussianConstructor) {
     EXPECT_EQ(3, list3[1]);
 }
 
-TEST_F(DistributionsTest, DistributionGaussianParameters) {
+TEST_F(DistributionsTest, DistributionGaussianParameters)
+{
     DistributionGaussian gaussian(2.0, 3.0);
     EXPECT_EQ(gaussian.getMean(), gaussian.parameter("Mean")->value());
     EXPECT_EQ(gaussian.getStdDev(), gaussian.parameter("StdDev")->value());
@@ -229,7 +242,8 @@ TEST_F(DistributionsTest, DistributionGaussianParameters) {
     EXPECT_EQ(gaussian.parameter("StdDev")->unit(), "rad");
 }
 
-TEST_F(DistributionsTest, DistributionGaussianClone) {
+TEST_F(DistributionsTest, DistributionGaussianClone)
+{
     std::unique_ptr<DistributionGaussian> P_distr_gauss{new DistributionGaussian(1.0, 1.0)};
     std::unique_ptr<DistributionGaussian> P_clone{P_distr_gauss->clone()};
     EXPECT_EQ(1.0, P_clone->getMean());
@@ -246,7 +260,8 @@ TEST_F(DistributionsTest, DistributionGaussianClone) {
 
 // -------------------------------------------------------------------------- //
 
-TEST_F(DistributionsTest, DistributionLogNormalConstructorWithTwoParameter) {
+TEST_F(DistributionsTest, DistributionLogNormalConstructorWithTwoParameter)
+{
     std::unique_ptr<DistributionLogNormal> P_distr_lognormal{new DistributionLogNormal(1.0, 1.0)};
     EXPECT_EQ(1.0, P_distr_lognormal->getMedian());
     EXPECT_EQ(1.0, P_distr_lognormal->getScalePar());
@@ -261,7 +276,8 @@ TEST_F(DistributionsTest, DistributionLogNormalConstructorWithTwoParameter) {
     EXPECT_EQ(std::exp(-2) + std::exp(2) - std::exp(-2), list2[1]);
 }
 
-TEST_F(DistributionsTest, DistributionLogNormalParameters) {
+TEST_F(DistributionsTest, DistributionLogNormalParameters)
+{
     DistributionLogNormal logNormal(2.0, 3.0);
     EXPECT_EQ(logNormal.getMedian(), logNormal.parameter("Median")->value());
     EXPECT_EQ(logNormal.getScalePar(), logNormal.parameter("ScaleParameter")->value());
@@ -274,7 +290,8 @@ TEST_F(DistributionsTest, DistributionLogNormalParameters) {
     EXPECT_EQ(logNormal.parameter("ScaleParameter")->unit(), "");
 }
 
-TEST_F(DistributionsTest, DistributionLogNormalClone) {
+TEST_F(DistributionsTest, DistributionLogNormalClone)
+{
     std::unique_ptr<DistributionLogNormal> P_distr_lognormal{new DistributionLogNormal(1.0, 1.0)};
     std::unique_ptr<DistributionLogNormal> P_clone{P_distr_lognormal->clone()};
     EXPECT_EQ(1.0, P_distr_lognormal->getMedian());
@@ -292,7 +309,8 @@ TEST_F(DistributionsTest, DistributionLogNormalClone) {
 
 // -------------------------------------------------------------------------- //
 
-TEST_F(DistributionsTest, DistributionCosineDefaultConstructor) {
+TEST_F(DistributionsTest, DistributionCosineDefaultConstructor)
+{
     std::unique_ptr<DistributionCosine> P_distr_cosine{new DistributionCosine()};
     EXPECT_EQ(0.0, P_distr_cosine->getMean());
     EXPECT_EQ(1.0, P_distr_cosine->getSigma());
@@ -307,7 +325,8 @@ TEST_F(DistributionsTest, DistributionCosineDefaultConstructor) {
     EXPECT_EQ(M_PI, list2[1]);
 }
 
-TEST_F(DistributionsTest, DistributionCosineConstructor) {
+TEST_F(DistributionsTest, DistributionCosineConstructor)
+{
     // When sigma == 0.0, only one sample is generated (the mean):
     DistributionCosine distr1(1.0, 0.0);
     std::vector<double> list1 = distr1.equidistantPoints(5, 0.0);
@@ -329,7 +348,8 @@ TEST_F(DistributionsTest, DistributionCosineConstructor) {
     EXPECT_EQ(1 + M_PI, list3[1]);
 }
 
-TEST_F(DistributionsTest, DistributionCosineParameters) {
+TEST_F(DistributionsTest, DistributionCosineParameters)
+{
     DistributionCosine cosine(2.0, 3.0);
     EXPECT_EQ(cosine.getMean(), cosine.parameter("Mean")->value());
     EXPECT_EQ(cosine.getSigma(), cosine.parameter("Sigma")->value());
@@ -342,7 +362,8 @@ TEST_F(DistributionsTest, DistributionCosineParameters) {
     EXPECT_EQ(cosine.parameter("Sigma")->unit(), "rad");
 }
 
-TEST_F(DistributionsTest, DistributionCosineClone) {
+TEST_F(DistributionsTest, DistributionCosineClone)
+{
     std::unique_ptr<DistributionCosine> P_distr_cosine{new DistributionCosine(1.0, 1.0)};
     std::unique_ptr<DistributionCosine> P_clone{P_distr_cosine->clone()};
     EXPECT_EQ(1.0, P_clone->getMean());

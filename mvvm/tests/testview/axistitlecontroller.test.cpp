@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testview/axistitlecontroller.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/sessionmodel.h"
@@ -27,7 +32,8 @@ AxisTitleControllerTest::~AxisTitleControllerTest() = default;
 
 //! Initial state.
 
-TEST_F(AxisTitleControllerTest, initialState) {
+TEST_F(AxisTitleControllerTest, initialState)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     auto axis = custom_plot->xAxis;
@@ -39,7 +45,8 @@ TEST_F(AxisTitleControllerTest, initialState) {
     EXPECT_EQ(axis->label(), QString());
 }
 
-TEST_F(AxisTitleControllerTest, setTextItem) {
+TEST_F(AxisTitleControllerTest, setTextItem)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     SessionModel model;
@@ -64,7 +71,8 @@ TEST_F(AxisTitleControllerTest, setTextItem) {
     EXPECT_EQ(axis->labelFont().pointSize(), expected_pointSize);
 }
 
-TEST_F(AxisTitleControllerTest, setFont) {
+TEST_F(AxisTitleControllerTest, setFont)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     SessionModel model;

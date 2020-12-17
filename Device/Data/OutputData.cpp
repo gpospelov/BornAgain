@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Data/OutputData.cpp
 //! @brief     Implements template specializations of class OutputData.cpp.
@@ -19,7 +19,8 @@
 
 #include "Base/Py/PyCore.h"
 
-template <> PyObject* OutputData<double>::getArray() const {
+template <> PyObject* OutputData<double>::getArray() const
+{
     std::vector<size_t> dimensions;
     for (size_t i = 0; i < rank(); i++)
         dimensions.push_back(axis(i).size());
@@ -63,10 +64,12 @@ template <> PyObject* OutputData<double>::getArray() const {
 
 #endif // BORNAGAIN_PYTHON
 
-template <> double OutputData<double>::getValue(size_t index) const {
+template <> double OutputData<double>::getValue(size_t index) const
+{
     return (*this)[index];
 }
 
-template <> double OutputData<CumulativeValue>::getValue(size_t index) const {
+template <> double OutputData<CumulativeValue>::getValue(size_t index) const
+{
     return (*this)[index].getContent();
 }

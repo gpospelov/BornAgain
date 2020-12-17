@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobView.cpp
 //! @brief     Implements class JobView
@@ -33,7 +33,8 @@ JobView::JobView(MainWindow* mainWindow)
     , m_progressAssistant(new JobProgressAssistant(mainWindow))
     , m_currentItem(nullptr)
     , m_mainWindow(mainWindow)
-    , m_activityActions(this) {
+    , m_activityActions(this)
+{
 
     setObjectName("JobView");
     createActions();
@@ -41,7 +42,8 @@ JobView::JobView(MainWindow* mainWindow)
     connectSignals();
 }
 
-void JobView::fillViewMenu(QMenu* menu) {
+void JobView::fillViewMenu(QMenu* menu)
+{
     menu->addActions(m_activityActions.actions());
     menu->addSeparator();
 
@@ -55,7 +57,8 @@ void JobView::fillViewMenu(QMenu* menu) {
     menu->addAction(action);
 }
 
-void JobView::onFocusRequest(JobItem* jobItem) {
+void JobView::onFocusRequest(JobItem* jobItem)
+{
     if (jobItem->runInBackground())
         return;
 
@@ -69,7 +72,8 @@ void JobView::onFocusRequest(JobItem* jobItem) {
 
 //! Sets docks visibility in accordance with required activity.
 
-void JobView::setActivity(int activity) {
+void JobView::setActivity(int activity)
+{
     QVector<JobViewFlags::Dock> docksToShow =
         JobViewActivities::activeDocks(JobViewFlags::Activity(activity));
 
@@ -84,13 +88,15 @@ void JobView::setActivity(int activity) {
 
 //! Propagates change in JobItem's selection down into main widgets.
 
-void JobView::onSelectionChanged(JobItem* jobItem) {
+void JobView::onSelectionChanged(JobItem* jobItem)
+{
     m_jobOutputDataWidget->setItem(jobItem);
     m_jobRealTimeWidget->setItem(jobItem);
     m_fitActivityPanel->setItem(jobItem);
 }
 
-void JobView::createSubWindows() {
+void JobView::createSubWindows()
+{
     m_jobOutputDataWidget = new JobOutputDataWidget(m_mainWindow->jobModel(), this);
     m_jobSelector = new JobSelectorWidget(m_mainWindow->jobModel(), this);
     m_jobRealTimeWidget = new JobRealTimeWidget(m_mainWindow->jobModel(), this);
@@ -113,7 +119,8 @@ void JobView::createSubWindows() {
     resetLayout();
 }
 
-void JobView::createActions() {
+void JobView::createActions()
+{
     int activity = 0;
     for (auto activityName : JobViewActivities::activityList()) {
         QAction* action = new QAction(this);
@@ -125,14 +132,16 @@ void JobView::createActions() {
     }
 }
 
-void JobView::connectSignals() {
+void JobView::connectSignals()
+{
     connectActivityRelated();
     connectJobRelated();
 }
 
 //! Connects signal related to activity change.
 
-void JobView::connectActivityRelated() {
+void JobView::connectActivityRelated()
+{
     // Activity was changed: this -> JobOutputDataWidget
     connect(this, &JobView::activityChanged, m_jobOutputDataWidget,
             &JobOutputDataWidget::onActivityChanged);
@@ -140,7 +149,8 @@ void JobView::connectActivityRelated() {
 
 //! Connects signals related to JobItem
 
-void JobView::connectJobRelated() {
+void JobView::connectJobRelated()
+{
     // Focus request: JobModel -> this
     connect(m_mainWindow->jobModel(), &JobModel::focusRequest, this, &JobView::onFocusRequest);
 
@@ -151,7 +161,8 @@ void JobView::connectJobRelated() {
 
 //! Sets appropriate activity for new JobItem
 
-void JobView::setAppropriateActivityForJob(JobItem* jobItem) {
+void JobView::setAppropriateActivityForJob(JobItem* jobItem)
+{
     if (!jobItem)
         return;
 
@@ -159,7 +170,8 @@ void JobView::setAppropriateActivityForJob(JobItem* jobItem) {
         setActivity(JobViewFlags::FITTING_ACTIVITY);
 }
 
-void JobView::resetLayout() {
+void JobView::resetLayout()
+{
     m_docks->resetLayout();
     setActivity(static_cast<int>(JobViewFlags::JOB_VIEW_ACTIVITY));
 }

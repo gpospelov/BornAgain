@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Detector/DetectorUtils.cpp
 //! @brief     Implements namespace DetectorUtils.
@@ -15,7 +15,8 @@
 #include "Device/Detector/DetectorUtils.h"
 #include "Device/Detector/IDetector2D.h"
 
-bool DetectorUtils::isQuadratic(const IDetector2D& det) {
+bool DetectorUtils::isQuadratic(const IDetector2D& det)
+{
     ASSERT(det.dimension() == 2);
     if (det.axis(0).size() != det.axis(1).size())
         return false;

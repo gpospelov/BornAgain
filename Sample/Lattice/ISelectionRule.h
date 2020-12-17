@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Lattice/ISelectionRule.h
 //! @brief     Defines classes ISelectionRule, SimpleSelectionRule
@@ -48,13 +48,17 @@ private:
 };
 
 inline SimpleSelectionRule::SimpleSelectionRule(int a, int b, int c, int modulus)
-    : m_a(a), m_b(b), m_c(c), m_mod(modulus) {}
+    : m_a(a), m_b(b), m_c(c), m_mod(modulus)
+{
+}
 
-inline SimpleSelectionRule* SimpleSelectionRule::clone() const {
+inline SimpleSelectionRule* SimpleSelectionRule::clone() const
+{
     return new SimpleSelectionRule(m_a, m_b, m_c, m_mod);
 }
 
-inline bool SimpleSelectionRule::coordinateSelected(const ivector_t& coordinate) const {
+inline bool SimpleSelectionRule::coordinateSelected(const ivector_t& coordinate) const
+{
     return (m_a * coordinate[0] + m_b * coordinate[1] + m_c * coordinate[2]) % m_mod == 0;
 }
 

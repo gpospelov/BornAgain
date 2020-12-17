@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/quicksimeditor/instrumentpropertyeditor.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/quicksimeditor/instrumentpropertyeditor.h"
 #include "gui2/mainwindow/styleutils.h"
@@ -23,8 +28,7 @@ using namespace ModelView;
 namespace gui2 {
 
 InstrumentPropertyEditor::InstrumentPropertyEditor(QWidget* parent)
-    : QWidget(parent)
-    , m_beamPropertyEditor(new ModelView::PropertyTreeView)
+    : QWidget(parent), m_beamPropertyEditor(new ModelView::PropertyTreeView)
 
 {
     auto layout = new QVBoxLayout(this);
@@ -33,7 +37,8 @@ InstrumentPropertyEditor::InstrumentPropertyEditor(QWidget* parent)
 
 InstrumentPropertyEditor::~InstrumentPropertyEditor() = default;
 
-void InstrumentPropertyEditor::setModels(ApplicationModels* models) {
+void InstrumentPropertyEditor::setModels(ApplicationModels* models)
+{
     auto instrument = models->instrumentModel()->topItem<SpecularInstrumentItem>();
 
     auto delegate = std::make_unique<ViewModelDelegate>();
@@ -47,11 +52,13 @@ void InstrumentPropertyEditor::setModels(ApplicationModels* models) {
     m_beamPropertyEditor->treeView()->expandAll();
 }
 
-QSize InstrumentPropertyEditor::sizeHint() const {
+QSize InstrumentPropertyEditor::sizeHint() const
+{
     return StyleUtils::DockSizeHint();
 }
 
-QSize InstrumentPropertyEditor::minimumSizeHint() const {
+QSize InstrumentPropertyEditor::minimumSizeHint() const
+{
     return StyleUtils::DockMinimumSizeHint();
 }
 

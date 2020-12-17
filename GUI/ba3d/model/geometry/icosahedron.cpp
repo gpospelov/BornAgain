@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/ba3d/model/geometry/icosahedron.cpp
 //! @brief     Implements utility functions in ba3d namespace
@@ -19,7 +19,8 @@
 
 namespace RealSpace {
 
-Geometry::Mesh Geometry::meshIcosahedron() {
+Geometry::Mesh Geometry::meshIcosahedron()
+{
     Vertices vs_(12); // 12 vertices of the icosahedron retrieved from Icosahedron.cpp
 
     const float E = 1.0; // edge

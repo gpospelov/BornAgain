@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Functional/Core/Fitting/AdjustMinimizerPlan.cpp
 //! @brief     Implements collection of AdjustMinimizerPlan classes
@@ -24,14 +24,16 @@ const double nm = Units::nm;
 
 using namespace mumufit;
 
-AdjustMinimizerPlan::AdjustMinimizerPlan() : Plan("AdjustMinimizerPlan") {
+AdjustMinimizerPlan::AdjustMinimizerPlan() : Plan("AdjustMinimizerPlan")
+{
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISASFit");
     addParameter(Parameter("height", 2.0 * nm, AttLimits::limited(0.01, 30.0), 0.05), 5.0 * nm);
     addParameter(Parameter("radius", 10.0 * nm, AttLimits::limited(0.01, 30.0), 0.05), 5.0 * nm);
 }
 
-bool AdjustMinimizerPlan::checkMinimizer(mumufit::Minimizer& minimizer) {
+bool AdjustMinimizerPlan::checkMinimizer(mumufit::Minimizer& minimizer)
+{
     auto fit_objective = createFitObjective();
 
     fcn_scalar_t scalar_func = [&](const mumufit::Parameters& params) {

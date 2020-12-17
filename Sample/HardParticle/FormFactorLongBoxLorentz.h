@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorLongBoxLorentz.h
 //! @brief     Defines class FormFactorLongBoxLorentz.
@@ -25,7 +25,8 @@ public:
     FormFactorLongBoxLorentz(const std::vector<double> P);
     FormFactorLongBoxLorentz(double length, double width, double height);
 
-    FormFactorLongBoxLorentz* clone() const final {
+    FormFactorLongBoxLorentz* clone() const final
+    {
         return new FormFactorLongBoxLorentz(m_length, m_width, m_height);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

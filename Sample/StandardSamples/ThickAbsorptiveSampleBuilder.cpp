@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/ThickAbsorptiveSampleBuilder.cpp
 //! @brief     Implements class to build thick highly-absorptive sample with roughness
@@ -19,7 +19,8 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Slice/LayerRoughness.h"
 
-MultiLayer* ThickAbsorptiveSampleBuilder::buildSample() const {
+MultiLayer* ThickAbsorptiveSampleBuilder::buildSample() const
+{
     Material vacuum_material = MaterialBySLD("Vacuum", 0.0, 0.0);
     Material au_material = MaterialBySLD("Au", 3.48388057043e-05, 1.79057609656e-05);
     Material si_material = MaterialBySLD("Si", 3.84197565094e-07, 6.28211531498e-07);

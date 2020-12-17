@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Data/LLData.cpp
 //! @brief     Implements template specializations for LLData.
@@ -14,7 +14,8 @@
 
 #include "Device/Data/LLData.h"
 
-template <> Eigen::Matrix2d LLData<Eigen::Matrix2d>::getZeroElement() const {
+template <> Eigen::Matrix2d LLData<Eigen::Matrix2d>::getZeroElement() const
+{
     Eigen::Matrix2d result = Eigen::Matrix2d::Zero();
     return result;
 }

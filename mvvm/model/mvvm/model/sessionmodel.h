@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/model/sessionmodel.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONMODEL_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONMODEL_H
@@ -96,14 +101,16 @@ private:
 
 //! Inserts item into given parent under given tagrow.
 
-template <typename T> T* SessionModel::insertItem(SessionItem* parent, const TagRow& tagrow) {
+template <typename T> T* SessionModel::insertItem(SessionItem* parent, const TagRow& tagrow)
+{
     return static_cast<T*>(intern_insert(ItemFactoryFunction<T>(), parent, tagrow));
 }
 
 //! Returns top items of the given type.
 //! The top item is an item that is a child of an invisible root item.
 
-template <typename T> std::vector<T*> SessionModel::topItems() const {
+template <typename T> std::vector<T*> SessionModel::topItems() const
+{
     std::vector<T*> result;
     for (auto child : rootItem()->children()) {
         if (auto item = dynamic_cast<T*>(child))
@@ -116,7 +123,8 @@ template <typename T> std::vector<T*> SessionModel::topItems() const {
 //! Returns top item of the given type. If more than one item exists, return the first one.
 //! The top item is an item that is a child of an invisible root item.
 
-template <typename T> T* SessionModel::topItem() const {
+template <typename T> T* SessionModel::topItem() const
+{
     auto items = topItems<T>();
     return items.empty() ? nullptr : items.front();
 }
@@ -124,7 +132,8 @@ template <typename T> T* SessionModel::topItem() const {
 //! Register used defined item to use with the model. It will become possible to undo/redo
 //! operations with this item, as well as serialize it to/from JSON.
 
-template <typename T> void SessionModel::registerItem(const std::string& label) {
+template <typename T> void SessionModel::registerItem(const std::string& label)
+{
     intern_register(T().modelType(), ItemFactoryFunction<T>(), label);
 }
 

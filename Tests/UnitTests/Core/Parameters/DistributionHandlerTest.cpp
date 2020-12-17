@@ -10,7 +10,8 @@ protected:
     double m_value;
 };
 
-TEST_F(DistributionHandlerTest, DistributionHandlerConstructor) {
+TEST_F(DistributionHandlerTest, DistributionHandlerConstructor)
+{
     DistributionHandler handler;
     DistributionGate distribution(1.0, 2.0);
     std::string paraName = "value";

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/view/mvvm/plotting/pencontroller.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/plotting/pencontroller.h"
 #include "mvvm/model/comboproperty.h"
@@ -17,7 +22,8 @@ using namespace ModelView;
 
 namespace {
 //! Returns Qt pen style from current ComboProperty index.
-Qt::PenStyle getQtPenFromComboIndex(const ComboProperty& combo) {
+Qt::PenStyle getQtPenFromComboIndex(const ComboProperty& combo)
+{
     // our ComboProperty for pens coincide with Qt definition
     return static_cast<Qt::PenStyle>(combo.currentIndex());
 }
@@ -25,12 +31,14 @@ Qt::PenStyle getQtPenFromComboIndex(const ComboProperty& combo) {
 
 struct PenController::PenControllerImpl {
     QCPGraph* m_graph{nullptr};
-    PenControllerImpl(QCPGraph* graph) : m_graph(graph) {
+    PenControllerImpl(QCPGraph* graph) : m_graph(graph)
+    {
         if (!m_graph)
             throw std::runtime_error("Error in PenController: uninitialised graph.");
     }
 
-    void update_graph_from_item(PenItem* item) {
+    void update_graph_from_item(PenItem* item)
+    {
         QColor color(QString::fromStdString(item->colorName()));
         auto pencombo = item->property<ComboProperty>(PenItem::P_STYLE);
         auto penwidth = item->property<int>(PenItem::P_WIDTH);
@@ -45,12 +53,14 @@ struct PenController::PenControllerImpl {
     }
 };
 
-PenController::PenController(QCPGraph* graph)
-    : p_impl(std::make_unique<PenControllerImpl>(graph)) {}
+PenController::PenController(QCPGraph* graph) : p_impl(std::make_unique<PenControllerImpl>(graph))
+{
+}
 
 PenController::~PenController() = default;
 
-void PenController::subscribe() {
+void PenController::subscribe()
+{
     auto on_property_change = [this](auto, auto) { p_impl->update_graph_from_item(currentItem()); };
     setOnPropertyChange(on_property_change);
 

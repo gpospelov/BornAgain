@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Lattice/Lattice3D.cpp
 //! @brief     Implements class Lattice.
@@ -20,13 +20,15 @@
 #include <gsl/gsl_linalg.h>
 
 Lattice3D::Lattice3D(const kvector_t a, const kvector_t b, const kvector_t c)
-    : m_a(a), m_b(b), m_c(c) {
+    : m_a(a), m_b(b), m_c(c)
+{
     setName("Lattice");
     initialize();
 }
 
 Lattice3D::Lattice3D(const Lattice3D& lattice)
-    : INode(), m_a(lattice.m_a), m_b(lattice.m_b), m_c(lattice.m_c) {
+    : INode(), m_a(lattice.m_a), m_b(lattice.m_b), m_c(lattice.m_c)
+{
     setName("Lattice");
     initialize();
     if (lattice.m_selection_rule)
@@ -35,7 +37,8 @@ Lattice3D::Lattice3D(const Lattice3D& lattice)
 
 Lattice3D::~Lattice3D() = default;
 
-void Lattice3D::initialize() {
+void Lattice3D::initialize()
+{
     computeReciprocalVectors();
     if (!parameter(XComponentName("BasisA"))) {
         registerVector("BasisA", &m_a, "nm");
@@ -44,11 +47,13 @@ void Lattice3D::initialize() {
     }
 }
 
-void Lattice3D::onChange() {
+void Lattice3D::onChange()
+{
     computeReciprocalVectors();
 }
 
-Lattice3D Lattice3D::transformed(const Transform3D& transform) const {
+Lattice3D Lattice3D::transformed(const Transform3D& transform) const
+{
     kvector_t q1 = transform.transformed(m_a);
     kvector_t q2 = transform.transformed(m_b);
     kvector_t q3 = transform.transformed(m_c);
@@ -59,29 +64,34 @@ Lattice3D Lattice3D::transformed(const Transform3D& transform) const {
 }
 
 //! Currently unused but may be useful for checks
-kvector_t Lattice3D::getMillerDirection(double h, double k, double l) const {
+kvector_t Lattice3D::getMillerDirection(double h, double k, double l) const
+{
     kvector_t direction = h * m_ra + k * m_rb + l * m_rc;
     return direction.unit();
 }
 
-double Lattice3D::unitCellVolume() const {
+double Lattice3D::unitCellVolume() const
+{
     return std::abs(m_a.dot(m_b.cross(m_c)));
 }
 
 //! Currently only used in tests
-void Lattice3D::getReciprocalLatticeBasis(kvector_t& ra, kvector_t& rb, kvector_t& rc) const {
+void Lattice3D::getReciprocalLatticeBasis(kvector_t& ra, kvector_t& rb, kvector_t& rc) const
+{
     ra = m_ra;
     rb = m_rb;
     rc = m_rc;
 }
 
-ivector_t Lattice3D::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const {
+ivector_t Lattice3D::getNearestReciprocalLatticeVectorCoordinates(const kvector_t q) const
+{
     return {(int)std::lround(q.dot(m_a) / M_TWOPI), (int)std::lround(q.dot(m_b) / M_TWOPI),
             (int)std::lround(q.dot(m_c) / M_TWOPI)};
 }
 
 std::vector<kvector_t> Lattice3D::reciprocalLatticeVectorsWithinRadius(const kvector_t q,
-                                                                       double dq) const {
+                                                                       double dq) const
+{
     ivector_t nearest_coords = getNearestReciprocalLatticeVectorCoordinates(q);
 
     int max_X = std::lround(m_a.mag() * dq / M_TWOPI);
@@ -105,7 +115,8 @@ std::vector<kvector_t> Lattice3D::reciprocalLatticeVectorsWithinRadius(const kve
     return ret;
 }
 
-void Lattice3D::computeReciprocalVectors() const {
+void Lattice3D::computeReciprocalVectors() const
+{
     kvector_t q23 = m_b.cross(m_c);
     kvector_t q31 = m_c.cross(m_a);
     kvector_t q12 = m_a.cross(m_b);
@@ -114,6 +125,7 @@ void Lattice3D::computeReciprocalVectors() const {
     m_rc = M_TWOPI / m_c.dot(q12) * q12;
 }
 
-void Lattice3D::setSelectionRule(const ISelectionRule& selection_rule) {
+void Lattice3D::setSelectionRule(const ISelectionRule& selection_rule)
+{
     m_selection_rule.reset(selection_rule.clone());
 }

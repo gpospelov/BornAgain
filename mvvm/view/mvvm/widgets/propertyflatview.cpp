@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/view/mvvm/widgets/propertyflatview.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/widgets/propertyflatview.h"
 #include "mvvm/editors/customeditor.h"
@@ -35,11 +40,14 @@ struct PropertyFlatView::PropertyFlatViewImpl {
     PropertyFlatViewImpl()
         : m_delegate(std::make_unique<ViewModelDelegate>())
         , editor_factory(std::make_unique<DefaultEditorFactory>())
-        , grid_layout(new QGridLayout) {}
+        , grid_layout(new QGridLayout)
+    {
+    }
 
     //! Creates label for given index.
 
-    std::unique_ptr<QLabel> create_label(ViewItem* view_item) {
+    std::unique_ptr<QLabel> create_label(ViewItem* view_item)
+    {
         auto result = std::make_unique<QLabel>(view_item->data(Qt::DisplayRole).toString());
         result->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed));
         result->setEnabled(view_item->item()->isEnabled());
@@ -48,7 +56,8 @@ struct PropertyFlatView::PropertyFlatViewImpl {
 
     //! Creates custom editor for given index.
 
-    std::unique_ptr<CustomEditor> create_editor(const QModelIndex& index) {
+    std::unique_ptr<CustomEditor> create_editor(const QModelIndex& index)
+    {
         auto editor = editor_factory->createEditor(index);
         m_delegate->setEditorData(editor.get(), index);
         connect(editor.get(), &CustomEditor::dataChanged, m_delegate.get(),
@@ -59,7 +68,8 @@ struct PropertyFlatView::PropertyFlatViewImpl {
 
     //! Connect model.
 
-    void connect_model() {
+    void connect_model()
+    {
         auto on_data_change = [this](const QModelIndex& topLeft, const QModelIndex&,
                                      const QVector<int>& roles) {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
@@ -85,7 +95,8 @@ struct PropertyFlatView::PropertyFlatViewImpl {
 
     //! Creates widget for given index to appear in grid layout.
 
-    std::unique_ptr<QWidget> create_widget(const QModelIndex& index) {
+    std::unique_ptr<QWidget> create_widget(const QModelIndex& index)
+    {
         auto view_item = view_model->viewItemFromIndex(index);
         if (auto label_item = dynamic_cast<ViewLabelItem*>(view_item); label_item)
             return create_label(label_item);
@@ -95,7 +106,8 @@ struct PropertyFlatView::PropertyFlatViewImpl {
 
     //! Creates row of widget mappers. Each widget mapper will serve all editors in a column.
 
-    void update_mappers() {
+    void update_mappers()
+    {
         widget_mappers.clear();
         for (int row = 0; row < view_model->rowCount(); ++row) {
             auto mapper = std::make_unique<QDataWidgetMapper>();
@@ -109,7 +121,8 @@ struct PropertyFlatView::PropertyFlatViewImpl {
 
     //! Updates grid layout with all editors corresponding to the model.
 
-    void update_grid_layout() {
+    void update_grid_layout()
+    {
         LayoutUtils::clearGridLayout(grid_layout, true);
 
         update_mappers();
@@ -127,7 +140,8 @@ struct PropertyFlatView::PropertyFlatViewImpl {
 };
 
 PropertyFlatView::PropertyFlatView(QWidget* parent)
-    : QWidget(parent), p_impl(std::make_unique<PropertyFlatViewImpl>()) {
+    : QWidget(parent), p_impl(std::make_unique<PropertyFlatViewImpl>())
+{
     auto main_layout = new QVBoxLayout;
     main_layout->setMargin(0);
     main_layout->setSpacing(0);
@@ -141,7 +155,8 @@ PropertyFlatView::PropertyFlatView(QWidget* parent)
 
 PropertyFlatView::~PropertyFlatView() = default;
 
-void PropertyFlatView::setItem(SessionItem* item) {
+void PropertyFlatView::setItem(SessionItem* item)
+{
     p_impl->view_model = Factory::CreatePropertyFlatViewModel(item->model());
     p_impl->view_model->setRootSessionItem(item);
     p_impl->connect_model();

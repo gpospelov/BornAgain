@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobWidgets/ScientificSpinBox.cpp
 //! @brief     Implements class ScientificSpinBox
@@ -31,7 +31,8 @@ ScientificSpinBox::ScientificSpinBox(QWidget* parent)
     , m_min(-max_val)
     , m_max(max_val)
     , m_step(1.0)
-    , m_decimals(3) {
+    , m_decimals(3)
+{
     QLocale locale;
     locale.setNumberOptions(QLocale::RejectGroupSeparator);
     m_validator.setLocale(locale);
@@ -42,11 +43,13 @@ ScientificSpinBox::ScientificSpinBox(QWidget* parent)
 
 ScientificSpinBox::~ScientificSpinBox() = default;
 
-double ScientificSpinBox::value() const {
+double ScientificSpinBox::value() const
+{
     return m_value;
 }
 
-void ScientificSpinBox::setValue(double val) {
+void ScientificSpinBox::setValue(double val)
+{
     double old_val = m_value;
     m_value = round(val, m_decimals);
     updateText();
@@ -54,57 +57,68 @@ void ScientificSpinBox::setValue(double val) {
         emit valueChanged(m_value);
 }
 
-void ScientificSpinBox::updateValue() {
+void ScientificSpinBox::updateValue()
+{
     double new_val = toDouble(text(), m_validator, m_min, m_max, m_value);
     setValue(new_val);
 }
 
-double ScientificSpinBox::singleStep() const {
+double ScientificSpinBox::singleStep() const
+{
     return m_step;
 }
 
-void ScientificSpinBox::setSingleStep(double step) {
+void ScientificSpinBox::setSingleStep(double step)
+{
     m_step = step;
 }
 
-double ScientificSpinBox::minimum() const {
+double ScientificSpinBox::minimum() const
+{
     return m_min;
 }
 
-void ScientificSpinBox::setMinimum(double min) {
+void ScientificSpinBox::setMinimum(double min)
+{
     m_min = min;
     if (m_value < m_min)
         setValue(m_min);
 }
 
-double ScientificSpinBox::maximum() const {
+double ScientificSpinBox::maximum() const
+{
     return m_max;
 }
 
-void ScientificSpinBox::setMaximum(double max) {
+void ScientificSpinBox::setMaximum(double max)
+{
     m_max = max;
     if (m_value > m_max)
         setValue(m_max);
 }
 
-void ScientificSpinBox::setDecimals(int val) {
+void ScientificSpinBox::setDecimals(int val)
+{
     if (val <= 0)
         return;
     m_decimals = val;
     setValue(m_value);
 }
 
-int ScientificSpinBox::decimals() const {
+int ScientificSpinBox::decimals() const
+{
     return m_decimals;
 }
 
-void ScientificSpinBox::stepBy(int steps) {
+void ScientificSpinBox::stepBy(int steps)
+{
     double new_val = round(m_value + m_step * steps, m_decimals);
     if (inRange(new_val))
         setValue(new_val);
 }
 
-QString ScientificSpinBox::toString(double val, int decimal_points) {
+QString ScientificSpinBox::toString(double val, int decimal_points)
+{
     QString result = useExponentialNotation(val) ? QString::number(val, 'e', decimal_points)
                                                  : QString::number(val, 'f', decimal_points);
 
@@ -112,7 +126,8 @@ QString ScientificSpinBox::toString(double val, int decimal_points) {
 }
 
 double ScientificSpinBox::toDouble(QString text, const QDoubleValidator& validator, double min,
-                                   double max, double default_value) {
+                                   double max, double default_value)
+{
     int pos = 0;
     if (validator.validate(text, pos) == QValidator::Acceptable) {
         double new_val = validator.locale().toDouble(text);
@@ -123,26 +138,31 @@ double ScientificSpinBox::toDouble(QString text, const QDoubleValidator& validat
     return default_value;
 }
 
-double ScientificSpinBox::round(double val, int decimals) {
+double ScientificSpinBox::round(double val, int decimals)
+{
     return QString::number(val, 'e', decimals).toDouble();
 }
 
-QAbstractSpinBox::StepEnabled ScientificSpinBox::stepEnabled() const {
+QAbstractSpinBox::StepEnabled ScientificSpinBox::stepEnabled() const
+{
     return isReadOnly() ? StepNone : StepUpEnabled | StepDownEnabled;
 }
 
-void ScientificSpinBox::updateText() {
+void ScientificSpinBox::updateText()
+{
     QString new_text = toString(m_value, m_decimals);
     if (new_text != text())
         lineEdit()->setText(new_text);
 }
 
-bool ScientificSpinBox::inRange(double val) const {
+bool ScientificSpinBox::inRange(double val) const
+{
     return val >= m_min && val <= m_max;
 }
 
 namespace {
-bool useExponentialNotation(double val) {
+bool useExponentialNotation(double val)
+{
     const double abs_val = std::abs(val);
 
     if (abs_val <= min_val)

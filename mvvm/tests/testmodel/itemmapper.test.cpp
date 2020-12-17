@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/itemmapper.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mockwidgets.h"
@@ -27,7 +32,8 @@ ItemMapperTest::~ItemMapperTest() = default;
 
 //! Check that mapper works only in model context.
 
-TEST(ItemMapperTest, initialState) {
+TEST(ItemMapperTest, initialState)
+{
     // item outside model context can't have a mapper
     auto item = std::make_unique<SessionItem>();
     EXPECT_THROW(item->mapper(), std::runtime_error);
@@ -40,7 +46,8 @@ TEST(ItemMapperTest, initialState) {
 
 //! Destroying item, expecting single call of onItemDestroy in MockWidget.
 
-TEST(ItemMapperTest, onItemDestroy) {
+TEST(ItemMapperTest, onItemDestroy)
+{
     SessionModel model;
     auto item = model.insertItem<SessionItem>(model.rootItem());
 
@@ -61,7 +68,8 @@ TEST(ItemMapperTest, onItemDestroy) {
 
 //! Setting data to item, expecting onDataChange callback.
 
-TEST(ItemMapperTest, onDataChange) {
+TEST(ItemMapperTest, onDataChange)
+{
     SessionModel model;
     auto item = model.insertItem<SessionItem>(model.rootItem());
 
@@ -82,7 +90,8 @@ TEST(ItemMapperTest, onDataChange) {
 
 //! Setting same data to item, expecting no callbacks on onDataChange.
 
-TEST(ItemMapperTest, onDataChangeDuplicate) {
+TEST(ItemMapperTest, onDataChangeDuplicate)
+{
     SessionModel model;
     auto item = model.insertItem<SessionItem>(model.rootItem());
 
@@ -103,7 +112,8 @@ TEST(ItemMapperTest, onDataChangeDuplicate) {
 
 //! Setting mapper activity to false, change the data, expect no callbacks.
 
-TEST(ItemMapperTest, setActivity) {
+TEST(ItemMapperTest, setActivity)
+{
     SessionModel model;
     auto item = model.insertItem<SessionItem>(model.rootItem());
 
@@ -125,7 +135,8 @@ TEST(ItemMapperTest, setActivity) {
 
 //! Unsubscribing from item, expecting no callbacks.
 
-TEST(ItemMapperTest, unsubscribe) {
+TEST(ItemMapperTest, unsubscribe)
+{
     SessionModel model;
     auto item = model.insertItem<SessionItem>(model.rootItem());
 
@@ -143,7 +154,8 @@ TEST(ItemMapperTest, unsubscribe) {
 
 //! Changing item property.
 
-TEST(ItemMapperTest, onPropertyChange) {
+TEST(ItemMapperTest, onPropertyChange)
+{
     SessionModel model;
     auto item = model.insertItem<CompoundItem>();
     EXPECT_TRUE(item != nullptr);
@@ -168,7 +180,8 @@ TEST(ItemMapperTest, onPropertyChange) {
 
 //! Changing item property.
 
-TEST(ItemMapperTest, onChildPropertyChange) {
+TEST(ItemMapperTest, onChildPropertyChange)
+{
     SessionModel model;
     auto compound1 = model.insertItem<CompoundItem>();
     compound1->registerTag(TagInfo::universalTag("tag1"), /*set_as_default*/ true);
@@ -194,7 +207,8 @@ TEST(ItemMapperTest, onChildPropertyChange) {
 
 //! Inserting item to item.
 
-TEST(ItemMapperTest, onItemInsert) {
+TEST(ItemMapperTest, onItemInsert)
+{
     SessionModel model;
     auto compound1 = model.insertItem<CompoundItem>();
     compound1->registerTag(TagInfo::universalTag("tag1"), /*set_as_default*/ true);
@@ -216,7 +230,8 @@ TEST(ItemMapperTest, onItemInsert) {
 
 //! Inserting item to item.
 
-TEST(ItemMapperTest, onAboutToRemoveItem) {
+TEST(ItemMapperTest, onAboutToRemoveItem)
+{
     const TagRow expected_tagrow = {"tag1", 0};
 
     SessionModel model;

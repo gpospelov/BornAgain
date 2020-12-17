@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Vector/Transform3D.h
 //! @brief      Declares class Transform3D.
@@ -94,7 +94,8 @@ public:
     //! Determine if the transformation is trivial (identity)
     bool isIdentity() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const Transform3D& m) {
+    friend std::ostream& operator<<(std::ostream& ostr, const Transform3D& m)
+    {
         m.print(ostr);
         return ostr;
     }

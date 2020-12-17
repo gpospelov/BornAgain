@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/InstrumentView.cpp
 //! @brief     Implements class InstrumentView
@@ -28,7 +28,8 @@ InstrumentView::InstrumentView(MainWindow* mainWindow)
     , m_toolBar(new InstrumentViewToolBar(m_actions, this))
     , m_instrumentSelector(new InstrumentSelectorWidget)
     , m_instrumentEditor(new ItemStackPresenter<InstrumentEditorWidget>(true))
-    , m_instrumentModel(mainWindow->instrumentModel()) {
+    , m_instrumentModel(mainWindow->instrumentModel())
+{
     auto horizontalLayout = new QHBoxLayout;
     horizontalLayout->addWidget(m_instrumentSelector);
     horizontalLayout->addWidget(m_instrumentEditor, 1);
@@ -51,16 +52,19 @@ InstrumentView::InstrumentView(MainWindow* mainWindow)
             &InstrumentView::onItemSelectionChanged);
 }
 
-void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem* detectorItem) {
+void InstrumentView::onExtendedDetectorEditorRequest(DetectorItem* detectorItem)
+{
     auto dialog = new ExtendedDetectorDialog(this);
     dialog->setDetectorContext(m_instrumentModel, detectorItem);
     dialog->show();
 }
 
-void InstrumentView::onItemSelectionChanged(SessionItem* instrumentItem) {
+void InstrumentView::onItemSelectionChanged(SessionItem* instrumentItem)
+{
     m_instrumentEditor->setItem(instrumentItem);
 }
 
-void InstrumentView::showEvent(QShowEvent*) {
+void InstrumentView::showEvent(QShowEvent*)
+{
     m_instrumentSelector->updateSelection();
 }

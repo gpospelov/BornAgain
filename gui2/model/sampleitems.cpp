@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/model/sampleitems.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/model/sampleitems.h"
 #include "gui2/model/item_constants.h"
@@ -17,7 +22,8 @@
 
 namespace gui2 {
 
-RoughnessItem::RoughnessItem() : ModelView::CompoundItem(Constants::RoughnessItemType) {
+RoughnessItem::RoughnessItem() : ModelView::CompoundItem(Constants::RoughnessItemType)
+{
     addProperty(P_SIGMA, 0.0)->setDisplayName("Sigma");
     addProperty(P_HURST, 0.5)->setDisplayName("Hurst");
     addProperty(P_LATERAL_CORR_LENGTH, 0.0)->setDisplayName("Correlation length");
@@ -25,7 +31,8 @@ RoughnessItem::RoughnessItem() : ModelView::CompoundItem(Constants::RoughnessIte
 
 //! ---------------------------------------------------------------------------
 
-LayerItem::LayerItem() : ModelView::CompoundItem(Constants::LayerItemType) {
+LayerItem::LayerItem() : ModelView::CompoundItem(Constants::LayerItemType)
+{
     addProperty(P_NAME, "Unnamed")->setDisplayName("Name");
     addProperty(P_MATERIAL, ModelView::ExternalProperty::undefined())->setDisplayName("Material");
     addProperty(P_THICKNESS, 0.0)
@@ -36,7 +43,8 @@ LayerItem::LayerItem() : ModelView::CompoundItem(Constants::LayerItemType) {
 
 //! ---------------------------------------------------------------------------
 
-MultiLayerItem::MultiLayerItem() : ModelView::CompoundItem(Constants::MultiLayerItemType) {
+MultiLayerItem::MultiLayerItem() : ModelView::CompoundItem(Constants::MultiLayerItemType)
+{
     addProperty(P_NAME, "Unnamed")->setDisplayName("Name");
     addProperty(P_NREPETITIONS, 1)->setDisplayName("Nr.");
     std::vector<std::string> allowed_child = {Constants::MultiLayerItemType,
@@ -46,7 +54,8 @@ MultiLayerItem::MultiLayerItem() : ModelView::CompoundItem(Constants::MultiLayer
     void update_layer_appearance();
 }
 
-void MultiLayerItem::activate() {
+void MultiLayerItem::activate()
+{
     auto on_item_inserted = [this](ModelView::SessionItem*, ModelView::TagRow) {
         update_layer_appearance();
     };
@@ -61,7 +70,8 @@ void MultiLayerItem::activate() {
 //! Sets thickness property of top and bottom layers to disabled state.
 //! Reset thickness of top and bottom layer to 0.
 
-void MultiLayerItem::update_layer_appearance() {
+void MultiLayerItem::update_layer_appearance()
+{
     // FIXME restore correct enabling/disabling of thickness and roughness of top and bottom layers
     // FIXME together with tests in layeritems.test.cpp
     if (parent() != model()->rootItem())

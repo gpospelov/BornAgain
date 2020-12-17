@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/commands/commandservice.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDSERVICE_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDSERVICE_H
@@ -61,7 +66,8 @@ private:
 //! Creates and processes command of given type using given argument list.
 
 template <typename C, typename... Args>
-CommandResult CommandService::process_command(Args&&... args) {
+CommandResult CommandService::process_command(Args&&... args)
+{
     if (provideUndo()) {
         // making shared because underlying QUndoStack requires ownership
         auto command = std::make_shared<C>(std::forward<Args>(args)...);

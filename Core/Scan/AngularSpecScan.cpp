@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Scan/AngularSpecScan.cpp
 //! @brief     Implements AngularSpecScan class.
@@ -23,7 +23,8 @@
 namespace {
 std::vector<std::vector<double>>
 extractValues(std::vector<std::vector<ParameterSample>> samples,
-              const std::function<double(const ParameterSample&)> extractor) {
+              const std::function<double(const ParameterSample&)> extractor)
+{
     std::vector<std::vector<double>> result;
     result.resize(samples.size());
     for (size_t i = 0, size = result.size(); i < size; ++i) {
@@ -44,7 +45,8 @@ AngularSpecScan::AngularSpecScan(double wl, std::vector<double> inc_angle)
     : m_wl(wl)
     , m_inc_angle(std::make_unique<PointwiseAxis>("inc_angles", std::move(inc_angle)))
     , m_wl_resolution(ScanResolution::scanEmptyResolution())
-    , m_inc_resolution(ScanResolution::scanEmptyResolution()) {
+    , m_inc_resolution(ScanResolution::scanEmptyResolution())
+{
     checkInitialization();
 }
 
@@ -52,7 +54,8 @@ AngularSpecScan::AngularSpecScan(double wl, const IAxis& inc_angle)
     : m_wl(wl)
     , m_inc_angle(inc_angle.clone())
     , m_wl_resolution(ScanResolution::scanEmptyResolution())
-    , m_inc_resolution(ScanResolution::scanEmptyResolution()) {
+    , m_inc_resolution(ScanResolution::scanEmptyResolution())
+{
     checkInitialization();
 }
 
@@ -60,11 +63,13 @@ AngularSpecScan::AngularSpecScan(double wl, int nbins, double alpha_i_min, doubl
     : m_wl(wl)
     , m_inc_angle(std::make_unique<FixedBinAxis>("inc_angles", nbins, alpha_i_min, alpha_i_max))
     , m_wl_resolution(ScanResolution::scanEmptyResolution())
-    , m_inc_resolution(ScanResolution::scanEmptyResolution()) {
+    , m_inc_resolution(ScanResolution::scanEmptyResolution())
+{
     checkInitialization();
 }
 
-AngularSpecScan* AngularSpecScan::clone() const {
+AngularSpecScan* AngularSpecScan::clone() const
+{
     auto* result = new AngularSpecScan(m_wl, *m_inc_angle);
     result->setFootprintFactor(m_footprint.get());
     result->setWavelengthResolution(*m_wl_resolution);
@@ -75,7 +80,8 @@ AngularSpecScan* AngularSpecScan::clone() const {
 AngularSpecScan::~AngularSpecScan() = default;
 
 std::vector<SpecularSimulationElement>
-AngularSpecScan::generateSimulationElements(const Instrument& instrument) const {
+AngularSpecScan::generateSimulationElements(const Instrument& instrument) const
+{
     const auto wls = extractValues(applyWlResolution(),
                                    [](const ParameterSample& sample) { return sample.value; });
     const auto incs = extractValues(applyIncResolution(),
@@ -96,79 +102,89 @@ AngularSpecScan::generateSimulationElements(const Instrument& instrument) const 
     return result;
 }
 
-void AngularSpecScan::setFootprintFactor(const IFootprintFactor* f_factor) {
+void AngularSpecScan::setFootprintFactor(const IFootprintFactor* f_factor)
+{
     m_footprint.reset(f_factor ? f_factor->clone() : nullptr);
 }
 
-void AngularSpecScan::setWavelengthResolution(const ScanResolution& resolution) {
+void AngularSpecScan::setWavelengthResolution(const ScanResolution& resolution)
+{
     m_wl_resolution.reset(resolution.clone());
     m_wl_res_cache.clear();
     m_wl_res_cache.shrink_to_fit();
 }
 
 void AngularSpecScan::setRelativeWavelengthResolution(const IRangedDistribution& distr,
-                                                      double rel_dev) {
+                                                      double rel_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanRelativeResolution(distr, rel_dev));
     setWavelengthResolution(*resolution);
 }
 
 void AngularSpecScan::setRelativeWavelengthResolution(const IRangedDistribution& distr,
-                                                      const std::vector<double>& rel_dev) {
+                                                      const std::vector<double>& rel_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanRelativeResolution(distr, rel_dev));
     setWavelengthResolution(*resolution);
 }
 
 void AngularSpecScan::setAbsoluteWavelengthResolution(const IRangedDistribution& distr,
-                                                      double std_dev) {
+                                                      double std_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanAbsoluteResolution(distr, std_dev));
     setWavelengthResolution(*resolution);
 }
 
 void AngularSpecScan::setAbsoluteWavelengthResolution(const IRangedDistribution& distr,
-                                                      const std::vector<double>& std_dev) {
+                                                      const std::vector<double>& std_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanAbsoluteResolution(distr, std_dev));
     setWavelengthResolution(*resolution);
 }
 
-void AngularSpecScan::setAngleResolution(const ScanResolution& resolution) {
+void AngularSpecScan::setAngleResolution(const ScanResolution& resolution)
+{
     m_inc_resolution.reset(resolution.clone());
     m_inc_res_cache.clear();
     m_inc_res_cache.shrink_to_fit();
 }
 
-void AngularSpecScan::setRelativeAngularResolution(const IRangedDistribution& distr,
-                                                   double rel_dev) {
+void AngularSpecScan::setRelativeAngularResolution(const IRangedDistribution& distr, double rel_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanRelativeResolution(distr, rel_dev));
     setAngleResolution(*resolution);
 }
 
 void AngularSpecScan::setRelativeAngularResolution(const IRangedDistribution& distr,
-                                                   const std::vector<double>& rel_dev) {
+                                                   const std::vector<double>& rel_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanRelativeResolution(distr, rel_dev));
     setAngleResolution(*resolution);
 }
 
-void AngularSpecScan::setAbsoluteAngularResolution(const IRangedDistribution& distr,
-                                                   double std_dev) {
+void AngularSpecScan::setAbsoluteAngularResolution(const IRangedDistribution& distr, double std_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanAbsoluteResolution(distr, std_dev));
     setAngleResolution(*resolution);
 }
 
 void AngularSpecScan::setAbsoluteAngularResolution(const IRangedDistribution& distr,
-                                                   const std::vector<double>& std_dev) {
+                                                   const std::vector<double>& std_dev)
+{
     std::unique_ptr<ScanResolution> resolution(
         ScanResolution::scanAbsoluteResolution(distr, std_dev));
     setAngleResolution(*resolution);
 }
 
-std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) const {
+std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) const
+{
     if (start + n_elements > numberOfSimulationElements())
         throw std::runtime_error("Error in AngularSpecScan::footprint: given index exceeds the "
                                  "number of simulation elements");
@@ -204,12 +220,14 @@ std::vector<double> AngularSpecScan::footprint(size_t start, size_t n_elements) 
     return result;
 }
 
-size_t AngularSpecScan::numberOfSimulationElements() const {
+size_t AngularSpecScan::numberOfSimulationElements() const
+{
     return m_inc_angle->size() * m_wl_resolution->nSamples() * m_inc_resolution->nSamples();
 }
 
-std::vector<double> AngularSpecScan::createIntensities(
-    const std::vector<SpecularSimulationElement>& sim_elements) const {
+std::vector<double>
+AngularSpecScan::createIntensities(const std::vector<SpecularSimulationElement>& sim_elements) const
+{
     const size_t axis_size = m_inc_angle->size();
     std::vector<double> result(axis_size, 0.0);
 
@@ -232,7 +250,8 @@ std::vector<double> AngularSpecScan::createIntensities(
     return result;
 }
 
-void AngularSpecScan::checkInitialization() {
+void AngularSpecScan::checkInitialization()
+{
     if (m_wl <= 0.0)
         throw std::runtime_error(
             "Error in AngularSpecScan::checkInitialization: wavelength shell be positive");
@@ -245,13 +264,15 @@ void AngularSpecScan::checkInitialization() {
     // TODO: check for inclination angle limits after switching to pointwise resolution.
 }
 
-AngularSpecScan::DistrOutput AngularSpecScan::applyWlResolution() const {
+AngularSpecScan::DistrOutput AngularSpecScan::applyWlResolution() const
+{
     if (m_wl_res_cache.empty())
         m_wl_res_cache = m_wl_resolution->generateSamples(m_wl, m_inc_angle->size());
     return m_wl_res_cache;
 }
 
-AngularSpecScan::DistrOutput AngularSpecScan::applyIncResolution() const {
+AngularSpecScan::DistrOutput AngularSpecScan::applyIncResolution() const
+{
     if (m_inc_res_cache.empty())
         m_inc_res_cache = m_inc_resolution->generateSamples(m_inc_angle->binCenters());
     return m_inc_res_cache;

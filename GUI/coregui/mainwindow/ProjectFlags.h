@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/mainwindow/ProjectFlags.h
 //! @brief     Defines class ProjectFlags
@@ -27,7 +27,8 @@ public:
 
     Q_DECLARE_FLAGS(DocumentStatus, EDocumentStatus)
 
-    static void setFlag(ProjectFlags::DocumentStatus& flags, EDocumentStatus status) {
+    static void setFlag(ProjectFlags::DocumentStatus& flags, EDocumentStatus status)
+    {
         flags |= status;
     }
 };

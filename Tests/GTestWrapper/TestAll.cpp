@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/GTestWrapper/TestAll.cpp
 //! @brief     Implements main, for use in various test directories.
@@ -25,7 +25,8 @@
 //! [1] https://github.com/google/googletest/blob/master/googletest/docs/primer.md
 //!     #writing-the-main-function
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     ::testing::InitGoogleTest(&argc, argv);
 
     // run all google tests

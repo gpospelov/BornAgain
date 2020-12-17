@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SampleDesigner/TransformationView.cpp
 //! @brief     Implements class TransformationView
@@ -15,7 +15,8 @@
 #include "GUI/coregui/Views/SampleDesigner/TransformationView.h"
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 
-TransformationView::TransformationView(QGraphicsItem* parent) : ConnectableView(parent) {
+TransformationView::TransformationView(QGraphicsItem* parent) : ConnectableView(parent)
+{
     setName("Rotation");
     setColor(DesignerHelper::getDefaultTransformationColor());
     setRectangle(DesignerHelper::getTransformationBoundingRect());

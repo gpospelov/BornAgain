@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/IntensityDataWidgets/PlotEventInfo.cpp
 //! @brief     Implementation of the class PlotEventInfo
@@ -24,9 +24,12 @@ PlotEventInfo::PlotEventInfo(PLOT_TYPE type)
     , m_value(0.0)
     , m_nx(0)
     , m_ny(0)
-    , m_info_type(type) {}
+    , m_info_type(type)
+{
+}
 
-QString PlotEventInfo::statusString() const {
+QString PlotEventInfo::statusString() const
+{
     QString result;
     result = m_info_type == PLOT_TYPE::Plot1D
                  ? QString(" [x: %1, y: %2]    [binx: %3]")
@@ -43,7 +46,8 @@ QString PlotEventInfo::statusString() const {
     return result;
 }
 
-QString PlotEventInfo::valueToString() const {
+QString PlotEventInfo::valueToString() const
+{
     return m_info_type == PLOT_TYPE::Plot1D || m_log_valued_axis
                ? QString::fromStdString(pyfmt::printScientificDouble(m_value))
                : QString::number(m_value, 'f', 2);

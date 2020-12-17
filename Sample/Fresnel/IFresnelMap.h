@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Fresnel/IFresnelMap.h
 //! @brief     Defines interface IFresnelMap.
@@ -43,7 +43,8 @@ public:
     //! Retrieves the amplitude coefficients for an incoming wavevector.
     template <typename T>
     std::unique_ptr<const ILayerRTCoefficients> getInCoefficients(const T& sim_element,
-                                                                  size_t layer_index) const {
+                                                                  size_t layer_index) const
+    {
         return getCoefficients(sim_element.getKi(), layer_index);
     }
 

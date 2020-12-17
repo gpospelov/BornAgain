@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/itemconverterfactory.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/factories/itemconverterfactory.h"
@@ -25,7 +30,8 @@ class ItemConverterFactoryTest : public ::testing::Test {
 public:
     class TestItem : public CompoundItem {
     public:
-        TestItem() : CompoundItem("TestItem") {
+        TestItem() : CompoundItem("TestItem")
+        {
             setToolTip("compound");
             addProperty("Thickness", 42)->setToolTip("thickness")->setEditorType("abc");
         }
@@ -33,7 +39,8 @@ public:
 
     class TestModel : public SessionModel {
     public:
-        TestModel() : SessionModel("TestModel") {
+        TestModel() : SessionModel("TestModel")
+        {
             auto catalogue = std::make_unique<ModelView::ItemCatalogue>();
             catalogue->registerItem<TestItem>();
             setItemCatalogue(std::move(catalogue));
@@ -49,7 +56,8 @@ public:
 
 //! Clone converter for simple property item.
 
-TEST_F(ItemConverterFactoryTest, propertyItemCloneConverter) {
+TEST_F(ItemConverterFactoryTest, propertyItemCloneConverter)
+{
     auto converter = CreateItemCloneConverter(factory());
 
     PropertyItem item;
@@ -67,7 +75,8 @@ TEST_F(ItemConverterFactoryTest, propertyItemCloneConverter) {
 
 //! Copy converter for simple property item.
 
-TEST_F(ItemConverterFactoryTest, propertyItemCopyConverter) {
+TEST_F(ItemConverterFactoryTest, propertyItemCopyConverter)
+{
     auto converter = CreateItemCopyConverter(factory());
 
     PropertyItem item;
@@ -86,7 +95,8 @@ TEST_F(ItemConverterFactoryTest, propertyItemCopyConverter) {
 //! Project converter for simple property item.
 //! It preserves only identifier and data roles.
 
-TEST_F(ItemConverterFactoryTest, propertyItemProjectConverter) {
+TEST_F(ItemConverterFactoryTest, propertyItemProjectConverter)
+{
     auto converter = CreateItemProjectConverter(factory());
 
     PropertyItem item;
@@ -103,7 +113,8 @@ TEST_F(ItemConverterFactoryTest, propertyItemProjectConverter) {
 
 //! Clone converter for simple property item.
 
-TEST_F(ItemConverterFactoryTest, testItemCloneConverter) {
+TEST_F(ItemConverterFactoryTest, testItemCloneConverter)
+{
     auto converter = CreateItemCloneConverter(factory());
 
     TestItem item;
@@ -124,7 +135,8 @@ TEST_F(ItemConverterFactoryTest, testItemCloneConverter) {
 //! Clone converter for simple property item.
 //! At this time
 
-TEST_F(ItemConverterFactoryTest, testItemProjectConverter) {
+TEST_F(ItemConverterFactoryTest, testItemProjectConverter)
+{
     auto converter = CreateItemProjectConverter(factory());
 
     TestItem item;

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/CommonWidgets/ModelTreeView.cpp
 //! @brief     Implements class ModelTreeView
@@ -24,7 +24,8 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
     : QWidget(parent)
     , m_tree(new QTreeView)
     , m_decorationProxy(new SessionDecorationModel(this, model))
-    , m_is_expanded(false) {
+    , m_is_expanded(false)
+{
     if (!model)
         throw GUIHelpers::Error("ModelTreeView::ModelTreeView() -> Error. Nullptr as model.");
 
@@ -46,15 +47,18 @@ ModelTreeView::ModelTreeView(QWidget* parent, SessionModel* model)
     setLayout(layout);
 }
 
-void ModelTreeView::setItemDelegate(QAbstractItemDelegate* delegate) {
+void ModelTreeView::setItemDelegate(QAbstractItemDelegate* delegate)
+{
     m_tree->setItemDelegate(delegate);
 }
 
-void ModelTreeView::toggleExpanded() {
+void ModelTreeView::toggleExpanded()
+{
     setExpanded(!isExpanded());
 }
 
-void ModelTreeView::setExpanded(bool expanded) {
+void ModelTreeView::setExpanded(bool expanded)
+{
     ASSERT(m_tree);
     if (expanded) {
         m_tree->expandAll();

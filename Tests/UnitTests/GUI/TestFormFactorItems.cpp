@@ -4,9 +4,11 @@
 #include "Sample/HardParticle/FormFactorAnisoPyramid.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class TestFormFactorItems : public ::testing::Test {};
+class TestFormFactorItems : public ::testing::Test {
+};
 
-TEST_F(TestFormFactorItems, test_AnisoPyramidItem) {
+TEST_F(TestFormFactorItems, test_AnisoPyramidItem)
+{
     // to domain
     AnisoPyramidItem item;
     item.setItemValue(AnisoPyramidItem::P_LENGTH, 20.0);

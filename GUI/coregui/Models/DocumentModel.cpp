@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/DocumentModel.cpp
 //! @brief     Implements class DocumentModel
@@ -15,10 +15,12 @@
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/SimulationOptionsItem.h"
 
-DocumentModel::DocumentModel(QObject* parent) : SessionModel(SessionXML::DocumentModelTag, parent) {
+DocumentModel::DocumentModel(QObject* parent) : SessionModel(SessionXML::DocumentModelTag, parent)
+{
     setObjectName(SessionXML::DocumentModelTag);
 }
 
-SimulationOptionsItem* DocumentModel::simulationOptionsItem() {
+SimulationOptionsItem* DocumentModel::simulationOptionsItem()
+{
     return topItem<SimulationOptionsItem>();
 }

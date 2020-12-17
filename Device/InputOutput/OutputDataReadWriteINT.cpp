@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/InputOutput/OutputDataReadWriteINT.cpp
 //! @brief     Implements class OutputDataReadWriteINT.
@@ -17,7 +17,8 @@
 #include "Device/Data/ArrayUtils.h"
 #include "Device/InputOutput/DataFormatUtils.h"
 
-OutputData<double>* OutputDataReadWriteINT::readOutputData(std::istream& input_stream) {
+OutputData<double>* OutputDataReadWriteINT::readOutputData(std::istream& input_stream)
+{
     OutputData<double>* result = new OutputData<double>;
     std::string line;
 
@@ -35,7 +36,8 @@ OutputData<double>* OutputDataReadWriteINT::readOutputData(std::istream& input_s
 }
 
 void OutputDataReadWriteINT::writeOutputData(const OutputData<double>& data,
-                                             std::ostream& output_stream) {
+                                             std::ostream& output_stream)
+{
     output_stream << "# BornAgain Intensity Data\n\n";
 
     for (size_t i = 0; i < data.rank(); ++i) {
@@ -54,7 +56,8 @@ void OutputDataReadWriteINT::writeOutputData(const OutputData<double>& data,
 }
 
 void OutputDataReadWriteINT::writeOutputDataDoubles(const OutputData<double>& data,
-                                                    std::ostream& output_stream, size_t n_columns) {
+                                                    std::ostream& output_stream, size_t n_columns)
+{
 
     OutputData<double>::const_iterator it = data.begin();
     output_stream.imbue(std::locale::classic());
@@ -71,6 +74,7 @@ void OutputDataReadWriteINT::writeOutputDataDoubles(const OutputData<double>& da
     }
 }
 
-double OutputDataReadWriteINT::ignoreDenormalized(double value) {
+double OutputDataReadWriteINT::ignoreDenormalized(double value)
+{
     return (std::fpclassify(value) == FP_SUBNORMAL) ? 0.0 : value;
 }

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/modellistener.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/propertyitem.h"
@@ -33,13 +38,15 @@ ModelListenerTest::TestListener::~TestListener() = default;
 
 //! Initial state.
 
-TEST_F(ModelListenerTest, initialState) {
+TEST_F(ModelListenerTest, initialState)
+{
     SessionModel model;
     TestListener listener(&model);
     EXPECT_EQ(listener.model(), &model);
 }
 
-TEST_F(ModelListenerTest, onDataChange) {
+TEST_F(ModelListenerTest, onDataChange)
+{
     auto model = std::make_unique<SessionModel>();
     auto listener = std::make_unique<TestListener>(model.get());
 
@@ -55,7 +62,8 @@ TEST_F(ModelListenerTest, onDataChange) {
 
 //! Check that controller aware of item deletion.
 
-TEST_F(ModelListenerTest, modelDeletedBeforeListener) {
+TEST_F(ModelListenerTest, modelDeletedBeforeListener)
+{
     auto model = std::make_unique<SessionModel>();
     auto listener = std::make_unique<TestListener>(model.get());
 
@@ -67,7 +75,8 @@ TEST_F(ModelListenerTest, modelDeletedBeforeListener) {
 
 //! Checks that the listenerr can be deleted before the model.
 
-TEST_F(ModelListenerTest, listenerDeletedBeforeTheModel) {
+TEST_F(ModelListenerTest, listenerDeletedBeforeTheModel)
+{
     // create model and its listener
     auto model = std::make_unique<SessionModel>();
     auto listener = std::make_unique<TestListener>(model.get());

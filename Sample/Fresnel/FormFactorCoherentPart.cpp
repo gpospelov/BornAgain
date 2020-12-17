@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Fresnel/FormFactorCoherentPart.cpp
 //! @brief     Implements class FormFactorCoherentPart.
@@ -24,9 +24,12 @@ FormFactorCoherentPart::FormFactorCoherentPart(IComputeFF* ff) : m_ff(ff) {}
 FormFactorCoherentPart::FormFactorCoherentPart(const FormFactorCoherentPart& other)
     : m_ff(std::unique_ptr<IComputeFF>(other.m_ff->clone()))
     , m_fresnel_map(other.m_fresnel_map)
-    , m_layer_index(other.m_layer_index) {}
+    , m_layer_index(other.m_layer_index)
+{
+}
 
-FormFactorCoherentPart& FormFactorCoherentPart::operator=(const FormFactorCoherentPart& other) {
+FormFactorCoherentPart& FormFactorCoherentPart::operator=(const FormFactorCoherentPart& other)
+{
     m_ff.reset(other.m_ff->clone());
     m_fresnel_map = other.m_fresnel_map;
     m_layer_index = other.m_layer_index;
@@ -39,7 +42,8 @@ FormFactorCoherentPart::FormFactorCoherentPart(FormFactorCoherentPart&&) = defau
 
 FormFactorCoherentPart::~FormFactorCoherentPart() = default;
 
-complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element) const {
+complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element) const
+{
     WavevectorInfo wavevectors(sim_element.getKi(), sim_element.getMeanKf(),
                                sim_element.wavelength());
 
@@ -49,7 +53,8 @@ complex_t FormFactorCoherentPart::evaluate(const SimulationElement& sim_element)
     return m_ff->evaluate(wavevectors);
 }
 
-Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& sim_element) const {
+Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& sim_element) const
+{
     WavevectorInfo wavevectors(sim_element.getKi(), sim_element.getMeanKf(),
                                sim_element.wavelength());
 
@@ -59,11 +64,13 @@ Eigen::Matrix2cd FormFactorCoherentPart::evaluatePol(const SimulationElement& si
     return m_ff->evaluatePol(wavevectors);
 }
 
-void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap* fresnel_map, size_t layer_index) {
+void FormFactorCoherentPart::setSpecularInfo(const IFresnelMap* fresnel_map, size_t layer_index)
+{
     m_fresnel_map = fresnel_map;
     m_layer_index = layer_index;
 }
 
-double FormFactorCoherentPart::radialExtension() const {
+double FormFactorCoherentPart::radialExtension() const
+{
     return m_ff->radialExtension();
 }

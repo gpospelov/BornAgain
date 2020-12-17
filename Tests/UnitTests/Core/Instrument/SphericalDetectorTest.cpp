@@ -10,10 +10,12 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
-class SphericalDetectorTest : public ::testing::Test {};
+class SphericalDetectorTest : public ::testing::Test {
+};
 
 // Default detector construction
-TEST_F(SphericalDetectorTest, initialState) {
+TEST_F(SphericalDetectorTest, initialState)
+{
     SphericalDetector detector;
 
     // checking size
@@ -37,7 +39,8 @@ TEST_F(SphericalDetectorTest, initialState) {
 }
 
 // Construction of the detector with axes.
-TEST_F(SphericalDetectorTest, constructionWithAxes) {
+TEST_F(SphericalDetectorTest, constructionWithAxes)
+{
     SphericalDetector detector;
     FixedBinAxis axis0("axis0", 10, 0.0, 10.0);
     FixedBinAxis axis1("axis1", 20, 0.0, 20.0);
@@ -53,7 +56,8 @@ TEST_F(SphericalDetectorTest, constructionWithAxes) {
 }
 
 // Construction of the detector via classical constructor.
-TEST_F(SphericalDetectorTest, constructionWithParameters) {
+TEST_F(SphericalDetectorTest, constructionWithParameters)
+{
     SphericalDetector detector(10, -1.0, 1.0, 20, 0.0, 2.0);
     EXPECT_EQ(10u, detector.axis(0).size());
     EXPECT_EQ(-1.0, detector.axis(0).lowerBound());
@@ -64,7 +68,8 @@ TEST_F(SphericalDetectorTest, constructionWithParameters) {
 }
 
 // Creation of the detector map with axes in given units
-TEST_F(SphericalDetectorTest, createDetectorMap) {
+TEST_F(SphericalDetectorTest, createDetectorMap)
+{
     SphericalDetector detector(10, -1.0 * Units::deg, 1.0 * Units::deg, 20, 0.0 * Units::deg,
                                2.0 * Units::deg);
 
@@ -79,7 +84,8 @@ TEST_F(SphericalDetectorTest, createDetectorMap) {
 }
 
 // Testing region of interest.
-TEST_F(SphericalDetectorTest, regionOfInterest) {
+TEST_F(SphericalDetectorTest, regionOfInterest)
+{
     SphericalDetector detector;
     detector.addAxis(FixedBinAxis("axis0", 8, -3.0, 5.0));
     detector.addAxis(FixedBinAxis("axis1", 4, 0.0, 4.0));
@@ -107,7 +113,8 @@ TEST_F(SphericalDetectorTest, regionOfInterest) {
 }
 
 // Create detector map in the presence of region of interest.
-TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap) {
+TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap)
+{
     SphericalDetector detector(6, -1.0 * Units::deg, 5.0 * Units::deg, 4, 0.0 * Units::deg,
                                4.0 * Units::deg);
 
@@ -124,7 +131,8 @@ TEST_F(SphericalDetectorTest, regionOfInterestAndDetectorMap) {
     EXPECT_EQ(data->axis(1).upperBound(), 3.0 * Units::deg);
 }
 
-TEST_F(SphericalDetectorTest, MaskOfDetector) {
+TEST_F(SphericalDetectorTest, MaskOfDetector)
+{
     SphericalDetector detector;
     detector.addAxis(FixedBinAxis("x-axis", 12, -4.0, 8.0));
     detector.addAxis(FixedBinAxis("y-axis", 6, -2.0, 4.0));
@@ -171,7 +179,8 @@ TEST_F(SphericalDetectorTest, MaskOfDetector) {
 }
 
 // Checking clone in the presence of ROI and masks.
-TEST_F(SphericalDetectorTest, Clone) {
+TEST_F(SphericalDetectorTest, Clone)
+{
     SphericalDetector detector(6, -1.0 * Units::deg, 5.0 * Units::deg, 4, 0.0 * Units::deg,
                                4.0 * Units::deg);
     detector.setRegionOfInterest(0.1 * Units::deg, 1.1 * Units::deg, 3.0 * Units::deg,
@@ -210,7 +219,8 @@ TEST_F(SphericalDetectorTest, Clone) {
 }
 
 // Test retrieval of analyzer properties
-TEST_F(SphericalDetectorTest, AnalyzerProperties) {
+TEST_F(SphericalDetectorTest, AnalyzerProperties)
+{
     SphericalDetector detector(6, -1.0 * Units::deg, 5.0 * Units::deg, 4, 0.0 * Units::deg,
                                4.0 * Units::deg);
 

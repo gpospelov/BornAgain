@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/DataItem.cpp
 //! @brief     Implements class IntensityDataItem
@@ -21,12 +21,14 @@
 const QString DataItem::P_FILE_NAME = "FileName";
 const QString DataItem::P_AXES_UNITS = "Axes Units";
 
-void DataItem::setOutputData(OutputData<double>* data) {
+void DataItem::setOutputData(OutputData<double>* data)
+{
     std::unique_lock<std::mutex> lock(m_update_data_mutex);
     m_data.reset(data);
 }
 
-void DataItem::setRawDataVector(std::vector<double> data) {
+void DataItem::setRawDataVector(std::vector<double> data)
+{
     if (m_data->getAllocatedSize() != data.size())
         throw GUIHelpers::Error("DataItem::setRawDataVector() -> Error. "
                                 "Different data size.");
@@ -35,19 +37,23 @@ void DataItem::setRawDataVector(std::vector<double> data) {
     emitDataChanged();
 }
 
-QString DataItem::fileName() const {
+QString DataItem::fileName() const
+{
     return getItemValue(DataItem::P_FILE_NAME).toString();
 }
 
-QDateTime DataItem::lastModified() const {
+QDateTime DataItem::lastModified() const
+{
     return m_last_modified;
 }
 
-bool DataItem::containsNonXMLData() const {
+bool DataItem::containsNonXMLData() const
+{
     return static_cast<bool>(m_data);
 }
 
-bool DataItem::load(const QString& projectDir) {
+bool DataItem::load(const QString& projectDir)
+{
     QString filename = fileName(projectDir);
     auto data = IntensityDataIOFactory::readOutputData(filename.toStdString());
     if (!data)
@@ -56,7 +62,8 @@ bool DataItem::load(const QString& projectDir) {
     return true;
 }
 
-bool DataItem::save(const QString& projectDir) {
+bool DataItem::save(const QString& projectDir)
+{
     if (!containsNonXMLData())
         return false;
 
@@ -67,16 +74,19 @@ bool DataItem::save(const QString& projectDir) {
     return true;
 }
 
-void DataItem::setLastModified(const QDateTime& dtime) {
+void DataItem::setLastModified(const QDateTime& dtime)
+{
     m_last_modified = dtime;
 }
 
-QString DataItem::selectedAxesUnits() const {
+QString DataItem::selectedAxesUnits() const
+{
     ComboProperty combo = getItemValue(DataItem::P_AXES_UNITS).value<ComboProperty>();
     return combo.getValue();
 }
 
-DataItem::DataItem(const QString& modelType) : SessionItem(modelType) {
+DataItem::DataItem(const QString& modelType) : SessionItem(modelType)
+{
     // name of the file used to serialize given IntensityDataItem
     addProperty(P_FILE_NAME, "undefined")->setVisible(false);
 

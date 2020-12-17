@@ -31,7 +31,8 @@ ExperimentalDataModelTest::~ExperimentalDataModelTest() = default;
 
 //! Test the initial state of the model.
 
-TEST_F(ExperimentalDataModelTest, initialState) {
+TEST_F(ExperimentalDataModelTest, initialState)
+{
     ExperimentalDataModel model;
 
     ASSERT_TRUE(model.canvasContainer() != nullptr);
@@ -48,7 +49,8 @@ TEST_F(ExperimentalDataModelTest, initialState) {
 
 //! Adding canvas to the model.
 
-TEST_F(ExperimentalDataModelTest, addCanvas) {
+TEST_F(ExperimentalDataModelTest, addCanvas)
+{
     ExperimentalDataModel model;
 
     auto canvas = model.addCanvas();
@@ -61,7 +63,8 @@ TEST_F(ExperimentalDataModelTest, addCanvas) {
 
 //! Adding graph from the data structure.
 
-TEST_F(ExperimentalDataModelTest, addGraph) {
+TEST_F(ExperimentalDataModelTest, addGraph)
+{
     ExperimentalDataModel model;
     std::vector<double> bin_centers{1, 2, 3};
     std::vector<double> bin_values{10, 20, 30};
@@ -86,7 +89,8 @@ TEST_F(ExperimentalDataModelTest, addGraph) {
 
 //! Removing just added graph.
 
-TEST_F(ExperimentalDataModelTest, removeGraph) {
+TEST_F(ExperimentalDataModelTest, removeGraph)
+{
     ExperimentalDataModel model;
     std::vector<double> bin_centers{1, 2, 3};
     std::vector<double> bin_values{10, 20, 30};
@@ -108,7 +112,8 @@ TEST_F(ExperimentalDataModelTest, removeGraph) {
 
 //! Removing middle graph from the collection.
 
-TEST_F(ExperimentalDataModelTest, removeMiddleGraph) {
+TEST_F(ExperimentalDataModelTest, removeMiddleGraph)
+{
     ExperimentalDataModel model;
     std::vector<double> bin_centers{1, 2, 3};
     std::vector<double> bin_values{10, 20, 30};
@@ -133,7 +138,8 @@ TEST_F(ExperimentalDataModelTest, removeMiddleGraph) {
 
 //! Removing just added graph.
 
-TEST_F(ExperimentalDataModelTest, removeCanvasWithGraph) {
+TEST_F(ExperimentalDataModelTest, removeCanvasWithGraph)
+{
     ExperimentalDataModel model;
     std::vector<double> bin_centers{1, 2, 3};
     std::vector<double> bin_values{10, 20, 30};
@@ -155,7 +161,8 @@ TEST_F(ExperimentalDataModelTest, removeCanvasWithGraph) {
 
 //! Merge single canvas into itself. Nothing should happen.
 
-TEST_F(ExperimentalDataModelTest, mergeSingleCanvas) {
+TEST_F(ExperimentalDataModelTest, mergeSingleCanvas)
+{
     ExperimentalDataModel model;
 
     GraphImportData raw_data = {"", {1}, "", {10}, ""};
@@ -173,7 +180,8 @@ TEST_F(ExperimentalDataModelTest, mergeSingleCanvas) {
 
 //! Merge single canvas into itself. Nothing should happen.
 
-TEST_F(ExperimentalDataModelTest, mergeTwoCanvases) {
+TEST_F(ExperimentalDataModelTest, mergeTwoCanvases)
+{
     ExperimentalDataModel model;
 
     GraphImportData raw_data0 = {"", {1}, "", {10}, ""};

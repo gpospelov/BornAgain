@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/modelmapper.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mockwidgets.h"
@@ -28,7 +33,8 @@ ModelMapperTest::~ModelMapperTest() = default;
 
 //! Setting item data and checking corresponding signal.
 
-TEST(ModelMapperTest, onDataChange) {
+TEST(ModelMapperTest, onDataChange)
+{
     SessionModel model;
     MockWidgetForModel widget(&model);
 
@@ -69,7 +75,8 @@ TEST(ModelMapperTest, onDataChange) {
 
 //! Testing signaling after unsubscribe.
 
-TEST(ModelMapperTest, onDataChangeUnsubscribe) {
+TEST(ModelMapperTest, onDataChangeUnsubscribe)
+{
     SessionModel model;
     MockWidgetForModel widget(&model);
 
@@ -93,7 +100,8 @@ TEST(ModelMapperTest, onDataChangeUnsubscribe) {
 
 //! Testing signaling after subscribe/unsubscribe twice.
 
-TEST(ModelMapperTest, onDataChangeMultipleUnsubscribe) {
+TEST(ModelMapperTest, onDataChangeMultipleUnsubscribe)
+{
     SessionModel model;
     MockWidgetForModel widget(&model);
 
@@ -122,7 +130,8 @@ TEST(ModelMapperTest, onDataChangeMultipleUnsubscribe) {
 
 //! Inserting item and checking corresponding signals.
 
-TEST(ModelMapperTest, onItemInserted) {
+TEST(ModelMapperTest, onItemInserted)
+{
     SessionModel model;
     MockWidgetForModel widget(&model);
 
@@ -141,7 +150,8 @@ TEST(ModelMapperTest, onItemInserted) {
 
 //! Inserting item and checking corresponding signals.
 
-TEST(ModelMapperTest, onItemRemoved) {
+TEST(ModelMapperTest, onItemRemoved)
+{
     SessionModel model;
     MockWidgetForModel widget(&model);
 
@@ -162,7 +172,8 @@ TEST(ModelMapperTest, onItemRemoved) {
 
 //! Testing signals on model destruction.
 
-TEST(ModelMapperTest, onModelDestroyed) {
+TEST(ModelMapperTest, onModelDestroyed)
+{
     auto model = std::make_unique<SessionModel>();
     auto widget = std::make_unique<MockWidgetForModel>(model.get());
 
@@ -180,7 +191,8 @@ TEST(ModelMapperTest, onModelDestroyed) {
 
 //! Testing signals on model destruction.
 
-TEST(ModelMapperTest, onModelReset) {
+TEST(ModelMapperTest, onModelReset)
+{
     auto model = std::make_unique<SessionModel>();
     auto widget = std::make_unique<MockWidgetForModel>(model.get());
 
@@ -198,7 +210,8 @@ TEST(ModelMapperTest, onModelReset) {
 
 //! Testing signals on cleaning the model using rebuild function.
 
-TEST(ModelMapperTest, onClearRebuild) {
+TEST(ModelMapperTest, onClearRebuild)
+{
     auto model = std::make_unique<SessionModel>();
 
     auto widget = std::make_unique<MockWidgetForModel>(model.get());

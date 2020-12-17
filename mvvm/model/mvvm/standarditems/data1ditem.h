@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/standarditems/data1ditem.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_DATA1DITEM_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_DATA1DITEM_H
@@ -48,7 +53,8 @@ public:
 // or added later? It is not clear how to create axis a) via Data1DItem::setAxis
 // b) via model directly c) in constructor?
 
-template <typename T, typename... Args> T* Data1DItem::setAxis(Args&&... args) {
+template <typename T, typename... Args> T* Data1DItem::setAxis(Args&&... args)
+{
     // we disable possibility to re-create axis to facilitate undo/redo
     if (getItem(T_AXIS, 0))
         throw std::runtime_error("Axis was already set. Currently we do not support axis change");

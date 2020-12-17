@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/sldeditor/layerelementitem.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/sldeditor/layerelementitem.h"
 #include "mvvm/model/externalproperty.h"
@@ -15,7 +20,8 @@
 
 namespace gui2 {
 
-LayerElementItem::LayerElementItem() : ModelView::CompoundItem("LayerElement") {
+LayerElementItem::LayerElementItem() : ModelView::CompoundItem("LayerElement")
+{
     addProperty(P_X_POS, 0.)->setDisplayName("Position");
     addProperty(P_WIDTH, 10.)->setDisplayName("Width");
     addProperty(P_HEIGHT, 10.)->setDisplayName("Height");

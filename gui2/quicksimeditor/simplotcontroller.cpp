@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/quicksimeditor/simplotcontroller.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/quicksimeditor/simplotcontroller.h"
 #include "gui2/model/applicationmodels.h"
@@ -19,7 +24,8 @@ namespace gui2 {
 
 SimPlotController::SimPlotController(QObject* parent) : QObject(parent) {}
 
-void SimPlotController::setModels(ApplicationModels* models) {
+void SimPlotController::setModels(ApplicationModels* models)
+{
     m_models = models;
 
     auto on_model_change = [this]() { onInstrumentChange(); };
@@ -27,7 +33,8 @@ void SimPlotController::setModels(ApplicationModels* models) {
         m_models->instrumentModel(), on_model_change);
 }
 
-void SimPlotController::onInstrumentChange() {
+void SimPlotController::onInstrumentChange()
+{
     auto instrument = m_models->instrumentModel()->topItem<SpecularInstrumentItem>();
     auto graph = instrument->beamItem()->experimentalGraphItem();
     m_models->jobModel()->updateReferenceGraph(graph);

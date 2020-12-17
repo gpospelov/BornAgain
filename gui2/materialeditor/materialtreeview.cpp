@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/materialeditor/materialtreeview.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/materialeditor/materialtreeview.h"
 #include <QHeaderView>
@@ -15,7 +20,8 @@ namespace gui2 {
 
 MaterialTreeView::~MaterialTreeView() = default;
 
-MaterialTreeView::MaterialTreeView(QWidget* parent) : QTreeView(parent) {
+MaterialTreeView::MaterialTreeView(QWidget* parent) : QTreeView(parent)
+{
     setAlternatingRowColors(true);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -23,12 +29,14 @@ MaterialTreeView::MaterialTreeView(QWidget* parent) : QTreeView(parent) {
     header()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
-void MaterialTreeView::setModel(QAbstractItemModel* model) {
+void MaterialTreeView::setModel(QAbstractItemModel* model)
+{
     QTreeView::setModel(model);
     expandAll();
 }
 
-void MaterialTreeView::keyPressEvent(QKeyEvent* event) {
+void MaterialTreeView::keyPressEvent(QKeyEvent* event)
+{
     if (!event || event->key() != Qt::Key_Return || state() == QAbstractItemView::EditingState)
         return QTreeView::keyPressEvent(event);
 
@@ -38,7 +46,8 @@ void MaterialTreeView::keyPressEvent(QKeyEvent* event) {
 }
 
 QModelIndex MaterialTreeView::moveCursor(QAbstractItemView::CursorAction cursorAction,
-                                         Qt::KeyboardModifiers modifiers) {
+                                         Qt::KeyboardModifiers modifiers)
+{
     const QModelIndex current_index = currentIndex();
     bool filtered_action = cursorAction == QAbstractItemView::MoveNext
                            || cursorAction == QAbstractItemView::MovePrevious;
@@ -54,11 +63,13 @@ QModelIndex MaterialTreeView::moveCursor(QAbstractItemView::CursorAction cursorA
     return next;
 }
 
-bool MaterialTreeView::isTextField(const QModelIndex& index) const {
+bool MaterialTreeView::isTextField(const QModelIndex& index) const
+{
     return index.isValid() && index.column() > 0; // color is not keyboard editable
 }
 
-bool MaterialTreeView::isKeyboardEditable(const QModelIndex& index) const {
+bool MaterialTreeView::isKeyboardEditable(const QModelIndex& index) const
+{
     return index.isValid();
 }
 

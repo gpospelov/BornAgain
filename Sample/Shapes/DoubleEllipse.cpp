@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Shapes/DoubleEllipse.cpp
 //! @brief     Implements class DoubleEllipse.
@@ -16,7 +16,8 @@
 
 #include <algorithm>
 
-DoubleEllipse::DoubleEllipse(double r0_x, double r0_y, double z, double rz_x, double rz_y) {
+DoubleEllipse::DoubleEllipse(double r0_x, double r0_y, double z, double rz_x, double rz_y)
+{
     auto bottom_face = EllipseVertices(r0_x, r0_y, 0.0);
     size_t n_bottom = bottom_face.size();
     auto top_face = EllipseVertices(rz_x, rz_y, z);

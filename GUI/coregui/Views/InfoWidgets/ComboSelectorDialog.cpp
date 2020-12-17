@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/InfoWidgets/ComboSelectorDialog.cpp
 //! @brief     Implements class ComboSelectorDialog
@@ -25,7 +25,8 @@ ComboSelectorDialog::ComboSelectorDialog(QWidget* parent)
     : QDialog(parent)
     , m_topLabel(new QLabel)
     , m_comboSelector(new QComboBox)
-    , m_bottomLabel(new QLabel) {
+    , m_bottomLabel(new QLabel)
+{
     QColor bgColor(240, 240, 240, 255);
     QPalette palette;
     palette.setColor(QPalette::Window, bgColor);
@@ -47,28 +48,33 @@ ComboSelectorDialog::ComboSelectorDialog(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void ComboSelectorDialog::addItems(const QStringList& selection, const QString& currentItem) {
+void ComboSelectorDialog::addItems(const QStringList& selection, const QString& currentItem)
+{
     m_comboSelector->addItems(selection);
 
     if (selection.contains(currentItem))
         m_comboSelector->setCurrentIndex(selection.indexOf(currentItem));
 }
 
-void ComboSelectorDialog::setTextTop(const QString& text) {
+void ComboSelectorDialog::setTextTop(const QString& text)
+{
     m_topLabel->setText(text);
 }
 
-void ComboSelectorDialog::setTextBottom(const QString& text) {
+void ComboSelectorDialog::setTextBottom(const QString& text)
+{
     m_bottomLabel->setText(text);
 }
 
-QString ComboSelectorDialog::currentText() const {
+QString ComboSelectorDialog::currentText() const
+{
     return m_comboSelector->currentText();
 }
 
 //! Returns layout with icon for left part of the widget.
 
-QBoxLayout* ComboSelectorDialog::createLogoLayout() {
+QBoxLayout* ComboSelectorDialog::createLogoLayout()
+{
     auto result = new QVBoxLayout;
 
     QIcon icon = qApp->style()->standardIcon(QStyle::SP_MessageBoxQuestion);
@@ -85,7 +91,8 @@ QBoxLayout* ComboSelectorDialog::createLogoLayout() {
 
 //! Creates right layout with text and QComboBox selection.
 
-QBoxLayout* ComboSelectorDialog::createInfoLayout() {
+QBoxLayout* ComboSelectorDialog::createInfoLayout()
+{
     auto result = new QVBoxLayout;
 
     m_topLabel->setWordWrap(true);
@@ -104,7 +111,8 @@ QBoxLayout* ComboSelectorDialog::createInfoLayout() {
 
 //! Creates button layout with buttons.
 
-QBoxLayout* ComboSelectorDialog::createButtonLayout() {
+QBoxLayout* ComboSelectorDialog::createButtonLayout()
+{
     auto result = new QHBoxLayout;
 
     auto cancelButton = new QPushButton("Cancel");

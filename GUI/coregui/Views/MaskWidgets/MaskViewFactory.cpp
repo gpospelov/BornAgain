@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/MaskWidgets/MaskViewFactory.cpp
 //! @brief     Implements class MaskViewFactory
@@ -24,7 +24,8 @@
 #include "GUI/coregui/Views/MaskWidgets/RegionOfInterestView.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-IShape2DView* MaskViewFactory::createMaskView(SessionItem* item, ISceneAdaptor* adaptor) {
+IShape2DView* MaskViewFactory::createMaskView(SessionItem* item, ISceneAdaptor* adaptor)
+{
     IShape2DView* result(0);
     QString model_type = item->modelType();
 

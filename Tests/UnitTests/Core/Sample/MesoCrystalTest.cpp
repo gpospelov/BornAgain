@@ -6,9 +6,11 @@
 #include "Sample/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class MesoCrystalTest : public ::testing::Test {};
+class MesoCrystalTest : public ::testing::Test {
+};
 
-TEST_F(MesoCrystalTest, getChildren) {
+TEST_F(MesoCrystalTest, getChildren)
+{
     Lattice3D lattice = bake::HexagonalLattice(1.0, 2.0);
     ParticleComposition composition;
     Crystal crystal(composition, lattice);

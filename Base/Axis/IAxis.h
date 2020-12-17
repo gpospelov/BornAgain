@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Axis/IAxis.h
 //! @brief     Defines interface IAxis.
@@ -69,7 +69,8 @@ public:
     bool operator==(const IAxis& right) const { return equals(right); }
     bool operator!=(const IAxis& right) const { return !(*this == right); }
 
-    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m) {
+    friend std::ostream& operator<<(std::ostream& ostr, const IAxis& m)
+    {
         m.print(ostr);
         return ostr;
     }
@@ -96,7 +97,8 @@ private:
 };
 
 //! global helper function for comparison of axes
-inline bool HaveSameNameAndShape(const IAxis& left, const IAxis& right) {
+inline bool HaveSameNameAndShape(const IAxis& left, const IAxis& right)
+{
     return left == right;
 }
 

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Detector/SimulationArea.h
 //! @brief     Defines class SimulationArea.
@@ -53,7 +53,8 @@ protected:
     size_t m_max_index;
 };
 
-inline size_t SimulationArea::totalSize() const {
+inline size_t SimulationArea::totalSize() const
+{
     return m_max_index;
 }
 

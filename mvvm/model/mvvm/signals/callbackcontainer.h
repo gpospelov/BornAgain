@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/signals/callbackcontainer.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_CALLBACKCONTAINER_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_SIGNALS_CALLBACKCONTAINER_H
@@ -37,14 +42,16 @@ private:
     std::list<std::pair<T, U>> m_callbacks;
 };
 
-template <typename T, typename U> void SignalBase<T, U>::connect(T callback, U client) {
+template <typename T, typename U> void SignalBase<T, U>::connect(T callback, U client)
+{
     m_callbacks.push_back(std::make_pair(callback, client));
 }
 
 //! Notify clients using given list of arguments.
 template <typename T, typename U>
 template <typename... Args>
-void SignalBase<T, U>::operator()(Args... args) {
+void SignalBase<T, U>::operator()(Args... args)
+{
     for (const auto& f : m_callbacks) {
         f.first(args...);
     }
@@ -52,14 +59,16 @@ void SignalBase<T, U>::operator()(Args... args) {
 
 //! Remove client from the list to call back.
 
-template <typename T, typename U> void SignalBase<T, U>::remove_client(U client) {
+template <typename T, typename U> void SignalBase<T, U>::remove_client(U client)
+{
     m_callbacks.remove_if(
         [client](const std::pair<T, U>& x) -> bool { return (x.second == client ? true : false); });
 }
 
 //! Callback container for specific client type.
 
-template <typename T> class Signal : public SignalBase<T, Callbacks::slot_t> {};
+template <typename T> class Signal : public SignalBase<T, Callbacks::slot_t> {
+};
 
 } // namespace ModelView
 

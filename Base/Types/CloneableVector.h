@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Types/CloneableVector.h
 //! @brief     Defines and implements templated class CloneableVector.
@@ -37,7 +37,8 @@ template <class T> class CloneableVector : public std::vector<std::unique_ptr<T>
 
 public:
     CloneableVector() : super() {}
-    CloneableVector(const CloneableVector& other) : super() {
+    CloneableVector(const CloneableVector& other) : super()
+    {
         super::reserve(other.size());
         for (const std::unique_ptr<T>& t : other)
             super::emplace_back(t->clone());

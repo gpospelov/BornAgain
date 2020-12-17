@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorCone6.h
 //! @brief     Defines class FormFactorCone6
@@ -25,7 +25,8 @@ public:
     FormFactorCone6(const std::vector<double> P);
     FormFactorCone6(double base_edge, double height, double alpha);
 
-    FormFactorCone6* clone() const final {
+    FormFactorCone6* clone() const final
+    {
         return new FormFactorCone6(m_base_edge, m_height, m_alpha);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

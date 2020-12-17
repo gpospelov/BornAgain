@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/ParameterTuningModel.cpp
 //! @brief     Implements class ParameterTuningModel
@@ -20,7 +20,8 @@
 
 ParameterTuningModel::ParameterTuningModel(QObject* parent) : FilterPropertyProxy(2, parent) {}
 
-Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex& proxyIndex) const {
+Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex& proxyIndex) const
+{
     Qt::ItemFlags result = Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 
     QModelIndex sourceIndex = toSourceIndex(proxyIndex);
@@ -35,7 +36,8 @@ Qt::ItemFlags ParameterTuningModel::flags(const QModelIndex& proxyIndex) const {
     return result;
 }
 
-QMimeData* ParameterTuningModel::mimeData(const QModelIndexList& proxyIndexes) const {
+QMimeData* ParameterTuningModel::mimeData(const QModelIndexList& proxyIndexes) const
+{
     QMimeData* mimeData = new QMimeData();
 
     for (auto proxyIndex : proxyIndexes) {
@@ -50,7 +52,8 @@ QMimeData* ParameterTuningModel::mimeData(const QModelIndexList& proxyIndexes) c
 
 //! Returns ParameterItem from given proxy index
 
-ParameterItem* ParameterTuningModel::getParameterItem(const QModelIndex& proxyIndex) const {
+ParameterItem* ParameterTuningModel::getParameterItem(const QModelIndex& proxyIndex) const
+{
     SessionModel* sessionModel = dynamic_cast<SessionModel*>(sourceModel());
     ASSERT(sessionModel);
 

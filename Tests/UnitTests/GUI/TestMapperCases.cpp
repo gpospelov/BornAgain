@@ -10,9 +10,11 @@
 
 using SessionItemUtils::ParentRow;
 
-class TestMapperCases : public ::testing::Test {};
+class TestMapperCases : public ::testing::Test {
+};
 
-TEST_F(TestMapperCases, test_ParticeleCompositionUpdate) {
+TEST_F(TestMapperCases, test_ParticeleCompositionUpdate)
+{
     SampleModel model;
     SessionItem* multilayer = model.insertNewItem("MultiLayer");
     SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
@@ -32,7 +34,8 @@ TEST_F(TestMapperCases, test_ParticeleCompositionUpdate) {
     delete composition;
 }
 
-TEST_F(TestMapperCases, test_SimulationOptionsComputationToggle) {
+TEST_F(TestMapperCases, test_SimulationOptionsComputationToggle)
+{
     DocumentModel model;
     model.insertNewItem("SimulationOptions");
 

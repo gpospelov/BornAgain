@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/viewmodel/viewmodelbase.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/viewmodel/viewmodelbase.h"
 #include "mvvm/viewmodel/standardviewitems.h"
@@ -18,13 +23,15 @@ struct ViewModelBase::ViewModelBaseImpl {
     std::unique_ptr<ViewItem> root;
     ViewModelBaseImpl(ViewModelBase* model) : model(model) {}
 
-    bool item_belongs_to_model(ViewItem* item) {
+    bool item_belongs_to_model(ViewItem* item)
+    {
         return model->indexFromItem(item).isValid() || item == model->rootItem();
     }
 };
 
 ViewModelBase::ViewModelBase(QObject* parent)
-    : QAbstractItemModel(parent), p_impl(std::make_unique<ViewModelBaseImpl>(this)) {
+    : QAbstractItemModel(parent), p_impl(std::make_unique<ViewModelBaseImpl>(this))
+{
     beginResetModel();
     setRootViewItem(std::make_unique<RootViewItem>(nullptr));
     endResetModel();
@@ -32,7 +39,8 @@ ViewModelBase::ViewModelBase(QObject* parent)
 
 ViewModelBase::~ViewModelBase() = default;
 
-QModelIndex ViewModelBase::index(int row, int column, const QModelIndex& parent) const {
+QModelIndex ViewModelBase::index(int row, int column, const QModelIndex& parent) const
+{
     auto parent_item = itemFromIndex(parent) ? itemFromIndex(parent) : rootItem();
     const bool is_valid_row = row >= 0 && row < rowCount(parent);
     const bool is_valid_column = column >= 0 && column < columnCount(parent);
@@ -41,7 +49,8 @@ QModelIndex ViewModelBase::index(int row, int column, const QModelIndex& parent)
                : QModelIndex();
 }
 
-QModelIndex ViewModelBase::parent(const QModelIndex& child) const {
+QModelIndex ViewModelBase::parent(const QModelIndex& child) const
+{
     if (auto child_item = itemFromIndex(child); child_item) {
         auto parent_item = child_item->parent();
         return parent_item == rootItem()
@@ -52,17 +61,20 @@ QModelIndex ViewModelBase::parent(const QModelIndex& child) const {
     return QModelIndex();
 }
 
-int ViewModelBase::rowCount(const QModelIndex& parent) const {
+int ViewModelBase::rowCount(const QModelIndex& parent) const
+{
     auto parent_item = itemFromIndex(parent);
     return parent_item ? parent_item->rowCount() : rootItem()->rowCount();
 }
 
-int ViewModelBase::columnCount(const QModelIndex& parent) const {
+int ViewModelBase::columnCount(const QModelIndex& parent) const
+{
     auto parent_item = itemFromIndex(parent);
     return parent_item ? parent_item->columnCount() : rootItem()->columnCount();
 }
 
-QVariant ViewModelBase::data(const QModelIndex& index, int role) const {
+QVariant ViewModelBase::data(const QModelIndex& index, int role) const
+{
     if (!rootItem())
         return QVariant();
 
@@ -70,7 +82,8 @@ QVariant ViewModelBase::data(const QModelIndex& index, int role) const {
     return item ? item->data(role) : QVariant();
 }
 
-bool ViewModelBase::setData(const QModelIndex& index, const QVariant& value, int role) {
+bool ViewModelBase::setData(const QModelIndex& index, const QVariant& value, int role)
+{
     if (!index.isValid())
         return false;
 
@@ -86,26 +99,30 @@ bool ViewModelBase::setData(const QModelIndex& index, const QVariant& value, int
 
 //! Returns a pointer to invisible root item.
 
-ViewItem* ViewModelBase::rootItem() const {
+ViewItem* ViewModelBase::rootItem() const
+{
     return p_impl->root.get();
 }
 
 //! Returns a pointer to the RefViewItem associated with the given index.
 //! If index is invalid, returns nullptr.
 
-ViewItem* ViewModelBase::itemFromIndex(const QModelIndex& index) const {
+ViewItem* ViewModelBase::itemFromIndex(const QModelIndex& index) const
+{
     return index.isValid() ? static_cast<ViewItem*>(index.internalPointer()) : nullptr;
 }
 
 //! Returns the QModelIndex associated with the given item.
 
-QModelIndex ViewModelBase::indexFromItem(const ViewItem* item) const {
+QModelIndex ViewModelBase::indexFromItem(const ViewItem* item) const
+{
     return item && item->parent()
                ? createIndex(item->row(), item->column(), const_cast<ViewItem*>(item))
                : QModelIndex();
 }
 
-void ViewModelBase::removeRow(ViewItem* parent, int row) {
+void ViewModelBase::removeRow(ViewItem* parent, int row)
+{
     if (!p_impl->item_belongs_to_model(parent))
         throw std::runtime_error(
             "Error in ViewModelBase: attempt to use parent from another model");
@@ -115,7 +132,8 @@ void ViewModelBase::removeRow(ViewItem* parent, int row) {
     endRemoveRows();
 }
 
-void ViewModelBase::clearRows(ViewItem* parent) {
+void ViewModelBase::clearRows(ViewItem* parent)
+{
     if (!p_impl->item_belongs_to_model(parent))
         throw std::runtime_error(
             "Error in ViewModelBase: attempt to use parent from another model");
@@ -131,7 +149,8 @@ void ViewModelBase::clearRows(ViewItem* parent) {
 //! Insert a row of items at index 'row' to given parent.
 
 void ViewModelBase::insertRow(ViewItem* parent, int row,
-                              std::vector<std::unique_ptr<ViewItem>> items) {
+                              std::vector<std::unique_ptr<ViewItem>> items)
+{
     if (!p_impl->item_belongs_to_model(parent))
         throw std::runtime_error(
             "Error in ViewModelBase: attempt to use parent from another model");
@@ -143,13 +162,15 @@ void ViewModelBase::insertRow(ViewItem* parent, int row,
 
 //! Appends row of items to given parent.
 
-void ViewModelBase::appendRow(ViewItem* parent, std::vector<std::unique_ptr<ViewItem>> items) {
+void ViewModelBase::appendRow(ViewItem* parent, std::vector<std::unique_ptr<ViewItem>> items)
+{
     insertRow(parent, parent->rowCount(), std::move(items));
 }
 
 //! Returns the item flags for the given index.
 
-Qt::ItemFlags ViewModelBase::flags(const QModelIndex& index) const {
+Qt::ItemFlags ViewModelBase::flags(const QModelIndex& index) const
+{
     Qt::ItemFlags result = QAbstractItemModel::flags(index);
     if (auto item = itemFromIndex(index); item)
         result |= item->flags();
@@ -158,6 +179,7 @@ Qt::ItemFlags ViewModelBase::flags(const QModelIndex& index) const {
 
 //! Sets new root item. Previous item will be deleted, model will be reset.
 
-void ViewModelBase::setRootViewItem(std::unique_ptr<ViewItem> root_item) {
+void ViewModelBase::setRootViewItem(std::unique_ptr<ViewItem> root_item)
+{
     p_impl->root = std::move(root_item);
 }

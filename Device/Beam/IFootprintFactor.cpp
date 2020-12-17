@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Beam/IFootprintFactor.cpp
 //! @brief     Implements interface IFootprintFactor.
@@ -20,7 +20,8 @@ IFootprintFactor::IFootprintFactor(const NodeMeta& meta, const std::vector<doubl
                 {{"BeamToSampleWidthRatio", "", "ratio of beam width to sample width", 0, INF, 1.}},
                 meta),
             PValues)
-    , m_width_ratio(m_P[0]) {
+    , m_width_ratio(m_P[0])
+{
     if (m_P[0] < 0.0)
         throw std::runtime_error(
             "Error in IFootprintFactor::setWidthRatio: width ratio is negative");
@@ -28,7 +29,8 @@ IFootprintFactor::IFootprintFactor(const NodeMeta& meta, const std::vector<doubl
 
 IFootprintFactor::~IFootprintFactor() = default;
 
-void IFootprintFactor::setWidthRatio(double width_ratio) {
+void IFootprintFactor::setWidthRatio(double width_ratio)
+{
     if (width_ratio < 0.0)
         throw std::runtime_error(
             "Error in IFootprintFactor::setWidthRatio: width ratio is negative");

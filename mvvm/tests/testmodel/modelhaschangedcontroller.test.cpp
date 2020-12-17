@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/modelhaschangedcontroller.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/propertyitem.h"
@@ -25,7 +30,8 @@ ModelHasChangedControllerTest::~ModelHasChangedControllerTest() = default;
 
 //! Tests initial state of the controller.
 
-TEST_F(ModelHasChangedControllerTest, initialState) {
+TEST_F(ModelHasChangedControllerTest, initialState)
+{
     SessionModel model;
     ModelHasChangedController controller(&model);
     EXPECT_FALSE(controller.hasChanged());
@@ -33,7 +39,8 @@ TEST_F(ModelHasChangedControllerTest, initialState) {
 
 //! Tests if controller 'sees' item insertion.
 
-TEST_F(ModelHasChangedControllerTest, insertItem) {
+TEST_F(ModelHasChangedControllerTest, insertItem)
+{
     SessionModel model;
     ModelHasChangedController controller(&model);
 
@@ -46,7 +53,8 @@ TEST_F(ModelHasChangedControllerTest, insertItem) {
 
 //! Tests if controller sees item insertion.
 
-TEST_F(ModelHasChangedControllerTest, removeItem) {
+TEST_F(ModelHasChangedControllerTest, removeItem)
+{
     SessionModel model;
     model.insertItem<PropertyItem>();
 
@@ -60,7 +68,8 @@ TEST_F(ModelHasChangedControllerTest, removeItem) {
 
 //! Tests if controller sees item data change.
 
-TEST_F(ModelHasChangedControllerTest, dataChanged) {
+TEST_F(ModelHasChangedControllerTest, dataChanged)
+{
     SessionModel model;
     auto item = model.insertItem<PropertyItem>();
 
@@ -73,7 +82,8 @@ TEST_F(ModelHasChangedControllerTest, dataChanged) {
 
 //! Tests if controller sees model reset.
 
-TEST_F(ModelHasChangedControllerTest, modelReset) {
+TEST_F(ModelHasChangedControllerTest, modelReset)
+{
     SessionModel model;
     model.insertItem<PropertyItem>();
 
@@ -86,7 +96,8 @@ TEST_F(ModelHasChangedControllerTest, modelReset) {
 
 //! Tests callback functioning.
 
-TEST_F(ModelHasChangedControllerTest, callback) {
+TEST_F(ModelHasChangedControllerTest, callback)
+{
     int change_count{0};
     auto on_change = [&change_count]() { change_count++; };
 
@@ -104,7 +115,8 @@ TEST_F(ModelHasChangedControllerTest, callback) {
 
 //! Tests callback functioning.
 
-TEST_F(ModelHasChangedControllerTest, timeOfLife) {
+TEST_F(ModelHasChangedControllerTest, timeOfLife)
+{
     int change_count{0};
     auto on_change = [&change_count]() { change_count++; };
 

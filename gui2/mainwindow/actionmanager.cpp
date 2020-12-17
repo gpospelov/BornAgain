@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/mainwindow/actionmanager.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/mainwindow/actionmanager.h"
 #include "mvvm/widgets/widgetutils.h"
@@ -17,12 +22,14 @@
 namespace gui2 {
 
 ActionManager::ActionManager(QMainWindow* mainwindow)
-    : QObject(mainwindow), m_mainWindow(mainwindow) {
+    : QObject(mainwindow), m_mainWindow(mainwindow)
+{
     createActions();
     setupMenus(m_mainWindow->menuBar());
 }
 
-void ActionManager::aboutToShowFileMenu() {
+void ActionManager::aboutToShowFileMenu()
+{
     m_recentProjectMenu->clear();
     m_recentProjectMenu->setEnabled(!m_recentProjects.isEmpty());
 
@@ -43,13 +50,15 @@ void ActionManager::aboutToShowFileMenu() {
     }
 }
 
-void ActionManager::setRecentProjectsList(const QStringList& projects) {
+void ActionManager::setRecentProjectsList(const QStringList& projects)
+{
     m_recentProjects = projects;
 }
 
 //! Creates application-wise actions to create, open, save, and save-as projects.
 
-void ActionManager::createActions() {
+void ActionManager::createActions()
+{
     m_createNewProjectAction = new QAction("&New Project", this);
     m_createNewProjectAction->setShortcuts(QKeySequence::New);
     m_createNewProjectAction->setStatusTip("Create a new project");
@@ -82,7 +91,8 @@ void ActionManager::createActions() {
 
 //! Equips menu with actions.
 
-void ActionManager::setupMenus(QMenuBar* menubar) {
+void ActionManager::setupMenus(QMenuBar* menubar)
+{
     auto fileMenu = menubar->addMenu("&File");
     connect(fileMenu, &QMenu::aboutToShow, this, &ActionManager::aboutToShowFileMenu);
     fileMenu->addAction(m_createNewProjectAction);

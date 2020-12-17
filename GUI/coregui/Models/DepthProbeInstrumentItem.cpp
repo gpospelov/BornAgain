@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/DepthProbeInstrumentItem.cpp
 //! @brief     Implements DepthProbeInstrumentItem class
@@ -24,7 +24,8 @@
 const QString DepthProbeInstrumentItem::P_BEAM = "Beam";
 const QString DepthProbeInstrumentItem::P_Z_AXIS = "Z axis";
 
-DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProbeInstrument") {
+DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProbeInstrument")
+{
     setItemName("DepthProbeInstrument");
 
     addGroupProperty(P_BEAM, "SpecularBeam");
@@ -45,23 +46,28 @@ DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProb
     axis->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Ending value above sample horizont in nm");
 }
 
-SpecularBeamItem* DepthProbeInstrumentItem::beamItem() const {
+SpecularBeamItem* DepthProbeInstrumentItem::beamItem() const
+{
     return &item<SpecularBeamItem>(P_BEAM);
 }
 
-std::unique_ptr<Instrument> DepthProbeInstrumentItem::createInstrument() const {
+std::unique_ptr<Instrument> DepthProbeInstrumentItem::createInstrument() const
+{
     throw std::runtime_error("DepthProbeInstrumentItem::createInstrument()");
 }
 
-std::vector<int> DepthProbeInstrumentItem::shape() const {
+std::vector<int> DepthProbeInstrumentItem::shape() const
+{
     return std::vector<int>(); // no certain shape to avoid linking to real data
 }
 
-void DepthProbeInstrumentItem::updateToRealData(const RealDataItem*) {
+void DepthProbeInstrumentItem::updateToRealData(const RealDataItem*)
+{
     throw std::runtime_error("DepthProbeInstrumentItem::updateToRealData()");
 }
 
-std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation() const {
+std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation() const
+{
     std::unique_ptr<DepthProbeSimulation> simulation = std::make_unique<DepthProbeSimulation>();
 
     const auto axis_item = beamItem()->currentInclinationAxisItem();
@@ -87,6 +93,7 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation
     return simulation;
 }
 
-std::unique_ptr<IUnitConverter> DepthProbeInstrumentItem::createUnitConverter() const {
+std::unique_ptr<IUnitConverter> DepthProbeInstrumentItem::createUnitConverter() const
+{
     return createSimulation()->createUnitConverter();
 }

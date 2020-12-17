@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Param/Varia/ParameterUtils.cpp
 //! @brief     Implements namespace ParameterUtils
@@ -20,14 +20,16 @@
 
 namespace {
 //! Returns list of all angle related parameters used in Core library.
-std::vector<std::string> angleRelatedParameters() {
+std::vector<std::string> angleRelatedParameters()
+{
     std::vector<std::string> result{
         "InclinationAngle", "AzimuthalAngle", "Alpha", "Beta", "Gamma", "Angle"};
     return result;
 }
 } // namespace
 
-bool ParameterUtils::isAngleRelated(const std::string& par_name) {
+bool ParameterUtils::isAngleRelated(const std::string& par_name)
+{
     static std::vector<std::string> angleRelated = angleRelatedParameters();
 
     for (const auto& par : angleRelated) {
@@ -38,7 +40,8 @@ bool ParameterUtils::isAngleRelated(const std::string& par_name) {
 }
 
 std::string ParameterUtils::poolParameterUnits(const IParametricComponent& node,
-                                               const std::string& parName) {
+                                               const std::string& parName)
+{
     std::unique_ptr<ParameterPool> pool{node.createParameterTree()};
     return pool->getUniqueMatch(parName)->unit();
 }

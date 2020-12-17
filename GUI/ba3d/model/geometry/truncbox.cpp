@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/ba3d/model/geometry/truncbox.cpp
 //! @brief     Implements utility functions in ba3d namespace
@@ -17,7 +17,8 @@
 
 namespace RealSpace {
 
-Geometry::Mesh Geometry::meshTruncBox(float tD) { // t/D
+Geometry::Mesh Geometry::meshTruncBox(float tD)
+{ // t/D
     if (tD <= 0)
         return meshBox();
 

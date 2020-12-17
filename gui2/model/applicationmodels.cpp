@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/model/applicationmodels.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/model/applicationmodels.h"
 #include "gui2/model/experimentaldatacontroller.h"
@@ -37,7 +42,8 @@ struct ApplicationModels::ApplicationModelsImpl {
     std::unique_ptr<ExperimentalDataController> m_data_controller;
     std::shared_ptr<ItemPool> item_pool;
 
-    ApplicationModelsImpl() {
+    ApplicationModelsImpl()
+    {
         item_pool = std::make_shared<ItemPool>();
         m_material_model = std::make_unique<MaterialModel>(item_pool);
         m_sample_model = std::make_unique<SampleModel>(item_pool);
@@ -56,7 +62,8 @@ struct ApplicationModels::ApplicationModelsImpl {
     //! Runs through all layers and assign materials.
     //! Expecting 3 materials existing by default (air, default, Si) to assign to our 3 layers.
 
-    void update_material_properties() {
+    void update_material_properties()
+    {
         auto multilayer = Utils::TopItem<MultiLayerItem>(m_sample_model.get());
         auto layers = multilayer->items<LayerItem>(MultiLayerItem::T_LAYERS);
         size_t index(0);
@@ -68,13 +75,15 @@ struct ApplicationModels::ApplicationModelsImpl {
     }
 
     //! Models intended for saving.
-    std::vector<SessionModel*> persistent_models() const {
+    std::vector<SessionModel*> persistent_models() const
+    {
         return {m_material_model.get(), m_sample_model.get(), m_instrument_model.get(),
                 m_experimental_model.get()};
     }
 
     //! All application models.
-    std::vector<SessionModel*> application_models() const {
+    std::vector<SessionModel*> application_models() const
+    {
         return {m_material_model.get(), m_sample_model.get(), m_instrument_model.get(),
                 m_sld_view_model.get(), m_job_model.get(),    m_experimental_model.get()};
     }
@@ -84,37 +93,45 @@ ApplicationModels::ApplicationModels() : p_impl(std::make_unique<ApplicationMode
 
 ApplicationModels::~ApplicationModels() = default;
 
-MaterialModel* ApplicationModels::materialModel() {
+MaterialModel* ApplicationModels::materialModel()
+{
     return p_impl->m_material_model.get();
 }
 
-SampleModel* ApplicationModels::sampleModel() {
+SampleModel* ApplicationModels::sampleModel()
+{
     return p_impl->m_sample_model.get();
 }
 
-SLDElementModel* ApplicationModels::sldViewModel() {
+SLDElementModel* ApplicationModels::sldViewModel()
+{
     return p_impl->m_sld_view_model.get();
 }
 
-JobModel* ApplicationModels::jobModel() {
+JobModel* ApplicationModels::jobModel()
+{
     return p_impl->m_job_model.get();
 }
 
-ExperimentalDataModel* ApplicationModels::experimentalDataModel() {
+ExperimentalDataModel* ApplicationModels::experimentalDataModel()
+{
     return p_impl->m_experimental_model.get();
 }
 
-InstrumentModel* ApplicationModels::instrumentModel() {
+InstrumentModel* ApplicationModels::instrumentModel()
+{
     return p_impl->m_instrument_model.get();
 }
 
-std::vector<SessionModel*> ApplicationModels::persistent_models() const {
+std::vector<SessionModel*> ApplicationModels::persistent_models() const
+{
     return p_impl->persistent_models();
 }
 
 //! Return vector of all models of our application.
 
-std::vector<SessionModel*> ApplicationModels::application_models() const {
+std::vector<SessionModel*> ApplicationModels::application_models() const
+{
     return p_impl->application_models();
 }
 

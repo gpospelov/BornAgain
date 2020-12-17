@@ -11,9 +11,11 @@
 #include "Sample/Slice/Slice.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class SpecularScanTest : public ::testing::Test {};
+class SpecularScanTest : public ::testing::Test {
+};
 
-TEST_F(SpecularScanTest, AngularScanInit) {
+TEST_F(SpecularScanTest, AngularScanInit)
+{
     auto check = [](const AngularSpecScan& scan, const IAxis& axis) {
         EXPECT_EQ(scan.wavelength(), 0.1);
         EXPECT_EQ(axis, *scan.coordinateAxis());
@@ -39,7 +41,8 @@ TEST_F(SpecularScanTest, AngularScanInit) {
     check(scan4, fixed_axis);
 }
 
-TEST_F(SpecularScanTest, AngularScanWithFootprint) {
+TEST_F(SpecularScanTest, AngularScanWithFootprint)
+{
     AngularSpecScan scan(0.1, std::vector<double>{0.1, 0.2, 0.3});
     EXPECT_EQ(scan.footprintFactor(), nullptr);
 
@@ -58,7 +61,8 @@ TEST_F(SpecularScanTest, AngularScanWithFootprint) {
     EXPECT_EQ(scan.footprint(0, 1), std::vector<double>{1.0});
 }
 
-TEST_F(SpecularScanTest, FootprintAndWavelengthResolution) {
+TEST_F(SpecularScanTest, FootprintAndWavelengthResolution)
+{
     AngularSpecScan scan(0.1, std::vector<double>{0.1, 0.2, 0.3});
     auto scan_res = std::unique_ptr<ScanResolution>(
         ScanResolution::scanRelativeResolution(RangedDistributionGate(3, 2.0), 0.1));
@@ -85,7 +89,8 @@ TEST_F(SpecularScanTest, FootprintAndWavelengthResolution) {
         EXPECT_DOUBLE_EQ(expected_part[i], actual[i]);
 }
 
-TEST_F(SpecularScanTest, FootprintAndAllResolutions) {
+TEST_F(SpecularScanTest, FootprintAndAllResolutions)
+{
     AngularSpecScan scan(0.1, std::vector<double>{0.1, 0.2, 0.3});
     auto wl_res = std::unique_ptr<ScanResolution>(
         ScanResolution::scanRelativeResolution(RangedDistributionGate(2, 2.0), 0.1));
@@ -119,7 +124,8 @@ TEST_F(SpecularScanTest, FootprintAndAllResolutions) {
         EXPECT_DOUBLE_EQ(expected_part[i], actual[i]);
 }
 
-TEST_F(SpecularScanTest, QScanInit) {
+TEST_F(SpecularScanTest, QScanInit)
+{
     auto check = [](const QSpecScan& scan, const IAxis& axis) {
         EXPECT_EQ(axis, *scan.coordinateAxis());
         EXPECT_EQ(scan.numberOfSimulationElements(), axis.size());
@@ -145,7 +151,8 @@ TEST_F(SpecularScanTest, QScanInit) {
     check(scan4, fixed_axis);
 }
 
-TEST_F(SpecularScanTest, AngularScanClone) {
+TEST_F(SpecularScanTest, AngularScanClone)
+{
     AngularSpecScan scan(0.1, std::vector<double>{0.1, 0.2, 0.3});
 
     std::unique_ptr<AngularSpecScan> scan_clone(scan.clone());
@@ -167,7 +174,8 @@ TEST_F(SpecularScanTest, AngularScanClone) {
     EXPECT_NE(dynamic_cast<const FootprintGauss*>(scan_clone2->footprintFactor()), nullptr);
 }
 
-TEST_F(SpecularScanTest, QScanClone) {
+TEST_F(SpecularScanTest, QScanClone)
+{
     QSpecScan scan(std::vector<double>{0.1, 0.2, 0.3});
     scan.setOffset(2.22);
 
@@ -178,7 +186,8 @@ TEST_F(SpecularScanTest, QScanClone) {
     EXPECT_EQ(scan_clone->offset(), scan.offset());
 }
 
-TEST_F(SpecularScanTest, GenerateSimElements) {
+TEST_F(SpecularScanTest, GenerateSimElements)
+{
     AngularSpecScan scan(0.1, std::vector<double>{0.0, 0.2, 0.3});
     const Instrument instrument;
     std::vector<SpecularSimulationElement> sim_elements =
@@ -210,7 +219,8 @@ TEST_F(SpecularScanTest, GenerateSimElements) {
     }
 }
 
-TEST_F(SpecularScanTest, ErrorInput) {
+TEST_F(SpecularScanTest, ErrorInput)
+{
     EXPECT_THROW(AngularSpecScan(-0.1, std::vector<double>{0.0, 0.2, 0.3}), std::runtime_error);
     EXPECT_THROW(AngularSpecScan(0.1, std::vector<double>{0.1, 0.3, 0.2}), std::runtime_error);
     EXPECT_THROW(QSpecScan(std::vector<double>{-0.01, 0.2, 0.3}), std::runtime_error);

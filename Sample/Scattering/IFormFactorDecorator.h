@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Scattering/IFormFactorDecorator.h
 //! @brief     Defines and implements interface class IFormFactorDecorator.
@@ -32,7 +32,8 @@ public:
     ~IFormFactorDecorator() override { delete m_ff; }
     IFormFactorDecorator* clone() const override = 0;
 
-    void setAmbientMaterial(const Material& material) override {
+    void setAmbientMaterial(const Material& material) override
+    {
         m_ff->setAmbientMaterial(material);
     }
 

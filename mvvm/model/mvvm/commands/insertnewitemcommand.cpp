@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/commands/insertnewitemcommand.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/commands/insertnewitemcommand.h"
 #include "mvvm/model/path.h"
@@ -24,20 +29,23 @@ struct InsertNewItemCommand::InsertNewItemCommandImpl {
     Path item_path;
     std::string initial_identifier;
     InsertNewItemCommandImpl(item_factory_func_t func, TagRow tagrow)
-        : factory_func(std::move(func)), tagrow(std::move(tagrow)) {}
+        : factory_func(std::move(func)), tagrow(std::move(tagrow))
+    {
+    }
 };
 
 InsertNewItemCommand::InsertNewItemCommand(item_factory_func_t func, SessionItem* parent,
                                            const TagRow& tagrow)
-    : AbstractItemCommand(parent)
-    , p_impl(std::make_unique<InsertNewItemCommandImpl>(func, tagrow)) {
+    : AbstractItemCommand(parent), p_impl(std::make_unique<InsertNewItemCommandImpl>(func, tagrow))
+{
     setResult(nullptr);
     p_impl->item_path = pathFromItem(parent);
 }
 
 InsertNewItemCommand::~InsertNewItemCommand() = default;
 
-void InsertNewItemCommand::undo_command() {
+void InsertNewItemCommand::undo_command()
+{
     auto parent = itemFromPath(p_impl->item_path);
     auto item = parent->takeItem(p_impl->tagrow);
     // saving identifier for later redo
@@ -47,7 +55,8 @@ void InsertNewItemCommand::undo_command() {
     setResult(nullptr);
 }
 
-void InsertNewItemCommand::execute_command() {
+void InsertNewItemCommand::execute_command()
+{
     auto parent = itemFromPath(p_impl->item_path);
     auto child = p_impl->factory_func().release();
     // here we restore original identifier to get exactly same item on consequitive undo/redo
@@ -65,7 +74,8 @@ void InsertNewItemCommand::execute_command() {
 }
 
 namespace {
-std::string generate_description(const std::string& modelType, const TagRow& tagrow) {
+std::string generate_description(const std::string& modelType, const TagRow& tagrow)
+{
     std::ostringstream ostr;
     ostr << "New item type '" << modelType << "' tag:'" << tagrow.tag << "', row:" << tagrow.row;
     return ostr.str();

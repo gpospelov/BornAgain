@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/InfoWidgets/PythonSyntaxHighlighter.h
 //! @brief     Defines class PythonSyntaxHighlighter
@@ -44,7 +44,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! the format.
 class HighlightingRule {
 public:
-    HighlightingRule(const QString& patternStr, int n, const QTextCharFormat& matchingFormat) {
+    HighlightingRule(const QString& patternStr, int n, const QTextCharFormat& matchingFormat)
+    {
         originalRuleStr = patternStr;
         pattern = QRegExp(patternStr);
         nth = n;

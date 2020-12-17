@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Mask/Ellipse.cpp
 //! @brief     Implements class Ellipse.
@@ -26,14 +26,16 @@ Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius,
     , m_yc(ycenter)
     , m_xr(xradius)
     , m_yr(yradius)
-    , m_theta(theta) {
+    , m_theta(theta)
+{
     if (xradius <= 0.0 || yradius <= 0.0)
         throw std::runtime_error(
             "Ellipse::Ellipse(double xcenter, double ycenter, double xradius, double yradius) "
             "-> Error. Radius can't be negative\n");
 }
 
-bool Ellipse::contains(double x, double y) const {
+bool Ellipse::contains(double x, double y) const
+{
     double u = std::cos(m_theta) * (x - m_xc) + std::sin(m_theta) * (y - m_yc);
     double v = -std::sin(m_theta) * (x - m_xc) + std::cos(m_theta) * (y - m_yc);
     double d = (u / m_xr) * (u / m_xr) + (v / m_yr) * (v / m_yr);
@@ -42,6 +44,7 @@ bool Ellipse::contains(double x, double y) const {
 
 //! Returns true if area defined by two bins is inside or on border of ellipse;
 //! more precisely, if mid point of two bins satisfy this condition.
-bool Ellipse::contains(const Bin1D& binx, const Bin1D& biny) const {
+bool Ellipse::contains(const Bin1D& binx, const Bin1D& biny) const
+{
     return contains(binx.center(), biny.center());
 }

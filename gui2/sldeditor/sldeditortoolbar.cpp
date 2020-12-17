@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/sldeditor/sldeditortoolbar.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/sldeditor/sldeditortoolbar.h"
 #include "gui2/mainwindow/styleutils.h"
@@ -16,7 +21,8 @@
 
 namespace gui2 {
 
-SLDEditorToolBar::SLDEditorToolBar(SLDEditorActions*, QWidget* parent) : QToolBar(parent) {
+SLDEditorToolBar::SLDEditorToolBar(SLDEditorActions*, QWidget* parent) : QToolBar(parent)
+{
     StyleUtils::SetToolBarStyleTextBesides(this);
 
     auto reset_view = new QToolButton;

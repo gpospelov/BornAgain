@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Adapter/ResidualFunctionAdapter.h
 //! @brief     Defines class ResidualFunctionAdapter.

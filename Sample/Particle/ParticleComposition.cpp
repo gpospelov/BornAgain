@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Particle/ParticleComposition.cpp
 //! @brief     Implements class ParticleComposition.
@@ -17,19 +17,22 @@
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Sample/Scattering/Rotations.h"
 
-ParticleComposition::ParticleComposition() {
+ParticleComposition::ParticleComposition()
+{
     initialize();
 }
 
 ParticleComposition::ParticleComposition(const IParticle& particle,
-                                         std::vector<kvector_t> positions) {
+                                         std::vector<kvector_t> positions)
+{
     initialize();
     addParticles(particle, positions);
 }
 
 ParticleComposition::~ParticleComposition() = default;
 
-ParticleComposition* ParticleComposition::clone() const {
+ParticleComposition* ParticleComposition::clone() const
+{
     ParticleComposition* result = new ParticleComposition();
     result->setAbundance(m_abundance);
     for (size_t index = 0; index < m_particles.size(); ++index)
@@ -40,7 +43,8 @@ ParticleComposition* ParticleComposition::clone() const {
     return result;
 }
 
-IFormFactor* ParticleComposition::createFormFactor() const {
+IFormFactor* ParticleComposition::createFormFactor() const
+{
     if (m_particles.empty())
         return {};
     auto* result = new FormFactorWeighted;
@@ -52,12 +56,14 @@ IFormFactor* ParticleComposition::createFormFactor() const {
     return result;
 }
 
-void ParticleComposition::addParticle(const IParticle& particle) {
+void ParticleComposition::addParticle(const IParticle& particle)
+{
     IParticle* np = particle.clone();
     addParticlePointer(np);
 }
 
-void ParticleComposition::addParticle(const IParticle& particle, kvector_t position) {
+void ParticleComposition::addParticle(const IParticle& particle, kvector_t position)
+{
     IParticle* np = particle.clone();
     np->translate(position);
     addParticlePointer(np);
@@ -65,20 +71,22 @@ void ParticleComposition::addParticle(const IParticle& particle, kvector_t posit
 
 // Please note, that positions is not const reference here. This is intentional, to
 // enable python lists to std::vector conversion
-void ParticleComposition::addParticles(const IParticle& particle,
-                                       std::vector<kvector_t> positions) {
+void ParticleComposition::addParticles(const IParticle& particle, std::vector<kvector_t> positions)
+{
     for (size_t i = 0; i < positions.size(); ++i)
         addParticle(particle, positions[i]);
 }
 
-std::vector<const INode*> ParticleComposition::getChildren() const {
+std::vector<const INode*> ParticleComposition::getChildren() const
+{
     std::vector<const INode*> result = IParticle::getChildren();
     for (auto& P_particle : m_particles)
         result.push_back(P_particle.get());
     return result;
 }
 
-SafePointerVector<IParticle> ParticleComposition::decompose() const {
+SafePointerVector<IParticle> ParticleComposition::decompose() const
+{
     SafePointerVector<IParticle> result;
     auto* rot = rotation();
     auto translation = position();
@@ -94,7 +102,8 @@ SafePointerVector<IParticle> ParticleComposition::decompose() const {
     return result;
 }
 
-ParticleLimits ParticleComposition::bottomTopZ() const {
+ParticleLimits ParticleComposition::bottomTopZ() const
+{
     const auto particles = decompose();
     ParticleLimits result = particles[check_index(0)]->bottomTopZ();
     for (const auto& particle : particles) {
@@ -105,20 +114,23 @@ ParticleLimits ParticleComposition::bottomTopZ() const {
     return result;
 }
 
-size_t ParticleComposition::check_index(size_t index) const {
+size_t ParticleComposition::check_index(size_t index) const
+{
     return index < m_particles.size()
                ? index
                : throw std::runtime_error(
                    "ParticleComposition::check_index() -> Index is out of bounds");
 }
 
-void ParticleComposition::addParticlePointer(IParticle* p_particle) {
+void ParticleComposition::addParticlePointer(IParticle* p_particle)
+{
     p_particle->registerAbundance(false);
     registerChild(p_particle);
     m_particles.emplace_back(p_particle);
 }
 
-void ParticleComposition::initialize() {
+void ParticleComposition::initialize()
+{
     setName("ParticleComposition");
     registerParticleProperties();
 }

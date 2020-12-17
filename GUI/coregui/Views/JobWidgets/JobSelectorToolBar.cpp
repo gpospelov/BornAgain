@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobWidgets/JobSelectorToolBar.cpp
 //! @brief     Implements class JobSelectorToolBar
@@ -17,7 +17,8 @@
 #include <QToolButton>
 
 JobSelectorToolBar::JobSelectorToolBar(JobSelectorActions* actions, QWidget* parent)
-    : StyledToolBar(parent), m_runJobButton(new QToolButton), m_removeJobButton(new QToolButton) {
+    : StyledToolBar(parent), m_runJobButton(new QToolButton), m_removeJobButton(new QToolButton)
+{
     setMinimumSize(minimumHeight(), minimumHeight());
 
     m_runJobButton->setText("Run");

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/view/mvvm/plotting/colormapviewportplotcontroller.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/plotting/colormapviewportplotcontroller.h"
 #include "mvvm/plotting/colormapplotcontroller.h"
@@ -29,7 +34,8 @@ struct ColorMapViewportPlotController::ColorMapViewportPlotControllerImpl {
     std::unique_ptr<ColorMapPlotController> m_colorMapController;
 
     ColorMapViewportPlotControllerImpl(ColorMapViewportPlotController* master, QCustomPlot* plot)
-        : m_self(master), m_customPlot(plot), m_colorScale(new QCPColorScale(m_customPlot)) {
+        : m_self(master), m_customPlot(plot), m_colorScale(new QCPColorScale(m_customPlot))
+    {
         m_xAxisController = std::make_unique<ViewportAxisPlotController>(m_customPlot->xAxis);
         m_yAxisController = std::make_unique<ViewportAxisPlotController>(m_customPlot->yAxis);
         m_colorScaleController = std::make_unique<ColorScalePlotController>(m_colorScale);
@@ -40,7 +46,8 @@ struct ColorMapViewportPlotController::ColorMapViewportPlotControllerImpl {
 
     //! Setup controller components.
 
-    void setup_components() {
+    void setup_components()
+    {
         auto viewport = viewportItem();
         m_xAxisController->setItem(viewport->xAxis());
         m_yAxisController->setItem(viewport->yAxis());
@@ -50,7 +57,8 @@ struct ColorMapViewportPlotController::ColorMapViewportPlotControllerImpl {
         viewportItem()->setViewportToContent();
     }
 
-    void unsubscribe_components() {
+    void unsubscribe_components()
+    {
         m_xAxisController->setItem(nullptr);
         m_yAxisController->setItem(nullptr);
         m_colorScaleController->setItem(nullptr);
@@ -59,16 +67,20 @@ struct ColorMapViewportPlotController::ColorMapViewportPlotControllerImpl {
 };
 
 ColorMapViewportPlotController::ColorMapViewportPlotController(QCustomPlot* custom_plot)
-    : p_impl(std::make_unique<ColorMapViewportPlotControllerImpl>(this, custom_plot)) {}
+    : p_impl(std::make_unique<ColorMapViewportPlotControllerImpl>(this, custom_plot))
+{
+}
 
-void ColorMapViewportPlotController::subscribe() {
+void ColorMapViewportPlotController::subscribe()
+{
     auto on_item_inserted = [this](SessionItem*, TagRow) { p_impl->setup_components(); };
     setOnItemInserted(on_item_inserted);
 
     p_impl->setup_components();
 }
 
-void ColorMapViewportPlotController::unsubscribe() {
+void ColorMapViewportPlotController::unsubscribe()
+{
     p_impl->unsubscribe_components();
 }
 

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/vectoritem.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/sessionmodel.h"
@@ -24,7 +29,8 @@ VectorItemTest::~VectorItemTest() = default;
 
 //! Initial state of item when it is created outside of model context.
 
-TEST_F(VectorItemTest, initialState) {
+TEST_F(VectorItemTest, initialState)
+{
     VectorItem item;
 
     EXPECT_TRUE(item.isSinglePropertyTag(VectorItem::P_X));
@@ -43,7 +49,8 @@ TEST_F(VectorItemTest, initialState) {
 
 //! Initial state of item in model context
 
-TEST_F(VectorItemTest, initialStateFromModel) {
+TEST_F(VectorItemTest, initialStateFromModel)
+{
     SessionModel model;
     auto item = model.insertItem<VectorItem>();
 

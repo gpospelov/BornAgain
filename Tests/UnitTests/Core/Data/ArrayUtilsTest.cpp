@@ -2,9 +2,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <vector>
 
-class ArrayUtilsTest : public ::testing::Test {};
+class ArrayUtilsTest : public ::testing::Test {
+};
 
-TEST_F(ArrayUtilsTest, OutputDataFromVector1D) {
+TEST_F(ArrayUtilsTest, OutputDataFromVector1D)
+{
     // double
     const std::vector<double> vec_double = {10.0, 20.0, 30.0, 40.0};
     auto data1 = ArrayUtils::createData(vec_double);
@@ -24,7 +26,8 @@ TEST_F(ArrayUtilsTest, OutputDataFromVector1D) {
     EXPECT_EQ(data2->axis(0).upperBound(), 3.0);
 }
 
-TEST_F(ArrayUtilsTest, OutputDataToVector1D) {
+TEST_F(ArrayUtilsTest, OutputDataToVector1D)
+{
     const std::vector<double> expected = {10.0, 20.0, 30.0, 40.0};
     OutputData<double> data;
     data.addAxis("axis0", 4, 10.0, 20.0);
@@ -36,7 +39,8 @@ TEST_F(ArrayUtilsTest, OutputDataToVector1D) {
     EXPECT_EQ(vec, expected);
 }
 
-TEST_F(ArrayUtilsTest, OutputDataFromVector2D) {
+TEST_F(ArrayUtilsTest, OutputDataFromVector2D)
+{
     const std::vector<std::vector<double>> vec_double = {
         {0.0, 1.0, 2.0, 3.0}, {4.0, 5.0, 6.0, 7.0}, {8.0, 9.0, 10.0, 11.0}};
     auto data = ArrayUtils::createData(vec_double);
@@ -56,7 +60,8 @@ TEST_F(ArrayUtilsTest, OutputDataFromVector2D) {
     EXPECT_EQ(data->getRawDataVector(), expected);
 }
 
-TEST_F(ArrayUtilsTest, OutputDataToVector2D) {
+TEST_F(ArrayUtilsTest, OutputDataToVector2D)
+{
     OutputData<double> data;
     data.addAxis("axis0", 4, 10.0, 20.0);
     data.addAxis("axis1", 3, 30.0, 40.0);

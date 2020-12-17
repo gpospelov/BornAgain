@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/FitSuiteItem.cpp
 //! @brief     Implements class FitSuiteItem
@@ -22,7 +22,8 @@ const QString FitSuiteItem::P_CHI2 = "Chi2";
 const QString FitSuiteItem::T_FIT_PARAMETERS_CONTAINER = "Fit parameters container";
 const QString FitSuiteItem::T_MINIMIZER = "Minimizer settings";
 
-FitSuiteItem::FitSuiteItem() : SessionItem("FitSuite") {
+FitSuiteItem::FitSuiteItem() : SessionItem("FitSuite")
+{
     addProperty(P_UPDATE_INTERVAL, 10);
     addProperty(P_ITERATION_COUNT, 0);
     addProperty(P_CHI2, 0.0);
@@ -31,11 +32,13 @@ FitSuiteItem::FitSuiteItem() : SessionItem("FitSuite") {
     registerTag(T_MINIMIZER, 1, 1, QStringList() << "MinimizerContainer");
 }
 
-FitParameterContainerItem* FitSuiteItem::fitParameterContainerItem() {
+FitParameterContainerItem* FitSuiteItem::fitParameterContainerItem()
+{
     return dynamic_cast<FitParameterContainerItem*>(
         getItem(FitSuiteItem::T_FIT_PARAMETERS_CONTAINER));
 }
 
-MinimizerContainerItem* FitSuiteItem::minimizerContainerItem() {
+MinimizerContainerItem* FitSuiteItem::minimizerContainerItem()
+{
     return dynamic_cast<MinimizerContainerItem*>(getItem(FitSuiteItem::T_MINIMIZER));
 }

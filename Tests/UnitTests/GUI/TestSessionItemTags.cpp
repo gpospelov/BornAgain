@@ -2,15 +2,18 @@
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class TestSessionItemTags : public ::testing::Test {};
+class TestSessionItemTags : public ::testing::Test {
+};
 
-TEST_F(TestSessionItemTags, initialState) {
+TEST_F(TestSessionItemTags, initialState)
+{
     SessionItemTags tags;
     EXPECT_FALSE(tags.isValid(QString()));
     EXPECT_FALSE(tags.isValid("abc"));
 }
 
-TEST_F(TestSessionItemTags, registerTag) {
+TEST_F(TestSessionItemTags, registerTag)
+{
     SessionItemTags tags;
 
     // registering tag
@@ -33,7 +36,8 @@ TEST_F(TestSessionItemTags, registerTag) {
     EXPECT_EQ(tags.modelTypesForTag("tag2"), expected);
 }
 
-TEST_F(TestSessionItemTags, modelTypesForTag) {
+TEST_F(TestSessionItemTags, modelTypesForTag)
+{
     SessionItemTags tags;
 
     QStringList expected = QStringList() << "Particle"
@@ -48,7 +52,8 @@ TEST_F(TestSessionItemTags, modelTypesForTag) {
     EXPECT_EQ(tags.modelTypesForTag("tag3"), QStringList());
 }
 
-TEST_F(TestSessionItemTags, tagStartIndex) {
+TEST_F(TestSessionItemTags, tagStartIndex)
+{
     SessionItemTags tags;
 
     // registering tags
@@ -86,7 +91,8 @@ TEST_F(TestSessionItemTags, tagStartIndex) {
     EXPECT_EQ(tags.tagStartIndex("tag2"), 0);
 }
 
-TEST_F(TestSessionItemTags, indexFromTagRow) {
+TEST_F(TestSessionItemTags, indexFromTagRow)
+{
     SessionItemTags tags;
     tags.registerTag("tag1", 0, -1, QStringList() << "Particle");
     tags.registerTag("tag2", 0, 2, QStringList() << "Particle");
@@ -107,7 +113,8 @@ TEST_F(TestSessionItemTags, indexFromTagRow) {
     EXPECT_EQ(tags.indexFromTagRow("tag2", 1), 4);
 }
 
-TEST_F(TestSessionItemTags, tagFromIndex) {
+TEST_F(TestSessionItemTags, tagFromIndex)
+{
     SessionItemTags tags;
     tags.registerTag("tag1", 0, -1, QStringList() << "Particle");
     tags.registerTag("tag2", 0, 2, QStringList() << "Particle");
@@ -130,7 +137,8 @@ TEST_F(TestSessionItemTags, tagFromIndex) {
 
 //! Testing the method calculating insert index.
 
-TEST_F(TestSessionItemTags, insertIndexFromTagRow) {
+TEST_F(TestSessionItemTags, insertIndexFromTagRow)
+{
     SessionItemTags tags;
     tags.registerTag("tag1", 0, -1, QStringList() << "Particle");
     tags.registerTag("tag2", 0, 2, QStringList() << "Particle");

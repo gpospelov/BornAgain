@@ -25,7 +25,8 @@ protected:
 };
 
 RectangularConverterTest::RectangularConverterTest()
-    : m_detector(det_nx, det_width, det_ny, det_height), m_beam(1.0, 1.0, {1 * Units::deg, 0}) {
+    : m_detector(det_nx, det_width, det_ny, det_height), m_beam(1.0, 1.0, {1 * Units::deg, 0})
+{
     m_detector.setPerpendicularToSampleX(det_distance, det_width / 2.0, 0.0);
     m_detector.init(m_beam);
     m_phi = std::atan2(det_width / 2.0, det_distance);
@@ -37,7 +38,8 @@ RectangularConverterTest::RectangularConverterTest()
     m_kfz = K * std::sin(m_alpha);
 }
 
-TEST_F(RectangularConverterTest, RectangularConverter) {
+TEST_F(RectangularConverterTest, RectangularConverter)
+{
     RectangularConverter converter(m_detector, m_beam);
 
     EXPECT_EQ(converter.dimension(), 2u);
@@ -94,7 +96,8 @@ TEST_F(RectangularConverterTest, RectangularConverter) {
     EXPECT_THROW(converter.createConvertedAxis(2, Axes::Units::DEFAULT), std::runtime_error);
 }
 
-TEST_F(RectangularConverterTest, RectangularConverterClone) {
+TEST_F(RectangularConverterTest, RectangularConverterClone)
+{
     RectangularConverter converter(m_detector, m_beam);
     std::unique_ptr<RectangularConverter> P_clone(converter.clone());
 
@@ -138,7 +141,8 @@ TEST_F(RectangularConverterTest, RectangularConverterClone) {
     EXPECT_THROW(P_clone->calculateMax(2, Axes::Units::DEFAULT), std::runtime_error);
 }
 
-TEST_F(RectangularConverterTest, RectangularConverterWithROI) {
+TEST_F(RectangularConverterTest, RectangularConverterWithROI)
+{
     const double roi_xmin = 100;
     const double roi_xmax = 150; // xmax in roi will be 152 due to binning
     const double roi_ymin = 50;

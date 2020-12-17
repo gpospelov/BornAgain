@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/view/mvvm/plotting/colormapplotcontroller.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/plotting/colormapplotcontroller.h"
 #include "mvvm/model/comboproperty.h"
@@ -17,7 +22,8 @@
 
 namespace {
 using gradient_map_t = std::map<std::string, QCPColorGradient::GradientPreset>;
-gradient_map_t createGradientMap() {
+gradient_map_t createGradientMap()
+{
     gradient_map_t result;
 
     result["Grayscale"] = QCPColorGradient::gpGrayscale;
@@ -36,7 +42,8 @@ gradient_map_t createGradientMap() {
     return result;
 }
 
-QCPColorGradient getGradient(const std::string& gradientName) {
+QCPColorGradient getGradient(const std::string& gradientName)
+{
     static gradient_map_t gradient_map = createGradientMap();
     auto it = gradient_map.find(gradientName);
     return it != gradient_map.end() ? QCPColorGradient(it->second) : QCPColorGradient::gpSpectrum;
@@ -54,7 +61,8 @@ struct ColorMapPlotController::ColorMapPlotControllerImpl {
 
     ColorMapPlotControllerImpl(ColorMapPlotController* master, QCustomPlot* plot,
                                QCPColorScale* color_scale)
-        : master(master), custom_plot(plot) {
+        : master(master), custom_plot(plot)
+    {
         color_map = new QCPColorMap(custom_plot->xAxis, custom_plot->yAxis);
         data_controller = std::make_unique<Data2DPlotController>(color_map);
 
@@ -66,7 +74,8 @@ struct ColorMapPlotController::ColorMapPlotControllerImpl {
 
     ColorMapItem* colormap_item() { return master->currentItem(); }
 
-    void update_colormap() {
+    void update_colormap()
+    {
         update_data_controller();
         update_interpolation();
         update_gradient();
@@ -77,21 +86,26 @@ struct ColorMapPlotController::ColorMapPlotControllerImpl {
 
     //! Updates QCPColorMap's interpolation when corresponding property of ColorMapItem changed.
 
-    void update_interpolation() {
+    void update_interpolation()
+    {
         auto is_interpolated = colormap_item()->property<bool>(ColorMapItem::P_INTERPOLATION);
         color_map->setInterpolate(is_interpolated);
     }
 
-    void update_gradient() {
+    void update_gradient()
+    {
         auto combo = colormap_item()->property<ComboProperty>(ColorMapItem::P_GRADIENT);
         color_map->setGradient(getGradient(combo.value()));
     }
 };
 
 ColorMapPlotController::ColorMapPlotController(QCustomPlot* custom_plot, QCPColorScale* color_scale)
-    : p_impl(std::make_unique<ColorMapPlotControllerImpl>(this, custom_plot, color_scale)) {}
+    : p_impl(std::make_unique<ColorMapPlotControllerImpl>(this, custom_plot, color_scale))
+{
+}
 
-void ColorMapPlotController::subscribe() {
+void ColorMapPlotController::subscribe()
+{
     auto on_property_change = [this](SessionItem*, std::string property_name) {
         if (property_name == ColorMapItem::P_INTERPOLATION)
             p_impl->update_interpolation();
@@ -109,7 +123,8 @@ void ColorMapPlotController::subscribe() {
     p_impl->update_colormap();
 }
 
-void ColorMapPlotController::unsubscribe() {
+void ColorMapPlotController::unsubscribe()
+{
     p_impl->data_controller->setItem(nullptr);
 }
 

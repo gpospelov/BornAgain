@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Minimizer/TestMinimizer.cpp
 //! @brief     Implements class TrivialMinimizer.
@@ -21,11 +21,13 @@ TestMinimizer::TestMinimizer() = default;
 
 TestMinimizer::~TestMinimizer() = default;
 
-std::string TestMinimizer::minimizerName() const {
+std::string TestMinimizer::minimizerName() const
+{
     return "Test";
 }
 
-MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, mumufit::Parameters parameters) {
+MinimizerResult TestMinimizer::minimize_scalar(fcn_scalar_t fcn, mumufit::Parameters parameters)
+{
     // calling user function once
     auto min_value = fcn(parameters);
 

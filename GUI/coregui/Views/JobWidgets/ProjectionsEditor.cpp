@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/JobWidgets/ProjectionsEditor.cpp
 //! @brief     Implements class ProjectionsEditor
@@ -30,7 +30,8 @@ ProjectionsEditor::ProjectionsEditor(QWidget* parent)
     , m_projectionsCanvas(new ProjectionsEditorCanvas)
     , m_projectionsWidget(new ProjectionsWidget)
     , m_propertyPanel(new ProjectionsPropertyPanel)
-    , m_selectionModel(nullptr) {
+    , m_selectionModel(nullptr)
+{
     addToolBar(Qt::RightToolBarArea, m_toolBar);
 
     auto bottomSplitter = new QSplitter;
@@ -49,7 +50,8 @@ ProjectionsEditor::ProjectionsEditor(QWidget* parent)
 }
 
 void ProjectionsEditor::setContext(SessionModel* model, const QModelIndex& shapeContainerIndex,
-                                   IntensityDataItem* intensityItem) {
+                                   IntensityDataItem* intensityItem)
+{
     Q_UNUSED(model);
     Q_UNUSED(shapeContainerIndex);
 
@@ -65,17 +67,20 @@ void ProjectionsEditor::setContext(SessionModel* model, const QModelIndex& shape
     m_editorActions->setSelectionModel(m_selectionModel);
 }
 
-void ProjectionsEditor::resetContext() {
+void ProjectionsEditor::resetContext()
+{
     m_propertyPanel->setItem(nullptr);
     m_projectionsCanvas->resetContext();
     m_projectionsWidget->setItem(nullptr);
 }
 
-QList<QAction*> ProjectionsEditor::topToolBarActions() {
+QList<QAction*> ProjectionsEditor::topToolBarActions()
+{
     return m_editorActions->topToolBarActions();
 }
 
-void ProjectionsEditor::setup_connections() {
+void ProjectionsEditor::setup_connections()
+{
     // tool panel request is propagated from editorActions to this MaskEditor
     connect(m_editorActions, &ProjectionsEditorActions::resetViewRequest, m_projectionsCanvas,
             &ProjectionsEditorCanvas::onResetViewRequest);

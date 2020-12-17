@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Data/ArrayUtils.h
 //! @brief     Defines various functions to interact from numpy on Python side
@@ -42,7 +42,9 @@ class CreateDataImpl {
         enum { value = 1 + nDim<T>::value };
     };
 
-    template <typename T> struct baseClass { using value = T; };
+    template <typename T> struct baseClass {
+        using value = T;
+    };
     template <typename T, typename A> struct baseClass<std::vector<T, A>> {
         using value = typename baseClass<T>::value;
     };
@@ -60,7 +62,8 @@ class CreateDataImpl {
 };
 
 //! Creates OutputData array from input vector.
-template <class T> CreateDataImpl::ReturnType<T> createData(const T& vec) {
+template <class T> CreateDataImpl::ReturnType<T> createData(const T& vec)
+{
     constexpr const int size = CreateDataImpl::nDim<T>::value;
     static_assert(
         size == 1 || size == 2,
@@ -84,8 +87,8 @@ template <class T> decltype(auto) createVector2D(const T& data);
 //  ************************************************************************************************
 
 template <class T>
-std::unique_ptr<OutputData<T>>
-ArrayUtils::CreateDataImpl::createDataImpl(const std::vector<T>& vec) {
+std::unique_ptr<OutputData<T>> ArrayUtils::CreateDataImpl::createDataImpl(const std::vector<T>& vec)
+{
     auto result = std::make_unique<OutputData<T>>();
     const size_t length = vec.size();
     result->addAxis(FixedBinAxis("axis0", length, 0.0, static_cast<double>(length)));
@@ -95,7 +98,8 @@ ArrayUtils::CreateDataImpl::createDataImpl(const std::vector<T>& vec) {
 
 template <class T>
 std::unique_ptr<OutputData<T>>
-ArrayUtils::CreateDataImpl::createDataImpl(const std::vector<std::vector<T>>& vec) {
+ArrayUtils::CreateDataImpl::createDataImpl(const std::vector<std::vector<T>>& vec)
+{
     auto result = std::make_unique<OutputData<T>>();
 
     auto shape = ArrayUtils::getShape(vec);
@@ -120,7 +124,8 @@ ArrayUtils::CreateDataImpl::createDataImpl(const std::vector<std::vector<T>>& ve
     return result;
 }
 
-template <class T> std::pair<size_t, size_t> ArrayUtils::getShape(const T& data) {
+template <class T> std::pair<size_t, size_t> ArrayUtils::getShape(const T& data)
+{
     size_t nrows = data.size();
     size_t ncols(0);
     if (nrows)
@@ -132,7 +137,8 @@ template <class T> std::pair<size_t, size_t> ArrayUtils::getShape(const T& data)
     return std::make_pair(nrows, ncols);
 }
 
-template <class T> decltype(auto) ArrayUtils::createVector1D(const T& data) {
+template <class T> decltype(auto) ArrayUtils::createVector1D(const T& data)
+{
     if (data.rank() != 1)
         throw std::runtime_error("ArrayUtils::createVector1D() -> Error. Not 1D data.");
 
@@ -141,7 +147,8 @@ template <class T> decltype(auto) ArrayUtils::createVector1D(const T& data) {
     return result;
 }
 
-template <class T> decltype(auto) ArrayUtils::createVector2D(const T& data) {
+template <class T> decltype(auto) ArrayUtils::createVector2D(const T& data)
+{
     using value_type = typename T::value_type;
     std::vector<std::vector<value_type>> result;
 

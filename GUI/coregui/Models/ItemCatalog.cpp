@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/ItemCatalog.cpp
 //! @brief     Implements class ItemCatalog
@@ -62,7 +62,8 @@
 #include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 
-ItemCatalog::ItemCatalog() {
+ItemCatalog::ItemCatalog()
+{
     add("MultiLayer", create_new<MultiLayerItem>);
     add("Layer", create_new<LayerItem>);
     add("ParticleLayout", create_new<ParticleLayoutItem>);
@@ -239,7 +240,8 @@ ItemCatalog::ItemCatalog() {
     add("DepthProbeInstrument", create_new<DepthProbeInstrumentItem>);
 }
 
-std::unique_ptr<SessionItem> ItemCatalog::createItemPtr(const QString& modelType) const {
+std::unique_ptr<SessionItem> ItemCatalog::createItemPtr(const QString& modelType) const
+{
     if (!m_data.contains(modelType))
         throw GUIHelpers::Error("ItemFactory::createItem() -> Error: Model name does not exist: "
                                 + modelType);
@@ -247,7 +249,8 @@ std::unique_ptr<SessionItem> ItemCatalog::createItemPtr(const QString& modelType
     return m_data.createItemPtr(modelType);
 }
 
-QStringList ItemCatalog::validTopItemTypes() {
+QStringList ItemCatalog::validTopItemTypes()
+{
     return {"MultiLayer",
             "Layer",
             "ParticleLayout",
@@ -265,6 +268,7 @@ QStringList ItemCatalog::validTopItemTypes() {
             "InterferenceRadialParaCrystal"};
 }
 
-void ItemCatalog::add(const QString& modelType, std::function<SessionItem*()> f) {
+void ItemCatalog::add(const QString& modelType, std::function<SessionItem*()> f)
+{
     m_data.registerItem(modelType, f);
 }

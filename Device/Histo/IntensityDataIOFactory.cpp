@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Histo/IntensityDataIOFactory.cpp
 //! @brief     Implements class OutputDataIOFactory.
@@ -35,7 +35,8 @@
 #include "Device/InputOutput/boost_streams.h"
 #endif
 
-OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& file_name) {
+OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& file_name)
+{
     if (DataFormatUtils::isIntFile(file_name))
         return readOutputData(
             file_name, [](std::istream& s) { return OutputDataReadWriteINT().readOutputData(s); });
@@ -51,12 +52,14 @@ OutputData<double>* IntensityDataIOFactory::readOutputData(const std::string& fi
         file_name, [](std::istream& s) { return OutputDataReadWriteNumpyTXT().readOutputData(s); });
 }
 
-OutputData<double>* IntensityDataIOFactory::readReflectometryData(const std::string& file_name) {
+OutputData<double>* IntensityDataIOFactory::readReflectometryData(const std::string& file_name)
+{
     return readOutputData(
         file_name, [](std::istream& s) { return OutputDataReadReflectometry().readOutputData(s); });
 }
 
-IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_name) {
+IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_name)
+{
     std::unique_ptr<OutputData<double>> data(readOutputData(file_name));
     if (!data)
         throw std::runtime_error("Could not read " + file_name);
@@ -64,7 +67,8 @@ IHistogram* IntensityDataIOFactory::readIntensityData(const std::string& file_na
 }
 
 void IntensityDataIOFactory::writeOutputData(const OutputData<double>& data,
-                                             const std::string& file_name) {
+                                             const std::string& file_name)
+{
     if (DataFormatUtils::isIntFile(file_name))
         writeOutputData(
             file_name, [&](std::ostream& s) { OutputDataReadWriteINT().writeOutputData(data, s); });
@@ -81,7 +85,8 @@ void IntensityDataIOFactory::writeOutputData(const OutputData<double>& data,
 }
 
 void IntensityDataIOFactory::writeOutputData(const std::string& file_name,
-                                             std::function<void(std::ostream&)> writeData) {
+                                             std::function<void(std::ostream&)> writeData)
+{
     using namespace DataFormatUtils;
 
     std::ofstream fout;
@@ -118,20 +123,23 @@ void IntensityDataIOFactory::writeOutputData(const std::string& file_name,
 }
 
 void IntensityDataIOFactory::writeIntensityData(const IHistogram& histogram,
-                                                const std::string& file_name) {
+                                                const std::string& file_name)
+{
     std::unique_ptr<OutputData<double>> data(histogram.createOutputData());
     writeOutputData(*data, file_name);
 }
 
 void IntensityDataIOFactory::writeSimulationResult(const SimulationResult& result,
-                                                   const std::string& file_name) {
+                                                   const std::string& file_name)
+{
     auto data = result.data();
     writeOutputData(*data, file_name);
 }
 
 OutputData<double>*
 IntensityDataIOFactory::readOutputData(const std::string& file_name,
-                                       std::function<OutputData<double>*(std::istream&)> readData) {
+                                       std::function<OutputData<double>*(std::istream&)> readData)
+{
 
     if (!FileSystemUtils::IsFileExists(file_name))
         return nullptr;

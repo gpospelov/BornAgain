@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Scattering/FormFactorDecoratorMaterial.cpp
 //! @brief     Implements class FormFactorDecoratorMaterial.
@@ -20,32 +20,38 @@
 FormFactorDecoratorMaterial::FormFactorDecoratorMaterial(const IFormFactor& ff)
     : IFormFactorDecorator(ff)
     , m_material(HomogeneousMaterial())
-    , m_ambient_material(HomogeneousMaterial()) {
+    , m_ambient_material(HomogeneousMaterial())
+{
     setName("FormFactorDecoratorMaterial");
 }
 
 FormFactorDecoratorMaterial::~FormFactorDecoratorMaterial() = default;
 
-FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const {
+FormFactorDecoratorMaterial* FormFactorDecoratorMaterial::clone() const
+{
     auto* result = new FormFactorDecoratorMaterial(*m_ff);
     result->setMaterial(m_material);
     result->setAmbientMaterial(m_ambient_material);
     return result;
 }
 
-void FormFactorDecoratorMaterial::setMaterial(const Material& material) {
+void FormFactorDecoratorMaterial::setMaterial(const Material& material)
+{
     m_material = material;
 }
 
-void FormFactorDecoratorMaterial::setAmbientMaterial(const Material& material) {
+void FormFactorDecoratorMaterial::setAmbientMaterial(const Material& material)
+{
     m_ambient_material = material;
 }
 
-complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const {
+complex_t FormFactorDecoratorMaterial::evaluate(const WavevectorInfo& wavevectors) const
+{
     return getRefractiveIndexFactor(wavevectors) * m_ff->evaluate(wavevectors);
 }
 
-Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& wavevectors) const {
+Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& wavevectors) const
+{
     // the conjugated linear part of time reversal operator T
     // (T=UK with K complex conjugate operator and U is linear)
     Eigen::Matrix2cd time_reverse_conj = Eigen::Matrix2cd::Zero();
@@ -59,6 +65,7 @@ Eigen::Matrix2cd FormFactorDecoratorMaterial::evaluatePol(const WavevectorInfo& 
 }
 
 complex_t
-FormFactorDecoratorMaterial::getRefractiveIndexFactor(const WavevectorInfo& wavevectors) const {
+FormFactorDecoratorMaterial::getRefractiveIndexFactor(const WavevectorInfo& wavevectors) const
+{
     return m_material.scalarSubtrSLD(wavevectors) - m_ambient_material.scalarSubtrSLD(wavevectors);
 }

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/model/materialitems.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/model/materialitems.h"
 #include "gui2/model/item_constants.h"
@@ -17,7 +22,8 @@ using namespace ModelView;
 namespace gui2 {
 
 MaterialContainerItem::MaterialContainerItem()
-    : ModelView::CompoundItem(Constants::MaterialContainerItemType) {
+    : ModelView::CompoundItem(Constants::MaterialContainerItemType)
+{
     registerTag(TagInfo::universalTag(T_MATERIALS, {Constants::SLDMaterialItemType}),
                 /*set_as_default*/ true);
 }
@@ -25,14 +31,16 @@ MaterialContainerItem::MaterialContainerItem()
 // ----------------------------------------------------------------------------
 
 MaterialBaseItem::MaterialBaseItem(const std::string& model_type)
-    : ModelView::CompoundItem(model_type) {
+    : ModelView::CompoundItem(model_type)
+{
     addProperty(P_COLOR, QColor(Qt::green))->setDisplayName("Color");
     addProperty(P_NAME, "Unnamed")->setDisplayName("Name");
 }
 
 //! Returns ExternalProperty representing this material.
 
-ModelView::ExternalProperty MaterialBaseItem::external_property() const {
+ModelView::ExternalProperty MaterialBaseItem::external_property() const
+{
     QColor color = isTag(P_COLOR) ? property<QColor>(P_COLOR) : QColor(Qt::red);
     std::string name = isTag(P_NAME) ? property<std::string>(P_NAME) : std::string();
     return ModelView::ExternalProperty(name, color, identifier());
@@ -45,7 +53,8 @@ ModelView::ExternalProperty MaterialBaseItem::external_property() const {
  *  ModelView::RowStrategyInterface::constructRow
  *  implementation.
  */
-void MaterialBaseItem::init_magnetic_field() {
+void MaterialBaseItem::init_magnetic_field()
+{
     addProperty(P_H_X, 0.0)->setDisplayName("H, x");
     addProperty(P_H_Y, 0.0)->setDisplayName("H, y");
     addProperty(P_H_Z, 0.0)->setDisplayName("H, z");
@@ -53,14 +62,16 @@ void MaterialBaseItem::init_magnetic_field() {
 
 // ----------------------------------------------------------------------------
 
-SLDMaterialItem::SLDMaterialItem() : MaterialBaseItem(Constants::SLDMaterialItemType) {
+SLDMaterialItem::SLDMaterialItem() : MaterialBaseItem(Constants::SLDMaterialItemType)
+{
     addProperty(P_SLD_REAL, 1e-06)->setDisplayName("Re(SLD)")->setLimits(RealLimits::limitless());
     addProperty(P_SLD_IMAG, 1e-08)->setDisplayName("Im(SLD)")->setLimits(RealLimits::limitless());
     init_magnetic_field();
 }
 
 void SLDMaterialItem::set_properties(const std::string& name, const QColor& color, double real,
-                                     double imag) {
+                                     double imag)
+{
     setProperty(P_NAME, name);
     setProperty(P_COLOR, color);
     setProperty(P_SLD_REAL, real);

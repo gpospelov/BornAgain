@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/PercusYevickBuilder.cpp
 //! @brief     Implements class PercusYevickBuilder.
@@ -22,7 +22,8 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* HardDiskBuilder::buildSample() const {
+MultiLayer* HardDiskBuilder::buildSample() const
+{
     const double m_cylinder_height(5 * Units::nm);
     const double m_cylinder_radius(5 * Units::nm);
     const double m_disk_radius(5 * Units::nm);

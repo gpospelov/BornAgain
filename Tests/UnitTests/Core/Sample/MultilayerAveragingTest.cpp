@@ -13,12 +13,15 @@ class MultilayerAveragingTest : public ::testing::Test {
 protected:
     MultilayerAveragingTest()
         : vacuum(HomogeneousMaterial("vac", 0.0, 0.0))
-        , stone(HomogeneousMaterial("stone", 4e-4, 8e-7)) {}
+        , stone(HomogeneousMaterial("stone", 4e-4, 8e-7))
+    {
+    }
 
     const Material vacuum, stone;
 };
 
-TEST_F(MultilayerAveragingTest, AverageMultilayer) {
+TEST_F(MultilayerAveragingTest, AverageMultilayer)
+{
     // particles
     FormFactorCylinder cylinder_ff(1.0, 3.0);
     Particle particle(stone, cylinder_ff);

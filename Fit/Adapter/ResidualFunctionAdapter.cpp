@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Adapter/ResidualFunctionAdapter.cpp
 //! @brief     Implements class ResidualFunctionAdapter.
@@ -26,13 +26,15 @@ using namespace mumufit;
 
 ResidualFunctionAdapter::ResidualFunctionAdapter(fcn_residual_t func,
                                                  const mumufit::Parameters& parameters)
-    : m_datasize(0), m_fcn(func), m_parameters(parameters) {
+    : m_datasize(0), m_fcn(func), m_parameters(parameters)
+{
     // single call of user function to get dataset size
     auto residuals = m_fcn(parameters);
     m_datasize = residuals.size();
 }
 
-const RootResidualFunction* ResidualFunctionAdapter::rootResidualFunction() {
+const RootResidualFunction* ResidualFunctionAdapter::rootResidualFunction()
+{
     gradient_function_t gradient_fun = [&](const std::vector<double>& pars, unsigned int index,
                                            std::vector<double>& gradients) {
         return element_residual(pars, index, gradients);
@@ -46,7 +48,8 @@ const RootResidualFunction* ResidualFunctionAdapter::rootResidualFunction() {
     return m_root_objective.get();
 }
 
-void ResidualFunctionAdapter::calculate_gradients(const std::vector<double>& pars) {
+void ResidualFunctionAdapter::calculate_gradients(const std::vector<double>& pars)
+{
     m_gradients.clear();
     m_gradients.resize(pars.size());
     for (size_t i_par = 0; i_par < pars.size(); ++i_par)
@@ -66,7 +69,8 @@ void ResidualFunctionAdapter::calculate_gradients(const std::vector<double>& par
     }
 }
 
-std::vector<double> ResidualFunctionAdapter::get_residuals(const std::vector<double>& pars) {
+std::vector<double> ResidualFunctionAdapter::get_residuals(const std::vector<double>& pars)
+{
     if (pars.size() != m_parameters.size()) {
         std::ostringstream ostr;
         ostr << "ResidualFunctionAdapter::residuals() -> Error. Number of fit parameters "
@@ -93,8 +97,8 @@ std::vector<double> ResidualFunctionAdapter::get_residuals(const std::vector<dou
 //! If index!=0 - cached value of residuals/gradients will be used.
 
 double ResidualFunctionAdapter::element_residual(const std::vector<double>& pars,
-                                                 unsigned int index,
-                                                 std::vector<double>& gradients) {
+                                                 unsigned int index, std::vector<double>& gradients)
+{
     if (index == 0) {
         m_residuals = get_residuals(pars);
     }
@@ -113,7 +117,8 @@ double ResidualFunctionAdapter::element_residual(const std::vector<double>& pars
     return m_residuals[index];
 }
 
-double ResidualFunctionAdapter::chi2(const std::vector<double>& pars) {
+double ResidualFunctionAdapter::chi2(const std::vector<double>& pars)
+{
     ++m_number_of_calls;
 
     double result(0.0);

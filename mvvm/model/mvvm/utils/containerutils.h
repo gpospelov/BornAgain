@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/utils/containerutils.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_UTILS_CONTAINERUTILS_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_UTILS_CONTAINERUTILS_H
@@ -24,14 +29,17 @@ namespace ModelView {
 
 namespace Utils {
 
-template <class T> struct is_unique_ptr : std::false_type {};
+template <class T> struct is_unique_ptr : std::false_type {
+};
 
-template <class T, class D> struct is_unique_ptr<std::unique_ptr<T, D>> : std::true_type {};
+template <class T, class D> struct is_unique_ptr<std::unique_ptr<T, D>> : std::true_type {
+};
 
 //! Returns index corresponding to the first occurance of the item in the container.
 //! If item doesn't exist, will return -1. Works with containers containing unique_ptr.
 
-template <typename It, typename T> int IndexOfItem(It begin, It end, const T& item) {
+template <typename It, typename T> int IndexOfItem(It begin, It end, const T& item)
+{
     It pos;
     if constexpr (is_unique_ptr<typename std::iterator_traits<It>::value_type>::value)
         pos = find_if(begin, end, [&item](const auto& x) { return x.get() == item; });
@@ -44,14 +52,16 @@ template <typename It, typename T> int IndexOfItem(It begin, It end, const T& it
 //! Returns index corresponding to the first occurance of the item in the container.
 //! If item doesn't exist, will return -1. Works with containers containing unique_ptr.
 
-template <typename C, typename T> int IndexOfItem(const C& container, const T& item) {
+template <typename C, typename T> int IndexOfItem(const C& container, const T& item)
+{
     return IndexOfItem(container.begin(), container.end(), item);
 }
 
 //! Returns vector containing results of elemntwise unary function application.
 
 template <typename It, typename UnaryFunction>
-std::vector<double> Apply(It begin, It end, UnaryFunction func) {
+std::vector<double> Apply(It begin, It end, UnaryFunction func)
+{
     std::vector<double> result;
     std::transform(begin, end, std::back_inserter(result), func);
     return result;
@@ -59,21 +69,24 @@ std::vector<double> Apply(It begin, It end, UnaryFunction func) {
 
 //! Returns vector with real part of complex numbers.
 
-template <typename C> std::vector<double> Real(const C& container) {
+template <typename C> std::vector<double> Real(const C& container)
+{
     return Apply(std::begin(container), std::end(container),
                  [](const auto& x) { return std::real(x); });
 }
 
 //! Returns vector with imag part of complex numbers.
 
-template <typename C> std::vector<double> Imag(const C& container) {
+template <typename C> std::vector<double> Imag(const C& container)
+{
     return Apply(std::begin(container), std::end(container),
                  [](const auto& x) { return std::imag(x); });
 }
 
 //! Returns copy of container with all duplicated elements filtered our. The order is preserved.
 
-template <typename C> C UniqueWithOrder(const C& container) {
+template <typename C> C UniqueWithOrder(const C& container)
+{
     C result;
 
     using valueType = typename C::value_type;
@@ -87,7 +100,8 @@ template <typename C> C UniqueWithOrder(const C& container) {
 
 //! Returns true if container contains a given element.
 
-template <typename A, typename B> bool Contains(const A& container, const B& element) {
+template <typename A, typename B> bool Contains(const A& container, const B& element)
+{
     return std::find(container.begin(), container.end(), element) != container.end();
 }
 

@@ -120,21 +120,26 @@ private:
 
 template <class IntType>
 MetaEnum<IntType>::MetaEnum(const QString& name, const QString& scope, const QString& separator)
-    : m_name(name), m_scope(scope), m_separator(separator) {}
+    : m_name(name), m_scope(scope), m_separator(separator)
+{
+}
 
-template <class IntType> void MetaEnum<IntType>::addKey(IntType value, const QString& name) {
+template <class IntType> void MetaEnum<IntType>::addKey(IntType value, const QString& name)
+{
     m_keyToValueMap.insert(name, value);
     m_keys.append(name);
 }
 
-template <class IntType> QString MetaEnum<IntType>::valueToKey(IntType value, bool* ok) const {
+template <class IntType> QString MetaEnum<IntType>::valueToKey(IntType value, bool* ok) const
+{
     const QString rc = m_keyToValueMap.key(value);
     if (ok)
         *ok = !rc.isEmpty();
     return rc;
 }
 
-template <class IntType> IntType MetaEnum<IntType>::keyToValue(QString key, bool* ok) const {
+template <class IntType> IntType MetaEnum<IntType>::keyToValue(QString key, bool* ok) const
+{
     if (!m_scope.isEmpty() && key.startsWith(m_scope))
         key.remove(0, m_scope.size() + m_separator.size());
     const typename KeyToValueMap::const_iterator it = m_keyToValueMap.find(key);
@@ -145,7 +150,8 @@ template <class IntType> IntType MetaEnum<IntType>::keyToValue(QString key, bool
 }
 
 template <class IntType>
-void MetaEnum<IntType>::appendQualifiedName(const QString& key, QString& target) const {
+void MetaEnum<IntType>::appendQualifiedName(const QString& key, QString& target) const
+{
     if (!m_scope.isEmpty()) {
         target += m_scope;
         target += m_separator;
@@ -222,7 +228,8 @@ public:
     enum PixmapSource { LanguageResourcePixmap, ResourcePixmap, FilePixmap };
     static PixmapSource getPixmapSource(QDesignerFormEditorInterface* core, const QString& path);
 
-    PixmapSource pixmapSource(QDesignerFormEditorInterface* core) const {
+    PixmapSource pixmapSource(QDesignerFormEditorInterface* core) const
+    {
         return getPixmapSource(core, m_path);
     }
 
@@ -443,7 +450,8 @@ private:
 
 namespace Utils {
 
-inline int valueOf(const QVariant& value, bool* ok = 0) {
+inline int valueOf(const QVariant& value, bool* ok = 0)
+{
     if (value.canConvert<PropertySheetEnumValue>()) {
         if (ok)
             *ok = true;
@@ -456,7 +464,8 @@ inline int valueOf(const QVariant& value, bool* ok = 0) {
     return value.toInt(ok);
 }
 
-inline bool isObjectAncestorOf(QObject* ancestor, QObject* child) {
+inline bool isObjectAncestorOf(QObject* ancestor, QObject* child)
+{
     QObject* obj = child;
     while (obj != 0) {
         if (obj == ancestor)
@@ -466,7 +475,8 @@ inline bool isObjectAncestorOf(QObject* ancestor, QObject* child) {
     return false;
 }
 
-inline bool isCentralWidget(QDesignerFormWindowInterface* fw, QWidget* widget) {
+inline bool isCentralWidget(QDesignerFormWindowInterface* fw, QWidget* widget)
+{
     if (!fw || !widget)
         return false;
 

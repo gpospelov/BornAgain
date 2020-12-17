@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Utils/StringUtils.h
 //! @brief     Defines a few helper functions
@@ -58,7 +58,8 @@ std::string trim(const std::string& str, const std::string& whitespace = " \t");
 
 } // namespace StringUtils
 
-template <typename T> std::string StringUtils::scientific(const T value, int n) {
+template <typename T> std::string StringUtils::scientific(const T value, int n)
+{
     std::ostringstream out;
     out << std::scientific << std::setprecision(n) << value;
     return out.str();

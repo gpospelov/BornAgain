@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/model/groupitem.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_GROUPITEM_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_GROUPITEM_H
@@ -44,7 +49,8 @@ protected:
     int m_default_selected_index;
 };
 
-template <typename T> void GroupItem::registerItem(const std::string& text, bool make_selected) {
+template <typename T> void GroupItem::registerItem(const std::string& text, bool make_selected)
+{
     m_catalogue->registerItem<T>(text);
     if (make_selected)
         m_default_selected_index = m_catalogue->itemCount() - 1;

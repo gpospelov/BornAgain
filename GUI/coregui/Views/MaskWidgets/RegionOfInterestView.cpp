@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/MaskWidgets/RegionOfInterestView.cpp
 //! @brief     Defines RegionOfInterestView class
@@ -17,7 +17,8 @@
 
 //! Paints two-color tiny frame without filling.
 
-void RegionOfInterestView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*) {
+void RegionOfInterestView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+{
     painter->setPen(QPen(QColor(34, 67, 255)));
     painter->drawRect(m_mask_rect);
 

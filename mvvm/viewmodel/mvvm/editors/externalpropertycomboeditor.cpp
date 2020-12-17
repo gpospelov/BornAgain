@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/editors/externalpropertycomboeditor.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/editors/externalpropertycomboeditor.h"
 #include "mvvm/model/externalproperty.h"
@@ -20,7 +25,8 @@ ExternalPropertyComboEditor::ExternalPropertyComboEditor(callback_t callback, QW
     : CustomEditor(parent)
     , m_getPropertiesCallback(std::move(callback))
     , m_box(new QComboBox)
-    , m_comboModel(new QStandardItemModel(this)) {
+    , m_comboModel(new QStandardItemModel(this))
+{
     setAutoFillBackground(true);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
@@ -35,15 +41,18 @@ ExternalPropertyComboEditor::ExternalPropertyComboEditor(callback_t callback, QW
     setConnected(true);
 }
 
-QSize ExternalPropertyComboEditor::sizeHint() const {
+QSize ExternalPropertyComboEditor::sizeHint() const
+{
     return m_box->sizeHint();
 }
 
-QSize ExternalPropertyComboEditor::minimumSizeHint() const {
+QSize ExternalPropertyComboEditor::minimumSizeHint() const
+{
     return m_box->minimumSizeHint();
 }
 
-void ExternalPropertyComboEditor::onIndexChanged(int index) {
+void ExternalPropertyComboEditor::onIndexChanged(int index)
+{
     auto property = m_data.value<ModelView::ExternalProperty>();
     auto mdata = m_getPropertiesCallback();
 
@@ -53,7 +62,8 @@ void ExternalPropertyComboEditor::onIndexChanged(int index) {
     }
 }
 
-void ExternalPropertyComboEditor::update_components() {
+void ExternalPropertyComboEditor::update_components()
+{
     setConnected(false);
 
     m_comboModel->clear();
@@ -72,7 +82,8 @@ void ExternalPropertyComboEditor::update_components() {
 
 //! Returns index for QComboBox.
 
-int ExternalPropertyComboEditor::internIndex() {
+int ExternalPropertyComboEditor::internIndex()
+{
     if (!m_data.canConvert<ModelView::ExternalProperty>())
         return 0;
 
@@ -87,7 +98,8 @@ int ExternalPropertyComboEditor::internIndex() {
     return result;
 }
 
-void ExternalPropertyComboEditor::setConnected(bool isConnected) {
+void ExternalPropertyComboEditor::setConnected(bool isConnected)
+{
     if (isConnected)
         connect(m_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
                 &ExternalPropertyComboEditor::onIndexChanged, Qt::UniqueConnection);

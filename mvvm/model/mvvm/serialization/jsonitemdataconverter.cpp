@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/serialization/jsonitemdataconverter.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/serialization/jsonitemdataconverter.h"
 #include "mvvm/model/mvvm_types.h"
@@ -20,7 +25,8 @@
 using namespace ModelView;
 
 namespace {
-QJsonValue keyValue(const QJsonValue& parent_value, const QString& key) {
+QJsonValue keyValue(const QJsonValue& parent_value, const QString& key)
+{
     const QJsonObject& parent_object = parent_value.toObject();
     return parent_object.value(key);
 }
@@ -30,11 +36,14 @@ JsonItemDataConverter::JsonItemDataConverter(accept_strategy_t to_json_accept,
                                              accept_strategy_t from_json_accept)
     : m_to_json_accept(to_json_accept)
     , m_from_json_accept(from_json_accept)
-    , m_variant_converter(std::make_unique<JsonVariantConverter>()) {}
+    , m_variant_converter(std::make_unique<JsonVariantConverter>())
+{
+}
 
 JsonItemDataConverter::~JsonItemDataConverter() = default;
 
-QJsonArray JsonItemDataConverter::to_json(const SessionItemData& data) {
+QJsonArray JsonItemDataConverter::to_json(const SessionItemData& data)
+{
     QJsonArray result;
 
     for (const auto& x : data) {
@@ -51,7 +60,8 @@ QJsonArray JsonItemDataConverter::to_json(const SessionItemData& data) {
 
 //! Updates existing data with JSON content.
 
-void JsonItemDataConverter::from_json(const QJsonArray& object, SessionItemData& data) {
+void JsonItemDataConverter::from_json(const QJsonArray& object, SessionItemData& data)
+{
     static JsonItemFormatAssistant assistant;
     auto persistent_data = std::make_unique<SessionItemData>();
 
@@ -80,14 +90,16 @@ void JsonItemDataConverter::from_json(const QJsonArray& object, SessionItemData&
 
 //! Creates JSON data converter intended for simple data copying. Nothing is filtered out.
 
-std::unique_ptr<JsonItemDataConverterInterface> JsonItemDataConverter::createCopyConverter() {
+std::unique_ptr<JsonItemDataConverterInterface> JsonItemDataConverter::createCopyConverter()
+{
     return std::make_unique<JsonItemDataConverter>();
 }
 
 //! Creates JSON data converter intended for project saving. Only IDENTIFIER and DATA gous to/from
 //! JSON.
 
-std::unique_ptr<JsonItemDataConverterInterface> JsonItemDataConverter::createProjectConverter() {
+std::unique_ptr<JsonItemDataConverterInterface> JsonItemDataConverter::createProjectConverter()
+{
     auto accept_roles = [](auto role) {
         return role == ItemDataRole::IDENTIFIER || role == ItemDataRole::DATA;
     };
@@ -96,12 +108,14 @@ std::unique_ptr<JsonItemDataConverterInterface> JsonItemDataConverter::createPro
 
 //! Returns true if given role should be saved in json object.
 
-bool JsonItemDataConverter::isRoleToJson(int role) const {
+bool JsonItemDataConverter::isRoleToJson(int role) const
+{
     return m_to_json_accept ? m_to_json_accept(role) : true;
 }
 
 //! Returns true if given role should be parsed from json object.
 
-bool JsonItemDataConverter::isRoleFromJson(int role) const {
+bool JsonItemDataConverter::isRoleFromJson(int role) const
+{
     return m_from_json_accept ? m_from_json_accept(role) : true;
 }

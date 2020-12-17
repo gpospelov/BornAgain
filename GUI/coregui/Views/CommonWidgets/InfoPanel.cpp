@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/CommonWidgets/InfoPanel.cpp
 //! @brief     Declares class InfoPanel
@@ -28,7 +28,8 @@ InfoPanel::InfoPanel(QWidget* parent)
     : QFrame(parent)
     , m_toolBar(new InfoPanelToolBar)
     , m_stackedWidget(new QStackedWidget)
-    , m_cached_height(default_height) {
+    , m_cached_height(default_height)
+{
     auto mainLayout = new QVBoxLayout;
     mainLayout->addWidget(m_toolBar);
     mainLayout->addWidget(m_stackedWidget);
@@ -43,7 +44,8 @@ InfoPanel::InfoPanel(QWidget* parent)
             &InfoPanel::onExpandButtonClicked);
 }
 
-QSize InfoPanel::sizeHint() const {
+QSize InfoPanel::sizeHint() const
+{
     QSize result = m_toolBar->sizeHint();
 
     if (QWidget* widget = m_stackedWidget->currentWidget()) {
@@ -56,15 +58,18 @@ QSize InfoPanel::sizeHint() const {
     return result;
 }
 
-QSize InfoPanel::minimumSizeHint() const {
+QSize InfoPanel::minimumSizeHint() const
+{
     return QSize(minimum_widget_height, minimum_widget_height);
 }
 
-void InfoPanel::onExpandButtonClicked() {
+void InfoPanel::onExpandButtonClicked()
+{
     setContentVisible(!isContentVisible(), true);
 }
 
-void InfoPanel::setContentVisible(bool editor_status, bool dock_notify) {
+void InfoPanel::setContentVisible(bool editor_status, bool dock_notify)
+{
     m_toolBar->setExpandStatus(editor_status);
     if (editor_status) {
         if (m_cached_height)
@@ -84,14 +89,16 @@ void InfoPanel::setContentVisible(bool editor_status, bool dock_notify) {
     }
 }
 
-bool InfoPanel::isContentVisible() {
+bool InfoPanel::isContentVisible()
+{
     if (m_stackedWidget->currentWidget())
         return m_stackedWidget->currentWidget()->isVisible();
 
     return false;
 }
 
-void InfoPanel::resizeEvent(QResizeEvent* event) {
+void InfoPanel::resizeEvent(QResizeEvent* event)
+{
     // widget is schrinking in height
     if (event->oldSize().height() > event->size().height()) {
         if (event->size().height() <= minimum_height_before_collapse && isContentVisible())

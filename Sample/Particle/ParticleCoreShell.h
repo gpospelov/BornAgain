@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Particle/ParticleCoreShell.h
 //! @brief     Defines ParticleCoreShell.
@@ -49,11 +49,13 @@ protected:
     std::unique_ptr<Particle> m_core;
 };
 
-inline const Particle* ParticleCoreShell::coreParticle() const {
+inline const Particle* ParticleCoreShell::coreParticle() const
+{
     return m_core.get();
 }
 
-inline const Particle* ParticleCoreShell::shellParticle() const {
+inline const Particle* ParticleCoreShell::shellParticle() const
+{
     return m_shell.get();
 }
 

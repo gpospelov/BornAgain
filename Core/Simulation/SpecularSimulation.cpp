@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Simulation/SpecularSimulation.cpp
 //! @brief     Implements class OffSpecularSimulation.
@@ -29,7 +29,8 @@
 namespace {
 
 // TODO: remove when pointwise resolution is implemented
-std::unique_ptr<AngularSpecScan> mangledScan(const AngularSpecScan& scan, const Beam& beam) {
+std::unique_ptr<AngularSpecScan> mangledScan(const AngularSpecScan& scan, const Beam& beam)
+{
     const double wl = beam.wavelength();
     const double angle_shift = beam.direction().alpha();
     std::vector<double> angles = scan.coordinateAxis()->binCenters();
@@ -43,7 +44,8 @@ std::unique_ptr<AngularSpecScan> mangledScan(const AngularSpecScan& scan, const 
 }
 
 std::vector<SpecularSimulationElement> generateSimulationElements(const Instrument& instrument,
-                                                                  const ISpecularScan& scan) {
+                                                                  const ISpecularScan& scan)
+{
     // TODO: remove if statement when pointwise resolution is implemented
     if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(&scan))
         return mangledScan(*aScan, instrument.beam())->generateSimulationElements(instrument);
@@ -57,7 +59,8 @@ std::vector<SpecularSimulationElement> generateSimulationElements(const Instrume
 //  class SpecularSimulation
 //  ************************************************************************************************
 
-SpecularSimulation::SpecularSimulation() : ISimulation() {
+SpecularSimulation::SpecularSimulation() : ISimulation()
+{
     initialize();
 }
 
@@ -65,17 +68,20 @@ SpecularSimulation::SpecularSimulation(const SpecularSimulation& other)
     : ISimulation(other)
     , m_scan(other.m_scan ? other.m_scan->clone() : nullptr)
     , m_sim_elements(other.m_sim_elements)
-    , m_cache(other.m_cache) {
+    , m_cache(other.m_cache)
+{
     initialize();
 }
 
 SpecularSimulation::~SpecularSimulation() = default;
 
-SpecularSimulation* SpecularSimulation::clone() const {
+SpecularSimulation* SpecularSimulation::clone() const
+{
     return new SpecularSimulation(*this);
 }
 
-void SpecularSimulation::prepareSimulation() {
+void SpecularSimulation::prepareSimulation()
+{
     if (detector().dimension() != 1) // detector must have only one axis
         throw std::runtime_error("Error in SpecularSimulation::prepareSimulation: the detector was "
                                  "not properly configured.");
@@ -83,11 +89,13 @@ void SpecularSimulation::prepareSimulation() {
     ISimulation::prepareSimulation();
 }
 
-size_t SpecularSimulation::numberOfSimulationElements() const {
+size_t SpecularSimulation::numberOfSimulationElements() const
+{
     return m_scan->numberOfSimulationElements();
 }
 
-SimulationResult SpecularSimulation::result() const {
+SimulationResult SpecularSimulation::result() const
+{
     OutputData<double> data;
     data.addAxis(*coordinateAxis());
 
@@ -100,7 +108,8 @@ SimulationResult SpecularSimulation::result() const {
     return SimulationResult(data, *converter);
 }
 
-void SpecularSimulation::setScan(const ISpecularScan& scan) {
+void SpecularSimulation::setScan(const ISpecularScan& scan)
+{
     // TODO: move inside AngularSpecScan when pointwise resolution is implemented
     if (scan.coordinateAxis()->lowerBound() < 0.0)
         throw std::runtime_error(
@@ -116,22 +125,26 @@ void SpecularSimulation::setScan(const ISpecularScan& scan) {
         instrument().setBeamParameters(aScan->wavelength(), 0.0, 0.0);
 }
 
-const IAxis* SpecularSimulation::coordinateAxis() const {
+const IAxis* SpecularSimulation::coordinateAxis() const
+{
     if (!m_scan || !m_scan->coordinateAxis())
         throw std::runtime_error(
             "Error in SpecularSimulation::getAlphaAxis: coordinate axis was not initialized.");
     return m_scan->coordinateAxis();
 }
 
-const IFootprintFactor* SpecularSimulation::footprintFactor() const {
+const IFootprintFactor* SpecularSimulation::footprintFactor() const
+{
     return m_scan->footprintFactor();
 }
 
-size_t SpecularSimulation::intensityMapSize() const {
+size_t SpecularSimulation::intensityMapSize() const
+{
     return m_scan->coordinateAxis()->size();
 }
 
-void SpecularSimulation::initSimulationElementVector() {
+void SpecularSimulation::initSimulationElementVector()
+{
     if (!m_scan)
         throw std::runtime_error("Error in SpecularSimulation: beam parameters were not set.");
     m_sim_elements = generateSimulationElements(instrument(), *m_scan);
@@ -142,20 +155,23 @@ void SpecularSimulation::initSimulationElementVector() {
 }
 
 std::unique_ptr<IComputation>
-SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements) {
+SpecularSimulation::generateSingleThreadedComputation(size_t start, size_t n_elements)
+{
     ASSERT(start < m_sim_elements.size() && start + n_elements <= m_sim_elements.size());
     const auto& begin = m_sim_elements.begin() + static_cast<long>(start);
     return std::make_unique<SpecularComputation>(*sample(), options(), progress(), begin,
                                                  begin + static_cast<long>(n_elements));
 }
 
-void SpecularSimulation::checkCache() const {
+void SpecularSimulation::checkCache() const
+{
     if (m_sim_elements.size() != m_cache.size())
         throw std::runtime_error("Error in SpecularSimulation: the sizes of simulation element "
                                  "vector and of its cache are different");
 }
 
-void SpecularSimulation::validateParametrization(const ParameterDistribution& par_distr) const {
+void SpecularSimulation::validateParametrization(const ParameterDistribution& par_distr) const
+{
     const bool zero_mean = par_distr.getDistribution()->getMean() == 0.0;
     if (zero_mean)
         return;
@@ -169,7 +185,8 @@ void SpecularSimulation::validateParametrization(const ParameterDistribution& pa
                                      "beam inclination angle should have zero mean.");
 }
 
-void SpecularSimulation::initialize() {
+void SpecularSimulation::initialize()
+{
     setName("SpecularSimulation");
 
     // allow for negative inclinations in the beam of specular simulation
@@ -180,7 +197,8 @@ void SpecularSimulation::initialize() {
         ->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
-void SpecularSimulation::normalize(size_t start_ind, size_t n_elements) {
+void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
+{
     const double beam_intensity = beam().intensity();
 
     std::vector<double> footprints;
@@ -196,7 +214,8 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements) {
     }
 }
 
-void SpecularSimulation::addBackgroundIntensity(size_t start_ind, size_t n_elements) {
+void SpecularSimulation::addBackgroundIntensity(size_t start_ind, size_t n_elements)
+{
     if (!background())
         return;
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
@@ -205,13 +224,15 @@ void SpecularSimulation::addBackgroundIntensity(size_t start_ind, size_t n_eleme
     }
 }
 
-void SpecularSimulation::addDataToCache(double weight) {
+void SpecularSimulation::addDataToCache(double weight)
+{
     checkCache();
     for (size_t i = 0, size = m_sim_elements.size(); i < size; ++i)
         m_cache[i] += m_sim_elements[i].intensity() * weight;
 }
 
-void SpecularSimulation::moveDataFromCache() {
+void SpecularSimulation::moveDataFromCache()
+{
     checkCache();
     for (size_t i = 0, size = m_sim_elements.size(); i < size; ++i)
         m_sim_elements[i].setIntensity(m_cache[i]);
@@ -219,7 +240,8 @@ void SpecularSimulation::moveDataFromCache() {
     m_cache.shrink_to_fit();
 }
 
-std::vector<double> SpecularSimulation::rawResults() const {
+std::vector<double> SpecularSimulation::rawResults() const
+{
     std::vector<double> result;
     result.resize(m_sim_elements.size());
     for (unsigned i = 0; i < m_sim_elements.size(); ++i)
@@ -227,7 +249,8 @@ std::vector<double> SpecularSimulation::rawResults() const {
     return result;
 }
 
-void SpecularSimulation::setRawResults(const std::vector<double>& raw_data) {
+void SpecularSimulation::setRawResults(const std::vector<double>& raw_data)
+{
     initSimulationElementVector();
     if (raw_data.size() != m_sim_elements.size())
         throw std::runtime_error("SpecularSimulation::setRawResults: size of vector passed as "

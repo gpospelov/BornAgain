@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/axisitems.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/standarditems/axisitems.h"
@@ -23,7 +28,8 @@ AxisItemsTest::~AxisItemsTest() = default;
 
 //! Initial state
 
-TEST_F(AxisItemsTest, viewportAxisInitialState) {
+TEST_F(AxisItemsTest, viewportAxisInitialState)
+{
     ViewportAxisItem axis;
     EXPECT_EQ(axis.property<double>(ViewportAxisItem::P_MIN), 0.0);
     EXPECT_EQ(axis.property<double>(ViewportAxisItem::P_MAX), 1.0);
@@ -32,7 +38,8 @@ TEST_F(AxisItemsTest, viewportAxisInitialState) {
 
 //! ViewportAxisItem::setRange
 
-TEST_F(AxisItemsTest, viewportAxisSetRange) {
+TEST_F(AxisItemsTest, viewportAxisSetRange)
+{
     ViewportAxisItem axis;
 
     // default range
@@ -47,7 +54,8 @@ TEST_F(AxisItemsTest, viewportAxisSetRange) {
 
 //! Factory method for FixedBinAxisItem.
 
-TEST_F(AxisItemsTest, fixedBinAxisInitialState) {
+TEST_F(AxisItemsTest, fixedBinAxisInitialState)
+{
     FixedBinAxisItem axis;
     EXPECT_EQ(axis.property<double>(FixedBinAxisItem::P_MIN), 0.0);
     EXPECT_EQ(axis.property<double>(FixedBinAxisItem::P_MAX), 1.0);
@@ -61,7 +69,8 @@ TEST_F(AxisItemsTest, fixedBinAxisInitialState) {
 
 //! Factory method for FixedBinAxisItem.
 
-TEST_F(AxisItemsTest, fixedBinAxisSetParameters) {
+TEST_F(AxisItemsTest, fixedBinAxisSetParameters)
+{
     FixedBinAxisItem axis;
     axis.setParameters(3, 1.0, 4.0);
 
@@ -76,7 +85,8 @@ TEST_F(AxisItemsTest, fixedBinAxisSetParameters) {
 
 //! Factory method for FixedBinAxisItem.
 
-TEST_F(AxisItemsTest, fixedBinAxisFactory) {
+TEST_F(AxisItemsTest, fixedBinAxisFactory)
+{
     auto axis = FixedBinAxisItem::create(3, 1.0, 4.0);
 
     EXPECT_EQ(axis->property<int>(FixedBinAxisItem::P_NBINS), 3);
@@ -90,7 +100,8 @@ TEST_F(AxisItemsTest, fixedBinAxisFactory) {
 
 //! Range method.
 
-TEST_F(AxisItemsTest, fixedBinAxisRange) {
+TEST_F(AxisItemsTest, fixedBinAxisRange)
+{
     auto axis = FixedBinAxisItem::create(3, 1.0, 4.0);
 
     auto [lower, upper] = axis->range();
@@ -98,14 +109,16 @@ TEST_F(AxisItemsTest, fixedBinAxisRange) {
     EXPECT_EQ(upper, 4.0);
 }
 
-TEST_F(AxisItemsTest, PointwiseAxisInitialState) {
+TEST_F(AxisItemsTest, PointwiseAxisInitialState)
+{
     PointwiseAxisItem axis;
     std::vector<double> expected_centers = {0.0, 1.0};
     EXPECT_EQ(axis.binCenters(), expected_centers);
     EXPECT_EQ(axis.size(), 2);
 }
 
-TEST_F(AxisItemsTest, PointwiseAxisSetParameters) {
+TEST_F(AxisItemsTest, PointwiseAxisSetParameters)
+{
     std::vector<double> expected_centers{1.0, 2.0, 3.0};
     PointwiseAxisItem axis;
     axis.setParameters(expected_centers);
@@ -113,7 +126,8 @@ TEST_F(AxisItemsTest, PointwiseAxisSetParameters) {
     EXPECT_EQ(axis.size(), 3);
 }
 
-TEST_F(AxisItemsTest, PointwiseAxisCreate) {
+TEST_F(AxisItemsTest, PointwiseAxisCreate)
+{
     std::vector<double> expected_centers{1.0, 2.0, 3.0};
     auto axis = PointwiseAxisItem::create(expected_centers);
     EXPECT_EQ(axis->binCenters(), expected_centers);

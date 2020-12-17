@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Test/Minimizer/PlanFactory.cpp
 //! @brief     Implements class FunctionTestPlanFactory
@@ -17,7 +17,8 @@
 
 using mumufit::test::create_new;
 
-PlanFactory::PlanFactory() {
+PlanFactory::PlanFactory()
+{
     registerItem("RosenbrockPlan", create_new<RosenbrockPlan>);
     registerItem("EasyRosenbrockPlan", create_new<EasyRosenbrockPlan>);
     registerItem("WoodFourPlan", create_new<WoodFourPlan>);

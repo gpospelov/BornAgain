@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Resolution/ConvolutionDetectorResolution.h
 //! @brief     Defines class ConvolutionDetectorResolution.
@@ -66,7 +66,8 @@ private:
     std::unique_ptr<IResolutionFunction2D> m_res_function_2d;
 };
 
-inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolutionFunction2D() const {
+inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolutionFunction2D() const
+{
     return m_res_function_2d.get();
 }
 

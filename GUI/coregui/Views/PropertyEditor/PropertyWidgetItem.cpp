@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/PropertyEditor/PropertyWidgetItem.cpp
 //! @brief     Implements class PropertyWidgetItem
@@ -32,18 +32,21 @@ PropertyWidgetItem::PropertyWidgetItem(QWidget* parent)
     , m_editor(nullptr)
     , m_dataMapper(new QDataWidgetMapper(this))
     , m_delegate(new SessionModelDelegate(nullptr))
-    , m_item(nullptr) {
+    , m_item(nullptr)
+{
     m_label->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed));
 }
 
-PropertyWidgetItem::~PropertyWidgetItem() {
+PropertyWidgetItem::~PropertyWidgetItem()
+{
     m_editor->clearFocus();
     delete m_label;
     delete m_editor;
     delete m_delegate;
 }
 
-void PropertyWidgetItem::setItemEditor(const SessionItem* item, QWidget* editor) {
+void PropertyWidgetItem::setItemEditor(const SessionItem* item, QWidget* editor)
+{
     ASSERT(m_item == nullptr);
     m_item = item;
     m_editor = editor;
@@ -68,7 +71,8 @@ void PropertyWidgetItem::setItemEditor(const SessionItem* item, QWidget* editor)
     updateItemRoles();
 }
 
-void PropertyWidgetItem::addToGrid(QGridLayout* gridLayout, int nrow) {
+void PropertyWidgetItem::addToGrid(QGridLayout* gridLayout, int nrow)
+{
     ASSERT(m_label);
     ASSERT(m_editor);
 
@@ -76,7 +80,8 @@ void PropertyWidgetItem::addToGrid(QGridLayout* gridLayout, int nrow) {
     gridLayout->addWidget(m_editor, nrow, 1);
 }
 
-void PropertyWidgetItem::updateItemRoles() {
+void PropertyWidgetItem::updateItemRoles()
+{
     ASSERT(m_item);
     m_label->setEnabled(m_item->isEnabled());
     m_editor->setEnabled(m_item->isEnabled());
@@ -84,13 +89,15 @@ void PropertyWidgetItem::updateItemRoles() {
     m_editor->setToolTip(SessionItemUtils::ToolTipRole(*m_item).toString());
 }
 
-const SessionItem* PropertyWidgetItem::item() {
+const SessionItem* PropertyWidgetItem::item()
+{
     return m_item;
 }
 
 //! Provide additional connections of editor to model mapper.
 
-void PropertyWidgetItem::connectEditor(QWidget* editor) {
+void PropertyWidgetItem::connectEditor(QWidget* editor)
+{
     if (auto customEditor = dynamic_cast<CustomEditor*>(editor)) {
         connect(customEditor, &CustomEditor::dataChanged, m_delegate,
                 &SessionModelDelegate::onCustomEditorDataChanged);

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorTruncatedSpheroid.cpp
 //! @brief     Implements class FormFactorTruncatedSpheroid.
@@ -30,16 +30,20 @@ FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(const std::vector<doubl
     , m_radius(m_P[0])
     , m_height(m_P[1])
     , m_height_flattening(m_P[2])
-    , m_dh(m_P[3]) {
+    , m_dh(m_P[3])
+{
     check_initialization();
     onChange();
 }
 
 FormFactorTruncatedSpheroid::FormFactorTruncatedSpheroid(double radius, double height,
                                                          double height_flattening, double dh)
-    : FormFactorTruncatedSpheroid(std::vector<double>{radius, height, height_flattening, dh}) {}
+    : FormFactorTruncatedSpheroid(std::vector<double>{radius, height, height_flattening, dh})
+{
+}
 
-bool FormFactorTruncatedSpheroid::check_initialization() const {
+bool FormFactorTruncatedSpheroid::check_initialization() const
+{
     bool result(true);
     if (m_height > 2. * m_radius * m_height_flattening || m_dh > m_height) {
         std::ostringstream ostr;
@@ -54,7 +58,8 @@ bool FormFactorTruncatedSpheroid::check_initialization() const {
 }
 
 //! Integrand for complex form factor.
-complex_t FormFactorTruncatedSpheroid::Integrand(double Z) const {
+complex_t FormFactorTruncatedSpheroid::Integrand(double Z) const
+{
     double R = m_radius;
     double fp = m_height_flattening;
 
@@ -65,7 +70,8 @@ complex_t FormFactorTruncatedSpheroid::Integrand(double Z) const {
     return Rz * Rz * J1_qrRz_div_qrRz * exp_I(m_q.z() * Z);
 }
 
-complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const {
+complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const
+{
     double H = m_height;
     double R = m_radius;
     double fp = m_height_flattening;
@@ -80,7 +86,8 @@ complex_t FormFactorTruncatedSpheroid::evaluate_for_q(cvector_t q) const {
 }
 
 IFormFactor* FormFactorTruncatedSpheroid::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                          kvector_t translation) const {
+                                                          kvector_t translation) const
+{
     double height = m_height - m_dh;
     auto effects = computeSlicingEffects(limits, translation, height);
     FormFactorTruncatedSpheroid slicedff(m_radius, height - effects.dz_bottom, m_height_flattening,
@@ -88,7 +95,8 @@ IFormFactor* FormFactorTruncatedSpheroid::sliceFormFactor(ZLimits limits, const 
     return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
-void FormFactorTruncatedSpheroid::onChange() {
+void FormFactorTruncatedSpheroid::onChange()
+{
     m_shape.reset(
         new TruncatedEllipsoid(m_radius, m_radius, m_height_flattening * m_radius, m_height, m_dh));
 }

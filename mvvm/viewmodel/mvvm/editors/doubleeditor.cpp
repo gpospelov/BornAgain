@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/editors/doubleeditor.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/editors/doubleeditor.h"
 #include "mvvm/utils/numericutils.h"
@@ -16,7 +21,8 @@
 using namespace ModelView;
 
 DoubleEditor::DoubleEditor(QWidget* parent)
-    : CustomEditor(parent), m_doubleEditor(new QDoubleSpinBox) {
+    : CustomEditor(parent), m_doubleEditor(new QDoubleSpinBox)
+{
     setFocusPolicy(Qt::StrongFocus);
     m_doubleEditor->setFocusPolicy(Qt::StrongFocus);
     m_doubleEditor->setKeyboardTracking(false);
@@ -36,26 +42,31 @@ DoubleEditor::DoubleEditor(QWidget* parent)
     setFocusProxy(m_doubleEditor);
 }
 
-void DoubleEditor::setRange(double minimum, double maximum) {
+void DoubleEditor::setRange(double minimum, double maximum)
+{
     m_doubleEditor->setRange(minimum, maximum);
 }
 
-void DoubleEditor::setDecimals(int decimals) {
+void DoubleEditor::setDecimals(int decimals)
+{
     m_doubleEditor->setDecimals(decimals);
 }
 
-void DoubleEditor::setSingleStep(double value) {
+void DoubleEditor::setSingleStep(double value)
+{
     m_doubleEditor->setSingleStep(value);
 }
 
-void DoubleEditor::onEditingFinished() {
+void DoubleEditor::onEditingFinished()
+{
     double new_value = m_doubleEditor->value();
 
     if (!Utils::AreAlmostEqual(new_value, m_data.value<double>()))
         setDataIntern(QVariant::fromValue(new_value));
 }
 
-void DoubleEditor::update_components() {
+void DoubleEditor::update_components()
+{
     if (m_data.type() != QVariant::Double)
         throw std::runtime_error("DoubleEditor::update_components() -> Error. Wrong variant type");
 

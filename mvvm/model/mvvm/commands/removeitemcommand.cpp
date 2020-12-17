@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/commands/removeitemcommand.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/commands/removeitemcommand.h"
 #include "mvvm/commands/commandutils.h"
@@ -30,7 +35,8 @@ struct RemoveItemCommand::RemoveItemCommandImpl {
 
 RemoveItemCommand::RemoveItemCommand(SessionItem* parent, TagRow tagrow)
     : AbstractItemCommand(parent)
-    , p_impl(std::make_unique<RemoveItemCommandImpl>(std::move(tagrow))) {
+    , p_impl(std::make_unique<RemoveItemCommandImpl>(std::move(tagrow)))
+{
     setResult(false);
 
     setDescription(generate_description(p_impl->tagrow));
@@ -40,13 +46,15 @@ RemoveItemCommand::RemoveItemCommand(SessionItem* parent, TagRow tagrow)
 
 RemoveItemCommand::~RemoveItemCommand() = default;
 
-void RemoveItemCommand::undo_command() {
+void RemoveItemCommand::undo_command()
+{
     auto parent = itemFromPath(p_impl->item_path);
     auto reco_item = p_impl->backup_strategy->restoreItem();
     parent->insertItem(reco_item.release(), p_impl->tagrow);
 }
 
-void RemoveItemCommand::execute_command() {
+void RemoveItemCommand::execute_command()
+{
     auto parent = itemFromPath(p_impl->item_path);
     if (auto child = parent->takeItem(p_impl->tagrow); child) {
         p_impl->backup_strategy->saveItem(child);
@@ -59,7 +67,8 @@ void RemoveItemCommand::execute_command() {
 }
 
 namespace {
-std::string generate_description(const TagRow& tagrow) {
+std::string generate_description(const TagRow& tagrow)
+{
     std::ostringstream ostr;
     ostr << "Remove item from tag '" << tagrow.tag << "', row " << tagrow.row;
     return ostr.str();

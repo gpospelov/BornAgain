@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/ApplicationModels.cpp
 //! @brief     Defines class holding all application models
@@ -42,7 +42,8 @@ ApplicationModels::ApplicationModels(QObject* parent)
     , m_sampleModel(nullptr)
     , m_realDataModel(nullptr)
     , m_jobModel(nullptr)
-    , m_materialPropertyController(new MaterialPropertyController(this)) {
+    , m_materialPropertyController(new MaterialPropertyController(this))
+{
     createModels();
     // createTestSample();
     // createTestJob();
@@ -50,32 +51,39 @@ ApplicationModels::ApplicationModels(QObject* parent)
 
 ApplicationModels::~ApplicationModels() = default;
 
-DocumentModel* ApplicationModels::documentModel() {
+DocumentModel* ApplicationModels::documentModel()
+{
     return m_documentModel;
 }
 
-MaterialModel* ApplicationModels::materialModel() {
+MaterialModel* ApplicationModels::materialModel()
+{
     return m_materialModel;
 }
 
-InstrumentModel* ApplicationModels::instrumentModel() {
+InstrumentModel* ApplicationModels::instrumentModel()
+{
     return m_instrumentModel;
 }
 
-SampleModel* ApplicationModels::sampleModel() {
+SampleModel* ApplicationModels::sampleModel()
+{
     return m_sampleModel;
 }
 
-RealDataModel* ApplicationModels::realDataModel() {
+RealDataModel* ApplicationModels::realDataModel()
+{
     return m_realDataModel;
 }
 
-JobModel* ApplicationModels::jobModel() {
+JobModel* ApplicationModels::jobModel()
+{
     return m_jobModel;
 }
 
 //! reset all models to initial state
-void ApplicationModels::resetModels() {
+void ApplicationModels::resetModels()
+{
     m_documentModel->clear();
     m_documentModel->insertNewItem("SimulationOptions");
 
@@ -97,7 +105,8 @@ void ApplicationModels::resetModels() {
 }
 
 //! creates and initializes models, order is important
-void ApplicationModels::createModels() {
+void ApplicationModels::createModels()
+{
     createDocumentModel();
     createMaterialModel();
     createSampleModel();
@@ -109,44 +118,51 @@ void ApplicationModels::createModels() {
     m_materialPropertyController->setModels(materialModel(), sampleModel());
 }
 
-void ApplicationModels::createDocumentModel() {
+void ApplicationModels::createDocumentModel()
+{
     delete m_documentModel;
     m_documentModel = new DocumentModel(this);
     connectModel(m_documentModel);
 }
 
-void ApplicationModels::createMaterialModel() {
+void ApplicationModels::createMaterialModel()
+{
     delete m_materialModel;
     m_materialModel = new MaterialModel(this);
     connectModel(m_materialModel);
 }
 
-void ApplicationModels::createSampleModel() {
+void ApplicationModels::createSampleModel()
+{
     ASSERT(m_materialModel);
     delete m_sampleModel;
     m_sampleModel = new SampleModel(this);
     connectModel(m_sampleModel);
 }
 
-void ApplicationModels::createInstrumentModel() {
+void ApplicationModels::createInstrumentModel()
+{
     delete m_instrumentModel;
     m_instrumentModel = new InstrumentModel(this);
     connectModel(m_instrumentModel);
 }
 
-void ApplicationModels::createRealDataModel() {
+void ApplicationModels::createRealDataModel()
+{
     delete m_realDataModel;
     m_realDataModel = new RealDataModel(this);
     connectModel(m_realDataModel);
 }
 
-void ApplicationModels::createJobModel() {
+void ApplicationModels::createJobModel()
+{
     delete m_jobModel;
     m_jobModel = new JobModel(this);
     connectModel(m_jobModel);
 }
 
-void ApplicationModels::createTestSample() {
+void ApplicationModels::createTestSample()
+{
     SampleBuilderFactory factory;
     const std::unique_ptr<MultiLayer> P_sample(
         factory.createSampleByName("CylindersAndPrismsBuilder"));
@@ -158,7 +174,8 @@ void ApplicationModels::createTestSample() {
     GUIObjectBuilder::populateInstrumentModel(m_instrumentModel, *simulation);
 }
 
-void ApplicationModels::createTestJob() {
+void ApplicationModels::createTestJob()
+{
     SimulationOptionsItem* optionsItem = m_documentModel->simulationOptionsItem();
 
     JobItem* jobItem = m_jobModel->addJob(m_sampleModel->multiLayerItem(),
@@ -166,7 +183,8 @@ void ApplicationModels::createTestJob() {
     m_jobModel->runJob(jobItem->index());
 }
 
-void ApplicationModels::createTestRealData() {
+void ApplicationModels::createTestRealData()
+{
     auto realDataItem = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem("RealData"));
     realDataItem->setItemName("realdata");
 
@@ -178,12 +196,14 @@ void ApplicationModels::createTestRealData() {
 
 //! Writes all model in file one by one
 
-void ApplicationModels::writeTo(QXmlStreamWriter* writer) {
+void ApplicationModels::writeTo(QXmlStreamWriter* writer)
+{
     for (auto model : modelList())
         model->writeTo(writer);
 }
 
-void ApplicationModels::readFrom(QXmlStreamReader* reader, MessageService* messageService) {
+void ApplicationModels::readFrom(QXmlStreamReader* reader, MessageService* messageService)
+{
     for (auto model : modelList()) {
         if (model->getModelTag() == reader->name()) {
             model->readFrom(reader, messageService);
@@ -196,7 +216,8 @@ void ApplicationModels::readFrom(QXmlStreamReader* reader, MessageService* messa
 
 //! Returns the list of all GUI models
 
-QList<SessionModel*> ApplicationModels::modelList() {
+QList<SessionModel*> ApplicationModels::modelList()
+{
     QList<SessionModel*> result;
     result.append(m_documentModel);
     result.append(m_materialModel);
@@ -207,13 +228,15 @@ QList<SessionModel*> ApplicationModels::modelList() {
     return result;
 }
 
-QVector<SessionItem*> ApplicationModels::nonXMLData() const {
+QVector<SessionItem*> ApplicationModels::nonXMLData() const
+{
     ASSERT(m_realDataModel && m_jobModel && m_instrumentModel);
     return QVector<SessionItem*>() << m_realDataModel->nonXMLData() << m_jobModel->nonXMLData()
                                    << m_instrumentModel->nonXMLData();
 }
 
-void ApplicationModels::disconnectModel(SessionModel* model) {
+void ApplicationModels::disconnectModel(SessionModel* model)
+{
     if (model) {
         disconnect(model, &SessionModel::dataChanged, this, &ApplicationModels::modelChanged);
         disconnect(model, &SessionModel::rowsRemoved, this, &ApplicationModels::modelChanged);
@@ -221,7 +244,8 @@ void ApplicationModels::disconnectModel(SessionModel* model) {
     }
 }
 
-void ApplicationModels::connectModel(SessionModel* model) {
+void ApplicationModels::connectModel(SessionModel* model)
+{
     if (model) {
         connect(model, &SessionModel::dataChanged, this, &ApplicationModels::modelChanged,
                 Qt::UniqueConnection);

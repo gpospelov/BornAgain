@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testintegration/standarditemserialization.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/modelutils.h"
@@ -27,7 +32,8 @@ StandardItemsSerializationTest::~StandardItemsSerializationTest() = default;
 
 //! Checking that serialization works (not crashing) for all defined standard items.
 
-TEST_F(StandardItemsSerializationTest, allItems) {
+TEST_F(StandardItemsSerializationTest, allItems)
+{
     SessionModel model;
     model.insertItem<ColorMapItem>();
     model.insertItem<ColorMapViewportItem>();
@@ -53,7 +59,8 @@ TEST_F(StandardItemsSerializationTest, allItems) {
 
 //! Creating graph with data. It has to be identical after serialization.
 
-TEST_F(StandardItemsSerializationTest, GraphItemAndDataSerialization) {
+TEST_F(StandardItemsSerializationTest, GraphItemAndDataSerialization)
+{
     // preparing model, data item and graph pointing to it
     SessionModel model;
     auto graph_item = model.insertItem<GraphItem>();
@@ -79,7 +86,8 @@ TEST_F(StandardItemsSerializationTest, GraphItemAndDataSerialization) {
 
 //! Creating viewport with one graph. Serializing and restoring the model.
 
-TEST_F(StandardItemsSerializationTest, graphViewPortItemSerialization) {
+TEST_F(StandardItemsSerializationTest, graphViewPortItemSerialization)
+{
     SessionModel model;
     auto viewport_item = model.insertItem<GraphViewportItem>();
     auto graph_item = model.insertItem<GraphItem>(viewport_item);

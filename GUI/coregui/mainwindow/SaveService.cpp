@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/mainwindow/SaveService.cpp
 //! @brief     Implements class SaveService
@@ -39,9 +39,12 @@ private:
 } // namespace
 
 SaveService::SaveService(QObject* parent)
-    : QObject(parent), m_is_saving(false), m_autosave(nullptr), m_document(nullptr) {}
+    : QObject(parent), m_is_saving(false), m_autosave(nullptr), m_document(nullptr)
+{
+}
 
-void SaveService::setDocument(ProjectDocument* document) {
+void SaveService::setDocument(ProjectDocument* document)
+{
     m_document = document;
 
     if (m_autosave)
@@ -50,14 +53,16 @@ void SaveService::setDocument(ProjectDocument* document) {
     m_save_queue.clear();
 }
 
-void SaveService::save(const QString& project_file_name) {
+void SaveService::save(const QString& project_file_name)
+{
     ASSERT(m_document);
 
     m_save_queue.enqueue(project_file_name);
     process_queue();
 }
 
-void SaveService::setAutosaveEnabled(bool value) {
+void SaveService::setAutosaveEnabled(bool value)
+{
     if (value) {
         delete m_autosave;
         m_autosave = new AutosaveController(this);
@@ -70,24 +75,28 @@ void SaveService::setAutosaveEnabled(bool value) {
     }
 }
 
-bool SaveService::isAutosaveEnabled() const {
+bool SaveService::isAutosaveEnabled() const
+{
     return m_autosave;
 }
 
-void SaveService::setAutosaveTime(int timerInterval) {
+void SaveService::setAutosaveTime(int timerInterval)
+{
     if (!m_autosave)
         setAutosaveEnabled(true);
 
     m_autosave->setAutosaveTime(timerInterval);
 }
 
-bool SaveService::isSaving() const {
+bool SaveService::isSaving() const
+{
     return m_is_saving;
 }
 
 //!
 
-void SaveService::stopService() {
+void SaveService::stopService()
+{
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
     if (isSaving()) {
@@ -108,11 +117,13 @@ void SaveService::stopService() {
     QApplication::restoreOverrideCursor();
 }
 
-void SaveService::onAutosaveRequest() {
+void SaveService::onAutosaveRequest()
+{
     save(m_autosave->autosaveName());
 }
 
-void SaveService::onProjectSaved() {
+void SaveService::onProjectSaved()
+{
     ASSERT(m_document);
 
     m_is_saving = false;
@@ -122,7 +133,8 @@ void SaveService::onProjectSaved() {
     process_queue();
 }
 
-void SaveService::process_queue() {
+void SaveService::process_queue()
+{
     ASSERT(m_document);
 
     if (m_is_saving)

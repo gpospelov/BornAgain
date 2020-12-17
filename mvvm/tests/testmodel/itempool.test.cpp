@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/itempool.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/itempool.h"
@@ -24,14 +29,16 @@ public:
 
 ItemPoolTest::~ItemPoolTest() = default;
 
-TEST_F(ItemPoolTest, initialState) {
+TEST_F(ItemPoolTest, initialState)
+{
     std::unique_ptr<ItemPool> pool(new ItemPool);
     EXPECT_EQ(pool->size(), 0u);
 }
 
 //! Explicit item registrations.
 
-TEST_F(ItemPoolTest, registerItem) {
+TEST_F(ItemPoolTest, registerItem)
+{
     std::unique_ptr<ItemPool> pool(new ItemPool);
     std::unique_ptr<SessionItem> item(new SessionItem);
 
@@ -61,7 +68,8 @@ TEST_F(ItemPoolTest, registerItem) {
 
 //! Explicit item de-registrations.
 
-TEST_F(ItemPoolTest, deregisterItem) {
+TEST_F(ItemPoolTest, deregisterItem)
+{
     std::unique_ptr<ItemPool> pool(new ItemPool);
     std::unique_ptr<SessionItem> item1(new SessionItem);
     std::unique_ptr<SessionItem> item2(new SessionItem);
@@ -89,7 +97,8 @@ TEST_F(ItemPoolTest, deregisterItem) {
 
 //! Providing custom key.
 
-TEST_F(ItemPoolTest, customKey) {
+TEST_F(ItemPoolTest, customKey)
+{
     std::shared_ptr<ItemPool> pool(new ItemPool);
     EXPECT_EQ(pool.use_count(), 1l);
 

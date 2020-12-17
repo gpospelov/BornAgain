@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/viewmodelfactory.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/factories/viewmodelfactory.h"
@@ -19,8 +24,8 @@
 using namespace ModelView;
 
 namespace {
-std::unique_ptr<ViewModelController> createController(SessionModel* model,
-                                                      ViewModelBase* viewModel) {
+std::unique_ptr<ViewModelController> createController(SessionModel* model, ViewModelBase* viewModel)
+{
     return Factory::CreateController<TopItemsStrategy, LabelDataRowStrategy>(model, viewModel);
 }
 } // namespace
@@ -39,7 +44,8 @@ ViewModelFactoryTest::~ViewModelFactoryTest() = default;
 
 //! Creating DefaultViewModel using strategies.
 
-TEST_F(ViewModelFactoryTest, createDefaultViewModelInitial) {
+TEST_F(ViewModelFactoryTest, createDefaultViewModelInitial)
+{
     SessionModel model;
 
     auto viewModel = Factory::CreateViewModel<AllChildrenStrategy, LabelDataRowStrategy>(&model);
@@ -50,7 +56,8 @@ TEST_F(ViewModelFactoryTest, createDefaultViewModelInitial) {
 
 //! Creating DefaultViewModel using strategies, validating behaviour on single item in SessionModel.
 
-TEST_F(ViewModelFactoryTest, createDefaultViewModelUseProperty) {
+TEST_F(ViewModelFactoryTest, createDefaultViewModelUseProperty)
+{
     SessionModel model;
     auto propertyItem = model.insertItem<PropertyItem>();
     propertyItem->setData(42.0);
@@ -76,7 +83,8 @@ TEST_F(ViewModelFactoryTest, createDefaultViewModelUseProperty) {
 
 //! Creating DefaultViewModel using strategies, validating behaviour on single item in SessionModel.
 
-TEST_F(ViewModelFactoryTest, createCustomViewModel) {
+TEST_F(ViewModelFactoryTest, createCustomViewModel)
+{
     SessionModel model;
     auto propertyItem = model.insertItem<PropertyItem>();
     propertyItem->setData(42.0);

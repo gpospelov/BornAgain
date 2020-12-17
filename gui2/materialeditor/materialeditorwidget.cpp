@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/materialeditor/materialeditorwidget.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/materialeditor/materialeditorwidget.h"
 #include "gui2/materialeditor/materialselectionmodel.h"
@@ -24,7 +29,8 @@ namespace gui2 {
 MaterialEditorWidget::MaterialEditorWidget(QWidget* parent)
     : QWidget(parent)
     , m_materialView(new MaterialTreeView)
-    , m_delegate(std::make_unique<ModelView::ViewModelDelegate>()) {
+    , m_delegate(std::make_unique<ModelView::ViewModelDelegate>())
+{
     auto layout = new QVBoxLayout;
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_materialView);
@@ -34,7 +40,8 @@ MaterialEditorWidget::MaterialEditorWidget(QWidget* parent)
 
 MaterialEditorWidget::~MaterialEditorWidget() = default;
 
-void MaterialEditorWidget::setModels(ApplicationModels* models) {
+void MaterialEditorWidget::setModels(ApplicationModels* models)
+{
     m_materialModel = models->materialModel();
     m_viewModel = ModelView::Factory::CreatePropertyTableViewModel(m_materialModel);
     m_selectionModel = new MaterialSelectionModel(m_viewModel.get(), this);
@@ -44,7 +51,8 @@ void MaterialEditorWidget::setModels(ApplicationModels* models) {
     m_materialView->setSelectionModel(m_selectionModel);
 }
 
-MaterialSelectionModel* MaterialEditorWidget::selectionModel() const {
+MaterialSelectionModel* MaterialEditorWidget::selectionModel() const
+{
     return m_selectionModel;
 }
 

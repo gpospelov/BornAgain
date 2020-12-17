@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/TwoLayerRoughnessBuilder.cpp
 //! @brief     Implement class TwoLayerRoughnessBuilder.
@@ -19,7 +19,8 @@
 #include "Sample/Slice/LayerRoughness.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* TwoLayerRoughnessBuilder::buildSample() const {
+MultiLayer* TwoLayerRoughnessBuilder::buildSample() const
+{
     const double m_sigma(1.0 * Units::nm);
     const double m_hurst(0.3);
     const double m_lateralCorrLength(5.0 * Units::nm);

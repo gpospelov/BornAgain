@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/ParameterTreeUtils.cpp
 //! @brief     Implements ParameterTreeUtils namespace
@@ -25,7 +25,8 @@
 
 namespace {
 
-QString removeLeadingSlash(const QString& name) {
+QString removeLeadingSlash(const QString& name)
+{
     return name.indexOf('/') == 0 ? name.mid(1) : name;
 }
 
@@ -33,7 +34,8 @@ QString removeLeadingSlash(const QString& name) {
 
 //! For every ParameterItem in a container creates a link to the domain.
 
-void populateDomainLinks(SessionItem* container) {
+void populateDomainLinks(SessionItem* container)
+{
     if (container->modelType() != "Parameter Container")
         throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
                                 "Not a ParameterContainerType.");
@@ -51,7 +53,8 @@ void handleItem(SessionItem* tree, const SessionItem* source);
 
 } // namespace
 
-void ParameterTreeUtils::createParameterTree(JobItem* jobItem) {
+void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
+{
     SessionItem* container = jobItem->model()->insertNewItem(
         "Parameter Container", jobItem->index(), -1, JobItem::T_PARAMETER_TREE);
 
@@ -73,7 +76,8 @@ void ParameterTreeUtils::createParameterTree(JobItem* jobItem) {
 //! in a source item.
 
 void ParameterTreeUtils::populateParameterContainer(SessionItem* container,
-                                                    const SessionItem* source) {
+                                                    const SessionItem* source)
+{
     if (container->modelType() != "Parameter Container")
         throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
                                 "Not a ParameterContainerType.");
@@ -87,7 +91,8 @@ void ParameterTreeUtils::populateParameterContainer(SessionItem* container,
 //! Visit all ParameterItem in container and execute user function.
 
 void ParameterTreeUtils::visitParameterContainer(SessionItem* container,
-                                                 std::function<void(ParameterItem*)> fun) {
+                                                 std::function<void(ParameterItem*)> fun)
+{
     SessionItem* current(container);
     QStack<SessionItem*> stack;
     stack.push(current);
@@ -106,7 +111,8 @@ void ParameterTreeUtils::visitParameterContainer(SessionItem* container,
 
 //! Creates list with parameter names of source item.
 
-QStringList ParameterTreeUtils::parameterTreeNames(const SessionItem* source) {
+QStringList ParameterTreeUtils::parameterTreeNames(const SessionItem* source)
+{
     QStringList result;
 
     for (auto pair : parameterDictionary(source))
@@ -117,7 +123,8 @@ QStringList ParameterTreeUtils::parameterTreeNames(const SessionItem* source) {
 
 //! Creates domain translated list of parameter names for source item.
 
-QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* source) {
+QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* source)
+{
     QStringList result;
 
     for (auto pair : parameterDictionary(source))
@@ -129,8 +136,8 @@ QStringList ParameterTreeUtils::translatedParameterTreeNames(const SessionItem* 
 //! Correspondance of parameter name to translated name for all properties found in source
 //! in its children.
 
-QVector<QPair<QString, QString>>
-ParameterTreeUtils::parameterDictionary(const SessionItem* source) {
+QVector<QPair<QString, QString>> ParameterTreeUtils::parameterDictionary(const SessionItem* source)
+{
     ASSERT(source);
 
     QVector<QPair<QString, QString>> result;
@@ -161,7 +168,8 @@ ParameterTreeUtils::parameterDictionary(const SessionItem* source) {
 //! one of its children.
 
 QString ParameterTreeUtils::domainNameToParameterName(const QString& domainName,
-                                                      const SessionItem* source) {
+                                                      const SessionItem* source)
+{
     QString domain = removeLeadingSlash(domainName);
     for (auto pair : parameterDictionary(source)) { // parName, domainName
         if (pair.second == domain)
@@ -175,7 +183,8 @@ QString ParameterTreeUtils::domainNameToParameterName(const QString& domainName,
 //! one of its children.
 
 QString ParameterTreeUtils::parameterNameToDomainName(const QString& parName,
-                                                      const SessionItem* source) {
+                                                      const SessionItem* source)
+{
     for (auto pair : parameterDictionary(source)) // parName, domainName
         if (pair.first == parName)
             return "/" + pair.second;
@@ -186,7 +195,8 @@ QString ParameterTreeUtils::parameterNameToDomainName(const QString& parName,
 //! Converts parameter item name to the corresponding item in the tree below the source.
 
 SessionItem* ParameterTreeUtils::parameterNameToLinkedItem(const QString& parName,
-                                                           const SessionItem* source) {
+                                                           const SessionItem* source)
+{
     SampleModel model;
     SessionItem* container = model.insertNewItem("Parameter Container");
     populateParameterContainer(container, source);
@@ -208,7 +218,8 @@ SessionItem* ParameterTreeUtils::parameterNameToLinkedItem(const QString& parNam
 
 namespace {
 
-void handleItem(SessionItem* tree, const SessionItem* source) {
+void handleItem(SessionItem* tree, const SessionItem* source)
+{
     if (tree->modelType() == "Parameter Label") {
         tree->setDisplayName(source->itemName());
 

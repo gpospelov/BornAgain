@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Performance/Benchmark.h
 //! @brief     Defines Benchmark class
@@ -28,7 +28,8 @@ public:
     Duration() : m_totalTime(0) {}
 
     void start() { m_timer.start(); }
-    void stop() {
+    void stop()
+    {
         m_timer.stop();
         m_totalTime += m_timer.runTime();
     }

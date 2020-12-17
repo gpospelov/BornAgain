@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Processed/ProcessedLayout.cpp
 //! @brief     Implements class ProcessedLayout.
@@ -25,7 +25,8 @@
 #include "Sample/Slice/SlicedFormFactorList.h"
 
 namespace {
-void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor) {
+void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map, double factor)
+{
     for (auto& entry : region_map) {
         for (auto& region : entry.second) {
             region.m_volume *= factor;
@@ -40,14 +41,16 @@ void ScaleRegionMap(std::map<size_t, std::vector<HomogeneousRegion>>& region_map
 
 ProcessedLayout::ProcessedLayout(const ParticleLayout& layout, const std::vector<Slice>& slices,
                                  double z_ref, const IFresnelMap* p_fresnel_map, bool polarized)
-    : m_fresnel_map(p_fresnel_map), m_polarized(polarized) {
+    : m_fresnel_map(p_fresnel_map), m_polarized(polarized)
+{
     m_n_slices = slices.size();
     collectFormFactors(layout, slices, z_ref);
     if (const auto* iff = layout.interferenceFunction())
         m_iff.reset(iff->clone());
 }
 
-ProcessedLayout::ProcessedLayout(ProcessedLayout&& other) {
+ProcessedLayout::ProcessedLayout(ProcessedLayout&& other)
+{
     m_fresnel_map = other.m_fresnel_map;
     m_polarized = other.m_polarized;
     m_n_slices = other.m_n_slices;
@@ -57,30 +60,36 @@ ProcessedLayout::ProcessedLayout(ProcessedLayout&& other) {
     m_region_map = std::move(other.m_region_map);
 }
 
-size_t ProcessedLayout::numberOfSlices() const {
+size_t ProcessedLayout::numberOfSlices() const
+{
     return m_n_slices;
 }
 
-double ProcessedLayout::surfaceDensity() const {
+double ProcessedLayout::surfaceDensity() const
+{
     return m_surface_density;
 }
 
-const std::vector<FormFactorCoherentSum>& ProcessedLayout::formFactorList() const {
+const std::vector<FormFactorCoherentSum>& ProcessedLayout::formFactorList() const
+{
     return m_formfactors;
 }
 
-const IInterferenceFunction* ProcessedLayout::interferenceFunction() const {
+const IInterferenceFunction* ProcessedLayout::interferenceFunction() const
+{
     return m_iff.get();
 }
 
-std::map<size_t, std::vector<HomogeneousRegion>> ProcessedLayout::regionMap() const {
+std::map<size_t, std::vector<HomogeneousRegion>> ProcessedLayout::regionMap() const
+{
     return m_region_map;
 }
 
 ProcessedLayout::~ProcessedLayout() = default;
 
 void ProcessedLayout::collectFormFactors(const ParticleLayout& layout,
-                                         const std::vector<Slice>& slices, double z_ref) {
+                                         const std::vector<Slice>& slices, double z_ref)
+{
     double layout_abundance = layout.getTotalAbundance();
     for (const auto* particle : layout.particles()) {
         FormFactorCoherentSum ff_coh = processParticle(*particle, slices, z_ref);
@@ -95,7 +104,8 @@ void ProcessedLayout::collectFormFactors(const ParticleLayout& layout,
 
 FormFactorCoherentSum ProcessedLayout::processParticle(const IParticle& particle,
                                                        const std::vector<Slice>& slices,
-                                                       double z_ref) {
+                                                       double z_ref)
+{
     double abundance = particle.abundance();
     auto sliced_ffs = SlicedFormFactorList::createSlicedFormFactors(particle, slices, z_ref);
     auto region_map = sliced_ffs.regionMap();
@@ -130,7 +140,8 @@ FormFactorCoherentSum ProcessedLayout::processParticle(const IParticle& particle
 }
 
 void ProcessedLayout::mergeRegionMap(
-    const std::map<size_t, std::vector<HomogeneousRegion>>& region_map) {
+    const std::map<size_t, std::vector<HomogeneousRegion>>& region_map)
+{
     for (const auto& entry : region_map) {
         size_t layer_index = entry.first;
         auto regions = entry.second;

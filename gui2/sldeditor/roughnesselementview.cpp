@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/sldeditor/roughnesselementview.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/sldeditor/roughnesselementview.h"
 #include "gui2/sldeditor/layerelementcontroller.h"
@@ -21,12 +26,14 @@ RoughnessElementView::RoughnessElementView()
     , m_left_path(QPainterPath())
     , m_right_path(QPainterPath())
     , m_brush(QBrush())
-    , m_pen(QPen()) {
+    , m_pen(QPen())
+{
     setZValue(0);
 }
 
 //! The overriden paint method
-void RoughnessElementView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*) {
+void RoughnessElementView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+{
     painter->setClipRect(sceneAdapter()->viewportRectangle());
     painter->setPen(m_pen);
     painter->setBrush(m_brush);
@@ -35,7 +42,8 @@ void RoughnessElementView::paint(QPainter* painter, const QStyleOptionGraphicsIt
 }
 
 //! The shape
-QPainterPath RoughnessElementView::shape() const {
+QPainterPath RoughnessElementView::shape() const
+{
     QPainterPath path;
     path.addPath(displayPath(m_left_path));
     path.addPath(displayPath(m_right_path));
@@ -43,7 +51,8 @@ QPainterPath RoughnessElementView::shape() const {
 }
 
 //! The bounding rectangle of the handle
-QRectF RoughnessElementView::boundingRect() const {
+QRectF RoughnessElementView::boundingRect() const
+{
     QPainterPath path;
     path.addPath(displayPath(m_left_path));
     path.addPath(displayPath(m_right_path));
@@ -51,24 +60,28 @@ QRectF RoughnessElementView::boundingRect() const {
 }
 
 //! Set the draw path for the left side
-void RoughnessElementView::setLeftPath(QPainterPath left_path) {
+void RoughnessElementView::setLeftPath(QPainterPath left_path)
+{
     prepareGeometryChange();
     m_left_path = left_path;
 }
 
 //! Set the draw path for the right side
-void RoughnessElementView::setRightPath(QPainterPath right_path) {
+void RoughnessElementView::setRightPath(QPainterPath right_path)
+{
     prepareGeometryChange();
     m_right_path = right_path;
 }
 
 //! Set the brush
-void RoughnessElementView::setBrush(QBrush brush) {
+void RoughnessElementView::setBrush(QBrush brush)
+{
     m_brush = brush;
 }
 
 //! Set the pen
-void RoughnessElementView::setPen(QPen pen) {
+void RoughnessElementView::setPen(QPen pen)
+{
     m_pen = pen;
 }
 

@@ -10,7 +10,8 @@ protected:
     OutputData<double> m_model_data;
 };
 
-IOReaderWriterTest::IOReaderWriterTest() {
+IOReaderWriterTest::IOReaderWriterTest()
+{
     FixedBinAxis axis1("x", 5, 1.0, 5.0);
     FixedBinAxis axis2("y", 10, 6.0, 7.0);
     m_model_data.addAxis(axis1);
@@ -19,7 +20,8 @@ IOReaderWriterTest::IOReaderWriterTest() {
         m_model_data[i] = static_cast<double>(i);
 }
 
-TEST_F(IOReaderWriterTest, TestOutputDataReadWriteINT) {
+TEST_F(IOReaderWriterTest, TestOutputDataReadWriteINT)
+{
     std::stringstream ss;
     OutputDataReadWriteINT write_int;
     write_int.writeOutputData(m_model_data, ss);
@@ -40,7 +42,8 @@ TEST_F(IOReaderWriterTest, TestOutputDataReadWriteINT) {
         EXPECT_EQ(m_model_data[i], (*result)[i]);
 }
 
-TEST_F(IOReaderWriterTest, TestOutputDataReadWriteNumpyTXT) {
+TEST_F(IOReaderWriterTest, TestOutputDataReadWriteNumpyTXT)
+{
     std::stringstream ss;
     OutputDataReadWriteNumpyTXT write_txt;
     write_txt.writeOutputData(m_model_data, ss);
@@ -55,7 +58,8 @@ TEST_F(IOReaderWriterTest, TestOutputDataReadWriteNumpyTXT) {
 
 #ifdef BORNAGAIN_TIFF_SUPPORT
 
-TEST_F(IOReaderWriterTest, TestOutputDataReadWriteTiff) {
+TEST_F(IOReaderWriterTest, TestOutputDataReadWriteTiff)
+{
     std::stringstream ss;
     OutputDataReadWriteTiff write_tiff;
     write_tiff.writeOutputData(m_model_data, ss);

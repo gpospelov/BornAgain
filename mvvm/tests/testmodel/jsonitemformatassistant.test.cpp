@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/jsonitemformatassistant.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/serialization/jsonitemformatassistant.h"
@@ -26,7 +31,8 @@ JsonItemFormatAssistantTest::~JsonItemFormatAssistantTest() = default;
 
 //! Checks the validity of json object representing SessionItem.
 
-TEST_F(JsonItemFormatAssistantTest, isSessionItem) {
+TEST_F(JsonItemFormatAssistantTest, isSessionItem)
+{
     JsonItemFormatAssistant assistant;
 
     // empty json object is not valid
@@ -46,7 +52,8 @@ TEST_F(JsonItemFormatAssistantTest, isSessionItem) {
 
 //! Checks if json object is correctly identified as representing DataRole.
 
-TEST_F(JsonItemFormatAssistantTest, isValidDataRole) {
+TEST_F(JsonItemFormatAssistantTest, isValidDataRole)
+{
     JsonItemFormatAssistant assistant;
     JsonVariantConverter variant_converter;
 
@@ -71,7 +78,8 @@ TEST_F(JsonItemFormatAssistantTest, isValidDataRole) {
 
 //! Checks the validity of json object representing SessionItemTags.
 
-TEST_F(JsonItemFormatAssistantTest, isSessionItemTags) {
+TEST_F(JsonItemFormatAssistantTest, isSessionItemTags)
+{
     JsonItemFormatAssistant assistant;
 
     // empty json object is not valid
@@ -86,7 +94,8 @@ TEST_F(JsonItemFormatAssistantTest, isSessionItemTags) {
 
 //! Checks the validity of json object representing SessionItemContainer.
 
-TEST_F(JsonItemFormatAssistantTest, isSessionItemContainer) {
+TEST_F(JsonItemFormatAssistantTest, isSessionItemContainer)
+{
     JsonItemFormatAssistant assistant;
 
     // empty json object is not valid
@@ -101,7 +110,8 @@ TEST_F(JsonItemFormatAssistantTest, isSessionItemContainer) {
 
 //! Validity of json object representing SessionModel.
 
-TEST_F(JsonItemFormatAssistantTest, isValidSessionModel) {
+TEST_F(JsonItemFormatAssistantTest, isValidSessionModel)
+{
     JsonItemFormatAssistant assistant;
 
     // empty json object is not valid

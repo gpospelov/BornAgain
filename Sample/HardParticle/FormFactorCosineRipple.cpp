@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorCosineRipple.cpp
 //! @brief     Implements classes FormFactorCosineRipple*.
@@ -20,20 +20,27 @@
 //  ************************************************************************************************
 
 FormFactorCosineRippleBox::FormFactorCosineRippleBox(const std::vector<double> P)
-    : ICosineRipple({"CosineRippleBox", "class_tooltip", {}}, P) {}
+    : ICosineRipple({"CosineRippleBox", "class_tooltip", {}}, P)
+{
+}
 
 FormFactorCosineRippleBox::FormFactorCosineRippleBox(double length, double width, double height)
-    : FormFactorCosineRippleBox(std::vector<double>{length, width, height}) {}
+    : FormFactorCosineRippleBox(std::vector<double>{length, width, height})
+{
+}
 
-FormFactorCosineRippleBox* FormFactorCosineRippleBox::clone() const {
+FormFactorCosineRippleBox* FormFactorCosineRippleBox::clone() const
+{
     return new FormFactorCosineRippleBox(m_length, m_width, m_height);
 }
 
-void FormFactorCosineRippleBox::accept(INodeVisitor* visitor) const {
+void FormFactorCosineRippleBox::accept(INodeVisitor* visitor) const
+{
     visitor->visit(this);
 }
 
-complex_t FormFactorCosineRippleBox::factor_x(complex_t qx) const {
+complex_t FormFactorCosineRippleBox::factor_x(complex_t qx) const
+{
     return ripples::factor_x_box(qx, m_length);
 }
 
@@ -42,20 +49,27 @@ complex_t FormFactorCosineRippleBox::factor_x(complex_t qx) const {
 //  ************************************************************************************************
 
 FormFactorCosineRippleGauss::FormFactorCosineRippleGauss(const std::vector<double> P)
-    : ICosineRipple({"CosineRippleGauss", "class_tooltip", {}}, P) {}
+    : ICosineRipple({"CosineRippleGauss", "class_tooltip", {}}, P)
+{
+}
 
 FormFactorCosineRippleGauss::FormFactorCosineRippleGauss(double length, double width, double height)
-    : FormFactorCosineRippleGauss(std::vector<double>{length, width, height}) {}
+    : FormFactorCosineRippleGauss(std::vector<double>{length, width, height})
+{
+}
 
-FormFactorCosineRippleGauss* FormFactorCosineRippleGauss::clone() const {
+FormFactorCosineRippleGauss* FormFactorCosineRippleGauss::clone() const
+{
     return new FormFactorCosineRippleGauss(m_length, m_width, m_height);
 }
 
-void FormFactorCosineRippleGauss::accept(INodeVisitor* visitor) const {
+void FormFactorCosineRippleGauss::accept(INodeVisitor* visitor) const
+{
     visitor->visit(this);
 }
 
-complex_t FormFactorCosineRippleGauss::factor_x(complex_t qx) const {
+complex_t FormFactorCosineRippleGauss::factor_x(complex_t qx) const
+{
     return ripples::factor_x_Gauss(qx, m_length);
 }
 
@@ -64,20 +78,27 @@ complex_t FormFactorCosineRippleGauss::factor_x(complex_t qx) const {
 //  ************************************************************************************************
 
 FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz(const std::vector<double> P)
-    : ICosineRipple({"CosineRippleLorentz", "class_tooltip", {}}, P) {}
+    : ICosineRipple({"CosineRippleLorentz", "class_tooltip", {}}, P)
+{
+}
 
 FormFactorCosineRippleLorentz::FormFactorCosineRippleLorentz(double length, double width,
                                                              double height)
-    : FormFactorCosineRippleLorentz(std::vector<double>{length, width, height}) {}
+    : FormFactorCosineRippleLorentz(std::vector<double>{length, width, height})
+{
+}
 
-FormFactorCosineRippleLorentz* FormFactorCosineRippleLorentz::clone() const {
+FormFactorCosineRippleLorentz* FormFactorCosineRippleLorentz::clone() const
+{
     return new FormFactorCosineRippleLorentz(m_length, m_width, m_height);
 }
 
-void FormFactorCosineRippleLorentz::accept(INodeVisitor* visitor) const {
+void FormFactorCosineRippleLorentz::accept(INodeVisitor* visitor) const
+{
     visitor->visit(this);
 }
 
-complex_t FormFactorCosineRippleLorentz::factor_x(complex_t qx) const {
+complex_t FormFactorCosineRippleLorentz::factor_x(complex_t qx) const
+{
     return ripples::factor_x_Lorentz(qx, m_length);
 }

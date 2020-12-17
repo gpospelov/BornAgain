@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/PropertyEditor/PropertyEditorFactory.cpp
 //! @brief     Implements PropertyEditorFactory namespace
@@ -29,33 +29,40 @@ namespace {
 QWidget* createCustomStringEditor(const SessionItem& item);
 double getStep(double val);
 
-bool isDoubleProperty(const QVariant& variant) {
+bool isDoubleProperty(const QVariant& variant)
+{
     return variant.type() == QVariant::Double;
 }
 
-bool isIntProperty(const QVariant& variant) {
+bool isIntProperty(const QVariant& variant)
+{
     return variant.type() == QVariant::Int;
 }
 
-bool isExternalProperty(const QVariant& variant) {
+bool isExternalProperty(const QVariant& variant)
+{
     return variant.canConvert<ExternalProperty>();
 }
 
-bool isComboProperty(const QVariant& variant) {
+bool isComboProperty(const QVariant& variant)
+{
     return variant.canConvert<ComboProperty>();
 }
 
-bool isStringProperty(const QVariant& variant) {
+bool isStringProperty(const QVariant& variant)
+{
     return variant.type() == QVariant::String;
 }
 
-bool isBoolProperty(const QVariant& variant) {
+bool isBoolProperty(const QVariant& variant)
+{
     return variant.type() == QVariant::Bool;
 }
 
 } // namespace
 
-bool PropertyEditorFactory::hasStringRepresentation(const QModelIndex& index) {
+bool PropertyEditorFactory::hasStringRepresentation(const QModelIndex& index)
+{
     auto variant = index.data();
     if (isExternalProperty(variant))
         return true;
@@ -69,7 +76,8 @@ bool PropertyEditorFactory::hasStringRepresentation(const QModelIndex& index) {
     return false;
 }
 
-QString PropertyEditorFactory::toString(const QModelIndex& index) {
+QString PropertyEditorFactory::toString(const QModelIndex& index)
+{
     auto variant = index.data();
     if (isExternalProperty(variant))
         return variant.value<ExternalProperty>().text();
@@ -90,7 +98,8 @@ QString PropertyEditorFactory::toString(const QModelIndex& index) {
     return "";
 }
 
-QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* parent) {
+QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* parent)
+{
     QWidget* result(nullptr);
 
     if (isDoubleProperty(item.value())) {
@@ -143,7 +152,8 @@ QWidget* PropertyEditorFactory::CreateEditor(const SessionItem& item, QWidget* p
 
 namespace {
 
-QWidget* createCustomStringEditor(const SessionItem& item) {
+QWidget* createCustomStringEditor(const SessionItem& item)
+{
     QWidget* result(nullptr);
 
     if (item.isEditable()) {
@@ -159,7 +169,8 @@ QWidget* createCustomStringEditor(const SessionItem& item) {
     return result;
 }
 
-double getStep(double val) {
+double getStep(double val)
+{
     return val == 0.0 ? 1.0 : val / 100.;
 }
 

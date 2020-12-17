@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/dataloader/importtablemodel.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/dataloader/importtablemodel.h"
 #include "gui2/dataloader/dataloader_types.h"
@@ -16,7 +21,8 @@ namespace gui2 {
 
 namespace {
 //! Returns maximum number of columns in 2D data vector.
-int maxColumnCount(const ImportTableModel::raw_data_t& data) {
+int maxColumnCount(const ImportTableModel::raw_data_t& data)
+{
     int result{0};
     for (const auto& x : data)
         result = std::max(result, static_cast<int>(x.size()));
@@ -28,13 +34,16 @@ const int default_header_ncols = 2;
 
 ImportTableModel::ImportTableModel(QObject* parent)
     : QAbstractTableModel(parent)
-    , m_header(std::make_unique<ImportTableHeader>(default_header_ncols)) {}
+    , m_header(std::make_unique<ImportTableHeader>(default_header_ncols))
+{
+}
 
 ImportTableModel::~ImportTableModel() = default;
 
 //! Sets content of the model.
 
-void ImportTableModel::setRawData(const ImportTableModel::raw_data_t& raw_data) {
+void ImportTableModel::setRawData(const ImportTableModel::raw_data_t& raw_data)
+{
     beginResetModel();
     m_maxColumnCount = maxColumnCount(raw_data);
     m_header = std::make_unique<ImportTableHeader>(m_maxColumnCount);
@@ -42,15 +51,18 @@ void ImportTableModel::setRawData(const ImportTableModel::raw_data_t& raw_data) 
     endResetModel();
 }
 
-int ImportTableModel::rowCount(const QModelIndex&) const {
+int ImportTableModel::rowCount(const QModelIndex&) const
+{
     return static_cast<int>(m_rawData.size()) + utilityRowCount();
 }
 
-int ImportTableModel::columnCount(const QModelIndex&) const {
+int ImportTableModel::columnCount(const QModelIndex&) const
+{
     return m_maxColumnCount;
 }
 
-QVariant ImportTableModel::data(const QModelIndex& index, int role) const {
+QVariant ImportTableModel::data(const QModelIndex& index, int role) const
+{
     if (!index.isValid())
         return QVariant();
 
@@ -63,7 +75,8 @@ QVariant ImportTableModel::data(const QModelIndex& index, int role) const {
     return QVariant();
 }
 
-bool ImportTableModel::setData(const QModelIndex& index, const QVariant& value, int role) {
+bool ImportTableModel::setData(const QModelIndex& index, const QVariant& value, int role)
+{
     if (!index.isValid())
         return false;
 
@@ -73,7 +86,8 @@ bool ImportTableModel::setData(const QModelIndex& index, const QVariant& value, 
     return false;
 }
 
-QVariant ImportTableModel::headerData(int section, Qt::Orientation orientation, int role) const {
+QVariant ImportTableModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
     if (orientation == Qt::Horizontal || role != Qt::DisplayRole)
         return QVariant();
 
@@ -81,7 +95,8 @@ QVariant ImportTableModel::headerData(int section, Qt::Orientation orientation, 
                                        : QVariant(section - utilityRowCount() + 1);
 }
 
-Qt::ItemFlags ImportTableModel::flags(const QModelIndex& index) const {
+Qt::ItemFlags ImportTableModel::flags(const QModelIndex& index) const
+{
     Qt::ItemFlags result = QAbstractItemModel::flags(index);
     if (index.row() < utilityRowCount())
         result |= Qt::ItemIsEnabled | Qt::ItemIsEditable;
@@ -90,17 +105,20 @@ Qt::ItemFlags ImportTableModel::flags(const QModelIndex& index) const {
     return result;
 }
 
-std::vector<ColumnInfo> ImportTableModel::columnInfo() const {
+std::vector<ColumnInfo> ImportTableModel::columnInfo() const
+{
     return m_header->columnInfo();
 }
 
-int ImportTableModel::utilityRowCount() const {
+int ImportTableModel::utilityRowCount() const
+{
     return m_header ? m_header->rowCount() : 0;
 }
 
 //! Returns data from index. Combines header data with parsed user data.
 
-QVariant ImportTableModel::dataFromIndex(const QModelIndex& index) const {
+QVariant ImportTableModel::dataFromIndex(const QModelIndex& index) const
+{
     if (!index.isValid())
         return QVariant();
 

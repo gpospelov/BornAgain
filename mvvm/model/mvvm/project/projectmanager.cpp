@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/project/projectmanager.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/project/projectmanager.h"
 #include "mvvm/interfaces/projectinterface.h"
@@ -23,12 +28,14 @@ struct ProjectManager::ProjectManagerImpl {
     std::unique_ptr<ProjectInterface> m_current_project;
     ProjectContext m_project_context;
 
-    ProjectManagerImpl(ProjectContext context) : m_project_context(std::move(context)) {
+    ProjectManagerImpl(ProjectContext context) : m_project_context(std::move(context))
+    {
         createNewProject();
     }
 
     //! Closes current project. Used in assumption that project was already saved.
-    void createNewProject() {
+    void createNewProject()
+    {
         m_current_project = ProjectUtils::CreateUntitledProject(m_project_context);
     }
 
@@ -39,7 +46,8 @@ struct ProjectManager::ProjectManagerImpl {
     bool saveCurrentProject() { return saveCurrentProjectAs(m_current_project->projectDir()); }
 
     //! Saves the project into a given directory.
-    bool saveCurrentProjectAs(const std::string& dirname) {
+    bool saveCurrentProjectAs(const std::string& dirname)
+    {
         return m_current_project->save(dirname);
     }
 
@@ -53,14 +61,17 @@ struct ProjectManager::ProjectManagerImpl {
 //! Constructor for ProjectManager.
 
 ProjectManager::ProjectManager(const ProjectContext& context)
-    : p_impl(std::make_unique<ProjectManagerImpl>(context)) {}
+    : p_impl(std::make_unique<ProjectManagerImpl>(context))
+{
+}
 
 ProjectManager::~ProjectManager() = default;
 
 //! Creates a new project, returns 'true' in the case of success.
 //! Current project has to be in a saved state, otherwise will return false.
 
-bool ProjectManager::createNewProject(const std::string& dirname) {
+bool ProjectManager::createNewProject(const std::string& dirname)
+{
     if (p_impl->isModified())
         return failed;
     p_impl->createNewProject();
@@ -70,7 +81,8 @@ bool ProjectManager::createNewProject(const std::string& dirname) {
 //! Saves current project, returns 'true' in the case of success.
 //! The project should have a project directory defined to succeed.
 
-bool ProjectManager::saveCurrentProject() {
+bool ProjectManager::saveCurrentProject()
+{
     if (!p_impl->projectHasDir())
         return failed;
     return p_impl->saveCurrentProject();
@@ -79,14 +91,16 @@ bool ProjectManager::saveCurrentProject() {
 //! Saves the project under a given directory, returns true in the case of success.
 //! The directory should exist already.
 
-bool ProjectManager::saveProjectAs(const std::string& dirname) {
+bool ProjectManager::saveProjectAs(const std::string& dirname)
+{
     return p_impl->saveCurrentProjectAs(dirname);
 }
 
 //! Opens existing project, returns 'true' in the case of success.
 //! Current project should be in a saved state, new project should exist.
 
-bool ProjectManager::openExistingProject(const std::string& dirname) {
+bool ProjectManager::openExistingProject(const std::string& dirname)
+{
     if (p_impl->isModified())
         return failed;
     p_impl->createNewProject();
@@ -95,20 +109,23 @@ bool ProjectManager::openExistingProject(const std::string& dirname) {
 
 //! Returns current project directory.
 
-std::string ProjectManager::currentProjectDir() const {
+std::string ProjectManager::currentProjectDir() const
+{
     return p_impl->m_current_project ? p_impl->m_current_project->projectDir() : std::string();
 }
 
 //! Returns true if project was modified since last save.
 
-bool ProjectManager::isModified() const {
+bool ProjectManager::isModified() const
+{
     return p_impl->isModified();
 }
 
 //! Closes current project (without saving).
 //! No checks whether it is modified or not being performed.
 
-bool ProjectManager::closeCurrentProject() const {
+bool ProjectManager::closeCurrentProject() const
+{
     // no special operation is required to close the project
     p_impl->createNewProject(); // ready for further actions
     return succeeded;

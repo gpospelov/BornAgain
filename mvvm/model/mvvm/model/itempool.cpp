@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/model/itempool.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/model/itempool.h"
 #include "mvvm/core/uniqueidgenerator.h"
@@ -13,7 +18,8 @@
 
 using namespace ModelView;
 
-size_t ItemPool::size() const {
+size_t ItemPool::size() const
+{
     if (m_key_to_item.size() != m_item_to_key.size())
         throw std::runtime_error("Error in ItemPool: array size mismatch");
     return m_key_to_item.size();
@@ -41,7 +47,8 @@ identifier_type ItemPool::register_item(SessionItem* item, identifier_type key)
     return key;
 }
 
-void ItemPool::unregister_item(SessionItem* item) {
+void ItemPool::unregister_item(SessionItem* item)
+{
     auto it = m_item_to_key.find(item);
     if (it == m_item_to_key.end())
         throw std::runtime_error("ItemPool::deregister_item() -> Attempt to deregister "
@@ -53,7 +60,8 @@ void ItemPool::unregister_item(SessionItem* item) {
     m_key_to_item.erase(it2);
 }
 
-identifier_type ItemPool::key_for_item(const SessionItem* item) const {
+identifier_type ItemPool::key_for_item(const SessionItem* item) const
+{
     const auto it = m_item_to_key.find(item);
     if (it != m_item_to_key.end())
         return it->second;
@@ -61,7 +69,8 @@ identifier_type ItemPool::key_for_item(const SessionItem* item) const {
     return {};
 }
 
-SessionItem* ItemPool::item_for_key(const identifier_type& key) const {
+SessionItem* ItemPool::item_for_key(const identifier_type& key) const
+{
     auto it = m_key_to_item.find(key);
     if (it != m_key_to_item.end())
         return it->second;

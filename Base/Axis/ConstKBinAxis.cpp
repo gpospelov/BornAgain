@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Axis/ConstKBinAxis.cpp
 //! @brief     Implement class ConstKBinAxis.
@@ -17,10 +17,13 @@
 #include <iomanip>
 
 ConstKBinAxis::ConstKBinAxis(const std::string& name, size_t nbins)
-    : VariableBinAxis(name, nbins), m_start(0), m_end(0) {}
+    : VariableBinAxis(name, nbins), m_start(0), m_end(0)
+{
+}
 
 ConstKBinAxis::ConstKBinAxis(const std::string& name, size_t nbins, double start, double end)
-    : VariableBinAxis(name, nbins), m_start(start), m_end(end) {
+    : VariableBinAxis(name, nbins), m_start(start), m_end(end)
+{
     if (m_start >= m_end)
         throw std::runtime_error(
             "ConstKBinAxis::ConstKBinAxis() -> Error. start >= end is not allowed.");
@@ -37,11 +40,13 @@ ConstKBinAxis::ConstKBinAxis(const std::string& name, size_t nbins, double start
     setBinBoundaries(bin_boundaries);
 }
 
-ConstKBinAxis* ConstKBinAxis::clone() const {
+ConstKBinAxis* ConstKBinAxis::clone() const
+{
     return new ConstKBinAxis(getName(), m_nbins, m_start, m_end);
 }
 
-ConstKBinAxis* ConstKBinAxis::createClippedAxis(double left, double right) const {
+ConstKBinAxis* ConstKBinAxis::createClippedAxis(double left, double right) const
+{
     if (left >= right)
         throw std::runtime_error(
             "ConstKBinAxis::createClippedAxis() -> Error. 'left'' should be smaller than 'right'");
@@ -68,7 +73,8 @@ ConstKBinAxis* ConstKBinAxis::createClippedAxis(double left, double right) const
     return result;
 }
 
-bool ConstKBinAxis::equals(const IAxis& other) const {
+bool ConstKBinAxis::equals(const IAxis& other) const
+{
     if (!IAxis::equals(other))
         return false;
     if (const ConstKBinAxis* otherAxis = dynamic_cast<const ConstKBinAxis*>(&other)) {
@@ -83,7 +89,8 @@ bool ConstKBinAxis::equals(const IAxis& other) const {
     return false;
 }
 
-void ConstKBinAxis::print(std::ostream& ostr) const {
+void ConstKBinAxis::print(std::ostream& ostr) const
+{
     ostr << "ConstKBinAxis(\"" << getName() << "\", " << size() << ", "
          << std::setprecision(std::numeric_limits<double>::digits10 + 2) << m_start << ", " << m_end
          << ")";

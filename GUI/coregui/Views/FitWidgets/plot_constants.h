@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/FitWidgets/plot_constants.h
 //! @brief     Defines various constants for plotting
@@ -20,15 +20,18 @@
 
 namespace Constants {
 
-inline int plot_tick_label_size() {
+inline int plot_tick_label_size()
+{
     return StyleUtils::SystemPointSize() * 0.9;
 }
 
-inline int plot_axes_label_size() {
+inline int plot_axes_label_size()
+{
     return StyleUtils::SystemPointSize();
 }
 
-inline int plot_colorbar_size() {
+inline int plot_colorbar_size()
+{
     return StyleUtils::SizeOfLetterM().width();
 }
 

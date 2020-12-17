@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Residual/ChiSquaredModule.cpp
 //! @brief     Implements class ChiSquaredModule.
@@ -19,7 +19,8 @@
 #include <cmath>
 #include <limits>
 
-double ChiSquaredModule::residual(double a, double b, double weight) {
+double ChiSquaredModule::residual(double a, double b, double weight)
+{
     double value_simu = a;
     double value_real = b;
 

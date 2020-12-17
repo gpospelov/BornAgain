@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Device/Beam/Beam.cpp
 //! @brief     Implements class Beam.
@@ -26,7 +26,8 @@ Beam::Beam(double intensity, double wavelength, const Direction& direction)
     , m_wavelength(wavelength)
     // , m_direction(direction)
     , m_alpha(direction.alpha())
-    , m_phi(direction.phi()) {
+    , m_phi(direction.phi())
+{
     setName("Beam");
     registerParameter("Intensity", &m_intensity).setNonnegative();
     registerParameter("Wavelength", &m_wavelength).setUnit("nm").setNonnegative();
@@ -35,11 +36,13 @@ Beam::Beam(double intensity, double wavelength, const Direction& direction)
     registerVector("BlochVector", &m_bloch_vector, "");
 }
 
-Beam Beam::horizontalBeam() {
+Beam Beam::horizontalBeam()
+{
     return Beam(1.0, 1.0, {0, 0});
 }
 
-Beam::Beam(const Beam& other) : Beam(other.m_intensity, other.m_wavelength, other.direction()) {
+Beam::Beam(const Beam& other) : Beam(other.m_intensity, other.m_wavelength, other.direction())
+{
     m_bloch_vector = other.m_bloch_vector;
     setName(other.getName());
     if (other.m_shape_factor) {
@@ -48,7 +51,8 @@ Beam::Beam(const Beam& other) : Beam(other.m_intensity, other.m_wavelength, othe
     }
 }
 
-Beam& Beam::operator=(const Beam& other) {
+Beam& Beam::operator=(const Beam& other)
+{
     m_intensity = other.m_intensity;
     m_wavelength = other.m_wavelength;
     // m_direction = other.m_direction;
@@ -66,18 +70,21 @@ Beam& Beam::operator=(const Beam& other) {
 
 Beam::~Beam() = default;
 
-kvector_t Beam::getCentralK() const {
+kvector_t Beam::getCentralK() const
+{
     return M_TWOPI / m_wavelength * Direction(-direction().alpha(), direction().phi()).vector();
 }
 
-void Beam::setWavelength(double wavelength) {
+void Beam::setWavelength(double wavelength)
+{
     if (wavelength <= 0.0)
         throw std::runtime_error(
             "Beam::setCentralK() -> Error. Wavelength can't be negative or zero.");
     m_wavelength = wavelength;
 }
 
-void Beam::setDirection(const Direction& direction) {
+void Beam::setDirection(const Direction& direction)
+{
     if (direction.alpha() < 0.0)
         throw std::runtime_error(
             "Beam::setCentralK() -> Error. Inclination angle alpha_i can't be negative.");
@@ -86,20 +93,24 @@ void Beam::setDirection(const Direction& direction) {
     m_phi = direction.phi();
 }
 
-void Beam::setInclination(const double alpha) {
+void Beam::setInclination(const double alpha)
+{
     m_alpha = alpha;
 }
 
-const IFootprintFactor* Beam::footprintFactor() const {
+const IFootprintFactor* Beam::footprintFactor() const
+{
     return m_shape_factor.get();
 }
 
-void Beam::setFootprintFactor(const IFootprintFactor& shape_factor) {
+void Beam::setFootprintFactor(const IFootprintFactor& shape_factor)
+{
     m_shape_factor.reset(shape_factor.clone());
     registerChild(m_shape_factor.get());
 }
 
-void Beam::setPolarization(const kvector_t bloch_vector) {
+void Beam::setPolarization(const kvector_t bloch_vector)
+{
     if (bloch_vector.mag() > 1.0) {
         throw std::runtime_error(
             "Beam::setPolarization: "
@@ -108,11 +119,13 @@ void Beam::setPolarization(const kvector_t bloch_vector) {
     m_bloch_vector = bloch_vector;
 }
 
-kvector_t Beam::getBlochVector() const {
+kvector_t Beam::getBlochVector() const
+{
     return m_bloch_vector;
 }
 
-Eigen::Matrix2cd Beam::getPolarization() const {
+Eigen::Matrix2cd Beam::getPolarization() const
+{
     Eigen::Matrix2cd result;
     double x = m_bloch_vector.x();
     double y = m_bloch_vector.y();
@@ -124,7 +137,8 @@ Eigen::Matrix2cd Beam::getPolarization() const {
     return result;
 }
 
-std::vector<const INode*> Beam::getChildren() const {
+std::vector<const INode*> Beam::getChildren() const
+{
     if (m_shape_factor)
         return {m_shape_factor.get()};
     return {};

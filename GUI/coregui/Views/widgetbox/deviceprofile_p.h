@@ -139,10 +139,12 @@ private:
     QSharedDataPointer<DeviceProfileData> m_d;
 };
 
-inline bool operator==(const DeviceProfile& s1, const DeviceProfile& s2) {
+inline bool operator==(const DeviceProfile& s1, const DeviceProfile& s2)
+{
     return s1.equals(s2);
 }
-inline bool operator!=(const DeviceProfile& s1, const DeviceProfile& s2) {
+inline bool operator!=(const DeviceProfile& s1, const DeviceProfile& s2)
+{
     return !s1.equals(s2);
 }
 

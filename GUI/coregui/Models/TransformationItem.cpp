@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/TransformationItem.cpp
 //! @brief     Implements class TransformationItem
@@ -16,7 +16,8 @@
 
 const QString TransformationItem::P_ROT = "Rotation type";
 
-TransformationItem::TransformationItem() : SessionGraphicsItem("Rotation") {
+TransformationItem::TransformationItem() : SessionGraphicsItem("Rotation")
+{
     setToolTip("Rotation applied to particles");
     addGroupProperty(P_ROT, "Rotation group");
 }

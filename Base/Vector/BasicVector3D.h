@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Vector/BasicVector3D.h
 //! @brief     Declares and partly implements template class BasicVector3D.
@@ -34,14 +34,16 @@ public:
     // -------------------------------------------------------------------------
 
     //! Constructs the null vector.
-    BasicVector3D() {
+    BasicVector3D()
+    {
         v_[0] = 0.0;
         v_[1] = 0.0;
         v_[2] = 0.0;
     }
 
     //! Constructs a vector from cartesian components.
-    BasicVector3D(const T x1, const T y1, const T z1) {
+    BasicVector3D(const T x1, const T y1, const T z1)
+    {
         v_[0] = x1;
         v_[1] = y1;
         v_[2] = z1;
@@ -76,7 +78,8 @@ public:
     // -------------------------------------------------------------------------
 
     //! Adds other vector to this, and returns result.
-    BasicVector3D<T>& operator+=(const BasicVector3D<T>& v) {
+    BasicVector3D<T>& operator+=(const BasicVector3D<T>& v)
+    {
         v_[0] += v.v_[0];
         v_[1] += v.v_[1];
         v_[2] += v.v_[2];
@@ -84,7 +87,8 @@ public:
     }
 
     //! Subtracts other vector from this, and returns result.
-    BasicVector3D<T>& operator-=(const BasicVector3D<T>& v) {
+    BasicVector3D<T>& operator-=(const BasicVector3D<T>& v)
+    {
         v_[0] -= v.v_[0];
         v_[1] -= v.v_[1];
         v_[2] -= v.v_[2];
@@ -93,7 +97,8 @@ public:
 
     //! Multiplies this with a scalar, and returns result.
 #ifndef SWIG
-    template <class U> auto operator*=(U a) {
+    template <class U> auto operator*=(U a)
+    {
         v_[0] *= a;
         v_[1] *= a;
         v_[2] *= a;
@@ -103,7 +108,8 @@ public:
 
     //! Divides this by a scalar, and returns result.
 #ifndef SWIG
-    template <class U> auto operator/=(U a) {
+    template <class U> auto operator/=(U a)
+    {
         v_[0] /= a;
         v_[1] /= a;
         v_[2] /= a;
@@ -169,7 +175,8 @@ public:
     double angle(const BasicVector3D<T>& v) const;
 
     //! Returns projection of this onto other vector: (this*v)*v/|v|^2.
-    inline BasicVector3D<T> project(const BasicVector3D<T>& v) const {
+    inline BasicVector3D<T> project(const BasicVector3D<T>& v) const
+    {
         return dot(v) * v / v.mag2();
     }
 
@@ -182,7 +189,8 @@ public:
     //! Returns result of rotation around y-axis.
     BasicVector3D<T> rotatedY(double a) const;
     //! Returns result of rotation around z-axis.
-    BasicVector3D<T> rotatedZ(double a) const {
+    BasicVector3D<T> rotatedZ(double a) const
+    {
         return BasicVector3D<T>(cos(a) * x() + sin(a) * y(), -sin(a) * x() + cos(a) * y(), z());
     }
     //! Returns result of rotation around the axis specified by another vector.
@@ -195,7 +203,8 @@ public:
 
 //! Output to stream.
 //! @relates BasicVector3D
-template <class T> std::ostream& operator<<(std::ostream& os, const BasicVector3D<T>& a) {
+template <class T> std::ostream& operator<<(std::ostream& os, const BasicVector3D<T>& a)
+{
     return os << "(" << a.x() << "," << a.y() << "," << a.z() << ")";
 }
 
@@ -205,13 +214,15 @@ template <class T> std::ostream& operator<<(std::ostream& os, const BasicVector3
 
 //! Unary plus.
 //! @relates BasicVector3D
-template <class T> inline BasicVector3D<T> operator+(const BasicVector3D<T>& v) {
+template <class T> inline BasicVector3D<T> operator+(const BasicVector3D<T>& v)
+{
     return v;
 }
 
 //! Unary minus.
 //! @relates BasicVector3D
-template <class T> inline BasicVector3D<T> operator-(const BasicVector3D<T>& v) {
+template <class T> inline BasicVector3D<T> operator-(const BasicVector3D<T>& v)
+{
     return BasicVector3D<T>(-v.x(), -v.y(), -v.z());
 }
 
@@ -222,21 +233,24 @@ template <class T> inline BasicVector3D<T> operator-(const BasicVector3D<T>& v) 
 //! Addition of two vectors.
 //! @relates BasicVector3D
 template <class T>
-inline BasicVector3D<T> operator+(const BasicVector3D<T>& a, const BasicVector3D<T>& b) {
+inline BasicVector3D<T> operator+(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+{
     return BasicVector3D<T>(a.x() + b.x(), a.y() + b.y(), a.z() + b.z());
 }
 
 //! Subtraction of two vectors.
 //! @relates BasicVector3D
 template <class T>
-inline BasicVector3D<T> operator-(const BasicVector3D<T>& a, const BasicVector3D<T>& b) {
+inline BasicVector3D<T> operator-(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+{
     return BasicVector3D<T>(a.x() - b.x(), a.y() - b.y(), a.z() - b.z());
 }
 
 //! Multiplication vector by scalar.
 //! @relates BasicVector3D
 #ifndef SWIG
-template <class T, class U> inline auto operator*(const BasicVector3D<T>& v, const U a) {
+template <class T, class U> inline auto operator*(const BasicVector3D<T>& v, const U a)
+{
     return BasicVector3D<decltype(v.x() * a)>(v.x() * a, v.y() * a, v.z() * a);
 }
 #endif // USER_API
@@ -244,7 +258,8 @@ template <class T, class U> inline auto operator*(const BasicVector3D<T>& v, con
 //! Multiplication scalar by vector.
 //! @relates BasicVector3D
 #ifndef SWIG
-template <class T, class U> inline auto operator*(const U a, const BasicVector3D<T>& v) {
+template <class T, class U> inline auto operator*(const U a, const BasicVector3D<T>& v)
+{
     return BasicVector3D<decltype(a * v.x())>(a * v.x(), a * v.y(), a * v.z());
 }
 #endif // USER_API
@@ -256,19 +271,22 @@ template <class T, class U> inline auto operator*(const U a, const BasicVector3D
 
 //! Division vector by scalar.
 //! @relates BasicVector3D
-template <class T, class U> inline BasicVector3D<T> operator/(const BasicVector3D<T>& v, U a) {
+template <class T, class U> inline BasicVector3D<T> operator/(const BasicVector3D<T>& v, U a)
+{
     return BasicVector3D<T>(v.x() / a, v.y() / a, v.z() / a);
 }
 
 //! Comparison of two vectors for equality.
 //! @relates BasicVector3D
-template <class T> inline bool operator==(const BasicVector3D<T>& a, const BasicVector3D<T>& b) {
+template <class T> inline bool operator==(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+{
     return (a.x() == b.x() && a.y() == b.y() && a.z() == b.z());
 }
 
 //! Comparison of two vectors for inequality.
 //! @relates BasicVector3D
-template <class T> inline bool operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b) {
+template <class T> inline bool operator!=(const BasicVector3D<T>& a, const BasicVector3D<T>& b)
+{
     return (a.x() != b.x() || a.y() != b.y() || a.z() != b.z());
 }
 
@@ -280,7 +298,8 @@ template <class T> inline bool operator!=(const BasicVector3D<T>& a, const Basic
 #ifndef SWIG
 template <class T>
 template <class U>
-inline auto BasicVector3D<T>::dot(const BasicVector3D<U>& v) const {
+inline auto BasicVector3D<T>::dot(const BasicVector3D<U>& v) const
+{
     BasicVector3D<T> left_star = this->conj();
     return left_star.x() * v.x() + left_star.y() * v.y() + left_star.z() * v.z();
 }
@@ -290,7 +309,8 @@ inline auto BasicVector3D<T>::dot(const BasicVector3D<U>& v) const {
 #ifndef SWIG
 template <class T>
 template <class U>
-inline auto BasicVector3D<T>::cross(const BasicVector3D<U>& v) const {
+inline auto BasicVector3D<T>::cross(const BasicVector3D<U>& v) const
+{
     return BasicVector3D<decltype(this->x() * v.x())>(
         y() * v.z() - v.y() * z(), z() * v.x() - v.z() * x(), x() * v.y() - v.x() * y());
 }

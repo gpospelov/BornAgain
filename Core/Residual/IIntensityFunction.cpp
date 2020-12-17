@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Residual/IIntensityFunction.cpp
 //! @brief     Implements the classes IntensityFunctionLog, IntensityFunctionSqrt
@@ -18,18 +18,22 @@
 
 IIntensityFunction::~IIntensityFunction() = default;
 
-IntensityFunctionLog* IntensityFunctionLog::clone() const {
+IntensityFunctionLog* IntensityFunctionLog::clone() const
+{
     return new IntensityFunctionLog;
 }
 
-double IntensityFunctionLog::evaluate(double value) const {
+double IntensityFunctionLog::evaluate(double value) const
+{
     return value > 0 ? std::log(value) : std::numeric_limits<double>::lowest();
 }
 
-IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const {
+IntensityFunctionSqrt* IntensityFunctionSqrt::clone() const
+{
     return new IntensityFunctionSqrt;
 }
 
-double IntensityFunctionSqrt::evaluate(double value) const {
+double IntensityFunctionSqrt::evaluate(double value) const
+{
     return value > 0 ? std::sqrt(value) : std::numeric_limits<double>::lowest();
 }

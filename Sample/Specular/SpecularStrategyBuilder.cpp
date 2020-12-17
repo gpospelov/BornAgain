@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Specular/SpecularStrategyBuilder.cpp
 //! @brief     Implements class SpecularStrategyBuilder.
@@ -20,7 +20,8 @@
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 
 std::unique_ptr<ISpecularStrategy> SpecularStrategyBuilder::build(const MultiLayer& sample,
-                                                                  const bool magnetic) {
+                                                                  const bool magnetic)
+{
     auto roughnessModel = sample.roughnessModel();
 
     if (magnetic) {

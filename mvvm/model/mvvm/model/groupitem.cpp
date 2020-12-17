@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/model/groupitem.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/model/groupitem.h"
 #include "mvvm/model/comboproperty.h"
@@ -20,32 +25,38 @@ GroupItem::~GroupItem() = default;
 GroupItem::GroupItem(model_type modelType)
     : SessionItem(std::move(modelType))
     , m_catalogue(std::make_unique<ItemCatalogue>())
-    , m_default_selected_index(0) {
+    , m_default_selected_index(0)
+{
     registerTag(TagInfo::universalTag(T_GROUP_ITEMS), /*set_as_default*/ true);
     setData(ComboProperty());
 }
 
-int GroupItem::currentIndex() const {
+int GroupItem::currentIndex() const
+{
     return data<ComboProperty>().currentIndex();
 }
 
 //! Returns currently selected item.
 
-const SessionItem* GroupItem::currentItem() const {
+const SessionItem* GroupItem::currentItem() const
+{
     return is_valid_index() ? getItem("", currentIndex()) : nullptr;
 }
 
-SessionItem* GroupItem::currentItem() {
+SessionItem* GroupItem::currentItem()
+{
     return const_cast<SessionItem*>(static_cast<const GroupItem*>(this)->currentItem());
 }
 
-std::string GroupItem::currentType() const {
+std::string GroupItem::currentType() const
+{
     return is_valid_index() ? m_catalogue->modelTypes()[static_cast<size_t>(currentIndex())] : "";
 }
 
 //! Sets item corresponding to given model type.
 
-void GroupItem::setCurrentType(const std::string& model_type) {
+void GroupItem::setCurrentType(const std::string& model_type)
+{
     auto model_types = m_catalogue->modelTypes();
     int index = Utils::IndexOfItem(model_types, model_type);
     if (index == -1)
@@ -55,20 +66,23 @@ void GroupItem::setCurrentType(const std::string& model_type) {
     setCurrentIndex(index);
 }
 
-void GroupItem::setCurrentIndex(int index) {
+void GroupItem::setCurrentIndex(int index)
+{
     auto combo = data<ComboProperty>();
     combo.setCurrentIndex(index);
     setData(combo, ItemDataRole::DATA);
 }
 
-bool GroupItem::is_valid_index() const {
+bool GroupItem::is_valid_index() const
+{
     return currentIndex() != -1;
 }
 
 //! Inits group item by creating all registered items and constructing combo property
 //! for switching between items.
 
-void GroupItem::init_group() {
+void GroupItem::init_group()
+{
     ComboProperty combo;
     combo.setValues(m_catalogue->labels());
     combo.setCurrentIndex(m_default_selected_index);

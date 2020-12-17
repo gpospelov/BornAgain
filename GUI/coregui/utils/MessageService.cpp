@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/utils/MessageService.cpp
 //! @brief     Implements MessageService class
@@ -22,11 +22,13 @@ const QString message_error_type = "Error";
 const QString message_warning_type = "Warning";
 } // namespace
 
-MessageService::~MessageService() {
+MessageService::~MessageService()
+{
     clear();
 }
 
-void MessageService::clear() {
+void MessageService::clear()
+{
     for (auto message : m_messages)
         delete message;
 
@@ -34,23 +36,28 @@ void MessageService::clear() {
 }
 
 void MessageService::send_message(QObject* sender, const QString& message_type,
-                                  const QString& description) {
+                                  const QString& description)
+{
     m_messages.append(new GUIMessage(sender, message_type, description));
 }
 
-void MessageService::send_error(QObject* sender, const QString& description) {
+void MessageService::send_error(QObject* sender, const QString& description)
+{
     send_message(sender, message_error_type, description);
 }
 
-void MessageService::send_warning(QObject* sender, const QString& description) {
+void MessageService::send_warning(QObject* sender, const QString& description)
+{
     send_message(sender, message_warning_type, description);
 }
 
-const QList<GUIMessage*> MessageService::messages() const {
+const QList<GUIMessage*> MessageService::messages() const
+{
     return m_messages;
 }
 
-QStringList MessageService::senderList() const {
+QStringList MessageService::senderList() const
+{
     QSet<QString> set;
     for (auto message : messages())
         set.insert(message->senderName());
@@ -65,7 +72,8 @@ QStringList MessageService::senderList() const {
 //! Reports number of messages of given type reported by the sender.
 //! If message_type.isEmpty, count all messages of given sender.
 
-int MessageService::messageCount(const QObject* sender, const QString& message_type) const {
+int MessageService::messageCount(const QObject* sender, const QString& message_type) const
+{
     int result(0);
     for (auto message : messages())
         if (sender && message->sender() == sender) {
@@ -86,20 +94,23 @@ int MessageService::messageCount(const QObject* sender, const QString& message_t
 //! Returns number of warnings for given sender.
 //! If sender is nullptr, report total number of warnings.
 
-int MessageService::warningCount(const QObject* sender) const {
+int MessageService::warningCount(const QObject* sender) const
+{
     return messageCount(sender, message_warning_type);
 }
 
 //! Returns number of errors for given sender.
 //! If sender is nullptr, report total number of errors.
 
-int MessageService::errorCount(const QObject* sender) const {
+int MessageService::errorCount(const QObject* sender) const
+{
     return messageCount(sender, message_error_type);
 }
 
 //! Returns multi-line string representing error messages of given sender.
 
-QStringList MessageService::errorDescriptionList(const QObject* sender) const {
+QStringList MessageService::errorDescriptionList(const QObject* sender) const
+{
     QStringList result;
 
     for (auto message : messages())

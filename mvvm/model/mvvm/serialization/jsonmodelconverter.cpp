@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/serialization/jsonmodelconverter.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/serialization/jsonmodelconverter.h"
 #include "mvvm/factories/itemconverterfactory.h"
@@ -22,7 +27,8 @@ using namespace ModelView;
 
 namespace {
 std::unique_ptr<JsonItemConverterInterface> CreateConverter(const ItemFactoryInterface* factory,
-                                                            ConverterMode mode) {
+                                                            ConverterMode mode)
+{
     if (mode == ConverterMode::clone)
         return CreateItemCloneConverter(factory);
     else if (mode == ConverterMode::copy)
@@ -39,7 +45,8 @@ JsonModelConverter::JsonModelConverter(ConverterMode mode) : m_mode(mode) {}
 
 JsonModelConverter::~JsonModelConverter() = default;
 
-QJsonObject JsonModelConverter::to_json(const SessionModel& model) const {
+QJsonObject JsonModelConverter::to_json(const SessionModel& model) const
+{
     QJsonObject result;
 
     if (!model.rootItem())
@@ -59,7 +66,8 @@ QJsonObject JsonModelConverter::to_json(const SessionModel& model) const {
     return result;
 }
 
-void JsonModelConverter::from_json(const QJsonObject& json, SessionModel& model) const {
+void JsonModelConverter::from_json(const QJsonObject& json, SessionModel& model) const
+{
     if (!model.rootItem())
         throw std::runtime_error("JsonModel::json_to_model() -> Error. Model is not initialized.");
 

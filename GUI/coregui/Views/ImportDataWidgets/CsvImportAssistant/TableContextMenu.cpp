@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/TableContextMenu.cpp
 //! @brief     Implements class TableContextMenu
@@ -24,7 +24,8 @@ TableContextMenu::TableContextMenu(QWidget* parent)
     , m_setAsQ(new QAction(csv::HeaderLabels[csv::_q_], this))
     , m_setAsIntensity(
           new QAction("Set As " + csv::HeaderLabels[csv::_intensity_] + " Column", this))
-    , m_discardRow(new QAction("Toogle Discard Selected Rows", this)) {
+    , m_discardRow(new QAction("Toogle Discard Selected Rows", this))
+{
     this->addAction(m_selectFromThisRowOn);
     this->addAction(m_selectUntilThisRow);
     this->addAction(m_discardRow);

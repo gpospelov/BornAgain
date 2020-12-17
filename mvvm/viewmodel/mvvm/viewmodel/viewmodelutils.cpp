@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/viewmodel/viewmodelutils.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/viewmodel/viewmodelutils.h"
 #include "mvvm/model/customvariants.h"
@@ -22,7 +27,8 @@
 using namespace ModelView;
 
 void Utils::iterate_model(const QAbstractItemModel* model, const QModelIndex& parent,
-                          const std::function<void(const QModelIndex& child)>& fun) {
+                          const std::function<void(const QModelIndex& child)>& fun)
+{
     if (!model)
         return;
 
@@ -41,7 +47,8 @@ void Utils::iterate_model(const QAbstractItemModel* model, const QModelIndex& pa
 
 //! Translates SessionItem's data role to vector of Qt roles.
 
-QVector<int> Utils::ItemRoleToQtRole(int role) {
+QVector<int> Utils::ItemRoleToQtRole(int role)
+{
     QVector<int> result;
     // In Qt when we are editing the data in a view two roles are emmited.
     if (role == ItemDataRole::DISPLAY || role == ItemDataRole::DATA)
@@ -58,18 +65,21 @@ QVector<int> Utils::ItemRoleToQtRole(int role) {
     return result;
 }
 
-QVariant Utils::TextColorRole(const SessionItem& item) {
+QVariant Utils::TextColorRole(const SessionItem& item)
+{
     return item.isEnabled() ? QVariant() : QColor(Qt::gray);
 }
 
-QVariant Utils::CheckStateRole(const SessionItem& item) {
+QVariant Utils::CheckStateRole(const SessionItem& item)
+{
     auto value = item.data<QVariant>();
     if (Utils::IsBoolVariant(value))
         return value.value<bool>() ? Qt::Checked : Qt::Unchecked;
     return QVariant();
 }
 
-QVariant Utils::DecorationRole(const SessionItem& item) {
+QVariant Utils::DecorationRole(const SessionItem& item)
+{
     auto value = item.data<QVariant>();
     if (Utils::IsColorVariant(value))
         return value;
@@ -78,12 +88,14 @@ QVariant Utils::DecorationRole(const SessionItem& item) {
     return QVariant();
 }
 
-QVariant Utils::ToolTipRole(const SessionItem& item) {
+QVariant Utils::ToolTipRole(const SessionItem& item)
+{
     return item.hasData(ItemDataRole::TOOLTIP) ? Variant(QString::fromStdString(item.toolTip()))
                                                : QVariant();
 }
 
-std::vector<SessionItem*> Utils::ItemsFromIndex(const QModelIndexList& index_list) {
+std::vector<SessionItem*> Utils::ItemsFromIndex(const QModelIndexList& index_list)
+{
     if (index_list.empty())
         return {};
 
@@ -96,11 +108,13 @@ std::vector<SessionItem*> Utils::ItemsFromIndex(const QModelIndexList& index_lis
     return result;
 }
 
-std::vector<SessionItem*> Utils::UniqueItemsFromIndex(const QModelIndexList& index_list) {
+std::vector<SessionItem*> Utils::UniqueItemsFromIndex(const QModelIndexList& index_list)
+{
     return Utils::UniqueItems(Utils::ItemsFromIndex(index_list));
 }
 
-std::vector<SessionItem*> Utils::ParentItemsFromIndex(const QModelIndexList& index_list) {
+std::vector<SessionItem*> Utils::ParentItemsFromIndex(const QModelIndexList& index_list)
+{
     std::set<SessionItem*> unique_parents;
     for (auto item : ItemsFromIndex(index_list))
         if (item)

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorHollowSphere.cpp
 //! @brief     Implements class FormFactorHollowSphere.
@@ -24,7 +24,8 @@ FormFactorHollowSphere::FormFactorHollowSphere(const std::vector<double> P)
                 {"FullWidth", "nm", "para_tooltip", 0, +INF, 0}}},
               P)
     , m_mean(m_P[0])
-    , m_full_width(m_P[1]) {
+    , m_full_width(m_P[1])
+{
     if (!checkParameters())
         throw std::runtime_error("FormFactorHollowSphere::FormFactorHollowSphere:"
                                  " mean radius must be bigger than the half width");
@@ -32,9 +33,12 @@ FormFactorHollowSphere::FormFactorHollowSphere(const std::vector<double> P)
 }
 
 FormFactorHollowSphere::FormFactorHollowSphere(double mean, double full_width)
-    : FormFactorHollowSphere(std::vector<double>{mean, full_width}) {}
+    : FormFactorHollowSphere(std::vector<double>{mean, full_width})
+{
+}
 
-complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const {
+complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const
+{
     double R = m_mean;
     double W = m_full_width;
     double q2 = std::norm(q.x()) + std::norm(q.y()) + std::norm(q.z());
@@ -50,11 +54,13 @@ complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const {
     return nominator / (q2 * q2 * W);
 }
 
-void FormFactorHollowSphere::onChange() {
+void FormFactorHollowSphere::onChange()
+{
     m_shape = std::make_unique<TruncatedEllipsoid>(m_mean, m_mean, m_mean, 2.0 * m_mean, 0.0);
 }
 
-bool FormFactorHollowSphere::checkParameters() const {
+bool FormFactorHollowSphere::checkParameters() const
+{
     if (m_full_width <= 0.0)
         return false;
     if (2.0 * m_mean < m_full_width)

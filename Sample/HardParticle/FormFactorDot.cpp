@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorDot.cpp
 //! @brief     Implements class FormFactorDot.
@@ -19,12 +19,14 @@ FormFactorDot::FormFactorDot(const std::vector<double> P)
                "dot, with scattering power of a sphere of given radius",
                {{"Radius", "nm", "radius of sphere that defines scattering power", 0, +INF, 0}}},
               P)
-    , m_radius(m_P[0]) {
+    , m_radius(m_P[0])
+{
     onChange();
 }
 
 FormFactorDot::FormFactorDot(double radius) : FormFactorDot(std::vector<double>{radius}) {}
 
-complex_t FormFactorDot::evaluate_for_q(cvector_t) const {
+complex_t FormFactorDot::evaluate_for_q(cvector_t) const
+{
     return 4 * M_PI / 3 * pow(m_radius, 3);
 }

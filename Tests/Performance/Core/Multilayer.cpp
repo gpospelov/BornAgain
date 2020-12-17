@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Performance/Core/Multilayer.cpp
 //! @brief     Implements class MultilayerPerformanceTest
@@ -28,13 +28,15 @@ const auto duration = [](auto time_interval) {
     return std::chrono::duration_cast<std::chrono::milliseconds>(time_interval).count();
 };
 
-void report(const Results& results) {
+void report(const Results& results)
+{
     for (auto& pair : results)
         std::cout << "n_layers = " << pair.first << ",\t time = " << pair.second << " ms\n";
 }
 } // namespace
 
-int main() {
+int main()
+{
     Results results;
     results.reserve(n_layers.size());
 

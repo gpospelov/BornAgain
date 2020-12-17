@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/sessionitemcontainer.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/sessionitem.h"
@@ -25,7 +30,8 @@ SessionItemContainerTest::~SessionItemContainerTest() = default;
 
 //! Initial state of emty SessionItemTag.
 
-TEST_F(SessionItemContainerTest, initialState) {
+TEST_F(SessionItemContainerTest, initialState)
+{
     const std::string name("tag");
     SessionItemContainer tag(TagInfo::universalTag(name));
 
@@ -37,7 +43,8 @@ TEST_F(SessionItemContainerTest, initialState) {
 
 //! Checking ::insertItem.
 
-TEST_F(SessionItemContainerTest, insertItem) {
+TEST_F(SessionItemContainerTest, insertItem)
+{
     const std::string tag_name("tag");
     SessionItemContainer tag(TagInfo::universalTag(tag_name));
 
@@ -82,7 +89,8 @@ TEST_F(SessionItemContainerTest, insertItem) {
 
 //! Checking ::insertItem when item has specific model type.
 
-TEST_F(SessionItemContainerTest, insertItemModelType) {
+TEST_F(SessionItemContainerTest, insertItemModelType)
+{
     const std::string tag_name("tag");
     const std::vector<std::string> model_types = {"model_a"};
 
@@ -101,7 +109,8 @@ TEST_F(SessionItemContainerTest, insertItemModelType) {
 
 //! Checking ::insertItem when tag is related to property tag.
 
-TEST_F(SessionItemContainerTest, insertItemPropertyType) {
+TEST_F(SessionItemContainerTest, insertItemPropertyType)
+{
     const std::string name("tag");
     const std::string property_type("Property");
 
@@ -124,7 +133,8 @@ TEST_F(SessionItemContainerTest, insertItemPropertyType) {
 
 //! Checking ::indexOfItem.
 
-TEST_F(SessionItemContainerTest, indexOfItem) {
+TEST_F(SessionItemContainerTest, indexOfItem)
+{
     const std::string tag_name("tag");
     const std::string model_type("model_a");
 
@@ -147,7 +157,8 @@ TEST_F(SessionItemContainerTest, indexOfItem) {
 
 //! Checking ::itemAt.
 
-TEST_F(SessionItemContainerTest, itemAt) {
+TEST_F(SessionItemContainerTest, itemAt)
+{
     const std::string tag_name("tag");
     const std::string model_type("model_a");
 
@@ -169,7 +180,8 @@ TEST_F(SessionItemContainerTest, itemAt) {
 
 //! Checking ::takeItem.
 
-TEST_F(SessionItemContainerTest, takeItem) {
+TEST_F(SessionItemContainerTest, takeItem)
+{
     const std::string tag_name("tag");
     const std::string model_type("model_a");
 
@@ -202,7 +214,8 @@ TEST_F(SessionItemContainerTest, takeItem) {
 
 //! Checking ::canTakeItem.
 
-TEST_F(SessionItemContainerTest, canTakeItem) {
+TEST_F(SessionItemContainerTest, canTakeItem)
+{
     const std::string tag_name("tag");
     const std::string model_type("model_a");
 
@@ -223,7 +236,8 @@ TEST_F(SessionItemContainerTest, canTakeItem) {
 
 //! Checking ::canInsertItem.
 
-TEST_F(SessionItemContainerTest, canInsertItem) {
+TEST_F(SessionItemContainerTest, canInsertItem)
+{
     const std::string tag_name("tag");
     const std::string model_type("model_a");
 
@@ -253,7 +267,8 @@ TEST_F(SessionItemContainerTest, canInsertItem) {
 
 //! Checking ::canInsertItem.
 
-TEST_F(SessionItemContainerTest, canInsertItemForPropertyTag) {
+TEST_F(SessionItemContainerTest, canInsertItemForPropertyTag)
+{
     const std::string name("tag");
     const std::string property_type("Property");
 
@@ -273,7 +288,8 @@ TEST_F(SessionItemContainerTest, canInsertItemForPropertyTag) {
 
 //! Checking ::takeItem when tag is related to property tag.
 
-TEST_F(SessionItemContainerTest, takeItemPropertyType) {
+TEST_F(SessionItemContainerTest, takeItemPropertyType)
+{
     const std::string name("tag");
     const std::string property_type("Property");
 

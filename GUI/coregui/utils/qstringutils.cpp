@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/utils/qstringutils.cpp
 //! @brief     Implements functions from Utils namespace
@@ -18,7 +18,8 @@
 
 namespace GUI_StringUtils {
 
-QString withTildeHomePath(const QString& path) {
+QString withTildeHomePath(const QString& path)
+{
     if (GUI_OS_Utils::HostOsInfo::isWindowsHost())
         return path;
 

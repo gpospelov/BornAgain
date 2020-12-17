@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorEllipsoidalCylinder.cpp
 //! @brief     Implements class FormFactorEllipsoidalCylinder.
@@ -27,19 +27,24 @@ FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(const std::vector<d
               P)
     , m_radius_x(m_P[0])
     , m_radius_y(m_P[1])
-    , m_height(m_P[2]) {
+    , m_height(m_P[2])
+{
     onChange();
 }
 
 FormFactorEllipsoidalCylinder::FormFactorEllipsoidalCylinder(double radius_x, double radius_y,
                                                              double height)
-    : FormFactorEllipsoidalCylinder(std::vector<double>{radius_x, radius_y, height}) {}
+    : FormFactorEllipsoidalCylinder(std::vector<double>{radius_x, radius_y, height})
+{
+}
 
-double FormFactorEllipsoidalCylinder::radialExtension() const {
+double FormFactorEllipsoidalCylinder::radialExtension() const
+{
     return (m_radius_x + m_radius_y) / 2.0;
 }
 
-complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const {
+complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const
+{
     complex_t qxRa = q.x() * m_radius_x;
     complex_t qyRb = q.y() * m_radius_y;
     complex_t qzHdiv2 = m_height / 2 * q.z();
@@ -52,14 +57,16 @@ complex_t FormFactorEllipsoidalCylinder::evaluate_for_q(cvector_t q) const {
 }
 
 IFormFactor* FormFactorEllipsoidalCylinder::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                            kvector_t translation) const {
+                                                            kvector_t translation) const
+{
     auto effects = computeSlicingEffects(limits, translation, m_height);
     FormFactorEllipsoidalCylinder slicedff(m_radius_x, m_radius_y,
                                            m_height - effects.dz_bottom - effects.dz_top);
     return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
-void FormFactorEllipsoidalCylinder::onChange() {
+void FormFactorEllipsoidalCylinder::onChange()
+{
     m_shape =
         std::make_unique<DoubleEllipse>(m_radius_x, m_radius_y, m_height, m_radius_x, m_radius_y);
 }

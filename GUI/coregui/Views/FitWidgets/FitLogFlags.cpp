@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/FitWidgets/FitLogFlags.cpp
 //! @brief     Implements class FitLogFlags
@@ -17,7 +17,8 @@
 
 namespace {
 
-QMap<FitLogFlags::MessageType, Qt::GlobalColor> messageTypeToColorMap() {
+QMap<FitLogFlags::MessageType, Qt::GlobalColor> messageTypeToColorMap()
+{
     QMap<FitLogFlags::MessageType, Qt::GlobalColor> result;
     result[FitLogFlags::DEFAULT] = Qt::black;
     result[FitLogFlags::SUCCESS] = Qt::darkBlue;
@@ -29,7 +30,8 @@ QMap<FitLogFlags::MessageType, Qt::GlobalColor> messageTypeToColorMap() {
 
 } // namespace
 
-Qt::GlobalColor FitLogFlags::color(MessageType messageType) {
+Qt::GlobalColor FitLogFlags::color(MessageType messageType)
+{
     static auto typeToColor = messageTypeToColorMap();
 
     if (typeToColor.find(messageType) == typeToColor.end())

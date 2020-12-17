@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/importdataview/importdataeditortoolbal.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/importdataview/importdataeditortoolbal.h"
 #include "gui2/importdataview/importdataeditoractions.h"
@@ -16,7 +21,8 @@ namespace gui2 {
 
 ImportDataEditorToolBar::ImportDataEditorToolBar(ImportDataEditorActions* editorActions,
                                                  QWidget* parent)
-    : QToolBar(parent), m_editorActions(editorActions) {
+    : QToolBar(parent), m_editorActions(editorActions)
+{
     StyleUtils::SetToolBarStyleTextBesides(this);
 
     auto action = new QAction("Import", this);

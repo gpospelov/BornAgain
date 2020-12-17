@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/utils/GUIHelpers.h
 //! @brief     Defines class GUIHelpers functions
@@ -75,7 +75,8 @@ QString readTextFile(const QString& fileName);
 
 } // namespace GUIHelpers
 
-inline std::ostream& operator<<(std::ostream& stream, const QString& str) {
+inline std::ostream& operator<<(std::ostream& stream, const QString& str)
+{
     stream << str.toStdString();
     return stream;
 }

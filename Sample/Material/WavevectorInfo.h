@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Material/WavevectorInfo.h
 //! @brief     Defines WavevectorInfo.
@@ -26,9 +26,13 @@ class WavevectorInfo {
 public:
     static WavevectorInfo GetZeroQ();
     WavevectorInfo(cvector_t ki, cvector_t kf, double wavelength)
-        : m_ki(ki), m_kf(kf), m_vacuum_wavelength(wavelength) {}
+        : m_ki(ki), m_kf(kf), m_vacuum_wavelength(wavelength)
+    {
+    }
     WavevectorInfo(kvector_t ki, kvector_t kf, double wavelength)
-        : m_ki(ki.complex()), m_kf(kf.complex()), m_vacuum_wavelength(wavelength) {}
+        : m_ki(ki.complex()), m_kf(kf.complex()), m_vacuum_wavelength(wavelength)
+    {
+    }
 
     WavevectorInfo transformed(const Transform3D& transform) const;
     cvector_t getKi() const { return m_ki; }

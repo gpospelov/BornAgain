@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/PropertyEditor/ComponentTreeActions.cpp
 //! @brief     Implements class ComponentTreeActions
@@ -23,7 +23,8 @@ ComponentTreeActions::ComponentTreeActions(QObject* parent) : QObject(parent) {}
 //! which will allow user to switch between scientific notation and the notation
 //! with a specified number of decimals.
 
-void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, SessionItem& item) {
+void ComponentTreeActions::onCustomContextMenuRequested(const QPoint& point, SessionItem& item)
+{
     bool sc_editor = item.editorType() == "ScientificDouble";
 
     QMenu menu;

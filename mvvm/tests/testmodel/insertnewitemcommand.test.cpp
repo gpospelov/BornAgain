@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/insertnewitemcommand.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/commands/insertnewitemcommand.h"
@@ -24,7 +29,8 @@ class InsertNewItemCommandTest : public ::testing::Test {
 public:
     ~InsertNewItemCommandTest();
     std::unique_ptr<InsertNewItemCommand> create_command(SessionItem* parent, std::string tag,
-                                                         int row) {
+                                                         int row)
+    {
         auto factory_func = [parent]() {
             return parent->model()->factory()->createItem(Constants::BaseType);
         };
@@ -36,7 +42,8 @@ InsertNewItemCommandTest::~InsertNewItemCommandTest() = default;
 
 //! Insert new item through InsertNewItemCommand command.
 
-TEST_F(InsertNewItemCommandTest, insertNewItemCommand) {
+TEST_F(InsertNewItemCommandTest, insertNewItemCommand)
+{
     SessionModel model;
 
     // command to insert item in a model
@@ -63,7 +70,8 @@ TEST_F(InsertNewItemCommandTest, insertNewItemCommand) {
 
 //! Insert new item through InsertNewItemCommand command.
 
-TEST_F(InsertNewItemCommandTest, insertNewItemWithTagCommand) {
+TEST_F(InsertNewItemCommandTest, insertNewItemWithTagCommand)
+{
     SessionModel model;
 
     // command to insert parent in the model
@@ -92,7 +100,8 @@ TEST_F(InsertNewItemCommandTest, insertNewItemWithTagCommand) {
 
 //! Attempt to execute command twice.
 
-TEST_F(InsertNewItemCommandTest, attemptToExecuteTwice) {
+TEST_F(InsertNewItemCommandTest, attemptToExecuteTwice)
+{
     SessionModel model;
     // command to set same value
     auto command = create_command(model.rootItem(), "", 0);
@@ -104,7 +113,8 @@ TEST_F(InsertNewItemCommandTest, attemptToExecuteTwice) {
 
 //! Attempt to undo command twice.
 
-TEST_F(InsertNewItemCommandTest, attemptToUndoTwice) {
+TEST_F(InsertNewItemCommandTest, attemptToUndoTwice)
+{
     SessionModel model;
 
     // command to set same value
@@ -118,7 +128,8 @@ TEST_F(InsertNewItemCommandTest, attemptToUndoTwice) {
 
 //! Attempt to insert second property to the compount item.
 
-TEST_F(InsertNewItemCommandTest, attemptInsertSecondProperty) {
+TEST_F(InsertNewItemCommandTest, attemptInsertSecondProperty)
+{
     SessionModel model;
     auto parent = model.insertItem<CompoundItem>();
     parent->registerTag(TagInfo::propertyTag("radius", Constants::PropertyType));
@@ -147,7 +158,8 @@ TEST_F(InsertNewItemCommandTest, attemptInsertSecondProperty) {
 //! Insert new item through InsertNewItemCommand command.
 //! We validate that undoing, and then redoing, would restore very first unique identifier.
 
-TEST_F(InsertNewItemCommandTest, insertNewPropertyItemPreservedId) {
+TEST_F(InsertNewItemCommandTest, insertNewPropertyItemPreservedId)
+{
     SessionModel model;
     // command to insert second property
     auto factory_func = [&model]() { return model.factory()->createItem(Constants::PropertyType); };
@@ -172,7 +184,8 @@ TEST_F(InsertNewItemCommandTest, insertNewPropertyItemPreservedId) {
 //! We validate that undoing, and then redoing, would restore very first unique identifier.
 //! Same as above, but we additionally controling item pool.
 
-TEST_F(InsertNewItemCommandTest, insertNewPropertyItemIdInPool) {
+TEST_F(InsertNewItemCommandTest, insertNewPropertyItemIdInPool)
+{
     auto pool = std::make_shared<ItemPool>();
     SessionModel model("Model", pool);
     // command to insert second property

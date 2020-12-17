@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/main/MessageHandler.cpp
 //! @brief     Implements function MessageHandler
@@ -17,7 +17,8 @@
 #include <iostream>
 
 //! This is set by main to be the message handler of our GUI.
-void MessageHandler(QtMsgType type, const QMessageLogContext&, const QString& msg) {
+void MessageHandler(QtMsgType type, const QMessageLogContext&, const QString& msg)
+{
     switch (type) {
     case QtDebugMsg:
         if (msg.size() == 0) // KDE will pass a zero-length msg qstring

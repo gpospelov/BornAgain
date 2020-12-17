@@ -11,9 +11,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <QObject>
 
-class TestRealSpaceBuilderUtils : public ::testing::Test {};
+class TestRealSpaceBuilderUtils : public ::testing::Test {
+};
 
-TEST_F(TestRealSpaceBuilderUtils, test_RealSpaceModelandParticle) {
+TEST_F(TestRealSpaceBuilderUtils, test_RealSpaceModelandParticle)
+{
     RealSpaceModel realSpaceModel;
 
     auto cylinder3D = std::make_unique<RealSpace::Particles::Cylinder>(5, 10);
@@ -27,7 +29,8 @@ TEST_F(TestRealSpaceBuilderUtils, test_RealSpaceModelandParticle) {
     //    realSpaceModel.add(cylinder3D.release());
 }
 
-TEST_F(TestRealSpaceBuilderUtils, test_computeCumulativeAbundances) {
+TEST_F(TestRealSpaceBuilderUtils, test_computeCumulativeAbundances)
+{
     SampleModel sampleModel;
     auto layout = dynamic_cast<ParticleLayoutItem*>(sampleModel.insertNewItem("ParticleLayout"));
 
@@ -47,7 +50,8 @@ TEST_F(TestRealSpaceBuilderUtils, test_computeCumulativeAbundances) {
     EXPECT_EQ(RealSpaceBuilderUtils::computeCumulativeAbundances(*layout).last(), 10.0);
 }
 
-TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer) {
+TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer)
+{
     Particle3DContainer p1;
 
     EXPECT_EQ(p1.containerSize(), 0u);
@@ -159,7 +163,8 @@ TEST_F(TestRealSpaceBuilderUtils, test_Particle3DContainer) {
     // The normal raw instances p1, p2 etc. get deleted by the destructor of Particle3DContainer
 }
 
-TEST_F(TestRealSpaceBuilderUtils, test_singleParticle3DContainer) {
+TEST_F(TestRealSpaceBuilderUtils, test_singleParticle3DContainer)
+{
     ApplicationModels models;
     SampleModel* sampleModel = models.sampleModel();
 
@@ -183,7 +188,8 @@ TEST_F(TestRealSpaceBuilderUtils, test_singleParticle3DContainer) {
     EXPECT_FALSE(singleParticle3DContainer.particle3DBlend(0u));
 }
 
-TEST_F(TestRealSpaceBuilderUtils, test_particle3DContainerVector) {
+TEST_F(TestRealSpaceBuilderUtils, test_particle3DContainerVector)
+{
     ApplicationModels models;
     SampleModel* sampleModel = models.sampleModel();
 

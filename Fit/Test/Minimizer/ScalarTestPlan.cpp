@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Test/Minimizer/ScalarTestPlan.cpp
 //! @brief     Implements class ScalarTestPlan
@@ -25,11 +25,14 @@ ScalarTestPlan::ScalarTestPlan(const std::string& name, scalar_function_t func,
     : MinimizerTestPlan(name)
     , m_objective_function(func)
     , m_expected_minimum(expected_minimum)
-    , m_tolerance_on_minimum(tolerance) {}
+    , m_tolerance_on_minimum(tolerance)
+{
+}
 
 //! Returns true if found minimum of objective function coincide with expected.
 
-bool ScalarTestPlan::minimumAsExpected(double found_minimum, double tolerance) const {
+bool ScalarTestPlan::minimumAsExpected(double found_minimum, double tolerance) const
+{
     bool success(true);
 
     double diff = std::abs(found_minimum - m_expected_minimum);
@@ -44,7 +47,8 @@ bool ScalarTestPlan::minimumAsExpected(double found_minimum, double tolerance) c
     return success;
 }
 
-bool ScalarTestPlan::checkMinimizer(Minimizer& minimizer) {
+bool ScalarTestPlan::checkMinimizer(Minimizer& minimizer)
+{
     bool success(true);
 
     auto result = minimizer.minimize(scalarFunction(), parameters());
@@ -59,7 +63,8 @@ bool ScalarTestPlan::checkMinimizer(Minimizer& minimizer) {
     return success;
 }
 
-fcn_scalar_t ScalarTestPlan::scalarFunction() const {
+fcn_scalar_t ScalarTestPlan::scalarFunction() const
+{
     fcn_scalar_t func = [&](const Parameters& params) {
         return m_objective_function(params.values());
     };

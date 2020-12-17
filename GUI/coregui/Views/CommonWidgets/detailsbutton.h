@@ -61,7 +61,8 @@ public:
 
     QSize sizeHint() const;
     float fader() { return m_fader; }
-    void setFader(float value) {
+    void setFader(float value)
+    {
         m_fader = value;
         update();
     }

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Shapes/Box.cpp
 //! @brief     Implements class Box.
@@ -16,7 +16,8 @@
 
 #include <algorithm>
 
-Box::Box(double length, double width, double height) {
+Box::Box(double length, double width, double height)
+{
     m_vertices.resize(8);
     auto bottom_face = RectangleVertices(length, width, 0.0);
     auto top_face = RectangleVertices(length, width, height);

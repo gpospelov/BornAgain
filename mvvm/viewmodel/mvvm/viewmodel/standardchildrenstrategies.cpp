@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/viewmodel/mvvm/viewmodel/standardchildrenstrategies.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/viewmodel/standardchildrenstrategies.h"
 #include "mvvm/model/groupitem.h"
@@ -15,11 +20,13 @@ using namespace ModelView;
 
 // ----------------------------------------------------------------------------
 
-std::vector<SessionItem*> AllChildrenStrategy::children(const SessionItem* item) const {
+std::vector<SessionItem*> AllChildrenStrategy::children(const SessionItem* item) const
+{
     return item ? item->children() : std::vector<SessionItem*>();
 }
 
-std::vector<SessionItem*> TopItemsStrategy::children(const SessionItem* item) const {
+std::vector<SessionItem*> TopItemsStrategy::children(const SessionItem* item) const
+{
     return item ? Utils::TopLevelItems(*item) : std::vector<SessionItem*>();
 }
 
@@ -43,7 +50,8 @@ Particle
         Radius
 */
 
-std::vector<SessionItem*> PropertyItemsStrategy::children(const SessionItem* item) const {
+std::vector<SessionItem*> PropertyItemsStrategy::children(const SessionItem* item) const
+{
     if (!item)
         return std::vector<SessionItem*>();
 
@@ -72,7 +80,8 @@ Particle
     Radius
 */
 
-std::vector<SessionItem*> PropertyItemsFlatStrategy::children(const SessionItem* item) const {
+std::vector<SessionItem*> PropertyItemsFlatStrategy::children(const SessionItem* item) const
+{
     if (!item)
         return std::vector<SessionItem*>();
 

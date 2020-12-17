@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/commands/undostack.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/commands/undostack.h"
 #include "mvvm/commands/commandadapter.h"
@@ -21,7 +26,8 @@ struct UndoStack::UndoStackImpl {
 
 UndoStack::UndoStack() : p_impl(std::make_unique<UndoStackImpl>()) {}
 
-void UndoStack::execute(std::shared_ptr<AbstractItemCommand> command) {
+void UndoStack::execute(std::shared_ptr<AbstractItemCommand> command)
+{
     // Wrapping command for Qt. It will be executed by Qt after push.
     auto adapter = new CommandAdapter(std::move(command));
     p_impl->undoStack()->push(adapter);
@@ -29,39 +35,48 @@ void UndoStack::execute(std::shared_ptr<AbstractItemCommand> command) {
 
 UndoStack::~UndoStack() = default;
 
-bool UndoStack::isActive() const {
+bool UndoStack::isActive() const
+{
     return p_impl->undoStack()->isActive();
 }
 
-bool UndoStack::canUndo() const {
+bool UndoStack::canUndo() const
+{
     return p_impl->undoStack()->canUndo();
 }
 
-bool UndoStack::canRedo() const {
+bool UndoStack::canRedo() const
+{
     return p_impl->undoStack()->canRedo();
 }
 
-int UndoStack::index() const {
+int UndoStack::index() const
+{
     return p_impl->undoStack()->index();
 }
 
-int UndoStack::count() const {
+int UndoStack::count() const
+{
     return p_impl->undoStack()->count();
 }
 
-void UndoStack::undo() {
+void UndoStack::undo()
+{
     return p_impl->undoStack()->undo();
 }
 
-void UndoStack::redo() {
+void UndoStack::redo()
+{
     return p_impl->undoStack()->redo();
 }
 
-void UndoStack::clear() {
+void UndoStack::clear()
+{
     return p_impl->undoStack()->clear();
 }
 
-void UndoStack::setUndoLimit(int limit) {
+void UndoStack::setUndoLimit(int limit)
+{
     return p_impl->undoStack()->setUndoLimit(limit);
 }
 
@@ -69,16 +84,19 @@ void UndoStack::setUndoLimit(int limit) {
 //! This method is used to "convert" current instance to Qt implementation, and use it with other
 //! Qt widgets, if necessary.
 
-QUndoStack* UndoStack::qtUndoStack(UndoStackInterface* stack_interface) {
+QUndoStack* UndoStack::qtUndoStack(UndoStackInterface* stack_interface)
+{
     if (auto stack = dynamic_cast<UndoStack*>(stack_interface); stack)
         return stack->p_impl->undoStack();
     return nullptr;
 }
 
-void UndoStack::beginMacro(const std::string& name) {
+void UndoStack::beginMacro(const std::string& name)
+{
     p_impl->undoStack()->beginMacro(QString::fromStdString(name));
 }
 
-void UndoStack::endMacro() {
+void UndoStack::endMacro()
+{
     p_impl->undoStack()->endMacro();
 }

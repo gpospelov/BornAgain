@@ -18,11 +18,13 @@ const QStringList expectedParticleParameterTranslations = {
 
 } // namespace
 
-class TestParameterTreeUtils : public ::testing::Test {};
+class TestParameterTreeUtils : public ::testing::Test {
+};
 
 //! Tests parameter names of given item.
 
-TEST_F(TestParameterTreeUtils, test_parameterTreeNames) {
+TEST_F(TestParameterTreeUtils, test_parameterTreeNames)
+{
     SampleModel model;
 
     SessionItem* layer = model.insertNewItem("Layer");
@@ -34,7 +36,8 @@ TEST_F(TestParameterTreeUtils, test_parameterTreeNames) {
 
 //! Tests translated parameter names of given item.
 
-TEST_F(TestParameterTreeUtils, test_parameterTranslatedNames) {
+TEST_F(TestParameterTreeUtils, test_parameterTranslatedNames)
+{
     SampleModel model;
 
     SessionItem* particle = model.insertNewItem("Particle");
@@ -45,7 +48,8 @@ TEST_F(TestParameterTreeUtils, test_parameterTranslatedNames) {
 
 //! Tests translated parameter names of given item.
 
-TEST_F(TestParameterTreeUtils, test_linkItemFromParameterName) {
+TEST_F(TestParameterTreeUtils, test_linkItemFromParameterName)
+{
     SampleModel model;
 
     SessionItem* particle = model.insertNewItem("Particle");

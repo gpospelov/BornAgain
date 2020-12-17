@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/view/mvvm/plotting/graphinfoformatter.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/plotting/graphinfoformatter.h"
 #include "mvvm/utils/stringutils.h"
@@ -16,13 +21,15 @@ using namespace ModelView;
 
 namespace {
 
-QCPGraph* find_graph_nearby(QCustomPlot* custom_plot, double x, double y) {
+QCPGraph* find_graph_nearby(QCustomPlot* custom_plot, double x, double y)
+{
     double widget_px = custom_plot->xAxis->coordToPixel(x);
     double widget_py = custom_plot->yAxis->coordToPixel(y);
     return dynamic_cast<QCPGraph*>(custom_plot->plottableAt(QPointF(widget_px, widget_py)));
 }
 
-int getBin(const QCPGraph* graph, double x) {
+int getBin(const QCPGraph* graph, double x)
+{
     const int key_start = graph->findBegin(x);
     const int key_end = graph->findBegin(x, false); // false = do not expand range
     if (key_end == key_start || key_end == graph->dataCount())
@@ -39,7 +46,8 @@ struct Context {
     double value{0.0};
 };
 
-std::string compose_string(const Context& context) {
+std::string compose_string(const Context& context)
+{
     std::ostringstream ostr;
     ostr << "[x: " << Utils::DoubleToString(context.xpos, 3) << ", ";
     ostr << "y: " << Utils::DoubleToString(context.ypos, 3) << "] ";
@@ -52,7 +60,8 @@ std::string compose_string(const Context& context) {
 
 } // namespace
 
-std::string GraphInfoFormatter::status_string(QCustomPlot* custom_plot, double x, double y) const {
+std::string GraphInfoFormatter::status_string(QCustomPlot* custom_plot, double x, double y) const
+{
     Context context{x, y};
 
     if (auto qcp_graph = find_graph_nearby(custom_plot, x, y); qcp_graph) {

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/ImportDataWidgets/CsvImportAssistant/CsvImportTable.cpp
 //! @brief     Implements class CsvImportTable
@@ -18,7 +18,8 @@
 namespace {
 
 ScientificSpinBox* createMultiplierBox(double value = 1.0, bool enabled = false,
-                                       QWidget* parent = nullptr) {
+                                       QWidget* parent = nullptr)
+{
     auto result = new ScientificSpinBox(parent);
     result->setValue(value);
     result->setEnabled(enabled);
@@ -27,9 +28,12 @@ ScientificSpinBox* createMultiplierBox(double value = 1.0, bool enabled = false,
 } // namespace
 
 CsvImportData::CsvImportData(QObject* parent)
-    : QObject(parent), m_data(new csv::DataArray), m_n_header(0), m_n_footer(0) {}
+    : QObject(parent), m_data(new csv::DataArray), m_n_header(0), m_n_footer(0)
+{
+}
 
-void CsvImportData::setData(csv::DataArray data) {
+void CsvImportData::setData(csv::DataArray data)
+{
     m_data.reset(new csv::DataArray(std::move(data)));
     m_selected_cols.clear();
     m_n_header = 0;
@@ -37,7 +41,8 @@ void CsvImportData::setData(csv::DataArray data) {
     m_discarded_rows.clear();
 }
 
-int CsvImportData::setColumnAs(int col, csv::ColumnType type) {
+int CsvImportData::setColumnAs(int col, csv::ColumnType type)
+{
     DATA_TYPE role = type == csv::_intensity_ ? Intensity : Coordinate;
 
     CsvCoordinateColumn& column = m_selected_cols[role];
@@ -58,26 +63,30 @@ int CsvImportData::setColumnAs(int col, csv::ColumnType type) {
     return prev_assigned;
 }
 
-void CsvImportData::setMultiplier(CsvImportData::DATA_TYPE type, double value) {
+void CsvImportData::setMultiplier(CsvImportData::DATA_TYPE type, double value)
+{
     if (m_selected_cols.find(type) == m_selected_cols.end())
         return;
 
     m_selected_cols[type].setMultiplier(value);
 }
 
-void CsvImportData::setFirstRow(size_t row) {
+void CsvImportData::setFirstRow(size_t row)
+{
     if (row >= nRows())
         return;
     m_n_header = row;
 }
 
-void CsvImportData::setLastRow(size_t row) {
+void CsvImportData::setLastRow(size_t row)
+{
     if (row + 1 >= nRows())
         return;
     m_n_footer = nRows() - row - 1;
 }
 
-void CsvImportData::toggleDiscardRows(std::set<int> rows) {
+void CsvImportData::toggleDiscardRows(std::set<int> rows)
+{
     if (rows.empty()) {
         m_discarded_rows.clear();
         return;
@@ -91,20 +100,24 @@ void CsvImportData::toggleDiscardRows(std::set<int> rows) {
     }
 }
 
-std::vector<CsvImportData::DATA_TYPE> CsvImportData::availableTypes() {
+std::vector<CsvImportData::DATA_TYPE> CsvImportData::availableTypes()
+{
     return {Intensity, Coordinate};
 }
 
-const csv::DataArray& CsvImportData::data() const {
+const csv::DataArray& CsvImportData::data() const
+{
     return *m_data.get();
 }
 
-int CsvImportData::column(DATA_TYPE type) const {
+int CsvImportData::column(DATA_TYPE type) const
+{
     auto iter = m_selected_cols.find(type);
     return iter == m_selected_cols.end() ? -1 : iter->second.columnNumber();
 }
 
-csv::DataColumn CsvImportData::values(int col) const {
+csv::DataColumn CsvImportData::values(int col) const
+{
     if (col < 0 || col >= static_cast<int>(nCols()))
         return {};
 
@@ -115,7 +128,8 @@ csv::DataColumn CsvImportData::values(int col) const {
     return result;
 }
 
-csv::DataColumn CsvImportData::multipliedValues(DATA_TYPE type) const {
+csv::DataColumn CsvImportData::multipliedValues(DATA_TYPE type) const
+{
     csv::DataColumn result;
     const int col = column(type);
     if (col < 0 || col >= static_cast<int>(nCols()))
@@ -136,19 +150,22 @@ csv::DataColumn CsvImportData::multipliedValues(DATA_TYPE type) const {
     return result;
 }
 
-double CsvImportData::multiplier(CsvImportData::DATA_TYPE type) const {
+double CsvImportData::multiplier(CsvImportData::DATA_TYPE type) const
+{
     if (m_selected_cols.find(type) == m_selected_cols.end())
         return 1.0;
     return m_selected_cols.at(type).multiplier();
 }
 
-QString CsvImportData::columnLabel(CsvImportData::DATA_TYPE type) const {
+QString CsvImportData::columnLabel(CsvImportData::DATA_TYPE type) const
+{
     if (m_selected_cols.find(type) == m_selected_cols.end())
         return "";
     return csv::HeaderLabels[m_selected_cols.at(type).name()];
 }
 
-QList<QString> CsvImportData::availableCoordinateUnits() const {
+QList<QString> CsvImportData::availableCoordinateUnits() const
+{
     if (column(Coordinate) < 0)
         return {axisUnitLabel.at(Axes::Units::NBINS)};
 
@@ -160,17 +177,20 @@ QList<QString> CsvImportData::availableCoordinateUnits() const {
     return {axisUnitLabel.at(Axes::Units::NBINS)};
 }
 
-size_t CsvImportData::nCols() const {
+size_t CsvImportData::nCols() const
+{
     if (nRows() == 0)
         return 0;
     return (*m_data)[0].size();
 }
 
-size_t CsvImportData::nRows() const {
+size_t CsvImportData::nRows() const
+{
     return (*m_data).size();
 }
 
-bool CsvImportData::rowExcluded(int row) {
+bool CsvImportData::rowExcluded(int row)
+{
     if (static_cast<size_t>(row) < m_n_header || static_cast<size_t>(row) + m_n_footer >= nRows())
         return true;
     if (m_discarded_rows.find(row) != m_discarded_rows.end())
@@ -178,7 +198,8 @@ bool CsvImportData::rowExcluded(int row) {
     return false;
 }
 
-std::set<std::pair<int, int>> CsvImportData::checkData() {
+std::set<std::pair<int, int>> CsvImportData::checkData()
+{
     std::set<std::pair<int, int>> result;
     for (auto type : availableTypes()) {
         auto col_result = checkFormat(multipliedValues(type), type == Coordinate);
@@ -189,14 +210,16 @@ std::set<std::pair<int, int>> CsvImportData::checkData() {
     return result;
 }
 
-void CsvImportData::resetSelection() {
+void CsvImportData::resetSelection()
+{
     m_n_header = 0;
     m_n_footer = 0;
     m_selected_cols.clear();
     m_discarded_rows.clear();
 }
 
-std::set<int> CsvImportData::checkFormat(const csv::DataColumn& values, bool check_ordering) {
+std::set<int> CsvImportData::checkFormat(const csv::DataColumn& values, bool check_ordering)
+{
     std::set<int> result;
     if (values.empty())
         return result;
@@ -229,9 +252,12 @@ std::set<int> CsvImportData::checkFormat(const csv::DataColumn& values, bool che
 }
 
 CsvImportTable::CsvImportTable(QWidget* parent)
-    : QTableWidget(parent), m_import_data(new CsvImportData(this)), m_data_is_suitable(true) {}
+    : QTableWidget(parent), m_import_data(new CsvImportData(this)), m_data_is_suitable(true)
+{
+}
 
-int CsvImportTable::selectedRow() const {
+int CsvImportTable::selectedRow() const
+{
     auto selectedRanges = this->selectedRanges();
     if (selectedRanges.empty())
         return -1;
@@ -240,7 +266,8 @@ int CsvImportTable::selectedRow() const {
     return row - rowOffset();
 }
 
-std::set<int> CsvImportTable::selectedRows() const {
+std::set<int> CsvImportTable::selectedRows() const
+{
     std::set<int> accumulator;
 
     auto selection = selectedRanges();
@@ -258,7 +285,8 @@ std::set<int> CsvImportTable::selectedRows() const {
     return accumulator;
 }
 
-int CsvImportTable::selectedColumn() const {
+int CsvImportTable::selectedColumn() const
+{
     auto selectedRanges = this->selectedRanges();
     if (selectedRanges.empty())
         return -1;
@@ -267,7 +295,8 @@ int CsvImportTable::selectedColumn() const {
     return col;
 }
 
-void CsvImportTable::setData(csv::DataArray data) {
+void CsvImportTable::setData(csv::DataArray data)
+{
     if (data.empty()) {
         clearContents();
         setRowCount(0);
@@ -295,49 +324,58 @@ void CsvImportTable::setData(csv::DataArray data) {
     setMultiplierFields();
 }
 
-void CsvImportTable::setColumnAs(int col, csv::ColumnType type) {
+void CsvImportTable::setColumnAs(int col, csv::ColumnType type)
+{
     int prev_col = m_import_data->setColumnAs(col, type);
     resetColumn(prev_col);
     updateSelection();
 }
 
-void CsvImportTable::setFirstRow(size_t row) {
+void CsvImportTable::setFirstRow(size_t row)
+{
     if (row == m_import_data->firstRow())
         return;
     m_import_data->setFirstRow(row);
     updateSelection();
 }
 
-void CsvImportTable::setLastRow(size_t row) {
+void CsvImportTable::setLastRow(size_t row)
+{
     if (row == m_import_data->lastRow())
         return;
     m_import_data->setLastRow(row);
     updateSelection();
 }
 
-void CsvImportTable::discardRows(std::set<int> rows) {
+void CsvImportTable::discardRows(std::set<int> rows)
+{
     m_import_data->toggleDiscardRows(std::move(rows));
     updateSelection();
 }
 
-void CsvImportTable::resetSelection() {
+void CsvImportTable::resetSelection()
+{
     m_import_data->resetSelection();
     updateSelection();
 }
 
-double CsvImportTable::intensityMultiplier() const {
+double CsvImportTable::intensityMultiplier() const
+{
     return m_import_data->multiplier(CsvImportData::Intensity);
 }
 
-double CsvImportTable::coordinateMultiplier() const {
+double CsvImportTable::coordinateMultiplier() const
+{
     return m_import_data->multiplier(CsvImportData::Coordinate);
 }
 
-QList<QString> CsvImportTable::availableCoordinateUnits() const {
+QList<QString> CsvImportTable::availableCoordinateUnits() const
+{
     return m_import_data->availableCoordinateUnits();
 }
 
-void CsvImportTable::updateSelection() {
+void CsvImportTable::updateSelection()
+{
     setHeaders();
     // FIXME: replace re-creation of all spin boxes with blocking/unlocking
     setMultiplierFields();
@@ -350,7 +388,8 @@ void CsvImportTable::updateSelection() {
 }
 
 // FIXME: put filling vertical headers here
-void CsvImportTable::setHeaders() {
+void CsvImportTable::setHeaders()
+{
     // Reset header labels
     QStringList headers;
 
@@ -366,7 +405,8 @@ void CsvImportTable::setHeaders() {
     }
 }
 
-void CsvImportTable::updateSelectedCols() {
+void CsvImportTable::updateSelectedCols()
+{
     // FIXME: replace recreation of sell items with value assignment
     for (auto type : CsvImportData::availableTypes()) {
         csv::DataColumn values = m_import_data->multipliedValues(type);
@@ -379,7 +419,8 @@ void CsvImportTable::updateSelectedCols() {
     }
 }
 
-void CsvImportTable::setMultiplierFields() {
+void CsvImportTable::setMultiplierFields()
+{
     const int n_cols = static_cast<int>(m_import_data->nCols());
 
     for (int n = 0; n < n_cols; ++n)
@@ -409,7 +450,8 @@ void CsvImportTable::setMultiplierFields() {
     this->setVerticalHeaderLabels(vhlabels);
 }
 
-void CsvImportTable::greyoutDiscardedRows() {
+void CsvImportTable::greyoutDiscardedRows()
+{
     int nRows = this->rowCount();
     int nCols = this->columnCount();
 
@@ -420,14 +462,16 @@ void CsvImportTable::greyoutDiscardedRows() {
     }
 }
 
-bool CsvImportTable::checkData() {
+bool CsvImportTable::checkData()
+{
     auto to_highlight = m_import_data->checkData();
     for (auto index : to_highlight)
         markCell(index.first + rowOffset(), index.second, Qt::red);
     return to_highlight.empty();
 }
 
-void CsvImportTable::resetColumn(int col) {
+void CsvImportTable::resetColumn(int col)
+{
     if (columnCount() >= col || col < 0)
         return;
 
@@ -438,6 +482,7 @@ void CsvImportTable::resetColumn(int col) {
     }
 }
 
-void CsvImportTable::markCell(int i, int j, Qt::GlobalColor color) {
+void CsvImportTable::markCell(int i, int j, Qt::GlobalColor color)
+{
     item(i, j)->setBackground(color);
 }

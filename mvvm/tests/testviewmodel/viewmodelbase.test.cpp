@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/viewmodelbase.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/sessionitem.h"
@@ -37,7 +42,8 @@ public:
     //! First vector is intended to be moved inside a model, second vector is to validate
     //! the content of a model after the move.
 
-    std::pair<children_t, expected_t> test_data(int ncolumns) {
+    std::pair<children_t, expected_t> test_data(int ncolumns)
+    {
         auto vector_of_unique = TestUtils::create_row<ViewItem, TestItem>(ncolumns);
         auto vector_of_pointers = TestUtils::create_pointers(vector_of_unique);
         return std::make_pair(std::move(vector_of_unique), std::move(vector_of_pointers));
@@ -49,7 +55,8 @@ ViewModelBaseTest::TestItem::~TestItem() = default;
 
 //! Checking behaviour of QStandardItemModel for reference.
 
-TEST_F(ViewModelBaseTest, standardItemModel) {
+TEST_F(ViewModelBaseTest, standardItemModel)
+{
     QStandardItemModel model;
     auto parent = model.invisibleRootItem();
 
@@ -78,7 +85,8 @@ TEST_F(ViewModelBaseTest, standardItemModel) {
 
 //! Initial state of empty ViewModelBase.
 
-TEST_F(ViewModelBaseTest, initialState) {
+TEST_F(ViewModelBaseTest, initialState)
+{
     ViewModelBase viewmodel;
     EXPECT_EQ(viewmodel.rowCount(), 0);
     EXPECT_EQ(viewmodel.columnCount(), 0);
@@ -91,7 +99,8 @@ TEST_F(ViewModelBaseTest, initialState) {
     EXPECT_EQ(viewmodel.indexFromItem(viewmodel.rootItem()), QModelIndex());
 }
 
-TEST_F(ViewModelBaseTest, appendRow) {
+TEST_F(ViewModelBaseTest, appendRow)
+{
     ViewModelBase viewmodel;
 
     // item to append
@@ -124,7 +133,8 @@ TEST_F(ViewModelBaseTest, appendRow) {
 
 //! Insert one row befor another.
 
-TEST_F(ViewModelBaseTest, insertRow) {
+TEST_F(ViewModelBaseTest, insertRow)
+{
     ViewModelBase viewmodel;
 
     // item to append
@@ -150,7 +160,8 @@ TEST_F(ViewModelBaseTest, insertRow) {
     EXPECT_EQ(viewmodel.itemFromIndex(child_index1), expected_row0[0]);
 }
 
-TEST_F(ViewModelBaseTest, removeRow) {
+TEST_F(ViewModelBaseTest, removeRow)
+{
     ViewModelBase viewmodel;
 
     // item to append
@@ -167,7 +178,8 @@ TEST_F(ViewModelBaseTest, removeRow) {
     EXPECT_EQ(viewmodel.columnCount(), 0);
 }
 
-TEST_F(ViewModelBaseTest, appendRowToRow) {
+TEST_F(ViewModelBaseTest, appendRowToRow)
+{
     ViewModelBase viewmodel;
 
     // preparing two rows of children, two columns each
@@ -200,7 +212,8 @@ TEST_F(ViewModelBaseTest, appendRowToRow) {
     EXPECT_EQ(viewmodel.indexFromItem(expected_row1[1]), grandchild1_index);
 }
 
-TEST_F(ViewModelBaseTest, onRowsAppended) {
+TEST_F(ViewModelBaseTest, onRowsAppended)
+{
     ViewModelBase viewmodel;
 
     // two items to append as a single row with two columns
@@ -230,7 +243,8 @@ TEST_F(ViewModelBaseTest, onRowsAppended) {
     EXPECT_EQ(viewmodel.itemFromIndex(index1), expected[1]);
 }
 
-TEST_F(ViewModelBaseTest, rowsRemoved) {
+TEST_F(ViewModelBaseTest, rowsRemoved)
+{
     ViewModelBase viewmodel;
 
     // three rows of items
@@ -259,7 +273,8 @@ TEST_F(ViewModelBaseTest, rowsRemoved) {
     EXPECT_EQ(arguments.at(2).value<int>(), 1);
 }
 
-TEST_F(ViewModelBaseTest, data) {
+TEST_F(ViewModelBaseTest, data)
+{
     SessionItem item;
     QVariant expected(42.0);
     item.setData(expected);
@@ -275,7 +290,8 @@ TEST_F(ViewModelBaseTest, data) {
     EXPECT_EQ(viewmodel.data(children_index, Qt::EditRole), expected);
 }
 
-TEST_F(ViewModelBaseTest, setData) {
+TEST_F(ViewModelBaseTest, setData)
+{
     // creating single item
     SessionItem item;
     QVariant expected(42.0);
@@ -304,7 +320,8 @@ TEST_F(ViewModelBaseTest, setData) {
     EXPECT_EQ(arguments.at(2).value<QVector<int>>(), expected_roles);
 }
 
-TEST_F(ViewModelBaseTest, flags) {
+TEST_F(ViewModelBaseTest, flags)
+{
     SessionItem item;
     QVariant expected(42.0);
     item.setData(expected);
@@ -329,7 +346,8 @@ TEST_F(ViewModelBaseTest, flags) {
     EXPECT_TRUE(viewmodel.flags(data_index) & Qt::ItemIsEditable);
 }
 
-TEST_F(ViewModelBaseTest, clearRowsFromRoot) {
+TEST_F(ViewModelBaseTest, clearRowsFromRoot)
+{
     ViewModelBase viewmodel;
 
     // three rows of items

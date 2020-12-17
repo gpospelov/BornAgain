@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Export/ExportToPython.cpp
 //! @brief     Implements ExportToPython namespace.
@@ -17,15 +17,18 @@
 #include "Core/Export/SimulationToPython.h"
 #include "Core/Simulation/ISimulation.h"
 
-std::string ExportToPython::sampleCode(const MultiLayer& multilayer) {
+std::string ExportToPython::sampleCode(const MultiLayer& multilayer)
+{
     return SampleToPython().sampleCode(multilayer);
 }
 
-std::string ExportToPython::simulationPlotCode(const ISimulation& simulation) {
+std::string ExportToPython::simulationPlotCode(const ISimulation& simulation)
+{
     return SimulationToPython().simulationPlotCode(simulation);
 }
 
 std::string ExportToPython::simulationSaveCode(const ISimulation& simulation,
-                                               const std::string& fname) {
+                                               const std::string& fname)
+{
     return SimulationToPython().simulationSaveCode(simulation, fname);
 }

@@ -1,6 +1,6 @@
 #  **************************************************************************  #
 """
-#   BornAgain: simulate and fit scattering at grazing incidence
+#   BornAgain: simulate and fit reflection and scattering
 #
 #   @file      Wrap/Python/plot_utils.py
 #   @brief     Python extensions of the SWIG-generated Python module bornagain.

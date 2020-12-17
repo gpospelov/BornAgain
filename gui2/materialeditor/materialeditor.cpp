@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/materialeditor/materialeditor.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/materialeditor/materialeditor.h"
 #include "gui2/mainwindow/styleutils.h"
@@ -22,7 +27,8 @@ MaterialEditor::MaterialEditor(QWidget* parent)
     : QWidget(parent)
     , m_actions(new MaterialEditorActions(this))
     , m_editorWidget(new MaterialEditorWidget)
-    , m_toolBar(new MaterialEditorToolBar(m_actions)) {
+    , m_toolBar(new MaterialEditorToolBar(m_actions))
+{
     setWindowTitle("Material editor");
     auto layout = new QVBoxLayout;
     layout->addWidget(m_toolBar);
@@ -33,17 +39,20 @@ MaterialEditor::MaterialEditor(QWidget* parent)
 }
 
 //! Set the mododel for the different items
-void MaterialEditor::setModels(ApplicationModels* models) {
+void MaterialEditor::setModels(ApplicationModels* models)
+{
     m_editorWidget->setModels(models);
     m_actions->setModel(models->materialModel());
     m_actions->setMaterialSelectionModel(m_editorWidget->selectionModel());
 }
 
-QSize MaterialEditor::sizeHint() const {
+QSize MaterialEditor::sizeHint() const
+{
     return StyleUtils::DockSizeHint();
 }
 
-QSize MaterialEditor::minimumSizeHint() const {
+QSize MaterialEditor::minimumSizeHint() const
+{
     return StyleUtils::DockMinimumSizeHint();
 }
 

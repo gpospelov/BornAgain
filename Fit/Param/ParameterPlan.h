@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Param/ParameterPlan.h
 //! @brief     Defines class ParameterPlan
@@ -28,7 +28,9 @@
 class ParameterPlan {
 public:
     ParameterPlan(const mumufit::Parameter& param, double expected_value, double tolerance = 0.01)
-        : m_expected_value(expected_value), m_tolerance(tolerance), m_parameter(param) {}
+        : m_expected_value(expected_value), m_tolerance(tolerance), m_parameter(param)
+    {
+    }
 
     mumufit::Parameter fitParameter() const { return m_parameter; }
     double expectedValue() const { return m_expected_value; }

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/model/sessionitemcontainer.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/model/sessionitemcontainer.h"
 #include "mvvm/model/sessionitem.h"
@@ -14,26 +19,32 @@
 using namespace ModelView;
 
 SessionItemContainer::SessionItemContainer(ModelView::TagInfo tag_info)
-    : m_tag_info(std::move(tag_info)) {}
+    : m_tag_info(std::move(tag_info))
+{
+}
 
-SessionItemContainer::~SessionItemContainer() {
+SessionItemContainer::~SessionItemContainer()
+{
     for (auto item : m_items)
         delete item;
 }
 
-bool SessionItemContainer::empty() const {
+bool SessionItemContainer::empty() const
+{
     return m_items.empty();
 }
 
 //! Returns number of items in given tag.
 
-int SessionItemContainer::itemCount() const {
+int SessionItemContainer::itemCount() const
+{
     return static_cast<int>(m_items.size());
 }
 
 //! Returns vector of items in this container.
 
-std::vector<SessionItem*> SessionItemContainer::items() const {
+std::vector<SessionItem*> SessionItemContainer::items() const
+{
     return m_items;
 }
 
@@ -46,7 +57,8 @@ Insert index is an index which item will have after insertion. If item can't be 
 (wrong model type, wrong index or maximum number of items reached), will return false.
 */
 
-bool SessionItemContainer::insertItem(SessionItem* item, int index) {
+bool SessionItemContainer::insertItem(SessionItem* item, int index)
+{
     if (!canInsertItem(item, index))
         return false;
 
@@ -56,7 +68,8 @@ bool SessionItemContainer::insertItem(SessionItem* item, int index) {
 
 //! Removes item at given index and returns it to the user.
 
-SessionItem* SessionItemContainer::takeItem(int index) {
+SessionItem* SessionItemContainer::takeItem(int index)
+{
     if (minimum_reached())
         return nullptr;
 
@@ -69,13 +82,15 @@ SessionItem* SessionItemContainer::takeItem(int index) {
 
 //! Returns true if item can be taken.
 
-bool SessionItemContainer::canTakeItem(int index) const {
+bool SessionItemContainer::canTakeItem(int index) const
+{
     return itemAt(index) && !minimum_reached();
 }
 
 //! Returns true if given item can be inserted under given index.
 
-bool SessionItemContainer::canInsertItem(const SessionItem* item, int index) const {
+bool SessionItemContainer::canInsertItem(const SessionItem* item, int index) const
+{
     const bool valid_index = (index >= 0 && index <= itemCount());
     const bool enough_place = !maximum_reached();
     return valid_index && enough_place && is_valid_item(item);
@@ -84,48 +99,57 @@ bool SessionItemContainer::canInsertItem(const SessionItem* item, int index) con
 //! Returns index of item in vector of items.
 //! Returns -1 if item doesn't belong to us.
 
-int SessionItemContainer::indexOfItem(const SessionItem* item) const {
+int SessionItemContainer::indexOfItem(const SessionItem* item) const
+{
     return Utils::IndexOfItem(m_items, item);
 }
 
 //! Returns item at given index. Returns nullptr if index is invalid.
 
-SessionItem* SessionItemContainer::itemAt(int index) const {
+SessionItem* SessionItemContainer::itemAt(int index) const
+{
     return index >= 0 && index < itemCount() ? m_items[static_cast<size_t>(index)] : nullptr;
 }
 
 //! Returns the name of SessionItemTag.
 
-std::string SessionItemContainer::name() const {
+std::string SessionItemContainer::name() const
+{
     return m_tag_info.name();
 }
 
-TagInfo SessionItemContainer::tagInfo() const {
+TagInfo SessionItemContainer::tagInfo() const
+{
     return m_tag_info;
 }
 
-SessionItemContainer::const_iterator SessionItemContainer::begin() const {
+SessionItemContainer::const_iterator SessionItemContainer::begin() const
+{
     return m_items.begin();
 }
 
-SessionItemContainer::const_iterator SessionItemContainer::end() const {
+SessionItemContainer::const_iterator SessionItemContainer::end() const
+{
     return m_items.end();
 }
 
 //! Returns true if no more items are allowed.
 
-bool SessionItemContainer::maximum_reached() const {
+bool SessionItemContainer::maximum_reached() const
+{
     return m_tag_info.max() != -1 && m_tag_info.max() == itemCount();
 }
 
 //! Returns true if less items than now is not allowed.
 
-bool SessionItemContainer::minimum_reached() const {
+bool SessionItemContainer::minimum_reached() const
+{
     return m_tag_info.min() != -1 && m_tag_info.min() == itemCount();
 }
 
 //! Returns true if item's modelType is intended for this tag.
 
-bool SessionItemContainer::is_valid_item(const SessionItem* item) const {
+bool SessionItemContainer::is_valid_item(const SessionItem* item) const
+{
     return item && m_tag_info.isValidChild(item->modelType());
 }

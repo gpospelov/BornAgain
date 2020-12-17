@@ -15,7 +15,8 @@ protected:
 
 ParticleLayoutTest::~ParticleLayoutTest() = default;
 
-TEST_F(ParticleLayoutTest, ParticleLayoutInitial) {
+TEST_F(ParticleLayoutTest, ParticleLayoutInitial)
+{
     ParticleLayout particleDecoration;
     auto p_iff = node_progeny::OnlyChildOfType<IInterferenceFunction>(particleDecoration);
     auto particles = node_progeny::ChildNodesOfType<IAbstractParticle>(particleDecoration);
@@ -23,7 +24,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitial) {
     EXPECT_EQ(nullptr, p_iff);
 }
 
-TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue) {
+TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue)
+{
     Particle particle(HomogeneousMaterial());
 
     ParticleLayout particleDecoration(particle, 2.0);
@@ -37,7 +39,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInitByValue) {
     EXPECT_EQ(2.0, particleDecoration.getTotalAbundance());
 }
 
-TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle) {
+TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle)
+{
     ParticleLayout particleDecoration;
 
     Particle particle1(HomogeneousMaterial());
@@ -73,7 +76,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAddParticle) {
     EXPECT_EQ(4.2, p_particle4->abundance());
 }
 
-TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction) {
+TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction)
+{
     ParticleLayout particleDecoration;
 
     Particle particle1(HomogeneousMaterial());
@@ -91,7 +95,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutAbundanceFraction) {
     EXPECT_EQ(8.0, particleDecoration.getTotalAbundance());
 }
 
-TEST_F(ParticleLayoutTest, ParticleLayoutClone) {
+TEST_F(ParticleLayoutTest, ParticleLayoutClone)
+{
     ParticleLayout particleDecoration;
 
     Particle particle1(HomogeneousMaterial());
@@ -144,7 +149,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutClone) {
     EXPECT_TRUE(nullptr != p_iff);
 }
 
-TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction) {
+TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction)
+{
     ParticleLayout particleDecoration;
 
     InterferenceFunctionNone iff_none;
@@ -154,7 +160,8 @@ TEST_F(ParticleLayoutTest, ParticleLayoutInterferenceFunction) {
     EXPECT_TRUE(nullptr != p_iff);
 }
 
-TEST_F(ParticleLayoutTest, getChildren) {
+TEST_F(ParticleLayoutTest, getChildren)
+{
     ParticleLayout layout;
     std::vector<const INode*> children = layout.getChildren();
     EXPECT_EQ(children.size(), 0u);

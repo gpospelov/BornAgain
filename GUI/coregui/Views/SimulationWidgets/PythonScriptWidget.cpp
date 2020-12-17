@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SimulationWidgets/PythonScriptWidget.cpp
 //! @brief     Implements class PythonScriptWidget
@@ -36,7 +36,8 @@ PythonScriptWidget::PythonScriptWidget(QWidget* parent)
     : QDialog(parent)
     , m_toolBar(nullptr)
     , m_textEdit(new QTextEdit)
-    , m_warningSign(new WarningSign(m_textEdit)) {
+    , m_warningSign(new WarningSign(m_textEdit))
+{
     setWindowTitle("Python Script View");
     setMinimumSize(128, 128);
     resize(512, 400);
@@ -80,7 +81,8 @@ PythonScriptWidget::PythonScriptWidget(QWidget* parent)
 void PythonScriptWidget::generatePythonScript(const MultiLayerItem* sampleItem,
                                               const InstrumentItem* instrumentItem,
                                               const SimulationOptionsItem* optionItem,
-                                              const QString& outputDir) {
+                                              const QString& outputDir)
+{
     m_outputDir = outputDir;
     m_warningSign->clear();
 
@@ -104,7 +106,8 @@ void PythonScriptWidget::generatePythonScript(const MultiLayerItem* sampleItem,
     }
 }
 
-void PythonScriptWidget::onExportToFileButton() {
+void PythonScriptWidget::onExportToFileButton()
+{
     QString dirname(m_outputDir);
     if (dirname.isEmpty())
         dirname = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Slice/KzComputation.cpp
 //! @brief     Implements functions in namespace KzComputation.
@@ -17,7 +17,8 @@
 #include "Sample/Slice/Slice.h"
 
 namespace {
-complex_t normalizedSLD(const Material& material) {
+complex_t normalizedSLD(const Material& material)
+{
     if (material.typeID() != MATERIAL_TYPES::MaterialBySLD)
         throw std::runtime_error("Error in normalizedSLD: passed material has wrong type");
 
@@ -26,7 +27,8 @@ complex_t normalizedSLD(const Material& material) {
     return sld;
 }
 
-complex_t checkForUnderflow(complex_t val) {
+complex_t checkForUnderflow(complex_t val)
+{
     return std::norm(val) < 1e-80 ? complex_t(0.0, 1e-40) : val;
 }
 } // namespace
@@ -36,7 +38,8 @@ complex_t checkForUnderflow(complex_t val) {
 //  ************************************************************************************************
 
 std::vector<complex_t> KzComputation::computeReducedKz(const std::vector<Slice>& slices,
-                                                       kvector_t k) {
+                                                       kvector_t k)
+{
     const size_t N = slices.size();
     const double n_ref = slices[0].material().refractiveIndex(2 * M_PI / k.mag()).real();
     const double k_base = k.mag() * (k.z() > 0.0 ? -1 : 1);
@@ -52,8 +55,8 @@ std::vector<complex_t> KzComputation::computeReducedKz(const std::vector<Slice>&
     return result;
 }
 
-std::vector<complex_t> KzComputation::computeKzFromSLDs(const std::vector<Slice>& slices,
-                                                        double kz) {
+std::vector<complex_t> KzComputation::computeKzFromSLDs(const std::vector<Slice>& slices, double kz)
+{
     const size_t N = slices.size();
     const double k_sign = kz > 0.0 ? -1 : 1;
     complex_t kz2_base = kz * kz + normalizedSLD(slices[0].material());
@@ -69,7 +72,8 @@ std::vector<complex_t> KzComputation::computeKzFromSLDs(const std::vector<Slice>
 }
 
 std::vector<complex_t> KzComputation::computeKzFromRefIndices(const std::vector<Slice>& slices,
-                                                              kvector_t k) {
+                                                              kvector_t k)
+{
     const size_t N = slices.size();
     const double kz = k.z();
     const double k_sign = kz > 0.0 ? -1 : 1;

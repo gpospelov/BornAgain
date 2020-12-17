@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/model/sessionitem.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONITEM_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONITEM_H
@@ -129,7 +134,8 @@ private:
 
 //! Sets data for given role.
 
-template <typename T> inline bool SessionItem::setData(const T& value, int role) {
+template <typename T> inline bool SessionItem::setData(const T& value, int role)
+{
     if constexpr (std::is_same<T, Variant>::value)
         return set_data_internal(value, role);
     return set_data_internal(Variant::fromValue(value), role);
@@ -137,7 +143,8 @@ template <typename T> inline bool SessionItem::setData(const T& value, int role)
 
 //! Returns data of given type T for given role.
 
-template <typename T> inline T SessionItem::data(int role) const {
+template <typename T> inline T SessionItem::data(int role) const
+{
     if constexpr (std::is_same<T, Variant>::value)
         return data_internal(role);
     return data_internal(role).value<T>();
@@ -146,7 +153,8 @@ template <typename T> inline T SessionItem::data(int role) const {
 //! Returns data stored in property item.
 //! Property is single item registered under certain tag via CompoundItem::addProperty method.
 
-template <typename T> inline T SessionItem::property(const std::string& tag) const {
+template <typename T> inline T SessionItem::property(const std::string& tag) const
+{
     return getItem(tag)->data<T>();
 }
 
@@ -154,7 +162,8 @@ template <typename T> inline T SessionItem::property(const std::string& tag) con
 //! Property is single item registered under certain tag via CompoundItem::addProperty method, the
 //! value will be assigned to it's data role.
 
-template <typename T> inline void SessionItem::setProperty(const std::string& tag, const T& value) {
+template <typename T> inline void SessionItem::setProperty(const std::string& tag, const T& value)
+{
     getItem(tag)->setData(value);
 }
 
@@ -162,14 +171,16 @@ template <typename T> inline void SessionItem::setProperty(const std::string& ta
 //! Property is single item registered under certain tag via CompoundItem::addProperty method, the
 //! value will be assigned to it's data role.
 
-inline void SessionItem::setProperty(const std::string& tag, const char* value) {
+inline void SessionItem::setProperty(const std::string& tag, const char* value)
+{
     setProperty(tag, std::string(value));
 }
 
 //! Returns first item under given tag casted to a specified type.
 //! Returns nullptr, if item doesn't exist. If item exists but can't be casted will throw.
 
-template <typename T> inline T* SessionItem::item(const std::string& tag) const {
+template <typename T> inline T* SessionItem::item(const std::string& tag) const
+{
     if (auto item = getItem(tag); item) {
         T* tag_item = dynamic_cast<T*>(item);
         if (!tag_item)
@@ -182,7 +193,8 @@ template <typename T> inline T* SessionItem::item(const std::string& tag) const 
 
 //! Returns all items under given tag casted to specific type.
 
-template <typename T> std::vector<T*> SessionItem::items(const std::string& tag) const {
+template <typename T> std::vector<T*> SessionItem::items(const std::string& tag) const
+{
     std::vector<T*> result;
     for (auto item : getItems(tag))
         if (auto casted = dynamic_cast<T*>(item); casted)

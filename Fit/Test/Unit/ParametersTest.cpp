@@ -2,16 +2,19 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <string>
 
-class ParametersTest : public ::testing::Test {};
+class ParametersTest : public ::testing::Test {
+};
 
-TEST_F(ParametersTest, defaultConstructor) {
+TEST_F(ParametersTest, defaultConstructor)
+{
     mumufit::Parameters pars;
     EXPECT_EQ(pars.size(), 0u);
     EXPECT_TRUE(pars.values().empty());
     EXPECT_TRUE(pars.errors().empty());
 }
 
-TEST_F(ParametersTest, addParameter) {
+TEST_F(ParametersTest, addParameter)
+{
     mumufit::Parameters pars;
 
     mumufit::Parameter par0("par0", 2.0, AttLimits::limitless(), 0.2);
@@ -40,7 +43,8 @@ TEST_F(ParametersTest, addParameter) {
     EXPECT_THROW(pars[2], std::runtime_error);
 }
 
-TEST_F(ParametersTest, setters) {
+TEST_F(ParametersTest, setters)
+{
     mumufit::Parameters pars;
     pars.add(mumufit::Parameter("par0", 2.0, AttLimits::limitless(), 0.2));
     pars.add(mumufit::Parameter("par1", 3.0, AttLimits::limitless(), 0.2));
@@ -57,7 +61,8 @@ TEST_F(ParametersTest, setters) {
     EXPECT_THROW(pars.setValues(more_values), std::runtime_error);
 }
 
-TEST_F(ParametersTest, freeParameterCount) {
+TEST_F(ParametersTest, freeParameterCount)
+{
     mumufit::Parameters pars;
     EXPECT_EQ(pars.freeParameterCount(), 0u);
 

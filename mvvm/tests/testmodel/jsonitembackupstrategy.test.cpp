@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/jsonitembackupstrategy.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/factories/itemcataloguefactory.h"
@@ -19,10 +24,13 @@ using namespace ModelView;
 class JsonItemBackupStrategyTest : public ::testing::Test {
 public:
     JsonItemBackupStrategyTest()
-        : m_factory(std::make_unique<ItemFactory>(CreateStandardItemCatalogue())) {}
+        : m_factory(std::make_unique<ItemFactory>(CreateStandardItemCatalogue()))
+    {
+    }
     ~JsonItemBackupStrategyTest();
 
-    std::unique_ptr<JsonItemBackupStrategy> createBackupStrategy() {
+    std::unique_ptr<JsonItemBackupStrategy> createBackupStrategy()
+    {
         return std::make_unique<JsonItemBackupStrategy>(m_factory.get());
     }
 
@@ -33,7 +41,8 @@ JsonItemBackupStrategyTest::~JsonItemBackupStrategyTest() = default;
 
 //! Saving/restoring PropertyItem.
 
-TEST_F(JsonItemBackupStrategyTest, propertyItem) {
+TEST_F(JsonItemBackupStrategyTest, propertyItem)
+{
     auto strategy = createBackupStrategy();
 
     PropertyItem item;
@@ -49,7 +58,8 @@ TEST_F(JsonItemBackupStrategyTest, propertyItem) {
 
 //! Saving/restoring CompoundItem.
 
-TEST_F(JsonItemBackupStrategyTest, compoundItem) {
+TEST_F(JsonItemBackupStrategyTest, compoundItem)
+{
     auto strategy = createBackupStrategy();
 
     CompoundItem item;
@@ -66,7 +76,8 @@ TEST_F(JsonItemBackupStrategyTest, compoundItem) {
 
 //! Saving/restoring CustomItem.
 
-TEST_F(JsonItemBackupStrategyTest, customItem) {
+TEST_F(JsonItemBackupStrategyTest, customItem)
+{
     auto strategy = createBackupStrategy();
 
     const std::string model_type(Constants::BaseType);

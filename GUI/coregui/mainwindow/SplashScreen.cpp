@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/mainwindow/SplashScreen.cpp
 //! @brief     Implements class SplashScreen
@@ -22,8 +22,7 @@
 #include <QTime>
 
 SplashScreen::SplashScreen(QWidget*)
-    : QSplashScreen(QPixmap(":/images/splashscreen.png"))
-    , m_percentage_done(0)
+    : QSplashScreen(QPixmap(":/images/splashscreen.png")), m_percentage_done(0)
 
 {
     QSplashScreen::setCursor(Qt::BusyCursor);
@@ -34,7 +33,8 @@ SplashScreen::SplashScreen(QWidget*)
     QSplashScreen::setFont(font);
 }
 
-void SplashScreen::start(int show_during) {
+void SplashScreen::start(int show_during)
+{
     show();
     QTime dieTime = QTime::currentTime().addMSecs(show_during);
     QElapsedTimer timer;
@@ -45,7 +45,8 @@ void SplashScreen::start(int show_during) {
     }
 }
 
-void SplashScreen::setProgress(int value) {
+void SplashScreen::setProgress(int value)
+{
     m_percentage_done = value;
     if (m_percentage_done > 100)
         m_percentage_done = 100;
@@ -54,7 +55,8 @@ void SplashScreen::setProgress(int value) {
     update();
 }
 
-void SplashScreen::drawContents(QPainter* painter) {
+void SplashScreen::drawContents(QPainter* painter)
+{
     QSplashScreen::drawContents(painter);
 
     auto img_rect = frameGeometry();

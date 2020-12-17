@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/data2ditem.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mockwidgets.h"
@@ -28,7 +33,8 @@ Data2DItemTest::~Data2DItemTest() = default;
 
 //! Initial state.
 
-TEST_F(Data2DItemTest, initialState) {
+TEST_F(Data2DItemTest, initialState)
+{
     Data2DItem item;
 
     EXPECT_EQ(item.xAxis(), nullptr);
@@ -40,7 +46,8 @@ TEST_F(Data2DItemTest, initialState) {
 
 //! Checking the method ::setAxis.
 
-TEST_F(Data2DItemTest, setAxes) {
+TEST_F(Data2DItemTest, setAxes)
+{
     Data2DItem item;
 
     const int nx = 5, ny = 3;
@@ -58,7 +65,8 @@ TEST_F(Data2DItemTest, setAxes) {
 
 //! Checking the method ::setContent.
 
-TEST_F(Data2DItemTest, setContent) {
+TEST_F(Data2DItemTest, setContent)
+{
     Data2DItem item;
 
     // check that it is not possible to set content to uninitialized axis
@@ -74,7 +82,8 @@ TEST_F(Data2DItemTest, setContent) {
 
 //! Checking the signals when axes changed.
 
-TEST_F(Data2DItemTest, checkSignalsOnAxisChange) {
+TEST_F(Data2DItemTest, checkSignalsOnAxisChange)
+{
     SessionModel model;
     auto item = model.insertItem<Data2DItem>();
 
@@ -94,7 +103,8 @@ TEST_F(Data2DItemTest, checkSignalsOnAxisChange) {
 
 //! Checking the signals when content changed.
 
-TEST_F(Data2DItemTest, checkSignalsOnContentChange) {
+TEST_F(Data2DItemTest, checkSignalsOnContentChange)
+{
     SessionModel model;
     auto item = model.insertItem<Data2DItem>();
     item->setAxes(FixedBinAxisItem::create(1, 0.0, 5.0), FixedBinAxisItem::create(3, 0.0, 3.0));

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Kernel/Kernel.cpp
 //! @brief     Implements class Kernel.
@@ -23,22 +23,26 @@ const std::string default_minimizer = "Minuit2";
 const std::string default_algorithm = "Migrad";
 } // namespace
 
-Kernel::Kernel() {
+Kernel::Kernel()
+{
     setMinimizer(default_minimizer, default_algorithm);
 }
 
 Kernel::~Kernel() = default;
 
 void Kernel::setMinimizer(const std::string& minimizerName, const std::string& algorithmName,
-                          const std::string& options) {
+                          const std::string& options)
+{
     m_minimizer.reset(MinimizerFactory::createMinimizer(minimizerName, algorithmName, options));
 }
 
-void Kernel::setMinimizer(IMinimizer* minimizer) {
+void Kernel::setMinimizer(IMinimizer* minimizer)
+{
     m_minimizer.reset(minimizer);
 }
 
-MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters& parameters) {
+MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters& parameters)
+{
     setParameters(parameters);
 
     m_timer.start();
@@ -53,7 +57,8 @@ MinimizerResult Kernel::minimize(fcn_scalar_t fcn, const Parameters& parameters)
     return result;
 }
 
-MinimizerResult Kernel::minimize(fcn_residual_t fcn, const Parameters& parameters) {
+MinimizerResult Kernel::minimize(fcn_residual_t fcn, const Parameters& parameters)
+{
     setParameters(parameters);
 
     m_timer.start();
@@ -64,6 +69,7 @@ MinimizerResult Kernel::minimize(fcn_residual_t fcn, const Parameters& parameter
     return result;
 }
 
-void Kernel::setParameters(const Parameters& parameters) {
+void Kernel::setParameters(const Parameters& parameters)
+{
     m_parameters = parameters;
 }

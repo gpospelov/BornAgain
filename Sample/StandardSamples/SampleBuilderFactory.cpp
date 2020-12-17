@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/StandardSamples/SampleBuilderFactory.cpp
 //! @brief     Implement class SampleBuilderFactory.
@@ -46,7 +46,8 @@
 #include "Sample/StandardSamples/TwoDimLatticeBuilder.h"
 #include "Sample/StandardSamples/TwoLayerRoughnessBuilder.h"
 
-SampleBuilderFactory::SampleBuilderFactory() {
+SampleBuilderFactory::SampleBuilderFactory()
+{
     registerItem("CylindersAndPrismsBuilder", create_new<CylindersAndPrismsBuilder>);
 
     registerItem("TwoTypesCylindersDistributionBuilder",
@@ -198,6 +199,7 @@ SampleBuilderFactory::SampleBuilderFactory() {
 
 //! Retrieves a SampleBuilder from the registry, does the build, and returns the result.
 
-MultiLayer* SampleBuilderFactory::createSampleByName(const std::string& name) {
+MultiLayer* SampleBuilderFactory::createSampleByName(const std::string& name)
+{
     return createItemPtr(name)->buildSample();
 }

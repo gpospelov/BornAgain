@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/layereditor/layereditortoolbar.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/layereditor/layereditortoolbar.h"
 #include "gui2/layereditor/layereditoractions.h"
@@ -17,7 +22,8 @@
 namespace gui2 {
 
 LayerEditorToolBar::LayerEditorToolBar(LayerEditorActions* actions, QWidget* parent)
-    : QToolBar(parent) {
+    : QToolBar(parent)
+{
     StyleUtils::SetToolBarStyleTextBesides(this);
 
     auto layer_menu = create_layer_menu(actions);
@@ -75,7 +81,8 @@ LayerEditorToolBar::LayerEditorToolBar(LayerEditorActions* actions, QWidget* par
 
 //! Creates menu to add layer and layer-repeater.
 
-QMenu* LayerEditorToolBar::create_layer_menu(LayerEditorActions* editor_actions) {
+QMenu* LayerEditorToolBar::create_layer_menu(LayerEditorActions* editor_actions)
+{
     auto result = new QMenu("Add", this);
     result->setToolTipsVisible(true);
     result->menuAction()->setToolTip("Adds a single layer or layer-repeater.");
@@ -100,7 +107,8 @@ QMenu* LayerEditorToolBar::create_layer_menu(LayerEditorActions* editor_actions)
 }
 
 //! Handle the QToolButtons for their enabled state depending on what is selected
-void LayerEditorToolBar::updateToolButtonStates(bool first_present, bool last_present) {
+void LayerEditorToolBar::updateToolButtonStates(bool first_present, bool last_present)
+{
     m_toolbarWidgets["Add"]->setEnabled(true);
     m_toolbarWidgets["Clone"]->setEnabled(true);
     m_toolbarWidgets["Remove"]->setEnabled(true);

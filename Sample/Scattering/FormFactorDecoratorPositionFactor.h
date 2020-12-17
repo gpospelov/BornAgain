@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Scattering/FormFactorDecoratorPositionFactor.h
 //! @brief     Defines class FormFactorDecoratorPositionFactor.
@@ -29,7 +29,8 @@ class FormFactorDecoratorPositionFactor : public IFormFactorDecorator {
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor& ff, const kvector_t& position);
 
-    FormFactorDecoratorPositionFactor* clone() const final {
+    FormFactorDecoratorPositionFactor* clone() const final
+    {
         return new FormFactorDecoratorPositionFactor(*m_ff, m_position);
     }
 

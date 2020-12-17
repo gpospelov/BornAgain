@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Core/Computation/GISASSpecularComputation.cpp
 //! @brief     Implements class GISASSpecularComputation.
@@ -18,9 +18,12 @@
 #include "Sample/RT/ILayerRTCoefficients.h"
 
 GISASSpecularComputation::GISASSpecularComputation(const IFresnelMap* p_fresnel_map)
-    : m_fresnel_map{p_fresnel_map} {}
+    : m_fresnel_map{p_fresnel_map}
+{
+}
 
-void GISASSpecularComputation::compute(SimulationElement& elem) const {
+void GISASSpecularComputation::compute(SimulationElement& elem) const
+{
     if (!elem.isSpecular())
         return;
     complex_t R = m_fresnel_map->getInCoefficients(elem, 0)->getScalarR();

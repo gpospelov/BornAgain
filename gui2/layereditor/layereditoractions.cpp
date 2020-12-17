@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/layereditor/layereditoractions.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/layereditor/layereditoractions.h"
 #include "gui2/layereditor/layerselectionmodel.h"
@@ -28,7 +33,8 @@ struct LayerEditorActions::LayerEditorActionsImpl {
 
     //! Finds parent and tagrow to insert new item
 
-    std::pair<SessionItem*, TagRow> locateInsertPlace() {
+    std::pair<SessionItem*, TagRow> locateInsertPlace()
+    {
         auto all_selected = selection_model->selectedItems();
         auto selected = all_selected.empty() ? nullptr : all_selected.back();
         if (selected)
@@ -38,21 +44,26 @@ struct LayerEditorActions::LayerEditorActionsImpl {
 
     //! Returns a multi layer playing the role of invisible root item.
 
-    ModelView::SessionItem* root_item() {
+    ModelView::SessionItem* root_item()
+    {
         return selection_model->viewModel()->sessionItemFromIndex(QModelIndex());
     }
 };
 
 LayerEditorActions::LayerEditorActions(QObject* parent)
-    : QObject(parent), p_impl(std::make_unique<LayerEditorActionsImpl>()) {}
+    : QObject(parent), p_impl(std::make_unique<LayerEditorActionsImpl>())
+{
+}
 
-void LayerEditorActions::setModel(SampleModel* model) {
+void LayerEditorActions::setModel(SampleModel* model)
+{
     p_impl->sample_model = model;
 }
 
 //! Adds layer after selected item. If more than one item is selected, adds after the last one.
 
-void LayerEditorActions::onAddLayer() {
+void LayerEditorActions::onAddLayer()
+{
     if (!p_impl->sample_model)
         return;
 
@@ -61,7 +72,8 @@ void LayerEditorActions::onAddLayer() {
     p_impl->selection_model->selectItem(new_item);
 }
 
-void LayerEditorActions::onAddMultiLayer() {
+void LayerEditorActions::onAddMultiLayer()
+{
     if (!p_impl->sample_model)
         return;
 
@@ -72,7 +84,8 @@ void LayerEditorActions::onAddMultiLayer() {
     p_impl->selection_model->selectItem(multilayer);
 }
 
-void LayerEditorActions::onClone() {
+void LayerEditorActions::onClone()
+{
     if (!p_impl->sample_model)
         return;
 
@@ -88,7 +101,8 @@ void LayerEditorActions::onClone() {
     p_impl->selection_model->selectItems(new_selection);
 }
 
-void LayerEditorActions::onRemove() {
+void LayerEditorActions::onRemove()
+{
     auto items = p_impl->selection_model->selectedItems();
     if (items.empty())
         return;
@@ -105,7 +119,8 @@ void LayerEditorActions::onRemove() {
     }
 }
 
-void LayerEditorActions::onMoveUp() {
+void LayerEditorActions::onMoveUp()
+{
     auto selected = p_impl->selection_model->selectedItems();
 
     for (auto item : selected)
@@ -114,7 +129,8 @@ void LayerEditorActions::onMoveUp() {
     p_impl->selection_model->selectItems(selected);
 }
 
-void LayerEditorActions::onMoveDown() {
+void LayerEditorActions::onMoveDown()
+{
     auto selected = p_impl->selection_model->selectedItems();
 
     for (auto item : selected)
@@ -123,7 +139,8 @@ void LayerEditorActions::onMoveDown() {
     p_impl->selection_model->selectItems(selected);
 }
 
-void LayerEditorActions::setSelectionModel(LayerSelectionModel* selection_model) {
+void LayerEditorActions::setSelectionModel(LayerSelectionModel* selection_model)
+{
     p_impl->selection_model = selection_model;
 }
 

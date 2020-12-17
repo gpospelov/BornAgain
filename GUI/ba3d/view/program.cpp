@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/ba3d/view/program.cpp
 //! @brief     Implements Program class
@@ -18,7 +18,8 @@
 #include <stdexcept>
 
 // The macro call has to be in the global namespace
-inline void InitShaderResources() {
+inline void InitShaderResources()
+{
     Q_INIT_RESOURCE(shaders);
 }
 
@@ -26,18 +27,21 @@ static constexpr float AMBIENT = 0.4f;
 
 namespace RealSpace {
 
-Program::Program() {
+Program::Program()
+{
     // make sure our resource file gets initialized
     InitShaderResources();
 
     needsInit();
 }
 
-void Program::needsInit() {
+void Program::needsInit()
+{
     doInit = true;
 }
 
-void Program::init() {
+void Program::init()
+{
     if (!doInit)
         return;
     doInit = false;
@@ -70,7 +74,8 @@ void Program::init() {
     release();
 }
 
-void Program::set(Camera const& camera) {
+void Program::set(Camera const& camera)
+{
     setUniformValue(ambient, AMBIENT);
     setUniformValue(locMatProj, camera.matProj);
     setUniformValue(locMatModel, camera.matModel);
@@ -78,19 +83,23 @@ void Program::set(Camera const& camera) {
     setUniformValue(eye, camera.getPos().eye);
 }
 
-void Program::set(QColor const& color) {
+void Program::set(QColor const& color)
+{
     setUniformValue(locColor, color);
 }
 
-void Program::set(QMatrix4x4 const& mat) {
+void Program::set(QMatrix4x4 const& mat)
+{
     setUniformValue(locMatObject, mat);
 }
 
-void Program::setMatModel(QMatrix4x4 const& mat) {
+void Program::setMatModel(QMatrix4x4 const& mat)
+{
     setUniformValue(locMatModel, mat);
 }
 
-void Program::setAxis(bool const& axis_) {
+void Program::setAxis(bool const& axis_)
+{
     setUniformValue(locAxis, axis_);
 }
 

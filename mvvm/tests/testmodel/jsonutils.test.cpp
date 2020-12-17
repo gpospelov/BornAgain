@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testmodel/jsonutils.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/serialization/jsonutils.h"
@@ -21,7 +26,8 @@ protected:
 
 JsonUtilsTest::~JsonUtilsTest() = default;
 
-TEST_F(JsonUtilsTest, toString) {
+TEST_F(JsonUtilsTest, toString)
+{
     EXPECT_EQ(JsonUtils::ToString(RealLimits::limitless()), "limitless");
     EXPECT_EQ(JsonUtils::ToString(RealLimits::positive()), "positive");
     EXPECT_EQ(JsonUtils::ToString(RealLimits::nonnegative()), "nonnegative");
@@ -32,7 +38,8 @@ TEST_F(JsonUtilsTest, toString) {
     EXPECT_EQ(JsonUtils::ToString(RealLimits::limited(-1.0, 2.0)), "limited");
 }
 
-TEST_F(JsonUtilsTest, CreateLimits) {
+TEST_F(JsonUtilsTest, CreateLimits)
+{
     EXPECT_EQ(JsonUtils::CreateLimits("limitless"), RealLimits::limitless());
     EXPECT_EQ(JsonUtils::CreateLimits("positive"), RealLimits::positive());
     EXPECT_EQ(JsonUtils::CreateLimits("nonnegative"), RealLimits::nonnegative());

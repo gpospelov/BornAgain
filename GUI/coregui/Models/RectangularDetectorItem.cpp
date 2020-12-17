@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/RectangularDetectorItem.cpp
 //! @brief     Implements class RectangularDetectorItem
@@ -48,7 +48,8 @@ const QString tooltip_samplex_v0 =
     "v-coordinate of point where sample x-axis crosses the detector, \n"
     "in local detector coordinates [mm]";
 
-ComboProperty alignmentCombo() {
+ComboProperty alignmentCombo()
+{
     ComboProperty result;
     result << "Generic"
            << "Perpendicular to direct beam"
@@ -72,7 +73,8 @@ const QString RectangularDetectorItem::P_DBEAM_V0 = "v0 (dbeam)";
 const QString RectangularDetectorItem::P_DISTANCE = "Distance";
 
 RectangularDetectorItem::RectangularDetectorItem()
-    : DetectorItem("RectangularDetector"), m_is_constructed(false) {
+    : DetectorItem("RectangularDetector"), m_is_constructed(false)
+{
     // axes parameters
     SessionItem* item = addGroupProperty(P_X_AXIS, "BasicAxis");
     item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
@@ -122,7 +124,8 @@ RectangularDetectorItem::RectangularDetectorItem()
     });
 }
 
-void RectangularDetectorItem::setDetectorAlignment(const QString& alignment) {
+void RectangularDetectorItem::setDetectorAlignment(const QString& alignment)
+{
     ComboProperty combo_property =
         getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
 
@@ -134,23 +137,28 @@ void RectangularDetectorItem::setDetectorAlignment(const QString& alignment) {
     setItemValue(RectangularDetectorItem::P_ALIGNMENT, combo_property.variant());
 }
 
-int RectangularDetectorItem::xSize() const {
+int RectangularDetectorItem::xSize() const
+{
     return getItem(RectangularDetectorItem::P_X_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
 }
 
-int RectangularDetectorItem::ySize() const {
+int RectangularDetectorItem::ySize() const
+{
     return getItem(RectangularDetectorItem::P_Y_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
 }
 
-void RectangularDetectorItem::setXSize(int nx) {
+void RectangularDetectorItem::setXSize(int nx)
+{
     getItem(RectangularDetectorItem::P_X_AXIS)->setItemValue(BasicAxisItem::P_NBINS, nx);
 }
 
-void RectangularDetectorItem::setYSize(int ny) {
+void RectangularDetectorItem::setYSize(int ny)
+{
     getItem(RectangularDetectorItem::P_Y_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
 }
 
-std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() const {
+std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() const
+{
     // basic axes parameters
     auto& x_axis = item<BasicAxisItem>(RectangularDetectorItem::P_X_AXIS);
     size_t n_x = x_axis.getItemValue(BasicAxisItem::P_NBINS).toUInt();
@@ -187,7 +195,8 @@ std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() con
 }
 
 //! updates property tooltips and visibility flags, depending from type of alignment selected
-void RectangularDetectorItem::update_properties_appearance() {
+void RectangularDetectorItem::update_properties_appearance()
+{
     // hiding all alignment properties
     ComboProperty alignment = getItemValue(P_ALIGNMENT).value<ComboProperty>();
     QStringList prop_list;
@@ -226,10 +235,12 @@ void RectangularDetectorItem::update_properties_appearance() {
     }
 }
 
-kvector_t RectangularDetectorItem::normalVector() const {
+kvector_t RectangularDetectorItem::normalVector() const
+{
     return item<VectorItem>(RectangularDetectorItem::P_NORMAL).getVector();
 }
 
-kvector_t RectangularDetectorItem::directionVector() const {
+kvector_t RectangularDetectorItem::directionVector() const
+{
     return item<VectorItem>(RectangularDetectorItem::P_DIRECTION).getVector();
 }

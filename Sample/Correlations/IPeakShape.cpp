@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Correlations/IPeakShape.cpp
 //! @brief     Implements the interface IPeakShape and subclasses.
@@ -23,7 +23,8 @@ namespace {
 const double maxkappa = std::log(1.0 / std::numeric_limits<double>::epsilon()) / 2.0;
 const double maxkappa2 = std::log(std::numeric_limits<double>::max());
 
-double FisherDistribution(double x, double kappa) {
+double FisherDistribution(double x, double kappa)
+{
     if (kappa <= 0.0) {
         return 1.0 / (4.0 * M_PI);
     }
@@ -34,7 +35,8 @@ double FisherDistribution(double x, double kappa) {
     return prefactor * std::exp(kappa * x) / std::sinh(kappa);
 }
 
-double FisherPrefactor(double kappa) {
+double FisherPrefactor(double kappa)
+{
     if (kappa <= 0.0) {
         return 1.0 / (4.0 * M_PI);
     }
@@ -45,7 +47,8 @@ double FisherPrefactor(double kappa) {
     }
 }
 
-double MisesPrefactor(double kappa) {
+double MisesPrefactor(double kappa)
+{
     if (kappa <= 0.0) {
         return 1.0 / (2.0 * M_PI);
     }
@@ -56,13 +59,15 @@ double MisesPrefactor(double kappa) {
     }
 }
 
-double Gauss3D(double q2, double domainsize) {
+double Gauss3D(double q2, double domainsize)
+{
     double norm_factor = std::pow(domainsize / std::sqrt(M_TWOPI), 3.0);
     double exponent = -q2 * domainsize * domainsize / 2.0;
     return norm_factor * std::exp(exponent);
 }
 
-double Cauchy3D(double q2, double domainsize) {
+double Cauchy3D(double q2, double domainsize)
+{
     double lorentz1 = domainsize / (1.0 + q2 * domainsize * domainsize) / M_PI;
     return domainsize * lorentz1 * lorentz1;
 }
@@ -74,7 +79,9 @@ double Cauchy3D(double q2, double domainsize) {
 //  ************************************************************************************************
 
 IPeakShape::IPeakShape(const NodeMeta& meta, const std::vector<double>& PValues)
-    : ISampleNode(meta, PValues) {}
+    : ISampleNode(meta, PValues)
+{
+}
 
 IPeakShape::~IPeakShape() = default;
 
@@ -83,20 +90,25 @@ IPeakShape::~IPeakShape() = default;
 //  ************************************************************************************************
 
 IsotropicGaussPeakShape::IsotropicGaussPeakShape(double max_intensity, double domainsize)
-    : m_max_intensity(max_intensity), m_domainsize(domainsize) {}
+    : m_max_intensity(max_intensity), m_domainsize(domainsize)
+{
+}
 
 IsotropicGaussPeakShape::~IsotropicGaussPeakShape() = default;
 
-IsotropicGaussPeakShape* IsotropicGaussPeakShape::clone() const {
+IsotropicGaussPeakShape* IsotropicGaussPeakShape::clone() const
+{
     return new IsotropicGaussPeakShape(m_max_intensity, m_domainsize);
 }
 
-double IsotropicGaussPeakShape::evaluate(const kvector_t q) const {
+double IsotropicGaussPeakShape::evaluate(const kvector_t q) const
+{
     double q_norm = q.mag2();
     return m_max_intensity * Gauss3D(q_norm, m_domainsize);
 }
 
-double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const {
+double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+{
     return evaluate(q - q_lattice_point);
 }
 
@@ -105,21 +117,25 @@ double IsotropicGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_la
 //  ************************************************************************************************
 
 IsotropicLorentzPeakShape::IsotropicLorentzPeakShape(double max_intensity, double domainsize)
-    : m_max_intensity(max_intensity), m_domainsize(domainsize) {}
+    : m_max_intensity(max_intensity), m_domainsize(domainsize)
+{
+}
 
 IsotropicLorentzPeakShape::~IsotropicLorentzPeakShape() = default;
 
-IsotropicLorentzPeakShape* IsotropicLorentzPeakShape::clone() const {
+IsotropicLorentzPeakShape* IsotropicLorentzPeakShape::clone() const
+{
     return new IsotropicLorentzPeakShape(m_max_intensity, m_domainsize);
 }
 
-double IsotropicLorentzPeakShape::evaluate(const kvector_t q) const {
+double IsotropicLorentzPeakShape::evaluate(const kvector_t q) const
+{
     double q_norm = q.mag2();
     return m_max_intensity * Cauchy3D(q_norm, m_domainsize);
 }
 
-double IsotropicLorentzPeakShape::evaluate(const kvector_t q,
-                                           const kvector_t q_lattice_point) const {
+double IsotropicLorentzPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+{
     return evaluate(q - q_lattice_point);
 }
 
@@ -128,15 +144,19 @@ double IsotropicLorentzPeakShape::evaluate(const kvector_t q,
 //  ************************************************************************************************
 
 GaussFisherPeakShape::GaussFisherPeakShape(double max_intensity, double radial_size, double kappa)
-    : m_max_intensity(max_intensity), m_radial_size(radial_size), m_kappa(kappa) {}
+    : m_max_intensity(max_intensity), m_radial_size(radial_size), m_kappa(kappa)
+{
+}
 
 GaussFisherPeakShape::~GaussFisherPeakShape() = default;
 
-GaussFisherPeakShape* GaussFisherPeakShape::clone() const {
+GaussFisherPeakShape* GaussFisherPeakShape::clone() const
+{
     return new GaussFisherPeakShape(m_max_intensity, m_radial_size, m_kappa);
 }
 
-double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const {
+double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+{
     const double q_r = q.mag();
     const double q_lat_r = q_lattice_point.mag();
     const double dq2 = (q_r - q_lat_r) * (q_r - q_lat_r);
@@ -158,15 +178,19 @@ double GaussFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_latti
 
 LorentzFisherPeakShape::LorentzFisherPeakShape(double max_intensity, double radial_size,
                                                double kappa)
-    : m_max_intensity(max_intensity), m_radial_size(radial_size), m_kappa(kappa) {}
+    : m_max_intensity(max_intensity), m_radial_size(radial_size), m_kappa(kappa)
+{
+}
 
 LorentzFisherPeakShape::~LorentzFisherPeakShape() = default;
 
-LorentzFisherPeakShape* LorentzFisherPeakShape::clone() const {
+LorentzFisherPeakShape* LorentzFisherPeakShape::clone() const
+{
     return new LorentzFisherPeakShape(m_max_intensity, m_radial_size, m_kappa);
 }
 
-double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const {
+double LorentzFisherPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+{
     const double q_r = q.mag();
     const double q_lat_r = q_lattice_point.mag();
     const double dq2 = (q_r - q_lat_r) * (q_r - q_lat_r);
@@ -192,17 +216,20 @@ MisesFisherGaussPeakShape::MisesFisherGaussPeakShape(double max_intensity, doubl
     , m_radial_size(radial_size)
     , m_zenith(zenith.unit())
     , m_kappa_1(kappa_1)
-    , m_kappa_2(kappa_2) {}
+    , m_kappa_2(kappa_2)
+{
+}
 
 MisesFisherGaussPeakShape::~MisesFisherGaussPeakShape() = default;
 
-MisesFisherGaussPeakShape* MisesFisherGaussPeakShape::clone() const {
+MisesFisherGaussPeakShape* MisesFisherGaussPeakShape::clone() const
+{
     return new MisesFisherGaussPeakShape(m_max_intensity, m_radial_size, m_zenith, m_kappa_1,
                                          m_kappa_2);
 }
 
-double MisesFisherGaussPeakShape::evaluate(const kvector_t q,
-                                           const kvector_t q_lattice_point) const {
+double MisesFisherGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+{
     // radial part
     const double q_r = q.mag();
     const double q_lat_r = q_lattice_point.mag();
@@ -232,7 +259,8 @@ double MisesFisherGaussPeakShape::evaluate(const kvector_t q,
     return m_max_intensity * radial_part * pre_1 * pre_2 * integral;
 }
 
-double MisesFisherGaussPeakShape::integrand(double phi) const {
+double MisesFisherGaussPeakShape::integrand(double phi) const
+{
     kvector_t u_q = std::sin(m_theta) * std::cos(phi) * m_ux
                     + std::sin(m_theta) * std::sin(phi) * m_uy + std::cos(m_theta) * m_zenith;
     const double fisher = std::exp(m_kappa_1 * (u_q.dot(m_up) - 1.0));
@@ -249,15 +277,19 @@ MisesGaussPeakShape::MisesGaussPeakShape(double max_intensity, double radial_siz
     : m_max_intensity(max_intensity)
     , m_radial_size(radial_size)
     , m_zenith(zenith.unit())
-    , m_kappa(kappa) {}
+    , m_kappa(kappa)
+{
+}
 
 MisesGaussPeakShape::~MisesGaussPeakShape() = default;
 
-MisesGaussPeakShape* MisesGaussPeakShape::clone() const {
+MisesGaussPeakShape* MisesGaussPeakShape::clone() const
+{
     return new MisesGaussPeakShape(m_max_intensity, m_radial_size, m_zenith, m_kappa);
 }
 
-double MisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const {
+double MisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattice_point) const
+{
     m_uy = m_zenith.cross(q_lattice_point);
     kvector_t zxq = m_zenith.cross(q);
     if (m_uy.mag2() <= 0.0 || zxq.mag2() <= 0.0) {
@@ -277,7 +309,8 @@ double MisesGaussPeakShape::evaluate(const kvector_t q, const kvector_t q_lattic
     return m_max_intensity * pre * integral;
 }
 
-double MisesGaussPeakShape::integrand(double phi) const {
+double MisesGaussPeakShape::integrand(double phi) const
+{
     kvector_t q_rot = m_qr
                       * (std::sin(m_theta) * std::cos(phi) * m_ux
                          + std::sin(m_theta) * std::sin(phi) * m_uy + std::cos(m_theta) * m_zenith);

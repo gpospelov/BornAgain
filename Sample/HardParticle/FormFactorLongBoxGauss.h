@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/HardParticle/FormFactorLongBoxGauss.h
 //! @brief     Defines class FormFactorLongBoxGauss.
@@ -25,7 +25,8 @@ public:
     FormFactorLongBoxGauss(const std::vector<double> P);
     FormFactorLongBoxGauss(double length, double width, double height);
 
-    FormFactorLongBoxGauss* clone() const final {
+    FormFactorLongBoxGauss* clone() const final
+    {
         return new FormFactorLongBoxGauss(m_length, m_width, m_height);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/SampleBuilderEngine/FormFactorComponents.h
 //! @brief     Defines sample components for complex sample builders.
@@ -20,8 +20,8 @@
 #ifndef BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_FORMFACTORCOMPONENTS_H
 #define BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_FORMFACTORCOMPONENTS_H
 
-#include "Sample/SampleBuilderEngine/IRegistry.h"
 #include "Sample/HardParticle/HardParticles.h"
+#include "Sample/SampleBuilderEngine/IRegistry.h"
 
 //! @class FormFactorComponents
 //! @brief Predefined form factors for functional tests.

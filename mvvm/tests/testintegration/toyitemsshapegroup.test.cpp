@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testintegration/toyitemsshapegroup.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/model/comboproperty.h"
@@ -29,7 +34,8 @@ ToyItemsShapeGroupTest::~ToyItemsShapeGroupTest() = default;
 
 //! Toy multilayer as produced bo toy SampleModel.
 
-TEST_F(ToyItemsShapeGroupTest, initialState) {
+TEST_F(ToyItemsShapeGroupTest, initialState)
+{
     ToyItems::ShapeGroupItem item;
 
     EXPECT_EQ(item.currentIndex(), 1);
@@ -51,7 +57,8 @@ TEST_F(ToyItemsShapeGroupTest, initialState) {
               std::vector<std::string>({"Cylinder", "Full sphere", "Anysotropical pyramid"}));
 }
 
-TEST_F(ToyItemsShapeGroupTest, setCurrentType) {
+TEST_F(ToyItemsShapeGroupTest, setCurrentType)
+{
     ToyItems::ShapeGroupItem item;
     item.setCurrentType(ToyItems::Constants::CylinderItemType);
 
@@ -69,13 +76,15 @@ TEST_F(ToyItemsShapeGroupTest, setCurrentType) {
               std::vector<std::string>({"Cylinder", "Full sphere", "Anysotropical pyramid"}));
 }
 
-TEST_F(ToyItemsShapeGroupTest, currentItemNoConst) {
+TEST_F(ToyItemsShapeGroupTest, currentItemNoConst)
+{
     ToyItems::ShapeGroupItem item;
     item.currentItem()->setProperty(ToyItems::SphereItem::P_RADIUS, 42.0);
     EXPECT_EQ(item.currentItem()->property<double>(ToyItems::SphereItem::P_RADIUS), 42.0);
 }
 
-TEST_F(ToyItemsShapeGroupTest, inModelContext) {
+TEST_F(ToyItemsShapeGroupTest, inModelContext)
+{
     ToyItems::SampleModel model;
     auto item = model.insertItem<ToyItems::ShapeGroupItem>();
     ASSERT_TRUE(item != nullptr);
@@ -97,7 +106,8 @@ TEST_F(ToyItemsShapeGroupTest, inModelContext) {
     EXPECT_EQ(item->children().at(2)->model(), &model);
 }
 
-TEST_F(ToyItemsShapeGroupTest, setDataInModelContext) {
+TEST_F(ToyItemsShapeGroupTest, setDataInModelContext)
+{
     ToyItems::SampleModel model;
     auto item = model.insertItem<ToyItems::ShapeGroupItem>();
     ASSERT_TRUE(item != nullptr);
@@ -118,7 +128,8 @@ TEST_F(ToyItemsShapeGroupTest, setDataInModelContext) {
 
 //! ViewLabelItem and ViewDataItem from ShapeItem.
 
-TEST_F(ToyItemsShapeGroupTest, viewItemsFromShapeGroup) {
+TEST_F(ToyItemsShapeGroupTest, viewItemsFromShapeGroup)
+{
     ToyItems::SampleModel model;
 
     auto groupItem = model.insertItem<ToyItems::ShapeGroupItem>();
@@ -133,7 +144,8 @@ TEST_F(ToyItemsShapeGroupTest, viewItemsFromShapeGroup) {
 
 //! ShapeGroup item in DefaultViewModel.
 
-TEST_F(ToyItemsShapeGroupTest, inDefaultViewModelContext) {
+TEST_F(ToyItemsShapeGroupTest, inDefaultViewModelContext)
+{
     ToyItems::SampleModel model;
     auto groupItem = model.insertItem<ToyItems::ShapeGroupItem>();
 
@@ -183,7 +195,8 @@ TEST_F(ToyItemsShapeGroupTest, inDefaultViewModelContext) {
 
 //! ShapeGroup item in PropertyViewModel.
 
-TEST_F(ToyItemsShapeGroupTest, inPropertyViewModelContext) {
+TEST_F(ToyItemsShapeGroupTest, inPropertyViewModelContext)
+{
     ToyItems::SampleModel model;
     auto parent = model.insertItem<SessionItem>();
     parent->registerTag(

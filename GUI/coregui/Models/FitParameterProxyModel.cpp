@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/FitParameterProxyModel.cpp
 //! @brief     Implements class FitParameterAbsModel
@@ -25,7 +25,8 @@ using SessionItemUtils::ParentRow;
 
 FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem* fitParContainer,
                                                QObject* parent)
-    : QAbstractItemModel(parent), m_root_item(fitParContainer) {
+    : QAbstractItemModel(parent), m_root_item(fitParContainer)
+{
     addColumn(PAR_NAME, "Name", "Name of fit parameter");
     addColumn(PAR_TYPE, FitParameterItem::P_TYPE, "Fit parameter limits type");
     addColumn(PAR_VALUE, FitParameterItem::P_START_VALUE, "Starting value of fit parameter");
@@ -46,13 +47,15 @@ FitParameterProxyModel::FitParameterProxyModel(FitParameterContainerItem* fitPar
         this);
 }
 
-FitParameterProxyModel::~FitParameterProxyModel() {
+FitParameterProxyModel::~FitParameterProxyModel()
+{
     if (m_root_item) {
         m_root_item->mapper()->unsubscribe(this);
     }
 }
 
-Qt::ItemFlags FitParameterProxyModel::flags(const QModelIndex& index) const {
+Qt::ItemFlags FitParameterProxyModel::flags(const QModelIndex& index) const
+{
     if (!m_root_item)
         return Qt::NoItemFlags;
 
@@ -82,7 +85,8 @@ Qt::ItemFlags FitParameterProxyModel::flags(const QModelIndex& index) const {
     return returnVal;
 }
 
-QModelIndex FitParameterProxyModel::index(int row, int column, const QModelIndex& parent) const {
+QModelIndex FitParameterProxyModel::index(int row, int column, const QModelIndex& parent) const
+{
     if (!m_root_item || row < 0 || column < 0 || column >= columnCount(QModelIndex())
         || (parent.isValid() && parent.column() != 0))
         return QModelIndex();
@@ -109,7 +113,8 @@ QModelIndex FitParameterProxyModel::index(int row, int column, const QModelIndex
     return QModelIndex();
 }
 
-QModelIndex FitParameterProxyModel::parent(const QModelIndex& child) const {
+QModelIndex FitParameterProxyModel::parent(const QModelIndex& child) const
+{
     if (!m_root_item)
         return QModelIndex();
 
@@ -131,7 +136,8 @@ QModelIndex FitParameterProxyModel::parent(const QModelIndex& child) const {
     return QModelIndex();
 }
 
-int FitParameterProxyModel::rowCount(const QModelIndex& parent) const {
+int FitParameterProxyModel::rowCount(const QModelIndex& parent) const
+{
     if (!m_root_item)
         return 0;
 
@@ -150,7 +156,8 @@ int FitParameterProxyModel::rowCount(const QModelIndex& parent) const {
     return 0;
 }
 
-int FitParameterProxyModel::columnCount(const QModelIndex& parent) const {
+int FitParameterProxyModel::columnCount(const QModelIndex& parent) const
+{
     if (!m_root_item)
         return 0;
 
@@ -170,7 +177,8 @@ int FitParameterProxyModel::columnCount(const QModelIndex& parent) const {
     return 0;
 }
 
-QVariant FitParameterProxyModel::data(const QModelIndex& index, int role) const {
+QVariant FitParameterProxyModel::data(const QModelIndex& index, int role) const
+{
     if (!m_root_item)
         return QVariant();
 
@@ -193,7 +201,8 @@ QVariant FitParameterProxyModel::data(const QModelIndex& index, int role) const 
     return QVariant();
 }
 
-bool FitParameterProxyModel::setData(const QModelIndex& index, const QVariant& value, int role) {
+bool FitParameterProxyModel::setData(const QModelIndex& index, const QVariant& value, int role)
+{
     if (!m_root_item)
         return false;
 
@@ -209,13 +218,15 @@ bool FitParameterProxyModel::setData(const QModelIndex& index, const QVariant& v
     return false;
 }
 
-QStringList FitParameterProxyModel::mimeTypes() const {
+QStringList FitParameterProxyModel::mimeTypes() const
+{
     QStringList types;
     types << SessionXML::LinkMimeType;
     return types;
 }
 
-QMimeData* FitParameterProxyModel::mimeData(const QModelIndexList& indexes) const {
+QMimeData* FitParameterProxyModel::mimeData(const QModelIndexList& indexes) const
+{
     QMimeData* mimeData = new QMimeData();
     QModelIndex index = indexes.first();
     if (index.isValid()) {
@@ -228,7 +239,8 @@ QMimeData* FitParameterProxyModel::mimeData(const QModelIndexList& indexes) cons
 }
 
 bool FitParameterProxyModel::canDropMimeData(const QMimeData* data, Qt::DropAction action, int row,
-                                             int column, const QModelIndex& parent) const {
+                                             int column, const QModelIndex& parent) const
+{
     Q_UNUSED(data);
     Q_UNUSED(action);
     Q_UNUSED(row);
@@ -241,7 +253,8 @@ bool FitParameterProxyModel::canDropMimeData(const QMimeData* data, Qt::DropActi
 }
 
 bool FitParameterProxyModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row,
-                                          int column, const QModelIndex& parent) {
+                                          int column, const QModelIndex& parent)
+{
     Q_UNUSED(action);
     Q_UNUSED(row);
     Q_UNUSED(column);
@@ -264,7 +277,8 @@ bool FitParameterProxyModel::dropMimeData(const QMimeData* data, Qt::DropAction 
 }
 
 QVariant FitParameterProxyModel::headerData(int section, Qt::Orientation orientation,
-                                            int role) const {
+                                            int role) const
+{
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
         return m_columnNames.value(section);
     } else if (role == Qt::ToolTipRole) {
@@ -275,7 +289,8 @@ QVariant FitParameterProxyModel::headerData(int section, Qt::Orientation orienta
 
 void FitParameterProxyModel::onSourceDataChanged(const QModelIndex& topLeft,
                                                  const QModelIndex& bottomRight,
-                                                 const QVector<int>& roles) {
+                                                 const QVector<int>& roles)
+{
     Q_UNUSED(bottomRight);
 
     JobModel* sourceModel = qobject_cast<JobModel*>(sender());
@@ -288,7 +303,8 @@ void FitParameterProxyModel::onSourceDataChanged(const QModelIndex& topLeft,
         emit dataChanged(itemIndex, itemIndex, roles);
 }
 
-void FitParameterProxyModel::onSourceRowsRemoved(const QModelIndex& parent, int first, int last) {
+void FitParameterProxyModel::onSourceRowsRemoved(const QModelIndex& parent, int first, int last)
+{
     Q_UNUSED(parent);
     Q_UNUSED(first);
     Q_UNUSED(last);
@@ -296,14 +312,16 @@ void FitParameterProxyModel::onSourceRowsRemoved(const QModelIndex& parent, int 
     endResetModel();
 }
 
-void FitParameterProxyModel::onSourceAboutToBeReset() {
+void FitParameterProxyModel::onSourceAboutToBeReset()
+{
     if (!m_root_item)
         return;
     beginResetModel();
     endResetModel();
 }
 
-void FitParameterProxyModel::connectModel(QAbstractItemModel* sourceModel, bool isConnect) {
+void FitParameterProxyModel::connectModel(QAbstractItemModel* sourceModel, bool isConnect)
+{
     ASSERT(sourceModel);
     if (isConnect) {
         connect(sourceModel, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), this,
@@ -322,12 +340,14 @@ void FitParameterProxyModel::connectModel(QAbstractItemModel* sourceModel, bool 
 }
 
 void FitParameterProxyModel::addColumn(FitParameterProxyModel::EColumn id, const QString& name,
-                                       const QString& tooltip) {
+                                       const QString& tooltip)
+{
     m_columnNames[id] = name;
     m_columnToolTips[id] = tooltip;
 }
 
-QModelIndex FitParameterProxyModel::indexOfItem(SessionItem* item) const {
+QModelIndex FitParameterProxyModel::indexOfItem(SessionItem* item) const
+{
     if (!m_root_item)
         return QModelIndex();
 
@@ -351,7 +371,8 @@ QModelIndex FitParameterProxyModel::indexOfItem(SessionItem* item) const {
     return QModelIndex();
 }
 
-SessionItem* FitParameterProxyModel::itemForIndex(const QModelIndex& index) const {
+SessionItem* FitParameterProxyModel::itemForIndex(const QModelIndex& index) const
+{
     if (!m_root_item)
         return 0;
 
@@ -367,13 +388,15 @@ SessionItem* FitParameterProxyModel::itemForIndex(const QModelIndex& index) cons
     return m_root_item;
 }
 
-SessionModel* FitParameterProxyModel::sourceModel() const {
+SessionModel* FitParameterProxyModel::sourceModel() const
+{
     ASSERT(m_root_item);
     return m_root_item->model();
 }
 
 //! Returns true if given item still exists in source model
-bool FitParameterProxyModel::isValidSourceItem(SessionItem* item) const {
+bool FitParameterProxyModel::isValidSourceItem(SessionItem* item) const
+{
     if (item == m_root_item)
         return true;
     if (sourceModel() && ModelPath::isValidItem(sourceModel(), item, m_root_item->index()))

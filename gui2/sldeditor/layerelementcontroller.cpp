@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit reflection and scattering
 //
+//! @file      gui2/sldeditor/layerelementcontroller.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/sldeditor/layerelementcontroller.h"
 
@@ -25,15 +30,19 @@ namespace gui2 {
 
 //! Constructor
 LayerElementController::LayerElementController(LayerElementItem* layer_view_item)
-    : QObject(), p_model_item(layer_view_item), m_sample_item_id(" ") {}
+    : QObject(), p_model_item(layer_view_item), m_sample_item_id(" ")
+{
+}
 
 //! Returns the pointer to the LayerElementItem in the model
-LayerElementItem* LayerElementController::layerElementItem() const {
+LayerElementItem* LayerElementController::layerElementItem() const
+{
     return p_model_item;
 }
 
 //! Allow the population of the own elements
-void LayerElementController::autoPopulate() {
+void LayerElementController::autoPopulate()
+{
     setSideSegment(new SegmentElementView());
     setTopSegment(new SegmentElementView());
     setSegmentHandles(new HandleElementView(), new HandleElementView());
@@ -42,7 +51,8 @@ void LayerElementController::autoPopulate() {
 }
 
 //! If loacally created the view elements nees to be locally destroyed
-void LayerElementController::deleteViewItems() {
+void LayerElementController::deleteViewItems()
+{
     if (m_segment_views[0]) {
         auto temp_ptr = m_segment_views[0];
         unsetSideSegment();
@@ -75,7 +85,8 @@ void LayerElementController::deleteViewItems() {
 }
 
 //! Connect to the set item
-void LayerElementController::connectToModel() const {
+void LayerElementController::connectToModel() const
+{
     auto on_property_change = [this](ModelView::SessionItem* /*item*/, std::string property_name) {
         if (property_name == LayerElementItem::P_X_POS) {
             updateSideSegment();
@@ -192,12 +203,14 @@ void LayerElementController::connectToModel() const {
 }
 
 //! Disconnect from the set item
-void LayerElementController::disconnectFormModel() const {
+void LayerElementController::disconnectFormModel() const
+{
     layerElementItem()->mapper()->unsubscribe(this);
 }
 
 //! Set the scene
-void LayerElementController::setScene(GraphicsScene* scene) {
+void LayerElementController::setScene(GraphicsScene* scene)
+{
     if (!scene)
         return;
 
@@ -210,12 +223,14 @@ void LayerElementController::setScene(GraphicsScene* scene) {
 }
 
 //! Return the current set scene
-GraphicsScene* LayerElementController::scene() const {
+GraphicsScene* LayerElementController::scene() const
+{
     return p_scene;
 }
 
 //! Set the scene
-void LayerElementController::unsetScene() {
+void LayerElementController::unsetScene()
+{
     if (!scene())
         return;
 
@@ -227,22 +242,26 @@ void LayerElementController::unsetScene() {
 }
 
 //! Set the idenfier of the sample item to report
-void LayerElementController::setSampleItemId(std::string identifier) {
+void LayerElementController::setSampleItemId(std::string identifier)
+{
     m_sample_item_id = identifier;
 }
 
 //! Return the set sample item identifier
-std::string LayerElementController::sampleItemId() const {
+std::string LayerElementController::sampleItemId() const
+{
     return m_sample_item_id;
 }
 
 //! Unset the sample item identifier
-void LayerElementController::unsetSampleItemId() {
+void LayerElementController::unsetSampleItemId()
+{
     m_sample_item_id = " ";
 }
 
 //! Get the scene adapter to convert to axes
-SceneAdapterInterface* LayerElementController::sceneAdapter() const {
+SceneAdapterInterface* LayerElementController::sceneAdapter() const
+{
     if (!p_scene)
         return nullptr;
 
@@ -250,7 +269,8 @@ SceneAdapterInterface* LayerElementController::sceneAdapter() const {
 }
 
 //! Set the layer above the current one in relation
-void LayerElementController::setLayerAbove(LayerElementController* layer_view_controller) {
+void LayerElementController::setLayerAbove(LayerElementController* layer_view_controller)
+{
     p_controller_above = layer_view_controller;
 
     if (layer_view_controller->layerBelow() != this)
@@ -263,7 +283,8 @@ void LayerElementController::setLayerAbove(LayerElementController* layer_view_co
 }
 
 //! Set the layer below the current one in relation
-void LayerElementController::setLayerBelow(LayerElementController* layer_view_controller) {
+void LayerElementController::setLayerBelow(LayerElementController* layer_view_controller)
+{
     p_controller_below = layer_view_controller;
 
     if (layer_view_controller->layerAbove() != this)
@@ -271,17 +292,20 @@ void LayerElementController::setLayerBelow(LayerElementController* layer_view_co
 }
 
 //! Return the layer above the current one in relation
-LayerElementController* LayerElementController::layerAbove() const {
+LayerElementController* LayerElementController::layerAbove() const
+{
     return p_controller_above;
 }
 
 //! Return the layer below the current one in relation
-LayerElementController* LayerElementController::layerBelow() const {
+LayerElementController* LayerElementController::layerBelow() const
+{
     return p_controller_below;
 }
 
 //! Unset the layer above the current one in relation
-void LayerElementController::unsetLayerAbove(bool silent) {
+void LayerElementController::unsetLayerAbove(bool silent)
+{
     if (!p_controller_above)
         return;
 
@@ -292,7 +316,8 @@ void LayerElementController::unsetLayerAbove(bool silent) {
 }
 
 //! Unset the layer below the current one in relation
-void LayerElementController::unsetLayerBelow(bool silent) {
+void LayerElementController::unsetLayerBelow(bool silent)
+{
     if (!p_controller_below)
         return;
 
@@ -303,7 +328,8 @@ void LayerElementController::unsetLayerBelow(bool silent) {
 }
 
 //! Set the side segment elements
-void LayerElementController::setSideSegment(SegmentElementView* segment_view) {
+void LayerElementController::setSideSegment(SegmentElementView* segment_view)
+{
     m_segment_views[0] = segment_view;
     m_segment_views[0]->adaptW(false);
     m_segment_views[0]->setLayerElementController(this);
@@ -314,7 +340,8 @@ void LayerElementController::setSideSegment(SegmentElementView* segment_view) {
 }
 
 //! Set the top segment elements
-void LayerElementController::setTopSegment(SegmentElementView* segment_view) {
+void LayerElementController::setTopSegment(SegmentElementView* segment_view)
+{
     m_segment_views[1] = segment_view;
     m_segment_views[1]->adaptH(false);
     m_segment_views[1]->setLayerElementController(this);
@@ -325,17 +352,20 @@ void LayerElementController::setTopSegment(SegmentElementView* segment_view) {
 }
 
 //! Return the side Segment view
-SegmentElementView* LayerElementController::sideSegment() const {
+SegmentElementView* LayerElementController::sideSegment() const
+{
     return m_segment_views[0];
 }
 
 //! Return the top Segment view
-SegmentElementView* LayerElementController::topSegment() const {
+SegmentElementView* LayerElementController::topSegment() const
+{
     return m_segment_views[1];
 }
 
 //! Unset the side segment elements
-void LayerElementController::unsetSideSegment() {
+void LayerElementController::unsetSideSegment()
+{
     if (m_segment_views[0] && scene() && m_segment_views[0]->scene() == scene())
         scene()->removeItem(m_segment_views[0]);
 
@@ -343,7 +373,8 @@ void LayerElementController::unsetSideSegment() {
 }
 
 //! Unset the top segment elements
-void LayerElementController::unsetTopSegment() {
+void LayerElementController::unsetTopSegment()
+{
     if (m_segment_views[1] && scene() && m_segment_views[1]->scene() == scene())
         scene()->removeItem(m_segment_views[1]);
 
@@ -351,7 +382,8 @@ void LayerElementController::unsetTopSegment() {
 }
 
 //! The move logic for the segments
-void LayerElementController::segmentViewMoved(SegmentElementView* segment_view) {
+void LayerElementController::segmentViewMoved(SegmentElementView* segment_view)
+{
     if (segment_view == sideSegment()) {
         sideSegmentMoved();
     } else if (segment_view == topSegment()) {
@@ -360,7 +392,8 @@ void LayerElementController::segmentViewMoved(SegmentElementView* segment_view) 
 }
 
 //! Update the view of the side segment
-void LayerElementController::updateSideSegment() const {
+void LayerElementController::updateSideSegment() const
+{
     if (!m_segment_views[0])
         return;
 
@@ -377,7 +410,8 @@ void LayerElementController::updateSideSegment() const {
 }
 
 //! Update the view of the top segment
-void LayerElementController::updateTopSegment() const {
+void LayerElementController::updateTopSegment() const
+{
     if (!m_segment_views[1])
         return;
 
@@ -394,7 +428,8 @@ void LayerElementController::updateTopSegment() const {
 }
 
 //! Return the side segment rectangle
-QRectF LayerElementController::sideSegmentRect() const {
+QRectF LayerElementController::sideSegmentRect() const
+{
     double this_pos = layerElementItem()->property<double>(LayerElementItem::P_X_POS);
     double this_height = layerElementItem()->property<double>(LayerElementItem::P_HEIGHT);
     double this_thickness =
@@ -416,7 +451,8 @@ QRectF LayerElementController::sideSegmentRect() const {
 }
 
 //! Return the top segment rectangle
-QRectF LayerElementController::topSegmentRect() const {
+QRectF LayerElementController::topSegmentRect() const
+{
     double pos = layerElementItem()->property<double>(LayerElementItem::P_X_POS);
     double height = layerElementItem()->property<double>(LayerElementItem::P_HEIGHT);
     double width = layerElementItem()->property<double>(LayerElementItem::P_WIDTH);
@@ -425,7 +461,8 @@ QRectF LayerElementController::topSegmentRect() const {
 }
 
 //! Put segments on scene
-void LayerElementController::putSegementsOnScene() const {
+void LayerElementController::putSegementsOnScene() const
+{
     if (!scene())
         return;
     for (auto segment_view : m_segment_views) {
@@ -435,7 +472,8 @@ void LayerElementController::putSegementsOnScene() const {
 }
 
 //! Remove the segments from the scene
-void LayerElementController::removeSegmentsFromScene() const {
+void LayerElementController::removeSegmentsFromScene() const
+{
     if (!scene())
         return;
     for (auto segment_view : m_segment_views) {
@@ -445,7 +483,8 @@ void LayerElementController::removeSegmentsFromScene() const {
 }
 
 //! Handle the position variation of the side segment
-void LayerElementController::sideSegmentMoved() const {
+void LayerElementController::sideSegmentMoved() const
+{
     double x = sideSegment()->getLastPos().x();
     if (layerAbove()) {
         double w = 0;
@@ -461,7 +500,8 @@ void LayerElementController::sideSegmentMoved() const {
 }
 
 //! Handle the position variation of the top segment
-void LayerElementController::topSegmentMoved() const {
+void LayerElementController::topSegmentMoved() const
+{
     double y = topSegment()->getLastPos().y();
     if (y < 0)
         y = 0;
@@ -470,7 +510,8 @@ void LayerElementController::topSegmentMoved() const {
 
 //! Set the side segment elements
 void LayerElementController::setSegmentHandles(HandleElementView* first_handle,
-                                               HandleElementView* second_handle) {
+                                               HandleElementView* second_handle)
+{
     m_handle_views[0] = first_handle;
     m_handle_views[1] = second_handle;
     m_handle_views[0]->setLayerElementController(this);
@@ -484,17 +525,20 @@ void LayerElementController::setSegmentHandles(HandleElementView* first_handle,
 }
 
 //! Return the side Segment view
-HandleElementView* LayerElementController::firstSegmentHandle() const {
+HandleElementView* LayerElementController::firstSegmentHandle() const
+{
     return m_handle_views[0];
 }
 
 //! Return the top Segment view
-HandleElementView* LayerElementController::secondSegmentHandle() const {
+HandleElementView* LayerElementController::secondSegmentHandle() const
+{
     return m_handle_views[1];
 }
 
 //! Unset the side segment elements
-void LayerElementController::unsetSegmentHandles() {
+void LayerElementController::unsetSegmentHandles()
+{
     if (m_handle_views[0] && scene() && m_handle_views[0]->scene() == scene())
         scene()->removeItem(m_handle_views[0]);
     if (m_handle_views[1] && scene() && m_handle_views[1]->scene() == scene())
@@ -505,7 +549,8 @@ void LayerElementController::unsetSegmentHandles() {
 }
 
 //! The move logic for the handles associated to the segments
-void LayerElementController::handleViewMoved(HandleElementView* handle_view) {
+void LayerElementController::handleViewMoved(HandleElementView* handle_view)
+{
     if (handle_view == leftRoughnessHandle()) {
         leftHandleMoved();
     } else if (handle_view == rightRoughnessHandle()) {
@@ -514,7 +559,8 @@ void LayerElementController::handleViewMoved(HandleElementView* handle_view) {
 }
 
 //! Update the handles of the segment
-void LayerElementController::updateSegmentHandles() const {
+void LayerElementController::updateSegmentHandles() const
+{
     auto pen = QPen();
     pen.setColor(layerElementItem()->property<QColor>(LayerElementItem::P_HANDLE_PEN_COLOR));
     pen.setWidthF(layerElementItem()->property<double>(LayerElementItem::P_HANDLE_PEN_WIDTH));
@@ -535,7 +581,8 @@ void LayerElementController::updateSegmentHandles() const {
 }
 
 //! Get the first segment handle rectangle
-QRectF LayerElementController::firstSegmentHandleRect() const {
+QRectF LayerElementController::firstSegmentHandleRect() const
+{
     double pos = layerElementItem()->property<double>(LayerElementItem::P_X_POS);
     double radius = layerElementItem()->property<double>(LayerElementItem::P_HANDLE_RADIUS);
 
@@ -549,7 +596,8 @@ QRectF LayerElementController::firstSegmentHandleRect() const {
 }
 
 //! Get the second segment handle rectangle
-QRectF LayerElementController::secondSegmentHandleRect() const {
+QRectF LayerElementController::secondSegmentHandleRect() const
+{
     double pos = layerElementItem()->property<double>(LayerElementItem::P_X_POS);
     double height = layerElementItem()->property<double>(LayerElementItem::P_HEIGHT);
     double radius = layerElementItem()->property<double>(LayerElementItem::P_HANDLE_RADIUS);
@@ -557,7 +605,8 @@ QRectF LayerElementController::secondSegmentHandleRect() const {
 }
 
 //! Put the segment handles on the secene
-void LayerElementController::putSegmentHandlesOnScene() const {
+void LayerElementController::putSegmentHandlesOnScene() const
+{
     if (!scene())
         return;
     for (auto handle_view : m_handle_views) {
@@ -567,7 +616,8 @@ void LayerElementController::putSegmentHandlesOnScene() const {
 }
 
 //! Remove the segment handles on the scene
-void LayerElementController::removeSegmentHandlesFromScene() const {
+void LayerElementController::removeSegmentHandlesFromScene() const
+{
     if (!scene())
         return;
     for (auto handle_view : m_handle_views) {
@@ -577,7 +627,8 @@ void LayerElementController::removeSegmentHandlesFromScene() const {
 }
 
 //! Set the roughness element view
-void LayerElementController::setRoughness(RoughnessElementView* roughness_view) {
+void LayerElementController::setRoughness(RoughnessElementView* roughness_view)
+{
     p_roughness_view = roughness_view;
     updateRoughness();
 
@@ -588,7 +639,8 @@ void LayerElementController::setRoughness(RoughnessElementView* roughness_view) 
 
 //! Set the roughness handle element views
 void LayerElementController::setRoughnessHandles(HandleElementView* first_handle_view,
-                                                 HandleElementView* second_handle_view) {
+                                                 HandleElementView* second_handle_view)
+{
     m_rough_handles_views[0] = first_handle_view;
     m_rough_handles_views[1] = second_handle_view;
     m_rough_handles_views[0]->setFlag(QGraphicsItem::ItemIsMovable);
@@ -604,29 +656,34 @@ void LayerElementController::setRoughnessHandles(HandleElementView* first_handle
 }
 
 //! Return the roughness element view
-RoughnessElementView* LayerElementController::roughness() const {
+RoughnessElementView* LayerElementController::roughness() const
+{
     return p_roughness_view;
 }
 
 //! Return the left roughness handle element view
-HandleElementView* LayerElementController::leftRoughnessHandle() const {
+HandleElementView* LayerElementController::leftRoughnessHandle() const
+{
     return m_rough_handles_views[0];
 }
 
 //! Return the right roughness handle element view
-HandleElementView* LayerElementController::rightRoughnessHandle() const {
+HandleElementView* LayerElementController::rightRoughnessHandle() const
+{
     return m_rough_handles_views[1];
 }
 
 //! Remove the roughness view element pointer
-void LayerElementController::unsetRoughness() {
+void LayerElementController::unsetRoughness()
+{
     if (p_roughness_view && scene() && p_roughness_view->scene() == scene())
         scene()->removeItem(p_roughness_view);
     p_roughness_view = nullptr;
 }
 
 //! Remove the handle pointers
-void LayerElementController::unsetRoughnessHandles() {
+void LayerElementController::unsetRoughnessHandles()
+{
     if (m_rough_handles_views[0] && scene() && m_rough_handles_views[0]->scene() == scene())
         scene()->removeItem(m_rough_handles_views[0]);
     if (m_rough_handles_views[1] && scene() && m_rough_handles_views[1]->scene() == scene())
@@ -637,7 +694,8 @@ void LayerElementController::unsetRoughnessHandles() {
 }
 
 //! Update the whole roughness drawing
-void LayerElementController::updateRoughness() const {
+void LayerElementController::updateRoughness() const
+{
     // Test the roughness
     double roughness = layerElementItem()->property<double>(LayerElementItem::P_ROUGHNESS);
     // double width = layerElementItem()->property<double>(LayerElementItem::P_WIDTH);
@@ -679,7 +737,8 @@ void LayerElementController::updateRoughness() const {
 }
 
 //! get the left painter path for the roughness view
-QPainterPath LayerElementController::leftRoughnessPath() const {
+QPainterPath LayerElementController::leftRoughnessPath() const
+{
     double pos = layerElementItem()->property<double>(LayerElementItem::P_X_POS);
     double height = layerElementItem()->property<double>(LayerElementItem::P_HEIGHT);
     double roughness = layerElementItem()->property<double>(LayerElementItem::P_ROUGHNESS);
@@ -701,7 +760,8 @@ QPainterPath LayerElementController::leftRoughnessPath() const {
 }
 
 //! get the right painter path for the roughness view
-QPainterPath LayerElementController::rightRoughnessPath() const {
+QPainterPath LayerElementController::rightRoughnessPath() const
+{
     double pos = layerElementItem()->property<double>(LayerElementItem::P_X_POS);
     double height = layerElementItem()->property<double>(LayerElementItem::P_HEIGHT);
     double roughness = layerElementItem()->property<double>(LayerElementItem::P_ROUGHNESS);
@@ -724,7 +784,8 @@ QPainterPath LayerElementController::rightRoughnessPath() const {
 }
 
 //! get the rectangle for the left roughness handles
-QRectF LayerElementController::leftRoughnessHandleRect() const {
+QRectF LayerElementController::leftRoughnessHandleRect() const
+{
     double pos_x = layerElementItem()->property<double>(LayerElementItem::P_X_POS);
     double height = layerElementItem()->property<double>(LayerElementItem::P_HEIGHT);
     double radius = layerElementItem()->property<double>(LayerElementItem::P_R_HANDLE_RADIUS);
@@ -742,7 +803,8 @@ QRectF LayerElementController::leftRoughnessHandleRect() const {
 }
 
 //! get the rectangle for the right roughness handles
-QRectF LayerElementController::rightRoughnessHandleRect() const {
+QRectF LayerElementController::rightRoughnessHandleRect() const
+{
     double pos_x = layerElementItem()->property<double>(LayerElementItem::P_X_POS);
     double height = layerElementItem()->property<double>(LayerElementItem::P_HEIGHT);
     double radius = layerElementItem()->property<double>(LayerElementItem::P_R_HANDLE_RADIUS);
@@ -760,7 +822,8 @@ QRectF LayerElementController::rightRoughnessHandleRect() const {
 }
 
 //! Put the roughnes view on the scene
-void LayerElementController::putRoughnessOnScene() const {
+void LayerElementController::putRoughnessOnScene() const
+{
     if (!scene())
         return;
     if (p_roughness_view)
@@ -768,7 +831,8 @@ void LayerElementController::putRoughnessOnScene() const {
 }
 
 //! Put the roughness handles on the scene
-void LayerElementController::putRoughnessHandlesOnScene() const {
+void LayerElementController::putRoughnessHandlesOnScene() const
+{
     if (!scene())
         return;
     for (auto handle_roughness_view : m_rough_handles_views) {
@@ -778,7 +842,8 @@ void LayerElementController::putRoughnessHandlesOnScene() const {
 }
 
 //! Remove the roughness view item from the scene
-void LayerElementController::removeRoughnessFromScene() const {
+void LayerElementController::removeRoughnessFromScene() const
+{
     if (!scene())
         return;
     if (p_roughness_view && p_roughness_view->scene() == scene())
@@ -786,7 +851,8 @@ void LayerElementController::removeRoughnessFromScene() const {
 }
 
 //! Remove the roughness handles from the sene
-void LayerElementController::removeRoughnessHandlesFromScene() const {
+void LayerElementController::removeRoughnessHandlesFromScene() const
+{
     if (!scene())
         return;
     for (auto handle_roughness_view : m_rough_handles_views) {
@@ -796,21 +862,24 @@ void LayerElementController::removeRoughnessHandlesFromScene() const {
 }
 
 //! Handle the position variation of the left handle
-void LayerElementController::leftHandleMoved() const {
+void LayerElementController::leftHandleMoved() const
+{
     double pos = layerElementItem()->property<double>(LayerElementItem::P_X_POS);
     double roughness = pos - leftRoughnessHandle()->getLastPos().x();
     setRoughnessInLimits(roughness);
 }
 
 //! Handle the position variation of the right handle
-void LayerElementController::rightHandleMoved() const {
+void LayerElementController::rightHandleMoved() const
+{
     double pos = layerElementItem()->property<double>(LayerElementItem::P_X_POS);
     double roughness = rightRoughnessHandle()->getLastPos().x() - pos;
     setRoughnessInLimits(roughness);
 }
 
 //! Handle the position variation of the right handle
-void LayerElementController::setRoughnessInLimits(double roughness, bool active) const {
+void LayerElementController::setRoughnessInLimits(double roughness, bool active) const
+{
     if (roughness < 0) {
         layerElementItem()->setProperty(LayerElementItem::P_ROUGHNESS, 0.);
         return;

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/model/itemutils.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMUTILS_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMUTILS_H
@@ -68,7 +73,8 @@ MVVM_MODEL_EXPORT bool IsItemAncestor(const SessionItem* item, const SessionItem
 MVVM_MODEL_EXPORT std::vector<SessionItem*> UniqueItems(const std::vector<SessionItem*>& items);
 
 //! Returns vector of items casted to given type.
-template <typename T> std::vector<T*> CastedItems(const std::vector<SessionItem*>& items) {
+template <typename T> std::vector<T*> CastedItems(const std::vector<SessionItem*>& items)
+{
     std::vector<T*> result;
     for (auto item : items)
         if (auto casted_item = dynamic_cast<T*>(item); casted_item)

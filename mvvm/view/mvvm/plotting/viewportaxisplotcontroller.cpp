@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/view/mvvm/plotting/viewportaxisplotcontroller.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/plotting/viewportaxisplotcontroller.h"
 #include "mvvm/plotting/axistitlecontroller.h"
@@ -27,14 +32,16 @@ struct ViewportAxisPlotController::AxesPlotControllerImpl {
     std::unique_ptr<AxisTitleController> m_titleController;
 
     AxesPlotControllerImpl(ViewportAxisPlotController* controller, QCPAxis* axis)
-        : m_self(controller), m_axis(axis) {
+        : m_self(controller), m_axis(axis)
+    {
         if (!axis)
             throw std::runtime_error("AxisPlotController: axis is not initialized.");
         m_axisConn = std::make_unique<QMetaObject::Connection>();
     }
 
     //! Connects QCustomPlot signals with controller methods.
-    void setConnected() {
+    void setConnected()
+    {
         auto on_axis_range = [this](const QCPRange& newRange) {
             m_blockUpdate = true;
             auto item = m_self->currentItem();
@@ -52,20 +59,23 @@ struct ViewportAxisPlotController::AxesPlotControllerImpl {
     void setDisconnected() { QObject::disconnect(*m_axisConn); }
 
     //! Sets axesRange from SessionItem.
-    void setAxisRangeFromItem() {
+    void setAxisRangeFromItem()
+    {
         auto [lower, upper] = m_self->currentItem()->range();
         m_axis->setRange(QCPRange(lower, upper));
     }
 
     //! Sets log scale from item.
 
-    void setAxisLogScaleFromItem() {
+    void setAxisLogScaleFromItem()
+    {
         Utils::SetLogarithmicScale(m_axis, m_self->currentItem()->is_in_log());
     }
 
     //! Init axis from item and setup connections.
 
-    void init_axis() {
+    void init_axis()
+    {
         m_titleController = std::make_unique<AxisTitleController>(m_axis);
         auto text_item = m_self->currentItem()->item<TextItem>(ViewportAxisItem::P_TITLE);
         m_titleController->setItem(text_item);
@@ -74,13 +84,15 @@ struct ViewportAxisPlotController::AxesPlotControllerImpl {
         setConnected();
     }
 
-    void updateLowerRange(const ViewportAxisItem* item) {
+    void updateLowerRange(const ViewportAxisItem* item)
+    {
         setDisconnected();
         m_axis->setRangeLower(item->property<double>(ViewportAxisItem::P_MIN));
         setConnected();
     }
 
-    void updateUpperRange(const ViewportAxisItem* item) {
+    void updateUpperRange(const ViewportAxisItem* item)
+    {
         setDisconnected();
         m_axis->setRangeUpper(item->property<double>(ViewportAxisItem::P_MAX));
         setConnected();
@@ -92,11 +104,13 @@ struct ViewportAxisPlotController::AxesPlotControllerImpl {
 ViewportAxisPlotController::ViewportAxisPlotController(QCPAxis* axis)
     : p_impl(std::make_unique<AxesPlotControllerImpl>(this, axis))
 
-{}
+{
+}
 
 ViewportAxisPlotController::~ViewportAxisPlotController() = default;
 
-void ViewportAxisPlotController::subscribe() {
+void ViewportAxisPlotController::subscribe()
+{
     auto on_property_change = [this](SessionItem*, std::string name) {
         if (p_impl->m_blockUpdate)
             return;
@@ -117,6 +131,7 @@ void ViewportAxisPlotController::subscribe() {
     p_impl->init_axis();
 }
 
-void ViewportAxisPlotController::unsubscribe() {
+void ViewportAxisPlotController::unsubscribe()
+{
     p_impl->setDisconnected();
 }

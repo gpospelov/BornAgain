@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Param/RealLimits.h
 //! @brief     Defines class RealLimits.
@@ -82,7 +82,8 @@ public:
     std::string toString() const;
 
     //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, const RealLimits& m) {
+    friend std::ostream& operator<<(std::ostream& ostr, const RealLimits& m)
+    {
         ostr << m.toString();
         return ostr;
     }

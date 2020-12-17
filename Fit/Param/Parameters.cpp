@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Fit/Param/Parameters.cpp
 //! @brief     Defines class Parameters.
@@ -19,7 +19,8 @@
 
 using namespace mumufit;
 
-void Parameters::add(const Parameter& par) {
+void Parameters::add(const Parameter& par)
+{
     if (exists(par.name()))
         throw std::runtime_error("Parameters::add() -> Error. Parameter with the name '"
                                  + par.name() + "' already exists.");
@@ -27,34 +28,41 @@ void Parameters::add(const Parameter& par) {
     m_parameters.push_back(par);
 }
 
-Parameters::const_iterator Parameters::begin() const {
+Parameters::const_iterator Parameters::begin() const
+{
     return m_parameters.begin();
 }
 
-Parameters::const_iterator Parameters::end() const {
+Parameters::const_iterator Parameters::end() const
+{
     return m_parameters.end();
 }
 
-Parameters::iterator Parameters::begin() {
+Parameters::iterator Parameters::begin()
+{
     return m_parameters.begin();
 }
 
-Parameters::iterator Parameters::end() {
+Parameters::iterator Parameters::end()
+{
     return m_parameters.end();
 }
 
-size_t Parameters::size() const {
+size_t Parameters::size() const
+{
     return m_parameters.size();
 }
 
-std::vector<double> Parameters::values() const {
+std::vector<double> Parameters::values() const
+{
     std::vector<double> result;
     for (const auto& par : m_parameters)
         result.push_back(par.value());
     return result;
 }
 
-void Parameters::setValues(const std::vector<double>& values) {
+void Parameters::setValues(const std::vector<double>& values)
+{
     check_array_size(values);
 
     size_t index = 0;
@@ -71,21 +79,24 @@ void Parameters::setValues(const std::vector<double>& values) {
     }
 }
 
-std::vector<double> Parameters::errors() const {
+std::vector<double> Parameters::errors() const
+{
     std::vector<double> result;
     for (const auto& par : m_parameters)
         result.push_back(par.error());
     return result;
 }
 
-void Parameters::setErrors(const std::vector<double>& errors) {
+void Parameters::setErrors(const std::vector<double>& errors)
+{
     check_array_size(errors);
     size_t index = 0;
     for (auto& par : m_parameters)
         par.setError(errors[index++]);
 }
 
-const Parameter& Parameters::operator[](const std::string& name) const {
+const Parameter& Parameters::operator[](const std::string& name) const
+{
     for (const auto& par : m_parameters)
         if (par.name() == name)
             return par;
@@ -98,15 +109,18 @@ const Parameter& Parameters::operator[](const std::string& name) const {
     throw std::runtime_error(ostr.str());
 }
 
-const Parameter& Parameters::operator[](size_t index) const {
+const Parameter& Parameters::operator[](size_t index) const
+{
     return m_parameters[check_index(index)];
 }
 
-Parameters::corr_matrix_t Parameters::correlationMatrix() const {
+Parameters::corr_matrix_t Parameters::correlationMatrix() const
+{
     return m_corr_matrix;
 }
 
-void Parameters::setCorrelationMatrix(const Parameters::corr_matrix_t& matrix) {
+void Parameters::setCorrelationMatrix(const Parameters::corr_matrix_t& matrix)
+{
     if (matrix.size() != size())
         throw std::runtime_error("Parameters::setCorrelationMatrix() -> Error. Wrong "
                                  "dimension of correlation matrix.");
@@ -115,7 +129,8 @@ void Parameters::setCorrelationMatrix(const Parameters::corr_matrix_t& matrix) {
 
 //! Returns number of free parameters.
 
-size_t Parameters::freeParameterCount() const {
+size_t Parameters::freeParameterCount() const
+{
     size_t result(0);
     for (const auto& par : m_parameters)
         if (!par.limits().isFixed())
@@ -123,14 +138,16 @@ size_t Parameters::freeParameterCount() const {
     return result;
 }
 
-bool Parameters::exists(const std::string& name) const {
+bool Parameters::exists(const std::string& name) const
+{
     for (const auto& par : m_parameters)
         if (par.name() == name)
             return true;
     return false;
 }
 
-void Parameters::check_array_size(const std::vector<double>& values) const {
+void Parameters::check_array_size(const std::vector<double>& values) const
+{
     if (values.size() != m_parameters.size()) {
         std::ostringstream ostr;
         ostr << "Parameters::check_array_size() -> Error. Size of input array " << values.size()
@@ -140,7 +157,8 @@ void Parameters::check_array_size(const std::vector<double>& values) const {
     }
 }
 
-size_t Parameters::check_index(size_t index) const {
+size_t Parameters::check_index(size_t index) const
+{
     if (index >= m_parameters.size())
         throw std::runtime_error("Parameters::check_index() -> Index out of bounds");
     return index;

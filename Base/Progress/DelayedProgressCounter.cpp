@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Progress/DelayedProgressCounter.cpp
 //! @brief     Implements class DelayedProgressCounter.
@@ -16,9 +16,12 @@
 #include "Base/Progress/ProgressHandler.h"
 
 DelayedProgressCounter::DelayedProgressCounter(ProgressHandler* p_progress, size_t interval)
-    : m_progress(p_progress), m_interval(interval), m_count(0) {}
+    : m_progress(p_progress), m_interval(interval), m_count(0)
+{
+}
 
-void DelayedProgressCounter::stepProgress() {
+void DelayedProgressCounter::stepProgress()
+{
     ++m_count;
     if (m_count == m_interval) {
         m_progress->incrementDone(m_interval);

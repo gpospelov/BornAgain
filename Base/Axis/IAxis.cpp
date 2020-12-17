@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Base/Axis/IAxis.cpp
 //! @brief     Implements interface IAxis.
@@ -14,30 +14,37 @@
 
 #include "Base/Axis/IAxis.h"
 
-bool IAxis::equals(const IAxis& other) const {
+bool IAxis::equals(const IAxis& other) const
+{
     return getName() == other.getName();
 }
 
-std::vector<double> IAxis::binCenters() const {
+std::vector<double> IAxis::binCenters() const
+{
     throw std::runtime_error("IAxis::binCenters() -> Error. Not implemented.");
 }
 
-std::vector<double> IAxis::binBoundaries() const {
+std::vector<double> IAxis::binBoundaries() const
+{
     throw std::runtime_error("IAxis::binBoundaries() -> Error. Not implemented.");
 }
 
-IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const {
+IAxis* IAxis::createClippedAxis(double /* left */, double /* right */) const
+{
     throw std::runtime_error("IAxis::createClippedAxis() -> Error. Not implemented.");
 }
 
-bool IAxis::contains(double value) const {
+bool IAxis::contains(double value) const
+{
     return value >= lowerBound() && value < upperBound();
 }
 
-double IAxis::span() const {
+double IAxis::span() const
+{
     return upperBound() - lowerBound();
 }
 
-double IAxis::center() const {
+double IAxis::center() const
+{
     return (upperBound() + lowerBound()) / 2;
 }

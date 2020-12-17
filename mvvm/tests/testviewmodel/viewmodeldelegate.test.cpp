@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/tests/testviewmodel/viewmodeldelegate.test.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "google_test.h"
 #include "mvvm/editors/customeditor.h"
@@ -32,17 +37,20 @@ public:
         ViewModelDelegate delegate;
         QDataWidgetMapper mapper;
 
-        TestData() : view_model(&model) {
+        TestData() : view_model(&model)
+        {
             mapper.setModel(&view_model);
             mapper.setItemDelegate(&delegate);
         }
 
-        std::unique_ptr<CustomEditor> create_editor(const QModelIndex& index) {
+        std::unique_ptr<CustomEditor> create_editor(const QModelIndex& index)
+        {
             return std::unique_ptr<CustomEditor>(dynamic_cast<CustomEditor*>(
                 delegate.createEditor(nullptr, QStyleOptionViewItem(), index)));
         }
 
-        void map_to_index(QWidget* widget, const QModelIndex& index) {
+        void map_to_index(QWidget* widget, const QModelIndex& index)
+        {
             mapper.setRootIndex(index.parent());
             mapper.setCurrentModelIndex(index.sibling(index.row(), 0));
             mapper.addMapping(widget, 1);
@@ -54,7 +62,8 @@ public:
 
 ViewModelDelegateTest::~ViewModelDelegateTest() = default;
 
-TEST_F(ViewModelDelegateTest, createEditor) {
+TEST_F(ViewModelDelegateTest, createEditor)
+{
     TestData test_data;
     test_data.model.insertItem<VectorItem>();
 
@@ -66,7 +75,8 @@ TEST_F(ViewModelDelegateTest, createEditor) {
 
 //! Check that ViewModelDelegate can work with widget mapper.
 
-TEST_F(ViewModelDelegateTest, widgetMapper) {
+TEST_F(ViewModelDelegateTest, widgetMapper)
+{
     TestData test_data;
     auto vector_item = test_data.model.insertItem<VectorItem>();
     auto x_item = vector_item->getItem(VectorItem::P_X);

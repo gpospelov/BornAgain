@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Models/ParameterTreeItems.cpp
 //! @brief     Implements classes for ParameterTreeItems
@@ -19,7 +19,8 @@
 
 // ----------------------------------------------------------------------------
 
-ParameterLabelItem::ParameterLabelItem() : SessionItem("Parameter Label") {
+ParameterLabelItem::ParameterLabelItem() : SessionItem("Parameter Label")
+{
     const QString T_CHILDREN = "children tag";
     registerTag(T_CHILDREN, 0, -1,
                 QStringList() << "Parameter Label"
@@ -30,7 +31,8 @@ ParameterLabelItem::ParameterLabelItem() : SessionItem("Parameter Label") {
 const QString ParameterItem::P_LINK = "Link";
 const QString ParameterItem::P_BACKUP = "Backup";
 const QString ParameterItem::P_DOMAIN = "Domain";
-ParameterItem::ParameterItem() : SessionItem("Parameter") {
+ParameterItem::ParameterItem() : SessionItem("Parameter")
+{
     // Link to original PropertyItem in one of components of MultiLayerItem or InstrumentItem
     addProperty(P_LINK, "");
     // The back up value of PropertyItem to be able to reset parameter tuning tree to initial state
@@ -43,7 +45,8 @@ ParameterItem::ParameterItem() : SessionItem("Parameter") {
 
 //! Sets current value to the original PropertyItem of MultiLayerItem/InstrumentItem.
 
-void ParameterItem::propagateValueToLink(double newValue) {
+void ParameterItem::propagateValueToLink(double newValue)
+{
     setValue(newValue);
 
     if (SessionItem* item = linkedItem())
@@ -52,7 +55,8 @@ void ParameterItem::propagateValueToLink(double newValue) {
 
 //! Returns corresponding linked item in MultiLayerItem/IsntrumentItem
 
-SessionItem* ParameterItem::linkedItem() {
+SessionItem* ParameterItem::linkedItem()
+{
     const SessionItem* jobItem = ModelPath::ancestor(this, "JobItem");
     ASSERT(jobItem);
     QString link = jobItem->itemName() + "/" + getItemValue(P_LINK).toString();
@@ -61,14 +65,16 @@ SessionItem* ParameterItem::linkedItem() {
 
 //! Restore the value from backup and propagate it to the linked item.
 
-void ParameterItem::restoreFromBackup() {
+void ParameterItem::restoreFromBackup()
+{
     double newValue = getItemValue(P_BACKUP).toDouble();
     propagateValueToLink(newValue);
 }
 
 // ----------------------------------------------------------------------------
 
-ParameterContainerItem::ParameterContainerItem() : SessionItem("Parameter Container") {
+ParameterContainerItem::ParameterContainerItem() : SessionItem("Parameter Container")
+{
     const QString T_CHILDREN = "children tag";
     registerTag(T_CHILDREN, 0, -1, QStringList() << "Parameter Label");
     setDefaultTag(T_CHILDREN);

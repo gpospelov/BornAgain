@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Particle/FormFactorCrystal.h
 //! @brief     Defines class FormFactorCrystal.
@@ -27,14 +27,16 @@ public:
                       const IFormFactor& meso_form_factor, double position_variance = 0.0);
     ~FormFactorCrystal() override;
 
-    FormFactorCrystal* clone() const override {
+    FormFactorCrystal* clone() const override
+    {
         return new FormFactorCrystal(m_lattice, *m_basis_form_factor, *m_meso_form_factor,
                                      m_position_variance);
     }
 
     void accept(INodeVisitor* visitor) const override { visitor->visit(this); }
 
-    void setAmbientMaterial(const Material& material) override {
+    void setAmbientMaterial(const Material& material) override
+    {
         m_basis_form_factor->setAmbientMaterial(material);
     }
 

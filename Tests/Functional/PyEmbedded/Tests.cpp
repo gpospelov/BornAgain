@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Functional/PyEmbedded/Tests.cpp
 //!
@@ -25,11 +25,13 @@
 #include <iostream>
 #include <sstream>
 
-class PyEmbedded : public ::testing::Test {};
+class PyEmbedded : public ::testing::Test {
+};
 
 //! Accessing to the information about Python used during the build, content of path.sys variable.
 
-TEST_F(PyEmbedded, SysPath) {
+TEST_F(PyEmbedded, SysPath)
+{
     // Python build info
     std::cout << "pythonExecutable(): " << BABuild::pythonExecutable() << std::endl;
     std::cout << "pythonInterpreterID(): " << BABuild::pythonInterpreterID() << std::endl;
@@ -51,7 +53,8 @@ TEST_F(PyEmbedded, SysPath) {
 
 //! Importing numpy and accessing its version string.
 
-TEST_F(PyEmbedded, ImportNumpy) {
+TEST_F(PyEmbedded, ImportNumpy)
+{
     Py_Initialize();
 
     PyObject* pmod = PyImport_ImportModule("numpy");
@@ -74,7 +77,8 @@ TEST_F(PyEmbedded, ImportNumpy) {
 
 //! Comparing results of GetVersionNumber() function obtained in "embedded" and "native C++" ways.
 
-TEST_F(PyEmbedded, FunctionCall) {
+TEST_F(PyEmbedded, FunctionCall)
+{
     Py_Initialize();
 
     PyObject* sysPath = PySys_GetObject((char*)"path");
@@ -121,7 +125,8 @@ TEST_F(PyEmbedded, FunctionCall) {
 
 //! Creating instance of FormFactorCylinder and calling its method in embedded Python.
 
-TEST_F(PyEmbedded, MethodCall) {
+TEST_F(PyEmbedded, MethodCall)
+{
     const double radius(5.0), height(6.0);
     Py_Initialize();
 
@@ -183,7 +188,8 @@ TEST_F(PyEmbedded, MethodCall) {
 
 //! From https://www.awasu.com/weblog/embedding-python/calling-python-code-from-your-program/
 
-TEST_F(PyEmbedded, CompiledFunction) {
+TEST_F(PyEmbedded, CompiledFunction)
+{
     Py_Initialize();
 
     // compile our function
@@ -253,7 +259,8 @@ TEST_F(PyEmbedded, CompiledFunction) {
 //! Creating MultiLayer in Python and extracting object to C++.
 //! https://stackoverflow.com/questions/9040669/how-can-i-implement-a-c-class-in-python-to-be-called-by-c/
 
-TEST_F(PyEmbedded, ObjectExtract) {
+TEST_F(PyEmbedded, ObjectExtract)
+{
     Py_Initialize();
 
     PyObject* sysPath = PySys_GetObject((char*)"path");
@@ -291,7 +298,8 @@ TEST_F(PyEmbedded, ObjectExtract) {
 //! Running Python snippet which creates a multilayer in embedded way.
 //! Casting resulting PyObject to C++ MultiLayer.
 
-TEST_F(PyEmbedded, EmbeddedMultiLayer) {
+TEST_F(PyEmbedded, EmbeddedMultiLayer)
+{
     Py_Initialize();
 
     PyObject* sysPath = PySys_GetObject((char*)"path");
@@ -358,7 +366,8 @@ TEST_F(PyEmbedded, EmbeddedMultiLayer) {
 //! is casted back to C++ object and used again, to generate code snippet.
 //! Two code snippets must be identical.
 
-TEST_F(PyEmbedded, ExportToPythonAndBack) {
+TEST_F(PyEmbedded, ExportToPythonAndBack)
+{
     SampleBuilderFactory factory;
     std::unique_ptr<MultiLayer> sample(factory.createSampleByName("CylindersAndPrismsBuilder"));
 
@@ -375,7 +384,8 @@ TEST_F(PyEmbedded, ExportToPythonAndBack) {
 //! Retrieves list of functions from the imported script and checks, that there is
 //! one function in a dictionary with name "get_simulation".
 
-TEST_F(PyEmbedded, ModuleFunctionsList) {
+TEST_F(PyEmbedded, ModuleFunctionsList)
+{
     // compile our function
     std::stringstream buf;
     buf << "import bornagain as ba                                        \n";

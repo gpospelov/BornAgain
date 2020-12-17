@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/standarditems/linkeditem.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_LINKEDITEM_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_LINKEDITEM_H
@@ -33,7 +38,8 @@ public:
 
 //! Returns item linked to given item. Works only in model context.
 
-template <typename T> T* LinkedItem::get() const {
+template <typename T> T* LinkedItem::get() const
+{
     return model() ? dynamic_cast<T*>(model()->findItem(data<std::string>())) : nullptr;
 }
 

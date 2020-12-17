@@ -1,7 +1,7 @@
 BornAgain is maintained and further developed by
 * Randolf Beerwerth
 * Gennady Pospelov
-* Alexander Schober
+* Matthias Puchner
 * Joachim Wuttke
 
 Former members of the development team:
@@ -11,6 +11,7 @@ Former members of the development team:
 * Jonathan Fisher
 * Marina Ganeva
 * Walter Van Herck
+* Alexander Schober
 * Dmitry Yurov
 
 Other contributors:
@@ -25,4 +26,3 @@ Other contributors:
 Several other colleagues have contributed patches, see the git history.
 See also the Acknowledgements in the reference paper,
 https://doi.org/10.1107/S1600576719016789.
-

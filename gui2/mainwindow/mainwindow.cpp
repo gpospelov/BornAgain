@@ -20,6 +20,7 @@
 #include "gui2/model/applicationmodels.h"
 #include "gui2/settingsview/settingsview.h"
 #include "gui2/welcomeview/welcomeview.h"
+#include "BAVersion.h"
 #include <QCloseEvent>
 #include <QCoreApplication>
 #include <QFileDialog>
@@ -54,9 +55,9 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 }
 
 void MainWindow::init_application() {
-    QCoreApplication::setApplicationName("quickrefl");
-    QCoreApplication::setApplicationVersion("0.1");
-    QCoreApplication::setOrganizationName("qt-mvvm");
+    QCoreApplication::setApplicationName("BornAgain gui2 preview");
+    QCoreApplication::setApplicationVersion(QString::fromStdString(BornAgain::GetVersionNumber()));
+    QCoreApplication::setOrganizationName("BornAgain");
 
     QSettings settings;
     if (settings.childGroups().contains(main_window_group)) {

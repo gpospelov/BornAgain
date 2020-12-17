@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  BornAgain: simulate and fit scattering at grazing incidence
 //
+//! @file      gui2/mainwindow/actionmanager.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "gui2/mainwindow/actionmanager.h"
 #include "mvvm/widgets/widgetutils.h"

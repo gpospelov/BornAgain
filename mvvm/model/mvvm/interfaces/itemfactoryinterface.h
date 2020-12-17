@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/interfaces/itemfactoryinterface.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_ITEMFACTORYINTERFACE_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_INTERFACES_ITEMFACTORYINTERFACE_H

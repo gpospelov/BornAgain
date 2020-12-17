@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Model-view-view-model framework for large GUI applications
+//  qt-mvvm: Model-view-view-model framework for large GUI applications
 //
+//! @file      mvvm/model/mvvm/project/projectutils.cpp
+//! @brief     Implements class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Gennady Pospelov et al, Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #include "mvvm/project/projectutils.h"
 #include "mvvm/interfaces/applicationmodelsinterface.h"

@@ -1,11 +1,16 @@
-// ************************************************************************** //
+//  ************************************************************************************************
 //
-//  Reflectometry simulation software prototype
+//  BornAgain: simulate and fit scattering at grazing incidence
 //
+//! @file      gui2/materialeditor/materialeditoractions.h
+//! @brief     Defines class CLASS?
+//!
+//! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
-//! @authors   see AUTHORS
+//! @copyright Forschungszentrum Jülich GmbH 2020
+//! @authors   Scientific Computing Group at MLZ (see CITATION, AUTHORS)
 //
-// ************************************************************************** //
+//  ************************************************************************************************
 
 #ifndef BORNAGAIN_GUI2_MATERIALEDITOR_MATERIALEDITORACTIONS_H
 #define BORNAGAIN_GUI2_MATERIALEDITOR_MATERIALEDITORACTIONS_H

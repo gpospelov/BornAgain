@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/coregui/Views/SampleDesigner/ViewTypes.h
 //! @brief     Defines namespace ViewTypes with enum EWidgetTypes (nothing to implement)

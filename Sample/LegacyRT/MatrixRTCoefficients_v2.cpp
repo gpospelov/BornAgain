@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file     Sample/LegacyRT/MatrixRTCoefficients_v2.cpp
 //! @brief    Implements class MatrixRTCoefficients_v2.

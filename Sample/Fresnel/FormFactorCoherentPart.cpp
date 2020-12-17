@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Fresnel/FormFactorCoherentPart.cpp
 //! @brief     Implements class FormFactorCoherentPart.

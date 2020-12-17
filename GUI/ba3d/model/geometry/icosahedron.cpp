@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      GUI/ba3d/model/geometry/icosahedron.cpp
 //! @brief     Implements utility functions in ba3d namespace

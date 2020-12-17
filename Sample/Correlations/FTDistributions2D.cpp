@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Correlations/FTDistributions2D.cpp
 //! @brief     Implements interface class IFTDistribution2D and children thereof.

@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Examples/cpp/CylindersAndPrisms/CylindersAndPrisms.cpp
 //! @brief     Demonstrates how to run a BornAgain simulation from a C++ main program.

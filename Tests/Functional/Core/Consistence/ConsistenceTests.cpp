@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Functional/Core/Consistence/ConsistenceTests.cpp
 //! @brief     Implements Core consistence tests through gtest macros.

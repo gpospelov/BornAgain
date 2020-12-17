@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Sample/Aggregate/InterferenceFunction1DLattice.h
 //! @brief     Defines class InterferenceFunction1DLattice.

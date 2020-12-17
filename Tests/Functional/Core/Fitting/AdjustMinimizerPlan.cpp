@@ -1,6 +1,6 @@
 //  ************************************************************************************************
 //
-//  BornAgain: simulate and fit scattering at grazing incidence
+//  BornAgain: simulate and fit reflection and scattering
 //
 //! @file      Tests/Functional/Core/Fitting/AdjustMinimizerPlan.cpp
 //! @brief     Implements collection of AdjustMinimizerPlan classes
